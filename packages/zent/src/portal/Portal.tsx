@@ -116,18 +116,16 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
     const prevStyleRef = useRef<React.CSSProperties | undefined>(style);
     const purePortalRef = useRef<PurePortal>(null);
 
-    // Methods for use on ref
-    const contains = useCallback((node: Node) => {
-      const purePortal = purePortalRef.current;
-      if (!purePortal) {
-        return false;
-      }
-      return purePortal.contains(node);
-    }, []);
     useImperativeHandle<IPortalImperativeHandlers, IPortalImperativeHandlers>(
       ref,
       () => ({
-        contains,
+        contains(node: Node) {
+          const purePortal = purePortalRef.current;
+          if (!purePortal) {
+            return false;
+          }
+          return purePortal.contains(node);
+        },
         purePortalRef,
       }),
       []
@@ -166,7 +164,6 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
       if (
         !visible ||
         !blockPageScroll ||
-        !parent ||
         !(parent instanceof HTMLElement) ||
         !hasScrollbarY(parent)
       ) {
@@ -177,18 +174,24 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
     }, [parent, visible, blockPageScroll]);
 
     useLayoutEffect(() => {
-      if (!visible) {
-        return noop;
-      }
-
       function handler(event: TouchEvent | MouseEvent) {
-        const { closeOnClickOutside, onClose } = propsRef.current;
-        if (event.defaultPrevented || !closeOnClickOutside || !visible) {
+        const { closeOnClickOutside, onClose, visible } = propsRef.current;
+        const purePortal = purePortalRef.current;
+        if (
+          event.defaultPrevented ||
+          !closeOnClickOutside ||
+          !visible ||
+          !purePortal
+        ) {
           return;
         }
 
         const { target } = event;
-        if (!(target instanceof Node) || target === node || !contains(target)) {
+        if (
+          !(target instanceof Node) ||
+          target === node ||
+          !purePortal.contains(target)
+        ) {
           onClose && onClose(event);
         }
       }
@@ -216,7 +219,7 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
       onLayerReady && onLayerReady(node);
 
       return dispose;
-    }, [visible, useLayerForClickAway, !!closeOnClickOutside, node]);
+    }, [!!useLayerForClickAway, !!closeOnClickOutside, node]);
 
     useEffect(() => {
       if (!visible || !closeOnESC) {
@@ -247,7 +250,7 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
      */
     return visible ? (
       <PurePortal ref={purePortalRef} append={append} selector={node}>
-        {visible ? <MountElement node={node} parent={parent} /> : null}
+        <MountElement node={node} parent={parent} />
         {children}
       </PurePortal>
     ) : null;
