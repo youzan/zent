@@ -1,9 +1,14 @@
-export function getNodeFromSelector(
-  selector: string | Element
-): Element | null {
-  const node =
-    typeof selector === 'string' ? document.querySelector(selector) : selector;
-  return node;
+export function getNodeFromSelector(selector: string | Element): Element {
+  if (selector instanceof Element) {
+    return selector;
+  }
+  if (typeof selector === 'string') {
+    const node = document.querySelector(selector);
+    if (node) {
+      return node;
+    }
+  }
+  throw new Error('Invalid selector');
 }
 
 export function createContainerNode(parent: Node, tag = 'div') {

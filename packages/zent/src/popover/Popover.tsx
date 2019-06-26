@@ -262,6 +262,18 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
     }
   }
 
+  onPositionUpdated = () => {
+    // 嵌套的时候需要通知下层更新位置
+    this.descendants.forEach(child => {
+      child.adjustPosition();
+    });
+
+    const { onPositionUpdated } = this.props;
+    if (onPositionUpdated) {
+      onPositionUpdated();
+    }
+  };
+
   open = () => {
     this.setVisible(true);
   };
@@ -373,7 +385,6 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
       position,
       cushion,
       width,
-      onPositionUpdated,
       onPositionReady,
     } = this.props;
     const visible = this.getVisible();
@@ -406,7 +417,7 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
             cushion,
             containerSelector,
             placement: position,
-            onPositionUpdated,
+            onPositionUpdated: this.onPositionUpdated,
             onPositionReady,
           })}
         </PopoverContext.Provider>

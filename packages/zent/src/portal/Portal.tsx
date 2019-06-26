@@ -6,11 +6,11 @@ import {
   useMemo,
   forwardRef,
   useEffect,
-  useCallback,
 } from 'react';
 import * as keycode from 'keycode';
 import noop from 'lodash-es/noop';
 
+import MountElement from './MountElement';
 import PurePortal, { IPurePortalProps } from './PurePortal';
 import { getNodeFromSelector, hasScrollbarY } from './util';
 import { SCROLLBAR_WIDTH } from '../utils/getScrollbarWidth';
@@ -115,32 +115,20 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
     const prevStyleRef = useRef<React.CSSProperties | undefined>(style);
     const purePortalRef = useRef<PurePortal>(null);
 
-    // Methods for use on ref
-    const contains = useCallback((node: Node) => {
-      const purePortal = purePortalRef.current;
-      if (!purePortal) {
-        return false;
-      }
-      return purePortal.contains(node);
-    }, []);
     useImperativeHandle<IPortalImperativeHandlers, IPortalImperativeHandlers>(
       ref,
       () => ({
-        contains,
+        contains(node: Node) {
+          const purePortal = purePortalRef.current;
+          if (!purePortal) {
+            return false;
+          }
+          return purePortal.contains(node);
+        },
         purePortalRef,
       }),
       []
     );
-
-    useLayoutEffect(() => {
-      if (!visible || !parent) {
-        return noop;
-      }
-      parent.appendChild(node);
-      return () => {
-        parent.removeChild(node);
-      };
-    }, [visible, node, parent]);
 
     useLayoutEffect(() => {
       className && (node.className = className);
@@ -175,7 +163,6 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
       if (
         !visible ||
         !blockPageScroll ||
-        !parent ||
         !(parent instanceof HTMLElement) ||
         !hasScrollbarY(parent)
       ) {
@@ -186,18 +173,24 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
     }, [parent, visible, blockPageScroll]);
 
     useLayoutEffect(() => {
-      if (!visible) {
-        return noop;
-      }
-
       function handler(event: TouchEvent | MouseEvent) {
-        const { closeOnClickOutside, onClose } = propsRef.current;
-        if (event.defaultPrevented || !closeOnClickOutside || !visible) {
+        const { closeOnClickOutside, onClose, visible } = propsRef.current;
+        const purePortal = purePortalRef.current;
+        if (
+          event.defaultPrevented ||
+          !closeOnClickOutside ||
+          !visible ||
+          !purePortal
+        ) {
           return;
         }
 
         const { target } = event;
-        if (!(target instanceof Node) || target === node || !contains(target)) {
+        if (
+          !(target instanceof Node) ||
+          target === node ||
+          !purePortal.contains(target)
+        ) {
           onClose && onClose(event);
         }
       }
@@ -225,7 +218,7 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
       onLayerReady && onLayerReady(node);
 
       return dispose;
-    }, [visible, useLayerForClickAway, !!closeOnClickOutside, node]);
+    }, [!!useLayerForClickAway, !!closeOnClickOutside, node]);
 
     useEffect(() => {
       if (!visible || !closeOnESC) {
@@ -246,8 +239,17 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
       };
     }, [closeOnESC, visible]);
 
+    /**
+     * @HACK
+     * @TODO 当React提供了合适的API后替换掉
+     *
+     * 这是为了确保在children的componentDidMount(useEffect, useLayoutEffect)在被调用之前把元素挂载到容器里
+     * 这里利用了React的内部实现，MountElement的componentDidMount(useEffect, useLayoutEffect)
+     * 会在children的之前被调用
+     */
     return visible ? (
       <PurePortal ref={purePortalRef} append={append} selector={node}>
+        <MountElement node={node} parent={parent} />
         {children}
       </PurePortal>
     ) : null;
