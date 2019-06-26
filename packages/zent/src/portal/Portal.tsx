@@ -6,7 +6,6 @@ import {
   useMemo,
   forwardRef,
   useEffect,
-  useCallback,
 } from 'react';
 import * as keycode from 'keycode';
 import noop from 'lodash-es/noop';
