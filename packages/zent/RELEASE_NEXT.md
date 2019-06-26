@@ -126,13 +126,36 @@ import { Portal, PurePortal } from 'zent'
 - 删除了 `LayeredPortal`，请用 `Portal` 替换。
 - 去除 `onMount` 和 `onUnmount`，使用方直接使用上层组件的 `componentDidMount` 和 `componentWillUnmount` 即可。
 
-#### Input
-- 增加了`icon`属性
-- 删除了`SearchInput`，用`<input icon="search" />`代替
+#### `Input`
+
+- 重写，API 无不兼容改动
+- CSS 样式层级有变化，样式覆盖需要注意
+- 增加了 `icon` 属性
+
+####  `SearchInput`
+
+- 删除了这个组件，使用 `<input icon="search" />` 代替
+
+#### `BlockHeader`
+
+- 删除 `content` 和 `childAlign`，改用 `leftContent` 和 `rightContent` 来控制左右侧额外展示的内容
+- 不再渲染 `children` 中的内容
+- 整体布局改为 `flex`
 
 #### 源样式
 
 如果之前依赖了 postcss 的源样式，需要改成 sass。
+
+## 7.0.0-next.19(2019-06-26)
+
+- 重写 `BlockHeader`，有不兼容改动，详见上面的迁移指南
+- 重写 `Input`，增加 `icon` 支持，样式覆盖可能有兼容问题，详见上面的迁移指南
+- 删除 `SearchInput`，使用 `<input icon="search" />` 代替
+- 修复嵌套 `Portal` 的 `componentDidMount` 时无法获取正确 DOM 信息的问题
+- 回滚 `TypeScript` 到 3.4，3.5 有严重问题
+- 更新 `Upload` 的文案
+- `Pagination` 右对齐
+- 使用 `flex-start` 以及 `flex-end` 替换 `start` 和 `end`
 
 ## 7.0.0-next.18(2019-06-24)
 
