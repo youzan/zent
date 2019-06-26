@@ -33,7 +33,7 @@ The widget supports nested pop
 | visible | manual control pop's show or hide, must be used with `onVisibleChange`  | bool | | | No |
 | onVisibleChange | the callback when manual control, must be used with `visible`,  only triggered by user's open/close operation | func | | | No |
 | onPositionUpdated | callback after position updates, a position update does not imply a position change | func | `noop` | | No |
-| onPositionReady | callback after content enter viewport, only called once within the life cycle | func | `noop` |  | No |
+| onPositionReady | callback after content enters viewport, only called once within the life cycle | func | `noop` |  | No |
 | className | custom extra class name | string | `''` |  | No |
 | wrapperClassName |  trigger outerline div classname | string | `''` |  | No |
 | width | width | string or number |  |  | No |

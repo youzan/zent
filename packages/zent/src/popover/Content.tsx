@@ -6,9 +6,15 @@ import Portal from '../portal';
 import WindowResizeHandler from '../utils/component/WindowResizeHandler';
 import WindowEventHandler from '../utils/component/WindowEventHandler';
 import findPositionedParent from '../utils/dom/findPositionedParent';
+import { getViewportSize } from '../utils/dom/getViewportSize';
 import isEqualPlacement from './placement/isEqual';
 import invisiblePlacement from './placement/invisible';
 import { PositionFunction, IPopoverPosition } from './position-function';
+
+export function isPositionVisible(rect) {
+  const viewSize = getViewportSize();
+  return !(rect.bottom < 0 || rect.top - viewSize.height > 0);
+}
 
 function translateToContainerCoordinates(containerBB, bb) {
   const { left, top } = containerBB;
@@ -142,7 +148,7 @@ export default class PopoverContent extends Component<
         },
         () => {
           this.props.onPositionUpdated();
-          if (!this.positionReady) {
+          if (isPositionVisible(boundingBox) && !this.positionReady) {
             this.positionReady = true;
             this.props.onPositionReady();
           }
