@@ -7,6 +7,10 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 6.6.5 (2019-06-27)
+
+- 🦀️ Fix validation result not updated when the last `Field` sets `validateOnBlur` to `false`
+
 ### 6.6.4 (2019-05-09)
 
 - ✨ `Grid` `bodyRender` receives `fixed` as parameter

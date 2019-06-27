@@ -664,8 +664,10 @@ const createForm = (config = {}) => {
 
         this.fields.forEach((field, index) => {
           if (!forceValidate && !field.props.validateOnBlur) {
+            onValidationComplete(index);
             return;
           }
+
           if (
             relatedFields === undefined ||
             (relatedFields && relatedFields.indexOf(field.getName()) >= 0)
