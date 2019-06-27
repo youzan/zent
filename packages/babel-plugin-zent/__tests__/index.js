@@ -32,7 +32,7 @@ function compile(code, options) {
 describe('babel-plugin-zent', () => {
   it('throws on side-effect only import', () => {
     expect(() => compile("import 'zent'")).toThrowError(
-      /Side-effect only import is allowed in zent/
+      /Side-effect only import is not allowed in zent/
     );
   });
 
