@@ -79,7 +79,7 @@ class DoubleArrowButton extends Component<
   };
 
   render() {
-    const { direction, active, bordered, ...rest } = this.props;
+    const { direction, active, bordered, double: _, ...rest } = this.props;
     const { showArrow } = this.state;
     let Arrow = (null as unknown) as React.FC;
     if (direction === 'left') {
