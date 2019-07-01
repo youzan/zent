@@ -13,6 +13,7 @@ import noop from 'lodash-es/noop';
 import MountElement from './MountElement';
 import PurePortal, { IPurePortalProps } from './PurePortal';
 import { getNodeFromSelector, hasScrollbarY } from './util';
+import memorize from '../utils/memorize-one';
 import { SCROLLBAR_WIDTH } from '../utils/getScrollbarWidth';
 import { setValueForStyles } from '../utils/style/CSSPropertyOperations';
 
@@ -109,7 +110,7 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
       append,
     } = props;
     const node = useMemo(() => document.createElement(layer), [layer]);
-    const parent = useMemo(() => getNodeFromSelector(selector), [selector]);
+    const getParent = useMemo(() => memorize(getNodeFromSelector), []);
     const propsRef = useRef<IPortalProps>(props);
     propsRef.current = props;
     const prevStyleRef = useRef<React.CSSProperties | undefined>(style);
@@ -145,6 +146,7 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
         return noop;
       }
       const { position, top, bottom, left, right } = node.style;
+      const parent = getParent(selector);
       node.style.position = parent === document.body ? 'fixed' : 'absolute';
       node.style.top = '0';
       node.style.bottom = '0';
@@ -157,9 +159,10 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
         node.style.left = left;
         node.style.right = right;
       };
-    }, [node, useLayerForClickAway, visible]);
+    }, [node, useLayerForClickAway, visible, selector]);
 
     useLayoutEffect(() => {
+      const parent = getParent(selector);
       if (
         !visible ||
         !blockPageScroll ||
@@ -170,7 +173,7 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
       }
       patchElement(parent);
       return () => restoreElement(parent);
-    }, [parent, visible, blockPageScroll]);
+    }, [selector, visible, blockPageScroll]);
 
     useLayoutEffect(() => {
       function handler(event: TouchEvent | MouseEvent) {
@@ -249,7 +252,7 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
      */
     return visible ? (
       <PurePortal ref={purePortalRef} append={append} selector={node}>
-        <MountElement node={node} parent={parent} />
+        <MountElement node={node} getParent={getParent} selector={selector} />
         {children}
       </PurePortal>
     ) : null;

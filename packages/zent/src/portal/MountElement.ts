@@ -2,16 +2,18 @@ import * as React from 'react';
 
 export interface IMountElementProps {
   node: HTMLElement;
-  parent: Element;
+  getParent(selector: Element | string): Element;
+  selector: Element | string;
 }
 
-const MountElement = ({ node, parent }: IMountElementProps) => {
+const MountElement = ({ node, getParent, selector }: IMountElementProps) => {
   React.useLayoutEffect(() => {
+    const parent = getParent(selector);
     parent.appendChild(node);
     return () => {
       parent.removeChild(node);
     };
-  }, [node, parent]);
+  }, [node, selector]);
   return null;
 };
 
