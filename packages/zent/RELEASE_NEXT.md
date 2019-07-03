@@ -61,7 +61,9 @@
 
 #### `NumberInput`
 
-组件重写，`onChange` 的参数改为字符串。修改了 `onChange` 触发的行为，现在只会在 `onBlur` 或者通过加减按钮修改时触发 `onChange`。
+- 组件完全重写
+- `onChange` 的参数改为字符串，原来是个事件对象
+- 修改了 `onChange` 触发的行为，现在只会在 `onBlur` 或者通过加减按钮修改时触发 `onChange`
 
 #### `Form`
 
