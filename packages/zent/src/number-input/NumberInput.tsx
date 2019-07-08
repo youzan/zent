@@ -242,14 +242,18 @@ export class NumberInput extends React.PureComponent<
   }
 
   componentDidMount() {
-    if (this.props.value !== this.state.value) {
+    if ('value' in this.props && this.props.value !== this.state.value) {
       const { onChange } = this.props;
       onChange && onChange(this.state.value);
     }
   }
 
   componentDidUpdate(prevProps: INumberInputProps) {
-    if (this.props !== prevProps && this.state.value !== this.props.value) {
+    if (
+      this.props !== prevProps &&
+      'value' in this.props &&
+      this.state.value !== this.props.value
+    ) {
       const { onChange } = this.props;
       onChange && onChange(this.state.value);
     }
