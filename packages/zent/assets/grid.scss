@@ -116,6 +116,10 @@ $border-color: $theme-stroke-6;
 
     &-sort {
       position: relative;
+
+      &-btn {
+        cursor: pointer;
+      }
     }
 
     &-sort-desc,

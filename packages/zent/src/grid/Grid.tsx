@@ -65,6 +65,7 @@ export interface IGridProps {
   };
   sortBy?: string;
   sortType?: GridSortType;
+  firstSortType?: GridSortType;
   emptyLabel?: string;
   selection?: {
     selectedRowKeys?: string[];
@@ -510,6 +511,7 @@ export class Grid extends PureComponent<IGridProps, any> {
       scroll,
       sortType,
       sortBy,
+      firstSortType,
       rowClassName,
       onRowClick,
       ellipsis,
@@ -543,6 +545,7 @@ export class Grid extends PureComponent<IGridProps, any> {
         sortType={sortType}
         scroll={scroll}
         sortBy={sortBy}
+        firstSortType={firstSortType}
         fixedColumnsHeadRowsHeight={this.state.fixedColumnsHeadRowsHeight}
       />
     );

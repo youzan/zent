@@ -20,6 +20,7 @@ group: 导航
 | scroll         | 横向或纵向指定滚动区域的宽高度                                | { x?: number, y?: number }                                                 |                    | 否       |
 | sortBy         | 根据哪一个字段排序, 应该等于 columns 中某一个元素的`key`字段  | string                                                                     | ''                 | 否       |
 | sortType       | 排序方式                                                      | string                                                                     | ''                 | 否       |
+| firstSortType  | 第一次点击的排序方式               | string                                                                     | 'desc'                 | 否       |
 | emptyLabel     | 列表为空时的提示文案                                          | string                                                                     | `'没有更多数据了'` | 否       |
 | selection      | 表格的选择功能配置                                            | object                                                                     |                    | 否       |
 | expandation    | 展开配置                                                      | object                                                                     |                    |          | 否 |
