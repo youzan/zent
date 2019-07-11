@@ -142,6 +142,16 @@ import { Portal, PurePortal } from 'zent'
 
 如果之前依赖了 postcss 的源样式，需要改成 sass。
 
+## 7.0.0-next.20(2019-07-11)
+
+- 修复 `Form` 最后一个 `Field` 设置 `validateOnBlur` 为 `false` 时表单校验结果没有更新的问题
+- `Pagination`
+  - 修复 `double` 属性警告
+	- 修复页码输入框触发上层表单提交的问题
+- 修复 `DatePicker` 字体样式
+- 修复在第一次 mount `Portal` 时如果 `selector` 节点不存在的报错问题
+- 修复 `NumberInput` 不传 `value` 时的非必要重绘
+
 ## 7.0.0-next.19(2019-06-26)
 
 - 重写 `BlockHeader`，有不兼容改动，详见上面的迁移指南
