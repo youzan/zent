@@ -29,7 +29,8 @@ export abstract class BasePageJumper<
     });
   };
 
-  onConfirm = () => {
+  onConfirm: React.KeyboardEventHandler<HTMLInputElement> = e => {
+    e.preventDefault();
     const pageNumber = parseInt(this.state.value, 10);
 
     if (pageNumber) {
