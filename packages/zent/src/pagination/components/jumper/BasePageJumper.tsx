@@ -23,14 +23,15 @@ export abstract class BasePageJumper<
     } as S;
   }
 
-  onChange = (evt: any) => {
+  onChange = (value: string) => {
     this.setState({
-      value: evt.target.value,
+      value,
     });
   };
 
-  onConfirm = () => {
-    const pageNumber = parseInt(this.state.value, 10);
+  onConfirm: React.KeyboardEventHandler<HTMLInputElement> = e => {
+    e.preventDefault();
+    const pageNumber = +this.state.value;
 
     if (pageNumber) {
       this.handleJump(pageNumber);

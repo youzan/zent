@@ -11,6 +11,10 @@ export interface IInputClearEvent
   fromClearButton?: boolean;
 }
 
+export type IInputChangeEvent =
+  | IInputClearEvent
+  | React.ChangeEvent<HTMLInputElement>;
+
 export interface IInputCommonProps {
   className?: string;
   width?: number | string;
@@ -34,9 +38,7 @@ export interface IInputCoreProps
   addonBefore?: React.ReactNode;
   addonAfter?: React.ReactNode;
   value?: string;
-  onChange?: (
-    e: IInputClearEvent | React.ChangeEvent<HTMLInputElement>
-  ) => void;
+  onChange?: (e: IInputChangeEvent) => void;
 }
 
 export interface ITextAreaProps
