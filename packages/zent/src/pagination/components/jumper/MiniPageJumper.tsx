@@ -40,10 +40,10 @@ export class MiniPageJumper extends BasePageJumper<
       <div className="zent-pagination-mini-page-jumper">
         <NumberInput
           value={value}
-          onChange={this.onChange}
+          onInput={this.onChange}
           onPressEnter={this.onConfirm}
           width={INPUT_WIDTH}
-          min={0}
+          min={1}
           decimal={0}
         />
         <span className="zent-pagination-mini-page-jumper__sep">/</span>

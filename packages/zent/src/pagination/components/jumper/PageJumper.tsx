@@ -24,10 +24,10 @@ export class PageJumper extends BasePageJumper<
     const input = (
       <NumberInput
         value={value}
-        onChange={this.onChange}
+        onInput={this.onChange}
         onPressEnter={this.onConfirm}
         width={INPUT_WIDTH}
-        min={0}
+        min={1}
         decimal={0}
       />
     );
