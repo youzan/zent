@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Input from '../../../input';
+import { NumberInput } from '../../../number-input';
 import BasePageJumper, {
   IPaginationBaseJumperProps,
   IPaginationBaseJumperState,
@@ -38,11 +38,13 @@ export class MiniPageJumper extends BasePageJumper<
 
     return (
       <div className="zent-pagination-mini-page-jumper">
-        <Input
+        <NumberInput
           value={value}
           onChange={this.onChange}
           onPressEnter={this.onConfirm}
           width={INPUT_WIDTH}
+          min={0}
+          decimal={0}
         />
         <span className="zent-pagination-mini-page-jumper__sep">/</span>
         <span>{totalPages}</span>

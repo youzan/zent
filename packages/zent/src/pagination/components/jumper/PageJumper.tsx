@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { I18nReceiver as Receiver } from '../../../i18n';
-import Input from '../../../input';
+import { NumberInput } from '../../../number-input';
 
 import BasePageJumper, {
   IPaginationBaseJumperProps,
@@ -22,11 +22,13 @@ export class PageJumper extends BasePageJumper<
   render() {
     const { value } = this.state;
     const input = (
-      <Input
+      <NumberInput
         value={value}
         onChange={this.onChange}
         onPressEnter={this.onConfirm}
         width={INPUT_WIDTH}
+        min={0}
+        decimal={0}
       />
     );
 
