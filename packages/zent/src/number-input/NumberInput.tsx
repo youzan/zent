@@ -62,13 +62,8 @@ function getCorrectedValue({
   return decimal.toFixed(decimalPlaces);
 }
 
-export interface INumberInputTarget extends INumberInputProps {
-  type: 'number';
-  value: string;
-}
-
 export interface INumberInputProps
-  extends Omit<IInputCoreProps, 'onChange' | 'type' | 'value'> {
+  extends Omit<IInputCoreProps, 'onChange' | 'type' | 'value' | 'onInput'> {
   type: 'number';
   value?: number | string;
   onChange?: (e: string) => void;
@@ -77,6 +72,7 @@ export interface INumberInputProps
   decimal: number;
   min?: number | string;
   max?: number | string;
+  onInput?: (value: string) => void;
 }
 
 export interface INumberInputState {
@@ -92,7 +88,7 @@ function isValidValue(value: unknown): value is string | number {
   );
 }
 
-export class NumberInput extends React.PureComponent<
+export class NumberInput extends React.Component<
   INumberInputProps,
   INumberInputState
 > {
@@ -147,11 +143,13 @@ export class NumberInput extends React.PureComponent<
   }
 
   onChange = (e: IInputClearEvent | React.ChangeEvent<HTMLInputElement>) => {
+    const { onInput } = this.props;
     const { value } = e.target;
     if (isPotentialValue(value) || isDecimal(value)) {
       this.setState({
         value,
       });
+      onInput && onInput(value);
     }
   };
 
@@ -333,6 +331,7 @@ export class NumberInput extends React.PureComponent<
       min,
       max,
       decimal,
+      onInput,
 
       ...inputProps
     } = this.props;
