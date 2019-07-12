@@ -25,8 +25,8 @@ export class Button extends React.Component<IButtonProps> {
     bordered: true,
   };
 
-  // for backward compatible
   static Group = Group;
+  static Directive = ButtonDirective;
 
   render() {
     const {

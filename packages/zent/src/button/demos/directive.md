@@ -9,16 +9,16 @@ en-US:
 ---
 
 ```jsx
-import { ButtonDirective } from 'zent';
+import { Button } from 'zent';
 
 function RouterLink({ path, ...props }) {
 	return <a {...props} href={`#${path}`} />;
 }
 
 ReactDOM.render(
-	<ButtonDirective type="primary">
+	<Button.Directive type="primary">
 		<RouterLink path="path">{i18n.button}</RouterLink>
-	</ButtonDirective>,
+	</Button.Directive>,
 	mountNode
 );
 ```
