@@ -1,10 +1,11 @@
 import { createContext } from 'react';
-import eq from 'lodash-es/eq';
 
-export default createContext({
-  value: [],
-  disabled: false,
-  readOnly: false,
-  isValueEqual: eq,
-  onCheckboxChange: null,
-});
+export interface ICheckboxContext<Value> {
+  value: Value[];
+  disabled: boolean;
+  readOnly: boolean;
+  isValueEqual: (a: Value, b: Value) => boolean;
+  onChange(value: Value): void;
+}
+
+export default createContext<ICheckboxContext<any> | null>(null);

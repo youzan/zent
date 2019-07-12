@@ -1,58 +1,64 @@
 import * as React from 'react';
 import { Component } from 'react';
 import classNames from 'classnames';
-import findIndex from 'lodash-es/findIndex';
-import eq from 'lodash-es/eq';
 import memoize from '../utils/memorize-one';
 
 import GroupContext from './GroupContext';
+import { DisabledContext, IDisabledContext } from '../disabled';
 
 const GroupContextProvider = GroupContext.Provider;
 
-export interface ICheckboxGroupProps {
-  value: any[];
-  isValueEqual?: (value1: any, value2: any) => boolean;
+export interface ICheckboxGroupProps<Value> {
+  value: Value[];
+  isValueEqual: (value1: Value, value2: Value) => boolean;
   disabled?: boolean;
   readOnly?: boolean;
-  onChange?: (values: any[]) => void;
+  onChange?: (values: Value[]) => void;
   className?: string;
   style?: React.CSSProperties;
-  prefix?: string;
+  prefix: string;
 }
 
-export class CheckboxGroup extends Component<ICheckboxGroupProps> {
+export class CheckboxGroup<Value> extends Component<
+  ICheckboxGroupProps<Value>
+> {
   static defaultProps = {
-    value: [],
     prefix: 'zent',
-    disabled: false,
-    readOnly: false,
-    className: '',
-    style: {},
-    onChange() {},
-    isValueEqual: eq,
+    isValueEqual: Object.is,
+    value: [],
   };
 
-  getGroupContext = memoize((value, disabled, readOnly, isValueEqual) => ({
-    value,
-    disabled,
-    readOnly,
-    isValueEqual,
-    onCheckboxChange: this.onCheckboxChange,
-  }));
+  static contextType = DisabledContext;
+  context!: IDisabledContext;
 
-  onCheckboxChange = e => {
-    const changedValue = e.target.value;
-    const groupValue = this.props.value.slice();
-    const { isValueEqual } = this.props;
-    const index = findIndex(groupValue, val => isValueEqual(val, changedValue));
+  getGroupContext = memoize(
+    (
+      value: Value[],
+      disabled: boolean,
+      readOnly: boolean,
+      isValueEqual: (value1: Value, value2: Value) => boolean
+    ) => ({
+      value,
+      disabled,
+      readOnly,
+      isValueEqual,
+      onChange: this.onCheckboxChange,
+    })
+  );
 
-    if (index !== -1) {
-      groupValue.splice(index, 1);
-    } else {
-      groupValue.push(changedValue);
+  onCheckboxChange = (child: Value) => {
+    const { isValueEqual, onChange, value: prevValue } = this.props;
+    if (!onChange) {
+      return;
     }
-
-    this.props.onChange(groupValue);
+    const value = prevValue ? prevValue.slice() : [];
+    const index = value.findIndex(it => isValueEqual(it, child));
+    if (index !== -1) {
+      value.splice(index, 1);
+    } else {
+      value.push(child);
+    }
+    onChange(value);
   };
 
   render() {
@@ -62,15 +68,17 @@ export class CheckboxGroup extends Component<ICheckboxGroupProps> {
       style,
       children,
       value,
-      disabled,
-      readOnly,
+      disabled = this.context.value,
+      readOnly = false,
       isValueEqual,
     } = this.props;
 
-    const classString = classNames({
-      [`${prefix}-checkbox-group`]: true,
-      [className]: !!className,
-    });
+    const classString = classNames(
+      {
+        [`${prefix}-checkbox-group`]: true,
+      },
+      className
+    );
 
     return (
       <GroupContextProvider

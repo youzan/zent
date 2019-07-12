@@ -1,8 +1,10 @@
 import * as React from 'react';
 import cx from 'classnames';
+import { isElement } from 'react-is';
+import { Omit } from 'utility-types';
 
 import Icon, { IconType } from '../icon';
-import { DisabledCotnext } from '../disabled';
+import { DisabledContext } from '../disabled';
 
 export interface IButtonDirectiveChildProps {
   className?: string;
@@ -22,7 +24,7 @@ export type IButtonType =
 export type IButtonHtmlType = 'button' | 'submit' | 'reset';
 
 export interface IButtonDirectiveProps<
-  ChildProps extends IButtonDirectiveChildProps
+  ChildProps extends Omit<IButtonDirectiveChildProps, 'children'>
 > {
   size?: IButtonSize;
   type?: IButtonType;
@@ -33,25 +35,29 @@ export interface IButtonDirectiveProps<
   style?: React.CSSProperties;
   icon?: IconType;
   block?: boolean;
-  children?: React.ReactElement<ChildProps>;
+  children: React.ReactElement<ChildProps>;
 }
 
 export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
   props: IButtonDirectiveProps<ChildProps>
 ) {
+  const disabledContext = React.useContext(DisabledContext);
   const {
     outline,
     type = 'default',
     size = 'medium',
     block,
     loading,
-    disabled,
+    disabled = disabledContext.value,
     bordered,
     icon,
     children,
   } = props;
-  const { value: disabledContext } = React.useContext(DisabledCotnext);
-  const child = React.Children.only(children);
+  if (!isElement(children)) {
+    throw new Error(
+      'Button Directive child must be element, string | number | boolean | null | undefined is not accepted'
+    );
+  }
   const propsRef = React.useRef(props);
   propsRef.current = props;
   const onClick = React.useCallback((e: React.MouseEvent) => {
@@ -74,15 +80,15 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
       'zent-btn-border-transparent': !bordered,
     },
     'zent-btn',
-    child.props.className
+    children.props.className
   );
   return React.cloneElement<ChildProps>(
-    child,
+    children,
     {
       className,
       onClick,
     } as Partial<ChildProps>,
     iconNode,
-    ...React.Children.toArray(child.props.children)
+    ...React.Children.toArray(children.props.children)
   );
 }

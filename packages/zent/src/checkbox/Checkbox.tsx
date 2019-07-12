@@ -1,79 +1,63 @@
 import * as React from 'react';
 import { Component } from 'react';
 import classNames from 'classnames';
-import assign from 'lodash-es/assign';
-import findIndex from 'lodash-es/findIndex';
 import getWidth from '../utils/getWidth';
 import Group from './Group';
-import GroupContext from './GroupContext';
+import GroupContext, { ICheckboxContext } from './GroupContext';
+import { DisabledContext, IDisabledContext } from '../disabled';
 
-export interface ICheckboxEventTarget extends ICheckboxProps {
+export interface ICheckboxEventTarget<Value> extends ICheckboxProps<Value> {
   type: 'checkbox';
   checked: boolean;
 }
 
-export interface ICheckboxEvent {
-  target: ICheckboxEventTarget;
+export interface ICheckboxEvent<Value> {
+  target: ICheckboxEventTarget<Value>;
   preventDefault(): void;
   stopPropagation(): void;
 }
 
-export interface ICheckboxProps {
+export interface ICheckboxProps<Value> {
   checked?: boolean;
-  value?: any;
+  value: Value;
   disabled?: boolean;
   readOnly?: boolean;
   indeterminate?: boolean;
-  onChange?: (e: ICheckboxEvent) => void;
+  onChange?: (e: ICheckboxEvent<Value>) => void;
   className?: string;
   style?: React.CSSProperties;
   width?: number;
   prefix?: string;
 }
 
-export class Checkbox extends Component<ICheckboxProps> {
+export class Checkbox<Value> extends Component<ICheckboxProps<Value>> {
   static defaultProps = {
     prefix: 'zent',
-    className: '',
-    style: {},
-    disabled: false,
-    readOnly: false,
-    onChange() {},
   };
 
   static contextType = GroupContext;
 
-  context!: React.ContextType<typeof GroupContext>;
+  context!: ICheckboxContext<Value> | null;
 
   static Group = Group;
 
-  onChange = evt => {
-    const { props, context } = this;
-    const e: ICheckboxEvent = {
-      target: {
-        ...props,
+  onChange: React.ChangeEventHandler<HTMLInputElement> = evt => {
+    const { value, onChange } = this.props;
+    if (this.context) {
+      this.context.onChange(value);
+      return;
+    } else if (onChange) {
+      const e: ICheckboxEvent<Value> = Object.create(evt);
+      e.target = {
+        ...this.props,
         type: 'checkbox',
         checked: evt.target.checked,
-      },
-
-      preventDefault() {
-        evt.preventDefault();
-      },
-
-      stopPropagation() {
-        evt.stopPropagation();
-      },
-    };
-
-    if (context.onCheckboxChange) {
-      context.onCheckboxChange(e);
-    } else {
-      props.onChange(e);
+      };
+      onChange(e);
     }
   };
 
-  render() {
-    const { props, context } = this;
+  renderImpl(disabledCtx: IDisabledContext) {
     let {
       checked,
       className,
@@ -87,26 +71,30 @@ export class Checkbox extends Component<ICheckboxProps> {
       // value可以是任意类型，不要写到dom上去
       value,
       ...others
-    } = props;
-
-    if (context.onCheckboxChange) {
-      checked =
-        findIndex(context.value, val => context.isValueEqual(val, value)) !==
-        -1;
-      disabled = context.disabled || disabled;
-      readOnly = context.readOnly || readOnly;
+    } = this.props;
+    if (this.context) {
+      const { value, isValueEqual } = this.context;
+      checked = value.findIndex(it => isValueEqual(it, this.props.value)) !== -1;
+      readOnly =
+        typeof readOnly === 'boolean' ? readOnly : this.context.readOnly;
+      disabled =
+        typeof disabled === 'boolean' ? disabled : this.context.disabled;
+    } else {
+      readOnly = typeof disabled === 'boolean' ? disabled : disabledCtx.value;
     }
 
-    const classString = classNames({
-      [className]: !!className,
-      [`${prefix}-checkbox-wrap`]: true,
-      [`${prefix}-checkbox-checked`]: !!checked,
-      [`${prefix}-checkbox-disabled`]: disabled || readOnly,
-      [`${prefix}-checkbox-indeterminate`]: indeterminate,
-    });
+    const classString = classNames(
+      {
+        [`${prefix}-checkbox-wrap`]: true,
+        [`${prefix}-checkbox-checked`]: !!checked,
+        [`${prefix}-checkbox-disabled`]: disabled || readOnly,
+        [`${prefix}-checkbox-indeterminate`]: indeterminate,
+      },
+      className
+    );
 
     const widthStyle = getWidth(width);
-    const wrapStyle = assign({}, style, widthStyle);
+    const wrapStyle = Object.assign({}, style, widthStyle);
 
     return (
       <label className={classString} style={wrapStyle}>
@@ -123,6 +111,16 @@ export class Checkbox extends Component<ICheckboxProps> {
         </span>
         {children !== undefined ? <span>{children}</span> : null}
       </label>
+    );
+  }
+
+  renderCheckbox = (disabledCtx: IDisabledContext) => {
+    return this.renderImpl(disabledCtx);
+  };
+
+  render() {
+    return (
+      <DisabledContext.Consumer>{this.renderCheckbox}</DisabledContext.Consumer>
     );
   }
 }
