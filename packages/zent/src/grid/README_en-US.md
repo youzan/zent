@@ -31,7 +31,7 @@ The function of the component is similar to the function of [Table](table) compo
 | onRowClick     | callback fires when a row is clicked                                                                       | (data: any, index: number, event: Event) => any                            |             | No       |
 | ellipsis       | whether ellipsis should be displayed when content overflows (nowrap of columns needs to be set)            | bool                                                                       | false       | No       |
 | onExpand       | callback fires when the row expand icon is clicked                                                         | (data: {expanded: boolean, data: any, event: Event, index: number}) => any |             | No       |
-| components     | custom table element                                                                                       | object { row?: ReactNode }                                                 |             | No       |
+| components     | custom table element                                                                                       | object { row?: ComponentType }                                             |             | No       |
 | rowProps       | custom row props                                                                                           | (data: any, index: number) => object                                       |             | No       |
 | bordered       | whether to display the outer border and column border                                                      | bool                                                                       | `false`     | No       |
 
@@ -50,29 +50,29 @@ onChange will throw an object, which includes parameters about the change part o
 
 #### columns
 
-| Property    | Description                                                                                         | Type                                                               | Required |
-| ----------- | --------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ | -------- |
-| title       | column title                                                                                        | ReactNode                                                          | Yes      |
-| name        | key for the corresponding data(recommanded to be set). Nested description like `a.b.c` is supported | string                                                             | No       |
-| width       | column width                                                                                        | string \| number                                                   | No       |
+| Property    | Description                                                                                         | Type                                                                                                                 | Required |
+| ----------- | --------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------- |
+| title       | column title                                                                                        | ReactNode                                                                                                            | Yes      |
+| name        | key for the corresponding data(recommanded to be set). Nested description like `a.b.c` is supported | string                                                                                                               | No       |
+| width       | column width                                                                                        | string \| number                                                                                                     | No       |
 | bodyRender  | Render complex component                                                                            | ((data: any, pos: {row: number, column: number, fixed?: 'left' \| 'right'}, name: string) => ReactNode) \| ReactNode | No       |
-| className   | class name of the column title                                                                      | string                                                             | No       |
-| needSort    | whether to support sorting                                                                          | bool                                                               | No       |
-| colSpan     | span of columns. It won't be rendered if the value is set to 0                                      | number                                                             | No       |
-| fixed       | whether columns fixed or not. The value can be `left` `right` `true` (`true` is same to `left`)     | bool \| strig                                                      | No       |
-| onCellClick | callback fires when a cell is clicked                                                               | (data: any, event: Event) => any                                   | No       |
-| textAlign   | Text alignment                                                                                      | string                                                             | No       |
-| nowrap      | whether to wrap, true by default                                                                    | bool                                                               | No       |
-| defaultText | default display text                                                                                | ReactNode                                                          | No       |
-| children    | render grouping table headers                                                                       | array                                                              | No       |
+| className   | class name of the column title                                                                      | string                                                                                                               | No       |
+| needSort    | whether to support sorting                                                                          | bool                                                                                                                 | No       |
+| colSpan     | span of columns. It won't be rendered if the value is set to 0                                      | number                                                                                                               | No       |
+| fixed       | whether columns fixed or not. The value can be `left` `right` `true` (`true` is same to `left`)     | bool \| strig                                                                                                        | No       |
+| onCellClick | callback fires when a cell is clicked                                                               | (data: any, event: Event) => any                                                                                     | No       |
+| textAlign   | Text alignment                                                                                      | string                                                                                                               | No       |
+| nowrap      | whether to wrap, true by default                                                                    | bool                                                                                                                 | No       |
+| defaultText | default display text                                                                                | ReactNode                                                                                                            | No       |
+| children    | render grouping table headers                                                                       | array                                                                                                                | No       |
 
 #### selection
 
-| Property         | Description                                | Type                                                                        | Required |
-| ---------------- | ------------------------------------------ | --------------------------------------------------------------------------- | -------- |
-| selectedRowKeys  | keys of selected rows by default           | array                                                                       | No       |
-| onSelect         | callback fires when a check changes        | (selectedkeys: string, selectedRows: Array<any>, currentRow: number) => any | No       |
-| getCheckboxProps | function to get properties of the checkbox | (data: object) => { disabled?: boolean }                                    | No       |
+| Property         | Description                                | Type                                                              | Required      |
+| ---------------- | ------------------------------------------ | ----------------------------------------------------------------- | ------------- |
+| selectedRowKeys  | keys of selected rows by default           | array                                                             | No            |
+| onSelect         | callback fires when a check changes        | (selectedkeys: string[], selectedRows: Array<any>, changeRow: any | any[]) => any | No |
+| getCheckboxProps | function to get properties of the checkbox | (data: object) => { disabled?: boolean }                          | No            |
 
 #### pageInfo
 

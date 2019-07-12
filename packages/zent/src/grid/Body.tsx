@@ -6,38 +6,37 @@ import forEach from 'lodash-es/forEach';
 import Row from './Row';
 import ColGroup from './ColGroup';
 import {
-  IGridColumn,
   GridFixedType,
   IGridScrollDelta,
   GridRowClassNameType,
+  IGridRowClickHander,
+  IGridExpandation,
+  IGridInnerFixedType,
 } from './types';
+import { IGridInnerColumn } from './Grid';
 
-export interface IGridBodyProps {
+export interface IGridBodyProps<Data> {
   prefix: string;
-  columns: IGridColumn[];
+  columns: Array<IGridInnerColumn<Data>>;
   rowKey: string;
-  rowClassName: GridRowClassNameType;
-  fixed: GridFixedType;
+  rowClassName?: GridRowClassNameType<Data>;
+  fixed?: IGridInnerFixedType;
   scroll: IGridScrollDelta;
-  fixedColumnsBodyRowsHeight: number[];
-  fixedColumnsBodyExpandRowsHeight: number[];
-  expandRowKeys: string[];
+  fixedColumnsBodyRowsHeight: Array<number | string>;
+  fixedColumnsBodyExpandRowsHeight: Array<number | string>;
+  expandRowKeys: boolean[];
   mouseOverRowIndex: number;
-  expandRender: (data: any) => React.ReactNode;
-  rowProps(data: any, index: number): any;
-  datasets: object[];
-  components: {
-    row?: React.ReactNode;
+  expandRender: IGridExpandation<Data>['expandRender'];
+  rowProps?: (data: Data, index: number) => any;
+  datasets: Data[];
+  components?: {
+    row?: React.ComponentType;
   };
-  onRowClick: (
-    data: any,
-    index: number,
-    event: React.MouseEvent<HTMLTableRowElement>
-  ) => void;
+  onRowClick: IGridRowClickHander<Data>;
   onRowMoverOver: (index: number) => void;
 }
 
-class Body extends PureComponent<IGridBodyProps> {
+class Body<Data> extends PureComponent<IGridBodyProps<Data>> {
   getRows() {
     const {
       prefix,
@@ -57,7 +56,7 @@ class Body extends PureComponent<IGridBodyProps> {
       components,
       rowProps,
     } = this.props;
-    const row = [];
+    const row: React.ReactNode[] = [];
 
     forEach(datasets, (data, index) => {
       row.push(
@@ -83,7 +82,7 @@ class Body extends PureComponent<IGridBodyProps> {
         const height =
           fixed && fixedColumnsBodyExpandRowsHeight[index]
             ? fixedColumnsBodyExpandRowsHeight[index]
-            : null;
+            : undefined;
         const trProps = {
           key: `${index}-expand`,
           className: `${prefix}-grid-tr__expanded`,

@@ -4,8 +4,11 @@ import classnames from 'classnames';
 import size from 'lodash-es/size';
 import Pagination from '../pagination';
 import LitePagination from '../pagination/LitePagination';
-import { IGridPageInfo, GridPaginationType } from './Grid';
-import { IGridOnChangeConfig } from './types';
+import {
+  IGridOnChangeConfig,
+  GridPaginationType,
+  IGridPageInfo,
+} from './types';
 import { PaginationChangeHandler } from '../pagination/impl/BasePagination';
 
 const defaultPageInfo = {
@@ -22,7 +25,7 @@ export interface IGridFooterProps {
 }
 
 class Footer extends PureComponent<IGridFooterProps> {
-  hasPagination(props: IGridFooterProps) {
+  hasPagination(props?: IGridFooterProps) {
     const { pageInfo } = props || this.props;
     return pageInfo && size(pageInfo);
   }
