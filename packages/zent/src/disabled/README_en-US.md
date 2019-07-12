@@ -1,7 +1,7 @@
 ---
 title: Disabled
 path: component/disabled
-group: FIXME group name here
+group: 基础
 ---
 
 ## Disabled

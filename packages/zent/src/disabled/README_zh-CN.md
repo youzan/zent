@@ -2,7 +2,7 @@
 title: Disabled
 subtitle: 禁用
 path: component/disabled
-group: FIXME 中文分组名
+group: Basics
 ---
 
 ## Disabled

@@ -1,55 +1,61 @@
 import * as React from 'react';
-import { PureComponent } from 'react';
-import * as ReactDOM from 'react-dom';
+import { Component } from 'react';
 import classNames from 'classnames';
 import Icon from '../icon';
 
 import Star from './Star';
+import { DisabledContext, IDisabledContext } from '../disabled';
 
 export interface IRateProps {
   onChange?: (value: number) => void;
-  value?: number;
+  value: number;
   allowClear?: boolean;
   allowHalf?: boolean;
   character?: React.ReactNode;
   className?: string;
-  count?: number;
+  count: number;
   disabled?: boolean;
   style?: React.CSSProperties;
   prefix?: string;
 }
 
 export interface IRateState {
+  starRefs: Array<React.RefObject<Star>>;
   cleanedValue: number | null;
-  hoverValue?: number;
+  hoverValue: number | null;
 }
 
-export class Rate extends PureComponent<IRateProps, IRateState> {
+function refArray(length: number): Array<React.RefObject<Star>> {
+  const refs = [];
+  for (let i = 0; i < length; i += 1) {
+    refs.push(React.createRef<Star>());
+  }
+  return refs;
+}
+
+export class Rate extends Component<IRateProps, IRateState> {
   static defaultProps = {
     value: 0,
     count: 5,
     allowHalf: false,
     allowClear: true,
-    style: {},
     prefix: 'zent',
     character: <Icon type="star" />,
   };
 
-  rate: HTMLUListElement | null = null;
-  stars: {
-    [key: number]: Star;
-  };
+  static contextType = DisabledContext;
+  context!: IDisabledContext;
 
-  constructor(props) {
+  constructor(props: IRateProps) {
     super(props);
-    this.stars = {};
-
     this.state = {
       cleanedValue: null,
+      hoverValue: null,
+      starRefs: refArray(props.count),
     };
   }
 
-  onHover = (event, index) => {
+  onHover = (event: React.MouseEvent<HTMLLIElement>, index: number) => {
     const hoverValue = this.getStarValue(index, event.pageX);
     const { cleanedValue } = this.state;
     if (hoverValue !== cleanedValue) {
@@ -62,32 +68,51 @@ export class Rate extends PureComponent<IRateProps, IRateState> {
 
   onMouseLeave = () => {
     this.setState({
-      hoverValue: undefined,
+      hoverValue: null,
       cleanedValue: null,
     });
   };
 
-  onClick = (event, index) => {
+  onClick = (event: React.MouseEvent<HTMLLIElement>, index: number) => {
+    const { onChange } = this.props;
     const value = this.getStarValue(index, event.pageX);
     let isReset = false;
     if (this.props.allowClear) {
       isReset = value === this.props.value;
     }
     this.onMouseLeave();
-    this.props.onChange(isReset ? 0 : value);
+    onChange && onChange(isReset ? 0 : value);
     this.setState({
       cleanedValue: isReset ? value : null,
     });
   };
 
-  getStarDOM(index) {
-    return ReactDOM.findDOMNode(this.stars[index]);
+  getStarDOM(index: number) {
+    const ref = this.state.starRefs[index];
+    if (!ref) {
+      throw new Error(
+        'Missing Star Ref, this looks like a bug of zent, please file an issue'
+      );
+    }
+    const star = ref.current;
+    if (!star) {
+      throw new Error(
+        'Missing Star instance, this looks like a bug of zent, please file an issue'
+      );
+    }
+    const li = star.elRef.current;
+    if (!li) {
+      throw new Error(
+        'Missing Star element, this looks like a bug of zent, please file an issue'
+      );
+    }
+    return li;
   }
 
-  getStarValue(index, x) {
+  getStarValue(index: number, x: number) {
     let value = index + 1;
     if (this.props.allowHalf) {
-      const starEle = this.getStarDOM(index) as HTMLLIElement;
+      const starEle = this.getStarDOM(index);
       const leftDis = starEle.getBoundingClientRect().left;
       const width = starEle.clientWidth;
       if (x - leftDis < width / 2) {
@@ -97,13 +122,17 @@ export class Rate extends PureComponent<IRateProps, IRateState> {
     return value;
   }
 
-  saveRef = index => node => {
-    this.stars[index] = node;
-  };
-
-  saveRate = node => {
-    this.rate = node;
-  };
+  static getDerivedStateFromProps(
+    { count }: IRateProps,
+    { starRefs }: IRateState
+  ): Partial<IRateState> | null {
+    if (count !== starRefs.length) {
+      return {
+        starRefs: refArray(count),
+      };
+    }
+    return null;
+  }
 
   render() {
     const {
@@ -111,27 +140,27 @@ export class Rate extends PureComponent<IRateProps, IRateState> {
       allowHalf,
       style,
       prefix,
-      disabled,
+      disabled = this.context.value,
       className,
       character,
       value,
     } = this.props;
-    const { hoverValue } = this.state;
+    const { hoverValue, starRefs } = this.state;
     const stars = [];
     const disabledClass = disabled ? `${prefix}-rate-disabled` : '';
 
     for (let index = 0; index < count; index++) {
       stars.push(
         <Star
-          ref={this.saveRef(index)}
+          key={index}
+          ref={starRefs[index]}
           index={index}
           disabled={disabled}
           prefix={prefix}
           allowHalf={allowHalf}
-          value={hoverValue === undefined ? value : hoverValue}
+          value={hoverValue !== null ? hoverValue : value}
           onClick={this.onClick}
           onHover={this.onHover}
-          key={index}
           character={character}
         />
       );
@@ -140,8 +169,7 @@ export class Rate extends PureComponent<IRateProps, IRateState> {
       <ul
         className={classNames(`${prefix}-rate`, disabledClass, className)}
         style={style}
-        onMouseLeave={disabled ? null : this.onMouseLeave}
-        ref={this.saveRate}
+        onMouseLeave={disabled ? undefined : this.onMouseLeave}
       >
         {stars}
       </ul>
