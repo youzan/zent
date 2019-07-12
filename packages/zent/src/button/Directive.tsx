@@ -2,6 +2,7 @@ import * as React from 'react';
 import cx from 'classnames';
 
 import Icon, { IconType } from '../icon';
+import { DisabledCotnext } from '../disabled';
 
 export interface IButtonDirectiveChildProps {
   className?: string;
@@ -49,6 +50,7 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
     icon,
     children,
   } = props;
+  const { value: disabledContext } = React.useContext(DisabledCotnext);
   const child = React.Children.only(children);
   const propsRef = React.useRef(props);
   propsRef.current = props;
@@ -67,7 +69,8 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
       [`zent-btn-${size}`]: size !== 'medium',
       'zent-btn-block': block,
       'zent-btn-loading': loading,
-      'zent-btn-disabled': disabled,
+      'zent-btn-disabled':
+        typeof disabled === 'boolean' ? disabled : disabledContext,
       'zent-btn-border-transparent': !bordered,
     },
     'zent-btn',
