@@ -7,6 +7,7 @@ import { IInputProps, IInputCoreProps, IInputClearEvent } from './types';
 import { InputCore } from './InputCore';
 import { TextArea } from './TextArea';
 import { InputContext, IInputContext } from './context';
+import { IDisabledContext, DisabledContext } from '../disabled';
 
 export interface IInputState {
   hasFocus: boolean;
@@ -108,13 +109,20 @@ export class Input extends Component<IInputProps, IInputState> {
     }
   }
 
-  render() {
-    const props = this.props as IInputProps;
-    const { type, className, width, size } = props;
+  renderImpl(disableCtx: IDisabledContext) {
+    const props = this.props;
+    const {
+      type,
+      className,
+      width,
+      size,
+      disabled = disableCtx.value,
+      readOnly,
+    } = props;
     const { hasFocus } = this.state;
     const widthStyle = getWidth(width);
     const isTextarea = type.toLowerCase() === 'textarea';
-    const editable = !(this.props.disabled || this.props.readOnly);
+    const editable = !(disabled || readOnly);
     const { renderInner } = this.context;
 
     const wrapClass = classNames(
@@ -152,6 +160,7 @@ export class Input extends Component<IInputProps, IInputState> {
           onKeyDown={this.onKeyDown}
           onFocus={this.onFocus}
           onBlur={this.onBlur}
+          disabled={disabled}
         />
       );
     }
@@ -160,6 +169,16 @@ export class Input extends Component<IInputProps, IInputState> {
       <div className={wrapClass} style={widthStyle}>
         {renderInner ? renderInner(children) : children}
       </div>
+    );
+  }
+
+  renderInput = (disableContext: IDisabledContext) => {
+    return this.renderImpl(disableContext);
+  };
+
+  render() {
+    return (
+      <DisabledContext.Consumer>{this.renderInput}</DisabledContext.Consumer>
     );
   }
 }
