@@ -8,11 +8,11 @@ export interface IDisabledContext {
   value: boolean;
 }
 
-export const DisabledCotnext = React.createContext<IDisabledContext>({
+export const DisabledContext = React.createContext<IDisabledContext>({
   value: false,
 });
 
-DisabledCotnext.displayName = 'DisabledCotnext';
+DisabledContext.displayName = 'DisabledContext';
 
 export const Disabled: React.FunctionComponent<IDisabledProps> = ({
   value = true,
@@ -25,6 +25,6 @@ export const Disabled: React.FunctionComponent<IDisabledProps> = ({
     [value]
   );
   return (
-    <DisabledCotnext.Provider value={ctx}>{children}</DisabledCotnext.Provider>
+    <DisabledContext.Provider value={ctx}>{children}</DisabledContext.Provider>
   );
 };
