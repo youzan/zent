@@ -6,7 +6,6 @@ import forEach from 'lodash-es/forEach';
 import Row from './Row';
 import ColGroup from './ColGroup';
 import {
-  GridFixedType,
   IGridScrollDelta,
   GridRowClassNameType,
   IGridRowClickHander,
