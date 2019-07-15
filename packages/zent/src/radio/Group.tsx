@@ -6,12 +6,13 @@ import noop from 'lodash-es/noop';
 import memoize from '../utils/memorize-one';
 import GroupContext from './GroupContext';
 import { IRadioEvent } from './AbstractRadio';
+import { DisabledContext, IDisabledContext } from '../disabled';
 
 const GroupContextProvider = GroupContext.Provider;
 
 export interface IRadioGroupProps<Value> {
   value: Value;
-  disabled: boolean;
+  disabled?: boolean;
   readOnly: boolean;
   onChange: (e: IRadioEvent<Value>) => void;
   isValueEqual: (value1: Value, value2: Value) => boolean;
@@ -25,16 +26,18 @@ export class RadioGroup<Value> extends Component<IRadioGroupProps<Value>> {
     prefix: 'zent',
     className: '',
     style: {},
-    disabled: false,
     readOnly: false,
     isValueEqual: Object.is,
     onChange: noop,
   };
 
+  static contextType = DisabledContext;
+  context!: IDisabledContext;
+
   getGroupContext = memoize(
     (
       value: unknown,
-      disabled: boolean,
+      disabled: boolean | undefined,
       readOnly: boolean,
       isValueEqual: (value1: Value, value2: Value) => boolean
     ) => ({
@@ -53,7 +56,7 @@ export class RadioGroup<Value> extends Component<IRadioGroupProps<Value>> {
   render() {
     const {
       value,
-      disabled,
+      disabled = this.context.value,
       readOnly,
       isValueEqual,
       className,

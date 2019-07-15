@@ -379,7 +379,7 @@ export class AutoComplete<Value> extends Component<
       >
         <Popover.Trigger.Click>
           <Input
-            className={cn('btn', {
+            className={cn({
               active: open,
             })}
             value={(open ? searchText : displayValue) || ''}

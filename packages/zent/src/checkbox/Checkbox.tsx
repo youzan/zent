@@ -19,7 +19,7 @@ export interface ICheckboxEvent<Value> {
 
 export interface ICheckboxProps<Value> {
   checked?: boolean;
-  value: Value;
+  value?: Value;
   disabled?: boolean;
   readOnly?: boolean;
   indeterminate?: boolean;
@@ -74,7 +74,8 @@ export class Checkbox<Value> extends Component<ICheckboxProps<Value>> {
     } = this.props;
     if (this.context) {
       const { value, isValueEqual } = this.context;
-      checked = value.findIndex(it => isValueEqual(it, this.props.value)) !== -1;
+      checked =
+        value.findIndex(it => isValueEqual(it, this.props.value)) !== -1;
       readOnly =
         typeof readOnly === 'boolean' ? readOnly : this.context.readOnly;
       disabled =

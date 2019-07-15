@@ -59,7 +59,7 @@ abstract class AbstractRadio<Value> extends Component<IRadioProps<Value>> {
 
     if (context.onRadioChange) {
       checked = context.isValueEqual(context.value, value);
-      disabled = context.disabled || disabled;
+      disabled = context.disabled !== undefined ? context.disabled : disabled;
       readOnly = context.readOnly || readOnly;
     }
 
