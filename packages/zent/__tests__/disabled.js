@@ -11,6 +11,9 @@ import { Radio } from '../src/radio';
 import { Rate } from '../src/rate';
 import { Select } from '../src/select';
 import { Slider } from '../src/slider';
+import { Switch } from '../src/switch';
+import { Collapse } from '../src/collapse';
+import { SplitButton } from '../src/split-button';
 
 it('disabled children', () => {
   const div = document.createElement('div');
@@ -32,6 +35,19 @@ it('disabled children', () => {
         <Rate />
         <Select />
         <Slider />
+        <Switch />
+        <SplitButton>SplitButton</SplitButton>
+        <Collapse>
+          <Collapse.Panel title="Collapse 1" key="1">
+            Collapse 1
+          </Collapse.Panel>
+          <Collapse.Panel title="Collapse 1" key="2">
+            Collapse 2
+          </Collapse.Panel>
+          <Collapse.Panel title="Collapse 1" key="3" disabled>
+            Collapse 3
+          </Collapse.Panel>
+        </Collapse>
       </Disabled>,
       div
     );
@@ -71,6 +87,20 @@ it('disabled children', () => {
       document.querySelectorAll('#root > .zent-slider.zent-slider-disabled')
         .length
     ).toBe(1);
+    expect(
+      document.querySelectorAll('#root > .zent-switch-disabled.zent-switch')
+        .length
+    ).toBe(1);
+    expect(
+      document.querySelectorAll(
+        '#root > .zent-split-button .zent-btn-disabled.zent-btn'
+      ).length
+    ).toBe(2);
+    expect(
+      document.querySelectorAll(
+        '#root > .zent-collapse > .zent-collapse-panel--disabled'
+      ).length
+    ).toBe(3);
   } catch (error) {
     throw error;
   } finally {
@@ -100,6 +130,19 @@ it('self props has a higher priority', () => {
         <Rate disabled={false} />
         <Select disabled={false} />
         <Slider disabled={false} />
+        <Switch disabled={false} />
+        <SplitButton disabled={false}>SplitButton</SplitButton>
+        <Collapse>
+          <Collapse.Panel disabled={false} title="Collapse 1" key="1">
+            Collapse 1
+          </Collapse.Panel>
+          <Collapse.Panel disabled={false} title="Collapse 1" key="2">
+            Collapse 2
+          </Collapse.Panel>
+          <Collapse.Panel disabled={false} title="Collapse 1" key="3">
+            Collapse 3
+          </Collapse.Panel>
+        </Collapse>
       </Disabled>,
       div
     );
@@ -138,6 +181,20 @@ it('self props has a higher priority', () => {
     expect(
       document.querySelectorAll('#root > .zent-slider.zent-slider-disabled')
         .length
+    ).toBe(0);
+    expect(
+      document.querySelectorAll('#root > .zent-switch-disabled.zent-switch')
+        .length
+    ).toBe(0);
+    expect(
+      document.querySelectorAll(
+        '#root > .zent-split-button .zent-btn-disabled.zent-btn'
+      ).length
+    ).toBe(0);
+    expect(
+      document.querySelectorAll(
+        '#root > .zent-collapse > .zent-collapse-panel--disabled'
+      ).length
     ).toBe(0);
   } catch (error) {
     throw error;

@@ -105,7 +105,12 @@ export class CollapsePanel extends Component<ICollapsePanelProps> {
   }
 
   toggle = () => {
-    const { onChange, panelKey, active, disabled } = this.props;
+    const {
+      onChange,
+      panelKey,
+      active,
+      disabled = this.context.value,
+    } = this.props;
 
     if (!disabled) {
       onChange(panelKey, !active);
