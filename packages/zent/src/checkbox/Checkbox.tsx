@@ -76,12 +76,10 @@ export class Checkbox<Value> extends Component<ICheckboxProps<Value>> {
       const { value, isValueEqual } = this.context;
       checked =
         value.findIndex(it => isValueEqual(it, this.props.value)) !== -1;
-      readOnly =
-        typeof readOnly === 'boolean' ? readOnly : this.context.readOnly;
-      disabled =
-        typeof disabled === 'boolean' ? disabled : this.context.disabled;
+      readOnly = readOnly || this.context.readOnly;
+      disabled = disabled || this.context.disabled;
     } else {
-      readOnly = typeof disabled === 'boolean' ? disabled : disabledCtx.value;
+      disabled = typeof disabled === 'boolean' ? disabled : disabledCtx.value;
     }
 
     const classString = classNames(
