@@ -6,6 +6,7 @@ import cx from 'classnames';
 
 import helper from '../helper';
 import Checkbox from '../../checkbox';
+import { ITableChangeConfig } from '../Table';
 
 const stickRowClass = 'stickrow';
 const fixRowClass = 'fixrow';
@@ -98,20 +99,21 @@ export default class Head extends PureComponent<any, any> {
     if (item.needSort) {
       const isActiveCol = sortBy === item.name;
       return (
-        <div className={cx('sort-col', { 'sort-col--active': isActiveCol })}>
+        <div
+          onClick={() => this.sort(item)}
+          className={cx('sort-col', { 'sort-col--active': isActiveCol })}
+        >
           <span className="sort-col-title">{item.title}</span>
           <span className="sort-col-icon">
             <span
               className={cx('caret-up', {
                 'sort-active': isActiveCol && sortType === 'asc',
               })}
-              onClick={() => this.sort(item, 'asc')}
             />
             <span
               className={cx('caret-down', {
                 'sort-active': isActiveCol && sortType === 'desc',
               })}
-              onClick={() => this.sort(item, 'desc')}
             />
           </span>
         </div>
@@ -120,15 +122,28 @@ export default class Head extends PureComponent<any, any> {
     return item.title;
   }
 
-  sort = (item, nextSortType) => {
+  sort = item => {
     const name = item.name;
-    const { sortType } = this.props;
-    if (sortType === nextSortType) {
-      nextSortType = '';
+    const { sortBy, sortType, defaultSortType = 'desc' } = this.props;
+    let newSortType: ITableChangeConfig['sortType'];
+
+    if (name === sortBy) {
+      if (sortType === undefined) {
+        newSortType = defaultSortType;
+      } else if (sortType === defaultSortType) {
+        newSortType = defaultSortType === 'asc' ? 'desc' : 'asc';
+      } else {
+        newSortType = undefined;
+      }
     }
+
+    if (name !== sortBy) {
+      newSortType = defaultSortType;
+    }
+
     this.props.onSort({
       sortBy: name,
-      sortType: nextSortType,
+      sortType: newSortType,
     });
   };
 

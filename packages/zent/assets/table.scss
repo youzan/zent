@@ -109,6 +109,8 @@ $blue: $theme-primary-4;
       }
 
       &--active {
+        cursor: pointer;
+
         .sort-col-icon {
           visibility: visible;
         }
