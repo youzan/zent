@@ -19,7 +19,7 @@ export interface IGridHeaderProps {
   columns: IGridColumn[];
   sortType: GridSortType;
   sortBy: string;
-  firstSortType: GridSortType;
+  defaultSortType: GridSortType;
   onChange: (config: IGridOnChangeConfig) => void;
   store: any;
   fixed: GridFixedType;
@@ -39,22 +39,22 @@ class Header extends PureComponent<IGridHeaderProps, any> {
   unsubscribe: any;
 
   onSort = (column, props) => {
-    const { sortBy, sortType = '', firstSortType = 'desc' } = props;
+    const { sortBy, sortType = '', defaultSortType = 'desc' } = props;
     const name = column.name;
     let newSortType: GridSortType;
 
     if (name === sortBy) {
       if (sortType === '') {
-        newSortType = firstSortType;
-      } else if (sortType === firstSortType) {
-        newSortType = firstSortType === 'asc' ? 'desc' : 'asc';
+        newSortType = defaultSortType;
+      } else if (sortType === defaultSortType) {
+        newSortType = defaultSortType === 'asc' ? 'desc' : 'asc';
       } else {
         newSortType = '';
       }
     }
 
     if (name !== sortBy) {
-      newSortType = firstSortType;
+      newSortType = defaultSortType;
     }
 
     this.props.onChange({
