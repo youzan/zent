@@ -64,7 +64,6 @@ $blue: $theme-primary-4;
         width: 10px;
         height: 17px;
         display: inline-block;
-        visibility: hidden;
         vertical-align: middle;
         margin-left: 4px;
       }
@@ -99,19 +98,6 @@ $blue: $theme-primary-4;
 
       .caret-down.sort-active {
         border-top-color: $theme-primary-4;
-      }
-
-      &:hover {
-        .sort-col-icon {
-          visibility: visible;
-          opacity: 0.8;
-        }
-      }
-
-      &--active {
-        .sort-col-icon {
-          visibility: visible;
-        }
       }
     }
   }
