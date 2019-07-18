@@ -33,7 +33,7 @@ group: 导航
 | onRowClick      | 点击行时触发                                                  | (data: any, index: number, event: Event) => any                            |                    | 否       |
 | ellipsis        | 是否需要文字超出宽度后省略号显示 (需配置 columns 中的 nowrap) | bool                                                                       | false              | 否       |
 | onExpand        | 点击展开图标时触发                                            | (data: {expanded: boolean, data: any, event: Event, index: number}) => any |                    | 否       |
-| components      | 自定义 table 内的组件                                         | object { row?: ReactNode }                                                 |                    | 否       |
+| components      | 自定义 table 内的组件                                         | object { row?: ComponentType }                                             |                    | 否       |
 | rowProps        | 自定义传入 row 的属性                                         | (data: any, index: number) => object                                       |                    | 否       |
 | bordered        | 是否展示外边框和列边框                                        | bool                                                                       | `false`            | 否       |
 
@@ -70,11 +70,11 @@ onChange 会抛出一个对象，这个对象包含分页变化的参数：
 
 #### selection
 
-| 参数             | 说明                                 | 类型                                                                        | 是否必须 |
-| ---------------- | ------------------------------------ | --------------------------------------------------------------------------- | -------- |
-| selectedRowKeys  | 默认选中                             | array                                                                       | 否       |
-| onSelect         | 每次 check 的时候触发的函数          | (selectedkeys: string, selectedRows: Array<any>, currentRow: number) => any | 否       |
-| getCheckboxProps | 选择框属性配置 (当前仅支持 disabled) | (data: object) => { disabled?: boolean }                                    | 否       |
+| 参数             | 说明                                 | 类型                                                              | 是否必须      |
+| ---------------- | ------------------------------------ | ----------------------------------------------------------------- | ------------- |
+| selectedRowKeys  | 默认选中                             | array                                                             | 否            |
+| onSelect         | 每次 check 的时候触发的函数          | (selectedkeys: string[], selectedRows: Array<any>, changeRow: any | any[]) => any | 否 |
+| getCheckboxProps | 选择框属性配置 (当前仅支持 disabled) | (data: object) => { disabled?: boolean }                          | 否            |
 
 #### pageInfo
 
