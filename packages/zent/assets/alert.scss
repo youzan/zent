@@ -12,9 +12,8 @@ $color-text-warning: $theme-stroke-1;
 $color-bg-error: $theme-error-4;
 $color-border-error: $theme-error-2;
 $color-text-error: $theme-stroke-9;
-$color-bg-info: $theme-primary-8;
+$color-bg-info: $theme-stroke-8;
 $color-text-info: $theme-stroke-1;
-$color-border-info: $theme-primary-7;
 $alert-border-radius: 4px;
 $close-icon-size: 14px;
 
@@ -66,7 +65,6 @@ $close-icon-size: 14px;
 
   &.zent-alert-style-info {
     background: $color-bg-info;
-    border: 1px solid $color-border-info;
     color: $color-text-info;
   }
 
