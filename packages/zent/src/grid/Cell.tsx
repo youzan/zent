@@ -4,9 +4,19 @@ import get from 'lodash-es/get';
 import has from 'lodash-es/has';
 import isNil from 'lodash-es/isNil';
 import classnames from 'classnames';
+import { IGridInnerColumn } from './Grid';
+import { IGridCellPos } from './types';
 
-class Cell extends Component<any> {
-  isInvalidRenderCellText(text) {
+interface IGridCellProps<Data> {
+  column: IGridInnerColumn<Data>;
+  data: Data;
+  pos: IGridCellPos;
+  columnIndex: number;
+  prefix: string;
+}
+
+class Cell<Data> extends Component<IGridCellProps<Data>> {
+  isInvalidRenderCellText(text: any) {
     return (
       text &&
       !React.isValidElement(text) &&
@@ -14,11 +24,11 @@ class Cell extends Component<any> {
     );
   }
 
-  getText = props => {
+  getText = (props: IGridCellProps<Data>) => {
     return get(props, `data.${get(props, 'column.name')}`);
   };
 
-  onClick = e => {
+  onClick: React.MouseEventHandler<HTMLTableDataCellElement> = e => {
     const {
       data,
       column: { onCellClick },
@@ -28,7 +38,7 @@ class Cell extends Component<any> {
     }
   };
 
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate(nextProps: IGridCellProps<Data>) {
     // 如果存在 bodyRender 属性则 render
     if (has(nextProps.column, 'bodyRender')) {
       return true;
@@ -48,7 +58,7 @@ class Cell extends Component<any> {
       className,
       defaultText,
     } = column;
-    let text = get(data, name);
+    let text = get(data, name as string);
     if (isNil(text) && defaultText) {
       text = defaultText;
     }

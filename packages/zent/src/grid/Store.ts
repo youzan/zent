@@ -7,15 +7,14 @@ import keys from 'lodash-es/keys';
 import forEach from 'lodash-es/forEach';
 
 export default class Store {
-  state: any;
-  listeners: any;
+  state: {
+    [propsName: string]: any;
+  } = {};
+  listeners: {
+    [eventName: string]: Array<() => void>;
+  } = {};
 
-  constructor() {
-    this.state = {};
-    this.listeners = {};
-  }
-
-  setState = nextState => {
+  setState = (nextState: any) => {
     this.state = assign({}, this.state, nextState);
     forEach(keys(nextState), stateName => {
       forEach(get(this.listeners, stateName), listener => {
@@ -24,7 +23,7 @@ export default class Store {
     });
   };
 
-  getState = (propsName, callBack?: () => void) => {
+  getState(propsName?: string, callBack?: () => void): any {
     if (propsName) {
       const props = get(this.state, propsName);
       if (callBack && !has(this.state, propsName)) {
@@ -36,15 +35,15 @@ export default class Store {
       return props;
     }
     return this.state;
-  };
+  }
 
-  trigger = eventName => {
+  trigger = (eventName: string) => {
     forEach(get(this.listeners, eventName), listener => {
       listener();
     });
   };
 
-  subscribe = (eventName, listener) => {
+  subscribe = (eventName: string, listener: () => void) => {
     this.listeners[eventName] = this.listeners[eventName] || [];
     this.listeners[eventName].push(listener);
 
