@@ -24,7 +24,7 @@ function compile() {
       }
 
       if (stderr) {
-        console.log(stderr);
+        console.error(stderr);
       }
 
       if (err) {

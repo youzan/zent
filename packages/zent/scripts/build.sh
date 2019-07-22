@@ -17,9 +17,6 @@ rm -rf lib es css
 # custom importer for @import '~some-node-module'
 echo "Compile styles..."
 node $basepath/./compile-style.js
-# node-sass \
-#   --importer $basepath/../../../node_modules/node-sass-magic-importer/dist/cli.js \
-#   assets -o css -q
 
 # autoprefixer
 postcss css --use autoprefixer --replace --no-map
