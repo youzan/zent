@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import partial from 'lodash-es/partial';
 
 import Image from './Image';
 
@@ -34,7 +33,10 @@ export function previewImage(options: IPreviewImageConfig = {}) {
 
   // 保持context
   const render = parentComponent
-    ? partial(ReactDOM.unstable_renderSubtreeIntoContainer, parentComponent)
+    ? ReactDOM.unstable_renderSubtreeIntoContainer.bind(
+        ReactDOM,
+        parentComponent
+      )
     : ReactDOM.render;
 
   render(<Image {...props} />, container);
