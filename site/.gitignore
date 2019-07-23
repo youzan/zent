@@ -1,3 +1,4 @@
 dist
 node_modules
 src/nav.js
+.awcache

@@ -1,8 +1,6 @@
-import noop from 'lodash-es/noop';
-
 import Popover from '../../popover';
 
-export { default as noop } from 'lodash-es/noop';
+export function noop(..._: any[]): void {}
 
 export const CURRENT = new Date();
 export const CURRENT_DAY = new Date(

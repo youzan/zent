@@ -18,7 +18,7 @@ class DateRangeQuickPickerWrap extends Component<
 > {
   render() {
     const { dateFormat } = this.props;
-    const passableProps = omit(this.props, unknownProps, ['dateFormat']);
+    const passableProps: any = omit(this.props, unknownProps, ['dateFormat']);
     return <DateRangeQuickPicker {...passableProps} format={dateFormat} />;
   }
 }

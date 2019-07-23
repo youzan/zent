@@ -12,9 +12,8 @@ const simpleIsEqual: EqualityFn = (
   lastArgs: unknown[]
 ): boolean =>
   newArgs.length === lastArgs.length &&
-  newArgs.every(
-    (newArg: unknown, index: number): boolean =>
-      shallowEqual(newArg, lastArgs[index])
+  newArgs.every((newArg: unknown, index: number): boolean =>
+    shallowEqual(newArg, lastArgs[index])
   );
 
 // <ResultFn: (...Array<any>) => mixed>

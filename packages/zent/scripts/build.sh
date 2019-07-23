@@ -16,15 +16,13 @@ rm -rf lib es css
 # transpile scss to css
 # custom importer for @import '~some-node-module'
 echo "Compile styles..."
-node-sass \
-  --importer $basepath/../../../node_modules/node-sass-magic-importer/dist/cli.js \
-  assets -o css -q
+node $basepath/./compile-style.js
 
 # autoprefixer
 postcss css --use autoprefixer --replace --no-map
 
 # minify index.css
-cleancss -o css/index.min.css css/index.css
+postcss css/index.css --use cssnano -o css/index.min.css
 
 # generate icon types from zenticons
 node $basepath/./generate-icon-type.js
@@ -34,8 +32,5 @@ node $basepath/./generate-icon-type.js
 # cross-env BABEL_ENV=es babel src --out-dir es
 echo "Compile esm..."
 tsc
-
-echo "Compile commonjs..."
-tsc --outDir lib --module commonjs
 
 $basepath/./cruiser.sh

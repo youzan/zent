@@ -8,7 +8,7 @@ import { CascaderHandler, CascaderValue, ICascaderItem } from '../types';
 const TabPanel = Tabs.TabPanel;
 const withPopover = Popover.withPopover;
 
-export interface ItabsContentProps {
+export interface ITabsContentProps {
   prefix?: string;
   className?: string;
   clickHandler: CascaderHandler;
@@ -30,7 +30,7 @@ export interface ItabsContentProps {
   };
 }
 
-class TabsContent extends PureComponent<ItabsContentProps> {
+class TabsContent extends PureComponent<ITabsContentProps> {
   renderCascaderItems(items: ICascaderItem[], stage: number, popover: Popover) {
     const { prefix, value, clickHandler } = this.props;
 
@@ -136,5 +136,5 @@ class TabsContent extends PureComponent<ItabsContentProps> {
 }
 
 export default withPopover(TabsContent as React.ComponentType<
-  ItabsContentProps
+  ITabsContentProps
 >);

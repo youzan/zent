@@ -9,12 +9,12 @@ import unknownProps from '../unknownProps';
 const RadioGroup = Radio.Group;
 
 export interface IFormRadioGroupWrapProps {
-  value: any;
+  value: unknown;
 }
 
 class RadioGroupWrap extends Component<IFormRadioGroupWrapProps> {
   render() {
-    const passableProps = omit(this.props, unknownProps);
+    const passableProps: any = omit(this.props, unknownProps);
     return <RadioGroup className="zent-form__radio-group" {...passableProps} />;
   }
 }

@@ -132,7 +132,7 @@ export class Mention extends Component<IMentionProps> {
                   onWheel={this.onInputScroll}
                   onCompositionStart={this.onInputCompositionStart}
                   onCompositionEnd={this.onInputCompositionEnd}
-                  {...passThroughProps as any}
+                  {...(passThroughProps as any)}
                 />
               </Popover.Trigger.Click>
               <Popover.Content>
