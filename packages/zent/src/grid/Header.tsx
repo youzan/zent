@@ -203,7 +203,7 @@ class Header<Data> extends PureComponent<
               }}
             >
               {row.map(props => (
-                <th {...props as any} />
+                <th {...(props as any)} />
               ))}
             </tr>
           );
