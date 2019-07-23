@@ -23,6 +23,16 @@ class UploadPopup extends Component<any, any> {
     className: '',
   };
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { categoryId } = nextProps.options;
+    if (prevState.categoryId !== categoryId) {
+      return {
+        categoryId,
+      };
+    }
+    return null;
+  }
+
   networkUrl: string;
   sortable: Sortable;
 
@@ -42,15 +52,6 @@ class UploadPopup extends Component<any, any> {
     this.uploadLocalImages = this.uploadLocalImages.bind(this);
     this.fileProgressHandler = this.fileProgressHandler.bind(this);
     this.setCategoryId = this.setCategoryId.bind(this);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { categoryId } = nextProps.options;
-    if (this.props.options.categoryId !== categoryId) {
-      this.setState({
-        categoryId,
-      });
-    }
   }
 
   render() {

@@ -2,7 +2,7 @@
 
 // Text colors
 $theme-stroke-1: #323233 !default; // text
-$theme-stroke-2: #7d7e80 !default; // text
+$theme-stroke-2: #646566 !default; // text
 $theme-stroke-3: #969799 !default; // help text
 $theme-stroke-4: #c8c9cc !default; // disabled text
 
@@ -20,14 +20,14 @@ $theme-stroke-10: #eaeaea !default; // Active
 $theme-stroke-11: #f4f5f5 !default; // Hover
 
 // Blue(primary)
-$theme-primary-1: #114db4 !default;
-$theme-primary-2: #155bd4 !default;
-$theme-primary-3: #3773da !default;
-$theme-primary-4: #5487df !default;
-$theme-primary-5: #94b4eb !default;
-$theme-primary-6: #edf4ff !default;
-$theme-primary-7: #10439b !default;
-$theme-primary-8: #0a2a61 !default;
+$theme-primary-1: #0a2a61 !default;
+$theme-primary-2: #10439b !default;
+$theme-primary-3: #114db4 !default;
+$theme-primary-4: #155bd4 !default;
+$theme-primary-5: #3773da !default;
+$theme-primary-6: #5487df !default;
+$theme-primary-7: #94b4eb !default;
+$theme-primary-8: #edf4ff !default;
 
 // Green
 $theme-success-1: #268d37 !default;
@@ -49,7 +49,7 @@ $theme-warn-2: #f1924e !default;
 $theme-warn-3: #fff5ed !default;
 
 // Shadow
-$shadow-spec-focus: 0 0 4px 0 rgba($theme-primary-8, 0.2) !default;
+$shadow-spec-focus: 0 0 4px 0 rgba($theme-primary-1, 0.2) !default;
 $shadow-spec-layer: 0 2px 8px 0 rgba($theme-stroke-4, 0.5) !default;
 $shadow-spec-modal: 0 2px 24px 0 rgba($theme-stroke-4, 0.5) !default;
 

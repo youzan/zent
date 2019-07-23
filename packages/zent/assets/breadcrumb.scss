@@ -39,7 +39,7 @@
     color: $theme-stroke-3;
 
     &:hover {
-      color: $theme-primary-2;
+      color: $theme-primary-4;
     }
   }
 
@@ -60,7 +60,7 @@
       box-sizing: border-box;
 
       &:hover {
-        color: $theme-primary-2;
+        color: $theme-primary-4;
       }
 
       &:after {
@@ -71,7 +71,7 @@
     .zent-breadcrumb-nav-active {
       &:after {
         display: block;
-        border-bottom: 2px solid $theme-primary-2;
+        border-bottom: 2px solid $theme-primary-4;
         content: '';
         margin: 0;
       }

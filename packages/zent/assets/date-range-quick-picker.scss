@@ -21,12 +21,12 @@
   }
 
   &:hover {
-    color: $theme-primary-2;
-    border-color: $theme-primary-2;
+    color: $theme-primary-4;
+    border-color: $theme-primary-4;
   }
 
   &.active {
-    border-color: $theme-primary-2;
-    color: $theme-primary-2;
+    border-color: $theme-primary-4;
+    color: $theme-primary-4;
   }
 }

@@ -48,7 +48,7 @@ $large-size: 40px;
   }
 
   &.zent-input--has-focus:not(.zent-input-wrapper__not-editable) {
-    border-color: $theme-primary-2;
+    border-color: $theme-primary-4;
     box-shadow: $focus-box-shadow;
   }
 
@@ -106,7 +106,7 @@ $large-size: 40px;
   min-width: 80px;
   height: 100%;
   box-sizing: border-box;
-  padding: 0 16px;
+  padding: 0 12px;
   margin: 0;
   color: $theme-stroke-1;
   font-size: $font-size-normal;

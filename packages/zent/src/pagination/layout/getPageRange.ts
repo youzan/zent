@@ -1,4 +1,11 @@
-export function getPageRange(options) {
+import { IPaginationLayoutOptions } from '../impl/BasePagination';
+
+interface IPaginationLayoutPageRangeOptions extends IPaginationLayoutOptions {
+  startDelta?: number;
+  endDelta?: number;
+}
+
+export function getPageRange(options: IPaginationLayoutPageRangeOptions) {
   const { pageSize, total, current, startDelta, endDelta } = options;
   const totalPages = Math.ceil(total / pageSize);
   const start = 1 + (startDelta || 0);
