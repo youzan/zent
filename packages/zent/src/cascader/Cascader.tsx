@@ -103,8 +103,10 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
       prevProps: nextProps,
     };
 
-    if ('value' in nextProps && nextProps.value !== prevProps.value) {
+    if (nextProps !== prevProps) {
       newState.value = nextProps.value || [];
+      newState.options = nextProps.options || [];
+
       Object.assign(
         newState,
         resetCascaderValue(nextProps.value, nextProps.options)
@@ -112,10 +114,6 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
       if (open && nextProps.changeOnSelect) {
         newState.activeId = newState.activeId + 1;
       }
-    }
-
-    if (nextProps.options !== prevProps.options) {
-      newState.options = nextProps.options || [];
     }
 
     return newState;

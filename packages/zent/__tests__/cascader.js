@@ -529,11 +529,6 @@ describe('Cascader', () => {
       pop.querySelectorAll('.zent-cascader__menu-item')[0],
       'click'
     );
-    wrapper.update();
-    simulateRawWithTimers(
-      pop.querySelectorAll('.zent-cascader__menu-item')[1],
-      'click'
-    );
 
     wrapper.unmount();
   });
