@@ -19,6 +19,7 @@ export interface IGridHeaderProps<Data> {
   prefix: string;
   columns: Array<IGridInnerColumn<Data>>;
   sortType: GridSortType;
+  defaultSortType?: GridSortType;
   sortBy?: string;
   onChange: (config: IGridOnChangeConfig) => void;
   store: Store;
@@ -45,30 +46,28 @@ class Header<Data> extends PureComponent<
 
   unsubscribe: any;
 
-  onSort = (
-    column: IGridInnerColumn<Data>,
-    props: IGridHeaderProps<Data>,
-    newSortType: GridSortType
-  ) => {
-    const { sortBy } = props;
+  onSort = (column: IGridInnerColumn<Data>, props: IGridHeaderProps<Data>) => {
+    const { sortBy, sortType = '', defaultSortType = 'desc' } = props;
     const name = column.name;
-    let sortType: GridSortType = '';
+    let newSortType: GridSortType;
 
     if (name === sortBy) {
-      if (newSortType === this.props.sortType) {
-        sortType = '';
+      if (sortType === '') {
+        newSortType = defaultSortType;
+      } else if (sortType === defaultSortType) {
+        newSortType = defaultSortType === 'asc' ? 'desc' : 'asc';
       } else {
-        sortType = newSortType;
+        newSortType = '';
       }
     }
 
     if (name !== sortBy) {
-      sortType = newSortType;
+      newSortType = defaultSortType;
     }
 
     this.props.onChange({
       sortBy: name,
-      sortType,
+      sortType: newSortType,
     });
   };
 
@@ -84,17 +83,14 @@ class Header<Data> extends PureComponent<
 
     if (column.needSort) {
       return (
-        <div className={`${prefix}-grid-thead-sort-btn`}>
+        <div
+          onClick={() => this.onSort(column, props)}
+          className={`${prefix}-grid-thead-sort-btn`}
+        >
           {column.title}
           <span className={cn}>
-            <span
-              onClick={() => this.onSort(column, props, 'asc')}
-              className="caret-up"
-            />
-            <span
-              onClick={() => this.onSort(column, props, 'desc')}
-              className="caret-down"
-            />
+            <span className="caret-up" />
+            <span className="caret-down" />
           </span>
         </div>
       );

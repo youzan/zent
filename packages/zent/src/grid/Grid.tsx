@@ -65,6 +65,7 @@ export interface IGridProps<Data = any> {
   scroll?: IGridScrollDelta;
   sortBy?: string;
   sortType?: GridSortType;
+  defaultSortType?: GridSortType;
   emptyLabel?: React.ReactNode;
   selection?: IGridSelection<Data>;
   expandation?: IGridExpandation<Data>;
@@ -524,6 +525,7 @@ export class Grid<Data = any> extends PureComponent<
       scroll = {},
       sortType,
       sortBy,
+      defaultSortType,
       rowClassName,
       onRowClick,
       ellipsis,
@@ -557,6 +559,7 @@ export class Grid<Data = any> extends PureComponent<
         sortType={sortType as GridSortType}
         scroll={scroll}
         sortBy={sortBy}
+        defaultSortType={defaultSortType}
         fixedColumnsHeadRowsHeight={this.state.fixedColumnsHeadRowsHeight}
       />
     );

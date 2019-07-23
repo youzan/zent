@@ -11,30 +11,31 @@ group: 导航
 
 ### API
 
-| 参数           | 说明                                                          | 类型                                                                       | 默认值             | 是否必须 |
-| -------------- | ------------------------------------------------------------- | -------------------------------------------------------------------------- | ------------------ | -------- |
-| columns        | 表格列配置                                                    | array                                                                      |                    | 是       |
-| datasets       | 需要展示的数据                                                | array                                                                      |                    | 是       |
-| rowKey         | 每一行的 key                                                  | string                                                                     | `id`               | 否       |
-| onChange       | 列表发生变化时自动触发的函数，页面筛选、排序均会触发          | (conf: any) => any                                                         | `noop`             | 否       |
-| scroll         | 横向或纵向指定滚动区域的宽高度                                | { x?: number, y?: number }                                                 |                    | 否       |
-| sortBy         | 根据哪一个字段排序, 应该等于 columns 中某一个元素的`key`字段  | string                                                                     | ''                 | 否       |
-| sortType       | 排序方式                                                      | string                                                                     | ''                 | 否       |
-| emptyLabel     | 列表为空时的提示文案                                          | string                                                                     | `'没有更多数据了'` | 否       |
-| selection      | 表格的选择功能配置                                            | object                                                                     |                    | 否       |
-| expandation    | 展开配置                                                      | object                                                                     |                    |          | 否 |
-| loading        | 表格是否处于 loading 状态                                     | bool                                                                       | `false`            | 否       |
-| className      | 自定义额外类名                                                | string                                                                     | `''`               | 否       |
-| rowClassName   | 表格行的类名                                                  | string \| (data: object, rowIndex: number) => string                       | ''                 | 否       |
-| prefix         | 自定义前缀                                                    | string                                                                     | `'zent'`           | 否       |
-| pageInfo       | table 对应的分页信息                                          | object                                                                     | null               | 否       |
-| paginationType | 分页器类型，可选 `'lite'`                                     | string                                                                     | `'default'`        | 否       |
-| onRowClick     | 点击行时触发                                                  | (data: any, index: number, event: Event) => any                            |                    | 否       |
-| ellipsis       | 是否需要文字超出宽度后省略号显示 (需配置 columns 中的 nowrap) | bool                                                                       | false              | 否       |
-| onExpand       | 点击展开图标时触发                                            | (data: {expanded: boolean, data: any, event: Event, index: number}) => any |                    | 否       |
-| components     | 自定义 table 内的组件                                         | object { row?: ComponentType }                                             |                    | 否       |
-| rowProps       | 自定义传入 row 的属性                                         | (data: any, index: number) => object                                       |                    | 否       |
-| bordered       | 是否展示外边框和列边框                                        | bool                                                                       | `false`            | 否       |
+| 参数            | 说明                                                          | 类型                                                                       | 默认值             | 是否必须 |
+| --------------- | ------------------------------------------------------------- | -------------------------------------------------------------------------- | ------------------ | -------- |
+| columns         | 表格列配置                                                    | array                                                                      |                    | 是       |
+| datasets        | 需要展示的数据                                                | array                                                                      |                    | 是       |
+| rowKey          | 每一行的 key                                                  | string                                                                     | `id`               | 否       |
+| onChange        | 列表发生变化时自动触发的函数，页面筛选、排序均会触发          | (conf: any) => any                                                         | `noop`             | 否       |
+| scroll          | 横向或纵向指定滚动区域的宽高度                                | { x?: number, y?: number }                                                 |                    | 否       |
+| sortBy          | 根据哪一个字段排序, 应该等于 columns 中某一个元素的`key`字段  | string                                                                     | ''                 | 否       |
+| sortType        | 排序方式                                                      | string                                                                     | ''                 | 否       |
+| defaultSortType | 第一次点击的排序方式                                          | string                                                                     | `'desc'`           | 否       |
+| emptyLabel      | 列表为空时的提示文案                                          | string                                                                     | `'没有更多数据了'` | 否       |
+| selection       | 表格的选择功能配置                                            | object                                                                     |                    | 否       |
+| expandation     | 展开配置                                                      | object                                                                     |                    |          | 否 |
+| loading         | 表格是否处于 loading 状态                                     | bool                                                                       | `false`            | 否       |
+| className       | 自定义额外类名                                                | string                                                                     | `''`               | 否       |
+| rowClassName    | 表格行的类名                                                  | string \| (data: object, rowIndex: number) => string                       | ''                 | 否       |
+| prefix          | 自定义前缀                                                    | string                                                                     | `'zent'`           | 否       |
+| pageInfo        | table 对应的分页信息                                          | object                                                                     | null               | 否       |
+| paginationType  | 分页器类型，可选 `'lite'`                                     | string                                                                     | `'default'`        | 否       |
+| onRowClick      | 点击行时触发                                                  | (data: any, index: number, event: Event) => any                            |                    | 否       |
+| ellipsis        | 是否需要文字超出宽度后省略号显示 (需配置 columns 中的 nowrap) | bool                                                                       | false              | 否       |
+| onExpand        | 点击展开图标时触发                                            | (data: {expanded: boolean, data: any, event: Event, index: number}) => any |                    | 否       |
+| components      | 自定义 table 内的组件                                         | object { row?: ComponentType }                                             |                    | 否       |
+| rowProps        | 自定义传入 row 的属性                                         | (data: any, index: number) => object                                       |                    | 否       |
+| bordered        | 是否展示外边框和列边框                                        | bool                                                                       | `false`            | 否       |
 
 #### onChange 函数声明
 

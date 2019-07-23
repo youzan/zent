@@ -51,12 +51,14 @@ export interface ITableChangeConfig {
   pageSize: number;
 }
 
+type TableSortType = 'desc' | 'asc';
 export interface ITableProps {
   columns: ITableColumn[];
   datasets: Array<{}>;
   rowKey?: string;
   sortBy?: string;
-  sortType?: 'desc' | 'asc';
+  sortType?: TableSortType;
+  defaultSortType?: TableSortType;
   onChange?: (conf: ITableChangeConfig) => void;
   emptyLabel?: string;
   selection?: {

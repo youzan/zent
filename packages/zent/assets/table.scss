@@ -99,6 +99,21 @@ $blue: $theme-primary-4;
       .caret-down.sort-active {
         border-top-color: $theme-primary-4;
       }
+
+      &:hover {
+        .sort-col-icon {
+          visibility: visible;
+          opacity: 0.8;
+        }
+      }
+
+      &--active {
+        cursor: pointer;
+
+        .sort-col-icon {
+          visibility: visible;
+        }
+      }
     }
   }
 
