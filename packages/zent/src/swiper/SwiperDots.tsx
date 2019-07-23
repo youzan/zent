@@ -14,7 +14,7 @@ export interface ISwiperDotsProps {
 }
 
 export default class SwiperDots extends PureComponent<ISwiperDotsProps> {
-  isDotActive = (index, currentIndex, length) => {
+  isDotActive = (index: number, currentIndex: number, length: number) => {
     return (
       index === currentIndex ||
       (index === 0 && currentIndex > length - 1) ||
@@ -22,7 +22,7 @@ export default class SwiperDots extends PureComponent<ISwiperDotsProps> {
     );
   };
 
-  isBuildInColor = dotsColor => {
+  isBuildInColor = (dotsColor: string) => {
     return buildInDotsColors.indexOf(dotsColor) !== -1;
   };
 

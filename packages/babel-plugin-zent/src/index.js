@@ -44,7 +44,7 @@ export default function foobar(babel) {
           // no import 'zent';
           if (specifierCount === 0) {
             throw path.buildCodeFrameError(
-              `Side-effect only import is allowed in ${MODULE_NAME}.'`
+              `Side-effect only import is not allowed in ${MODULE_NAME}.'`
             );
           }
 

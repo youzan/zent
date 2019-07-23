@@ -6,6 +6,7 @@ import getWidth from '../utils/getWidth';
 
 import Range from './Range';
 import InputField from './InputField';
+import { DisabledContext, IDisabledContext } from '../disabled';
 
 /* eslint no-throw-literal: 0 */
 function checkProps(props) {
@@ -68,11 +69,13 @@ export class Slider extends PureComponent<ISliderProps> {
     max: 100,
     step: 1,
     prefix: 'zent',
-    disabled: false,
     withInput: true,
     range: false,
     value: 0,
   };
+
+  static contextType = DisabledContext;
+  context!: IDisabledContext;
 
   onChange = value => {
     const { range, onChange } = this.props;
@@ -84,17 +87,27 @@ export class Slider extends PureComponent<ISliderProps> {
 
   render() {
     checkProps(this.props);
-    const { withInput, className, width, ...restProps } = this.props;
+    const {
+      withInput,
+      className,
+      width,
+      disabled = this.context.value,
+      ...restProps
+    } = this.props;
     const wrapClass = classNames(
       `${restProps.prefix}-slider`,
-      { [`${restProps.prefix}-slider-disabled`]: restProps.disabled },
+      { [`${restProps.prefix}-slider-disabled`]: disabled },
       className
     );
     return (
       <div className={wrapClass} style={getWidth(width)}>
-        <Range {...restProps} onChange={this.onChange} />
+        <Range {...restProps} disabled={disabled} onChange={this.onChange} />
         {withInput && !restProps.dots && (
-          <InputField onChange={this.onChange} {...restProps} />
+          <InputField
+            onChange={this.onChange}
+            {...restProps}
+            disabled={disabled}
+          />
         )}
       </div>
     );

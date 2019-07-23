@@ -5,68 +5,82 @@ import Pop, { PopPositions } from '../pop';
 import Icon from '../icon';
 
 export interface IBlockHeaderProps {
-  className?: string;
   title: string;
+  className?: string;
   tooltip?: ReactNode;
-  content: ReactNode;
-  childAlign?: 'left' | 'right';
-  position: PopPositions;
-  prefix: string;
+  position?: PopPositions;
+  leftContent?: ReactNode;
+  rightContent?: ReactNode;
 }
 
 export class BlockHeader extends Component<IBlockHeaderProps> {
   static defaultProps = {
-    prefix: 'zent',
     className: '',
-    childAlign: 'left',
     position: 'top-right',
-    tooltip: '',
-    content: '',
   };
 
-  render() {
-    const {
-      prefix,
-      content,
-      title,
-      tooltip,
-      childAlign,
-      position,
-      className,
-      children,
-    } = this.props;
+  private renderTitle() {
+    const { title } = this.props;
     return (
-      <div className={cx(`${prefix}-block-header`, className)}>
-        {title && (
-          <div className={`${prefix}-block-header__left`}>
-            <h3>{title}</h3>
-          </div>
-        )}
-        <div className={`${prefix}-block-header__pop`}>
-          {tooltip && (
-            <Pop
-              trigger="hover"
-              centerArrow
-              position={position}
-              content={
-                <div className={`${prefix}-block-header__tooltip`}>
-                  {tooltip}
-                </div>
-              }
-              wrapperClassName={`${prefix}-block-header__tooltip-trigger`}
-            >
-              <Icon type="help-circle" />
-            </Pop>
-          )}
-        </div>
-        <div
-          className={cx(`${prefix}-block-header__content`, {
-            [`${prefix}-block-header__content-right`]: childAlign === 'right',
-          })}
+      <div className="zent-block-header__title">
+        <h3>{title}</h3>
+      </div>
+    );
+  }
+
+  private renderTooltip() {
+    const { tooltip, position } = this.props;
+    return (
+      <div className="zent-block-header__pop">
+        <Pop
+          trigger="hover"
+          centerArrow
+          position={position}
+          content={<div className="zent-block-header__tooltip">{tooltip}</div>}
+          wrapperClassName="zent-block-header__tooltip-trigger"
         >
-          {content && content}
-          {children && children}
-        </div>
+          <Icon type="help-circle" />
+        </Pop>
+      </div>
+    );
+  }
+
+  private renderLeftContent() {
+    const { leftContent } = this.props;
+    return (
+      <div
+        className={cx(
+          'zent-block-header__content',
+          'zent-block-header__content-left'
+        )}
+      >
+        {leftContent}
+      </div>
+    );
+  }
+
+  private renderRightContent() {
+    const { rightContent } = this.props;
+    return (
+      <div
+        className={cx(
+          'zent-block-header__content',
+          'zent-block-header__content-right'
+        )}
+      >
+        {rightContent}
+      </div>
+    );
+  }
+
+  render() {
+    const { leftContent, rightContent, tooltip, className } = this.props;
+    return (
+      <div className={cx('zent-block-header', className)}>
+        {this.renderTitle()}
+        {tooltip && this.renderTooltip()}
+        {leftContent && this.renderLeftContent()}
+        {rightContent && this.renderRightContent()}
       </div>
     );
   }

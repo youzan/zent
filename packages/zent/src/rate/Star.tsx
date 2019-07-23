@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { PureComponent } from 'react';
+import { Component } from 'react';
 
 export interface IRateStarProps {
   prefix?: string;
@@ -12,7 +12,9 @@ export interface IRateStarProps {
   index: number;
 }
 
-export default class Star extends PureComponent<IRateStarProps> {
+export default class Star extends Component<IRateStarProps> {
+  elRef = React.createRef<HTMLLIElement>();
+
   onHover = (e: React.MouseEvent<HTMLLIElement>) => {
     const { onHover, index } = this.props;
     onHover(e, index);
@@ -43,9 +45,10 @@ export default class Star extends PureComponent<IRateStarProps> {
     const { disabled, prefix, character } = this.props;
     return (
       <li
+        ref={this.elRef}
         className={this.getClassName()}
-        onClick={disabled ? null : onClick}
-        onMouseMove={disabled ? null : onHover}
+        onClick={disabled ? undefined : onClick}
+        onMouseMove={disabled ? undefined : onHover}
       >
         <div className={`${prefix}-rate-star-first`}>{character}</div>
         <div className={`${prefix}-rate-star-second`}>{character}</div>

@@ -7,27 +7,36 @@ import filter from 'lodash-es/filter';
 
 import ColGroup from './ColGroup';
 import {
-  IGridColumn,
   GridSortType,
   IGridOnChangeConfig,
-  GridFixedType,
   IGridScrollDelta,
+  IGridInnerFixedType,
 } from './types';
+import { IGridInnerColumn } from './Grid';
+import Store from './Store';
 
-export interface IGridHeaderProps {
+export interface IGridHeaderProps<Data> {
   prefix: string;
-  columns: IGridColumn[];
+  columns: Array<IGridInnerColumn<Data>>;
   sortType: GridSortType;
-  sortBy: string;
+  defaultSortType?: GridSortType;
+  sortBy?: string;
   onChange: (config: IGridOnChangeConfig) => void;
-  store: any;
-  fixed: GridFixedType;
-  fixedColumnsHeadRowsHeight: number[];
+  store: Store;
+  fixed?: IGridInnerFixedType;
+  fixedColumnsHeadRowsHeight: Array<number | string>;
   scroll: IGridScrollDelta;
 }
 
-class Header extends PureComponent<IGridHeaderProps, any> {
-  constructor(props) {
+interface IGridHeaderState<Data> {
+  rows: Array<Array<IGridInnerColumn<Data>>>;
+}
+
+class Header<Data> extends PureComponent<
+  IGridHeaderProps<Data>,
+  IGridHeaderState<Data>
+> {
+  constructor(props: IGridHeaderProps<Data>) {
     super(props);
 
     this.state = {
@@ -37,30 +46,35 @@ class Header extends PureComponent<IGridHeaderProps, any> {
 
   unsubscribe: any;
 
-  onSort = (column, props, newSortType) => {
-    const { sortBy } = props;
+  onSort = (column: IGridInnerColumn<Data>, props: IGridHeaderProps<Data>) => {
+    const { sortBy, sortType = '', defaultSortType = 'desc' } = props;
     const name = column.name;
-    let sortType: GridSortType = '';
+    let newSortType: GridSortType;
 
     if (name === sortBy) {
-      if (newSortType === this.props.sortType) {
-        sortType = '';
+      if (sortType === '') {
+        newSortType = defaultSortType;
+      } else if (sortType === defaultSortType) {
+        newSortType = defaultSortType === 'asc' ? 'desc' : 'asc';
       } else {
-        sortType = newSortType;
+        newSortType = '';
       }
     }
 
     if (name !== sortBy) {
-      sortType = newSortType;
+      newSortType = defaultSortType;
     }
 
     this.props.onChange({
       sortBy: name,
-      sortType,
+      sortType: newSortType,
     });
   };
 
-  getChildren = (column, props) => {
+  getChildren = (
+    column: IGridInnerColumn<Data>,
+    props: IGridHeaderProps<Data>
+  ) => {
     const { prefix, sortBy, sortType } = props;
     const cn = classnames(`${prefix}-grid-thead-sort`, {
       [`${prefix}-grid-thead-sort-${sortType}`]:
@@ -69,17 +83,14 @@ class Header extends PureComponent<IGridHeaderProps, any> {
 
     if (column.needSort) {
       return (
-        <div className={`${prefix}-grid-thead-sort-btn`}>
+        <div
+          onClick={() => this.onSort(column, props)}
+          className={`${prefix}-grid-thead-sort-btn`}
+        >
           {column.title}
           <span className={cn}>
-            <span
-              onClick={() => this.onSort(column, props, 'asc')}
-              className="caret-up"
-            />
-            <span
-              onClick={() => this.onSort(column, props, 'desc')}
-              className="caret-down"
-            />
+            <span className="caret-up" />
+            <span className="caret-down" />
           </span>
         </div>
       );
@@ -88,16 +99,16 @@ class Header extends PureComponent<IGridHeaderProps, any> {
   };
 
   getHeaderRows = (
-    props?: any,
-    columns?: any[],
+    passProps?: IGridHeaderProps<Data>,
+    columns?: Array<IGridInnerColumn<Data>>,
     currentRow = 0,
-    rows?: any[]
+    rows: Array<Array<IGridInnerColumn<Data>>> = []
   ) => {
-    props = props || this.props;
+    const props = passProps || this.props;
     const { prefix, columns: propsColumns } = props;
     columns = columns || propsColumns;
 
-    rows = rows || [];
+    rows = rows;
     rows[currentRow] = rows[currentRow] || [];
 
     forEach(columns, (column, index) => {
@@ -152,7 +163,7 @@ class Header extends PureComponent<IGridHeaderProps, any> {
     this.subscribe();
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: IGridHeaderProps<Data>) {
     if (
       nextProps.columns !== this.props.columns ||
       nextProps.sortType !== this.props.sortType ||
@@ -179,7 +190,10 @@ class Header extends PureComponent<IGridHeaderProps, any> {
     return (
       <thead className={`${prefix}-grid-thead`}>
         {map(rows, (row, index) => {
-          const height = fixed && headerHeight ? headerHeight / rowsLen : null;
+          const height =
+            fixed && headerHeight
+              ? (headerHeight as number) / rowsLen
+              : undefined;
           return (
             <tr
               key={index}
@@ -189,7 +203,7 @@ class Header extends PureComponent<IGridHeaderProps, any> {
               }}
             >
               {row.map(props => (
-                <th {...props} />
+                <th {...(props as any)} />
               ))}
             </tr>
           );

@@ -171,6 +171,9 @@ describe('Controlled CheckboxGroup', () => {
         'input'
       );
 
+      expect(
+        'zent-checkbox-wrap zent-checkbox-checked zent-checkbox-disabled'
+      ).toContain('zent-checkbox-disabled');
       expect(appleCheckboxNode.className).toContain('zent-checkbox-disabled');
       expect(bananaCheckboxNode.className).toContain('zent-checkbox-disabled');
 

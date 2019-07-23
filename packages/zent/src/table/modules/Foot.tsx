@@ -126,6 +126,7 @@ export default class Foot extends PureComponent<ITableFootProps> {
               <PaginationComp
                 current={current}
                 total={isNil(total) ? totalItem : total}
+                formatTotal={pageInfo.formatTotal}
                 pageSize={isNil(pageSize) ? limit : pageSize}
                 onChange={onPageChange}
                 pageSizeOptions={pageSizeOptions}

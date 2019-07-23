@@ -382,7 +382,7 @@ class FieldArray extends Component<IFieldArrayProps, IFieldArrayState> {
 
   render() {
     const { component: Comp, ...rest } = this.props;
-    let passableProps = {
+    let passableProps: any = {
       ...rest,
       ref: this.saveWrappedComponent,
       fields: this.getFieldOperations(this._name, this.state.fieldArray),

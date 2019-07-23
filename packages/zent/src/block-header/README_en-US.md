@@ -10,12 +10,11 @@ This is a block header.
 
 ## API
 
-| Property            | Description               | Type             | Default      | Alternative     |
-|------          |------              |------            |--------    |--------   |
-| prefix         | custom prefix           | string          | `'zent'`    |           |
-| className      | custom class name          | string            |   ''    |              |
-| title          | title               | string            |         |              |
-| tooltip        | content of the pop         | node             |          |             |
-| content        | custom content       | node             |            |           |
-| childAlign     | popsition of children | string | `'left'`  | `'left'、'right'` |
-| position       | pop position       | string           | 'top-right' |          |
+| Property     | Description          | Type      | Default     | Alternative |
+| ------------ | -------------------- | --------- | ----------- | ----------- |
+| className    | custom class name    | string    | ''          |             |
+| title        | title                | string    |             |             |
+| tooltip      | content of the pop   | ReactNode |             |             |
+| position     | pop position         | string    | 'top-right' |             |
+| leftContent  | left custom content  | ReactNode |             |             |
+| rightContent | right custom content | ReactNode |             |             |

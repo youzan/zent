@@ -5,12 +5,13 @@ import getWidth from '../utils/getWidth';
 import AbstractRadio from './AbstractRadio';
 import Group from './Group';
 import Button from './RadioButton';
+import { IDisabledContext } from '../disabled';
 
-export class Radio extends AbstractRadio {
+export class Radio<Value> extends AbstractRadio<Value> {
   static Group = Group;
   static Button = Button;
 
-  render() {
+  renderImpl(disabledCtx: IDisabledContext) {
     const {
       className,
       style,
@@ -22,7 +23,7 @@ export class Radio extends AbstractRadio {
       width,
       ...others
     } = this.props;
-    const { checked, disabled, readOnly } = this.getRadioState();
+    const { checked, disabled, readOnly } = this.getRadioState(disabledCtx);
 
     const classString = classNames(className, `${prefix}-radio-wrap`, {
       [`${prefix}-radio-checked`]: !!checked,

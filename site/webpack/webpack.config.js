@@ -1,25 +1,16 @@
 const webpack = require('webpack');
-const HappyPack = require('happypack');
+const Fiber = require('fibers');
+const sass = require('sass');
+const os = require('os');
 const { join, resolve } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
 const createAlias = require('../../packages/zent/createAlias');
-const happyThreadPool = require('./happypack-thread-pool');
 const constants = require('../src/constants');
 
-const {
-  getBabelLoaderOptions,
-  getMarkdownLoaders,
-} = require('./loader.config');
-
 const DEV = process.env.NODE_ENV !== 'production';
-
-const babelLoader = {
-  loader: 'babel-loader',
-  options: getBabelLoaderOptions({ dev: DEV }),
-};
 
 module.exports = {
   mode: process.env.NODE_ENV,
@@ -54,22 +45,105 @@ module.exports = {
         test: /\.s?css$/,
         use: [
           DEV ? 'style-loader' : MiniCssExtractPlugin.loader,
-          'happypack/loader?id=styles',
+          'cache-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+              sourceMap: DEV,
+            },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              sourceMap: DEV,
+            },
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: DEV,
+              implementation: sass,
+              fiber: Fiber,
+            },
+          },
         ],
       },
       {
         test: /\.jsx?$/,
-        // exclude: /node_modules\/(?!transliteration\/)/,
         exclude: /node_modules/,
-        use: 'happypack/loader?id=js',
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true,
+            },
+          },
+        ],
       },
       {
         test: /\.md$/,
-        use: 'happypack/loader?id=md',
+        use: [
+          {
+            loader: 'thread-loader',
+            // loaders with equal options will share worker pools
+            options: {
+              // the number of spawned workers, defaults to (number of cpus - 1) or
+              // fallback to 1 when require('os').cpus() is undefined
+              workers: os.cpus() - 1,
+
+              // number of jobs a worker processes in parallel
+              // defaults to 20
+              workerParallelJobs: 10,
+
+              // additional node.js arguments
+              workerNodeArgs: ['--max-old-space-size=1024'],
+
+              // Allow to respawn a dead worker pool
+              // respawning slows down the entire compilation
+              // and should be set to false for development
+              poolRespawn: !DEV,
+
+              // timeout for killing the worker processes when idle
+              // defaults to 500 (ms)
+              // can be set to Infinity for watching builds to keep workers alive
+              poolTimeout: DEV ? Infinity : 500,
+
+              // number of jobs the poll distributes to the workers
+              // defaults to 200
+              // decrease of less efficient but more fair distribution
+              poolParallelJobs: 50,
+
+              // name of the pool
+              // can be used to create different pools with elsewise identical options
+              name: 'md-pool',
+            },
+          },
+          'babel-loader',
+          {
+            loader: 'react-markdown-doc-loader',
+            options: {
+              jsTemplate: join(__dirname, '../react-template.jstpl'),
+              renderers: {
+                markdown: 'Markdown',
+                style: 'Style',
+                demo: 'Demo',
+              },
+            },
+          },
+          'markdown-doc-loader',
+        ],
       },
       {
         test: /\.tsx?$/,
-        loader: 'awesome-typescript-loader',
+        use: [
+          {
+            loader: 'awesome-typescript-loader',
+            options: {
+              useCache: true,
+            },
+          },
+        ],
       },
     ],
   },
@@ -98,44 +172,6 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: DEV ? '[name].css' : '[name]-[contenthash].css',
       chunkFilename: DEV ? '[id].css' : '[id].[contenthash].css',
-    }),
-
-    new HappyPack({
-      id: 'js',
-      threadPool: happyThreadPool,
-      loaders: [babelLoader],
-    }),
-
-    new HappyPack({
-      id: 'md',
-      threadPool: happyThreadPool,
-      loaders: getMarkdownLoaders(babelLoader),
-    }),
-
-    new HappyPack({
-      id: 'styles',
-      threadPool: happyThreadPool,
-      loaders: [
-        {
-          loader: 'css-loader',
-          options: {
-            importLoaders: 1,
-            sourceMap: DEV,
-          },
-        },
-        {
-          loader: 'postcss-loader',
-          options: {
-            sourceMap: DEV,
-          },
-        },
-        {
-          loader: 'sass-loader',
-          options: {
-            sourceMap: DEV,
-          },
-        },
-      ],
     }),
   ],
 

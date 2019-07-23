@@ -1,5 +1,5 @@
 import React from 'react';
-import Enzyme, { shallow, mount } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import Radio from 'radio';
 
@@ -21,12 +21,22 @@ describe('Radio Section', () => {
    *   children
    */
   it('Radio will render default structure without any props', () => {
-    const wrapper = shallow(<Radio />);
-    expect(wrapper.type()).toBe('label');
-    expect(wrapper.hasClass('zent-radio-wrap')).toBe(true);
-    expect(wrapper.childAt(0).type()).toBe('span');
-    expect(wrapper.childAt(0).hasClass('zent-radio')).toBe(true);
-    expect(wrapper.children().length).toBe(1);
+    const wrapper = mount(<Radio />);
+    expect(wrapper.childAt(0).type()).toBe('label');
+    expect(wrapper.childAt(0).hasClass('zent-radio-wrap')).toBe(true);
+    expect(
+      wrapper
+        .childAt(0)
+        .childAt(0)
+        .type()
+    ).toBe('span');
+    expect(
+      wrapper
+        .childAt(0)
+        .childAt(0)
+        .hasClass('zent-radio')
+    ).toBe(true);
+    expect(wrapper.childAt(0).children().length).toBe(1);
     expect(
       wrapper
         .find('.zent-radio')
@@ -53,16 +63,21 @@ describe('Radio Section', () => {
     ).toBe('radio');
   });
 
-  it('Radio can have custom className, prefix and children', () => {
-    const wrapper = shallow(
-      <Radio className="foo" prefix="bar">
+  it('Radio can have custom className and children', () => {
+    const wrapper = mount(
+      <Radio className="foo">
         <span className="zent-radio-children" />
       </Radio>
     );
-    expect(wrapper.hasClass('bar-radio-wrap')).toBe(true);
-    expect(wrapper.hasClass('foo')).toBe(true);
-    expect(wrapper.childAt(0).hasClass('bar-radio')).toBe(true);
-    expect(wrapper.find('.bar-radio-inner').length).toBe(1);
+    expect(wrapper.childAt(0).hasClass('zent-radio-wrap')).toBe(true);
+    expect(wrapper.childAt(0).hasClass('foo')).toBe(true);
+    expect(
+      wrapper
+        .childAt(0)
+        .childAt(0)
+        .hasClass('zent-radio')
+    ).toBe(true);
+    expect(wrapper.find('.zent-radio-inner').length).toBe(1);
     expect(wrapper.find('.zent-radio-children').length).toBe(1);
   });
 
@@ -77,35 +92,35 @@ describe('Radio Section', () => {
   });
 
   it('Radio can have independent disable and readOnly state', () => {
-    const wrapperD = shallow(<Radio disabled />);
-    const wrapperR = shallow(<Radio readOnly />);
-    expect(wrapperD.hasClass('zent-radio-disabled')).toBe(true);
-    expect(wrapperR.hasClass('zent-radio-disabled')).toBe(true);
+    const wrapperD = mount(<Radio disabled />);
+    const wrapperR = mount(<Radio readOnly />);
+    expect(wrapperD.childAt(0).hasClass('zent-radio-disabled')).toBe(true);
+    expect(wrapperR.childAt(0).hasClass('zent-radio-disabled')).toBe(true);
     expect(wrapperD.find('input').props().disabled).toBe(true);
     expect(wrapperR.find('input').props().readOnly).toBe(true);
   });
 
   it('Radio have independent checked prop (can be number or boolean)', () => {
-    let wrapper = shallow(<Radio checked={0} />);
+    let wrapper = mount(<Radio checked={0} />);
     expect(wrapper.find('input').props().checked).toBe(false);
-    wrapper = shallow(<Radio checked={1} />);
+    wrapper = mount(<Radio checked={1} />);
     expect(wrapper.find('input').props().checked).toBe(true);
-    expect(wrapper.hasClass('zent-radio-checked')).toBe(true);
-    wrapper = shallow(<Radio />);
+    expect(wrapper.childAt(0).hasClass('zent-radio-checked')).toBe(true);
+    wrapper = mount(<Radio />);
     expect(wrapper.find('input').props().checked).toBe(false);
-    wrapper = shallow(<Radio checked />);
+    wrapper = mount(<Radio checked />);
     expect(wrapper.find('input').props().checked).toBe(true);
-    expect(wrapper.hasClass('zent-radio-checked')).toBe(true);
+    expect(wrapper.childAt(0).hasClass('zent-radio-checked')).toBe(true);
   });
 
   it('Radio can have custom style which loaded on wrapper', () => {
     const styleObj = { color: 'red' };
-    const wrapper = shallow(<Radio style={styleObj} />);
+    const wrapper = mount(<Radio style={styleObj} />);
     expect(wrapper.find('.zent-radio-wrap').props().style).toEqual(styleObj);
   });
 
   it('Radio can pass custom prop to the input element', () => {
-    const wrapper = shallow(<Radio foo="bar" bar="foo" />);
+    const wrapper = mount(<Radio foo="bar" bar="foo" />);
     expect(wrapper.find('input').props().foo).toBe('bar');
     expect(wrapper.find('input').props().bar).toBe('foo');
   });
@@ -132,7 +147,7 @@ describe('Radio Section', () => {
 
 describe('RadioGroup Section', () => {
   it('RadioGroup will render an empty div without any children', () => {
-    const wrapper = shallow(<Group />);
+    const wrapper = mount(<Group />);
     expect(
       wrapper.contains(<div className="zent-radio-group" style={{}} />)
     ).toBe(true);
@@ -142,7 +157,7 @@ describe('RadioGroup Section', () => {
     const styleObj = {
       color: 'red',
     };
-    const wrapper = shallow(
+    const wrapper = mount(
       <Group className="foo" prefix="bar" style={styleObj} />
     );
     expect(wrapper.find('.bar-radio-group').length).toBe(1);

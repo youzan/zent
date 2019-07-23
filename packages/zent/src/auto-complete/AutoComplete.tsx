@@ -4,14 +4,14 @@
 import * as React from 'react';
 import { Component } from 'react';
 import cn from 'classnames';
-import * as keycode from 'keycode';
-import isUndefined from 'lodash-es/isUndefined';
+import { Omit } from 'utility-types';
 
 import memoize from '../utils/memorize-one';
-import Input from '../input';
+import Input, { IInputChangeEvent } from '../input';
 import Popover from '../popover';
 import SelectMenu, { ISelectMenuItem } from '../select-menu';
-import { Omit } from 'utility-types';
+
+import { DisabledContext, IDisabledContext } from '../disabled';
 
 const { caselessMatchFilterOption } = SelectMenu;
 
@@ -29,14 +29,14 @@ export type IAutoCompleteMenuItem =
   | number
   | IAutoCompleteMenuObjectItem;
 
-export interface IAutoCompleteProps {
-  value?: unknown;
-  initialValue?: any;
+export interface IAutoCompleteProps<Value> {
+  value?: Value;
+  initialValue?: Value;
   placeholder?: string;
   data?: IAutoCompleteMenuItem[];
   items?: IAutoCompleteMenuItem[];
-  onChange?: (value: string) => void;
-  onSelect?: (value: string) => void;
+  onChange?: (value: string | null) => void;
+  onSelect?: (value: string | null) => void;
   onSearch?: (searchText: string) => void;
   filterOption?: (
     searchText: string,
@@ -51,7 +51,6 @@ export interface IAutoCompleteProps {
   contentField: string;
   textField: string;
   disabled?: boolean;
-  children?: any;
 }
 
 export interface IAutoCompleteState {
@@ -60,8 +59,8 @@ export interface IAutoCompleteState {
   searchText: string;
 }
 
-export class AutoComplete extends Component<
-  IAutoCompleteProps,
+export class AutoComplete<Value> extends Component<
+  IAutoCompleteProps<Value>,
   IAutoCompleteState
 > {
   static defaultProps = {
@@ -73,10 +72,13 @@ export class AutoComplete extends Component<
     textField: 'text',
   };
 
+  static contextType = DisabledContext;
+  context!: IDisabledContext;
+
   blurHandlerPrevented = false;
   refMenuItemList = React.createRef<SelectMenu>();
 
-  constructor(props) {
+  constructor(props: IAutoCompleteProps<Value>) {
     super(props);
 
     this.state = {
@@ -86,19 +88,19 @@ export class AutoComplete extends Component<
     };
   }
 
-  static getDerivedStateFromProps(
-    props: IAutoCompleteProps,
+  static getDerivedStateFromProps<Value>(
+    props: IAutoCompleteProps<Value>,
     state: IAutoCompleteState
   ) {
     const { value } = props;
-    return isUndefined(value) || state.value === value
+    return value === undefined || state.value === value
       ? null
       : {
           value: props.value,
         };
   }
 
-  onSearchTextChange = e => {
+  onSearchTextChange = (e: IInputChangeEvent) => {
     const searchText = e.target.value;
     const value = this.props.valueFromOptions
       ? this.getSelectedValueFromSearchText(searchText)
@@ -116,28 +118,28 @@ export class AutoComplete extends Component<
     this.props.onChange && this.props.onChange(value);
   };
 
-  onSearchKeyDown = e => {
-    switch (keycode(e)) {
-      case 'esc':
+  onSearchKeyDown: React.KeyboardEventHandler<HTMLInputElement> = e => {
+    switch (e.key) {
+      case 'Esc':
         this.close();
         break;
-      case 'tab':
+      case 'Tab':
         this.close();
         break;
-      case 'down':
+      case 'Down':
         e.preventDefault();
         if (this.state.open) {
           this.moveFocusIndexDown();
         }
         break;
-      case 'up': {
+      case 'Up': {
         e.preventDefault();
         if (this.state.open) {
           this.moveFocusIndexUp();
         }
         break;
       }
-      case 'enter': {
+      case 'Enter': {
         if (this.state.open) {
           this.selectCurrentFocusIndex(e);
         }
@@ -169,7 +171,7 @@ export class AutoComplete extends Component<
     }
   };
 
-  getSelectedValueFromSearchText = searchText => {
+  getSelectedValueFromSearchText = (searchText: string) => {
     let selectedValue = null;
     this.getTransformedItemConfigsFromProps().some(item => {
       if (
@@ -185,7 +187,7 @@ export class AutoComplete extends Component<
     return selectedValue;
   };
 
-  onSelect = value => {
+  onSelect = (value: string) => {
     this.blurHandlerPrevented = true; // ugly way to prevent blur handler
     this.setState({
       value,
@@ -213,7 +215,7 @@ export class AutoComplete extends Component<
       items?: IAutoCompleteMenuItem[],
       data?: IAutoCompleteMenuItem[]
     ): IAutoCompleteMenuObjectItem[] => {
-      return (items || data || []).map(item => {
+      return (items || data || []).map((item: any) => {
         if (typeof item === 'string' || typeof item === 'number') {
           return {
             value: item,
@@ -257,7 +259,7 @@ export class AutoComplete extends Component<
   getDisplayText = (): string => {
     const { value } = this.state;
     let displayValue = value || '';
-    const item = this.getItemByValue(value);
+    const item = this.getItemByValue(value) as any;
     if (item) {
       if (typeof item.searchContent === 'string') {
         displayValue = item.searchContent;
@@ -305,9 +307,9 @@ export class AutoComplete extends Component<
    * @returns {*}
    * @private
    */
-  iterateItems = (items, value) => {
+  iterateItems = (items: any, value: any) => {
     let result = null;
-    (items || []).some(item => {
+    (items || []).some((item: any) => {
       if (item && item.value === value) {
         result = item;
         return true;
@@ -323,7 +325,7 @@ export class AutoComplete extends Component<
    * @param value
    * @private
    */
-  getItemByValue = value =>
+  getItemByValue = (value: any) =>
     this.iterateItems(this.getTransformedItemConfigsFromProps(), value);
 
   moveFocusIndexDown = () => {
@@ -341,7 +343,7 @@ export class AutoComplete extends Component<
     }
   };
 
-  selectCurrentFocusIndex = e => {
+  selectCurrentFocusIndex = (e: any) => {
     const menuList = this.refMenuItemList.current;
 
     if (menuList) {
@@ -355,7 +357,7 @@ export class AutoComplete extends Component<
       placeholder,
       className,
       popupClassName,
-      disabled,
+      disabled = this.context.value,
     } = this.props;
     const { open, searchText } = this.state;
     const items = this.getTransformedItemConfigsFromProps();
@@ -377,7 +379,7 @@ export class AutoComplete extends Component<
       >
         <Popover.Trigger.Click>
           <Input
-            className={cn('btn', {
+            className={cn({
               active: open,
             })}
             value={(open ? searchText : displayValue) || ''}
@@ -394,8 +396,8 @@ export class AutoComplete extends Component<
             items={items}
             value={this.state.value}
             searchText={this.state.searchText}
-            onSelect={this.onSelect}
-            filterOption={this.props.filterOption}
+            onSelect={this.onSelect as any}
+            filterOption={this.props.filterOption as any}
             onRequestClose={this.close}
           />
         </Popover.Content>

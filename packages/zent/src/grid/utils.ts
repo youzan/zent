@@ -1,4 +1,10 @@
-function setRowSpan(column, rows, currentRow) {
+import { IGridInnerColumn } from './Grid';
+
+function setRowSpan<Data>(
+  column: IGridInnerColumn<Data>,
+  rows: Array<Array<IGridInnerColumn<Data>>>,
+  currentRow: number
+) {
   const rowSpan = rows.length - currentRow;
   if (
     column &&
@@ -10,15 +16,15 @@ function setRowSpan(column, rows, currentRow) {
   }
 }
 
-export function groupedColumns(
-  columns,
+export function groupedColumns<Data>(
+  columns: Array<IGridInnerColumn<Data>>,
   currentRow = 0,
-  parentColumn: any = {},
-  rows = []
+  parentColumn: IGridInnerColumn<Data> = {} as IGridInnerColumn<Data>,
+  rows: Array<Array<IGridInnerColumn<Data>>> = []
 ) {
   // track how many rows we got
   rows[currentRow] = rows[currentRow] || [];
-  const grouped = [];
+  const grouped: Array<IGridInnerColumn<Data>> = [];
   columns.forEach((column, index) => {
     const newColumn = { ...column };
     rows[currentRow].push(newColumn);
@@ -33,7 +39,7 @@ export function groupedColumns(
         newColumn,
         rows
       );
-      parentColumn.colSpan += newColumn.colSpan;
+      parentColumn.colSpan += newColumn.colSpan as number;
     } else {
       parentColumn.colSpan++;
     }
@@ -50,8 +56,8 @@ export function groupedColumns(
   return grouped;
 }
 
-export function getLeafColumns(columns) {
-  const leafColumns = [];
+export function getLeafColumns<Data>(columns: Array<IGridInnerColumn<Data>>) {
+  const leafColumns: Array<IGridInnerColumn<Data>> = [];
   columns.forEach(column => {
     if (!column.children) {
       leafColumns.push(column);

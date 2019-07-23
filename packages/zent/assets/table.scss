@@ -64,7 +64,6 @@ $blue: $theme-primary-4;
         width: 10px;
         height: 17px;
         display: inline-block;
-        visibility: hidden;
         vertical-align: middle;
         margin-left: 4px;
       }
@@ -109,6 +108,8 @@ $blue: $theme-primary-4;
       }
 
       &--active {
+        cursor: pointer;
+
         .sort-col-icon {
           visibility: visible;
         }
@@ -238,7 +239,7 @@ $blue: $theme-primary-4;
 
     &.cell--money,
     &.cell--end {
-      justify-content: end;
+      justify-content: flex-end;
 
       .cell__child-container {
         text-align: right;
@@ -246,7 +247,7 @@ $blue: $theme-primary-4;
     }
 
     &.cell--start {
-      justify-content: start;
+      justify-content: flex-start;
 
       .cell__child-container {
         text-align: left;

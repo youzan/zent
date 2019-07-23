@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react';
-import setClass from 'classnames';
+import cx from 'classnames';
+import { DisabledContext, IDisabledContext } from '../disabled';
 
 export interface ISwitchProps {
   checked?: boolean;
@@ -9,46 +10,49 @@ export interface ISwitchProps {
   checkedText?: string;
   uncheckedText?: string;
   loading?: boolean;
-  size?: 'default' | 'small';
+  size: 'default' | 'small';
   className?: string;
-  prefix?: string;
 }
 
 export class Switch extends Component<ISwitchProps> {
   static defaultProps = {
     size: 'default',
     prefix: 'zent',
-    className: '',
-    disabled: false,
-    loading: false,
-    checked: false,
-    onChange() {},
   };
+
+  static contextType = DisabledContext;
+  context!: IDisabledContext;
 
   // 处理点击事件，直接执行外部onChange方法
   toggle = () => {
     const { onChange, checked } = this.props;
-    onChange(!checked);
+    onChange && onChange(!checked);
   };
 
   render() {
-    const { className, size, disabled, loading, prefix, checked } = this.props;
+    const {
+      className,
+      size,
+      disabled = this.context.value,
+      loading,
+      checked,
+    } = this.props;
     const switchDisabled = disabled || loading;
-    const classNames = setClass(
+    const classNames = cx(
       {
-        [`${prefix}-switch-${size}`]: size !== 'default',
-        [`${prefix}-switch-disabled`]: switchDisabled,
-        [`${prefix}-switch-loading`]: loading,
-        [`${prefix}-switch-checked`]: checked,
+        [`zent-switch-${size}`]: size !== 'default',
+        'zent-switch-disabled': switchDisabled,
+        'zent-switch-loading': loading,
+        'zent-switch-checked': checked,
       },
-      `${prefix}-switch`,
+      'zent-switch',
       className
     );
 
     return (
       <div
         className={classNames}
-        onClick={switchDisabled ? null : this.toggle}
+        onClick={switchDisabled ? undefined : this.toggle}
       />
     );
   }

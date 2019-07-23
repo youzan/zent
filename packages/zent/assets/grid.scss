@@ -116,6 +116,10 @@ $border-color: $theme-stroke-6;
 
     &-sort {
       position: relative;
+
+      &-btn {
+        cursor: pointer;
+      }
     }
 
     &-sort-desc,
@@ -160,7 +164,8 @@ $border-color: $theme-stroke-6;
 
   &-fixed-left {
     left: 0;
-    box-shadow: $shadow-spec-layer;
+    // FIXME: 为了让fix住的部分底部阴影去除
+    box-shadow: 6px 0 6px -4px rgba($theme-stroke-4, 0.5);
 
     .zent-grid-header .zent-grid-table {
       border-right: 0;
@@ -180,7 +185,8 @@ $border-color: $theme-stroke-6;
 
   &-fixed-right {
     right: 0;
-    box-shadow: $shadow-spec-layer;
+    // FIXME: 为了让fix住的部分底部阴影去除
+    box-shadow: -6px 0 6px -4px rgba($theme-stroke-4, 0.5);
 
     .zent-grid-header .zent-grid-table {
       border-left: 0;
@@ -238,7 +244,7 @@ $border-color: $theme-stroke-6;
 
     &__expanded {
       td {
-        padding: 16px 10px;
+        padding: 10px 12px;
         word-break: break-all;
         background-color: $theme-stroke-8;
       }
@@ -252,18 +258,26 @@ $border-color: $theme-stroke-6;
     box-sizing: border-box;
     box-shadow: inset 0 -1px 0 0 $theme-stroke-6;
     vertical-align: middle;
+
+    &:first-child {
+      padding: 10px 12px 10px 16px;
+    }
+
+    &:last-child {
+      padding: 10px 16px 10px 12px;
+    }
   }
 
   &-th {
     line-height: 20px;
-    padding: 18px 16px;
+    padding: 10px 12px;
     font-weight: 500;
     background-color: $theme-stroke-8;
   }
 
   &-td {
     line-height: 20px;
-    padding: 8px 16px;
+    padding: 10px 12px;
 
     .zent-grid-expandable-btn {
       cursor: pointer;
@@ -279,11 +293,15 @@ $border-color: $theme-stroke-6;
       &.zent-grid-expand-btn::after {
         content: '+';
         box-sizing: border-box;
+        width: 8px;
+        display: inline-block;
       }
 
       &.zent-grid-collapse-btn::after {
         content: '-';
         box-sizing: border-box;
+        width: 8px;
+        display: inline-block;
       }
     }
   }

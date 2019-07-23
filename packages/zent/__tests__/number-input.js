@@ -1,5 +1,5 @@
 import React from 'react';
-import Enzyme, { shallow, mount, render } from 'enzyme';
+import Enzyme, { mount, render } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import NumberInput from 'number-input';
 
@@ -18,13 +18,8 @@ describe('NumberInput', () => {
   });
 
   it('can have custom wrapper classNames', () => {
-    const wrapper = shallow(<NumberInput className="foo" />);
+    const wrapper = mount(<NumberInput className="foo" />);
     expect(wrapper.hasClass('foo')).toBe(true);
-  });
-
-  it('can have custom prefix of classNames', () => {
-    const wrapper = shallow(<NumberInput prefix="foo" />);
-    expect(wrapper.hasClass('foo-number-input')).toBe(true);
   });
 
   it('change value is - or + ', () => {
@@ -82,7 +77,7 @@ describe('NumberInput', () => {
     expect(onChangeMock.mock.calls.length).toBe(3);
     wrapper.find('input').simulate('blur');
     expect(onBlurMock.mock.calls.length).toBe(1);
-    wrapper.find('input').simulate('keyDown', { keyCode: 13 });
+    wrapper.find('input').simulate('keyDown', { key: 'Enter' });
     expect(onPressEnter.mock.calls.length).toBe(1);
     wrapper.setProps({ value: 4 });
     expect(wrapper.state('value')).toBe('4');

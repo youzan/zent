@@ -1,10 +1,25 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
 import includes from 'lodash-es/includes';
-import Checkbox from '../checkbox';
+import Checkbox, { ICheckboxProps } from '../checkbox';
+import Store from './Store';
 
-class SelectionCheckbox extends PureComponent<any, any> {
-  constructor(props) {
+interface IGridSelctionCheckboxProps {
+  disabled?: boolean;
+  rowIndex: number | string;
+  store: Store;
+  onChange: ICheckboxProps<boolean>['onChange'];
+}
+
+interface IGridSelctionCheckboxState {
+  checked: boolean;
+}
+
+class SelectionCheckbox extends PureComponent<
+  IGridSelctionCheckboxProps,
+  IGridSelctionCheckboxState
+> {
+  constructor(props: IGridSelctionCheckboxProps) {
     super(props);
 
     this.state = {
@@ -12,7 +27,7 @@ class SelectionCheckbox extends PureComponent<any, any> {
     };
   }
 
-  unsubscribe: any;
+  unsubscribe?: () => void;
 
   subscribe = () => {
     const { store } = this.props;
@@ -24,7 +39,7 @@ class SelectionCheckbox extends PureComponent<any, any> {
     });
   };
 
-  getCheckState = props => {
+  getCheckState = (props: IGridSelctionCheckboxProps) => {
     const { store, rowIndex } = props;
     return includes(store.getState('selectedRowKeys'), rowIndex);
   };
@@ -33,7 +48,10 @@ class SelectionCheckbox extends PureComponent<any, any> {
     this.subscribe();
   }
 
-  componentWillReceiveProps(nextProps, nextState) {
+  componentWillReceiveProps(
+    nextProps: IGridSelctionCheckboxProps,
+    nextState: IGridSelctionCheckboxState
+  ) {
     const checked = this.getCheckState(nextProps);
     if (checked !== nextState.checked) {
       this.setState({ checked });

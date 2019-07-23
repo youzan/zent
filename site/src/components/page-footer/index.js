@@ -59,7 +59,7 @@ export default class PageFooter extends Component {
           </li>
           <li className="page-footer__item">
             <a
-              href="https://github.com/youzan/zanui-weapp"
+              href="https://github.com/youzan/vant-weapp"
               className="page-footer__link"
             >
               {TEXT[i18n].weapp}

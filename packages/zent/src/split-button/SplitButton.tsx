@@ -8,18 +8,19 @@ import Button from '../button';
 import Popover from '../popover';
 import Menu from '../menu';
 import Icon from '../icon';
+import { DisabledContext, IDisabledContext } from '../disabled';
 
 const { MenuItem } = Menu;
 
-export interface ISplitButtonProps {
+export interface ISplitButtonProps<Value> {
   type?: 'default' | 'primary' | 'danger' | 'success';
   size?: 'medium' | 'large' | 'small';
   disabled?: boolean;
   loading?: boolean;
-  dropdownData?: any[];
+  dropdownData: Value[];
   dropdownTrigger?: 'click' | 'hover';
-  dropdownText?: string;
-  dropdownValue?: string;
+  dropdownText: keyof Value;
+  dropdownValue: keyof Value;
   dropdownPosition?:
     | 'left-top'
     | 'left-center'
@@ -45,20 +46,20 @@ export interface ISplitButtonProps {
   onSelect?: (key: string) => void;
 }
 
-export class SplitButton extends Component<ISplitButtonProps> {
+export class SplitButton<Value> extends Component<ISplitButtonProps<Value>> {
   static defaultProps = {
     type: 'default',
     size: 'medium',
-    disabled: false,
-    loading: false,
     dropdownTrigger: 'click',
     dropdownData: [],
     dropdownValue: 'value',
     dropdownText: 'text',
     dropdownPosition: 'auto-bottom-left',
-    className: '',
     prefix: 'zent',
   };
+
+  contextType = DisabledContext;
+  context!: IDisabledContext;
 
   state = {
     isShowDropdown: false,
@@ -77,7 +78,7 @@ export class SplitButton extends Component<ISplitButtonProps> {
     const {
       type,
       size,
-      disabled,
+      disabled = this.context.value,
       loading,
       dropdownTrigger,
       dropdownData,
@@ -92,12 +93,16 @@ export class SplitButton extends Component<ISplitButtonProps> {
 
     const classString = cx(`${prefix}-split-button`, className);
 
-    const trigger = capitalize(dropdownTrigger);
+    const trigger = capitalize(dropdownTrigger) as keyof typeof Popover.Trigger;
 
     const Trigger =
-      disabled || loading ? Popover.Trigger.Base : Popover.Trigger[trigger];
+      disabled || loading
+        ? Popover.Trigger.Base
+        : (Popover.Trigger[trigger] as any);
 
-    const position = upperFirst(camelCase(dropdownPosition));
+    const position = upperFirst(
+      camelCase(dropdownPosition)
+    ) as keyof typeof Popover.Position;
 
     return (
       <div className={classString}>
@@ -115,7 +120,7 @@ export class SplitButton extends Component<ISplitButtonProps> {
           wrapperClassName={cx(`${prefix}-split-button__dropdown-wrapper`)}
           visible={this.state.isShowDropdown}
           onVisibleChange={isShow => this.toggleDropdown(isShow)}
-          position={Popover.Position[position]}
+          position={Popover.Position[position] as any}
           display="inline"
           cushion={5}
         >
@@ -138,7 +143,7 @@ export class SplitButton extends Component<ISplitButtonProps> {
             <Menu onClick={this.handleSelect}>
               {dropdownData.map(item => {
                 return (
-                  <MenuItem key={item[dropdownValue]}>
+                  <MenuItem key={`${item[dropdownValue]}`}>
                     {item[dropdownText]}
                   </MenuItem>
                 );

@@ -4,9 +4,10 @@ import cx from 'classnames';
 import getWidth from '../utils/getWidth';
 
 import AbstractRadio from './AbstractRadio';
+import { IDisabledContext } from '../disabled';
 
-export class RadioButton extends AbstractRadio {
-  render() {
+export class RadioButton<Value> extends AbstractRadio<Value> {
+  renderImpl(disabledCtx: IDisabledContext) {
     const { onRadioChange } = this.context;
     if (!onRadioChange) {
       throw new Error('Radio.Button must be nested within Radio.Group');
@@ -23,7 +24,7 @@ export class RadioButton extends AbstractRadio {
       width,
       ...others
     } = this.props;
-    const { checked, disabled, readOnly } = this.getRadioState();
+    const { checked, disabled, readOnly } = this.getRadioState(disabledCtx);
 
     const classString = cx(className, `${prefix}-radio-button`, {
       [`${prefix}-radio-button--checked`]: !!checked,

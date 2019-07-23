@@ -25,6 +25,7 @@ export type TablePaginationType = 'default' | 'lite';
 export interface ITablePageInfo {
   current?: number;
   total?: number;
+  formatTotal?: (total: number) => React.ReactNode;
   /** @deprecated use total */
   totalItem?: number;
   pageSize?: number;
@@ -50,12 +51,14 @@ export interface ITableChangeConfig {
   pageSize: number;
 }
 
+type TableSortType = 'desc' | 'asc';
 export interface ITableProps {
   columns: ITableColumn[];
   datasets: Array<{}>;
   rowKey?: string;
   sortBy?: string;
-  sortType?: 'desc' | 'asc';
+  sortType?: TableSortType;
+  defaultSortType?: TableSortType;
   onChange?: (conf: ITableChangeConfig) => void;
   emptyLabel?: string;
   selection?: {

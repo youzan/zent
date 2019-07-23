@@ -24,6 +24,7 @@ group: 导航
 | rowKey                   | 每一行的 key, 让 react 提升性能, 并防止出现一系列的问题                                              | string                               | `id`               |         | 否       |
 | sortBy                   | 根据哪一个字段排序, 应该等于 columns 中某一个元素的`key`字段，注意，组件内部不做排序，需要自己实现。 | string                               |                    |         | 否       |
 | sortType                 | 排序方式                                                                                             | string                               | `'desc'`           | `'asc'` | 否       |
+| defaultSortType          | 第一次点击的排序方式               | string                                                                     | `'desc'`                 |        | 否 |
 | onChange                 | 列表发生变化时自动触发的函数，页面筛选、排序均会触发                                                 | func                                 |                    |         | 否       |
 | emptyLabel               | 列表为空时的提示文案                                                                                 | node                                 | `'没有更多数据了'` |         | 否       |
 | selection                | 表格的选择功能配置                                                                                   | object                               |                    |         | 否       |
@@ -33,7 +34,7 @@ group: 导航
 | batchComponents          | 批量操作的组件列表，如何使用，看批量操作的示例                                                       | array[html/function/React Component] | `null`             |         | 否       |
 | batchComponentsAutoFixed | 是否要自动 fix 批量操作                                                                              | bool                                 | `true`             |         | 否       |
 | autoStick                | 是否自动将 head stick 到窗口                                                                         | bool                                 | `false`            |         | 否       |
-| autoScroll               | 是否点击分页自动滚到 table 顶部                                                                      | boll                                 | `false`            |         | 否       |
+| autoScroll               | 是否点击分页自动滚到 table 顶部                                                                      | bool                                | `false`            |         | 否       |
 | className                | 自定义额外类名                                                                                       | string                               | `''`               |         | 否       |
 | prefix                   | 自定义前缀                                                                                           | string                               | `'zent'`           |         | 否       |
 | pageInfo                 | table 对应的分页信息                                                                                 | object                               | `null`             |         | 否       |

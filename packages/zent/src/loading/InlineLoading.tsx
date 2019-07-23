@@ -1,19 +1,19 @@
 import * as React from 'react';
 import cx from 'classnames';
 
-import { IInlineLoadingProps, InlineDefaultProps } from './props';
+import { IInlineLoadingProps } from './props';
 import useDelayed from './hooks/useDelayed';
 import Icon from './components/icons';
 
 export function InlineLoading(props: IInlineLoadingProps) {
   const {
-    loading,
-    delay,
+    loading = false,
+    delay = 0,
     className,
-    icon,
+    icon = 'youzan',
     iconSize,
     iconText,
-    textPosition,
+    textPosition = 'bottom',
   } = props;
 
   const delayed = useDelayed({ loading, delay });
@@ -33,7 +33,5 @@ export function InlineLoading(props: IInlineLoadingProps) {
     </div>
   );
 }
-
-InlineLoading.defaultProps = InlineDefaultProps;
 
 export default InlineLoading;

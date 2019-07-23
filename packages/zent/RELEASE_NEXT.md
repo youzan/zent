@@ -61,7 +61,9 @@
 
 #### `NumberInput`
 
-组件重写，`onChange` 的参数改为字符串。修改了 `onChange` 触发的行为，现在只会在 `onBlur` 或者通过加减按钮修改时触发 `onChange`。
+- 组件完全重写
+- `onChange` 的参数改为字符串，原来是个事件对象
+- 修改了 `onChange` 触发的行为，现在只会在 `onBlur` 或者通过加减按钮修改时触发 `onChange`
 
 #### `Form`
 
@@ -120,9 +122,58 @@ import { Portal, PurePortal } from 'zent'
 - 删除了 `LayeredPortal`，请用 `Portal` 替换。
 - 去除 `onMount` 和 `onUnmount`，使用方直接使用上层组件的 `componentDidMount` 和 `componentWillUnmount` 即可。
 
+#### `Input`
+
+- 重写，API 无不兼容改动
+- CSS 样式层级有变化，样式覆盖需要注意
+- 增加了 `icon` 属性
+
+####  `SearchInput`
+
+- 删除了这个组件，使用 `<input icon="search" />` 代替
+
+#### `BlockHeader`
+
+- 删除 `content` 和 `childAlign`，改用 `leftContent` 和 `rightContent` 来控制左右侧额外展示的内容
+- 不再渲染 `children` 中的内容
+- 整体布局改为 `flex`
+
 #### 源样式
 
 如果之前依赖了 postcss 的源样式，需要改成 sass。
+
+## 7.0.0-next.20(2019-07-11)
+
+- 修复 `Form` 最后一个 `Field` 设置 `validateOnBlur` 为 `false` 时表单校验结果没有更新的问题
+- `Pagination`
+  - 修复 `double` 属性警告
+	- 修复页码输入框触发上层表单提交的问题
+- 修复 `DatePicker` 字体样式
+- 修复在第一次 mount `Portal` 时如果 `selector` 节点不存在的报错问题
+- 修复 `NumberInput` 不传 `value` 时的非必要重绘
+
+## 7.0.0-next.19(2019-06-26)
+
+- 重写 `BlockHeader`，有不兼容改动，详见上面的迁移指南
+- 重写 `Input`，增加 `icon` 支持，样式覆盖可能有兼容问题，详见上面的迁移指南
+- 删除 `SearchInput`，使用 `<input icon="search" />` 代替
+- 修复嵌套 `Portal` 的 `componentDidMount` 时无法获取正确 DOM 信息的问题
+- 回滚 `TypeScript` 到 3.4，3.5 有严重问题
+- 更新 `Upload` 的文案
+- `Pagination` 右对齐
+- 使用 `flex-start` 以及 `flex-end` 替换 `start` 和 `end`
+
+## 7.0.0-next.18(2019-06-24)
+
+- 重排 `primary` 颜色的顺序，从深到浅，自定义主题的需要更新一下主题色顺序([1096](https://github.com/youzan/zent/pull/1096))
+- 修复 `Grid` 类型没导出完全的问题
+- 修复 `ButtonDirective` 默认值问题
+- `Table` 和 `Grid` 增加 `Pagination` 的 `formatTotal` 支持
+- 修复 `Grid` 样式问题
+
+## 7.0.0-next.17(2019-06-24)
+
+内容同 `7.0.0-next.18`，遇到一个 `TypeScript` 的 [bug](https://github.com/microsoft/TypeScript/issues/32057)，已下线，不要使用。
 
 ## 7.0.0-next.16(2019-06-18)
 

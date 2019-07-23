@@ -4,6 +4,7 @@ import cx from 'classnames';
 import AnimateHeight from '../utils/component/AnimateHeight';
 import LazyMount from '../utils/component/LazyMount';
 import { EASE_IN_OUT } from '../utils/timingFunctions';
+import { DisabledContext, IDisabledContext } from '../disabled';
 
 const NO_BOTTOM_BORDER = {
   borderBottomWidth: 0,
@@ -15,7 +16,7 @@ const NO_STYLE = {};
 export interface ICollapsePanelProps {
   title: React.ReactNode;
   disabled?: boolean;
-  showArrow?: boolean;
+  showArrow: boolean;
   style?: React.CSSProperties;
   className?: string;
   prefix?: string;
@@ -29,10 +30,12 @@ export interface ICollapsePanelProps {
 
 export class CollapsePanel extends Component<ICollapsePanelProps> {
   static defaultProps = {
-    disabled: false,
     showArrow: true,
     prefix: 'zent',
   };
+
+  static contextType = DisabledContext;
+  context!: IDisabledContext;
 
   state = {
     animateAppear: !this.props.active,
@@ -44,7 +47,7 @@ export class CollapsePanel extends Component<ICollapsePanelProps> {
       title,
       style,
       active,
-      disabled,
+      disabled = this.context.value,
       prefix,
       showArrow,
       className,
@@ -102,7 +105,12 @@ export class CollapsePanel extends Component<ICollapsePanelProps> {
   }
 
   toggle = () => {
-    const { onChange, panelKey, active, disabled } = this.props;
+    const {
+      onChange,
+      panelKey,
+      active,
+      disabled = this.context.value,
+    } = this.props;
 
     if (!disabled) {
       onChange(panelKey, !active);
@@ -110,7 +118,7 @@ export class CollapsePanel extends Component<ICollapsePanelProps> {
   };
 }
 
-function Arrow({ className }) {
+function Arrow({ className }: { className?: string }) {
   return (
     <svg
       width="16"

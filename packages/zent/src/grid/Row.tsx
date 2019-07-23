@@ -5,8 +5,32 @@ import isFunction from 'lodash-es/isFunction';
 import noop from 'lodash-es/noop';
 import classnames from 'classnames';
 import Cell from './Cell';
+import { IGridInnerColumn } from './Grid';
+import {
+  GridRowClassNameType,
+  IGridRowClickHander,
+  IGridInnerFixedType,
+  IGridScrollDelta,
+} from './types';
 
-class Row extends PureComponent<any, any> {
+interface IGridRowProps<Data> {
+  data: Data;
+  columns: Array<IGridInnerColumn<Data>>;
+  index: number;
+  rowIndex: number;
+  prefix: string;
+  rowClassName?: GridRowClassNameType<Data>;
+  mouseOverRowIndex: number;
+  onRowClick: IGridRowClickHander<Data>;
+  onRowMoverOver: (index: number) => void;
+  fixed?: IGridInnerFixedType;
+  scroll: IGridScrollDelta;
+  fixedColumnsBodyRowsHeight: Array<string | number>;
+  row?: React.ComponentType;
+  rowProps?: (data: Data, index: number) => any;
+}
+
+class Row<Data> extends PureComponent<IGridRowProps<Data>> {
   render() {
     const {
       prefix,
@@ -26,7 +50,7 @@ class Row extends PureComponent<any, any> {
 
     const BodyRow = row || 'tr';
 
-    const cells = [];
+    const cells: React.ReactNode[] = [];
 
     const className = isFunction(rowClassName)
       ? rowClassName(data, rowIndex)
@@ -35,9 +59,9 @@ class Row extends PureComponent<any, any> {
     const height =
       fixed && fixedColumnsBodyRowsHeight[rowIndex]
         ? fixedColumnsBodyRowsHeight[rowIndex]
-        : null;
+        : undefined;
 
-    forEach(columns, (column, columnIndex) => {
+    forEach(columns as Array<IGridInnerColumn<any>>, (column, columnIndex) => {
       const pos = {
         row: rowIndex,
         column: columnIndex,

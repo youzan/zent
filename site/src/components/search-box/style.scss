@@ -7,15 +7,15 @@
     vertical-align: top;
   }
 
-  &-input.zent-search-input {
+  &-input {
     .zenticon-search {
       color: #bbb;
     }
 
-    .zent-input-wrapper {
+    &.zent-input-wrapper {
       border-width: 0 0 1px;
       border-radius: 0;
-      box-shadow: none;
+      box-shadow: none !important; // sass-lint:disable-line no-important
     }
   }
 

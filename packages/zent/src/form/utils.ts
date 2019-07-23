@@ -97,8 +97,10 @@ export function prefixName(zentForm, name) {
 
 export function isFunctional(Component) {
   return (
-    typeof Component !== 'string' &&
-    typeof Component.prototype.render !== 'function'
+    typeof Component === 'function' &&
+    // native arrows don't have prototypes
+    // isReactComponent special property exists on React.Component since React 0.14
+    !(Component.prototype && Component.prototype.isReactComponent)
   );
 }
 

@@ -2,7 +2,6 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Component, createRef } from 'react';
 import noop from 'lodash-es/noop';
-import partial from 'lodash-es/partial';
 import uniqueId from 'lodash-es/uniqueId';
 import { Omit } from 'utility-types';
 
@@ -129,7 +128,10 @@ export function openDialog(options: Partial<IOpenDialogOption> = {}) {
   };
 
   const render = parentComponent
-    ? partial(ReactDOM.unstable_renderSubtreeIntoContainer, parentComponent)
+    ? ReactDOM.unstable_renderSubtreeIntoContainer.bind(
+        ReactDOM,
+        parentComponent
+      )
     : ReactDOM.render;
 
   const ref = createRef<StandaloneDialog>();

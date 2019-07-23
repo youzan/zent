@@ -19,6 +19,7 @@ group: Navigation
 | rowKey                   | Key of each row                                                                                            | string                               | `id`        |              | no       |
 | sortBy                   | Field which used to sort, should be one element's key of columns. Note: you have to sort data by yourself. | string                               |             |              | no       |
 | sortType                 | Sort order                                                                                                 | string                               | `'desc'`    | `'asc'`      | no       |
+| defaultSortType          | The way to sort when first click                                                                           | string                               | `'desc'`    |              | No       |
 | onChange                 | Change callback                                                                                            | func                                 |             |              | no       |
 | emptyLabel               | Prompt text when list is empty                                                                             | node                                 | `'No data'` |              | no       |
 | selection                | Form selection function configuration                                                                      | object                               |             |              | no       |
@@ -28,7 +29,7 @@ group: Navigation
 | batchComponents          | List for batch operations                                                                                  | array[html/function/React Component] | `null`      | `null`       | no       |
 | batchComponentsAutoFixed | Whether to automatically fix batch operation                                                               | bool                                 | `true`      |              | no       |
 | autoStick                | Whether to stick the head to the window automatically                                                      | bool                                 | `false`     |              | no       |
-| autoScroll               | Whether to click the page automatically scroll to the top of the table                                     | boll                                 | `false`     |              | no       |
+| autoScroll               | Whether to click the page automatically scroll to the top of the table                                     | bool                                 | `false`     |              | no       |
 | className                | Custom classname                                                                                           | string                               | `''`        |              | no       |
 | prefix                   | Custom prefix                                                                                              | string                               | `'zent'`    |              | no       |
 | pageInfo                 | Paging information corresponding to the table                                                              | object                               | `null`      |              | no       |

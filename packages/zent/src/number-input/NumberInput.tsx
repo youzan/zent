@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { PureComponent } from 'react';
 import cx from 'classnames';
 import { Omit } from 'utility-types';
 import Decimal from 'big.js';
 import Icon from '../icon';
-import Input, { IInputProps, IInputChangeEvent } from '../input';
+import Input, { IInputClearEvent, IInputCoreProps } from '../input';
+import { InputContext, IInputContext } from '../input/context';
+import { DisabledContext, IDisabledContext } from '../disabled';
 
 function isDecimal(value: string | number): boolean {
   if (typeof value === 'number') {
@@ -62,13 +63,8 @@ function getCorrectedValue({
   return decimal.toFixed(decimalPlaces);
 }
 
-export interface INumberInputTarget extends INumberInputProps {
-  type: 'number';
-  value: string;
-}
-
 export interface INumberInputProps
-  extends Omit<IInputProps, 'onChange' | 'type' | 'value'> {
+  extends Omit<IInputCoreProps, 'onChange' | 'type' | 'value' | 'onInput'> {
   type: 'number';
   value?: number | string;
   onChange?: (e: string) => void;
@@ -77,7 +73,7 @@ export interface INumberInputProps
   decimal: number;
   min?: number | string;
   max?: number | string;
-  onPressEnter?: React.KeyboardEventHandler<HTMLInputElement>;
+  onInput?: (value: string) => void;
 }
 
 export interface INumberInputState {
@@ -93,14 +89,21 @@ function isValidValue(value: unknown): value is string | number {
   );
 }
 
-export class NumberInput extends PureComponent<
+export class NumberInput extends React.Component<
   INumberInputProps,
   INumberInputState
 > {
   static defaultProps = {
-    prefix: 'zent',
     type: 'number',
     decimal: 0,
+    size: 'normal',
+  };
+
+  static contextType = DisabledContext;
+  context!: IDisabledContext;
+
+  private inputContext: IInputContext = {
+    renderInner: children => this.renderChild(children),
   };
 
   constructor(props: INumberInputProps) {
@@ -143,12 +146,14 @@ export class NumberInput extends PureComponent<
     };
   }
 
-  onChange = (e: React.ChangeEvent<HTMLInputElement> | IInputChangeEvent) => {
+  onChange = (e: IInputClearEvent | React.ChangeEvent<HTMLInputElement>) => {
+    const { onInput } = this.props;
     const { value } = e.target;
     if (isPotentialValue(value) || isDecimal(value)) {
       this.setState({
         value,
       });
+      onInput && onInput(value);
     }
   };
 
@@ -239,23 +244,93 @@ export class NumberInput extends PureComponent<
   }
 
   componentDidMount() {
-    if (this.props.value !== this.state.value) {
+    if ('value' in this.props && this.props.value !== this.state.value) {
       const { onChange } = this.props;
       onChange && onChange(this.state.value);
     }
   }
 
   componentDidUpdate(prevProps: INumberInputProps) {
-    if (this.props !== prevProps && this.state.value !== this.props.value) {
+    if (
+      this.props !== prevProps &&
+      'value' in this.props &&
+      this.state.value !== this.props.value
+    ) {
       const { onChange } = this.props;
       onChange && onChange(this.state.value);
     }
   }
 
+  renderChild(children: React.ReactNode) {
+    const {
+      disabled = this.context.value,
+      readOnly,
+      showCounter,
+      showStepper,
+    } = this.props;
+    const { value } = this.state;
+    const { canDec, canInc } = this.calculateLimit(value);
+    // 箭头状态
+    const addState = disabled || readOnly || !canInc;
+    const reduceState = disabled || readOnly || !canDec;
+    // 上arrow样式
+    const upArrowClass = cx({
+      'zent-number-input-arrow': true,
+      'zent-number-input-arrowup': true,
+      'zent-number-input-arrow-disable': addState,
+    });
+
+    // // 下arrow样式
+    const downArrowClass = cx({
+      'zent-number-input-arrow': true,
+      'zent-number-input-arrowdown': true,
+      'zent-number-input-arrow-disable': reduceState,
+    });
+
+    // // 减号样式
+    const reduceCountClass = cx({
+      'zent-number-input-count': true,
+      'zent-number-input-countreduce': true,
+      'zent-number-input-count-disable': reduceState,
+    });
+
+    // // 加号样式
+    const addCountClass = cx({
+      'zent-number-input-count': true,
+      'zent-number-input-countadd': true,
+      'zent-number-input-count-disable': addState,
+    });
+
+    return (
+      <>
+        {showCounter && (
+          <div className={reduceCountClass} onClick={this.dec}>
+            –
+          </div>
+        )}
+        {children}
+        {showCounter && (
+          <div className={addCountClass} onClick={this.inc}>
+            +
+          </div>
+        )}
+        {showStepper && (
+          <div className={'zent-number-input-arrows'}>
+            <div className={upArrowClass} onClick={this.inc}>
+              <Icon type="right" />
+            </div>
+            <div className={downArrowClass} onClick={this.dec}>
+              <Icon type="right" />
+            </div>
+          </div>
+        )}
+      </>
+    );
+  }
+
   render() {
     verifyProps(this.props);
     const {
-      prefix,
       className,
       disabled,
       readOnly,
@@ -269,98 +344,25 @@ export class NumberInput extends PureComponent<
       min,
       max,
       decimal,
-
-      addonBefore: addonBeforeProp,
-      addonAfter: addonAfterProp,
+      onInput,
 
       ...inputProps
     } = this.props;
     const { value } = this.state;
-    const { canDec, canInc } = this.calculateLimit(value);
-    // 箭头状态
-    const addState = disabled || readOnly || !canInc;
-    const reduceState = disabled || readOnly || !canDec;
-
-    // 上arrow样式
-    const upArrowClass = cx({
-      [`${prefix}-number-input-arrow`]: true,
-      [`${prefix}-number-input-arrowup`]: true,
-      [`${prefix}-number-input-arrow-disable`]: addState,
-    });
-
-    // // 下arrow样式
-    const downArrowClass = cx({
-      [`${prefix}-number-input-arrow`]: true,
-      [`${prefix}-number-input-arrowdown`]: true,
-      [`${prefix}-number-input-arrow-disable`]: reduceState,
-    });
-
-    // // 减号样式
-    const reduceCountClass = cx({
-      [`${prefix}-number-input-count`]: true,
-      [`${prefix}-number-input-countreduce`]: true,
-      [`${prefix}-number-input-count-disable`]: reduceState,
-    });
-
-    // // 加号样式
-    const addCountClass = cx({
-      [`${prefix}-number-input-count`]: true,
-      [`${prefix}-number-input-countadd`]: true,
-      [`${prefix}-number-input-count-disable`]: addState,
-    });
-
-    let addonBefore: React.ReactNode = null;
-    if (addonBeforeProp || showCounter) {
-      addonBefore = (
-        <>
-          {showCounter && (
-            <div className={reduceCountClass} onClick={this.dec}>
-              –
-            </div>
-          )}
-          {addonBeforeProp}
-        </>
-      );
-    }
-
-    let addonAfter: React.ReactNode = null;
-    if (addonAfterProp || showCounter || showStepper) {
-      addonAfter = (
-        <>
-          {addonAfterProp}
-          {showCounter && (
-            <div className={addCountClass} onClick={this.inc}>
-              +
-            </div>
-          )}
-          {showStepper && (
-            <div className={`${prefix}-number-input-arrows`}>
-              <div className={upArrowClass} onClick={this.inc}>
-                <Icon type="right" />
-              </div>
-              <div className={downArrowClass} onClick={this.dec}>
-                <Icon type="right" />
-              </div>
-            </div>
-          )}
-        </>
-      );
-    }
 
     return (
-      <Input
-        autoComplete="off"
-        {...inputProps}
-        prefix={prefix}
-        readOnly={readOnly}
-        disabled={disabled}
-        className={cx(`${prefix}-number-input`, className)}
-        value={value}
-        onChange={this.onChange}
-        onBlur={this.onBlur}
-        addonBefore={addonBefore}
-        addonAfter={addonAfter}
-      />
+      <InputContext.Provider value={this.inputContext}>
+        <Input
+          autoComplete="off"
+          {...inputProps}
+          readOnly={readOnly}
+          disabled={disabled}
+          className={cx('zent-number-input', className)}
+          value={value}
+          onChange={this.onChange}
+          onBlur={this.onBlur}
+        />
+      </InputContext.Provider>
     );
   }
 }
