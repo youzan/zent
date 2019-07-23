@@ -90,7 +90,7 @@ module.exports = {
             options: {
               // the number of spawned workers, defaults to (number of cpus - 1) or
               // fallback to 1 when require('os').cpus() is undefined
-              workers: os.cpus() - 2,
+              workers: os.cpus() - 1,
 
               // number of jobs a worker processes in parallel
               // defaults to 20
