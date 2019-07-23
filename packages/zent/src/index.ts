@@ -24,6 +24,7 @@ export * from './datetimepicker/TimeRangePicker';
 export * from './datetimepicker/WeekPicker';
 export * from './datetimepicker/YearPicker';
 export * from './dialog';
+export * from './disabled';
 export * from './error-boundary';
 export * from './form';
 export * from './grid';

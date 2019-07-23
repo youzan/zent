@@ -18,6 +18,7 @@ import Popup from './Popup';
 import SelectTrigger from './trigger/BaseTrigger';
 import InputTrigger from './trigger/InputTrigger';
 import TagsTrigger from './trigger/TagsTrigger';
+import { DisabledContext, IDisabledContext } from '../disabled';
 
 const { Content } = Popover;
 
@@ -65,18 +66,7 @@ export interface ISelectProps {
 export class Select extends React.Component<ISelectProps, any> {
   static defaultProps = {
     prefix: 'zent',
-    disabled: false,
-    className: '',
     open: false,
-    popupClassName: '',
-    placeholder: '',
-    searchPlaceholder: '',
-    emptyText: '',
-    selectedItem: {
-      value: '',
-      text: '',
-    },
-    selectedItems: [],
     optionValue: 'value',
     optionText: 'text',
     onChange: noop,
@@ -100,6 +90,9 @@ export class Select extends React.Component<ISelectProps, any> {
   static SelectTrigger = SelectTrigger;
   static InputTrigger = InputTrigger;
   static TagsTrigger = TagsTrigger;
+
+  static contextType = DisabledContext;
+  context!: IDisabledContext;
 
   popover: Popover | null = null;
   popup: React.ComponentType<any> | null = null;
@@ -393,7 +386,7 @@ export class Select extends React.Component<ISelectProps, any> {
       maxToShow,
       className,
       popupClassName,
-      disabled,
+      disabled = this.context.value,
       emptyText,
       filter = this.props.onFilter, // TODO: confusing code
       onAsyncFilter,

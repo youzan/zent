@@ -5,6 +5,7 @@ import Decimal from 'big.js';
 import Icon from '../icon';
 import Input, { IInputClearEvent, IInputCoreProps } from '../input';
 import { InputContext, IInputContext } from '../input/context';
+import { DisabledContext, IDisabledContext } from '../disabled';
 
 function isDecimal(value: string | number): boolean {
   if (typeof value === 'number') {
@@ -97,6 +98,9 @@ export class NumberInput extends React.Component<
     decimal: 0,
     size: 'normal',
   };
+
+  static contextType = DisabledContext;
+  context!: IDisabledContext;
 
   private inputContext: IInputContext = {
     renderInner: children => this.renderChild(children),
@@ -258,7 +262,12 @@ export class NumberInput extends React.Component<
   }
 
   renderChild(children: React.ReactNode) {
-    const { disabled, readOnly, showCounter, showStepper } = this.props;
+    const {
+      disabled = this.context.value,
+      readOnly,
+      showCounter,
+      showStepper,
+    } = this.props;
     const { value } = this.state;
     const { canDec, canInc } = this.calculateLimit(value);
     // 箭头状态

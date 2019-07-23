@@ -2,42 +2,44 @@ import * as React from 'react';
 import { Component } from 'react';
 import classNames from 'classnames';
 import noop from 'lodash-es/noop';
-import eq from 'lodash-es/eq';
 
 import memoize from '../utils/memorize-one';
 import GroupContext from './GroupContext';
 import { IRadioEvent } from './AbstractRadio';
+import { DisabledContext, IDisabledContext } from '../disabled';
 
 const GroupContextProvider = GroupContext.Provider;
 
-export interface IRadioGroupProps {
-  value: unknown;
-  disabled: boolean;
+export interface IRadioGroupProps<Value> {
+  value: Value;
+  disabled?: boolean;
   readOnly: boolean;
-  onChange: (e: IRadioEvent) => void;
-  isValueEqual: (value1: unknown, value2: unknown) => boolean;
+  onChange: (e: IRadioEvent<Value>) => void;
+  isValueEqual: (value1: Value, value2: Value) => boolean;
   className?: string;
   prefix?: string;
   style?: React.CSSProperties;
 }
 
-export class RadioGroup extends Component<IRadioGroupProps> {
+export class RadioGroup<Value> extends Component<IRadioGroupProps<Value>> {
   static defaultProps = {
     prefix: 'zent',
     className: '',
     style: {},
-    disabled: false,
     readOnly: false,
-    isValueEqual: eq,
+    isValueEqual: Object.is,
     onChange: noop,
   };
+
+  static contextType = DisabledContext;
+  context!: IDisabledContext;
 
   getGroupContext = memoize(
     (
       value: unknown,
-      disabled: boolean,
+      disabled: boolean | undefined,
       readOnly: boolean,
-      isValueEqual: (value1: unknown, value2: unknown) => boolean
+      isValueEqual: (value1: Value, value2: Value) => boolean
     ) => ({
       value,
       disabled,
@@ -47,14 +49,14 @@ export class RadioGroup extends Component<IRadioGroupProps> {
     })
   );
 
-  onRadioChange = (e: IRadioEvent) => {
+  onRadioChange = (e: IRadioEvent<Value>) => {
     this.props.onChange(e);
   };
 
   render() {
     const {
       value,
-      disabled,
+      disabled = this.context.value,
       readOnly,
       isValueEqual,
       className,
