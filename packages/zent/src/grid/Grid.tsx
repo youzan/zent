@@ -697,7 +697,7 @@ export class Grid<Data = any> extends PureComponent<
     }
   };
 
-  handleSelect = (data: Data, rowIndex: string, e: ICheckboxEvent) => {
+  handleSelect = (data: Data, rowIndex: string, e: ICheckboxEvent<boolean>) => {
     const checked = e.target.checked;
 
     let selectedRowKeys = this.store.getState('selectedRowKeys');
@@ -766,7 +766,7 @@ export class Grid<Data = any> extends PureComponent<
             disabled={props.disabled}
             rowIndex={rowIndex}
             store={this.store}
-            onChange={(e: ICheckboxEvent) =>
+            onChange={(e: ICheckboxEvent<boolean>) =>
               this.handleSelect(data, this.getDataKey(data, row), e)
             }
           />

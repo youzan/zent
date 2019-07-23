@@ -16,7 +16,7 @@ export default class LazyMount extends Component<
     mount: false,
   };
 
-  constructor(props) {
+  constructor(props: ILazyMountProps) {
     super(props);
 
     this.state = {
@@ -31,13 +31,16 @@ export default class LazyMount extends Component<
     return mounted ? children : null;
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { mount } = nextProps;
-    const { mounted } = this.state;
-    if (mount && !mounted) {
-      this.setState({
+  static getDerivedStateFromProps(
+    props: ILazyMountProps,
+    state: ILazyMountState
+  ) {
+    if (props.mount && !state.mounted) {
+      return {
         mounted: true,
-      });
+      };
     }
+
+    return null;
   }
 }

@@ -9,7 +9,7 @@ import WindowResizeHandler from '../utils/component/WindowResizeHandler';
 import Icon from '../icon';
 import SwiperDots from './SwiperDots';
 
-function setStyle(target, styles) {
+function setStyle(target: any, styles: any) {
   const { style } = target;
 
   Object.keys(styles).forEach(attribute => {
@@ -24,14 +24,20 @@ export interface ISwiperProps {
   autoplay?: boolean;
   autoplayInterval?: number;
   dots?: boolean;
-  dotsColor?: string;
+  dotsColor: string;
   dotsSize?: 'normal' | 'small' | 'large';
   arrows?: boolean;
   arrowsType?: 'dark' | 'light';
-  onChange?: (current: number, prev: number) => void;
+  onChange?: (current: number, prev: number | null) => void;
+  children?: React.ReactNode;
 }
 
-export class Swiper extends Component<ISwiperProps> {
+export interface ISwiperState {
+  currentIndex: number;
+  prevProps?: ISwiperProps;
+}
+
+export class Swiper extends Component<ISwiperProps, ISwiperState> {
   static defaultProps = {
     className: '',
     prefix: 'zent',
@@ -45,17 +51,17 @@ export class Swiper extends Component<ISwiperProps> {
     arrowsType: 'dark',
   };
 
-  swiper: HTMLDivElement;
-  swiperContainer: HTMLDivElement;
-  swiperWidth: number;
-  autoplayTimer: number;
-  isSwiping: boolean;
+  swiper!: HTMLDivElement;
+  swiperContainer!: HTMLDivElement;
+  swiperWidth!: number;
+  autoplayTimer?: number;
+  isSwiping!: boolean;
 
   state = {
     currentIndex: 0,
   };
 
-  init = (isResetToOrigin: any = false) => {
+  init = (isResetToOrigin = false) => {
     const { autoplay, children } = this.props;
     const { currentIndex } = this.state;
     const childrenCount = Children.count(children);
@@ -81,11 +87,11 @@ export class Swiper extends Component<ISwiperProps> {
     }
   };
 
-  getSwiper = swiper => {
+  getSwiper = (swiper: HTMLDivElement) => {
     this.swiper = swiper;
   };
 
-  getSwiperContainer = swiperContainer => {
+  getSwiperContainer = (swiperContainer: HTMLDivElement) => {
     this.swiperContainer = swiperContainer;
   };
 
@@ -103,7 +109,7 @@ export class Swiper extends Component<ISwiperProps> {
 
   clearAutoplay = () => {
     clearInterval(this.autoplayTimer);
-    this.autoplayTimer = null;
+    this.autoplayTimer = undefined;
   };
 
   next = () => {
@@ -119,7 +125,7 @@ export class Swiper extends Component<ISwiperProps> {
     this.swipeTo(currentIndex - 1);
   };
 
-  swipeTo = index => {
+  swipeTo = (index: number) => {
     // 当动画进行时禁用用户的切换操作
     if (this.isSwiping) {
       return;
@@ -128,7 +134,11 @@ export class Swiper extends Component<ISwiperProps> {
     this.setState({ currentIndex: index });
   };
 
-  translate = (currentIndex, prevIndex, isSilent) => {
+  translate = (
+    currentIndex: number,
+    prevIndex: number | null,
+    isSilent?: boolean
+  ) => {
     const { transitionDuration, onChange } = this.props;
     const { length } = this.props.children as any;
     const initIndex = -1;
@@ -154,7 +164,7 @@ export class Swiper extends Component<ISwiperProps> {
     onChange && onChange(currentIndex, this.getRealPrevIndex(prevIndex));
   };
 
-  resetPosition = currentIndex => {
+  resetPosition = (currentIndex: number) => {
     const { transitionDuration } = this.props;
     const { length } = this.props.children as any;
 
@@ -177,8 +187,12 @@ export class Swiper extends Component<ISwiperProps> {
     }
   };
 
-  getRealPrevIndex = index => {
+  getRealPrevIndex = (index: number | null) => {
     const { length } = this.props.children as any;
+
+    if (index === null) {
+      return null;
+    }
 
     if (index > length - 1) {
       return length - 1;
@@ -191,7 +205,7 @@ export class Swiper extends Component<ISwiperProps> {
     return index;
   };
 
-  cloneChildren = children => {
+  cloneChildren = (children?: React.ReactNode) => {
     const length = Children.count(children);
 
     if (length <= 1) {
@@ -221,46 +235,58 @@ export class Swiper extends Component<ISwiperProps> {
     autoplay && this.startAutoplay();
   };
 
-  handleDotsClick = index => {
+  handleDotsClick = (index: number) => {
     this.setState({ currentIndex: index });
   };
 
-  handleResize = throttle(this.init, 1000 / 60);
+  handleResize: any = throttle(this.init, 1000 / 60);
 
-  componentWillReceiveProps(nextProps) {
-    const { children } = this.props;
-    const { children: newChildren } = nextProps;
-
-    if (Children.count(children) !== Children.count(newChildren)) {
-      this.setState(
-        {
-          currentIndex: 0,
-        },
-        () => {
-          // 当从两个子元素删除到一个时特殊处理位移动画
-          const isTwoToOneCase =
-            Children.count(children) === 2 && Children.count(newChildren) === 1;
-          this.init(isTwoToOneCase);
-        }
-      );
+  static getDerivedStateFromProps(
+    props: ISwiperProps,
+    state: ISwiperState
+  ): Partial<ISwiperState> | null {
+    if (!state.prevProps) {
+      return {
+        prevProps: props,
+      };
     }
+
+    const { children: newChildren } = props;
+    const { children } = state.prevProps;
+    if (Children.count(children) !== Children.count(newChildren)) {
+      return {
+        currentIndex: 0,
+        prevProps: props,
+      };
+    }
+
+    return null;
   }
 
   componentDidMount() {
     this.init();
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps: ISwiperProps, prevState: ISwiperState) {
     const { length } = this.props.children as any;
     const { currentIndex } = this.state;
     const prevIndex = prevState.currentIndex;
     // isSilent表示静默地做一次位移动画，在用户无感知的情况下从复制元素translate到真实元素
     const isSilent = prevIndex > length - 1 || prevIndex < 0;
 
-    if (prevIndex === currentIndex) {
-      return;
+    if (prevIndex !== currentIndex) {
+      this.translate(currentIndex, prevIndex, isSilent);
     }
-    this.translate(currentIndex, prevIndex, isSilent);
+
+    // 当从两个子元素删除到一个时特殊处理位移动画
+    if (
+      Children.count(prevProps.children) !== Children.count(this.props.children)
+    ) {
+      const isTwoToOneCase =
+        Children.count(prevProps.children) === 2 &&
+        Children.count(this.props.children) === 1;
+      this.init(isTwoToOneCase);
+    }
   }
 
   componentWillUnmount() {
@@ -319,7 +345,7 @@ export class Swiper extends Component<ISwiperProps> {
           ref={this.getSwiperContainer}
           className={`${prefix}-swiper__container`}
         >
-          {Children.map(clonedChildren, (child, index) => {
+          {Children.map(clonedChildren, (child: any, index: number) => {
             return cloneElement(child, {
               key: index - 1,
               style: { float: 'left', height: '100%' },
