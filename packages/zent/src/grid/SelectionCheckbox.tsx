@@ -8,7 +8,7 @@ interface IGridSelctionCheckboxProps {
   disabled?: boolean;
   rowIndex: number | string;
   store: Store;
-  onChange: ICheckboxProps<boolean>['onChange'];
+  onChange: ICheckboxProps<unknown>['onChange'];
 }
 
 interface IGridSelctionCheckboxState {
