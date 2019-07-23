@@ -76,7 +76,7 @@ class SelectionCheckboxAll<Data> extends PureComponent<
     });
   };
 
-  onChange: ICheckboxProps['onChange'] = e => {
+  onChange: ICheckboxProps<boolean>['onChange'] = e => {
     const { datasets } = this.props;
     const checked = e.target.checked;
     this.props.onSelect(checked ? 'selectAll' : 'removeAll', datasets);
