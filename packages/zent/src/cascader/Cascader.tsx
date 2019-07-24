@@ -54,7 +54,11 @@ export interface ICascaderState {
   prevProps: ICascaderProps;
 }
 
-function resetCascaderValue(value: unknown[], options?: ICascaderItem[]) {
+function resetCascaderValue(
+  value: unknown[],
+  options?: ICascaderItem[],
+  chooseNext?: boolean
+) {
   const activeValue = [];
   let activeId = 1;
 
@@ -73,6 +77,8 @@ function resetCascaderValue(value: unknown[], options?: ICascaderItem[]) {
       });
     }
   }
+
+  if (chooseNext) activeId++;
 
   return {
     activeValue,
@@ -107,14 +113,13 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
       newState.value = nextProps.value || [];
       newState.options = nextProps.options || [];
 
+      // 在即时选中状态，展示通过计算的下一个 tab
+      const chooseNext = open && nextProps.changeOnSelect;
+
       Object.assign(
         newState,
-        resetCascaderValue(nextProps.value, nextProps.options)
+        resetCascaderValue(nextProps.value, nextProps.options, chooseNext)
       );
-
-      if (open && nextProps.changeOnSelect) {
-        newState.activeId = newState.activeId + 1;
-      }
     }
 
     return newState;
