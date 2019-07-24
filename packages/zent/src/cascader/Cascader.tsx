@@ -63,10 +63,10 @@ function resetCascaderValue(value: unknown[], options?: ICascaderItem[]) {
     for (let i = 0; i < value.length; i++) {
       const id = value[i];
       const nextOption = options.find(it => it.id === id);
-      activeId++;
       if (!nextOption) break;
+      activeId++;
 
-      options = nextOption.children;
+      options = nextOption.children || [];
       activeValue.push({
         id: nextOption.id,
         title: nextOption.title,
@@ -111,6 +111,7 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
         newState,
         resetCascaderValue(nextProps.value, nextProps.options)
       );
+
       if (open && nextProps.changeOnSelect) {
         newState.activeId = newState.activeId + 1;
       }
@@ -159,7 +160,6 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
     this.setState({
       open: false,
       value: Array.isArray(value) ? value : [],
-      activeId: 1,
     });
   };
 
@@ -231,11 +231,13 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
     // 选择即改变只针对click
     if (hasClose || (changeOnSelect && triggerType === 'click')) {
       const activeObj = resetCascaderValue(value, options);
-      this.props.onChange(activeObj.activeValue);
       Object.assign(obj, activeObj);
+      this.setState(obj as any, () => {
+        this.props.onChange(activeObj.activeValue);
+      });
+    } else {
+      this.setState(obj as any);
     }
-
-    this.setState(obj as any);
   };
 
   getPopoverContent(i18n) {
