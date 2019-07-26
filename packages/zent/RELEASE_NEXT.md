@@ -4,6 +4,7 @@
 
 - `React` 必须升级到 16.8 以上
 - 删除了所有组件上的 `propTypes`
+- 不再支持 `cjs`，请使用支持 esm 的打包工具
 - 由于 `React` 内部逻辑的变更，在 `Portal` 内部触发的事件会随着组件树往上冒泡，注意不是 DOM 树，而是组件树。请仔细阅读[官方文档](https://reactjs.org/docs/portals.html#event-bubbling-through-portals)。
 
 #### `babel-plugin-zent`
@@ -141,6 +142,18 @@ import { Portal, PurePortal } from 'zent'
 #### 源样式
 
 如果之前依赖了 postcss 的源样式，需要改成 sass。
+
+## 7.0.0-next.21(2019-07-26)
+
+- 删除 `cjs` 格式输出，只支持 esm；白话版：npm 包里 `lib` 目录没有了，只保留 `es`
+- 新增 `Disabled` 组件，用来做区块级别的组件禁用
+- 修改 `Grid` 和 `Table` 组件排序规则，同时扩大点击热区到整个表头
+- 修复文档小程序组件库链接
+- 修复 `Input` 背景颜色不对的问题
+- `Table` 排序按钮现在和 `Grid` 一致，一致显示，不需要 hover
+- 补全 `Grid` 的类型定义
+- 移除 `Cascader`, `Swiper` 以及 `LazyMount` 内的废弃生命周期函数依赖
+- 增加文档百度统计能力
 
 ## 7.0.0-next.20(2019-07-11)
 
