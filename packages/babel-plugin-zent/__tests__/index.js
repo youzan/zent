@@ -69,13 +69,11 @@ describe('babel-plugin-zent', () => {
 
       if (rule.isDefaultExport) {
         expect(
-          compiled.indexOf(`import ${component} from \"zent/lib${rule.js}\"`)
+          compiled.indexOf(`import ${component} from \"zent/es${rule.js}\"`)
         ).not.toBe(-1);
       } else {
         expect(
-          compiled.indexOf(
-            `import { ${component} } from \"zent/lib${rule.js}\"`
-          )
+          compiled.indexOf(`import { ${component} } from \"zent/es${rule.js}\"`)
         ).not.toBe(-1);
       }
     });
