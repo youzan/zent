@@ -34,15 +34,13 @@ In your component Javascript files, use zent like this: `import { Button, Dialog
 ### Options
 
 - `noModuleRewrite`: disable JavaScript module import rewrite，use with bundle tool's tree-shaking feature.
-- `useESM`: Rewrite `import` using esm
 - `automaticStyleImport`: `true` to enable styles imports for component.
-- `useRawStyle`: should be used with `automaticStyleImport`, imports postcss source files if set to `true`. **Requires Zent >= 3.8.1**
+- `useRawStyle`: should be used with `automaticStyleImport`, imports sass source files if set to `true`. **Requires Zent >= 7.0.0**
 
 ```js
 // defaults
 {
 	noModuleRewrite: false,
-	useESM: false,
 	automaticStyleImport: false,
 	useRawStyle: false
 }

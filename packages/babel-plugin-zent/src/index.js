@@ -93,12 +93,7 @@ function buildImportReplacement(specifier, types, state, originalPath) {
   const { opts: options, data } = state;
 
   if (data.MODULE_MAPPING.hasOwnProperty(importedName)) {
-    const {
-      noModuleRewrite,
-      automaticStyleImport,
-      useESM,
-      useRawStyle,
-    } = options;
+    const { noModuleRewrite, automaticStyleImport, useRawStyle } = options;
     const rule = data.MODULE_MAPPING[importedName];
 
     // js
@@ -111,7 +106,7 @@ function buildImportReplacement(specifier, types, state, originalPath) {
             importedName,
             localName
           ),
-          types.stringLiteral(getJavaScriptPath(rule.js, useESM))
+          types.stringLiteral(getJavaScriptPath(rule.js))
         )
       );
     }
@@ -180,8 +175,8 @@ function initModuleMappingAsNecessary(state) {
   }
 }
 
-function getJavaScriptPath(relativePath, useESM) {
-  const parentDir = useESM ? 'es' : 'lib';
+function getJavaScriptPath(relativePath) {
+  const parentDir = 'es';
   return `zent/${parentDir}${relativePath}`;
 }
 
