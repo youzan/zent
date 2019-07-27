@@ -22,7 +22,7 @@ interface IGridRowProps<Data> {
   rowClassName?: GridRowClassNameType<Data>;
   mouseOverRowIndex: number;
   onRowClick: IGridRowClickHander<Data>;
-  onRowMoverOver: (index: number) => void;
+  onRowMouseEnter: (index: number) => void;
   fixed?: IGridInnerFixedType;
   scroll: IGridScrollDelta;
   fixedColumnsBodyRowsHeight: Array<string | number>;
@@ -40,7 +40,7 @@ class Row<Data> extends PureComponent<IGridRowProps<Data>> {
       rowClassName,
       mouseOverRowIndex,
       onRowClick,
-      onRowMoverOver,
+      onRowMouseEnter,
       fixed,
       scroll,
       fixedColumnsBodyRowsHeight,
@@ -86,7 +86,7 @@ class Row<Data> extends PureComponent<IGridRowProps<Data>> {
           [`${prefix}-grid-tr__mouseover`]: mouseOverRowIndex === rowIndex,
         })}
         onClick={e => onRowClick(data, rowIndex, e)}
-        onMouseOver={() => scroll && scroll.x && onRowMoverOver(rowIndex)}
+        onMouseEnter={() => scroll && scroll.x && onRowMouseEnter(rowIndex)}
         style={{ height }}
         {...rowProps(data, rowIndex)}
       >
