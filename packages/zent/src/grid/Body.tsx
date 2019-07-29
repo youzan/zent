@@ -32,7 +32,7 @@ export interface IGridBodyProps<Data> {
     row?: React.ComponentType;
   };
   onRowClick: IGridRowClickHander<Data>;
-  onRowMoverOver: (index: number) => void;
+  onRowMouseEnter: (index: number) => void;
 }
 
 class Body<Data> extends PureComponent<IGridBodyProps<Data>> {
@@ -44,7 +44,7 @@ class Body<Data> extends PureComponent<IGridBodyProps<Data>> {
       rowKey,
       rowClassName,
       onRowClick,
-      onRowMoverOver,
+      onRowMouseEnter,
       mouseOverRowIndex,
       fixed,
       scroll,
@@ -69,7 +69,7 @@ class Body<Data> extends PureComponent<IGridBodyProps<Data>> {
           rowClassName={rowClassName}
           mouseOverRowIndex={mouseOverRowIndex}
           onRowClick={onRowClick}
-          onRowMoverOver={onRowMoverOver}
+          onRowMouseEnter={onRowMouseEnter}
           fixed={fixed}
           scroll={scroll}
           fixedColumnsBodyRowsHeight={fixedColumnsBodyRowsHeight}
@@ -108,7 +108,7 @@ class Body<Data> extends PureComponent<IGridBodyProps<Data>> {
   }
 
   renderTbody() {
-    const { prefix, onRowMoverOver, scroll, columns } = this.props;
+    const { prefix, onRowMouseEnter, scroll, columns } = this.props;
     const tbodyClass = classnames(`${prefix}-grid-tbody`, {
       [`${prefix}-grid-tbody-span`]: columns.some(
         item => !!(item.colSpan || item.rowSpan)
@@ -117,7 +117,7 @@ class Body<Data> extends PureComponent<IGridBodyProps<Data>> {
 
     return (
       <tbody
-        onMouseLeave={() => scroll && scroll.x && onRowMoverOver(-1)}
+        onMouseLeave={() => scroll && scroll.x && onRowMouseEnter(-1)}
         className={tbodyClass}
       >
         {this.getRows()}

@@ -508,7 +508,7 @@ export class Grid<Data = any> extends PureComponent<
 
   onResize = debounce(this.syncFixedTableRowHeight, 500);
 
-  onRowMoverOver = (mouseOverRowIndex: number) => {
+  onRowMouseEnter = (mouseOverRowIndex: number) => {
     this.setState({
       mouseOverRowIndex,
     });
@@ -574,7 +574,7 @@ export class Grid<Data = any> extends PureComponent<
         datasets={datasets}
         expandRowKeys={expandRowKeys}
         mouseOverRowIndex={this.state.mouseOverRowIndex}
-        onRowMoverOver={this.onRowMoverOver}
+        onRowMouseEnter={this.onRowMouseEnter}
         rowClassName={rowClassName}
         onRowClick={onRowClick as IGridRowClickHander<Data>}
         fixed={fixed}
