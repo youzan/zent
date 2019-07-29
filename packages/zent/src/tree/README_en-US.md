@@ -25,7 +25,7 @@ Tree widget is used to build and manipulate trees. such as files, organization s
 | render              | you can customize function to render tree , the parameter is node data (includings children tree)   | func(data)         |            |                      |
 | operations          | custom operate, includes `name`, `icon`, `action`, `shouldRender` attributes                        | array[object]      |            |                      |
 | foldable            | whether to support item show and hide                                                               | bool               | `true`     |                      |
-| onCheck             | when you click checkbox, callback function will call, params is a array includes all nodes id array | func(data)         |            |                      |
+| onCheck             | when you click checkbox, callback function will call, params is a checked id list and help info     | func(ids, helpInfo)|            |                      |
 | checkable           | whether to support checkbox                                                                         | bool               | `true`     |                      |                     |
 | checkedKeys         | checked node id array                                                                               | array              |            |                      |
 | disabledCheckedKeys | default disabled selected node id array                                                             | array              |            |                      |
