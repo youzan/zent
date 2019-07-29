@@ -21,14 +21,13 @@ Tree widget is used to build and manipulate trees. such as files, organization s
 | ------------------- | --------------------------------------------------------------------------------------------------- | ------------------ | ---------- | -------------------- |
 | dataType            | data structure, default is tree                                                                     | string             | `'tree'`   | `'plain'`            |
 | data                | required, input data, identified by dataType                                                        | array              |            |                      |
-| renderKey           | (userNew)the key map for render node, see the following table                                       | object             |            |                      |
+| renderKey           | the key map for render node, see the following table                                                | object             |            |                      |
 | render              | you can customize function to render tree , the parameter is node data (includings children tree)   | func(data)         |            |                      |
 | operations          | custom operate, includes `name`, `icon`, `action`, `shouldRender` attributes                        | array[object]      |            |                      |
 | foldable            | whether to support item show and hide                                                               | bool               | `true`     |                      |
 | onCheck             | when you click checkbox, callback function will call, params is a array includes all nodes id array | func(data)         |            |                      |
-| checkable           | whether to support checkbox                                                                         | bool               | `true`     |                      |
-| controlled          | (useNew)with checkable, whether to support defaultCheckedKeys and defaultCheckedKeys controlled     | bool               | `false`    |                      |
-| defaultCheckedKeys  | default checked node id array                                                                       | array              |            |                      |
+| checkable           | whether to support checkbox                                                                         | bool               | `true`     |                      |                     |
+| checkedKeys         | checked node id array                                                                               | array              |            |                      |
 | disabledCheckedKeys | default disabled selected node id array                                                             | array              |            |                      |
 | size                | size                                                                                                | string             | `'medium'` | `'small'`, `'large'` |
 | commonStyle         | set entire tree style                                                                               | object             |            |                      |
@@ -39,7 +38,7 @@ Tree widget is used to build and manipulate trees. such as files, organization s
 | isRoot              | plain data, to determine whether the node is the api of the root node                               | func(node)         |            |                      |
 | loadMore            | return Promise func, support thenable callback, be used to asynchronously load more content         | func(data)         |            |                      |
 
-#### renderKey (useNew)
+#### renderKey
 
 The Key for customized for `data`.
 

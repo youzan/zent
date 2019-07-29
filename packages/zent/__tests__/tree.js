@@ -525,13 +525,21 @@ describe('new Tree', () => {
     wrapper.setProps({ data: updatedData });
     expect(wrapper.find('li').length).toBe(9);
 
+    let onCheckedData;
+
     const checkableWrapper = mount(
       <NewTree
         dataType="plain"
         data={updatedData}
         checkable
-        defaultCheckedKeys={[3, 6]}
+        checkedKeys={[3, 6]}
         disabledCheckedKeys={[4, 5]}
+        onCheck={checkedData => {
+          onCheckedData = checkedData;
+          wrapper.setProps({
+            checkedKeys: onCheckedData,
+          });
+        }}
       />
     );
 
@@ -969,19 +977,22 @@ describe('new Tree', () => {
     ];
 
     let onCheckedData;
-    const onCheck = checkedData => {
-      onCheckedData = checkedData;
-    };
 
     const wrapper = mount(
       <NewTree
         data={data}
-        defaultCheckedKeys={[6, 7]}
+        checkedKeys={[6, 7]}
         checkable
         disabledCheckedKeys={[7]}
-        onCheck={onCheck}
+        onCheck={checkedData => {
+          onCheckedData = checkedData;
+          wrapper.setProps({
+            checkedKeys: onCheckedData,
+          });
+        }}
       />
     );
+
     expect(
       wrapper
         .find('Checkbox')
@@ -1077,11 +1088,58 @@ describe('new Tree', () => {
         .find('Checkbox')
         .at(6)
         .prop('checked')
-    ).toBe(true);
+    ).toBe(false);
   });
 
-  it('Tree will handle checkbox click properly with controlled', () => {
-    const data = [
+  it('Tree disabled check', () => {
+    const disabledData = [
+      {
+        id: 1,
+        title: 'root',
+        children: [
+          {
+            id: 2,
+            title: 'son',
+          },
+          {
+            id: 3,
+            title: 'daughter',
+          },
+        ],
+      },
+    ];
+
+    const disabledWrapper = mount(
+      <NewTree
+        data={disabledData}
+        checkable
+        checkedKeys={[]}
+        disabledCheckedKeys={[2, 3]}
+      />
+    );
+
+    expect(
+      disabledWrapper
+        .find('Checkbox')
+        .at(0)
+        .prop('disabled')
+    ).toBe(true);
+
+    expect(
+      disabledWrapper
+        .find('Checkbox')
+        .at(1)
+        .prop('disabled')
+    ).toBe(true);
+
+    expect(
+      disabledWrapper
+        .find('Checkbox')
+        .at(2)
+        .prop('disabled')
+    ).toBe(true);
+
+    const disabledData2 = [
       {
         id: 1,
         title: 'root',
@@ -1124,146 +1182,44 @@ describe('new Tree', () => {
 
     let onCheckedData;
 
-    const wrapper = mount(
+    const disabledWrapper2 = mount(
       <NewTree
-        data={data}
-        defaultCheckedKeys={[6, 7]}
-        controlled
+        data={disabledData2}
+        checkedKeys={[4, 5, 10]}
         checkable
-        disabledCheckedKeys={[7]}
+        disabledCheckedKeys={[6, 7]}
         onCheck={checkedData => {
           onCheckedData = checkedData;
-          wrapper.setProps({
-            defaultCheckedKeys: onCheckedData,
+          disabledWrapper2.setProps({
+            checkedKeys: onCheckedData,
           });
         }}
       />
     );
 
     expect(
-      wrapper
-        .find('Checkbox')
-        .at(4)
-        .prop('checked')
-    ).toBe(false);
-
-    expect(
-      wrapper
+      disabledWrapper2
         .find('Checkbox')
         .at(0)
-        .prop('indeterminate')
-    ).toBe(false);
-
-    wrapper
-      .find('Checkbox input')
-      .at(0)
-      .simulate('change', { target: { checked: true } });
-    expect(
-      wrapper
-        .find('Checkbox')
-        .not({ disabled: true })
-        .everyWhere(n => n.prop('checked'))
-    ).toBe(false);
-    expect(
-      wrapper
-        .find('Checkbox')
-        .at(6)
-        .prop('checked')
-    ).toBe(true);
-    expect(onCheckedData.length).toBe(3);
-
-    wrapper
-      .find('Checkbox input')
-      .at(0)
-      .simulate('change', { target: { checked: false } });
-    expect(
-      wrapper
-        .find('Checkbox')
-        .at(6)
         .prop('checked')
     ).toBe(true);
 
     expect(
-      wrapper
-        .find('Checkbox')
-        .everyWhere(n => n.prop('checked') && n.prop('indeterminate'))
-    ).toBe(false);
-    expect(onCheckedData.length).toBe(2);
-
-    wrapper
-      .find('Checkbox input')
-      .at(1)
-      .simulate('change', { target: { checked: true } });
-    expect(
-      wrapper
-        .find('Checkbox')
-        .at(1)
-        .prop('checked')
-    ).toBe(true);
-    expect(
-      wrapper
-        .find('Checkbox')
-        .at(2)
-        .prop('checked')
-    ).toBe(false);
-    expect(
-      wrapper
-        .find('Checkbox')
-        .at(3)
-        .prop('checked')
-    ).toBe(false);
-    expect(
-      wrapper
-        .find('Checkbox')
-        .at(6)
-        .prop('checked')
-    ).toBe(true);
-    expect(onCheckedData.length).toBe(3);
-
-    wrapper
-      .find('Checkbox input')
-      .at(1)
-      .simulate('change', { target: { checked: false } });
-    expect(
-      wrapper
-        .find('Checkbox')
-        .at(6)
-        .prop('checked')
-    ).toBe(true);
-    expect(onCheckedData.length).toBe(2);
-
-    wrapper.setProps({ controlled: false });
-    expect(
-      wrapper
+      disabledWrapper2
         .find('Checkbox')
         .at(4)
-        .prop('checked')
+        .prop('disabled')
     ).toBe(true);
 
-    const disabledData = [
-      {
-        id: 1,
-        title: 'root',
-        children: [
-          {
-            id: 2,
-            title: 'son',
-          },
-          {
-            id: 3,
-            title: 'daughter',
-          },
-        ],
-      },
-    ];
-    const disabledWrapper = mount(
-      <NewTree data={disabledData} checkable disabledCheckedKeys={[2, 3]} />
-    );
+    disabledWrapper2
+      .find('Checkbox input')
+      .at(4)
+      .simulate('change', { target: { checked: false } });
 
     expect(
-      disabledWrapper
+      disabledWrapper2
         .find('Checkbox')
-        .at(0)
+        .at(4)
         .prop('disabled')
     ).toBe(true);
   });
