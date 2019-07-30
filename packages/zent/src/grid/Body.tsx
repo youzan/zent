@@ -107,8 +107,14 @@ class Body<Data> extends PureComponent<IGridBodyProps<Data>> {
     return row;
   }
 
+  onBodyMouseLeave = () => {
+    const { onRowMouseEnter, scroll } = this.props;
+
+    scroll && scroll.x && onRowMouseEnter(-1);
+  };
+
   renderTbody() {
-    const { prefix, onRowMouseEnter, scroll, columns } = this.props;
+    const { prefix, columns } = this.props;
     const tbodyClass = classnames(`${prefix}-grid-tbody`, {
       [`${prefix}-grid-tbody-span`]: columns.some(
         item => !!(item.colSpan || item.rowSpan)
@@ -116,10 +122,7 @@ class Body<Data> extends PureComponent<IGridBodyProps<Data>> {
     });
 
     return (
-      <tbody
-        onMouseLeave={() => scroll && scroll.x && onRowMouseEnter(-1)}
-        className={tbodyClass}
-      >
+      <tbody onMouseLeave={this.onBodyMouseLeave} className={tbodyClass}>
         {this.getRows()}
       </tbody>
     );
