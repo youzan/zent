@@ -26,6 +26,13 @@ export class Input extends Component<IInputProps, IInputState> {
 
   elementRef = React.createRef<HTMLInputElement & HTMLTextAreaElement>();
 
+  /**
+   * backward compatibility
+   */
+  get input() {
+    return this.elementRef.current;
+  }
+
   state = {
     hasFocus: false,
   };
@@ -149,6 +156,7 @@ export class Input extends Component<IInputProps, IInputState> {
           onKeyDown={this.onKeyDown}
           onFocus={this.onFocus}
           onBlur={this.onBlur}
+          disabled={disabled}
         />
       );
     } else {

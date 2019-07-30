@@ -26,6 +26,7 @@ it('disabled children', () => {
         <Button type="primary">Disabled</Button>
         <Checkbox>Checkbox</Checkbox>
         <Input />
+        <Input type="textarea" />
         <NumberInput />
         <Radio.Group>
           <Radio value="A">A</Radio>
@@ -61,7 +62,7 @@ it('disabled children', () => {
       document.querySelectorAll(
         '#root > .zent-input-wrapper.zent-input-wrapper__not-editable'
       ).length
-    ).toBe(2);
+    ).toBe(3);
     expect(
       document.querySelectorAll(
         '#root > .zent-checkbox-wrap.zent-checkbox-disabled'
