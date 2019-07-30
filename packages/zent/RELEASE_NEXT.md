@@ -143,6 +143,12 @@ import { Portal, PurePortal } from 'zent'
 
 如果之前依赖了 postcss 的源样式，需要改成 sass。
 
+## 7.0.0-next.22(2019-07-26)
+
+- 临时修复三方依赖类型定义和实际代码对不上的问题
+- 修复 `Disabled` 组件对 `textarea` 不生效的问题
+- 修复 `Grid` 鼠标移动时触发重绘的问题
+
 ## 7.0.0-next.21(2019-07-26)
 
 - 删除 `cjs` 格式输出，只支持 esm；白话版：npm 包里 `lib` 目录没有了，只保留 `es`
