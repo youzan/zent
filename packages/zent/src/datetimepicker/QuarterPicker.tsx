@@ -2,8 +2,8 @@ import * as React from 'react';
 import { PureComponent } from 'react';
 import cx from 'classnames';
 import isArray from 'lodash-es/isArray';
-import { getQuarter } from 'date-fns';
 import { Omit } from 'utility-types';
+const getQuarter = require('date-fns/get_quarter');
 
 import Input from '../input';
 import Popover from '../popover';

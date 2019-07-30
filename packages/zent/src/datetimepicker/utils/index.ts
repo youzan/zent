@@ -1,4 +1,6 @@
-import { startOfMonth, startOfDay, endOfDay } from 'date-fns';
+const startOfDay = require('date-fns/start_of_day');
+const startOfMonth = require('date-fns/start_of_month');
+const endOfDay = require('date-fns/end_of_day');
 
 import formatBase from '../../utils/date/formatDate';
 import parseBase from '../../utils/date/parseDate';

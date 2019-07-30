@@ -2,14 +2,12 @@ import * as React from 'react';
 import { PureComponent } from 'react';
 import cx from 'classnames';
 import isArray from 'lodash-es/isArray';
-import {
-  startOfWeek,
-  endOfWeek,
-  addDays,
-  subDays,
-  differenceInCalendarDays,
-} from 'date-fns';
 import { Omit } from 'utility-types';
+const startOfWeek = require('date-fns/start_of_week');
+const endOfWeek = require('date-fns/end_of_week');
+const addDays = require('date-fns/add_days');
+const subDays = require('date-fns/sub_days');
+const differenceInCalendarDays = require('date-fns/difference_in_calendar_days');
 
 import Input from '../input';
 import Popover from '../popover';

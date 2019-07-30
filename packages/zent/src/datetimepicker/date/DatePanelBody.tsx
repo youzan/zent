@@ -2,7 +2,7 @@ import * as React from 'react';
 import { PureComponent } from 'react';
 import classNames from 'classnames';
 import isArray from 'lodash-es/isArray';
-import { isWithinRange } from 'date-fns';
+const isWithinRange = require('date-fns/is_within_range');
 
 import {
   goDays,
