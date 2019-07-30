@@ -2,11 +2,13 @@ import * as React from 'react';
 import { PureComponent } from 'react';
 import cx from 'classnames';
 import isArray from 'lodash-es/isArray';
-import * as startOfWeek from 'date-fns/start_of_week';
-import * as endOfWeek from 'date-fns/end_of_week';
-import * as addDays from 'date-fns/add_days';
-import * as subDays from 'date-fns/sub_days';
-import * as differenceInCalendarDays from 'date-fns/difference_in_calendar_days';
+import {
+  startOfWeek,
+  endOfWeek,
+  addDays,
+  subDays,
+  differenceInCalendarDays,
+} from 'date-fns';
 import { Omit } from 'utility-types';
 
 import Input from '../input';

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { PureComponent } from 'react';
 import cx from 'classnames';
 import isArray from 'lodash-es/isArray';
-import * as getQuarter from 'date-fns/get_quarter';
+import { getQuarter } from 'date-fns';
 import { Omit } from 'utility-types';
 
 import Input from '../input';

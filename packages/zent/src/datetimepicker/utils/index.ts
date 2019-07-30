@@ -1,6 +1,4 @@
-import * as startOfMonth from 'date-fns/start_of_month';
-import * as startOfDay from 'date-fns/start_of_day';
-import * as endOfDay from 'date-fns/end_of_day';
+import { startOfMonth, startOfDay, endOfDay } from 'date-fns';
 
 import formatBase from '../../utils/date/formatDate';
 import parseBase from '../../utils/date/parseDate';
