@@ -17,9 +17,9 @@ import correctMark from './utils/correctMark';
 import correctExpand from './utils/correctExpand';
 import {
   ITreeData,
-  RootIdArray,
-  IRootInfoMap,
-  IRenderKey,
+  TreeRootIdArray,
+  ITreeRootInfoMap,
+  ITreeRenderKey,
 } from './utils/common';
 
 export interface ITreeOperation {
@@ -30,7 +30,7 @@ export interface ITreeOperation {
 }
 
 // onCheck second param to help
-export interface IOncheckHelpInfo {
+export interface ITreeOncheckHelpInfo {
   // which root click
   currentRoot: ITreeData;
   // all disableNode
@@ -47,7 +47,7 @@ export interface ITreeProps extends ICreateStateByPropsParams {
   render?: (data: ITreeData, isExpanded?: boolean) => React.ReactNode;
   operations?: ITreeOperation[];
   foldable?: boolean;
-  onCheck?: (selected: RootIdArray, info: IOncheckHelpInfo) => void;
+  onCheck?: (selected: TreeRootIdArray, info: ITreeOncheckHelpInfo) => void;
   size?: 'medium' | 'small' | 'large';
   commonStyle?: React.CSSProperties;
   onExpand?: (data: ITreeData, config: { isExpanded: boolean }) => void;
@@ -59,12 +59,12 @@ export interface ITreeProps extends ICreateStateByPropsParams {
 export interface ITreeState {
   preProps: ITreeProps;
   tree: ITreeData[];
-  rootInfoMap: IRootInfoMap;
-  expandNode: RootIdArray;
-  checkedNode: RootIdArray;
-  disabledNode: RootIdArray;
-  renderKey: IRenderKey;
-  loadingNode: RootIdArray;
+  rootInfoMap: ITreeRootInfoMap;
+  expandNode: TreeRootIdArray;
+  checkedNode: TreeRootIdArray;
+  disabledNode: TreeRootIdArray;
+  renderKey: ITreeRenderKey;
+  loadingNode: TreeRootIdArray;
 }
 
 export class Tree extends Component<ITreeProps, ITreeState> {
@@ -155,7 +155,7 @@ export class Tree extends Component<ITreeProps, ITreeState> {
     if (loadMore) {
       if (!root.children || root.children.length === 0) {
         e.persist();
-        const nextLoadingNode: RootIdArray = loadingNode.concat(root[id]);
+        const nextLoadingNode: TreeRootIdArray = loadingNode.concat(root[id]);
         this.setState({ loadingNode: nextLoadingNode });
         loadMore(root)
           .then(() => {
@@ -247,7 +247,7 @@ export class Tree extends Component<ITreeProps, ITreeState> {
      * all 所有选中节点
      * disabled 所有
      */
-    const helperInfo: IOncheckHelpInfo = {
+    const helperInfo: ITreeOncheckHelpInfo = {
       currentRoot: root,
       disabled: disabledNode.map(id => rootInfoMap[id].root),
       all: [],

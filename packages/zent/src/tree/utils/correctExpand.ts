@@ -1,20 +1,20 @@
-import { RootIdArray, ITreeData, IRootInfoMap } from './common';
+import { TreeRootIdArray, ITreeData, ITreeRootInfoMap } from './common';
 
 export interface ICurrentParams {
   tree: ITreeData[];
-  expandNode: RootIdArray;
+  expandNode: TreeRootIdArray;
 }
 
 export interface INextParams {
-  expandNode: RootIdArray;
-  rootInfoMap: IRootInfoMap;
+  expandNode: TreeRootIdArray;
+  rootInfoMap: ITreeRootInfoMap;
 }
 
 // 纠正 ExpandNode (防止loadMore 之后，之前打开的expand记录丢失)
 export default function filterExpandNode(
   current: ICurrentParams,
   next: INextParams
-): RootIdArray {
+): TreeRootIdArray {
   const { expandNode: cExpandNode } = current;
   const { rootInfoMap, expandNode: nExpandNode } = next;
 

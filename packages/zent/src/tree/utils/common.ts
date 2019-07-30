@@ -1,15 +1,15 @@
 type TArray<T> = T[];
-export type RootIdArray = TArray<string | number>;
+export type TreeRootIdArray = TArray<string | number>;
 
 // 默认节点渲染key
-export const DEFAULT_REANDER_KEY: IRenderKey = {
+export const DEFAULT_REANDER_KEY: ITreeRenderKey = {
   id: 'id',
   title: 'title',
   children: 'children',
   parentId: 'parentId',
 };
 
-export interface IRenderKey {
+export interface ITreeRenderKey {
   id: string;
   title: string;
   children: string;
@@ -26,15 +26,15 @@ export interface ITreeData {
   [key: string]: any;
 }
 
-export interface IRootInfoMap {
+export interface ITreeRootInfoMap {
   [key: string]: {
     id: string | number;
     parentId?: string | number;
     root: ITreeData;
     isExpand: boolean;
     isParent: boolean;
-    son: RootIdArray;
-    includes: RootIdArray;
+    son: TreeRootIdArray;
+    includes: TreeRootIdArray;
     // 节点的选择联动集合 { nodeId: id[] }
     // id[]: [nodeId, nodeId.children[1]Id, nodeId.children[2]Id, .... nodeId.children[1][...].childrenn[N]Id]
     // 可以根据当前node的id, 查找它将会影响的子孙节点

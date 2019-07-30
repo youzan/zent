@@ -1,17 +1,17 @@
 import _union from 'lodash-es/union';
 
-import { RootIdArray, IRootInfoMap } from './common';
+import { TreeRootIdArray, ITreeRootInfoMap } from './common';
 
 /**
  * 用于向上向下查找关联节点
  */
 export default function correctMark(
-  markList: RootIdArray = [],
-  rootInfoMap: IRootInfoMap,
-  disabled: RootIdArray = [],
+  markList: TreeRootIdArray = [],
+  rootInfoMap: ITreeRootInfoMap,
+  disabled: TreeRootIdArray = [],
   isInit?: boolean
-): RootIdArray {
-  const nextMarkList: RootIdArray = [];
+): TreeRootIdArray {
+  const nextMarkList: TreeRootIdArray = [];
   const markMap: { [key: string]: boolean } = {};
 
   // 向下查询

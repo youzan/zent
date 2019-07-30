@@ -2,10 +2,10 @@ import assign from 'lodash-es/assign';
 
 import {
   ITreeData,
-  IRenderKey,
+  ITreeRenderKey,
   DEFAULT_REANDER_KEY,
-  RootIdArray,
-  IRootInfoMap,
+  TreeRootIdArray,
+  ITreeRootInfoMap,
 } from './common';
 import getJudgeInfo from './getJudgeInfo';
 import correctMark from './correctMark';
@@ -13,22 +13,22 @@ import correctMark from './correctMark';
 export interface ICreateStateByPropsParams {
   data: ITreeData[];
   dataType?: 'tree' | 'plain'; // 数据类型
-  renderKey?: Partial<IRenderKey>;
+  renderKey?: Partial<ITreeRenderKey>;
   checkable?: boolean; // 是否为checkbox模式
   expandAll?: boolean; // 是否展开全部节点
-  checkedKeys?: RootIdArray; // 默认选中节点
-  disabledCheckedKeys?: RootIdArray; // 默认选中节点
+  checkedKeys?: TreeRootIdArray; // 默认选中节点
+  disabledCheckedKeys?: TreeRootIdArray; // 默认选中节点
   loadMore?: (data: ITreeData) => Promise<any>;
   isRoot?: (data: ITreeData) => boolean;
 }
 
 export interface ICreateStateByPropsReturn {
   tree: ITreeData[];
-  renderKey: IRenderKey;
-  rootInfoMap: IRootInfoMap;
-  expandNode: RootIdArray;
-  checkedNode: RootIdArray;
-  disabledNode: RootIdArray;
+  renderKey: ITreeRenderKey;
+  rootInfoMap: ITreeRootInfoMap;
+  expandNode: TreeRootIdArray;
+  checkedNode: TreeRootIdArray;
+  disabledNode: TreeRootIdArray;
 }
 
 /**

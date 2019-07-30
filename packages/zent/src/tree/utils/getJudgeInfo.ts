@@ -1,9 +1,9 @@
 import {
   DEFAULT_REANDER_KEY,
-  RootIdArray,
+  TreeRootIdArray,
   ITreeData,
-  IRenderKey,
-  IRootInfoMap,
+  ITreeRenderKey,
+  ITreeRootInfoMap,
 } from './common';
 
 // getJudgeInfo
@@ -12,12 +12,12 @@ export interface IJudgeInfoParams {
   checkable?: boolean;
   loadMore?: (data: ITreeData) => Promise<any>;
   tree: ITreeData[];
-  renderKey?: IRenderKey;
+  renderKey?: ITreeRenderKey;
 }
 
 export interface IJudgeInfoReturn {
-  expandNode: RootIdArray;
-  rootInfoMap: IRootInfoMap;
+  expandNode: TreeRootIdArray;
+  rootInfoMap: ITreeRootInfoMap;
 }
 
 /**
@@ -40,8 +40,8 @@ export default function getJudgeInfo({
   tree,
   renderKey = DEFAULT_REANDER_KEY,
 }: IJudgeInfoParams): IJudgeInfoReturn {
-  const expandNode: RootIdArray = [];
-  const rootInfoMap: IRootInfoMap = {};
+  const expandNode: TreeRootIdArray = [];
+  const rootInfoMap: ITreeRootInfoMap = {};
   const { children, id } = renderKey;
 
   function collector({
@@ -99,7 +99,7 @@ export default function getJudgeInfo({
   });
 
   return {
-    rootInfoMap: rootInfoMap as IRootInfoMap,
+    rootInfoMap: rootInfoMap as ITreeRootInfoMap,
     expandNode,
   };
 }
