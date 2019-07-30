@@ -120,19 +120,19 @@ export class AutoComplete<Value> extends Component<
 
   onSearchKeyDown: React.KeyboardEventHandler<HTMLInputElement> = e => {
     switch (e.key) {
-      case 'Esc':
+      case 'Escape':
         this.close();
         break;
       case 'Tab':
         this.close();
         break;
-      case 'Down':
+      case 'ArrowDown':
         e.preventDefault();
         if (this.state.open) {
           this.moveFocusIndexDown();
         }
         break;
-      case 'Up': {
+      case 'ArrowUp': {
         e.preventDefault();
         if (this.state.open) {
           this.moveFocusIndexUp();

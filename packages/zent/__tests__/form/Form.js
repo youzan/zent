@@ -57,7 +57,7 @@ describe('Form', () => {
     wrapper.find('form').simulate('keyDown', {
       target: { tagName: 'INPUT' },
       preventDefault: pd,
-      keyCode: 13,
+      key: 'Enter',
     });
     expect(pd.mock.calls.length).toBe(1);
   });

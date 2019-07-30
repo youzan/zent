@@ -2,8 +2,6 @@
  * Adapted from https://github.com/alicelieutier/smoothScroll
  */
 
-import * as raf from 'raf';
-
 import isBrowser from './isBrowser';
 
 const SCROLL_TIME = 250;
@@ -63,7 +61,7 @@ function step(context: IStepContext) {
 
   // scroll more if we have not reached our destination
   if (currentX !== context.x || currentY !== context.y) {
-    raf(step.bind(w, context));
+    requestAnimationFrame(step.bind(w, context));
   }
 }
 

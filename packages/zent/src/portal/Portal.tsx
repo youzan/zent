@@ -7,7 +7,6 @@ import {
   forwardRef,
   useEffect,
 } from 'react';
-import * as keycode from 'keycode';
 import noop from 'lodash-es/noop';
 
 import MountElement from './MountElement';
@@ -232,7 +231,9 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
         if (!onClose) {
           return;
         }
-        if (keycode(e) === 'esc') {
+
+        // tslint:disable-next-line deprecation
+        if (e.key === 'Escape' || e.key === 'Esc' || e.keyCode === 27) {
           onClose(e);
         }
       }

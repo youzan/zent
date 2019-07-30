@@ -5,8 +5,6 @@
  */
 import * as React from 'react';
 import { Component } from 'react';
-import * as keycode from 'keycode';
-import isNaN from 'lodash-es/isNaN';
 import isNumber from 'lodash-es/isNumber';
 import isUndefined from 'lodash-es/isUndefined';
 import { IMenuListItem, MenuListItem, handleItemClick } from './MenuListItem';
@@ -89,24 +87,24 @@ export default class MenuList extends Component<
   }
 
   onKeyDown = e => {
-    switch (keycode(e)) {
-      case 'esc':
+    switch (e.key) {
+      case 'Escape':
         this.close();
         break;
-      case 'down':
+      case 'ArrowDown':
         e.preventDefault();
         if (this.state.open) {
           this.moveFocusIndexDown();
         }
         break;
-      case 'up': {
+      case 'ArrowUp': {
         e.preventDefault();
         if (this.state.open) {
           this.moveFocusIndexUp();
         }
         break;
       }
-      case 'enter': {
+      case 'Enter': {
         if (this.state.open) {
           this.selectCurrentFocusIndex(e);
         }
@@ -138,7 +136,7 @@ export default class MenuList extends Component<
       !(items && items.length) ||
       items.every((item: any) => item.isDivider && item.isGroup) ||
       !isNumber(idx) ||
-      isNaN(idx)
+      Number.isNaN(idx)
     ) {
       return null;
     }

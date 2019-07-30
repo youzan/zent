@@ -5,7 +5,6 @@ import * as React from 'react';
 import { Component } from 'react';
 import take from 'lodash-es/take';
 import noop from 'lodash-es/noop';
-import * as keycode from 'keycode';
 
 import Popover from '../popover';
 import { I18nReceiver as Receiver } from '../i18n';
@@ -170,7 +169,7 @@ class Popup extends Component<IPopupProps, any> {
   };
 
   keydownHandler = ev => {
-    const code = keycode(ev);
+    const code = ev.key;
     const itemIds = this.itemIds;
     let { currentId, keyword } = this.state;
     const index = itemIds.indexOf(currentId);
@@ -180,10 +179,10 @@ class Popup extends Component<IPopupProps, any> {
       'current'
     )[0] as HTMLElement;
     switch (code) {
-      case 'esc':
+      case 'Escape':
         this.props.popover.close();
         break;
-      case 'down':
+      case 'ArrowDown':
         ev.preventDefault();
         if (this.itemIds[index + 1]) {
           currentId = this.itemIds[index + 1];
@@ -199,7 +198,7 @@ class Popup extends Component<IPopupProps, any> {
           this.popup.scrollTop = 0;
         }
         break;
-      case 'up':
+      case 'ArrowUp':
         ev.preventDefault();
         if (index > 0) {
           currentId = this.itemIds[index - 1];
@@ -212,7 +211,7 @@ class Popup extends Component<IPopupProps, any> {
           this.popup.scrollTop = scrollHeight;
         }
         break;
-      case 'enter':
+      case 'Enter':
         ev.preventDefault();
         this.optionChangedHandler(keyword, currentId);
         this.currentIdUpdated = false;

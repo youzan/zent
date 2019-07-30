@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import * as enquire from 'enquire.js';
+const enquire = require('enquire.js');
 
 import isBrowser from '../../utils/isBrowser';
 

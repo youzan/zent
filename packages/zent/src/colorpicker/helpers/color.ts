@@ -1,7 +1,5 @@
 import each from 'lodash-es/each';
-// import isNaN from 'lodash/isNaN';
-import isNumber from 'lodash-es/isNumber';
-import * as tinycolor from 'tinycolor2';
+const tinycolor = require('tinycolor2');
 
 export default {
   simpleCheckForValidColor(data) {
@@ -14,7 +12,7 @@ export default {
 
       if (v) {
         checked += 1;
-        if (isNumber(v) && !Number.isNaN(v)) {
+        if (!isNaN(v)) {
           passed += 1;
         }
       }

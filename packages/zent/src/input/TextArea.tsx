@@ -1,6 +1,6 @@
 import * as React from 'react';
 import cx from 'classnames';
-import * as autosize from 'autosize';
+const autosize = require('autosize');
 import noop from 'lodash-es/noop';
 import { ITextAreaProps } from './types';
 

@@ -1,13 +1,11 @@
 import * as React from 'react';
 import { Component } from 'react';
-import get from 'lodash-es/get';
 import defer from 'lodash-es/defer';
 import isFunction from 'lodash-es/isFunction';
 import includes from 'lodash-es/includes';
 import isEqual from 'lodash-es/isEqual';
 import isUndefined from 'lodash-es/isUndefined';
 import throttle from 'lodash-es/throttle';
-import * as keycode from 'keycode';
 import cx from 'classnames';
 import Input, { IInputClearEvent } from '../input';
 import Popover from '../popover';
@@ -22,7 +20,7 @@ import * as Utils from './utils';
 import { getPopoverBottomPosition, getPopoverTopPosition } from './position';
 import { MENTION_FOUND } from './constants';
 
-const NAV_KEYS = ['up', 'down', 'left', 'right'];
+const NAV_KEYS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
 const DEFAULT_STATE = {
   suggestionVisible: false,
   search: null,
@@ -239,10 +237,7 @@ export class Mention extends Component<IMentionProps> {
     // Do NOT use keydown event, selection is not updated yet when setSuggestionVisible is called
     if (
       isFirefox &&
-      (evt.altKey ||
-        evt.ctrlKey ||
-        evt.metaKey ||
-        includes(NAV_KEYS, keycode(evt)))
+      (evt.altKey || evt.ctrlKey || evt.metaKey || includes(NAV_KEYS, evt.key))
     ) {
       defer(this.setSuggestionVisible, this.props.value);
     }
@@ -252,17 +247,17 @@ export class Mention extends Component<IMentionProps> {
 
   onInputKeyDown = evt => {
     if (this.state.suggestionVisible && this.suggestionList) {
-      const key = keycode(evt);
-      if (key === 'up') {
+      const { key } = evt;
+      if (key === 'ArrowUp') {
         this.suggestionList.moveFocusIndexUp();
         evt.preventDefault();
-      } else if (key === 'down') {
+      } else if (key === 'ArrowDown') {
         this.suggestionList.moveFocusIndexDown();
         evt.preventDefault();
-      } else if (key === 'enter') {
+      } else if (key === 'Enter') {
         this.suggestionList.selectCurrentFocusIndex(evt);
         evt.preventDefault();
-      } else if (key === 'esc') {
+      } else if (key === 'Escape') {
         this.setStateIfChange(this.getDefaultState());
       }
     }
@@ -289,7 +284,7 @@ export class Mention extends Component<IMentionProps> {
       });
     }
 
-    this.input = get(instance, 'input', null);
+    this.input = instance && instance.input;
 
     if (this.input) {
       SelectionChangeEventHub.install({
