@@ -19,9 +19,9 @@ group: 数据
 | 参数               | 说明                                                                    | 类型             | 默认值     | 备选值                                 | 是否必填 |
 | ------------------ | ----------------------------------------------------------------------- | ---------------- | ---------- | -------------------------------------- | -------- |
 | className          | 自定义额外类名                                                          | string           |            |                                        | 否       |
-| prefix             | 自定义类前缀                                                            | string           | `'zent'`   |                                        | 否       |
 | width              | 宽度                                                                    | string or number |            |                                        | 否       |
 | type               | 类型                                                                    | string           | `'text'`   | `'number'`、`'password'`、`'textarea'` | 否       |
+| inline             | 是否行内展示                                                            | bool             | `false`    | `true`                                 | 否       |
 | size               | 大小（高度），宽度可以通过 width 控制                                   | string           | `'normal'` | `'large'` \| `'small'`                 | 否       |
 | defaultValue       | 默认值                                                                  | string           |            |                                        | 否       |
 | value              | 输入值                                                                  | string           |            |                                        | 否       |

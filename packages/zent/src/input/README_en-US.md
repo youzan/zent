@@ -18,8 +18,8 @@ A input widget for buiding forms in React, based on raw input. you can enter con
 | Property           | Description                                                            | Type             | Default    | Alternative                            | Required |
 | ------------------ | ---------------------------------------------------------------------- | ---------------- | ---------- | -------------------------------------- | -------- |
 | className          | a custom CSS class.                                                    | string           | `''`       |                                        | No       |
-| prefix             | a custom prefix class                                                  | string           | `'zent'`   |                                        | No       |
 | width              | width                                                                  | string or number |            |                                        | No       |
+| inline             | Inline display                                                         | bool             | `false`    | `true`                                 | No       |
 | type               | content type                                                           | string           | `'text'`   | `'number'`、`'password'`、`'textarea'` | No       |
 | size               | size(height)，use `width` to control input width                       | string           | `'normal'` | `'large'` \| `'small'`                 | No       |
 | defaultValue       | default value                                                          | string           |            |                                        | No       |
