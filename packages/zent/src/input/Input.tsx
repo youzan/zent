@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Component } from 'react';
 import classNames from 'classnames';
 import isNumber from 'lodash-es/isNumber';
-import getWidth from '../utils/getWidth';
 import { IInputProps, IInputCoreProps, IInputClearEvent } from './types';
 import { InputCore } from './InputCore';
 import { TextArea } from './TextArea';
@@ -125,12 +124,18 @@ export class Input extends Component<IInputProps, IInputState> {
       size,
       disabled = disableCtx.value,
       readOnly,
+      style,
     } = props;
     const { hasFocus } = this.state;
-    const widthStyle = getWidth(width);
     const isTextarea = type.toLowerCase() === 'textarea';
     const editable = !(disabled || readOnly);
     const { renderInner } = this.context;
+
+    const wrapperStyle: React.CSSProperties = {
+      ...style,
+      width,
+      display: props.inline ? 'inline-flex' : 'flex',
+    };
 
     const wrapClass = classNames(
       'zent-input-wrapper',
@@ -174,7 +179,7 @@ export class Input extends Component<IInputProps, IInputState> {
     }
 
     return (
-      <div className={wrapClass} style={widthStyle}>
+      <div className={wrapClass} style={wrapperStyle}>
         {renderInner ? renderInner(children) : children}
       </div>
     );

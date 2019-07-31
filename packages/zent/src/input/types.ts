@@ -1,5 +1,6 @@
 import { Omit } from 'utility-types';
 import { IconType } from '../icon';
+import { CSSProperties } from 'react';
 
 export type InputType = 'text' | 'number' | 'password' | 'textarea';
 
@@ -24,6 +25,8 @@ export interface IInputCommonProps {
   autoSelect?: boolean;
   initSelectionStart?: number;
   initSelectionEnd?: number;
+  inline?: boolean;
+  style?: CSSProperties;
 }
 
 export interface IInputCoreProps
@@ -38,6 +41,7 @@ export interface IInputCoreProps
   addonBefore?: React.ReactNode;
   addonAfter?: React.ReactNode;
   value?: string;
+  inline?: boolean;
   onChange?: (e: IInputChangeEvent) => void;
 }
 
