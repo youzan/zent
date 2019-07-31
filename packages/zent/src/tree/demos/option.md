@@ -4,9 +4,6 @@ zh-CN:
 	title: 可选树
 	index: 首页
 	tree: 树
-	switch: 使用新版
-	radio1: 默认模式
-	radio2: 受控模式
 	title1: 杭州有赞科技有限公司
 	title2: 技术
 	title3: 后端
@@ -22,9 +19,6 @@ en-US:
 	title: Optional Tree
 	index: Index
 	tree: Tree
-	switch: useNew
-	radio1: default
-	radio2: controllable
 	title1: Hangzhou Youzan Technology Co. Ltd
 	title2: Engineer
 	title3: Back End Engineer
@@ -40,9 +34,8 @@ en-US:
 
 
 ```jsx
-import { Tree, Radio, Switch } from 'zent';
+import { Tree } from 'zent';
 
-const RadioGroup = Radio.Group;
 const treeData = [{
 	id: 1,
 	title: '{i18n.title1}',
@@ -80,97 +73,32 @@ const treeData = [{
 
 class TreeExample extends React.Component {
 	state = {
-		useNew: true,
-		radioValue: 'default',
-		controlled: false,
-		defaultCheckedKeys: [3, 5],
-		disabledCheckedKeys: [4, 7, 9]
+		checkedKeys: [3, 5, 22],
+		disabledCheckedKeys: [4, 7, 9, 22]
 	}
 
-	onUseNewChange = (checked) => {
+	onCheck = (checked, helpInfo) => {
+		console.log(checked, helpInfo);
 		this.setState({
-			useNew: checked,
+			checkedKeys: checked
 		});
 	}
 
-	onControllableChange = (e) => {
-		if (e.target.value === 'controllable') {
-			this.setState({
-				controlled: true,
-				radioValue: 'controllable'
-			});
-			return;
-		}
-
-		if (e.target.value === 'default') {
-			this.setState({
-				controlled: false,
-				radioValue: 'default'
-			});
-		}
-	}
-
-	onCheck = (checked) => {
-		console.log(checked);
-
-		if (this.state.controlled) {
-			this.setState({
-				defaultCheckedKeys: checked
-			});
-		}
-	}
-
-	renderNew() {
-		const { controlled, defaultCheckedKeys, disabledCheckedKeys, radioValue } = this.state;
+	render() {
+		const { checkedKeys, disabledCheckedKeys } = this.state;
 
 		return (
 			<div>
-				<RadioGroup onChange={this.onControllableChange} value={radioValue}>
-					<Radio value="default">{i18n.radio1}</Radio>
-					<Radio value="controllable">{i18n.radio2}</Radio>
-				</RadioGroup>
-				<hr/>
 				<Tree
-					useNew
 					checkable
-					controlled={controlled}
 					size="small"
 					data={treeData}
 					onCheck={this.onCheck}
-					defaultCheckedKeys={defaultCheckedKeys}
+					checkedKeys={checkedKeys}
 					disabledCheckedKeys={disabledCheckedKeys}
 				/>
 			</div>
-		)
-	}
-
-	renderOld() {
-		const { defaultCheckedKeys, disabledCheckedKeys } = this.state;
-
-		return (
-			<Tree
-				checkable
-				size="small"
-				data={treeData}
-				onCheck={this.onCheck}
-				defaultCheckedKeys={defaultCheckedKeys}
-				disabledCheckedKeys={disabledCheckedKeys}
-			/>
-		)
-	}
-
-	render() {
-		const { useNew } = this.state;
-
-		return (
-			<div>
-				<div style={{ marginBottom: 15}}>
-					{i18n.switch}  <Switch size="small" checked={useNew} onChange={this.onUseNewChange} />
-				</div>
-				
-				{useNew ? this.renderNew() : this.renderOld()}
-			</div>
-		)
+		);
 	}
 }
 

@@ -1,31 +1,26 @@
 import * as React from 'react';
-import { PureComponent } from 'react';
+import { Component } from 'react';
 import isEqual from 'lodash-es/isEqual';
-import get from 'lodash-es/get';
-import forEach from 'lodash-es/forEach';
-import uniq from 'lodash-es/uniq';
-import assign from 'lodash-es/assign';
+import _get from 'lodash-es/get';
+
+import _union from 'lodash-es/union';
 import classnames from 'classnames';
 
 import AnimateHeight from '../utils/component/AnimateHeight';
 import Checkbox from '../checkbox';
 import Loading from './components/Loading';
 
-const DEFAULT_REANDER_KEY = {
-  id: 'id',
-  title: 'title',
-  children: 'children',
-  parentId: 'parentId',
-};
-
-export interface ITreeData {
-  id: number | string;
-  title: number | string;
-  children?: ITreeData[];
-  parendId?: string | number;
-  expand?: boolean;
-  isLeaf?: boolean;
-}
+import createStateByProps, {
+  ICreateStateByPropsParams,
+} from './utils/createStateByProps';
+import correctMark from './utils/correctMark';
+import correctExpand from './utils/correctExpand';
+import {
+  ITreeData,
+  TreeRootIdArray,
+  ITreeRootInfoMap,
+  ITreeRenderKey,
+} from './utils/common';
 
 export interface ITreeOperation {
   name: string;
@@ -34,431 +29,121 @@ export interface ITreeOperation {
   shouldRender?: (data: ITreeData) => boolean;
 }
 
-export interface ITreeProps {
-  useNew?: boolean;
-  dataType?: 'tree' | 'plain';
-  data: ITreeData[];
-  renderKey?: {
-    id?: string;
-    title?: string;
-    children?: string;
-    parentId?: string;
-  };
+// onCheck second param to help
+export interface ITreeOncheckHelpInfo {
+  // which root click
+  currentRoot: ITreeData;
+  // all disableNode
+  disabled: ITreeData[];
+  // all checkedNode
+  all: ITreeData[];
+  // only parent or childless checkedNode
+  top: ITreeData[];
+  // only least child checkedNode
+  bottom: ITreeData[];
+}
+
+export interface ITreeProps extends ICreateStateByPropsParams {
   render?: (data: ITreeData, isExpanded?: boolean) => React.ReactNode;
   operations?: ITreeOperation[];
   foldable?: boolean;
-  onCheck?: (data: Array<number | string>) => void;
-  checkable?: boolean;
-  controlled?: boolean;
-  defaultCheckedKeys?: Array<number | string>;
-  disabledCheckedKeys?: Array<number | string>;
+  onCheck?: (selected: TreeRootIdArray, info: ITreeOncheckHelpInfo) => void;
   size?: 'medium' | 'small' | 'large';
   commonStyle?: React.CSSProperties;
-  expandAll?: boolean;
   onExpand?: (data: ITreeData, config: { isExpanded: boolean }) => void;
   autoExpandOnSelect?: boolean;
   onSelect?: (data: ITreeData, target: HTMLSpanElement) => void;
-  isRoot?: (data: ITreeData) => boolean;
-  loadMore?: (data: ITreeData) => Promise<any>;
   prefix?: string;
 }
 
-export class Tree extends PureComponent<ITreeProps, any> {
-  renderKeyMap = DEFAULT_REANDER_KEY;
+export interface ITreeState {
+  preProps: ITreeProps;
+  tree: ITreeData[];
+  rootInfoMap: ITreeRootInfoMap;
+  expandNode: TreeRootIdArray;
+  checkedNode: TreeRootIdArray;
+  disabledNode: TreeRootIdArray;
+  renderKey: ITreeRenderKey;
+  loadingNode: TreeRootIdArray;
+}
 
+export class Tree extends Component<ITreeProps, ITreeState> {
   static defaultProps = {
     autoExpandOnSelect: true,
     dataType: 'tree',
     foldable: true,
     checkable: false,
-    controlled: false,
     size: 'medium',
     prefix: 'zent',
-    renderKey: DEFAULT_REANDER_KEY,
   };
 
-  constructor(props) {
+  constructor(props: ITreeProps) {
     super(props);
-    const {
-      tree,
-      treeMap,
-      checkMap,
-      expandNode,
-      checkedNode,
-      disabledNode,
-      halfCheckNode,
-    } = this.formatDataByProp(props);
-
     this.state = {
-      treeMap,
-      expandNode,
-      tree,
-      checkMap,
-      checkedNode,
-      disabledNode,
-      halfCheckNode,
+      preProps: props,
       loadingNode: [],
+      ...createStateByProps(props),
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!isEqual(nextProps.data, this.props.data)) {
-      const formatData = this.formatDataByProp(nextProps);
-      let nextExpandNode = formatData.expandNode;
+  static getDerivedStateFromProps(nextProps: ITreeProps, state: ITreeState) {
+    const { preProps } = state;
 
-      // 只有在 loadMore 状态下，我会保持原有打开状态
-      if (this.props.loadMore || nextProps.loadMore) {
-        const { expandNode, tree } = this.state;
-
-        nextExpandNode = this.filterExpandNode(
-          {
-            tree,
-            expandNode,
-          },
-          formatData
-        );
-      }
-
-      this.setState({
-        treeMap: formatData.treeMap,
-        tree: formatData.tree,
-        expandNode: nextExpandNode,
-        checkMap: formatData.checkMap,
-        checkedNode: formatData.checkedNode,
-        disabledNode: formatData.disabledNode,
-        halfCheckNode: formatData.halfCheckNode,
-      });
-      return;
-    }
-
+    // 需要重新计算
     if (
-      nextProps.checkable &&
-      (!isEqual(this.props.defaultCheckedKeys, nextProps.defaultCheckedKeys) ||
-        !isEqual(
-          this.props.disabledCheckedKeys,
-          nextProps.disabledCheckedKeys
-        ) ||
-        this.props.controlled !== nextProps.controlled)
+      !isEqual(nextProps.data, preProps.data) ||
+      !isEqual(nextProps.renderKey, preProps.renderKey) ||
+      nextProps.expandAll !== preProps.expandAll ||
+      nextProps.loadMore !== preProps.loadMore
     ) {
-      const { checkedNode, disabledNode, halfCheckNode } = this.formatCheckInfo(
-        {
-          defaultCheckedKeys: nextProps.defaultCheckedKeys,
-          disabledCheckedKeys: nextProps.disabledCheckedKeys,
-          checkMap: this.state.checkMap,
-          tree: this.state.tree,
-          checkable: nextProps.checkable,
-          controlled: nextProps.controlled,
-        }
-      );
+      const formatData = createStateByProps(nextProps);
+      let { expandNode } = formatData;
 
-      this.setState({
-        checkedNode,
-        disabledNode,
-        halfCheckNode,
-      });
-    }
-  }
+      // // 只有在 loadMore 状态下，我会保持原有打开状态
+      // // if (preProps.loadMore || nextProps.loadMore) {
+      // 任何情况下都做保留
+      expandNode = correctExpand(state, formatData);
+      // // }
 
-  formatDataByProp({
-    data,
-    isRoot,
-    renderKey,
-    dataType,
-    isExpandAll,
-    loadMore,
-    checkable,
-    controlled,
-    disabledCheckedKeys = [],
-    defaultCheckedKeys = [],
-  }) {
-    this.renderKeyMap = assign({}, DEFAULT_REANDER_KEY, renderKey);
-    const { children, parentId, id } = this.renderKeyMap;
-    const treeMap = {};
-    const expandNode = [];
-    const checkMap = {};
-    let roots = [];
-
-    if (dataType === 'plain') {
-      const map = {};
-      const orderRecord = [];
-
-      data.forEach((node, index) => {
-        if (!node.isLeaf) {
-          node[children] = [];
-        }
-
-        map[node[id]] = node;
-        orderRecord[index] = node[id];
-      });
-
-      orderRecord.forEach(key => {
-        const node = map[key];
-        const isRootNode =
-          (isRoot && isRoot(node)) ||
-          node[parentId] === 0 ||
-          node[parentId] === undefined ||
-          node[parentId] === '0';
-
-        if (isRootNode) {
-          roots.push(node);
-        } else if (map[node[parentId]]) {
-          // 防止只删除父节点没有子节点的情况
-          map[node[parentId]][children].push(node);
-        }
-      });
-    } else if (dataType === 'tree') {
-      roots = data;
+      return {
+        preProps: nextProps,
+        ...formatData,
+        expandNode,
+      };
     }
 
-    this.collector({
-      isExpandAll,
-      loadMore,
-      tree: roots,
-      parentPath: [],
-      exPandCb: rootId => {
-        expandNode.push(rootId);
-      },
-      mapCb: (rootId, path) => {
-        treeMap[rootId] = path;
-      },
-      checkCb: (pId, cId) => {
-        if (!checkable) {
-          return;
-        }
-
-        if (checkMap[cId]) {
-          checkMap[cId].unshift(cId);
-        } else {
-          checkMap[cId] = [cId];
-        }
-
-        if (pId !== undefined) {
-          checkMap[pId] = checkMap[pId] || [];
-          checkMap[pId] = checkMap[pId].concat(checkMap[cId]);
-        }
-      },
-    });
-
-    const { checkedNode, disabledNode, halfCheckNode } = this.formatCheckInfo({
-      tree: roots,
-      checkMap,
-      checkable,
-      controlled,
-      disabledCheckedKeys,
-      defaultCheckedKeys,
-    });
-
-    return {
-      treeMap,
-      expandNode,
-      checkMap,
-      tree: roots,
-      checkedNode,
-      disabledNode,
-      halfCheckNode,
-    };
-  }
-
-  formatCheckInfo({
-    defaultCheckedKeys,
-    disabledCheckedKeys,
-    checkMap,
-    tree,
-    checkable,
-    controlled,
-  }) {
-    let checkedNode = [];
-    let disabledNode = [];
-    let halfCheckNode = [];
-
-    if (checkable) {
-      if (!controlled) {
-        const realChecked = uniq(
-          defaultCheckedKeys.reduce((total, rootId) => {
-            return total.concat(checkMap[rootId]);
-          }, [])
+    if (nextProps.checkable) {
+      const newState: Partial<ITreeState> = {};
+      if (
+        !isEqual(preProps.disabledCheckedKeys, nextProps.disabledCheckedKeys)
+      ) {
+        newState.disabledNode = correctMark(
+          nextProps.disabledCheckedKeys,
+          state.rootInfoMap
         );
-        const realDisabled = uniq(
-          disabledCheckedKeys.reduce((total, rootId) => {
-            return total.concat(checkMap[rootId]);
-          }, [])
+      }
+      if (!isEqual(preProps.checkedKeys, nextProps.checkedKeys)) {
+        newState.checkedNode = correctMark(
+          nextProps.checkedKeys,
+          state.rootInfoMap,
+          newState.disabledNode || state.disabledNode
         );
-
-        const correntCheck = this.correctCheckInfo({
-          checkMap,
-          tree,
-          checkedNode: realChecked,
-          disabledNode: realDisabled,
-          isInital: true,
+        newState.checkedNode = newState.checkedNode.filter(id => {
+          // 之前的并没被禁用 or 之前就被选中了,但是是禁用的
+          return (
+            state.disabledNode.indexOf(id) === -1 ||
+            state.checkedNode.indexOf(id) > -1
+          );
         });
-
-        checkedNode = correntCheck.checkedNode;
-        disabledNode = correntCheck.disabledNode;
-        halfCheckNode = correntCheck.halfCheckNode;
-      } else {
-        checkedNode = defaultCheckedKeys;
-        disabledNode = disabledCheckedKeys;
       }
+      return newState;
     }
 
-    return {
-      checkedNode,
-      disabledNode,
-      halfCheckNode,
-    };
+    return null;
   }
 
-  collector({
-    isExpandAll,
-    loadMore,
-    tree,
-    parentPath,
-    exPandCb,
-    mapCb,
-    checkCb,
-    parentId,
-  }: any) {
-    const { children, id } = this.renderKeyMap;
-
-    tree.forEach((item, index) => {
-      const currentPath = parentPath.concat(index);
-      mapCb(item[id], currentPath);
-
-      if (
-        this.isParentNode(item, loadMore) &&
-        (item.expand || (item.expand === undefined && isExpandAll))
-      ) {
-        exPandCb(item[id]);
-      }
-
-      if (item[children]) {
-        this.collector({
-          isExpandAll,
-          tree: item[children],
-          parentPath: currentPath,
-          exPandCb,
-          mapCb,
-          checkCb,
-          parentId: item[id],
-        });
-      }
-
-      checkCb(parentId, item[id]);
-    });
-  }
-
-  filterExpandNode(current, next) {
-    const { id, children } = this.renderKeyMap;
-    const { tree: cTree, expandNode: cExpandNode } = current;
-    const { tree: nTree, treeMap: nTreeMap, expandNode: nExpandNode } = next;
-
-    // use .values will add a polyfill, just for jest
-    // Object.values(nTreeMap).forEach(path => {
-    forEach(nTreeMap, pathKey => {
-      const nPath = pathKey.join(`.${children}.`);
-      const cItem = get(cTree, nPath);
-      const nItem = get(nTree, nPath);
-      const nId = nItem[id];
-
-      // 如果是续费成员 cItem[id] === nId
-      // 当前打开存在，下个打开不存在
-      if (
-        cItem &&
-        cItem[id] === nId &&
-        cExpandNode.indexOf(nId) > -1 &&
-        nExpandNode.indexOf(nId) === -1
-      ) {
-        nExpandNode.push(nId);
-      }
-    });
-    return nExpandNode;
-  }
-
-  isParentNode(root, loadMore) {
-    // loadMore 的 parent children 边界有点模糊
-    const { children } = this.renderKeyMap;
-    return !!(
-      !root.isLeaf &&
-      (loadMore || (root[children] && root[children].length > 0))
-    );
-  }
-
-  correctCheckInfo({ checkedNode, disabledNode, tree, isInital }: any) {
-    const { id, children } = this.renderKeyMap;
-    const tempParentCheckdMap = {};
-    const tempDisabled = disabledNode;
-    const tempHalfCheck = [];
-    let tempChecked = checkedNode;
-
-    tree.forEach(item => {
-      shouldNodeCheck(item);
-    });
-
-    function shouldNodeCheck(root, pId?: any) {
-      const rootId = root[id];
-      const rootChildren = root[children];
-
-      if (
-        (isInital || tempChecked.indexOf(rootId) === -1) &&
-        rootChildren &&
-        rootChildren.length
-      ) {
-        const childLength = rootChildren.length;
-        const rootCount = (tempParentCheckdMap[rootId] = {
-          checkedCount: 0,
-          disabledCount: 0,
-          validCheckedCount: 0,
-        });
-
-        rootChildren.forEach(child => {
-          shouldNodeCheck(child, rootId);
-        });
-
-        const validCheckedLength = childLength - rootCount.disabledCount;
-        const validCheckedCount = rootCount.validCheckedCount;
-
-        if (validCheckedCount) {
-          if (validCheckedCount === validCheckedLength) {
-            tempChecked.push(rootId);
-          } else {
-            tempHalfCheck.push(rootId);
-          }
-        } else {
-          tempChecked = tempChecked.filter(cid => cid !== rootId);
-        }
-
-        if (
-          rootCount.disabledCount === childLength &&
-          tempDisabled.indexOf(rootId) === -1
-        ) {
-          tempDisabled.push(rootId);
-        }
-      }
-
-      if (pId) {
-        if (tempChecked.indexOf(rootId) > -1) {
-          tempParentCheckdMap[pId].checkedCount++;
-
-          if (tempDisabled.indexOf(rootId) === -1) {
-            tempParentCheckdMap[pId].validCheckedCount++;
-          }
-        }
-
-        if (tempDisabled.indexOf(rootId) > -1) {
-          tempParentCheckdMap[pId].disabledCount++;
-        }
-      }
-    }
-
-    return {
-      checkedNode: tempChecked,
-      disabledNode: tempDisabled,
-      halfCheckNode: tempHalfCheck,
-    };
-  }
-
-  handleExpandClick(root, e) {
-    const { id } = this.renderKeyMap;
+  handleExpandClick(root: ITreeData, e: React.MouseEvent) {
+    const { id } = this.state.renderKey;
     const { loadMore, foldable } = this.props;
     if (!foldable) {
       return;
@@ -470,7 +155,7 @@ export class Tree extends PureComponent<ITreeProps, any> {
     if (loadMore) {
       if (!root.children || root.children.length === 0) {
         e.persist();
-        const nextLoadingNode = loadingNode.concat(root[id]);
+        const nextLoadingNode: TreeRootIdArray = loadingNode.concat(root[id]);
         this.setState({ loadingNode: nextLoadingNode });
         loadMore(root)
           .then(() => {
@@ -490,7 +175,7 @@ export class Tree extends PureComponent<ITreeProps, any> {
     this.handleExpand(root, isSwitcher);
   }
 
-  handleExpand(root, isSwitcher) {
+  handleExpand(root: ITreeData, isSwitcher: boolean) {
     const { onExpand, autoExpandOnSelect } = this.props;
     const { expandNode } = this.state;
 
@@ -498,7 +183,7 @@ export class Tree extends PureComponent<ITreeProps, any> {
       return;
     }
 
-    const { id } = this.renderKeyMap;
+    const { id } = this.state.renderKey;
     const activeId = root[id];
     let newExpandNode = expandNode.slice();
     let isClose = true;
@@ -521,68 +206,97 @@ export class Tree extends PureComponent<ITreeProps, any> {
     }
   }
 
-  handleCheckboxClick(root) {
-    const { onCheck, controlled } = this.props;
-    const rootId = root[this.renderKeyMap.id];
-    let { checkedNode, disabledNode, tree, checkMap } = this.state;
+  handleCheckboxClick(root: ITreeData) {
+    const { onCheck } = this.props;
+    let { checkedNode, disabledNode, rootInfoMap, renderKey } = this.state;
+    const rootId = root[renderKey.id];
 
-    // 受控模式
-    if (controlled) {
-      if (checkedNode.indexOf(rootId) > -1) {
-        checkedNode = checkedNode.filter(id => id !== rootId);
-      } else {
-        checkedNode = checkedNode.concat(rootId);
-      }
-      onCheck && onCheck(checkedNode.slice());
+    if (checkedNode.indexOf(rootId) > -1) {
+      checkedNode = checkedNode.filter(id => {
+        // 自己
+        if (id === rootId) {
+          return false;
+        }
 
-      // zent 模式
-    } else {
-      if (checkedNode.indexOf(rootId) > -1) {
-        checkedNode = checkedNode.filter(id => {
-          return (
-            disabledNode.indexOf(id) > -1 ||
-            (checkMap[id].indexOf(rootId) === -1 &&
-              checkMap[rootId].indexOf(id) === -1)
-          );
-        });
-      } else {
-        checkedNode = uniq(
-          checkedNode.concat(
-            checkMap[rootId].filter(id => disabledNode.indexOf(id) === -1)
-          )
-        );
-      }
+        // 如果被禁用
+        if (disabledNode.indexOf(id) > -1) {
+          return true;
+        }
 
-      const checkInfo = this.correctCheckInfo({
-        checkedNode,
-        disabledNode,
-        tree,
-        checkMap,
+        // 父类包含了该节点
+        if (rootInfoMap[id].includes.indexOf(rootId) > -1) {
+          return false;
+        }
+
+        // 他的子类
+        if (rootInfoMap[rootId].includes.indexOf(id) > -1) {
+          return false;
+        }
+
+        return true;
       });
-
-      this.setState(checkInfo);
-
-      onCheck && onCheck(checkInfo.checkedNode.slice());
-    }
-  }
-
-  renderSwitcher(root, isParent) {
-    if (isParent) {
-      return (
-        <i
-          className="switcher"
-          onClick={e => {
-            this.handleExpandClick(root, e);
-          }}
-        />
+    } else {
+      checkedNode = correctMark(
+        [rootId, ...checkedNode],
+        rootInfoMap,
+        disabledNode
       );
     }
 
-    return null;
+    /**
+     * all 所有选中节点
+     * disabled 所有
+     */
+    const helperInfo: ITreeOncheckHelpInfo = {
+      currentRoot: root,
+      disabled: disabledNode.map(id => rootInfoMap[id].root),
+      all: [],
+      top: [],
+      bottom: [],
+    };
+    checkedNode.forEach(id => {
+      helperInfo.all.push(rootInfoMap[id].root);
+
+      // top
+      if (
+        !rootInfoMap[id].parentId ||
+        checkedNode.indexOf(
+          rootInfoMap[rootInfoMap[id].parentId as string].id
+        ) === -1
+      ) {
+        helperInfo.top.push(rootInfoMap[id].root);
+      }
+
+      // bottom
+      if (
+        rootInfoMap[id].includes.length === 1 ||
+        rootInfoMap[id].includes.every(
+          child => checkedNode.indexOf(child) === -1
+        )
+      ) {
+        helperInfo.bottom.push(rootInfoMap[id].root);
+      }
+    });
+
+    onCheck && onCheck(checkedNode, helperInfo);
   }
 
-  renderContent(root, isParent, isExpanded) {
-    const { title } = this.renderKeyMap;
+  renderSwitcher(root: ITreeData) {
+    return (
+      <i
+        className="switcher"
+        onClick={e => {
+          this.handleExpandClick(root, e);
+        }}
+      />
+    );
+  }
+
+  renderContent(root: ITreeData, isExpanded: boolean) {
+    const {
+      rootInfoMap,
+      renderKey: { id, title },
+    } = this.state;
     const { render, onSelect } = this.props;
     return (
       <span
@@ -590,7 +304,7 @@ export class Tree extends PureComponent<ITreeProps, any> {
         onClick={e => {
           onSelect && onSelect(root, e.currentTarget);
 
-          if (isParent) {
+          if (rootInfoMap[root[id]].isParent) {
             this.handleExpandClick(root, e);
           }
         }}
@@ -600,28 +314,38 @@ export class Tree extends PureComponent<ITreeProps, any> {
     );
   }
 
-  renderCheckbox(root) {
+  renderCheckbox(root: ITreeData) {
     const { checkable } = this.props;
-    const { checkedNode, disabledNode, halfCheckNode } = this.state;
+    const { checkedNode, disabledNode, rootInfoMap, renderKey } = this.state;
 
     if (!checkable) {
       return null;
     }
 
-    const rootId = root[this.renderKeyMap.id];
+    const rootId = root[renderKey.id];
+    const checked = checkedNode.indexOf(rootId) > -1;
+    const countChild = rootInfoMap[rootId].includes.filter(
+      id => disabledNode.indexOf(id) === -1
+    );
+    const halfChecked = !!(
+      !checked &&
+      countChild.length &&
+      countChild.some(id => checkedNode.indexOf(id) > -1)
+    );
 
     return (
       <Checkbox
         onChange={this.handleCheckboxClick.bind(this, root)}
-        checked={checkedNode.indexOf(rootId) > -1}
+        checked={checked}
         disabled={disabledNode.indexOf(rootId) > -1}
-        indeterminate={halfCheckNode.indexOf(rootId) > -1}
+        indeterminate={halfChecked}
+        width={root[renderKey.title]}
       />
     );
   }
 
-  renderOperations(root, isExpanded) {
-    const { id } = this.renderKeyMap;
+  renderOperations(root: ITreeData, isExpanded: boolean) {
+    const { id } = this.state.renderKey;
     const opts = this.props.operations;
 
     if (opts) {
@@ -650,25 +374,30 @@ export class Tree extends PureComponent<ITreeProps, any> {
     return null;
   }
 
-  renderTreeNodes(roots) {
-    const { id, children } = this.renderKeyMap;
-    const { expandNode, loadingNode } = this.state;
-    const { loadMore, prefix } = this.props;
+  renderTreeNodes(roots: ITreeData[]) {
+    const {
+      expandNode,
+      loadingNode,
+      rootInfoMap,
+      renderKey: { id, children },
+    } = this.state;
+    const { prefix } = this.props;
     if (roots && roots.length > 0) {
       return roots.map(root => {
-        const isShowChildren = expandNode.indexOf(root[id]) > -1;
+        const rootId = root[id];
+        const isShowChildren = expandNode.indexOf(rootId) > -1;
         const barClassName = classnames(`${prefix}-tree-bar`, {
           off: !isShowChildren,
         });
-        const isParent = this.isParentNode(root, loadMore);
+
         return (
-          <li key={root[id]}>
+          <li key={rootId}>
             <div className={barClassName}>
-              {this.renderSwitcher(root, isParent)}
+              {rootInfoMap[rootId].isParent ? this.renderSwitcher(root) : null}
               <div className="zent-tree-node">
                 {this.renderCheckbox(root)}
-                {loadingNode.indexOf(root[id]) > -1 ? <Loading /> : null}
-                {this.renderContent(root, isParent, isShowChildren)}
+                {loadingNode.indexOf(rootId) > -1 ? <Loading /> : null}
+                {this.renderContent(root, isShowChildren)}
                 {this.renderOperations(root, isShowChildren)}
               </div>
             </div>
@@ -678,7 +407,7 @@ export class Tree extends PureComponent<ITreeProps, any> {
                 duration={200}
                 height={isShowChildren ? 'auto' : 0}
               >
-                <ul key={`ul-${root[id]}`} className={`${prefix}-tree-child`}>
+                <ul key={`ul-${rootId}`} className={`${prefix}-tree-child`}>
                   {this.renderTreeNodes(root[children])}
                 </ul>
               </AnimateHeight>
@@ -687,6 +416,8 @@ export class Tree extends PureComponent<ITreeProps, any> {
         );
       });
     }
+
+    return null;
   }
 
   render() {
