@@ -12,7 +12,7 @@ $small-size: 24px;
 $large-size: 40px;
 
 .zent-input-wrapper {
-  display: inline-flex;
+  display: flex;
   position: relative;
   box-sizing: border-box;
   border: $border-default;
