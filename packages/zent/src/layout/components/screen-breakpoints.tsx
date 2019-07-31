@@ -1,41 +1,46 @@
 import has from 'lodash-es/has';
-import isPlainObject from 'lodash-es/isPlainObject';
+import {
+  ILayoutResponsiveValue,
+  LayoutBreakPoint,
+  LayoutBreakPointName,
+} from './types';
 
-export const BREAKPOINT_MAP = {
-  '(max-width: 575px)': 'xs',
-  '(min-width: 576px)': 'sm',
-  '(min-width: 768px)': 'md',
-  '(min-width: 992px)': 'lg',
-  '(min-width: 1200px)': 'xl',
-  '(min-width: 1600px)': 'xxl',
-  '(min-width: 1920px)': 'fhd',
-};
+type LayoutBreakPointMap = Record<LayoutBreakPoint, LayoutBreakPointName>;
 
-// Order is important
-export const BREAKPOINTS = [
-  '(min-width: 1920px)',
-  '(min-width: 1600px)',
-  '(min-width: 1200px)',
-  '(min-width: 992px)',
-  '(min-width: 768px)',
-  '(min-width: 576px)',
-  '(max-width: 575px)',
-];
+const BREAKPOINT_MAP = (Object.keys(
+  LayoutBreakPoint
+) as LayoutBreakPointName[]).reduce(
+  (m, k) => {
+    m[LayoutBreakPoint[k]] = k;
+    return m;
+  },
+  {} as LayoutBreakPointMap
+);
 
-export function getValueForBreakpoint(breakpoints, valueMap) {
-  if (!isPlainObject(valueMap)) {
+export const BREAKPOINTS = Object.keys(BREAKPOINT_MAP) as LayoutBreakPoint[];
+
+export function getValueForBreakpoint(
+  breakpoints: Partial<Record<LayoutBreakPoint, boolean>>,
+  valueMap: number | ILayoutResponsiveValue
+): number {
+  if (typeof valueMap === 'number') {
     return valueMap;
   }
 
   for (let i = 0; i < BREAKPOINTS.length; i++) {
     const brk = BREAKPOINTS[i];
     const breakpointName = BREAKPOINT_MAP[brk];
-    if (breakpoints[brk] && has(valueMap, breakpointName)) {
-      return valueMap[breakpointName];
+    if (breakpoints[brk]) {
+      const val = valueMap[breakpointName];
+      if (val !== undefined) {
+        return val;
+      }
     }
   }
 
   if (has(valueMap, 'fallback')) {
     return valueMap.fallback;
   }
+
+  return 0;
 }

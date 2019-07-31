@@ -1,34 +1,41 @@
 import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
-import omitBy from 'lodash-es/omitBy';
+import pickBy from 'lodash-es/pickBy';
 
 import ConfigContext from './ConfigContext';
-import Breakpoint from './Breakpoint';
-import LayoutBreakpointContext from './BreakpointContext';
-import { BREAKPOINTS } from './screen-breakpoints';
+import BreakPointHub from './BreakPointHub';
+import LayoutBreakpointContext from './BreakPointContext';
+import { BREAKPOINTS, getValueForBreakpoint } from './screen-breakpoints';
+import { LayoutBreakPoint } from './types';
 
 export interface ILayoutGridProps {
   className?: string;
   style?: React.CSSProperties;
 }
 
-export interface ILayoutGridState {
-  breakpoints: string[];
+interface ILayoutGridState {
+  breakpoints: Partial<Record<LayoutBreakPoint, boolean>>;
 }
 
 export class LayoutGrid extends Component<ILayoutGridProps, ILayoutGridState> {
   state = {
-    breakpoints: [],
+    breakpoints: {} as Partial<Record<LayoutBreakPoint, boolean>>,
   };
 
   render() {
     const { className, style, ...others } = this.props;
+    const { breakpoints } = this.state;
+
+    console.log(breakpoints);
 
     return (
       <ConfigContext.Consumer>
         {config => {
-          const { rowGutter } = config;
+          const rowGutter = getValueForBreakpoint(
+            breakpoints,
+            config.rowGutter
+          );
           let layoutStyles = style;
 
           if (rowGutter > 0) {
@@ -46,10 +53,10 @@ export class LayoutGrid extends Component<ILayoutGridProps, ILayoutGridState> {
               className={cx('zent-layout-grid', className)}
               style={layoutStyles}
             >
-              <LayoutBreakpointContext.Provider value={this.state}>
+              <LayoutBreakpointContext.Provider value={breakpoints}>
                 {this.props.children}
               </LayoutBreakpointContext.Provider>
-              <Breakpoint
+              <BreakPointHub
                 breakpoints={BREAKPOINTS}
                 onChange={this.onBreakpointChange}
               />
@@ -60,16 +67,13 @@ export class LayoutGrid extends Component<ILayoutGridProps, ILayoutGridState> {
     );
   }
 
-  onBreakpointChange = (name, matched) => {
+  onBreakpointChange = (name: LayoutBreakPoint, matched: boolean) => {
     this.setState(prevState => {
       const { breakpoints } = prevState;
 
       return {
-        breakpoints: omitBy(
-          { ...breakpoints, [name]: matched },
-          matched => !matched || matched === false
-        ),
-      } as any;
+        breakpoints: pickBy({ ...breakpoints, [name]: matched }),
+      } as ILayoutGridState;
     });
   };
 }
