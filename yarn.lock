@@ -1913,6 +1913,11 @@ balanced-match@^1.0.0:
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
   integrity sha1-ibTRmasr7kneFk6gK4nORi1xt2c=
 
+banned-import-paths-tslint-rule@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/banned-import-paths-tslint-rule/-/banned-import-paths-tslint-rule-1.0.4.tgz#1786fb4a3a9b82c3d48d9edf32899c6caf3e9e24"
+  integrity sha512-dQJauCEFQgE+8IPdbbgqm5t1QYyFgMg4Ba5XEV/KlRTSfxl16AZ43OCQ8wtBAbPJPgBpt/iZRllEvw6ef1nW7Q==
+
 base64-js@^1.0.2:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-1.3.0.tgz#cab1e6118f051095e58b5281aea8c1cd22bfc0e3"

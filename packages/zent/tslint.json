@@ -1,4 +1,5 @@
 {
+  "rulesDirectory": ["banned-import-paths-tslint-rule"],
   "rules": {
     "array-type": [true, "array-simple"],
     "arrow-return-shorthand": true,
@@ -71,6 +72,29 @@
       "allow-pascal-case",
       "allow-leading-underscore",
       "allow-trailing-underscore"
+    ],
+    "banned-import-paths": [
+      true,
+      [
+        "autosize",
+        "autosize doesn't support compile to ES module, please use cjs require"
+      ],
+      [
+        "date-fns",
+        "date-fns doesn't support compile to ES module, please use cjs require"
+      ],
+      [
+        "enquire.js",
+        "enquire.js doesn't support compile to ES module, please use cjs require"
+      ],
+      [
+        "tinycolor2",
+        "tinycolor2 doesn't support compile to ES module, please use cjs require"
+      ],
+      [
+        "warning",
+        "warning doesn't support compile to ES module, please use cjs require"
+      ]
     ]
   }
 }

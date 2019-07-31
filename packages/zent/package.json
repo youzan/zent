@@ -60,6 +60,7 @@
     "@types/react-transition-group": "^2.0.16",
     "@types/warning": "^3.0.0",
     "autoprefixer": "^9.6.1",
+    "banned-import-paths-tslint-rule": "^1.0.4",
     "camelcase": "^5.2.0",
     "chalk": "^2.4.2",
     "cssnano": "^4.1.10",
