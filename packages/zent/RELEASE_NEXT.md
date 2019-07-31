@@ -58,7 +58,32 @@
 
 #### `Tree`
 
-删除了老版的非受控代码，只支持受控模式（这个很早就存在了），参数是一致的，一些选中逻辑会有细微区别。
+- 删除了老版的非受控代码，只支持受控模式（这个很早就存在了），组件参数基本是一致的。
+- 选中逻辑仅保留受控模式
+- `defaultCheckedKeys` 重命名为 `checkedKeys`
+- `onCheck` 参数发生变化
+
+```ts
+onCheck = (checked: Array, extra: IExtra) => {
+    console.log(checked, extra);
+    this.setState({
+        checkedKeys: checked,
+    });
+}
+
+interface IExtra {
+  // 触发onCheck的节点
+  currentRoot: Node;
+  // 禁用节点集合
+  disabled: Node[];
+  //  所有选中的节点集合
+  all: Node[];
+  //  所有选中节点的祖先节点；即全选可能只有顶部节点
+  top: Node[];
+  //  能够组成这次选中的最底层节点；即全选可能是金字塔底部的节点
+  bottom: Node[];
+}
+```
 
 #### `NumberInput`
 
@@ -143,12 +168,14 @@ import { Portal, PurePortal } from 'zent'
 
 如果之前依赖了 postcss 的源样式，需要改成 sass。
 
+## 7.0.0-next.23(2019-07-31)
 
-## 7.0.0-next.23(2019-07-26)
 - 修复 `Input` 样式问题
 - 修复 `date-fns` 代码引用问题
+- 修复 `Layout` 响应式参数不生效的问题
+- `Tree` 组件选择行为仅保留受控形式，详见上面的迁移指南
 
-## 7.0.0-next.22(2019-07-26)
+## 7.0.0-next.22(2019-07-30)
 
 - 临时修复三方依赖类型定义和实际代码对不上的问题
 - 修复 `Disabled` 组件对 `textarea` 不生效的问题
