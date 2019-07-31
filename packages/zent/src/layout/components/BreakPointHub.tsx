@@ -2,10 +2,11 @@ import { Component } from 'react';
 const enquire = require('enquire.js');
 
 import isBrowser from '../../utils/isBrowser';
+import { LayoutBreakPoint } from './types';
 
-export interface ILayoutBreakPointProps {
-  breakpoints: string[];
-  onChange: (brk: string, matched: boolean) => void;
+interface IBreakPointHubProps {
+  breakpoints: LayoutBreakPoint[];
+  onChange: (brk: LayoutBreakPoint, matched: boolean) => void;
 }
 
 /**
@@ -16,7 +17,7 @@ export interface ILayoutBreakPointProps {
  *
  * So no need for one more media query manager.
  */
-export class LayoutBreakpoint extends Component<ILayoutBreakPointProps> {
+export class BreakPointHub extends Component<IBreakPointHubProps> {
   render() {
     return null;
   }
@@ -25,7 +26,7 @@ export class LayoutBreakpoint extends Component<ILayoutBreakPointProps> {
     this.registerBreakpoints(this.props);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: IBreakPointHubProps) {
     if (
       prevProps.breakpoints !== this.props.breakpoints ||
       prevProps.onChange !== this.props.onChange
@@ -35,7 +36,7 @@ export class LayoutBreakpoint extends Component<ILayoutBreakPointProps> {
     }
   }
 
-  registerBreakpoints(props) {
+  registerBreakpoints(props: IBreakPointHubProps) {
     if (!isBrowser || !window.matchMedia) {
       return;
     }
@@ -55,7 +56,7 @@ export class LayoutBreakpoint extends Component<ILayoutBreakPointProps> {
     });
   }
 
-  unregisterBreakpoints(props) {
+  unregisterBreakpoints(props: IBreakPointHubProps) {
     if (!isBrowser || !window.matchMedia) {
       return;
     }
@@ -68,4 +69,4 @@ export class LayoutBreakpoint extends Component<ILayoutBreakPointProps> {
   }
 }
 
-export default LayoutBreakpoint;
+export default BreakPointHub;

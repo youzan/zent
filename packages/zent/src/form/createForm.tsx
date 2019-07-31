@@ -7,7 +7,6 @@ import assign from 'lodash-es/assign';
 import isEqual from 'lodash-es/isEqual';
 import some from 'lodash-es/some';
 import get from 'lodash-es/get';
-import map from 'lodash-es/map';
 import startsWith from 'lodash-es/startsWith';
 import isPromise from '../utils/isPromise';
 import memoize from '../utils/memorize-one';
@@ -693,7 +692,7 @@ const createForm = (
       };
 
       asyncValidateForm = (resolve, reject) => {
-        const asyncValidations = map(this.fields, field => {
+        const asyncValidations = (this.fields || []).map(field => {
           return this.asyncValidate(field, field.getValue());
         });
         Promise.all(asyncValidations)

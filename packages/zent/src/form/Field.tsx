@@ -338,7 +338,7 @@ class Field extends Component<IFieldProps, IFieldState> {
       if (asyncValidation) {
         this.context.zentForm.asyncValidate(this, newValue).catch(error => {
           // eslint-disable-next-line
-          console.log(error);
+          console.error(error);
         });
       }
     }

@@ -8,7 +8,6 @@ import { PureComponent } from 'react';
 import cx from 'classnames';
 import isString from 'lodash-es/isString';
 import isDate from 'lodash-es/isDate';
-import isArray from 'lodash-es/isArray';
 
 import { I18nReceiver as Receiver } from '../i18n';
 
@@ -22,7 +21,7 @@ const END = 'end';
 
 function compatibleInterface(prop) {
   if (!prop) return [];
-  if (isArray(prop)) return prop;
+  if (Array.isArray(prop)) return prop;
   return isString(prop) || isDate(prop) ? [prop, prop] : prop;
 }
 

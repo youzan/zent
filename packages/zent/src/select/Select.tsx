@@ -6,7 +6,6 @@ import * as React from 'react';
 import cx from 'classnames';
 import omit from 'lodash-es/omit';
 import isEqual from 'lodash-es/isEqual';
-import isArray from 'lodash-es/isArray';
 import noop from 'lodash-es/noop';
 import cloneDeep from 'lodash-es/cloneDeep';
 import assign from 'lodash-es/assign';
@@ -261,7 +260,7 @@ export class Select extends React.Component<ISelectProps, any> {
   locateSelected(state, coord, item, i) {
     const { value, index } = coord;
 
-    if (isArray(value)) {
+    if (Array.isArray(value)) {
       const valueIndex = value.indexOf(item.value);
       // rerender 去重
       if (

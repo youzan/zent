@@ -1,4 +1,3 @@
-import isArray from 'lodash-es/isArray';
 import formatDate from '../utils/date/formatDate';
 import { getValidDate } from '../utils/date/helpers';
 import { ONE_DAY } from './constants';
@@ -15,7 +14,7 @@ export function calculateTime(
   const today = getToday();
   const tomorrow = today + ONE_DAY;
 
-  if (isArray(choosedItem)) {
+  if (Array.isArray(choosedItem)) {
     [startTime, endTime] = choosedItem;
   } else {
     if (choosedItem > 1) {

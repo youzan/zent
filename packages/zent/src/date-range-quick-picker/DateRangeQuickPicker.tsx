@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
-import map from 'lodash-es/map';
 import isEqual from 'lodash-es/isEqual';
 import isNumber from 'lodash-es/isNumber';
 
@@ -95,7 +94,7 @@ export class DateRangeQuickPicker extends Component<
           {...pickerProps}
         />
         <div className={`${prefix}-date-range-picker__filter`}>
-          {map(preset, (item, index) => (
+          {preset.map((item, index) => (
             <Receiver key={index} componentName="RangePicker">
               {i18n => (
                 <span

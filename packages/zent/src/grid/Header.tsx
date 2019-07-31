@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
 import classnames from 'classnames';
-import map from 'lodash-es/map';
 import forEach from 'lodash-es/forEach';
-import filter from 'lodash-es/filter';
 
 import ColGroup from './ColGroup';
 import {
@@ -106,9 +104,8 @@ class Header<Data> extends PureComponent<
   ) => {
     const props = passProps || this.props;
     const { prefix, columns: propsColumns } = props;
-    columns = columns || propsColumns;
 
-    rows = rows;
+    columns = columns || propsColumns;
     rows[currentRow] = rows[currentRow] || [];
 
     forEach(columns, (column, index) => {
@@ -149,7 +146,7 @@ class Header<Data> extends PureComponent<
       }
     });
 
-    return filter(rows, row => row.length > 0);
+    return rows.filter(row => row.length > 0);
   };
 
   subscribe = () => {
@@ -189,7 +186,7 @@ class Header<Data> extends PureComponent<
 
     return (
       <thead className={`${prefix}-grid-thead`}>
-        {map(rows, (row, index) => {
+        {(rows || []).map((row, index) => {
           const height =
             fixed && headerHeight
               ? (headerHeight as number) / rowsLen

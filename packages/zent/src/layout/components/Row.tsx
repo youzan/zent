@@ -3,7 +3,7 @@ import { Component } from 'react';
 import cx from 'classnames';
 
 import ConfigContext from './ConfigContext';
-import LayoutBreakpointContext from './BreakpointContext';
+import LayoutBreakpointContext from './BreakPointContext';
 import { getValueForBreakpoint } from './screen-breakpoints';
 
 export interface ILayoutRowProps {
@@ -52,7 +52,7 @@ export class LayoutRow extends Component<ILayoutRowProps> {
               );
               let rowStyles = style;
 
-              if (colGutter && colGutter > 0) {
+              if (colGutter > 0) {
                 const width = -(colGutter / 2);
                 rowStyles = {
                   ...rowStyles,

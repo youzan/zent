@@ -44,7 +44,7 @@ function copy(text) {
       (window as any).clipboardData.setData('text', text);
       success = true;
     } catch (e) {
-      console.log(e); // eslint-disable-line
+      console.error(e); // eslint-disable-line
     }
   } finally {
     if (selection) {

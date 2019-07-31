@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
 import cx from 'classnames';
-import isArray from 'lodash-es/isArray';
 import { Omit } from 'utility-types';
 const startOfWeek = require('date-fns/start_of_week');
 const endOfWeek = require('date-fns/end_of_week');
@@ -79,7 +78,7 @@ function extractStateFromProps(props: IWeekPickerProps) {
   const { openPanel = false, value, format, defaultValue, startDay } = props;
 
   // 如果 value 是数组就取数组第一个值，否则就取 value
-  const hasValue = isArray(value) ? value[0] : value;
+  const hasValue = Array.isArray(value) ? value[0] : value;
 
   if (hasValue) {
     const tmp = parseDate(hasValue, format);

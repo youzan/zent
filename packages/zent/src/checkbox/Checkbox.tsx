@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Component } from 'react';
 import classNames from 'classnames';
+import assign from 'lodash-es/assign';
+
 import getWidth from '../utils/getWidth';
 import Group from './Group';
 import GroupContext, { ICheckboxContext } from './GroupContext';
@@ -93,7 +95,7 @@ export class Checkbox<Value> extends Component<ICheckboxProps<Value>> {
     );
 
     const widthStyle = getWidth(width);
-    const wrapStyle = Object.assign({}, style, widthStyle);
+    const wrapStyle = assign({}, style, widthStyle);
 
     return (
       <label className={classString} style={wrapStyle}>

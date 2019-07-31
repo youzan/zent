@@ -3,29 +3,14 @@ import { Component } from 'react';
 import cx from 'classnames';
 
 import ConfigContext from './ConfigContext';
-import LayoutBreakpointContext from './BreakpointContext';
+import LayoutBreakpointContext from './BreakPointContext';
 import { getValueForBreakpoint } from './screen-breakpoints';
-
-export interface ILayoutResponsiveValue {
-  // Fallback value when no breakpoint is matched
-  fallback: number;
-
-  // Breakpoints from bootstrap 4
-  xs?: number; // width <576px
-  sm?: number; // width ≥576px
-  md?: number; // width ≥768px
-  lg?: number; // width ≥992px
-  xl?: number; // width ≥1200px
-
-  // These breakpoints are not in bootstrap
-  xxl?: number; // width ≥1600px;
-  fhd?: number; // width ≥1920px;
-}
+import { ILayoutResponsiveValue } from './types';
 
 export interface ILayoutColProps {
   span: number | ILayoutResponsiveValue;
-  offset?: number | ILayoutResponsiveValue;
-  order?: number | ILayoutResponsiveValue;
+  offset: number | ILayoutResponsiveValue;
+  order: number | ILayoutResponsiveValue;
   style?: React.CSSProperties;
   className?: string;
 }
@@ -42,7 +27,7 @@ export class LayoutCol extends Component<ILayoutColProps> {
         {breakpoints => (
           <ConfigContext.Consumer>
             {config => {
-              let {
+              const {
                 span,
                 offset,
                 order,
@@ -57,7 +42,7 @@ export class LayoutCol extends Component<ILayoutColProps> {
                 config.colGutter
               );
 
-              if (colGutter && colGutter > 0) {
+              if (colGutter > 0) {
                 const width = colGutter / 2;
                 colStyles = {
                   ...colStyles,
@@ -66,19 +51,19 @@ export class LayoutCol extends Component<ILayoutColProps> {
                 };
               }
 
-              span = getValueForBreakpoint(breakpoints, span);
-              offset = getValueForBreakpoint(breakpoints, offset);
-              order = getValueForBreakpoint(breakpoints, order);
+              const spanValue = getValueForBreakpoint(breakpoints, span);
+              const offsetValue = getValueForBreakpoint(breakpoints, offset);
+              const orderValue = getValueForBreakpoint(breakpoints, order);
 
               const classes = cx(
                 'zent-col',
                 {
-                  [`zent-col-offset-${offset}`]: offset,
-                  [`zent-col-order-${order}`]: order,
+                  [`zent-col-offset-${offset}`]: offsetValue,
+                  [`zent-col-order-${order}`]: orderValue,
                 },
 
                 // 0 相当于 display: none
-                `zent-col-${span}`,
+                `zent-col-${spanValue}`,
 
                 className
               );

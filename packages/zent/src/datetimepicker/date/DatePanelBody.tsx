@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
 import classNames from 'classnames';
-import isArray from 'lodash-es/isArray';
 const isWithinRange = require('date-fns/is_within_range');
 
 import {
@@ -22,7 +21,7 @@ export default class DatePanelBody extends PureComponent<any> {
     const { selected, disableSelectedHighlight } = this.props;
     if (!selected || disableSelectedHighlight) return false;
 
-    if (isArray(selected)) {
+    if (Array.isArray(selected)) {
       return selected.some(item => isSameDate(val, item));
     }
 
@@ -32,7 +31,7 @@ export default class DatePanelBody extends PureComponent<any> {
   isInSelect(val) {
     const { selected, disableSelectedHighlight } = this.props;
 
-    if (isArray(selected) && selected[0] && selected[1]) {
+    if (Array.isArray(selected) && selected[0] && selected[1]) {
       const [start, end] = selected;
       const inRange = val > start && val < end;
       if (disableSelectedHighlight) {
@@ -48,7 +47,7 @@ export default class DatePanelBody extends PureComponent<any> {
 
   isInRange(val) {
     const { range } = this.props;
-    if (isArray(range) && range[0] && range[1]) {
+    if (Array.isArray(range) && range[0] && range[1]) {
       return isWithinRange(val, range[0], range[1]);
     }
 

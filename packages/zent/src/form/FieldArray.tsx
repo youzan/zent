@@ -3,9 +3,7 @@ import * as React from 'react';
 import isEqual from 'lodash-es/isEqual';
 import omit from 'lodash-es/omit';
 import assign from 'lodash-es/assign';
-import map from 'lodash-es/map';
 import set from 'lodash-es/set';
-import isArray from 'lodash-es/isArray';
 import isEmpty from 'lodash-es/isEmpty';
 import memoize from '../utils/memorize-one';
 
@@ -177,7 +175,7 @@ class FieldArray extends Component<IFieldArrayProps, IFieldArrayState> {
   mapFields = callback => {
     const { fieldArray } = this.state;
     const fieldArrayValues = this.getFieldArrayValues();
-    return map(fieldArray, (item, index) => {
+    return (fieldArray || []).map((item, index) => {
       return fieldValueReader(callback, fieldArrayValues, item, index);
     });
   };
@@ -302,7 +300,7 @@ class FieldArray extends Component<IFieldArrayProps, IFieldArrayState> {
     this.setState(state => {
       let fieldArray = assign([], state.fieldArray);
 
-      if (!isArray(values)) {
+      if (!Array.isArray(values)) {
         values = [values];
       }
       fieldArray = fieldArray.concat(values.map(this.createInternalFieldValue));
@@ -317,7 +315,7 @@ class FieldArray extends Component<IFieldArrayProps, IFieldArrayState> {
 
   replaceAllFields = values => {
     this.setState(() => {
-      if (!isArray(values)) {
+      if (!Array.isArray(values)) {
         values = [values];
       }
 

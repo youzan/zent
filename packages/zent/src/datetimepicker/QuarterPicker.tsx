@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
 import cx from 'classnames';
-import isArray from 'lodash-es/isArray';
 import { Omit } from 'utility-types';
 const getQuarter = require('date-fns/get_quarter');
 
@@ -50,7 +49,7 @@ function extractStateFromProps(props: IQuarterPickerProps) {
   let selected;
   let actived;
   const { format, value, defaultValue } = props;
-  const val = isArray(value) ? value[0] : value;
+  const val = Array.isArray(value) ? value[0] : value;
 
   if (val) {
     const tmp = parseDate(val, format);

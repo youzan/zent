@@ -2,6 +2,7 @@ import * as React from 'react';
 import { PureComponent } from 'react';
 import classnames from 'classnames';
 import noop from 'lodash-es/noop';
+import assign from 'lodash-es/assign';
 
 import Popover from '../popover';
 import Icon from '../icon';
@@ -116,7 +117,7 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
       // 在即时选中状态，展示通过计算的下一个 tab
       const chooseNext = open && nextProps.changeOnSelect;
 
-      Object.assign(
+      assign(
         newState,
         resetCascaderValue(nextProps.value, nextProps.options, chooseNext)
       );
@@ -236,7 +237,7 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
     // 选择即改变只针对click
     if (hasClose || (changeOnSelect && triggerType === 'click')) {
       const activeObj = resetCascaderValue(value, options);
-      Object.assign(obj, activeObj);
+      assign(obj, activeObj);
       this.setState(obj as any, () => {
         this.props.onChange(activeObj.activeValue);
       });

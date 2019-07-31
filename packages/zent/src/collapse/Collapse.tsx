@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
 import isString from 'lodash-es/isString';
-import isArray from 'lodash-es/isArray';
 import includes from 'lodash-es/includes';
 import indexOf from 'lodash-es/indexOf';
 import kindOf from '../utils/kindOf';
@@ -94,7 +93,7 @@ function isPanelActive(activeKey, key) {
     return activeKey === key;
   }
 
-  if (isArray(activeKey)) {
+  if (Array.isArray(activeKey)) {
     return includes(activeKey, key);
   }
 
