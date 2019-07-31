@@ -27,8 +27,6 @@ export class LayoutGrid extends Component<ILayoutGridProps, ILayoutGridState> {
     const { className, style, ...others } = this.props;
     const { breakpoints } = this.state;
 
-    console.log(breakpoints);
-
     return (
       <ConfigContext.Consumer>
         {config => {
