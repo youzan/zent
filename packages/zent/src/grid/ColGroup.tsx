@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import map from 'lodash-es/map';
 import { getLeafColumns } from './utils';
 import { IGridInnerColumn } from './Grid';
 
@@ -14,7 +13,7 @@ class ColGroup<Data> extends PureComponent<IGridColGroupProps<Data>> {
 
     const leafColumns = getLeafColumns(columns);
 
-    const cols = map(leafColumns, (c, index) => {
+    const cols = (leafColumns || []).map((c, index) => {
       const width = typeof c.width === 'number' ? `${c.width}px` : c.width;
       return <col key={c.key || index} style={{ width, minWidth: width }} />;
     });

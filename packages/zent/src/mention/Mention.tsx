@@ -4,7 +4,6 @@ import defer from 'lodash-es/defer';
 import isFunction from 'lodash-es/isFunction';
 import includes from 'lodash-es/includes';
 import isEqual from 'lodash-es/isEqual';
-import isUndefined from 'lodash-es/isUndefined';
 import throttle from 'lodash-es/throttle';
 import cx from 'classnames';
 import Input, { IInputClearEvent } from '../input';
@@ -307,7 +306,7 @@ export class Mention extends Component<IMentionProps> {
       return;
     }
 
-    value = !isUndefined(value) ? value : this.props.value;
+    value = value !== undefined ? value : this.props.value;
     const { triggerText } = this.props;
 
     const mention = findMentionAtCaretPosition({

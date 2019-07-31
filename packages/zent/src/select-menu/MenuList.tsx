@@ -6,7 +6,6 @@
 import * as React from 'react';
 import { Component } from 'react';
 import isNumber from 'lodash-es/isNumber';
-import isUndefined from 'lodash-es/isUndefined';
 import { IMenuListItem, MenuListItem, handleItemClick } from './MenuListItem';
 
 const menuListPaddingTop = 0;
@@ -220,7 +219,7 @@ export default class MenuList extends Component<
     return items.map((item, index) => {
       return (
         <MenuListItem
-          key={isUndefined(item.value) ? index : item.value}
+          key={item.value === undefined ? index : item.value}
           index={index}
           item={item}
           onRequestClose={onRequestClose}

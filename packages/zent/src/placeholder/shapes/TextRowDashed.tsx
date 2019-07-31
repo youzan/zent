@@ -2,7 +2,6 @@ import * as React from 'react';
 import { PureComponent } from 'react';
 import cx from 'classnames';
 import sample from 'lodash-es/sample';
-import isArray from 'lodash-es/isArray';
 import { DEFAULT_SEGMENTS } from './consts';
 
 export interface IPlaceholderTextRowDashedProps {
@@ -52,7 +51,9 @@ export default class TextRowDashed extends PureComponent<
     const segmengtClasses = cx(`${prefix}-placeholder-shape`, {
       [`${prefix}-placeholder-shape--animate`]: animate,
     });
-    const rawSegments = isArray(segments) ? segments : this.state.segments;
+    const rawSegments = Array.isArray(segments)
+      ? segments
+      : this.state.segments;
 
     return (
       <div className={classes} style={{ ...defaultStyles, ...style }}>

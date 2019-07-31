@@ -13,7 +13,6 @@ import size from 'lodash-es/size';
 import some from 'lodash-es/some';
 import map from 'lodash-es/map';
 import isFunction from 'lodash-es/isFunction';
-import filter from 'lodash-es/filter';
 import includes from 'lodash-es/includes';
 
 import measureScrollbar from '../utils/dom/measureScrollbar';
@@ -275,17 +274,15 @@ export class Grid<Data = any> extends PureComponent<
   };
 
   getLeftColumns = () => {
-    return filter(
-      this.store.getState('columns'),
+    const columns = this.store.getState('columns') || [];
+    return columns.filter(
       column => column.fixed === 'left' || column.fixed === true
     );
   };
 
   getRightColumns = () => {
-    return filter(
-      this.store.getState('columns'),
-      column => column.fixed === 'right'
-    );
+    const columns = this.store.getState('columns') || [];
+    return columns.filter(column => column.fixed === 'right');
   };
 
   handleExpandRow = (clickRow: number, rowData: Data) => (
@@ -347,7 +344,7 @@ export class Grid<Data = any> extends PureComponent<
 
     // 判断是否有多选
     if (selection) {
-      const data = filter(datasets, (item, index) => {
+      const data = (datasets || []).filter((item, index) => {
         const rowIndex = this.getDataKey(item, index);
 
         if (selection.getCheckboxProps) {
@@ -690,7 +687,7 @@ export class Grid<Data = any> extends PureComponent<
     );
 
     if (isFunction(onSelect)) {
-      const selectedRows = filter(datasets, (row, i) =>
+      const selectedRows = (datasets || []).filter((row, i) =>
         includes(selectedRowKeys, this.getDataKey(row, i))
       );
       onSelect(selectedRowKeys, selectedRows, data);
@@ -700,12 +697,12 @@ export class Grid<Data = any> extends PureComponent<
   handleSelect = (data: Data, rowIndex: string, e: ICheckboxEvent<unknown>) => {
     const checked = e.target.checked;
 
-    let selectedRowKeys = this.store.getState('selectedRowKeys');
+    let selectedRowKeys = this.store.getState('selectedRowKeys') || [];
 
     if (checked) {
       selectedRowKeys = selectedRowKeys.concat(rowIndex);
     } else {
-      selectedRowKeys = filter(selectedRowKeys, i => rowIndex !== i);
+      selectedRowKeys = selectedRowKeys.filter(i => rowIndex !== i);
     }
 
     this.store.setState({ selectedRowKeys });
@@ -748,7 +745,7 @@ export class Grid<Data = any> extends PureComponent<
 
     this.store.setState({ selectedRowKeys });
 
-    const changeRow = filter(data, (row, i) =>
+    const changeRow = (data || []).filter((row, i) =>
       includes(changeRowKeys, this.getDataKey(row, i))
     );
 

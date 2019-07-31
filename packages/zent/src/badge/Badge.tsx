@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
 import cx from 'classnames';
-import isArray from 'lodash-es/isArray';
 
 const NO_STYLE = {};
 
@@ -38,7 +37,7 @@ export class Badge extends PureComponent<IBadgeProps> {
       prefix,
     } = this.props;
     const posStyle =
-      isArray(offset) && offset.length === 2
+      Array.isArray(offset) && offset.length === 2
         ? {
             top: offset[0],
             right: offset[1],

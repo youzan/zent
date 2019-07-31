@@ -2,7 +2,6 @@ import assign from 'lodash-es/assign';
 import get from 'lodash-es/get';
 import has from 'lodash-es/has';
 import indexOf from 'lodash-es/indexOf';
-import isArray from 'lodash-es/isArray';
 import keys from 'lodash-es/keys';
 import forEach from 'lodash-es/forEach';
 
@@ -51,7 +50,7 @@ export default class Store {
       const listeners = get(this.listeners, eventName);
       const index = indexOf(listeners, listener);
 
-      if (isArray(listeners)) {
+      if (Array.isArray(listeners)) {
         this.listeners[eventName].splice(index, 1);
       }
     };
