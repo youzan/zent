@@ -1,92 +1,69 @@
 import * as React from 'react';
-import { Component } from 'react';
 import * as ReactDOM from 'react-dom';
-import noop from 'lodash-es/noop';
-
 import Tab from './Tab';
-import navUtil from './navUtil';
+import * as navUtil from './navUtil';
+import { ITabsNavProps } from '../types';
 
-export interface INavProps {
-  prefix: string;
-  tabListData: any[];
-  onChange: (id: number | string) => void;
-  type: string;
-  align: string;
-  size: string;
-  onDelete: (id: number | string) => void;
-  onTabAdd: () => void;
-  candel: boolean;
-  canadd: boolean;
-  uniqueId: number;
-  navExtraContent: React.ReactNode;
-}
-
-class Nav extends Component<INavProps> {
-  static defaultProps = {
-    prefix: 'zent',
-    onChange: noop,
-    tabListData: [],
-    type: 'normal',
-    align: 'left',
-    size: 'normal',
-    onDelete: noop,
-    candel: false,
-    canadd: false,
-    onTabAdd: noop,
-    uniqueId: 0,
-  };
-
-  inkBarDom: HTMLSpanElement | null = null;
-  activeTab: Tab | null = null;
-  navContentDom: HTMLDivElement | null = null;
-  tabwrapDom: HTMLDivElement | null = null;
+class TabsNav<Id extends string | number = string> extends React.PureComponent<
+  ITabsNavProps<Id>
+> {
+  inkBarRef = React.createRef<HTMLSpanElement>();
+  activeTabRef = React.createRef<Tab>();
+  navContentRef = React.createRef<HTMLDivElement>();
+  tabwrapRef = React.createRef<HTMLDivElement>();
 
   componentDidMount() {
-    this.componentDidUpdate();
-  }
-
-  componentDidUpdate() {
-    // 设置navContent的宽度
     this.positionInkBar();
   }
 
+  componentDidUpdate() {
+    this.positionInkBar();
+  }
+
+  /**
+   * 设置navContent的宽度
+   */
   positionInkBar() {
     const { type } = this.props;
     if (type === 'slider') {
-      const activeTabDom = ReactDOM.findDOMNode(this.activeTab);
+      const activeTabDom = ReactDOM.findDOMNode(
+        this.activeTabRef.current
+      ) as HTMLElement;
       if (activeTabDom) {
-        const activeTabInner = (activeTabDom as any).children[0];
+        const activeTabInner = activeTabDom.children[0];
         const activeTabInnerContentDom = activeTabInner.children[0];
-        const targetDom = activeTabInnerContentDom || activeTabInner;
+        const targetDom = (activeTabInnerContentDom ||
+          activeTabInner) as HTMLElement;
         let tWidth = navUtil.getOffsetWH(targetDom);
         const tLeft = navUtil.getOffsetLT(targetDom);
-        let wrapLeft = navUtil.getOffsetLT(this.tabwrapDom);
+        let wrapLeft = navUtil.getOffsetLT(this.tabwrapRef
+          .current as HTMLDivElement);
         if (!activeTabInnerContentDom) {
           const cssStyle = window.getComputedStyle(activeTabInner);
-          const paddingLeft = parseInt(cssStyle.paddingLeft, 10);
-          const paddingRight = parseInt(cssStyle.paddingRight, 10);
+          const paddingLeft = parseInt(cssStyle.paddingLeft || '', 10);
+          const paddingRight = parseInt(cssStyle.paddingRight || '', 10);
           tWidth = tWidth - paddingLeft - paddingRight;
           wrapLeft -= paddingLeft;
         }
-        this.inkBarDom.style.width = `${tWidth}px`;
-        this.inkBarDom.style.left = `${tLeft - wrapLeft}px`;
+        const inkBarEl = this.inkBarRef.current;
+        if (inkBarEl) {
+          inkBarEl.style.width = `${tWidth}px`;
+          inkBarEl.style.left = `${tLeft - wrapLeft}px`;
+        }
       }
     }
   }
 
   renderTabs() {
     const renderData = navUtil.modifyTabListData(this.props);
-    const TabList = [];
+    const TabList: React.ReactNode[] = [];
     renderData.forEach(renderDataItem => {
       const refParam = {};
       if (renderDataItem.actived) {
-        (refParam as any).ref = c => {
-          this.activeTab = c;
-        };
+        (refParam as any).ref = this.activeTabRef;
       }
       TabList.push(
         <Tab
-          prefix={this.props.prefix}
           onSelected={this.onTabSelected}
           onDelete={this.onTabDel}
           uniqueId={this.props.uniqueId}
@@ -101,31 +78,31 @@ class Nav extends Component<INavProps> {
     return TabList;
   }
 
-  onTabSelected = id => {
+  onTabSelected = (id: Id) => {
     const { onChange } = this.props;
     onChange(id);
   };
 
-  onTabDel = id => {
+  onTabDel = (id: Id) => {
     const { onDelete } = this.props;
     onDelete(id);
   };
 
   onTabAdd = () => {
-    const { onTabAdd } = this.props;
+    const { onAdd: onTabAdd } = this.props;
     onTabAdd();
   };
 
   render() {
-    const { prefix, align, canadd, size, type, navExtraContent } = this.props;
-    let classes = `${prefix}-tabs-size-${size} ${prefix}-tabs-type-${type} ${prefix}-tabs-align-${align}`;
+    const { align, canadd, size, type, navExtraContent } = this.props;
+    let classes = `zent-tabs-size-${size} zent-tabs-type-${type} zent-tabs-align-${align}`;
     if (type === 'slider' && size === 'normal') {
-      classes += ` ${prefix}-tabs-third-level`;
+      classes += ` zent-tabs-third-level`;
     }
     let addOperation = null;
     if (canadd && align !== 'center') {
       addOperation = (
-        <div className={`${prefix}-tabs-nav-add`} onClick={this.onTabAdd}>
+        <div className={`zent-tabs-nav-add`} onClick={this.onTabAdd}>
           <span>+</span>
         </div>
       );
@@ -134,36 +111,22 @@ class Nav extends Component<INavProps> {
     let addNavCustomComponent = null;
     if (navExtraContent && align !== 'center') {
       addNavCustomComponent = (
-        <div className={`${prefix}-tabs-nav-extra-content`}>
-          {navExtraContent}
-        </div>
+        <div className={`zent-tabs-nav-extra-content`}>{navExtraContent}</div>
       );
     }
 
     return (
-      <div className={`${prefix}-tabs-nav ${classes}`}>
-        <div
-          className={`${prefix}-tabs-nav-content`}
-          ref={r => {
-            this.navContentDom = ReactDOM.findDOMNode(r) as HTMLDivElement;
-          }}
-        >
+      <div className={`zent-tabs-nav ${classes}`}>
+        <div className={`zent-tabs-nav-content`} ref={this.navContentRef}>
           {addOperation}
           {addNavCustomComponent}
-          <div className={`${prefix}-tabs-scroll`}>
+          <div className={`zent-tabs-scroll`}>
             <div
-              className={`${prefix}-tabs-tabwrap`}
+              className={`zent-tabs-tabwrap`}
               role="tablist"
-              ref={c => {
-                this.tabwrapDom = c;
-              }}
+              ref={this.tabwrapRef}
             >
-              <span
-                className={`${prefix}-tabs-nav-ink-bar`}
-                ref={c => {
-                  this.inkBarDom = c;
-                }}
-              />
+              <span className={`zent-tabs-nav-ink-bar`} ref={this.inkBarRef} />
               <div>{this.renderTabs()}</div>
             </div>
           </div>
@@ -173,4 +136,4 @@ class Nav extends Component<INavProps> {
   }
 }
 
-export default Nav;
+export default TabsNav;

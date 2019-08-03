@@ -1,58 +1,53 @@
-const navUtil = {
-  // 获取宽高
-  getOffsetWH(node) {
-    return node.offsetWidth;
-  },
+import { ITabProps, ITabsNavProps } from '../types';
 
-  // 获取偏移量
-  getOffsetLT(node) {
-    const bb = node.getBoundingClientRect();
-    return bb.left;
-  },
+export function getOffsetWH(node: HTMLElement) {
+  return node.offsetWidth;
+}
 
-  modifyTabListData(props) {
-    const widthInfo = this.getWidth(props);
-    const { tabListData, candel } = props;
-    const modifiedTabListData = [];
-    let modifiedTabInfo;
-    tabListData.forEach((tabItem, i) => {
-      modifiedTabInfo = {
-        key: tabItem.key,
-        actived: tabItem.actived,
-        disabled: tabItem.disabled,
-        title: tabItem.title,
-        prefix: tabItem.prefix,
-        className: tabItem.tabClassName,
-        minWidth:
-          i === tabListData.length - 1
-            ? widthInfo.lastWidth || ''
-            : widthInfo.width || '',
-        candel: candel && !tabItem.disabled,
-      };
-      modifiedTabListData.push(modifiedTabInfo);
-    });
+// 获取偏移量
+export function getOffsetLT(node: HTMLElement) {
+  const clientRect = node.getBoundingClientRect();
+  return clientRect.left;
+}
 
-    return modifiedTabListData;
-  },
+export function getWidth<Id extends string | number = string>(
+  props: ITabsNavProps<Id>
+) {
+  // 当 align 为 center 时做处理
+  const { align, tabListData } = props;
 
-  getWidth(props) {
-    // 当 align 为 center 时做处理
-    const { align, tabListData } = props;
+  if (align === 'center') {
+    let width = '';
+    let lastWidth = '';
+    const childCount = tabListData.length;
+    width = `${(1 / childCount) * 100}%`;
+    lastWidth = `${(1 - (1 / childCount) * (childCount - 1)) * 100}%`;
+    return {
+      width,
+      lastWidth,
+    };
+  }
+  return {};
+}
 
-    if (align === 'center') {
-      let width = '';
-      let lastWidth = '';
-      const childCount = tabListData.length;
-      width = `${(1 / childCount) * 100}%`;
-      lastWidth = `${(1 - (1 / childCount) * (childCount - 1)) * 100}%`;
-      return {
-        width,
-        lastWidth,
-      };
-    }
+export function modifyTabListData<Id extends string | number = string>(
+  props: ITabsNavProps<Id>
+) {
+  const widthInfo = getWidth(props);
+  const { tabListData, candel } = props;
 
-    return {};
-  },
-};
-
-export default navUtil;
+  return tabListData.map((tabItem, i) => {
+    return {
+      key: tabItem.key,
+      actived: tabItem.actived,
+      disabled: tabItem.disabled,
+      title: tabItem.title,
+      className: tabItem.className,
+      minWidth:
+        i === tabListData.length - 1
+          ? widthInfo.lastWidth || ''
+          : widthInfo.width || '',
+      candel: candel && !tabItem.disabled,
+    };
+  });
+}

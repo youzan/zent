@@ -1,52 +1,51 @@
 import * as React from 'react';
-import { Component } from 'react';
+import cn from 'classnames';
 import noop from 'lodash-es/noop';
+import { ITabPanelProps } from '../types';
 
-export interface ITabPanelProps {
-  className?: string;
-  prefix?: string;
-  actived?: boolean;
-  disabled?: boolean;
-  tab: React.ReactNode;
-  id: string | number;
-  onTabReady?: (id: string | number) => void;
-  uniqueId?: number;
-}
-
-class TabPanel extends Component<ITabPanelProps> {
+class TabPanel<Id extends string | number = string> extends React.PureComponent<
+  ITabPanelProps<Id>
+> {
   static defaultProps = {
-    prefix: 'zent',
-    className: '',
     actived: false,
     onTabReady: noop,
     uniqueId: 0,
   };
 
   componentDidMount() {
-    this.componentDidUpdate();
+    this.emitTabReady();
   }
 
   componentDidUpdate() {
+    this.emitTabReady();
+  }
+
+  emitTabReady() {
     const { onTabReady, id } = this.props;
-    // Dom ready后的回调
-    onTabReady(id);
+    onTabReady && onTabReady(id);
   }
 
   render() {
-    const props = this.props;
-    const actived = props.actived;
-    const hiddenStyle: React.CSSProperties = {};
+    const {
+      actived = false,
+      uniqueId = 0,
+      id,
+      className,
+      children,
+    } = this.props;
+
     if (!actived) {
-      hiddenStyle.display = 'none';
+      return null;
     }
+
+    const panelCls = cn('zent-tab-tabpanel', className);
     return (
       <div
-        style={hiddenStyle}
         role="tabpanel"
-        id={`${props.prefix}-tabpanel-${props.uniqueId}-${props.id}`}
-        className={`${props.prefix}-tab-tabpanel ${props.className}`}
+        id={`zent-tabpanel-${uniqueId}-${id}`}
+        className={panelCls}
       >
-        {props.children}
+        {children}
       </div>
     );
   }

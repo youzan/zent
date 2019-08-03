@@ -21,34 +21,39 @@ class Simple extends Component {
 
 		this.state = {
 			activeId: '2',
-			tabs: [{
-				title: '{i18n.tabOne}',
-				key: '1',
-				disabled: true
-			}, {
-				title: '{i18n.tabTwo}',
-				key: '2'
-			}, {
-				title: '{i18n.tabThree}',
-				key: '3'
-			}]
+			tabs: [
+				{
+					title: '{i18n.tabOne}',
+					key: '1',
+					disabled: true,
+				},
+				{
+					title: '{i18n.tabTwo}',
+					key: '2',
+				},
+				{
+					title: '{i18n.tabThree}',
+					key: '3',
+				},
+			],
 		};
 	}
 
-	onTabChange(id) {
+	onTabChange = id => {
 		this.setState({
-			activeId: id
+			activeId: id,
 		});
-	}
-	
+	};
+
 	render() {
 		return (
 			<div>
 				<div style={{ marginTop: '10px' }}>
 					<Tabs
 						activeId={this.state.activeId}
-						onChange={this.onTabChange.bind(this)}
-						tabs={this.state.tabs} />
+						onChange={this.onTabChange}
+						tabs={this.state.tabs}
+					/>
 					<h1>{this.state.activeId}</h1>
 				</div>
 			</div>

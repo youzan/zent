@@ -1,22 +1,13 @@
 import * as React from 'react';
 import { Component } from 'react';
 import noop from 'lodash-es/noop';
+import cn from 'classnames';
+import { ITabProps } from '../types';
 
-export interface ITabProps {
-  prefix?: string;
-  actived?: boolean;
-  disabled?: boolean;
-  id?: string | number;
-  minWidth?: string;
-  onSelected(id: string | number): void;
-  onDelete(id: string | number): void;
-  candel?: boolean;
-  uniqueId?: number;
-}
-
-class Tab extends Component<ITabProps> {
+class Tab<Id extends string | number = string> extends Component<
+  ITabProps<Id>
+> {
   static defaultProps = {
-    prefix: 'zent',
     actived: false,
     disabled: false,
     id: '',
@@ -26,61 +17,54 @@ class Tab extends Component<ITabProps> {
     candel: false,
   };
 
-  onDel(e) {
+  onDel = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     e.stopPropagation();
     const { onDelete, id } = this.props;
     onDelete(id);
-  }
+  };
 
-  onClick() {
+  onClick = () => {
     const { onSelected, id, actived, disabled } = this.props;
     if (!actived && !disabled) {
       onSelected(id);
     }
-  }
+  };
 
   renderDelOperater() {
-    const { candel, prefix } = this.props;
-    if (candel) {
-      return (
-        <span
-          className={`${prefix}-tabs-tab-inner-del`}
-          onClick={this.onDel.bind(this)}
-        >
+    const { candel } = this.props;
+    return (
+      candel && (
+        <span className="zent-tabs-tab-inner-del" onClick={this.onDel}>
           ✕
         </span>
-      );
-    }
-    return '';
+      )
+    );
   }
 
   render() {
-    const props = this.props;
-    const { prefix, minWidth } = props;
-    let classes = `${prefix}-tabs-tab`;
-    if (props.actived) {
-      classes += ` ${prefix}-tabs-actived`;
-    }
-    if (props.disabled) {
-      classes += ` ${prefix}-tabs-disabled`;
-    }
-    const style: React.CSSProperties = {};
-    if (minWidth) {
-      style.minWidth = minWidth;
-    }
+    const { minWidth, actived, disabled, uniqueId, id, children } = this.props;
+    const classes = cn('zent-tabs-tab', {
+      ['zent-tabs-actived']: actived,
+      ['zent-tabs-disabled']: disabled,
+    });
+
+    const style: React.CSSProperties = {
+      minWidth,
+    };
+
     return (
       <div
         role="tab"
-        aria-labelledby={`${props.prefix}-tabpanel-${props.uniqueId}-${props.id}`}
+        aria-labelledby={`zent-tabpanel-${uniqueId}-${id}`}
         className={classes}
-        aria-disabled={props.disabled}
-        aria-selected={props.actived}
-        onClick={this.onClick.bind(this)}
+        aria-disabled={disabled}
+        aria-selected={actived}
+        onClick={this.onClick}
         style={style}
       >
-        <div className={`${prefix}-tabs-tab-inner`}>
+        <div className={`zent-tabs-tab-inner`}>
           {this.renderDelOperater()}
-          {props.children}
+          {children}
         </div>
       </div>
     );

@@ -125,7 +125,7 @@ class TabsContent extends PureComponent<ITabsContentProps> {
       <div className={`${prefix}-cascader__popup-inner`}>
         <Tabs
           activeId={activeId}
-          onTabChange={onTabChange}
+          onChange={onTabChange}
           className={`${prefix}-cascader__tabs`}
         >
           {this.renderPanels(popover, i18n)}

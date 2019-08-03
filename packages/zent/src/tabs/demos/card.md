@@ -24,14 +24,14 @@ const TabPanel = Tabs.TabPanel;
 
 class Simple extends React.Component {
 	state = {
-		activeId: '2'
-	}
+		activeId: '2',
+	};
 
-	onTabChange = (id) => {
+	onTabChange = id => {
 		this.setState({
-			activeId: id
+			activeId: id,
 		});
-	}
+	};
 
 	render() {
 		return (
@@ -40,29 +40,19 @@ class Simple extends React.Component {
 				onChange={this.onTabChange}
 				type="card"
 			>
-				<TabPanel
-					tab={<span>{i18n.tabOne}</span>}
-					id="1"
-					disabled
-				>
+				<TabPanel tab={<span>{i18n.tabOne}</span>} id="1" disabled>
 					<div>{i18n.tabOneCont}</div>
 				</TabPanel>
-				<TabPanel
-					tab="{i18n.tabTwo}"
-					id="2"
-				>
+				<TabPanel tab="{i18n.tabTwo}" id="2">
 					<div>{i18n.tabTwoCont}</div>
 				</TabPanel>
-				<TabPanel
-					tab="{i18n.tabThree}"
-					id='3'
-				>
+				<TabPanel tab="{i18n.tabThree}" id="3">
 					<div>{i18n.tabThreeCont}</div>
 				</TabPanel>
 			</Tabs>
 		);
 	}
-};
+}
 
 ReactDOM.render(<Simple />, mountNode);
 ```
