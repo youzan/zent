@@ -23,16 +23,6 @@ class UploadPopup extends Component<any, any> {
     className: '',
   };
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    const { categoryId } = nextProps.options;
-    if (prevState.categoryId !== categoryId) {
-      return {
-        categoryId,
-      };
-    }
-    return null;
-  }
-
   networkUrl: string;
   sortable: Sortable;
 
