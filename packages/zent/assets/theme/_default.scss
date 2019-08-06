@@ -1,5 +1,7 @@
 @import './override';
 
+// sass-lint:disable no-duplicate-properties
+
 // Text colors
 $theme-stroke-1: #323233 !default; // text
 $theme-stroke-2: #646566 !default; // text
@@ -62,3 +64,64 @@ $loading-icon-youzan-color: #e00 !default;
 // These variables will be removed
 $notify-error: rgba(255, 68, 68, 0.8);
 $notify-success: rgba(68, 187, 136, 0.8);
+
+$theme-colors: (
+  'stroke': (
+    $theme-stroke-1,
+    $theme-stroke-2,
+    $theme-stroke-3,
+    $theme-stroke-4,
+    $theme-stroke-5,
+    $theme-stroke-6,
+    $theme-stroke-7,
+    $theme-stroke-8,
+    $theme-stroke-9,
+    $theme-stroke-10,
+    $theme-stroke-11,
+  ),
+  'primary': (
+    $theme-primary-1,
+    $theme-primary-2,
+    $theme-primary-3,
+    $theme-primary-4,
+    $theme-primary-5,
+    $theme-primary-6,
+    $theme-primary-7,
+    $theme-primary-8,
+  ),
+  'success': (
+    $theme-success-1,
+    $theme-success-2,
+    $theme-success-3,
+    $theme-success-4,
+    $theme-success-5,
+  ),
+  'error': (
+    $theme-error-1,
+    $theme-error-2,
+    $theme-error-3,
+    $theme-error-4,
+    $theme-error-5,
+  ),
+  'warn': (
+    $theme-warn-1,
+    $theme-warn-2,
+    $theme-warn-3,
+  ),
+);
+
+$theme-shadow: (
+  'focus': $shadow-spec-focus,
+  'layer': $shadow-spec-layer,
+  'modal': $shadow-spec-modal,
+);
+
+@mixin theme-color($prop, $cat, $i) {
+  #{$prop}: nth(map-get($theme-colors, $cat), $i);
+  #{$prop}: var(--theme-#{$cat}-#{$i});
+}
+
+@mixin theme-shadow($name) {
+  box-shadow: map-get($theme-shadow, $name);
+  box-shadow: var(--shadow-spec-#{$name});
+}
