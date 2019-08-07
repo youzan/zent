@@ -6,10 +6,10 @@ $avatar-size-default: 32px;
 $avatar-size-large: 40px;
 
 .zent-avatar {
+  @include theme-color(color, stroke, 9);
   display: inline-block;
   box-sizing: border-box;
   text-align: center;
-  color: $theme-stroke-9;
   cursor: default;
   overflow: hidden;
   position: relative;
@@ -44,7 +44,7 @@ $avatar-size-large: 40px;
   }
 
   &--type-string {
-    background: $theme-stroke-5;
+    @include theme-color(background-color, stroke, 5);
 
     .zent-avatar-string {
       font-weight: 500;
@@ -60,7 +60,7 @@ $avatar-size-large: 40px;
   }
 
   &--type-icon {
-    background: $theme-stroke-5;
+    @include theme-color(background-color, stroke, 5);
     font-size: 18px;
 
     &.zent-avatar--size-small {
@@ -81,6 +81,8 @@ $avatar-size-large: 40px;
   }
 
   &--bordered {
-    border: 1px solid $theme-stroke-4;
+    @include theme-color(border-color, stroke, 4);
+    border-width: 1px;
+    border-style: solid;
   }
 }

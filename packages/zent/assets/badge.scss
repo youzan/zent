@@ -1,8 +1,6 @@
 @import './theme/default';
 @import './theme/font';
 $count-height: 16px;
-$count-color: $theme-stroke-9;
-$count-bgcolor: $theme-error-2;
 $dot-diameter: 8px;
 
 .zent-badge {
@@ -11,11 +9,13 @@ $dot-diameter: 8px;
   vertical-align: middle;
 
   .zent-badge-count {
+    @include theme-color(background-color, stroke, 2);
+    @include theme-color(color, error, 2);
+    @include theme-color(border-color, stroke, 9);
     display: inline-block;
-    background: $count-bgcolor;
-    color: $count-color;
     box-sizing: border-box;
-    border: 1px solid $theme-stroke-9;
+    border-width: 1px;
+    border-style: solid;
     border-radius: 40px;
     text-align: center;
     padding: 0 4px;
@@ -24,12 +24,14 @@ $dot-diameter: 8px;
   }
 
   .zent-badge-dot {
+    @include theme-color(border-color, stroke, 9);
+    @include theme-color(background-color, error, 2);
     display: inline-block;
     height: $dot-diameter;
     width: $dot-diameter;
     border-radius: 50%;
-    border: 1px solid $theme-stroke-9;
-    background: $count-bgcolor;
+    border-width: 1px;
+    border-style: solid;
     font-size: 0;
   }
 
