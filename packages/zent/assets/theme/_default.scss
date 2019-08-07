@@ -117,11 +117,23 @@ $theme-shadow: (
 );
 
 @mixin theme-color($prop, $cat, $i) {
-  #{$prop}: nth(map-get($theme-colors, $cat), $i);
-  #{$prop}: var(--theme-#{$cat}-#{$i});
+  $color: nth(map-get($theme-colors, $cat), $i);
+
+  #{$prop}: $color;
+  #{$prop}: var(--theme-#{$cat}-#{$i}, $color);
 }
 
 @mixin theme-shadow($name) {
-  box-shadow: map-get($theme-shadow, $name);
-  box-shadow: var(--shadow-spec-#{$name});
+  $color: map-get($theme-shadow, $name);
+
+  box-shadow: $color;
+  box-shadow: var(--shadow-spec-#{$name}, $color);
+}
+
+@mixin default-theme-variables {
+  @each $cat, $list in $theme-colors {
+    @for $i from 1 through length($list) {
+      #{--theme-#{$cat}-#{$i}}: nth($list, $i);
+    }
+  }
 }
