@@ -30,7 +30,6 @@
     "dependency-graph.json"
   ],
   "dependencies": {
-    "@babel/runtime": "^7.1.5",
     "@types/autosize": "^3.0.6",
     "@types/sortablejs": "^1.7.2",
     "@types/tinycolor2": "^1.4.1",
