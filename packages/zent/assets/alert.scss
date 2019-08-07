@@ -6,14 +6,7 @@
   top: 50%;
   transform: translate(0, -50%);
 }
-$color-bg-warning: $theme-warn-3;
-$color-border-warning: $theme-warn-3;
-$color-text-warning: $theme-stroke-1;
-$color-bg-error: $theme-error-4;
-$color-border-error: $theme-error-2;
-$color-text-error: $theme-stroke-9;
-$color-bg-info: $theme-stroke-8;
-$color-text-info: $theme-stroke-1;
+
 $alert-border-radius: 4px;
 $close-icon-size: 14px;
 
@@ -40,6 +33,7 @@ $close-icon-size: 14px;
 
     .zent-alert-close-btn {
       @include vertical-center;
+      @include theme-color(color, stroke, 3);
 
       width: $close-icon-size;
       font-family: sans-serif;
@@ -47,7 +41,6 @@ $close-icon-size: 14px;
       text-align: center;
       display: inline-block;
       cursor: pointer;
-      color: $theme-stroke-3;
     }
   }
 
@@ -64,23 +57,27 @@ $close-icon-size: 14px;
   }
 
   &.zent-alert-style-info {
-    background: $color-bg-info;
-    color: $color-text-info;
+    @include theme-color(color, stroke, 1);
+    @include theme-color(background-color, stroke, 8);
   }
 
   &.zent-alert-style-warning {
-    background: $color-bg-warning;
-    border: 1px solid $color-border-warning;
-    color: $color-text-warning;
+    @include theme-color(background-color, warn, 3);
+    @include theme-color(color, stroke, 1);
+    @include theme-color(border-color, warn, 3);
+    border-width: 1px;
+    border-style: solid;
   }
 
   &.zent-alert-style-danger {
-    background: $color-bg-error;
-    border: 1px solid $color-border-error;
-    color: $color-text-error;
+    @include theme-color(background-color, error, 4);
+    @include theme-color(border-color, error, 2);
+    @include theme-color(color, stroke, 9);
+    border-width: 1px;
+    border-style: solid;
 
     .zent-alert-close-btn {
-      color: $theme-stroke-9;
+      @include theme-color(color, stroke, 9);
     }
   }
 }
