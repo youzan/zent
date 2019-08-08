@@ -118,8 +118,6 @@ class TabsNav<Id extends string | number = string> extends React.PureComponent<
     return (
       <div className={`zent-tabs-nav ${classes}`}>
         <div className={`zent-tabs-nav-content`} ref={this.navContentRef}>
-          {addOperation}
-          {addNavCustomComponent}
           <div className={`zent-tabs-scroll`}>
             <div
               className={`zent-tabs-tabwrap`}
@@ -131,6 +129,8 @@ class TabsNav<Id extends string | number = string> extends React.PureComponent<
             </div>
           </div>
         </div>
+        {addNavCustomComponent}
+        {addOperation}
       </div>
     );
   }
