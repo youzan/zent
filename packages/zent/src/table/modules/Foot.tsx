@@ -10,6 +10,7 @@ import Checkbox from '../../checkbox';
 import { TablePaginationType, ITablePageInfo } from '../Table';
 import { PaginationChangeHandler } from '../../pagination/impl/BasePagination';
 import LitePagination from '../../pagination/LitePagination';
+import MiniPagination from '../../pagination/MiniPagination';
 
 export interface ITableFootProps {
   pageInfo: ITablePageInfo;
@@ -85,8 +86,16 @@ export default class Foot extends PureComponent<ITableFootProps> {
 
     const pageInfo = this.props.pageInfo || {};
 
-    // tslint:disable-next-line:deprecation
-    const { totalItem, pageSize, total, limit, pageSizeOptions } = pageInfo;
+    const {
+      // tslint:disable-next-line:deprecation
+      totalItem,
+      pageSize,
+      total,
+      // tslint:disable-next-line:deprecation
+      limit,
+      current: _,
+      ...restPageInfo
+    } = pageInfo;
 
     const { needSelect, selectedRows } = selection;
     let batchClassName = 'tfoot__batchcomponents';
@@ -103,7 +112,11 @@ export default class Foot extends PureComponent<ITableFootProps> {
     }
 
     const PaginationComp =
-      paginationType === 'lite' ? LitePagination : Pagination;
+      paginationType === 'mini'
+        ? MiniPagination
+        : paginationType === 'lite'
+        ? LitePagination
+        : Pagination;
 
     return (
       shouldRenderFoot && (
@@ -126,10 +139,9 @@ export default class Foot extends PureComponent<ITableFootProps> {
               <PaginationComp
                 current={current}
                 total={isNil(total) ? totalItem : total}
-                formatTotal={pageInfo.formatTotal}
                 pageSize={isNil(pageSize) ? limit : pageSize}
                 onChange={onPageChange}
-                pageSizeOptions={pageSizeOptions}
+                {...restPageInfo}
               />
             )}
           </div>
