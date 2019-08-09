@@ -34,7 +34,7 @@ function trimLeadingPlus(value: string) {
 }
 
 function normalizeDecimalValue(
-  value: string | number,
+  value: string | number | undefined,
   props: INumberInputDecimalProps
 ) {
   const { min, max, decimal: decimalPlaces } = props;
@@ -62,13 +62,26 @@ function normalizeDecimalValue(
 }
 
 function normalizeIntegerValue(
-  value: string | number,
-  min: number,
-  max: number
+  value: string | number | undefined,
+  min: number | undefined,
+  max: number | undefined
 ): number {
-  max = Math.min(Number.MAX_SAFE_INTEGER, max);
-  min = Math.max(Number.MIN_SAFE_INTEGER, min);
-  let num = typeof value === 'number' ? value : parseInt(value, 10);
+  max =
+    typeof max === 'number'
+      ? Math.min(Number.MAX_SAFE_INTEGER, max)
+      : Number.MAX_SAFE_INTEGER;
+  min =
+    typeof min === 'number'
+      ? Math.max(Number.MIN_SAFE_INTEGER, min)
+      : Number.MIN_SAFE_INTEGER;
+  let num: number;
+  if (typeof value === 'number') {
+    num = value;
+  } else if (value === undefined || value === null) {
+    num = 0;
+  } else {
+    num = parseInt(value, 10);
+  }
   num = Math.min(max, num);
   num = Math.max(min, num);
   return num;
