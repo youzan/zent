@@ -83,7 +83,7 @@ export interface INumberInputCommonProps
 
 export interface INumberInputDecimalProps extends INumberInputCommonProps {
   integer: false;
-  value?: string;
+  value?: string | number;
   onChange?: (value: string) => void;
   decimal: number;
   onInput?: (value: string) => void;
@@ -179,7 +179,6 @@ function calculateIntegerLimit(
   if (max <= num) {
     canInc = false;
   }
-  console.log(value, min, max, canInc, canDec);
   return {
     canDec,
     canInc,
@@ -369,21 +368,29 @@ export class NumberInput extends React.Component<
     };
   }
 
+  private checkPropsValue() {
+    if (this.props.integer === true) {
+      if (this.props.value !== this.state.value) {
+        const { onChange } = this.props;
+        onChange && onChange(this.state.value as number);
+      }
+    } else {
+      if (String(this.props.value) !== String(this.state.value)) {
+        const { onChange } = this.props;
+        onChange && onChange(this.state.value as (string & number));
+      }
+    }
+  }
+
   componentDidMount() {
-    if ('value' in this.props && this.props.value !== this.state.value) {
-      const { onChange } = this.props;
-      onChange && onChange(this.state.value as (string & number));
+    if ('value' in this.props) {
+      this.checkPropsValue();
     }
   }
 
   componentDidUpdate(prevProps: INumberInputProps) {
-    if (
-      this.props !== prevProps &&
-      'value' in this.props &&
-      this.state.value !== this.props.value
-    ) {
-      const { onChange } = this.props;
-      onChange && onChange(this.state.value as (string & number));
+    if (prevProps !== this.props && 'value' in this.props) {
+      this.checkPropsValue();
     }
   }
 
