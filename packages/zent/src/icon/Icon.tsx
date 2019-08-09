@@ -109,7 +109,6 @@ export type IconType =
 
 export interface IIconProps extends React.HTMLAttributes<HTMLElement> {
   type: IconType;
-  className?: string;
   spin?: boolean;
 }
 
