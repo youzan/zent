@@ -1,18 +1,13 @@
 @import './theme/default';
 @import './theme/font';
 
-$c-border: $theme-stroke-4;
-$c-blue: $theme-primary-3;
-$c-light-blue: $theme-primary-6;
-$c-blue-hover: $theme-primary-8;
-
 .zent-cascader {
   display: inline-block;
 
   &.open {
     .zent-cascader__select-text {
-      border-color: $c-blue;
-      box-shadow: $shadow-spec-focus;
+      @include theme-color(border-color, primary, 3);
+      @include theme-shadow(focus);
 
       .zenticon {
         transform: rotate(180deg) scale(0.5);
@@ -31,8 +26,11 @@ $c-blue-hover: $theme-primary-8;
     vertical-align: middle;
 
     &-text {
+      @include theme-color(border-color, stroke, 4);
+      @include theme-color(background-color, stroke, 9);
       box-sizing: border-box;
-      border: 1px solid $c-border;
+      border-width: 1px;
+      border-style: solid;
       border-radius: 2px;
       display: inline-block;
       min-height: 30px;
@@ -41,7 +39,6 @@ $c-blue-hover: $theme-primary-8;
       padding: 5px 30px 5px 10px;
       transition: border-color 0.25s;
       width: 100%;
-      background-color: $theme-stroke-9;
       position: relative;
       white-space: nowrap;
       overflow: hidden;
@@ -53,7 +50,7 @@ $c-blue-hover: $theme-primary-8;
       }
 
       &.is-placeholder {
-        color: $theme-stroke-3;
+        @include theme-color(color, stroke, 3);
       }
 
       .zenticon {
@@ -69,6 +66,7 @@ $c-blue-hover: $theme-primary-8;
   }
 
   &__menu {
+    @include theme-color(border-right, stroke, 6);
     display: inline-block;
     vertical-align: top;
     min-width: 111px;
@@ -76,10 +74,12 @@ $c-blue-hover: $theme-primary-8;
     list-style: none;
     margin: 0;
     padding: 0;
-    border-right: 1px solid $theme-stroke-6;
+    border-right-width: 1px;
+    border-right-style: solid;
     overflow: auto;
 
     &-item {
+      @include theme-color(color, stroke, 2);
       font-size: $font-size-normal;
       cursor: pointer;
       white-space: nowrap;
@@ -88,7 +88,6 @@ $c-blue-hover: $theme-primary-8;
       height: 32px;
       line-height: 30px;
       text-align: left;
-      color: $theme-stroke-2;
       padding-left: 10px;
       padding-right: 30px;
       box-sizing: border-box;
@@ -118,7 +117,7 @@ $c-blue-hover: $theme-primary-8;
       }
 
       &:hover {
-        background: $c-blue-hover;
+        @include theme-color(background-color, primary, 8);
       }
 
       &.active {
@@ -154,13 +153,13 @@ $c-blue-hover: $theme-primary-8;
       white-space: nowrap;
 
       &:hover {
-        background: $c-blue-hover;
+        @include theme-color(background-color, primary, 8);
       }
 
       &.active {
-        background: $c-blue;
+        @include theme-color(background-color, primary, 3);
+        @include theme-color(color, stroke, 9);
         border-radius: 2px;
-        color: $theme-stroke-9;
       }
     }
   }
@@ -196,9 +195,9 @@ $c-blue-hover: $theme-primary-8;
     z-index: 2000;
 
     &-inner {
-      background: $theme-stroke-9;
+      @include theme-color(background-color, stroke, 9);
+      @include theme-shadow(layer);
       width: 440px;
-      box-shadow: $shadow-spec-layer;
       box-sizing: border-box;
       margin-top: 5px;
 
@@ -220,13 +219,15 @@ $c-blue-hover: $theme-primary-8;
     }
 
     &-icon {
+      @include theme-color(border-color, primary, 3);
       display: inline-block;
       position: relative;
       vertical-align: middle;
       height: 12px;
       width: 12px;
       border-radius: 50%;
-      border: 1px solid $c-blue;
+      border-width: 1px;
+      border-style: solid;
       margin-left: 5px;
 
       &:after {
