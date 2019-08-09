@@ -29,7 +29,7 @@ export default class Dots extends PureComponent<any> {
     const { marks, max, min, disabled, prefix } = this.props;
     return (
       <div className={`${prefix}-slider-dots`}>
-        {map(marks, (value, index) => {
+        {/* {map(marks, (value, index) => {
           return (
             <span
               onClick={!disabled ? this.handleClick.bind(null, index) : noop}
@@ -41,7 +41,7 @@ export default class Dots extends PureComponent<any> {
               })}
             />
           );
-        })}
+        })} */}
       </div>
     );
   }

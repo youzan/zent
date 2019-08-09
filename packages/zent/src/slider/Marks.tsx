@@ -1,25 +1,34 @@
 import * as React from 'react';
-import { PureComponent } from 'react';
-import map from 'lodash-es/map';
 import { getLeft } from './common';
 
-export default class Marks extends PureComponent<any> {
-  render() {
-    const { marks, max, min, prefix } = this.props;
-    return (
-      <div className={`${prefix}-slider-marks`}>
-        {map(marks, (value, index) => {
+export interface ISliderMarksProps {
+  marks: Record<number | string, React.ReactNode>;
+  min: number;
+  max: number;
+}
+
+export default function SliderMarks({ marks, min, max }: ISliderMarksProps) {
+  return (
+    <div className="zent-slider-marks">
+      {Object.keys(marks)
+        .map(it => Number(it))
+        .sort()
+        .map(it => {
+          if (Number.isNaN(it) || Infinity === it) {
+            return null;
+          }
           return (
-            <span
-              style={{ left: `${getLeft(index, max, min)}%` }}
-              key={index}
-              className={`${prefix}-slider-mark`}
+            <div
+              key={it}
+              style={{
+                left: `${getLeft(it, min, max)}%`,
+              }}
+              className="zent-slider-mark"
             >
-              {value}
-            </span>
+              {marks[it]}
+            </div>
           );
         })}
-      </div>
-    );
-  }
+    </div>
+  );
 }

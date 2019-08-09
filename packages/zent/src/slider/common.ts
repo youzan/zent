@@ -1,22 +1,10 @@
-export const getValue = (value, max, min) => {
-  return min + (max - min) * value;
-};
+import { CSSProperties } from 'react';
 
-export const getDecimal = step => {
-  const fixed = String(step).split('.')[1];
-  return fixed ? fixed.length : 0;
-};
-
-export const toFixed = (value, step) => {
-  const length = getDecimal(step);
-  return Number(Number(value).toFixed(length));
-};
-
-export const getLeft = (value, max, min) => {
+export const getLeft = (value: number, min: number, max: number) => {
   return ((value - min) * 100) / (max - min);
 };
 
-export const getClosest = (value, pointValue) => {
+export const getClosest = (value: [number, number], pointValue: number) => {
   let newValue;
   if (Math.abs(value[0] - pointValue) <= Math.abs(value[1] - pointValue)) {
     newValue = [pointValue, value[1]];
@@ -26,11 +14,25 @@ export const getClosest = (value, pointValue) => {
   return newValue;
 };
 
-export const checkValueInRange = (newValue, max, min) => {
-  if (newValue > max) {
-    newValue = max;
-  } else if (newValue < min) {
-    newValue = min;
-  }
-  return newValue;
-};
+export interface ISliderChildCommonProps {
+  min: number;
+  max: number;
+  disabled: boolean;
+  decimal: number;
+  value: number;
+  position: string;
+  onChange(value: number): void;
+}
+
+export type IComputedProps =
+  | {
+      range: true;
+      leftProps: ISliderChildCommonProps;
+      rightProps: ISliderChildCommonProps;
+      trackStyle: CSSProperties;
+    }
+  | {
+      range: false;
+      props: ISliderChildCommonProps;
+      trackStyle: CSSProperties;
+    };

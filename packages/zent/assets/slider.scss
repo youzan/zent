@@ -13,7 +13,11 @@
     position: relative;
     border-top: 5px solid transparent;
     border-bottom: 5px solid transparent;
+    border-radius: 8px;
     box-sizing: border-box;
+    user-select: none;
+    background-color: $theme-stroke-6;
+    background-clip: content-box;
 
     &-with-marks {
       margin-bottom: 20px;
@@ -32,14 +36,6 @@
         }
       }
     }
-  }
-
-  &-container {
-    @include theme-color(background-color, stroke, 6);
-    height: 4px;
-    border-radius: 8px;
-    position: absolute;
-    width: 100%;
   }
 
   &-track {
@@ -73,6 +69,7 @@
     border-radius: 50%;
     border-width: 2px;
     border-style: solid;
+    cursor: pointer;
     transition: border-color 0.3s ease,
       transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
 
@@ -96,56 +93,80 @@
     }
   }
 
-  &-points {
-    position: absolute;
-    width: 100%;
-    user-select: none;
-  }
+  // &-points {
+  //   position: absolute;
+  //   width: 100%;
+  //   user-select: none;
+  // }
 
-  &-toolTips {
+  &-tooltip {
     display: inline-block;
     position: absolute;
+    cursor: initial;
 
-    .toolTips-content-hide {
-      visibility: hidden;
-    }
-
-    .toolTips-content {
+    &-content {
       position: absolute;
       top: -48px;
       transform: translateX(-50%);
-
-      .toolTips-inner {
-        @include font-normal;
-        @include theme-color(background-color, stroke, 1);
-        @include theme-color(color, stroke, 9);
-        padding: 8px 10px;
-        border-radius: 2px;
-        line-height: 14px;
-        position: relative;
-        z-index: 2;
-        white-space: nowrap;
-      }
-
-      .toolTips-arrow {
-        @include theme-color(background-color, stroke, 1);
-        transform: translate(-50%, 50%) rotate(45deg);
-        left: 50%;
-        position: absolute;
-        z-index: 1;
-        top: 20px;
-        width: 10px;
-        height: 10px;
-        overflow: hidden;
-      }
     }
 
-    &:hover {
-      .toolTips-content {
-        visibility: visible;
-      }
+    // <<<<<<< HEAD
+    //       .toolTips-inner {
+    //         @include font-normal;
+    //         @include theme-color(background-color, stroke, 1);
+    //         @include theme-color(color, stroke, 9);
+    //         padding: 8px 10px;
+    //         border-radius: 2px;
+    //         line-height: 14px;
+    //         position: relative;
+    //         z-index: 2;
+    //         white-space: nowrap;
+    //       }
+
+    //       .toolTips-arrow {
+    //         @include theme-color(background-color, stroke, 1);
+    //         transform: translate(-50%, 50%) rotate(45deg);
+    //         left: 50%;
+    //         position: absolute;
+    //         z-index: 1;
+    //         top: 20px;
+    //         width: 10px;
+    //         height: 10px;
+    //         overflow: hidden;
+    //       }
+    // =======
+    //     &-inner {
+    //       @include font-normal;
+    //       padding: 8px 10px;
+    //       background-color: $theme-stroke-1;
+    //       border-radius: 2px;
+    //       color: $theme-stroke-9;
+    //       line-height: 14px;
+    //       position: relative;
+    //       z-index: 2;
+    //       white-space: nowrap;
+    // >>>>>>> 8ce244e1... refactor slider
+    // }
+
+    &-arrow {
+      background: $theme-stroke-1;
+      transform: translate(-50%, 50%) rotate(45deg);
+      left: 50%;
+      position: absolute;
+      z-index: 1;
+      top: 20px;
+      width: 10px;
+      height: 10px;
+      overflow: hidden;
     }
   }
+
+  // &:hover {
+  //   .toolTips-content {
+  //     visibility: visible;
+  //   }
+  // }
+  // }
 
   &-input {
     display: flex;
@@ -156,7 +177,8 @@
       padding: 0 5px;
     }
 
-    .zent-input-wrapper {
+    .zent-input-wrapper,
+    &.zent-input-wrapper {
       width: 60px;
 
       .zent-input {

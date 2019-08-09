@@ -1,15 +1,27 @@
 import * as React from 'react';
-import { PureComponent } from 'react';
-import classNames from 'classnames';
+import cx from 'classnames';
 import isNumber from 'lodash-es/isNumber';
 import getWidth from '../utils/getWidth';
 
-import Range from './Range';
-import InputField from './InputField';
+import Point from './Point';
+import Marks from './Marks';
 import { DisabledContext, IDisabledContext } from '../disabled';
+import { ISliderProps } from './types';
+import { IComputedProps } from './common';
+import NumberInput from '../number-input';
+
+export const getDecimal = (step: number | string) => {
+  const fixed = String(step).split('.')[1];
+  return fixed ? fixed.length : 0;
+};
+
+const getPosition = (value: number, min: number, max: number) => {
+  const pos = ((value - min) * 100) / (max - min);
+  return `${pos}%`;
+};
 
 /* eslint no-throw-literal: 0 */
-function checkProps(props) {
+function checkProps(props: ISliderProps) {
   const { range, value, max, min, dots, marks } = props;
   if (range) {
     if (!Array.isArray(value)) {
@@ -43,75 +55,192 @@ function checkProps(props) {
   }
 }
 
-export type SliderValueType = number | [number, number];
-
-export interface ISliderProps {
-  value: SliderValueType;
-  onChange?: (value: SliderValueType) => void;
-  range?: boolean;
-  min?: number;
-  max?: number;
-  step?: number | string;
-  withInput?: boolean;
-  dots?: boolean;
-  marks?: {
-    [key: number]: string;
-  };
-  disabled?: boolean;
-  className?: string;
-  width?: number | string;
-  prefix?: string;
-}
-
-export class Slider extends PureComponent<ISliderProps> {
+export class Slider extends React.Component<ISliderProps> {
   static defaultProps = {
     min: 0,
     max: 100,
     step: 1,
-    prefix: 'zent',
     withInput: true,
     range: false,
-    value: 0,
   };
 
   static contextType = DisabledContext;
   context!: IDisabledContext;
 
-  onChange = value => {
-    const { range, onChange } = this.props;
-    value = range
-      ? value.map(v => Number(v)).sort((a, b) => a - b)
-      : Number(value);
-    onChange && onChange(value);
+  private containerRef = React.createRef<HTMLDivElement>();
+
+  private onSingleChange = (value: number | string) => {
+    if (this.props.range !== false) {
+      return;
+    }
+    const { onChange } = this.props;
+    onChange && onChange(Number(value));
   };
 
+  private onLeftChange = (value: number) => {
+    if (this.props.range !== true) {
+      return;
+    }
+    const { value: prevValue = [0, 0], onChange } = this.props;
+    if (!onChange) {
+      return;
+    }
+    const newValue = Number(value);
+    const nextValue: [number, number] =
+      newValue > prevValue[1]
+        ? [prevValue[1], newValue]
+        : [newValue, prevValue[1]];
+    onChange(nextValue);
+  };
+
+  private onRightChange = (value: number) => {
+    if (this.props.range !== true) {
+      return;
+    }
+    const { value: prevValue = [0, 0], onChange } = this.props;
+    if (!onChange) {
+      return;
+    }
+    const newValue = Number(value);
+    const nextValue: [number, number] =
+      newValue > prevValue[0]
+        ? [prevValue[0], newValue]
+        : [newValue, prevValue[0]];
+    onChange(nextValue);
+  };
+
+  private getComputedProps(): IComputedProps {
+    const { disabled = this.context.value, min, max, step } = this.props;
+    const decimal = getDecimal(step);
+    if (this.props.range !== false) {
+      const { value } = this.props;
+      const leftPosition = getPosition(value[0], min, max);
+      const leftProps = {
+        min,
+        max: value[1],
+        disabled,
+        decimal,
+        onChange: this.onLeftChange,
+        value: value[0],
+        position: leftPosition,
+      };
+      const rightProps = {
+        min: value[0],
+        max,
+        disabled,
+        decimal,
+        onChange: this.onRightChange,
+        value: value[1],
+        position: getPosition(value[1], min, max),
+      };
+      const width = (value[1] - value[0]) / (max - min);
+      return {
+        range: true,
+        leftProps,
+        rightProps,
+        trackStyle: {
+          left: leftPosition,
+          width: `${width * 100}%`,
+        },
+      };
+    }
+    const position = getPosition(this.props.value, min, max);
+    return {
+      range: false,
+      props: {
+        min,
+        max,
+        disabled,
+        decimal,
+        onChange: this.onSingleChange,
+        value: this.props.value,
+        position,
+      },
+      trackStyle: {
+        left: 0,
+        width: position,
+      },
+    };
+  }
+
   render() {
-    checkProps(this.props);
+    if (process.env.NODE_ENV !== 'production') {
+      checkProps(this.props);
+    }
     const {
       withInput,
       className,
       width,
       disabled = this.context.value,
-      ...restProps
+      min,
+      max,
+      marks,
     } = this.props;
-    const wrapClass = classNames(
-      `${restProps.prefix}-slider`,
-      { [`${restProps.prefix}-slider-disabled`]: disabled },
-      className
-    );
+    const computed = this.getComputedProps();
     return (
-      <div className={wrapClass} style={getWidth(width)}>
-        <Range {...restProps} disabled={disabled} onChange={this.onChange} />
-        {withInput && !restProps.dots && (
-          <InputField
-            onChange={this.onChange}
-            {...restProps}
-            disabled={disabled}
+      <div
+        className={cx('zent-slider', className, {
+          'zent-slider-disabled': disabled,
+        })}
+        style={getWidth(width)}
+      >
+        <div
+          ref={this.containerRef}
+          className={cx('zent-slider-main', {
+            'zent-slider-main-with-marks': !!marks,
+          })}
+        >
+          <div
+            style={computed.trackStyle}
+            className={cx(
+              { 'zent-slider-track-disabled': disabled },
+              'zent-slider-track'
+            )}
           />
-        )}
+          {computed.range === true ? (
+            <>
+              <Point
+                key="point-left"
+                containerRef={this.containerRef}
+                rangeLeft={min}
+                rangeRight={max}
+                {...computed.leftProps}
+              />
+              <Point
+                key="point-right"
+                containerRef={this.containerRef}
+                rangeLeft={min}
+                rangeRight={max}
+                {...computed.rightProps}
+              />
+            </>
+          ) : (
+            <Point
+              key="point-single"
+              containerRef={this.containerRef}
+              rangeLeft={min}
+              rangeRight={max}
+              {...computed.props}
+            />
+          )}
+          {marks ? <Marks marks={marks} min={min} max={max} /> : null}
+        </div>
+        {withInput &&
+          !this.props.dots &&
+          (computed.range === true ? (
+            <div className="zent-slider-input">
+              <NumberInput key="number-input-left" {...computed.leftProps} />
+              <span className="slider-input-line">-</span>
+              <NumberInput key="number-input-right" {...computed.rightProps} />
+            </div>
+          ) : (
+            <NumberInput
+              key="number-input-single"
+              className="zent-slider-input"
+              {...computed.props}
+            />
+          ))}
       </div>
     );
   }
 }
-
-export default Slider;
