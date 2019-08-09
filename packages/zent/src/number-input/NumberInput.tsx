@@ -332,10 +332,10 @@ export class NumberInput extends React.Component<
         return;
       }
       if (onChange) {
-        onChange(num + 1);
+        onChange(num - 1);
       } else {
         this.setState({
-          value: num + 1,
+          value: num - 1,
         });
       }
     } else {
