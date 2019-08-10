@@ -14,12 +14,15 @@ en-US:
 import { Alert } from 'zent';
 
 ReactDOM.render(
-	<Alert>
-		<span>{i18n.content}</span>
-		<a href="javascript:;" className="zent-alert-demo-text">
-			{i18n.link}
-		</a>
-	</Alert>,
+	<div className="zent-alert-example">
+		<Alert>
+			<span>{i18n.content}</span>
+			<a href="javascript:;" className="zent-alert-demo-text">
+				{i18n.link}
+			</a>
+		</Alert>
+		<Alert title="{i18n.title}" description="{i18n.content}" />
+	</div>,
 	mountNode
 );
 ```

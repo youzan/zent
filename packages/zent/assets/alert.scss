@@ -29,10 +29,19 @@ $types: 'info', 'success', 'warning', 'error';
   box-sizing: border-box;
   padding: 12px 16px;
   border: 1px solid $theme-stroke-5;
+  color: $theme-stroke-1;
   display: flex;
 
   &-content {
     flex: 1 1 auto;
+
+    &__title {
+      font-weight: $font-weight-medium;
+
+      + .zent-alert-content__description {
+        margin-top: 8px;
+      }
+    }
   }
 
   &-close-wrapper {

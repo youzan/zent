@@ -4,11 +4,16 @@ import { AlertTypes } from './types';
 import noop from 'lodash-es/noop';
 import Icon, { IconType } from '../icon';
 import InlineLoading from '../loading/InlineLoading';
+import { Omit } from 'utility-types';
 
-export interface IAlertProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface IAlertProps
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
   type?: AlertTypes;
   loading?: boolean;
   rounded?: boolean;
+  outline?: boolean;
+  title?: React.ReactNode;
+  description?: React.ReactNode;
   extraContent?: React.ReactNode;
   closable?: boolean;
   onClose?: () => void;
@@ -42,8 +47,10 @@ export const Alert: React.FC<IAlertProps> = props => {
     rounded,
     className,
     closable,
-    children,
     closeContent,
+    title,
+    description,
+    children,
     ...restDivAttrs
   } = props;
   const [closed, setClosed] = React.useState(false);
@@ -62,13 +69,23 @@ export const Alert: React.FC<IAlertProps> = props => {
     }
   }, [closed]);
 
-  const containerCls = cx(`zent-alert`, className, {
-    [`zent-${styleClassMap[type]}`]: styleClassMap[type],
-    [`zent-alert-border-rounded`]: rounded,
-  });
+  // 显示内容
+  const content = React.useMemo(() => {
+    return children ? (
+      children
+    ) : (
+      <>
+        {title && <h3 className="zent-alert-content__title">{title}</h3>}
+        {description && (
+          <p className="zent-alert-content__description">{description}</p>
+        )}
+      </>
+    );
+  }, [title, description, children]);
 
-  const closeButton = React.useMemo(() => {
-    const closeNode = closeContent ? (
+  // 关闭按钮内容
+  const closeNode = React.useMemo(() => {
+    const closeButton = closeContent ? (
       closeContent
     ) : (
       <Icon type="close" className="zent-alert-close-btn" />
@@ -77,12 +94,13 @@ export const Alert: React.FC<IAlertProps> = props => {
     return (
       closable && (
         <div className="zent-alert-close-wrapper" onClick={closeHandler}>
-          {closeNode}
+          {closeButton}
         </div>
       )
     );
-  }, [closable]);
+  }, [closable, closeContent]);
 
+  // 左侧图标
   const alertIcon = React.useMemo(() => {
     return loading ? (
       <InlineLoading
@@ -100,12 +118,17 @@ export const Alert: React.FC<IAlertProps> = props => {
     return null;
   }
 
+  const containerCls = cx('zent-alert', className, {
+    [`zent-${styleClassMap[type]}`]: styleClassMap[type],
+    ['zent-alert-border-rounded']: rounded,
+  });
+
   return (
     <div className={containerCls} {...restDivAttrs}>
       {alertIcon}
-      <div className={`zent-alert-content`}>{children}</div>
-      <div className={`zent-alert-extra-content`}>{extraContent}</div>
-      {closeButton}
+      <div className="zent-alert-content">{content}</div>
+      <div className="zent-alert-extra-content">{extraContent}</div>
+      {closeNode}
     </div>
   );
 };
