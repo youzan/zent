@@ -19,7 +19,6 @@ Alert is used to provide eye-catching information.
 | ------------ | --------------------------------------------------- | --------- | -------- | --------------------------------------------- |
 | className    | custom extra class name                             | string    |          |                                               |
 | type         | style of the Alert                                  | string    | `'info'` | `'info'`, `'success'`, `'warning'`, `'error'` |
-| rounded      | determines whether the corners are rounded or not   | bool      | `false`  | `true`, `false`                               |
 | loading      | determines whether the Alert use loading icon       | bool      | `false`  | `true`, `false`                               |
 | outline      | determines whether the Alert use outline mode style | bool      | `false`  | `true`, `false`                               |
 | closable     | determines whether the Alert can be closed or not   | bool      | `false`  | `true`, `false`                               |

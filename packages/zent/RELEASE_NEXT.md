@@ -168,7 +168,7 @@ import { Portal, PurePortal } from 'zent'
 
 - 内部布局改为 flex 布局
 - 删除 `type` 属性中的 `danger` 类型，添加 `success` 类型
-- 删除 `size` 属性
+- 删除 `size`、`rounded` 属性
 - 添加 `loading`、`outline`、`closeContent`、`extraContent` 属性
 - 添加 `title`、`description` 两个属性用于简化内容排版
 

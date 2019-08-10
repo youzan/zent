@@ -1,7 +1,6 @@
 import * as React from 'react';
 import cx from 'classnames';
 import { AlertTypes, IAlertStaticProperties } from './types';
-import noop from 'lodash-es/noop';
 import Icon, { IconType } from '../icon';
 import InlineLoading from '../loading/InlineLoading';
 import { Omit } from 'utility-types';
@@ -10,7 +9,6 @@ export interface IAlertProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
   type?: AlertTypes;
   loading?: boolean;
-  rounded?: boolean;
   outline?: boolean;
   title?: React.ReactNode;
   description?: React.ReactNode;
@@ -19,15 +17,6 @@ export interface IAlertProps
   onClose?: () => void;
   closeContent?: React.ReactNode;
 }
-
-const styleClassMap: {
-  [key in AlertTypes]: string;
-} = {
-  info: 'alert-style-info',
-  warning: 'alert-style-warning',
-  success: 'alert-style-success',
-  error: 'alert-style-error',
-};
 
 const iconTypeMap: {
   [key in AlertTypes]: IconType;
@@ -42,14 +31,13 @@ export const Alert: React.FC<IAlertProps> & IAlertStaticProperties = props => {
   const {
     className,
     type = 'info',
-    rounded = true,
     loading = false,
     outline = false,
     title,
     description,
     children,
     extraContent,
-    onClose = noop,
+    onClose,
     closable = false,
     closeContent = <Icon type="close" className="zent-alert-close-btn" />,
     ...restDivAttrs
@@ -63,7 +51,7 @@ export const Alert: React.FC<IAlertProps> & IAlertStaticProperties = props => {
   }, [setClosed]);
 
   React.useEffect(() => {
-    if (mounted.current && closed) {
+    if (mounted.current && closed && onClose) {
       onClose();
     } else {
       mounted.current = true;
@@ -113,9 +101,7 @@ export const Alert: React.FC<IAlertProps> & IAlertStaticProperties = props => {
     return null;
   }
 
-  const containerCls = cx('zent-alert', className, {
-    [`zent-${styleClassMap[type]}`]: styleClassMap[type],
-    ['zent-alert-border-rounded']: rounded,
+  const containerCls = cx('zent-alert', `zent-alert-style-${type}`, className, {
     ['zent-alert-outline']: outline,
   });
 

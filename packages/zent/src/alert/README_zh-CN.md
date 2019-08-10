@@ -20,7 +20,6 @@ group: 展示
 | ------------ | ---------------------- | --------- | -------- | --------------------------------------------- |
 | className    | 自定义额外类名         | string    |          |                                               |
 | type         | 警告提示的样式         | string    | `'info'` | `'info'`, `'success'`, `'warning'`, `'error'` |
-| rounded      | 是否圆角               | bool      | `false`  | `true`, `false`                               |
 | loading      | 是否是加载中模式       | bool      | `false`  | `true`, `false`                               |
 | outline      | 是否是 outline 模式    | bool      | `false`  | `true`, `false`                               |
 | closable     | 是否可以关闭           | bool      | `false`  | `true`, `false`                               |
