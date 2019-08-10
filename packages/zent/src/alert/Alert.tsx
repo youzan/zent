@@ -40,17 +40,18 @@ const iconTypeMap: {
 
 export const Alert: React.FC<IAlertProps> = props => {
   const {
-    onClose,
-    type,
-    loading,
-    extraContent,
-    rounded,
     className,
-    closable,
-    closeContent,
+    type = 'info',
+    rounded = true,
+    loading = false,
+    outline = false,
     title,
     description,
     children,
+    extraContent,
+    onClose = noop,
+    closable = false,
+    closeContent = <Icon type="close" className="zent-alert-close-btn" />,
     ...restDivAttrs
   } = props;
   const [closed, setClosed] = React.useState(false);
@@ -85,20 +86,14 @@ export const Alert: React.FC<IAlertProps> = props => {
 
   // 关闭按钮内容
   const closeNode = React.useMemo(() => {
-    const closeButton = closeContent ? (
-      closeContent
-    ) : (
-      <Icon type="close" className="zent-alert-close-btn" />
-    );
-
     return (
       closable && (
         <div className="zent-alert-close-wrapper" onClick={closeHandler}>
-          {closeButton}
+          {closeContent}
         </div>
       )
     );
-  }, [closable, closeContent]);
+  }, [closable, closeContent, closeHandler]);
 
   // 左侧图标
   const alertIcon = React.useMemo(() => {
@@ -121,6 +116,7 @@ export const Alert: React.FC<IAlertProps> = props => {
   const containerCls = cx('zent-alert', className, {
     [`zent-${styleClassMap[type]}`]: styleClassMap[type],
     ['zent-alert-border-rounded']: rounded,
+    ['zent-alert-outline']: outline,
   });
 
   return (
@@ -131,14 +127,6 @@ export const Alert: React.FC<IAlertProps> = props => {
       {closeNode}
     </div>
   );
-};
-
-Alert.defaultProps = {
-  type: 'info',
-  closable: false,
-  rounded: true,
-  className: '',
-  onClose: noop,
 };
 
 export default Alert;

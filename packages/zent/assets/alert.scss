@@ -22,6 +22,13 @@ $icon-color-map: (
   error: $theme-error-2,
 );
 
+$outline-color-map: (
+  info: $theme-primary-4,
+  success: $theme-success-2,
+  warning: $theme-warn-1,
+  error: $theme-error-2,
+);
+
 $types: 'info', 'success', 'warning', 'error';
 
 .zent-alert {
@@ -80,14 +87,30 @@ $types: 'info', 'success', 'warning', 'error';
     border-radius: 2px;
   }
 
-  @each $type in $types {
-    &-style-#{$type} {
-      background: map-get($map: $bg-color-map, $key: $type);
-      border-color: map-get($map: $border-color-map, $key: $type);
+  &-outline {
+    &.zent-alert-border-rounded {
+      border-radius: 4px;
+    }
+  }
+}
 
-      .zent-alert-icon {
-        color: map-get($map: $icon-color-map, $key: $type);
+@each $type in $types {
+  .zent-alert-style-#{$type} {
+    background: map-get($map: $bg-color-map, $key: $type);
+    border-color: map-get($map: $border-color-map, $key: $type);
+
+    &.zent-alert-outline {
+      background: $theme-stroke-9;
+      border: 1px solid $theme-stroke-5;
+      border-top: 4px solid map-get($map: $outline-color-map, $key: $type);
+
+      .zent-alert-content__title {
+        color: map-get($map: $outline-color-map, $key: $type);
       }
+    }
+
+    .zent-alert-icon {
+      color: map-get($map: $icon-color-map, $key: $type);
     }
   }
 }

@@ -1,10 +1,10 @@
 ---
 order: 3
 zh-CN:
-	title: "Loading 模式"
+	title: Loading 模式
 	content: 消息加载中...
 en-US:
-  title: "Loading Mode"
+  title: Loading Mode
 	content: Loading message...
 ---
 
