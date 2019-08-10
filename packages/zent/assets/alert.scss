@@ -29,6 +29,13 @@ $outline-color-map: (
   error: $theme-error-2,
 );
 
+$highlight-color-map: (
+  info: $theme-primary-4,
+  success: $theme-success-2,
+  warning: $theme-warn-1,
+  error: $theme-error-2,
+);
+
 $types: 'info', 'success', 'warning', 'error';
 
 .zent-alert {
@@ -41,6 +48,10 @@ $types: 'info', 'success', 'warning', 'error';
 
   &-content {
     flex: 1 1 auto;
+
+    &__highlight {
+      font-weight: $font-weight-medium;
+    }
 
     &__title {
       font-weight: $font-weight-medium;
@@ -98,6 +109,10 @@ $types: 'info', 'success', 'warning', 'error';
   .zent-alert-style-#{$type} {
     background: map-get($map: $bg-color-map, $key: $type);
     border-color: map-get($map: $border-color-map, $key: $type);
+
+    .zent-alert-content__highlight {
+      color: map-get($map: $highlight-color-map, $key: $type);
+    }
 
     &.zent-alert-outline {
       background: $theme-stroke-9;

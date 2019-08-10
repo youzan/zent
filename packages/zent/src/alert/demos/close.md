@@ -1,5 +1,5 @@
 ---
-order: 4
+order: 5
 zh-CN:
 	title: 关闭按钮及回调
 	cbContent: 这个公告关闭时有回调函数

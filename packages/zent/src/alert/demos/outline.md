@@ -1,5 +1,5 @@
 ---
-order: 6
+order: 7
 zh-CN:
 	title: Outline 模式
 	content: outline 模式公告内容
@@ -20,28 +20,24 @@ ReactDOM.render(
 			outline
 			title="{i18n.title}"
 			description="{i18n.content}"
-			extraContent={<Button type="primary">{i18n.button}</Button>}
 		/>
 		<Alert
 			type="success"
 			outline
 			title="{i18n.title}"
 			description="{i18n.content}"
-			extraContent={<Button type="primary">{i18n.button}</Button>}
 		/>
 		<Alert
 			type="warning"
 			outline
 			title="{i18n.title}"
 			description="{i18n.content}"
-			extraContent={<Button type="primary">{i18n.button}</Button>}
 		/>
 		<Alert
 			type="error"
 			outline
 			title="{i18n.title}"
 			description="{i18n.content}"
-			extraContent={<Button type="primary">{i18n.button}</Button>}
 		/>
 	</div>,
 	mountNode

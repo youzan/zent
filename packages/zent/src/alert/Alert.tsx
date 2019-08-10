@@ -1,6 +1,6 @@
 import * as React from 'react';
 import cx from 'classnames';
-import { AlertTypes } from './types';
+import { AlertTypes, IAlertStaticProperties } from './types';
 import noop from 'lodash-es/noop';
 import Icon, { IconType } from '../icon';
 import InlineLoading from '../loading/InlineLoading';
@@ -38,7 +38,7 @@ const iconTypeMap: {
   error: 'error-circle',
 };
 
-export const Alert: React.FC<IAlertProps> = props => {
+export const Alert: React.FC<IAlertProps> & IAlertStaticProperties = props => {
   const {
     className,
     type = 'info',
@@ -128,5 +128,7 @@ export const Alert: React.FC<IAlertProps> = props => {
     </div>
   );
 };
+
+Alert.highlightClassName = 'zent-alert-content__highlight';
 
 export default Alert;
