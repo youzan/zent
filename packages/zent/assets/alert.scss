@@ -1,86 +1,84 @@
 @import './theme/default';
 @import './theme/font';
 
-@mixin vertical-center {
-  position: absolute;
-  top: 50%;
-  transform: translate(0, -50%);
-}
-$color-bg-warning: $theme-warn-3;
-$color-border-warning: $theme-warn-3;
-$color-text-warning: $theme-stroke-1;
-$color-bg-error: $theme-error-4;
-$color-border-error: $theme-error-2;
-$color-text-error: $theme-stroke-9;
-$color-bg-info: $theme-stroke-8;
-$color-text-info: $theme-stroke-1;
-$alert-border-radius: 4px;
-$close-icon-size: 14px;
+$border-color-map: (
+  info: $theme-primary-7,
+  success: $theme-success-4,
+  warning: $theme-warn-2,
+  error: $theme-error-4,
+);
+
+$bg-color-map: (
+  info: $theme-primary-8,
+  success: $theme-success-5,
+  warning: $theme-warn-3,
+  error: $theme-error-5,
+);
+
+$icon-color-map: (
+  info: $theme-primary-4,
+  success: $theme-success-2,
+  warning: $theme-warn-1,
+  error: $theme-error-2,
+);
+
+$types: 'info', 'success', 'warning', 'error';
 
 .zent-alert {
+  @include font-normal;
   box-sizing: border-box;
-  width: 100%;
-  font-size: $font-size-normal;
-  line-height: 12px;
-  position: relative;
+  padding: 12px 16px;
+  border: 1px solid $theme-stroke-5;
+  display: flex;
 
-  &.zent-alert-closable {
-    .zent-alert-content {
-      margin-right: 15px;
-    }
+  &-content {
+    flex: 1 1 auto;
+  }
 
-    .zent-alert-close-wrapper {
-      margin-left: 15px;
-      height: 100%;
-      width: $close-icon-size;
-      position: absolute;
-      top: 0;
-      right: 15px;
-    }
+  &-close-wrapper {
+    cursor: pointer;
 
     .zent-alert-close-btn {
-      @include vertical-center;
-
-      width: $close-icon-size;
-      font-family: sans-serif;
-      font-size: 18px;
+      margin-left: 16px;
+      font-size: 12px;
+      width: 16px;
+      height: 20px;
+      line-height: 20px;
       text-align: center;
-      display: inline-block;
-      cursor: pointer;
-      color: $theme-stroke-3;
+      color: $theme-stroke-4;
     }
   }
 
-  &.zent-alert-size-normal {
-    padding: 15px;
+  &-extra-content {
+    margin: -6px 0 -6px 16px;
+    align-items: center;
+    display: flex;
+    flex: 0 0 auto;
   }
 
-  &.zent-alert-size-large {
-    padding: 11px 15px 11px 30px;
+  &-icon {
+    margin-right: 8px;
+
+    &.zenticon,
+    .zent-loading-icon-and-text {
+      width: 16px;
+      height: 20px;
+      line-height: 20px;
+    }
   }
 
-  &.zent-alert-border-rounded {
-    border-radius: $alert-border-radius;
+  &-border-rounded {
+    border-radius: 2px;
   }
 
-  &.zent-alert-style-info {
-    background: $color-bg-info;
-    color: $color-text-info;
-  }
+  @each $type in $types {
+    &-style-#{$type} {
+      background: map-get($map: $bg-color-map, $key: $type);
+      border-color: map-get($map: $border-color-map, $key: $type);
 
-  &.zent-alert-style-warning {
-    background: $color-bg-warning;
-    border: 1px solid $color-border-warning;
-    color: $color-text-warning;
-  }
-
-  &.zent-alert-style-danger {
-    background: $color-bg-error;
-    border: 1px solid $color-border-error;
-    color: $color-text-error;
-
-    .zent-alert-close-btn {
-      color: $theme-stroke-9;
+      .zent-alert-icon {
+        color: map-get($map: $icon-color-map, $key: $type);
+      }
     }
   }
 }

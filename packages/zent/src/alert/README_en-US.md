@@ -24,12 +24,3 @@ Alert is used to provide eye-catching information.
 | onClose   | callback for close  | func   | `noop`     |                                   |
 | className | custom extra class name  | string | `''`       |                                   |
 | prefix    | custom prefix    | string | `'zent'`   |                                   |
-
-
-<style>
-.zent-alert {
-	.text {
-		margin-bottom: 5px;
-	}
-}
-</style>

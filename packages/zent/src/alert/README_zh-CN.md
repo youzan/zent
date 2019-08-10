@@ -25,12 +25,3 @@ group: 展示
 | onClose   | 关闭时的回调   | func   | `noop`     |                                   |
 | className | 自定义额外类名  | string | `''`       |                                   |
 | prefix    | 自定义前缀    | string | `'zent'`   |                                   |
-
-
-<style>
-.zent-alert {
-	.text {
-		margin-bottom: 5px;
-	}
-}
-</style>

@@ -164,6 +164,11 @@ import { Portal, PurePortal } from 'zent'
 - 不再渲染 `children` 中的内容
 - 整体布局改为 `flex`
 
+### `Alert`
+
+- 删除 `type` props 中的 `danger` 类型，添加 `success` 类型
+- 删除 `size` props
+
 #### 源样式
 
 如果之前依赖了 postcss 的源样式，需要改成 sass。
