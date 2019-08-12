@@ -40,11 +40,11 @@ $z-index: 1050;
 }
 
 .zent-dialog-r {
+  @include theme-color(background-color, stroke, 9);
   position: relative;
   display: inline-block;
   vertical-align: middle; // required
   text-align: initial;
-  background-color: $theme-stroke-9;
   border-radius: 4px;
   padding: 16px 0;
   box-sizing: border-box;
@@ -53,28 +53,29 @@ $z-index: 1050;
 
 .zent-dialog-r-title {
   @include font-normal;
-
+  @include theme-color(border-bottom-color, stroke, 5);
+  @include theme-color(color, stroke, 1);
   padding: 0 16px 14px;
-  border-bottom: 1px solid $theme-stroke-5;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
   margin: 0;
   box-sizing: border-box;
   font-weight: $font-weight-medium;
-  color: $theme-stroke-1;
 }
 
 .zent-dialog-r-close {
+  @include theme-color(color, stroke, 4);
+  @include theme-color(background-color, stroke, 9);
   position: absolute;
   display: inline-block;
   top: 4px;
   right: 10px;
-  color: $theme-stroke-4;
   font-size: 20px;
   line-height: 20px;
   text-align: right;
   vertical-align: middle;
   cursor: pointer;
   border: 0;
-  background-color: $theme-stroke-9;
   outline: none;
   user-select: none;
   padding: 0 6px;
@@ -83,7 +84,7 @@ $z-index: 1050;
   &:link,
   &:active,
   &:focus {
-    color: $theme-stroke-4;
+    @include theme-color(color, stroke, 4);
   }
 
   &.zent-dialog-r-has-title {
@@ -94,8 +95,7 @@ $z-index: 1050;
 
 .zent-dialog-r-body {
   @include font-normal;
-
-  color: $theme-stroke-1;
+  @include theme-color(color, stroke, 4);
   padding: 16px;
 
   &.with-success-icon,
