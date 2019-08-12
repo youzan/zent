@@ -3,7 +3,7 @@
 
 .zent-error-boundary-fallback-component {
   &__error {
-    color: $theme-error-2;
+    @include theme-color(color, error, 2);
     font-size: $font-size-normal;
 
     .zenticon-error-circle {
