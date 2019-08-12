@@ -7,7 +7,7 @@
 
   select[readonly],
   textarea[readonly] {
-    background-color: $theme-stroke-9;
+    @include theme-color(background-color, stroke, 9);
     cursor: text;
   }
 }
@@ -19,10 +19,12 @@
 }
 
 .zent-form__legend {
+  @include theme-color(border-bottom-color, stroke, 6);
   padding-bottom: 8px;
   margin-bottom: 20px;
   width: 100%;
-  border-bottom: 1px solid $theme-stroke-6;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
   font-size: $font-size-normal;
   font-weight: bold;
 }
@@ -33,7 +35,7 @@
   &.has-error {
     .zent-form__error-desc,
     .zent-form__help-block {
-      color: $theme-error-4;
+      @include theme-color(color, error, 4);
     }
   }
 }
@@ -54,9 +56,9 @@
 }
 
 .zent-form__required {
+  @include theme-color(color, error, 2);
   margin-right: 6px;
   font-size: $font-size-large;
-  color: $theme-error-2;
   vertical-align: middle;
 }
 
@@ -64,11 +66,11 @@
 .zent-form__error-desc,
 .zent-form__help-desc,
 .zent-form__notice-desc {
+  @include theme-color(color, stroke, 3);
   line-height: 14px;
   font-size: $font-size-small;
   margin-top: 10px;
   margin-bottom: 0;
-  color: $theme-stroke-3;
 
   ul li {
     font-size: $font-size-small;
@@ -76,7 +78,7 @@
   }
 
   a {
-    color: $theme-primary-4;
+    @include theme-color(color, primary, 4);
   }
 
   &:empty {
@@ -85,8 +87,8 @@
 }
 
 .zent-form__notice-desc {
-  background: $theme-warn-3;
-  color: $theme-stroke-1;
+  @include theme-color(background-color, warn, 3);
+  @include theme-color(color, stroke, 1);
   display: inline-block;
   padding: 5px;
 }
