@@ -2,7 +2,12 @@
 @import './theme/font';
 @import './theme/timing-functions';
 
-$border-style: 1px solid $theme-stroke-6;
+@mixin collapse-border($pos) {
+  @include theme-color(#{border-#{$pos}-color}, stroke, 6);
+  border-#{$pos}-width: 1px;
+  border-#{$pos}-style: solid;
+}
+
 $content-padding-h: 36px;
 
 .zent-collapse {
@@ -10,12 +15,12 @@ $content-padding-h: 36px;
   overflow: hidden;
 
   &--has-border {
-    border-top: $border-style;
-    border-bottom: $border-style;
+    @include collapse-border(top);
+    @include collapse-border(bottom);
 
     .zent-collapse-panel__title {
-      border-left: $border-style;
-      border-right: $border-style;
+      @include collapse-border(left);
+      @include collapse-border(right);
     }
 
     .zent-collapse-panel__content-box {
@@ -29,41 +34,41 @@ $content-padding-h: 36px;
 
   &__title {
     @include font-normal;
+    @include collapse-border(bottom);
+    @include theme-color(color, stroke, 1);
 
     padding: 14px 10px;
-    border-bottom: $border-style;
     cursor: pointer;
     display: flex;
     align-items: center;
     overflow: hidden;
-    color: $theme-stroke-1;
 
     &--bg-default {
-      background: $theme-stroke-8;
+      @include theme-color(background-color, stroke, 8);
     }
 
     &--bg-none {
-      background: $theme-stroke-9;
+      @include theme-color(background-color, stroke, 9);
     }
   }
 
   &__content-box {
     @include font-normal;
+    @include theme-color(background-color, stroke, 9);
+    @include collapse-border(bottom);
 
     padding: 0 $content-padding-h;
-    border-bottom: $border-style;
-    background: $theme-stroke-9;
     overflow: hidden;
     box-sizing: border-box;
   }
 
   &__content {
+    @include theme-color(color, stroke, 1);
     padding: 16px 0;
-    color: $theme-stroke-1;
   }
 
   &__arrow {
-    fill: $theme-stroke-1;
+    @include theme-color(fill, stroke, 1);
     margin-right: 10px;
     transform: rotate(180deg);
     transform-origin: center;
@@ -78,11 +83,11 @@ $content-padding-h: 36px;
 
   &--disabled {
     .zent-collapse-panel__arrow {
-      fill: $theme-stroke-4;
+      @include theme-color(fill, stroke, 4);
     }
 
     .zent-collapse-panel__title {
-      color: $theme-stroke-4;
+      @include theme-color(color, stroke, 4);
       cursor: not-allowed;
     }
   }
