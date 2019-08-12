@@ -1,3 +1,5 @@
+import { PropsWithChildren } from 'react';
+
 export interface ITab<Id extends string | number = string> {
   key: Id;
   title: React.ReactNode;
@@ -14,15 +16,17 @@ export interface IInnerTab<Id extends string | number = string>
 }
 
 export type TabType = 'normal' | 'card' | 'button' | 'vertical';
-export type TabSize = 'normal' | 'huge';
 export type TabAlign = 'left' | 'right' | 'center';
+
+export type ITabPanelElement<
+  Id extends string | number = string
+> = React.ReactElement<PropsWithChildren<ITabPanelProps<Id>>>;
 
 export interface ITabsProps<Id extends string | number = string> {
   activeId: Id;
   className?: string;
   tabs?: Array<ITab<Id>>;
   type?: TabType;
-  size?: TabSize;
   align?: TabAlign;
   onChange?: (id: Id) => void;
   onDelete?: (id: Id) => void;
@@ -30,25 +34,22 @@ export interface ITabsProps<Id extends string | number = string> {
   candel?: boolean;
   canadd?: boolean;
   navExtraContent?: React.ReactNode;
+  children?: ITabPanelElement<Id> | Array<ITabPanelElement<Id>>;
 }
 
 export interface ITabsNavProps<Id extends string | number = string> {
   tabListData: Array<IInnerTab<Id>>;
-  type: string;
-  align: string;
-  size: string;
+  align: TabAlign;
   onChange: (id: Id) => void;
   onDelete: (id: Id) => void;
   onAdd: () => void;
   candel: boolean;
   canadd: boolean;
-  uniqueId: number;
   navExtraContent: React.ReactNode;
 }
 
 export interface ITabProps<Id extends string | number = string> {
   id: Id;
-  uniqueId: number;
   onSelected: (id: Id) => void;
   onDelete: (id: Id) => void;
   actived?: boolean;
@@ -58,11 +59,10 @@ export interface ITabProps<Id extends string | number = string> {
 }
 
 export interface ITabPanelProps<Id extends string | number = string> {
+  id: Id;
+  tab: React.ReactNode;
   className?: string;
   actived?: boolean;
   disabled?: boolean;
-  tab: React.ReactNode;
-  id: Id;
   onTabReady?: (id: Id) => void;
-  uniqueId?: number;
 }

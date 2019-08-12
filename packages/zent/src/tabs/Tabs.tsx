@@ -5,9 +5,24 @@ import noop from 'lodash-es/noop';
 
 import LazyMount from '../utils/component/LazyMount';
 import TabPanel from './components/TabPanel';
-import TabsNav from './components/Nav';
-import { getTabListData } from './tabUtil';
-import { IInnerTab, ITabsProps, ITab } from './types';
+import NormalTabsNav from './components/normal/TabsNav';
+import {
+  IInnerTab,
+  ITabsProps,
+  ITabPanelProps,
+  TabType,
+  ITabsNavProps,
+} from './types';
+import CardTabsNav from './components/card/TabsNav';
+import ButtonTabsNav from './components/button/TabsNav';
+
+const TabsNavComponents: {
+  [type in TabType]?: React.ComponentType<ITabsNavProps>;
+} = {
+  normal: NormalTabsNav,
+  card: CardTabsNav,
+  button: ButtonTabsNav,
+};
 
 type ITabsInnerProps<Id extends string | number = string> = Required<
   ITabsProps<Id>
@@ -16,8 +31,9 @@ type ITabsInnerProps<Id extends string | number = string> = Required<
 export class Tabs<Id extends string | number = string> extends Component<
   ITabsProps<Id>
 > {
+  static TabPanel = TabPanel;
+
   static defaultProps = {
-    className: '',
     type: 'normal',
     activeId: '',
     size: 'normal',
@@ -29,13 +45,9 @@ export class Tabs<Id extends string | number = string> extends Component<
     onAdd: noop,
   };
 
-  static uniqueId = 0;
-
-  static TabPanel = TabPanel;
-
-  constructor(props: ITabsProps<Id>) {
-    super(props);
-    Tabs.uniqueId++;
+  get tabsCls() {
+    const { className } = this.props;
+    return cn('zent-tabs', className);
   }
 
   renderNav(tabListData: Array<IInnerTab<Id>>) {
@@ -44,35 +56,31 @@ export class Tabs<Id extends string | number = string> extends Component<
       align,
       canadd,
       candel,
-      size,
       navExtraContent,
       onChange,
       onAdd,
       onDelete,
     } = this.props as ITabsInnerProps<Id>;
-    if (tabListData && tabListData.length) {
-      return (
-        <TabsNav
-          onChange={onChange}
-          tabListData={tabListData}
-          type={type}
-          align={align}
-          size={size}
-          onDelete={onDelete}
-          onAdd={onAdd}
-          canadd={canadd}
-          candel={candel}
-          navExtraContent={navExtraContent}
-          uniqueId={Tabs.uniqueId}
-        />
-      );
+    const TabsNavComp = (TabsNavComponents[type] ||
+      TabsNavComponents.normal) as React.ComponentClass<ITabsNavProps<Id>>;
+    if (!TabsNavComp) {
+      return null;
     }
-
-    return null;
+    return (
+      <TabsNavComp
+        onChange={onChange}
+        tabListData={tabListData}
+        align={align}
+        onDelete={onDelete}
+        onAdd={onAdd}
+        canadd={canadd}
+        candel={candel}
+        navExtraContent={navExtraContent}
+      />
+    );
   }
 
   renderTabPanel(tabListData: Array<IInnerTab<Id>>) {
-    const newChildren: React.ReactNode[] = [];
     const hasData = !!(tabListData && tabListData.length);
 
     if (!hasData) {
@@ -80,7 +88,7 @@ export class Tabs<Id extends string | number = string> extends Component<
     }
 
     return tabListData.map(tabItem => {
-      newChildren.push(
+      return (
         <LazyMount mount={tabItem.actived} key={tabItem.key}>
           <TabPanel
             tab={tabItem.title}
@@ -88,7 +96,6 @@ export class Tabs<Id extends string | number = string> extends Component<
             onTabReady={tabItem.onTabReady}
             className={tabItem.className}
             id={tabItem.key}
-            uniqueId={Tabs.uniqueId}
           >
             {tabItem.content}
           </TabPanel>
@@ -101,15 +108,39 @@ export class Tabs<Id extends string | number = string> extends Component<
    * 带 TabPanel children 的渲染方式
    */
   renderWithPanel() {
-    const { className, children, activeId } = this.props;
+    const { children, activeId } = this.props;
 
-    const tabPanelDataList = getTabListData(children, activeId);
-    const tabsCls = cn('zent-tabs', className);
+    const tabPanelDataList = React.Children.map(
+      children,
+      (
+        child: React.ReactElement<React.PropsWithChildren<ITabPanelProps<Id>>>
+      ) => {
+        const {
+          id,
+          disabled,
+          tab,
+          children: panelChildren,
+          onTabReady,
+          className: panelClassName,
+        } = child.props;
+        const props: IInnerTab<Id> = {
+          title: tab,
+          disabled,
+          key: id,
+          actived: activeId === id,
+          content: panelChildren,
+          onTabReady,
+          className: panelClassName,
+        };
+
+        return props;
+      }
+    );
 
     return (
-      <div className={tabsCls}>
+      <div className={this.tabsCls}>
         {this.renderNav(tabPanelDataList)}
-        <div className="zent-tabs-panewrap">
+        <div className="zent-tabs-panel-wrapper">
           {this.renderTabPanel(tabPanelDataList)}
         </div>
       </div>
@@ -120,14 +151,12 @@ export class Tabs<Id extends string | number = string> extends Component<
    * 使用 tabs props 的渲染方式
    */
   renderWithoutPanel() {
-    const { tabs, className, activeId } = this.props;
-
-    const tabsCls = cn('zent-tabs', className);
+    const { tabs, activeId } = this.props;
 
     return (
-      <div className={tabsCls}>
+      <div className={this.tabsCls}>
         {this.renderNav(
-          (tabs as Array<ITab<Id>>).map<IInnerTab<Id>>(tab => ({
+          tabs.map<IInnerTab<Id>>(tab => ({
             ...tab,
             actived: tab.key === activeId,
           }))

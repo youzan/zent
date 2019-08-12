@@ -1,40 +1,46 @@
 @import './theme/default';
 @import './theme/font';
 
-$active-color: $theme-stroke-1;
 $color: $theme-stroke-2;
-$tab-bg: $theme-stroke-8;
+$active-color: $theme-stroke-1;
 $active-tab-bg: $theme-stroke-9;
 $disable-color: $theme-stroke-4;
-$slider-color: $theme-primary-5;
 $border-color: $theme-stroke-5;
+
+$normal-variables: (
+  height: 48px,
+  inkColor: $theme-primary-4,
+);
+
+$card-variables: (
+  height: 40px,
+  tab-bg: $theme-stroke-8,
+);
 
 .zent-tabs {
   @include font-normal;
 
+  &-panel-wrapper {
+    margin-top: 16px;
+  }
+
   &-nav {
     position: relative;
-    border-bottom: 1px solid $border-color;
     outline: none;
     display: flex;
     justify-content: flex-start;
 
-    &-extra-content {
+    &-extra-content,
+    &-add {
       display: flex;
-      justify-content: end;
-      width: auto;
-      height: 100%;
-      vertical-align: middle;
+      justify-content: flex-end;
+      align-items: center;
+      margin-left: 8px;
     }
 
     &-add {
-      display: flex;
-      justify-content: end;
-      margin-left: 8px;
-      vertical-align: middle;
       text-align: center;
       cursor: pointer;
-      padding: 7px 0;
 
       span {
         display: block;
@@ -49,21 +55,7 @@ $border-color: $theme-stroke-5;
 
     &-content {
       flex: 1 1 auto;
-      margin-bottom: -1px;
-      height: 48px;
       overflow: hidden;
-
-      &-prev::before {
-        content: '\E600';
-      }
-
-      &-next::before {
-        content: '\E600';
-      }
-    }
-
-    &-ink-bar {
-      display: none;
     }
   }
 
@@ -73,28 +65,19 @@ $border-color: $theme-stroke-5;
     overflow-x: auto;
   }
 
-  &-tabwrap {
-    float: left;
-    position: relative;
-  }
-
   &-tab {
     position: relative;
     display: inline-block;
     cursor: pointer;
     color: $color;
-    border-top: 1px solid $border-color;
-    border-right: 1px solid $border-color;
-    background-color: $tab-bg;
     box-sizing: border-box;
 
     &-inner {
-      padding: 14px 16px;
       text-align: center;
-      min-width: 90px;
-      position: relative;
+      min-width: 80px;
       box-sizing: border-box;
       font-size: $font-size-normal;
+      position: relative;
 
       &-del {
         line-height: 1;
@@ -105,151 +88,104 @@ $border-color: $theme-stroke-5;
         display: none;
       }
     }
-  }
 
-  &-tab:first-child {
-    border: 1px solid $border-color;
-    border-bottom: 0;
-    border-top-left-radius: 4px;
-  }
+    &:hover {
+      color: $active-color;
 
-  &-tab:last-child {
-    border-top-right-radius: 4px;
-  }
-
-  &-tab:hover {
-    color: $active-color;
-
-    .zent-tabs-tab-inner-del {
-      display: inline;
-    }
-  }
-
-  .zent-tabs-actived {
-    position: relative;
-    color: $active-color;
-    background-color: $active-tab-bg;
-
-    .zent-tabs-tab-inner {
-      padding-bottom: 9px;
-    }
-  }
-
-  .zent-tabs-disabled {
-    color: $disable-color;
-
-    &.zent-tabs-tab {
-      cursor: not-allowed;
+      .zent-tabs-tab-inner-del {
+        display: block;
+      }
     }
 
-    &.zent-tabs-tab:hover {
+    &__actived {
+      position: relative;
+      color: $active-color;
+      background-color: $active-tab-bg;
+    }
+
+    &__disabled {
       color: $disable-color;
+
+      &.zent-tabs-tab {
+        cursor: not-allowed;
+
+        &:hover {
+          color: $disable-color;
+        }
+      }
     }
   }
 }
 
-.zent-tabs-size-huge {
-  .zent-tabs-nav {
-    margin-bottom: 15px;
-  }
+// .zent-tabs-nav-align-center {
+// }
 
-  .zent-tabs-nav-content {
-    height: 50px;
-  }
+// .zent-tabs-nav-align-right {
+// }
+
+.zent-tabs-nav-type__normal {
+  border-bottom: 1px solid $border-color;
+  height: map-get($normal-variables, 'height');
 
   .zent-tabs-tab-inner {
-    padding: 14px 40px;
-    font-size: $font-size-normal;
-  }
-
-  .zent-tabs-actived {
-    .zent-tabs-tab-inner {
-      background-color: $active-tab-bg;
-      padding-bottom: 15px;
-    }
-  }
-}
-
-.zent-tabs-align-center {
-  .zent-tabs-tabwrap {
-    float: none;
-  }
-}
-
-.zent-tabs-align-right {
-  .zent-tabs-tabwrap {
-    float: right;
-  }
-
-  .zent-tabs-nav-add {
-    float: left;
-  }
-
-  .zent-tabs-nav-extra-content {
-    float: left;
-  }
-}
-
-.zent-tabs-type-card {
-  .zent-tabs-tab {
-    border-color: $tab-bg;
-    border-radius: 0;
-  }
-
-  .zent-tabs-tab:first-child {
-    border-color: $tab-bg;
-    border-radius: 0;
-  }
-
-  .zent-tabs-tab:last-child {
-    border-color: $tab-bg;
-    border-radius: 0;
-  }
-
-  .zent-tabs-actived {
-    background-color: $tab-bg;
-    border-radius: 0;
-    border: 0;
-
-    .zent-tabs-tab-inner {
-      border: 1px solid $border-color;
-      border-bottom: 0;
-      border-top-left-radius: 6px;
-      border-top-right-radius: 6px;
-      background-color: white;
-    }
-  }
-}
-
-.zent-tabs-type-slider {
-  &.zent-tabs-nav {
-    border: 0;
-  }
-
-  .zent-tabs-tab {
-    border: 0;
-    background-color: transparent;
-  }
-
-  .zent-tabs-actived {
-    background-color: transparent;
-
-    .zent-tabs-tab-inner {
-      background-color: transparent;
-    }
+    padding: 14px 16px;
   }
 
   .zent-tabs-nav-ink-bar {
     position: absolute;
     display: block;
-    bottom: 2px;
     height: 2px;
-    background-color: $slider-color;
+    background-color: map-get($normal-variables, 'inkColor');
+    bottom: -1px;
     width: 0;
     z-index: 10;
   }
 }
 
-.zent-tabs-third-level {
-  background-color: $theme-stroke-8;
+.zent-tabs-nav-type__card {
+  border-bottom: 1px solid $border-color;
+  height: map-get($card-variables, 'height');
+
+  .zent-tabs-nav-content {
+    margin-bottom: -1px;
+  }
+
+  .zent-tabs-tab {
+    border-top: 1px solid $border-color;
+    border-right: 1px solid $border-color;
+    border-bottom: 1px solid $border-color;
+    background-color: map-get($card-variables, 'tab-bg');
+
+    &-inner {
+      padding: 10px 16px 9px;
+    }
+
+    &:first-child {
+      border-left: 1px solid $border-color;
+      border-top-left-radius: 4px;
+    }
+
+    &:last-child {
+      border-top-right-radius: 4px;
+    }
+
+    &__actived {
+      background-color: $active-tab-bg;
+      border-bottom: 0;
+      padding-bottom: 10px;
+    }
+  }
+
+  // .zent-tabs-actived {
+  //   border-radius: 0;
+  //   border: 0;
+
+  //   .zent-tabs-tab-inner {
+  //     border: 1px solid $border-color;
+  //     border-bottom: 0;
+  //     border-top-left-radius: 6px;
+  //     border-top-right-radius: 6px;
+  //     background-color: white;
+  //   }
+  // }
 }

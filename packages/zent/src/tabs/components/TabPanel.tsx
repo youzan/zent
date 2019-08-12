@@ -1,54 +1,26 @@
 import * as React from 'react';
 import cn from 'classnames';
-import noop from 'lodash-es/noop';
 import { ITabPanelProps } from '../types';
 
-class TabPanel<Id extends string | number = string> extends React.PureComponent<
-  ITabPanelProps<Id>
-> {
-  static defaultProps = {
-    actived: false,
-    onTabReady: noop,
-    uniqueId: 0,
-  };
+function TabPanel<Id extends string | number = string>(
+  props: React.PropsWithChildren<ITabPanelProps<Id>>
+) {
+  const { actived = false, className, children, id, onTabReady } = props;
 
-  componentDidMount() {
-    this.emitTabReady();
-  }
-
-  componentDidUpdate() {
-    this.emitTabReady();
-  }
-
-  emitTabReady() {
-    const { onTabReady, id } = this.props;
+  React.useEffect(() => {
     onTabReady && onTabReady(id);
+  });
+
+  if (!actived) {
+    return null;
   }
 
-  render() {
-    const {
-      actived = false,
-      uniqueId = 0,
-      id,
-      className,
-      children,
-    } = this.props;
-
-    if (!actived) {
-      return null;
-    }
-
-    const panelCls = cn('zent-tab-tabpanel', className);
-    return (
-      <div
-        role="tabpanel"
-        id={`zent-tabpanel-${uniqueId}-${id}`}
-        className={panelCls}
-      >
-        {children}
-      </div>
-    );
-  }
+  const panelCls = cn('zent-tab-tabpanel', className);
+  return (
+    <div role="tabpanel" className={panelCls}>
+      {children}
+    </div>
+  );
 }
 
 export default TabPanel;

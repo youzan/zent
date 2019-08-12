@@ -1,5 +1,5 @@
 ---
-order: 5
+order: 2
 zh-CN:
 	title: 不使用TabPanel，只使用Tab展示导航
 	tabOne: 选项一
@@ -47,16 +47,11 @@ class Simple extends Component {
 
 	render() {
 		return (
-			<div>
-				<div style={{ marginTop: '10px' }}>
-					<Tabs
-						activeId={this.state.activeId}
-						onChange={this.onTabChange}
-						tabs={this.state.tabs}
-					/>
-					<h1>{this.state.activeId}</h1>
-				</div>
-			</div>
+			<Tabs
+				activeId={this.state.activeId}
+				onChange={this.onTabChange}
+				tabs={this.state.tabs}
+			/>
 		);
 	}
 }

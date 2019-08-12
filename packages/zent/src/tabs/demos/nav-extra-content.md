@@ -1,5 +1,5 @@
 ---
-order: 6
+order: 5
 zh-CN:
 	title: 导航添加额外内容
 	tabOne: 选项1

@@ -1,4 +1,4 @@
-import { ITabProps, ITabsNavProps } from '../types';
+import { ITabsNavProps } from './types';
 
 export function getOffsetWH(node: HTMLElement) {
   return node.offsetWidth;
@@ -30,7 +30,7 @@ export function getWidth<Id extends string | number = string>(
   return {};
 }
 
-export function modifyTabListData<Id extends string | number = string>(
+export function getRenderTabListData<Id extends string | number = string>(
   props: ITabsNavProps<Id>
 ) {
   const widthInfo = getWidth(props);

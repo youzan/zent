@@ -2,7 +2,7 @@ import * as React from 'react';
 import { PureComponent } from 'react';
 import classnames from 'classnames';
 import Popover from '../../popover';
-import Tabs from '../../tabs';
+import Tabs, { ITabPanelElement } from '../../tabs';
 import { CascaderHandler, CascaderValue, ICascaderItem } from '../types';
 
 const TabPanel = Tabs.TabPanel;
@@ -72,7 +72,7 @@ class TabsContent extends PureComponent<ITabsContentProps> {
   }
 
   renderPanels(popover: Popover, i18n: any) {
-    const PanelEls = [];
+    const PanelEls: ITabPanelElement[] = [];
     let tabIndex = 1;
     let { title, options, value, recursiveNextOptions } = this.props;
 

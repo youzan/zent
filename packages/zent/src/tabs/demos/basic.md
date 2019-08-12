@@ -1,7 +1,7 @@
 ---
 order: 1
 zh-CN:
-	title: 基础用法
+	title: 基础模式
 	tabOne: 选项一
 	tabTwo: 选项二
 	tabThree: 选项三
@@ -9,7 +9,7 @@ zh-CN:
 	tabTwoCont: 选项二的内容
 	tabThreeCont: 选项三的内容
 en-US:
-	title: Basic usage
+	title: Basic Mode
 	tabOne: Tab One
 	tabTwo: Tab Two
 	tabThree: Tab Three
