@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import classNames from 'classnames';
 import memoize from '../utils/memorize-one';
+import is from '../utils/is';
 
 import GroupContext from './GroupContext';
 import { DisabledContext, IDisabledContext } from '../disabled';
@@ -24,7 +25,7 @@ export class CheckboxGroup<Value> extends Component<
 > {
   static defaultProps = {
     prefix: 'zent',
-    isValueEqual: Object.is,
+    isValueEqual: is,
     value: [],
   };
 

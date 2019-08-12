@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import noop from 'lodash-es/noop';
 
 import memoize from '../utils/memorize-one';
+import is from '../utils/is';
 import GroupContext from './GroupContext';
 import { IRadioEvent } from './AbstractRadio';
 import { DisabledContext, IDisabledContext } from '../disabled';
@@ -27,7 +28,7 @@ export class RadioGroup<Value> extends Component<IRadioGroupProps<Value>> {
     className: '',
     style: {},
     readOnly: false,
-    isValueEqual: Object.is,
+    isValueEqual: is,
     onChange: noop,
   };
 
@@ -37,7 +38,7 @@ export class RadioGroup<Value> extends Component<IRadioGroupProps<Value>> {
   getGroupContext = memoize(
     (
       value: unknown,
-      disabled: boolean | undefined,
+      disabled: boolean,
       readOnly: boolean,
       isValueEqual: (value1: Value, value2: Value) => boolean
     ) => ({

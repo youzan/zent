@@ -1,11 +1,10 @@
 /**
- * copied from https://github.com/alexreardon/memoize-one
+ * Adapted from https://github.com/alexreardon/memoize-one
  */
 
-export type EqualityFn = (newArgs: unknown[], lastArgs: unknown[]) => boolean;
+import is from './is';
 
-const shallowEqual = (newValue: unknown, oldValue: unknown): boolean =>
-  newValue === oldValue;
+export type EqualityFn = (newArgs: unknown[], lastArgs: unknown[]) => boolean;
 
 const simpleIsEqual: EqualityFn = (
   newArgs: unknown[],
@@ -13,7 +12,7 @@ const simpleIsEqual: EqualityFn = (
 ): boolean =>
   newArgs.length === lastArgs.length &&
   newArgs.every((newArg: unknown, index: number): boolean =>
-    shallowEqual(newArg, lastArgs[index])
+    is(newArg, lastArgs[index])
   );
 
 // <ResultFn: (...Array<any>) => mixed>
@@ -32,7 +31,7 @@ export default function<F extends Function>(
   let calledOnce = false;
 
   // breaking cache when context (this) or arguments change
-  const result = function(...newArgs: unknown[]) {
+  const result = function(this: unknown, ...newArgs: unknown[]) {
     if (calledOnce && lastThis === this && isEqual(newArgs, lastArgs)) {
       return lastResult;
     }
