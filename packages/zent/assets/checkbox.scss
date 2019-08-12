@@ -62,6 +62,8 @@ $size: 16px;
 }
 
 .zent-checkbox-inner {
+  @include theme-color(border-color, stroke, 4);
+  @include theme-color(background-color, stroke, 9);
   position: relative;
   top: 0;
   left: 0;
@@ -69,8 +71,8 @@ $size: 16px;
   width: $size;
   height: $size;
   border-radius: 2px;
-  border: 1px solid $theme-stroke-4;
-  background: $theme-stroke-9;
+  border-width: 1px;
+  border-style: solid;
   box-sizing: border-box;
   transition: all 0.3s;
 
@@ -93,8 +95,8 @@ $size: 16px;
 .zent-checkbox-checked {
   & > .zent-checkbox {
     & > .zent-checkbox-inner {
-      border-color: $theme-primary-4;
-      background: $theme-primary-4;
+      @include theme-color(border-color, primary, 4);
+      @include theme-color(background-color, primary, 4);
 
       &::after {
         background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAYAAAAWGF8bAAAABGdBTUEAALGPC/xhBQAAASxJREFUOBGlkr9LQlEUx01Di1pCCKQhkAZxaMs/oFnwD3Bwqcmh0cnB0ak5HBwdHNyT5sDFIUIQxMXBQWgIIjB7fa7c+zjvvnfR9MCH8+t7vtOJxfYMz/OyMIIniB/u44dBhvs+ZCEHX7BbYHYGbyBjtpMbDifwKp2ol1D8tyFHSXgGGb805YAZg+PAIKJBE4cu2FH15WyOoA8fUPAXEQX7FthRD0jZdoRiQZ0PCHTDvCl0pnwMadlMzFbnGflSCulrlka1bTiQunXN8AY+QcaY5lwJyPdyoeseOREyMwOWt/CtxSYNKe5gZQY6v5BT5taZEZXgRx+50oDFqdPEXiCugPqpqHhnmLZvNvYcPUS4TZldbDx2CThuCNM59ZVLu/UcE/V36qWutz5C+AfE+OIwPOZePgAAAABJRU5ErkJggg==');
@@ -107,16 +109,16 @@ $size: 16px;
 .zent-checkbox-indeterminate {
   & > .zent-checkbox {
     & > .zent-checkbox-inner {
-      border-color: $theme-primary-4;
-      background: $theme-stroke-9;
+      @include theme-color(border-color, primary, 4);
+      @include theme-color(background-color, stroke, 9);
 
       &::after {
+        @include theme-color(background-color, primary, 4);
         top: 6px;
         left: 2px;
         width: 10px;
         height: 2px;
         border: 0;
-        background: $theme-primary-4;
         transform: rotate(0deg);
       }
     }
@@ -125,13 +127,13 @@ $size: 16px;
 
 .zent-checkbox-disabled {
   & > span {
-    color: $theme-stroke-4;
+    @include theme-color(color, stroke, 4);
   }
 
   & > .zent-checkbox {
     & > .zent-checkbox-inner {
-      background-color: $theme-stroke-8;
-      border-color: $theme-stroke-5;
+      @include theme-color(background-color, stroke, 8);
+      @include theme-color(border-color, stroke, 5);
     }
 
     & > input[type='checkbox'] {
@@ -150,7 +152,7 @@ $size: 16px;
   &.zent-checkbox-indeterminate > .zent-checkbox {
     & > .zent-checkbox-inner {
       &::after {
-        background: $theme-stroke-5;
+        @include theme-color(background-color, stroke, 5);
       }
     }
   }
