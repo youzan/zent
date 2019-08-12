@@ -388,9 +388,14 @@ export class NumberInput extends React.Component<
         onChange && onChange(this.state.value as number);
       }
     } else {
-      if (String(this.props.value) !== String(this.state.value)) {
-        const { onChange } = this.props;
-        onChange && onChange(this.state.value as (string & number));
+      const { onChange } = this.props;
+      if (
+        onChange &&
+        this.props.value !== '' &&
+        this.state.value !== '' &&
+        !new Decimal(this.props.value || 0).eq(new Decimal(this.state.value))
+      ) {
+        onChange(this.state.value as (string & number));
       }
     }
   }
