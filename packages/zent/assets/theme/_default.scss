@@ -116,8 +116,12 @@ $theme-shadow: (
   'modal': $shadow-spec-modal,
 );
 
+@function get-color($cat, $i) {
+  @return nth(map-get($theme-colors, $cat), $i);
+}
+
 @mixin theme-color($prop, $cat, $i) {
-  $color: nth(map-get($theme-colors, $cat), $i);
+  $color: get-color($cat, $i);
 
   #{$prop}: $color;
   #{$prop}: var(--theme-#{$cat}-#{$i}, $color);
