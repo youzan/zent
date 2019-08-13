@@ -22,6 +22,7 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, ITextAreaProps>(
       autoSelect,
       initSelectionStart,
       initSelectionEnd,
+      inline,
       ...otherProps
     } = props;
     React.useLayoutEffect(() => {
