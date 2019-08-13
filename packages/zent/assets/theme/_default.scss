@@ -120,6 +120,10 @@ $theme-shadow: (
   @return nth(map-get($theme-colors, $cat), $i);
 }
 
+@function to-rgb($color) {
+  @return red($color), green($color), blue($color);
+}
+
 @mixin theme-color($prop, $cat, $i) {
   $color: get-color($cat, $i);
 
