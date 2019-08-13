@@ -20,6 +20,9 @@ export function RadioButton<Value>(props: IRadioProps<Value>) {
   } = props;
   const disabledCx = React.useContext(DisabledContext);
   const groupCx = React.useContext(GroupContext);
+  if (!groupCx) {
+    throw new Error('Radio.Button must be nested within Radio.Group');
+  }
   const { checked, disabled, readOnly } = getRadioState(
     disabledCx,
     groupCx,

@@ -2,20 +2,14 @@ import { createContext } from 'react';
 import { IRadioEvent } from './AbstractRadio';
 
 export interface IRadioContext<Value> {
-  value: unknown;
-  isValueEqual(a: unknown, b: unknown): boolean;
+  value: Value;
+  isValueEqual(a: Value | undefined, b: Value | undefined): boolean;
   disabled: boolean;
   readOnly: boolean;
   onRadioChange: ((e: IRadioEvent<Value>) => void) | null | undefined;
 }
 
-const context = createContext<IRadioContext<any>>({
-  value: [],
-  disabled: false,
-  readOnly: false,
-  isValueEqual: Object.is,
-  onRadioChange: null,
-});
+const context = createContext<IRadioContext<any> | null>(null);
 
 context.displayName = 'RadioGroupContext';
 
