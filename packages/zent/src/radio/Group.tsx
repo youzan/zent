@@ -16,10 +16,10 @@ export interface IRadioGroupProps<Value> {
 }
 
 export function RadioGroup<Value>(props: IRadioGroupProps<Value>) {
-  const disabledCx = React.useContext(DisabledContext);
+  const disabledCtx = React.useContext(DisabledContext);
   const {
     value,
-    disabled = disabledCx.value,
+    disabled = disabledCtx.value,
     readOnly = false,
     isValueEqual = Object.is,
     className,

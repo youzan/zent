@@ -39,12 +39,12 @@ function makeEvent<Value>(
 }
 
 export function useRadioHandler<Value>(
-  cx: IRadioContext<Value> | null,
+  ctx: IRadioContext<Value> | null,
   props: IRadioProps<Value>
 ) {
   const propsRef = React.useRef(props);
   propsRef.current = props;
-  const cxOnChange = cx && cx.onRadioChange;
+  const cxOnChange = ctx && ctx.onRadioChange;
   return React.useCallback(
     event => {
       const e = makeEvent(event, propsRef.current);
@@ -60,42 +60,42 @@ export function useRadioHandler<Value>(
 }
 
 function getDisabled<Value>(
-  disabledCx: IDisabledContext,
-  groupCx: IRadioContext<Value> | null,
+  disabledCtx: IDisabledContext,
+  groupCtx: IRadioContext<Value> | null,
   props: IRadioProps<Value>
 ): boolean {
   if (typeof props.disabled === 'boolean') {
     return props.disabled;
   }
-  if (groupCx && typeof groupCx.disabled === 'boolean') {
-    return groupCx.disabled;
+  if (groupCtx && typeof groupCtx.disabled === 'boolean') {
+    return groupCtx.disabled;
   }
-  return disabledCx.value;
+  return disabledCtx.value;
 }
 
 function getReadOnly<Value>(
-  groupCx: IRadioContext<Value> | null,
+  groupCtx: IRadioContext<Value> | null,
   props: IRadioProps<Value>
 ): boolean {
   if (typeof props.readOnly === 'boolean') {
     return props.readOnly;
   }
-  if (groupCx) {
-    return groupCx.readOnly;
+  if (groupCtx) {
+    return groupCtx.readOnly;
   }
   return false;
 }
 
 export function getRadioState<Value>(
-  disabledCx: IDisabledContext,
-  groupCx: IRadioContext<Value> | null,
+  disabledCtx: IDisabledContext,
+  groupCtx: IRadioContext<Value> | null,
   props: IRadioProps<Value>
 ) {
-  const disabled = getDisabled(disabledCx, groupCx, props);
-  const readOnly = getReadOnly(groupCx, props);
+  const disabled = getDisabled(disabledCtx, groupCtx, props);
+  const readOnly = getReadOnly(groupCtx, props);
   let checked: boolean;
-  if (groupCx) {
-    checked = groupCx.isValueEqual(groupCx.value, props.value);
+  if (groupCtx) {
+    checked = groupCtx.isValueEqual(groupCtx.value, props.value);
   } else {
     checked = !!props.checked;
   }

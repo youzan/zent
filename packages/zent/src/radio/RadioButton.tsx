@@ -18,17 +18,17 @@ export function RadioButton<Value>(props: IRadioProps<Value>) {
     width,
     ...others
   } = props;
-  const disabledCx = React.useContext(DisabledContext);
-  const groupCx = React.useContext(GroupContext);
-  if (!groupCx) {
+  const disabledCtx = React.useContext(DisabledContext);
+  const groupCtx = React.useContext(GroupContext);
+  if (!groupCtx) {
     throw new Error('Radio.Button must be nested within Radio.Group');
   }
   const { checked, disabled, readOnly } = getRadioState(
-    disabledCx,
-    groupCx,
+    disabledCtx,
+    groupCtx,
     props
   );
-  const onChange = useRadioHandler(groupCx, props);
+  const onChange = useRadioHandler(groupCtx, props);
 
   const classString = cx(className, 'zent-radio-button', {
     'zent-radio-button--checked': !!checked,
