@@ -3,54 +3,54 @@ import cx from 'classnames';
 
 import getWidth from '../utils/getWidth';
 
-import AbstractRadio from './AbstractRadio';
-import { IDisabledContext } from '../disabled';
+import { getRadioState, useRadioHandler, IRadioProps } from './AbstractRadio';
+import { DisabledContext } from '../disabled';
+import GroupContext from './GroupContext';
 
-export class RadioButton<Value> extends AbstractRadio<Value> {
-  renderImpl(disabledCtx: IDisabledContext) {
-    const { onRadioChange } = this.context;
-    if (!onRadioChange) {
-      throw new Error('Radio.Button must be nested within Radio.Group');
-    }
+export function RadioButton<Value>(props: IRadioProps<Value>) {
+  const {
+    className,
+    style,
+    children,
 
-    const {
-      className,
-      style,
-      prefix,
-      children,
+    // value 不要放到 input 上去
+    value,
+    width,
+    ...others
+  } = props;
+  const disabledCx = React.useContext(DisabledContext);
+  const groupCx = React.useContext(GroupContext);
+  const { checked, disabled, readOnly } = getRadioState(
+    disabledCx,
+    groupCx,
+    props
+  );
+  const onChange = useRadioHandler(groupCx, props);
 
-      // value 不要放到 input 上去
-      value,
-      width,
-      ...others
-    } = this.props;
-    const { checked, disabled, readOnly } = this.getRadioState(disabledCtx);
+  const classString = cx(className, 'zent-radio-button', {
+    'zent-radio-button--checked': !!checked,
+    'zent-radio-button--disabled': disabled || readOnly,
+  });
 
-    const classString = cx(className, `${prefix}-radio-button`, {
-      [`${prefix}-radio-button--checked`]: !!checked,
-      [`${prefix}-radio-button--disabled`]: disabled || readOnly,
-    });
+  const widthStyle = getWidth(width);
+  const wrapStyle = {
+    ...style,
+    ...widthStyle,
+  };
 
-    const widthStyle = getWidth(width);
-    const wrapStyle = {
-      ...style,
-      ...widthStyle,
-    };
-
-    return (
-      <label className={classString} style={wrapStyle}>
-        <input
-          {...others}
-          type="radio"
-          checked={!!checked}
-          disabled={disabled}
-          readOnly={readOnly}
-          onChange={this.handleChange}
-        />
-        <span className={`${prefix}-radio-button__content`}>{children}</span>
-      </label>
-    );
-  }
+  return (
+    <label className={classString} style={wrapStyle}>
+      <input
+        {...others}
+        type="radio"
+        checked={!!checked}
+        disabled={disabled}
+        readOnly={readOnly}
+        onChange={onChange}
+      />
+      <span className="zent-radio-button__content">{children}</span>
+    </label>
+  );
 }
 
 export default RadioButton;
