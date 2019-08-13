@@ -1,10 +1,10 @@
 @import './theme/default';
 @import './theme/font';
 
-$defaultBorderColor: $theme-stroke-5;
-$errorBorderColor: $theme-error-4;
-$borderRadius: 2px;
-$border-default: 1px solid $defaultBorderColor;
+//$defaultBorderColor: $theme-stroke-5;
+//$errorBorderColor: $theme-error-4;
+$border-radius: 2px;
+//$border-default: 1px solid $defaultBorderColor;
 $focus-box-shadow: $shadow-spec-focus;
 $border-transition: border 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 $normal-size: 32px;
@@ -12,13 +12,15 @@ $small-size: 24px;
 $large-size: 40px;
 
 .zent-input-wrapper {
+  @include theme-color(border-color, stroke, 5);
+  @include theme-color(background-color, stroke, 9);
   display: flex;
   position: relative;
   box-sizing: border-box;
-  border: $border-default;
-  border-radius: $borderRadius;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: $border-radius;
   transition: $border-transition;
-  background-color: $theme-stroke-9;
   overflow: hidden;
   align-items: center;
 
@@ -50,16 +52,16 @@ $large-size: 40px;
   }
 
   &.zent-input--has-focus:not(.zent-input-wrapper__not-editable) {
-    border-color: $theme-primary-4;
+    @include theme-color(border-color, primary, 4);
     box-shadow: $focus-box-shadow;
   }
 
   &__not-editable {
     .zent-input-addon-before,
     .zent-input-addon-after {
-      border-color: $theme-stroke-5;
-      color: $theme-stroke-4;
-      background: $theme-stroke-8;
+      @include theme-color(border-color, stroke, 5);
+      @include theme-color(color, stroke, 4);
+      @include theme-color(background-color, stroke, 8);
     }
   }
 
@@ -69,9 +71,9 @@ $large-size: 40px;
   }
 
   .zent-input-close {
+    @include theme-color(color, stroke, 5);
     display: block;
     margin-right: 10px;
-    color: $theme-stroke-5;
   }
 }
 
@@ -95,6 +97,7 @@ $large-size: 40px;
 .zent-input[type='color'],
 .zent-input[type='search'],
 .zent-textarea {
+  @include theme-color(color, stroke, 1);
   display: inline-block;
   flex: 1;
   min-width: 80px;
@@ -102,7 +105,6 @@ $large-size: 40px;
   box-sizing: border-box;
   padding: 0 10px;
   margin: 0;
-  color: $theme-stroke-1;
   font-size: $font-size-normal;
   box-shadow: none;
   appearance: none;
@@ -114,29 +116,33 @@ $large-size: 40px;
 .zent-textarea[readonly],
 .zent-input[disabled],
 .zent-input[readonly] {
-  background-color: $theme-stroke-8;
-  color: $theme-stroke-4;
+  @include theme-color(background-color, stroke, 8);
+  @include theme-color(color, stroke, 4);
   cursor: not-allowed;
 }
 
 .zent-input-addon-before,
 .zent-input-addon-after {
+  @include theme-color(background-color, stroke, 8);
+  @include theme-color(color, stroke, 2);
   display: inline-block;
   height: 100%;
   padding: 0 9px;
   box-sizing: border-box;
   vertical-align: middle;
-  background-color: $theme-stroke-8;
   font-size: $font-size-normal;
-  color: $theme-stroke-2;
 }
 
 .zent-input-addon-before {
-  border-right: $border-default;
+  @include theme-color(border-right-color, stroke, 5);
+  border-width: 1px;
+  border-style: solid;
 }
 
 .zent-input-addon-after {
-  border-left: $border-default;
+  @include theme-color(border-left-color, stroke, 5);
+  border-width: 1px;
+  border-style: solid;
 }
 
 .zent-textarea {
@@ -150,71 +156,34 @@ $large-size: 40px;
   }
 
   &-count {
+    @include theme-color(color, stroke, 3);
     display: inline-block;
     position: absolute;
     bottom: 2px;
     right: 15px;
     font-size: 10px;
-    color: $theme-stroke-3;
   }
 }
 
 .has-error {
   .zent-input-wrapper {
-    border: 1px solid $errorBorderColor;
-    color: $theme-error-2;
+    @include theme-color(color, error, 2);
+    @include theme-color(border-color, error, 4);
+    border-width: 1px;
+    border-style: solid;
 
     &.zent-input--has-focus:not(.zent-input-wrapper__not-editable) {
-      border-color: $errorBorderColor;
+      @include theme-color(border-color, error, 4);
       box-shadow: none;
     }
 
     &__not-editable {
-      border-color: $defaultBorderColor;
+      @include theme-color(border-color, stroke, 5);
     }
   }
 }
 
-$placeholderColor: $theme-stroke-4;
-
-// sass-lint:disable no-vendor-prefixes
-.zent-input::-webkit-input-placeholder {
-  // WebKit browsers
-  color: $placeholderColor;
+.zent-input::placeholder,
+.zent-textarea::placeholder {
+  @include theme-color(color, stroke, 4);
 }
-
-.zent-input:-moz-placeholder {
-  // Mozilla Firefox 4 to 18
-  color: $placeholderColor;
-}
-
-.zent-input::-moz-placeholder {
-  // Mozilla Firefox 19+
-  color: $placeholderColor;
-}
-
-.zent-input:-ms-input-placeholder {
-  // Internet Explorer 10+
-  color: $placeholderColor;
-}
-
-.zent-textarea::-webkit-input-placeholder {
-  // WebKit browsers
-  color: $placeholderColor;
-}
-
-.zent-textarea:-moz-placeholder {
-  // Mozilla Firefox 4 to 18
-  color: $placeholderColor;
-}
-
-.zent-textarea::-moz-placeholder {
-  // Mozilla Firefox 19+
-  color: $placeholderColor;
-}
-
-.zent-textarea:-ms-input-placeholder {
-  // Internet Explorer 10+
-  color: $placeholderColor;
-}
-// sass-lint:enable no-vendor-prefixes
