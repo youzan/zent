@@ -128,9 +128,7 @@ describe('Radio Section', () => {
   it('Radio have an change event liftup', () => {
     const propOnChangeMock = jest.fn();
     const wrapper = mount(<Radio onChange={propOnChangeMock} />);
-    const handleChange = wrapper.find(Radio).instance().handleChange;
     expect(wrapper.find('input').props().onChange).not.toBe(propOnChangeMock);
-    expect(wrapper.find('input').props().onChange).toBe(handleChange);
     expect(propOnChangeMock.mock.calls.length).toBe(0);
     wrapper
       .find('input')
@@ -148,20 +146,16 @@ describe('Radio Section', () => {
 describe('RadioGroup Section', () => {
   it('RadioGroup will render an empty div without any children', () => {
     const wrapper = mount(<Group />);
-    expect(
-      wrapper.contains(<div className="zent-radio-group" style={{}} />)
-    ).toBe(true);
+    expect(wrapper.contains(<div className="zent-radio-group" />)).toBe(true);
   });
 
   it('RadioGroup can have custom prefix, className, style object', () => {
     const styleObj = {
       color: 'red',
     };
-    const wrapper = mount(
-      <Group className="foo" prefix="bar" style={styleObj} />
-    );
-    expect(wrapper.find('.bar-radio-group').length).toBe(1);
-    const group = wrapper.find('.bar-radio-group');
+    const wrapper = mount(<Group className="foo" style={styleObj} />);
+    expect(wrapper.find('.zent-radio-group').length).toBe(1);
+    const group = wrapper.find('.zent-radio-group');
     expect(group.hasClass('foo')).toBe(true);
     expect(group.props().style).toBe(styleObj);
   });
