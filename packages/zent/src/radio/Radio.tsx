@@ -57,8 +57,8 @@ function Radio<Value>(props: IRadioProps<Value>) {
   );
 }
 
-Radio.Button = RadioGroup;
-Radio.Group = RadioButton;
+Radio.Button = RadioButton;
+Radio.Group = RadioGroup;
 
 export { Radio };
 
