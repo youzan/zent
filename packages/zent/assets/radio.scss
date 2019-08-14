@@ -59,6 +59,8 @@ $inner-circle-offset: ($outer-circle-size - $inner-circle-size - 2px) / 2;
   }
 
   .zent-radio-inner {
+    @include theme-color(border-color, stroke, 5);
+    @include theme-color(background-color, stroke, 9);
     position: relative;
     top: 0;
     left: 0;
@@ -66,13 +68,14 @@ $inner-circle-offset: ($outer-circle-size - $inner-circle-size - 2px) / 2;
     width: $outer-circle-size;
     height: $outer-circle-size;
     border-radius: 50%;
-    border: 1px solid $theme-stroke-5;
-    background: $theme-stroke-9;
+    border-width: 1px;
+    border-style: solid;
     box-sizing: border-box;
     vertical-align: middle;
     transition: all 0.1s;
 
     &::after {
+      @include theme-color(background-color, stroke, 9);
       position: absolute;
       display: block;
       content: ' ';
@@ -81,7 +84,6 @@ $inner-circle-offset: ($outer-circle-size - $inner-circle-size - 2px) / 2;
       width: $inner-circle-size;
       height: $inner-circle-size;
       border-radius: 50%;
-      background: $theme-stroke-9;
       transform: scale(0);
       transition: all 0.1s ease-in-out;
     }
@@ -90,11 +92,11 @@ $inner-circle-offset: ($outer-circle-size - $inner-circle-size - 2px) / 2;
   &.zent-radio-checked {
     & > .zent-radio {
       & > .zent-radio-inner {
-        border-color: $theme-primary-4;
+        @include theme-color(border-color, primary, 4);
 
         &::after {
+          @include theme-color(background-color, primary, 4);
           transform: scale(1);
-          background: $theme-primary-4;
         }
       }
     }
@@ -105,10 +107,10 @@ $inner-circle-offset: ($outer-circle-size - $inner-circle-size - 2px) / 2;
 
     & > .zent-radio {
       & > .zent-radio-inner {
-        background-color: $theme-stroke-8;
+        @include theme-color(background-color, stroke, 8);
 
         &::after {
-          background: $theme-stroke-8;
+          @include theme-color(background-color, stroke, 8);
         }
       }
 
@@ -119,25 +121,27 @@ $inner-circle-offset: ($outer-circle-size - $inner-circle-size - 2px) / 2;
 
     &.zent-radio-checked > .zent-radio {
       & > .zent-radio-inner {
-        border-color: $theme-stroke-5;
+        @include theme-color(border-color, stroke, 5);
 
         &::after {
-          background: $theme-stroke-5;
+          @include theme-color(background-color, stroke, 5);
         }
       }
     }
 
     & .zent-radio + span {
-      color: $theme-stroke-4;
+      @include theme-color(color, stroke, 4);
     }
   }
 }
 
 .zent-radio-button {
   @include font-normal;
+  @include theme-color(color, stroke, 3);
+  @include theme-color(border-color, stroke, 5);
 
-  color: $theme-stroke-3;
-  border: 1px solid $theme-stroke-5;
+  border-width: 1px;
+  border-style: solid;
   position: relative;
   box-sizing: border-box;
   display: inline-block;
@@ -173,28 +177,28 @@ $inner-circle-offset: ($outer-circle-size - $inner-circle-size - 2px) / 2;
   }
 
   &:hover:not(&--disabled) {
-    color: $theme-primary-4;
+    @include theme-color(color, primary, 4);
   }
 
   &--checked {
-    color: $theme-primary-4;
-    border-color: $theme-primary-4;
-    background: $theme-primary-8;
+    @include theme-color(color, primary, 4);
+    @include theme-color(border-color, primary, 4);
+    @include theme-color(background-color, primary, 8);
     z-index: 1;
   }
 
   &--disabled {
-    color: $theme-stroke-4;
-    background-color: $theme-stroke-8;
+    @include theme-color(color, primary, 4);
+    @include theme-color(background-color, primary, 8);
 
     > input[type='radio'] {
       cursor: not-allowed;
     }
 
     &.zent-radio-button--checked {
-      background-color: $theme-stroke-10;
-      border-color: $theme-stroke-5;
-      color: $theme-stroke-4;
+      @include theme-color(background-color, stroke, 10);
+      @include theme-color(border-color, stroke, 5);
+      @include theme-color(color, stroke, 4);
     }
   }
 }
