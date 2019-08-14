@@ -132,14 +132,14 @@ $large-size: 40px;
 
 .zent-input-addon-before {
   @include theme-color(border-right-color, stroke, 5);
-  border-width: 1px;
-  border-style: solid;
+  border-right-width: 1px;
+  border-right-style: solid;
 }
 
 .zent-input-addon-after {
   @include theme-color(border-left-color, stroke, 5);
-  border-width: 1px;
-  border-style: solid;
+  border-left-width: 1px;
+  border-left-style: solid;
 }
 
 .zent-textarea {
