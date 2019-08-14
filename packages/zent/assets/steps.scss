@@ -1,12 +1,25 @@
 @import './theme/default';
 @import './theme/font';
 
-$cart-color: $theme-stroke-1;
-$wait-color: $theme-stroke-4;
-$error-color: $theme-error-2;
-$bg-color: $theme-stroke-8;
-$current-bg-color: $theme-primary-4;
-$icon-color: $theme-stroke-4;
+@mixin cart-color {
+  @include theme-color(color, stroke, 1);
+}
+
+@mixin error-color($prop) {
+  @include theme-color($prop, color, 2);
+}
+
+@mixin bg-color($prop) {
+  @include theme-color($prop, stroke, 8);
+}
+
+@mixin current-bg-color($prop) {
+  @include theme-color($prop, primary, 4);
+}
+
+@mixin icon-color($prop) {
+  @include theme-color($prop, stroke, 4);
+}
 
 .zent-steps {
   width: 100%;
@@ -25,20 +38,20 @@ $icon-color: $theme-stroke-4;
   margin-left: 75px;
 
   i {
+    @include theme-color(background-color, stroke, 7);
     display: inline-block;
     position: relative;
     width: 100%;
     border-radius: 1px;
     height: 2px;
     vertical-align: top;
-    background: $theme-stroke-7;
 
     &::after {
+      @include theme-color(background-color, stroke, 7);
       content: '';
       position: absolute;
       top: 0;
       width: 0;
-      background: $theme-stroke-7;
       height: 100%;
       opacity: 0;
     }
@@ -49,19 +62,19 @@ $icon-color: $theme-stroke-4;
   position: relative;
 
   .zent-step-head {
+    @include theme-color(background-color, stroke, 9);
     position: relative;
     display: inline-block;
     vertical-align: top;
-    background: $theme-stroke-9;
     margin-left: 60px;
     box-sizing: border-box;
   }
 
   .zent-step-main {
+    @include theme-color(color, stroke, 3);
     position: relative;
     vertical-align: top;
     width: 160px;
-    color: $theme-stroke-3;
     text-align: center;
 
     .zent-step-title {
@@ -85,12 +98,14 @@ $icon-color: $theme-stroke-4;
 }
 
 .zent-step-head-inner {
+  @include icon-color(color);
   margin: 0 8px;
   font-size: 24px;
-  color: $icon-color;
   line-height: 24px;
 
   .zent-icon {
+    @include icon-color(background-color);
+    @include theme-color(color, stroke, 9);
     display: inline-block;
     vertical-align: middle;
     width: 24px;
@@ -98,8 +113,6 @@ $icon-color: $theme-stroke-4;
     line-height: 24px;
     border-radius: 50%;
     text-align: center;
-    background: $icon-color;
-    color: $theme-stroke-9;
     font-size: $font-size-normal;
   }
 
@@ -130,7 +143,7 @@ $icon-color: $theme-stroke-4;
       .zent-steps-tail {
         i {
           &::after {
-            background-color: $error-color;
+            @include error-color(background-color);
             width: 100%;
           }
         }
@@ -138,24 +151,24 @@ $icon-color: $theme-stroke-4;
     }
 
     .zent-step-head-inner {
-      color: $current-bg-color;
+      @include current-bg-color(color);
 
       .zent-icon {
-        background: $current-bg-color;
+        @include current-bg-color(background-color);
       }
     }
 
     .zent-step-main {
       .zent-step-title {
-        color: $theme-stroke-1;
+        @include theme-color(color, stroke, 1);
       }
     }
 
     .zent-steps-tail {
       i {
         &::after {
+          @include current-bg-color(background-color);
           width: 100%;
-          background: $current-bg-color;
           transition: all 0.2s ease;
           opacity: 1;
         }
@@ -165,12 +178,12 @@ $icon-color: $theme-stroke-4;
 
   &.zent-steps-status-error {
     .zent-step-head-inner {
-      color: $error-color;
+      @include error-color(color);
     }
 
     .zent-step-main {
       .zent-step-title {
-        color: $error-color;
+        @include error-color(color);
       }
     }
   }
@@ -178,13 +191,13 @@ $icon-color: $theme-stroke-4;
   &.zent-steps-status-process {
     .zent-step-head-inner {
       .zent-icon {
-        background: $current-bg-color;
+        @include current-bg-color(background-color);
       }
     }
 
     .zent-step-main {
       .zent-step-title {
-        color: $theme-stroke-1;
+        @include theme-color(color, stroke, 1);
       }
     }
   }
@@ -315,11 +328,11 @@ $icon-color: $theme-stroke-4;
     }
 
     .zent-steps-step {
+      @include cart-color;
+      @include bg-color(background-color);
       height: 50px;
       line-height: 50px;
       font-size: $font-size-normal;
-      background: $bg-color;
-      color: $cart-color;
       text-align: center;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -330,19 +343,19 @@ $icon-color: $theme-stroke-4;
     &.is-current {
       &:hover {
         .zent-steps-step {
-          background: $theme-primary-5;
+          @include theme-color(background-color, primary, 5);
         }
       }
 
       &:active {
         .zent-steps-step {
-          background: $theme-primary-3;
+          @include theme-color(background-color, primary, 3);
         }
       }
 
       .zent-steps-step {
-        background: $current-bg-color;
-        color: $theme-stroke-9;
+        @include current-bg-color(background-color);
+        @include theme-color(color, stroke, 9);
       }
     }
   }
@@ -380,22 +393,24 @@ $icon-color: $theme-stroke-4;
     }
 
     .zent-steps-step {
+      @include cart-color;
+      @include bg-color(background-color);
       height: 48px;
       line-height: 48px;
       font-size: $font-size-normal;
-      background: $bg-color;
-      color: $cart-color;
       text-align: center;
       padding: 0 10px;
 
       &::after {
+        @include bg-color(border-left-color);
         content: ' ';
         display: block;
         width: 0;
         height: 0;
         border-top: 24px solid transparent;
         border-bottom: 24px solid transparent;
-        border-left: 12px solid $bg-color;
+        border-left-width: 12px;
+        border-left-style: solid;
         position: absolute;
         top: 50%;
         margin-top: -24px;
@@ -403,12 +418,16 @@ $icon-color: $theme-stroke-4;
       }
 
       &::before {
+        @include bg-color(border-top-color);
+        @include bg-color(border-bottom-color);
         content: ' ';
         display: block;
         width: 0;
         height: 0;
-        border-top: 24px solid $bg-color;
-        border-bottom: 24px solid $bg-color;
+        border-top-width: 24px;
+        border-top-style: solid;
+        border-bottom-width: 24px;
+        border-bottom-style: solid;
         border-left: 12px solid transparent;
         position: absolute;
         top: 50%;
@@ -420,45 +439,45 @@ $icon-color: $theme-stroke-4;
     &.is-finish {
       &:hover {
         .zent-steps-step {
-          background: $theme-primary-5;
+          @include theme-color(background-color, primary, 5);
 
           &::after {
-            border-left-color: $theme-primary-5;
+            @include theme-color(border-left-color, primary, 5);
           }
 
           &::before {
-            border-top-color: $theme-primary-5;
-            border-bottom-color: $theme-primary-5;
+            @include theme-color(border-top-color, primary, 5);
+            @include theme-color(border-bottom-color, primary, 5);
           }
         }
       }
 
       &:active {
         .zent-steps-step {
-          background: $theme-primary-3;
+          @include theme-color(background-color, primary, 3);
 
           &::after {
-            border-left-color: $theme-primary-3;
+            @include theme-color(border-left-color, primary, 3);
           }
 
           &::before {
-            border-top-color: $theme-primary-3;
-            border-bottom-color: $theme-primary-3;
+            @include theme-color(border-top-color, primary, 3);
+            @include theme-color(border-bottom-color, primary, 3);
           }
         }
       }
 
       .zent-steps-step {
-        background: $current-bg-color;
-        color: $theme-stroke-9;
+        @include current-bg-color(background-color);
+        @include theme-color(color, stroke, 9);
 
         &::after {
-          border-left-color: $current-bg-color;
+          @include current-bg-color(border-left-color);
         }
 
         &::before {
-          border-top-color: $current-bg-color;
-          border-bottom-color: $current-bg-color;
+          @include current-bg-color(border-top-color);
+          @include current-bg-color(border-bottom-color);
         }
       }
     }
@@ -469,21 +488,29 @@ $icon-color: $theme-stroke-4;
   position: relative;
 
   .zent-steps-item {
+    @include theme-color(color, stroke, 8);
+    @include theme-color(color, stroke, 1);
+    @include theme-color(border-right-color, stroke, 5);
+    @include theme-color(border-top-color, stroke, 5);
+    @include theme-color(border-bottom-color, stroke, 5);
     position: relative;
     box-sizing: border-box;
     display: inline-block;
-    background: $theme-stroke-8;
-    color: $theme-stroke-1;
-    border-right: 1px solid $theme-stroke-5;
-    border-top: 1px solid $theme-stroke-5;
-    border-bottom: 1px solid $theme-stroke-5;
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
 
     &.is-clicked {
       cursor: pointer;
     }
 
     &:first-child {
-      border-left: 1px solid $theme-stroke-5;
+      @include theme-color(border-left-color, stroke, 5);
+      border-left-width: 1px;
+      border-left-style: solid;
     }
 
     .zent-steps-step {
@@ -498,17 +525,17 @@ $icon-color: $theme-stroke-4;
     }
 
     &.is-current {
-      background: $theme-stroke-9;
+      @include theme-color(background-color, stroke, 9);
       border-bottom-color: transparent;
     }
 
     &:not(.is-current) {
       &:hover {
-        background: $theme-stroke-11;
+        @include theme-color(background-color, stroke, 11);
       }
 
       &:active {
-        background: $theme-stroke-10;
+        @include theme-color(background-color, stroke, 10);
       }
     }
   }
