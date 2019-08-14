@@ -16,7 +16,7 @@ $mask-opacity: 0.2;
 }
 
 @mixin color-exception($prop) {
-  @include theme-color($prop, exception, 2);
+  @include theme-color($prop, error, 2);
 }
 
 .zent-progress {
