@@ -25,6 +25,7 @@ export const InputCore = React.forwardRef<
     initSelectionStart,
     initSelectionEnd,
     icon,
+    inline,
     ...otherProps
   } = props;
   return (

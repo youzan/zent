@@ -1,19 +1,16 @@
 import { createContext } from 'react';
-import eq from 'lodash-es/eq';
 import { IRadioEvent } from './AbstractRadio';
 
 export interface IRadioContext<Value> {
-  value: unknown;
-  isValueEqual(a: unknown, b: unknown): boolean;
+  value: Value;
+  isValueEqual(a: Value | undefined, b: Value | undefined): boolean;
   disabled: boolean;
   readOnly: boolean;
-  onRadioChange: ((e: IRadioEvent<Value>) => void) | null;
+  onRadioChange: ((e: IRadioEvent<Value>) => void) | null | undefined;
 }
 
-export default createContext<IRadioContext<any>>({
-  value: [],
-  disabled: false,
-  readOnly: false,
-  isValueEqual: eq,
-  onRadioChange: null,
-});
+const context = createContext<IRadioContext<any> | null>(null);
+
+context.displayName = 'RadioGroupContext';
+
+export default context;
