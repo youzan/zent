@@ -4,6 +4,7 @@ import { AlertTypes, IAlertStaticProperties } from './types';
 import Icon, { IconType } from '../icon';
 import InlineLoading from '../loading/InlineLoading';
 import { Omit } from 'utility-types';
+import { ParticalRequired } from '../utils/types';
 
 export interface IAlertProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
@@ -39,9 +40,13 @@ export const Alert: React.FC<IAlertProps> & IAlertStaticProperties = props => {
     extraContent,
     onClose,
     closable = false,
-    closeContent = <Icon type="close" className="zent-alert-close-btn" />,
+    closeContent,
     ...restDivAttrs
-  } = props;
+  } = props as ParticalRequired<
+    IAlertProps,
+    'type' | 'loading' | 'outline' | 'closable'
+  >;
+
   const [closed, setClosed] = React.useState(false);
 
   const mounted = React.useRef(false);
@@ -77,7 +82,11 @@ export const Alert: React.FC<IAlertProps> & IAlertStaticProperties = props => {
     return (
       closable && (
         <div className="zent-alert-close-wrapper" onClick={closeHandler}>
-          {closeContent}
+          {closeContent ? (
+            closeContent
+          ) : (
+            <Icon type="close" className="zent-alert-close-btn" />
+          )}
         </div>
       )
     );
@@ -116,5 +125,12 @@ export const Alert: React.FC<IAlertProps> & IAlertStaticProperties = props => {
 };
 
 Alert.highlightClassName = 'zent-alert-content__highlight';
+
+Alert.defaultProps = {
+  type: 'info',
+  loading: false,
+  outline: false,
+  closable: false,
+};
 
 export default Alert;
