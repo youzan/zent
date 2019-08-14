@@ -3,8 +3,8 @@ import cx from 'classnames';
 
 import getWidth from '../utils/getWidth';
 import { IRadioProps, getRadioState, useRadioHandler } from './AbstractRadio';
-import Group from './Group';
-import Button from './RadioButton';
+import RadioGroup from './Group';
+import RadioButton from './RadioButton';
 import { DisabledContext } from '../disabled';
 import GroupContext from './GroupContext';
 
@@ -57,8 +57,8 @@ function Radio<Value>(props: IRadioProps<Value>) {
   );
 }
 
-Radio.Button = Button;
-Radio.Group = Group;
+Radio.Button = RadioButton;
+Radio.Group = RadioGroup;
 
 export { Radio };
 
