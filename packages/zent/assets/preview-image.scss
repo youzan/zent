@@ -1,7 +1,6 @@
 @import './theme/default';
 @import './theme/font';
 
-$graycolor: $theme-stroke-3;
 $rgbamaskbgcolor: rgba(black, 0.6);
 
 .zent-image-p-body {
@@ -38,7 +37,7 @@ $rgbamaskbgcolor: rgba(black, 0.6);
   z-index: 2;
 
   &:hover {
-    background: $theme-stroke-9;
+    @include theme-color(background-color, stroke, 9);
   }
 
   i {
@@ -50,6 +49,7 @@ $rgbamaskbgcolor: rgba(black, 0.6);
 }
 
 .zent-image-p-footer {
+  @include theme-color(color, stroke, 1);
   position: fixed;
   border-radius: 40px;
   background: rgba(white, 0.6);
@@ -59,7 +59,6 @@ $rgbamaskbgcolor: rgba(black, 0.6);
   transform: translate(-50%);
   height: 40px;
   line-height: 40px;
-  color: $theme-stroke-1;
   z-index: 2;
   font-size: $font-size-large;
 
@@ -85,7 +84,7 @@ $rgbamaskbgcolor: rgba(black, 0.6);
     text-align: center;
 
     &:hover {
-      background: $theme-stroke-9;
+      @include theme-color(background-color, stroke, 9);
     }
 
     &:first-child {
