@@ -21,13 +21,13 @@
 
     &:hover {
       .zent-slider-track {
-        background: $theme-primary-4;
+        @include theme-color(background-color, primary, 4);
 
         &-disabled {
-          background: $theme-stroke-4;
+          @include theme-color(background-color, stroke, 4);
 
           &:hover {
-            background: $theme-stroke-4;
+            @include theme-color(background-color, stroke, 4);
           }
         }
       }
@@ -35,33 +35,35 @@
   }
 
   &-container {
+    @include theme-color(background-color, stroke, 6);
     height: 4px;
-    background: $theme-stroke-6;
     border-radius: 8px;
     position: absolute;
     width: 100%;
   }
 
   &-track {
+    @include theme-color(background-color, primary, 6);
     height: 4px;
-    background: $theme-primary-6;
     position: absolute;
     border-radius: 8px;
 
     &:hover {
-      background: $theme-primary-4;
+      @include theme-color(background-color, primary, 4);
     }
 
     &-disabled {
-      background: $theme-stroke-4;
+      @include theme-color(background-color, stroke, 4);
 
       &:hover {
-        background: $theme-stroke-4;
+        @include theme-color(background-color, stroke, 4);
       }
     }
   }
 
   &-point {
+    @include theme-color(border-color, primary, 6);
+    @include theme-color(background-color, stroke, 9);
     position: absolute;
     box-sizing: border-box;
     width: 14px;
@@ -69,23 +71,25 @@
     margin-top: -5px;
     margin-left: -7px;
     border-radius: 50%;
-    border: 2px solid $theme-primary-6;
-    background-color: $theme-stroke-9;
+    border-width: 2px;
+    border-style: solid;
     transition: border-color 0.3s ease,
       transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
 
     &:hover {
-      border-color: $theme-primary-4;
+      @include theme-color(color, primary, 4);
       transform: scale(1.2);
       transform-origin: center center;
     }
 
     &-disabled {
-      border: 2px solid $theme-stroke-5;
+      @include theme-color(border-color, stroke, 5);
+      border-width: 2px;
+      border-style: solid;
       cursor: not-allowed;
 
       &:hover {
-        border-color: $theme-stroke-5;
+        @include theme-color(border-color, stroke, 5);
         transform: scale(1.2);
         transform-origin: center center;
       }
@@ -113,10 +117,10 @@
 
       .toolTips-inner {
         @include font-normal;
+        @include theme-color(background-color, stroke, 1);
+        @include theme-color(color, stroke, 9);
         padding: 8px 10px;
-        background-color: $theme-stroke-1;
         border-radius: 2px;
-        color: $theme-stroke-9;
         line-height: 14px;
         position: relative;
         z-index: 2;
@@ -124,7 +128,7 @@
       }
 
       .toolTips-arrow {
-        background: $theme-stroke-1;
+        @include theme-color(background-color, stroke, 1);
         transform: translate(-50%, 50%) rotate(45deg);
         left: 50%;
         position: absolute;
@@ -163,10 +167,10 @@
 
   &-marks {
     @include font-normal;
+    @include theme-color(color, stroke, 1);
     position: absolute;
     width: 100%;
     margin-top: 4px;
-    color: $theme-stroke-1;
 
     .zent-slider-mark {
       position: absolute;
@@ -180,6 +184,8 @@
     width: 100%;
 
     .zent-slider-dot {
+      @include theme-color(background-color, stroke, 9);
+      @include theme-color(border-color, stroke, 6);
       position: absolute;
       display: inline-block;
       width: 6px;
@@ -187,11 +193,14 @@
       transform: translateX(-50%);
       background-color: $theme-stroke-9;
       height: 6px;
-      border: 1px solid $theme-stroke-6;
+      border-width: 1px;
+      border-style: solid;
       border-radius: 50%;
 
       &-active {
-        border: 1px solid $theme-primary-6;
+        @include theme-color(bordre-color, primary, 6);
+        border-width: 1px;
+        border-style: solid;
       }
     }
   }
