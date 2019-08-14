@@ -6,7 +6,7 @@
 }
 
 @mixin error-color($prop) {
-  @include theme-color($prop, color, 2);
+  @include theme-color($prop, error, 2);
 }
 
 @mixin bg-color($prop) {
