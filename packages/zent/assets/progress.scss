@@ -4,19 +4,26 @@
 
 $circle-width: 76px;
 $circle-path-width: 3px;
-$color-info: $theme-stroke-3;
-$color-bg: $theme-stroke-8;
-$color-ongoing: $theme-primary-4;
-$color-success: $theme-success-2;
-$color-exception: $theme-error-2;
 $transition-spec: 160ms $timing-fn-ease-in;
 $mask-opacity: 0.2;
+
+@mixin color-ongoing($prop) {
+  @include theme-color($prop, primary, 4);
+}
+
+@mixin color-success($prop) {
+  @include theme-color($prop, success, 2);
+}
+
+@mixin color-exception($prop) {
+  @include theme-color($prop, exception, 2);
+}
 
 .zent-progress {
   &.zent-progress-line {
     .zent-progress-wrapper {
+      @include theme-color(background-color, stroke, 8);
       display: inline-block;
-      background: $color-bg;
       vertical-align: middle;
     }
 
@@ -39,27 +46,27 @@ $mask-opacity: 0.2;
     }
 
     .zent-progress-info {
+      @include theme-color(color, stroke, 3);
       display: inline-block;
       font-size: $font-size-normal;
       margin-left: 10px;
-      color: $color-info;
       white-space: nowrap;
       vertical-align: middle;
     }
 
     .zent-progress-inprogress {
       .zent-progress-inner {
-        background: $color-ongoing;
+        @include color-ongoing(background-color);
       }
 
       .zent-progress-info {
-        color: $color-ongoing;
+        @include color-ongoing(color);
       }
     }
 
     .zent-progress-success {
       .zent-progress-inner {
-        background: $color-success;
+        @include color-success(background-color);
 
         &:after {
           display: none;
@@ -67,13 +74,13 @@ $mask-opacity: 0.2;
       }
 
       .zent-progress-info {
-        color: $color-success;
+        @include color-success(color);
       }
     }
 
     .zent-progress-exception {
       .zent-progress-inner {
-        background: $color-exception;
+        @include color-exception(background-color);
 
         &:after {
           display: none;
@@ -81,7 +88,7 @@ $mask-opacity: 0.2;
       }
 
       .zent-progress-info {
-        color: $color-exception;
+        @include color-exception(color);
       }
     }
   }
@@ -101,15 +108,15 @@ $mask-opacity: 0.2;
     }
 
     .zent-progress-wrapper {
+      @include theme-color(border-color, stroke, 8);
       border-style: solid;
-      border-color: $color-bg;
       box-sizing: border-box;
     }
 
     .zent-progress-info {
+      @include theme-color(color, stroke, 3);
       display: inline-block;
       font-size: $font-size-small;
-      color: $color-info;
       position: absolute;
       top: 0;
       left: 0;
@@ -136,31 +143,31 @@ $mask-opacity: 0.2;
 
     .zent-progress-inprogress {
       .zent-progress-inner-path {
-        stroke: $color-ongoing;
+        @include color-ongoing(stroke);
       }
 
       .zent-progress-info {
-        color: $color-ongoing;
+        @include color-ongoing(color);
       }
     }
 
     .zent-progress-success {
       .zent-progress-inner-path {
-        stroke: $color-success;
+        @include color-success(stroke);
       }
 
       .zent-progress-info {
-        color: $color-success;
+        @include color-success(color);
       }
     }
 
     .zent-progress-exception {
       .zent-progress-inner-path {
-        stroke: $color-exception;
+        @include color-exception(stroke);
       }
 
       .zent-progress-info {
-        color: $color-exception;
+        @include color-exception(color);
       }
     }
   }
