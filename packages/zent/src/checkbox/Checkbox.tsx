@@ -1,12 +1,10 @@
 import * as React from 'react';
-import { Component } from 'react';
-import classNames from 'classnames';
-import assign from 'lodash-es/assign';
+import cx from 'classnames';
 
 import getWidth from '../utils/getWidth';
-import Group from './Group';
 import GroupContext, { ICheckboxContext } from './GroupContext';
 import { DisabledContext, IDisabledContext } from '../disabled';
+import CheckboxGroup from './Group';
 
 export interface ICheckboxEventTarget<Value> extends ICheckboxProps<Value> {
   type: 'checkbox';
@@ -29,101 +27,113 @@ export interface ICheckboxProps<Value> {
   className?: string;
   style?: React.CSSProperties;
   width?: number;
-  prefix?: string;
+  children?: React.ReactNode;
 }
 
-export class Checkbox<Value> extends Component<ICheckboxProps<Value>> {
-  static defaultProps = {
-    prefix: 'zent',
-  };
-
-  static contextType = GroupContext;
-
-  context!: ICheckboxContext<Value> | null;
-
-  static Group = Group;
-
-  onChange: React.ChangeEventHandler<HTMLInputElement> = evt => {
-    const { value, onChange } = this.props;
-    if (this.context) {
-      this.context.onChange(value);
-      return;
-    } else if (onChange) {
-      const e: ICheckboxEvent<Value> = Object.create(evt);
-      e.target = {
-        ...this.props,
-        type: 'checkbox',
-        checked: evt.target.checked,
-      };
-      onChange(e);
-    }
-  };
-
-  renderImpl(disabledCtx: IDisabledContext) {
-    let {
-      checked,
-      className,
-      style,
-      prefix,
-      disabled,
-      readOnly,
-      children,
-      indeterminate,
-      width,
-      // value可以是任意类型，不要写到dom上去
-      value,
-      ...others
-    } = this.props;
-    if (this.context) {
-      const { value, isValueEqual } = this.context;
-      checked =
-        value.findIndex(it => isValueEqual(it, this.props.value)) !== -1;
-      readOnly = readOnly || this.context.readOnly;
-      disabled = disabled || this.context.disabled;
-    } else {
-      disabled = typeof disabled === 'boolean' ? disabled : disabledCtx.value;
-    }
-
-    const classString = classNames(
-      {
-        [`${prefix}-checkbox-wrap`]: true,
-        [`${prefix}-checkbox-checked`]: !!checked,
-        [`${prefix}-checkbox-disabled`]: disabled || readOnly,
-        [`${prefix}-checkbox-indeterminate`]: indeterminate,
-      },
-      className
-    );
-
-    const widthStyle = getWidth(width);
-    const wrapStyle = assign({}, style, widthStyle);
-
-    return (
-      <label className={classString} style={wrapStyle}>
-        <span className={`${prefix}-checkbox`}>
-          <span className={`${prefix}-checkbox-inner`} />
-          <input
-            {...others}
-            type="checkbox"
-            checked={checked && !indeterminate}
-            disabled={disabled}
-            readOnly={readOnly}
-            onChange={this.onChange}
-          />
-        </span>
-        {children !== undefined ? <span>{children}</span> : null}
-      </label>
-    );
+function getDisabled<Value>(
+  disabledCtx: IDisabledContext,
+  groupCtx: ICheckboxContext<Value> | null,
+  props: ICheckboxProps<Value>
+) {
+  if (typeof props.disabled === 'boolean') {
+    return props.disabled;
   }
-
-  renderCheckbox = (disabledCtx: IDisabledContext) => {
-    return this.renderImpl(disabledCtx);
-  };
-
-  render() {
-    return (
-      <DisabledContext.Consumer>{this.renderCheckbox}</DisabledContext.Consumer>
-    );
+  if (groupCtx) {
+    return groupCtx.disabled;
   }
+  return disabledCtx.value;
 }
+
+function getReadOnly<Value>(
+  groupCtx: ICheckboxContext<Value> | null,
+  props: ICheckboxProps<Value>
+) {
+  if (typeof props.readOnly === 'boolean') {
+    return props.readOnly;
+  }
+  if (groupCtx) {
+    return groupCtx.readOnly;
+  }
+  return false;
+}
+
+export function Checkbox<Value>(props: ICheckboxProps<Value>) {
+  const disabledCtx = React.useContext(DisabledContext);
+  const groupCtx = React.useContext(GroupContext);
+  const propsRef = React.useRef(props);
+  propsRef.current = props;
+  const ctxOnChange = groupCtx && groupCtx.onChange;
+  const onChange: React.ChangeEventHandler<
+    HTMLInputElement
+  > = React.useCallback(
+    evt => {
+      const { value, onChange } = propsRef.current;
+      if (ctxOnChange) {
+        ctxOnChange(value);
+        return;
+      } else if (onChange) {
+        const e: ICheckboxEvent<Value> = Object.create(evt);
+        e.target = {
+          ...propsRef.current,
+          type: 'checkbox',
+          checked: evt.target.checked,
+        };
+        onChange(e);
+      }
+    },
+    [ctxOnChange]
+  );
+
+  const {
+    checked: _3,
+    className,
+    style,
+    disabled: _1,
+    readOnly: _2,
+    children,
+    indeterminate,
+    width,
+    // value可以是任意类型，不要写到dom上去
+    value,
+    ...others
+  } = props;
+  const readOnly = getReadOnly(groupCtx, props);
+  const disabled = getDisabled(disabledCtx, groupCtx, props);
+  let checked: boolean;
+  if (groupCtx) {
+    const { value, isValueEqual } = groupCtx;
+    checked = value.findIndex(it => isValueEqual(it, props.value)) !== -1;
+  } else {
+    checked = !!props.checked;
+  }
+
+  return (
+    <label
+      className={cx('zent-checkbox-wrap', className, {
+        'zent-checkbox-checked': !!checked,
+        'zent-checkbox-disabled': disabled || readOnly,
+        'zent-checkbox-indeterminate': indeterminate,
+      })}
+      style={{
+        ...getWidth(width),
+      }}
+    >
+      <span className="zent-checkbox">
+        <span className="zent-checkbox-inner" />
+        <input
+          {...others}
+          type="checkbox"
+          checked={checked && !indeterminate}
+          disabled={disabled}
+          readOnly={readOnly}
+          onChange={onChange}
+        />
+      </span>
+      {children}
+    </label>
+  );
+}
+
+Checkbox.Group = CheckboxGroup;
 
 export default Checkbox;
