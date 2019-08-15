@@ -129,7 +129,12 @@ export function Checkbox<Value>(props: ICheckboxProps<Value>) {
           onChange={onChange}
         />
       </span>
-      {children}
+      {children !== undefined &&
+      children !== null &&
+      children !== true &&
+      children !== false ? (
+        <div className="zent-checkbox-label">{children}</div>
+      ) : null}
     </label>
   );
 }

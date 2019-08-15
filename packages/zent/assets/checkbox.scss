@@ -38,7 +38,6 @@ $size: 16px;
   vertical-align: middle;
   line-height: 1;
   margin: 0;
-  margin-right: 8px;
   padding: 0;
 
   & > input {
@@ -54,6 +53,12 @@ $size: 16px;
     z-index: 1;
     opacity: 0;
     cursor: pointer;
+  }
+
+  &-label {
+    margin-left: 8px;
+    display: inline-block;
+    vertical-align: middle;
   }
 }
 
