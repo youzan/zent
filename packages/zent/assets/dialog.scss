@@ -95,7 +95,7 @@ $z-index: 1050;
 
 .zent-dialog-r-body {
   @include font-normal;
-  @include theme-color(color, stroke, 4);
+  @include theme-color(color, stroke, 1);
   padding: 16px;
 
   &.with-success-icon,
