@@ -29,6 +29,7 @@ $card-variables: (
     outline: none;
     display: flex;
     justify-content: flex-start;
+    box-sizing: border-box;
 
     &-extra-content,
     &-add {
@@ -71,14 +72,10 @@ $card-variables: (
     cursor: pointer;
     color: $color;
     box-sizing: border-box;
+    text-align: center;
+    font-size: $font-size-normal;
 
     &-inner {
-      text-align: center;
-      min-width: 80px;
-      box-sizing: border-box;
-      font-size: $font-size-normal;
-      position: relative;
-
       &-del {
         line-height: 1;
         position: absolute;
@@ -127,18 +124,26 @@ $card-variables: (
   border-bottom: 1px solid $border-color;
   height: map-get($normal-variables, 'height');
 
-  .zent-tabs-tab-inner {
-    padding: 14px 16px;
+  .zent-tabs-nav-content {
+    padding: 0 16px;
+    margin-bottom: -1px;
   }
 
-  .zent-tabs-nav-ink-bar {
-    position: absolute;
-    display: block;
-    height: 2px;
-    background-color: map-get($normal-variables, 'inkColor');
-    bottom: -1px;
-    width: 0;
-    z-index: 10;
+  .zent-tabs-tab {
+    min-width: 112px;
+    padding: 0 16px;
+
+    &-inner {
+      padding: 14px 0;
+    }
+
+    &__actived {
+      .zent-tabs-tab-inner {
+        border-bottom: 2px solid map-get($normal-variables, 'inkColor');
+        padding: 14px 0 12px;
+        margin-bottom: -1px;
+      }
+    }
   }
 }
 
@@ -155,9 +160,10 @@ $card-variables: (
     border-right: 1px solid $border-color;
     border-bottom: 1px solid $border-color;
     background-color: map-get($card-variables, 'tab-bg');
+    min-width: 104px;
 
     &-inner {
-      padding: 10px 16px 9px;
+      padding: 9px 16px;
     }
 
     &:first-child {
@@ -172,20 +178,7 @@ $card-variables: (
     &__actived {
       background-color: $active-tab-bg;
       border-bottom: 0;
-      padding-bottom: 10px;
+      padding-bottom: 1px;
     }
   }
-
-  // .zent-tabs-actived {
-  //   border-radius: 0;
-  //   border: 0;
-
-  //   .zent-tabs-tab-inner {
-  //     border: 1px solid $border-color;
-  //     border-bottom: 0;
-  //     border-top-left-radius: 6px;
-  //     border-top-right-radius: 6px;
-  //     background-color: white;
-  //   }
-  // }
 }

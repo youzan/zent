@@ -52,21 +52,10 @@ class Simple extends React.Component {
 	};
 
 	onTabDel = id => {
-		let { panels } = this.state;
-		let index = -1;
-		panels.some((p, i) => {
-			if (p.id === id) {
-				index = i;
-				return true;
-			}
-			return false;
+		const { panels } = this.state;
+		this.setState({
+			panels: panels.filter((p, i) => p.id !== id),
 		});
-		if (index > -1) {
-			panels.splice(index, 1);
-			this.setState({
-				panels,
-			});
-		}
 	};
 
 	onTabChange = id => {

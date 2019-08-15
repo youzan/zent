@@ -98,9 +98,7 @@ class Simple extends React.Component {
 				onDelete={this.onTabDel.bind(this)}
 				onAdd={this.onTabAdd.bind(this)}
 				navExtraContent={
-					<span
-						style={{ lineHeight: '35px', padding: '0 5px' }}
-					>{`{i18n.shopCont}`}</span>
+					<div style={{ whiteSpace: 'nowrap' }}>{`{i18n.shopCont}`}</div>
 				}
 			>
 				{this.renderPanels()}
