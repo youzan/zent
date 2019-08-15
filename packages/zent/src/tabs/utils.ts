@@ -43,10 +43,6 @@ export function getRenderTabListData<Id extends string | number = string>(
       disabled: tabItem.disabled,
       title: tabItem.title,
       className: tabItem.className,
-      minWidth:
-        i === tabListData.length - 1
-          ? widthInfo.lastWidth || ''
-          : widthInfo.width || '',
       candel: candel && !tabItem.disabled,
     };
   });

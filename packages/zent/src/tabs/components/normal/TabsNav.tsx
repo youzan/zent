@@ -31,10 +31,8 @@ class NormalTabsNav<Id extends string | number = string> extends BaseTabsNav<
     return (
       <div className={this.tabsNavCls}>
         <div className="zent-tabs-nav-content">
-          <div className="zent-tabs-scroll">
-            <div className="zent-tabs-tab-wrapper" role="tablist">
-              {this.renderTabs()}
-            </div>
+          <div className="zent-tabs-scroll" role="tablist">
+            {this.renderTabs()}
           </div>
         </div>
         {navExtraContent}

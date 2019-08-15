@@ -114,11 +114,21 @@ $card-variables: (
   }
 }
 
-// .zent-tabs-nav-align-center {
-// }
+.zent-tabs-nav-align-center {
+  .zent-tabs-nav-content,
+  .zent-tabs-scroll {
+    display: flex;
+    justify-content: center;
+  }
+}
 
-// .zent-tabs-nav-align-right {
-// }
+.zent-tabs-nav-align-right {
+  .zent-tabs-nav-content,
+  .zent-tabs-scroll {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
 
 .zent-tabs-nav-type__normal {
   border-bottom: 1px solid $border-color;
@@ -134,13 +144,15 @@ $card-variables: (
     padding: 0 16px;
 
     &-inner {
-      padding: 14px 0;
+      padding: 14px 16px;
     }
 
     &__actived {
+      border-bottom: 1px solid $border-color;
+
       .zent-tabs-tab-inner {
         border-bottom: 2px solid map-get($normal-variables, 'inkColor');
-        padding: 14px 0 12px;
+        padding: 14px 16px 12px;
         margin-bottom: -1px;
       }
     }

@@ -7,6 +7,7 @@ zh-CN:
 	tabText: 选项
 	tabOneCont: 选项1的内容
 	tabTwoCont: 选项2的内容
+	desc: 添加或删除回调 Props 只有在 normal 和 card 两种模式下才可使用
 en-US:
 	title: Dynamic add and delete tab
 	tabOne: Tab1
@@ -14,6 +15,7 @@ en-US:
 	tabText: Tab
 	tabOneCont: The content of tab1.
 	tabTwoCont: The content of tab2.
+	desc: onAdd and onDelete callback props only avaliable in normal and card type
 ---
 
 ```jsx
@@ -76,17 +78,32 @@ class Simple extends React.Component {
 	}
 
 	render() {
+		const panels = this.renderPanels();
 		return (
-			<Tabs
-				candel
-				canadd
-				activeId={this.state.activeId}
-				onChange={this.onTabChange}
-				onDelete={this.onTabDel}
-				onAdd={this.onTabAdd}
-			>
-				{this.renderPanels()}
-			</Tabs>
+			<div>
+				<Tabs
+					candel
+					canadd
+					activeId={this.state.activeId}
+					onChange={this.onTabChange}
+					onDelete={this.onTabDel}
+					onAdd={this.onTabAdd}
+				>
+					{panels}
+				</Tabs>
+				<Tabs
+					candel
+					canadd
+					type="card"
+					activeId={this.state.activeId}
+					onChange={this.onTabChange}
+					onDelete={this.onTabDel}
+					onAdd={this.onTabAdd}
+				>
+					{panels}
+				</Tabs>
+				<div>{i18n.desc}</div>
+			</div>
 		);
 	}
 }
