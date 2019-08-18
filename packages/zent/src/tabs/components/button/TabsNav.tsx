@@ -1,30 +1,27 @@
 import * as React from 'react';
-import * as navUtils from '../../utils';
 import BaseTabsNav from '../../impl/BaseTabsNav';
 import { Button } from '../../../button';
+import { IInnerTab } from '../../types';
 
 class ButtonTabsNav<Id extends string | number = string> extends BaseTabsNav<
   Id
 > {
   protected typeName = 'button';
 
-  renderTabs() {
-    const renderData = navUtils.getRenderTabListData(this.props);
-    return renderData.map(renderDataItem => {
-      const { key, actived, disabled, title, className } = renderDataItem;
-      return (
-        <Button
-          className={className}
-          onClick={() => this.onTabSelected(key)}
-          type="primary"
-          key={key}
-          outline={!actived}
-          disabled={disabled}
-        >
-          {title}
-        </Button>
-      );
-    });
+  renderTab(data: IInnerTab<Id>): React.ReactNode {
+    const { key, actived, disabled, title, className } = data;
+    return (
+      <Button
+        className={className}
+        onClick={() => this.onTabSelected(key)}
+        type="primary"
+        key={key}
+        outline={!actived}
+        disabled={disabled}
+      >
+        {title}
+      </Button>
+    );
   }
 
   render() {
@@ -32,8 +29,10 @@ class ButtonTabsNav<Id extends string | number = string> extends BaseTabsNav<
 
     return (
       <div className={this.tabsNavCls}>
-        <div className={`zent-tabs-nav-content`}>
-          <Button.Group>{this.renderTabs()}</Button.Group>
+        <div className="zent-tabs-nav-content">
+          <Button.Group className="zent-tabs-scroll">
+            {this.renderTabs()}
+          </Button.Group>
         </div>
         {navExtraContent}
       </div>

@@ -68,6 +68,10 @@ class Simple extends React.Component {
 					onChange={this.onTabChange}
 					type="normal"
 					align={align}
+					canadd
+					navExtraContent={
+						<div style={{ whiteSpace: 'nowrap' }}>当前网店：文三路网店</div>
+					}
 				>
 					{panels}
 				</Tabs>
@@ -76,6 +80,10 @@ class Simple extends React.Component {
 					onChange={this.onTabChange}
 					type="card"
 					align={align}
+					canadd
+					navExtraContent={
+						<div style={{ whiteSpace: 'nowrap' }}>当前网店：文三路网店</div>
+					}
 				>
 					{panels}
 				</Tabs>
@@ -84,6 +92,10 @@ class Simple extends React.Component {
 					onChange={this.onTabChange}
 					type="button"
 					align={align}
+					canadd
+					navExtraContent={
+						<div style={{ whiteSpace: 'nowrap' }}>当前网店：文三路网店</div>
+					}
 				>
 					{panels}
 				</Tabs>

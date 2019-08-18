@@ -17,8 +17,15 @@ $card-variables: (
   tab-bg: $theme-stroke-8,
 );
 
+$button-variables: (
+  height: 32px,
+  tab-bg: $theme-stroke-8,
+);
+
 .zent-tabs {
   @include font-normal;
+  display: flex;
+  flex-direction: column;
 
   &-panel-wrapper {
     margin-top: 16px;
@@ -64,6 +71,7 @@ $card-variables: (
     flex: 1 1 auto;
     white-space: nowrap;
     overflow-x: auto;
+    display: flex;
   }
 
   &-tab {
@@ -75,21 +83,19 @@ $card-variables: (
     text-align: center;
     font-size: $font-size-normal;
 
-    &-inner {
-      &-del {
-        line-height: 1;
-        position: absolute;
-        top: 3px;
-        right: 3px;
-        font-size: $font-size-small;
-        display: none;
-      }
+    &-delete {
+      line-height: 1;
+      position: absolute;
+      top: 3px;
+      right: 3px;
+      font-size: $font-size-small;
+      display: none;
     }
 
     &:hover {
       color: $active-color;
 
-      .zent-tabs-tab-inner-del {
+      .zent-tabs-tab-delete {
         display: block;
       }
     }
@@ -114,19 +120,18 @@ $card-variables: (
   }
 }
 
-.zent-tabs-nav-align-center {
-  .zent-tabs-nav-content,
-  .zent-tabs-scroll {
-    display: flex;
-    justify-content: center;
+// align style
+.zent-tabs-nav-align {
+  &__center {
+    .zent-tabs-scroll {
+      justify-content: center;
+    }
   }
-}
 
-.zent-tabs-nav-align-right {
-  .zent-tabs-nav-content,
-  .zent-tabs-scroll {
-    display: flex;
-    justify-content: flex-end;
+  &__right {
+    .zent-tabs-scroll {
+      justify-content: flex-end;
+    }
   }
 }
 
@@ -191,6 +196,48 @@ $card-variables: (
       background-color: $active-tab-bg;
       border-bottom: 0;
       padding-bottom: 1px;
+    }
+  }
+}
+
+.zent-tabs-type__vertical {
+  flex-direction: row;
+
+  .zent-tabs-panel-wrapper {
+    margin: 14px 16px;
+  }
+}
+
+.zent-tabs-nav-type__vertical {
+  width: 96px;
+  padding: 14px 7px 14px 0;
+  border-right: 1px solid $border-color;
+
+  .zent-tabs-scroll {
+    overflow-x: hidden;
+    flex-direction: column;
+  }
+
+  .zent-tabs-tab {
+    display: block;
+    border-radius: 2px;
+    text-align: left;
+    margin-top: 8px;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &__actived {
+      background-color: $theme-stroke-6;
+    }
+
+    &-inner {
+      padding: 8px;
+      overflow: hidden;
+      width: 86px;
+      box-sizing: border-box;
+      text-overflow: ellipsis;
     }
   }
 }

@@ -90,19 +90,21 @@ class Simple extends React.Component {
 
 	render() {
 		return (
-			<Tabs
-				candel
-				canadd
-				activeId={this.state.activeId}
-				onChange={this.onTabChange.bind(this)}
-				onDelete={this.onTabDel.bind(this)}
-				onAdd={this.onTabAdd.bind(this)}
-				navExtraContent={
-					<div style={{ whiteSpace: 'nowrap' }}>{`{i18n.shopCont}`}</div>
-				}
-			>
-				{this.renderPanels()}
-			</Tabs>
+			<div className="zent-tabs-demo">
+				<Tabs
+					candel
+					canadd
+					activeId={this.state.activeId}
+					onChange={this.onTabChange.bind(this)}
+					onDelete={this.onTabDel.bind(this)}
+					onAdd={this.onTabAdd.bind(this)}
+					navExtraContent={
+						<div style={{ whiteSpace: 'nowrap' }}>{`{i18n.shopCont}`}</div>
+					}
+				>
+					{this.renderPanels()}
+				</Tabs>
+			</div>
 		);
 	}
 }

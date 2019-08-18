@@ -55,7 +55,6 @@ export interface ITabProps<Id extends string | number = string> {
   actived?: boolean;
   disabled?: boolean;
   candel?: boolean;
-  minWidth?: string;
 }
 
 export interface ITabPanelProps<Id extends string | number = string> {

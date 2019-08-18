@@ -1,52 +1,18 @@
 import * as React from 'react';
-import { Component } from 'react';
-import cn from 'classnames';
-import { ITabProps } from '../../types';
+import BaseTab from '../../impl/BaseTab';
 
-class CardTab<Id extends string | number = string> extends Component<
-  ITabProps<Id>
-> {
-  onDel = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
-    e.stopPropagation();
-    const { onDelete, id } = this.props;
-    onDelete && onDelete(id);
-  };
-
-  onClick = () => {
-    const { onSelected, id, actived, disabled } = this.props;
-    if (!actived && !disabled) {
-      onSelected && onSelected(id);
-    }
-  };
-
-  renderDelOperater() {
-    const { candel } = this.props;
-    return candel ? (
-      <span className="zent-tabs-tab-inner-del" onClick={this.onDel}>
-        ✕
-      </span>
-    ) : null;
-  }
-
+class CardTab<Id extends string | number = string> extends BaseTab<Id> {
+  protected typeName = 'card';
   render() {
-    const { minWidth, actived, disabled, children } = this.props;
-    const classes = cn('zent-tabs-tab', {
-      ['zent-tabs-tab__actived']: actived,
-      ['zent-tabs-tab__disabled']: disabled,
-    });
-
-    const style: React.CSSProperties = {
-      minWidth,
-    };
+    const { actived, disabled, children } = this.props;
 
     return (
       <div
         role="tab"
-        className={classes}
+        className={this.tabsCls}
         aria-disabled={disabled}
         aria-selected={actived}
         onClick={this.onClick}
-        style={style}
       >
         <div className="zent-tabs-tab-inner">
           {children}

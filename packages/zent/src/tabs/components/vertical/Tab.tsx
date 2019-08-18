@@ -1,12 +1,11 @@
 import * as React from 'react';
 import BaseTab from '../../impl/BaseTab';
 
-class NormalTab<Id extends string | number = string> extends BaseTab<Id> {
-  protected typeName = 'normal';
+class VerticalTab<Id extends string | number = string> extends BaseTab<Id> {
+  protected typeName = 'vertical';
 
   render() {
     const { actived, disabled, children } = this.props;
-
     return (
       <div
         role="tab"
@@ -15,13 +14,10 @@ class NormalTab<Id extends string | number = string> extends BaseTab<Id> {
         aria-selected={actived}
         onClick={this.onClick}
       >
-        <div className="zent-tabs-tab-inner">
-          {children}
-          {this.renderDelOperater()}
-        </div>
+        <div className="zent-tabs-tab-inner">{children}</div>
       </div>
     );
   }
 }
 
-export default NormalTab;
+export default VerticalTab;

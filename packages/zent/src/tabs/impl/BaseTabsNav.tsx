@@ -1,6 +1,7 @@
 import * as React from 'react';
 import cn from 'classnames';
-import { ITabsNavProps } from '../types';
+import { ITabsNavProps, IInnerTab } from '../types';
+import * as navUtils from '../utils';
 
 abstract class BaseTabsNav<
   Id extends string | number = string
@@ -11,7 +12,7 @@ abstract class BaseTabsNav<
     const { align } = this.props;
     return cn(
       'zent-tabs-nav',
-      `zent-tabs-nav-align-${align}`,
+      `zent-tabs-nav-align__${align}`,
       `zent-tabs-nav-type__${this.typeName}`
     );
   }
@@ -46,6 +47,15 @@ abstract class BaseTabsNav<
       <div className={`zent-tabs-nav-extra-content`}>{navExtraContent}</div>
     ) : null;
   }
+
+  renderTabs() {
+    const renderData = navUtils.getRenderTabListData(this.props);
+    return renderData.map(renderDataItem => {
+      return this.renderTab(renderDataItem);
+    });
+  }
+
+  abstract renderTab(data: IInnerTab<Id>): React.ReactNode;
 }
 
 export default BaseTabsNav;

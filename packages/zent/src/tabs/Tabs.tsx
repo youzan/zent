@@ -15,6 +15,7 @@ import {
 } from './types';
 import CardTabsNav from './components/card/TabsNav';
 import ButtonTabsNav from './components/button/TabsNav';
+import VerticalTabsNav from './components/vertical/TabsNav';
 
 const TabsNavComponents: {
   [type in TabType]?: React.ComponentType<ITabsNavProps>;
@@ -22,6 +23,7 @@ const TabsNavComponents: {
   normal: NormalTabsNav,
   card: CardTabsNav,
   button: ButtonTabsNav,
+  vertical: VerticalTabsNav,
 };
 
 type ITabsInnerProps<Id extends string | number = string> = Required<
@@ -46,8 +48,8 @@ export class Tabs<Id extends string | number = string> extends Component<
   };
 
   get tabsCls() {
-    const { className } = this.props;
-    return cn('zent-tabs', className);
+    const { className, type } = this.props;
+    return cn('zent-tabs', `zent-tabs-type__${type}`, className);
   }
 
   renderNav(tabListData: Array<IInnerTab<Id>>) {

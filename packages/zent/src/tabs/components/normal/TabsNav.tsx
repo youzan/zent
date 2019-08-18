@@ -1,27 +1,24 @@
 import * as React from 'react';
 import NormalTab from './Tab';
-import * as navUtils from '../../utils';
 import BaseTabsNav from '../../impl/BaseTabsNav';
+import { IInnerTab } from '../../types';
 
 class NormalTabsNav<Id extends string | number = string> extends BaseTabsNav<
   Id
 > {
   protected typeName = 'normal';
 
-  renderTabs() {
-    const renderData = navUtils.getRenderTabListData(this.props);
-    return renderData.map(renderDataItem => {
-      return (
-        <NormalTab<Id>
-          onSelected={this.onTabSelected}
-          onDelete={this.onTabDel}
-          {...renderDataItem}
-          id={renderDataItem.key}
-        >
-          {renderDataItem.title}
-        </NormalTab>
-      );
-    });
+  renderTab(data: IInnerTab<Id>): React.ReactNode {
+    return (
+      <NormalTab<Id>
+        onSelected={this.onTabSelected}
+        onDelete={this.onTabDel}
+        {...data}
+        id={data.key}
+      >
+        {data.title}
+      </NormalTab>
+    );
   }
 
   render() {
