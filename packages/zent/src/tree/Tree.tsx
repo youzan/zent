@@ -1,8 +1,5 @@
 import * as React from 'react';
 import { Component } from 'react';
-import _get from 'lodash-es/get';
-
-import _union from 'lodash-es/union';
 import classnames from 'classnames';
 
 import AnimateHeight from '../utils/component/AnimateHeight';
