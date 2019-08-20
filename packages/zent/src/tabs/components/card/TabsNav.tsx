@@ -1,6 +1,6 @@
 import * as React from 'react';
 import CardTab from './Tab';
-import BaseTabsNav from '../../impl/BaseTabsNav';
+import BaseTabsNav from '../base/BaseTabsNav';
 
 class CardTabsNav<Id extends string | number = string> extends BaseTabsNav<Id> {
   protected typeName = 'card';

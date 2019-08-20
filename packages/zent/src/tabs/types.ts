@@ -5,8 +5,6 @@ export interface ITab<Id extends string | number = string> {
   title: React.ReactNode;
   disabled?: boolean;
   className?: string;
-
-  onTabReady?: (id: Id) => void;
 }
 
 export interface IInnerTab<Id extends string | number = string>
@@ -63,5 +61,4 @@ export interface ITabPanelProps<Id extends string | number = string> {
   className?: string;
   actived?: boolean;
   disabled?: boolean;
-  onTabReady?: (id: Id) => void;
 }

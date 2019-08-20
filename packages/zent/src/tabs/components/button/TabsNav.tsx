@@ -1,5 +1,5 @@
 import * as React from 'react';
-import BaseTabsNav from '../../impl/BaseTabsNav';
+import BaseTabsNav from '../base/BaseTabsNav';
 import { Button } from '../../../button';
 import { IInnerTab } from '../../types';
 

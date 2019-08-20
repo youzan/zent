@@ -1,4 +1,4 @@
-import { ITabsNavProps } from './types';
+import { ITabsNavProps } from '../../types';
 
 export function getRenderTabListData<Id extends string | number = string>(
   props: ITabsNavProps<Id>

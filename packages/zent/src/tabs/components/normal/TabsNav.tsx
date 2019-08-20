@@ -1,6 +1,6 @@
 import * as React from 'react';
 import NormalTab from './Tab';
-import BaseTabsNav from '../../impl/BaseTabsNav';
+import BaseTabsNav from '../base/BaseTabsNav';
 import { IInnerTab } from '../../types';
 
 class NormalTabsNav<Id extends string | number = string> extends BaseTabsNav<

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react';
 import cn from 'classnames';
-import { ITabProps } from '../types';
+import { ITabProps } from '../../types';
 
 abstract class BaseTab<Id extends string | number = string> extends Component<
   ITabProps<Id>

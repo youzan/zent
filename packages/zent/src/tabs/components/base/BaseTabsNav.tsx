@@ -1,7 +1,7 @@
 import * as React from 'react';
 import cn from 'classnames';
-import { ITabsNavProps, IInnerTab } from '../types';
-import * as navUtils from '../utils';
+import { ITabsNavProps, IInnerTab } from '../../types';
+import { getRenderTabListData } from './utils';
 
 abstract class BaseTabsNav<
   Id extends string | number = string
@@ -49,8 +49,8 @@ abstract class BaseTabsNav<
   }
 
   renderTabs() {
-    const renderData = navUtils.getRenderTabListData(this.props);
-    return renderData.map(renderDataItem => {
+    const listData = getRenderTabListData(this.props);
+    return listData.map(renderDataItem => {
       return this.renderTab(renderDataItem);
     });
   }

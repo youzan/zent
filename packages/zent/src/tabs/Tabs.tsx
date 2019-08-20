@@ -35,10 +35,9 @@ export class Tabs<Id extends string | number = string> extends Component<
 > {
   static TabPanel = TabPanel;
 
-  static defaultProps = {
+  static defaultProps: Partial<ITabsProps> = {
     type: 'normal',
     activeId: '',
-    size: 'normal',
     align: 'left',
     candel: false,
     canadd: false,
@@ -95,7 +94,6 @@ export class Tabs<Id extends string | number = string> extends Component<
           <TabPanel
             tab={tabItem.title}
             actived={tabItem.actived}
-            onTabReady={tabItem.onTabReady}
             className={tabItem.className}
             id={tabItem.key}
           >
@@ -122,7 +120,6 @@ export class Tabs<Id extends string | number = string> extends Component<
           disabled,
           tab,
           children: panelChildren,
-          onTabReady,
           className: panelClassName,
         } = child.props;
         const props: IInnerTab<Id> = {
@@ -131,7 +128,6 @@ export class Tabs<Id extends string | number = string> extends Component<
           key: id,
           actived: activeId === id,
           content: panelChildren,
-          onTabReady,
           className: panelClassName,
         };
 

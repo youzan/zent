@@ -1,7 +1,7 @@
 import * as React from 'react';
 import cn from 'classnames';
 import VerticalTab from './Tab';
-import BaseTabsNav from '../../impl/BaseTabsNav';
+import BaseTabsNav from '../base/BaseTabsNav';
 import { IInnerTab } from '../../types';
 
 class VerticalTabsNav<Id extends string | number = string> extends BaseTabsNav<
