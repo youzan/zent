@@ -7,6 +7,7 @@
     "type": "git",
     "url": "git@github.com:youzan/zent.git"
   },
+  "main": "./es/index.js",
   "module": "./es/index.js",
   "types": "./es/index.d.ts",
   "sideEffects": [
