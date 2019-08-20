@@ -1,6 +1,6 @@
 import { PaginationPageSizeOption } from '../pagination/components/PageSizeChanger';
 
-export type GridPaginationType = 'default' | 'lite';
+export type GridPaginationType = 'default' | 'lite' | 'mini';
 
 export type GridScrollPosition = 'both' | 'left' | 'right' | 'middle';
 
