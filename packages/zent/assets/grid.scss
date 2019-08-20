@@ -23,7 +23,7 @@
   &-table {
     width: 100%;
     text-align: left;
-    border-collapse: separate;
+    border-collapse: collapse;
     border-spacing: 0;
 
     &-ellipsis {
@@ -33,42 +33,6 @@
         overflow: hidden;
         text-overflow: ellipsis;
       }
-    }
-  }
-
-  &-tbody-span {
-    td {
-      // sass-lint:disable-block no-duplicate-properties
-      box-shadow: inset 1px -1px 0 0 $theme-stroke-6;
-      box-shadow: inset 1px -1px 0 0 var(--theme-stroke-6, $theme-stroke-6);
-
-      &:first-of-type {
-        box-shadow: inset 0 -1px 0 0 $theme-stroke-6;
-        box-shadow: inset 0 -1px 0 0 var(--theme-stroke-6, $theme-stroke-6);
-      }
-    }
-  }
-
-  &-bordered {
-    table {
-      border-collapse: collapse;
-    }
-
-    th,
-    td {
-      // sass-lint:disable-block no-duplicate-properties
-      box-shadow: inset 1px -1px 0 0 $theme-stroke-6;
-      box-shadow: inset 1px -1px 0 0 var(--theme-stroke-6, $theme-stroke-6);
-    }
-
-    tr:first-of-type {
-      th:first-of-type {
-        box-shadow: none;
-      }
-    }
-
-    .zent-grid-header th {
-      border-bottom: 0;
     }
   }
 
@@ -166,6 +130,12 @@
       border-left: 0;
       border-right: 0;
     }
+
+    .zent-grid-th {
+      @include theme-color(border-bottom-color, stroke, 6);
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
+    }
   }
 
   &-fixed-left {
@@ -262,12 +232,12 @@
 
   &-th,
   &-td {
-    // sass-lint:disable-block no-duplicate-properties
+    @include theme-color(border-bottom-color, stroke, 6);
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
     font-size: $font-size-normal;
     display: table-cell;
     box-sizing: border-box;
-    box-shadow: inset 0 -1px 0 0 $theme-stroke-6;
-    box-shadow: inset 0 -1px 0 0 var(--theme-stroke-6, $theme-stroke-6);
     vertical-align: middle;
 
     &:first-child {
