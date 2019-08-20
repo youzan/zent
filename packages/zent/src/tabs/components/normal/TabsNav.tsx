@@ -22,7 +22,6 @@ class NormalTabsNav<Id extends string | number = string> extends BaseTabsNav<
   }
 
   render() {
-    const addBtn = this.renderAddBtn();
     const navExtraContent = this.renderNavExtraContent();
 
     return (
@@ -33,7 +32,6 @@ class NormalTabsNav<Id extends string | number = string> extends BaseTabsNav<
           </div>
         </div>
         {navExtraContent}
-        {addBtn}
       </div>
     );
   }

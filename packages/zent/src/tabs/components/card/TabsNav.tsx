@@ -19,7 +19,6 @@ class CardTabsNav<Id extends string | number = string> extends BaseTabsNav<Id> {
   }
 
   render() {
-    const addBtn = this.renderAddBtn();
     const navExtraContent = this.renderNavExtraContent();
 
     return (
@@ -30,7 +29,6 @@ class CardTabsNav<Id extends string | number = string> extends BaseTabsNav<Id> {
           </div>
         </div>
         {navExtraContent}
-        {addBtn}
       </div>
     );
   }

@@ -9,11 +9,12 @@ abstract class BaseTabsNav<
   protected abstract typeName: string;
 
   get tabsNavCls() {
-    const { align } = this.props;
+    const { align, stretch } = this.props;
     return cn(
       'zent-tabs-nav',
       `zent-tabs-nav-align__${align}`,
-      `zent-tabs-nav-type__${this.typeName}`
+      `zent-tabs-nav-type__${this.typeName}`,
+      { ['zent-tabs-nav__stretch']: stretch }
     );
   }
 
@@ -27,24 +28,14 @@ abstract class BaseTabsNav<
     onDelete(id);
   };
 
-  onTabAdd = () => {
-    const { onAdd } = this.props;
-    onAdd();
-  };
-
-  renderAddBtn() {
-    const { canadd } = this.props;
-    return canadd ? (
-      <div className="zent-tabs-nav-add" onClick={this.onTabAdd}>
-        <span>+</span>
-      </div>
-    ) : null;
-  }
-
   renderNavExtraContent() {
-    const { navExtraContent } = this.props;
+    const { navExtraContent, navExtraContentAlign } = this.props;
+    const cls = cn(
+      'zent-tabs-nav-extra-content',
+      `zent-tabs-nav-extra-content-align__${navExtraContentAlign}`
+    );
     return navExtraContent ? (
-      <div className={`zent-tabs-nav-extra-content`}>{navExtraContent}</div>
+      <div className={cls}>{navExtraContent}</div>
     ) : null;
   }
 

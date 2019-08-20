@@ -39,11 +39,11 @@ export class Tabs<Id extends string | number = string> extends Component<
     type: 'normal',
     activeId: '',
     align: 'left',
+    navExtraContentAlign: 'right',
     candel: false,
-    canadd: false,
+    stretch: false,
     onChange: noop,
     onDelete: noop,
-    onAdd: noop,
   };
 
   get tabsCls() {
@@ -55,11 +55,11 @@ export class Tabs<Id extends string | number = string> extends Component<
     const {
       type,
       align,
-      canadd,
       candel,
+      stretch,
       navExtraContent,
+      navExtraContentAlign,
       onChange,
-      onAdd,
       onDelete,
     } = this.props as ITabsInnerProps<Id>;
     const TabsNavComp = (TabsNavComponents[type] ||
@@ -73,10 +73,10 @@ export class Tabs<Id extends string | number = string> extends Component<
         tabListData={tabListData}
         align={align}
         onDelete={onDelete}
-        onAdd={onAdd}
-        canadd={canadd}
         candel={candel}
+        stretch={stretch}
         navExtraContent={navExtraContent}
+        navExtraContentAlign={navExtraContentAlign}
       />
     );
   }

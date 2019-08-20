@@ -5,7 +5,7 @@ import { ITabPanelProps } from '../types';
 function TabPanel<Id extends string | number = string>(
   props: React.PropsWithChildren<ITabPanelProps<Id>>
 ) {
-  const { actived = false, className, children } = props;
+  const { actived, className, children } = props;
 
   if (!actived) {
     return null;

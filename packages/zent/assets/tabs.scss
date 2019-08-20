@@ -22,6 +22,14 @@ $button-variables: (
   tab-bg: $theme-stroke-8,
 );
 
+@mixin content-stretch($selector) {
+  &.zent-tabs-nav__stretch {
+    #{$selector} {
+      flex: 1 1 auto;
+    }
+  }
+}
+
 .zent-tabs {
   @include font-normal;
   display: flex;
@@ -38,31 +46,27 @@ $button-variables: (
     justify-content: flex-start;
     box-sizing: border-box;
 
-    &-extra-content,
-    &-add {
+    &-extra-content {
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      margin-left: 8px;
-    }
 
-    &-add {
-      text-align: center;
-      cursor: pointer;
+      &-align {
+        &__left {
+          margin-right: 8px;
+          order: 0;
+        }
 
-      span {
-        display: block;
-        border: 1px solid $border-color;
-        border-radius: 2px;
-        top: 50%;
-        line-height: 18px;
-        width: 20px;
-        height: 20px;
+        &__right {
+          margin-left: 8px;
+          order: 2;
+        }
       }
     }
 
     &-content {
       flex: 1 1 auto;
+      order: 1;
       overflow: hidden;
     }
   }
@@ -76,12 +80,10 @@ $button-variables: (
 
   &-tab {
     position: relative;
-    display: inline-block;
     cursor: pointer;
     color: $color;
     box-sizing: border-box;
     text-align: center;
-    font-size: $font-size-normal;
 
     &-delete {
       line-height: 1;
@@ -136,6 +138,7 @@ $button-variables: (
 }
 
 .zent-tabs-nav-type__normal {
+  @include content-stretch('.zent-tabs-tab');
   border-bottom: 1px solid $border-color;
   height: map-get($normal-variables, 'height');
 
@@ -165,6 +168,7 @@ $button-variables: (
 }
 
 .zent-tabs-nav-type__card {
+  @include content-stretch('.zent-tabs-tab');
   border-bottom: 1px solid $border-color;
   height: map-get($card-variables, 'height');
 
@@ -198,6 +202,10 @@ $button-variables: (
       padding-bottom: 1px;
     }
   }
+}
+
+.zent-tabs-nav-type__button {
+  @include content-stretch('.zent-btn');
 }
 
 .zent-tabs-type__vertical {

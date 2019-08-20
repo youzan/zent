@@ -1,5 +1,5 @@
 ---
-order: 7
+order: 8
 zh-CN:
 	title: 垂直模式
 	tabOne: 选项1

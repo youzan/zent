@@ -27,6 +27,7 @@ class Simple extends React.Component {
 	state = {
 		activeId: '2',
 		align: 'left',
+		navExtraContentAlign: 'right',
 	};
 
 	onTabChange = id => {
@@ -41,8 +42,14 @@ class Simple extends React.Component {
 		});
 	}
 
+	onNavExtraContentAlignChange = e => {
+		this.setState({
+			navExtraContentAlign: e.target.value,
+		});
+	}
+
 	render() {
-		const { align, activeId } = this.state;
+		const { align, navExtraContentAlign, activeId } = this.state;
 
 		const panels = [
 			<TabPanel key="1" tab={<span>{i18n.tabOne}</span>} id="1" disabled>
@@ -58,17 +65,27 @@ class Simple extends React.Component {
 
 		return (
 			<div className="zent-tabs-demo">
-				<RadioGroup value={align} onChange={this.onAlignChange}>
-					<Radio value="left">left</Radio>
-					<Radio value="center">center</Radio>
-					<Radio value="right">right</Radio>
-				</RadioGroup>
+				<div>
+					align：
+					<RadioGroup value={align} onChange={this.onAlignChange}>
+						<Radio value="left">left</Radio>
+						<Radio value="center">center</Radio>
+						<Radio value="right">right</Radio>
+					</RadioGroup>
+				</div>
+				<div>
+					navExtraContentAlign：
+					<RadioGroup value={navExtraContentAlign} onChange={this.onNavExtraContentAlignChange}>
+						<Radio value="left">left</Radio>
+						<Radio value="right">right</Radio>
+					</RadioGroup>
+				</div>
 				<Tabs
 					activeId={activeId}
 					onChange={this.onTabChange}
 					type="normal"
 					align={align}
-					canadd
+					navExtraContentAlign={navExtraContentAlign}
 					navExtraContent={
 						<div style={{ whiteSpace: 'nowrap' }}>当前网店：文三路网店</div>
 					}
@@ -80,7 +97,7 @@ class Simple extends React.Component {
 					onChange={this.onTabChange}
 					type="card"
 					align={align}
-					canadd
+					navExtraContentAlign={navExtraContentAlign}
 					navExtraContent={
 						<div style={{ whiteSpace: 'nowrap' }}>当前网店：文三路网店</div>
 					}
@@ -92,7 +109,7 @@ class Simple extends React.Component {
 					onChange={this.onTabChange}
 					type="button"
 					align={align}
-					canadd
+					navExtraContentAlign={navExtraContentAlign}
 					navExtraContent={
 						<div style={{ whiteSpace: 'nowrap' }}>当前网店：文三路网店</div>
 					}
