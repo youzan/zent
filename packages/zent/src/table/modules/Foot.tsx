@@ -11,6 +11,8 @@ import { TablePaginationType, ITablePageInfo } from '../Table';
 import { PaginationChangeHandler } from '../../pagination/impl/BasePagination';
 import LitePagination from '../../pagination/LitePagination';
 import MiniPagination from '../../pagination/MiniPagination';
+import AbstractPagination from '../../pagination/impl/AbstractPagination';
+import { Class } from 'utility-types';
 
 export interface ITableFootProps {
   pageInfo: ITablePageInfo;
@@ -111,12 +113,22 @@ export default class Foot extends PureComponent<ITableFootProps> {
       batchClassName += ' tfoot__batchcomponents--fixed';
     }
 
-    const PaginationComp =
-      paginationType === 'mini'
-        ? MiniPagination
-        : paginationType === 'lite'
-        ? LitePagination
-        : Pagination;
+    // 判断使用哪种 Pagination
+    let PaginationComp: Class<AbstractPagination>;
+    switch (paginationType) {
+      case 'mini':
+        PaginationComp = MiniPagination;
+        break;
+      case 'lite':
+        PaginationComp = LitePagination;
+        break;
+      case 'default':
+        PaginationComp = Pagination;
+        break;
+      default:
+        PaginationComp = Pagination;
+        break;
+    }
 
     return (
       shouldRenderFoot && (
