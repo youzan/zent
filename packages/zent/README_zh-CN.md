@@ -21,11 +21,33 @@ Zent ( \ˈzent\ ) 是有赞 PC 端 WebUI 规范的 React 实现，提供了一�
 ### 支持环境
 
 * React >= 16.8
-* Firefox 52(ESR)
-* Chrome 49
-* Safari 9.1
-* 不支持IE
 * 支持服务端渲染(SSR)
+
+### 浏览器
+
+#### 支持的浏览器
+
+* Firefox >= 52(ESR)
+* Chrome >= 49
+* Safari >= 9.1
+* 不支持IE
+
+#### 需要的polyfill
+对于受支持的浏览器需要的polyfill
+
+* String.prototype.padStart (Chrome 57, Safari 10)
+
+#### 其他浏览器
+
+关于样式请参考[定制主题](theme)
+
+可能需要的polyfill：
+* Map
+* Set
+* Array.prototype.includes
+* String.prototype.includes
+* Object.assign
+* Object.is
 
 ### 安装
 
