@@ -6,7 +6,6 @@ import Icon from '../icon';
 import Input, { IInputClearEvent, IInputCoreProps } from '../input';
 import { InputContext, IInputContext } from '../input/context';
 import { DisabledContext, IDisabledContext } from '../disabled';
-import padStart from '../utils/padStart';
 
 function isDecimal(value: string | number): boolean {
   if (typeof value === 'number') {
@@ -130,8 +129,8 @@ function isValidValue(value: unknown): value is string | number {
   );
 }
 
-function getDelta({ decimal }: INumberInputDecimalProps) {
-  return decimal ? `0.${padStart(decimal, '0', '1')}` : '1';
+function getDelta({ decimal }: INumberInputDecimalProps): Decimal {
+  return decimal ? new Decimal(1).div(Math.pow(10, decimal)) : new Decimal(1);
 }
 
 const EMPTY_DECIMAL = new Decimal(0);
