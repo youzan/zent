@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { Component, ReactNode } from 'react';
-import noop from 'lodash-es/noop';
+import { ReactNode } from 'react';
 import { Omit } from 'utility-types';
 
-import GroupContext, { IRadioContext } from './GroupContext';
-import { IDisabledContext, DisabledContext } from '../disabled';
+import { IRadioContext } from './GroupContext';
+import { IDisabledContext } from '../disabled';
 
 export interface IRadioEvent<Value>
   extends Omit<React.ChangeEvent<HTMLInputElement>, 'target'> {
@@ -20,65 +19,89 @@ export interface IRadioProps<Value> {
   readOnly?: boolean;
   width?: number | string;
   className?: string;
-  prefix?: string;
   checked?: boolean;
-  onChange: (e: IRadioEvent<Value>) => void;
+  onChange?: (e: IRadioEvent<Value>) => void;
   style?: React.CSSProperties;
+  children?: ReactNode;
 }
 
-abstract class AbstractRadio<Value> extends Component<IRadioProps<Value>> {
-  static defaultProps = {
-    prefix: 'zent',
-    onChange: noop,
+function makeEvent<Value>(
+  event: React.ChangeEvent<HTMLInputElement>,
+  props: IRadioProps<Value>
+) {
+  const e: IRadioEvent<Value> = Object.create(event);
+  e.target = {
+    ...props,
+    type: 'radio',
+    checked: event.target.checked,
   };
-
-  static contextType = GroupContext;
-  context!: IRadioContext<Value>;
-
-  abstract renderImpl(cx: IDisabledContext): ReactNode;
-
-  handleChange: React.ChangeEventHandler<HTMLInputElement> = evt => {
-    const { props, context } = this;
-    const e: IRadioEvent<Value> = Object.create(evt);
-    e.target = {
-      ...props,
-      type: 'radio',
-      checked: evt.target.checked,
-    };
-
-    if (context.onRadioChange) {
-      context.onRadioChange(e);
-    } else {
-      props.onChange(e);
-    }
-  };
-
-  getRadioState(cx: IDisabledContext) {
-    let { checked, disabled = cx.value, readOnly, value } = this.props;
-    const { context } = this;
-
-    if (context.onRadioChange) {
-      checked = context.isValueEqual(context.value, value);
-      disabled = context.disabled !== undefined ? context.disabled : disabled;
-      readOnly = context.readOnly || readOnly;
-    }
-
-    return {
-      checked,
-      disabled,
-      readOnly,
-    };
-  }
-
-  renderWrap = (cx: IDisabledContext) => {
-    return this.renderImpl(cx);
-  };
-
-  render() {
-    return (
-      <DisabledContext.Consumer>{this.renderWrap}</DisabledContext.Consumer>
-    );
-  }
+  return e;
 }
 
-export default AbstractRadio;
+export function useRadioHandler<Value>(
+  ctx: IRadioContext<Value> | null,
+  props: IRadioProps<Value>
+) {
+  const propsRef = React.useRef(props);
+  propsRef.current = props;
+  const cxOnChange = ctx && ctx.onRadioChange;
+  return React.useCallback(
+    event => {
+      const e = makeEvent(event, propsRef.current);
+      if (cxOnChange) {
+        cxOnChange(e);
+      } else {
+        const { onChange } = propsRef.current;
+        onChange && onChange(e);
+      }
+    },
+    [cxOnChange]
+  );
+}
+
+function getDisabled<Value>(
+  disabledCtx: IDisabledContext,
+  groupCtx: IRadioContext<Value> | null,
+  props: IRadioProps<Value>
+): boolean {
+  if (typeof props.disabled === 'boolean') {
+    return props.disabled;
+  }
+  if (groupCtx && typeof groupCtx.disabled === 'boolean') {
+    return groupCtx.disabled;
+  }
+  return disabledCtx.value;
+}
+
+function getReadOnly<Value>(
+  groupCtx: IRadioContext<Value> | null,
+  props: IRadioProps<Value>
+): boolean {
+  if (typeof props.readOnly === 'boolean') {
+    return props.readOnly;
+  }
+  if (groupCtx) {
+    return groupCtx.readOnly;
+  }
+  return false;
+}
+
+export function getRadioState<Value>(
+  disabledCtx: IDisabledContext,
+  groupCtx: IRadioContext<Value> | null,
+  props: IRadioProps<Value>
+) {
+  const disabled = getDisabled(disabledCtx, groupCtx, props);
+  const readOnly = getReadOnly(groupCtx, props);
+  let checked: boolean;
+  if (groupCtx) {
+    checked = groupCtx.isValueEqual(groupCtx.value, props.value);
+  } else {
+    checked = !!props.checked;
+  }
+  return {
+    checked,
+    disabled,
+    readOnly,
+  };
+}

@@ -38,6 +38,7 @@ group: 导航
 | className                | 自定义额外类名                                                                                       | string                               | `''`               |         | 否       |
 | prefix                   | 自定义前缀                                                                                           | string                               | `'zent'`           |         | 否       |
 | pageInfo                 | table 对应的分页信息                                                                                 | object                               | `null`             |         | 否       |
+| paginationType  | 分页器类型，可选 `'lite'` \| `'mini'`                                    | string                                                                     | `'default'`        | 否       |
 
 #### getRowConf 的特别声明：
 

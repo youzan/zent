@@ -28,7 +28,7 @@
 }
 
 .zent-form__control-group {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 
   &.has-error {
     .zent-form__error-desc,
@@ -56,7 +56,7 @@
 .zent-form__required {
   margin-right: 6px;
   font-size: $font-size-large;
-  color: $theme-error-1;
+  color: $theme-error-2;
   vertical-align: middle;
 }
 

@@ -129,6 +129,14 @@
     &__sep {
       margin: 0 24px;
     }
+
+    &__total {
+      margin-right: 16px;
+    }
+
+    .zent-input {
+      text-align: center;
+    }
   }
 
   &-page-size-changer {

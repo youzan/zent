@@ -1,6 +1,6 @@
 {
   "name": "zent",
-  "version": "7.0.0-next.23",
+  "version": "7.0.0-next.27",
   "description": "一套前端设计语言和基于React的实现",
   "bugs": "https://github.com/youzan/zent/issues",
   "repository": {
@@ -31,7 +31,6 @@
     "dependency-graph.json"
   ],
   "dependencies": {
-    "@babel/runtime": "^7.1.5",
     "@types/autosize": "^3.0.6",
     "@types/sortablejs": "^1.7.2",
     "@types/tinycolor2": "^1.4.1",

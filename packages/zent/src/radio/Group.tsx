@@ -1,87 +1,50 @@
 import * as React from 'react';
-import { Component } from 'react';
-import classNames from 'classnames';
-import noop from 'lodash-es/noop';
-
-import memoize from '../utils/memorize-one';
-import GroupContext from './GroupContext';
+import cx from 'classnames';
+import GroupContext, { IRadioContext } from './GroupContext';
 import { IRadioEvent } from './AbstractRadio';
-import { DisabledContext, IDisabledContext } from '../disabled';
-
-const GroupContextProvider = GroupContext.Provider;
+import { DisabledContext } from '../disabled';
 
 export interface IRadioGroupProps<Value> {
   value: Value;
   disabled?: boolean;
-  readOnly: boolean;
-  onChange: (e: IRadioEvent<Value>) => void;
-  isValueEqual: (value1: Value, value2: Value) => boolean;
+  readOnly?: boolean;
+  onChange?: (e: IRadioEvent<Value>) => void;
+  isValueEqual?: (value1: Value, value2: Value) => boolean;
   className?: string;
-  prefix?: string;
   style?: React.CSSProperties;
+  children?: React.ReactNode;
 }
 
-export class RadioGroup<Value> extends Component<IRadioGroupProps<Value>> {
-  static defaultProps = {
-    prefix: 'zent',
-    className: '',
-    style: {},
-    readOnly: false,
-    isValueEqual: Object.is,
-    onChange: noop,
-  };
+export function RadioGroup<Value>(props: IRadioGroupProps<Value>) {
+  const disabledCtx = React.useContext(DisabledContext);
+  const {
+    value,
+    disabled = disabledCtx.value,
+    readOnly = false,
+    isValueEqual = Object.is,
+    className,
+    style,
+    children,
+    onChange,
+  } = props;
 
-  static contextType = DisabledContext;
-  context!: IDisabledContext;
-
-  getGroupContext = memoize(
-    (
-      value: unknown,
-      disabled: boolean | undefined,
-      readOnly: boolean,
-      isValueEqual: (value1: Value, value2: Value) => boolean
-    ) => ({
+  const ctx = React.useMemo<IRadioContext<Value>>(
+    () => ({
       value,
       disabled,
       readOnly,
       isValueEqual,
-      onRadioChange: this.onRadioChange,
-    })
+      onRadioChange: onChange,
+    }),
+    [value, disabled, readOnly, isValueEqual, onChange]
   );
-
-  onRadioChange = (e: IRadioEvent<Value>) => {
-    this.props.onChange(e);
-  };
-
-  render() {
-    const {
-      value,
-      disabled = this.context.value,
-      readOnly,
-      isValueEqual,
-      className,
-      prefix,
-      style,
-      children,
-    } = this.props;
-
-    const classString = classNames(
-      {
-        [`${prefix}-radio-group`]: true,
-      },
-      className
-    );
-
-    return (
-      <GroupContextProvider
-        value={this.getGroupContext(value, disabled, readOnly, isValueEqual)}
-      >
-        <div className={classString} style={style}>
-          {children}
-        </div>
-      </GroupContextProvider>
-    );
-  }
+  return (
+    <GroupContext.Provider value={ctx}>
+      <div className={cx('zent-radio-group', className)} style={style}>
+        {children}
+      </div>
+    </GroupContext.Provider>
+  );
 }
 
 export default RadioGroup;
