@@ -130,7 +130,7 @@ function isValidValue(value: unknown): value is string | number {
 }
 
 function getDelta({ decimal }: INumberInputDecimalProps): Decimal {
-  return decimal ? new Decimal(1).div(Math.pow(10, decimal)) : new Decimal(1);
+  return new Decimal(1).div(Math.pow(10, decimal));
 }
 
 const EMPTY_DECIMAL = new Decimal(0);
