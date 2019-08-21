@@ -21,7 +21,10 @@ Zent ( \ˈzent\ ) 是有赞 PC 端 WebUI 规范的 React 实现，提供了一�
 ### 支持环境
 
 * React >= 16.8
-* 现代浏览器以及 IE 11 及以上
+* Firefox 52(ESR)
+* Chrome 49
+* Safari 9.1
+* 不支持IE
 * 支持服务端渲染(SSR)
 
 ### 安装
