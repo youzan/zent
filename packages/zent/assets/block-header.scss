@@ -2,12 +2,12 @@
 @import './theme/font';
 
 .zent-block-header {
+  @include theme-color(background-color, stroke, 8);
   display: flex;
   justify-content: flex-start;
   align-content: center;
   margin-bottom: 16px;
   padding: 10px;
-  background-color: $theme-stroke-8;
   min-height: 40px;
   box-sizing: border-box;
 
@@ -16,10 +16,10 @@
     align-items: center;
 
     &::before {
+      @include theme-color(background-color, primary, 4);
       content: '';
       width: 3px;
       height: 14px;
-      background: $theme-primary-4;
     }
 
     h3 {
@@ -42,10 +42,10 @@
 
   &__pop {
     @include font-large;
+    @include theme-color(color, stroke, 4);
     margin-left: 8px;
     display: flex;
     align-items: center;
-    color: $theme-stroke-4;
   }
 
   &__tooltip {
@@ -54,7 +54,7 @@
 
     &-trigger {
       @include font-normal;
-      color: $theme-stroke-5;
+      @include theme-color(color, stroke, 5);
       cursor: pointer;
     }
   }

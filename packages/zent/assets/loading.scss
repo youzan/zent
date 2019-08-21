@@ -15,7 +15,12 @@
 
   &.zent-loading--has-children {
     .zent-loading-mask {
-      background: rgba($theme-stroke-9, 0.6);
+      // sass-lint:disable-block no-duplicate-properties
+      background-color: rgba($theme-stroke-9, 0.6);
+      background-color: rgba(
+        var(--theme-stroke-9, to-rgb($theme-stroke-9)),
+        0.5
+      );
     }
   }
 
@@ -73,8 +78,8 @@
   }
 
   &:after {
+    @include theme-color(background-color, stroke, 9);
     z-index: 1;
-    background: $theme-stroke-9;
     box-shadow: $shadow-spec-layer;
   }
 
@@ -89,17 +94,19 @@
 }
 
 .zent-loading-icon-circle {
+  @include theme-color(border-top-color, primary, 4);
+  @include theme-color(border-right-color, primary, 4);
+  @include theme-color(border-bottom-color, primary, 8);
+  @include theme-color(border-left-color, primary, 8);
   display: inline-block;
   border-radius: 50%;
   box-sizing: border-box;
   border-width: 2px;
   border-style: solid;
-  border-color: $theme-primary-4 $theme-primary-4 $theme-primary-8
-    $theme-primary-8;
   animation: zentLoading 0.6s $timing-fn-linear infinite;
 
   + .zent-loading-icon-text {
-    color: $theme-primary-4;
+    @include theme-color(color, primary, 4);
   }
 }
 

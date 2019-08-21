@@ -19,19 +19,19 @@
     }
 
     &.zent-btn-primary {
-      border-right-color: $theme-primary-6;
+      @include theme-color(border-right-color, primary, 6);
     }
 
     &.zent-btn-danger {
-      border-right-color: $theme-error-4;
+      @include theme-color(border-right-color, error, 4);
     }
 
     &.zent-btn-success {
-      border-right-color: $theme-success-4;
+      @include theme-color(border-right-color, success, 4);
     }
 
     &.zent-btn-disabled {
-      border-right-color: $theme-stroke-6;
+      @include theme-color(border-right-color, stroke, 6);
     }
   }
 
@@ -59,19 +59,19 @@
     }
 
     &.zent-btn-primary {
-      border-left-color: $theme-primary-6;
+      @include theme-color(border-left-color, primary, 6);
     }
 
     &.zent-btn-danger {
-      border-left-color: $theme-error-4;
+      @include theme-color(border-left-color, error, 4);
     }
 
     &.zent-btn-success {
-      border-left-color: $theme-success-4;
+      @include theme-color(border-left-color, success, 4);
     }
 
     &.zent-btn-disabled {
-      border-left-color: $theme-stroke-6;
+      @include theme-color(border-left-color, stroke, 6);
     }
 
     &-disabled {

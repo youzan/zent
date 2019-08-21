@@ -1,5 +1,4 @@
 @import './theme/default';
-$c-bg-gray: $theme-stroke-8;
 
 .zent-auto-complete {
   cursor: pointer;
@@ -15,14 +14,14 @@ $c-bg-gray: $theme-stroke-8;
   vertical-align: middle;
 
   &.disabled {
-    color: $theme-stroke-5;
+    @include theme-color(color, stroke, 5);
     cursor: not-allowed;
 
     .zent-select-input,
     .zent-select-text,
     .zent-select-tags {
-      border-color: $theme-stroke-6;
-      background-color: $c-bg-gray;
+      @include theme-color(border-color, stroke, 6);
+      @include theme-color(background-color, stroke, 8);
 
       &::after {
         opacity: 0.25;

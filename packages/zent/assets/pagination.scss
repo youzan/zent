@@ -20,7 +20,7 @@
   }
 
   &-arrow {
-    stroke: $theme-stroke-1;
+    @include theme-color(stroke, stroke, 1);
     position: absolute;
     left: 50%;
     top: 50%;
@@ -36,7 +36,7 @@
 
     &[disabled] {
       .zent-pagination-arrow {
-        stroke: $theme-stroke-4;
+        @include theme-color(stroke, stroke, 4);
       }
     }
   }
@@ -51,27 +51,27 @@
     }
 
     &:active {
-      color: $theme-primary-3;
+      @include theme-color(color, primary, 3);
     }
 
     &.zent-pagination-arrow-button[disabled] {
       background: white;
 
       .zent-pagination-arrow {
-        stroke: $theme-stroke-6;
+        @include theme-color(stroke, stroke, 6);
       }
     }
 
     &.zent-pagination-arrow-button:not([disabled]) {
       &:hover {
         .zent-pagination-arrow {
-          stroke: $theme-primary-4;
+          @include theme-color(stroke, primary, 4);
         }
       }
 
       &:active {
         .zent-pagination-arrow {
-          stroke: $theme-primary-3;
+          @include theme-color(stroke, primary, 3);
         }
       }
     }
@@ -86,7 +86,7 @@
 
     &:hover {
       .zent-pagination-arrow {
-        stroke: $theme-primary-4;
+        @include theme-color(stroke, primary, 4);
       }
     }
 
@@ -95,7 +95,7 @@
       background: transparent;
 
       .zent-pagination-arrow {
-        stroke: $theme-primary-3;
+        @include theme-color(stroke, primary, 3);
       }
     }
   }
