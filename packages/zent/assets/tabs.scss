@@ -9,7 +9,7 @@ $border-color: $theme-stroke-5;
 
 $normal-variables: (
   height: 48px,
-  inkColor: $theme-primary-4,
+  active-border-color: $theme-primary-4,
 );
 
 $card-variables: (
@@ -19,9 +19,28 @@ $card-variables: (
 
 $button-variables: (
   height: 32px,
-  tab-bg: $theme-stroke-8,
 );
 
+// content align style
+$align-types: (
+  left: flex-start,
+  center: center,
+  right: flex-end,
+);
+
+// extra content align style
+$nav-extra-content-align-types: (
+  left: (
+    order: 0,
+    margin-direction: right,
+  ),
+  right: (
+    order: 2,
+    margin-direction: left,
+  ),
+);
+
+// 内容伸展时的 tab 额外样式
 @mixin content-stretch($selector) {
   &.zent-tabs-nav__stretch {
     #{$selector} {
@@ -48,18 +67,24 @@ $button-variables: (
 
     &-extra-content {
       display: flex;
-      justify-content: flex-end;
       align-items: center;
 
       &-align {
-        &__left {
-          margin-right: 8px;
-          order: 0;
+        @each $type, $styleMap in $nav-extra-content-align-types {
+          &__#{$type} {
+            order: map-get($styleMap, order);
+            margin-#{map-get($styleMap, margin-direction)}: 8px;
+          }
         }
+      }
+    }
 
-        &__right {
-          margin-left: 8px;
-          order: 2;
+    &-align {
+      @each $type, $justify-content in $align-types {
+        &__#{$type} {
+          .zent-tabs-scroll {
+            justify-content: $justify-content;
+          }
         }
       }
     }
@@ -72,7 +97,6 @@ $button-variables: (
   }
 
   &-scroll {
-    flex: 1 1 auto;
     white-space: nowrap;
     overflow-x: auto;
     display: flex;
@@ -103,7 +127,6 @@ $button-variables: (
     }
 
     &__actived {
-      position: relative;
       color: $active-color;
       background-color: $active-tab-bg;
     }
@@ -122,21 +145,7 @@ $button-variables: (
   }
 }
 
-// align style
-.zent-tabs-nav-align {
-  &__center {
-    .zent-tabs-scroll {
-      justify-content: center;
-    }
-  }
-
-  &__right {
-    .zent-tabs-scroll {
-      justify-content: flex-end;
-    }
-  }
-}
-
+// 普通模式样式
 .zent-tabs-nav-type__normal {
   @include content-stretch('.zent-tabs-tab');
   border-bottom: 1px solid $border-color;
@@ -159,7 +168,8 @@ $button-variables: (
       border-bottom: 1px solid $border-color;
 
       .zent-tabs-tab-inner {
-        border-bottom: 2px solid map-get($normal-variables, 'inkColor');
+        border-bottom: 2px solid
+          map-get($normal-variables, 'active-border-color');
         padding: 14px 16px 12px;
         margin-bottom: -1px;
       }
@@ -167,6 +177,7 @@ $button-variables: (
   }
 }
 
+// 卡片模式样式
 .zent-tabs-nav-type__card {
   @include content-stretch('.zent-tabs-tab');
   border-bottom: 1px solid $border-color;
@@ -177,9 +188,8 @@ $button-variables: (
   }
 
   .zent-tabs-tab {
-    border-top: 1px solid $border-color;
-    border-right: 1px solid $border-color;
-    border-bottom: 1px solid $border-color;
+    border: 1px solid $border-color;
+    border-left: 0;
     background-color: map-get($card-variables, 'tab-bg');
     min-width: 104px;
 
@@ -204,10 +214,13 @@ $button-variables: (
   }
 }
 
+// 按钮模式样式
 .zent-tabs-nav-type__button {
   @include content-stretch('.zent-btn');
+  height: map-get($button-variables, 'height');
 }
 
+// 垂直模式样式
 .zent-tabs-type__vertical {
   flex-direction: row;
 

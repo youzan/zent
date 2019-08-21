@@ -8,7 +8,7 @@ zh-CN:
 	tabOneCont: 选项一的内容
 	tabTwoCont: 选项二的内容
 	tabThreeCont: 选项三的内容
-	desc: vertical 模式下，无法使用内部的新增、删除、对齐功能
+	desc: vertical 模式下，无法使用内部的删除、对齐、伸展、额外内容等功能
 en-US:
 	title: Vertical Mode
 	tabOne: Tab1
@@ -17,7 +17,7 @@ en-US:
 	tabOneCont: The content of tab one.
 	tabTwoCont: The content of tab two.
 	tabThreeCont: The content of tab three.
-	desc: Can't use add, delete and align feature in vertical mode
+	desc: Can't use delete, align, stretch and extra content feature in vertical mode
 ---
 
 ```jsx
