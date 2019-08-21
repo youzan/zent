@@ -102,11 +102,11 @@ class SelectComplete extends Component {
 ReactDOM.render(
   <div>
     <div>
-        <div style={{ display: 'inline-block', fontSize: '12px', margin: '5px 0' }}>输入值不受限：</div>
+        <div style={{ display: 'inline-block', margin: '5px 0' }}>输入值不受限：</div>
         <ControlledComplete />
     </div>
     <div style={{ marginTop: '5px' }}>
-        <div style={{ display: 'inline-block', fontSize: '12px', margin: '5px 0' }}>输入值必须来自于选项：</div>
+        <div style={{ display: 'inline-block', margin: '5px 0' }}>输入值必须来自于选项：</div>
         <SelectComplete />
     </div>
   </div>,
