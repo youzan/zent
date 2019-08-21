@@ -39,7 +39,7 @@
     @include theme-color(color, stroke, 3);
 
     &:hover {
-      @include theme-color(color, stroke, 4);
+      @include theme-color(color, primary, 4);
     }
   }
 

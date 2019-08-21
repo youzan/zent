@@ -71,7 +71,7 @@
 
       &:active {
         .zent-pagination-arrow {
-          @include theme-color(stroke, primary, 4);
+          @include theme-color(stroke, primary, 3);
         }
       }
     }

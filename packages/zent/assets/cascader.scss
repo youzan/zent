@@ -26,7 +26,7 @@
     vertical-align: middle;
 
     &-text {
-      @include theme-color(border-color, stroke, 4);
+      @include theme-color(border-color, stroke, 5);
       @include theme-color(background-color, stroke, 9);
       box-sizing: border-box;
       border-width: 1px;
@@ -66,7 +66,7 @@
   }
 
   &__menu {
-    @include theme-color(border-right, stroke, 6);
+    @include theme-color(border-right, stroke, 5);
     display: inline-block;
     vertical-align: top;
     min-width: 111px;

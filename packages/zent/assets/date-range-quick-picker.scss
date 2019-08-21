@@ -7,7 +7,7 @@
 
 .zent-date-range-picker__btn {
   @include theme-color(color, stroke, 4);
-  @include theme-color(border-color, stroke, 6);
+  @include theme-color(border-color, stroke, 5);
   margin-left: 10px;
   display: inline-block;
   padding: 2px 4px;
