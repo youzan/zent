@@ -6,7 +6,8 @@ group: Data Entry
 
 ## NumberInput
 
-A input widget for entering number through mouse or keyboard
+A input widget for entering number through mouse or keyboard.
+Default value type is string. Under integer mode, value type is number, with default max value `Number.MAX_SAFE_INTEGER` and default min value `Number.MIN_SAFE_INTEGER`.
 
 ### Guides
 

@@ -8,6 +8,7 @@ group: 数据
 ## NumberInput 数值输入框
 
 数字输入组件，通过鼠标或键盘输入内容。
+默认值类型是 string，在整数模式下是 number，且有默认上限`Number.MAX_SAFE_INTEGER`，默认下限`Number.MIN_SAFE_INTEGER`。
 
 ### 使用指南
 
