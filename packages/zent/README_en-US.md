@@ -21,7 +21,10 @@ Our goal is making React development faster and simpler.
 ### Supported Environments
 
 * React >= 16.8
-* Modern browsers and IE >= 11
+* Firefox 52(ESR)
+* Chrome 49
+* Safari 9
+* No IE support
 * Supports server-side rendering(SSR)
 
 ### Install
