@@ -3,18 +3,26 @@ import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
 import Checkbox from 'checkbox';
 
+class Wrapper extends React.Component {
+  render() {
+    return this.props.children;
+  }
+}
+
 describe('Controlled Checkbox', () => {
   it('checked', () => {
-    const checkbox = TestUtils.renderIntoDocument(<Checkbox checked />);
+    const div = document.createElement('div');
+    ReactDOM.render(<Checkbox checked />, div);
 
-    const checkboxNode = ReactDOM.findDOMNode(checkbox);
+    const checkboxNode = div.firstChild;
     expect(checkboxNode.className).toContain('zent-checkbox-checked');
   });
 
   it('unchecked', () => {
-    const checkbox = TestUtils.renderIntoDocument(<Checkbox />);
+    const div = document.createElement('div');
+    ReactDOM.render(<Checkbox checked={false} />, div);
 
-    const checkboxNode = ReactDOM.findDOMNode(checkbox);
+    const checkboxNode = div.firstChild;
     expect(checkboxNode.className).not.toContain('zent-checkbox-checked');
   });
 
@@ -37,12 +45,15 @@ describe('Controlled Checkbox', () => {
       expect(preventDefaultCalled).toBe(true);
       expect(stopPropagationCalled).toBe(true);
     };
-    const checkbox = TestUtils.renderIntoDocument(
-      <Checkbox checked={false} onChange={handleChange} value={1} />
+
+    const wrapper = TestUtils.renderIntoDocument(
+      <Wrapper>
+        <Checkbox checked={false} onChange={handleChange} value={1} />
+      </Wrapper>
     );
 
     const inputNode = TestUtils.findRenderedDOMComponentWithTag(
-      checkbox,
+      wrapper,
       'input'
     );
 
@@ -59,68 +70,48 @@ describe('Controlled Checkbox', () => {
   });
 
   it('disabled', () => {
-    const checkbox = TestUtils.renderIntoDocument(<Checkbox disabled />);
+    const div = document.createElement('div');
+    ReactDOM.render(<Checkbox disabled />, div);
 
-    const checkboxNode = ReactDOM.findDOMNode(checkbox);
+    const checkboxNode = div.firstChild;
     expect(checkboxNode.className).toContain('zent-checkbox-disabled');
   });
 
   it('readOnly', () => {
-    const checkbox = TestUtils.renderIntoDocument(<Checkbox readOnly />);
+    const div = document.createElement('div');
+    ReactDOM.render(<Checkbox readOnly />, div);
 
-    const checkboxNode = ReactDOM.findDOMNode(checkbox);
+    const checkboxNode = div.firstChild;
     expect(checkboxNode.className).toContain('zent-checkbox-disabled');
   });
 
   it('indeterminate', () => {
-    const checkbox = TestUtils.renderIntoDocument(<Checkbox indeterminate />);
+    const div = document.createElement('div');
+    ReactDOM.render(<Checkbox indeterminate />, div);
 
-    const checkboxNode = ReactDOM.findDOMNode(checkbox);
+    const checkboxNode = div.firstChild;
     expect(checkboxNode.className).toContain('zent-checkbox-indeterminate');
   });
 
   it('className', () => {
-    const checkbox = TestUtils.renderIntoDocument(
-      <Checkbox className="customClassName" />
-    );
+    const div = document.createElement('div');
+    ReactDOM.render(<Checkbox className="customClassName" />, div);
 
-    const checkboxNode = ReactDOM.findDOMNode(checkbox);
+    const checkboxNode = div.firstChild;
     expect(checkboxNode.className).toContain('customClassName');
   });
 
-  it('prefix', () => {
-    const checkbox = TestUtils.renderIntoDocument(<Checkbox prefix="custom" />);
-
-    const checkboxNode = ReactDOM.findDOMNode(checkbox);
-
-    // 使用自定义前缀后，zent的前缀应该被覆盖掉
-    expect(checkboxNode.className).not.toContain('zent-checkbox-wrap');
-    expect(checkboxNode.className).toContain('custom-checkbox-wrap');
-
-    // 内部样式名称应该也会变成自定义前缀的
-    expect(
-      TestUtils.findRenderedDOMComponentWithClass.bind(
-        TestUtils,
-        checkbox,
-        'custom-checkbox'
-      )
-    ).not.toThrow();
-    expect(
-      TestUtils.findRenderedDOMComponentWithClass.bind(
-        TestUtils,
-        checkbox,
-        'custom-checkbox-inner'
-      )
-    ).not.toThrow();
-  });
-
   it('with label', () => {
-    const checkbox = TestUtils.renderIntoDocument(
-      <Checkbox>Checkbox</Checkbox>
+    const wrapper = TestUtils.renderIntoDocument(
+      <Wrapper>
+        <Checkbox>Checkbox</Checkbox>
+      </Wrapper>
     );
 
-    const spans = TestUtils.scryRenderedDOMComponentsWithTag(checkbox, 'span');
-    const textLabel = spans[spans.length - 1];
+    const textLabel = TestUtils.findRenderedDOMComponentWithClass(
+      wrapper,
+      'zent-checkbox-label'
+    );
 
     expect(TestUtils.isDOMComponent(textLabel)).toBe(true);
     expect(textLabel.textContent).toEqual('Checkbox');

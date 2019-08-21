@@ -55,8 +55,9 @@ $size: 16px;
     cursor: pointer;
   }
 
-  & + span {
+  &-label {
     margin-left: 8px;
+    display: inline-block;
     vertical-align: middle;
   }
 }
