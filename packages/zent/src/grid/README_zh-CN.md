@@ -29,7 +29,7 @@ group: 导航
 | rowClassName    | 表格行的类名                                                  | string \| (data: object, rowIndex: number) => string                       | ''                 | 否       |
 | prefix          | 自定义前缀                                                    | string                                                                     | `'zent'`           | 否       |
 | pageInfo        | table 对应的分页信息                                          | object                                                                     | null               | 否       |
-| paginationType  | 分页器类型，可选 `'lite'`                                     | string                                                                     | `'default'`        | 否       |
+| paginationType  | 分页器类型，可选 `'lite'` \| `'mini'`                                    | string                                                                     | `'default'`        | 否       |
 | onRowClick      | 点击行时触发                                                  | (data: any, index: number, event: Event) => any                            |                    | 否       |
 | ellipsis        | 是否需要文字超出宽度后省略号显示 (需配置 columns 中的 nowrap) | bool                                                                       | false              | 否       |
 | onExpand        | 点击展开图标时触发                                            | (data: {expanded: boolean, data: any, event: Event, index: number}) => any |                    | 否       |

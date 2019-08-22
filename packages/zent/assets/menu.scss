@@ -1,18 +1,24 @@
 @import './theme/default';
 @import './theme/font';
-$item-color: $theme-stroke-1;
-$hover-item-color: $theme-stroke-1;
-$disabled-color: $theme-stroke-5;
-$hover-background-color: $theme-primary-8;
+
 $menu-item-width: 240px;
 $menu-item-height: 32px;
 $menu-border-radius: 2px;
 
+@mixin menu-hover {
+  @include theme-color(background-color, primary, 8);
+  @include theme-color(color, stroke, 1);
+}
+
+@mixin menu-disabled {
+  @include theme-color(color, stroke, 5);
+}
+
 .zent-menu {
+  @include theme-color(color, stroke, 1);
+  @include theme-color(background-color, stroke, 9);
   font-size: $font-size-normal;
-  color: $item-color;
   width: $menu-item-width;
-  background-color: $theme-stroke-9;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -40,17 +46,16 @@ $menu-border-radius: 2px;
     }
 
     &:hover {
-      background-color: $hover-background-color;
-      color: $hover-item-color;
+      @include menu-hover;
     }
 
     &-disabled {
-      color: $disabled-color;
+      @include menu-disabled;
       cursor: not-allowed;
 
       &:hover {
-        background-color: $theme-stroke-9;
-        color: $disabled-color;
+        @include menu-disabled;
+        @include theme-color(background-color, stroke, 9);
       }
     }
   }
@@ -84,13 +89,12 @@ $menu-border-radius: 2px;
     padding-left: 10px;
 
     &:hover {
-      background-color: $hover-background-color;
-      color: $hover-item-color;
+      @include menu-hover;
     }
 
     &.zent-submenu-disabled {
-      color: $disabled-color;
-      background-color: $theme-stroke-9;
+      @include menu-disabled;
+      @include theme-color(background-color, stroke, 9);
     }
   }
 }
@@ -153,7 +157,7 @@ $menu-border-radius: 2px;
       cursor: pointer;
 
       &.zent-submenu-disabled {
-        color: $disabled-color;
+        @include menu-disabled;
         cursor: not-allowed;
       }
 

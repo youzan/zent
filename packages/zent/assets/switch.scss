@@ -1,10 +1,179 @@
-@import './switch/zent-switch-variable';
+@import './theme/default';
+@import './theme/timing-functions';
 
-// switch通用
-@import './switch/zent-switch';
+.zent-switch {
+  @include theme-color(border-color, stroke, 4);
+  @include theme-color(background-color, stroke, 4);
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  width: 44px;
+  height: 22px;
+  line-height: 20px;
+  border-radius: 100px;
+  border-width: 1px;
+  border-style: solid;
+  cursor: pointer;
+  transition: all 0.16s $timing-fn-ease-in-out;
 
-// 大小相关
-@import './switch/zent-switch-size';
+  &:after {
+    @include theme-color(background-color, stroke, 9);
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    left: 1px;
+    top: 1px;
+    border-radius: 100%;
+    content: ' ';
+    cursor: pointer;
+    transition: left 0.16s $timing-fn-ease-in-out;
+  }
 
-// 状态相关
-@import './switch/zent-switch-status';
+  &:focus {
+    outline: 0;
+  }
+
+  &:focus:hover {
+    box-shadow: none;
+  }
+
+  // large switch not used
+  &-large {
+    height: 50px;
+    line-height: 12px;
+    width: 90px;
+    border-radius: 50px;
+
+    &:after {
+      width: 44px;
+      height: 44px;
+      top: 2px;
+      left: 2px;
+    }
+
+    &.zent-switch-checked {
+      &:after {
+        left: 42px;
+      }
+    }
+  }
+
+  &-small {
+    width: 28px;
+    height: 16px;
+
+    &:after {
+      width: 12px;
+      height: 12px;
+      left: 1px;
+      top: 1px;
+    }
+
+    &.zent-switch-checked:after {
+      left: 13px;
+    }
+  }
+
+  &-checked {
+    @include theme-color(border-color, primary, 4);
+    @include theme-color(background-color, primary, 4);
+
+    &::after {
+      left: 23px;
+    }
+  }
+
+  &-disabled {
+    @include theme-color(background-color, stroke, 5);
+    @include theme-color(border-color, stroke, 5);
+    cursor: not-allowed;
+
+    &.zent-switch-checked {
+      @include theme-color(background-color, primary, 7);
+      @include theme-color(border-color, primary, 7);
+    }
+
+    &::after {
+      @include theme-color(background-color, stroke, 9);
+      cursor: not-allowed;
+      opacity: 0.75;
+    }
+  }
+
+  &-loading {
+    position: relative;
+    color: transparent;
+    cursor: not-allowed;
+
+    &::after {
+      cursor: not-allowed;
+    }
+
+    &::before {
+      @include theme-color(border-top-color, primary, 8);
+      @include theme-color(border-right-color, primary, 8);
+      @include theme-color(border-bottom-color, primary, 4);
+      @include theme-color(border-left-color, primary, 4);
+
+      content: ' ';
+      position: absolute;
+      top: 43%;
+      left: 38%;
+      z-index: 2;
+      width: 12px;
+      height: 12px;
+      margin: -5px 0 0 -12px;
+      border-width: 2px;
+      border-style: solid;
+      border-radius: 100%;
+      box-sizing: border-box;
+      animation: zent-switch-spin 1s $timing-fn-linear;
+      animation-iteration-count: infinite;
+    }
+
+    &.zent-switch-checked {
+      &::before {
+        margin: -5px 0 0 10px;
+      }
+    }
+
+    // small switch
+    &.zent-switch-small {
+      &::before {
+        width: 8px;
+        height: 8px;
+        margin: -3px 0 0 -7px;
+        border-width: 1px;
+      }
+
+      &.zent-switch-checked {
+        &::before {
+          margin: -3px 0 0 5px;
+        }
+      }
+    }
+
+    // large switch not used
+    &.zent-switch-large {
+      &::before {
+        margin: -5px 0 0 -17px;
+      }
+
+      &.zent-switch-checked {
+        &::before {
+          margin: -5px 0 0 23px;
+        }
+      }
+    }
+  }
+}
+
+@keyframes zent-switch-spin {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

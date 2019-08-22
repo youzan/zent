@@ -31,17 +31,17 @@ describe('Tag', () => {
         <span>tag</span>
       </Tag>
     );
-    expect(wrapper.find('Icon').length).toBe(1);
+    expect(wrapper.find('ZentIcon').length).toBe(1);
   });
 
   it('can have a onClose callback', () => {
     const onClose = jest.fn();
     let wrapper = mount(<Tag closable onClose={onClose} />);
-    wrapper.find('Icon').simulate('click');
+    wrapper.find('ZentIcon').simulate('click');
     expect(onClose.mock.calls.length).toBe(1);
 
     wrapper = mount(<Tag closable onClose={null} />);
-    expect(() => wrapper.find('Icon').simulate('click')).not.toThrow();
+    expect(() => wrapper.find('ZentIcon').simulate('click')).not.toThrow();
   });
 
   it('has red theme', () => {

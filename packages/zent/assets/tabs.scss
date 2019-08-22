@@ -1,20 +1,23 @@
 @import './theme/default';
 @import './theme/font';
 
-$activecolor: $theme-stroke-1;
-$color: $theme-stroke-2;
-$tabbg: $theme-stroke-8;
-$activetabbg: $theme-stroke-9;
-$disablecolor: $theme-stroke-4;
-$slidercolor: $theme-primary-5;
+@mixin background($prop) {
+  @include theme-color($prop, stroke, 8);
+}
+
+@mixin background-active($prop) {
+  @include theme-color($prop, stroke, 9);
+}
 
 .zent-tabs {
   font-size: $font-size-normal;
   line-height: 1.42857143;
 
   &-nav {
+    @include theme-color(border-bottom-color, stroke, 6);
     position: relative;
-    border-bottom: 1px solid $theme-stroke-6;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
     outline: none;
     margin-bottom: 10px;
     user-select: none;
@@ -37,8 +40,10 @@ $slidercolor: $theme-primary-5;
       cursor: pointer;
 
       span {
+        @include theme-color(border-color, stroke, 6);
         display: block;
-        border: 1px solid $theme-stroke-6;
+        border-width: 1px;
+        border-style: solid;
         border-radius: 2px;
         position: relative;
         top: 50%;
@@ -78,13 +83,17 @@ $slidercolor: $theme-primary-5;
   }
 
   &-tab {
+    @include theme-color(color, stroke, 2);
+    @include theme-color(border-top-color, stroke, 6);
+    @include theme-color(border-right-color, stroke, 6);
+    @include background(background-color);
     position: relative;
     display: inline-block;
     cursor: pointer;
-    color: $color;
-    border-top: 1px solid $theme-stroke-6;
-    border-right: 1px solid $theme-stroke-6;
-    background-color: $tabbg;
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-right-width: 1px;
+    border-right-style: solid;
     box-sizing: border-box;
 
     &-inner {
@@ -107,7 +116,9 @@ $slidercolor: $theme-primary-5;
   }
 
   &-tab:first-child {
-    border: 1px solid $theme-stroke-6;
+    @include theme-color(border-color, stroke, 6);
+    border-width: 1px;
+    border-style: solid;
     border-bottom: 0;
     border-top-left-radius: 4px;
   }
@@ -117,7 +128,7 @@ $slidercolor: $theme-primary-5;
   }
 
   &-tab:hover {
-    color: $activecolor;
+    @include theme-color(color, stroke, 1);
 
     .zent-tabs-tab-inner-del {
       display: inline;
@@ -125,9 +136,9 @@ $slidercolor: $theme-primary-5;
   }
 
   .zent-tabs-actived {
+    @include theme-color(color, stroke, 1);
+    @include background-active(background-color);
     position: relative;
-    color: $activecolor;
-    background-color: $activetabbg;
 
     .zent-tabs-tab-inner {
       padding-bottom: 9px;
@@ -135,14 +146,14 @@ $slidercolor: $theme-primary-5;
   }
 
   .zent-tabs-disabled {
-    color: $disablecolor;
+    @include theme-color(color, stroke, 4);
 
     &.zent-tabs-tab {
       cursor: not-allowed;
     }
 
     &.zent-tabs-tab:hover {
-      color: $disablecolor;
+      @include theme-color(color, stroke, 4);
     }
   }
 }
@@ -163,7 +174,7 @@ $slidercolor: $theme-primary-5;
 
   .zent-tabs-actived {
     .zent-tabs-tab-inner {
-      background-color: $activetabbg;
+      @include background-active(background-color);
       padding-bottom: 15px;
     }
   }
@@ -191,27 +202,29 @@ $slidercolor: $theme-primary-5;
 
 .zent-tabs-type-card {
   .zent-tabs-tab {
-    border-color: $tabbg;
+    @include background(border-color);
     border-radius: 0;
   }
 
   .zent-tabs-tab:first-child {
-    border-color: $tabbg;
+    @include background(border-color);
     border-radius: 0;
   }
 
   .zent-tabs-tab:last-child {
-    border-color: $tabbg;
+    @include background(border-color);
     border-radius: 0;
   }
 
   .zent-tabs-actived {
-    background-color: $tabbg;
+    @include background(border-color);
     border-radius: 0;
     border: 0;
 
     .zent-tabs-tab-inner {
-      border: 1px solid $theme-stroke-6;
+      @include theme-color(border-color, stroke, 6);
+      border-width: 1px;
+      border-style: solid;
       border-bottom: 0;
       border-top-left-radius: 6px;
       border-top-right-radius: 6px;
@@ -239,16 +252,16 @@ $slidercolor: $theme-primary-5;
   }
 
   .zent-tabs-nav-ink-bar {
+    @include theme-color(background-color, primary, 5);
     position: absolute;
     display: block;
     bottom: 2px;
     height: 2px;
-    background-color: $slidercolor;
     width: 0;
     z-index: 10;
   }
 }
 
 .zent-tabs-third-level {
-  background-color: $theme-stroke-8;
+  @include theme-color(background-color, stroke, 8);
 }

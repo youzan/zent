@@ -10,6 +10,7 @@ import {
   IGridPageInfo,
 } from './types';
 import { PaginationChangeHandler } from '../pagination/impl/BasePagination';
+import MiniPagination from '../pagination/MiniPagination';
 
 const defaultPageInfo = {
   current: 1,
@@ -60,6 +61,12 @@ class Footer extends PureComponent<IGridFooterProps> {
             )}
             {paginationType === 'lite' && (
               <LitePagination
+                {...curPageInfo}
+                onChange={this.handlePageChange}
+              />
+            )}
+            {paginationType === 'mini' && (
+              <MiniPagination
                 {...curPageInfo}
                 onChange={this.handlePageChange}
               />

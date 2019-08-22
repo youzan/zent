@@ -1,16 +1,20 @@
 @import './theme/default';
 @import './theme/font';
 
-$active_color: $theme-primary-4;
-$light_blue: $theme-primary-8;
-$disable_color: $theme-stroke-3;
-$light_grey: $theme-stroke-5;
-$lighter_grey: $theme-stroke-6;
-$lightest_grey: $theme-stroke-8;
-$error_color: $theme-error-2;
-$default_width: 240px;
-$double_default_width: 480px;
-$input_width: 190px;
+$active: 4; // primary
+$disable: 3; // stroke
+$light-grey: 5; // stroke
+$lighter-grey: 6; // stroke
+$lightest-grey: 8; // stroke
+$error: 2; // error
+
+$default-width: 240px;
+$double-default-width: 480px;
+$input-width: 190px;
+
+@mixin light-background {
+  @include theme-color(background-color, primary, 8);
+}
 
 .zent-datetime-picker {
   box-sizing: border-box;
@@ -19,27 +23,29 @@ $input_width: 190px;
   position: relative;
 
   .picker-seperator {
+    @include theme-color(color, stroke, 2);
     font-size: $font-size-normal;
-    color: $theme-stroke-2;
     padding: 0 10px;
   }
 
   .picker-input {
-    color: $theme-stroke-1;
+    @include theme-color(color, stroke, 1);
+    @include theme-color(background-color, stroke, 9);
     position: relative;
     box-sizing: border-box;
-    width: $input_width;
+    width: $input-width;
     font-size: $font-size-normal;
-    background: $theme-stroke-9;
     border-radius: 2px;
 
     &--combine {
-      border: 1px solid $theme-stroke-4;
+      @include theme-color(border-color, stroke, 4);
+      border-width: 1px;
+      border-style: solid;
       padding: 0 10px;
     }
 
     &--combine.picker-input--disabled {
-      border-color: $theme-stroke-6;
+      @include theme-color(border-color, stroke, 6);
     }
 
     .zent-input {
@@ -47,11 +53,11 @@ $input_width: 190px;
     }
 
     .zenticon {
+      @include theme-color(color, stroke, 4);
       line-height: 32px;
       position: absolute;
       right: 10px;
       top: 0;
-      color: $theme-stroke-4;
     }
 
     .zenticon-calendar-o {
@@ -75,7 +81,7 @@ $input_width: 190px;
     }
 
     &--show-clear-icon {
-      color: $theme-stroke-1;
+      @include theme-color(color, stroke, 1);
 
       &:hover {
         .zenticon-close-circle {
@@ -93,8 +99,8 @@ $input_width: 190px;
     }
 
     &--disabled {
-      background: $lightest_grey;
-      color: $light_grey;
+      @include theme-color(background-color, stroke, $lightest-grey);
+      @include theme-color(color, stroke, $light-grey);
       cursor: not-allowed;
 
       &:hover {
@@ -124,8 +130,8 @@ $input_width: 190px;
     .week-picker,
     .year-picker,
     .quarter-picker {
-      background: $theme-stroke-9;
-      width: $default_width;
+      @include theme-color(background-color, stroke, 9);
+      width: $default-width;
       font-size: $font-size-normal;
       border-radius: 2px;
       box-shadow: $shadow-spec-layer;
@@ -138,7 +144,7 @@ $input_width: 190px;
     }
 
     .range-picker {
-      width: $double_default_width;
+      width: $double-default-width;
 
       .date-picker {
         display: inline-block;
@@ -146,9 +152,11 @@ $input_width: 190px;
         box-shadow: none;
 
         & + .date-picker {
+          @include theme-color(border-left-color, stroke, $lighter-grey);
           position: relative;
           box-sizing: border-box;
-          border-left: 1px solid $lighter_grey;
+          border-left-width: 1px;
+          border-left-style: solid;
           left: -1px;
         }
 
@@ -210,10 +218,10 @@ $input_width: 190px;
     .month-panel,
     .quarter-panel,
     .year-panel {
+      @include theme-color(background-color, stroke, 9);
+      @include theme-color(color, stroke, 1);
       position: relative;
-      width: $default_width;
-      background: $theme-stroke-9;
-      color: $theme-stroke-1;
+      width: $default-width;
     }
 
     .date-picker,
@@ -326,11 +334,13 @@ $input_width: 190px;
     }
 
     .panel__header {
+      @include theme-color(border-bottom-color, stroke, $lighter-grey);
       position: relative;
       text-align: center;
       height: 36px;
       line-height: 36px;
-      border-bottom: 1px solid $lighter_grey;
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
       box-sizing: border-box;
 
       .link--prev {
@@ -359,28 +369,30 @@ $input_width: 190px;
     }
 
     .panel__footer {
+      @include theme-color(border-top-color, stroke, $lighter-grey);
       box-sizing: border-box;
       height: 54px;
       line-height: 54px;
       padding-right: 10px;
       text-align: right;
-      border-top: 1px solid $lighter_grey;
+      border-top-width: 1px;
+      border-top-style: solid;
 
       .btn--confirm {
         margin-left: 15px;
       }
 
       .link--current {
-        color: $active_color;
+        @include theme-color(color, primary, $active);
         cursor: pointer;
       }
 
       .link--disabled {
-        color: $disable_color;
+        @include theme-color(color, stroke, $disable);
       }
 
       .error-tips {
-        color: $error_color;
+        @include theme-color(color, error, $error);
         font-size: $font-size-normal;
       }
     }
@@ -418,16 +430,18 @@ $input_width: 190px;
         box-sizing: border-box;
 
         &:hover {
-          background: $light_blue;
+          @include light-background;
         }
 
         &--current {
-          color: $active_color;
-          border: 1px solid $active_color;
+          @include theme-color(color, primary, $active);
+          @include theme-color(border-color, primary, $active);
+          border-width: 1px;
+          border-style: solid;
         }
 
         &--different {
-          color: $disable_color;
+          @include theme-color(color, stroke, $disable);
           background: none;
 
           &:before,
@@ -437,27 +451,27 @@ $input_width: 190px;
         }
 
         &--in-range {
-          background: $light_blue;
+          @include light-background;
           border: 0;
           border-radius: 0;
 
           &:before {
+            @include light-background;
             content: '';
             display: block;
             width: 8px;
             height: 20px;
-            background: $light_blue;
             position: absolute;
             right: -8px;
             top: 0;
           }
 
           &:after {
+            @include light-background;
             content: '';
             display: block;
             width: 8px;
             height: 20px;
-            background: $light_blue;
             position: absolute;
             left: -8px;
             top: 0;
@@ -465,27 +479,27 @@ $input_width: 190px;
         }
 
         &--in-selected {
-          background: $light_blue;
+          @include light-background;
           border: 0;
           border-radius: 0;
 
           &:before {
+            @include light-background;
             content: '';
             display: block;
             width: 8px;
             height: 20px;
-            background: $light_blue;
             position: absolute;
             right: -8px;
             top: 0;
           }
 
           &:after {
+            @include light-background;
             content: '';
             display: block;
             width: 8px;
             height: 20px;
-            background: $light_blue;
             position: absolute;
             left: -8px;
             top: 0;
@@ -493,13 +507,13 @@ $input_width: 190px;
         }
 
         &--disabled {
+          @include theme-color(color, stroke, $lighter-grey);
+          @include theme-color(background-color, stroke, $lighter-grey);
           cursor: not-allowed;
-          color: $lighter_grey;
-          border-color: $lighter_grey;
           background: transparent;
 
           &:hover {
-            background: $theme-stroke-9;
+            @include theme-color(background-color, stroke, 9);
           }
 
           &:before,
@@ -509,11 +523,11 @@ $input_width: 190px;
         }
 
         &--selected {
-          background: $active_color;
-          color: $theme-stroke-9;
+          @include theme-color(background-color, primary, $active);
+          @include theme-color(color, stroke, 9);
 
           &:hover {
-            background: $active_color;
+            @include theme-color(background-color, primary, $active);
           }
         }
 
@@ -579,27 +593,31 @@ $input_width: 190px;
       }
 
       .panel-content {
+        @include theme-color(background-color, stroke, 9);
         position: absolute;
         top: 0;
         left: 0;
         height: 327px;
-        width: $default_width;
-        background: $theme-stroke-9;
+        width: $default-width;
       }
 
       &__preview {
+        @include theme-color(border-color, stroke, 4);
         margin: 12px 10px;
         height: 31px;
         line-height: 31px;
-        border: 1px solid $theme-stroke-4;
+        border-width: 1px;
+        border-style: solid;
         border-radius: 2px;
         text-align: center;
         display: flex;
 
         .time__number {
+          @include theme-color(border-right-color, stroke, 4);
           flex: 1;
           cursor: pointer;
-          border-right: 1px solid $theme-stroke-4;
+          border-right-width: 1px;
+          border-right-style: solid;
 
           &:last-child {
             border-right: 0;
@@ -628,9 +646,11 @@ $input_width: 190px;
         }
 
         .time__number {
+          @include theme-color(border-color, stroke, 4);
           flex: 1;
           cursor: pointer;
-          border: 1px solid $theme-stroke-4;
+          border-width: 1px;
+          border-style: solid;
           border-right-width: 0;
           user-select: none;
 
@@ -646,8 +666,10 @@ $input_width: 190px;
           }
 
           &.checked {
-            border: 1px solid $active_color;
-            color: $active_color;
+            @include theme-color(border-color, primary, $active);
+            @include theme-color(color, primary, $active);
+            border-width: 1px;
+            border-style: solid;
             outline: none;
           }
 

@@ -44,13 +44,13 @@
 - 删除了 `containerClass` 参数
 - CSS 类名和 HTML 结果有变化，有样式复写的需要确认样式是否正常。
 
-#### `RadioGroup`
+#### `Radio`
 
-现在 Radio 的 `disable` 属性总是比父组件 RadioGroup 的 `disable` 拥有更高优先级
+现在 Radio 的 `disable` 属性总是比父组件 RadioGroup 的 `disable` 拥有更高优先级。
 
-####  `CheckboxGroup`
+####  `Checkbox`
 
-应该没有影响，只是内部实现变了。
+现在 Checkbox 的 `disable` 属性总是比父组件 CheckboxGroup 的 `disable` 拥有更高优先级。
 
 #### `Design` 和 `SKU`
 

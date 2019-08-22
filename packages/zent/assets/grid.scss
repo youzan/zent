@@ -1,12 +1,9 @@
 @import './theme/default';
 @import './theme/font';
 
-$thead-background-color: $theme-stroke-7;
-$border-color: $theme-stroke-6;
-
 .zent-grid {
+  @include theme-color(color, stroke, 1);
   font-size: $font-size-normal;
-  color: $theme-stroke-1;
   position: relative;
   line-height: 1.5;
   overflow: hidden;
@@ -26,7 +23,7 @@ $border-color: $theme-stroke-6;
   &-table {
     width: 100%;
     text-align: left;
-    border-collapse: separate;
+    border-collapse: collapse;
     border-spacing: 0;
 
     &-ellipsis {
@@ -39,16 +36,6 @@ $border-color: $theme-stroke-6;
     }
   }
 
-  &-tbody-span {
-    td {
-      box-shadow: inset 1px -1px 0 0 $theme-stroke-6;
-
-      &:first-of-type {
-        box-shadow: inset 0 -1px 0 0 $theme-stroke-6;
-      }
-    }
-  }
-
   &-bordered {
     table {
       border-collapse: collapse;
@@ -56,17 +43,18 @@ $border-color: $theme-stroke-6;
 
     th,
     td {
-      box-shadow: inset 1px -1px 0 0 $theme-stroke-6;
-    }
+      @include theme-color(border-color, stroke, 6);
+      border-width: 1px;
+      border-style: solid;
+      border-top: 0;
 
-    tr:first-of-type {
-      th:first-of-type {
-        box-shadow: none;
+      &:first-child {
+        border-left: 0;
       }
-    }
 
-    .zent-grid-header th {
-      border-bottom: 0;
+      &:last-child {
+        border-right: 0;
+      }
     }
   }
 
@@ -93,22 +81,26 @@ $border-color: $theme-stroke-6;
 
   &-thead {
     .caret-up {
+      @include theme-color(border-bottom-color, stroke, 3);
       width: 0;
       height: 0;
       border-left: 5px solid transparent;
       border-right: 5px solid transparent;
-      border-bottom: 7.5px solid $theme-stroke-3;
+      border-bottom-width: 7.5px;
+      border-bottom-style: solid;
       position: absolute;
       top: 0;
       left: 4px;
     }
 
     .caret-down {
+      @include theme-color(border-top-color, stroke, 3);
       width: 0;
       height: 0;
       border-left: 5px solid transparent;
       border-right: 5px solid transparent;
-      border-top: 7.5px solid $theme-stroke-3;
+      border-top-width: 7.5px;
+      border-top-style: solid;
       position: absolute;
       bottom: 0;
       left: 4px;
@@ -129,13 +121,13 @@ $border-color: $theme-stroke-6;
 
     &-sort-desc {
       .caret-down {
-        border-top-color: $theme-primary-4;
+        @include theme-color(border-top-color, primary, 4);
       }
     }
 
     &-sort-asc {
       .caret-up {
-        border-bottom-color: $theme-primary-4;
+        @include theme-color(border-bottom-color, primary, 4);
       }
     }
   }
@@ -163,9 +155,11 @@ $border-color: $theme-stroke-6;
   }
 
   &-fixed-left {
+    // sass-lint:disable-block no-duplicate-properties
     left: 0;
     // FIXME: 为了让fix住的部分底部阴影去除
     box-shadow: 6px 0 6px -4px rgba($theme-stroke-4, 0.5);
+    box-shadow: 6px 0 6px -4px rgba(var(--theme-stroke-4, to-rgb($theme-stroke-4)), 0.5);
 
     .zent-grid-header .zent-grid-table {
       border-right: 0;
@@ -184,9 +178,11 @@ $border-color: $theme-stroke-6;
   }
 
   &-fixed-right {
+    // sass-lint:disable-block no-duplicate-properties
     right: 0;
     // FIXME: 为了让fix住的部分底部阴影去除
     box-shadow: -6px 0 6px -4px rgba($theme-stroke-4, 0.5);
+    box-shadow: -6px 0 6px -4px rgba(var(--theme-stroke-4, to-rgb($theme-stroke-4)), 0.5);
 
     .zent-grid-header .zent-grid-table {
       border-left: 0;
@@ -223,56 +219,57 @@ $border-color: $theme-stroke-6;
   }
 
   &-empty {
+    @include theme-color(border-bottom-color, stroke, 6);
     text-align: center;
     height: 50px;
     line-height: 50px;
-    border-bottom: 1px solid $border-color;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
   }
 
   &-tr {
+    @include theme-color(background-color, stroke, 9);
     display: table-row;
     height: 56px;
-    background-color: $theme-stroke-9;
 
-    &:hover {
-      background: $theme-primary-8;
-    }
-
+    &:hover,
     &__mouseover {
-      background: $theme-primary-8;
+      @include theme-color(background-color, stroke, 8);
     }
 
     &__expanded {
       td {
+        @include theme-color(background-color, stroke, 8);
         padding: 10px 12px;
         word-break: break-all;
-        background-color: $theme-stroke-8;
       }
     }
   }
 
   &-th,
   &-td {
+    @include theme-color(border-bottom-color, stroke, 6);
     font-size: $font-size-normal;
     display: table-cell;
     box-sizing: border-box;
-    box-shadow: inset 0 -1px 0 0 $theme-stroke-6;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
     vertical-align: middle;
 
     &:first-child {
-      padding: 10px 12px 10px 16px;
+      padding: 10px 12px 9px 16px;
     }
 
     &:last-child {
-      padding: 10px 16px 10px 12px;
+      padding: 10px 16px 9px 12px;
     }
   }
 
   &-th {
+    @include theme-color(background-color, stroke, 8);
     line-height: 20px;
     padding: 10px 12px;
     font-weight: 500;
-    background-color: $theme-stroke-8;
   }
 
   &-td {
@@ -280,15 +277,17 @@ $border-color: $theme-stroke-6;
     padding: 10px 12px;
 
     .zent-grid-expandable-btn {
+      @include theme-color(border-color, stroke, 6);
+      @include theme-color(background-color, stroke, 9);
       cursor: pointer;
       display: inline-block;
       width: 14px;
       height: 14px;
       text-align: center;
       line-height: 12px;
-      border: 1px solid $theme-stroke-6;
+      border-width: 1px;
+      border-style: solid;
       user-select: none;
-      background: $theme-stroke-9;
 
       &.zent-grid-expand-btn::after {
         content: '+';
@@ -321,7 +320,7 @@ $border-color: $theme-stroke-6;
   }
 
   a {
-    color: $theme-primary-4;
+    @include theme-color(color, primary, 4);
     cursor: pointer;
   }
 }

@@ -33,6 +33,7 @@ group: Navigation
 | className                | Custom classname                                                                                           | string                               | `''`        |              | no       |
 | prefix                   | Custom prefix                                                                                              | string                               | `'zent'`    |              | no       |
 | pageInfo                 | Paging information corresponding to the table                                                              | object                               | `null`      |              | no       |
+| paginationType  | Pagination type, `'default'` \| `'lite'` \| `'mini'`                                                                  | string                                                                     | `'default'` | No       |
 
 #### Special declaration of getRowConf
 

@@ -1,21 +1,459 @@
-@import './button/zent-button-variable';
-@import './button/zent-button';
+@import './theme/default';
+@import './theme/font';
 
-// 大小相关
-@import './button/zent-button-size';
+$btn-height-small: 24px;
+$btn-height-normal: 32px;
+$btn-height-large: 40px;
 
-// 风格相关
-@import './button/zent-button-style';
+@mixin btn-white($prop) {
+  @include theme-color($prop, stroke, 9);
+}
 
-// 状态相关
-@import './button/zent-button-status';
-@import './button/zent-button-bordered';
+@mixin btn-grey($prop) {
+  @include theme-color($prop, stroke, 4);
+}
 
-// Icon
-@import './button/zent-button-icon';
+@mixin btn-light-grey($prop) {
+  @include theme-color($prop, stroke, 6);
+}
 
-// Button Group
-@import './button/zent-button-group';
+/* styles begin */
+$btn-primary: 4;
+$btn-primary-hover: 5;
+$btn-primary-active: 3;
+$btn-danger: 2;
+$btn-danger-hover: 3;
+$btn-danger-active: 1;
+$btn-success: 2;
+$btn-success-hover: 3;
+$btn-success-active: 1;
 
-// 文本链接
-@import './button/zent-button-link';
+@mixin btn-primary($prop) {
+  @include theme-color($prop, primary, $btn-primary);
+}
+
+@mixin btn-primary-hover($prop) {
+  @include theme-color($prop, primary, $btn-primary-hover);
+}
+
+@mixin btn-primary-active($prop) {
+  @include theme-color($prop, primary, $btn-primary-active);
+}
+
+@mixin btn-danger($prop) {
+  @include theme-color($prop, error, $btn-danger);
+}
+
+@mixin btn-danger-hover($prop) {
+  @include theme-color($prop, error, $btn-danger-hover);
+}
+
+@mixin btn-danger-active {
+  @include theme-color($prop, error, $btn-danger-active);
+}
+
+@mixin btn-success($prop) {
+  @include theme-color($prop, success, $btn-success);
+}
+
+@mixin btn-success-hover($prop) {
+  @include theme-color($prop, success, $btn-success-hover);
+}
+
+@mixin btn-success-active($prop) {
+  @include theme-color($prop, success, $btn-success-active);
+}
+/* styles end */
+
+@keyframes zent-btn-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@mixin btn-style($name, $default, $hover, $active) {
+  @include btn-white(color);
+  @include theme-color(background-color, $name, $default);
+  @include theme-color(border-color, $name, $default);
+
+  &:link,
+  &:visited,
+  &:focus {
+    @include btn-white(color);
+  }
+
+  &:hover {
+    @include btn-white(color);
+    @include theme-color(background-color, $name, $hover);
+    @include theme-color(border-color, $name, $hover);
+  }
+
+  &:active {
+    @include btn-white(color);
+    @include theme-color(background-color, $name, $active);
+    @include theme-color(border-color, $name, $active);
+  }
+
+  &.zent-btn-loading {
+    &:hover,
+    &:active {
+      @include theme-color(background-color, $name, $default);
+      @include theme-color(border-color, $name, $default);
+    }
+
+    &::after {
+      @include btn-white(border-top-color);
+      @include btn-white(border-right-color);
+      @include theme-color(border-bottom-color, $name, $active);
+      @include theme-color(border-left-color, $name, $active);
+    }
+  }
+}
+
+@mixin btn-style-outline($name, $default, $hover, $active) {
+  @include theme-color(color, $name, $default);
+  @include theme-color(border-color, $name, $default);
+  @include btn-white(background-color);
+
+  &:link,
+  &:visited,
+  &:focus {
+    @include theme-color(color, $name, $default);
+  }
+
+  &:hover {
+    @include theme-color(color, $name, $hover);
+    @include theme-color(border-color, $name, $hover);
+  }
+
+  &:active {
+    @include theme-color(color, stroke, 1);
+    @include theme-color(background-color, stroke, 10);
+    @include theme-color(border-color, stroke, 5);
+  }
+
+  &.zent-btn-loading {
+    &:hover,
+    &:active {
+      @include theme-color(border-color, $name, $default);
+      @include btn-white(background-color);
+    }
+
+    &::after {
+      @include theme-color(border-top-color, $name, $default);
+      @include theme-color(border-right-color, $name, $default);
+      @include theme-color(border-bottom-color, primary, 8);
+      @include theme-color(border-left-color, primary, 8);
+    }
+  }
+}
+
+.zent-btn {
+  @include theme-color(color, stroke, 1);
+  @include btn-white(background-color);
+  @include theme-color(border-color, stroke, 5);
+  display: inline-block;
+  height: $btn-height-normal;
+  line-height: $btn-height-normal - 2px;
+  font-size: $font-size-normal;
+  padding: 0 16px;
+  border-radius: 2px;
+  font-family: inherit;
+  border-width: 1px;
+  border-style: solid;
+  text-align: center;
+  vertical-align: middle;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:link,
+  &:visited,
+  &:focus {
+    @include theme-color(color, stroke, 1);
+    text-decoration: none;
+  }
+
+  &:hover {
+    @include btn-primary-hover(color);
+    @include btn-primary-hover(border-color);
+    text-decoration: none;
+  }
+
+  &:active {
+    @include theme-color(color, stroke, 1);
+    @include theme-color(background-color, stroke, 10);
+    @include theme-color(border-color, stroke, 5);
+    text-decoration: none;
+  }
+
+  &.zent-btn-loading {
+    &:hover,
+    &:active {
+      @include btn-white(background-color);
+      @include theme-color(border-color, stroke, 5);
+      border-width: 1px;
+      border-style: solid;
+    }
+  }
+
+  &[type='button'],
+  &[type='reset'],
+  &[type='submit'] {
+    appearance: none;
+  }
+
+  & + & {
+    margin-left: 8px;
+  }
+
+  &-large {
+    padding: 0 24px;
+    height: $btn-height-large;
+    line-height: $btn-height-large - 2px;
+    font-size: $font-size-large;
+  }
+
+  &-small {
+    height: $btn-height-small;
+    line-height: $btn-height-small - 2px;
+    padding: 0 8px;
+  }
+
+  &-block {
+    display: block;
+    width: 100%;
+    padding: 0;
+  }
+
+  &-primary {
+    @include btn-style(
+      primary,
+      $btn-primary,
+      $btn-primary-hover,
+      $btn-primary-active
+    );
+  }
+
+  &-primary-outline {
+    @include btn-style-outline(
+      primary,
+      $btn-primary,
+      $btn-primary-hover,
+      $btn-primary-active
+    );
+  }
+
+  &-danger {
+    @include btn-style(
+      error,
+      $btn-danger,
+      $btn-danger-hover,
+      $btn-danger-active
+    );
+  }
+
+  &-danger-outline {
+    @include btn-style-outline(
+      error,
+      $btn-danger,
+      $btn-danger-hover,
+      $btn-danger-active
+    );
+  }
+
+  &-success {
+    @include btn-style(
+      success,
+      $btn-success,
+      $btn-danger-hover,
+      $btn-danger-active
+    );
+  }
+
+  &-success-outline {
+    @include btn-style-outline(
+      success,
+      $btn-success,
+      $btn-danger-hover,
+      $btn-danger-active
+    );
+  }
+
+  &-disabled,
+  &-disabled[disabled] {
+    @include btn-grey(color);
+    @include theme-color(background-color, stroke, 8);
+    @include btn-light-grey(border-color);
+    cursor: not-allowed;
+
+    &:link,
+    &:visited,
+    &:focus {
+      @include btn-grey(color);
+    }
+
+    &:hover {
+      @include btn-grey(color);
+      @include theme-color(background-color, stroke, 8);
+      @include btn-light-grey(border-color);
+    }
+
+    &:active {
+      @include btn-grey(color);
+      @include theme-color(background-color, stroke, 8);
+      @include btn-light-grey(border-color);
+    }
+  }
+
+  &-loading {
+    position: relative;
+    color: transparent;
+    cursor: not-allowed;
+
+    &:link,
+    &:visited,
+    &:focus,
+    &:hover,
+    &:active {
+      color: transparent;
+    }
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 16px;
+      height: 16px;
+      margin-left: -8px;
+      margin-top: -8px;
+      border: 2px solid;
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+
+    &::after {
+      @include theme-color(border-top-color, primary, 4);
+      @include theme-color(border-right-color, primary, 4);
+      @include theme-color(border-bottom-color, primary, 8);
+      @include theme-color(border-left-color, primary, 8);
+      animation: zent-btn-spin 0.6s linear;
+      animation-iteration-count: infinite;
+    }
+  }
+
+  &-border-transparent {
+    border-color: transparent;
+
+    &:hover {
+      border-color: transparent;
+    }
+
+    &:active {
+      border-color: transparent;
+    }
+  }
+
+  .zenticon:first-child {
+    margin-right: 8px;
+  }
+
+  .zenticon:last-child {
+    margin-left: 8px;
+  }
+
+  &-group {
+    display: inline-block;
+
+    .zent-btn + .zent-btn {
+      margin-left: -1px;
+    }
+
+    .zent-btn {
+      position: relative;
+      border-radius: 0;
+
+      &:hover {
+        z-index: 2;
+      }
+
+      &:first-child {
+        border-radius: 2px 0 0 2px;
+      }
+
+      &:last-child {
+        border-radius: 0 2px 2px 0;
+      }
+
+      &-primary {
+        &:not(:last-child) {
+          @include btn-primary-hover(border-right-color);
+        }
+
+        &:not(:first-child) {
+          @include btn-primary-hover(border-left-color);
+        }
+      }
+
+      &-danger {
+        &:not(:last-child) {
+          @include btn-danger-hover(border-right-color);
+        }
+
+        &:not(:first-child) {
+          @include btn-danger-hover(border-left-color);
+        }
+      }
+
+      &-success {
+        &:not(:last-child) {
+          @include btn-success-hover(border-right-color);
+        }
+
+        &:not(:first-child) {
+          @include btn-success-hover(border-left-color);
+        }
+      }
+    }
+  }
+}
+
+.zent-link {
+  @include font-normal;
+  @include btn-primary(color);
+
+  text-decoration: none;
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 2px;
+
+  &:link,
+  &:visited,
+  &:focus {
+    @include btn-primary(color);
+  }
+
+  &:hover {
+    @include btn-primary-hover(color);
+    @include theme-color(background-color, stroke, 7);
+  }
+
+  &:active {
+    @include btn-primary-active(color);
+    @include theme-color(background-color, stroke, 7);
+  }
+
+  &.zent-link__disabled {
+    @include btn-grey(color);
+  }
+}

@@ -32,11 +32,15 @@ ReactDOM.render(
 			<Button>{i18n.i}</Button>
 			<Button>{i18n.u}</Button>
 		</ButtonGroup>
+		<br />
+		<br />
 		<ButtonGroup>
 			<Button>{i18n.l}</Button>
 			<Button>{i18n.m}</Button>
 			<Button>{i18n.r}</Button>
 		</ButtonGroup>
+		<br />
+		<br />
 		<ButtonGroup>
 			<Button disabled>{i18n.l}</Button>
 			<Button disabled>{i18n.m}</Button>
