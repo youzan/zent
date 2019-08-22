@@ -104,10 +104,7 @@ export class PopoverTrigger<
   onRefChange = (instance: DOMRef) => {
     const { onTriggerRefChange, getNodeForTriggerRefChange } = this.props;
 
-    onTriggerRefChange(
-      instance ? (instance.getDOMNode() as Element) : null,
-      getNodeForTriggerRefChange
-    );
+    onTriggerRefChange(instance, getNodeForTriggerRefChange);
   };
 
   render() {
@@ -115,10 +112,7 @@ export class PopoverTrigger<
 
     return (
       <DOMRef ref={this.onRefChange}>
-        {React.cloneElement(child, {
-          // ref: this.onRefChange,
-          ...this.getTriggerProps(child),
-        })}
+        {React.cloneElement(child, this.getTriggerProps(child))}
       </DOMRef>
     );
   }
