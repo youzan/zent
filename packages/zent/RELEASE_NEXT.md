@@ -30,7 +30,7 @@
 - `pageSize` 不再耦合当前页码和页码选项，拆开成两个独立参数：`pageSize` 和 `pageSizeOptions`。分页选项配置也和原来的不一致，接受数字或者 `{value: number, text: node}`。
 - CSS 类名和 HTML 结果有变化，有样式复写的需要确认样式是否正常。
 
-#### `Grid 和`Table`
+#### `Grid` 和 `Table`
 
 因为这两个组件的 `pageInfo` 参数依赖 `Pagination`，所以 `Pagination` 的改动对这个参数一样有影响。
 
@@ -171,9 +171,9 @@ import { Portal, PurePortal } from 'zent'
 ### `Alert`
 
 - 内部布局改为 flex 布局
-- 删除 `type` 属性中的 `danger` 类型，添加 `success` 类型
-- 删除 `size`、`rounded` 属性
-- 添加 `loading`、`outline`、`closeContent`、`extraContent` 属性
+- 删除 `type` 属性中的 `danger` 类型（可改用 `error` 类型），添加 `success` 类型
+- 删除 `size`、`rounded` 属性（新版设计中都是圆角样式，且没有大小区分，需要自定义大小和圆角请使用自定义 `className` 修改样式）
+- 添加新的属性 `loading`、`outline`、`closeContent`、`extraContent`，使用方法请参考组件文档
 - 添加 `title`、`description` 两个属性用于简化内容排版
 
 #### 源样式
