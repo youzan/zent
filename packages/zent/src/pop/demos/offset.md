@@ -49,14 +49,14 @@ const OffsetPop = () => {
 			</div>
 			<div className="position-cont">
 				<div className="position-row">
-					<label for="pos" className="label">position: </label>
+					<label htmlFor="pos" className="label">position: </label>
 					<Select id="pos" value={position} data={positions} onChange={(e, data) => setPosition(data.value)} />
 					<Checkbox id="center" checked={centerArrow} onChange={(e) => setCenterArrow(e.target.checked)}>centerArrow</Checkbox>
 				</div>
 				<div className="position-row">
-					<label for="x" className="label">offset.x: </label>
+					<label htmlFor="x" className="label">offset.x: </label>
 					<NumberInput id="x" value={x} placeholder="请输入数字" onChange={value => setX(+value)} />
-					<label for="y" className="label">offset.y: </label>
+					<label htmlFor="y" className="label">offset.y: </label>
 					<NumberInput id="y" value={y} placeholder="请输入数字" onChange={value => setY(+value)} />
 				</div>
 			</div>
