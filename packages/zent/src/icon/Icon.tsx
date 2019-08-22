@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Component } from 'react';
 import cx from 'classnames';
 
 /* auto-generate: start */
@@ -110,24 +109,23 @@ export type IconType =
 
 export interface IIconProps extends React.HTMLAttributes<HTMLElement> {
   type: IconType;
-  className?: string;
   spin?: boolean;
 }
 
-export class Icon extends Component<IIconProps> {
-  static defaultProps = {
-    className: '',
-    spin: false,
-  };
+const Icon = React.forwardRef<HTMLElement, IIconProps>(
+  ({ className, spin, type, ...otherProps }, ref) => (
+    <i
+      ref={ref}
+      className={cx('zenticon', `zenticon-${type}`, className, {
+        'zenticon-spin': spin,
+      })}
+      {...otherProps}
+    />
+  )
+);
 
-  render() {
-    const { type, className, spin, ...otherProps } = this.props;
-    const cls = cx('zenticon', `zenticon-${type}`, className, {
-      'zenticon-spin': spin,
-    });
+Icon.displayName = 'ZentIcon';
 
-    return <i className={cls} {...otherProps} />;
-  }
-}
+export { Icon };
 
 export default Icon;

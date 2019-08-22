@@ -9,20 +9,20 @@ $arrow-cover-size: 11px;
 
 .zent-pop {
   @include font-normal;
+  @include theme-color(background-color, stroke, 9);
 
   border-radius: 2px;
   box-shadow: $shadow-spec-layer;
-  background-color: $theme-stroke-9;
   z-index: 2000;
 
   .zent-pop-inner,
   .zent-pop-header {
+    @include theme-color(background-color, stroke, 9);
+    @include theme-color(color, stroke, 1);
     position: relative;
-    background: $theme-stroke-9;
     border-radius: 2px;
     padding: 13px 12px;
     z-index: 2;
-    color: $theme-stroke-1;
   }
 
   .zent-pop-header {
@@ -40,11 +40,12 @@ $arrow-cover-size: 11px;
   }
 
   .zent-pop-arrow {
+    @include theme-color(background-color, stroke, 9);
+
     position: absolute;
     z-index: 1;
     width: $arrow-size;
     height: $arrow-size;
-    background: $theme-stroke-9;
     box-shadow: $shadow-spec-layer;
     overflow: hidden;
   }

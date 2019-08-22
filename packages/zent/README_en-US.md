@@ -21,8 +21,29 @@ Our goal is making React development faster and simpler.
 ### Supported Environments
 
 * React >= 16.8
-* Modern browsers and IE >= 11
 * Supports server-side rendering(SSR)
+
+### Browsers
+
+* Firefox >= 52(ESR)
+* Chrome >= 49
+* Safari >= 9.1
+* No IE support
+
+#### Polyfills needed for supported browsers
+* String.prototype.padStart (Chrome 57, Safari 10)
+
+#### Other browsers
+
+For CSS, please refer to [Themes](theme)
+
+Possibly needed polyfills:
+* Map
+* Set
+* Array.prototype.includes
+* String.prototype.includes
+* Object.assign
+* Object.is
 
 ### Install
 

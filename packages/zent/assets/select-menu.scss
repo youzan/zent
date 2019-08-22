@@ -1,7 +1,5 @@
 @import './theme/default';
 @import './mixins/index';
-$c-light-border: $theme-stroke-6;
-$disablecolor: $theme-stroke-4;
 
 .zent-popup-menu {
   @include popup;
@@ -10,12 +8,12 @@ $disablecolor: $theme-stroke-4;
     @include popup-menu-item;
 
     &.disabled {
-      color: $disablecolor;
+      @include theme-color(color, stroke, 4);
       cursor: not-allowed;
 
       &:hover {
+        @include theme-color(color, stroke, 4);
         background: none;
-        color: $disablecolor;
       }
     }
   }
@@ -32,6 +30,8 @@ $disablecolor: $theme-stroke-4;
 }
 
 .zent-divider-line {
-  border-top: 1px solid $c-light-border;
+  @include theme-color(border-top-color, stroke, 6);
+  border-top-width: 1px;
+  border-top-style: solid;
   margin: 6px 0;
 }

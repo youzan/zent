@@ -74,7 +74,7 @@ describe('NumberInput', () => {
     expect(wrapper.state('value')).toBe('2');
 
     wrapper.find('input').simulate('change');
-    expect(onChangeMock.mock.calls.length).toBe(3);
+    expect(onChangeMock.mock.calls.length).toBe(2);
     wrapper.find('input').simulate('blur');
     expect(onBlurMock.mock.calls.length).toBe(1);
     wrapper.find('input').simulate('keyDown', { key: 'Enter' });
@@ -98,5 +98,29 @@ describe('NumberInput', () => {
       },
     });
     expect(wrapper.state('value')).toBe('');
+  });
+
+  it('NumberInput integer mode', () => {
+    let wrapper = mount(
+      <NumberInput showStepper integer value={2} min={0} max={3} />
+    );
+    wrapper.find('.zent-number-input-arrowup').simulate('click');
+    wrapper.find('.zent-number-input-arrowup').simulate('click');
+    wrapper.find('.zent-number-input-arrowup').simulate('click');
+    wrapper.find('.zent-number-input-arrowup').simulate('click');
+    expect(wrapper.state('value')).toBe(3);
+    wrapper.find('.zent-number-input-arrowdown').simulate('click');
+    wrapper.find('.zent-number-input-arrowdown').simulate('click');
+    wrapper.find('.zent-number-input-arrowdown').simulate('click');
+    wrapper.find('.zent-number-input-arrowdown').simulate('click');
+    expect(wrapper.state('value')).toBe(0);
+    wrapper = mount(
+      <NumberInput showStepper integer value={0} min={1} max={3} />
+    );
+    expect(wrapper.state('value')).toBe(1);
+    wrapper = mount(
+      <NumberInput showStepper integer value={6} min={0} max={3} />
+    );
+    expect(wrapper.state('value')).toBe(3);
   });
 });

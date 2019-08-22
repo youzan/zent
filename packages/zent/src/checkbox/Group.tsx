@@ -33,17 +33,25 @@ export class CheckboxGroup<Value> extends Component<
 
   getGroupContext = memoize(
     (
-      value: Value[],
+      maybeValue: Value[] | unknown,
       disabled: boolean,
       readOnly: boolean,
       isValueEqual: (value1: Value, value2: Value) => boolean
-    ) => ({
-      value,
-      disabled,
-      readOnly,
-      isValueEqual,
-      onChange: this.onCheckboxChange,
-    })
+    ) => {
+      let value;
+      if (Array.isArray(maybeValue)) {
+        value = maybeValue;
+      } else {
+        value = [];
+      }
+      return {
+        value,
+        disabled,
+        readOnly,
+        isValueEqual,
+        onChange: this.onCheckboxChange,
+      };
+    }
   );
 
   onCheckboxChange = (child: Value) => {

@@ -1,10 +1,6 @@
 @import './theme/default';
 @import './theme/font';
 
-$c-border: $theme-stroke-5;
-$c-blue: $theme-primary-4;
-$c-light-blue: $theme-primary-6;
-
 .zent-color-picker-popover {
   z-index: 2000;
 }
@@ -22,7 +18,7 @@ $c-light-blue: $theme-primary-6;
 
   &.open {
     .zent-color-picker__text {
-      border-color: $c-blue;
+      @include theme-color(border-color, primary, 4);
       box-shadow: $shadow-spec-focus;
 
       &::after {
@@ -32,8 +28,11 @@ $c-light-blue: $theme-primary-6;
   }
 
   &__text {
+    @include theme-color(border-color, stroke, 5);
+    @include theme-color(background-color, stroke, 9);
     box-sizing: border-box;
-    border: 1px solid $c-border;
+    border-width: 1px;
+    border-style: solid;
     border-radius: 2px;
     display: inline-block;
     width: 50px;
@@ -41,7 +40,6 @@ $c-light-blue: $theme-primary-6;
     outline: none;
     padding: 5px;
     transition: border-color 0.25s;
-    background-color: $theme-stroke-9;
     position: relative;
   }
 
@@ -53,7 +51,7 @@ $c-light-blue: $theme-primary-6;
 }
 
 .zent-colorpicker-colors-select {
-  background: $theme-stroke-9;
+  @include theme-color(background-color, stroke, 9);
   width: 190px;
   box-shadow: $shadow-spec-layer;
   box-sizing: content-box;

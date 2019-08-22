@@ -2,7 +2,10 @@
 @import './theme/font';
 
 .zent-rate {
+  // sass-lint:disable no-duplicate-properties
   color: $rate-star-color;
+  color: var(--rate-star-color, $rate-star-color);
+  // sass-lint:enable no-duplicate-properties
   display: inline-block;
   outline: none;
   font-size: $font-size-large;
@@ -29,7 +32,7 @@
     }
 
     &-zero {
-      color: $theme-stroke-6;
+      @include theme-color(color, stroke, 6);
     }
 
     &-half {
@@ -38,7 +41,7 @@
       }
 
       .zent-rate-star-second {
-        color: $theme-stroke-6;
+        @include theme-color(color, stroke, 6);
       }
     }
   }

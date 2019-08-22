@@ -70,7 +70,7 @@
   }
 
   .zent-upload-content {
-    background-color: $theme-stroke-9;
+    @include theme-color(background-color, stroke, 9);
     position: relative;
     zoom: 1;
     margin-left: 100px;
@@ -154,13 +154,13 @@
       }
 
       &__progress {
+        @include theme-color(color, stroke, 9);
         position: absolute;
         top: 0;
         left: 0;
         bottom: 0;
         right: 0;
         background: rgba(black, 0.6);
-        color: $theme-stroke-9;
         text-align: center;
         line-height: 80px;
         font-size: $font-size-normal;
@@ -180,6 +180,7 @@
     }
 
     .zent-upload-voice-item {
+      @include theme-color(border-color, stroke, 6);
       position: relative;
       float: left;
       width: 300px;
@@ -187,7 +188,8 @@
       margin-right: 10px;
       margin-bottom: 10px;
       padding: 9px;
-      border: 1px solid $theme-stroke-6;
+      border-width: 1px;
+      border-style: solid;
       cursor: pointer;
       box-sizing: border-box;
 
@@ -198,9 +200,9 @@
       }
 
       &__icon {
+        @include theme-color(background-color, stroke, 5);
         width: 40px;
         height: 40px;
-        background: $theme-stroke-5;
         background-size: 40px 40px;
         background-image: url('https://b.yzcdn.cn/upload/image/play@2x.png');
 
@@ -225,11 +227,11 @@
       }
 
       &__createtime {
+        @include theme-color(color, stroke, 3);
         position: absolute;
         bottom: 10px;
         left: 60px;
         line-height: 14px;
-        color: $theme-stroke-3;
       }
 
       &__duration {
@@ -239,33 +241,33 @@
       }
 
       &__progress {
+        @include theme-color(color, stroke, 9);
         position: absolute;
         top: 0;
         left: 0;
         bottom: 0;
         right: 0;
         background: rgba(black, 0.6);
-        color: $theme-stroke-9;
         text-align: center;
         line-height: 60px;
         font-size: $font-size-normal;
       }
 
       &__size {
+        @include theme-color(color, stroke, 3);
         position: absolute;
         top: 34px;
         right: 10px;
-        color: $theme-stroke-3;
       }
     }
   }
 }
 
 .zent-upload__close-modal {
+  @include theme-color(color, stroke, 9);
   display: none;
   position: absolute;
   z-index: 2;
-  color: $theme-stroke-9;
   text-align: center;
   cursor: pointer;
   background: rgba(black, 0.3);
@@ -278,8 +280,8 @@
   border-radius: 9px;
 
   &:hover {
-    color: $theme-stroke-9;
-    background: $theme-stroke-1;
+    @include theme-color(color, stroke, 9);
+    @include theme-color(background-color, stroke, 1);
   }
 }
 
@@ -326,15 +328,17 @@
 
 .zent-upload-add-local-image-button,
 .zent-upload-trigger {
+  @include theme-color(color, stroke, 6);
+  @include theme-color(border-color, stroke, 6);
   display: inline-block;
   width: 80px;
   height: 80px;
-  border: 2px dashed $theme-stroke-6;
+  border-width: 2px;
+  border-style: dashed;
   line-height: 71px;
   box-sizing: border-box;
   text-align: center;
   font-size: 36px;
-  color: $theme-stroke-6;
   cursor: pointer;
   overflow: hidden;
   text-decoration: none;
@@ -345,16 +349,16 @@
 }
 
 .zent-upload-tips {
+  @include theme-color(color, stroke, 2);
   line-height: 14px;
   font-size: $font-size-small;
   margin-top: 6px;
   margin-bottom: 0;
-  color: $theme-stroke-2;
   position: absolute;
 }
 
 .zent-upload-link {
-  color: $theme-primary-4;
+  @include theme-color(color, primary, 4);
   cursor: pointer;
   font-weight: bold;
 }
