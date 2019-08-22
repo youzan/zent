@@ -138,7 +138,7 @@ const CenterArrowPosition = {
   })(),
 };
 
-export default function getPosition(position, centerArrow) {
+function getPosition(position, centerArrow) {
   if (isFunction(position)) {
     return position;
   }
@@ -161,4 +161,30 @@ export default function getPosition(position, centerArrow) {
   }
 
   return CenterArrowPosition[positionName];
+}
+
+const addOffsetToPosition = (placement, offset) => {
+  if (!offset) {
+    return placement;
+  }
+  const style: CSSProperties = {
+    marginLeft: offset.x,
+    marginTop: offset.y,
+  };
+  return (...args) => {
+    const pos = placement(...args);
+    return {
+      ...pos,
+      getCSSStyle(): CSSProperties {
+        return {
+          ...pos.getCSSStyle(),
+          ...style,
+        };
+      },
+    };
+  };
+};
+
+export default function getOffsetPosition(position, centerArrow, offset) {
+  return addOffsetToPosition(getPosition(position, centerArrow), offset);
 }

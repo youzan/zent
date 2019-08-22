@@ -11,7 +11,7 @@ import { exposePopover } from '../popover/withPopover';
 import { I18nReceiver as Receiver } from '../i18n';
 
 import NoneTrigger from './NoneTrigger';
-import getPosition from './position';
+import getOffsetPosition from './position';
 
 const { Trigger, withPopover } = Popover;
 const stateMap = {
@@ -49,6 +49,10 @@ export type PopHookCallback = (
 ) => void;
 
 export interface IPopProps {
+  offset?: {
+    x?: number | string;
+    y?: number | string;
+  };
   content: React.ReactNode;
   trigger?: 'none' | 'click' | 'hover' | 'focus';
   position?: PopPositions | PositionFunction;
@@ -321,6 +325,7 @@ export class Pop extends Component<IPopProps> {
 
   render() {
     const {
+      offset,
       className,
       wrapperClassName,
       trigger,
@@ -361,7 +366,7 @@ export class Pop extends Component<IPopProps> {
         wrapperClassName={cx(`${prefix}-pop-wrapper`, wrapperClassName)}
         className={cls}
         cushion={10}
-        position={getPosition(position, centerArrow)}
+        position={getOffsetPosition(position, centerArrow, offset)}
         display={block ? 'block' : 'inline-block'}
         onShow={onShow}
         onClose={onClose}
