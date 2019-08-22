@@ -7,11 +7,13 @@
   display: flex;
 
   &-dot {
+    @include theme-color(background-color, stroke, 7);
+    @include theme-color(border-color, primary, 4);
     width: 10px;
     height: 10px;
-    background-color: $theme-stroke-7;
     border-radius: 50%;
-    border: 2px solid $theme-primary-4;
+    border-width: 2px;
+    border-style: solid;
     box-sizing: border-box;
   }
 
@@ -24,11 +26,11 @@
     line-height: 20px;
 
     &-line {
+      @include theme-color(background-color, primary, 4);
       position: relative;
       display: inline-block;
       width: 18px;
       height: 2px;
-      background-color: $theme-primary-4;
       vertical-align: middle;
 
       .zent-timeline-dot {
@@ -56,8 +58,8 @@
     position: relative;
 
     &-line {
+      @include theme-color(background-color, stroke, 7);
       position: relative;
-      background-color: $theme-stroke-7;
 
       .zent-timeline-dot {
         position: absolute;
@@ -71,12 +73,12 @@
 
     &.zent-timeline-dynamic {
       &::before {
+        @include theme-color(background-color, stroke, 7);
         content: ' ';
         height: 2px;
         width: 100%;
         position: absolute;
         display: block;
-        background: $theme-stroke-7;
         margin: 10px 0;
       }
     }

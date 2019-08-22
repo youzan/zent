@@ -45,14 +45,16 @@ describe('Input', () => {
       }
     }
     const wrapper = mount(<InputTest />);
-    expect(wrapper.find('Icon').length).toBe(0);
+    expect(wrapper.find('ZentIcon').length).toBe(0);
     wrapper.find('input').simulate('change', { target: { value: 'test' } });
-    expect(wrapper.find('Icon').length).toBe(1);
+    expect(wrapper.find('ZentIcon').length).toBe(1);
     expect(wrapper.find('Input').props().value).toBe('test');
-    wrapper.find('Icon').simulate('mouseDown', { preventDefault: jest.fn() });
-    wrapper.find('Icon').simulate('click');
+    wrapper
+      .find('ZentIcon')
+      .simulate('mouseDown', { preventDefault: jest.fn() });
+    wrapper.find('ZentIcon').simulate('click');
     expect(wrapper.find('Input').props().value).toBe('');
-    expect(wrapper.find('Icon').length).toBe(0);
+    expect(wrapper.find('ZentIcon').length).toBe(0);
   });
 
   it('pass any props to real input element except "className"', () => {

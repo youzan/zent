@@ -1,9 +1,5 @@
 import * as React from 'react';
 import { Component } from 'react';
-import isEqual from 'lodash-es/isEqual';
-import _get from 'lodash-es/get';
-
-import _union from 'lodash-es/union';
 import classnames from 'classnames';
 
 import AnimateHeight from '../utils/component/AnimateHeight';
@@ -57,7 +53,7 @@ export interface ITreeProps extends ICreateStateByPropsParams {
 }
 
 export interface ITreeState {
-  preProps: ITreeProps;
+  prevProps: ITreeProps;
   tree: ITreeData[];
   rootInfoMap: ITreeRootInfoMap;
   expandNode: TreeRootIdArray;
@@ -80,33 +76,37 @@ export class Tree extends Component<ITreeProps, ITreeState> {
   constructor(props: ITreeProps) {
     super(props);
     this.state = {
-      preProps: props,
+      prevProps: props,
       loadingNode: [],
       ...createStateByProps(props),
     };
   }
 
   static getDerivedStateFromProps(nextProps: ITreeProps, state: ITreeState) {
-    const { preProps } = state;
+    const { prevProps } = state;
+
+    if (nextProps === prevProps) {
+      return null;
+    }
 
     // 需要重新计算
     if (
-      !isEqual(nextProps.data, preProps.data) ||
-      !isEqual(nextProps.renderKey, preProps.renderKey) ||
-      nextProps.expandAll !== preProps.expandAll ||
-      nextProps.loadMore !== preProps.loadMore
+      nextProps.data !== prevProps.data ||
+      nextProps.renderKey !== prevProps.renderKey ||
+      nextProps.expandAll !== prevProps.expandAll ||
+      nextProps.loadMore !== prevProps.loadMore
     ) {
       const formatData = createStateByProps(nextProps);
       let { expandNode } = formatData;
 
       // // 只有在 loadMore 状态下，我会保持原有打开状态
-      // // if (preProps.loadMore || nextProps.loadMore) {
+      // // if (prevProps.loadMore || nextProps.loadMore) {
       // 任何情况下都做保留
       expandNode = correctExpand(state, formatData);
       // // }
 
       return {
-        preProps: nextProps,
+        prevProps: nextProps,
         ...formatData,
         expandNode,
       };
@@ -114,15 +114,13 @@ export class Tree extends Component<ITreeProps, ITreeState> {
 
     if (nextProps.checkable) {
       const newState: Partial<ITreeState> = {};
-      if (
-        !isEqual(preProps.disabledCheckedKeys, nextProps.disabledCheckedKeys)
-      ) {
+      if (prevProps.disabledCheckedKeys !== nextProps.disabledCheckedKeys) {
         newState.disabledNode = correctMark(
           nextProps.disabledCheckedKeys,
           state.rootInfoMap
         );
       }
-      if (!isEqual(preProps.checkedKeys, nextProps.checkedKeys)) {
+      if (prevProps.checkedKeys !== nextProps.checkedKeys) {
         newState.checkedNode = correctMark(
           nextProps.checkedKeys,
           state.rootInfoMap,
@@ -136,10 +134,15 @@ export class Tree extends Component<ITreeProps, ITreeState> {
           );
         });
       }
-      return newState;
+      return {
+        ...newState,
+        prevProps: nextProps,
+      };
     }
 
-    return null;
+    return {
+      prevProps: nextProps,
+    };
   }
 
   handleExpandClick(root: ITreeData, e: React.MouseEvent) {

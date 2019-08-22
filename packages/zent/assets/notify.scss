@@ -15,12 +15,12 @@
   padding-bottom: 10px;
 
   &-content {
+    @include theme-color(color, stroke, 9);
     padding: 0 25px;
     line-height: 40px;
     max-height: 200px;
     overflow-y: auto;
     font-size: $font-size-normal;
-    color: $theme-stroke-9;
     text-align: center;
     border-radius: 2px;
     box-sizing: border-box;
@@ -46,7 +46,7 @@
 
 .notify-appear.notify-appear-active {
   animation-play-state: running;
-  animation-name: notifyMoveIn;
+  animation-name: zent-notify-move-in;
   animation-duration: 0.3s;
 }
 
@@ -62,17 +62,17 @@
 
 .notify-exit.notify-exit-active {
   animation-play-state: running;
-  animation-name: notifyMoveOut;
+  animation-name: zent-notify-move-out;
   animation-duration: 0.3s;
 
   .zent-notify-content {
     animation-play-state: running;
-    animation-name: notifyContentMoveOut;
+    animation-name: zent-notify-content-move-out;
     animation-duration: 0.3s;
   }
 }
 
-@keyframes notifyMoveIn {
+@keyframes zent-notify-move-in {
   0% {
     transform: translateY(-100%);
     opacity: 0;
@@ -84,7 +84,7 @@
   }
 }
 
-@keyframes notifyMoveOut {
+@keyframes zent-notify-move-out {
   0% {
     opacity: 1;
     max-height: 50px;
@@ -97,7 +97,7 @@
   }
 }
 
-@keyframes notifyContentMoveOut {
+@keyframes zent-notify-content-move-out {
   0% {
     transform: translateY(0%);
   }

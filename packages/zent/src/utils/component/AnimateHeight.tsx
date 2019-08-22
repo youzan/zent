@@ -37,13 +37,19 @@ export default class AnimationHeight extends React.Component<
   private timer: number | null = null;
 
   componentDidMount() {
-    const { appear, height } = this.props;
+    const { appear, height, duration } = this.props;
     const el = this.ref.current as HTMLDivElement;
     if (appear && height === 'auto') {
       el.style.height = '0px';
       nextFrame(() => {
         if (this.props.height === height) {
           el.style.height = `${el.scrollHeight}px`;
+          this.timer = window.setTimeout(() => {
+            this.timer = null;
+            if (this.props.height === height) {
+              el.style.height = 'auto';
+            }
+          }, duration);
         }
       });
     } else {
@@ -70,10 +76,10 @@ export default class AnimationHeight extends React.Component<
       });
     } else if (height === 'auto') {
       el.style.height = `${el.scrollHeight}px`;
-      this.timer = setTimeout(() => {
+      this.timer = window.setTimeout(() => {
         this.timer = null;
         el.style.height = 'auto';
-      }, duration) as any;
+      }, duration);
     } else {
       applyHeight(el, height);
     }

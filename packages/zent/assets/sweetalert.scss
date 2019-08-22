@@ -10,18 +10,18 @@
   }
 
   .zenticon-info-circle-o {
-    color: $theme-primary-4;
+    @include theme-color(color, primary, 4);
   }
 
   .zenticon-check-circle-o {
-    color: $theme-success-2;
+    @include theme-color(color, success, 2);
   }
 
   .zenticon-close-circle-o {
-    color: $theme-error-2;
+    @include theme-color(color, error, 2);
   }
 
   .zenticon-error-circle-o {
-    color: $theme-warn-1;
+    @include theme-color(color, warn, 1);
   }
 }

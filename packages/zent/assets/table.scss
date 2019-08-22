@@ -12,7 +12,7 @@ $blue: $theme-primary-4;
   width: 100%;
 
   a {
-    color: $blue;
+    @include theme-color(color, primary, 4);
     cursor: pointer;
 
     &:hover {
@@ -22,8 +22,10 @@ $blue: $theme-primary-4;
   }
 
   .tr {
+    @include theme-color(border-bottom-color, stroke, 6);
     display: flex;
-    border-bottom: 1px solid $theme-stroke-6;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
   }
 
   .expanded-item {
@@ -44,9 +46,11 @@ $blue: $theme-primary-4;
 
   .thead {
     .tr {
+      @include theme-color(border-bottom-color, stroke, 6);
+      @include theme-color(background-color, stroke, 8);
       border-top: 0;
-      border-bottom: 1px solid $theme-stroke-6;
-      background: $theme-stroke-8;
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
 
       .cell {
         font-size: $font-size-normal;
@@ -69,11 +73,13 @@ $blue: $theme-primary-4;
       }
 
       .caret-up {
+        @include theme-color(border-bottom-color, stroke, 3);
         width: 0;
         height: 0;
         border-left: 5px solid transparent;
         border-right: 5px solid transparent;
-        border-bottom: 7.5px solid $theme-stroke-3;
+        border-bottom-width: 7.5px;
+        border-bottom-style: solid;
         position: absolute;
         top: 0;
         left: 0;
@@ -81,11 +87,13 @@ $blue: $theme-primary-4;
       }
 
       .caret-down {
+        @include theme-color(border-top-color, stroke, 3);
         width: 0;
         height: 0;
         border-left: 5px solid transparent;
         border-right: 5px solid transparent;
-        border-top: 7.5px solid $theme-stroke-3;
+        border-top-width: 7.5px;
+        border-top-style: solid;
         position: absolute;
         bottom: 0;
         left: 0;
@@ -93,11 +101,11 @@ $blue: $theme-primary-4;
       }
 
       .caret-up.sort-active {
-        border-bottom-color: $theme-primary-4;
+        @include theme-color(border-bottom-color, primary, 4);
       }
 
       .caret-down.sort-active {
-        border-top-color: $theme-primary-4;
+        @include theme-color(border-top-color, primary, 4);
       }
 
       &:hover {
@@ -120,7 +128,7 @@ $blue: $theme-primary-4;
   .tbody {
     .tr {
       &:hover {
-        background: $theme-primary-8;
+        @include theme-color(background-color, primary, 8);
 
         .empty-data {
           background: transparent;
@@ -128,13 +136,15 @@ $blue: $theme-primary-4;
       }
 
       &--expanded {
-        background-color: $theme-stroke-8;
+        @include theme-color(background-color, stroke, 8);
       }
 
       .td {
         padding: 16px 0 8px;
 
         .expandable-btn {
+          @include theme-color(background-color, stroke, 9);
+          @include theme-color(border-color, stroke, 6);
           position: absolute;
           top: 50%;
           transform: translateY(-50%);
@@ -144,9 +154,9 @@ $blue: $theme-primary-4;
           width: 17px;
           height: 17px;
           text-align: center;
-          background: $theme-stroke-9;
           line-height: 10px;
-          border: 1px solid $theme-stroke-6;
+          border-width: 1px;
+          border-style: solid;
 
           &.expand-btn::after {
             content: '+';
@@ -176,8 +186,8 @@ $blue: $theme-primary-4;
       padding-left: 10px;
 
       &--has-children {
+        @include theme-color(background-color, stroke, 9);
         margin-bottom: 10px;
-        background: $theme-stroke-9;
       }
 
       &--fixed {

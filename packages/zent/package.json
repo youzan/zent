@@ -1,12 +1,13 @@
 {
   "name": "zent",
-  "version": "7.0.0-next.26",
+  "version": "7.0.0-next.28",
   "description": "一套前端设计语言和基于React的实现",
   "bugs": "https://github.com/youzan/zent/issues",
   "repository": {
     "type": "git",
     "url": "git@github.com:youzan/zent.git"
   },
+  "main": "./es/index.js",
   "module": "./es/index.js",
   "types": "./es/index.d.ts",
   "sideEffects": [

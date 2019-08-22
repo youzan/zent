@@ -1,7 +1,4 @@
 @import './theme/default';
-$blue: $theme-primary-4;
-$red: $theme-error-2;
-$green: $theme-success-2;
 
 .zent-swiper {
   position: relative;
@@ -21,7 +18,7 @@ $green: $theme-success-2;
     z-index: 2;
 
     &-icon {
-      color: $theme-stroke-6;
+      @include theme-color(color, stroke, 6);
       font-size: 20px;
     }
 
@@ -40,7 +37,7 @@ $green: $theme-success-2;
 
   &-light {
     .zent-swiper__arrow-icon {
-      color: $theme-stroke-9;
+      @include theme-color(color, stroke, 9);
     }
   }
 
@@ -53,11 +50,11 @@ $green: $theme-success-2;
     z-index: 1;
 
     &-item {
+      @include theme-color(background-color, stroke, 6);
       display: inline-block;
       margin: 12px 5px;
       border: 0;
       cursor: pointer;
-      background: $theme-stroke-6;
       height: 12px;
       width: 12px;
       border-radius: 100%;
@@ -75,19 +72,19 @@ $green: $theme-success-2;
     }
 
     &-black .zent-swiper__dots-item-active {
-      background: $theme-stroke-1;
+      @include theme-color(background-color, stroke, 1);
     }
 
     &-blue .zent-swiper__dots-item-active {
-      background: $blue;
+      @include theme-color(background-color, primary, 4);
     }
 
     &-red .zent-swiper__dots-item-active {
-      background: $red;
+      @include theme-color(background-color, error, 2);
     }
 
     &-green .zent-swiper__dots-item-active {
-      background: $green;
+      @include theme-color(background-color, success, 2);
     }
   }
 }

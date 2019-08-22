@@ -47,7 +47,9 @@ export class MiniPageJumper extends BasePageJumper<
           decimal={0}
         />
         <span className="zent-pagination-mini-page-jumper__sep">/</span>
-        <span>{totalPages}</span>
+        <span className="zent-pagination-mini-page-jumper__total">
+          {totalPages}
+        </span>
       </div>
     );
   }
