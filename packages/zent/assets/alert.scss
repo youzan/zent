@@ -1,42 +1,48 @@
 @import './theme/default';
 @import './theme/font';
 
-$border-color-map: (
-  info: $theme-primary-7,
-  success: $theme-success-4,
-  warning: $theme-warn-2,
-  error: $theme-error-4,
+$info-map: (
+  theme: primary,
+  border-color: 7,
+  background-color: 8,
+  icon-color: 4,
+  outline-color: 4,
+  highlight-color: 4,
 );
 
-$bg-color-map: (
-  info: $theme-primary-8,
-  success: $theme-success-5,
-  warning: $theme-warn-3,
-  error: $theme-error-5,
+$success-map: (
+  theme: success,
+  border-color: 4,
+  background-color: 5,
+  icon-color: 2,
+  outline-color: 2,
+  highlight-color: 2,
 );
 
-$icon-color-map: (
-  info: $theme-primary-4,
-  success: $theme-success-2,
-  warning: $theme-warn-1,
-  error: $theme-error-2,
+$warning-map: (
+  theme: warn,
+  border-color: 2,
+  background-color: 3,
+  icon-color: 1,
+  outline-color: 1,
+  highlight-color: 1,
 );
 
-$outline-color-map: (
-  info: $theme-primary-4,
-  success: $theme-success-2,
-  warning: $theme-warn-1,
-  error: $theme-error-2,
+$error-map: (
+  theme: error,
+  border-color: 4,
+  background-color: 5,
+  icon-color: 2,
+  outline-color: 2,
+  highlight-color: 2,
 );
 
-$highlight-color-map: (
-  info: $theme-primary-4,
-  success: $theme-success-2,
-  warning: $theme-warn-1,
-  error: $theme-error-2,
+$type-map: (
+  info: $info-map,
+  success: $success-map,
+  warning: $warning-map,
+  error: $error-map,
 );
-
-$types: 'info', 'success', 'warning', 'error';
 
 .zent-alert {
   @include font-normal;
@@ -64,11 +70,11 @@ $types: 'info', 'success', 'warning', 'error';
   }
 
   &-close-wrapper {
+    margin-left: 16px;
     cursor: pointer;
 
     .zent-alert-close-btn {
       @include theme-color(color, stroke, 4);
-      margin-left: 16px;
       font-size: 12px;
       width: 16px;
       height: 20px;
@@ -78,6 +84,7 @@ $types: 'info', 'success', 'warning', 'error';
   }
 
   &-extra-content {
+    // 对按钮撑开内容区高度的特殊处理
     margin: -6px 0 -6px 16px;
     align-items: center;
     display: flex;
@@ -100,27 +107,37 @@ $types: 'info', 'success', 'warning', 'error';
   }
 }
 
-@each $type in $types {
+@each $type, $color-index-map in $type-map {
+  $theme: map-get($color-index-map, theme);
+  $background-color: map-get($color-index-map, background-color);
+  $border-color: map-get($color-index-map, border-color);
+  $highlight-color: map-get($color-index-map, highlight-color);
+  $outline-color: map-get($color-index-map, outline-color);
+  $icon-color: map-get($color-index-map, icon-color);
+
   .zent-alert-style-#{$type} {
-    background: map-get($map: $bg-color-map, $key: $type);
-    border-color: map-get($map: $border-color-map, $key: $type);
+    @include theme-color(background-color, $theme, $background-color);
+    @include theme-color(border-color, $theme, $border-color);
 
     .zent-alert-content__highlight {
-      color: map-get($map: $highlight-color-map, $key: $type);
+      @include theme-color(color, $theme, $highlight-color);
     }
 
     &.zent-alert-outline {
-      background: $theme-stroke-9;
-      border: 1px solid $theme-stroke-5;
-      border-top: 4px solid map-get($map: $outline-color-map, $key: $type);
+      @include theme-color(background-color, stroke, 9);
+      @include theme-color(border-color, stroke, 5);
+      @include theme-color(border-top-color, $theme, $outline-color);
+      border-width: 1px;
+      border-style: solid;
+      border-top-width: 4px;
 
       .zent-alert-content__title {
-        color: map-get($map: $outline-color-map, $key: $type);
+        @include theme-color(color, $theme, $outline-color);
       }
     }
 
     .zent-alert-icon {
-      color: map-get($map: $icon-color-map, $key: $type);
+      @include theme-color(color, $theme, $icon-color);
     }
   }
 }

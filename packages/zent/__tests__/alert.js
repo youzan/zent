@@ -86,7 +86,7 @@ describe('Alert', () => {
     ).toBe(true);
   });
 
-  it('can have close button', () => {
+  it('have default close icon', () => {
     const wrapper = mount(
       <Alert closable>
         <span>foobar</span>
@@ -106,15 +106,10 @@ describe('Alert', () => {
     ).toBe(true);
   });
 
-  it('can have a onClose callback', () => {
+  it('can controller close state', () => {
     const onClose = jest.fn();
-    let wrapper = mount(<Alert closable onClose={onClose} />);
+    let wrapper = mount(<Alert closable closed={false} onClose={onClose} />);
     wrapper.find('.zent-alert-close-wrapper').simulate('click');
     expect(onClose.mock.calls.length).toBe(1);
-
-    wrapper = mount(<Alert closable onClose={null} />);
-    expect(() =>
-      wrapper.find('.zent-alert-close-wrapper').simulate('click')
-    ).not.toThrow();
   });
 });
