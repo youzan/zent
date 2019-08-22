@@ -175,6 +175,7 @@ import { Portal, PurePortal } from 'zent'
 - 删除 `size`、`rounded` 属性（新版设计中都是圆角样式，且没有大小区分，需要自定义大小和圆角请使用自定义 `className` 修改样式）
 - 添加新的属性 `loading`、`outline`、`closeContent`、`extraContent`，使用方法请参考组件文档
 - 添加 `title`、`description` 两个属性用于简化内容排版
+- `onClose` 现在回调会在点击关闭触发器同时被触发，而不是等到 React 更新完后才触发
 
 #### 源样式
 

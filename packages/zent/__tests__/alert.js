@@ -106,10 +106,15 @@ describe('Alert', () => {
     ).toBe(true);
   });
 
-  it('can controller close state', () => {
+  it('have onClose callback', () => {
     const onClose = jest.fn();
-    let wrapper = mount(<Alert closable closed={false} onClose={onClose} />);
+    let wrapper = mount(<Alert closable onClose={onClose} />);
     wrapper.find('.zent-alert-close-wrapper').simulate('click');
     expect(onClose.mock.calls.length).toBe(1);
+  });
+
+  it('can controlled by closed prop', () => {
+    let wrapper = mount(<Alert closable closed />);
+    expect(wrapper.getDOMNode()).toBe(null);
   });
 });
