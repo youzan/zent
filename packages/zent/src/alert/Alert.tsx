@@ -1,105 +1,179 @@
 import * as React from 'react';
-import { Component } from 'react';
 import cx from 'classnames';
-import isFunction from 'lodash-es/isFunction';
+import isNil from 'lodash-es/isNil';
+import omit from 'lodash-es/omit';
+import { AlertTypes } from './types';
+import Icon, { IconType } from '../icon';
+import InlineLoading from '../loading/InlineLoading';
+import { Omit } from 'utility-types';
+import { ParticalRequired } from '../utils/types';
 
-export interface IAlertProps {
-  type: 'info' | 'warning' | 'danger' | 'error';
-  size: 'normal' | 'large';
-  rounded: boolean;
-  closable: boolean;
+export interface IAlertProps
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
+  type?: AlertTypes;
+  loading?: boolean;
+  outline?: boolean;
+  title?: React.ReactNode;
+  description?: React.ReactNode;
+  extraContent?: React.ReactNode;
+  closable?: boolean;
+  closed?: boolean;
   onClose?: () => void;
-  children: React.ReactNode;
-  className?: string;
-  prefix: string;
+  closeContent?: React.ReactNode;
 }
 
-// 忽略不支持的style
-const styleClassMap = {
-  info: 'alert-style-info',
-  warning: 'alert-style-warning',
+interface IAlertState {
+  closed: boolean;
+}
 
-  // error as an alias to danger
-  error: 'alert-style-danger',
-  danger: 'alert-style-danger',
+const iconTypeMap: {
+  [key in AlertTypes]: IconType;
+} = {
+  info: 'info-circle',
+  warning: 'warning',
+  success: 'check-circle',
+  error: 'error-circle',
 };
 
-// 忽略不支持的size
-const sizeClassMap = {
-  normal: 'alert-size-normal',
-  large: 'alert-size-large',
-};
+type IAlertInnerProps = ParticalRequired<
+  IAlertProps,
+  'type' | 'loading' | 'outline' | 'closable'
+>;
 
-export class Alert extends Component<IAlertProps> {
+const renderOmitProps = [
+  'title',
+  'description',
+  'loading',
+  'closable',
+  'closed',
+  'onClose',
+  'closeContent',
+] as const;
+
+export class Alert extends React.PureComponent<IAlertProps, IAlertState> {
+  static highlightClassName = 'zent-alert-content__highlight';
+
   static defaultProps = {
     type: 'info',
-    size: 'normal',
+    loading: false,
+    outline: false,
     closable: false,
-    rounded: false,
-    className: '',
-    prefix: 'zent',
   };
 
-  state = {
+  state: IAlertState = {
     closed: false,
   };
 
-  onClose = () => {
-    this.setState(
-      {
+  /**
+   * 判断组件是否受控
+   */
+  private get isControlled() {
+    const { closed } = this.props;
+    const hasClosed = !isNil(closed);
+    return hasClosed;
+  }
+
+  /**
+   * 关闭状态
+   */
+  private get closed() {
+    return this.isControlled ? this.props.closed : this.state.closed;
+  }
+
+  /**
+   * 关闭回调函数
+   */
+  private onCloseHandler = () => {
+    if (!this.isControlled) {
+      this.setState({
         closed: true,
-      },
-      () => {
-        // onClose是在*关闭以后*被调用的
-        const { onClose } = this.props;
-        if (isFunction(onClose)) {
-          onClose();
-        }
-      }
-    );
+      });
+    }
+    this.props.onClose && this.props.onClose();
   };
 
+  /**
+   * 显示内容
+   */
+  private renderContent() {
+    const { title, description, children } = this.props;
+    return children ? (
+      children
+    ) : (
+      <>
+        {title && <h3 className="zent-alert-content__title">{title}</h3>}
+        {description && (
+          <p className="zent-alert-content__description">{description}</p>
+        )}
+      </>
+    );
+  }
+
+  /**
+   * 关闭触发器节点
+   */
+  private renderCloseNode() {
+    const { closable, closeContent } = this.props as IAlertInnerProps;
+    return closable ? (
+      <div className="zent-alert-close-wrapper" onClick={this.onCloseHandler}>
+        {closeContent ? (
+          closeContent
+        ) : (
+          <Icon type="close" className="zent-alert-close-btn" />
+        )}
+      </div>
+    ) : null;
+  }
+
+  /**
+   * 关闭触发器节点
+   */
+  private renderIcon() {
+    const { loading, type } = this.props as IAlertInnerProps;
+    return loading ? (
+      <InlineLoading
+        className="zent-alert-icon"
+        loading
+        icon="circle"
+        iconSize={16}
+      />
+    ) : (
+      <Icon className="zent-alert-icon" type={iconTypeMap[type]} />
+    );
+  }
+
   render() {
-    const { closed } = this.state;
-    if (closed) {
+    if (this.closed) {
       return null;
     }
 
     const {
-      type,
-      prefix,
-      rounded,
       className,
-      closable,
-      size,
-      children,
-    } = this.props;
+      type = 'info',
+      outline,
+      extraContent,
+      ...restDivAttrs
+    } = omit(this.props as IAlertInnerProps, renderOmitProps);
+
+    const alertIcon = this.renderIcon();
+    const content = this.renderContent();
+    const closeNode = this.renderCloseNode();
+
     const containerCls = cx(
-      `${prefix}-alert`,
-      `${prefix}-${styleClassMap[type]}`,
-      `${prefix}-${sizeClassMap[size]}`,
+      'zent-alert',
+      `zent-alert-style-${type}`,
       className,
       {
-        [`${prefix}-alert-border-rounded`]: rounded,
-        [`${prefix}-alert-closable`]: closable,
+        ['zent-alert-outline']: outline,
       }
     );
 
     return (
-      <div className={containerCls}>
-        {closable && (
-          <div className={`${prefix}-alert-close-wrapper`}>
-            <span
-              className={`${prefix}-alert-close-btn`}
-              onClick={this.onClose}
-            >
-              ×
-            </span>
-          </div>
-        )}
-        <div className={`${prefix}-alert-content-wrapper`}>
-          <div className={`${prefix}-alert-content`}>{children}</div>
-        </div>
+      <div className={containerCls} {...restDivAttrs}>
+        {alertIcon}
+        <div className="zent-alert-content">{content}</div>
+        <div className="zent-alert-extra-content">{extraContent}</div>
+        {closeNode}
       </div>
     );
   }
