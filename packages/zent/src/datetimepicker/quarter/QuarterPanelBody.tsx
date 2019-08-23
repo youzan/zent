@@ -10,13 +10,16 @@ const COL = 2;
 
 export default class QuarterPanelBody extends PureComponent<any> {
   getQuarters() {
-    const { disabledDate, selected, i18n } = this.props;
+    const { disabledDate, selected, actived, i18n } = this.props;
     const quarters = [];
     let index = 0;
     for (let rowIndex = 0; rowIndex < ROW; rowIndex++) {
       quarters[rowIndex] = [];
       for (let colIndex = 0; colIndex < COL; colIndex++) {
-        const isSelected = selected && getQuarter(selected) === index + 1;
+        const isSelected =
+          selected &&
+          actived.getFullYear() === selected.getFullYear() &&
+          getQuarter(selected) === index + 1;
         const isDisabled = disabledDate && disabledDate(index);
         const className = classNames({
           'panel__cell quarter-panel__cell': true,
