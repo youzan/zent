@@ -23,6 +23,7 @@ A floating card opened by clicking, hovering or focusing.
 | trigger | Trigger method | string | No | `'none'` | `'click'`, `'hover'`, `'focus'` |
 | position | Pop content position, naming rule: content position relative to trigger + arrow position relative to Pop. Can be a placement function, see `Popover.Position.create` | string \| func | No | `'top-center'` |  |
 | centerArrow | Always center arrow to trigger | bool | No | `false` |  |
+| cushion | Same as the `cushion` in Popover, which is usually the distance between the edge of the Pop and the trigger element | number | 否 | `10` |  |
 | header | Pop header | node | No | | |
 | block | Is trigger a block element | bool | No | `false` |  |
 | onShow | Callback after Pop has opened | func | No | `noop` | |
