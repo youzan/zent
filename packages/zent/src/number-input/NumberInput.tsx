@@ -6,86 +6,9 @@ import Icon from '../icon';
 import Input, { IInputClearEvent, IInputCoreProps } from '../input';
 import { InputContext, IInputContext } from '../input/context';
 import { DisabledContext, IDisabledContext } from '../disabled';
-
-function isDecimal(value: string | number): boolean {
-  if (typeof value === 'number') {
-    return true;
-  }
-  return /^-?\d*\.?\d*$/.test(value.toString());
-}
-
-function verifyProps({ showStepper, showCounter }: INumberInputProps) {
-  if (showStepper && showCounter) {
-    throw new Error(
-      'NumberInput: showStepper、 showCounter cannot exist at the same time'
-    );
-  }
-}
-
-function isPotentialValue(value: string) {
-  return value === '.' || value === '-' || value === '+';
-}
-
-function trimLeadingPlus(value: string) {
-  if (value.startsWith('+')) {
-    return value.substring(1);
-  }
-  return value;
-}
-
-function normalizeDecimalValue(
-  value: string | number | undefined,
-  props: INumberInputDecimalProps
-) {
-  const { min, max, decimal: decimalPlaces } = props;
-  if (
-    !isValidValue(value) ||
-    value === '' ||
-    isPotentialValue(value.toString())
-  ) {
-    return '';
-  }
-  let decimal = new Decimal(value);
-  if (min !== null && min !== undefined) {
-    const minDec = new Decimal(min);
-    if (minDec.cmp(decimal) === 1) {
-      decimal = minDec;
-    }
-  }
-  if (max !== null && max !== undefined) {
-    const maxDec = new Decimal(max);
-    if (maxDec.cmp(decimal) === -1) {
-      decimal = maxDec;
-    }
-  }
-  return decimal.toFixed(decimalPlaces);
-}
-
-function normalizeIntegerValue(
-  value: string | number | undefined,
-  min: number | undefined,
-  max: number | undefined
-): number {
-  max =
-    typeof max === 'number'
-      ? Math.min(Number.MAX_SAFE_INTEGER, max)
-      : Number.MAX_SAFE_INTEGER;
-  min =
-    typeof min === 'number'
-      ? Math.max(Number.MIN_SAFE_INTEGER, min)
-      : Number.MIN_SAFE_INTEGER;
-  let num: number;
-  if (typeof value === 'number') {
-    num = value;
-  } else if (value === undefined || value === null) {
-    num = 0;
-  } else {
-    num = parseInt(value, 10);
-  }
-  num = Math.min(max, num);
-  num = Math.max(min, num);
-  return num;
-}
+import * as Integers from './integer';
+import * as Decimals from './decimal';
+import { trimLeadingPlus } from './utils';
 
 export interface INumberInputCommonProps
   extends Omit<IInputCoreProps, 'onChange' | 'type' | 'value' | 'onInput'> {
@@ -109,94 +32,57 @@ export interface INumberInputIntegerProps extends INumberInputCommonProps {
   onChange?: (value: number) => void;
   min?: number;
   max?: number;
-  onInput?: (value: number) => void;
+  onInput?: (value: string) => void;
 }
 
 export type INumberInputProps =
   | INumberInputDecimalProps
   | INumberInputIntegerProps;
 
-export interface INumberInputState {
-  prevProps: INumberInputProps;
-  value: string | number;
+export interface INumberInputIntegerState {
+  prevProps: INumberInputIntegerProps;
+  value: number;
+  input: string;
+  min: number;
+  max: number;
 }
 
-function isValidValue(value: unknown): value is string | number {
-  const type = typeof value;
-  return (
-    (type === 'string' && isDecimal(value as string)) ||
-    (type === 'number' && Number.isFinite(value as number))
-  );
+export interface INumberInputDecimalState {
+  prevProps: INumberInputDecimalProps;
+  value: Decimal;
+  input: string;
+  min: Decimal | null;
+  max: Decimal | null;
+  delta: Decimal;
 }
 
-function getDelta({ decimal }: INumberInputDecimalProps): Decimal {
-  return new Decimal(1).div(Math.pow(10, decimal));
-}
+export type INumberInputState =
+  | INumberInputIntegerState
+  | INumberInputDecimalState;
 
-const EMPTY_DECIMAL = new Decimal(0);
+const is = Object.is;
 
-function calculateDecimalLimit(
-  value: number | string,
-  { min, max }: INumberInputDecimalProps
-): { canInc: boolean; canDec: boolean; num: Decimal } {
-  let canDec = true;
-  let canInc = true;
-  if (!value || (typeof value === 'string' && isPotentialValue(value))) {
-    return {
-      canDec: false,
-      canInc: false,
-      num: EMPTY_DECIMAL,
+function getStateFromProps(props: INumberInputProps): INumberInputState {
+  if (props.integer === true) {
+    const { min, max } = Integers.normalizeMinMax(props);
+    const state: INumberInputIntegerState = {
+      prevProps: props,
+      min,
+      max,
+      ...Integers.normalizeValue(props.value, min, max),
     };
-  }
-  const dec = new Decimal(value);
-  if (min !== null && min !== undefined && isDecimal(min)) {
-    const minDec = new Decimal(min);
-    canDec = minDec.cmp(dec) === -1;
-  }
-  if (max !== null && max !== undefined && isDecimal(max)) {
-    const maxDec = new Decimal(max);
-    canInc = maxDec.cmp(dec) === 1;
-  }
-  return {
-    canDec,
-    canInc,
-    num: dec,
-  };
-}
-
-function calculateIntegerLimit(
-  value: number | string,
-  props: INumberInputIntegerProps
-): { canInc: boolean; canDec: boolean; num: number } {
-  let canDec = true;
-  let canInc = true;
-  if (!value) {
-    return {
-      canDec: false,
-      canInc: false,
-      num: 0,
+    return state;
+  } else {
+    const { min, max } = Decimals.normalizeMinMax(props);
+    const state: INumberInputDecimalState = {
+      prevProps: props,
+      min,
+      max,
+      delta: Decimals.getDelta(props.decimal),
+      ...Decimals.normalizeValue(props.value, min, max, props.decimal),
     };
+    return state;
   }
-  const num = typeof value === 'number' ? value : parseInt(value, 10);
-  const min =
-    typeof props.min === 'number'
-      ? Math.max(props.min, Number.MIN_SAFE_INTEGER)
-      : Number.MIN_SAFE_INTEGER;
-  const max =
-    typeof props.max === 'number'
-      ? Math.min(props.max, Number.MAX_SAFE_INTEGER)
-      : Number.MAX_SAFE_INTEGER;
-  if (min >= num) {
-    canDec = false;
-  }
-  if (max <= num) {
-    canInc = false;
-  }
-  return {
-    canDec,
-    canInc,
-    num,
-  };
 }
 
 export class NumberInput extends React.Component<
@@ -221,183 +107,197 @@ export class NumberInput extends React.Component<
 
   constructor(props: INumberInputProps) {
     super(props);
-    let value: string | number;
-    if (props.integer === false) {
-      value = normalizeDecimalValue(props.value, props);
-    } else {
-      value = normalizeIntegerValue(props.value, props.min, props.max);
-    }
-    this.state = {
-      value,
-      prevProps: props,
-    };
+    this.state = getStateFromProps(props);
   }
 
-  onChange = (e: IInputClearEvent | React.ChangeEvent<HTMLInputElement>) => {
+  private onUserInput = (
+    e: IInputClearEvent | React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { value } = e.target;
     if (this.props.integer === false) {
       const { onInput } = this.props;
-      if (isPotentialValue(value) || isDecimal(value)) {
+      if (Decimals.isPotentialValue(value)) {
         this.setState({
-          value,
+          input: value,
+          value: Decimals.EMPTY_DECIMAL,
+        });
+      } else if (Decimals.isDecimal(value)) {
+        this.setState({
+          input: value,
+          value: new Decimal(trimLeadingPlus(value)),
         });
         onInput && onInput(value);
       }
     } else {
       const { onInput } = this.props;
-      const num = parseInt(value, 10) || 0;
-      this.setState({
-        value: num,
-      });
-      onInput && onInput(num);
-    }
-  };
-
-  onBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    if (this.props.integer === true) {
-      const { onChange, min, max } = this.props;
-      const { value } = this.state;
-      const num = normalizeIntegerValue(value, min, max);
-      if (onChange) {
-        onChange(num);
-      } else {
+      if (Integers.isPotentialValue(value)) {
         this.setState({
+          input: value,
+          value: 0,
+        });
+        onInput && onInput(value);
+      } else if (Integers.isInteger(value)) {
+        const num = parseInt(value, 10) || 0;
+        this.setState({
+          input: value,
           value: num,
         });
+        onInput && onInput(value);
+      }
+    }
+  };
+
+  private onBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    if (this.props.integer === true) {
+      const { onChange } = this.props;
+      const { value, min, max } = this.state as INumberInputIntegerState;
+      const normalized = Integers.normalizeValue(value, min, max);
+      if (onChange) {
+        onChange(normalized.value);
+      } else {
+        this.setState(normalized);
       }
       const { onBlur } = this.props;
       onBlur && onBlur(e);
     } else {
-      const { onChange } = this.props;
-      const { value } = this.state;
-      const nextValue = normalizeDecimalValue(value, this.props);
+      const { onChange, decimal } = this.props;
+      const { input, min, max } = this.state as INumberInputDecimalState;
+      const normalized = Decimals.normalizeValue(input, min, max, decimal);
       if (onChange) {
-        onChange(nextValue);
+        onChange(normalized.input);
       } else {
-        this.setState({
-          value: nextValue,
-        });
+        this.setState(normalized);
       }
       const { onBlur } = this.props;
       onBlur && onBlur(e);
     }
   };
 
-  inc = () => {
+  private step(type: 'inc' | 'dec') {
     if (this.props.disabled) {
       return;
     }
-    const { value } = this.state;
     if (this.props.integer === true) {
-      const { canInc, num } = calculateIntegerLimit(value, this.props);
-      if (!canInc) {
+      const { value, min, max } = this.state as INumberInputIntegerState;
+      const { canInc, canDec } = Integers.calculateLimit(value, min, max);
+      if ((type === 'inc' && !canInc) || (type === 'dec' && !canDec)) {
         return;
       }
       const { onChange } = this.props;
-      if (onChange) {
-        onChange(num + 1);
+      let nextValue: number;
+      if (type === 'inc') {
+        nextValue = value + 1;
       } else {
-        this.setState({
-          value: num + 1,
-        });
+        nextValue = value - 1;
       }
-    } else {
-      const { decimal: decimalPlaces, onChange } = this.props;
-      const { canInc, num: decimal } = calculateDecimalLimit(value, this.props);
-      if (!canInc) {
-        return;
-      }
-      const nextValue = decimal
-        .plus(getDelta(this.props))
-        .toFixed(decimalPlaces);
       if (onChange) {
         onChange(nextValue);
       } else {
         this.setState({
           value: nextValue,
+          input: String(nextValue),
+        });
+      }
+    } else {
+      const { onChange, decimal } = this.props;
+      const { value, min, max, delta } = this.state as INumberInputDecimalState;
+      const { canInc, canDec } = Decimals.calculateLimit(value, min, max);
+      if ((type === 'inc' && !canInc) || (type === 'dec' && !canDec)) {
+        return;
+      }
+      let nextValue: Decimal;
+      if (type === 'inc') {
+        nextValue = value.plus(delta);
+      } else {
+        nextValue = value.minus(delta);
+      }
+      const input = nextValue.toFixed(decimal);
+      if (onChange) {
+        onChange(input);
+      } else {
+        this.setState({
+          value: nextValue,
+          input,
         });
       }
     }
+  }
+
+  private inc = () => {
+    this.step('inc');
   };
 
-  dec = () => {
-    if (this.props.disabled) {
-      return;
-    }
-    const { value } = this.state;
-    if (this.props.integer === true) {
-      const { onChange } = this.props;
-      const { canDec, num } = calculateIntegerLimit(value, this.props);
-      if (!canDec) {
-        return;
-      }
-      if (onChange) {
-        onChange(num - 1);
-      } else {
-        this.setState({
-          value: num - 1,
-        });
-      }
-    } else {
-      const { decimal: decimalPlaces, onChange } = this.props;
-
-      const { canDec, num: decimal } = calculateDecimalLimit(value, this.props);
-      if (!canDec) {
-        return;
-      }
-      const nextValue = decimal
-        .minus(getDelta(this.props))
-        .toFixed(decimalPlaces);
-      if (onChange) {
-        onChange(nextValue);
-      } else {
-        this.setState({
-          value: nextValue,
-        });
-      }
-    }
+  private dec = () => {
+    this.step('dec');
   };
 
   static getDerivedStateFromProps(
     props: INumberInputProps,
-    { prevProps }: INumberInputState
+    prevState: INumberInputState
   ): Partial<INumberInputState> | null {
-    const { value } = props;
+    const { prevProps } = prevState;
     if (props === prevProps) {
       return null;
     }
-    if (isValidValue(value)) {
-      const nextValue =
-        props.integer === false
-          ? normalizeDecimalValue(trimLeadingPlus(value.toString()), props)
-          : normalizeIntegerValue(value, props.min, props.max);
-      return {
-        value: nextValue,
+    if (props.integer !== prevProps.integer) {
+      return getStateFromProps(props);
+    }
+    if (props.integer === true) {
+      const nextState: INumberInputIntegerState = {
+        ...(prevState as INumberInputIntegerState),
         prevProps: props,
       };
+      if (!is(props.min, prevProps.min) || !is(props.max, prevProps.max)) {
+        const { min, max } = Integers.normalizeMinMax(props);
+        nextState.min = min;
+        nextState.max = max;
+      }
+      const { value, input } = Integers.normalizeValue(
+        props.value,
+        nextState.min,
+        nextState.max
+      );
+      nextState.value = value;
+      nextState.input = input;
+      return nextState;
     }
-    return {
+    const nextState: INumberInputDecimalState = {
+      ...(prevState as INumberInputDecimalState),
       prevProps: props,
     };
+    if (!is(props.min, prevProps.min) || !is(props.max, prevProps.max)) {
+      const { min, max } = Decimals.normalizeMinMax(props);
+      nextState.min = min;
+      nextState.max = max;
+    }
+    const { value, input } = Decimals.normalizeValue(
+      props.value,
+      nextState.min,
+      nextState.max,
+      props.decimal
+    );
+    nextState.value = value;
+    nextState.input = input;
+    return nextState;
   }
 
   private checkPropsValue() {
-    if (this.props.integer === true) {
-      if (this.props.value !== this.state.value) {
-        const { onChange } = this.props;
-        onChange && onChange(this.state.value as number);
-      }
-    } else {
-      const { onChange } = this.props;
-      if (
-        onChange &&
-        this.props.value !== '' &&
-        this.state.value !== '' &&
-        !new Decimal(this.props.value || 0).eq(new Decimal(this.state.value))
-      ) {
-        onChange(this.state.value as (string & number));
-      }
-    }
+    // if (this.props.integer === true) {
+    //   if (this.props.value !== this.state.value) {
+    //     const { onChange } = this.props;
+    //     onChange && onChange(this.state.value as number);
+    //   }
+    // } else {
+    //   const { onChange } = this.props;
+    //   if (
+    //     onChange &&
+    //     this.props.value !== '' &&
+    //     this.state.value !== '' &&
+    //     !new Decimal(this.props.value || 0).eq(new Decimal(this.state.value))
+    //   ) {
+    //     onChange(this.state.value as (string & number));
+    //   }
+    // }
   }
 
   componentDidMount() {
@@ -419,12 +319,13 @@ export class NumberInput extends React.Component<
       showCounter,
       showStepper,
     } = this.props;
-    const { value } = this.state;
     let limits: { canDec: boolean; canInc: boolean };
     if (this.props.integer === true) {
-      limits = calculateIntegerLimit(value, this.props);
+      const { min, max, value } = this.state as INumberInputIntegerState;
+      limits = Integers.calculateLimit(value, min, max);
     } else {
-      limits = calculateDecimalLimit(value, this.props);
+      const { value, min, max } = this.state as INumberInputDecimalState;
+      limits = Decimals.calculateLimit(value, min, max);
     }
     const { canDec, canInc } = limits;
     // 箭头状态
@@ -486,7 +387,6 @@ export class NumberInput extends React.Component<
   }
 
   render() {
-    verifyProps(this.props);
     const {
       integer,
       className,
@@ -506,8 +406,12 @@ export class NumberInput extends React.Component<
 
       ...inputProps
     } = this.props as INumberInputDecimalProps & INumberInputIntegerProps;
-    const { value } = this.state;
-
+    const { input } = this.state;
+    if (showStepper && showCounter) {
+      throw new Error(
+        'NumberInput: showStepper、 showCounter cannot exist at the same time'
+      );
+    }
     return (
       <InputContext.Provider value={this.inputContext}>
         <Input
@@ -517,8 +421,8 @@ export class NumberInput extends React.Component<
           readOnly={readOnly}
           disabled={disabled}
           className={cx('zent-number-input', className)}
-          value={value as string}
-          onChange={this.onChange}
+          value={input}
+          onChange={this.onUserInput}
           onBlur={this.onBlur}
         />
       </InputContext.Provider>
