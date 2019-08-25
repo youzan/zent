@@ -98,7 +98,7 @@ export class NumberInput extends React.Component<
 
   static contextType = DisabledContext;
   context!: IDisabledContext;
-
+  focused = false;
   inputRef = React.createRef<Input>();
 
   private inputContext: IInputContext = {
@@ -147,7 +147,14 @@ export class NumberInput extends React.Component<
     }
   };
 
+  private onFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+    this.focused = true;
+    const { onFocus } = this.props;
+    onFocus && onFocus(e);
+  };
+
   private onBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    this.focused = false;
     if (this.props.integer === true) {
       const { onChange } = this.props;
       const { value, min, max } = this.state as INumberInputIntegerState;
@@ -282,32 +289,30 @@ export class NumberInput extends React.Component<
   }
 
   private checkPropsValue() {
-    // if (this.props.integer === true) {
-    //   if (this.props.value !== this.state.value) {
-    //     const { onChange } = this.props;
-    //     onChange && onChange(this.state.value as number);
-    //   }
-    // } else {
-    //   const { onChange } = this.props;
-    //   if (
-    //     onChange &&
-    //     this.props.value !== '' &&
-    //     this.state.value !== '' &&
-    //     !new Decimal(this.props.value || 0).eq(new Decimal(this.state.value))
-    //   ) {
-    //     onChange(this.state.value as (string & number));
-    //   }
-    // }
+    if (this.props.integer === true) {
+      if (this.props.value !== this.state.value) {
+        const { onChange } = this.props;
+        onChange && onChange(this.state.value as number);
+      }
+    } else {
+      const { onChange, decimal } = this.props;
+      if (onChange && this.props.value !== '' && this.state.input !== '') {
+        const str = (this.state.value as Decimal).toFixed(decimal);
+        if (str !== String(this.props.value)) {
+          onChange(str);
+        }
+      }
+    }
   }
 
   componentDidMount() {
-    if ('value' in this.props) {
+    if ('value' in this.props && !this.focused) {
       this.checkPropsValue();
     }
   }
 
   componentDidUpdate(prevProps: INumberInputProps) {
-    if (prevProps !== this.props && 'value' in this.props) {
+    if (prevProps !== this.props && 'value' in this.props && !this.focused) {
       this.checkPropsValue();
     }
   }
@@ -423,6 +428,7 @@ export class NumberInput extends React.Component<
           className={cx('zent-number-input', className)}
           value={input}
           onChange={this.onUserInput}
+          onFocus={this.onFocus}
           onBlur={this.onBlur}
         />
       </InputContext.Provider>
