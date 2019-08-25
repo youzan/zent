@@ -52,6 +52,7 @@ export interface IPopProps {
   content: React.ReactNode;
   trigger?: 'none' | 'click' | 'hover' | 'focus';
   position?: PopPositions | PositionFunction;
+  cushion?: number;
   centerArrow?: boolean;
   header?: React.ReactNode;
   block?: boolean;
@@ -196,6 +197,7 @@ export class Pop extends Component<IPopProps> {
   static defaultProps = {
     trigger: 'none',
     position: 'top-center',
+    cushion: 10,
     centerArrow: false,
     block: false,
     confirmText: '',
@@ -330,6 +332,7 @@ export class Pop extends Component<IPopProps> {
       onShow,
       onClose,
       position,
+      cushion,
       header,
       centerArrow,
       onBeforeClose,
@@ -360,7 +363,7 @@ export class Pop extends Component<IPopProps> {
         prefix={prefix}
         wrapperClassName={cx(`${prefix}-pop-wrapper`, wrapperClassName)}
         className={cls}
-        cushion={10}
+        cushion={cushion}
         position={getPosition(position, centerArrow)}
         display={block ? 'block' : 'inline-block'}
         onShow={onShow}
