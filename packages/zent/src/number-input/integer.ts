@@ -100,7 +100,3 @@ export function calculateLimit(
     canInc,
   };
 }
-
-// export function getStateFromProps(
-//   props: INumberInputIntegerProps
-// ): INumberInputIntegerState {}
