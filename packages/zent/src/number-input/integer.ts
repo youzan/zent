@@ -50,14 +50,14 @@ export function isInteger(value: string): boolean {
 }
 
 export function normalizeValue(
-  potential: string | number | undefined,
+  potential: number | undefined | null,
   min: number,
   max: number
-): { input: string; value: number } {
-  let value: number;
+): { input: string; value: number | null } {
+  let value: number | null;
   let input: string | null = null;
   if (potential === null || potential === undefined) {
-    value = 0;
+    value = null;
     input = '';
   } else if (typeof potential === 'string') {
     /**
@@ -71,8 +71,10 @@ export function normalizeValue(
   } else {
     value = Math.floor(potential);
   }
-  value = Math.min(max, value);
-  value = Math.max(min, value);
+  if (value !== null) {
+    value = Math.min(max, value);
+    value = Math.max(min, value);
+  }
   if (input === null) {
     input = String(value);
   }
@@ -83,10 +85,16 @@ export function normalizeValue(
 }
 
 export function calculateLimit(
-  value: number,
+  value: number | null,
   min: number,
   max: number
 ): { canInc: boolean; canDec: boolean } {
+  if (value === null) {
+    return {
+      canDec: false,
+      canInc: false,
+    };
+  }
   let canDec = true;
   let canInc = true;
   if (min >= value) {

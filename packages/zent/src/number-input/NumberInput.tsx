@@ -28,8 +28,8 @@ export interface INumberInputDecimalProps extends INumberInputCommonProps {
 
 export interface INumberInputIntegerProps extends INumberInputCommonProps {
   integer: true;
-  value?: number;
-  onChange?: (value: number) => void;
+  value?: number | null;
+  onChange?: (value: number | null) => void;
   min?: number;
   max?: number;
   onInput?: (value: string) => void;
@@ -41,7 +41,7 @@ export type INumberInputProps =
 
 export interface INumberInputIntegerState {
   prevProps: INumberInputIntegerProps;
-  value: number;
+  value: number | null;
   input: string;
   min: number;
   max: number;
@@ -133,7 +133,7 @@ export class NumberInput extends React.Component<
       if (Integers.isPotentialValue(value)) {
         this.setState({
           input: value,
-          value: 0,
+          value: null,
         });
         onInput && onInput(value);
       } else if (Integers.isInteger(value)) {
@@ -187,7 +187,11 @@ export class NumberInput extends React.Component<
     if (this.props.integer === true) {
       const { value, min, max } = this.state as INumberInputIntegerState;
       const { canInc, canDec } = Integers.calculateLimit(value, min, max);
-      if ((type === 'inc' && !canInc) || (type === 'dec' && !canDec)) {
+      if (
+        value === null ||
+        (type === 'inc' && !canInc) ||
+        (type === 'dec' && !canDec)
+      ) {
         return;
       }
       const { onChange } = this.props;

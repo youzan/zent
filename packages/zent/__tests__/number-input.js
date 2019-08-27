@@ -143,4 +143,11 @@ describe('NumberInput', () => {
     );
     expect(wrapper.state('value')).toBe(3);
   });
+
+  it('Null for empty input in integer mode', () => {
+    let value = 0;
+    const wrapper = mount(<NumberInput integer onChange={v => (value = v)} />);
+    wrapper.find('input').simulate('blur');
+    expect(value).toBe(null);
+  });
 });
