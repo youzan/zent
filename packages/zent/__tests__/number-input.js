@@ -2,6 +2,7 @@ import React from 'react';
 import Enzyme, { mount, render } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import NumberInput from 'number-input';
+import Decimal from 'big.js';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -24,12 +25,23 @@ describe('NumberInput', () => {
 
   it('change value is - or + ', () => {
     let wrapper = mount(<NumberInput value={0} />);
-    wrapper.setState({ value: '+' });
+    wrapper.find('input').simulate('change', {
+      target: {
+        value: '+',
+      },
+    });
     wrapper.find('input').simulate('blur');
-    expect(wrapper.state('value')).toBe('');
-    wrapper.setState({ value: '-' });
+    expect(wrapper.state('input')).toBe('');
+    expect(wrapper.state('value').cmp(new Decimal(0))).toBe(0);
+
+    wrapper.find('input').simulate('change', {
+      target: {
+        value: '-',
+      },
+    });
     wrapper.find('input').simulate('blur');
-    expect(wrapper.state('value')).toBe('');
+    expect(wrapper.state('input')).toBe('');
+    expect(wrapper.state('value').cmp(new Decimal(0))).toBe(0);
   });
 
   it('change value within min and max ', () => {
@@ -38,16 +50,20 @@ describe('NumberInput', () => {
     wrapper.find('.zent-number-input-arrowup').simulate('click');
     wrapper.find('.zent-number-input-arrowup').simulate('click');
     wrapper.find('.zent-number-input-arrowup').simulate('click');
-    expect(wrapper.state('value')).toBe('3');
+    expect(wrapper.state('input')).toBe('3');
+    expect(wrapper.state('value').cmp(new Decimal(3))).toBe(0);
     wrapper.find('.zent-number-input-arrowdown').simulate('click');
     wrapper.find('.zent-number-input-arrowdown').simulate('click');
     wrapper.find('.zent-number-input-arrowdown').simulate('click');
     wrapper.find('.zent-number-input-arrowdown').simulate('click');
-    expect(wrapper.state('value')).toBe('0');
+    expect(wrapper.state('input')).toBe('0');
+    expect(wrapper.state('value').cmp(new Decimal(0))).toBe(0);
     wrapper = mount(<NumberInput showStepper value={0} min={1} max={3} />);
-    expect(wrapper.state('value')).toBe('1');
+    expect(wrapper.state('input')).toBe('1');
+    expect(wrapper.state('value').cmp(new Decimal(1))).toBe(0);
     wrapper = mount(<NumberInput showStepper value={6} min={0} max={3} />);
-    expect(wrapper.state('value')).toBe('3');
+    expect(wrapper.state('input')).toBe('3');
+    expect(wrapper.state('value').cmp(new Decimal(3))).toBe(0);
   });
 
   it('NumberInput has its core function, change value with click on arrow', () => {
@@ -69,9 +85,11 @@ describe('NumberInput', () => {
       />
     );
     wrapper.find('.zent-number-input-arrowup').simulate('click');
-    expect(wrapper.state('value')).toBe('3');
+    expect(wrapper.state('input')).toBe('3');
+    expect(wrapper.state('value').cmp(new Decimal(3))).toBe(0);
     wrapper.find('.zent-number-input-arrowdown').simulate('click');
-    expect(wrapper.state('value')).toBe('2');
+    expect(wrapper.state('input')).toBe('2');
+    expect(wrapper.state('value').cmp(new Decimal(2))).toBe(0);
 
     wrapper.find('input').simulate('change');
     expect(onChangeMock.mock.calls.length).toBe(2);
@@ -80,10 +98,12 @@ describe('NumberInput', () => {
     wrapper.find('input').simulate('keyDown', { key: 'Enter' });
     expect(onPressEnter.mock.calls.length).toBe(1);
     wrapper.setProps({ value: 4 });
-    expect(wrapper.state('value')).toBe('4');
+    expect(wrapper.state('input')).toBe('4');
+    expect(wrapper.state('value').cmp(new Decimal(4))).toBe(0);
     wrapper = mount(<NumberInput min={0} showStepper value={-1} />);
     wrapper.find('.zent-number-input-arrowdown').simulate('click');
-    expect(wrapper.state('value')).toBe('0');
+    expect(wrapper.state('input')).toBe('0');
+    expect(wrapper.state('value').cmp(new Decimal(0))).toBe(0);
   });
 
   it('NumberInput onchange value', () => {
@@ -97,7 +117,7 @@ describe('NumberInput', () => {
         value: '',
       },
     });
-    expect(wrapper.state('value')).toBe('');
+    expect(wrapper.state('input')).toBe('');
   });
 
   it('NumberInput integer mode', () => {
@@ -122,5 +142,12 @@ describe('NumberInput', () => {
       <NumberInput showStepper integer value={6} min={0} max={3} />
     );
     expect(wrapper.state('value')).toBe(3);
+  });
+
+  it('Null for empty input in integer mode', () => {
+    let value = 0;
+    const wrapper = mount(<NumberInput integer onChange={v => (value = v)} />);
+    wrapper.find('input').simulate('blur');
+    expect(value).toBe(null);
   });
 });
