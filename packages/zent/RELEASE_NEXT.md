@@ -181,6 +181,40 @@ import { Portal, PurePortal } from 'zent'
 
 如果之前依赖了 postcss 的源样式，需要改成 sass。
 
+## 7.0.0-next.29(2019-08-23)
+
+- 修复 `QuarterPicker` 的选中逻辑
+- 按新的视觉样式重写 `Alert`，有不兼容改动，具体参考上面的 `Alert` 一节
+- `Popover` 的 trigger 支持 functional component
+
+## 7.0.0-next.28(2019-08-22)
+
+- 样式重构为 CSS Variable
+- `package.json` 里加回 `main` 字段，和 `modules` 指向相同的代码
+- `Grid` 和 `Table` 支持 `mini` 类型的分页器
+- 重写 `Icon` 组件为 functional component
+- 用 Hooks 重写 `Checkbox` 组件，现在 `Checkbox` 的 `disable` 属性总是比父组件 `CheckboxGroup` 的 `disable` 拥有更高优先级
+- `NumberInput` 支持整数模式，此时 `value` 类型为数字
+
+## 7.0.0-next.27(2019-08-19)
+
+- 修复 `AnimateHeight` 高度为 `auto` 时动画结束没有正确设置高度为 `auto` 的问题
+- 修复 `Tree` 的更新逻辑
+
+## 7.0.0-next.26(2019-08-14)
+
+- 修复 `TypeScript` 编译器导致的的一个循环依赖 bug
+
+## 7.0.0-next.25(2019-08-14)
+
+- 更新 `Cascader` 和 `Form` 的样式
+- 修复非法属性被透传到 `input` 的问题
+- 使用 Hooks 重写 `Radio` 组件，现在 `Radio` 的 `disable` 属性总是比父组件 `RadioGroup` 的 `disable` 拥有更高优先级
+
+## 7.0.0-next.24(2019-08-05)
+
+- 修复 `Upload` 组件 `categoryId` 无法修改的问题
+
 ## 7.0.0-next.23(2019-07-31)
 
 - 修复 `Input` 样式问题
