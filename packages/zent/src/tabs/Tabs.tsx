@@ -12,9 +12,9 @@ import {
   ITabsNavProps,
   ITab,
 } from './types';
-import NormalTabsNav from './components/tabs-nav/normal';
-import CardTabsNav from './components/tabs-nav/card';
-import ButtonTabsNav from './components/tabs-nav/button';
+import NormalTabsNav from './components/tabs-nav/NormalTabsNav';
+import CardTabsNav from './components/tabs-nav/CardTabsNav';
+import ButtonTabsNav from './components/tabs-nav/ButtonTabsNav';
 import BaseTabs from './components/base/BaseTabs';
 
 const TabsNavComponents: {

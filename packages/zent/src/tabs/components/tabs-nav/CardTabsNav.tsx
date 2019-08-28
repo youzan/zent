@@ -1,6 +1,6 @@
 import * as React from 'react';
 import CardTab from '../tab/CardTab';
-import CommonTabsNav from './common';
+import CommonTabsNav from './CommonTabsNav';
 import { IInnerTab } from '../../types';
 
 class CardTabsNav<Id extends string | number = string> extends CommonTabsNav<

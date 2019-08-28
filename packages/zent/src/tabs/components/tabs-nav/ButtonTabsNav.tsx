@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Button } from '../../../button';
 import { IInnerTab } from '../../types';
-import CommonTabsNav from './common';
+import CommonTabsNav from './CommonTabsNav';
 
 class ButtonTabsNav<Id extends string | number = string> extends CommonTabsNav<
   Id

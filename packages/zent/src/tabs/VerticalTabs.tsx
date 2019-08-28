@@ -10,7 +10,7 @@ import {
   IVerticalTabsProps,
   IVerticalTab,
 } from './types';
-import VerticalTabsNav from './components/tabs-nav/vertical';
+import VerticalTabsNav from './components/tabs-nav/VerticalTabsNav';
 import BaseTabs from './components/base/BaseTabs';
 
 export class VerticalTabs<Id extends string | number = string> extends BaseTabs<
