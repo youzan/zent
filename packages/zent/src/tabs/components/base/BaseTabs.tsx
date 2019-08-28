@@ -12,14 +12,30 @@ abstract class BaseTabs<
 > extends Component<TabsProps> {
   abstract get tabsCls(): string;
 
-  abstract renderNav(tabDataList: InnerTab[]): React.ReactNode;
-  abstract renderTabPanel(tabDataList: InnerTab[]): React.ReactNode;
   abstract getTabDataListFromTabs(
     tabs: NonUndefined<TabsProps['tabs']>
   ): InnerTab[];
+
   abstract getTabDataListFromChildren(
     children: NonUndefined<TabsProps['children']>
   ): InnerTab[];
+
+  abstract renderNav(tabDataList: InnerTab[]): React.ReactNode;
+
+  abstract renderTabPanel(tabDataList: InnerTab): React.ReactNode;
+
+  /**
+   * 渲染 TabPanel
+   */
+  renderTabPanels(tabDataList: InnerTab[]): React.ReactNode {
+    const hasData = !!(tabDataList && tabDataList.length);
+
+    if (!hasData) {
+      return null;
+    }
+
+    return tabDataList.map(this.renderTabPanel);
+  }
 
   /**
    * 带 TabPanel children 的渲染方式
@@ -35,7 +51,7 @@ abstract class BaseTabs<
       <div className={this.tabsCls}>
         {this.renderNav(tabDataList)}
         <div className="zent-tabs-panel-wrapper">
-          {this.renderTabPanel(tabDataList)}
+          {this.renderTabPanels(tabDataList)}
         </div>
       </div>
     );

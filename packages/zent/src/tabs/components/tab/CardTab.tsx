@@ -3,6 +3,7 @@ import BaseTab from '../base/BaseTab';
 
 class CardTab<Id> extends BaseTab<Id> {
   protected typeName = 'card';
+
   render() {
     const { actived, disabled, children } = this.props;
 

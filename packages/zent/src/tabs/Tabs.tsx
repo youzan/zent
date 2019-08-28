@@ -16,6 +16,7 @@ import NormalTabsNav from './components/tabs-nav/NormalTabsNav';
 import CardTabsNav from './components/tabs-nav/CardTabsNav';
 import ButtonTabsNav from './components/tabs-nav/ButtonTabsNav';
 import BaseTabs from './components/base/BaseTabs';
+import { getTabDataFromChild } from './utils';
 
 const TabsNavComponents: {
   [type in TabType]?: React.ComponentType<ITabsNavProps<any>>;
@@ -72,23 +73,7 @@ export class Tabs<Id extends string | number = string> extends BaseTabs<
       (
         child: React.ReactElement<React.PropsWithChildren<ITabPanelProps<Id>>>
       ) => {
-        const {
-          id,
-          disabled,
-          tab,
-          children: panelChildren,
-          className: panelClassName,
-        } = child.props;
-        const props: IInnerTab<Id> = {
-          title: tab,
-          disabled,
-          key: id,
-          actived: activeId === id,
-          panelChildren,
-          className: panelClassName,
-        };
-
-        return props;
+        return getTabDataFromChild(child, activeId);
       }
     );
   }
@@ -96,6 +81,7 @@ export class Tabs<Id extends string | number = string> extends BaseTabs<
   renderNav(tabDataList: Array<IInnerTab<Id>>) {
     const { type, candel, stretch, navExtraContent, onChange, onDelete } = this
       .props as ITabsInnerProps<Id>;
+
     const TabsNavComp = TabsNavComponents[type] as React.ComponentClass<
       ITabsNavProps<Id>
     >;
@@ -116,27 +102,19 @@ export class Tabs<Id extends string | number = string> extends BaseTabs<
     );
   }
 
-  renderTabPanel(tabDataList: Array<IInnerTab<Id>>) {
-    const hasData = !!(tabDataList && tabDataList.length);
-
-    if (!hasData) {
-      return null;
-    }
-
-    return tabDataList.map(tabItem => {
-      return (
-        <LazyMount mount={tabItem.actived} key={tabItem.key}>
-          <TabPanel
-            tab={tabItem.title}
-            actived={tabItem.actived}
-            className={tabItem.className}
-            id={tabItem.key}
-          >
-            {tabItem.panelChildren}
-          </TabPanel>
-        </LazyMount>
-      );
-    });
+  renderTabPanel(tabItem: IInnerTab<Id>) {
+    return (
+      <LazyMount mount={tabItem.actived} key={tabItem.key}>
+        <TabPanel
+          tab={tabItem.title}
+          actived={tabItem.actived}
+          className={tabItem.className}
+          id={tabItem.key}
+        >
+          {tabItem.panelChildren}
+        </TabPanel>
+      </LazyMount>
+    );
   }
 }
 

@@ -3,15 +3,17 @@ import cn from 'classnames';
 import noop from 'lodash-es/noop';
 
 import LazyMount from '../utils/component/LazyMount';
-import TabPanel from './components/panel/TabPanel';
 import {
   IVerticalInnerTab,
   IVerticalTabPanelProps,
   IVerticalTabsProps,
   IVerticalTab,
+  ITabPanelProps,
 } from './types';
 import VerticalTabsNav from './components/tabs-nav/VerticalTabsNav';
 import BaseTabs from './components/base/BaseTabs';
+import { getTabDataFromChild } from './utils';
+import VerticalTabPanel from './components/panel/VerticalTabPanel';
 
 export class VerticalTabs<Id extends string | number = string> extends BaseTabs<
   Id,
@@ -19,7 +21,7 @@ export class VerticalTabs<Id extends string | number = string> extends BaseTabs<
   IVerticalTabPanelProps<Id>,
   IVerticalTabsProps<Id>
 > {
-  static TabPanel = TabPanel;
+  static TabPanel = VerticalTabPanel;
 
   static defaultProps: Partial<IVerticalTabsProps<string>> = {
     activeId: '',
@@ -63,23 +65,12 @@ export class VerticalTabs<Id extends string | number = string> extends BaseTabs<
         if ('divide' in child.props) {
           return { divide: true };
         }
-        const {
-          id,
-          disabled,
-          tab,
-          children: panelChildren,
-          className: panelClassName,
-        } = child.props;
-        const props: IVerticalInnerTab<Id> = {
-          title: tab,
-          disabled,
-          key: id,
-          actived: activeId === id,
-          panelChildren,
-          className: panelClassName,
-        };
-
-        return props;
+        return getTabDataFromChild(
+          child as React.ReactElement<
+            React.PropsWithChildren<ITabPanelProps<Id>>
+          >,
+          activeId
+        );
       }
     );
   }
@@ -96,30 +87,22 @@ export class VerticalTabs<Id extends string | number = string> extends BaseTabs<
     );
   }
 
-  renderTabPanel(tabDataList: Array<IVerticalInnerTab<Id>>) {
-    const hasData = !!(tabDataList && tabDataList.length);
-
-    if (!hasData) {
+  renderTabPanel(tabItem: IVerticalInnerTab<Id>) {
+    if ('divide' in tabItem) {
       return null;
     }
-
-    return tabDataList.map(tabItem => {
-      if ('divide' in tabItem) {
-        return null;
-      }
-      return (
-        <LazyMount mount={tabItem.actived} key={tabItem.key}>
-          <TabPanel
-            tab={tabItem.title}
-            actived={tabItem.actived}
-            className={tabItem.className}
-            id={tabItem.key}
-          >
-            {tabItem.panelChildren}
-          </TabPanel>
-        </LazyMount>
-      );
-    });
+    return (
+      <LazyMount mount={tabItem.actived} key={tabItem.key}>
+        <VerticalTabPanel
+          tab={tabItem.title}
+          actived={tabItem.actived}
+          className={tabItem.className}
+          id={tabItem.key}
+        >
+          {tabItem.panelChildren}
+        </VerticalTabPanel>
+      </LazyMount>
+    );
   }
 }
 

@@ -9,6 +9,11 @@ abstract class CommonTabsNav<Id> extends BaseTabsNav<
   IInnerTab<Id>,
   ITabsNavProps<Id>
 > {
+  protected scrollGroup: React.ElementType<{
+    className?: string;
+    role?: string;
+  }> = 'div';
+
   get tabsNavCls() {
     const { stretch } = this.props;
     return cn('zent-tabs-nav', `zent-tabs-nav-type__${this.typeName}`, {
@@ -37,13 +42,13 @@ abstract class CommonTabsNav<Id> extends BaseTabsNav<
 
   render() {
     const navExtraContent = this.renderNavExtraContent();
-
+    const ScrollGroupComp = this.scrollGroup;
     return (
       <div className={this.tabsNavCls}>
         <div className="zent-tabs-nav-content">
-          <div className="zent-tabs-scroll" role="tablist">
+          <ScrollGroupComp className="zent-tabs-scroll" role="tablist">
             {this.renderTabs()}
-          </div>
+          </ScrollGroupComp>
         </div>
         {navExtraContent}
       </div>

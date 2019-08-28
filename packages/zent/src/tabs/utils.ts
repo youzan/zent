@@ -1,4 +1,27 @@
-import { IInnerTab } from './types';
+import { IInnerTab, ITabPanelProps } from './types';
+
+export function getTabDataFromChild<Id>(
+  child: React.ReactElement<React.PropsWithChildren<ITabPanelProps<Id>>>,
+  activeId: Id
+) {
+  const {
+    id,
+    disabled,
+    tab,
+    children: panelChildren,
+    className: panelClassName,
+  } = child.props;
+  const props: IInnerTab<Id> = {
+    title: tab,
+    disabled,
+    key: id,
+    actived: activeId === id,
+    panelChildren,
+    className: panelClassName,
+  };
+
+  return props;
+}
 
 export function commonTransformTabData<Id>(
   tabItem: IInnerTab<Id>,

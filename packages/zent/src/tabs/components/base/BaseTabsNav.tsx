@@ -8,12 +8,13 @@ abstract class BaseTabsNav<
 > extends React.PureComponent<TabsNavProps> {
   protected abstract typeName: string;
 
+  abstract transformTabDataList(tabDataList: InnerTab[]): InnerTab[];
+  abstract renderTab(data: InnerTab): React.ReactNode;
+
   onTabSelected = (id: Id) => {
     const { onChange } = this.props;
     onChange(id);
   };
-
-  abstract transformTabDataList(tabDataList: InnerTab[]): InnerTab[];
 
   renderTabs() {
     const { tabDataList } = this.props;
@@ -24,8 +25,6 @@ abstract class BaseTabsNav<
       return this.renderTab(renderDataItem);
     });
   }
-
-  abstract renderTab(data: InnerTab): React.ReactNode;
 }
 
 export default BaseTabsNav;

@@ -8,6 +8,11 @@ class ButtonTabsNav<Id extends string | number = string> extends CommonTabsNav<
 > {
   protected typeName = 'button';
 
+  protected scrollGroup: React.ElementType<{
+    className?: string;
+    role?: string;
+  }> = Button.Group;
+
   renderTab(data: IInnerTab<Id>): React.ReactNode {
     const { key, actived, disabled, title, className } = data;
     return (
@@ -21,21 +26,6 @@ class ButtonTabsNav<Id extends string | number = string> extends CommonTabsNav<
       >
         {title}
       </Button>
-    );
-  }
-
-  render() {
-    const navExtraContent = this.renderNavExtraContent();
-
-    return (
-      <div className={this.tabsNavCls}>
-        <div className="zent-tabs-nav-content">
-          <Button.Group className="zent-tabs-scroll" role="tablist">
-            {this.renderTabs()}
-          </Button.Group>
-        </div>
-        {navExtraContent}
-      </div>
     );
   }
 }
