@@ -1,7 +1,7 @@
 import * as React from 'react';
 import BaseTab from '../base/BaseTab';
 
-class VerticalTab<Id extends string | number = string> extends BaseTab<Id> {
+class VerticalTab<Id> extends BaseTab<Id> {
   protected typeName = 'vertical';
 
   render() {

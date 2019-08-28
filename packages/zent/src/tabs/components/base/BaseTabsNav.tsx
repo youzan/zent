@@ -1,52 +1,31 @@
 import * as React from 'react';
-import cn from 'classnames';
-import { ITabsNavProps, IInnerTab } from '../../types';
-import { getRenderTabListData } from './utils';
+import { IBaseTabsNavProps } from '../../types';
 
 abstract class BaseTabsNav<
-  Id extends string | number = string
-> extends React.PureComponent<ITabsNavProps<Id>> {
+  Id,
+  InnerTab,
+  TabsNavProps extends IBaseTabsNavProps<Id, InnerTab>
+> extends React.PureComponent<TabsNavProps> {
   protected abstract typeName: string;
-
-  get tabsNavCls() {
-    const { align, stretch } = this.props;
-    return cn(
-      'zent-tabs-nav',
-      `zent-tabs-nav-align__${align}`,
-      `zent-tabs-nav-type__${this.typeName}`,
-      { ['zent-tabs-nav__stretch']: stretch }
-    );
-  }
 
   onTabSelected = (id: Id) => {
     const { onChange } = this.props;
     onChange(id);
   };
 
-  onTabDel = (id: Id) => {
-    const { onDelete } = this.props;
-    onDelete(id);
-  };
-
-  renderNavExtraContent() {
-    const { navExtraContent, navExtraContentAlign } = this.props;
-    const cls = cn(
-      'zent-tabs-nav-extra-content',
-      `zent-tabs-nav-extra-content-align__${navExtraContentAlign}`
-    );
-    return navExtraContent ? (
-      <div className={cls}>{navExtraContent}</div>
-    ) : null;
-  }
+  abstract transformTabDataList(tabDataList: InnerTab[]): InnerTab[];
 
   renderTabs() {
-    const listData = getRenderTabListData(this.props);
-    return listData.map(renderDataItem => {
+    const { tabDataList } = this.props;
+
+    const renderDataList = this.transformTabDataList(tabDataList);
+
+    return renderDataList.map(renderDataItem => {
       return this.renderTab(renderDataItem);
     });
   }
 
-  abstract renderTab(data: IInnerTab<Id>): React.ReactNode;
+  abstract renderTab(data: InnerTab): React.ReactNode;
 }
 
 export default BaseTabsNav;

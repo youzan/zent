@@ -35,7 +35,7 @@ class Simple extends React.Component {
 
 	render() {
 		return (
-			<Tabs activeId={this.state.activeId} onChange={this.onTabChange}>
+			<Tabs activeId={this.state.activeId} onChange={this.onTabChange} align="right">
 				<TabPanel tab={<span>{i18n.tabOne}</span>} id="1" disabled>
 					<div>{i18n.tabOneCont}</div>
 				</TabPanel>

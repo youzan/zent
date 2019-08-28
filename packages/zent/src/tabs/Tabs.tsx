@@ -1,45 +1,45 @@
 import * as React from 'react';
-import { Component } from 'react';
 import cn from 'classnames';
 import noop from 'lodash-es/noop';
 
 import LazyMount from '../utils/component/LazyMount';
-import TabPanel from './components/TabPanel';
-import NormalTabsNav from './components/normal/TabsNav';
+import TabPanel from './components/panel/TabPanel';
 import {
   IInnerTab,
   ITabsProps,
   ITabPanelProps,
   TabType,
   ITabsNavProps,
+  ITab,
 } from './types';
-import CardTabsNav from './components/card/TabsNav';
-import ButtonTabsNav from './components/button/TabsNav';
-import VerticalTabsNav from './components/vertical/TabsNav';
+import NormalTabsNav from './components/tabs-nav/normal';
+import CardTabsNav from './components/tabs-nav/card';
+import ButtonTabsNav from './components/tabs-nav/button';
+import BaseTabs from './components/base/BaseTabs';
 
 const TabsNavComponents: {
-  [type in TabType]?: React.ComponentType<ITabsNavProps>;
+  [type in TabType]?: React.ComponentType<ITabsNavProps<any>>;
 } = {
   normal: NormalTabsNav,
   card: CardTabsNav,
   button: ButtonTabsNav,
-  vertical: VerticalTabsNav,
 };
 
 type ITabsInnerProps<Id extends string | number = string> = Required<
   ITabsProps<Id>
 >;
 
-export class Tabs<Id extends string | number = string> extends Component<
+export class Tabs<Id extends string | number = string> extends BaseTabs<
+  Id,
+  IInnerTab<Id>,
+  ITabPanelProps<Id>,
   ITabsProps<Id>
 > {
   static TabPanel = TabPanel;
 
-  static defaultProps: Partial<ITabsProps> = {
+  static defaultProps: Partial<ITabsProps<string>> = {
     type: 'normal',
     activeId: '',
-    align: 'left',
-    navExtraContentAlign: 'right',
     candel: false,
     stretch: false,
     onChange: noop,
@@ -51,66 +51,23 @@ export class Tabs<Id extends string | number = string> extends Component<
     return cn('zent-tabs', `zent-tabs-type__${type}`, className);
   }
 
-  renderNav(tabListData: Array<IInnerTab<Id>>) {
-    const {
-      type,
-      align,
-      candel,
-      stretch,
-      navExtraContent,
-      navExtraContentAlign,
-      onChange,
-      onDelete,
-    } = this.props as ITabsInnerProps<Id>;
-    const TabsNavComp = (TabsNavComponents[type] ||
-      TabsNavComponents.normal) as React.ComponentClass<ITabsNavProps<Id>>;
-    if (!TabsNavComp) {
-      return null;
-    }
-    return (
-      <TabsNavComp
-        onChange={onChange}
-        tabListData={tabListData}
-        align={align}
-        onDelete={onDelete}
-        candel={candel}
-        stretch={stretch}
-        navExtraContent={navExtraContent}
-        navExtraContentAlign={navExtraContentAlign}
-      />
-    );
+  getTabDataListFromTabs(
+    tabs: NonNullable<Array<ITab<Id>>>
+  ): Array<IInnerTab<Id>> {
+    const { activeId } = this.props;
+
+    return tabs.map<IInnerTab<Id>>(tab => ({
+      ...tab,
+      actived: tab.key === activeId,
+    }));
   }
 
-  renderTabPanel(tabListData: Array<IInnerTab<Id>>) {
-    const hasData = !!(tabListData && tabListData.length);
+  getTabDataListFromChildren(
+    children: NonNullable<ITabsProps<Id>['children']>
+  ): Array<IInnerTab<Id>> {
+    const { activeId } = this.props;
 
-    if (!hasData) {
-      return null;
-    }
-
-    return tabListData.map(tabItem => {
-      return (
-        <LazyMount mount={tabItem.actived} key={tabItem.key}>
-          <TabPanel
-            tab={tabItem.title}
-            actived={tabItem.actived}
-            className={tabItem.className}
-            id={tabItem.key}
-          >
-            {tabItem.content}
-          </TabPanel>
-        </LazyMount>
-      );
-    });
-  }
-
-  /**
-   * 带 TabPanel children 的渲染方式
-   */
-  renderWithPanel() {
-    const { children, activeId } = this.props;
-
-    const tabPanelDataList = React.Children.map(
+    return React.Children.map(
       children,
       (
         child: React.ReactElement<React.PropsWithChildren<ITabPanelProps<Id>>>
@@ -127,48 +84,59 @@ export class Tabs<Id extends string | number = string> extends Component<
           disabled,
           key: id,
           actived: activeId === id,
-          content: panelChildren,
+          panelChildren,
           className: panelClassName,
         };
 
         return props;
       }
     );
-
-    return (
-      <div className={this.tabsCls}>
-        {this.renderNav(tabPanelDataList)}
-        <div className="zent-tabs-panel-wrapper">
-          {this.renderTabPanel(tabPanelDataList)}
-        </div>
-      </div>
-    );
   }
 
-  /**
-   * 使用 tabs props 的渲染方式
-   */
-  renderWithoutPanel() {
-    const { tabs, activeId } = this.props;
+  renderNav(tabDataList: Array<IInnerTab<Id>>) {
+    const { type, candel, stretch, navExtraContent, onChange, onDelete } = this
+      .props as ITabsInnerProps<Id>;
+    const TabsNavComp = TabsNavComponents[type] as React.ComponentClass<
+      ITabsNavProps<Id>
+    >;
 
-    return (
-      <div className={this.tabsCls}>
-        {this.renderNav(
-          tabs.map<IInnerTab<Id>>(tab => ({
-            ...tab,
-            actived: tab.key === activeId,
-          }))
-        )}
-      </div>
-    );
-  }
-
-  render() {
-    const { tabs } = this.props;
-    if (tabs) {
-      return this.renderWithoutPanel();
+    if (!TabsNavComp) {
+      return null;
     }
-    return this.renderWithPanel();
+
+    return (
+      <TabsNavComp
+        onChange={onChange}
+        tabDataList={tabDataList}
+        onDelete={onDelete}
+        candel={candel}
+        stretch={stretch}
+        navExtraContent={navExtraContent}
+      />
+    );
+  }
+
+  renderTabPanel(tabDataList: Array<IInnerTab<Id>>) {
+    const hasData = !!(tabDataList && tabDataList.length);
+
+    if (!hasData) {
+      return null;
+    }
+
+    return tabDataList.map(tabItem => {
+      return (
+        <LazyMount mount={tabItem.actived} key={tabItem.key}>
+          <TabPanel
+            tab={tabItem.title}
+            actived={tabItem.actived}
+            className={tabItem.className}
+            id={tabItem.key}
+          >
+            {tabItem.panelChildren}
+          </TabPanel>
+        </LazyMount>
+      );
+    });
   }
 }
 

@@ -1,33 +1,29 @@
 import * as React from 'react';
-import cn from 'classnames';
-import VerticalTab from './Tab';
-import BaseTabsNav from '../base/BaseTabsNav';
+import CardTab from '../tab/CardTab';
+import CommonTabsNav from './common';
 import { IInnerTab } from '../../types';
 
-class VerticalTabsNav<Id extends string | number = string> extends BaseTabsNav<
+class CardTabsNav<Id extends string | number = string> extends CommonTabsNav<
   Id
 > {
-  protected typeName = 'vertical';
-
-  get tabsNavCls() {
-    // override to remove align classname
-    return cn('zent-tabs-nav', `zent-tabs-nav-type__${this.typeName}`);
-  }
+  protected typeName = 'card';
 
   renderTab(data: IInnerTab<Id>): React.ReactNode {
     return (
-      <VerticalTab<Id>
+      <CardTab<Id>
         onSelected={this.onTabSelected}
         onDelete={this.onTabDel}
         {...data}
         id={data.key}
       >
         {data.title}
-      </VerticalTab>
+      </CardTab>
     );
   }
 
   render() {
+    const navExtraContent = this.renderNavExtraContent();
+
     return (
       <div className={this.tabsNavCls}>
         <div className="zent-tabs-nav-content">
@@ -35,9 +31,10 @@ class VerticalTabsNav<Id extends string | number = string> extends BaseTabsNav<
             {this.renderTabs()}
           </div>
         </div>
+        {navExtraContent}
       </div>
     );
   }
 }
 
-export default VerticalTabsNav;
+export default CardTabsNav;

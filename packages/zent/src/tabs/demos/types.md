@@ -61,6 +61,7 @@ class Simple extends React.Component {
 				>
 					{panels}
 				</Tabs>
+				<div>
 				<Tabs
 					activeId={this.state.activeId}
 					onChange={this.onTabChange}
@@ -68,6 +69,7 @@ class Simple extends React.Component {
 				>
 					{panels}
 				</Tabs>
+				</div>
 			</div>
 		);
 	}

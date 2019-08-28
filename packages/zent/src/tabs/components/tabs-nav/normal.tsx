@@ -1,9 +1,9 @@
 import * as React from 'react';
-import NormalTab from './Tab';
-import BaseTabsNav from '../base/BaseTabsNav';
 import { IInnerTab } from '../../types';
+import NormalTab from '../tab/NormalTab';
+import CommonTabsNav from './common';
 
-class NormalTabsNav<Id extends string | number = string> extends BaseTabsNav<
+class NormalTabsNav<Id extends string | number = string> extends CommonTabsNav<
   Id
 > {
   protected typeName = 'normal';

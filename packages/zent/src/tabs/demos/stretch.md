@@ -1,5 +1,5 @@
 ---
-order: 7
+order: 6
 zh-CN:
 	title: 内容伸展
 	tabOne: 选项1

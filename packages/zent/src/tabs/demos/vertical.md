@@ -1,5 +1,5 @@
 ---
-order: 8
+order: 7
 zh-CN:
 	title: 垂直模式
 	tabOne: 选项1
@@ -21,9 +21,9 @@ en-US:
 ---
 
 ```jsx
-import { Tabs } from 'zent';
+import { VerticalTabs } from 'zent';
 
-const TabPanel = Tabs.TabPanel;
+const TabPanel = VerticalTabs.TabPanel;
 
 class Simple extends Component {
 	constructor(props) {
@@ -43,8 +43,7 @@ class Simple extends Component {
 	render() {
 		return (
 			<div className="zent-tabs-demo">
-				<Tabs
-					type="vertical"
+				<VerticalTabs
 					activeId={this.state.activeId}
 					onChange={this.onTabChange}
 				>
@@ -54,16 +53,39 @@ class Simple extends Component {
 					<TabPanel tab="{i18n.tabTwo}" id="2">
 						<div>{i18n.tabTwoCont}</div>
 					</TabPanel>
+					<TabPanel divide />
 					<TabPanel tab="{i18n.tabThree}" id="3">
 						<div>{i18n.tabThreeCont}</div>
 					</TabPanel>
-				</Tabs>
+				</VerticalTabs>
+				<VerticalTabs
+					tabs={[
+						{
+							title: '{i18n.tabOne}',
+							key: '1',
+							disabled: true,
+						},
+						{
+							title: '{i18n.tabTwo}',
+							key: '2',
+						},
+						{
+							divide: true,
+						},
+						{
+							title: '{i18n.tabThree}',
+							key: '3',
+						},
+					]}
+					activeId={this.state.activeId}
+					onChange={this.onTabChange}
+					maxHeight={100}
+				/>
 				<div>{i18n.desc}</div>
 			</div>
 		);
 	}
 }
-
 
 ReactDOM.render(<Simple />, mountNode);
 ```

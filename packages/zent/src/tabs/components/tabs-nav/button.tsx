@@ -1,9 +1,9 @@
 import * as React from 'react';
-import BaseTabsNav from '../base/BaseTabsNav';
 import { Button } from '../../../button';
 import { IInnerTab } from '../../types';
+import CommonTabsNav from './common';
 
-class ButtonTabsNav<Id extends string | number = string> extends BaseTabsNav<
+class ButtonTabsNav<Id extends string | number = string> extends CommonTabsNav<
   Id
 > {
   protected typeName = 'button';
@@ -30,7 +30,7 @@ class ButtonTabsNav<Id extends string | number = string> extends BaseTabsNav<
     return (
       <div className={this.tabsNavCls}>
         <div className="zent-tabs-nav-content">
-          <Button.Group className="zent-tabs-scroll">
+          <Button.Group className="zent-tabs-scroll" role="tablist">
             {this.renderTabs()}
           </Button.Group>
         </div>

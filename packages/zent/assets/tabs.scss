@@ -1,43 +1,28 @@
 @import './theme/default';
 @import './theme/font';
 
-$color: $theme-stroke-2;
-$active-color: $theme-stroke-1;
-$active-tab-bg: $theme-stroke-9;
-$disable-color: $theme-stroke-4;
-$border-color: $theme-stroke-5;
+@mixin border($direct: null) {
+  @if $direct {
+    @include theme-color(border-#{$direct}-color, stroke, 5);
+    border-#{$direct}-width: 1px;
+    border-#{$direct}-style: solid;
+  } @else {
+    @include theme-color(border-color, stroke, 5);
+    border-width: 1px;
+    border-style: solid;
+  }
+}
 
 $normal-variables: (
   height: 48px,
-  active-border-color: $theme-primary-4,
 );
 
 $card-variables: (
   height: 40px,
-  tab-bg: $theme-stroke-8,
 );
 
 $button-variables: (
   height: 32px,
-);
-
-// content align style
-$align-types: (
-  left: flex-start,
-  center: center,
-  right: flex-end,
-);
-
-// extra content align style
-$nav-extra-content-align-types: (
-  left: (
-    order: 0,
-    margin-direction: right,
-  ),
-  right: (
-    order: 2,
-    margin-direction: left,
-  ),
 );
 
 // 内容伸展时的 tab 额外样式
@@ -68,30 +53,11 @@ $nav-extra-content-align-types: (
     &-extra-content {
       display: flex;
       align-items: center;
-
-      &-align {
-        @each $type, $styleMap in $nav-extra-content-align-types {
-          &__#{$type} {
-            order: map-get($styleMap, order);
-            margin-#{map-get($styleMap, margin-direction)}: 8px;
-          }
-        }
-      }
-    }
-
-    &-align {
-      @each $type, $justify-content in $align-types {
-        &__#{$type} {
-          .zent-tabs-scroll {
-            justify-content: $justify-content;
-          }
-        }
-      }
+      margin-left: 8px;
     }
 
     &-content {
       flex: 1 1 auto;
-      order: 1;
       overflow: hidden;
     }
   }
@@ -103,9 +69,9 @@ $nav-extra-content-align-types: (
   }
 
   &-tab {
+    @include theme-color(color, stroke, 2);
     position: relative;
     cursor: pointer;
-    color: $color;
     box-sizing: border-box;
     text-align: center;
 
@@ -119,7 +85,7 @@ $nav-extra-content-align-types: (
     }
 
     &:hover {
-      color: $active-color;
+      @include theme-color(color, stroke, 1);
 
       .zent-tabs-tab-delete {
         display: block;
@@ -127,18 +93,18 @@ $nav-extra-content-align-types: (
     }
 
     &__actived {
-      color: $active-color;
-      background-color: $active-tab-bg;
+      @include theme-color(color, stroke, 1);
+      @include theme-color(background-color, stroke, 9);
     }
 
     &__disabled {
-      color: $disable-color;
+      @include theme-color(color, stroke, 4);
 
       &.zent-tabs-tab {
         cursor: not-allowed;
 
         &:hover {
-          color: $disable-color;
+          @include theme-color(color, stroke, 4);
         }
       }
     }
@@ -148,7 +114,7 @@ $nav-extra-content-align-types: (
 // 普通模式样式
 .zent-tabs-nav-type__normal {
   @include content-stretch('.zent-tabs-tab');
-  border-bottom: 1px solid $border-color;
+  @include border(bottom);
   height: map-get($normal-variables, 'height');
 
   .zent-tabs-nav-content {
@@ -165,11 +131,12 @@ $nav-extra-content-align-types: (
     }
 
     &__actived {
-      border-bottom: 1px solid $border-color;
+      @include border(bottom);
 
       .zent-tabs-tab-inner {
-        border-bottom: 2px solid
-          map-get($normal-variables, 'active-border-color');
+        @include theme-color(border-bottom-color, primary, 4);
+        border-bottom-width: 2px;
+        border-bottom-style: solid;
         padding: 14px 16px 12px;
         margin-bottom: -1px;
       }
@@ -180,7 +147,7 @@ $nav-extra-content-align-types: (
 // 卡片模式样式
 .zent-tabs-nav-type__card {
   @include content-stretch('.zent-tabs-tab');
-  border-bottom: 1px solid $border-color;
+  @include border(bottom);
   height: map-get($card-variables, 'height');
 
   .zent-tabs-nav-content {
@@ -188,9 +155,9 @@ $nav-extra-content-align-types: (
   }
 
   .zent-tabs-tab {
-    border: 1px solid $border-color;
+    @include border;
+    @include theme-color(background-color, stroke, 8);
     border-left: 0;
-    background-color: map-get($card-variables, 'tab-bg');
     min-width: 104px;
 
     &-inner {
@@ -198,7 +165,7 @@ $nav-extra-content-align-types: (
     }
 
     &:first-child {
-      border-left: 1px solid $border-color;
+      @include border(left);
       border-top-left-radius: 4px;
     }
 
@@ -207,7 +174,7 @@ $nav-extra-content-align-types: (
     }
 
     &__actived {
-      background-color: $active-tab-bg;
+      @include theme-color(background-color, stroke, 9);
       border-bottom: 0;
       padding-bottom: 1px;
     }
@@ -230,27 +197,36 @@ $nav-extra-content-align-types: (
 }
 
 .zent-tabs-nav-type__vertical {
+  @include border(right);
   width: 96px;
   padding: 14px 7px 14px 0;
-  border-right: 1px solid $border-color;
 
   .zent-tabs-scroll {
     overflow-x: hidden;
+    overflow-y: auto;
+    width: 113px;
     flex-direction: column;
+  }
+
+  .zent-tabs-divide {
+    @include theme-color(border-bottom-color, stroke, 6);
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    margin: 21.5px 0 17.5px;
   }
 
   .zent-tabs-tab {
     display: block;
     border-radius: 2px;
     text-align: left;
-    margin-top: 8px;
+    margin-top: 4px;
 
     &:first-child {
       margin-top: 0;
     }
 
     &__actived {
-      background-color: $theme-stroke-6;
+      @include theme-color(background-color, stroke, 6);
     }
 
     &-inner {
