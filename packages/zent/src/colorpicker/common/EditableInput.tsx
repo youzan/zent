@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Component, createRef } from 'react';
 import reactCSS from '../helpers/reactcss';
-import { values } from 'lodash-es';
 
 export default class EditableInput extends Component<any, any> {
   inputRef = createRef<HTMLInputElement>();
