@@ -30,7 +30,7 @@
 - `pageSize` 不再耦合当前页码和页码选项，拆开成两个独立参数：`pageSize` 和 `pageSizeOptions`。分页选项配置也和原来的不一致，接受数字或者 `{value: number, text: node}`。
 - CSS 类名和 HTML 结果有变化，有样式复写的需要确认样式是否正常。
 
-#### `Grid 和`Table`
+#### `Grid` 和 `Table`
 
 因为这两个组件的 `pageInfo` 参数依赖 `Pagination`，所以 `Pagination` 的改动对这个参数一样有影响。
 
@@ -168,9 +168,52 @@ import { Portal, PurePortal } from 'zent'
 - 不再渲染 `children` 中的内容
 - 整体布局改为 `flex`
 
+### `Alert`
+
+- 内部布局改为 flex 布局
+- 删除 `type` 属性中的 `danger` 类型（可改用 `error` 类型），添加 `success` 类型
+- 删除 `size`、`rounded` 属性（新版设计中都是圆角样式，且没有大小区分，需要自定义大小和圆角请使用自定义 `className` 修改样式）
+- 添加新的属性 `loading`、`outline`、`closeContent`、`extraContent`，使用方法请参考组件文档
+- 添加 `title`、`description` 两个属性用于简化内容排版
+- `onClose` 现在回调会在点击关闭触发器同时被触发，而不是等到 React 更新完后才触发
+
 #### 源样式
 
 如果之前依赖了 postcss 的源样式，需要改成 sass。
+
+## 7.0.0-next.29(2019-08-23)
+
+- 修复 `QuarterPicker` 的选中逻辑
+- 按新的视觉样式重写 `Alert`，有不兼容改动，具体参考上面的 `Alert` 一节
+- `Popover` 的 trigger 支持 functional component
+
+## 7.0.0-next.28(2019-08-22)
+
+- 样式重构为 CSS Variable
+- `package.json` 里加回 `main` 字段，和 `modules` 指向相同的代码
+- `Grid` 和 `Table` 支持 `mini` 类型的分页器
+- 重写 `Icon` 组件为 functional component
+- 用 Hooks 重写 `Checkbox` 组件，现在 `Checkbox` 的 `disable` 属性总是比父组件 `CheckboxGroup` 的 `disable` 拥有更高优先级
+- `NumberInput` 支持整数模式，此时 `value` 类型为数字
+
+## 7.0.0-next.27(2019-08-19)
+
+- 修复 `AnimateHeight` 高度为 `auto` 时动画结束没有正确设置高度为 `auto` 的问题
+- 修复 `Tree` 的更新逻辑
+
+## 7.0.0-next.26(2019-08-14)
+
+- 修复 `TypeScript` 编译器导致的的一个循环依赖 bug
+
+## 7.0.0-next.25(2019-08-14)
+
+- 更新 `Cascader` 和 `Form` 的样式
+- 修复非法属性被透传到 `input` 的问题
+- 使用 Hooks 重写 `Radio` 组件，现在 `Radio` 的 `disable` 属性总是比父组件 `RadioGroup` 的 `disable` 拥有更高优先级
+
+## 7.0.0-next.24(2019-08-05)
+
+- 修复 `Upload` 组件 `categoryId` 无法修改的问题
 
 ## 7.0.0-next.23(2019-07-31)
 

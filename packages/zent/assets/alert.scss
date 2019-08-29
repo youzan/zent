@@ -1,83 +1,143 @@
 @import './theme/default';
 @import './theme/font';
 
-@mixin vertical-center {
-  position: absolute;
-  top: 50%;
-  transform: translate(0, -50%);
-}
+$info-map: (
+  theme: primary,
+  border-color: 7,
+  background-color: 8,
+  icon-color: 4,
+  outline-color: 4,
+  highlight-color: 4,
+);
 
-$alert-border-radius: 4px;
-$close-icon-size: 14px;
+$success-map: (
+  theme: success,
+  border-color: 4,
+  background-color: 5,
+  icon-color: 2,
+  outline-color: 2,
+  highlight-color: 2,
+);
+
+$warning-map: (
+  theme: warn,
+  border-color: 2,
+  background-color: 3,
+  icon-color: 1,
+  outline-color: 1,
+  highlight-color: 1,
+);
+
+$error-map: (
+  theme: error,
+  border-color: 4,
+  background-color: 5,
+  icon-color: 2,
+  outline-color: 2,
+  highlight-color: 2,
+);
+
+$type-map: (
+  info: $info-map,
+  success: $success-map,
+  warning: $warning-map,
+  error: $error-map,
+);
 
 .zent-alert {
+  @include font-normal;
   box-sizing: border-box;
-  width: 100%;
-  font-size: $font-size-normal;
-  line-height: 12px;
-  position: relative;
+  padding: 12px 16px;
+  border: 1px solid $theme-stroke-5;
+  border-radius: 2px;
+  color: $theme-stroke-1;
+  display: flex;
 
-  &.zent-alert-closable {
-    .zent-alert-content {
-      margin-right: 15px;
+  &-content {
+    flex: 1 1 auto;
+
+    &__highlight {
+      font-weight: $font-weight-medium;
     }
 
-    .zent-alert-close-wrapper {
-      margin-left: 15px;
-      height: 100%;
-      width: $close-icon-size;
-      position: absolute;
-      top: 0;
-      right: 15px;
+    &__title {
+      font-weight: $font-weight-medium;
+
+      + .zent-alert-content__description {
+        margin-top: 8px;
+      }
     }
+  }
+
+  &-close-wrapper {
+    margin-left: 16px;
+    cursor: pointer;
 
     .zent-alert-close-btn {
-      @include vertical-center;
-      @include theme-color(color, stroke, 3);
-
-      width: $close-icon-size;
-      font-family: sans-serif;
-      font-size: 18px;
+      @include theme-color(color, stroke, 4);
+      font-size: 12px;
+      width: 16px;
+      height: 20px;
+      line-height: 20px;
       text-align: center;
-      display: inline-block;
-      cursor: pointer;
     }
   }
 
-  &.zent-alert-size-normal {
-    padding: 15px;
+  &-extra-content {
+    // 对按钮撑开内容区高度的特殊处理
+    margin: -6px 0 -6px 16px;
+    align-items: center;
+    display: flex;
+    flex: 0 0 auto;
   }
 
-  &.zent-alert-size-large {
-    padding: 11px 15px 11px 30px;
+  &-icon {
+    margin-right: 8px;
+
+    &.zenticon,
+    .zent-loading-icon-and-text {
+      width: 16px;
+      height: 20px;
+      line-height: 20px;
+    }
   }
 
-  &.zent-alert-border-rounded {
-    border-radius: $alert-border-radius;
+  &-outline {
+    border-radius: 4px;
   }
+}
 
-  &.zent-alert-style-info {
-    @include theme-color(color, stroke, 1);
-    @include theme-color(background-color, stroke, 8);
-  }
+@each $type, $color-index-map in $type-map {
+  $theme: map-get($color-index-map, theme);
+  $background-color: map-get($color-index-map, background-color);
+  $border-color: map-get($color-index-map, border-color);
+  $highlight-color: map-get($color-index-map, highlight-color);
+  $outline-color: map-get($color-index-map, outline-color);
+  $icon-color: map-get($color-index-map, icon-color);
 
-  &.zent-alert-style-warning {
-    @include theme-color(background-color, warn, 3);
-    @include theme-color(color, stroke, 1);
-    @include theme-color(border-color, warn, 3);
-    border-width: 1px;
-    border-style: solid;
-  }
+  .zent-alert-style-#{$type} {
+    @include theme-color(background-color, $theme, $background-color);
+    @include theme-color(border-color, $theme, $border-color);
 
-  &.zent-alert-style-danger {
-    @include theme-color(background-color, error, 4);
-    @include theme-color(border-color, error, 2);
-    @include theme-color(color, stroke, 9);
-    border-width: 1px;
-    border-style: solid;
+    .zent-alert-content__highlight {
+      @include theme-color(color, $theme, $highlight-color);
+    }
 
-    .zent-alert-close-btn {
-      @include theme-color(color, stroke, 9);
+    &.zent-alert-outline {
+      @include theme-color(background-color, stroke, 9);
+      @include theme-color(border-color, stroke, 5);
+      @include theme-color(border-top-color, $theme, $outline-color);
+      border-width: 1px;
+      border-style: solid;
+      border-top-width: 4px;
+
+      .zent-alert-content__title {
+        @include theme-color(color, $theme, $outline-color);
+      }
+    }
+
+    .zent-alert-icon {
+      @include theme-color(color, $theme, $icon-color);
     }
   }
 }

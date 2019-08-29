@@ -24,6 +24,7 @@ group: 反馈
 | trigger | 触发方式 | string | 否 | `'none'` | `'click'`, `'hover'`, `'focus'` |
 | position | 弹出框的位置，命名规则：相对触发元素的位置+箭头相对于Pop的位置。接受函数形式，参考 `Popover.Position.create` | string \| func | 否 | `'top-center'` |  |
 | centerArrow | 是否按小箭头居中对齐trigger来定位 | bool | 否 | `false` |  |
+| cushion | 与 Popover 中的`cushion`含义（定位的偏移量）相同，通常为弹框边缘与 trigger 元素之间的距离 | number | 否 | `10` |  |
 | header | 用户可以自定义头部 | node | 否  | | |
 | block | 弹层在文档流里是否以块级元素出现 | bool | 否 |  `false` |  |
 | onShow | 弹层打开后的回调函数 | func | 否 | `noop` | |

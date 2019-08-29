@@ -1,6 +1,7 @@
 import * as React from 'react';
 import isFunction from 'lodash-es/isFunction';
 import { Component, Children } from 'react';
+import DOMRef from '../../utils/component/DOMRef';
 
 export interface IPopoverTriggerProps {
   getTriggerNode?: () => HTMLElement;
@@ -100,24 +101,20 @@ export class PopoverTrigger<
     return child;
   }
 
-  onRefChange = instance => {
+  onRefChange = (instance: DOMRef) => {
     const { onTriggerRefChange, getNodeForTriggerRefChange } = this.props;
 
     onTriggerRefChange(instance, getNodeForTriggerRefChange);
-
-    const child = this.validateChildren();
-    if (isFunction(child.ref)) {
-      (child as any).ref(instance);
-    }
   };
 
   render() {
     const child = this.validateChildren();
 
-    return React.cloneElement(child, {
-      ref: this.onRefChange,
-      ...this.getTriggerProps(child),
-    });
+    return (
+      <DOMRef ref={this.onRefChange}>
+        {React.cloneElement(child, this.getTriggerProps(child))}
+      </DOMRef>
+    );
   }
 }
 

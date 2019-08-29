@@ -20,7 +20,6 @@ packages/zent
 ├── docs            # documentations
 ├── scripts         # scripts for testing, building, etc.
 ├── src             # JavaScript source code
-├── typings         # TypeScript definitions
 ```
 
 #### Add a New Component
@@ -31,11 +30,8 @@ Steps:
 - Add styles
 - Add tests
 - Add documentation
-- Add TypeScript definition
 
 The boring part is automated, just run `yarn new-component YOUR-COMPONENT-NAME` in `packages/zent`, all necessary boilerplates are created for you.
-
-Remember to add TypeScript definitions in `packages/zent/typings` for your new component.
 
 #### Naming
 

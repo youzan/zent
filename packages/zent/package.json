@@ -1,6 +1,6 @@
 {
   "name": "zent",
-  "version": "7.0.0-next.27",
+  "version": "7.0.0-next.30",
   "description": "一套前端设计语言和基于React的实现",
   "bugs": "https://github.com/youzan/zent/issues",
   "repository": {
@@ -54,6 +54,7 @@
     "@types/big.js": "^4.0.5",
     "@types/classnames": "^2.2.7",
     "@types/enquire.js": "^2.1.1",
+    "@types/jest": "^24.0.17",
     "@types/lodash-es": "^4.17.1",
     "@types/react-dom": "^16.8.2",
     "@types/react-is": "^16.7.1",

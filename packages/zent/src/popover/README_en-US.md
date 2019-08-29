@@ -23,7 +23,7 @@ The widget supports nested pop
 | Property | Description | Type | Default | Alternative | Required |
 |------|------|------|--------|--------|--------|
 | position | position way, refer to `Popover.Positon` | Positon | | | Yes |
-| cushion | position offset, generally it reserves a space for some icon like array | number | `0` | | No |
+| cushion | position offset, generally it reserves a space for some icon like arrow | number | `0` | | No |
 | display | the display property specifies the type of box used for an HTML element. | string | `'block'` | all legal `display` value in CSS | No |
 | onShow |  the callback after pop shows| func | `noop` | | No |
 | onClose | the callback after pop closes | func | `noop` | | No |
