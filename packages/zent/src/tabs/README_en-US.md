@@ -16,7 +16,7 @@ Tabs is used to switch different view in one page.
 | --------------- | --------------------------------------------------------------- | ----------------------------- | ---------- | -------------------- | -------- |
 | activeId        | The id of the active tab                                        | string \| number              | `''`       |                      | yes      |
 | onChange        | The callback function that is triggered when the tab is active  | (id: string \| number) => any |            |                      | yes      |
-| tabs            | The config of tabs when not using Panel.                        | Array<ITab>                   |            |                      | no       |
+| tabs            | The config of tabs when not using Panel.                        | Array<ITab\>                   |            |                      | no       |
 | className       | The custom classname                                            | string                        |            |                      | no       |
 | type            | The type of tabs                                                | string                        | `'normal'` | `'card'`, `'button'` | no       |
 | navExtraContent | Nav add extra content                                           | React.ReactNode               |            |                      | no       |
@@ -40,7 +40,7 @@ interface ITab {
 | --------- | -------------------------------------------------------------- | ----------------------------- | ------- | ----------- | -------- |
 | activeId  | The id of the active tab                                       | string \| number              | `''`    |             | yes      |
 | onChange  | The callback function that is triggered when the tab is active | (id: string \| number) => any |         |             | yes      |
-| tabs      | The config of tabs when not using Panel.                       | Array<IVerticalTab>           |         |             | no       |
+| tabs      | The config of tabs when not using Panel.                       | Array<IVerticalTab\>           |         |             | no       |
 | className | The custom classname                                           | string                        |         |             | no       |
 | maxHeight | The min height of the scrollable space                         | string \| number              |         |             | no       |
 

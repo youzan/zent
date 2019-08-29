@@ -7,7 +7,7 @@ zh-CN:
 	tabText: 选项
 	tabOneCont: 选项1的内容
 	tabTwoCont: 选项2的内容
-	desc: 删除属性只有在 normal 和 card 两种模式下起效
+	desc: candel 属性只有在 normal 和 card 两种模式下起效
 en-US:
 	title: Dynamic Add and Delete
 	tabOne: Tab1

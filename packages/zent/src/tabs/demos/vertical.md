@@ -1,14 +1,14 @@
 ---
 order: 7
 zh-CN:
-	title: 垂直模式
+	title: 竖直模式
 	tabOne: 选项1
 	tabTwo: 选项2
 	tabThree: 选项3
 	tabOneCont: 选项一的内容
 	tabTwoCont: 选项二的内容
 	tabThreeCont: 选项三的内容
-	desc: vertical 模式下，无法使用内部的删除、对齐、伸展、额外内容等功能
+	desc: 竖直模式下，无法使用内部的删除、对齐、伸展、额外内容等功能
 en-US:
 	title: Vertical Mode
 	tabOne: Tab1

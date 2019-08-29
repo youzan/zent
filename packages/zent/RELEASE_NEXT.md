@@ -177,6 +177,15 @@ import { Portal, PurePortal } from 'zent'
 - 添加 `title`、`description` 两个属性用于简化内容排版
 - `onClose` 现在回调会在点击关闭触发器同时被触发，而不是等到 React 更新完后才触发
 
+### `Tabs`
+
+- 内部布局修改为 flex 布局
+- 删除 `align` 参数，新版设计下不再支持自定义布局；若原来有通过 `align="center"` 的方式进行 tab 均分内容区域的地方，可以使用新的 prop —— `stretch` 代替
+- 修改 `type` 支持的样式类型，删除了 `slider` 类型，添加了 `button` 类型，默认展示样式类型从卡片样式改为新版基础样式，若需要维持卡片样式不变，请添加 `type="card"`
+- 删除 `canadd` 和 `onAdd` 参数，若需要实现动态增删 tab，请使用 `navExtraContent`，传入自定义的 Add Trigger，可参考 tab 文档下的 '动态增删' demo
+- 删除 `size` 参数，需要自定义大小请使用 `className`
+- 添加 `VerticalTabs` 组件，用于展示竖状样式
+
 #### 源样式
 
 如果之前依赖了 postcss 的源样式，需要改成 sass。
