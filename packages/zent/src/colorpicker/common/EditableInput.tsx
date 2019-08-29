@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Component, createRef } from 'react';
 import reactCSS from '../helpers/reactcss';
+import { values } from 'lodash-es';
 
 export default class EditableInput extends Component<any, any> {
   inputRef = createRef<HTMLInputElement>();
@@ -14,13 +15,15 @@ export default class EditableInput extends Component<any, any> {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate(prevProps) {
     const input = this.inputRef.current;
-    if (nextProps.value !== this.state.value) {
+    const val = this.props.value;
+
+    if (val !== prevProps.value) {
       if (input === document.activeElement) {
-        this.setState({ blurValue: String(nextProps.value).toUpperCase() });
+        this.setState({ blurValue: String(val).toUpperCase() });
       } else {
-        this.setState({ value: String(nextProps.value).toUpperCase() });
+        this.setState({ value: String(val).toUpperCase() });
       }
     }
   }
