@@ -78,11 +78,11 @@ export class VerticalTabs<Id extends string | number = string> extends BaseTabs<
   }
 
   renderNav(tabDataList: Array<IVerticalInnerTab<Id>>) {
-    const { onChange, maxHeight } = this.props;
+    const { onChange, scrollHeight } = this.props;
 
     return (
       <VerticalTabsNav
-        maxHeight={maxHeight}
+        scrollHeight={scrollHeight}
         onChange={onChange}
         tabDataList={tabDataList}
       />

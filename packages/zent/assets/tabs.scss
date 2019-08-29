@@ -13,18 +13,6 @@
   }
 }
 
-$normal-variables: (
-  height: 48px,
-);
-
-$card-variables: (
-  height: 40px,
-);
-
-$button-variables: (
-  height: 32px,
-);
-
 // 内容伸展时的 tab 额外样式
 @mixin content-stretch($selector) {
   &.zent-tabs-nav__stretch {
@@ -50,15 +38,15 @@ $button-variables: (
     justify-content: flex-start;
     box-sizing: border-box;
 
+    &-content {
+      flex: 1 1 auto;
+      overflow: hidden;
+    }
+
     &-extra-content {
       display: flex;
       align-items: center;
       margin-left: 8px;
-    }
-
-    &-content {
-      flex: 1 1 auto;
-      overflow: hidden;
     }
   }
 
@@ -115,7 +103,7 @@ $button-variables: (
 .zent-tabs-nav-type__normal {
   @include content-stretch('.zent-tabs-tab');
   @include border(bottom);
-  height: map-get($normal-variables, 'height');
+  height: 48px;
 
   .zent-tabs-nav-content {
     padding: 0 16px;
@@ -148,7 +136,7 @@ $button-variables: (
 .zent-tabs-nav-type__card {
   @include content-stretch('.zent-tabs-tab');
   @include border(bottom);
-  height: map-get($card-variables, 'height');
+  height: 40px;
 
   .zent-tabs-nav-content {
     margin-bottom: -1px;
@@ -184,7 +172,11 @@ $button-variables: (
 // 按钮模式样式
 .zent-tabs-nav-type__button {
   @include content-stretch('.zent-btn');
-  height: map-get($button-variables, 'height');
+  height: 32px;
+
+  .zent-btn {
+    min-width: 80px;
+  }
 }
 
 // 垂直模式样式
@@ -194,47 +186,49 @@ $button-variables: (
   .zent-tabs-panel-wrapper {
     margin: 14px 16px;
   }
-}
 
-.zent-tabs-nav-type__vertical {
-  @include border(right);
-  width: 96px;
-  padding: 14px 7px 14px 0;
+  .zent-tabs-nav-type__vertical {
+    @include border(right);
+    width: 96px;
+    padding: 14px 7px 14px 0;
 
-  .zent-tabs-scroll {
-    overflow-x: hidden;
-    overflow-y: auto;
-    width: 113px;
-    flex-direction: column;
-  }
-
-  .zent-tabs-divide {
-    @include theme-color(border-bottom-color, stroke, 6);
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    margin: 21.5px 0 17.5px;
-  }
-
-  .zent-tabs-tab {
-    display: block;
-    border-radius: 2px;
-    text-align: left;
-    margin-top: 4px;
-
-    &:first-child {
-      margin-top: 0;
+    .zent-tabs-scroll {
+      overflow-x: hidden;
+      overflow-y: auto;
+      width: 103px;
+      flex-direction: column;
     }
 
-    &__actived {
-      @include theme-color(background-color, stroke, 6);
+    .zent-tabs-divide {
+      @include theme-color(border-bottom-color, stroke, 6);
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
+      margin: 21.5px 0 17.5px;
     }
 
-    &-inner {
-      padding: 8px;
-      overflow: hidden;
-      width: 86px;
-      box-sizing: border-box;
-      text-overflow: ellipsis;
+    .zent-tabs-tab {
+      display: block;
+      text-align: left;
+      margin-top: 4px;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      &__actived {
+        .zent-tabs-tab-inner {
+          @include theme-color(background-color, stroke, 6);
+        }
+      }
+
+      &-inner {
+        border-radius: 2px;
+        padding: 8px;
+        overflow: hidden;
+        width: 86px;
+        box-sizing: border-box;
+        text-overflow: ellipsis;
+      }
     }
   }
 }

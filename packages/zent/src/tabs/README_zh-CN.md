@@ -17,7 +17,7 @@ group: 导航
 | --------------- | ------------------------- | ----------------------------- | ---------- | -------------------- | -------- |
 | activeId        | 激活的 tab-id             | string \| number              |            |                      | 是       |
 | onChange        | 选中的 tab 改变时         | (id: string \| number) => any |            |                      | 是       |
-| tabs            | 不使用 Panel 时的标签列表 | Array<ITab\>                   |            |                      | 否       |
+| tabs            | 不使用 Panel 时的标签列表 | Array<ITab\>                  |            |                      | 否       |
 | className       | 自定义额外类名            | string                        |            |                      | 否       |
 | type            | tabs 组件类型             | string                        | `'normal'` | `'card'`, `'button'` | 否       |
 | navExtraContent | 导航添加额外内容          | React.ReactNode               |            |                      | 否       |
@@ -37,13 +37,13 @@ interface ITab {
 
 #### VerticalTabs
 
-| 参数      | 说明                      | 类型                          | 默认值 | 备选值 | 是否必须 |
-| --------- | ------------------------- | ----------------------------- | ------ | ------ | -------- |
-| activeId  | 激活的 tab-id             | string \| number              |        |        | 是       |
-| onChange  | 选中的 tab 改变时         | (id: string \| number) => any |        |        | 是       |
-| tabs      | 不使用 Panel 时的标签列表 | Array<IVerticalTab\>           |        |        | 否       |
-| className | 自定义额外类名            | string                        |        |        | 否       |
-| maxHeight | 可滚动区域的最小高度      | string \| number              |        |        | 否       |
+| 参数         | 说明                      | 类型                          | 默认值 | 备选值 | 是否必须 |
+| ------------ | ------------------------- | ----------------------------- | ------ | ------ | -------- |
+| activeId     | 激活的 tab-id             | string \| number              |        |        | 是       |
+| onChange     | 选中的 tab 改变时         | (id: string \| number) => any |        |        | 是       |
+| tabs         | 不使用 Panel 时的标签列表 | Array<IVerticalTab\>          |        |        | 否       |
+| className    | 自定义额外类名            | string                        |        |        | 否       |
+| scrollHeight | 可滚动区域的最大高度      | string \| number              |        |        | 否       |
 
 tabs 参数类型：
 

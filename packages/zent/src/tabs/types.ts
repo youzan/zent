@@ -56,7 +56,7 @@ export interface ITabsProps<Id> extends IBaseTabsProps<Id, ITabPanelProps<Id>> {
 
 export interface IVerticalTabsProps<Id>
   extends IBaseTabsProps<Id, IVerticalTabPanelProps<Id>> {
-  maxHeight?: React.CSSProperties['maxHeight'];
+  scrollHeight?: React.CSSProperties['maxHeight'];
 }
 
 export interface IBaseTabsNavProps<Id, InnerTab> {
@@ -74,7 +74,7 @@ export interface ITabsNavProps<Id>
 
 export interface IVerticalTabsNavProps<Id>
   extends IBaseTabsNavProps<Id, IVerticalInnerTab<Id>> {
-  maxHeight?: React.CSSProperties['maxHeight'];
+  scrollHeight?: React.CSSProperties['maxHeight'];
 }
 
 export interface ITabProps<Id> {

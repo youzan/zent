@@ -79,7 +79,7 @@ class Simple extends Component {
 					]}
 					activeId={this.state.activeId}
 					onChange={this.onTabChange}
-					maxHeight={100}
+					scrollHeight={100}
 				/>
 				<div>{i18n.desc}</div>
 			</div>

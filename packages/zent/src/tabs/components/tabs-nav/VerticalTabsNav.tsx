@@ -39,7 +39,7 @@ class VerticalTabsNav<Id extends string | number = string> extends BaseTabsNav<
   }
 
   render() {
-    const { maxHeight } = this.props;
+    const { scrollHeight: maxHeight } = this.props;
     return (
       <div className={this.tabsNavCls}>
         <div className="zent-tabs-nav-content">
