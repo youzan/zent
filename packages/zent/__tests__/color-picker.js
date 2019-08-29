@@ -337,9 +337,9 @@ describe('ColorPicker', () => {
     );
     const EditableInputDom1 = wrapper1.find('EditableInput');
     expect(EditableInputDom1.instance().handleKeyDown(e)).toBe(undefined);
-    expect(
-      EditableInputDom1.instance().componentWillReceiveProps(nextProps)
-    ).toBe(undefined);
+    expect(EditableInputDom1.instance().componentDidUpdate(nextProps)).toBe(
+      undefined
+    );
 
     const e1 = {
       preventDefault: () => {},
