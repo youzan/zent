@@ -112,13 +112,14 @@ export default class SketchFileds extends PureComponent<any> {
     }
   };
 
-  componentWillReceiveProps(nextProps) {
-    const nextHexColor = nextProps.hex.replace('#', '');
-    if (this.state.hexColor !== nextHexColor) {
-      this.setState({
+  static getDerivedStateFromProps(props, state) {
+    const nextHexColor = props.hex.replace('#', '');
+    if (state.hexColor !== nextHexColor) {
+      return {
         hexColor: nextHexColor,
-      });
+      };
     }
+    return null;
   }
 
   render() {
