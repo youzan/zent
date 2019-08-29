@@ -64,7 +64,6 @@ export class VerticalTabs<Id extends string | number = string> extends BaseTabs<
           React.PropsWithChildren<IVerticalTabPanelProps<Id>>
         >
       ) => {
-        console.log(child);
         if ('divide' in child.props) {
           return { divide: true };
         }

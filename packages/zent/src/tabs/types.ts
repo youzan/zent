@@ -26,8 +26,8 @@ export interface ITabPanelProps<Id> {
   id: Id;
   tab: React.ReactNode;
   className?: string;
-  actived?: boolean;
   disabled?: boolean;
+  actived?: boolean;
 }
 
 export type IVerticalTabPanelProps<Id> = ITabPanelProps<Id> | IVerticalDivide;
