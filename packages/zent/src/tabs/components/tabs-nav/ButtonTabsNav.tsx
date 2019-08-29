@@ -8,10 +8,7 @@ class ButtonTabsNav<Id extends string | number = string> extends CommonTabsNav<
 > {
   protected typeName = 'button';
 
-  protected scrollGroup: React.ElementType<{
-    className?: string;
-    role?: string;
-  }> = Button.Group;
+  protected scrollGroup: React.ElementType = Button.Group;
 
   renderTab(data: IInnerTab<Id>): React.ReactNode {
     const { key, actived, disabled, title, className } = data;

@@ -9,7 +9,7 @@ abstract class BaseTabsNav<
   protected abstract typeName: string;
 
   abstract transformTabDataList(tabDataList: InnerTab[]): InnerTab[];
-  abstract renderTab(data: InnerTab): React.ReactNode;
+  abstract renderTab(data: InnerTab, index: number): React.ReactNode;
 
   onTabSelected = (id: Id) => {
     const { onChange } = this.props;
@@ -21,9 +21,7 @@ abstract class BaseTabsNav<
 
     const renderDataList = this.transformTabDataList(tabDataList);
 
-    return renderDataList.map(renderDataItem => {
-      return this.renderTab(renderDataItem);
-    });
+    return renderDataList.map(this.renderTab, this);
   }
 }
 

@@ -9,10 +9,7 @@ abstract class CommonTabsNav<Id> extends BaseTabsNav<
   IInnerTab<Id>,
   ITabsNavProps<Id>
 > {
-  protected scrollGroup: React.ElementType<{
-    className?: string;
-    role?: string;
-  }> = 'div';
+  protected scrollGroup: React.ElementType = 'div';
 
   get tabsNavCls() {
     const { stretch } = this.props;

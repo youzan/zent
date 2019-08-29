@@ -3,7 +3,7 @@ import cn from 'classnames';
 import noop from 'lodash-es/noop';
 
 import LazyMount from '../utils/component/LazyMount';
-import TabPanel from './components/panel/TabPanel';
+import TabPanel from './components/TabPanel';
 import {
   IInnerTab,
   ITabsProps,

@@ -5,15 +5,16 @@ import noop from 'lodash-es/noop';
 import LazyMount from '../utils/component/LazyMount';
 import {
   IVerticalInnerTab,
-  IVerticalTabPanelProps,
   IVerticalTabsProps,
   IVerticalTab,
   ITabPanelProps,
+  IVerticalTabPanelProps,
 } from './types';
 import VerticalTabsNav from './components/tabs-nav/VerticalTabsNav';
 import BaseTabs from './components/base/BaseTabs';
 import { getTabDataFromChild } from './utils';
-import VerticalTabPanel from './components/panel/VerticalTabPanel';
+import TabDivide from './components/TabDivide';
+import TabPanel from './components/TabPanel';
 
 export class VerticalTabs<Id extends string | number = string> extends BaseTabs<
   Id,
@@ -21,7 +22,8 @@ export class VerticalTabs<Id extends string | number = string> extends BaseTabs<
   IVerticalTabPanelProps<Id>,
   IVerticalTabsProps<Id>
 > {
-  static TabPanel = VerticalTabPanel;
+  static TabPanel = TabPanel;
+  static Divide = TabDivide;
 
   static defaultProps: Partial<IVerticalTabsProps<string>> = {
     activeId: '',
@@ -62,6 +64,7 @@ export class VerticalTabs<Id extends string | number = string> extends BaseTabs<
           React.PropsWithChildren<IVerticalTabPanelProps<Id>>
         >
       ) => {
+        console.log(child);
         if ('divide' in child.props) {
           return { divide: true };
         }
@@ -93,14 +96,14 @@ export class VerticalTabs<Id extends string | number = string> extends BaseTabs<
     }
     return (
       <LazyMount mount={tabItem.actived} key={tabItem.key}>
-        <VerticalTabPanel
+        <TabPanel
           tab={tabItem.title}
           actived={tabItem.actived}
           className={tabItem.className}
           id={tabItem.key}
         >
           {tabItem.panelChildren}
-        </VerticalTabPanel>
+        </TabPanel>
       </LazyMount>
     );
   }

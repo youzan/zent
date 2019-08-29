@@ -27,9 +27,9 @@ class VerticalTabsNav<Id extends string | number = string> extends BaseTabsNav<
     });
   }
 
-  renderTab(data: IVerticalInnerTab<Id>): React.ReactNode {
+  renderTab(data: IVerticalInnerTab<Id>, index: number): React.ReactNode {
     if ('divide' in data) {
-      return <div className="zent-tabs-divide" />;
+      return <div key={`divide-${index}`} className="zent-tabs-divide" />;
     }
     return (
       <VerticalTab<Id> onSelected={this.onTabSelected} {...data} id={data.key}>

@@ -23,7 +23,7 @@ en-US:
 ```jsx
 import { VerticalTabs } from 'zent';
 
-const TabPanel = VerticalTabs.TabPanel;
+const { TabPanel, Divide } = VerticalTabs;
 
 class Simple extends Component {
 	constructor(props) {
@@ -53,7 +53,7 @@ class Simple extends Component {
 					<TabPanel tab="{i18n.tabTwo}" id="2">
 						<div>{i18n.tabTwoCont}</div>
 					</TabPanel>
-					<TabPanel divide />
+					<Divide />
 					<TabPanel tab="{i18n.tabThree}" id="3">
 						<div>{i18n.tabThreeCont}</div>
 					</TabPanel>
