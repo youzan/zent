@@ -23,7 +23,7 @@ group: 反馈
 | 参数       | 说明            | 类型     | 默认值    |
 | -------- | ------------- | ------ | ------ |
 | text     | 通知文案    | node   | `''`   |
-| duration | 持续时间          | number | `2000` |
+| duration | 持续时间          | number | `3500` |
 | callback | 关闭时的回调 | func   |        |
 
 - `Notify.clear(number: id): void`

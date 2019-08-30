@@ -2,12 +2,19 @@ import * as React from 'react';
 import { Component } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import Portal from '../portal';
+import Icon from '../icon';
 
 const NotifyTransition = ({ children, ...props }) => (
   <CSSTransition {...props} timeout={800} classNames="notify">
     {children}
   </CSSTransition>
 );
+
+const ICON_TYPE = {
+  success: 'check-circle',
+  warn: 'warning',
+  error: 'close-circle',
+};
 
 export interface INotifyContentProps {
   text?: React.ReactNode;
@@ -42,7 +49,11 @@ export default class NotifyContent extends Component<INotifyContentProps> {
             <div
               className={`zent-notify-content zent-notify-content-${status}`}
             >
-              {text}
+              <Icon
+                className="zent-notify-content-icon"
+                type={ICON_TYPE[status]}
+              />
+              <div>{text}</div>
             </div>
           </div>
         </NotifyTransition>

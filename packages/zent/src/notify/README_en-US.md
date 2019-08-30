@@ -22,7 +22,7 @@ Display a notification at top of the viewport.
 | Property       | Description            | Type     | Default    |
 | -------- | ------------- | ------ | ------ |
 | text     | notify message    | node   | `''`   |
-| duration | duration          | number | `2000` |
+| duration | duration          | number | `3500` |
 | callback | customize callabck when notify closes | func   |        |
 
 - `Notify.clear(number?: id): void`

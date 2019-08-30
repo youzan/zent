@@ -4,7 +4,7 @@ import isBrowser from '../utils/isBrowser';
 import NotifyContent from './NotifyContent';
 
 let index = 0;
-let durationDefault = 2000;
+let durationDefault = 3500;
 const containerList = {};
 const notifyContainerClass = 'zent-notify-container';
 
@@ -110,6 +110,10 @@ const show = (text, duration, status, callback) => {
 
 export function success(text, duration?: number, callback?: () => void) {
   return show(text, duration, 'success', callback);
+}
+
+export function warn(text, duration?: number, callback?: () => void) {
+  return show(text, duration, 'warn', callback);
 }
 
 export function error(text, duration?: number, callback?: () => void) {
