@@ -6,3 +6,5 @@ export function withinRange(value: number, min: number, max: number) {
   }
   return value;
 }
+
+export default withinRange;

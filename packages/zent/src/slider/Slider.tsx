@@ -1,7 +1,7 @@
 import * as React from 'react';
 import cx from 'classnames';
-import getWidth from '../utils/getWidth';
 
+import getWidth from '../utils/getWidth';
 import Point from './Point';
 import Marks from './Marks';
 import Dots from './Dots';
@@ -9,6 +9,7 @@ import { DisabledContext, IDisabledContext } from '../disabled';
 import { ISliderProps, ISliderState } from './types';
 import { IComputedProps, getValue, toFixed } from './common';
 import NumberInput from '../number-input';
+import { getPotentialValues, normalizeToPotentialValue } from './normalize';
 
 export const getDecimal = (step: number | string) => {
   const fixed = String(step).split('.')[1];
@@ -42,7 +43,7 @@ function checkProps(props: ISliderProps) {
     }
   } else {
     if (typeof value !== 'number') {
-      throw new Error('value must an number when `range` is false');
+      throw new Error('value must be an number when `range` is false');
     }
     if (value < min || value > max) {
       throw new Error('value must between min and max when `range` is false');
@@ -55,54 +56,6 @@ function checkProps(props: ISliderProps) {
   }
   if (marks && Object.keys(marks).length < 2) {
     throw new Error('at lease 2 marks needed');
-  }
-}
-
-function cmp(a: number, b: number): number {
-  if (a < b) {
-    return -1;
-  }
-  if (a > b) {
-    return 1;
-  }
-  return 0;
-}
-
-function getPotentialValues(
-  marks: Record<string | number, React.ReactNode> | undefined
-) {
-  if (!marks) {
-    return [];
-  }
-  return Object.keys(marks)
-    .map(it => Number(it))
-    .filter(it => !Number.isNaN(it) && it !== Infinity)
-    .sort(cmp);
-}
-
-function normalizeToPotentialValue(potentialValues: number[], value: number) {
-  let i = 0;
-  let j = potentialValues.length;
-  while (true) {
-    const p = Math.floor((i + j) / 2);
-    if (j === i + 1 || p === i) {
-      if (
-        Math.abs(potentialValues[i] - value) <=
-        Math.abs(potentialValues[j] - value)
-      ) {
-        return potentialValues[i];
-      }
-      return potentialValues[j];
-    }
-    const mid = potentialValues[p];
-    if (value === mid) {
-      return mid;
-    }
-    if (value < mid) {
-      j = p;
-    } else if (value > mid) {
-      i = p;
-    }
   }
 }
 
@@ -370,6 +323,7 @@ export class Slider extends React.Component<ISliderProps, ISliderState> {
                       : this.props.value
                   }
                   potentialValues={potentialValues}
+                  disabled={disabled}
                 />
               ) : null}
             </>

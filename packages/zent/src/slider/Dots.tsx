@@ -10,6 +10,7 @@ export interface ISliderDotsProps {
   activeLeft: number;
   activeRight: number;
   potentialValues: number[];
+  disabled: boolean;
 }
 
 function isActive(value: number, left: number, right: number) {
@@ -22,6 +23,7 @@ function Dots({
   activeLeft,
   activeRight,
   potentialValues,
+  disabled,
 }: ISliderDotsProps) {
   return (
     <>
@@ -29,7 +31,8 @@ function Dots({
         <div
           key={value}
           className={cx('zent-slider-dot', {
-            'zent-slider-dot-active': isActive(value, activeLeft, activeRight),
+            'zent-slider-dot-active':
+              !disabled && isActive(value, activeLeft, activeRight),
           })}
           style={{ left: `${getLeft(value, min, max)}%` }}
         />

@@ -35,7 +35,7 @@ it('disabled children', () => {
         </Radio.Group>
         <Rate />
         <Select />
-        <Slider />
+        <Slider value={0} />
         <Switch />
         <SplitButton>SplitButton</SplitButton>
         <Collapse>
@@ -130,7 +130,7 @@ it('self props has a higher priority', () => {
         </Radio.Group>
         <Rate disabled={false} />
         <Select disabled={false} />
-        <Slider disabled={false} />
+        <Slider disabled={false} value={0} />
         <Switch disabled={false} />
         <SplitButton disabled={false}>SplitButton</SplitButton>
         <Collapse>
