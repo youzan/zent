@@ -3,6 +3,7 @@
 
 .zent-slider {
   display: flex;
+  align-items: center;
   min-height: 30px;
   padding: 8px 7px;
 
@@ -18,10 +19,6 @@
     user-select: none;
     background-color: $theme-stroke-6;
     background-clip: content-box;
-
-    &-with-marks {
-      margin-bottom: 20px;
-    }
 
     &:hover {
       .zent-slider-track {
@@ -143,7 +140,7 @@
 
   &-input {
     display: flex;
-    margin-left: 15px;
+    margin-left: 24px;
     line-height: 30px;
 
     .slider-input-line {

@@ -130,22 +130,22 @@ export class Slider extends React.Component<ISliderProps, ISliderState> {
     if (this.props.range !== false) {
       return;
     }
-    const { onChange, dots } = this.props;
+    const { onChange, dots, disabled } = this.props;
     const { potentialValues } = this.state;
     let newValue = Number(value);
     if (dots) {
       newValue = normalizeToPotentialValue(potentialValues, newValue);
     }
-    onChange && onChange(newValue);
+    !disabled && onChange && onChange(newValue);
   };
 
   private onLeftChange = (value: number | string | null) => {
     if (this.props.range !== true) {
       return;
     }
-    const { value: prevValue = [0, 0], onChange, dots } = this.props;
+    const { value: prevValue = [0, 0], onChange, dots, disabled } = this.props;
     const { potentialValues } = this.state;
-    if (!onChange) {
+    if (disabled || !onChange) {
       return;
     }
     let newValue = Number(value);
@@ -163,9 +163,9 @@ export class Slider extends React.Component<ISliderProps, ISliderState> {
     if (this.props.range !== true) {
       return;
     }
-    const { value: prevValue = [0, 0], onChange, dots } = this.props;
+    const { value: prevValue = [0, 0], onChange, dots, disabled } = this.props;
     const { potentialValues } = this.state;
-    if (!onChange) {
+    if (disabled || !onChange) {
       return;
     }
     let newValue = Number(value);
@@ -313,9 +313,7 @@ export class Slider extends React.Component<ISliderProps, ISliderState> {
       >
         <div
           ref={this.containerRef}
-          className={cx('zent-slider-main', {
-            'zent-slider-main-with-marks': !!marks,
-          })}
+          className="zent-slider-main"
           onClick={this.onClick}
         >
           <div
@@ -371,7 +369,6 @@ export class Slider extends React.Component<ISliderProps, ISliderState> {
                       ? this.props.value[1]
                       : this.props.value
                   }
-                  onClick={() => {}}
                   potentialValues={potentialValues}
                 />
               ) : null}
