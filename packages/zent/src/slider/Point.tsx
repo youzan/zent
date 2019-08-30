@@ -2,6 +2,7 @@ import * as React from 'react';
 import cx from 'classnames';
 import { withinRange } from '../utils/withinRange';
 import { useWindowEvent } from '../utils/component/WindowEventHandler';
+import { getValue, toFixed } from './common';
 
 export interface ISliderPointProps {
   value: number;
@@ -15,14 +16,6 @@ export interface ISliderPointProps {
   rangeLeft: number;
   rangeRight: number;
 }
-
-const getValue = (value: number, min: number, max: number) => {
-  return min + (max - min) * value;
-};
-
-const toFixed = (value: number, fractionDigits: number) => {
-  return Number(value.toFixed(fractionDigits));
-};
 
 function mouseMove(
   e: MouseEvent,

@@ -25,3 +25,9 @@ export interface ISliderRangeProps extends ISliderCommonProps {
 }
 
 export type ISliderProps = ISliderSingleProps | ISliderRangeProps;
+
+export interface ISliderState {
+  decimal: number;
+  potentialValues: number[];
+  prevProps: ISliderProps;
+}

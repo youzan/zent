@@ -1,14 +1,13 @@
 import * as React from 'react';
 import cx from 'classnames';
-import isNumber from 'lodash-es/isNumber';
 import getWidth from '../utils/getWidth';
 
 import Point from './Point';
 import Marks from './Marks';
 import Dots from './Dots';
 import { DisabledContext, IDisabledContext } from '../disabled';
-import { ISliderProps } from './types';
-import { IComputedProps } from './common';
+import { ISliderProps, ISliderState } from './types';
+import { IComputedProps, getValue, toFixed } from './common';
 import NumberInput from '../number-input';
 
 export const getDecimal = (step: number | string) => {
@@ -31,7 +30,7 @@ function checkProps(props: ISliderProps) {
     if (!(value.length === 2)) {
       throw new Error("value's length must as 2 when `range` is true");
     }
-    if (!value.every(v => isNumber(v) && v >= min && v <= max)) {
+    if (!value.every(v => typeof v === 'number' && v >= min && v <= max)) {
       throw new Error(
         "value's each item must be a number and between min and max when `range` is true"
       );
@@ -42,7 +41,7 @@ function checkProps(props: ISliderProps) {
       );
     }
   } else {
-    if (!isNumber(value)) {
+    if (typeof value !== 'number') {
       throw new Error('value must an number when `range` is false');
     }
     if (value < min || value > max) {
@@ -54,9 +53,60 @@ function checkProps(props: ISliderProps) {
       throw new Error('marks must be used with dots');
     }
   }
+  if (marks && Object.keys(marks).length < 2) {
+    throw new Error('at lease 2 marks needed');
+  }
 }
 
-export class Slider extends React.Component<ISliderProps> {
+function cmp(a: number, b: number): number {
+  if (a < b) {
+    return -1;
+  }
+  if (a > b) {
+    return 1;
+  }
+  return 0;
+}
+
+function getPotentialValues(
+  marks: Record<string | number, React.ReactNode> | undefined
+) {
+  if (!marks) {
+    return [];
+  }
+  return Object.keys(marks)
+    .map(it => Number(it))
+    .filter(it => !Number.isNaN(it) && it !== Infinity)
+    .sort(cmp);
+}
+
+function normalizeToPotentialValue(potentialValues: number[], value: number) {
+  let i = 0;
+  let j = potentialValues.length;
+  while (true) {
+    const p = Math.floor((i + j) / 2);
+    if (j === i + 1 || p === i) {
+      if (
+        Math.abs(potentialValues[i] - value) <=
+        Math.abs(potentialValues[j] - value)
+      ) {
+        return potentialValues[i];
+      }
+      return potentialValues[j];
+    }
+    const mid = potentialValues[p];
+    if (value === mid) {
+      return mid;
+    }
+    if (value < mid) {
+      j = p;
+    } else if (value > mid) {
+      i = p;
+    }
+  }
+}
+
+export class Slider extends React.Component<ISliderProps, ISliderState> {
   static defaultProps = {
     min: 0,
     max: 100,
@@ -68,25 +118,40 @@ export class Slider extends React.Component<ISliderProps> {
   static contextType = DisabledContext;
   context!: IDisabledContext;
 
+  state: ISliderState = {
+    decimal: getDecimal(this.props.step),
+    potentialValues: getPotentialValues(this.props.marks),
+    prevProps: this.props,
+  };
+
   private containerRef = React.createRef<HTMLDivElement>();
 
   private onSingleChange = (value: number | string | null) => {
     if (this.props.range !== false) {
       return;
     }
-    const { onChange } = this.props;
-    onChange && onChange(Number(value));
+    const { onChange, dots } = this.props;
+    const { potentialValues } = this.state;
+    let newValue = Number(value);
+    if (dots) {
+      newValue = normalizeToPotentialValue(potentialValues, newValue);
+    }
+    onChange && onChange(newValue);
   };
 
   private onLeftChange = (value: number | string | null) => {
     if (this.props.range !== true) {
       return;
     }
-    const { value: prevValue = [0, 0], onChange } = this.props;
+    const { value: prevValue = [0, 0], onChange, dots } = this.props;
+    const { potentialValues } = this.state;
     if (!onChange) {
       return;
     }
-    const newValue = Number(value);
+    let newValue = Number(value);
+    if (dots) {
+      newValue = normalizeToPotentialValue(potentialValues, newValue);
+    }
     const nextValue: [number, number] =
       newValue > prevValue[1]
         ? [prevValue[1], newValue]
@@ -98,11 +163,15 @@ export class Slider extends React.Component<ISliderProps> {
     if (this.props.range !== true) {
       return;
     }
-    const { value: prevValue = [0, 0], onChange } = this.props;
+    const { value: prevValue = [0, 0], onChange, dots } = this.props;
+    const { potentialValues } = this.state;
     if (!onChange) {
       return;
     }
-    const newValue = Number(value);
+    let newValue = Number(value);
+    if (dots) {
+      newValue = normalizeToPotentialValue(potentialValues, newValue);
+    }
     const nextValue: [number, number] =
       newValue > prevValue[0]
         ? [prevValue[0], newValue]
@@ -111,8 +180,8 @@ export class Slider extends React.Component<ISliderProps> {
   };
 
   private getComputedProps(): IComputedProps {
-    const { disabled = this.context.value, min, max, step } = this.props;
-    const decimal = getDecimal(step);
+    const { disabled = this.context.value, min, max } = this.props;
+    const { decimal } = this.state;
     if (this.props.range !== false) {
       const { value } = this.props;
       const leftPosition = getPosition(value[0], min, max);
@@ -164,6 +233,56 @@ export class Slider extends React.Component<ISliderProps> {
     };
   }
 
+  private onChange = (nextValue: number) => {
+    if (this.props.range === true) {
+      const { onChange, value } = this.props;
+      if (!onChange) {
+        return;
+      }
+      if (Math.abs(value[0] - nextValue) <= Math.abs(value[1] - nextValue)) {
+        onChange([nextValue, value[1]]);
+      } else {
+        onChange([value[0], nextValue]);
+      }
+    } else {
+      const { onChange } = this.props;
+      onChange && onChange(nextValue);
+    }
+  };
+
+  private onClick: React.MouseEventHandler<HTMLDivElement> = e => {
+    const { min, max, dots } = this.props;
+    const { decimal, potentialValues } = this.state;
+    const el = e.currentTarget;
+    let nextValue =
+      (e.clientX - el.getBoundingClientRect().left) / el.clientWidth;
+    nextValue = getValue(nextValue, min, max);
+    nextValue = toFixed(nextValue, decimal);
+    if (dots) {
+      nextValue = normalizeToPotentialValue(potentialValues, nextValue);
+    }
+    this.onChange(nextValue);
+  };
+
+  static getDerivedStateFromProps(
+    nextProps: ISliderProps,
+    { prevProps }: ISliderState
+  ): Partial<ISliderState> | null {
+    if (nextProps === prevProps) {
+      return null;
+    }
+    const state: Partial<ISliderState> = {
+      prevProps: nextProps,
+    };
+    if (prevProps.step !== nextProps.step) {
+      state.decimal = getDecimal(nextProps.step);
+    }
+    if (prevProps.marks !== nextProps.marks) {
+      state.potentialValues = getPotentialValues(nextProps.marks);
+    }
+    return state;
+  }
+
   render() {
     if (process.env.NODE_ENV !== 'production') {
       checkProps(this.props);
@@ -176,7 +295,9 @@ export class Slider extends React.Component<ISliderProps> {
       min,
       max,
       marks,
+      dots,
     } = this.props;
+    const { potentialValues } = this.state;
     const computed = this.getComputedProps();
     return (
       <div
@@ -190,13 +311,13 @@ export class Slider extends React.Component<ISliderProps> {
           className={cx('zent-slider-main', {
             'zent-slider-main-with-marks': !!marks,
           })}
+          onClick={this.onClick}
         >
           <div
             style={computed.trackStyle}
-            className={cx(
-              { 'zent-slider-track-disabled': disabled },
-              'zent-slider-track'
-            )}
+            className={cx('zent-slider-track', {
+              'zent-slider-track-disabled': disabled,
+            })}
           />
           {computed.range === true ? (
             <>
@@ -226,24 +347,34 @@ export class Slider extends React.Component<ISliderProps> {
           )}
           {marks ? (
             <>
-              <Marks marks={marks} min={min} max={max} />
-              <Dots
+              <Marks
                 marks={marks}
                 min={min}
                 max={max}
-                activeLeft={this.props.range === true ? this.props.value[0] : 0}
-                activeRight={
-                  this.props.range === true
-                    ? this.props.value[1]
-                    : this.props.value
-                }
-                onClick={() => {}}
+                potentialValues={potentialValues}
               />
+              {dots ? (
+                <Dots
+                  marks={marks}
+                  min={min}
+                  max={max}
+                  activeLeft={
+                    this.props.range === true ? this.props.value[0] : 0
+                  }
+                  activeRight={
+                    this.props.range === true
+                      ? this.props.value[1]
+                      : this.props.value
+                  }
+                  onClick={this.onChange}
+                  potentialValues={potentialValues}
+                />
+              ) : null}
             </>
           ) : null}
         </div>
         {withInput &&
-          !this.props.dots &&
+          !dots &&
           (computed.range === true ? (
             <div className="zent-slider-input">
               <NumberInput key="number-input-left" {...computed.leftProps} />

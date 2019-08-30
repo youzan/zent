@@ -4,14 +4,12 @@ export const getLeft = (value: number, min: number, max: number) => {
   return ((value - min) * 100) / (max - min);
 };
 
-export const getClosest = (value: [number, number], pointValue: number) => {
-  let newValue;
-  if (Math.abs(value[0] - pointValue) <= Math.abs(value[1] - pointValue)) {
-    newValue = [pointValue, value[1]];
-  } else {
-    newValue = [value[0], pointValue];
-  }
-  return newValue;
+export const getValue = (value: number, min: number, max: number) => {
+  return min + (max - min) * value;
+};
+
+export const toFixed = (value: number, fractionDigits: number) => {
+  return Number(value.toFixed(fractionDigits));
 };
 
 export interface ISliderChildCommonProps {

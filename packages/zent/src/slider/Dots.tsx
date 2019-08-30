@@ -10,6 +10,7 @@ export interface ISliderDotsProps {
   activeLeft: number;
   activeRight: number;
   onClick(value: number): void;
+  potentialValues: number[];
 }
 
 function isActive(value: number, left: number, right: number) {
@@ -23,42 +24,30 @@ function Dots({
   activeLeft,
   activeRight,
   onClick,
+  potentialValues,
 }: ISliderDotsProps) {
   const callbacks = React.useMemo(() => {
-    const keys = Object.keys(marks);
     const callbacks: Record<number, () => void> = {};
-    for (let i = 0; i < keys.length; i += 1) {
-      const key = keys[i];
-      const value = Number(marks[key]);
-      if (!Number.isNaN(value) && Infinity !== value) {
-        callbacks[value] = () => onClick(value);
-      }
+    for (let i = 0; i < potentialValues.length; i += 1) {
+      const key = potentialValues[i];
+      const value = Number(key);
+      callbacks[value] = () => onClick(value);
     }
     return callbacks;
   }, [marks]);
 
   return (
     <>
-      {Object.keys(marks).map(it => {
-        const value = Number(it);
-        if (Number.isNaN(value) || Infinity === value) {
-          return null;
-        }
-        return (
-          <div
-            key={value}
-            className={cx('zent-slider-dot', {
-              'zent-slider-dot-active': isActive(
-                value,
-                activeLeft,
-                activeRight
-              ),
-            })}
-            style={{ left: `${getLeft(value, min, max)}%` }}
-            onClick={callbacks[value]}
-          />
-        );
-      })}
+      {potentialValues.map(value => (
+        <div
+          key={value}
+          className={cx('zent-slider-dot', {
+            'zent-slider-dot-active': isActive(value, activeLeft, activeRight),
+          })}
+          style={{ left: `${getLeft(value, min, max)}%` }}
+          onClick={callbacks[value]}
+        />
+      ))}
     </>
   );
 }
