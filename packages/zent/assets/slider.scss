@@ -60,12 +60,9 @@
   &-point {
     @include theme-color(border-color, primary, 6);
     @include theme-color(background-color, stroke, 9);
-    position: absolute;
     box-sizing: border-box;
     width: 14px;
     height: 14px;
-    margin-top: -5px;
-    margin-left: -7px;
     border-radius: 50%;
     border-width: 2px;
     border-style: solid;
@@ -94,40 +91,39 @@
   }
 
   &-tooltip {
-    display: inline-block;
     position: absolute;
     cursor: initial;
     z-index: 1;
+    top: 50%;
+    transform: translate(-50%, -50%);
 
     &-content {
-      position: absolute;
-      top: -48px;
-      transform: translateX(-50%);
-      display: none;
-    }
-
-    &-inner {
       @include font-normal;
       @include theme-color(background-color, stroke, 1);
       @include theme-color(color, stroke, 9);
+      position: absolute;
+      top: -48px;
       padding: 8px 10px;
       border-radius: 2px;
       line-height: 14px;
-      position: relative;
       z-index: 2;
       white-space: nowrap;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 32px;
+      box-sizing: border-box;
     }
 
-    &-arrow {
+    &:after {
       @include theme-color(background-color, stroke, 1);
+      content: '';
+      display: block;
       transform: translate(-50%, 50%) rotate(45deg);
-      left: 50%;
+      width: 8px;
+      height: 8px;
+      top: -24px;
       position: absolute;
-      z-index: 1;
-      top: 20px;
-      width: 10px;
-      height: 10px;
-      overflow: hidden;
+      left: 50%;
     }
 
     $tooltip: &;
@@ -159,42 +155,30 @@
     }
   }
 
-  &-marks {
-    @include font-normal;
-    @include theme-color(color, stroke, 1);
+  &-mark {
     position: absolute;
-    width: 100%;
-    margin-top: 4px;
-
-    .zent-slider-mark {
-      position: absolute;
-      padding-top: 10px;
-      transform: translateX(-50%);
-    }
+    padding-top: 12px;
+    transform: translateX(-50%);
+    cursor: initial;
   }
 
-  &-dots {
+  &-dot {
+    @include theme-color(background-color, stroke, 9);
+    @include theme-color(border-color, stroke, 6);
     position: absolute;
-    width: 100%;
+    display: inline-block;
+    width: 6px;
+    margin-top: -2px;
+    transform: translateX(-50%);
+    height: 6px;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 50%;
 
-    .zent-slider-dot {
-      @include theme-color(background-color, stroke, 9);
-      @include theme-color(border-color, stroke, 6);
-      position: absolute;
-      display: inline-block;
-      width: 6px;
-      margin-top: -2px;
-      transform: translateX(-50%);
-      height: 6px;
+    &-active {
+      @include theme-color(border-color, primary, 6);
       border-width: 1px;
       border-style: solid;
-      border-radius: 50%;
-
-      &-active {
-        @include theme-color(border-color, primary, 6);
-        border-width: 1px;
-        border-style: solid;
-      }
     }
   }
 

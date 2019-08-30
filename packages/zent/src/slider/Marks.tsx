@@ -8,7 +8,7 @@ export interface ISliderMarksProps {
 }
 
 const SliderMarks = React.memo(({ marks, min, max }: ISliderMarksProps) => (
-  <div className="zent-slider-marks">
+  <>
     {Object.keys(marks).map(it => {
       const value = Number(it);
       if (Number.isNaN(value) || Infinity === value) {
@@ -26,7 +26,7 @@ const SliderMarks = React.memo(({ marks, min, max }: ISliderMarksProps) => (
         </div>
       );
     })}
-  </div>
+  </>
 ));
 
 SliderMarks.displayName = 'ZentSliderMarks';

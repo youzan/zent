@@ -85,10 +85,7 @@ function SliderPoint(props: ISliderPointProps) {
         })}
         onMouseDown={onMouseDown}
       />
-      <div className="zent-slider-tooltip-content">
-        <div className="zent-slider-tooltip-inner">{value}</div>
-        <i className="zent-slider-tooltip-arrow" />
-      </div>
+      <div className="zent-slider-tooltip-content">{value}</div>
     </div>
   );
 }

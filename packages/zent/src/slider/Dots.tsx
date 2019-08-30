@@ -38,7 +38,7 @@ function Dots({
   }, [marks]);
 
   return (
-    <div className="zent-slider-dots">
+    <>
       {Object.keys(marks).map(it => {
         const value = Number(it);
         if (Number.isNaN(value) || Infinity === value) {
@@ -59,7 +59,7 @@ function Dots({
           />
         );
       })}
-    </div>
+    </>
   );
 }
 
