@@ -1,48 +1,66 @@
 import * as React from 'react';
-import { PureComponent } from 'react';
-import map from 'lodash-es/map';
-import classNames from 'classnames';
-import noop from 'lodash-es/noop';
+import cx from 'classnames';
 
-import { getLeft, getClosest } from './common';
+import { getLeft } from './common';
 
-export default class Dots extends PureComponent<any> {
-  isInTrack = point => {
-    const { range, value, disabled } = this.props;
-    if (disabled) {
-      return false;
-    }
-    point = Number(point);
-    return range ? point <= value[1] && point >= value[0] : point <= value;
-  };
-
-  handleClick = pointValue => {
-    const { range, value, onChange } = this.props;
-    let newValue = Number(pointValue);
-    if (range) {
-      newValue = getClosest(value, newValue);
-    }
-    onChange && onChange(newValue);
-  };
-
-  render() {
-    const { marks, max, min, disabled, prefix } = this.props;
-    return (
-      <div className={`${prefix}-slider-dots`}>
-        {/* {map(marks, (value, index) => {
-          return (
-            <span
-              onClick={!disabled ? this.handleClick.bind(null, index) : noop}
-              style={{ left: `${getLeft(index, max, min)}%` }}
-              key={value}
-              className={classNames({
-                'zent-slider-dot': true,
-                'zent-slider-dot-active': this.isInTrack(index),
-              })}
-            />
-          );
-        })} */}
-      </div>
-    );
-  }
+export interface ISliderDotsProps {
+  marks: Record<number | string, React.ReactNode>;
+  min: number;
+  max: number;
+  activeLeft: number;
+  activeRight: number;
+  onClick(value: number): void;
 }
+
+function isActive(value: number, left: number, right: number) {
+  return value >= left && value <= right;
+}
+
+function Dots({
+  marks,
+  min,
+  max,
+  activeLeft,
+  activeRight,
+  onClick,
+}: ISliderDotsProps) {
+  const callbacks = React.useMemo(() => {
+    const keys = Object.keys(marks);
+    const callbacks: Record<number, () => void> = {};
+    for (let i = 0; i < keys.length; i += 1) {
+      const key = keys[i];
+      const value = Number(marks[key]);
+      if (!Number.isNaN(value) && Infinity !== value) {
+        callbacks[value] = () => onClick(value);
+      }
+    }
+    return callbacks;
+  }, [marks]);
+
+  return (
+    <div className="zent-slider-dots">
+      {Object.keys(marks).map(it => {
+        const value = Number(it);
+        if (Number.isNaN(value) || Infinity === value) {
+          return null;
+        }
+        return (
+          <div
+            key={value}
+            className={cx('zent-slider-dot', {
+              'zent-slider-dot-active': isActive(
+                value,
+                activeLeft,
+                activeRight
+              ),
+            })}
+            style={{ left: `${getLeft(value, min, max)}%` }}
+            onClick={callbacks[value]}
+          />
+        );
+      })}
+    </div>
+  );
+}
+
+export default Dots;

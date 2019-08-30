@@ -51,10 +51,12 @@ function mouseMove(
 
 function SliderPoint(props: ISliderPointProps) {
   const mouseDown = React.useRef(false);
+  const [active, setActive] = React.useState(false);
   const onMouseDown = React.useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
       e.preventDefault();
       mouseDown.current = true;
+      setActive(true);
     },
     []
   );
@@ -63,11 +65,16 @@ function SliderPoint(props: ISliderPointProps) {
       mouseMove(e, props);
     }
   });
-  useWindowEvent('mouseup', () => (mouseDown.current = false));
+  useWindowEvent('mouseup', () => {
+    mouseDown.current = false;
+    setActive(false);
+  });
   const { value, position, disabled } = props;
   return (
     <div
-      className="zent-slider-tooltip"
+      className={cx('zent-slider-tooltip', {
+        'zent-slider-tooltip-active': active,
+      })}
       style={{
         left: position,
       }}
@@ -80,7 +87,7 @@ function SliderPoint(props: ISliderPointProps) {
       />
       <div className="zent-slider-tooltip-content">
         <div className="zent-slider-tooltip-inner">{value}</div>
-        <i className="toolTips-arrow" />
+        <i className="zent-slider-tooltip-arrow" />
       </div>
     </div>
   );

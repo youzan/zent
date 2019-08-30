@@ -21,7 +21,7 @@ export interface ISliderChildCommonProps {
   decimal: number;
   value: number;
   position: string;
-  onChange(value: number): void;
+  onChange(value: number | string | null): void;
 }
 
 export type IComputedProps =

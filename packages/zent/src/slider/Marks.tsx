@@ -7,28 +7,28 @@ export interface ISliderMarksProps {
   max: number;
 }
 
-export default function SliderMarks({ marks, min, max }: ISliderMarksProps) {
-  return (
-    <div className="zent-slider-marks">
-      {Object.keys(marks)
-        .map(it => Number(it))
-        .sort()
-        .map(it => {
-          if (Number.isNaN(it) || Infinity === it) {
-            return null;
-          }
-          return (
-            <div
-              key={it}
-              style={{
-                left: `${getLeft(it, min, max)}%`,
-              }}
-              className="zent-slider-mark"
-            >
-              {marks[it]}
-            </div>
-          );
-        })}
-    </div>
-  );
-}
+const SliderMarks = React.memo(({ marks, min, max }: ISliderMarksProps) => (
+  <div className="zent-slider-marks">
+    {Object.keys(marks).map(it => {
+      const value = Number(it);
+      if (Number.isNaN(value) || Infinity === value) {
+        return null;
+      }
+      return (
+        <div
+          key={value}
+          style={{
+            left: `${getLeft(value, min, max)}%`,
+          }}
+          className="zent-slider-mark"
+        >
+          {marks[value]}
+        </div>
+      );
+    })}
+  </div>
+));
+
+SliderMarks.displayName = 'ZentSliderMarks';
+
+export default SliderMarks;

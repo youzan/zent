@@ -5,6 +5,7 @@ import getWidth from '../utils/getWidth';
 
 import Point from './Point';
 import Marks from './Marks';
+import Dots from './Dots';
 import { DisabledContext, IDisabledContext } from '../disabled';
 import { ISliderProps } from './types';
 import { IComputedProps } from './common';
@@ -69,7 +70,7 @@ export class Slider extends React.Component<ISliderProps> {
 
   private containerRef = React.createRef<HTMLDivElement>();
 
-  private onSingleChange = (value: number | string) => {
+  private onSingleChange = (value: number | string | null) => {
     if (this.props.range !== false) {
       return;
     }
@@ -77,7 +78,7 @@ export class Slider extends React.Component<ISliderProps> {
     onChange && onChange(Number(value));
   };
 
-  private onLeftChange = (value: number) => {
+  private onLeftChange = (value: number | string | null) => {
     if (this.props.range !== true) {
       return;
     }
@@ -93,7 +94,7 @@ export class Slider extends React.Component<ISliderProps> {
     onChange(nextValue);
   };
 
-  private onRightChange = (value: number) => {
+  private onRightChange = (value: number | string | null) => {
     if (this.props.range !== true) {
       return;
     }
@@ -223,14 +224,30 @@ export class Slider extends React.Component<ISliderProps> {
               {...computed.props}
             />
           )}
-          {marks ? <Marks marks={marks} min={min} max={max} /> : null}
+          {marks ? (
+            <>
+              <Marks marks={marks} min={min} max={max} />
+              <Dots
+                marks={marks}
+                min={min}
+                max={max}
+                activeLeft={this.props.range === true ? this.props.value[0] : 0}
+                activeRight={
+                  this.props.range === true
+                    ? this.props.value[1]
+                    : this.props.value
+                }
+                onClick={() => {}}
+              />
+            </>
+          ) : null}
         </div>
         {withInput &&
           !this.props.dots &&
           (computed.range === true ? (
             <div className="zent-slider-input">
               <NumberInput key="number-input-left" {...computed.leftProps} />
-              <span className="slider-input-line">-</span>
+              <div className="slider-input-line">-</div>
               <NumberInput key="number-input-right" {...computed.rightProps} />
             </div>
           ) : (
