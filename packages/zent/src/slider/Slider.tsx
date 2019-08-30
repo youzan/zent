@@ -233,13 +233,13 @@ export class Slider extends React.Component<ISliderProps, ISliderState> {
     };
   }
 
-  private onChange = (nextValue: number) => {
+  private onChange = (nextValue: number, rawValue: number) => {
     if (this.props.range === true) {
       const { onChange, value } = this.props;
       if (!onChange) {
         return;
       }
-      if (Math.abs(value[0] - nextValue) <= Math.abs(value[1] - nextValue)) {
+      if (Math.abs(value[0] - rawValue) <= Math.abs(value[1] - rawValue)) {
         onChange([nextValue, value[1]]);
       } else {
         onChange([value[0], nextValue]);
@@ -259,9 +259,14 @@ export class Slider extends React.Component<ISliderProps, ISliderState> {
     nextValue = getValue(nextValue, min, max);
     nextValue = toFixed(nextValue, decimal);
     if (dots) {
-      nextValue = normalizeToPotentialValue(potentialValues, nextValue);
+      const normalizedValue = normalizeToPotentialValue(
+        potentialValues,
+        nextValue
+      );
+      this.onChange(normalizedValue, nextValue);
+    } else {
+      this.onChange(nextValue, nextValue);
     }
-    this.onChange(nextValue);
   };
 
   static getDerivedStateFromProps(
@@ -366,7 +371,7 @@ export class Slider extends React.Component<ISliderProps, ISliderState> {
                       ? this.props.value[1]
                       : this.props.value
                   }
-                  onClick={this.onChange}
+                  onClick={() => {}}
                   potentialValues={potentialValues}
                 />
               ) : null}
