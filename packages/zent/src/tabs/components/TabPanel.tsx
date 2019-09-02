@@ -9,7 +9,7 @@ function TabPanel<Id>(props: React.PropsWithChildren<ITabPanelProps<Id>>) {
     return null;
   }
 
-  const panelCls = cn('zent-tab-tabpanel', className);
+  const panelCls = cn('zent-tabs-panel', className);
   return (
     <div role="tabpanel" className={panelCls}>
       {children}

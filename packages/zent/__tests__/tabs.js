@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import Enzyme, { mount } from 'enzyme';
+import { upperFirst } from 'lodash-es';
 import Adapter from 'enzyme-adapter-react-16';
 import Tabs from 'tabs';
+import VerticalTabs from 'tabs/VerticalTabs';
 
 Enzyme.configure({ adapter: new Adapter() });
 
-const TabPanel = Tabs.TabPanel;
-
 describe('Tabs', () => {
-  it('requires an id and activeId', () => {
+  const TabPanel = Tabs.TabPanel;
+
+  it('render with TabPanel', () => {
     const wrapper = mount(
       <Tabs activeId="1">
         <TabPanel id="1" tab="tab-title">
@@ -16,180 +18,12 @@ describe('Tabs', () => {
         </TabPanel>
       </Tabs>
     );
-    expect(wrapper.find('Nav').length).toBe(1);
-    expect(wrapper.find('Tab').length).toBe(1);
+    expect(wrapper.find('NormalTabsNav').length).toBe(1);
+    expect(wrapper.find('NormalTab').length).toBe(1);
     expect(wrapper.find('TabPanel').length).toBe(1);
   });
 
-  it('custom className and prefix', () => {
-    const wrapper = mount(
-      <Tabs activeId="1" className="foobar-cls" prefix="quux">
-        <TabPanel id="1" tab="tab-title">
-          foobar
-        </TabPanel>
-      </Tabs>
-    );
-    expect(wrapper.find('.quux-tabs.foobar-cls').length).toBe(1);
-  });
-
-  it('different alignments', () => {
-    const ensure = align => {
-      const wrapper = mount(
-        <Tabs activeId="foobar" align={align}>
-          <TabPanel id="foobar" tab="foobar-tab">
-            foobar
-          </TabPanel>
-          <TabPanel id="quux" tab="quux-tab">
-            quux
-          </TabPanel>
-        </Tabs>
-      );
-      align = align || 'left';
-      expect(
-        wrapper.find('.zent-tabs-nav').hasClass(`zent-tabs-align-${align}`)
-      ).toBe(true);
-    };
-    ensure();
-    ensure('left');
-    ensure('right');
-    ensure('center');
-  });
-
-  it('different sizes', () => {
-    const ensure = size => {
-      const wrapper = mount(
-        <Tabs activeId="foobar" size={size}>
-          <TabPanel id="foobar" tab="foobar-tab">
-            foobar
-          </TabPanel>
-        </Tabs>
-      );
-      size = size || 'normal';
-      expect(
-        wrapper.find('.zent-tabs-nav').hasClass(`zent-tabs-size-${size}`)
-      ).toBe(true);
-    };
-    ensure();
-    ensure('normal');
-    ensure('huge');
-  });
-
-  it('different types', () => {
-    const ensure = type => {
-      const wrapper = mount(
-        <Tabs activeId="foobar" type={type}>
-          <TabPanel id="foobar" tab="foobar-tab">
-            foobar
-          </TabPanel>
-        </Tabs>
-      );
-      type = type || 'normal';
-      expect(
-        wrapper.find('.zent-tabs-nav').hasClass(`zent-tabs-type-${type}`)
-      ).toBe(true);
-    };
-    ensure();
-    ensure('normal');
-    ensure('card');
-    ensure('slider');
-  });
-
-  it('onTabChange callback', () => {
-    const onChange = jest.fn();
-    const wrapper = mount(
-      <Tabs activeId="foobar" onTabChange={onChange}>
-        <TabPanel id="foobar" tab="foobar-tab">
-          foobar
-        </TabPanel>
-        <TabPanel id="quux" tab="quux-tab">
-          foobar
-        </TabPanel>
-      </Tabs>
-    );
-
-    wrapper
-      .find('Tab')
-      .last()
-      .simulate('click');
-    expect(onChange.mock.calls.length).toBe(1);
-    expect(onChange.mock.calls[0][0]).toBe('quux');
-  });
-
-  it('onTabDel and onTabAdd callback', () => {
-    class App extends Component {
-      state = {
-        active: 'foobar',
-        tabs: ['foobar', 'quux'],
-      };
-
-      onChange = jest.fn().mockImplementationOnce(id =>
-        this.setState({
-          active: id,
-        })
-      );
-
-      onDelete = jest.fn().mockImplementationOnce(id => {
-        const { tabs } = this.state;
-
-        this.setState({
-          tabs: tabs.reduce((tbs, t) => {
-            if (t !== id) {
-              tbs.push(t);
-            }
-            return tbs;
-          }, []),
-        });
-      });
-
-      onAdd = jest.fn().mockImplementationOnce(() =>
-        this.setState(state => ({
-          tabs: state.tabs.concat('bar'),
-        }))
-      );
-
-      render() {
-        const { tabs, active } = this.state;
-        return (
-          <Tabs
-            activeId={active}
-            onTabChange={this.onChange}
-            onTabDel={this.onDelete}
-            onTabAdd={this.onAdd}
-            candel
-            canadd
-          >
-            {tabs.map(t => (
-              <TabPanel key={t} id={t} tab={`${t}-tab`}>
-                {t}
-              </TabPanel>
-            ))}
-          </Tabs>
-        );
-      }
-    }
-
-    const wrapper = mount(<App />);
-
-    expect(wrapper.find('Tab').length).toBe(2);
-    wrapper.find('.zent-tabs-nav-add').simulate('click');
-    expect(wrapper.find('Tab').length).toBe(3);
-
-    wrapper
-      .find('Tab')
-      .last()
-      .simulate('click');
-    expect(wrapper.state('active')).toBe('bar');
-
-    wrapper
-      .find('Tab')
-      .first()
-      .find('.zent-tabs-tab-inner-del')
-      .simulate('click');
-    expect(wrapper.find('Tab').length).toBe(2);
-    expect(wrapper.state('tabs')).toEqual(['quux', 'bar']);
-  });
-
-  it('use without panel', () => {
+  it('render with tabs prop', () => {
     class App extends Component {
       constructor(props) {
         super(props);
@@ -225,13 +59,179 @@ describe('Tabs', () => {
     }
 
     const wrapper = mount(<App />);
-    expect(wrapper.find('Tab').length).toBe(3);
+    expect(wrapper.find('NormalTab').length).toBe(3);
   });
 
-  it('can render withour any panel', () => {
+  it(`can't render without panel children and tabs props`, () => {
     expect(() =>
-      mount(<Tabs activeId="1" className="foobar-cls" prefix="quux" />)
-    ).not.toThrow();
+      mount(<Tabs activeId="1" className="foobar-cls" />)
+    ).toThrowError();
+  });
+
+  it('custom className', () => {
+    const wrapper = mount(
+      <Tabs activeId="1" className="foobar-cls">
+        <TabPanel id="1" className="foobar-panel-cls" tab="tab-title">
+          foobar
+        </TabPanel>
+      </Tabs>
+    );
+    expect(wrapper.find('.zent-tabs.foobar-cls').length).toBe(1);
+    expect(wrapper.find('.zent-tabs-panel.foobar-panel-cls').length).toBe(1);
+  });
+
+  it('different types', () => {
+    const ensure = type => {
+      const wrapper = mount(
+        <Tabs activeId="foobar" type={type}>
+          <TabPanel id="foobar" tab="foobar-tab">
+            foobar
+          </TabPanel>
+        </Tabs>
+      );
+      type = type || 'normal';
+      expect(
+        wrapper.find('.zent-tabs-nav').hasClass(`zent-tabs-nav-type__${type}`)
+      ).toBe(true);
+    };
+    ensure();
+    ensure('normal');
+    ensure('card');
+    ensure('button');
+  });
+
+  it('stretch props', () => {
+    const wrapper = mount(
+      <Tabs activeId="foobar" stretch>
+        <TabPanel id="foobar" tab="foobar-tab">
+          foobar
+        </TabPanel>
+        <TabPanel id="quux" tab="quux-tab">
+          quux
+        </TabPanel>
+      </Tabs>
+    );
+    expect(
+      wrapper.find('.zent-tabs-nav').hasClass(`zent-tabs-nav__stretch`)
+    ).toBe(true);
+  });
+
+  it('onChange callback', () => {
+    /**
+     * @param {string} type
+     */
+    const ensure = (type, tabComponentOverride) => {
+      const tabComponent = tabComponentOverride || `${upperFirst(type)}Tab`;
+      const onChange = jest.fn();
+      const wrapper = mount(
+        <Tabs type={type} activeId="foobar" onChange={onChange}>
+          <TabPanel id="foobar" tab="foobar-tab">
+            foobar
+          </TabPanel>
+          <TabPanel id="quux" tab="quux-tab">
+            foobar
+          </TabPanel>
+        </Tabs>
+      );
+
+      wrapper
+        .find(tabComponent)
+        .last()
+        .simulate('click');
+      expect(onChange.mock.calls.length).toBe(1);
+      expect(onChange.mock.calls[0][0]).toBe('quux');
+    };
+
+    ensure('normal');
+    ensure('card');
+    ensure('button', 'Button');
+  });
+
+  it('onTabDel callback', () => {
+    /**
+     * @param {string} type
+     */
+    const ensure = type => {
+      const tabComponent = `${upperFirst(type)}Tab`;
+      class App extends Component {
+        state = {
+          active: 'foobar',
+          tabs: ['foobar', 'quux'],
+        };
+
+        onChange = jest.fn().mockImplementationOnce(id =>
+          this.setState({
+            active: id,
+          })
+        );
+
+        onDelete = jest.fn().mockImplementationOnce(id => {
+          const { tabs } = this.state;
+
+          this.setState({
+            tabs: tabs.reduce((tbs, t) => {
+              if (t !== id) {
+                tbs.push(t);
+              }
+              return tbs;
+            }, []),
+          });
+        });
+
+        onAdd = jest.fn().mockImplementationOnce(() =>
+          this.setState(state => ({
+            tabs: state.tabs.concat('bar'),
+          }))
+        );
+
+        render() {
+          const { tabs, active } = this.state;
+          return (
+            <Tabs
+              activeId={active}
+              onChange={this.onChange}
+              onDelete={this.onDelete}
+              candel
+              type={type}
+              navExtraContent={
+                <a className="add-link" onClick={this.onAdd}>
+                  Add
+                </a>
+              }
+            >
+              {tabs.map(t => (
+                <TabPanel key={t} id={t} tab={`${t}-tab`}>
+                  {t}
+                </TabPanel>
+              ))}
+            </Tabs>
+          );
+        }
+      }
+
+      const wrapper = mount(<App />);
+
+      expect(wrapper.find(tabComponent).length).toBe(2);
+      wrapper.find('.add-link').simulate('click');
+      expect(wrapper.find(tabComponent).length).toBe(3);
+
+      wrapper
+        .find(tabComponent)
+        .last()
+        .simulate('click');
+      expect(wrapper.state('active')).toBe('bar');
+
+      wrapper
+        .find(tabComponent)
+        .first()
+        .find('.zent-tabs-tab-delete')
+        .simulate('click');
+      expect(wrapper.find(tabComponent).length).toBe(2);
+      expect(wrapper.state('tabs')).toEqual(['quux', 'bar']);
+    };
+
+    ensure('normal');
+    ensure('card');
   });
 
   it('navExtraContent', () => {
@@ -243,5 +243,84 @@ describe('Tabs', () => {
       </Tabs>
     );
     expect(wrapper.find('.zent-tabs-nav-extra-content').length).toBe(1);
+  });
+});
+
+describe('VerticalTabs', () => {
+  const TabPanel = VerticalTabs.TabPanel;
+  const Divide = VerticalTabs.Divide;
+
+  it('render VerticalTabsNav and VerticalTab and  with children', () => {
+    const wrapper = mount(
+      <VerticalTabs activeId="foo">
+        <TabPanel id="foo" tab="for-tab">
+          foo
+        </TabPanel>
+      </VerticalTabs>
+    );
+    expect(wrapper.find('VerticalTabsNav').length).toBe(1);
+    expect(wrapper.find('VerticalTab').length).toBe(1);
+  });
+
+  it('render divide with children', () => {
+    const wrapper = mount(
+      <VerticalTabs activeId="foo">
+        <TabPanel id="foo" tab="for-tab">
+          foo
+        </TabPanel>
+        <Divide />
+        <TabPanel id="bar" tab="bar-tab">
+          bar
+        </TabPanel>
+      </VerticalTabs>
+    );
+    expect(wrapper.find('.zent-tabs-divide').length).toBe(1);
+  });
+
+  it('render divide with tabs prop', () => {
+    const wrapper = mount(
+      <VerticalTabs
+        activeId="1"
+        tabs={[
+          {
+            title: '选项一',
+            key: '1',
+          },
+          {
+            divide: true,
+          },
+          {
+            title: '选项二',
+            key: '2',
+          },
+        ]}
+      />
+    );
+    expect(wrapper.find('.zent-tabs-divide').length).toBe(1);
+  });
+
+  it('scrollHeight', () => {
+    const wrapper = mount(
+      <VerticalTabs
+        activeId="1"
+        scrollHeight={100}
+        tabs={[
+          {
+            title: '选项一',
+            key: '1',
+          },
+          {
+            title: '选项二',
+            key: '2',
+          },
+        ]}
+      />
+    );
+    expect(
+      wrapper
+        .find('.zent-tabs-scroll')
+        .getDOMNode()
+        .getAttribute('style')
+    ).toBe('max-height: 100px;');
   });
 });

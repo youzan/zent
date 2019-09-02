@@ -176,17 +176,6 @@
 
       &-tab {
         border-radius: 0;
-        border-top: 0;
-        width: 80px;
-
-        &:first-child {
-          border-left: 0;
-          border-top: 0;
-        }
-      }
-
-      &-tab-inner {
-        min-width: 80px;
       }
     }
   }
