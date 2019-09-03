@@ -134,7 +134,6 @@ export class Input extends Component<IInputProps, IInputState> {
     const wrapperStyle: React.CSSProperties = {
       ...style,
       width,
-      display: props.inline ? 'inline-flex' : 'flex',
     };
 
     const wrapClass = classNames(
@@ -148,6 +147,7 @@ export class Input extends Component<IInputProps, IInputState> {
           ((props as IInputCoreProps).addonAfter ||
             (props as IInputCoreProps).addonBefore),
         'zent-input--has-focus': hasFocus,
+        'zent-input-wrapper-inline': props.inline,
       },
       className
     );
