@@ -184,3 +184,7 @@ $large-size: 40px;
 .zent-textarea::placeholder {
   @include theme-color(color, stroke, 4);
 }
+
+.zent-input-wrapper.zent-input-wrapper-inline {
+  display: inline-flex;
+}
