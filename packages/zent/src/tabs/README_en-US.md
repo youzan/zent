@@ -29,7 +29,7 @@ Paramerter type of `tabs`：
 ```ts
 interface ITab {
 	key: string | number; // 同TabPanel id
-	title: string | number; // 同TabPanel tab
+	title: ReactNode; // 同TabPanel tab
 	disabled?: boolean; // 同TabPanel disabled
 }
 ```
@@ -54,7 +54,7 @@ type IVerticalTab = ITab | { divide: true };
 
 | Property  | Description                                             | Type             | Required |
 | --------- | ------------------------------------------------------- | ---------------- | -------- |
-| tab       | The label of the tab which corresponding to this panel. | string           | yes      |
+| tab       | The label of the tab which corresponding to this panel. | ReactNode        | yes      |
 | id        | The id of the tab panel.                                | string \| number | yes      |
 | disabled  | Disable this tab panel.                                 | bool             | no       |
 | className | The extra className of the panel                        | bool             | no       |

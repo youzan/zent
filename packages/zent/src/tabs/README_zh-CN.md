@@ -30,7 +30,7 @@ tabs 参数类型：
 ```ts
 interface ITab {
 	key: string | number; // 同TabPanel id
-	title: string | number; // 同TabPanel tab
+	title: ReactNode; // 同TabPanel tab
 	disabled?: boolean; // 同TabPanel disabled
 }
 ```
@@ -55,7 +55,7 @@ type IVerticalTab = ITab | { divide: true };
 
 | 参数      | 说明                                | 类型             | 是否必须 |
 | --------- | ----------------------------------- | ---------------- | -------- |
-| tab       | 该 TabPanel 所对应的 tab 标签的名字 | string           | 是       |
+| tab       | 该 TabPanel 所对应的 tab 标签的名字 | ReactNode        | 是       |
 | id        | 该 TabPanel 的 id                   | string \| number | 是       |
 | disabled  | 该 TabPanel 是否被禁用              | bool             | 否       |
 | className | 该 TabPanel 上添加的额外 className  | bool             | 否       |
