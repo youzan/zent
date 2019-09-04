@@ -75,8 +75,7 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
       [`zent-btn-${size}`]: size !== 'medium',
       'zent-btn-block': block,
       'zent-btn-loading': loading,
-      'zent-btn-disabled':
-        typeof disabled === 'boolean' ? disabled : disabledContext,
+      'zent-btn-disabled': disabled,
       'zent-btn-border-transparent': !bordered,
     },
     'zent-btn',
