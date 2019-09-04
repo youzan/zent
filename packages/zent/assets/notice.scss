@@ -1,0 +1,56 @@
+@import './theme/default';
+
+.zent-notice {
+  @include theme-color(background-color, stroke, 9);
+  @include theme-shadow(modal);
+  position: relative;
+  border-radius: 4px;
+  padding: 16px;
+
+  &-title {
+    @include theme-color(color, stroke, 1);
+    font-size: 14px;
+  }
+
+  &-content {
+    @include theme-color(color, stroke, 2);
+    font-size: 14px;
+  }
+
+  &.zent-notice-with-icon {
+    padding-left: 40px;
+  }
+
+  &-icon {
+    position: absolute;
+  }
+
+  &-container {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    display: flex;
+    overflow: visible;
+
+    &-left {
+      left: 0;
+      transform: translateX(-100%);
+      align-items: flex-start;
+    }
+
+    &-right {
+      right: 0;
+      transform: translateX(100%);
+      align-items: flex-end;
+    }
+
+    &-top {
+      flex-direction: column;
+    }
+
+    &-bottom {
+      flex-direction: column-reverse;
+    }
+  }
+}
