@@ -114,18 +114,18 @@ export default class SketchFileds extends PureComponent<any> {
 
   static getDerivedStateFromProps(props, state) {
     const { hex } = props;
-
-    const stateDiff = {
+    const derivedState = {
+      // 缓存 props.hex
       preHex: hex,
       hexColor: state.hexColor,
     };
 
     if (hex !== state.preHex) {
       const hexFormat = hex.replace('#', '');
-      stateDiff.hexColor = hexFormat;
+      derivedState.hexColor = hexFormat;
     }
 
-    return stateDiff;
+    return derivedState;
   }
 
   render() {
