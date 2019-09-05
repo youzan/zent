@@ -112,19 +112,27 @@ export default class SketchFileds extends PureComponent<any> {
     }
   };
 
-  componentWillReceiveProps(nextProps) {
-    const nextHexColor = nextProps.hex.replace('#', '');
-    if (this.state.hexColor !== nextHexColor) {
-      this.setState({
-        hexColor: nextHexColor,
-      });
+  static getDerivedStateFromProps(props, state) {
+    const { hex } = props;
+    const derivedState = {
+      // 缓存 props.hex
+      preHex: hex,
+      hexColor: state.hexColor,
+    };
+
+    if (hex !== state.preHex) {
+      const hexFormat = hex.replace('#', '');
+      derivedState.hexColor = hexFormat;
     }
+
+    return derivedState;
   }
 
   render() {
     const { prefix, rgb } = this.props;
     const { hexColor } = this.state;
     const styles = this.styles;
+
     return (
       <div style={styles.fields} className={`${prefix}-colorpicker-input`}>
         <div style={styles.double}>

@@ -26,11 +26,11 @@ export const ColorWrap = Picker => {
       };
     }
 
-    componentWillReceiveProps(nextProps) {
-      this.setState(state => ({
-        ...color.toState(nextProps.color, state.oldHue),
-        visible: nextProps.display,
-      }));
+    static getDerivedStateFromProps(props, state) {
+      return {
+        ...color.toState(props.color, state.oldHue),
+        visible: props.display,
+      };
     }
 
     handleChange = (data, event) => {
