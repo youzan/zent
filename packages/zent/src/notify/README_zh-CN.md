@@ -16,14 +16,15 @@ group: 反馈
 ### API
 
 - `Notify.success(text: node, duration?: number, callback?: () => ()): number`
+- `Notify.warn(text: node, duration?: number, callback?: () => ()): number`
 - `Notify.error(text: node, duration?: number, callback?: () => ()): number`
 
-`Notify.success` 和 `Notify.error` 方法会返回一个 `id`，这个 `id` 可以作为 `Notify.clear(id)` 的入参，用于关闭指定notify。
+`Notify.success`，`Notify.warn` 和 `Notify.error` 方法会返回一个 `id`，这个 `id` 可以作为 `Notify.clear(id)` 的入参，用于关闭指定notify。
 
 | 参数       | 说明            | 类型     | 默认值    |
 | -------- | ------------- | ------ | ------ |
 | text     | 通知文案    | node   | `''`   |
-| duration | 持续时间          | number | `2000` |
+| duration | 持续时间          | number | `3500` |
 | callback | 关闭时的回调 | func   |        |
 
 - `Notify.clear(number: id): void`
