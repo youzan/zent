@@ -1,31 +1,24 @@
 ---
 order: 3
 zh-CN:
-	title: 不同尺寸
+  title: 自定义尺寸
 en-US:
-	title: Support different size
+  title: Custom size
 ---
+
 ```jsx
 import { Progress } from 'zent';
 
 class App extends Component {
-
 	render() {
 		return (
-			<div>
-				<Progress width={300} strokeWidth={5}/>
-				<Progress percent={70} width={300} strokeWidth={5}/>
-				<Progress percent={100} width={300} strokeWidth={5}/>
-				<Progress type="circle" width={76} strokeWidth={3}/>
-				<Progress type="circle" percent={80} width={76} strokeWidth={3}/>
-				<Progress type="circle" percent={100} width={76} strokeWidth={3}/>
+			<div className="zent-progress-demo">
+				<Progress percent={70} width={300} strokeWidth={5} />
+				<Progress type="circle" percent={80} width={76} strokeWidth={5} />
 			</div>
 		);
 	}
 }
 
-ReactDOM.render(
-	<App />
-	, mountNode
-);
+ReactDOM.render(<App />, mountNode);
 ```

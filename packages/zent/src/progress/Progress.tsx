@@ -1,15 +1,19 @@
 import * as React from 'react';
 import cx from 'classnames';
-import { IProgressProps, IProgressInstanceProps } from './types';
-import { PROGRESS_STATE } from './constants';
+import {
+  IProgressProps,
+  IProgressInstanceProps,
+  IProgressStatus,
+} from './types';
+import { defaultFormat, avaliableStatus } from './constants';
 import CircleProgress from './components/CircleProgress';
 import LineProgress from './components/LineProgress';
 import { ParticalRequired } from '../utils/types';
 
 export const Progress: React.FC<IProgressProps> = (
   props: ParticalRequired<
-    IProgressProps,
-    'type' | 'percent' | 'showInfo' | 'strokeWidth'
+    React.PropsWithChildren<IProgressProps>,
+    'type' | 'percent' | 'showInfo' | 'strokeWidth' | 'format'
   >
 ) => {
   const {
@@ -18,57 +22,49 @@ export const Progress: React.FC<IProgressProps> = (
     percent,
     className,
     normalColor,
-    exceptionColor,
     successColor,
+    exceptionColor,
+    bgColor,
     format,
     showInfo,
     strokeWidth,
     width,
-    bgColor,
     ...divAttrs
   } = props;
 
-  const state = React.useMemo(() => {
-    if (percent < 100 && status === 'exception') {
-      return PROGRESS_STATE.EXCEPTION;
+  // 计算 progress 状态
+  const state = React.useMemo<IProgressStatus>(() => {
+    if (avaliableStatus.indexOf(status) !== -1) {
+      return status;
     }
-    if (percent >= 100) {
-      return PROGRESS_STATE.SUCCESS;
-    }
-
-    return PROGRESS_STATE.ING;
+    return percent >= 100 ? 'success' : 'normal';
   }, [status, percent]);
 
-  const currentColor = React.useMemo(() => {
-    if (state === PROGRESS_STATE.EXCEPTION) {
-      return exceptionColor || normalColor;
-    }
-    if (state === PROGRESS_STATE.SUCCESS) {
-      return successColor;
-    }
-    return normalColor;
-  }, [state]);
+  // 计算需要显示的颜色
+  const currentColor = {
+    exception: exceptionColor,
+    success: successColor,
+    normal: normalColor,
+  }[state];
 
-  const containerCls = cx(`zent-progress`, `zent-progress-${type}`, className);
-
-  const stateCls = cx({
-    ['zent-progress-inprogress']: state === PROGRESS_STATE.ING,
-    ['zent-progress-exception']: state === PROGRESS_STATE.EXCEPTION,
-    ['zent-progress-success']: state === PROGRESS_STATE.SUCCESS,
-  });
-
+  // 判断使用哪种类型的进度条
   let ProgressComponent: React.ComponentType<IProgressInstanceProps>;
-
   switch (type) {
     case 'circle':
       ProgressComponent = CircleProgress;
       break;
-
     case 'line': /* fall through */
     default:
       ProgressComponent = LineProgress;
       break;
   }
+
+  const containerCls = cx(
+    'zent-progress',
+    `zent-progress-type__${type}`,
+    `zent-progress-state__${state}`,
+    className
+  );
 
   return (
     <div className={containerCls} {...divAttrs}>
@@ -81,7 +77,6 @@ export const Progress: React.FC<IProgressProps> = (
         format={format}
         color={currentColor}
         state={state}
-        stateCls={stateCls}
       />
     </div>
   );
@@ -92,6 +87,7 @@ Progress.defaultProps = {
   percent: 0,
   showInfo: true,
   strokeWidth: 10,
+  format: defaultFormat,
 };
 
 export default Progress;

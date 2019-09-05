@@ -14,16 +14,20 @@ import { Progress, Slider } from 'zent';
 class App extends Component {
 	render() {
 		return (
-			<div>
-				<Progress percent={70} format={(percent) => `{i18n.content} ${percent}%`} />
-				<Progress percent={80} type="circle" format={(percent) => `{i18n.content} ${percent}%`} />
+			<div className="zent-progress-demo">
+				<Progress
+					percent={70}
+					format={percent => `{i18n.content} ${percent}%`}
+				/>
+				<Progress
+					percent={80}
+					type="circle"
+					format={percent => `{i18n.content} ${percent}%`}
+				/>
 			</div>
 		);
 	}
 }
 
-ReactDOM.render(
-	<App />
-	, mountNode
-);
+ReactDOM.render(<App />, mountNode);
 ```

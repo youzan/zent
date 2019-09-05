@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { IProgressInstanceProps } from '../types';
-import { DEFAULT_WIDTH, PROGRESS_STATE } from '../constants';
+import { DEFAULT_WIDTH } from '../constants';
 import AnimatedArc from './AnimatedArc';
 import ProgressInfo from './ProgressInfo';
 
@@ -14,7 +14,6 @@ const CircleProgress: React.FC<IProgressInstanceProps> = props => {
     bgColor,
     color,
     state,
-    stateCls,
   } = props;
   const progressWidth = width || DEFAULT_WIDTH.CIRCLE;
   const mid = progressWidth / 2;
@@ -25,23 +24,21 @@ const CircleProgress: React.FC<IProgressInstanceProps> = props => {
 
   return (
     <div
-      className={stateCls}
       style={{
         width: progressWidth,
         height: progressWidth,
       }}
     >
       <div
-        className={`zent-progress-wrapper`}
+        className="zent-progress-wrapper"
         style={{
-          borderRadius: progressWidth,
           borderWidth: strokeWidth,
           borderColor: bgColor,
         }}
       />
-      <svg className={`zent-progress-inner`}>
+      <svg className="zent-progress-inner">
         <circle
-          className={`zent-progress-inner-path`}
+          className="zent-progress-inner-path"
           cx={mid}
           cy={mid}
           r={radius}
@@ -52,9 +49,9 @@ const CircleProgress: React.FC<IProgressInstanceProps> = props => {
             strokeDashoffset: offset,
           }}
         />
-        {state === PROGRESS_STATE.ING && (
+        {state === 'normal' && (
           <AnimatedArc
-            className={`zent-progress-path-mask`}
+            className="zent-progress-path-mask"
             radius={radius}
             arcLength={circumference - offset}
             strokeWidth={strokeWidth}
@@ -63,7 +60,7 @@ const CircleProgress: React.FC<IProgressInstanceProps> = props => {
       </svg>
       {showInfo && (
         <div
-          className={`zent-progress-info`}
+          className="zent-progress-info"
           style={{
             lineHeight: `${progressWidth}px`,
             color,

@@ -13,41 +13,40 @@ const LineProgress: React.FC<IProgressInstanceProps> = props => {
     bgColor,
     color,
     state,
-    stateCls,
   } = props;
   const progressWidth = width || DEFAULT_WIDTH.LINE;
 
+  const progressInfo = showInfo && (
+    <div className="zent-progress-info" style={{ color }}>
+      <ProgressInfo
+        type="line"
+        percent={percent}
+        format={format}
+        state={state}
+      />
+    </div>
+  );
+
   return (
-    <div className={stateCls}>
+    <div>
       <div
-        className={`zent-progress-wrapper`}
+        className="zent-progress-wrapper"
         style={{
           background: bgColor,
           width: progressWidth,
           height: strokeWidth,
-          borderRadius: strokeWidth,
         }}
       >
         <div
-          className={`zent-progress-inner`}
+          className="zent-progress-inner"
           style={{
             background: color,
             width: `${percent}%`,
             height: strokeWidth,
-            borderRadius: strokeWidth,
           }}
         />
       </div>
-      {showInfo && (
-        <div className={`zent-progress-info`} style={{ color }}>
-          <ProgressInfo
-            type="line"
-            percent={percent}
-            format={format}
-            state={state}
-          />
-        </div>
-      )}
+      {progressInfo}
     </div>
   );
 };
