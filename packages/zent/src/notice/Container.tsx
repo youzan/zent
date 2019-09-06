@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { TransitionGroup } from 'react-transition-group';
 import Wrap, { INoticeWrapProps } from './Wrap';
 import NoticeWrap from './Wrap';
 
@@ -74,7 +73,13 @@ class NoticeContainer extends React.Component<
     list: [],
   };
 
-  append(children: React.ReactNode) {
+  onExited = (id: number) => {
+    this.setState(state => ({
+      list: state.list.filter(it => it.props.id !== id),
+    }));
+  };
+
+  push(children: React.ReactNode) {
     const id = uniqueId;
     const ref = React.createRef<Wrap>();
     const el = (
@@ -89,18 +94,8 @@ class NoticeContainer extends React.Component<
     return id;
   }
 
-  onExited = (id: number) => {
-    this.setState(state => ({
-      list: state.list.filter(it => it.props.id !== id),
-    }));
-  };
-
   render() {
-    return (
-      <TransitionGroup appear={false} enter={false} component={null}>
-        {this.state.list}
-      </TransitionGroup>
-    );
+    return <>{this.state.list}</>;
   }
 }
 
