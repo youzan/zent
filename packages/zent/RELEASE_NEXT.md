@@ -193,6 +193,7 @@ import { Portal, PurePortal } from 'zent'
   - hover 背景色由灰色改为蓝色
   - 纵轴滚动条设置为 `auto`，高度不够时不显示滚动条
 - 更新 `Notify` 为最新的样式
+- 修复 `Select` tags 模式的样式问题
 
 ## 7.0.0-next.30(2019-08-27)
 
