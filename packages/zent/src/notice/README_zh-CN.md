@@ -1,16 +1,23 @@
 ---
-title: Notice
-subtitle: Notice
-path: component/notification
-group: FIXME 中文分组名
+title: 否tice
+subtitle: 否tice
+path: component/notice
+group: 反馈
 ---
 
-## Notification
-
-简单描述 Notification 组件。
+## 否 tification
 
 ### API
 
-| 参数        |   说明       | 类型     | 是否必须    | 默认值      | 备选值     |
-| ------------| ----------- | -------- | ---------- | ---------- | ---------- |
-| className   | 额外类名     | string   |  否         |           |            |
+| Property  | Description                                 | Type                | Required | Default     | Alternative                                            |
+| --------- | ------------------------------------------- | ------------------- | -------- | ----------- | ------------------------------------------------------ |
+| title     | 标题                                        | string              | 是       |             |                                                        |
+| className | 自定义类名                                  | string              | 否       |             |                                                        |
+| style     | 自定义样式                                  | React.CSSProperties | 否       |             |                                                        |
+| type      | 样式                                        | string              | 否       |             | `info`, `success`,`warning`, `error`                   |
+| closable  | 是否显示关闭按钮，当是`false`时不会自动关闭 | boolean             | 否       |             |                                                        |
+| onClose   | 关闭按钮点击时的回调                        | function            | 否       |             |                                                        |
+| autoClose | 是否自动关闭                                | boolean             | 否       |             |                                                        |
+| timeout   | 自动关闭的延迟时间                          | number              | 否       |             |                                                        |
+| children  | 内容                                        | React.ReactNode     | 否       |             |                                                        |
+| position  | 位置                                        | string              | 否       | `top-right` | `right-top`, `right-bottom`, `left-top`, `left-bottom` |
