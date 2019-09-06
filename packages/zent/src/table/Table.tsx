@@ -101,7 +101,6 @@ export class Table extends PureComponent<ITableProps, any> {
     columns: [],
     emptyLabel: '',
     rowKey: 'id',
-    sortType: 'desc',
     loading: false,
     autoScroll: false,
     autoStick: false,
