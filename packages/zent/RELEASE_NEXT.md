@@ -181,6 +181,24 @@ import { Portal, PurePortal } from 'zent'
 
 如果之前依赖了 postcss 的源样式，需要改成 sass。
 
+## 7.0.0-next.31(2019-09-06)
+
+- `Input`
+  - 删除组件的内联样式，放到样式文件内，方便外部覆盖
+  - 图标从左侧移到右侧
+- 修复 `Button` 对 `Disabled` 组件兼容性问题
+- 替换 `ColorPicker` 内的 `componentWillReceiveProps` 为新 API
+- 修复 `Table` 排序逻辑错误
+- `Grid` 
+  - hover 背景色由灰色改为蓝色
+  - 纵轴滚动条设置为 `auto`，高度不够时不显示滚动条
+- 更新 `Notify` 为最新的样式
+
+## 7.0.0-next.30(2019-08-27)
+
+- `Pop` 添加 `cushion` API
+- `NumberInput` 调整内部实现，`integer` 模式下用户输入为空时 `onChange` 会得到 `null`
+
 ## 7.0.0-next.29(2019-08-23)
 
 - 修复 `QuarterPicker` 的选中逻辑
