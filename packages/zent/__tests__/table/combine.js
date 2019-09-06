@@ -56,6 +56,11 @@ describe('Combine', () => {
     wrapper.find('Head .sort-col--active .caret-down').simulate('click');
     expect(
       wrapper.find('Head .sort-col--active .caret-down').hasClass('sort-active')
+    ).toBe(false);
+
+    wrapper.find('Head .sort-col--active .caret-down').simulate('click');
+    expect(
+      wrapper.find('Head .sort-col--active .caret-down').hasClass('sort-active')
     ).toBe(true);
   });
 
