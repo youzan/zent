@@ -1,9 +1,9 @@
 ---
 order: 4
 zh-CN:
-  title: 支持不同状态
+  title: 支持手动设置状态
 en-US:
-  title: Support different status
+  title: Support set status manually
 ---
 
 ```jsx

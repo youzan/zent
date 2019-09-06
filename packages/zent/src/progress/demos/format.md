@@ -1,7 +1,7 @@
 ---
 order: 6
 zh-CN:
-	title: 自定义文字格式
+	title: 自定义信息
 	content: 进度
 en-US:
 	title: Custom format function of text
