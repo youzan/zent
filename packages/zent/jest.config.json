@@ -61,7 +61,8 @@
     "<rootDir>/src/utils/style/warnValidStyle.ts",
     "<rootDir>/src/utils/dom/getScollPosition.ts",
     "<rootDir>/src/auto-complete/AutoComplete.tsx",
-    "<rootDir>/src/notice/.+"
+    "<rootDir>/src/notice/.+",
+    "<rootDir>/src/utils/nextFrame.ts"
   ],
   "moduleNameMapper": {
     "fecha": "<rootDir>/../../node_modules/fecha/src/fecha.js",
