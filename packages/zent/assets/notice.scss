@@ -1,4 +1,5 @@
 @import './theme/default';
+@import './theme/font';
 
 .zent-notice {
   @include theme-color(background-color, stroke, 9);
@@ -11,14 +12,14 @@
 
   &-title {
     @include theme-color(color, stroke, 1);
-    font-size: 14px;
+    @include font-normal;
     margin-bottom: 16px;
     padding-right: 30px;
   }
 
   &-content {
     @include theme-color(color, stroke, 2);
-    font-size: 14px;
+    @include font-normal;
   }
 
   &.zent-notice-with-icon {
