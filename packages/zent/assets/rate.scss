@@ -55,4 +55,10 @@
       }
     }
   }
+
+  &-readonly {
+    .zent-rate-star {
+      cursor: normal;
+    }
+  }
 }

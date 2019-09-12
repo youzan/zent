@@ -21,7 +21,9 @@ class App extends Component {
 
 	render() {
 		return (
-			<Rate value={this.state.value} onChange={this.onChange} />
+			<div>
+				<Rate value={this.state.value} onChange={this.onChange} />
+			</div>
 		);
 	}
 }
