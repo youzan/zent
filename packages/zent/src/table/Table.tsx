@@ -37,7 +37,7 @@ export interface ITablePageInfo {
 export interface ITableColumn {
   title: string;
   name: string;
-  width?: number;
+  width?: number | string;
   isMoney?: boolean;
   needSort?: boolean;
   bodyRender?: (data: any) => React.ReactNode;
