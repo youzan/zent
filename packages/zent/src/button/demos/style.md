@@ -21,6 +21,7 @@ ReactDOM.render(
 			<Button type="primary">{i18n.button1}</Button>
 			<Button type="danger">{i18n.button1}</Button>
 			<Button type="success">{i18n.button1}</Button>
+			<Button type="warning">{i18n.button1}</Button>
 		</div>
 		<div style={{ marginTop: 10 }}>
 			<Button type="primary" outline>
@@ -30,6 +31,9 @@ ReactDOM.render(
 				{i18n.button2}
 			</Button>
 			<Button type="success" outline>
+				{i18n.button2}
+			</Button>
+			<Button type="warning" outline>
 				{i18n.button2}
 			</Button>
 			<Button>{i18n.button3}</Button>

@@ -27,6 +27,9 @@ ReactDOM.render(
 			<Button loading type="success">
 				{i18n.button1}
 			</Button>
+			<Button loading type="warning">
+				{i18n.button1}
+			</Button>
 		</div>
 		<div style={{ marginTop: 10 }}>
 			<Button loading type="primary" outline>
@@ -36,6 +39,9 @@ ReactDOM.render(
 				{i18n.button2}
 			</Button>
 			<Button loading type="success" outline>
+				{i18n.button2}
+			</Button>
+			<Button loading type="warning" outline>
 				{i18n.button2}
 			</Button>
 			<Button loading>{i18n.button3}</Button>
