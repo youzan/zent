@@ -40,7 +40,7 @@ $transition-duration: 160ms;
     }
 
     &.zent-notify-content-warn {
-      @include theme-color(color, warn, 1);
+      @include theme-color(color, warn, 2);
     }
 
     &.zent-notify-content-error {

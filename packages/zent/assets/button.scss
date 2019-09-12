@@ -27,6 +27,9 @@ $btn-danger-active: 1;
 $btn-success: 2;
 $btn-success-hover: 3;
 $btn-success-active: 1;
+$btn-warning: 2;
+$btn-warning-hover: 3;
+$btn-warning-active: 1;
 
 @mixin btn-primary($prop) {
   @include theme-color($prop, primary, $btn-primary);
@@ -62,6 +65,14 @@ $btn-success-active: 1;
 
 @mixin btn-success-active($prop) {
   @include theme-color($prop, success, $btn-success-active);
+}
+
+@mixin btn-warning-hover($prop) {
+  @include theme-color($prop, warn, $btn-warning-hover);
+}
+
+@mixin btn-warning-active($prop) {
+  @include theme-color($prop, warn, $btn-warning-active);
 }
 /* styles end */
 
@@ -252,6 +263,7 @@ $btn-success-active: 1;
     );
   }
 
+  &-error,
   &-danger {
     @include btn-style(
       error,
@@ -261,6 +273,7 @@ $btn-success-active: 1;
     );
   }
 
+  &-error-outline,
   &-danger-outline {
     @include btn-style-outline(
       error,
@@ -285,6 +298,24 @@ $btn-success-active: 1;
       $btn-success,
       $btn-danger-hover,
       $btn-danger-active
+    );
+  }
+
+  &-warning {
+    @include btn-style(
+      warn,
+      $btn-warning,
+      $btn-warning-hover,
+      $btn-warning-active
+    );
+  }
+
+  &-warning-outline {
+    @include btn-style-outline(
+      warn,
+      $btn-warning,
+      $btn-warning-hover,
+      $btn-warning-active
     );
   }
 
@@ -405,6 +436,7 @@ $btn-success-active: 1;
         }
       }
 
+      &-error,
       &-danger {
         &:not(:last-child) {
           @include btn-danger-hover(border-right-color);
@@ -422,6 +454,16 @@ $btn-success-active: 1;
 
         &:not(:first-child) {
           @include btn-success-hover(border-left-color);
+        }
+      }
+
+      &-warning {
+        &:not(:last-child) {
+          @include btn-warning-hover(border-right-color);
+        }
+
+        &:not(:first-child) {
+          @include btn-warning-hover(border-left-color);
         }
       }
     }

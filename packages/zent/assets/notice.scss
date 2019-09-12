@@ -40,7 +40,7 @@
     }
 
     &-warning {
-      @include theme-color(color, warn, 1);
+      @include theme-color(color, warn, 2);
     }
 
     &-error {
