@@ -29,6 +29,7 @@ $transition-duration: 160ms;
     border-radius: 4px;
     box-sizing: border-box;
     font-weight: $font-weight-medium;
+    word-break: break-all;
 
     &:empty:before {
       content: '\200b';
