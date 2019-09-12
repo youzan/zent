@@ -60,7 +60,8 @@
     "<rootDir>/src/slider/Points.tsx",
     "<rootDir>/src/utils/style/warnValidStyle.ts",
     "<rootDir>/src/utils/dom/getScollPosition.ts",
-    "<rootDir>/src/auto-complete/AutoComplete.tsx"
+    "<rootDir>/src/auto-complete/AutoComplete.tsx",
+    "<rootDir>/src/notice/.+"
   ],
   "moduleNameMapper": {
     "fecha": "<rootDir>/../../node_modules/fecha/src/fecha.js",
