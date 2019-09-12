@@ -5,7 +5,7 @@ path: component/notice
 group: 反馈
 ---
 
-## 否 tification
+## Notice 通知提醒
 
 ### API
 
