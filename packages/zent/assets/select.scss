@@ -22,7 +22,7 @@
     .zent-select-input,
     .zent-select-text,
     .zent-select-tags {
-      @include theme-color(border-color, stroke, 6);
+      @include theme-color(border-color, stroke, 5);
       @include theme-color(background-color, stroke, 8);
 
       &::after {
