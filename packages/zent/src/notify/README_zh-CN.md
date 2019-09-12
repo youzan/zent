@@ -1,11 +1,11 @@
 ---
 title: Notify
-subtitle: 消息通知
+subtitle: 轻提示
 path: component/notify
 group: 反馈
 ---
 
-## Notify 消息通知
+## Notify 轻提示
 
 全局展示通知提醒信息。
 
