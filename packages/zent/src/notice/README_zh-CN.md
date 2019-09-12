@@ -1,6 +1,6 @@
 ---
-title: 否tice
-subtitle: 否tice
+title: Notice
+subtitle: 通知提醒
 path: component/notice
 group: 反馈
 ---

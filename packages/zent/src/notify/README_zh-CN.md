@@ -1,6 +1,6 @@
 ---
 title: Notify
-subtitle: 消息通知
+subtitle: 轻提示
 path: component/notify
 group: 反馈
 ---
