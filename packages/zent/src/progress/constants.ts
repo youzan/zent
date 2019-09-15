@@ -8,7 +8,7 @@ export const avaliableStatus: IProgressStatus[] = [
 
 export const DEFAULT_WIDTH = {
   CIRCLE: 132,
-  LINE: 580,
+  LINE: '100%',
 };
 
 export const defaultFormat = (percent: number) => `${percent}%`;

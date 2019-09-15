@@ -181,6 +181,7 @@ import { Portal, PurePortal } from 'zent'
 
 - 修改状态计算逻辑，传入外部 `status` prop 的情况下，直接使用外部 `status`，否则通过百分比进行状态计算
 - 修改消息展示中 `format` 函数的优先级，`success` 和 `exception` 状态下只显示图标，不调用 `format` 函数
+- `line` 类型的默认宽度变为适配容器宽度（即100%）
 
 #### 源样式
 

@@ -26,6 +26,11 @@ $state-color-depth-map: (
   }
 
   &-type__line {
+    .zent-progress-container {
+      display: flex;
+      align-items: center;
+    }
+
     .zent-progress-wrapper {
       @include theme-color(background-color, stroke, 8);
       display: inline-block;

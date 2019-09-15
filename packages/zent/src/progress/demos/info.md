@@ -1,9 +1,9 @@
 ---
 order: 5
 zh-CN:
-  title: 是否显示进度信息
+  title: 隐藏进度信息
 en-US:
-  title: Show process infomation or not
+  title: Hide process infomation
 ---
 
 ```jsx

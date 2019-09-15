@@ -24,6 +24,7 @@ const CircleProgress: React.FC<IProgressInstanceProps> = props => {
 
   return (
     <div
+      className="zent-progress-container"
       style={{
         width: progressWidth,
         height: progressWidth,

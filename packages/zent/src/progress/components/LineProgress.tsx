@@ -28,7 +28,7 @@ const LineProgress: React.FC<IProgressInstanceProps> = props => {
   );
 
   return (
-    <div>
+    <div className="zent-progress-container">
       <div
         className="zent-progress-wrapper"
         style={{
