@@ -1,6 +1,8 @@
 import * as React from 'react';
+import { isElement } from 'react-is';
 import cn from 'classnames';
 import noop from 'lodash-es/noop';
+import isNil from 'lodash-es/isNil';
 
 import LazyMount from '../utils/component/LazyMount';
 import {
@@ -56,7 +58,6 @@ export class VerticalTabs<Id extends string | number = string> extends BaseTabs<
     children: NonNullable<IVerticalTabsProps<Id>['children']>
   ): Array<IVerticalInnerTab<Id>> {
     const { activeId } = this.props;
-
     return React.Children.map(
       children,
       (
@@ -64,8 +65,11 @@ export class VerticalTabs<Id extends string | number = string> extends BaseTabs<
           React.PropsWithChildren<IVerticalTabPanelProps<Id>>
         >
       ) => {
+        if (!isElement(child)) {
+          return null;
+        }
         if ('divide' in child.props) {
-          return { divide: true };
+          return { divide: true as const };
         }
         return getTabDataFromChild(
           child as React.ReactElement<
@@ -74,7 +78,7 @@ export class VerticalTabs<Id extends string | number = string> extends BaseTabs<
           activeId
         );
       }
-    );
+    ).filter(v => !isNil(v));
   }
 
   renderNav(tabDataList: Array<IVerticalInnerTab<Id>>) {

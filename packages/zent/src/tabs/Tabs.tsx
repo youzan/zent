@@ -1,6 +1,8 @@
 import * as React from 'react';
+import { isElement } from 'react-is';
 import cn from 'classnames';
 import noop from 'lodash-es/noop';
+import isNil from 'lodash-es/isNil';
 
 import LazyMount from '../utils/component/LazyMount';
 import TabPanel from './components/TabPanel';
@@ -73,9 +75,12 @@ export class Tabs<Id extends string | number = string> extends BaseTabs<
       (
         child: React.ReactElement<React.PropsWithChildren<ITabPanelProps<Id>>>
       ) => {
+        if (!isElement(child)) {
+          return null;
+        }
         return getTabDataFromChild(child, activeId);
       }
-    );
+    ).filter(v => !isNil(v));
   }
 
   renderNav(tabDataList: Array<IInnerTab<Id>>) {
