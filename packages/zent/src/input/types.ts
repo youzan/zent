@@ -43,6 +43,7 @@ export interface IInputCoreProps
   value?: string;
   inline?: boolean;
   onChange?: (e: IInputChangeEvent) => void;
+  onIconClick?: React.MouseEventHandler<HTMLElement>;
 }
 
 export interface ITextAreaProps

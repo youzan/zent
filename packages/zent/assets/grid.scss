@@ -234,7 +234,7 @@
 
     &:hover,
     &__mouseover {
-      @include theme-color(background-color, stroke, 8);
+      @include theme-color(background-color, primary, 8);
     }
 
     &__expanded {

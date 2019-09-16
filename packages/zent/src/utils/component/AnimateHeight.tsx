@@ -1,10 +1,5 @@
 import * as React from 'react';
-
-function nextFrame(callback: () => void) {
-  requestAnimationFrame(() => {
-    requestAnimationFrame(callback);
-  });
-}
+import nextFrame from '../nextFrame';
 
 function applyHeight(el: HTMLDivElement, height: number | string) {
   if (typeof height === 'number') {

@@ -328,12 +328,12 @@
 
 .zent-upload-add-local-image-button,
 .zent-upload-trigger {
-  @include theme-color(color, stroke, 6);
-  @include theme-color(border-color, stroke, 6);
+  @include theme-color(color, stroke, 2);
+  @include theme-color(border-color, stroke, 5);
   display: inline-block;
   width: 80px;
   height: 80px;
-  border-width: 2px;
+  border-width: 1px;
   border-style: dashed;
   line-height: 71px;
   box-sizing: border-box;

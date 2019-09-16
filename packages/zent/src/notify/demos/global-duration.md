@@ -4,11 +4,13 @@ zh-CN:
 	title: 通过 config 调整全局默认时间
 	one: 调整持续时间为1s
 	success: 成功通知
+	warn: 警告通知
 	error: 错误通知
 en-US:
 	title: Adjust the global default duration through Notify.config
 	one: Set global duration to 1s
 	success: success
+	warn: warn
 	error: error
 
 ---
@@ -24,6 +26,7 @@ ReactDOM.render(
 		<br />
 		<br />		
 		<Button onClick={() => Notify.success('{i18n.success}')}>{i18n.success}</Button>
+		<Button onClick={() => Notify.warn('{i18n.warn}')}>{i18n.warn}</Button>
 		<Button onClick={() => Notify.error('{i18n.error}')}>{i18n.error}</Button>
 	</div>
 	, mountNode

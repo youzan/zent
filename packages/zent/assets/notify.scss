@@ -1,108 +1,89 @@
 @import './theme/default';
 @import './theme/font';
 
+$transition-duration: 160ms;
+
 .zent-notify-container {
   z-index: 10000;
   position: fixed;
-  min-width: 330px;
-  max-width: 720px;
   top: 80px;
   left: 50%;
   transform: translateX(-50%);
 }
 
 .zent-notify {
-  padding-bottom: 10px;
+  padding-bottom: 16px;
+  display: flex;
 
   &-content {
-    @include theme-color(color, stroke, 9);
-    padding: 0 25px;
-    line-height: 40px;
-    max-height: 200px;
-    overflow-y: auto;
-    font-size: $font-size-normal;
-    text-align: center;
-    border-radius: 2px;
+    @include theme-shadow(modal);
+    @include theme-color(background, stroke, 9);
+    @include font-normal;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    padding: 14px 16px;
+    min-width: 148px;
+    max-width: 344px;
+    border-radius: 4px;
     box-sizing: border-box;
+    font-weight: $font-weight-medium;
+    word-break: break-all;
 
     &:empty:before {
       content: '\200b';
     }
 
     &.zent-notify-content-success {
-      background: $notify-success;
+      @include theme-color(color, success, 2);
+    }
+
+    &.zent-notify-content-warn {
+      @include theme-color(color, warn, 2);
     }
 
     &.zent-notify-content-error {
-      background: $notify-error;
+      @include theme-color(color, error, 2);
+    }
+
+    &-icon {
+      margin-right: 16px;
     }
   }
 }
 
 .notify-appear {
-  animation-fill-mode: both;
-  animation-play-state: paused;
+  transform: translateY(-100%);
+  opacity: 0;
 }
 
-.notify-appear.notify-appear-active {
-  animation-play-state: running;
-  animation-name: zent-notify-move-in;
-  animation-duration: 0.3s;
+.notify-appear-active {
+  transform: translateY(0%);
+  opacity: 1;
+  transition-duration: $transition-duration;
+  transition-timing-function: opacity linear, transform ease-in;
 }
 
 .notify-exit {
-  animation-fill-mode: both;
-  animation-play-state: paused;
+  max-height: 48px;
+  opacity: 1;
 
   .zent-notify-content {
-    animation-fill-mode: both;
-    animation-play-state: paused;
+    transform: translateY(0%);
   }
 }
 
-.notify-exit.notify-exit-active {
-  animation-play-state: running;
-  animation-name: zent-notify-move-out;
-  animation-duration: 0.3s;
+.notify-exit-active {
+  max-height: 0;
+  padding: 0;
+  opacity: 0;
+  transition-duration: $transition-duration;
+  transition-timing-function: opacity linear, max-height ease-out;
 
   .zent-notify-content {
-    animation-play-state: running;
-    animation-name: zent-notify-content-move-out;
-    animation-duration: 0.3s;
-  }
-}
-
-@keyframes zent-notify-move-in {
-  0% {
     transform: translateY(-100%);
-    opacity: 0;
-  }
-
-  100% {
-    transform: translateY(0%);
-    opacity: 1;
-  }
-}
-
-@keyframes zent-notify-move-out {
-  0% {
-    opacity: 1;
-    max-height: 50px;
-  }
-
-  100% {
-    opacity: 0;
-    max-height: 0;
-    padding: 0;
-  }
-}
-
-@keyframes zent-notify-content-move-out {
-  0% {
-    transform: translateY(0%);
-  }
-
-  100% {
-    transform: translateY(-100%);
+    transition-duration: $transition-duration;
+    transition-timing-function: transform ease-out;
   }
 }

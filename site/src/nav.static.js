@@ -13,12 +13,6 @@ module.exports = {
                 "DocLoadable({ loader: () => import('../../packages/zent/README_zh-CN.md') })",
             },
             {
-              title: '项目示例',
-              path: 'guides/demos',
-              source:
-                "DocLoadable({ loader: () => import('../../packages/zent/docs/DEMO_zh-CN.md') })",
-            },
-            {
               title: '国际化',
               path: 'guides/i18n',
               source:
@@ -125,12 +119,6 @@ module.exports = {
               path: 'guides/install',
               source:
                 "DocLoadable({ loader: () => import('../../packages/zent/README_en-US.md') })",
-            },
-            {
-              title: 'Demos',
-              path: 'guides/demos',
-              source:
-                "DocLoadable({ loader: () => import('../../packages/zent/docs/DEMO_en-US.md') })",
             },
             {
               title: 'Internationalization',

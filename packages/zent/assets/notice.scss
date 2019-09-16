@@ -1,0 +1,141 @@
+@import './theme/default';
+@import './theme/font';
+
+.zent-notice {
+  @include theme-color(background-color, stroke, 9);
+  @include theme-shadow(modal);
+  position: relative;
+  border-radius: 4px;
+  padding: 16px;
+  margin: 10px;
+  width: 480px;
+
+  &-title {
+    @include theme-color(color, stroke, 1);
+    @include font-normal;
+    margin-bottom: 16px;
+    padding-right: 30px;
+  }
+
+  &-content {
+    @include theme-color(color, stroke, 2);
+    @include font-normal;
+  }
+
+  &.zent-notice-with-icon {
+    padding-left: 40px;
+  }
+
+  &-icon {
+    position: absolute;
+    left: 17px;
+    top: 19px;
+
+    &-info {
+      @include theme-color(color, primary, 4);
+    }
+
+    &-success {
+      @include theme-color(color, success, 2);
+    }
+
+    &-warning {
+      @include theme-color(color, warn, 2);
+    }
+
+    &-error {
+      @include theme-color(color, error, 2);
+    }
+  }
+
+  &-close {
+    @include theme-color(color, stroke, 4);
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 12px;
+    width: 16px;
+    height: 20px;
+    cursor: pointer;
+  }
+
+  &-container {
+    position: fixed;
+    height: 100%;
+    display: flex;
+
+    &-left {
+      left: 0;
+      transform: translateX(-100%);
+      align-items: flex-start;
+    }
+
+    &-right {
+      right: 0;
+      transform: translateX(100%);
+      align-items: flex-end;
+    }
+
+    &-top {
+      flex-direction: column;
+      top: 0;
+    }
+
+    &-bottom {
+      flex-direction: column-reverse;
+      bottom: 0;
+    }
+  }
+
+  &-animation {
+    overflow-y: hidden;
+    flex: 0 0 auto;
+
+    &-enter {
+      transition: transform 160ms ease-in;
+      transform: translateX(0);
+    }
+
+    &-exit {
+      transition: transform 100ms ease-out;
+
+      &-done {
+        transition: height 100ms ease-out 100ms;
+      }
+    }
+  }
+
+  &-container-left {
+    .zent-notice-animation {
+      &-enter-active,
+      &-enter-done,
+      &-exit {
+        transform: translateX(100%);
+      }
+
+      &-exit {
+        &.zent-notice-animation-exit-active,
+        &-done {
+          transform: translateX(0);
+        }
+      }
+    }
+  }
+
+  &-container-right {
+    .zent-notice-animation {
+      &-enter-active,
+      &-enter-done,
+      &-exit {
+        transform: translateX(-100%);
+      }
+
+      &-exit {
+        &.zent-notice-animation-exit-active,
+        &-done {
+          transform: translateX(0);
+        }
+      }
+    }
+  }
+}

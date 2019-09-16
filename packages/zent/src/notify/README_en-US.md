@@ -15,14 +15,15 @@ Display a notification at top of the viewport.
 ### API
 
 - `Notify.success(text: node, duration?: number, callback?: () => ()): number`
+- `Notify.warn(text: node, duration?: number, callback?: () => ()): number`
 - `Notify.error(text: node, duration?: number, callback?: () => ()): number`
 
-`Notify.success` and `Notify.error` return an id, which can be used by `Notify.clear(id)` to close the specific notify instance;
+`Notify.success`，`Notify.warn` and `Notify.error` return an id, which can be used by `Notify.clear(id)` to close the specific notify instance;
 
 | Property       | Description            | Type     | Default    |
 | -------- | ------------- | ------ | ------ |
 | text     | notify message    | node   | `''`   |
-| duration | duration          | number | `2000` |
+| duration | duration          | number | `3500` |
 | callback | customize callabck when notify closes | func   |        |
 
 - `Notify.clear(number?: id): void`
