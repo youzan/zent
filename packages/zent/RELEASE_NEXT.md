@@ -177,6 +177,12 @@ import { Portal, PurePortal } from 'zent'
 - 添加 `title`、`description` 两个属性用于简化内容排版
 - `onClose` 现在回调会在点击关闭触发器同时被触发，而不是等到 React 更新完后才触发
 
+### `Progress`
+
+- 修改状态计算逻辑，传入外部 `status` prop 的情况下，直接使用外部 `status`，否则通过百分比进行状态计算
+- 修改消息展示中 `format` 函数的优先级，`success` 和 `exception` 状态下只显示图标，不调用 `format` 函数
+- `line` 类型的默认宽度变为适配容器宽度（即100%）
+
 #### 源样式
 
 如果之前依赖了 postcss 的源样式，需要改成 sass。

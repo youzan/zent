@@ -2,34 +2,46 @@
 @import './theme/font';
 @import './theme/timing-functions';
 
-$circle-width: 76px;
-$circle-path-width: 3px;
 $transition-spec: 160ms $timing-fn-ease-in;
 $mask-opacity: 0.2;
 
-@mixin color-ongoing($prop) {
-  @include theme-color($prop, primary, 4);
-}
+$state-color-type-map: (
+  normal: primary,
+  success: success,
+  exception: error,
+);
 
-@mixin color-success($prop) {
-  @include theme-color($prop, success, 2);
-}
-
-@mixin color-exception($prop) {
-  @include theme-color($prop, error, 2);
-}
+$state-color-depth-map: (
+  normal: 4,
+  success: 2,
+  exception: 2,
+);
 
 .zent-progress {
-  &.zent-progress-line {
+  &-info {
+    @include font-normal;
+    @include theme-color(color, stroke, 3);
+    font-weight: $font-weight-medium;
+    display: inline-block;
+  }
+
+  &-type__line {
+    .zent-progress-container {
+      display: flex;
+      align-items: center;
+    }
+
     .zent-progress-wrapper {
       @include theme-color(background-color, stroke, 8);
       display: inline-block;
       vertical-align: middle;
+      border-radius: 2px;
     }
 
     .zent-progress-inner {
       transition: all $transition-spec;
       position: relative;
+      border-radius: 2px;
 
       &:after {
         display: block;
@@ -46,54 +58,38 @@ $mask-opacity: 0.2;
     }
 
     .zent-progress-info {
-      @include theme-color(color, stroke, 3);
-      display: inline-block;
-      font-size: $font-size-normal;
-      margin-left: 10px;
+      margin-left: 8px;
       white-space: nowrap;
       vertical-align: middle;
     }
 
-    .zent-progress-inprogress {
-      .zent-progress-inner {
-        @include color-ongoing(background-color);
-      }
+    @mixin line-state-style($state, $no-animation) {
+      $color-type: map-get($state-color-type-map, $state);
+      $color-depth: map-get($state-color-depth-map, $state);
 
-      .zent-progress-info {
-        @include color-ongoing(color);
-      }
-    }
+      &.zent-progress-state__#{$state} {
+        .zent-progress-inner {
+          @include theme-color(background-color, $color-type, $color-depth);
 
-    .zent-progress-success {
-      .zent-progress-inner {
-        @include color-success(background-color);
+          @if $no-animation {
+            &:after {
+              display: none;
+            }
+          }
+        }
 
-        &:after {
-          display: none;
+        .zent-progress-info {
+          @include theme-color(color, $color-type, $color-depth);
         }
       }
-
-      .zent-progress-info {
-        @include color-success(color);
-      }
     }
 
-    .zent-progress-exception {
-      .zent-progress-inner {
-        @include color-exception(background-color);
-
-        &:after {
-          display: none;
-        }
-      }
-
-      .zent-progress-info {
-        @include color-exception(color);
-      }
-    }
+    @include line-state-style(normal, false);
+    @include line-state-style(success, true);
+    @include line-state-style(exception, true);
   }
 
-  &.zent-progress-circle {
+  &-type__circle {
     position: relative;
     display: inline-block;
 
@@ -111,12 +107,10 @@ $mask-opacity: 0.2;
       @include theme-color(border-color, stroke, 8);
       border-style: solid;
       box-sizing: border-box;
+      border-radius: 50%;
     }
 
     .zent-progress-info {
-      @include theme-color(color, stroke, 3);
-      display: inline-block;
-      font-size: $font-size-small;
       position: absolute;
       top: 0;
       left: 0;
@@ -141,35 +135,24 @@ $mask-opacity: 0.2;
       transition: transform 400ms $timing-fn-linear;
     }
 
-    .zent-progress-inprogress {
-      .zent-progress-inner-path {
-        @include color-ongoing(stroke);
-      }
+    @mixin circle-state-style($state) {
+      $color-type: map-get($state-color-type-map, $state);
+      $color-depth: map-get($state-color-depth-map, $state);
 
-      .zent-progress-info {
-        @include color-ongoing(color);
+      &.zent-progress-state__#{$state} {
+        .zent-progress-inner-path {
+          @include theme-color(stroke, $color-type, $color-depth);
+        }
+
+        .zent-progress-info {
+          @include theme-color(color, $color-type, $color-depth);
+        }
       }
     }
 
-    .zent-progress-success {
-      .zent-progress-inner-path {
-        @include color-success(stroke);
-      }
-
-      .zent-progress-info {
-        @include color-success(color);
-      }
-    }
-
-    .zent-progress-exception {
-      .zent-progress-inner-path {
-        @include color-exception(stroke);
-      }
-
-      .zent-progress-info {
-        @include color-exception(color);
-      }
-    }
+    @include circle-state-style(normal);
+    @include circle-state-style(success);
+    @include circle-state-style(exception);
   }
 }
 
