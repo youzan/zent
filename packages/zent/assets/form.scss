@@ -87,7 +87,7 @@
 }
 
 .zent-form__notice-desc {
-  @include theme-color(background-color, warn, 3);
+  @include theme-color(background-color, warn, 5);
   @include theme-color(color, stroke, 1);
   display: inline-block;
   padding: 5px;

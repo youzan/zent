@@ -49,13 +49,13 @@
   }
 
   &.zent-tag-style-yellow {
-    @include theme-color(background-color, warn, 1);
-    @include theme-color(border-color, warn, 1);
+    @include theme-color(background-color, warn, 2);
+    @include theme-color(border-color, warn, 2);
   }
 
   &.zent-tag-style-yellow-outline {
-    @include theme-color(color, warn, 1);
-    @include theme-color(border-color, warn, 2);
+    @include theme-color(color, warn, 2);
+    @include theme-color(border-color, warn, 4);
   }
 
   &.zent-tag-style-blue {

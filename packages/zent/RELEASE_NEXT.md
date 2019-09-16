@@ -177,6 +177,12 @@ import { Portal, PurePortal } from 'zent'
 - 添加 `title`、`description` 两个属性用于简化内容排版
 - `onClose` 现在回调会在点击关闭触发器同时被触发，而不是等到 React 更新完后才触发
 
+### `Progress`
+
+- 修改状态计算逻辑，传入外部 `status` prop 的情况下，直接使用外部 `status`，否则通过百分比进行状态计算
+- 修改消息展示中 `format` 函数的优先级，`success` 和 `exception` 状态下只显示图标，不调用 `format` 函数
+- `line` 类型的默认宽度变为适配容器宽度（即100%）
+
 ### `Tabs`
 
 - 内部布局修改为 flex 布局
@@ -192,6 +198,33 @@ import { Portal, PurePortal } from 'zent'
 #### 源样式
 
 如果之前依赖了 postcss 的源样式，需要改成 sass。
+
+## 7.0.0-next.32(2019-09-16)
+- 修复select样式
+- button添加warning样式
+- 添加新组建Notice
+- 修复notify样式
+- 更新upload样式
+- 修复table类型定义
+
+## 7.0.0-next.31(2019-09-06)
+
+- `Input`
+  - 删除组件的内联样式，放到样式文件内，方便外部覆盖
+  - 图标从左侧移到右侧
+- 修复 `Button` 对 `Disabled` 组件兼容性问题
+- 替换 `ColorPicker` 内的 `componentWillReceiveProps` 为新 API
+- 修复 `Table` 排序逻辑错误
+- `Grid`
+  - hover 背景色由灰色改为蓝色
+  - 纵轴滚动条设置为 `auto`，高度不够时不显示滚动条
+- 更新 `Notify` 为最新的样式
+- 修复 `Select` tags 模式的样式问题
+
+## 7.0.0-next.30(2019-08-27)
+
+- `Pop` 添加 `cushion` API
+- `NumberInput` 调整内部实现，`integer` 模式下用户输入为空时 `onChange` 会得到 `null`
 
 ## 7.0.0-next.29(2019-08-23)
 

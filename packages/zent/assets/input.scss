@@ -63,8 +63,9 @@ $large-size: 40px;
   }
 
   .zent-input-icon {
+    @include theme-color(color, stroke, 3);
     display: block;
-    margin-left: 10px;
+    margin-right: 10px;
   }
 
   .zent-input-close {
@@ -183,4 +184,8 @@ $large-size: 40px;
 .zent-input::placeholder,
 .zent-textarea::placeholder {
   @include theme-color(color, stroke, 4);
+}
+
+.zent-input-wrapper.zent-input-wrapper-inline {
+  display: inline-flex;
 }

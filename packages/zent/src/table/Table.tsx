@@ -37,7 +37,7 @@ export interface ITablePageInfo {
 export interface ITableColumn {
   title: string;
   name: string;
-  width?: number;
+  width?: number | string;
   isMoney?: boolean;
   needSort?: boolean;
   bodyRender?: (data: any) => React.ReactNode;
@@ -101,7 +101,6 @@ export class Table extends PureComponent<ITableProps, any> {
     columns: [],
     emptyLabel: '',
     rowKey: 'id',
-    sortType: 'desc',
     loading: false,
     autoScroll: false,
     autoStick: false,

@@ -592,7 +592,7 @@ export class Grid<Data = any> extends PureComponent<
       const headStyle: React.CSSProperties = {};
       const scrollBodyStyle: React.CSSProperties = {
         maxHeight: y,
-        overflowY: 'scroll',
+        overflowY: 'auto',
       };
       if (scrollbarWidth > 0) {
         headStyle.paddingBottom = 0;
