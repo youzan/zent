@@ -1,15 +1,15 @@
 ---
-order: 5
+order: 6
 zh-CN:
-	title: 动态增删
+	title: 内容伸展
 	tabOne: 选项1
 	tabTwo: 选项2
 	tabText: 选项
 	tabOneCont: 选项1的内容
 	tabTwoCont: 选项2的内容
-	desc: candel 属性只有在 normal 和 card 两种模式下起效
+	desc: 删除属性只有在 normal 和 card 两种模式下起效
 en-US:
-	title: Dynamic Add and Delete
+	title: Stretch
 	tabOne: Tab1
 	tabTwo: Tab2
 	tabText: Tab
@@ -83,6 +83,7 @@ class Simple extends React.Component {
 			<div className="zent-tabs-demo">
 				<Tabs
 					candel
+					stretch
 					activeId={this.state.activeId}
 					onChange={this.onTabChange}
 					onDelete={this.onTabDel}
@@ -92,6 +93,7 @@ class Simple extends React.Component {
 				</Tabs>
 				<Tabs
 					candel
+					stretch
 					type="card"
 					activeId={this.state.activeId}
 					onChange={this.onTabChange}
@@ -100,9 +102,15 @@ class Simple extends React.Component {
 				>
 					{panels}
 				</Tabs>
-				<div style={{
-					marginTop: 16
-				}}>{i18n.desc}</div>
+				<Tabs
+					stretch
+					type="button"
+					activeId={this.state.activeId}
+					onChange={this.onTabChange}
+					navExtraContent={<Icon type="plus" className="zent-tabs-add-btn" onClick={this.onTabAdd} />}
+				>
+					{panels}
+				</Tabs>
 			</div>
 		);
 	}

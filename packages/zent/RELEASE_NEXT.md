@@ -183,12 +183,24 @@ import { Portal, PurePortal } from 'zent'
 - 修改消息展示中 `format` 函数的优先级，`success` 和 `exception` 状态下只显示图标，不调用 `format` 函数
 - `line` 类型的默认宽度变为适配容器宽度（即100%）
 
+### `Tabs`
+
+- 内部布局修改为 flex 布局
+- 在 `children` 和 `tabs` 两种配置方式都未使用的情况下会报错，请检查之前的代码是否有使用空 tabs 的情况
+- 删除了之前未在文档中提及的 `TabPanel` 的 `onTabReady` prop 回调，如有需要，请在 `onChange` 回调中执行相关代码
+- 删除 `align` 参数，新版设计下不再支持自定义布局；若原来有通过 `align="center"` 的方式进行 tab 均分内容区域的地方，可以使用新的 prop —— `stretch` 代替
+- 修改 `type` 支持的样式类型，删除了 `slider` 类型，添加了 `button` 类型，默认展示样式类型从卡片样式改为新版基础样式，若需要维持卡片样式不变，请添加 `type="card"`
+- 删除 `canadd` 和 `onAdd` 参数，若需要实现动态增删 tab，请使用 `navExtraContent`，传入自定义的 Add Trigger，可参考 tab 文档下的 '动态增删' demo
+- 删除 `size` 参数，需要自定义大小请使用 `className`
+- 添加 `VerticalTabs` 组件，用于展示竖状样式
+- 修改了部分组件 className，请注意样式覆盖的使用场景
+
 #### 源样式
 
 如果之前依赖了 postcss 的源样式，需要改成 sass。
 
 ## 7.0.0-next.32(2019-09-16)
-- 修复select样式 
+- 修复select样式
 - button添加warning样式
 - 添加新组建Notice
 - 修复notify样式
@@ -203,7 +215,7 @@ import { Portal, PurePortal } from 'zent'
 - 修复 `Button` 对 `Disabled` 组件兼容性问题
 - 替换 `ColorPicker` 内的 `componentWillReceiveProps` 为新 API
 - 修复 `Table` 排序逻辑错误
-- `Grid` 
+- `Grid`
   - hover 背景色由灰色改为蓝色
   - 纵轴滚动条设置为 `auto`，高度不够时不显示滚动条
 - 更新 `Notify` 为最新的样式
