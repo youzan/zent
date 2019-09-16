@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
-import * as sortableJS from 'sortablejs';
+import sortableJS from 'sortablejs';
 import reorder from '../utils/reorder';
 
 export type SortableGroup =

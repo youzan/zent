@@ -1,4 +1,4 @@
-import * as Sortable from 'sortablejs';
+import Sortable from 'sortablejs';
 
 const UNSORTABLE = 'unsortable';
 

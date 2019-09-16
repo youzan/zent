@@ -2,7 +2,7 @@ import * as React from 'react';
 import { PureComponent } from 'react';
 import classnames from 'classnames';
 import Popover from '../../popover';
-import Tabs from '../../tabs';
+import Tabs, { ITabPanelElement, ITabPanelProps } from '../../tabs';
 import { CascaderHandler, CascaderValue, ICascaderItem } from '../types';
 
 const TabPanel = Tabs.TabPanel;
@@ -72,7 +72,9 @@ class TabsContent extends PureComponent<ITabsContentProps> {
   }
 
   renderPanels(popover: Popover, i18n: any) {
-    const PanelEls = [];
+    const PanelEls: Array<
+      ITabPanelElement<ITabPanelProps<string | number>>
+    > = [];
     let tabIndex = 1;
     let { title, options, value, recursiveNextOptions } = this.props;
 
@@ -125,7 +127,8 @@ class TabsContent extends PureComponent<ITabsContentProps> {
       <div className={`${prefix}-cascader__popup-inner`}>
         <Tabs
           activeId={activeId}
-          onTabChange={onTabChange}
+          onChange={onTabChange}
+          type="card"
           className={`${prefix}-cascader__tabs`}
         >
           {this.renderPanels(popover, i18n)}

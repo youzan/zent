@@ -13,36 +13,53 @@ group: 导航
 
 #### Tabs
 
-| 参数          | 说明        | 类型       | 默认值        | 备选值                   | 是否必须 |
-| ----------- | --------- | -------- | ---------- | --------------------- | ---- |
-| activeId    | 激活的tab-id | string \| number  |            |                       | 是    |
-| type        | tabs组件类型  | string   | `'normal'` | `'card'`, `'slider'`  | 否    |
-| size        | tabs的尺寸类型 | string   | `'normal'` | `'huge'`              | 否    |
-| align       | tabs的布局类型 | string   | `'left'`   | `'right'`, `'center'` | 否    |
-| onChange    | 选中的tab改变时 | (id: string \| number) => any |            |                       | 否    |
-| onDelete    | 关闭tab时    | (id: string \| number) => any |            |                       | 否    |
-| onAdd       | 点击增加tab时  | func     |            |                       | 否    |
-| candel      | 是否可删除     | bool     | `false`    |                       | 否    |
-| canadd      | 是否可增加tab  | bool     | `false`    |                       | 否    |
-| tabs | 不使用Panel时的标签列表 | Array | `null` | | 否 |
-| className   | 自定义额外类名   | string   | `''`       |                       | 否    |
-| prefix      | 自定义前缀     | string   | `'zent'`   |                       | 否    |
-| navExtraContent      | 导航添加额外内容     | node   | null   |                       | 否    |
+| 参数            | 说明                      | 类型                          | 默认值     | 备选值               | 是否必须 |
+| --------------- | ------------------------- | ----------------------------- | ---------- | -------------------- | -------- |
+| activeId        | 激活的 tab-id             | string \| number              |            |                      | 是       |
+| onChange        | 选中的 tab 改变时         | (id: string \| number) => any |            |                      | 是       |
+| tabs            | 不使用 Panel 时的标签列表 | Array<ITab\>                  |            |                      | 否       |
+| className       | 自定义额外类名            | string                        |            |                      | 否       |
+| type            | tabs 组件类型             | string                        | `'normal'` | `'card'`, `'button'` | 否       |
+| navExtraContent | 导航添加额外内容          | React.ReactNode               |            |                      | 否       |
+| stretch         | tab 是否撑满全部空间      | boolean                       | `false`    |                      | 否       |
+| onDelete        | 关闭 tab 时               | (id: string \| number) => any |            |                      | 否       |
+| candel          | 是否可删除                | bool                          | `false`    |                      | 否       |
 
-tabs参数类型：
+tabs 参数类型：
+
 ```ts
-Array<{
-	key: string | number, // 同TabPanel id
-	title: string | number, // 同TabPanel tab
-	disabled?: boolean // 同TabPanel disabled
-}>
+interface ITab {
+	key: string | number; // 同TabPanel id
+	title: ReactNode; // 同TabPanel tab
+	disabled?: boolean; // 同TabPanel disabled
+}
+```
 
+#### VerticalTabs
+
+| 参数         | 说明                      | 类型                          | 默认值 | 备选值 | 是否必须 |
+| ------------ | ------------------------- | ----------------------------- | ------ | ------ | -------- |
+| activeId     | 激活的 tab-id             | string \| number              |        |        | 是       |
+| onChange     | 选中的 tab 改变时         | (id: string \| number) => any |        |        | 是       |
+| tabs         | 不使用 Panel 时的标签列表 | Array<IVerticalTab\>          |        |        | 否       |
+| className    | 自定义额外类名            | string                        |        |        | 否       |
+| scrollHeight | 可滚动区域的最大高度      | string \| number              |        |        | 否       |
+
+tabs 参数类型：
+
+```ts
+type IVerticalTab = ITab | { divide: true };
 ```
 
 #### TabPanel
 
-| 参数  | 说明                    | 类型     | 是否必须 |
-| --- | --------------------- | ------ | ---- |
-| tab | 该TabPanel所对应的tab标签的名字 | string | 是    |
-| id  | 该TabPanel的id          | string \| number | 是    |
-| disabled | 该TabPanel是否被禁用 | bool | 否
+| 参数      | 说明                                | 类型             | 是否必须 |
+| --------- | ----------------------------------- | ---------------- | -------- |
+| tab       | 该 TabPanel 所对应的 tab 标签的名字 | ReactNode        | 是       |
+| id        | 该 TabPanel 的 id                   | string \| number | 是       |
+| disabled  | 该 TabPanel 是否被禁用              | bool             | 否       |
+| className | 该 TabPanel 上添加的额外 className  | bool             | 否       |
+
+#### Divide
+
+用于表示 VerticalTabs 的分割线，不需要传递 props

@@ -1,273 +1,93 @@
 import * as React from 'react';
-import { PureComponent } from 'react';
 import cx from 'classnames';
-import AnimatedArc from './AnimatedArc';
-import Icon from '../icon';
+import {
+  IProgressProps,
+  IProgressInstanceProps,
+  IProgressStatus,
+} from './types';
+import { defaultFormat, avaliableStatus } from './constants';
+import CircleProgress from './components/CircleProgress';
+import LineProgress from './components/LineProgress';
+import { ParticalRequired } from '../utils/types';
 
-const STATE = {
-  EXCEPTION: 1,
-  SUCCESS: 2,
-  ING: 3,
-};
-
-const DEFAULT_WIDTH = {
-  CIRCLE: 132,
-  LINE: 580,
-};
-
-export interface IProgressProps {
-  className?: string;
-  prefix?: string;
-  type?: 'line' | 'circle';
-  percent?: number;
-  showInfo?: boolean;
-  status?: 'success' | 'exception';
-  format?: (precent: number) => React.ReactNode;
-  strokeWidth?: number;
-  width?: number;
-  bgColor?: string;
-  normalColor?: string;
-  successColor?: string;
-  exceptionColor?: string;
-  style?: React.CSSProperties;
-}
-
-export class Progress extends PureComponent<IProgressProps> {
-  static defaultProps = {
-    type: 'line',
-    percent: 0,
-    showInfo: true,
-    prefix: 'zent',
-    strokeWidth: 10,
-  };
-
-  getCurrentState() {
-    const { percent, status } = this.props;
-
-    if (percent < 100 && status === 'exception') {
-      return STATE.EXCEPTION;
-    }
-    if (percent >= 100) {
-      return STATE.SUCCESS;
-    }
-
-    return STATE.ING;
-  }
-
-  getStateClass() {
-    const { prefix } = this.props;
-    const state = this.getCurrentState();
-    return cx({
-      [`${prefix}-progress-inprogress`]: state === STATE.ING,
-      [`${prefix}-progress-exception`]: state === STATE.EXCEPTION,
-      [`${prefix}-progress-success`]: state === STATE.SUCCESS,
-    });
-  }
-
-  getCurrentColor() {
-    const { normalColor, exceptionColor, successColor } = this.props;
-    const state = this.getCurrentState();
-
-    if (state === STATE.EXCEPTION) {
-      return exceptionColor || normalColor;
-    }
-    if (state === STATE.SUCCESS) {
-      return successColor;
-    }
-    return normalColor;
-  }
-
-  render() {
-    const { type, className, prefix, style } = this.props;
-    const containerCls = cx(
-      `${prefix}-progress`,
-      `${prefix}-progress-${type}`,
-      className
-    );
-    const color = this.getCurrentColor();
-    const state = this.getCurrentState();
-    const stateCls = this.getStateClass();
-    let node;
-
-    switch (type) {
-      case 'circle':
-        node = (
-          <CircleProgress
-            {...this.props}
-            color={color}
-            state={state}
-            stateCls={stateCls}
-          />
-        );
-        break;
-
-      case 'line': /* fall through */
-      default:
-        node = (
-          <LineProgress
-            {...this.props}
-            color={color}
-            state={state}
-            stateCls={stateCls}
-          />
-        );
-        break;
-    }
-
-    return (
-      <div className={containerCls} style={style}>
-        {node}
-      </div>
-    );
-  }
-}
-
-function ProgressInfo(props) {
-  const { type, percent, format, state } = props;
-
-  if (format) {
-    return format(percent);
-  }
-
-  if (state === STATE.SUCCESS) {
-    return <Icon type={type === 'circle' ? 'check' : 'check-circle'} />;
-  }
-
-  if (state === STATE.EXCEPTION) {
-    return <Icon type={type === 'circle' ? 'close' : 'close-circle'} />;
-  }
-
-  return `${percent}%`;
-}
-
-function LineProgress(props) {
+export const Progress: React.FC<IProgressProps> = (
+  props: ParticalRequired<
+    React.PropsWithChildren<IProgressProps>,
+    'type' | 'percent' | 'showInfo' | 'strokeWidth' | 'format'
+  >
+) => {
   const {
     type,
+    status,
     percent,
-    showInfo,
-    prefix,
-    strokeWidth,
-    width,
+    className,
+    normalColor,
+    successColor,
+    exceptionColor,
     bgColor,
     format,
-    color,
-    state,
-    stateCls,
+    showInfo,
+    strokeWidth,
+    width,
+    ...divAttrs
   } = props;
-  const progressWidth = width || DEFAULT_WIDTH.LINE;
 
-  return (
-    <div className={stateCls}>
-      <div
-        className={`${prefix}-progress-wrapper`}
-        style={{
-          background: bgColor,
-          width: progressWidth,
-          height: strokeWidth,
-          borderRadius: strokeWidth,
-        }}
-      >
-        <div
-          className={`${prefix}-progress-inner`}
-          style={{
-            background: color,
-            width: `${percent}%`,
-            height: strokeWidth,
-            borderRadius: strokeWidth,
-          }}
-        />
-      </div>
-      {showInfo && (
-        <div className={`${prefix}-progress-info`} style={{ color }}>
-          <ProgressInfo
-            type={type}
-            percent={percent}
-            format={format}
-            state={state}
-          />
-        </div>
-      )}
-    </div>
+  // 计算 progress 状态
+  const state = React.useMemo<IProgressStatus>(() => {
+    if (avaliableStatus.indexOf(status) !== -1) {
+      return status;
+    }
+    return percent >= 100 ? 'success' : 'normal';
+  }, [status, percent]);
+
+  // 计算需要显示的颜色
+  const currentColor = {
+    exception: exceptionColor,
+    success: successColor,
+    normal: normalColor,
+  }[state];
+
+  // 判断使用哪种类型的进度条
+  let ProgressComponent: React.ComponentType<IProgressInstanceProps>;
+  switch (type) {
+    case 'circle':
+      ProgressComponent = CircleProgress;
+      break;
+    case 'line': /* fall through */
+    default:
+      ProgressComponent = LineProgress;
+      break;
+  }
+
+  const containerCls = cx(
+    'zent-progress',
+    `zent-progress-type__${type}`,
+    `zent-progress-state__${state}`,
+    className
   );
-}
-
-function CircleProgress(props) {
-  const {
-    percent,
-    showInfo,
-    prefix,
-    type,
-    format,
-    strokeWidth,
-    width,
-    bgColor,
-    color,
-    state,
-    stateCls,
-  } = props;
-  const progressWidth = width || DEFAULT_WIDTH.CIRCLE;
-  const mid = progressWidth / 2;
-  const diameter = progressWidth - strokeWidth;
-  const radius = diameter / 2;
-  const circumference = diameter * Math.PI;
-  const offset = (circumference * (100 - percent)) / 100;
 
   return (
-    <div
-      className={stateCls}
-      style={{
-        width: progressWidth,
-        height: progressWidth,
-      }}
-    >
-      <div
-        className={`${prefix}-progress-wrapper`}
-        style={{
-          borderRadius: progressWidth,
-          borderWidth: strokeWidth,
-          borderColor: bgColor,
-        }}
+    <div className={containerCls} {...divAttrs}>
+      <ProgressComponent
+        percent={percent}
+        showInfo={showInfo}
+        strokeWidth={strokeWidth}
+        width={width}
+        bgColor={bgColor}
+        format={format}
+        color={currentColor}
+        state={state}
       />
-      <svg className={`${prefix}-progress-inner`}>
-        <circle
-          className={`${prefix}-progress-inner-path`}
-          cx={mid}
-          cy={mid}
-          r={radius}
-          style={{
-            stroke: color,
-            strokeWidth,
-            strokeDasharray: circumference,
-            strokeDashoffset: offset,
-          }}
-        />
-        {state === STATE.ING && (
-          <AnimatedArc
-            className={`${prefix}-progress-path-mask`}
-            radius={radius}
-            arcLength={circumference - offset}
-            strokeWidth={strokeWidth}
-          />
-        )}
-      </svg>
-      {showInfo && (
-        <div
-          className={`${prefix}-progress-info`}
-          style={{
-            lineHeight: `${progressWidth}px`,
-            color,
-          }}
-        >
-          <ProgressInfo
-            type={type}
-            percent={percent}
-            format={format}
-            state={state}
-          />
-        </div>
-      )}
     </div>
   );
-}
+};
+
+Progress.defaultProps = {
+  type: 'line',
+  percent: 0,
+  showInfo: true,
+  strokeWidth: 10,
+  format: defaultFormat,
+};
 
 export default Progress;
