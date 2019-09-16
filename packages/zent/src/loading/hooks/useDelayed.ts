@@ -9,11 +9,10 @@ export default function useDelayed({
   loading,
   delay,
 }: ILoadingUseDelayedParams) {
-  const [delayed, setDelayed] = useState(true);
+  const shouldDelay = !!(delay && delay > 0);
+  const [delayed, setDelayed] = useState(shouldDelay);
 
   useEffect(() => {
-    const shouldDelay = delay && delay > 0;
-
     if (loading && shouldDelay) {
       setDelayed(true);
       const timerId = setTimeout(() => setDelayed(false), delay);
