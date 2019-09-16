@@ -207,6 +207,7 @@ export default class PopoverContent extends Component<
           <WindowEventHandler
             eventName="scroll"
             callback={this.onWindowScroll}
+            useCapture
           />
         </div>
       </Portal>
