@@ -3,7 +3,7 @@ order: 5
 zh-CN:
 	title: 仅展示结果（无交互效果）
 en-US:
-	title: readonly (no-interaction)
+	title: read only (no-interaction)
 ---
 
 ```js
@@ -31,7 +31,7 @@ class App extends Component {
 					decimal={1}
 					showCounter
 				/>
-				<Rate value={+this.state.value} readonly />
+				<Rate value={+this.state.value} readOnly />
 			</div>
 		);
 	}

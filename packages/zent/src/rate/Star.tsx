@@ -11,7 +11,7 @@ export interface IRateStarProps {
   onHover(e: React.MouseEvent<HTMLLIElement>, index: number): void;
   onClick(e: React.MouseEvent<HTMLLIElement>, index: number): void;
   index: number;
-  readonly?: boolean;
+  readOnly?: boolean;
 }
 
 export default class Star extends Component<IRateStarProps> {
@@ -28,40 +28,31 @@ export default class Star extends Component<IRateStarProps> {
   };
 
   getClassName() {
-    const { prefix, index, value, allowHalf, readonly } = this.props;
+    const { prefix, index, value, allowHalf, readOnly } = this.props;
     const starValue = index + 1;
-    const starClass = `${prefix}-rate-star`;
-    let valueStarClass = '';
-    if (readonly) {
-      valueStarClass =
-        starValue <= value
-          ? `${prefix}-rate-star-full`
-          : starValue > Math.ceil(value)
-          ? `${prefix}-rate-star-zero`
-          : `${prefix}-rate-star-half`;
-    } else if (allowHalf && value + 0.5 === starValue) {
-      valueStarClass = cx(
-        `${prefix}-rate-star-half`,
-        `${prefix}-rate-star-active`
-      );
-    } else {
-      valueStarClass =
-        starValue <= value
-          ? `${prefix}-rate-star-full`
-          : `${prefix}-rate-star-zero`;
-    }
-    return cx(starClass, valueStarClass);
+    const isFull = starValue <= value;
+    const isZero = starValue > Math.ceil(value);
+    const isHalf = allowHalf && value + 0.5 === starValue;
+    const isPart =
+      readOnly && starValue > value && starValue === Math.ceil(value);
+    return cx(
+      `${prefix}-rate-star`,
+      { [`${prefix}-rate-star-full`]: isFull },
+      { [`${prefix}-rate-star-zero`]: isZero },
+      { [`${prefix}-rate-star-half`]: isHalf },
+      { [`${prefix}-rate-star-part`]: isPart }
+    );
   }
 
   getFloatValue = () => {
     const { value } = this.props;
-    return `${(Math.floor(value * 10) % 10) * 10}%`;
+    return `${(value * 100) % 100}%`;
   };
 
   render() {
     const { onHover, onClick } = this;
-    const { disabled, prefix, character, readonly } = this.props;
-    const disableEdit = disabled || readonly;
+    const { disabled, prefix, character, readOnly } = this.props;
+    const disableEdit = disabled || readOnly;
     return (
       <li
         ref={this.elRef}
@@ -71,7 +62,7 @@ export default class Star extends Component<IRateStarProps> {
       >
         <div
           className={`${prefix}-rate-star-first`}
-          style={readonly ? { width: this.getFloatValue() } : undefined}
+          style={readOnly ? { width: this.getFloatValue() } : undefined}
         >
           {character}
         </div>

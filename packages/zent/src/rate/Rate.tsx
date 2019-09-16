@@ -17,7 +17,7 @@ export interface IRateProps {
   disabled?: boolean;
   style?: React.CSSProperties;
   prefix?: string;
-  readonly?: boolean;
+  readOnly?: boolean;
 }
 
 export interface IRateState {
@@ -42,7 +42,7 @@ export class Rate extends Component<IRateProps, IRateState> {
     allowClear: true,
     prefix: 'zent',
     character: <Icon type="star" />,
-    readonly: false,
+    readOnly: false,
   };
 
   static contextType = DisabledContext;
@@ -146,7 +146,7 @@ export class Rate extends Component<IRateProps, IRateState> {
       className,
       character,
       value,
-      readonly,
+      readOnly,
     } = this.props;
     const { hoverValue, starRefs } = this.state;
     const stars = [];
@@ -164,7 +164,7 @@ export class Rate extends Component<IRateProps, IRateState> {
           onClick={this.onClick}
           onHover={this.onHover}
           character={character}
-          readonly={readonly}
+          readOnly={readOnly}
         />
       );
     }
@@ -173,11 +173,11 @@ export class Rate extends Component<IRateProps, IRateState> {
         className={classNames(
           `${prefix}-rate`,
           { [`${prefix}-rate-disabled`]: disabled },
-          { [`${prefix}-rate-readonly`]: readonly },
+          { [`${prefix}-rate-readonly`]: readOnly },
           className
         )}
         style={style}
-        onMouseLeave={disabled || readonly ? undefined : this.onMouseLeave}
+        onMouseLeave={disabled || readOnly ? undefined : this.onMouseLeave}
       >
         {stars}
       </ul>
