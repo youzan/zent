@@ -150,7 +150,6 @@ export class Rate extends Component<IRateProps, IRateState> {
     } = this.props;
     const { hoverValue, starRefs } = this.state;
     const stars = [];
-    const disabledClass = disabled ? `${prefix}-rate-disabled` : '';
 
     for (let index = 0; index < count; index++) {
       stars.push(
@@ -171,9 +170,14 @@ export class Rate extends Component<IRateProps, IRateState> {
     }
     return (
       <ul
-        className={classNames(`${prefix}-rate`, disabledClass, className)}
+        className={classNames(
+          `${prefix}-rate`,
+          { [`${prefix}-rate-disabled`]: disabled },
+          { [`${prefix}-rate-readonly`]: readonly },
+          className
+        )}
         style={style}
-        onMouseLeave={disabled ? undefined : this.onMouseLeave}
+        onMouseLeave={disabled || readonly ? undefined : this.onMouseLeave}
       >
         {stars}
       </ul>

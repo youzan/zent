@@ -58,7 +58,12 @@
 
   &-readonly {
     .zent-rate-star {
-      cursor: normal;
+      cursor: auto;
+      transition: none;
+
+      &:hover {
+        transform: none;
+      }
     }
   }
 }

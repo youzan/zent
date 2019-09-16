@@ -31,53 +31,43 @@ export default class Star extends Component<IRateStarProps> {
     const { prefix, index, value, allowHalf, readonly } = this.props;
     const starValue = index + 1;
     const starClass = `${prefix}-rate-star`;
+    let valueStarClass = '';
     if (readonly) {
-      return starValue <= value
-        ? cx(
-            starClass,
-            `${prefix}-rate-star-readonly`,
-            `${prefix}-rate-star-full`
-          )
-        : starValue > Math.ceil(value)
-        ? cx(
-            starClass,
-            `${prefix}-rate-star-readonly`,
-            `${prefix}-rate-star-zero`
-          )
-        : cx(
-            starClass,
-            `${prefix}-rate-star-readonly`,
-            `${prefix}-rate-star-half`
-          );
-    }
-    if (allowHalf && value + 0.5 === starValue) {
-      return cx(
-        starClass,
+      valueStarClass =
+        starValue <= value
+          ? `${prefix}-rate-star-full`
+          : starValue > Math.ceil(value)
+          ? `${prefix}-rate-star-zero`
+          : `${prefix}-rate-star-half`;
+    } else if (allowHalf && value + 0.5 === starValue) {
+      valueStarClass = cx(
         `${prefix}-rate-star-half`,
         `${prefix}-rate-star-active`
       );
     } else {
-      return starValue <= value
-        ? cx(starClass, `${prefix}-rate-star-full`)
-        : cx(starClass, `${prefix}-rate-star-zero`);
+      valueStarClass =
+        starValue <= value
+          ? `${prefix}-rate-star-full`
+          : `${prefix}-rate-star-zero`;
     }
+    return cx(starClass, valueStarClass);
   }
 
   getFloatValue = () => {
     const { value } = this.props;
-    return `${Math.floor((value * 10) % 10) * 10}%`;
+    return `${(Math.floor(value * 10) % 10) * 10}%`;
   };
 
   render() {
     const { onHover, onClick } = this;
     const { disabled, prefix, character, readonly } = this.props;
-    const allowEdit = disabled || readonly;
+    const disableEdit = disabled || readonly;
     return (
       <li
         ref={this.elRef}
         className={this.getClassName()}
-        onClick={allowEdit ? undefined : onClick}
-        onMouseMove={allowEdit ? undefined : onHover}
+        onClick={disableEdit ? undefined : onClick}
+        onMouseMove={disableEdit ? undefined : onHover}
       >
         <div
           className={`${prefix}-rate-star-first`}
