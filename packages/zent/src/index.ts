@@ -38,6 +38,7 @@ export * from './loading/FullScreenLoading';
 export * from './loading/InlineLoading';
 export * from './mention';
 export * from './menu';
+export * from './notice';
 export * from './notify';
 export * from './number-input';
 export * from './pagination';

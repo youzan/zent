@@ -46,9 +46,11 @@ $theme-error-4: #df4545 !default;
 $theme-error-5: #ffebeb !default;
 
 // Orange
-$theme-warn-1: #ed6a0c !default;
-$theme-warn-2: #f1924e !default;
-$theme-warn-3: #fff5ed !default;
+$theme-warn-1: #c95a0a !default;
+$theme-warn-2: #ed6a0c !default;
+$theme-warn-3: #ef8030 !default;
+$theme-warn-4: #f1924e !default;
+$theme-warn-5: #fff5ed !default;
 
 // Shadow
 $shadow-spec-focus: 0 0 4px 0 rgba($theme-primary-1, 0.2) !default;
@@ -107,6 +109,8 @@ $theme-colors: (
     $theme-warn-1,
     $theme-warn-2,
     $theme-warn-3,
+    $theme-warn-4,
+    $theme-warn-5,
   ),
 );
 
