@@ -181,6 +181,14 @@ import { Portal, PurePortal } from 'zent'
 
 如果之前依赖了 postcss 的源样式，需要改成 sass。
 
+## 7.0.0-next.32(2019-09-16)
+- 修复select样式 
+- button添加warning样式
+- 添加新组建Notice
+- 修复notify样式
+- 更新upload样式
+- 修复table类型定义
+
 ## 7.0.0-next.31(2019-09-06)
 
 - `Input`
