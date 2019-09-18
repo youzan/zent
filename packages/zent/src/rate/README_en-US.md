@@ -19,6 +19,7 @@ Rate component.
 | character  | custom character of rate                | `ReactNode`               | No       | `<Icon type="star" />` |             |
 | className  | custom class name of rate               | `string`                  | No       | -                      |             |
 | count      | star count                              | `number`                  | No       | 5                      |             |
-| disabled   | read only, unable to interact           | `boolean`                 | No       | `false`                |             |
+| disabled   | disable the interaction                 | `boolean`                 | No       | `false`                |             |
+| readOnly   | read only, unlike `disabled`, the cursor will be 'auto' and the value can be accurate to 0.1.    | `boolean`  | No | `false`  |        |
 | style      | custom style object of rate             | `object`                  | No       | -                      |             |
 | prefix     | custom prefix                           | `string`         				 | No       | `'zent'`               |             |

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
+import cx from 'classnames';
 
 export interface IRateStarProps {
   prefix?: string;
@@ -10,6 +11,7 @@ export interface IRateStarProps {
   onHover(e: React.MouseEvent<HTMLLIElement>, index: number): void;
   onClick(e: React.MouseEvent<HTMLLIElement>, index: number): void;
   index: number;
+  readOnly?: boolean;
 }
 
 export default class Star extends Component<IRateStarProps> {
@@ -26,31 +28,43 @@ export default class Star extends Component<IRateStarProps> {
   };
 
   getClassName() {
-    const { prefix, index, value, allowHalf } = this.props;
+    const { prefix, index, value, allowHalf, readOnly } = this.props;
     const starValue = index + 1;
-    let className = `${prefix}-rate-star`;
-    if (allowHalf && value + 0.5 === starValue) {
-      className += ` ${prefix}-rate-star-half ${prefix}-rate-star-active`;
-    } else {
-      className +=
-        starValue <= value
-          ? ` ${prefix}-rate-star-full`
-          : ` ${prefix}-rate-star-zero`;
-    }
-    return className;
+    const isFull = starValue <= value;
+    const isZero = starValue > Math.ceil(value);
+    const isHalf = allowHalf && value + 0.5 === starValue;
+    const isPart =
+      readOnly && starValue > value && starValue === Math.ceil(value);
+    return cx(`${prefix}-rate-star`, {
+      [`${prefix}-rate-star-full`]: isFull,
+      [`${prefix}-rate-star-zero`]: isZero,
+      [`${prefix}-rate-star-half`]: isHalf,
+      [`${prefix}-rate-star-part`]: isPart,
+    });
   }
+
+  getFloatValue = () => {
+    const { value } = this.props;
+    return `${(value * 100) % 100}%`;
+  };
 
   render() {
     const { onHover, onClick } = this;
-    const { disabled, prefix, character } = this.props;
+    const { disabled, prefix, character, readOnly } = this.props;
+    const disableEdit = disabled || readOnly;
     return (
       <li
         ref={this.elRef}
         className={this.getClassName()}
-        onClick={disabled ? undefined : onClick}
-        onMouseMove={disabled ? undefined : onHover}
+        onClick={disableEdit ? undefined : onClick}
+        onMouseMove={disableEdit ? undefined : onHover}
       >
-        <div className={`${prefix}-rate-star-first`}>{character}</div>
+        <div
+          className={`${prefix}-rate-star-first`}
+          style={readOnly ? { width: this.getFloatValue() } : undefined}
+        >
+          {character}
+        </div>
         <div className={`${prefix}-rate-star-second`}>{character}</div>
       </li>
     );

@@ -35,7 +35,8 @@
       @include theme-color(color, stroke, 6);
     }
 
-    &-half {
+    &-half,
+    &-part {
       .zent-rate-star-first {
         opacity: 1;
       }
@@ -46,13 +47,21 @@
     }
   }
 
-  &-disabled {
+  &-disabled,
+  &-readonly {
     .zent-rate-star {
       cursor: not-allowed;
+      transition: none;
 
       &:hover {
         transform: scale(1);
       }
+    }
+  }
+
+  &-readonly {
+    .zent-rate-star {
+      cursor: auto;
     }
   }
 }
