@@ -35,13 +35,13 @@ export default class Star extends Component<IRateStarProps> {
     const isHalf = allowHalf && value + 0.5 === starValue;
     const isPart =
       readOnly && starValue > value && starValue === Math.ceil(value);
-    return cx(
-      `${prefix}-rate-star`,
-      { [`${prefix}-rate-star-full`]: isFull },
-      { [`${prefix}-rate-star-zero`]: isZero },
-      { [`${prefix}-rate-star-half`]: isHalf },
-      { [`${prefix}-rate-star-part`]: isPart }
-    );
+    return cx(`${prefix}-rate-star`, {
+      [`${prefix}-rate-star-full`]: isFull,
+      [`${prefix}-rate-star-zero`]: isZero,
+      [`${prefix}-rate-star-half`]: isHalf,
+      [`${prefix}-rate-star-active`]: isHalf,
+      [`${prefix}-rate-star-part`]: isPart,
+    });
   }
 
   getFloatValue = () => {

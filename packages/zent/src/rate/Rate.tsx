@@ -172,8 +172,10 @@ export class Rate extends Component<IRateProps, IRateState> {
       <ul
         className={classNames(
           `${prefix}-rate`,
-          { [`${prefix}-rate-disabled`]: disabled },
-          { [`${prefix}-rate-readonly`]: readOnly },
+          {
+            [`${prefix}-rate-disabled`]: disabled,
+            [`${prefix}-rate-readonly`]: readOnly,
+          },
           className
         )}
         style={style}
