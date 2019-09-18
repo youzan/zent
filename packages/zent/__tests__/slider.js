@@ -59,7 +59,7 @@ describe('Slider', () => {
     Object.defineProperty(el, 'clientWidth', {
       value: 100,
     });
-    Simulate.click(el, {
+    Simulate.mouseDown(el, {
       clientX: 130,
     });
     expect(wrapper.state.value).toBe(30);
@@ -119,11 +119,11 @@ describe('Slider', () => {
     el.getBoundingClientRect = () => ({
       left: 100,
     });
-    Simulate.click(el, {
+    Simulate.mouseDown(el, {
       clientX: 110,
     });
     expect(wrapper.state.value).toEqual([10, 30]);
-    Simulate.click(el, {
+    Simulate.mouseDown(el, {
       clientX: 150,
     });
     expect(wrapper.state.value).toEqual([10, 50]);
