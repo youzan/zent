@@ -63,6 +63,13 @@ describe('Slider', () => {
       clientX: 130,
     });
     expect(wrapper.state.value).toBe(30);
+    window.dispatchEvent(
+      new MouseEvent('mousemove', {
+        clientX: 140,
+      })
+    );
+    expect(wrapper.state.value).toBe(40);
+    window.dispatchEvent(new MouseEvent('mouseup'));
   });
 
   it('can have custom wrapper classNames', () => {
@@ -130,7 +137,6 @@ describe('Slider', () => {
   });
 
   it('test invalid props', () => {
-    console.error = () => {};
     expect(() =>
       renderIntoDocument(<Slider max={2} min={1} step={0.1} value={5} />)
     ).toThrow();
@@ -253,11 +259,24 @@ describe('Slider', () => {
           0: '0',
           100: '100',
         },
+        value: 0,
+      };
+
+      onChange = value => {
+        this.setState({
+          value,
+        });
       };
 
       render() {
         return (
-          <Slider value={0} marks={this.state.marks} step={this.state.step} />
+          <Slider
+            value={this.state.value}
+            marks={this.state.marks}
+            step={this.state.step}
+            onChange={this.onChange}
+            dots
+          />
         );
       }
     }
@@ -276,6 +295,24 @@ describe('Slider', () => {
     });
     expect(slider.state.decimal).toBe(2);
     expect(slider.state.potentialValues).toEqual([0, 20, 50, 100]);
+    const el = findRenderedDOMComponentWithClass(wrapper, 'zent-slider-main');
+    el.getBoundingClientRect = () => ({
+      left: 100,
+    });
+    Object.defineProperty(el, 'clientWidth', {
+      value: 100,
+    });
+    Simulate.mouseDown(el, {
+      clientX: 130,
+    });
+    expect(wrapper.state.value).toBe(20);
+    window.dispatchEvent(
+      new MouseEvent('mousemove', {
+        clientX: 140,
+      })
+    );
+    expect(wrapper.state.value).toBe(50);
+    window.dispatchEvent(new MouseEvent('mouseup'));
   });
 
   it('can input onchange props', () => {
