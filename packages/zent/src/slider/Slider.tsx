@@ -186,13 +186,27 @@ export class Slider extends React.Component<ISliderProps, ISliderState> {
     };
   }
 
-  private onChange = (nextValue: number, rawValue: number) => {
+  private onChange(rawValue: number) {
+    const { dots, disabled } = this.props;
+    const { potentialValues, decimal } = this.state;
+    if (disabled) {
+      return;
+    }
+    let nextValue = toFixed(rawValue, decimal);
+    if (dots) {
+      nextValue = normalizeToPotentialValue(potentialValues, nextValue);
+    }
     if (this.props.range === true) {
       const { onChange, value } = this.props;
       if (!onChange) {
         return;
       }
-      if (Math.abs(value[0] - rawValue) <= Math.abs(value[1] - rawValue)) {
+      if (rawValue > value[1]) {
+        onChange([value[0], nextValue]);
+      } else if (
+        rawValue <= value[0] ||
+        Math.abs(value[0] - rawValue) <= Math.abs(value[1] - rawValue)
+      ) {
         onChange([nextValue, value[1]]);
       } else {
         onChange([value[0], nextValue]);
@@ -201,25 +215,15 @@ export class Slider extends React.Component<ISliderProps, ISliderState> {
       const { onChange } = this.props;
       onChange && onChange(nextValue);
     }
-  };
+  }
 
-  private onClick: React.MouseEventHandler<HTMLDivElement> = e => {
-    const { min, max, dots } = this.props;
-    const { decimal, potentialValues } = this.state;
+  private onMouseDown: React.MouseEventHandler<HTMLDivElement> = e => {
+    const { min, max } = this.props;
     const el = e.currentTarget;
     let nextValue =
       (e.clientX - el.getBoundingClientRect().left) / el.clientWidth;
     nextValue = getValue(nextValue, min, max);
-    nextValue = toFixed(nextValue, decimal);
-    if (dots) {
-      const normalizedValue = normalizeToPotentialValue(
-        potentialValues,
-        nextValue
-      );
-      this.onChange(normalizedValue, nextValue);
-    } else {
-      this.onChange(nextValue, nextValue);
-    }
+    this.onChange(nextValue);
   };
 
   static getDerivedStateFromProps(
@@ -267,7 +271,7 @@ export class Slider extends React.Component<ISliderProps, ISliderState> {
         <div
           ref={this.containerRef}
           className="zent-slider-main"
-          onClick={this.onClick}
+          onMouseDown={this.onMouseDown}
         >
           <div
             style={computed.trackStyle}
