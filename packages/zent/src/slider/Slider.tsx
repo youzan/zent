@@ -7,9 +7,11 @@ import Marks from './Marks';
 import Dots from './Dots';
 import { DisabledContext, IDisabledContext } from '../disabled';
 import { ISliderProps, ISliderState } from './types';
-import { IComputedProps, getValue, toFixed } from './common';
+import { IComputedProps, getValue, toFixed, isLeftValue } from './common';
 import NumberInput from '../number-input';
 import { getPotentialValues, normalizeToPotentialValue } from './normalize';
+import { WindowEventHandler } from '../utils/component';
+import withinRange from '../utils/withinRange';
 
 export const getDecimal = (step: number | string) => {
   const fixed = String(step).split('.')[1];
@@ -74,10 +76,14 @@ export class Slider extends React.Component<ISliderProps, ISliderState> {
   state: ISliderState = {
     decimal: getDecimal(this.props.step),
     potentialValues: getPotentialValues(this.props.marks),
+    active: null,
     prevProps: this.props,
   };
 
   private containerRef = React.createRef<HTMLDivElement>();
+  private mouseDown = false;
+  private limit: readonly [number, number] | null = null;
+  private isLeft: boolean | null = null;
 
   private onSingleChange = (value: number | string | null) => {
     if (this.props.range !== false) {
@@ -201,12 +207,9 @@ export class Slider extends React.Component<ISliderProps, ISliderState> {
       if (!onChange) {
         return;
       }
-      if (rawValue > value[1]) {
-        onChange([value[0], nextValue]);
-      } else if (
-        rawValue <= value[0] ||
-        Math.abs(value[0] - rawValue) <= Math.abs(value[1] - rawValue)
-      ) {
+      const isLeft =
+        this.isLeft !== null ? this.isLeft : isLeftValue(rawValue, value);
+      if (isLeft) {
         onChange([nextValue, value[1]]);
       } else {
         onChange([value[0], nextValue]);
@@ -217,12 +220,61 @@ export class Slider extends React.Component<ISliderProps, ISliderState> {
     }
   }
 
-  private onMouseDown: React.MouseEventHandler<HTMLDivElement> = e => {
+  private getValueFromEvent(e: MouseEvent | React.MouseEvent) {
     const { min, max } = this.props;
-    const el = e.currentTarget;
+    const el = this.containerRef.current!;
     let nextValue =
       (e.clientX - el.getBoundingClientRect().left) / el.clientWidth;
     nextValue = getValue(nextValue, min, max);
+    return nextValue;
+  }
+
+  private onMouseDown: React.MouseEventHandler<HTMLDivElement> = e => {
+    this.mouseDown = true;
+    const value = this.getValueFromEvent(e);
+    this.onChange(value);
+  };
+
+  private onWindowMouseUp = () => {
+    this.mouseDown = false;
+    this.limit = null;
+    this.isLeft = null;
+    this.setState({
+      active: null,
+    });
+  };
+
+  private onWindowMouseMove = (e: MouseEvent) => {
+    if (!this.mouseDown) {
+      return;
+    }
+    let nextValue = this.getValueFromEvent(e);
+    if (this.props.range) {
+      const { value, min, max } = this.props;
+      const left = isLeftValue(nextValue, value);
+      if (!this.state.active) {
+        this.setState({
+          active: left ? 'point-left' : 'point-right',
+        });
+      }
+      if (!this.limit) {
+        this.isLeft = left;
+        if (left) {
+          this.limit = [min, value[1]];
+        } else {
+          this.limit = [value[0], max];
+        }
+      }
+      nextValue = withinRange(nextValue, this.limit[0], this.limit[1]);
+    } else {
+      const { min, max } = this.props;
+      if (!this.state.active) {
+        this.setState({
+          active: 'point-single',
+        });
+      }
+      nextValue = withinRange(nextValue, min, max);
+    }
     this.onChange(nextValue);
   };
 
@@ -259,7 +311,7 @@ export class Slider extends React.Component<ISliderProps, ISliderState> {
       marks,
       dots,
     } = this.props;
-    const { potentialValues } = this.state;
+    const { potentialValues, active } = this.state;
     const computed = this.getComputedProps();
     return (
       <div
@@ -283,26 +335,26 @@ export class Slider extends React.Component<ISliderProps, ISliderState> {
             <>
               <Point
                 key="point-left"
-                containerRef={this.containerRef}
-                rangeLeft={min}
-                rangeRight={max}
-                {...computed.leftProps}
+                active={active === 'point-left'}
+                disabled={disabled}
+                position={computed.leftProps.position}
+                value={computed.leftProps.value}
               />
               <Point
                 key="point-right"
-                containerRef={this.containerRef}
-                rangeLeft={min}
-                rangeRight={max}
-                {...computed.rightProps}
+                active={active === 'point-right'}
+                disabled={disabled}
+                position={computed.rightProps.position}
+                value={computed.rightProps.value}
               />
             </>
           ) : (
             <Point
               key="point-single"
-              containerRef={this.containerRef}
-              rangeLeft={min}
-              rangeRight={max}
-              {...computed.props}
+              active={active === 'point-single'}
+              disabled={disabled}
+              position={computed.props.position}
+              value={computed.props.value}
             />
           )}
           {marks ? (
@@ -348,6 +400,14 @@ export class Slider extends React.Component<ISliderProps, ISliderState> {
               {...computed.props}
             />
           ))}
+        <WindowEventHandler
+          eventName="mousemove"
+          callback={this.onWindowMouseMove}
+        />
+        <WindowEventHandler
+          eventName="mouseup"
+          callback={this.onWindowMouseUp}
+        />
       </div>
     );
   }

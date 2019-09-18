@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { PointId } from './Point';
 
 export interface ISliderCommonProps {
   min: number;
@@ -29,5 +30,6 @@ export type ISliderProps = ISliderSingleProps | ISliderRangeProps;
 export interface ISliderState {
   decimal: number;
   potentialValues: number[];
+  active: PointId | null;
   prevProps: ISliderProps;
 }

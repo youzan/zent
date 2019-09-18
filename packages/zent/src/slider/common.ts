@@ -34,3 +34,16 @@ export type IComputedProps =
       props: ISliderChildCommonProps;
       trackStyle: CSSProperties;
     };
+
+export function isLeftValue(nextValue: number, value: [number, number]) {
+  if (nextValue > value[1]) {
+    return false;
+  }
+  if (
+    nextValue <= value[0] ||
+    Math.abs(value[0] - nextValue) <= Math.abs(value[1] - nextValue)
+  ) {
+    return true;
+  }
+  return false;
+}
