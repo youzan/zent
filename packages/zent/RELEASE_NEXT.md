@@ -177,6 +177,10 @@ import { Portal, PurePortal } from 'zent'
 - 添加 `title`、`description` 两个属性用于简化内容排版
 - `onClose` 现在回调会在点击关闭触发器同时被触发，而不是等到 React 更新完后才触发
 
+### `Rate`
+
+- 删除了 `zent-rate-star-active` 这个 class，外部如果依赖的话请使用 `zent-rate-star-half` 替换
+
 #### 源样式
 
 如果之前依赖了 postcss 的源样式，需要改成 sass。

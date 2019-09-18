@@ -39,7 +39,6 @@ export default class Star extends Component<IRateStarProps> {
       [`${prefix}-rate-star-full`]: isFull,
       [`${prefix}-rate-star-zero`]: isZero,
       [`${prefix}-rate-star-half`]: isHalf,
-      [`${prefix}-rate-star-active`]: isHalf,
       [`${prefix}-rate-star-part`]: isPart,
     });
   }
