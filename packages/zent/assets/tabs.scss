@@ -1,267 +1,234 @@
 @import './theme/default';
 @import './theme/font';
 
-@mixin background($prop) {
-  @include theme-color($prop, stroke, 8);
+@mixin border($direct: null) {
+  @if $direct {
+    @include theme-color(border-#{$direct}-color, stroke, 5);
+    border-#{$direct}-width: 1px;
+    border-#{$direct}-style: solid;
+  } @else {
+    @include theme-color(border-color, stroke, 5);
+    border-width: 1px;
+    border-style: solid;
+  }
 }
 
-@mixin background-active($prop) {
-  @include theme-color($prop, stroke, 9);
+// 内容伸展时的 tab 额外样式
+@mixin content-stretch($selector) {
+  &.zent-tabs-nav__stretch {
+    #{$selector} {
+      flex: 1 1 auto;
+    }
+  }
 }
 
 .zent-tabs {
-  font-size: $font-size-normal;
-  line-height: 1.42857143;
+  @include font-normal;
+  display: flex;
+  flex-direction: column;
+
+  &-panel-wrapper {
+    margin-top: 16px;
+  }
 
   &-nav {
-    @include theme-color(border-bottom-color, stroke, 6);
     position: relative;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
     outline: none;
-    margin-bottom: 10px;
-    user-select: none;
-
-    &-extra-content {
-      float: right;
-      display: inline-block;
-      width: auto;
-      height: 100%;
-      vertical-align: middle;
-    }
-
-    &-add {
-      float: right;
-      display: inline-block;
-      width: 20px;
-      height: 100%;
-      vertical-align: middle;
-      text-align: center;
-      cursor: pointer;
-
-      span {
-        @include theme-color(border-color, stroke, 6);
-        display: block;
-        border-width: 1px;
-        border-style: solid;
-        border-radius: 2px;
-        position: relative;
-        top: 50%;
-        margin-top: -10px;
-        line-height: 18px;
-        height: 20px;
-      }
-    }
+    display: flex;
+    justify-content: flex-start;
+    box-sizing: border-box;
 
     &-content {
-      margin-bottom: -1px;
-      height: 35px;
+      flex: 1 1 auto;
       overflow: hidden;
-
-      &-prev::before {
-        content: '\E600';
-      }
-
-      &-next::before {
-        content: '\E600';
-      }
     }
 
-    &-ink-bar {
-      display: none;
+    &-extra-content {
+      display: flex;
+      align-items: center;
+      margin-left: 8px;
     }
   }
 
   &-scroll {
     white-space: nowrap;
     overflow-x: auto;
-  }
-
-  &-tabwrap {
-    float: left;
-    position: relative;
+    display: flex;
   }
 
   &-tab {
     @include theme-color(color, stroke, 2);
-    @include theme-color(border-top-color, stroke, 6);
-    @include theme-color(border-right-color, stroke, 6);
-    @include background(background-color);
     position: relative;
-    display: inline-block;
     cursor: pointer;
-    border-top-width: 1px;
-    border-top-style: solid;
-    border-right-width: 1px;
-    border-right-style: solid;
     box-sizing: border-box;
+    text-align: center;
 
-    &-inner {
-      padding: 8px 15px;
-      text-align: center;
-      min-width: 90px;
-      position: relative;
-      box-sizing: border-box;
-      font-size: $font-size-normal;
+    &-delete {
+      line-height: 1;
+      position: absolute;
+      top: 3px;
+      right: 3px;
+      font-size: $font-size-small;
+      display: none;
+    }
 
-      &-del {
-        line-height: 1;
-        position: absolute;
-        top: 3px;
-        right: 3px;
-        font-size: $font-size-small;
-        display: none;
+    &:hover {
+      @include theme-color(color, stroke, 1);
+
+      .zent-tabs-tab-delete {
+        display: block;
+      }
+    }
+
+    &__actived {
+      @include theme-color(color, stroke, 1);
+      @include theme-color(background-color, stroke, 9);
+    }
+
+    &__disabled {
+      @include theme-color(color, stroke, 4);
+
+      &.zent-tabs-tab {
+        cursor: not-allowed;
+
+        &:hover {
+          @include theme-color(color, stroke, 4);
+        }
       }
     }
   }
-
-  &-tab:first-child {
-    @include theme-color(border-color, stroke, 6);
-    border-width: 1px;
-    border-style: solid;
-    border-bottom: 0;
-    border-top-left-radius: 4px;
-  }
-
-  &-tab:last-child {
-    border-top-right-radius: 4px;
-  }
-
-  &-tab:hover {
-    @include theme-color(color, stroke, 1);
-
-    .zent-tabs-tab-inner-del {
-      display: inline;
-    }
-  }
-
-  .zent-tabs-actived {
-    @include theme-color(color, stroke, 1);
-    @include background-active(background-color);
-    position: relative;
-
-    .zent-tabs-tab-inner {
-      padding-bottom: 9px;
-    }
-  }
-
-  .zent-tabs-disabled {
-    @include theme-color(color, stroke, 4);
-
-    &.zent-tabs-tab {
-      cursor: not-allowed;
-    }
-
-    &.zent-tabs-tab:hover {
-      @include theme-color(color, stroke, 4);
-    }
-  }
 }
 
-.zent-tabs-size-huge {
-  .zent-tabs-nav {
-    margin-bottom: 15px;
-  }
+// 普通模式样式
+.zent-tabs-nav-type__normal {
+  @include content-stretch('.zent-tabs-tab');
+  @include border(bottom);
+  height: 48px;
 
   .zent-tabs-nav-content {
-    height: 50px;
+    padding: 0 16px;
+    margin-bottom: -1px;
   }
 
-  .zent-tabs-tab-inner {
-    padding: 14px 40px;
-    font-size: $font-size-normal;
-  }
+  .zent-tabs-tab {
+    min-width: 112px;
+    padding: 0 16px;
 
-  .zent-tabs-actived {
-    .zent-tabs-tab-inner {
-      @include background-active(background-color);
-      padding-bottom: 15px;
+    &-inner {
+      padding: 14px 16px;
+    }
+
+    &__actived {
+      @include border(bottom);
+
+      .zent-tabs-tab-inner {
+        @include theme-color(border-bottom-color, primary, 4);
+        border-bottom-width: 2px;
+        border-bottom-style: solid;
+        padding: 14px 16px 12px;
+        margin-bottom: -1px;
+      }
     }
   }
 }
 
-.zent-tabs-align-center {
-  .zent-tabs-tabwrap {
-    float: none;
-  }
-}
+// 卡片模式样式
+.zent-tabs-nav-type__card {
+  @include content-stretch('.zent-tabs-tab');
+  @include border(bottom);
+  height: 40px;
 
-.zent-tabs-align-right {
-  .zent-tabs-tabwrap {
-    float: right;
-  }
-
-  .zent-tabs-nav-add {
-    float: left;
+  .zent-tabs-nav-content {
+    margin-bottom: -1px;
   }
 
-  .zent-tabs-nav-extra-content {
-    float: left;
-  }
-}
-
-.zent-tabs-type-card {
   .zent-tabs-tab {
-    @include background(border-color);
-    border-radius: 0;
-  }
+    @include border;
+    @include theme-color(background-color, stroke, 8);
+    border-left: 0;
+    min-width: 104px;
 
-  .zent-tabs-tab:first-child {
-    @include background(border-color);
-    border-radius: 0;
-  }
+    &-inner {
+      padding: 9px 16px;
+    }
 
-  .zent-tabs-tab:last-child {
-    @include background(border-color);
-    border-radius: 0;
-  }
+    &:first-child {
+      @include border(left);
+      border-top-left-radius: 4px;
+    }
 
-  .zent-tabs-actived {
-    @include background(border-color);
-    border-radius: 0;
-    border: 0;
+    &:last-child {
+      border-top-right-radius: 4px;
+    }
 
-    .zent-tabs-tab-inner {
-      @include theme-color(border-color, stroke, 6);
-      border-width: 1px;
-      border-style: solid;
+    &__actived {
+      @include theme-color(background-color, stroke, 9);
       border-bottom: 0;
-      border-top-left-radius: 6px;
-      border-top-right-radius: 6px;
-      background-color: white;
+      padding-bottom: 1px;
     }
   }
 }
 
-.zent-tabs-type-slider {
-  &.zent-tabs-nav {
-    border: 0;
-  }
+// 按钮模式样式
+.zent-tabs-nav-type__button {
+  @include content-stretch('.zent-btn');
+  height: 32px;
 
-  .zent-tabs-tab {
-    border: 0;
-    background-color: transparent;
-  }
-
-  .zent-tabs-actived {
-    background-color: transparent;
-
-    .zent-tabs-tab-inner {
-      background-color: transparent;
-    }
-  }
-
-  .zent-tabs-nav-ink-bar {
-    @include theme-color(background-color, primary, 5);
-    position: absolute;
-    display: block;
-    bottom: 2px;
-    height: 2px;
-    width: 0;
-    z-index: 10;
+  .zent-btn {
+    min-width: 80px;
   }
 }
 
-.zent-tabs-third-level {
-  @include theme-color(background-color, stroke, 8);
+// 垂直模式样式
+.zent-tabs-type__vertical {
+  flex-direction: row;
+
+  .zent-tabs-panel-wrapper {
+    margin: 14px 16px;
+  }
+
+  .zent-tabs-nav-type__vertical {
+    @include border(right);
+    width: 96px;
+    padding: 14px 7px 14px 0;
+
+    .zent-tabs-scroll {
+      overflow-x: hidden;
+      overflow-y: auto;
+      width: 103px;
+      flex-direction: column;
+    }
+
+    .zent-tabs-divide {
+      @include theme-color(border-bottom-color, stroke, 6);
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
+      margin: 21.5px 0 17.5px;
+    }
+
+    .zent-tabs-tab {
+      display: block;
+      text-align: left;
+      margin-top: 4px;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      &__actived {
+        .zent-tabs-tab-inner {
+          @include theme-color(background-color, stroke, 6);
+        }
+      }
+
+      &-inner {
+        border-radius: 2px;
+        padding: 8px;
+        overflow: hidden;
+        width: 86px;
+        box-sizing: border-box;
+        text-overflow: ellipsis;
+      }
+    }
+  }
 }

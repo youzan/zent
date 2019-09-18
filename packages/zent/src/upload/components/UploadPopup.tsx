@@ -12,7 +12,7 @@ import UploadImageItem from './UploadImageItem';
 import { initSortable, swapArray } from '../utils/sortable';
 import { formatFileSize } from '../utils';
 import { UID_KEY } from '../constants';
-import * as Sortable from 'sortablejs';
+import Sortable from 'sortablejs';
 
 class UploadPopup extends Component<any, any> {
   static defaultProps = {

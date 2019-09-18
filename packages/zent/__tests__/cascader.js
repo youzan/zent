@@ -198,7 +198,7 @@ describe('Cascader', () => {
     expect(allTabs[0].textContent).toBe('省份');
     expect(allTabs[1].textContent).toBe('城市');
     expect(allTabs[2].textContent).toBe('县区');
-    expect(allTabs[2].classList.contains('zent-tabs-actived')).toBe(true);
+    expect(allTabs[2].classList.contains('zent-tabs-tab__actived')).toBe(true);
 
     simulateRawWithTimers(document.querySelector('.zent-tabs-tab'), 'click');
     wrapper.update();
