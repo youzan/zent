@@ -62,6 +62,8 @@ export function Notice({
   type,
   closable = true,
   onClose,
+  className,
+  style,
 }: INoticeProps) {
   const ctx = React.useContext(NoticeContext);
   const onCloseClick = React.useCallback(() => {
@@ -69,7 +71,14 @@ export function Notice({
     onClose && onClose();
   }, [ctx, onClose]);
   return (
-    <div className={cx('zent-notice', { 'zent-notice-with-icon': !!type })}>
+    <div
+      className={cx(
+        'zent-notice',
+        { 'zent-notice-with-icon': !!type },
+        className
+      )}
+      style={style}
+    >
       {renderIcon(type)}
       <div className="zent-notice-title">{title}</div>
       {closable ? (
