@@ -251,7 +251,12 @@ export class Slider extends React.Component<ISliderProps, ISliderState> {
     let nextValue = this.getValueFromEvent(e);
     if (this.props.range) {
       const { value, min, max } = this.props;
-      const left = isLeftValue(nextValue, value);
+      let left: boolean;
+      if (value[0] === value[1]) {
+        left = e.movementX <= 0;
+      } else {
+        left = isLeftValue(nextValue, value);
+      }
       if (!this.state.active) {
         this.setState({
           active: left ? 'point-left' : 'point-right',
