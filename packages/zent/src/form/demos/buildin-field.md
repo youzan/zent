@@ -20,6 +20,7 @@ zh-CN:
 	ageText: 年龄
 	colorText: 喜欢的颜色
 	dateRangeText: 身份证有效期
+	dateQuickRangeText: 时间区间
 	dateRangeValidationErrors: 请填写有效期
 	isPublicText: 公开个人信息
 	agreeText: 同意许可条例
@@ -46,6 +47,7 @@ en-US:
 	ageText: Age
 	colorText: Favourite color
 	dateRangeText: Validity period
+	dateQuickRangeText: Time Range
 	dateRangeValidationErrors: Please select the dateRange
 	isPublicText: Public information
 	agreeText: All permissions
@@ -65,6 +67,7 @@ const {
 	FormCheckboxGroupField,
 	FormColorPickerField,
 	FormDateRangePickerField,
+	FormDateRangeQuickPickerField,
 	FormNumberInputField,
 	FormSwitchField,
 	createForm,
@@ -169,6 +172,10 @@ class FieldForm extends React.Component {
 					validationErrors={{
 						required: '{i18n.dateRangeValidationErrors}',
 					}}
+				/>
+				<FormDateRangeQuickPickerField
+					name="dateQuickRange"
+					label="{i18n.dateQuickRangeText}:"
 				/>
 				<FormSwitchField
 					name="isPublic"
