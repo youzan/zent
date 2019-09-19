@@ -300,10 +300,14 @@ export class NumberInput extends React.Component<
       }
     } else {
       const { onChange, decimal } = this.props;
+      const { value } = this.state as INumberInputDecimalState;
       if (onChange && this.props.value !== '' && this.state.input !== '') {
-        const str = (this.state.value as Decimal).toFixed(decimal);
-        if (str !== String(this.props.value)) {
-          onChange(str);
+        try {
+          if (!new Decimal(this.props.value!).eq(value)) {
+            onChange(value.toFixed(decimal));
+          }
+        } catch (error) {
+          onChange(value.toFixed(decimal));
         }
       }
     }

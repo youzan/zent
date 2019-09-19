@@ -33,9 +33,6 @@
     "<rootDir>/__tests__/portal/.+"
   ],
   "coveragePathIgnorePatterns": [
-    "<rootDir>/src/slider/common.ts",
-    "<rootDir>/src/slider/Container.tsx",
-    "<rootDir>/src/slider/Point.tsx",
     "<rootDir>/src/sortable",
     "<rootDir>/src/colorpicker/helpers/reactcss",
     "<rootDir>/src/colorpicker/SketchFields.tsx",
@@ -57,7 +54,6 @@
     "<rootDir>/src/form/.+",
     "<rootDir>/src/portal/.+",
     "<rootDir>/src/loading/.+",
-    "<rootDir>/src/slider/Points.tsx",
     "<rootDir>/src/utils/style/warnValidStyle.ts",
     "<rootDir>/src/utils/dom/getScollPosition.ts",
     "<rootDir>/src/auto-complete/AutoComplete.tsx",

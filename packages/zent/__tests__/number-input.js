@@ -2,6 +2,7 @@ import React from 'react';
 import Enzyme, { mount, render } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import NumberInput from 'number-input';
+import { trimLeadingPlus } from 'number-input/utils';
 import Decimal from 'big.js';
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -147,7 +148,16 @@ describe('NumberInput', () => {
   it('Null for empty input in integer mode', () => {
     let value = 0;
     const wrapper = mount(<NumberInput integer onChange={v => (value = v)} />);
-    wrapper.find('input').simulate('blur');
+    const input = wrapper.find('input');
+    input.simulate('blur');
     expect(value).toBe(null);
+    input.instance().value = '+1';
+    input.simulate('change');
+    input.simulate('blur');
+    expect(value).toBe(1);
+  });
+
+  it('Utils', () => {
+    expect(trimLeadingPlus('+1')).toBe('1');
   });
 });
