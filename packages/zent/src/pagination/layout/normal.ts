@@ -86,5 +86,70 @@ export default function normalLayout(
     }
   );
 
+  fixLeftEdgeCase(layout, current);
+  fixRightEdgeCase(layout, current);
+
+  return layout;
+}
+
+function fixLeftEdgeCase(layout: PaginationLayout[], current: number) {
+  if (layout.length < 4) {
+    return layout;
+  }
+
+  const left = layout[1];
+  const leftDoubleArrow = layout[2];
+  const right = layout[3];
+  if (
+    leftDoubleArrow.type === 'double-left-arrow' &&
+    left.type === 'number' &&
+    right.type === 'number'
+  ) {
+    const delta = right.page - left.page;
+
+    if (delta === 2) {
+      // 1 ... 3 将箭头替换成 2
+      const page = left.page + 1;
+      layout[2] = {
+        type: 'number',
+        page,
+        selected: current === page,
+      };
+    } else if (delta === 1) {
+      // 1 ... 2 将箭头删掉
+      layout.splice(2, 1);
+    }
+  }
+
+  return layout;
+}
+
+function fixRightEdgeCase(layout: PaginationLayout[], current: number) {
+  if (layout.length < 5) {
+    return layout;
+  }
+
+  const len = layout.length;
+  const right = layout[len - 2];
+  const rightDoubleArrow = layout[len - 3];
+  const left = layout[len - 4];
+  if (
+    rightDoubleArrow.type === 'double-right-arrow' &&
+    left.type === 'number' &&
+    right.type === 'number'
+  ) {
+    const delta = right.page - left.page;
+    if (delta === 2) {
+      const page = left.page + 1;
+      layout[len - 3] = {
+        type: 'number',
+        page,
+        selected: page === current,
+      };
+    } else if (delta === 1) {
+      layout.splice(len - 3, 1);
+    }
+  }
+
   return layout;
 }
