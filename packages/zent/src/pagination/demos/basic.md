@@ -12,7 +12,7 @@ import { Pagination, MiniPagination, LitePagination } from 'zent';
 class Test extends Component {
 	state = {
 		pageSize: 10,
-		current: 2,
+		current: 1,
 	};
 
 	onChange = options => {
