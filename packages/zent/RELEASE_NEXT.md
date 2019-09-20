@@ -203,13 +203,26 @@ import { Portal, PurePortal } from 'zent'
 
 如果之前依赖了 postcss 的源样式，需要改成 sass。
 
+## 7.0.0-next.33(2019-09-20)
+
+- 修复 `Loading` 的延迟
+- 修复 `Alert` 的样式
+- [重构 `Progress`](#progress)
+- [重构 `Tabs`](#tabs)
+- 修复 `Sortable.js` 的类型定义
+- `Rate` 增加 `readonly`
+- 修复 `Notice` 的 `className` 和 `style`
+- 重构 `Slider`，内部实现有变化
+- 修复 `DateQuickRangePicker` 在 `Form` 下的高亮
+
 ## 7.0.0-next.32(2019-09-16)
-- 修复select样式
-- button添加warning样式
-- 添加新组建Notice
-- 修复notify样式
-- 更新upload样式
-- 修复table类型定义
+
+- 修复 `Select` 样式
+- `Button` 添加 warning 样式
+- 添加新组建 `Notice`
+- 修复 `Notify` 样式
+- 更新 `Upload` 样式
+- 修复 `Table` 类型定义
 
 ## 7.0.0-next.31(2019-09-06)
 
