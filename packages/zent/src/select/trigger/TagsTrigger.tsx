@@ -27,6 +27,7 @@ export interface ITagsTriggerProps {
   onDelete: (val: ITagsTriggerItem) => void;
   onClick: React.MouseEventHandler<HTMLElement>;
   visible: boolean;
+  disabled: boolean;
 }
 
 class TagsTrigger extends PureComponent<ITagsTriggerProps, any> {
@@ -79,7 +80,10 @@ class TagsTrigger extends PureComponent<ITagsTriggerProps, any> {
   }
 
   deleteTagHandler(cid) {
-    const { selectedItems } = this.props;
+    const { selectedItems, disabled } = this.props;
+    if (disabled) {
+      return;
+    }
     const deleteItem = selectedItems.filter(item => item.cid === cid)[0];
     this.isDelete = true;
     this.props.onDelete(deleteItem);
