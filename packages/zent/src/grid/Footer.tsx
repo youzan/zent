@@ -11,6 +11,7 @@ import {
 } from './types';
 import { PaginationChangeHandler } from '../pagination/impl/BasePagination';
 import MiniPagination from '../pagination/MiniPagination';
+import BatchComponents from './BatchComponents';
 
 const defaultPageInfo = {
   current: 1,
@@ -23,6 +24,13 @@ export interface IGridFooterProps {
   paginationType: GridPaginationType;
   onChange: (conf: IGridOnChangeConfig) => any;
   onPaginationChange: (pageSize: number, current: number) => any;
+  store: any;
+  getDataKey: any;
+  onSelect: any;
+  datasets: any;
+  batchComponents: any;
+  selection: any;
+  checkboxPropsCache: any;
 }
 
 class Footer extends PureComponent<IGridFooterProps> {
@@ -49,12 +57,34 @@ class Footer extends PureComponent<IGridFooterProps> {
   };
 
   render() {
-    const { prefix, paginationType } = this.props;
+    const {
+      prefix,
+      paginationType,
+      store,
+      onSelect,
+      datasets,
+      getDataKey,
+      selection,
+      batchComponents,
+      checkboxPropsCache,
+    } = this.props;
     const curPageInfo = this.getDefaultPagination();
 
     if (curPageInfo) {
       return (
         <div className={`${prefix}-grid-tfoot`}>
+          {selection && batchComponents.length > 0 && (
+            <BatchComponents
+              store={store}
+              onSelect={onSelect}
+              datasets={datasets}
+              getDataKey={getDataKey}
+              selection={selection}
+              prefix={prefix}
+              batchComponents={batchComponents}
+              checkboxPropsCache={checkboxPropsCache}
+            />
+          )}
           <div className={classnames(`${prefix}-grid-tfoot-page`)}>
             {paginationType === 'default' && (
               <Pagination {...curPageInfo} onChange={this.handlePageChange} />

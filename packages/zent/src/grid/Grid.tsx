@@ -81,6 +81,7 @@ export interface IGridProps<Data = any> {
     row?: React.ComponentType;
   };
   rowProps?: (data: Data, index: number) => any;
+  batchComponents: any;
 }
 
 export interface IGridState {
@@ -113,6 +114,7 @@ export class Grid<Data = any> extends PureComponent<
     onRowClick: noop,
     ellipsis: false,
     onExpand: noop,
+    batchComponents: [],
   };
 
   mounted = false;
@@ -828,7 +830,15 @@ export class Grid<Data = any> extends PureComponent<
   }
 
   render() {
-    const { loading, pageInfo = {}, paginationType, bordered } = this.props;
+    const {
+      loading,
+      pageInfo = {},
+      paginationType,
+      bordered,
+      datasets,
+      batchComponents,
+      selection,
+    } = this.props;
     let className = `${prefix}-grid`;
     const borderedClassName = bordered ? `${prefix}-grid-bordered` : '';
     className = classnames(className, this.props.className, borderedClassName);
@@ -859,6 +869,13 @@ export class Grid<Data = any> extends PureComponent<
               paginationType={paginationType as GridPaginationType}
               onChange={this.onChange}
               onPaginationChange={this.onPaginationChange}
+              store={this.store}
+              datasets={datasets}
+              onSelect={this.handleBatchSelect}
+              getDataKey={this.getDataKey}
+              batchComponents={batchComponents}
+              selection={selection}
+              checkboxPropsCache={this.checkboxPropsCache}
             />,
           ];
 

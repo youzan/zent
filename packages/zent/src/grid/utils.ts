@@ -67,3 +67,15 @@ export function getLeafColumns<Data>(columns: Array<IGridInnerColumn<Data>>) {
   });
   return leafColumns;
 }
+
+export function isReactComponent(render) {
+  let isReact = false;
+
+  if (typeof render === 'function') {
+    if (render.prototype && render.prototype.isReactComponent) {
+      isReact = true;
+    }
+  }
+
+  return isReact;
+}
