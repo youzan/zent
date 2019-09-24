@@ -9,7 +9,8 @@
 
 .zent-upload {
   &.inline {
-    display: inline;
+    display: inline-block;
+    line-height: 0;
   }
 
   &.zent-dialog-r {
@@ -126,8 +127,9 @@
   .zent-upload-local-tips {
     @include theme-color(color, stroke, 3);
     clear: both;
-    padding-top: 7px;
+    padding-top: 12px;
     font-size: $font-size-small;
+    line-height: 1;
   }
 
   .zent-upload__upload-local-image-list {
@@ -137,7 +139,7 @@
     .zent-upload-image-item {
       position: relative;
       float: left;
-      margin: 0 10px 5px 0;
+      margin-right: 10px;
       width: 80px;
       height: 80px;
 
@@ -353,7 +355,7 @@
   @include theme-color(color, stroke, 3);
   line-height: 14px;
   font-size: $font-size-small;
-  margin-top: 9px;
+  margin-top: 12px;
   margin-bottom: 0;
   position: absolute;
 }
