@@ -9,11 +9,11 @@ import identity from 'lodash-es/identity';
 
 import Dialog from '../dialog';
 import { I18nReceiver as Receiver } from '../i18n';
+import Icon from '../icon';
 
 import UploadPopup from './components/UploadPopup';
 import FileInput from './components/FileInput';
 import { DEFAULT_ACCEPT } from './constants';
-import Icon from '../icon';
 
 const promiseNoop = () => new Promise(resolve => resolve([]));
 
