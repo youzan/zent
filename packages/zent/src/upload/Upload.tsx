@@ -172,7 +172,9 @@ export class Upload extends Component<IUploadProps, any> {
                 className={triggerClassName}
                 onClick={this.showUpload.bind(this, true)}
               >
-                {children || (Node && <Node />) || <span>+</span>}
+                {children || (Node && <Node />) || (
+                  <i className="zenticon zenticon-plus"></i>
+                )}
                 {uploadOptions.localOnly && uploadOptions.maxAmount === 1 && (
                   <FileInput {...uploadOptions} i18n={i18n} />
                 )}

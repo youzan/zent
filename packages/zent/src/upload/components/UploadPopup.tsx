@@ -202,7 +202,7 @@ class UploadPopup extends Component<any, any> {
           )}
           {!options.maxAmount || localFiles.length < options.maxAmount ? (
             <div className={`${prefix}-add-local-image-button pull-left`}>
-              +
+              <i className="zenticon zenticon-plus"></i>
               <FileInput
                 {...props.options}
                 auto={false}

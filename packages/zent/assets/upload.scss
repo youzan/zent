@@ -124,8 +124,9 @@
   }
 
   .zent-upload-local-tips {
+    @include theme-color(color, stroke, 3);
     clear: both;
-    padding-top: 20px;
+    padding-top: 7px;
     font-size: $font-size-small;
   }
 
@@ -136,7 +137,7 @@
     .zent-upload-image-item {
       position: relative;
       float: left;
-      margin: 0 10px 10px 0;
+      margin: 0 10px 5px 0;
       width: 80px;
       height: 80px;
 
@@ -335,24 +336,24 @@
   height: 80px;
   border-width: 1px;
   border-style: dashed;
-  line-height: 71px;
+  line-height: 76px;
   box-sizing: border-box;
   text-align: center;
-  font-size: 36px;
+  font-size: 24px;
   cursor: pointer;
   overflow: hidden;
   text-decoration: none;
 }
 
 .zent-upload-add-local-image-button {
-  margin: 0 20px 20px 0;
+  margin: 0 20px 0 0;
 }
 
 .zent-upload-tips {
-  @include theme-color(color, stroke, 2);
+  @include theme-color(color, stroke, 3);
   line-height: 14px;
   font-size: $font-size-small;
-  margin-top: 6px;
+  margin-top: 9px;
   margin-bottom: 0;
   position: absolute;
 }
