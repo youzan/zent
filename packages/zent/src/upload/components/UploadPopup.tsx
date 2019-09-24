@@ -9,6 +9,7 @@ import Select from '../../select';
 import FileInput from './FileInput';
 import uploadLocalImage from './UploadLocal';
 import UploadImageItem from './UploadImageItem';
+import Icon from '../../icon';
 import { initSortable, swapArray } from '../utils/sortable';
 import { formatFileSize } from '../utils';
 import { UID_KEY } from '../constants';
@@ -202,7 +203,7 @@ class UploadPopup extends Component<any, any> {
           )}
           {!options.maxAmount || localFiles.length < options.maxAmount ? (
             <div className={`${prefix}-add-local-image-button pull-left`}>
-              <i className="zenticon zenticon-plus"></i>
+              <Icon type="plus" />
               <FileInput
                 {...props.options}
                 auto={false}

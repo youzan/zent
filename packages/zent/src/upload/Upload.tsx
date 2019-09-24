@@ -13,6 +13,7 @@ import { I18nReceiver as Receiver } from '../i18n';
 import UploadPopup from './components/UploadPopup';
 import FileInput from './components/FileInput';
 import { DEFAULT_ACCEPT } from './constants';
+import Icon from '../icon';
 
 const promiseNoop = () => new Promise(resolve => resolve([]));
 
@@ -172,9 +173,7 @@ export class Upload extends Component<IUploadProps, any> {
                 className={triggerClassName}
                 onClick={this.showUpload.bind(this, true)}
               >
-                {children || (Node && <Node />) || (
-                  <i className="zenticon zenticon-plus"></i>
-                )}
+                {children || (Node && <Node />) || <Icon type="plus" />}
                 {uploadOptions.localOnly && uploadOptions.maxAmount === 1 && (
                   <FileInput {...uploadOptions} i18n={i18n} />
                 )}
