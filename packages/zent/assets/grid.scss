@@ -1,6 +1,17 @@
 @import './theme/default';
 @import './theme/font';
 
+@mixin caret($pos) {
+  @include theme-color(border-#{$pos}-color, stroke, 3);
+  width: 0;
+  height: 0;
+  border-left: 4.5px solid transparent;
+  border-right: 4.5px solid transparent;
+  border-#{$pos}-width: 6px;
+  border-#{$pos}-style: solid;
+  position: absolute;
+}
+
 .zent-grid {
   @include theme-color(color, stroke, 1);
   font-size: $font-size-normal;
@@ -81,27 +92,13 @@
 
   &-thead {
     .caret-up {
-      @include theme-color(border-bottom-color, stroke, 3);
-      width: 0;
-      height: 0;
-      border-left: 4.5px solid transparent;
-      border-right: 4.5px solid transparent;
-      border-bottom-width: 6px;
-      border-bottom-style: solid;
-      position: absolute;
+      @include caret(bottom);
       top: 2px;
       left: 6px;
     }
 
     .caret-down {
-      @include theme-color(border-top-color, stroke, 3);
-      width: 0;
-      height: 0;
-      border-left: 4.5px solid transparent;
-      border-right: 4.5px solid transparent;
-      border-top-width: 6px;
-      border-top-style: solid;
-      position: absolute;
+      @include caret(top);
       bottom: 1px;
       left: 6px;
     }
