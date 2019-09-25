@@ -168,33 +168,35 @@ export class Upload extends Component<IUploadProps, any> {
               showUploadPopup={this.showUpload}
             />
           ) : (
-            <div className={className}>
-              <span
-                className={triggerClassName}
-                onClick={this.showUpload.bind(this, true)}
-              >
-                {children || (Node && <Node />) || <Icon type="plus" />}
-                {uploadOptions.localOnly && uploadOptions.maxAmount === 1 && (
-                  <FileInput {...uploadOptions} i18n={i18n} />
-                )}
-              </span>
+            <React.Fragment>
+              <div className={className}>
+                <span
+                  className={triggerClassName}
+                  onClick={this.showUpload.bind(this, true)}
+                >
+                  {children || (Node && <Node />) || <Icon type="plus" />}
+                  {uploadOptions.localOnly && uploadOptions.maxAmount === 1 && (
+                    <FileInput {...uploadOptions} i18n={i18n} />
+                  )}
+                </span>
+                <Dialog
+                  title={i18n[`title_${this.props.type}`]}
+                  visible={visible}
+                  className={dialogClassName}
+                  onClose={this.closePopup}
+                >
+                  <UploadPopup
+                    prefix={`${prefix}-upload`}
+                    options={uploadOptions}
+                    accept={accept}
+                    className={className}
+                    i18n={i18n}
+                    showUploadPopup={this.showUpload}
+                  />
+                </Dialog>
+              </div>
               <p className={`${prefix}-upload-tips`}>{tips}</p>
-              <Dialog
-                title={i18n[`title_${this.props.type}`]}
-                visible={visible}
-                className={dialogClassName}
-                onClose={this.closePopup}
-              >
-                <UploadPopup
-                  prefix={`${prefix}-upload`}
-                  options={uploadOptions}
-                  accept={accept}
-                  className={className}
-                  i18n={i18n}
-                  showUploadPopup={this.showUpload}
-                />
-              </Dialog>
-            </div>
+            </React.Fragment>
           )
         }
       </Receiver>

@@ -10,7 +10,6 @@
 .zent-upload {
   &.inline {
     display: inline-block;
-    line-height: 0;
   }
 
   &.zent-dialog-r {
@@ -122,6 +121,7 @@
   .zent-upload-content {
     margin-top: -10px;
     height: 100%;
+    line-height: 0;
   }
 
   .zent-upload-local-tips {
@@ -129,7 +129,7 @@
     clear: both;
     padding-top: 12px;
     font-size: $font-size-small;
-    line-height: 1;
+    line-height: 14px;
   }
 
   .zent-upload__upload-local-image-list {
@@ -338,7 +338,7 @@
   height: 80px;
   border-width: 1px;
   border-style: dashed;
-  line-height: 76px;
+  line-height: 80px;
   box-sizing: border-box;
   text-align: center;
   font-size: 24px;

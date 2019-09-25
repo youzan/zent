@@ -54,7 +54,7 @@ class Simple extends React.Component {
 
     render() {
       return (
-        <div>
+        <div style={{lineHeight: 0}}>
           {this.state.imageList.map((item, index) => (
             <img width="80" height="80" key={index} src={item.src} style={{marginRight: '10px'}} />
           ))}
