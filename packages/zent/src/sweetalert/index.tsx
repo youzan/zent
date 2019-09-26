@@ -5,7 +5,7 @@ import { I18nReceiver as Receiver } from '../i18n';
 import Dialog from '../dialog';
 import Icon from '../icon';
 
-import ActionButton from './ActionButton';
+import ActionButton, { ActionButtonClickHandler } from './ActionButton';
 import { TitleIconMap } from './constants';
 
 export namespace Sweetalert {
@@ -13,7 +13,7 @@ export namespace Sweetalert {
     content?: React.ReactNode;
     type?: 'info' | 'success' | 'error' | 'warning';
     title?: React.ReactNode;
-    onConfirm?: (close?: () => void) => Promise<any> | boolean;
+    onConfirm?: ActionButtonClickHandler;
     confirmText?: string;
     confirmType?: 'default' | 'primary' | 'danger' | 'success';
     closeBtn?: boolean;
@@ -21,8 +21,10 @@ export namespace Sweetalert {
     parentComponent?: any;
     className?: string;
     prefix?: string;
-    onClose?: () => boolean | Promise<boolean>;
-    onCancel?: () => boolean | Promise<boolean>;
+    onCancel?: ActionButtonClickHandler;
+  }
+
+  export interface IConformOption extends IAlertOption {
     cancelText?: React.ReactNode;
   }
 }
@@ -43,7 +45,7 @@ const { openDialog } = Dialog;
  * @returns {function} [close function returned by openDialog]
  */
 function sweet(
-  config: Sweetalert.IAlertOption,
+  config: Sweetalert.IAlertOption & Sweetalert.IConformOption,
   sweetType: 'alert' | 'info' | 'confirm'
 ) {
   const {
@@ -60,7 +62,6 @@ function sweet(
     confirmText,
     cancelText,
     parentComponent,
-    onClose,
   } = config;
 
   // close 的引用地址，后续会指向函数的返回值，供 ActionButton 调用。
@@ -115,7 +116,7 @@ function sweet(
     children: content,
     footer: <Receiver componentName="Sweetalert">{renderButtons}</Receiver>,
     parentComponent,
-    onClose,
+    onClose: onConfirm,
   });
 
   return close;
