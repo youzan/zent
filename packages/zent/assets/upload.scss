@@ -333,7 +333,7 @@
 .zent-upload-trigger {
   @include theme-color(color, stroke, 2);
   @include theme-color(border-color, stroke, 5);
-  display: inline-block;
+  display: block;
   width: 80px;
   height: 80px;
   border-width: 1px;

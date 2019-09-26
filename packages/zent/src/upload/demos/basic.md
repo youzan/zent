@@ -54,11 +54,17 @@ class Simple extends React.Component {
 
     render() {
       return (
-        <div style={{lineHeight: 0}}>
+        <div>
+					<style jsx>{`
+          	.middle-vertical {
+							vertical-align: middle;
+						}
+					`}</style>
           {this.state.imageList.map((item, index) => (
-            <img width="80" height="80" key={index} src={item.src} style={{marginRight: '10px'}} />
+            <img className='middle-vertical' width="80" height="80" key={index} src={item.src} style={{marginRight: '10px'}} />
           ))}
-          <Upload
+					<Upload
+						className='middle-vertical'
 						maxSize={1 * 1024 * 1024}
 						maxAmount={2}
             triggerInline
