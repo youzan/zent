@@ -13,7 +13,7 @@ export namespace Sweetalert {
     content?: React.ReactNode;
     type?: 'info' | 'success' | 'error' | 'warning';
     title?: React.ReactNode;
-    onConfirm?: ((close: () => void) => void) | (() => Promise<any> | boolean);
+    onConfirm?: (close?: () => void) => Promise<any> | boolean;
     confirmText?: string;
     confirmType?: 'default' | 'primary' | 'danger' | 'success';
     closeBtn?: boolean;
@@ -21,11 +21,9 @@ export namespace Sweetalert {
     parentComponent?: any;
     className?: string;
     prefix?: string;
-  }
-
-  export interface IConfirmOption extends IAlertOption {
-    onCancel?: () => void;
-    cancelText?: string;
+    onClose?: () => boolean | Promise<boolean>;
+    onCancel?: () => boolean | Promise<boolean>;
+    cancelText?: React.ReactNode;
   }
 }
 
@@ -44,7 +42,10 @@ const { openDialog } = Dialog;
  * @param {string} sweetType [internal type of entry function]
  * @returns {function} [close function returned by openDialog]
  */
-function sweet(config, sweetType) {
+function sweet(
+  config: Sweetalert.IAlertOption,
+  sweetType: 'alert' | 'info' | 'confirm'
+) {
   const {
     className = '',
     prefix = 'zent',
@@ -59,13 +60,14 @@ function sweet(config, sweetType) {
     confirmText,
     cancelText,
     parentComponent,
+    onClose,
   } = config;
 
   // close 的引用地址，后续会指向函数的返回值，供 ActionButton 调用。
   let close = null;
 
   const renderTitle = i18n => {
-    const icon = TitleIconMap[type] || '';
+    const icon = TitleIconMap[type];
     return (
       <div className={`${prefix}-sweetalert-${type ? 'icon-' : ''}title`}>
         {type && (
@@ -113,6 +115,7 @@ function sweet(config, sweetType) {
     children: content,
     footer: <Receiver componentName="Sweetalert">{renderButtons}</Receiver>,
     parentComponent,
+    onClose,
   });
 
   return close;
@@ -124,7 +127,7 @@ export function alert(config: Sweetalert.IAlertOption = {}) {
 
 export const info = alert;
 
-export function confirm(config: Sweetalert.IConfirmOption = {}) {
+export function confirm(config: Sweetalert.IAlertOption = {}) {
   return sweet(config, 'confirm');
 }
 
