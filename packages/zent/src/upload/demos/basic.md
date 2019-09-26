@@ -83,3 +83,9 @@ ReactDOM.render(
   , mountNode
 );
 ```
+<style>
+	/* 上传图片组件垂直居中对齐(避免计算行高) */
+	.zent-upload-demo-pic {
+		vertical-align: middle;
+	}
+</style>
