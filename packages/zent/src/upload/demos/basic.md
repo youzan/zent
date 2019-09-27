@@ -56,9 +56,10 @@ class Simple extends React.Component {
       return (
         <div>
           {this.state.imageList.map((item, index) => (
-            <img width="80" height="80" key={index} src={item.src} style={{marginRight: '10px'}} />
+            <img className='zent-upload-demo-pic' width="80" height="80" key={index} src={item.src} style={{marginRight: '10px'}} />
           ))}
-          <Upload
+					<Upload
+						className='zent-upload-demo-pic'
 						maxSize={1 * 1024 * 1024}
 						maxAmount={2}
             triggerInline
@@ -82,3 +83,9 @@ ReactDOM.render(
   , mountNode
 );
 ```
+<style>
+	/* 上传图片组件垂直居中对齐(避免计算行高) */
+	.zent-upload-demo-pic {
+		vertical-align: middle;
+	}
+</style>

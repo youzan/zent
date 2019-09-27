@@ -6,6 +6,7 @@ import { Component } from 'react';
 import Button from '../../button';
 import Input from '../../input';
 import Select from '../../select';
+import Icon from '../../icon';
 import FileInput from './FileInput';
 import uploadLocalImage from './UploadLocal';
 import UploadImageItem from './UploadImageItem';
@@ -202,7 +203,7 @@ class UploadPopup extends Component<any, any> {
           )}
           {!options.maxAmount || localFiles.length < options.maxAmount ? (
             <div className={`${prefix}-add-local-image-button pull-left`}>
-              +
+              <Icon type="plus" />
               <FileInput
                 {...props.options}
                 auto={false}
