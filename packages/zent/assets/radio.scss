@@ -130,7 +130,7 @@ $inner-circle-offset: ($outer-circle-size - $inner-circle-size - 2px) / 2;
     }
 
     & .zent-radio + span {
-      @include theme-color(color, stroke, 4);
+      @include theme-color(color, stroke, 3);
     }
   }
 }
