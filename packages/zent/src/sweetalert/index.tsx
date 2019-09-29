@@ -22,6 +22,7 @@ export namespace Sweetalert {
     className?: string;
     prefix?: string;
     onCancel?: ActionButtonClickHandler;
+    onClose?: () => void;
   }
 
   export interface IConformOption extends IAlertOption {
@@ -62,6 +63,7 @@ function sweet(
     confirmText,
     cancelText,
     parentComponent,
+    onClose,
   } = config;
 
   // close 的引用地址，后续会指向函数的返回值，供 ActionButton 调用。
@@ -116,7 +118,7 @@ function sweet(
     children: content,
     footer: <Receiver componentName="Sweetalert">{renderButtons}</Receiver>,
     parentComponent,
-    onClose: onConfirm,
+    onClose,
   });
 
   return close;
