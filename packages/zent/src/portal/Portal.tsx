@@ -91,6 +91,7 @@ export interface IPortalProps extends Partial<IPurePortalProps> {
 export interface IPortalImperativeHandlers {
   contains(node: Node): boolean;
   purePortalRef: React.RefObject<PurePortal | undefined>;
+  container: HTMLElement;
 }
 
 export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
@@ -126,8 +127,9 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
           return purePortal.contains(node);
         },
         purePortalRef,
+        container: node,
       }),
-      []
+      [node]
     );
 
     useLayoutEffect(() => {
