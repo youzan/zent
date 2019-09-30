@@ -47,6 +47,7 @@
     "@babel/preset-env": "^7.1.6",
     "@babel/preset-react": "^7.0.0",
     "@babel/types": "^7.1.6",
+    "@hot-loader/react-dom": "16.8.x",
     "autoprefixer": "^9.4.6",
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.0.5",

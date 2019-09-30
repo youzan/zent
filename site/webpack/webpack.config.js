@@ -25,6 +25,7 @@ module.exports = {
     extensions: ['.tsx', '.ts', '.js', '.pcss', '.md'],
     alias: Object.assign(
       {
+        'react-dom': '@hot-loader/react-dom',
         zent$: join(__dirname, '../zent'),
       },
       createAlias(resolve(__dirname, '../../packages/zent/src'))
