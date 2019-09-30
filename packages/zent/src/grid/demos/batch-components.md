@@ -19,7 +19,7 @@ en-US:
 ---
 
 ```jsx
-import { Grid, Notify } from 'zent';
+import { Grid, Notify, Button } from 'zent';
 
 const columns = [
 	{
@@ -57,6 +57,24 @@ for (let i = 0; i < 5; i++) {
 	});
 }
 
+class Customer extends React.Component {
+	onClick = () => {
+		Notify.success(`${this.props.data.length} elements was selected`);
+	};
+
+	render() {
+		return (
+			<button
+				key="comp"
+				className="child-comps zent-btn"
+				onClick={this.onClick}
+			>
+				Click
+			</button>
+		);
+	}
+}
+
 class Selection extends React.Component {
 	state = {
 		selectedRowKeys: ['f-0'],
@@ -85,7 +103,6 @@ class Selection extends React.Component {
 				selection={{
 					selectedRowKeys: this.state.selectedRowKeys,
 					onSelect: (selectedRowKeys, selectedRows, currentRow) => {
-            console.log('selectedRows------------->', selectedRows);
 						this.setState({
               selectedRowKeys,
             });
@@ -95,8 +112,28 @@ class Selection extends React.Component {
 					}),
 				}}
 				rowKey="id"
-        onChange={this.onChange}
-        batchComponents={[(data) => {return <div>批量操作0</div>}, '批量操作1', '批量操作2', '批量操作3', '批量操作4']}
+				onChange={this.onChange}
+				batchComponents={[
+					<span key="pure" className="child-comps">
+						This is a DOM element.{' '}
+					</span>,
+					({ data }) => {
+						return (
+							<span
+								key="func"
+								className="child-comps"
+								style={{ color: 'blueviolet' }}
+								onClick={() => {
+									console.log(data);
+								}}
+							>
+								{' '}
+								This is a function, {data.length} elements was selected.{' '}
+							</span>
+						);
+					},
+					Customer,
+				]}
 			/>
 		);
 	}

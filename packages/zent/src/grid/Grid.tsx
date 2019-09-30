@@ -81,7 +81,7 @@ export interface IGridProps<Data = any> {
     row?: React.ComponentType;
   };
   rowProps?: (data: Data, index: number) => any;
-  batchComponents: any;
+  batchComponents: React.ReactNode[];
 }
 
 export interface IGridState {
@@ -838,6 +838,7 @@ export class Grid<Data = any> extends PureComponent<
       datasets,
       batchComponents,
       selection,
+      rowKey,
     } = this.props;
     let className = `${prefix}-grid`;
     const borderedClassName = bordered ? `${prefix}-grid-bordered` : '';
@@ -864,6 +865,7 @@ export class Grid<Data = any> extends PureComponent<
             this.getEmpty(i18n),
             <Footer
               key="footer"
+              rowKey={rowKey}
               prefix={prefix}
               pageInfo={pageInfo}
               paginationType={paginationType as GridPaginationType}
