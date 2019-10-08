@@ -25,7 +25,7 @@ export namespace Sweetalert {
     onClose?: () => void;
   }
 
-  export interface IConformOption extends IAlertOption {
+  export interface IConfirmOption extends IAlertOption {
     cancelText?: React.ReactNode;
   }
 }
@@ -46,7 +46,7 @@ const { openDialog } = Dialog;
  * @returns {function} [close function returned by openDialog]
  */
 function sweet(
-  config: Sweetalert.IAlertOption & Sweetalert.IConformOption,
+  config: Sweetalert.IAlertOption & Sweetalert.IConfirmOption,
   sweetType: 'alert' | 'info' | 'confirm'
 ) {
   const {
@@ -130,7 +130,7 @@ export function alert(config: Sweetalert.IAlertOption = {}) {
 
 export const info = alert;
 
-export function confirm(config: Sweetalert.IAlertOption = {}) {
+export function confirm(config: Sweetalert.IConfirmOption = {}) {
   return sweet(config, 'confirm');
 }
 
