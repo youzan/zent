@@ -204,6 +204,17 @@ import { Portal, PurePortal } from 'zent'
 
 如果之前依赖了 postcss 的源样式，需要改成 sass。
 
+## 7.0.0-next.35(2019-10-10)
+
+- [Pagination] 修复样式问题
+- [Alert] 修复样式问题 
+- [Grid] 修改grid排序icon样式
+- [Upload] 样式修改
+- [Checkbox] 样式修改
+- [Sweetalert] 添加`onClose`回调
+- [Tree] 修复`Tree`会修改外部传入的数据
+- [Tabs] 添加类型不匹配时的默认展示行为
+
 ## 7.0.0-next.33(2019-09-20)
 
 - 修复 `Loading` 的延迟
