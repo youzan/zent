@@ -56,31 +56,27 @@ export default function createStateByProps({
   if (dataType === 'plain') {
     // 记录每个节点map表， { id: node }
     const map: { [key: string]: ITreeData } = {};
-    const orderRecord: string[] = [];
 
-    data.forEach((node, index) => {
+    data.forEach(node => {
+      map[node[id]] = { ...node };
       if (!node.isLeaf) {
-        node[children] = [];
+        map[node[id]][children] = [];
       }
-
-      map[node[id]] = node;
-      orderRecord[index] = node[id];
     });
 
-    orderRecord.forEach(key => {
-      const node = map[key];
-
+    data.forEach(node => {
       const isRootNode =
         (isRoot && isRoot(node)) ||
         node[parentId] === 0 ||
         node[parentId] === undefined ||
         node[parentId] === '0';
 
+      const markNode = map[node[id]];
       if (isRootNode) {
-        roots.push(node);
-      } else if (map[node[parentId]]) {
+        roots.push(markNode);
+      } else if (map[markNode[parentId]]) {
         // 防止只删除父节点没有子节点的情况
-        map[node[parentId]][children].push(node);
+        map[markNode[parentId]][children].push(markNode);
       }
     });
   } else if (dataType === 'tree') {

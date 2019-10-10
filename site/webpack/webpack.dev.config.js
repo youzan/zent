@@ -14,5 +14,11 @@ module.exports = merge.smart(base, {
 
   devtool: 'inline-cheap-module-source-map',
 
+  resolve: {
+    alias: {
+      'react-dom': '@hot-loader/react-dom',
+    },
+  },
+
   plugins: [new webpack.HotModuleReplacementPlugin()],
 });
