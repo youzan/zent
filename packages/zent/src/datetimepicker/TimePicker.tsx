@@ -17,11 +17,11 @@ import { DatePickers } from './common/types';
 
 const DEFAULT_FORMAT = 'HH:mm:ss';
 const DEFAULT_FORMAT_WITHOUT_SECOND = 'HH:mm';
-const TIME_KEY = {
-  HOUR: 'hour',
-  MINUTE: 'minute',
-  SECOND: 'second',
-};
+enum TIME_KEY {
+  HOUR = 'hour',
+  MINUTE = 'minute',
+  SECOND = 'second',
+}
 
 /**
  * 如果 props.format 有修改，则使用之，否则检查showSecond，判断是否要显示秒
@@ -43,7 +43,7 @@ const disabledMap = {
   second: 'disabledSecond',
 };
 
-function extractStateFromProps(props: ITimePickerProps) {
+function extractStateFromProps(props: ITimePickerProps): ITimePickerState {
   const parsedDate = parseDate(props.value || '', getFormat(props));
 
   if (!parsedDate) {
@@ -68,7 +68,17 @@ export interface ITimePickerProps extends DatePickers.ICommonProps {
   disabledTime?: () => DatePickers.IDisabledTime;
 }
 
-export class TimePicker extends PureComponent<ITimePickerProps, any> {
+export interface ITimePickerState {
+  value: Date;
+  tabKey?: TIME_KEY | null;
+  isPanelOpen: boolean;
+  prevProps: ITimePickerProps;
+}
+
+export class TimePicker extends PureComponent<
+  ITimePickerProps,
+  ITimePickerState
+> {
   static defaultProps = {
     ...commonProps,
     placeholder: '',
@@ -83,7 +93,10 @@ export class TimePicker extends PureComponent<ITimePickerProps, any> {
   retType = 'string';
   disabledTime: Partial<DatePickers.IDisabledTime>;
 
-  static getDerivedStateFromProps(props: ITimePickerProps, state: any) {
+  static getDerivedStateFromProps(
+    props: ITimePickerProps,
+    state: ITimePickerState
+  ): Partial<ITimePickerState> | null {
     if (props !== state.prevProps) {
       return extractStateFromProps(props);
     }
@@ -102,7 +115,7 @@ export class TimePicker extends PureComponent<ITimePickerProps, any> {
       if (typeof value === 'number') this.retType = 'number';
       if (value instanceof Date) this.retType = 'date';
     }
-    const state: any = extractStateFromProps(props);
+    const state = extractStateFromProps(props);
     state.tabKey = TIME_KEY.HOUR;
     this.state = state;
     this.disabledTime = (props.disabledTime && props.disabledTime()) || {};
@@ -262,7 +275,7 @@ export class TimePicker extends PureComponent<ITimePickerProps, any> {
 
   resetTime = () => {
     this.setState({
-      value: extractStateFromProps(this.props),
+      value: extractStateFromProps(this.props).value,
     });
   };
 
