@@ -11,7 +11,7 @@ import cloneDeep from 'lodash-es/cloneDeep';
 import assign from 'lodash-es/assign';
 
 import Popover from '../popover';
-
+import Option from './components/Option';
 import Trigger from './trigger';
 import Popup from './Popup';
 import SelectTrigger from './trigger/BaseTrigger';
