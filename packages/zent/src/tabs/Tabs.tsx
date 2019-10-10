@@ -87,13 +87,8 @@ export class Tabs<Id extends string | number = string> extends BaseTabs<
     const { type, candel, stretch, navExtraContent, onChange, onDelete } = this
       .props as ITabsInnerProps<Id>;
 
-    const TabsNavComp = TabsNavComponents[type] as React.ComponentClass<
-      ITabsNavProps<Id>
-    >;
-
-    if (!TabsNavComp) {
-      return null;
-    }
+    const TabsNavComp = (TabsNavComponents[type] ||
+      TabsNavComponents['normal']) as React.ComponentClass<ITabsNavProps<Id>>;
 
     return (
       <TabsNavComp
