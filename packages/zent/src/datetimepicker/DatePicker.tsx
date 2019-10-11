@@ -43,7 +43,7 @@ function extractStateFromProps(props: IDatePickerProps) {
       selected = tmp;
       actived = setTime(tmp);
     } else {
-      console.warn("date and format don't match."); // eslint-disable-line
+      console.warn('date and format mismatch'); // eslint-disable-line
       showPlaceholder = true;
       actived = dayStart();
     }

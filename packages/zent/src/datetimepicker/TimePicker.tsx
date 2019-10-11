@@ -44,14 +44,21 @@ const disabledMap = {
 };
 
 function extractStateFromProps(props: ITimePickerProps): ITimePickerState {
-  const parsedDate = parseDate(props.value || '', getFormat(props));
+  const { value } = props;
+  let parsedDate;
 
-  if (!parsedDate) {
-    console.warn("time and format don't match."); // eslint-disable-line
+  if (value) {
+    parsedDate = parseDate(value, getFormat(props));
+    if (!parsedDate) {
+      console.warn('time and format mismatch'); // eslint-disable-line
+    }
+  } else {
+    // 利用传入的format解析value，失败则返回默认值
+    parsedDate = dayStart();
   }
 
   return {
-    value: parsedDate || dayStart(), // 利用传入的format解析value，失败则返回默认值
+    value: parsedDate,
     isPanelOpen: false,
     prevProps: props,
   };
