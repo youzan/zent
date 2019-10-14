@@ -2,6 +2,7 @@ import * as React from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { isElement } from 'react-is';
 import nextFrame from '../utils/nextFrame';
+import { instanceMap } from './Container';
 
 export interface INoticeWrapProps {
   id: number;
@@ -91,6 +92,11 @@ export default class NoticeWrap extends React.Component<
         this.timer = setTimeout(() => this.leave(), timeout) as any;
       }
     }
+  }
+
+  componentWillUnmount() {
+    const { id } = this.props;
+    instanceMap.delete(id);
   }
 
   render() {

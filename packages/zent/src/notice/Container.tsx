@@ -63,7 +63,7 @@ interface INoticeContainerState {
 
 let uniqueId = 0;
 
-const instanceMap = new Map<number, React.RefObject<Wrap>>();
+export const instanceMap = new Map<number, React.RefObject<Wrap>>();
 
 class NoticeContainer extends React.Component<
   INoticeContainerProps,
@@ -88,6 +88,7 @@ class NoticeContainer extends React.Component<
       </Wrap>
     );
     uniqueId += 1;
+    instanceMap.set(id, ref);
     this.setState(state => ({
       list: state.list.concat([el]),
     }));
