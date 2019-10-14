@@ -54,6 +54,10 @@ $large-size: 40px;
   }
 
   &__not-editable {
+    &.zent-input-wrapper {
+      @include theme-color(background-color, stroke, 8);
+    }
+
     .zent-input-addon-before,
     .zent-input-addon-after {
       @include theme-color(border-color, stroke, 5);
