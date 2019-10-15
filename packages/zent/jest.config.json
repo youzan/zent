@@ -116,6 +116,8 @@
     "^infinite-scroller/(.+)$": "<rootDir>/src/infinite-scroller/$1",
     "^input$": "<rootDir>/src/input",
     "^input/(.+)$": "<rootDir>/src/input/$1",
+    "^ime-composition$": "<rootDir>/src/ime-composition",
+    "^ime-composition/(.+)$": "<rootDir>/src/ime-composition/$1",
     "^layout$": "<rootDir>/src/layout",
     "^layout/(.+)$": "<rootDir>/src/layout/$1",
     "^loading$": "<rootDir>/src/loading",
