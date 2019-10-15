@@ -204,6 +204,11 @@ import { Portal, PurePortal } from 'zent'
 
 如果之前依赖了 postcss 的源样式，需要改成 sass。
 
+## 7.0.0-next.38(2019-10-15)
+
+- 修复`Input`样式问题
+- 修复`Notice.close`
+
 ## 7.0.0-next.37(2019-10-10)
 
 - 修复 TimePicker resetTime 的问题
