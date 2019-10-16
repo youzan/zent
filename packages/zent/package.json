@@ -18,7 +18,8 @@
     "test": "./scripts/test.sh",
     "build": "./scripts/build.sh",
     "theme": "./scripts/build-theme.sh",
-    "new-component": "node ./scripts/new-component.js"
+    "new-component": "node ./scripts/new-component.js",
+    "typedoc": "typedoc --out ../../site/dist/apidoc --mode file"
   },
   "author": "Youzan FE",
   "license": "MIT",
@@ -75,6 +76,7 @@
     "ts-jest": "^24.0.0",
     "ts-node": "^8.0.3",
     "tslint": "^5.14.0",
+    "typedoc": "git+https://github.com/TypeStrong/typedoc.git#695d996",
     "typescript": "~3.6.0"
   },
   "peerDependencies": {
