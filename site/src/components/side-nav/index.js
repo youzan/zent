@@ -42,7 +42,7 @@ export default class SideNav extends Component {
   );
 
   parseList = (navItem, index) => {
-    const { title, subtitle, hidden } = navItem;
+    const { title, subtitle, hidden, link } = navItem;
 
     if (hidden) {
       return null;
@@ -58,13 +58,19 @@ export default class SideNav extends Component {
 
     return navItem.disabled ? null : (
       <li className="nav-item" key={`nav-list-${index}`}>
-        <NavLink
-          activeClassName="active"
-          exact
-          to={getFullPath(this.props.base, navItem.path)}
-        >
-          {linkTitle}
-        </NavLink>
+        {navItem.link ? (
+          <a href={link} target="_blank" rel="noopener noreferrer">
+            {title}
+          </a>
+        ) : (
+          <NavLink
+            activeClassName="active"
+            exact
+            to={getFullPath(this.props.base, navItem.path)}
+          >
+            {linkTitle}
+          </NavLink>
+        )}
       </li>
     );
   };
