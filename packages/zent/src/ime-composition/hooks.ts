@@ -74,7 +74,7 @@ export function createUseIMEComposition(
     );
 
     return {
-      value: ctx.enable ? compositionValue : propValue,
+      value: ctx.enable ? compositionValue : propValue || '',
       onChange: ctx.enable ? onCompositionValueChange : onChangeProp,
       onCompositionStart,
       onCompositionEnd,
