@@ -245,7 +245,7 @@ import { Portal, PurePortal } from 'zent'
 
 - 修复 `Select` 样式
 - `Button` 添加 warning 样式
-- 添加新组建 `Notice`
+- 添加新组件 `Notice`
 - 修复 `Notify` 样式
 - 更新 `Upload` 样式
 - 修复 `Table` 类型定义
