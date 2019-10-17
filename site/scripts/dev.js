@@ -1,4 +1,4 @@
-const { resolve } = require('path');
+const path = require('path');
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 const cp = require('child_process');
@@ -39,7 +39,7 @@ const server = new WebpackDevServer(compiler, {
     colors: true,
   },
   hot: true,
-  contentBase: resolve(__dirname, 'dist'),
+  contentBase: path.resolve(__dirname, '../dist'),
   publicPath: '/',
   disableHostCheck: true,
   inline: true,
