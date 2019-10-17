@@ -20,7 +20,7 @@ module.exports = {
             },
             {
               title: 'API文档',
-              link: '/zent-beta/apidoc',
+              link: 'apidoc',
             },
             {
               title: 'babel-plugin-zent',
@@ -132,7 +132,7 @@ module.exports = {
             },
             {
               title: 'API Document',
-              link: '/zent-beta/apidoc',
+              link: 'apidoc',
             },
             {
               title: 'babel-plugin-zent',

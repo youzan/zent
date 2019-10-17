@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import RouterContext from '../router-context-type';
+import { prefix } from '../../constants';
 
 import './style.scss';
 
@@ -59,7 +60,11 @@ export default class SideNav extends Component {
     return navItem.disabled ? null : (
       <li className="nav-item" key={`nav-list-${index}`}>
         {navItem.link ? (
-          <a href={link} target="_blank" rel="noopener noreferrer">
+          <a
+            href={`${prefix}${link}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             {title}
           </a>
         ) : (
