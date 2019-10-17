@@ -19,6 +19,10 @@ module.exports = {
                 "DocLoadable({ loader: () => import('../../packages/zent/docs/I18N_zh-CN.md') })",
             },
             {
+              title: 'API文档',
+              link: 'apidoc',
+            },
+            {
               title: 'babel-plugin-zent',
               path: 'guides/babel-plugin-zent',
               hidden: true,
@@ -125,6 +129,10 @@ module.exports = {
               path: 'guides/i18n',
               source:
                 "DocLoadable({ loader: () => import('../../packages/zent/docs/I18N_en-US.md') })",
+            },
+            {
+              title: 'API Document',
+              link: 'apidoc',
             },
             {
               title: 'babel-plugin-zent',
