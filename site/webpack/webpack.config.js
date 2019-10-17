@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const Fiber = require('fibers');
 const sass = require('sass');
 const os = require('os');
-const { join, resolve } = require('path');
+const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
@@ -16,18 +16,18 @@ module.exports = {
   mode: process.env.NODE_ENV,
 
   output: {
-    path: join(__dirname, '../dist'),
+    path: path.resolve(__dirname, '../dist'),
     filename: '[name]-[hash].js',
     publicPath: constants.prefix,
   },
 
   resolve: {
-    extensions: ['.tsx', '.ts', '.js', '.pcss', '.md'],
+    extensions: ['.tsx', '.ts', '.js', '.md'],
     alias: Object.assign(
       {
-        zent$: join(__dirname, '../zent'),
+        zent$: path.resolve(__dirname, '../zent'),
       },
-      createAlias(resolve(__dirname, '../../packages/zent/src'))
+      createAlias(path.resolve(__dirname, '../../packages/zent/src'))
     ),
   },
 
@@ -123,7 +123,7 @@ module.exports = {
           {
             loader: 'react-markdown-doc-loader',
             options: {
-              jsTemplate: join(__dirname, '../react-template.jstpl'),
+              jsTemplate: path.resolve(__dirname, '../react-template.jstpl'),
               renderers: {
                 markdown: 'Markdown',
                 style: 'Style',
