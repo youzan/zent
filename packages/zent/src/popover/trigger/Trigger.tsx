@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Component, Children } from 'react';
 import PopoverContext, { IPopoverContext } from '../Context';
+import Anchor from '../Anchor';
 
 export interface IIsOutsideProps {
   contentNode: Element;
@@ -44,7 +45,9 @@ export class PopoverTrigger<
     if (typeof child === 'number' || typeof child === 'string') {
       child = <span>{child}</span>;
     }
-    return React.cloneElement(child, this.getTriggerProps(child));
+    return (
+      <Anchor>{React.cloneElement(child, this.getTriggerProps(child))}</Anchor>
+    );
   }
 }
 
