@@ -159,9 +159,9 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
   static getDerivedStateFromProps(
     props: IPopoverProps
   ): Partial<IPopoverState> | null {
-    if ('visible' in props) {
+    if (typeof props.visible === 'boolean') {
       return {
-        visible: !!props.visible,
+        visible: props.visible,
       };
     }
     return null;

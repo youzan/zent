@@ -33,7 +33,7 @@ export function PopoverHoverTrigger<
   propsRef.current = props;
   const visible$ = React.useMemo(() => new Subject<boolean>(), []);
   React.useEffect(() => {
-    visible$
+    const $ = visible$
       .pipe(
         switchMap(visible => {
           const { hideDelay = 150, showDelay = 150 } = propsRef.current;
@@ -43,6 +43,7 @@ export function PopoverHoverTrigger<
       .subscribe(visible => {
         ctx.popover.setVisible(visible);
       });
+    return () => $.unsubscribe();
   }, []);
   const { children } = props;
   const { portalRef, didMount } = ctx;
@@ -62,11 +63,16 @@ export function PopoverHoverTrigger<
       }
       visible$.next(false);
     }
+    function onWindowBlur() {
+      visible$.next(false);
+    }
     container.addEventListener('mouseenter', onMouseEnter);
     container.addEventListener('mouseleave', onMouseLeave);
+    window.addEventListener('blur', onWindowBlur);
     return () => {
       container.removeEventListener('mouseenter', onMouseEnter);
       container.removeEventListener('mouseleave', onMouseLeave);
+      window.removeEventListener('blur', onWindowBlur);
     };
   });
   const child = React.useMemo(() => {
