@@ -74,8 +74,7 @@ function PopoverContent({ children }: IPopoverContentProps) {
   const [position, setPosition] = React.useState(INVISIBLE_POSITION);
   const contextRef = React.useRef(ctx);
   contextRef.current = ctx;
-  const { containerSelector, anchor$ } = ctx;
-  const portalRef = React.useRef<IPortalImperativeHandlers>(null);
+  const { containerSelector, anchor$, portalRef } = ctx;
   const getContainer = useLazy(
     () => document.querySelector(containerSelector),
     [containerSelector]

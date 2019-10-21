@@ -59,7 +59,8 @@ export function PopoverClickTrigger<
     if (isElement(children)) {
       return React.cloneElement(children, {
         onClick(e: any) {
-          children.props.onClick(e);
+          const { onClick } = children.props as IPopoverClickTriggerChildProps;
+          onClick && onClick(e);
           if (toggle) {
             ctx.popover.setVisible(!ctx.visible);
           } else {
@@ -82,11 +83,7 @@ export function PopoverClickTrigger<
       </span>
     );
   }, [ctx, toggle]);
-  return (
-    <Anchor ref={anchorRef}>
-      <div>{child}</div>
-    </Anchor>
-  );
+  return <Anchor ref={anchorRef}>{child}</Anchor>;
 }
 
 export default PopoverClickTrigger;
