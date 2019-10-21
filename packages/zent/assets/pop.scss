@@ -1,5 +1,6 @@
 @import './theme/default';
 @import './theme/font';
+@import './mixins/popup';
 
 // FIXME: these values and ARROW_OFFSET_* in postion.js are interrelated
 $arrow-offset-h: 12px;
@@ -10,11 +11,10 @@ $arrow-cover-size: 11px;
 .zent-pop {
   @include font-normal;
   @include theme-color(background-color, stroke, 9);
-
-  border-radius: 2px;
-  box-shadow: $shadow-spec-layer;
-  z-index: 2000;
-  position: relative;
+  @include popup(2000);
+  display: flex;
+  padding: 13px 12px;
+  max-width: 640px;
 
   &-arrow {
     width: 16px;
@@ -37,15 +37,7 @@ $arrow-cover-size: 11px;
     }
   }
 
-  & &-inner,
-  & &-header {
-    position: relative;
-    border-radius: 2px;
-    padding: 13px 12px;
-    z-index: 2;
-  }
-
-  & &-header {
+  &-header {
     @include font-large;
 
     border-bottom-left-radius: 0;
@@ -54,25 +46,34 @@ $arrow-cover-size: 11px;
     font-weight: $font-weight-bold;
   }
 
-  & &-buttons {
-    text-align: right;
-    vertical-align: top;
+  &-buttons {
+    display: flex;
   }
 
   &--no-header {
+    flex-direction: row;
+
     .zent-pop-buttons {
-      display: inline-block;
       margin-left: 24px;
+      align-items: flex-start;
     }
   }
 
   &--has-header {
+    flex-direction: column;
+
+    .zent-pop-inner {
+      margin-top: 13px;
+    }
+
     .zent-pop-buttons {
       margin-top: 16px;
+      align-items: center;
+      justify-content: end;
     }
   }
 
-  &-portal.zent-popover-position {
+  &.zent-popover-position {
     // bottom side
     &-bottom-left,
     &-bottom-center,

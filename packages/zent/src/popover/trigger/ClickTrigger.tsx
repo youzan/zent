@@ -12,7 +12,7 @@ export interface IPopoverClickTriggerChildProps {
 export interface IPopoverClickTriggerProps<
   ChildProps extends IPopoverClickTriggerChildProps
 > {
-  autoClose?: boolean;
+  closeOnClickOutside?: boolean;
   toggle?: boolean;
   children?: string | number | React.ReactElement<ChildProps, any>;
 }
@@ -36,23 +36,31 @@ function isOutside(
 
 export function PopoverClickTrigger<
   ChildProps extends IPopoverClickTriggerChildProps = IPopoverClickTriggerChildProps
->({ children, toggle }: IPopoverClickTriggerProps<ChildProps>) {
+>({
+  children,
+  toggle,
+  closeOnClickOutside = true,
+}: IPopoverClickTriggerProps<ChildProps>) {
   const ctx = React.useContext(Context);
   if (!ctx) {
     throw new Error('PopoverClickTrigger must be child of Popover');
   }
   const anchorRef = React.useRef<Anchor>(null);
-  const globalClick = React.useCallback((e: MouseEvent) => {
-    if (
-      isOutside(
-        e.target as Element,
-        ctx.portalRef.current!,
-        anchorRef.current!.element
-      )
-    ) {
-      ctx.popover.setVisible(false);
-    }
-  }, []);
+  const globalClick = React.useCallback(
+    (e: MouseEvent) => {
+      if (
+        closeOnClickOutside &&
+        isOutside(
+          e.target as Element,
+          ctx.portalRef.current!,
+          anchorRef.current!.element
+        )
+      ) {
+        ctx.popover.setVisible(false);
+      }
+    },
+    [!!closeOnClickOutside]
+  );
   useWindowEvent('click', globalClick);
 
   const child = React.useMemo(() => {
