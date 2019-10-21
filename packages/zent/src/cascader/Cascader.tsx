@@ -2,41 +2,13 @@ import * as React from 'react';
 import { PureComponent } from 'react';
 import classnames from 'classnames';
 import noop from 'lodash-es/noop';
-import { isElement } from 'react-is';
 
-import Popover, { IPopoverClickTriggerChildProps } from '../popover';
+import Popover from '../popover';
 import Icon from '../icon';
 import { I18nReceiver as Receiver } from '../i18n';
 import { ICascaderItem, CascaderHandler, CascaderValue } from './types';
 import TabsPopoverContent from './components/TabsContent';
 import MenuPopoverContent from './components/MenuContent';
-import { getContext } from '../popover/PopoverContext';
-
-const PopoverContent = Popover.Content;
-
-class PopoverClickTrigger<
-  P extends IPopoverClickTriggerChildProps
-> extends Popover.Trigger.Click<P> {
-  protected childProps: IPopoverClickTriggerChildProps = {
-    onClick: e => {
-      const { children } = this.props;
-      const { popover, visible } = getContext(this);
-      if (visible) {
-        popover.close();
-      } else {
-        popover.open();
-      }
-      if (isElement(children)) {
-        const { onClick } = children.props;
-        onClick && onClick(e);
-      }
-    },
-  };
-
-  protected getTriggerProps() {
-    return this.childProps;
-  }
-}
 
 export interface ICascaderProps {
   type?: 'tabs' | 'menu';
@@ -127,7 +99,7 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
       // 在即时选中状态，展示通过计算的下一个 tab
       const chooseNext = open && nextProps.changeOnSelect;
 
-      assign(
+      Object.assign(
         newState,
         resetCascaderValue(nextProps.value, nextProps.options, chooseNext)
       );
@@ -247,7 +219,7 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
     // 选择即改变只针对click
     if (hasClose || (changeOnSelect && triggerType === 'click')) {
       const activeObj = resetCascaderValue(value, options);
-      assign(obj, activeObj);
+      Object.assign(obj, activeObj);
       this.setState(obj as any, () => {
         this.props.onChange(activeObj.activeValue);
       });
@@ -274,7 +246,7 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
     }
 
     return (
-      <PopoverContent>
+      <Popover.Content>
         <PopoverContentType
           prefix={prefix}
           i18n={i18n}
@@ -289,7 +261,7 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
           options={options}
           expandTrigger={expandTrigger}
         />
-      </PopoverContent>
+      </Popover.Content>
     );
   }
 
@@ -333,7 +305,7 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
                 onShow={this.onShow}
                 onClose={this.onClose}
               >
-                <PopoverClickTrigger>
+                <Popover.Trigger.Click toggle>
                   <div className={`${prefix}-cascader__select`}>
                     <div className={selectTextCls}>
                       <span
@@ -344,7 +316,7 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
                       <Icon type="caret-down" />
                     </div>
                   </div>
-                </PopoverClickTrigger>
+                </Popover.Trigger.Click>
                 {this.getPopoverContent(i18n)}
               </Popover>
             </div>

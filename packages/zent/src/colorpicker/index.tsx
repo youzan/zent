@@ -9,7 +9,6 @@ import { PureComponent } from 'react';
 import cx from 'classnames';
 import ColorBoard from './ColorBoard';
 import SketchPresetColors from './SketchPresetColors';
-import PopoverClickTrigger from './PopoverClickTrigger';
 import Popover from '../popover';
 
 export type PresetColors = string[];
@@ -93,7 +92,7 @@ export class ColorPicker extends PureComponent<IColorPickerProps> {
         visible={popVisible}
         onVisibleChange={this.handleVisibleChange}
       >
-        <PopoverClickTrigger>
+        <Popover.Trigger.Click toggle>
           <div
             className={cx(
               `${prefix}-color-picker`,
@@ -109,7 +108,7 @@ export class ColorPicker extends PureComponent<IColorPickerProps> {
               />
             </div>
           </div>
-        </PopoverClickTrigger>
+        </Popover.Trigger.Click>
         <Popover.Content>
           {type === 'simple' ? (
             <SketchPresetColors

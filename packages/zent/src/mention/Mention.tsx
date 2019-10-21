@@ -5,7 +5,6 @@ import isFunction from 'lodash-es/isFunction';
 import includes from 'lodash-es/includes';
 import isEqual from 'lodash-es/isEqual';
 import throttle from 'lodash-es/throttle';
-import * as keycode from 'keycode';
 import Input, { IInputChangeEvent } from '../input';
 import Popover from '../popover';
 import getCaretCoordinates from '../utils/dom/getCaretCoordinates';
@@ -189,9 +188,7 @@ export class Mention extends Component<IMentionProps> {
     });
   };
 
-  onInputChange = (
-    evt: IInputClearEvent | React.ChangeEvent<HTMLInputElement>
-  ) => {
+  onInputChange = (evt: IInputChangeEvent) => {
     this.props.onChange(evt.target.value);
   };
 
