@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Component, Children } from 'react';
-import PopoverContext, { IPopoverContext } from '../PopoverContext';
+import PopoverContext, { IPopoverContext } from '../Context';
 
 export interface IIsOutsideProps {
   contentNode: Element;
@@ -15,17 +15,9 @@ export interface IPopoverTriggerProps<ChildProps> {
   children: React.ReactElement<ChildProps, any> | string | number;
 }
 
-export type IPopoverTriggerElement = React.ReactElement<
-  IPopoverTriggerProps<any>,
-  typeof PopoverTrigger
->;
-
-export function isPopoverTrigger(
-  trigger: React.ReactElement<any, any>
-): trigger is IPopoverTriggerElement {
-  return !!trigger.type.prototype.isPopoverTrigger;
-}
-
+/**
+ * @deprecated
+ */
 export class PopoverTrigger<
   TriggerChildProps = {},
   T extends IPopoverTriggerProps<TriggerChildProps> = IPopoverTriggerProps<
@@ -34,8 +26,6 @@ export class PopoverTrigger<
 > extends Component<T> {
   static contextType = PopoverContext;
   context!: IPopoverContext;
-
-  isPopoverTrigger!: true;
 
   protected getTriggerProps(
     _child: React.ReactElement<TriggerChildProps>
@@ -57,7 +47,5 @@ export class PopoverTrigger<
     return React.cloneElement(child, this.getTriggerProps(child));
   }
 }
-
-PopoverTrigger.prototype.isPopoverTrigger = true;
 
 export default PopoverTrigger;

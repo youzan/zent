@@ -1,34 +1,23 @@
 import * as React from 'react';
-import { Component, Children } from 'react';
+import { Component } from 'react';
+import { BehaviorSubject } from 'rxjs';
 
 import * as Position from './placement';
-import PopoverContent, {
-  isPopoverContent,
-  IPopoverContentElement,
-} from './Content';
+import PopoverContent from './Content';
 import Trigger from './trigger';
-import PopoverTrigger, {
-  isPopoverTrigger,
-  IPopoverTriggerElement,
-} from './trigger/Trigger';
-import PopoverContext from './PopoverContext';
+import PopoverContext, { IPopoverContentImperativeHandle } from './Context';
 import { IPositionFunction } from './position-function';
-import withPopover, { usePopover } from './withPopover';
+import withPopover from './withPopover';
 import { IPortalImperativeHandlers } from '../portal';
-import memorize from '../utils/memorize-one';
+import Anchor from './Anchor';
 
 export interface IPopoverBeforeHook {
   (continuation?: () => void, escape?: () => void): Promise<void> | void;
 }
 
-export type IPopoverChildren =
-  | [IPopoverTriggerElement, IPopoverContentElement]
-  | [IPopoverContentElement, IPopoverTriggerElement];
-
 export interface IPopoverProps {
   position: IPositionFunction;
   cushion: number;
-  // display?: string;
   onShow?: () => void;
   onClose?: () => void;
   onBeforeShow?: IPopoverBeforeHook;
@@ -39,7 +28,6 @@ export interface IPopoverProps {
   onPositionUpdated?: () => void;
   onPositionReady?: () => void;
   className?: string;
-  children: IPopoverChildren;
 }
 
 export interface IPopoverState {
@@ -52,19 +40,21 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
     containerSelector: 'body',
   };
 
+  static Anchor = Anchor;
   static Content = PopoverContent;
   static Trigger = Trigger;
   static Position = Position;
   static withPopover = withPopover;
-  static usePopover = usePopover;
   static Context = PopoverContext;
 
   private isUnmounted = false;
   private pendingOnBeforeHook = false;
+  private readonly anchor$ = new BehaviorSubject<Element | null>(null);
+  private didMountHooks: Array<() => () => void> = [];
+  private didMountCleanup: Array<() => void> = [];
   portalRef = React.createRef<IPortalImperativeHandlers>();
   isPositionReady = false;
-  triggerRef = React.createRef<PopoverTrigger>();
-  contentRef = React.createRef<PopoverContent>();
+  contentRef = React.createRef<IPopoverContentImperativeHandle>();
 
   state = {
     visible: false,
@@ -72,6 +62,10 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
 
   private escape = () => {
     this.pendingOnBeforeHook = false;
+  };
+
+  private didMount = (cb: () => () => void) => {
+    this.didMountHooks.push(cb);
   };
 
   setVisible(visible: boolean) {
@@ -115,67 +109,59 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
     this.setVisible(false);
   };
 
-  validateChildrenImpl(children: React.ReactNode) {
-    const childArray = Children.toArray(children) as IPopoverChildren;
-    if (childArray.length !== 2) {
-      throw new Error(
-        'There must be one and only one trigger and content in Popover'
-      );
-    }
-    const _0 = childArray[0];
-    const _1 = childArray[1];
-    let trigger: IPopoverTriggerElement;
-    let content: IPopoverContentElement;
-    if (isPopoverTrigger(_0)) {
-      trigger = _0;
-    } else if (isPopoverTrigger(_1)) {
-      trigger = _1;
-    } else {
-      throw new Error('Missing trigger in Popover');
-    }
-    if (isPopoverContent(_0)) {
-      content = _0;
-    } else if (isPopoverContent(_1)) {
-      content = _1;
-    } else {
-      throw new Error('Missing content in Popover');
-    }
-    if ((trigger as any).ref) {
-      throw new Error('Ref on Trigger Component is not allowed');
-    }
-    if ((content as any).ref) {
-      throw new Error('Ref on Content Component is not allowed');
-    }
-    return {
-      trigger,
-      content,
-    };
-  }
+  // validateChildrenImpl(children: React.ReactNode) {
+  //   const childArray = Children.toArray(children) as IPopoverChildren;
+  //   if (childArray.length !== 2) {
+  //     throw new Error(
+  //       'There must be one and only one trigger and content in Popover'
+  //     );
+  //   }
+  //   const _0 = childArray[0];
+  //   const _1 = childArray[1];
+  //   let trigger: IPopoverTriggerElement;
+  //   let content: IPopoverContentElement;
+  //   if (isPopoverTrigger(_0)) {
+  //     trigger = _0;
+  //   } else if (isPopoverTrigger(_1)) {
+  //     trigger = _1;
+  //   } else {
+  //     throw new Error('Missing trigger in Popover');
+  //   }
+  //   if (isPopoverContent(_0)) {
+  //     content = _0;
+  //   } else if (isPopoverContent(_1)) {
+  //     content = _1;
+  //   } else {
+  //     throw new Error('Missing content in Popover');
+  //   }
+  //   if ((trigger as any).ref) {
+  //     throw new Error('Ref on Trigger Component is not allowed');
+  //   }
+  //   if ((content as any).ref) {
+  //     throw new Error('Ref on Content Component is not allowed');
+  //   }
+  //   return {
+  //     trigger,
+  //     content,
+  //   };
+  // }
 
-  validateChildren = memorize((children: IPopoverChildren) =>
-    this.validateChildrenImpl(children)
-  );
+  // validateChildren = memorize((children: IPopoverChildren) =>
+  //   this.validateChildrenImpl(children)
+  // );
 
-  safeSetState(
-    updater:
-      | ((
-          prevState: Readonly<IPopoverState>,
-          props: Readonly<IPopoverProps>
-        ) => Partial<IPopoverState> | null)
-      | (Partial<IPopoverState> | null),
-    callback?: () => void
-  ) {
+  safeSetState(nextState: IPopoverState, callback?: () => void) {
     if (!this.isUnmounted) {
-      return this.setState(updater as any, callback);
+      return this.setState(nextState, callback);
     }
   }
 
-  static getDerivedStateFromProps({
-    visible,
-  }: IPopoverProps): Partial<IPopoverState> | null {
-    if (typeof visible === 'boolean') {
+  static getDerivedStateFromProps(
+    props: IPopoverProps
+  ): Partial<IPopoverState> | null {
+    if ('visible' in props) {
       return {
-        visible,
+        visible: !!props.visible,
       };
     }
     return null;
@@ -186,6 +172,7 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
     if (this.state.visible) {
       onShow && onShow();
     }
+    this.didMountCleanup = this.didMountHooks.map(it => it());
   }
 
   componentDidUpdate(prevProps: IPopoverProps, prevState: IPopoverState) {
@@ -204,6 +191,7 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
 
   componentWillUnmount() {
     this.isUnmounted = true;
+    this.didMountCleanup.forEach(it => it());
   }
 
   render() {
@@ -215,33 +203,22 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
       children,
     } = this.props;
     const { visible } = this.state;
-    const { validateChildren } = this;
-    const { trigger, content } = validateChildren(children);
-    /**
-     * content must before trigger here,
-     * because trigger need to get content's instance in its componentDidMount.
-     * if trigger is ahead of content, content's ref (including portal's ref) will be null in trigger's componentDidMount.
-     * this is bound to React's internal implementation.
-     * THIS IS DANGEROUS, DO NOT IMITATE!
-     */
     return (
       <PopoverContext.Provider
         value={{
-          popover: this,
           visible,
           containerSelector,
           placement: position,
           cushion,
-          portalRef: this.portalRef,
           className,
+          portalRef: this.portalRef,
+          contentRef: this.contentRef,
+          anchor$: this.anchor$,
+          popover: this,
+          didMount: this.didMount,
         }}
       >
-        {React.cloneElement(content, {
-          ref: this.contentRef,
-        })}
-        {React.cloneElement(trigger, {
-          ref: this.triggerRef,
-        })}
+        {children}
       </PopoverContext.Provider>
     );
   }
