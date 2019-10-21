@@ -172,7 +172,9 @@ export class Alert extends React.PureComponent<IAlertProps, IAlertState> {
       <div className={containerCls} {...restDivAttrs}>
         {alertIcon}
         <div className="zent-alert-content">{content}</div>
-        <div className="zent-alert-extra-content">{extraContent}</div>
+        {extraContent && (
+          <div className="zent-alert-extra-content">{extraContent}</div>
+        )}
         {closeNode}
       </div>
     );

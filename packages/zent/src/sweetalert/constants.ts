@@ -3,4 +3,4 @@ export const TitleIconMap = {
   success: 'check-circle-o',
   error: 'close-circle-o',
   warning: 'error-circle-o',
-};
+} as const;

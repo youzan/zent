@@ -4,12 +4,16 @@ import { Component } from 'react';
 import Button from '../button';
 import isPromise from '../utils/isPromise';
 
+export type ActionButtonClickHandler = (
+  e?: () => void
+) => Promise<any> | boolean;
+
 export interface IActionButtonProps {
   type: 'default' | 'primary' | 'success' | 'danger' | 'secondary';
   text: string;
   className: string;
   getClose: () => () => void;
-  onClick?: (e?: () => void) => Promise<unknown> | boolean;
+  onClick?: ActionButtonClickHandler;
 }
 
 export default class ActionButton extends Component<IActionButtonProps> {

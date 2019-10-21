@@ -189,6 +189,7 @@ import { Portal, PurePortal } from 'zent'
 
 ### `Tabs`
 
+- 删除 `onTabChange`，这个回调等价于 `onChange`，并且两年前就已经 deprecate 了，如果有用到的直接替换就行
 - 内部布局修改为 flex 布局
 - 在 `children` 和 `tabs` 两种配置方式都未使用的情况下会报错，请检查之前的代码是否有使用空 tabs 的情况
 - 删除了之前未在文档中提及的 `TabPanel` 的 `onTabReady` prop 回调，如有需要，请在 `onChange` 回调中执行相关代码
