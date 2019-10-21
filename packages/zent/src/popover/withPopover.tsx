@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Omit } from 'utility-types';
 import { isForwardRef } from 'react-is';
 
-import PopoverContext from './PopoverContext';
+import PopoverContext from './Context';
 import Popover from './Popover';
 
 function isClassComponent(component: Function) {
