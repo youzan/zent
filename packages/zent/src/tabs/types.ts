@@ -28,6 +28,7 @@ export interface ITabPanelProps<Id> {
   className?: string;
   disabled?: boolean;
   actived?: boolean;
+  forceRender?: boolean;
 }
 
 export type IVerticalTabPanelProps<Id> = ITabPanelProps<Id> | IVerticalDivide;
@@ -41,6 +42,7 @@ export interface IBaseTabsProps<Id, TabPanelProps> {
   activeId: Id;
   className?: string;
   tabs?: Array<ITab<Id>>;
+  forceRenderPanel?: boolean;
   children?:
     | ITabPanelElement<TabPanelProps>
     | Array<ITabPanelElement<TabPanelProps>>;

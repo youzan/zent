@@ -3,7 +3,13 @@ import cn from 'classnames';
 import { ITabPanelProps } from '../types';
 
 function TabPanel<Id>(props: React.PropsWithChildren<ITabPanelProps<Id>>) {
-  const { actived, className, children } = props;
+  const { actived, className, forceRender, children } = props;
+
+  // 不启用 forceRender 时，非 active 元素不渲染，直接返回 null
+  if (!actived && !forceRender) {
+    return null;
+  }
+
   const displayStyle: React.CSSProperties = actived ? {} : { display: 'none' };
 
   const panelCls = cn('zent-tabs-panel', className);
