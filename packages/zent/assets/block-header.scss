@@ -41,21 +41,16 @@
   }
 
   &__pop {
-    @include font-large;
-    @include theme-color(color, stroke, 4);
+    @include font-normal;
+    @include theme-color(color, stroke, 5);
     margin-left: 8px;
     display: flex;
     align-items: center;
+    cursor: pointer;
   }
 
   &__tooltip {
     max-width: 300px;
     word-wrap: normal;
-
-    &-trigger {
-      @include font-normal;
-      @include theme-color(color, stroke, 5);
-      cursor: pointer;
-    }
   }
 }
