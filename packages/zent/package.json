@@ -26,7 +26,6 @@
   "files": [
     "src/",
     "assets/",
-    "lib/",
     "es/",
     "css/",
     "dependency-graph.json"
