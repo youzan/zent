@@ -10,6 +10,6 @@ group: Basics
 
 ### API
 
-| Property | Description | Type | Required | Default | Alternative |
-| -------- | ----------- | ---- | -------- | ------- | ----------- |
-| enable   |             | bool | No       | false   |             |
+| Property | Description               | Type | Required | Default | Alternative |
+| -------- | ------------------------- | ---- | -------- | ------- | ----------- |
+| enable   | is enable ime composition | bool | No       | false   |             |
