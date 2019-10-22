@@ -31,6 +31,7 @@
 
 ### 配置
 
+- `libraryName`: 需要处理的模块名
 - `noModuleRewrite`: 关闭 JavaScript 模块重写，一般配合打包工具的 tree-shaking 使用。
 - `automaticStyleImport`: 设置为 `true` 启用样式自动引入。
 - `useRawStyle`: 配合 `automaticStyleImport` 使用, 设置为 `true` 自动引入样式源文件(sass). **需要 Zent >= 7.0.0**
@@ -38,6 +39,7 @@
 ```js
 // 默认值
 {
+	libraryName: 'zent',
 	noModuleRewrite: false,
 	automaticStyleImport: false,
 	useRawStyle: false

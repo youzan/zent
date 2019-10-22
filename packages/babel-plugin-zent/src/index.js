@@ -1,5 +1,3 @@
-const MODULE_NAME = 'zent';
-
 // Errors:
 // import 'zent';
 // import * as Zent from 'zent';
@@ -11,13 +9,14 @@ const MODULE_NAME = 'zent';
 // import Button from 'zent/button';
 // import Button from 'zent-button';
 // require('zent-button')
-export default function foobar(babel) {
+export default function babelPluginZent(babel) {
   const { types: t } = babel;
 
   return {
     visitor: {
-      CallExpression(path) {
+      CallExpression(path, state) {
         const { node } = path;
+        const libName = getLibraryName(state);
 
         // no require('zent') calls
         if (
@@ -26,9 +25,9 @@ export default function foobar(babel) {
           node.arguments.length === 1
         ) {
           const source = node.arguments[0];
-          if (t.isStringLiteral(source, { value: MODULE_NAME })) {
+          if (t.isStringLiteral(source, { value: libName })) {
             throw path.buildCodeFrameError(
-              `require('${MODULE_NAME}') is not allowed, use import { ... } from '${MODULE_NAME}'`
+              `require('${libName}') is not allowed, use import { ... } from '${libName}'`
             );
           }
         }
@@ -36,15 +35,16 @@ export default function foobar(babel) {
 
       ImportDeclaration(path, state) {
         const { node } = path;
+        const libName = getLibraryName(state);
 
-        if (t.isStringLiteral(node.source, { value: MODULE_NAME })) {
+        if (t.isStringLiteral(node.source, { value: libName })) {
           const { specifiers } = node;
           const specifierCount = specifiers.length;
 
           // no import 'zent';
           if (specifierCount === 0) {
             throw path.buildCodeFrameError(
-              `Side-effect only import is not allowed in ${MODULE_NAME}.'`
+              `Side-effect only import is not allowed in ${libName}.'`
             );
           }
 
@@ -52,19 +52,19 @@ export default function foobar(babel) {
             // no import * as Zent from 'zent'
             if (t.isImportNamespaceSpecifier(sp)) {
               throw path.buildCodeFrameError(
-                `Namespace import is not allowed in ${MODULE_NAME}, pick the components you need.`
+                `Namespace import is not allowed in ${libName}, pick the components you need.`
               );
             }
 
             // no import Zent from 'zent'
             if (t.isImportDefaultSpecifier(sp)) {
               throw path.buildCodeFrameError(
-                `There is no default export in ${MODULE_NAME}.`
+                `There is no default export in ${libName}.`
               );
             }
 
             if (t.isImportSpecifier(sp)) {
-              return r.concat(buildImportReplacement(sp, t, state, path));
+              r = r.concat(buildImportReplacement(sp, t, state, path));
             }
 
             return r;
@@ -83,7 +83,7 @@ export default function foobar(babel) {
 }
 
 function buildImportReplacement(specifier, types, state, originalPath) {
-  initModuleMappingAsNecessary(state);
+  initModuleMappingAsNecessary(state, originalPath);
 
   // import {Button as _Button} from 'zent'
   // imported name is Button, but local name is _Button
@@ -153,7 +153,7 @@ function buildImportSpecifier(types, isDefaultExport, importedName, localName) {
   ];
 }
 
-function initModuleMappingAsNecessary(state) {
+function initModuleMappingAsNecessary(state, path) {
   const { opts: options } = state;
 
   if (!state.data) {
@@ -162,11 +162,16 @@ function initModuleMappingAsNecessary(state) {
 
   const data = state.data;
   if (!data.MODULE_MAPPING) {
+    // options.moduleMappingFile is for internal use
     const moduleMappingFile =
-      options.moduleMappingFile || 'zent/dependency-graph.json';
+      options.moduleMappingFile || getModuleMappingFile(getLibraryName(state));
 
-    // eslint-disable-next-line
-    data.MODULE_MAPPING = require(moduleMappingFile);
+    try {
+      // eslint-disable-next-line
+      data.MODULE_MAPPING = require(moduleMappingFile);
+    } catch (ex) {
+      throw path.buildCodeFrameError(ex);
+    }
 
     // STYLE_IMPORT_MAPPING 是 css 和 style 公用的，因为两者只可能使用一种
     if (options.automaticStyleImport) {
@@ -190,4 +195,13 @@ function getStylePath(component, useRaw) {
     parentDir = 'css';
   }
   return `zent/${parentDir}/${component}${suffix}`;
+}
+
+function getLibraryName(state) {
+  const { opts: options } = state;
+  return options.libraryName || 'zent';
+}
+
+function getModuleMappingFile(libName) {
+  return `${libName}/dependency-graph.json`;
 }
