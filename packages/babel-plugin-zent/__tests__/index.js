@@ -56,6 +56,23 @@ describe('babel-plugin-zent', () => {
     expect(() => compile("require('zent')")).toThrowError(
       /require\('zent'\) is not allowed/
     );
+
+    expect(() => compile("require('foobar')").toBe("require('foobar')"));
+  });
+
+  it('throws if module mapping file not found', () => {
+    expect(() =>
+      compile("import { Button } from 'zent';", {
+        moduleMappingFile: './404.json',
+      })
+    ).toThrow(/Cannot find module/i);
+
+    expect(() => {
+      compile("import { Button } from 'foobar';", {
+        moduleMappingFile: null,
+        libraryName: 'foobar',
+      });
+    }).toThrow(/Cannot find module/i);
   });
 
   it('transforms component imports', () => {
@@ -88,10 +105,10 @@ describe('babel-plugin-zent', () => {
 
     expect(() =>
       compile("import { Affix } from 'zent';", {
-        moduleMappingFile: './fakeModuleMapping.json',
+        moduleMappingFile: '../__tests__/fakeModuleMapping.json',
         automaticStyleImport: true,
       })
-    ).toThrow();
+    ).toThrow('Please upgrade zent to >= zent@7.0.0');
   });
 
   it('can add css imports', () => {

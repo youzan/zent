@@ -64,7 +64,7 @@ export default function babelPluginZent(babel) {
             }
 
             if (t.isImportSpecifier(sp)) {
-              return r.concat(buildImportReplacement(sp, t, state, path));
+              r = r.concat(buildImportReplacement(sp, t, state, path));
             }
 
             return r;
@@ -170,7 +170,7 @@ function initModuleMappingAsNecessary(state, path) {
       // eslint-disable-next-line
       data.MODULE_MAPPING = require(moduleMappingFile);
     } catch (ex) {
-      throw path.buildCodeFrameError(ex.toString());
+      throw path.buildCodeFrameError(ex);
     }
 
     // STYLE_IMPORT_MAPPING 是 css 和 style 公用的，因为两者只可能使用一种
