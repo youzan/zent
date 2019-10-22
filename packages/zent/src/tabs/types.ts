@@ -15,6 +15,7 @@ export type IVerticalTab<Id> = ITab<Id> | IVerticalDivide;
 
 export interface IInnerTab<Id> extends ITab<Id> {
   actived: boolean;
+  unmountOnHide?: boolean;
   panelChildren?: React.ReactNode;
 }
 
@@ -28,7 +29,7 @@ export interface ITabPanelProps<Id> {
   className?: string;
   disabled?: boolean;
   actived?: boolean;
-  forceRender?: boolean;
+  unmountOnHide?: boolean;
 }
 
 export type IVerticalTabPanelProps<Id> = ITabPanelProps<Id> | IVerticalDivide;
@@ -42,7 +43,7 @@ export interface IBaseTabsProps<Id, TabPanelProps> {
   activeId: Id;
   className?: string;
   tabs?: Array<ITab<Id>>;
-  forceRenderPanel?: boolean;
+  unmountPanelOnHide?: boolean;
   children?:
     | ITabPanelElement<TabPanelProps>
     | Array<ITabPanelElement<TabPanelProps>>;

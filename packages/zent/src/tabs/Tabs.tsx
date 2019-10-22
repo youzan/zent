@@ -47,7 +47,7 @@ export class Tabs<Id extends string | number = string> extends BaseTabs<
     stretch: false,
     onChange: noop,
     onDelete: noop,
-    forceRenderPanel: false,
+    unmountPanelOnHide: false,
   };
 
   get tabsCls() {
@@ -104,13 +104,13 @@ export class Tabs<Id extends string | number = string> extends BaseTabs<
   }
 
   renderTabPanel(tabItem: IInnerTab<Id>) {
-    const { forceRenderPanel } = this.props;
+    const { unmountPanelOnHide } = this.props;
     return (
       <LazyMount mount={tabItem.actived} key={tabItem.key}>
         <TabPanel
           tab={tabItem.title}
           actived={tabItem.actived}
-          forceRender={forceRenderPanel}
+          unmountOnHide={tabItem.unmountOnHide || unmountPanelOnHide}
           className={tabItem.className}
           id={tabItem.key}
         >

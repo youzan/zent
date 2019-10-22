@@ -3,10 +3,10 @@ import cn from 'classnames';
 import { ITabPanelProps } from '../types';
 
 function TabPanel<Id>(props: React.PropsWithChildren<ITabPanelProps<Id>>) {
-  const { actived, className, forceRender, children } = props;
+  const { actived, className, unmountOnHide, children } = props;
 
-  // 不启用 forceRender 时，非 active 元素不渲染，直接返回 null
-  if (!actived && !forceRender) {
+  // 启用 unmountOnHide 时，非 active 元素不渲染，直接返回 null
+  if (!actived && unmountOnHide) {
     return null;
   }
 

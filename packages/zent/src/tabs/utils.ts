@@ -10,6 +10,7 @@ export function getTabDataFromChild<Id>(
     tab,
     children: panelChildren,
     className: panelClassName,
+    unmountOnHide,
   } = child.props;
   const props: IInnerTab<Id> = {
     title: tab,
@@ -18,6 +19,7 @@ export function getTabDataFromChild<Id>(
     actived: activeId === id,
     panelChildren,
     className: panelClassName,
+    unmountOnHide,
   };
 
   return props;
