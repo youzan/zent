@@ -13362,7 +13362,7 @@ yup@^0.27.0:
     synchronous-promise "^2.0.6"
     toposort "^2.0.2"
 
-zenticons@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/zenticons/-/zenticons-2.0.0.tgz#7232e13b2c37c5f76af32b96a75fd947a80db930"
-  integrity sha512-MAcpWTS0oOAMB9Qt22Oom2lBbf6VQDt1pP7gOP0+1NFDs22w5QiHEchLRADSzACjRSaQVRPiL1ikpXmZlUw3BQ==
+zenticons@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/zenticons/-/zenticons-3.0.0.tgz#bfcde93c8308184b9b330a68a78a41495e94b490"
+  integrity sha512-kySCf5Byc2th9/YexFaVxQ70hqlamieNOEextp51fDQNP8JzYHZn4WpwHvi0IzQRyiLmaCelWrDuMqJmOXvnRg==
