@@ -61,7 +61,7 @@ export function PopoverClickTrigger<
     },
     [!!closeOnClickOutside]
   );
-  useWindowEvent('click', globalClick);
+  useWindowEvent('click', globalClick, true);
 
   const child = React.useMemo(() => {
     if (isElement(children)) {

@@ -28,6 +28,7 @@ export interface IPopoverProps {
   onPositionUpdated?: () => void;
   onPositionReady?: () => void;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 export interface IPopoverState {
@@ -71,7 +72,7 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
   setVisible(visible: boolean) {
     const { onBeforeClose, onBeforeShow, onVisibleChange } = this.props;
     const hook = visible ? onBeforeShow : onBeforeClose;
-    if (this.pendingOnBeforeHook) {
+    if (this.pendingOnBeforeHook || visible === this.state.visible) {
       return;
     }
     if (onVisibleChange) {
@@ -201,6 +202,7 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
       cushion,
       className,
       children,
+      style,
     } = this.props;
     const { visible } = this.state;
     return (
@@ -216,6 +218,7 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
           anchor$: this.anchor$,
           popover: this,
           didMount: this.didMount,
+          style,
         }}
       >
         {children}
