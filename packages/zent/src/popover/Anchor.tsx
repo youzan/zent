@@ -26,7 +26,7 @@ class PopoverAnchor extends React.Component {
     if (isElement(children)) {
       return children;
     }
-    return <div>{children}</div>;
+    return <span>{children}</span>;
   }
 }
 

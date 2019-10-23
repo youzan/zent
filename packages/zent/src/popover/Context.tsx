@@ -1,4 +1,4 @@
-import { createContext, RefObject, useContext } from 'react';
+import { createContext, RefObject, useContext, CSSProperties } from 'react';
 import { BehaviorSubject } from 'rxjs';
 import { IPositionFunction } from './position-function';
 import { IPortalImperativeHandlers } from '../portal';
@@ -19,6 +19,7 @@ export interface IPopoverContext {
   contentRef: RefObject<IPopoverContentImperativeHandle>;
   anchor$: BehaviorSubject<Element | null>;
   didMount(cb: () => () => void): void;
+  style?: CSSProperties;
 }
 
 const context = createContext<IPopoverContext | null>(null);

@@ -112,16 +112,16 @@ class PageSizeSelect extends Component<any, any> {
   render() {
     const { pageSize, i18n, pageSizeOptions } = this.props;
     const options = memoizedNormalizeSelectOptions(pageSizeOptions, i18n);
-
-    return (
-      <Select
-        width={i18n.mark === 'zh-CN' ? 80 : 100}
-        autoWidth
-        data={options}
-        value={pageSize}
-        onChange={this.onChange}
-      />
-    );
+    return null;
+    // return (
+    //   <Select
+    //     width={i18n.mark === 'zh-CN' ? 80 : 100}
+    //     autoWidth
+    //     data={options}
+    //     value={pageSize}
+    //     onChange={this.onChange}
+    //   />
+    // );
   }
 
   onChange = (evt: any, data: any) => {

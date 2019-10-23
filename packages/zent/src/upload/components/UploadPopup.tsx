@@ -81,7 +81,7 @@ class UploadPopup extends Component<any, any> {
       <div className={`${prefix}-group-region`}>
         <div className={`${prefix}-title`}>{i18n.popup.group}：</div>
         <div className={`${prefix}-content`}>
-          <Select
+          {/* <Select
             width={300}
             autoWidth
             data={categoryList}
@@ -89,7 +89,7 @@ class UploadPopup extends Component<any, any> {
             optionValue="id"
             optionText="name"
             onChange={this.setCategoryId.bind(this)}
-          />
+          /> */}
         </div>
       </div>
     );

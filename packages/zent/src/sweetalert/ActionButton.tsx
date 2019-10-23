@@ -6,7 +6,7 @@ import isPromise from '../utils/isPromise';
 
 export type ActionButtonClickHandler = (
   e?: () => void
-) => Promise<any> | boolean | void;
+) => Promise<any> | boolean;
 
 export interface IActionButtonProps {
   type: 'default' | 'primary' | 'success' | 'danger' | 'secondary';

@@ -113,7 +113,7 @@ function PopoverContent({ children }: IPopoverContentProps) {
       visible={ctx.visible}
       selector={containerSelector}
       className={cx('zent-popover', position.className, ctx.className)}
-      style={position.style}
+      style={{ ...position.style, ...ctx.style }}
     >
       {children}
     </Portal>
