@@ -10,6 +10,7 @@ export interface IOptionProps<Item extends ISelectItem> {
   onSelect(item: Item): void;
   onMouseEnter(index: number): void;
   onMouseLeave(index: number): void;
+  multiple: boolean;
 }
 
 function SelectOption<Item extends ISelectItem>({
@@ -20,12 +21,14 @@ function SelectOption<Item extends ISelectItem>({
   index,
   onMouseEnter,
   onMouseLeave,
+  multiple,
 }: IOptionProps<Item>) {
   return (
     <div
       className={cx('zent-select-option', {
         'zent-select-option-active': active,
-        'zent-select-option-selected': selected,
+        'zent-select-option-selected': !multiple && selected,
+        'zent-select-option-selected-multiple': multiple && selected,
         'zent-select-option-disabled': value.disabled,
         'zent-select-option-header': value.type === 'header',
       })}
@@ -36,7 +39,7 @@ function SelectOption<Item extends ISelectItem>({
       onMouseEnter={() => !value.type && onMouseEnter(index)}
       onMouseLeave={() => !value.type && onMouseLeave(index)}
     >
-      {value.text}
+      <div className="zent-select-option-text">{value.text}</div>
     </div>
   );
 }
