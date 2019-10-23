@@ -20,7 +20,7 @@ export interface IOptionRenderer<Item extends ISelectItem> {
 
 export interface ISelectCommonProps<Item extends ISelectItem> {
   keyword?: string;
-  onKeyWordChange?: (keyword: string) => void;
+  onKeywordChange?: (keyword: string) => void;
   options: Item[];
   isEqual: (a: Item, b: Item) => boolean;
   placeholder?: string;
@@ -195,7 +195,7 @@ export class Select<
     if (this.disabled) {
       return;
     }
-    const { onKeyWordChange } = this.props;
+    const { onKeywordChange: onKeyWordChange } = this.props;
     if (onKeyWordChange) {
       onKeyWordChange(e.target.value);
     } else {
@@ -288,7 +288,9 @@ export class Select<
         onMouseEnter={this.onOptionMouseEnter}
         onMouseLeave={this.onOptionMouseLeave}
         multiple={multiple}
-      />
+      >
+        {option.text}
+      </Option>
     );
   };
 
