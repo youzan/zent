@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
+import classnames from 'classnames';
 import SelectionCheckboxAll from './SelectionCheckboxAll';
 import { isReactComponent } from './utils';
 import Store from './Store';
 
 export interface IBatchComponentsProps<Data = any> {
-  batchComponents: React.ReactNode[];
+  batchComponents: React.ReactNode[] | null;
   prefix: string;
   onSelect: (type: string, datasets: Data[]) => void;
   store: Store;
@@ -13,6 +14,8 @@ export interface IBatchComponentsProps<Data = any> {
   getDataKey: (data: Data, rowIndex: string | number) => string;
   selectedRows?: Data[];
   disabled?: boolean;
+  batchComponentsFixed: boolean;
+  style?: React.CSSProperties;
 }
 
 class BatchComponents<Data> extends PureComponent<IBatchComponentsProps<Data>> {
@@ -41,7 +44,7 @@ class BatchComponents<Data> extends PureComponent<IBatchComponentsProps<Data>> {
 
   renderComponents = () => {
     const { batchComponents } = this.props;
-    return batchComponents.map(this.batchComponentWrapper);
+    return batchComponents && batchComponents.map(this.batchComponentWrapper);
   };
 
   render() {
@@ -53,9 +56,13 @@ class BatchComponents<Data> extends PureComponent<IBatchComponentsProps<Data>> {
       selectedRows,
       datasets,
       disabled,
+      batchComponentsFixed,
     } = this.props;
+    const className = classnames(`${prefix}-grid-tfoot-batch`, {
+      [`${prefix}-grid-tfoot__batchcomponents--fixed`]: batchComponentsFixed,
+    });
     return (
-      <div className={`${prefix}-grid-tfoot-batch`}>
+      <div className={className} style={this.props.style}>
         <SelectionCheckboxAll
           getDataKey={getDataKey}
           onSelect={onSelect}

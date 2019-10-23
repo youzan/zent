@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDom from 'react-dom';
 import { PureComponent } from 'react';
 import classnames from 'classnames';
 import has from 'lodash-es/has';
@@ -14,11 +15,12 @@ import some from 'lodash-es/some';
 import map from 'lodash-es/map';
 import isFunction from 'lodash-es/isFunction';
 import includes from 'lodash-es/includes';
+import { throttle } from 'lodash-es';
 
 import measureScrollbar from '../utils/dom/measureScrollbar';
 import WindowResizeHandler from '../utils/component/WindowResizeHandler';
 import { I18nReceiver as Receiver } from '../i18n';
-import { groupedColumns, getLeafColumns } from './utils';
+import { groupedColumns, getLeafColumns, needFixBatchComps } from './utils';
 import BlockLoading from '../loading/BlockLoading';
 import Store from './Store';
 import ColGroup from './ColGroup';
@@ -82,6 +84,7 @@ export interface IGridProps<Data = any> {
   };
   rowProps?: (data: Data, index: number) => any;
   batchComponents: React.ReactNode[];
+  batchComponentsAutoFixed: boolean;
 }
 
 export interface IGridState {
@@ -90,6 +93,7 @@ export interface IGridState {
   fixedColumnsHeadRowsHeight: Array<number | string>;
   fixedColumnsBodyExpandRowsHeight: Array<number | string>;
   expandRowKeys: boolean[];
+  batchComponentsFixed: boolean;
 }
 
 export interface IGridInnerColumn<Data> extends IGridColumn<Data> {
@@ -114,7 +118,8 @@ export class Grid<Data = any> extends PureComponent<
     onRowClick: noop,
     ellipsis: false,
     onExpand: noop,
-    batchComponents: [],
+    batchComponents: null,
+    batchComponentsAutoFixed: true,
   };
 
   mounted = false;
@@ -125,6 +130,7 @@ export class Grid<Data = any> extends PureComponent<
   } = {};
   store: Store = new Store();
   tableNode: HTMLDivElement | null = null;
+  footNode: Footer<Data> | null = null;
   bodyTable: HTMLDivElement | null = null;
   leftBody: HTMLDivElement | null = null;
   rightBody: HTMLDivElement | null = null;
@@ -133,6 +139,7 @@ export class Grid<Data = any> extends PureComponent<
   scrollPosition!: GridScrollPosition;
   lastScrollLeft!: number;
   lastScrollTop!: number;
+  throttleSetBatchComponents: any;
 
   constructor(props: IGridProps<Data>) {
     super(props);
@@ -150,6 +157,7 @@ export class Grid<Data = any> extends PureComponent<
       fixedColumnsHeadRowsHeight: [],
       fixedColumnsBodyExpandRowsHeight: [],
       expandRowKeys,
+      batchComponentsFixed: false,
     };
   }
 
@@ -774,16 +782,104 @@ export class Grid<Data = any> extends PureComponent<
     };
   };
 
+  isTableInView = () => {
+    if (!this.tableNode) {
+      return false;
+    } else {
+      const tableRect = this.tableNode.getBoundingClientRect();
+      const { height, top } = tableRect;
+      const tableY = top - document.documentElement.getBoundingClientRect().top;
+      return (
+        tableY + height > window.pageYOffset &&
+        tableY <= window.pageYOffset + window.innerHeight
+      );
+    }
+  };
+
+  isFootInView = () => {
+    if (this.footNode) {
+      const footerRect = (ReactDom.findDOMNode(
+        this.footNode
+      ) as Element).getBoundingClientRect();
+      const footerY =
+        footerRect.top - document.documentElement.getBoundingClientRect().top;
+      return (
+        footerY + footerRect.height > window.pageYOffset &&
+        footerY <= window.pageYOffset + window.innerHeight
+      );
+    } else {
+      return false;
+    }
+  };
+
+  toggleBatchComponents = () => {
+    if (!this.mounted) {
+      return;
+    }
+
+    const needFixedBatchComps = needFixBatchComps(
+      this.isTableInView(),
+      this.isFootInView(),
+      this.store.getState('selectedRowKeys').length > 0,
+      this.state.batchComponentsFixed
+    );
+    if (typeof needFixedBatchComps === 'boolean') {
+      this.setState({
+        batchComponentsFixed: needFixedBatchComps,
+      });
+    }
+  };
+
+  addEventListener(props) {
+    if (props.batchComponentsAutoFixed) {
+      const { batchComponents } = props;
+      if (batchComponents && batchComponents.length > 0) {
+        this.throttleSetBatchComponents = throttle(
+          this.toggleBatchComponents,
+          100,
+          { leading: true }
+        );
+        window.addEventListener(
+          'scroll',
+          this.throttleSetBatchComponents,
+          true
+        );
+        window.addEventListener(
+          'resize',
+          this.throttleSetBatchComponents,
+          true
+        );
+      }
+    }
+  }
+
+  removeEventListener(props) {
+    if (props.batchComponentsAutoFixed) {
+      window.removeEventListener(
+        'scroll',
+        this.throttleSetBatchComponents,
+        true
+      );
+      window.removeEventListener(
+        'resize',
+        this.throttleSetBatchComponents,
+        true
+      );
+    }
+  }
+
   componentDidMount() {
     this.mounted = true;
     this.setScrollPositionClassName();
     if (this.isAnyColumnsFixed()) {
       this.syncFixedTableRowHeight();
     }
+    this.addEventListener(this.props);
   }
 
   componentWillUnmount() {
     this.mounted = false;
+    this.removeEventListener(this.props);
   }
 
   componentWillReceiveProps(nextProps: IGridProps<Data>) {
@@ -840,6 +936,7 @@ export class Grid<Data = any> extends PureComponent<
       selection,
       rowKey,
     } = this.props;
+    const { batchComponentsFixed } = this.state;
     let className = `${prefix}-grid`;
     const borderedClassName = bordered ? `${prefix}-grid-bordered` : '';
     className = classnames(className, this.props.className, borderedClassName);
@@ -864,6 +961,7 @@ export class Grid<Data = any> extends PureComponent<
             this.getTable(),
             this.getEmpty(i18n),
             <Footer
+              ref={(node: Footer<Data>) => (this.footNode = node)}
               key="footer"
               rowKey={rowKey}
               prefix={prefix}
@@ -876,6 +974,7 @@ export class Grid<Data = any> extends PureComponent<
               onSelect={this.handleBatchSelect}
               getDataKey={this.getDataKey}
               batchComponents={batchComponents}
+              batchComponentsFixed={batchComponentsFixed}
               selection={selection}
               checkboxPropsCache={this.checkboxPropsCache}
             />,

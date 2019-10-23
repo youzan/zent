@@ -109,7 +109,7 @@ class BatchCompsClass extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			datasets,
+			datasets: datasets.concat(datasets, datasets, datasets, datasets, datasets, datasets, datasets, datasets, datasets),
 			page: {
 				pageSize: 3,
 				current: 1,
@@ -149,6 +149,7 @@ class BatchCompsClass extends React.Component {
 				getRowConf={this.getRowConf}
 				pageInfo={this.state.page}
 				rowKey="item_id"
+				batchComponentsAutoFixed={true}
 				batchComponents={[
 					<span key="pure" className="child-comps">
 						This is a DOM element.{' '}

@@ -1,5 +1,5 @@
 ---
-order: 4
+order: 14
 zh-CN:
 	title: 批量操作
 	product: 商品
@@ -134,6 +134,7 @@ class Selection extends React.Component {
 					},
 					Customer,
 				]}
+				batchComponentsAutoFixed={true}
 			/>
 		);
 	}

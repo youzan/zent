@@ -38,23 +38,29 @@ export interface IGridFooterProps extends IBatchComponentsProps {
     };
   };
   rowKey: string;
+  batchComponentsFixed: boolean;
 }
 
-interface IGridFooterState {
-  selectedRows: any[];
+interface IGridFooterState<Data> {
+  selectedRows: Data[];
 }
 
-class Footer extends PureComponent<IGridFooterProps, IGridFooterState> {
-  constructor(props) {
+class Footer<Data> extends PureComponent<
+  IGridFooterProps,
+  IGridFooterState<Data>
+> {
+  constructor(props: IGridFooterProps) {
     super(props);
     this.state = {
       selectedRows: this.getSelectedRows(),
     };
   }
   unsubscribe: any;
-  state: IGridFooterState = {
+  state: IGridFooterState<Data> = {
     selectedRows: [],
   };
+
+  private footNode: HTMLDivElement = null;
 
   hasPagination(props?: IGridFooterProps) {
     const { pageInfo } = props || this.props;
@@ -77,10 +83,10 @@ class Footer extends PureComponent<IGridFooterProps, IGridFooterState> {
     const { datasets, getDataKey, store, rowKey } = this.props;
     const { selectedRows: prevSelectedRows } = this.state;
     const selectedRowKeys = store.getState('selectedRowKeys');
-    const selectedRows = (datasets || []).filter((row, i) =>
-      includes(selectedRowKeys, getDataKey(row, i))
-    );
-    return uniqBy(concat(prevSelectedRows, selectedRows), rowKey);
+    const selectedRows = (
+      uniqBy(concat(datasets, prevSelectedRows), rowKey) || []
+    ).filter((row, i) => includes(selectedRowKeys, getDataKey(row, i)));
+    return selectedRows;
   };
 
   subscribe = () => {
@@ -100,7 +106,7 @@ class Footer extends PureComponent<IGridFooterProps, IGridFooterState> {
     onPaginationChange && onPaginationChange(pageSize, current);
   };
 
-  getCheckboxPropsByItem = (data: any[], rowIndex: number | string) => {
+  getCheckboxPropsByItem = (data: Data[], rowIndex: number | string) => {
     const { selection, checkboxPropsCache } = this.props;
 
     if (!selection || !selection.getCheckboxProps) {
@@ -113,7 +119,7 @@ class Footer extends PureComponent<IGridFooterProps, IGridFooterState> {
     return checkboxPropsCache[rowIndex];
   };
 
-  getDataAndDisabled = () => {
+  getData = () => {
     const { datasets, getDataKey, selection } = this.props;
     if (!selection) {
       return datasets;
@@ -136,9 +142,18 @@ class Footer extends PureComponent<IGridFooterProps, IGridFooterState> {
     });
   }
 
+  getBatchFixedStyle() {
+    if (this.footNode && this.props.batchComponentsFixed) {
+      return {
+        width: this.footNode.getBoundingClientRect().width,
+      };
+    }
+    return {};
+  }
+
   componentDidMount() {
     const { selection, batchComponents } = this.props;
-    if (selection && batchComponents.length > 0) {
+    if (selection && batchComponents && batchComponents.length > 0) {
       this.subscribe();
     }
   }
@@ -158,23 +173,30 @@ class Footer extends PureComponent<IGridFooterProps, IGridFooterState> {
       getDataKey,
       selection,
       batchComponents,
+      batchComponentsFixed,
     } = this.props;
     const { selectedRows } = this.state;
     const curPageInfo = this.getDefaultPagination();
-    const data = this.getDataAndDisabled();
+    const data = this.getData();
     const disabled = this.getCheckboxAllDisabled();
+    const batchFixedStyle = this.getBatchFixedStyle();
 
     if (curPageInfo) {
       return (
-        <div className={`${prefix}-grid-tfoot`}>
-          {selection && batchComponents.length > 0 && (
+        <div
+          className={`${prefix}-grid-tfoot`}
+          ref={ref => (this.footNode = ref)}
+        >
+          {selection && batchComponents && batchComponents.length > 0 && (
             <BatchComponents
+              style={batchFixedStyle}
               store={store}
               onSelect={onSelect}
               datasets={data}
               getDataKey={getDataKey}
               prefix={prefix}
               batchComponents={batchComponents}
+              batchComponentsFixed={batchComponentsFixed}
               selectedRows={selectedRows}
               disabled={disabled}
             />

@@ -36,6 +36,8 @@ group: 导航
 | components      | 自定义 table 内的组件                                         | object { row?: ComponentType }                                             |                    | 否       |
 | rowProps        | 自定义传入 row 的属性                                         | (data: any, index: number) => object                                       |                    | 否       |
 | bordered        | 是否展示外边框和列边框                                        | bool                                                                       | `false`            | 否       |
+| batchComponents          | 批量操作的组件列表，如何使用，看批量操作的示例                                                       | array[html/function/React Component] | `null`             |         | 否       |
+| batchComponentsAutoFixed | 是否要自动 fix 批量操作                                                                              | bool                                 | `true`             |         | 否       |
 
 #### onChange 函数声明
 
