@@ -5,6 +5,7 @@ import Popover from '../popover';
 import TagList from './TagList';
 import Option from './Option';
 import Search from './Search';
+import { DisabledContext, IDisabledContext } from '../disabled';
 
 export interface ISelectItem {
   key: string;
@@ -27,6 +28,7 @@ export interface ISelectCommonProps<Item extends ISelectItem> {
   inline?: boolean;
   width: React.CSSProperties['width'];
   filter?: ((keyword: string, item: Item) => boolean) | false;
+  disabled?: boolean;
   renderOptionList<Item extends ISelectItem>(
     options: Item[],
     renderOption: IOptionRenderer<Item>
@@ -57,6 +59,7 @@ export interface ISelectState<Item extends ISelectItem> {
   keyword: string;
   value: null | Item | Item[];
   activeIndex: null | number;
+  prevOptions: Item[];
 }
 
 function defaultIsEqual<Item extends ISelectItem>(a: Item, b: Item) {
@@ -115,21 +118,39 @@ export class Select<
     multiple: false,
   };
 
+  static contextType = DisabledContext;
+  context!: IDisabledContext;
+
   elementRef = React.createRef<HTMLDivElement>();
   popoverRef = React.createRef<Popover>();
 
   constructor(props: ISelectProps<Item>) {
     super(props);
+    let value: null | Item | Item[];
+    if (props.multiple) {
+      value = props.value || [];
+    } else {
+      value = props.value || null;
+    }
     this.state = {
       keyword: props.keyword || '',
-      value: props.value ? props.value : null,
+      value,
       visible: false,
       active: false,
       activeIndex: null,
+      prevOptions: props.options,
     };
   }
 
+  get disabled() {
+    const { disabled = this.context.value } = this.props;
+    return disabled;
+  }
+
   onVisibleChange = (visible: boolean) => {
+    if (this.disabled) {
+      return;
+    }
     this.setState({
       visible,
       active: visible,
@@ -138,7 +159,7 @@ export class Select<
   };
 
   onSelect = (item: Item) => {
-    if (item.disabled || item.type) {
+    if (item.disabled || item.type || this.disabled) {
       return;
     }
     if (this.props.multiple === false) {
@@ -154,10 +175,26 @@ export class Select<
         });
       }
     } else {
+      const { onChange, isEqual } = this.props;
+      const value = this.state.value as Item[];
+      if (value.findIndex(it => isEqual(it, item)) >= 0) {
+        return;
+      }
+      const nextValue = value.concat([item]);
+      if (onChange) {
+        onChange(nextValue);
+      } else {
+        this.setState({
+          value: nextValue,
+        });
+      }
     }
   };
 
   onKeywordChange: React.ChangeEventHandler<HTMLInputElement> = e => {
+    if (this.disabled) {
+      return;
+    }
     const { onKeyWordChange } = this.props;
     if (onKeyWordChange) {
       onKeyWordChange(e.target.value);
@@ -169,6 +206,9 @@ export class Select<
   };
 
   onRemove = (item: Item) => {
+    if (this.disabled) {
+      return;
+    }
     if (this.props.multiple === true) {
       const { value } = this.state;
       const { onChange, isEqual } = this.props;
@@ -197,12 +237,18 @@ export class Select<
   };
 
   onOptionMouseEnter = (index: number) => {
+    if (this.disabled) {
+      return;
+    }
     this.setState({
       activeIndex: index,
     });
   };
 
   onOptionMouseLeave = (index: number) => {
+    if (this.disabled) {
+      return;
+    }
     this.setState(state =>
       state.activeIndex === index
         ? {
@@ -213,6 +259,9 @@ export class Select<
   };
 
   selectCurrentIndex = () => {
+    if (this.disabled) {
+      return;
+    }
     const { activeIndex } = this.state;
     const { options } = this.props;
     if (activeIndex !== null) {
@@ -238,12 +287,14 @@ export class Select<
         index={index}
         onMouseEnter={this.onOptionMouseEnter}
         onMouseLeave={this.onOptionMouseLeave}
+        multiple={multiple}
       />
     );
   };
 
   globalClick = (e: MouseEvent) => {
     if (
+      this.disabled ||
       this.state.visible ||
       !this.state.active ||
       !this.elementRef.current ||
@@ -259,6 +310,9 @@ export class Select<
   };
 
   onIndexChange = (delta: 1 | -1) => {
+    if (this.disabled) {
+      return;
+    }
     this.setState((state, { options }) => {
       let nextIndex: number;
       if (state.activeIndex === null) {
@@ -298,9 +352,12 @@ export class Select<
   };
 
   static getDerivedStateFromProps<Item extends ISelectItem = ISelectItem>(
-    props: ISelectProps<Item>
+    props: ISelectProps<Item>,
+    state: ISelectState<Item>
   ): Partial<ISelectState<Item>> | null {
-    const nextState: Partial<ISelectState<Item>> = {};
+    const nextState: Partial<ISelectState<Item>> = {
+      prevOptions: props.options,
+    };
     if (typeof props.keyword === 'string') {
       nextState.keyword = props.keyword;
     }
@@ -311,6 +368,15 @@ export class Select<
     } else {
       if ('value' in props) {
         nextState.value = props.value;
+      }
+    }
+    if (props.options !== state.prevOptions) {
+      if (!props.options.length) {
+        nextState.activeIndex = null;
+      } else {
+        if (nextState.activeIndex >= props.options.length) {
+          nextState.activeIndex = props.options.length - 1;
+        }
       }
     }
     return nextState;
@@ -387,6 +453,7 @@ export class Select<
               'zent-select-inline': inline,
               'zent-select-active': active,
               'zent-select-visible': visible,
+              'zent-select-disabled': this.disabled,
             })}
             style={{ width }}
           >
