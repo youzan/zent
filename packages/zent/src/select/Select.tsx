@@ -1,7 +1,6 @@
 import * as React from 'react';
 import cx from 'classnames';
 import Popover from '../popover';
-// import Trigger from './Trigger';
 import TagList from './TagList';
 import Option from './Option';
 import Search from './Search';
@@ -372,11 +371,11 @@ export class Select<
         nextState.value = props.value;
       }
     }
-    if (props.options !== state.prevOptions) {
+    if (props.options !== state.prevOptions && state.activeIndex !== null) {
       if (!props.options.length) {
         nextState.activeIndex = null;
       } else {
-        if (nextState.activeIndex >= props.options.length) {
+        if (state.activeIndex >= props.options.length) {
           nextState.activeIndex = props.options.length - 1;
         }
       }
