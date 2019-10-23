@@ -11,6 +11,7 @@ export interface IOptionProps<Item extends ISelectItem> {
   onMouseEnter(index: number): void;
   onMouseLeave(index: number): void;
   multiple: boolean;
+  children?: React.ReactNode;
 }
 
 function SelectOption<Item extends ISelectItem>({
@@ -22,6 +23,7 @@ function SelectOption<Item extends ISelectItem>({
   onMouseEnter,
   onMouseLeave,
   multiple,
+  children,
 }: IOptionProps<Item>) {
   return (
     <div
@@ -39,7 +41,7 @@ function SelectOption<Item extends ISelectItem>({
       onMouseEnter={() => !value.type && onMouseEnter(index)}
       onMouseLeave={() => !value.type && onMouseLeave(index)}
     >
-      <div className="zent-select-option-text">{value.text}</div>
+      <div className="zent-select-option-text">{children}</div>
     </div>
   );
 }
