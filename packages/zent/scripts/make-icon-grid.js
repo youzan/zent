@@ -5,6 +5,7 @@
 var codes = require('zenticons/lib/codes.json');
 
 var icons = codes
+  .filter(c => !c.keywords.some(k => k === 'duplicate'))
   .map(c => {
     var iname = c.name;
     var icodepoint = c.hexCodepoint;
