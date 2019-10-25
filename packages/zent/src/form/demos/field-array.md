@@ -273,7 +273,7 @@ ReactDOM.render(<WrappedForm />, mountNode);
 			font-size: 12px;
 			position: absolute;
 			top: 6px;
-			left: 300px;
+			left: 340px;
 		}
 	}
 
@@ -283,6 +283,7 @@ ReactDOM.render(<WrappedForm />, mountNode);
 
 	.zenticon {
 		margin-left: 10px;
+		font-size: 16px;
 	}
 }
 </style>

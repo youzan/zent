@@ -17,7 +17,7 @@
     "build": "yarn prepare-build && yarn webpack",
     "deploy": "yarn build && ./scripts/deploy.sh",
     "webpack-beta": "cross-env NODE_ENV=production VERSION=beta webpack --progress --hide-modules --config webpack/webpack.prd.config.js",
-    "build-beta": "yarn prepare-build && yarn webpack-beta",
+    "build-beta": "yarn prepare-build && yarn webpack-beta && yarn workspace zent typedoc",
     "deploy-beta": "yarn build-beta && ./scripts/deploy-beta.sh"
   },
   "dependencies": {
@@ -29,9 +29,9 @@
     "prettier": "^1.15.2",
     "prismjs": "1.8.4",
     "prop-types": "^15.6.0",
-    "react": "16.8.x",
+    "react": "16.10.x",
     "react-beautiful-dnd": "^10.0.4",
-    "react-dom": "16.8.x",
+    "react-dom": "16.10.x",
     "react-loadable": "^5.3.0",
     "react-router-dom": "^4.1.1",
     "transliteration": "^1.6.2"
@@ -77,8 +77,6 @@
     "postcss-loader": "^3.0.0",
     "progress-bar-webpack-plugin": "^1.11.0",
     "ramda": "^0.25.0",
-    "react": "16.8.x",
-    "react-dom": "16.8.x",
     "react-hot-loader": "^4.6.3",
     "react-markdown-doc-loader": "^3.0.0",
     "sass": "^1.22.7",

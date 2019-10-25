@@ -343,6 +343,11 @@ $input-width: 190px;
       border-bottom-style: solid;
       box-sizing: border-box;
 
+      .zenticon-right {
+        font-size: 10px;
+        vertical-align: middle;
+      }
+
       .link--prev {
         cursor: pointer;
         position: absolute;

@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:8-stretch-browsers
+      - image: circleci/node:dubnium-buster
     working_directory: ~/youzan/zent
     steps:
       - checkout

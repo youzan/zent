@@ -1,4 +1,5 @@
 @import './theme/default';
+@import './theme/font';
 
 .zent-split-button {
   display: inline-block;
@@ -55,7 +56,7 @@
     padding: 0 4px;
 
     &-icon {
-      transform: scale(0.5);
+      font-size: $font-size-large;
     }
 
     &.zent-btn-primary {
