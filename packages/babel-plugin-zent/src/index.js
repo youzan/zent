@@ -91,6 +91,7 @@ function buildImportReplacement(specifier, types, state, originalPath) {
   const localName = specifier.local.name;
   const replacement = [];
   const { opts: options, data } = state;
+  const libName = getLibraryName(state);
 
   if (data.MODULE_MAPPING.hasOwnProperty(importedName)) {
     const { noModuleRewrite, automaticStyleImport, useRawStyle } = options;
@@ -106,7 +107,7 @@ function buildImportReplacement(specifier, types, state, originalPath) {
             importedName,
             localName
           ),
-          types.stringLiteral(getJavaScriptPath(rule.js))
+          types.stringLiteral(getJavaScriptPath(rule.js, libName))
         )
       );
     }
@@ -124,7 +125,7 @@ function buildImportReplacement(specifier, types, state, originalPath) {
           replacement.push(
             types.importDeclaration(
               [],
-              types.stringLiteral(getStylePath(path, useRawStyle))
+              types.stringLiteral(getStylePath(path, libName, !!useRawStyle))
             )
           );
           data.STYLE_IMPORT_MAPPING[path] = true;
@@ -180,12 +181,12 @@ function initModuleMappingAsNecessary(state, path) {
   }
 }
 
-function getJavaScriptPath(relativePath) {
+function getJavaScriptPath(relativePath, libName) {
   const parentDir = 'es';
-  return `zent/${parentDir}${relativePath}`;
+  return `${libName}/${parentDir}${relativePath}`;
 }
 
-function getStylePath(component, useRaw) {
+function getStylePath(component, libName, useRaw) {
   let suffix, parentDir;
   if (useRaw) {
     suffix = '.scss';
@@ -194,7 +195,7 @@ function getStylePath(component, useRaw) {
     suffix = '.css';
     parentDir = 'css';
   }
-  return `zent/${parentDir}/${component}${suffix}`;
+  return `${libName}/${parentDir}/${component}${suffix}`;
 }
 
 function getLibraryName(state) {
