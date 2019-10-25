@@ -210,7 +210,7 @@ import { Portal, PurePortal } from 'zent'
 
 ## 7.0.0-next.39(2019-10-25)
 
-- 增加所有组件的 [typedoc](https://youzan.github.io/zent-beta/apidoc/)
+- 增加所有组件的 [API 文档](../../apidoc)
 - 更新所有 `Icon`，统一了 `Icon` 的画布大小，所以部分图标在同样 `font-size` 的情况下可能比原来的要小
 - `Tabs` 修复切换 Panel 时的隐藏行为，默认和老版本保持一致，只是隐藏，不会 unmount；可以通过参数强制在切换时 unmount
 - 修复 `Sweetalert` 的类型定义
