@@ -47,6 +47,7 @@ export function createUseIMEComposition(
           // 若输入法正在输入，则不触发上层组件的事件
           return;
         }
+        console.log('emit onChange');
         return onChangeProp && onChangeProp(...args);
       }) as OnChange,
       [onChangeProp]
@@ -67,6 +68,7 @@ export function createUseIMEComposition(
         // chrome 的 onCompositionEnd 事件在 onChange 后触发，需要在 onCompositionEnd 后额外触发一次 onChange 事件
         if (EMIT_CHANGE_AFTER_COMPOSITION_END) {
           e.type = 'change';
+          console.log('emit onChange');
           onChangeProp && onChangeProp(e);
         }
       },
@@ -74,10 +76,12 @@ export function createUseIMEComposition(
     );
 
     return {
-      value: ctx.enable ? compositionValue : propValue || '',
-      onChange: ctx.enable ? onCompositionValueChange : onChangeProp,
-      onCompositionStart,
-      onCompositionEnd,
+      value: compositionValue,
+      onChange: onCompositionValueChange,
+      onCompositionStart: ctx.enable
+        ? onCompositionStart
+        : onCompositionStartProp,
+      onCompositionEnd: ctx.enable ? onCompositionEnd : onCompositionEndProp,
     };
   };
 }
