@@ -30,6 +30,7 @@ export class VerticalTabs<Id extends string | number = string> extends BaseTabs<
   static defaultProps: Partial<IVerticalTabsProps<string>> = {
     activeId: '',
     onChange: noop,
+    unmountPanelOnHide: false,
   };
 
   get tabsCls() {
@@ -97,11 +98,14 @@ export class VerticalTabs<Id extends string | number = string> extends BaseTabs<
     if ('divide' in tabItem) {
       return null;
     }
+
+    const { unmountPanelOnHide } = this.props;
     return (
       <LazyMount mount={tabItem.actived} key={tabItem.key}>
         <TabPanel
           tab={tabItem.title}
           actived={tabItem.actived}
+          unmountOnHide={tabItem.unmountOnHide || unmountPanelOnHide}
           className={tabItem.className}
           id={tabItem.key}
         >

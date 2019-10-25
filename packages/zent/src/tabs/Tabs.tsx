@@ -47,6 +47,7 @@ export class Tabs<Id extends string | number = string> extends BaseTabs<
     stretch: false,
     onChange: noop,
     onDelete: noop,
+    unmountPanelOnHide: false,
   };
 
   get tabsCls() {
@@ -87,13 +88,8 @@ export class Tabs<Id extends string | number = string> extends BaseTabs<
     const { type, candel, stretch, navExtraContent, onChange, onDelete } = this
       .props as ITabsInnerProps<Id>;
 
-    const TabsNavComp = TabsNavComponents[type] as React.ComponentClass<
-      ITabsNavProps<Id>
-    >;
-
-    if (!TabsNavComp) {
-      return null;
-    }
+    const TabsNavComp = (TabsNavComponents[type] ||
+      TabsNavComponents['normal']) as React.ComponentClass<ITabsNavProps<Id>>;
 
     return (
       <TabsNavComp
@@ -108,11 +104,13 @@ export class Tabs<Id extends string | number = string> extends BaseTabs<
   }
 
   renderTabPanel(tabItem: IInnerTab<Id>) {
+    const { unmountPanelOnHide } = this.props;
     return (
       <LazyMount mount={tabItem.actived} key={tabItem.key}>
         <TabPanel
           tab={tabItem.title}
           actived={tabItem.actived}
+          unmountOnHide={tabItem.unmountOnHide || unmountPanelOnHide}
           className={tabItem.className}
           id={tabItem.key}
         >

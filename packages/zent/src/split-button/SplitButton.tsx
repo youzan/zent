@@ -58,7 +58,7 @@ export class SplitButton<Value> extends Component<ISplitButtonProps<Value>> {
     prefix: 'zent',
   };
 
-  contextType = DisabledContext;
+  static contextType = DisabledContext;
   context!: IDisabledContext;
 
   state = {

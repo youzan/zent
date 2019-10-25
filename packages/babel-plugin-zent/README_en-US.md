@@ -33,6 +33,7 @@ In your component Javascript files, use zent like this: `import { Button, Dialog
 
 ### Options
 
+- `libraryName`: Library to transform
 - `noModuleRewrite`: disable JavaScript module import rewrite，use with bundle tool's tree-shaking feature.
 - `automaticStyleImport`: `true` to enable styles imports for component.
 - `useRawStyle`: should be used with `automaticStyleImport`, imports sass source files if set to `true`. **Requires Zent >= 7.0.0**
@@ -40,6 +41,7 @@ In your component Javascript files, use zent like this: `import { Button, Dialog
 ```js
 // defaults
 {
+	libraryName: 'zent',
 	noModuleRewrite: false,
 	automaticStyleImport: false,
 	useRawStyle: false

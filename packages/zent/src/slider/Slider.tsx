@@ -68,6 +68,7 @@ export class Slider extends React.Component<ISliderProps, ISliderState> {
     step: 1,
     withInput: true,
     range: false,
+    value: 0,
   };
 
   static contextType = DisabledContext;

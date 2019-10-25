@@ -81,7 +81,7 @@ describe('Tabs', () => {
   });
 
   it('different types', () => {
-    const ensure = type => {
+    const ensure = (type, targetType) => {
       const wrapper = mount(
         <Tabs activeId="foobar" type={type}>
           <TabPanel id="foobar" tab="foobar-tab">
@@ -89,15 +89,18 @@ describe('Tabs', () => {
           </TabPanel>
         </Tabs>
       );
-      type = type || 'normal';
       expect(
-        wrapper.find('.zent-tabs-nav').hasClass(`zent-tabs-nav-type__${type}`)
+        wrapper
+          .find('.zent-tabs-nav')
+          .hasClass(`zent-tabs-nav-type__${targetType}`)
       ).toBe(true);
     };
-    ensure();
-    ensure('normal');
-    ensure('card');
-    ensure('button');
+    ensure(undefined, 'normal');
+    ensure('normal', 'normal');
+    ensure('card', 'card');
+    ensure('button', 'button');
+    // zent 6.x tabs type
+    ensure('slider', 'normal');
   });
 
   it('stretch props', () => {

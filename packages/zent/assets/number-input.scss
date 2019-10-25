@@ -54,6 +54,7 @@
         @include theme-color(color, stroke, 2);
         line-height: 15px;
         position: static;
+        font-size: 12px;
       }
     }
 
@@ -61,16 +62,6 @@
       @include theme-color(border-bottom-color, stroke, 5);
       border-bottom-width: 1px;
       border-bottom-style: solid;
-
-      .zenticon {
-        transform: rotate(-90deg) scale(0.4);
-      }
-    }
-
-    #{$p}-arrowdown {
-      .zenticon {
-        transform: rotate(90deg) scale(0.4);
-      }
     }
   }
 

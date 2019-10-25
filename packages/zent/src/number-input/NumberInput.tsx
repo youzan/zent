@@ -388,10 +388,10 @@ export class NumberInput extends React.Component<
         {showStepper && (
           <div className={'zent-number-input-arrows'}>
             <div className={upArrowClass} onClick={this.inc}>
-              <Icon type="right" />
+              <Icon type="up" />
             </div>
             <div className={downArrowClass} onClick={this.dec}>
-              <Icon type="right" />
+              <Icon type="down" />
             </div>
           </div>
         )}

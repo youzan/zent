@@ -38,7 +38,7 @@ abstract class BaseTabs<
       <div className={this.tabsCls}>
         {this.renderNav(tabDataList)}
         <div className="zent-tabs-panel-wrapper">
-          {tabDataList.map(this.renderTabPanel)}
+          {tabDataList.map(this.renderTabPanel.bind(this))}
         </div>
       </div>
     );
