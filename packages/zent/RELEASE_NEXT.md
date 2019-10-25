@@ -200,9 +200,20 @@ import { Portal, PurePortal } from 'zent'
 - 添加 `VerticalTabs` 组件，用于展示竖状样式
 - 修改了部分组件 className，请注意样式覆盖的使用场景
 
+### `Icon`
+
+- 统一了 `Icon` 的画布大小，所以部分图标在同样 `font-size` 的情况下可能比原来的要小，样式上需要注意下
+
 #### 源样式
 
 如果之前依赖了 postcss 的源样式，需要改成 sass。
+
+## 7.0.0-next.39(2019-10-25)
+
+- 增加所有组件的 [typedoc](https://youzan.github.io/zent-beta/apidoc/)
+- 更新所有 `Icon`，统一了 `Icon` 的画布大小，所以部分图标在同样 `font-size` 的情况下可能比原来的要小
+- `Tabs` 修复切换 Panel 时的隐藏行为，默认和老版本保持一致，只是隐藏，不会 unmount；可以通过参数强制在切换时 unmount
+- 修复 `Sweetalert` 的类型定义
 
 ## 7.0.0-next.38(2019-10-15)
 
