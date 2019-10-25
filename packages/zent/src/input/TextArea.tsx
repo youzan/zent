@@ -18,7 +18,6 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, ITextAreaProps>(
       onChange: onChangeProp,
       onCompositionStart: onCompositionStartProp,
       onCompositionEnd: onCompositionEndProp,
-      defaultValue,
       autoSize,
       showCount,
       maxLength,
@@ -39,9 +38,7 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, ITextAreaProps>(
       onCompositionStart,
       onCompositionEnd,
     } = useIMEComposition(
-      (typeof valueProp === 'undefined'
-        ? (defaultValue as string)
-        : valueProp) || '',
+      valueProp,
       onChangeProp,
       onCompositionStartProp,
       onCompositionEndProp

@@ -22,7 +22,6 @@ export const InputCore = React.forwardRef<
     onChange: onChangeProp,
     onCompositionStart: onCompositionStartProp,
     onCompositionEnd: onCompositionEndProp,
-    defaultValue,
     onClear,
     width,
     size,
@@ -43,8 +42,7 @@ export const InputCore = React.forwardRef<
     onCompositionStart,
     onCompositionEnd,
   } = useIMEComposition(
-    (typeof valueProp === 'undefined' ? (defaultValue as string) : valueProp) ||
-      '',
+    valueProp,
     onChangeProp,
     onCompositionStartProp,
     onCompositionEndProp

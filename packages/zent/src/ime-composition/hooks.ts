@@ -34,20 +34,13 @@ export function createUseIMEComposition(
     const isCompositionRef = React.useRef(false);
     const [compositionValue, setCompositionValue] = React.useState(propValue);
 
-    React.useEffect(() => {
-      if (!isCompositionRef.current) {
-        setCompositionValue(propValue);
-      }
-    }, [propValue]);
-
     const onCompositionValueChange = React.useCallback(
       ((...args) => {
-        setCompositionValue(getEventValue(...args));
         if (isCompositionRef.current) {
+          setCompositionValue(getEventValue(...args));
           // 若输入法正在输入，则不触发上层组件的事件
           return;
         }
-        console.log('emit onChange');
         return onChangeProp && onChangeProp(...args);
       }) as OnChange,
       [onChangeProp]
@@ -68,20 +61,29 @@ export function createUseIMEComposition(
         // chrome 的 onCompositionEnd 事件在 onChange 后触发，需要在 onCompositionEnd 后额外触发一次 onChange 事件
         if (EMIT_CHANGE_AFTER_COMPOSITION_END) {
           e.type = 'change';
-          console.log('emit onChange');
           onChangeProp && onChangeProp(e);
         }
       },
-      [onCompositionEndProp, onChangeProp]
+      [onCompositionEndProp]
     );
 
+    // 只处理受控的组件
+    const isControlled = propValue !== undefined;
+    const passCompositionHandler = isControlled && ctx.enable;
+    const passCompositionValue =
+      isControlled && ctx.enable && isCompositionRef.current;
+
     return {
-      value: compositionValue,
-      onChange: onCompositionValueChange,
-      onCompositionStart: ctx.enable
+      value: passCompositionValue ? compositionValue : propValue,
+      onChange: passCompositionHandler
+        ? onCompositionValueChange
+        : onChangeProp,
+      onCompositionStart: passCompositionHandler
         ? onCompositionStart
         : onCompositionStartProp,
-      onCompositionEnd: ctx.enable ? onCompositionEnd : onCompositionEndProp,
+      onCompositionEnd: passCompositionHandler
+        ? onCompositionEnd
+        : onCompositionEndProp,
     };
   };
 }

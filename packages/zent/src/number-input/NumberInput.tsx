@@ -113,6 +113,7 @@ export class NumberInput extends React.Component<
   private onUserInput = (
     e: IInputClearEvent | React.ChangeEvent<HTMLInputElement>
   ) => {
+    console.log(e.target.value);
     const { value } = e.target;
     if (this.props.integer === false) {
       const { onInput } = this.props;
