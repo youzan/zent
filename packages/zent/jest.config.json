@@ -55,7 +55,8 @@
     "<rootDir>/src/utils/dom/getScollPosition.ts",
     "<rootDir>/src/auto-complete/AutoComplete.tsx",
     "<rootDir>/src/notice/.+",
-    "<rootDir>/src/utils/nextFrame.ts"
+    "<rootDir>/src/utils/nextFrame.ts",
+    "<rootDir>/src/tabs/components/TabDivide.tsx"
   ],
   "moduleDirectories": [
     "node_modules",
