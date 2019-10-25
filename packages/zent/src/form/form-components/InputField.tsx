@@ -3,7 +3,7 @@ import { Omit } from 'utility-types';
 
 import Input, { IInputProps, IInputClearEvent } from '../../input';
 import { FormField, IFormFieldChildProps } from '../Field';
-import { IFormComponentProps, TouchWhen } from '../shared';
+import { IFormComponentProps, TouchWhen, ValidateOccasion } from '../shared';
 import { $MergeParams } from '../utils';
 
 export type IFormInputFieldProps = IFormComponentProps<
@@ -37,6 +37,7 @@ function renderInput(
 export const FormInputField: React.FunctionComponent<
   IFormInputFieldProps
 > = props => {
+  const { validateOccasion = ValidateOccasion.Blur } = props;
   return (
     <FormField
       {...props}
@@ -44,6 +45,7 @@ export const FormInputField: React.FunctionComponent<
         (props as $MergeParams<IFormInputFieldProps>).defaultValue || ''
       }
       touchWhen={TouchWhen.Blur}
+      validateOccasion={validateOccasion}
     >
       {childProps => renderInput(childProps, props)}
     </FormField>
