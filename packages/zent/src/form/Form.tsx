@@ -24,6 +24,20 @@ import { FormContext, IFormChild, IZentFormContext } from './context';
 import { ZentForm, useForm } from './ZentForm';
 import scroll from '../utils/scroll';
 import { CombineErrors } from './CombineErrors';
+import { ValidateOccasion, TouchWhen } from './shared';
+
+export {
+  IRenderError,
+  IFormFieldViewDrivenProps,
+  IFormFieldModelDrivenProps,
+  IFormFieldModelProps,
+  isViewDrivenProps,
+  ValidateOccasion,
+  IFormFieldPropsBase,
+  IFormFieldProps,
+  IFormComponentProps,
+  IFormFieldChildProps,
+} from './shared';
 
 function makeContext(
   disabled: boolean,
@@ -72,6 +86,8 @@ export class Form<
   static ValidateOption = ValidateOption;
   static createAsyncValidator = createAsyncValidator;
   static isAsyncValidator = isAsyncValidator;
+  static ValidateOccasion = ValidateOccasion;
+  static TouchWhen = TouchWhen;
 
   readonly formRef = React.createRef<HTMLFormElement>();
 
