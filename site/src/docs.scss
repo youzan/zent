@@ -2,9 +2,6 @@
 
 body {
   background-color: #fff;
-  text-rendering: optimizeLegibility;
-  -moz-osx-font-smoothing: grayscale; // sass-lint:disable-line no-vendor-prefixes
-  -webkit-font-smoothing: antialiased; // sass-lint:disable-line no-vendor-prefixes
   text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
   font-family: PingFang SC, Helvetica Neue, Arial, sans-serif;
 }
