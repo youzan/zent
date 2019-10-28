@@ -8,14 +8,9 @@ scatter: true
 
 ## Form 表单组件
 
-1. [使用指南](#shi-yong-zhi-nan)
-2. [表单校验](#biao-dan-xiao-yan)
-3. [格式化 value](#ge-shi-hua-value)
-4. [表单操作](#biao-dan-cao-zuo)
-5. [其他](#qi-ta)
-6. [组件原理](#zu-jian-yuan-li)
-7. [其他说明](#qi-ta-shuo-ming)
-8. [API](#api)
+[API文档](../../apidoc)
+
+[内部实现的API文档](https://zent-contrib.github.io/formulr/)
 
 ### 使用指南
 

@@ -17,6 +17,16 @@ import { prefix } from './constants';
 import CNWrapper from './components/CNWrapper';
 import USWrapper from './components/USWrapper';
 
+window.addEventListener('click', e => {
+  if (e.target instanceof HTMLAnchorElement) {
+    const { href } = e.target;
+    if (/(apidoc|formulr)/.test(href)) {
+      e.preventDefault();
+      window.open(href, '_blank', 'noopener,noreferrer');
+    }
+  }
+});
+
 // one-dimentional array
 // 第二个参数作为处理路由分块的夹层暂时存在，后续会修复。
 const routeData = {

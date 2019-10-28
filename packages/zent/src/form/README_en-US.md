@@ -7,14 +7,9 @@ scatter: true
 
 ## Form
 
-1. [Guides](#guides)
-2. [The validations of form](#the-validations-of-form)
-3. [The format of value](#the-format-of-value)
-4. [The operations of form](#the-operations-of-form)
-5. [Others](#others)
-6. [The internal realization of form](#the-internal-realization-of-fo)
-7. [Other instructions](#other-instructions)
-8. [API](#api)
+[API Document](../../apidoc)
+
+[API Document for internal implementation](https://zent-contrib.github.io/formulr/)
 
 ### Guides
 
