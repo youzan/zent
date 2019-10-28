@@ -22,8 +22,6 @@ function Simple() {
 			<IMEComposition enable={enable}>
 				<Input value={text} onChange={onInputChange} />
 				<Input value={text} onChange={onInputChange} type="textarea" />
-				<Input defaultValue="has default value" />
-				<Input defaultValue="has default value" type="textarea" />
 			</IMEComposition>
 			<Button type="primary" onClick={() => setEnable(!enable)}>
 				{enable ? 'Disable' : 'Enable'} IMEComposition
