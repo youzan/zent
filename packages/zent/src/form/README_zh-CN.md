@@ -8,17 +8,12 @@ scatter: true
 
 ## Form 表单组件
 
-[API文档](../../apidoc)
-
-[内部实现的API文档](https://zent-contrib.github.io/formulr/)
-
 ### 使用指南
 
 `Form` 有两种运行模式(`FormStrategy`)，`View`和`Model`。`FormStrategy`指明了表单是由视图驱动的还是独立数据。
 
-当使用`View`时，表单的组件和`hooks`接受一个`name`参数，根据`name`构建内部数据结构。
-
-当使用`Model`时，数据结构是在表单外构建的，表单的组件和`hooks`必须直接传入该字段对应的`model`。
+- 当使用`View`时，表单的组件和`hooks`接受一个`name`参数，根据`name`构建内部数据结构。
+- 当使用`Model`时，数据结构是在表单外构建的，表单的组件和`hooks`必须直接传入该字段对应的`model`。
 
 #### 表单域 `Field`
 
@@ -43,6 +38,13 @@ scatter: true
 - `FormDateRangeQuickPickerField`
 
 Zent 还提供了组合内置表单组件的基础组件，包括`FormControl`, `Label`, `FormError`。
+
+### API
+
+`Form` 的文档分为两部分：
+
+- 以上和 Zent 相关的组件 API 文档可以在[这里搜索查看](../../apidoc/classes/form.html)。
+- 其他和 Zent 无关的 [API 文档](https://zent-contrib.github.io/formulr/)，例如 `useField` 等 hooks 、`Validators` 以及其他底层基础组件。
 
 #### 基础使用方法
 

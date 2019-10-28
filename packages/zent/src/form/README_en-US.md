@@ -7,17 +7,12 @@ scatter: true
 
 ## Form
 
-[API Document](../../apidoc)
-
-[API Document for internal implementation](https://zent-contrib.github.io/formulr/)
-
 ### Guides
 
 `FormStrategy` is the way how form constructs.There are two kinds of form strategies, `View` and `Model`.
 
-Using `View` means the form data is constructed by the view structure. Under this strategy, all form components/hooks use a `name` for construct the internal model.
-
-Using `Model` means the form data is constructed separately, and form components/hooks use `model` object from the constructed form model.
+- Using `View` means the form data is constructed by the view structure. Under this strategy, all form components/hooks use a `name` for construct the internal model.
+- Using `Model` means the form data is constructed separately, and form components/hooks use `model` object from the constructed form model.
 
 #### `Field`
 
@@ -42,6 +37,13 @@ Zent provides several common field components. You can use custom field componen
 - `FormDateRangeQuickPickerField`
 
 Zent also provides separate components that construct these components, including `FormControl`, `Label`, `FormError`.
+
+### API
+
+`Form` documentation consists of two parts：
+
+- Zent Form components doc can be found [here](../../apidoc/classes/form.html)
+- APIs not tied to Zent can be found [here](https://zent-contrib.github.io/formulr/), e.g. `useField` and other hooks, `Validators` and other low level APIs
 
 #### Basic Usages
 
