@@ -51,7 +51,9 @@ export const FormSelectField: React.FunctionComponent<
     if (
       props.required &&
       !validators.some(
-        it => (it as $MergeParams<IValidator<any>>).$$id === Validators.REQUIRED
+        it =>
+          (it as $MergeParams<IValidator<any>>).$$id ===
+          Validators.SYMBOL_REQUIRED
       )
     ) {
       validators = ([
