@@ -73,7 +73,16 @@ function validate<T>(
 <!-- demo-slot-4 -->
 <!-- demo-slot-5 -->
 
-### 其他
+#### 内置的校验规则
+
+- [min](https://zent-contrib.github.io/formulr/globals.html#min)
+- [max](https://zent-contrib.github.io/formulr/globals.html#max)
+- [required](https://zent-contrib.github.io/formulr/globals.html#required)
+- [requiredTrue](https://zent-contrib.github.io/formulr/globals.html#requiredtrue)
+- [email](https://zent-contrib.github.io/formulr/globals.html#email)
+- [minLength](https://zent-contrib.github.io/formulr/globals.html#minlength)
+- [maxLength](https://zent-contrib.github.io/formulr/globals.html#maxlength)
+- [pattern](https://zent-contrib.github.io/formulr/globals.html#pattern)
 
 ### `Form` 布局
 

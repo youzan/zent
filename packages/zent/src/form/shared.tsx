@@ -64,7 +64,13 @@ export interface IFormFieldPropsBase<Value>
   validateOccasion?: ValidateOccasion;
   normalize?: (value: Value, prevValue: Value) => Value;
   format?: (value: Value) => Value;
-  getValidateOption?: (source: string) => ValidateOption | null | undefined;
+  /**
+   * 根据触发校验的源头获取校验规则
+   * Get `ValidateOption` from validation option
+   */
+  getValidateOption?: (
+    source: 'blur' | 'change'
+  ) => ValidateOption | null | undefined;
   modelRef?: React.RefObject<FieldModel<Value>>;
   touchWhen?: TouchWhen;
 }

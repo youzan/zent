@@ -72,6 +72,18 @@ function validate<T>(
 <!-- demo-slot-4 -->
 <!-- demo-slot-5 -->
 
+#### Built-in rules
+
+- [min](https://zent-contrib.github.io/formulr/globals.html#min)
+- [max](https://zent-contrib.github.io/formulr/globals.html#max)
+- [required](https://zent-contrib.github.io/formulr/globals.html#required)
+- [requiredTrue](https://zent-contrib.github.io/formulr/globals.html#requiredtrue)
+- [email](https://zent-contrib.github.io/formulr/globals.html#email)
+- [minLength](https://zent-contrib.github.io/formulr/globals.html#minlength)
+- [maxLength](https://zent-contrib.github.io/formulr/globals.html#maxlength)
+- [pattern](https://zent-contrib.github.io/formulr/globals.html#pattern)
+
+
 ### `Form` layouts
 
 `Form` uses `flex` for layouts, provides two kind of layouts: `horizontal`， `vertical`.

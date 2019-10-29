@@ -45,7 +45,8 @@ export function FormField<Value>(props: IFormFieldProps<Value>) {
       props.required &&
       !validators.some(
         it =>
-          (it as $MergeParams<IValidator<Value>>).$$id === Validators.REQUIRED
+          (it as $MergeParams<IValidator<Value>>).$$id ===
+          Validators.SYMBOL_REQUIRED
       )
     ) {
       validators = ([
