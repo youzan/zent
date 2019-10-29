@@ -39,6 +39,10 @@ export interface ICombineErrorState {
   error: IMaybeError<any>;
 }
 
+/**
+ * 将多个 model 的错误组合显示，只会显示收到的第一个错误
+ * Combines error of multiple models, only one at a moment.
+ */
 export class CombineErrors extends React.Component<
   ICombineErrorsProps,
   ICombineErrorState
