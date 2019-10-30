@@ -7,7 +7,7 @@ import { PopPositions } from '../pop';
 import Popover, { PositionFunction } from '../popover';
 
 import NoneTrigger from './NoneTrigger';
-import getPosition from './utils';
+import getPosition from '../utils/getArrowPosition';
 
 const { Trigger } = Popover;
 
@@ -38,7 +38,7 @@ export interface ITooltipProps {
 
 export class Tooltip extends Component<ITooltipProps> {
   static defaultProps = {
-    trigger: 'none',
+    trigger: 'hover',
     position: 'top-center',
     cushion: 10,
     centerArrow: false,
