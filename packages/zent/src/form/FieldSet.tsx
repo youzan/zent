@@ -16,6 +16,9 @@ import {
 } from './shared';
 
 export interface IFieldSetProps<T extends Record<string, BasicModel<unknown>>> {
+  /**
+   * 表单提交是滚动到错误时的`DOM`元素的`ref`(来自`React.createRef`或`React.useRef`)
+   */
   scrollAnchorRef?: React.RefObject<Element>;
   validators?: Array<IValidator<T>>;
   children?: React.ReactNode;

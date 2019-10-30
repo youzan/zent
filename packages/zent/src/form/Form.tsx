@@ -57,9 +57,15 @@ export interface IFormProps<
     'onSubmit' | 'dangerouslySetInnerHTML'
   > {
   layout: 'horizontal' | 'vertical';
+  /**
+   * `useForm`得到的`model`
+   */
   form: ZentForm<T>;
   disabled?: boolean;
   scrollToError?: boolean;
+  /**
+   * 表单提交，`form.submit`或者原生的`DOM`触发的`submit`事件都会触发`onSubmit`
+   */
   onSubmit?: (form: ZentForm<T>, e?: React.SyntheticEvent) => void;
   onSubmitFail?: (e: unknown) => void;
   onSubmitSuccess?: () => void;

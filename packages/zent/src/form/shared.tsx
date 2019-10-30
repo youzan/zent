@@ -54,15 +54,34 @@ export enum TouchWhen {
 
 export interface IFormFieldPropsBase<Value>
   extends Omit<IFormControlProps, 'required' | 'invalid'> {
+  /**
+   * 自定义错误渲染，参数是`validator`返回的对象，一次只会有一个错误
+   */
   renderError?: IRenderError<Value>;
   helpDesc?: React.ReactNode;
   notice?: React.ReactNode;
+  /**
+   * 设置不显示错误
+   */
   withoutError?: boolean;
   before?: React.ReactNode;
   after?: React.ReactNode;
+  /**
+   * 是否必填，如果这项有值，会在校验规则里添加一个`required`
+   */
   required?: boolean | string;
+  /**
+   * 什么时候触发校验
+   * @defaultValue `ValidateOccasion.Change | ValidateOccasion.Blur`
+   */
   validateOccasion?: ValidateOccasion;
+  /**
+   * 触发onChange时会西安经过`normalize`再写入到内部的`model`上
+   */
   normalize?: (value: Value, prevValue: Value) => Value;
+  /**
+   * 渲染前会先经过`format`
+   */
   format?: (value: Value) => Value;
   /**
    * 根据触发校验的源头获取校验规则
@@ -72,6 +91,10 @@ export interface IFormFieldPropsBase<Value>
     source: 'blur' | 'change'
   ) => ValidateOption | null | undefined;
   modelRef?: React.RefObject<FieldModel<Value>>;
+  /**
+   * 什么时候标记表单项为`touched`
+   * @defaultValue `TouchWhen.Change`
+   */
   touchWhen?: TouchWhen;
 }
 

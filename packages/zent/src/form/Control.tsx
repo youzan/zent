@@ -10,6 +10,9 @@ export interface IFormControlProps {
   children?: React.ReactNode;
   required?: boolean;
   invalid?: boolean;
+  /**
+   * 默认不传`label`的时候也会留有`label`的空间，使用`withoutLabel`去掉这个留空
+   */
   withoutLabel?: boolean;
 }
 
