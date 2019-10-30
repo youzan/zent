@@ -1,0 +1,219 @@
+@import './theme/default';
+@import './theme/font';
+
+// FIXME: these values and ARROW_OFFSET_* in postion.js are interrelated
+$arrow-offset-h: 12px;
+$arrow-offset-v: 6px;
+$arrow-size: 6px;
+$arrow-cover-size: 11px;
+
+.zent-tooltip {
+  @include font-normal;
+  @include theme-color(background-color, stroke, 2);
+
+  border-radius: 2px;
+  box-shadow: $shadow-spec-layer;
+  z-index: 2000;
+
+  .zent-tooltip-inner,
+  .zent-tooltip-header {
+    @include theme-color(background-color, stroke, 2);
+    @include theme-color(color, stroke, 9);
+    position: relative;
+    border-radius: 2px;
+    padding: 13px 12px;
+    z-index: 2;
+  }
+
+  .zent-tooltip-header {
+    @include font-large;
+
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    padding-bottom: 0;
+    font-weight: $font-weight-bold;
+  }
+
+  .zent-tooltip-buttons {
+    text-align: right;
+    vertical-align: top;
+  }
+
+  .zent-tooltip-arrow {
+    @include theme-color(background-color, stroke, 2);
+
+    position: absolute;
+    z-index: 1;
+    width: $arrow-size;
+    height: $arrow-size;
+    box-shadow: $shadow-spec-layer;
+    overflow: hidden;
+  }
+
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: $arrow-cover-size;
+    height: $arrow-cover-size;
+  }
+
+  &--no-header {
+    .zent-tooltip-buttons {
+      display: inline-block;
+      margin-left: 24px;
+    }
+  }
+
+  &--has-header {
+    .zent-tooltip-buttons {
+      margin-top: 16px;
+    }
+  }
+
+  &.zent-popover-position {
+    // bottom side
+    &-bottom-left,
+    &-bottom-center,
+    &-bottom-right {
+      .zent-tooltip-arrow {
+        top: 0;
+      }
+
+      &::after {
+        top: -$arrow-cover-size;
+        width: 100%;
+        left: 0;
+      }
+    }
+
+    &-bottom-left {
+      .zent-tooltip-arrow {
+        transform: translateY(-50%) rotate(45deg);
+        left: $arrow-offset-h;
+      }
+    }
+
+    &-bottom-center {
+      .zent-tooltip-arrow {
+        transform: translate(-50%, -50%) rotate(45deg);
+        left: 50%;
+      }
+    }
+
+    &-bottom-right {
+      .zent-tooltip-arrow {
+        transform: translateY(-50%) rotate(45deg);
+        right: $arrow-offset-h;
+      }
+    }
+
+    // top side
+    &-top-left,
+    &-top-center,
+    &-top-right {
+      .zent-tooltip-arrow {
+        bottom: 0;
+      }
+
+      &::after {
+        bottom: -$arrow-cover-size;
+        width: 100%;
+        left: 0;
+      }
+    }
+
+    &-top-left {
+      .zent-tooltip-arrow {
+        transform: translateY(50%) rotate(45deg);
+        left: $arrow-offset-h;
+      }
+    }
+
+    &-top-center {
+      .zent-tooltip-arrow {
+        transform: translate(-50%, 50%) rotate(45deg);
+        left: 50%;
+      }
+    }
+
+    &-top-right {
+      .zent-tooltip-arrow {
+        transform: translateY(50%) rotate(45deg);
+        right: $arrow-offset-h;
+      }
+    }
+
+    // left side
+    &-left-top,
+    &-left-center,
+    &-left-bottom {
+      .zent-tooltip-arrow {
+        right: 0;
+      }
+
+      &::after {
+        right: -$arrow-cover-size;
+        height: 100%;
+        top: 0;
+      }
+    }
+
+    &-left-top {
+      .zent-tooltip-arrow {
+        transform: translateX(50%) rotate(45deg);
+        top: $arrow-offset-v;
+      }
+    }
+
+    &-left-center {
+      .zent-tooltip-arrow {
+        transform: translate(50%, -50%) rotate(45deg);
+        top: 50%;
+      }
+    }
+
+    &-left-bottom {
+      .zent-tooltip-arrow {
+        transform: translateX(50%) rotate(45deg);
+        bottom: $arrow-offset-v;
+      }
+    }
+
+    // left side
+    &-right-top,
+    &-right-center,
+    &-right-bottom {
+      .zent-tooltip-arrow {
+        left: 0;
+      }
+
+      &::after {
+        left: -$arrow-cover-size;
+        height: 100%;
+        top: 0;
+      }
+    }
+
+    &-right-top {
+      .zent-tooltip-arrow {
+        transform: translateX(-50%) rotate(45deg);
+        top: $arrow-offset-v;
+      }
+    }
+
+    &-right-center {
+      .zent-tooltip-arrow {
+        transform: translate(-50%, -50%) rotate(45deg);
+        top: 50%;
+      }
+    }
+
+    &-right-bottom {
+      .zent-tooltip-arrow {
+        transform: translateX(-50%) rotate(45deg);
+        bottom: $arrow-offset-v;
+      }
+    }
+  }
+}
