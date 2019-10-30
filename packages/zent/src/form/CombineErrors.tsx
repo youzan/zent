@@ -31,11 +31,11 @@ function pickError(errors: Array<IMaybeError<unknown>>): IMaybeError<unknown> {
 
 export interface ICombineErrorsProps {
   /**
-   * 当`FormStrategy`是`View`的时候传入字段名数组，用于显示哪些字段，这个字段不和models同时存在
+   * 当 `FormStrategy` 是 `View` 的时候传入字段名数组，用于显示哪些字段，这个字段不和 `models` 同时存在
    */
   names?: string[];
   /**
-   * 可以传入`model`数组，会把这些`model`的组合显示，这个字段不和`names`同时存在
+   * 可以传入 `model` 数组，会把这些 `model` 的组合显示，这个字段不和 `names` 同时存在
    */
   models?: Array<BasicModel<any>>;
   children?: (error: IMaybeError<any>) => React.ReactNode;
