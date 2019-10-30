@@ -76,11 +76,11 @@ export interface IFormFieldPropsBase<Value>
    */
   validateOccasion?: ValidateOccasion;
   /**
-   * 触发onChange时会西安经过`normalize`再写入到内部的`model`上
+   * 触发onChange时会先经过 `normalize` 再写入到内部的 `model `上
    */
   normalize?: (value: Value, prevValue: Value) => Value;
   /**
-   * 渲染前会先经过`format`
+   * 渲染前会先经过 `format`
    */
   format?: (value: Value) => Value;
   /**
@@ -92,7 +92,7 @@ export interface IFormFieldPropsBase<Value>
   ) => ValidateOption | null | undefined;
   modelRef?: React.RefObject<FieldModel<Value>>;
   /**
-   * 什么时候标记表单项为`touched`
+   * 什么时候标记表单项为 `touched`
    * @defaultValue `TouchWhen.Change`
    */
   touchWhen?: TouchWhen;
