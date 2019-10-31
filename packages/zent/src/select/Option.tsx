@@ -1,6 +1,7 @@
 import * as React from 'react';
 import cx from 'classnames';
 import { ISelectItem } from './Select';
+import Icon from '../icon';
 
 export interface IOptionProps<Item extends ISelectItem> {
   value: Item;
@@ -30,7 +31,6 @@ function SelectOption<Item extends ISelectItem>({
       className={cx('zent-select-option', {
         'zent-select-option-active': active,
         'zent-select-option-selected': !multiple && selected,
-        'zent-select-option-selected-multiple': multiple && selected,
         'zent-select-option-disabled': value.disabled,
         'zent-select-option-header': value.type === 'header',
       })}
@@ -41,7 +41,12 @@ function SelectOption<Item extends ISelectItem>({
       onMouseEnter={() => !value.type && onMouseEnter(index)}
       onMouseLeave={() => !value.type && onMouseLeave(index)}
     >
-      <div className="zent-select-option-text">{children}</div>
+      <div className="zent-select-option-text">
+        {children}
+        {multiple && selected && (
+          <Icon className="zent-select-option-selected-multiple" type="check" />
+        )}
+      </div>
     </div>
   );
 }

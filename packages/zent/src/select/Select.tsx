@@ -32,6 +32,8 @@ export interface ISelectCommonProps<Item extends ISelectItem> {
     options: Item[],
     renderOption: IOptionRenderer<Item>
   ): React.ReactNode;
+  renderValue?: (value: Item) => React.ReactNode;
+  renderOptionContent?: (value: Item) => React.ReactNode;
 }
 
 export interface ISelectSingleProps<Item extends ISelectItem>
@@ -269,7 +271,7 @@ export class Select<
   };
 
   renderOption: IOptionRenderer<Item> = (option: Item, index: number) => {
-    const { isEqual, multiple } = this.props;
+    const { isEqual, multiple, renderOptionContent } = this.props;
     const { value, activeIndex } = this.state;
     const selected =
       !!value &&
@@ -288,7 +290,7 @@ export class Select<
         onMouseLeave={this.onOptionMouseLeave}
         multiple={multiple}
       >
-        {option.text}
+        {renderOptionContent ? renderOptionContent(option) : option.text}
       </Option>
     );
   };
@@ -384,18 +386,24 @@ export class Select<
   }
 
   renderValue() {
-    const { placeholder } = this.props;
+    const { placeholder, renderValue } = this.props;
     const { visible } = this.state;
     if (this.props.multiple) {
       const value = this.state.value as Item[];
-      return <TagList list={value} onRemove={this.onRemove} />;
+      return (
+        <TagList
+          list={value}
+          onRemove={this.onRemove}
+          renderValue={renderValue}
+        />
+      );
     } else {
       if (visible) {
         return null;
       }
       const value = this.state.value as (Item | null);
       if (value) {
-        return value.text;
+        return renderValue ? renderValue(value) : value.text;
       }
       return <span className="zent-select-placeholder">{placeholder}</span>;
     }
