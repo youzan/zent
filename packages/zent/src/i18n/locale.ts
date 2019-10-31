@@ -132,3 +132,9 @@ export interface II18nLocaleUpload extends II18nLocaleCommon {
 export interface II18nLocaleMention {
   noContent: string;
 }
+
+export interface II18nLocaleBatchComponents {
+  total: string;
+  items: string;
+  desc: string;
+}

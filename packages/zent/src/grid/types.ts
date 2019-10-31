@@ -93,3 +93,9 @@ export interface IGridCellPos {
   column: number;
   fixed?: IGridInnerFixedType;
 }
+
+export type IBatchComponentType =
+  | React.ComponentType<{
+      data: any;
+    }>
+  | ((data: any) => React.ReactNode);

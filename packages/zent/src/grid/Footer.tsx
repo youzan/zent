@@ -2,10 +2,7 @@ import * as React from 'react';
 import { PureComponent } from 'react';
 import classnames from 'classnames';
 import size from 'lodash-es/size';
-import includes from 'lodash-es/includes';
-import concat from 'lodash-es/concat';
 import get from 'lodash-es/get';
-import every from 'lodash-es/every';
 import uniqBy from 'lodash-es/uniqBy';
 import Pagination from '../pagination';
 import LitePagination from '../pagination/LitePagination';
@@ -19,6 +16,7 @@ import { IBatchComponentsProps } from './BatchComponents';
 import { PaginationChangeHandler } from '../pagination/impl/BasePagination';
 import MiniPagination from '../pagination/MiniPagination';
 import BatchComponents from './BatchComponents';
+import isBrowser from '../utils/isBrowser';
 
 const defaultPageInfo = {
   current: 1,
@@ -60,7 +58,7 @@ class Footer<Data> extends PureComponent<
     selectedRows: [],
   };
 
-  private footNode: HTMLDivElement = null;
+  private footNode = React.createRef<HTMLDivElement>();
 
   hasPagination(props?: IGridFooterProps) {
     const { pageInfo } = props || this.props;
@@ -82,10 +80,10 @@ class Footer<Data> extends PureComponent<
   getSelectedRows = () => {
     const { datasets, getDataKey, store, rowKey } = this.props;
     const { selectedRows: prevSelectedRows } = this.state;
-    const selectedRowKeys = store.getState('selectedRowKeys');
+    const selectedRowKeys = store.getState('selectedRowKeys') || [];
     const selectedRows = (
-      uniqBy(concat(datasets, prevSelectedRows), rowKey) || []
-    ).filter((row, i) => includes(selectedRowKeys, getDataKey(row, i)));
+      uniqBy(datasets.concat(prevSelectedRows), rowKey) || []
+    ).filter((row, i) => selectedRowKeys.includes(getDataKey(row, i)));
     return selectedRows;
   };
 
@@ -136,16 +134,19 @@ class Footer<Data> extends PureComponent<
 
   getCheckboxAllDisabled() {
     const { getDataKey, datasets } = this.props;
-    return every(datasets, (item, index) => {
+    return datasets.every((item, index) => {
       const rowIndex = getDataKey(item, index);
       return get(this.getCheckboxPropsByItem(item, rowIndex), 'disabled');
     });
   }
 
   getBatchFixedStyle() {
-    if (this.footNode && this.props.batchComponentsFixed) {
+    if (!isBrowser) {
+      return {};
+    }
+    if (this.footNode.current && this.props.batchComponentsFixed) {
       return {
-        width: this.footNode.getBoundingClientRect().width,
+        width: this.footNode.current.getBoundingClientRect().width,
       };
     }
     return {};
@@ -158,7 +159,7 @@ class Footer<Data> extends PureComponent<
     }
   }
 
-  componentWillMount() {
+  componentWillUnmount() {
     if (this.unsubscribe) {
       this.unsubscribe();
     }
@@ -183,10 +184,7 @@ class Footer<Data> extends PureComponent<
 
     if (curPageInfo) {
       return (
-        <div
-          className={`${prefix}-grid-tfoot`}
-          ref={ref => (this.footNode = ref)}
-        >
+        <div className={`${prefix}-grid-tfoot`} ref={this.footNode}>
           {selection && batchComponents && batchComponents.length > 0 && (
             <BatchComponents
               style={batchFixedStyle}

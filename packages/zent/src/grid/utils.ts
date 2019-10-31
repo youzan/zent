@@ -68,7 +68,9 @@ export function getLeafColumns<Data>(columns: Array<IGridInnerColumn<Data>>) {
   return leafColumns;
 }
 
-export function isReactComponent(render: React.ElementType | React.FC) {
+export function isReactComponent(
+  render: React.ReactNode | React.FC
+): render is React.ComponentType<any> {
   let isReact = false;
 
   if (typeof render === 'function') {
@@ -80,20 +82,18 @@ export function isReactComponent(render: React.ElementType | React.FC) {
   return isReact;
 }
 
-// return true/false/null
-export function needFixBatchComps(
+export function getBatchCompsFixedStatus(
   isTableInView: boolean,
   isFootInView: boolean,
-  isSelectRows: boolean,
   isFixed: boolean
 ) {
-  let res = null;
+  console.log(isFootInView);
   if (isFootInView || !isTableInView) {
-    res = false;
+    return 'static';
   }
 
-  if (isTableInView && !isFootInView && !isFixed && isSelectRows) {
-    res = true;
+  if (isTableInView && !isFootInView && !isFixed) {
+    return 'fixed';
   }
-  return res;
+  return 'keep';
 }

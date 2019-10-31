@@ -333,8 +333,7 @@
 
           &::after {
             @include theme-color(background-color, stroke, 5);
-            content: '.';
-            font-size: 0;
+            content: '';
             display: inline-block;
             height: 14px;
             width: 2px;
@@ -386,12 +385,4 @@
       @include theme-color(color, primary, 4);
     }
   }
-}
-
-.batch-component-more {
-  padding: 0 0 0 12px;
-}
-
-.batch-component-icon {
-  transform: scale(0.5);
 }

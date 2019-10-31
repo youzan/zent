@@ -117,7 +117,7 @@ class Selection extends React.Component {
 					<span key="pure" className="child-comps">
 						This is a DOM element.{' '}
 					</span>,
-					({ data }) => {
+					data => {
 						return (
 							<span
 								key="func"
