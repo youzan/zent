@@ -28,6 +28,8 @@ export interface ISelectCommonProps<Item extends ISelectItem> {
   width: React.CSSProperties['width'];
   filter?: ((keyword: string, item: Item) => boolean) | false;
   disabled?: boolean;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
   renderOptionList<Item extends ISelectItem>(
     options: Item[],
     renderOption: IOptionRenderer<Item>
@@ -55,7 +57,7 @@ export type ISelectProps<Item extends ISelectItem = ISelectItem> =
   | ISelectMultiProps<Item>;
 
 export interface ISelectState<Item extends ISelectItem> {
-  visible: boolean;
+  open: boolean;
   active: boolean;
   keyword: string;
   value: null | Item | Item[];
@@ -136,7 +138,7 @@ export class Select<
     this.state = {
       keyword: props.keyword || '',
       value,
-      visible: false,
+      open: false,
       active: false,
       activeIndex: null,
       prevOptions: props.options,
@@ -148,15 +150,20 @@ export class Select<
     return disabled;
   }
 
-  onVisibleChange = (visible: boolean) => {
+  onVisibleChange = (open: boolean) => {
     if (this.disabled) {
       return;
     }
-    this.setState({
-      visible,
-      active: visible,
-      activeIndex: null,
-    });
+    const { onOpenChange } = this.props;
+    if (onOpenChange) {
+      onOpenChange(open);
+    } else {
+      this.setState({
+        open,
+        active: open,
+        activeIndex: null,
+      });
+    }
   };
 
   onSelect = (item: Item) => {
@@ -164,9 +171,7 @@ export class Select<
       return;
     }
     if (this.props.multiple === false) {
-      this.setState({
-        visible: false,
-      });
+      this.onVisibleChange(false);
       const { onChange } = this.props;
       if (onChange) {
         onChange(item);
@@ -298,7 +303,7 @@ export class Select<
   globalClick = (e: MouseEvent) => {
     if (
       this.disabled ||
-      this.state.visible ||
+      this.state.open ||
       !this.state.active ||
       !this.elementRef.current ||
       !this.popoverRef.current
@@ -364,6 +369,10 @@ export class Select<
     if (typeof props.keyword === 'string') {
       nextState.keyword = props.keyword;
     }
+    if (typeof props.open === 'boolean') {
+      nextState.open = props.open;
+      nextState.active = props.open;
+    }
     if (props.multiple) {
       if (Array.isArray(props.value)) {
         nextState.value = props.value;
@@ -387,7 +396,7 @@ export class Select<
 
   renderValue() {
     const { placeholder, renderValue } = this.props;
-    const { visible } = this.state;
+    const { open: visible } = this.state;
     if (this.props.multiple) {
       const value = this.state.value as Item[];
       return (
@@ -433,7 +442,7 @@ export class Select<
   }
 
   render() {
-    const { keyword, visible, active } = this.state;
+    const { keyword, open: visible, active } = this.state;
     const {
       inline,
       options,
