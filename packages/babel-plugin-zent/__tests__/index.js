@@ -111,6 +111,15 @@ describe('babel-plugin-zent', () => {
     ).toThrow('Please upgrade zent to >= zent@7.0.0');
   });
 
+  it('transform library with custom name', () => {
+    expect(
+      compile("import { Affix } from 'foobar';", {
+        libraryName: 'foobar',
+        moduleMappingFile: '../__tests__/fakeModuleMapping.json',
+      })
+    ).toMatch(/import { Affix } from "foobar\/es\/affix\/index.js"/);
+  });
+
   it('can add css imports', () => {
     expect(
       compile("import { Button } from 'zent'", { automaticStyleImport: true })

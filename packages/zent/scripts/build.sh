@@ -22,7 +22,7 @@ node $basepath/./compile-style.js
 postcss css --use autoprefixer --replace --no-map
 
 # minify index.css
-postcss css/index.css --use cssnano -o css/index.min.css
+postcss css/index.css --use cssnano --no-map -o css/index.min.css
 
 # generate icon types from zenticons
 node $basepath/./generate-icon-type.js
