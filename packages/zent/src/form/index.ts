@@ -23,3 +23,6 @@ export * from './Error';
 export * from './Label';
 export * from './Field';
 export * from './FieldSet';
+
+import { Form } from './Form';
+export default Form;
