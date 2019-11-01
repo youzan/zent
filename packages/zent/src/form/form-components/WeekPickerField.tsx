@@ -1,22 +1,28 @@
-import { Component } from 'react';
 import * as React from 'react';
-import omit from 'lodash-es/omit';
+import { Omit } from 'utility-types';
+import { IFormComponentProps, dateRangeDefaultValueFactory } from '../shared';
+import WeekPicker, { IWeekPickerProps } from '../../datetimepicker/WeekPicker';
+import { DatePickers } from '../../datetimepicker/common/types';
+import { FormField } from '../Field';
+import { $MergeParams } from '../utils';
 
-import WeekPicker from '../../datetimepicker/WeekPicker';
-import getControlGroup from '../getControlGroup';
-import unknownProps from '../unknownProps';
+export type IFormWeekPickerFieldProps = IFormComponentProps<
+  DatePickers.RangeValue,
+  Omit<IWeekPickerProps, 'value'>
+>;
 
-export interface IFormWeekPickerWrapProps {
-  dateFormat: string;
-}
-
-class WeekPickerWrap extends Component<IFormWeekPickerWrapProps> {
-  render() {
-    const { dateFormat } = this.props;
-    const passableProps = omit(this.props, unknownProps, ['dateFormat']);
-    return <WeekPicker {...passableProps} format={dateFormat} />;
-  }
-}
-const WeekPickerField = getControlGroup(WeekPickerWrap);
-
-export default WeekPickerField;
+export const FormWeekPickerField: React.FunctionComponent<
+  IFormWeekPickerFieldProps
+> = props => {
+  return (
+    <FormField
+      {...props}
+      defaultValue={
+        (props as $MergeParams<IFormWeekPickerFieldProps>).defaultValue ||
+        dateRangeDefaultValueFactory
+      }
+    >
+      {childProps => <WeekPicker {...props.props} {...childProps} />}
+    </FormField>
+  );
+};

@@ -23,7 +23,7 @@ const { Content } = Popover;
 
 export interface ISelectProps {
   data: unknown[];
-  tags?: unknown[];
+  tags?: boolean;
   value?: any;
   index?: any;
   disabled?: boolean;

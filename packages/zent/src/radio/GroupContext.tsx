@@ -2,7 +2,7 @@ import { createContext } from 'react';
 import { IRadioEvent } from './AbstractRadio';
 
 export interface IRadioContext<Value> {
-  value: Value;
+  value: Value | undefined;
   isValueEqual(a: Value | undefined, b: Value | undefined): boolean;
   disabled: boolean;
   readOnly: boolean;

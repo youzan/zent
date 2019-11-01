@@ -1,51 +1,50 @@
-import { Component } from 'react';
 import * as React from 'react';
-import omit from 'lodash-es/omit';
-
+import { Omit } from 'utility-types';
 import DateRangeQuickPicker, {
-  DateRangeQuickPickerChangeCallback,
-  DateRangeQuickPickerPresetValue,
+  IDateRangeQuickPickerProps,
 } from '../../date-range-quick-picker';
-import getControlGroup from '../getControlGroup';
-import unknownProps from '../unknownProps';
+import { DatePickers } from '../../datetimepicker/common/types';
+import { IFormComponentProps, dateRangeDefaultValueFactory } from '../shared';
+import { FormField } from '../Field';
+import { $MergeParams } from '../utils';
 
-export interface IFormDateRangeQuickPickerWrapProps {
-  dateFormat?: string;
-  onChange: DateRangeQuickPickerChangeCallback;
-}
+export type IFormDateRangeQuickPickerFieldProps = IFormComponentProps<
+  DatePickers.RangeValue,
+  Omit<IDateRangeQuickPickerProps, 'value'>
+>;
 
-interface IFormDateRangeQuickPickerWrapState {
-  chosenDays?: DateRangeQuickPickerPresetValue;
-}
+export const FormDateRangeQuickPickerField: React.FunctionComponent<
+  IFormDateRangeQuickPickerFieldProps
+> = props => {
+  return (
+    <FormField
+      {...props}
+      defaultValue={
+        (props as $MergeParams<IFormDateRangeQuickPickerFieldProps>)
+          .defaultValue || dateRangeDefaultValueFactory
+      }
+    >
+      {childProps => {
+        const [chosenDays, setChosenDays] = React.useState<number | undefined>(
+          undefined
+        );
+        const onChange = React.useCallback(
+          (value: DatePickers.RangeValue, chosenDays: number) => {
+            childProps.onChange(value);
+            setChosenDays(chosenDays);
+          },
+          [childProps.onChange]
+        );
 
-class DateRangeQuickPickerWrap extends Component<
-  IFormDateRangeQuickPickerWrapProps,
-  IFormDateRangeQuickPickerWrapState
-> {
-  state: IFormDateRangeQuickPickerWrapState = {};
-
-  render() {
-    const { dateFormat } = this.props;
-    const { chosenDays } = this.state;
-    const passableProps: any = omit(this.props, unknownProps, ['dateFormat']);
-    return (
-      <DateRangeQuickPicker
-        {...passableProps}
-        format={dateFormat}
-        chooseDays={chosenDays}
-        onChange={this.onChange}
-      />
-    );
-  }
-
-  onChange = (value, chosenDays) => {
-    this.setState({
-      chosenDays,
-    });
-    this.props.onChange(value);
-  };
-}
-
-const DateRangeQuickPickerField = getControlGroup(DateRangeQuickPickerWrap);
-
-export default DateRangeQuickPickerField;
+        return (
+          <DateRangeQuickPicker
+            {...props.props}
+            {...childProps}
+            chooseDays={chosenDays}
+            onChange={onChange}
+          />
+        );
+      }}
+    </FormField>
+  );
+};

@@ -22,5 +22,5 @@
     "target": "es5"
   },
   "exclude": ["lib", "es", "node_modules", "__tests__"],
-  "include": ["src"]
+  "include": ["src", "declarations.d.ts"]
 }
