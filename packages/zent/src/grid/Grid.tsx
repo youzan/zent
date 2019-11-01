@@ -21,11 +21,7 @@ import measureScrollbar from '../utils/dom/measureScrollbar';
 import WindowResizeHandler from '../utils/component/WindowResizeHandler';
 import WindowEventHandler from '../utils/component/WindowEventHandler';
 import { I18nReceiver as Receiver } from '../i18n';
-import {
-  groupedColumns,
-  getLeafColumns,
-  getBatchCompsFixedStatus,
-} from './utils';
+import { groupedColumns, getLeafColumns, needFixBatchComps } from './utils';
 import BlockLoading from '../loading/BlockLoading';
 import Store from './Store';
 import ColGroup from './ColGroup';
@@ -827,17 +823,14 @@ export class Grid<Data = any> extends PureComponent<
       return;
     }
 
-    const BatchCompsFixedStatus = getBatchCompsFixedStatus(
+    const batchComponentsFixed = needFixBatchComps(
       this.isTableInView(),
-      this.isFootInView(),
-      this.state.batchComponentsFixed
+      this.isFootInView()
     );
 
-    if (BatchCompsFixedStatus !== 'keep') {
-      this.setState({
-        batchComponentsFixed: BatchCompsFixedStatus === 'fixed',
-      });
-    }
+    this.setState({
+      batchComponentsFixed,
+    });
   };
 
   onScroll = throttle(this.toggleBatchComponents, 200);

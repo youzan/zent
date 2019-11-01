@@ -82,17 +82,12 @@ export function isReactComponent(
   return isReact;
 }
 
-export function getBatchCompsFixedStatus(
+export function needFixBatchComps(
   isTableInView: boolean,
-  isFootInView: boolean,
-  isFixed: boolean
+  isFootInView: boolean
 ) {
-  if (isFootInView || !isTableInView) {
-    return 'static';
+  if (isTableInView && !isFootInView) {
+    return true;
   }
-
-  if (isTableInView && !isFootInView && !isFixed) {
-    return 'fixed';
-  }
-  return 'keep';
+  return false;
 }
