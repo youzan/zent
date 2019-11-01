@@ -6,6 +6,11 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
+- [Upgrade to 7.x](./changelog-v7)
+
+### 7.0.0 (2019-11-01)
+
+This is major release with lots of breaking changes, read the [full change log](./changelog-v7).
 
 ### 6.6.2 (2019-02-26)
 

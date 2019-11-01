@@ -8,6 +8,12 @@ scatter: true
 
 ## Form 表单组件
 
+### ⚠️ 警告
+
+这是新版的 `Form` 组件，和 `7.0.0` 之前版本的 `Form` 组件不兼容。
+
+可以在[这里查看老版 `Form` 组件的文档](https://zent-contrib.github.io/zent-compat)。
+
 ### 使用指南
 
 `Form` 有两种运行模式(`FormStrategy`)，`View`和`Model`。`FormStrategy`指明了表单是由视图驱动的还是独立数据。

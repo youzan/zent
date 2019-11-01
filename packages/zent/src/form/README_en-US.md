@@ -7,6 +7,12 @@ scatter: true
 
 ## Form
 
+### ⚠️ Warning
+
+This is a new `Form` component, it's not compatible with the `Form` component before `7.0.0`.
+
+The documentation for old `Form` component can be viewed [here](https://zent-contrib.github.io/zent-compat).
+
 ### Guides
 
 `FormStrategy` is the way how form constructs.There are two kinds of form strategies, `View` and `Model`.
@@ -82,7 +88,6 @@ function validate<T>(
 - [minLength](https://zent-contrib.github.io/formulr/globals.html#minlength)
 - [maxLength](https://zent-contrib.github.io/formulr/globals.html#maxlength)
 - [pattern](https://zent-contrib.github.io/formulr/globals.html#pattern)
-
 
 ### `Form` layouts
 

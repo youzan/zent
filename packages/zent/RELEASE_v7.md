@@ -204,9 +204,18 @@ import { Portal, PurePortal } from 'zent'
 
 - 统一了 `Icon` 的画布大小，所以部分图标在同样 `font-size` 的情况下可能比原来的要小，样式上需要注意下
 
+### `Form`
+
+- 从头重做，API 和老版本不兼容；为了平滑迁移，老版本的 `Form` 组件迁移到了 `@zent/compat` 这个包里。
+
 #### 源样式
 
 如果之前依赖了 postcss 的源样式，需要改成 sass。
+
+## 7.0.0(2019-11-01)
+
+- [breaking]重构 `Form` 组件；使用老版本的 `Form` 组件的代码可以用 `@zent/compat` 直接替换。
+- 删除 `text-rendering: optimizeLegibility`，修复部分版本 Safari 输入法卡死问题
 
 ## 7.0.0-next.39(2019-10-25)
 
