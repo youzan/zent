@@ -715,7 +715,6 @@ export class Grid<Data = any> extends PureComponent<
     const checked = e.target.checked;
 
     let selectedRowKeys = this.store.getState('selectedRowKeys') || [];
-    console.log(selectedRowKeys);
 
     if (checked) {
       selectedRowKeys = selectedRowKeys.concat(rowIndex);

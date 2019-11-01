@@ -87,7 +87,6 @@ export function getBatchCompsFixedStatus(
   isFootInView: boolean,
   isFixed: boolean
 ) {
-  console.log(isFootInView);
   if (isFootInView || !isTableInView) {
     return 'static';
   }
