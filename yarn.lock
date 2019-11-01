@@ -5069,12 +5069,11 @@ format@^0.2.2:
   resolved "https://registry.yarnpkg.com/format/-/format-0.2.2.tgz#d6170107e9efdc4ed30c9dc39016df942b5cb58b"
   integrity sha1-1hcBB+nv3E7TDJ3DkBbflCtctYs=
 
-formulr@~0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/formulr/-/formulr-0.2.0.tgz#3ee048dc6878dd4677752206658e818a4e4fba60"
-  integrity sha512-XfZ3vGznwqJgLjP1vlZMo35vgu+uFdN1TsnUw936SkJ3SM9lXTY6qg/3kagImRA7tOMENczwV3LZDk1kToOi3A==
+formulr@~0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/formulr/-/formulr-0.2.1.tgz#f15b1bbcf777164a94e7e94e8bc1513b1e28e127"
+  integrity sha512-vc0kubnXI5HelWDlzKh+lpWULA4e/CtEyUk2VpeLCHsrw/YbxdzIhXak/rGESD+PnFz3FSHRLJH24KBKAokW6A==
   dependencies:
-    "@types/big.js" "^4.0.5"
     big.js "^5.2.2"
     rxjs "^6.4.0"
     tslib "^1.9.3"

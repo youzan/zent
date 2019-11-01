@@ -6,6 +6,14 @@ export {
   IValidators,
   Validators,
   FieldUtils,
+  BasicBuilder,
+  FieldArrayBuilder,
+  FieldBuilder,
+  FieldSetBuilder,
+  FormBuilder,
+  $FieldSetBuilderChildren,
+  $FieldSetValue,
+  INormalizeBeforeSubmit,
 } from 'formulr';
 
 export * from './form-components';
