@@ -4,9 +4,9 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 
 ### Upgrade guides
 
+- [Upgrade to 7.x](./changelog-v7)
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
-- [Upgrade to 7.x](./changelog-v7)
 
 ### 7.0.0 (2019-11-01)
 
