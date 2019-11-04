@@ -108,7 +108,8 @@ export type IFormComponentProps<Value, Props> = Omit<
   'touchWhen'
 > & {
   props?: Props;
-} & IFormFieldModelProps<Value>;
+  defaultValue?: Value | (() => Value);
+} & Omit<IFormFieldModelProps<Value>, 'defaultValue'>;
 
 export function dateDefaultValueFactory(): DatePickers.Value {
   return new Date();
