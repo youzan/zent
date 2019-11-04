@@ -321,6 +321,7 @@ export class Select extends React.Component<ISelectProps, any> {
       onEmptySelected,
       optionValue,
       optionText,
+      resetOption,
       tags,
       onChange,
     } = this.props;
@@ -337,7 +338,7 @@ export class Select extends React.Component<ISelectProps, any> {
       if (!selectedItems.some(item => item.cid === selectedItem.cid)) {
         selectedItems.push(selectedItem);
       }
-    } else if (selectedItem.value === null) {
+    } else if (resetOption && selectedItem.value === null) {
       // customize reset option
       selectedItem = {};
     }
