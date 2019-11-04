@@ -99,7 +99,7 @@ export default function babelPluginZent(babel) {
           });
 
           ops.replace.forEach(op => {
-            const rep = consolidatesImports(t, op.replacement);
+            const rep = consolidateImports(t, op.replacement);
             op.path.replaceWithMultiple(rep);
           });
         },
@@ -218,7 +218,7 @@ function initModuleStateAsNecessary(state, path) {
   }
 }
 
-function consolidatesImports(types, nodes) {
+function consolidateImports(types, nodes) {
   const rv = nodes.reduce(
     (state, n) => {
       const mod = n.source.value;
