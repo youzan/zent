@@ -75,6 +75,11 @@ describe('babel-plugin-zent', () => {
     }).toThrow(/Cannot find module/i);
   });
 
+  it('do nothing if not matched', () => {
+    const src = 'const a = 1;';
+    expect(compile(src)).toBe(src);
+  });
+
   it('transforms component imports', () => {
     // eslint-disable-next-line
     const rules = require('../../zent/dependency-graph.json');
@@ -98,10 +103,23 @@ describe('babel-plugin-zent', () => {
     // rename imports
     expect(
       compile("import { Button as Foobar } from 'zent'; console.log(Foobar)")
-    ).toMatch('console.log(Foobar)');
+    ).toMatch(/import Foobar from [\s\S]+console.log\(Foobar\)/);
 
-    // No module named NotExist
-    expect(() => compile("import { NotExist } from 'zent';")).toThrow();
+    // Retain the original import if module not found in mapping file
+    expect(compile("import { NotExist } from 'zent';")).toBe(
+      'import { NotExist } from "zent";'
+    );
+
+    const rv = compile(
+      "import { NotExist, Foobar, Button, Icon } from 'zent';"
+    );
+    expect(rv).toMatch(/import { NotExist, Foobar } from "zent"/);
+    expect(
+      rv.indexOf(`import Button from \"zent/es${rules.Button.js}\"`)
+    ).not.toBe(-1);
+    expect(rv.indexOf(`import Icon from \"zent/es${rules.Icon.js}\"`)).not.toBe(
+      -1
+    );
 
     expect(() =>
       compile("import { Affix } from 'zent';", {
