@@ -7,7 +7,7 @@ import {
   ValidateOption,
 } from 'formulr';
 import { useRef, ReactNode, RefObject } from 'react';
-import { Omit } from 'utility-types';
+import { Omit, Optional } from 'utility-types';
 import { FormError } from './Error';
 import { IFormControlProps } from './Control';
 import { useFormContext, IFormChild } from './context';
@@ -103,12 +103,15 @@ export type IFormFieldProps<Value> = IFormFieldPropsBase<Value> &
     children(props: IFormFieldChildProps<Value>): React.ReactNode;
   };
 
-export type IFormComponentProps<Value, Props> = Omit<
+export type IFormComponentProps<Value, Props> = (Omit<
   IFormFieldPropsBase<Value>,
   'touchWhen'
 > & {
   props?: Props;
-} & IFormFieldModelProps<Value>;
+}) &
+  (
+    | Optional<IFormFieldViewDrivenProps<Value>, 'defaultValue'>
+    | IFormFieldModelDrivenProps<Value>);
 
 export function dateDefaultValueFactory(): DatePickers.Value {
   return new Date();
