@@ -118,9 +118,10 @@ function buildImportReplacement(specifier, types, state, originalPath) {
   const replacement = [];
   const { opts: options, data } = state;
   const libName = getLibraryName(state);
+  const { noModuleRewrite } = options;
 
   if (data.MODULE_MAPPING.hasOwnProperty(importedName)) {
-    const { noModuleRewrite, automaticStyleImport, useRawStyle } = options;
+    const { automaticStyleImport, useRawStyle } = options;
     const rule = data.MODULE_MAPPING[importedName];
 
     // js
@@ -158,7 +159,7 @@ function buildImportReplacement(specifier, types, state, originalPath) {
         }
       });
     }
-  } else {
+  } else if (!noModuleRewrite) {
     replacement.push(
       types.importDeclaration(
         buildImportSpecifier(types, false, importedName, localName),

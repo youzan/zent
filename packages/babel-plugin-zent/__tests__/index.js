@@ -178,7 +178,7 @@ describe('babel-plugin-zent', () => {
   });
 
   it('can disable javascript module rewrite', () => {
-    const code = "import { Button, Alert } from 'zent';";
+    const code = "import { Button, Alert, NotExists } from 'zent';";
     expect(
       compile(code, {
         noModuleRewrite: true,
