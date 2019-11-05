@@ -3,12 +3,11 @@ import { PureComponent } from 'react';
 import classnames from 'classnames';
 import { I18nReceiver as Receiver } from '../i18n';
 import SelectionCheckboxAll from './SelectionCheckboxAll';
-import { isReactComponent } from './utils';
 import Store from './Store';
-import { IBatchComponentType } from './types';
+import { IGridBatchRender } from './types';
 
 export interface IBatchComponentsProps<Data = any> {
-  batchComponents: IBatchComponentType[];
+  batchRender: IGridBatchRender;
   prefix: string;
   onSelect: (type: string, datasets: Data[]) => void;
   store: Store;
@@ -16,36 +15,13 @@ export interface IBatchComponentsProps<Data = any> {
   getDataKey: (data: Data, rowIndex: string | number) => string;
   selectedRows?: Data[];
   disabled?: boolean;
-  batchComponentsFixed: boolean;
+  batchRenderFixed: boolean;
   style?: React.CSSProperties;
 }
 
 class BatchComponents<Data> extends PureComponent<IBatchComponentsProps<Data>> {
   static defaultProps = {
     selectedRows: [],
-  };
-
-  batchComponentWrapper = (comp: IBatchComponentType, index: number) => {
-    const { selectedRows } = this.props;
-    let subComponents: React.ReactNode;
-    if (isReactComponent(comp)) {
-      const Comp = comp;
-      subComponents = <Comp data={selectedRows} />;
-    } else if (typeof comp === 'function') {
-      subComponents = comp(selectedRows);
-    } else {
-      subComponents = comp;
-    }
-    return (
-      <div className="batch-component" key={index}>
-        {subComponents}
-      </div>
-    );
-  };
-
-  renderComponents = () => {
-    const { batchComponents } = this.props;
-    return batchComponents && batchComponents.map(this.batchComponentWrapper);
   };
 
   render() {
@@ -57,10 +33,11 @@ class BatchComponents<Data> extends PureComponent<IBatchComponentsProps<Data>> {
       selectedRows,
       datasets,
       disabled,
-      batchComponentsFixed,
+      batchRenderFixed,
+      batchRender,
     } = this.props;
     const className = classnames(`${prefix}-grid-tfoot-batch`, {
-      [`${prefix}-grid-tfoot__batchcomponents--fixed`]: batchComponentsFixed,
+      [`${prefix}-grid-tfoot__batchcomponents--fixed`]: batchRenderFixed,
     });
     return (
       <Receiver componentName="BatchComponents">
@@ -81,7 +58,7 @@ class BatchComponents<Data> extends PureComponent<IBatchComponentsProps<Data>> {
               </span>
               <span>{i18n.desc}</span>
             </div>
-            {this.renderComponents()}
+            {batchRender && batchRender(this.props.selectedRows)}
           </div>
         )}
       </Receiver>

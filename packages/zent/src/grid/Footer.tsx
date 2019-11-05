@@ -36,7 +36,7 @@ export interface IGridFooterProps extends IBatchComponentsProps {
     };
   };
   rowKey: string;
-  batchComponentsFixed: boolean;
+  batchRenderFixed: boolean;
 }
 
 interface IGridFooterState<Data> {
@@ -144,7 +144,7 @@ class Footer<Data> extends PureComponent<
     if (!isBrowser) {
       return {};
     }
-    if (this.footNode.current && this.props.batchComponentsFixed) {
+    if (this.footNode.current && this.props.batchRenderFixed) {
       return {
         width: this.footNode.current.getBoundingClientRect().width,
       };
@@ -153,8 +153,8 @@ class Footer<Data> extends PureComponent<
   }
 
   componentDidMount() {
-    const { selection, batchComponents } = this.props;
-    if (selection && batchComponents && batchComponents.length > 0) {
+    const { selection, batchRender } = this.props;
+    if (selection && batchRender) {
       this.subscribe();
     }
   }
@@ -173,8 +173,8 @@ class Footer<Data> extends PureComponent<
       onSelect,
       getDataKey,
       selection,
-      batchComponents,
-      batchComponentsFixed,
+      batchRender,
+      batchRenderFixed,
     } = this.props;
     const { selectedRows } = this.state;
     const curPageInfo = this.getDefaultPagination();
@@ -185,7 +185,7 @@ class Footer<Data> extends PureComponent<
     if (curPageInfo) {
       return (
         <div className={`${prefix}-grid-tfoot`} ref={this.footNode}>
-          {selection && batchComponents && batchComponents.length > 0 && (
+          {selection && batchRender && (
             <BatchComponents
               style={batchFixedStyle}
               store={store}
@@ -193,8 +193,8 @@ class Footer<Data> extends PureComponent<
               datasets={data}
               getDataKey={getDataKey}
               prefix={prefix}
-              batchComponents={batchComponents}
-              batchComponentsFixed={batchComponentsFixed}
+              batchRender={batchRender}
+              batchRenderFixed={batchRenderFixed}
               selectedRows={selectedRows}
               disabled={disabled}
             />

@@ -113,28 +113,7 @@ class Selection extends React.Component {
 				}}
 				rowKey="id"
 				onChange={this.onChange}
-				batchComponents={[
-					<span key="pure" className="child-comps">
-						This is a DOM element.{' '}
-					</span>,
-					data => {
-						return (
-							<span
-								key="func"
-								className="child-comps"
-								style={{ color: 'blueviolet' }}
-								onClick={() => {
-									console.log(data);
-								}}
-							>
-								{' '}
-								This is a function, {data.length} elements was selected.{' '}
-							</span>
-						);
-					},
-					Customer,
-				]}
-				batchComponentsAutoFixed={true}
+				batchRender={data => <Customer data={data} /> }
 			/>
 		);
 	}

@@ -68,20 +68,6 @@ export function getLeafColumns<Data>(columns: Array<IGridInnerColumn<Data>>) {
   return leafColumns;
 }
 
-export function isReactComponent(
-  render: React.ReactNode | React.FC
-): render is React.ComponentType<any> {
-  let isReact = false;
-
-  if (typeof render === 'function') {
-    if (render.prototype && render.prototype.isReactComponent) {
-      isReact = true;
-    }
-  }
-
-  return isReact;
-}
-
 export function needFixBatchComps(
   isTableInView: boolean,
   isFootInView: boolean

@@ -47,7 +47,7 @@ import {
   IGridOnExpandHandler,
   IGridInnerFixedType,
   IGridColumnBodyRenderFunc,
-  IBatchComponentType,
+  IGridBatchRender,
 } from './types';
 import { ICheckboxEvent } from '../checkbox';
 
@@ -85,8 +85,8 @@ export interface IGridProps<Data = any> {
     row?: React.ComponentType;
   };
   rowProps?: (data: Data, index: number) => any;
-  batchComponents: IBatchComponentType[];
-  batchComponentsAutoFixed: boolean;
+  batchRender?: IGridBatchRender;
+  batchRenderAutoFixed?: boolean;
 }
 
 export interface IGridState {
@@ -95,7 +95,7 @@ export interface IGridState {
   fixedColumnsHeadRowsHeight: Array<number | string>;
   fixedColumnsBodyExpandRowsHeight: Array<number | string>;
   expandRowKeys: boolean[];
-  batchComponentsFixed: boolean;
+  batchRenderFixed: boolean;
 }
 
 export interface IGridInnerColumn<Data> extends IGridColumn<Data> {
@@ -120,8 +120,7 @@ export class Grid<Data = any> extends PureComponent<
     onRowClick: noop,
     ellipsis: false,
     onExpand: noop,
-    batchComponents: null,
-    batchComponentsAutoFixed: true,
+    batchRenderAutoFixed: true,
   };
 
   mounted = false;
@@ -158,7 +157,7 @@ export class Grid<Data = any> extends PureComponent<
       fixedColumnsHeadRowsHeight: [],
       fixedColumnsBodyExpandRowsHeight: [],
       expandRowKeys,
-      batchComponentsFixed: false,
+      batchRenderFixed: false,
     };
   }
 
@@ -816,20 +815,18 @@ export class Grid<Data = any> extends PureComponent<
 
   toggleBatchComponents = () => {
     const isSupportFixed =
-      this.props.batchComponentsAutoFixed &&
-      this.props.batchComponents &&
-      this.props.batchComponents.length > 0;
+      this.props.batchRenderAutoFixed && this.props.batchRender;
     if (!this.mounted || !isSupportFixed) {
       return;
     }
 
-    const batchComponentsFixed = needFixBatchComps(
+    const batchRenderFixed = needFixBatchComps(
       this.isTableInView(),
       this.isFootInView()
     );
 
     this.setState({
-      batchComponentsFixed,
+      batchRenderFixed,
     });
   };
 
@@ -897,11 +894,11 @@ export class Grid<Data = any> extends PureComponent<
       paginationType,
       bordered,
       datasets,
-      batchComponents,
+      batchRender,
       selection,
       rowKey,
     } = this.props;
-    const { batchComponentsFixed } = this.state;
+    const { batchRenderFixed } = this.state;
     const selectorRowKeys = this.store.getState('selectedRowKeys') || [];
 
     let className = `${prefix}-grid`;
@@ -940,10 +937,8 @@ export class Grid<Data = any> extends PureComponent<
               datasets={datasets}
               onSelect={this.handleBatchSelect}
               getDataKey={this.getDataKey}
-              batchComponents={batchComponents}
-              batchComponentsFixed={
-                batchComponentsFixed && selectorRowKeys.length > 0
-              }
+              batchRender={batchRender}
+              batchRenderFixed={batchRenderFixed && selectorRowKeys.length > 0}
               selection={selection}
               checkboxPropsCache={this.checkboxPropsCache}
             />,
@@ -971,7 +966,11 @@ export class Grid<Data = any> extends PureComponent<
                 )}
               </BlockLoading>
               <WindowResizeHandler onResize={this.onResize} />
-              <WindowEventHandler eventName="scroll" callback={this.onScroll} />
+              <WindowEventHandler
+                eventName="scroll"
+                callback={this.onScroll}
+                useCapture
+              />
             </div>
           );
         }}

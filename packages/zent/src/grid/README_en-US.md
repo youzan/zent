@@ -35,8 +35,8 @@ The function of the component is similar to the function of [Table](table) compo
 | components      | custom table element                                                                                       | object { row?: ComponentType }                                             |             | No       |
 | rowProps        | custom row props                                                                                           | (data: any, index: number) => object                                       |             | No       |
 | bordered        | whether to display the outer border and column border                                                      | bool                                                                       | `false`     | No       |
-| batchComponents          | List for batch operations                                                                                  | array[html/function/React Component] | `null`      | `null`       | no       |
-| batchComponentsAutoFixed | Whether to automatically fix batch operation                                                               | bool                                 | `true`      |              | no       |
+| batchRender          | Render batch operations                                                                               | (data: array) => React.ReactNode                                           |             | No       |
+| batchRenderAutoFixed | Whether to automatically fix batch operation                                                          | bool                                                                       | `true`      | No       |
 
 #### onChange function declaration
 
