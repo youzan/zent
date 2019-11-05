@@ -1,11 +1,12 @@
 {
   "name": "babel-plugin-zent",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "main": "lib/index.js",
   "license": "MIT",
   "scripts": {
     "build": "rm -rf lib && babel src --out-dir lib",
-    "test": "./scripts/test.sh"
+    "test": "./scripts/test.sh",
+    "prepublish": "yarn build"
   },
   "files": [
     "lib"
