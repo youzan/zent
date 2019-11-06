@@ -47,6 +47,14 @@ $transition-duration: 160ms;
       @include theme-color(color, error, 2);
     }
 
+    &.zent-notify-content-info {
+      @include theme-color(color, stroke, 1);
+
+      .zent-notify-content-icon {
+        @include theme-color(color, primary, 4);
+      }
+    }
+
     &-icon {
       margin-right: 16px;
     }
