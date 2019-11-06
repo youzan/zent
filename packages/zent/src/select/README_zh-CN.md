@@ -52,6 +52,7 @@ group: 数据
 | className | 可选，自定义trigger额外类名 | string | `''` | 否 |
 | popupClassName | 可选，自定义popup的类名 | string | `''`    | 否 |
 | autoWidth | 是否自动设置弹出层与输入框等宽 | bool | `false` | 否 |
+| retainNullOption | 严格的重置选项判断 | bool | `false` | 否 |
 | resetOption | 是否加入一个重置选项 | bool | `false` | 否 |
 | resetText | 重置选项文本 | string | `'...'` | 否 |
 | width |  输入框宽度 | string or number |  | 否 |
