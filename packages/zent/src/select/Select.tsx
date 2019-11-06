@@ -342,7 +342,7 @@ export class Select extends React.Component<ISelectProps, any> {
         selectedItems.push(selectedItem);
       }
     } else if (
-      selectedItem.value === null ||
+      (!retainNullOption && selectedItem.value === null) ||
       (retainNullOption && resetOption && selectedItem.value === null)
     ) {
       // customize reset option
