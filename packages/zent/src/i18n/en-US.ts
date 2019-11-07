@@ -16,7 +16,6 @@ import {
   II18nLocaleUpload,
   II18nLocaleMention,
   II18nLocaleTypeMap,
-  II18nLocaleBatchComponents,
 } from './locale';
 
 const common: II18nLocaleCommon = {
@@ -185,10 +184,4 @@ export const Upload: II18nLocaleUpload = {
 
 export const Mention: II18nLocaleMention = {
   noContent: 'No result found, press SPACE to finish typing',
-};
-
-export const BatchComponents: II18nLocaleBatchComponents = {
-  total: 'Total ',
-  items: ' items',
-  desc: 'Batch operations',
 };

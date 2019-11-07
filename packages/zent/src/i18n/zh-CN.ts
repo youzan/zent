@@ -16,7 +16,6 @@ import {
   II18nLocaleTypeMap,
   II18nLocaleUpload,
   II18nLocaleMention,
-  II18nLocaleBatchComponents,
 } from './locale';
 
 const common: II18nLocaleCommon = {
@@ -188,10 +187,4 @@ export const Upload: II18nLocaleUpload = {
 
 export const Mention: II18nLocaleMention = {
   noContent: '无匹配结果，轻敲空格完成输入',
-};
-
-export const BatchComponents: II18nLocaleBatchComponents = {
-  total: '共',
-  items: '项',
-  desc: '批量操作',
 };

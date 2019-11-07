@@ -64,13 +64,13 @@ class Customer extends React.Component {
 
 	render() {
 		return (
-			<button
+			<Button
 				key="comp"
 				className="child-comps zent-btn"
 				onClick={this.onClick}
 			>
 				Click
-			</button>
+			</Button>
 		);
 	}
 }
@@ -114,6 +114,7 @@ class Selection extends React.Component {
 				rowKey="id"
 				onChange={this.onChange}
 				batchRender={data => <Customer data={data} /> }
+				batchRenderAutoFixed={true}
 			/>
 		);
 	}
