@@ -72,6 +72,8 @@ export default class AnimatedArc extends PureComponent<IAnimatedArcProps> {
   componentWillUnmount() {
     clearTimeout(this.animationDelayTimerId);
     clearTimeout(this.transitionEndTimerId);
+    this.animationDelayTimerId = null;
+    this.transitionEndTimerId = null;
   }
 
   getMaskArcLength() {
@@ -154,8 +156,4 @@ export default class AnimatedArc extends PureComponent<IAnimatedArcProps> {
       ANIMATION_DURATION
     ) as unknown) as number;
   };
-}
-
-function radianToDegree(rad: number): number {
-  return (360 * rad) / 6.2831853;
 }

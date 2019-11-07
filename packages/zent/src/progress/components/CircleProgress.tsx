@@ -35,19 +35,38 @@ const CircleProgress: React.FC<IProgressInstanceProps> = props => {
         style={{
           borderWidth: strokeWidth,
           borderColor: bgColor,
+          width: progressWidth,
+          height: progressWidth,
         }}
       />
-      <svg className="zent-progress-inner">
-        <circle
-          className="zent-progress-inner-path"
-          cx={mid}
-          cy={mid}
-          r={radius}
-          stroke={color}
-          strokeWidth={strokeWidth}
-          strokeDasharray={circumference}
-          strokeDashoffset={offset}
-        />
+      <svg
+        className="zent-progress-inner"
+        viewBox={`0 0 ${progressWidth} ${progressWidth}`}
+        width={progressWidth}
+        height={progressWidth}
+      >
+        {/*
+          This g element fixes https://github.com/youzan/zent/issues/1209
+
+          With Safari:
+          1. We can't rotate on the circle, it breaks when zoom in/out
+          2. transform-origin with a value of `center` or `50%` won't work
+
+          So we rotate on the g with absolute origin values
+         */}
+        <g transform={`rotate(-90 ${mid} ${mid})`}>
+          <circle
+            className="zent-progress-inner-path"
+            cx={mid}
+            cy={mid}
+            r={radius}
+            stroke={color}
+            strokeWidth={strokeWidth}
+            strokeDasharray={circumference}
+            strokeDashoffset={offset}
+          />
+        </g>
+
         {state === 'normal' && (
           <AnimatedArc
             className="zent-progress-path-mask"
