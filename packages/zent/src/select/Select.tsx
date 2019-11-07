@@ -54,8 +54,14 @@ export interface ISelectProps {
   className?: string;
   popupClassName?: string;
   autoWidth?: boolean;
+
+  /* Add a reset option */
   resetOption?: boolean;
   resetText?: string;
+
+  /* Retain selected option with null as its value. Valid iff resetOption is false */
+  retainNullOption?: boolean;
+
   width?: number | string;
   prefix?: string;
   simple?: boolean;
@@ -77,6 +83,8 @@ export class Select extends React.Component<ISelectProps, any> {
     // 重置为默认值
     resetOption: false,
     resetText: '...',
+
+    retainNullOption: false,
 
     // 内部状态标记，默认初始值为 null
     value: null,
@@ -323,6 +331,8 @@ export class Select extends React.Component<ISelectProps, any> {
       optionText,
       tags,
       onChange,
+      retainNullOption,
+      resetOption,
     } = this.props;
     const { selectedItems } = this.state;
     if (!selectedItem) {
@@ -337,7 +347,10 @@ export class Select extends React.Component<ISelectProps, any> {
       if (!selectedItems.some(item => item.cid === selectedItem.cid)) {
         selectedItems.push(selectedItem);
       }
-    } else if (selectedItem.value === null) {
+    } else if (
+      selectedItem.value === null &&
+      (resetOption || !retainNullOption)
+    ) {
       // customize reset option
       selectedItem = {};
     }
