@@ -53,10 +53,10 @@ export default class AnimatedArc extends PureComponent<IAnimatedArcProps> {
         <path
           className={className}
           d={path}
+          stroke={`url(#${GRADIENT_ID})`}
+          strokeOpacity={opacity}
+          strokeWidth={strokeWidth}
           style={{
-            stroke: `url(#${GRADIENT_ID})`,
-            strokeOpacity: opacity,
-            strokeWidth,
             transform: `rotate(${rotate}rad)`,
             ...transition,
           }}
@@ -154,4 +154,8 @@ export default class AnimatedArc extends PureComponent<IAnimatedArcProps> {
       ANIMATION_DURATION
     ) as unknown) as number;
   };
+}
+
+function radianToDegree(rad: number): number {
+  return (360 * rad) / 6.2831853;
 }

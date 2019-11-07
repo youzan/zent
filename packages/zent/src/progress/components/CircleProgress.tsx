@@ -43,12 +43,10 @@ const CircleProgress: React.FC<IProgressInstanceProps> = props => {
           cx={mid}
           cy={mid}
           r={radius}
-          style={{
-            stroke: color,
-            strokeWidth,
-            strokeDasharray: circumference,
-            strokeDashoffset: offset,
-          }}
+          stroke={color}
+          strokeWidth={strokeWidth}
+          strokeDasharray={circumference}
+          strokeDashoffset={offset}
         />
         {state === 'normal' && (
           <AnimatedArc
