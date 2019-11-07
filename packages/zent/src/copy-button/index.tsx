@@ -8,7 +8,7 @@ import { I18nReceiver as Receiver } from '../i18n';
 import CopyToClipboard from './ReactCopyToClipboard';
 
 export interface ICopyButtonProps {
-  text: string;
+  text: () => string | string;
   onClick?: React.MouseEventHandler;
   onCopySuccess?: () => void | string;
   onCopyError?: () => void | string;
@@ -43,11 +43,12 @@ export class CopyButton extends Component<ICopyButtonProps> {
 
   render() {
     const { text, children, onClick } = this.props;
+    const txt = typeof text === 'function' ? text() : text;
 
     return (
       <Receiver componentName="CopyButton">
         {i18n => (
-          <CopyToClipboard text={text} onCopy={this.onCopy(i18n)}>
+          <CopyToClipboard text={txt} onCopy={this.onCopy(i18n)}>
             {children ? (
               React.Children.only(children)
             ) : (
