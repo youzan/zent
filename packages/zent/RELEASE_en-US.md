@@ -8,6 +8,15 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 7.1.0(2019-11-08)
+
+- ✨ `Select` adds an `retainNullOption` option to allow Options with `null` value to be selected
+- ✨ New `Notify.info` method
+- 📚 Brand new icon grid
+- 🦀️ Fix `Progress` style when page is zoomed in/out in Safari
+- 🦀️ Fix type definition for `Form` and `Cascader`
+- 🦀️ Update `i18n` usage in `Pagination` and `QuarterPicker`
+
 ### 7.0.1 (2019-11-01)
 
 - Add `default export` to `Form`
