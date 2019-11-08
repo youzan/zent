@@ -11,7 +11,7 @@ import Popover from '../popover';
 import getCaretCoordinates from '../utils/dom/getCaretCoordinates';
 import isFirefox from '../utils/isFirefox';
 import SelectMenu from '../select-menu';
-import { I18nReceiver as Receiver } from '../i18n';
+import { I18nReceiver as Receiver, II18nLocaleMention } from '../i18n';
 
 import { findMentionAtCaretPosition } from './findMentionAtCaretPosition';
 import * as SelectionChangeEventHub from './SelectionChangeEventHub';
@@ -103,7 +103,7 @@ export class Mention extends Component<IMentionProps> {
 
     return (
       <Receiver componentName="Mention">
-        {i18n => {
+        {(i18n: II18nLocaleMention) => {
           return (
             <Popover
               visible={suggestionVisible}

@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import { setLocale, zhCN } from './time-locale';
 import {
   II18nLocaleCommon,
@@ -35,12 +37,31 @@ export const CopyButton: II18nLocaleCopyButton = {
 };
 
 export const Pagination: II18nLocalePagination = {
-  page: '页',
-  jump: '跳至',
-  total: '共',
+  jumpTo({ input }) {
+    return <>跳至{input}页</>;
+  },
+
+  pageStats({ total, select, Text }) {
+    return (
+      <>
+        共 <Text type="middle">{total}</Text> 条，每页
+        {select}
+      </>
+    );
+  },
+
+  pageStatsStatic({ total, pageSize, Text }) {
+    return (
+      <>
+        共 <Text type="middle">{total}</Text> 条，每页
+        <Text type="middle">{pageSize}</Text> 条
+      </>
+    );
+  },
+
+  selectWidth: 80,
+
   items: '条',
-  perPage: '每页',
-  comma: common.comma,
 };
 
 export const Pop: II18nLocalePop = {
@@ -90,6 +111,8 @@ export const Cascader: II18nLocaleCascader = {
   placeholder: '请选择',
 };
 
+const QUARTER_NAMES = ['第一季度', '第二季度', '第三季度', '第四季度'];
+
 export const TimePicker: I18nLocaleTimePicker = () => {
   setLocale(zhCN);
 
@@ -123,7 +146,11 @@ export const TimePicker: I18nLocaleTimePicker = () => {
       minuteSelect: '选择分钟',
       secondSelect: '选择秒',
       titleFormat: 'YYYY年MMM',
-      quarterNames: ['第一季度', '第二季度', '第三季度', '第四季度'],
+      quarterNames: QUARTER_NAMES,
+      yearQuarterName({ year, quarter }) {
+        const val = QUARTER_NAMES[quarter];
+        return `${year}年${val}`;
+      },
       dayNames: ['日', '一', '二', '三', '四', '五', '六'],
       monthNames: [
         '1月',

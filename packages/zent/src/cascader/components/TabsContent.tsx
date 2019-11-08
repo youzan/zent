@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import Popover from '../../popover';
 import Tabs, { ITabPanelElement, ITabPanelProps } from '../../tabs';
 import { CascaderHandler, CascaderValue, ICascaderItem } from '../types';
+import { II18nLocaleCascader } from '../../i18n';
 
 const TabPanel = Tabs.TabPanel;
 const withPopover = Popover.withPopover;
@@ -25,9 +26,7 @@ export interface ITabsContentProps {
   activeId: number | string;
   onTabChange: (id: string | number) => void;
   title: React.ReactNode[];
-  i18n: {
-    title: string;
-  };
+  i18n: II18nLocaleCascader;
 }
 
 class TabsContent extends PureComponent<ITabsContentProps> {
@@ -71,7 +70,7 @@ class TabsContent extends PureComponent<ITabsContentProps> {
     return title;
   }
 
-  renderPanels(popover: Popover, i18n: any) {
+  renderPanels(popover: Popover, i18n: II18nLocaleCascader) {
     const PanelEls: Array<
       ITabPanelElement<ITabPanelProps<string | number>>
     > = [];

@@ -8,7 +8,7 @@ import Popover, { PositionFunction } from '../popover';
 import Button from '../button';
 import isPromise from '../utils/isPromise';
 import { exposePopover } from '../popover/withPopover';
-import { I18nReceiver as Receiver } from '../i18n';
+import { I18nReceiver as Receiver, II18nLocalePop } from '../i18n';
 
 import NoneTrigger from './NoneTrigger';
 import getPosition from './position';
@@ -162,7 +162,7 @@ class PopAction extends Component<IPopActionProps> {
     return (
       <div className={`${prefix}-pop-buttons`}>
         <Receiver componentName="Pop">
-          {i18n => (
+          {(i18n: II18nLocalePop) => (
             <Button
               loading={cancelPending}
               disabled={confirmPending}
@@ -174,7 +174,7 @@ class PopAction extends Component<IPopActionProps> {
           )}
         </Receiver>
         <Receiver componentName="Pop">
-          {i18n => (
+          {(i18n: II18nLocalePop) => (
             <Button
               loading={confirmPending}
               disabled={cancelPending}

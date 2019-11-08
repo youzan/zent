@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import { setLocale, enUS } from './time-locale';
 import {
   II18nLocaleCommon,
@@ -35,12 +37,31 @@ export const CopyButton: II18nLocaleCopyButton = {
 };
 
 export const Pagination: II18nLocalePagination = {
-  comma: common.comma,
-  page: 'page',
-  jump: 'Goto',
-  total: 'Total',
+  jumpTo({ input }) {
+    return <>Goto page {input}</>;
+  },
+
+  pageStats({ total, Text, select }) {
+    return (
+      <>
+        Total <Text type="middle">{total}</Text> items, {select}
+        <Text type="right">per page</Text>
+      </>
+    );
+  },
+
+  pageStatsStatic({ total, pageSize, Text }) {
+    return (
+      <>
+        Total <Text type="middle">{total}</Text> items,
+        <Text type="middle">{pageSize}</Text> items per page
+      </>
+    );
+  },
+
+  selectWidth: 100,
+
   items: ' items',
-  perPage: 'per page',
 };
 
 export const Pop: II18nLocalePop = {
@@ -90,6 +111,13 @@ export const Cascader: II18nLocaleCascader = {
   placeholder: 'Please choose',
 };
 
+const QUARTER_NAMES = [
+  '1st Quarter',
+  '2nd Quarter',
+  '3rd Quarter',
+  '4th Quarter',
+];
+
 export const TimePicker: I18nLocaleTimePicker = () => {
   setLocale(enUS);
   return {
@@ -122,12 +150,11 @@ export const TimePicker: I18nLocaleTimePicker = () => {
       minuteSelect: 'Choose minutes',
       secondSelect: 'Choose seconds',
       titleFormat: 'MMMM YYYY',
-      quarterNames: [
-        '1st Quarter',
-        '2nd Quarter',
-        '3rd Quarter',
-        '4th Quarter',
-      ],
+      quarterNames: QUARTER_NAMES,
+      yearQuarterName({ year, quarter }) {
+        const val = QUARTER_NAMES[quarter];
+        return `${val} of ${year}`;
+      },
       dayNames: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
       monthNames: [
         'Jan',

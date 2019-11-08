@@ -7,7 +7,7 @@ const getQuarter = require('date-fns/get_quarter');
 import Input from '../input';
 import Popover from '../popover';
 import getWidth from '../utils/getWidth';
-import { I18nReceiver as Receiver } from '../i18n';
+import { I18nReceiver as Receiver, II18nLocaleTimePicker } from '../i18n';
 
 import QuarterPanel from './quarter/QuarterPanel';
 import { dayStart, dayEnd, formatDate, parseDate } from './utils';
@@ -253,18 +253,13 @@ export class QuarterPicker extends PureComponent<IQuarterPickerProps, any> {
     return (
       <div style={widthStyle} className={wrapperCls}>
         <Receiver componentName="TimePicker">
-          {(i18n: any) => {
-            let inputVal;
-            if (selected) {
-              inputVal =
-                i18n.mark === 'zh-CN'
-                  ? `${selected.getFullYear()}年${
-                      i18n.panel.quarterNames[value]
-                    }`
-                  : `${
-                      i18n.panel.quarterNames[value]
-                    } of ${selected.getFullYear()}`;
-            }
+          {(i18n: II18nLocaleTimePicker) => {
+            const inputVal = selected
+              ? i18n.panel.yearQuarterName({
+                  year: selected.getFullYear(),
+                  quarter: value,
+                })
+              : '';
             const placeholderText = placeholder || i18n.quarter;
 
             return (
