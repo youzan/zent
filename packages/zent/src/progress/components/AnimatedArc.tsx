@@ -157,7 +157,3 @@ export default class AnimatedArc extends PureComponent<IAnimatedArcProps> {
     ) as unknown) as number;
   };
 }
-
-function radianToDegree(rad: number): number {
-  return (360 * rad) / 6.2831853;
-}

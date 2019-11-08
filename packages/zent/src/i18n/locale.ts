@@ -13,10 +13,6 @@ export interface II18nLocaleCopyButton {
 }
 
 export interface II18nLocalePagination {
-  // total: '共',
-  // pages: '页',
-  // items: '条',
-  // perPage: '每页',
   page: string;
   jump: string;
   total: string;
