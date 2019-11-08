@@ -104,7 +104,7 @@ describe('Combine', () => {
     wrapper.setState({ total: 1000 });
     expect(
       wrapper
-        .find('.zent-pagination-count')
+        .find('.zent-pagination-count--middle')
         .at(0)
         .text()
     ).toContain('1000');
