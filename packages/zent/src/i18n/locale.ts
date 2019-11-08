@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 export interface II18nLocaleCommon {
   confirm: string;
   cancel: string;
@@ -13,12 +15,23 @@ export interface II18nLocaleCopyButton {
 }
 
 export interface II18nLocalePagination {
-  page: string;
-  jump: string;
-  total: string;
+  jumpTo(options: { input: React.ReactNode }): React.ReactNode;
+
+  pageStats(options: {
+    total: React.ReactNode;
+    select: React.ReactNode;
+    Text: React.ComponentType<{ type: 'middle' | 'right' }>;
+  }): React.ReactNode;
+
+  pageStatsStatic(options: {
+    total: React.ReactNode;
+    pageSize: React.ReactNode;
+    Text: React.ComponentType<{ type: 'middle' | 'right' }>;
+  }): React.ReactNode;
+
+  selectWidth: number;
+
   items: string;
-  perPage: string;
-  comma: string;
 }
 
 export interface II18nLocalePop extends II18nLocaleCommon {}
@@ -58,7 +71,7 @@ export interface II18nLocaleTable extends II18nLocaleCommon {
 }
 
 export interface II18nLocaleCascader extends II18nLocaleCommon {
-  title: string;
+  title: React.ReactNode;
   placeholder: string;
 }
 
@@ -92,6 +105,7 @@ export interface II18nLocaleTimePicker extends II18nLocaleCommon {
     secondSelect: string;
     titleFormat: string;
     quarterNames: string[];
+    yearQuarterName(options: { year: string; quarter: string }): string;
     dayNames: string[];
     monthNames: string[];
   };

@@ -17,7 +17,7 @@ import includes from 'lodash-es/includes';
 
 import measureScrollbar from '../utils/dom/measureScrollbar';
 import WindowResizeHandler from '../utils/component/WindowResizeHandler';
-import { I18nReceiver as Receiver } from '../i18n';
+import { I18nReceiver as Receiver, II18nLocaleGrid } from '../i18n';
 import { groupedColumns, getLeafColumns } from './utils';
 import BlockLoading from '../loading/BlockLoading';
 import Store from './Store';
@@ -653,7 +653,7 @@ export class Grid<Data = any> extends PureComponent<
     ];
   };
 
-  getEmpty = (i18n: Record<string, string>) => {
+  getEmpty = (i18n: II18nLocaleGrid) => {
     const { datasets, emptyLabel } = this.props;
 
     if (size(datasets) === 0) {
@@ -848,7 +848,7 @@ export class Grid<Data = any> extends PureComponent<
 
     return (
       <Receiver componentName="Grid">
-        {i18n => {
+        {(i18n: II18nLocaleGrid) => {
           const content = [
             this.getTable(),
             this.getEmpty(i18n),

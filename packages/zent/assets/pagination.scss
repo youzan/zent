@@ -152,9 +152,11 @@
   }
 
   &-count {
-    margin: 0 4px;
+    &--middle {
+      margin: 0 4px;
+    }
 
-    &--left {
+    &--right {
       margin-left: 4px;
     }
   }

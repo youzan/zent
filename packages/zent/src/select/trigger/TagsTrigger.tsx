@@ -3,7 +3,7 @@ import { PureComponent } from 'react';
 import noop from 'lodash-es/noop';
 import cx from 'classnames';
 
-import { I18nReceiver as Receiver } from '../../i18n';
+import { I18nReceiver as Receiver, II18nLocaleSelect } from '../../i18n';
 
 import Tag from '../components/Tag';
 
@@ -109,7 +109,7 @@ class TagsTrigger extends PureComponent<ITagsTriggerProps, any> {
 
     return (
       <Receiver componentName="Select">
-        {i18n => (
+        {(i18n: II18nLocaleSelect) => (
           <div className={rootClass} onClick={onClick}>
             {selectedItems.length > 0 ? (
               selectedItems.map((item, index) => {
