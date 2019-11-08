@@ -72,6 +72,8 @@ export default class AnimatedArc extends PureComponent<IAnimatedArcProps> {
   componentWillUnmount() {
     clearTimeout(this.animationDelayTimerId);
     clearTimeout(this.transitionEndTimerId);
+    this.animationDelayTimerId = null;
+    this.transitionEndTimerId = null;
   }
 
   getMaskArcLength() {

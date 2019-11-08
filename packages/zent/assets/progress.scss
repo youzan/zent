@@ -99,8 +99,6 @@ $state-color-depth-map: (
       position: absolute;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
     }
 
     .zent-progress-wrapper {
@@ -127,7 +125,6 @@ $state-color-depth-map: (
     }
 
     .zent-progress-inner-path {
-      transform: rotate(-90deg);
       transition: stroke-dashoffset $transition-spec;
     }
 
