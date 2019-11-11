@@ -18,18 +18,24 @@ function renderSwitch(
   return <Switch {...props.props} {...passedProps} checked={value} />;
 }
 
+function switchDefaultValue(
+  props: $MergeParams<IFormSwitchFieldProps>
+): boolean {
+  if (typeof props.defaultValue === 'boolean') {
+    return props.defaultValue;
+  }
+  return false;
+}
+
 export const FormSwitchField: React.FunctionComponent<
   IFormSwitchFieldProps
 > = props => {
   return (
     <FormField
       {...props}
-      defaultValue={
-        typeof (props as $MergeParams<IFormSwitchFieldProps>).defaultValue ===
-        'boolean'
-          ? (props as $MergeParams<IFormSwitchFieldProps>).defaultValue
-          : false
-      }
+      defaultValue={switchDefaultValue(props as $MergeParams<
+        IFormSwitchFieldProps
+      >)}
     >
       {childProps => renderSwitch(childProps, props)}
     </FormField>
