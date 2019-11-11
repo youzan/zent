@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
+import Input, { IInputChangeEvent } from '../../input';
 
 export interface ISearchProps {
   prefixCls?: string;
@@ -12,7 +13,7 @@ export interface ISearchProps {
 
 class Search extends PureComponent<ISearchProps, any> {
   focused: boolean;
-  input: HTMLInputElement | null = null;
+  inputRef = React.createRef<Input>();
 
   constructor(props) {
     super(props);
@@ -23,13 +24,13 @@ class Search extends PureComponent<ISearchProps, any> {
   componentWillReceiveProps(nextProps) {
     if (!this.focused && nextProps.ready) {
       setTimeout(() => {
-        this.input && this.input.focus();
+        this.inputRef.current && this.inputRef.current.focus();
       }, 150);
       this.focused = true;
     }
   }
 
-  changeHandler(ev) {
+  changeHandler(ev: IInputChangeEvent) {
     this.props.onChange(ev.target.value);
   }
 
@@ -37,16 +38,14 @@ class Search extends PureComponent<ISearchProps, any> {
     const { prefixCls, placeholder, keyword } = this.props;
 
     return (
-      <div className={`${prefixCls}-search`}>
-        <input
-          type="text"
-          ref={input => (this.input = input)}
-          placeholder={placeholder}
-          className={`${prefixCls}-filter`}
-          value={keyword}
-          onChange={this.changeHandler}
-        />
-      </div>
+      <Input
+        type="text"
+        ref={this.inputRef}
+        placeholder={placeholder}
+        className={`${prefixCls}-search`}
+        value={keyword}
+        onChange={this.changeHandler}
+      />
     );
   }
 }

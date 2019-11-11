@@ -32,6 +32,7 @@ export * from './i18n';
 export * from './icon';
 export * from './infinite-scroller';
 export * from './input';
+export * from './ime-composition';
 export * from './layout';
 export * from './loading/BlockLoading';
 export * from './loading/FullScreenLoading';
