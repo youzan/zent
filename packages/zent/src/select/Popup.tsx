@@ -7,7 +7,7 @@ import take from 'lodash-es/take';
 import noop from 'lodash-es/noop';
 
 import Popover from '../popover';
-import { I18nReceiver as Receiver } from '../i18n';
+import { I18nReceiver as Receiver, II18nLocaleSelect } from '../i18n';
 
 import Search from './components/Search';
 import Option from './components/Option';
@@ -300,7 +300,7 @@ class Popup extends Component<IPopupProps, any> {
         })}
         {showEmpty && (
           <Receiver componentName="Select">
-            {i18n => (
+            {(i18n: II18nLocaleSelect) => (
               <Option
                 className={`${prefixCls}-empty`}
                 text={emptyText || i18n.empty}

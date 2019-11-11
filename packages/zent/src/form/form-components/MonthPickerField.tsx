@@ -1,22 +1,30 @@
-import { Component } from 'react';
 import * as React from 'react';
-import omit from 'lodash-es/omit';
+import { Omit } from 'utility-types';
+import MonthPicker, {
+  IMonthPickerProps,
+} from '../../datetimepicker/MonthPicker';
+import { DatePickers } from '../../datetimepicker/common/types';
+import { dateDefaultValueFactory, IFormComponentProps } from '../shared';
+import { FormField } from '../Field';
+import { $MergeParams } from '../utils';
 
-import MonthPicker from '../../datetimepicker/MonthPicker';
-import getControlGroup from '../getControlGroup';
-import unknownProps from '../unknownProps';
+export type IFormMonthPickerFieldProps = IFormComponentProps<
+  DatePickers.Value,
+  Omit<IMonthPickerProps, 'value'>
+>;
 
-export interface IFormMonthPickerWrapProps {
-  dateFormat?: string;
-}
-
-class MonthPickerWrap extends Component<IFormMonthPickerWrapProps> {
-  render() {
-    const { dateFormat } = this.props;
-    const passableProps = omit(this.props, unknownProps, ['dateFormat']);
-    return <MonthPicker {...passableProps} format={dateFormat} />;
-  }
-}
-const MonthPickerField = getControlGroup(MonthPickerWrap);
-
-export default MonthPickerField;
+export const FormMonthPickerField: React.FunctionComponent<
+  IFormMonthPickerFieldProps
+> = props => {
+  return (
+    <FormField
+      {...props}
+      defaultValue={
+        (props as $MergeParams<IFormMonthPickerFieldProps>).defaultValue ||
+        dateDefaultValueFactory
+      }
+    >
+      {childProps => <MonthPicker {...props.props} {...childProps} />}
+    </FormField>
+  );
+};

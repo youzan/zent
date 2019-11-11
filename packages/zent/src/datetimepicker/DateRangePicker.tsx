@@ -21,7 +21,7 @@ function compatibleInterface(prop) {
 }
 
 export interface IDateRangePickerProps
-  extends DatePickers.ICommonProps<[DatePickers.Value, DatePickers.Value]> {
+  extends DatePickers.ICommonProps<DatePickers.RangeValue> {
   showTime?: boolean;
   disabledTime?: (type: DatePickers.RangeType) => DatePickers.IDisabledTime;
 }
@@ -38,7 +38,7 @@ export class DateRangePicker extends PureComponent<IDateRangePickerProps> {
     disabledTime: () => undefined,
   };
 
-  onChange = type => {
+  onChange = (type: DatePickers.RangeType) => {
     return val => {
       const { onChange, value } = this.props;
       const ret = value ? value.slice() : [];

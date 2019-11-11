@@ -4,37 +4,32 @@ import cx from 'classnames';
 import isEqual from 'lodash-es/isEqual';
 import isNumber from 'lodash-es/isNumber';
 
+import { DatePickers } from '../datetimepicker/common/types';
 import DateRangePicker from '../datetimepicker/DateRangePicker';
 import { I18nReceiver as Receiver } from '../i18n';
 
 import * as Helper from './helper';
 
-export type DateRangeQuickPickerValue = Date | number | string;
-
-export type DateRangeQuickPickerValueType = 'date' | 'number' | 'string';
-
-export type DateRangeQuickPickerPresetValue =
-  | number
-  | [DateRangeQuickPickerValue, DateRangeQuickPickerValue];
+export type DateRangeQuickPickerPresetValue = number | DatePickers.RangeType;
 
 export type DateRangeQuickPickerChangeCallback = (
-  value: [DateRangeQuickPickerValue, DateRangeQuickPickerValue],
-  choosePresetValue?: DateRangeQuickPickerPresetValue
+  value: DatePickers.RangeValue,
+  choosePresetValue?: number
 ) => void;
 
 export interface IDateRangeQuickPickerPreset {
   text: string;
-  value: DateRangeQuickPickerPresetValue;
+  value: DateRangePicker;
 }
 
 export interface IDateRangeQuickPickerProps {
   prefix?: string;
   className?: string;
   onChange: DateRangeQuickPickerChangeCallback;
-  value?: [DateRangeQuickPickerValue, DateRangeQuickPickerValue];
-  valueType?: DateRangeQuickPickerValueType;
-  format?: string;
-  chooseDays?: DateRangeQuickPickerPresetValue;
+  value: DatePickers.RangeValue;
+  valueType?: 'string' | 'number';
+  format: string;
+  chooseDays?: number;
   preset?: IDateRangeQuickPickerPreset[];
   min?: string | number | Date;
   max?: string | number | Date;
@@ -61,12 +56,12 @@ export class DateRangeQuickPicker extends Component<
     max: '',
   };
 
-  handleTimeChange = value => {
+  handleTimeChange = (value: DatePickers.RangeValue) => {
     const { onChange } = this.props;
     onChange(value, 0);
   };
 
-  handleChooseDays = num => {
+  handleChooseDays = (num: number) => {
     const { format, onChange, valueType } = this.props;
     const value = Helper.calculateTime(format, num, valueType);
     onChange(value, num);

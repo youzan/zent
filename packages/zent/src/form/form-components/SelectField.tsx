@@ -1,30 +1,129 @@
-import { Component } from 'react';
 import * as React from 'react';
-import omit from 'lodash-es/omit';
+import { Omit } from 'utility-types';
+import {
+  FieldModel,
+  Validators,
+  useField,
+  IValidator,
+  IValidators,
+} from 'formulr';
+import {
+  IFormComponentProps,
+  IFormFieldViewDrivenProps,
+  IFormFieldModelDrivenProps,
+  ValidateOccasion,
+  defaultRenderError,
+  asFormChild,
+} from '../shared';
+import Select, { ISelectProps } from '../../select';
+import { FormNotice } from '../Notice';
+import { FormDescription } from '../Description';
+import { FormControl } from '../Control';
+import { $MergeParams } from '../utils';
+import { defaultGetValidateOption } from '../Field';
 
-import Select, { SelectTrigger } from '../../select';
-import getControlGroup from '../getControlGroup';
-import unknownProps from '../unknownProps';
+export type IFormSelectFieldProps<T> = Omit<
+  IFormComponentProps<
+    T | T[],
+    Omit<ISelectProps, 'value' | 'tags' | 'onChange'>
+  >,
+  'normalize' | 'format'
+> & {
+  tags?: boolean;
+  data: any[];
+};
 
-export interface IFormSelectWrapProps {
-  trigger?: any;
-  onChange(value: any): void;
-  data: unknown[];
-}
-
-class SelectWrap extends Component<IFormSelectWrapProps> {
-  render() {
-    const { trigger = SelectTrigger, ...props } = this.props;
-    const passableProps = omit(props, unknownProps) as { data: unknown[] };
-    const wrappedOnChange = (e, selectedItem) => {
-      props.onChange(selectedItem.value);
-    };
-    return (
-      <Select {...passableProps} onChange={wrappedOnChange} trigger={trigger} />
+/**
+ * Old `Select` implementation is a disaster,
+ * temporary dirty code.
+ */
+export const FormSelectField: React.FunctionComponent<
+  IFormSelectFieldProps<any>
+> = props => {
+  let model: FieldModel<any>;
+  if ((props as any).name) {
+    const {
+      name,
+      defaultValue,
+    } = (props as unknown) as IFormFieldViewDrivenProps<any>;
+    let validators =
+      ((props as unknown) as IFormFieldViewDrivenProps<any>).validators || [];
+    if (
+      props.required &&
+      !validators.some(
+        it =>
+          (it as $MergeParams<IValidator<any>>).$$id ===
+          Validators.SYMBOL_REQUIRED
+      )
+    ) {
+      validators = ([
+        Validators.required(props.required as string),
+      ] as IValidators<any>).concat(validators);
+    }
+    model = useField<any>(name, defaultValue, validators);
+  } else {
+    model = useField<any>(
+      ((props as unknown) as IFormFieldModelDrivenProps<any>).model
     );
   }
-}
-
-const SelectField = getControlGroup(SelectWrap);
-
-export default SelectField;
+  const propsRef = React.useRef(props);
+  propsRef.current = props;
+  const {
+    className,
+    style,
+    label,
+    required,
+    before,
+    after,
+    notice,
+    helpDesc,
+    withoutError,
+    renderError = defaultRenderError,
+    validateOccasion = ValidateOccasion.Default,
+    getValidateOption = defaultGetValidateOption,
+  } = props;
+  const anchorRef = React.useRef<HTMLDivElement | null>(null);
+  asFormChild(model, anchorRef);
+  const onChange = React.useCallback(
+    (e: any) => {
+      if (propsRef.current.tags) {
+        const value = model.value || [];
+        if (!value.includes(e.target.value)) {
+          model.value = [...value, e.target.value];
+        }
+      } else {
+        model.value = e.target.value;
+      }
+      if (validateOccasion & ValidateOccasion.Change) {
+        model.validate(getValidateOption('change'));
+      }
+      model.isTouched = true;
+    },
+    [model]
+  );
+  return (
+    <FormControl
+      ref={anchorRef}
+      className={className}
+      style={style}
+      label={label}
+      required={!!required}
+      invalid={!!model.error}
+    >
+      <div className="zent-form-control-content-inner">
+        {before}
+        <Select
+          {...props.props}
+          onChange={onChange}
+          tags={props.tags}
+          data={props.data}
+          value={model.value}
+        />
+        {after}
+      </div>
+      {!!notice && <FormNotice>{notice}</FormNotice>}
+      {!!helpDesc && <FormDescription>{helpDesc}</FormDescription>}
+      {withoutError ? null : renderError(model.error)}
+    </FormControl>
+  );
+};

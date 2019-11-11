@@ -20,8 +20,8 @@ import throttle from 'lodash-es/throttle';
 import measureScrollbar from '../utils/dom/measureScrollbar';
 import WindowResizeHandler from '../utils/component/WindowResizeHandler';
 import WindowEventHandler from '../utils/component/WindowEventHandler';
-import { I18nReceiver as Receiver } from '../i18n';
 import { groupedColumns, getLeafColumns, needFixBatchComps } from './utils';
+import { I18nReceiver as Receiver, II18nLocaleGrid } from '../i18n';
 import BlockLoading from '../loading/BlockLoading';
 import Store from './Store';
 import ColGroup from './ColGroup';
@@ -665,7 +665,7 @@ export class Grid<Data = any> extends PureComponent<
     ];
   };
 
-  getEmpty = (i18n: Record<string, string>) => {
+  getEmpty = (i18n: II18nLocaleGrid) => {
     const { datasets, emptyLabel } = this.props;
 
     if (size(datasets) === 0) {
@@ -920,7 +920,7 @@ export class Grid<Data = any> extends PureComponent<
 
     return (
       <Receiver componentName="Grid">
-        {i18n => {
+        {(i18n: II18nLocaleGrid) => {
           const content = [
             this.getTable(),
             this.getEmpty(i18n),

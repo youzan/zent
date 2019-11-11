@@ -52,23 +52,16 @@ module.exports = {
           groupName: '升级',
           list: [
             {
-              title: '7.0.0 迁移指南',
-              path: 'guides/changelog-v7',
-              source:
-                "DocLoadable({ loader: () => import('../../packages/zent/RELEASE_NEXT.md') })",
-            },
-            {
               title: '更新日志',
               path: 'guides/changelog',
               source:
                 "DocLoadable({ loader: () => import('../../packages/zent/RELEASE_zh-CN.md') })",
             },
             {
-              title: 'Github 日志',
-              path: 'guides/github_changelog',
-              hidden: true,
+              title: '7.0.0 迁移指南',
+              path: 'guides/changelog-v7',
               source:
-                "DocLoadable({ loader: () => import('../../packages/zent/CHANGELOG.md') })",
+                "DocLoadable({ loader: () => import('../../packages/zent/RELEASE_v7.md') })",
             },
             {
               title: '3.x 升级指南',
@@ -83,6 +76,13 @@ module.exports = {
               hidden: true,
               source:
                 "DocLoadable({ loader: () => import('../../packages/zent/docs/migrating-2.1_zh-CN.md') })",
+            },
+            {
+              title: 'Github 日志',
+              path: 'guides/github_changelog',
+              hidden: true,
+              source:
+                "DocLoadable({ loader: () => import('../../packages/zent/CHANGELOG.md') })",
             },
           ],
         },
@@ -170,11 +170,10 @@ module.exports = {
                 "DocLoadable({ loader: () => import('../../packages/zent/RELEASE_en-US.md') })",
             },
             {
-              title: 'Github Log',
-              path: 'guides/github_changelog',
-              hidden: true,
+              title: 'Upgrade to 7.0.0',
+              path: 'guides/changelog-v7',
               source:
-                "DocLoadable({ loader: () => import('../../packages/zent/CHANGELOG.md') })",
+                "DocLoadable({ loader: () => import('../../packages/zent/RELEASE_v7.md') })",
             },
             {
               title: 'Upgrade to 3.x',
@@ -189,6 +188,13 @@ module.exports = {
               hidden: true,
               source:
                 "DocLoadable({ loader: () => import('../../packages/zent/docs/migrating-2.1_en-US.md') })",
+            },
+            {
+              title: 'Github Log',
+              path: 'guides/github_changelog',
+              hidden: true,
+              source:
+                "DocLoadable({ loader: () => import('../../packages/zent/CHANGELOG.md') })",
             },
           ],
         },

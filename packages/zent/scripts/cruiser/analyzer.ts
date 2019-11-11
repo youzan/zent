@@ -258,11 +258,11 @@ function isNameModuleDefaultExport(
     "moduleName": "sortable",
 
     "exportName": "ColorPicker",
-    "modulePath": "zent/packages/zent/src/sortable/index.ts",
+    "modulePath": "zent/packages/zent/src/colorpicker/index.ts",
     "moduleName": "colorpicker",
 
     "exportName": "SplitButton",
-    "modulePath": "zent/packages/zent/src/sortable/index.ts",
+    "modulePath": "zent/packages/zent/src/split-button/index.ts",
     "moduleName": "split-button",
   */
   if (MODULE_INDEX_REGEXP.test(modulePath)) {

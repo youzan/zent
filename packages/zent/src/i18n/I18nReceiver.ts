@@ -9,12 +9,7 @@ export interface II18nReceiverProps<P> {
       [key: string]: string;
     };
   };
-  children(
-    map: {
-      [key: string]: string;
-    },
-    props: P
-  ): ReactNode;
+  children(map: Record<string, any>, props: P): ReactNode;
 }
 
 export default class I18nReceiver<P extends {}> extends Component<

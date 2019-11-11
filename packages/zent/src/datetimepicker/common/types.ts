@@ -1,6 +1,8 @@
 export namespace DatePickers {
   export type Value = string | number | Date;
 
+  export type RangeValue = [Value?, Value?];
+
   export type RangeType = 'start' | 'end';
 
   export interface ICommonProps<Val = Value> {
@@ -21,7 +23,7 @@ export namespace DatePickers {
     max?: Value;
     disabledDate?: (val: Value, type?: RangeType) => boolean;
     onClick?: (val: Value, type?: RangeType) => void;
-    value?: Val;
+    value: Val;
     defaultValue?: Val;
     onChange?: (val: Val) => void;
     onOpen?: (type?: RangeType) => void;

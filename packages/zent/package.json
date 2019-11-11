@@ -1,6 +1,6 @@
 {
   "name": "zent",
-  "version": "7.0.0-next.39",
+  "version": "7.1.0",
   "description": "一套前端设计语言和基于React的实现",
   "bugs": "https://github.com/youzan/zent/issues",
   "repository": {
@@ -39,16 +39,20 @@
     "classnames": "^2.2.6",
     "date-fns": "^1.29.0",
     "enquire.js": "^2.1.6",
-    "fecha": "^3.0.2",
+    "eventemitter3": "^4.0.0",
+    "fecha": "^3.0.3",
+    "formulr": "~0.2.1",
+    "keycode": "^2.1.9",
     "lodash-es": "^4.17.11",
     "react-is": "^16.8.1",
     "react-transition-group": "^2.6.0",
+    "scheduler": "~0.14.0 || ~0.15.0",
     "sortablejs": "~1.9.0",
     "tinycolor2": "^1.4.1",
     "tslib": "^1.9.3",
     "utility-types": "^3.4.1",
     "warning": "^4.0.3",
-    "zenticons": "3.0.0"
+    "zenticons": "3.0.2"
   },
   "devDependencies": {
     "@types/big.js": "^4.0.5",

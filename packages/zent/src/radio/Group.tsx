@@ -5,7 +5,7 @@ import { IRadioEvent } from './AbstractRadio';
 import { DisabledContext } from '../disabled';
 
 export interface IRadioGroupProps<Value> {
-  value: Value;
+  value?: Value;
   disabled?: boolean;
   readOnly?: boolean;
   onChange?: (e: IRadioEvent<Value>) => void;

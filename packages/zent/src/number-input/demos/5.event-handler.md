@@ -17,11 +17,13 @@ class EventTest extends React.Component {
   };
 
   onChange = (value) => {
+		console.log('onChange');
     this.setState({ value });
   }
 
   setToThree = () => {
-    this.setState({ value: 3 });
+		this.forceUpdate();
+    // this.setState({ value: 3 });
 	}
 	
 	onPressEnter = () => {
@@ -33,7 +35,7 @@ class EventTest extends React.Component {
       <div>
         <NumberInput
           showStepper
-          value={this.state.value}
+          // value={this.state.value}
           onChange={this.onChange} 
           onPressEnter={this.onPressEnter}/>
         <Button onClick={this.setToThree}>{i18n.msg}</Button>

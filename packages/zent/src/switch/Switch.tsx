@@ -5,7 +5,7 @@ import { DisabledContext, IDisabledContext } from '../disabled';
 
 export interface ISwitchProps {
   checked?: boolean;
-  onChange?: (checked: boolean) => void;
+  onChange: (checked: boolean) => void;
   disabled?: boolean;
   checkedText?: string;
   uncheckedText?: string;

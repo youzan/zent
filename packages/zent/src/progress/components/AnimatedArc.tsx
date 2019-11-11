@@ -53,10 +53,10 @@ export default class AnimatedArc extends PureComponent<IAnimatedArcProps> {
         <path
           className={className}
           d={path}
+          stroke={`url(#${GRADIENT_ID})`}
+          strokeOpacity={opacity}
+          strokeWidth={strokeWidth}
           style={{
-            stroke: `url(#${GRADIENT_ID})`,
-            strokeOpacity: opacity,
-            strokeWidth,
             transform: `rotate(${rotate}rad)`,
             ...transition,
           }}
@@ -72,6 +72,8 @@ export default class AnimatedArc extends PureComponent<IAnimatedArcProps> {
   componentWillUnmount() {
     clearTimeout(this.animationDelayTimerId);
     clearTimeout(this.transitionEndTimerId);
+    this.animationDelayTimerId = null;
+    this.transitionEndTimerId = null;
   }
 
   getMaskArcLength() {

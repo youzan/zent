@@ -3,12 +3,12 @@ import { Component } from 'react';
 import Button from '../button';
 import Notify from '../notify';
 
-import { I18nReceiver as Receiver } from '../i18n';
+import { I18nReceiver as Receiver, II18nLocaleCopyButton } from '../i18n';
 
 import CopyToClipboard from './ReactCopyToClipboard';
 
 export interface ICopyButtonProps {
-  text: string;
+  text: () => string | string;
   onClick?: React.MouseEventHandler;
   onCopySuccess?: () => void | string;
   onCopyError?: () => void | string;
@@ -20,7 +20,10 @@ export class CopyButton extends Component<ICopyButtonProps> {
     onCopyError: '',
   };
 
-  onCopyCallback = (type, callback) => {
+  onCopyCallback = (
+    type: keyof typeof Notify,
+    callback: string | (() => void)
+  ) => {
     if (typeof callback === 'string') {
       Notify[type](callback);
     } else {
@@ -28,7 +31,7 @@ export class CopyButton extends Component<ICopyButtonProps> {
     }
   };
 
-  onCopy = i18n => (text, result) => {
+  onCopy = (i18n: II18nLocaleCopyButton) => (text: string, result: boolean) => {
     const { onCopySuccess, onCopyError } = this.props;
 
     if (result) {
@@ -40,11 +43,12 @@ export class CopyButton extends Component<ICopyButtonProps> {
 
   render() {
     const { text, children, onClick } = this.props;
+    const txt = typeof text === 'function' ? text() : text;
 
     return (
       <Receiver componentName="CopyButton">
-        {i18n => (
-          <CopyToClipboard text={text} onCopy={this.onCopy(i18n)}>
+        {(i18n: II18nLocaleCopyButton) => (
+          <CopyToClipboard text={txt} onCopy={this.onCopy(i18n)}>
             {children ? (
               React.Children.only(children)
             ) : (

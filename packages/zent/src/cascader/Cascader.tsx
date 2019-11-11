@@ -6,7 +6,7 @@ import assign from 'lodash-es/assign';
 
 import Popover from '../popover';
 import Icon from '../icon';
-import { I18nReceiver as Receiver } from '../i18n';
+import { I18nReceiver as Receiver, II18nLocaleCascader } from '../i18n';
 import { ICascaderItem, CascaderHandler, CascaderValue } from './types';
 import TabsPopoverContent from './components/TabsContent';
 import MenuPopoverContent from './components/MenuContent';
@@ -286,7 +286,7 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
   render() {
     return (
       <Receiver componentName="Cascader">
-        {i18n => {
+        {(i18n: II18nLocaleCascader) => {
           const { prefix, className, popClassName, placeholder } = this.props;
           const { activeValue, open } = this.state;
 

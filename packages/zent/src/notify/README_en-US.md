@@ -14,11 +14,12 @@ Display a notification at top of the viewport.
 
 ### API
 
+- `Notify.info(text: node, duration?: number, callback?: () => ()): number`
 - `Notify.success(text: node, duration?: number, callback?: () => ()): number`
 - `Notify.warn(text: node, duration?: number, callback?: () => ()): number`
 - `Notify.error(text: node, duration?: number, callback?: () => ()): number`
 
-`Notify.success`，`Notify.warn` and `Notify.error` return an id, which can be used by `Notify.clear(id)` to close the specific notify instance;
+`Notify.info`, `Notify.success`, `Notify.warn` and `Notify.error` return an id, which can be used by `Notify.clear(id)` to close the specific notify instance;
 
 | Property       | Description            | Type     | Default    |
 | -------- | ------------- | ------ | ------ |
