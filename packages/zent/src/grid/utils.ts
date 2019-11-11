@@ -70,9 +70,10 @@ export function getLeafColumns<Data>(columns: Array<IGridInnerColumn<Data>>) {
 
 export function needFixBatchComps(
   isTableInView: boolean,
+  isHeaderInView: boolean,
   isFootInView: boolean
 ) {
-  if (isTableInView && !isFootInView) {
+  if (isTableInView && !isHeaderInView && !isFootInView) {
     return true;
   }
   return false;

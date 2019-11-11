@@ -20,6 +20,7 @@ import throttle from 'lodash-es/throttle';
 import measureScrollbar from '../utils/dom/measureScrollbar';
 import WindowResizeHandler from '../utils/component/WindowResizeHandler';
 import WindowEventHandler from '../utils/component/WindowEventHandler';
+import BatchComponents from './BatchComponents';
 import { groupedColumns, getLeafColumns, needFixBatchComps } from './utils';
 import { I18nReceiver as Receiver, II18nLocaleGrid } from '../i18n';
 import BlockLoading from '../loading/BlockLoading';
@@ -50,6 +51,7 @@ import {
   IGridBatchRender,
 } from './types';
 import { ICheckboxEvent } from '../checkbox';
+import isBrowser from '../utils/isBrowser';
 
 function stopPropagation(e: React.MouseEvent) {
   e.stopPropagation();
@@ -96,6 +98,7 @@ export interface IGridState {
   fixedColumnsBodyExpandRowsHeight: Array<number | string>;
   expandRowKeys: boolean[];
   batchRenderFixed: boolean;
+  batchRenderFixedStyles: React.CSSProperties;
 }
 
 export interface IGridInnerColumn<Data> extends IGridColumn<Data> {
@@ -131,7 +134,8 @@ export class Grid<Data = any> extends PureComponent<
   } = {};
   store: Store = new Store();
   gridNode = React.createRef<HTMLDivElement>();
-  footNode = React.createRef<Footer<Data>>();
+  footNode = React.createRef<Footer>();
+  headerNode = React.createRef<Header<Data>>();
   bodyTable: HTMLDivElement | null = null;
   leftBody: HTMLDivElement | null = null;
   rightBody: HTMLDivElement | null = null;
@@ -158,6 +162,7 @@ export class Grid<Data = any> extends PureComponent<
       fixedColumnsBodyExpandRowsHeight: [],
       expandRowKeys,
       batchRenderFixed: false,
+      batchRenderFixedStyles: {},
     };
   }
 
@@ -416,6 +421,40 @@ export class Grid<Data = any> extends PureComponent<
     return columns;
   };
 
+  getBatchFixedStyle() {
+    if (!isBrowser) {
+      return {};
+    }
+    const el = ReactDom.findDOMNode(this.footNode.current) as Element;
+    if (el && this.state.batchRenderFixed) {
+      return {
+        width: el.getBoundingClientRect().width,
+      };
+    }
+    return {};
+  }
+
+  getBatchComponents = () => {
+    const { datasets, batchRender, selection, rowKey } = this.props;
+    const { batchRenderFixed, batchRenderFixedStyles } = this.state;
+    const selectedRows = this.store.getState('selectedRows') || [];
+    return (
+      <BatchComponents
+        key="batch"
+        store={this.store}
+        onSelect={this.handleBatchSelect}
+        datasets={datasets}
+        getDataKey={this.getDataKey}
+        prefix={prefix}
+        batchRender={batchRender}
+        batchRenderFixed={batchRenderFixed && selectedRows.length > 0}
+        selection={selection}
+        checkboxPropsCache={this.checkboxPropsCache}
+        style={batchRenderFixedStyles}
+        rowKey={rowKey}
+      />
+    );
+  };
   getLeftFixedTable = () => {
     return this.getTable({
       columns: this.getLeftColumns(),
@@ -570,6 +609,7 @@ export class Grid<Data = any> extends PureComponent<
         sortBy={sortBy}
         defaultSortType={defaultSortType}
         fixedColumnsHeadRowsHeight={this.state.fixedColumnsHeadRowsHeight}
+        ref={this.headerNode}
       />
     );
 
@@ -597,6 +637,7 @@ export class Grid<Data = any> extends PureComponent<
         rowProps={rowProps}
       />
     );
+
     const { y, x } = scroll;
 
     if (y) {
@@ -615,6 +656,7 @@ export class Grid<Data = any> extends PureComponent<
         scrollBodyStyle.marginBottom = 0;
       }
       return [
+        this.getBatchComponents(),
         <div
           key="header"
           className={`${prefix}-grid-header`}
@@ -651,6 +693,7 @@ export class Grid<Data = any> extends PureComponent<
         onScroll={this.handleBodyScroll}
         key="table"
       >
+        {this.getBatchComponents()}
         <table
           className={classnames(`${prefix}-grid-table`, tableClassName, {
             [`${prefix}-grid-table-ellipsis`]: ellipsis,
@@ -813,6 +856,20 @@ export class Grid<Data = any> extends PureComponent<
     }
   };
 
+  isHeaderInView = () => {
+    const el = ReactDom.findDOMNode(this.headerNode.current) as Element;
+    if (el) {
+      const headerRect = el.getBoundingClientRect();
+      const headerY =
+        headerRect.top - document.documentElement.getBoundingClientRect().top;
+      return (
+        headerY + headerRect.height > window.pageYOffset &&
+        headerY <= window.pageYOffset + window.innerHeight
+      );
+    }
+    return false;
+  };
+
   toggleBatchComponents = () => {
     const isSupportFixed =
       this.props.batchRenderAutoFixed && this.props.batchRender;
@@ -822,11 +879,13 @@ export class Grid<Data = any> extends PureComponent<
 
     const batchRenderFixed = needFixBatchComps(
       this.isTableInView(),
+      this.isHeaderInView(),
       this.isFootInView()
     );
 
     this.setState({
       batchRenderFixed,
+      batchRenderFixedStyles: this.getBatchFixedStyle(),
     });
   };
 
@@ -838,6 +897,10 @@ export class Grid<Data = any> extends PureComponent<
     if (this.isAnyColumnsFixed()) {
       this.syncFixedTableRowHeight();
     }
+
+    this.setState({
+      batchRenderFixedStyles: this.getBatchFixedStyle(),
+    });
   }
 
   componentWillUnmount() {
@@ -888,18 +951,7 @@ export class Grid<Data = any> extends PureComponent<
   }
 
   render() {
-    const {
-      loading,
-      pageInfo = {},
-      paginationType,
-      bordered,
-      datasets,
-      batchRender,
-      selection,
-      rowKey,
-    } = this.props;
-    const { batchRenderFixed } = this.state;
-    const selectorRowKeys = this.store.getState('selectedRowKeys') || [];
+    const { loading, pageInfo = {}, paginationType, bordered } = this.props;
 
     let className = `${prefix}-grid`;
     const borderedClassName = bordered ? `${prefix}-grid-bordered` : '';
@@ -927,20 +979,12 @@ export class Grid<Data = any> extends PureComponent<
             <Footer
               ref={this.footNode}
               key="footer"
-              rowKey={rowKey}
               prefix={prefix}
               pageInfo={pageInfo}
               paginationType={paginationType as GridPaginationType}
               onChange={this.onChange}
               onPaginationChange={this.onPaginationChange}
-              store={this.store}
-              datasets={datasets}
-              onSelect={this.handleBatchSelect}
-              getDataKey={this.getDataKey}
-              batchRender={batchRender}
-              batchRenderFixed={batchRenderFixed && selectorRowKeys.length > 0}
-              selection={selection}
-              checkboxPropsCache={this.checkboxPropsCache}
+              batchComponents={this.getBatchComponents()}
             />,
           ];
 
