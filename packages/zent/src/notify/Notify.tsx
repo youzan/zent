@@ -120,6 +120,10 @@ export function error(text, duration?: number, callback?: () => void) {
   return show(text, duration, 'error', callback);
 }
 
+export function info(text, duration?: number, callback?: () => void) {
+  return show(text, duration, 'info', callback);
+}
+
 export function clear(containerId) {
   if (containerId) {
     closeNotify(containerId);

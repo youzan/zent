@@ -2,7 +2,7 @@ import * as React from 'react';
 import { PureComponent } from 'react';
 import cx from 'classnames';
 
-import { I18nReceiver as Receiver } from '../../i18n';
+import { I18nReceiver as Receiver, II18nLocaleSelect } from '../../i18n';
 
 export interface ISelectTriggerProps {
   prefixCls?: string;
@@ -19,7 +19,7 @@ class SelectTrigger extends PureComponent<ISelectTriggerProps> {
 
     return (
       <Receiver componentName="Select">
-        {i18n => (
+        {(i18n: II18nLocaleSelect) => (
           <div className={rootClass} onClick={onClick}>
             {this.props.text || (
               <span className={`${prefixCls}-placeholder`}>

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
 
-import { I18nReceiver as Receiver } from '../../i18n';
+import { I18nReceiver as Receiver, II18nLocaleSelect } from '../../i18n';
 import { ISelectTriggerProps } from './BaseTrigger';
 import Input from '../../input';
 
@@ -48,11 +48,11 @@ class InputTrigger extends Component<IInputTriggerProps> {
 
     return (
       <Receiver componentName="Select">
-        {i18n => (
+        {(i18n: II18nLocaleSelect) => (
           <Input
             ref={this.inputRef}
             className={rootClass}
-            placeholder={placeholder || (i18n.input as any)}
+            placeholder={placeholder || i18n.input}
             type="text"
             value={keyword === null ? text : keyword}
             onChange={this.inputChangeHandler}

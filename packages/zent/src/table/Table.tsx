@@ -10,7 +10,7 @@ import uniqBy from 'lodash-es/uniqBy';
 import pullAll from 'lodash-es/pullAll';
 import pullAllBy from 'lodash-es/pullAllBy';
 
-import { I18nReceiver as Receiver } from '../i18n';
+import { I18nReceiver as Receiver, II18nLocaleTable } from '../i18n';
 import isBrowser from '../utils/isBrowser';
 import BlockLoading from '../loading/BlockLoading';
 
@@ -510,7 +510,7 @@ export class Table extends PureComponent<ITableProps, any> {
 
     return (
       <Receiver componentName="Table">
-        {i18n => (
+        {(i18n: II18nLocaleTable) => (
           <div className={`${prefix}-table-container`}>
             <BlockLoading loading={this.props.loading}>
               {columns && (

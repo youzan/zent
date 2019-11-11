@@ -239,4 +239,22 @@ describe('Progress', () => {
     );
     expect(wrapper.find('.zent-progress-info').text()).toBe('进度70%');
   });
+
+  it('has animation', () => {
+    let wrapper = mount(
+      <Progress
+        percent={70}
+        format={percent => `进度${percent}%`}
+        type="circle"
+      />
+    );
+
+    const arcInstance = wrapper.find('AnimatedArc').instance();
+    arcInstance.animationDelayTimerId = 1;
+    expect(() => arcInstance.startAnimation()).not.toThrow();
+    expect(() => arcInstance.finishAnimation()).not.toThrow();
+    arcInstance.transitionEndTimerId = 0;
+    expect(() => arcInstance.finishAnimation()).not.toThrow();
+    expect(() => wrapper.unmount()).not.toThrow();
+  });
 });

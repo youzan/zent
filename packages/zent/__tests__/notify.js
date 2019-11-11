@@ -10,8 +10,18 @@ describe('Notify component', () => {
     jest.runAllTimers();
   });
 
+  it('render info notify', () => {
+    Notify.info('test info', 1000);
+    expect(document.querySelectorAll('.zent-notify').length).toBe(1);
+  });
+
   it('render success notify', () => {
     Notify.success('test success', 1000);
+    expect(document.querySelectorAll('.zent-notify').length).toBe(1);
+  });
+
+  it('render warn notify', () => {
+    Notify.warn('test warn', 1000);
     expect(document.querySelectorAll('.zent-notify').length).toBe(1);
   });
 

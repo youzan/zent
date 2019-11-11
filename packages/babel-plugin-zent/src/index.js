@@ -72,18 +72,44 @@ export default function babelPluginZent(babel) {
 
           const { opts: options } = state;
           if (options.noModuleRewrite) {
-            path.insertAfter(replacement);
+            state.data.ops.insert.push({
+              path,
+              replacement,
+            });
+            // path.insertAfter(replacement);
           } else {
-            path.replaceWithMultiple(replacement);
+            // path.replaceWithMultiple(replacement);
+            state.data.ops.replace.push({
+              path,
+              replacement,
+            });
           }
         }
+      },
+
+      Program: {
+        exit(path, state) {
+          const ops = state.data && state.data.ops;
+          if (!ops) {
+            return;
+          }
+
+          ops.insert.forEach(op => {
+            op.path.insertAfter(op.replacement);
+          });
+
+          ops.replace.forEach(op => {
+            const rep = consolidateImports(t, op.replacement);
+            op.path.replaceWithMultiple(rep);
+          });
+        },
       },
     },
   };
 }
 
 function buildImportReplacement(specifier, types, state, originalPath) {
-  initModuleMappingAsNecessary(state, originalPath);
+  initModuleStateAsNecessary(state, originalPath);
 
   // import {Button as _Button} from 'zent'
   // imported name is Button, but local name is _Button
@@ -91,9 +117,11 @@ function buildImportReplacement(specifier, types, state, originalPath) {
   const localName = specifier.local.name;
   const replacement = [];
   const { opts: options, data } = state;
+  const libName = getLibraryName(state);
+  const { noModuleRewrite } = options;
 
   if (data.MODULE_MAPPING.hasOwnProperty(importedName)) {
-    const { noModuleRewrite, automaticStyleImport, useRawStyle } = options;
+    const { automaticStyleImport, useRawStyle } = options;
     const rule = data.MODULE_MAPPING[importedName];
 
     // js
@@ -106,7 +134,7 @@ function buildImportReplacement(specifier, types, state, originalPath) {
             importedName,
             localName
           ),
-          types.stringLiteral(getJavaScriptPath(rule.js))
+          types.stringLiteral(getJavaScriptPath(rule.js, libName))
         )
       );
     }
@@ -124,16 +152,19 @@ function buildImportReplacement(specifier, types, state, originalPath) {
           replacement.push(
             types.importDeclaration(
               [],
-              types.stringLiteral(getStylePath(path, useRawStyle))
+              types.stringLiteral(getStylePath(path, libName, !!useRawStyle))
             )
           );
           data.STYLE_IMPORT_MAPPING[path] = true;
         }
       });
     }
-  } else {
-    throw originalPath.buildCodeFrameError(
-      `No export named '${importedName}' found in zent.`
+  } else if (!noModuleRewrite) {
+    replacement.push(
+      types.importDeclaration(
+        buildImportSpecifier(types, false, importedName, localName),
+        types.stringLiteral(libName)
+      )
     );
   }
 
@@ -153,7 +184,7 @@ function buildImportSpecifier(types, isDefaultExport, importedName, localName) {
   ];
 }
 
-function initModuleMappingAsNecessary(state, path) {
+function initModuleStateAsNecessary(state, path) {
   const { opts: options } = state;
 
   if (!state.data) {
@@ -161,6 +192,14 @@ function initModuleMappingAsNecessary(state, path) {
   }
 
   const data = state.data;
+
+  // Store all the paths that needs transform
+  // We only flush these operations at Program.exit
+  data.ops = {
+    insert: [],
+    replace: [],
+  };
+
   if (!data.MODULE_MAPPING) {
     // options.moduleMappingFile is for internal use
     const moduleMappingFile =
@@ -180,12 +219,48 @@ function initModuleMappingAsNecessary(state, path) {
   }
 }
 
-function getJavaScriptPath(relativePath) {
-  const parentDir = 'es';
-  return `zent/${parentDir}${relativePath}`;
+function consolidateImports(types, nodes) {
+  const rv = nodes.reduce(
+    (state, n) => {
+      const mod = n.source.value;
+      const { consolidated, moduleMap } = state;
+      const { specifiers } = n;
+
+      // side-effect import, e.g. import from 'zent/css/button.css';
+      if (specifiers.length === 0) {
+        consolidated.push(n);
+      }
+
+      specifiers.forEach(sp => {
+        // Consolidate import { x } from 'zent'; import { y } from 'zent'; only
+        if (types.isImportSpecifier(sp)) {
+          if (!moduleMap[mod]) {
+            n.specifiers = [];
+            moduleMap[mod] = n;
+            consolidated.push(n);
+          }
+
+          const importNode = moduleMap[mod];
+          importNode.specifiers.push(sp);
+        } else {
+          consolidated.push(n);
+        }
+      });
+
+      return state;
+    },
+    { moduleMap: {}, consolidated: [] }
+  );
+
+  return rv.consolidated;
 }
 
-function getStylePath(component, useRaw) {
+function getJavaScriptPath(relativePath, libName) {
+  const parentDir = 'es';
+  return `${libName}/${parentDir}${relativePath}`;
+}
+
+function getStylePath(component, libName, useRaw) {
   let suffix, parentDir;
   if (useRaw) {
     suffix = '.scss';
@@ -194,7 +269,7 @@ function getStylePath(component, useRaw) {
     suffix = '.css';
     parentDir = 'css';
   }
-  return `zent/${parentDir}/${component}${suffix}`;
+  return `${libName}/${parentDir}/${component}${suffix}`;
 }
 
 function getLibraryName(state) {
