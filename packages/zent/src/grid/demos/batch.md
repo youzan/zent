@@ -42,7 +42,7 @@ const totalItem = 10;
 const datasets = [];
 const datasets2 = [];
 
-for (let i = 0; i < 5; i++) {
+for (let i = 0; i < 40; i++) {
 	datasets.push({
 		id: `f-${i}`,
 		name: `{i18n.babyProducts} ${i}`,
@@ -114,7 +114,7 @@ class Selection extends React.Component {
 				rowKey="id"
 				onChange={this.onChange}
 				batchRender={data => <Customer data={data} /> }
-				batchRenderAutoFixed={true}
+				batchRenderAutoFixed
 			/>
 		);
 	}

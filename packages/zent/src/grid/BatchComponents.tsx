@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
 import classnames from 'classnames';
-import get from 'lodash-es/get';
+import includes from 'lodash-es/includes';
 import SelectionCheckboxAll from './SelectionCheckboxAll';
 import Store from './Store';
 import uniqBy from 'lodash-es/uniqBy';
@@ -49,7 +49,7 @@ class BatchComponents<Data> extends PureComponent<
     if (!checkboxPropsCache[rowIndex]) {
       checkboxPropsCache[rowIndex] = selection.getCheckboxProps(data);
     }
-    return checkboxPropsCache[rowIndex];
+    return checkboxPropsCache[rowIndex] || {};
   };
 
   getData = () => {
@@ -61,7 +61,7 @@ class BatchComponents<Data> extends PureComponent<
       const rowIndex = getDataKey(item, index);
 
       if (selection.getCheckboxProps) {
-        return !get(this.getCheckboxPropsByItem(item, rowIndex), 'disabled');
+        return !this.getCheckboxPropsByItem(item, rowIndex).disabled;
       }
       return true;
     });
@@ -71,7 +71,7 @@ class BatchComponents<Data> extends PureComponent<
     const { getDataKey, datasets } = this.props;
     return datasets.every((item, index) => {
       const rowIndex = getDataKey(item, index);
-      return get(this.getCheckboxPropsByItem(item, rowIndex), 'disabled');
+      return this.getCheckboxPropsByItem(item, rowIndex).disabled;
     });
   };
 
@@ -82,7 +82,7 @@ class BatchComponents<Data> extends PureComponent<
     const { datasets, getDataKey, rowKey } = this.props;
     const selectedRows = (
       uniqBy(datasets.concat(prevSelectedRows), rowKey) || []
-    ).filter((row, i) => selectedRowKeys.includes(getDataKey(row, i)));
+    ).filter((row, i) => includes(selectedRowKeys, getDataKey(row, i)));
     store.setState({
       selectedRows,
     });
@@ -125,19 +125,24 @@ class BatchComponents<Data> extends PureComponent<
     const className = classnames(`${prefix}-grid-batch`, {
       [`${prefix}-grid-batch--fixed`]: batchRenderFixed,
     });
+    const batchWarpClassName = classnames(`${prefix}-grid-batch-warp`, {
+      [`${prefix}-grid-batch-warp--fixed`]: batchRenderFixed,
+    });
     const data = this.getData();
     const disabled = this.getCheckboxAllDisabled();
     if (selection && batchRender) {
       return (
-        <div className={className} style={this.props.style}>
-          <SelectionCheckboxAll
-            getDataKey={getDataKey}
-            onSelect={onSelect}
-            store={store}
-            disabled={disabled}
-            datasets={data}
-          />
-          {batchRender && batchRender(selectedRows)}
+        <div className={batchWarpClassName}>
+          <div className={className} style={this.props.style}>
+            <SelectionCheckboxAll
+              getDataKey={getDataKey}
+              onSelect={onSelect}
+              store={store}
+              disabled={disabled}
+              datasets={data}
+            />
+            {batchRender && batchRender(selectedRows)}
+          </div>
         </div>
       );
     }

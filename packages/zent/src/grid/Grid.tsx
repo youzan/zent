@@ -21,7 +21,12 @@ import measureScrollbar from '../utils/dom/measureScrollbar';
 import WindowResizeHandler from '../utils/component/WindowResizeHandler';
 import WindowEventHandler from '../utils/component/WindowEventHandler';
 import BatchComponents from './BatchComponents';
-import { groupedColumns, getLeafColumns, needFixBatchComps } from './utils';
+import {
+  groupedColumns,
+  getLeafColumns,
+  needFixBatchComps,
+  isElementInView,
+} from './utils';
 import { I18nReceiver as Receiver, II18nLocaleGrid } from '../i18n';
 import BlockLoading from '../loading/BlockLoading';
 import Store from './Store';
@@ -827,49 +832,6 @@ export class Grid<Data = any> extends PureComponent<
     };
   };
 
-  isTableInView = () => {
-    if (!this.gridNode.current) {
-      return false;
-    } else {
-      const tableRect = this.gridNode.current.getBoundingClientRect();
-      const { height, top } = tableRect;
-      const tableY = top - document.documentElement.getBoundingClientRect().top;
-      return (
-        tableY + height > window.pageYOffset &&
-        tableY <= window.pageYOffset + window.innerHeight
-      );
-    }
-  };
-
-  isFootInView = () => {
-    const el = ReactDom.findDOMNode(this.footNode.current) as Element;
-    if (el) {
-      const footerRect = el.getBoundingClientRect();
-      const footerY =
-        footerRect.top - document.documentElement.getBoundingClientRect().top;
-      return (
-        footerY + footerRect.height > window.pageYOffset &&
-        footerY <= window.pageYOffset + window.innerHeight
-      );
-    } else {
-      return false;
-    }
-  };
-
-  isHeaderInView = () => {
-    const el = ReactDom.findDOMNode(this.headerNode.current) as Element;
-    if (el) {
-      const headerRect = el.getBoundingClientRect();
-      const headerY =
-        headerRect.top - document.documentElement.getBoundingClientRect().top;
-      return (
-        headerY + headerRect.height > window.pageYOffset &&
-        headerY <= window.pageYOffset + window.innerHeight
-      );
-    }
-    return false;
-  };
-
   toggleBatchComponents = () => {
     const isSupportFixed =
       this.props.batchRenderAutoFixed && this.props.batchRender;
@@ -877,10 +839,16 @@ export class Grid<Data = any> extends PureComponent<
       return;
     }
 
+    const footEl = ReactDom.findDOMNode(this.footNode.current) as Element;
+    const headerEl = ReactDom.findDOMNode(this.headerNode.current) as Element;
+    const isTableInView = isElementInView(this.gridNode.current);
+    const isHeaderInView = isElementInView(headerEl);
+    const isFootInView = isElementInView(footEl);
+
     const batchRenderFixed = needFixBatchComps(
-      this.isTableInView(),
-      this.isHeaderInView(),
-      this.isFootInView()
+      isTableInView,
+      isHeaderInView,
+      isFootInView
     );
 
     this.setState({

@@ -78,3 +78,17 @@ export function needFixBatchComps(
   }
   return false;
 }
+
+export function isElementInView(el: Element) {
+  if (el) {
+    const footerRect = el.getBoundingClientRect();
+    const footerY =
+      footerRect.top - document.documentElement.getBoundingClientRect().top;
+    return (
+      footerY + footerRect.height > window.pageYOffset &&
+      footerY <= window.pageYOffset + window.innerHeight
+    );
+  } else {
+    return false;
+  }
+}
