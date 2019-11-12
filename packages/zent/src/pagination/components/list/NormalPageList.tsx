@@ -10,7 +10,7 @@ export default class NormalPageList extends BasePageList {
   };
 
   render() {
-    const { layout, buttonBordered } = this.props;
+    const { layout, buttonBordered, lastPageHelp } = this.props;
     const { activeDoubleArrowButton } = this.state;
 
     return (
@@ -52,6 +52,7 @@ export default class NormalPageList extends BasePageList {
                 key={type}
                 bordered={buttonBordered}
                 onClick={this.onNextPage}
+                disabledHelp={lastPageHelp}
               />
             );
           }
