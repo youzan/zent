@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
+import { Optional } from 'utility-types';
 
 import Button, { IButtonProps } from '../../../button';
 import Pop, { IPopProps } from '../../../pop';
-import { Optional } from 'utility-types';
 
 const XML_NS = 'http://www.w3.org/2000/svg';
 
