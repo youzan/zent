@@ -1,5 +1,4 @@
-import fecha from 'fecha';
-
+import { format } from './fecha';
 import { zhCN } from '../../i18n/time-locale';
 import { getValidDate } from './helpers';
 
@@ -26,9 +25,6 @@ export default function formatDate(
   mask = 'default',
   locale = zhCN
 ): string {
-  date = getValidDate(date);
-  /**
-   * TODO: remove as any after fecha fixes its d.ts
-   */
-  return fecha.format(date, mask, locale);
+  const val = getValidDate(date);
+  return format(val, mask, locale);
 }

@@ -1,16 +1,16 @@
-import { i18nSettings } from 'fecha';
+import { IFechaI18nSettings } from '../utils/date/fecha';
 
-let locale: i18nSettings;
+let locale: IFechaI18nSettings;
 
-export function setLocale(map: i18nSettings): i18nSettings {
+export function setLocale(map: IFechaI18nSettings): IFechaI18nSettings {
   return (locale = map);
 }
 
-export function getLocale(): i18nSettings {
+export function getLocale(): IFechaI18nSettings {
   return locale;
 }
 
-export const enUS: i18nSettings = {
+export const enUS: IFechaI18nSettings = {
   dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
   dayNames: [
     'Sunday',
@@ -60,7 +60,7 @@ export const enUS: i18nSettings = {
   },
 };
 
-export const zhCN: i18nSettings = {
+export const zhCN: IFechaI18nSettings = {
   dayNamesShort: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
   dayNames: [
     '星期日',
