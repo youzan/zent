@@ -52,7 +52,9 @@ function Radio<Value>(props: IRadioProps<Value>) {
           onChange={onChange}
         />
       </span>
-      {children !== undefined && <span>{children}</span>}
+      {children !== undefined && (
+        <span className="zent-radio-label">{children}</span>
+      )}
     </label>
   );
 }

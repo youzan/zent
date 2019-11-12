@@ -1,5 +1,4 @@
-import fecha from 'fecha';
-
+import { parse } from './fecha';
 import { zhCN } from '../../i18n/time-locale';
 
 /**
@@ -20,7 +19,7 @@ import { zhCN } from '../../i18n/time-locale';
  * parseDate('November 4, 2005', 'longDate'); // new Date(2005, 10, 4)
  */
 export default function parseDate(
-  date: string | Date,
+  date: string | number | Date,
   mask = 'default',
   locale = zhCN
 ): Date {
@@ -34,7 +33,7 @@ export default function parseDate(
 
   mask = mask || 'default';
 
-  const ret = fecha.parse(date, mask, locale);
+  const ret = parse(date, mask, locale);
 
   if (!ret) {
     return null;
