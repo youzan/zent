@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
 import classNames from 'classnames';
-const isWithinRange = require('date-fns/is_within_range');
+import isWithinInterval from 'date-fns/isWithinInterval';
 
 import {
   goDays,
@@ -48,7 +48,7 @@ export default class DatePanelBody extends PureComponent<any> {
   isInRange(val) {
     const { range } = this.props;
     if (Array.isArray(range) && range[0] && range[1]) {
-      return isWithinRange(val, range[0], range[1]);
+      return isWithinInterval(val, { start: range[0], end: range[1] });
     }
 
     return false;
