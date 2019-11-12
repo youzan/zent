@@ -33,9 +33,13 @@ export class PageNumberButton extends Component<
       <Button
         {...rest}
         type={buttonType}
-        className={cx('zent-pagination-page-number-button', {
-          'zent-pagination-page-button--no-border': !bordered,
-        })}
+        className={cx(
+          'zent-pagination-page-number-button',
+          'zent-pagination-button--layout',
+          {
+            'zent-pagination-page-button--no-border': !bordered,
+          }
+        )}
       />
     );
   }

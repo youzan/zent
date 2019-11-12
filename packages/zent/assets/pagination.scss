@@ -9,7 +9,7 @@
   &-page-list--normal,
   &-page-list--mini,
   &-page-list--lite {
-    .zent-btn + .zent-btn {
+    .zent-pagination-button--layout + .zent-pagination-button--layout {
       margin-left: 4px;
     }
   }
