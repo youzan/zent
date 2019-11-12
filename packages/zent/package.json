@@ -40,7 +40,6 @@
     "date-fns": "^1.29.0",
     "enquire.js": "^2.1.6",
     "eventemitter3": "^4.0.0",
-    "fecha": "^3.0.3",
     "formulr": "~0.2.1",
     "keycode": "^2.1.9",
     "lodash-es": "^4.17.11",
