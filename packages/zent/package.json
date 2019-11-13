@@ -37,7 +37,7 @@
     "autosize": "^4.0.0",
     "big.js": "^5.2.2",
     "classnames": "^2.2.6",
-    "date-fns": "^1.29.0",
+    "date-fns": "^2.7.0",
     "enquire.js": "^2.1.6",
     "eventemitter3": "^4.0.0",
     "formulr": "~0.2.1",

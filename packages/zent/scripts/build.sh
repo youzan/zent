@@ -27,9 +27,6 @@ postcss css/index.css --use cssnano --no-map -o css/index.min.css
 # generate icon types from zenticons
 node $basepath/./generate-icon-type.js
 
-# transpile using babel
-# cross-env BABEL_ENV=transpile babel src --out-dir lib
-# cross-env BABEL_ENV=es babel src --out-dir es
 echo "Compile esm..."
 tsc
 

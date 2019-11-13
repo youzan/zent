@@ -27,9 +27,7 @@ export function normalizeMinMax(props: INumberInputIntegerProps) {
   const max = getMax(props.max);
   const min = getMin(props.min);
   if (min > max) {
-    if (process.env.NODE_ENV !== 'production') {
-      warning(false, 'max is smaller than min');
-    }
+    warning(false, 'max is smaller than min');
     return {
       min: max,
       max: min,

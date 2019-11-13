@@ -3,7 +3,7 @@ import AbstractPagination from './impl/AbstractPagination';
 
 export class Pagination extends AbstractPagination {
   static defaultProps = {
-    // Don't give a default value
+    // Don't give a default value, see BasePagination.getTotal
     // total: 0,
 
     current: 1,
