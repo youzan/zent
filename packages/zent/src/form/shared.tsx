@@ -122,7 +122,7 @@ export function dateRangeDefaultValueFactory(): DatePickers.RangeValue {
 }
 
 export function defaultRenderError<T>(error: IMaybeError<T>) {
-  if (error === null) {
+  if (!error) {
     return null;
   }
   return <FormError>{error.message}</FormError>;
