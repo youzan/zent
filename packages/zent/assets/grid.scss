@@ -309,6 +309,18 @@
     .zent-grid-tfoot-page {
       margin-top: 0;
     }
+
+    .zent-grid-batch.zent-grid-batch--fixed {
+      @include theme-color(background-color, stroke, 9);
+      @include theme-color(border-color, stroke, 6);
+      position: fixed;
+      z-index: 1;
+      bottom: 0;
+      padding-top: 12px;
+      box-sizing: border-box;
+      border-top-width: 1px;
+      border-top-style: solid;
+    }
   }
 
   &-tfoot-page {
@@ -353,17 +365,5 @@
         }
       }
     }
-  }
-
-  .zent-grid-batch--fixed {
-    @include theme-color(background-color, stroke, 9);
-    @include theme-color(border-color, stroke, 6);
-    position: fixed;
-    z-index: 1;
-    bottom: 0;
-    padding-top: 12px;
-    box-sizing: border-box;
-    border-top-width: 1px;
-    border-top-style: solid;
   }
 }
