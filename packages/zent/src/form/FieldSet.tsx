@@ -9,10 +9,10 @@ import {
   FieldSetModel,
 } from 'formulr';
 import {
-  IFormFieldModelDrivenProps,
   IRenderError,
   defaultRenderError,
   asFormChild,
+  IFormFieldViewDrivenProps,
 } from './shared';
 
 export interface IFieldSetProps<T extends Record<string, BasicModel<unknown>>> {
@@ -27,12 +27,9 @@ export interface IFieldSetProps<T extends Record<string, BasicModel<unknown>>> {
 
 export function FieldSet<T extends Record<string, BasicModel<unknown>>>(
   props: IFieldSetProps<T> &
-    IFormFieldModelDrivenProps<T> & { model: FieldSetModel<T> }
+    IFormFieldViewDrivenProps<T> & { model: FieldSetModel<T> }
 ) {
-  const [ctx, model] = useFieldSet(
-    (props as any).name || (props as any).model,
-    props.validators
-  );
+  const [ctx, model] = useFieldSet(props.name || props.model, props.validators);
   const { scrollAnchorRef, renderError = defaultRenderError } = props;
   asFormChild(model as BasicModel<unknown>, scrollAnchorRef);
   useValue$(model.error$, model.error$.getValue());
