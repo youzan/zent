@@ -19,13 +19,29 @@ export interface IRenderError<T> {
 }
 
 export interface IFormFieldViewDrivenProps<T> {
+  /**
+   * 表单项对应的数据字段名
+   */
   name: string;
+  /**
+   * 默认值
+   */
   defaultValue: T | (() => T);
+  /**
+   * 校验规则列表，执行的时候会按数组顺序逐个调用，直到所有都通过或者在第一个失败的地方停止
+   */
   validators?: IValidators<T>;
+  /**
+   * 是否在组件 `unmount` 的时候清除数据
+   * @defaultValue `false`
+   */
   destroyOnUnmount?: boolean;
 }
 
 export interface IFormFieldModelDrivenProps<T> {
+  /**
+   * 表单项对应的数据
+   */
   model: FieldModel<T>;
 }
 
@@ -41,33 +57,63 @@ export function isViewDrivenProps<T>(
 
 // prettier-ignore
 export enum ValidateOccasion {
+  /**
+   * 不触发校验
+   */
   None      =     0b0000,
+  /**
+   * 值改变的时候触发校验
+   */
   Change    =     0b0001,
+  /**
+   * `blur` 事件发生的时候触发校验
+   */
   Blur      =     0b0010,
+  /**
+   * 组件使用的默认值。⚠️不要在业务代码中强依赖这个值的行为，这是内部实现，随时会调整。
+   */
   Default   =     Change | Blur,
 }
 
 export enum TouchWhen {
+  /**
+   * 值改变的时候标记 `touched` 状态
+   */
   Change,
+  /**
+   * `blur` 事件发生的时候标记 `touched` 状态
+   */
   Blur,
 }
 
 export interface IFormFieldPropsBase<Value>
   extends Omit<IFormControlProps, 'required' | 'invalid'> {
   /**
-   * 自定义错误渲染，参数是`validator`返回的对象，一次只会有一个错误
+   * 自定义错误渲染，参数是 `validator` 返回的对象，一次只会有一个错误
    */
   renderError?: IRenderError<Value>;
+  /**
+   * 表单项说明文案
+   */
   helpDesc?: React.ReactNode;
+  /**
+   * 表单项警示性文案
+   */
   notice?: React.ReactNode;
   /**
    * 设置不显示错误
    */
   withoutError?: boolean;
+  /**
+   * 在表单项前面显示的自定义内容
+   */
   before?: React.ReactNode;
+  /**
+   * 在表单项后面显示的自定义内容
+   */
   after?: React.ReactNode;
   /**
-   * 是否必填，如果这项有值，会在校验规则里添加一个`required`
+   * 是否必填，如果这项有值，会在校验规则里添加一个 `required` 规则
    */
   required?: boolean | string;
   /**
@@ -85,7 +131,9 @@ export interface IFormFieldPropsBase<Value>
   format?: (value: Value) => Value;
   /**
    * 根据触发校验的源头获取校验规则
-   * Get `ValidateOption` from validation option
+   *
+   * @param source - 校验触发的来源
+   * @returns 校验规则执行的选项 https://zent-contrib.github.io/formulr/enums/validateoption.html
    */
   getValidateOption?: (
     source: 'blur' | 'change'
