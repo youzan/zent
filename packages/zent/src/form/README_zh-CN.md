@@ -161,12 +161,13 @@ function validate<T>(
 
 <!-- demo-slot-12 -->
 
-### `Control` 和 `Label`
+### `Control`, `Label` 以及 `Error` 组件
 
-实现自定义 `Field` 的时候会用到这两个组件，它们只是样式组件，用来提供和内置 `Field` 组件一致样式和参数。
+实现自定义 `Field` 的时候会用到这些组件，它们只是样式组件，用来提供和内置 `Field` 组件一致样式和参数。
 
-- `Control` 封装了 label 和自定义组件的结构，[查看文档](../../apidoc/interfaces/iformcontrolprops.html)
+- `Control` 封装了 label、自定义组件以及错误信息的结构，[查看文档](../../apidoc/interfaces/iformcontrolprops.html)
 - `Label` 表单项的 label 组件，适用于连 `Control` 也不想使用的场景，[查看文档](../../apidoc/interfaces/ilabelprops.html)
+- `Error` 表单项的错误信息组件，同 `Label` 一样适用于深度自定义的场景，[查看文档](http://127.0.0.1:4396/apidoc/interfaces/iformerrorprops.html)
 
 ### `FieldUtils`
 
