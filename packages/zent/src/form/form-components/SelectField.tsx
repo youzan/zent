@@ -22,11 +22,9 @@ import { FormControl } from '../Control';
 import { $MergeParams } from '../utils';
 import { defaultGetValidateOption } from '../Field';
 
-export type IFormSelectFieldProps<T> = Omit<
-  IFormComponentProps<
-    T | T[],
-    Omit<ISelectProps, 'value' | 'tags' | 'onChange'>
-  >,
+export type IFormSelectFieldProps<T> = IFormComponentProps<
+  T | T[],
+  Omit<ISelectProps, 'value' | 'tags' | 'onChange'>,
   'normalize' | 'format'
 > & {
   tags?: boolean;
