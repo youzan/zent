@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
 import classnames from 'classnames';
-import includes from 'lodash-es/includes';
 import SelectionCheckboxAll from './SelectionCheckboxAll';
 import Store from './Store';
 import uniqBy from 'lodash-es/uniqBy';
@@ -82,7 +81,7 @@ class BatchComponents<Data> extends PureComponent<
     const { datasets, getDataKey, rowKey } = this.props;
     const selectedRows = (
       uniqBy(datasets.concat(prevSelectedRows), rowKey) || []
-    ).filter((row, i) => includes(selectedRowKeys, getDataKey(row, i)));
+    ).filter((row, i) => selectedRowKeys.indexOf(getDataKey(row, i)) > -1);
     store.setState({
       selectedRows,
     });
@@ -125,24 +124,20 @@ class BatchComponents<Data> extends PureComponent<
     const className = classnames(`${prefix}-grid-batch`, {
       [`${prefix}-grid-batch--fixed`]: batchRenderFixed,
     });
-    const batchWarpClassName = classnames(`${prefix}-grid-batch-warp`, {
-      [`${prefix}-grid-batch-warp--fixed`]: batchRenderFixed,
-    });
+
     const data = this.getData();
     const disabled = this.getCheckboxAllDisabled();
     if (selection && batchRender) {
       return (
-        <div className={batchWarpClassName}>
-          <div className={className} style={this.props.style}>
-            <SelectionCheckboxAll
-              getDataKey={getDataKey}
-              onSelect={onSelect}
-              store={store}
-              disabled={disabled}
-              datasets={data}
-            />
-            {batchRender && batchRender(selectedRows)}
-          </div>
+        <div className={className} style={this.props.style}>
+          <SelectionCheckboxAll
+            getDataKey={getDataKey}
+            onSelect={onSelect}
+            store={store}
+            disabled={disabled}
+            datasets={data}
+          />
+          {batchRender && batchRender(selectedRows)}
         </div>
       );
     }
