@@ -106,7 +106,7 @@ export type IFormFieldProps<Value> = IFormFieldPropsBase<Value> &
 export type IFormComponentProps<
   Value,
   Props,
-  OmitKeys extends string = ''
+  OmitKeys extends keyof IFormFieldPropsBase<Value> = never
 > = (Omit<IFormFieldPropsBase<Value>, 'touchWhen' | OmitKeys> & {
   props?: Partial<Props>;
 }) &

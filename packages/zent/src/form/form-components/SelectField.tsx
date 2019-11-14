@@ -25,7 +25,7 @@ import { defaultGetValidateOption } from '../Field';
 export type IFormSelectFieldProps<T> = IFormComponentProps<
   T | T[],
   Omit<ISelectProps, 'value' | 'tags' | 'onChange'>,
-  'normalize' | 'format'
+  'normalize' | 'format' | 'touchWhen'
 > & {
   tags?: boolean;
   data: any[];
