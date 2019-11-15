@@ -36,7 +36,7 @@ The function of the component is similar to the function of [Table](table) compo
 | rowProps        | custom row props                                                                                           | (data: any, index: number) => object                                       |             | No       |
 | bordered        | whether to display the outer border and column border                                                      | bool                                                                       | `false`     | No       |
 | batchRender          | Render batch operations                                                                               | (data: array) => React.ReactNode                                           |             | No       |
-| batchRenderAutoFixed | Whether to automatically fix batch operation                                                          | bool                                                                       | `true`      | No       |
+| stickyBatch | Automatically stick batch operation                                                          | bool                                                                       | `false`      | No       |
 
 #### onChange function declaration
 

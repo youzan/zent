@@ -114,7 +114,7 @@ class Selection extends React.Component {
 				rowKey="id"
 				onChange={this.onChange}
 				batchRender={data => <Customer data={data} /> }
-				batchRenderAutoFixed
+				stickyBatch
 			/>
 		);
 	}

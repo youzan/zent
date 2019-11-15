@@ -93,7 +93,7 @@ export interface IGridProps<Data = any> {
   };
   rowProps?: (data: Data, index: number) => any;
   batchRender?: IGridBatchRender;
-  batchRenderAutoFixed?: boolean;
+  stickyBatch?: boolean;
 }
 
 export interface IGridState {
@@ -128,7 +128,7 @@ export class Grid<Data = any> extends PureComponent<
     onRowClick: noop,
     ellipsis: false,
     onExpand: noop,
-    batchRenderAutoFixed: true,
+    stickyBatch: false,
   };
 
   mounted = false;
@@ -431,7 +431,7 @@ export class Grid<Data = any> extends PureComponent<
       return {};
     }
     const el = ReactDom.findDOMNode(this.footNode.current) as Element;
-    if (el && this.props.batchRenderAutoFixed) {
+    if (el && this.props.stickyBatch) {
       return {
         width: el.getBoundingClientRect().width,
       };
@@ -837,8 +837,7 @@ export class Grid<Data = any> extends PureComponent<
   };
 
   toggleBatchComponents = () => {
-    const isSupportFixed =
-      this.props.batchRenderAutoFixed && this.props.batchRender;
+    const isSupportFixed = this.props.stickyBatch && this.props.batchRender;
     if (!this.mounted || !isSupportFixed) {
       return;
     }
