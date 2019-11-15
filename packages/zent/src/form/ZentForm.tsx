@@ -127,7 +127,7 @@ export function useForm<
   T extends Record<string, Builder>,
   Builder extends BasicBuilder<unknown, Model>,
   Model extends BasicModel<unknown>
->(arg: FormStrategy.View | FormBuilder<T>) {
+>(arg: FormStrategy.View | FormBuilder<T, Builder, Model>) {
   const inner = superUseForm(arg);
   const [state, dispatch] = useReducer(formReducer, initialState);
   const form = useMemo(() => new ZentForm(inner, state, dispatch), [inner]);
