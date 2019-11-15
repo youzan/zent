@@ -272,6 +272,7 @@
   &-td {
     line-height: 20px;
     padding: 10px 12px;
+    position: relative;
 
     .zent-grid-expandable-btn {
       @include theme-color(border-color, stroke, 6);
@@ -374,5 +375,14 @@
   .zent-grid-batch__foot {
     position: absolute;
     left: 0;
+  }
+
+  &-selection-checkbox {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    line-height: 1;
+    font-size: 0;
+    display: inline-block;
   }
 }

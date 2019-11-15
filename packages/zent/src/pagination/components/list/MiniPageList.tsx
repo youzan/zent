@@ -8,7 +8,13 @@ export default class MiniPageList extends BasePageList {
   resetActiveDoubleArrowButton() {}
 
   render() {
-    const { layout, buttonBordered, current, onPageChange } = this.props;
+    const {
+      layout,
+      buttonBordered,
+      current,
+      onPageChange,
+      lastPageHelp,
+    } = this.props;
 
     return (
       <div className="zent-pagination-page-list--mini">
@@ -35,6 +41,7 @@ export default class MiniPageList extends BasePageList {
                 disabled={btn.disabled}
                 bordered={buttonBordered}
                 onClick={this.onNextPage}
+                disabledHelp={lastPageHelp}
               />
             );
           }

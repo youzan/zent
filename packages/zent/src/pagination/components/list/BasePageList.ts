@@ -1,12 +1,14 @@
 import { Component } from 'react';
 
 import memoize from 'lodash-es/memoize';
+import { IPopProps } from '../../../pop';
 
 export interface IPaginationBasePageListProps {
   layout: any[];
   current: number;
   buttonBordered?: boolean;
   onPageChange: (page: number) => void;
+  lastPageHelp?: IPopProps;
 }
 
 export default abstract class BasePageList<

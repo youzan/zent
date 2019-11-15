@@ -107,7 +107,7 @@ export type IFormComponentProps<Value, Props> = (Omit<
   IFormFieldPropsBase<Value>,
   'touchWhen'
 > & {
-  props?: Props;
+  props?: Partial<Props>;
 }) &
   (
     | Optional<IFormFieldViewDrivenProps<Value>, 'defaultValue'>

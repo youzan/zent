@@ -36,7 +36,7 @@ import Body from './Body';
 import Footer from './Footer';
 import SelectionCheckbox from './SelectionCheckbox';
 import SelectionCheckboxAll, {
-  IGridSelctionAllCheckboxProps,
+  IGridSelectionAllCheckboxProps,
 } from './SelectionCheckboxAll';
 import {
   IGridColumn,
@@ -771,7 +771,7 @@ export class Grid<Data = any> extends PureComponent<
     this.onSelectChange(selectedRowKeys, data);
   };
 
-  handleBatchSelect: IGridSelctionAllCheckboxProps<Data>['onSelect'] = (
+  handleBatchSelect: IGridSelectionAllCheckboxProps<Data>['onSelect'] = (
     type,
     data
   ) => {
@@ -819,7 +819,10 @@ export class Grid<Data = any> extends PureComponent<
       const props = this.getCheckboxPropsByItem(data, rowIndex);
 
       return (
-        <span onClick={stopPropagation}>
+        <span
+          onClick={stopPropagation}
+          className="zent-grid-selection-checkbox"
+        >
           <SelectionCheckbox
             disabled={props.disabled}
             rowIndex={rowIndex}
