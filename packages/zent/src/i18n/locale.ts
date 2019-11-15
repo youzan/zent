@@ -124,7 +124,7 @@ export interface II18nLocaleUpload extends II18nLocaleCommon {
   input: {
     holder: string;
     maxAmount(options: { maxAmount: number; type: string }): string;
-    maxSize(options: { maxSize: number; type: string }): string;
+    maxSize(options: { maxSize: string; type: string }): string;
     type(options: { type: string }): string;
   };
   popup: {
