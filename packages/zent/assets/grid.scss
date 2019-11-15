@@ -314,6 +314,7 @@
       @include theme-color(background-color, stroke, 9);
       @include theme-color(border-color, stroke, 6);
       position: fixed;
+      left: unset;
       z-index: 1;
       bottom: 0;
       padding-top: 12px;
@@ -334,10 +335,9 @@
   }
 
   .zent-grid-batch {
-    float: left;
+    padding-left: 16px;
     display: flex;
     align-items: center;
-    padding: 4px 0 12px 16px;
 
     .batch-component {
       line-height: 20px;
@@ -365,5 +365,14 @@
         }
       }
     }
+  }
+
+  .zent-grid-batch__header {
+    padding-bottom: 12px;
+  }
+
+  .zent-grid-batch__foot {
+    position: absolute;
+    left: 0;
   }
 }

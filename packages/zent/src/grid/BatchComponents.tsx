@@ -9,6 +9,7 @@ import { IGridBatchRender, IGridSelection } from './types';
 export interface IBatchComponentsProps<Data = any> {
   batchRender: IGridBatchRender;
   prefix: string;
+  position: 'header' | 'foot';
   onSelect: (type: string, datasets: Data[]) => void;
   store: Store;
   datasets: Data[];
@@ -119,11 +120,17 @@ class BatchComponents<Data> extends PureComponent<
       batchRenderFixed,
       batchRender,
       selection,
+      position,
     } = this.props;
     const selectedRows = store.getState('selectedRows');
-    const className = classnames(`${prefix}-grid-batch`, {
-      [`${prefix}-grid-batch--fixed`]: batchRenderFixed,
-    });
+    const className = classnames(
+      `${prefix}-grid-batch`,
+      `${prefix}-grid-batch__${position}`,
+      {
+        [`${prefix}-grid-batch--fixed`]:
+          batchRenderFixed && position === 'foot',
+      }
+    );
 
     const data = this.getData();
     const disabled = this.getCheckboxAllDisabled();

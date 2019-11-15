@@ -431,7 +431,7 @@ export class Grid<Data = any> extends PureComponent<
       return {};
     }
     const el = ReactDom.findDOMNode(this.footNode.current) as Element;
-    if (el && this.state.batchRenderFixed) {
+    if (el && this.props.batchRenderAutoFixed) {
       return {
         width: el.getBoundingClientRect().width,
       };
@@ -439,13 +439,14 @@ export class Grid<Data = any> extends PureComponent<
     return {};
   }
 
-  getBatchComponents = () => {
+  getBatchComponents = (position: 'header' | 'foot') => {
     const { datasets, batchRender, selection, rowKey } = this.props;
     const { batchRenderFixed, batchRenderFixedStyles } = this.state;
     const selectedRows = this.store.getState('selectedRows') || [];
     return (
       <BatchComponents
         key="batch"
+        position={position}
         store={this.store}
         onSelect={this.handleBatchSelect}
         datasets={datasets}
@@ -661,7 +662,7 @@ export class Grid<Data = any> extends PureComponent<
         scrollBodyStyle.marginBottom = 0;
       }
       return [
-        this.getBatchComponents(),
+        this.getBatchComponents('header'),
         <div
           key="header"
           className={`${prefix}-grid-header`}
@@ -698,7 +699,7 @@ export class Grid<Data = any> extends PureComponent<
         onScroll={this.handleBodyScroll}
         key="table"
       >
-        {this.getBatchComponents()}
+        {this.getBatchComponents('header')}
         <table
           className={classnames(`${prefix}-grid-table`, tableClassName, {
             [`${prefix}-grid-table-ellipsis`]: ellipsis,
@@ -865,10 +866,6 @@ export class Grid<Data = any> extends PureComponent<
     if (this.isAnyColumnsFixed()) {
       this.syncFixedTableRowHeight();
     }
-
-    this.setState({
-      batchRenderFixedStyles: this.getBatchFixedStyle(),
-    });
   }
 
   componentWillUnmount() {
@@ -952,7 +949,7 @@ export class Grid<Data = any> extends PureComponent<
               paginationType={paginationType as GridPaginationType}
               onChange={this.onChange}
               onPaginationChange={this.onPaginationChange}
-              batchComponents={this.getBatchComponents()}
+              batchComponents={this.getBatchComponents('foot')}
             />,
           ];
 
