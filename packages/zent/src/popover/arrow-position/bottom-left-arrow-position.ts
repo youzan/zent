@@ -1,4 +1,4 @@
-import { createPosition, ARROW_OFFSET_H } from './base';
+import { ARROW_OFFSET_H } from './base';
 
 import { PositionFunctionImpl } from '../position-function';
 
@@ -15,7 +15,7 @@ const locate: PositionFunctionImpl = (
   const x = middle - ARROW_OFFSET_H;
   const y = bottom + options.cushion;
 
-  return createPosition(x, y, `bottom-left`);
+  return Position.createArrowPosition(x, y, `bottom-left`);
 };
 
 const BottomLeftArrowPosition = Position.create(locate);

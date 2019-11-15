@@ -1,5 +1,4 @@
-import { createPosition, ARROW_OFFSET_V } from './base';
-
+import { ARROW_OFFSET_V } from './base';
 import { PositionFunctionImpl } from '../position-function';
 
 import Position from '../placement';
@@ -15,7 +14,7 @@ const locate: PositionFunctionImpl = (
   const middle = (top + bottom) / 2;
   const y = middle - (contentDimension.height - ARROW_OFFSET_V);
 
-  return createPosition(x, y, `right-bottom`);
+  return Position.createArrowPosition(x, y, `right-bottom`);
 };
 
 const RightBottomArrowPosition = Position.create(locate);

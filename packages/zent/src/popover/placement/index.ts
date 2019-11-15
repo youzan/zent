@@ -1,4 +1,5 @@
 import create from './create';
+import createArrowPosition from './createArrowPosition';
 import BottomLeft from './bottom-left';
 import BottomCenter from './bottom-center';
 import BottomRight from './bottom-right';
@@ -22,6 +23,7 @@ import AutoTopCenter from './auto-top-center';
 
 export default {
   create,
+  createArrowPosition,
   BottomLeft,
   BottomCenter,
   BottomRight,
