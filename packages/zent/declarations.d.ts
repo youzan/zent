@@ -1,3 +1,5 @@
+declare const foo: any;
+
 declare module 'scheduler' {
   export type FrameCallbackType = () => FrameCallbackType | void;
   export interface CallbackNode {
