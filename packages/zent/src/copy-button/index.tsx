@@ -8,7 +8,7 @@ import { I18nReceiver as Receiver, II18nLocaleCopyButton } from '../i18n';
 import CopyToClipboard from './ReactCopyToClipboard';
 
 export interface ICopyButtonProps {
-  text: () => string | string;
+  text: (() => string) | string;
   onClick?: React.MouseEventHandler;
   onCopySuccess?: () => void | string;
   onCopyError?: () => void | string;
