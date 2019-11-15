@@ -39,7 +39,10 @@ export class BlockHeader extends Component<IBlockHeaderProps> {
           content={<div className="zent-block-header__tooltip">{tooltip}</div>}
           wrapperClassName="zent-block-header__tooltip-trigger"
         >
-          <Icon type="help-circle" />
+          <Icon
+            className="zent-block-header__pop-help-icon"
+            type="help-circle"
+          />
         </Pop>
       </div>
     );
