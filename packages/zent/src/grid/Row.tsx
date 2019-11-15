@@ -8,7 +8,7 @@ import Cell from './Cell';
 import { IGridInnerColumn } from './Grid';
 import {
   GridRowClassNameType,
-  IGridRowClickHander,
+  IGridRowClickHandler,
   IGridInnerFixedType,
   IGridScrollDelta,
 } from './types';
@@ -21,7 +21,7 @@ interface IGridRowProps<Data> {
   prefix: string;
   rowClassName?: GridRowClassNameType<Data>;
   mouseOverRowIndex: number;
-  onRowClick: IGridRowClickHander<Data>;
+  onRowClick: IGridRowClickHandler<Data>;
   onRowMouseEnter: (index: number) => void;
   fixed?: IGridInnerFixedType;
   scroll: IGridScrollDelta;

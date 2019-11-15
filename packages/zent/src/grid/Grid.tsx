@@ -49,7 +49,7 @@ import {
   IGridScrollDelta,
   IGridSelection,
   IGridExpandation,
-  IGridRowClickHander,
+  IGridRowClickHandler,
   IGridOnExpandHandler,
   IGridInnerFixedType,
   IGridColumnBodyRenderFunc,
@@ -85,7 +85,7 @@ export interface IGridProps<Data = any> {
   rowClassName?: GridRowClassNameType<Data>;
   pageInfo?: IGridPageInfo;
   paginationType?: GridPaginationType;
-  onRowClick?: IGridRowClickHander<Data>;
+  onRowClick?: IGridRowClickHandler<Data>;
   ellipsis?: boolean;
   onExpand?: IGridOnExpandHandler<Data>;
   components?: {
@@ -631,7 +631,7 @@ export class Grid<Data = any> extends PureComponent<
         mouseOverRowIndex={this.state.mouseOverRowIndex}
         onRowMouseEnter={this.onRowMouseEnter}
         rowClassName={rowClassName}
-        onRowClick={onRowClick as IGridRowClickHander<Data>}
+        onRowClick={onRowClick as IGridRowClickHandler<Data>}
         fixed={fixed}
         scroll={scroll}
         expandRender={expandation && expandation.expandRender}
