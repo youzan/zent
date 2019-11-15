@@ -124,7 +124,9 @@ export class ZentForm<T extends Record<string, BasicModel<unknown>>>
 }
 
 export function useForm<
-  T extends Record<string, BasicBuilder<unknown, BasicModel<unknown>>>
+  T extends Record<string, Builder>,
+  Builder extends BasicBuilder<unknown, Model>,
+  Model extends BasicModel<unknown>
 >(arg: FormStrategy.View | FormBuilder<T>) {
   const inner = superUseForm(arg);
   const [state, dispatch] = useReducer(formReducer, initialState);
