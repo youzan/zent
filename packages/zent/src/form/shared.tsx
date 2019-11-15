@@ -103,10 +103,11 @@ export type IFormFieldProps<Value> = IFormFieldPropsBase<Value> &
     children(props: IFormFieldChildProps<Value>): React.ReactNode;
   };
 
-export type IFormComponentProps<Value, Props> = (Omit<
-  IFormFieldPropsBase<Value>,
-  'touchWhen'
-> & {
+export type IFormComponentProps<
+  Value,
+  Props,
+  OmitKeys extends keyof IFormFieldPropsBase<Value> = never
+> = (Omit<IFormFieldPropsBase<Value>, 'touchWhen' | OmitKeys> & {
   props?: Partial<Props>;
 }) &
   (
