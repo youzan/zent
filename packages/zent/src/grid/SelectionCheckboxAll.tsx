@@ -7,7 +7,7 @@ import includes from 'lodash-es/includes';
 import Checkbox, { ICheckboxProps } from '../checkbox';
 import Store from './Store';
 
-export interface IGridSelctionAllCheckboxProps<Data> {
+export interface IGridSelectionAllCheckboxProps<Data> {
   store: Store;
   datasets: Data[];
   getDataKey: (data: Data, rowIndex: number | string) => string;
@@ -15,16 +15,16 @@ export interface IGridSelctionAllCheckboxProps<Data> {
   onSelect: (type: 'selectAll' | 'removeAll', datasets: Data[]) => void;
 }
 
-interface IGridSelctionAllCheckboxState {
+interface IGridSelectionAllCheckboxState {
   checked: boolean;
   indeterminate: boolean;
 }
 
 class SelectionCheckboxAll<Data> extends PureComponent<
-  IGridSelctionAllCheckboxProps<Data>,
-  IGridSelctionAllCheckboxState
+  IGridSelectionAllCheckboxProps<Data>,
+  IGridSelectionAllCheckboxState
 > {
-  constructor(props: IGridSelctionAllCheckboxProps<Data>) {
+  constructor(props: IGridSelectionAllCheckboxProps<Data>) {
     super(props);
 
     this.state = {
@@ -42,7 +42,7 @@ class SelectionCheckboxAll<Data> extends PureComponent<
     });
   };
 
-  getCheckBoxState = (props: IGridSelctionAllCheckboxProps<Data>, type) => {
+  getCheckBoxState = (props: IGridSelectionAllCheckboxProps<Data>, type) => {
     const { datasets, store, getDataKey } = props;
     let state;
     const func = type === 'every' ? every : some;
@@ -58,15 +58,15 @@ class SelectionCheckboxAll<Data> extends PureComponent<
     return state;
   };
 
-  getCheckState = (props: IGridSelctionAllCheckboxProps<Data>) => {
+  getCheckState = (props: IGridSelectionAllCheckboxProps<Data>) => {
     return this.getCheckBoxState(props, 'every');
   };
 
-  getIndeterminateState = (props: IGridSelctionAllCheckboxProps<Data>) => {
+  getIndeterminateState = (props: IGridSelectionAllCheckboxProps<Data>) => {
     return this.getCheckBoxState(props, 'some');
   };
 
-  setCheckState = (props: IGridSelctionAllCheckboxProps<Data>) => {
+  setCheckState = (props: IGridSelectionAllCheckboxProps<Data>) => {
     const checked = this.getCheckState(props);
     const indeterminate = this.getIndeterminateState(props);
 
@@ -86,7 +86,7 @@ class SelectionCheckboxAll<Data> extends PureComponent<
     this.subscribe();
   }
 
-  componentWillReceiveProps(nextProps: IGridSelctionAllCheckboxProps<Data>) {
+  componentWillReceiveProps(nextProps: IGridSelectionAllCheckboxProps<Data>) {
     this.setCheckState(nextProps);
   }
 

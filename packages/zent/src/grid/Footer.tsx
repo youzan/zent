@@ -23,6 +23,7 @@ export interface IGridFooterProps {
   paginationType: GridPaginationType;
   onChange: (conf: IGridOnChangeConfig) => any;
   onPaginationChange: (pageSize: number, current: number) => any;
+  batchComponents: React.ReactNode;
 }
 
 class Footer extends PureComponent<IGridFooterProps> {
@@ -55,6 +56,7 @@ class Footer extends PureComponent<IGridFooterProps> {
     if (curPageInfo) {
       return (
         <div className={`${prefix}-grid-tfoot`}>
+          {this.props.batchComponents}
           <div className={classnames(`${prefix}-grid-tfoot-page`)}>
             {paginationType === 'default' && (
               <Pagination {...curPageInfo} onChange={this.handlePageChange} />

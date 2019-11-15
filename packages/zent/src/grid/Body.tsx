@@ -8,7 +8,7 @@ import ColGroup from './ColGroup';
 import {
   IGridScrollDelta,
   GridRowClassNameType,
-  IGridRowClickHander,
+  IGridRowClickHandler,
   IGridExpandation,
   IGridInnerFixedType,
 } from './types';
@@ -31,7 +31,7 @@ export interface IGridBodyProps<Data> {
   components?: {
     row?: React.ComponentType;
   };
-  onRowClick: IGridRowClickHander<Data>;
+  onRowClick: IGridRowClickHandler<Data>;
   onRowMouseEnter: (index: number) => void;
 }
 
