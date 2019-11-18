@@ -41,7 +41,7 @@ export interface ITableColumn {
   isMoney?: boolean;
   needSort?: boolean;
   bodyRender?: (data: any) => React.ReactNode;
-  textAign?: 'left' | 'right' | 'center';
+  textAlign?: 'left' | 'right' | 'center';
 }
 
 export interface ITableChangeConfig {
@@ -67,7 +67,7 @@ export interface ITableProps {
     isSingleSelection?: boolean;
     needCrossPage?: boolean;
     onSelect?: (
-      selectedkeys: string[],
+      selectedKeys: string[],
       selectedRows: any[],
       currentRow: number
     ) => void;
