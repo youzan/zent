@@ -19,6 +19,7 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - 🦀️ Enlarge icon size in `BlockHeader`
 - 🦀️ Fix height issue in `Radio` and `Checkbox`
 - 🦀️ Fix data missing when using `useFieldArrayValue`
+- 🦀️ Fix the handling of `undefined` values in default error render of `Form` fields
 - 🦀️ Fix type definitions in `FormSelectField`, `Form` and `FieldSet`
 - 🦀️ Fix type definitions in `Switch`, `CopyButton` and `DatePicker`
 
