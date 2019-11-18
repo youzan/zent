@@ -8,6 +8,20 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 7.2.0(2019-11-18)
+
+- 🎉 新增 `IMEComposition` 组件，同时对有用到 `input` 的组件内部做了兼容处理
+- ✨ `Grid` 添加批量操作支持
+- ✨ `Pagination` 增加到达最后一页时的提示支持
+- ✨ 升级 `date-fns` 到 2.x 版本
+- ✨ Fork `fecha`，用 TypeScript 重写；官方的包类型定义问题反反复复出现，不跟他们玩了
+- 📚 扩充了 `Form` 的上手文档
+- 🦀️ 增大 `BlockHeader` 的图标
+- 🦀️ 修复 `Radio` 以及 `Checkbox` 的高度问题，现在不会有多余的垂直方向空白了
+- 🦀️ 修复了 `useFieldArrayValue` 数据丢失的问题
+- 🦀️ 修复 `FormSelectField`, `Form` 以及 `FieldSet` 的类型定义问题
+- 🦀️ 修复 `Switch`, `CopyButton` 以及 `DatePicker` 的类型定义问题
+
 ### 7.1.0(2019-11-08)
 
 - ✨ `Select` 增加 `retainNullOption` 参数允许选中值为 `null` 的选项
