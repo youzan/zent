@@ -20,8 +20,14 @@ export interface IFieldSetProps<T extends Record<string, BasicModel<unknown>>> {
    * 表单提交时滚动到错误时的`DOM`元素的`ref`(来自`React.createRef`或`React.useRef`)
    */
   scrollAnchorRef?: React.RefObject<Element>;
+  /**
+   * 校验规则数组，按数组顺序执行，直到所有都通过或者在第一个失败的地方停止
+   */
   validators?: Array<IValidator<T>>;
   children?: React.ReactNode;
+  /**
+   * 用于渲染整个 `FieldSet` 层面的错误
+   */
   renderError?: IRenderError<T>;
 }
 
