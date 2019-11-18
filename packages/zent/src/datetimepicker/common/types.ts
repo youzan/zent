@@ -23,7 +23,7 @@ export namespace DatePickers {
     max?: Value;
     disabledDate?: (val: Value, type?: RangeType) => boolean;
     onClick?: (val: Value, type?: RangeType) => void;
-    value: Val;
+    value?: Val;
     defaultValue?: Val;
     onChange?: (val: Val) => void;
     onOpen?: (type?: RangeType) => void;
