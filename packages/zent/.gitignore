@@ -34,5 +34,6 @@ npm-debug.log
 .DS_Store
 custom-theme.js
 dependency-graph.json
+plugins/ts-plugin-constants.js
 
 css/

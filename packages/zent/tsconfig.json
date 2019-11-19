@@ -19,8 +19,9 @@
     "pretty": true,
     "removeComments": true,
     "skipLibCheck": true,
-    "target": "es5"
+    "target": "es5",
+    "plugins": [{ "transform": "./plugins/ts-plugin-constants.ts" }]
   },
   "exclude": ["lib", "es", "node_modules", "__tests__"],
-  "include": ["src", "declarations.d.ts"]
+  "include": ["src"]
 }

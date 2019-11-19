@@ -56,19 +56,38 @@ export interface IFormProps<
     React.FormHTMLAttributes<HTMLFormElement>,
     'onSubmit' | 'dangerouslySetInnerHTML'
   > {
+  /**
+   * 表单布局，支持水平布局和垂直布局
+   * @defaultValue `'vertical'`
+   */
   layout: 'horizontal' | 'vertical';
   /**
    * `useForm`得到的`model`
    */
   form: ZentForm<T>;
+  /**
+   * 禁用表单输入，开启后表单内所有元素不可编辑。注意：自定义组件需要自己实现禁用逻辑和展示
+   */
   disabled?: boolean;
+  /**
+   * 表单校验报错时自动滚动到第一个错误的位置
+   */
   scrollToError?: boolean;
   /**
-   * 表单提交，`form.submit`或者原生的`DOM`触发的`submit`事件都会触发`onSubmit`
+   * 表单提交回调函数，`form.submit` 或者原生的 `DOM` 触发的 `submit` 事件都会触发 `onSubmit`
    */
   onSubmit?: (form: ZentForm<T>, e?: React.SyntheticEvent) => void;
+  /**
+   * 表单提交失败时的回调函数
+   */
   onSubmitFail?: (e: unknown) => void;
+  /**
+   * 表单提交成功时的回调函数
+   */
   onSubmitSuccess?: () => void;
+  /**
+   * 禁用表单内 `input` 元素的回车提交功能
+   */
   disableEnterSubmit?: boolean;
 }
 
