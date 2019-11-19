@@ -134,9 +134,10 @@ class BatchComponents<Data> extends PureComponent<
 
     const data = this.getData();
     const disabled = this.getCheckboxAllDisabled();
+    const styles = this.props.batchRenderFixed ? this.props.style : {};
     if (selection && batchRender) {
       return (
-        <div className={className} style={this.props.style}>
+        <div className={className} style={styles}>
           <SelectionCheckboxAll
             getDataKey={getDataKey}
             onSelect={onSelect}

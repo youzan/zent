@@ -662,7 +662,6 @@ export class Grid<Data = any> extends PureComponent<
         scrollBodyStyle.marginBottom = 0;
       }
       return [
-        this.getBatchComponents('header'),
         <div
           key="header"
           className={`${prefix}-grid-header`}
@@ -699,7 +698,6 @@ export class Grid<Data = any> extends PureComponent<
         onScroll={this.handleBodyScroll}
         key="table"
       >
-        {this.getBatchComponents('header')}
         <table
           className={classnames(`${prefix}-grid-table`, tableClassName, {
             [`${prefix}-grid-table-ellipsis`]: ellipsis,
@@ -963,6 +961,7 @@ export class Grid<Data = any> extends PureComponent<
 
           return (
             <div className={className} ref={this.gridNode}>
+              {this.getBatchComponents('header')}
               <BlockLoading loading={loading}>
                 {scrollTable}
                 {this.isAnyColumnsLeftFixed() && (
