@@ -1,12 +1,6 @@
 @import './theme/default';
 @import './theme/font';
 
-// FIXME: these values and ARROW_OFFSET_* in position.js are interrelated
-$arrow-offset-h: 12px;
-$arrow-offset-v: 6px;
-$arrow-size: 6px;
-$arrow-cover-size: 11px;
-
 .zent-pop {
   @include font-normal;
   @include theme-color(background-color, stroke, 9);
@@ -44,8 +38,8 @@ $arrow-cover-size: 11px;
 
     position: absolute;
     z-index: 1;
-    width: $arrow-size;
-    height: $arrow-size;
+    width: var(--CSS_ARROW_SIZE);
+    height: var(--CSS_ARROW_SIZE);
     box-shadow: $shadow-spec-layer;
     overflow: hidden;
   }
@@ -54,8 +48,8 @@ $arrow-cover-size: 11px;
     content: '';
     display: block;
     position: absolute;
-    width: $arrow-cover-size;
-    height: $arrow-cover-size;
+    width: var(--CSS_ARROW_COVER_SIZE);
+    height: var(--CSS_ARROW_COVER_SIZE);
   }
 
   &--no-header {
@@ -81,7 +75,7 @@ $arrow-cover-size: 11px;
       }
 
       &::after {
-        top: -$arrow-cover-size;
+        top: -var(--CSS_ARROW_COVER_SIZE);
         width: 100%;
         left: 0;
       }
@@ -90,7 +84,7 @@ $arrow-cover-size: 11px;
     &-bottom-left {
       .zent-pop-arrow {
         transform: translateY(-50%) rotate(45deg);
-        left: $arrow-offset-h;
+        left: var(--CSS_ARROW_OFFSET_HORIZONTAL);
       }
     }
 
@@ -104,7 +98,7 @@ $arrow-cover-size: 11px;
     &-bottom-right {
       .zent-pop-arrow {
         transform: translateY(-50%) rotate(45deg);
-        right: $arrow-offset-h;
+        right: var(--CSS_ARROW_OFFSET_HORIZONTAL);
       }
     }
 
@@ -117,7 +111,7 @@ $arrow-cover-size: 11px;
       }
 
       &::after {
-        bottom: -$arrow-cover-size;
+        bottom: -var(--CSS_ARROW_COVER_SIZE);
         width: 100%;
         left: 0;
       }
@@ -126,7 +120,7 @@ $arrow-cover-size: 11px;
     &-top-left {
       .zent-pop-arrow {
         transform: translateY(50%) rotate(45deg);
-        left: $arrow-offset-h;
+        left: var(--CSS_ARROW_OFFSET_HORIZONTAL);
       }
     }
 
@@ -140,7 +134,7 @@ $arrow-cover-size: 11px;
     &-top-right {
       .zent-pop-arrow {
         transform: translateY(50%) rotate(45deg);
-        right: $arrow-offset-h;
+        right: var(--CSS_ARROW_OFFSET_HORIZONTAL);
       }
     }
 
@@ -153,7 +147,7 @@ $arrow-cover-size: 11px;
       }
 
       &::after {
-        right: -$arrow-cover-size;
+        right: -var(--CSS_ARROW_COVER_SIZE);
         height: 100%;
         top: 0;
       }
@@ -162,7 +156,7 @@ $arrow-cover-size: 11px;
     &-left-top {
       .zent-pop-arrow {
         transform: translateX(50%) rotate(45deg);
-        top: $arrow-offset-v;
+        top: var(--CSS_ARROW_OFFSET_VERTICAL);
       }
     }
 
@@ -176,7 +170,7 @@ $arrow-cover-size: 11px;
     &-left-bottom {
       .zent-pop-arrow {
         transform: translateX(50%) rotate(45deg);
-        bottom: $arrow-offset-v;
+        bottom: var(--CSS_ARROW_OFFSET_VERTICAL);
       }
     }
 
@@ -189,7 +183,7 @@ $arrow-cover-size: 11px;
       }
 
       &::after {
-        left: -$arrow-cover-size;
+        left: -var(--CSS_ARROW_COVER_SIZE);
         height: 100%;
         top: 0;
       }
@@ -198,7 +192,7 @@ $arrow-cover-size: 11px;
     &-right-top {
       .zent-pop-arrow {
         transform: translateX(-50%) rotate(45deg);
-        top: $arrow-offset-v;
+        top: var(--CSS_ARROW_OFFSET_VERTICAL);
       }
     }
 
@@ -212,7 +206,7 @@ $arrow-cover-size: 11px;
     &-right-bottom {
       .zent-pop-arrow {
         transform: translateX(-50%) rotate(45deg);
-        bottom: $arrow-offset-v;
+        bottom: var(--CSS_ARROW_OFFSET_VERTICAL);
       }
     }
   }

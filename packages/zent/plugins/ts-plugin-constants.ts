@@ -3,7 +3,7 @@ import {
   CSS_ARROW_OFFSET_HORIZONTAL,
   CSS_ARROW_OFFSET_VERTICAL,
   CSS_ARROW_SIZE,
-} from './compiler-constants';
+} from './css-compiler-constants';
 
 type ConstantType = number | string | boolean;
 

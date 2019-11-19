@@ -11,6 +11,13 @@ const constants = {
    * Css arrow size, in pixel
    */
   CSS_ARROW_SIZE: 6,
+  /**
+   * CSS arrow cover size, in pixel
+   *
+   * This cover fills the gap between the pop content and trigger
+   * It is required for pop to work properly in hover mode
+   */
+  CSS_ARROW_COVER_SIZE: 11,
 };
 
 if (constants.CSS_ARROW_SIZE % 2 !== 0) {
