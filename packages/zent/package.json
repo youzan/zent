@@ -20,7 +20,7 @@
     "theme": "./scripts/build-theme.sh",
     "new-component": "node ./scripts/new-component.js",
     "typedoc": "typedoc --out ../../site/dist/apidoc --mode file",
-    "compile-plugins": "tsc plugins/ts-plugin-constants.ts -m commonjs"
+    "compile-plugins": "tsc plugins/*.ts -m commonjs"
   },
   "author": "Youzan FE",
   "license": "MIT",
@@ -72,6 +72,7 @@
     "enzyme-adapter-react-16": "^1.7.0",
     "jest": "^24.5.0",
     "postcss-cli": "^6.1.3",
+    "postcss-selector-parser": "^6.0.2",
     "postcss-value-parser": "^4.0.2",
     "react": "16.10.x",
     "react-dom": "16.10.x",

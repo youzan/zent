@@ -21,6 +21,7 @@ postcss \
   css \
   --use autoprefixer \
   --use $(realpath $basepath/../plugins/postcss-plugin-constants) \
+  --use $(realpath $basepath/../plugins/postcss-plugin-version-attribute) \
   --replace \
   --no-map
 

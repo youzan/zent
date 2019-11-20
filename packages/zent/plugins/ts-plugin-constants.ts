@@ -4,6 +4,7 @@ import {
   CSS_ARROW_OFFSET_VERTICAL,
   CSS_ARROW_SIZE,
 } from './css-compiler-constants';
+const pkg: { version: string } = require('../package.json');
 
 type ConstantType = number | string | boolean;
 
@@ -17,13 +18,14 @@ type ConstantType = number | string | boolean;
 const BuiltinConstants: Record<string, ConstantType> = {
   __ARROW_OFFSET_HORIZONTAL__: CSS_ARROW_OFFSET_HORIZONTAL + CSS_ARROW_SIZE / 2,
   __ARROW_OFFSET_VERTICAL__: CSS_ARROW_OFFSET_VERTICAL + CSS_ARROW_SIZE / 2,
+  __ZENT_VERSION__: pkg.version,
 };
 
-export interface ITransformerOptions {}
+export interface ICompilerConstantsTransformerOptions {}
 
-export default function transformer(
+export default function compilerConstantsTransformer(
   _program: ts.Program,
-  _opts?: ITransformerOptions
+  _opts?: ICompilerConstantsTransformerOptions
 ) {
   function createVisitor(ctx: ts.TransformationContext) {
     const visitor: ts.Visitor = (node: ts.Node) => {

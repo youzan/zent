@@ -15,6 +15,6 @@ rm -rf es
 node $basepath/./generate-icon-type.js
 
 echo "Compile TypeScript..."
-tsc
+ttsc
 
 $basepath/./cruiser.sh

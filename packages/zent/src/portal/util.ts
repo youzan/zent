@@ -1,3 +1,5 @@
+import createElement from '../utils/dom/createElement';
+
 export function getNodeFromSelector(selector: string | Element): Element {
   if (selector instanceof Element) {
     return selector;
@@ -12,7 +14,7 @@ export function getNodeFromSelector(selector: string | Element): Element {
 }
 
 export function createContainerNode(parent: Node, tag = 'div') {
-  const div = document.createElement(tag);
+  const div = createElement(tag);
   return parent.appendChild(div);
 }
 
