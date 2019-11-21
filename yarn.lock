@@ -9862,6 +9862,13 @@ postcss-reporter@^6.0.0:
     log-symbols "^2.2.0"
     postcss "^7.0.7"
 
+postcss-scss@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/postcss-scss/-/postcss-scss-2.0.0.tgz#248b0a28af77ea7b32b1011aba0f738bda27dea1"
+  integrity sha512-um9zdGKaDZirMm+kZFKKVsnKPF7zF7qBAtIfTSnZXD1jZ0JNZIxdB6TxQOjCnlSzLRInVl2v3YdBh/M881C4ug==
+  dependencies:
+    postcss "^7.0.0"
+
 postcss-selector-matches@^3.0.0, postcss-selector-matches@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/postcss-selector-matches/-/postcss-selector-matches-3.0.1.tgz#e5634011e13950881861bbdd58c2d0111ffc96ab"
@@ -13413,7 +13420,7 @@ yup@^0.27.0:
     synchronous-promise "^2.0.6"
     toposort "^2.0.2"
 
-zenticons@3.0.2:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/zenticons/-/zenticons-3.0.2.tgz#1444d932311a6ec0e0152f56bd1c4f5e8e8739f2"
-  integrity sha512-owPutj22qUMOixJ5T3WIJxIt3ZiWnXvaiP2bhch0fu05+InvVDLFFB+jpnYQjzITz175avZxJ5NA079yVg16ig==
+zenticons@3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/zenticons/-/zenticons-3.1.0.tgz#80733527e29d841f3deb28efc0a50870ff769e20"
+  integrity sha512-9xmW/18biTGCa/c83qQUFRBrS0toYvu9zUbRlRuaiZH8iHmuQsOKN6ZaqR6XK6bcB5oC4NMnCdi6i7Hm/euFFA==

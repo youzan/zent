@@ -37,22 +37,12 @@
         height: 10px;
         width: 4px;
         background: white;
-        animation: 2s linear rotate infinite;
+        animation: 2s linear zent-ani-spin infinite;
         transform-origin: 10px 4px;
         left: -1px;
         top: 6px;
       }
     }
-  }
-}
-
-@keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
   }
 }
 

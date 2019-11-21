@@ -16,12 +16,12 @@ rm -rf css
 echo "Compile styles..."
 node $basepath/./compile-style.js
 
-# autoprefixer
+# autoprefixer, put it at last
 postcss \
   css \
-  --use autoprefixer \
   --use $(realpath $basepath/../plugins/postcss-plugin-constants) \
   --use $(realpath $basepath/../plugins/postcss-plugin-version-attribute) \
+  --use autoprefixer \
   --replace \
   --no-map
 
