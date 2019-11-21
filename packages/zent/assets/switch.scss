@@ -127,7 +127,7 @@
       border-style: solid;
       border-radius: 100%;
       box-sizing: border-box;
-      animation: zent-switch-spin 1s $timing-fn-linear;
+      animation: zent-ani-spin 1s $timing-fn-linear;
       animation-iteration-count: infinite;
     }
 
@@ -165,15 +165,5 @@
         }
       }
     }
-  }
-}
-
-@keyframes zent-switch-spin {
-  0% {
-    transform: rotate(0);
-  }
-
-  100% {
-    transform: rotate(360deg);
   }
 }

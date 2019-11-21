@@ -53,7 +53,7 @@ $state-color-depth-map: (
         transform: translateX(-100%);
         background: linear-gradient(to right, rgba(white, 0), white);
         animation: 1400ms $timing-fn-linear 0s infinite normal both running
-          zent-progress-mask-move;
+          zent-ani-progress-mask-move;
       }
     }
 
@@ -153,7 +153,7 @@ $state-color-depth-map: (
   }
 }
 
-@keyframes zent-progress-mask-move {
+@keyframes zent-ani-progress-mask-move {
   0% {
     left: 0;
     opacity: $mask-opacity;

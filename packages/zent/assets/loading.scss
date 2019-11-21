@@ -74,7 +74,7 @@
     z-index: 2;
     border: 2px solid transparent;
     border-right-color: $loading-icon-youzan-color;
-    animation: zentLoading 0.6s $timing-fn-linear infinite;
+    animation: zent-ani-spin 0.6s $timing-fn-linear infinite;
   }
 
   &:after {
@@ -103,7 +103,7 @@
   box-sizing: border-box;
   border-width: 2px;
   border-style: solid;
-  animation: zentLoading 0.6s $timing-fn-linear infinite;
+  animation: zent-ani-spin 0.6s $timing-fn-linear infinite;
 
   + .zent-loading-icon-text {
     @include theme-color(color, primary, 4);
@@ -151,15 +151,5 @@
       order: 1;
       margin-right: 8px;
     }
-  }
-}
-
-@keyframes zentLoading {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
   }
 }

@@ -7,16 +7,16 @@
 }
 
 .zent-zoom-appear.zent-zoom-appear-active {
-  animation: 160ms $timing-fn-ease-in 0s 1 normal both running zent-zoomin,
-    100ms $timing-fn-ease-in 60ms 1 normal both running zent-fadein;
+  animation: 160ms $timing-fn-ease-in 0s 1 normal both running zent-ani-zoomin,
+    100ms $timing-fn-ease-in 60ms 1 normal both running zent-ani-fadein;
 }
 
 .zent-zoom-exit.zent-zoom-exit-active {
-  animation: 160ms $timing-fn-ease-out 0s 1 normal both running zent-zoomout,
-    100ms $timing-fn-ease-out 60ms 1 normal both running zent-fadeout;
+  animation: 160ms $timing-fn-ease-out 0s 1 normal both running zent-ani-zoomout,
+    100ms $timing-fn-ease-out 60ms 1 normal both running zent-ani-fadeout;
 }
 
-@keyframes zent-zoomin {
+@keyframes zent-ani-zoomin {
   0% {
     transform: scale(0);
   }
@@ -26,7 +26,7 @@
   }
 }
 
-@keyframes zent-zoomout {
+@keyframes zent-ani-zoomout {
   0% {
     transform: scale(1);
   }
@@ -36,7 +36,7 @@
   }
 }
 
-@keyframes zent-fadein {
+@keyframes zent-ani-fadein {
   0% {
     opacity: 0;
   }
@@ -46,12 +46,22 @@
   }
 }
 
-@keyframes zent-fadeout {
+@keyframes zent-ani-fadeout {
   0% {
     opacity: 1;
   }
 
   100% {
     opacity: 0;
+  }
+}
+
+@keyframes zent-ani-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
   }
 }
