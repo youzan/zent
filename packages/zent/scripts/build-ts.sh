@@ -4,9 +4,6 @@ set -e
 
 basepath=$(dirname $0)
 
-# Ensure only colors defined in themes are used
-$basepath/check-style-colors.sh
-
 # clean
 echo "Clean up TypeScript output..."
 rm -rf es

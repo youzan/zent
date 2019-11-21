@@ -61,7 +61,7 @@ module.exports = postcss.plugin('postcss-plugin-version-attribute', () => {
             decl.value = getVersionedIconFontName(value);
           }
         });
-      } else if (name === 'keyframes' || name === '-webkit-keyframes') {
+      } else if (name === 'keyframes' || name.endsWith('-keyframes')) {
         atRule.params = getVersionedKeyframeName(atRule.params);
       }
     });

@@ -4,8 +4,8 @@ set -e
 
 basepath=$(dirname $0)
 
-# Ensure only colors defined in themes are used
-$basepath/check-style-colors.sh
+echo 'Lint styles...'
+$basepath/./postcss-lint.sh
 
 # clean
 echo "Clean up style output..."

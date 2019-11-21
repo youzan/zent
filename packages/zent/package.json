@@ -16,9 +16,9 @@
   ],
   "scripts": {
     "test": "./scripts/test.sh",
-    "lint-style": "./scripts/postcss-lint.sh && ./scripts/check-style-colors.sh",
-    "build": "yarn lint-style && ./scripts/build.sh",
-    "theme": "yarn lint-style && ./scripts/build-theme.sh",
+    "lint-style": "./scripts/postcss-lint.sh",
+    "build": "./scripts/build.sh",
+    "theme": "./scripts/build-theme.sh",
     "new-component": "node ./scripts/new-component.js",
     "typedoc": "typedoc --out ../../site/dist/apidoc --mode file",
     "compile-plugins": "tsc plugins/*.ts -m commonjs"
