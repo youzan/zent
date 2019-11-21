@@ -1,10 +1,10 @@
+import createElement from '../../utils/dom/createElement';
+
 const checkboardCache = {};
 
 export function render(c1, c2, size, ServerCanvas) {
   if (typeof document === 'undefined' && !ServerCanvas) return null;
-  const canvas = ServerCanvas
-    ? new ServerCanvas()
-    : document.createElement('canvas'); // eslint-disable-line
+  const canvas = ServerCanvas ? new ServerCanvas() : createElement('canvas');
   canvas.width = size * 2;
   canvas.height = size * 2;
   const ctx = canvas.getContext('2d');

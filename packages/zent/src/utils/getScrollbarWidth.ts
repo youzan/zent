@@ -1,11 +1,12 @@
 import assign from 'lodash-es/assign';
 import isBrowser from './isBrowser';
+import createElement from './dom/createElement';
 
 function getScrollbarWidth() {
   if (!isBrowser) {
     return 0;
   }
-  const scrollDiv = document.createElement('div');
+  const scrollDiv = createElement('div');
   assign(scrollDiv.style, {
     position: 'absolute',
     top: '-9999px',
