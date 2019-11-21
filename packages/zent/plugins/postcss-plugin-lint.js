@@ -58,6 +58,7 @@ function isRawColor(node) {
     }
   }
 
+  // no hex colors, but color names like black are allowed
   if (type === 'word') {
     return /^#([0-9a-f]{3}|[0-9a-f]{6})$/.test(value);
   }

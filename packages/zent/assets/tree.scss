@@ -54,9 +54,8 @@
       line-height: 20px;
 
       &:after {
-        // sass-lint:disable-block mixins-before-declarations
-        border: 6px solid transparent;
         @include theme-color(border-left-color, stroke, 6);
+        border: 6px solid transparent;
         border-left-width: 9px;
       }
     }
@@ -71,9 +70,8 @@
       line-height: 12px;
 
       &:after {
-        // sass-lint:disable-block mixins-before-declarations
-        border: 4px solid transparent;
         @include theme-color(border-left-color, stroke, 6);
+        border: 4px solid transparent;
         border-left-width: 6px;
       }
     }
@@ -97,10 +95,9 @@
     outline: none;
 
     &:after {
-      // sass-lint:disable-block mixins-before-declarations
-      border: 5px solid transparent;
       @include theme-color(border-left-color, stroke, 6);
       @include theme-color(color, stroke, 2);
+      border: 5px solid transparent;
       content: '';
       display: inline-block;
       border-left-width: 7px;
