@@ -6,7 +6,6 @@ import every from 'lodash-es/every';
 import debounce from 'lodash-es/debounce';
 import isEqual from 'lodash-es/isEqual';
 import some from 'lodash-es/some';
-import map from 'lodash-es/map';
 import includes from 'lodash-es/includes';
 import throttle from 'lodash-es/throttle';
 
@@ -20,6 +19,7 @@ import {
   getLeafColumns,
   needFixBatchComps,
   isElementInView,
+  mapDOMNodes,
 } from './utils';
 import { I18nReceiver as Receiver, II18nLocaleGrid } from '../i18n';
 import BlockLoading from '../loading/BlockLoading';
@@ -195,28 +195,24 @@ export class Grid<Data = any> extends PureComponent<
     }
 
     const bodyRows =
-      (this.bodyTable &&
-        this.bodyTable.querySelectorAll(`tbody .${prefix}-grid-tr`)) ||
-      [];
+      this.bodyTable &&
+      this.bodyTable.querySelectorAll(`tbody .${prefix}-grid-tr`);
     const expandRows =
-      (this.bodyTable &&
-        this.bodyTable.querySelectorAll(
-          `tbody .${prefix}-grid-tr__expanded`
-        )) ||
-      [];
+      this.bodyTable &&
+      this.bodyTable.querySelectorAll(`tbody .${prefix}-grid-tr__expanded`);
     const headRows = this.scrollHeader
       ? this.scrollHeader.querySelectorAll('thead')
       : (this.bodyTable as HTMLDivElement).querySelectorAll('thead');
 
-    const fixedColumnsBodyRowsHeight = map(
+    const fixedColumnsBodyRowsHeight = mapDOMNodes(
       bodyRows,
       (row: Element) => row.getBoundingClientRect().height || 'auto'
     );
-    const fixedColumnsHeadRowsHeight = map(
+    const fixedColumnsHeadRowsHeight = mapDOMNodes(
       headRows,
       (row: Element) => row.getBoundingClientRect().height || 'auto'
     );
-    const fixedColumnsBodyExpandRowsHeight = map(
+    const fixedColumnsBodyExpandRowsHeight = mapDOMNodes(
       expandRows,
       (row: Element) => row.getBoundingClientRect().height || 'auto'
     );
@@ -301,7 +297,7 @@ export class Grid<Data = any> extends PureComponent<
     e: React.MouseEvent<HTMLSpanElement>
   ) => {
     const { onExpand } = this.props;
-    const expandRowKeys = map(this.state.expandRowKeys, (row, index) =>
+    const expandRowKeys = (this.state.expandRowKeys ?? []).map((row, index) =>
       index === clickRow ? !row : row
     );
     this.store.setState({

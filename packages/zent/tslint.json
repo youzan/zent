@@ -112,6 +112,7 @@
       ["lodash-es/keys", "Use Object.keys"],
       ["lodash-es/each", "Use native array method or for loop"],
       ["lodash-es/forEach", "Use native array method or for loop"],
+      ["lodash-es/map", "Use array method or for loop"],
       ["lodash-es/size", "Check for size/length"],
       ["lodash-es/get", "Use optional chaining"],
       ["lodash-es/has", "Use hasOwnProperty"],
