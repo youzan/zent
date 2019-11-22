@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
 import isEmpty from 'lodash-es/isEmpty';
-import isNumber from 'lodash-es/isNumber';
 import memoize from '../../utils/memorize-one';
 import Select from '../../select';
 import { I18nReceiver as Receiver, II18nLocalePagination } from '../../i18n';
@@ -32,7 +31,7 @@ const memoizedNormalizeSelectOptions = memoize(function normalizeSelectOptions(
   i18n: II18nLocalePagination
 ) {
   return (pageSizeOptions || []).map(opt => {
-    if (isNumber(opt)) {
+    if (typeof opt === 'number') {
       return { value: opt, text: `${opt} ${i18n.items}` };
     }
 

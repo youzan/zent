@@ -1,7 +1,6 @@
 import * as React from 'react';
 import cx from 'classnames';
 import isString from 'lodash-es/isString';
-import isNumber from 'lodash-es/isNumber';
 
 export interface IMenuListItem {
   value?: any;
@@ -62,7 +61,9 @@ export class MenuListItem extends React.Component<IMenuListItemProps> {
     }
 
     const title =
-      isNumber(content) || isString(content) ? `${content}` : undefined;
+      typeof content === 'number' || isString(content)
+        ? `${content}`
+        : undefined;
     const active =
       typeof item.active === 'function'
         ? item.active(item.value)

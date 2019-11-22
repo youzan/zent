@@ -1,8 +1,7 @@
 import isString from 'lodash-es/isString';
-import isNumber from 'lodash-es/isNumber';
 
 export default function getWidth(width: unknown) {
-  if (isString(width) || isNumber(width)) {
+  if (isString(width) || typeof width === 'number') {
     return { width };
   }
 

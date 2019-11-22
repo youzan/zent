@@ -103,7 +103,8 @@
       ["lodash-es/noop", "Use utils/noop"],
       ["lodash-es/identity", "Use utils/identity"],
       ["lodash-es/isBoolean", "Use typeof"],
-      ["lodash-es/isFunction", "Use typeof"]
+      ["lodash-es/isFunction", "Use typeof"],
+      ["lodash-es/isNumber", "Use typeof"]
     ]
   }
 }

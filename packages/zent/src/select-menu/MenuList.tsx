@@ -5,7 +5,6 @@
  */
 import * as React from 'react';
 import { Component } from 'react';
-import isNumber from 'lodash-es/isNumber';
 import { IMenuListItem, MenuListItem, handleItemClick } from './MenuListItem';
 
 const menuListPaddingTop = 0;
@@ -134,7 +133,7 @@ export default class MenuList extends Component<
     if (
       !(items && items.length) ||
       items.every((item: any) => item.isDivider && item.isGroup) ||
-      !isNumber(idx) ||
+      typeof idx !== 'number' ||
       Number.isNaN(idx)
     ) {
       return null;

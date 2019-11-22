@@ -6,7 +6,6 @@
 import * as React from 'react';
 import { Component } from 'react';
 import isString from 'lodash-es/isString';
-import isNumber from 'lodash-es/isNumber';
 
 import memoize from '../utils/memorize-one';
 import MenuList from './MenuList';
@@ -38,7 +37,7 @@ export interface ISelectMenuState {
   items: IMenuListItem[];
 }
 
-const isStringOrNumber = (x: any) => isString(x) || isNumber(x);
+const isStringOrNumber = (x: any) => isString(x) || typeof x === 'number';
 
 export function caselessMatchFilterOption(
   searchText: string,
