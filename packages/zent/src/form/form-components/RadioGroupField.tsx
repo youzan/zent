@@ -33,13 +33,11 @@ function renderRadioGroup<T>(
 export function FormRadioGroupField<T>(
   props: IFormRadioGroupFieldProps<T | null>
 ) {
+  const { defaultValue } = props as $MergeParams<IFormRadioGroupFieldProps<T>>;
   return (
     <FormField
       {...props}
-      defaultValue={
-        (props as $MergeParams<IFormRadioGroupFieldProps<T>>).defaultValue ||
-        null
-      }
+      defaultValue={typeof defaultValue === 'undefined' ? null : defaultValue}
     >
       {childProps => renderRadioGroup(childProps, props)}
     </FormField>
