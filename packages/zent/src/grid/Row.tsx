@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import forEach from 'lodash-es/forEach';
 import classnames from 'classnames';
 import Cell from './Cell';
 import { IGridInnerColumn } from './Grid';
@@ -61,24 +60,26 @@ class Row<Data> extends PureComponent<IGridRowProps<Data>> {
         ? fixedColumnsBodyRowsHeight[rowIndex]
         : undefined;
 
-    forEach(columns as Array<IGridInnerColumn<any>>, (column, columnIndex) => {
-      const pos = {
-        row: rowIndex,
-        column: columnIndex,
-        fixed,
-      };
+    ((columns || []) as Array<IGridInnerColumn<any>>).forEach(
+      (column, columnIndex) => {
+        const pos = {
+          row: rowIndex,
+          column: columnIndex,
+          fixed,
+        };
 
-      cells.push(
-        <Cell
-          column={column}
-          data={data}
-          pos={pos}
-          columnIndex={columnIndex}
-          key={columnIndex}
-          prefix={prefix}
-        />
-      );
-    });
+        cells.push(
+          <Cell
+            column={column}
+            data={data}
+            pos={pos}
+            columnIndex={columnIndex}
+            key={columnIndex}
+            prefix={prefix}
+          />
+        );
+      }
+    );
 
     return (
       <BodyRow

@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
 import toArray from 'lodash-es/toArray';
-import forEach from 'lodash-es/forEach';
 import isPromise from '../../utils/isPromise';
 import { I18nReceiver as Receiver, II18nLocaleUpload } from '../../i18n';
 import Notify from '../../notify';
@@ -101,7 +100,7 @@ export default class FileInput extends PureComponent<IFileInputProps, any> {
       errorMessages,
     } = this.props;
 
-    forEach(files, (file, index) => {
+    (files || []).forEach((file, index) => {
       if (maxAmount && index + initIndex >= maxAmount) {
         const message = formatErrorMessages(
           errorMessages.overMaxAmount,

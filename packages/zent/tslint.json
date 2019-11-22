@@ -110,6 +110,7 @@
       ["lodash-es/isEmpty", "Check for size/length"],
       ["lodash-es/isDate", "Use utils/isDate"],
       ["lodash-es/keys", "Use Object.keys"],
+      ["lodash-es/forEach", "Use native array method or for loop"],
       ["lodash-es/size", "Check for size/length"],
       [
         "lodash-es/isPlainObject",

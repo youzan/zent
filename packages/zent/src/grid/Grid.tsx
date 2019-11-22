@@ -7,7 +7,6 @@ import get from 'lodash-es/get';
 import every from 'lodash-es/every';
 import debounce from 'lodash-es/debounce';
 import isEqual from 'lodash-es/isEqual';
-import forEach from 'lodash-es/forEach';
 import some from 'lodash-es/some';
 import map from 'lodash-es/map';
 import includes from 'lodash-es/includes';
@@ -770,7 +769,7 @@ export class Grid<Data = any> extends PureComponent<
 
     switch (type) {
       case 'selectAll':
-        forEach(data, (key, index) => {
+        (data || []).forEach((key, index) => {
           const rowIndex = this.getDataKey(key, index);
           if (!includes(selectedRowKeys, rowIndex)) {
             selectedRowKeys = selectedRowKeys.concat(rowIndex);

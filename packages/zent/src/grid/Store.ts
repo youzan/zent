@@ -1,7 +1,6 @@
 import get from 'lodash-es/get';
 import has from 'lodash-es/has';
 import indexOf from 'lodash-es/indexOf';
-import forEach from 'lodash-es/forEach';
 
 export default class Store {
   state: {
@@ -14,7 +13,7 @@ export default class Store {
   setState = (nextState: any) => {
     this.state = { ...this.state, ...nextState };
     Object.keys(nextState).forEach(stateName => {
-      forEach(get(this.listeners, stateName), listener => {
+      get(this.listeners, stateName).forEach(listener => {
         listener();
       });
     });
@@ -35,7 +34,7 @@ export default class Store {
   }
 
   trigger = (eventName: string) => {
-    forEach(get(this.listeners, eventName), listener => {
+    get(this.listeners, eventName).forEach(listener => {
       listener();
     });
   };
