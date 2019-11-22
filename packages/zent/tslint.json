@@ -107,7 +107,8 @@
       ["lodash-es/isNumber", "Use typeof"],
       ["lodash-es/isString", "Use typeof"],
       ["lodash-es/isNil", "Use utils/isNil"],
-      ["lodash-es/isEmpty", "Check for size/length"]
+      ["lodash-es/isEmpty", "Check for size/length"],
+      ["lodash-es/isDate", "Use utils/isDate"]
     ]
   }
 }
