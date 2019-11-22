@@ -14,8 +14,6 @@ export interface IBatchComponentsProps<Data = any> {
   store: Store;
   datasets: Data[];
   getDataKey: (data: Data, rowIndex: string | number) => string;
-  batchRenderFixed: boolean;
-  style?: React.CSSProperties;
   selection: IGridSelection;
   checkboxPropsCache: {
     [key: string]: {
@@ -27,6 +25,7 @@ export interface IBatchComponentsProps<Data = any> {
 
 interface IState<Data> {
   selectedRows: Data[];
+  batchNeedRenderFixed: boolean;
 }
 
 class BatchComponents<Data> extends PureComponent<
@@ -35,9 +34,12 @@ class BatchComponents<Data> extends PureComponent<
 > {
   state: IState<Data> = {
     selectedRows: [],
+    batchNeedRenderFixed: false,
   };
 
   unsubscribe: any;
+
+  unsubscribeBatchRenderFixed: any;
 
   getCheckboxPropsByItem = (data: Data, rowIndex: number | string) => {
     const { selection, checkboxPropsCache } = this.props;
@@ -96,6 +98,17 @@ class BatchComponents<Data> extends PureComponent<
         selectedRows: this.getSelectedRows(),
       });
     });
+
+    this.unsubscribeBatchRenderFixed = store.subscribe(
+      'batchRenderFixed',
+      () => {
+        const selectedRows = store.getState('selectedRows') || [];
+        this.setState({
+          batchNeedRenderFixed:
+            store.getState('batchRenderFixed') && selectedRows.length > 0,
+        });
+      }
+    );
   };
 
   componentDidMount() {
@@ -109,6 +122,9 @@ class BatchComponents<Data> extends PureComponent<
     if (this.unsubscribe) {
       this.unsubscribe();
     }
+    if (this.unsubscribeBatchRenderFixed) {
+      this.unsubscribeBatchRenderFixed();
+    }
   }
 
   render() {
@@ -117,26 +133,28 @@ class BatchComponents<Data> extends PureComponent<
       onSelect,
       store,
       getDataKey,
-      batchRenderFixed,
       batchRender,
       selection,
       position,
     } = this.props;
-    const selectedRows = store.getState('selectedRows');
+    const selectedRows = store.getState('selectedRows') || [];
+    const { batchNeedRenderFixed } = this.state;
+    const batchRenderFixedStyles = store.getState('batchRenderFixedStyles');
     const className = classnames(
       `${prefix}-grid-batch`,
       `${prefix}-grid-batch__${position}`,
       {
         [`${prefix}-grid-batch--fixed`]:
-          batchRenderFixed && position === 'foot',
+          batchNeedRenderFixed && position === 'foot',
       }
     );
 
     const data = this.getData();
     const disabled = this.getCheckboxAllDisabled();
+    const styles = batchNeedRenderFixed ? batchRenderFixedStyles : {};
     if (selection && batchRender) {
       return (
-        <div className={className} style={this.props.style}>
+        <div className={className} style={styles}>
           <SelectionCheckboxAll
             getDataKey={getDataKey}
             onSelect={onSelect}

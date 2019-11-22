@@ -337,6 +337,7 @@
 
   .zent-grid-batch {
     padding-left: 16px;
+    padding-bottom: 12px;
     display: flex;
     align-items: center;
 
@@ -368,13 +369,8 @@
     }
   }
 
-  .zent-grid-batch__header {
-    padding-bottom: 12px;
-  }
-
   .zent-grid-batch__foot {
-    position: absolute;
-    left: 0;
+    float: left;
   }
 
   &-selection-checkbox {
