@@ -101,7 +101,8 @@
       ],
       ["lodash-es/assign", "Use object spread"],
       ["lodash-es/noop", "Use utils/noop"],
-      ["lodash-es/identity", "Use utils/identity"]
+      ["lodash-es/identity", "Use utils/identity"],
+      ["lodash-es/isBoolean", "Use typeof"]
     ]
   }
 }

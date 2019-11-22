@@ -22,7 +22,6 @@ import * as ReactDOM from 'react-dom';
 import cx from 'classnames';
 import uniqueId from 'lodash-es/uniqueId';
 import isFunction from 'lodash-es/isFunction';
-import isBoolean from 'lodash-es/isBoolean';
 
 import noop from '../utils/noop';
 import isPromise from '../utils/isPromise';
@@ -163,7 +162,7 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
   isVisibilityControlled(props?: IPopoverProps) {
     const { visible, onVisibleChange } = props || this.props;
     const hasOnChange = isFunction(onVisibleChange);
-    const hasVisible = isBoolean(visible);
+    const hasVisible = typeof visible === 'boolean';
 
     if ((hasVisible && !hasOnChange) || (hasOnChange && !hasVisible)) {
       throw new Error('visible and onVisibleChange must be used together');
