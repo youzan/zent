@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
 import classnames from 'classnames';
-import noop from 'lodash-es/noop';
 
+import noop from '../utils/noop';
 import Popover from '../popover';
 import Icon from '../icon';
 import { I18nReceiver as Receiver, II18nLocaleCascader } from '../i18n';

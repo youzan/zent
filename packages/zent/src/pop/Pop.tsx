@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
-import noop from 'lodash-es/noop';
 import isFunction from 'lodash-es/isFunction';
 
+import noop from '../utils/noop';
 import Popover, { PositionFunction } from '../popover';
 import Button from '../button';
 import isPromise from '../utils/isPromise';

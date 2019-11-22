@@ -20,15 +20,15 @@ import * as React from 'react';
 import { Component, Children } from 'react';
 import * as ReactDOM from 'react-dom';
 import cx from 'classnames';
-import noop from 'lodash-es/noop';
 import uniqueId from 'lodash-es/uniqueId';
 import isFunction from 'lodash-es/isFunction';
 import isBoolean from 'lodash-es/isBoolean';
+
+import noop from '../utils/noop';
 import isPromise from '../utils/isPromise';
 import kindOf from '../utils/kindOf';
 import getWidth from '../utils/getWidth';
 import memoize from '../utils/memorize-one';
-
 import PopoverContent from './Content';
 import Trigger from './trigger';
 import PopoverTrigger from './trigger/Trigger';

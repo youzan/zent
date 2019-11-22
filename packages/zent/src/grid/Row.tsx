@@ -2,7 +2,6 @@ import * as React from 'react';
 import { PureComponent } from 'react';
 import forEach from 'lodash-es/forEach';
 import isFunction from 'lodash-es/isFunction';
-import noop from 'lodash-es/noop';
 import classnames from 'classnames';
 import Cell from './Cell';
 import { IGridInnerColumn } from './Grid';
@@ -12,6 +11,7 @@ import {
   IGridInnerFixedType,
   IGridScrollDelta,
 } from './types';
+import noop from '../utils/noop';
 
 interface IGridRowProps<Data> {
   data: Data;

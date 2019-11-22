@@ -6,9 +6,9 @@ import * as React from 'react';
 import cx from 'classnames';
 import omit from 'lodash-es/omit';
 import isEqual from 'lodash-es/isEqual';
-import noop from 'lodash-es/noop';
 import cloneDeep from 'lodash-es/cloneDeep';
 
+import noop from '../utils/noop';
 import Popover from '../popover';
 import Option from './components/Option';
 import Trigger from './trigger';

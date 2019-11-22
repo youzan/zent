@@ -4,8 +4,8 @@
 import * as React from 'react';
 import { Component } from 'react';
 import take from 'lodash-es/take';
-import noop from 'lodash-es/noop';
 
+import noop from '../utils/noop';
 import Popover from '../popover';
 import { I18nReceiver as Receiver, II18nLocaleSelect } from '../i18n';
 

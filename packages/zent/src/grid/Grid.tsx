@@ -8,7 +8,6 @@ import every from 'lodash-es/every';
 import debounce from 'lodash-es/debounce';
 import isEqual from 'lodash-es/isEqual';
 import forEach from 'lodash-es/forEach';
-import noop from 'lodash-es/noop';
 import size from 'lodash-es/size';
 import some from 'lodash-es/some';
 import map from 'lodash-es/map';
@@ -16,6 +15,7 @@ import isFunction from 'lodash-es/isFunction';
 import includes from 'lodash-es/includes';
 import throttle from 'lodash-es/throttle';
 
+import noop from '../utils/noop';
 import measureScrollbar from '../utils/dom/measureScrollbar';
 import WindowResizeHandler from '../utils/component/WindowResizeHandler';
 import WindowEventHandler from '../utils/component/WindowEventHandler';
