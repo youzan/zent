@@ -2,7 +2,6 @@ import * as React from 'react';
 import * as ReactDom from 'react-dom';
 import { PureComponent } from 'react';
 import classnames from 'classnames';
-import has from 'lodash-es/has';
 import every from 'lodash-es/every';
 import debounce from 'lodash-es/debounce';
 import isEqual from 'lodash-es/isEqual';
@@ -868,7 +867,10 @@ export class Grid<Data = any> extends PureComponent<
   }
 
   componentWillReceiveProps(nextProps: IGridProps<Data>) {
-    if (nextProps.selection && has(nextProps.selection, 'selectedRowKeys')) {
+    if (
+      nextProps.selection &&
+      nextProps.selection.hasOwnProperty('selectedRowKeys')
+    ) {
       this.store.setState({
         selectedRowKeys: nextProps.selection.selectedRowKeys || [],
         columns: this.getColumns(nextProps),
@@ -890,7 +892,7 @@ export class Grid<Data = any> extends PureComponent<
     }
 
     if (
-      has(nextProps, 'datasets') &&
+      nextProps.hasOwnProperty('datasets') &&
       nextProps.datasets !== this.props.datasets
     ) {
       this.checkboxPropsCache = {};

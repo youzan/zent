@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Component } from 'react';
-import has from 'lodash-es/has';
 import classnames from 'classnames';
 import { IGridInnerColumn } from './Grid';
 import { IGridCellPos } from './types';
@@ -39,7 +38,7 @@ class Cell<Data> extends Component<IGridCellProps<Data>> {
 
   shouldComponentUpdate(nextProps: IGridCellProps<Data>) {
     // 如果存在 bodyRender 属性则 render
-    if (has(nextProps.column, 'bodyRender')) {
+    if ((nextProps.column ?? {}).hasOwnProperty('bodyRender')) {
       return true;
     }
 

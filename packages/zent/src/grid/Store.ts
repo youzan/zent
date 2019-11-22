@@ -1,4 +1,3 @@
-import has from 'lodash-es/has';
 import indexOf from 'lodash-es/indexOf';
 
 export default class Store {
@@ -20,7 +19,7 @@ export default class Store {
 
   getState(propsName?: string, callBack?: () => void): any {
     if (propsName) {
-      if (callBack && !has(this.state, propsName)) {
+      if (callBack && !this.state.hasOwnProperty(propsName)) {
         this.setState({
           [propsName]: callBack(),
         });
