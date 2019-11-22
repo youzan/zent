@@ -11,7 +11,7 @@ rules:
   placeholder-in-extend: 2
 
   # Mixins
-  mixins-before-declarations: 2
+  mixins-before-declarations: 0
 
   # Line Spacing
   one-declaration-per-line: 2
