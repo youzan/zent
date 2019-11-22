@@ -143,7 +143,7 @@ export default class MenuList extends Component<
     let item: any = items[targetIdx];
 
     // try to ignore: divider/group/disabled
-    if (!item || (item.isDivider || item.isGroup) || item.disabled) {
+    if (!item || item.isDivider || item.isGroup || item.disabled) {
       const initialIdx = targetIdx;
 
       targetIdx = this.getItemIdxInItems(
