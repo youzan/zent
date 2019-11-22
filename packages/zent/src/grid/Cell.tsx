@@ -2,10 +2,10 @@ import * as React from 'react';
 import { Component } from 'react';
 import get from 'lodash-es/get';
 import has from 'lodash-es/has';
-import isNil from 'lodash-es/isNil';
 import classnames from 'classnames';
 import { IGridInnerColumn } from './Grid';
 import { IGridCellPos } from './types';
+import isNil from '../utils/isNil';
 
 interface IGridCellProps<Data> {
   column: IGridInnerColumn<Data>;

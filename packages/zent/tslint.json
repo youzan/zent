@@ -105,7 +105,8 @@
       ["lodash-es/isBoolean", "Use typeof"],
       ["lodash-es/isFunction", "Use typeof"],
       ["lodash-es/isNumber", "Use typeof"],
-      ["lodash-es/isString", "Use typeof"]
+      ["lodash-es/isString", "Use typeof"],
+      ["lodash-es/isNil", "Use utils/isNil"]
     ]
   }
 }

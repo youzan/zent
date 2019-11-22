@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { isElement } from 'react-is';
 import cn from 'classnames';
-import isNil from 'lodash-es/isNil';
 
+import isNil from '../utils/isNil';
 import noop from '../utils/noop';
 import LazyMount from '../utils/component/LazyMount';
 import TabPanel from './components/TabPanel';

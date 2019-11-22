@@ -1,6 +1,5 @@
 import * as React from 'react';
 import cx from 'classnames';
-import isNil from 'lodash-es/isNil';
 import omit from 'lodash-es/omit';
 import { AlertTypes } from './types';
 import Icon, { IconType } from '../icon';
@@ -69,7 +68,7 @@ export class Alert extends React.PureComponent<IAlertProps, IAlertState> {
    */
   private get isControlled() {
     const { closed } = this.props;
-    const hasClosed = !isNil(closed);
+    const hasClosed = closed !== undefined;
     return hasClosed;
   }
 
