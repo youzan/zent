@@ -1,19 +1,25 @@
-import assign from 'lodash-es/assign';
 import isBrowser from './isBrowser';
 import createElement from './dom/createElement';
+
+const MEASURE_STYLE = {
+  position: 'absolute',
+  top: '-9999px',
+  width: '50px',
+  height: '50px',
+  overflow: 'scroll',
+};
 
 function getScrollbarWidth() {
   if (!isBrowser) {
     return 0;
   }
   const scrollDiv = createElement('div');
-  assign(scrollDiv.style, {
-    position: 'absolute',
-    top: '-9999px',
-    width: '50px',
-    height: '50px',
-    overflow: 'scroll',
+
+  const { style } = scrollDiv;
+  Object.keys(MEASURE_STYLE).forEach(k => {
+    style[k] = MEASURE_STYLE[k];
   });
+
   document.body.appendChild(scrollDiv);
   const scrollbarWidth =
     scrollDiv.getBoundingClientRect().width - scrollDiv.clientWidth;

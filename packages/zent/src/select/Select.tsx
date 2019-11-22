@@ -8,7 +8,6 @@ import omit from 'lodash-es/omit';
 import isEqual from 'lodash-es/isEqual';
 import noop from 'lodash-es/noop';
 import cloneDeep from 'lodash-es/cloneDeep';
-import assign from 'lodash-es/assign';
 
 import Popover from '../popover';
 import Option from './components/Option';
@@ -104,22 +103,20 @@ export class Select extends React.Component<ISelectProps, any> {
   popover: Popover | null = null;
   popup: React.ComponentType<any> | null = null;
 
-  constructor(props) {
+  constructor(props: ISelectProps) {
     super(props);
 
-    this.state = assign(
-      {
-        selectedItems: [],
-        selectedItem: {
-          value: '',
-          text: '',
-        },
-
-        // popover content 位置就绪可以进行 focus 操作的标记.
-        optionsReady: false,
+    this.state = {
+      selectedItems: [],
+      selectedItem: {
+        value: '',
+        text: '',
       },
-      props
-    );
+
+      // popover content 位置就绪可以进行 focus 操作的标记.
+      optionsReady: false,
+      ...props,
+    };
   }
 
   uniformedData: any;
@@ -199,11 +196,12 @@ export class Select extends React.Component<ISelectProps, any> {
         React.Children.map(children, (item, index) => {
           let value = item.props.value;
           value = typeof value === 'undefined' ? item : value;
-          return assign({}, item.props, {
+          return {
+            ...item.props,
             value,
             cid: `${index}`,
             text: item.props.children,
-          });
+          };
         })
       );
     }

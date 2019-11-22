@@ -12,7 +12,11 @@
       },
       {
         "name": ["document", "createElement"],
-        "message": "Use utils/dom/createElement instead"
+        "message": "Use utils/dom/createElement"
+      },
+      {
+        "name": ["Object", "assign"],
+        "message": "Use object spread"
       }
     ],
     "ban-ts-ignore": true,
@@ -94,7 +98,8 @@
       [
         "warning",
         "warning doesn't support compile to ES module, please use cjs require"
-      ]
+      ],
+      ["lodash-es/assign", "Use object spread"]
     ]
   }
 }

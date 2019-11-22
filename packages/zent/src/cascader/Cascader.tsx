@@ -2,7 +2,6 @@ import * as React from 'react';
 import { PureComponent } from 'react';
 import classnames from 'classnames';
 import noop from 'lodash-es/noop';
-import assign from 'lodash-es/assign';
 
 import Popover from '../popover';
 import Icon from '../icon';
@@ -106,7 +105,7 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
     nextProps: ICascaderProps,
     { prevProps, open }: ICascaderState
   ) {
-    const newState: Partial<ICascaderState> = {
+    let newState: Partial<ICascaderState> = {
       prevProps: nextProps,
     };
 
@@ -117,10 +116,10 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
       // 在即时选中状态，展示通过计算的下一个 tab
       const chooseNext = open && nextProps.changeOnSelect;
 
-      assign(
-        newState,
-        resetCascaderValue(nextProps.value, nextProps.options, chooseNext)
-      );
+      newState = {
+        ...newState,
+        ...resetCascaderValue(nextProps.value, nextProps.options, chooseNext),
+      };
     }
 
     return newState;
@@ -220,7 +219,7 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
     value = value.slice(0, stage - 1);
     value.push(item.id);
 
-    const obj: Partial<ICascaderState> = {
+    let obj: Partial<ICascaderState> = {
       value,
     };
 
@@ -237,7 +236,7 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
     // 选择即改变只针对click
     if (hasClose || (changeOnSelect && triggerType === 'click')) {
       const activeObj = resetCascaderValue(value, options);
-      assign(obj, activeObj);
+      obj = { ...obj, ...activeObj };
       this.setState(obj as any, () => {
         this.props.onChange(activeObj.activeValue);
       });
@@ -246,7 +245,7 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
     }
   };
 
-  getPopoverContent(i18n) {
+  getPopoverContent(i18n: II18nLocaleCascader) {
     const { type, prefix, title, options, expandTrigger } = this.props;
     const { activeId, value, isLoading, loadingStage } = this.state;
     let PopoverContentType:

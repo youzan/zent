@@ -1,9 +1,7 @@
-import assign from 'lodash-es/assign';
-
 import {
   ITreeData,
   ITreeRenderKey,
-  DEFAULT_REANDER_KEY,
+  DEFAULT_RENDER_KEY,
   TreeRootIdArray,
   ITreeRootInfoMap,
 } from './common';
@@ -45,7 +43,7 @@ export default function createStateByProps({
   disabledCheckedKeys = [],
   checkedKeys = [],
 }: ICreateStateByPropsParams): ICreateStateByPropsReturn {
-  const renderKey = assign({}, DEFAULT_REANDER_KEY, propsRenderKey);
+  const renderKey = { ...DEFAULT_RENDER_KEY, ...propsRenderKey };
   const { children, parentId, id } = renderKey;
 
   /**

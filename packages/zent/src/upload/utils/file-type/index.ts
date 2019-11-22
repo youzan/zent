@@ -1,9 +1,6 @@
-/* eslint-disable */
-
 /* See README.md for why this exists. */
 
 import toArray from 'lodash-es/toArray';
-import assign from 'lodash-es/assign';
 import findIndex from 'lodash-es/findIndex';
 
 const toBytes = s => toArray(s).map(c => c.charCodeAt(0));
@@ -19,12 +16,10 @@ const getFileType = input => {
   }
 
   const check = (header, opts?: any) => {
-    opts = assign(
-      {
-        offset: 0,
-      },
-      opts
-    );
+    opts = {
+      offset: 0,
+      ...opts,
+    };
 
     for (let i = 0; i < header.length; i++) {
       // If a bitmask is set

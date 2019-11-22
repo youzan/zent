@@ -5,7 +5,6 @@ import classnames from 'classnames';
 import has from 'lodash-es/has';
 import get from 'lodash-es/get';
 import every from 'lodash-es/every';
-import assign from 'lodash-es/assign';
 import debounce from 'lodash-es/debounce';
 import isEqual from 'lodash-es/isEqual';
 import forEach from 'lodash-es/forEach';
@@ -254,7 +253,7 @@ export class Grid<Data = any> extends PureComponent<
   };
 
   onChange = (conf: IGridOnChangeConfig) => {
-    const params = assign({}, this.store.getState('conf'), conf);
+    const params = { ...this.store.getState('conf'), ...conf };
     this.store.setState('conf');
     this.props.onChange && this.props.onChange(params);
   };

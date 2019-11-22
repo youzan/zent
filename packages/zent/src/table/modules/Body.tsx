@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import assign from 'lodash-es/assign';
 import includes from 'lodash-es/includes';
 import Td from './Td';
 
@@ -27,7 +26,7 @@ export default class Body extends PureComponent<any, any> {
 
   handleExpand(rowIndex) {
     return () => {
-      const expandItems = assign({}, this.state.expandItems);
+      const expandItems = { ...this.state.expandItems };
 
       expandItems[rowIndex] = !(expandItems[rowIndex] || 0);
 

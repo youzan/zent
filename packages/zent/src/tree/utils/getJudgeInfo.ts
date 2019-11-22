@@ -1,5 +1,5 @@
 import {
-  DEFAULT_REANDER_KEY,
+  DEFAULT_RENDER_KEY,
   TreeRootIdArray,
   ITreeData,
   ITreeRenderKey,
@@ -38,7 +38,7 @@ export default function getJudgeInfo({
   expandAll,
   loadMore,
   tree,
-  renderKey = DEFAULT_REANDER_KEY,
+  renderKey = DEFAULT_RENDER_KEY,
 }: IJudgeInfoParams): IJudgeInfoReturn {
   const expandNode: TreeRootIdArray = [];
   const rootInfoMap: ITreeRootInfoMap = {};
