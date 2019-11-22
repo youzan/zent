@@ -8,7 +8,6 @@ import every from 'lodash-es/every';
 import debounce from 'lodash-es/debounce';
 import isEqual from 'lodash-es/isEqual';
 import forEach from 'lodash-es/forEach';
-import size from 'lodash-es/size';
 import some from 'lodash-es/some';
 import map from 'lodash-es/map';
 import includes from 'lodash-es/includes';
@@ -715,7 +714,7 @@ export class Grid<Data = any> extends PureComponent<
   getEmpty = (i18n: II18nLocaleGrid) => {
     const { datasets, emptyLabel } = this.props;
 
-    if (size(datasets) === 0) {
+    if (!datasets || datasets.length === 0) {
       return (
         <div className={`${prefix}-grid-empty`} key="empty">
           {emptyLabel || i18n.emptyLabel}

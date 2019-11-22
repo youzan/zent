@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import size from 'lodash-es/size';
 import every from 'lodash-es/every';
 import some from 'lodash-es/some';
 import includes from 'lodash-es/includes';
@@ -47,7 +46,7 @@ class SelectionCheckboxAll<Data> extends PureComponent<
     let state;
     const func = type === 'every' ? every : some;
 
-    if (size(datasets) === 0) {
+    if (!datasets || datasets.length === 0) {
       state = false;
     } else {
       const selectedRowKeys = store.getState('selectedRowKeys');
