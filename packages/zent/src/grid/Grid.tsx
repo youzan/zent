@@ -99,8 +99,6 @@ export interface IGridState {
   fixedColumnsHeadRowsHeight: Array<number | string>;
   fixedColumnsBodyExpandRowsHeight: Array<number | string>;
   expandRowKeys: boolean[];
-  batchRenderFixed: boolean;
-  batchRenderFixedStyles: React.CSSProperties;
 }
 
 export interface IGridInnerColumn<Data> extends IGridColumn<Data> {
@@ -137,6 +135,8 @@ export class Grid<Data = any> extends PureComponent<
   store: Store = new Store();
   gridNode = React.createRef<HTMLDivElement>();
   footNode = React.createRef<Footer>();
+  footEl: Element;
+  headerEl: Element;
   headerNode = React.createRef<Header<Data>>();
   bodyTable: HTMLDivElement | null = null;
   leftBody: HTMLDivElement | null = null;
@@ -163,8 +163,6 @@ export class Grid<Data = any> extends PureComponent<
       fixedColumnsHeadRowsHeight: [],
       fixedColumnsBodyExpandRowsHeight: [],
       expandRowKeys,
-      batchRenderFixed: false,
-      batchRenderFixedStyles: {},
     };
   }
 
@@ -438,8 +436,6 @@ export class Grid<Data = any> extends PureComponent<
 
   getBatchComponents = (position: 'header' | 'foot') => {
     const { datasets, batchRender, selection, rowKey } = this.props;
-    const { batchRenderFixed, batchRenderFixedStyles } = this.state;
-    const selectedRows = this.store.getState('selectedRows') || [];
     return (
       <BatchComponents
         key="batch"
@@ -450,10 +446,8 @@ export class Grid<Data = any> extends PureComponent<
         getDataKey={this.getDataKey}
         prefix={prefix}
         batchRender={batchRender}
-        batchRenderFixed={batchRenderFixed && selectedRows.length > 0}
         selection={selection}
         checkboxPropsCache={this.checkboxPropsCache}
-        style={batchRenderFixedStyles}
         rowKey={rowKey}
       />
     );
@@ -659,7 +653,6 @@ export class Grid<Data = any> extends PureComponent<
         scrollBodyStyle.marginBottom = 0;
       }
       return [
-        this.getBatchComponents('header'),
         <div
           key="header"
           className={`${prefix}-grid-header`}
@@ -696,7 +689,6 @@ export class Grid<Data = any> extends PureComponent<
         onScroll={this.handleBodyScroll}
         key="table"
       >
-        {this.getBatchComponents('header')}
         <table
           className={classnames(`${prefix}-grid-table`, tableClassName, {
             [`${prefix}-grid-table-ellipsis`]: ellipsis,
@@ -839,22 +831,31 @@ export class Grid<Data = any> extends PureComponent<
       return;
     }
 
-    const footEl = ReactDom.findDOMNode(this.footNode.current) as Element;
-    const headerEl = ReactDom.findDOMNode(this.headerNode.current) as Element;
-    const isTableInView = isElementInView(this.gridNode.current);
-    const isHeaderInView = isElementInView(headerEl);
-    const isFootInView = isElementInView(footEl);
+    if (!this.footEl) {
+      this.footEl = ReactDom.findDOMNode(this.footNode.current) as Element;
+    }
 
-    const batchRenderFixed = needFixBatchComps(
+    if (!this.headerEl) {
+      this.headerEl = ReactDom.findDOMNode(this.headerNode.current) as Element;
+    }
+
+    const isTableInView = isElementInView(this.gridNode.current);
+    const isHeaderInView = isElementInView(this.headerEl);
+    const isFootInView = isElementInView(this.footEl);
+
+    const batchNeedRenderFixed = needFixBatchComps(
       isTableInView,
       isHeaderInView,
       isFootInView
     );
 
-    this.setState({
-      batchRenderFixed,
-      batchRenderFixedStyles: this.getBatchFixedStyle(),
-    });
+    const batchRenderFixed = this.store.getState('batchRenderFixed');
+    if (batchRenderFixed !== batchNeedRenderFixed) {
+      this.store.setState({
+        batchRenderFixed: batchNeedRenderFixed,
+        batchRenderFixedStyles: this.getBatchFixedStyle(),
+      });
+    }
   };
 
   onScroll = throttle(this.toggleBatchComponents, 200);
@@ -960,6 +961,7 @@ export class Grid<Data = any> extends PureComponent<
 
           return (
             <div className={className} ref={this.gridNode}>
+              {this.getBatchComponents('header')}
               <BlockLoading loading={loading}>
                 {scrollTable}
                 {this.isAnyColumnsLeftFixed() && (
