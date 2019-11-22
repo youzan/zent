@@ -1,6 +1,5 @@
 import isPlainObject from 'lodash-es/isPlainObject';
 import forOwn from 'lodash-es/forOwn';
-import isString from 'lodash-es/isString';
 
 const flattenNames = (things = []) => {
   let names = [];
@@ -13,7 +12,7 @@ const flattenNames = (things = []) => {
         value === true && names.push(key);
         names.push(`${key}-${value}`);
       });
-    } else if (isString(thing)) {
+    } else if (typeof thing === 'string') {
       names.push(thing);
     }
   });

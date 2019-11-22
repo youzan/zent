@@ -1,5 +1,4 @@
 import isEmpty from 'lodash-es/isEmpty';
-import isString from 'lodash-es/isString';
 
 // Return empty string when start is greater than end
 export function substring(str, start, end) {
@@ -56,7 +55,7 @@ export function getMenuListItems(suggestions, notFoundContent) {
   }
 
   return suggestions.map(item => {
-    if (isString(item) || typeof item === 'number') {
+    if (typeof item === 'string' || typeof item === 'number') {
       return {
         content: item,
         value: item,

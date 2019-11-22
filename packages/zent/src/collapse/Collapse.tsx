@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
-import isString from 'lodash-es/isString';
 import includes from 'lodash-es/includes';
 import indexOf from 'lodash-es/indexOf';
 import kindOf from '../utils/kindOf';
@@ -89,7 +88,7 @@ export class Collapse extends Component<ICollapseProps> {
 }
 
 function isPanelActive(activeKey, key) {
-  if (isString(activeKey)) {
+  if (typeof activeKey === 'string') {
     return activeKey === key;
   }
 
