@@ -100,7 +100,8 @@
         "warning doesn't support compile to ES module, please use cjs require"
       ],
       ["lodash-es/assign", "Use object spread"],
-      ["lodash-es/noop", "Use utils/noop"]
+      ["lodash-es/noop", "Use utils/noop"],
+      ["lodash-es/identity", "Use utils/identity"]
     ]
   }
 }
