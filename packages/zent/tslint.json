@@ -109,6 +109,7 @@
       ["lodash-es/isNil", "Use utils/isNil"],
       ["lodash-es/isEmpty", "Check for size/length"],
       ["lodash-es/isDate", "Use utils/isDate"],
+      ["lodash-es/keys", "Use Object.keys"],
       ["lodash-es/isPlainObject", "utils/isObject should be sufficient in most cases"]
     ]
   }
