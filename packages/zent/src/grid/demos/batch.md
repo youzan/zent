@@ -8,6 +8,7 @@ zh-CN:
 	stock: 库存
 	babyProducts: 母婴商品
 	petProducts: 宠物商品
+	createdTime: 创建时间
 en-US:
 	title: Batch Components
 	product: Product
@@ -16,6 +17,7 @@ en-US:
 	stock: stock
 	babyProducts: Baby Products
 	petProducts: Pet Products
+	createdTime: Created Time
 ---
 
 ```jsx
@@ -34,10 +36,16 @@ const columns = [
 		title: '{i18n.stock}',
 		name: 'stock',
 	},
+	{
+		title: '{i18n.createdTime}',
+		name: 'createdTime',
+		width: 140,
+		fixed: 'right',
+	}
 ];
 
-const pageSize = 5;
-const totalItem = 10;
+const pageSize = 40;
+const totalItem = 40;
 
 const datasets = [];
 const datasets2 = [];
@@ -48,12 +56,7 @@ for (let i = 0; i < 40; i++) {
 		name: `{i18n.babyProducts} ${i}`,
 		uv: 20,
 		stock: 5,
-	});
-	datasets2.push({
-		id: `s-${i}`,
-		name: `{i18n.petProducts} ${i}`,
-		uv: 20,
-		stock: 5,
+		createdTime: '2019-11-21'
 	});
 }
 
@@ -82,13 +85,6 @@ class Selection extends React.Component {
 		current: 1,
 	};
 
-	onChange = ({ current }) => {
-		this.setState({
-			current,
-			datasets: current === 1 ? datasets : datasets2,
-		});
-	};
-
 	render() {
 		return (
 			<Grid
@@ -112,9 +108,9 @@ class Selection extends React.Component {
 					}),
 				}}
 				rowKey="id"
-				onChange={this.onChange}
 				batchRender={data => <Customer data={data} /> }
 				stickyBatch
+				scroll={{x: 1300}}
 			/>
 		);
 	}
