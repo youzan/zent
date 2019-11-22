@@ -4,7 +4,6 @@ import { Omit } from 'utility-types';
 import { IRadioGroupProps, RadioGroup, IRadioEvent } from '../../radio';
 import { IFormComponentProps, IFormFieldChildProps } from '../shared';
 import { FormField } from '../Field';
-import { $MergeParams } from '../utils';
 
 export type IFormRadioGroupFieldProps<T> = IFormComponentProps<
   T | null,
