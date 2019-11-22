@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
 import defer from 'lodash-es/defer';
-import isFunction from 'lodash-es/isFunction';
 import includes from 'lodash-es/includes';
 import isEqual from 'lodash-es/isEqual';
 import throttle from 'lodash-es/throttle';
@@ -270,7 +269,7 @@ export class Mention extends Component<IMentionProps> {
 
   triggerEventCallback(eventName, evt) {
     const fn = this.props[eventName];
-    if (isFunction(fn)) {
+    if (typeof fn === 'function') {
       fn(evt);
     }
   }
@@ -338,7 +337,7 @@ export class Mention extends Component<IMentionProps> {
 
     if (!isEqual(this.state, state)) {
       const { onSearchChange } = this.props;
-      if (isSearchChanged && isFunction(onSearchChange)) {
+      if (isSearchChanged && typeof onSearchChange === 'function') {
         onSearchChange(state.search);
       }
 

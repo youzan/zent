@@ -21,7 +21,6 @@ import { Component, Children } from 'react';
 import * as ReactDOM from 'react-dom';
 import cx from 'classnames';
 import uniqueId from 'lodash-es/uniqueId';
-import isFunction from 'lodash-es/isFunction';
 
 import noop from '../utils/noop';
 import isPromise from '../utils/isPromise';
@@ -161,7 +160,7 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
 
   isVisibilityControlled(props?: IPopoverProps) {
     const { visible, onVisibleChange } = props || this.props;
-    const hasOnChange = isFunction(onVisibleChange);
+    const hasOnChange = typeof onVisibleChange === 'function';
     const hasVisible = typeof visible === 'boolean';
 
     if ((hasVisible && !hasOnChange) || (hasOnChange && !hasVisible)) {
@@ -242,7 +241,8 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
       ? ReactDOM.findDOMNode(triggerInstance)
       : undefined;
 
-    this.triggerNode = isFunction(nodeFilter) ? nodeFilter(node) : node;
+    this.triggerNode =
+      typeof nodeFilter === 'function' ? nodeFilter(node) : node;
 
     this.triggerInstance = triggerInstance;
   };

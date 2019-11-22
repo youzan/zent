@@ -1,6 +1,5 @@
 import { CSSProperties } from 'react';
 import capitalize from 'lodash-es/capitalize';
-import isFunction from 'lodash-es/isFunction';
 
 import Popover from '../popover';
 
@@ -135,7 +134,7 @@ const CenterArrowPosition = {
 };
 
 export default function getPosition(position, centerArrow) {
-  if (isFunction(position)) {
+  if (typeof position === 'function') {
     return position;
   }
 

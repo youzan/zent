@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
 import forEach from 'lodash-es/forEach';
-import isFunction from 'lodash-es/isFunction';
 import classnames from 'classnames';
 import Cell from './Cell';
 import { IGridInnerColumn } from './Grid';
@@ -52,9 +51,10 @@ class Row<Data> extends PureComponent<IGridRowProps<Data>> {
 
     const cells: React.ReactNode[] = [];
 
-    const className = isFunction(rowClassName)
-      ? rowClassName(data, rowIndex)
-      : rowClassName;
+    const className =
+      typeof rowClassName === 'function'
+        ? rowClassName(data, rowIndex)
+        : rowClassName;
 
     const height =
       fixed && fixedColumnsBodyRowsHeight[rowIndex]

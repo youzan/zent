@@ -11,7 +11,6 @@ import forEach from 'lodash-es/forEach';
 import size from 'lodash-es/size';
 import some from 'lodash-es/some';
 import map from 'lodash-es/map';
-import isFunction from 'lodash-es/isFunction';
 import includes from 'lodash-es/includes';
 import throttle from 'lodash-es/throttle';
 
@@ -317,7 +316,7 @@ export class Grid<Data = any> extends PureComponent<
     this.setState({
       expandRowKeys,
     });
-    if (isFunction(onExpand)) {
+    if (typeof onExpand === 'function') {
       onExpand({
         expanded: expandRowKeys[clickRow],
         data: rowData,
@@ -746,7 +745,7 @@ export class Grid<Data = any> extends PureComponent<
       'onSelect'
     );
 
-    if (isFunction(onSelect)) {
+    if (typeof onSelect === 'function') {
       const selectedRows = (datasets || []).filter((row, i) =>
         includes(selectedRowKeys, this.getDataKey(row, i))
       );
