@@ -81,10 +81,10 @@
     "sass": "^1.22.7",
     "ts-jest": "^24.0.0",
     "ts-node": "^8.0.3",
-    "tslint": "^5.14.0",
+    "tslint": "^5.20.1",
     "ttypescript": "^1.5.8",
-    "typedoc": "git+https://github.com/TypeStrong/typedoc.git#695d996",
-    "typescript": "~3.6.0"
+    "typedoc": "~0.15.2",
+    "typescript": "~3.7.2"
   },
   "peerDependencies": {
     "@types/react": "^16.9.7"

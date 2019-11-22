@@ -112,6 +112,7 @@
       ["lodash-es/keys", "Use Object.keys"],
       ["lodash-es/forEach", "Use native array method or for loop"],
       ["lodash-es/size", "Check for size/length"],
+      ["lodash-es/get", "Use optional chaining"],
       [
         "lodash-es/isPlainObject",
         "utils/isObject should be sufficient in most cases"

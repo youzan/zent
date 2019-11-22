@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Component } from 'react';
-import get from 'lodash-es/get';
 import has from 'lodash-es/has';
 import classnames from 'classnames';
 import { IGridInnerColumn } from './Grid';
@@ -25,7 +24,7 @@ class Cell<Data> extends Component<IGridCellProps<Data>> {
   }
 
   getText = (props: IGridCellProps<Data>) => {
-    return get(props, `data.${get(props, 'column.name')}`);
+    return props.data?.[`${props.column?.name}`];
   };
 
   onClick: React.MouseEventHandler<HTMLTableDataCellElement> = e => {
@@ -58,7 +57,7 @@ class Cell<Data> extends Component<IGridCellProps<Data>> {
       className,
       defaultText,
     } = column;
-    let text = get(data, name as string);
+    let text = data?.[name];
     if (isNil(text) && defaultText) {
       text = defaultText;
     }

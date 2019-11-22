@@ -3,7 +3,6 @@ import * as ReactDom from 'react-dom';
 import { PureComponent } from 'react';
 import classnames from 'classnames';
 import has from 'lodash-es/has';
-import get from 'lodash-es/get';
 import every from 'lodash-es/every';
 import debounce from 'lodash-es/debounce';
 import isEqual from 'lodash-es/isEqual';
@@ -152,7 +151,7 @@ export class Grid<Data = any> extends PureComponent<
     const expandRowKeys = this.getExpandRowKeys(props);
     this.store.setState({
       columns: this.getColumns(props, props.columns, expandRowKeys),
-      selectedRowKeys: get(props, 'selection.selectedRowKeys'),
+      selectedRowKeys: props?.selection?.selectedRowKeys,
     });
     this.setScrollPosition('both');
 
@@ -263,7 +262,7 @@ export class Grid<Data = any> extends PureComponent<
 
   getDataKey = (data: Data, rowIndex: number | string) => {
     const { rowKey } = this.props;
-    return rowKey ? get(data, rowKey) : rowIndex;
+    return rowKey ? data?.[rowKey] : rowIndex;
   };
 
   isAnyColumnsFixed = () => {
@@ -362,14 +361,14 @@ export class Grid<Data = any> extends PureComponent<
         const rowIndex = this.getDataKey(item, index);
 
         if (selection.getCheckboxProps) {
-          return !get(this.getCheckboxPropsByItem(item, rowIndex), 'disabled');
+          return !this.getCheckboxPropsByItem(item, rowIndex)?.disabled;
         }
         return true;
       });
 
       const checkboxAllDisabled = every(data, (item, index) => {
         const rowIndex = this.getDataKey(item, index);
-        return get(this.getCheckboxPropsByItem(item, rowIndex), 'disabled');
+        return this.getCheckboxPropsByItem(item, rowIndex)?.disabled;
       });
 
       const selectionColumn: IGridInnerColumn<Data> = {
@@ -730,10 +729,7 @@ export class Grid<Data = any> extends PureComponent<
 
   onSelectChange = (selectedRowKeys: string[], data: Data | Data[]) => {
     const { datasets, selection } = this.props;
-    const onSelect: IGridSelection<Data>['onSelect'] = get(
-      selection,
-      'onSelect'
-    );
+    const onSelect: IGridSelection<Data>['onSelect'] = selection?.onSelect;
 
     if (typeof onSelect === 'function') {
       const selectedRows = (datasets || []).filter((row, i) =>
