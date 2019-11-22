@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Component } from 'react';
-import isEmpty from 'lodash-es/isEmpty';
 import memoize from '../../utils/memorize-one';
 import Select from '../../select';
 import { I18nReceiver as Receiver, II18nLocalePagination } from '../../i18n';
@@ -60,7 +59,7 @@ export default class PageSizeChanger extends Component<
       onPageSizeChange,
     } = this.props;
 
-    if (isEmpty(pageSizeOptions)) {
+    if (!pageSizeOptions || pageSizeOptions.length === 0) {
       return (
         <StaticPageSize
           total={total}
