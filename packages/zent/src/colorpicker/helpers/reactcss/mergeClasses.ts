@@ -1,4 +1,3 @@
-import forOwn from 'lodash-es/forOwn';
 import cloneDeep from 'lodash-es/cloneDeep';
 
 const mergeClasses = (classes, activeNames = []) => {
@@ -6,7 +5,7 @@ const mergeClasses = (classes, activeNames = []) => {
   activeNames.map(name => {
     const toMerge = classes[name];
     if (toMerge) {
-      forOwn(toMerge, (value, key) => {
+      Object.keys(toMerge).forEach(key => {
         if (!styles[key]) {
           styles[key] = {};
         }
