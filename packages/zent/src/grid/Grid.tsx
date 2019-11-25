@@ -5,7 +5,6 @@ import classnames from 'classnames';
 import every from 'lodash-es/every';
 import debounce from 'lodash-es/debounce';
 import isEqual from 'lodash-es/isEqual';
-import some from 'lodash-es/some';
 import includes from 'lodash-es/includes';
 import throttle from 'lodash-es/throttle';
 
@@ -262,14 +261,13 @@ export class Grid<Data = any> extends PureComponent<
 
   isAnyColumnsFixed = () => {
     return this.store.getState('isAnyColumnsFixed', () =>
-      some(this.store.getState('columns'), column => !!column.fixed)
+      (this.store.getState('columns') ?? []).some(column => !!column.fixed)
     );
   };
 
   isAnyColumnsLeftFixed = () => {
     return this.store.getState('isAnyColumnsLeftFixed', () =>
-      some(
-        this.store.getState('columns'),
+      (this.store.getState('columns') ?? []).some(
         column => column.fixed === 'left' || column.fixed === true
       )
     );
@@ -277,7 +275,9 @@ export class Grid<Data = any> extends PureComponent<
 
   isAnyColumnsRightFixed = () => {
     return this.store.getState('isAnyColumnsRightFixed', () =>
-      some(this.store.getState('columns'), column => column.fixed === 'right')
+      (this.store.getState('columns') ?? []).some(
+        column => column.fixed === 'right'
+      )
     );
   };
 
