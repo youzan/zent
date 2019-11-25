@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
-import camelCase from 'lodash-es/camelCase';
-import upperFirst from 'lodash-es/upperFirst';
 
 import capitalize from '../utils/capitalize';
 import Button from '../button';
@@ -101,9 +99,10 @@ export class SplitButton<Value> extends Component<ISplitButtonProps<Value>> {
         ? Popover.Trigger.Base
         : (Popover.Trigger[trigger] as any);
 
-    const position = upperFirst(
-      camelCase(dropdownPosition)
-    ) as keyof typeof Popover.Position;
+    const position = dropdownPosition
+      .split('-')
+      .map(s => capitalize(s))
+      .join('') as keyof typeof Popover.Position;
 
     return (
       <div className={classString}>
