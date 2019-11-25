@@ -1,5 +1,3 @@
-import indexOf from 'lodash-es/indexOf';
-
 export default class Store {
   state: {
     [propsName: string]: any;
@@ -42,9 +40,8 @@ export default class Store {
 
     return () => {
       const listeners = this.listeners[eventName] ?? [];
-      const index = indexOf(listeners, listener);
-
-      if (Array.isArray(listeners)) {
+      const index = listeners.indexOf(listener);
+      if (index !== -1) {
         this.listeners[eventName].splice(index, 1);
       }
     };
