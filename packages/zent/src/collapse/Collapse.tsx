@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
-import includes from 'lodash-es/includes';
 import kindOf from '../utils/kindOf';
 import Panel from './Panel';
 import { isElement } from 'react-is';
@@ -92,7 +91,7 @@ function isPanelActive(activeKey, key) {
   }
 
   if (Array.isArray(activeKey)) {
-    return includes(activeKey, key);
+    return activeKey.indexOf(key) !== -1;
   }
 
   return false;

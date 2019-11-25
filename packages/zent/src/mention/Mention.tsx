@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
 import defer from 'lodash-es/defer';
-import includes from 'lodash-es/includes';
 import isEqual from 'lodash-es/isEqual';
 import throttle from 'lodash-es/throttle';
 import cx from 'classnames';
@@ -235,7 +234,10 @@ export class Mention extends Component<IMentionProps> {
     // Do NOT use keydown event, selection is not updated yet when setSuggestionVisible is called
     if (
       isFirefox &&
-      (evt.altKey || evt.ctrlKey || evt.metaKey || includes(NAV_KEYS, evt.key))
+      (evt.altKey ||
+        evt.ctrlKey ||
+        evt.metaKey ||
+        NAV_KEYS.indexOf(evt.key) !== -1)
     ) {
       defer(this.setSuggestionVisible, this.props.value);
     }

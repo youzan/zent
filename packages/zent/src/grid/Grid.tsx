@@ -4,7 +4,6 @@ import { PureComponent } from 'react';
 import classnames from 'classnames';
 import debounce from 'lodash-es/debounce';
 import isEqual from 'lodash-es/isEqual';
-import includes from 'lodash-es/includes';
 import throttle from 'lodash-es/throttle';
 
 import noop from '../utils/noop';
@@ -726,8 +725,9 @@ export class Grid<Data = any> extends PureComponent<
     const onSelect: IGridSelection<Data>['onSelect'] = selection?.onSelect;
 
     if (typeof onSelect === 'function') {
-      const selectedRows = (datasets || []).filter((row, i) =>
-        includes(selectedRowKeys, this.getDataKey(row, i))
+      const selectedRows = (datasets || []).filter(
+        (row, i) =>
+          (selectedRowKeys ?? []).indexOf(this.getDataKey(row, i)) !== -1
       );
       onSelect(selectedRowKeys, selectedRows, data);
     }
@@ -753,7 +753,9 @@ export class Grid<Data = any> extends PureComponent<
     type,
     data
   ) => {
-    let selectedRowKeys = this.store.getState('selectedRowKeys').slice();
+    let selectedRowKeys = (
+      this.store.getState('selectedRowKeys') ?? []
+    ).slice();
 
     const changeRowKeys = [];
 
@@ -761,7 +763,7 @@ export class Grid<Data = any> extends PureComponent<
       case 'selectAll':
         (data || []).forEach((key, index) => {
           const rowIndex = this.getDataKey(key, index);
-          if (!includes(selectedRowKeys, rowIndex)) {
+          if (selectedRowKeys.indexOf(rowIndex) === -1) {
             selectedRowKeys = selectedRowKeys.concat(rowIndex);
             changeRowKeys.push(rowIndex);
           }
@@ -771,7 +773,7 @@ export class Grid<Data = any> extends PureComponent<
         selectedRowKeys = (data || []).filter((key, index) => {
           const rowIndex = this.getDataKey(key, index);
           let rlt = true;
-          if (includes(selectedRowKeys, rowIndex)) {
+          if (selectedRowKeys.indexOf(rowIndex) !== -1) {
             rlt = false;
             changeRowKeys.push(key);
           }
@@ -784,8 +786,8 @@ export class Grid<Data = any> extends PureComponent<
 
     this.store.setState({ selectedRowKeys });
 
-    const changeRow = (data || []).filter((row, i) =>
-      includes(changeRowKeys, this.getDataKey(row, i))
+    const changeRow = (data || []).filter(
+      (row, i) => changeRowKeys.indexOf(this.getDataKey(row, i)) !== -1
     );
 
     this.onSelectChange(selectedRowKeys, changeRow);
