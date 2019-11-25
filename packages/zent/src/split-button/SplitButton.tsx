@@ -3,7 +3,8 @@ import { Component } from 'react';
 import cx from 'classnames';
 import camelCase from 'lodash-es/camelCase';
 import upperFirst from 'lodash-es/upperFirst';
-import capitalize from 'lodash-es/capitalize';
+
+import capitalize from '../utils/capitalize';
 import Button from '../button';
 import Popover from '../popover';
 import Menu from '../menu';

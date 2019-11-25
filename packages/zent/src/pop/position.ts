@@ -1,6 +1,6 @@
 import { CSSProperties } from 'react';
-import capitalize from 'lodash-es/capitalize';
 
+import capitalize from '../utils/capitalize';
 import Popover from '../popover';
 
 const { Position } = Popover;

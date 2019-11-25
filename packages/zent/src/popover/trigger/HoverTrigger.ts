@@ -1,8 +1,8 @@
 import 'react';
-import capitalize from 'lodash-es/capitalize';
 import throttle from 'lodash-es/throttle';
 import uniq from 'lodash-es/uniq';
 
+import capitalize from '../../utils/capitalize';
 import isBrowser from '../../utils/isBrowser';
 
 import Trigger, { IPopoverTriggerProps } from './Trigger';
