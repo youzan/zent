@@ -8,9 +8,9 @@ import take from 'lodash-es/take';
 import noop from '../utils/noop';
 import Popover from '../popover';
 import { I18nReceiver as Receiver, II18nLocaleSelect } from '../i18n';
-
 import Search from './components/Search';
 import Option from './components/Option';
+import defer from '../utils/defer';
 
 export interface IPopupProps {
   adjustPosition: () => void;
@@ -162,9 +162,9 @@ class Popup extends Component<IPopupProps, any> {
       onAsyncFilter(`${keyword}`);
     } else {
       // 同步关键词过滤后更新 Popup 位置
-      setTimeout(() => {
+      defer(() => {
         adjustPosition();
-      }, 1);
+      });
     }
   };
 

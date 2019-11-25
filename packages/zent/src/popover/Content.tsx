@@ -3,6 +3,7 @@ import { Component } from 'react';
 import cx from 'classnames';
 import throttle from 'lodash-es/throttle';
 import Portal from '../portal';
+import defer from '../utils/defer';
 import WindowResizeHandler from '../utils/component/WindowResizeHandler';
 import WindowEventHandler from '../utils/component/WindowEventHandler';
 import findPositionedParent from '../utils/dom/findPositionedParent';
@@ -99,7 +100,7 @@ export default class PopoverContent extends Component<
       this.setState({
         position: (invisiblePlacement as any)(this.props.prefix),
       });
-      setTimeout(this.adjustPosition, 0);
+      defer(this.adjustPosition);
       return;
     }
 

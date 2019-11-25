@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Component } from 'react';
-import defer from 'lodash-es/defer';
 import isEqual from 'lodash-es/isEqual';
 import throttle from 'lodash-es/throttle';
 import cx from 'classnames';
@@ -16,6 +15,7 @@ import * as SelectionChangeEventHub from './SelectionChangeEventHub';
 import * as Utils from './utils';
 import { getPopoverBottomPosition, getPopoverTopPosition } from './position';
 import { MENTION_FOUND } from './constants';
+import defer from '../utils/defer';
 
 const NAV_KEYS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
 const DEFAULT_STATE = {
