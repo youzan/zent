@@ -9,6 +9,10 @@
       {
         "name": ["*", "innerText"],
         "message": "Use .textContent instead. tsstyle#browser-oddities"
+      },
+      {
+        "name": ["document", "createElement"],
+        "message": "Use utils/dom/createElement instead"
       }
     ],
     "ban-ts-ignore": true,

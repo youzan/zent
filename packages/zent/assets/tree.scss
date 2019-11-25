@@ -37,22 +37,12 @@
         height: 10px;
         width: 4px;
         background: white;
-        animation: 2s linear rotate infinite;
+        animation: 2s linear zent-ani-spin infinite;
         transform-origin: 10px 4px;
         left: -1px;
         top: 6px;
       }
     }
-  }
-}
-
-@keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
   }
 }
 
@@ -64,7 +54,6 @@
       line-height: 20px;
 
       &:after {
-        // sass-lint:disable-block mixins-before-declarations
         border: 6px solid transparent;
         @include theme-color(border-left-color, stroke, 6);
         border-left-width: 9px;
@@ -81,7 +70,6 @@
       line-height: 12px;
 
       &:after {
-        // sass-lint:disable-block mixins-before-declarations
         border: 4px solid transparent;
         @include theme-color(border-left-color, stroke, 6);
         border-left-width: 6px;
@@ -107,7 +95,6 @@
     outline: none;
 
     &:after {
-      // sass-lint:disable-block mixins-before-declarations
       border: 5px solid transparent;
       @include theme-color(border-left-color, stroke, 6);
       @include theme-color(color, stroke, 2);

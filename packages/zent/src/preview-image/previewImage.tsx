@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
+import createElement from '../utils/dom/createElement';
 import Image from './Image';
 
 export interface IPreviewImageConfig {
@@ -15,7 +16,7 @@ export interface IPreviewImageConfig {
 
 export function previewImage(options: IPreviewImageConfig = {}) {
   const { parentComponent, ...rest } = options;
-  let container: HTMLElement | null = document.createElement('div');
+  let container: HTMLElement | null = createElement('div');
 
   const closePreviewMask = () => {
     if (!container) {

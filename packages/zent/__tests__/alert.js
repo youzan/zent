@@ -15,7 +15,7 @@ describe('Alert', () => {
       </Alert>
     );
     expect(
-      wrapper.find('.zent-alert-content').equals(
+      wrapper.containsMatchingElement(
         <div className="zent-alert-content">
           <span>foobar</span>
         </div>
@@ -26,7 +26,7 @@ describe('Alert', () => {
   it('render title and description into content', () => {
     const wrapper = mount(<Alert title="title" description="description" />);
     expect(
-      wrapper.find('.zent-alert-content').equals(
+      wrapper.containsMatchingElement(
         <div className="zent-alert-content">
           <>
             <h3 className="zent-alert-content__title">title</h3>
@@ -78,7 +78,7 @@ describe('Alert', () => {
   it('can has extraContent', () => {
     const wrapper = mount(<Alert extraContent={<div>extra-content</div>} />);
     expect(
-      wrapper.find('.zent-alert-extra-content').equals(
+      wrapper.containsMatchingElement(
         <div className="zent-alert-extra-content">
           <div>extra-content</div>
         </div>
@@ -102,7 +102,9 @@ describe('Alert', () => {
       </Alert>
     );
     expect(
-      wrapper.find('.zent-alert-close-wrapper').contains(<a>close</a>)
+      wrapper
+        .find('.zent-alert-close-wrapper')
+        .containsMatchingElement(<a>close</a>)
     ).toBe(true);
   });
 
