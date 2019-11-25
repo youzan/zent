@@ -8,6 +8,14 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 7.3.0(2019-11-26)
+
+- 🎉 隔离不同版本 zent 的样式，避免页面上存在两份 zent 时的样式污染
+- 🎉 增加了一批编译期常量，可在 TypeScript 或者 SCSS 文件内使用，类似 C 语言的 `__FILE__` 这种变量
+- 🦀️ 更新 `BlockHeader` 内部图标颜色
+- 🦀️ 修复 `Grid` 批量操作导致滚动展示异常的问题
+- 🦀️ 修复 `FormRadioGroupField` `defaultValue` 的判空问题
+
 ### 7.2.0(2019-11-18)
 
 - 🎉 新增 `IMEComposition` 组件，同时对有用到 `input` 的组件内部做了兼容处理
