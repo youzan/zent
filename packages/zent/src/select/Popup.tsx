@@ -3,7 +3,6 @@
  */
 import * as React from 'react';
 import { Component } from 'react';
-import take from 'lodash-es/take';
 
 import noop from '../utils/noop';
 import Popover from '../popover';
@@ -256,7 +255,7 @@ class Popup extends Component<IPopupProps, any> {
     this.itemIds = filterData.map(item => item.cid);
 
     if (maxToShow && !extraFilter && filter) {
-      filterData = take(filterData, maxToShow);
+      filterData = filterData.slice(0, maxToShow);
     }
 
     return (
