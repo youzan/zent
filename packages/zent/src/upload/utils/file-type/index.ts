@@ -1,9 +1,8 @@
 /* See README.md for why this exists. */
 
-import toArray from 'lodash-es/toArray';
 import findIndex from 'lodash-es/findIndex';
 
-const toBytes = s => toArray(s).map(c => c.charCodeAt(0));
+const toBytes = s => [...s].map(c => c.charCodeAt(0));
 const xpiZipFilename = toBytes('META-INF/mozilla.rsa');
 const oxmlContentTypes = toBytes('[Content_Types].xml');
 const oxmlRels = toBytes('_rels/.rels');
@@ -354,9 +353,7 @@ const getFileType = input => {
     if (idPos !== -1) {
       const docTypePos = idPos + 3;
       const findDocType = type =>
-        toArray(type).every(
-          (c, i) => sliced[docTypePos + i] === c.charCodeAt(0)
-        );
+        [...type].every((c, i) => sliced[docTypePos + i] === c.charCodeAt(0));
 
       if (findDocType('matroska')) {
         return {

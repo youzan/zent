@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import toArray from 'lodash-es/toArray';
 import isPromise from '../../utils/isPromise';
 import { I18nReceiver as Receiver, II18nLocaleUpload } from '../../i18n';
 import Notify from '../../notify';
@@ -74,7 +73,7 @@ export default class FileInput extends PureComponent<IFileInputProps, any> {
   };
 
   processFiles = i18n => evt => {
-    let files = toArray(evt.target.files);
+    let files = [...evt.target.files];
     const { filterFiles, onError } = this.props;
 
     const filterResult = filterFiles(files);
