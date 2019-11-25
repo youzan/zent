@@ -86,8 +86,8 @@ function transform(selectors) {
         return;
       }
 
-      // Insert a [data-zv=x.y.z] after the last class/attribute/id/tag
-      let lastInterestedNode = null;
+      // Insert a [data-zv=x.y.z] after the first class/attribute/id/tag
+      let interestedNode = null;
       selector.walk(node => {
         const { type } = node;
         if (
@@ -96,12 +96,13 @@ function transform(selectors) {
           type === parseSelector.ATTRIBUTE ||
           type === parseSelector.TAG
         ) {
-          lastInterestedNode = node;
+          interestedNode = node;
+          return false; /* break */
         }
       });
-      if (lastInterestedNode) {
-        lastInterestedNode.parent.insertAfter(
-          lastInterestedNode,
+      if (interestedNode) {
+        interestedNode.parent.insertAfter(
+          interestedNode,
           parseSelector.attribute({
             attribute: `data-zv="${pkg.version}"`,
           })

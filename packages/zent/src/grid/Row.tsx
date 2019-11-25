@@ -90,6 +90,8 @@ class Row<Data> extends PureComponent<IGridRowProps<Data>> {
         onMouseEnter={() => scroll && scroll.x && onRowMouseEnter(rowIndex)}
         style={{ height }}
         {...rowProps(data, rowIndex)}
+        /* ts-plugin-version-attribute ignores this element, but it may be a tr... */
+        data-zv={__ZENT_VERSION__}
       >
         {cells}
       </BodyRow>
