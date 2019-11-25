@@ -1,5 +1,6 @@
 /* Modified from https://github.com/component/textarea-caret-position/blob/master/index.js */
 
+import createElement from './createElement';
 import isBrowser from '../isBrowser';
 import isFirefox from '../isFirefox';
 
@@ -69,7 +70,7 @@ function getCaretCoordinates(
   }
 
   // The mirror div will replicate the textarea's style
-  const div = document.createElement('div');
+  const div = createElement('div');
   div.id = MIRROR_DIV_ID;
   document.body.appendChild(div);
 
@@ -115,7 +116,7 @@ function getCaretCoordinates(
   // spaces need to be replaced with non-breaking spaces - http://stackoverflow.com/a/13402035/1269037
   if (isInput) div.textContent = div.textContent.replace(/\s/g, '\u00a0');
 
-  const span = document.createElement('span');
+  const span = createElement('span');
   // Wrapping must be replicated *exactly*, including when a long word gets
   // onto the next line, with whitespace at the end of the line before (#7).
   // The  *only* reliable way to do that is to copy the *entire* rest of the

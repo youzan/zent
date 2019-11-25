@@ -4,22 +4,22 @@ import includes from 'lodash-es/includes';
 import Checkbox, { ICheckboxProps } from '../checkbox';
 import Store from './Store';
 
-interface IGridSelctionCheckboxProps {
+interface IGridSelectionCheckboxProps {
   disabled?: boolean;
   rowIndex: number | string;
   store: Store;
   onChange: ICheckboxProps<unknown>['onChange'];
 }
 
-interface IGridSelctionCheckboxState {
+interface IGridSelectionCheckboxState {
   checked: boolean;
 }
 
 class SelectionCheckbox extends PureComponent<
-  IGridSelctionCheckboxProps,
-  IGridSelctionCheckboxState
+  IGridSelectionCheckboxProps,
+  IGridSelectionCheckboxState
 > {
-  constructor(props: IGridSelctionCheckboxProps) {
+  constructor(props: IGridSelectionCheckboxProps) {
     super(props);
 
     this.state = {
@@ -39,7 +39,7 @@ class SelectionCheckbox extends PureComponent<
     });
   };
 
-  getCheckState = (props: IGridSelctionCheckboxProps) => {
+  getCheckState = (props: IGridSelectionCheckboxProps) => {
     const { store, rowIndex } = props;
     return includes(store.getState('selectedRowKeys'), rowIndex);
   };
@@ -49,8 +49,8 @@ class SelectionCheckbox extends PureComponent<
   }
 
   componentWillReceiveProps(
-    nextProps: IGridSelctionCheckboxProps,
-    nextState: IGridSelctionCheckboxState
+    nextProps: IGridSelectionCheckboxProps,
+    nextState: IGridSelectionCheckboxState
   ) {
     const checked = this.getCheckState(nextProps);
     if (checked !== nextState.checked) {

@@ -8,7 +8,7 @@ import Cell from './Cell';
 import { IGridInnerColumn } from './Grid';
 import {
   GridRowClassNameType,
-  IGridRowClickHander,
+  IGridRowClickHandler,
   IGridInnerFixedType,
   IGridScrollDelta,
 } from './types';
@@ -21,7 +21,7 @@ interface IGridRowProps<Data> {
   prefix: string;
   rowClassName?: GridRowClassNameType<Data>;
   mouseOverRowIndex: number;
-  onRowClick: IGridRowClickHander<Data>;
+  onRowClick: IGridRowClickHandler<Data>;
   onRowMouseEnter: (index: number) => void;
   fixed?: IGridInnerFixedType;
   scroll: IGridScrollDelta;
@@ -89,6 +89,8 @@ class Row<Data> extends PureComponent<IGridRowProps<Data>> {
         onMouseEnter={() => scroll && scroll.x && onRowMouseEnter(rowIndex)}
         style={{ height }}
         {...rowProps(data, rowIndex)}
+        /* ts-plugin-version-attribute ignores this element, but it may be a tr... */
+        data-zv={__ZENT_VERSION__}
       >
         {cells}
       </BodyRow>

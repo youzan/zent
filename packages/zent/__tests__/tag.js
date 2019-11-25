@@ -14,7 +14,7 @@ describe('Tag', () => {
     expect(wrapper.find('.zent-tag-content').length).toBe(1);
     expect(wrapper.find('.zent-tag-content').text()).toBe('tag');
     expect(
-      wrapper.contains(
+      wrapper.containsMatchingElement(
         <i className="zenticon zenticon-close zent-tag-close-btn" />
       )
     ).toBe(false);
@@ -86,7 +86,7 @@ describe('Tag', () => {
       </Tag>
     );
     expect(
-      wrapper.contains(
+      wrapper.containsMatchingElement(
         <div
           className="zent-tag zent-tag-style-red zent-tag-rounded"
           style={{ backgroundColor: '#ff1493', borderColor: '#ff1493' }}
@@ -110,8 +110,10 @@ describe('Tag', () => {
       </Tag>
     );
     expect(wrapper.find('.zent-tag').length).toBe(1);
-    expect(wrapper.contains(<a href="https://www.youzan.com">youzan</a>)).toBe(
-      true
-    );
+    expect(
+      wrapper.containsMatchingElement(
+        <a href="https://www.youzan.com">youzan</a>
+      )
+    ).toBe(true);
   });
 });

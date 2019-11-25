@@ -3,5 +3,4 @@
 set -e
 
 yarn
-yarn workspace zent build
-yarn workspace babel-plugin-zent build
+yarn workspace "$1" build

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDom from 'react-dom';
 import { PureComponent } from 'react';
 import classnames from 'classnames';
 import has from 'lodash-es/has';
@@ -14,11 +15,19 @@ import some from 'lodash-es/some';
 import map from 'lodash-es/map';
 import isFunction from 'lodash-es/isFunction';
 import includes from 'lodash-es/includes';
+import throttle from 'lodash-es/throttle';
 
 import measureScrollbar from '../utils/dom/measureScrollbar';
 import WindowResizeHandler from '../utils/component/WindowResizeHandler';
+import WindowEventHandler from '../utils/component/WindowEventHandler';
+import BatchComponents from './BatchComponents';
+import {
+  groupedColumns,
+  getLeafColumns,
+  needFixBatchComps,
+  isElementInView,
+} from './utils';
 import { I18nReceiver as Receiver, II18nLocaleGrid } from '../i18n';
-import { groupedColumns, getLeafColumns } from './utils';
 import BlockLoading from '../loading/BlockLoading';
 import Store from './Store';
 import ColGroup from './ColGroup';
@@ -27,7 +36,7 @@ import Body from './Body';
 import Footer from './Footer';
 import SelectionCheckbox from './SelectionCheckbox';
 import SelectionCheckboxAll, {
-  IGridSelctionAllCheckboxProps,
+  IGridSelectionAllCheckboxProps,
 } from './SelectionCheckboxAll';
 import {
   IGridColumn,
@@ -40,12 +49,14 @@ import {
   IGridScrollDelta,
   IGridSelection,
   IGridExpandation,
-  IGridRowClickHander,
+  IGridRowClickHandler,
   IGridOnExpandHandler,
   IGridInnerFixedType,
   IGridColumnBodyRenderFunc,
+  IGridBatchRender,
 } from './types';
 import { ICheckboxEvent } from '../checkbox';
+import isBrowser from '../utils/isBrowser';
 
 function stopPropagation(e: React.MouseEvent) {
   e.stopPropagation();
@@ -74,13 +85,15 @@ export interface IGridProps<Data = any> {
   rowClassName?: GridRowClassNameType<Data>;
   pageInfo?: IGridPageInfo;
   paginationType?: GridPaginationType;
-  onRowClick?: IGridRowClickHander<Data>;
+  onRowClick?: IGridRowClickHandler<Data>;
   ellipsis?: boolean;
   onExpand?: IGridOnExpandHandler<Data>;
   components?: {
     row?: React.ComponentType;
   };
   rowProps?: (data: Data, index: number) => any;
+  batchRender?: IGridBatchRender;
+  stickyBatch?: boolean;
 }
 
 export interface IGridState {
@@ -113,6 +126,7 @@ export class Grid<Data = any> extends PureComponent<
     onRowClick: noop,
     ellipsis: false,
     onExpand: noop,
+    stickyBatch: false,
   };
 
   mounted = false;
@@ -122,7 +136,11 @@ export class Grid<Data = any> extends PureComponent<
     };
   } = {};
   store: Store = new Store();
-  tableNode: HTMLDivElement | null = null;
+  gridNode = React.createRef<HTMLDivElement>();
+  footNode = React.createRef<Footer>();
+  footEl: Element;
+  headerEl: Element;
+  headerNode = React.createRef<Header<Data>>();
   bodyTable: HTMLDivElement | null = null;
   leftBody: HTMLDivElement | null = null;
   rightBody: HTMLDivElement | null = null;
@@ -172,11 +190,11 @@ export class Grid<Data = any> extends PureComponent<
   }
 
   syncFixedTableRowHeight = () => {
-    if (!this.mounted || !this.tableNode) {
+    if (!this.mounted || !this.gridNode.current) {
       return;
     }
 
-    const tableRect = this.tableNode.getBoundingClientRect();
+    const tableRect = this.gridNode.current.getBoundingClientRect();
 
     if (tableRect.height !== undefined && tableRect.height <= 0) {
       return;
@@ -406,6 +424,37 @@ export class Grid<Data = any> extends PureComponent<
     return columns;
   };
 
+  getBatchFixedStyle() {
+    if (!isBrowser) {
+      return {};
+    }
+    const el = ReactDom.findDOMNode(this.footNode.current) as Element;
+    if (el && this.props.stickyBatch) {
+      return {
+        width: el.getBoundingClientRect().width,
+      };
+    }
+    return {};
+  }
+
+  getBatchComponents = (position: 'header' | 'foot') => {
+    const { datasets, batchRender, selection, rowKey } = this.props;
+    return (
+      <BatchComponents
+        key="batch"
+        position={position}
+        store={this.store}
+        onSelect={this.handleBatchSelect}
+        datasets={datasets}
+        getDataKey={this.getDataKey}
+        prefix={prefix}
+        batchRender={batchRender}
+        selection={selection}
+        checkboxPropsCache={this.checkboxPropsCache}
+        rowKey={rowKey}
+      />
+    );
+  };
   getLeftFixedTable = () => {
     return this.getTable({
       columns: this.getLeftColumns(),
@@ -423,22 +472,21 @@ export class Grid<Data = any> extends PureComponent<
   setScrollPosition(position: GridScrollPosition) {
     this.scrollPosition = position;
 
-    if (this.tableNode) {
+    if (this.gridNode.current) {
+      const el = this.gridNode.current;
       if (position === 'both') {
-        this.tableNode.className = this.tableNode.className.replace(
+        el.className = el.className.replace(
           new RegExp(`${prefix}-grid-scroll-position-.+$`, 'gi'),
           ' '
         );
-        this.tableNode.classList.add(`${prefix}-grid-scroll-position-left`);
-        this.tableNode.classList.add(`${prefix}-grid-scroll-position-right`);
+        el.classList.add(`${prefix}-grid-scroll-position-left`);
+        el.classList.add(`${prefix}-grid-scroll-position-right`);
       } else {
-        this.tableNode.className = this.tableNode.className.replace(
+        el.className = el.className.replace(
           new RegExp(`${prefix}-grid-scroll-position-.+$`, 'gi'),
           ' '
         );
-        this.tableNode.classList.add(
-          `${prefix}-grid-scroll-position-${position}`
-        );
+        el.classList.add(`${prefix}-grid-scroll-position-${position}`);
       }
     }
   }
@@ -503,7 +551,10 @@ export class Grid<Data = any> extends PureComponent<
     }
   };
 
-  onResize = debounce(this.syncFixedTableRowHeight, 500);
+  onResize = debounce(() => {
+    this.syncFixedTableRowHeight();
+    this.toggleBatchComponents();
+  }, 500);
 
   onRowMouseEnter = (mouseOverRowIndex: number) => {
     this.setState({
@@ -558,6 +609,7 @@ export class Grid<Data = any> extends PureComponent<
         sortBy={sortBy}
         defaultSortType={defaultSortType}
         fixedColumnsHeadRowsHeight={this.state.fixedColumnsHeadRowsHeight}
+        ref={this.headerNode}
       />
     );
 
@@ -573,7 +625,7 @@ export class Grid<Data = any> extends PureComponent<
         mouseOverRowIndex={this.state.mouseOverRowIndex}
         onRowMouseEnter={this.onRowMouseEnter}
         rowClassName={rowClassName}
-        onRowClick={onRowClick as IGridRowClickHander<Data>}
+        onRowClick={onRowClick as IGridRowClickHandler<Data>}
         fixed={fixed}
         scroll={scroll}
         expandRender={expandation && expandation.expandRender}
@@ -585,6 +637,7 @@ export class Grid<Data = any> extends PureComponent<
         rowProps={rowProps}
       />
     );
+
     const { y, x } = scroll;
 
     if (y) {
@@ -710,7 +763,7 @@ export class Grid<Data = any> extends PureComponent<
     this.onSelectChange(selectedRowKeys, data);
   };
 
-  handleBatchSelect: IGridSelctionAllCheckboxProps<Data>['onSelect'] = (
+  handleBatchSelect: IGridSelectionAllCheckboxProps<Data>['onSelect'] = (
     type,
     data
   ) => {
@@ -758,7 +811,10 @@ export class Grid<Data = any> extends PureComponent<
       const props = this.getCheckboxPropsByItem(data, rowIndex);
 
       return (
-        <span onClick={stopPropagation}>
+        <span
+          onClick={stopPropagation}
+          className="zent-grid-selection-checkbox"
+        >
           <SelectionCheckbox
             disabled={props.disabled}
             rowIndex={rowIndex}
@@ -771,6 +827,41 @@ export class Grid<Data = any> extends PureComponent<
       );
     };
   };
+
+  toggleBatchComponents = () => {
+    const isSupportFixed = this.props.stickyBatch && this.props.batchRender;
+    if (!this.mounted || !isSupportFixed) {
+      return;
+    }
+
+    if (!this.footEl) {
+      this.footEl = ReactDom.findDOMNode(this.footNode.current) as Element;
+    }
+
+    if (!this.headerEl) {
+      this.headerEl = ReactDom.findDOMNode(this.headerNode.current) as Element;
+    }
+
+    const isTableInView = isElementInView(this.gridNode.current);
+    const isHeaderInView = isElementInView(this.headerEl);
+    const isFootInView = isElementInView(this.footEl);
+
+    const batchNeedRenderFixed = needFixBatchComps(
+      isTableInView,
+      isHeaderInView,
+      isFootInView
+    );
+
+    const batchRenderFixed = this.store.getState('batchRenderFixed');
+    if (batchRenderFixed !== batchNeedRenderFixed) {
+      this.store.setState({
+        batchRenderFixed: batchNeedRenderFixed,
+        batchRenderFixedStyles: this.getBatchFixedStyle(),
+      });
+    }
+  };
+
+  onScroll = throttle(this.toggleBatchComponents, 200);
 
   componentDidMount() {
     this.mounted = true;
@@ -829,6 +920,7 @@ export class Grid<Data = any> extends PureComponent<
 
   render() {
     const { loading, pageInfo = {}, paginationType, bordered } = this.props;
+
     let className = `${prefix}-grid`;
     const borderedClassName = bordered ? `${prefix}-grid-bordered` : '';
     className = classnames(className, this.props.className, borderedClassName);
@@ -853,12 +945,14 @@ export class Grid<Data = any> extends PureComponent<
             this.getTable(),
             this.getEmpty(i18n),
             <Footer
+              ref={this.footNode}
               key="footer"
               prefix={prefix}
               pageInfo={pageInfo}
               paginationType={paginationType as GridPaginationType}
               onChange={this.onChange}
               onPaginationChange={this.onPaginationChange}
+              batchComponents={this.getBatchComponents('foot')}
             />,
           ];
 
@@ -869,7 +963,8 @@ export class Grid<Data = any> extends PureComponent<
           );
 
           return (
-            <div className={className} ref={node => (this.tableNode = node)}>
+            <div className={className} ref={this.gridNode}>
+              {this.getBatchComponents('header')}
               <BlockLoading loading={loading}>
                 {scrollTable}
                 {this.isAnyColumnsLeftFixed() && (
@@ -884,6 +979,11 @@ export class Grid<Data = any> extends PureComponent<
                 )}
               </BlockLoading>
               <WindowResizeHandler onResize={this.onResize} />
+              <WindowEventHandler
+                eventName="scroll"
+                callback={this.onScroll}
+                useCapture
+              />
             </div>
           );
         }}

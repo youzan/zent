@@ -43,7 +43,12 @@ abstract class CommonTabsNav<Id> extends BaseTabsNav<
     return (
       <div className={this.tabsNavCls}>
         <div className="zent-tabs-nav-content">
-          <ScrollGroupComp className="zent-tabs-scroll" role="tablist">
+          <ScrollGroupComp
+            className="zent-tabs-scroll"
+            role="tablist"
+            /* ts-plugin-version-attribute ignores this element, but it may be a div... */
+            data-zv={__ZENT_VERSION__}
+          >
             {this.renderTabs()}
           </ScrollGroupComp>
         </div>

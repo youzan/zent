@@ -67,3 +67,28 @@ export function getLeafColumns<Data>(columns: Array<IGridInnerColumn<Data>>) {
   });
   return leafColumns;
 }
+
+export function needFixBatchComps(
+  isTableInView: boolean,
+  isHeaderInView: boolean,
+  isFootInView: boolean
+) {
+  if (isTableInView && !isHeaderInView && !isFootInView) {
+    return true;
+  }
+  return false;
+}
+
+export function isElementInView(el: Element) {
+  if (el) {
+    const footerRect = el.getBoundingClientRect();
+    const footerY =
+      footerRect.top - document.documentElement.getBoundingClientRect().top;
+    return (
+      footerY + footerRect.height > window.pageYOffset &&
+      footerY <= window.pageYOffset + window.innerHeight
+    );
+  } else {
+    return false;
+  }
+}

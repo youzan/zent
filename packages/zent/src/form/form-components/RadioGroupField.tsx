@@ -4,7 +4,6 @@ import { Omit } from 'utility-types';
 import { IRadioGroupProps, RadioGroup, IRadioEvent } from '../../radio';
 import { IFormComponentProps, IFormFieldChildProps } from '../shared';
 import { FormField } from '../Field';
-import { $MergeParams } from '../utils';
 
 export type IFormRadioGroupFieldProps<T> = IFormComponentProps<
   T | null,
@@ -36,10 +35,7 @@ export function FormRadioGroupField<T>(
   return (
     <FormField
       {...props}
-      defaultValue={
-        (props as $MergeParams<IFormRadioGroupFieldProps<T>>).defaultValue ||
-        null
-      }
+      defaultValue={'defaultValue' in props ? props.defaultValue : null}
     >
       {childProps => renderRadioGroup(childProps, props)}
     </FormField>

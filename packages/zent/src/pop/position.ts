@@ -6,10 +6,6 @@ import Popover from '../popover';
 
 const { Position } = Popover;
 
-// FIXME: these values and css variables in pop.scss are interrelated
-const ARROW_OFFSET_H = 15;
-const ARROW_OFFSET_V = 9;
-
 const createPosition = (x, y, side) => {
   return {
     getCSSStyle(): CSSProperties {
@@ -44,10 +40,10 @@ const CenterArrowPosition = {
       );
 
     return {
-      TopLeft: make(middle => middle - ARROW_OFFSET_H, 'left'),
+      TopLeft: make(middle => middle - __ARROW_OFFSET_HORIZONTAL__, 'left'),
       TopRight: make(
         (middle, contentDimension) =>
-          middle - (contentDimension.width - ARROW_OFFSET_H),
+          middle - (contentDimension.width - __ARROW_OFFSET_HORIZONTAL__),
         'right'
       ),
     };
@@ -72,10 +68,10 @@ const CenterArrowPosition = {
       );
 
     return {
-      BottomLeft: make(middle => middle - ARROW_OFFSET_H, 'left'),
+      BottomLeft: make(middle => middle - __ARROW_OFFSET_HORIZONTAL__, 'left'),
       BottomRight: make(
         (middle, contentDimension) =>
-          middle - (contentDimension.width - ARROW_OFFSET_H),
+          middle - (contentDimension.width - __ARROW_OFFSET_HORIZONTAL__),
         'right'
       ),
     };
@@ -100,10 +96,10 @@ const CenterArrowPosition = {
       );
 
     return {
-      LeftTop: make(middle => middle - ARROW_OFFSET_V, 'top'),
+      LeftTop: make(middle => middle - __ARROW_OFFSET_VERTICAL__, 'top'),
       LeftBottom: make(
         (middle, contentDimension) =>
-          middle - (contentDimension.height - ARROW_OFFSET_V),
+          middle - (contentDimension.height - __ARROW_OFFSET_VERTICAL__),
         'bottom'
       ),
     };
@@ -128,10 +124,10 @@ const CenterArrowPosition = {
       );
 
     return {
-      RightTop: make(middle => middle - ARROW_OFFSET_V, 'top'),
+      RightTop: make(middle => middle - __ARROW_OFFSET_VERTICAL__, 'top'),
       RightBottom: make(
         (middle, contentDimension) =>
-          middle - (contentDimension.height - ARROW_OFFSET_V),
+          middle - (contentDimension.height - __ARROW_OFFSET_VERTICAL__),
         'bottom'
       ),
     };

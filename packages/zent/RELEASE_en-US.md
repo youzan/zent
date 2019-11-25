@@ -8,6 +8,21 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 7.2.0(2019-11-18)
+
+- 🎉 New `IMEComposition` component
+- ✨ Add batch operation to `Grid`
+- ✨ Add tooltip when hover on next page in `Pagination`
+- ✨ Upgrade `date-fns` to 2.x
+- ✨ Fork `fecha` and rewrite in TypeScript
+- 📚 Add more docs on `Form` usage
+- 🦀️ Enlarge icon size in `BlockHeader`
+- 🦀️ Fix height issue in `Radio` and `Checkbox`
+- 🦀️ Fix data missing when using `useFieldArrayValue`
+- 🦀️ Fix the handling of `undefined` values in default error render of `Form` fields
+- 🦀️ Fix type definitions in `FormSelectField`, `Form` and `FieldSet`
+- 🦀️ Fix type definitions in `Switch`, `CopyButton` and `DatePicker`
+
 ### 7.1.0(2019-11-08)
 
 - ✨ `Select` adds an `retainNullOption` option to allow Options with `null` value to be selected

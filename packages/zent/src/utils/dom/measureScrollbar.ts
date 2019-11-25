@@ -1,3 +1,5 @@
+import createElement from './createElement';
+
 let scrollbarWidth = 0;
 
 // Measure scrollbar width for padding body during modal show/hide
@@ -16,7 +18,7 @@ export default function measureScrollbar() {
   if (scrollbarWidth) {
     return scrollbarWidth;
   }
-  const scrollDiv = document.createElement('div');
+  const scrollDiv = createElement('div');
   const scrollProps = Object.keys(scrollbarMeasure);
   scrollProps.forEach(scrollProp => {
     scrollDiv.style[scrollProp] = scrollbarMeasure[scrollProp];

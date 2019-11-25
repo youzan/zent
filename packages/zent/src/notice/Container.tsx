@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Wrap, { INoticeWrapProps } from './Wrap';
 import NoticeWrap from './Wrap';
+import createElement from '../utils/dom/createElement';
 
 export type NoticePositions =
   | 'right-top'
@@ -17,7 +18,7 @@ const containers: Record<NoticePositions, NoticeContainer | null> = {
 };
 
 function createContainer(position: NoticePositions) {
-  const div = document.createElement('div');
+  const div = createElement('div');
   div.classList.add('zent-notice-container');
   switch (position) {
     case 'right-top':

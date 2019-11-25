@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import isBrowser from '../utils/isBrowser';
+import createElement from '../utils/dom/createElement';
 import NotifyContent from './NotifyContent';
 
 let index = 0;
@@ -60,7 +61,7 @@ const createNotifyContainerNode = (): HTMLElement => {
 
   if (!notifyContainerNode) {
     const bodyNode = document.body;
-    const div = document.createElement('div');
+    const div = createElement('div');
     div.className = notifyContainerClass;
     notifyContainerNode = bodyNode.appendChild(div);
   }
@@ -78,7 +79,7 @@ const createNotifyContainerNode = (): HTMLElement => {
 const show = (text, duration, status, callback) => {
   if (!isBrowser) return null;
 
-  const container = document.createElement('div');
+  const container = createElement('div');
   const notifyContainerNode = createNotifyContainerNode();
   const props: any = {
     text,
@@ -88,7 +89,7 @@ const show = (text, duration, status, callback) => {
     selector: notifyContainerNode,
   };
 
-  ReactDOM.render(React.createElement(NotifyContent, props), container);
+  ReactDOM.render(<NotifyContent {...props} />, container);
   const containerId = createContainerId();
 
   const timeOutId = setTimeout(() => {
