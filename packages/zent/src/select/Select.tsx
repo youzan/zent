@@ -4,10 +4,10 @@
 
 import * as React from 'react';
 import cx from 'classnames';
-import omit from 'lodash-es/omit';
 import isEqual from 'lodash-es/isEqual';
 import cloneDeep from 'lodash-es/cloneDeep';
 
+import omit from '../utils/omit';
 import noop from '../utils/noop';
 import Popover from '../popover';
 import Option from './components/Option';
