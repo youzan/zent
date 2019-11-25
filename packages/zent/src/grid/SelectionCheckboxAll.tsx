@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import every from 'lodash-es/every';
 import includes from 'lodash-es/includes';
 import Checkbox, { ICheckboxProps } from '../checkbox';
 import Store from './Store';
@@ -49,7 +48,7 @@ class SelectionCheckboxAll<Data> extends PureComponent<
     } else {
       const selectedRowKeys = store.getState('selectedRowKeys');
       if (type === 'every') {
-        state = every(datasets, (data, index) =>
+        state = datasets.every((data, index) =>
           includes(selectedRowKeys, getDataKey(data, index))
         );
       } else {

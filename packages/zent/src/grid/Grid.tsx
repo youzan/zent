@@ -2,7 +2,6 @@ import * as React from 'react';
 import * as ReactDom from 'react-dom';
 import { PureComponent } from 'react';
 import classnames from 'classnames';
-import every from 'lodash-es/every';
 import debounce from 'lodash-es/debounce';
 import isEqual from 'lodash-es/isEqual';
 import includes from 'lodash-es/includes';
@@ -361,7 +360,7 @@ export class Grid<Data = any> extends PureComponent<
         return true;
       });
 
-      const checkboxAllDisabled = every(data, (item, index) => {
+      const checkboxAllDisabled = data.every((item, index) => {
         const rowIndex = this.getDataKey(item, index);
         return this.getCheckboxPropsByItem(item, rowIndex)?.disabled;
       });
