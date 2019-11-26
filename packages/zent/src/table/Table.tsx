@@ -4,7 +4,6 @@ import { PureComponent } from 'react';
 import * as ReactDOM from 'react-dom';
 
 import throttle from 'lodash-es/throttle';
-import intersection from 'lodash-es/intersection';
 import uniq from 'lodash-es/uniq';
 import uniqBy from 'lodash-es/uniqBy';
 import pullAll from 'lodash-es/pullAll';
@@ -351,9 +350,9 @@ export class Table extends PureComponent<ITableProps, any> {
     }
 
     if (!selection.needCrossPage) {
-      this.selectedRowKeys = intersection(
-        this.selectedRowKeys,
-        this.props.datasets.map(item => item[this.props.rowKey])
+      const { datasets, rowKey } = this.props;
+      this.selectedRowKeys = this.selectedRowKeys.filter(k =>
+        datasets.some(item => item[rowKey] === k)
       );
     }
     this.selectedRows = this.getSelectedRowsByKeys(this.selectedRowKeys);
