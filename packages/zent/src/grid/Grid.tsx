@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDom from 'react-dom';
 import { PureComponent } from 'react';
 import classnames from 'classnames';
-import debounce from 'lodash-es/debounce';
+import debounce from '../utils/debounce';
 import isEqual from 'lodash-es/isEqual';
 import throttle from 'lodash-es/throttle';
 
