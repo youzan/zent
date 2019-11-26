@@ -1,7 +1,5 @@
 /* See README.md for why this exists. */
 
-import findIndex from 'lodash-es/findIndex';
-
 const toBytes = s => Array.from<string>(s).map(c => c.charCodeAt(0));
 const xpiZipFilename = toBytes('META-INF/mozilla.rsa');
 const oxmlContentTypes = toBytes('[Content_Types].xml');
@@ -183,9 +181,8 @@ const getFileType = input => {
       })
     ) {
       const sliced = buf.subarray(4, 4 + 2000);
-      const nextZipHeaderIndex = arr =>
-        findIndex(
-          arr,
+      const nextZipHeaderIndex = (arr: Uint8Array) =>
+        arr.findIndex(
           (el, i, arr) =>
             arr[i] === 0x50 &&
             arr[i + 1] === 0x4b &&
@@ -345,8 +342,7 @@ const getFileType = input => {
   // https://github.com/threatstack/libmagic/blob/master/magic/Magdir/matroska
   if (check([0x1a, 0x45, 0xdf, 0xa3])) {
     const sliced = buf.subarray(4, 4 + 4096);
-    const idPos = findIndex(
-      sliced,
+    const idPos = sliced.findIndex(
       (el, i, arr) => arr[i] === 0x42 && arr[i + 1] === 0x82
     );
 

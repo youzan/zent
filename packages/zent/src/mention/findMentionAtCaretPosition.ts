@@ -1,5 +1,4 @@
 import findLastIndex from 'lodash-es/findLastIndex';
-import findIndex from 'lodash-es/findIndex';
 
 import { isWhiteSpace } from './utils';
 import { MENTION_NOT_FOUND, MENTION_FOUND } from './constants';
@@ -48,7 +47,10 @@ export function findMentionAtCaretPosition({
   }
 
   // Find the next space after caret
-  const mentionEndIndex = findIndex(value, isWhiteSpace, selectionEnd);
+  const mentionEndIndex = Array.from<string>(value).findIndex(
+    isWhiteSpace,
+    selectionEnd
+  );
 
   // Now try to match triggerText from mentionStartIndex
   let i =
