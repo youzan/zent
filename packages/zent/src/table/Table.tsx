@@ -4,11 +4,10 @@ import { PureComponent } from 'react';
 import * as ReactDOM from 'react-dom';
 
 import throttle from 'lodash-es/throttle';
-import uniq from 'lodash-es/uniq';
-import uniqBy from 'lodash-es/uniqBy';
 
 import { I18nReceiver as Receiver, II18nLocaleTable } from '../i18n';
 import isBrowser from '../utils/isBrowser';
+import uniq from '../utils/uniq';
 import BlockLoading from '../loading/BlockLoading';
 
 import Head from './modules/Head';
@@ -302,7 +301,7 @@ export class Table extends PureComponent<ITableProps, any> {
     if (isSelect) {
       if (this.props.selection.needCrossPage) {
         allRowKeys = uniq(allRowKeys.concat(rowKeysCurrentPage));
-        allRows = uniqBy(allRows.concat(rowsCurrentPage), rowKey);
+        allRows = uniq(allRows.concat(rowsCurrentPage), rowKey);
       } else {
         allRowKeys = rowKeysCurrentPage;
         allRows = rowsCurrentPage;
@@ -409,7 +408,7 @@ export class Table extends PureComponent<ITableProps, any> {
     const rows = [];
     const self = this;
     // 之前缓存的rows和本页的总datasets整个作为搜索的区间
-    const allRows = uniqBy(
+    const allRows = uniq(
       this.selectedRows.concat(this.props.datasets),
       this.props.rowKey
     );

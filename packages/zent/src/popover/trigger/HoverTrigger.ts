@@ -1,7 +1,7 @@
 import 'react';
 import throttle from 'lodash-es/throttle';
-import uniq from 'lodash-es/uniq';
 
+import uniq from '../../utils/uniq';
 import capitalize from '../../utils/capitalize';
 import isBrowser from '../../utils/isBrowser';
 
