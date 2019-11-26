@@ -6,8 +6,6 @@ import * as ReactDOM from 'react-dom';
 import throttle from 'lodash-es/throttle';
 import uniq from 'lodash-es/uniq';
 import uniqBy from 'lodash-es/uniqBy';
-import pullAll from 'lodash-es/pullAll';
-import pullAllBy from 'lodash-es/pullAllBy';
 
 import { I18nReceiver as Receiver, II18nLocaleTable } from '../i18n';
 import isBrowser from '../utils/isBrowser';
@@ -311,8 +309,13 @@ export class Table extends PureComponent<ITableProps, any> {
       }
     } else {
       if (this.props.selection.needCrossPage) {
-        allRowKeys = pullAll(allRowKeys, rowKeysCurrentPage);
-        allRows = pullAllBy(allRows, rowsCurrentPage, rowKey);
+        allRowKeys = allRowKeys.filter(
+          k => rowKeysCurrentPage.indexOf(k) === -1
+        );
+        allRows = allRows.filter(r => {
+          const key = r[rowKey];
+          return rowsCurrentPage.every(p => p[rowKey] !== key);
+        });
       } else {
         allRowKeys = [];
         allRows = [];
