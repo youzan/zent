@@ -25,6 +25,10 @@ export function install(config) {
 
 export function uninstall(config) {
   const idx = findIndex(subscriberList, config);
+  if (idx === -1) {
+    return;
+  }
+
   subscriberList.splice(idx, 1);
 
   if (subscriberList.length === 0) {

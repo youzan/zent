@@ -73,7 +73,7 @@ export default class FileInput extends PureComponent<IFileInputProps, any> {
   };
 
   processFiles = i18n => evt => {
-    let files = [...evt.target.files];
+    let files = Array.from<File>(evt.target.files);
     const { filterFiles, onError } = this.props;
 
     const filterResult = filterFiles(files);
