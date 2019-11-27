@@ -9,6 +9,10 @@ $inner-circle-offset: ($outer-circle-size - $inner-circle-size - 2px) / 2;
 .zent-radio-group {
   display: inline-block;
   font-size: 0;
+
+  > :not(.zent-radio-wrap) {
+    @include font-normal;
+  }
 }
 
 .zent-radio-wrap {
@@ -51,7 +55,6 @@ $inner-circle-offset: ($outer-circle-size - $inner-circle-size - 2px) / 2;
 
     &-label {
       @include font-normal;
-      display: inline-block;
       margin-left: 8px;
       vertical-align: middle;
     }

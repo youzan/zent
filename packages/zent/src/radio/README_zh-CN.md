@@ -13,24 +13,24 @@ group: 数据
 
 #### RadioGroup
 
-| 参数           | 说明                | 类型             | 默认值                 |
-| ------------ | ----------------- | -------------- | ------------------- |
-| value        | 用于设置当前选中的值        | any            |                     |
-| disabled     | 使组件不可用    | bool          |          |
-| readOnly     | 使组件只读           | bool               |                 |
-| onChange     | 选项变化时的回调函数        | func(e: event) |                     |
-| isValueEqual | 可选参数，判断value值是否相等 | func(a, b)     | `(a, b) => a === b` |
-| className    | 自定义额外类名           | string         |                     |
-| prefix       | 自定义前缀             | string         | `'zent'`            |
+| 参数         | 说明                            | 类型                          | 默认值              |
+| ------------ | ------------------------------- | ----------------------------- | ------------------- |
+| value        | 用于设置当前选中的值            | `any`                         |                     |
+| disabled     | 使组件不可用                    | `boolean`                     |                     |
+| readOnly     | 使组件只读                      | `boolean`                     |                     |
+| onChange     | 选项变化时的回调函数            | `(e: Event) => void`          |                     |
+| isValueEqual | 可选参数，判断 value 值是否相等 | `(a: any, b: any) => boolean` | `(a, b) => a === b` |
+| className    | 自定义额外类名                  | `string`                      |                     |
+| prefix       | 自定义前缀                      | `string`                      | `'zent'`            |
 
 #### Radio
 
-| 参数        | 说明                   | 类型     | 默认值      |
-| --------- | -------------------- | ------ | -------- |
-| value     | 根据 value 进行比较，判断是否选中 | any    |          |
-| disabled     | 使组件不可用    | bool          |          |
-| readOnly     | 使组件只读           | bool               |                 |
-| className | 自定义额外类名              | string |          |
-| width    | 宽度          | string or number         |                     |
-| prefix    | 自定义前缀                | string | `'zent'` |
-
+| 参数       | 说明                              | 类型                  | 默认值   |
+| ---------- | --------------------------------- | --------------------- | -------- |
+| value      | 根据 value 进行比较，判断是否选中 | `any`                  |          |
+| disabled   | 使组件不可用                      | `boolean`             |          |
+| readOnly   | 使组件只读                        | `boolean`             |          |
+| labelStyle | label 的内联样式                  | `React.CSSProperties` |          |
+| className  | 自定义额外类名                    | `string`              |          |
+| width      | 宽度                              | `string` \| `number`  |          |
+| prefix     | 自定义前缀                        | `string`              | `'zent'` |
