@@ -3,8 +3,7 @@ import * as React from 'react';
 import { PureComponent } from 'react';
 import * as ReactDOM from 'react-dom';
 
-import throttle from 'lodash-es/throttle';
-
+import throttle from '../utils/throttle';
 import { I18nReceiver as Receiver, II18nLocaleTable } from '../i18n';
 import isBrowser from '../utils/isBrowser';
 import uniq from '../utils/uniq';
@@ -165,7 +164,7 @@ export class Table extends PureComponent<ITableProps, any> {
           },
           100,
           {
-            leading: true,
+            immediate: true,
           }
         );
 

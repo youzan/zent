@@ -1,6 +1,4 @@
-export interface ICancelable {
-  cancel(): void;
-}
+import { ICancelable } from './types';
 
 export interface IDebounceOptions {
   /**

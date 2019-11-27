@@ -2,8 +2,7 @@ import * as React from 'react';
 import { Component, Children, cloneElement } from 'react';
 import cx from 'classnames';
 
-import throttle from 'lodash-es/throttle';
-
+import throttle from '../utils/throttle';
 import WindowResizeHandler from '../utils/component/WindowResizeHandler';
 import Icon from '../icon';
 import SwiperDots from './SwiperDots';

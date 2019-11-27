@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
-import throttle from 'lodash-es/throttle';
+import throttle from '../utils/throttle';
 import Portal from '../portal';
 import defer from '../utils/defer';
 import WindowResizeHandler from '../utils/component/WindowResizeHandler';

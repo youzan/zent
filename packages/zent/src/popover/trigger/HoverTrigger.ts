@@ -1,5 +1,5 @@
 import 'react';
-import throttle from 'lodash-es/throttle';
+import throttle from '../../utils/throttle';
 
 import uniq from '../../utils/uniq';
 import capitalize from '../../utils/capitalize';

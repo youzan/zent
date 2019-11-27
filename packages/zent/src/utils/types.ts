@@ -8,3 +8,7 @@ export type ListIterator<T, TResult> = (
   index: number,
   collection: ArrayLike<T>
 ) => TResult;
+
+export interface ICancelable {
+  cancel(): void;
+}

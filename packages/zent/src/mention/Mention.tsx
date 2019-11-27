@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react';
 import isEqual from 'lodash-es/isEqual';
-import throttle from 'lodash-es/throttle';
+import throttle from '../utils/throttle';
 import cx from 'classnames';
 import Input, { IInputClearEvent } from '../input';
 import Popover from '../popover';
