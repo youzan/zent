@@ -5,7 +5,6 @@
 import * as React from 'react';
 import cx from 'classnames';
 import isEqual from 'lodash-es/isEqual';
-import cloneDeep from 'lodash-es/cloneDeep';
 
 import omit from '../utils/omit';
 import noop from '../utils/noop';
@@ -175,7 +174,7 @@ export class Select extends React.Component<ISelectProps, any> {
           }
 
           // hacky the quirk when optionText = 'value' and avoid modify props
-          const optCopy = cloneDeep(option);
+          const optCopy = { ...option };
 
           optCopy.cid = `${index}`;
           if (optionValue) {
