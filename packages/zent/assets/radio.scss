@@ -55,6 +55,7 @@ $inner-circle-offset: ($outer-circle-size - $inner-circle-size - 2px) / 2;
 
     &-label {
       @include font-normal;
+      display: inline;
       margin-left: 8px;
       vertical-align: middle;
     }
