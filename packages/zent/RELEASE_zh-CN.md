@@ -8,7 +8,17 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
-### 7.3.0(2019-11-26)
+### 7.3.1(2019-11-27)
+
+- ✨ 新增 `Link` 组件替换 `zent-link` CSS 的使用场景
+- ✨ `Radio` 和 `Checkbox` 新增 `labelStyle`
+- 🦀️ 修复 `ButtonDirective` 样式问题
+- 🦀️ 修复打包编译时读取到的包版本和发布的版本不一致的问题
+- 🦀️ 回滚 `Radio` 文字标签的 `display` 为 `inline`
+- 🦀️ 修复 `RadioGroup` 内非 `Radio` 组件不可见的问题
+- 🦀️ 修复 `CheckboxGroup` 内非 `Checkbox` 组件不可见的问题
+
+### 7.3.0(2019-11-25)
 
 - 🎉 隔离不同版本 zent 的样式，避免页面上存在两份 zent 时的样式污染。
 - 🎉 增加了一批编译期常量，可在 TypeScript 或者 SCSS 文件内使用，类似 C 语言的 `__FILE__` 这种变量
