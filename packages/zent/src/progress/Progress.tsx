@@ -8,14 +8,9 @@ import {
 import { defaultFormat, avaliableStatus } from './constants';
 import CircleProgress from './components/CircleProgress';
 import LineProgress from './components/LineProgress';
-import { ParticalRequired } from '../utils/types';
+import { PartialRequired } from '../utils/types';
 
-export const Progress: React.FC<IProgressProps> = (
-  props: ParticalRequired<
-    React.PropsWithChildren<IProgressProps>,
-    'type' | 'percent' | 'showInfo' | 'strokeWidth' | 'format'
-  >
-) => {
+export const Progress: React.FC<IProgressProps> = props => {
   const {
     type,
     status,
@@ -30,7 +25,10 @@ export const Progress: React.FC<IProgressProps> = (
     strokeWidth,
     width,
     ...divAttrs
-  } = props;
+  } = props as PartialRequired<
+    React.PropsWithChildren<IProgressProps>,
+    'type' | 'percent' | 'showInfo' | 'strokeWidth' | 'format'
+  >;
 
   // 计算 progress 状态
   const state = React.useMemo<IProgressStatus>(() => {

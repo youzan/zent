@@ -6,7 +6,7 @@ import { AlertTypes } from './types';
 import Icon, { IconType } from '../icon';
 import InlineLoading from '../loading/InlineLoading';
 import { Omit } from 'utility-types';
-import { ParticalRequired } from '../utils/types';
+import { PartialRequired } from '../utils/types';
 
 export interface IAlertProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
@@ -35,7 +35,7 @@ const iconTypeMap: {
   error: 'error-circle',
 };
 
-type IAlertInnerProps = ParticalRequired<
+type IAlertInnerProps = PartialRequired<
   IAlertProps,
   'type' | 'loading' | 'outline' | 'closable'
 >;
