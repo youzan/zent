@@ -18,7 +18,7 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - 🦀️ Fix elements other than `Radio` are invisible inside `RadioGroup`
 - 🦀️ Fix elements other than `Checkbox` are invisible inside `CheckboxGroup`
 
-### 7.3.0(2019-11-26)
+### 7.3.0(2019-11-25)
 
 - 🎉 Isolate styles in different zent versions
 - 🎉 Add a few compile time constants to TypeScript and SCSS compiler, like `__FILE__` in C
