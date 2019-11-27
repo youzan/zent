@@ -1,5 +1,8 @@
-export const UID_KEY = '__uid';
-export const DEFAULT_ACCEPT = {
-  image: 'image/gif, image/jpeg, image/png, image/bmp',
-  voice: 'audio/mpeg, audio/amr',
-};
+export const IMAGE_DEFAULT_ACCEPT =
+  'image/jpeg, image/png, image/bmp, image/gif';
+
+export enum FILE_UPLOAD_STATUS {
+  uploading = 'uploading',
+  failed = 'failed',
+  success = 'success',
+}

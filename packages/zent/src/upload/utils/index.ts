@@ -1,52 +1,43 @@
+import uniqueId from 'lodash-es/uniqueId';
+import isPromise from '../../utils/isPromise';
+
+/**
+ * 创建一个唯一 Id
+ */
+export const createUploadItemId = () => {
+  return uniqueId('zent-upload-item-');
+};
+
 const oneMB = 1024 * 1024;
 const oneGB = 1024 * oneMB;
 
 /**
- * 将文件的Byte转换为可读性更好的GB\MB\KB\B
- * @param  {number} size    大小，单位Byte
- * @param  {number} toFixed 保留几位小数，默认值为1
- * @return {string}         格式化后的字符串
+ * 将文件的Byte转换为可读性更好的G\M\K\B
+ * @param size    大小，单位Byte
+ * @param toFixed 保留几位小数，默认值为1
+ * @return        格式化后的字符串
  * @example
- * formatFileSize(1024) => '1 MB'
+ * formatFileSize(1024) => '1 KB'
  */
-export function formatFileSize(size, toFixed?: number) {
-  size = +size || 0;
-
-  if (typeof toFixed === 'undefined') {
-    toFixed = 1;
-  }
-
+export function formatFileSize(size: number, toFixed = 1) {
   if (size >= oneGB) {
-    return `${(size / oneGB).toFixed(toFixed)} GB`;
+    return `${(size / oneGB).toFixed(toFixed)}G`;
   }
 
   if (size >= oneMB) {
-    return `${(size / oneMB).toFixed(toFixed)} MB`;
+    return `${(size / oneMB).toFixed(toFixed)}M`;
   }
 
   if (size >= 1024) {
-    return `${(size / 1024).toFixed(toFixed)} KB`;
+    return `${(size / 1024).toFixed(toFixed)}K`;
   }
 
-  return `${size.toFixed(toFixed)} B`;
+  return `${size.toFixed(toFixed)}B`;
 }
 
-export function base64ToArrayBuffer(base64) {
-  const binaryString = window.atob(base64);
-  const len = binaryString.length;
-  const bytes = new Uint8Array(len);
-  for (let i = 0; i < len; i++) {
-    bytes[i] = binaryString.charCodeAt(i);
+export function wrapPromise(condition: boolean | Promise<any>) {
+  if (isPromise(condition)) {
+    return condition;
   }
-  return bytes.buffer;
-}
-
-export function formatErrorMessages(type, data, defaults) {
-  if (typeof type === 'undefined') {
-    type = defaults;
-  }
-  if (typeof type === 'function') {
-    return type(data);
-  }
-  return type;
+  return condition ? Promise.resolve() : Promise.reject();
 }

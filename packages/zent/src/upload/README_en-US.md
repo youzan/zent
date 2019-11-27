@@ -6,7 +6,7 @@ group: Data Entry
 
 # Upload
 
-File uploader. Supports images and audios.
+File uploader.
 
 ### API
 

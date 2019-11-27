@@ -17,8 +17,8 @@ import {
   I18nLocaleTimePicker,
   II18nLocaleUpload,
   II18nLocaleMention,
-  II18nLocaleTypeMap,
 } from './locale';
+import capitalize from 'lodash-es/capitalize';
 
 const common: II18nLocaleCommon = {
   confirm: 'Confirm',
@@ -174,38 +174,33 @@ export const TimePicker: I18nLocaleTimePicker = () => {
   };
 };
 
-const TypeMap: II18nLocaleTypeMap = {
-  image: 'Image',
-  voice: 'Audio',
-};
-
 export const Upload: II18nLocaleUpload = {
   ...common,
-  title_voice: 'Choose voice',
-  title_image: 'Choose image',
-  input: {
-    holder: 'Add',
-    maxAmount({ maxAmount, type }) {
-      return `Only ${maxAmount} ${TypeMap[type]} files can be added`;
-    },
-    maxSize({ maxSize, type }) {
-      return `Cannot upload ${TypeMap[type]} files larger than ${maxSize}`;
-    },
-    type({ type }) {
-      return `Cannot upload ${TypeMap[type]} files with unsupported type`;
+  delete: 'Delete',
+  retry: 'Retry',
+  normal: {
+    add: 'Add File',
+    tips: config => {
+      const { tips, formattedMaxSize, supportTypes } = config;
+      const tipStr = tips ? `${tips}${common.comma}` : '';
+      const supportTypesStr =
+        Array.isArray(supportTypes) && supportTypes.length
+          ? `support ${supportTypes.join('/')}${common.comma}`
+          : '';
+      const sizeLimitStr = `single file no more than ${formattedMaxSize}`;
+      return capitalize(`${tipStr}${supportTypesStr}${sizeLimitStr}`);
     },
   },
-  popup: {
-    web: 'Web image',
-    group: 'Group',
-    holder: 'Image url',
-    title_voice: 'Local audio',
-    title_image: 'Local image',
-    type({ types, size }) {
-      return `Supports ${types.join(' /')} only, smaller than ${size}`;
+  image: {
+    tips: config => {
+      const { tips, formattedMaxSize, maxAmount } = config;
+      const tipStr = tips ? `${tips}${common.comma}` : '';
+      const amoutLimitStr = maxAmount
+        ? `up to ${maxAmount}${common.comma}`
+        : '';
+      const sizeLimitStr = `single image no more than ${formattedMaxSize}`;
+      return capitalize(`${tipStr}${amoutLimitStr}${sizeLimitStr}`);
     },
-    extract: 'Extract',
-    extracting: 'Extracting...',
   },
 };
 
