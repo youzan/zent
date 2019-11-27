@@ -47,6 +47,27 @@
       font-size: $font-size-large;
     }
   }
+
+  &-list {
+    &-wrapper {
+      @include theme-color(border-bottom-color, stroke, 5);
+      border-bottom-width: 1px;
+      padding-bottom: 16px;
+    }
+  }
+
+  &-item {
+    margin-bottom: 16px;
+
+    &__info {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &__progress {
+      margin-top: 16px;
+    }
+  }
 }
 
 .zent-image-upload {

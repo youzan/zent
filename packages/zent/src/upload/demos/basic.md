@@ -35,8 +35,7 @@ class Simple extends React.Component {
 			<Upload
 				accept="image/*"
 				className="zent-upload-demo-pic"
-				maxSize={1 * 1024 * 1024}
-				maxAmount={2}
+				maxSize={2 * 1024 * 1024}
 				onChange={this.onUploadChange}
 				onUpload={this.updateLocalImage}
 			/>

@@ -12,6 +12,10 @@ abstract class AbstractTrigger<
    */
   get remainAmount() {
     const { maxAmount, availableUploadItemsCount } = this.props;
+    // maxAmount 为 0 表示无数量上限
+    if (maxAmount === 0) {
+      return Infinity;
+    }
     return maxAmount - availableUploadItemsCount;
   }
 

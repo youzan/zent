@@ -10,6 +10,7 @@ import ClampLines from '../../../clamp-lines';
 import { FILE_UPLOAD_STATUS } from '../../constants';
 import { Icon } from '../../../icon';
 import InlineLoading from '../../../loading/InlineLoading';
+import Progress from '../../../progress';
 
 /**
  * 获取状态展示图标
@@ -49,14 +50,23 @@ export default class NormalUploadList<
     const { i18n } = this.props;
     const { status } = item;
     return (
-      <div key={item._id} className="zent-upload-item">
-        {getFileIcon(item)}
-        <ClampLines lines={1} text={item.name} />
-        {status === FILE_UPLOAD_STATUS.failed && (
-          <a className="zent-link">{i18n.retry}</a>
+      <li key={item._id} className="zent-upload-item">
+        <div className="zent-upload-item__info">
+          {getFileIcon(item)}
+          <ClampLines lines={1} text={item.name} />
+          {status === FILE_UPLOAD_STATUS.failed && (
+            <a className="zent-link">{i18n.retry}</a>
+          )}
+          <a className="zent-link">{i18n.delete}</a>
+        </div>
+        {item.status === FILE_UPLOAD_STATUS.uploading && (
+          <Progress
+            className="zent-upload-item__progress"
+            strokeWidth={2}
+            percent={20}
+          />
         )}
-        <a className="zent-link">{i18n.delete}</a>
-      </div>
+      </li>
     );
   };
 }
