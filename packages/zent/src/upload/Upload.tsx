@@ -68,6 +68,7 @@ export class Upload<
     maxAmount: 0,
     maxSize: 1024 * 1024,
     multiple: false,
+    sortable: true,
   };
 
   protected createNewUploadFileItem(

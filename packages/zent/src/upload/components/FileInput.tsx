@@ -33,8 +33,8 @@ export default class FileInput extends PureComponent<IFileInputProps> {
   render() {
     const { remainAmount, accept, multiple, disabled } = this.props;
 
-    const canContinueUpload = disabled || remainAmount === 0;
-    const canMultiple = multiple && remainAmount > 1;
+    const isDisabled = disabled || remainAmount === 0;
+    const isMultiple = multiple && remainAmount > 1;
 
     return (
       <input
@@ -42,8 +42,8 @@ export default class FileInput extends PureComponent<IFileInputProps> {
         hidden
         ref={this.inputRef}
         type="file"
-        disabled={canContinueUpload}
-        multiple={canMultiple}
+        disabled={isDisabled}
+        multiple={isMultiple}
         accept={accept}
         onClick={this.onFileInputClick}
         onChange={this.onFileInputChange}

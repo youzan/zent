@@ -140,7 +140,7 @@ export interface IAbstractUploadTriggerProps<
   availableUploadItemsCount: number;
   maxSize: number;
   maxAmount: number;
-  multiple: boolean;
+  multiple?: boolean;
   onAddFile: (file: File) => void;
   onError: IUploadOnErrorCallback;
 }

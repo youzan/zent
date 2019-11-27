@@ -32,6 +32,7 @@ abstract class AbstractUploadList<
     const fileListContent = fileList.map(this.renderFileItem);
     return sortable ? (
       <Sortable
+        tag="ul"
         items={fileList}
         className="zent-upload-file-list"
         onChange={this.onFileListSortChange}
@@ -39,7 +40,7 @@ abstract class AbstractUploadList<
         {fileListContent}
       </Sortable>
     ) : (
-      <div className="zent-upload-file-list">{fileListContent}</div>
+      <ul className="zent-upload-file-list">{fileListContent}</ul>
     );
   }
 }
