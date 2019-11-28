@@ -2,4 +2,9 @@
 Chrome >= 39
 Safari >= 9
 Firefox >= 57
-not ie
+not ie > 0
+not ios_saf > 0
+not op_mini all
+not samsung > 0
+not and_chr > 0
+not and_uc > 0

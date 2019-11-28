@@ -134,6 +134,15 @@ export class Affix extends Component<IAffixProps, IAffixState> {
     this.handleResize();
   }
 
+  componentDidUpdate() {
+    this.handleResize();
+  }
+
+  componentWillUnmount() {
+    this.handleResize.cancel();
+    this.handleScroll.cancel();
+  }
+
   render() {
     const { prefix, className, placeHoldClassName, children } = this.props;
     const wrapClass = cx(`${prefix}-affix`, className);
