@@ -3,6 +3,7 @@
  */
 import * as React from 'react';
 import { Component } from 'react';
+import * as Sortable from 'sortablejs';
 import Button from '../../button';
 import Input from '../../input';
 import Select from '../../select';
@@ -13,7 +14,6 @@ import UploadImageItem from './UploadImageItem';
 import { initSortable, swapArray } from '../utils/sortable';
 import { formatFileSize } from '../utils';
 import { UID_KEY } from '../constants';
-import * as Sortable from 'sortablejs';
 
 class UploadPopup extends Component<any, any> {
   static defaultProps = {
@@ -295,7 +295,11 @@ class UploadPopup extends Component<any, any> {
 
   fileProgressHandler(progress, index) {
     const { localFiles } = this.state;
-    localFiles[index].progress = progress;
+    // 上传过程中删除预览小图
+    const fileIndex = localFiles.findIndex(file => file.__uid === index);
+    if (fileIndex >= 0) {
+      localFiles[fileIndex].progress = progress;
+    }
     this.setState(localFiles);
   }
 
