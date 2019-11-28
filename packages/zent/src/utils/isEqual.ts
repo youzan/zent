@@ -5,7 +5,6 @@
  * With some difference:
  * - It's iterative
  * - Bug fixes regarding NaN, 0 and -0 values
- * - Map/WeakMap and Set/WeakSet support
  */
 
 // We don't support symbols as object keys, they're expensive
@@ -46,6 +45,8 @@ type CompareOperation =
 
 const toString = Object.prototype.toString;
 const valueOfSymbol = Symbol.prototype.valueOf;
+const objKeys = Object.keys;
+const objIs = Object.is;
 
 /**
  * This function is non-recursive, and handles cyclic values.
@@ -64,7 +65,7 @@ export default function isEqual(value: any, other: any): boolean {
     if (op.type === 'generic') {
       const { a, b } = op;
 
-      if (Object.is(a, b)) {
+      if (objIs(a, b)) {
         continue;
       }
 
@@ -93,7 +94,7 @@ export default function isEqual(value: any, other: any): boolean {
       }
 
       if (tag === '[object Number]') {
-        if (!Object.is(+a, +b)) {
+        if (!objIs(+a, +b)) {
           return false;
         }
 
@@ -140,7 +141,8 @@ export default function isEqual(value: any, other: any): boolean {
             typeof bCtor === 'function' &&
             bCtor instanceof bCtor
           ) &&
-          'constructor' in a && 'constructor' in b
+          'constructor' in a &&
+          'constructor' in b
         ) {
           return false;
         }
@@ -197,11 +199,11 @@ export default function isEqual(value: any, other: any): boolean {
         });
       } else if (tag === '[object Object]') {
         // Deep compare objects.
-        const keys = Object.keys(a);
+        const keys = objKeys(a);
         const len = keys.length;
 
         // Ensure that both objects contain the same number of properties before comparing deep equality.
-        if (Object.keys(b).length !== len) {
+        if (objKeys(b).length !== len) {
           return false;
         }
 
