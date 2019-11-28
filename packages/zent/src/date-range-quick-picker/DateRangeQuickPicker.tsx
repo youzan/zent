@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
-import isEqual from 'lodash-es/isEqual';
 
+import isEqual from '../utils/isEqual';
 import { DatePickers } from '../datetimepicker/common/types';
 import DateRangePicker from '../datetimepicker/DateRangePicker';
 import { I18nReceiver as Receiver } from '../i18n';

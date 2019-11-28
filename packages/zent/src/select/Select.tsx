@@ -4,8 +4,8 @@
 
 import * as React from 'react';
 import cx from 'classnames';
-import isEqual from 'lodash-es/isEqual';
 
+import isEqual from '../utils/isEqual';
 import omit from '../utils/omit';
 import noop from '../utils/noop';
 import Popover from '../popover';

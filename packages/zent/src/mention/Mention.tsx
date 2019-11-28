@@ -1,15 +1,14 @@
 import * as React from 'react';
 import { Component } from 'react';
-import isEqual from 'lodash-es/isEqual';
-import throttle from '../utils/throttle';
 import cx from 'classnames';
+import isEqual from '../utils/isEqual';
+import throttle from '../utils/throttle';
 import Input, { IInputClearEvent } from '../input';
 import Popover from '../popover';
 import getCaretCoordinates from '../utils/dom/getCaretCoordinates';
 import isFirefox from '../utils/isFirefox';
 import SelectMenu from '../select-menu';
 import { I18nReceiver as Receiver, II18nLocaleMention } from '../i18n';
-
 import { findMentionAtCaretPosition } from './findMentionAtCaretPosition';
 import * as SelectionChangeEventHub from './SelectionChangeEventHub';
 import * as Utils from './utils';

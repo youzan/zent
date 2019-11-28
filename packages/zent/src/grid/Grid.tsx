@@ -3,7 +3,7 @@ import * as ReactDom from 'react-dom';
 import { PureComponent } from 'react';
 import classnames from 'classnames';
 import debounce from '../utils/debounce';
-import isEqual from 'lodash-es/isEqual';
+import isEqual from '../utils/isEqual';
 import throttle from '../utils/throttle';
 
 import noop from '../utils/noop';
