@@ -30,8 +30,24 @@ Our goal is making React development faster and simpler.
 ### Supported Environments
 
 * React >= 16.8
-* Modern browsers and IE >= 11
+* Modern browsers but not IE
 * Supports server-side rendering(SSR)
+
+### Required polyfills
+
+- `es6.object.assign`
+- `es6.object.is`
+- `es6.string.ends-with`
+- `es6.string.starts-with`
+- `es6.string.includes`
+- `es7.string.trim-left`
+- `es7.string.trim-right`
+- `es6.array.from`
+- `es6.array.of`
+- `es6.array.fill`
+- `es6.array.find`
+- `es6.array.find-index`
+- `es7.array.includes`
 
 ## Install
 

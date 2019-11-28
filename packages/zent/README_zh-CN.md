@@ -21,6 +21,7 @@ Zent ( \ˈzent\ ) 是有赞 PC 端 WebUI 规范的 React 实现，提供了一�
 ### 支持环境
 
 * React >= 16.8
+* 现代浏览器，IE 除外
 * 支持服务端渲染(SSR)
 
 ### 浏览器
@@ -33,21 +34,22 @@ Zent ( \ˈzent\ ) 是有赞 PC 端 WebUI 规范的 React 实现，提供了一�
 * 不支持IE
 
 #### 需要的polyfill
-对于受支持的浏览器需要的polyfill
 
-* String.prototype.padStart (Chrome 57, Safari 10)
+对于受支持的浏览器需要的 polyfill
 
-#### 其他浏览器
-
-关于样式请参考[定制主题](theme)
-
-可能需要的polyfill：
-* Map
-* Set
-* Array.prototype.includes
-* String.prototype.includes
-* Object.assign
-* Object.is
+- `es6.object.assign`
+- `es6.object.is`
+- `es6.string.ends-with`
+- `es6.string.starts-with`
+- `es6.string.includes`
+- `es7.string.trim-left`
+- `es7.string.trim-right`
+- `es6.array.from`
+- `es6.array.of`
+- `es6.array.fill`
+- `es6.array.find`
+- `es6.array.find-index`
+- `es7.array.includes`
 
 ### 安装
 
@@ -81,6 +83,10 @@ import Button from 'zent/lib/button';
 适用于基于 Zent 开发的组件库，以及对 Zent 使用量较少的项目。详细使用帮助请看[插件的文档](babel-plugin-zent)。
 
 除此之外，Zent 也支持 ESM 的 tree-shaking 方式配合打包工具来实现按需加载。
+
+### 主题
+
+请参考[定制主题](theme)
 
 <style>
 img[alt="zent-components"] {

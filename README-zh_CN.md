@@ -29,8 +29,24 @@ Zent ( \ˈzent\ ) 是有赞 PC 端 WebUI 规范的 React 实现，提供了一�
 ### 支持环境
 
 * React >= 16.8
-* 现代浏览器以及 IE 11 及以上
+* 现代浏览器，IE 除外
 * 支持服务端渲染(SSR)
+
+### 必须的 polyfill
+
+- `es6.object.assign`
+- `es6.object.is`
+- `es6.string.ends-with`
+- `es6.string.starts-with`
+- `es6.string.includes`
+- `es7.string.trim-left`
+- `es7.string.trim-right`
+- `es6.array.from`
+- `es6.array.of`
+- `es6.array.fill`
+- `es6.array.find`
+- `es6.array.find-index`
+- `es7.array.includes`
 
 ## 安装
 

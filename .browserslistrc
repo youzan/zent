@@ -2,5 +2,4 @@
 Chrome >= 39
 Safari >= 9
 Firefox >= 57
-ie >= 10
-not ie <= 8
+not ie
