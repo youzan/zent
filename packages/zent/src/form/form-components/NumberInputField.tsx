@@ -13,9 +13,10 @@ export type IFormNumberInputFieldProps = IFormComponentProps<
   integer?: boolean;
 };
 
-export const FormNumberInputField: React.FunctionComponent<
-  IFormNumberInputFieldProps
-> = ({ integer, ...props }) => {
+export const FormNumberInputField: React.FunctionComponent<IFormNumberInputFieldProps> = ({
+  integer,
+  ...props
+}) => {
   return (
     <FormField
       {...props}

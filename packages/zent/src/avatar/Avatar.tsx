@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
-import isNumber from 'lodash-es/isNumber';
 import Icon, { IconType } from '../icon';
 
 const NO_STYLE = {};
@@ -106,14 +105,15 @@ export class Avatar extends Component<IAvatarProps, IAvatarState> {
       };
     }
 
-    const avatarStyle = isNumber(size)
-      ? {
-          width: `${size}px`,
-          height: `${size}px`,
-          lineHeight: `${size}px`,
-          ...style,
-        }
-      : style;
+    const avatarStyle =
+      typeof size === 'number'
+        ? {
+            width: `${size}px`,
+            height: `${size}px`,
+            lineHeight: `${size}px`,
+            ...style,
+          }
+        : style;
 
     return (
       <span style={avatarStyle} className={cls} ref={this.avatarNodeRef}>

@@ -18,9 +18,7 @@ function renderSwitch(
   return <Switch {...props.props} {...passedProps} checked={value} />;
 }
 
-export const FormSwitchField: React.FunctionComponent<
-  IFormSwitchFieldProps
-> = props => {
+export const FormSwitchField: React.FunctionComponent<IFormSwitchFieldProps> = props => {
   return (
     <FormField
       {...props}

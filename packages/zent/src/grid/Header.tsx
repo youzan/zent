@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
 import classnames from 'classnames';
-import forEach from 'lodash-es/forEach';
 
 import ColGroup from './ColGroup';
 import {
@@ -108,7 +107,7 @@ class Header<Data> extends PureComponent<
     columns = columns || propsColumns;
     rows[currentRow] = rows[currentRow] || [];
 
-    forEach(columns, (column, index) => {
+    (columns || []).forEach((column, index) => {
       if (column.rowSpan && rows.length < column.rowSpan) {
         while (rows.length < column.rowSpan) {
           rows.push([]);

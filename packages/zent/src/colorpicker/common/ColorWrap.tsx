@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
-import debounce from 'lodash-es/debounce';
+import debounce from '../../utils/debounce';
 import color from '../helpers/color';
 
 export const ColorWrap = Picker => {

@@ -1,6 +1,4 @@
-import isPlainObject from 'lodash-es/isPlainObject';
-import forOwn from 'lodash-es/forOwn';
-import isString from 'lodash-es/isString';
+import isObject from '../../../utils/isObject';
 
 const flattenNames = (things = []) => {
   let names = [];
@@ -8,12 +6,13 @@ const flattenNames = (things = []) => {
   things.forEach(thing => {
     if (Array.isArray(thing)) {
       names = names.concat(flattenNames(thing));
-    } else if (isPlainObject(thing)) {
-      forOwn(thing, (value, key) => {
+    } else if (isObject(thing)) {
+      Object.keys(thing).forEach(key => {
+        const value = thing[key];
         value === true && names.push(key);
         names.push(`${key}-${value}`);
       });
-    } else if (isString(thing)) {
+    } else if (typeof thing === 'string') {
       names.push(thing);
     }
   });

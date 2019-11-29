@@ -34,9 +34,7 @@ function renderInput(
   );
 }
 
-export const FormInputField: React.FunctionComponent<
-  IFormInputFieldProps
-> = props => {
+export const FormInputField: React.FunctionComponent<IFormInputFieldProps> = props => {
   const { validateOccasion = ValidateOccasion.Blur } = props;
   return (
     <FormField

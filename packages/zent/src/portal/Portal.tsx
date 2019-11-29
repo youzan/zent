@@ -7,8 +7,8 @@ import {
   forwardRef,
   useEffect,
 } from 'react';
-import noop from 'lodash-es/noop';
 
+import noop from '../utils/noop';
 import MountElement from './MountElement';
 import PurePortal, { IPurePortalProps } from './PurePortal';
 import { getNodeFromSelector, hasScrollbarY } from './util';

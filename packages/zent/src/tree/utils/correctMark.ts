@@ -1,5 +1,4 @@
-import _union from 'lodash-es/union';
-
+import _union from '../../utils/union';
 import { TreeRootIdArray, ITreeRootInfoMap } from './common';
 
 /**

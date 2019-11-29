@@ -120,6 +120,6 @@ class MenuContent extends PureComponent<IMenuContentProps> {
   }
 }
 
-export default withPopover(MenuContent as React.ComponentType<
-  IMenuContentProps
->);
+export default withPopover(
+  MenuContent as React.ComponentType<IMenuContentProps>
+);

@@ -1,8 +1,7 @@
-import findLastIndex from 'lodash-es/findLastIndex';
-import findIndex from 'lodash-es/findIndex';
-
 import { isWhiteSpace } from './utils';
 import { MENTION_NOT_FOUND, MENTION_FOUND } from './constants';
+import findLastIndex from '../utils/findLastIndex';
+import findIndex from '../utils/findIndex';
 
 export type FindMentionAtCaretPositionReturn =
   | {

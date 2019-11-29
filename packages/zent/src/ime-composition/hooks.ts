@@ -22,7 +22,7 @@ const defaultOption: Required<ICreateUseIMECompositionOption> = {
 export function createUseIMEComposition(
   option?: ICreateUseIMECompositionOption
 ) {
-  const { getEventValue } = Object.assign({}, defaultOption, option);
+  const { getEventValue } = { ...defaultOption, ...option };
 
   return function useIMEComposition<OnChange extends (...args: any[]) => any>(
     propValue: string,

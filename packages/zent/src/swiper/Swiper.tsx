@@ -2,9 +2,7 @@ import * as React from 'react';
 import { Component, Children, cloneElement } from 'react';
 import cx from 'classnames';
 
-import forEach from 'lodash-es/forEach';
-import throttle from 'lodash-es/throttle';
-
+import throttle from '../utils/throttle';
 import WindowResizeHandler from '../utils/component/WindowResizeHandler';
 import Icon from '../icon';
 import SwiperDots from './SwiperDots';
@@ -73,11 +71,12 @@ export class Swiper extends Component<ISwiperProps, ISwiperState> {
       width: `${this.swiperWidth * innerElements.length}px`,
     });
 
-    forEach(innerElements, item => {
+    for (let i = 0; i < innerElements.length; i++) {
+      const item = innerElements[i];
       setStyle(item, {
         width: `${100 / innerElements.length}%`,
       });
-    });
+    }
 
     isResetToOrigin && this.translate(-1, null, true);
 

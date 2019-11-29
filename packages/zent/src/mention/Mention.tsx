@@ -1,23 +1,20 @@
 import * as React from 'react';
 import { Component } from 'react';
-import defer from 'lodash-es/defer';
-import isFunction from 'lodash-es/isFunction';
-import includes from 'lodash-es/includes';
-import isEqual from 'lodash-es/isEqual';
-import throttle from 'lodash-es/throttle';
 import cx from 'classnames';
+import isEqual from '../utils/isEqual';
+import throttle from '../utils/throttle';
 import Input, { IInputClearEvent } from '../input';
 import Popover from '../popover';
 import getCaretCoordinates from '../utils/dom/getCaretCoordinates';
 import isFirefox from '../utils/isFirefox';
 import SelectMenu from '../select-menu';
 import { I18nReceiver as Receiver, II18nLocaleMention } from '../i18n';
-
 import { findMentionAtCaretPosition } from './findMentionAtCaretPosition';
 import * as SelectionChangeEventHub from './SelectionChangeEventHub';
 import * as Utils from './utils';
 import { getPopoverBottomPosition, getPopoverTopPosition } from './position';
 import { MENTION_FOUND } from './constants';
+import defer from '../utils/defer';
 
 const NAV_KEYS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
 const DEFAULT_STATE = {
@@ -236,7 +233,10 @@ export class Mention extends Component<IMentionProps> {
     // Do NOT use keydown event, selection is not updated yet when setSuggestionVisible is called
     if (
       isFirefox &&
-      (evt.altKey || evt.ctrlKey || evt.metaKey || includes(NAV_KEYS, evt.key))
+      (evt.altKey ||
+        evt.ctrlKey ||
+        evt.metaKey ||
+        NAV_KEYS.indexOf(evt.key) !== -1)
     ) {
       defer(this.setSuggestionVisible, this.props.value);
     }
@@ -270,7 +270,7 @@ export class Mention extends Component<IMentionProps> {
 
   triggerEventCallback(eventName, evt) {
     const fn = this.props[eventName];
-    if (isFunction(fn)) {
+    if (typeof fn === 'function') {
       fn(evt);
     }
   }
@@ -338,7 +338,7 @@ export class Mention extends Component<IMentionProps> {
 
     if (!isEqual(this.state, state)) {
       const { onSearchChange } = this.props;
-      if (isSearchChanged && isFunction(onSearchChange)) {
+      if (isSearchChanged && typeof onSearchChange === 'function') {
         onSearchChange(state.search);
       }
 
