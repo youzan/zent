@@ -5,6 +5,10 @@ $size: 16px;
 .zent-checkbox-group {
   display: inline-block;
   font-size: 0;
+
+  > :not(.zent-checkbox-wrap) {
+    @include font-normal;
+  }
 }
 
 .zent-checkbox-wrap {

@@ -8,7 +8,9 @@ import RadioButton from './RadioButton';
 import { DisabledContext } from '../disabled';
 import GroupContext from './GroupContext';
 
-function Radio<Value>(props: IRadioProps<Value>) {
+function Radio<Value>(
+  props: IRadioProps<Value> & { labelStyle?: React.CSSProperties }
+) {
   const {
     className,
     style,
@@ -17,6 +19,9 @@ function Radio<Value>(props: IRadioProps<Value>) {
     // value 不要放到 input 上去
     value,
     width,
+
+    labelStyle,
+
     ...others
   } = props;
   const disabledCtx = React.useContext(DisabledContext);
@@ -53,7 +58,9 @@ function Radio<Value>(props: IRadioProps<Value>) {
         />
       </span>
       {children !== undefined && (
-        <span className="zent-radio-label">{children}</span>
+        <span className="zent-radio-label" style={labelStyle}>
+          {children}
+        </span>
       )}
     </label>
   );
