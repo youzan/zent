@@ -1,4 +1,3 @@
-import each from 'lodash-es/each';
 const tinycolor = require('tinycolor2');
 
 export default {
@@ -7,7 +6,7 @@ export default {
     let checked = 0;
     let passed = 0;
 
-    each(keysToCheck, letter => {
+    keysToCheck.forEach(letter => {
       const v = data[letter];
 
       if (v) {

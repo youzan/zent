@@ -64,9 +64,7 @@ export function Checkbox<Value>(props: ICheckboxProps<Value>) {
   const propsRef = React.useRef(props);
   propsRef.current = props;
   const ctxOnChange = groupCtx && groupCtx.onChange;
-  const onChange: React.ChangeEventHandler<
-    HTMLInputElement
-  > = React.useCallback(
+  const onChange: React.ChangeEventHandler<HTMLInputElement> = React.useCallback(
     evt => {
       const { value, onChange } = propsRef.current;
       if (ctxOnChange) {

@@ -2,21 +2,11 @@ import * as React from 'react';
 import * as ReactDom from 'react-dom';
 import { PureComponent } from 'react';
 import classnames from 'classnames';
-import has from 'lodash-es/has';
-import get from 'lodash-es/get';
-import every from 'lodash-es/every';
-import assign from 'lodash-es/assign';
-import debounce from 'lodash-es/debounce';
-import isEqual from 'lodash-es/isEqual';
-import forEach from 'lodash-es/forEach';
-import noop from 'lodash-es/noop';
-import size from 'lodash-es/size';
-import some from 'lodash-es/some';
-import map from 'lodash-es/map';
-import isFunction from 'lodash-es/isFunction';
-import includes from 'lodash-es/includes';
-import throttle from 'lodash-es/throttle';
+import debounce from '../utils/debounce';
+import isEqual from '../utils/isEqual';
+import throttle from '../utils/throttle';
 
+import noop from '../utils/noop';
 import measureScrollbar from '../utils/dom/measureScrollbar';
 import WindowResizeHandler from '../utils/component/WindowResizeHandler';
 import WindowEventHandler from '../utils/component/WindowEventHandler';
@@ -26,6 +16,7 @@ import {
   getLeafColumns,
   needFixBatchComps,
   isElementInView,
+  mapDOMNodes,
 } from './utils';
 import { I18nReceiver as Receiver, II18nLocaleGrid } from '../i18n';
 import BlockLoading from '../loading/BlockLoading';
@@ -156,7 +147,7 @@ export class Grid<Data = any> extends PureComponent<
     const expandRowKeys = this.getExpandRowKeys(props);
     this.store.setState({
       columns: this.getColumns(props, props.columns, expandRowKeys),
-      selectedRowKeys: get(props, 'selection.selectedRowKeys'),
+      selectedRowKeys: props?.selection?.selectedRowKeys,
     });
     this.setScrollPosition('both');
 
@@ -200,29 +191,25 @@ export class Grid<Data = any> extends PureComponent<
       return;
     }
 
-    const bodyRows =
-      (this.bodyTable &&
-        this.bodyTable.querySelectorAll(`tbody .${prefix}-grid-tr`)) ||
-      [];
-    const expandRows =
-      (this.bodyTable &&
-        this.bodyTable.querySelectorAll(
-          `tbody .${prefix}-grid-tr__expanded`
-        )) ||
-      [];
+    const bodyRows = this.bodyTable?.querySelectorAll(
+      `tbody .${prefix}-grid-tr`
+    );
+    const expandRows = this.bodyTable?.querySelectorAll(
+      `tbody .${prefix}-grid-tr__expanded`
+    );
     const headRows = this.scrollHeader
       ? this.scrollHeader.querySelectorAll('thead')
       : (this.bodyTable as HTMLDivElement).querySelectorAll('thead');
 
-    const fixedColumnsBodyRowsHeight = map(
+    const fixedColumnsBodyRowsHeight = mapDOMNodes(
       bodyRows,
       (row: Element) => row.getBoundingClientRect().height || 'auto'
     );
-    const fixedColumnsHeadRowsHeight = map(
+    const fixedColumnsHeadRowsHeight = mapDOMNodes(
       headRows,
       (row: Element) => row.getBoundingClientRect().height || 'auto'
     );
-    const fixedColumnsBodyExpandRowsHeight = map(
+    const fixedColumnsBodyExpandRowsHeight = mapDOMNodes(
       expandRows,
       (row: Element) => row.getBoundingClientRect().height || 'auto'
     );
@@ -252,7 +239,7 @@ export class Grid<Data = any> extends PureComponent<
   };
 
   onChange = (conf: IGridOnChangeConfig) => {
-    const params = assign({}, this.store.getState('conf'), conf);
+    const params = Object.assign({}, this.store.getState('conf'), conf);
     this.store.setState('conf');
     this.props.onChange && this.props.onChange(params);
   };
@@ -267,19 +254,18 @@ export class Grid<Data = any> extends PureComponent<
 
   getDataKey = (data: Data, rowIndex: number | string) => {
     const { rowKey } = this.props;
-    return rowKey ? get(data, rowKey) : rowIndex;
+    return rowKey ? data?.[rowKey] : rowIndex;
   };
 
   isAnyColumnsFixed = () => {
     return this.store.getState('isAnyColumnsFixed', () =>
-      some(this.store.getState('columns'), column => !!column.fixed)
+      (this.store.getState('columns') ?? []).some(column => !!column.fixed)
     );
   };
 
   isAnyColumnsLeftFixed = () => {
     return this.store.getState('isAnyColumnsLeftFixed', () =>
-      some(
-        this.store.getState('columns'),
+      (this.store.getState('columns') ?? []).some(
         column => column.fixed === 'left' || column.fixed === true
       )
     );
@@ -287,7 +273,9 @@ export class Grid<Data = any> extends PureComponent<
 
   isAnyColumnsRightFixed = () => {
     return this.store.getState('isAnyColumnsRightFixed', () =>
-      some(this.store.getState('columns'), column => column.fixed === 'right')
+      (this.store.getState('columns') ?? []).some(
+        column => column.fixed === 'right'
+      )
     );
   };
 
@@ -307,7 +295,7 @@ export class Grid<Data = any> extends PureComponent<
     e: React.MouseEvent<HTMLSpanElement>
   ) => {
     const { onExpand } = this.props;
-    const expandRowKeys = map(this.state.expandRowKeys, (row, index) =>
+    const expandRowKeys = (this.state.expandRowKeys ?? []).map((row, index) =>
       index === clickRow ? !row : row
     );
     this.store.setState({
@@ -316,7 +304,7 @@ export class Grid<Data = any> extends PureComponent<
     this.setState({
       expandRowKeys,
     });
-    if (isFunction(onExpand)) {
+    if (typeof onExpand === 'function') {
       onExpand({
         expanded: expandRowKeys[clickRow],
         data: rowData,
@@ -366,14 +354,14 @@ export class Grid<Data = any> extends PureComponent<
         const rowIndex = this.getDataKey(item, index);
 
         if (selection.getCheckboxProps) {
-          return !get(this.getCheckboxPropsByItem(item, rowIndex), 'disabled');
+          return !this.getCheckboxPropsByItem(item, rowIndex)?.disabled;
         }
         return true;
       });
 
-      const checkboxAllDisabled = every(data, (item, index) => {
+      const checkboxAllDisabled = data.every((item, index) => {
         const rowIndex = this.getDataKey(item, index);
-        return get(this.getCheckboxPropsByItem(item, rowIndex), 'disabled');
+        return this.getCheckboxPropsByItem(item, rowIndex)?.disabled;
       });
 
       const selectionColumn: IGridInnerColumn<Data> = {
@@ -709,7 +697,7 @@ export class Grid<Data = any> extends PureComponent<
   getEmpty = (i18n: II18nLocaleGrid) => {
     const { datasets, emptyLabel } = this.props;
 
-    if (size(datasets) === 0) {
+    if (!datasets || datasets.length === 0) {
       return (
         <div className={`${prefix}-grid-empty`} key="empty">
           {emptyLabel || i18n.emptyLabel}
@@ -734,14 +722,12 @@ export class Grid<Data = any> extends PureComponent<
 
   onSelectChange = (selectedRowKeys: string[], data: Data | Data[]) => {
     const { datasets, selection } = this.props;
-    const onSelect: IGridSelection<Data>['onSelect'] = get(
-      selection,
-      'onSelect'
-    );
+    const onSelect: IGridSelection<Data>['onSelect'] = selection?.onSelect;
 
-    if (isFunction(onSelect)) {
-      const selectedRows = (datasets || []).filter((row, i) =>
-        includes(selectedRowKeys, this.getDataKey(row, i))
+    if (typeof onSelect === 'function') {
+      const selectedRows = (datasets || []).filter(
+        (row, i) =>
+          (selectedRowKeys ?? []).indexOf(this.getDataKey(row, i)) !== -1
       );
       onSelect(selectedRowKeys, selectedRows, data);
     }
@@ -767,15 +753,17 @@ export class Grid<Data = any> extends PureComponent<
     type,
     data
   ) => {
-    let selectedRowKeys = this.store.getState('selectedRowKeys').slice();
+    let selectedRowKeys = (
+      this.store.getState('selectedRowKeys') ?? []
+    ).slice();
 
     const changeRowKeys = [];
 
     switch (type) {
       case 'selectAll':
-        forEach(data, (key, index) => {
+        (data || []).forEach((key, index) => {
           const rowIndex = this.getDataKey(key, index);
-          if (!includes(selectedRowKeys, rowIndex)) {
+          if (selectedRowKeys.indexOf(rowIndex) === -1) {
             selectedRowKeys = selectedRowKeys.concat(rowIndex);
             changeRowKeys.push(rowIndex);
           }
@@ -785,7 +773,7 @@ export class Grid<Data = any> extends PureComponent<
         selectedRowKeys = (data || []).filter((key, index) => {
           const rowIndex = this.getDataKey(key, index);
           let rlt = true;
-          if (includes(selectedRowKeys, rowIndex)) {
+          if (selectedRowKeys.indexOf(rowIndex) !== -1) {
             rlt = false;
             changeRowKeys.push(key);
           }
@@ -798,8 +786,8 @@ export class Grid<Data = any> extends PureComponent<
 
     this.store.setState({ selectedRowKeys });
 
-    const changeRow = (data || []).filter((row, i) =>
-      includes(changeRowKeys, this.getDataKey(row, i))
+    const changeRow = (data || []).filter(
+      (row, i) => changeRowKeys.indexOf(this.getDataKey(row, i)) !== -1
     );
 
     this.onSelectChange(selectedRowKeys, changeRow);
@@ -876,7 +864,7 @@ export class Grid<Data = any> extends PureComponent<
   }
 
   componentWillReceiveProps(nextProps: IGridProps<Data>) {
-    if (nextProps.selection && has(nextProps.selection, 'selectedRowKeys')) {
+    if (nextProps.selection?.hasOwnProperty('selectedRowKeys')) {
       this.store.setState({
         selectedRowKeys: nextProps.selection.selectedRowKeys || [],
         columns: this.getColumns(nextProps),
@@ -898,7 +886,7 @@ export class Grid<Data = any> extends PureComponent<
     }
 
     if (
-      has(nextProps, 'datasets') &&
+      nextProps.hasOwnProperty('datasets') &&
       nextProps.datasets !== this.props.datasets
     ) {
       this.checkboxPropsCache = {};

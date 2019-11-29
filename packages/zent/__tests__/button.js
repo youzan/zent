@@ -238,7 +238,7 @@ describe('<Button />', () => {
   });
 
   test('Directive', () => {
-    function Link({ to, children, ...rest }) {
+    function MyLink({ to, children, ...rest }) {
       return (
         <a href={`/#${to}`} {...rest}>
           {children}
@@ -248,7 +248,7 @@ describe('<Button />', () => {
     const tree = renderIntoDocument(
       <Wrapper>
         <ButtonDirective>
-          <Link to="/path" />
+          <MyLink to="/path" />
         </ButtonDirective>
       </Wrapper>
     );

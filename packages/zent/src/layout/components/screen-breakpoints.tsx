@@ -1,4 +1,3 @@
-import has from 'lodash-es/has';
 import {
   ILayoutResponsiveValue,
   LayoutBreakPoint,
@@ -9,13 +8,10 @@ type LayoutBreakPointMap = Record<LayoutBreakPoint, LayoutBreakPointName>;
 
 const BREAKPOINT_MAP = (Object.keys(
   LayoutBreakPoint
-) as LayoutBreakPointName[]).reduce(
-  (m, k) => {
-    m[LayoutBreakPoint[k]] = k;
-    return m;
-  },
-  {} as LayoutBreakPointMap
-);
+) as LayoutBreakPointName[]).reduce((m, k) => {
+  m[LayoutBreakPoint[k]] = k;
+  return m;
+}, {} as LayoutBreakPointMap);
 
 export const BREAKPOINTS = Object.keys(BREAKPOINT_MAP) as LayoutBreakPoint[];
 
@@ -38,7 +34,7 @@ export function getValueForBreakpoint(
     }
   }
 
-  if (has(valueMap, 'fallback')) {
+  if (valueMap.hasOwnProperty('fallback')) {
     return valueMap.fallback;
   }
 

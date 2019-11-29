@@ -1,7 +1,7 @@
 import * as React from 'react';
 import cx from 'classnames';
-import noop from 'lodash-es/noop';
 
+import noop from '../utils/noop';
 import CommonMenu from './CommonMenu';
 import MenuItem from './MenuItem';
 import SubMenu from './SubMenu';

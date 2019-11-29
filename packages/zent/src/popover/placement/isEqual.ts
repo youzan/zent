@@ -1,4 +1,4 @@
-import isEqual from 'lodash-es/isEqual';
+import isEqual from '../../utils/isEqual';
 import { IPopoverPosition } from '../position-function';
 
 export default function isEqualPlacement(

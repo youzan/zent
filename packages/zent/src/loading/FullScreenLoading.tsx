@@ -1,6 +1,5 @@
 import * as React from 'react';
 import cx from 'classnames';
-import isNumber from 'lodash-es/isNumber';
 
 import useDelayed from './hooks/useDelayed';
 import { IFullScreenLoadingProps } from './props';
@@ -26,7 +25,7 @@ export function FullScreenLoading(props: IFullScreenLoadingProps) {
     return null;
   }
 
-  const style = isNumber(zIndex) ? { zIndex } : NO_STYLE;
+  const style = typeof zIndex === 'number' ? { zIndex } : NO_STYLE;
 
   return (
     <Portal

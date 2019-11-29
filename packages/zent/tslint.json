@@ -12,7 +12,7 @@
       },
       {
         "name": ["document", "createElement"],
-        "message": "Use utils/dom/createElement instead"
+        "message": "Use utils/dom/createElement"
       }
     ],
     "ban-ts-ignore": true,
@@ -94,6 +94,10 @@
       [
         "warning",
         "warning doesn't support compile to ES module, please use cjs require"
+      ],
+      [
+        "lodash-es",
+        "Use built-ins or functions inside `utils`, functions on Object and Array are safe to use."
       ]
     ]
   }

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
-import debounce from 'lodash-es/debounce';
+import debounce from '../utils/debounce';
 
 import { I18nReceiver as Receiver, II18nLocalePreviewImage } from '../i18n';
 import Portal from '../portal';

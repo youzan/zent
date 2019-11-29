@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
 import classnames from 'classnames';
-import noop from 'lodash-es/noop';
-import assign from 'lodash-es/assign';
 
+import noop from '../utils/noop';
 import Popover from '../popover';
 import Icon from '../icon';
 import { I18nReceiver as Receiver, II18nLocaleCascader } from '../i18n';
@@ -106,7 +105,7 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
     nextProps: ICascaderProps,
     { prevProps, open }: ICascaderState
   ) {
-    const newState: Partial<ICascaderState> = {
+    let newState: Partial<ICascaderState> = {
       prevProps: nextProps,
     };
 
@@ -117,7 +116,7 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
       // 在即时选中状态，展示通过计算的下一个 tab
       const chooseNext = open && nextProps.changeOnSelect;
 
-      assign(
+      newState = Object.assign(
         newState,
         resetCascaderValue(nextProps.value, nextProps.options, chooseNext)
       );
@@ -237,7 +236,7 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
     // 选择即改变只针对click
     if (hasClose || (changeOnSelect && triggerType === 'click')) {
       const activeObj = resetCascaderValue(value, options);
-      assign(obj, activeObj);
+      Object.assign(obj, activeObj);
       this.setState(obj as any, () => {
         this.props.onChange(activeObj.activeValue);
       });
@@ -246,7 +245,7 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
     }
   };
 
-  getPopoverContent(i18n) {
+  getPopoverContent(i18n: II18nLocaleCascader) {
     const { type, prefix, title, options, expandTrigger } = this.props;
     const { activeId, value, isLoading, loadingStage } = this.state;
     let PopoverContentType:

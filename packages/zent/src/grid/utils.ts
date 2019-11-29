@@ -92,3 +92,18 @@ export function isElementInView(el: Element) {
     return false;
   }
 }
+
+export function mapDOMNodes<T extends Node, V>(
+  nodes: NodeListOf<T>,
+  callback: (val: T, idx: number) => V
+): V[] {
+  const result: V[] = [];
+  if (!nodes) {
+    return result;
+  }
+
+  for (let i = 0; i < nodes.length; i++) {
+    result.push(callback(nodes[i], i));
+  }
+  return result;
+}
