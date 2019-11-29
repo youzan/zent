@@ -8,6 +8,10 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 7.3.2(2019-11-29)
+
+- ✨ `Link` moves to its own directory, compatible with `Disabled`
+
 ### 7.3.1(2019-11-27)
 
 - ✨ New `Link` component to replace `zent-link` CSS class
