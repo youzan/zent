@@ -249,11 +249,7 @@ class UploadPopup extends Component<any, any> {
     let { localFiles } = this.state;
     localFiles = swapArray(localFiles, fromIndex, toIndex);
     this.setState({
-      localFiles: localFiles.map((item, index) => {
-        // 拖拽移动以后重建索引
-        item[UID_KEY] = index;
-        return item;
-      }),
+      localFiles,
     });
   };
 
