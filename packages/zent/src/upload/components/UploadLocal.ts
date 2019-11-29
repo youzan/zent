@@ -1,11 +1,10 @@
-import isFunction from 'lodash-es/isFunction';
 import isPromise from '../../utils/isPromise';
 
 export default function uploadLocalImage(options, uploadConfig) {
   return new Promise((resolve, reject) => {
     const { onUpload } = options;
 
-    if (!isFunction(onUpload)) {
+    if (typeof onUpload !== 'function') {
       return reject('onUpload is not a function');
     }
 

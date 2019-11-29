@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
-import debounce from 'lodash-es/debounce';
-import identity from 'lodash-es/identity';
+import debounce from '../utils/debounce';
+import identity from '../utils/identity';
 import Pop from '../pop';
 import WindowResizeHandler from '../utils/component/WindowResizeHandler';
 

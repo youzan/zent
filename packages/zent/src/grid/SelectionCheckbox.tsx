@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import includes from 'lodash-es/includes';
 import Checkbox, { ICheckboxProps } from '../checkbox';
 import Store from './Store';
 
@@ -41,7 +40,7 @@ class SelectionCheckbox extends PureComponent<
 
   getCheckState = (props: IGridSelectionCheckboxProps) => {
     const { store, rowIndex } = props;
-    return includes(store.getState('selectedRowKeys'), rowIndex);
+    return (store.getState('selectedRowKeys') ?? []).indexOf(rowIndex) !== -1;
   };
 
   componentDidMount() {

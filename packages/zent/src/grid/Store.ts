@@ -1,10 +1,3 @@
-import assign from 'lodash-es/assign';
-import get from 'lodash-es/get';
-import has from 'lodash-es/has';
-import indexOf from 'lodash-es/indexOf';
-import keys from 'lodash-es/keys';
-import forEach from 'lodash-es/forEach';
-
 export default class Store {
   state: {
     [propsName: string]: any;
@@ -14,9 +7,9 @@ export default class Store {
   } = {};
 
   setState = (nextState: any) => {
-    this.state = assign({}, this.state, nextState);
-    forEach(keys(nextState), stateName => {
-      forEach(get(this.listeners, stateName), listener => {
+    this.state = { ...this.state, ...nextState };
+    Object.keys(nextState).forEach(stateName => {
+      (this.listeners[stateName] ?? []).forEach(listener => {
         listener();
       });
     });
@@ -24,20 +17,19 @@ export default class Store {
 
   getState(propsName?: string, callBack?: () => void): any {
     if (propsName) {
-      const props = get(this.state, propsName);
-      if (callBack && !has(this.state, propsName)) {
+      if (callBack && !this.state.hasOwnProperty(propsName)) {
         this.setState({
           [propsName]: callBack(),
         });
         return this.getState(propsName);
       }
-      return props;
+      return this.state[propsName];
     }
     return this.state;
   }
 
   trigger = (eventName: string) => {
-    forEach(get(this.listeners, eventName), listener => {
+    (this.listeners[eventName] ?? []).forEach(listener => {
       listener();
     });
   };
@@ -47,10 +39,9 @@ export default class Store {
     this.listeners[eventName].push(listener);
 
     return () => {
-      const listeners = get(this.listeners, eventName);
-      const index = indexOf(listeners, listener);
-
-      if (Array.isArray(listeners)) {
+      const listeners = this.listeners[eventName] ?? [];
+      const index = listeners.indexOf(listener);
+      if (index !== -1) {
         this.listeners[eventName].splice(index, 1);
       }
     };

@@ -13,9 +13,7 @@ export type IFormDateRangeQuickPickerFieldProps = IFormComponentProps<
   Omit<IDateRangeQuickPickerProps, 'value'>
 >;
 
-export const FormDateRangeQuickPickerField: React.FunctionComponent<
-  IFormDateRangeQuickPickerFieldProps
-> = props => {
+export const FormDateRangeQuickPickerField: React.FunctionComponent<IFormDateRangeQuickPickerFieldProps> = props => {
   return (
     <FormField
       {...props}

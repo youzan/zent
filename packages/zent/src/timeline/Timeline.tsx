@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
 import cx from 'classnames';
-import isString from 'lodash-es/isString';
 import { isElement } from 'react-is';
 
 import { TimelineItem, ITimelineItemProps } from './Item';
@@ -9,7 +8,7 @@ import { TimelineLegend } from './Dot';
 
 function normalize(timeline, size) {
   return timeline.map((item, index) => {
-    if (isString(item)) {
+    if (typeof item === 'string') {
       return {
         key: item,
         label: item,

@@ -1,5 +1,3 @@
-import forOwn from 'lodash-es/forOwn';
-
 const transforms = {
   borderRadius: value => {
     return {
@@ -94,9 +92,12 @@ const transforms = {
 
 const autoprefix = elements => {
   const prefixed = {};
-  forOwn(elements, (styles, element) => {
+  Object.keys(elements).forEach(element => {
+    const styles = elements[element];
     let expanded = {};
-    forOwn(styles, (value, key) => {
+
+    Object.keys(styles).forEach(key => {
+      const value = styles[key];
       const transform = transforms[key];
       if (transform) {
         expanded = { ...expanded, ...transform(value) };

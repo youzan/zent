@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Component } from 'react';
-import isFunction from 'lodash-es/isFunction';
 
 import ErrorBoundaryFallbackComponent from './Fallback';
 import catchError from './catchError';
@@ -40,7 +39,7 @@ export class ErrorBoundary extends Component<IErrorBoundaryProps> {
   componentDidCatch(error, info) {
     const { onError } = this.props;
 
-    if (isFunction(onError)) {
+    if (typeof onError === 'function') {
       // In case onError throws
       try {
         onError(error, getComponentStack(info));

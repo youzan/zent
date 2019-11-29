@@ -2,8 +2,7 @@ import * as React from 'react';
 import { PureComponent } from 'react';
 import * as ReactDOM from 'react-dom';
 
-import isNil from 'lodash-es/isNil';
-
+import isNil from '../../utils/isNil';
 import helper from '../helper';
 import Pagination from '../../pagination';
 import Checkbox from '../../checkbox';

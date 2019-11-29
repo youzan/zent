@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
 import classNames from 'classnames';
-import isNumber from 'lodash-es/isNumber';
 import { IInputProps, IInputCoreProps, IInputClearEvent } from './types';
 import { InputCore } from './InputCore';
 import { TextArea } from './TextArea';
@@ -46,7 +45,10 @@ export class Input extends Component<IInputProps, IInputState> {
     if (!el) {
       return;
     }
-    if (isNumber(selectionStart) && isNumber(selectionEnd)) {
+    if (
+      typeof selectionStart === 'number' &&
+      typeof selectionEnd === 'number'
+    ) {
       el.setSelectionRange(selectionStart, selectionEnd);
     } else {
       el.select();

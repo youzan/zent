@@ -1,7 +1,7 @@
 import * as React from 'react';
 import cx from 'classnames';
 const autosize = require('autosize');
-import noop from 'lodash-es/noop';
+import noop from '../utils/noop';
 import { ITextAreaProps } from './types';
 import { createUseIMEComposition } from '../ime-composition';
 

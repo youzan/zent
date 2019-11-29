@@ -26,7 +26,6 @@
 
 import * as React from 'react';
 import cx from 'classnames';
-import assign from 'lodash-es/assign';
 import {
   findAll,
   TextMarkFindChunksFunction,
@@ -129,7 +128,7 @@ export function TextMark({
           });
           highlightStyles =
             isActive === true && activeStyle != null
-              ? assign({}, highlightStyle, activeStyle)
+              ? { ...highlightStyle, ...activeStyle }
               : highlightStyle;
 
           // Don't attach arbitrary props to DOM elements; this triggers React DEV warnings (https://fb.me/react-unknown-prop)
