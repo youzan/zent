@@ -38,7 +38,7 @@ class Cell<Data> extends Component<IGridCellProps<Data>> {
 
   shouldComponentUpdate(nextProps: IGridCellProps<Data>) {
     // 如果存在 bodyRender 属性则 render
-    if ((nextProps.column ?? {}).hasOwnProperty('bodyRender')) {
+    if (nextProps.column?.hasOwnProperty('bodyRender')) {
       return true;
     }
 

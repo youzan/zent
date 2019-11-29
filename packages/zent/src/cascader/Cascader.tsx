@@ -116,10 +116,10 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
       // 在即时选中状态，展示通过计算的下一个 tab
       const chooseNext = open && nextProps.changeOnSelect;
 
-      newState = {
-        ...newState,
-        ...resetCascaderValue(nextProps.value, nextProps.options, chooseNext),
-      };
+      newState = Object.assign(
+        newState,
+        resetCascaderValue(nextProps.value, nextProps.options, chooseNext)
+      );
     }
 
     return newState;
@@ -219,7 +219,7 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
     value = value.slice(0, stage - 1);
     value.push(item.id);
 
-    let obj: Partial<ICascaderState> = {
+    const obj: Partial<ICascaderState> = {
       value,
     };
 
@@ -236,7 +236,7 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
     // 选择即改变只针对click
     if (hasClose || (changeOnSelect && triggerType === 'click')) {
       const activeObj = resetCascaderValue(value, options);
-      obj = { ...obj, ...activeObj };
+      Object.assign(obj, activeObj);
       this.setState(obj as any, () => {
         this.props.onChange(activeObj.activeValue);
       });

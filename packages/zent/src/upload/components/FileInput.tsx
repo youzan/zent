@@ -99,7 +99,7 @@ export default class FileInput extends PureComponent<IFileInputProps, any> {
       errorMessages,
     } = this.props;
 
-    (files || []).forEach((file, index) => {
+    files?.forEach((file, index) => {
       if (maxAmount && index + initIndex >= maxAmount) {
         const message = formatErrorMessages(
           errorMessages.overMaxAmount,

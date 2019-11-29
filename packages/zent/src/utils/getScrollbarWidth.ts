@@ -14,12 +14,7 @@ function getScrollbarWidth() {
     return 0;
   }
   const scrollDiv = createElement('div');
-
-  const { style } = scrollDiv;
-  Object.keys(MEASURE_STYLE).forEach(k => {
-    style[k] = MEASURE_STYLE[k];
-  });
-
+  Object.assign(scrollDiv.style, MEASURE_STYLE);
   document.body.appendChild(scrollDiv);
   const scrollbarWidth =
     scrollDiv.getBoundingClientRect().width - scrollDiv.clientWidth;

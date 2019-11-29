@@ -191,12 +191,12 @@ export class Grid<Data = any> extends PureComponent<
       return;
     }
 
-    const bodyRows =
-      this.bodyTable &&
-      this.bodyTable.querySelectorAll(`tbody .${prefix}-grid-tr`);
-    const expandRows =
-      this.bodyTable &&
-      this.bodyTable.querySelectorAll(`tbody .${prefix}-grid-tr__expanded`);
+    const bodyRows = this.bodyTable?.querySelectorAll(
+      `tbody .${prefix}-grid-tr`
+    );
+    const expandRows = this.bodyTable?.querySelectorAll(
+      `tbody .${prefix}-grid-tr__expanded`
+    );
     const headRows = this.scrollHeader
       ? this.scrollHeader.querySelectorAll('thead')
       : (this.bodyTable as HTMLDivElement).querySelectorAll('thead');
@@ -239,7 +239,7 @@ export class Grid<Data = any> extends PureComponent<
   };
 
   onChange = (conf: IGridOnChangeConfig) => {
-    const params = { ...this.store.getState('conf'), ...conf };
+    const params = Object.assign({}, this.store.getState('conf'), conf);
     this.store.setState('conf');
     this.props.onChange && this.props.onChange(params);
   };
@@ -864,10 +864,7 @@ export class Grid<Data = any> extends PureComponent<
   }
 
   componentWillReceiveProps(nextProps: IGridProps<Data>) {
-    if (
-      nextProps.selection &&
-      nextProps.selection.hasOwnProperty('selectedRowKeys')
-    ) {
+    if (nextProps.selection?.hasOwnProperty('selectedRowKeys')) {
       this.store.setState({
         selectedRowKeys: nextProps.selection.selectedRowKeys || [],
         columns: this.getColumns(nextProps),
