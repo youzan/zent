@@ -87,7 +87,9 @@ describe('Breadcrumb', () => {
 
   it('will render a empty div without props or children', () => {
     const wrapper = mount(<Breadcrumb />);
-    expect(wrapper.contains(<div className="zent-breadcrumb" />)).toBe(true);
+    expect(
+      wrapper.containsMatchingElement(<div className="zent-breadcrumb" />)
+    ).toBe(true);
     expect(wrapper.find('div').text()).toBe('');
   });
 
@@ -184,6 +186,8 @@ describe('Breadcrumb', () => {
 
   it('can have custom className', () => {
     const wrapper = shallow(<Breadcrumb prefix="foo" className="bar" />);
-    expect(wrapper.contains(<div className="foo-breadcrumb bar" />)).toBe(true);
+    expect(
+      wrapper.containsMatchingElement(<div className="foo-breadcrumb bar" />)
+    ).toBe(true);
   });
 });

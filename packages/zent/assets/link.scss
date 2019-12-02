@@ -1,0 +1,54 @@
+@import './theme/default';
+@import './theme/font';
+
+@mixin link-grey($prop) {
+  @include theme-color($prop, stroke, 4);
+}
+
+/* styles begin */
+$link-primary: 4;
+$link-primary-hover: 5;
+$link-primary-active: 3;
+
+@mixin link-primary($prop) {
+  @include theme-color($prop, primary, $link-primary);
+}
+
+@mixin link-primary-hover($prop) {
+  @include theme-color($prop, primary, $link-primary-hover);
+}
+
+@mixin link-primary-active($prop) {
+  @include theme-color($prop, primary, $link-primary-active);
+}
+
+.zent-link {
+  @include font-normal;
+  @include link-primary(color);
+
+  text-decoration: none;
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 2px;
+
+  &:link,
+  &:visited,
+  &:focus {
+    @include link-primary(color);
+  }
+
+  &:hover {
+    @include link-primary-hover(color);
+    @include theme-color(background-color, stroke, 7);
+  }
+
+  &:active {
+    @include link-primary-active(color);
+    @include theme-color(background-color, stroke, 7);
+  }
+
+  &.zent-link__disabled {
+    @include link-grey(color);
+    cursor: not-allowed;
+  }
+}

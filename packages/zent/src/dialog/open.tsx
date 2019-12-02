@@ -1,10 +1,11 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Component, createRef } from 'react';
-import noop from 'lodash-es/noop';
-import uniqueId from 'lodash-es/uniqueId';
 import { Omit } from 'utility-types';
 
+import uniqueId from '../utils/uniqueId';
+import noop from '../utils/noop';
+import createElement from '../utils/dom/createElement';
 import isBrowser from '../utils/isBrowser';
 import Dialog, { IDialogProps } from './Dialog';
 
@@ -118,7 +119,7 @@ export function openDialog(options: Partial<IOpenDialogOption> = {}) {
 
   ensureUniqDialogInstance(dialogId);
 
-  const container = document.createElement('div');
+  const container = createElement('div');
 
   // 确保多次调用close不会报错
   const closeHandler = (evt: unknown) => {

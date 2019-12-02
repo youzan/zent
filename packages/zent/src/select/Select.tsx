@@ -4,12 +4,10 @@
 
 import * as React from 'react';
 import cx from 'classnames';
-import omit from 'lodash-es/omit';
-import isEqual from 'lodash-es/isEqual';
-import noop from 'lodash-es/noop';
-import cloneDeep from 'lodash-es/cloneDeep';
-import assign from 'lodash-es/assign';
 
+import isEqual from '../utils/isEqual';
+import omit from '../utils/omit';
+import noop from '../utils/noop';
 import Popover from '../popover';
 import Option from './components/Option';
 import Trigger from './trigger';
@@ -23,7 +21,7 @@ const { Content } = Popover;
 
 export interface ISelectProps {
   data: unknown[];
-  tags?: unknown[];
+  tags?: boolean;
   value?: any;
   index?: any;
   disabled?: boolean;
@@ -54,8 +52,14 @@ export interface ISelectProps {
   className?: string;
   popupClassName?: string;
   autoWidth?: boolean;
+
+  /* Add a reset option */
   resetOption?: boolean;
   resetText?: string;
+
+  /* Retain selected option with null as its value. Valid iff resetOption is false */
+  retainNullOption?: boolean;
+
   width?: number | string;
   prefix?: string;
   simple?: boolean;
@@ -78,6 +82,8 @@ export class Select extends React.Component<ISelectProps, any> {
     resetOption: false,
     resetText: '...',
 
+    retainNullOption: false,
+
     // 内部状态标记，默认初始值为 null
     value: null,
     index: null,
@@ -96,22 +102,20 @@ export class Select extends React.Component<ISelectProps, any> {
   popover: Popover | null = null;
   popup: React.ComponentType<any> | null = null;
 
-  constructor(props) {
+  constructor(props: ISelectProps) {
     super(props);
 
-    this.state = assign(
-      {
-        selectedItems: [],
-        selectedItem: {
-          value: '',
-          text: '',
-        },
-
-        // popover content 位置就绪可以进行 focus 操作的标记.
-        optionsReady: false,
+    this.state = {
+      selectedItems: [],
+      selectedItem: {
+        value: '',
+        text: '',
       },
-      props
-    );
+
+      // popover content 位置就绪可以进行 focus 操作的标记.
+      optionsReady: false,
+      ...props,
+    };
   }
 
   uniformedData: any;
@@ -170,7 +174,7 @@ export class Select extends React.Component<ISelectProps, any> {
           }
 
           // hacky the quirk when optionText = 'value' and avoid modify props
-          const optCopy = cloneDeep(option);
+          const optCopy = { ...option };
 
           optCopy.cid = `${index}`;
           if (optionValue) {
@@ -191,11 +195,12 @@ export class Select extends React.Component<ISelectProps, any> {
         React.Children.map(children, (item, index) => {
           let value = item.props.value;
           value = typeof value === 'undefined' ? item : value;
-          return assign({}, item.props, {
+          return {
+            ...item.props,
             value,
             cid: `${index}`,
             text: item.props.children,
-          });
+          };
         })
       );
     }
@@ -323,6 +328,8 @@ export class Select extends React.Component<ISelectProps, any> {
       optionText,
       tags,
       onChange,
+      retainNullOption,
+      resetOption,
     } = this.props;
     const { selectedItems } = this.state;
     if (!selectedItem) {
@@ -337,7 +344,10 @@ export class Select extends React.Component<ISelectProps, any> {
       if (!selectedItems.some(item => item.cid === selectedItem.cid)) {
         selectedItems.push(selectedItem);
       }
-    } else if (selectedItem.value === null) {
+    } else if (
+      selectedItem.value === null &&
+      (resetOption || !retainNullOption)
+    ) {
       // customize reset option
       selectedItem = {};
     }

@@ -4,8 +4,74 @@
 
 ### 升级指南
 
+- [7.x 升级指南](./changelog-v7)
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
+
+### 7.3.2(2019-11-29)
+
+- ✨ `Link` 组件独立目录，同时兼容 `Disabled` 组件
+
+### 7.3.1(2019-11-27)
+
+- ✨ 新增 `Link` 组件替换 `zent-link` CSS 的使用场景
+- ✨ `Radio` 和 `Checkbox` 新增 `labelStyle`
+- 🦀️ 修复 `ButtonDirective` 样式问题
+- 🦀️ 修复打包编译时读取到的包版本和发布的版本不一致的问题
+- 🦀️ 回滚 `Radio` 文字标签的 `display` 为 `inline`
+- 🦀️ 修复 `RadioGroup` 内非 `Radio` 组件不可见的问题
+- 🦀️ 修复 `CheckboxGroup` 内非 `Checkbox` 组件不可见的问题
+
+### 7.3.0(2019-11-25)
+
+- 🎉 隔离不同版本 zent 的样式，避免页面上存在两份 zent 时的样式污染。
+- 🎉 增加了一批编译期常量，可在 TypeScript 或者 SCSS 文件内使用，类似 C 语言的 `__FILE__` 这种变量
+- 🦀️ 更新 `BlockHeader` 内部图标颜色
+- 🦀️ 修复 `Grid` 批量操作导致滚动展示异常的问题
+- 🦀️ 修复 `FormRadioGroupField` `defaultValue` 的判空问题
+
+#### 样式隔离可能的不兼容影响
+
+- 如果有代码直接使用了 zent 的 CSS 样式，但是没有使用 zent 的组件，这个版本之后这些使用方式都会失效。
+- 部分自定义样式如果优先级和组件库内的是一样的，但是依赖样式出现的顺序来实现覆盖的，在这个版本之后可能会遇到自定义样式失效的问题；解决方案是增加一个自定义类名，提高自定义样式的优先级。
+
+#### 已知受影响的使用场景
+
+- 直接使用 `Icon` CSS 样式的请使用 `Icon` 组件
+- 直接使用 `Breadcrumb` CSS 样式的请使用 `Breadcrumb` 组件
+- 使用 `zent-link` CSS 样式的请使用 `Link` 组件，这个组件就是一个 `a` 标签，封装了样式
+
+### 7.2.0(2019-11-18)
+
+- 🎉 新增 `IMEComposition` 组件，同时对有用到 `input` 的组件内部做了兼容处理
+- ✨ `Grid` 添加批量操作支持
+- ✨ `Pagination` 增加到达最后一页时的提示支持
+- ✨ 升级 `date-fns` 到 2.x 版本
+- ✨ Fork `fecha`，用 TypeScript 重写；官方的包类型定义问题反反复复出现，不跟他们玩了
+- 📚 扩充了 `Form` 的上手文档
+- 🦀️ 增大 `BlockHeader` 的图标
+- 🦀️ 修复 `Radio` 以及 `Checkbox` 的高度问题，现在不会有多余的垂直方向空白了
+- 🦀️ 修复了 `useFieldArrayValue` 数据丢失的问题
+- 🦀️ 优化 `Form` 默认的错误渲染函数处理 `undefined` 的逻辑
+- 🦀️ 修复 `FormSelectField`, `Form` 以及 `FieldSet` 的类型定义问题
+- 🦀️ 修复 `Switch`, `CopyButton` 以及 `DatePicker` 的类型定义问题
+
+### 7.1.0(2019-11-08)
+
+- ✨ `Select` 增加 `retainNullOption` 参数允许选中值为 `null` 的选项
+- ✨ 新增 `Notify.info`
+- 📚 全新的图标列表
+- 🦀️ 修复 `Progress` 在 Safari 下页面缩放时的样式错位问题
+- 🦀️ 修复 `Form` 和 `Cascader` 的类型定义
+- 🦀️ 更新 `Pagination` 和 `QuarterPicker` 中 `i18n` 的使用方法
+
+### 7.0.1 (2019-11-01)
+
+- 🦀️ `Form` 增加 `default export`
+
+### 7.0.0 (2019-11-01)
+
+改动较多，参考[这个文档](./changelog-v7)。
 
 ### 6.6.2 (2019-02-26)
 

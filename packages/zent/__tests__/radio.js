@@ -146,7 +146,9 @@ describe('Radio Section', () => {
 describe('RadioGroup Section', () => {
   it('RadioGroup will render an empty div without any children', () => {
     const wrapper = mount(<Group />);
-    expect(wrapper.contains(<div className="zent-radio-group" />)).toBe(true);
+    expect(
+      wrapper.containsMatchingElement(<div className="zent-radio-group" />)
+    ).toBe(true);
   });
 
   it('RadioGroup can have custom prefix, className, style object', () => {

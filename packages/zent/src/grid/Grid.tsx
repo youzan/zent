@@ -1,24 +1,24 @@
 import * as React from 'react';
+import * as ReactDom from 'react-dom';
 import { PureComponent } from 'react';
 import classnames from 'classnames';
-import has from 'lodash-es/has';
-import get from 'lodash-es/get';
-import every from 'lodash-es/every';
-import assign from 'lodash-es/assign';
-import debounce from 'lodash-es/debounce';
-import isEqual from 'lodash-es/isEqual';
-import forEach from 'lodash-es/forEach';
-import noop from 'lodash-es/noop';
-import size from 'lodash-es/size';
-import some from 'lodash-es/some';
-import map from 'lodash-es/map';
-import isFunction from 'lodash-es/isFunction';
-import includes from 'lodash-es/includes';
+import debounce from '../utils/debounce';
+import isEqual from '../utils/isEqual';
+import throttle from '../utils/throttle';
 
+import noop from '../utils/noop';
 import measureScrollbar from '../utils/dom/measureScrollbar';
 import WindowResizeHandler from '../utils/component/WindowResizeHandler';
-import { I18nReceiver as Receiver } from '../i18n';
-import { groupedColumns, getLeafColumns } from './utils';
+import WindowEventHandler from '../utils/component/WindowEventHandler';
+import BatchComponents from './BatchComponents';
+import {
+  groupedColumns,
+  getLeafColumns,
+  needFixBatchComps,
+  isElementInView,
+  mapDOMNodes,
+} from './utils';
+import { I18nReceiver as Receiver, II18nLocaleGrid } from '../i18n';
 import BlockLoading from '../loading/BlockLoading';
 import Store from './Store';
 import ColGroup from './ColGroup';
@@ -27,7 +27,7 @@ import Body from './Body';
 import Footer from './Footer';
 import SelectionCheckbox from './SelectionCheckbox';
 import SelectionCheckboxAll, {
-  IGridSelctionAllCheckboxProps,
+  IGridSelectionAllCheckboxProps,
 } from './SelectionCheckboxAll';
 import {
   IGridColumn,
@@ -40,12 +40,14 @@ import {
   IGridScrollDelta,
   IGridSelection,
   IGridExpandation,
-  IGridRowClickHander,
+  IGridRowClickHandler,
   IGridOnExpandHandler,
   IGridInnerFixedType,
   IGridColumnBodyRenderFunc,
+  IGridBatchRender,
 } from './types';
 import { ICheckboxEvent } from '../checkbox';
+import isBrowser from '../utils/isBrowser';
 
 function stopPropagation(e: React.MouseEvent) {
   e.stopPropagation();
@@ -74,13 +76,15 @@ export interface IGridProps<Data = any> {
   rowClassName?: GridRowClassNameType<Data>;
   pageInfo?: IGridPageInfo;
   paginationType?: GridPaginationType;
-  onRowClick?: IGridRowClickHander<Data>;
+  onRowClick?: IGridRowClickHandler<Data>;
   ellipsis?: boolean;
   onExpand?: IGridOnExpandHandler<Data>;
   components?: {
     row?: React.ComponentType;
   };
   rowProps?: (data: Data, index: number) => any;
+  batchRender?: IGridBatchRender;
+  stickyBatch?: boolean;
 }
 
 export interface IGridState {
@@ -113,6 +117,7 @@ export class Grid<Data = any> extends PureComponent<
     onRowClick: noop,
     ellipsis: false,
     onExpand: noop,
+    stickyBatch: false,
   };
 
   mounted = false;
@@ -122,7 +127,11 @@ export class Grid<Data = any> extends PureComponent<
     };
   } = {};
   store: Store = new Store();
-  tableNode: HTMLDivElement | null = null;
+  gridNode = React.createRef<HTMLDivElement>();
+  footNode = React.createRef<Footer>();
+  footEl: Element;
+  headerEl: Element;
+  headerNode = React.createRef<Header<Data>>();
   bodyTable: HTMLDivElement | null = null;
   leftBody: HTMLDivElement | null = null;
   rightBody: HTMLDivElement | null = null;
@@ -138,7 +147,7 @@ export class Grid<Data = any> extends PureComponent<
     const expandRowKeys = this.getExpandRowKeys(props);
     this.store.setState({
       columns: this.getColumns(props, props.columns, expandRowKeys),
-      selectedRowKeys: get(props, 'selection.selectedRowKeys'),
+      selectedRowKeys: props?.selection?.selectedRowKeys,
     });
     this.setScrollPosition('both');
 
@@ -172,39 +181,35 @@ export class Grid<Data = any> extends PureComponent<
   }
 
   syncFixedTableRowHeight = () => {
-    if (!this.mounted || !this.tableNode) {
+    if (!this.mounted || !this.gridNode.current) {
       return;
     }
 
-    const tableRect = this.tableNode.getBoundingClientRect();
+    const tableRect = this.gridNode.current.getBoundingClientRect();
 
     if (tableRect.height !== undefined && tableRect.height <= 0) {
       return;
     }
 
-    const bodyRows =
-      (this.bodyTable &&
-        this.bodyTable.querySelectorAll(`tbody .${prefix}-grid-tr`)) ||
-      [];
-    const expandRows =
-      (this.bodyTable &&
-        this.bodyTable.querySelectorAll(
-          `tbody .${prefix}-grid-tr__expanded`
-        )) ||
-      [];
+    const bodyRows = this.bodyTable?.querySelectorAll(
+      `tbody .${prefix}-grid-tr`
+    );
+    const expandRows = this.bodyTable?.querySelectorAll(
+      `tbody .${prefix}-grid-tr__expanded`
+    );
     const headRows = this.scrollHeader
       ? this.scrollHeader.querySelectorAll('thead')
       : (this.bodyTable as HTMLDivElement).querySelectorAll('thead');
 
-    const fixedColumnsBodyRowsHeight = map(
+    const fixedColumnsBodyRowsHeight = mapDOMNodes(
       bodyRows,
       (row: Element) => row.getBoundingClientRect().height || 'auto'
     );
-    const fixedColumnsHeadRowsHeight = map(
+    const fixedColumnsHeadRowsHeight = mapDOMNodes(
       headRows,
       (row: Element) => row.getBoundingClientRect().height || 'auto'
     );
-    const fixedColumnsBodyExpandRowsHeight = map(
+    const fixedColumnsBodyExpandRowsHeight = mapDOMNodes(
       expandRows,
       (row: Element) => row.getBoundingClientRect().height || 'auto'
     );
@@ -234,7 +239,7 @@ export class Grid<Data = any> extends PureComponent<
   };
 
   onChange = (conf: IGridOnChangeConfig) => {
-    const params = assign({}, this.store.getState('conf'), conf);
+    const params = Object.assign({}, this.store.getState('conf'), conf);
     this.store.setState('conf');
     this.props.onChange && this.props.onChange(params);
   };
@@ -249,19 +254,18 @@ export class Grid<Data = any> extends PureComponent<
 
   getDataKey = (data: Data, rowIndex: number | string) => {
     const { rowKey } = this.props;
-    return rowKey ? get(data, rowKey) : rowIndex;
+    return rowKey ? data?.[rowKey] : rowIndex;
   };
 
   isAnyColumnsFixed = () => {
     return this.store.getState('isAnyColumnsFixed', () =>
-      some(this.store.getState('columns'), column => !!column.fixed)
+      (this.store.getState('columns') ?? []).some(column => !!column.fixed)
     );
   };
 
   isAnyColumnsLeftFixed = () => {
     return this.store.getState('isAnyColumnsLeftFixed', () =>
-      some(
-        this.store.getState('columns'),
+      (this.store.getState('columns') ?? []).some(
         column => column.fixed === 'left' || column.fixed === true
       )
     );
@@ -269,7 +273,9 @@ export class Grid<Data = any> extends PureComponent<
 
   isAnyColumnsRightFixed = () => {
     return this.store.getState('isAnyColumnsRightFixed', () =>
-      some(this.store.getState('columns'), column => column.fixed === 'right')
+      (this.store.getState('columns') ?? []).some(
+        column => column.fixed === 'right'
+      )
     );
   };
 
@@ -289,7 +295,7 @@ export class Grid<Data = any> extends PureComponent<
     e: React.MouseEvent<HTMLSpanElement>
   ) => {
     const { onExpand } = this.props;
-    const expandRowKeys = map(this.state.expandRowKeys, (row, index) =>
+    const expandRowKeys = (this.state.expandRowKeys ?? []).map((row, index) =>
       index === clickRow ? !row : row
     );
     this.store.setState({
@@ -298,7 +304,7 @@ export class Grid<Data = any> extends PureComponent<
     this.setState({
       expandRowKeys,
     });
-    if (isFunction(onExpand)) {
+    if (typeof onExpand === 'function') {
       onExpand({
         expanded: expandRowKeys[clickRow],
         data: rowData,
@@ -348,14 +354,14 @@ export class Grid<Data = any> extends PureComponent<
         const rowIndex = this.getDataKey(item, index);
 
         if (selection.getCheckboxProps) {
-          return !get(this.getCheckboxPropsByItem(item, rowIndex), 'disabled');
+          return !this.getCheckboxPropsByItem(item, rowIndex)?.disabled;
         }
         return true;
       });
 
-      const checkboxAllDisabled = every(data, (item, index) => {
+      const checkboxAllDisabled = data.every((item, index) => {
         const rowIndex = this.getDataKey(item, index);
-        return get(this.getCheckboxPropsByItem(item, rowIndex), 'disabled');
+        return this.getCheckboxPropsByItem(item, rowIndex)?.disabled;
       });
 
       const selectionColumn: IGridInnerColumn<Data> = {
@@ -406,6 +412,37 @@ export class Grid<Data = any> extends PureComponent<
     return columns;
   };
 
+  getBatchFixedStyle() {
+    if (!isBrowser) {
+      return {};
+    }
+    const el = ReactDom.findDOMNode(this.footNode.current) as Element;
+    if (el && this.props.stickyBatch) {
+      return {
+        width: el.getBoundingClientRect().width,
+      };
+    }
+    return {};
+  }
+
+  getBatchComponents = (position: 'header' | 'foot') => {
+    const { datasets, batchRender, selection, rowKey } = this.props;
+    return (
+      <BatchComponents
+        key="batch"
+        position={position}
+        store={this.store}
+        onSelect={this.handleBatchSelect}
+        datasets={datasets}
+        getDataKey={this.getDataKey}
+        prefix={prefix}
+        batchRender={batchRender}
+        selection={selection}
+        checkboxPropsCache={this.checkboxPropsCache}
+        rowKey={rowKey}
+      />
+    );
+  };
   getLeftFixedTable = () => {
     return this.getTable({
       columns: this.getLeftColumns(),
@@ -423,22 +460,21 @@ export class Grid<Data = any> extends PureComponent<
   setScrollPosition(position: GridScrollPosition) {
     this.scrollPosition = position;
 
-    if (this.tableNode) {
+    if (this.gridNode.current) {
+      const el = this.gridNode.current;
       if (position === 'both') {
-        this.tableNode.className = this.tableNode.className.replace(
+        el.className = el.className.replace(
           new RegExp(`${prefix}-grid-scroll-position-.+$`, 'gi'),
           ' '
         );
-        this.tableNode.classList.add(`${prefix}-grid-scroll-position-left`);
-        this.tableNode.classList.add(`${prefix}-grid-scroll-position-right`);
+        el.classList.add(`${prefix}-grid-scroll-position-left`);
+        el.classList.add(`${prefix}-grid-scroll-position-right`);
       } else {
-        this.tableNode.className = this.tableNode.className.replace(
+        el.className = el.className.replace(
           new RegExp(`${prefix}-grid-scroll-position-.+$`, 'gi'),
           ' '
         );
-        this.tableNode.classList.add(
-          `${prefix}-grid-scroll-position-${position}`
-        );
+        el.classList.add(`${prefix}-grid-scroll-position-${position}`);
       }
     }
   }
@@ -503,7 +539,10 @@ export class Grid<Data = any> extends PureComponent<
     }
   };
 
-  onResize = debounce(this.syncFixedTableRowHeight, 500);
+  onResize = debounce(() => {
+    this.syncFixedTableRowHeight();
+    this.toggleBatchComponents();
+  }, 500);
 
   onRowMouseEnter = (mouseOverRowIndex: number) => {
     this.setState({
@@ -558,6 +597,7 @@ export class Grid<Data = any> extends PureComponent<
         sortBy={sortBy}
         defaultSortType={defaultSortType}
         fixedColumnsHeadRowsHeight={this.state.fixedColumnsHeadRowsHeight}
+        ref={this.headerNode}
       />
     );
 
@@ -573,7 +613,7 @@ export class Grid<Data = any> extends PureComponent<
         mouseOverRowIndex={this.state.mouseOverRowIndex}
         onRowMouseEnter={this.onRowMouseEnter}
         rowClassName={rowClassName}
-        onRowClick={onRowClick as IGridRowClickHander<Data>}
+        onRowClick={onRowClick as IGridRowClickHandler<Data>}
         fixed={fixed}
         scroll={scroll}
         expandRender={expandation && expandation.expandRender}
@@ -585,6 +625,7 @@ export class Grid<Data = any> extends PureComponent<
         rowProps={rowProps}
       />
     );
+
     const { y, x } = scroll;
 
     if (y) {
@@ -653,10 +694,10 @@ export class Grid<Data = any> extends PureComponent<
     ];
   };
 
-  getEmpty = (i18n: Record<string, string>) => {
+  getEmpty = (i18n: II18nLocaleGrid) => {
     const { datasets, emptyLabel } = this.props;
 
-    if (size(datasets) === 0) {
+    if (!datasets || datasets.length === 0) {
       return (
         <div className={`${prefix}-grid-empty`} key="empty">
           {emptyLabel || i18n.emptyLabel}
@@ -681,14 +722,12 @@ export class Grid<Data = any> extends PureComponent<
 
   onSelectChange = (selectedRowKeys: string[], data: Data | Data[]) => {
     const { datasets, selection } = this.props;
-    const onSelect: IGridSelection<Data>['onSelect'] = get(
-      selection,
-      'onSelect'
-    );
+    const onSelect: IGridSelection<Data>['onSelect'] = selection?.onSelect;
 
-    if (isFunction(onSelect)) {
-      const selectedRows = (datasets || []).filter((row, i) =>
-        includes(selectedRowKeys, this.getDataKey(row, i))
+    if (typeof onSelect === 'function') {
+      const selectedRows = (datasets || []).filter(
+        (row, i) =>
+          (selectedRowKeys ?? []).indexOf(this.getDataKey(row, i)) !== -1
       );
       onSelect(selectedRowKeys, selectedRows, data);
     }
@@ -710,19 +749,21 @@ export class Grid<Data = any> extends PureComponent<
     this.onSelectChange(selectedRowKeys, data);
   };
 
-  handleBatchSelect: IGridSelctionAllCheckboxProps<Data>['onSelect'] = (
+  handleBatchSelect: IGridSelectionAllCheckboxProps<Data>['onSelect'] = (
     type,
     data
   ) => {
-    let selectedRowKeys = this.store.getState('selectedRowKeys').slice();
+    let selectedRowKeys = (
+      this.store.getState('selectedRowKeys') ?? []
+    ).slice();
 
     const changeRowKeys = [];
 
     switch (type) {
       case 'selectAll':
-        forEach(data, (key, index) => {
+        (data || []).forEach((key, index) => {
           const rowIndex = this.getDataKey(key, index);
-          if (!includes(selectedRowKeys, rowIndex)) {
+          if (selectedRowKeys.indexOf(rowIndex) === -1) {
             selectedRowKeys = selectedRowKeys.concat(rowIndex);
             changeRowKeys.push(rowIndex);
           }
@@ -732,7 +773,7 @@ export class Grid<Data = any> extends PureComponent<
         selectedRowKeys = (data || []).filter((key, index) => {
           const rowIndex = this.getDataKey(key, index);
           let rlt = true;
-          if (includes(selectedRowKeys, rowIndex)) {
+          if (selectedRowKeys.indexOf(rowIndex) !== -1) {
             rlt = false;
             changeRowKeys.push(key);
           }
@@ -745,8 +786,8 @@ export class Grid<Data = any> extends PureComponent<
 
     this.store.setState({ selectedRowKeys });
 
-    const changeRow = (data || []).filter((row, i) =>
-      includes(changeRowKeys, this.getDataKey(row, i))
+    const changeRow = (data || []).filter(
+      (row, i) => changeRowKeys.indexOf(this.getDataKey(row, i)) !== -1
     );
 
     this.onSelectChange(selectedRowKeys, changeRow);
@@ -758,7 +799,10 @@ export class Grid<Data = any> extends PureComponent<
       const props = this.getCheckboxPropsByItem(data, rowIndex);
 
       return (
-        <span onClick={stopPropagation}>
+        <span
+          onClick={stopPropagation}
+          className="zent-grid-selection-checkbox"
+        >
           <SelectionCheckbox
             disabled={props.disabled}
             rowIndex={rowIndex}
@@ -771,6 +815,41 @@ export class Grid<Data = any> extends PureComponent<
       );
     };
   };
+
+  toggleBatchComponents = () => {
+    const isSupportFixed = this.props.stickyBatch && this.props.batchRender;
+    if (!this.mounted || !isSupportFixed) {
+      return;
+    }
+
+    if (!this.footEl) {
+      this.footEl = ReactDom.findDOMNode(this.footNode.current) as Element;
+    }
+
+    if (!this.headerEl) {
+      this.headerEl = ReactDom.findDOMNode(this.headerNode.current) as Element;
+    }
+
+    const isTableInView = isElementInView(this.gridNode.current);
+    const isHeaderInView = isElementInView(this.headerEl);
+    const isFootInView = isElementInView(this.footEl);
+
+    const batchNeedRenderFixed = needFixBatchComps(
+      isTableInView,
+      isHeaderInView,
+      isFootInView
+    );
+
+    const batchRenderFixed = this.store.getState('batchRenderFixed');
+    if (batchRenderFixed !== batchNeedRenderFixed) {
+      this.store.setState({
+        batchRenderFixed: batchNeedRenderFixed,
+        batchRenderFixedStyles: this.getBatchFixedStyle(),
+      });
+    }
+  };
+
+  onScroll = throttle(this.toggleBatchComponents, 200);
 
   componentDidMount() {
     this.mounted = true;
@@ -785,7 +864,7 @@ export class Grid<Data = any> extends PureComponent<
   }
 
   componentWillReceiveProps(nextProps: IGridProps<Data>) {
-    if (nextProps.selection && has(nextProps.selection, 'selectedRowKeys')) {
+    if (nextProps.selection?.hasOwnProperty('selectedRowKeys')) {
       this.store.setState({
         selectedRowKeys: nextProps.selection.selectedRowKeys || [],
         columns: this.getColumns(nextProps),
@@ -807,7 +886,7 @@ export class Grid<Data = any> extends PureComponent<
     }
 
     if (
-      has(nextProps, 'datasets') &&
+      nextProps.hasOwnProperty('datasets') &&
       nextProps.datasets !== this.props.datasets
     ) {
       this.checkboxPropsCache = {};
@@ -829,6 +908,7 @@ export class Grid<Data = any> extends PureComponent<
 
   render() {
     const { loading, pageInfo = {}, paginationType, bordered } = this.props;
+
     let className = `${prefix}-grid`;
     const borderedClassName = bordered ? `${prefix}-grid-bordered` : '';
     className = classnames(className, this.props.className, borderedClassName);
@@ -848,17 +928,19 @@ export class Grid<Data = any> extends PureComponent<
 
     return (
       <Receiver componentName="Grid">
-        {i18n => {
+        {(i18n: II18nLocaleGrid) => {
           const content = [
             this.getTable(),
             this.getEmpty(i18n),
             <Footer
+              ref={this.footNode}
               key="footer"
               prefix={prefix}
               pageInfo={pageInfo}
               paginationType={paginationType as GridPaginationType}
               onChange={this.onChange}
               onPaginationChange={this.onPaginationChange}
+              batchComponents={this.getBatchComponents('foot')}
             />,
           ];
 
@@ -869,7 +951,8 @@ export class Grid<Data = any> extends PureComponent<
           );
 
           return (
-            <div className={className} ref={node => (this.tableNode = node)}>
+            <div className={className} ref={this.gridNode}>
+              {this.getBatchComponents('header')}
               <BlockLoading loading={loading}>
                 {scrollTable}
                 {this.isAnyColumnsLeftFixed() && (
@@ -884,6 +967,11 @@ export class Grid<Data = any> extends PureComponent<
                 )}
               </BlockLoading>
               <WindowResizeHandler onResize={this.onResize} />
+              <WindowEventHandler
+                eventName="scroll"
+                callback={this.onScroll}
+                useCapture
+              />
             </div>
           );
         }}

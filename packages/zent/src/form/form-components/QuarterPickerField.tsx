@@ -1,22 +1,28 @@
-import { Component } from 'react';
 import * as React from 'react';
-import omit from 'lodash-es/omit';
+import { Omit } from 'utility-types';
+import QuarterPicker, {
+  IQuarterPickerProps,
+} from '../../datetimepicker/QuarterPicker';
+import { IFormComponentProps, dateRangeDefaultValueFactory } from '../shared';
+import { FormField } from '../Field';
+import { DatePickers } from '../../datetimepicker/common/types';
+import { $MergeParams } from '../utils';
 
-import QuarterPicker from '../../datetimepicker/QuarterPicker';
-import getControlGroup from '../getControlGroup';
-import unknownProps from '../unknownProps';
+export type IFormQuarterPickerFieldProps = IFormComponentProps<
+  DatePickers.RangeValue,
+  Omit<IQuarterPickerProps, 'value'>
+>;
 
-export interface IFormQuarterPickerWrapProps {
-  dateFormat?: string;
-}
-
-class QuarterPickerWrap extends Component<IFormQuarterPickerWrapProps> {
-  render() {
-    const { dateFormat } = this.props;
-    const passableProps = omit(this.props, unknownProps, ['dateFormat']);
-    return <QuarterPicker {...passableProps} format={dateFormat} />;
-  }
-}
-const QuarterPickerField = getControlGroup(QuarterPickerWrap);
-
-export default QuarterPickerField;
+export const FormQuarterPickerField: React.FunctionComponent<IFormQuarterPickerFieldProps> = props => {
+  return (
+    <FormField
+      {...props}
+      defaultValue={
+        (props as $MergeParams<IFormQuarterPickerFieldProps>).defaultValue ||
+        dateRangeDefaultValueFactory
+      }
+    >
+      {childProps => <QuarterPicker {...props.props} {...childProps} />}
+    </FormField>
+  );
+};

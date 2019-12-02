@@ -2,10 +2,13 @@ import * as React from 'react';
 
 import Icon from '../icon';
 import { IInputCoreProps } from './types';
+import { createUseIMEComposition } from '../ime-composition';
 
 function preventDefault(e: React.MouseEvent<HTMLElement>) {
   e.preventDefault();
 }
+
+const useIMEComposition = createUseIMEComposition();
 
 export const InputCore = React.forwardRef<
   HTMLInputElement,
@@ -15,7 +18,10 @@ export const InputCore = React.forwardRef<
     addonBefore,
     addonAfter,
     showClear,
-    value,
+    value: valueProp,
+    onChange: onChangeProp,
+    onCompositionStart: onCompositionStartProp,
+    onCompositionEnd: onCompositionEndProp,
     onClear,
     width,
     size,
@@ -29,13 +35,34 @@ export const InputCore = React.forwardRef<
     onIconClick,
     ...otherProps
   } = props;
+
+  const {
+    value,
+    onChange,
+    onCompositionStart,
+    onCompositionEnd,
+  } = useIMEComposition(
+    valueProp,
+    onChangeProp,
+    onCompositionStartProp,
+    onCompositionEndProp
+  );
+
   return (
     <>
       {addonBefore && (
         <div className="zent-input-addon-before">{addonBefore}</div>
       )}
-      <input {...otherProps} ref={ref} className="zent-input" value={value} />
-      {showClear && value && (
+      <input
+        {...otherProps}
+        ref={ref}
+        className="zent-input"
+        value={value}
+        onChange={onChange}
+        onCompositionStart={onCompositionStart}
+        onCompositionEnd={onCompositionEnd}
+      />
+      {showClear && valueProp && (
         <Icon
           className="zent-input-close"
           type="close-circle"

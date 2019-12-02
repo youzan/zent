@@ -1,6 +1,8 @@
 export namespace DatePickers {
   export type Value = string | number | Date;
 
+  export type RangeValue = [Value?, Value?];
+
   export type RangeType = 'start' | 'end';
 
   export interface ICommonProps<Val = Value> {

@@ -2,8 +2,9 @@ import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
 
-import { I18nReceiver as Receiver } from '../../i18n';
+import { I18nReceiver as Receiver, II18nLocaleSelect } from '../../i18n';
 import { ISelectTriggerProps } from './BaseTrigger';
+import Input from '../../input';
 
 export interface IInputTriggerProps extends ISelectTriggerProps {
   onChange(data: Partial<IInputTriggerProps>): void;
@@ -16,7 +17,7 @@ class InputTrigger extends Component<IInputTriggerProps> {
     value: '',
   };
 
-  input: HTMLInputElement | null = null;
+  inputRef = React.createRef<Input>();
 
   componentDidMount() {
     this.props.onChange({
@@ -47,11 +48,11 @@ class InputTrigger extends Component<IInputTriggerProps> {
 
     return (
       <Receiver componentName="Select">
-        {i18n => (
-          <input
-            ref={input => (this.input = input)}
+        {(i18n: II18nLocaleSelect) => (
+          <Input
+            ref={this.inputRef}
             className={rootClass}
-            placeholder={placeholder || (i18n.input as any)}
+            placeholder={placeholder || i18n.input}
             type="text"
             value={keyword === null ? text : keyword}
             onChange={this.inputChangeHandler}

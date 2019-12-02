@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import uniqueId from 'lodash-es/uniqueId';
+
+import uniqueId from '../../utils/uniqueId';
 
 const GRADIENT_ID = uniqueId('zentAnimatedArcStrokeGradient');
 const STROKE_OFFSET_RATIO = 0.2;
@@ -53,10 +54,10 @@ export default class AnimatedArc extends PureComponent<IAnimatedArcProps> {
         <path
           className={className}
           d={path}
+          stroke={`url(#${GRADIENT_ID})`}
+          strokeOpacity={opacity}
+          strokeWidth={strokeWidth}
           style={{
-            stroke: `url(#${GRADIENT_ID})`,
-            strokeOpacity: opacity,
-            strokeWidth,
             transform: `rotate(${rotate}rad)`,
             ...transition,
           }}
@@ -72,6 +73,8 @@ export default class AnimatedArc extends PureComponent<IAnimatedArcProps> {
   componentWillUnmount() {
     clearTimeout(this.animationDelayTimerId);
     clearTimeout(this.transitionEndTimerId);
+    this.animationDelayTimerId = null;
+    this.transitionEndTimerId = null;
   }
 
   getMaskArcLength() {

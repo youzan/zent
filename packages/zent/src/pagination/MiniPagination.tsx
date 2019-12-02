@@ -19,7 +19,7 @@ export class MiniPagination extends BasePagination<IMiniPaginationProps> {
   }
 
   static defaultProps = {
-    // Don't give a default value
+    // Don't give a default value, see BasePagination.getTotal
     // total: 0,
 
     current: 1,
@@ -28,7 +28,7 @@ export class MiniPagination extends BasePagination<IMiniPaginationProps> {
   };
 
   render() {
-    const { current, buttonBordered, className } = this.props;
+    const { current, buttonBordered, className, lastPageHelp } = this.props;
     const layout = this.getLayout(this.props);
 
     return (
@@ -43,6 +43,7 @@ export class MiniPagination extends BasePagination<IMiniPaginationProps> {
           current={current}
           onPageChange={this.onPageChange}
           buttonBordered={buttonBordered}
+          lastPageHelp={lastPageHelp}
         />
       </div>
     );

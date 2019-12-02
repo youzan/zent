@@ -19,7 +19,12 @@
     "pretty": true,
     "removeComments": true,
     "skipLibCheck": true,
-    "target": "es5"
+    "downlevelIteration": false,
+    "target": "es5",
+    "plugins": [
+      { "transform": "./plugins/ts-plugin-constants.ts" },
+      { "transform": "./plugins/ts-plugin-version-attribute.ts" }
+    ]
   },
   "exclude": ["lib", "es", "node_modules", "__tests__"],
   "include": ["src"]

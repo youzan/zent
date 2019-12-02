@@ -9,7 +9,7 @@
   &-page-list--normal,
   &-page-list--mini,
   &-page-list--lite {
-    .zent-btn + .zent-btn {
+    .zent-pagination-button--layout + .zent-pagination-button--layout {
       margin-left: 4px;
     }
   }
@@ -108,9 +108,7 @@
 
     .zent-input-wrapper {
       .zent-input {
-        min-width: unset;
-        width: 100%;
-        padding: 0 12px;
+        min-width: 100%;
       }
     }
   }
@@ -120,6 +118,10 @@
 
     .zent-input-wrapper {
       margin: 0 8px;
+    }
+
+    .zent-input {
+      text-align: center;
     }
   }
 
@@ -152,9 +154,11 @@
   }
 
   &-count {
-    margin: 0 4px;
+    &--middle {
+      margin: 0 4px;
+    }
 
-    &--left {
+    &--right {
       margin-left: 4px;
     }
   }

@@ -50,19 +50,9 @@ function gather() {
     const groups = [];
     pipe(
       readdirSync,
-      map(
-        pipe(
-          concat('/'),
-          concat(SRC)
-        )
-      ),
+      map(pipe(concat('/'), concat(SRC))),
       filter(isDir),
-      map(
-        pipe(
-          concat(__, '/'),
-          concat(__, NAMES[i18n])
-        )
-      ),
+      map(pipe(concat(__, '/'), concat(__, NAMES[i18n]))),
       filter(existsSync),
       map(str =>
         pipe(

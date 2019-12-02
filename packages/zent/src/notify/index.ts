@@ -1,6 +1,7 @@
-import { success, warn, error, clear, config } from './Notify';
+import { info, success, warn, error, clear, config } from './Notify';
 
 export const Notify = {
+  info,
   success,
   warn,
   error,

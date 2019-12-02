@@ -1,22 +1,26 @@
-import { Component } from 'react';
 import * as React from 'react';
-import omit from 'lodash-es/omit';
+import { Omit } from 'utility-types';
+import { dateDefaultValueFactory, IFormComponentProps } from '../shared';
+import YearPicker, { IYearPickerProps } from '../../datetimepicker/YearPicker';
+import { DatePickers } from '../../datetimepicker/common/types';
+import { FormField } from '../Field';
+import { $MergeParams } from '../utils';
 
-import YearPicker from '../../datetimepicker/YearPicker';
-import getControlGroup from '../getControlGroup';
-import unknownProps from '../unknownProps';
+export type IFormYearPickerFieldProps = IFormComponentProps<
+  DatePickers.Value,
+  Omit<IYearPickerProps, 'value'>
+>;
 
-export interface IFormYearPickerWrapProps {
-  dateFormat: string;
-}
-
-class YearPickerWrap extends Component<IFormYearPickerWrapProps> {
-  render() {
-    const { dateFormat } = this.props;
-    const passableProps = omit(this.props, unknownProps, ['dateFormat']);
-    return <YearPicker {...passableProps} format={dateFormat} />;
-  }
-}
-const YearPickerField = getControlGroup(YearPickerWrap);
-
-export default YearPickerField;
+export const FormYearPickerField: React.FunctionComponent<IFormYearPickerFieldProps> = props => {
+  return (
+    <FormField
+      {...props}
+      defaultValue={
+        (props as $MergeParams<IFormYearPickerFieldProps>).defaultValue ||
+        dateDefaultValueFactory
+      }
+    >
+      {childProps => <YearPicker {...props.props} {...childProps} />}
+    </FormField>
+  );
+};

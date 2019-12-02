@@ -5,8 +5,8 @@
 import * as React from 'react';
 import { Component } from 'react';
 import classnames from 'classnames';
-import identity from 'lodash-es/identity';
 
+import identity from '../utils/identity';
 import Dialog from '../dialog';
 import { I18nReceiver as Receiver } from '../i18n';
 import Icon from '../icon';

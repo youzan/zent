@@ -4,8 +4,63 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 
 ### Upgrade guides
 
+- [Upgrade to 7.x](./changelog-v7)
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
+
+### 7.3.2(2019-11-29)
+
+- ✨ `Link` moves to its own directory, compatible with `Disabled`
+
+### 7.3.1(2019-11-27)
+
+- ✨ New `Link` component to replace `zent-link` CSS class
+- ✨ Add `labelStyle` to `Radio` and `Checkbox`
+- 🦀️ Fix `ButtonDirective` children style issue
+- 🦀️ Fix inconsistent package version between build and publish
+- 🦀️ Revert `Radio` label's `display` to `inline`
+- 🦀️ Fix elements other than `Radio` are invisible inside `RadioGroup`
+- 🦀️ Fix elements other than `Checkbox` are invisible inside `CheckboxGroup`
+
+### 7.3.0(2019-11-25)
+
+- 🎉 Isolate styles in different zent versions
+- 🎉 Add a few compile time constants to TypeScript and SCSS compiler, like `__FILE__` in C
+- 🦀️ Update icon color in `BlockHeader`
+- 🦀️ Fix style issue in `Grid` when batch operation and fixed header are both present
+- 🦀️ Fix `FormRadioGroupField` `defaultValue` test issue
+
+### 7.2.0(2019-11-18)
+
+- 🎉 New `IMEComposition` component
+- ✨ Add batch operation to `Grid`
+- ✨ Add tooltip when hover on next page in `Pagination`
+- ✨ Upgrade `date-fns` to 2.x
+- ✨ Fork `fecha` and rewrite in TypeScript
+- 📚 Add more docs on `Form` usage
+- 🦀️ Enlarge icon size in `BlockHeader`
+- 🦀️ Fix height issue in `Radio` and `Checkbox`
+- 🦀️ Fix data missing when using `useFieldArrayValue`
+- 🦀️ Fix the handling of `undefined` values in default error render of `Form` fields
+- 🦀️ Fix type definitions in `FormSelectField`, `Form` and `FieldSet`
+- 🦀️ Fix type definitions in `Switch`, `CopyButton` and `DatePicker`
+
+### 7.1.0(2019-11-08)
+
+- ✨ `Select` adds an `retainNullOption` option to allow Options with `null` value to be selected
+- ✨ New `Notify.info` method
+- 📚 Brand new icon grid
+- 🦀️ Fix `Progress` style when page is zoomed in/out in Safari
+- 🦀️ Fix type definition for `Form` and `Cascader`
+- 🦀️ Update `i18n` usage in `Pagination` and `QuarterPicker`
+
+### 7.0.1 (2019-11-01)
+
+- Add `default export` to `Form`
+
+### 7.0.0 (2019-11-01)
+
+This is major release with lots of breaking changes, read the [full change log](./changelog-v7).
 
 ### 6.6.2 (2019-02-26)
 

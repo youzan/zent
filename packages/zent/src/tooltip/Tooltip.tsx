@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
-import noop from 'lodash-es/noop';
+import noop from '../utils/noop';
 import { PopPositions } from '../pop';
 
 import Popover, { PositionFunction } from '../popover';
@@ -60,7 +60,7 @@ export class Tooltip extends Component<ITooltipProps> {
     return (
       <Popover.Content>
         <div className={`${prefix}-tooltip-inner`}>{title}</div>
-        <i className={`${prefix}-tooltip-arrow`} />
+        <i className={`${prefix}-pop-arrow`} />
       </Popover.Content>
     );
   }

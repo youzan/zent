@@ -11,7 +11,7 @@ en-US:
 ---
 
 ```jsx
-import { Button, Alert } from 'zent';
+import { Button } from 'zent';
 
 ReactDOM.render(
 	<div>
@@ -19,19 +19,7 @@ ReactDOM.render(
 		<Button href="https://youzan.com" target="_blank">
 			{i18n.newWindow}
 		</Button>
-		<a className="zent-link" href="https://youzan.com">
-			{i18n.index}
-		</a>
-		<a className="zent-link zent-link__disabled" href="https://youzan.com">
-			{i18n.index}
-		</a>
 	</div>,
 	mountNode
 );
 ```
-
-<style>
-  .zent-link {
-    margin-left: 10px;
-  }
-</style>

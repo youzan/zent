@@ -75,7 +75,7 @@ export interface IGridExpandation<Data = any> {
   expandRender?: (data: Data) => React.ReactNode;
 }
 
-export type IGridRowClickHander<Data = any> = (
+export type IGridRowClickHandler<Data = any> = (
   data: Data,
   index: number,
   event: React.MouseEvent<HTMLTableRowElement>
@@ -93,3 +93,5 @@ export interface IGridCellPos {
   column: number;
   fixed?: IGridInnerFixedType;
 }
+
+export type IGridBatchRender = (data: any) => React.ReactNode;

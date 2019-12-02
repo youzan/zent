@@ -1,6 +1,6 @@
 @import './theme/default';
 @import './theme/font';
-@import './base/variables';
+@import './mixins/pop-arrow';
 
 .zent-pop {
   @include font-normal;
@@ -39,8 +39,8 @@
 
     position: absolute;
     z-index: 1;
-    width: $arrow-size;
-    height: $arrow-size;
+    width: var(--CSS_ARROW_SIZE);
+    height: var(--CSS_ARROW_SIZE);
     box-shadow: $shadow-spec-layer;
     overflow: hidden;
   }
@@ -49,8 +49,8 @@
     content: '';
     display: block;
     position: absolute;
-    width: $arrow-cover-size;
-    height: $arrow-cover-size;
+    width: var(--CSS_ARROW_COVER_SIZE);
+    height: var(--CSS_ARROW_COVER_SIZE);
   }
 
   &--no-header {
@@ -67,148 +67,6 @@
   }
 
   &.zent-popover-position {
-    // bottom side
-    &-bottom-left,
-    &-bottom-center,
-    &-bottom-right {
-      .zent-pop-arrow {
-        top: 0;
-      }
-
-      &::after {
-        top: -$arrow-cover-size;
-        width: 100%;
-        left: 0;
-      }
-    }
-
-    &-bottom-left {
-      .zent-pop-arrow {
-        transform: translateY(-50%) rotate(45deg);
-        left: $arrow-offset-h;
-      }
-    }
-
-    &-bottom-center {
-      .zent-pop-arrow {
-        transform: translate(-50%, -50%) rotate(45deg);
-        left: 50%;
-      }
-    }
-
-    &-bottom-right {
-      .zent-pop-arrow {
-        transform: translateY(-50%) rotate(45deg);
-        right: $arrow-offset-h;
-      }
-    }
-
-    // top side
-    &-top-left,
-    &-top-center,
-    &-top-right {
-      .zent-pop-arrow {
-        bottom: 0;
-      }
-
-      &::after {
-        bottom: -$arrow-cover-size;
-        width: 100%;
-        left: 0;
-      }
-    }
-
-    &-top-left {
-      .zent-pop-arrow {
-        transform: translateY(50%) rotate(45deg);
-        left: $arrow-offset-h;
-      }
-    }
-
-    &-top-center {
-      .zent-pop-arrow {
-        transform: translate(-50%, 50%) rotate(45deg);
-        left: 50%;
-      }
-    }
-
-    &-top-right {
-      .zent-pop-arrow {
-        transform: translateY(50%) rotate(45deg);
-        right: $arrow-offset-h;
-      }
-    }
-
-    // left side
-    &-left-top,
-    &-left-center,
-    &-left-bottom {
-      .zent-pop-arrow {
-        right: 0;
-      }
-
-      &::after {
-        right: -$arrow-cover-size;
-        height: 100%;
-        top: 0;
-      }
-    }
-
-    &-left-top {
-      .zent-pop-arrow {
-        transform: translateX(50%) rotate(45deg);
-        top: $arrow-offset-v;
-      }
-    }
-
-    &-left-center {
-      .zent-pop-arrow {
-        transform: translate(50%, -50%) rotate(45deg);
-        top: 50%;
-      }
-    }
-
-    &-left-bottom {
-      .zent-pop-arrow {
-        transform: translateX(50%) rotate(45deg);
-        bottom: $arrow-offset-v;
-      }
-    }
-
-    // left side
-    &-right-top,
-    &-right-center,
-    &-right-bottom {
-      .zent-pop-arrow {
-        left: 0;
-      }
-
-      &::after {
-        left: -$arrow-cover-size;
-        height: 100%;
-        top: 0;
-      }
-    }
-
-    &-right-top {
-      .zent-pop-arrow {
-        transform: translateX(-50%) rotate(45deg);
-        top: $arrow-offset-v;
-      }
-    }
-
-    &-right-center {
-      .zent-pop-arrow {
-        transform: translate(-50%, -50%) rotate(45deg);
-        top: 50%;
-      }
-    }
-
-    &-right-bottom {
-      .zent-pop-arrow {
-        transform: translateX(-50%) rotate(45deg);
-        bottom: $arrow-offset-v;
-      }
-    }
+    @include pop-arrow;
   }
 }

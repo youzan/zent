@@ -1,5 +1,4 @@
 import * as React from 'react';
-import isFunction from 'lodash-es/isFunction';
 import { Component, Children } from 'react';
 import DOMRef from '../../utils/component/DOMRef';
 
@@ -94,7 +93,7 @@ export class PopoverTrigger<
     }
 
     const child = Children.only<any>(this.props.children);
-    if (child.ref && !isFunction(child.ref)) {
+    if (child.ref && typeof child.ref !== 'function') {
       throw new Error('String ref is not allowed on Popover trigger');
     }
 

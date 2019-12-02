@@ -1,14 +1,13 @@
 import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
-import noop from 'lodash-es/noop';
-import isFunction from 'lodash-es/isFunction';
 
+import noop from '../utils/noop';
 import Popover, { PositionFunction } from '../popover';
 import Button from '../button';
 import isPromise from '../utils/isPromise';
 import { exposePopover } from '../popover/withPopover';
-import { I18nReceiver as Receiver } from '../i18n';
+import { I18nReceiver as Receiver, II18nLocalePop } from '../i18n';
 
 import NoneTrigger from './NoneTrigger';
 import getPosition from '../utils/getArrowPosition';
@@ -106,7 +105,7 @@ class PopAction extends Component<IPopActionProps> {
   handleClick(callbackName) {
     const callback = this.props[callbackName];
     const { popover } = this.props;
-    if (!isFunction(callback)) {
+    if (typeof callback !== 'function') {
       return popover.close();
     }
 
@@ -162,7 +161,7 @@ class PopAction extends Component<IPopActionProps> {
     return (
       <div className={`${prefix}-pop-buttons`}>
         <Receiver componentName="Pop">
-          {i18n => (
+          {(i18n: II18nLocalePop) => (
             <Button
               loading={cancelPending}
               disabled={confirmPending}
@@ -174,7 +173,7 @@ class PopAction extends Component<IPopActionProps> {
           )}
         </Receiver>
         <Receiver componentName="Pop">
-          {i18n => (
+          {(i18n: II18nLocalePop) => (
             <Button
               loading={confirmPending}
               disabled={cancelPending}

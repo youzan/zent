@@ -1,10 +1,8 @@
 import * as React from 'react';
 import { Component } from 'react';
-import isEmpty from 'lodash-es/isEmpty';
-import isNumber from 'lodash-es/isNumber';
 import memoize from '../../utils/memorize-one';
 import Select from '../../select';
-import { I18nReceiver as Receiver } from '../../i18n';
+import { I18nReceiver as Receiver, II18nLocalePagination } from '../../i18n';
 
 export interface IPaginationPageSizeCompoundOption {
   text: React.ReactNode;
@@ -29,16 +27,24 @@ export interface IPaginationPageSizeChangerProps
 
 const memoizedNormalizeSelectOptions = memoize(function normalizeSelectOptions(
   pageSizeOptions: PaginationPageSizeOption[],
-  i18n: any
+  i18n: II18nLocalePagination
 ) {
   return (pageSizeOptions || []).map(opt => {
-    if (isNumber(opt)) {
+    if (typeof opt === 'number') {
       return { value: opt, text: `${opt} ${i18n.items}` };
     }
 
     return opt;
   });
 });
+
+const Text: React.FunctionComponent<{ type: 'middle' | 'right' }> = props => {
+  return (
+    <span className={`zent-pagination-count--${props.type}`}>
+      {props.children}
+    </span>
+  );
+};
 
 export default class PageSizeChanger extends Component<
   IPaginationPageSizeChangerProps,
@@ -53,7 +59,7 @@ export default class PageSizeChanger extends Component<
       onPageSizeChange,
     } = this.props;
 
-    if (isEmpty(pageSizeOptions)) {
+    if (!pageSizeOptions || pageSizeOptions.length === 0) {
       return (
         <StaticPageSize
           total={total}
@@ -67,7 +73,7 @@ export default class PageSizeChanger extends Component<
 
     return (
       <Receiver componentName="Pagination">
-        {(i18n: any) => {
+        {(i18n: II18nLocalePagination) => {
           const select = (
             <PageSizeSelect
               pageSizeOptions={pageSizeOptions}
@@ -77,29 +83,13 @@ export default class PageSizeChanger extends Component<
             />
           );
 
-          if (i18n.mark === 'zh-CN') {
-            return (
-              <div className="zent-pagination-page-size-changer">
-                {i18n.total}
-                <span className="zent-pagination-count">{totalText}</span>
-                {i18n.items}
-                {i18n.comma}
-                {i18n.perPage}
-                {select}
-              </div>
-            );
-          }
-
           return (
             <div className="zent-pagination-page-size-changer">
-              {i18n.total}
-              <span className="zent-pagination-count">{totalText}</span>
-              {i18n.items}
-              {i18n.comma}
-              {select}
-              <span className="zent-pagination-count--left">
-                {i18n.perPage}
-              </span>
+              {i18n.pageStats({
+                select,
+                total: totalText,
+                Text,
+              })}
             </div>
           );
         }}
@@ -108,14 +98,22 @@ export default class PageSizeChanger extends Component<
   }
 }
 
-class PageSizeSelect extends Component<any, any> {
+class PageSizeSelect extends Component<
+  {
+    i18n: II18nLocalePagination;
+    pageSize: number;
+    pageSizeOptions: PaginationPageSizeOption[];
+    onPageSizeChange(pageSize: number): void;
+  },
+  any
+> {
   render() {
     const { pageSize, i18n, pageSizeOptions } = this.props;
     const options = memoizedNormalizeSelectOptions(pageSizeOptions, i18n);
 
     return (
       <Select
-        width={i18n.mark === 'zh-CN' ? 80 : 100}
+        width={i18n.selectWidth}
         autoWidth
         data={options}
         value={pageSize}
@@ -139,29 +137,14 @@ class StaticPageSize extends Component<IPaginationStaticPageSizeProps, any> {
 
     return (
       <Receiver componentName="Pagination">
-        {i18n => {
-          if (i18n.mark === 'zh-CN') {
-            return (
-              <div className="zent-pagination-page-size-changer">
-                {i18n.total}
-                <span className="zent-pagination-count">{totalText}</span>
-                {i18n.items}
-                {i18n.comma}
-                {i18n.perPage}
-                <span className="zent-pagination-count">{pageSize}</span>
-                {i18n.items}
-              </div>
-            );
-          }
-
+        {(i18n: II18nLocalePagination) => {
           return (
             <div className="zent-pagination-page-size-changer">
-              {i18n.total}
-              <span className="zent-pagination-count">{totalText}</span>
-              {i18n.items}
-              {i18n.comma}
-              <span className="zent-pagination-count">{pageSize}</span>
-              {i18n.items} {i18n.perPage}
+              {i18n.pageStatsStatic({
+                total: totalText,
+                pageSize,
+                Text,
+              })}
             </div>
           );
         }}

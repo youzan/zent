@@ -1,12 +1,10 @@
-import capitalize from 'lodash-es/capitalize';
-import isFunction from 'lodash-es/isFunction';
-
+import capitalize from './capitalize';
 import Popover from '../popover';
 
 const { Position, ArrowPosition } = Popover;
 
 export default function getPosition(position, centerArrow) {
-  if (isFunction(position)) {
+  if (typeof position === 'function') {
     return position;
   }
 

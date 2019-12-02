@@ -3,14 +3,13 @@
  */
 import * as React from 'react';
 import { Component } from 'react';
-import take from 'lodash-es/take';
-import noop from 'lodash-es/noop';
 
+import noop from '../utils/noop';
 import Popover from '../popover';
-import { I18nReceiver as Receiver } from '../i18n';
-
+import { I18nReceiver as Receiver, II18nLocaleSelect } from '../i18n';
 import Search from './components/Search';
 import Option from './components/Option';
+import defer from '../utils/defer';
 
 export interface IPopupProps {
   adjustPosition: () => void;
@@ -162,9 +161,9 @@ class Popup extends Component<IPopupProps, any> {
       onAsyncFilter(`${keyword}`);
     } else {
       // 同步关键词过滤后更新 Popup 位置
-      setTimeout(() => {
+      defer(() => {
         adjustPosition();
-      }, 1);
+      });
     }
   };
 
@@ -256,7 +255,7 @@ class Popup extends Component<IPopupProps, any> {
     this.itemIds = filterData.map(item => item.cid);
 
     if (maxToShow && !extraFilter && filter) {
-      filterData = take(filterData, maxToShow);
+      filterData = filterData.slice(0, maxToShow);
     }
 
     return (
@@ -300,7 +299,7 @@ class Popup extends Component<IPopupProps, any> {
         })}
         {showEmpty && (
           <Receiver componentName="Select">
-            {i18n => (
+            {(i18n: II18nLocaleSelect) => (
               <Option
                 className={`${prefixCls}-empty`}
                 text={emptyText || i18n.empty}

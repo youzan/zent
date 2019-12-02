@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { I18nReceiver as Receiver } from '../../../i18n';
+import { I18nReceiver as Receiver, II18nLocalePagination } from '../../../i18n';
 import { NumberInput } from '../../../number-input';
 
 import BasePageJumper, {
@@ -34,21 +34,10 @@ export class PageJumper extends BasePageJumper<
 
     return (
       <Receiver componentName="Pagination">
-        {(i18n: any) => {
-          if (i18n.mark === 'zh-CN') {
-            return (
-              <div className="zent-pagination-page-jumper">
-                {i18n.jump}
-                {input}
-                {i18n.page}
-              </div>
-            );
-          }
-
+        {(i18n: II18nLocalePagination) => {
           return (
             <div className="zent-pagination-page-jumper">
-              {i18n.jump} {i18n.page}
-              {input}
+              {i18n.jumpTo({ input })}
             </div>
           );
         }}

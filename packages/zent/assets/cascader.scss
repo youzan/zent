@@ -106,7 +106,7 @@
         margin-top: -6px;
         position: absolute;
         display: inline-block;
-        animation: rotate 1s infinite linear;
+        animation: zent-ani-spin 1s infinite linear;
         border: 1px solid $theme-stroke-4;
         border-radius: 50%;
         right: 10px;
@@ -225,21 +225,11 @@
         height: 10px;
         width: 4px;
         background: white;
-        animation: 1s linear rotate infinite;
+        animation: 1s linear zent-ani-spin infinite;
         transform-origin: 8px 3px;
         left: -1px;
         top: 4px;
       }
     }
-  }
-}
-
-@keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
   }
 }

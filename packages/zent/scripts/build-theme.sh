@@ -4,26 +4,26 @@ set -e
 
 basepath=$(dirname $0)
 
-$basepath/validate-pop-size.sh
-
-# Ensure only colors defined in themes are used
-$basepath/check-style-colors.sh
+echo 'Lint styles...'
+$basepath/./postcss-lint.sh
 
 # clean
-echo "Clean up..."
-rm -rf lib es css
+echo "Clean up style output..."
+rm -rf css
 
 # transpile scss to css
 # custom importer for @import '~some-node-module'
 echo "Compile styles..."
-node-sass \
-  --importer $basepath/../../../node_modules/node-sass-magic-importer/dist/cli.js \
-  assets -o css -q
+node $basepath/./compile-style.js
 
-# autoprefixer
-postcss css --use autoprefixer --replace --no-map
+# autoprefixer, put it at last
+postcss \
+  css \
+  --use $(realpath $basepath/../plugins/postcss-plugin-constants) \
+  --use $(realpath $basepath/../plugins/postcss-plugin-version-attribute) \
+  --use autoprefixer \
+  --replace \
+  --no-map
 
 # minify index.css
-cleancss -o css/index.min.css css/index.css
-
-echo "Done! Custom styles are in css directory."
+postcss css/index.css --use cssnano --no-map -o css/index.min.css

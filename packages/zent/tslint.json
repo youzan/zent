@@ -9,6 +9,10 @@
       {
         "name": ["*", "innerText"],
         "message": "Use .textContent instead. tsstyle#browser-oddities"
+      },
+      {
+        "name": ["document", "createElement"],
+        "message": "Use utils/dom/createElement"
       }
     ],
     "ban-ts-ignore": true,
@@ -80,10 +84,6 @@
         "autosize doesn't support compile to ES module, please use cjs require"
       ],
       [
-        "date-fns",
-        "date-fns doesn't support compile to ES module, please use cjs require"
-      ],
-      [
         "enquire.js",
         "enquire.js doesn't support compile to ES module, please use cjs require"
       ],
@@ -94,6 +94,10 @@
       [
         "warning",
         "warning doesn't support compile to ES module, please use cjs require"
+      ],
+      [
+        "lodash-es",
+        "Use built-ins or functions inside `utils`, functions on Object and Array are safe to use."
       ]
     ]
   }

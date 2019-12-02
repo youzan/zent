@@ -4,10 +4,10 @@ set -e
 
 basepath=$(dirname $0)
 
-# 安装依赖，以防有人修改依赖
-yarn
+# bump version first, build relies on it
+yarn workspace "$1" version
 
 # 重新bootstrap，以防有人改了依赖
-yarn bootstrap
+yarn bootstrap "$1"
 
-$basepath/../lerna publish --exact "$@"
+yarn workspace "$1" publish --non-interactive "${@:2}"

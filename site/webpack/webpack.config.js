@@ -7,6 +7,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
+const tsCompilerConstantsPlugin = require('../../packages/zent/plugins/ts-plugin-constants')
+  .default;
+const tsVersionAttributePlugin = require('../../packages/zent/plugins/ts-plugin-version-attribute')
+  .default;
 const createAlias = require('../../packages/zent/createAlias');
 const constants = require('../src/constants');
 
@@ -57,6 +61,9 @@ module.exports = {
             loader: 'postcss-loader',
             options: {
               sourceMap: DEV,
+              config: {
+                path: path.resolve(__dirname, '..'),
+              },
             },
           },
           {
@@ -141,6 +148,12 @@ module.exports = {
             loader: 'awesome-typescript-loader',
             options: {
               useCache: true,
+              getCustomTransformers: program => ({
+                before: [
+                  tsCompilerConstantsPlugin(program),
+                  tsVersionAttributePlugin(program),
+                ],
+              }),
             },
           },
         ],

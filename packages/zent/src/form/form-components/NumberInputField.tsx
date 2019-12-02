@@ -1,17 +1,36 @@
-import { Component } from 'react';
 import * as React from 'react';
-import omit from 'lodash-es/omit';
+import { Omit } from 'utility-types';
 
-import NumberInput from '../../number-input';
-import getControlGroup from '../getControlGroup';
-import unknownProps from '../unknownProps';
+import NumberInput, { INumberInputProps } from '../../number-input';
+import { IFormComponentProps } from '../shared';
+import { FormField } from '../Field';
+import { $MergeParams } from '../utils';
 
-class NumberInputWrap extends Component {
-  render() {
-    const passableProps = omit(this.props, unknownProps);
-    return <NumberInput {...passableProps} />;
-  }
-}
-const NumberInputField = getControlGroup(NumberInputWrap);
+export type IFormNumberInputFieldProps = IFormComponentProps<
+  number | string | null,
+  Omit<INumberInputProps, 'value'>
+> & {
+  integer?: boolean;
+};
 
-export default NumberInputField;
+export const FormNumberInputField: React.FunctionComponent<IFormNumberInputFieldProps> = ({
+  integer,
+  ...props
+}) => {
+  return (
+    <FormField
+      {...props}
+      defaultValue={
+        (props as $MergeParams<IFormNumberInputFieldProps>).defaultValue || ''
+      }
+    >
+      {childProps => (
+        <NumberInput
+          {...props.props}
+          {...(childProps as any)}
+          integer={integer}
+        />
+      )}
+    </FormField>
+  );
+};

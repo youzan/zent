@@ -1,17 +1,23 @@
 import * as React from 'react';
 import cx from 'classnames';
 const autosize = require('autosize');
-import noop from 'lodash-es/noop';
+import noop from '../utils/noop';
 import { ITextAreaProps } from './types';
+import { createUseIMEComposition } from '../ime-composition';
 
 export interface ITextAreaState {
   hasFocus: boolean;
 }
 
+const useIMEComposition = createUseIMEComposition();
+
 export const TextArea = React.forwardRef<HTMLTextAreaElement, ITextAreaProps>(
   (props, ref) => {
     const {
-      value,
+      value: valueProp,
+      onChange: onChangeProp,
+      onCompositionStart: onCompositionStartProp,
+      onCompositionEnd: onCompositionEndProp,
       autoSize,
       showCount,
       maxLength,
@@ -25,6 +31,19 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, ITextAreaProps>(
       inline,
       ...otherProps
     } = props;
+
+    const {
+      value,
+      onChange,
+      onCompositionStart,
+      onCompositionEnd,
+    } = useIMEComposition(
+      valueProp,
+      onChangeProp,
+      onCompositionStartProp,
+      onCompositionEndProp
+    );
+
     React.useLayoutEffect(() => {
       if (!autoSize) {
         return noop;
@@ -48,6 +67,9 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, ITextAreaProps>(
           })}
           value={value}
           maxLength={maxLength}
+          onChange={onChange}
+          onCompositionStart={onCompositionStart}
+          onCompositionEnd={onCompositionEnd}
         />
         {showCount && (
           <span className="zent-textarea-count">

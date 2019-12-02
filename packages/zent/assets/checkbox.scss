@@ -3,17 +3,18 @@
 $size: 16px;
 
 .zent-checkbox-group {
-  @include font-normal;
-
   display: inline-block;
+  font-size: 0;
+
+  > :not(.zent-checkbox-wrap) {
+    @include font-normal;
+  }
 }
 
 .zent-checkbox-wrap {
-  @include font-normal;
-
   display: inline-block;
   cursor: pointer;
-  font-weight: $font-weight-normal;
+  font-size: 0;
   margin: 0;
   padding: 0;
   margin-right: 15px;
@@ -36,6 +37,7 @@ $size: 16px;
   white-space: nowrap;
   outline: none;
   vertical-align: middle;
+  font-size: $font-size-normal;
   line-height: 1;
   margin: 0;
   padding: 0;
@@ -56,6 +58,9 @@ $size: 16px;
   }
 
   &-label {
+    @include font-normal;
+
+    font-weight: $font-weight-normal;
     margin-left: 8px;
     display: inline-block;
     vertical-align: middle;
@@ -156,5 +161,9 @@ $size: 16px;
         @include theme-color(background-color, stroke, 5);
       }
     }
+  }
+
+  .zent-checkbox-label {
+    @include theme-color(color, stroke, 4);
   }
 }

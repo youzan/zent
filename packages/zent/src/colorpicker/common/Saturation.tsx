@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Component, createRef } from 'react';
-import throttle from 'lodash-es/throttle';
+import throttle from '../../utils/throttle';
 import reactCSS from '../helpers/reactcss';
 import * as saturation from '../helpers/saturation';
 

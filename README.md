@@ -30,8 +30,24 @@ Our goal is making React development faster and simpler.
 ### Supported Environments
 
 * React >= 16.8
-* Modern browsers and IE >= 11
+* Modern browsers but not IE
 * Supports server-side rendering(SSR)
+
+### Required polyfills
+
+- `es6.object.assign`
+- `es6.object.is`
+- `es6.string.ends-with`
+- `es6.string.starts-with`
+- `es6.string.includes`
+- `es7.string.trim-left`
+- `es7.string.trim-right`
+- `es6.array.from`
+- `es6.array.of`
+- `es6.array.fill`
+- `es6.array.find`
+- `es6.array.find-index`
+- `es7.array.includes`
 
 ## Install
 
@@ -52,14 +68,6 @@ npm install zent --save
 Read our [contributing guide](packages/zent/docs/CONTRIBUTING_en-US.md) to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to Zent.
 
 Send [issues](https://github.com/youzan/zent/issues) and [pull requests](https://github.com/youzan/zent/pulls) with your ideas.
-
-## Contact Us
-
-- [Slack](https://join.slack.com/t/zentjs/shared_invite/enQtMjcwNzM3NzE2OTMyLTc4MTg4MDkzZTVhNTQ5MmI4ZmVhOGQ2MzZhOTk2OGIyNmZjM2NhMzU3YjM4MzI3YTkxYWNjMDBhMzRiZTliNTE)
-- [Discord](https://discord.gg/Nf6wVd2)
-- Wechat(请备注 Zent)
-  
-	<img src="https://img.yzcdn.cn/public_files/2018/06/06/1fbe772102f91fae8eb3fa1767dd9b26.png" width="240px"/>
 
 ## License
 

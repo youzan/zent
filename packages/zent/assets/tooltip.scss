@@ -1,6 +1,6 @@
 @import './theme/default';
 @import './theme/font';
-@import './base/variables';
+@import './mixins/pop-arrow';
 
 .zent-tooltip {
   @include font-normal;
@@ -34,13 +34,13 @@
     vertical-align: top;
   }
 
-  .zent-tooltip-arrow {
+  .zent-pop-arrow {
     @include theme-color(background-color, stroke, 2);
 
     position: absolute;
     z-index: 1;
-    width: $arrow-size;
-    height: $arrow-size;
+    width: var(--CSS_ARROW_SIZE);
+    height: var(--CSS_ARROW_SIZE);
     box-shadow: $shadow-spec-layer;
     overflow: hidden;
   }
@@ -49,8 +49,8 @@
     content: '';
     display: block;
     position: absolute;
-    width: $arrow-cover-size;
-    height: $arrow-cover-size;
+    width: var(--CSS_ARROW_COVER_SIZE);
+    height: var(--CSS_ARROW_COVER_SIZE);
   }
 
   &--no-header {
@@ -67,148 +67,6 @@
   }
 
   &.zent-popover-position {
-    // bottom side
-    &-bottom-left,
-    &-bottom-center,
-    &-bottom-right {
-      .zent-tooltip-arrow {
-        top: 0;
-      }
-
-      &::after {
-        top: -$arrow-cover-size;
-        width: 100%;
-        left: 0;
-      }
-    }
-
-    &-bottom-left {
-      .zent-tooltip-arrow {
-        transform: translateY(-50%) rotate(45deg);
-        left: $arrow-offset-h;
-      }
-    }
-
-    &-bottom-center {
-      .zent-tooltip-arrow {
-        transform: translate(-50%, -50%) rotate(45deg);
-        left: 50%;
-      }
-    }
-
-    &-bottom-right {
-      .zent-tooltip-arrow {
-        transform: translateY(-50%) rotate(45deg);
-        right: $arrow-offset-h;
-      }
-    }
-
-    // top side
-    &-top-left,
-    &-top-center,
-    &-top-right {
-      .zent-tooltip-arrow {
-        bottom: 0;
-      }
-
-      &::after {
-        bottom: -$arrow-cover-size;
-        width: 100%;
-        left: 0;
-      }
-    }
-
-    &-top-left {
-      .zent-tooltip-arrow {
-        transform: translateY(50%) rotate(45deg);
-        left: $arrow-offset-h;
-      }
-    }
-
-    &-top-center {
-      .zent-tooltip-arrow {
-        transform: translate(-50%, 50%) rotate(45deg);
-        left: 50%;
-      }
-    }
-
-    &-top-right {
-      .zent-tooltip-arrow {
-        transform: translateY(50%) rotate(45deg);
-        right: $arrow-offset-h;
-      }
-    }
-
-    // left side
-    &-left-top,
-    &-left-center,
-    &-left-bottom {
-      .zent-tooltip-arrow {
-        right: 0;
-      }
-
-      &::after {
-        right: -$arrow-cover-size;
-        height: 100%;
-        top: 0;
-      }
-    }
-
-    &-left-top {
-      .zent-tooltip-arrow {
-        transform: translateX(50%) rotate(45deg);
-        top: $arrow-offset-v;
-      }
-    }
-
-    &-left-center {
-      .zent-tooltip-arrow {
-        transform: translate(50%, -50%) rotate(45deg);
-        top: 50%;
-      }
-    }
-
-    &-left-bottom {
-      .zent-tooltip-arrow {
-        transform: translateX(50%) rotate(45deg);
-        bottom: $arrow-offset-v;
-      }
-    }
-
-    // left side
-    &-right-top,
-    &-right-center,
-    &-right-bottom {
-      .zent-tooltip-arrow {
-        left: 0;
-      }
-
-      &::after {
-        left: -$arrow-cover-size;
-        height: 100%;
-        top: 0;
-      }
-    }
-
-    &-right-top {
-      .zent-tooltip-arrow {
-        transform: translateX(-50%) rotate(45deg);
-        top: $arrow-offset-v;
-      }
-    }
-
-    &-right-center {
-      .zent-tooltip-arrow {
-        transform: translate(-50%, -50%) rotate(45deg);
-        top: 50%;
-      }
-    }
-
-    &-right-bottom {
-      .zent-tooltip-arrow {
-        transform: translateX(-50%) rotate(45deg);
-        bottom: $arrow-offset-v;
-      }
-    }
+    @include pop-arrow;
   }
 }

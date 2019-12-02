@@ -5,7 +5,7 @@
 
   &--animate {
     // sass-lint:disable-block no-duplicate-properties
-    animation: zent-placeholder 2s linear infinite;
+    animation: zent-ani-placeholder-bg 2s linear infinite;
     background: linear-gradient(
       to right,
       rgba($theme-stroke-7, 0.7),
@@ -40,7 +40,7 @@
   border-radius: 50%;
 }
 
-@keyframes zent-placeholder {
+@keyframes zent-ani-placeholder-bg {
   0%,
   100% {
     background-position: 0 50%;

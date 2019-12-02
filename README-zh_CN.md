@@ -29,8 +29,24 @@ Zent ( \ˈzent\ ) 是有赞 PC 端 WebUI 规范的 React 实现，提供了一�
 ### 支持环境
 
 * React >= 16.8
-* 现代浏览器以及 IE 11 及以上
+* 现代浏览器，IE 除外
 * 支持服务端渲染(SSR)
+
+### 必须的 polyfill
+
+- `es6.object.assign`
+- `es6.object.is`
+- `es6.string.ends-with`
+- `es6.string.starts-with`
+- `es6.string.includes`
+- `es7.string.trim-left`
+- `es7.string.trim-right`
+- `es6.array.from`
+- `es6.array.of`
+- `es6.array.fill`
+- `es6.array.find`
+- `es6.array.find-index`
+- `es7.array.includes`
 
 ## 安装
 
@@ -51,14 +67,6 @@ npm install zent --save
 修改代码请阅读我们的[开发指南](packages/zent/docs/CONTRIBUTING_zh-CN.md)。
 
 使用过程中发现任何问题都可以提 [Issue](https://github.com/youzan/zent/issues) 给我们，当然，我们也非常欢迎你给我们发 [PR](https://github.com/youzan/zent/pulls)。
-
-## 联系我们
-
-- [Slack](https://join.slack.com/t/zentjs/shared_invite/enQtMjcwNzM3NzE2OTMyLTc4MTg4MDkzZTVhNTQ5MmI4ZmVhOGQ2MzZhOTk2OGIyNmZjM2NhMzU3YjM4MzI3YTkxYWNjMDBhMzRiZTliNTE)
-- [Discord](https://discord.gg/Nf6wVd2)
-- 微信
-  
-	<img src="https://img.yzcdn.cn/public_files/2018/06/06/1fbe772102f91fae8eb3fa1767dd9b26.png" width="240px"/>
 
 ## 开源协议
 

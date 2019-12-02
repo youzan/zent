@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import toArray from 'lodash-es/toArray';
-import forEach from 'lodash-es/forEach';
 import isPromise from '../../utils/isPromise';
-import { I18nReceiver as Receiver } from '../../i18n';
+import { I18nReceiver as Receiver, II18nLocaleUpload } from '../../i18n';
 import Notify from '../../notify';
 
 import {
@@ -75,7 +73,7 @@ export default class FileInput extends PureComponent<IFileInputProps, any> {
   };
 
   processFiles = i18n => evt => {
-    let files = toArray(evt.target.files);
+    let files = Array.from<File>(evt.target.files);
     const { filterFiles, onError } = this.props;
 
     const filterResult = filterFiles(files);
@@ -91,7 +89,7 @@ export default class FileInput extends PureComponent<IFileInputProps, any> {
     evt.target.value = null;
   };
 
-  iteratorFiles = i18n => (files: File[]) => {
+  iteratorFiles = (i18n: II18nLocaleUpload) => (files: File[]) => {
     const {
       type,
       maxSize,
@@ -101,7 +99,7 @@ export default class FileInput extends PureComponent<IFileInputProps, any> {
       errorMessages,
     } = this.props;
 
-    forEach(files, (file, index) => {
+    files?.forEach((file, index) => {
       if (maxAmount && index + initIndex >= maxAmount) {
         const message = formatErrorMessages(
           errorMessages.overMaxAmount,
@@ -184,7 +182,7 @@ export default class FileInput extends PureComponent<IFileInputProps, any> {
 
     return (
       <Receiver componentName="Upload">
-        {(i18n: any) => (
+        {(i18n: II18nLocaleUpload) => (
           <input
             ref={this.autoShowInput}
             type="file"

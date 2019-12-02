@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
+import { Optional } from 'utility-types';
 
 import Button, { IButtonProps } from '../../../button';
+import Pop, { IPopProps } from '../../../pop';
 
 const XML_NS = 'http://www.w3.org/2000/svg';
 
@@ -12,6 +14,7 @@ export interface IPaginationArrowButtonProps {
   active?: boolean;
   bordered?: boolean;
   disabled?: boolean;
+  disabledHelp?: IPopProps;
   onClick?: React.MouseEventHandler<HTMLElement>;
 }
 
@@ -19,6 +22,12 @@ interface IPaginationDoubleArrowButtonState {
   showArrow: boolean;
   prevActive: boolean;
 }
+
+const DEFAULT_DISABLED_POP_PROPS: Optional<IPopProps, 'content'> = {
+  position: 'top-right',
+  trigger: 'hover',
+  centerArrow: true,
+};
 
 export class ArrowButton extends Component<
   IPaginationArrowButtonProps & Partial<IButtonProps>
@@ -30,7 +39,14 @@ export class ArrowButton extends Component<
   };
 
   render() {
-    const { direction, double, active, bordered, ...rest } = this.props;
+    const {
+      direction,
+      double,
+      active,
+      bordered,
+      disabledHelp,
+      ...rest
+    } = this.props;
 
     if (double) {
       return (
@@ -50,16 +66,32 @@ export class ArrowButton extends Component<
       Arrow = RightArrow;
     }
 
-    return (
+    const btn = (
       <Button
         {...rest}
         className={cx('zent-pagination-arrow-button', {
+          'zent-pagination-button--layout': !disabledHelp,
           'zent-pagination-page-button--no-border': !bordered,
         })}
       >
         <Arrow />
       </Button>
     );
+
+    if (disabledHelp && rest.disabled) {
+      const { wrapperClassName, ...otherProps } = disabledHelp;
+      const popProps = {
+        wrapperClassName: cx(
+          'zent-pagination-button--layout',
+          wrapperClassName
+        ),
+        ...DEFAULT_DISABLED_POP_PROPS,
+        ...otherProps,
+      };
+      return <Pop {...popProps}>{btn}</Pop>;
+    }
+
+    return btn;
   }
 }
 

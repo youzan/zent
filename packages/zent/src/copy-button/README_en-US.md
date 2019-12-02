@@ -17,7 +17,7 @@ Copy button will copy the specified text to the system clipboard when clicked.
 
 | Property     |  Description  | Type     | Default  | Alternative |
 | ------------ | ----------------------------- | ------ | -------- |
-| text        | The next need to be copied | text   |     |
+| text        | The next need to be copied | `string` \| `() => string`    |     |
 | onCopySuccess | The callback function that is triggered when copy successful. If this property is string, it will show in `Notify.info`. | function \| string  | `'Copied'` |
 | onCopyError   | The callback function that is triggered when copy failed. If this property is string, it will show in `Notify.error`.  | function \| string  | `'Copy failed'` |
 

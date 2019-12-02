@@ -1,7 +1,5 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import assign from 'lodash-es/assign';
-import includes from 'lodash-es/includes';
 import Td from './Td';
 
 // 需要传入一个组件模板
@@ -27,7 +25,7 @@ export default class Body extends PureComponent<any, any> {
 
   handleExpand(rowIndex) {
     return () => {
-      const expandItems = assign({}, this.state.expandItems);
+      const expandItems = { ...this.state.expandItems };
 
       expandItems[rowIndex] = !(expandItems[rowIndex] || 0);
 
@@ -44,7 +42,10 @@ export default class Body extends PureComponent<any, any> {
   onRowClick(key) {
     const { selection } = this.props;
     if (selection.canRowSelect) {
-      selection.onSelect(key, !includes(selection.selectedRowKeys, key));
+      selection.onSelect(
+        key,
+        (selection.selectedRowKeys ?? []).indexOf(key) === -1
+      );
     }
   }
 

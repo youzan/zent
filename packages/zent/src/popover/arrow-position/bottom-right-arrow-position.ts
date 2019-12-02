@@ -1,4 +1,3 @@
-import { ARROW_OFFSET_H } from './base';
 import { PositionFunctionImpl } from '../position-function';
 
 import Position from '../placement';
@@ -11,7 +10,7 @@ const locate: PositionFunctionImpl = (
 ) => {
   const { left, right, bottom } = anchorBoundingBox;
   const middle = (left + right) / 2;
-  const x = middle - (contentDimension.width - ARROW_OFFSET_H);
+  const x = middle - (contentDimension.width - __ARROW_OFFSET_HORIZONTAL__);
   const y = bottom + options.cushion;
 
   return Position.createArrowPosition(x, y, `bottom-right`);

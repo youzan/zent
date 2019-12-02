@@ -29,6 +29,7 @@ export abstract class AbstractPagination extends BasePagination<
       buttonBordered,
       className,
       formatTotal,
+      lastPageHelp,
     } = this.props;
     const total = this.getTotal();
 
@@ -53,6 +54,7 @@ export abstract class AbstractPagination extends BasePagination<
           current={current}
           buttonBordered={buttonBordered}
           onPageChange={this.onPageChange}
+          lastPageHelp={lastPageHelp}
         />
         {showQuickJumper && <PageJumper onJump={this.onPageChange} />}
       </div>

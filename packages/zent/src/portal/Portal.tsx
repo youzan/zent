@@ -7,12 +7,13 @@ import {
   forwardRef,
   useEffect,
 } from 'react';
-import noop from 'lodash-es/noop';
 
+import noop from '../utils/noop';
 import MountElement from './MountElement';
 import PurePortal, { IPurePortalProps } from './PurePortal';
 import { getNodeFromSelector, hasScrollbarY } from './util';
 import memorize from '../utils/memorize-one';
+import createElement from '../utils/dom/createElement';
 import { SCROLLBAR_WIDTH } from '../utils/getScrollbarWidth';
 import { setValueForStyles } from '../utils/style/CSSPropertyOperations';
 
@@ -109,7 +110,7 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
       children,
       append,
     } = props;
-    const node = useMemo(() => document.createElement(layer), [layer]);
+    const node = useMemo(() => createElement(layer), [layer]);
     const getParent = useMemo(() => memorize(getNodeFromSelector), []);
     const propsRef = useRef<IPortalProps>(props);
     propsRef.current = props;

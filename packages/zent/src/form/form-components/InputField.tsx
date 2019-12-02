@@ -1,23 +1,51 @@
-import { Component } from 'react';
 import * as React from 'react';
-import omit from 'lodash-es/omit';
+import { Omit } from 'utility-types';
 
-import Input, { InputType } from '../../input';
-import getControlGroup from '../getControlGroup';
-import unknownProps from '../unknownProps';
+import Input, { IInputProps, IInputClearEvent } from '../../input';
+import { FormField, IFormFieldChildProps } from '../Field';
+import { IFormComponentProps, TouchWhen, ValidateOccasion } from '../shared';
+import { $MergeParams } from '../utils';
 
-export interface IFormInputWrapProps {
-  type?: InputType;
+export type IFormInputFieldProps = IFormComponentProps<
+  string,
+  Omit<IInputProps, 'value' | 'name' | 'defaultValue'>
+>;
+
+function renderInput(
+  childProps: IFormFieldChildProps<string>,
+  props: IFormInputFieldProps
+) {
+  const onChange = React.useCallback(
+    (
+      e:
+        | IInputClearEvent
+        | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
+      childProps.onChange(e.target.value);
+    },
+    [childProps.onChange]
+  );
+  return (
+    <Input
+      {...(props.props as IInputProps)}
+      {...childProps}
+      onChange={onChange}
+    />
+  );
 }
 
-class InputWrap extends Component<IFormInputWrapProps> {
-  render() {
-    const { type = 'text', ...rest } = this.props;
-    const passableProps = omit(rest, unknownProps);
-    return <Input {...passableProps} type={type as any} />;
-  }
-}
-
-const InputField = getControlGroup(InputWrap);
-
-export default InputField;
+export const FormInputField: React.FunctionComponent<IFormInputFieldProps> = props => {
+  const { validateOccasion = ValidateOccasion.Blur } = props;
+  return (
+    <FormField
+      {...props}
+      defaultValue={
+        (props as $MergeParams<IFormInputFieldProps>).defaultValue || ''
+      }
+      touchWhen={TouchWhen.Blur}
+      validateOccasion={validateOccasion}
+    >
+      {childProps => renderInput(childProps, props)}
+    </FormField>
+  );
+};

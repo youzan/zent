@@ -1,21 +1,32 @@
-import { Component } from 'react';
 import * as React from 'react';
-import omit from 'lodash-es/omit';
+import { Omit } from 'utility-types';
+import ColorPicker, { IColorPickerProps } from '../../colorpicker';
+import { FormField, IFormFieldChildProps } from '../Field';
+import { IFormComponentProps } from '../shared';
+import { $MergeParams } from '../utils';
 
-import ColorPicker from '../../colorpicker';
-import getControlGroup from '../getControlGroup';
-import unknownProps from '../unknownProps';
+export type IFormColorPickerFieldProps = IFormComponentProps<
+  string,
+  Omit<IColorPickerProps, 'color'>
+>;
 
-export interface IFormColorPickerWrapProps {
-  value?: string;
+function renderColorPicker(
+  childProps: IFormFieldChildProps<string>,
+  props: IFormColorPickerFieldProps
+) {
+  const { value, ...passedProps } = childProps;
+  return <ColorPicker {...props.props} {...passedProps} color={value} />;
 }
 
-class ColorPickerWrap extends Component<IFormColorPickerWrapProps> {
-  render() {
-    const passableProps = omit(this.props, unknownProps);
-    return <ColorPicker {...passableProps} color={this.props.value} />;
-  }
-}
-const ColorPickerField = getControlGroup(ColorPickerWrap);
-
-export default ColorPickerField;
+export const FormColorPickerField: React.FunctionComponent<IFormColorPickerFieldProps> = props => {
+  return (
+    <FormField
+      {...props}
+      defaultValue={
+        (props as $MergeParams<IFormColorPickerFieldProps>).defaultValue || ''
+      }
+    >
+      {childProps => renderColorPicker(childProps, props)}
+    </FormField>
+  );
+};

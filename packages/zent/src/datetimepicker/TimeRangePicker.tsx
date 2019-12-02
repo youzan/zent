@@ -6,11 +6,10 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
 import cx from 'classnames';
-import isString from 'lodash-es/isString';
-import isDate from 'lodash-es/isDate';
+import { Omit } from 'utility-types';
 
+import isDate from '../utils/isDate';
 import { I18nReceiver as Receiver } from '../i18n';
-
 import { commonProps, noop } from './constants';
 import TimePicker from './TimePicker';
 import { DatePickers } from './common/types';
@@ -22,11 +21,15 @@ const END = 'end';
 function compatibleInterface(prop) {
   if (!prop) return [];
   if (Array.isArray(prop)) return prop;
-  return isString(prop) || isDate(prop) ? [prop, prop] : prop;
+  return typeof prop === 'string' || isDate(prop) ? [prop, prop] : prop;
 }
 
 export interface ITimeRangePickerProps
-  extends DatePickers.ICommonProps<[DatePickers.Value, DatePickers.Value]> {
+  extends Omit<
+    DatePickers.ICommonProps<DatePickers.RangeValue>,
+    'placeholder'
+  > {
+  placeholder: [string?, string?];
   isFooterVisble?: boolean;
   showSecond?: boolean;
   hourStep?: number;
@@ -61,7 +64,7 @@ export class TimeRangePicker extends PureComponent<ITimeRangePickerProps> {
       } else {
         ret.length === 0 ? ret.splice(1, 1, '', val) : ret.splice(1, 1, val);
       }
-      onChange(ret as any);
+      onChange && onChange(ret as any);
     };
   };
 
