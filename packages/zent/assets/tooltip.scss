@@ -34,7 +34,7 @@
     vertical-align: top;
   }
 
-  .zent-pop-arrow {
+  .zent-tooltip-arrow {
     @include theme-color(background-color, stroke, 2);
 
     position: absolute;
@@ -67,6 +67,6 @@
   }
 
   &.zent-popover-position {
-    @include pop-arrow;
+    @include pop-arrow('tooltip');
   }
 }

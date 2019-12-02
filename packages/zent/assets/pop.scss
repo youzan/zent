@@ -67,6 +67,6 @@
   }
 
   &.zent-popover-position {
-    @include pop-arrow;
+    @include pop-arrow('pop');
   }
 }

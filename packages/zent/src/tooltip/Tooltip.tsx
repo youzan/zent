@@ -60,7 +60,7 @@ export class Tooltip extends Component<ITooltipProps> {
     return (
       <Popover.Content>
         <div className={`${prefix}-tooltip-inner`}>{title}</div>
-        <i className={`${prefix}-pop-arrow`} />
+        <i className={`${prefix}-tooltip-arrow`} />
       </Popover.Content>
     );
   }

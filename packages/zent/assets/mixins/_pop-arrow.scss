@@ -1,9 +1,9 @@
-@mixin pop-arrow {
+@mixin pop-arrow($name) {
   // bottom side
   &-bottom-left,
   &-bottom-center,
   &-bottom-right {
-    .zent-pop-arrow {
+    .zent-#{$name}-arrow {
       top: 0;
     }
 
@@ -15,21 +15,21 @@
   }
 
   &-bottom-left {
-    .zent-pop-arrow {
+    .zent-#{$name}-arrow {
       transform: translateY(-50%) rotate(45deg);
       left: var(--CSS_ARROW_OFFSET_HORIZONTAL);
     }
   }
 
   &-bottom-center {
-    .zent-pop-arrow {
+    .zent-#{$name}-arrow {
       transform: translate(-50%, -50%) rotate(45deg);
       left: 50%;
     }
   }
 
   &-bottom-right {
-    .zent-pop-arrow {
+    .zent-#{$name}-arrow {
       transform: translateY(-50%) rotate(45deg);
       right: var(--CSS_ARROW_OFFSET_HORIZONTAL);
     }
@@ -39,7 +39,7 @@
   &-top-left,
   &-top-center,
   &-top-right {
-    .zent-pop-arrow {
+    .zent-#{$name}-arrow {
       bottom: 0;
     }
 
@@ -51,21 +51,21 @@
   }
 
   &-top-left {
-    .zent-pop-arrow {
+    .zent-#{$name}-arrow {
       transform: translateY(50%) rotate(45deg);
       left: var(--CSS_ARROW_OFFSET_HORIZONTAL);
     }
   }
 
   &-top-center {
-    .zent-pop-arrow {
+    .zent-#{$name}-arrow {
       transform: translate(-50%, 50%) rotate(45deg);
       left: 50%;
     }
   }
 
   &-top-right {
-    .zent-pop-arrow {
+    .zent-#{$name}-arrow {
       transform: translateY(50%) rotate(45deg);
       right: var(--CSS_ARROW_OFFSET_HORIZONTAL);
     }
@@ -75,7 +75,7 @@
   &-left-top,
   &-left-center,
   &-left-bottom {
-    .zent-pop-arrow {
+    .zent-#{$name}-arrow {
       right: 0;
     }
 
@@ -87,21 +87,21 @@
   }
 
   &-left-top {
-    .zent-pop-arrow {
+    .zent-#{$name}-arrow {
       transform: translateX(50%) rotate(45deg);
       top: var(--CSS_ARROW_OFFSET_VERTICAL);
     }
   }
 
   &-left-center {
-    .zent-pop-arrow {
+    .zent-#{$name}-arrow {
       transform: translate(50%, -50%) rotate(45deg);
       top: 50%;
     }
   }
 
   &-left-bottom {
-    .zent-pop-arrow {
+    .zent-#{$name}-arrow {
       transform: translateX(50%) rotate(45deg);
       bottom: var(--CSS_ARROW_OFFSET_VERTICAL);
     }
@@ -111,7 +111,7 @@
   &-right-top,
   &-right-center,
   &-right-bottom {
-    .zent-pop-arrow {
+    .zent-#{$name}-arrow {
       left: 0;
     }
 
@@ -123,21 +123,21 @@
   }
 
   &-right-top {
-    .zent-pop-arrow {
+    .zent-#{$name}-arrow {
       transform: translateX(-50%) rotate(45deg);
       top: var(--CSS_ARROW_OFFSET_VERTICAL);
     }
   }
 
   &-right-center {
-    .zent-pop-arrow {
+    .zent-#{$name}-arrow {
       transform: translate(-50%, -50%) rotate(45deg);
       top: 50%;
     }
   }
 
   &-right-bottom {
-    .zent-pop-arrow {
+    .zent-#{$name}-arrow {
       transform: translateX(-50%) rotate(45deg);
       bottom: var(--CSS_ARROW_OFFSET_VERTICAL);
     }
