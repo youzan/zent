@@ -43,10 +43,10 @@ class Simple extends React.Component {
 
     updateLocalImage(data) {
         return new Promise(resolve => {
-          this.setState({
-            imageList: data
-          });
           setTimeout(() => {
+            this.setState({
+              imageList: data
+            });
             resolve(data);
           }, 1000);
         });
