@@ -296,7 +296,7 @@ class UploadPopup extends Component<any, any> {
   fileProgressHandler(progress, index) {
     const { localFiles } = this.state;
     // 上传过程中删除预览小图
-    const fileIndex = localFiles.findIndex(file => file.__uid === index);
+    const fileIndex = localFiles.findIndex(file => file[UID_KEY] === index);
     if (fileIndex >= 0) {
       localFiles[fileIndex].progress = progress;
     }
