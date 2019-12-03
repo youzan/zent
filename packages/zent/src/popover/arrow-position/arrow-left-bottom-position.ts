@@ -1,6 +1,7 @@
 import { PositionFunctionImpl } from '../position-function';
 
-import Position from '../placement';
+import createPlacement from '../placement/create';
+import createArrowPosition from '../placement/createArrowPosition';
 
 const locate: PositionFunctionImpl = (
   anchorBoundingBox,
@@ -12,9 +13,9 @@ const locate: PositionFunctionImpl = (
   const middle = (anchorBoundingBox.top + anchorBoundingBox.bottom) / 2;
   const y = middle - (contentDimension.height - __ARROW_OFFSET_VERTICAL__);
 
-  return Position.createArrowPosition(x, y, `left-bottom`);
+  return createArrowPosition(x, y, `left-bottom`);
 };
 
-const LeftBottomArrowPosition = Position.create(locate);
+const ArrowLeftBottomPosition = createPlacement(locate);
 
-export default LeftBottomArrowPosition;
+export default ArrowLeftBottomPosition;

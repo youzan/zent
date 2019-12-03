@@ -11,29 +11,54 @@ import getPosition from '../utils/getArrowPosition';
 
 const { Trigger } = Popover;
 
-export interface ITooltipProps {
+export interface ITooltipBaseProps {
   title: React.ReactNode;
-  trigger?: 'none' | 'click' | 'hover' | 'focus';
   position?: PopPositions | PositionFunction;
   cushion?: number;
   centerArrow?: boolean;
   className?: string;
   containerSelector?: string;
-  prefix?: string;
   visible?: boolean;
   onVisibleChange?: (visible: boolean) => void;
   isOutside?: (
     target: HTMLElement,
     node: { contentNode: HTMLElement; triggerNode: HTMLElement }
   ) => boolean;
+}
 
-  // trigger: click
+interface ITooltipTriggerProps extends ITooltipBaseProps {
+  trigger?: 'none' | 'focus';
+}
+
+// trigger: click
+interface ITooltipTriggerClickProps extends ITooltipBaseProps {
+  trigger?: 'click';
   closeOnClickOutside?: boolean;
+}
 
-  // trigger: hover
+// trigger: hover
+interface ITooltipTriggerHoverProps extends ITooltipBaseProps {
+  trigger?: 'hover';
   quirk?: boolean;
   mouseEnterDelay?: number;
   mouseLeaveDelay?: number;
+}
+
+type ITooltipProps =
+  | ITooltipTriggerProps
+  | ITooltipTriggerClickProps
+  | ITooltipTriggerHoverProps;
+
+function isITooltipTriggerClickProps(
+  props: ITooltipProps
+): props is ITooltipTriggerClickProps {
+  return true;
+}
+
+function ITooltipTriggerHoverProps(
+  props: ITooltipProps
+): props is ITooltipTriggerHoverProps {
+  return true;
 }
 
 export class Tooltip extends Component<ITooltipProps> {
@@ -42,41 +67,28 @@ export class Tooltip extends Component<ITooltipProps> {
     position: 'top-center',
     cushion: 10,
     centerArrow: false,
-    closeOnClickOutside: true,
-    mouseLeaveDelay: 200,
-    mouseEnterDelay: 200,
-    className: '',
     containerSelector: 'body',
-    prefix: 'zent',
-    quirk: true,
   };
 
   popover: Popover;
   isUnmounted = false;
 
   renderContent() {
-    const { prefix, title } = this.props;
+    const { title } = this.props;
 
     return (
       <Popover.Content>
-        <div className={`${prefix}-tooltip-inner`}>{title}</div>
-        <i className={`${prefix}-tooltip-arrow`} />
+        <div className={`zent-tooltip-inner`}>{title}</div>
+        <i className={`zent-tooltip-arrow`} />
       </Popover.Content>
     );
   }
 
   renderTrigger() {
-    const {
-      trigger,
-      closeOnClickOutside,
-      isOutside,
-      mouseLeaveDelay,
-      mouseEnterDelay,
-      children,
-      quirk,
-    } = this.props;
+    const { trigger, isOutside, children } = this.props;
 
-    if (trigger === 'click') {
+    if (trigger === 'click' && isITooltipTriggerClickProps(this.props)) {
+      const { closeOnClickOutside = true } = this.props;
       return (
         <Trigger.Click autoClose={closeOnClickOutside} isOutside={isOutside}>
           {children}
@@ -84,7 +96,12 @@ export class Tooltip extends Component<ITooltipProps> {
       );
     }
 
-    if (trigger === 'hover') {
+    if (trigger === 'hover' && ITooltipTriggerHoverProps(this.props)) {
+      const {
+        mouseLeaveDelay = 200,
+        mouseEnterDelay = 200,
+        quirk = true,
+      } = this.props;
       return (
         <Trigger.Hover
           showDelay={mouseEnterDelay}
@@ -117,14 +134,13 @@ export class Tooltip extends Component<ITooltipProps> {
       className,
       trigger,
       visible,
-      prefix,
       position,
       cushion,
       centerArrow,
       containerSelector,
     } = this.props;
 
-    const cls = cx(`${prefix}-tooltip`, className);
+    const cls = cx(`zent-tooltip`, className);
 
     let { onVisibleChange } = this.props;
     if (trigger === 'none') {
@@ -135,8 +151,8 @@ export class Tooltip extends Component<ITooltipProps> {
       <Popover
         visible={visible}
         onVisibleChange={onVisibleChange}
-        prefix={prefix}
-        wrapperClassName={`${prefix}-tooltip-wrapper`}
+        prefix={'zent'}
+        wrapperClassName={`zent-tooltip-wrapper`}
         className={cls}
         cushion={cushion}
         position={getPosition(position, centerArrow)}

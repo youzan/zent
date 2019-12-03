@@ -1,19 +1,19 @@
-import BottomLeftArrowPosition from './bottom-left-arrow-position';
-import BottomRightArrowPosition from './bottom-right-arrow-position';
-import LeftTopArrowPosition from './left-top-arrow-position';
-import LeftBottomArrowPosition from './left-bottom-arrow-position';
-import RightTopArrowPosition from './right-top-arrow-position';
-import RightBottomArrowPosition from './right-bottom-arrow-position';
-import TopLeftArrowPosition from './top-left-arrow-position';
-import TopRightArrowPosition from './top-right-arrow-position';
+import ArrowBottomLeftPosition from './arrow-bottom-left-position';
+import ArrowBottomRightPosition from './arrow-bottom-right-position';
+import ArrowLeftTopPosition from './arrow-left-top-position';
+import ArrowLeftBottomPosition from './arrow-left-bottom-position';
+import ArrowRightTopPosition from './arrow-right-top-position';
+import ArrowRightBottomPosition from './arrow-right-bottom-position';
+import ArrowTopLeftPosition from './arrow-top-left-position';
+import ArrowTopRightPosition from './arrow-top-right-position';
 
 export default {
-  BottomLeftArrowPosition,
-  BottomRightArrowPosition,
-  LeftTopArrowPosition,
-  LeftBottomArrowPosition,
-  RightTopArrowPosition,
-  RightBottomArrowPosition,
-  TopLeftArrowPosition,
-  TopRightArrowPosition,
+  ArrowBottomLeftPosition,
+  ArrowBottomRightPosition,
+  ArrowLeftTopPosition,
+  ArrowLeftBottomPosition,
+  ArrowRightTopPosition,
+  ArrowRightBottomPosition,
+  ArrowTopLeftPosition,
+  ArrowTopRightPosition,
 };

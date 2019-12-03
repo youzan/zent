@@ -34,7 +34,6 @@ import PopoverContext, { IPopoverContext } from './PopoverContext';
 import { PositionFunction } from './position-function';
 import withPopover from './withPopover';
 import Position from './placement';
-import ArrowPosition from './arrow-position';
 
 const SKIPPED = () => {};
 
@@ -103,7 +102,6 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
   static Content = PopoverContent;
   static Trigger = Trigger;
   static Position = Position;
-  static ArrowPosition = ArrowPosition;
   static withPopover = withPopover;
 
   registerDescendant = (popover: Popover) => {

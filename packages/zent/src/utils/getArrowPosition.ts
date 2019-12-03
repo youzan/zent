@@ -1,7 +1,9 @@
 import capitalize from './capitalize';
 import Popover from '../popover';
 
-const { Position, ArrowPosition } = Popover;
+const { Position } = Popover;
+
+const { Arrow } = Position;
 
 export default function getPosition(position, centerArrow) {
   if (typeof position === 'function') {
@@ -25,7 +27,7 @@ export default function getPosition(position, centerArrow) {
     return pos;
   }
 
-  positionName = positionName + 'ArrowPosition';
+  positionName = 'Arrow' + positionName + 'Position';
 
-  return ArrowPosition[positionName];
+  return Arrow[positionName];
 }

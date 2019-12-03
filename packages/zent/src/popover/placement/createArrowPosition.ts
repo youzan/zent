@@ -10,6 +10,6 @@ export default function createArrowPosition(x, y, side) {
       };
     },
 
-    name: `position-${side}`,
+    name: `position-arrow-${side}`,
   };
 }
