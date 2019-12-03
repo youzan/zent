@@ -221,7 +221,7 @@ describe('Pop', () => {
       jest.runAllTimers();
       expect(findContent().length).toBe(1);
       expect(
-        document.querySelector(`.zent-popover-position-${position}`)
+        document.querySelector(`.zent-popover-position-arrow-${position}`)
       ).toBeTruthy();
     };
 
