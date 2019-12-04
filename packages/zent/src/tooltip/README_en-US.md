@@ -8,7 +8,7 @@ group: FIXME group name here
 
 - Triggers: click, hover and focus
 - Only display prompt like `HTML title`,no more operation
-- API like pop
+- API like Pop
 
 ### API
 
@@ -27,7 +27,7 @@ group: FIXME group name here
 
 #### Extra API to trigger
 
-`Tooltip` has some additional props depends on different triggers.like `pop`.
+`Tooltip` has some additional props depends on different triggers. Like `Pop`.
 
 #### Click
 

@@ -1,7 +1,7 @@
 import { PositionFunctionImpl } from '../position-function';
 
 import createPlacement from '../placement/create';
-import createArrowPosition from '../placement/createArrowPosition';
+import createArrowPosition from './create';
 
 const locate: PositionFunctionImpl = (
   anchorBoundingBox,

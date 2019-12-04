@@ -66,10 +66,7 @@
     }
   }
 
-  &.zent-popover-position {
-    @include pop-arrow('tooltip');
-  }
-
+  &.zent-popover-position,
   &.zent-popover-position-arrow {
     @include pop-arrow('tooltip');
   }

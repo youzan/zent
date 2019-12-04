@@ -66,10 +66,7 @@
     }
   }
 
-  &.zent-popover-position {
-    @include pop-arrow('pop');
-  }
-
+  &.zent-popover-position,
   &.zent-popover-position-arrow {
     @include pop-arrow('pop');
   }

@@ -70,8 +70,7 @@ export class Tooltip extends Component<ITooltipProps> {
     containerSelector: 'body',
   };
 
-  popover: Popover;
-  isUnmounted = false;
+  popoverRef = React.createRef<Popover>();
 
   renderContent() {
     const { title } = this.props;
@@ -125,10 +124,6 @@ export class Tooltip extends Component<ITooltipProps> {
     return null;
   }
 
-  componentWillUnmount() {
-    this.isUnmounted = true;
-  }
-
   render() {
     const {
       className,
@@ -157,17 +152,13 @@ export class Tooltip extends Component<ITooltipProps> {
         cushion={cushion}
         position={getPosition(position, centerArrow)}
         containerSelector={containerSelector}
-        ref={this.onPopoverRefChange}
+        ref={this.popoverRef}
       >
         {this.renderTrigger()}
         {this.renderContent()}
       </Popover>
     );
   }
-
-  onPopoverRefChange = popoverInstance => {
-    this.popover = popoverInstance;
-  };
 }
 
 export default Tooltip;
