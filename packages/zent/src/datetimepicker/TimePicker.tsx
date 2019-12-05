@@ -65,7 +65,7 @@ function extractStateFromProps(props: ITimePickerProps): ITimePickerState {
 }
 
 export interface ITimePickerProps extends DatePickers.ICommonProps {
-  isFooterVisble?: boolean;
+  isFooterVisible?: boolean;
   showSecond?: boolean;
   hourStep?: number;
   minuteStep?: number;
@@ -90,7 +90,7 @@ export class TimePicker extends PureComponent<
     ...commonProps,
     placeholder: '',
     format: 'HH:mm:ss',
-    isFooterVisble: true,
+    isFooterVisible: true,
     hourStep: 1,
     minuteStep: 1,
     secondStep: 1,
@@ -388,7 +388,7 @@ export class TimePicker extends PureComponent<
           <div className="time-picker-panel__content">
             {this.renderPanelContent(i18n)}
           </div>
-          {this.props.isFooterVisble ? (
+          {this.props.isFooterVisible ? (
             <div className="time-picker-panel__footer">
               <PanelFooter
                 buttonText={confirmText || i18n.confirm}

@@ -35,7 +35,7 @@ export const commonProps = {
   popPosition: 'left',
   openPanel: false,
   onChange: noop,
-  isFooterVisble: false,
+  isFooterVisible: false,
   canClear: true,
   autoComplete: 'off',
 };
