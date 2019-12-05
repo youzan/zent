@@ -23,7 +23,7 @@ function getYear(val) {
 
 export interface IYearPickerProps extends DatePickers.ICommonProps {
   needConfirm?: boolean;
-  isFooterVisble?: boolean;
+  isFooterVisible?: boolean;
   onBeforeClear?: () => boolean;
 }
 
@@ -97,13 +97,13 @@ export class YearPicker extends PureComponent<IYearPickerProps, any> {
   onSelectYear = val => {
     if (this.isDisabled(val)) return;
     const {
-      props: { isFooterVisble, onChange },
+      props: { isFooterVisible, onChange },
       state: { actived },
     } = this;
     const acp = new Date(actived);
     acp.setFullYear(val);
 
-    if (!isFooterVisble) {
+    if (!isFooterVisible) {
       this.setState({
         value: acp,
         selected: acp,

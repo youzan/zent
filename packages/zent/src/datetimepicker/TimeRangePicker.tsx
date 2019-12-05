@@ -30,7 +30,7 @@ export interface ITimeRangePickerProps
     'placeholder'
   > {
   placeholder: [string?, string?];
-  isFooterVisble?: boolean;
+  isFooterVisible?: boolean;
   showSecond?: boolean;
   hourStep?: number;
   minuteStep?: number;
@@ -42,7 +42,7 @@ export class TimeRangePicker extends PureComponent<ITimeRangePickerProps> {
   static defaultProps = {
     ...commonProps,
     format: 'HH:mm:ss',
-    isFooterVisble: true,
+    isFooterVisible: true,
     hourStep: 1,
     minuteStep: 1,
     secondStep: 1,

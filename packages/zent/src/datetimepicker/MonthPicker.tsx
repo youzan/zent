@@ -15,7 +15,7 @@ import { DatePickers } from './common/types';
 
 export interface IMonthPickerProps extends DatePickers.ICommonProps {
   disabled?: boolean;
-  isFooterVisble?: boolean;
+  isFooterVisible?: boolean;
   onBeforeClear?: () => unknown;
 }
 
@@ -104,7 +104,7 @@ export class MonthPicker extends PureComponent<IMonthPickerProps, any> {
   };
 
   onSelectMonth = (val, isYear = false) => {
-    const { onClick, isFooterVisble } = this.props;
+    const { onClick, isFooterVisible } = this.props;
     const month = val.getMonth();
 
     if (!isYear && this.isDisabled(month)) return;
@@ -115,7 +115,7 @@ export class MonthPicker extends PureComponent<IMonthPickerProps, any> {
         actived: val,
       },
       () => {
-        if (!isFooterVisble) {
+        if (!isFooterVisible) {
           this.onConfirm();
         }
       }
@@ -168,14 +168,14 @@ export class MonthPicker extends PureComponent<IMonthPickerProps, any> {
 
   renderPicker(i18n) {
     const {
-      props: { confirmText, isFooterVisble },
+      props: { confirmText, isFooterVisible },
       state: { actived, openPanel, selected },
     } = this;
     let monthPicker;
     if (openPanel) {
       const monthPickerCls = cx({
         'month-picker': true,
-        small: isFooterVisble,
+        small: isFooterVisible,
       });
       monthPicker = (
         <div className={monthPickerCls}>
@@ -187,7 +187,7 @@ export class MonthPicker extends PureComponent<IMonthPickerProps, any> {
             disabledDate={this.isDisabled}
             i18n={i18n}
           />
-          {isFooterVisble ? (
+          {isFooterVisible ? (
             <PanelFooter
               buttonText={confirmText || i18n.confirm}
               linkText={i18n.current.month}
