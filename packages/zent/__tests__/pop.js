@@ -220,8 +220,11 @@ describe('Pop', () => {
       wrapper.find('button').simulate('click');
       jest.runAllTimers();
       expect(findContent().length).toBe(1);
+      const arrowClassName = /^.+center$/.test(position)
+        ? `.zent-popover-position`
+        : `.zent-popover-position-arrow`;
       expect(
-        document.querySelector(`.zent-popover-position-${position}`)
+        document.querySelector(`${arrowClassName}-${position}`)
       ).toBeTruthy();
     };
 
