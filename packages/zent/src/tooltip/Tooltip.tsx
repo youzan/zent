@@ -146,7 +146,6 @@ export class Tooltip extends Component<ITooltipProps> {
       <Popover
         visible={visible}
         onVisibleChange={onVisibleChange}
-        prefix={'zent'}
         wrapperClassName={`zent-tooltip-wrapper`}
         className={cls}
         cushion={cushion}
