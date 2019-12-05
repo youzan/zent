@@ -1,4 +1,4 @@
-import noop from 'lodash-es/noop';
+import noop from '../utils/noop';
 
 export default function toggleSelection() {
   const selection = document.getSelection();

@@ -31,19 +31,20 @@ Our goal is making React development faster and simpler.
 * No IE support
 
 #### Polyfills needed for supported browsers
-* String.prototype.padStart (Chrome 57, Safari 10)
 
-#### Other browsers
-
-For CSS, please refer to [Themes](theme)
-
-Possibly needed polyfills:
-* Map
-* Set
-* Array.prototype.includes
-* String.prototype.includes
-* Object.assign
-* Object.is
+- `es6.object.assign`
+- `es6.object.is`
+- `es6.string.ends-with`
+- `es6.string.starts-with`
+- `es6.string.includes`
+- `es7.string.trim-left`
+- `es7.string.trim-right`
+- `es6.array.from`
+- `es6.array.of`
+- `es6.array.fill`
+- `es6.array.find`
+- `es6.array.find-index`
+- `es7.array.includes`
 
 ### Install
 
@@ -79,6 +80,10 @@ This plugin is useful if you are developing a library based on Zent, or if you o
 You can find detailed instructions in its [documentation](babel-plugin-zent).
 
 Using ESM with tree-shaking enabled bundler is also possible.
+
+### Theme
+
+Please refer to [Themes](theme)
 
 <style>
 img[alt="zent-components"] {

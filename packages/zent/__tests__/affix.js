@@ -19,6 +19,7 @@ describe('Affix component', () => {
     const wrapper = mount(
       <Affix prefix="wulv" className="affix" zIndex={100} offsetTop={50} />
     );
+    jest.runOnlyPendingTimers();
     const props = wrapper.props();
     const state = wrapper.state();
     expect(props.offsetTop).toBe(50);
@@ -32,6 +33,8 @@ describe('Affix component', () => {
 
   it('Affix scroll events', () => {
     const wrapper = mount(<Affix offsetTop={50} />);
+    jest.runOnlyPendingTimers();
+
     const state = wrapper.state();
 
     expect(wrapper.instance().affix).toBe(true);
@@ -65,6 +68,7 @@ describe('Affix component', () => {
       }
     }
     const wrapper1 = mount(<Test />);
+    jest.runOnlyPendingTimers();
     const affix = wrapper1.find('Affix');
     const state1 = affix.instance().state;
     expect(state1.width).toBe(0);
@@ -79,9 +83,11 @@ describe('Affix component', () => {
     const wrapper = mount(
       <Affix prefix="wulv" className="affix" zIndex={100} offsetTop={50} />
     );
+    jest.runOnlyPendingTimers();
     const node = wrapper.instance();
     expect(node.affix).toBe(true);
     wrapper.setProps({ offsetTop: -100 });
-    expect(node.affix).toBe(true);
+    jest.runOnlyPendingTimers();
+    expect(node.affix).toBe(false);
   });
 });

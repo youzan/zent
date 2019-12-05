@@ -19,6 +19,7 @@
     "pretty": true,
     "removeComments": true,
     "skipLibCheck": true,
+    "downlevelIteration": false,
     "target": "es5",
     "plugins": [
       { "transform": "./plugins/ts-plugin-constants.ts" },

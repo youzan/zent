@@ -20,15 +20,13 @@ import * as React from 'react';
 import { Component, Children } from 'react';
 import * as ReactDOM from 'react-dom';
 import cx from 'classnames';
-import noop from 'lodash-es/noop';
-import uniqueId from 'lodash-es/uniqueId';
-import isFunction from 'lodash-es/isFunction';
-import isBoolean from 'lodash-es/isBoolean';
+
+import uniqueId from '../utils/uniqueId';
+import noop from '../utils/noop';
 import isPromise from '../utils/isPromise';
 import kindOf from '../utils/kindOf';
 import getWidth from '../utils/getWidth';
 import memoize from '../utils/memorize-one';
-
 import PopoverContent from './Content';
 import Trigger from './trigger';
 import PopoverTrigger from './trigger/Trigger';
@@ -162,8 +160,8 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
 
   isVisibilityControlled(props?: IPopoverProps) {
     const { visible, onVisibleChange } = props || this.props;
-    const hasOnChange = isFunction(onVisibleChange);
-    const hasVisible = isBoolean(visible);
+    const hasOnChange = typeof onVisibleChange === 'function';
+    const hasVisible = typeof visible === 'boolean';
 
     if ((hasVisible && !hasOnChange) || (hasOnChange && !hasVisible)) {
       throw new Error('visible and onVisibleChange must be used together');
@@ -243,7 +241,8 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
       ? ReactDOM.findDOMNode(triggerInstance)
       : undefined;
 
-    this.triggerNode = isFunction(nodeFilter) ? nodeFilter(node) : node;
+    this.triggerNode =
+      typeof nodeFilter === 'function' ? nodeFilter(node) : node;
 
     this.triggerInstance = triggerInstance;
   };

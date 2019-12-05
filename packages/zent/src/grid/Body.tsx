@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
 import classnames from 'classnames';
-import get from 'lodash-es/get';
-import forEach from 'lodash-es/forEach';
 import Row from './Row';
 import ColGroup from './ColGroup';
 import {
@@ -57,7 +55,7 @@ class Body<Data> extends PureComponent<IGridBodyProps<Data>> {
     } = this.props;
     const row: React.ReactNode[] = [];
 
-    forEach(datasets, (data, index) => {
+    (datasets || []).forEach((data, index) => {
       row.push(
         <Row
           data={data}
@@ -65,7 +63,7 @@ class Body<Data> extends PureComponent<IGridBodyProps<Data>> {
           index={index}
           rowIndex={index}
           prefix={prefix}
-          key={rowKey ? get(data, rowKey) : index}
+          key={rowKey ? data?.[rowKey] : index}
           rowClassName={rowClassName}
           mouseOverRowIndex={mouseOverRowIndex}
           onRowClick={onRowClick}

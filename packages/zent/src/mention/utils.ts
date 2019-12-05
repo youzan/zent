@@ -1,7 +1,3 @@
-import isEmpty from 'lodash-es/isEmpty';
-import isString from 'lodash-es/isString';
-import isNumber from 'lodash-es/isNumber';
-
 // Return empty string when start is greater than end
 export function substring(str, start, end) {
   if (start <= end) {
@@ -46,7 +42,7 @@ export function getInputNodeForTrigger(node) {
 }
 
 export function getMenuListItems(suggestions, notFoundContent) {
-  if (isEmpty(suggestions)) {
+  if (!suggestions || suggestions.length === 0) {
     return [
       {
         content: notFoundContent,
@@ -57,7 +53,7 @@ export function getMenuListItems(suggestions, notFoundContent) {
   }
 
   return suggestions.map(item => {
-    if (isString(item) || isNumber(item)) {
+    if (typeof item === 'string' || typeof item === 'number') {
       return {
         content: item,
         value: item,

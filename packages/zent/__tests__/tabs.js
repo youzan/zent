@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Enzyme, { mount } from 'enzyme';
-import { upperFirst } from 'lodash-es';
 import Adapter from 'enzyme-adapter-react-16';
 import Tabs from 'tabs';
 import VerticalTabs from 'tabs/VerticalTabs';
+import capitalize from 'utils/capitalize';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -124,7 +124,7 @@ describe('Tabs', () => {
      * @param {string} type
      */
     const ensure = (type, tabComponentOverride) => {
-      const tabComponent = tabComponentOverride || `${upperFirst(type)}Tab`;
+      const tabComponent = tabComponentOverride || `${capitalize(type)}Tab`;
       const onChange = jest.fn();
       const wrapper = mount(
         <Tabs type={type} activeId="foobar" onChange={onChange}>
@@ -155,7 +155,7 @@ describe('Tabs', () => {
      * @param {string} type
      */
     const ensure = type => {
-      const tabComponent = `${upperFirst(type)}Tab`;
+      const tabComponent = `${capitalize(type)}Tab`;
       class App extends Component {
         state = {
           active: 'foobar',

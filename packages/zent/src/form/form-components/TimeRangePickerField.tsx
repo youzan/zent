@@ -13,9 +13,7 @@ export type IFormTimeRangePickerFieldProps = IFormComponentProps<
   Omit<ITimeRangePickerProps, 'value'>
 >;
 
-export const FormTimeRangePickerField: React.FunctionComponent<
-  IFormTimeRangePickerFieldProps
-> = props => {
+export const FormTimeRangePickerField: React.FunctionComponent<IFormTimeRangePickerFieldProps> = props => {
   return (
     <FormField
       {...props}

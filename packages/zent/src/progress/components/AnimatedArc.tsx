@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import uniqueId from 'lodash-es/uniqueId';
+
+import uniqueId from '../../utils/uniqueId';
 
 const GRADIENT_ID = uniqueId('zentAnimatedArcStrokeGradient');
 const STROKE_OFFSET_RATIO = 0.2;

@@ -3,14 +3,13 @@
  */
 import * as React from 'react';
 import { Component } from 'react';
-import take from 'lodash-es/take';
-import noop from 'lodash-es/noop';
 
+import noop from '../utils/noop';
 import Popover from '../popover';
 import { I18nReceiver as Receiver, II18nLocaleSelect } from '../i18n';
-
 import Search from './components/Search';
 import Option from './components/Option';
+import defer from '../utils/defer';
 
 export interface IPopupProps {
   adjustPosition: () => void;
@@ -138,20 +137,19 @@ class Popup extends Component<IPopupProps, any> {
     );
   };
 
-  searchFilterHandler = keyword => {
+  searchFilterHandler = (keyword: string) => {
     const { onAsyncFilter, filter, adjustPosition } = this.props;
     // keyword = trim(keyword); 防止空格输入不进去
     let { data, currentId } = this.state;
 
-    data
-      .filter(item => {
-        return !keyword || !filter || filter(item, `${keyword}`);
-      })
-      .forEach((item, index) => {
-        if ((keyword && item.text === keyword) || (!currentId && index === 0)) {
-          currentId = item.cid;
-        }
-      });
+    const shouldFilter = !!keyword && !!filter;
+    for (let i = 0; i < data.length; i++) {
+      const item = data[i];
+      if ((shouldFilter && filter(item, keyword)) || !currentId) {
+        currentId = item.cid;
+        break;
+      }
+    }
 
     this.setState({
       keyword,
@@ -162,9 +160,9 @@ class Popup extends Component<IPopupProps, any> {
       onAsyncFilter(`${keyword}`);
     } else {
       // 同步关键词过滤后更新 Popup 位置
-      setTimeout(() => {
+      defer(() => {
         adjustPosition();
-      }, 1);
+      });
     }
   };
 
@@ -256,7 +254,7 @@ class Popup extends Component<IPopupProps, any> {
     this.itemIds = filterData.map(item => item.cid);
 
     if (maxToShow && !extraFilter && filter) {
-      filterData = take(filterData, maxToShow);
+      filterData = filterData.slice(0, maxToShow);
     }
 
     return (

@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
 import * as ReactDOM from 'react-dom';
-import throttle from 'lodash-es/throttle';
 import cx from 'classnames';
 
+import throttle from '../../utils/throttle';
 import helper from '../helper';
 import Checkbox from '../../checkbox';
 import { ITableChangeConfig } from '../Table';
@@ -33,7 +33,7 @@ export default class Head extends PureComponent<any, any> {
 
     if (this.props.autoStick) {
       this.throttleSetHeadStyle = throttle(this.setHeadStyle, 100, {
-        leading: true,
+        immediate: true,
       });
 
       window.addEventListener('scroll', this.throttleSetHeadStyle, true);

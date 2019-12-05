@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
-import isEqual from 'lodash-es/isEqual';
-import isNumber from 'lodash-es/isNumber';
 
+import isEqual from '../utils/isEqual';
 import { DatePickers } from '../datetimepicker/common/types';
 import DateRangePicker from '../datetimepicker/DateRangePicker';
 import { I18nReceiver as Receiver } from '../i18n';
@@ -99,7 +98,8 @@ export class DateRangeQuickPicker extends Component<
                   })}
                   onClick={this.handleChooseDays.bind(this, item.value)}
                 >
-                  {item.text || (isNumber(item.value) ? i18n[item.value] : '')}
+                  {item.text ||
+                    (typeof item.value === 'number' ? i18n[item.value] : '')}
                 </span>
               )}
             </Receiver>

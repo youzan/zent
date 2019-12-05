@@ -20,7 +20,7 @@ import { FormControl } from './Control';
 import { FormNotice } from './Notice';
 import { FormDescription } from './Description';
 import { $MergeParams } from './utils';
-import id from '../utils/id';
+import id from '../utils/identity';
 import noop from '../utils/noop';
 
 export { IFormFieldChildProps, IFormFieldProps } from './shared';

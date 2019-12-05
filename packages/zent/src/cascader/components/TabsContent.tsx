@@ -71,9 +71,9 @@ class TabsContent extends PureComponent<ITabsContentProps> {
   }
 
   renderPanels(popover: Popover, i18n: II18nLocaleCascader) {
-    const PanelEls: Array<
-      ITabPanelElement<ITabPanelProps<string | number>>
-    > = [];
+    const PanelEls: Array<ITabPanelElement<
+      ITabPanelProps<string | number>
+    >> = [];
     let tabIndex = 1;
     let { title, options, value, recursiveNextOptions } = this.props;
 
@@ -137,6 +137,6 @@ class TabsContent extends PureComponent<ITabsContentProps> {
   }
 }
 
-export default withPopover(TabsContent as React.ComponentType<
-  ITabsContentProps
->);
+export default withPopover(
+  TabsContent as React.ComponentType<ITabsContentProps>
+);
