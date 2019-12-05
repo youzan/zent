@@ -20,8 +20,12 @@ import AutoTopLeft from './auto-top-left';
 import AutoTopRight from './auto-top-right';
 import AutoTopCenter from './auto-top-center';
 
+// Arrow Position
+import Arrow from '../arrow-position';
+
 export default {
   create,
+  Arrow,
   BottomLeft,
   BottomCenter,
   BottomRight,

@@ -10,7 +10,7 @@ import { exposePopover } from '../popover/withPopover';
 import { I18nReceiver as Receiver, II18nLocalePop } from '../i18n';
 
 import NoneTrigger from './NoneTrigger';
-import getPosition from './position';
+import getPosition from '../utils/getArrowPosition';
 
 const { Trigger, withPopover } = Popover;
 const stateMap = {
