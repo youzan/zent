@@ -487,5 +487,6 @@ $btn-warning-active: 1;
 
   &.zent-link__disabled {
     @include btn-grey(color);
+    cursor: not-allowed;
   }
 }

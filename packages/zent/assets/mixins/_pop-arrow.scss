@@ -1,0 +1,145 @@
+@mixin pop-arrow($name) {
+  // bottom side
+  &-bottom-left,
+  &-bottom-center,
+  &-bottom-right {
+    .zent-#{$name}-arrow {
+      top: 0;
+    }
+
+    &::after {
+      top: -var(--CSS_ARROW_COVER_SIZE);
+      width: 100%;
+      left: 0;
+    }
+  }
+
+  &-bottom-left {
+    .zent-#{$name}-arrow {
+      transform: translateY(-50%) rotate(45deg);
+      left: var(--CSS_ARROW_OFFSET_HORIZONTAL);
+    }
+  }
+
+  &-bottom-center {
+    .zent-#{$name}-arrow {
+      transform: translate(-50%, -50%) rotate(45deg);
+      left: 50%;
+    }
+  }
+
+  &-bottom-right {
+    .zent-#{$name}-arrow {
+      transform: translateY(-50%) rotate(45deg);
+      right: var(--CSS_ARROW_OFFSET_HORIZONTAL);
+    }
+  }
+
+  // top side
+  &-top-left,
+  &-top-center,
+  &-top-right {
+    .zent-#{$name}-arrow {
+      bottom: 0;
+    }
+
+    &::after {
+      bottom: -var(--CSS_ARROW_COVER_SIZE);
+      width: 100%;
+      left: 0;
+    }
+  }
+
+  &-top-left {
+    .zent-#{$name}-arrow {
+      transform: translateY(50%) rotate(45deg);
+      left: var(--CSS_ARROW_OFFSET_HORIZONTAL);
+    }
+  }
+
+  &-top-center {
+    .zent-#{$name}-arrow {
+      transform: translate(-50%, 50%) rotate(45deg);
+      left: 50%;
+    }
+  }
+
+  &-top-right {
+    .zent-#{$name}-arrow {
+      transform: translateY(50%) rotate(45deg);
+      right: var(--CSS_ARROW_OFFSET_HORIZONTAL);
+    }
+  }
+
+  // left side
+  &-left-top,
+  &-left-center,
+  &-left-bottom {
+    .zent-#{$name}-arrow {
+      right: 0;
+    }
+
+    &::after {
+      right: -var(--CSS_ARROW_COVER_SIZE);
+      height: 100%;
+      top: 0;
+    }
+  }
+
+  &-left-top {
+    .zent-#{$name}-arrow {
+      transform: translateX(50%) rotate(45deg);
+      top: var(--CSS_ARROW_OFFSET_VERTICAL);
+    }
+  }
+
+  &-left-center {
+    .zent-#{$name}-arrow {
+      transform: translate(50%, -50%) rotate(45deg);
+      top: 50%;
+    }
+  }
+
+  &-left-bottom {
+    .zent-#{$name}-arrow {
+      transform: translateX(50%) rotate(45deg);
+      bottom: var(--CSS_ARROW_OFFSET_VERTICAL);
+    }
+  }
+
+  // left side
+  &-right-top,
+  &-right-center,
+  &-right-bottom {
+    .zent-#{$name}-arrow {
+      left: 0;
+    }
+
+    &::after {
+      left: -var(--CSS_ARROW_COVER_SIZE);
+      height: 100%;
+      top: 0;
+    }
+  }
+
+  &-right-top {
+    .zent-#{$name}-arrow {
+      transform: translateX(-50%) rotate(45deg);
+      top: var(--CSS_ARROW_OFFSET_VERTICAL);
+    }
+  }
+
+  &-right-center {
+    .zent-#{$name}-arrow {
+      transform: translate(-50%, -50%) rotate(45deg);
+      top: 50%;
+    }
+  }
+
+  &-right-bottom {
+    .zent-#{$name}-arrow {
+      transform: translateX(-50%) rotate(45deg);
+      bottom: var(--CSS_ARROW_OFFSET_VERTICAL);
+    }
+  }
+}

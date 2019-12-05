@@ -8,6 +8,28 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 7.3.2(2019-11-29)
+
+- ✨ `Link` moves to its own directory, compatible with `Disabled`
+
+### 7.3.1(2019-11-27)
+
+- ✨ New `Link` component to replace `zent-link` CSS class
+- ✨ Add `labelStyle` to `Radio` and `Checkbox`
+- 🦀️ Fix `ButtonDirective` children style issue
+- 🦀️ Fix inconsistent package version between build and publish
+- 🦀️ Revert `Radio` label's `display` to `inline`
+- 🦀️ Fix elements other than `Radio` are invisible inside `RadioGroup`
+- 🦀️ Fix elements other than `Checkbox` are invisible inside `CheckboxGroup`
+
+### 7.3.0(2019-11-25)
+
+- 🎉 Isolate styles in different zent versions
+- 🎉 Add a few compile time constants to TypeScript and SCSS compiler, like `__FILE__` in C
+- 🦀️ Update icon color in `BlockHeader`
+- 🦀️ Fix style issue in `Grid` when batch operation and fixed header are both present
+- 🦀️ Fix `FormRadioGroupField` `defaultValue` test issue
+
 ### 7.2.0(2019-11-18)
 
 - 🎉 New `IMEComposition` component

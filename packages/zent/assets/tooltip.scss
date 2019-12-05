@@ -1,0 +1,73 @@
+@import './theme/default';
+@import './theme/font';
+@import './mixins/pop-arrow';
+
+.zent-tooltip {
+  @include font-normal;
+  @include theme-color(background-color, stroke, 2);
+
+  border-radius: 2px;
+  box-shadow: $shadow-spec-layer;
+  z-index: 2000;
+
+  .zent-tooltip-inner,
+  .zent-tooltip-header {
+    @include theme-color(background-color, stroke, 2);
+    @include theme-color(color, stroke, 9);
+    position: relative;
+    border-radius: 2px;
+    padding: 8px 16px;
+    z-index: 2;
+  }
+
+  .zent-tooltip-header {
+    @include font-large;
+
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    padding-bottom: 0;
+    font-weight: $font-weight-bold;
+  }
+
+  .zent-tooltip-buttons {
+    text-align: right;
+    vertical-align: top;
+  }
+
+  .zent-tooltip-arrow {
+    @include theme-color(background-color, stroke, 2);
+
+    position: absolute;
+    z-index: 1;
+    width: var(--CSS_ARROW_SIZE);
+    height: var(--CSS_ARROW_SIZE);
+    box-shadow: $shadow-spec-layer;
+    overflow: hidden;
+  }
+
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: var(--CSS_ARROW_COVER_SIZE);
+    height: var(--CSS_ARROW_COVER_SIZE);
+  }
+
+  &--no-header {
+    .zent-tooltip-buttons {
+      display: inline-block;
+      margin-left: 24px;
+    }
+  }
+
+  &--has-header {
+    .zent-tooltip-buttons {
+      margin-top: 16px;
+    }
+  }
+
+  &.zent-popover-position,
+  &.zent-popover-position-arrow {
+    @include pop-arrow('tooltip');
+  }
+}

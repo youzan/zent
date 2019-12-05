@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Component, CSSProperties } from 'react';
 import cx from 'classnames';
 import * as ReactDOM from 'react-dom';
-import throttle from 'lodash-es/throttle';
+import throttle from '../utils/throttle';
 
 import WindowEventHandler from '../utils/component/WindowEventHandler';
 import getViewportSize from '../utils/dom/getViewportSize';
@@ -132,6 +132,15 @@ export class Affix extends Component<IAffixProps, IAffixState> {
 
   componentDidMount() {
     this.handleResize();
+  }
+
+  componentDidUpdate() {
+    this.handleResize();
+  }
+
+  componentWillUnmount() {
+    this.handleResize.cancel();
+    this.handleScroll.cancel();
   }
 
   render() {

@@ -6,9 +6,11 @@ export interface IFormDescriptionProps {
   style?: React.CSSProperties;
 }
 
-export const FormDescription: React.FunctionComponent<
-  IFormDescriptionProps
-> = ({ children, className, style }) => (
+export const FormDescription: React.FunctionComponent<IFormDescriptionProps> = ({
+  children,
+  className,
+  style,
+}) => (
   <div className={cx('zent-form-description', className)} style={style}>
     {children}
   </div>

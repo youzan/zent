@@ -3,8 +3,8 @@ import { PureComponent } from 'react';
 import classnames from 'classnames';
 import SelectionCheckboxAll from './SelectionCheckboxAll';
 import Store from './Store';
-import uniqBy from 'lodash-es/uniqBy';
 import { IGridBatchRender, IGridSelection } from './types';
+import uniq from '../utils/uniq';
 
 export interface IBatchComponentsProps<Data = any> {
   batchRender: IGridBatchRender;
@@ -83,7 +83,7 @@ class BatchComponents<Data> extends PureComponent<
     const prevSelectedRows = store.getState('selectedRows') || [];
     const { datasets, getDataKey, rowKey } = this.props;
     const selectedRows = (
-      uniqBy(datasets.concat(prevSelectedRows), rowKey) || []
+      uniq(datasets.concat(prevSelectedRows), rowKey) || []
     ).filter((row, i) => selectedRowKeys.indexOf(getDataKey(row, i)) > -1);
     store.setState({
       selectedRows,

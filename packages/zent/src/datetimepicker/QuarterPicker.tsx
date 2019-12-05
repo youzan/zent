@@ -159,10 +159,9 @@ export class QuarterPicker extends PureComponent<IQuarterPickerProps, any> {
       showPlaceholder: false,
     });
 
-    onChange(ret.map(this.getReturnValue) as [
-      DatePickers.Value,
-      DatePickers.Value
-    ]);
+    onChange(
+      ret.map(this.getReturnValue) as [DatePickers.Value, DatePickers.Value]
+    );
   };
 
   onClearInput = evt => {

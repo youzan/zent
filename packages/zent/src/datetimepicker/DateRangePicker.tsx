@@ -1,11 +1,9 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
 import cx from 'classnames';
-import isString from 'lodash-es/isString';
-import isDate from 'lodash-es/isDate';
 
+import isDate from '../utils/isDate';
 import { I18nReceiver as Receiver } from '../i18n';
-
 import { TIME_BEGIN, commonProps, noop } from './constants';
 import DatePicker from './DatePicker';
 import { DatePickers } from './common/types';
@@ -17,7 +15,7 @@ const END = 'end';
 function compatibleInterface(prop) {
   if (!prop) return [];
   if (Array.isArray(prop)) return prop;
-  return isString(prop) || isDate(prop) ? [prop, prop] : prop;
+  return typeof prop === 'string' || isDate(prop) ? [prop, prop] : prop;
 }
 
 export interface IDateRangePickerProps

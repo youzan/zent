@@ -13,9 +13,7 @@ export type IFormDateRangePickerFieldProps = IFormComponentProps<
   Omit<IDateRangePickerProps, 'value'>
 >;
 
-export const FormDateRangePickerField: React.FunctionComponent<
-  IFormDateRangePickerFieldProps
-> = props => {
+export const FormDateRangePickerField: React.FunctionComponent<IFormDateRangePickerFieldProps> = props => {
   return (
     <FormField
       {...props}

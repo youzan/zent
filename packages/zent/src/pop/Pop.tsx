@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
-import noop from 'lodash-es/noop';
-import isFunction from 'lodash-es/isFunction';
 
+import noop from '../utils/noop';
 import Popover, { PositionFunction } from '../popover';
 import Button from '../button';
 import isPromise from '../utils/isPromise';
@@ -11,7 +10,7 @@ import { exposePopover } from '../popover/withPopover';
 import { I18nReceiver as Receiver, II18nLocalePop } from '../i18n';
 
 import NoneTrigger from './NoneTrigger';
-import getPosition from './position';
+import getPosition from '../utils/getArrowPosition';
 
 const { Trigger, withPopover } = Popover;
 const stateMap = {
@@ -106,7 +105,7 @@ class PopAction extends Component<IPopActionProps> {
   handleClick(callbackName) {
     const callback = this.props[callbackName];
     const { popover } = this.props;
-    if (!isFunction(callback)) {
+    if (typeof callback !== 'function') {
       return popover.close();
     }
 

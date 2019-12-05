@@ -160,7 +160,8 @@ export type IFormComponentProps<
 }) &
   (
     | Optional<IFormFieldViewDrivenProps<Value>, 'defaultValue'>
-    | IFormFieldModelDrivenProps<Value>);
+    | IFormFieldModelDrivenProps<Value>
+  );
 
 export function dateDefaultValueFactory(): DatePickers.Value {
   return new Date();

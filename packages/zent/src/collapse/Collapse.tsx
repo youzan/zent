@@ -1,9 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
-import isString from 'lodash-es/isString';
-import includes from 'lodash-es/includes';
-import indexOf from 'lodash-es/indexOf';
 import kindOf from '../utils/kindOf';
 import Panel from './Panel';
 import { isElement } from 'react-is';
@@ -76,7 +73,7 @@ export class Collapse extends Component<ICollapseProps> {
       }
     } else {
       const activeKeyArray = [].concat(activeKey);
-      const keyIndex = indexOf(activeKeyArray, key);
+      const keyIndex = activeKeyArray.indexOf(key);
       if (active) {
         keyIndex === -1 && activeKeyArray.push(key);
       } else {
@@ -89,12 +86,12 @@ export class Collapse extends Component<ICollapseProps> {
 }
 
 function isPanelActive(activeKey, key) {
-  if (isString(activeKey)) {
+  if (typeof activeKey === 'string') {
     return activeKey === key;
   }
 
   if (Array.isArray(activeKey)) {
-    return includes(activeKey, key);
+    return activeKey.indexOf(key) !== -1;
   }
 
   return false;

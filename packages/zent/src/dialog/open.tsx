@@ -1,10 +1,10 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Component, createRef } from 'react';
-import noop from 'lodash-es/noop';
-import uniqueId from 'lodash-es/uniqueId';
 import { Omit } from 'utility-types';
 
+import uniqueId from '../utils/uniqueId';
+import noop from '../utils/noop';
 import createElement from '../utils/dom/createElement';
 import isBrowser from '../utils/isBrowser';
 import Dialog, { IDialogProps } from './Dialog';

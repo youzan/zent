@@ -34,9 +34,9 @@ export type IFormSelectFieldProps<T> = IFormComponentProps<
  * Old `Select` implementation is a disaster,
  * temporary dirty code.
  */
-export const FormSelectField: React.FunctionComponent<
-  IFormSelectFieldProps<any>
-> = props => {
+export const FormSelectField: React.FunctionComponent<IFormSelectFieldProps<
+  any
+>> = props => {
   let model: FieldModel<any>;
   if ((props as any).name) {
     const {
