@@ -7,9 +7,9 @@ import {
   IUploadChangeDetail,
 } from '../types';
 import { FILE_UPLOAD_STATUS } from '../constants';
-import isEqual from 'lodash-es/isEqual';
 import { II18nLocaleUpload } from '../../i18n';
 import { wrapPromise } from '../utils';
+import isEqual from '../../utils/isEqual';
 
 export interface IAbstractUploadState<UPLOAD_ITEM extends IUploadFileItem> {
   fileList: Array<IUploadFileItemInner<UPLOAD_ITEM>>;
@@ -47,8 +47,21 @@ abstract class AbstractUpload<
     return !!this.props.fileList;
   }
 
+  /** 上传项列表 */
   get fileList() {
     return this.isControlled ? this.props.fileList! : this.state.fileList;
+  }
+
+  /**
+   * 剩余可上传文件数量
+   */
+  get remainAmount() {
+    const { maxAmount } = this.props;
+    // maxAmount 为 0 表示无数量上限
+    if (maxAmount === 0) {
+      return Infinity;
+    }
+    return maxAmount - this.availableUploadItemsCount;
   }
 
   /**
@@ -92,12 +105,27 @@ abstract class AbstractUpload<
   };
 
   /**
+   * 触发外部上传方法
+   */
+  emitOnUpload = (
+    file: File,
+    uploadItem: IUploadFileItemInner<UPLOAD_ITEM>
+  ) => {
+    const { onUpload } = this.props;
+    // start upload
+    onUpload(file, this.updateUploadItemPercent.bind(this, uploadItem))
+      .then(() => {
+        this.updateUploadItemStatusToSuccess(uploadItem);
+      })
+      .catch(() => {
+        this.updateUploadItemStatusToFailed(uploadItem);
+      });
+  };
+
+  /**
    * 删除上传文件项
    */
-  deleteUploadItem(
-    deleteItem: IUploadFileItemInner<UPLOAD_ITEM>,
-    index: number
-  ) {
+  deleteUploadItem = (deleteItem: IUploadFileItemInner<UPLOAD_ITEM>) => {
     const innerFileList = this.fileList as Array<
       IUploadFileItemInner<UPLOAD_ITEM>
     >;
@@ -105,16 +133,15 @@ abstract class AbstractUpload<
       item => item._id !== deleteItem._id
     );
     this.updateFileList(newFileList, {
-      index,
       item: deleteItem,
       type: 'delete',
     });
-  }
+  };
 
   /**
    * 重新上传文件
    */
-  retryUploadItem(retryItem: IUploadFileItemInner<UPLOAD_ITEM>, index: number) {
+  retryUploadItem = (retryItem: IUploadFileItemInner<UPLOAD_ITEM>) => {
     const innerFileList = this.fileList as Array<
       IUploadFileItemInner<UPLOAD_ITEM>
     >;
@@ -126,12 +153,15 @@ abstract class AbstractUpload<
     const newFileList = innerFileList.map(item =>
       item._id === retryItem._id ? newRetryItem : item
     );
-    this.updateFileList(newFileList, {
-      index,
-      item: newRetryItem,
-      type: 'change',
-    });
-  }
+    this.updateFileList(
+      newFileList,
+      {
+        item: newRetryItem,
+        type: 'change',
+      },
+      () => this.emitOnUpload(retryItem._file, newRetryItem)
+    );
+  };
 
   /**
    * 更新某个上传项的属性
@@ -140,17 +170,17 @@ abstract class AbstractUpload<
     updateItem: IUploadFileItemInner<UPLOAD_ITEM>,
     overrideProps: Partial<IUploadFileItemInner<UPLOAD_ITEM>>
   ) => {
-    this.setState(prevState => {
-      const newItem: IUploadFileItemInner<UPLOAD_ITEM> = {
-        ...updateItem,
-        ...overrideProps,
-      };
-      const newFileList = prevState.fileList.map(item =>
+    const newItem: IUploadFileItemInner<UPLOAD_ITEM> = {
+      ...updateItem,
+      ...overrideProps,
+    };
+    const newFileList = this.fileList.map(
+      (item: IUploadFileItemInner<UPLOAD_ITEM>) =>
         item._id === updateItem._id ? newItem : item
-      );
-      return {
-        fileList: newFileList,
-      };
+    );
+    this.updateFileList(newFileList, {
+      item: newItem,
+      type: 'change',
     });
   };
 
@@ -198,7 +228,7 @@ abstract class AbstractUpload<
    * 添加新的上传项
    */
   onTriggerUploadFile = (file: File) => {
-    const { beforeUpload, onUpload } = this.props;
+    const { beforeUpload } = this.props;
     const beforeUploadRes = wrapPromise(
       beforeUpload ? beforeUpload(file) : true
     );
@@ -209,9 +239,9 @@ abstract class AbstractUpload<
       const innerFileList = fileList as Array<
         IUploadFileItemInner<UPLOAD_ITEM>
       >;
-      const newUploadFileItem: IUploadFileItemInner<
-        UPLOAD_ITEM
-      > = this.createNewUploadFileItem(file);
+      const newUploadFileItem: IUploadFileItemInner<UPLOAD_ITEM> = this.createNewUploadFileItem(
+        file
+      );
       const newFileList: Array<IUploadFileItemInner<UPLOAD_ITEM>> = [
         ...innerFileList,
         newUploadFileItem,
@@ -221,23 +251,10 @@ abstract class AbstractUpload<
       this.updateFileList(
         newFileList,
         {
-          index: innerFileList.length,
           item: newUploadFileItem,
           type: 'add',
         },
-        () => {
-          // start upload
-          onUpload(
-            file,
-            this.updateUploadItemPercent.bind(this, newUploadFileItem)
-          )
-            .then(() => {
-              this.updateUploadItemStatusToSuccess(newUploadFileItem);
-            })
-            .catch(() => {
-              this.updateUploadItemStatusToFailed(newUploadFileItem);
-            });
-        }
+        () => this.emitOnUpload(file, newUploadFileItem)
       );
     });
   };

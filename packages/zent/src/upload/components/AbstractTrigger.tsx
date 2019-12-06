@@ -7,18 +7,6 @@ abstract class AbstractTrigger<
 > extends React.PureComponent<IAbstractUploadTriggerProps<UPLOAD_ITEM>> {
   fileInputRef = React.createRef<FileInput>();
 
-  /**
-   * 剩余可上传文件数量
-   */
-  get remainAmount() {
-    const { maxAmount, availableUploadItemsCount } = this.props;
-    // maxAmount 为 0 表示无数量上限
-    if (maxAmount === 0) {
-      return Infinity;
-    }
-    return maxAmount - availableUploadItemsCount;
-  }
-
   protected clickFileInput = () => {
     this.fileInputRef.current && this.fileInputRef.current.open();
   };
@@ -37,18 +25,18 @@ abstract class AbstractTrigger<
    * 检查文件列表是否可以添加到文件队列中
    */
   protected onInputChange = (files: File[]) => {
-    const { maxSize } = this.props;
+    const { maxSize, remainAmount } = this.props;
 
     // 检查是否超过剩余最大上传数
-    const overMaxAmount = files.length > this.remainAmount;
+    const overMaxAmount = files.length > remainAmount;
     if (overMaxAmount) {
-      this.onOverMaxAmount();
+      return this.onOverMaxAmount();
     }
 
     // 检查是否存在文件体积超过最大上传大小限制
     const overMaxSizeFiles = files.filter(file => file.size > maxSize);
     if (overMaxSizeFiles.length) {
-      this.onOverMaxSize(overMaxSizeFiles);
+      return this.onOverMaxSize(overMaxSizeFiles);
     }
 
     files.forEach(file => {
@@ -57,7 +45,7 @@ abstract class AbstractTrigger<
   };
 
   renderFileInput() {
-    const { accept, multiple, disabled } = this.props;
+    const { accept, multiple, disabled, remainAmount } = this.props;
     return (
       <FileInput
         ref={this.fileInputRef}
@@ -65,7 +53,7 @@ abstract class AbstractTrigger<
         disabled={disabled}
         onChange={this.onInputChange}
         multiple={multiple}
-        remainAmount={this.remainAmount}
+        remainAmount={remainAmount}
       />
     );
   }

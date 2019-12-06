@@ -1,7 +1,5 @@
 import { FILE_UPLOAD_STATUS } from './constants';
 import { II18nLocaleUpload } from '../i18n';
-import { IAbstractPaginationProps } from '../pagination/impl/AbstractPagination';
-import { IMiniPaginationProps } from '../pagination/MiniPagination';
 
 // file item types
 export interface IUploadFileItem {
@@ -30,7 +28,6 @@ export type IUploadFileItemInner<
 // onChange types
 export interface IUploadChangeDetail<UPLOAD_ITEM extends IUploadFileItem> {
   item: UPLOAD_ITEM;
-  index: number;
   type: 'change' | 'add' | 'delete';
 }
 
@@ -55,24 +52,6 @@ export type IUploadTipConfig<P> = P & {
 export type IUploadTipsFunc<PROPS> = (
   config: IUploadTipConfig<PROPS>
 ) => React.ReactNode;
-
-// pagination types
-export interface IPaginationMap {
-  default: IAbstractPaginationProps;
-  mini: IMiniPaginationProps;
-  lite: IAbstractPaginationProps;
-}
-
-export type IPaginationInfo<Type> = Type extends undefined
-  ? undefined
-  : Type extends keyof IPaginationMap
-  ? {
-      type: Type;
-      props: IPaginationMap[Type];
-    }
-  : never;
-
-export type IUploadPaginationType = keyof IPaginationMap | undefined;
 
 // react props
 export interface IAbstractUploadProps<UPLOAD_ITEM extends IUploadFileItem> {
@@ -107,14 +86,13 @@ export interface IAbstractUploadProps<UPLOAD_ITEM extends IUploadFileItem> {
   sortable?: boolean;
 }
 
-export interface IUploadProps<PAGINATION_TYPE extends IUploadPaginationType>
-  extends IAbstractUploadProps<IUploadFileItem> {
+export interface IUploadProps extends IAbstractUploadProps<IUploadFileItem> {
   /** 用于覆盖提示文案中自动推导的格式，不对实际文件校验有影响 */
   supportTypes?: string[];
   /** 提示文案 */
-  tips?: string | IUploadTipsFunc<IUploadProps<PAGINATION_TYPE>>;
-  /** 上传分页信息 */
-  pagination?: IPaginationInfo<PAGINATION_TYPE>;
+  tips?: string | IUploadTipsFunc<IUploadProps>;
+  /** 是否展示分页信息 */
+  pagination?: boolean;
 }
 
 export interface IImageUploadProps
@@ -138,6 +116,7 @@ export interface IAbstractUploadTriggerProps<
   disabled?: boolean;
   accept?: string;
   availableUploadItemsCount: number;
+  remainAmount: number;
   maxSize: number;
   maxAmount: number;
   multiple?: boolean;
@@ -157,23 +136,23 @@ export interface IFileInputProps {
 export interface IAbstractUploadListProps<UPLOAD_ITEM extends IUploadFileItem> {
   i18n: II18nLocaleUpload;
   fileList: UPLOAD_ITEM[];
-  onRetry: (
-    retryItem: IUploadFileItemInner<UPLOAD_ITEM>,
-    index: number
-  ) => void;
-  onDelete: (
-    retryItem: IUploadFileItemInner<UPLOAD_ITEM>,
-    index: number
-  ) => void;
+  onRetry: (retryItem: IUploadFileItemInner<UPLOAD_ITEM>) => void;
+  onDelete: (retryItem: IUploadFileItemInner<UPLOAD_ITEM>) => void;
   sortable?: boolean;
   onSortChange: (list: Array<IUploadFileItemInner<UPLOAD_ITEM>>) => void;
 }
 
-export interface IUploadListProps<
-  PAGINATION_TYPE extends IUploadPaginationType
-> extends IAbstractUploadListProps<IUploadFileItem> {
-  pagination?: IPaginationInfo<PAGINATION_TYPE>;
+export interface IUploadListProps
+  extends IAbstractUploadListProps<IUploadFileItem> {
+  pagination?: boolean;
 }
 
 export interface IImageUploadListProps
   extends IAbstractUploadListProps<IImageUploadFileItem> {}
+
+export interface INormalFileItemProps {
+  item: IUploadFileItemInner<IUploadFileItem>;
+  i18n: II18nLocaleUpload;
+  onRetry: IAbstractUploadListProps<IUploadFileItem>['onRetry'];
+  onDelete: IAbstractUploadListProps<IUploadFileItem>['onDelete'];
+}
