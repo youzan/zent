@@ -49,23 +49,83 @@
   }
 
   &-list {
+    @include theme-color(border-bottom-color, stroke, 5);
+    border-bottom-width: 1px;
+
+    &-pagination {
+      margin-top: 30px;
+
+      .zent-pagination-page-list--mini {
+        margin: 0;
+      }
+    }
+
     &-wrapper {
-      @include theme-color(border-bottom-color, stroke, 5);
-      border-bottom-width: 1px;
-      padding-bottom: 16px;
+      + .zent-upload-trigger-wrapper {
+        margin-top: 16px;
+      }
     }
   }
 
   &-item {
     margin-bottom: 16px;
 
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &__icon {
+      width: 20px;
+      height: 20px;
+      font-size: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &__name {
+      margin-left: 4px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    // clampline use pop div wrapper
+    .zent-pop-wrapper {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      flex: 1;
+    }
+
     &__info {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    &__actions {
+      margin-left: 4px;
+
+      a {
+        cursor: pointer;
+      }
+    }
+
+    &__retry {
+      @include theme-color(border-right-color, stroke, 5);
+      border-right-width: 1px;
+      border-right-style: solid;
+      padding-right: 4px;
+      margin-right: 4px;
     }
 
     &__progress {
-      margin-top: 16px;
+      margin-top: 8px;
+    }
+
+    &__failed {
+      @include theme-color(color, error, 2);
     }
   }
 }

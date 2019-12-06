@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import toArray from 'lodash-es/toArray';
 import { IFileInputProps } from '../types';
 
 /**
@@ -19,8 +18,10 @@ export default class FileInput extends PureComponent<IFileInputProps> {
   private onFileInputChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     evt.preventDefault();
     evt.stopPropagation();
-    const files = toArray(evt.target.files);
-    this.props.onChange(files);
+    if (evt.target.files) {
+      const files = Array.from(evt.target.files);
+      this.props.onChange(files);
+    }
   };
 
   private onFileInputClick = () => {

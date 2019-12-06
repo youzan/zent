@@ -1,5 +1,5 @@
-import uniqueId from 'lodash-es/uniqueId';
 import isPromise from '../../utils/isPromise';
+import uniqueId from '../../utils/uniqueId';
 
 /**
  * 创建一个唯一 Id

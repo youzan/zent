@@ -5,12 +5,10 @@ import {
   IUploadProps,
   IUploadFileItem,
   IUploadTipConfig,
-  IUploadPaginationType,
 } from './types';
 import { FILE_UPLOAD_STATUS } from './constants';
 import { I18nReceiver, II18nLocaleUpload } from '../i18n';
 import { createUploadItemId, formatFileSize } from './utils';
-import flatMap from 'lodash-es/flatMap';
 import NormalUploadTrigger from './components/normal/Trigger';
 import { PartialRequired } from '../utils/types';
 import NormalUploadList from './components/normal/List';
@@ -27,44 +25,41 @@ const guessSupportTypes = (accept?: string): string[] => {
   if (!accept) {
     return [];
   }
-  return flatMap<string, string>(
-    accept.split(',').map(type => type.trim()),
-    acceptType => {
-      // .jpg
-      if (acceptType[0] === '.') {
-        return acceptType.slice(1);
-      }
+  const supportTypes = [];
+  const acceptTypes = accept.split(',').map(type => type.trim());
 
-      // image/jpeg, image/*
-      if (acceptType.indexOf('/') !== -1) {
-        const [mimeType, subtype] = acceptType.split('/', 2);
-        if (subtype !== '*') {
-          return subtype;
-        } else {
-          return subTypeGuessMap[mimeType] || [];
-        }
-      }
-
-      return [];
+  acceptTypes.forEach(acceptType => {
+    // .jpg
+    if (acceptType[0] === '.') {
+      supportTypes.push(acceptType.slice(1));
     }
-  );
+
+    if (acceptType.indexOf('/') !== -1) {
+      const [mimeType, subtype] = acceptType.split('/', 2);
+      if (subtype !== '*') {
+        // image/jpeg
+        supportTypes.push(subtype);
+      } else {
+        // image/*
+        supportTypes.push(...(subTypeGuessMap[mimeType] || []));
+      }
+    }
+  });
+
+  return supportTypes;
 };
 
-type IUploadPropsInner<
-  PAGINATION_TYPE extends IUploadPaginationType
-> = PartialRequired<
-  IUploadProps<PAGINATION_TYPE>,
+type IUploadPropsInner = PartialRequired<
+  IUploadProps,
   'maxAmount' | 'maxSize' | 'multiple'
 >;
 
-export class Upload<
-  PAGINATION_TYPE extends IUploadPaginationType = undefined
-> extends AbstractUpload<IUploadFileItem, IUploadProps<PAGINATION_TYPE>> {
+export class Upload extends AbstractUpload<IUploadFileItem, IUploadProps> {
   state = {
     fileList: [],
   };
 
-  static defaultProps: Partial<IUploadProps<undefined>> = {
+  static defaultProps: Partial<IUploadProps> = {
     maxAmount: 0,
     maxSize: 1024 * 1024,
     multiple: false,
@@ -86,8 +81,8 @@ export class Upload<
 
   protected renderTips(i18n: II18nLocaleUpload) {
     const { tips, maxSize, accept, supportTypes } = this
-      .props as IUploadPropsInner<PAGINATION_TYPE>;
-    const config: IUploadTipConfig<IUploadProps<PAGINATION_TYPE>> = {
+      .props as IUploadPropsInner;
+    const config: IUploadTipConfig<IUploadProps> = {
       ...this.props,
       formattedMaxSize: formatFileSize(maxSize),
       supportTypes: supportTypes || guessSupportTypes(accept),
@@ -97,7 +92,7 @@ export class Upload<
   }
 
   protected renderUploadList(i18n: II18nLocaleUpload): React.ReactNode {
-    const { sortable } = this.props;
+    const { sortable, pagination } = this.props;
     return (
       <NormalUploadList
         i18n={i18n}
@@ -106,13 +101,14 @@ export class Upload<
         onDelete={this.deleteUploadItem}
         onSortChange={this.updateFileList}
         sortable={sortable}
+        pagination={pagination}
       />
     );
   }
 
   protected renderTrigger(i18n: II18nLocaleUpload): React.ReactNode {
     const { accept, maxAmount, maxSize, multiple } = this
-      .props as IUploadPropsInner<PAGINATION_TYPE>;
+      .props as IUploadPropsInner;
     const { fileList } = this.state;
     return (
       <NormalUploadTrigger
@@ -122,6 +118,7 @@ export class Upload<
         maxSize={maxSize}
         multiple={multiple}
         availableUploadItemsCount={this.availableUploadItemsCount}
+        remainAmount={this.remainAmount}
         fileList={fileList}
         onAddFile={this.onTriggerUploadFile}
         onError={this.emitOnError}
@@ -135,13 +132,14 @@ export class Upload<
         {i18n => {
           return (
             <div className="zent-upload">
-              <div className="zent-upload-list-wrapper">
-                {this.renderUploadList(i18n)}
-              </div>
-              <div className="zent-upload-trigger-wrapper">
-                {this.renderTrigger(i18n)}
-                {this.renderTips(i18n)}
-              </div>
+              {this.renderUploadList(i18n)}
+              {/* 到达上传文件数量上限，隐藏 Trigger */}
+              {this.remainAmount > 0 && (
+                <div className="zent-upload-trigger-wrapper">
+                  {this.renderTrigger(i18n)}
+                  {this.renderTips(i18n)}
+                </div>
+              )}
             </div>
           );
         }}

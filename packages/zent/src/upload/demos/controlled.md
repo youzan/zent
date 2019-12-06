@@ -1,25 +1,33 @@
 ---
-order: 1
+order: 2
 zh-CN:
-  title: 基础用法
+  title: 受控模式
 en-US:
-  title: Basics
+  title: Controlled Mode
 ---
 
 ```jsx
 import { Upload, Notify } from 'zent';
 
 class Simple extends React.Component {
+	state = {
+		fileList: [],
+	}
+
 	onUploadChange = (files) => {
 		console.log(files);
+		this.setState({
+			fileList: files,
+		})
 	}
 
 	onUpload = (file, report) => {
+		console.log('onUpload', file)
 		return new Promise((resolve, reject) => {
 			let count = 0;
 			const update = () => {
 				if (count < 100) {
-					count += 10;
+					count += 5;
 					report(count);
 					setTimeout(update, 500);
 				} else {
@@ -41,9 +49,11 @@ class Simple extends React.Component {
 	}
 
 	render() {
+		const { fileList } = this.state;
 		return (
 			<Upload
 				multiple
+				fileList={fileList}
 				className="zent-upload-demo-pic"
 				maxSize={2 * 1024 * 1024}
 				maxAmount={3}

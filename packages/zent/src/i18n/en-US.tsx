@@ -18,7 +18,7 @@ import {
   II18nLocaleUpload,
   II18nLocaleMention,
 } from './locale';
-import capitalize from 'lodash-es/capitalize';
+import capitalize from '../utils/capitalize';
 
 const common: II18nLocaleCommon = {
   confirm: 'Confirm',

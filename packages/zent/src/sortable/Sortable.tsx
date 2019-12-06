@@ -92,6 +92,7 @@ export class Sortable extends Component<ISortableProps> {
       dragClass: `${prefix}-drag`,
       fallbackClass: `${prefix}-fallback`,
       onMove: e => {
+        console.log('onMove', e);
         if (onMove) {
           return onMove(e);
         }
@@ -100,7 +101,7 @@ export class Sortable extends Component<ISortableProps> {
       },
       onEnd: e => {
         const { items } = this.props;
-
+        console.log('onEnd', e);
         onEnd && onEnd(e);
 
         if (!items) {
@@ -110,6 +111,7 @@ export class Sortable extends Component<ISortableProps> {
         const { oldIndex, newIndex } = e;
         const newItems = reorder(items, oldIndex, newIndex);
 
+        console.log('onChange', e);
         onChange && onChange(newItems);
       },
       ...rest,
@@ -133,6 +135,7 @@ export class Sortable extends Component<ISortableProps> {
       <Com
         ref={instance => this.initSortable(instance)}
         className={classString}
+        data-zv={__ZENT_VERSION__}
       >
         {children}
       </Com>

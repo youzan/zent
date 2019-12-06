@@ -3,70 +3,93 @@ import {
   IUploadFileItem,
   IUploadFileItemInner,
   IUploadListProps,
-  IUploadPaginationType,
 } from '../../types';
 import AbstractUploadList from '../AbstractList';
-import ClampLines from '../../../clamp-lines';
-import { FILE_UPLOAD_STATUS } from '../../constants';
-import { Icon } from '../../../icon';
-import InlineLoading from '../../../loading/InlineLoading';
-import Progress from '../../../progress';
+import NormalUploadItem from './Item';
+import MiniPagination, {
+  IMiniPaginationProps,
+} from '../../../pagination/MiniPagination';
+import { PaginationChangeHandler } from '../../../pagination/impl/BasePagination';
 
-/**
- * 获取状态展示图标
- */
-const mimeTypeIconMap: {
-  [type: string]: React.ReactNode;
-} = {
-  audio: <Icon type="video-guide" />,
-  video: <Icon type="summary" />,
-};
-const getFileIcon = (item: IUploadFileItem) => {
-  const { status, type: mimeType } = item;
-  if (status === FILE_UPLOAD_STATUS.uploading) {
-    return <InlineLoading loading />;
-  }
-  for (const type in mimeTypeIconMap) {
-    if (mimeTypeIconMap.hasOwnProperty(type)) {
-      const icon = mimeTypeIconMap[type];
-      if (mimeType.indexOf(type) === 0) {
-        return icon;
-      }
-    }
-  }
-  return <Icon type="message" />;
-};
+interface INormalUploadListState {
+  pageInfo: Omit<IMiniPaginationProps, 'onChange'>;
+}
 
-export default class NormalUploadList<
-  PAGINATION_TYPE extends IUploadPaginationType
-> extends AbstractUploadList<
+export default class NormalUploadList extends AbstractUploadList<
   IUploadFileItem,
-  IUploadListProps<PAGINATION_TYPE>
+  IUploadListProps,
+  INormalUploadListState
 > {
-  renderFileItem = (
-    item: IUploadFileItemInner<IUploadFileItem>,
-    index: number
-  ): React.ReactNode => {
-    const { i18n } = this.props;
-    const { status } = item;
+  state: INormalUploadListState = {
+    pageInfo: {
+      current: 1,
+      pageSize: 5,
+    },
+  };
+
+  /**
+   * 需要显示的文件列表范围
+   */
+  get displayListRange() {
+    if (!this.props.pagination) {
+      return [0, this.props.fileList.length];
+    }
+    const { current, pageSize } = this.state.pageInfo;
+    return [(current - 1) * pageSize, current * pageSize];
+  }
+
+  getRenderFileList(): Array<IUploadFileItemInner<IUploadFileItem>> {
+    const [start, end] = this.displayListRange;
+    return this.props.fileList.slice(start, end);
+  }
+
+  onFileListSortChange = (
+    list: Array<IUploadFileItemInner<IUploadFileItem>>
+  ) => {
+    console.log(list);
+    const [start, end] = this.displayListRange;
+    const rawFileList = this.props.fileList;
+    const newList = [
+      ...rawFileList.slice(0, start),
+      ...list,
+      ...rawFileList.slice(end),
+    ];
+    this.props.onSortChange(newList);
+  };
+
+  onPagiantionChange: PaginationChangeHandler = pageInfo => {
+    this.setState({
+      pageInfo,
+    });
+  };
+
+  renderExtraListContent() {
+    if (!this.props.pagination) {
+      return null;
+    }
+    const { current, pageSize } = this.state.pageInfo;
     return (
-      <li key={item._id} className="zent-upload-item">
-        <div className="zent-upload-item__info">
-          {getFileIcon(item)}
-          <ClampLines lines={1} text={item.name} />
-          {status === FILE_UPLOAD_STATUS.failed && (
-            <a className="zent-link">{i18n.retry}</a>
-          )}
-          <a className="zent-link">{i18n.delete}</a>
-        </div>
-        {item.status === FILE_UPLOAD_STATUS.uploading && (
-          <Progress
-            className="zent-upload-item__progress"
-            strokeWidth={2}
-            percent={20}
-          />
-        )}
-      </li>
+      <MiniPagination
+        className="zent-upload-list-pagination"
+        onChange={this.onPagiantionChange}
+        current={current}
+        pageSize={pageSize}
+        total={this.props.fileList.length}
+      />
+    );
+  }
+
+  renderFileItem = (
+    item: IUploadFileItemInner<IUploadFileItem>
+  ): React.ReactNode => {
+    return (
+      <NormalUploadItem
+        key={item._id}
+        item={item}
+        i18n={this.props.i18n}
+        onDelete={this.props.onDelete}
+        onRetry={this.props.onRetry}
+      />
     );
   };
 }

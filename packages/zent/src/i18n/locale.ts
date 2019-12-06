@@ -124,7 +124,7 @@ export interface II18nLocaleUpload extends II18nLocaleCommon {
   delete: string;
   normal: {
     add: string;
-    tips: IUploadTipsFunc<IUploadTipConfig<IUploadProps<any>>>;
+    tips: IUploadTipsFunc<IUploadTipConfig<IUploadProps>>;
   };
   image: {
     tips: IUploadTipsFunc<IUploadTipConfig<IImageUploadProps>>;
