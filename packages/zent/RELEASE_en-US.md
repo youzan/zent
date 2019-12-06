@@ -8,6 +8,15 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 7.4.0(2019-12-06)
+
+- ✨ New `Tooltip` component
+- ✨ Replace `lodash-es` with built-ins and language features
+- 🦀️ **[breaking change]** All time related pickers' `isFooterVisble` prop is renamed to `isFooterVisible`.
+- 🦀️ Fix Enter to select not working after filter in `Select`
+- 🦀️ Fix `Upload` crash if you remove some item during upload
+- 🦀️ Don't reassign unique internal id after DnD sort in `Upload`
+
 ### 7.3.2(2019-11-29)
 
 - ✨ `Link` moves to its own directory, compatible with `Disabled`
