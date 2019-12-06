@@ -95,8 +95,26 @@
 				</a>
 				<ul>
 					<li>React &gt;= 16.8</li>
-					<li>Modern browsers and IE &gt;= 11</li>
+					<li>Modern browsers but not IE</li>
 					<li>Supports server-side rendering(SSR)</li>
+				</ul>
+				<a href="#required-polyfills" id="required-polyfills" style="color: inherit; text-decoration: none;">
+					<h3>Required polyfills</h3>
+				</a>
+				<ul>
+					<li><code>es6.object.assign</code></li>
+					<li><code>es6.object.is</code></li>
+					<li><code>es6.string.ends-with</code></li>
+					<li><code>es6.string.starts-with</code></li>
+					<li><code>es6.string.includes</code></li>
+					<li><code>es7.string.trim-left</code></li>
+					<li><code>es7.string.trim-right</code></li>
+					<li><code>es6.array.from</code></li>
+					<li><code>es6.array.of</code></li>
+					<li><code>es6.array.fill</code></li>
+					<li><code>es6.array.find</code></li>
+					<li><code>es6.array.find-index</code></li>
+					<li><code>es7.array.includes</code></li>
 				</ul>
 				<a href="#install" id="install" style="color: inherit; text-decoration: none;">
 					<h2>Install</h2>
@@ -115,18 +133,6 @@ npm install zent --save</code></pre>
 				</a>
 				<p>Read our <a href="packages/zent/docs/CONTRIBUTING_en-US.md">contributing guide</a> to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to Zent.</p>
 				<p>Send <a href="https://github.com/youzan/zent/issues">issues</a> and <a href="https://github.com/youzan/zent/pulls">pull requests</a> with your ideas.</p>
-				<a href="#contact-us" id="contact-us" style="color: inherit; text-decoration: none;">
-					<h2>Contact Us</h2>
-				</a>
-				<ul>
-					<li><p><a href="https://join.slack.com/t/zentjs/shared_invite/enQtMjcwNzM3NzE2OTMyLTc4MTg4MDkzZTVhNTQ5MmI4ZmVhOGQ2MzZhOTk2OGIyNmZjM2NhMzU3YjM4MzI3YTkxYWNjMDBhMzRiZTliNTE">Slack</a></p>
-					</li>
-					<li><p><a href="https://discord.gg/Nf6wVd2">Discord</a></p>
-					</li>
-					<li><p>Wechat(请备注 Zent)</p>
-						<img src="https://img.yzcdn.cn/public_files/2018/06/06/1fbe772102f91fae8eb3fa1767dd9b26.png" width="240px"/>
-					</li>
-				</ul>
 				<a href="#license" id="license" style="color: inherit; text-decoration: none;">
 					<h2>License</h2>
 				</a>
@@ -621,6 +627,9 @@ npm install zent --save</code></pre>
 						<a href="classes/timelinelegend.html" class="tsd-kind-icon">Timeline<wbr>Legend</a>
 					</li>
 					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="classes/tooltip.html" class="tsd-kind-icon">Tooltip</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
 						<a href="classes/tree.html" class="tsd-kind-icon">Tree</a>
 					</li>
 					<li class=" tsd-kind-class tsd-has-type-parameter">
@@ -744,6 +753,9 @@ npm install zent --save</code></pre>
 						<a href="interfaces/ibuttonprops.html" class="tsd-kind-icon">IButton<wbr>Props</a>
 					</li>
 					<li class=" tsd-kind-interface">
+						<a href="interfaces/icancelable.html" class="tsd-kind-icon">ICancelable</a>
+					</li>
+					<li class=" tsd-kind-interface">
 						<a href="interfaces/icardprops.html" class="tsd-kind-icon">ICard<wbr>Props</a>
 					</li>
 					<li class=" tsd-kind-interface">
@@ -800,6 +812,18 @@ npm install zent --save</code></pre>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/icommonprogressprops.html" class="tsd-kind-icon">ICommon<wbr>Progress<wbr>Props</a>
 					</li>
+					<li class=" tsd-kind-interface tsd-is-not-exported">
+						<a href="interfaces/icomparearray.html" class="tsd-kind-icon">ICompare<wbr>Array</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-not-exported">
+						<a href="interfaces/icomparechildrendone.html" class="tsd-kind-icon">ICompare<wbr>Children<wbr>Done</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-not-exported">
+						<a href="interfaces/icomparegeneric.html" class="tsd-kind-icon">ICompare<wbr>Generic</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-not-exported">
+						<a href="interfaces/icompareobject.html" class="tsd-kind-icon">ICompare<wbr>Object</a>
+					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/icompoundmentionsuggestion.html" class="tsd-kind-icon">ICompound<wbr>Mention<wbr>Suggestion</a>
 					</li>
@@ -835,6 +859,9 @@ npm install zent --save</code></pre>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/idaterangequickpickerprops.html" class="tsd-kind-icon">IDate<wbr>Range<wbr>Quick<wbr>Picker<wbr>Props</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/idebounceoptions.html" class="tsd-kind-icon">IDebounce<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/idialogelwrapper.html" class="tsd-kind-icon">IDialog<wbr>ElWrapper</a>
@@ -1530,6 +1557,9 @@ npm install zent --save</code></pre>
 						<a href="interfaces/itextmarkprops.html" class="tsd-kind-icon">IText<wbr>Mark<wbr>Props</a>
 					</li>
 					<li class=" tsd-kind-interface">
+						<a href="interfaces/ithrottleoptions.html" class="tsd-kind-icon">IThrottle<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
 						<a href="interfaces/itimecellprops.html" class="tsd-kind-icon">ITime<wbr>Cell<wbr>Props</a>
 					</li>
 					<li class=" tsd-kind-interface">
@@ -1555,6 +1585,18 @@ npm install zent --save</code></pre>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/itimelineprops.html" class="tsd-kind-icon">ITimeline<wbr>Props</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/itooltipbaseprops.html" class="tsd-kind-icon">ITooltip<wbr>Base<wbr>Props</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-not-exported">
+						<a href="interfaces/itooltiptriggerclickprops.html" class="tsd-kind-icon">ITooltip<wbr>Trigger<wbr>Click<wbr>Props</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-not-exported">
+						<a href="interfaces/itooltiptriggerhoverprops.html" class="tsd-kind-icon">ITooltip<wbr>Trigger<wbr>Hover<wbr>Props</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-not-exported">
+						<a href="interfaces/itooltiptriggerprops.html" class="tsd-kind-icon">ITooltip<wbr>Trigger<wbr>Props</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/itreedata.html" class="tsd-kind-icon">ITree<wbr>Data</a>
@@ -1651,6 +1693,9 @@ npm install zent --save</code></pre>
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#colorpickertype" class="tsd-kind-icon">Color<wbr>Picker<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-not-exported">
+						<a href="globals.html#compareoperation" class="tsd-kind-icon">Compare<wbr>Operation</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-is-not-exported">
 						<a href="globals.html#containerchild" class="tsd-kind-icon">Container<wbr>Child</a>
@@ -1826,6 +1871,9 @@ npm install zent --save</code></pre>
 					<li class=" tsd-kind-type-alias tsd-has-type-parameter tsd-is-not-exported">
 						<a href="globals.html#itabsinnerprops" class="tsd-kind-icon">ITabs<wbr>Inner<wbr>Props</a>
 					</li>
+					<li class=" tsd-kind-type-alias tsd-is-not-exported">
+						<a href="globals.html#itooltipprops" class="tsd-kind-icon">ITooltip<wbr>Props</a>
+					</li>
 					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
 						<a href="globals.html#iverticalinnertab" class="tsd-kind-icon">IVertical<wbr>Inner<wbr>Tab</a>
 					</li>
@@ -1847,11 +1895,17 @@ npm install zent --save</code></pre>
 					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#layoutbreakpointname" class="tsd-kind-icon">Layout<wbr>Break<wbr>Point<wbr>Name</a>
 					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="globals.html#listiterator" class="tsd-kind-icon">List<wbr>Iterator</a>
+					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#loadingtextposition" class="tsd-kind-icon">Loading<wbr>Text<wbr>Position</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#noticepositions" class="tsd-kind-icon">Notice<wbr>Positions</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-not-exported">
+						<a href="globals.html#objectkey" class="tsd-kind-icon">Object<wbr>Key</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#paginationchangehandler" class="tsd-kind-icon">Pagination<wbr>Change<wbr>Handler</a>
@@ -1916,6 +1970,9 @@ npm install zent --save</code></pre>
 					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#textmarksearchwords" class="tsd-kind-icon">Text<wbr>Mark<wbr>Search<wbr>Words</a>
 					</li>
+					<li class=" tsd-kind-type-alias tsd-is-not-exported">
+						<a href="globals.html#timerid" class="tsd-kind-icon">Timer<wbr>Id</a>
+					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#treerootidarray" class="tsd-kind-icon">Tree<wbr>Root<wbr>IdArray</a>
 					</li>
@@ -1924,6 +1981,33 @@ npm install zent --save</code></pre>
 					</li>
 					<li class=" tsd-kind-variable tsd-is-not-exported">
 						<a href="globals.html#animation_duration" class="tsd-kind-icon">ANIMATION_<wbr>DURATION</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#arrow" class="tsd-kind-icon">Arrow</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#arrowbottomleftposition" class="tsd-kind-icon">Arrow<wbr>Bottom<wbr>Left<wbr>Position</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#arrowbottomrightposition" class="tsd-kind-icon">Arrow<wbr>Bottom<wbr>Right<wbr>Position</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#arrowleftbottomposition" class="tsd-kind-icon">Arrow<wbr>Left<wbr>Bottom<wbr>Position</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#arrowlefttopposition" class="tsd-kind-icon">Arrow<wbr>Left<wbr>Top<wbr>Position</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#arrowrightbottomposition" class="tsd-kind-icon">Arrow<wbr>Right<wbr>Bottom<wbr>Position</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#arrowrighttopposition" class="tsd-kind-icon">Arrow<wbr>Right<wbr>Top<wbr>Position</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#arrowtopleftposition" class="tsd-kind-icon">Arrow<wbr>Top<wbr>Left<wbr>Position</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#arrowtoprightposition" class="tsd-kind-icon">Arrow<wbr>Top<wbr>Right<wbr>Position</a>
 					</li>
 					<li class=" tsd-kind-variable">
 						<a href="globals.html#autobottomcenter" class="tsd-kind-icon">Auto<wbr>Bottom<wbr>Center</a>
@@ -2114,6 +2198,9 @@ npm install zent --save</code></pre>
 					<li class=" tsd-kind-variable">
 						<a href="globals.html#one_day" class="tsd-kind-icon">ONE_<wbr>DAY</a>
 					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#prefix" class="tsd-kind-icon">PREFIX</a>
+					</li>
 					<li class=" tsd-kind-variable">
 						<a href="globals.html#portal" class="tsd-kind-icon">Portal</a>
 					</li>
@@ -2256,6 +2343,9 @@ npm install zent --save</code></pre>
 						<a href="globals.html#hasownproperty" class="tsd-kind-icon">has<wbr>Own<wbr>Property</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#id" class="tsd-kind-icon">id</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
 						<a href="globals.html#index" class="tsd-kind-icon">index</a>
 					</li>
 					<li class=" tsd-kind-variable">
@@ -2322,6 +2412,12 @@ npm install zent --save</code></pre>
 						<a href="globals.html#now" class="tsd-kind-icon">now</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#objis" class="tsd-kind-icon">obj<wbr>Is</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#objkeys" class="tsd-kind-icon">obj<wbr>Keys</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
 						<a href="globals.html#onegb" class="tsd-kind-icon">oneGB</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-is-not-exported">
@@ -2370,13 +2466,13 @@ npm install zent --save</code></pre>
 						<a href="globals.html#tinycolor" class="tsd-kind-icon">tinycolor</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
 						<a href="globals.html#token" class="tsd-kind-icon">token</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-is-not-exported">
 						<a href="globals.html#twodigits" class="tsd-kind-icon">two<wbr>Digits</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-is-not-exported">
-						<a href="globals.html#uniqueid" class="tsd-kind-icon">unique<wbr>Id</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-is-not-exported">
 						<a href="globals.html#uppercasepattern" class="tsd-kind-icon">uppercase<wbr>Pattern</a>
@@ -2386,6 +2482,9 @@ npm install zent --save</code></pre>
 					</li>
 					<li class=" tsd-kind-variable tsd-is-not-exported">
 						<a href="globals.html#useragent" class="tsd-kind-icon">user<wbr>Agent</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#valueofsymbol" class="tsd-kind-icon">value<wbr>OfSymbol</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-is-not-exported">
 						<a href="globals.html#vendorname" class="tsd-kind-icon">vendor<wbr>Name</a>
@@ -2407,9 +2506,6 @@ npm install zent --save</code></pre>
 					</li>
 					<li class=" tsd-kind-variable tsd-is-not-exported">
 						<a href="globals.html#xpizipfilename" class="tsd-kind-icon">xpi<wbr>Zip<wbr>Filename</a>
-					</li>
-					<li class=" tsd-kind-function tsd-is-not-exported">
-						<a href="globals.html#arrow" class="tsd-kind-icon">Arrow</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#blockloading" class="tsd-kind-icon">Block<wbr>Loading</a>
@@ -2512,6 +2608,9 @@ npm install zent --save</code></pre>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#imecomposition" class="tsd-kind-icon">IMEComposition</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#itooltiptriggerhoverprops" class="tsd-kind-icon">ITooltip<wbr>Trigger<wbr>Hover<wbr>Props</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#inlineloading" class="tsd-kind-icon">Inline<wbr>Loading</a>
@@ -2652,6 +2751,9 @@ npm install zent --save</code></pre>
 						<a href="globals.html#callhook" class="tsd-kind-icon">call<wbr>Hook</a>
 					</li>
 					<li class=" tsd-kind-function">
+						<a href="globals.html#capitalize" class="tsd-kind-icon">capitalize</a>
+					</li>
+					<li class=" tsd-kind-function">
 						<a href="globals.html#caselessmatchfilteroption" class="tsd-kind-icon">caseless<wbr>Match<wbr>Filter<wbr>Option</a>
 					</li>
 					<li class=" tsd-kind-function">
@@ -2699,6 +2801,9 @@ npm install zent --save</code></pre>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#correctmark" class="tsd-kind-icon">correct<wbr>Mark</a>
 					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#createarrowposition" class="tsd-kind-icon">create<wbr>Arrow<wbr>Position</a>
+					</li>
 					<li class=" tsd-kind-function tsd-is-not-exported">
 						<a href="globals.html#createcontainer" class="tsd-kind-icon">create<wbr>Container</a>
 					</li>
@@ -2719,9 +2824,6 @@ npm install zent --save</code></pre>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#createplacement" class="tsd-kind-icon">create<wbr>Placement</a>
-					</li>
-					<li class=" tsd-kind-function tsd-is-not-exported">
-						<a href="globals.html#createposition" class="tsd-kind-icon">create<wbr>Position</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#createstatebyprops" class="tsd-kind-icon">create<wbr>State<wbr>ByProps</a>
@@ -2744,6 +2846,9 @@ npm install zent --save</code></pre>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#daystart" class="tsd-kind-icon">day<wbr>Start</a>
 					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="globals.html#debounce" class="tsd-kind-icon">debounce</a>
+					</li>
 					<li class=" tsd-kind-function tsd-is-not-exported">
 						<a href="globals.html#decidetrigger" class="tsd-kind-icon">decide<wbr>Trigger</a>
 					</li>
@@ -2764,6 +2869,9 @@ npm install zent --save</code></pre>
 					</li>
 					<li class=" tsd-kind-function tsd-is-not-exported">
 						<a href="globals.html#defaultsanitize" class="tsd-kind-icon">default<wbr>Sanitize</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#defer" class="tsd-kind-icon">defer</a>
 					</li>
 					<li class=" tsd-kind-function tsd-is-not-exported">
 						<a href="globals.html#destroyrecognizer" class="tsd-kind-icon">destroy<wbr>Recognizer</a>
@@ -2801,14 +2909,20 @@ npm install zent --save</code></pre>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#findall" class="tsd-kind-icon">find<wbr>All</a>
 					</li>
-					<li class=" tsd-kind-function">
+					<li class=" tsd-kind-function tsd-has-type-parameter">
 						<a href="globals.html#findindex" class="tsd-kind-icon">find<wbr>Index</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="globals.html#findlastindex" class="tsd-kind-icon">find<wbr>Last<wbr>Index</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#findmentionatcaretposition" class="tsd-kind-icon">find<wbr>Mention<wbr>AtCaret<wbr>Position</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#findpositionedparent" class="tsd-kind-icon">find<wbr>Positioned<wbr>Parent</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#findsubscriberindex" class="tsd-kind-icon">find<wbr>Subscriber<wbr>Index</a>
 					</li>
 					<li class=" tsd-kind-function tsd-is-not-exported">
 						<a href="globals.html#fittext" class="tsd-kind-icon">fit<wbr>Text</a>
@@ -3012,7 +3126,7 @@ npm install zent --save</code></pre>
 						<a href="globals.html#hyphenatestylename" class="tsd-kind-icon">hyphenate<wbr>Style<wbr>Name</a>
 					</li>
 					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#id" class="tsd-kind-icon">id</a>
+						<a href="globals.html#identity" class="tsd-kind-icon">identity</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#info" class="tsd-kind-icon">info</a>
@@ -3036,6 +3150,9 @@ npm install zent --save</code></pre>
 						<a href="globals.html#iscurrentmonth" class="tsd-kind-icon">is<wbr>Current<wbr>Month</a>
 					</li>
 					<li class=" tsd-kind-function">
+						<a href="globals.html#isdate" class="tsd-kind-icon">is<wbr>Date</a>
+					</li>
+					<li class=" tsd-kind-function">
 						<a href="globals.html#isdecimal" class="tsd-kind-icon">is<wbr>Decimal</a>
 					</li>
 					<li class=" tsd-kind-function tsd-is-not-exported">
@@ -3045,7 +3162,13 @@ npm install zent --save</code></pre>
 						<a href="globals.html#iselementinview" class="tsd-kind-icon">is<wbr>Element<wbr>InView</a>
 					</li>
 					<li class=" tsd-kind-function">
+						<a href="globals.html#isequal" class="tsd-kind-icon">is<wbr>Equal</a>
+					</li>
+					<li class=" tsd-kind-function">
 						<a href="globals.html#isequalplacement" class="tsd-kind-icon">is<wbr>Equal<wbr>Placement</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#isitooltiptriggerclickprops" class="tsd-kind-icon">isITooltip<wbr>Trigger<wbr>Click<wbr>Props</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#isinteger" class="tsd-kind-icon">is<wbr>Integer</a>
@@ -3055,6 +3178,12 @@ npm install zent --save</code></pre>
 					</li>
 					<li class=" tsd-kind-function tsd-is-not-exported">
 						<a href="globals.html#ismouseeventsuffix" class="tsd-kind-icon">is<wbr>Mouse<wbr>Event<wbr>Suffix</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#isnil" class="tsd-kind-icon">is<wbr>Nil</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#isobject" class="tsd-kind-icon">is<wbr>Object</a>
 					</li>
 					<li class=" tsd-kind-function tsd-is-not-exported">
 						<a href="globals.html#ispanelactive" class="tsd-kind-icon">is<wbr>Panel<wbr>Active</a>
@@ -3119,6 +3248,9 @@ npm install zent --save</code></pre>
 					<li class=" tsd-kind-function tsd-is-not-exported">
 						<a href="globals.html#makestate" class="tsd-kind-icon">make<wbr>State</a>
 					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="globals.html#mapdomnodes" class="tsd-kind-icon">mapDOMNodes</a>
+					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#measurescrollbar" class="tsd-kind-icon">measure<wbr>Scrollbar</a>
 					</li>
@@ -3140,7 +3272,7 @@ npm install zent --save</code></pre>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#nextframe" class="tsd-kind-icon">next<wbr>Frame</a>
 					</li>
-					<li class=" tsd-kind-function tsd-is-not-exported">
+					<li class=" tsd-kind-function">
 						<a href="globals.html#noop" class="tsd-kind-icon">noop</a>
 					</li>
 					<li class=" tsd-kind-function">
@@ -3157,6 +3289,9 @@ npm install zent --save</code></pre>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#normalizevalue" class="tsd-kind-icon">normalize<wbr>Value</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="globals.html#omit" class="tsd-kind-icon">omit</a>
 					</li>
 					<li class=" tsd-kind-function tsd-is-not-exported">
 						<a href="globals.html#ondocumentselectionchange" class="tsd-kind-icon">on<wbr>Document<wbr>Selection<wbr>Change</a>
@@ -3251,6 +3386,9 @@ npm install zent --save</code></pre>
 					<li class=" tsd-kind-function tsd-is-not-exported">
 						<a href="globals.html#restoreelement" class="tsd-kind-icon">restore<wbr>Element</a>
 					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="globals.html#sample" class="tsd-kind-icon">sample</a>
+					</li>
 					<li class=" tsd-kind-function tsd-is-not-exported">
 						<a href="globals.html#scalesvgsize" class="tsd-kind-icon">scale<wbr>Svg<wbr>Size</a>
 					</li>
@@ -3326,6 +3464,9 @@ npm install zent --save</code></pre>
 					<li class=" tsd-kind-function tsd-is-not-exported">
 						<a href="globals.html#sweet" class="tsd-kind-icon">sweet</a>
 					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="globals.html#throttle" class="tsd-kind-icon">throttle</a>
+					</li>
 					<li class=" tsd-kind-function tsd-is-not-exported">
 						<a href="globals.html#tobytes" class="tsd-kind-icon">to<wbr>Bytes</a>
 					</li>
@@ -3343,6 +3484,15 @@ npm install zent --save</code></pre>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#uninstall" class="tsd-kind-icon">uninstall</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="globals.html#union" class="tsd-kind-icon">union</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="globals.html#uniq" class="tsd-kind-icon">uniq</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#uniqueid" class="tsd-kind-icon">unique<wbr>Id</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#uploadlocalimage" class="tsd-kind-icon">upload<wbr>Local<wbr>Image</a>
@@ -3386,9 +3536,6 @@ npm install zent --save</code></pre>
 					<li class=" tsd-kind-object-literal tsd-has-type-parameter">
 						<a href="globals.html#cascader" class="tsd-kind-icon">Cascader</a>
 					</li>
-					<li class=" tsd-kind-object-literal tsd-is-not-exported">
-						<a href="globals.html#centerarrowposition" class="tsd-kind-icon">Center<wbr>Arrow<wbr>Position</a>
-					</li>
 					<li class=" tsd-kind-object-literal tsd-has-type-parameter">
 						<a href="globals.html#copybutton" class="tsd-kind-icon">Copy<wbr>Button</a>
 					</li>
@@ -3399,7 +3546,7 @@ npm install zent --save</code></pre>
 						<a href="globals.html#default_disabled_pop_props" class="tsd-kind-icon">DEFAULT_<wbr>DISABLED_<wbr>POP_<wbr>PROPS</a>
 					</li>
 					<li class=" tsd-kind-object-literal">
-						<a href="globals.html#default_reander_key" class="tsd-kind-icon">DEFAULT_<wbr>REANDER_<wbr>KEY</a>
+						<a href="globals.html#default_render_key" class="tsd-kind-icon">DEFAULT_<wbr>RENDER_<wbr>KEY</a>
 					</li>
 					<li class=" tsd-kind-object-literal tsd-is-not-exported">
 						<a href="globals.html#default_state" class="tsd-kind-icon">DEFAULT_<wbr>STATE</a>
@@ -3418,6 +3565,9 @@ npm install zent --save</code></pre>
 					</li>
 					<li class=" tsd-kind-object-literal tsd-is-not-exported">
 						<a href="globals.html#icon_type" class="tsd-kind-icon">ICON_<wbr>TYPE</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-is-not-exported">
+						<a href="globals.html#measure_style" class="tsd-kind-icon">MEASURE_<wbr>STYLE</a>
 					</li>
 					<li class=" tsd-kind-object-literal tsd-has-type-parameter">
 						<a href="globals.html#mention" class="tsd-kind-icon">Mention</a>

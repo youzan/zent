@@ -98,7 +98,6 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="minipagelist.html#onnextpage" class="tsd-kind-icon">on<wbr>Next<wbr>Page</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="minipagelist.html#onpagenumberclick" class="tsd-kind-icon">on<wbr>Page<wbr>Number<wbr>Click</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="minipagelist.html#onprevpage" class="tsd-kind-icon">on<wbr>Prev<wbr>Page</a></li>
 							</ul>
 						</section>
@@ -117,6 +116,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="minipagelist.html#componentwillupdate" class="tsd-kind-icon">component<wbr>Will<wbr>Update</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="minipagelist.html#getsnapshotbeforeupdate" class="tsd-kind-icon">get<wbr>Snapshot<wbr>Before<wbr>Update</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="minipagelist.html#jumptopagedelta" class="tsd-kind-icon">jump<wbr>ToPage<wbr>Delta</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="minipagelist.html#onpagenumberclick" class="tsd-kind-icon">on<wbr>Page<wbr>Number<wbr>Click</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="minipagelist.html#render" class="tsd-kind-icon">render</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="minipagelist.html#resetactivedoublearrowbutton" class="tsd-kind-icon">reset<wbr>Active<wbr>Double<wbr>Arrow<wbr>Button</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="minipagelist.html#shouldcomponentupdate" class="tsd-kind-icon">should<wbr>Component<wbr>Update</a></li>
@@ -133,18 +133,7 @@
 					<div class="tsd-signature tsd-kind-icon">on<wbr>Next<wbr>Page<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">(Anonymous function)</span><span class="tsd-signature-symbol"> =&nbsp;this.jumpToPageDelta(1)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/3095cc5c/packages/zent/src/pagination/components/list/MiniPageList.tsx#L68">pagination/components/list/MiniPageList.tsx:68</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-					<a name="onpagenumberclick" class="tsd-anchor"></a>
-					<h3>on<wbr>Page<wbr>Number<wbr>Click</h3>
-					<div class="tsd-signature tsd-kind-icon">on<wbr>Page<wbr>Number<wbr>Click<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">(Anonymous function)</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">MemoizedFunction</span><span class="tsd-signature-symbol"> =&nbsp;memoize(page &#x3D;&gt; () &#x3D;&gt; {const { onPageChange } &#x3D; this.props;onPageChange(page);this.resetActiveDoubleArrowButton();})</span></div>
-					<aside class="tsd-sources">
-						<p>Inherited from <a href="basepagelist.html">BasePageList</a>.<a href="basepagelist.html#onpagenumberclick">onPageNumberClick</a></p>
-						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/3095cc5c/packages/zent/src/pagination/components/list/BasePageList.ts#L19">pagination/components/list/BasePageList.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/1b3c7bf8/packages/zent/src/pagination/components/list/MiniPageList.tsx#L68">packages/zent/src/pagination/components/list/MiniPageList.tsx:68</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -154,7 +143,7 @@
 					<div class="tsd-signature tsd-kind-icon">on<wbr>Prev<wbr>Page<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">(Anonymous function)</span><span class="tsd-signature-symbol"> =&nbsp;this.jumpToPageDelta(-1)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/3095cc5c/packages/zent/src/pagination/components/list/MiniPageList.tsx#L66">pagination/components/list/MiniPageList.tsx:66</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/1b3c7bf8/packages/zent/src/pagination/components/list/MiniPageList.tsx#L66">packages/zent/src/pagination/components/list/MiniPageList.tsx:66</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -172,7 +161,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.UNSAFE_componentWillMount</p>
 								<ul>
-									<li>Defined in /Users/lichen/youzan/zent/zent/node_modules/@types/react/index.d.ts:648</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:648</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -210,7 +199,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.UNSAFE_componentWillReceiveProps</p>
 								<ul>
-									<li>Defined in /Users/lichen/youzan/zent/zent/node_modules/@types/react/index.d.ts:680</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:680</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -259,7 +248,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.UNSAFE_componentWillUpdate</p>
 								<ul>
-									<li>Defined in /Users/lichen/youzan/zent/zent/node_modules/@types/react/index.d.ts:708</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:708</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -309,7 +298,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from ComponentLifecycle.componentDidCatch</p>
 								<ul>
-									<li>Defined in /Users/lichen/youzan/zent/zent/node_modules/@types/react/index.d.ts:577</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:577</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -342,7 +331,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from ComponentLifecycle.componentDidMount</p>
 								<ul>
-									<li>Defined in /Users/lichen/youzan/zent/zent/node_modules/@types/react/index.d.ts:556</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:556</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -365,7 +354,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from NewLifecycle.componentDidUpdate</p>
 								<ul>
-									<li>Defined in /Users/lichen/youzan/zent/zent/node_modules/@types/react/index.d.ts:619</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:619</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -401,7 +390,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.componentWillMount</p>
 								<ul>
-									<li>Defined in /Users/lichen/youzan/zent/zent/node_modules/@types/react/index.d.ts:634</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:634</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -438,7 +427,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.componentWillReceiveProps</p>
 								<ul>
-									<li>Defined in /Users/lichen/youzan/zent/zent/node_modules/@types/react/index.d.ts:663</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:663</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -486,7 +475,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from ComponentLifecycle.componentWillUnmount</p>
 								<ul>
-									<li>Defined in /Users/lichen/youzan/zent/zent/node_modules/@types/react/index.d.ts:572</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:572</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -510,7 +499,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.componentWillUpdate</p>
 								<ul>
-									<li>Defined in /Users/lichen/youzan/zent/zent/node_modules/@types/react/index.d.ts:693</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:693</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -559,7 +548,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from NewLifecycle.getSnapshotBeforeUpdate</p>
 								<ul>
-									<li>Defined in /Users/lichen/youzan/zent/zent/node_modules/@types/react/index.d.ts:613</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:613</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -598,7 +587,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="basepagelist.html">BasePageList</a>.<a href="basepagelist.html#jumptopagedelta">jumpToPageDelta</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/3095cc5c/packages/zent/src/pagination/components/list/BasePageList.ts#L26">pagination/components/list/BasePageList.ts:26</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/1b3c7bf8/packages/zent/src/pagination/components/list/BasePageList.ts#L25">packages/zent/src/pagination/components/list/BasePageList.ts:25</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -626,6 +615,30 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="onpagenumberclick" class="tsd-anchor"></a>
+					<h3>on<wbr>Page<wbr>Number<wbr>Click</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Page<wbr>Number<wbr>Click<span class="tsd-signature-symbol">(</span>page<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">(Anonymous function)</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="basepagelist.html">BasePageList</a>.<a href="basepagelist.html#onpagenumberclick">onPageNumberClick</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/1b3c7bf8/packages/zent/src/pagination/components/list/BasePageList.ts#L18">packages/zent/src/pagination/components/list/BasePageList.ts:18</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>page: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">(Anonymous function)</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="render" class="tsd-anchor"></a>
 					<h3>render</h3>
@@ -636,7 +649,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/3095cc5c/packages/zent/src/pagination/components/list/MiniPageList.tsx#L10">pagination/components/list/MiniPageList.tsx:10</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/1b3c7bf8/packages/zent/src/pagination/components/list/MiniPageList.tsx#L10">packages/zent/src/pagination/components/list/MiniPageList.tsx:10</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Element</span></h4>
@@ -654,7 +667,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="basepagelist.html">BasePageList</a>.<a href="basepagelist.html#resetactivedoublearrowbutton">resetActiveDoubleArrowButton</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/3095cc5c/packages/zent/src/pagination/components/list/MiniPageList.tsx#L8">pagination/components/list/MiniPageList.tsx:8</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/1b3c7bf8/packages/zent/src/pagination/components/list/MiniPageList.tsx#L8">packages/zent/src/pagination/components/list/MiniPageList.tsx:8</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -672,7 +685,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from ComponentLifecycle.shouldComponentUpdate</p>
 								<ul>
-									<li>Defined in /Users/lichen/youzan/zent/zent/node_modules/@types/react/index.d.ts:567</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:567</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -721,9 +734,6 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="minipagelist.html#onnextpage" class="tsd-kind-icon">on<wbr>Next<wbr>Page</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="minipagelist.html#onpagenumberclick" class="tsd-kind-icon">on<wbr>Page<wbr>Number<wbr>Click</a>
-							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="minipagelist.html#onprevpage" class="tsd-kind-icon">on<wbr>Prev<wbr>Page</a>
 							</li>
@@ -762,6 +772,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="minipagelist.html#jumptopagedelta" class="tsd-kind-icon">jump<wbr>ToPage<wbr>Delta</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="minipagelist.html#onpagenumberclick" class="tsd-kind-icon">on<wbr>Page<wbr>Number<wbr>Click</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="minipagelist.html#render" class="tsd-kind-icon">render</a>
