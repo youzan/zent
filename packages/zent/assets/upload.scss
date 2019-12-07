@@ -74,6 +74,12 @@
       margin-bottom: 0;
     }
 
+    &__info {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
     &__icon {
       width: 20px;
       height: 20px;
@@ -84,24 +90,18 @@
     }
 
     &__name {
-      margin-left: 4px;
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
-    }
 
-    // clampline use pop div wrapper
-    .zent-pop-wrapper {
-      text-overflow: ellipsis;
-      overflow: hidden;
-      white-space: nowrap;
-      flex: 1;
-    }
-
-    &__info {
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
+      &-wrapper {
+        // important display inline-flex to cover pop compontent inline style
+        // sass-lint:disable no-important
+        display: inline-flex !important;
+        overflow: hidden;
+        margin-left: 4px;
+        flex: 1;
+      }
     }
 
     &__actions {

@@ -174,6 +174,7 @@ abstract class AbstractUpload<
       ...updateItem,
       ...overrideProps,
     };
+
     const newFileList = this.fileList.map(
       (item: IUploadFileItemInner<UPLOAD_ITEM>) =>
         item._id === updateItem._id ? newItem : item

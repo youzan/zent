@@ -6,13 +6,11 @@ import {
 } from '../../types';
 import AbstractUploadList from '../AbstractList';
 import NormalUploadItem from './Item';
-import MiniPagination, {
-  IMiniPaginationProps,
-} from '../../../pagination/MiniPagination';
+import MiniPagination from '../../../pagination/MiniPagination';
 import { PaginationChangeHandler } from '../../../pagination/impl/BasePagination';
 
 interface INormalUploadListState {
-  pageInfo: Omit<IMiniPaginationProps, 'onChange'>;
+  current: number;
 }
 
 export default class NormalUploadList extends AbstractUploadList<
@@ -21,11 +19,25 @@ export default class NormalUploadList extends AbstractUploadList<
   INormalUploadListState
 > {
   state: INormalUploadListState = {
-    pageInfo: {
-      current: 1,
-      pageSize: 5,
-    },
+    current: 1,
   };
+
+  componentDidUpdate(prevProps: IUploadListProps) {
+    const { fileList: prevFileList, pageSize: prevPageSize } = prevProps;
+    const { fileList, pageSize } = this.props;
+    const { current } = this.state;
+
+    // 删除过文件，需要修正页数
+    if (fileList.length < prevFileList.length || prevPageSize !== pageSize) {
+      const maxPage = fileList.length / pageSize;
+      // 如果最大支持页数已经小于当期页数，则更新当期页数到最大支持页数
+      if (maxPage < current) {
+        this.setState({
+          current: maxPage,
+        });
+      }
+    }
+  }
 
   /**
    * 需要显示的文件列表范围
@@ -34,7 +46,8 @@ export default class NormalUploadList extends AbstractUploadList<
     if (!this.props.pagination) {
       return [0, this.props.fileList.length];
     }
-    const { current, pageSize } = this.state.pageInfo;
+    const { current } = this.state;
+    const { pageSize } = this.props;
     return [(current - 1) * pageSize, current * pageSize];
   }
 
@@ -46,7 +59,6 @@ export default class NormalUploadList extends AbstractUploadList<
   onFileListSortChange = (
     list: Array<IUploadFileItemInner<IUploadFileItem>>
   ) => {
-    console.log(list);
     const [start, end] = this.displayListRange;
     const rawFileList = this.props.fileList;
     const newList = [
@@ -59,7 +71,7 @@ export default class NormalUploadList extends AbstractUploadList<
 
   onPagiantionChange: PaginationChangeHandler = pageInfo => {
     this.setState({
-      pageInfo,
+      current: pageInfo.current,
     });
   };
 
@@ -67,7 +79,9 @@ export default class NormalUploadList extends AbstractUploadList<
     if (!this.props.pagination) {
       return null;
     }
-    const { current, pageSize } = this.state.pageInfo;
+
+    const { current } = this.state;
+    const { pageSize } = this.props;
     return (
       <MiniPagination
         className="zent-upload-list-pagination"
