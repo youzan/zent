@@ -51,7 +51,7 @@ const guessSupportTypes = (accept?: string): string[] => {
 
 type IUploadPropsInner = PartialRequired<
   IUploadProps,
-  'maxAmount' | 'maxSize' | 'multiple'
+  'maxAmount' | 'maxSize' | 'multiple' | 'pagination' | 'pageSize'
 >;
 
 export class Upload extends AbstractUpload<IUploadFileItem, IUploadProps> {
@@ -64,6 +64,8 @@ export class Upload extends AbstractUpload<IUploadFileItem, IUploadProps> {
     maxSize: 1024 * 1024,
     multiple: false,
     sortable: true,
+    pageSize: 5,
+    pagination: false,
   };
 
   protected createNewUploadFileItem(
@@ -92,7 +94,7 @@ export class Upload extends AbstractUpload<IUploadFileItem, IUploadProps> {
   }
 
   protected renderUploadList(i18n: II18nLocaleUpload): React.ReactNode {
-    const { sortable, pagination } = this.props;
+    const { sortable, pagination, pageSize } = this.props;
     return (
       <NormalUploadList
         i18n={i18n}
@@ -102,6 +104,7 @@ export class Upload extends AbstractUpload<IUploadFileItem, IUploadProps> {
         onSortChange={this.updateFileList}
         sortable={sortable}
         pagination={pagination}
+        pageSize={pageSize}
       />
     );
   }

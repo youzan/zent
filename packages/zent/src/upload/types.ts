@@ -93,6 +93,8 @@ export interface IUploadProps extends IAbstractUploadProps<IUploadFileItem> {
   tips?: string | IUploadTipsFunc<IUploadProps>;
   /** 是否展示分页信息 */
   pagination?: boolean;
+  /** 分页大小 */
+  pageSize?: number;
 }
 
 export interface IImageUploadProps
@@ -144,7 +146,8 @@ export interface IAbstractUploadListProps<UPLOAD_ITEM extends IUploadFileItem> {
 
 export interface IUploadListProps
   extends IAbstractUploadListProps<IUploadFileItem> {
-  pagination?: boolean;
+  pagination: boolean;
+  pageSize: number;
 }
 
 export interface IImageUploadListProps

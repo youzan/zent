@@ -50,6 +50,17 @@ const getFileIcon = (item: IUploadFileItem) => {
   return <FileIcon />;
 };
 
+const splitFileNameParts = (filename: string) => {
+  // .gitignore 之类 .开头的文件名
+  if (filename[0] === '.') {
+    return [filename];
+  }
+
+  // 使用 lastIndexOf 是为了处理拥有两个或以上.数量的文件名，如 webpack.config.js
+  const splitIndex = filename.lastIndexOf('.');
+  return [filename.slice(0, splitIndex), filename.slice(splitIndex)];
+};
+
 /** 上传状态到进度条状态常量的映射 */
 const uploadToProgressStatusMap: {
   [key in FILE_UPLOAD_STATUS]: IProgressStatus;
@@ -89,12 +100,21 @@ const NormalUploadItem: React.FC<INormalFileItemProps> = props => {
     ['zent-upload-item__failed']: isFailed,
   });
 
+  const [filename, ext] = splitFileNameParts(item.name);
+
   return (
     <li key={item._id} className={cls}>
       <div className="zent-upload-item__info">
         {getFileIcon(item)}
-        <Pop content={item.name} trigger="hover">
-          <span className="zent-upload-item__name">{item.name}</span>
+        <Pop
+          wrapperClassName="zent-upload-item__name-wrapper"
+          content={item.name}
+          trigger="hover"
+        >
+          <>
+            <span className="zent-upload-item__name">{filename}</span>
+            <span className="zent-upload-item__ext">{ext}</span>
+          </>
         </Pop>
         <div className="zent-upload-item__actions">
           {isFailed && (
