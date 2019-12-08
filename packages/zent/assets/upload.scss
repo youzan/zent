@@ -94,13 +94,15 @@
       overflow: hidden;
       white-space: nowrap;
 
+      &-line {
+        display: inline-flex;
+        width: 100%;
+      }
+
       &-wrapper {
-        // important display inline-flex to cover pop compontent inline style
-        // sass-lint:disable no-important
-        display: inline-flex !important;
-        overflow: hidden;
-        margin-left: 4px;
         flex: 1;
+        margin-left: 4px;
+        overflow: hidden;
       }
     }
 
