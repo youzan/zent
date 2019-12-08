@@ -111,10 +111,10 @@ const NormalUploadItem: React.FC<INormalFileItemProps> = props => {
           content={item.name}
           trigger="hover"
         >
-          <>
+          <p className="zent-upload-item__name-line">
             <span className="zent-upload-item__name">{filename}</span>
             <span className="zent-upload-item__ext">{ext}</span>
-          </>
+          </p>
         </Pop>
         <div className="zent-upload-item__actions">
           {isFailed && (
