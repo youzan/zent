@@ -433,6 +433,14 @@ describe('TinyColor', () => {
       expect(tiny.toHex()).toBe(new TinyColor(tiny.toRgb()).toHex());
     });
   });
+
+  it('RGB String', () => {
+    conversions.forEach(c => {
+      const tiny = new TinyColor(c.hex);
+      expect(tiny.toHex()).toBe(new TinyColor(tiny.toRgbString()).toHex());
+    });
+  });
+
   it('Object', () => {
     conversions.forEach(c => {
       const tiny = new TinyColor(c.hex);
