@@ -21,7 +21,12 @@ export default class NormalUploadTrigger extends AbstractTrigger<
   render() {
     const { i18n } = this.props;
     return (
-      <div className="zent-upload-trigger" onClick={this.clickFileInput}>
+      <div
+        className="zent-upload-trigger"
+        onClick={this.clickFileInput}
+        onDragOver={this.onTriggerDragOver}
+        onDrop={this.onTriggerDrop}
+      >
         <Icon type="upload" className="zent-upload-trigger-icon__normal" />
         <span className="zent-upload-trigger-text">
           {i18n.normal.add} {this.renderFileItemCount()}
