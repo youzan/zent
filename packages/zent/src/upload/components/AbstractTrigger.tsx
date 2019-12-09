@@ -55,8 +55,9 @@ abstract class AbstractTrigger<
    * 支持文件拖拽上传的处理函数
    */
   protected onTriggerDrop: React.DragEventHandler = e => {
+    const { disabled } = this.props;
     e.preventDefault();
-    if (e.dataTransfer.files) {
+    if (e.dataTransfer.files && !disabled) {
       const files = Array.from(e.dataTransfer.files);
       this.onInputChange(files);
     }

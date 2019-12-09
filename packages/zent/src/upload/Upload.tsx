@@ -55,10 +55,6 @@ type IUploadPropsInner = PartialRequired<
 >;
 
 export class Upload extends AbstractUpload<IUploadFileItem, IUploadProps> {
-  state = {
-    fileList: [],
-  };
-
   static defaultProps: Partial<IUploadProps> = {
     maxAmount: 0,
     maxSize: 1024 * 1024,
