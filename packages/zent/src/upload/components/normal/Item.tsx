@@ -110,6 +110,7 @@ const NormalUploadItem: React.FC<INormalFileItemProps> = props => {
           wrapperClassName="zent-upload-item__name-wrapper"
           content={item.name}
           trigger="hover"
+          mouseEnterDelay={500}
         >
           <p className="zent-upload-item__name-line">
             <span className="zent-upload-item__name">{filename}</span>
