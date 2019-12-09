@@ -6,7 +6,12 @@ import {
   IUploadFileItem,
   IUploadTipConfig,
 } from './types';
-import { FILE_UPLOAD_STATUS } from './constants';
+import {
+  FILE_UPLOAD_STATUS,
+  DEFAULT_MAX_SIZE,
+  DEFAULT_MAX_AMOUNT,
+  DEFAULT_ENABLE_MULTIPLE,
+} from './constants';
 import { I18nReceiver, II18nLocaleUpload } from '../i18n';
 import { createUploadItemId, formatFileSize } from './utils';
 import NormalUploadTrigger from './components/normal/Trigger';
@@ -56,10 +61,10 @@ type IUploadPropsInner = PartialRequired<
 
 export class Upload extends AbstractUpload<IUploadFileItem, IUploadProps> {
   static defaultProps: Partial<IUploadProps> = {
-    maxAmount: 0,
-    maxSize: 1024 * 1024,
-    multiple: false,
-    sortable: true,
+    maxAmount: DEFAULT_MAX_AMOUNT,
+    maxSize: DEFAULT_MAX_SIZE,
+    multiple: DEFAULT_ENABLE_MULTIPLE,
+    sortable: false,
     pageSize: 5,
     pagination: false,
   };

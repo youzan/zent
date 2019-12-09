@@ -57,6 +57,7 @@ class Simple extends React.Component {
 				onChange={this.onUploadChange}
 				onUpload={this.onUpload}
 				onError={this.onUploadError}
+				sortable
 				pagination={{
 					type: 'mini',
 					props: {

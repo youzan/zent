@@ -77,9 +77,9 @@ export interface IAbstractUploadProps<UPLOAD_ITEM extends IUploadFileItem> {
   onError?: IUploadOnErrorCallback;
   /** 是否支持文件多选 */
   multiple?: boolean;
-  /** 文件数量限制，0为无限制 */
+  /** 文件数量限制，Infinity 为无限制 */
   maxAmount?: number;
-  /** 文件大小限制 */
+  /** 文件大小限制，Infinity 为无限制 */
   maxSize?: number;
   /** 可选文件类型 */
   accept?: string;

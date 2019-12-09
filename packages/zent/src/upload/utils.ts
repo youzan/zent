@@ -1,6 +1,6 @@
-import isPromise from '../../utils/isPromise';
-import uniqueId from '../../utils/uniqueId';
-import { IUploadFileItemInner, IUploadFileItem } from '../types';
+import isPromise from '../utils/isPromise';
+import uniqueId from '../utils/uniqueId';
+import { IUploadFileItemInner, IUploadFileItem } from './types';
 
 /**
  * 创建一个唯一 Id
