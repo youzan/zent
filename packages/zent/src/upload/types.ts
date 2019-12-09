@@ -20,8 +20,9 @@ export interface IImageUploadFileItem extends IUploadFileItem {
 export type IUploadFileItemInner<
   UPLOAD_ITEM extends IUploadFileItem
 > = UPLOAD_ITEM & {
-  // 判断上传文件的唯一id
+  /** 判断上传文件的唯一id */
   _id?: string;
+  /** 重试上传时的文件对象 */
   _file?: File;
 };
 

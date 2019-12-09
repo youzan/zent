@@ -8,7 +8,7 @@ import {
 } from '../types';
 import { FILE_UPLOAD_STATUS } from '../constants';
 import { II18nLocaleUpload } from '../../i18n';
-import { wrapPromise } from '../utils';
+import { wrapPromise, patchUploadItemId } from '../utils';
 import isEqual from '../../utils/isEqual';
 
 export interface IAbstractUploadState<UPLOAD_ITEM extends IUploadFileItem> {
@@ -17,11 +17,8 @@ export interface IAbstractUploadState<UPLOAD_ITEM extends IUploadFileItem> {
 
 abstract class AbstractUpload<
   UPLOAD_ITEM extends IUploadFileItem,
-  P extends IAbstractUploadProps<UPLOAD_ITEM>,
-  S extends IAbstractUploadState<UPLOAD_ITEM> = IAbstractUploadState<
-    UPLOAD_ITEM
-  >
-> extends React.PureComponent<P, S> {
+  P extends IAbstractUploadProps<UPLOAD_ITEM>
+> extends React.PureComponent<P, IAbstractUploadState<UPLOAD_ITEM>> {
   // update state fileList from props
   static getDerivedStateFromProps(
     nextProps: Readonly<IAbstractUploadProps<IUploadFileItem>>,
@@ -38,6 +35,25 @@ abstract class AbstractUpload<
 
   constructor(props: P) {
     super(props);
+
+    const { fileList, defaultFileList } = props;
+    if (fileList && defaultFileList) {
+      throw new Error(
+        `props fileList can't use with defaultFileList, defaultFileList can only used in uncontrolled component`
+      );
+    }
+
+    if (fileList) {
+      fileList.forEach(patchUploadItemId);
+    }
+
+    if (defaultFileList) {
+      defaultFileList.forEach(patchUploadItemId);
+    }
+
+    this.state = {
+      fileList: fileList || defaultFileList || [],
+    };
   }
 
   /**
