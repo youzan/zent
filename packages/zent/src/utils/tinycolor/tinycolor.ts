@@ -131,19 +131,6 @@ export class TinyColor {
       a: this.a,
     };
   }
-
-  /**
-   * Returns the RGBA values interpolated into a string with the following format:
-   * "RGBA(xxx, xxx, xxx, xx)".
-   */
-  toRgbString() {
-    const r = Math.round(this.r);
-    const g = Math.round(this.g);
-    const b = Math.round(this.b);
-    return this.a === 1
-      ? `rgb(${r}, ${g}, ${b})`
-      : `rgba(${r}, ${g}, ${b}, ${this.roundA})`;
-  }
 }
 
 // kept for backwards compatibility with v1

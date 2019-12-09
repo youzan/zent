@@ -205,11 +205,6 @@ export function rgbToHex(r: number, g: number, b: number, allow3Char: boolean) {
   return hex.join('');
 }
 
-/** Converts a decimal to a hex value */
-export function convertDecimalToHex(d: string | number) {
-  return Math.round(parseFloat(d as string) * 255).toString(16);
-}
-
 /** Converts a hex value to a decimal */
 export function convertHexToDecimal(h: string) {
   return parseIntFromHex(h) / 255;
