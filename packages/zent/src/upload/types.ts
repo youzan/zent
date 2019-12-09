@@ -31,9 +31,11 @@ export interface IUploadChangeDetail<UPLOAD_ITEM extends IUploadFileItem> {
   type: 'change' | 'add' | 'delete';
 }
 
-// error types
+// error types，错误类型映射表
 export interface IUploadErrorMessageConfigMap {
+  /** 文件大小超出限制 */
   overMaxSize: { maxSize: number };
+  /** 选择文件数量超出限制 */
   overMaxAmount: { maxAmount: number };
 }
 
@@ -70,7 +72,7 @@ export interface IAbstractUploadProps<UPLOAD_ITEM extends IUploadFileItem> {
   beforeUpload?: (file: File) => boolean | Promise<void>;
   /** 文件上传回调 */
   onUpload: (file: File, report: (percent: number) => void) => Promise<void>;
-  /** 发生错误时的回调 */
+  /** 发生内部错误时的统一回调函数，错误类型见 IUploadErrorMessageConfigMap */
   onError?: IUploadOnErrorCallback;
   /** 是否支持文件多选 */
   multiple?: boolean;

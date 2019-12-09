@@ -170,6 +170,14 @@ abstract class AbstractUpload<
     updateItem: IUploadFileItemInner<UPLOAD_ITEM>,
     overrideProps: Partial<IUploadFileItemInner<UPLOAD_ITEM>>
   ) => {
+    const itemExist = this.fileList.find(
+      (item: IUploadFileItemInner<UPLOAD_ITEM>) => item._id === updateItem._id
+    );
+    // 上传项已经不存在，不执行 update 操作
+    if (!itemExist) {
+      return;
+    }
+
     const newItem: IUploadFileItemInner<UPLOAD_ITEM> = {
       ...updateItem,
       ...overrideProps,

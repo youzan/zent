@@ -7,6 +7,9 @@ abstract class AbstractTrigger<
 > extends React.PureComponent<IAbstractUploadTriggerProps<UPLOAD_ITEM>> {
   fileInputRef = React.createRef<FileInput>();
 
+  /**
+   * 点击 file input 标签，打开文件选择对话框
+   */
   protected clickFileInput = () => {
     this.fileInputRef.current && this.fileInputRef.current.open();
   };
@@ -42,6 +45,21 @@ abstract class AbstractTrigger<
     files.forEach(file => {
       this.props.onAddFile(file);
     });
+  };
+
+  protected onTriggerDragOver: React.DragEventHandler = e => {
+    e.preventDefault();
+  };
+
+  /**
+   * 支持文件拖拽上传的处理函数
+   */
+  protected onTriggerDrop: React.DragEventHandler = e => {
+    e.preventDefault();
+    if (e.dataTransfer.files) {
+      const files = Array.from(e.dataTransfer.files);
+      this.onInputChange(files);
+    }
   };
 
   renderFileInput() {
