@@ -8,7 +8,7 @@ export default class NormalUploadTrigger extends AbstractTrigger<
 > {
   renderFileItemCount() {
     const { availableUploadItemsCount, maxAmount } = this.props;
-    if (!maxAmount) {
+    if (maxAmount === Infinity) {
       return null;
     }
     return (

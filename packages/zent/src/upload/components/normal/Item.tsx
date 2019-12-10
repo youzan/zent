@@ -2,13 +2,14 @@ import * as React from 'react';
 import cn from 'classnames';
 import { Icon } from '../../../icon';
 import InlineLoading from '../../../loading/InlineLoading';
-import { IUploadFileItem, INormalFileItemProps } from '../../types';
+import { IUploadFileItem, INormalUploadItemProps } from '../../types';
 import { FILE_UPLOAD_STATUS } from '../../constants';
-import { Progress, IProgressStatus } from '../../../progress';
+import { Progress } from '../../../progress';
 import FileIcon from '../icons/File';
 import VideoIcon from '../icons/Video';
 import AudioIcon from '../icons/Audio';
 import Pop from '../../../pop';
+import { useItemHandler } from '../../hooks/item-handler';
 
 /**
  * 获取状态展示图标
@@ -61,40 +62,13 @@ const splitFileNameParts = (filename: string) => {
   return [filename.slice(0, splitIndex), filename.slice(splitIndex)];
 };
 
-/** 上传状态到进度条状态常量的映射 */
-const uploadToProgressStatusMap: {
-  [key in FILE_UPLOAD_STATUS]: IProgressStatus;
-} = {
-  [FILE_UPLOAD_STATUS.failed]: 'exception',
-  [FILE_UPLOAD_STATUS.success]: 'success',
-  [FILE_UPLOAD_STATUS.uploading]: 'normal',
-};
-
 /**
  * 通用上传组件上传项
  */
-const NormalUploadItem: React.FC<INormalFileItemProps> = props => {
-  const { i18n, item, onDelete, onRetry } = props;
+const NormalUploadItem: React.FC<INormalUploadItemProps> = props => {
+  const { i18n, item } = props;
   const isFailed = item.status === FILE_UPLOAD_STATUS.failed;
-
-  const deleteHandler = React.useCallback<
-    React.MouseEventHandler<HTMLAnchorElement>
-  >(
-    e => {
-      e.stopPropagation();
-      onDelete(item);
-    },
-    [item, onDelete]
-  );
-  const retryHandler = React.useCallback<
-    React.MouseEventHandler<HTMLAnchorElement>
-  >(
-    e => {
-      e.stopPropagation();
-      onRetry(item);
-    },
-    [item, onRetry]
-  );
+  const { deleteHandler, retryHandler } = useItemHandler(props);
 
   const cls = cn('zent-upload-item', {
     ['zent-upload-item__failed']: isFailed,
@@ -131,7 +105,6 @@ const NormalUploadItem: React.FC<INormalFileItemProps> = props => {
           showInfo={false}
           className="zent-upload-item__progress"
           strokeWidth={2}
-          status={uploadToProgressStatusMap[item.status]}
           percent={item.percent}
         />
       )}

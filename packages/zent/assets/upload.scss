@@ -11,7 +11,14 @@
   @include theme-color(color, stroke, 3);
   @include font-small;
   margin-top: 12px;
-  text-align: center;
+}
+
+@mixin image-item {
+  border-radius: 2px;
+  width: 80px;
+  height: 80px;
+  box-sizing: border-box;
+  cursor: pointer;
 }
 
 .zent-upload {
@@ -22,6 +29,7 @@
 
   &-tips {
     @include tips;
+    text-align: center;
   }
 
   &-trigger {
@@ -136,5 +144,90 @@
 .zent-image-upload {
   &-tips {
     @include tips;
+  }
+
+  &-trigger {
+    @include image-item;
+    @include theme-color(background-color, stroke, 8);
+    @include theme-color(color, stroke, 3);
+    @include theme-color(border-color, stroke, 5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-style: dashed;
+    border-width: 1px;
+    margin-bottom: 12px;
+
+    &-add-icon {
+      font-size: 24px;
+    }
+  }
+
+  &-list {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin-bottom: -12px;
+  }
+
+  &-item {
+    @include image-item;
+    position: relative;
+    margin-right: 12px;
+    margin-bottom: 12px;
+
+    &-backdrop {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      // height: 100%;
+
+      &__white {
+        background-color: rgba(255, 255, 255, 0.8);
+      }
+
+      &__black {
+        background-color: rgba(0, 0, 0, 0.6);
+      }
+
+      &__failed {
+        @include theme-color(color, error, 2);
+      }
+
+      &__retry {
+        @include theme-color(color, primary, 4);
+      }
+
+      &-text {
+        margin-top: 4px;
+      }
+    }
+
+    &__thumb {
+      width: 100%;
+      height: 100%;
+      border-radius: 2px;
+    }
+
+    &__delete {
+      @include theme-color(color, stroke, 1);
+      position: absolute;
+      font-size: 16px;
+      right: -8px;
+      top: -8px;
+      display: none;
+    }
+
+    &__hover {
+      .zent-image-upload-item__delete {
+        display: inline-block;
+      }
+    }
   }
 }

@@ -122,6 +122,7 @@ export type I18nLocaleTimePicker = () => II18nLocaleTimePicker;
 export interface II18nLocaleUpload extends II18nLocaleCommon {
   retry: string;
   delete: string;
+  failed: string;
   normal: {
     add: string;
     tips: IUploadTipsFunc<IUploadTipConfig<IUploadProps>>;

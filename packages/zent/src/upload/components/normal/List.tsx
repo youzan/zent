@@ -8,6 +8,7 @@ import AbstractUploadList from '../AbstractList';
 import NormalUploadItem from './Item';
 import MiniPagination from '../../../pagination/MiniPagination';
 import { PaginationChangeHandler } from '../../../pagination/impl/BasePagination';
+import Sortable from '../../../sortable';
 
 interface INormalUploadListState {
   current: number;
@@ -75,7 +76,10 @@ export default class NormalUploadList extends AbstractUploadList<
     });
   };
 
-  renderExtraListContent() {
+  /**
+   * 渲染分页器
+   */
+  renderPagination() {
     if (!this.props.pagination) {
       return null;
     }
@@ -106,4 +110,34 @@ export default class NormalUploadList extends AbstractUploadList<
       />
     );
   };
+
+  render() {
+    const { sortable } = this.props;
+    const fileList = this.getRenderFileList();
+
+    if (!fileList || !fileList.length) {
+      return null;
+    }
+
+    const fileListContent = fileList.map(this.renderFileItem);
+
+    const listContent = sortable ? (
+      <Sortable
+        tag="ul"
+        items={fileList}
+        className="zent-upload-list"
+        onChange={this.onFileListSortChange}
+      >
+        {fileListContent}
+      </Sortable>
+    ) : (
+      <ul className="zent-upload-list">{fileListContent}</ul>
+    );
+    return (
+      <div className="zent-upload-list-wrapper">
+        {listContent}
+        {this.renderPagination()}
+      </div>
+    );
+  }
 }

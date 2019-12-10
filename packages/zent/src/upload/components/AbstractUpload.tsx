@@ -255,29 +255,31 @@ abstract class AbstractUpload<
     );
 
     // check is need upload
-    beforeUploadRes.then(() => {
-      const { fileList } = this.state;
-      const innerFileList = fileList as Array<
-        IUploadFileItemInner<UPLOAD_ITEM>
-      >;
-      const newUploadFileItem: IUploadFileItemInner<UPLOAD_ITEM> = this.createNewUploadFileItem(
-        file
-      );
-      const newFileList: Array<IUploadFileItemInner<UPLOAD_ITEM>> = [
-        ...innerFileList,
-        newUploadFileItem,
-      ];
+    beforeUploadRes
+      .then(() => {
+        // create upload file item async
+        return this.createNewUploadFileItem(file);
+      })
+      .then(newUploadFileItem => {
+        const { fileList } = this.state;
+        const innerFileList = fileList as Array<
+          IUploadFileItemInner<UPLOAD_ITEM>
+        >;
+        const newFileList: Array<IUploadFileItemInner<UPLOAD_ITEM>> = [
+          ...innerFileList,
+          newUploadFileItem,
+        ];
 
-      // update file list
-      this.updateFileList(
-        newFileList,
-        {
-          item: newUploadFileItem,
-          type: 'add',
-        },
-        () => this.emitOnUpload(file, newUploadFileItem)
-      );
-    });
+        // update file list
+        this.updateFileList(
+          newFileList,
+          {
+            item: newUploadFileItem,
+            type: 'add',
+          },
+          () => this.emitOnUpload(file, newUploadFileItem)
+        );
+      });
   };
 
   /**
@@ -285,7 +287,9 @@ abstract class AbstractUpload<
    */
   protected abstract createNewUploadFileItem(
     file: File
-  ): IUploadFileItemInner<UPLOAD_ITEM>;
+  ):
+    | IUploadFileItemInner<UPLOAD_ITEM>
+    | Promise<IUploadFileItemInner<UPLOAD_ITEM>>;
 
   /**
    * 渲染文件上传触发器
