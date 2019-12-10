@@ -1,6 +1,11 @@
 import isPromise from '../utils/isPromise';
 import uniqueId from '../utils/uniqueId';
-import { IUploadFileItemInner, IUploadFileItem } from './types';
+import {
+  IUploadFileItemInner,
+  IUploadFileItem,
+  IImageUploadFileItem,
+} from './types';
+import previewImage from '../preview-image';
 
 /**
  * 创建一个唯一 Id
@@ -50,4 +55,30 @@ export function wrapPromise(condition: boolean | Promise<any>) {
     return condition;
   }
   return condition ? Promise.resolve() : Promise.reject();
+}
+
+/**
+ * 默认获取缩略图方法
+ */
+export function defaultGetThumbSrcFromFile(file: File) {
+  return new Promise<string>((resolve, reject) => {
+    const fileReader = new FileReader();
+    fileReader.onloadend = () => resolve(fileReader.result as string);
+    fileReader.onerror = reject;
+    fileReader.readAsDataURL(file);
+  });
+}
+
+/**
+ * 默认点击图片时的放大预览方法
+ */
+export function defaultPreview(
+  file: IImageUploadFileItem,
+  fileList: IImageUploadFileItem[]
+) {
+  const previewIndex = fileList.indexOf(file);
+  previewImage({
+    index: previewIndex,
+    images: fileList.map(item => item.src || item.thumbSrc),
+  });
 }

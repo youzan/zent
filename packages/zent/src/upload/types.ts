@@ -15,6 +15,7 @@ export interface IUploadFileItem {
 export interface IImageUploadFileItem extends IUploadFileItem {
   // image extra attrs
   src?: string;
+  thumbSrc?: string;
 }
 
 export type IUploadFileItemInner<
@@ -105,12 +106,12 @@ export interface IImageUploadProps
   /** 提示文案 */
   tips?: string | IUploadTipsFunc<IImageUploadProps>;
   /** 点击图片展示时的回调 */
-  preview: (
+  preview?: (
     file: IImageUploadFileItem,
     fileList: IImageUploadFileItem[]
   ) => void;
   /** 将图片文件转化为展示用的缩略图 src */
-  transformToSrc: (file: File) => string | Promise<string>;
+  getThumbSrcFromFile: (file: File) => string | Promise<string>;
 }
 
 export interface IAbstractUploadTriggerProps<
@@ -154,11 +155,17 @@ export interface IUploadListProps
 }
 
 export interface IImageUploadListProps
-  extends IAbstractUploadListProps<IImageUploadFileItem> {}
-
-export interface INormalFileItemProps {
-  item: IUploadFileItemInner<IUploadFileItem>;
-  i18n: II18nLocaleUpload;
-  onRetry: IAbstractUploadListProps<IUploadFileItem>['onRetry'];
-  onDelete: IAbstractUploadListProps<IUploadFileItem>['onDelete'];
+  extends IAbstractUploadListProps<IImageUploadFileItem> {
+  trigger: React.ReactNode;
 }
+
+export interface IUploadItemProps<UPLOAD_ITEM extends IUploadFileItem> {
+  item: IUploadFileItemInner<UPLOAD_ITEM>;
+  i18n: II18nLocaleUpload;
+  onRetry: IAbstractUploadListProps<UPLOAD_ITEM>['onRetry'];
+  onDelete: IAbstractUploadListProps<UPLOAD_ITEM>['onDelete'];
+}
+
+export type INormalUploadItemProps = IUploadItemProps<IUploadFileItem>;
+
+export type IImageUploadItemProps = IUploadItemProps<IImageUploadFileItem>;

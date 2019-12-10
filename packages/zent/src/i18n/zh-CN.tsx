@@ -173,6 +173,7 @@ export const Upload: II18nLocaleUpload = {
   ...common,
   delete: '删除',
   retry: '重新上传',
+  failed: '上传失败',
   normal: {
     add: '添加文件',
     tips: config => {
@@ -190,9 +191,8 @@ export const Upload: II18nLocaleUpload = {
     tips: config => {
       const { tips, formattedMaxSize, maxAmount } = config;
       const tipStr = tips ? `${tips}${common.comma}` : '';
-      const amoutLimitStr = maxAmount
-        ? `最多${maxAmount}张${common.comma}`
-        : '';
+      const amoutLimitStr =
+        maxAmount !== Infinity ? `最多${maxAmount}张${common.comma}` : '';
       const sizeLimitStr = `单张图片不超过${formattedMaxSize}`;
       return `${tipStr}${amoutLimitStr}${sizeLimitStr}`;
     },

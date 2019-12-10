@@ -4,7 +4,6 @@ import {
   IAbstractUploadListProps,
   IUploadFileItemInner,
 } from '../types';
-import Sortable from '../../sortable';
 
 abstract class AbstractUploadList<
   UPLOAD_ITEM extends IUploadFileItem,
@@ -30,40 +29,6 @@ abstract class AbstractUploadList<
   abstract onFileListSortChange(
     list: Array<IUploadFileItemInner<UPLOAD_ITEM>>
   ): void;
-
-  /**
-   * 渲染列表未的额外元素
-   */
-  protected renderExtraListContent() {}
-
-  render() {
-    const { sortable } = this.props;
-    const fileList = this.getRenderFileList();
-
-    if (!fileList || !fileList.length) {
-      return null;
-    }
-
-    const fileListContent = fileList.map(this.renderFileItem);
-    const listContent = sortable ? (
-      <Sortable
-        tag="ul"
-        items={fileList}
-        className="zent-upload-list"
-        onChange={this.onFileListSortChange}
-      >
-        {fileListContent}
-      </Sortable>
-    ) : (
-      <ul className="zent-upload-list">{fileListContent}</ul>
-    );
-    return (
-      <div className="zent-upload-list-wrapper">
-        {listContent}
-        {this.renderExtraListContent()}
-      </div>
-    );
-  }
 }
 
 export default AbstractUploadList;
