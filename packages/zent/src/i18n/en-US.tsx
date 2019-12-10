@@ -178,7 +178,7 @@ export const Upload: II18nLocaleUpload = {
   ...common,
   delete: 'Delete',
   retry: 'Retry',
-  failed: 'Upload Failed',
+  failed: 'Failed',
   normal: {
     add: 'Add File',
     tips: config => {
