@@ -7,7 +7,6 @@ function isValidDate(value: number | string) {
  * @param {string|Date|number} date 需要转换的值
  * @return {date} Date 的实例
  * @example
- * const getValidDate = require('zan-utils/date/getValidDate');
  * let date = getValidDate(new Date());
  * date instanceof Date;// true
  * date = getValidDate(1496800160058);

@@ -35,7 +35,6 @@
   "dependencies": {
     "@types/autosize": "^3.0.6",
     "@types/sortablejs": "~1.7.2",
-    "@types/tinycolor2": "^1.4.1",
     "autosize": "^4.0.0",
     "big.js": "^5.2.2",
     "classnames": "^2.2.6",
@@ -45,7 +44,6 @@
     "react-is": "^16.8.1",
     "react-transition-group": "^2.6.0",
     "sortablejs": "~1.9.0",
-    "tinycolor2": "^1.4.1",
     "tslib": "^1.9.3",
     "utility-types": "^3.4.1",
     "warning": "^4.0.3",
