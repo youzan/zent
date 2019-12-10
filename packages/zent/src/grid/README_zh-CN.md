@@ -57,7 +57,7 @@ onChange 会抛出一个对象，这个对象包含分页变化的参数：
 | 参数        | 说明                                                              | 类型                                                                                                                 | 是否必须 |
 | ----------- | ----------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------- |
 | title       | 列头的名称                                                        | ReactNode                                                                                                            | 是       |
-| name        | 对应数据中的 key (建议设置) 支持 `a.b.c` 的嵌套写法               | string                                                                                                               | 否       |
+| name        | 对应数据中的 key (建议设置)             | string                                                                                                               | 否       |
 | width       | 列表宽度                                                          | string \| number                                                                                                     | 否       |
 | bodyRender  | 渲染复杂组件                                                      | ((data: any, pos: {row: number, column: number, fixed?: 'left' \| 'right'}, name: string) => ReactNode) \| ReactNode | 否       |
 | className   | 列头的 className                                                  | string                                                                                                               | 否       |
