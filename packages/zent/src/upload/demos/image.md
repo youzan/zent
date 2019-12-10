@@ -55,6 +55,7 @@ class Simple extends React.Component {
 				maxSize={5 * 1024 * 1024}
 				maxAmount={5}
 				multiple
+				sortable
 				tips="{i18n.tips}"
 				onChange={this.onUploadChange}
 				onUpload={this.onUpload}
