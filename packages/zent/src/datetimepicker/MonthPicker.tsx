@@ -12,6 +12,7 @@ import PanelFooter from './common/PanelFooter';
 import { formatDate, parseDate, dayStart, dayEnd, monthStart } from './utils';
 import { CURRENT, noop, popPositionMap, commonProps } from './constants';
 import { DatePickers } from './common/types';
+import Icon from '../icon';
 
 export interface IMonthPickerProps extends DatePickers.ICommonProps {
   disabled?: boolean;
@@ -263,11 +264,12 @@ export class MonthPicker extends PureComponent<IMonthPickerProps, any> {
                     disabled={disabled}
                     autoComplete={autoComplete}
                   />
-                  <span className="zenticon zenticon-calendar-o" />
+                  <Icon className="picker-input--icon" type="calendar-o" />
                   {canClear && (
-                    <span
+                    <Icon
+                      className="picker-input--icon"
+                      type="close-circle"
                       onClick={this.onClearInput}
-                      className="zenticon zenticon-close-circle"
                     />
                   )}
                 </div>
