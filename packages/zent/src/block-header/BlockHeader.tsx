@@ -5,7 +5,7 @@ import Pop, { PopPositions } from '../pop';
 import Icon from '../icon';
 
 export interface IBlockHeaderProps {
-  title: string;
+  title: ReactNode;
   className?: string;
   tooltip?: ReactNode;
   position?: PopPositions;
