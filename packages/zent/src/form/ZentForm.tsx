@@ -88,8 +88,8 @@ export class ZentForm<T extends Record<string, BasicModel<unknown>>>
     return this.inner.model.isValidating$.getValue();
   }
 
-  getValue() {
-    return this.inner.model.getRawValue();
+  getValue<FormValue = $FieldSetValue<T>>() {
+    return this.inner.model.getRawValue<FormValue>();
   }
 
   initialize(value: $FieldSetValue<T>) {
