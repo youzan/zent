@@ -4,75 +4,25 @@ import cx from 'classnames';
 import * as sortableJS from 'sortablejs';
 import reorder from '../utils/reorder';
 
-export type SortableGroup =
-  | {
-      name: string;
-      pull:
-        | boolean
-        | 'clone'
-        | ((to: sortableJS, from: sortableJS) => string | boolean);
-      put:
-        | string
-        | boolean
-        | ReadonlyArray<string>
-        | ((to: sortableJS) => boolean);
-      revertClone: boolean;
-    }
-  | string;
-
-export interface ISortableProps {
-  // base api
+export interface ISortableProps<T> extends sortableJS.Options {
+  // zent wrapper api
+  tag?: React.ComponentType | string;
   className?: string;
-  prefix?: string;
-  tag?: string;
-  items?: any[];
-  onChange?: (newItems: any[]) => void;
+  items?: T[];
   filterClass?: string;
-
-  // advance api
-  sort?: boolean;
-  group?: string | SortableGroup;
-  delay?: number;
-  animation?: number;
-  handle?: string;
-  ghostClass?: string;
-  chosenClass?: string;
-  dragClass?: string;
-  forceFallback?: boolean;
-  fallbackClass?: string;
-  fallbackOnBody?: boolean;
-  fallbackTolerance?: number;
-  scroll?: boolean;
-  scrollFn?: (
-    offsetX: number,
-    offsetY: number,
-    originalEvent: MouseEvent
-  ) => any;
-  scrollSensitivity?: number;
-  scrollSpeed?: number;
-  setData?: (dataTransfer: DataTransfer, dragEl: HTMLElement) => any;
-  onStart?: (event: Event) => any;
-  onEnd?: (event: Event) => any;
-  onAdd?: (event: Event) => any;
-  onUpdate?: (event: Event) => any;
-  onSort?: (event: Event) => any;
-  onRemove?: (event: Event) => any;
-  onFilter?: (event: Event) => any;
-  onMove?: (event: Event) => boolean;
-  onClone?: (event: Event) => boolean;
+  onChange?: (newItems: T[]) => void;
 }
 
-export class Sortable extends Component<ISortableProps> {
+export class Sortable<T> extends Component<ISortableProps<T>> {
   static defaultProps = {
-    prefix: 'zent',
     tag: 'div',
   };
 
   sortable: sortableJS;
+  containerRef = React.createRef<HTMLElement>();
 
-  initSortable = (instance: HTMLElement) => {
+  initSortable = () => {
     const {
-      prefix,
       onMove,
       onEnd,
       onChange,
@@ -81,27 +31,26 @@ export class Sortable extends Component<ISortableProps> {
       ...rest
     } = this.props;
 
+    const instance = this.containerRef.current;
     if (!instance) {
       return;
     }
 
     const sortableOptions: sortableJS.Options = {
       filter: filterClass ? `.${filterClass}` : '',
-      ghostClass: `${prefix}-ghost`,
-      chosenClass: `${prefix}-chosen`,
-      dragClass: `${prefix}-drag`,
-      fallbackClass: `${prefix}-fallback`,
+      ghostClass: `zent-ghost`,
+      chosenClass: `zent-chosen`,
+      dragClass: `zent-drag`,
+      fallbackClass: `zent-fallback`,
       onMove: e => {
         console.log('onMove', e);
         if (onMove) {
           return onMove(e);
         }
-
-        return e.related.className !== filterClass;
+        return filterClass ? !e.related.classList.contains(filterClass) : true;
       },
       onEnd: e => {
         const { items } = this.props;
-        console.log('onEnd', e);
         onEnd && onEnd(e);
 
         if (!items) {
@@ -120,20 +69,28 @@ export class Sortable extends Component<ISortableProps> {
     this.sortable = sortableJS.create(instance, sortableOptions);
   };
 
-  componentWillUnmount() {
+  destorySortableInstance() {
     if (this.sortable) {
       this.sortable.destroy();
       this.sortable = null;
     }
   }
 
+  componentDidMount() {
+    this.initSortable();
+  }
+
+  componentWillUnmount() {
+    this.destorySortableInstance();
+  }
+
   render() {
-    const { prefix, className, children, tag } = this.props;
-    const classString = cx(`${prefix}-sortable`, className);
+    const { className, children, tag } = this.props;
+    const classString = cx(`zent-sortable`, className);
     const Com: any = tag;
     return (
       <Com
-        ref={instance => this.initSortable(instance)}
+        ref={this.containerRef}
         className={classString}
         data-zv={__ZENT_VERSION__}
       >
