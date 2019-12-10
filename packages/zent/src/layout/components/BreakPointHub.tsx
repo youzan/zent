@@ -10,10 +10,10 @@ interface IBreakPointHubProps {
 }
 
 /**
- * enquire can attatch multiple callbacks to the same media query.
+ * enquire can attach multiple callbacks to the same media query.
  *
  * Breakpoints with same media query string are merged into a single query
- * with multiple callbacks attatched when using multiple instances of Breakpoint.
+ * with multiple callbacks attached when using multiple instances of Breakpoint.
  *
  * So no need for one more media query manager.
  */

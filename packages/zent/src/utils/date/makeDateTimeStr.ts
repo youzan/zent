@@ -8,7 +8,6 @@ import formatDate from './formatDate';
  * @param mask 解析的格式，默认为 'YYYY-MM-DD HH:mm:ss'，方便日常开发
  * @returns 格式化后的日期字符串
  * @example
- * const makeDateTimeStr = require('zan-utils/date/makeDateTimeStr');
  * makeDateTimeStr(new Date());
  * // '2017-06-06 17:37:16'
  */
