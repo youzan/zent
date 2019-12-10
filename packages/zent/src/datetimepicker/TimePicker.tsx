@@ -14,6 +14,7 @@ import PanelFooter from './common/PanelFooter';
 import { formatDate, parseDate, dayStart, padLeft } from './utils';
 import { timeFnMap, noop, popPositionMap, commonProps } from './constants';
 import { DatePickers } from './common/types';
+import Icon from '../icon';
 
 const DEFAULT_FORMAT = 'HH:mm:ss';
 const DEFAULT_FORMAT_WITHOUT_SECOND = 'HH:mm';
@@ -466,11 +467,12 @@ export class TimePicker extends PureComponent<
                     disabled={disabled}
                     autoComplete={autoComplete}
                   />
-                  <span className="zenticon zenticon-clock-o" />
+                  <Icon className="picker-input--icon" type="clock-o" />
                   {canClear && (
-                    <span
+                    <Icon
+                      className="picker-input--icon"
+                      type="close-circle"
                       onClick={this.onClearInput}
-                      className="zenticon zenticon-close-circle"
                     />
                   )}
                 </div>

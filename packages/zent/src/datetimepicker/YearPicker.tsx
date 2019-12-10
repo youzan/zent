@@ -12,6 +12,7 @@ import PanelFooter from './common/PanelFooter';
 import { formatDate, parseDate, dayStart } from './utils';
 import { CURRENT, noop, popPositionMap, commonProps } from './constants';
 import { DatePickers } from './common/types';
+import Icon from '../icon';
 
 function getYear(val) {
   if (val instanceof Date) {
@@ -252,11 +253,12 @@ export class YearPicker extends PureComponent<IYearPickerProps, any> {
                 )}
               </Receiver>
 
-              <span className="zenticon zenticon-calendar-o" />
+              <Icon className="picker-input--icon" type="calendar-o" />
               {canClear && (
-                <span
+                <Icon
+                  className="picker-input--icon"
+                  type="close-circle"
                   onClick={this.onClearInput}
-                  className="zenticon zenticon-close-circle"
                 />
               )}
             </div>

@@ -37,6 +37,10 @@ $input-width: 190px;
     font-size: $font-size-normal;
     border-radius: 2px;
 
+    &--icon {
+      font-size: 18px;
+    }
+
     &--combine {
       @include theme-color(border-color, stroke, 4);
       border-width: 1px;
