@@ -35,21 +35,21 @@ import {
 import memoizeOne from '../utils/memorize-one';
 
 export interface ITextMarkProps extends React.HTMLAttributes<HTMLSpanElement> {
-  activeClassName: string;
-  activeIndex: number;
-  activeStyle: React.CSSProperties;
-  highlightClassName: string | { [key: string]: string };
-  highlightStyle: React.CSSProperties;
-  unhighlightClassName: string;
-  unhighlightStyle: React.CSSProperties;
-  highlightTag: React.ElementType;
-  sanitize: TextMarkSanitizeFunction;
+  activeClassName?: string;
+  activeIndex?: number;
+  activeStyle?: React.CSSProperties;
+  highlightClassName?: string | { [key: string]: string };
+  highlightStyle?: React.CSSProperties;
+  unhighlightClassName?: string;
+  unhighlightStyle?: React.CSSProperties;
+  highlightTag?: React.ElementType;
+  sanitize?: TextMarkSanitizeFunction;
   searchWords: TextMarkSearchWords[];
   textToHighlight: string;
-  autoEscape: boolean;
-  caseSensitive: boolean;
-  className: string;
-  findChunks: TextMarkFindChunksFunction;
+  autoEscape?: boolean;
+  caseSensitive?: boolean;
+  className?: string;
+  findChunks?: TextMarkFindChunksFunction;
 }
 
 function lowercaseProps(object: { [key: string]: any }) {
