@@ -21,7 +21,8 @@
     "theme": "./scripts/build-theme.sh",
     "new-component": "node ./scripts/new-component.js",
     "typedoc": "typedoc --out ../../site/dist/apidoc --mode file",
-    "compile-plugins": "tsc plugins/*.ts -m commonjs"
+    "compile-plugins": "tsc plugins/*.ts -m commonjs",
+    "update-iconfont": "./scripts/update-iconfont.sh"
   },
   "author": "Youzan FE",
   "license": "MIT",
