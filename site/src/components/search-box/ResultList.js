@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
 import cx from 'classnames';
-import scroll from 'utils/scroll';
+import scroll from 'zent-utils/scroll';
 
 import { SKIP_SCROLL } from './constants';
 

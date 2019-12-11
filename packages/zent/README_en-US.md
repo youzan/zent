@@ -72,7 +72,7 @@ import { Button } from 'zent';
 
 // Transforms into
 
-import Button from 'zent/lib/button';
+import Button from 'zent/es/button';
 ```
 
 This plugin is useful if you are developing a library based on Zent, or if you only use a small part of Zent components.
