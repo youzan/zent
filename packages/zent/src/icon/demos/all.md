@@ -901,6 +901,42 @@ class IconGrid extends Component {
                 <span className="zi-grid-item-name">tools-o</span>
               </div>
             </CopyButton>
+            <CopyButton
+              text={this.getIconString("doc")}
+              onCopySuccess="doc 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="docdocfilled"
+              >
+                <Icon type="doc" />
+                <span className="zi-grid-item-name">doc</span>
+              </div>
+            </CopyButton>
+            <CopyButton
+              text={this.getIconString("video")}
+              onCopySuccess="video 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="videovideofilled"
+              >
+                <Icon type="video" />
+                <span className="zi-grid-item-name">video</span>
+              </div>
+            </CopyButton>
+            <CopyButton
+              text={this.getIconString("voice")}
+              onCopySuccess="voice 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="voicevoicefilled"
+              >
+                <Icon type="voice" />
+                <span className="zi-grid-item-name">voice</span>
+              </div>
+            </CopyButton>
           </div>
         </div>
       
