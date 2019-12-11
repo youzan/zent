@@ -13,6 +13,7 @@ import QuarterPanel from './quarter/QuarterPanel';
 import { dayStart, dayEnd, formatDate, parseDate } from './utils';
 import { noop, popPositionMap, commonProps } from './constants';
 import { DatePickers } from './common/types';
+import Icon from '../icon';
 
 const quarterMonthMap = {
   0: 0,
@@ -279,11 +280,12 @@ export class QuarterPicker extends PureComponent<IQuarterPickerProps, any> {
                       disabled={disabled}
                       autoComplete={autoComplete}
                     />
-                    <span className="zenticon zenticon-calendar-o" />
+                    <Icon className="picker-input--icon" type="calendar-o" />
                     {canClear && (
-                      <span
+                      <Icon
+                        className="picker-input--icon"
+                        type="close-circle"
                         onClick={this.onClearInput}
-                        className="zenticon zenticon-close-circle"
                       />
                     )}
                   </div>

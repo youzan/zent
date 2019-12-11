@@ -1,4 +1,4 @@
-const tinycolor = require('tinycolor2');
+import tinycolor from '../../utils/tinycolor';
 
 export default {
   simpleCheckForValidColor(data) {
@@ -40,7 +40,7 @@ export default {
   },
 
   isValidHex(hex) {
-    return tinycolor(hex).isValid();
+    return tinycolor(hex).isValid;
   },
 };
 

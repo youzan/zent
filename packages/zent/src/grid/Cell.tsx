@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import { IGridInnerColumn } from './Grid';
 import { IGridCellPos } from './types';
 import isNil from '../utils/isNil';
+import getFromPath from '../utils/getFromPath';
 
 interface IGridCellProps<Data> {
   column: IGridInnerColumn<Data>;
@@ -56,7 +57,7 @@ class Cell<Data> extends Component<IGridCellProps<Data>> {
       className,
       defaultText,
     } = column;
-    let text = data?.[name];
+    let text: any = getFromPath(data, name);
     if (isNil(text) && defaultText) {
       text = defaultText;
     }

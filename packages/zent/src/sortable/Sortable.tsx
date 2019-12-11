@@ -92,6 +92,7 @@ export class Sortable<T> extends Component<ISortableProps<T>> {
       <Com
         ref={this.containerRef}
         className={classString}
+        /* ts-plugin-version-attribute ignores this element, but it may be a tr... */
         data-zv={__ZENT_VERSION__}
       >
         {children}
