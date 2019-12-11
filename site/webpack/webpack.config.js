@@ -11,7 +11,6 @@ const tsCompilerConstantsPlugin = require('../../packages/zent/plugins/ts-plugin
   .default;
 const tsVersionAttributePlugin = require('../../packages/zent/plugins/ts-plugin-version-attribute')
   .default;
-const createAlias = require('../../packages/zent/createAlias');
 const constants = require('../src/constants');
 
 const DEV = process.env.NODE_ENV !== 'production';
@@ -27,12 +26,10 @@ module.exports = {
 
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.md'],
-    alias: Object.assign(
-      {
-        zent$: path.resolve(__dirname, '../zent'),
-      },
-      createAlias(path.resolve(__dirname, '../../packages/zent/src'))
-    ),
+    alias: Object.assign({
+      zent$: path.resolve(__dirname, '../zent'),
+      'zent-utils': path.resolve(__dirname, '../../packages/zent/src/utils'),
+    }),
   },
 
   module: {

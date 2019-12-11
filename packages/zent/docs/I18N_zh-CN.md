@@ -8,7 +8,7 @@ Zent 提供一个 Provider 组件用于配置组件内部文案的语言。组�
 
 ```jsx
 import { I18nProvider as Provider } from 'zent';
-import enUS from 'zent/lib/i18n/en-US';
+import enUS from 'zent/es/i18n/en-US';
 
 <Provider value={enUS}>
 	<App />

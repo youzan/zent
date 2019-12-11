@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import smoothScroll from 'utils/scroll';
+import smoothScroll from 'zent-utils/scroll';
 IMPORTS
 
 DEMO_DECLARATIONS

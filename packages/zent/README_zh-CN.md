@@ -77,7 +77,7 @@ import { Button } from 'zent';
 
 // 变换为
 
-import Button from 'zent/lib/button';
+import Button from 'zent/es/button';
 ```
 
 适用于基于 Zent 开发的组件库，以及对 Zent 使用量较少的项目。详细使用帮助请看[插件的文档](babel-plugin-zent)。
