@@ -1,23 +1,25 @@
 ---
-order: 5
+order: 3
 zh-CN:
-  title: 可拖拽排序
+  title: 默认文件列表
 en-US:
-  title: Sortable
+  title: Default File List
 ---
 
 ```jsx
 import { Upload, Notify } from 'zent';
 
-class Simple extends React.Component {
-	state = {
-		fileList: [],
-	}
+const defaultFileList = [{
+	name: '1.md',
+	type: 'text/plain',
+}, {
+	name: '2.mp4',
+	type: 'video/mpeg4',
+}]
 
+class Simple extends React.Component {
 	onUploadChange = (files) => {
-		this.setState({
-			fileList: files,
-		})
+		console.log(files);
 	}
 
 	onUpload = (file, report) => {
@@ -47,16 +49,16 @@ class Simple extends React.Component {
 	}
 
 	render() {
-		const { fileList } = this.state;
 		return (
 			<Upload
 				multiple
+				defaultFileList={defaultFileList}
 				className="zent-upload-demo-pic"
-				maxSize={10 * 1024 * 1024}
+				maxSize={2 * 1024 * 1024}
+				maxAmount={3}
 				onChange={this.onUploadChange}
 				onUpload={this.onUpload}
 				onError={this.onUploadError}
-				sortable
 			/>
 		);
 	}

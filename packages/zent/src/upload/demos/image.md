@@ -1,5 +1,5 @@
 ---
-order: 5
+order: 6
 zh-CN:
   title: 图片上传
   tips: '建议尺寸 640*640'

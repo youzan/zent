@@ -71,6 +71,12 @@ abstract class AbstractUpload<
     return maxAmount - this.availableUploadItemsCount;
   }
 
+  private getUploadItem(id: string): IUploadFileItemInner<UPLOAD_ITEM> {
+    return this.fileList.find(
+      (item: IUploadFileItemInner<UPLOAD_ITEM>) => item._id === id
+    );
+  }
+
   /**
    * 修改文件列表内容
    */
@@ -110,13 +116,14 @@ abstract class AbstractUpload<
     uploadItem: IUploadFileItemInner<UPLOAD_ITEM>
   ) => {
     const { onUpload } = this.props;
+    const uplodaItemId = uploadItem._id;
     // start upload
-    onUpload(file, this.updateUploadItemPercent.bind(this, uploadItem))
+    onUpload(file, this.updateUploadItemPercent.bind(this, uplodaItemId))
       .then(onUploadReturn => {
-        this.updateUploadItemStatusToSuccess(uploadItem, onUploadReturn);
+        this.updateUploadItemStatusToSuccess(uplodaItemId, onUploadReturn);
       })
       .catch(() => {
-        this.updateUploadItemStatusToFailed(uploadItem);
+        this.updateUploadItemStatusToFailed(uplodaItemId);
       });
   };
 
@@ -165,14 +172,12 @@ abstract class AbstractUpload<
    * 更新某个上传项的属性
    */
   updateUploadItem = (
-    updateItem: IUploadFileItemInner<UPLOAD_ITEM>,
+    updateItemId: string,
     overrideProps: Partial<IUploadFileItemInner<UPLOAD_ITEM>>
   ) => {
-    const itemExist = this.fileList.find(
-      (item: IUploadFileItemInner<UPLOAD_ITEM>) => item._id === updateItem._id
-    );
+    const updateItem = this.getUploadItem(updateItemId);
     // 上传项已经不存在，不执行 update 操作
-    if (!itemExist) {
+    if (!updateItem) {
       return;
     }
 
@@ -195,42 +200,38 @@ abstract class AbstractUpload<
    * 更新上传项状态为成功
    */
   updateUploadItemStatusToSuccess = (
-    updateItem: IUploadFileItemInner<UPLOAD_ITEM>,
+    updateItemId: string,
     onUploadSuccessReturn: ON_UPLOAD_SUCCESS_RETURN
   ) => {
     const overrideProps = {
       status: FILE_UPLOAD_STATUS.success,
       ...this.getUploadSuccessOverrideProps(onUploadSuccessReturn),
     } as Partial<IUploadFileItemInner<UPLOAD_ITEM>>;
-    this.updateUploadItem(updateItem, overrideProps);
+    this.updateUploadItem(updateItemId, overrideProps);
   };
 
   /**
    * 更新上传项状态为失败
    */
-  updateUploadItemStatusToFailed = (
-    updateItem: IUploadFileItemInner<UPLOAD_ITEM>
-  ) => {
+  updateUploadItemStatusToFailed = (updateItemId: string) => {
     const overrideProps = {
       status: FILE_UPLOAD_STATUS.failed,
     } as Partial<IUploadFileItemInner<UPLOAD_ITEM>>;
-    this.updateUploadItem(updateItem, overrideProps);
+    this.updateUploadItem(updateItemId, overrideProps);
   };
 
   /**
    * 更新文件上传进度
    */
-  updateUploadItemPercent = (
-    updateItem: IUploadFileItemInner<UPLOAD_ITEM>,
-    percent: number
-  ) => {
-    if (updateItem.status !== FILE_UPLOAD_STATUS.uploading) {
+  updateUploadItemPercent = (updateItemId: string, percent: number) => {
+    const updateItem = this.getUploadItem(updateItemId);
+    if (!updateItem || updateItem.status !== FILE_UPLOAD_STATUS.uploading) {
       return;
     }
     const overrideProps = {
       percent,
     } as Partial<IUploadFileItemInner<UPLOAD_ITEM>>;
-    this.updateUploadItem(updateItem, overrideProps);
+    this.updateUploadItem(updateItemId, overrideProps);
   };
 
   /**
