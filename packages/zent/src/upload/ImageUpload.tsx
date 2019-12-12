@@ -5,6 +5,7 @@ import {
   IImageUploadProps,
   IImageUploadFileItem,
   IUploadTipConfig,
+  IImageOnUploadSuccessReturn,
 } from './types';
 import {
   DEFAULT_MAX_AMOUNT,
@@ -23,6 +24,7 @@ import { II18nLocaleUpload } from '../i18n/locale';
 import ImageUploadList from './components/image/List';
 import ImageUploadTrigger from './components/image/Trigger';
 import { I18nReceiver } from '../i18n';
+import isNil from '../utils/isNil';
 
 type IImageUploadPropsInner = PartialRequired<
   IImageUploadProps,
@@ -36,6 +38,7 @@ type IImageUploadPropsInner = PartialRequired<
 
 export class ImageUpload extends AbstractUpload<
   IImageUploadFileItem,
+  IImageOnUploadSuccessReturn,
   IImageUploadProps
 > {
   static defaultProps: Partial<IImageUploadProps> = {
@@ -47,8 +50,22 @@ export class ImageUpload extends AbstractUpload<
     accept: 'image/*',
   };
 
+  protected getUploadSuccessOverrideProps(
+    onUploadSuccessReturn: IImageOnUploadSuccessReturn
+  ): Partial<IUploadFileItemInner<IImageUploadFileItem>> {
+    if (isNil(onUploadSuccessReturn)) {
+      return {};
+    }
+    return typeof onUploadSuccessReturn === 'string'
+      ? {
+          src: onUploadSuccessReturn,
+          thumbSrc: onUploadSuccessReturn,
+        }
+      : onUploadSuccessReturn;
+  }
+
   protected renderUploadList(i18n: II18nLocaleUpload): React.ReactNode {
-    const { sortable } = this.props;
+    const { sortable, preview } = this.props as IImageUploadPropsInner;
 
     // 上传 trigger
     const uploadTrigger = this.remainAmount > 0 && this.renderTrigger(i18n);
@@ -62,6 +79,7 @@ export class ImageUpload extends AbstractUpload<
         onSortChange={this.updateFileList}
         sortable={sortable}
         trigger={uploadTrigger}
+        onPreview={preview}
       />
     );
   }

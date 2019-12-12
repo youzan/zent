@@ -11,12 +11,20 @@ import { useItemHandler } from '../../hooks/item-handler';
  * 通用上传组件上传项
  */
 const ImageUploadItem: React.FC<IImageUploadItemProps> = props => {
-  const { i18n, item } = props;
+  const { i18n, item, onPreview } = props;
   const isFailed = item.status === FILE_UPLOAD_STATUS.failed;
 
   const { isHover, onMouseEnter, onMouseLeave } = useHover();
 
   const { deleteHandler, retryHandler } = useItemHandler(props);
+
+  const previewHandler = React.useCallback<React.MouseEventHandler>(
+    e => {
+      e.stopPropagation();
+      onPreview(item);
+    },
+    [onPreview, item]
+  );
 
   const cls = cn('zent-image-upload-item', {
     ['zent-image-upload-item__failed']: isFailed,
@@ -61,6 +69,7 @@ const ImageUploadItem: React.FC<IImageUploadItemProps> = props => {
         className="zent-image-upload-item__thumb"
         src={item.thumbSrc || item.src}
         alt={item.name}
+        onClick={previewHandler}
       />
       {/* 上传中的状态显示 */}
       {item.status === FILE_UPLOAD_STATUS.uploading && (

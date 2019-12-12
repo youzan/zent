@@ -57,8 +57,26 @@ export type IUploadTipsFunc<PROPS> = (
   config: IUploadTipConfig<PROPS>
 ) => React.ReactNode;
 
+// image upload types
+export type IImageOnUploadSuccessReturn =
+  | undefined
+  | null
+  | string
+  | {
+      src: string;
+      thumbSrc: string;
+    };
+
+export type IImageUploadPreviewFunc = (
+  file: IImageUploadFileItem,
+  fileList: IImageUploadFileItem[]
+) => void;
+
 // react props
-export interface IAbstractUploadProps<UPLOAD_ITEM extends IUploadFileItem> {
+export interface IAbstractUploadProps<
+  UPLOAD_ITEM extends IUploadFileItem,
+  ON_UPLOAD_SUCCESS_RETURN = void
+> {
   /** 自定义 className */
   className?: string;
   /** 上传组件文件列表 */
@@ -73,7 +91,10 @@ export interface IAbstractUploadProps<UPLOAD_ITEM extends IUploadFileItem> {
   /** 文件上传前的处理函数，若返回 false 或 Promie.reject，则不上传该文件 */
   beforeUpload?: (file: File) => boolean | Promise<void>;
   /** 文件上传回调 */
-  onUpload: (file: File, report: (percent: number) => void) => Promise<void>;
+  onUpload: (
+    file: File,
+    report: (percent: number) => void
+  ) => Promise<ON_UPLOAD_SUCCESS_RETURN>;
   /** 发生内部错误时的统一回调函数，错误类型见 IUploadErrorMessageConfigMap */
   onError?: IUploadOnErrorCallback;
   /** 是否支持文件多选 */
@@ -102,14 +123,14 @@ export interface IUploadProps extends IAbstractUploadProps<IUploadFileItem> {
 }
 
 export interface IImageUploadProps
-  extends IAbstractUploadProps<IImageUploadFileItem> {
+  extends IAbstractUploadProps<
+    IImageUploadFileItem,
+    IImageOnUploadSuccessReturn
+  > {
   /** 提示文案 */
   tips?: string | IUploadTipsFunc<IImageUploadProps>;
   /** 点击图片展示时的回调 */
-  preview?: (
-    file: IImageUploadFileItem,
-    fileList: IImageUploadFileItem[]
-  ) => void;
+  preview?: IImageUploadPreviewFunc;
   /** 将图片文件转化为展示用的缩略图 src */
   getThumbSrcFromFile: (file: File) => string | Promise<string>;
 }
@@ -157,6 +178,7 @@ export interface IUploadListProps
 export interface IImageUploadListProps
   extends IAbstractUploadListProps<IImageUploadFileItem> {
   trigger: React.ReactNode;
+  onPreview: IImageUploadPreviewFunc;
 }
 
 export interface IUploadItemProps<UPLOAD_ITEM extends IUploadFileItem> {
@@ -168,4 +190,6 @@ export interface IUploadItemProps<UPLOAD_ITEM extends IUploadFileItem> {
 
 export type INormalUploadItemProps = IUploadItemProps<IUploadFileItem>;
 
-export type IImageUploadItemProps = IUploadItemProps<IImageUploadFileItem>;
+export type IImageUploadItemProps = IUploadItemProps<IImageUploadFileItem> & {
+  onPreview: (file: IImageUploadFileItem) => void;
+};

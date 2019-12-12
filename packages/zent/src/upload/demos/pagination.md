@@ -15,7 +15,6 @@ class Simple extends React.Component {
 	}
 
 	onUploadChange = (files) => {
-		console.log(files);
 		this.setState({
 			fileList: files,
 		})
@@ -26,7 +25,7 @@ class Simple extends React.Component {
 			let count = 0;
 			const update = () => {
 				if (count < 100) {
-					count += 5;
+					count += 10;
 					report(count);
 					setTimeout(update, 500);
 				} else {
@@ -57,15 +56,7 @@ class Simple extends React.Component {
 				onChange={this.onUploadChange}
 				onUpload={this.onUpload}
 				onError={this.onUploadError}
-				sortable
-				pagination={{
-					type: 'mini',
-					props: {
-						current: 1,
-						pageSize: 5,
-						total: fileList.length
-					}
-				}}
+				pagination
 			/>
 		);
 	}

@@ -1,19 +1,23 @@
 ---
-order: 5
+order: 4
 zh-CN:
-  title: 图片上传
-  tips: '建议尺寸 640*640'
+  title: 可拖拽排序
 en-US:
-  title: Image Upload
-  tips: 'Recommended image size 640*640'
+  title: Sortable
 ---
 
 ```jsx
-import { ImageUpload, Notify } from 'zent';
+import { Upload, Notify } from 'zent';
 
 class Simple extends React.Component {
+	state = {
+		fileList: [],
+	}
+
 	onUploadChange = (files) => {
-		console.log(files);
+		this.setState({
+			fileList: files,
+		})
 	}
 
 	onUpload = (file, report) => {
@@ -28,8 +32,7 @@ class Simple extends React.Component {
 					// 随机成功或失败
 					const success = Math.random() > 0.5;
 					if (success) {
-						// 可以在上传成功时替换图片 src 地址
-						Math.random() > 0.3 ? resolve(): resolve('https://img.yzcdn.cn/public_files/2017/02/09/e84aa8cbbf7852688c86218c1f3bbf17.png');
+						resolve();
 					} else {
 						reject();
 					}
@@ -44,17 +47,16 @@ class Simple extends React.Component {
 	}
 
 	render() {
+		const { fileList } = this.state;
 		return (
-			<ImageUpload
-				className="zent-image-upload-demo"
-				maxSize={5 * 1024 * 1024}
-				maxAmount={5}
+			<Upload
 				multiple
-				sortable
-				tips="{i18n.tips}"
+				className="zent-upload-demo-pic"
+				maxSize={10 * 1024 * 1024}
 				onChange={this.onUploadChange}
 				onUpload={this.onUpload}
 				onError={this.onUploadError}
+				sortable
 			/>
 		);
 	}

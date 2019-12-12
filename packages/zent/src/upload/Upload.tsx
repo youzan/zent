@@ -59,7 +59,11 @@ type IUploadPropsInner = PartialRequired<
   'maxAmount' | 'maxSize' | 'multiple' | 'pagination' | 'pageSize'
 >;
 
-export class Upload extends AbstractUpload<IUploadFileItem, IUploadProps> {
+export class Upload extends AbstractUpload<
+  IUploadFileItem,
+  void,
+  IUploadProps
+> {
   static defaultProps: Partial<IUploadProps> = {
     maxAmount: DEFAULT_MAX_AMOUNT,
     maxSize: DEFAULT_MAX_SIZE,

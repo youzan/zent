@@ -15,19 +15,17 @@ class Simple extends React.Component {
 	}
 
 	onUploadChange = (files) => {
-		console.log(files);
 		this.setState({
 			fileList: files,
 		})
 	}
 
 	onUpload = (file, report) => {
-		console.log('onUpload', file)
 		return new Promise((resolve, reject) => {
 			let count = 0;
 			const update = () => {
 				if (count < 100) {
-					count += 5;
+					count += 10;
 					report(count);
 					setTimeout(update, 500);
 				} else {

@@ -9,7 +9,6 @@ import {
 import { FILE_UPLOAD_STATUS } from '../constants';
 import { II18nLocaleUpload } from '../../i18n';
 import { wrapPromise, patchUploadItemId } from '../utils';
-import isEqual from '../../utils/isEqual';
 
 export interface IAbstractUploadState<UPLOAD_ITEM extends IUploadFileItem> {
   fileList: Array<IUploadFileItemInner<UPLOAD_ITEM>>;
@@ -17,22 +16,9 @@ export interface IAbstractUploadState<UPLOAD_ITEM extends IUploadFileItem> {
 
 abstract class AbstractUpload<
   UPLOAD_ITEM extends IUploadFileItem,
-  P extends IAbstractUploadProps<UPLOAD_ITEM>
+  ON_UPLOAD_SUCCESS_RETURN,
+  P extends IAbstractUploadProps<UPLOAD_ITEM, ON_UPLOAD_SUCCESS_RETURN>
 > extends React.PureComponent<P, IAbstractUploadState<UPLOAD_ITEM>> {
-  // update state fileList from props
-  static getDerivedStateFromProps(
-    nextProps: Readonly<IAbstractUploadProps<IUploadFileItem>>,
-    prevState: IAbstractUploadState<IUploadFileItem>
-  ) {
-    const fileList = nextProps.fileList;
-    if (nextProps.fileList && !isEqual(fileList, prevState.fileList)) {
-      return {
-        fileList,
-      };
-    }
-    return null;
-  }
-
   constructor(props: P) {
     super(props);
 
@@ -52,7 +38,7 @@ abstract class AbstractUpload<
     }
 
     this.state = {
-      fileList: fileList || defaultFileList || [],
+      fileList: defaultFileList || [],
     };
   }
 
@@ -66,6 +52,15 @@ abstract class AbstractUpload<
   /** 上传项列表 */
   get fileList() {
     return this.isControlled ? this.props.fileList! : this.state.fileList;
+  }
+
+  /**
+   * 在队列中的可用上传文件
+   */
+  get availableUploadItemsCount() {
+    return this.fileList.filter(
+      item => item.status !== FILE_UPLOAD_STATUS.failed
+    ).length;
   }
 
   /**
@@ -101,15 +96,6 @@ abstract class AbstractUpload<
   };
 
   /**
-   * 在队列中的可用上传文件
-   */
-  get availableUploadItemsCount() {
-    return this.fileList.filter(
-      item => item.status !== FILE_UPLOAD_STATUS.failed
-    ).length;
-  }
-
-  /**
    * 触发 onError 回调
    */
   emitOnError: IUploadOnErrorCallback = (type, data) => {
@@ -126,8 +112,8 @@ abstract class AbstractUpload<
     const { onUpload } = this.props;
     // start upload
     onUpload(file, this.updateUploadItemPercent.bind(this, uploadItem))
-      .then(() => {
-        this.updateUploadItemStatusToSuccess(uploadItem);
+      .then(onUploadReturn => {
+        this.updateUploadItemStatusToSuccess(uploadItem, onUploadReturn);
       })
       .catch(() => {
         this.updateUploadItemStatusToFailed(uploadItem);
@@ -209,10 +195,12 @@ abstract class AbstractUpload<
    * 更新上传项状态为成功
    */
   updateUploadItemStatusToSuccess = (
-    updateItem: IUploadFileItemInner<UPLOAD_ITEM>
+    updateItem: IUploadFileItemInner<UPLOAD_ITEM>,
+    onUploadSuccessReturn: ON_UPLOAD_SUCCESS_RETURN
   ) => {
     const overrideProps = {
       status: FILE_UPLOAD_STATUS.success,
+      ...this.getUploadSuccessOverrideProps(onUploadSuccessReturn),
     } as Partial<IUploadFileItemInner<UPLOAD_ITEM>>;
     this.updateUploadItem(updateItem, overrideProps);
   };
@@ -281,6 +269,15 @@ abstract class AbstractUpload<
         );
       });
   };
+
+  /**
+   * 获取上传成功时要覆盖到 item 上的属性
+   */
+  protected getUploadSuccessOverrideProps(
+    onUploadSuccessReturn: ON_UPLOAD_SUCCESS_RETURN
+  ): Partial<IUploadFileItemInner<UPLOAD_ITEM>> {
+    return {};
+  }
 
   /**
    * 创建一个新的上传文件项

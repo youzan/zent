@@ -23,6 +23,10 @@ export default class ImageUploadList extends AbstractUploadList<
     this.props.onSortChange(list);
   };
 
+  onItemPreview = (item: IUploadFileItemInner<IUploadFileItem>) => {
+    this.props.onPreview(item, this.props.fileList);
+  };
+
   renderFileItem = (
     item: IUploadFileItemInner<IUploadFileItem>
   ): React.ReactNode => {
@@ -33,6 +37,7 @@ export default class ImageUploadList extends AbstractUploadList<
         i18n={this.props.i18n}
         onDelete={this.props.onDelete}
         onRetry={this.props.onRetry}
+        onPreview={this.onItemPreview}
       />
     );
   };

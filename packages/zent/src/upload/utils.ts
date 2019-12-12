@@ -6,6 +6,8 @@ import {
   IImageUploadFileItem,
 } from './types';
 import previewImage from '../preview-image';
+import { FILE_UPLOAD_STATUS } from './constants';
+import isInteger from '../utils/isInteger';
 
 /**
  * 创建一个唯一 Id
@@ -25,6 +27,7 @@ export const patchUploadItemId = <UPLOAD_ITEM extends IUploadFileItem>(
 
 const oneMB = 1024 * 1024;
 const oneGB = 1024 * oneMB;
+const oneKB = 1024;
 
 /**
  * 将文件的Byte转换为可读性更好的G\M\K\B
@@ -35,19 +38,23 @@ const oneGB = 1024 * oneMB;
  * formatFileSize(1024) => '1 KB'
  */
 export function formatFileSize(size: number, toFixed = 1) {
+  let formattedSize = size;
+  let unit = 'B';
+
   if (size >= oneGB) {
-    return `${(size / oneGB).toFixed(toFixed)}G`;
+    formattedSize = size / oneGB;
+    unit = 'G';
+  } else if (size >= oneMB) {
+    formattedSize = size / oneMB;
+    unit = 'M';
+  } else if (size >= oneKB) {
+    formattedSize = size / oneKB;
+    unit = 'K';
   }
 
-  if (size >= oneMB) {
-    return `${(size / oneMB).toFixed(toFixed)}M`;
-  }
-
-  if (size >= 1024) {
-    return `${(size / 1024).toFixed(toFixed)}K`;
-  }
-
-  return `${size.toFixed(toFixed)}B`;
+  return `${
+    isInteger(formattedSize) ? formattedSize : formattedSize.toFixed(toFixed)
+  }${unit}`;
 }
 
 export function wrapPromise(condition: boolean | Promise<any>) {
@@ -70,15 +77,18 @@ export function defaultGetThumbSrcFromFile(file: File) {
 }
 
 /**
- * 默认点击图片时的放大预览方法
+ * 默认点击图片时的放大预览方法，排除上传中和上传失败的图片
  */
 export function defaultPreview(
   file: IImageUploadFileItem,
   fileList: IImageUploadFileItem[]
 ) {
-  const previewIndex = fileList.indexOf(file);
+  const previeFiles = fileList.filter(
+    item => item.status === FILE_UPLOAD_STATUS.success
+  );
+  const previewIndex = previeFiles.indexOf(file);
   previewImage({
     index: previewIndex,
-    images: fileList.map(item => item.src || item.thumbSrc),
+    images: previeFiles.map(item => item.src || item.thumbSrc),
   });
 }
