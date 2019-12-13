@@ -10,6 +10,7 @@ import { ICascaderItem, CascaderHandler, CascaderValue } from './types';
 import TabsPopoverContent from './components/TabsContent';
 import MenuPopoverContent from './components/MenuContent';
 import { IPopoverClickTriggerProps } from '../popover/trigger/ClickTrigger';
+import { DisabledContext, IDisabledContext } from '../disabled';
 
 const PopoverContent = Popover.Content;
 
@@ -110,8 +111,10 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
     title: [],
     type: 'tabs',
     expandTrigger: 'click',
-    disabled: false,
   };
+
+  static contextType = DisabledContext;
+  context!: IDisabledContext;
 
   static getDerivedStateFromProps(
     nextProps: ICascaderProps,
@@ -303,7 +306,7 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
             className,
             popClassName,
             placeholder,
-            disabled,
+            disabled = this.context.value,
           } = this.props;
           const { activeValue, open } = this.state;
 
@@ -340,7 +343,7 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
                 onShow={this.onShow}
                 onClose={this.onClose}
               >
-                <PopoverClickTrigger disabled={disabled}>
+                <PopoverClickTrigger disabled={!!disabled}>
                   <div
                     className={classnames(`${prefix}-cascader__select`, {
                       disabled,
