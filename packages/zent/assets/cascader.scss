@@ -15,21 +15,12 @@
     }
   }
 
-  &__select {
-    cursor: pointer;
-    display: inline-block;
-    font-size: 0;
-    position: relative;
-    text-align: left;
-    user-select: none;
-    width: 260px;
-    vertical-align: middle;
-
-    &.disabled {
+  &.disabled {
+    .zent-cascader__select {
       cursor: not-allowed;
       @include theme-color(color, stroke, 5);
 
-      .zent-cascader__select-text {
+      &-text {
         @include theme-color(color, stroke, 4);
         @include theme-color(border-color, stroke, 5);
         @include theme-color(background-color, stroke, 8);
@@ -39,6 +30,17 @@
         }
       }
     }
+  }
+
+  &__select {
+    cursor: pointer;
+    display: inline-block;
+    font-size: 0;
+    position: relative;
+    text-align: left;
+    user-select: none;
+    width: 260px;
+    vertical-align: middle;
 
     &-text {
       @include theme-color(border-color, stroke, 5);
