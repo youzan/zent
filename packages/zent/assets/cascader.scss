@@ -25,6 +25,20 @@
     width: 260px;
     vertical-align: middle;
 
+    &.disabled {
+      @include theme-color(color, stroke, 5);
+      cursor: not-allowed;
+
+      .zent-cascader__select-text {
+        @include theme-color(border-color, stroke, 5);
+        @include theme-color(background-color, stroke, 8);
+
+        &::after {
+          opacity: 0.25;
+        }
+      }
+    }
+
     &-text {
       @include theme-color(border-color, stroke, 5);
       @include theme-color(background-color, stroke, 9);

@@ -9,19 +9,29 @@ import { I18nReceiver as Receiver, II18nLocaleCascader } from '../i18n';
 import { ICascaderItem, CascaderHandler, CascaderValue } from './types';
 import TabsPopoverContent from './components/TabsContent';
 import MenuPopoverContent from './components/MenuContent';
+import { IPopoverClickTriggerProps } from '../popover/trigger/ClickTrigger';
 
 const PopoverContent = Popover.Content;
 
-class PopoverClickTrigger extends Popover.Trigger.Click {
+export interface IPopverClickTriggerProps extends IPopoverClickTriggerProps {
+  disabled?: boolean;
+}
+
+class PopoverClickTrigger extends Popover.Trigger.Click<
+  IPopverClickTriggerProps
+> {
   getTriggerProps(child) {
     return {
       onClick: evt => {
-        if (this.props.contentVisible) {
-          this.props.close();
-        } else {
-          this.props.open();
+        const { disabled, contentVisible } = this.props;
+        if (!disabled) {
+          if (contentVisible) {
+            this.props.close();
+          } else {
+            this.props.open();
+          }
+          this.triggerEvent(child, 'onClick', evt);
         }
-        this.triggerEvent(child, 'onClick', evt);
       },
     };
   }
@@ -41,6 +51,7 @@ export interface ICascaderProps {
   popClassName?: string;
   displayText?: (value: ICascaderItem[]) => React.ReactNode;
   expandTrigger?: 'click' | 'hover';
+  disabled?: boolean;
 }
 
 export interface ICascaderState {
@@ -99,6 +110,7 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
     title: [],
     type: 'tabs',
     expandTrigger: 'click',
+    disabled: false,
   };
 
   static getDerivedStateFromProps(
@@ -286,7 +298,13 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
     return (
       <Receiver componentName="Cascader">
         {(i18n: II18nLocaleCascader) => {
-          const { prefix, className, popClassName, placeholder } = this.props;
+          const {
+            prefix,
+            className,
+            popClassName,
+            placeholder,
+            disabled,
+          } = this.props;
           const { activeValue, open } = this.state;
 
           let cascaderValue: React.ReactNode = placeholder || i18n.placeholder;
@@ -322,8 +340,12 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
                 onShow={this.onShow}
                 onClose={this.onClose}
               >
-                <PopoverClickTrigger>
-                  <div className={`${prefix}-cascader__select`}>
+                <PopoverClickTrigger disabled={disabled}>
+                  <div
+                    className={classnames(`${prefix}-cascader__select`, {
+                      disabled,
+                    })}
+                  >
                     <div className={selectTextCls}>
                       <span
                         className={`${prefix}-cascader__select-text-content`}
