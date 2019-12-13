@@ -59,7 +59,7 @@
 					<a href="sortable.html">Sortable</a>
 				</li>
 			</ul>
-			<h1>Class Sortable&lt;S, SS, S&gt;</h1>
+			<h1>Class Sortable&lt;T, S, SS, S&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -69,6 +69,9 @@
 			<section class="tsd-panel tsd-type-parameters">
 				<h3>Type parameters</h3>
 				<ul class="tsd-type-parameters">
+					<li>
+						<h4>T</h4>
+					</li>
 					<li>
 						<h4>S</h4>
 					</li>
@@ -84,7 +87,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="tsd-signature-type">Component</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a><span class="tsd-signature-symbol">&gt;</span>
+						<span class="tsd-signature-type">Component</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>
 						<ul class="tsd-hierarchy">
 							<li>
 								<span class="target">Sortable</span>
@@ -106,6 +109,7 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="sortable.html#containerref" class="tsd-kind-icon">container<wbr>Ref</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="sortable.html#context" class="tsd-kind-icon">context</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="sortable.html#props" class="tsd-kind-icon">props</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="sortable.html#refs" class="tsd-kind-icon">refs</a></li>
@@ -121,12 +125,13 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="sortable.html#unsafe_componentwillreceiveprops" class="tsd-kind-icon">UNSAFE_<wbr>component<wbr>Will<wbr>Receive<wbr>Props</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="sortable.html#unsafe_componentwillupdate" class="tsd-kind-icon">UNSAFE_<wbr>component<wbr>Will<wbr>Update</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="sortable.html#componentdidcatch" class="tsd-kind-icon">component<wbr>Did<wbr>Catch</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="sortable.html#componentdidmount" class="tsd-kind-icon">component<wbr>Did<wbr>Mount</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="sortable.html#componentdidmount" class="tsd-kind-icon">component<wbr>Did<wbr>Mount</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="sortable.html#componentdidupdate" class="tsd-kind-icon">component<wbr>Did<wbr>Update</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="sortable.html#componentwillmount" class="tsd-kind-icon">component<wbr>Will<wbr>Mount</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="sortable.html#componentwillreceiveprops" class="tsd-kind-icon">component<wbr>Will<wbr>Receive<wbr>Props</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="sortable.html#componentwillunmount" class="tsd-kind-icon">component<wbr>Will<wbr>Unmount</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="sortable.html#componentwillupdate" class="tsd-kind-icon">component<wbr>Will<wbr>Update</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="sortable.html#destorysortableinstance" class="tsd-kind-icon">destory<wbr>Sortable<wbr>Instance</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="sortable.html#forceupdate" class="tsd-kind-icon">force<wbr>Update</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="sortable.html#getsnapshotbeforeupdate" class="tsd-kind-icon">get<wbr>Snapshot<wbr>Before<wbr>Update</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="sortable.html#initsortable" class="tsd-kind-icon">init<wbr>Sortable</a></li>
@@ -150,8 +155,8 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Sortable<span class="tsd-signature-symbol">(</span>props<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="sortable.html" class="tsd-signature-type">Sortable</a></li>
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Sortable<span class="tsd-signature-symbol">(</span>props<span class="tsd-signature-symbol">: </span><a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a>, context<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="sortable.html" class="tsd-signature-type">Sortable</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Sortable<span class="tsd-signature-symbol">(</span>props<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="sortable.html" class="tsd-signature-type">Sortable</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Sortable<span class="tsd-signature-symbol">(</span>props<span class="tsd-signature-symbol">: </span><a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span>, context<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="sortable.html" class="tsd-signature-type">Sortable</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -164,7 +169,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>props: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>props: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="sortable.html" class="tsd-signature-type">Sortable</a></h4>
@@ -188,7 +193,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>props: <a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a></h5>
+									<h5>props: <a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> context: <span class="tsd-signature-type">any</span></h5>
@@ -201,6 +206,16 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="containerref" class="tsd-anchor"></a>
+					<h3>container<wbr>Ref</h3>
+					<div class="tsd-signature tsd-kind-icon">container<wbr>Ref<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RefObject</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">HTMLElement</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;React.createRef&lt;HTMLElement&gt;()</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/sortable/Sortable.tsx#L22">packages/zent/src/sortable/Sortable.tsx:22</a></li>
+						</ul>
+					</aside>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="context" class="tsd-anchor"></a>
 					<h3>context</h3>
@@ -231,7 +246,7 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="props" class="tsd-anchor"></a>
 					<h3>props</h3>
-					<div class="tsd-signature tsd-kind-icon">props<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<div class="tsd-signature tsd-kind-icon">props<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<p>Inherited from Component.props</p>
 						<ul>
@@ -271,7 +286,7 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<div class="tsd-signature tsd-kind-icon">sortable<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">sortableJS</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1b3c7bf8/packages/zent/src/sortable/Sortable.tsx#L71">packages/zent/src/sortable/Sortable.tsx:71</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/sortable/Sortable.tsx#L21">packages/zent/src/sortable/Sortable.tsx:21</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -363,7 +378,7 @@ class Foo extends React.Component {
 					<a name="unsafe_componentwillreceiveprops" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> UNSAFE_<wbr>component<wbr>Will<wbr>Receive<wbr>Props</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">UNSAFE_<wbr>component<wbr>Will<wbr>Receive<wbr>Props<span class="tsd-signature-symbol">(</span>nextProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a><span class="tsd-signature-symbol">&gt;</span>, nextContext<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">UNSAFE_<wbr>component<wbr>Will<wbr>Receive<wbr>Props<span class="tsd-signature-symbol">(</span>nextProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>, nextContext<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -398,7 +413,7 @@ class Foo extends React.Component {
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>nextProps: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>nextProps: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
 									<h5>nextContext: <span class="tsd-signature-type">any</span></h5>
@@ -412,7 +427,7 @@ class Foo extends React.Component {
 					<a name="unsafe_componentwillupdate" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> UNSAFE_<wbr>component<wbr>Will<wbr>Update</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">UNSAFE_<wbr>component<wbr>Will<wbr>Update<span class="tsd-signature-symbol">(</span>nextProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a><span class="tsd-signature-symbol">&gt;</span>, nextState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span>, nextContext<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">UNSAFE_<wbr>component<wbr>Will<wbr>Update<span class="tsd-signature-symbol">(</span>nextProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>, nextState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span>, nextContext<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -445,7 +460,7 @@ class Foo extends React.Component {
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>nextProps: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>nextProps: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
 									<h5>nextState: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span></h5>
@@ -491,25 +506,20 @@ class Foo extends React.Component {
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 					<a name="componentdidmount" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> component<wbr>Did<wbr>Mount</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<h3>component<wbr>Did<wbr>Mount</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 						<li class="tsd-signature tsd-kind-icon">component<wbr>Did<wbr>Mount<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from ComponentLifecycle.componentDidMount</p>
+								<p>Overrides ComponentLifecycle.componentDidMount</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:556</li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/sortable/Sortable.tsx#L77">packages/zent/src/sortable/Sortable.tsx:77</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Called immediately after a component is mounted. Setting state here will trigger re-rendering.</p>
-								</div>
-							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -518,7 +528,7 @@ class Foo extends React.Component {
 					<a name="componentdidupdate" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> component<wbr>Did<wbr>Update</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">component<wbr>Did<wbr>Update<span class="tsd-signature-symbol">(</span>prevProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a><span class="tsd-signature-symbol">&gt;</span>, prevState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span>, snapshot<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">SS</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">component<wbr>Did<wbr>Update<span class="tsd-signature-symbol">(</span>prevProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>, prevState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span>, snapshot<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">SS</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -537,7 +547,7 @@ class Foo extends React.Component {
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>prevProps: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>prevProps: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
 									<h5>prevState: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span></h5>
@@ -591,7 +601,7 @@ class Foo extends React.Component {
 					<a name="componentwillreceiveprops" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> component<wbr>Will<wbr>Receive<wbr>Props</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">component<wbr>Will<wbr>Receive<wbr>Props<span class="tsd-signature-symbol">(</span>nextProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a><span class="tsd-signature-symbol">&gt;</span>, nextContext<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">component<wbr>Will<wbr>Receive<wbr>Props<span class="tsd-signature-symbol">(</span>nextProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>, nextContext<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -625,7 +635,7 @@ class Foo extends React.Component {
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>nextProps: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>nextProps: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
 									<h5>nextContext: <span class="tsd-signature-type">any</span></h5>
@@ -646,7 +656,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Overrides ComponentLifecycle.componentWillUnmount</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1b3c7bf8/packages/zent/src/sortable/Sortable.tsx#L121">packages/zent/src/sortable/Sortable.tsx:121</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/sortable/Sortable.tsx#L81">packages/zent/src/sortable/Sortable.tsx:81</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -657,7 +667,7 @@ class Foo extends React.Component {
 					<a name="componentwillupdate" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> component<wbr>Will<wbr>Update</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">component<wbr>Will<wbr>Update<span class="tsd-signature-symbol">(</span>nextProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a><span class="tsd-signature-symbol">&gt;</span>, nextState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span>, nextContext<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">component<wbr>Will<wbr>Update<span class="tsd-signature-symbol">(</span>nextProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>, nextState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span>, nextContext<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -689,7 +699,7 @@ class Foo extends React.Component {
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>nextProps: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>nextProps: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
 									<h5>nextState: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span></h5>
@@ -698,6 +708,23 @@ class Foo extends React.Component {
 									<h5>nextContext: <span class="tsd-signature-type">any</span></h5>
 								</li>
 							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="destorysortableinstance" class="tsd-anchor"></a>
+					<h3>destory<wbr>Sortable<wbr>Instance</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">destory<wbr>Sortable<wbr>Instance<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/sortable/Sortable.tsx#L70">packages/zent/src/sortable/Sortable.tsx:70</a></li>
+								</ul>
+							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -742,7 +769,7 @@ class Foo extends React.Component {
 					<a name="getsnapshotbeforeupdate" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> get<wbr>Snapshot<wbr>Before<wbr>Update</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Snapshot<wbr>Before<wbr>Update<span class="tsd-signature-symbol">(</span>prevProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a><span class="tsd-signature-symbol">&gt;</span>, prevState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SS</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Snapshot<wbr>Before<wbr>Update<span class="tsd-signature-symbol">(</span>prevProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>, prevState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SS</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -764,7 +791,7 @@ class Foo extends React.Component {
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>prevProps: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>prevProps: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
 									<h5>prevState: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span></h5>
@@ -781,21 +808,15 @@ class Foo extends React.Component {
 					<a name="initsortable" class="tsd-anchor"></a>
 					<h3>init<wbr>Sortable</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">init<wbr>Sortable<span class="tsd-signature-symbol">(</span>instance<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HTMLElement</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">init<wbr>Sortable<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1b3c7bf8/packages/zent/src/sortable/Sortable.tsx#L73">packages/zent/src/sortable/Sortable.tsx:73</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/sortable/Sortable.tsx#L24">packages/zent/src/sortable/Sortable.tsx:24</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>instance: <span class="tsd-signature-type">HTMLElement</span></h5>
-								</li>
-							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -811,7 +832,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Overrides Component.render</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1b3c7bf8/packages/zent/src/sortable/Sortable.tsx#L128">packages/zent/src/sortable/Sortable.tsx:128</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/sortable/Sortable.tsx#L85">packages/zent/src/sortable/Sortable.tsx:85</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Element</span></h4>
@@ -867,7 +888,7 @@ class Foo extends React.Component {
 					<a name="shouldcomponentupdate" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> should<wbr>Component<wbr>Update</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">should<wbr>Component<wbr>Update<span class="tsd-signature-symbol">(</span>nextProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a><span class="tsd-signature-symbol">&gt;</span>, nextState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span>, nextContext<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon">should<wbr>Component<wbr>Update<span class="tsd-signature-symbol">(</span>nextProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>, nextState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span>, nextContext<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -890,7 +911,7 @@ class Foo extends React.Component {
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>nextProps: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>nextProps: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isortableprops.html" class="tsd-signature-type">ISortableProps</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
 									<h5>nextState: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span></h5>
@@ -912,26 +933,16 @@ class Foo extends React.Component {
 					<div class="tsd-signature tsd-kind-icon">default<wbr>Props<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1b3c7bf8/packages/zent/src/sortable/Sortable.tsx#L66">packages/zent/src/sortable/Sortable.tsx:66</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/sortable/Sortable.tsx#L17">packages/zent/src/sortable/Sortable.tsx:17</a></li>
 						</ul>
 					</aside>
-					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
-						<a name="defaultprops.prefix" class="tsd-anchor"></a>
-						<h3>prefix</h3>
-						<div class="tsd-signature tsd-kind-icon">prefix<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;zent&quot;</span></div>
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/youzan/zent/blob/1b3c7bf8/packages/zent/src/sortable/Sortable.tsx#L67">packages/zent/src/sortable/Sortable.tsx:67</a></li>
-							</ul>
-						</aside>
-					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="defaultprops.tag" class="tsd-anchor"></a>
 						<h3>tag</h3>
 						<div class="tsd-signature tsd-kind-icon">tag<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;div&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/youzan/zent/blob/1b3c7bf8/packages/zent/src/sortable/Sortable.tsx#L68">packages/zent/src/sortable/Sortable.tsx:68</a></li>
+								<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/sortable/Sortable.tsx#L18">packages/zent/src/sortable/Sortable.tsx:18</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -955,6 +966,9 @@ class Foo extends React.Component {
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
 								<a href="sortable.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="sortable.html#containerref" class="tsd-kind-icon">container<wbr>Ref</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="sortable.html#context" class="tsd-kind-icon">context</a>
@@ -986,7 +1000,7 @@ class Foo extends React.Component {
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="sortable.html#componentdidcatch" class="tsd-kind-icon">component<wbr>Did<wbr>Catch</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 								<a href="sortable.html#componentdidmount" class="tsd-kind-icon">component<wbr>Did<wbr>Mount</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
@@ -1003,6 +1017,9 @@ class Foo extends React.Component {
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="sortable.html#componentwillupdate" class="tsd-kind-icon">component<wbr>Will<wbr>Update</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="sortable.html#destorysortableinstance" class="tsd-kind-icon">destory<wbr>Sortable<wbr>Instance</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="sortable.html#forceupdate" class="tsd-kind-icon">force<wbr>Update</a>
