@@ -8,6 +8,18 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 7.4.1(2019-12-13)
+
+- ✨ New icons：`doc`, `video`, `audio`
+- ✨ Replace `tinycolor2` with an internal slim version
+- 🦀️ Fix SSR for `Layout`
+- 🦀️ Add back support for `a.b.c` for column name in `Grid`, only for compatibility, not recommended for daily use
+- 🦀️ Fix repeated initialization in `Sortable` and TypeScript definition bugs
+- 🦀️ Fix `TextMark` TypeScript definition
+- 🦀️ Enlarge icon size in time pickers
+- 🦀️ Change `title` to `ReactNode` in `BlockHeader`
+- 🦀️ Cleanup unused `createAlias` usage
+
 ### 7.4.0(2019-12-06)
 
 - ✨ New `Tooltip` component
