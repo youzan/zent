@@ -375,7 +375,7 @@ export class Grid<Data = any> extends PureComponent<
           />
         ),
         key: 'selection-column',
-        width: '20px',
+        width: '44px',
         bodyRender: this.renderSelectionCheckbox(),
       };
 
@@ -395,7 +395,7 @@ export class Grid<Data = any> extends PureComponent<
       const expandColumn: IGridInnerColumn<Data> = {
         title: '',
         key: 'expand-column',
-        width: '20px',
+        width: '44px',
         bodyRender: this.getExpandBodyRender(expandRowKeys),
       };
       if (hasLeft) {
