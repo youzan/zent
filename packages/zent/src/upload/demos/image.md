@@ -38,7 +38,6 @@ class Simple extends React.Component {
 			setTimeout(update, 500);
 		})
 	}
-
 	onUploadError = (type, data) => {
 		Notify.error(`错误类型: ${type}, 错误参数: ${JSON.stringify(data)}`)
 	}
