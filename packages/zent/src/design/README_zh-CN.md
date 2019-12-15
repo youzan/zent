@@ -155,7 +155,7 @@ type Component = {
 
 Preview 比较简单，实现一个组件接受 `{ value: any, globalConfig: any, design: object }` 这些 props即可。
 
-Editor 请继承 `@youzan/design/lib/base/editor/DesignEditor`，这个基类提供了一些常用的方法（例如 `onChange` 事件的处理函数），在子类里面可以直接使用。
+Editor 请继承 `@youzan/design/es/editor/DesignEditor`，这个基类提供了一些常用的方法（例如 `onChange` 事件的处理函数），在子类里面可以直接使用。
 
 Editor 接受如下props：`{ value: any, onChange: func, showError: boolean, validation: object, design object }`。
 

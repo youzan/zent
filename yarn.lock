@@ -12414,7 +12414,7 @@ yup@^0.27.0:
     synchronous-promise "^2.0.6"
     toposort "^2.0.2"
 
-zenticons@3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/zenticons/-/zenticons-3.1.0.tgz#80733527e29d841f3deb28efc0a50870ff769e20"
-  integrity sha512-9xmW/18biTGCa/c83qQUFRBrS0toYvu9zUbRlRuaiZH8iHmuQsOKN6ZaqR6XK6bcB5oC4NMnCdi6i7Hm/euFFA==
+zenticons@3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/zenticons/-/zenticons-3.2.0.tgz#782d8dca1ccce2091966b17edb68b2603d8e8980"
+  integrity sha512-rccSyQhEXzl4SDyWShs/HBggoa5j4yutYIOb6MPVsV6Y4q2jBA72P8Glentrz2aehQiDRBnhpxxmup28s4KXcw==

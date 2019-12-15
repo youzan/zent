@@ -8,6 +8,18 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 7.4.1(2019-12-13)
+
+- ✨新增 3 个新图标：`doc`, `video`, `audio`
+- ✨ 使用一个内置的精简版替换 `tinycolor2`
+- 🦀️ 修复 `Layout` 组件不兼容 SSR 的问题
+- 🦀️ `Grid` 的 column name 支持 `a.b.c` 这种写法，不推荐使用，仅为和老版本兼容
+- 🦀️ 修复 `Sortable` 组件重复初始化的问题以及类型定义
+- 🦀️ 修复 `TextMark` 的类型定义
+- 🦀️ 增大时间选择组件的图标大小
+- 🦀️ 调整 `BlockHeader` 的 `title` 类型为 `ReactNode`
+- 🦀️ 清理了 `createAlias` 相关的无用代码
+
 ### 7.4.0(2019-12-06)
 
 - ✨ 新增 `Tooltip` 组件，用于展示提示信息
@@ -84,10 +96,10 @@
 
 ### 6.6.2 (2019-02-26)
 
-- `Form` 
+- `Form`
   - 🦀️ 修复异步检验通过还是报错的问题
   - 🦀️ 更新 `createForm` 的 TypeScript 定义
-- 🦀️ 增加 `Affix` 以及 `Avatar` DOM 节点不存在时的异常校验 
+- 🦀️ 增加 `Affix` 以及 `Avatar` DOM 节点不存在时的异常校验
 
 ### 6.6.1 (2019-01-30)
 
@@ -168,7 +180,7 @@
 
 ### 6.1.0 (2018-08-03)
 
-- `Grid` 
+- `Grid`
   - ✨ 支持给每一列设置一个默认的展示文案
   - 🦀️ 修复 `selection.getCheckboxProps` 没有实时更新的问题
 - ✨ 新增几个 `Icon`
