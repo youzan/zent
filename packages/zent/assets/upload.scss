@@ -7,6 +7,10 @@
   overflow: hidden;
 }
 
+@mixin trigger-disabled {
+  cursor: not-allowed;
+}
+
 @mixin tips {
   @include theme-color(color, stroke, 3);
   @include font-small;
@@ -40,6 +44,10 @@
     align-items: center;
     overflow: hidden;
     text-decoration: none;
+
+    &__disabled {
+      @include trigger-disabled;
+    }
 
     &-wrapper {
       padding: 16px;
@@ -157,6 +165,10 @@
     border-style: dashed;
     border-width: 1px;
     margin-bottom: 12px;
+
+    &__disabled {
+      @include trigger-disabled;
+    }
 
     &-add-icon {
       font-size: 24px;

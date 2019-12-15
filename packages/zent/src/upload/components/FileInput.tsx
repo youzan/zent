@@ -34,7 +34,7 @@ export default class FileInput extends PureComponent<IFileInputProps> {
   render() {
     const { remainAmount, accept, multiple, disabled } = this.props;
 
-    const isDisabled = disabled || remainAmount === 0;
+    const isDisabled = disabled;
     const isMultiple = multiple && remainAmount > 1;
 
     return (

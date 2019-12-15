@@ -1,4 +1,5 @@
 import * as React from 'react';
+import cn from 'classnames';
 import AbstractUpload from './components/AbstractUpload';
 import {
   IUploadFileItemInner,
@@ -112,7 +113,7 @@ export class ImageUpload extends AbstractUpload<
   }
 
   protected renderTrigger(i18n: II18nLocaleUpload): React.ReactNode {
-    const { accept, maxAmount, maxSize, multiple } = this
+    const { accept, maxAmount, maxSize, multiple, disabled } = this
       .props as IImageUploadPropsInner;
     const { fileList } = this.state;
     return (
@@ -122,6 +123,7 @@ export class ImageUpload extends AbstractUpload<
         maxAmount={maxAmount}
         maxSize={maxSize}
         multiple={multiple}
+        disabled={disabled}
         availableUploadItemsCount={this.availableUploadItemsCount}
         remainAmount={this.remainAmount}
         fileList={fileList}
@@ -132,11 +134,12 @@ export class ImageUpload extends AbstractUpload<
   }
 
   render() {
+    const { className } = this.props;
     return (
       <I18nReceiver<II18nLocaleUpload> componentName="Upload">
         {i18n => {
           return (
-            <div className="zent-image-upload">
+            <div className={cn('zent-image-upload', className)}>
               {this.renderUploadList(i18n)}
               {this.renderTips(i18n)}
             </div>

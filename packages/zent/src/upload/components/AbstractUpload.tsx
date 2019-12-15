@@ -3,7 +3,7 @@ import {
   IAbstractUploadProps,
   IUploadFileItemInner,
   IUploadFileItem,
-  IUploadOnErrorCallback,
+  IUploadOnErrorHandler,
   IUploadChangeDetail,
 } from '../types';
 import { FILE_UPLOAD_STATUS } from '../constants';
@@ -104,7 +104,7 @@ abstract class AbstractUpload<
   /**
    * 触发 onError 回调
    */
-  emitOnError: IUploadOnErrorCallback = (type, data) => {
+  emitOnError: IUploadOnErrorHandler = (type, data) => {
     this.props.onError && this.props.onError(type, data);
   };
 

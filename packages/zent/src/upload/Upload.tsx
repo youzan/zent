@@ -1,4 +1,5 @@
 import * as React from 'react';
+import cn from 'classnames';
 import AbstractUpload from './components/AbstractUpload';
 import {
   IUploadFileItemInner,
@@ -115,7 +116,7 @@ export class Upload extends AbstractUpload<
   }
 
   protected renderTrigger(i18n: II18nLocaleUpload): React.ReactNode {
-    const { accept, maxAmount, maxSize, multiple } = this
+    const { accept, maxAmount, maxSize, multiple, disabled } = this
       .props as IUploadPropsInner;
     const { fileList } = this.state;
     return (
@@ -125,6 +126,7 @@ export class Upload extends AbstractUpload<
         maxAmount={maxAmount}
         maxSize={maxSize}
         multiple={multiple}
+        disabled={disabled}
         availableUploadItemsCount={this.availableUploadItemsCount}
         remainAmount={this.remainAmount}
         fileList={fileList}
@@ -135,11 +137,12 @@ export class Upload extends AbstractUpload<
   }
 
   render() {
+    const { className } = this.props;
     return (
       <I18nReceiver<II18nLocaleUpload> componentName="Upload">
         {i18n => {
           return (
-            <div className="zent-upload">
+            <div className={cn('zent-upload', className)}>
               {this.renderUploadList(i18n)}
               {/* 到达上传文件数量上限，隐藏 Trigger */}
               {this.remainAmount > 0 && (

@@ -28,10 +28,21 @@ export type IUploadFileItemInner<
 };
 
 // onChange types
+export type IUploadOnChangeHandler<UPLOAD_ITEM extends IUploadFileItem> = (
+  list: UPLOAD_ITEM[],
+  detail?: IUploadChangeDetail<UPLOAD_ITEM>
+) => void;
+
 export interface IUploadChangeDetail<UPLOAD_ITEM extends IUploadFileItem> {
   item: UPLOAD_ITEM;
   type: 'change' | 'add' | 'delete';
 }
+
+// onUpload types
+export type IUploadOnUploadHandler<ON_UPLOAD_SUCCESS_RETURN = void> = (
+  file: File,
+  report: (percent: number) => void
+) => Promise<ON_UPLOAD_SUCCESS_RETURN>;
 
 // error types，错误类型映射表
 export interface IUploadErrorMessageConfigMap {
@@ -41,7 +52,7 @@ export interface IUploadErrorMessageConfigMap {
   overMaxAmount: { maxAmount: number };
 }
 
-export type IUploadOnErrorCallback = <
+export type IUploadOnErrorHandler = <
   Type extends keyof IUploadErrorMessageConfigMap
 >(
   type: Type,
@@ -67,7 +78,7 @@ export type IImageOnUploadSuccessReturn =
       thumbSrc: string;
     };
 
-export type IImageUploadPreviewFunc = (
+export type IImageUploadPreviewHandler = (
   file: IImageUploadFileItem,
   fileList: IImageUploadFileItem[]
 ) => void;
@@ -84,19 +95,13 @@ export interface IAbstractUploadProps<
   /** 用于设置已上传的文件列表 */
   defaultFileList?: UPLOAD_ITEM[];
   /** 文件上传组件内容发生变化时的回调函数 */
-  onChange: (
-    list: UPLOAD_ITEM[],
-    detail?: IUploadChangeDetail<UPLOAD_ITEM>
-  ) => void;
+  onChange: IUploadOnChangeHandler<UPLOAD_ITEM>;
   /** 文件上传前的处理函数，若返回 false 或 Promie.reject，则不上传该文件 */
   beforeUpload?: (file: File) => boolean | Promise<void>;
   /** 文件上传回调 */
-  onUpload: (
-    file: File,
-    report: (percent: number) => void
-  ) => Promise<ON_UPLOAD_SUCCESS_RETURN>;
+  onUpload: IUploadOnUploadHandler<ON_UPLOAD_SUCCESS_RETURN>;
   /** 发生内部错误时的统一回调函数，错误类型见 IUploadErrorMessageConfigMap */
-  onError?: IUploadOnErrorCallback;
+  onError?: IUploadOnErrorHandler;
   /** 是否支持文件多选 */
   multiple?: boolean;
   /** 文件数量限制，Infinity 为无限制 */
@@ -130,7 +135,7 @@ export interface IImageUploadProps
   /** 提示文案 */
   tips?: string | IUploadTipsFunc<IImageUploadProps>;
   /** 点击图片展示时的回调 */
-  preview?: IImageUploadPreviewFunc;
+  preview?: IImageUploadPreviewHandler;
   /** 将图片文件转化为展示用的缩略图 src */
   getThumbSrcFromFile: (file: File) => string | Promise<string>;
 }
@@ -148,7 +153,7 @@ export interface IAbstractUploadTriggerProps<
   maxAmount: number;
   multiple?: boolean;
   onAddFile: (file: File) => void;
-  onError: IUploadOnErrorCallback;
+  onError: IUploadOnErrorHandler;
 }
 
 export interface IFileInputProps {
@@ -178,7 +183,7 @@ export interface IUploadListProps
 export interface IImageUploadListProps
   extends IAbstractUploadListProps<IImageUploadFileItem> {
   trigger: React.ReactNode;
-  onPreview: IImageUploadPreviewFunc;
+  onPreview: IImageUploadPreviewHandler;
 }
 
 export interface IUploadItemProps<UPLOAD_ITEM extends IUploadFileItem> {
