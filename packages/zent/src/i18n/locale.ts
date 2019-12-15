@@ -1,10 +1,4 @@
 import * as React from 'react';
-import {
-  IUploadTipsFunc,
-  IUploadProps,
-  IImageUploadProps,
-  IUploadTipConfig,
-} from '../upload';
 
 export interface II18nLocaleCommon {
   confirm: string;
@@ -125,10 +119,10 @@ export interface II18nLocaleUpload extends II18nLocaleCommon {
   failed: string;
   normal: {
     add: string;
-    tips: IUploadTipsFunc<IUploadTipConfig<IUploadProps>>;
+    tips: Function;
   };
   image: {
-    tips: IUploadTipsFunc<IUploadTipConfig<IImageUploadProps>>;
+    tips: Function;
   };
 }
 
