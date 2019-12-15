@@ -21,10 +21,9 @@ import {
   defaultGetThumbSrcFromFile,
   defaultPreview,
 } from './utils';
-import { II18nLocaleUpload } from '../i18n/locale';
+import { II18nLocaleUpload, I18nReceiver } from '../i18n';
 import ImageUploadList from './components/image/List';
 import ImageUploadTrigger from './components/image/Trigger';
-import { I18nReceiver } from '../i18n';
 import isNil from '../utils/isNil';
 
 type IImageUploadPropsInner = PartialRequired<
