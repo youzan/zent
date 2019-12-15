@@ -4,7 +4,6 @@ import { PureComponent } from 'react';
 import classnames from 'classnames';
 import debounce from '../utils/debounce';
 import isEqual from '../utils/isEqual';
-import throttle from '../utils/throttle';
 
 import noop from '../utils/noop';
 import measureScrollbar from '../utils/dom/measureScrollbar';
@@ -26,6 +25,7 @@ import Header from './Header';
 import Body from './Body';
 import Footer from './Footer';
 import SelectionCheckbox from './SelectionCheckbox';
+import Affix from '../affix';
 import SelectionCheckboxAll, {
   IGridSelectionAllCheckboxProps,
 } from './SelectionCheckboxAll';
@@ -85,6 +85,7 @@ export interface IGridProps<Data = any> {
   rowProps?: (data: Data, index: number) => any;
   batchRender?: IGridBatchRender;
   stickyBatch?: boolean;
+  autoStick?: boolean;
 }
 
 export interface IGridState {
@@ -93,6 +94,9 @@ export interface IGridState {
   fixedColumnsHeadRowsHeight: Array<number | string>;
   fixedColumnsBodyExpandRowsHeight: Array<number | string>;
   expandRowKeys: boolean[];
+  showStickHead: boolean;
+  tableWidth: number;
+  marginLeft: string;
 }
 
 export interface IGridInnerColumn<Data> extends IGridColumn<Data> {
@@ -118,6 +122,7 @@ export class Grid<Data = any> extends PureComponent<
     ellipsis: false,
     onExpand: noop,
     stickyBatch: false,
+    autoStick: false,
   };
 
   mounted = false;
@@ -140,6 +145,7 @@ export class Grid<Data = any> extends PureComponent<
   scrollPosition!: GridScrollPosition;
   lastScrollLeft!: number;
   lastScrollTop!: number;
+  stickyHead: HTMLDivElement | null = null;
 
   constructor(props: IGridProps<Data>) {
     super(props);
@@ -157,6 +163,9 @@ export class Grid<Data = any> extends PureComponent<
       fixedColumnsHeadRowsHeight: [],
       fixedColumnsBodyExpandRowsHeight: [],
       expandRowKeys,
+      showStickHead: false,
+      tableWidth: 0,
+      marginLeft: '',
     };
   }
 
@@ -506,20 +515,19 @@ export class Grid<Data = any> extends PureComponent<
       return;
     }
     const target = e.target as HTMLDivElement;
-    const { scroll = {} } = this.props;
+    const { scroll = {}, autoStick } = this.props;
     const scrollTop = target.scrollTop;
-    const { leftBody, rightBody, scrollBody } = this;
+    const { leftBody, rightBody, scrollBody, scrollHeader, stickyHead } = this;
 
     if (target.scrollLeft !== this.lastScrollLeft && scroll.x) {
-      if (this.scrollHeader && target === scrollBody) {
-        this.scrollHeader.scrollLeft = target.scrollLeft;
+      if (scrollHeader && target !== scrollHeader) {
+        scrollHeader.scrollLeft = target.scrollLeft;
       }
-      if (
-        this.scrollHeader &&
-        this.scrollBody &&
-        target === this.scrollHeader
-      ) {
-        this.scrollBody.scrollLeft = target.scrollLeft;
+      if (scrollBody && target !== scrollBody) {
+        scrollBody.scrollLeft = target.scrollLeft;
+      }
+      if (autoStick && stickyHead && target !== stickyHead) {
+        stickyHead.scrollLeft = target.scrollLeft;
       }
       this.setScrollPositionClassName();
     }
@@ -554,6 +562,7 @@ export class Grid<Data = any> extends PureComponent<
     options: {
       columns?: Array<IGridInnerColumn<Data>>;
       fixed?: IGridInnerFixedType;
+      isStickyHead?: boolean;
     } = {}
   ) => {
     const {
@@ -597,7 +606,7 @@ export class Grid<Data = any> extends PureComponent<
         sortBy={sortBy}
         defaultSortType={defaultSortType}
         fixedColumnsHeadRowsHeight={this.state.fixedColumnsHeadRowsHeight}
-        ref={this.headerNode}
+        ref={options.isStickyHead ? null : this.headerNode}
       />
     );
 
@@ -643,39 +652,59 @@ export class Grid<Data = any> extends PureComponent<
       } else {
         scrollBodyStyle.marginBottom = 0;
       }
-      return [
+      const table = [
         <div
           key="header"
-          className={`${prefix}-grid-header`}
+          className={classnames(`${prefix}-grid-header`, {
+            [`${prefix}-grid-sticky-header`]: options.isStickyHead,
+          })}
           style={headStyle}
           ref={ref => {
-            if (!fixed) this.scrollHeader = ref;
+            if (!fixed) {
+              if (options.isStickyHead) {
+                this.stickyHead = ref;
+              } else {
+                this.scrollHeader = ref;
+              }
+            }
           }}
           onScroll={this.handleBodyScroll}
         >
           {header}
         </div>,
-        <div key="body-outer" className={`${prefix}-grid-body-outer`}>
-          <div
-            key="body"
-            className={`${prefix}-grid-body`}
-            style={scrollBodyStyle}
-            ref={ref => {
-              (this as any)[`${fixed || 'scroll'}Body`] = ref;
-              if (!fixed) this.bodyTable = ref;
-            }}
-            onScroll={this.handleBodyScroll}
-          >
-            {body}
-          </div>
-        </div>,
       ];
+
+      if (!options.isStickyHead) {
+        table.push(
+          <div key="body-outer" className={`${prefix}-grid-body-outer`}>
+            <div
+              key="body"
+              className={`${prefix}-grid-body`}
+              style={scrollBodyStyle}
+              ref={ref => {
+                (this as any)[`${fixed || 'scroll'}Body`] = ref;
+                if (!fixed) this.bodyTable = ref;
+              }}
+              onScroll={this.handleBodyScroll}
+            >
+              {body}
+            </div>
+          </div>
+        );
+      }
+      return table;
     }
     return [
       <div
         style={bodyStyle}
         ref={ref => {
-          if (!fixed) this.bodyTable = ref;
+          if (!fixed) {
+            if (options.isStickyHead) {
+              this.stickyHead = ref;
+            } else {
+              this.bodyTable = ref;
+            }
+          }
         }}
         onScroll={this.handleBodyScroll}
         key="table"
@@ -688,7 +717,7 @@ export class Grid<Data = any> extends PureComponent<
         >
           <ColGroup columns={columns} />
           {header}
-          {body}
+          {options.isStickyHead ? null : body}
         </table>
       </div>,
     ];
@@ -849,7 +878,89 @@ export class Grid<Data = any> extends PureComponent<
     }
   };
 
-  onScroll = throttle(this.toggleBatchComponents, 200);
+  onScroll = () => {
+    this.toggleBatchComponents();
+    const scrollLeft =
+      document.body.scrollLeft ||
+      document.documentElement.scrollLeft ||
+      window.pageXOffset;
+    if (this.props.autoStick) {
+      const isTableInView = isElementInView(this.gridNode.current);
+      if (this.state.showStickHead !== isTableInView) {
+        this.setState({
+          showStickHead: isTableInView,
+        });
+      }
+      this.setState({
+        marginLeft: `-${scrollLeft}px`,
+      });
+    }
+  };
+
+  getStickyHead = () => {
+    const content = [
+      this.getTable({
+        isStickyHead: true,
+      }),
+
+      this.isAnyColumnsLeftFixed() && (
+        <div className={`${prefix}-grid-fixed-left`} key="left-sticky-head">
+          {this.getTable({
+            columns: this.getLeftColumns(),
+            fixed: 'left',
+            isStickyHead: true,
+          })}
+        </div>
+      ),
+      this.isAnyColumnsRightFixed() && (
+        <div className={`${prefix}-grid-fixed-right`} key="right-sticky-head">
+          {this.getTable({
+            columns: this.getRightColumns(),
+            fixed: 'right',
+            isStickyHead: true,
+          })}
+        </div>
+      ),
+    ];
+
+    const style: React.CSSProperties = {
+      visibility: this.state.showStickHead ? 'visible' : 'hidden',
+      height: this.state.showStickHead ? 'auto' : 0,
+    };
+
+    return this.isAnyColumnsFixed() ? (
+      <div className={`${prefix}-grid-scroll`} style={style}>
+        {content}
+      </div>
+    ) : (
+      <div style={style}>{content}</div>
+    );
+  };
+
+  setStickyHeadWidth = () => {
+    if (
+      this.props.autoStick &&
+      this.gridNode.current &&
+      this.gridNode.current
+    ) {
+      const { width } = this.gridNode.current.getBoundingClientRect();
+      this.setState({
+        tableWidth: width,
+      });
+    }
+  };
+
+  handleStickyHeadVisible = () => {
+    this.setState({
+      showStickHead: true,
+    });
+  };
+
+  handleStickyHeadHidden = () => {
+    this.setState({
+      showStickHead: false,
+    });
+  };
 
   componentDidMount() {
     this.mounted = true;
@@ -857,6 +968,7 @@ export class Grid<Data = any> extends PureComponent<
     if (this.isAnyColumnsFixed()) {
       this.syncFixedTableRowHeight();
     }
+    this.setStickyHeadWidth();
   }
 
   componentWillUnmount() {
@@ -907,7 +1019,21 @@ export class Grid<Data = any> extends PureComponent<
   }
 
   render() {
-    const { loading, pageInfo = {}, paginationType, bordered } = this.props;
+    const {
+      loading,
+      pageInfo = {},
+      paginationType,
+      bordered,
+      autoStick,
+    } = this.props;
+    const { showStickHead, marginLeft, tableWidth } = this.state;
+
+    const stickHeadWarpStyle: React.CSSProperties = {};
+
+    if (autoStick) {
+      stickHeadWarpStyle.width = tableWidth;
+      stickHeadWarpStyle.marginLeft = marginLeft;
+    }
 
     let className = `${prefix}-grid`;
     const borderedClassName = bordered ? `${prefix}-grid-bordered` : '';
@@ -953,6 +1079,17 @@ export class Grid<Data = any> extends PureComponent<
           return (
             <div className={className} ref={this.gridNode}>
               {this.getBatchComponents('header')}
+              {autoStick && (
+                <div style={stickHeadWarpStyle}>
+                  <Affix
+                    offsetTop={0}
+                    onUnpin={this.handleStickyHeadHidden}
+                    onPin={this.handleStickyHeadVisible}
+                  >
+                    {this.getStickyHead()}
+                  </Affix>
+                </div>
+              )}
               <BlockLoading loading={loading}>
                 {scrollTable}
                 {this.isAnyColumnsLeftFixed() && (

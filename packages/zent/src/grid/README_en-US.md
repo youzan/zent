@@ -37,6 +37,8 @@ The function of the component is similar to the function of [Table](table) compo
 | bordered        | whether to display the outer border and column border                                                      | bool                                                                       | `false`     | No       |
 | batchRender          | Render batch operations                                                                               | (data: array) => React.ReactNode                                           |             | No       |
 | stickyBatch | Automatically stick batch operation                                                          | bool                                                                       | `false`      | No       |
+| autoStick                | Whether to stick the head to the window automatically                                             | bool                                 | `false`     | No       |
+
 
 #### onChange function declaration
 

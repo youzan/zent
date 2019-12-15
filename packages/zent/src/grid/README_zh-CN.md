@@ -38,6 +38,8 @@ group: 导航
 | bordered        | 是否展示外边框和列边框                                        | bool                                                                       | `false`            | 否       |
 | batchRender          | 批量操作 render                                        | (data: array) => React.ReactNode                                           |                    | 否       |
 | stickyBatch | 是否要将批量操作保持在屏幕内                                  | bool                                                                       | `false`             | 否       |
+| autoStick                | 是否自动将 head stick 到窗口                                                                         | bool                                 | `false`        | 否       |
+
 
 #### onChange 函数声明
 
