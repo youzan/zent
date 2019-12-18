@@ -200,11 +200,11 @@
       align-items: center;
 
       &__white {
-        background-color: rgba(255, 255, 255, 0.8);
+        background-color: rgba($theme-stroke-9, 0.8);
       }
 
       &__black {
-        background-color: rgba(0, 0, 0, 0.6);
+        background-color: rgba($theme-stroke-0, 0.6);
       }
 
       &__failed {
