@@ -50,7 +50,8 @@ function makeContext(
 }
 
 export interface IFormProps<
-  T extends Record<string, BasicModel<unknown>> = any
+  T extends Record<string, Model>,
+  Model extends BasicModel<unknown>
 >
   extends Omit<
     React.FormHTMLAttributes<HTMLFormElement>,
@@ -92,8 +93,9 @@ export interface IFormProps<
 }
 
 export class Form<
-  T extends Record<string, BasicModel<unknown>> = any
-> extends React.Component<IFormProps<T>> {
+  T extends Record<string, Model>,
+  Model extends BasicModel<unknown>
+> extends React.Component<IFormProps<T, Model>> {
   static displayName = 'ZentForm';
 
   static CombineErrors = CombineErrors;
@@ -201,7 +203,7 @@ export class Form<
     this.listenEvents();
   }
 
-  componentDidUpdate(prevProps: IFormProps<T>) {
+  componentDidUpdate(prevProps: IFormProps<T, Model>) {
     if (prevProps.form !== this.props.form) {
       this.removeEventListeners();
       this.listenEvents();
