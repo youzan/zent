@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Component, Children, cloneElement } from 'react';
+import { Component, Children } from 'react';
 import cx from 'classnames';
 
 import throttle from '../utils/throttle';
