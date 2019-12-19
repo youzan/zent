@@ -1,30 +1,32 @@
-import * as React from 'react';
 import cn from 'classnames';
+import * as React from 'react';
+
 import AbstractUpload from './components/AbstractUpload';
-import {
-  IUploadFileItemInner,
-  IImageUploadProps,
-  IImageUploadFileItem,
-  IUploadTipConfig,
-  IImageOnUploadSuccessReturn,
-} from './types';
-import {
-  DEFAULT_MAX_AMOUNT,
-  DEFAULT_MAX_SIZE,
-  DEFAULT_ENABLE_MULTIPLE,
-  FILE_UPLOAD_STATUS,
-} from './constants';
-import { PartialRequired } from '../utils/types';
-import {
-  formatFileSize,
-  createUploadItemId,
-  defaultGetThumbSrcFromFile,
-  defaultPreview,
-} from './utils';
-import { II18nLocaleUpload, I18nReceiver } from '../i18n';
 import ImageUploadList from './components/image/List';
 import ImageUploadTrigger from './components/image/Trigger';
+import {
+  DEFAULT_ENABLE_MULTIPLE,
+  DEFAULT_MAX_AMOUNT,
+  DEFAULT_MAX_SIZE,
+  FILE_UPLOAD_STATUS,
+} from './constants';
+import {
+  IImageOnUploadSuccessReturn,
+  IImageUploadFileItem,
+  IImageUploadProps,
+  IUploadFileItemInner,
+  IUploadTipConfig,
+} from './types';
+import {
+  defaultGetThumbSrcFromFile,
+  defaultPreview,
+} from './utils/default-image-props';
+import { formatFileSize } from './utils/format-file-size';
+import { createUploadItemId } from './utils/id';
+
+import { I18nReceiver, II18nLocaleUpload } from '../i18n';
 import isNil from '../utils/isNil';
+import { PartialRequired } from '../utils/types';
 
 type IImageUploadPropsInner = PartialRequired<
   IImageUploadProps,
@@ -34,6 +36,7 @@ type IImageUploadPropsInner = PartialRequired<
   | 'getThumbSrcFromFile'
   | 'preview'
   | 'accept'
+  | 'autoUpload'
 >;
 
 export class ImageUpload extends AbstractUpload<
@@ -45,6 +48,7 @@ export class ImageUpload extends AbstractUpload<
     maxAmount: DEFAULT_MAX_AMOUNT,
     maxSize: DEFAULT_MAX_SIZE,
     multiple: DEFAULT_ENABLE_MULTIPLE,
+    autoUpload: true,
     getThumbSrcFromFile: defaultGetThumbSrcFromFile,
     preview: defaultPreview,
     accept: 'image/*',

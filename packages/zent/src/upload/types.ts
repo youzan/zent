@@ -1,4 +1,5 @@
 import { FILE_UPLOAD_STATUS } from './constants';
+
 import { II18nLocaleUpload } from '../i18n';
 
 // file item types
@@ -35,7 +36,7 @@ export type IUploadOnChangeHandler<UPLOAD_ITEM extends IUploadFileItem> = (
 
 export interface IUploadChangeDetail<UPLOAD_ITEM extends IUploadFileItem> {
   item: UPLOAD_ITEM;
-  type: 'change' | 'add' | 'delete';
+  type: 'change' | 'add' | 'delete' | 'retry';
 }
 
 // onUpload types
@@ -99,7 +100,7 @@ export interface IAbstractUploadProps<
   /** 文件上传前的处理函数，若返回 false 或 Promie.reject，则不上传该文件 */
   beforeUpload?: (file: File) => boolean | Promise<void>;
   /** 文件上传回调 */
-  onUpload: IUploadOnUploadHandler<ON_UPLOAD_SUCCESS_RETURN>;
+  onUpload?: IUploadOnUploadHandler<ON_UPLOAD_SUCCESS_RETURN>;
   /** 发生内部错误时的统一回调函数，错误类型见 IUploadErrorMessageConfigMap */
   onError?: IUploadOnErrorHandler;
   /** 是否支持文件多选 */
@@ -114,6 +115,8 @@ export interface IAbstractUploadProps<
   disabled?: boolean;
   /** 是否可排序 */
   sortable?: boolean;
+  /** 是否自动触发文件上传流程（即 onUpload 回调） */
+  autoUpload?: boolean;
 }
 
 export interface IUploadProps extends IAbstractUploadProps<IUploadFileItem> {

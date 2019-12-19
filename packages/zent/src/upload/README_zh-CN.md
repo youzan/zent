@@ -20,7 +20,8 @@ group: 数据
 | defaultFileList | 非受控模式下使用的默认文件列表                                                                                    | `IUploadFileItem`                         |            | 否       |
 | onChange        | 上传内容发生变化时的回调函数，任何修改文件列表及其内容的行为都会触发该函数                                        | `IUploadOnChangeHandler`                  |            | 是       |
 | beforeUpload    | 文件上传前的预处理函数，若返回 false 或 reject 的 Promie，则不上传该文件                                          | `(file: File) => boolean | Promise<void>` |            | 否       |
-| onUpload        | 文件上传处理                                                                                                      | `IUploadOnUploadHandler`                  |            | 是       |
+| autoUpload      | 是否自动执行上传操作，若设置为 false，所有进度更新、上传成功失败、重试等操作都需要手动进行数据维护                | boolean                                   |            | 否       |
+| onUpload        | 文件上传处理                                                                                                      | `IUploadOnUploadHandler`                  |            | 否       |
 | onError         | 发生内部错误时的统一回调函数，错误类型见 `IUploadErrorMessageConfigMap`                                           | `IUploadOnErrorHandler`                   | 否         |
 | multiple        | 是否支持文件多选                                                                                                  | boolean                                   | false      | 否       |
 | maxSize         | 图片大小限制，单位为 byte，`Infinity` 为不限制                                                                    | number                                    | `Infinity` | 否       |
@@ -80,12 +81,12 @@ interface IImageUploadFileItem extends IUploadFileItem {
 interface IUploadChangeDetail<UPLOAD_ITEM extends IUploadFileItem> {
 	item: UPLOAD_ITEM;
 	// 发生变化的类型
-	type: 'change' | 'add' | 'delete';
+	type: 'change' | 'add' | 'delete' | 'retry';
 }
 
 type IUploadOnChangeHandler<UPLOAD_ITEM extends IUploadFileItem> = (
 	list: UPLOAD_ITEM[],
-	detail?: IUploadChangeDetail<UPLOAD_ITEM>
+	detail?: IUploadChangeDetail<UPLOAD_ITEM> // 拖拽排序操作触发的 onChange 不会有 detail 参数
 ) => void;
 ```
 

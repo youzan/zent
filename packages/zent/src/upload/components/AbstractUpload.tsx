@@ -1,14 +1,16 @@
 import * as React from 'react';
+
+import { II18nLocaleUpload } from '../../i18n';
+import { FILE_UPLOAD_STATUS } from '../constants';
 import {
   IAbstractUploadProps,
-  IUploadFileItemInner,
-  IUploadFileItem,
-  IUploadOnErrorHandler,
   IUploadChangeDetail,
+  IUploadFileItem,
+  IUploadFileItemInner,
+  IUploadOnErrorHandler,
 } from '../types';
-import { FILE_UPLOAD_STATUS } from '../constants';
-import { II18nLocaleUpload } from '../../i18n';
-import { wrapPromise, patchUploadItemId } from '../utils';
+import { patchUploadItemId } from '../utils/id';
+import { wrapPromise } from '../utils/wrap-promise';
 
 export interface IAbstractUploadState<UPLOAD_ITEM extends IUploadFileItem> {
   fileList: Array<IUploadFileItemInner<UPLOAD_ITEM>>;
@@ -115,16 +117,18 @@ abstract class AbstractUpload<
     file: File,
     uploadItem: IUploadFileItemInner<UPLOAD_ITEM>
   ) => {
-    const { onUpload } = this.props;
+    const { onUpload, autoUpload } = this.props;
     const uplodaItemId = uploadItem._id;
-    // start upload
-    onUpload(file, this.updateUploadItemPercent.bind(this, uplodaItemId))
-      .then(onUploadReturn => {
-        this.updateUploadItemStatusToSuccess(uplodaItemId, onUploadReturn);
-      })
-      .catch(() => {
-        this.updateUploadItemStatusToFailed(uplodaItemId);
-      });
+    // auto start upload
+    if (autoUpload && onUpload) {
+      onUpload(file, this.updateUploadItemPercent.bind(this, uplodaItemId))
+        .then(onUploadReturn => {
+          this.updateUploadItemStatusToSuccess(uplodaItemId, onUploadReturn);
+        })
+        .catch(() => {
+          this.updateUploadItemStatusToFailed(uplodaItemId);
+        });
+    }
   };
 
   /**
@@ -162,7 +166,7 @@ abstract class AbstractUpload<
       newFileList,
       {
         item: newRetryItem,
-        type: 'change',
+        type: 'retry',
       },
       () => this.emitOnUpload(retryItem._file, newRetryItem)
     );

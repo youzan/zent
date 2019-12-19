@@ -1,63 +1,36 @@
-import * as React from 'react';
 import cn from 'classnames';
+import * as React from 'react';
+
 import AbstractUpload from './components/AbstractUpload';
+import NormalUploadList from './components/normal/List';
+import NormalUploadTrigger from './components/normal/Trigger';
 import {
+  DEFAULT_ENABLE_MULTIPLE,
+  DEFAULT_MAX_AMOUNT,
+  DEFAULT_MAX_SIZE,
+  FILE_UPLOAD_STATUS,
+} from './constants';
+import {
+  IUploadFileItem,
   IUploadFileItemInner,
   IUploadProps,
-  IUploadFileItem,
   IUploadTipConfig,
 } from './types';
-import {
-  FILE_UPLOAD_STATUS,
-  DEFAULT_MAX_SIZE,
-  DEFAULT_MAX_AMOUNT,
-  DEFAULT_ENABLE_MULTIPLE,
-} from './constants';
+import { formatFileSize } from './utils/format-file-size';
+import { guessSupportTypes } from './utils/guess-support-types';
+import { createUploadItemId } from './utils/id';
+
 import { I18nReceiver, II18nLocaleUpload } from '../i18n';
-import { createUploadItemId, formatFileSize } from './utils';
-import NormalUploadTrigger from './components/normal/Trigger';
 import { PartialRequired } from '../utils/types';
-import NormalUploadList from './components/normal/List';
-
-const subTypeGuessMap: {
-  [type: string]: string[];
-} = {
-  image: ['jpeg', 'png', 'bmp', 'gif'],
-  audio: ['mp3', 'wav', 'aac'],
-  video: ['mp4', 'avi', 'webm'],
-};
-/** 推测可支持的文件格式 */
-const guessSupportTypes = (accept?: string): string[] => {
-  if (!accept) {
-    return [];
-  }
-  const supportTypes = [];
-  const acceptTypes = accept.split(',').map(type => type.trim());
-
-  acceptTypes.forEach(acceptType => {
-    // .jpg
-    if (acceptType[0] === '.') {
-      supportTypes.push(acceptType.slice(1));
-    }
-
-    if (acceptType.indexOf('/') !== -1) {
-      const [mimeType, subtype] = acceptType.split('/', 2);
-      if (subtype !== '*') {
-        // image/jpeg
-        supportTypes.push(subtype);
-      } else {
-        // image/*
-        supportTypes.push(...(subTypeGuessMap[mimeType] || []));
-      }
-    }
-  });
-
-  return supportTypes;
-};
 
 type IUploadPropsInner = PartialRequired<
   IUploadProps,
-  'maxAmount' | 'maxSize' | 'multiple' | 'pagination' | 'pageSize'
+  | 'maxAmount'
+  | 'maxSize'
+  | 'multiple'
+  | 'pagination'
+  | 'pageSize'
+  | 'autoUpload'
 >;
 
 export class Upload extends AbstractUpload<
@@ -69,6 +42,7 @@ export class Upload extends AbstractUpload<
     maxAmount: DEFAULT_MAX_AMOUNT,
     maxSize: DEFAULT_MAX_SIZE,
     multiple: DEFAULT_ENABLE_MULTIPLE,
+    autoUpload: true,
     sortable: false,
     pageSize: 5,
     pagination: false,

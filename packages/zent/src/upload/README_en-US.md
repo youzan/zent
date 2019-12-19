@@ -19,7 +19,8 @@ File uploader.
 | defaultFileList | The default file list in uncontrolled mode                                                                                | `IUploadFileItem`                         |            | No       |
 | onChange        | Callback when file list changed, any behavior change file list or content will emit it.                                   | `IUploadOnChangeHandler`                  |            | Yes      |
 | beforeUpload    | The pre handler before file start upload, upload will be ignore when handler return false or a rejected Promise           | `(file: File) => boolean | Promise<void>` |            | No       |
-| onUpload        | The file upload handler                                                                                                   | `IUploadOnUploadHandler`                  |            | Yes      |
+| autoUpload      | Is auto emit onUpload, if value is false, you should change file list data by yourself when upload event update           | boolean                                   |            | No       |
+| onUpload        | The file upload handler                                                                                                   | `IUploadOnUploadHandler`                  |            | No       |
 | onError         | The unified callbak when some error happened, you can find detail in `IUploadErrorMessageConfigMap`                       | `IUploadOnErrorHandler`                   | No         |
 | multiple        | Is support file multiple select                                                                                           | boolean                                   | false      | No       |
 | maxSize         | The size limit of file, unit is byte，unlimited when value is `Infinity`                                                  | number                                    | `Infinity` | No       |
