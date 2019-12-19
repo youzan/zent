@@ -10,6 +10,11 @@
     transition: ease-in-out;
   }
 
+  &__page-wrapper {
+    float: left;
+    height: 100%;
+  }
+
   &__arrow {
     cursor: pointer;
     position: absolute;

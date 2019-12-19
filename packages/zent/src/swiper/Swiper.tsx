@@ -344,12 +344,11 @@ export class Swiper extends Component<ISwiperProps, ISwiperState> {
           ref={this.getSwiperContainer}
           className={`${prefix}-swiper__container`}
         >
-          {Children.map(clonedChildren, (child: any, index: number) => {
-            return cloneElement(child, {
-              key: index - 1,
-              style: { float: 'left', height: '100%' },
-            });
-          })}
+          {Children.map(clonedChildren, (child: any, index: number) => (
+            <div key={index - 1} className={`${prefix}-swiper__page-wrapper`}>
+              {child}
+            </div>
+          ))}
         </div>
         {dots && childrenCount > 1 && (
           <SwiperDots
