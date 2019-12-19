@@ -39,6 +39,7 @@ export const FormSelectField: React.FunctionComponent<IFormSelectFieldProps<
     const {
       name,
       defaultValue,
+      destroyOnUnmount,
     } = (props as unknown) as IFormFieldViewDrivenProps<any>;
     let validators =
       ((props as unknown) as IFormFieldViewDrivenProps<any>).validators || [];
@@ -55,6 +56,7 @@ export const FormSelectField: React.FunctionComponent<IFormSelectFieldProps<
       ] as IValidators<any>).concat(validators);
     }
     model = useField<any>(name, defaultValue, validators);
+    model.destroyOnUnmount = Boolean(destroyOnUnmount);
   } else {
     model = useField<any>(
       ((props as unknown) as IFormFieldModelDrivenProps<any>).model
