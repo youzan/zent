@@ -19,7 +19,7 @@ File uploader.
 | defaultFileList | The default file list in uncontrolled mode                                                                                | `IUploadFileItem`                         |            | No       |
 | onChange        | Callback when file list changed, any behavior change file list or content will emit it.                                   | `IUploadOnChangeHandler`                  |            | Yes      |
 | beforeUpload    | The pre handler before file start upload, upload will be ignore when handler return false or a rejected Promise           | `(file: File) => boolean | Promise<void>` |            | No       |
-| autoUpload      | Is auto emit onUpload, if value is false, you should change file list data by yourself when upload event update           | boolean                                   |            | No       |
+| skipUpload      | Is skip onUpload emit step, if value is true, you should change file list data by yourself when upload event update       | boolean                                   | false      | No       |
 | onUpload        | The file upload handler                                                                                                   | `IUploadOnUploadHandler`                  |            | No       |
 | onError         | The unified callbak when some error happened, you can find detail in `IUploadErrorMessageConfigMap`                       | `IUploadOnErrorHandler`                   | No         |
 | multiple        | Is support file multiple select                                                                                           | boolean                                   | false      | No       |
@@ -96,7 +96,7 @@ type IUploadOnErrorHandler = <Type extends keyof IUploadErrorMessageConfigMap>(
 
 #### IImageUploadPreviewHandler
 
-Preview function using in ImageUpload, default use zent's `PreviewImages`, and don't preview the image uploading or failed.
+Preview function using in ImageUpload, default use zent's `PreviewImages`, and don't preview the image failed.
 
 ```ts
 type IImageUploadPreviewHandler = (

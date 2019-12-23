@@ -72,7 +72,11 @@
     border-bottom-width: 1px;
 
     &-wrapper {
-      padding: 16px 16px 0;
+      padding: 16px;
+
+      + .zent-upload-trigger-wrapper {
+        padding-top: 0;
+      }
     }
 
     &-pagination {

@@ -116,7 +116,7 @@ export interface IAbstractUploadProps<
   /** 是否可排序 */
   sortable?: boolean;
   /** 是否自动触发文件上传流程（即 onUpload 回调） */
-  autoUpload?: boolean;
+  skipUpload?: boolean;
 }
 
 export interface IUploadProps extends IAbstractUploadProps<IUploadFileItem> {

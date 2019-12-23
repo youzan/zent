@@ -36,7 +36,7 @@ type IImageUploadPropsInner = PartialRequired<
   | 'getThumbSrcFromFile'
   | 'preview'
   | 'accept'
-  | 'autoUpload'
+  | 'skipUpload'
 >;
 
 export class ImageUpload extends AbstractUpload<
@@ -48,7 +48,7 @@ export class ImageUpload extends AbstractUpload<
     maxAmount: DEFAULT_MAX_AMOUNT,
     maxSize: DEFAULT_MAX_SIZE,
     multiple: DEFAULT_ENABLE_MULTIPLE,
-    autoUpload: true,
+    skipUpload: false,
     getThumbSrcFromFile: defaultGetThumbSrcFromFile,
     preview: defaultPreview,
     accept: 'image/*',
@@ -99,7 +99,7 @@ export class ImageUpload extends AbstractUpload<
         thumbSrc,
         name: file.name,
         type: file.type,
-        status: FILE_UPLOAD_STATUS.uploading,
+        status: FILE_UPLOAD_STATUS.beforeUpload,
         percent: 0,
       };
     });

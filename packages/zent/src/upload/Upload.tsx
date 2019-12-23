@@ -30,7 +30,7 @@ type IUploadPropsInner = PartialRequired<
   | 'multiple'
   | 'pagination'
   | 'pageSize'
-  | 'autoUpload'
+  | 'skipUpload'
 >;
 
 export class Upload extends AbstractUpload<
@@ -42,7 +42,7 @@ export class Upload extends AbstractUpload<
     maxAmount: DEFAULT_MAX_AMOUNT,
     maxSize: DEFAULT_MAX_SIZE,
     multiple: DEFAULT_ENABLE_MULTIPLE,
-    autoUpload: true,
+    skipUpload: false,
     sortable: false,
     pageSize: 5,
     pagination: false,
@@ -56,7 +56,7 @@ export class Upload extends AbstractUpload<
       _file: file,
       name: file.name,
       type: file.type,
-      status: FILE_UPLOAD_STATUS.uploading,
+      status: FILE_UPLOAD_STATUS.beforeUpload,
       percent: 0,
     };
   }
