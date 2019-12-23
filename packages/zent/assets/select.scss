@@ -228,7 +228,6 @@
     & > .zent-select-text,
     & > .zent-select-tags {
       @include theme-color(border-color, error, 2);
-      @include theme-color(color, error, 2);
       border-width: 1px;
       border-style: solid;
     }
