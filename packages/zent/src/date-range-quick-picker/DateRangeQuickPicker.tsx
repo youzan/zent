@@ -18,7 +18,7 @@ export type DateRangeQuickPickerChangeCallback = (
 
 export interface IDateRangeQuickPickerPreset {
   text: string;
-  value: DateRangePicker;
+  value: DatePickers.RangeValue;
 }
 
 export interface IDateRangeQuickPickerProps {

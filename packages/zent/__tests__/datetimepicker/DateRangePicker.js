@@ -6,7 +6,7 @@ import isArray from 'lodash/isArray';
 describe('DateRangePicker', () => {
   it('DateRangePicker has its core function', () => {
     let pop;
-    const wrapper = mount(<DateRangePicker showTime isFooterVisble />);
+    const wrapper = mount(<DateRangePicker showTime isFooterVisible />);
     wrapper
       .find('.picker-input')
       .at(0)
@@ -41,7 +41,7 @@ describe('DateRangePicker', () => {
   it('DateRangePicker render value', () => {
     let pop;
     const wrapper = mount(
-      <DateRangePicker value={['2017-01-01', '2017-12-30']} isFooterVisble />
+      <DateRangePicker value={['2017-01-01', '2017-12-30']} isFooterVisible />
     );
     expect(wrapper.find('.zent-input').at(0).node.value).toBe('2017-01-01');
     wrapper
@@ -64,7 +64,9 @@ describe('DateRangePicker', () => {
     const onChangeMock = jest.fn().mockImplementation(value => {
       wrapper.setProps({ value });
     });
-    wrapper = mount(<DateRangePicker onChange={onChangeMock} isFooterVisble />);
+    wrapper = mount(
+      <DateRangePicker onChange={onChangeMock} isFooterVisible />
+    );
     wrapper
       .find('.picker-input')
       .at(0)
@@ -102,7 +104,7 @@ describe('DateRangePicker', () => {
     const onClose = jest.fn();
     const onOpen = jest.fn();
     wrapper = mount(
-      <DateRangePicker onClose={onClose} onOpen={onOpen} isFooterVisble />
+      <DateRangePicker onClose={onClose} onOpen={onOpen} isFooterVisible />
     );
     wrapper
       .find('.picker-input')
@@ -128,7 +130,7 @@ describe('DateRangePicker', () => {
     const onChangeMock = jest.fn();
     let pop;
     let wrapper = mount(
-      <DateRangePicker onChange={onChangeMock} isFooterVisble />
+      <DateRangePicker onChange={onChangeMock} isFooterVisible />
     );
     wrapper
       .find('.picker-input')
@@ -160,7 +162,7 @@ describe('DateRangePicker', () => {
 
     // default disabledDate is noop
     // HACK: branch
-    wrapper = mount(<DateRangePicker disabled isFooterVisble />);
+    wrapper = mount(<DateRangePicker disabled isFooterVisible />);
     wrapper
       .find('.picker-input')
       .at(0)
@@ -169,7 +171,7 @@ describe('DateRangePicker', () => {
 
     // support min and max
     pop = mount(
-      <DateRangePicker min="2000-01-01" max="2001-01-01" isFooterVisble />
+      <DateRangePicker min="2000-01-01" max="2001-01-01" isFooterVisible />
     );
     pop
       .find('.picker-input')

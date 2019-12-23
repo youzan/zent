@@ -1,12 +1,6 @@
 @import './theme/default';
 @import './theme/font';
 
-.has-error {
-  .zent-form-label {
-    @include theme-color(color, error, 4);
-  }
-}
-
 .zent-form {
   $p: &;
 

@@ -8,9 +8,6 @@ basepath=$(dirname $0)
 echo "Clean up TypeScript output..."
 rm -rf es
 
-# generate icon types from zenticons
-node $basepath/./generate-icon-type.js
-
 echo "Compile TypeScript..."
 ttsc
 

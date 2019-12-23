@@ -148,7 +148,7 @@ Each Desgin component are divided in two parts: Preview and Editor.
 
 Preview is just a component which accepts `{ value: any, globalConfig: any, design: object }` as props and renders a UI with these props.
 
-It is a little bit complex about Editor component. You are recommended to extend the `@youzan/design/lib/base/editor/DesignEditor` base class, this class has some useful methods you can use(e.g. `onChange` event handlers).
+It is a little bit complex about Editor component. You are recommended to extend the `@youzan/design/es/editor/DesignEditor` base class, this class has some useful methods you can use(e.g. `onChange` event handlers).
 
 Editor has these props:
 

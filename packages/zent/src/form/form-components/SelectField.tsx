@@ -24,11 +24,8 @@ import { defaultGetValidateOption } from '../Field';
 
 export type IFormSelectFieldProps<T> = IFormComponentProps<
   T | T[],
-  Omit<ISelectProps, 'value' | 'tags' | 'onChange'>
-> & {
-  tags?: boolean;
-  data: any[];
-};
+  Omit<ISelectProps, 'value' | 'onChange'>
+>;
 
 /**
  * Old `Select` implementation is a disaster,
@@ -42,6 +39,7 @@ export const FormSelectField: React.FunctionComponent<IFormSelectFieldProps<
     const {
       name,
       defaultValue,
+      destroyOnUnmount,
     } = (props as unknown) as IFormFieldViewDrivenProps<any>;
     let validators =
       ((props as unknown) as IFormFieldViewDrivenProps<any>).validators || [];
@@ -58,6 +56,7 @@ export const FormSelectField: React.FunctionComponent<IFormSelectFieldProps<
       ] as IValidators<any>).concat(validators);
     }
     model = useField<any>(name, defaultValue, validators);
+    model.destroyOnUnmount = Boolean(destroyOnUnmount);
   } else {
     model = useField<any>(
       ((props as unknown) as IFormFieldModelDrivenProps<any>).model
@@ -83,7 +82,7 @@ export const FormSelectField: React.FunctionComponent<IFormSelectFieldProps<
   asFormChild(model, anchorRef);
   const onChange = React.useCallback(
     (e: any) => {
-      if (propsRef.current.tags) {
+      if (propsRef.current.props.tags) {
         const value = model.value || [];
         if (!value.includes(e.target.value)) {
           model.value = [...value, e.target.value];
@@ -110,10 +109,8 @@ export const FormSelectField: React.FunctionComponent<IFormSelectFieldProps<
       <div className="zent-form-control-content-inner">
         {before}
         <Select
-          {...props.props}
+          {...(props.props as Omit<ISelectProps, 'value' | 'onChange'>)}
           onChange={onChange}
-          tags={props.tags}
-          data={props.data}
           value={model.value}
         />
         {after}

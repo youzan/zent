@@ -8,7 +8,7 @@ Zent provides a React Component I18nProvider used to configure the locale text. 
 
 ```jsx
 import { I18nProvider as Provider } from 'zent';
-import enUS from 'zent/lib/i18n/en-US';
+import enUS from 'zent/es/i18n/en-US';
 
 <Provider value={enUS}>
 	<App />

@@ -28,6 +28,7 @@ import {
   commonProps,
 } from './constants';
 import { DatePickers } from './common/types';
+import Icon from '../icon';
 
 function extractStateFromProps(props: IDatePickerProps) {
   let selected;
@@ -409,11 +410,12 @@ export class DatePicker extends PureComponent<IDatePickerProps, any> {
                     disabled={disabled}
                     autoComplete={autoComplete}
                   />
-                  <span className="zenticon zenticon-calendar-o" />
+                  <Icon className="picker-input--icon" type="calendar-o" />
                   {canClear && (
-                    <span
+                    <Icon
+                      className="picker-input--icon"
+                      type="close-circle"
                       onClick={this.onClearInput}
-                      className="zenticon zenticon-close-circle"
                     />
                   )}
                 </div>

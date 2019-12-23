@@ -22,7 +22,7 @@ describe('MonthPicker', () => {
 
   it('MonthPicker has 2 level panel', () => {
     let pop;
-    const wrapper = mount(<MonthPicker isFooterVisble />);
+    const wrapper = mount(<MonthPicker isFooterVisible />);
     const inst = wrapper.instance();
     expect(inst.state.openPanel).toBe(false);
     expect(inst.state.showPlaceholder).toBe(true);
@@ -67,7 +67,7 @@ describe('MonthPicker', () => {
     let wrapper;
     const onChangeMock = jest.fn();
     wrapper = mount(
-      <MonthPicker value="2010-01" onChange={onChangeMock} isFooterVisble />
+      <MonthPicker value="2010-01" onChange={onChangeMock} isFooterVisible />
     );
     wrapper
       .find('.zenticon-close-circle')
@@ -78,10 +78,10 @@ describe('MonthPicker', () => {
 
   it('MonthPicker support default value', () => {
     let wrapper;
-    wrapper = mount(<MonthPicker defaultValue="2010-01" isFooterVisble />);
+    wrapper = mount(<MonthPicker defaultValue="2010-01" isFooterVisible />);
     expect(wrapper.instance().state.actived).toBeInstanceOf(Date);
 
-    wrapper = mount(<MonthPicker vaule="xxxx-xx" isFooterVisble />);
+    wrapper = mount(<MonthPicker vaule="xxxx-xx" isFooterVisible />);
     expect(wrapper.instance().state.showPlaceholder).toBe(true);
   });
 
@@ -92,7 +92,7 @@ describe('MonthPicker', () => {
       wrapper.setProps({ value });
     });
     wrapper = mount(
-      <MonthPicker value="2010-01" onChange={onChangeMock} isFooterVisble />
+      <MonthPicker value="2010-01" onChange={onChangeMock} isFooterVisible />
     );
 
     const inst = wrapper.instance();

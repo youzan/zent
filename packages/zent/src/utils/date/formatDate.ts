@@ -10,7 +10,6 @@ import { getValidDate } from './helpers';
  * @param locale i18n 的设置，默认为 zhCN
  * @returns date 对象
  * @example
- * const formatDate = require('zan-utils/date/formatDate');
  * formatDate('2017-06-06T09:37:16.437Z');
  * // '周二 6月 06 2017 17:37:16'
  * formatDate('2017-06-06T09:37:16.437Z', 'YYYY-MM-DD');
