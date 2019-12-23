@@ -4,7 +4,7 @@
 .zent-cascader {
   display: inline-block;
 
-  &.open {
+  &--open {
     .zent-cascader__select-text {
       @include theme-color(border-color, primary, 3);
       @include theme-shadow(focus);
@@ -15,19 +15,15 @@
     }
   }
 
-  &.disabled {
+  &--disabled {
     .zent-cascader__select {
       cursor: not-allowed;
       @include theme-color(color, stroke, 5);
 
-      &-text {
+      .zent-cascader__select-text {
         @include theme-color(color, stroke, 4);
         @include theme-color(border-color, stroke, 5);
         @include theme-color(background-color, stroke, 8);
-
-        &::after {
-          opacity: 0.25;
-        }
       }
     }
   }

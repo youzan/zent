@@ -327,8 +327,8 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
           const cascaderCls = classnames({
             [`${prefix}-cascader`]: true,
             [className]: true,
-            disabled: !!disabled,
-            open,
+            [`${prefix}-cascader--disabled`]: disabled,
+            [`${prefix}-cascader--open`]: open,
           });
 
           const selectTextCls = classnames({
@@ -344,7 +344,7 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
                 onShow={this.onShow}
                 onClose={this.onClose}
               >
-                <PopoverClickTrigger disabled={!!disabled}>
+                <PopoverClickTrigger disabled={disabled}>
                   <div className={`${prefix}-cascader__select`}>
                     <div className={selectTextCls}>
                       <span
