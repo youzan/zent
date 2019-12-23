@@ -17,10 +17,8 @@
 
   &--disabled {
     .zent-cascader__select {
-      cursor: not-allowed;
-      @include theme-color(color, stroke, 5);
-
       .zent-cascader__select-text {
+        cursor: not-allowed;
         @include theme-color(color, stroke, 4);
         @include theme-color(border-color, stroke, 5);
         @include theme-color(background-color, stroke, 8);

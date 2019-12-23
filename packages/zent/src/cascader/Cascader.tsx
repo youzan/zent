@@ -15,7 +15,7 @@ import { DisabledContext, IDisabledContext } from '../disabled';
 const PopoverContent = Popover.Content;
 
 export interface IPopverClickTriggerProps extends IPopoverClickTriggerProps {
-  disabled?: boolean;
+  disabled: boolean;
 }
 
 class PopoverClickTrigger extends Popover.Trigger.Click<
