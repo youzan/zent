@@ -192,7 +192,9 @@ describe('Cascader', () => {
     wrapper.find('.zent-cascader__select').simulate('click');
     jest.runAllTimers();
 
-    expect(wrapper.find('.zent-cascader').hasClass('open')).toBe(true);
+    expect(
+      wrapper.find('.zent-cascader').hasClass('.zent-cascader--open')
+    ).toBe(true);
     const allTabs = document.querySelectorAll('.zent-tabs-tab');
     expect(allTabs.length).toBe(3);
     expect(allTabs[0].textContent).toBe('省份');
