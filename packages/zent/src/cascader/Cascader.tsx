@@ -336,6 +336,7 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
                 position={Popover.Position.BottomLeft}
                 onShow={this.onShow}
                 onClose={this.onClose}
+                cushion={4}
               >
                 <PopoverClickTrigger disabled={disabled}>
                   <div className="zent-cascader__select">
