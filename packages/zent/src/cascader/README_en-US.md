@@ -21,7 +21,6 @@ Cascader is used for cascade operation, e.g. cascade location selection.
 | changeOnSelect | Wether trigger change once sth. is seleted | boolean | false | '' |
 | expandTrigger |  Secondary menu expand trigger type. Optional 'click' 和 'hover'. only for type='menu' | string | 'click' | 'hover' |
 | placeholder | The placeholder text of input box | string | 'Please choose' | '' |
-| prefix | custom prefix | string | 'zent' | '' |
 | className | custom classname | string | '' | '' |
 | popClassName | custom classname of popover | string | ''zent-cascader__popup'' | '' |
 | displayText | function to customize the display text, selectedOptionArray => text | func | - | |

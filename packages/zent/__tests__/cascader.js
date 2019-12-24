@@ -27,12 +27,6 @@ describe('Cascader', () => {
     wrapper.unmount();
   });
 
-  it('can have custom prefix', () => {
-    const wrapper = mount(<Cascader prefix="rc" />);
-    expect(wrapper.find('.rc-cascader').length).toBe(1);
-    wrapper.unmount();
-  });
-
   it('can have custom className', () => {
     const wrapper = mount(<Cascader className="rc-cascader-custom" />);
     expect(wrapper.hasClass('rc-cascader-custom')).toBe(true);

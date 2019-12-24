@@ -60,8 +60,8 @@
         line-height: inherit;
       }
 
-      &.is-placeholder {
-        @include theme-color(color, stroke, 3);
+      &.zent-cascader--placeholder {
+        @include theme-color(color, stroke, 4);
       }
 
       .zenticon {
@@ -130,7 +130,7 @@
         @include theme-color(background-color, primary, 8);
       }
 
-      &.active {
+      &--active {
         background: $theme-stroke-8;
         font-weight: 600;
       }
@@ -166,7 +166,7 @@
         @include theme-color(background-color, primary, 8);
       }
 
-      &.active {
+      &--active {
         @include theme-color(background-color, primary, 3);
         @include theme-color(color, stroke, 9);
         border-radius: 2px;
@@ -198,7 +198,6 @@
       @include theme-shadow(layer);
       width: 440px;
       box-sizing: border-box;
-      margin-top: 5px;
 
       &-menu {
         width: auto;
