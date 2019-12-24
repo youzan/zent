@@ -9,7 +9,6 @@ import { CascaderHandler, ICascaderItem, CascaderValue } from '../types';
 const withPopover = Popover.withPopover;
 
 export interface IMenuContentProps {
-  prefix?: string;
   className?: string;
   clickHandler: CascaderHandler;
   value: CascaderValue[];
@@ -26,25 +25,18 @@ export interface IMenuContentProps {
 
 class MenuContent extends PureComponent<IMenuContentProps> {
   getMenuItemIcon(item, isShowLoading, isActive) {
-    const { prefix } = this.props;
-
     if (item.children || item.isLeaf === false) {
       if (isShowLoading && isActive) {
-        return (
-          <i className={`${prefix}-cascader__menu-item-loading zenticon`} />
-        );
+        return <i className="zent-cascader__menu-item-loading zenticon" />;
       }
 
-      return (
-        <Icon className={`${prefix}-cascader__menu-item-icon`} type="right" />
-      );
+      return <Icon className="zent-cascader__menu-item-icon" type="right" />;
     }
     return null;
   }
 
   renderCascaderItems(items: ICascaderItem[], stage: number, popover) {
     const {
-      prefix,
       value,
       clickHandler,
       isLoading,
@@ -56,9 +48,8 @@ class MenuContent extends PureComponent<IMenuContentProps> {
 
     const cascaderItems = items.map(item => {
       const isActive = item.id === value[stage - 1];
-      const cascaderItemCls = classnames({
-        [`${prefix}-cascader__menu-item`]: true,
-        active: isActive,
+      const cascaderItemCls = classnames('zent-cascader__menu-item', {
+        'zent-cascader__menu-item--active': isActive,
       });
 
       return (
@@ -80,7 +71,7 @@ class MenuContent extends PureComponent<IMenuContentProps> {
     });
 
     return (
-      <ul key={stage} className={`${prefix}-cascader__menu`}>
+      <ul key={stage} className="zent-cascader__menu">
         {cascaderItems}
       </ul>
     );
@@ -109,11 +100,9 @@ class MenuContent extends PureComponent<IMenuContentProps> {
   }
 
   render() {
-    const { prefix, popover } = this.props;
+    const { popover } = this.props;
     return (
-      <div
-        className={`${prefix}-cascader__popup-inner ${prefix}-cascader__popup-inner-menu`}
-      >
+      <div className="zent-cascader__popup-inner zent-cascader__popup-inner-menu">
         {this.renderPanels(popover)}
       </div>
     );
