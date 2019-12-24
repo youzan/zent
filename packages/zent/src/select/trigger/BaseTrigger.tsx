@@ -15,7 +15,9 @@ export interface ISelectTriggerProps {
 class SelectTrigger extends PureComponent<ISelectTriggerProps> {
   render() {
     const { prefixCls, onClick, visible } = this.props;
-    const rootClass = cx(`${prefixCls}-text`, { visible });
+    const rootClass = cx(`${prefixCls}-text`, {
+      'zent-select--visible': visible,
+    });
 
     return (
       <Receiver componentName="Select">

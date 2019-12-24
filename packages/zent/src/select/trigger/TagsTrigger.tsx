@@ -103,8 +103,8 @@ class TagsTrigger extends PureComponent<ITagsTriggerProps, any> {
       visible,
     } = this.props;
     const rootClass = cx(`${prefixCls}-tags`, {
-      tags__empty: !selectedItems.length,
-      visible,
+      'zent-select-tags__empty': !selectedItems.length,
+      'zent-select--visible': visible,
     });
 
     return (
