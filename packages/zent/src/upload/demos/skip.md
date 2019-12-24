@@ -1,0 +1,115 @@
+---
+order: 7
+zh-CN:
+  title: 跳过自动上传
+  tips: '建议尺寸 640*640'
+en-US:
+  title: Skip Auto Upload
+  tips: 'Recommended image size 640*640'
+---
+
+```jsx
+import { ImageUpload, Button, Notify, FILE_UPLOAD_STATUS } from 'zent';
+
+class Simple extends React.Component {
+	state = {
+		fileList: [],
+	};
+
+	onUploadChange = (files, detail) => {
+		this.setState({
+			fileList: files,
+		});
+
+		if (detail && detail.type === 'retry') {
+			this.uploadItem(detail.item._id);
+		}
+	};
+
+	uploadItem = id => {
+		console.log(id);
+		const update = () => {
+			const item = this.state.fileList.find(o => o._id === id);
+			let percent = item.percent;
+			let status = item.status;
+			if (percent < 100) {
+				status = FILE_UPLOAD_STATUS.uploading;
+				percent += 10;
+			} else if (status === FILE_UPLOAD_STATUS.uploading) {
+				// 随机成功或失败
+				status =
+					Math.random() > 0.5
+						? FILE_UPLOAD_STATUS.success
+						: FILE_UPLOAD_STATUS.failed;
+			} else if (status === FILE_UPLOAD_STATUS.failed) {
+				// 失败重传
+				status = FILE_UPLOAD_STATUS.uploading;
+				percent = 0;
+			}
+
+			const newItem = {
+				...item,
+				percent,
+				status,
+			};
+
+			this.setState(
+				() => {
+					const newList = this.state.fileList.map(itemInner =>
+						itemInner._id === item._id ? newItem : itemInner
+					);
+					return {
+						fileList: newList,
+					};
+				},
+				() => {
+					if (
+						[FILE_UPLOAD_STATUS.success, FILE_UPLOAD_STATUS.failed].indexOf(
+							status
+						) === -1
+					) {
+						setTimeout(update, 500);
+					}
+				}
+			);
+		};
+
+		update();
+	};
+
+	startUpload = () => {
+		this.state.fileList.forEach(item => {
+			if (item.status === FILE_UPLOAD_STATUS.beforeUpload) {
+				this.uploadItem(item._id);
+			}
+		});
+	};
+
+	onUploadError = (type, data) => {
+		Notify.error(`错误类型: ${type}, 错误参数: ${JSON.stringify(data)}`);
+	};
+
+	render() {
+		const { fileList } = this.state;
+		return (
+			<>
+				<ImageUpload
+					className="zent-image-upload-demo"
+					maxSize={5 * 1024 * 1024}
+					fileList={fileList}
+					maxAmount={5}
+					multiple
+					sortable
+					skipUpload
+					tips="{i18n.tips}"
+					onChange={this.onUploadChange}
+					onError={this.onUploadError}
+				/>
+				<Button onClick={this.startUpload}>开始上传</Button>
+			</>
+		);
+	}
+}
+
+ReactDOM.render(<Simple />, mountNode);
+```

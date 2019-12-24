@@ -30,12 +30,12 @@ export type IUploadFileItemInner<
 
 // onChange types
 export type IUploadOnChangeHandler<UPLOAD_ITEM extends IUploadFileItem> = (
-  list: UPLOAD_ITEM[],
+  list: Array<IUploadFileItemInner<UPLOAD_ITEM>>,
   detail?: IUploadChangeDetail<UPLOAD_ITEM>
 ) => void;
 
 export interface IUploadChangeDetail<UPLOAD_ITEM extends IUploadFileItem> {
-  item: UPLOAD_ITEM;
+  item: IUploadFileItemInner<UPLOAD_ITEM>;
   type: 'change' | 'add' | 'delete' | 'retry';
 }
 

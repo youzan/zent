@@ -44,6 +44,17 @@ abstract class AbstractUpload<
     };
   }
 
+  static getDerivedStateFromProps(
+    nextProps: IAbstractUploadProps<IUploadFileItem>
+  ) {
+    if ('fileList' in nextProps) {
+      return {
+        fileList: nextProps.fileList || [],
+      };
+    }
+    return null;
+  }
+
   /**
    * 判断是否受控
    */

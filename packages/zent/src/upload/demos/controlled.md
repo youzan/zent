@@ -17,7 +17,7 @@ class Simple extends React.Component {
 	onUploadChange = (files) => {
 		this.setState({
 			fileList: files,
-		})
+		});
 	}
 
 	onUpload = (file, report) => {

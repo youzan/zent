@@ -47,7 +47,6 @@ class Simple extends React.Component {
 				className="zent-upload-demo-pic"
 				maxSize={2 * 1024 * 1024}
 				maxAmount={3}
-				skipUpload
 				onChange={this.onUploadChange}
 				onUpload={this.onUpload}
 				onError={this.onUploadError}
