@@ -82,7 +82,7 @@ it('disabled children', () => {
       document.querySelectorAll('#root > .zent-rate.zent-rate-disabled').length
     ).toBe(1);
     expect(
-      document.querySelectorAll('#root > .zent-select.disabled').length
+      document.querySelectorAll('#root > .zent-select--disabled').length
     ).toBe(1);
     expect(
       document.querySelectorAll('#root > .zent-slider.zent-slider-disabled')
