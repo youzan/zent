@@ -1,13 +1,21 @@
 ---
-order: 1
+order: 3
 zh-CN:
-  title: 基础用法
+  title: 默认文件列表
 en-US:
-  title: Basics
+  title: Default File List
 ---
 
 ```jsx
 import { Upload, Notify } from 'zent';
+
+const defaultFileList = [{
+	name: '1.md',
+	type: 'text/plain',
+}, {
+	name: '2.mp4',
+	type: 'video/mpeg4',
+}]
 
 class Simple extends React.Component {
 	onUploadChange = (files) => {
@@ -44,6 +52,7 @@ class Simple extends React.Component {
 		return (
 			<Upload
 				multiple
+				defaultFileList={defaultFileList}
 				className="zent-upload-demo-pic"
 				maxSize={2 * 1024 * 1024}
 				maxAmount={3}

@@ -1,13 +1,15 @@
 ---
-order: 1
+order: 6
 zh-CN:
-  title: 基础用法
+  title: 图片上传
+  tips: '建议尺寸 640*640'
 en-US:
-  title: Basics
+  title: Image Upload
+  tips: 'Recommended image size 640*640'
 ---
 
 ```jsx
-import { Upload, Notify } from 'zent';
+import { ImageUpload, Notify } from 'zent';
 
 class Simple extends React.Component {
 	onUploadChange = (files) => {
@@ -26,7 +28,8 @@ class Simple extends React.Component {
 					// 随机成功或失败
 					const success = Math.random() > 0.5;
 					if (success) {
-						resolve();
+						// 可以在上传成功时替换图片 src 地址
+						Math.random() > 0.3 ? resolve(): resolve('https://img.yzcdn.cn/public_files/2017/02/09/e84aa8cbbf7852688c86218c1f3bbf17.png');
 					} else {
 						reject();
 					}
@@ -35,18 +38,19 @@ class Simple extends React.Component {
 			setTimeout(update, 500);
 		})
 	}
-
 	onUploadError = (type, data) => {
 		Notify.error(`错误类型: ${type}, 错误参数: ${JSON.stringify(data)}`)
 	}
 
 	render() {
 		return (
-			<Upload
+			<ImageUpload
+				className="zent-image-upload-demo"
+				maxSize={5 * 1024 * 1024}
+				maxAmount={5}
 				multiple
-				className="zent-upload-demo-pic"
-				maxSize={2 * 1024 * 1024}
-				maxAmount={3}
+				sortable
+				tips="{i18n.tips}"
 				onChange={this.onUploadChange}
 				onUpload={this.onUpload}
 				onError={this.onUploadError}
