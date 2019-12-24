@@ -25,6 +25,7 @@ Cascader is used for cascade operation, e.g. cascade location selection.
 | className | custom classname | string | '' | '' |
 | popClassName | custom classname of popover | string | ''zent-cascader__popup'' | '' |
 | displayText | function to customize the display text, selectedOptionArray => text | func | - | |
+| disabled | whether disabled select | boolean | false | true |
 
 -   The source data can be fully passed with `options` or dynamic loaded.
 -   The `root` parameter is data object of current clicked element, and `stage` parameter is the level number when load data throught `loadMore`.

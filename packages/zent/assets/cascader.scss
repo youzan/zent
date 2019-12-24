@@ -4,13 +4,24 @@
 .zent-cascader {
   display: inline-block;
 
-  &.open {
+  &--open {
     .zent-cascader__select-text {
       @include theme-color(border-color, primary, 3);
       @include theme-shadow(focus);
 
       .zenticon {
         transform: rotate(180deg) translateY(50%);
+      }
+    }
+  }
+
+  &--disabled {
+    .zent-cascader__select {
+      .zent-cascader__select-text {
+        cursor: not-allowed;
+        @include theme-color(color, stroke, 4);
+        @include theme-color(border-color, stroke, 5);
+        @include theme-color(background-color, stroke, 8);
       }
     }
   }

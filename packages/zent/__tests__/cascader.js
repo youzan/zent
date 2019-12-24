@@ -192,7 +192,9 @@ describe('Cascader', () => {
     wrapper.find('.zent-cascader__select').simulate('click');
     jest.runAllTimers();
 
-    expect(wrapper.find('.zent-cascader').hasClass('open')).toBe(true);
+    expect(wrapper.find('.zent-cascader').hasClass('zent-cascader--open')).toBe(
+      true
+    );
     const allTabs = document.querySelectorAll('.zent-tabs-tab');
     expect(allTabs.length).toBe(3);
     expect(allTabs[0].textContent).toBe('省份');
@@ -205,7 +207,7 @@ describe('Cascader', () => {
 
     simulateWithTimers(wrapper.find('.zent-cascader__select'), 'click');
     wrapper.update();
-    expect(wrapper.hasClass('open')).toBe(false);
+    expect(wrapper.hasClass('zent-cascader--open')).toBe(false);
     wrapper.unmount();
   });
 
@@ -530,6 +532,14 @@ describe('Cascader', () => {
       'click'
     );
 
+    wrapper.unmount();
+  });
+
+  it('is disabled', () => {
+    const wrapper = mount(<Cascader disabled />);
+    expect(
+      wrapper.find('.zent-cascader').hasClass('zent-cascader--disabled')
+    ).toBe(true);
     wrapper.unmount();
   });
 });
