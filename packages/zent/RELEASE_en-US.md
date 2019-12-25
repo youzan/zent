@@ -12,7 +12,7 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 
 - 🦀️ Fix `FormSelectField`'s `destroyOnUnmount` not working
 - 🦀️ Update `Form` TypeScript definition
-- 🦀️ All props are under `props` in `FormNumberInputField` and `FormSelectField`
+- 🦀️ All props are under `props` in `FormNumberInputField`(`integer`) and `FormSelectField`(`tags`, `data`)
 - 🦀️ Update form error style
 
 ### 7.4.2(2019-12-13)

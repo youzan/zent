@@ -12,7 +12,7 @@
 
 - 🦀️ 修复 `FormSelectField` 的 `destroyOnUnmount` 没有生效的问题
 - 🦀️ 优化 `Form` 的类型定义
-- 🦀️ `FormNumberInputField` 以及 `FormSelectField` 的所有属性都归入 `props` 下，跟其他组件统一
+- 🦀️ `FormNumberInputField`(`integer`) 以及 `FormSelectField`(`tags`, `data`) 的所有属性都归入 `props` 下，跟其他组件统一
 - 🦀️ 更新表单报错的样式
 
 ### 7.4.2(2019-12-13)
