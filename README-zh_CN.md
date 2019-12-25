@@ -10,7 +10,11 @@
 	Zent <small><font color="grey">( &#92;ˈzent&#92; )</font></small>, a collection of essential UI components written with React.
 </p>
 
-[![CircleCI](https://circleci.com/gh/youzan/zent.svg?style=svg)](https://circleci.com/gh/youzan/zent) [![Coverage Status](https://img.shields.io/coveralls/youzan/zent/master.svg?style=flat)](https://coveralls.io/github/youzan/zent?branch=master) [![npm version](https://img.shields.io/npm/v/zent.svg?style=flat)](https://www.npmjs.com/package/zent) [![downloads](https://img.shields.io/npm/dt/zent.svg)](https://www.npmjs.com/package/zent) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](packages/zent/docs/CONTRIBUTING_zh-CN.md)
+[![CircleCI](https://circleci.com/gh/youzan/zent.svg?style=svg)](https://circleci.com/gh/youzan/zent)
+[![npm version](https://img.shields.io/npm/v/zent.svg?style=flat)](https://www.npmjs.com/package/zent)
+[![bundle size](https://badgen.net/bundlephobia/minzip/zent)](https://bundlephobia.com/result?p=zent)
+[![coverage status](https://img.shields.io/coveralls/youzan/zent/master.svg?style=flat)](https://coveralls.io/github/youzan/zent?branch=master)
+[![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](packages/zent/docs/CONTRIBUTING_zh-CN.md)
 
 Zent ( \ˈzent\ ) 是有赞 PC 端 WebUI 规范的 React 实现，提供了一整套基础的 UI 组件以及一些常用的业务组件。
 
@@ -20,17 +24,17 @@ Zent ( \ˈzent\ ) 是有赞 PC 端 WebUI 规范的 React 实现，提供了一�
 
 ### 特性
 
-* 高质量的 React 基础组件以及丰富的业务组件
-* 内置 TypeScript 类型定义文件
-* 支持定制主题
-* 代码/样式按需加载
-* 一套有赞设计师绘制的图标库
+- 高质量的 React 基础组件以及丰富的业务组件
+- 内置 TypeScript 类型定义文件
+- 支持定制主题
+- 代码/样式按需加载
+- 一套有赞设计师绘制的图标库
 
 ### 支持环境
 
-* React >= 16.8
-* 现代浏览器，IE 除外
-* 支持服务端渲染(SSR)
+- React >= 16.8
+- 现代浏览器，IE 除外
+- 支持服务端渲染(SSR)
 
 ### 必须的 polyfill
 

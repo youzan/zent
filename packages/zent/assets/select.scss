@@ -15,7 +15,7 @@
   width: 240px;
   vertical-align: middle;
 
-  &.disabled {
+  &--disabled {
     @include theme-color(color, stroke, 5);
     cursor: not-allowed;
 
@@ -46,7 +46,7 @@
     text-align: left;
     user-select: none;
 
-    &.auto-width {
+    &.zent-select-auto-width {
       width: auto;
     }
   }
@@ -71,9 +71,10 @@
   position: relative;
 
   &::after {
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAMAAAAhxq8pAAAAP1BMVEUAAAAzMzMyMjRAQEAyMjQyMjQ0NDQ2NjYyMjMzMzMyMjMyMjMzMzQyMjQ4ODgzMzNGRkYzMzMyMjUzMzMyMjNbbAmOAAAAFHRSTlMAqr0Grn1SLvTr39GXiSAUC2hbMlOyMCEAAABbSURBVBjTfc5JEoAgDETRlnkGlfufVSkLxWD5ln+RDj7xdSEkR6yTCDZHgW2OCgi0hbZEDjCOU3ZjcxlotHma0cBFjSM32ZvEQPQPR8W35gtekq3VJhA7Yxp/Dk7RDBdwecf8AAAAAElFTkSuQmCC');
+    // This component will be removed soon, update base64 image for now
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAFKADAAQAAAABAAAADAAAAADBhQ6EAAABS0lEQVQoFWNkAAJjY5Pp////TwMymUB8MsA/RkaGmWfPns2CGvD/IdAQcg0D2c/0/z/jEzADRPj6+nYxMDDuBbHJA4yHlJUVO0F6GWEGWFlZif348fMckC8NEyOSfsXJyWF49OjRZyD1cANBHBMTE+v//xkOAMOTBcQnAvxjZmZyP3369B6YWmYYA0Q/e/bssZSU5Fcg0x1ZHBcbGBHNZ86cmYcsjxERwJjqAzp8HbIibGygYfuAYd+ILofiZZikubk53+/ff84C+SowMWSakZHxBQsLs8HJkydfIouD2BguBAkCFX4CaggBavwO4iMDoNhfBob/UdgMA6nDaiBI4tSpUxeZmBizQWxU8L8BGCz7UcUQPJwGgpQAY28+MDzhgQ4Mt13AcGtDaMdkocQypjQDg4GB/s5v377yAQ27wcvLm7JgwQKMYEDWBwBOUl3zzR8jCAAAAABJRU5ErkJggg==');
     background-repeat: no-repeat;
-    background-size: 10px 8px;
+    background-size: 10px 6px;
     background-position: center;
     top: 50%;
     right: 8px;
@@ -85,7 +86,7 @@
     transition: transform 0.25s;
   }
 
-  &.visible {
+  &.zent-select--visible {
     @include theme-color(border-color, primary, 4);
     box-shadow: $shadow-spec-focus;
 
@@ -133,7 +134,7 @@
   }
   // sass-lint:enable no-vendor-prefixes
 
-  &.tags__empty {
+  &__empty {
     padding: 6px 25px 6px 12px;
     line-height: 18px;
   }
@@ -158,15 +159,12 @@
   }
 
   .zent-select-delete {
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAD1BMVEUAAACXmJqbm5uWl5mWl5kT7YGiAAAABHRSTlMAqSnx68ZdFAAAADpJREFUCNdjQAAFEMEERIYghjCQKyLAwMDoyAAiIBwQCWKDhUACYCGgAIyBkIIrRmiHGYiwAm4pHAAAYawE68cLV4IAAAAASUVORK5CYII=');
     display: block;
-    background-size: cover;
-    height: 10px;
-    width: 10px;
     position: absolute;
     right: 4px;
     top: 50%;
     transform: translateY(-50%);
+    @include theme-color(color, stroke, 3);
   }
 }
 
@@ -228,7 +226,6 @@
     & > .zent-select-text,
     & > .zent-select-tags {
       @include theme-color(border-color, error, 2);
-      @include theme-color(color, error, 2);
       border-width: 1px;
       border-style: solid;
     }

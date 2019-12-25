@@ -44,7 +44,9 @@ class InputTrigger extends Component<IInputTriggerProps> {
   render() {
     const { prefixCls, placeholder, keyword, text, visible } = this.props;
 
-    const rootClass = cx(`${prefixCls}-input`, { visible });
+    const rootClass = cx(`${prefixCls}-input`, {
+      'zent-select--visible': visible,
+    });
 
     return (
       <Receiver componentName="Select">
