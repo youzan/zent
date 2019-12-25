@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
+import Icon from '../../icon';
 
 export interface ISelectTagProps {
   prefixCls: string;
@@ -28,7 +29,8 @@ class Tag extends PureComponent<ISelectTagProps, any> {
         {text ? (
           <span className={`${prefixCls}-tag`}>
             {text}
-            <i
+            <Icon
+              type="close"
               className={`${prefixCls}-delete`}
               onClick={this.deleteTagHandler}
             />

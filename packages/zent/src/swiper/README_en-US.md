@@ -10,6 +10,8 @@ Swiper is used for a group of flat content circulated.
 
 ### API
 
+**Nodes in `children` must pass `style` down to native DOM nodes.**
+
 | Property | Description | Type | Default | Optional |
 | -------- | ----------- | ---- | ------- | -------  |
 | transitionDuration | switch animation duration(ms) | number | `300` |  |

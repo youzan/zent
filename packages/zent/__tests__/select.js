@@ -43,7 +43,6 @@ describe('<Select />', () => {
     expect(wrapper.prop('disabled')).toBe(false);
     expect(wrapper.prop('optionText')).toBe('text');
     expect(wrapper.prop('optionValue')).toBe('value');
-    expect(wrapper.prop('prefix')).toBe('zent');
     expect(wrapper.prop('filter')).toBe(undefined);
     expect(wrapper.prop('selectedItem').value).toBe('');
     expect(wrapper.prop('selectedItem').text).toBe('');
