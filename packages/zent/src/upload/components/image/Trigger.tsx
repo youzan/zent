@@ -1,8 +1,9 @@
-import * as React from 'react';
 import cn from 'classnames';
-import AbstractTrigger from '../AbstractTrigger';
-import { IImageUploadFileItem } from '../../types';
+import * as React from 'react';
+
 import Icon from '../../../icon';
+import { IImageUploadFileItem } from '../../types';
+import AbstractTrigger from '../AbstractTrigger';
 
 class ImageUploadTrigger extends AbstractTrigger<IImageUploadFileItem> {
   render() {
@@ -12,7 +13,7 @@ class ImageUploadTrigger extends AbstractTrigger<IImageUploadFileItem> {
         className={cn('zent-image-upload-trigger', {
           ['zent-image-upload-trigger__disabled']: disabled,
         })}
-        onClick={this.clickFileInput}
+        onClick={this.onClickTrigger}
         onDragOver={this.onTriggerDragOver}
         onDrop={this.onTriggerDrop}
       >

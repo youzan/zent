@@ -47,7 +47,7 @@ class Simple extends React.Component {
 			<ImageUpload
 				className="zent-image-upload-demo"
 				maxSize={5 * 1024 * 1024}
-				maxAmount={5}
+				maxAmount={9}
 				multiple
 				sortable
 				tips="{i18n.tips}"

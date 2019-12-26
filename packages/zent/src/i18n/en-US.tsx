@@ -1,9 +1,12 @@
 import * as React from 'react';
 
-import { setLocale, enUS } from './time-locale';
 import {
+  I18nLocaleTimePicker,
+  II18nLocaleCascader,
   II18nLocaleCommon,
   II18nLocaleCopyButton,
+  II18nLocaleGrid,
+  II18nLocaleMention,
   II18nLocalePagination,
   II18nLocalePop,
   II18nLocalePreviewImage,
@@ -11,13 +14,11 @@ import {
   II18nLocaleSelect,
   II18nLocaleSweetalert,
   II18nLocaleSwitch,
-  II18nLocaleGrid,
   II18nLocaleTable,
-  II18nLocaleCascader,
-  I18nLocaleTimePicker,
   II18nLocaleUpload,
-  II18nLocaleMention,
 } from './locale';
+import { enUS, setLocale } from './time-locale';
+
 import capitalize from '../utils/capitalize';
 
 const common: II18nLocaleCommon = {
@@ -179,28 +180,31 @@ export const Upload: II18nLocaleUpload = {
   delete: 'Delete',
   retry: 'Retry',
   failed: 'Failed',
+  limit: 'Maximum number of files has been reached',
   normal: {
     add: 'Add File',
     tips: config => {
-      const { tips, formattedMaxSize, supportTypes } = config;
-      const tipStr = tips ? `${tips}${common.comma}` : '';
-      const supportTypesStr =
-        Array.isArray(supportTypes) && supportTypes.length
-          ? `support ${supportTypes.join('/')}${common.comma}`
-          : '';
-      const sizeLimitStr = `single file no more than ${formattedMaxSize}`;
-      return capitalize(`${tipStr}${supportTypesStr}${sizeLimitStr}`);
+      const { tips, formattedMaxSize } = config;
+      const tipStr = tips ? tips : '';
+      const sizeLimitStr = formattedMaxSize
+        ? `single file no more than ${formattedMaxSize}`
+        : '';
+      return capitalize(
+        [tipStr, sizeLimitStr].filter(Boolean).join(common.comma)
+      );
     },
   },
   image: {
     tips: config => {
       const { tips, formattedMaxSize, maxAmount } = config;
-      const tipStr = tips ? `${tips}${common.comma}` : '';
-      const amoutLimitStr = maxAmount
-        ? `up to ${maxAmount}${common.comma}`
+      const tipStr = tips ? tips : '';
+      const amoutLimitStr = maxAmount ? `up to ${maxAmount}` : '';
+      const sizeLimitStr = formattedMaxSize
+        ? `single file no more than ${formattedMaxSize}`
         : '';
-      const sizeLimitStr = `single image no more than ${formattedMaxSize}`;
-      return capitalize(`${tipStr}${amoutLimitStr}${sizeLimitStr}`);
+      return capitalize(
+        [tipStr, amoutLimitStr, sizeLimitStr].filter(Boolean).join(common.comma)
+      );
     },
   },
 };

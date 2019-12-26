@@ -1,10 +1,10 @@
 ---
 order: 7
 zh-CN:
-  title: 跳过自动上传
+  title: 手动上传
   tips: '建议尺寸 640*640'
 en-US:
-  title: Skip Auto Upload
+  title: Manual Upload
   tips: 'Recommended image size 640*640'
 ---
 
@@ -97,15 +97,15 @@ class Simple extends React.Component {
 					className="zent-image-upload-demo"
 					maxSize={5 * 1024 * 1024}
 					fileList={fileList}
-					maxAmount={5}
+					maxAmount={9}
 					multiple
 					sortable
-					skipUpload
+					manualUpload
 					tips="{i18n.tips}"
 					onChange={this.onUploadChange}
 					onError={this.onUploadError}
 				/>
-				<Button onClick={this.startUpload}>开始上传</Button>
+				<Button className="zent-image-upload-skip-demo-btn" onClick={this.startUpload}>开始上传</Button>
 			</>
 		);
 	}
@@ -113,3 +113,9 @@ class Simple extends React.Component {
 
 ReactDOM.render(<Simple />, mountNode);
 ```
+
+<style>
+	.zent-image-upload-skip-demo-btn {
+		margin-top: 16px;
+	}
+</style>

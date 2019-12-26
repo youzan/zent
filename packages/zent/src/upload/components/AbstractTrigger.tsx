@@ -1,5 +1,8 @@
 import * as React from 'react';
+
 import FileInput from './FileInput';
+
+import Notify from '../../notify';
 import { IAbstractUploadTriggerProps, IUploadFileItem } from '../types';
 
 abstract class AbstractTrigger<
@@ -12,6 +15,18 @@ abstract class AbstractTrigger<
    */
   protected clickFileInput = () => {
     this.fileInputRef.current && this.fileInputRef.current.open();
+  };
+
+  /**
+   * 点击检查上传数量限制，若未达到上限则触发文件上传
+   */
+  protected onClickTrigger = () => {
+    const { remainAmount, i18n } = this.props;
+    if (remainAmount <= 0) {
+      Notify.error(i18n.limit);
+    } else {
+      this.clickFileInput();
+    }
   };
 
   protected onOverMaxAmount() {

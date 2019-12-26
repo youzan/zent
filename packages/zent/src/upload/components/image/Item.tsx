@@ -1,11 +1,12 @@
-import * as React from 'react';
 import cn from 'classnames';
-import { IImageUploadItemProps } from '../../types';
-import { FILE_UPLOAD_STATUS } from '../../constants';
-import { Progress } from '../../../progress';
+import * as React from 'react';
+
 import { Icon } from '../../../icon';
+import { Progress } from '../../../progress';
 import { useHover } from '../../../utils/hooks/use-hover';
+import { FILE_UPLOAD_STATUS } from '../../constants';
 import { useItemHandler } from '../../hooks/item-handler';
+import { IImageUploadItemProps } from '../../types';
 
 /**
  * 通用上传组件上传项
@@ -46,10 +47,7 @@ const ImageUploadItem: React.FC<IImageUploadItemProps> = props => {
     return (
       isFailed && (
         <div className={failedCls} onClick={retryHandler}>
-          <Icon
-            className="zent-image-upload-item__icon"
-            type={failedIconType}
-          />
+          <Icon className="zent-image-upload-item-icon" type={failedIconType} />
           <span className="zent-image-upload-item-backdrop-text">
             {failedText}
           </span>
@@ -78,12 +76,13 @@ const ImageUploadItem: React.FC<IImageUploadItemProps> = props => {
             width={48}
             showInfo={false}
             className="zent-image-upload-item__progress"
-            strokeWidth={8}
+            strokeWidth={4}
             percent={item.percent}
           />
         </div>
       )}
       {failedFallback}
+      <i className="zent-image-upload-item__delete-bg" />
       <Icon
         type="close-circle"
         className="zent-image-upload-item__delete"

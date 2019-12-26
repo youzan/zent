@@ -1,8 +1,9 @@
-import * as React from 'react';
 import cn from 'classnames';
-import AbstractTrigger from '../AbstractTrigger';
+import * as React from 'react';
+
 import Icon from '../../../icon';
 import { IUploadFileItem } from '../../types';
+import AbstractTrigger from '../AbstractTrigger';
 
 export default class NormalUploadTrigger extends AbstractTrigger<
   IUploadFileItem
@@ -20,17 +21,20 @@ export default class NormalUploadTrigger extends AbstractTrigger<
   }
 
   render() {
-    const { i18n, disabled } = this.props;
+    const { i18n, disabled, remainAmount } = this.props;
+
+    const isDisabled = disabled || remainAmount <= 0;
+
     return (
       <div
         className={cn('zent-upload-trigger', {
-          ['zent-upload-trigger__disabled']: disabled,
+          ['zent-upload-trigger__disabled']: isDisabled,
         })}
-        onClick={this.clickFileInput}
+        onClick={this.onClickTrigger}
         onDragOver={this.onTriggerDragOver}
         onDrop={this.onTriggerDrop}
       >
-        <Icon type="upload" className="zent-upload-trigger-icon__normal" />
+        <Icon type="upload" className="zent-upload-trigger-icon" />
         <span className="zent-upload-trigger-text">
           {i18n.normal.add} {this.renderFileItemCount()}
         </span>

@@ -2,20 +2,20 @@ import { Component, ReactNode } from 'react';
 
 import I18nContext from './I18nContext';
 
-export interface II18nReceiverProps<I18N_CONFIG = Record<string, any>, P = {}> {
+export interface II18nReceiverProps<CONF = Record<string, any>, P = {}> {
   componentName: string;
   defaultI18n?: () => {
     [key: string]: {
       [key: string]: string;
     };
   };
-  children(map: I18N_CONFIG, props: P): ReactNode;
+  children(map: CONF, props: P): ReactNode;
 }
 
 export default class I18nReceiver<
-  CONFIG = Record<string, any>,
+  CONF = Record<string, any>,
   P extends {} = {}
-> extends Component<II18nReceiverProps<CONFIG, P> & P> {
+> extends Component<II18nReceiverProps<CONF, P> & P> {
   static contextType = I18nContext;
 
   context!: React.ContextType<typeof I18nContext>;

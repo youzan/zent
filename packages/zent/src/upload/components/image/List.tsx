@@ -1,13 +1,15 @@
 import * as React from 'react';
+
+import ImageUploadItem from './Item';
+
+import Sortable from '../../../sortable';
 import {
-  IUploadFileItem,
-  IUploadFileItemInner,
   IImageUploadFileItem,
   IImageUploadListProps,
+  IUploadFileItem,
+  IUploadFileItemInner,
 } from '../../types';
 import AbstractUploadList from '../AbstractList';
-import ImageUploadItem from './Item';
-import Sortable from '../../../sortable';
 
 export default class ImageUploadList extends AbstractUploadList<
   IImageUploadFileItem,
@@ -48,9 +50,10 @@ export default class ImageUploadList extends AbstractUploadList<
     const fileList = this.getRenderFileList();
     const fileListContent = fileList.map(this.renderFileItem);
 
-    const listContent = sortable ? (
+    const listContent = (
       <Sortable
         tag="ul"
+        disabled={!sortable}
         items={fileList}
         className="zent-image-upload-list"
         onChange={this.onFileListSortChange}
@@ -59,11 +62,6 @@ export default class ImageUploadList extends AbstractUploadList<
         {fileListContent}
         {trigger}
       </Sortable>
-    ) : (
-      <ul className="zent-image-upload-list">
-        {fileListContent}
-        {trigger}
-      </ul>
     );
 
     return <div className="zent-image-upload-list-wrapper">{listContent}</div>;

@@ -1,23 +1,23 @@
 import * as React from 'react';
 
-import { setLocale, zhCN } from './time-locale';
 import {
+  I18nLocaleTimePicker,
+  II18nLocaleCascader,
   II18nLocaleCommon,
   II18nLocaleCopyButton,
+  II18nLocaleGrid,
+  II18nLocaleMention,
   II18nLocalePagination,
   II18nLocalePop,
   II18nLocalePreviewImage,
   II18nLocaleRangePicker,
   II18nLocaleSelect,
-  II18nLocaleSwitch,
   II18nLocaleSweetalert,
-  II18nLocaleGrid,
+  II18nLocaleSwitch,
   II18nLocaleTable,
-  II18nLocaleCascader,
-  I18nLocaleTimePicker,
   II18nLocaleUpload,
-  II18nLocaleMention,
 } from './locale';
+import { setLocale, zhCN } from './time-locale';
 
 const common: II18nLocaleCommon = {
   confirm: '确认',
@@ -174,27 +174,30 @@ export const Upload: II18nLocaleUpload = {
   delete: '删除',
   retry: '重新上传',
   failed: '上传失败',
+  limit: '文件添加个数已达上限',
   normal: {
     add: '添加文件',
     tips: config => {
-      const { tips, formattedMaxSize, supportTypes } = config;
-      const tipStr = tips ? `${tips}${common.comma}` : '';
-      const supportTypesStr =
-        Array.isArray(supportTypes) && supportTypes.length
-          ? `支持${supportTypes.join('/')}格式${common.comma}`
-          : '';
-      const sizeLimitStr = `单个文件不超过${formattedMaxSize}`;
-      return `${tipStr}${supportTypesStr}${sizeLimitStr}`;
+      const { tips, formattedMaxSize } = config;
+      const tipStr = tips ? tips : '';
+      const sizeLimitStr = formattedMaxSize
+        ? `单个文件不超过 ${formattedMaxSize}`
+        : '';
+      return [tipStr, sizeLimitStr].filter(Boolean).join(common.comma);
     },
   },
   image: {
     tips: config => {
       const { tips, formattedMaxSize, maxAmount } = config;
-      const tipStr = tips ? `${tips}${common.comma}` : '';
+      const tipStr = tips ? tips : '';
       const amoutLimitStr =
-        maxAmount !== Infinity ? `最多${maxAmount}张${common.comma}` : '';
-      const sizeLimitStr = `单张图片不超过${formattedMaxSize}`;
-      return `${tipStr}${amoutLimitStr}${sizeLimitStr}`;
+        maxAmount !== Infinity ? `最多 ${maxAmount} 张` : '';
+      const sizeLimitStr = formattedMaxSize
+        ? `单张图片不超过 ${formattedMaxSize}`
+        : '';
+      return [tipStr, amoutLimitStr, sizeLimitStr]
+        .filter(Boolean)
+        .join(common.comma);
     },
   },
 };

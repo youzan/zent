@@ -22,6 +22,7 @@ import {
   defaultPreview,
 } from './utils/default-image-props';
 import { formatFileSize } from './utils/format-file-size';
+import { getTipsContent } from './utils/get-tips-content';
 import { createUploadItemId } from './utils/id';
 
 import { I18nReceiver, II18nLocaleUpload } from '../i18n';
@@ -36,7 +37,7 @@ type IImageUploadPropsInner = PartialRequired<
   | 'getThumbSrcFromFile'
   | 'preview'
   | 'accept'
-  | 'skipUpload'
+  | 'manualUpload'
 >;
 
 export class ImageUpload extends AbstractUpload<
@@ -48,7 +49,7 @@ export class ImageUpload extends AbstractUpload<
     maxAmount: DEFAULT_MAX_AMOUNT,
     maxSize: DEFAULT_MAX_SIZE,
     multiple: DEFAULT_ENABLE_MULTIPLE,
-    skipUpload: false,
+    manualUpload: false,
     getThumbSrcFromFile: defaultGetThumbSrcFromFile,
     preview: defaultPreview,
     accept: 'image/*',
@@ -111,8 +112,11 @@ export class ImageUpload extends AbstractUpload<
       ...this.props,
       formattedMaxSize: formatFileSize(maxSize),
     };
-    const tipGenerator = typeof tips === 'function' ? tips : i18n.image.tips;
-    return <div className="zent-image-upload-tips">{tipGenerator(config)}</div>;
+    return (
+      <div className="zent-image-upload-tips">
+        {getTipsContent(tips, config, i18n.image.tips)}
+      </div>
+    );
   }
 
   protected renderTrigger(i18n: II18nLocaleUpload): React.ReactNode {

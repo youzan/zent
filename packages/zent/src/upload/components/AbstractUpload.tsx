@@ -128,10 +128,10 @@ abstract class AbstractUpload<
     file: File,
     uploadItem: IUploadFileItemInner<UPLOAD_ITEM>
   ) => {
-    const { onUpload, skipUpload } = this.props;
+    const { onUpload, manualUpload } = this.props;
     const uplodaItemId = uploadItem._id;
     // auto start upload
-    if (!skipUpload && onUpload) {
+    if (!manualUpload && onUpload) {
       onUpload(file, this.updateUploadItemPercent.bind(this, uplodaItemId))
         .then(onUploadReturn => {
           this.updateUploadItemStatusToSuccess(uplodaItemId, onUploadReturn);
@@ -243,9 +243,8 @@ abstract class AbstractUpload<
     // 已成功、已失败、已删除的上传项，不进行进度更新
     if (
       !updateItem ||
-      [FILE_UPLOAD_STATUS.success, FILE_UPLOAD_STATUS.failed].indexOf(
-        updateItem.status
-      ) !== -1
+      updateItem.status === FILE_UPLOAD_STATUS.success ||
+      updateItem.status === FILE_UPLOAD_STATUS.failed
     ) {
       return;
     }

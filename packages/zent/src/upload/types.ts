@@ -62,7 +62,7 @@ export type IUploadOnErrorHandler = <
 
 // tips types
 export type IUploadTipConfig<P> = P & {
-  formattedMaxSize: string;
+  formattedMaxSize: string | null;
 };
 
 export type IUploadTipsFunc<PROPS> = (
@@ -116,12 +116,10 @@ export interface IAbstractUploadProps<
   /** 是否可排序 */
   sortable?: boolean;
   /** 是否自动触发文件上传流程（即 onUpload 回调） */
-  skipUpload?: boolean;
+  manualUpload?: boolean;
 }
 
 export interface IUploadProps extends IAbstractUploadProps<IUploadFileItem> {
-  /** 用于覆盖提示文案中自动推导的格式，不对实际文件校验有影响 */
-  supportTypes?: string[];
   /** 提示文案 */
   tips?: string | IUploadTipsFunc<IUploadProps>;
   /** 是否展示分页信息 */
