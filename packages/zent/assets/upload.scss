@@ -56,11 +56,15 @@
 
     &-icon {
       @include theme-color(color, primary, 4);
-      font-size: $font-size-large;
+      font-size: 18px;
     }
 
     &__disabled {
       @include trigger-disabled;
+
+      .zent-upload-trigger-text {
+        @include theme-color(color, stroke, 3);
+      }
 
       .zent-upload-trigger-icon {
         @include theme-color(color, stroke, 4);

@@ -121,6 +121,7 @@ const NormalUploadItem: React.FC<INormalUploadItemProps> = props => {
           showInfo={false}
           className="zent-upload-item__progress"
           strokeWidth={2}
+          status="normal"
           percent={item.percent}
         />
       )}

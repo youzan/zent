@@ -77,6 +77,7 @@ const ImageUploadItem: React.FC<IImageUploadItemProps> = props => {
             showInfo={false}
             className="zent-image-upload-item__progress"
             strokeWidth={4}
+            status="normal"
             percent={item.percent}
           />
         </div>
