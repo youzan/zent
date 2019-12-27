@@ -48,7 +48,7 @@ export type IUploadOnUploadHandler<ON_UPLOAD_SUCCESS_RETURN = void> = (
 // error types，错误类型映射表
 export interface IUploadErrorMessageConfigMap {
   /** 文件大小超出限制 */
-  overMaxSize: { maxSize: number };
+  overMaxSize: { maxSize: number; formattedMaxSize: string };
   /** 选择文件数量超出限制 */
   overMaxAmount: { maxAmount: number };
 }

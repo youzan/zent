@@ -27,7 +27,6 @@ class Simple extends React.Component {
 	};
 
 	uploadItem = id => {
-		console.log(id);
 		const update = () => {
 			const item = this.state.fileList.find(o => o._id === id);
 			let percent = item.percent;
@@ -86,7 +85,11 @@ class Simple extends React.Component {
 	};
 
 	onUploadError = (type, data) => {
-		Notify.error(`错误类型: ${type}, 错误参数: ${JSON.stringify(data)}`);
+		if (type === 'overMaxAmount') {
+			Notify.error(`最多可上传 ${data.maxAmount} 张图片`);
+		} else if (type === 'overMaxSize') {
+			Notify.error(`图片大小不能超过 ${data.formattedMaxSize}`);
+		}
 	};
 
 	render() {
@@ -105,7 +108,12 @@ class Simple extends React.Component {
 					onChange={this.onUploadChange}
 					onError={this.onUploadError}
 				/>
-				<Button className="zent-image-upload-skip-demo-btn" onClick={this.startUpload}>开始上传</Button>
+				<Button
+					className="zent-image-upload-skip-demo-btn"
+					onClick={this.startUpload}
+				>
+					开始上传
+				</Button>
 			</>
 		);
 	}

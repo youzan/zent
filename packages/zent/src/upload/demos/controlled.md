@@ -12,13 +12,13 @@ import { Upload, Notify } from 'zent';
 class Simple extends React.Component {
 	state = {
 		fileList: [],
-	}
+	};
 
-	onUploadChange = (files) => {
+	onUploadChange = files => {
 		this.setState({
 			fileList: files,
 		});
-	}
+	};
 
 	onUpload = (file, report) => {
 		return new Promise((resolve, reject) => {
@@ -37,14 +37,18 @@ class Simple extends React.Component {
 						reject();
 					}
 				}
-			}
+			};
 			setTimeout(update, 500);
-		})
-	}
+		});
+	};
 
 	onUploadError = (type, data) => {
-		Notify.error(`错误类型: ${type}, 错误参数: ${JSON.stringify(data)}`)
-	}
+		if (type === 'overMaxAmount') {
+			Notify.error(`最多可上传 ${data.maxAmount} 个文件`);
+		} else if (type === 'overMaxSize') {
+			Notify.error(`文件大小不能超过 ${data.formattedMaxSize}`);
+		}
+	};
 
 	render() {
 		const { fileList } = this.state;

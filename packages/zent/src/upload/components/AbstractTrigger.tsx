@@ -4,6 +4,7 @@ import FileInput from './FileInput';
 
 import Notify from '../../notify';
 import { IAbstractUploadTriggerProps, IUploadFileItem } from '../types';
+import { formatFileSize } from '../utils/format-file-size';
 
 abstract class AbstractTrigger<
   UPLOAD_ITEM extends IUploadFileItem
@@ -36,7 +37,10 @@ abstract class AbstractTrigger<
 
   protected onOverMaxSize(files: File[]) {
     const { maxSize } = this.props;
-    this.props.onError('overMaxSize', { maxSize });
+    this.props.onError('overMaxSize', {
+      maxSize,
+      formattedMaxSize: formatFileSize(maxSize)!,
+    });
   }
 
   /**
