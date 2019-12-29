@@ -529,6 +529,10 @@ export class Grid<Data = any> extends PureComponent<
       if (autoStick && stickyHead && target !== stickyHead) {
         stickyHead.scrollLeft = target.scrollLeft;
       }
+      if (!scroll.y && !scrollBody && !scrollHeader) {
+        this.bodyTable.scrollLeft = target.scrollLeft;
+      }
+
       this.setScrollPositionClassName();
     }
     this.lastScrollLeft = target.scrollLeft;
@@ -550,6 +554,7 @@ export class Grid<Data = any> extends PureComponent<
   onResize = debounce(() => {
     this.syncFixedTableRowHeight();
     this.toggleBatchComponents();
+    this.setStickyHeadWidth();
   }, 500);
 
   onRowMouseEnter = (mouseOverRowIndex: number) => {
@@ -886,11 +891,13 @@ export class Grid<Data = any> extends PureComponent<
       window.pageXOffset;
     if (this.props.autoStick) {
       const isTableInView = isElementInView(this.gridNode.current);
-      if (this.state.showStickHead !== isTableInView) {
-        this.setState({
-          showStickHead: isTableInView,
-        });
-      }
+      const tableHeaderEl = ReactDom.findDOMNode(
+        this.headerNode.current
+      ) as Element;
+      const isHeaderInView = isElementInView(tableHeaderEl);
+      this.setState({
+        showStickHead: !isHeaderInView && isTableInView,
+      });
       this.setState({
         marginLeft: `-${scrollLeft}px`,
       });
@@ -1026,7 +1033,7 @@ export class Grid<Data = any> extends PureComponent<
       bordered,
       autoStick,
     } = this.props;
-    const { showStickHead, marginLeft, tableWidth } = this.state;
+    const { marginLeft, tableWidth } = this.state;
 
     const stickHeadWarpStyle: React.CSSProperties = {};
 
