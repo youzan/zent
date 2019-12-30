@@ -2,9 +2,10 @@ export const IMAGE_DEFAULT_ACCEPT =
   'image/jpeg, image/png, image/bmp, image/gif';
 
 export enum FILE_UPLOAD_STATUS {
-  uploading = 'uploading',
-  failed = 'failed',
-  success = 'success',
+  beforeUpload = 'beforeUpload', // 上传前
+  uploading = 'uploading', // 上传中
+  failed = 'failed', // 上传失败
+  success = 'success', // 上传成功
 }
 
 // 默认最大上传数

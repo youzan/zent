@@ -11,12 +11,6 @@
   cursor: not-allowed;
 }
 
-@mixin tips {
-  @include theme-color(color, stroke, 3);
-  @include font-small;
-  margin-top: 12px;
-}
-
 @mixin image-item {
   border-radius: 2px;
   width: 80px;
@@ -29,10 +23,13 @@
   @include theme-color(border-color, stroke, 5);
   border-width: 1px;
   border-style: solid;
+  border-radius: 2px;
   width: 320px;
 
   &-tips {
-    @include tips;
+    @include theme-color(color, stroke, 3);
+    @include font-small;
+    margin-top: 12px;
     text-align: center;
   }
 
@@ -45,10 +42,6 @@
     overflow: hidden;
     text-decoration: none;
 
-    &__disabled {
-      @include trigger-disabled;
-    }
-
     &-wrapper {
       padding: 16px;
     }
@@ -56,57 +49,76 @@
     &-text {
       margin-left: 8px;
 
-      &__count {
-        @include theme-color(color, stroke, 2);
+      &-count {
+        @include theme-color(color, stroke, 3);
       }
     }
 
-    &-icon__normal {
+    &-icon {
       @include theme-color(color, primary, 4);
-      font-size: $font-size-large;
+      font-size: 18px;
+    }
+
+    &__disabled {
+      @include trigger-disabled;
+
+      .zent-upload-trigger-text {
+        @include theme-color(color, stroke, 3);
+      }
+
+      .zent-upload-trigger-icon {
+        @include theme-color(color, stroke, 4);
+      }
     }
   }
 
   &-list {
-    @include theme-color(border-bottom-color, stroke, 5);
-    border-bottom-width: 1px;
+    margin-bottom: 10px;
 
     &-wrapper {
       padding: 16px 16px 0;
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
+      @include theme-color(border-bottom-color, stroke, 5);
     }
 
     &-pagination {
-      margin-top: 30px;
+      margin-bottom: 16px;
 
       .zent-pagination-page-list--mini {
         margin: 0;
+        margin-right: -16px;
       }
     }
   }
 
   &-item {
-    margin-bottom: 16px;
+    margin-bottom: 18px;
 
     &:last-child {
       margin-bottom: 0;
     }
 
-    &__info {
+    &-info {
       display: flex;
       justify-content: flex-start;
       align-items: center;
     }
 
-    &__icon {
+    &-icon {
       width: 20px;
       height: 20px;
-      font-size: 16px;
+      font-size: 18px;
       display: flex;
       justify-content: center;
       align-items: center;
+
+      &__type {
+        @include theme-color(color, primary, 4);
+      }
     }
 
-    &__name {
+    &-name {
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
@@ -123,7 +135,7 @@
       }
     }
 
-    &__actions {
+    &-actions {
       margin-left: 4px;
 
       a {
@@ -131,7 +143,11 @@
       }
     }
 
-    &__retry {
+    &-progress {
+      margin-top: 8px;
+    }
+
+    &-retry {
       @include theme-color(border-right-color, stroke, 5);
       border-right-width: 1px;
       border-right-style: solid;
@@ -139,25 +155,27 @@
       margin-right: 4px;
     }
 
-    &__progress {
-      margin-top: 8px;
-    }
-
     &__failed {
       @include theme-color(color, error, 2);
+    }
+
+    &__uploading {
+      margin-bottom: 8px;
     }
   }
 }
 
 .zent-image-upload {
   &-tips {
-    @include tips;
+    @include theme-color(color, stroke, 3);
+    @include font-normal;
+    margin-top: 8px;
   }
 
   &-trigger {
     @include image-item;
     @include theme-color(background-color, stroke, 8);
-    @include theme-color(color, stroke, 3);
+    @include theme-color(color, stroke, 2);
     @include theme-color(border-color, stroke, 5);
     display: flex;
     justify-content: center;
@@ -204,7 +222,7 @@
       }
 
       &__black {
-        background-color: rgba($theme-stroke-0, 0.6);
+        background-color: rgba(black, 0.6);
       }
 
       &__failed {
@@ -217,27 +235,47 @@
 
       &-text {
         margin-top: 4px;
+        @include font-small;
       }
     }
 
-    &__thumb {
+    &-icon {
+      font-size: 24px;
+    }
+
+    &-thumb {
       width: 100%;
       height: 100%;
+      object-fit: contain;
       border-radius: 2px;
     }
 
-    &__delete {
-      @include theme-color(color, stroke, 1);
+    &-delete {
+      @include theme-color(color, stroke, 3);
       position: absolute;
-      font-size: 16px;
-      right: -8px;
-      top: -8px;
+      font-size: 20px;
+      right: -10px;
+      top: -10px;
       display: none;
+
+      &-bg {
+        @include theme-color(background-color, stroke, 9);
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        right: -5px;
+        top: -5px;
+        display: none;
+      }
     }
 
     &__hover {
-      .zent-image-upload-item__delete {
+      .zent-image-upload-item-delete {
         display: inline-block;
+
+        &-bg {
+          display: inline-block;
+        }
       }
     }
   }

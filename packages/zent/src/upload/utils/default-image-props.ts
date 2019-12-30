@@ -15,14 +15,14 @@ export function defaultGetThumbSrcFromFile(file: File) {
 }
 
 /**
- * 默认点击图片时的放大预览方法，排除上传中和上传失败的图片
+ * 默认点击图片时的放大预览方法，排除上传失败的图片
  */
 export function defaultPreview(
   file: IImageUploadFileItem,
   fileList: IImageUploadFileItem[]
 ) {
   const previeFiles = fileList.filter(
-    item => item.status === FILE_UPLOAD_STATUS.success
+    item => item.status !== FILE_UPLOAD_STATUS.failed
   );
   const previewIndex = previeFiles.indexOf(file);
   previewImage({

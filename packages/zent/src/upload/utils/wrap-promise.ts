@@ -1,8 +1,6 @@
-import isPromise from '../../utils/isPromise';
-
 export function wrapPromise(condition: boolean | Promise<any>) {
-  if (isPromise(condition)) {
-    return condition;
+  if (typeof condition === 'boolean') {
+    return condition ? Promise.resolve() : Promise.reject();
   }
-  return condition ? Promise.resolve() : Promise.reject();
+  return condition;
 }
