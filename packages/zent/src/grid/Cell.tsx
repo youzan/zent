@@ -88,6 +88,7 @@ class Cell<Data> extends Component<IGridCellProps<Data>> {
         className={classnames(`${prefix}-grid-td`, className, {
           [`${prefix}-grid-text-align-${textAlign}`]: textAlign,
           [`${prefix}-grid-nowrap`]: nowrap,
+          [`${prefix}-grid-td-multiple-row`]: tdProps && tdProps.rowSpan > 1,
         })}
         {...tdProps}
         onClick={this.onClick}

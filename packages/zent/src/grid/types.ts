@@ -67,7 +67,9 @@ export interface IGridSelection<Data = any> {
     selectedRows: Data[],
     changeRow: Data | Data[]
   ) => any;
-  getCheckboxProps?: (data: Data) => { disabled?: boolean };
+  getCheckboxProps?: (
+    data: Data
+  ) => { disabled?: boolean; reason: React.ReactNode };
 }
 
 export interface IGridExpandation<Data = any> {

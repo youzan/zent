@@ -254,24 +254,24 @@
     vertical-align: middle;
 
     &:first-child {
-      padding: 10px 12px 9px 16px;
+      padding: 10px 4px 9px 16px;
     }
 
     &:last-child {
-      padding: 10px 16px 9px 12px;
+      padding: 10px 16px 9px 4px;
     }
   }
 
   &-th {
     @include theme-color(background-color, stroke, 8);
     line-height: 20px;
-    padding: 10px 12px;
+    padding: 10px 12px 10px 4px;
     font-weight: 500;
   }
 
   &-td {
     line-height: 20px;
-    padding: 10px 12px;
+    padding: 10px 12px 10px 4px;
     position: relative;
 
     .zent-grid-expandable-btn {
@@ -300,6 +300,13 @@
         width: 8px;
         display: inline-block;
       }
+    }
+
+    &-multiple-row {
+      @include theme-color(border-color, stroke, 6);
+      border-left-width: 1px;
+      border-right-width: 1px;
+      border-style: solid;
     }
   }
 
@@ -380,6 +387,7 @@
     line-height: 1;
     font-size: 0;
     display: inline-block;
+    margin-top: -1px;
   }
 
   .zent-grid-sticky-header {

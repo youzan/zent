@@ -129,6 +129,7 @@ export class Grid<Data = any> extends PureComponent<
   checkboxPropsCache: {
     [key: string]: {
       disabled?: boolean;
+      reason?: React.ReactNode;
     };
   } = {};
   store: Store = new Store();
@@ -384,7 +385,7 @@ export class Grid<Data = any> extends PureComponent<
           />
         ),
         key: 'selection-column',
-        width: '44px',
+        width: '36px',
         bodyRender: this.renderSelectionCheckbox(),
       };
 
@@ -838,7 +839,7 @@ export class Grid<Data = any> extends PureComponent<
           className="zent-grid-selection-checkbox"
         >
           <SelectionCheckbox
-            disabled={props.disabled}
+            {...props}
             rowIndex={rowIndex}
             store={this.store}
             onChange={(e: ICheckboxEvent<unknown>) =>

@@ -98,6 +98,7 @@ class Selection extends React.Component {
 					},
 					getCheckboxProps: data => ({
 						disabled: data.name === '{i18n.babyProducts} 1',
+						reason: 'disabled'
 					}),
 				}}
 				rowKey="id"

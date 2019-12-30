@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
 import Checkbox, { ICheckboxProps } from '../checkbox';
+import Pop from '../pop';
 import Store from './Store';
 
 interface IGridSelectionCheckboxProps {
   disabled?: boolean;
+  reason?: React.ReactNode;
   rowIndex: number | string;
   store: Store;
   onChange: ICheckboxProps<unknown>['onChange'];
@@ -64,9 +66,13 @@ class SelectionCheckbox extends PureComponent<
   }
 
   render() {
-    const { onChange, disabled } = this.props;
+    const { onChange, disabled, reason } = this.props;
     const { checked } = this.state;
-    return (
+    return reason && disabled ? (
+      <Pop content={reason} trigger="hover" position="top-left" centerArrow>
+        <Checkbox onChange={onChange} checked={checked} disabled={disabled} />
+      </Pop>
+    ) : (
       <Checkbox onChange={onChange} checked={checked} disabled={disabled} />
     );
   }
