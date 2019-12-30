@@ -49,7 +49,7 @@
     &-text {
       margin-left: 8px;
 
-      &__count {
+      &-count {
         @include theme-color(color, stroke, 3);
       }
     }
@@ -99,7 +99,7 @@
       margin-bottom: 0;
     }
 
-    &__info {
+    &-info {
       display: flex;
       justify-content: flex-start;
       align-items: center;
@@ -118,7 +118,7 @@
       }
     }
 
-    &__name {
+    &-name {
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
@@ -135,7 +135,7 @@
       }
     }
 
-    &__actions {
+    &-actions {
       margin-left: 4px;
 
       a {
@@ -143,16 +143,16 @@
       }
     }
 
-    &__retry {
+    &-progress {
+      margin-top: 8px;
+    }
+
+    &-retry {
       @include theme-color(border-right-color, stroke, 5);
       border-right-width: 1px;
       border-right-style: solid;
       padding-right: 4px;
       margin-right: 4px;
-    }
-
-    &__progress {
-      margin-top: 8px;
     }
 
     &__failed {
@@ -243,14 +243,14 @@
       font-size: 24px;
     }
 
-    &__thumb {
+    &-thumb {
       width: 100%;
       height: 100%;
       object-fit: contain;
       border-radius: 2px;
     }
 
-    &__delete {
+    &-delete {
       @include theme-color(color, stroke, 3);
       position: absolute;
       font-size: 20px;
@@ -270,7 +270,7 @@
     }
 
     &__hover {
-      .zent-image-upload-item__delete {
+      .zent-image-upload-item-delete {
         display: inline-block;
 
         &-bg {

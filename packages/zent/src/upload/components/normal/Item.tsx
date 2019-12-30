@@ -94,22 +94,22 @@ const NormalUploadItem: React.FC<INormalUploadItemProps> = props => {
 
   return (
     <li key={item._id} className={cls}>
-      <div className="zent-upload-item__info">
+      <div className="zent-upload-item-info">
         {getFileIcon(item)}
         <Pop
-          wrapperClassName="zent-upload-item__name-wrapper"
+          wrapperClassName="zent-upload-item-name-wrapper"
           content={item.name}
           trigger="hover"
           mouseEnterDelay={500}
         >
-          <p className="zent-upload-item__name-line">
-            <span className="zent-upload-item__name">{filename}</span>
-            <span className="zent-upload-item__ext">{ext}</span>
+          <p className="zent-upload-item-name-line">
+            <span className="zent-upload-item-name">{filename}</span>
+            <span className="zent-upload-item-name-ext">{ext}</span>
           </p>
         </Pop>
-        <div className="zent-upload-item__actions">
+        <div className="zent-upload-item-actions">
           {isFailed && (
-            <a className="zent-upload-item__retry" onClick={retryHandler}>
+            <a className="zent-upload-item-retry" onClick={retryHandler}>
               {i18n.retry}
             </a>
           )}
@@ -119,7 +119,7 @@ const NormalUploadItem: React.FC<INormalUploadItemProps> = props => {
       {isUploading && (
         <Progress
           showInfo={false}
-          className="zent-upload-item__progress"
+          className="zent-upload-item-progress"
           strokeWidth={2}
           status="normal"
           percent={item.percent}

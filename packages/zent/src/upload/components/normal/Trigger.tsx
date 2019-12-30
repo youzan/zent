@@ -14,7 +14,7 @@ export default class NormalUploadTrigger extends AbstractTrigger<
       return null;
     }
     return (
-      <span className="zent-upload-trigger-text__count">
+      <span className="zent-upload-trigger-text-count">
         {availableUploadItemsCount}/{maxAmount}
       </span>
     );
