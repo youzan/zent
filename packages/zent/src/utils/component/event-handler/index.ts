@@ -4,7 +4,8 @@ import { TargetEventHandlers } from './TargetEventHandlers';
 import { normalizeEventOptions } from './normalize-event-options';
 import { eventOptionsKey } from './event-option-key';
 
-const targetMap = new WeakMap<EventTarget, TargetEventHandlers>();
+// This export is only for unit testing
+export const targetMap = new WeakMap<EventTarget, TargetEventHandlers>();
 
 export function addEventListener<T extends EventTarget = HTMLElement>(
   target: T,

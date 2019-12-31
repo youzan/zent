@@ -110,13 +110,7 @@ export class TargetEventHandlers<E extends string = string> {
     const eventHandlers = this.getEventHandlers(eventName, options);
     eventHandlers.handlers = eventHandlers.nextHandlers;
     eventHandlers.handlers.forEach(handler => {
-      if (handler) {
-        // We need to check for presence here because a handler function may
-        // cause later handlers to get removed. This can happen if you for
-        // instance have a waypoint that unmounts another waypoint as part of an
-        // onEnter/onLeave handler.
-        handler(event);
-      }
+      handler(event);
     });
   }
 }
