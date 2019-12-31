@@ -92,6 +92,10 @@ export class ZentForm<T extends Record<string, BasicModel<unknown>>>
     return this.inner.model.getRawValue();
   }
 
+  getSubmitValue() {
+    return this.inner.model.getSubmitValue();
+  }
+
   initialize(value: $FieldSetValue<T>) {
     this.inner.model.initialize(value);
   }
