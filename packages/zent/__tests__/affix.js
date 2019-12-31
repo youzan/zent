@@ -11,19 +11,17 @@ describe('Affix component', () => {
     expect(wrapper.find('.zent-affix').length).toBe(1);
     const props = wrapper.find('Affix').props();
     expect(props.offsetTop).toBe(0);
-    expect(props.prefix).toBe('zent');
     expect(props.zIndex).toBe(10);
   });
 
   it('Affix set props', () => {
     const wrapper = mount(
-      <Affix prefix="wulv" className="affix" zIndex={100} offsetTop={50} />
+      <Affix className="affix" zIndex={100} offsetTop={50} />
     );
     jest.runOnlyPendingTimers();
     const props = wrapper.props();
     const state = wrapper.state();
     expect(props.offsetTop).toBe(50);
-    expect(props.prefix).toBe('wulv');
     expect(props.zIndex).toBe(100);
     expect(props.className).toBe('affix');
     expect(wrapper.instance().affix).toBe(true);
@@ -33,15 +31,15 @@ describe('Affix component', () => {
 
   it('Affix scroll events', () => {
     const wrapper = mount(<Affix offsetTop={50} />);
-    jest.runOnlyPendingTimers();
+    jest.runAllTimers();
 
     const state = wrapper.state();
 
     expect(wrapper.instance().affix).toBe(true);
     expect(state.width).toBe(0);
     expect(state.position).toBe('fixed');
-    expect(state.placeHoldStyle.width).toBe('100%');
-    expect(state.placeHoldStyle.height).toBe(0);
+    expect(state.placeholderStyle.width).toBe('100%');
+    expect(state.placeholderStyle.height).toBe(0);
     expect(wrapper.instance().affix).toBe(true);
     wrapper.setProps({ offsetTop: -100 });
     wrapper.instance().updatePin();
@@ -72,7 +70,7 @@ describe('Affix component', () => {
     const affix = wrapper1.find('Affix');
     const state1 = affix.instance().state;
     expect(state1.width).toBe(0);
-    affix.instance().handleScroll();
+    affix.instance().reposition();
 
     affix.instance().pin();
     affix.instance().unpin();
@@ -81,7 +79,7 @@ describe('Affix component', () => {
 
   it('unpin if offset is not reached', () => {
     const wrapper = mount(
-      <Affix prefix="wulv" className="affix" zIndex={100} offsetTop={50} />
+      <Affix className="affix" zIndex={100} offsetTop={50} />
     );
     jest.runOnlyPendingTimers();
     const node = wrapper.instance();

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
 import BlockLoading from '../loading/BlockLoading';
+import { addEventListener } from '../utils/component/event-handler';
 
 export interface IInfiniteScrollerProps {
   className?: string;
@@ -26,7 +27,8 @@ export class InfiniteScroller extends Component<IInfiniteScrollerProps> {
     loader: <BlockLoading height={60} loading icon="circle" />,
   };
 
-  scroller: HTMLDivElement | null = null;
+  scroller = React.createRef<HTMLDivElement>();
+  eventCancelList = [] as Array<() => void>;
 
   state = {
     isLoading: false,
@@ -60,12 +62,12 @@ export class InfiniteScroller extends Component<IInfiniteScrollerProps> {
     if (useWindow) {
       const windowScrollTop = this.getWindowScrollTop();
       offsetDistance =
-        this.calculateTopPosition(this.scroller) +
-        this.scroller.offsetHeight -
+        this.calculateTopPosition(this.scroller.current) +
+        this.scroller.current.offsetHeight -
         windowScrollTop -
         window.innerHeight;
     } else {
-      const { scrollHeight, clientHeight, scrollTop } = this.scroller;
+      const { scrollHeight, clientHeight, scrollTop } = this.scroller.current;
       offsetDistance = scrollHeight - clientHeight - scrollTop;
     }
 
@@ -97,23 +99,26 @@ export class InfiniteScroller extends Component<IInfiniteScrollerProps> {
 
     let scrollEl: Window | HTMLDivElement = window;
     if (!useWindow) {
-      scrollEl = this.scroller;
+      scrollEl = this.scroller.current;
     }
 
-    scrollEl.addEventListener('scroll', this.handleScroll, useCapture);
-    scrollEl.addEventListener('resize', this.handleScroll, useCapture);
+    this.eventCancelList.push(
+      addEventListener(scrollEl, 'scroll', this.handleScroll, {
+        capture: useCapture,
+        passive: true,
+      })
+    );
+    this.eventCancelList.push(
+      addEventListener(scrollEl, 'resize', this.handleScroll, {
+        capture: useCapture,
+        passive: true,
+      })
+    );
   };
 
   removeScrollListener = () => {
-    const { useWindow, useCapture } = this.props;
-
-    let scrollEl: Window | HTMLDivElement = window;
-    if (!useWindow) {
-      scrollEl = this.scroller;
-    }
-
-    scrollEl.removeEventListener('scroll', this.handleScroll, useCapture);
-    scrollEl.removeEventListener('resize', this.handleScroll, useCapture);
+    this.eventCancelList.forEach(cancel => cancel());
+    this.eventCancelList = [];
   };
 
   componentDidMount() {
@@ -144,7 +149,7 @@ export class InfiniteScroller extends Component<IInfiniteScrollerProps> {
       [`${prefix}-infinite-scroller-y`]: !useWindow,
     });
     return (
-      <div ref={scroller => (this.scroller = scroller)} className={classString}>
+      <div ref={this.scroller} className={classString}>
         {children}
         {hasMore && isLoading && loader}
       </div>

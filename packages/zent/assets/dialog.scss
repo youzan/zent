@@ -64,27 +64,27 @@ $z-index: 1050;
 }
 
 .zent-dialog-r-close {
-  @include theme-color(color, stroke, 4);
+  @include theme-color(color, stroke, 2);
   @include theme-color(background-color, stroke, 9);
   position: absolute;
   display: inline-block;
   top: 4px;
   right: 10px;
-  font-size: 20px;
-  line-height: 20px;
+  font-size: 18px;
+  line-height: 18px;
   text-align: right;
   vertical-align: middle;
   cursor: pointer;
   border: 0;
   outline: none;
   user-select: none;
-  padding: 0 6px;
+  padding: 0 0 0 6px;
   margin: 0;
 
   &:link,
   &:active,
   &:focus {
-    @include theme-color(color, stroke, 4);
+    @include theme-color(color, stroke, 2);
   }
 
   &.zent-dialog-r-has-title {

@@ -10,7 +10,6 @@ const TabPanel = Tabs.TabPanel;
 const withPopover = Popover.withPopover;
 
 export interface ITabsContentProps {
-  prefix?: string;
   className?: string;
   clickHandler: CascaderHandler;
   value: CascaderValue[];
@@ -31,16 +30,15 @@ export interface ITabsContentProps {
 
 class TabsContent extends PureComponent<ITabsContentProps> {
   renderCascaderItems(items: ICascaderItem[], stage: number, popover: Popover) {
-    const { prefix, value, clickHandler } = this.props;
+    const { value, clickHandler } = this.props;
 
     const cascaderItems = items.map(item => {
-      const cascaderItemCls = classnames({
-        [`${prefix}-cascader__list-link`]: true,
-        active: item.id === value[stage - 1],
+      const cascaderItemCls = classnames('zent-cascader__list-link', {
+        'zent-cascader__list-link--active': item.id === value[stage - 1],
       });
 
       return (
-        <div className={`${prefix}-cascader__list-item`} key={item.id}>
+        <div className="zent-cascader__list-item" key={item.id}>
           <span
             className={cascaderItemCls}
             title={item.title}
@@ -52,17 +50,17 @@ class TabsContent extends PureComponent<ITabsContentProps> {
       );
     });
 
-    return <div className={`${prefix}-cascader__list`}>{cascaderItems}</div>;
+    return <div className="zent-cascader__list">{cascaderItems}</div>;
   }
 
   renderTabTitle(title: React.ReactNode, stage: number) {
-    const { prefix, isLoading, loadingStage } = this.props;
+    const { isLoading, loadingStage } = this.props;
 
     if (isLoading && stage === loadingStage) {
       return (
-        <div className={`${prefix}-cascader__loading`}>
-          <div className={`${prefix}-cascader__loading-label`}>{title}</div>
-          <div className={`${prefix}-cascader__loading-icon`} />
+        <div className="zent-cascader__loading">
+          <div className="zent-cascader__loading-label">{title}</div>
+          <div className="zent-cascader__loading-icon" />
         </div>
       );
     }
@@ -121,14 +119,14 @@ class TabsContent extends PureComponent<ITabsContentProps> {
   }
 
   render() {
-    const { prefix, activeId, popover, i18n, onTabChange } = this.props;
+    const { activeId, popover, i18n, onTabChange } = this.props;
     return (
-      <div className={`${prefix}-cascader__popup-inner`}>
+      <div className="zent-cascader__popup-inner">
         <Tabs
           activeId={activeId}
           onChange={onTabChange}
           type="card"
-          className={`${prefix}-cascader__tabs`}
+          className="zent-cascader__tabs"
         >
           {this.renderPanels(popover, i18n)}
         </Tabs>

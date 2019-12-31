@@ -15,7 +15,9 @@ export interface ISimpleTriggerProps {
 class SimpleTrigger extends PureComponent<ISimpleTriggerProps> {
   render() {
     const { prefixCls, onClick, visible } = this.props;
-    const rootClass = cx(`${prefixCls}-simple`, { visible });
+    const rootClass = cx(`${prefixCls}-simple`, {
+      'zent-select--visible': visible,
+    });
 
     return (
       <Receiver componentName="Select">

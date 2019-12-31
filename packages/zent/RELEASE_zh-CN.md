@@ -8,6 +8,18 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 7.4.3(2019-12-19)
+
+- 🦀️ 修复 `FormSelectField` 的 `destroyOnUnmount` 没有生效的问题
+- 🦀️ 优化 `Form` 的类型定义
+- 🦀️ `FormNumberInputField`(`integer`) 以及 `FormSelectField`(`tags`, `data`) 的所有属性都归入 `props` 下，跟其他组件统一
+- 🦀️ 更新表单报错的样式
+
+### 7.4.2(2019-12-13)
+
+- 🦀️ 修复 `Grid` 一个样式问题
+- 🦀️ 修复 `DateRangeQuickPicker` 的类型问题
+
 ### 7.4.1(2019-12-13)
 
 - ✨新增 3 个新图标：`doc`, `video`, `audio`
@@ -96,10 +108,10 @@
 
 ### 6.6.2 (2019-02-26)
 
-- `Form` 
+- `Form`
   - 🦀️ 修复异步检验通过还是报错的问题
   - 🦀️ 更新 `createForm` 的 TypeScript 定义
-- 🦀️ 增加 `Affix` 以及 `Avatar` DOM 节点不存在时的异常校验 
+- 🦀️ 增加 `Affix` 以及 `Avatar` DOM 节点不存在时的异常校验
 
 ### 6.6.1 (2019-01-30)
 
@@ -180,7 +192,7 @@
 
 ### 6.1.0 (2018-08-03)
 
-- `Grid` 
+- `Grid`
   - ✨ 支持给每一列设置一个默认的展示文案
   - 🦀️ 修复 `selection.getCheckboxProps` 没有实时更新的问题
 - ✨ 新增几个 `Icon`

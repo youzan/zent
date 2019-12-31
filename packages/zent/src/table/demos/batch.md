@@ -19,7 +19,7 @@ en-US:
 ---
 
 ```js
-import { Table, Notify } from 'zent';
+import { Table, Notify, Button } from 'zent';
 
 const datasets = [
 	{
@@ -94,13 +94,13 @@ class Customer extends React.Component {
 
 	render() {
 		return (
-			<button
+			<Button
 				key="comp"
-				className="child-comps zent-btn"
+				className="child-comps"
 				onClick={this.onClick}
 			>
 				Click
-			</button>
+			</Button>
 		);
 	}
 }

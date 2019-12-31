@@ -74,6 +74,7 @@ export const FormSelectField: React.FunctionComponent<IFormSelectFieldProps<
     notice,
     helpDesc,
     withoutError,
+    withoutLabel,
     renderError = defaultRenderError,
     validateOccasion = ValidateOccasion.Default,
     getValidateOption = defaultGetValidateOption,
@@ -105,6 +106,7 @@ export const FormSelectField: React.FunctionComponent<IFormSelectFieldProps<
       label={label}
       required={!!required}
       invalid={!!model.error}
+      withoutLabel={withoutLabel}
     >
       <div className="zent-form-control-content-inner">
         {before}

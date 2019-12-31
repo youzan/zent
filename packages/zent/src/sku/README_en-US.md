@@ -6,7 +6,7 @@ group: Domain-specific
 
 ## SKU Selector(DEPRECATED)
 
-Please use `@zent/sku`.
+**Please use `@zent/sku`.**
 
 A widget for SKU selection.
 

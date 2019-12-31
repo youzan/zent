@@ -61,14 +61,12 @@ export interface ISelectProps {
   retainNullOption?: boolean;
 
   width?: number | string;
-  prefix?: string;
   simple?: boolean;
   search?: boolean;
 }
 
 export class Select extends React.Component<ISelectProps, any> {
   static defaultProps = {
-    prefix: 'zent',
     open: false,
     optionValue: 'value',
     optionText: 'text',
@@ -421,8 +419,8 @@ export class Select extends React.Component<ISelectProps, any> {
 
     const { cid = '' } = selectedItem;
 
-    const disabledCls = disabled ? 'disabled' : '';
-    const prefixCls = `${this.props.prefix}-select`;
+    const disabledCls = disabled ? 'zent-select--disabled' : '';
+    const prefixCls = 'zent-select';
     return (
       <Popover
         display="inline-block"
@@ -431,7 +429,7 @@ export class Select extends React.Component<ISelectProps, any> {
         position={Popover.Position.AutoBottomLeft}
         visible={open}
         className={cx(`${prefixCls}__popover`, popupClassName, {
-          'auto-width': autoWidth,
+          'zent-select-auto-width': autoWidth,
         })}
         wrapperClassName={cx(prefixCls, className, disabledCls)}
         onVisibleChange={this.handlePopoverVisibleChange}
