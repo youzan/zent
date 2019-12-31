@@ -4,6 +4,11 @@ import { Component } from 'react';
 
 import getViewportSize from '../dom/getViewportSize';
 import WindowEventHandler from './WindowEventHandler';
+import { runOnceInNextFrame } from '../nextFrame';
+
+const RESIZE_OPTIONS = {
+  passive: true,
+};
 
 export interface IWindowResizeHandlerDelta {
   deltaX: number;
@@ -18,7 +23,7 @@ export interface IWindowResizeHandlerProps {
  * Handles window.resize event.
  *
  * The event handler got a second parameter: {deltaX, deltaY}.
- * The resize event handler should be throttled since resize events can fire at a high rate.
+ * The `onResize` callback is throttled.
  */
 export default class WindowResizeHandler extends Component<
   IWindowResizeHandlerProps
@@ -28,7 +33,7 @@ export default class WindowResizeHandler extends Component<
     height: number;
   } | null = null;
 
-  onResize = (evt: UIEvent) => {
+  onResize = runOnceInNextFrame((evt: UIEvent) => {
     const viewportSize = getViewportSize();
 
     if (!this._prevViewportSize) {
@@ -36,6 +41,7 @@ export default class WindowResizeHandler extends Component<
     }
 
     const prevViewportSize = this._prevViewportSize;
+
     const delta = {
       deltaX: viewportSize.width - prevViewportSize.width,
       deltaY: viewportSize.height - prevViewportSize.height,
@@ -47,13 +53,23 @@ export default class WindowResizeHandler extends Component<
 
     this.props.onResize(evt, delta);
     this._prevViewportSize = viewportSize;
-  };
+  });
 
   componentDidMount() {
     this._prevViewportSize = getViewportSize();
   }
 
+  componentWillUnmount() {
+    this.onResize.cancel();
+  }
+
   render() {
-    return <WindowEventHandler eventName="resize" callback={this.onResize} />;
+    return (
+      <WindowEventHandler
+        eventName="resize"
+        listener={this.onResize}
+        options={RESIZE_OPTIONS}
+      />
+    );
   }
 }

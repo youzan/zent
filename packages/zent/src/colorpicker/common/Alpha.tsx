@@ -3,12 +3,14 @@ import { Component, createRef } from 'react';
 import reactCSS from '../helpers/reactcss';
 import * as alpha from '../helpers/alpha';
 import Checkboard from './Checkboard';
+import { addEventListener } from '../../utils/component/event-handler';
 
 /**
  * 透明度
  */
 export class Alpha extends Component<any, any> {
   containerRef = createRef<HTMLDivElement>();
+  eventCancelList = [] as Array<() => void>;
 
   componentWillUnmount() {
     this.unbindEventListeners();
@@ -26,8 +28,12 @@ export class Alpha extends Component<any, any> {
 
   handleMouseDown = e => {
     this.handleChange(e, true);
-    window.addEventListener('mousemove', this.handleChange);
-    window.addEventListener('mouseup', this.handleMouseUp);
+    this.eventCancelList.push(
+      addEventListener(window, 'mousemove', this.handleChange)
+    );
+    this.eventCancelList.push(
+      addEventListener(window, 'mouseup', this.handleMouseUp, { passive: true })
+    );
   };
 
   handleMouseUp = () => {
@@ -35,8 +41,8 @@ export class Alpha extends Component<any, any> {
   };
 
   unbindEventListeners = () => {
-    window.removeEventListener('mousemove', this.handleChange);
-    window.removeEventListener('mouseup', this.handleMouseUp);
+    this.eventCancelList.forEach(cancel => cancel());
+    this.eventCancelList = [];
   };
 
   render() {

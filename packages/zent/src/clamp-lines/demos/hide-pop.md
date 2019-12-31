@@ -1,9 +1,9 @@
 ---
 order: 2
 zh-CN:
-	title: 不显示pop提示
+	title: 不显示提示
 en-US:
-	title: Hide Pop
+	title: Hide tooltip
 ---
 
 ```js

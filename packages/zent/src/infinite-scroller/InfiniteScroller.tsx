@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
 import BlockLoading from '../loading/BlockLoading';
+import { addEventListener } from '../utils/component/event-handler';
 
 export interface IInfiniteScrollerProps {
   className?: string;
@@ -27,6 +28,7 @@ export class InfiniteScroller extends Component<IInfiniteScrollerProps> {
   };
 
   scroller: HTMLDivElement | null = null;
+  eventCancelList = [] as Array<() => void>;
 
   state = {
     isLoading: false,
@@ -100,20 +102,23 @@ export class InfiniteScroller extends Component<IInfiniteScrollerProps> {
       scrollEl = this.scroller;
     }
 
-    scrollEl.addEventListener('scroll', this.handleScroll, useCapture);
-    scrollEl.addEventListener('resize', this.handleScroll, useCapture);
+    this.eventCancelList.push(
+      addEventListener(scrollEl, 'scroll', this.handleScroll, {
+        capture: useCapture,
+        passive: true,
+      })
+    );
+    this.eventCancelList.push(
+      addEventListener(scrollEl, 'resize', this.handleScroll, {
+        capture: useCapture,
+        passive: true,
+      })
+    );
   };
 
   removeScrollListener = () => {
-    const { useWindow, useCapture } = this.props;
-
-    let scrollEl: Window | HTMLDivElement = window;
-    if (!useWindow) {
-      scrollEl = this.scroller;
-    }
-
-    scrollEl.removeEventListener('scroll', this.handleScroll, useCapture);
-    scrollEl.removeEventListener('resize', this.handleScroll, useCapture);
+    this.eventCancelList.forEach(cancel => cancel());
+    this.eventCancelList = [];
   };
 
   componentDidMount() {

@@ -2,10 +2,10 @@ import * as React from 'react';
 import { Component, CSSProperties } from 'react';
 import cx from 'classnames';
 import * as ReactDOM from 'react-dom';
-import throttle from '../utils/throttle';
 
-import WindowEventHandler from '../utils/component/WindowEventHandler';
 import getViewportSize from '../utils/dom/getViewportSize';
+import WindowResizeHandler from '../utils/component/WindowResizeHandler';
+import { WindowScrollHandler } from '../utils/component/WindowScrollHandler';
 
 export interface IAffixProps {
   offsetTop: number;
@@ -14,27 +14,25 @@ export interface IAffixProps {
   onUnpin?: () => void;
   zIndex: number;
   className?: string;
-  placeHoldClassName?: string;
-  prefix?: string;
+  placeholderClassName?: string;
 }
 
 export interface IAffixState {
   position: 'static' | 'fixed';
   width: number | undefined;
-  placeHoldStyle: CSSProperties;
+  placeholderStyle: CSSProperties;
 }
 
 export class Affix extends Component<IAffixProps, IAffixState> {
   static defaultProps = {
     offsetTop: 0,
-    prefix: 'zent',
     zIndex: 10,
   };
 
   state: IAffixState = {
     position: 'static',
     width: undefined,
-    placeHoldStyle: {},
+    placeholderStyle: {},
   };
 
   affix = false;
@@ -55,7 +53,7 @@ export class Affix extends Component<IAffixProps, IAffixState> {
     this.setState({
       position: 'static',
       width: undefined,
-      placeHoldStyle: { overflow: 'hidden' },
+      placeholderStyle: { overflow: 'hidden' },
     });
     onUnpin && onUnpin();
   }
@@ -69,7 +67,7 @@ export class Affix extends Component<IAffixProps, IAffixState> {
 
     this.setState({
       width: element.offsetWidth,
-      placeHoldStyle: {
+      placeholderStyle: {
         width: '100%',
         height: element.offsetHeight,
       },
@@ -104,14 +102,14 @@ export class Affix extends Component<IAffixProps, IAffixState> {
     }
   }
 
-  handleResize = throttle(() => {
+  redraw = () => {
     this.updatePin();
     this.setWidth();
-  }, 20);
+  };
 
-  handleScroll = throttle(() => {
+  reposition = () => {
     this.updatePin();
-  }, 20);
+  };
 
   getStyleObj() {
     const { zIndex, offsetBottom, offsetTop } = this.props;
@@ -131,29 +129,29 @@ export class Affix extends Component<IAffixProps, IAffixState> {
   }
 
   componentDidMount() {
-    this.handleResize();
+    this.redraw();
   }
 
-  componentDidUpdate() {
-    this.handleResize();
-  }
-
-  componentWillUnmount() {
-    this.handleResize.cancel();
-    this.handleScroll.cancel();
+  componentDidUpdate(prevProps: IAffixProps) {
+    if (
+      prevProps.offsetBottom !== this.props.offsetBottom ||
+      prevProps.offsetTop !== this.props.offsetTop
+    ) {
+      this.redraw();
+    }
   }
 
   render() {
-    const { prefix, className, placeHoldClassName, children } = this.props;
-    const wrapClass = cx(`${prefix}-affix`, className);
+    const { className, placeholderClassName, children } = this.props;
+    const wrapClass = cx('zent-affix', className);
 
     return (
-      <div className={placeHoldClassName} style={this.state.placeHoldStyle}>
+      <div className={placeholderClassName} style={this.state.placeholderStyle}>
         <div className={wrapClass} style={{ ...this.getStyleObj() }}>
           {children}
         </div>
-        <WindowEventHandler eventName="scroll" callback={this.handleScroll} />
-        <WindowEventHandler eventName="resize" callback={this.handleResize} />
+        <WindowScrollHandler onScroll={this.reposition} />
+        <WindowResizeHandler onResize={this.redraw} />
       </div>
     );
   }
