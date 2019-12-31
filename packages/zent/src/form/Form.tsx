@@ -18,6 +18,7 @@ import {
   ValidateOption,
   createAsyncValidator,
   isAsyncValidator,
+  useFieldValue,
 } from 'formulr';
 import memorize from '../utils/memorize-one';
 import { FormContext, IFormChild, IZentFormContext } from './context';
@@ -110,6 +111,7 @@ export class Form<
   static FieldValue = FieldValue;
   static FieldSetValue = FieldSetValue;
   static useFieldArrayValue = useFieldArrayValue;
+  static useFieldValue = useFieldValue;
   static ValidateOption = ValidateOption;
   static createAsyncValidator = createAsyncValidator;
   static isAsyncValidator = isAsyncValidator;

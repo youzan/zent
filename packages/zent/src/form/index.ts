@@ -18,7 +18,6 @@ export {
   $FieldSetBuilderChildren,
   $FieldSetValue,
   INormalizeBeforeSubmit,
-  useFieldValue,
 } from 'formulr';
 
 export * from './form-components';
