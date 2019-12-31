@@ -7,7 +7,7 @@ import helper from '../helper';
 import Checkbox from '../../checkbox';
 import { ITableChangeConfig } from '../Table';
 import { WindowScrollHandler } from '../../utils/component/WindowScrollHandler';
-import WindowResizeHandler from '../../utils/component/WindowResizeHandler';
+import { WindowResizeHandler } from '../../utils/component/WindowResizeHandler';
 
 const stickRowClass = 'stickrow';
 const fixRowClass = 'fixrow';

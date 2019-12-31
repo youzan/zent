@@ -3,7 +3,7 @@ import { Component } from 'react';
 import cx from 'classnames';
 import Portal from '../portal';
 import defer from '../utils/defer';
-import WindowResizeHandler from '../utils/component/WindowResizeHandler';
+import { WindowResizeHandler } from '../utils/component/WindowResizeHandler';
 import findPositionedParent from '../utils/dom/findPositionedParent';
 import { getViewportSize } from '../utils/dom/getViewportSize';
 import isEqualPlacement from './placement/isEqual';

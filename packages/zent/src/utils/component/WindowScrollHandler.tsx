@@ -11,22 +11,29 @@ export interface IWindowScrollHandler {
   options?: AddEventListenerOptions;
 }
 
-export class WindowScrollHandler extends React.Component<IWindowScrollHandler> {
-  onScroll = runOnceInNextFrame((evt: UIEvent) => {
-    this.props.onScroll(evt);
-  });
+/**
+ * Register a scroll event on Window.
+ *
+ * `onScroll` is throttled to run only once in a frame, you don't have to throttle you callback.
+ */
+export const WindowScrollHandler: React.FC<IWindowScrollHandler> = props => {
+  const cb = React.useRef(props.onScroll);
+  cb.current = props.onScroll;
+  const onScroll = React.useCallback(
+    runOnceInNextFrame((evt: UIEvent) => {
+      cb.current(evt);
+    }),
+    []
+  );
+  React.useEffect(() => {
+    return onScroll.cancel;
+  }, [onScroll]);
 
-  componentWillUnmount() {
-    this.onScroll.cancel();
-  }
-
-  render() {
-    return (
-      <WindowEventHandler
-        eventName="scroll"
-        listener={this.onScroll}
-        options={{ ...OPTIONS, ...this.props.options }}
-      />
-    );
-  }
-}
+  return (
+    <WindowEventHandler
+      eventName="scroll"
+      listener={onScroll}
+      options={{ ...OPTIONS, ...props.options }}
+    />
+  );
+};

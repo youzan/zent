@@ -13,7 +13,7 @@ import Body from './modules/Body';
 import Foot from './modules/Foot';
 import helper from './helper';
 import { PaginationPageSizeOption } from '../pagination/components/PageSizeChanger';
-import WindowResizeHandler from '../utils/component/WindowResizeHandler';
+import { WindowResizeHandler } from '../utils/component/WindowResizeHandler';
 import { WindowScrollHandler } from '../utils/component/WindowScrollHandler';
 
 export type TablePaginationType = 'default' | 'lite' | 'mini';

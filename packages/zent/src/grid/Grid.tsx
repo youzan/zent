@@ -6,7 +6,7 @@ import isEqual from '../utils/isEqual';
 
 import noop from '../utils/noop';
 import measureScrollbar from '../utils/dom/measureScrollbar';
-import WindowResizeHandler from '../utils/component/WindowResizeHandler';
+import { WindowResizeHandler } from '../utils/component/WindowResizeHandler';
 import { WindowScrollHandler } from '../utils/component/WindowScrollHandler';
 import BatchComponents from './BatchComponents';
 import {

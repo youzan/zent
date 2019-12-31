@@ -4,7 +4,7 @@ import cx from 'classnames';
 import * as ReactDOM from 'react-dom';
 
 import getViewportSize from '../utils/dom/getViewportSize';
-import WindowResizeHandler from '../utils/component/WindowResizeHandler';
+import { WindowResizeHandler } from '../utils/component/WindowResizeHandler';
 import { WindowScrollHandler } from '../utils/component/WindowScrollHandler';
 
 export interface IAffixProps {

@@ -23,7 +23,6 @@ describe('ClampLines', () => {
     };
     instance.clampLines();
     wrapper.setState({ noClamp: false });
-    // instance.state.noClamp = false;
     wrapper.render();
     expect(wrapper.state().noClamp).toBe(false);
     expect(instance.innerElement.current.textContent).toBe(content);

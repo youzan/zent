@@ -1,6 +1,5 @@
 /* eslint-disable no-underscore-dangle */
 import * as React from 'react';
-import { Component } from 'react';
 
 import getViewportSize from '../dom/getViewportSize';
 import WindowEventHandler from './WindowEventHandler';
@@ -20,56 +19,55 @@ export interface IWindowResizeHandlerProps {
 }
 
 /**
- * Handles window.resize event.
+ * Register a resize event on Window
  *
  * The event handler got a second parameter: {deltaX, deltaY}.
- * The `onResize` callback is throttled.
+ * The `onResize` callback is throttled to run only once in a frame, you don't need to throttle the callback.
  */
-export default class WindowResizeHandler extends Component<
-  IWindowResizeHandlerProps
-> {
-  _prevViewportSize: {
+export const WindowResizeHandler: React.FC<IWindowResizeHandlerProps> = props => {
+  const prevViewportSize = React.useRef<{
     width: number;
     height: number;
-  } | null = null;
+  }>(null);
 
-  onResize = runOnceInNextFrame((evt: UIEvent) => {
-    const viewportSize = getViewportSize();
+  const cb = React.useRef(props.onResize);
+  cb.current = props.onResize;
 
-    if (!this._prevViewportSize) {
-      this._prevViewportSize = viewportSize;
-    }
+  const onResize = React.useCallback(
+    runOnceInNextFrame((evt: UIEvent) => {
+      const viewportSize = getViewportSize();
 
-    const prevViewportSize = this._prevViewportSize;
+      if (!prevViewportSize.current) {
+        prevViewportSize.current = viewportSize;
+      }
 
-    const delta = {
-      deltaX: viewportSize.width - prevViewportSize.width,
-      deltaY: viewportSize.height - prevViewportSize.height,
-    };
+      const prev = prevViewportSize.current;
 
-    if (delta.deltaX === 0 && delta.deltaY === 0) {
-      return;
-    }
+      const delta = {
+        deltaX: viewportSize.width - prev.width,
+        deltaY: viewportSize.height - prev.height,
+      };
 
-    this.props.onResize(evt, delta);
-    this._prevViewportSize = viewportSize;
-  });
+      if (delta.deltaX === 0 && delta.deltaY === 0) {
+        return;
+      }
 
-  componentDidMount() {
-    this._prevViewportSize = getViewportSize();
-  }
+      cb.current(evt, delta);
+      prevViewportSize.current = viewportSize;
+    }),
+    []
+  );
 
-  componentWillUnmount() {
-    this.onResize.cancel();
-  }
+  React.useEffect(() => {
+    prevViewportSize.current = getViewportSize();
+    return onResize.cancel;
+  }, [onResize]);
 
-  render() {
-    return (
-      <WindowEventHandler
-        eventName="resize"
-        listener={this.onResize}
-        options={RESIZE_OPTIONS}
-      />
-    );
-  }
-}
+  return (
+    <WindowEventHandler
+      eventName="resize"
+      listener={onResize}
+      options={RESIZE_OPTIONS}
+    />
+  );
+};

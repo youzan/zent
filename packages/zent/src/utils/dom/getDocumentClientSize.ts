@@ -1,4 +1,5 @@
 import { addEventListener } from '../component/event-handler';
+import isBrowser from '../isBrowser';
 
 /**
  * getDocumentClientSize
@@ -8,7 +9,7 @@ import { addEventListener } from '../component/event-handler';
 
 let documentClientHeight: number | null = null;
 let documentClientWidth: number | null = null;
-if (process.env.BROWSER) {
+if (isBrowser) {
   documentClientHeight = document.documentElement.clientHeight;
   documentClientWidth = document.documentElement.clientWidth;
 
