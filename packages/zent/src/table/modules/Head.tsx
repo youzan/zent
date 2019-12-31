@@ -3,19 +3,18 @@ import { PureComponent } from 'react';
 import * as ReactDOM from 'react-dom';
 import cx from 'classnames';
 
-import throttle from '../../utils/throttle';
 import helper from '../helper';
 import Checkbox from '../../checkbox';
 import { ITableChangeConfig } from '../Table';
+import { WindowScrollHandler } from '../../utils/component/WindowScrollHandler';
+import { WindowResizeHandler } from '../../utils/component/WindowResizeHandler';
 
 const stickRowClass = 'stickrow';
 const fixRowClass = 'fixrow';
 
 export default class Head extends PureComponent<any, any> {
   relativeTop: number;
-  mounted: boolean;
   rect: any;
-  throttleSetHeadStyle: any;
 
   constructor(props) {
     super(props);
@@ -24,30 +23,7 @@ export default class Head extends PureComponent<any, any> {
       isShowFixRow: false,
     };
     this.relativeTop = 0;
-    this.mounted = false;
     this.rect = {};
-  }
-
-  componentDidMount() {
-    this.mounted = true;
-
-    if (this.props.autoStick) {
-      this.throttleSetHeadStyle = throttle(this.setHeadStyle, 100, {
-        immediate: true,
-      });
-
-      window.addEventListener('scroll', this.throttleSetHeadStyle, true);
-      window.addEventListener('resize', this.throttleSetHeadStyle, true);
-    }
-  }
-
-  componentWillUnmount() {
-    this.mounted = false;
-
-    if (this.props.autoStick) {
-      window.removeEventListener('scroll', this.throttleSetHeadStyle, true);
-      window.removeEventListener('resize', this.throttleSetHeadStyle, true);
-    }
   }
 
   getRect() {
@@ -68,10 +44,6 @@ export default class Head extends PureComponent<any, any> {
   }
 
   setHeadStyle = () => {
-    if (!this.mounted) {
-      return;
-    }
-
     this.getRect();
     if (window.scrollY > this.relativeTop) {
       this.setState({
@@ -233,13 +205,22 @@ export default class Head extends PureComponent<any, any> {
   }
 
   render() {
-    const { style } = this.props;
+    const { style, autoStick } = this.props;
     const { isShowFixRow, fixStyle } = this.state;
 
     return (
       <div className="thead" style={style}>
         {this.renderTr(false)}
         {isShowFixRow && this.renderTr(true, fixStyle)}
+        {autoStick && (
+          <>
+            <WindowScrollHandler
+              onScroll={this.setHeadStyle}
+              options={{ capture: true }}
+            />
+            <WindowResizeHandler onResize={this.setHeadStyle} />
+          </>
+        )}
       </div>
     );
   }

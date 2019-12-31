@@ -19,7 +19,6 @@ group: 展示
 | trigger   | Pop的触发方式 | `string` | `'hover'` | `'click'`, `'focus'` |
 | renderPop | 自定义Pop content的显示 | `function` | `identity` |  |
 | resizable | 是否响应窗口的resize | `boolean` | `false` |  |
-| delay     | 延迟响应窗口的时间 | `number` | `250` |  |
 | extra     | 额外节点，用于显示`更多`一类的操作 | `ReactElement` | `null` |  |
 | className | 自定义额外类名 | `string` | `''` |  |
 | prefix    | 自定义前缀 | `string` | `zent` |  |

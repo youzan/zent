@@ -2,8 +2,7 @@ import * as React from 'react';
 import { Component, Children, cloneElement } from 'react';
 import cx from 'classnames';
 
-import throttle from '../utils/throttle';
-import WindowResizeHandler from '../utils/component/WindowResizeHandler';
+import { WindowResizeHandler } from '../utils/component/WindowResizeHandler';
 import Icon from '../icon';
 import SwiperDots from './SwiperDots';
 
@@ -238,7 +237,7 @@ export class Swiper extends Component<ISwiperProps, ISwiperState> {
     this.setState({ currentIndex: index });
   };
 
-  handleResize: any = throttle(this.init, 1000 / 60);
+  handleResize = () => this.init();
 
   static getDerivedStateFromProps(
     props: ISwiperProps,

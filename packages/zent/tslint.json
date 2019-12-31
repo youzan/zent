@@ -13,6 +13,14 @@
       {
         "name": ["document", "createElement"],
         "message": "Use utils/dom/createElement"
+      },
+      {
+        "name": ["*", "addEventListener"],
+        "message": "Use { addEventListener, useEventHandler, EventHandler } from utils/dom/event-handler"
+      },
+      {
+        "name": ["*", "removeEventListener"],
+        "message": "Use return value of { addEventListener } from utils/dom/event-handler"
       }
     ],
     "ban-ts-ignore": true,

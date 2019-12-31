@@ -187,12 +187,12 @@ export class Form<
     this.submit(e);
   };
 
-  private listenEvents() {
+  private subscribe() {
     const { form } = this.props;
     this.subscription = form.submit$.subscribe(this.submitListener);
   }
 
-  private removeEventListeners() {
+  private unsubscribe() {
     if (this.subscription) {
       this.subscription.unsubscribe();
       this.subscription = null;
@@ -200,18 +200,18 @@ export class Form<
   }
 
   componentDidMount() {
-    this.listenEvents();
+    this.subscribe();
   }
 
   componentDidUpdate(prevProps: IFormProps<T, Model>) {
     if (prevProps.form !== this.props.form) {
-      this.removeEventListeners();
-      this.listenEvents();
+      this.unsubscribe();
+      this.subscribe();
     }
   }
 
   componentWillUnmount() {
-    this.removeEventListeners();
+    this.unsubscribe();
   }
 
   render() {

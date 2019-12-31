@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
-import debounce from '../utils/debounce';
 import identity from '../utils/identity';
 import Pop from '../pop';
-import WindowResizeHandler from '../utils/component/WindowResizeHandler';
+import { WindowResizeHandler } from '../utils/component/WindowResizeHandler';
+import isBrowser from '../utils/isBrowser';
+import { getLineHeight } from '../utils/dom/getLineHeight';
 
 export interface IClampLinesProps {
   text: string;
   lines?: number;
-  delay?: number;
   ellipsis?: string;
   showPop?: boolean;
   popWidth?: number;
@@ -18,7 +18,6 @@ export interface IClampLinesProps {
   resizable?: boolean;
   extra?: React.ReactNode;
   className?: string;
-  prefix?: string;
 }
 
 export interface IClampLinesState {
@@ -30,9 +29,7 @@ export interface IClampLinesState {
 export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
   static defaultProps = {
     className: '',
-    prefix: 'zent',
     lines: 2,
-    delay: 300,
     ellipsis: '...',
     showPop: true,
     popWidth: 250,
@@ -42,29 +39,29 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
     extra: null,
   };
 
-  element: HTMLDivElement;
-  innerElement: HTMLSpanElement;
-  original: string;
-  lineHeight: number;
-  maxHeight: number;
-  ssr: boolean;
+  element = React.createRef<HTMLDivElement>();
+  innerElement = React.createRef<HTMLSpanElement>();
+  lineHeight = 0;
+  maxHeight = 0;
 
-  constructor(props) {
+  original: string;
+
+  constructor(props: IClampLinesProps) {
     super(props);
 
-    this.element = null;
-    this.innerElement = null;
     this.original = props.text;
-    this.lineHeight = 0;
 
     this.state = {
       noClamp: false,
-      text: '.',
+      text: '',
       original: props.text,
     };
   }
 
-  static getDerivedStateFromProps(props, state) {
+  static getDerivedStateFromProps(
+    props: IClampLinesProps,
+    state: IClampLinesState
+  ) {
     const { text } = props;
     if (state.original !== text) {
       return {
@@ -76,7 +73,7 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
     return null;
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: IClampLinesProps) {
     const { text } = prevProps;
     if (text && text !== this.state.original) {
       this.clampLines();
@@ -85,37 +82,36 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
 
   componentDidMount() {
     const { text } = this.props;
-    if (text && !this.ssr) {
-      this.lineHeight = this.element.clientHeight + 1;
+    if (text && isBrowser) {
+      this.lineHeight = getLineHeight(this.element.current);
       this.clampLines();
     }
   }
 
-  handleResize = debounce(() => {
-    this.setState({ noClamp: false });
-    this.clampLines();
-  }, this.props.delay);
+  handleResize = () => {
+    this.setState({ noClamp: false }, this.clampLines);
+  };
 
   clampLines() {
+    if (!this.innerElement.current || !this.element.current) {
+      return;
+    }
+
     const original = this.state.original;
-    const maxHeight = this.lineHeight * this.props.lines + 1;
+    // Don't compare to n*lineHeight, n-line element height is not necessarily equal to n*lineHeight
+    const maxHeight = this.lineHeight * (this.props.lines + 1);
     let start = 0;
     let middle = 0;
     let end = original.length;
 
     this.maxHeight = maxHeight;
 
-    // WindowResizeHandler will exec a later call on unmounted element
-    if (!this.innerElement) {
-      return;
-    }
-
     this.setState({ text: '' });
 
     // binary search to find suitable text size
     while (start <= end) {
       middle = Math.floor((start + end) / 2);
-      this.innerElement.textContent =
+      this.innerElement.current.textContent =
         original.slice(0, middle) + this.getEllipsis();
       if (middle === original.length) {
         this.setState({
@@ -125,14 +121,14 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
         return;
       }
 
-      if (this.element.clientHeight <= maxHeight) {
+      if (this.element.current.clientHeight < maxHeight) {
         start = middle + 1;
       } else {
         end = middle - 1;
       }
     }
 
-    this.innerElement.textContent =
+    this.innerElement.current.textContent =
       original.slice(0, middle - 1) + this.getEllipsis();
     this.setState({
       text: original.slice(0, middle - 1) + this.getEllipsis(),
@@ -145,24 +141,23 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
 
   renderResizable() {
     if (this.props.resizable) {
-      return <WindowResizeHandler onResize={() => this.handleResize()} />;
+      return <WindowResizeHandler onResize={this.handleResize} />;
     }
     return null;
   }
 
   renderClampedText() {
-    const { className, prefix } = this.props;
-    const classString = cx({
+    const { className } = this.props;
+    const classString = cx('zent-clamp-lines', {
       [className]: className,
-      [`${prefix}-clamp-lines`]: true,
     });
     return (
       <div
         className={classString}
         style={{ maxHeight: this.maxHeight, overflowY: 'hidden' }}
       >
-        <div ref={e => (this.element = e)}>
-          <span ref={e => (this.innerElement = e)}>{this.state.text}</span>
+        <div ref={this.element}>
+          <span ref={this.innerElement}>{this.state.text}</span>
           {this.props.extra}
         </div>
         {this.renderResizable()}

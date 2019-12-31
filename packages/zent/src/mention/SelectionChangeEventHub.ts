@@ -3,16 +3,31 @@
  */
 
 import isFirefox from '../utils/isFirefox';
+import { addEventListener } from '../utils/component/event-handler';
 
 const gEventRegistered = false;
 const subscriberList = [];
+let cancelEvent = null as () => void;
 
 export function install(config) {
   if (!gEventRegistered) {
     if (isFirefox) {
-      document.addEventListener('click', onDocumentSelectionChange, true);
+      cancelEvent = addEventListener(
+        document,
+        'click',
+        onDocumentSelectionChange,
+        {
+          capture: true,
+          passive: true,
+        }
+      );
     } else {
-      document.addEventListener('selectionchange', onDocumentSelectionChange);
+      cancelEvent = addEventListener(
+        document,
+        'selectionchange',
+        onDocumentSelectionChange,
+        { passive: true }
+      );
     }
   }
 
@@ -31,14 +46,7 @@ export function uninstall(config) {
   subscriberList.splice(idx, 1);
 
   if (subscriberList.length === 0) {
-    if (isFirefox) {
-      document.removeEventListener('click', onDocumentSelectionChange, true);
-    } else {
-      document.removeEventListener(
-        'selectionchange',
-        onDocumentSelectionChange
-      );
-    }
+    cancelEvent();
   }
 }
 

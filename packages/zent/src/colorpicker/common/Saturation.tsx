@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Component, createRef } from 'react';
-import throttle from '../../utils/throttle';
+import { addEventListener } from '../../utils/component/event-handler';
+import { runOnceInNextFrame } from '../../utils/nextFrame';
 import reactCSS from '../helpers/reactcss';
 import * as saturation from '../helpers/saturation';
 
@@ -9,17 +10,15 @@ import * as saturation from '../helpers/saturation';
  */
 export default class Saturation extends Component<any, any> {
   containerRef = createRef<HTMLDivElement>();
-  throttle = throttle((fn, data, e) => {
-    fn(data, e);
-  }, 50);
+  eventCancelList = [] as Array<() => void>;
 
   componentWillUnmount() {
     this.unbindEventListeners();
+    this.handleChange.cancel();
   }
 
-  handleChange = (e, skip?: boolean) => {
-    this.throttle(
-      this.props.onChange,
+  handleChange = runOnceInNextFrame((e, skip?: boolean) => {
+    this.props.onChange(
       saturation.calculateChange(
         e,
         skip,
@@ -28,12 +27,16 @@ export default class Saturation extends Component<any, any> {
       ),
       e
     );
-  };
+  });
 
   handleMouseDown = e => {
     this.handleChange(e, true);
-    window.addEventListener('mousemove', this.handleChange);
-    window.addEventListener('mouseup', this.handleMouseUp);
+    this.eventCancelList.push(
+      addEventListener(window, 'mousemove', this.handleChange)
+    );
+    this.eventCancelList.push(
+      addEventListener(window, 'mouseup', this.handleMouseUp, { passive: true })
+    );
   };
 
   handleMouseUp = () => {
@@ -41,8 +44,8 @@ export default class Saturation extends Component<any, any> {
   };
 
   unbindEventListeners() {
-    window.removeEventListener('mousemove', this.handleChange);
-    window.removeEventListener('mouseup', this.handleMouseUp);
+    this.eventCancelList.forEach(cancel => cancel());
+    this.eventCancelList = [];
   }
 
   render() {
