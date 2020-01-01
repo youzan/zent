@@ -77,7 +77,7 @@ onChange will throw an object, which includes parameters about the change part o
 | ---------------- | ------------------------------------------ | ----------------------------------------------------------------- | ------------- |
 | selectedRowKeys  | keys of selected rows by default           | array                                                             | No            |
 | onSelect         | callback fires when a check changes        | (selectedkeys: string[], selectedRows: Array<any>, changeRow: any | any[]) => any | No |
-| getCheckboxProps | function to get properties of the checkbox | (data: object) => { disabled?: boolean }                          | No            |
+| getCheckboxProps | function to get properties of the checkbox | (data: object) => { disabled?: boolean, reason?: ReactNode }                          | No            |
 
 #### pageInfo
 

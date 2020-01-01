@@ -78,7 +78,7 @@ onChange 会抛出一个对象，这个对象包含分页变化的参数：
 | ---------------- | ------------------------------------ | ----------------------------------------------------------------- | ------------- |
 | selectedRowKeys  | 默认选中                             | array                                                             | 否            |
 | onSelect         | 每次 check 的时候触发的函数          | (selectedkeys: string[], selectedRows: Array<any>, changeRow: any | any[]) => any | 否 |
-| getCheckboxProps | 选择框属性配置 (当前仅支持 disabled) | (data: object) => { disabled?: boolean }                          | 否            |
+| getCheckboxProps | 选择框属性配置 (当前仅支持 disabled) | (data: object) => { disabled?: boolean, reason?: ReactNode }                          | 否            |
 
 #### pageInfo
 
