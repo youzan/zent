@@ -8,8 +8,8 @@ module.exports = {
     tsconfigRootDir: __dirname,
     sourceType: 'module',
   },
-  ignorePatterns: ['coverage/', 'es/', 'node_modules/'],
-  extends: ['plugin:react/recommended', './.eslintrc.base.js'],
+  ignorePatterns: ['coverage/', 'es/', 'node_modules/', '*.js'],
+  extends: ['plugin:react/recommended', './eslintrc.base.js'],
   settings: {
     react: {
       pragma: 'React', // Pragma to use, default to "React"

@@ -7,7 +7,7 @@ module.exports = {
     tsconfigRootDir: __dirname,
     sourceType: 'module',
   },
-  extends: ['../../.eslintrc.base.js'],
+  extends: ['../../eslintrc.base.js'],
   rules: {
     'import/no-commonjs': 'off',
   },
