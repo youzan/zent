@@ -99,6 +99,11 @@ export class Select extends React.Component<ISelectProps, any> {
 
   popover: Popover | null = null;
   popup: React.ComponentType<any> | null = null;
+  uniformedData: Array<{
+    cid: string;
+    value: any;
+    text: any;
+  }>;
 
   constructor(props: ISelectProps) {
     super(props);
@@ -114,11 +119,7 @@ export class Select extends React.Component<ISelectProps, any> {
       optionsReady: false,
       ...props,
     };
-  }
 
-  uniformedData: any;
-
-  componentWillMount() {
     /**
      * data支持字符串数组和对象数组两种模式
      *
@@ -126,10 +127,12 @@ export class Select extends React.Component<ISelectProps, any> {
      * 对象数组需提供value和text, 或者通过 optionValue(prop) optionText(prop) 自定义
      *
      */
-    this.uniformedData = this.uniformData(this.props);
-    this.traverseData(this.props);
+    this.uniformedData = this.uniformData(props);
+    this.traverseData(props);
   }
 
+  // 等重构再删了吧，改不动
+  // eslint-disable-next-line react/no-deprecated
   componentWillReceiveProps(nextProps) {
     this.uniformedData = this.uniformData(nextProps);
     this.traverseData(nextProps);

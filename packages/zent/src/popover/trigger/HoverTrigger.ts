@@ -182,7 +182,6 @@ function makeHoverLeaveRecognizer({
   quirk: boolean;
 }) {
   const state = makeState('leave', onLeave);
-  let recognizer;
   let timerId;
 
   const gotoFinishState = () => {
@@ -190,7 +189,7 @@ function makeHoverLeaveRecognizer({
     recognizer.uninstall();
   };
 
-  recognizer = makeRecognizer(state, {
+  const recognizer = makeRecognizer(state, {
     global: {
       move: runOnceInNextFrame(evt => {
         const { target } = evt;

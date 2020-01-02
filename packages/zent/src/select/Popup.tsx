@@ -95,6 +95,8 @@ class Popup extends Component<IPopupProps, any> {
     }
   };
 
+  // 等重构再删了吧，改不动
+  // eslint-disable-next-line react/no-deprecated
   componentWillReceiveProps(nextProps) {
     // 渲染时在 popover content ready 后延时触发 focus, 只触发一次
     // NOTE: win7 360浏览器, 兼容性 bug 修复

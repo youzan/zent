@@ -1,5 +1,5 @@
 import * as path from 'path';
-import camelCase from 'camelcase';
+import * as camelCase from 'camelcase';
 import { getModuleRegistry, ValueExport, IRegistry } from './registry';
 
 // const { log } = require('./json');

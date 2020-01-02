@@ -10,9 +10,10 @@ import { I18nReceiver as Receiver } from '../i18n';
 import YearPanel from './year/YearPanel';
 import PanelFooter from './common/PanelFooter';
 import { formatDate, parseDate, dayStart } from './utils';
-import { CURRENT, noop, popPositionMap, commonProps } from './constants';
+import { CURRENT, popPositionMap, commonProps } from './constants';
 import { DatePickers } from './common/types';
 import Icon from '../icon';
+import noop from '../utils/noop';
 
 function getYear(val) {
   if (val instanceof Date) {

@@ -11,7 +11,7 @@ export function getLineHeight(node: HTMLElement): number {
   // If the lineHeight did not contain a unit (i.e. it was numeric), convert it to ems (e.g. '2.3' === '2.3em')
   if (lnHeightStr === lnHeight + '') {
     // Save the old lineHeight style and update the em unit to the element
-    const _lnHeightStyle = node.style.lineHeight;
+    const lnHeightStyle = node.style.lineHeight;
     node.style.lineHeight = lnHeightStr + 'em';
 
     // Calculate the em based height
@@ -19,8 +19,8 @@ export function getLineHeight(node: HTMLElement): number {
     lnHeight = parseFloat(lnHeightStr);
 
     // Revert the lineHeight style
-    if (_lnHeightStyle) {
-      node.style.lineHeight = _lnHeightStyle;
+    if (lnHeightStyle) {
+      node.style.lineHeight = lnHeightStyle;
     } else {
       delete node.style.lineHeight;
     }
@@ -55,35 +55,35 @@ export function getLineHeight(node: HTMLElement): number {
   if (lnHeightStr === 'normal') {
     // Create a temporary node
     const nodeName = node.nodeName;
-    const _node = createElement(nodeName);
-    _node.innerHTML = '&nbsp;';
+    const offScreenNode = createElement(nodeName);
+    offScreenNode.innerHTML = '&nbsp;';
 
     // If we have a text area, reset it to only 1 row
     // https://github.com/twolfson/line-height/issues/4
     if (nodeName.toUpperCase() === 'TEXTAREA') {
-      _node.setAttribute('rows', '1');
+      offScreenNode.setAttribute('rows', '1');
     }
 
     // Set the font-size of the element
     const fontSizeStr = computedStyle(node, 'font-size');
-    _node.style.fontSize = fontSizeStr;
+    offScreenNode.style.fontSize = fontSizeStr;
 
     // Remove default padding/border which can affect offset height
     // https://github.com/twolfson/line-height/issues/4
     // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetHeight
-    _node.style.padding = '0px';
-    _node.style.border = '0px';
+    offScreenNode.style.padding = '0px';
+    offScreenNode.style.border = '0px';
 
     // Append it to the body
     const body = document.body;
-    body.appendChild(_node);
+    body.appendChild(offScreenNode);
 
     // Assume the line height of the element is the height
-    const height = _node.offsetHeight;
+    const height = offScreenNode.offsetHeight;
     lnHeight = height;
 
     // Remove our child from the DOM
-    body.removeChild(_node);
+    body.removeChild(offScreenNode);
   }
 
   // Return the calculated height

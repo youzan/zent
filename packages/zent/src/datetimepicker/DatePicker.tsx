@@ -23,12 +23,12 @@ import {
 import {
   CURRENT_DAY,
   timeFnMap,
-  noop,
   popPositionMap,
   commonProps,
 } from './constants';
 import { DatePickers } from './common/types';
 import Icon from '../icon';
+import noop from '../utils/noop';
 
 function extractStateFromProps(props: IDatePickerProps) {
   let selected;

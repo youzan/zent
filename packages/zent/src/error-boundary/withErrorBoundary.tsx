@@ -14,10 +14,12 @@ export function withErrorBoundary<P>({
   FallbackComponent,
   onError,
 }: IWithErrorBoundaryOption<P> = {}) {
-  return (props: P) => (
+  const ErrorBoundaryInner = (props: P) => (
     <ErrorBoundary FallbackComponent={FallbackComponent} onError={onError}>
       <BaseComponent {...props} />
     </ErrorBoundary>
   );
+  return ErrorBoundaryInner;
 }
+
 export default withErrorBoundary;

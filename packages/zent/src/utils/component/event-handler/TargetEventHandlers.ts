@@ -36,12 +36,9 @@ export class TargetEventHandlers<E extends string = string> {
         options
       );
 
-      // tslint:disable-next-line:ban
-      this.target.addEventListener(
-        eventName,
-        eventHandlers.handleEvent,
-        options
-      );
+      const { target } = this;
+      // eslint-disable-next-line ban/ban
+      target.addEventListener(eventName, eventHandlers.handleEvent, options);
     }
 
     if (nextHandlers.indexOf(listener) === -1) {
@@ -64,15 +61,15 @@ export class TargetEventHandlers<E extends string = string> {
       if (nextHandlers.length === 0) {
         // All event handlers have been removed, so we want to remove the event
         // listener from the target node.
-
-        if (this.target) {
+        const { target } = this;
+        if (target) {
           // There can be a race condition where the target may no longer exist
           // when this function is called, e.g. when a React component is
           // unmounting. Guarding against this prevents the following error:
           //
           //   Cannot read property 'removeEventListener' of undefined
-          // tslint:disable-next-line:ban
-          this.target.removeEventListener(
+          // eslint-disable-next-line ban/ban
+          target.removeEventListener(
             eventName,
             eventHandlers.handleEvent,
             options

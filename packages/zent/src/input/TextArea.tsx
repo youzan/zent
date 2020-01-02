@@ -1,6 +1,6 @@
 import * as React from 'react';
 import cx from 'classnames';
-const autosize = require('autosize');
+const autosize = require('autosize'); // eslint-disable-line import/no-commonjs
 import noop from '../utils/noop';
 import { ITextAreaProps } from './types';
 import { createUseIMEComposition } from '../ime-composition';

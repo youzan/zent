@@ -2,7 +2,8 @@
   "root": true,
   "extends": ["airbnb", "prettier", "prettier/react"],
   "parser": "babel-eslint",
-  "plugins": ["lean-imports"],
+  "plugins": ["lean-imports", "prettier"],
+  "ignorePatterns": ["node_modules/", "dist/", "src/nav.js"],
   "rules": {
     "no-console": 0,
     "one-var": 0,
@@ -48,7 +49,10 @@
     "no-plusplus": 0,
     "no-multi-assign": 0,
     "no-useless-escape": 0,
-    "no-use-before-define": [2, { "functions": false, "classes": false, "variables": true }],
+    "no-use-before-define": [
+      2,
+      { "functions": false, "classes": false, "variables": true }
+    ],
     "no-prototype-builtins": 0,
     "camelcase": [
       1,
@@ -74,6 +78,7 @@
     "jsx-a11y/no-noninteractive-tabindex": 0,
     "jsx-a11y/interactive-supports-focus": 0,
     "jsx-a11y/mouse-events-have-key-events": 0,
-    "jsx-a11y/no-noninteractive-element-to-interactive-role": 0
+    "jsx-a11y/no-noninteractive-element-to-interactive-role": 0,
+    "prettier/prettier": "error"
   }
 }

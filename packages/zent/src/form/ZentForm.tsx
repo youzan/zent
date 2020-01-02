@@ -116,7 +116,7 @@ export class ZentForm<T extends Record<string, BasicModel<unknown>>>
     });
   }
 
-  submitError(error: any) {
+  submitError() {
     this.dispatch({
       type: 'SUBMIT_ERROR',
     });
