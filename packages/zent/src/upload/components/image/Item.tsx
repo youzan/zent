@@ -54,7 +54,7 @@ const ImageUploadItem: React.FC<IImageUploadItemProps> = props => {
         </div>
       )
     );
-  }, [isHover, i18n, isFailed]);
+  }, [isHover, i18n, isFailed, retryHandler]);
 
   return (
     <li

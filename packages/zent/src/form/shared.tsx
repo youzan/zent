@@ -177,7 +177,7 @@ export function defaultRenderError<T>(error: IMaybeError<T>) {
   return <FormError>{error.message}</FormError>;
 }
 
-export function asFormChild<Value>(
+export function useFormChild<Value>(
   model: BasicModel<Value>,
   scrollAnchorRef?: React.RefObject<Element | null | undefined>
 ) {

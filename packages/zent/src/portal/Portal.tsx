@@ -162,7 +162,7 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
         node.style.left = left;
         node.style.right = right;
       };
-    }, [node, useLayerForClickAway, visible, selector]);
+    }, [node, useLayerForClickAway, visible, selector, getParent]);
 
     useLayoutEffect(() => {
       const parent = getParent(selector);
@@ -176,7 +176,7 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
       }
       patchElement(parent);
       return () => restoreElement(parent);
-    }, [selector, visible, blockPageScroll]);
+    }, [selector, visible, blockPageScroll, getParent]);
 
     useLayoutEffect(() => {
       function handler(event: TouchEvent | MouseEvent) {
@@ -224,7 +224,7 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
       onLayerReady && onLayerReady(node);
 
       return dispose;
-    }, [!!useLayerForClickAway, !!closeOnClickOutside, node]);
+    }, [useLayerForClickAway, closeOnClickOutside, node]);
 
     useEffect(() => {
       if (!visible || !closeOnESC) {

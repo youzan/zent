@@ -1,7 +1,7 @@
 module.exports = {
   extends: ['airbnb', 'prettier', 'prettier/react'],
   parser: 'babel-eslint',
-  plugins: ['lean-imports', 'prettier'],
+  plugins: ['lean-imports', 'prettier', 'react-hooks'],
   rules: {
     'no-console': 0,
     'one-var': 0,
@@ -78,5 +78,7 @@ module.exports = {
     'jsx-a11y/mouse-events-have-key-events': 0,
     'jsx-a11y/no-noninteractive-element-to-interactive-role': 0,
     'prettier/prettier': 'error',
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'error',
   },
 };

@@ -147,7 +147,9 @@ export class Form<
     if (!onSubmit) {
       return;
     }
+
     try {
+      form.submitStart();
       await form.validate(
         ValidateOption.IncludeAsync |
           ValidateOption.IncludeChildrenRecursively |

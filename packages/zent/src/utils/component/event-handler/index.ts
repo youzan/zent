@@ -32,12 +32,15 @@ export function useEventHandler<
 ) {
   const callbackRef = useRef(listener);
   callbackRef.current = listener;
+  const optionKey = eventOptionsKey(normalizeEventOptions(options));
   useEffect(() => {
     function cb(e: E) {
       callbackRef.current(e);
     }
     return addEventListener(target, eventName, cb, options);
-  }, [target, eventName, eventOptionsKey(normalizeEventOptions(options))]);
+    // Don't check for options directly, it's often a literal object
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [target, eventName, optionKey]);
 }
 
 export interface IEventHandlerProps<E, N, T> {

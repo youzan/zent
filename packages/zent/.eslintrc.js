@@ -10,6 +10,7 @@ module.exports = {
   },
   ignorePatterns: ['coverage/', 'es/', 'node_modules/', '*.js'],
   extends: ['plugin:react/recommended', './eslintrc.base.js'],
+  plugins: ['react-hooks'],
   settings: {
     react: {
       pragma: 'React', // Pragma to use, default to "React"
@@ -120,5 +121,7 @@ module.exports = {
     'react/no-find-dom-node': 'off',
     'use-isnan': 'error',
     'prettier/prettier': 'error',
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'error',
   },
 };
