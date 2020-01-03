@@ -11,7 +11,7 @@ import {
 import {
   defaultRenderError,
   IFormFieldProps,
-  asFormChild,
+  useFormChild,
   isViewDrivenProps,
   ValidateOccasion,
   TouchWhen,
@@ -53,9 +53,11 @@ export function FormField<Value>(props: IFormFieldProps<Value>) {
         Validators.required(props.required as string),
       ] as IValidators<Value>).concat(validators);
     }
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     model = useField<Value>(name, defaultValue, validators);
     model.destroyOnUnmount = Boolean(destroyOnUnmount);
   } else {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     model = useField<Value>(props.model);
   }
   React.useImperativeHandle(props.modelRef, () => model, [model]);
@@ -81,7 +83,7 @@ export function FormField<Value>(props: IFormFieldProps<Value>) {
     touchWhen = TouchWhen.Change,
   } = props;
   const anchorRef = React.useRef<HTMLDivElement | null>(null);
-  asFormChild(model, anchorRef);
+  useFormChild(model, anchorRef);
   const normalizer = React.useCallback(
     (value: Value) => {
       const prevValue = model.value;
@@ -92,6 +94,7 @@ export function FormField<Value>(props: IFormFieldProps<Value>) {
   const markTouched = React.useCallback(() => (model.isTouched = true), [
     model,
   ]);
+  const setValue = React.useCallback(value => (model.value = value), [model]);
   const onChange = FieldUtils.useMAppend(
     touchWhen === TouchWhen.Change ? markTouched : noop,
     FieldUtils.usePipe(
@@ -101,7 +104,7 @@ export function FormField<Value>(props: IFormFieldProps<Value>) {
             model,
             withDefaultOption(getValidateOption('change'))
           )
-        : React.useCallback(value => (model.value = value), [model])
+        : setValue
     )
   );
   const onBlur = React.useCallback(() => {
@@ -111,7 +114,7 @@ export function FormField<Value>(props: IFormFieldProps<Value>) {
     if (validateOccasion & ValidateOccasion.Blur) {
       model.validate(getValidateOption('blur'));
     }
-  }, [getValidateOption, validateOccasion, touchWhen]);
+  }, [getValidateOption, validateOccasion, touchWhen, markTouched, model]);
   const {
     onCompositionStart,
     onCompositionEnd,

@@ -24,9 +24,9 @@ function testPassiveEventListeners() {
       },
     });
     const noop = () => {};
-    // tslint:disable-next-line:ban
+    // eslint-disable-next-line ban/ban
     window.addEventListener('testPassiveEventSupport', noop, opts);
-    // tslint:disable-next-line:ban
+    // eslint-disable-next-line ban/ban
     window.removeEventListener('testPassiveEventSupport', noop, opts);
   } catch (e) {}
 

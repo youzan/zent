@@ -13,7 +13,7 @@ const MountElement = ({ node, getParent, selector }: IMountElementProps) => {
     return () => {
       parent.removeChild(node);
     };
-  }, [node, selector]);
+  }, [node, selector, getParent]);
   return null;
 };
 

@@ -11,7 +11,7 @@ import {
 import {
   IRenderError,
   defaultRenderError,
-  asFormChild,
+  useFormChild,
   IFormFieldViewDrivenProps,
 } from './shared';
 
@@ -37,7 +37,7 @@ export function FieldSet<T extends Record<string, BasicModel<unknown>>>(
 ) {
   const [ctx, model] = useFieldSet(props.name || props.model, props.validators);
   const { scrollAnchorRef, renderError = defaultRenderError } = props;
-  asFormChild(model as BasicModel<unknown>, scrollAnchorRef);
+  useFormChild(model as BasicModel<unknown>, scrollAnchorRef);
   useValue$(model.error$, model.error$.getValue());
   return (
     <FormProvider value={ctx}>

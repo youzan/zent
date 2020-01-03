@@ -25,13 +25,21 @@ export interface IGridHeaderProps<Data> {
   scroll: IGridScrollDelta;
 }
 
-interface IGridHeaderState<Data> {
-  rows: Array<Array<IGridInnerColumn<Data>>>;
+interface IHeaderCell {
+  key: string | number;
+  className: string;
+  children?: React.ReactNode;
+  colSpan?: number;
+  rowSpan?: number;
+}
+
+interface IGridHeaderState<> {
+  rows: Array<Array<IHeaderCell>>;
 }
 
 class Header<Data> extends PureComponent<
   IGridHeaderProps<Data>,
-  IGridHeaderState<Data>
+  IGridHeaderState
 > {
   constructor(props: IGridHeaderProps<Data>) {
     super(props);
@@ -99,7 +107,7 @@ class Header<Data> extends PureComponent<
     passProps?: IGridHeaderProps<Data>,
     columns?: Array<IGridInnerColumn<Data>>,
     currentRow = 0,
-    rows: Array<Array<IGridInnerColumn<Data>>> = []
+    rows: Array<Array<IHeaderCell>> = []
   ) => {
     const props = passProps || this.props;
     const { prefix, columns: propsColumns } = props;
@@ -122,7 +130,7 @@ class Header<Data> extends PureComponent<
         nowrap,
         textAlign,
       } = column;
-      const cell: any = {
+      const cell: IHeaderCell = {
         key: name || key || index,
         className: classnames(`${prefix}-grid-th`, className, {
           [`${prefix}-grid-text-align-${textAlign}`]: textAlign,
@@ -159,6 +167,8 @@ class Header<Data> extends PureComponent<
     this.subscribe();
   }
 
+  // 等重构再删了吧，改不动
+  // eslint-disable-next-line react/no-deprecated
   componentWillReceiveProps(nextProps: IGridHeaderProps<Data>) {
     if (
       nextProps.columns !== this.props.columns ||
@@ -186,6 +196,7 @@ class Header<Data> extends PureComponent<
     return (
       <thead className={`${prefix}-grid-thead`}>
         {(rows || []).map((row, index) => {
+          console.log(row);
           const height =
             fixed && headerHeight
               ? (headerHeight as number) / rowsLen
@@ -198,8 +209,8 @@ class Header<Data> extends PureComponent<
                 height,
               }}
             >
-              {row.map(props => (
-                <th {...(props as any)} />
+              {row.map(({ key, ...props }) => (
+                <th key={key} {...(props as any)} />
               ))}
             </tr>
           );
