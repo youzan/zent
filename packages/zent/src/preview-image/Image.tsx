@@ -7,6 +7,8 @@ import { I18nReceiver as Receiver, II18nLocalePreviewImage } from '../i18n';
 import Portal from '../portal';
 import Icon from '../icon';
 
+const TRANSITION_DURATION = 500; // ms
+
 export interface IPreviewImageProps {
   className: string;
   prefix: string;
@@ -97,7 +99,7 @@ export default class Image extends Component<IPreviewImageProps, any> {
     this.setState({
       imageStyle: {
         transform: transformStyle,
-        transitionDuration: '0.5s',
+        transitionDuration: `${TRANSITION_DURATION}ms`,
       },
       rotateIndex,
     });
@@ -124,7 +126,7 @@ export default class Image extends Component<IPreviewImageProps, any> {
     this.setState({
       imageStyle: {
         transform: transformStyle,
-        transitionDuration: '0.5s',
+        transitionDuration: `${TRANSITION_DURATION}ms`,
       },
       scaleTag: !scaleTag,
     });
@@ -197,7 +199,11 @@ export default class Image extends Component<IPreviewImageProps, any> {
                     {showRotateBtn && (
                       <span
                         className={rotateCxs}
-                        onClick={debounce(this.handleRotate, 200)}
+                        onClick={debounce(
+                          this.handleRotate,
+                          TRANSITION_DURATION,
+                          { immediate: true }
+                        )}
                       >
                         {i18n.rotate}
                       </span>

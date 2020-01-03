@@ -169,7 +169,6 @@ $large-size: 40px;
 
 .has-error {
   .zent-input-wrapper {
-    @include theme-color(color, error, 2);
     @include theme-color(border-color, error, 4);
     border-width: 1px;
     border-style: solid;
@@ -182,10 +181,6 @@ $large-size: 40px;
     &__not-editable {
       @include theme-color(border-color, stroke, 5);
     }
-  }
-
-  .zent-input {
-    @include theme-color(color, error, 2);
   }
 }
 

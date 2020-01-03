@@ -10,9 +10,10 @@ import { Omit } from 'utility-types';
 
 import isDate from '../utils/isDate';
 import { I18nReceiver as Receiver } from '../i18n';
-import { commonProps, noop } from './constants';
+import { commonProps } from './constants';
 import TimePicker from './TimePicker';
 import { DatePickers } from './common/types';
+import noop from '../utils/noop';
 
 // type
 const START = 'start';
@@ -80,11 +81,9 @@ export class TimeRangePicker extends PureComponent<ITimeRangePickerProps> {
       openPanel,
       ...pickerProps
     } = this.props;
-    let rangePicker;
     // 兼容老 api ，支持传入字符串
     const defaultValueArr = compatibleInterface(defaultValue);
-
-    rangePicker = (
+    const rangePicker = (
       <div className={cx(className, 'range-picker2')}>
         <Receiver componentName="TimePicker">
           {i18n => (

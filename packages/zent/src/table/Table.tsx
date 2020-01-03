@@ -3,7 +3,6 @@ import * as React from 'react';
 import { PureComponent } from 'react';
 import * as ReactDOM from 'react-dom';
 
-import throttle from '../utils/throttle';
 import { I18nReceiver as Receiver, II18nLocaleTable } from '../i18n';
 import isBrowser from '../utils/isBrowser';
 import uniq from '../utils/uniq';
@@ -14,6 +13,8 @@ import Body from './modules/Body';
 import Foot from './modules/Foot';
 import helper from './helper';
 import { PaginationPageSizeOption } from '../pagination/components/PageSizeChanger';
+import { WindowResizeHandler } from '../utils/component/WindowResizeHandler';
+import { WindowScrollHandler } from '../utils/component/WindowScrollHandler';
 
 export type TablePaginationType = 'default' | 'lite' | 'mini';
 
@@ -110,7 +111,6 @@ export class Table extends PureComponent<ITableProps, any> {
   tableRectTop: number;
   tableRectHeight: number;
   foot: Foot | null = null;
-  throttleSetBatchComponents: any;
 
   constructor(props) {
     super(props);
@@ -133,6 +133,8 @@ export class Table extends PureComponent<ITableProps, any> {
 
   head: Head | null = null;
 
+  // 等重构再删了吧，改不动
+  // eslint-disable-next-line react/no-deprecated
   componentWillReceiveProps(nextProps) {
     const toggleListener = helper.toggleEventListener(this.props, nextProps);
     toggleListener && this[toggleListener](nextProps);
@@ -143,59 +145,19 @@ export class Table extends PureComponent<ITableProps, any> {
 
   componentDidMount() {
     this.mounted = true;
-    this.addEventListener(this.props);
+    if (this.props.batchComponentsAutoFixed) {
+      this.setRectParam();
+    }
   }
 
   componentWillUnmount() {
     this.mounted = false;
-    this.removeEventListener(this.props);
   }
 
-  addEventListener(props) {
-    if (props.batchComponentsAutoFixed) {
-      const { batchComponents } = props;
-
-      this.setRectParam();
-      if (batchComponents && batchComponents.length > 0) {
-        this.throttleSetBatchComponents = throttle(
-          () => {
-            this.setRectParam();
-            this.toggleBatchComponents();
-          },
-          100,
-          {
-            immediate: true,
-          }
-        );
-
-        window.addEventListener(
-          'scroll',
-          this.throttleSetBatchComponents,
-          true
-        );
-        window.addEventListener(
-          'resize',
-          this.throttleSetBatchComponents,
-          true
-        );
-      }
-    }
-  }
-
-  removeEventListener(props) {
-    if (props.batchComponentsAutoFixed) {
-      window.removeEventListener(
-        'scroll',
-        this.throttleSetBatchComponents,
-        true
-      );
-      window.removeEventListener(
-        'resize',
-        this.throttleSetBatchComponents,
-        true
-      );
-    }
-  }
+  setBatchComponents = () => {
+    this.setRectParam();
+    this.toggleBatchComponents();
+  };
 
   setRectParam() {
     if (!this.mounted) {
@@ -460,6 +422,7 @@ export class Table extends PureComponent<ITableProps, any> {
         return { canSelect: true, rowClass: '' };
       },
       expandation = null,
+      batchComponentsAutoFixed,
       batchComponents = null,
     } = this.props;
 
@@ -577,6 +540,15 @@ export class Table extends PureComponent<ITableProps, any> {
                 </div>
               )}
             </BlockLoading>
+            {batchComponentsAutoFixed && batchComponents?.length && (
+              <>
+                <WindowResizeHandler onResize={this.setBatchComponents} />
+                <WindowScrollHandler
+                  onScroll={this.setBatchComponents}
+                  options={{ capture: true }}
+                />
+              </>
+            )}
           </div>
         )}
       </Receiver>

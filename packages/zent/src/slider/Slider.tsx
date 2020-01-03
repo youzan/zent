@@ -10,7 +10,7 @@ import { ISliderProps, ISliderState } from './types';
 import { IComputedProps, getValue, toFixed, isLeftValue } from './common';
 import NumberInput from '../number-input';
 import { getPotentialValues, normalizeToPotentialValue } from './normalize';
-import { WindowEventHandler } from '../utils/component';
+import { WindowEventHandler } from '../utils/component/WindowEventHandler';
 import withinRange from '../utils/withinRange';
 
 export const getDecimal = (step: number | string) => {
@@ -408,11 +408,11 @@ export class Slider extends React.Component<ISliderProps, ISliderState> {
           ))}
         <WindowEventHandler
           eventName="mousemove"
-          callback={this.onWindowMouseMove}
+          listener={this.onWindowMouseMove}
         />
         <WindowEventHandler
           eventName="mouseup"
-          callback={this.onWindowMouseUp}
+          listener={this.onWindowMouseUp}
         />
       </div>
     );

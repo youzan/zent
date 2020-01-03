@@ -20,7 +20,7 @@ export default function useDelayed({
     }
 
     return setDelayed(shouldDelay);
-  }, [loading, delay]);
+  }, [loading, delay, shouldDelay]);
 
   return delayed;
 }

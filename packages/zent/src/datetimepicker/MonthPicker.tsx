@@ -10,9 +10,10 @@ import { I18nReceiver as Receiver } from '../i18n';
 import MonthPanel from './month/MonthPanel';
 import PanelFooter from './common/PanelFooter';
 import { formatDate, parseDate, dayStart, dayEnd, monthStart } from './utils';
-import { CURRENT, noop, popPositionMap, commonProps } from './constants';
+import { CURRENT, popPositionMap, commonProps } from './constants';
 import { DatePickers } from './common/types';
 import Icon from '../icon';
+import noop from '../utils/noop';
 
 export interface IMonthPickerProps extends DatePickers.ICommonProps {
   disabled?: boolean;

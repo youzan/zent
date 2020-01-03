@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-const warning = require('warning');
+import warning from '../warning';
 
 let warnValidStyle: (
   name: string,

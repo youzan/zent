@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "rm -rf lib && babel src --out-dir lib",
+    "lint-js": "eslint src __tests__",
     "test": "./scripts/test.sh",
     "prepublish": "yarn build"
   },

@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Button from '../../button';
-
-import { noop } from '../constants';
+import noop from '../../utils/noop';
 
 const PanelFooter = props => {
   const {

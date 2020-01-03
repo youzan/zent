@@ -2,12 +2,14 @@ import * as React from 'react';
 import { Component, createRef } from 'react';
 import reactCSS from '../helpers/reactcss';
 import * as hue from '../helpers/hue';
+import { addEventListener } from '../../utils/component/event-handler';
 
 /**
  * 色度条
  */
 export default class Hue extends Component<any, any> {
   containerRef = createRef<HTMLDivElement>();
+  eventCancelList = [] as Array<() => void>;
 
   componentWillUnmount() {
     this.unbindEventListeners();
@@ -25,8 +27,12 @@ export default class Hue extends Component<any, any> {
 
   handleMouseDown = e => {
     this.handleChange(e, true);
-    window.addEventListener('mousemove', this.handleChange);
-    window.addEventListener('mouseup', this.handleMouseUp);
+    this.eventCancelList.push(
+      addEventListener(window, 'mousemove', this.handleChange)
+    );
+    this.eventCancelList.push(
+      addEventListener(window, 'mouseup', this.handleMouseUp, { passive: true })
+    );
   };
 
   handleMouseUp = () => {
@@ -34,8 +40,8 @@ export default class Hue extends Component<any, any> {
   };
 
   unbindEventListeners() {
-    window.removeEventListener('mousemove', this.handleChange);
-    window.removeEventListener('mouseup', this.handleMouseUp);
+    this.eventCancelList.forEach(cancel => cancel());
+    this.eventCancelList = [];
   }
 
   render() {

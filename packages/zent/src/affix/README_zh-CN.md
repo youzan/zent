@@ -19,8 +19,7 @@ group: 导航
 | onUnpin | 固定消失后执行的回调函数 | function | null | null |
 | zIndex | 固钉的z-index | number | 10 | null |
 | className | 自定义额外类名  | string | `''`       |                                   |
-| placeHoldClassName | 占位容器的类名  | string | `''`       |                                   |
-| prefix    | 自定义前缀    | string | `'zent'`   |                                   |
+| placeholderClassName | 占位容器的类名  | string | `''`       |                                   |
 
 如果 `offsetTop` 和 `offsetBottom` 同时设置，优先使用 `offsetBottom`
 

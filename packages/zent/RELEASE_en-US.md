@@ -8,6 +8,18 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 7.4.3(2019-12-19)
+
+- 🦀️ Fix `FormSelectField`'s `destroyOnUnmount` not working
+- 🦀️ Update `Form` TypeScript definition
+- 🦀️ All props are under `props` in `FormNumberInputField`(`integer`) and `FormSelectField`(`tags`, `data`)
+- 🦀️ Update form error style
+
+### 7.4.2(2019-12-13)
+
+- 🦀️ Fix a style issue in `Grid`
+- 🦀️ Fix TypeScript definition in `DateRangeQuickPicker`
+
 ### 7.4.1(2019-12-13)
 
 - ✨ New icons：`doc`, `video`, `audio`
@@ -85,7 +97,7 @@ This is major release with lots of breaking changes, read the [full change log](
 
 ### 6.6.2 (2019-02-26)
 
-- `Form` 
+- `Form`
   - 🦀️ Fix field error even if async validation is passed
   - 🦀️ Update `createForm` TypeScript definition
 - 🦀️ Handle DOM not exist exception for `Affix` and `Avatar`
@@ -169,7 +181,7 @@ This is major release with lots of breaking changes, read the [full change log](
 
 ### 6.1.0 (2018-08-03)
 
-- `Grid` 
+- `Grid`
   - ✨ Support a default text for each column
   - 🦀️ Fix `selection.getCheckboxProps` not updated
 - ✨ Add some new `Icon`s
@@ -211,7 +223,7 @@ This is major release with lots of breaking changes, read the [full change log](
   - ✨ Add missing `TypeScript` definition
   - ✨ Add support for row expansion using the same `expandation` prop as `Table`
   - ✨ Add a new `onExpand` callback when a row is expanded
-  - ✨ Support page size in `onChange` 
+  - ✨ Support page size in `onChange`
   - 🦀️ Remove `cloneDeep` usage，cloning a react element in React 16 results an error
   - 🦀️ Fix `rowKey` not working
   - 📚 Update documentation
@@ -408,10 +420,10 @@ If you rely on `zent-select` when overwriting `Select` popover style, use `zent-
 ### 4.0.0 (2018-01-23)
 
 - 💥 Remove combine mode in `DateRangePicker`, `type` prop is removed.
-- `Upload` 
+- `Upload`
   - ✨ Supports file groups
   - ✨ Supports i18n
-- ✨ Add support for icons in `Menu` 
+- ✨ Add support for icons in `Menu`
 - `DatePicker`
   - 🦀️ Fix minimum time not respected in some cases
   - 🦀️ Fix minimum time test bug
@@ -464,11 +476,11 @@ If you rely on `zent-select` when overwriting `Select` popover style, use `zent-
 - ✨ `Sweetalert` can configure close button and click on mask to close
 - 🦀️ Fix `DateRangePicker` disabled style
 - 🦀️ Fix `Loading` not centered
-- 🦀️ Fix `DatePicker` wrong value in `onChange` 
+- 🦀️ Fix `DatePicker` wrong value in `onChange`
 - 🦀️ Fix `NumberInput` inconsistent `onBlur` and `onChange` values
 - 🦀️ Fix `Upload` image order after uploading
 - 🦀️ Fix `Select` item order in tag mode
-- 🦀️ Fix can not edit hex in  `ColorPicker` 
+- 🦀️ Fix can not edit hex in  `ColorPicker`
 - 🦀️ Fix `textarea` height tingle
 - 🦀️ Fix some typo
 - 🦀️ Fix `yarn new-component` command

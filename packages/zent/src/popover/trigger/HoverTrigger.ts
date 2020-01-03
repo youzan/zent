@@ -1,11 +1,11 @@
-import 'react';
-import throttle from '../../utils/throttle';
-
 import uniq from '../../utils/uniq';
 import capitalize from '../../utils/capitalize';
 import isBrowser from '../../utils/isBrowser';
 
 import Trigger, { IPopoverTriggerProps } from './Trigger';
+import { addEventListener } from '../../utils/component/event-handler';
+import noop from '../../utils/noop';
+import { runOnceInNextFrame } from '../../utils/nextFrame';
 
 const MOUSE_EVENT_WHITE_LIST = [
   'down',
@@ -17,22 +17,33 @@ const MOUSE_EVENT_WHITE_LIST = [
   'leave',
 ];
 
-function isMouseEventSuffix(suffix) {
+function isMouseEventSuffix(suffix: string) {
   return MOUSE_EVENT_WHITE_LIST.indexOf(suffix) !== -1;
 }
 
 // Hover识别的状态
-const HoverState = {
-  Init: 1,
+enum HoverState {
+  Init = 1,
 
   // Leave识别开始必须先由内出去
-  Started: 2,
+  Started = 2,
 
   // 延迟等待中
-  Pending: 3,
+  Pending = 3,
 
-  Finish: 255,
-};
+  Finish = 255,
+}
+
+interface IState {
+  name: string;
+  transit: (state: HoverState) => void;
+  is: (state: HoverState) => boolean;
+}
+
+interface IRecognizerOptions {
+  local?: Record<'enter' | 'leave', () => void>;
+  global?: Record<'move' | 'blur', (evt?: Event) => void>;
+}
 
 /**
  * 创建一个新state，每个state是一次性的，识别完成后需要创建一个新的state
@@ -40,11 +51,15 @@ const HoverState = {
  * @param {string} name state的名称
  * @param {function} onFinish 识别成功时的回调函数
  */
-const makeState = (name, onFinish, initState = HoverState.Init) => {
+const makeState = (
+  name: string,
+  onFinish: () => void,
+  initState = HoverState.Init
+): IState => {
   let state = initState;
 
   return {
-    transit(nextState) {
+    transit(nextState: HoverState) {
       // console.log(`${name}: ${state} -> ${nextState}`); // eslint-disable-line
 
       state = nextState;
@@ -54,7 +69,7 @@ const makeState = (name, onFinish, initState = HoverState.Init) => {
       }
     },
 
-    is(st) {
+    is(st: HoverState) {
       return st === state;
     },
 
@@ -62,40 +77,47 @@ const makeState = (name, onFinish, initState = HoverState.Init) => {
   };
 };
 
-function forEachHook(hooks, action) {
+function installHooks(hooks: Record<string, () => void>) {
   if (!hooks) {
-    return;
+    return noop;
   }
 
-  if (!isBrowser) return;
+  if (!isBrowser) {
+    return noop;
+  }
 
-  const hookNames = Object.keys(hooks);
-  hookNames.forEach(hookName => {
+  const cancelList = Object.keys(hooks).map(hookName => {
     const eventName = isMouseEventSuffix(hookName)
       ? `mouse${hookName}`
       : hookName;
-    if (action === 'install') {
-      window.addEventListener(eventName, hooks[hookName], true);
-    } else if (action === 'uninstall') {
-      window.removeEventListener(eventName, hooks[hookName], true);
-    }
+    return addEventListener(window, eventName, hooks[hookName], {
+      capture: true,
+    });
   });
+
+  return () => {
+    cancelList.forEach(cancel => cancel());
+  };
 }
 
-function makeRecognizer(state, options) {
+function makeRecognizer(state: IState, options: IRecognizerOptions) {
+  const cancelHooks = installHooks(options.global);
   const recognizer = {
     ...options,
 
     destroy() {
       if (!state.is(HoverState.Finish)) {
-        forEachHook(recognizer.global, 'uninstall');
+        recognizer.uninstall();
 
         // console.log(`destroy ${state.name}`); // eslint-disable-line
       }
     },
+
+    uninstall() {
+      cancelHooks();
+    },
   };
 
-  forEachHook(recognizer.global, 'install');
   return recognizer;
 }
 
@@ -110,18 +132,24 @@ function makeRecognizer(state, options) {
 /**
  * 进入状态的识别
  */
-function makeHoverEnterRecognizer({ enterDelay, onEnter }) {
+function makeHoverEnterRecognizer({
+  enterDelay,
+  onEnter,
+}: {
+  enterDelay: number;
+  onEnter: () => void;
+}) {
   const state = makeState('enter', onEnter);
-  let timerId;
+  let timerId: number;
 
   const recognizer = makeRecognizer(state, {
     local: {
       enter() {
         state.transit(HoverState.Pending);
 
-        timerId = setTimeout(() => {
+        timerId = window.setTimeout(() => {
           state.transit(HoverState.Finish);
-          forEachHook(recognizer.global, 'uninstall');
+          recognizer.uninstall();
         }, enterDelay);
       },
 
@@ -142,19 +170,28 @@ function makeHoverEnterRecognizer({ enterDelay, onEnter }) {
 /**
  * 离开状态的识别
  */
-function makeHoverLeaveRecognizer({ leaveDelay, onLeave, isOutSide, quirk }) {
+function makeHoverLeaveRecognizer({
+  leaveDelay,
+  onLeave,
+  isOutSide,
+  quirk,
+}: {
+  leaveDelay: number;
+  onLeave: () => void;
+  isOutSide: (target: EventTarget) => boolean;
+  quirk: boolean;
+}) {
   const state = makeState('leave', onLeave);
-  let recognizer;
   let timerId;
 
   const gotoFinishState = () => {
     state.transit(HoverState.Finish);
-    forEachHook(recognizer.global, 'uninstall');
+    recognizer.uninstall();
   };
 
-  recognizer = makeRecognizer(state, {
+  const recognizer = makeRecognizer(state, {
     global: {
-      move: throttle(evt => {
+      move: runOnceInNextFrame(evt => {
         const { target } = evt;
 
         if (isOutSide(target)) {
@@ -182,14 +219,14 @@ function makeHoverLeaveRecognizer({ leaveDelay, onLeave, isOutSide, quirk }) {
             state.transit(HoverState.Started);
           }
         }
-      }, 16),
+      }),
 
       // 页面失去焦点的时候强制关闭，否则会出现必须先移动进来再出去才能关闭的问题
       blur: evt => {
         // 确保事件来自 window
         // React 的事件系统会 bubble blur事件，但是原生的是不会 bubble 的。
         // https://github.com/facebook/react/issues/6410#issuecomment-292895495
-        const target = evt.target || evt.srcElement;
+        const { target } = evt;
         if (target !== window) {
           return;
         }

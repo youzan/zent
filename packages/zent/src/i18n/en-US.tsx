@@ -1,9 +1,12 @@
 import * as React from 'react';
 
-import { setLocale, enUS } from './time-locale';
 import {
+  I18nLocaleTimePicker,
+  II18nLocaleCascader,
   II18nLocaleCommon,
   II18nLocaleCopyButton,
+  II18nLocaleGrid,
+  II18nLocaleMention,
   II18nLocalePagination,
   II18nLocalePop,
   II18nLocalePreviewImage,
@@ -11,14 +14,12 @@ import {
   II18nLocaleSelect,
   II18nLocaleSweetalert,
   II18nLocaleSwitch,
-  II18nLocaleGrid,
   II18nLocaleTable,
-  II18nLocaleCascader,
-  I18nLocaleTimePicker,
   II18nLocaleUpload,
-  II18nLocaleMention,
-  II18nLocaleTypeMap,
 } from './locale';
+import { enUS, setLocale } from './time-locale';
+
+import capitalize from '../utils/capitalize';
 
 const common: II18nLocaleCommon = {
   confirm: 'Confirm',
@@ -174,38 +175,37 @@ export const TimePicker: I18nLocaleTimePicker = () => {
   };
 };
 
-const TypeMap: II18nLocaleTypeMap = {
-  image: 'Image',
-  voice: 'Audio',
-};
-
 export const Upload: II18nLocaleUpload = {
   ...common,
-  title_voice: 'Choose voice',
-  title_image: 'Choose image',
-  input: {
-    holder: 'Add',
-    maxAmount({ maxAmount, type }) {
-      return `Only ${maxAmount} ${TypeMap[type]} files can be added`;
-    },
-    maxSize({ maxSize, type }) {
-      return `Cannot upload ${TypeMap[type]} files larger than ${maxSize}`;
-    },
-    type({ type }) {
-      return `Cannot upload ${TypeMap[type]} files with unsupported type`;
+  delete: 'Delete',
+  retry: 'Retry',
+  failed: 'Failed',
+  limit: 'Maximum number of files has been reached',
+  normal: {
+    add: 'Add File',
+    tips: config => {
+      const { tips, formattedMaxSize } = config;
+      const tipStr = tips ? tips : '';
+      const sizeLimitStr = formattedMaxSize
+        ? `single file no more than ${formattedMaxSize}`
+        : '';
+      return capitalize(
+        [tipStr, sizeLimitStr].filter(Boolean).join(common.comma)
+      );
     },
   },
-  popup: {
-    web: 'Web image',
-    group: 'Group',
-    holder: 'Image url',
-    title_voice: 'Local audio',
-    title_image: 'Local image',
-    type({ types, size }) {
-      return `Supports ${types.join(' /')} only, smaller than ${size}`;
+  image: {
+    tips: config => {
+      const { tips, formattedMaxSize, maxAmount } = config;
+      const tipStr = tips ? tips : '';
+      const amoutLimitStr = maxAmount ? `up to ${maxAmount}` : '';
+      const sizeLimitStr = formattedMaxSize
+        ? `single file no more than ${formattedMaxSize}`
+        : '';
+      return capitalize(
+        [tipStr, amoutLimitStr, sizeLimitStr].filter(Boolean).join(common.comma)
+      );
     },
-    extract: 'Extract',
-    extracting: 'Extracting...',
   },
 };
 

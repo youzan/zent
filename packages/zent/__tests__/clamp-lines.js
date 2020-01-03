@@ -12,22 +12,20 @@ describe('ClampLines', () => {
     const wrapper = mount(
       <ClampLines lines={2} popWidth={400} text={content} />
     );
-    const props = wrapper.props();
     const instance = wrapper.find(ClampLines).instance();
     instance.maxHeight = 40;
     instance.lineHeight = 20;
-    instance.element = {
+    instance.element.current = {
       clientHeight: 20,
     };
-    instance.innerElement = {
+    instance.innerElement.current = {
       textContent: '',
     };
     instance.clampLines();
-    instance.state.noClamp = false;
-    instance.render();
-    expect(props.prefix).toBe('zent');
+    wrapper.setState({ noClamp: false });
+    wrapper.render();
     expect(wrapper.state().noClamp).toBe(false);
-    expect(instance.innerElement.textContent).toBe(content);
+    expect(instance.innerElement.current.textContent).toBe(content);
   });
 
   it('do not show pop', () => {
@@ -35,7 +33,7 @@ describe('ClampLines', () => {
       <ClampLines lines={2} popWidth={400} text={content} showPop={false} />
     );
     const instance = wrapper.find(ClampLines).instance();
-    instance.innerElement = {
+    instance.innerElement.current = {
       textContent: '',
     };
     instance.state.noClamp = false;
@@ -47,7 +45,7 @@ describe('ClampLines', () => {
   it('empty text', () => {
     const wrapper = mount(<ClampLines lines={2} popWidth={400} text="" />);
     const instance = wrapper.find(ClampLines).instance();
-    expect(instance.innerElement).toBe(null);
+    expect(instance.innerElement.current).toBe(null);
   });
 
   it('resizable', () => {
@@ -55,10 +53,10 @@ describe('ClampLines', () => {
       <ClampLines delay={0} lines={2} popWidth={400} resizable text="" />
     );
     const instance = wrapper.find(ClampLines).instance();
-    instance.element = {
+    instance.element.current = {
       clientHeight: 20,
     };
-    instance.innerElement = {
+    instance.innerElement.current = {
       textContent: '',
     };
     const spy = jest.spyOn(instance, 'clampLines');

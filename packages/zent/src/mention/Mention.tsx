@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
 import isEqual from '../utils/isEqual';
-import throttle from '../utils/throttle';
 import Input, { IInputClearEvent } from '../input';
 import Popover from '../popover';
 import getCaretCoordinates from '../utils/dom/getCaretCoordinates';
@@ -15,6 +14,7 @@ import * as Utils from './utils';
 import { getPopoverBottomPosition, getPopoverTopPosition } from './position';
 import { MENTION_FOUND } from './constants';
 import defer from '../utils/defer';
+import { runOnceInNextFrame } from '../utils/nextFrame';
 
 const NAV_KEYS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
 const DEFAULT_STATE = {
@@ -196,11 +196,11 @@ export class Mention extends Component<IMentionProps> {
     this.props.onChange(evt.target.value);
   };
 
-  onInputScroll = throttle(() => {
+  onInputScroll = runOnceInNextFrame(() => {
     if (this.state.suggestionVisible) {
       this.setSuggestionVisible();
     }
-  }, 16);
+  });
 
   onInputCompositionStart = () => {
     this._compositing = true;

@@ -157,7 +157,10 @@ function tsort(edges: Graph): string[] {
         throw new Error('closed chain : ' + afterID + ' is in ' + id);
       }
 
-      visit(afterID.toString(), ances.map(v => v)); // recursive call
+      visit(
+        afterID.toString(),
+        ances.map(v => v)
+      ); // recursive call
     });
 
     sorted.unshift(id);
