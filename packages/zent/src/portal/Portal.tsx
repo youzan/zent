@@ -16,6 +16,7 @@ import memorize from '../utils/memorize-one';
 import createElement from '../utils/dom/createElement';
 import { SCROLLBAR_WIDTH } from '../utils/getScrollbarWidth';
 import { setValueForStyles } from '../utils/style/CSSPropertyOperations';
+import { addEventListener } from '../utils/component/event-handler';
 
 function diffStyle(prev: React.CSSProperties, next: React.CSSProperties) {
   const result: React.CSSProperties = {};
@@ -161,7 +162,7 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
         node.style.left = left;
         node.style.right = right;
       };
-    }, [node, useLayerForClickAway, visible, selector]);
+    }, [node, useLayerForClickAway, visible, selector, getParent]);
 
     useLayoutEffect(() => {
       const parent = getParent(selector);
@@ -175,7 +176,7 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
       }
       patchElement(parent);
       return () => restoreElement(parent);
-    }, [selector, visible, blockPageScroll]);
+    }, [selector, visible, blockPageScroll, getParent]);
 
     useLayoutEffect(() => {
       function handler(event: TouchEvent | MouseEvent) {
@@ -202,28 +203,28 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
 
       let dispose = noop;
       if (closeOnClickOutside) {
+        let cancelTouchStart: () => void;
+        let cancelClick: () => void;
+
         if (useLayerForClickAway) {
-          node.addEventListener('touchstart', handler);
-          node.addEventListener('click', handler);
-          dispose = () => {
-            node.removeEventListener('touchstart', handler);
-            node.removeEventListener('click', handler);
-          };
+          cancelTouchStart = addEventListener(node, 'touchstart', handler);
+          cancelClick = addEventListener(node, 'click', handler);
         } else {
-          window.addEventListener('touchstart', handler);
-          window.addEventListener('click', handler);
-          dispose = () => {
-            window.removeEventListener('touchstart', handler);
-            window.removeEventListener('click', handler);
-          };
+          cancelTouchStart = addEventListener(window, 'touchstart', handler);
+          cancelClick = addEventListener(window, 'click', handler);
         }
+
+        dispose = () => {
+          cancelClick();
+          cancelTouchStart();
+        };
       }
 
       const { onLayerReady } = propsRef.current;
       onLayerReady && onLayerReady(node);
 
       return dispose;
-    }, [!!useLayerForClickAway, !!closeOnClickOutside, node]);
+    }, [useLayerForClickAway, closeOnClickOutside, node]);
 
     useEffect(() => {
       if (!visible || !closeOnESC) {
@@ -240,10 +241,7 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
           onClose(e);
         }
       }
-      document.body.addEventListener('keyup', onKeyUp);
-      return () => {
-        document.body.removeEventListener('keyup', onKeyUp);
-      };
+      return addEventListener(document.body, 'keyup', onKeyUp);
     }, [closeOnESC, visible]);
 
     /**

@@ -261,7 +261,9 @@ function getJavaScriptPath(relativePath, libName) {
 }
 
 function getStylePath(component, libName, useRaw) {
-  let suffix, parentDir;
+  let suffix;
+  let parentDir;
+
   if (useRaw) {
     suffix = '.scss';
     parentDir = 'assets';

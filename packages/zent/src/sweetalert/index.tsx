@@ -134,6 +134,7 @@ export function confirm(config: Sweetalert.IConfirmOption = {}) {
   return sweet(config, 'confirm');
 }
 
+// eslint-disable-next-line no-redeclare
 export const Sweetalert = {
   alert,
   info,

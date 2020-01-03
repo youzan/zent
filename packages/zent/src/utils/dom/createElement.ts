@@ -17,7 +17,7 @@ function createElement(
 ): HTMLElement;
 
 function createElement(tagName, options?) {
-  // tslint:disable-next-line
+  // eslint-disable-next-line ban/ban
   const node = document.createElement(tagName, options);
   node.setAttribute('data-zv', __ZENT_VERSION__);
   return node;

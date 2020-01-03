@@ -1,7 +1,7 @@
 {
   "*.js": ["yarn format", "eslint", "git add"],
-  "packages/zent/src/**/*.{ts,tsx}": ["yarn format", "tslint --format stylish --project packages/zent/tsconfig.json", "git add"],
-  "packages/zent/scripts/cruiser/**/*.{ts,tsx}": ["yarn format", "tslint --format stylish --project packages/zent/scripts/cruiser/tsconfig.json", "git add"],
+  "packages/zent/src/**/*.{ts,tsx}": ["yarn format", "eslint", "git add"],
+  "packages/zent/scripts/cruiser/**/*.{ts,tsx}": ["yarn format", "eslint", "git add"],
   "site/**/*.scss": ["yarn format", "sass-lint -vq", "git add"],
   "packages/zent/**/*.scss": ["yarn format", "sass-lint -vq", "yarn workspace zent lint-style", "git add"]
 }

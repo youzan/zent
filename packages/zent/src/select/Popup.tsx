@@ -10,6 +10,7 @@ import { I18nReceiver as Receiver, II18nLocaleSelect } from '../i18n';
 import Search from './components/Search';
 import Option from './components/Option';
 import defer from '../utils/defer';
+import { addEventListener } from '../utils/component/event-handler';
 
 export interface IPopupProps {
   adjustPosition: () => void;
@@ -47,6 +48,8 @@ class Popup extends Component<IPopupProps, any> {
   itemIds: string[];
   currentIdUpdated: boolean;
 
+  cancelEvent: () => void = null;
+
   constructor(props) {
     super(props);
 
@@ -69,11 +72,15 @@ class Popup extends Component<IPopupProps, any> {
         },
       });
     }
-    this.popup.addEventListener('mousewheel', this.handleScroll);
+    this.cancelEvent = addEventListener(
+      this.popup,
+      'mousewheel',
+      this.handleScroll
+    );
   }
 
   componentWillUnmount() {
-    this.popup.removeEventListener('mousewheel', this.handleScroll);
+    this.cancelEvent();
   }
 
   handleScroll = evt => {
@@ -88,6 +95,8 @@ class Popup extends Component<IPopupProps, any> {
     }
   };
 
+  // 等重构再删了吧，改不动
+  // eslint-disable-next-line react/no-deprecated
   componentWillReceiveProps(nextProps) {
     // 渲染时在 popover content ready 后延时触发 focus, 只触发一次
     // NOTE: win7 360浏览器, 兼容性 bug 修复

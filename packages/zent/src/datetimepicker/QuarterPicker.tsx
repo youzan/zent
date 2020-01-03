@@ -11,7 +11,8 @@ import { I18nReceiver as Receiver, II18nLocaleTimePicker } from '../i18n';
 
 import QuarterPanel from './quarter/QuarterPanel';
 import { dayStart, dayEnd, formatDate, parseDate } from './utils';
-import { noop, popPositionMap, commonProps } from './constants';
+import { popPositionMap, commonProps } from './constants';
+import noop from '../utils/noop';
 import { DatePickers } from './common/types';
 import Icon from '../icon';
 

@@ -6,6 +6,9 @@ export interface IThrottleOptions {
 
 type TimerId = ReturnType<typeof setTimeout> | undefined | null;
 
+/**
+ * @deprecated Try runOnceInNextFrame first
+ */
 export default function throttle<T extends (...args: any) => any>(
   func: T,
   wait?: number,

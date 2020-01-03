@@ -4,6 +4,7 @@ import { Omit } from 'utility-types';
 import { IRadioGroupProps, RadioGroup, IRadioEvent } from '../../radio';
 import { IFormComponentProps, IFormFieldChildProps } from '../shared';
 import { FormField } from '../Field';
+import { useEventCallbackRef } from '../../utils/hooks/useEventCallbackRef';
 
 export type IFormRadioGroupFieldProps<T> = IFormComponentProps<
   T | null,
@@ -12,15 +13,19 @@ export type IFormRadioGroupFieldProps<T> = IFormComponentProps<
   children?: React.ReactNode;
 };
 
-function renderRadioGroup<T>(
-  childProps: IFormFieldChildProps<T | undefined>,
-  props: IFormRadioGroupFieldProps<T>
-) {
+function RadioGroupField<T>({
+  childProps,
+  props,
+}: {
+  childProps: IFormFieldChildProps<T | undefined>;
+  props: IFormRadioGroupFieldProps<T>;
+}) {
+  const onChangeRef = useEventCallbackRef(childProps.onChange);
   const onChange = React.useCallback(
     (e: IRadioEvent<T>) => {
-      childProps.onChange(e.target.value);
+      onChangeRef.current?.(e.target.value);
     },
-    [childProps.onChange]
+    [onChangeRef]
   );
   return (
     <RadioGroup {...props.props} {...childProps} onChange={onChange}>
@@ -37,7 +42,7 @@ export function FormRadioGroupField<T>(
       {...props}
       defaultValue={'defaultValue' in props ? props.defaultValue : null}
     >
-      {childProps => renderRadioGroup(childProps, props)}
+      {childProps => <RadioGroupField childProps={childProps} props={props} />}
     </FormField>
   );
 }

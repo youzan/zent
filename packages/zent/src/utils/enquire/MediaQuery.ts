@@ -33,7 +33,9 @@ export class MediaQuery {
     const qh = new QueryHandler(handler);
     this.handlers.push(qh);
 
-    this.matches() && qh.on();
+    if (this.matches()) {
+      qh.on();
+    }
   }
 
   /**

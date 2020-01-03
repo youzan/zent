@@ -113,29 +113,24 @@ export interface II18nLocaleTimePicker extends II18nLocaleCommon {
 
 export type I18nLocaleTimePicker = () => II18nLocaleTimePicker;
 
-export interface II18nLocaleTypeMap {
-  image: string;
-  voice: string;
-}
-
 export interface II18nLocaleUpload extends II18nLocaleCommon {
-  title_voice: string;
-  title_image: string;
-  input: {
-    holder: string;
-    maxAmount(options: { maxAmount: number; type: string }): string;
-    maxSize(options: { maxSize: number; type: string }): string;
-    type(options: { type: string }): string;
+  retry: string;
+  delete: string;
+  failed: string;
+  limit: string;
+  normal: {
+    add: string;
+    tips: (options: {
+      tips: string;
+      formattedMaxSize: string | null;
+    }) => string;
   };
-  popup: {
-    web: string;
-    group: string;
-    holder: string;
-    title_voice: string;
-    title_image: string;
-    type(options: { types: string[]; size: number }): string;
-    extract: string;
-    extracting: string;
+  image: {
+    tips: (options: {
+      tips: string;
+      formattedMaxSize: string | null;
+      maxAmount: number;
+    }) => string;
   };
 }
 
