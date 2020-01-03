@@ -1,26 +1,29 @@
 import * as React from 'react';
 
 import { IUploadItemProps, IUploadFileItem } from '../types';
+import { useEventCallbackRef } from '../../utils/hooks/useEventCallbackRef';
 
 export function useItemHandler<UPLOAD_ITEM extends IUploadFileItem>(
   props: IUploadItemProps<UPLOAD_ITEM>
 ) {
   const { item, onDelete, onRetry } = props;
+  const onDeleteRef = useEventCallbackRef(onDelete);
+  const onRetryRef = useEventCallbackRef(onRetry);
 
   const deleteHandler = React.useCallback<React.MouseEventHandler>(
     e => {
       e.stopPropagation();
-      onDelete(item);
+      onDeleteRef.current?.(item);
     },
-    [item, onDelete]
+    [item, onDeleteRef]
   );
 
   const retryHandler = React.useCallback<React.MouseEventHandler>(
     e => {
       e.stopPropagation();
-      onRetry(item);
+      onRetryRef.current?.(item);
     },
-    [item, onRetry]
+    [item, onRetryRef]
   );
 
   return {

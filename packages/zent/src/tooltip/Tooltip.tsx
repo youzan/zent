@@ -49,18 +49,6 @@ type ITooltipProps =
   | ITooltipTriggerClickProps
   | ITooltipTriggerHoverProps;
 
-function isITooltipTriggerClickProps(
-  props: ITooltipProps
-): props is ITooltipTriggerClickProps {
-  return true;
-}
-
-function ITooltipTriggerHoverProps(
-  props: ITooltipProps
-): props is ITooltipTriggerHoverProps {
-  return true;
-}
-
 export class Tooltip extends Component<ITooltipProps> {
   static defaultProps = {
     trigger: 'hover',
@@ -84,9 +72,9 @@ export class Tooltip extends Component<ITooltipProps> {
   }
 
   renderTrigger() {
-    const { trigger, isOutside, children } = this.props;
+    const { isOutside, children } = this.props;
 
-    if (trigger === 'click' && isITooltipTriggerClickProps(this.props)) {
+    if (this.props.trigger === 'click') {
       const { closeOnClickOutside = true } = this.props;
       return (
         <Trigger.Click autoClose={closeOnClickOutside} isOutside={isOutside}>
@@ -95,7 +83,7 @@ export class Tooltip extends Component<ITooltipProps> {
       );
     }
 
-    if (trigger === 'hover' && ITooltipTriggerHoverProps(this.props)) {
+    if (this.props.trigger === 'hover') {
       const {
         mouseLeaveDelay = 200,
         mouseEnterDelay = 200,
@@ -113,11 +101,11 @@ export class Tooltip extends Component<ITooltipProps> {
       );
     }
 
-    if (trigger === 'focus') {
+    if (this.props.trigger === 'focus') {
       return <Trigger.Focus>{children}</Trigger.Focus>;
     }
 
-    if (trigger === 'none') {
+    if (this.props.trigger === 'none') {
       return <NoneTrigger>{children}</NoneTrigger>;
     }
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import { noop } from '../constants';
+import noop from '../../utils/noop';
 import { DatePickers } from './types';
 
 export interface IPanelCellProps {

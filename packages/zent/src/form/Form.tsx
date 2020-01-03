@@ -33,10 +33,7 @@ export {
   IFormFieldModelProps,
   isViewDrivenProps,
   ValidateOccasion,
-  IFormFieldPropsBase,
-  IFormFieldProps,
   IFormComponentProps,
-  IFormFieldChildProps,
 } from './shared';
 
 function makeContext(
@@ -150,7 +147,9 @@ export class Form<
     if (!onSubmit) {
       return;
     }
+
     try {
+      form.submitStart();
       await form.validate(
         ValidateOption.IncludeAsync |
           ValidateOption.IncludeChildrenRecursively |
@@ -165,7 +164,7 @@ export class Form<
       form.submitSuccess();
     } catch (error) {
       onSubmitFail && onSubmitFail(error);
-      form.submitError(error);
+      form.submitError();
     }
   }
 

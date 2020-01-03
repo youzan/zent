@@ -15,14 +15,14 @@ class Search extends PureComponent<ISearchProps, any> {
   focused: boolean;
   inputRef = React.createRef<Input>();
 
-  constructor(props) {
+  constructor(props: ISearchProps) {
     super(props);
     this.changeHandler = this.changeHandler.bind(this);
     this.focused = false;
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!this.focused && nextProps.ready) {
+  componentDidUpdate() {
+    if (!this.focused && this.props.ready) {
       setTimeout(() => {
         this.inputRef.current && this.inputRef.current.focus();
       }, 150);

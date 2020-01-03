@@ -12,9 +12,10 @@ import MinutePanel from './time/MinutePanel';
 import SecondPanel from './time/SecondPanel';
 import PanelFooter from './common/PanelFooter';
 import { formatDate, parseDate, dayStart, padLeft } from './utils';
-import { timeFnMap, noop, popPositionMap, commonProps } from './constants';
+import { timeFnMap, popPositionMap, commonProps } from './constants';
 import { DatePickers } from './common/types';
 import Icon from '../icon';
+import noop from '../utils/noop';
 
 const DEFAULT_FORMAT = 'HH:mm:ss';
 const DEFAULT_FORMAT_WITHOUT_SECOND = 'HH:mm';

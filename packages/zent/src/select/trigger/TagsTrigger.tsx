@@ -44,6 +44,8 @@ class TagsTrigger extends PureComponent<ITagsTriggerProps, any> {
   isDelete: boolean;
   isAdded: boolean;
 
+  // 等重构再删了吧，改不动
+  // eslint-disable-next-line react/no-deprecated
   componentWillReceiveProps(nextProps) {
     const { selectedItems } = this.props;
     const { cid, text, value } = nextProps;

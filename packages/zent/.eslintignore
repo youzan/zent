@@ -1,6 +1,0 @@
-**/build
-**/bower_components
-**/vendor
-**/node_modules
-**/dist
-./scripts/**/*.js
