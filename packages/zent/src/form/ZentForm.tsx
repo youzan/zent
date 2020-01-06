@@ -17,10 +17,14 @@ export interface IFormAction {
 
 export interface IFormState {
   submitting: boolean;
+  submitFailed: boolean;
+  submitSucceeded: boolean;
 }
 
 const initialState: IFormState = {
   submitting: false,
+  submitFailed: false,
+  submitSucceeded: false,
 };
 
 function formReducer(state: IFormState, action: IFormAction): IFormState {
@@ -31,10 +35,18 @@ function formReducer(state: IFormState, action: IFormAction): IFormState {
         submitting: true,
       };
     case 'SUBMIT_SUCCESS':
+      return {
+        ...state,
+        submitting: false,
+        submitFailed: false,
+        submitSucceeded: true,
+      };
     case 'SUBMIT_ERROR':
       return {
         ...state,
         submitting: false,
+        submitFailed: true,
+        submitSucceeded: false,
       };
     default:
       return state;
@@ -55,8 +67,25 @@ export class ZentForm<T extends Record<string, BasicModel<unknown>>>
     private dispatch: (action: IFormAction) => void
   ) {}
 
+  /**
+   * 表单是否正在提交
+   */
   get isSubmitting() {
     return this.state.submitting;
+  }
+
+  /**
+   * 上一次表单提交是否失败，初始为 `false`
+   */
+  get isSubmitFailed() {
+    return this.state.submitFailed;
+  }
+
+  /**
+   * 上一次表单提交是否成功，初始为 `false`
+   */
+  get isSubmitSucceeded() {
+    return this.state.submitSucceeded;
   }
 
   get ctx() {
@@ -68,6 +97,7 @@ export class ZentForm<T extends Record<string, BasicModel<unknown>>>
   }
 
   /**
+   * 触发表单提交操作
    * ```jsx
    *  <button onClick={form.submit}>submit</button>
    * ```
@@ -90,6 +120,10 @@ export class ZentForm<T extends Record<string, BasicModel<unknown>>>
 
   getValue() {
     return this.inner.model.getRawValue();
+  }
+
+  getSubmitValue() {
+    return this.inner.model.getSubmitValue();
   }
 
   initialize(value: $FieldSetValue<T>) {
@@ -116,7 +150,7 @@ export class ZentForm<T extends Record<string, BasicModel<unknown>>>
     });
   }
 
-  submitError(error: any) {
+  submitError() {
     this.dispatch({
       type: 'SUBMIT_ERROR',
     });
@@ -130,7 +164,10 @@ export function useForm<
 >(arg: FormStrategy.View | FormBuilder<T, Builder, Model>) {
   const inner = superUseForm(arg);
   const [state, dispatch] = useReducer(formReducer, initialState);
-  const form = useMemo(() => new ZentForm(inner, state, dispatch), [inner]);
+  const form = useMemo(() => new ZentForm(inner, state, dispatch), [
+    inner,
+    state,
+  ]);
   form.state = state;
   return form;
 }

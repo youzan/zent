@@ -1,8 +1,5 @@
 import isBrowser from './isBrowser';
 
-declare var chrome: unknown;
-declare var opr: unknown;
-
 const winNav = isBrowser && window.navigator;
 const vendorName = winNav && winNav.vendor;
 const userAgent = winNav && winNav.userAgent;

@@ -17,7 +17,7 @@ import {
   IUploadTipConfig,
 } from './types';
 import { formatFileSize } from './utils/format-file-size';
-import { guessSupportTypes } from './utils/guess-support-types';
+import { getTipsContent } from './utils/get-tips-content';
 import { createUploadItemId } from './utils/id';
 
 import { I18nReceiver, II18nLocaleUpload } from '../i18n';
@@ -30,7 +30,7 @@ type IUploadPropsInner = PartialRequired<
   | 'multiple'
   | 'pagination'
   | 'pageSize'
-  | 'autoUpload'
+  | 'manualUpload'
 >;
 
 export class Upload extends AbstractUpload<
@@ -42,7 +42,7 @@ export class Upload extends AbstractUpload<
     maxAmount: DEFAULT_MAX_AMOUNT,
     maxSize: DEFAULT_MAX_SIZE,
     multiple: DEFAULT_ENABLE_MULTIPLE,
-    autoUpload: true,
+    manualUpload: false,
     sortable: false,
     pageSize: 5,
     pagination: false,
@@ -56,21 +56,22 @@ export class Upload extends AbstractUpload<
       _file: file,
       name: file.name,
       type: file.type,
-      status: FILE_UPLOAD_STATUS.uploading,
+      status: FILE_UPLOAD_STATUS.beforeUpload,
       percent: 0,
     };
   }
 
   protected renderTips(i18n: II18nLocaleUpload) {
-    const { tips, maxSize, accept, supportTypes } = this
-      .props as IUploadPropsInner;
+    const { tips, maxSize } = this.props as IUploadPropsInner;
     const config: IUploadTipConfig<IUploadProps> = {
       ...this.props,
       formattedMaxSize: formatFileSize(maxSize),
-      supportTypes: supportTypes || guessSupportTypes(accept),
     };
-    const tipGenerator = typeof tips === 'function' ? tips : i18n.normal.tips;
-    return <div className="zent-upload-tips">{tipGenerator(config)}</div>;
+    return (
+      <div className="zent-upload-tips">
+        {getTipsContent(tips, config, i18n.normal.tips)}
+      </div>
+    );
   }
 
   protected renderUploadList(i18n: II18nLocaleUpload): React.ReactNode {
@@ -118,13 +119,10 @@ export class Upload extends AbstractUpload<
           return (
             <div className={cn('zent-upload', className)}>
               {this.renderUploadList(i18n)}
-              {/* 到达上传文件数量上限，隐藏 Trigger */}
-              {this.remainAmount > 0 && (
-                <div className="zent-upload-trigger-wrapper">
-                  {this.renderTrigger(i18n)}
-                  {this.renderTips(i18n)}
-                </div>
-              )}
+              <div className="zent-upload-trigger-wrapper">
+                {this.renderTrigger(i18n)}
+                {this.renderTips(i18n)}
+              </div>
             </div>
           );
         }}

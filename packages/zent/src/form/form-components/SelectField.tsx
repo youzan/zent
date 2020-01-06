@@ -13,7 +13,7 @@ import {
   IFormFieldModelDrivenProps,
   ValidateOccasion,
   defaultRenderError,
-  asFormChild,
+  useFormChild,
 } from '../shared';
 import Select, { ISelectProps } from '../../select';
 import { FormNotice } from '../Notice';
@@ -55,9 +55,11 @@ export const FormSelectField: React.FunctionComponent<IFormSelectFieldProps<
         Validators.required(props.required as string),
       ] as IValidators<any>).concat(validators);
     }
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     model = useField<any>(name, defaultValue, validators);
     model.destroyOnUnmount = Boolean(destroyOnUnmount);
   } else {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     model = useField<any>(
       ((props as unknown) as IFormFieldModelDrivenProps<any>).model
     );
@@ -80,7 +82,7 @@ export const FormSelectField: React.FunctionComponent<IFormSelectFieldProps<
     getValidateOption = defaultGetValidateOption,
   } = props;
   const anchorRef = React.useRef<HTMLDivElement | null>(null);
-  asFormChild(model, anchorRef);
+  useFormChild(model, anchorRef);
   const onChange = React.useCallback(
     (e: any) => {
       if (propsRef.current.props.tags) {
@@ -96,7 +98,7 @@ export const FormSelectField: React.FunctionComponent<IFormSelectFieldProps<
       }
       model.isTouched = true;
     },
-    [model]
+    [model, validateOccasion, getValidateOption]
   );
   return (
     <FormControl

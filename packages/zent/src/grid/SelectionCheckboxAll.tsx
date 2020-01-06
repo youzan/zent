@@ -89,6 +89,8 @@ class SelectionCheckboxAll<Data> extends PureComponent<
     this.subscribe();
   }
 
+  // 等重构再删了吧，改不动
+  // eslint-disable-next-line react/no-deprecated
   componentWillReceiveProps(nextProps: IGridSelectionAllCheckboxProps<Data>) {
     this.setCheckState(nextProps);
   }

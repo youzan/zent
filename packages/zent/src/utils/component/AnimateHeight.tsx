@@ -1,5 +1,5 @@
 import * as React from 'react';
-import nextFrame from '../nextFrame';
+import { runInNextFrame } from '../nextFrame';
 
 function applyHeight(el: HTMLDivElement, height: number | string) {
   if (typeof height === 'number') {
@@ -36,7 +36,7 @@ export default class AnimationHeight extends React.Component<
     const el = this.ref.current as HTMLDivElement;
     if (appear && height === 'auto') {
       el.style.height = '0px';
-      nextFrame(() => {
+      runInNextFrame(() => {
         if (this.props.height === height) {
           el.style.height = `${el.scrollHeight}px`;
           this.timer = window.setTimeout(() => {
@@ -64,7 +64,7 @@ export default class AnimationHeight extends React.Component<
     const el = this.ref.current as HTMLDivElement;
     if (prevProps.height === 'auto') {
       el.style.height = `${el.scrollHeight}px`;
-      nextFrame(() => {
+      runInNextFrame(() => {
         if (this.props.height === height) {
           applyHeight(el, height);
         }

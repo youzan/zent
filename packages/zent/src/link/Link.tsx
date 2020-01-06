@@ -31,6 +31,8 @@ export const Link = React.forwardRef<HTMLAnchorElement, ILinkProps>(
   }
 );
 
+Link.displayName = 'Link';
+
 function preventOpenLink(
   event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
 ) {

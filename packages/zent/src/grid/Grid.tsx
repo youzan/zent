@@ -2,14 +2,12 @@ import * as React from 'react';
 import * as ReactDom from 'react-dom';
 import { PureComponent } from 'react';
 import classnames from 'classnames';
-import debounce from '../utils/debounce';
 import isEqual from '../utils/isEqual';
-import throttle from '../utils/throttle';
 
 import noop from '../utils/noop';
 import measureScrollbar from '../utils/dom/measureScrollbar';
-import WindowResizeHandler from '../utils/component/WindowResizeHandler';
-import WindowEventHandler from '../utils/component/WindowEventHandler';
+import { WindowResizeHandler } from '../utils/component/WindowResizeHandler';
+import { WindowScrollHandler } from '../utils/component/WindowScrollHandler';
 import BatchComponents from './BatchComponents';
 import {
   groupedColumns,
@@ -539,10 +537,10 @@ export class Grid<Data = any> extends PureComponent<
     }
   };
 
-  onResize = debounce(() => {
+  onResize = () => {
     this.syncFixedTableRowHeight();
     this.toggleBatchComponents();
-  }, 500);
+  };
 
   onRowMouseEnter = (mouseOverRowIndex: number) => {
     this.setState({
@@ -849,7 +847,9 @@ export class Grid<Data = any> extends PureComponent<
     }
   };
 
-  onScroll = throttle(this.toggleBatchComponents, 200);
+  onScroll = () => {
+    this.toggleBatchComponents();
+  };
 
   componentDidMount() {
     this.mounted = true;
@@ -863,6 +863,8 @@ export class Grid<Data = any> extends PureComponent<
     this.mounted = false;
   }
 
+  // 等重构再删了吧，改不动
+  // eslint-disable-next-line react/no-deprecated
   componentWillReceiveProps(nextProps: IGridProps<Data>) {
     if (nextProps.selection?.hasOwnProperty('selectedRowKeys')) {
       this.store.setState({
@@ -967,10 +969,9 @@ export class Grid<Data = any> extends PureComponent<
                 )}
               </BlockLoading>
               <WindowResizeHandler onResize={this.onResize} />
-              <WindowEventHandler
-                eventName="scroll"
-                callback={this.onScroll}
-                useCapture
+              <WindowScrollHandler
+                onScroll={this.onScroll}
+                options={{ capture: true }}
               />
             </div>
           );

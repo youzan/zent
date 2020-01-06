@@ -44,6 +44,17 @@ abstract class AbstractUpload<
     };
   }
 
+  static getDerivedStateFromProps(
+    nextProps: IAbstractUploadProps<IUploadFileItem>
+  ) {
+    if ('fileList' in nextProps) {
+      return {
+        fileList: nextProps.fileList || [],
+      };
+    }
+    return null;
+  }
+
   /**
    * 判断是否受控
    */
@@ -117,10 +128,10 @@ abstract class AbstractUpload<
     file: File,
     uploadItem: IUploadFileItemInner<UPLOAD_ITEM>
   ) => {
-    const { onUpload, autoUpload } = this.props;
+    const { onUpload, manualUpload } = this.props;
     const uplodaItemId = uploadItem._id;
     // auto start upload
-    if (autoUpload && onUpload) {
+    if (!manualUpload && onUpload) {
       onUpload(file, this.updateUploadItemPercent.bind(this, uplodaItemId))
         .then(onUploadReturn => {
           this.updateUploadItemStatusToSuccess(uplodaItemId, onUploadReturn);
@@ -229,10 +240,16 @@ abstract class AbstractUpload<
    */
   updateUploadItemPercent = (updateItemId: string, percent: number) => {
     const updateItem = this.getUploadItem(updateItemId);
-    if (!updateItem || updateItem.status !== FILE_UPLOAD_STATUS.uploading) {
+    // 已成功、已失败、已删除的上传项，不进行进度更新
+    if (
+      !updateItem ||
+      updateItem.status === FILE_UPLOAD_STATUS.success ||
+      updateItem.status === FILE_UPLOAD_STATUS.failed
+    ) {
       return;
     }
     const overrideProps = {
+      status: FILE_UPLOAD_STATUS.uploading,
       percent,
     } as Partial<IUploadFileItemInner<UPLOAD_ITEM>>;
     this.updateUploadItem(updateItemId, overrideProps);
@@ -279,6 +296,7 @@ abstract class AbstractUpload<
    * 获取上传成功时要覆盖到 item 上的属性
    */
   protected getUploadSuccessOverrideProps(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     onUploadSuccessReturn: ON_UPLOAD_SUCCESS_RETURN
   ): Partial<IUploadFileItemInner<UPLOAD_ITEM>> {
     return {};

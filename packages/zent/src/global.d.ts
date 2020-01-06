@@ -18,6 +18,10 @@ declare global {
    * Current zent version in package.json
    */
   const __ZENT_VERSION__: string;
+
+  const chrome: unknown;
+  const opr: unknown;
+  const InstallTrigger: unknown;
 }
 
 export {};

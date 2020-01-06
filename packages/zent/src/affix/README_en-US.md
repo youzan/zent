@@ -18,8 +18,7 @@ Used to fix the element in a specific area, it is common to fix navigation bar
 | onUnpin | execute callback when affix disappears | function | null | null |
 | zIndex | affix z-index | number | 10 | null |
 | className | custom extra class name  | string | `''`       |                                   |
-| placeHoldClassName | position container class name  | string | `''`       |                                   |
-| prefix    | custom prefix    | string | `'zent'`   |                                   |
+| placeholderClassName | position container class name  | string | `''`       |                                   |
 
 
 If `offsetTop` and `offsetBottom` are both set , `offsetBottom` has higher priority.

@@ -29,6 +29,8 @@ class InputTrigger extends Component<IInputTriggerProps> {
     return nextState.value !== this.state.value;
   }
 
+  // 等重构再删了吧，改不动
+  // eslint-disable-next-line react/no-deprecated
   componentWillReceiveProps(nextProps) {
     this.setState({
       value: nextProps.keyword === null ? nextProps.value : nextProps.keyword,

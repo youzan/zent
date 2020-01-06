@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Component, createRef } from 'react';
 import cx from 'classnames';
 import focusWithoutScroll from '../utils/dom/focusWithoutScroll';
+import Icon from '../icon';
 
 export interface IMousePosition {
   x: number;
@@ -86,7 +87,7 @@ export class DialogInnerEl extends Component<IDialogInnerElProps> {
     });
     const Closer = closeBtn && (
       <button type="button" className={closeBtnCls} onClick={this.onClickClose}>
-        ×
+        <Icon type="close" />
       </button>
     );
 

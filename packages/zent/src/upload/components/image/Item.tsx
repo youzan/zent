@@ -1,11 +1,12 @@
-import * as React from 'react';
 import cn from 'classnames';
-import { IImageUploadItemProps } from '../../types';
-import { FILE_UPLOAD_STATUS } from '../../constants';
-import { Progress } from '../../../progress';
+import * as React from 'react';
+
 import { Icon } from '../../../icon';
+import { Progress } from '../../../progress';
 import { useHover } from '../../../utils/hooks/use-hover';
+import { FILE_UPLOAD_STATUS } from '../../constants';
 import { useItemHandler } from '../../hooks/item-handler';
+import { IImageUploadItemProps } from '../../types';
 
 /**
  * 通用上传组件上传项
@@ -46,17 +47,14 @@ const ImageUploadItem: React.FC<IImageUploadItemProps> = props => {
     return (
       isFailed && (
         <div className={failedCls} onClick={retryHandler}>
-          <Icon
-            className="zent-image-upload-item__icon"
-            type={failedIconType}
-          />
+          <Icon className="zent-image-upload-item-icon" type={failedIconType} />
           <span className="zent-image-upload-item-backdrop-text">
             {failedText}
           </span>
         </div>
       )
     );
-  }, [isHover, i18n, isFailed]);
+  }, [isHover, i18n, isFailed, retryHandler]);
 
   return (
     <li
@@ -66,7 +64,7 @@ const ImageUploadItem: React.FC<IImageUploadItemProps> = props => {
       className={cls}
     >
       <img
-        className="zent-image-upload-item__thumb"
+        className="zent-image-upload-item-thumb"
         src={item.thumbSrc || item.src}
         alt={item.name}
         onClick={previewHandler}
@@ -77,16 +75,18 @@ const ImageUploadItem: React.FC<IImageUploadItemProps> = props => {
           <Progress
             width={48}
             showInfo={false}
-            className="zent-image-upload-item__progress"
-            strokeWidth={8}
+            className="zent-image-upload-item-progress"
+            strokeWidth={4}
+            status="normal"
             percent={item.percent}
           />
         </div>
       )}
       {failedFallback}
+      <i className="zent-image-upload-item-delete-bg" />
       <Icon
         type="close-circle"
-        className="zent-image-upload-item__delete"
+        className="zent-image-upload-item-delete"
         onClick={deleteHandler}
       />
     </li>

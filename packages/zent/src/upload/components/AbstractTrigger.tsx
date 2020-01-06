@@ -1,6 +1,10 @@
 import * as React from 'react';
+
 import FileInput from './FileInput';
+
+import Notify from '../../notify';
 import { IAbstractUploadTriggerProps, IUploadFileItem } from '../types';
+import { formatFileSize } from '../utils/format-file-size';
 
 abstract class AbstractTrigger<
   UPLOAD_ITEM extends IUploadFileItem
@@ -14,14 +18,30 @@ abstract class AbstractTrigger<
     this.fileInputRef.current && this.fileInputRef.current.open();
   };
 
+  /**
+   * 点击检查上传数量限制，若未达到上限则触发文件上传
+   */
+  protected onClickTrigger = () => {
+    const { remainAmount, i18n } = this.props;
+    if (remainAmount <= 0) {
+      Notify.error(i18n.limit);
+    } else {
+      this.clickFileInput();
+    }
+  };
+
   protected onOverMaxAmount() {
     const { maxAmount } = this.props;
     this.props.onError('overMaxAmount', { maxAmount });
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected onOverMaxSize(files: File[]) {
     const { maxSize } = this.props;
-    this.props.onError('overMaxSize', { maxSize });
+    this.props.onError('overMaxSize', {
+      maxSize,
+      formattedMaxSize: formatFileSize(maxSize)!,
+    });
   }
 
   /**

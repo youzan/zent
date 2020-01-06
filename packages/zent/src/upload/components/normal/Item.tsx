@@ -1,15 +1,13 @@
-import * as React from 'react';
 import cn from 'classnames';
+import * as React from 'react';
+
 import { Icon } from '../../../icon';
 import InlineLoading from '../../../loading/InlineLoading';
-import { IUploadFileItem, INormalUploadItemProps } from '../../types';
-import { FILE_UPLOAD_STATUS } from '../../constants';
-import { Progress } from '../../../progress';
-import FileIcon from '../icons/File';
-import VideoIcon from '../icons/Video';
-import AudioIcon from '../icons/Audio';
 import Pop from '../../../pop';
+import { Progress } from '../../../progress';
+import { FILE_UPLOAD_STATUS } from '../../constants';
 import { useItemHandler } from '../../hooks/item-handler';
+import { INormalUploadItemProps, IUploadFileItem } from '../../types';
 
 /**
  * 获取状态展示图标
@@ -17,22 +15,32 @@ import { useItemHandler } from '../../hooks/item-handler';
 const mimeTypeIconMap: {
   [type: string]: React.ReactNode;
 } = {
-  audio: <AudioIcon />,
-  video: <VideoIcon />,
+  audio: (
+    <Icon
+      className="zent-upload-item-icon zent-upload-item-icon__type"
+      type="voice"
+    />
+  ),
+  video: (
+    <Icon
+      className="zent-upload-item-icon zent-upload-item-icon__type"
+      type="video"
+    />
+  ),
 };
 const getFileIcon = (item: IUploadFileItem) => {
   const { status, type: mimeType } = item;
 
   // 上传失败 icon
   if (status === FILE_UPLOAD_STATUS.failed) {
-    return <Icon className="zent-upload-item__icon" type="warning" />;
+    return <Icon className="zent-upload-item-icon" type="warning" />;
   }
 
   // 上传中 icon
   if (status === FILE_UPLOAD_STATUS.uploading) {
     return (
       <InlineLoading
-        className="zent-upload-item__icon"
+        className="zent-upload-item-icon"
         loading
         icon="circle"
         iconSize={16}
@@ -48,7 +56,12 @@ const getFileIcon = (item: IUploadFileItem) => {
   }
 
   // 默认文件 icon
-  return <FileIcon />;
+  return (
+    <Icon
+      className="zent-upload-item-icon zent-upload-item-icon__type"
+      type="doc"
+    />
+  );
 };
 
 const splitFileNameParts = (filename: string) => {
@@ -70,41 +83,45 @@ const NormalUploadItem: React.FC<INormalUploadItemProps> = props => {
   const isFailed = item.status === FILE_UPLOAD_STATUS.failed;
   const { deleteHandler, retryHandler } = useItemHandler(props);
 
+  const isUploading = item.status === FILE_UPLOAD_STATUS.uploading;
+
   const cls = cn('zent-upload-item', {
     ['zent-upload-item__failed']: isFailed,
+    ['zent-upload-item__uploading']: isUploading,
   });
 
   const [filename, ext] = splitFileNameParts(item.name);
 
   return (
     <li key={item._id} className={cls}>
-      <div className="zent-upload-item__info">
+      <div className="zent-upload-item-info">
         {getFileIcon(item)}
         <Pop
-          wrapperClassName="zent-upload-item__name-wrapper"
+          wrapperClassName="zent-upload-item-name-wrapper"
           content={item.name}
           trigger="hover"
           mouseEnterDelay={500}
         >
-          <p className="zent-upload-item__name-line">
-            <span className="zent-upload-item__name">{filename}</span>
-            <span className="zent-upload-item__ext">{ext}</span>
+          <p className="zent-upload-item-name-line">
+            <span className="zent-upload-item-name">{filename}</span>
+            <span className="zent-upload-item-name-ext">{ext}</span>
           </p>
         </Pop>
-        <div className="zent-upload-item__actions">
+        <div className="zent-upload-item-actions">
           {isFailed && (
-            <a className="zent-upload-item__retry" onClick={retryHandler}>
+            <a className="zent-upload-item-retry" onClick={retryHandler}>
               {i18n.retry}
             </a>
           )}
           <a onClick={deleteHandler}>{i18n.delete}</a>
         </div>
       </div>
-      {item.status === FILE_UPLOAD_STATUS.uploading && (
+      {isUploading && (
         <Progress
           showInfo={false}
-          className="zent-upload-item__progress"
+          className="zent-upload-item-progress"
           strokeWidth={2}
+          status="normal"
           percent={item.percent}
         />
       )}

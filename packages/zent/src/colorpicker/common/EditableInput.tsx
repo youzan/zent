@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { Component, createRef } from 'react';
 import reactCSS from '../helpers/reactcss';
+import { addEventListener } from '../../utils/component/event-handler';
 
 export default class EditableInput extends Component<any, any> {
   inputRef = createRef<HTMLInputElement>();
+  eventCancelList = [] as Array<() => void>;
 
   constructor(props) {
     super(props);
@@ -99,8 +101,14 @@ export default class EditableInput extends Component<any, any> {
     if (this.props.dragLabel) {
       e.preventDefault();
       this.handleDrag(e);
-      window.addEventListener('mousemove', this.handleDrag);
-      window.addEventListener('mouseup', this.handleMouseUp);
+      this.eventCancelList.push(
+        addEventListener(window, 'mousemove', this.handleDrag)
+      );
+      this.eventCancelList.push(
+        addEventListener(window, 'mouseup', this.handleMouseUp, {
+          passive: true,
+        })
+      );
     }
   };
 
@@ -109,8 +117,8 @@ export default class EditableInput extends Component<any, any> {
   };
 
   unbindEventListeners = () => {
-    window.removeEventListener('mousemove', this.handleDrag);
-    window.removeEventListener('mouseup', this.handleMouseUp);
+    this.eventCancelList.forEach(cancel => cancel());
+    this.eventCancelList = [];
   };
 
   render() {

@@ -1,3 +1,6 @@
+import { addEventListener } from '../component/event-handler';
+import isBrowser from '../isBrowser';
+
 /**
  * getDocumentClientSize
  *
@@ -6,14 +9,19 @@
 
 let documentClientHeight: number | null = null;
 let documentClientWidth: number | null = null;
-if (process.env.BROWSER) {
+if (isBrowser) {
   documentClientHeight = document.documentElement.clientHeight;
   documentClientWidth = document.documentElement.clientWidth;
 
-  window.addEventListener('resize', () => {
-    documentClientHeight = document.documentElement.clientHeight;
-    documentClientWidth = document.documentElement.clientWidth;
-  });
+  addEventListener(
+    window,
+    'resize',
+    () => {
+      documentClientHeight = document.documentElement.clientHeight;
+      documentClientWidth = document.documentElement.clientWidth;
+    },
+    { passive: true }
+  );
 }
 export function getDocumentClientHeight() {
   return documentClientHeight;

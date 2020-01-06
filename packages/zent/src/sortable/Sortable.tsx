@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { Component } from 'react';
 import cx from 'classnames';
+import * as React from 'react';
 import * as sortableJS from 'sortablejs';
+
 import reorder from '../utils/reorder';
 
 export interface ISortableProps<T> extends sortableJS.Options {
@@ -13,7 +13,7 @@ export interface ISortableProps<T> extends sortableJS.Options {
   onChange?: (newItems: T[]) => void;
 }
 
-export class Sortable<T> extends Component<ISortableProps<T>> {
+export class Sortable<T> extends React.Component<ISortableProps<T>> {
   static defaultProps = {
     tag: 'div',
   };
@@ -43,7 +43,6 @@ export class Sortable<T> extends Component<ISortableProps<T>> {
       dragClass: `zent-drag`,
       fallbackClass: `zent-fallback`,
       onMove: e => {
-        console.log('onMove', e);
         if (onMove) {
           return onMove(e);
         }
@@ -60,7 +59,6 @@ export class Sortable<T> extends Component<ISortableProps<T>> {
         const { oldIndex, newIndex } = e;
         const newItems = reorder(items, oldIndex, newIndex);
 
-        console.log('onChange', e);
         onChange && onChange(newItems);
       },
       ...rest,
