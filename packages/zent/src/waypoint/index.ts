@@ -1,3 +1,2 @@
-import Waypoint from './Waypoint';
-
 export * from './Waypoint';
+export { WaypointPosition, IWaypointBounds } from './position';
