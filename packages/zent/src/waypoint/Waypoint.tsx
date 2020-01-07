@@ -1,3 +1,6 @@
+/**
+ * Modified from https://github.com/civiccc/react-waypoint
+ */
 import { addEventListener } from '../utils/component/event-handler';
 import * as React from 'react';
 import { isForwardRef } from 'react-is';
