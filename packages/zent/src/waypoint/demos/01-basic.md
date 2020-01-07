@@ -44,7 +44,7 @@ function Demo(props) {
 function Spacer() {
 	return (
 		<div className="waypoint-demo-basic__spacer">
-			<Icon type="down" className="waypoint-demo-basic-pulse" />
+			<Icon type="down" />
 		</div>
 	);
 }
@@ -54,7 +54,6 @@ ReactDOM.render(<Demo />, mountNode);
 
 <style>
 .waypoint-demo-basic {
-  border: solid 1px #dcdee0;
   position: relative;
 }
 
@@ -87,26 +86,5 @@ ReactDOM.render(<Demo />, mountNode);
   text-align: center;
   top: 0;
   width: 100%;
-}
-
-@keyframes pulse {
-  from {
-    transform: scale3d(1, 1, 1);
-  }
-
-  50% {
-    transform: scale3d(1.15, 1.15, 1.15);
-  }
-
-  to {
-    transform: scale3d(1, 1, 1);
-  }
-}
-
-.waypoint-demo-basic-pulse {
-	animation-name: pulse;
-	animation-duration: 1s;
-	animation-fill-mode: both;
-	animation-iteration-count: infinite;
 }
 </style>
