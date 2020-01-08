@@ -4,7 +4,7 @@ import chalk from 'chalk';
 import * as ts from 'typescript';
 import { resolve } from './resolver';
 
-const DEFAULT_EXPORT = 'default';
+export const DEFAULT_EXPORT = 'default';
 
 export type ValueExport = string;
 export interface IRegistry {
