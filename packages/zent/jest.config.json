@@ -31,6 +31,7 @@
     "<rootDir>/__tests__/portal/.+"
   ],
   "coveragePathIgnorePatterns": [
+    "<rootDir>/src/affix",
     "<rootDir>/src/sortable",
     "<rootDir>/src/waypoint",
     "<rootDir>/src/colorpicker/helpers/reactcss",
