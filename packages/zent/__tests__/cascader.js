@@ -536,4 +536,67 @@ describe('Cascader', () => {
     ).toBe(true);
     wrapper.unmount();
   });
+
+  it('pass raw value when onChange emitted', done => {
+    const value = [];
+    const options = [
+      {
+        id: 1,
+        title: 'root',
+        extra: 'root',
+        children: [
+          {
+            id: 2,
+            title: 'son',
+            extra: 'son',
+            children: [
+              {
+                id: 3,
+                title: 'grandSon',
+                extra: 'grandSon',
+              },
+            ],
+          },
+          {
+            id: 4,
+            title: 'anotherSon',
+            extra: 'anotherSon',
+            children: [
+              {
+                id: 5,
+                title: 'anotherGrandSon',
+                extra: 'anotherGrandSon',
+              },
+            ],
+          },
+        ],
+      },
+    ];
+    const onChange = data => {
+      expect(data.every(item => item.extra)).toBe(true);
+      done();
+    };
+
+    const wrapper = mount(
+      <Cascader
+        changeOnSelect
+        value={value}
+        options={options}
+        onChange={onChange}
+      />
+    );
+
+    wrapper.find('.zent-cascader__select').simulate('click');
+    jest.runAllTimers();
+
+    const pop = document.querySelector('.zent-popover-content');
+
+    simulateRawWithTimers(
+      pop.querySelectorAll('.zent-cascader__list-link')[0],
+      'click'
+    );
+    wrapper.update();
+
+    wrapper.unmount();
+  });
 });
