@@ -94,10 +94,9 @@ function resetCascaderValue<Item extends ICascaderItem>(
   };
 }
 
-export class Cascader<Item extends ICascaderItem> extends PureComponent<
-  ICascaderProps<Item>,
-  ICascaderState<Item>
-> {
+export class Cascader<
+  Item extends ICascaderItem = ICascaderItem
+> extends PureComponent<ICascaderProps<Item>, ICascaderState<Item>> {
   static defaultProps = {
     className: '',
     popClassName: 'zent-cascader__popup',
