@@ -11,9 +11,6 @@ import { getCurrentPosition, WaypointPosition } from './position';
 import isBrowser from '../utils/isBrowser';
 import defer from '../utils/defer';
 import { ICancelable } from '../utils/types';
-import warning from '../utils/warning';
-
-const DEV = process.env.NODE_ENV !== 'production';
 
 export interface IWaypointCallbackData {
   currentPosition: WaypointPosition;
@@ -26,7 +23,7 @@ export interface IWaypointCallbackData {
 }
 
 export interface IWaypointProps {
-  scrollableAncestor?: HTMLElement;
+  scrollableAncestor?: HTMLElement | Window;
   children?: React.ReactNode;
   topOffset?: number | string;
   bottomOffset?: number | string;
@@ -264,17 +261,6 @@ export class Waypoint extends React.PureComponent<IWaypointProps> {
       contextScrollTop = horizontal
         ? node.getBoundingClientRect().left
         : node.getBoundingClientRect().top;
-    }
-
-    if (DEV) {
-      warning(false, 'waypoint top: %s', waypointTop.toString());
-      warning(false, 'waypoint bottom: %s', waypointBottom.toString());
-      warning(false, 'scrollableAncestor height: %s', contextHeight.toString());
-      warning(
-        false,
-        'scrollableAncestor scrollTop: %s',
-        contextScrollTop.toString()
-      );
     }
 
     const { bottomOffset, topOffset } = this.props;
