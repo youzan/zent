@@ -24,9 +24,10 @@ import {
   setTime,
   isSameDate,
 } from './utils';
-import { CURRENT_DAY, noop, popPositionMap, commonProps } from './constants';
+import { CURRENT_DAY, popPositionMap, commonProps } from './constants';
 import { DatePickers } from './common/types';
 import Icon from '../icon';
+import noop from '../utils/noop';
 
 function getSelectedWeek(
   val,

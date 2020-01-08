@@ -4,9 +4,10 @@ import cx from 'classnames';
 
 import isDate from '../utils/isDate';
 import { I18nReceiver as Receiver } from '../i18n';
-import { TIME_BEGIN, commonProps, noop } from './constants';
+import { TIME_BEGIN, commonProps } from './constants';
 import DatePicker from './DatePicker';
 import { DatePickers } from './common/types';
+import noop from '../utils/noop';
 
 // type
 const START = 'start';
@@ -66,12 +67,10 @@ export class DateRangePicker extends PureComponent<IDateRangePickerProps> {
       disabledTime,
       ...pickerProps
     } = this.props;
-    let rangePicker;
     // 兼容老 api ，支持传入字符串
     const timeArr = compatibleInterface(defaultTime);
     const defaultValueArr = compatibleInterface(defaultValue);
-
-    rangePicker = (
+    const rangePicker = (
       <div className={cx(className, 'range-picker2')}>
         <Receiver componentName="TimePicker">
           {i18n => (

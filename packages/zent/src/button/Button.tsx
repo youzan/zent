@@ -64,6 +64,7 @@ export class Button extends React.Component<IButtonProps> {
         </button>
       );
     }
+
     return (
       <ButtonDirective
         type={type}

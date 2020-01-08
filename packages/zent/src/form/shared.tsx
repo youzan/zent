@@ -6,7 +6,6 @@ import {
   BasicModel,
   ValidateOption,
 } from 'formulr';
-import { useRef, ReactNode, RefObject } from 'react';
 import { Omit, Optional } from 'utility-types';
 import { FormError } from './Error';
 import { IFormControlProps } from './Control';
@@ -15,7 +14,7 @@ import { DatePickers } from '../datetimepicker/common/types';
 import { $MergeParams } from './utils';
 
 export interface IRenderError<T> {
-  (error: IMaybeError<T>): ReactNode;
+  (error: IMaybeError<T>): React.ReactNode;
 }
 
 export interface IFormFieldViewDrivenProps<T> {
@@ -178,12 +177,12 @@ export function defaultRenderError<T>(error: IMaybeError<T>) {
   return <FormError>{error.message}</FormError>;
 }
 
-export function asFormChild<Value>(
+export function useFormChild<Value>(
   model: BasicModel<Value>,
-  scrollAnchorRef?: RefObject<Element | null | undefined>
+  scrollAnchorRef?: React.RefObject<Element | null | undefined>
 ) {
   const ctx = useFormContext();
-  const posRef = useRef(ctx.children.length);
+  const posRef = React.useRef(ctx.children.length);
   React.useEffect(() => {
     const formChild: IFormChild = {
       valid() {

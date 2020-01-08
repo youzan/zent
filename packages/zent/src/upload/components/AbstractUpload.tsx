@@ -296,6 +296,7 @@ abstract class AbstractUpload<
    * 获取上传成功时要覆盖到 item 上的属性
    */
   protected getUploadSuccessOverrideProps(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     onUploadSuccessReturn: ON_UPLOAD_SUCCESS_RETURN
   ): Partial<IUploadFileItemInner<UPLOAD_ITEM>> {
     return {};

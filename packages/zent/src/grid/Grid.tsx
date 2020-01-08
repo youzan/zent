@@ -982,6 +982,8 @@ export class Grid<Data = any> extends PureComponent<
     this.mounted = false;
   }
 
+  // 等重构再删了吧，改不动
+  // eslint-disable-next-line react/no-deprecated
   componentWillReceiveProps(nextProps: IGridProps<Data>) {
     if (nextProps.selection?.hasOwnProperty('selectedRowKeys')) {
       this.store.setState({

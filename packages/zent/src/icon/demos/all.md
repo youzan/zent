@@ -937,6 +937,18 @@ class IconGrid extends Component {
                 <span className="zi-grid-item-name">voice</span>
               </div>
             </CopyButton>
+            <CopyButton
+              text={this.getIconString("filter-o")}
+              onCopySuccess="filter-o 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="filter-ofilteroutline"
+              >
+                <Icon type="filter-o" />
+                <span className="zi-grid-item-name">filter-o</span>
+              </div>
+            </CopyButton>
           </div>
         </div>
       
@@ -1725,27 +1737,39 @@ class IconGrid extends Component {
               </div>
             </CopyButton>
             <CopyButton
-              text={this.getIconString("video-guide")}
-              onCopySuccess="video-guide 已复制到剪贴板"
+              text={this.getIconString("video-guide-o")}
+              onCopySuccess="video-guide-o 已复制到剪贴板"
             >
               <div
                 className="zi-grid-item"
-                data-index="video-guidevideo-guideoutlineguide"
+                data-index="video-guide-ovideo-guideoutlineguide"
               >
-                <Icon type="video-guide" />
-                <span className="zi-grid-item-name">video-guide</span>
+                <Icon type="video-guide-o" />
+                <span className="zi-grid-item-name">video-guide-o</span>
               </div>
             </CopyButton>
             <CopyButton
-              text={this.getIconString("text-guide")}
-              onCopySuccess="text-guide 已复制到剪贴板"
+              text={this.getIconString("text-guide-o")}
+              onCopySuccess="text-guide-o 已复制到剪贴板"
             >
               <div
                 className="zi-grid-item"
-                data-index="text-guidetext-guideoutlineguide"
+                data-index="text-guide-otext-guideoutlineguide"
               >
-                <Icon type="text-guide" />
-                <span className="zi-grid-item-name">text-guide</span>
+                <Icon type="text-guide-o" />
+                <span className="zi-grid-item-name">text-guide-o</span>
+              </div>
+            </CopyButton>
+            <CopyButton
+              text={this.getIconString("scan-code-o")}
+              onCopySuccess="scan-code-o 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="scan-code-oscan-codeoutline"
+              >
+                <Icon type="scan-code-o" />
+                <span className="zi-grid-item-name">scan-code-o</span>
               </div>
             </CopyButton>
           </div>

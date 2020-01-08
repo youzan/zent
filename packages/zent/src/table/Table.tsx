@@ -133,6 +133,8 @@ export class Table extends PureComponent<ITableProps, any> {
 
   head: Head | null = null;
 
+  // 等重构再删了吧，改不动
+  // eslint-disable-next-line react/no-deprecated
   componentWillReceiveProps(nextProps) {
     const toggleListener = helper.toggleEventListener(this.props, nextProps);
     toggleListener && this[toggleListener](nextProps);

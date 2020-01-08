@@ -9,8 +9,8 @@ export interface ICascaderItem {
   isLeaf?: boolean;
 }
 
-export type CascaderHandler = (
-  item: ICascaderItem,
+export type CascaderHandler<Item extends ICascaderItem = ICascaderItem> = (
+  item: Item,
   stage: number,
   popover: Popover,
   trigger?: 'click' | 'hover'

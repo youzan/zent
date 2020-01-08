@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import { noop } from '../constants';
 import { DatePickers } from '../common/types';
+import noop from '../../utils/noop';
 
 export interface ITimeCellProps {
   onSelect: (val) => void;

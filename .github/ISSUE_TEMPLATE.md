@@ -1,4 +1,6 @@
-## 为了更快定位问题，请提供一个最小可重现问题的 demo，推荐使用 https://codesandbox.io
+## [How To Ask Questions The Smart Way](http://www.catb.org/~esr/faqs/smart-questions.html)
+
+## [提问的智慧](https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way/blob/master/README-zh_CN.md)
 
 ---
 
