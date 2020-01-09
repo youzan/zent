@@ -10,6 +10,7 @@ export const enum WaypointPosition {
   Inside,
   Below,
   Invisible,
+  Unknown,
 }
 
 /**

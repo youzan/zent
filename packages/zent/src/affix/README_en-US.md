@@ -6,7 +6,7 @@ group: Navigation
 
 ## Affix
 
-Used to fix the element in a specific area, it is common to fix navigation bar
+Pin element in a specific position.
 
 ### API
 

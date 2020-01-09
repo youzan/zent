@@ -49,7 +49,7 @@ export class Waypoint extends React.PureComponent<IWaypointProps> {
   private scrollEventListenerUnsubscribe: () => void;
   private resizeEventListenerUnsubscribe: () => void;
   private scrollableAncestor: HTMLElement | Window;
-  private previousPosition: WaypointPosition;
+  private previousPosition = WaypointPosition.Unknown;
 
   componentDidMount() {
     if (!isBrowser) {
@@ -204,7 +204,11 @@ export class Waypoint extends React.PureComponent<IWaypointProps> {
 
     if (currentPosition === WaypointPosition.Inside) {
       onEnter?.(callbackArg);
-    } else if (previousPosition === WaypointPosition.Inside) {
+    } else if (
+      previousPosition === WaypointPosition.Inside ||
+      // Trigger `onLeave` if waypoint is below/above when mount
+      previousPosition === WaypointPosition.Unknown
+    ) {
       onLeave?.(callbackArg);
     }
 

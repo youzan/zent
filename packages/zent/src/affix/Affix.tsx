@@ -35,7 +35,13 @@ export const Affix: React.FC<IAffixProps> = ({
   const useBottom = typeof offsetBottom === 'number';
 
   const pin = React.useCallback(
-    ({ currentPosition }: IWaypointCallbackData) => {
+    (expectedPosition: WaypointPosition) => ({
+      currentPosition,
+    }: IWaypointCallbackData) => {
+      if (currentPosition !== expectedPosition) {
+        return;
+      }
+
       const node = placeholderRef.current?.current;
       if (node) {
         setWidth(node.offsetWidth);
@@ -48,7 +54,14 @@ export const Affix: React.FC<IAffixProps> = ({
   );
 
   const unpin = React.useCallback(
-    ({ currentPosition }: IWaypointCallbackData) => {
+    (expectedPrevPosition: WaypointPosition) => ({
+      currentPosition,
+      previousPosition,
+    }: IWaypointCallbackData) => {
+      if (previousPosition !== expectedPrevPosition) {
+        return;
+      }
+
       setWidth(undefined);
       setHeight(undefined);
       setPosition(currentPosition);
@@ -57,48 +70,13 @@ export const Affix: React.FC<IAffixProps> = ({
     [onUnpinCallbackRef]
   );
 
-  const pinTop = React.useCallback(
-    (data: IWaypointCallbackData) => {
-      const { currentPosition } = data;
-      if (currentPosition !== WaypointPosition.Above) {
-        return;
-      }
-      pin(data);
-    },
-    [pin]
+  const [pinTop, unpinTop] = React.useMemo(
+    () => [pin(WaypointPosition.Above), unpin(WaypointPosition.Above)],
+    [pin, unpin]
   );
-
-  const unpinTop = React.useCallback(
-    (data: IWaypointCallbackData) => {
-      const { previousPosition } = data;
-      if (previousPosition !== WaypointPosition.Above) {
-        return;
-      }
-      unpin(data);
-    },
-    [unpin]
-  );
-
-  const pinBottom = React.useCallback(
-    (data: IWaypointCallbackData) => {
-      const { currentPosition } = data;
-      if (currentPosition !== WaypointPosition.Below) {
-        return;
-      }
-      pin(data);
-    },
-    [pin]
-  );
-
-  const unpinBottom = React.useCallback(
-    (data: IWaypointCallbackData) => {
-      const { previousPosition } = data;
-      if (previousPosition !== WaypointPosition.Below) {
-        return;
-      }
-      unpin(data);
-    },
-    [unpin]
+  const [pinBottom, unpinBottom] = React.useMemo(
+    () => [pin(WaypointPosition.Below), unpin(WaypointPosition.Below)],
+    [pin, unpin]
   );
 
   const placeholderStyle = React.useMemo<React.CSSProperties>(() => {
