@@ -2,10 +2,10 @@
  * This is a modified version from underscore.
  * https://github.com/jashkenas/underscore/blob/master/underscore.js
  *
- * With some difference:
+ * With some differences:
  * - It's iterative
  * - Bug fixes regarding NaN, 0 and -0 values
- * - Throws on non supported value types, such as Map/Set/WeakMap/WeakSet
+ * - Throws on unsupported value types, such as Map/Set/WeakMap/WeakSet
  */
 
 // We don't support symbols as object keys, they're expensive
