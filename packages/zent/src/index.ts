@@ -73,3 +73,4 @@ export * from './timeline';
 export * from './tooltip';
 export * from './tree';
 export * from './upload';
+export * from './waypoint';
