@@ -254,24 +254,31 @@
     vertical-align: middle;
 
     &:first-child {
-      padding: 10px 4px 9px 16px;
+      padding: 10px 12px;
     }
 
     &:last-child {
-      padding: 10px 16px 9px 4px;
+      padding: 10px 12px;
     }
   }
 
   &-th {
     @include theme-color(background-color, stroke, 8);
     line-height: 20px;
-    padding: 10px 12px 10px 4px;
+    padding: 10px 12px;
     font-weight: 500;
+  }
+
+  &-th.zent-grid-th-selection,
+  &-td.zent-grid-td-selection,
+  &-th.zent-grid-th-expand,
+  &-td.zent-grid-td-expand {
+    padding-right: 0;
   }
 
   &-td {
     line-height: 20px;
-    padding: 10px 12px 10px 4px;
+    padding: 10px 12px;
     position: relative;
 
     .zent-grid-expandable-btn {
@@ -343,7 +350,7 @@
   }
 
   .zent-grid-batch {
-    padding-left: 16px;
+    padding-left: 12px;
     padding-bottom: 12px;
     display: flex;
     align-items: center;
@@ -354,24 +361,6 @@
 
       &:last-child {
         margin-right: 0;
-      }
-    }
-
-    .batch-component-info {
-      margin-right: 16px;
-
-      .select-rows {
-        padding-right: 7px;
-
-        &::after {
-          @include theme-color(background-color, stroke, 5);
-          content: '';
-          display: inline-block;
-          height: 14px;
-          width: 2px;
-          margin-left: 7px;
-          vertical-align: middle;
-        }
       }
     }
   }

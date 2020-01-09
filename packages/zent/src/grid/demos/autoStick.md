@@ -64,7 +64,6 @@ ReactDOM.render(
 			<Grid
 				columns={columns}
 				datasets={datasets}
-				scroll={{ x: 1300, y: 200 }}
 				autoStick
 			/>
 		</div>
