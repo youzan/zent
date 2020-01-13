@@ -55,7 +55,7 @@ export interface IFormProps<T extends {}>
    * 表单布局，支持水平布局和垂直布局
    * @defaultValue `'vertical'`
    */
-  layout: 'horizontal' | 'vertical';
+  layout?: 'horizontal' | 'vertical';
   /**
    * `useForm`得到的`model`
    */
