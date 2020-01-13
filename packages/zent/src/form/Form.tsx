@@ -14,7 +14,6 @@ import {
   FieldValue,
   FieldSetValue,
   useFieldArrayValue,
-  BasicModel,
   ValidateOption,
   createAsyncValidator,
   isAsyncValidator,
@@ -47,10 +46,7 @@ function makeContext(
   };
 }
 
-export interface IFormProps<
-  T extends Record<string, Model>,
-  Model extends BasicModel<unknown>
->
+export interface IFormProps<T extends {}>
   extends Omit<
     React.FormHTMLAttributes<HTMLFormElement>,
     'onSubmit' | 'dangerouslySetInnerHTML'
@@ -90,10 +86,7 @@ export interface IFormProps<
   disableEnterSubmit?: boolean;
 }
 
-export class Form<
-  T extends Record<string, Model>,
-  Model extends BasicModel<unknown>
-> extends React.Component<IFormProps<T, Model>> {
+export class Form<T extends {}> extends React.Component<IFormProps<T>> {
   static displayName = 'ZentForm';
 
   static CombineErrors = CombineErrors;
@@ -204,7 +197,7 @@ export class Form<
     this.subscribe();
   }
 
-  componentDidUpdate(prevProps: IFormProps<T, Model>) {
+  componentDidUpdate(prevProps: IFormProps<T>) {
     if (prevProps.form !== this.props.form) {
       this.unsubscribe();
       this.subscribe();
