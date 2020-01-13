@@ -65,6 +65,7 @@ ReactDOM.render(
 				columns={columns}
 				datasets={datasets}
 				autoStick
+				scroll={{ x: 1300, y: 200 }}
 			/>
 		</div>
 	, mountNode
