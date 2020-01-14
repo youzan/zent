@@ -160,7 +160,6 @@ export class Avatar extends Component<IAvatarProps, IAvatarState> {
         this.textNodeRef.current
       );
 
-      // eslint-disable-next-line
       this.setState({
         textScale: scale,
         textReady: true,

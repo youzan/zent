@@ -60,7 +60,7 @@ const makeState = (
 
   return {
     transit(nextState: HoverState) {
-      // console.log(`${name}: ${state} -> ${nextState}`); // eslint-disable-line
+      // console.log(`${name}: ${state} -> ${nextState}`);
 
       state = nextState;
 
@@ -109,7 +109,7 @@ function makeRecognizer(state: IState, options: IRecognizerOptions) {
       if (!state.is(HoverState.Finish)) {
         recognizer.uninstall();
 
-        // console.log(`destroy ${state.name}`); // eslint-disable-line
+        // console.log(`destroy ${state.name}`);
       }
     },
 

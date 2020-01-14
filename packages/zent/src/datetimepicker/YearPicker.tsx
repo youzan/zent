@@ -14,6 +14,7 @@ import { CURRENT, popPositionMap, commonProps } from './constants';
 import { DatePickers } from './common/types';
 import Icon from '../icon';
 import noop from '../utils/noop';
+import warning from '../utils/warning';
 
 function getYear(val) {
   if (val instanceof Date) {
@@ -41,7 +42,7 @@ function extractStateFromProps(props: IYearPickerProps) {
       showPlaceholder = false;
       selected = actived = tmp;
     } else {
-      console.warn("date and format don't match."); // eslint-disable-line
+      warning(false, "date and format don't match.");
       showPlaceholder = true;
       actived = dayStart();
     }

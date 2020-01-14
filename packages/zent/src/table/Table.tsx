@@ -1,4 +1,3 @@
-/* eslint-disable no-lonely-if */
 import * as React from 'react';
 import { PureComponent } from 'react';
 import * as ReactDOM from 'react-dom';

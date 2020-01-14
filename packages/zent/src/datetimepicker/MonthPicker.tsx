@@ -14,6 +14,7 @@ import { CURRENT, popPositionMap, commonProps } from './constants';
 import { DatePickers } from './common/types';
 import Icon from '../icon';
 import noop from '../utils/noop';
+import warning from '../utils/warning';
 
 export interface IMonthPickerProps extends DatePickers.ICommonProps {
   disabled?: boolean;
@@ -33,7 +34,7 @@ function extractStateFromProps(props: IMonthPickerProps) {
       showPlaceholder = false;
       selected = actived = monthStart(tmp);
     } else {
-      console.warn("date and format don't match."); // eslint-disable-line
+      warning(false, "date and format don't match.");
       showPlaceholder = true;
       actived = monthStart();
     }

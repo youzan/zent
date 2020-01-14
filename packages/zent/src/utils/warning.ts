@@ -15,8 +15,7 @@
 
 const __DEV__ = process.env.NODE_ENV !== 'production';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-let warning = (condition: boolean, format: string, ...args: string[]) => {};
+let warning = (_condition: boolean, _format: string, ..._args: string[]) => {};
 
 if (__DEV__) {
   const printWarning = (format: string, ...args: string[]) => {

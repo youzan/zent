@@ -35,8 +35,7 @@ abstract class AbstractTrigger<
     this.props.onError('overMaxAmount', { maxAmount });
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected onOverMaxSize(files: File[]) {
+  protected onOverMaxSize(_files: File[]) {
     const { maxSize } = this.props;
     this.props.onError('overMaxSize', {
       maxSize,

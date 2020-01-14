@@ -60,8 +60,7 @@ export class PopoverTrigger<
   };
 
   // Override this function to add custom event handlers
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  getTriggerProps(child?: JSX.Element) {
+  getTriggerProps(_child?: JSX.Element) {
     return {};
   }
 
