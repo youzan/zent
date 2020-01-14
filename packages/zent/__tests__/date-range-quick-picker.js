@@ -19,13 +19,13 @@ describe('DateRangeQuickPicker', () => {
     wrapper.instance().handleTimeChange(['2017-02-01', '2018-02-01']);
     expect(onChange.mock.calls.length).toBe(1);
 
-    wrapper.instance().handleChooseDays(0);
+    wrapper.instance().handleChosenDays(0);
     expect(onChange.mock.calls.length).toBe(2);
 
-    wrapper.instance().handleChooseDays(1);
+    wrapper.instance().handleChosenDays(1);
     expect(onChange.mock.calls.length).toBe(3);
 
-    wrapper.instance().handleChooseDays(2);
+    wrapper.instance().handleChosenDays(2);
     expect(onChange.mock.calls.length).toBe(4);
   });
 
@@ -39,7 +39,7 @@ describe('DateRangeQuickPicker', () => {
       />
     );
 
-    wrapper.instance().handleChooseDays(1);
+    wrapper.instance().handleChosenDays(1);
     expect(onChange.mock.calls.length).toBe(1);
   });
 });
