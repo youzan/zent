@@ -2,26 +2,28 @@ import * as React from 'react';
 import cx from 'classnames';
 import { IButtonProps, Button } from '../button';
 import Icon from '../icon';
+import { DropdownContext } from './DropdownContext';
 
-export interface IDropdownButtonProps extends IButtonProps {
-  active: boolean;
-}
+export interface IDropdownButtonProps extends IButtonProps {}
 
 export const DropdownButton: React.FC<IDropdownButtonProps> = ({
   className,
-  active,
   children,
   ...props
 }) => {
   return (
-    <Button
-      className={cx(className, 'zent-dropdown-button', {
-        'zent-dropdown-button--active': active,
-      })}
-      {...props}
-    >
-      {children}
-      <Icon type="down" />
-    </Button>
+    <DropdownContext.Consumer>
+      {visible => (
+        <Button
+          className={cx(className, 'zent-dropdown-button', {
+            'zent-dropdown-button--active': visible,
+          })}
+          {...props}
+        >
+          {children}
+          <Icon type="down" />
+        </Button>
+      )}
+    </DropdownContext.Consumer>
   );
 };
