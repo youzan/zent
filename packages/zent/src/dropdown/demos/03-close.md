@@ -11,39 +11,42 @@ en-US:
 ---
 
 ```js
-import { Popover, Button, Menu } from 'zent';
+import {
+	Dropdown,
+	DropdownButton,
+	DropdownClickTrigger,
+	DropdownContent,
+	DropdownPosition,
+	Menu,
+} from 'zent';
 
 const { MenuItem } = Menu;
 
 class PopoverDemo extends Component {
 	state = {
-		visible: false
+		visible: false,
 	};
 
 	render() {
 		return (
-			<Popover
-				visible={this.state.visible} 
+			<Dropdown
+				visible={this.state.visible}
 				onVisibleChange={v => this.setState({ visible: v })}
-				position={Popover.Position.AutoBottomLeft} 
-				display="inline"
-				cushion={5}>
-				<Popover.Trigger.Click>
-					<Button type="primary">{i18n.open}</Button>
-				</Popover.Trigger.Click>
-				<Popover.Content>
+				position={DropdownPosition.AutoBottomLeft}
+			>
+				<DropdownClickTrigger>
+					<DropdownButton type="primary">{i18n.open}</DropdownButton>
+				</DropdownClickTrigger>
+				<DropdownContent>
 					<Menu onClick={() => this.setState({ visible: false })}>
 						<MenuItem>{i18n.close}</MenuItem>
 						<MenuItem>{i18n.close}</MenuItem>
 					</Menu>
-				</Popover.Content>
-			</Popover>
+				</DropdownContent>
+			</Dropdown>
 		);
 	}
 }
 
-ReactDOM.render(
-	<PopoverDemo />
-	, mountNode
-);
+ReactDOM.render(<PopoverDemo />, mountNode);
 ```

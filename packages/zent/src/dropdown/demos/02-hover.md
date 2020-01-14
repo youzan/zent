@@ -13,25 +13,29 @@ en-US:
 ---
 
 ```js
-import { Popover, Menu, Button } from 'zent';
+import {
+	Menu,
+	Dropdown,
+	DropdownHoverTrigger,
+	DropdownContent,
+	DropdownButton,
+	DropdownPosition,
+} from 'zent';
 
 const { MenuItem } = Menu;
 
 ReactDOM.render(
-	<Popover 
-		position={Popover.Position.AutoBottomLeft} 
-		display="inline"
-		cushion={5}>
-		<Popover.Trigger.Hover>
-			<Button type="primary">{i18n.hover}</Button>
-		</Popover.Trigger.Hover>
-		<Popover.Content>
+	<Dropdown position={DropdownPosition.AutoBottomLeft}>
+		<DropdownHoverTrigger>
+			<DropdownButton type="primary">{i18n.hover}</DropdownButton>
+		</DropdownHoverTrigger>
+		<DropdownContent>
 			<Menu>
 				<MenuItem>{i18n.food}</MenuItem>
 				<MenuItem>{i18n.clothing}</MenuItem>
 			</Menu>
-		</Popover.Content>
-	</Popover>
-	, mountNode
+		</DropdownContent>
+	</Dropdown>,
+	mountNode
 );
 ```
