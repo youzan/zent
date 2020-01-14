@@ -93,8 +93,8 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
     } as Partial<ChildProps>,
     iconNode,
     // Wrap text in a `span`, or we won't be able to control icon margins
-    ...React.Children.map(children.props.children, child =>
+    ...(React.Children.map(children.props.children, child =>
       typeof child === 'string' ? <span>{child}</span> : child
-    )
+    ) || [])
   );
 }
