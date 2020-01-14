@@ -15,67 +15,66 @@ en-US:
 ---
 
 ```js
-import { DateRangeQuickPicker, Notify } from 'zent';
+import { DateRangeQuickPicker } from 'zent';
 
 class Simple extends Component {
-	state = {
-	};
+	state = {};
 
-	handleChange = (value, chooseDays) => {
-		Notify.success(JSON.stringify({ value, chooseDays }));
+	handleChange = (value, chosenDays) => {
 		this.setState({
 			value,
-			chooseDays
+			chosenDays,
 		});
 	};
 
-	handleChange1 = (value, chooseDays) => {
-		Notify.success(JSON.stringify({ value, chooseDays }));
+	handleChange1 = (value, chosenDays) => {
 		this.setState({
 			value1: value,
-			chooseDays1: chooseDays
+			chosenDays1: chosenDays,
 		});
-	}
+	};
 
-  render() {
-    const { value, chooseDays, value1, chooseDays1 } = this.state;
+	render() {
+		const { value, chosenDays, value1, chosenDays1 } = this.state;
 
-    return (
+		return (
 			<div>
 				<DateRangeQuickPicker
 					onChange={this.handleChange}
 					value={value}
 					format="YYYY-MM-DD HH:mm:ss"
 					valueType="number"
-					chooseDays={chooseDays}
+					chosenDays={chosenDays}
 				/>
 				<br />
 				<DateRangeQuickPicker
 					onChange={this.handleChange1}
 					value={value1}
 					format="YYYY-MM-DD HH:mm:ss"
-					chooseDays={chooseDays1}
-					preset={[{
-						text: '{i18n.today}',
-						value: 0
-					}, {
-						text: '{i18n.yesterday}',
-						value: 1
-					}, {
-						text: '{i18n.seven}',
-						value: 7
-					}, {
-						text: '{i18n.thirty}',
-						value: 30
-					}]}
+					chosenDays={chosenDays1}
+					preset={[
+						{
+							text: '{i18n.today}',
+							value: 0,
+						},
+						{
+							text: '{i18n.yesterday}',
+							value: 1,
+						},
+						{
+							text: '{i18n.seven}',
+							value: 7,
+						},
+						{
+							text: '{i18n.thirty}',
+							value: 30,
+						},
+					]}
 				/>
 			</div>
-    );
-  }
+		);
+	}
 }
 
-ReactDOM.render(
-	<Simple />
-	, mountNode
-);
+ReactDOM.render(<Simple />, mountNode);
 ```
