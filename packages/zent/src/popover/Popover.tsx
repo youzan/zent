@@ -150,7 +150,6 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
 
     if (!this.isVisibilityControlled(props)) {
       this.state = {
-        // eslint-disable-next-line
         visible: false,
       };
     }

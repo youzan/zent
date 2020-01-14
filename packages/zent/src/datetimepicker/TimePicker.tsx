@@ -16,6 +16,7 @@ import { timeFnMap, popPositionMap, commonProps } from './constants';
 import { DatePickers } from './common/types';
 import Icon from '../icon';
 import noop from '../utils/noop';
+import warning from '../utils/warning';
 
 const DEFAULT_FORMAT = 'HH:mm:ss';
 const DEFAULT_FORMAT_WITHOUT_SECOND = 'HH:mm';
@@ -52,7 +53,7 @@ function extractStateFromProps(props: ITimePickerProps): ITimePickerState {
   if (value) {
     parsedDate = parseDate(value, getFormat(props));
     if (!parsedDate) {
-      console.warn('time and format mismatch'); // eslint-disable-line
+      warning(false, 'time and format mismatch');
     }
   } else {
     // 利用传入的format解析value，失败则返回默认值

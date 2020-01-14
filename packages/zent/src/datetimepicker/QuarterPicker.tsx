@@ -15,6 +15,7 @@ import { popPositionMap, commonProps } from './constants';
 import noop from '../utils/noop';
 import { DatePickers } from './common/types';
 import Icon from '../icon';
+import warning from '../utils/warning';
 
 const quarterMonthMap = {
   0: 0,
@@ -62,7 +63,7 @@ function extractStateFromProps(props: IQuarterPickerProps) {
       showPlaceholder = false;
       selected = actived = tmp;
     } else {
-      console.warn("date and format don't match."); // eslint-disable-line
+      warning(false, "date and format don't match.");
       showPlaceholder = true;
       actived = dayStart();
     }
