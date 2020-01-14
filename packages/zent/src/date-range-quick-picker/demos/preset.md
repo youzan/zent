@@ -11,61 +11,81 @@ en-US:
 ---
 
 ```js
-import { DateRangeQuickPicker, Notify } from 'zent';
+import { DateRangeQuickPicker } from 'zent';
 
 class Simple extends Component {
-	state = {
-	};
+	state = {};
 
-	handleChange = (value, chooseDays) => {
-		Notify.success(JSON.stringify({ value, chooseDays }));
+	handleChange = (value, chosenDays) => {
 		this.setState({
 			value,
-			chooseDays
+			chosenDays,
 		});
 	};
 
-	handleChange1 = (value, chooseDays) => {
-		Notify.success(JSON.stringify({ value, chooseDays }));
+	handleChange1 = (value, chosenDays) => {
 		this.setState({
 			value1: value,
-			chooseDays1: chooseDays
+			chosenDays1: chosenDays,
 		});
-	}
+	};
 
-  render() {
-    const { value, chooseDays, value1, chooseDays1 } = this.state;
+	handleChange2 = (value, chosenDays) => {
+		this.setState({
+			value2: value,
+			chosenDays2: chosenDays,
+		});
+	};
 
-    return (
+	render() {
+		const {
+			value,
+			chosenDays,
+			value1,
+			chosenDays1,
+			value2,
+			chosenDays2,
+		} = this.state;
+
+		return (
 			<div>
 				<DateRangeQuickPicker
 					onChange={this.handleChange}
 					value={value}
 					format="YYYY-MM-DD HH:mm:ss"
 					valueType="number"
-					chooseDays={chooseDays}
+					chosenDays={chosenDays}
 				/>
 				<br />
 				<DateRangeQuickPicker
 					onChange={this.handleChange1}
 					value={value1}
 					format="YYYY-MM-DD HH:mm:ss"
-					chooseDays={chooseDays1}
-					preset={[{
-						text: '{i18n.cycle}',
-						value: ['2019-01-01', '2019-01-02']
-					}, {
-						text: '{i18n.month}',
-						value: ['2019-01-01', '2019-01-31']
-					}]}
+					chosenDays={chosenDays1}
+					preset={[
+						{
+							text: '{i18n.cycle}',
+							value: ['2019-01-01', '2019-01-02'],
+						},
+						{
+							text: '{i18n.month}',
+							value: ['2019-01-01', '2019-01-31'],
+						},
+					]}
+				/>
+				<br />
+				<DateRangeQuickPicker
+					onChange={this.handleChange2}
+					value={value2}
+					format="YYYY-MM-DD HH:mm:ss"
+					valueType="number"
+					chosenDays={chosenDays2}
+					defaultSelectedPresetIndex={1}
 				/>
 			</div>
-    );
-  }
+		);
+	}
 }
 
-ReactDOM.render(
-	<Simple />
-	, mountNode
-);
+ReactDOM.render(<Simple />, mountNode);
 ```

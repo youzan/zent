@@ -40,7 +40,7 @@ const DateRangeQuickPickerField: React.FC<{
     <DateRangeQuickPicker
       {...props.props}
       {...childProps}
-      chooseDays={chosenDays}
+      chosenDays={chosenDays}
       onChange={onChange}
     />
   );
