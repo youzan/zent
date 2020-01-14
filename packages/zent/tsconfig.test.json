@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "module": "commonjs",
-    "esModuleInterop": false,
+    "esModuleInterop": true,
     "baseUrl": "./src",
     "sourceMap": true
   }

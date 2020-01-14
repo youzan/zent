@@ -42,4 +42,24 @@ describe('DateRangeQuickPicker', () => {
     wrapper.instance().handleChosenDays(1);
     expect(onChange.mock.calls.length).toBe(1);
   });
+
+  it('suppports default preset', () => {
+    const onChange = jest.fn();
+    mount(
+      <DateRangeQuickPicker
+        value={[1524106071377, 1524107071377]}
+        onChange={onChange}
+        defaultSelectedPresetIndex={0}
+      />
+    );
+    expect(onChange.mock.calls.length).toBe(0);
+
+    mount(
+      <DateRangeQuickPicker
+        onChange={onChange}
+        defaultSelectedPresetIndex={0}
+      />
+    );
+    expect(onChange.mock.calls.length).toBe(1);
+  });
 });
