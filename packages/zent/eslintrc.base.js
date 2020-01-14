@@ -41,6 +41,7 @@ module.exports = {
         vars: 'all',
         args: 'after-used',
         ignoreRestSiblings: true,
+        argsIgnorePattern: '^_',
       },
     ],
     'ban/ban': [
