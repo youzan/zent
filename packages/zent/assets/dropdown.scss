@@ -1,0 +1,9 @@
+@import './theme/timing-functions';
+
+.zent-dropdown-button .zenticon-down {
+  transition: transform 160ms $timing-fn-linear;
+}
+
+.zent-dropdown-button--active .zenticon-down {
+  transform: rotate(180deg);
+}

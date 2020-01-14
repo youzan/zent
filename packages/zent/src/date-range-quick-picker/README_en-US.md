@@ -10,7 +10,7 @@ DateRangeQuickPicker is used for time range selection, it has 2 quick options wh
 
 ### Usage Scenarios
 
-As a filter control above list pages.
+Select a date range in one click.
 
 ### API
 
