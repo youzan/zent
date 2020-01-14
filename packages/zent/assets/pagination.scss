@@ -5,6 +5,7 @@
   display: flex;
   justify-content: flex-end;
   font-size: $font-size-normal;
+  @include theme-color(color, stroke, 1);
 
   &-page-list--normal,
   &-page-list--mini,
@@ -126,7 +127,7 @@
   }
 
   &-mini-page-jumper {
-    @include font-large;
+    @include font-normal;
 
     &__sep {
       margin: 0 24px;

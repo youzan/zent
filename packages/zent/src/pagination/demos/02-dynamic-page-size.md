@@ -18,7 +18,6 @@ class Test extends Component {
 	};
 
 	onChange = options => {
-		console.log(options);
 		this.setState(options);
 	};
 
