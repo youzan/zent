@@ -26,8 +26,6 @@ export interface IDateRangeQuickPickerPreset {
 }
 
 export interface IDateRangeQuickPickerProps {
-  prefix?: string;
-  className?: string;
   onChange: DateRangeQuickPickerChangeCallback;
   value: DatePickers.RangeValue;
   valueType?: DateRangeQuickPickerValueType;
@@ -39,8 +37,9 @@ export interface IDateRangeQuickPickerProps {
   chosenDays?: DateRangeQuickPickerPresetValue;
   preset?: IDateRangeQuickPickerPreset[];
   defaultSelectedPresetIndex?: number;
-  min?: string | number | Date;
-  max?: string | number | Date;
+  min?: DatePickers.Value;
+  max?: DatePickers.Value;
+  className?: string;
 }
 
 export class DateRangeQuickPicker extends Component<
@@ -83,7 +82,7 @@ export class DateRangeQuickPicker extends Component<
 
   handleTimeChange = (value: DatePickers.RangeValue) => {
     const { onChange } = this.props;
-    onChange(value, 0);
+    onChange(value, NaN);
   };
 
   handleChosenDays = (num: DateRangeQuickPickerPresetValue) => {
@@ -99,7 +98,6 @@ export class DateRangeQuickPicker extends Component<
       value,
       chooseDays,
       chosenDays,
-      prefix,
       preset,
       ...pickerProps
     } = this.props;
@@ -107,7 +105,7 @@ export class DateRangeQuickPicker extends Component<
     const selectedDays = chosenDays ?? chooseDays;
 
     return (
-      <div className={cx(`${prefix}-date-range-picker`, className)}>
+      <div className={cx('zent-date-range-picker', className)}>
         <DateRangePicker
           value={value}
           onChange={this.handleTimeChange}
@@ -115,13 +113,13 @@ export class DateRangeQuickPicker extends Component<
           showTime={!showTime}
           {...pickerProps}
         />
-        <div className={`${prefix}-date-range-picker__filter`}>
+        <div className={'zent-date-range-picker__filter'}>
           {preset.map((item, index) => (
             <Receiver key={index} componentName="RangePicker">
               {i18n => (
                 <span
                   key={index}
-                  className={cx(`${prefix}-date-range-picker__btn`, {
+                  className={cx('zent-date-range-picker__btn', {
                     active: isEqual(selectedDays, item.value),
                   })}
                   onClick={this.handleChosenDays.bind(this, item.value)}
