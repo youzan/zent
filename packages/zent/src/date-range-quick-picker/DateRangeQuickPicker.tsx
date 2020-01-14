@@ -70,7 +70,10 @@ export class DateRangeQuickPicker extends Component<
     const { value, defaultSelectedPresetIndex, preset } = props;
 
     // Set default value to preset[defaultSelectedPresetIndex]
-    if (!value || (Array.isArray(value) && !value.length)) {
+    if (
+      typeof defaultSelectedPresetIndex === 'number' &&
+      (!value || (Array.isArray(value) && !value.length))
+    ) {
       const val = preset[defaultSelectedPresetIndex]?.value;
       if (val !== undefined) {
         this.handleChosenDays(val);
