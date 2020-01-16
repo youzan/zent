@@ -457,6 +457,7 @@ export class Grid<Data = any> extends PureComponent<
     return this.getTable({
       columns: this.getLeftColumns(),
       fixed: 'left',
+      bodyRef: this.leftBody,
     });
   };
 
@@ -464,6 +465,7 @@ export class Grid<Data = any> extends PureComponent<
     return this.getTable({
       columns: this.getRightColumns(),
       fixed: 'right',
+      bodyRef: this.rightBody,
     });
   };
 
@@ -594,6 +596,8 @@ export class Grid<Data = any> extends PureComponent<
       columns?: Array<IGridInnerColumn<Data>>;
       fixed?: IGridInnerFixedType;
       isStickyHead?: boolean;
+      headRef?: React.RefObject<HTMLDivElement>;
+      bodyRef?: React.RefObject<HTMLDivElement>;
     } = {}
   ) => {
     const {
@@ -637,7 +641,7 @@ export class Grid<Data = any> extends PureComponent<
         sortBy={sortBy}
         defaultSortType={defaultSortType}
         fixedColumnsHeadRowsHeight={this.state.fixedColumnsHeadRowsHeight}
-        ref={options.isStickyHead ? null : this.headerNode}
+        ref={this.headerNode}
       />
     );
 
@@ -677,7 +681,7 @@ export class Grid<Data = any> extends PureComponent<
       };
       if (scrollbarWidth > 0) {
         headStyle.paddingBottom = 0;
-        if (!fixed && x) {
+        if (!fixed && this.isAnyColumnsFixed() && x) {
           headStyle.marginBottom = -scrollbarWidth;
           headStyle.marginRight = scrollbarWidth;
         }
@@ -691,13 +695,7 @@ export class Grid<Data = any> extends PureComponent<
             [`${prefix}-grid-sticky-header`]: options.isStickyHead,
           })}
           style={headStyle}
-          ref={
-            !fixed
-              ? options.isStickyHead
-                ? this.stickyHead
-                : this.scrollHeader
-              : null
-          }
+          ref={options.headRef}
           onScroll={this.handleBodyScroll}
         >
           {header}
@@ -711,7 +709,7 @@ export class Grid<Data = any> extends PureComponent<
               key="body"
               className={`${prefix}-grid-body`}
               style={scrollBodyStyle}
-              ref={fixed ? this[`${fixed || 'scroll'}Body`] : this.bodyTable}
+              ref={options.bodyRef}
               onScroll={this.handleBodyScroll}
             >
               {body}
@@ -724,13 +722,7 @@ export class Grid<Data = any> extends PureComponent<
     return [
       <div
         style={bodyStyle}
-        ref={
-          !fixed
-            ? options.isStickyHead
-              ? this.stickyHead
-              : this.bodyTable
-            : null
-        }
+        ref={options.bodyRef}
         onScroll={this.handleBodyScroll}
         key="table"
       >
@@ -926,6 +918,8 @@ export class Grid<Data = any> extends PureComponent<
     const content = [
       this.getTable({
         isStickyHead: true,
+        headRef: this.stickyHead,
+        bodyRef: this.stickyHead,
       }),
 
       this.isAnyColumnsLeftFixed() && (
@@ -963,11 +957,7 @@ export class Grid<Data = any> extends PureComponent<
   };
 
   setStickyHeadWidth = () => {
-    if (
-      this.props.autoStick &&
-      this.gridNode.current &&
-      this.gridNode.current
-    ) {
+    if (this.props.autoStick && this.gridNode && this.gridNode.current) {
       const { scroll } = this.props;
       let { width } = this.gridNode.current.getBoundingClientRect();
       if (scroll && scroll.x && scroll.y) {
@@ -1076,7 +1066,10 @@ export class Grid<Data = any> extends PureComponent<
       <Receiver componentName="Grid">
         {(i18n: II18nLocaleGrid) => {
           const content = [
-            this.getTable(),
+            this.getTable({
+              headRef: this.scrollHeader,
+              bodyRef: this.bodyTable,
+            }),
             this.getEmpty(i18n),
             <Footer
               ref={this.footNode}
