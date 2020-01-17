@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Swiper | zent</title>
+	<title>Swiper | zent - v8.0.0</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">zent</a>
+					<a href="../index.html" class="title">zent - v8.0.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -102,7 +102,6 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="swiper.html#autoplaytimer" class="tsd-kind-icon">autoplay<wbr>Timer</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="swiper.html#context" class="tsd-kind-icon">context</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="swiper.html#handleresize" class="tsd-kind-icon">handle<wbr>Resize</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="swiper.html#isswiping" class="tsd-kind-icon">is<wbr>Swiping</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="swiper.html#props" class="tsd-kind-icon">props</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="swiper.html#refs" class="tsd-kind-icon">refs</a></li>
@@ -135,6 +134,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="swiper.html#handledotsclick" class="tsd-kind-icon">handle<wbr>Dots<wbr>Click</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="swiper.html#handlemouseenter" class="tsd-kind-icon">handle<wbr>Mouse<wbr>Enter</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="swiper.html#handlemouseleave" class="tsd-kind-icon">handle<wbr>Mouse<wbr>Leave</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="swiper.html#handleresize" class="tsd-kind-icon">handle<wbr>Resize</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="swiper.html#init" class="tsd-kind-icon">init</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="swiper.html#next" class="tsd-kind-icon">next</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="swiper.html#prev" class="tsd-kind-icon">prev</a></li>
@@ -173,7 +173,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from Component.__constructor</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:435</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:447</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -188,7 +188,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from Component.__constructor</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:437</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:449</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -222,7 +222,7 @@
 					<div class="tsd-signature tsd-kind-icon">autoplay<wbr>Timer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L55">packages/zent/src/swiper/Swiper.tsx:55</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L54">packages/zent/src/swiper/Swiper.tsx:54</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -233,35 +233,26 @@
 					<aside class="tsd-sources">
 						<p>Inherited from Component.context</p>
 						<ul>
-							<li>Defined in node_modules/@types/react/index.d.ts:435</li>
+							<li>Defined in node_modules/@types/react/index.d.ts:447</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>If using the new style context, re-declare this in your class to be the
-							<code>React.ContextType</code> of your <code>static contextType</code>.</p>
+								<code>React.ContextType</code> of your <code>static contextType</code>.
+							Should be used with type annotation or static contextType.</p>
 						</div>
 						<pre><code class="language-ts"><span class="hljs-keyword">static</span> contextType = MyContext
-context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContext&gt;</code></pre>
+<span class="hljs-comment">// For TS pre-3.7:</span>
+context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContext&gt;
+<span class="hljs-comment">// For TS 3.7 and above:</span>
+<span class="hljs-keyword">declare</span> context: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContext&gt;</code></pre>
 						<dl class="tsd-comment-tags">
-							<dt>deprecated</dt>
-							<dd><p>if used without a type annotation, or without static contextType</p>
-							</dd>
 							<dt>see</dt>
-							<dd><p><a href="https://reactjs.org/docs/legacy-context.html">https://reactjs.org/docs/legacy-context.html</a></p>
+							<dd><p><a href="https://reactjs.org/docs/context.html">https://reactjs.org/docs/context.html</a></p>
 							</dd>
 						</dl>
 					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="handleresize" class="tsd-anchor"></a>
-					<h3>handle<wbr>Resize</h3>
-					<div class="tsd-signature tsd-kind-icon">handle<wbr>Resize<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;throttle(this.init, 1000 / 60)</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L241">packages/zent/src/swiper/Swiper.tsx:241</a></li>
-						</ul>
-					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="isswiping" class="tsd-anchor"></a>
@@ -269,7 +260,7 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<div class="tsd-signature tsd-kind-icon">is<wbr>Swiping<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L56">packages/zent/src/swiper/Swiper.tsx:56</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L55">packages/zent/src/swiper/Swiper.tsx:55</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -280,7 +271,7 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<aside class="tsd-sources">
 						<p>Inherited from Component.props</p>
 						<ul>
-							<li>Defined in node_modules/@types/react/index.d.ts:460</li>
+							<li>Defined in node_modules/@types/react/index.d.ts:472</li>
 						</ul>
 					</aside>
 				</section>
@@ -291,7 +282,7 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<aside class="tsd-sources">
 						<p>Inherited from Component.refs</p>
 						<ul>
-							<li>Defined in node_modules/@types/react/index.d.ts:466</li>
+							<li>Defined in node_modules/@types/react/index.d.ts:478</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -316,7 +307,7 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<div class="tsd-signature tsd-kind-icon">swiper<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">HTMLDivElement</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L52">packages/zent/src/swiper/Swiper.tsx:52</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L51">packages/zent/src/swiper/Swiper.tsx:51</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -326,7 +317,7 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<div class="tsd-signature tsd-kind-icon">swiper<wbr>Container<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">HTMLDivElement</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L53">packages/zent/src/swiper/Swiper.tsx:53</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L52">packages/zent/src/swiper/Swiper.tsx:52</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -336,7 +327,7 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<div class="tsd-signature tsd-kind-icon">swiper<wbr>Width<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L54">packages/zent/src/swiper/Swiper.tsx:54</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L53">packages/zent/src/swiper/Swiper.tsx:53</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -347,7 +338,7 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<aside class="tsd-sources">
 						<p>Inherited from Component.contextType</p>
 						<ul>
-							<li>Defined in node_modules/@types/react/index.d.ts:420</li>
+							<li>Defined in node_modules/@types/react/index.d.ts:429</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -386,7 +377,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.UNSAFE_componentWillMount</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:648</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:660</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -424,7 +415,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.UNSAFE_componentWillReceiveProps</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:680</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:692</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -473,7 +464,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.UNSAFE_componentWillUpdate</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:708</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:720</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -522,7 +513,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L109">packages/zent/src/swiper/Swiper.tsx:109</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L108">packages/zent/src/swiper/Swiper.tsx:108</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -539,7 +530,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L207">packages/zent/src/swiper/Swiper.tsx:207</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L206">packages/zent/src/swiper/Swiper.tsx:206</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -563,7 +554,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from ComponentLifecycle.componentDidCatch</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:577</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:589</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -596,7 +587,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Overrides ComponentLifecycle.componentDidMount</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L265">packages/zent/src/swiper/Swiper.tsx:265</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L264">packages/zent/src/swiper/Swiper.tsx:264</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -614,7 +605,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Overrides NewLifecycle.componentDidUpdate</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L269">packages/zent/src/swiper/Swiper.tsx:269</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L268">packages/zent/src/swiper/Swiper.tsx:268</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -641,7 +632,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.componentWillMount</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:634</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:646</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -678,7 +669,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.componentWillReceiveProps</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:663</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:675</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -726,7 +717,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Overrides ComponentLifecycle.componentWillUnmount</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L291">packages/zent/src/swiper/Swiper.tsx:291</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L290">packages/zent/src/swiper/Swiper.tsx:290</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -744,7 +735,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.componentWillUpdate</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:693</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:705</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -786,20 +777,20 @@ class Foo extends React.Component {
 					<a name="forceupdate" class="tsd-anchor"></a>
 					<h3>force<wbr>Update</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">force<wbr>Update<span class="tsd-signature-symbol">(</span>callBack<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">force<wbr>Update<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from Component.forceUpdate</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:452</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:464</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> callBack: <span class="tsd-signature-type">function</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <span class="tsd-signature-type">function</span></h5>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-siganture">
 											<ul class="tsd-signatures tsd-kind-type-literal">
@@ -828,7 +819,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L189">packages/zent/src/swiper/Swiper.tsx:189</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L188">packages/zent/src/swiper/Swiper.tsx:188</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -852,7 +843,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from NewLifecycle.getSnapshotBeforeUpdate</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:613</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:625</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -890,7 +881,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L89">packages/zent/src/swiper/Swiper.tsx:89</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L88">packages/zent/src/swiper/Swiper.tsx:88</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -913,7 +904,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L93">packages/zent/src/swiper/Swiper.tsx:93</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L92">packages/zent/src/swiper/Swiper.tsx:92</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -936,7 +927,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L237">packages/zent/src/swiper/Swiper.tsx:237</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L236">packages/zent/src/swiper/Swiper.tsx:236</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -959,7 +950,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L227">packages/zent/src/swiper/Swiper.tsx:227</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L226">packages/zent/src/swiper/Swiper.tsx:226</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -976,7 +967,24 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L232">packages/zent/src/swiper/Swiper.tsx:232</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L231">packages/zent/src/swiper/Swiper.tsx:231</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="handleresize" class="tsd-anchor"></a>
+					<h3>handle<wbr>Resize</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">handle<wbr>Resize<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L240">packages/zent/src/swiper/Swiper.tsx:240</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -993,7 +1001,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L62">packages/zent/src/swiper/Swiper.tsx:62</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L61">packages/zent/src/swiper/Swiper.tsx:61</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1016,7 +1024,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L114">packages/zent/src/swiper/Swiper.tsx:114</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L113">packages/zent/src/swiper/Swiper.tsx:113</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1033,7 +1041,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L122">packages/zent/src/swiper/Swiper.tsx:122</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L121">packages/zent/src/swiper/Swiper.tsx:121</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1051,7 +1059,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Overrides Component.render</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L295">packages/zent/src/swiper/Swiper.tsx:295</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L294">packages/zent/src/swiper/Swiper.tsx:294</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Element</span></h4>
@@ -1068,7 +1076,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L166">packages/zent/src/swiper/Swiper.tsx:166</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L165">packages/zent/src/swiper/Swiper.tsx:165</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1092,7 +1100,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from Component.setState</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:447</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:459</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1136,7 +1144,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L97">packages/zent/src/swiper/Swiper.tsx:97</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L96">packages/zent/src/swiper/Swiper.tsx:96</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1154,7 +1162,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from ComponentLifecycle.shouldComponentUpdate</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:567</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:579</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1193,7 +1201,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L101">packages/zent/src/swiper/Swiper.tsx:101</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L100">packages/zent/src/swiper/Swiper.tsx:100</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1210,7 +1218,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L127">packages/zent/src/swiper/Swiper.tsx:127</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L126">packages/zent/src/swiper/Swiper.tsx:126</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1233,7 +1241,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L136">packages/zent/src/swiper/Swiper.tsx:136</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L135">packages/zent/src/swiper/Swiper.tsx:135</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1262,7 +1270,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L243">packages/zent/src/swiper/Swiper.tsx:243</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L242">packages/zent/src/swiper/Swiper.tsx:242</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1291,7 +1299,7 @@ class Foo extends React.Component {
 					<aside class="tsd-sources">
 						<p>Overrides Component.state</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L58">packages/zent/src/swiper/Swiper.tsx:58</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L57">packages/zent/src/swiper/Swiper.tsx:57</a></li>
 						</ul>
 					</aside>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
@@ -1300,7 +1308,7 @@ class Foo extends React.Component {
 						<div class="tsd-signature tsd-kind-icon">current<wbr>Index<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;0</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L59">packages/zent/src/swiper/Swiper.tsx:59</a></li>
+								<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L58">packages/zent/src/swiper/Swiper.tsx:58</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -1311,7 +1319,7 @@ class Foo extends React.Component {
 					<div class="tsd-signature tsd-kind-icon">default<wbr>Props<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L39">packages/zent/src/swiper/Swiper.tsx:39</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L38">packages/zent/src/swiper/Swiper.tsx:38</a></li>
 						</ul>
 					</aside>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
@@ -1320,7 +1328,7 @@ class Foo extends React.Component {
 						<div class="tsd-signature tsd-kind-icon">arrows<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L48">packages/zent/src/swiper/Swiper.tsx:48</a></li>
+								<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L47">packages/zent/src/swiper/Swiper.tsx:47</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -1330,7 +1338,7 @@ class Foo extends React.Component {
 						<div class="tsd-signature tsd-kind-icon">arrows<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;dark&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L49">packages/zent/src/swiper/Swiper.tsx:49</a></li>
+								<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L48">packages/zent/src/swiper/Swiper.tsx:48</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -1340,7 +1348,7 @@ class Foo extends React.Component {
 						<div class="tsd-signature tsd-kind-icon">autoplay<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L43">packages/zent/src/swiper/Swiper.tsx:43</a></li>
+								<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L42">packages/zent/src/swiper/Swiper.tsx:42</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -1350,7 +1358,7 @@ class Foo extends React.Component {
 						<div class="tsd-signature tsd-kind-icon">autoplay<wbr>Interval<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;3000</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L44">packages/zent/src/swiper/Swiper.tsx:44</a></li>
+								<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L43">packages/zent/src/swiper/Swiper.tsx:43</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -1360,7 +1368,7 @@ class Foo extends React.Component {
 						<div class="tsd-signature tsd-kind-icon">class<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L40">packages/zent/src/swiper/Swiper.tsx:40</a></li>
+								<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L39">packages/zent/src/swiper/Swiper.tsx:39</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -1370,7 +1378,7 @@ class Foo extends React.Component {
 						<div class="tsd-signature tsd-kind-icon">dots<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;true</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L45">packages/zent/src/swiper/Swiper.tsx:45</a></li>
+								<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L44">packages/zent/src/swiper/Swiper.tsx:44</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -1380,7 +1388,7 @@ class Foo extends React.Component {
 						<div class="tsd-signature tsd-kind-icon">dots<wbr>Color<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;black&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L46">packages/zent/src/swiper/Swiper.tsx:46</a></li>
+								<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L45">packages/zent/src/swiper/Swiper.tsx:45</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -1390,7 +1398,7 @@ class Foo extends React.Component {
 						<div class="tsd-signature tsd-kind-icon">dots<wbr>Size<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;normal&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L47">packages/zent/src/swiper/Swiper.tsx:47</a></li>
+								<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L46">packages/zent/src/swiper/Swiper.tsx:46</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -1400,7 +1408,7 @@ class Foo extends React.Component {
 						<div class="tsd-signature tsd-kind-icon">prefix<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;zent&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L41">packages/zent/src/swiper/Swiper.tsx:41</a></li>
+								<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L40">packages/zent/src/swiper/Swiper.tsx:40</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -1410,7 +1418,7 @@ class Foo extends React.Component {
 						<div class="tsd-signature tsd-kind-icon">transition<wbr>Duration<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;300</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/swiper/Swiper.tsx#L42">packages/zent/src/swiper/Swiper.tsx:42</a></li>
+								<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/swiper/Swiper.tsx#L41">packages/zent/src/swiper/Swiper.tsx:41</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -1440,9 +1448,6 @@ class Foo extends React.Component {
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="swiper.html#context" class="tsd-kind-icon">context</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="swiper.html#handleresize" class="tsd-kind-icon">handle<wbr>Resize</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="swiper.html#isswiping" class="tsd-kind-icon">is<wbr>Swiping</a>
@@ -1524,6 +1529,9 @@ class Foo extends React.Component {
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="swiper.html#handlemouseleave" class="tsd-kind-icon">handle<wbr>Mouse<wbr>Leave</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="swiper.html#handleresize" class="tsd-kind-icon">handle<wbr>Resize</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="swiper.html#init" class="tsd-kind-icon">init</a>

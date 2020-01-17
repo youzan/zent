@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>PopoverContent | zent</title>
+	<title>PopoverContent | zent - v8.0.0</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">zent</a>
+					<a href="../index.html" class="title">zent - v8.0.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -109,8 +109,6 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="popovercontent.html#context" class="tsd-kind-icon">context</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="popovercontent.html#onwindowresize" class="tsd-kind-icon">on<wbr>Window<wbr>Resize</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="popovercontent.html#onwindowscroll" class="tsd-kind-icon">on<wbr>Window<wbr>Scroll</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="popovercontent.html#positionready" class="tsd-kind-icon">position<wbr>Ready</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="popovercontent.html#positionedparent" class="tsd-kind-icon">positioned<wbr>Parent</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="popovercontent.html#props" class="tsd-kind-icon">props</a></li>
@@ -137,6 +135,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="popovercontent.html#getanchor" class="tsd-kind-icon">get<wbr>Anchor</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="popovercontent.html#getpositionedparent" class="tsd-kind-icon">get<wbr>Positioned<wbr>Parent</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="popovercontent.html#getsnapshotbeforeupdate" class="tsd-kind-icon">get<wbr>Snapshot<wbr>Before<wbr>Update</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="popovercontent.html#onwindowresize" class="tsd-kind-icon">on<wbr>Window<wbr>Resize</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="popovercontent.html#render" class="tsd-kind-icon">render</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="popovercontent.html#setstate" class="tsd-kind-icon">set<wbr>State</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="popovercontent.html#shouldcomponentupdate" class="tsd-kind-icon">should<wbr>Component<wbr>Update</a></li>
@@ -158,7 +157,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides Component.__constructor</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/popover/Content.tsx#L62">packages/zent/src/popover/Content.tsx:62</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/popover/Content.tsx#L61">packages/zent/src/popover/Content.tsx:61</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -181,45 +180,26 @@
 					<aside class="tsd-sources">
 						<p>Inherited from Component.context</p>
 						<ul>
-							<li>Defined in node_modules/@types/react/index.d.ts:435</li>
+							<li>Defined in node_modules/@types/react/index.d.ts:447</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>If using the new style context, re-declare this in your class to be the
-							<code>React.ContextType</code> of your <code>static contextType</code>.</p>
+								<code>React.ContextType</code> of your <code>static contextType</code>.
+							Should be used with type annotation or static contextType.</p>
 						</div>
 						<pre><code class="language-ts"><span class="hljs-keyword">static</span> contextType = MyContext
-context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContext&gt;</code></pre>
+<span class="hljs-comment">// For TS pre-3.7:</span>
+context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContext&gt;
+<span class="hljs-comment">// For TS 3.7 and above:</span>
+<span class="hljs-keyword">declare</span> context: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContext&gt;</code></pre>
 						<dl class="tsd-comment-tags">
-							<dt>deprecated</dt>
-							<dd><p>if used without a type annotation, or without static contextType</p>
-							</dd>
 							<dt>see</dt>
-							<dd><p><a href="https://reactjs.org/docs/legacy-context.html">https://reactjs.org/docs/legacy-context.html</a></p>
+							<dd><p><a href="https://reactjs.org/docs/context.html">https://reactjs.org/docs/context.html</a></p>
 							</dd>
 						</dl>
 					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="onwindowresize" class="tsd-anchor"></a>
-					<h3>on<wbr>Window<wbr>Resize</h3>
-					<div class="tsd-signature tsd-kind-icon">on<wbr>Window<wbr>Resize<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">(Anonymous function)</span><span class="tsd-signature-symbol"> &amp; </span><a href="../interfaces/icancelable.html" class="tsd-signature-type">ICancelable</a><span class="tsd-signature-symbol"> =&nbsp;throttle((evt, delta) &#x3D;&gt; {if (this.props.visible &amp;&amp; (delta.deltaX !&#x3D;&#x3D; 0 || delta.deltaY !&#x3D;&#x3D; 0)) {this.adjustPosition();}}, 16)</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/popover/Content.tsx#L161">packages/zent/src/popover/Content.tsx:161</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="onwindowscroll" class="tsd-anchor"></a>
-					<h3>on<wbr>Window<wbr>Scroll</h3>
-					<div class="tsd-signature tsd-kind-icon">on<wbr>Window<wbr>Scroll<span class="tsd-signature-symbol">:</span> <a href="" class="tsd-signature-type">adjustPosition</a><span class="tsd-signature-symbol"> &amp; </span><a href="../interfaces/icancelable.html" class="tsd-signature-type">ICancelable</a><span class="tsd-signature-symbol"> =&nbsp;throttle(this.adjustPosition, 16)</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/popover/Content.tsx#L167">packages/zent/src/popover/Content.tsx:167</a></li>
-						</ul>
-					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="positionready" class="tsd-anchor"></a>
@@ -227,7 +207,7 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<div class="tsd-signature tsd-kind-icon">position<wbr>Ready<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/popover/Content.tsx#L61">packages/zent/src/popover/Content.tsx:61</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/popover/Content.tsx#L60">packages/zent/src/popover/Content.tsx:60</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -237,7 +217,7 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<div class="tsd-signature tsd-kind-icon">positioned<wbr>Parent<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Element</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/popover/Content.tsx#L62">packages/zent/src/popover/Content.tsx:62</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/popover/Content.tsx#L61">packages/zent/src/popover/Content.tsx:61</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -248,7 +228,7 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<aside class="tsd-sources">
 						<p>Inherited from Component.props</p>
 						<ul>
-							<li>Defined in node_modules/@types/react/index.d.ts:460</li>
+							<li>Defined in node_modules/@types/react/index.d.ts:472</li>
 						</ul>
 					</aside>
 				</section>
@@ -259,7 +239,7 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<aside class="tsd-sources">
 						<p>Inherited from Component.refs</p>
 						<ul>
-							<li>Defined in node_modules/@types/react/index.d.ts:466</li>
+							<li>Defined in node_modules/@types/react/index.d.ts:478</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -285,7 +265,7 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<aside class="tsd-sources">
 						<p>Inherited from Component.state</p>
 						<ul>
-							<li>Defined in node_modules/@types/react/index.d.ts:461</li>
+							<li>Defined in node_modules/@types/react/index.d.ts:473</li>
 						</ul>
 					</aside>
 				</section>
@@ -296,7 +276,7 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<aside class="tsd-sources">
 						<p>Inherited from Component.contextType</p>
 						<ul>
-							<li>Defined in node_modules/@types/react/index.d.ts:420</li>
+							<li>Defined in node_modules/@types/react/index.d.ts:429</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -335,7 +315,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.UNSAFE_componentWillMount</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:648</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:660</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -373,7 +353,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.UNSAFE_componentWillReceiveProps</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:680</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:692</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -422,7 +402,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.UNSAFE_componentWillUpdate</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:708</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:720</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -471,7 +451,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/popover/Content.tsx#L91">packages/zent/src/popover/Content.tsx:91</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/popover/Content.tsx#L90">packages/zent/src/popover/Content.tsx:90</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -489,7 +469,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from ComponentLifecycle.componentDidCatch</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:577</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:589</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -522,7 +502,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Overrides ComponentLifecycle.componentDidMount</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/popover/Content.tsx#L169">packages/zent/src/popover/Content.tsx:169</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/popover/Content.tsx#L166">packages/zent/src/popover/Content.tsx:166</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -540,7 +520,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Overrides NewLifecycle.componentDidUpdate</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/popover/Content.tsx#L176">packages/zent/src/popover/Content.tsx:176</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/popover/Content.tsx#L173">packages/zent/src/popover/Content.tsx:173</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -564,7 +544,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.componentWillMount</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:634</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:646</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -601,7 +581,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.componentWillReceiveProps</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:663</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:675</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -649,7 +629,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from ComponentLifecycle.componentWillUnmount</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:572</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:584</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -673,7 +653,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.componentWillUpdate</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:693</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:705</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -715,20 +695,20 @@ class Foo extends React.Component {
 					<a name="forceupdate" class="tsd-anchor"></a>
 					<h3>force<wbr>Update</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">force<wbr>Update<span class="tsd-signature-symbol">(</span>callBack<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">force<wbr>Update<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from Component.forceUpdate</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:452</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:464</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> callBack: <span class="tsd-signature-type">function</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <span class="tsd-signature-type">function</span></h5>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-siganture">
 											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
@@ -757,7 +737,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/popover/Content.tsx#L74">packages/zent/src/popover/Content.tsx:74</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/popover/Content.tsx#L73">packages/zent/src/popover/Content.tsx:73</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Element</span></h4>
@@ -774,7 +754,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/popover/Content.tsx#L78">packages/zent/src/popover/Content.tsx:78</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/popover/Content.tsx#L77">packages/zent/src/popover/Content.tsx:77</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Element</span></h4>
@@ -792,7 +772,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from NewLifecycle.getSnapshotBeforeUpdate</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:613</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:625</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -820,6 +800,32 @@ class Foo extends React.Component {
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="onwindowresize" class="tsd-anchor"></a>
+					<h3>on<wbr>Window<wbr>Resize</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Window<wbr>Resize<span class="tsd-signature-symbol">(</span>_evt<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, delta<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/popover/Content.tsx#L160">packages/zent/src/popover/Content.tsx:160</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>_evt: <span class="tsd-signature-type">any</span></h5>
+								</li>
+								<li>
+									<h5>delta: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 					<a name="render" class="tsd-anchor"></a>
 					<h3>render</h3>
@@ -831,7 +837,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Overrides Component.render</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/popover/Content.tsx#L185">packages/zent/src/popover/Content.tsx:185</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/popover/Content.tsx#L182">packages/zent/src/popover/Content.tsx:182</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Element</span></h4>
@@ -849,7 +855,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from Component.setState</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:447</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:459</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -894,7 +900,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from ComponentLifecycle.shouldComponentUpdate</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:567</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:579</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -945,12 +951,6 @@ class Foo extends React.Component {
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="popovercontent.html#context" class="tsd-kind-icon">context</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="popovercontent.html#onwindowresize" class="tsd-kind-icon">on<wbr>Window<wbr>Resize</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="popovercontent.html#onwindowscroll" class="tsd-kind-icon">on<wbr>Window<wbr>Scroll</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="popovercontent.html#positionready" class="tsd-kind-icon">position<wbr>Ready</a>
@@ -1014,6 +1014,9 @@ class Foo extends React.Component {
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="popovercontent.html#getsnapshotbeforeupdate" class="tsd-kind-icon">get<wbr>Snapshot<wbr>Before<wbr>Update</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="popovercontent.html#onwindowresize" class="tsd-kind-icon">on<wbr>Window<wbr>Resize</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 								<a href="popovercontent.html#render" class="tsd-kind-icon">render</a>

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>FileInput | zent</title>
+	<title>FileInput | zent - v8.0.0</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">zent</a>
+					<a href="../index.html" class="title">zent - v8.0.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -59,16 +59,26 @@
 					<a href="fileinput.html">FileInput</a>
 				</li>
 			</ul>
-			<h1>Class FileInput&lt;SS&gt;</h1>
+			<h1>Class FileInput&lt;S, SS&gt;</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>文件上传 Input 控件</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-type-parameters">
 				<h3>Type parameters</h3>
 				<ul class="tsd-type-parameters">
+					<li>
+						<h4>S</h4>
+					</li>
 					<li>
 						<h4>SS</h4>
 					</li>
@@ -78,7 +88,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="tsd-signature-type">PureComponent</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ifileinputprops.html" class="tsd-signature-type">IFileInputProps</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span>
+						<span class="tsd-signature-type">PureComponent</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ifileinputprops.html" class="tsd-signature-type">IFileInputProps</a><span class="tsd-signature-symbol">&gt;</span>
 						<ul class="tsd-hierarchy">
 							<li>
 								<span class="target">FileInput</span>
@@ -92,9 +102,9 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Constructors</h3>
+							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="fileinput.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="fileinput.html#inputref" class="tsd-kind-icon">input<wbr>Ref</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -103,8 +113,6 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="fileinput.html#unsafe_componentwillmount" class="tsd-kind-icon">UNSAFE_<wbr>component<wbr>Will<wbr>Mount</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="fileinput.html#unsafe_componentwillreceiveprops" class="tsd-kind-icon">UNSAFE_<wbr>component<wbr>Will<wbr>Receive<wbr>Props</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="fileinput.html#unsafe_componentwillupdate" class="tsd-kind-icon">UNSAFE_<wbr>component<wbr>Will<wbr>Update</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="fileinput.html#addfile" class="tsd-kind-icon">add<wbr>File</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="fileinput.html#autoshowinput" class="tsd-kind-icon">auto<wbr>Show<wbr>Input</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="fileinput.html#componentdidcatch" class="tsd-kind-icon">component<wbr>Did<wbr>Catch</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="fileinput.html#componentdidmount" class="tsd-kind-icon">component<wbr>Did<wbr>Mount</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="fileinput.html#componentdidupdate" class="tsd-kind-icon">component<wbr>Did<wbr>Update</a></li>
@@ -113,46 +121,27 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="fileinput.html#componentwillunmount" class="tsd-kind-icon">component<wbr>Will<wbr>Unmount</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="fileinput.html#componentwillupdate" class="tsd-kind-icon">component<wbr>Will<wbr>Update</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="fileinput.html#getsnapshotbeforeupdate" class="tsd-kind-icon">get<wbr>Snapshot<wbr>Before<wbr>Update</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="fileinput.html#iteratorfiles" class="tsd-kind-icon">iterator<wbr>Files</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="fileinput.html#onfilechange" class="tsd-kind-icon">on<wbr>File<wbr>Change</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="fileinput.html#processfiles" class="tsd-kind-icon">process<wbr>Files</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="fileinput.html#onfileinputchange" class="tsd-kind-icon">on<wbr>File<wbr>Input<wbr>Change</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="fileinput.html#onfileinputclick" class="tsd-kind-icon">on<wbr>File<wbr>Input<wbr>Click</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="fileinput.html#open" class="tsd-kind-icon">open</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="fileinput.html#render" class="tsd-kind-icon">render</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="fileinput.html#shouldcomponentupdate" class="tsd-kind-icon">should<wbr>Component<wbr>Update</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
-							<h3>Object literals</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-object-literal tsd-parent-kind-class tsd-is-static"><a href="fileinput.html#defaultprops" class="tsd-kind-icon">default<wbr>Props</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Constructors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
-					<a name="constructor" class="tsd-anchor"></a>
-					<h3>constructor</h3>
-					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>File<wbr>Input<span class="tsd-signature-symbol">(</span>props<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="fileinput.html" class="tsd-signature-type">FileInput</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/upload/components/FileInput.tsx#L48">packages/zent/src/upload/components/FileInput.tsx:48</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>props: <span class="tsd-signature-type">any</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="fileinput.html" class="tsd-signature-type">FileInput</a></h4>
-						</li>
-					</ul>
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="inputref" class="tsd-anchor"></a>
+					<h3>input<wbr>Ref</h3>
+					<div class="tsd-signature tsd-kind-icon">input<wbr>Ref<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RefObject</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">HTMLInputElement</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;React.createRef&lt;HTMLInputElement&gt;()</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/upload/components/FileInput.tsx#L9">packages/zent/src/upload/components/FileInput.tsx:9</a></li>
+						</ul>
+					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -168,7 +157,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.UNSAFE_componentWillMount</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:648</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:660</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -206,7 +195,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.UNSAFE_componentWillReceiveProps</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:680</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:692</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -248,14 +237,14 @@
 					<a name="unsafe_componentwillupdate" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> UNSAFE_<wbr>component<wbr>Will<wbr>Update</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">UNSAFE_<wbr>component<wbr>Will<wbr>Update<span class="tsd-signature-symbol">(</span>nextProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ifileinputprops.html" class="tsd-signature-type">IFileInputProps</a><span class="tsd-signature-symbol">&gt;</span>, nextState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span>, nextContext<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">UNSAFE_<wbr>component<wbr>Will<wbr>Update<span class="tsd-signature-symbol">(</span>nextProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ifileinputprops.html" class="tsd-signature-type">IFileInputProps</a><span class="tsd-signature-symbol">&gt;</span>, nextState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span>, nextContext<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.UNSAFE_componentWillUpdate</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:708</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:720</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -284,62 +273,10 @@
 									<h5>nextProps: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ifileinputprops.html" class="tsd-signature-type">IFileInputProps</a><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>nextState: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>nextState: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
 									<h5>nextContext: <span class="tsd-signature-type">any</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="addfile" class="tsd-anchor"></a>
-					<h3>add<wbr>File</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">add<wbr>File<span class="tsd-signature-symbol">(</span>file<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, i18n<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/upload/components/FileInput.tsx#L131">packages/zent/src/upload/components/FileInput.tsx:131</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>file: <span class="tsd-signature-type">any</span></h5>
-								</li>
-								<li>
-									<h5>index: <span class="tsd-signature-type">any</span></h5>
-								</li>
-								<li>
-									<h5>i18n: <span class="tsd-signature-type">any</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="autoshowinput" class="tsd-anchor"></a>
-					<h3>auto<wbr>Show<wbr>Input</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">auto<wbr>Show<wbr>Input<span class="tsd-signature-symbol">(</span>fileInput<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/upload/components/FileInput.tsx#L167">packages/zent/src/upload/components/FileInput.tsx:167</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>fileInput: <span class="tsd-signature-type">any</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -357,7 +294,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from ComponentLifecycle.componentDidCatch</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:577</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:589</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -390,7 +327,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from ComponentLifecycle.componentDidMount</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:556</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:568</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -406,14 +343,14 @@
 					<a name="componentdidupdate" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> component<wbr>Did<wbr>Update</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">component<wbr>Did<wbr>Update<span class="tsd-signature-symbol">(</span>prevProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ifileinputprops.html" class="tsd-signature-type">IFileInputProps</a><span class="tsd-signature-symbol">&gt;</span>, prevState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span>, snapshot<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">SS</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">component<wbr>Did<wbr>Update<span class="tsd-signature-symbol">(</span>prevProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ifileinputprops.html" class="tsd-signature-type">IFileInputProps</a><span class="tsd-signature-symbol">&gt;</span>, prevState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span>, snapshot<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">SS</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from NewLifecycle.componentDidUpdate</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:619</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:631</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -428,7 +365,7 @@
 									<h5>prevProps: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ifileinputprops.html" class="tsd-signature-type">IFileInputProps</a><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>prevState: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>prevState: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> snapshot: <span class="tsd-signature-type">SS</span></h5>
@@ -449,7 +386,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.componentWillMount</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:634</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:646</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -486,7 +423,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.componentWillReceiveProps</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:663</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:675</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -534,7 +471,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from ComponentLifecycle.componentWillUnmount</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:572</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:584</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -551,14 +488,14 @@
 					<a name="componentwillupdate" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> component<wbr>Will<wbr>Update</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">component<wbr>Will<wbr>Update<span class="tsd-signature-symbol">(</span>nextProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ifileinputprops.html" class="tsd-signature-type">IFileInputProps</a><span class="tsd-signature-symbol">&gt;</span>, nextState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span>, nextContext<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">component<wbr>Will<wbr>Update<span class="tsd-signature-symbol">(</span>nextProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ifileinputprops.html" class="tsd-signature-type">IFileInputProps</a><span class="tsd-signature-symbol">&gt;</span>, nextState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span>, nextContext<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.componentWillUpdate</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:693</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:705</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -586,7 +523,7 @@
 									<h5>nextProps: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ifileinputprops.html" class="tsd-signature-type">IFileInputProps</a><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>nextState: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>nextState: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
 									<h5>nextContext: <span class="tsd-signature-type">any</span></h5>
@@ -600,14 +537,14 @@
 					<a name="getsnapshotbeforeupdate" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> get<wbr>Snapshot<wbr>Before<wbr>Update</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Snapshot<wbr>Before<wbr>Update<span class="tsd-signature-symbol">(</span>prevProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ifileinputprops.html" class="tsd-signature-type">IFileInputProps</a><span class="tsd-signature-symbol">&gt;</span>, prevState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SS</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Snapshot<wbr>Before<wbr>Update<span class="tsd-signature-symbol">(</span>prevProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ifileinputprops.html" class="tsd-signature-type">IFileInputProps</a><span class="tsd-signature-symbol">&gt;</span>, prevState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SS</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from NewLifecycle.getSnapshotBeforeUpdate</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:613</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:625</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -625,7 +562,7 @@
 									<h5>prevProps: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ifileinputprops.html" class="tsd-signature-type">IFileInputProps</a><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>prevState: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>prevState: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">SS</span>
@@ -635,72 +572,65 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="iteratorfiles" class="tsd-anchor"></a>
-					<h3>iterator<wbr>Files</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">iterator<wbr>Files<span class="tsd-signature-symbol">(</span>i18n<span class="tsd-signature-symbol">: </span><a href="../interfaces/ii18nlocaleupload.html" class="tsd-signature-type">II18nLocaleUpload</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">(Anonymous function)</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<a name="onfileinputchange" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> on<wbr>File<wbr>Input<wbr>Change</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>File<wbr>Input<wbr>Change<span class="tsd-signature-symbol">(</span>evt<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ChangeEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">HTMLInputElement</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/upload/components/FileInput.tsx#L92">packages/zent/src/upload/components/FileInput.tsx:92</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/upload/components/FileInput.tsx#L18">packages/zent/src/upload/components/FileInput.tsx:18</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>input onChange handler</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>i18n: <a href="../interfaces/ii18nlocaleupload.html" class="tsd-signature-type">II18nLocaleUpload</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">(Anonymous function)</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="onfilechange" class="tsd-anchor"></a>
-					<h3>on<wbr>File<wbr>Change</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">on<wbr>File<wbr>Change<span class="tsd-signature-symbol">(</span>localFiles<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/upload/components/FileInput.tsx#L64">packages/zent/src/upload/components/FileInput.tsx:64</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>localFiles: <span class="tsd-signature-type">any</span></h5>
+									<h5>evt: <span class="tsd-signature-type">ChangeEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">HTMLInputElement</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="processfiles" class="tsd-anchor"></a>
-					<h3>process<wbr>Files</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">process<wbr>Files<span class="tsd-signature-symbol">(</span>i18n<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">(Anonymous function)</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<a name="onfileinputclick" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> on<wbr>File<wbr>Input<wbr>Click</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>File<wbr>Input<wbr>Click<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/upload/components/FileInput.tsx#L75">packages/zent/src/upload/components/FileInput.tsx:75</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/upload/components/FileInput.tsx#L27">packages/zent/src/upload/components/FileInput.tsx:27</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>i18n: <span class="tsd-signature-type">any</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">(Anonymous function)</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="open" class="tsd-anchor"></a>
+					<h3>open</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">open<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/upload/components/FileInput.tsx#L11">packages/zent/src/upload/components/FileInput.tsx:11</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -714,7 +644,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/upload/components/FileInput.tsx#L179">packages/zent/src/upload/components/FileInput.tsx:179</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/upload/components/FileInput.tsx#L34">packages/zent/src/upload/components/FileInput.tsx:34</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Element</span></h4>
@@ -725,14 +655,14 @@
 					<a name="shouldcomponentupdate" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> should<wbr>Component<wbr>Update</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">should<wbr>Component<wbr>Update<span class="tsd-signature-symbol">(</span>nextProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ifileinputprops.html" class="tsd-signature-type">IFileInputProps</a><span class="tsd-signature-symbol">&gt;</span>, nextState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span>, nextContext<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon">should<wbr>Component<wbr>Update<span class="tsd-signature-symbol">(</span>nextProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ifileinputprops.html" class="tsd-signature-type">IFileInputProps</a><span class="tsd-signature-symbol">&gt;</span>, nextState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span>, nextContext<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from ComponentLifecycle.shouldComponentUpdate</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:567</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:579</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -751,7 +681,7 @@
 									<h5>nextProps: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ifileinputprops.html" class="tsd-signature-type">IFileInputProps</a><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>nextState: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>nextState: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
 									<h5>nextContext: <span class="tsd-signature-type">any</span></h5>
@@ -760,89 +690,6 @@
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 						</li>
 					</ul>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Object literals</h2>
-				<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-class tsd-is-static">
-					<a name="defaultprops" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> default<wbr>Props</h3>
-					<div class="tsd-signature tsd-kind-icon">default<wbr>Props<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/upload/components/FileInput.tsx#L40">packages/zent/src/upload/components/FileInput.tsx:40</a></li>
-						</ul>
-					</aside>
-					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
-						<a name="defaultprops.filterfiles" class="tsd-anchor"></a>
-						<h3>filter<wbr>Files</h3>
-						<div class="tsd-signature tsd-kind-icon">filter<wbr>Files<span class="tsd-signature-symbol">:</span> <a href="" class="tsd-signature-type">noop</a><span class="tsd-signature-symbol"> =&nbsp;noop</span></div>
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/upload/components/FileInput.tsx#L46">packages/zent/src/upload/components/FileInput.tsx:46</a></li>
-							</ul>
-						</aside>
-					</section>
-					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
-						<a name="defaultprops.initindex" class="tsd-anchor"></a>
-						<h3>init<wbr>Index</h3>
-						<div class="tsd-signature tsd-kind-icon">init<wbr>Index<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;0</span></div>
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/upload/components/FileInput.tsx#L41">packages/zent/src/upload/components/FileInput.tsx:41</a></li>
-							</ul>
-						</aside>
-					</section>
-					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
-						<a name="defaultprops.maxamount" class="tsd-anchor"></a>
-						<h3>max<wbr>Amount</h3>
-						<div class="tsd-signature tsd-kind-icon">max<wbr>Amount<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;0</span></div>
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/upload/components/FileInput.tsx#L42">packages/zent/src/upload/components/FileInput.tsx:42</a></li>
-							</ul>
-						</aside>
-					</section>
-					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
-						<a name="defaultprops.maxsize" class="tsd-anchor"></a>
-						<h3>max<wbr>Size</h3>
-						<div class="tsd-signature tsd-kind-icon">max<wbr>Size<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;0</span></div>
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/upload/components/FileInput.tsx#L44">packages/zent/src/upload/components/FileInput.tsx:44</a></li>
-							</ul>
-						</aside>
-					</section>
-					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
-						<a name="defaultprops.onerror" class="tsd-anchor"></a>
-						<h3>on<wbr>Error</h3>
-						<div class="tsd-signature tsd-kind-icon">on<wbr>Error<span class="tsd-signature-symbol">:</span> <a href="" class="tsd-signature-type">noop</a><span class="tsd-signature-symbol"> =&nbsp;noop</span></div>
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/upload/components/FileInput.tsx#L47">packages/zent/src/upload/components/FileInput.tsx:47</a></li>
-							</ul>
-						</aside>
-					</section>
-					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
-						<a name="defaultprops.silent" class="tsd-anchor"></a>
-						<h3>silent</h3>
-						<div class="tsd-signature tsd-kind-icon">silent<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/upload/components/FileInput.tsx#L43">packages/zent/src/upload/components/FileInput.tsx:43</a></li>
-							</ul>
-						</aside>
-					</section>
-					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
-						<a name="defaultprops.type" class="tsd-anchor"></a>
-						<h3>type</h3>
-						<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;&quot;</span></div>
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/upload/components/FileInput.tsx#L45">packages/zent/src/upload/components/FileInput.tsx:45</a></li>
-							</ul>
-						</aside>
-					</section>
 				</section>
 			</section>
 		</div>
@@ -861,8 +708,8 @@
 					<li class="current tsd-kind-class tsd-has-type-parameter">
 						<a href="fileinput.html" class="tsd-kind-icon">File<wbr>Input</a>
 						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="fileinput.html#constructor" class="tsd-kind-icon">constructor</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="fileinput.html#inputref" class="tsd-kind-icon">input<wbr>Ref</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="fileinput.html#unsafe_componentwillmount" class="tsd-kind-icon">UNSAFE_<wbr>component<wbr>Will<wbr>Mount</a>
@@ -872,12 +719,6 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="fileinput.html#unsafe_componentwillupdate" class="tsd-kind-icon">UNSAFE_<wbr>component<wbr>Will<wbr>Update</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="fileinput.html#addfile" class="tsd-kind-icon">add<wbr>File</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="fileinput.html#autoshowinput" class="tsd-kind-icon">auto<wbr>Show<wbr>Input</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="fileinput.html#componentdidcatch" class="tsd-kind-icon">component<wbr>Did<wbr>Catch</a>
@@ -903,23 +744,20 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="fileinput.html#getsnapshotbeforeupdate" class="tsd-kind-icon">get<wbr>Snapshot<wbr>Before<wbr>Update</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="fileinput.html#iteratorfiles" class="tsd-kind-icon">iterator<wbr>Files</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+								<a href="fileinput.html#onfileinputchange" class="tsd-kind-icon">on<wbr>File<wbr>Input<wbr>Change</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+								<a href="fileinput.html#onfileinputclick" class="tsd-kind-icon">on<wbr>File<wbr>Input<wbr>Click</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="fileinput.html#onfilechange" class="tsd-kind-icon">on<wbr>File<wbr>Change</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="fileinput.html#processfiles" class="tsd-kind-icon">process<wbr>Files</a>
+								<a href="fileinput.html#open" class="tsd-kind-icon">open</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="fileinput.html#render" class="tsd-kind-icon">render</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="fileinput.html#shouldcomponentupdate" class="tsd-kind-icon">should<wbr>Component<wbr>Update</a>
-							</li>
-							<li class=" tsd-kind-object-literal tsd-parent-kind-class tsd-is-static">
-								<a href="fileinput.html#defaultprops" class="tsd-kind-icon">default<wbr>Props</a>
 							</li>
 						</ul>
 					</li>

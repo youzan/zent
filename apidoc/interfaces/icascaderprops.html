@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ICascaderProps | zent</title>
+	<title>ICascaderProps | zent - v8.0.0</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">zent</a>
+					<a href="../index.html" class="title">zent - v8.0.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -59,13 +59,21 @@
 					<a href="icascaderprops.html">ICascaderProps</a>
 				</li>
 			</ul>
-			<h1>Interface ICascaderProps</h1>
+			<h1>Interface ICascaderProps&lt;Item&gt;</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-type-parameters">
+				<h3>Type parameters</h3>
+				<ul class="tsd-type-parameters">
+					<li>
+						<h4>Item<span class="tsd-signature-symbol">: </span><a href="icascaderitem.html" class="tsd-signature-type">ICascaderItem</a></h4>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -83,6 +91,7 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="icascaderprops.html#changeonselect" class="tsd-kind-icon">change<wbr>OnSelect</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="icascaderprops.html#classname" class="tsd-kind-icon">class<wbr>Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="icascaderprops.html#disabled" class="tsd-kind-icon">disabled</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="icascaderprops.html#displaytext" class="tsd-kind-icon">display<wbr>Text</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="icascaderprops.html#expandtrigger" class="tsd-kind-icon">expand<wbr>Trigger</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="icascaderprops.html#loadmore" class="tsd-kind-icon">load<wbr>More</a></li>
@@ -90,7 +99,6 @@
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="icascaderprops.html#options" class="tsd-kind-icon">options</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="icascaderprops.html#placeholder" class="tsd-kind-icon">placeholder</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="icascaderprops.html#popclassname" class="tsd-kind-icon">pop<wbr>Class<wbr>Name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="icascaderprops.html#prefix" class="tsd-kind-icon">prefix</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="icascaderprops.html#title" class="tsd-kind-icon">title</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="icascaderprops.html#type" class="tsd-kind-icon">type</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="icascaderprops.html#value" class="tsd-kind-icon">value</a></li>
@@ -107,7 +115,7 @@
 					<div class="tsd-signature tsd-kind-icon">change<wbr>OnSelect<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/cascader/Cascader.tsx#L37">packages/zent/src/cascader/Cascader.tsx:37</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/cascader/Cascader.tsx#L48">packages/zent/src/cascader/Cascader.tsx:48</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -117,7 +125,17 @@
 					<div class="tsd-signature tsd-kind-icon">class<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/cascader/Cascader.tsx#L40">packages/zent/src/cascader/Cascader.tsx:40</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/cascader/Cascader.tsx#L50">packages/zent/src/cascader/Cascader.tsx:50</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="disabled" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> disabled</h3>
+					<div class="tsd-signature tsd-kind-icon">disabled<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/cascader/Cascader.tsx#L54">packages/zent/src/cascader/Cascader.tsx:54</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -127,7 +145,7 @@
 					<div class="tsd-signature tsd-kind-icon">display<wbr>Text<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/cascader/Cascader.tsx#L42">packages/zent/src/cascader/Cascader.tsx:42</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/cascader/Cascader.tsx#L52">packages/zent/src/cascader/Cascader.tsx:52</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -135,14 +153,14 @@
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-siganture">
 								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><a href="icascaderitem.html" class="tsd-signature-type">ICascaderItem</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">React.ReactNode</span></li>
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Item</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">React.ReactNode</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
 									<li class="tsd-description">
 										<h4 class="tsd-parameters-title">Parameters</h4>
 										<ul class="tsd-parameters">
 											<li>
-												<h5>value: <a href="icascaderitem.html" class="tsd-signature-type">ICascaderItem</a><span class="tsd-signature-symbol">[]</span></h5>
+												<h5>value: <span class="tsd-signature-type">Item</span><span class="tsd-signature-symbol">[]</span></h5>
 											</li>
 										</ul>
 										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">React.ReactNode</span></h4>
@@ -158,7 +176,7 @@
 					<div class="tsd-signature tsd-kind-icon">expand<wbr>Trigger<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"click"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"hover"</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/cascader/Cascader.tsx#L43">packages/zent/src/cascader/Cascader.tsx:43</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/cascader/Cascader.tsx#L53">packages/zent/src/cascader/Cascader.tsx:53</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -168,7 +186,7 @@
 					<div class="tsd-signature tsd-kind-icon">load<wbr>More<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/cascader/Cascader.tsx#L36">packages/zent/src/cascader/Cascader.tsx:36</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/cascader/Cascader.tsx#L47">packages/zent/src/cascader/Cascader.tsx:47</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -176,20 +194,20 @@
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-siganture">
 								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>item<span class="tsd-signature-symbol">: </span><a href="icascaderitem.html" class="tsd-signature-type">ICascaderItem</a>, stage<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="icascaderitem.html" class="tsd-signature-type">ICascaderItem</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>item<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Item</span>, stage<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Item</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
 									<li class="tsd-description">
 										<h4 class="tsd-parameters-title">Parameters</h4>
 										<ul class="tsd-parameters">
 											<li>
-												<h5>item: <a href="icascaderitem.html" class="tsd-signature-type">ICascaderItem</a></h5>
+												<h5>item: <span class="tsd-signature-type">Item</span></h5>
 											</li>
 											<li>
 												<h5>stage: <span class="tsd-signature-type">number</span></h5>
 											</li>
 										</ul>
-										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="icascaderitem.html" class="tsd-signature-type">ICascaderItem</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Item</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 									</li>
 								</ul>
 							</li>
@@ -202,7 +220,7 @@
 					<div class="tsd-signature tsd-kind-icon">on<wbr>Change<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/cascader/Cascader.tsx#L35">packages/zent/src/cascader/Cascader.tsx:35</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/cascader/Cascader.tsx#L46">packages/zent/src/cascader/Cascader.tsx:46</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -210,14 +228,14 @@
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-siganture">
 								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><a href="icascaderitem.html" class="tsd-signature-type">ICascaderItem</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Item</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
 									<li class="tsd-description">
 										<h4 class="tsd-parameters-title">Parameters</h4>
 										<ul class="tsd-parameters">
 											<li>
-												<h5>value: <a href="icascaderitem.html" class="tsd-signature-type">ICascaderItem</a><span class="tsd-signature-symbol">[]</span></h5>
+												<h5>value: <span class="tsd-signature-type">Item</span><span class="tsd-signature-symbol">[]</span></h5>
 											</li>
 										</ul>
 										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -230,10 +248,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="options" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> options</h3>
-					<div class="tsd-signature tsd-kind-icon">options<span class="tsd-signature-symbol">:</span> <a href="icascaderitem.html" class="tsd-signature-type">ICascaderItem</a><span class="tsd-signature-symbol">[]</span></div>
+					<div class="tsd-signature tsd-kind-icon">options<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Item</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/cascader/Cascader.tsx#L33">packages/zent/src/cascader/Cascader.tsx:33</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/cascader/Cascader.tsx#L44">packages/zent/src/cascader/Cascader.tsx:44</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -243,7 +261,7 @@
 					<div class="tsd-signature tsd-kind-icon">placeholder<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/cascader/Cascader.tsx#L38">packages/zent/src/cascader/Cascader.tsx:38</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/cascader/Cascader.tsx#L49">packages/zent/src/cascader/Cascader.tsx:49</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -253,17 +271,7 @@
 					<div class="tsd-signature tsd-kind-icon">pop<wbr>Class<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/cascader/Cascader.tsx#L41">packages/zent/src/cascader/Cascader.tsx:41</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="prefix" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> prefix</h3>
-					<div class="tsd-signature tsd-kind-icon">prefix<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/cascader/Cascader.tsx#L39">packages/zent/src/cascader/Cascader.tsx:39</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/cascader/Cascader.tsx#L51">packages/zent/src/cascader/Cascader.tsx:51</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -273,7 +281,7 @@
 					<div class="tsd-signature tsd-kind-icon">title<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">React.ReactNode</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/cascader/Cascader.tsx#L34">packages/zent/src/cascader/Cascader.tsx:34</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/cascader/Cascader.tsx#L45">packages/zent/src/cascader/Cascader.tsx:45</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -283,7 +291,7 @@
 					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"tabs"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"menu"</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/cascader/Cascader.tsx#L31">packages/zent/src/cascader/Cascader.tsx:31</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/cascader/Cascader.tsx#L42">packages/zent/src/cascader/Cascader.tsx:42</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -293,7 +301,7 @@
 					<div class="tsd-signature tsd-kind-icon">value<span class="tsd-signature-symbol">:</span> <a href="../globals.html#cascadervalue" class="tsd-signature-type">CascaderValue</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/cascader/Cascader.tsx#L32">packages/zent/src/cascader/Cascader.tsx:32</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/cascader/Cascader.tsx#L43">packages/zent/src/cascader/Cascader.tsx:43</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -311,7 +319,7 @@
 				<ul class="before-current">
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface">
+					<li class="current tsd-kind-interface tsd-has-type-parameter">
 						<a href="icascaderprops.html" class="tsd-kind-icon">ICascader<wbr>Props</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
@@ -319,6 +327,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="icascaderprops.html#classname" class="tsd-kind-icon">class<wbr>Name</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="icascaderprops.html#disabled" class="tsd-kind-icon">disabled</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="icascaderprops.html#displaytext" class="tsd-kind-icon">display<wbr>Text</a>
@@ -340,9 +351,6 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="icascaderprops.html#popclassname" class="tsd-kind-icon">pop<wbr>Class<wbr>Name</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="icascaderprops.html#prefix" class="tsd-kind-icon">prefix</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="icascaderprops.html#title" class="tsd-kind-icon">title</a>

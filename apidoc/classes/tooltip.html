@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Tooltip | zent</title>
+	<title>Tooltip | zent - v8.0.0</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">zent</a>
+					<a href="../index.html" class="title">zent - v8.0.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -159,7 +159,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from Component.__constructor</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:435</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:447</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -174,7 +174,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from Component.__constructor</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:437</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:449</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -209,22 +209,23 @@
 					<aside class="tsd-sources">
 						<p>Inherited from Component.context</p>
 						<ul>
-							<li>Defined in node_modules/@types/react/index.d.ts:435</li>
+							<li>Defined in node_modules/@types/react/index.d.ts:447</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>If using the new style context, re-declare this in your class to be the
-							<code>React.ContextType</code> of your <code>static contextType</code>.</p>
+								<code>React.ContextType</code> of your <code>static contextType</code>.
+							Should be used with type annotation or static contextType.</p>
 						</div>
 						<pre><code class="language-ts"><span class="hljs-keyword">static</span> contextType = MyContext
-context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContext&gt;</code></pre>
+<span class="hljs-comment">// For TS pre-3.7:</span>
+context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContext&gt;
+<span class="hljs-comment">// For TS 3.7 and above:</span>
+<span class="hljs-keyword">declare</span> context: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContext&gt;</code></pre>
 						<dl class="tsd-comment-tags">
-							<dt>deprecated</dt>
-							<dd><p>if used without a type annotation, or without static contextType</p>
-							</dd>
 							<dt>see</dt>
-							<dd><p><a href="https://reactjs.org/docs/legacy-context.html">https://reactjs.org/docs/legacy-context.html</a></p>
+							<dd><p><a href="https://reactjs.org/docs/context.html">https://reactjs.org/docs/context.html</a></p>
 							</dd>
 						</dl>
 					</div>
@@ -235,7 +236,7 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<div class="tsd-signature tsd-kind-icon">popover<wbr>Ref<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RefObject</span><span class="tsd-signature-symbol">&lt;</span><a href="popover.html" class="tsd-signature-type">Popover</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;React.createRef&lt;Popover&gt;()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/tooltip/Tooltip.tsx#L73">packages/zent/src/tooltip/Tooltip.tsx:73</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/tooltip/Tooltip.tsx#L61">packages/zent/src/tooltip/Tooltip.tsx:61</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -246,7 +247,7 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<aside class="tsd-sources">
 						<p>Inherited from Component.props</p>
 						<ul>
-							<li>Defined in node_modules/@types/react/index.d.ts:460</li>
+							<li>Defined in node_modules/@types/react/index.d.ts:472</li>
 						</ul>
 					</aside>
 				</section>
@@ -257,7 +258,7 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<aside class="tsd-sources">
 						<p>Inherited from Component.refs</p>
 						<ul>
-							<li>Defined in node_modules/@types/react/index.d.ts:466</li>
+							<li>Defined in node_modules/@types/react/index.d.ts:478</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -283,7 +284,7 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<aside class="tsd-sources">
 						<p>Inherited from Component.state</p>
 						<ul>
-							<li>Defined in node_modules/@types/react/index.d.ts:461</li>
+							<li>Defined in node_modules/@types/react/index.d.ts:473</li>
 						</ul>
 					</aside>
 				</section>
@@ -294,7 +295,7 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<aside class="tsd-sources">
 						<p>Inherited from Component.contextType</p>
 						<ul>
-							<li>Defined in node_modules/@types/react/index.d.ts:420</li>
+							<li>Defined in node_modules/@types/react/index.d.ts:429</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -333,7 +334,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.UNSAFE_componentWillMount</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:648</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:660</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -371,7 +372,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.UNSAFE_componentWillReceiveProps</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:680</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:692</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -420,7 +421,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.UNSAFE_componentWillUpdate</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:708</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:720</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -470,7 +471,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from ComponentLifecycle.componentDidCatch</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:577</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:589</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -503,7 +504,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from ComponentLifecycle.componentDidMount</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:556</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:568</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -526,7 +527,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from NewLifecycle.componentDidUpdate</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:619</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:631</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -562,7 +563,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.componentWillMount</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:634</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:646</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -599,7 +600,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.componentWillReceiveProps</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:663</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:675</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -647,7 +648,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from ComponentLifecycle.componentWillUnmount</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:572</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:584</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -671,7 +672,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.componentWillUpdate</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:693</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:705</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -713,20 +714,20 @@ class Foo extends React.Component {
 					<a name="forceupdate" class="tsd-anchor"></a>
 					<h3>force<wbr>Update</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">force<wbr>Update<span class="tsd-signature-symbol">(</span>callBack<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">force<wbr>Update<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from Component.forceUpdate</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:452</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:464</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> callBack: <span class="tsd-signature-type">function</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <span class="tsd-signature-type">function</span></h5>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-siganture">
 											<ul class="tsd-signatures tsd-kind-type-literal">
@@ -756,7 +757,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from NewLifecycle.getSnapshotBeforeUpdate</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:613</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:625</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -795,7 +796,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Overrides Component.render</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/tooltip/Tooltip.tsx#L127">packages/zent/src/tooltip/Tooltip.tsx:127</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/tooltip/Tooltip.tsx#L115">packages/zent/src/tooltip/Tooltip.tsx:115</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Element</span></h4>
@@ -812,7 +813,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/tooltip/Tooltip.tsx#L75">packages/zent/src/tooltip/Tooltip.tsx:75</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/tooltip/Tooltip.tsx#L63">packages/zent/src/tooltip/Tooltip.tsx:63</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Element</span></h4>
@@ -829,7 +830,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/tooltip/Tooltip.tsx#L86">packages/zent/src/tooltip/Tooltip.tsx:86</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/tooltip/Tooltip.tsx#L74">packages/zent/src/tooltip/Tooltip.tsx:74</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Element</span></h4>
@@ -847,7 +848,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from Component.setState</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:447</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:459</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -892,7 +893,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from ComponentLifecycle.shouldComponentUpdate</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:567</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:579</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -930,7 +931,7 @@ class Foo extends React.Component {
 					<div class="tsd-signature tsd-kind-icon">default<wbr>Props<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/tooltip/Tooltip.tsx#L65">packages/zent/src/tooltip/Tooltip.tsx:65</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/tooltip/Tooltip.tsx#L53">packages/zent/src/tooltip/Tooltip.tsx:53</a></li>
 						</ul>
 					</aside>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
@@ -939,7 +940,7 @@ class Foo extends React.Component {
 						<div class="tsd-signature tsd-kind-icon">center<wbr>Arrow<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/tooltip/Tooltip.tsx#L69">packages/zent/src/tooltip/Tooltip.tsx:69</a></li>
+								<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/tooltip/Tooltip.tsx#L57">packages/zent/src/tooltip/Tooltip.tsx:57</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -949,7 +950,7 @@ class Foo extends React.Component {
 						<div class="tsd-signature tsd-kind-icon">container<wbr>Selector<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;body&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/tooltip/Tooltip.tsx#L70">packages/zent/src/tooltip/Tooltip.tsx:70</a></li>
+								<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/tooltip/Tooltip.tsx#L58">packages/zent/src/tooltip/Tooltip.tsx:58</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -959,7 +960,7 @@ class Foo extends React.Component {
 						<div class="tsd-signature tsd-kind-icon">cushion<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;10</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/tooltip/Tooltip.tsx#L68">packages/zent/src/tooltip/Tooltip.tsx:68</a></li>
+								<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/tooltip/Tooltip.tsx#L56">packages/zent/src/tooltip/Tooltip.tsx:56</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -969,7 +970,7 @@ class Foo extends React.Component {
 						<div class="tsd-signature tsd-kind-icon">position<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;top-center&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/tooltip/Tooltip.tsx#L67">packages/zent/src/tooltip/Tooltip.tsx:67</a></li>
+								<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/tooltip/Tooltip.tsx#L55">packages/zent/src/tooltip/Tooltip.tsx:55</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -979,7 +980,7 @@ class Foo extends React.Component {
 						<div class="tsd-signature tsd-kind-icon">trigger<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;hover&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/tooltip/Tooltip.tsx#L66">packages/zent/src/tooltip/Tooltip.tsx:66</a></li>
+								<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/tooltip/Tooltip.tsx#L54">packages/zent/src/tooltip/Tooltip.tsx:54</a></li>
 							</ul>
 						</aside>
 					</section>

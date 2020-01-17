@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>IFileInputProps | zent</title>
+	<title>IFileInputProps | zent - v8.0.0</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">zent</a>
+					<a href="../index.html" class="title">zent - v8.0.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -81,17 +81,11 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ifileinputprops.html#auto" class="tsd-kind-icon">auto</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ifileinputprops.html#errormessages" class="tsd-kind-icon">error<wbr>Messages</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ifileinputprops.html#filterfiles" class="tsd-kind-icon">filter<wbr>Files</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ifileinputprops.html#i18n" class="tsd-kind-icon">i18n</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ifileinputprops.html#initindex" class="tsd-kind-icon">init<wbr>Index</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ifileinputprops.html#maxamount" class="tsd-kind-icon">max<wbr>Amount</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ifileinputprops.html#maxsize" class="tsd-kind-icon">max<wbr>Size</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ifileinputprops.html#accept" class="tsd-kind-icon">accept</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ifileinputprops.html#disabled" class="tsd-kind-icon">disabled</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ifileinputprops.html#multiple" class="tsd-kind-icon">multiple</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ifileinputprops.html#onchange" class="tsd-kind-icon">on<wbr>Change</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ifileinputprops.html#onerror" class="tsd-kind-icon">on<wbr>Error</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ifileinputprops.html#silent" class="tsd-kind-icon">silent</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ifileinputprops.html#type" class="tsd-kind-icon">type</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ifileinputprops.html#remainamount" class="tsd-kind-icon">remain<wbr>Amount</a></li>
 							</ul>
 						</section>
 					</div>
@@ -100,32 +94,42 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="auto" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> auto</h3>
-					<div class="tsd-signature tsd-kind-icon">auto<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<a name="accept" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> accept</h3>
+					<div class="tsd-signature tsd-kind-icon">accept<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/upload/components/FileInput.tsx#L31">packages/zent/src/upload/components/FileInput.tsx:31</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/upload/types.ts#L161">packages/zent/src/upload/types.ts:161</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="errormessages" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> error<wbr>Messages</h3>
-					<div class="tsd-signature tsd-kind-icon">error<wbr>Messages<span class="tsd-signature-symbol">:</span> <a href="iuploaderrormessage.html" class="tsd-signature-type">IUploadErrorMessage</a></div>
+					<a name="disabled" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> disabled</h3>
+					<div class="tsd-signature tsd-kind-icon">disabled<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/upload/components/FileInput.tsx#L35">packages/zent/src/upload/components/FileInput.tsx:35</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/upload/types.ts#L162">packages/zent/src/upload/types.ts:162</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="filterfiles" class="tsd-anchor"></a>
-					<h3>filter<wbr>Files</h3>
-					<div class="tsd-signature tsd-kind-icon">filter<wbr>Files<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<a name="multiple" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> multiple</h3>
+					<div class="tsd-signature tsd-kind-icon">multiple<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/upload/components/FileInput.tsx#L32">packages/zent/src/upload/components/FileInput.tsx:32</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/upload/types.ts#L165">packages/zent/src/upload/types.ts:165</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="onchange" class="tsd-anchor"></a>
+					<h3>on<wbr>Change</h3>
+					<div class="tsd-signature tsd-kind-icon">on<wbr>Change<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/upload/types.ts#L166">packages/zent/src/upload/types.ts:166</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -133,7 +137,7 @@
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-siganture">
 								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>files<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">File</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">File</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">File</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>files<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">File</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
 									<li class="tsd-description">
@@ -143,80 +147,6 @@
 												<h5>files: <span class="tsd-signature-type">File</span><span class="tsd-signature-symbol">[]</span></h5>
 											</li>
 										</ul>
-										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">File</span><span class="tsd-signature-symbol">[]</span>
-											<span class="tsd-signature-symbol"> | </span>
-											<span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">File</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span>
-										</h4>
-									</li>
-								</ul>
-							</li>
-						</ul>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="i18n" class="tsd-anchor"></a>
-					<h3>i18n</h3>
-					<div class="tsd-signature tsd-kind-icon">i18n<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/upload/components/FileInput.tsx#L36">packages/zent/src/upload/components/FileInput.tsx:36</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="initindex" class="tsd-anchor"></a>
-					<h3>init<wbr>Index</h3>
-					<div class="tsd-signature tsd-kind-icon">init<wbr>Index<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/upload/components/FileInput.tsx#L26">packages/zent/src/upload/components/FileInput.tsx:26</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="maxamount" class="tsd-anchor"></a>
-					<h3>max<wbr>Amount</h3>
-					<div class="tsd-signature tsd-kind-icon">max<wbr>Amount<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/upload/components/FileInput.tsx#L27">packages/zent/src/upload/components/FileInput.tsx:27</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="maxsize" class="tsd-anchor"></a>
-					<h3>max<wbr>Size</h3>
-					<div class="tsd-signature tsd-kind-icon">max<wbr>Size<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/upload/components/FileInput.tsx#L29">packages/zent/src/upload/components/FileInput.tsx:29</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="onchange" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> on<wbr>Change</h3>
-					<div class="tsd-signature tsd-kind-icon">on<wbr>Change<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/upload/components/FileInput.tsx#L34">packages/zent/src/upload/components/FileInput.tsx:34</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-type-declaration">
-						<h4>Type declaration</h4>
-						<ul class="tsd-parameters">
-							<li class="tsd-parameter-siganture">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>files<span class="tsd-signature-symbol">: </span><a href="iuploadlocalfile.html" class="tsd-signature-type">IUploadLocalFile</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-								</ul>
-								<ul class="tsd-descriptions">
-									<li class="tsd-description">
-										<h4 class="tsd-parameters-title">Parameters</h4>
-										<ul class="tsd-parameters">
-											<li>
-												<h5>files: <a href="iuploadlocalfile.html" class="tsd-signature-type">IUploadLocalFile</a><span class="tsd-signature-symbol">[]</span></h5>
-											</li>
-										</ul>
 										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 									</li>
 								</ul>
@@ -225,47 +155,12 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="onerror" class="tsd-anchor"></a>
-					<h3>on<wbr>Error</h3>
-					<div class="tsd-signature tsd-kind-icon">on<wbr>Error<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<a name="remainamount" class="tsd-anchor"></a>
+					<h3>remain<wbr>Amount</h3>
+					<div class="tsd-signature tsd-kind-icon">remain<wbr>Amount<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/upload/components/FileInput.tsx#L33">packages/zent/src/upload/components/FileInput.tsx:33</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-type-declaration">
-						<h4>Type declaration</h4>
-						<ul class="tsd-parameters">
-							<li class="tsd-parameter-siganture">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-								</ul>
-								<ul class="tsd-descriptions">
-									<li class="tsd-description">
-										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-									</li>
-								</ul>
-							</li>
-						</ul>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="silent" class="tsd-anchor"></a>
-					<h3>silent</h3>
-					<div class="tsd-signature tsd-kind-icon">silent<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/upload/components/FileInput.tsx#L28">packages/zent/src/upload/components/FileInput.tsx:28</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="type" class="tsd-anchor"></a>
-					<h3>type</h3>
-					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/1ef359d7/packages/zent/src/upload/components/FileInput.tsx#L30">packages/zent/src/upload/components/FileInput.tsx:30</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/8a3988ba/packages/zent/src/upload/types.ts#L164">packages/zent/src/upload/types.ts:164</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -287,37 +182,19 @@
 						<a href="ifileinputprops.html" class="tsd-kind-icon">IFile<wbr>Input<wbr>Props</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="ifileinputprops.html#auto" class="tsd-kind-icon">auto</a>
+								<a href="ifileinputprops.html#accept" class="tsd-kind-icon">accept</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="ifileinputprops.html#errormessages" class="tsd-kind-icon">error<wbr>Messages</a>
+								<a href="ifileinputprops.html#disabled" class="tsd-kind-icon">disabled</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="ifileinputprops.html#filterfiles" class="tsd-kind-icon">filter<wbr>Files</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="ifileinputprops.html#i18n" class="tsd-kind-icon">i18n</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="ifileinputprops.html#initindex" class="tsd-kind-icon">init<wbr>Index</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="ifileinputprops.html#maxamount" class="tsd-kind-icon">max<wbr>Amount</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="ifileinputprops.html#maxsize" class="tsd-kind-icon">max<wbr>Size</a>
+								<a href="ifileinputprops.html#multiple" class="tsd-kind-icon">multiple</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="ifileinputprops.html#onchange" class="tsd-kind-icon">on<wbr>Change</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="ifileinputprops.html#onerror" class="tsd-kind-icon">on<wbr>Error</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="ifileinputprops.html#silent" class="tsd-kind-icon">silent</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="ifileinputprops.html#type" class="tsd-kind-icon">type</a>
+								<a href="ifileinputprops.html#remainamount" class="tsd-kind-icon">remain<wbr>Amount</a>
 							</li>
 						</ul>
 					</li>
