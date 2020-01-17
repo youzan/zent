@@ -225,7 +225,7 @@ This is major release with lots of breaking changes, read the [full change log](
 
 ⚠️ `6.5.2` reverted a regression for `FormSelectField` in `tags` mode.
 
-- ✨ Support `tags` mode in `FormSelectField` (*reverted*)
+- ✨ Support `tags` mode in `FormSelectField` (_reverted_)
 - 🦀️ Fix `Select` placeholder color
 - 🦀️ Fix `Upload` broken style when uploading multiple audio files
 
@@ -369,7 +369,7 @@ If you rely on `zent-select` when overwriting `Select` popover style, use `zent-
 - ✨ Upgrade DnD library in `Design`
 - ✨ Add open/close animation to `Dialog`
 - `YearPicker`
-  - ✨ Add  `max` and `min` support
+  - ✨ Add `max` and `min` support
   - ✨ `value` supports `Date` type
 - 🦀️ Fix `Loading` `height` ignored in some cases
 - 🦀️ Fix `BlockHeader` style
@@ -548,7 +548,7 @@ If you rely on `zent-select` when overwriting `Select` popover style, use `zent-
 - 🦀️ Fix `NumberInput` inconsistent `onBlur` and `onChange` values
 - 🦀️ Fix `Upload` image order after uploading
 - 🦀️ Fix `Select` item order in tag mode
-- 🦀️ Fix can not edit hex in  `ColorPicker`
+- 🦀️ Fix can not edit hex in `ColorPicker`
 - 🦀️ Fix `textarea` height tingle
 - 🦀️ Fix some typo
 - 🦀️ Fix `yarn new-component` command
@@ -650,13 +650,13 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContextProvider } from 'react-dnd';
 
 export default class YourApp {
-  render() {
-    return (
-      <DragDropContextProvider backend={HTML5Backend}>
-      /* ... */
-      </DragDropContextProvider>
-    );
-  };
+	render() {
+		return (
+			<DragDropContextProvider backend={HTML5Backend}>
+				/* ... */
+			</DragDropContextProvider>
+		);
+	}
 }
 ```
 
@@ -690,14 +690,14 @@ export default class YourApp {
   - 🦀️ Fix styles in `disabled` state
 - 🦀️ Fix cannot upload the same image twice in `Upload`
 - 🦀️ Fix exceptions when `data` in `undefined` or `null` in `Select`
-- 🦀️ Fix disable logic in  `MonthPicker`
+- 🦀️ Fix disable logic in `MonthPicker`
 - 🦀️ Fix `emptyLabel` type in `Table`
 - 🦀️ Fix TypeScript definition for `Button`
 
 ### 3.9.5 (2017-11-13)
 
 - ✨ You can search components in doc site now.
-- 🦀️ Fix disable logic in  `DatePicker`
+- 🦀️ Fix disable logic in `DatePicker`
 
 ### 3.9.4 (2017-11-09)
 

@@ -55,7 +55,7 @@
   - ✨ 删除 `prefix` 支持
   - 🦀️ 更新组件的箭头图标，和其他组件保持一致
   - 🦀️ [breaking change] 所有 CSS 类名增加前缀，例如 `.tags__empty` 这种都被替换掉了
-- ✨优化了全局事件处理
+- ✨ 优化了全局事件处理
 - `Icon`
   - ✨ 增加两个新图标 `filter-o` 和 `scan-code-o`
   - ✨ 重命名 `text-guide` 为 `text-guide-o`
@@ -90,7 +90,7 @@
 
 ### 7.4.1(2019-12-13)
 
-- ✨新增 3 个新图标：`doc`, `video`, `audio`
+- ✨ 新增 3 个新图标：`doc`, `video`, `audio`
 - ✨ 使用一个内置的精简版替换 `tinycolor2`
 - 🦀️ 修复 `Layout` 组件不兼容 SSR 的问题
 - 🦀️ `Grid` 的 column name 支持 `a.b.c` 这种写法，不推荐使用，仅为和老版本兼容
@@ -236,7 +236,7 @@
 
 ⚠️ 这个版本引入了一个 `FormSelectField` 在 `tags` 模式下的不兼容改动，`6.5.2` 已经回滚这个改动。
 
-- ✨ `FormSelectField` 支持 `tags` 模式 (*已回滚*)
+- ✨ `FormSelectField` 支持 `tags` 模式 (_已回滚_)
 - 🦀️ 修复 `Select` 组件 placeholder 颜色不对的问题
 - 🦀️ 修复 `Upload` 上传多个音频时的样式问题
 
@@ -658,13 +658,13 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContextProvider } from 'react-dnd';
 
 export default class YourApp {
-  render() {
-    return (
-      <DragDropContextProvider backend={HTML5Backend}>
-      /* ... */
-      </DragDropContextProvider>
-    );
-  };
+	render() {
+		return (
+			<DragDropContextProvider backend={HTML5Backend}>
+				/* ... */
+			</DragDropContextProvider>
+		);
+	}
 }
 ```
 
