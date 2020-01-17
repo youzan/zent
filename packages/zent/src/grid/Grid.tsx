@@ -906,7 +906,13 @@ export class Grid<Data = any> extends PureComponent<
       const tableHeaderEl = ReactDom.findDOMNode(
         this.headerNode.current
       ) as Element;
-      const isHeaderInView = isElementInView(tableHeaderEl);
+      let offset = 0;
+      if (tableHeaderEl && !offset) {
+        const { height } = tableHeaderEl.getBoundingClientRect();
+        console.log(height);
+        offset = height;
+      }
+      const isHeaderInView = isElementInView(tableHeaderEl, offset);
       this.setState({
         showStickHead: !isHeaderInView && isTableInView,
         marginLeft: `-${scrollLeft}px`,
@@ -1094,7 +1100,10 @@ export class Grid<Data = any> extends PureComponent<
               {this.getBatchComponents('header')}
               <BlockLoading loading={loading}>
                 {autoStick && (
-                  <div style={stickHeadWarpStyle}>
+                  <div
+                    style={stickHeadWarpStyle}
+                    className="zent-grid-sticky-header-warp"
+                  >
                     <Affix offsetTop={0}>{this.getStickyHead()}</Affix>
                   </div>
                 )}
