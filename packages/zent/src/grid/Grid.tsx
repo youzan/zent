@@ -95,8 +95,8 @@ export interface IGridState {
   fixedColumnsBodyExpandRowsHeight: Array<number | string>;
   expandRowKeys: boolean[];
   showStickHead: boolean;
-  tableWidth: number;
-  marginLeft: string;
+  tableWidth?: number;
+  marginLeft?: string;
 }
 
 export interface IGridInnerColumn<Data> extends IGridColumn<Data> {
@@ -165,8 +165,8 @@ export class Grid<Data = any> extends PureComponent<
       fixedColumnsBodyExpandRowsHeight: [],
       expandRowKeys,
       showStickHead: false,
-      tableWidth: 0,
-      marginLeft: '',
+      tableWidth: undefined,
+      marginLeft: undefined,
     };
   }
 
