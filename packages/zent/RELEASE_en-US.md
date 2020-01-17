@@ -8,6 +8,52 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 8.0.0(2020-01-17)
+
+- 🎉 Rewrite `Upload`, use `@zent/compat` if you want the old version
+- 🎉 New component `Waypoint`
+- 🎉 New component `Dropdown`
+- `Affix`
+  - ✨ Rewrite using `Waypoint`
+  - ✨ `offsetTop` has no default value
+  - ✨ `offsetTop` and `offsetBottom` can be used together
+- `InfiniteScroller`
+  - ✨ Rewrite using `Waypoint`
+  - ✨ Remove `offset`, `useCapture` and `prefix`
+  - ✨ Rename `initialLoad` to `skipLoadOnMount`
+  - ✨ `hasMore` defaults to `false`
+  - ✨ `useWindow` defaults to `false`
+- ✨ Optimize event handlers in every place
+- `Icon`
+  - ✨ New icons `filter-o` and `scan-code-o`
+  - ✨ Rename `text-guide` to `text-guide-o`
+  - ✨ Rename `video-guide` to `video-guide-o`
+- ✨ `QuickDateRangePicker` can select a default preset on mount
+- ✨ Replace `tslint` with `eslint`
+- 🦀️ Update `Dialog` close button style
+- `Form`
+  - ✨ Add `useFieldValue` hook
+  - ✨ `Form` gets a `getSubmitValue` method
+  - 🦀️ Update error style
+  - 🦀️ Update TypeScript definition
+  - 🦀️ Export `FormDescription` component
+  - 🦀️ `FormSelectField` properly handles `withoutLabel`
+  - 🦀️ `layout` is optional
+- 🦀️ Fix `CopyButton` TypeScript definition
+- 🦀️ Update `Pagination` font style
+- `Cascader`
+  - ✨ Add support to `disabled`
+  - ✨ Remove `prefix`
+  - 🦀️ `onChange` is passed the same option item from props
+  - 🦀️ Update placeholder text color
+  - 🦀️ Namespace all CSS selectors
+- `Select`
+  - ✨ Remove `prefix`
+  - 🦀️ Update caret style
+  - 🦀️ Namespace all CSS selectors
+- 🦀️ Fix `Rate` icon issue when using fraction values
+- 🦀️ Fix incorrect rewrite rules used in `babel-plugin-zent`
+
 ### 7.4.3(2019-12-19)
 
 - 🦀️ Fix `FormSelectField`'s `destroyOnUnmount` not working
