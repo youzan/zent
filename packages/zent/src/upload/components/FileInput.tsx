@@ -39,7 +39,6 @@ export default class FileInput extends PureComponent<IFileInputProps> {
 
     return (
       <input
-        className="zent-upload-file-input"
         hidden
         ref={this.inputRef}
         type="file"

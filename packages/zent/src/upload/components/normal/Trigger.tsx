@@ -14,7 +14,7 @@ export default class NormalUploadTrigger extends AbstractTrigger<
       return null;
     }
     return (
-      <span className="zent-upload-trigger-text-count">
+      <span className="zent-file-upload-trigger-text-count">
         {availableUploadItemsCount}/{maxAmount}
       </span>
     );
@@ -27,15 +27,15 @@ export default class NormalUploadTrigger extends AbstractTrigger<
 
     return (
       <div
-        className={cn('zent-upload-trigger', {
-          ['zent-upload-trigger__disabled']: isDisabled,
+        className={cn('zent-file-upload-trigger', {
+          ['zent-file-upload-trigger__disabled']: isDisabled,
         })}
         onClick={this.onClickTrigger}
         onDragOver={this.onTriggerDragOver}
         onDrop={this.onTriggerDrop}
       >
-        <Icon type="upload" className="zent-upload-trigger-icon" />
-        <span className="zent-upload-trigger-text">
+        <Icon type="upload" className="zent-file-upload-trigger-icon" />
+        <span className="zent-file-upload-trigger-text">
           {i18n.normal.add} {this.renderFileItemCount()}
         </span>
         {this.renderFileInput()}
