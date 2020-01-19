@@ -19,7 +19,7 @@
   cursor: pointer;
 }
 
-.zent-upload {
+.zent-file-upload {
   @include theme-color(border-color, stroke, 5);
   border-width: 1px;
   border-style: solid;
@@ -62,11 +62,11 @@
     &__disabled {
       @include trigger-disabled;
 
-      .zent-upload-trigger-text {
+      .zent-file-upload-trigger-text {
         @include theme-color(color, stroke, 3);
       }
 
-      .zent-upload-trigger-icon {
+      .zent-file-upload-trigger-icon {
         @include theme-color(color, stroke, 4);
       }
     }

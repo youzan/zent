@@ -88,7 +88,7 @@ export default class NormalUploadList extends AbstractUploadList<
     const { pageSize } = this.props;
     return (
       <MiniPagination
-        className="zent-upload-list-pagination"
+        className="zent-file-upload-list-pagination"
         onChange={this.onPagiantionChange}
         current={current}
         pageSize={pageSize}
@@ -125,16 +125,16 @@ export default class NormalUploadList extends AbstractUploadList<
       <Sortable
         tag="ul"
         items={fileList}
-        className="zent-upload-list"
+        className="zent-file-upload-list"
         onChange={this.onFileListSortChange}
       >
         {fileListContent}
       </Sortable>
     ) : (
-      <ul className="zent-upload-list">{fileListContent}</ul>
+      <ul className="zent-file-upload-list">{fileListContent}</ul>
     );
     return (
-      <div className="zent-upload-list-wrapper">
+      <div className="zent-file-upload-list-wrapper">
         {listContent}
         {this.renderPagination()}
       </div>
