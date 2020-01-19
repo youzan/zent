@@ -30,7 +30,7 @@ export default class NormalUploadList extends AbstractUploadList<
 
     // 删除过文件，需要修正页数
     if (fileList.length < prevFileList.length || prevPageSize !== pageSize) {
-      const maxPage = Math.max(fileList.length / pageSize, 1);
+      const maxPage = Math.max(Math.ceil(fileList.length / pageSize), 1);
       // 如果最大支持页数已经小于当期页数，则更新当期页数到最大支持页数，
       if (maxPage < current) {
         this.setState({
