@@ -8,6 +8,12 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 8.0.1(2020-01-19)
+
+- `Upload`
+  - 🦀️ Use a different CSS class name from the old version
+  - 🦀️ Fix a pagination bug when removing items
+
 ### 8.0.0(2020-01-17)
 
 - 🎉 Rewrite `Upload`, use `@zent/compat` if you want the old version
