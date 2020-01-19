@@ -68,7 +68,7 @@ export class Upload extends AbstractUpload<
       formattedMaxSize: formatFileSize(maxSize),
     };
     return (
-      <div className="zent-upload-tips">
+      <div className="zent-file-upload-tips">
         {getTipsContent(tips, config, i18n.normal.tips)}
       </div>
     );
@@ -117,9 +117,9 @@ export class Upload extends AbstractUpload<
       <I18nReceiver<II18nLocaleUpload> componentName="Upload">
         {i18n => {
           return (
-            <div className={cn('zent-upload', className)}>
+            <div className={cn('zent-file-upload', className)}>
               {this.renderUploadList(i18n)}
-              <div className="zent-upload-trigger-wrapper">
+              <div className="zent-file-upload-trigger-wrapper">
                 {this.renderTrigger(i18n)}
                 {this.renderTips(i18n)}
               </div>

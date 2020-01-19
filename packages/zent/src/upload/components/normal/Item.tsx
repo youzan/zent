@@ -17,13 +17,13 @@ const mimeTypeIconMap: {
 } = {
   audio: (
     <Icon
-      className="zent-upload-item-icon zent-upload-item-icon__type"
+      className="zent-file-upload-item-icon zent-file-upload-item-icon__type"
       type="voice"
     />
   ),
   video: (
     <Icon
-      className="zent-upload-item-icon zent-upload-item-icon__type"
+      className="zent-file-upload-item-icon zent-file-upload-item-icon__type"
       type="video"
     />
   ),
@@ -33,14 +33,14 @@ const getFileIcon = (item: IUploadFileItem) => {
 
   // 上传失败 icon
   if (status === FILE_UPLOAD_STATUS.failed) {
-    return <Icon className="zent-upload-item-icon" type="warning" />;
+    return <Icon className="zent-file-upload-item-icon" type="warning" />;
   }
 
   // 上传中 icon
   if (status === FILE_UPLOAD_STATUS.uploading) {
     return (
       <InlineLoading
-        className="zent-upload-item-icon"
+        className="zent-file-upload-item-icon"
         loading
         icon="circle"
         iconSize={16}
@@ -58,7 +58,7 @@ const getFileIcon = (item: IUploadFileItem) => {
   // 默认文件 icon
   return (
     <Icon
-      className="zent-upload-item-icon zent-upload-item-icon__type"
+      className="zent-file-upload-item-icon zent-file-upload-item-icon__type"
       type="doc"
     />
   );
@@ -85,31 +85,31 @@ const NormalUploadItem: React.FC<INormalUploadItemProps> = props => {
 
   const isUploading = item.status === FILE_UPLOAD_STATUS.uploading;
 
-  const cls = cn('zent-upload-item', {
-    ['zent-upload-item__failed']: isFailed,
-    ['zent-upload-item__uploading']: isUploading,
+  const cls = cn('zent-file-upload-item', {
+    ['zent-file-upload-item__failed']: isFailed,
+    ['zent-file-upload-item__uploading']: isUploading,
   });
 
   const [filename, ext] = splitFileNameParts(item.name);
 
   return (
     <li key={item._id} className={cls}>
-      <div className="zent-upload-item-info">
+      <div className="zent-file-upload-item-info">
         {getFileIcon(item)}
         <Pop
-          wrapperClassName="zent-upload-item-name-wrapper"
+          wrapperClassName="zent-file-upload-item-name-wrapper"
           content={item.name}
           trigger="hover"
           mouseEnterDelay={500}
         >
-          <p className="zent-upload-item-name-line">
-            <span className="zent-upload-item-name">{filename}</span>
-            <span className="zent-upload-item-name-ext">{ext}</span>
+          <p className="zent-file-upload-item-name-line">
+            <span className="zent-file-upload-item-name">{filename}</span>
+            <span className="zent-file-upload-item-name-ext">{ext}</span>
           </p>
         </Pop>
-        <div className="zent-upload-item-actions">
+        <div className="zent-file-upload-item-actions">
           {isFailed && (
-            <a className="zent-upload-item-retry" onClick={retryHandler}>
+            <a className="zent-file-upload-item-retry" onClick={retryHandler}>
               {i18n.retry}
             </a>
           )}
@@ -119,7 +119,7 @@ const NormalUploadItem: React.FC<INormalUploadItemProps> = props => {
       {isUploading && (
         <Progress
           showInfo={false}
-          className="zent-upload-item-progress"
+          className="zent-file-upload-item-progress"
           strokeWidth={2}
           status="normal"
           percent={item.percent}
