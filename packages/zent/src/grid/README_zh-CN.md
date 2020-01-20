@@ -38,6 +38,8 @@ group: 导航
 | bordered        | 是否展示外边框和列边框                                        | bool                                                                       | `false`            | 否       |
 | batchRender          | 批量操作 render                                        | (data: array) => React.ReactNode                                           |                    | 否       |
 | stickyBatch | 是否要将批量操作保持在屏幕内                                  | bool                                                                       | `false`             | 否       |
+| autoStick                | 是否自动将 head stick 到窗口                                                                         | bool                                 | `false`        | 否       |
+
 
 #### onChange 函数声明
 
@@ -76,7 +78,7 @@ onChange 会抛出一个对象，这个对象包含分页变化的参数：
 | ---------------- | ------------------------------------ | ----------------------------------------------------------------- | ------------- |
 | selectedRowKeys  | 默认选中                             | array                                                             | 否            |
 | onSelect         | 每次 check 的时候触发的函数          | (selectedkeys: string[], selectedRows: Array<any>, changeRow: any | any[]) => any | 否 |
-| getCheckboxProps | 选择框属性配置 (当前仅支持 disabled) | (data: object) => { disabled?: boolean }                          | 否            |
+| getCheckboxProps | 选择框属性配置 (当前仅支持 disabled) | (data: object) => { disabled?: boolean, reason?: ReactNode }                          | 否            |
 
 #### pageInfo
 

@@ -254,11 +254,11 @@
     vertical-align: middle;
 
     &:first-child {
-      padding: 10px 12px 9px 16px;
+      padding: 10px 12px;
     }
 
     &:last-child {
-      padding: 10px 16px 9px 12px;
+      padding: 10px 12px;
     }
   }
 
@@ -267,6 +267,13 @@
     line-height: 20px;
     padding: 10px 12px;
     font-weight: 500;
+  }
+
+  &-th.zent-grid-th-selection,
+  &-td.zent-grid-td-selection,
+  &-th.zent-grid-th-expand,
+  &-td.zent-grid-td-expand {
+    padding-right: 0;
   }
 
   &-td {
@@ -300,6 +307,13 @@
         width: 8px;
         display: inline-block;
       }
+    }
+
+    &-multiple-row {
+      @include theme-color(border-color, stroke, 6);
+      border-left-width: 1px;
+      border-right-width: 1px;
+      border-style: solid;
     }
   }
 
@@ -336,7 +350,7 @@
   }
 
   .zent-grid-batch {
-    padding-left: 16px;
+    padding-left: 12px;
     padding-bottom: 12px;
     display: flex;
     align-items: center;
@@ -347,24 +361,6 @@
 
       &:last-child {
         margin-right: 0;
-      }
-    }
-
-    .batch-component-info {
-      margin-right: 16px;
-
-      .select-rows {
-        padding-right: 7px;
-
-        &::after {
-          @include theme-color(background-color, stroke, 5);
-          content: '';
-          display: inline-block;
-          height: 14px;
-          width: 2px;
-          margin-left: 7px;
-          vertical-align: middle;
-        }
       }
     }
   }
@@ -380,5 +376,14 @@
     line-height: 1;
     font-size: 0;
     display: inline-block;
+    margin-top: -1px;
+  }
+
+  .zent-grid-sticky-header {
+    overflow-x: scroll;
+  }
+
+  .zent-grid-sticky-header-warp {
+    position: absolute;
   }
 }

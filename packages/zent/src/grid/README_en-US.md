@@ -37,6 +37,8 @@ The function of the component is similar to the function of [Table](table) compo
 | bordered        | whether to display the outer border and column border                                                      | bool                                                                       | `false`     | No       |
 | batchRender          | Render batch operations                                                                               | (data: array) => React.ReactNode                                           |             | No       |
 | stickyBatch | Automatically stick batch operation                                                          | bool                                                                       | `false`      | No       |
+| autoStick                | Whether to stick the head to the window automatically                                             | bool                                 | `false`     | No       |
+
 
 #### onChange function declaration
 
@@ -75,7 +77,7 @@ onChange will throw an object, which includes parameters about the change part o
 | ---------------- | ------------------------------------------ | ----------------------------------------------------------------- | ------------- |
 | selectedRowKeys  | keys of selected rows by default           | array                                                             | No            |
 | onSelect         | callback fires when a check changes        | (selectedkeys: string[], selectedRows: Array<any>, changeRow: any | any[]) => any | No |
-| getCheckboxProps | function to get properties of the checkbox | (data: object) => { disabled?: boolean }                          | No            |
+| getCheckboxProps | function to get properties of the checkbox | (data: object) => { disabled?: boolean, reason?: ReactNode }                          | No            |
 
 #### pageInfo
 
