@@ -9,6 +9,7 @@ module.exports = {
   },
   extends: ['../../eslintrc.base.js'],
   rules: {
+    'no-console': 'off',
     'import/no-commonjs': 'off',
   },
 };
