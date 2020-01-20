@@ -6,6 +6,7 @@ import isEqual from '../utils/isEqual';
 
 import noop from '../utils/noop';
 import measureScrollbar from '../utils/dom/measureScrollbar';
+import { runOnceInNextFrame } from '../utils/nextFrame';
 import { WindowResizeHandler } from '../utils/component/WindowResizeHandler';
 import { WindowScrollHandler } from '../utils/component/WindowScrollHandler';
 import BatchComponents from './BatchComponents';
@@ -24,6 +25,7 @@ import Header from './Header';
 import Body from './Body';
 import Footer from './Footer';
 import SelectionCheckbox from './SelectionCheckbox';
+import Affix from '../affix';
 import SelectionCheckboxAll, {
   IGridSelectionAllCheckboxProps,
 } from './SelectionCheckboxAll';
@@ -83,6 +85,7 @@ export interface IGridProps<Data = any> {
   rowProps?: (data: Data, index: number) => any;
   batchRender?: IGridBatchRender;
   stickyBatch?: boolean;
+  autoStick?: boolean;
 }
 
 export interface IGridState {
@@ -91,6 +94,9 @@ export interface IGridState {
   fixedColumnsHeadRowsHeight: Array<number | string>;
   fixedColumnsBodyExpandRowsHeight: Array<number | string>;
   expandRowKeys: boolean[];
+  showStickHead: boolean;
+  tableWidth?: number;
+  marginLeft?: string;
 }
 
 export interface IGridInnerColumn<Data> extends IGridColumn<Data> {
@@ -116,12 +122,14 @@ export class Grid<Data = any> extends PureComponent<
     ellipsis: false,
     onExpand: noop,
     stickyBatch: false,
+    autoStick: false,
   };
 
   mounted = false;
   checkboxPropsCache: {
     [key: string]: {
       disabled?: boolean;
+      reason?: React.ReactNode;
     };
   } = {};
   store: Store = new Store();
@@ -130,14 +138,15 @@ export class Grid<Data = any> extends PureComponent<
   footEl: Element;
   headerEl: Element;
   headerNode = React.createRef<Header<Data>>();
-  bodyTable: HTMLDivElement | null = null;
-  leftBody: HTMLDivElement | null = null;
-  rightBody: HTMLDivElement | null = null;
-  scrollBody: HTMLDivElement | null = null;
-  scrollHeader: HTMLDivElement | null = null;
+  bodyTable = React.createRef<HTMLDivElement>();
+  leftBody = React.createRef<HTMLDivElement>();
+  rightBody = React.createRef<HTMLDivElement>();
+  scrollBody = React.createRef<HTMLDivElement>();
+  scrollHeader = React.createRef<HTMLDivElement>();
   scrollPosition!: GridScrollPosition;
   lastScrollLeft!: number;
   lastScrollTop!: number;
+  stickyHead = React.createRef<HTMLDivElement>();
 
   constructor(props: IGridProps<Data>) {
     super(props);
@@ -155,6 +164,9 @@ export class Grid<Data = any> extends PureComponent<
       fixedColumnsHeadRowsHeight: [],
       fixedColumnsBodyExpandRowsHeight: [],
       expandRowKeys,
+      showStickHead: false,
+      tableWidth: undefined,
+      marginLeft: undefined,
     };
   }
 
@@ -189,15 +201,15 @@ export class Grid<Data = any> extends PureComponent<
       return;
     }
 
-    const bodyRows = this.bodyTable?.querySelectorAll(
+    const bodyRows = this.bodyTable?.current?.querySelectorAll(
       `tbody .${prefix}-grid-tr`
     );
-    const expandRows = this.bodyTable?.querySelectorAll(
+    const expandRows = this.bodyTable?.current?.querySelectorAll(
       `tbody .${prefix}-grid-tr__expanded`
     );
     const headRows = this.scrollHeader
-      ? this.scrollHeader.querySelectorAll('thead')
-      : (this.bodyTable as HTMLDivElement).querySelectorAll('thead');
+      ? this.scrollHeader?.current?.querySelectorAll('thead')
+      : this.bodyTable?.current?.querySelectorAll('thead');
 
     const fixedColumnsBodyRowsHeight = mapDOMNodes(
       bodyRows,
@@ -373,7 +385,7 @@ export class Grid<Data = any> extends PureComponent<
           />
         ),
         key: 'selection-column',
-        width: '44px',
+        width: '20px',
         bodyRender: this.renderSelectionCheckbox(),
       };
 
@@ -393,7 +405,7 @@ export class Grid<Data = any> extends PureComponent<
       const expandColumn: IGridInnerColumn<Data> = {
         title: '',
         key: 'expand-column',
-        width: '44px',
+        width: '20px',
         bodyRender: this.getExpandBodyRender(expandRowKeys),
       };
       if (hasLeft) {
@@ -445,6 +457,7 @@ export class Grid<Data = any> extends PureComponent<
     return this.getTable({
       columns: this.getLeftColumns(),
       fixed: 'left',
+      bodyRef: this.leftBody,
     });
   };
 
@@ -452,6 +465,7 @@ export class Grid<Data = any> extends PureComponent<
     return this.getTable({
       columns: this.getRightColumns(),
       fixed: 'right',
+      bodyRef: this.rightBody,
     });
   };
 
@@ -478,7 +492,7 @@ export class Grid<Data = any> extends PureComponent<
   }
 
   setScrollPositionClassName() {
-    const node = this.bodyTable as HTMLDivElement;
+    const node = this.bodyTable?.current;
     const scrollToLeft = node.scrollLeft === 0;
     const scrollToRight =
       node.scrollLeft + 1 >=
@@ -495,51 +509,80 @@ export class Grid<Data = any> extends PureComponent<
     }
   }
 
+  forceScroll = (
+    target: EventTarget,
+    distance: number,
+    direction: 'Left' | 'Top'
+  ) => {
+    const scrollDirection = `scroll${direction}`;
+    if (target && target[scrollDirection] !== distance) {
+      target[scrollDirection] = distance;
+    }
+  };
+
+  handleBodyScrollRunOnceNextFrame = runOnceInNextFrame(
+    (e: React.UIEvent<HTMLDivElement>) => {
+      if (!this.mounted) {
+        return;
+      }
+
+      const target = e.target as HTMLDivElement;
+      const { scroll = {}, autoStick } = this.props;
+      const { scrollTop, scrollLeft } = target;
+      const leftBody = this.leftBody?.current;
+      const rightBody = this.rightBody?.current;
+      const scrollHeader = this.scrollHeader?.current;
+      const stickyHead = this.stickyHead?.current;
+      const bodyTable = this.bodyTable?.current;
+
+      if (this.lastScrollLeft !== target.scrollLeft && scroll.x) {
+        if (scrollHeader && target === scrollHeader) {
+          this.forceScroll(bodyTable, scrollLeft, 'Left');
+          autoStick && this.forceScroll(stickyHead, scrollLeft, 'Left');
+        }
+
+        if (bodyTable && target === bodyTable) {
+          this.forceScroll(scrollHeader, scrollLeft, 'Left');
+          autoStick && this.forceScroll(stickyHead, scrollLeft, 'Left');
+        }
+
+        if (autoStick && target === stickyHead) {
+          this.forceScroll(bodyTable, scrollLeft, 'Left');
+          this.forceScroll(scrollHeader, scrollLeft, 'Left');
+        }
+        this.lastScrollLeft = scrollLeft;
+        this.setScrollPositionClassName();
+      }
+
+      if (this.lastScrollTop !== target.scrollTop && scroll.y) {
+        if (leftBody && target === leftBody) {
+          this.forceScroll(rightBody, scrollTop, 'Top');
+          this.forceScroll(bodyTable, scrollTop, 'Top');
+        }
+
+        if (rightBody && target === rightBody) {
+          this.forceScroll(leftBody, scrollTop, 'Top');
+          this.forceScroll(bodyTable, scrollTop, 'Top');
+        }
+
+        if (bodyTable && target === bodyTable) {
+          this.forceScroll(rightBody, scrollTop, 'Top');
+          this.forceScroll(leftBody, scrollTop, 'Top');
+        }
+        this.lastScrollTop = target.scrollTop;
+      }
+    }
+  );
+
   handleBodyScroll = (e: React.UIEvent<HTMLDivElement>) => {
-    if (!this.mounted) {
-      return;
-    }
-
-    if (e.currentTarget !== e.target) {
-      return;
-    }
-    const target = e.target as HTMLDivElement;
-    const { scroll = {} } = this.props;
-    const scrollTop = target.scrollTop;
-    const { leftBody, rightBody, scrollBody } = this;
-
-    if (target.scrollLeft !== this.lastScrollLeft && scroll.x) {
-      if (this.scrollHeader && target === scrollBody) {
-        this.scrollHeader.scrollLeft = target.scrollLeft;
-      }
-      if (
-        this.scrollHeader &&
-        this.scrollBody &&
-        target === this.scrollHeader
-      ) {
-        this.scrollBody.scrollLeft = target.scrollLeft;
-      }
-      this.setScrollPositionClassName();
-    }
-    this.lastScrollLeft = target.scrollLeft;
-    if (target.scrollTop !== this.lastScrollTop && scroll.y) {
-      if (leftBody && target !== leftBody) {
-        leftBody.scrollTop = scrollTop;
-      }
-      if (rightBody && target !== rightBody) {
-        rightBody.scrollTop = scrollTop;
-      }
-      if (scrollBody && target !== scrollBody) {
-        scrollBody.scrollTop = scrollTop;
-      }
-
-      this.lastScrollTop = target.scrollTop;
-    }
+    e.persist();
+    this.handleBodyScrollRunOnceNextFrame(e);
   };
 
   onResize = () => {
     this.syncFixedTableRowHeight();
     this.toggleBatchComponents();
+    this.setStickyHeadWidth();
   };
 
   onRowMouseEnter = (mouseOverRowIndex: number) => {
@@ -552,6 +595,9 @@ export class Grid<Data = any> extends PureComponent<
     options: {
       columns?: Array<IGridInnerColumn<Data>>;
       fixed?: IGridInnerFixedType;
+      isStickyHead?: boolean;
+      headRef?: React.RefObject<HTMLDivElement>;
+      bodyRef?: React.RefObject<HTMLDivElement>;
     } = {}
   ) => {
     const {
@@ -568,7 +614,7 @@ export class Grid<Data = any> extends PureComponent<
       components,
       rowProps,
     } = this.props;
-    const { fixed } = options;
+    const { fixed, isStickyHead } = options;
     const columns = options.columns || this.store.getState('columns');
     const { expandRowKeys } = this.state;
     let tableClassName = '';
@@ -577,7 +623,7 @@ export class Grid<Data = any> extends PureComponent<
 
     if (fixed || scroll.x) {
       tableClassName = `${prefix}-grid-fixed`;
-      bodyStyle.overflowX = 'auto';
+      bodyStyle.overflowX = isStickyHead ? 'hidden' : 'auto';
     }
 
     if (!fixed && scroll.x) {
@@ -635,46 +681,48 @@ export class Grid<Data = any> extends PureComponent<
       };
       if (scrollbarWidth > 0) {
         headStyle.paddingBottom = 0;
-        if (!fixed && x) {
+        if (!fixed && this.isAnyColumnsFixed() && x) {
           headStyle.marginBottom = -scrollbarWidth;
+          headStyle.marginRight = scrollbarWidth;
         }
       } else {
         scrollBodyStyle.marginBottom = 0;
       }
-      return [
+      const table = [
         <div
           key="header"
-          className={`${prefix}-grid-header`}
+          className={classnames(`${prefix}-grid-header`, {
+            [`${prefix}-grid-sticky-header`]: options.isStickyHead,
+          })}
           style={headStyle}
-          ref={ref => {
-            if (!fixed) this.scrollHeader = ref;
-          }}
+          ref={options.headRef}
           onScroll={this.handleBodyScroll}
         >
           {header}
         </div>,
-        <div key="body-outer" className={`${prefix}-grid-body-outer`}>
-          <div
-            key="body"
-            className={`${prefix}-grid-body`}
-            style={scrollBodyStyle}
-            ref={ref => {
-              (this as any)[`${fixed || 'scroll'}Body`] = ref;
-              if (!fixed) this.bodyTable = ref;
-            }}
-            onScroll={this.handleBodyScroll}
-          >
-            {body}
-          </div>
-        </div>,
       ];
+
+      if (!options.isStickyHead) {
+        table.push(
+          <div key="body-outer" className={`${prefix}-grid-body-outer`}>
+            <div
+              key="body"
+              className={`${prefix}-grid-body`}
+              style={scrollBodyStyle}
+              ref={options.bodyRef}
+              onScroll={this.handleBodyScroll}
+            >
+              {body}
+            </div>
+          </div>
+        );
+      }
+      return table;
     }
     return [
       <div
         style={bodyStyle}
-        ref={ref => {
-          if (!fixed) this.bodyTable = ref;
-        }}
+        ref={options.bodyRef}
         onScroll={this.handleBodyScroll}
         key="table"
       >
@@ -686,7 +734,7 @@ export class Grid<Data = any> extends PureComponent<
         >
           <ColGroup columns={columns} />
           {header}
-          {body}
+          {options.isStickyHead ? null : body}
         </table>
       </div>,
     ];
@@ -802,7 +850,7 @@ export class Grid<Data = any> extends PureComponent<
           className="zent-grid-selection-checkbox"
         >
           <SelectionCheckbox
-            disabled={props.disabled}
+            {...props}
             rowIndex={rowIndex}
             store={this.store}
             onChange={(e: ICheckboxEvent<unknown>) =>
@@ -849,6 +897,81 @@ export class Grid<Data = any> extends PureComponent<
 
   onScroll = () => {
     this.toggleBatchComponents();
+    const scrollLeft =
+      document.body.scrollLeft ||
+      document.documentElement.scrollLeft ||
+      window.pageXOffset;
+    if (this.props.autoStick) {
+      const isTableInView = isElementInView(this.gridNode.current);
+      const tableHeaderEl = ReactDom.findDOMNode(
+        this.headerNode.current
+      ) as Element;
+      let offset = 0;
+      if (tableHeaderEl && !offset) {
+        const { height } = tableHeaderEl.getBoundingClientRect();
+        offset = height;
+      }
+      const isHeaderInView = isElementInView(tableHeaderEl, offset);
+      this.setState({
+        showStickHead: !isHeaderInView && isTableInView,
+        marginLeft: `-${scrollLeft}px`,
+      });
+    }
+  };
+
+  getStickyHead = () => {
+    const content = [
+      this.getTable({
+        isStickyHead: true,
+        headRef: this.stickyHead,
+        bodyRef: this.stickyHead,
+      }),
+
+      this.isAnyColumnsLeftFixed() && (
+        <div className={`${prefix}-grid-fixed-left`} key="left-sticky-head">
+          {this.getTable({
+            columns: this.getLeftColumns(),
+            fixed: 'left',
+            isStickyHead: true,
+          })}
+        </div>
+      ),
+      this.isAnyColumnsRightFixed() && (
+        <div className={`${prefix}-grid-fixed-right`} key="right-sticky-head">
+          {this.getTable({
+            columns: this.getRightColumns(),
+            fixed: 'right',
+            isStickyHead: true,
+          })}
+        </div>
+      ),
+    ];
+
+    const style: React.CSSProperties = {
+      visibility: this.state.showStickHead ? 'visible' : 'hidden',
+      height: this.state.showStickHead ? 'auto' : 0,
+    };
+
+    return this.isAnyColumnsFixed() ? (
+      <div className={`${prefix}-grid-scroll`} style={style}>
+        {content}
+      </div>
+    ) : (
+      <div style={style}>{content}</div>
+    );
+  };
+
+  setStickyHeadWidth = () => {
+    if (this.props.autoStick && this.gridNode && this.gridNode.current) {
+      const { scroll } = this.props;
+      let { width } = this.gridNode.current.getBoundingClientRect();
+      if (scroll && scroll.x && scroll.y) {
+        width -= measureScrollbar();
+      }
+      this.setState({
+        tableWidth: width,
+      });
+    }
   };
 
   componentDidMount() {
@@ -857,6 +980,7 @@ export class Grid<Data = any> extends PureComponent<
     if (this.isAnyColumnsFixed()) {
       this.syncFixedTableRowHeight();
     }
+    this.setStickyHeadWidth();
   }
 
   componentWillUnmount() {
@@ -909,7 +1033,22 @@ export class Grid<Data = any> extends PureComponent<
   }
 
   render() {
-    const { loading, pageInfo = {}, paginationType, bordered } = this.props;
+    const {
+      loading,
+      pageInfo = {},
+      paginationType,
+      bordered,
+      autoStick,
+    } = this.props;
+    const { marginLeft, tableWidth, showStickHead } = this.state;
+
+    const stickHeadWarpStyle: React.CSSProperties = {};
+
+    if (autoStick) {
+      stickHeadWarpStyle.width = tableWidth;
+      stickHeadWarpStyle.marginLeft = marginLeft;
+      stickHeadWarpStyle.visibility = showStickHead ? 'visible' : 'hidden';
+    }
 
     let className = `${prefix}-grid`;
     const borderedClassName = bordered ? `${prefix}-grid-bordered` : '';
@@ -932,7 +1071,10 @@ export class Grid<Data = any> extends PureComponent<
       <Receiver componentName="Grid">
         {(i18n: II18nLocaleGrid) => {
           const content = [
-            this.getTable(),
+            this.getTable({
+              headRef: this.scrollHeader,
+              bodyRef: this.bodyTable,
+            }),
             this.getEmpty(i18n),
             <Footer
               ref={this.footNode}
@@ -956,6 +1098,14 @@ export class Grid<Data = any> extends PureComponent<
             <div className={className} ref={this.gridNode}>
               {this.getBatchComponents('header')}
               <BlockLoading loading={loading}>
+                {autoStick && (
+                  <div
+                    style={stickHeadWarpStyle}
+                    className="zent-grid-sticky-header-warp"
+                  >
+                    <Affix offsetTop={0}>{this.getStickyHead()}</Affix>
+                  </div>
+                )}
                 {scrollTable}
                 {this.isAnyColumnsLeftFixed() && (
                   <div className={`${prefix}-grid-fixed-left`}>

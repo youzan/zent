@@ -135,6 +135,8 @@ class Header<Data> extends PureComponent<
         className: classnames(`${prefix}-grid-th`, className, {
           [`${prefix}-grid-text-align-${textAlign}`]: textAlign,
           [`${prefix}-grid-nowrap`]: nowrap,
+          [`${prefix}-grid-th-selection`]: key === 'selection-column',
+          [`${prefix}-grid-th-expand`]: key === 'expand-column',
         }),
         children: this.getChildren(column, props),
       };
@@ -196,7 +198,6 @@ class Header<Data> extends PureComponent<
     return (
       <thead className={`${prefix}-grid-thead`}>
         {(rows || []).map((row, index) => {
-          console.log(row);
           const height =
             fixed && headerHeight
               ? (headerHeight as number) / rowsLen
