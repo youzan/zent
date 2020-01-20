@@ -11,6 +11,7 @@ module.exports = {
   extends: ['../eslintrc.base.js'],
   ignorePatterns: ['*.js'],
   rules: {
+    'no-console': 'off',
     'import/no-commonjs': 'off',
   },
 };
