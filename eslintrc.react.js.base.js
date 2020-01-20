@@ -3,7 +3,7 @@ module.exports = {
   parser: 'babel-eslint',
   plugins: ['lean-imports', 'prettier', 'react-hooks'],
   rules: {
-    'no-console': 0,
+    'no-console': ['error', { allow: ['warn', 'error'] }],
     'one-var': 0,
     'no-var': 2,
     'max-len': 0,

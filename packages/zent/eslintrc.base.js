@@ -87,6 +87,7 @@ module.exports = {
     'import/no-commonjs': 'error',
     'new-parens': 'error',
     'no-caller': 'error',
+    'no-console': ['error', { allow: ['warn', 'error'] }],
     'no-debugger': 'error',
     'no-new-wrappers': 'error',
     'no-redeclare': 'error',
