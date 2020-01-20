@@ -909,7 +909,6 @@ export class Grid<Data = any> extends PureComponent<
       let offset = 0;
       if (tableHeaderEl && !offset) {
         const { height } = tableHeaderEl.getBoundingClientRect();
-        console.log(height);
         offset = height;
       }
       const isHeaderInView = isElementInView(tableHeaderEl, offset);
