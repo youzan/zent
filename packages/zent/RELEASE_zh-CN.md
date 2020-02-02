@@ -29,7 +29,7 @@
   - ✨ 重命名 `initialLoad` 为 `skipLoadOnMount`，意义相反，默认值行为没变
   - ✨ `hasMore` 默认值修改为 `false`
   - ✨ `useWindow` 默认值修改为 `false`
-- ✨ 优化了全局事件处理
+- ✨优化了全局事件处理
 - `Icon`
   - ✨ 增加两个新图标 `filter-o` 和 `scan-code-o`
   - ✨ 重命名 `text-guide` 为 `text-guide-o`
