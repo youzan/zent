@@ -9,7 +9,10 @@ en-US:
 ---
 
 ```jsx
-import { ImageUpload, Button, Notify, FILE_UPLOAD_STATUS } from 'zent';
+import { ImageUpload, Button, Notify } from 'zent';
+
+// ImageUpload 和 Upload 上都有 FILE_UPLOAD_STATUS 这个静态属性
+const FILE_UPLOAD_STATUS = ImageUpload.FILE_UPLOAD_STATUS;
 
 class Simple extends React.Component {
 	state = {
