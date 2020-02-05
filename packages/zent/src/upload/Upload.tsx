@@ -102,7 +102,6 @@ export class Upload extends AbstractUpload<
         maxSize={maxSize}
         multiple={multiple}
         disabled={disabled}
-        availableUploadItemsCount={this.availableUploadItemsCount}
         remainAmount={this.remainAmount}
         fileList={fileList}
         onAddFile={this.onTriggerUploadFile}

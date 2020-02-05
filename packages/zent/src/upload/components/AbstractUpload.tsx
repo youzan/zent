@@ -68,20 +68,11 @@ abstract class AbstractUpload<
   }
 
   /**
-   * 在队列中的可用上传文件
-   */
-  get availableUploadItemsCount() {
-    return this.fileList.filter(
-      item => item.status !== FILE_UPLOAD_STATUS.failed
-    ).length;
-  }
-
-  /**
    * 剩余可上传文件数量
    */
   get remainAmount() {
     const { maxAmount } = this.props;
-    return maxAmount - this.availableUploadItemsCount;
+    return maxAmount - this.fileList.length;
   }
 
   private getUploadItem(id: string): IUploadFileItemInner<UPLOAD_ITEM> {
