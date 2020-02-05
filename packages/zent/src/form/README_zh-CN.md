@@ -161,6 +161,10 @@ function validate<T>(
 
 <!-- demo-slot-12 -->
 
+### 表单值联动
+
+<!-- demo-slot-13 -->
+
 ### `Control`, `Label` 以及 `Error` 组件
 
 实现自定义 `Field` 的时候会用到这些组件，它们只是样式组件，用来提供和内置 `Field` 组件一致样式和参数。
