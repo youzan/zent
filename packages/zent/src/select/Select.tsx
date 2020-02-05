@@ -128,14 +128,14 @@ export class Select extends React.Component<ISelectProps, any> {
      *
      */
     this.uniformedData = this.uniformData(props);
-    this.traverseData(props);
+    Object.assign(this.state, this.findSelected(props));
   }
 
   // 等重构再删了吧，改不动
   // eslint-disable-next-line react/no-deprecated
   componentWillReceiveProps(nextProps) {
     this.uniformedData = this.uniformData(nextProps);
-    this.traverseData(nextProps);
+    this.setState(this.findSelected(nextProps));
   }
 
   /**
@@ -216,13 +216,13 @@ export class Select extends React.Component<ISelectProps, any> {
    * @param {object} props - props of Select
    * @memberof Select
    */
-  traverseData(props, data = this.uniformedData) {
+  findSelected(props, data = this.uniformedData) {
     // option 数组置空后重置组件状态
     if (!data || !data.length) {
-      return this.setState({
+      return {
         selectedItem: {},
         selectedItems: [],
-      });
+      };
     }
 
     const { selectedItem, selectedItems } = this.state;
@@ -248,10 +248,10 @@ export class Select extends React.Component<ISelectProps, any> {
       }
     });
 
-    this.setState({
+    return {
       selectedItem: selected.sItem,
       selectedItems: selected.sItems,
-    });
+    };
   }
 
   /**
