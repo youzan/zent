@@ -77,6 +77,8 @@
     cursor: pointer;
     text-align: center;
     user-select: none;
+    flex-grow: 0;
+    flex-shrink: 0;
 
     &.zent-number-input-count-disable {
       @include disable;
