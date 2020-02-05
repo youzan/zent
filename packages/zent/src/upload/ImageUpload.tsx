@@ -55,6 +55,8 @@ export class ImageUpload extends AbstractUpload<
     accept: 'image/*',
   };
 
+  static FILE_UPLOAD_STATUS = FILE_UPLOAD_STATUS;
+
   protected getUploadSuccessOverrideProps(
     onUploadSuccessReturn: IImageOnUploadSuccessReturn
   ): Partial<IUploadFileItemInner<IImageUploadFileItem>> {
