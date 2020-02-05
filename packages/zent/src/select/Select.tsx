@@ -128,10 +128,7 @@ export class Select extends React.Component<ISelectProps, any> {
      *
      */
     this.uniformedData = this.uniformData(props);
-    this.state = {
-      ...this.state,
-      ...this.findSelected(props),
-    };
+    Object.assign(this.state, this.findSelected(props));
   }
 
   // 等重构再删了吧，改不动
