@@ -148,7 +148,6 @@ export interface IAbstractUploadTriggerProps<
   fileList: UPLOAD_ITEM[];
   disabled?: boolean;
   accept?: string;
-  availableUploadItemsCount: number;
   remainAmount: number;
   maxSize: number;
   maxAmount: number;

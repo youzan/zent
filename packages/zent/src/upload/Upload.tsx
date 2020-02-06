@@ -48,6 +48,8 @@ export class Upload extends AbstractUpload<
     pagination: false,
   };
 
+  static FILE_UPLOAD_STATUS = FILE_UPLOAD_STATUS;
+
   protected createNewUploadFileItem(
     file: File
   ): IUploadFileItemInner<IUploadFileItem> {
@@ -102,7 +104,6 @@ export class Upload extends AbstractUpload<
         maxSize={maxSize}
         multiple={multiple}
         disabled={disabled}
-        availableUploadItemsCount={this.availableUploadItemsCount}
         remainAmount={this.remainAmount}
         fileList={fileList}
         onAddFile={this.onTriggerUploadFile}

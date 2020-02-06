@@ -55,6 +55,8 @@ export class ImageUpload extends AbstractUpload<
     accept: 'image/*',
   };
 
+  static FILE_UPLOAD_STATUS = FILE_UPLOAD_STATUS;
+
   protected getUploadSuccessOverrideProps(
     onUploadSuccessReturn: IImageOnUploadSuccessReturn
   ): Partial<IUploadFileItemInner<IImageUploadFileItem>> {
@@ -131,7 +133,6 @@ export class ImageUpload extends AbstractUpload<
         maxSize={maxSize}
         multiple={multiple}
         disabled={disabled}
-        availableUploadItemsCount={this.availableUploadItemsCount}
         remainAmount={this.remainAmount}
         fileList={fileList}
         onAddFile={this.onTriggerUploadFile}
