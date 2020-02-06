@@ -9,13 +9,13 @@ export default class NormalUploadTrigger extends AbstractTrigger<
   IUploadFileItem
 > {
   renderFileItemCount() {
-    const { availableUploadItemsCount, maxAmount } = this.props;
+    const { fileList, maxAmount } = this.props;
     if (maxAmount === Infinity) {
       return null;
     }
     return (
       <span className="zent-file-upload-trigger-text-count">
-        {availableUploadItemsCount}/{maxAmount}
+        {fileList.length}/{maxAmount}
       </span>
     );
   }
