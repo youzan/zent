@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Omit } from 'utility-types';
+import cx from 'classnames';
 import Checkbox, { ICheckboxProps, ICheckboxEvent } from '../../checkbox';
 import { IFormComponentProps } from '../shared';
 import { FormField, IFormFieldChildProps } from '../Field';
@@ -42,9 +43,11 @@ function CheckboxField<Value>({
 export function FormCheckboxField<Value>(
   props: IFormCheckboxFieldProps<Value>
 ) {
+  const { className, ...rest } = props;
   return (
     <FormField
-      {...props}
+      {...rest}
+      className={cx(className, 'zent-form-checkbox-field')}
       defaultValue={
         (props as $MergeParams<IFormCheckboxFieldProps<Value>>).defaultValue ||
         false

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Omit } from 'utility-types';
+import cx from 'classnames';
 
 import { IRadioGroupProps, RadioGroup, IRadioEvent } from '../../radio';
 import { IFormComponentProps, IFormFieldChildProps } from '../shared';
@@ -37,9 +38,11 @@ function RadioGroupField<T>({
 export function FormRadioGroupField<T>(
   props: IFormRadioGroupFieldProps<T | null>
 ) {
+  const { className, ...rest } = props;
   return (
     <FormField
-      {...props}
+      {...rest}
+      className={cx(className, 'zent-form-radio-group-field')}
       defaultValue={'defaultValue' in props ? props.defaultValue : null}
     >
       {childProps => <RadioGroupField childProps={childProps} props={props} />}
