@@ -8,6 +8,22 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 8.1.0(2020-02-19)
+
+- `Grid`
+  - ✨ Support sticky header
+  - ✨ Row checkbox can have a tooltip for the reason
+- `Form`
+  - ✨ Add field interaction demo
+  - ✨ Allow `validators` in `Field` when `model` is used
+  - 🦀️ Fix a `FormNumberInputField` bug that causes data and view in an inconsistent state
+  - 🦀️ Updated line height for non input fields
+- 🦀️ Improved dragging performance in `ColorPicker`
+- 🦀️ Fix item not selected when `Select` mounts
+- `Upload`
+  - 🦀️ Include failed files when calculating file numbers
+  - 🦀️ Export `FILE_UPLOAD_STATUS` as static property on component
+
 ### 8.0.1(2020-01-19)
 
 - `Upload`
@@ -16,19 +32,29 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 
 ### 8.0.0(2020-01-17)
 
-- 🎉 Rewrite `Upload`, use `@zent/compat` if you want the old version
 - 🎉 New component `Waypoint`
 - 🎉 New component `Dropdown`
+- 🎉 [breaking change] Rewrite `Upload`, use `@zent/compat` if you want the old version
+- `Cascader`
+  - ✨ Add support to `disabled`
+  - ✨ Remove `prefix`
+  - 🦀️ `onChange` is passed the same option item from props
+  - 🦀️ Update placeholder text color
+  - 🦀️ [breaking change] Namespace all CSS selectors
+- `Select`
+  - ✨ Remove `prefix`
+  - 🦀️ Update caret style
+  - 🦀️ [breaking change] Namespace all CSS selectors
 - `Affix`
   - ✨ Rewrite using `Waypoint`
-  - ✨ `offsetTop` has no default value
+  - ✨ [breaking change] `offsetTop` has no default value
   - ✨ `offsetTop` and `offsetBottom` can be used together
 - `InfiniteScroller`
   - ✨ Rewrite using `Waypoint`
-  - ✨ Remove `offset`, `useCapture` and `prefix`
-  - ✨ Rename `initialLoad` to `skipLoadOnMount`
-  - ✨ `hasMore` defaults to `false`
-  - ✨ `useWindow` defaults to `false`
+  - ✨ [breaking change] Remove `offset`, `useCapture` and `prefix`
+  - ✨ [breaking change] Rename `initialLoad` to `skipLoadOnMount`
+  - ✨ [breaking change] `hasMore` defaults to `false`
+  - ✨ [breaking change] `useWindow` defaults to `false`
 - ✨ Optimize event handlers in every place
 - `Icon`
   - ✨ New icons `filter-o` and `scan-code-o`
@@ -47,16 +73,6 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
   - 🦀️ `layout` is optional
 - 🦀️ Fix `CopyButton` TypeScript definition
 - 🦀️ Update `Pagination` font style
-- `Cascader`
-  - ✨ Add support to `disabled`
-  - ✨ Remove `prefix`
-  - 🦀️ `onChange` is passed the same option item from props
-  - 🦀️ Update placeholder text color
-  - 🦀️ Namespace all CSS selectors
-- `Select`
-  - ✨ Remove `prefix`
-  - 🦀️ Update caret style
-  - 🦀️ Namespace all CSS selectors
 - 🦀️ Fix `Rate` icon issue when using fraction values
 - 🦀️ Fix incorrect rewrite rules used in `babel-plugin-zent`
 

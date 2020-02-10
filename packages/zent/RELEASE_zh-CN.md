@@ -8,6 +8,22 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 8.1.0(2020-02-19)
+
+- `Grid`
+  - ✨ 表头支持吸顶
+  - ✨ 行复选框禁用时支持设置提示文案展示原因
+- `Form`
+  - ✨ 增加表单值联动的示例
+  - ✨ 使用 `model` 模式时 `Field` 组件支持 `validators` 参数，主要应用场景是用在 `FieldArray` 中
+  - 🦀️ 修复 `FormNumberInputField` 数据和视图不一致的问题
+  - 🦀️ 调整了非输入框的 `Field` 行高，视觉上更紧凑
+- 🦀️ 优化了 `ColorPicker` 的拖拽性能，视觉上更加平滑，不卡顿
+- 🦀️ 修复 `Select` 组件首次渲染时选中元素为空的问题
+- `Upload`
+  - 🦀️ 修改上传组件的文件数量计算规则，将上传失败的文件也统计到上传文件数量中
+  - 🦀️ 修改 `FILE_UPLOAD_STATUS` 常量的导出方式为组件上的静态属性
+
 ### 8.0.1(2020-01-19)
 
 - `Upload`
@@ -16,19 +32,29 @@
 
 ### 8.0.0(2020-01-17)
 
-- 🎉 重写 `Upload` 组件，不兼容老版本；老版本请使用 `@zent/compat`
 - 🎉 增加 `Waypoint` 组件，这个组件抽象了元素移入/移除屏幕的逻辑
 - 🎉 增加 `Dropdown` 组件，只是对 `Popover` 组件的一层简单封装
+- 🎉 [breaking change] 重写 `Upload` 组件，不兼容老版本；老版本请使用 `@zent/compat`
 - `Affix`
+  - [breaking change] ✨ `offsetTop` 不再有默认值 0，必须自己传
   - ✨ 使用 `Waypoint` 重写
-  - ✨ `offsetTop` 不再有默认值 0，必须自己传
   - ✨ 支持同时设置 `offsetTop` 和 `offsetBottom`
 - `InfiniteScroller`
   - ✨ 使用 `Waypoint` 重写
-  - ✨ 删除无用的 `offset`，`useCapture` 和 `prefix` 属性
-  - ✨ 重命名 `initialLoad` 为 `skipLoadOnMount`，意义相反，默认值行为没变
-  - ✨ `hasMore` 默认值修改为 `false`
-  - ✨ `useWindow` 默认值修改为 `false`
+  - [breaking change] ✨ 删除无用的 `offset`，`useCapture` 和 `prefix` 属性
+  - [breaking change] ✨ 重命名 `initialLoad` 为 `skipLoadOnMount`，意义相反，默认值行为没变
+  - [breaking change] ✨ `hasMore` 默认值修改为 `false`
+  - [breaking change] ✨ `useWindow` 默认值修改为 `false`
+- `Cascader`
+  - ✨ 支持 `disabled` 属性
+  - ✨ 删除 `prefix` 支持
+  - 🦀️ `onChange` 现在传入的是原始的 option 元素
+  - 🦀️ 更新 placeholder 文字颜色
+  - 🦀️ [breaking change] 所有 CSS 类名增加前缀，例如 `.open` 这种
+- `Select`
+  - ✨ 删除 `prefix` 支持
+  - 🦀️ 更新组件的箭头图标，和其他组件保持一致
+  - 🦀️ [breaking change] 所有 CSS 类名增加前缀，例如 `.tags__empty` 这种都被替换掉了
 - ✨优化了全局事件处理
 - `Icon`
   - ✨ 增加两个新图标 `filter-o` 和 `scan-code-o`
@@ -47,16 +73,6 @@
   - 🦀️ `layout` 改为可选参数
 - 🦀️ 修复 `CopyButton` 的类型定义
 - 🦀️ 修复 `Pagination` 的字体样式
-- `Cascader`
-  - ✨ 支持 `disabled` 属性
-  - ✨ 删除 `prefix` 支持
-  - 🦀️ `onChange` 现在传入的是原始的 option 元素
-  - 🦀️ 更新 placeholder 文字颜色
-  - 🦀️ 所有 CSS 类名增加前缀
-- `Select`
-  - ✨ 删除 `prefix` 支持
-  - 🦀️ 更新组件的箭头图标，和其他组件保持一致
-  - 🦀️ 所有 CSS 类名增加前缀，例如 `tags__empty` 这种都被替换掉了
 - 🦀️ 修复 `Rate` 组件小数值时的图标显示问题
 - 🦀️ 修复部分组件 `babel-plugin-zent` 处理不正确的问题
 
