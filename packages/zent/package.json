@@ -42,7 +42,7 @@
     "big.js": "^5.2.2",
     "classnames": "^2.2.6",
     "date-fns": "^2.7.0",
-    "formulr": "~0.2.10",
+    "formulr": "~0.2.11",
     "react-is": "^16.8.1",
     "react-transition-group": "^2.6.0",
     "sortablejs": "~1.9.0",

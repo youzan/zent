@@ -40,8 +40,17 @@ export interface IFormFieldViewDrivenProps<T> {
 export interface IFormFieldModelDrivenProps<T> {
   /**
    * 表单项对应的数据
+   * 只有 FormStrategy 是 View 的时候才会出现 ModelRef
    */
   model: FieldModel<T>;
+  /**
+   * 仅当 model 是个 ModelRef 的时候有效。
+   */
+  validators?: IValidators<T>;
+  /**
+   * 仅当 model 是个 ModelRef 的时候有效。
+   */
+  defaultValue: T | (() => T);
 }
 
 export type IFormFieldModelProps<T> =
