@@ -181,6 +181,7 @@ describe('ColorPicker', () => {
     expect(div.length).toBe(1);
 
     const e = {
+      persist: () => {},
       preventDefault: () => {},
       pageX: 1,
       pageY: 2,
@@ -211,6 +212,7 @@ describe('ColorPicker', () => {
     const wrapper = mount(<Saturation {...red} onChange={handleChange} />);
 
     const e = {
+      persist: () => {},
       preventDefault: () => {},
       pageX: 1,
       pageY: 2,

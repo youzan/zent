@@ -17,7 +17,7 @@ export default class Saturation extends Component<any, any> {
     this.handleChange.cancel();
   }
 
-  handleChange = runOnceInNextFrame((e, skip?: boolean) => {
+  handleChange = runOnceInNextFrame((e: any, skip?: boolean) => {
     this.props.onChange(
       saturation.calculateChange(
         e,
@@ -29,7 +29,13 @@ export default class Saturation extends Component<any, any> {
     );
   });
 
-  handleMouseDown = e => {
+  handleTouch = (e: React.TouchEvent) => {
+    e.persist();
+    this.handleChange(e);
+  };
+
+  handleMouseDown = (e: React.MouseEvent) => {
+    e.persist();
     this.handleChange(e, true);
     this.eventCancelList.push(
       addEventListener(window, 'mousemove', this.handleChange)
@@ -100,8 +106,8 @@ export default class Saturation extends Component<any, any> {
         style={styles.color}
         ref={this.containerRef}
         onMouseDown={this.handleMouseDown}
-        onTouchMove={this.handleChange}
-        onTouchStart={this.handleChange}
+        onTouchMove={this.handleTouch}
+        onTouchStart={this.handleTouch}
       >
         <div style={styles.white}>
           <div style={styles.black} />

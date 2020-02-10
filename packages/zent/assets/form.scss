@@ -64,6 +64,22 @@
         display: flex;
       }
     }
+
+    &.zent-form-checkbox-field,
+    &.zent-form-checkbox-group-field,
+    &.zent-form-radio-group-field {
+      line-height: 20px;
+    }
+
+    &.zent-form-switch-field {
+      line-height: 22px;
+
+      // vertical center small switch style
+      .zent-form-control-content {
+        display: flex;
+        align-items: center;
+      }
+    }
   }
 
   &-vertical {

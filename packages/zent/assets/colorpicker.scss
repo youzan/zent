@@ -8,15 +8,18 @@
 .zent-color-picker {
   cursor: pointer;
   display: inline-block;
-  margin-right: 10px;
   outline: none;
   position: relative;
   text-align: left;
   user-select: none;
-  height: 32px;
+  height: 30px;
   vertical-align: middle;
 
-  &.open {
+  &-wrapper {
+    font-size: 0;
+  }
+
+  &--open {
     .zent-color-picker__text {
       @include theme-color(border-color, primary, 4);
       box-shadow: $shadow-spec-focus;
