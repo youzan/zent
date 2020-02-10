@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Saturation | zent - v8.0.1</title>
+	<title>Saturation | zent - v8.1.0</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">zent - v8.0.1</a>
+					<a href="../index.html" class="title">zent - v8.1.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -134,6 +134,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="saturation.html#getsnapshotbeforeupdate" class="tsd-kind-icon">get<wbr>Snapshot<wbr>Before<wbr>Update</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="saturation.html#handlemousedown" class="tsd-kind-icon">handle<wbr>Mouse<wbr>Down</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="saturation.html#handlemouseup" class="tsd-kind-icon">handle<wbr>Mouse<wbr>Up</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="saturation.html#handletouch" class="tsd-kind-icon">handle<wbr>Touch</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="saturation.html#render" class="tsd-kind-icon">render</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="saturation.html#setstate" class="tsd-kind-icon">set<wbr>State</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="saturation.html#shouldcomponentupdate" class="tsd-kind-icon">should<wbr>Component<wbr>Update</a></li>
@@ -206,7 +207,7 @@
 					<div class="tsd-signature tsd-kind-icon">container<wbr>Ref<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RefObject</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">HTMLDivElement</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;createRef&lt;HTMLDivElement&gt;()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/3dd6f041/packages/zent/src/colorpicker/common/Saturation.tsx#L12">packages/zent/src/colorpicker/common/Saturation.tsx:12</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/4f4c5028/packages/zent/src/colorpicker/common/Saturation.tsx#L12">packages/zent/src/colorpicker/common/Saturation.tsx:12</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -244,17 +245,17 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<div class="tsd-signature tsd-kind-icon">event<wbr>Cancel<wbr>List<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[] as Array&lt;() &#x3D;&gt; void&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/3dd6f041/packages/zent/src/colorpicker/common/Saturation.tsx#L13">packages/zent/src/colorpicker/common/Saturation.tsx:13</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/4f4c5028/packages/zent/src/colorpicker/common/Saturation.tsx#L13">packages/zent/src/colorpicker/common/Saturation.tsx:13</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="handlechange" class="tsd-anchor"></a>
 					<h3>handle<wbr>Change</h3>
-					<div class="tsd-signature tsd-kind-icon">handle<wbr>Change<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">(Anonymous function)</span><span class="tsd-signature-symbol"> &amp; </span><a href="../interfaces/icancelable.html" class="tsd-signature-type">ICancelable</a><span class="tsd-signature-symbol"> =&nbsp;runOnceInNextFrame((e, skip?: boolean) &#x3D;&gt; {this.props.onChange(saturation.calculateChange(e,skip,this.props,this.containerRef.current),e);})</span></div>
+					<div class="tsd-signature tsd-kind-icon">handle<wbr>Change<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">(Anonymous function)</span><span class="tsd-signature-symbol"> &amp; </span><a href="../interfaces/icancelable.html" class="tsd-signature-type">ICancelable</a><span class="tsd-signature-symbol"> =&nbsp;runOnceInNextFrame((e: any, skip?: boolean) &#x3D;&gt; {this.props.onChange(saturation.calculateChange(e,skip,this.props,this.containerRef.current),e);})</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/3dd6f041/packages/zent/src/colorpicker/common/Saturation.tsx#L20">packages/zent/src/colorpicker/common/Saturation.tsx:20</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/4f4c5028/packages/zent/src/colorpicker/common/Saturation.tsx#L20">packages/zent/src/colorpicker/common/Saturation.tsx:20</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -666,7 +667,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Overrides ComponentLifecycle.componentWillUnmount</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/3dd6f041/packages/zent/src/colorpicker/common/Saturation.tsx#L15">packages/zent/src/colorpicker/common/Saturation.tsx:15</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/4f4c5028/packages/zent/src/colorpicker/common/Saturation.tsx#L15">packages/zent/src/colorpicker/common/Saturation.tsx:15</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -801,19 +802,19 @@ class Foo extends React.Component {
 					<a name="handlemousedown" class="tsd-anchor"></a>
 					<h3>handle<wbr>Mouse<wbr>Down</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">handle<wbr>Mouse<wbr>Down<span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">handle<wbr>Mouse<wbr>Down<span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">MouseEvent</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/3dd6f041/packages/zent/src/colorpicker/common/Saturation.tsx#L32">packages/zent/src/colorpicker/common/Saturation.tsx:32</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/4f4c5028/packages/zent/src/colorpicker/common/Saturation.tsx#L37">packages/zent/src/colorpicker/common/Saturation.tsx:37</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>e: <span class="tsd-signature-type">any</span></h5>
+									<h5>e: <span class="tsd-signature-type">MouseEvent</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -830,9 +831,32 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/3dd6f041/packages/zent/src/colorpicker/common/Saturation.tsx#L42">packages/zent/src/colorpicker/common/Saturation.tsx:42</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/4f4c5028/packages/zent/src/colorpicker/common/Saturation.tsx#L48">packages/zent/src/colorpicker/common/Saturation.tsx:48</a></li>
 								</ul>
 							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="handletouch" class="tsd-anchor"></a>
+					<h3>handle<wbr>Touch</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">handle<wbr>Touch<span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TouchEvent</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/4f4c5028/packages/zent/src/colorpicker/common/Saturation.tsx#L32">packages/zent/src/colorpicker/common/Saturation.tsx:32</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>e: <span class="tsd-signature-type">TouchEvent</span></h5>
+								</li>
+							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -848,7 +872,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Overrides Component.render</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/3dd6f041/packages/zent/src/colorpicker/common/Saturation.tsx#L51">packages/zent/src/colorpicker/common/Saturation.tsx:51</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/4f4c5028/packages/zent/src/colorpicker/common/Saturation.tsx#L57">packages/zent/src/colorpicker/common/Saturation.tsx:57</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Element</span></h4>
@@ -950,7 +974,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/3dd6f041/packages/zent/src/colorpicker/common/Saturation.tsx#L46">packages/zent/src/colorpicker/common/Saturation.tsx:46</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/4f4c5028/packages/zent/src/colorpicker/common/Saturation.tsx#L52">packages/zent/src/colorpicker/common/Saturation.tsx:52</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1042,6 +1066,9 @@ class Foo extends React.Component {
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="saturation.html#handlemouseup" class="tsd-kind-icon">handle<wbr>Mouse<wbr>Up</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="saturation.html#handletouch" class="tsd-kind-icon">handle<wbr>Touch</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 								<a href="saturation.html#render" class="tsd-kind-icon">render</a>

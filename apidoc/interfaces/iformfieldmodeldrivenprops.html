@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>IFormFieldModelDrivenProps | zent - v8.0.1</title>
+	<title>IFormFieldModelDrivenProps | zent - v8.1.0</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">zent - v8.0.1</a>
+					<a href="../index.html" class="title">zent - v8.1.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -89,7 +89,9 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="iformfieldmodeldrivenprops.html#defaultvalue" class="tsd-kind-icon">default<wbr>Value</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="iformfieldmodeldrivenprops.html#model" class="tsd-kind-icon">model</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="iformfieldmodeldrivenprops.html#validators" class="tsd-kind-icon">validators</a></li>
 							</ul>
 						</section>
 					</div>
@@ -98,17 +100,48 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="defaultvalue" class="tsd-anchor"></a>
+					<h3>default<wbr>Value</h3>
+					<div class="tsd-signature tsd-kind-icon">default<wbr>Value<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">function</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/4f4c5028/packages/zent/src/form/shared.tsx#L53">packages/zent/src/form/shared.tsx:53</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>仅当 model 是个 ModelRef 的时候有效。</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="model" class="tsd-anchor"></a>
 					<h3>model</h3>
 					<div class="tsd-signature tsd-kind-icon">model<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">FieldModel</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/3dd6f041/packages/zent/src/form/shared.tsx#L44">packages/zent/src/form/shared.tsx:44</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/4f4c5028/packages/zent/src/form/shared.tsx#L45">packages/zent/src/form/shared.tsx:45</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>表单项对应的数据</p>
+							<p>表单项对应的数据
+							只有 FormStrategy 是 View 的时候才会出现 ModelRef</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="validators" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> validators</h3>
+					<div class="tsd-signature tsd-kind-icon">validators<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">IValidators</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/4f4c5028/packages/zent/src/form/shared.tsx#L49">packages/zent/src/form/shared.tsx:49</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>仅当 model 是个 ModelRef 的时候有效。</p>
 						</div>
 					</div>
 				</section>
@@ -130,7 +163,13 @@
 						<a href="iformfieldmodeldrivenprops.html" class="tsd-kind-icon">IForm<wbr>Field<wbr>Model<wbr>Driven<wbr>Props</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="iformfieldmodeldrivenprops.html#defaultvalue" class="tsd-kind-icon">default<wbr>Value</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="iformfieldmodeldrivenprops.html#model" class="tsd-kind-icon">model</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="iformfieldmodeldrivenprops.html#validators" class="tsd-kind-icon">validators</a>
 							</li>
 						</ul>
 					</li>
