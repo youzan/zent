@@ -13,7 +13,7 @@ This is a block header.
 | Property     | Description          | Type                    | Default     | Alternative |
 | ------------ | -------------------- | ----------------------- | ----------- | ----------- |
 | className    | custom class name    | string                  | ''          |             |
-| type    		 | style type           | 'ribbon' \| 'minimum'   | 'ribbon'    |             |
+| type    		 | style type           | 'ribbon' \| 'minimum'   | 'ribbon'    | 'minimum'   |
 | title        | title                | ReactNode               |             |             |
 | tooltip      | content of the pop   | ReactNode               |             |             |
 | position     | pop position         | string                  | 'top-right' |             |
