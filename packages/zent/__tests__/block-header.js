@@ -14,6 +14,26 @@ describe('BlockHeader', () => {
     expect(wrapper.find('.zent-block-header__content').length).toBe(0);
   });
 
+  it('BlockHeader of ribbon type', () => {
+    const wrapper = mount(<BlockHeader title="title" type="ribbon" />);
+    expect(
+      wrapper.find('.zent-block-header.zent-block-header-ribbon').length
+    ).toBe(1);
+    expect(
+      wrapper.find('.zent-block-header__title.zent-block-header__title-ribbon')
+        .length
+    ).toBe(1);
+  });
+
+  it('BlockHeader of minimum type', () => {
+    const wrapper = mount(<BlockHeader title="title" type="minimum" />);
+    expect(
+      wrapper.find('.zent-block-header.zent-block-header-minimum').length
+    ).toBe(1);
+    expect(wrapper.find('.zent-block-header__title').length).toBe(1);
+    expect(wrapper.find('.zent-block-header__title-ribbon').length).toBe(0);
+  });
+
   it('BlockHeader has tooltip', () => {
     const wrapper = mount(
       <BlockHeader title="title" tooltip={<span>tooltip</span>} />
