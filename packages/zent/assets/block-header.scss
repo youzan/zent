@@ -2,30 +2,40 @@
 @import './theme/font';
 
 .zent-block-header {
-  @include theme-color(background-color, stroke, 8);
   display: flex;
   justify-content: flex-start;
   align-content: center;
   margin-bottom: 16px;
-  padding: 10px;
+  padding: 10px 12px;
   min-height: 40px;
   box-sizing: border-box;
+
+  &-ribbon {
+    @include theme-color(background-color, stroke, 8);
+  }
+
+  &-minimum {
+    box-shadow: 0 1px 0 0 $theme-stroke-6;
+  }
 
   &__title {
     display: flex;
     align-items: center;
 
-    &::before {
-      @include theme-color(background-color, primary, 4);
-      content: '';
-      width: 3px;
-      height: 14px;
-    }
-
     h3 {
       @include font-normal;
-      font-weight: $font-weight-normal;
-      padding-left: 8px;
+      @include theme-color(color, stroke, 1);
+      font-weight: $font-weight-medium;
+    }
+
+    &-ribbon {
+      &::before {
+        @include theme-color(background-color, primary, 4);
+        content: '';
+        width: 3px;
+        height: 14px;
+        margin-right: 8px;
+      }
     }
   }
 
