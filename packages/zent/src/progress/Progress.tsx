@@ -47,10 +47,10 @@ export const Progress: React.FC<IProgressProps> = props => {
 
   // 百分比范围
   const percentValue = React.useMemo<number>(() => {
-    if (percent <= 0) {
+    if (percent < 0) {
       return 0;
     }
-    if (percent >= 100) {
+    if (percent > 100) {
       return 100;
     }
     return percent;
