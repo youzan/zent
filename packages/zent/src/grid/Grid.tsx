@@ -86,6 +86,7 @@ export interface IGridProps<Data = any> {
   batchRender?: IGridBatchRender;
   stickyBatch?: boolean;
   autoStick?: boolean;
+  offset?: number;
 }
 
 export interface IGridState {
@@ -123,6 +124,7 @@ export class Grid<Data = any> extends PureComponent<
     onExpand: noop,
     stickyBatch: false,
     autoStick: false,
+    offset: 0,
   };
 
   mounted = false;
@@ -1039,6 +1041,7 @@ export class Grid<Data = any> extends PureComponent<
       paginationType,
       bordered,
       autoStick,
+      offset = 0,
     } = this.props;
     const { marginLeft, tableWidth, showStickHead } = this.state;
 
@@ -1103,7 +1106,7 @@ export class Grid<Data = any> extends PureComponent<
                     style={stickHeadWarpStyle}
                     className="zent-grid-sticky-header-warp"
                   >
-                    <Affix offsetTop={0}>{this.getStickyHead()}</Affix>
+                    <Affix offsetTop={offset}>{this.getStickyHead()}</Affix>
                   </div>
                 )}
                 {scrollTable}
