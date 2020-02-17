@@ -21,13 +21,19 @@ group: 数据
 | title | tab子项的标题，每一项的默认值是 `标题` | array | [] | '' |
 | onChange | 数据变化时的回调 | func | noop | '' |
 | loadMore | 动态加载级联的数据，返回值需为 Promise | func | - | '' |
-| changeOnSelect | 是否选择即触发改变 | boolean | false | '' |
+| changeOnSelect | 是否选择即时触发改变 | boolean | false | '' |
 | expandTrigger | 次级菜单的展开方式，可选 'click' 和 'hover'， 只针对type='menu' | string | 'click' | 'hover' |
 | placeholder | 输入框占位文本 | string | '请选择' | '' |
 | className | 自定义额外类名 | string | '' | '' |
-| popClassName | popover自定义类名 | string | ''zent-cascader__popup'' | '' |
-| displayText | 用于自定义选中展示文字的函数, selectedOptionArray => text | func | - | |
+| popupClassName | popover自定义类名 | string | ''zent-cascader__popup'' | '' |
+| displayText | 用于自定义选中展示文字的函数, selectedOptionArray => text | func | - | '' |
 | disabled | 是否禁用 | boolean | false | true |
+| showSearch | 是否显示搜索框 | boolean | `false` | '' |
+| allowClear | 显示清除按钮 | boolean | `false` | '' |
+| allowScrollLoad | 是否支持滚动加载，与loadMore配合使用 | boolean | `false` | '' |
+| isMultiple | 是否支持多选 | boolean | `false` | '' |
+| allowAdd | 是否允许新增 | boolean | `false` | '' |
+| addCallback | 点击新增的回调 | Promise | `` | '' |
 
 -   级联数据可以通过初始时传入全量 `options	` ，也可以通过 `loadMore` 动态加载
 -   通过 `loadMore` 加载数据时，参数 `root` 表示当前点击元素的数据对象，`stage` 表示当前是第几层级

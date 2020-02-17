@@ -48,7 +48,7 @@ export interface ICascaderProps<Item extends ICascaderItem = ICascaderItem> {
   changeOnSelect?: boolean;
   placeholder?: string;
   className?: string;
-  popClassName?: string;
+  popupClassName?: string;
   displayText?: (value: Item[]) => React.ReactNode;
   expandTrigger?: 'click' | 'hover';
   disabled?: boolean;
@@ -99,7 +99,7 @@ export class Cascader<
 > extends PureComponent<ICascaderProps<Item>, ICascaderState<Item>> {
   static defaultProps = {
     className: '',
-    popClassName: 'zent-cascader__popup',
+    popupClassName: 'zent-cascader__popup',
     onChange: noop,
     value: [],
     options: [],
@@ -299,7 +299,7 @@ export class Cascader<
         {(i18n: II18nLocaleCascader) => {
           const {
             className,
-            popClassName,
+            popupClassName,
             placeholder,
             disabled = this.context.value,
           } = this.props;
@@ -331,7 +331,7 @@ export class Cascader<
           return (
             <div className={cascaderCls}>
               <Popover
-                className={popClassName}
+                className={popupClassName}
                 position={Popover.Position.BottomLeft}
                 onShow={this.onShow}
                 onClose={this.onClose}
