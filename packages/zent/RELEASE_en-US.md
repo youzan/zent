@@ -8,6 +8,15 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 8.2.0(2020-02-18)
+
+- ✨ `BlockHeader` has a new minimum style
+- ✨ `Grid` stick header offset top can be customized
+- 🦀️ Fix style issue when value is outside range in `Progress`
+- `Form`
+  - 🦀️ Fix error style
+  - 🦀️ Fix TypeScript definition
+
 ### 8.1.0(2020-02-10)
 
 - `Grid`
