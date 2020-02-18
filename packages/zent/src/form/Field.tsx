@@ -7,6 +7,8 @@ import {
   IValidator,
   IValidators,
   FieldUtils,
+  isModelRef,
+  ModelRef,
 } from 'formulr';
 import {
   defaultRenderError,
@@ -30,32 +32,43 @@ export function defaultGetValidateOption() {
 }
 
 function withDefaultOption(option: ValidateOption | null | undefined) {
-  if (option == null) {
-    return ValidateOption.Default;
+  return option ?? ValidateOption.Default;
+}
+
+function getValidators<Value>({
+  validators,
+  required,
+}: IFormFieldProps<Value>) {
+  validators = validators ?? [];
+  if (
+    required &&
+    !validators.some(
+      it =>
+        (it as $MergeParams<IValidator<Value>>).$$id ===
+        Validators.SYMBOL_REQUIRED
+    )
+  ) {
+    validators = ([Validators.required(required as string)] as IValidators<
+      Value
+    >).concat(validators);
   }
-  return option;
+  return validators;
 }
 
 export function FormField<Value>(props: IFormFieldProps<Value>) {
   let model: FieldModel<Value>;
   if (isViewDrivenProps(props)) {
     const { name, defaultValue, destroyOnUnmount } = props;
-    let validators = props.validators || [];
-    if (
-      props.required &&
-      !validators.some(
-        it =>
-          (it as $MergeParams<IValidator<Value>>).$$id ===
-          Validators.SYMBOL_REQUIRED
-      )
-    ) {
-      validators = ([
-        Validators.required(props.required as string),
-      ] as IValidators<Value>).concat(validators);
-    }
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    model = useField<Value>(name, defaultValue, validators);
+    model = useField<Value>(name, defaultValue, getValidators(props));
     model.destroyOnUnmount = Boolean(destroyOnUnmount);
+  } else if (isModelRef(props.model)) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    model = useField(
+      props.model as ModelRef<Value, any, any>,
+      props.defaultValue,
+      getValidators(props)
+    );
   } else {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     model = useField<Value>(props.model);

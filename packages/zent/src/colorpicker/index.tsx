@@ -85,14 +85,15 @@ export class ColorPicker extends PureComponent<IColorPickerProps> {
       presetColors,
     } = this.props;
     const { popVisible } = this.state;
-    const openClassName = popVisible ? 'open' : '';
+    const openClassName = popVisible ? 'zent-color-picker--open' : '';
     const backgroundColor = color;
 
     return (
       <Popover
         className={cx(`${prefix}-color-picker-popover`, className)}
+        wrapperClassName="zent-color-picker-wrapper"
         position={Popover.Position.AutoBottomLeft}
-        display="inline"
+        display="inline-block"
         cushion={5}
         visible={popVisible}
         onVisibleChange={this.handleVisibleChange}

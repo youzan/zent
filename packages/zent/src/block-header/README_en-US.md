@@ -10,11 +10,12 @@ This is a block header.
 
 ## API
 
-| Property     | Description          | Type      | Default     | Alternative |
-| ------------ | -------------------- | --------- | ----------- | ----------- |
-| className    | custom class name    | string    | ''          |             |
-| title        | title                | ReactNode |             |             |
-| tooltip      | content of the pop   | ReactNode |             |             |
-| position     | pop position         | string    | 'top-right' |             |
-| leftContent  | left custom content  | ReactNode |             |             |
-| rightContent | right custom content | ReactNode |             |             |
+| Property     | Description          | Type                    | Default     | Alternative |
+| ------------ | -------------------- | ----------------------- | ----------- | ----------- |
+| className    | custom class name    | string                  | ''          |             |
+| type    		 | style type           | 'ribbon' \| 'minimum'   | 'ribbon'    | 'minimum'   |
+| title        | title                | ReactNode               |             |             |
+| tooltip      | content of the pop   | ReactNode               |             |             |
+| position     | pop position         | string                  | 'top-right' |             |
+| leftContent  | left custom content  | ReactNode               |             |             |
+| rightContent | right custom content | ReactNode               |             |             |

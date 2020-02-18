@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Omit } from 'utility-types';
+import cx from 'classnames';
 import { ICheckboxGroupProps, CheckboxGroup } from '../../checkbox';
 import { FormField, IFormFieldChildProps } from '../Field';
 import { IFormComponentProps } from '../shared';
@@ -28,9 +29,11 @@ const DEFAULT_VALUE = [] as any[];
 export function FormCheckboxGroupField<T>(
   props: IFormCheckboxGroupFieldProps<T>
 ) {
+  const { className, ...rest } = props;
   return (
     <FormField
-      {...props}
+      {...rest}
+      className={cx(className, 'zent-form-checkbox-group-field')}
       defaultValue={
         (props as $MergeParams<IFormCheckboxGroupFieldProps<T>>).defaultValue ||
         DEFAULT_VALUE
