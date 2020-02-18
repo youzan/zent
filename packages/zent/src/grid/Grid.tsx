@@ -1041,7 +1041,7 @@ export class Grid<Data = any> extends PureComponent<
       paginationType,
       bordered,
       autoStick,
-      autoStickOffsetTop = 0,
+      autoStickOffsetTop,
     } = this.props;
     const { marginLeft, tableWidth, showStickHead } = this.state;
 
