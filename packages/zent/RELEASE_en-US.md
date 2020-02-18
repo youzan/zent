@@ -8,7 +8,7 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
-### 8.1.0(2020-02-19)
+### 8.1.0(2020-02-10)
 
 - `Grid`
   - ✨ Support sticky header
