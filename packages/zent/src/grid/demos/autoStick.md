@@ -66,7 +66,6 @@ ReactDOM.render(
 				datasets={datasets}
 				autoStick
 				scroll={{ x: 1300, y: 200 }}
-				autoStickOffsetTop={100}
 			/>
 		</div>
 	, mountNode
