@@ -1,4 +1,3 @@
-import * as Arrow from '../arrow-position';
 export * from './invisible';
 export * from './auto-bottom-center';
 export * from './auto-bottom-left';
@@ -21,5 +20,4 @@ export * from './right-bottom';
 export * from './top-left';
 export * from './top-center';
 export * from './top-right';
-
-export { Arrow };
+export { default as Arrow } from '../arrow-position';
