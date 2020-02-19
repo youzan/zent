@@ -23,7 +23,7 @@ interface IPaginationDoubleArrowButtonState {
   prevActive: boolean;
 }
 
-const DEFAULT_DISABLED_POP_PROPS: Optional<IPopProps, 'content'> = {
+const DEFAULT_DISABLED_POP_PROPS: Optional<IPopProps, 'content' | 'type'> = {
   position: 'top-right',
   trigger: 'hover',
   centerArrow: true,
@@ -79,16 +79,11 @@ export class ArrowButton extends Component<
     );
 
     if (disabledHelp && rest.disabled) {
-      const { wrapperClassName, ...otherProps } = disabledHelp;
-      const popProps = {
-        wrapperClassName: cx(
-          'zent-pagination-button--layout',
-          wrapperClassName
-        ),
-        ...DEFAULT_DISABLED_POP_PROPS,
-        ...otherProps,
-      };
-      return <Pop {...popProps}>{btn}</Pop>;
+      return (
+        <Pop {...DEFAULT_DISABLED_POP_PROPS} {...disabledHelp}>
+          {btn}
+        </Pop>
+      );
     }
 
     return btn;

@@ -9,12 +9,12 @@ import { getLineHeight } from '../utils/dom/getLineHeight';
 
 export interface IClampLinesProps {
   text: string;
-  lines?: number;
+  lines: number;
   ellipsis?: string;
   showPop?: boolean;
   popWidth?: number;
-  trigger?: 'click' | 'hover' | 'focus';
-  renderPop?: (text: string) => React.ReactNode;
+  trigger: 'click' | 'hover' | 'focus';
+  renderPop: (text: string) => React.ReactNode;
   resizable?: boolean;
   extra?: React.ReactNode;
   className?: string;
@@ -82,7 +82,7 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
 
   componentDidMount() {
     const { text } = this.props;
-    if (text && isBrowser) {
+    if (text && isBrowser && this.element.current) {
       this.lineHeight = getLineHeight(this.element.current);
       this.clampLines();
     }
@@ -148,9 +148,7 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
 
   renderClampedText() {
     const { className } = this.props;
-    const classString = cx('zent-clamp-lines', {
-      [className]: className,
-    });
+    const classString = cx('zent-clamp-lines', className);
     return (
       <div
         className={classString}
@@ -191,7 +189,8 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
     if (showPop) {
       return (
         <Pop
-          trigger={trigger}
+          // FIXME: looks like a typescript bug
+          trigger={trigger as any}
           content={<div style={{ maxWidth: popWidth }}>{renderPop(text)}</div>}
         >
           {this.renderClampedText()}

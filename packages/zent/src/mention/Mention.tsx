@@ -47,6 +47,7 @@ export interface IMentionProps {
   onBlur?: React.FocusEventHandler;
   onKeyUp?: React.FocusEventHandler;
   onKeyDown?: React.KeyboardEventHandler;
+  inline?: boolean;
 }
 
 export class Mention extends Component<IMentionProps> {
@@ -57,6 +58,7 @@ export class Mention extends Component<IMentionProps> {
     suggestions: [],
     triggerText: '@',
     prefix: 'zent',
+    inline: true,
   };
 
   _compositing: boolean;
@@ -92,6 +94,7 @@ export class Mention extends Component<IMentionProps> {
 
       className,
       prefix,
+      inline,
       ...passThroughProps
     } = this.props;
     const inputType = multiLine ? 'textarea' : 'text';
@@ -108,15 +111,12 @@ export class Mention extends Component<IMentionProps> {
               position={
                 position === 'bottom' ? this.BottomPosition : this.TopPosition
               }
-              display="inline-block"
-              wrapperClassName={cx(`${prefix}-mention`, className)}
             >
-              <Popover.Trigger.Click
-                getNodeForTriggerRefChange={Utils.getInputNodeForTrigger}
-              >
+              <Popover.Trigger.Click>
                 <Input
                   type={inputType}
                   ref={this.saveInputRef}
+                  className={cx('zent-mention', className)}
                   onChange={this.onInputChange}
                   // onFocus={this.onInputFocus}
                   onBlur={this.onInputBlur}
@@ -126,6 +126,7 @@ export class Mention extends Component<IMentionProps> {
                   onWheel={this.onInputScroll}
                   onCompositionStart={this.onInputCompositionStart}
                   onCompositionEnd={this.onInputCompositionEnd}
+                  inline={inline}
                   {...(passThroughProps as any)}
                 />
               </Popover.Trigger.Click>

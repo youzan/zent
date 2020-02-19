@@ -72,6 +72,7 @@
     "postcss-value-parser": "^4.0.2",
     "react": "16.10.x",
     "react-dom": "16.10.x",
+    "react-window": "^1.8.5",
     "sass": "^1.22.7",
     "ts-jest": "^24.0.0",
     "ts-node": "^8.0.3",
