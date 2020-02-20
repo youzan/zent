@@ -1,5 +1,6 @@
-const warning = require('warning');
 import { INumberInputIntegerProps } from './NumberInput';
+import utilsIsInteger from '../utils/isInteger';
+import warning from '../utils/warning';
 
 function withinRange(min: number, max: number, num: number) {
   if (min >= num) {
@@ -27,9 +28,7 @@ export function normalizeMinMax(props: INumberInputIntegerProps) {
   const max = getMax(props.max);
   const min = getMin(props.min);
   if (min > max) {
-    if (process.env.NODE_ENV !== 'production') {
-      warning(false, 'max is smaller than min');
-    }
+    warning(false, 'max is smaller than min');
     return {
       min: max,
       max: min,
@@ -45,9 +44,7 @@ export function isPotentialValue(value: string) {
   return value === '' || value === '-' || value === '+';
 }
 
-export function isInteger(value: string): boolean {
-  return /^[\-+]?\d*$/.test(value);
-}
+export const isInteger = utilsIsInteger;
 
 export function normalizeValue(
   potential: number | undefined | null,

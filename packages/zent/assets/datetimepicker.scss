@@ -23,7 +23,7 @@ $input-width: 190px;
   position: relative;
 
   .picker-seperator {
-    @include theme-color(color, stroke, 2);
+    @include theme-color(color, stroke, 1);
     font-size: $font-size-normal;
     padding: 0 10px;
   }
@@ -36,6 +36,10 @@ $input-width: 190px;
     width: $input-width;
     font-size: $font-size-normal;
     border-radius: 2px;
+
+    &--icon {
+      font-size: 18px;
+    }
 
     &--combine {
       @include theme-color(border-color, stroke, 4);

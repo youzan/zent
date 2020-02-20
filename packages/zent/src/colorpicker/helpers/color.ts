@@ -1,5 +1,4 @@
-import each from 'lodash-es/each';
-const tinycolor = require('tinycolor2');
+import tinycolor from '../../utils/tinycolor';
 
 export default {
   simpleCheckForValidColor(data) {
@@ -7,7 +6,7 @@ export default {
     let checked = 0;
     let passed = 0;
 
-    each(keysToCheck, letter => {
+    keysToCheck.forEach(letter => {
       const v = data[letter];
 
       if (v) {
@@ -41,7 +40,7 @@ export default {
   },
 
   isValidHex(hex) {
-    return tinycolor(hex).isValid();
+    return tinycolor(hex).isValid;
   },
 };
 

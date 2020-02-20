@@ -172,7 +172,6 @@ describe('Dialog component', () => {
     jest.runAllTimers();
 
     expect(document.querySelectorAll('.zent-dialog-r-anchor').length).toBe(1);
-    console.log(document.querySelector('.zent-dialog-r').style);
     expect(
       document.querySelector('.zent-dialog-r').style.transformOrigin
     ).toBeTruthy();

@@ -7,28 +7,40 @@ group: 数据
 
 # Upload 文件上传
 
-文件上传，支持图片和音频。
+文件上传组件。
 
 ### API
 
-| 参数 | 说明 | 类型 | 默认值 | 是否必填 |
-|------|------|------|--------|--------|
-| type | 上传类型，默认为image，语音上传为voice | string | `'image'` | 否 |
-| localOnly | 是否只支持本地图片 | boolean | `false` | 否 |
-| tips | 提示文案 | string | `''` | 否 |
-| maxSize | 图片大小限制，单位为 byte | number | `1024 * 1024` | 否 |
-| maxAmount | 图片数量限制，0为不限制，1为只支持单文件 | number | `0` | 否 |
-| accept | 支持文件类型 | string | `'image/gif, image/jpeg, image/png, image/bmp'` | 否 |
-| silent | Deprecated, 是否开启静默模式，不会提示成功/失败 | boolean | `false` | 否 |
-| triggerInline | 是否行内属性 | boolean | `false` | 否 |
-| onFetch | 提取网络图片 | function | `noop` | 否 |
-| onUpload | 上传本地图片 | function | `noop` | 否 |
-| filterFiles | 过滤文件，支持同步和promise的方式 | function | `noop` | 否 |
-| categoryList | 分组数据 | array | [] | 否 |
-| categoryId | 分组id | number | [] | 否 |
-| auto | 是否自动弹出 | boolean | `false` | 否 |
-| withoutPopup | 是否不渲染在弹层上 | boolean | `false` | 否 |
-| triggerClassName | 重写trigger样式 | string | `'zent-upload-trigger'` | 否 |
-| errorMessages | 自定义错误提示文案，包含 overMaxSize、overMaxAmount、wrongMimeType 这几种类型 | object | `{}` | 否 |
-| className | 扩展类名 | string | `''` | 否 |
-| prefix | 前缀命名空间 | string | `'zent'` | 否 |
+#### Upload 公共参数
+
+| 参数            | 说明                                                                                                              | 类型                                                                                                                                                    | 默认值     | 是否必填 |
+| --------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | -------- |
+| className       | 自定义类名                                                                                                        | string                                                                                                                                                  |            | 否       |
+| fileList        | 受控模式下使用的上传文件列表                                                                                      | Array<[`IUploadFileItem`](../../apidoc/interfaces/IUploadFileItem.html) \| [`IImageUploadFileItem`](../../apidoc/interfaces/IImageUploadFileItem.html)> |            | 否       |
+| defaultFileList | 非受控模式下使用的默认文件列表                                                                                    | Array<[`IUploadFileItem`](../../apidoc/interfaces/IUploadFileItem.html) \| [`IImageUploadFileItem`](../../apidoc/interfaces/IImageUploadFileItem.html)> |            | 否       |
+| onChange        | 上传内容发生变化时的回调函数，任何修改文件列表及其内容的行为都会触发该函数                                        | [`IUploadOnChangeHandler`](../../apidoc/interfaces/IUploadOnChangeHandler.html)                                                                         |            | 是       |
+| beforeUpload    | 文件上传前的预处理函数，若返回 false 或 reject 的 Promie，则不上传该文件                                          | `(file: File) => boolean | Promise<void>`                                                                                                               |            | 否       |
+| manualUpload      | 是否手动进行上传操作，若设置为 true，所有进度更新、上传成功失败、重试等数据更新都需要手动进行维护                     | boolean                                                                                                                                                 | false      | 否       |
+| onUpload        | 文件上传处理                                                                                                      | [`IUploadOnUploadHandler`](<(../../apidoc/interfaces/IUploadOnUploadHandler.html)>)                                                                     |            | 否       |
+| onError         | 发生内部错误时的统一回调函数，错误类型见 `IUploadErrorMessageConfigMap`                                           | [`IUploadOnErrorHandler`](../../apidoc/interfaces/IUploadOnErrorHandler.html)                                                                           | 否         |
+| multiple        | 是否支持文件多选                                                                                                  | boolean                                                                                                                                                 | false      | 否       |
+| maxSize         | 图片大小限制，单位为 byte，`Infinity` 为不限制                                                                    | number                                                                                                                                                  | `Infinity` | 否       |
+| maxAmount       | 图片数量限制，`Infinity` 为不限制                                                                                 | number                                                                                                                                                  | `Infinity` | 否       |
+| accept          | 可选文件类型，与 [input accept](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept) 一致 | string                                                                                                                                                  |            | 否       |
+| disabled        | 是否禁用上传                                                                                                      | boolean                                                                                                                                                 |            | 否       |
+| sortable        | 是否可拖拽排序                                                                                                    | boolean                                                                                                                                                 | false      | 否       |
+| tips            | 提示文案                                                                                                          | string \| [`IUploadTipsFunc`](../../apidoc/interfaces/IUploadTipsFunc.html)                                                                             |            | 否       |
+
+#### Upload
+
+| 参数       | 说明                   | 类型    | 默认值 | 是否必填 |
+| ---------- | ---------------------- | ------- | ------ | -------- |
+| pagination | 是否对文件列表进行分页 | boolean | false  | 否       |
+| pageSize   | 分页时的每页展示数量   | number  | 5      | 否       |
+
+#### ImageUpload
+
+| 参数                | 说明                                                | 类型                                                                                    | 默认值                                | 是否必填 |
+| ------------------- | --------------------------------------------------- | --------------------------------------------------------------------------------------- | ------------------------------------- | -------- |
+| preview             | 自定义点击图片时的展示逻辑                          | [`IImageUploadPreviewHandler`](../../apidoc/interfaces/IImageUploadPreviewHandler.html) | PreviewImages（不展示上传失败的图片） | 否       |
+| getThumbSrcFromFile | 自定义选择图片时将其转化为展示用的缩略图 src 的函数 | `(file: File) => string | Promise<string>`                                              | FileReader 实现                       | 否       |

@@ -36,6 +36,11 @@ group: 导航
 | components      | 自定义 table 内的组件                                         | object { row?: ComponentType }                                             |                    | 否       |
 | rowProps        | 自定义传入 row 的属性                                         | (data: any, index: number) => object                                       |                    | 否       |
 | bordered        | 是否展示外边框和列边框                                        | bool                                                                       | `false`            | 否       |
+| batchRender     | 批量操作 render                                        | (data: array) => React.ReactNode                                           |                    | 否       |
+| stickyBatch     | 是否要将批量操作保持在屏幕内                                  | bool                                                                       | `false`             | 否       |
+| autoStick                | 是否自动将 head stick 到窗口                       | bool                                                                       | `false`        | 否       |
+| autoStickOffsetTop       | 自定义表头吸顶的offsetTop                          | number                                                                     | `0`        | 否       |
+
 
 #### onChange 函数声明
 
@@ -55,7 +60,7 @@ onChange 会抛出一个对象，这个对象包含分页变化的参数：
 | 参数        | 说明                                                              | 类型                                                                                                                 | 是否必须 |
 | ----------- | ----------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------- |
 | title       | 列头的名称                                                        | ReactNode                                                                                                            | 是       |
-| name        | 对应数据中的 key (建议设置) 支持 `a.b.c` 的嵌套写法               | string                                                                                                               | 否       |
+| name        | 对应数据中的 key (建议设置)             | string                                                                                                               | 否       |
 | width       | 列表宽度                                                          | string \| number                                                                                                     | 否       |
 | bodyRender  | 渲染复杂组件                                                      | ((data: any, pos: {row: number, column: number, fixed?: 'left' \| 'right'}, name: string) => ReactNode) \| ReactNode | 否       |
 | className   | 列头的 className                                                  | string                                                                                                               | 否       |
@@ -74,7 +79,7 @@ onChange 会抛出一个对象，这个对象包含分页变化的参数：
 | ---------------- | ------------------------------------ | ----------------------------------------------------------------- | ------------- |
 | selectedRowKeys  | 默认选中                             | array                                                             | 否            |
 | onSelect         | 每次 check 的时候触发的函数          | (selectedkeys: string[], selectedRows: Array<any>, changeRow: any | any[]) => any | 否 |
-| getCheckboxProps | 选择框属性配置 (当前仅支持 disabled) | (data: object) => { disabled?: boolean }                          | 否            |
+| getCheckboxProps | 选择框属性配置 (当前仅支持 disabled) | (data: object) => { disabled?: boolean, reason?: ReactNode }                          | 否            |
 
 #### pageInfo
 

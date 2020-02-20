@@ -2,11 +2,11 @@ import * as React from 'react';
 import { PureComponent } from 'react';
 import cx from 'classnames';
 import { Omit } from 'utility-types';
-const startOfWeek = require('date-fns/start_of_week');
-const endOfWeek = require('date-fns/end_of_week');
-const addDays = require('date-fns/add_days');
-const subDays = require('date-fns/sub_days');
-const differenceInCalendarDays = require('date-fns/difference_in_calendar_days');
+import startOfWeek from 'date-fns/startOfWeek';
+import endOfWeek from 'date-fns/endOfWeek';
+import addDays from 'date-fns/addDays';
+import subDays from 'date-fns/subDays';
+import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
 
 import Input from '../input';
 import Popover from '../popover';
@@ -24,13 +24,16 @@ import {
   setTime,
   isSameDate,
 } from './utils';
-import { CURRENT_DAY, noop, popPositionMap, commonProps } from './constants';
+import { CURRENT_DAY, popPositionMap, commonProps } from './constants';
 import { DatePickers } from './common/types';
+import Icon from '../icon';
+import noop from '../utils/noop';
+import warning from '../utils/warning';
 
 function getSelectedWeek(
   val,
-  start = 1,
-  isDisabled,
+  start: 0 | 1 | 2 | 3 | 4 | 5 | 6,
+  isDisabled: (val: Date, props: IWeekPickerProps) => boolean,
   props: IWeekPickerProps
 ): [Date?, Date?] {
   let weekStart = startOfWeek(val, {
@@ -93,7 +96,7 @@ function extractStateFromProps(props: IWeekPickerProps) {
       );
       actived = setTime(tmp);
     } else {
-      console.warn("date and format don't match."); // eslint-disable-line
+      warning(false, "date and format don't match.");
       showPlaceholder = true;
       actived = dayStart();
     }
@@ -130,7 +133,7 @@ function extractStateFromProps(props: IWeekPickerProps) {
 
 export interface IWeekPickerProps
   extends Omit<DatePickers.ICommonProps<DatePickers.RangeValue>, 'onClick'> {
-  startDay?: number;
+  startDay?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
   onBeforeClear?: () => boolean;
   onClick?: (val: DatePickers.RangeValue, type?: DatePickers.RangeType) => void;
   isFooterVisible?: boolean;
@@ -407,11 +410,12 @@ export class WeekPicker extends PureComponent<IWeekPickerProps, any> {
                     autoComplete={autoComplete}
                   />
 
-                  <span className="zenticon zenticon-calendar-o" />
+                  <Icon className="picker-input--icon" type="calendar-o" />
                   {canClear && (
-                    <span
+                    <Icon
+                      className="picker-input--icon"
+                      type="close-circle"
                       onClick={this.onClearInput}
-                      className="zenticon zenticon-close-circle"
                     />
                   )}
                 </div>

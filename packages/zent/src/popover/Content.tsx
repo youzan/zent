@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
-import throttle from 'lodash-es/throttle';
 import Portal from '../portal';
-import WindowResizeHandler from '../utils/component/WindowResizeHandler';
-import WindowEventHandler from '../utils/component/WindowEventHandler';
+import defer from '../utils/defer';
+import { WindowResizeHandler } from '../utils/component/WindowResizeHandler';
 import findPositionedParent from '../utils/dom/findPositionedParent';
 import { getViewportSize } from '../utils/dom/getViewportSize';
 import isEqualPlacement from './placement/isEqual';
 import invisiblePlacement from './placement/invisible';
 import { PositionFunction, IPopoverPosition } from './position-function';
+import { WindowScrollHandler } from '../utils/component/WindowScrollHandler';
 
 export function isPositionVisible(rect) {
   const viewSize = getViewportSize();
@@ -99,7 +99,7 @@ export default class PopoverContent extends Component<
       this.setState({
         position: (invisiblePlacement as any)(this.props.prefix),
       });
-      setTimeout(this.adjustPosition, 0);
+      defer(this.adjustPosition);
       return;
     }
 
@@ -157,13 +157,11 @@ export default class PopoverContent extends Component<
     }
   };
 
-  onWindowResize = throttle((evt, delta) => {
+  onWindowResize = (_evt, delta) => {
     if (this.props.visible && (delta.deltaX !== 0 || delta.deltaY !== 0)) {
       this.adjustPosition();
     }
-  }, 16);
-
-  onWindowScroll = throttle(this.adjustPosition, 16);
+  };
 
   componentDidMount() {
     const { visible } = this.props;
@@ -204,10 +202,9 @@ export default class PopoverContent extends Component<
         <div className={`${prefix}-popover-content`}>
           {children}
           <WindowResizeHandler onResize={this.onWindowResize} />
-          <WindowEventHandler
-            eventName="scroll"
-            callback={this.onWindowScroll}
-            useCapture
+          <WindowScrollHandler
+            onScroll={this.adjustPosition}
+            options={{ capture: true }}
           />
         </div>
       </Portal>

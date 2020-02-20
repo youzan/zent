@@ -4,9 +4,9 @@ path: component/design
 group: Domain-specific
 ---
 
-## Design
+## Design(DEPRECATED)
 
-Please use `@zent/design`
+**Please use `@zent/design`.**
 
 H5 page editor, build your H5 pages in a WYSIWYG way.
 
@@ -148,7 +148,7 @@ Each Desgin component are divided in two parts: Preview and Editor.
 
 Preview is just a component which accepts `{ value: any, globalConfig: any, design: object }` as props and renders a UI with these props.
 
-It is a little bit complex about Editor component. You are recommended to extend the `@youzan/design/lib/base/editor/DesignEditor` base class, this class has some useful methods you can use(e.g. `onChange` event handlers).
+It is a little bit complex about Editor component. You are recommended to extend the `@zent/design/es/editor/DesignEditor` base class, this class has some useful methods you can use(e.g. `onChange` event handlers).
 
 Editor has these props:
 
@@ -184,7 +184,7 @@ export default class NoticePreview extends PureComponent {
 import React from 'react';
 import { Input } from 'zent';
 
-import { DesignEditor, ControlGroup } from '@youzan/design/base/editor/DesignEditor';
+import { DesignEditor, ControlGroup } from '@zent/design/es/editor/DesignEditor';
 
 export const PLACEHOLDER = '请填写内容，如果过长，将会在手机上滚动显示';
 

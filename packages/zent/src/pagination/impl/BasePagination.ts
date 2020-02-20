@@ -1,7 +1,7 @@
 import { Component } from 'react';
-import has from 'lodash-es/has';
 import { PaginationLayout } from '../layout/type';
 import memoize from '../../utils/memorize-one';
+import { IPopProps } from '../../pop';
 
 export type PaginationChangeHandler = (detail: {
   current: number;
@@ -14,6 +14,7 @@ export interface IBasePaginationProps {
   total?: number;
   formatTotal?: (total: number) => React.ReactNode;
   onChange: PaginationChangeHandler;
+  lastPageHelp?: IPopProps;
 
   /** deprecated, use total */
   totalItem?: number;
@@ -98,11 +99,11 @@ export abstract class BasePagination<
   getTotal(props?: IProps) {
     props = props || this.props;
 
-    if (has(props, 'total')) {
+    if (props.hasOwnProperty('total')) {
       return props.total || 0;
     }
 
-    if (has(props, 'totalItem')) {
+    if (props.hasOwnProperty('totalItem')) {
       return props.totalItem || 0;
     }
 

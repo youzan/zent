@@ -1,25 +1,26 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import includes from 'lodash-es/includes';
 import Checkbox, { ICheckboxProps } from '../checkbox';
+import Pop from '../pop';
 import Store from './Store';
 
-interface IGridSelctionCheckboxProps {
+interface IGridSelectionCheckboxProps {
   disabled?: boolean;
+  reason?: React.ReactNode;
   rowIndex: number | string;
   store: Store;
   onChange: ICheckboxProps<unknown>['onChange'];
 }
 
-interface IGridSelctionCheckboxState {
+interface IGridSelectionCheckboxState {
   checked: boolean;
 }
 
 class SelectionCheckbox extends PureComponent<
-  IGridSelctionCheckboxProps,
-  IGridSelctionCheckboxState
+  IGridSelectionCheckboxProps,
+  IGridSelectionCheckboxState
 > {
-  constructor(props: IGridSelctionCheckboxProps) {
+  constructor(props: IGridSelectionCheckboxProps) {
     super(props);
 
     this.state = {
@@ -39,18 +40,20 @@ class SelectionCheckbox extends PureComponent<
     });
   };
 
-  getCheckState = (props: IGridSelctionCheckboxProps) => {
+  getCheckState = (props: IGridSelectionCheckboxProps) => {
     const { store, rowIndex } = props;
-    return includes(store.getState('selectedRowKeys'), rowIndex);
+    return (store.getState('selectedRowKeys') ?? []).indexOf(rowIndex) !== -1;
   };
 
   componentDidMount() {
     this.subscribe();
   }
 
+  // 等重构再删了吧，改不动
+  // eslint-disable-next-line react/no-deprecated
   componentWillReceiveProps(
-    nextProps: IGridSelctionCheckboxProps,
-    nextState: IGridSelctionCheckboxState
+    nextProps: IGridSelectionCheckboxProps,
+    nextState: IGridSelectionCheckboxState
   ) {
     const checked = this.getCheckState(nextProps);
     if (checked !== nextState.checked) {
@@ -65,9 +68,13 @@ class SelectionCheckbox extends PureComponent<
   }
 
   render() {
-    const { onChange, disabled } = this.props;
+    const { onChange, disabled, reason } = this.props;
     const { checked } = this.state;
-    return (
+    return reason && disabled ? (
+      <Pop content={reason} trigger="hover" position="top-left" centerArrow>
+        <Checkbox onChange={onChange} checked={checked} disabled={disabled} />
+      </Pop>
+    ) : (
       <Checkbox onChange={onChange} checked={checked} disabled={disabled} />
     );
   }

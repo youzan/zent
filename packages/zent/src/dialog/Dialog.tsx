@@ -6,14 +6,14 @@ import Portal from '../portal';
 import isBrowser from '../utils/isBrowser';
 import { DialogElWrapper, DialogInnerEl, IMousePosition } from './DialogEl';
 import { openDialog, closeDialog } from './open';
+import { addEventListener } from '../utils/component/event-handler';
 
 const TIMEOUT = 300; // ms
 
 let mousePosition: IMousePosition | null = null;
 
-// Inspired by antd and rc-dialog
 if (isBrowser) {
-  document.documentElement.addEventListener('click', e => {
+  addEventListener(document.documentElement, 'click', (e: MouseEvent) => {
     mousePosition = {
       x: e.clientX,
       y: e.clientY,

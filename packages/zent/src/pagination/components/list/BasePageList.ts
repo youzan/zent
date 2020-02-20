@@ -1,12 +1,13 @@
 import { Component } from 'react';
 
-import memoize from 'lodash-es/memoize';
+import { IPopProps } from '../../../pop';
 
 export interface IPaginationBasePageListProps {
   layout: any[];
   current: number;
   buttonBordered?: boolean;
   onPageChange: (page: number) => void;
+  lastPageHelp?: IPopProps;
 }
 
 export default abstract class BasePageList<
@@ -14,12 +15,12 @@ export default abstract class BasePageList<
 > extends Component<P, any> {
   abstract resetActiveDoubleArrowButton(): void;
 
-  onPageNumberClick = memoize(page => () => {
+  onPageNumberClick = page => () => {
     const { onPageChange } = this.props;
 
     onPageChange(page);
     this.resetActiveDoubleArrowButton();
-  });
+  };
 
   jumpToPageDelta = (delta: number, cb?: () => void) => () => {
     const { current, onPageChange } = this.props;

@@ -1,17 +1,15 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import forEach from 'lodash-es/forEach';
-import isFunction from 'lodash-es/isFunction';
-import noop from 'lodash-es/noop';
 import classnames from 'classnames';
 import Cell from './Cell';
 import { IGridInnerColumn } from './Grid';
 import {
   GridRowClassNameType,
-  IGridRowClickHander,
+  IGridRowClickHandler,
   IGridInnerFixedType,
   IGridScrollDelta,
 } from './types';
+import noop from '../utils/noop';
 
 interface IGridRowProps<Data> {
   data: Data;
@@ -21,7 +19,7 @@ interface IGridRowProps<Data> {
   prefix: string;
   rowClassName?: GridRowClassNameType<Data>;
   mouseOverRowIndex: number;
-  onRowClick: IGridRowClickHander<Data>;
+  onRowClick: IGridRowClickHandler<Data>;
   onRowMouseEnter: (index: number) => void;
   fixed?: IGridInnerFixedType;
   scroll: IGridScrollDelta;
@@ -52,33 +50,36 @@ class Row<Data> extends PureComponent<IGridRowProps<Data>> {
 
     const cells: React.ReactNode[] = [];
 
-    const className = isFunction(rowClassName)
-      ? rowClassName(data, rowIndex)
-      : rowClassName;
+    const className =
+      typeof rowClassName === 'function'
+        ? rowClassName(data, rowIndex)
+        : rowClassName;
 
     const height =
       fixed && fixedColumnsBodyRowsHeight[rowIndex]
         ? fixedColumnsBodyRowsHeight[rowIndex]
         : undefined;
 
-    forEach(columns as Array<IGridInnerColumn<any>>, (column, columnIndex) => {
-      const pos = {
-        row: rowIndex,
-        column: columnIndex,
-        fixed,
-      };
+    ((columns || []) as Array<IGridInnerColumn<any>>).forEach(
+      (column, columnIndex) => {
+        const pos = {
+          row: rowIndex,
+          column: columnIndex,
+          fixed,
+        };
 
-      cells.push(
-        <Cell
-          column={column}
-          data={data}
-          pos={pos}
-          columnIndex={columnIndex}
-          key={columnIndex}
-          prefix={prefix}
-        />
-      );
-    });
+        cells.push(
+          <Cell
+            column={column}
+            data={data}
+            pos={pos}
+            columnIndex={columnIndex}
+            key={columnIndex}
+            prefix={prefix}
+          />
+        );
+      }
+    );
 
     return (
       <BodyRow
@@ -89,6 +90,8 @@ class Row<Data> extends PureComponent<IGridRowProps<Data>> {
         onMouseEnter={() => scroll && scroll.x && onRowMouseEnter(rowIndex)}
         style={{ height }}
         {...rowProps(data, rowIndex)}
+        /* ts-plugin-version-attribute ignores this element, but it may be a tr... */
+        data-zv={__ZENT_VERSION__}
       >
         {cells}
       </BodyRow>

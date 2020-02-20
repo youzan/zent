@@ -2,18 +2,21 @@ import * as React from 'react';
 import { Component, createRef } from 'react';
 import reactCSS from '../helpers/reactcss';
 import * as hue from '../helpers/hue';
+import { addEventListener } from '../../utils/component/event-handler';
+import { runOnceInNextFrame } from '../../utils/nextFrame';
 
 /**
  * 色度条
  */
 export default class Hue extends Component<any, any> {
   containerRef = createRef<HTMLDivElement>();
+  eventCancelList = [] as Array<() => void>;
 
   componentWillUnmount() {
     this.unbindEventListeners();
   }
 
-  handleChange = (e, skip?: boolean) => {
+  handleChange = runOnceInNextFrame((e: any, skip?: boolean) => {
     const change = hue.calculateChange(
       e,
       skip,
@@ -21,12 +24,22 @@ export default class Hue extends Component<any, any> {
       this.containerRef.current
     );
     change && this.props.onChange(change, e);
+  });
+
+  handleTouch = (e: React.TouchEvent) => {
+    e.persist();
+    this.handleChange(e);
   };
 
-  handleMouseDown = e => {
+  handleMouseDown = (e: React.MouseEvent) => {
+    e.persist();
     this.handleChange(e, true);
-    window.addEventListener('mousemove', this.handleChange);
-    window.addEventListener('mouseup', this.handleMouseUp);
+    this.eventCancelList.push(
+      addEventListener(window, 'mousemove', this.handleChange)
+    );
+    this.eventCancelList.push(
+      addEventListener(window, 'mouseup', this.handleMouseUp, { passive: true })
+    );
   };
 
   handleMouseUp = () => {
@@ -34,8 +47,8 @@ export default class Hue extends Component<any, any> {
   };
 
   unbindEventListeners() {
-    window.removeEventListener('mousemove', this.handleChange);
-    window.removeEventListener('mouseup', this.handleMouseUp);
+    this.eventCancelList.forEach(cancel => cancel());
+    this.eventCancelList = [];
   }
 
   render() {
@@ -89,8 +102,8 @@ export default class Hue extends Component<any, any> {
           style={styles.container}
           ref={this.containerRef}
           onMouseDown={this.handleMouseDown}
-          onTouchMove={this.handleChange}
-          onTouchStart={this.handleChange}
+          onTouchMove={this.handleTouch}
+          onTouchStart={this.handleTouch}
         >
           <div style={styles.pointer}>
             {this.props.pointer ? (

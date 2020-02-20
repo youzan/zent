@@ -4,12 +4,10 @@
 
 import * as React from 'react';
 import cx from 'classnames';
-import omit from 'lodash-es/omit';
-import isEqual from 'lodash-es/isEqual';
-import noop from 'lodash-es/noop';
-import cloneDeep from 'lodash-es/cloneDeep';
-import assign from 'lodash-es/assign';
 
+import isEqual from '../utils/isEqual';
+import omit from '../utils/omit';
+import noop from '../utils/noop';
 import Popover from '../popover';
 import Option from './components/Option';
 import Trigger from './trigger';
@@ -54,17 +52,21 @@ export interface ISelectProps {
   className?: string;
   popupClassName?: string;
   autoWidth?: boolean;
+
+  /* Add a reset option */
   resetOption?: boolean;
   resetText?: string;
+
+  /* Retain selected option with null as its value. Valid iff resetOption is false */
+  retainNullOption?: boolean;
+
   width?: number | string;
-  prefix?: string;
   simple?: boolean;
   search?: boolean;
 }
 
 export class Select extends React.Component<ISelectProps, any> {
   static defaultProps = {
-    prefix: 'zent',
     open: false,
     optionValue: 'value',
     optionText: 'text',
@@ -77,6 +79,8 @@ export class Select extends React.Component<ISelectProps, any> {
     // 重置为默认值
     resetOption: false,
     resetText: '...',
+
+    retainNullOption: false,
 
     // 内部状态标记，默认初始值为 null
     value: null,
@@ -95,28 +99,27 @@ export class Select extends React.Component<ISelectProps, any> {
 
   popover: Popover | null = null;
   popup: React.ComponentType<any> | null = null;
+  uniformedData: Array<{
+    cid: string;
+    value: any;
+    text: any;
+  }>;
 
-  constructor(props) {
+  constructor(props: ISelectProps) {
     super(props);
 
-    this.state = assign(
-      {
-        selectedItems: [],
-        selectedItem: {
-          value: '',
-          text: '',
-        },
-
-        // popover content 位置就绪可以进行 focus 操作的标记.
-        optionsReady: false,
+    this.state = {
+      selectedItems: [],
+      selectedItem: {
+        value: '',
+        text: '',
       },
-      props
-    );
-  }
 
-  uniformedData: any;
+      // popover content 位置就绪可以进行 focus 操作的标记.
+      optionsReady: false,
+      ...props,
+    };
 
-  componentWillMount() {
     /**
      * data支持字符串数组和对象数组两种模式
      *
@@ -124,13 +127,15 @@ export class Select extends React.Component<ISelectProps, any> {
      * 对象数组需提供value和text, 或者通过 optionValue(prop) optionText(prop) 自定义
      *
      */
-    this.uniformedData = this.uniformData(this.props);
-    this.traverseData(this.props);
+    this.uniformedData = this.uniformData(props);
+    Object.assign(this.state, this.findSelected(props));
   }
 
+  // 等重构再删了吧，改不动
+  // eslint-disable-next-line react/no-deprecated
   componentWillReceiveProps(nextProps) {
     this.uniformedData = this.uniformData(nextProps);
-    this.traverseData(nextProps);
+    this.setState(this.findSelected(nextProps));
   }
 
   /**
@@ -170,7 +175,7 @@ export class Select extends React.Component<ISelectProps, any> {
           }
 
           // hacky the quirk when optionText = 'value' and avoid modify props
-          const optCopy = cloneDeep(option);
+          const optCopy = { ...option };
 
           optCopy.cid = `${index}`;
           if (optionValue) {
@@ -191,11 +196,12 @@ export class Select extends React.Component<ISelectProps, any> {
         React.Children.map(children, (item, index) => {
           let value = item.props.value;
           value = typeof value === 'undefined' ? item : value;
-          return assign({}, item.props, {
+          return {
+            ...item.props,
             value,
             cid: `${index}`,
             text: item.props.children,
-          });
+          };
         })
       );
     }
@@ -210,13 +216,13 @@ export class Select extends React.Component<ISelectProps, any> {
    * @param {object} props - props of Select
    * @memberof Select
    */
-  traverseData(props, data = this.uniformedData) {
+  findSelected(props, data = this.uniformedData) {
     // option 数组置空后重置组件状态
     if (!data || !data.length) {
-      return this.setState({
+      return {
         selectedItem: {},
         selectedItems: [],
-      });
+      };
     }
 
     const { selectedItem, selectedItems } = this.state;
@@ -242,10 +248,10 @@ export class Select extends React.Component<ISelectProps, any> {
       }
     });
 
-    this.setState({
+    return {
       selectedItem: selected.sItem,
       selectedItems: selected.sItems,
-    });
+    };
   }
 
   /**
@@ -323,6 +329,8 @@ export class Select extends React.Component<ISelectProps, any> {
       optionText,
       tags,
       onChange,
+      retainNullOption,
+      resetOption,
     } = this.props;
     const { selectedItems } = this.state;
     if (!selectedItem) {
@@ -337,7 +345,10 @@ export class Select extends React.Component<ISelectProps, any> {
       if (!selectedItems.some(item => item.cid === selectedItem.cid)) {
         selectedItems.push(selectedItem);
       }
-    } else if (selectedItem.value === null) {
+    } else if (
+      selectedItem.value === null &&
+      (resetOption || !retainNullOption)
+    ) {
       // customize reset option
       selectedItem = {};
     }
@@ -411,8 +422,8 @@ export class Select extends React.Component<ISelectProps, any> {
 
     const { cid = '' } = selectedItem;
 
-    const disabledCls = disabled ? 'disabled' : '';
-    const prefixCls = `${this.props.prefix}-select`;
+    const disabledCls = disabled ? 'zent-select--disabled' : '';
+    const prefixCls = 'zent-select';
     return (
       <Popover
         display="inline-block"
@@ -421,7 +432,7 @@ export class Select extends React.Component<ISelectProps, any> {
         position={Popover.Position.AutoBottomLeft}
         visible={open}
         className={cx(`${prefixCls}__popover`, popupClassName, {
-          'auto-width': autoWidth,
+          'zent-select-auto-width': autoWidth,
         })}
         wrapperClassName={cx(prefixCls, className, disabledCls)}
         onVisibleChange={this.handlePopoverVisibleChange}

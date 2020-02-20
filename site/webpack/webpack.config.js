@@ -7,7 +7,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
-const createAlias = require('../../packages/zent/createAlias');
+const tsCompilerConstantsPlugin = require('../../packages/zent/plugins/ts-plugin-constants')
+  .default;
+const tsVersionAttributePlugin = require('../../packages/zent/plugins/ts-plugin-version-attribute')
+  .default;
 const constants = require('../src/constants');
 
 const DEV = process.env.NODE_ENV !== 'production';
@@ -23,12 +26,10 @@ module.exports = {
 
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.md'],
-    alias: Object.assign(
-      {
-        zent$: path.resolve(__dirname, '../zent'),
-      },
-      createAlias(path.resolve(__dirname, '../../packages/zent/src'))
-    ),
+    alias: Object.assign({
+      zent$: path.resolve(__dirname, '../zent'),
+      'zent-utils': path.resolve(__dirname, '../../packages/zent/src/utils'),
+    }),
   },
 
   module: {
@@ -57,6 +58,9 @@ module.exports = {
             loader: 'postcss-loader',
             options: {
               sourceMap: DEV,
+              config: {
+                path: path.resolve(__dirname, '..'),
+              },
             },
           },
           {
@@ -141,6 +145,12 @@ module.exports = {
             loader: 'awesome-typescript-loader',
             options: {
               useCache: true,
+              getCustomTransformers: program => ({
+                before: [
+                  tsCompilerConstantsPlugin(program),
+                  tsVersionAttributePlugin(program),
+                ],
+              }),
             },
           },
         ],

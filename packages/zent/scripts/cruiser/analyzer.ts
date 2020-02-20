@@ -1,6 +1,11 @@
 import * as path from 'path';
-import camelCase from 'camelcase';
-import { getModuleRegistry, ValueExport, IRegistry } from './registry';
+import * as camelCase from 'camelcase';
+import {
+  getModuleRegistry,
+  ValueExport,
+  IRegistry,
+  DEFAULT_EXPORT,
+} from './registry';
 
 // const { log } = require('./json');
 
@@ -37,7 +42,8 @@ export function getExportedNames(rootModule: string): IExportedName[] {
     const isDefaultExport = isNameModuleDefaultExport(
       exp,
       modulePath,
-      moduleName
+      moduleName,
+      registry
     );
 
     return {
@@ -241,15 +247,19 @@ function guessModuleName(mod: string): string[] {
 function isNameModuleDefaultExport(
   exportName: string,
   modulePath: string,
-  moduleName: string
+  moduleName: string,
+  registry: IRegistry
 ): boolean {
+  const exports = registry[modulePath].exports;
+  const hasDefault = exports.has(DEFAULT_EXPORT);
+
   /*
     "exportName": "WeekPicker",
     "modulePath": "zent/src/datetimepicker/WeekPicker.tsx",
    */
   const modulePathWithoutExtension = stripSuffix(modulePath);
   if (modulePathWithoutExtension.endsWith(exportName)) {
-    return true;
+    return hasDefault;
   }
 
   /*
@@ -271,7 +281,7 @@ function isNameModuleDefaultExport(
       camelCase(moduleName, { pascalCase: true }) === exportName ||
       moduleName.toLowerCase() === exportName.toLowerCase()
     ) {
-      return true;
+      return hasDefault;
     }
   }
 

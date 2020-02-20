@@ -1,155 +1,86 @@
 import * as React from 'react';
-import { Component } from 'react';
 import cx from 'classnames';
 import BlockLoading from '../loading/BlockLoading';
+import { Waypoint, IWaypointCallbackData, WaypointPosition } from '../waypoint';
+import isBrowser from '../utils/isBrowser';
 
 export interface IInfiniteScrollerProps {
   className?: string;
-  prefix?: string;
   hasMore?: boolean;
   loadMore?: (() => Promise<unknown>) | ((stopLoading?: () => void) => void);
-  offset?: number;
-  initialLoad?: boolean;
+  skipLoadOnMount?: boolean;
   useWindow?: boolean;
-  useCapture?: boolean;
   loader?: React.ReactNode;
 }
 
-export class InfiniteScroller extends Component<IInfiniteScrollerProps> {
-  static defaultProps = {
-    prefix: 'zent',
-    hasMore: true,
-    offset: 20,
-    initialLoad: true,
-    useWindow: true,
-    useCapture: false,
-    loader: <BlockLoading height={60} loading icon="circle" />,
-  };
+const DEFAULT_LOADER = <BlockLoading height={60} loading icon="circle" />;
 
-  scroller: HTMLDivElement | null = null;
+export const InfiniteScroller: React.FC<IInfiniteScrollerProps> = ({
+  hasMore = false,
+  loadMore,
+  skipLoadOnMount = false,
+  useWindow = false,
+  loader = DEFAULT_LOADER,
+  className,
+  children,
+}) => {
+  const [loading, setLoading] = React.useState(false);
 
-  state = {
-    isLoading: false,
-  };
+  const stopLoading = React.useCallback(() => {
+    setLoading(false);
+  }, []);
 
-  stopLoading = () => {
-    this.setState({ isLoading: false });
-  };
-
-  calculateTopPosition = el => {
-    if (!el) {
-      return 0;
-    }
-    return el.offsetTop + this.calculateTopPosition(el.offsetParent);
-  };
-
-  getWindowScrollTop = () => {
-    return window.pageYOffset !== undefined
-      ? window.pageYOffset
-      : (
-          document.documentElement ||
-          (document.body.parentNode as HTMLHtmlElement) ||
-          document.body
-        ).scrollTop;
-  };
-
-  isScrollAtBottom = () => {
-    const { offset, useWindow } = this.props;
-    let offsetDistance;
-
-    if (useWindow) {
-      const windowScrollTop = this.getWindowScrollTop();
-      offsetDistance =
-        this.calculateTopPosition(this.scroller) +
-        this.scroller.offsetHeight -
-        windowScrollTop -
-        window.innerHeight;
-    } else {
-      const { scrollHeight, clientHeight, scrollTop } = this.scroller;
-      offsetDistance = scrollHeight - clientHeight - scrollTop;
-    }
-
-    return offsetDistance <= offset;
-  };
-
-  handleScroll = () => {
-    const { hasMore, loadMore } = this.props;
-    const { isLoading } = this.state;
-    if (!hasMore || !this.isScrollAtBottom() || isLoading) {
+  const load = React.useCallback(() => {
+    if (typeof loadMore !== 'function') {
       return;
     }
 
-    this.setState({
-      isLoading: true,
-    });
-
+    setLoading(true);
     if (loadMore.length > 0) {
-      loadMore(this.stopLoading);
+      loadMore(stopLoading);
     } else {
-      (loadMore() as Promise<unknown>)
-        .then(this.stopLoading)
-        .catch(this.stopLoading);
+      (loadMore as () => Promise<unknown>)().then(stopLoading, stopLoading);
     }
-  };
+  }, [loadMore, stopLoading]);
 
-  addScrollListener = () => {
-    const { useWindow, useCapture } = this.props;
+  const onEnter = React.useCallback(
+    (data: IWaypointCallbackData) => {
+      if (loading) {
+        return;
+      }
 
-    let scrollEl: Window | HTMLDivElement = window;
-    if (!useWindow) {
-      scrollEl = this.scroller;
+      const { previousPosition } = data;
+      if (previousPosition === WaypointPosition.Below) {
+        load();
+      }
+    },
+    [load, loading]
+  );
+
+  // Run once after mount
+  React.useEffect(() => {
+    if (!skipLoadOnMount) {
+      load();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    scrollEl.addEventListener('scroll', this.handleScroll, useCapture);
-    scrollEl.addEventListener('resize', this.handleScroll, useCapture);
-  };
-
-  removeScrollListener = () => {
-    const { useWindow, useCapture } = this.props;
-
-    let scrollEl: Window | HTMLDivElement = window;
-    if (!useWindow) {
-      scrollEl = this.scroller;
-    }
-
-    scrollEl.removeEventListener('scroll', this.handleScroll, useCapture);
-    scrollEl.removeEventListener('resize', this.handleScroll, useCapture);
-  };
-
-  componentDidMount() {
-    const { loadMore, initialLoad } = this.props;
-
-    this.addScrollListener();
-
-    if (initialLoad && loadMore) {
-      loadMore();
-    }
-  }
-
-  componentWillUnmount() {
-    this.removeScrollListener();
-  }
-
-  render() {
-    const {
-      prefix,
-      className,
-      children,
-      hasMore,
-      loader,
-      useWindow,
-    } = this.props;
-    const { isLoading } = this.state;
-    const classString = cx(`${prefix}-infinite-scroller`, className, {
-      [`${prefix}-infinite-scroller-y`]: !useWindow,
-    });
-    return (
-      <div ref={scroller => (this.scroller = scroller)} className={classString}>
-        {children}
-        {hasMore && isLoading && loader}
-      </div>
-    );
-  }
-}
+  return (
+    <div
+      className={cx(`zent-infinite-scroller`, className, {
+        [`zent-infinite-scroller-y`]: !useWindow,
+      })}
+    >
+      {children}
+      {hasMore && isBrowser && (
+        <Waypoint
+          scrollableAncestor={useWindow ? window : undefined}
+          onEnter={onEnter}
+        />
+      )}
+      {loading && loader}
+    </div>
+  );
+};
 
 export default InfiniteScroller;

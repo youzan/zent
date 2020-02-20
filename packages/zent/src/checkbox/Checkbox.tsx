@@ -26,6 +26,7 @@ export interface ICheckboxProps<Value> {
   onChange?: (e: ICheckboxEvent<Value>) => void;
   className?: string;
   style?: React.CSSProperties;
+  labelStyle?: React.CSSProperties;
   width?: number;
   children?: React.ReactNode;
 }
@@ -63,9 +64,7 @@ export function Checkbox<Value>(props: ICheckboxProps<Value>) {
   const propsRef = React.useRef(props);
   propsRef.current = props;
   const ctxOnChange = groupCtx && groupCtx.onChange;
-  const onChange: React.ChangeEventHandler<
-    HTMLInputElement
-  > = React.useCallback(
+  const onChange: React.ChangeEventHandler<HTMLInputElement> = React.useCallback(
     evt => {
       const { value, onChange } = propsRef.current;
       if (ctxOnChange) {
@@ -95,6 +94,7 @@ export function Checkbox<Value>(props: ICheckboxProps<Value>) {
     width,
     // value可以是任意类型，不要写到dom上去
     value,
+    labelStyle,
     ...others
   } = props;
   const readOnly = getReadOnly(groupCtx, props);
@@ -133,7 +133,9 @@ export function Checkbox<Value>(props: ICheckboxProps<Value>) {
       children !== null &&
       children !== true &&
       children !== false ? (
-        <div className="zent-checkbox-label">{children}</div>
+        <div className="zent-checkbox-label" style={labelStyle}>
+          {children}
+        </div>
       ) : null}
     </label>
   );

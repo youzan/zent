@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
-import debounce from 'lodash-es/debounce';
+import debounce from '../utils/debounce';
 
-import { I18nReceiver as Receiver } from '../i18n';
+import { I18nReceiver as Receiver, II18nLocalePreviewImage } from '../i18n';
 import Portal from '../portal';
 import Icon from '../icon';
+
+const TRANSITION_DURATION = 500; // ms
 
 export interface IPreviewImageProps {
   className: string;
@@ -97,7 +99,7 @@ export default class Image extends Component<IPreviewImageProps, any> {
     this.setState({
       imageStyle: {
         transform: transformStyle,
-        transitionDuration: '0.5s',
+        transitionDuration: `${TRANSITION_DURATION}ms`,
       },
       rotateIndex,
     });
@@ -124,7 +126,7 @@ export default class Image extends Component<IPreviewImageProps, any> {
     this.setState({
       imageStyle: {
         transform: transformStyle,
-        transitionDuration: '0.5s',
+        transitionDuration: `${TRANSITION_DURATION}ms`,
       },
       scaleTag: !scaleTag,
     });
@@ -151,7 +153,7 @@ export default class Image extends Component<IPreviewImageProps, any> {
               <Icon type="close" />
             </div>
             <Receiver componentName="PreviewImage">
-              {i18n => (
+              {(i18n: II18nLocalePreviewImage) => (
                 <div
                   className={`${prefix}-image-p-body`}
                   onClick={this.onMaskClick}
@@ -165,7 +167,7 @@ export default class Image extends Component<IPreviewImageProps, any> {
                           style={imageStyle}
                           src={image}
                           key={index}
-                          alt={(i18n.alt as unknown) as string}
+                          alt={i18n.alt}
                         />
                       );
                     }
@@ -175,7 +177,7 @@ export default class Image extends Component<IPreviewImageProps, any> {
               )}
             </Receiver>
             <Receiver componentName="PreviewImage">
-              {i18n => {
+              {(i18n: II18nLocalePreviewImage) => {
                 const needPager = images.length > 1;
                 const footerCxs = cx(`${prefix}-image-p-footer`, {
                   'show-rotate-btn': showRotateBtn,
@@ -197,7 +199,11 @@ export default class Image extends Component<IPreviewImageProps, any> {
                     {showRotateBtn && (
                       <span
                         className={rotateCxs}
-                        onClick={debounce(this.handleRotate, 200)}
+                        onClick={debounce(
+                          this.handleRotate,
+                          TRANSITION_DURATION,
+                          { immediate: true }
+                        )}
                       >
                         {i18n.rotate}
                       </span>

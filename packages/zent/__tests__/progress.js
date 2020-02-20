@@ -16,7 +16,7 @@ describe('Progress', () => {
     expect(wrapper.find('.zent-progress-info').length).toBe(1);
     expect(wrapper.find('.zent-progress-info').text()).toBe('0%');
     expect(
-      wrapper.contains(
+      wrapper.containsMatchingElement(
         <div
           className="zent-progress-inner"
           style={{
@@ -71,7 +71,7 @@ describe('Progress', () => {
     const wrapper = mount(<Progress percent={70} />);
     expect(wrapper.find('.zent-progress-info').text()).toBe('70%');
     expect(
-      wrapper.contains(
+      wrapper.containsMatchingElement(
         <div
           className="zent-progress-inner"
           style={{
@@ -91,10 +91,12 @@ describe('Progress', () => {
     expect(
       wrapper
         .find('.zent-progress-info')
-        .contains(<i className="zenticon zenticon-check-circle" />)
+        .containsMatchingElement(
+          <i className="zenticon zenticon-check-circle" />
+        )
     ).toBe(true);
     expect(
-      wrapper.contains(
+      wrapper.containsMatchingElement(
         <div
           className="zent-progress-inner"
           style={{
@@ -113,7 +115,9 @@ describe('Progress', () => {
     expect(
       wrapper
         .find('.zent-progress-info')
-        .contains(<i className="zenticon zenticon-check-circle" />)
+        .containsMatchingElement(
+          <i className="zenticon zenticon-check-circle" />
+        )
     ).toBe(true);
 
     wrapper = mount(<Progress percent={100} status="exception" />);
@@ -121,7 +125,9 @@ describe('Progress', () => {
     expect(
       wrapper
         .find('.zent-progress-info')
-        .contains(<i className="zenticon zenticon-close-circle" />)
+        .containsMatchingElement(
+          <i className="zenticon zenticon-close-circle" />
+        )
     ).toBe(true);
 
     wrapper = mount(<Progress percent={100} status="normal" />);
@@ -149,7 +155,7 @@ describe('Progress', () => {
 
     wrapper = mount(<Progress percent={70} normalColor="#eee" />);
     expect(
-      wrapper.contains(
+      wrapper.containsMatchingElement(
         <div
           className="zent-progress-inner"
           style={{
@@ -163,7 +169,7 @@ describe('Progress', () => {
 
     wrapper = mount(<Progress percent={100} successColor="#eee" />);
     expect(
-      wrapper.contains(
+      wrapper.containsMatchingElement(
         <div
           className="zent-progress-inner"
           style={{
@@ -177,7 +183,9 @@ describe('Progress', () => {
     expect(
       wrapper
         .find('.zent-progress-info')
-        .contains(<i className="zenticon zenticon-check-circle" />)
+        .containsMatchingElement(
+          <i className="zenticon zenticon-check-circle" />
+        )
     ).toBe(true);
 
     wrapper = mount(
@@ -189,7 +197,7 @@ describe('Progress', () => {
       />
     );
     expect(
-      wrapper.contains(
+      wrapper.containsMatchingElement(
         <div
           className="zent-progress-inner"
           style={{
@@ -203,7 +211,9 @@ describe('Progress', () => {
     expect(
       wrapper
         .find('.zent-progress-info')
-        .contains(<i className="zenticon zenticon-close-circle" />)
+        .containsMatchingElement(
+          <i className="zenticon zenticon-close-circle" />
+        )
     ).toBe(true);
   });
 
@@ -218,7 +228,9 @@ describe('Progress', () => {
     expect(
       wrapper
         .find('.zent-progress-info')
-        .contains(<i className="zenticon zenticon-check-circle" />)
+        .containsMatchingElement(
+          <i className="zenticon zenticon-check-circle" />
+        )
     ).toBe(false);
 
     wrapper = mount(
@@ -229,7 +241,9 @@ describe('Progress', () => {
     expect(
       wrapper
         .find('.zent-progress-info')
-        .contains(<i className="zenticon zenticon-close-circle" />)
+        .containsMatchingElement(
+          <i className="zenticon zenticon-close-circle" />
+        )
     ).toBe(false);
   });
 
@@ -238,5 +252,23 @@ describe('Progress', () => {
       <Progress percent={70} format={percent => `进度${percent}%`} />
     );
     expect(wrapper.find('.zent-progress-info').text()).toBe('进度70%');
+  });
+
+  it('has animation', () => {
+    let wrapper = mount(
+      <Progress
+        percent={70}
+        format={percent => `进度${percent}%`}
+        type="circle"
+      />
+    );
+
+    const arcInstance = wrapper.find('AnimatedArc').instance();
+    arcInstance.animationDelayTimerId = 1;
+    expect(() => arcInstance.startAnimation()).not.toThrow();
+    expect(() => arcInstance.finishAnimation()).not.toThrow();
+    arcInstance.transitionEndTimerId = 0;
+    expect(() => arcInstance.finishAnimation()).not.toThrow();
+    expect(() => wrapper.unmount()).not.toThrow();
   });
 });

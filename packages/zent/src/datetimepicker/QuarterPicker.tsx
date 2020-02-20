@@ -2,17 +2,20 @@ import * as React from 'react';
 import { PureComponent } from 'react';
 import cx from 'classnames';
 import { Omit } from 'utility-types';
-const getQuarter = require('date-fns/get_quarter');
+import getQuarter from 'date-fns/getQuarter';
 
 import Input from '../input';
 import Popover from '../popover';
 import getWidth from '../utils/getWidth';
-import { I18nReceiver as Receiver } from '../i18n';
+import { I18nReceiver as Receiver, II18nLocaleTimePicker } from '../i18n';
 
 import QuarterPanel from './quarter/QuarterPanel';
 import { dayStart, dayEnd, formatDate, parseDate } from './utils';
-import { noop, popPositionMap, commonProps } from './constants';
+import { popPositionMap, commonProps } from './constants';
+import noop from '../utils/noop';
 import { DatePickers } from './common/types';
+import Icon from '../icon';
+import warning from '../utils/warning';
 
 const quarterMonthMap = {
   0: 0,
@@ -60,7 +63,7 @@ function extractStateFromProps(props: IQuarterPickerProps) {
       showPlaceholder = false;
       selected = actived = tmp;
     } else {
-      console.warn("date and format don't match."); // eslint-disable-line
+      warning(false, "date and format don't match.");
       showPlaceholder = true;
       actived = dayStart();
     }
@@ -159,10 +162,9 @@ export class QuarterPicker extends PureComponent<IQuarterPickerProps, any> {
       showPlaceholder: false,
     });
 
-    onChange(ret.map(this.getReturnValue) as [
-      DatePickers.Value,
-      DatePickers.Value
-    ]);
+    onChange(
+      ret.map(this.getReturnValue) as [DatePickers.Value, DatePickers.Value]
+    );
   };
 
   onClearInput = evt => {
@@ -253,18 +255,13 @@ export class QuarterPicker extends PureComponent<IQuarterPickerProps, any> {
     return (
       <div style={widthStyle} className={wrapperCls}>
         <Receiver componentName="TimePicker">
-          {(i18n: any) => {
-            let inputVal;
-            if (selected) {
-              inputVal =
-                i18n.mark === 'zh-CN'
-                  ? `${selected.getFullYear()}年${
-                      i18n.panel.quarterNames[value]
-                    }`
-                  : `${
-                      i18n.panel.quarterNames[value]
-                    } of ${selected.getFullYear()}`;
-            }
+          {(i18n: II18nLocaleTimePicker) => {
+            const inputVal = selected
+              ? i18n.panel.yearQuarterName({
+                  year: selected.getFullYear(),
+                  quarter: value,
+                })
+              : '';
             const placeholderText = placeholder || i18n.quarter;
 
             return (
@@ -285,11 +282,12 @@ export class QuarterPicker extends PureComponent<IQuarterPickerProps, any> {
                       disabled={disabled}
                       autoComplete={autoComplete}
                     />
-                    <span className="zenticon zenticon-calendar-o" />
+                    <Icon className="picker-input--icon" type="calendar-o" />
                     {canClear && (
-                      <span
+                      <Icon
+                        className="picker-input--icon"
+                        type="close-circle"
                         onClick={this.onClearInput}
-                        className="zenticon zenticon-close-circle"
                       />
                     )}
                   </div>

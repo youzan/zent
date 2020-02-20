@@ -1,13 +1,9 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import size from 'lodash-es/size';
-import every from 'lodash-es/every';
-import some from 'lodash-es/some';
-import includes from 'lodash-es/includes';
 import Checkbox, { ICheckboxProps } from '../checkbox';
 import Store from './Store';
 
-export interface IGridSelctionAllCheckboxProps<Data> {
+export interface IGridSelectionAllCheckboxProps<Data> {
   store: Store;
   datasets: Data[];
   getDataKey: (data: Data, rowIndex: number | string) => string;
@@ -15,16 +11,16 @@ export interface IGridSelctionAllCheckboxProps<Data> {
   onSelect: (type: 'selectAll' | 'removeAll', datasets: Data[]) => void;
 }
 
-interface IGridSelctionAllCheckboxState {
+interface IGridSelectionAllCheckboxState {
   checked: boolean;
   indeterminate: boolean;
 }
 
 class SelectionCheckboxAll<Data> extends PureComponent<
-  IGridSelctionAllCheckboxProps<Data>,
-  IGridSelctionAllCheckboxState
+  IGridSelectionAllCheckboxProps<Data>,
+  IGridSelectionAllCheckboxState
 > {
-  constructor(props: IGridSelctionAllCheckboxProps<Data>) {
+  constructor(props: IGridSelectionAllCheckboxProps<Data>) {
     super(props);
 
     this.state = {
@@ -42,31 +38,38 @@ class SelectionCheckboxAll<Data> extends PureComponent<
     });
   };
 
-  getCheckBoxState = (props: IGridSelctionAllCheckboxProps<Data>, type) => {
+  getCheckBoxState = (props: IGridSelectionAllCheckboxProps<Data>, type) => {
     const { datasets, store, getDataKey } = props;
     let state;
-    const func = type === 'every' ? every : some;
 
-    if (size(datasets) === 0) {
+    if (!datasets || datasets.length === 0) {
       state = false;
     } else {
-      const selectedRowKeys = store.getState('selectedRowKeys');
-      state = func(datasets, (data, index) =>
-        includes(selectedRowKeys, getDataKey(data, index))
-      );
+      const selectedRowKeys = store.getState('selectedRowKeys') ?? [];
+      if (type === 'every') {
+        state = datasets.every(
+          (data, index) =>
+            selectedRowKeys.indexOf(getDataKey(data, index)) !== -1
+        );
+      } else {
+        state = datasets.some(
+          (data, index) =>
+            selectedRowKeys.indexOf(getDataKey(data, index)) !== -1
+        );
+      }
     }
     return state;
   };
 
-  getCheckState = (props: IGridSelctionAllCheckboxProps<Data>) => {
+  getCheckState = (props: IGridSelectionAllCheckboxProps<Data>) => {
     return this.getCheckBoxState(props, 'every');
   };
 
-  getIndeterminateState = (props: IGridSelctionAllCheckboxProps<Data>) => {
+  getIndeterminateState = (props: IGridSelectionAllCheckboxProps<Data>) => {
     return this.getCheckBoxState(props, 'some');
   };
 
-  setCheckState = (props: IGridSelctionAllCheckboxProps<Data>) => {
+  setCheckState = (props: IGridSelectionAllCheckboxProps<Data>) => {
     const checked = this.getCheckState(props);
     const indeterminate = this.getIndeterminateState(props);
 
@@ -86,7 +89,9 @@ class SelectionCheckboxAll<Data> extends PureComponent<
     this.subscribe();
   }
 
-  componentWillReceiveProps(nextProps: IGridSelctionAllCheckboxProps<Data>) {
+  // 等重构再删了吧，改不动
+  // eslint-disable-next-line react/no-deprecated
+  componentWillReceiveProps(nextProps: IGridSelectionAllCheckboxProps<Data>) {
     this.setCheckState(nextProps);
   }
 

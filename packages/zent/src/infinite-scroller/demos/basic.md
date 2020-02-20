@@ -11,8 +11,8 @@ import { InfiniteScroller, Card } from 'zent';
 
 class Simple extends React.Component {
 	state = {
-		list: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-	}
+		list: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+	};
 
 	loadMore(closeLoading) {
 		const { list } = this.state;
@@ -21,12 +21,10 @@ class Simple extends React.Component {
 
 		setTimeout(() => {
 			this.setState({
-				list: [...list, ...newList]
+				list: [...list, ...newList],
 			});
 			closeLoading && closeLoading();
-
 		}, 500);
-
 	}
 
 	render() {
@@ -34,19 +32,22 @@ class Simple extends React.Component {
 		return (
 			<InfiniteScroller
 				className="infinite-scroller-demo"
-				useWindow={false}
+				hasMore
 				loadMore={this.loadMore.bind(this)}
 			>
-				{
-					list.map(item => <Card key={item}>{item}</Card>)
-				}
+				{list.map(item => (
+					<Card key={item}>{item}</Card>
+				))}
 			</InfiniteScroller>
 		);
 	}
 }
 
-ReactDOM.render(
-	<Simple />
-	, mountNode
-);
+ReactDOM.render(<Simple />, mountNode);
 ```
+
+<style>
+.infinite-scroller-demo {
+	height: 300px;
+}
+</style>

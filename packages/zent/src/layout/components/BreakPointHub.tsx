@@ -1,19 +1,22 @@
 import { Component } from 'react';
-const enquire = require('enquire.js');
 
 import isBrowser from '../../utils/isBrowser';
 import { LayoutBreakPoint } from './types';
+import { createMediaQueryDispatcher } from '../../utils/enquire';
 
 interface IBreakPointHubProps {
   breakpoints: LayoutBreakPoint[];
   onChange: (brk: LayoutBreakPoint, matched: boolean) => void;
 }
 
+const supportMediaQuery = isBrowser && window.matchMedia;
+const enquire = supportMediaQuery ? createMediaQueryDispatcher() : null;
+
 /**
- * enquire can attatch multiple callbacks to the same media query.
+ * enquire can attach multiple callbacks to the same media query.
  *
  * Breakpoints with same media query string are merged into a single query
- * with multiple callbacks attatched when using multiple instances of Breakpoint.
+ * with multiple callbacks attached when using multiple instances of Breakpoint.
  *
  * So no need for one more media query manager.
  */
@@ -37,7 +40,7 @@ export class BreakPointHub extends Component<IBreakPointHubProps> {
   }
 
   registerBreakpoints(props: IBreakPointHubProps) {
-    if (!isBrowser || !window.matchMedia) {
+    if (!supportMediaQuery) {
       return;
     }
 
@@ -57,7 +60,7 @@ export class BreakPointHub extends Component<IBreakPointHubProps> {
   }
 
   unregisterBreakpoints(props: IBreakPointHubProps) {
-    if (!isBrowser || !window.matchMedia) {
+    if (!supportMediaQuery) {
       return;
     }
 

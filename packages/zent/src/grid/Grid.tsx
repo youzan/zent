@@ -1,24 +1,23 @@
 import * as React from 'react';
+import * as ReactDom from 'react-dom';
 import { PureComponent } from 'react';
 import classnames from 'classnames';
-import has from 'lodash-es/has';
-import get from 'lodash-es/get';
-import every from 'lodash-es/every';
-import assign from 'lodash-es/assign';
-import debounce from 'lodash-es/debounce';
-import isEqual from 'lodash-es/isEqual';
-import forEach from 'lodash-es/forEach';
-import noop from 'lodash-es/noop';
-import size from 'lodash-es/size';
-import some from 'lodash-es/some';
-import map from 'lodash-es/map';
-import isFunction from 'lodash-es/isFunction';
-import includes from 'lodash-es/includes';
+import isEqual from '../utils/isEqual';
 
+import noop from '../utils/noop';
 import measureScrollbar from '../utils/dom/measureScrollbar';
-import WindowResizeHandler from '../utils/component/WindowResizeHandler';
-import { I18nReceiver as Receiver } from '../i18n';
-import { groupedColumns, getLeafColumns } from './utils';
+import { runOnceInNextFrame } from '../utils/nextFrame';
+import { WindowResizeHandler } from '../utils/component/WindowResizeHandler';
+import { WindowScrollHandler } from '../utils/component/WindowScrollHandler';
+import BatchComponents from './BatchComponents';
+import {
+  groupedColumns,
+  getLeafColumns,
+  needFixBatchComps,
+  isElementInView,
+  mapDOMNodes,
+} from './utils';
+import { I18nReceiver as Receiver, II18nLocaleGrid } from '../i18n';
 import BlockLoading from '../loading/BlockLoading';
 import Store from './Store';
 import ColGroup from './ColGroup';
@@ -26,8 +25,9 @@ import Header from './Header';
 import Body from './Body';
 import Footer from './Footer';
 import SelectionCheckbox from './SelectionCheckbox';
+import Affix from '../affix';
 import SelectionCheckboxAll, {
-  IGridSelctionAllCheckboxProps,
+  IGridSelectionAllCheckboxProps,
 } from './SelectionCheckboxAll';
 import {
   IGridColumn,
@@ -40,12 +40,14 @@ import {
   IGridScrollDelta,
   IGridSelection,
   IGridExpandation,
-  IGridRowClickHander,
+  IGridRowClickHandler,
   IGridOnExpandHandler,
   IGridInnerFixedType,
   IGridColumnBodyRenderFunc,
+  IGridBatchRender,
 } from './types';
 import { ICheckboxEvent } from '../checkbox';
+import isBrowser from '../utils/isBrowser';
 
 function stopPropagation(e: React.MouseEvent) {
   e.stopPropagation();
@@ -74,13 +76,17 @@ export interface IGridProps<Data = any> {
   rowClassName?: GridRowClassNameType<Data>;
   pageInfo?: IGridPageInfo;
   paginationType?: GridPaginationType;
-  onRowClick?: IGridRowClickHander<Data>;
+  onRowClick?: IGridRowClickHandler<Data>;
   ellipsis?: boolean;
   onExpand?: IGridOnExpandHandler<Data>;
   components?: {
     row?: React.ComponentType;
   };
   rowProps?: (data: Data, index: number) => any;
+  batchRender?: IGridBatchRender;
+  stickyBatch?: boolean;
+  autoStick?: boolean;
+  autoStickOffsetTop?: number;
 }
 
 export interface IGridState {
@@ -89,6 +95,9 @@ export interface IGridState {
   fixedColumnsHeadRowsHeight: Array<number | string>;
   fixedColumnsBodyExpandRowsHeight: Array<number | string>;
   expandRowKeys: boolean[];
+  showStickHead: boolean;
+  tableWidth?: number;
+  marginLeft?: string;
 }
 
 export interface IGridInnerColumn<Data> extends IGridColumn<Data> {
@@ -113,24 +122,33 @@ export class Grid<Data = any> extends PureComponent<
     onRowClick: noop,
     ellipsis: false,
     onExpand: noop,
+    stickyBatch: false,
+    autoStick: false,
+    autoStickOffsetTop: 0,
   };
 
   mounted = false;
   checkboxPropsCache: {
     [key: string]: {
       disabled?: boolean;
+      reason?: React.ReactNode;
     };
   } = {};
   store: Store = new Store();
-  tableNode: HTMLDivElement | null = null;
-  bodyTable: HTMLDivElement | null = null;
-  leftBody: HTMLDivElement | null = null;
-  rightBody: HTMLDivElement | null = null;
-  scrollBody: HTMLDivElement | null = null;
-  scrollHeader: HTMLDivElement | null = null;
+  gridNode = React.createRef<HTMLDivElement>();
+  footNode = React.createRef<Footer>();
+  footEl: Element;
+  headerEl: Element;
+  headerNode = React.createRef<Header<Data>>();
+  bodyTable = React.createRef<HTMLDivElement>();
+  leftBody = React.createRef<HTMLDivElement>();
+  rightBody = React.createRef<HTMLDivElement>();
+  scrollBody = React.createRef<HTMLDivElement>();
+  scrollHeader = React.createRef<HTMLDivElement>();
   scrollPosition!: GridScrollPosition;
   lastScrollLeft!: number;
   lastScrollTop!: number;
+  stickyHead = React.createRef<HTMLDivElement>();
 
   constructor(props: IGridProps<Data>) {
     super(props);
@@ -138,7 +156,7 @@ export class Grid<Data = any> extends PureComponent<
     const expandRowKeys = this.getExpandRowKeys(props);
     this.store.setState({
       columns: this.getColumns(props, props.columns, expandRowKeys),
-      selectedRowKeys: get(props, 'selection.selectedRowKeys'),
+      selectedRowKeys: props?.selection?.selectedRowKeys,
     });
     this.setScrollPosition('both');
 
@@ -148,6 +166,9 @@ export class Grid<Data = any> extends PureComponent<
       fixedColumnsHeadRowsHeight: [],
       fixedColumnsBodyExpandRowsHeight: [],
       expandRowKeys,
+      showStickHead: false,
+      tableWidth: undefined,
+      marginLeft: undefined,
     };
   }
 
@@ -172,39 +193,35 @@ export class Grid<Data = any> extends PureComponent<
   }
 
   syncFixedTableRowHeight = () => {
-    if (!this.mounted || !this.tableNode) {
+    if (!this.mounted || !this.gridNode.current) {
       return;
     }
 
-    const tableRect = this.tableNode.getBoundingClientRect();
+    const tableRect = this.gridNode.current.getBoundingClientRect();
 
     if (tableRect.height !== undefined && tableRect.height <= 0) {
       return;
     }
 
-    const bodyRows =
-      (this.bodyTable &&
-        this.bodyTable.querySelectorAll(`tbody .${prefix}-grid-tr`)) ||
-      [];
-    const expandRows =
-      (this.bodyTable &&
-        this.bodyTable.querySelectorAll(
-          `tbody .${prefix}-grid-tr__expanded`
-        )) ||
-      [];
+    const bodyRows = this.bodyTable?.current?.querySelectorAll(
+      `tbody .${prefix}-grid-tr`
+    );
+    const expandRows = this.bodyTable?.current?.querySelectorAll(
+      `tbody .${prefix}-grid-tr__expanded`
+    );
     const headRows = this.scrollHeader
-      ? this.scrollHeader.querySelectorAll('thead')
-      : (this.bodyTable as HTMLDivElement).querySelectorAll('thead');
+      ? this.scrollHeader?.current?.querySelectorAll('thead')
+      : this.bodyTable?.current?.querySelectorAll('thead');
 
-    const fixedColumnsBodyRowsHeight = map(
+    const fixedColumnsBodyRowsHeight = mapDOMNodes(
       bodyRows,
       (row: Element) => row.getBoundingClientRect().height || 'auto'
     );
-    const fixedColumnsHeadRowsHeight = map(
+    const fixedColumnsHeadRowsHeight = mapDOMNodes(
       headRows,
       (row: Element) => row.getBoundingClientRect().height || 'auto'
     );
-    const fixedColumnsBodyExpandRowsHeight = map(
+    const fixedColumnsBodyExpandRowsHeight = mapDOMNodes(
       expandRows,
       (row: Element) => row.getBoundingClientRect().height || 'auto'
     );
@@ -234,7 +251,7 @@ export class Grid<Data = any> extends PureComponent<
   };
 
   onChange = (conf: IGridOnChangeConfig) => {
-    const params = assign({}, this.store.getState('conf'), conf);
+    const params = Object.assign({}, this.store.getState('conf'), conf);
     this.store.setState('conf');
     this.props.onChange && this.props.onChange(params);
   };
@@ -249,19 +266,18 @@ export class Grid<Data = any> extends PureComponent<
 
   getDataKey = (data: Data, rowIndex: number | string) => {
     const { rowKey } = this.props;
-    return rowKey ? get(data, rowKey) : rowIndex;
+    return rowKey ? data?.[rowKey] : rowIndex;
   };
 
   isAnyColumnsFixed = () => {
     return this.store.getState('isAnyColumnsFixed', () =>
-      some(this.store.getState('columns'), column => !!column.fixed)
+      (this.store.getState('columns') ?? []).some(column => !!column.fixed)
     );
   };
 
   isAnyColumnsLeftFixed = () => {
     return this.store.getState('isAnyColumnsLeftFixed', () =>
-      some(
-        this.store.getState('columns'),
+      (this.store.getState('columns') ?? []).some(
         column => column.fixed === 'left' || column.fixed === true
       )
     );
@@ -269,7 +285,9 @@ export class Grid<Data = any> extends PureComponent<
 
   isAnyColumnsRightFixed = () => {
     return this.store.getState('isAnyColumnsRightFixed', () =>
-      some(this.store.getState('columns'), column => column.fixed === 'right')
+      (this.store.getState('columns') ?? []).some(
+        column => column.fixed === 'right'
+      )
     );
   };
 
@@ -289,7 +307,7 @@ export class Grid<Data = any> extends PureComponent<
     e: React.MouseEvent<HTMLSpanElement>
   ) => {
     const { onExpand } = this.props;
-    const expandRowKeys = map(this.state.expandRowKeys, (row, index) =>
+    const expandRowKeys = (this.state.expandRowKeys ?? []).map((row, index) =>
       index === clickRow ? !row : row
     );
     this.store.setState({
@@ -298,7 +316,7 @@ export class Grid<Data = any> extends PureComponent<
     this.setState({
       expandRowKeys,
     });
-    if (isFunction(onExpand)) {
+    if (typeof onExpand === 'function') {
       onExpand({
         expanded: expandRowKeys[clickRow],
         data: rowData,
@@ -348,14 +366,14 @@ export class Grid<Data = any> extends PureComponent<
         const rowIndex = this.getDataKey(item, index);
 
         if (selection.getCheckboxProps) {
-          return !get(this.getCheckboxPropsByItem(item, rowIndex), 'disabled');
+          return !this.getCheckboxPropsByItem(item, rowIndex)?.disabled;
         }
         return true;
       });
 
-      const checkboxAllDisabled = every(data, (item, index) => {
+      const checkboxAllDisabled = data.every((item, index) => {
         const rowIndex = this.getDataKey(item, index);
-        return get(this.getCheckboxPropsByItem(item, rowIndex), 'disabled');
+        return this.getCheckboxPropsByItem(item, rowIndex)?.disabled;
       });
 
       const selectionColumn: IGridInnerColumn<Data> = {
@@ -406,10 +424,42 @@ export class Grid<Data = any> extends PureComponent<
     return columns;
   };
 
+  getBatchFixedStyle() {
+    if (!isBrowser) {
+      return {};
+    }
+    const el = ReactDom.findDOMNode(this.footNode.current) as Element;
+    if (el && this.props.stickyBatch) {
+      return {
+        width: el.getBoundingClientRect().width,
+      };
+    }
+    return {};
+  }
+
+  getBatchComponents = (position: 'header' | 'foot') => {
+    const { datasets, batchRender, selection, rowKey } = this.props;
+    return (
+      <BatchComponents
+        key="batch"
+        position={position}
+        store={this.store}
+        onSelect={this.handleBatchSelect}
+        datasets={datasets}
+        getDataKey={this.getDataKey}
+        prefix={prefix}
+        batchRender={batchRender}
+        selection={selection}
+        checkboxPropsCache={this.checkboxPropsCache}
+        rowKey={rowKey}
+      />
+    );
+  };
   getLeftFixedTable = () => {
     return this.getTable({
       columns: this.getLeftColumns(),
       fixed: 'left',
+      bodyRef: this.leftBody,
     });
   };
 
@@ -417,34 +467,34 @@ export class Grid<Data = any> extends PureComponent<
     return this.getTable({
       columns: this.getRightColumns(),
       fixed: 'right',
+      bodyRef: this.rightBody,
     });
   };
 
   setScrollPosition(position: GridScrollPosition) {
     this.scrollPosition = position;
 
-    if (this.tableNode) {
+    if (this.gridNode.current) {
+      const el = this.gridNode.current;
       if (position === 'both') {
-        this.tableNode.className = this.tableNode.className.replace(
+        el.className = el.className.replace(
           new RegExp(`${prefix}-grid-scroll-position-.+$`, 'gi'),
           ' '
         );
-        this.tableNode.classList.add(`${prefix}-grid-scroll-position-left`);
-        this.tableNode.classList.add(`${prefix}-grid-scroll-position-right`);
+        el.classList.add(`${prefix}-grid-scroll-position-left`);
+        el.classList.add(`${prefix}-grid-scroll-position-right`);
       } else {
-        this.tableNode.className = this.tableNode.className.replace(
+        el.className = el.className.replace(
           new RegExp(`${prefix}-grid-scroll-position-.+$`, 'gi'),
           ' '
         );
-        this.tableNode.classList.add(
-          `${prefix}-grid-scroll-position-${position}`
-        );
+        el.classList.add(`${prefix}-grid-scroll-position-${position}`);
       }
     }
   }
 
   setScrollPositionClassName() {
-    const node = this.bodyTable as HTMLDivElement;
+    const node = this.bodyTable?.current;
     const scrollToLeft = node.scrollLeft === 0;
     const scrollToRight =
       node.scrollLeft + 1 >=
@@ -461,49 +511,81 @@ export class Grid<Data = any> extends PureComponent<
     }
   }
 
-  handleBodyScroll = (e: React.UIEvent<HTMLDivElement>) => {
-    if (!this.mounted) {
-      return;
-    }
-
-    if (e.currentTarget !== e.target) {
-      return;
-    }
-    const target = e.target as HTMLDivElement;
-    const { scroll = {} } = this.props;
-    const scrollTop = target.scrollTop;
-    const { leftBody, rightBody, scrollBody } = this;
-
-    if (target.scrollLeft !== this.lastScrollLeft && scroll.x) {
-      if (this.scrollHeader && target === scrollBody) {
-        this.scrollHeader.scrollLeft = target.scrollLeft;
-      }
-      if (
-        this.scrollHeader &&
-        this.scrollBody &&
-        target === this.scrollHeader
-      ) {
-        this.scrollBody.scrollLeft = target.scrollLeft;
-      }
-      this.setScrollPositionClassName();
-    }
-    this.lastScrollLeft = target.scrollLeft;
-    if (target.scrollTop !== this.lastScrollTop && scroll.y) {
-      if (leftBody && target !== leftBody) {
-        leftBody.scrollTop = scrollTop;
-      }
-      if (rightBody && target !== rightBody) {
-        rightBody.scrollTop = scrollTop;
-      }
-      if (scrollBody && target !== scrollBody) {
-        scrollBody.scrollTop = scrollTop;
-      }
-
-      this.lastScrollTop = target.scrollTop;
+  forceScroll = (
+    target: EventTarget,
+    distance: number,
+    direction: 'Left' | 'Top'
+  ) => {
+    const scrollDirection = `scroll${direction}`;
+    if (target && target[scrollDirection] !== distance) {
+      target[scrollDirection] = distance;
     }
   };
 
-  onResize = debounce(this.syncFixedTableRowHeight, 500);
+  handleBodyScrollRunOnceNextFrame = runOnceInNextFrame(
+    (e: React.UIEvent<HTMLDivElement>) => {
+      if (!this.mounted) {
+        return;
+      }
+
+      const target = e.target as HTMLDivElement;
+      const { scroll = {}, autoStick } = this.props;
+      const { scrollTop, scrollLeft } = target;
+      const leftBody = this.leftBody?.current;
+      const rightBody = this.rightBody?.current;
+      const scrollHeader = this.scrollHeader?.current;
+      const stickyHead = this.stickyHead?.current;
+      const bodyTable = this.bodyTable?.current;
+
+      if (this.lastScrollLeft !== target.scrollLeft && scroll.x) {
+        if (scrollHeader && target === scrollHeader) {
+          this.forceScroll(bodyTable, scrollLeft, 'Left');
+          autoStick && this.forceScroll(stickyHead, scrollLeft, 'Left');
+        }
+
+        if (bodyTable && target === bodyTable) {
+          this.forceScroll(scrollHeader, scrollLeft, 'Left');
+          autoStick && this.forceScroll(stickyHead, scrollLeft, 'Left');
+        }
+
+        if (autoStick && target === stickyHead) {
+          this.forceScroll(bodyTable, scrollLeft, 'Left');
+          this.forceScroll(scrollHeader, scrollLeft, 'Left');
+        }
+        this.lastScrollLeft = scrollLeft;
+        this.setScrollPositionClassName();
+      }
+
+      if (this.lastScrollTop !== target.scrollTop && scroll.y) {
+        if (leftBody && target === leftBody) {
+          this.forceScroll(rightBody, scrollTop, 'Top');
+          this.forceScroll(bodyTable, scrollTop, 'Top');
+        }
+
+        if (rightBody && target === rightBody) {
+          this.forceScroll(leftBody, scrollTop, 'Top');
+          this.forceScroll(bodyTable, scrollTop, 'Top');
+        }
+
+        if (bodyTable && target === bodyTable) {
+          this.forceScroll(rightBody, scrollTop, 'Top');
+          this.forceScroll(leftBody, scrollTop, 'Top');
+        }
+        this.lastScrollTop = target.scrollTop;
+      }
+    }
+  );
+
+  handleBodyScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    e.persist();
+    this.handleBodyScrollRunOnceNextFrame(e);
+  };
+
+  onResize = () => {
+    this.syncFixedTableRowHeight();
+    this.toggleBatchComponents();
+    this.setStickyHeadWidth();
+  };
 
   onRowMouseEnter = (mouseOverRowIndex: number) => {
     this.setState({
@@ -515,6 +597,9 @@ export class Grid<Data = any> extends PureComponent<
     options: {
       columns?: Array<IGridInnerColumn<Data>>;
       fixed?: IGridInnerFixedType;
+      isStickyHead?: boolean;
+      headRef?: React.RefObject<HTMLDivElement>;
+      bodyRef?: React.RefObject<HTMLDivElement>;
     } = {}
   ) => {
     const {
@@ -531,7 +616,7 @@ export class Grid<Data = any> extends PureComponent<
       components,
       rowProps,
     } = this.props;
-    const { fixed } = options;
+    const { fixed, isStickyHead } = options;
     const columns = options.columns || this.store.getState('columns');
     const { expandRowKeys } = this.state;
     let tableClassName = '';
@@ -540,7 +625,7 @@ export class Grid<Data = any> extends PureComponent<
 
     if (fixed || scroll.x) {
       tableClassName = `${prefix}-grid-fixed`;
-      bodyStyle.overflowX = 'auto';
+      bodyStyle.overflowX = isStickyHead ? 'hidden' : 'auto';
     }
 
     if (!fixed && scroll.x) {
@@ -558,6 +643,7 @@ export class Grid<Data = any> extends PureComponent<
         sortBy={sortBy}
         defaultSortType={defaultSortType}
         fixedColumnsHeadRowsHeight={this.state.fixedColumnsHeadRowsHeight}
+        ref={this.headerNode}
       />
     );
 
@@ -573,7 +659,7 @@ export class Grid<Data = any> extends PureComponent<
         mouseOverRowIndex={this.state.mouseOverRowIndex}
         onRowMouseEnter={this.onRowMouseEnter}
         rowClassName={rowClassName}
-        onRowClick={onRowClick as IGridRowClickHander<Data>}
+        onRowClick={onRowClick as IGridRowClickHandler<Data>}
         fixed={fixed}
         scroll={scroll}
         expandRender={expandation && expandation.expandRender}
@@ -585,6 +671,7 @@ export class Grid<Data = any> extends PureComponent<
         rowProps={rowProps}
       />
     );
+
     const { y, x } = scroll;
 
     if (y) {
@@ -596,46 +683,48 @@ export class Grid<Data = any> extends PureComponent<
       };
       if (scrollbarWidth > 0) {
         headStyle.paddingBottom = 0;
-        if (!fixed && x) {
+        if (!fixed && this.isAnyColumnsFixed() && x) {
           headStyle.marginBottom = -scrollbarWidth;
+          headStyle.marginRight = scrollbarWidth;
         }
       } else {
         scrollBodyStyle.marginBottom = 0;
       }
-      return [
+      const table = [
         <div
           key="header"
-          className={`${prefix}-grid-header`}
+          className={classnames(`${prefix}-grid-header`, {
+            [`${prefix}-grid-sticky-header`]: options.isStickyHead,
+          })}
           style={headStyle}
-          ref={ref => {
-            if (!fixed) this.scrollHeader = ref;
-          }}
+          ref={options.headRef}
           onScroll={this.handleBodyScroll}
         >
           {header}
         </div>,
-        <div key="body-outer" className={`${prefix}-grid-body-outer`}>
-          <div
-            key="body"
-            className={`${prefix}-grid-body`}
-            style={scrollBodyStyle}
-            ref={ref => {
-              (this as any)[`${fixed || 'scroll'}Body`] = ref;
-              if (!fixed) this.bodyTable = ref;
-            }}
-            onScroll={this.handleBodyScroll}
-          >
-            {body}
-          </div>
-        </div>,
       ];
+
+      if (!options.isStickyHead) {
+        table.push(
+          <div key="body-outer" className={`${prefix}-grid-body-outer`}>
+            <div
+              key="body"
+              className={`${prefix}-grid-body`}
+              style={scrollBodyStyle}
+              ref={options.bodyRef}
+              onScroll={this.handleBodyScroll}
+            >
+              {body}
+            </div>
+          </div>
+        );
+      }
+      return table;
     }
     return [
       <div
         style={bodyStyle}
-        ref={ref => {
-          if (!fixed) this.bodyTable = ref;
-        }}
+        ref={options.bodyRef}
         onScroll={this.handleBodyScroll}
         key="table"
       >
@@ -647,16 +736,16 @@ export class Grid<Data = any> extends PureComponent<
         >
           <ColGroup columns={columns} />
           {header}
-          {body}
+          {options.isStickyHead ? null : body}
         </table>
       </div>,
     ];
   };
 
-  getEmpty = (i18n: Record<string, string>) => {
+  getEmpty = (i18n: II18nLocaleGrid) => {
     const { datasets, emptyLabel } = this.props;
 
-    if (size(datasets) === 0) {
+    if (!datasets || datasets.length === 0) {
       return (
         <div className={`${prefix}-grid-empty`} key="empty">
           {emptyLabel || i18n.emptyLabel}
@@ -681,14 +770,12 @@ export class Grid<Data = any> extends PureComponent<
 
   onSelectChange = (selectedRowKeys: string[], data: Data | Data[]) => {
     const { datasets, selection } = this.props;
-    const onSelect: IGridSelection<Data>['onSelect'] = get(
-      selection,
-      'onSelect'
-    );
+    const onSelect: IGridSelection<Data>['onSelect'] = selection?.onSelect;
 
-    if (isFunction(onSelect)) {
-      const selectedRows = (datasets || []).filter((row, i) =>
-        includes(selectedRowKeys, this.getDataKey(row, i))
+    if (typeof onSelect === 'function') {
+      const selectedRows = (datasets || []).filter(
+        (row, i) =>
+          (selectedRowKeys ?? []).indexOf(this.getDataKey(row, i)) !== -1
       );
       onSelect(selectedRowKeys, selectedRows, data);
     }
@@ -710,19 +797,21 @@ export class Grid<Data = any> extends PureComponent<
     this.onSelectChange(selectedRowKeys, data);
   };
 
-  handleBatchSelect: IGridSelctionAllCheckboxProps<Data>['onSelect'] = (
+  handleBatchSelect: IGridSelectionAllCheckboxProps<Data>['onSelect'] = (
     type,
     data
   ) => {
-    let selectedRowKeys = this.store.getState('selectedRowKeys').slice();
+    let selectedRowKeys = (
+      this.store.getState('selectedRowKeys') ?? []
+    ).slice();
 
     const changeRowKeys = [];
 
     switch (type) {
       case 'selectAll':
-        forEach(data, (key, index) => {
+        (data || []).forEach((key, index) => {
           const rowIndex = this.getDataKey(key, index);
-          if (!includes(selectedRowKeys, rowIndex)) {
+          if (selectedRowKeys.indexOf(rowIndex) === -1) {
             selectedRowKeys = selectedRowKeys.concat(rowIndex);
             changeRowKeys.push(rowIndex);
           }
@@ -732,7 +821,7 @@ export class Grid<Data = any> extends PureComponent<
         selectedRowKeys = (data || []).filter((key, index) => {
           const rowIndex = this.getDataKey(key, index);
           let rlt = true;
-          if (includes(selectedRowKeys, rowIndex)) {
+          if (selectedRowKeys.indexOf(rowIndex) !== -1) {
             rlt = false;
             changeRowKeys.push(key);
           }
@@ -745,8 +834,8 @@ export class Grid<Data = any> extends PureComponent<
 
     this.store.setState({ selectedRowKeys });
 
-    const changeRow = (data || []).filter((row, i) =>
-      includes(changeRowKeys, this.getDataKey(row, i))
+    const changeRow = (data || []).filter(
+      (row, i) => changeRowKeys.indexOf(this.getDataKey(row, i)) !== -1
     );
 
     this.onSelectChange(selectedRowKeys, changeRow);
@@ -758,9 +847,12 @@ export class Grid<Data = any> extends PureComponent<
       const props = this.getCheckboxPropsByItem(data, rowIndex);
 
       return (
-        <span onClick={stopPropagation}>
+        <span
+          onClick={stopPropagation}
+          className="zent-grid-selection-checkbox"
+        >
           <SelectionCheckbox
-            disabled={props.disabled}
+            {...props}
             rowIndex={rowIndex}
             store={this.store}
             onChange={(e: ICheckboxEvent<unknown>) =>
@@ -772,20 +864,135 @@ export class Grid<Data = any> extends PureComponent<
     };
   };
 
+  toggleBatchComponents = () => {
+    const isSupportFixed = this.props.stickyBatch && this.props.batchRender;
+    if (!this.mounted || !isSupportFixed) {
+      return;
+    }
+
+    if (!this.footEl) {
+      this.footEl = ReactDom.findDOMNode(this.footNode.current) as Element;
+    }
+
+    if (!this.headerEl) {
+      this.headerEl = ReactDom.findDOMNode(this.headerNode.current) as Element;
+    }
+
+    const isTableInView = isElementInView(this.gridNode.current);
+    const isHeaderInView = isElementInView(this.headerEl);
+    const isFootInView = isElementInView(this.footEl);
+
+    const batchNeedRenderFixed = needFixBatchComps(
+      isTableInView,
+      isHeaderInView,
+      isFootInView
+    );
+
+    const batchRenderFixed = this.store.getState('batchRenderFixed');
+    if (batchRenderFixed !== batchNeedRenderFixed) {
+      this.store.setState({
+        batchRenderFixed: batchNeedRenderFixed,
+        batchRenderFixedStyles: this.getBatchFixedStyle(),
+      });
+    }
+  };
+
+  onScroll = () => {
+    this.toggleBatchComponents();
+    const scrollLeft =
+      document.body.scrollLeft ||
+      document.documentElement.scrollLeft ||
+      window.pageXOffset;
+    if (this.props.autoStick) {
+      const isTableInView = isElementInView(this.gridNode.current);
+      const tableHeaderEl = ReactDom.findDOMNode(
+        this.headerNode.current
+      ) as Element;
+      let offset = 0;
+      if (tableHeaderEl && !offset) {
+        const { height } = tableHeaderEl.getBoundingClientRect();
+        offset = height;
+      }
+      const isHeaderInView = isElementInView(tableHeaderEl, offset);
+      this.setState({
+        showStickHead: !isHeaderInView && isTableInView,
+        marginLeft: `-${scrollLeft}px`,
+      });
+    }
+  };
+
+  getStickyHead = () => {
+    const content = [
+      this.getTable({
+        isStickyHead: true,
+        headRef: this.stickyHead,
+        bodyRef: this.stickyHead,
+      }),
+
+      this.isAnyColumnsLeftFixed() && (
+        <div className={`${prefix}-grid-fixed-left`} key="left-sticky-head">
+          {this.getTable({
+            columns: this.getLeftColumns(),
+            fixed: 'left',
+            isStickyHead: true,
+          })}
+        </div>
+      ),
+      this.isAnyColumnsRightFixed() && (
+        <div className={`${prefix}-grid-fixed-right`} key="right-sticky-head">
+          {this.getTable({
+            columns: this.getRightColumns(),
+            fixed: 'right',
+            isStickyHead: true,
+          })}
+        </div>
+      ),
+    ];
+
+    const style: React.CSSProperties = {
+      visibility: this.state.showStickHead ? 'visible' : 'hidden',
+      height: this.state.showStickHead ? 'auto' : 0,
+    };
+
+    return this.isAnyColumnsFixed() ? (
+      <div className={`${prefix}-grid-scroll`} style={style}>
+        {content}
+      </div>
+    ) : (
+      <div style={style}>{content}</div>
+    );
+  };
+
+  setStickyHeadWidth = () => {
+    if (this.props.autoStick && this.gridNode && this.gridNode.current) {
+      const { scroll } = this.props;
+      let { width } = this.gridNode.current.getBoundingClientRect();
+      if (scroll && scroll.x && scroll.y) {
+        width -= measureScrollbar();
+      }
+      this.setState({
+        tableWidth: width,
+      });
+    }
+  };
+
   componentDidMount() {
     this.mounted = true;
     this.setScrollPositionClassName();
     if (this.isAnyColumnsFixed()) {
       this.syncFixedTableRowHeight();
     }
+    this.setStickyHeadWidth();
   }
 
   componentWillUnmount() {
     this.mounted = false;
   }
 
+  // 等重构再删了吧，改不动
+  // eslint-disable-next-line react/no-deprecated
   componentWillReceiveProps(nextProps: IGridProps<Data>) {
-    if (nextProps.selection && has(nextProps.selection, 'selectedRowKeys')) {
+    if (nextProps.selection?.hasOwnProperty('selectedRowKeys')) {
       this.store.setState({
         selectedRowKeys: nextProps.selection.selectedRowKeys || [],
         columns: this.getColumns(nextProps),
@@ -807,7 +1014,7 @@ export class Grid<Data = any> extends PureComponent<
     }
 
     if (
-      has(nextProps, 'datasets') &&
+      nextProps.hasOwnProperty('datasets') &&
       nextProps.datasets !== this.props.datasets
     ) {
       this.checkboxPropsCache = {};
@@ -828,7 +1035,24 @@ export class Grid<Data = any> extends PureComponent<
   }
 
   render() {
-    const { loading, pageInfo = {}, paginationType, bordered } = this.props;
+    const {
+      loading,
+      pageInfo = {},
+      paginationType,
+      bordered,
+      autoStick,
+      autoStickOffsetTop,
+    } = this.props;
+    const { marginLeft, tableWidth, showStickHead } = this.state;
+
+    const stickHeadWarpStyle: React.CSSProperties = {};
+
+    if (autoStick) {
+      stickHeadWarpStyle.width = tableWidth;
+      stickHeadWarpStyle.marginLeft = marginLeft;
+      stickHeadWarpStyle.visibility = showStickHead ? 'visible' : 'hidden';
+    }
+
     let className = `${prefix}-grid`;
     const borderedClassName = bordered ? `${prefix}-grid-bordered` : '';
     className = classnames(className, this.props.className, borderedClassName);
@@ -848,17 +1072,22 @@ export class Grid<Data = any> extends PureComponent<
 
     return (
       <Receiver componentName="Grid">
-        {i18n => {
+        {(i18n: II18nLocaleGrid) => {
           const content = [
-            this.getTable(),
+            this.getTable({
+              headRef: this.scrollHeader,
+              bodyRef: this.bodyTable,
+            }),
             this.getEmpty(i18n),
             <Footer
+              ref={this.footNode}
               key="footer"
               prefix={prefix}
               pageInfo={pageInfo}
               paginationType={paginationType as GridPaginationType}
               onChange={this.onChange}
               onPaginationChange={this.onPaginationChange}
+              batchComponents={this.getBatchComponents('foot')}
             />,
           ];
 
@@ -869,8 +1098,19 @@ export class Grid<Data = any> extends PureComponent<
           );
 
           return (
-            <div className={className} ref={node => (this.tableNode = node)}>
+            <div className={className} ref={this.gridNode}>
+              {this.getBatchComponents('header')}
               <BlockLoading loading={loading}>
+                {autoStick && (
+                  <div
+                    style={stickHeadWarpStyle}
+                    className="zent-grid-sticky-header-warp"
+                  >
+                    <Affix offsetTop={autoStickOffsetTop}>
+                      {this.getStickyHead()}
+                    </Affix>
+                  </div>
+                )}
                 {scrollTable}
                 {this.isAnyColumnsLeftFixed() && (
                   <div className={`${prefix}-grid-fixed-left`}>
@@ -884,6 +1124,10 @@ export class Grid<Data = any> extends PureComponent<
                 )}
               </BlockLoading>
               <WindowResizeHandler onResize={this.onResize} />
+              <WindowScrollHandler
+                onScroll={this.onScroll}
+                options={{ capture: true }}
+              />
             </div>
           );
         }}

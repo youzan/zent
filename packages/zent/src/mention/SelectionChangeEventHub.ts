@@ -2,50 +2,67 @@
  * selectionchange event is really wired on Firefox(testing on v59), we use click instead.
  */
 
-import findIndex from 'lodash-es/findIndex';
-import isEmpty from 'lodash-es/isEmpty';
 import isFirefox from '../utils/isFirefox';
+import { addEventListener } from '../utils/component/event-handler';
 
 const gEventRegistered = false;
 const subscriberList = [];
+let cancelEvent = null as () => void;
 
 export function install(config) {
   if (!gEventRegistered) {
     if (isFirefox) {
-      document.addEventListener('click', onDocumentSelectionChange, true);
+      cancelEvent = addEventListener(
+        document,
+        'click',
+        onDocumentSelectionChange,
+        {
+          capture: true,
+          passive: true,
+        }
+      );
     } else {
-      document.addEventListener('selectionchange', onDocumentSelectionChange);
+      cancelEvent = addEventListener(
+        document,
+        'selectionchange',
+        onDocumentSelectionChange,
+        { passive: true }
+      );
     }
   }
 
-  const idx = findIndex(subscriberList, config);
+  const idx = findSubscriberIndex(config);
   if (idx === -1) {
     subscriberList.push(config);
   }
 }
 
 export function uninstall(config) {
-  const idx = findIndex(subscriberList, config);
+  const idx = findSubscriberIndex(config);
+  if (idx === -1) {
+    return;
+  }
+
   subscriberList.splice(idx, 1);
 
-  if (isEmpty(subscriberList)) {
-    if (isFirefox) {
-      document.removeEventListener('click', onDocumentSelectionChange, true);
-    } else {
-      document.removeEventListener(
-        'selectionchange',
-        onDocumentSelectionChange
-      );
-    }
+  if (subscriberList.length === 0) {
+    cancelEvent();
   }
 }
 
 function onDocumentSelectionChange(evt) {
   const { activeElement } = document;
-  const matchedSubscriberIndex = findIndex(subscriberList, {
+  const matchedSubscriberIndex = findSubscriberIndex({
     node: activeElement,
   } as any);
   if (matchedSubscriberIndex !== -1) {
     subscriberList[matchedSubscriberIndex].callback(evt);
   }
+}
+
+function findSubscriberIndex(config) {
+  const keys = Object.keys(config);
+  return subscriberList.findIndex(item =>
+    keys.every(k => item[k] === config[k])
+  );
 }

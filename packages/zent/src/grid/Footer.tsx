@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
 import classnames from 'classnames';
-import size from 'lodash-es/size';
 import Pagination from '../pagination';
 import LitePagination from '../pagination/LitePagination';
 import {
@@ -23,12 +22,13 @@ export interface IGridFooterProps {
   paginationType: GridPaginationType;
   onChange: (conf: IGridOnChangeConfig) => any;
   onPaginationChange: (pageSize: number, current: number) => any;
+  batchComponents: React.ReactNode;
 }
 
 class Footer extends PureComponent<IGridFooterProps> {
   hasPagination(props?: IGridFooterProps) {
     const { pageInfo } = props || this.props;
-    return pageInfo && size(pageInfo);
+    return pageInfo && Object.keys(pageInfo).length > 0;
   }
 
   getDefaultPagination(props?: IGridFooterProps) {
@@ -55,6 +55,7 @@ class Footer extends PureComponent<IGridFooterProps> {
     if (curPageInfo) {
       return (
         <div className={`${prefix}-grid-tfoot`}>
+          {this.props.batchComponents}
           <div className={classnames(`${prefix}-grid-tfoot-page`)}>
             {paginationType === 'default' && (
               <Pagination {...curPageInfo} onChange={this.handlePageChange} />

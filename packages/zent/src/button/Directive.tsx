@@ -10,6 +10,7 @@ export interface IButtonDirectiveChildProps {
   className?: string;
   onClick?: React.MouseEventHandler;
   children?: React.ReactNode;
+  'data-zv'?: string;
 }
 
 export type IButtonSize = 'medium' | 'large' | 'small';
@@ -88,8 +89,12 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
     {
       className,
       onClick,
+      'data-zv': __ZENT_VERSION__,
     } as Partial<ChildProps>,
     iconNode,
-    ...React.Children.toArray(children.props.children)
+    // Wrap text in a `span`, or we won't be able to control icon margins
+    ...(React.Children.map(children.props.children, child =>
+      typeof child === 'string' ? <span>{child}</span> : child
+    ) || [])
   );
 }

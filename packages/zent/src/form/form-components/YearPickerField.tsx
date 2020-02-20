@@ -11,9 +11,7 @@ export type IFormYearPickerFieldProps = IFormComponentProps<
   Omit<IYearPickerProps, 'value'>
 >;
 
-export const FormYearPickerField: React.FunctionComponent<
-  IFormYearPickerFieldProps
-> = props => {
+export const FormYearPickerField: React.FunctionComponent<IFormYearPickerFieldProps> = props => {
   return (
     <FormField
       {...props}

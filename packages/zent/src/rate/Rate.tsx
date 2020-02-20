@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react';
 import classNames from 'classnames';
-import Icon from '../icon';
+import StarIcon from './star-icon';
 
 import Star from './Star';
 import { DisabledContext, IDisabledContext } from '../disabled';
@@ -41,7 +41,7 @@ export class Rate extends Component<IRateProps, IRateState> {
     allowHalf: false,
     allowClear: true,
     prefix: 'zent',
-    character: <Icon type="star" />,
+    character: <StarIcon className="zent-rate-star-icon" />,
     readOnly: false,
   };
 

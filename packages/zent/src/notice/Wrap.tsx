@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { isElement } from 'react-is';
-import nextFrame from '../utils/nextFrame';
+import { runInNextFrame } from '../utils/nextFrame';
 import { instanceMap } from './Container';
 
 export interface INoticeWrapProps {
@@ -61,7 +61,7 @@ export default class NoticeWrap extends React.Component<
   private onExited = () => {
     const el = this.elementRef.current!;
     el.style.height = `${el.clientHeight}px`;
-    nextFrame(() => (el.style.height = '0'));
+    runInNextFrame(() => (el.style.height = '0'));
     setTimeout(() => {
       const { onExited, id } = this.props;
       onExited(id);

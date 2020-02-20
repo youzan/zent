@@ -181,6 +181,7 @@ describe('ColorPicker', () => {
     expect(div.length).toBe(1);
 
     const e = {
+      persist: () => {},
       preventDefault: () => {},
       pageX: 1,
       pageY: 2,
@@ -211,6 +212,7 @@ describe('ColorPicker', () => {
     const wrapper = mount(<Saturation {...red} onChange={handleChange} />);
 
     const e = {
+      persist: () => {},
       preventDefault: () => {},
       pageX: 1,
       pageY: 2,
@@ -843,9 +845,9 @@ describe('ColorPicker', () => {
         };
       },
     };
-    expect(saturation.calculateChange(e, true, props, container)).toMatchObject(
-      { a: 1 }
-    );
+    expect(
+      saturation.calculateChange(e, true, props, container)
+    ).toMatchObject({ a: 1 });
   });
 
   it('check helpers func saturation other branch', () => {
@@ -873,9 +875,9 @@ describe('ColorPicker', () => {
         };
       },
     };
-    expect(saturation.calculateChange(e, true, props, container)).toMatchObject(
-      { a: 1 }
-    );
+    expect(
+      saturation.calculateChange(e, true, props, container)
+    ).toMatchObject({ a: 1 });
   });
 
   it('check helpers func saturation other branch', () => {
@@ -903,9 +905,9 @@ describe('ColorPicker', () => {
         };
       },
     };
-    expect(saturation.calculateChange(e, true, props, container)).toMatchObject(
-      { a: 1 }
-    );
+    expect(
+      saturation.calculateChange(e, true, props, container)
+    ).toMatchObject({ a: 1 });
   });
 
   it('check helpers func saturation other branch', () => {

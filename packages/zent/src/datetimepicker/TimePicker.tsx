@@ -12,8 +12,11 @@ import MinutePanel from './time/MinutePanel';
 import SecondPanel from './time/SecondPanel';
 import PanelFooter from './common/PanelFooter';
 import { formatDate, parseDate, dayStart, padLeft } from './utils';
-import { timeFnMap, noop, popPositionMap, commonProps } from './constants';
+import { timeFnMap, popPositionMap, commonProps } from './constants';
 import { DatePickers } from './common/types';
+import Icon from '../icon';
+import noop from '../utils/noop';
+import warning from '../utils/warning';
 
 const DEFAULT_FORMAT = 'HH:mm:ss';
 const DEFAULT_FORMAT_WITHOUT_SECOND = 'HH:mm';
@@ -50,7 +53,7 @@ function extractStateFromProps(props: ITimePickerProps): ITimePickerState {
   if (value) {
     parsedDate = parseDate(value, getFormat(props));
     if (!parsedDate) {
-      console.warn('time and format mismatch'); // eslint-disable-line
+      warning(false, 'time and format mismatch');
     }
   } else {
     // 利用传入的format解析value，失败则返回默认值
@@ -65,7 +68,7 @@ function extractStateFromProps(props: ITimePickerProps): ITimePickerState {
 }
 
 export interface ITimePickerProps extends DatePickers.ICommonProps {
-  isFooterVisble?: boolean;
+  isFooterVisible?: boolean;
   showSecond?: boolean;
   hourStep?: number;
   minuteStep?: number;
@@ -90,7 +93,7 @@ export class TimePicker extends PureComponent<
     ...commonProps,
     placeholder: '',
     format: 'HH:mm:ss',
-    isFooterVisble: true,
+    isFooterVisible: true,
     hourStep: 1,
     minuteStep: 1,
     secondStep: 1,
@@ -388,7 +391,7 @@ export class TimePicker extends PureComponent<
           <div className="time-picker-panel__content">
             {this.renderPanelContent(i18n)}
           </div>
-          {this.props.isFooterVisble ? (
+          {this.props.isFooterVisible ? (
             <div className="time-picker-panel__footer">
               <PanelFooter
                 buttonText={confirmText || i18n.confirm}
@@ -466,11 +469,12 @@ export class TimePicker extends PureComponent<
                     disabled={disabled}
                     autoComplete={autoComplete}
                   />
-                  <span className="zenticon zenticon-clock-o" />
+                  <Icon className="picker-input--icon" type="clock-o" />
                   {canClear && (
-                    <span
+                    <Icon
+                      className="picker-input--icon"
+                      type="close-circle"
                       onClick={this.onClearInput}
-                      className="zenticon zenticon-close-circle"
                     />
                   )}
                 </div>

@@ -54,8 +54,8 @@ group: 数据
 | autoWidth | 是否自动设置弹出层与输入框等宽 | bool | `false` | 否 |
 | resetOption | 是否加入一个重置选项 | bool | `false` | 否 |
 | resetText | 重置选项文本 | string | `'...'` | 否 |
+| retainNullOption | 开启后可以选中值为 `null` 的选项；不能和 `resetOption` 同时使用 | bool | `false` | 否 |
 | width |  输入框宽度 | string or number |  | 否 |
-| prefix | 自定义前缀 | string | `'zent'` | 否 |
 
 如果 `data` 和 `children` 两种方式同时使用，`data` 会将 `children` 覆盖，主要是为了可以接收异步数据直接改变 `data` 属性来改变选项。
 

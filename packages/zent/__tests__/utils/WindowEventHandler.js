@@ -9,7 +9,11 @@ describe('WindowEventHandler', () => {
   it('should bind event handler to window', () => {
     const onClick = jest.fn();
     const wrapper = mount(
-      <WindowEventHandler eventName="click" callback={onClick} useCapture />
+      <WindowEventHandler
+        eventName="click"
+        listener={onClick}
+        options={{ capture: true }}
+      />
     );
 
     const evt = new MouseEvent('click');

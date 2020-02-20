@@ -1,7 +1,7 @@
 import * as React from 'react';
 import cx from 'classnames';
 
-import { I18nReceiver as Receiver } from '../i18n';
+import { I18nReceiver as Receiver, II18nLocaleSweetalert } from '../i18n';
 import Dialog from '../dialog';
 import Icon from '../icon';
 
@@ -69,7 +69,7 @@ function sweet(
   // close 的引用地址，后续会指向函数的返回值，供 ActionButton 调用。
   let close = null;
 
-  const renderTitle = i18n => {
+  const renderTitle = (i18n: II18nLocaleSweetalert) => {
     const icon = TitleIconMap[type];
     return (
       <div className={`${prefix}-sweetalert-${type ? 'icon-' : ''}title`}>
@@ -81,7 +81,7 @@ function sweet(
     );
   };
 
-  const renderButtons = i18n => {
+  const renderButtons = (i18n: II18nLocaleSweetalert) => {
     const isAlert = sweetType === 'alert';
     return (
       <div className={`sweet-${sweetType}-actions`}>
@@ -134,6 +134,7 @@ export function confirm(config: Sweetalert.IConfirmOption = {}) {
   return sweet(config, 'confirm');
 }
 
+// eslint-disable-next-line no-redeclare
 export const Sweetalert = {
   alert,
   info,

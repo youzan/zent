@@ -14,10 +14,10 @@ import {
   FieldValue,
   FieldSetValue,
   useFieldArrayValue,
-  BasicModel,
   ValidateOption,
   createAsyncValidator,
   isAsyncValidator,
+  useFieldValue,
 } from 'formulr';
 import memorize from '../utils/memorize-one';
 import { FormContext, IFormChild, IZentFormContext } from './context';
@@ -33,10 +33,7 @@ export {
   IFormFieldModelProps,
   isViewDrivenProps,
   ValidateOccasion,
-  IFormFieldPropsBase,
-  IFormFieldProps,
   IFormComponentProps,
-  IFormFieldChildProps,
 } from './shared';
 
 function makeContext(
@@ -49,32 +46,47 @@ function makeContext(
   };
 }
 
-export interface IFormProps<
-  T extends Record<string, BasicModel<unknown>> = any
->
+export interface IFormProps<T extends {}>
   extends Omit<
     React.FormHTMLAttributes<HTMLFormElement>,
     'onSubmit' | 'dangerouslySetInnerHTML'
   > {
-  layout: 'horizontal' | 'vertical';
+  /**
+   * 表单布局，支持水平布局和垂直布局
+   * @defaultValue `'vertical'`
+   */
+  layout?: 'horizontal' | 'vertical';
   /**
    * `useForm`得到的`model`
    */
   form: ZentForm<T>;
+  /**
+   * 禁用表单输入，开启后表单内所有元素不可编辑。注意：自定义组件需要自己实现禁用逻辑和展示
+   */
   disabled?: boolean;
+  /**
+   * 表单校验报错时自动滚动到第一个错误的位置
+   */
   scrollToError?: boolean;
   /**
-   * 表单提交，`form.submit`或者原生的`DOM`触发的`submit`事件都会触发`onSubmit`
+   * 表单提交回调函数，`form.submit` 或者原生的 `DOM` 触发的 `submit` 事件都会触发 `onSubmit`
    */
-  onSubmit?: (form: ZentForm<T>, e?: React.SyntheticEvent) => void;
+  onSubmit?: (form: ZentForm<T>, e?: React.SyntheticEvent) => Promise<void>;
+  /**
+   * 表单提交失败时的回调函数
+   */
   onSubmitFail?: (e: unknown) => void;
+  /**
+   * 表单提交成功时的回调函数
+   */
   onSubmitSuccess?: () => void;
+  /**
+   * 禁用表单内 `input` 元素的回车提交功能
+   */
   disableEnterSubmit?: boolean;
 }
 
-export class Form<
-  T extends Record<string, BasicModel<unknown>> = any
-> extends React.Component<IFormProps<T>> {
+export class Form<T extends {}> extends React.Component<IFormProps<T>> {
   static displayName = 'ZentForm';
 
   static CombineErrors = CombineErrors;
@@ -89,6 +101,7 @@ export class Form<
   static FieldValue = FieldValue;
   static FieldSetValue = FieldSetValue;
   static useFieldArrayValue = useFieldArrayValue;
+  static useFieldValue = useFieldValue;
   static ValidateOption = ValidateOption;
   static createAsyncValidator = createAsyncValidator;
   static isAsyncValidator = isAsyncValidator;
@@ -129,7 +142,18 @@ export class Form<
     if (!onSubmit) {
       return;
     }
+
+    const success = () => {
+      onSubmitSuccess && onSubmitSuccess();
+      form.submitSuccess();
+    };
+    const fail = (error: unknown) => {
+      onSubmitFail && onSubmitFail(error);
+      form.submitError();
+    };
+
     try {
+      form.submitStart();
       await form.validate(
         ValidateOption.IncludeAsync |
           ValidateOption.IncludeChildrenRecursively |
@@ -137,14 +161,13 @@ export class Form<
       );
       if (!form.isValid()) {
         scrollToError && this.scrollToFirstError();
+        fail(new Error('Form validation failed'));
         return;
       }
       await onSubmit(form, e);
-      onSubmitSuccess && onSubmitSuccess();
-      form.submitSuccess();
+      success();
     } catch (error) {
-      onSubmitFail && onSubmitFail(error);
-      form.submitError(error);
+      fail(error);
     }
   }
 
@@ -166,12 +189,12 @@ export class Form<
     this.submit(e);
   };
 
-  private listenEvents() {
+  private subscribe() {
     const { form } = this.props;
     this.subscription = form.submit$.subscribe(this.submitListener);
   }
 
-  private removeEventListeners() {
+  private unsubscribe() {
     if (this.subscription) {
       this.subscription.unsubscribe();
       this.subscription = null;
@@ -179,18 +202,18 @@ export class Form<
   }
 
   componentDidMount() {
-    this.listenEvents();
+    this.subscribe();
   }
 
   componentDidUpdate(prevProps: IFormProps<T>) {
     if (prevProps.form !== this.props.form) {
-      this.removeEventListeners();
-      this.listenEvents();
+      this.unsubscribe();
+      this.subscribe();
     }
   }
 
   componentWillUnmount() {
-    this.removeEventListeners();
+    this.unsubscribe();
   }
 
   render() {

@@ -24,10 +24,10 @@ group: 数据
 | changeOnSelect | 是否选择即触发改变 | boolean | false | '' |
 | expandTrigger | 次级菜单的展开方式，可选 'click' 和 'hover'， 只针对type='menu' | string | 'click' | 'hover' |
 | placeholder | 输入框占位文本 | string | '请选择' | '' |
-| prefix | 自定义前缀 | string | 'zent' | '' |
 | className | 自定义额外类名 | string | '' | '' |
 | popClassName | popover自定义类名 | string | ''zent-cascader__popup'' | '' |
 | displayText | 用于自定义选中展示文字的函数, selectedOptionArray => text | func | - | |
+| disabled | 是否禁用 | boolean | false | true |
 
 -   级联数据可以通过初始时传入全量 `options	` ，也可以通过 `loadMore` 动态加载
 -   通过 `loadMore` 加载数据时，参数 `root` 表示当前点击元素的数据对象，`stage` 表示当前是第几层级

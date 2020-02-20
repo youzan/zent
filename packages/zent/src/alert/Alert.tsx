@@ -1,12 +1,11 @@
 import * as React from 'react';
 import cx from 'classnames';
-import isNil from 'lodash-es/isNil';
-import omit from 'lodash-es/omit';
 import { AlertTypes } from './types';
 import Icon, { IconType } from '../icon';
 import InlineLoading from '../loading/InlineLoading';
 import { Omit } from 'utility-types';
-import { ParticalRequired } from '../utils/types';
+import { PartialRequired } from '../utils/types';
+import omit from '../utils/omit';
 
 export interface IAlertProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
@@ -35,7 +34,7 @@ const iconTypeMap: {
   error: 'error-circle',
 };
 
-type IAlertInnerProps = ParticalRequired<
+type IAlertInnerProps = PartialRequired<
   IAlertProps,
   'type' | 'loading' | 'outline' | 'closable'
 >;
@@ -69,7 +68,7 @@ export class Alert extends React.PureComponent<IAlertProps, IAlertState> {
    */
   private get isControlled() {
     const { closed } = this.props;
-    const hasClosed = !isNil(closed);
+    const hasClosed = closed !== undefined;
     return hasClosed;
   }
 

@@ -27,12 +27,6 @@ describe('Cascader', () => {
     wrapper.unmount();
   });
 
-  it('can have custom prefix', () => {
-    const wrapper = mount(<Cascader prefix="rc" />);
-    expect(wrapper.find('.rc-cascader').length).toBe(1);
-    wrapper.unmount();
-  });
-
   it('can have custom className', () => {
     const wrapper = mount(<Cascader className="rc-cascader-custom" />);
     expect(wrapper.hasClass('rc-cascader-custom')).toBe(true);
@@ -192,7 +186,9 @@ describe('Cascader', () => {
     wrapper.find('.zent-cascader__select').simulate('click');
     jest.runAllTimers();
 
-    expect(wrapper.find('.zent-cascader').hasClass('open')).toBe(true);
+    expect(wrapper.find('.zent-cascader').hasClass('zent-cascader--open')).toBe(
+      true
+    );
     const allTabs = document.querySelectorAll('.zent-tabs-tab');
     expect(allTabs.length).toBe(3);
     expect(allTabs[0].textContent).toBe('省份');
@@ -205,7 +201,7 @@ describe('Cascader', () => {
 
     simulateWithTimers(wrapper.find('.zent-cascader__select'), 'click');
     wrapper.update();
-    expect(wrapper.hasClass('open')).toBe(false);
+    expect(wrapper.hasClass('zent-cascader--open')).toBe(false);
     wrapper.unmount();
   });
 
@@ -529,6 +525,77 @@ describe('Cascader', () => {
       pop.querySelectorAll('.zent-cascader__menu-item')[0],
       'click'
     );
+
+    wrapper.unmount();
+  });
+
+  it('is disabled', () => {
+    const wrapper = mount(<Cascader disabled />);
+    expect(
+      wrapper.find('.zent-cascader').hasClass('zent-cascader--disabled')
+    ).toBe(true);
+    wrapper.unmount();
+  });
+
+  it('pass raw value when onChange emitted', done => {
+    const value = [];
+    const options = [
+      {
+        id: 1,
+        title: 'root',
+        extra: 'root',
+        children: [
+          {
+            id: 2,
+            title: 'son',
+            extra: 'son',
+            children: [
+              {
+                id: 3,
+                title: 'grandSon',
+                extra: 'grandSon',
+              },
+            ],
+          },
+          {
+            id: 4,
+            title: 'anotherSon',
+            extra: 'anotherSon',
+            children: [
+              {
+                id: 5,
+                title: 'anotherGrandSon',
+                extra: 'anotherGrandSon',
+              },
+            ],
+          },
+        ],
+      },
+    ];
+    const onChange = data => {
+      expect(data.every(item => item.extra)).toBe(true);
+      done();
+    };
+
+    const wrapper = mount(
+      <Cascader
+        changeOnSelect
+        value={value}
+        options={options}
+        onChange={onChange}
+      />
+    );
+
+    wrapper.find('.zent-cascader__select').simulate('click');
+    jest.runAllTimers();
+
+    const pop = document.querySelector('.zent-popover-content');
+
+    simulateRawWithTimers(
+      pop.querySelectorAll('.zent-cascader__list-link')[0],
+      'click'
+    );
+    wrapper.update();
 
     wrapper.unmount();
   });

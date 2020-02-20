@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
 import classnames from 'classnames';
-import forEach from 'lodash-es/forEach';
 
 import ColGroup from './ColGroup';
 import {
@@ -26,13 +25,21 @@ export interface IGridHeaderProps<Data> {
   scroll: IGridScrollDelta;
 }
 
-interface IGridHeaderState<Data> {
-  rows: Array<Array<IGridInnerColumn<Data>>>;
+interface IHeaderCell {
+  key: string | number;
+  className: string;
+  children?: React.ReactNode;
+  colSpan?: number;
+  rowSpan?: number;
+}
+
+interface IGridHeaderState<> {
+  rows: Array<Array<IHeaderCell>>;
 }
 
 class Header<Data> extends PureComponent<
   IGridHeaderProps<Data>,
-  IGridHeaderState<Data>
+  IGridHeaderState
 > {
   constructor(props: IGridHeaderProps<Data>) {
     super(props);
@@ -100,7 +107,7 @@ class Header<Data> extends PureComponent<
     passProps?: IGridHeaderProps<Data>,
     columns?: Array<IGridInnerColumn<Data>>,
     currentRow = 0,
-    rows: Array<Array<IGridInnerColumn<Data>>> = []
+    rows: Array<Array<IHeaderCell>> = []
   ) => {
     const props = passProps || this.props;
     const { prefix, columns: propsColumns } = props;
@@ -108,7 +115,7 @@ class Header<Data> extends PureComponent<
     columns = columns || propsColumns;
     rows[currentRow] = rows[currentRow] || [];
 
-    forEach(columns, (column, index) => {
+    (columns || []).forEach((column, index) => {
       if (column.rowSpan && rows.length < column.rowSpan) {
         while (rows.length < column.rowSpan) {
           rows.push([]);
@@ -123,11 +130,13 @@ class Header<Data> extends PureComponent<
         nowrap,
         textAlign,
       } = column;
-      const cell: any = {
+      const cell: IHeaderCell = {
         key: name || key || index,
         className: classnames(`${prefix}-grid-th`, className, {
           [`${prefix}-grid-text-align-${textAlign}`]: textAlign,
           [`${prefix}-grid-nowrap`]: nowrap,
+          [`${prefix}-grid-th-selection`]: key === 'selection-column',
+          [`${prefix}-grid-th-expand`]: key === 'expand-column',
         }),
         children: this.getChildren(column, props),
       };
@@ -160,6 +169,8 @@ class Header<Data> extends PureComponent<
     this.subscribe();
   }
 
+  // 等重构再删了吧，改不动
+  // eslint-disable-next-line react/no-deprecated
   componentWillReceiveProps(nextProps: IGridHeaderProps<Data>) {
     if (
       nextProps.columns !== this.props.columns ||
@@ -199,8 +210,8 @@ class Header<Data> extends PureComponent<
                 height,
               }}
             >
-              {row.map(props => (
-                <th {...(props as any)} />
+              {row.map(({ key, ...props }) => (
+                <th key={key} {...(props as any)} />
               ))}
             </tr>
           );

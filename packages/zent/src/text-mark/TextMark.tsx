@@ -26,7 +26,6 @@
 
 import * as React from 'react';
 import cx from 'classnames';
-import assign from 'lodash-es/assign';
 import {
   findAll,
   TextMarkFindChunksFunction,
@@ -36,21 +35,21 @@ import {
 import memoizeOne from '../utils/memorize-one';
 
 export interface ITextMarkProps extends React.HTMLAttributes<HTMLSpanElement> {
-  activeClassName: string;
-  activeIndex: number;
-  activeStyle: React.CSSProperties;
-  highlightClassName: string | { [key: string]: string };
-  highlightStyle: React.CSSProperties;
-  unhighlightClassName: string;
-  unhighlightStyle: React.CSSProperties;
-  highlightTag: React.ElementType;
-  sanitize: TextMarkSanitizeFunction;
+  activeClassName?: string;
+  activeIndex?: number;
+  activeStyle?: React.CSSProperties;
+  highlightClassName?: string | { [key: string]: string };
+  highlightStyle?: React.CSSProperties;
+  unhighlightClassName?: string;
+  unhighlightStyle?: React.CSSProperties;
+  highlightTag?: React.ElementType;
+  sanitize?: TextMarkSanitizeFunction;
   searchWords: TextMarkSearchWords[];
   textToHighlight: string;
-  autoEscape: boolean;
-  caseSensitive: boolean;
-  className: string;
-  findChunks: TextMarkFindChunksFunction;
+  autoEscape?: boolean;
+  caseSensitive?: boolean;
+  className?: string;
+  findChunks?: TextMarkFindChunksFunction;
 }
 
 function lowercaseProps(object: { [key: string]: any }) {
@@ -129,7 +128,7 @@ export function TextMark({
           });
           highlightStyles =
             isActive === true && activeStyle != null
-              ? assign({}, highlightStyle, activeStyle)
+              ? { ...highlightStyle, ...activeStyle }
               : highlightStyle;
 
           // Don't attach arbitrary props to DOM elements; this triggers React DEV warnings (https://fb.me/react-unknown-prop)

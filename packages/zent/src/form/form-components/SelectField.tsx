@@ -13,7 +13,7 @@ import {
   IFormFieldModelDrivenProps,
   ValidateOccasion,
   defaultRenderError,
-  asFormChild,
+  useFormChild,
 } from '../shared';
 import Select, { ISelectProps } from '../../select';
 import { FormNotice } from '../Notice';
@@ -22,29 +22,24 @@ import { FormControl } from '../Control';
 import { $MergeParams } from '../utils';
 import { defaultGetValidateOption } from '../Field';
 
-export type IFormSelectFieldProps<T> = Omit<
-  IFormComponentProps<
-    T | T[],
-    Omit<ISelectProps, 'value' | 'tags' | 'onChange'>
-  >,
-  'normalize' | 'format'
-> & {
-  tags?: boolean;
-  data: any[];
-};
+export type IFormSelectFieldProps<T> = IFormComponentProps<
+  T | T[],
+  Omit<ISelectProps, 'value' | 'onChange'>
+>;
 
 /**
  * Old `Select` implementation is a disaster,
  * temporary dirty code.
  */
-export const FormSelectField: React.FunctionComponent<
-  IFormSelectFieldProps<any>
-> = props => {
+export const FormSelectField: React.FunctionComponent<IFormSelectFieldProps<
+  any
+>> = props => {
   let model: FieldModel<any>;
   if ((props as any).name) {
     const {
       name,
       defaultValue,
+      destroyOnUnmount,
     } = (props as unknown) as IFormFieldViewDrivenProps<any>;
     let validators =
       ((props as unknown) as IFormFieldViewDrivenProps<any>).validators || [];
@@ -60,8 +55,11 @@ export const FormSelectField: React.FunctionComponent<
         Validators.required(props.required as string),
       ] as IValidators<any>).concat(validators);
     }
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     model = useField<any>(name, defaultValue, validators);
+    model.destroyOnUnmount = Boolean(destroyOnUnmount);
   } else {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     model = useField<any>(
       ((props as unknown) as IFormFieldModelDrivenProps<any>).model
     );
@@ -78,15 +76,16 @@ export const FormSelectField: React.FunctionComponent<
     notice,
     helpDesc,
     withoutError,
+    withoutLabel,
     renderError = defaultRenderError,
     validateOccasion = ValidateOccasion.Default,
     getValidateOption = defaultGetValidateOption,
   } = props;
   const anchorRef = React.useRef<HTMLDivElement | null>(null);
-  asFormChild(model, anchorRef);
+  useFormChild(model, anchorRef);
   const onChange = React.useCallback(
     (e: any) => {
-      if (propsRef.current.tags) {
+      if (propsRef.current.props.tags) {
         const value = model.value || [];
         if (!value.includes(e.target.value)) {
           model.value = [...value, e.target.value];
@@ -99,7 +98,7 @@ export const FormSelectField: React.FunctionComponent<
       }
       model.isTouched = true;
     },
-    [model]
+    [model, validateOccasion, getValidateOption]
   );
   return (
     <FormControl
@@ -109,14 +108,13 @@ export const FormSelectField: React.FunctionComponent<
       label={label}
       required={!!required}
       invalid={!!model.error}
+      withoutLabel={withoutLabel}
     >
       <div className="zent-form-control-content-inner">
         {before}
         <Select
-          {...props.props}
+          {...(props.props as Omit<ISelectProps, 'value' | 'onChange'>)}
           onChange={onChange}
-          tags={props.tags}
-          data={props.data}
           value={model.value}
         />
         {after}

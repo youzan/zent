@@ -23,11 +23,13 @@ import {
 import {
   CURRENT_DAY,
   timeFnMap,
-  noop,
   popPositionMap,
   commonProps,
 } from './constants';
 import { DatePickers } from './common/types';
+import Icon from '../icon';
+import noop from '../utils/noop';
+import warning from '../utils/warning';
 
 function extractStateFromProps(props: IDatePickerProps) {
   let selected;
@@ -43,7 +45,7 @@ function extractStateFromProps(props: IDatePickerProps) {
       selected = tmp;
       actived = setTime(tmp);
     } else {
-      console.warn('date and format mismatch'); // eslint-disable-line
+      warning(false, 'date and format mismatch');
       showPlaceholder = true;
       actived = dayStart();
     }
@@ -409,11 +411,12 @@ export class DatePicker extends PureComponent<IDatePickerProps, any> {
                     disabled={disabled}
                     autoComplete={autoComplete}
                   />
-                  <span className="zenticon zenticon-calendar-o" />
+                  <Icon className="picker-input--icon" type="calendar-o" />
                   {canClear && (
-                    <span
+                    <Icon
+                      className="picker-input--icon"
+                      type="close-circle"
                       onClick={this.onClearInput}
-                      className="zenticon zenticon-close-circle"
                     />
                   )}
                 </div>

@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { Component } from 'react';
-import get from 'lodash-es/get';
-import has from 'lodash-es/has';
-import isNil from 'lodash-es/isNil';
 import classnames from 'classnames';
 import { IGridInnerColumn } from './Grid';
 import { IGridCellPos } from './types';
+import isNil from '../utils/isNil';
+import getFromPath from '../utils/getFromPath';
 
 interface IGridCellProps<Data> {
   column: IGridInnerColumn<Data>;
@@ -25,7 +24,7 @@ class Cell<Data> extends Component<IGridCellProps<Data>> {
   }
 
   getText = (props: IGridCellProps<Data>) => {
-    return get(props, `data.${get(props, 'column.name')}`);
+    return props.data?.[`${props.column?.name}`];
   };
 
   onClick: React.MouseEventHandler<HTMLTableDataCellElement> = e => {
@@ -40,7 +39,7 @@ class Cell<Data> extends Component<IGridCellProps<Data>> {
 
   shouldComponentUpdate(nextProps: IGridCellProps<Data>) {
     // 如果存在 bodyRender 属性则 render
-    if (has(nextProps.column, 'bodyRender')) {
+    if (nextProps.column?.hasOwnProperty('bodyRender')) {
       return true;
     }
 
@@ -58,7 +57,7 @@ class Cell<Data> extends Component<IGridCellProps<Data>> {
       className,
       defaultText,
     } = column;
-    let text = get(data, name as string);
+    let text: any = getFromPath(data, name);
     if (isNil(text) && defaultText) {
       text = defaultText;
     }
@@ -89,6 +88,9 @@ class Cell<Data> extends Component<IGridCellProps<Data>> {
         className={classnames(`${prefix}-grid-td`, className, {
           [`${prefix}-grid-text-align-${textAlign}`]: textAlign,
           [`${prefix}-grid-nowrap`]: nowrap,
+          [`${prefix}-grid-td-multiple-row`]: tdProps && tdProps.rowSpan > 1,
+          [`${prefix}-grid-td-selection`]: column.key === 'selection-column',
+          [`${prefix}-grid-td-expand`]: column.key === 'expand-column',
         })}
         {...tdProps}
         onClick={this.onClick}

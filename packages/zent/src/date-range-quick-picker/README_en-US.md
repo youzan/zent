@@ -10,19 +10,19 @@ DateRangeQuickPicker is used for time range selection, it has 2 quick options wh
 
 ### Usage Scenarios
 
-As a filter control above list pages.
+Select a date range in one click.
 
 ### API
 
-| Props            | Description               | Type             | Default      | Alternatives     |
-|------          |------              |------            |--------    |--------   |
-| prefix         | custom prefix           | string          | `'zent'`    |           |
-| className      | custom classname          | string            |   `''`      |              |
-| preset         | custom quick option text      | array             | `[{text: '7 days', value: 7}, {text: '30 days', value: 30}]`    |           |
-| onChange       | change event callback  | func             |         |              |
-| value          | starting and end time       | array           |   `[]`        |             |
-| valueType | Argument type of onChange | string | `''` | `'date'`, `'number'`, `'string'` |
-| format         | Format of returned Date string |  string          |   `'YYYY-MM-DD'`, `'YYYY-MM-DD HH:mm:ss'`   |           |
-| chooseDays     | Number of choosen days |  number\|array          |               |         |
-| min            | Minimum value of optional date | string\|Date  | `''`  |    |
-| max            | Maximum number of optional date  | string\|Date  | `''`  |    |
+| Props                      | Description                             | Type                | Default                                                      | Alternatives                     |
+| -------------------------- | --------------------------------------- | ------------------- | ------------------------------------------------------------ | -------------------------------- |
+| onChange                   | Change event callback                   | func                |                                                              |                                  |
+| value                      | Starting and end time                   | array               | `[]`                                                         |                                  |
+| preset                     | Custom quick options                    | array               | `[{text: '7 days', value: 7}, {text: '30 days', value: 30}]` |                                  |
+| defaultSelectedPresetIndex | Default selected item index in `preset` | `number`            |                                                              |                                  |
+| valueType                  | Argument type of onChange               | `string`            | `''`                                                         | `'date'`, `'number'`, `'string'` |
+| format                     | Format of returned Date string          | `string`            | `'YYYY-MM-DD'`, `'YYYY-MM-DD HH:mm:ss'`                      |                                  |
+| chosenDays                 | Number of choosen days                  | `number` \| `array` |                                                              |                                  |
+| min                        | Minimum value of optional date          | `string` \| `Date`  | `''`                                                         |                                  |
+| max                        | Maximum number of optional date         | `string` \| `Date`  | `''`                                                         |                                  |
+| className                  | custom classname                        | `string`            | `''`                                                         |                                  |

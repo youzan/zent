@@ -8,9 +8,176 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 8.2.0(2020-02-18)
+
+- ✨ `BlockHeader` 增加一种极简样式
+- ✨ `Grid` 表头吸顶支持自定义顶部偏移量
+- 🦀️ 修复兼容百分比超出范围时 `Progress` 样式错误的问题
+- `Form`
+  - 🦀️ 更新错误样式
+  - 🦀️ 修复 TypeScript 类型定义问题
+
+### 8.1.0(2020-02-10)
+
+- `Grid`
+  - ✨ 表头支持吸顶
+  - ✨ 行复选框禁用时支持设置提示文案展示原因
+- `Form`
+  - ✨ 增加表单值联动的示例
+  - ✨ 使用 `model` 模式时 `Field` 组件支持 `validators` 参数，主要应用场景是用在 `FieldArray` 中
+  - 🦀️ 修复 `FormNumberInputField` 数据和视图不一致的问题
+  - 🦀️ 调整了非输入框的 `Field` 行高，视觉上更紧凑
+- 🦀️ 优化了 `ColorPicker` 的拖拽性能，视觉上更加平滑，不卡顿
+- 🦀️ 修复 `Select` 组件首次渲染时选中元素为空的问题
+- `Upload`
+  - 🦀️ 修改上传组件的文件数量计算规则，将上传失败的文件也统计到上传文件数量中
+  - 🦀️ 修改 `FILE_UPLOAD_STATUS` 常量的导出方式为组件上的静态属性
+
+### 8.0.1(2020-01-19)
+
+- `Upload`
+  - 🦀️ 新版使用和老版本不一样的类名
+  - 🦀️ 修复一个删除上传项时页数计算错误的问题
+
+### 8.0.0(2020-01-17)
+
+- 🎉 增加 `Waypoint` 组件，这个组件抽象了元素移入/移除屏幕的逻辑
+- 🎉 增加 `Dropdown` 组件，只是对 `Popover` 组件的一层简单封装
+- 🎉 [breaking change] 重写 `Upload` 组件，不兼容老版本；老版本请使用 `@zent/compat`
+- `Affix`
+  - [breaking change] ✨ `offsetTop` 不再有默认值 0，必须自己传
+  - ✨ 使用 `Waypoint` 重写
+  - ✨ 支持同时设置 `offsetTop` 和 `offsetBottom`
+- `InfiniteScroller`
+  - ✨ 使用 `Waypoint` 重写
+  - [breaking change] ✨ 删除无用的 `offset`，`useCapture` 和 `prefix` 属性
+  - [breaking change] ✨ 重命名 `initialLoad` 为 `skipLoadOnMount`，意义相反，默认值行为没变
+  - [breaking change] ✨ `hasMore` 默认值修改为 `false`
+  - [breaking change] ✨ `useWindow` 默认值修改为 `false`
+- `Cascader`
+  - ✨ 支持 `disabled` 属性
+  - ✨ 删除 `prefix` 支持
+  - 🦀️ `onChange` 现在传入的是原始的 option 元素
+  - 🦀️ 更新 placeholder 文字颜色
+  - 🦀️ [breaking change] 所有 CSS 类名增加前缀，例如 `.open` 这种
+- `Select`
+  - ✨ 删除 `prefix` 支持
+  - 🦀️ 更新组件的箭头图标，和其他组件保持一致
+  - 🦀️ [breaking change] 所有 CSS 类名增加前缀，例如 `.tags__empty` 这种都被替换掉了
+- ✨优化了全局事件处理
+- `Icon`
+  - ✨ 增加两个新图标 `filter-o` 和 `scan-code-o`
+  - ✨ 重命名 `text-guide` 为 `text-guide-o`
+  - ✨ 重命名 `video-guide` 为 `video-guide-o`
+- ✨ `QuickDateRangePicker` 支持默认选中一个 preset
+- ✨ `eslint` 替换 `tslint`
+- 🦀️ 更新 `Dialog` 关闭按钮样式
+- `Form`
+  - ✨ 增加 `useFieldValue` hook
+  - ✨ `Form` 上增加 `getSubmitValue` 方法
+  - 🦀️ 更新错误样式
+  - 🦀️ 更新类型定义
+  - 🦀️ 导出 `FormDescription` 组件
+  - 🦀️ `FormSelectField` 透传 `withoutLabel` 属性
+  - 🦀️ `layout` 改为可选参数
+- 🦀️ 修复 `CopyButton` 的类型定义
+- 🦀️ 修复 `Pagination` 的字体样式
+- 🦀️ 修复 `Rate` 组件小数值时的图标显示问题
+- 🦀️ 修复部分组件 `babel-plugin-zent` 处理不正确的问题
+
+### 7.4.3(2019-12-19)
+
+- 🦀️ 修复 `FormSelectField` 的 `destroyOnUnmount` 没有生效的问题
+- 🦀️ 优化 `Form` 的类型定义
+- 🦀️ `FormNumberInputField`(`integer`) 以及 `FormSelectField`(`tags`, `data`) 的所有属性都归入 `props` 下，跟其他组件统一
+- 🦀️ 更新表单报错的样式
+
+### 7.4.2(2019-12-13)
+
+- 🦀️ 修复 `Grid` 一个样式问题
+- 🦀️ 修复 `DateRangeQuickPicker` 的类型问题
+
+### 7.4.1(2019-12-13)
+
+- ✨新增 3 个新图标：`doc`, `video`, `audio`
+- ✨ 使用一个内置的精简版替换 `tinycolor2`
+- 🦀️ 修复 `Layout` 组件不兼容 SSR 的问题
+- 🦀️ `Grid` 的 column name 支持 `a.b.c` 这种写法，不推荐使用，仅为和老版本兼容
+- 🦀️ 修复 `Sortable` 组件重复初始化的问题以及类型定义
+- 🦀️ 修复 `TextMark` 的类型定义
+- 🦀️ 增大时间选择组件的图标大小
+- 🦀️ 调整 `BlockHeader` 的 `title` 类型为 `ReactNode`
+- 🦀️ 清理了 `createAlias` 相关的无用代码
+
+### 7.4.0(2019-12-06)
+
+- ✨ 新增 `Tooltip` 组件，用于展示提示信息
+- ✨ 删除 `lodash-es` 依赖，改用内置函数以及语言特性，同时明确了必须的 polyfill
+- 🦀️ **[breaking change]** 所有时间选择组件的 `isFooterVisble` 参数重命名为 `isFooterVisible`，这是个存在很久的拼写错误；如有使用地方，全局替换即可，不发大版本了。
+- 🦀️ 修复 `Select` 选项过滤之后按回车选择没有用的问题
+- 🦀️ 修复 `Upload` 组件在上传中删除某一项时报错的问题
+- 🦀️ `Upload` 组件拖动排序之后不再重置每个图片的唯一 ID
+
+### 7.3.2(2019-11-29)
+
+- ✨ `Link` 组件独立目录，同时兼容 `Disabled` 组件
+
+### 7.3.1(2019-11-27)
+
+- ✨ 新增 `Link` 组件替换 `zent-link` CSS 的使用场景
+- ✨ `Radio` 和 `Checkbox` 新增 `labelStyle`
+- 🦀️ 修复 `ButtonDirective` 样式问题
+- 🦀️ 修复打包编译时读取到的包版本和发布的版本不一致的问题
+- 🦀️ 回滚 `Radio` 文字标签的 `display` 为 `inline`
+- 🦀️ 修复 `RadioGroup` 内非 `Radio` 组件不可见的问题
+- 🦀️ 修复 `CheckboxGroup` 内非 `Checkbox` 组件不可见的问题
+
+### 7.3.0(2019-11-25)
+
+- 🎉 隔离不同版本 zent 的样式，避免页面上存在两份 zent 时的样式污染。
+- 🎉 增加了一批编译期常量，可在 TypeScript 或者 SCSS 文件内使用，类似 C 语言的 `__FILE__` 这种变量
+- 🦀️ 更新 `BlockHeader` 内部图标颜色
+- 🦀️ 修复 `Grid` 批量操作导致滚动展示异常的问题
+- 🦀️ 修复 `FormRadioGroupField` `defaultValue` 的判空问题
+
+#### 样式隔离可能的不兼容影响
+
+- 如果有代码直接使用了 zent 的 CSS 样式，但是没有使用 zent 的组件，这个版本之后这些使用方式都会失效。
+- 部分自定义样式如果优先级和组件库内的是一样的，但是依赖样式出现的顺序来实现覆盖的，在这个版本之后可能会遇到自定义样式失效的问题；解决方案是增加一个自定义类名，提高自定义样式的优先级。
+
+#### 已知受影响的使用场景
+
+- 直接使用 `Icon` CSS 样式的请使用 `Icon` 组件
+- 直接使用 `Breadcrumb` CSS 样式的请使用 `Breadcrumb` 组件
+- 使用 `zent-link` CSS 样式的请使用 `Link` 组件，这个组件就是一个 `a` 标签，封装了样式
+
+### 7.2.0(2019-11-18)
+
+- 🎉 新增 `IMEComposition` 组件，同时对有用到 `input` 的组件内部做了兼容处理
+- ✨ `Grid` 添加批量操作支持
+- ✨ `Pagination` 增加到达最后一页时的提示支持
+- ✨ 升级 `date-fns` 到 2.x 版本
+- ✨ Fork `fecha`，用 TypeScript 重写；官方的包类型定义问题反反复复出现，不跟他们玩了
+- 📚 扩充了 `Form` 的上手文档
+- 🦀️ 增大 `BlockHeader` 的图标
+- 🦀️ 修复 `Radio` 以及 `Checkbox` 的高度问题，现在不会有多余的垂直方向空白了
+- 🦀️ 修复了 `useFieldArrayValue` 数据丢失的问题
+- 🦀️ 优化 `Form` 默认的错误渲染函数处理 `undefined` 的逻辑
+- 🦀️ 修复 `FormSelectField`, `Form` 以及 `FieldSet` 的类型定义问题
+- 🦀️ 修复 `Switch`, `CopyButton` 以及 `DatePicker` 的类型定义问题
+
+### 7.1.0(2019-11-08)
+
+- ✨ `Select` 增加 `retainNullOption` 参数允许选中值为 `null` 的选项
+- ✨ 新增 `Notify.info`
+- 📚 全新的图标列表
+- 🦀️ 修复 `Progress` 在 Safari 下页面缩放时的样式错位问题
+- 🦀️ 修复 `Form` 和 `Cascader` 的类型定义
+- 🦀️ 更新 `Pagination` 和 `QuarterPicker` 中 `i18n` 的使用方法
+
 ### 7.0.1 (2019-11-01)
 
-- `Form` 增加 `default export`
+- 🦀️ `Form` 增加 `default export`
 
 ### 7.0.0 (2019-11-01)
 
@@ -18,10 +185,10 @@
 
 ### 6.6.2 (2019-02-26)
 
-- `Form` 
+- `Form`
   - 🦀️ 修复异步检验通过还是报错的问题
   - 🦀️ 更新 `createForm` 的 TypeScript 定义
-- 🦀️ 增加 `Affix` 以及 `Avatar` DOM 节点不存在时的异常校验 
+- 🦀️ 增加 `Affix` 以及 `Avatar` DOM 节点不存在时的异常校验
 
 ### 6.6.1 (2019-01-30)
 
@@ -102,7 +269,7 @@
 
 ### 6.1.0 (2018-08-03)
 
-- `Grid` 
+- `Grid`
   - ✨ 支持给每一列设置一个默认的展示文案
   - 🦀️ 修复 `selection.getCheckboxProps` 没有实时更新的问题
 - ✨ 新增几个 `Icon`

@@ -67,3 +67,43 @@ export function getLeafColumns<Data>(columns: Array<IGridInnerColumn<Data>>) {
   });
   return leafColumns;
 }
+
+export function needFixBatchComps(
+  isTableInView: boolean,
+  isHeaderInView: boolean,
+  isFootInView: boolean
+) {
+  if (isTableInView && !isHeaderInView && !isFootInView) {
+    return true;
+  }
+  return false;
+}
+
+export function isElementInView(el: Element, offset = 0) {
+  if (el) {
+    const footerRect = el.getBoundingClientRect();
+    const footerY =
+      footerRect.top - document.documentElement.getBoundingClientRect().top;
+    return (
+      footerY + footerRect.height - offset > window.pageYOffset &&
+      footerY <= window.pageYOffset + window.innerHeight - offset
+    );
+  } else {
+    return false;
+  }
+}
+
+export function mapDOMNodes<T extends Node, V>(
+  nodes: NodeListOf<T>,
+  callback: (val: T, idx: number) => V
+): V[] {
+  const result: V[] = [];
+  if (!nodes) {
+    return result;
+  }
+
+  for (let i = 0; i < nodes.length; i++) {
+    result.push(callback(nodes[i], i));
+  }
+  return result;
+}

@@ -254,11 +254,11 @@
     vertical-align: middle;
 
     &:first-child {
-      padding: 10px 12px 9px 16px;
+      padding: 10px 12px;
     }
 
     &:last-child {
-      padding: 10px 16px 9px 12px;
+      padding: 10px 12px;
     }
   }
 
@@ -269,9 +269,17 @@
     font-weight: 500;
   }
 
+  &-th.zent-grid-th-selection,
+  &-td.zent-grid-td-selection,
+  &-th.zent-grid-th-expand,
+  &-td.zent-grid-td-expand {
+    padding-right: 0;
+  }
+
   &-td {
     line-height: 20px;
     padding: 10px 12px;
+    position: relative;
 
     .zent-grid-expandable-btn {
       @include theme-color(border-color, stroke, 6);
@@ -300,6 +308,13 @@
         display: inline-block;
       }
     }
+
+    &-multiple-row {
+      @include theme-color(border-color, stroke, 6);
+      border-left-width: 1px;
+      border-right-width: 1px;
+      border-style: solid;
+    }
   }
 
   &-tfoot {
@@ -308,6 +323,19 @@
 
     .zent-grid-tfoot-page {
       margin-top: 0;
+    }
+
+    .zent-grid-batch.zent-grid-batch--fixed {
+      @include theme-color(background-color, stroke, 9);
+      @include theme-color(border-color, stroke, 6);
+      position: fixed;
+      left: unset;
+      z-index: 1;
+      bottom: 0;
+      padding-top: 12px;
+      box-sizing: border-box;
+      border-top-width: 1px;
+      border-top-style: solid;
     }
   }
 
@@ -319,5 +347,43 @@
   a {
     @include theme-color(color, primary, 4);
     cursor: pointer;
+  }
+
+  .zent-grid-batch {
+    padding-left: 12px;
+    padding-bottom: 12px;
+    display: flex;
+    align-items: center;
+
+    .batch-component {
+      line-height: 20px;
+      margin-right: 8px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .zent-grid-batch__foot {
+    float: left;
+  }
+
+  &-selection-checkbox {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    line-height: 1;
+    font-size: 0;
+    display: inline-block;
+    margin-top: -1px;
+  }
+
+  .zent-grid-sticky-header {
+    overflow-x: scroll;
+  }
+
+  .zent-grid-sticky-header-warp {
+    position: absolute;
   }
 }

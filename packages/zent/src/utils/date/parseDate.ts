@@ -1,5 +1,4 @@
-import fecha from 'fecha';
-
+import { parse } from './fecha';
 import { zhCN } from '../../i18n/time-locale';
 
 /**
@@ -13,14 +12,13 @@ import { zhCN } from '../../i18n/time-locale';
  * @see {@link https://github.com/taylorhakes/fecha#parsing|parse文档}
  * @returns {date} 转化后的日期
  * @example
- * const parseDate = require('zan-utils/date/parseDate');
  * parseDate('February 3rd, 2014', 'MMMM Do, YYYY'); // new Date(2014, 1, 3)
  * parseDate('10-12-10 14:11:12', 'YY-MM-DD HH:mm:ss'); // new Date(2010, 11, 10, 14, 11, 12)
  * parseDate('5/3/98', 'shortDate'); // new Date(1998, 4, 3)
  * parseDate('November 4, 2005', 'longDate'); // new Date(2005, 10, 4)
  */
 export default function parseDate(
-  date: string | Date,
+  date: string | number | Date,
   mask = 'default',
   locale = zhCN
 ): Date {
@@ -34,7 +32,7 @@ export default function parseDate(
 
   mask = mask || 'default';
 
-  const ret = fecha.parse(date, mask, locale);
+  const ret = parse(date, mask, locale);
 
   if (!ret) {
     return null;

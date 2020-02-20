@@ -1,5 +1,4 @@
 import * as React from 'react';
-import has from 'lodash-es/has';
 import cx from 'classnames';
 
 import { IBlockLoadingProps } from './props';
@@ -48,7 +47,7 @@ export function BlockLoading(props: IBlockLoadingProps) {
 
 function getHeight(props: IBlockLoadingProps) {
   // 没有包裹内容时设置一个默认高度，有包裹内容时默认撑满内容高度
-  const hasHeightProp = has(props, 'height');
+  const hasHeightProp = props.hasOwnProperty('height');
   const { children } = props;
 
   if (!children && !hasHeightProp) {

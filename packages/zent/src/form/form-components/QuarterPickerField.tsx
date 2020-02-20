@@ -13,9 +13,7 @@ export type IFormQuarterPickerFieldProps = IFormComponentProps<
   Omit<IQuarterPickerProps, 'value'>
 >;
 
-export const FormQuarterPickerField: React.FunctionComponent<
-  IFormQuarterPickerFieldProps
-> = props => {
+export const FormQuarterPickerField: React.FunctionComponent<IFormQuarterPickerFieldProps> = props => {
   return (
     <FormField
       {...props}

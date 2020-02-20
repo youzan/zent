@@ -3,7 +3,7 @@ import { PureComponent } from 'react';
 
 import PanelHeader from '../common/PanelHeader';
 import YearPanelBody from './YearPanelBody';
-import { noop } from '../constants';
+import noop from '../../utils/noop';
 
 export default class YearPanel extends PureComponent<any> {
   prevYears = () => {

@@ -1,12 +1,6 @@
 @import './theme/default';
 @import './theme/font';
 
-.has-error {
-  .zent-form-label {
-    @include theme-color(color, error, 4);
-  }
-}
-
 .zent-form {
   $p: &;
 
@@ -18,7 +12,7 @@
 
     &.zent-form-label-required {
       &::before {
-        @include theme-color(color, error, 1);
+        @include theme-color(color, error, 2);
         content: '*';
         display: inline-block;
         font-size: 16px;
@@ -29,6 +23,7 @@
 
   &-error {
     @include theme-color(color, error, 4);
+    margin-top: 8px;
   }
 
   &-notice,
@@ -70,6 +65,22 @@
         display: flex;
       }
     }
+
+    &.zent-form-checkbox-field,
+    &.zent-form-checkbox-group-field,
+    &.zent-form-radio-group-field {
+      line-height: 20px;
+    }
+
+    &.zent-form-switch-field {
+      line-height: 22px;
+
+      // vertical center small switch style
+      .zent-form-control-content {
+        display: flex;
+        align-items: center;
+      }
+    }
   }
 
   &-vertical {
@@ -97,7 +108,7 @@
 
       &-content {
         flex: 1 1 100%;
-        margin-left: 10px;
+        margin-left: 8px;
       }
     }
 

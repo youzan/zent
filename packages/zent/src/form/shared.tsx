@@ -6,7 +6,6 @@ import {
   BasicModel,
   ValidateOption,
 } from 'formulr';
-import { useRef, ReactNode, RefObject } from 'react';
 import { Omit, Optional } from 'utility-types';
 import { FormError } from './Error';
 import { IFormControlProps } from './Control';
@@ -15,18 +14,43 @@ import { DatePickers } from '../datetimepicker/common/types';
 import { $MergeParams } from './utils';
 
 export interface IRenderError<T> {
-  (error: IMaybeError<T>): ReactNode;
+  (error: IMaybeError<T>): React.ReactNode;
 }
 
 export interface IFormFieldViewDrivenProps<T> {
+  /**
+   * 表单项对应的数据字段名
+   */
   name: string;
+  /**
+   * 默认值
+   */
   defaultValue: T | (() => T);
+  /**
+   * 校验规则列表，执行的时候会按数组顺序逐个调用，直到所有都通过或者在第一个失败的地方停止
+   */
   validators?: IValidators<T>;
+  /**
+   * 是否在组件 `unmount` 的时候清除数据
+   * @defaultValue `false`
+   */
   destroyOnUnmount?: boolean;
 }
 
 export interface IFormFieldModelDrivenProps<T> {
+  /**
+   * 表单项对应的数据
+   * 只有 FormStrategy 是 View 的时候才会出现 ModelRef
+   */
   model: FieldModel<T>;
+  /**
+   * 仅当 model 是个 ModelRef 的时候有效。
+   */
+  validators?: IValidators<T>;
+  /**
+   * 仅当 model 是个 ModelRef 的时候有效。
+   */
+  defaultValue: T | (() => T);
 }
 
 export type IFormFieldModelProps<T> =
@@ -41,33 +65,63 @@ export function isViewDrivenProps<T>(
 
 // prettier-ignore
 export enum ValidateOccasion {
+  /**
+   * 不触发校验
+   */
   None      =     0b0000,
+  /**
+   * 值改变的时候触发校验
+   */
   Change    =     0b0001,
+  /**
+   * `blur` 事件发生的时候触发校验
+   */
   Blur      =     0b0010,
+  /**
+   * 组件使用的默认值。⚠️不要在业务代码中强依赖这个值的行为，这是内部实现，随时会调整。
+   */
   Default   =     Change | Blur,
 }
 
 export enum TouchWhen {
+  /**
+   * 值改变的时候标记 `touched` 状态
+   */
   Change,
+  /**
+   * `blur` 事件发生的时候标记 `touched` 状态
+   */
   Blur,
 }
 
 export interface IFormFieldPropsBase<Value>
   extends Omit<IFormControlProps, 'required' | 'invalid'> {
   /**
-   * 自定义错误渲染，参数是`validator`返回的对象，一次只会有一个错误
+   * 自定义错误渲染，参数是 `validator` 返回的对象，一次只会有一个错误
    */
   renderError?: IRenderError<Value>;
+  /**
+   * 表单项说明文案
+   */
   helpDesc?: React.ReactNode;
+  /**
+   * 表单项警示性文案
+   */
   notice?: React.ReactNode;
   /**
    * 设置不显示错误
    */
   withoutError?: boolean;
+  /**
+   * 在表单项前面显示的自定义内容
+   */
   before?: React.ReactNode;
+  /**
+   * 在表单项后面显示的自定义内容
+   */
   after?: React.ReactNode;
   /**
-   * 是否必填，如果这项有值，会在校验规则里添加一个`required`
+   * 是否必填，如果这项有值，会在校验规则里添加一个 `required` 规则
    */
   required?: boolean | string;
   /**
@@ -85,7 +139,9 @@ export interface IFormFieldPropsBase<Value>
   format?: (value: Value) => Value;
   /**
    * 根据触发校验的源头获取校验规则
-   * Get `ValidateOption` from validation option
+   *
+   * @param source - 校验触发的来源
+   * @returns 校验规则执行的选项 https://zent-contrib.github.io/formulr/enums/validateoption.html
    */
   getValidateOption?: (
     source: 'blur' | 'change'
@@ -103,15 +159,17 @@ export type IFormFieldProps<Value> = IFormFieldPropsBase<Value> &
     children(props: IFormFieldChildProps<Value>): React.ReactNode;
   };
 
-export type IFormComponentProps<Value, Props> = (Omit<
-  IFormFieldPropsBase<Value>,
-  'touchWhen'
-> & {
-  props?: Props;
+export type IFormComponentProps<
+  Value,
+  Props,
+  OmitKeys extends keyof IFormFieldPropsBase<Value> = never
+> = (Omit<IFormFieldPropsBase<Value>, 'touchWhen' | OmitKeys> & {
+  props?: Partial<Props>;
 }) &
   (
     | Optional<IFormFieldViewDrivenProps<Value>, 'defaultValue'>
-    | IFormFieldModelDrivenProps<Value>);
+    | Optional<IFormFieldModelDrivenProps<Value>, 'defaultValue'>
+  );
 
 export function dateDefaultValueFactory(): DatePickers.Value {
   return new Date();
@@ -122,18 +180,18 @@ export function dateRangeDefaultValueFactory(): DatePickers.RangeValue {
 }
 
 export function defaultRenderError<T>(error: IMaybeError<T>) {
-  if (error === null) {
+  if (error == null) {
     return null;
   }
   return <FormError>{error.message}</FormError>;
 }
 
-export function asFormChild<Value>(
+export function useFormChild<Value>(
   model: BasicModel<Value>,
-  scrollAnchorRef?: RefObject<Element | null | undefined>
+  scrollAnchorRef?: React.RefObject<Element | null | undefined>
 ) {
   const ctx = useFormContext();
-  const posRef = useRef(ctx.children.length);
+  const posRef = React.useRef(ctx.children.length);
   React.useEffect(() => {
     const formChild: IFormChild = {
       valid() {

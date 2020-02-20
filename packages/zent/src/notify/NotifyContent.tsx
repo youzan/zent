@@ -14,6 +14,7 @@ const ICON_TYPE = {
   success: 'check-circle',
   warn: 'warning',
   error: 'close-circle',
+  info: 'info-circle',
 };
 
 export interface INotifyContentProps {

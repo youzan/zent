@@ -2,7 +2,7 @@ import * as React from 'react';
 import { PureComponent } from 'react';
 import cx from 'classnames';
 
-import { I18nReceiver as Receiver } from '../../i18n';
+import { I18nReceiver as Receiver, II18nLocaleSelect } from '../../i18n';
 
 export interface ISimpleTriggerProps {
   prefixCls?: string;
@@ -15,11 +15,13 @@ export interface ISimpleTriggerProps {
 class SimpleTrigger extends PureComponent<ISimpleTriggerProps> {
   render() {
     const { prefixCls, onClick, visible } = this.props;
-    const rootClass = cx(`${prefixCls}-simple`, { visible });
+    const rootClass = cx(`${prefixCls}-simple`, {
+      'zent-select--visible': visible,
+    });
 
     return (
       <Receiver componentName="Select">
-        {i18n => (
+        {(i18n: II18nLocaleSelect) => (
           <div className={rootClass} onClick={onClick}>
             {this.props.text || (
               <span className={`${prefixCls}-placeholder`}>

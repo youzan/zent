@@ -1,4 +1,5 @@
 import Trigger, { IPopoverTriggerProps } from './Trigger';
+import { addEventListener } from '../../utils/component/event-handler';
 
 export interface IPopoverClickTriggerProps extends IPopoverTriggerProps {
   autoClose?: boolean;
@@ -10,6 +11,8 @@ export default class PopoverClickTrigger<
   static defaultProps = {
     autoClose: true,
   };
+
+  cancelEvent: () => void = null;
 
   onClickOutside = evt => {
     // Optimization: skip checking if popover is hidden
@@ -38,17 +41,26 @@ export default class PopoverClickTrigger<
 
     // bind global events only when popover is visible
     if (autoClose && contentVisible) {
-      return window.addEventListener('click', this.onClickOutside, true);
+      this.cancelEvent = addEventListener(
+        window,
+        'click',
+        this.onClickOutside,
+        {
+          capture: true,
+          passive: true,
+        }
+      );
+      return;
     }
 
     // Ensure handler is removed even if autoClose is false
     if (!contentVisible) {
-      return window.removeEventListener('click', this.onClickOutside, true);
+      this.cancelEvent?.();
     }
   }
 
   componentWillUnmount() {
-    window.removeEventListener('click', this.onClickOutside, true);
+    this.cancelEvent?.();
   }
 
   componentDidMount() {

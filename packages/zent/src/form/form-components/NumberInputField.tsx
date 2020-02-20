@@ -9,13 +9,9 @@ import { $MergeParams } from '../utils';
 export type IFormNumberInputFieldProps = IFormComponentProps<
   number | string | null,
   Omit<INumberInputProps, 'value'>
-> & {
-  integer?: boolean;
-};
+>;
 
-export const FormNumberInputField: React.FunctionComponent<
-  IFormNumberInputFieldProps
-> = ({ integer, ...props }) => {
+export const FormNumberInputField: React.FunctionComponent<IFormNumberInputFieldProps> = props => {
   return (
     <FormField
       {...props}
@@ -23,13 +19,7 @@ export const FormNumberInputField: React.FunctionComponent<
         (props as $MergeParams<IFormNumberInputFieldProps>).defaultValue || ''
       }
     >
-      {childProps => (
-        <NumberInput
-          {...props.props}
-          {...(childProps as any)}
-          integer={integer}
-        />
-      )}
+      {childProps => <NumberInput {...props.props} {...(childProps as any)} />}
     </FormField>
   );
 };

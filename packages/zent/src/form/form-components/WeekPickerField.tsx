@@ -11,9 +11,7 @@ export type IFormWeekPickerFieldProps = IFormComponentProps<
   Omit<IWeekPickerProps, 'value'>
 >;
 
-export const FormWeekPickerField: React.FunctionComponent<
-  IFormWeekPickerFieldProps
-> = props => {
+export const FormWeekPickerField: React.FunctionComponent<IFormWeekPickerFieldProps> = props => {
   return (
     <FormField
       {...props}

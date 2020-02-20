@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 export interface II18nLocaleCommon {
   confirm: string;
   cancel: string;
@@ -13,16 +15,23 @@ export interface II18nLocaleCopyButton {
 }
 
 export interface II18nLocalePagination {
-  // total: '共',
-  // pages: '页',
-  // items: '条',
-  // perPage: '每页',
-  page: string;
-  jump: string;
-  total: string;
+  jumpTo(options: { input: React.ReactNode }): React.ReactNode;
+
+  pageStats(options: {
+    total: React.ReactNode;
+    select: React.ReactNode;
+    Text: React.ComponentType<{ type: 'middle' | 'right' }>;
+  }): React.ReactNode;
+
+  pageStatsStatic(options: {
+    total: React.ReactNode;
+    pageSize: React.ReactNode;
+    Text: React.ComponentType<{ type: 'middle' | 'right' }>;
+  }): React.ReactNode;
+
+  selectWidth: number;
+
   items: string;
-  perPage: string;
-  comma: string;
 }
 
 export interface II18nLocalePop extends II18nLocaleCommon {}
@@ -62,7 +71,7 @@ export interface II18nLocaleTable extends II18nLocaleCommon {
 }
 
 export interface II18nLocaleCascader extends II18nLocaleCommon {
-  title: string;
+  title: React.ReactNode;
   placeholder: string;
 }
 
@@ -96,6 +105,7 @@ export interface II18nLocaleTimePicker extends II18nLocaleCommon {
     secondSelect: string;
     titleFormat: string;
     quarterNames: string[];
+    yearQuarterName(options: { year: string; quarter: string }): string;
     dayNames: string[];
     monthNames: string[];
   };
@@ -103,29 +113,24 @@ export interface II18nLocaleTimePicker extends II18nLocaleCommon {
 
 export type I18nLocaleTimePicker = () => II18nLocaleTimePicker;
 
-export interface II18nLocaleTypeMap {
-  image: string;
-  voice: string;
-}
-
 export interface II18nLocaleUpload extends II18nLocaleCommon {
-  title_voice: string;
-  title_image: string;
-  input: {
-    holder: string;
-    maxAmount(options: { maxAmount: number; type: string }): string;
-    maxSize(options: { maxSize: number; type: string }): string;
-    type(options: { type: string }): string;
+  retry: string;
+  delete: string;
+  failed: string;
+  limit: string;
+  normal: {
+    add: string;
+    tips: (options: {
+      tips: string;
+      formattedMaxSize: string | null;
+    }) => string;
   };
-  popup: {
-    web: string;
-    group: string;
-    holder: string;
-    title_voice: string;
-    title_image: string;
-    type(options: { types: string[]; size: number }): string;
-    extract: string;
-    extracting: string;
+  image: {
+    tips: (options: {
+      tips: string;
+      formattedMaxSize: string | null;
+      maxAmount: number;
+    }) => string;
   };
 }
 

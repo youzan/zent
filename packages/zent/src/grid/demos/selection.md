@@ -8,6 +8,7 @@ zh-CN:
 	stock: 库存
 	babyProducts: 母婴商品
 	petProducts: 宠物商品
+	reason: '禁用原因'
 en-US:
 	title: Selection
 	product: Product
@@ -16,6 +17,7 @@ en-US:
 	stock: stock
 	babyProducts: Baby Products
 	petProducts: Pet Products
+	reason: Reason of disabled
 ---
 
 ```jsx
@@ -98,6 +100,7 @@ class Selection extends React.Component {
 					},
 					getCheckboxProps: data => ({
 						disabled: data.name === '{i18n.babyProducts} 1',
+						reason: '{i18n.reason}'
 					}),
 				}}
 				rowKey="id"

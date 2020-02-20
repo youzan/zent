@@ -10,7 +10,7 @@ export type ActionButtonClickHandler = (
 
 export interface IActionButtonProps {
   type: 'default' | 'primary' | 'success' | 'danger' | 'secondary';
-  text: string;
+  text: React.ReactNode;
   className: string;
   getClose: () => () => void;
   onClick?: ActionButtonClickHandler;

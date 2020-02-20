@@ -7,17 +7,13 @@ group: 导航
 
 ## Dropdown 下拉菜单
 
-向下弹出的弹层组件。
-
-我们不提供单独的名为 `Dropdown` 的组件，`Dropdown` 组件的功能是 `Popover` 组件的一个子集，这个文档描述了如何使用 `Popover` 来实现 `Dropdown` 的功能。
-
-### 使用场景
-
-一般用于下拉菜单。
+下拉菜单组件，需要配合 `Menu` 组件使用。
 
 ### API
 
-请参考 [`Popover` 的 API 文档](popover#api)。
+请参考 [`Popover` 的 API 文档](popover#api)，`Dropdown` 只是在它的基础上加了一些默认值处理。
+
+`DropdownButton` 支持所有 `Button` 的参数，它的作用是和 `Dropdown` 弹层当前的打开状态做联动。
 
 ### 关于下拉菜单弹出位置
 

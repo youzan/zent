@@ -5,9 +5,9 @@ path: component/design
 group: 业务组件
 ---
 
-## Design 微页面编辑组件
+## Design 微页面编辑组件（已废弃）
 
-请使用 `@zent/design` 这个包。
+**请使用 `@zent/design` 这个包。**
 
 微页面编辑组件，用所见即所得(WYSIWG)的方式创建内容丰富的富文本页面。
 
@@ -155,7 +155,7 @@ type Component = {
 
 Preview 比较简单，实现一个组件接受 `{ value: any, globalConfig: any, design: object }` 这些 props即可。
 
-Editor 请继承 `@youzan/design/lib/base/editor/DesignEditor`，这个基类提供了一些常用的方法（例如 `onChange` 事件的处理函数），在子类里面可以直接使用。
+Editor 请继承 `@zent/design/es/editor/DesignEditor`，这个基类提供了一些常用的方法（例如 `onChange` 事件的处理函数），在子类里面可以直接使用。
 
 Editor 接受如下props：`{ value: any, onChange: func, showError: boolean, validation: object, design object }`。
 
@@ -187,7 +187,7 @@ export default class NoticePreview extends PureComponent {
 import React from 'react';
 import { Input } from 'zent';
 
-import { DesignEditor, ControlGroup } from '@youzan/design/base/editor/DesignEditor';
+import { DesignEditor, ControlGroup } from '@zent/design/es/editor/DesignEditor';
 
 export const PLACEHOLDER = '请填写内容，如果过长，将会在手机上滚动显示';
 

@@ -1,222 +1,135 @@
-/**
- * 上传图片组件
- * @author huangshiyu <huangshiyu@youzan.com>
- */
+import cn from 'classnames';
 import * as React from 'react';
-import { Component } from 'react';
-import classnames from 'classnames';
-import identity from 'lodash-es/identity';
 
-import Dialog from '../dialog';
-import { I18nReceiver as Receiver } from '../i18n';
-import Icon from '../icon';
+import AbstractUpload from './components/AbstractUpload';
+import NormalUploadList from './components/normal/List';
+import NormalUploadTrigger from './components/normal/Trigger';
+import {
+  DEFAULT_ENABLE_MULTIPLE,
+  DEFAULT_MAX_AMOUNT,
+  DEFAULT_MAX_SIZE,
+  FILE_UPLOAD_STATUS,
+} from './constants';
+import {
+  IUploadFileItem,
+  IUploadFileItemInner,
+  IUploadProps,
+  IUploadTipConfig,
+} from './types';
+import { formatFileSize } from './utils/format-file-size';
+import { getTipsContent } from './utils/get-tips-content';
+import { createUploadItemId } from './utils/id';
 
-import UploadPopup from './components/UploadPopup';
-import FileInput from './components/FileInput';
-import { DEFAULT_ACCEPT } from './constants';
+import { I18nReceiver, II18nLocaleUpload } from '../i18n';
+import { PartialRequired } from '../utils/types';
 
-const promiseNoop = () => new Promise(resolve => resolve([]));
+type IUploadPropsInner = PartialRequired<
+  IUploadProps,
+  | 'maxAmount'
+  | 'maxSize'
+  | 'multiple'
+  | 'pagination'
+  | 'pageSize'
+  | 'manualUpload'
+>;
 
-export interface IUploadErrorMessage {
-  overMaxSize?: string | ((data: { maxSize: string; type: string }) => string);
-  overMaxAmount?:
-    | string
-    | ((data: { maxAmount: number; type: string }) => string);
-  wrongMimeType?: string | ((data: { type: string }) => string);
-}
-
-export interface IUploadLocalFile {
-  file: File;
-  src: string;
-  __uid: number;
-}
-
-export interface IUploadConfig {
-  categoryId: number;
-  localFiles: IUploadLocalFile[];
-  onProgress: (progress: number, index: number) => void;
-}
-
-export interface IUploadProps {
-  prefix?: string;
-  className?: string;
-  type?: 'image' | 'video';
-  triggerClassName?: string;
-  maxSize?: number;
-  maxAmount?: number;
-  accept?: string;
-  tips?: string;
-  localOnly?: boolean;
-  auto?: boolean;
-  filterFiles?: (files: File[]) => File[] | Promise<File[]>;
-  onFetch?: (networkUrl: string, categoryId: number) => Promise<any>;
-  onUpload?: (
-    localFiles: IUploadLocalFile[],
-    uploadConfig: IUploadConfig
-  ) => void | Promise<any>;
-  categoryList?: Array<{
-    value: any;
-    text: string | number;
-  }>;
-  categoryId?: number;
-  errorMessages?: IUploadErrorMessage;
-  triggerInline?: boolean;
-  silent?: boolean;
-  withoutPopup?: boolean;
-  trigger?: React.ComponentType<any>;
-}
-
-export class Upload extends Component<IUploadProps, any> {
-  static FileInput = FileInput;
-  static defaultProps = {
-    prefix: 'zent',
-    className: 'zent-upload',
-    triggerClassName: 'zent-upload-trigger',
-    maxSize: 1 * 1024 * 1024,
-    maxAmount: 0,
-    tips: '',
-    localOnly: false,
-    auto: false,
-    type: 'image',
-    filterFiles: identity,
-    onFetch: promiseNoop,
-    onUpload: promiseNoop,
-    categoryList: [],
-    categoryId: '',
-    triggerInline: false,
-    silent: false,
-    withoutPopup: false,
-    errorMessages: {},
+export class Upload extends AbstractUpload<
+  IUploadFileItem,
+  void,
+  IUploadProps
+> {
+  static defaultProps: Partial<IUploadProps> = {
+    maxAmount: DEFAULT_MAX_AMOUNT,
+    maxSize: DEFAULT_MAX_SIZE,
+    multiple: DEFAULT_ENABLE_MULTIPLE,
+    manualUpload: false,
+    sortable: false,
+    pageSize: 5,
+    pagination: false,
   };
 
-  isUnmount: boolean;
+  static FILE_UPLOAD_STATUS = FILE_UPLOAD_STATUS;
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      visible: false,
+  protected createNewUploadFileItem(
+    file: File
+  ): IUploadFileItemInner<IUploadFileItem> {
+    return {
+      _id: createUploadItemId(),
+      _file: file,
+      name: file.name,
+      type: file.type,
+      status: FILE_UPLOAD_STATUS.beforeUpload,
+      percent: 0,
     };
-    this.showUpload = this.showUpload.bind(this);
-    this.closePopup = this.closePopup.bind(this);
   }
 
-  componentDidMount() {
-    if (this.props.auto) {
-      this.showUpload();
-    }
-    if (this.props.silent) {
-      console.warn(
-        'silent is deprecated, please use errorMessages to instead.'
-      );
-    }
-  }
-
-  componentWillUnmount() {
-    this.isUnmount = true;
-  }
-
-  closePopup() {
-    this.setState({
-      visible: false,
-    });
-  }
-
-  render() {
-    let {
-      trigger,
-      prefix,
-      className,
-      triggerClassName,
-      tips,
-      children,
-      triggerInline,
-      withoutPopup,
-      ...uploadOptions
-    } = this.props;
-
-    const { visible } = this.state;
-
-    const Node = trigger;
-
-    // 防止类名重复
-    if (className === `${prefix}-upload`) {
-      className = '';
-    }
-
-    const dialogClassName = classnames([`${prefix}-upload`, className]);
-
-    className = classnames([
-      dialogClassName,
-      {
-        inline: triggerInline,
-      },
-    ]);
-
-    // 根据type设置accept默认值
-    const accept = uploadOptions.accept || DEFAULT_ACCEPT[uploadOptions.type];
-
+  protected renderTips(i18n: II18nLocaleUpload) {
+    const { tips, maxSize } = this.props as IUploadPropsInner;
+    const config: IUploadTipConfig<IUploadProps> = {
+      ...this.props,
+      formattedMaxSize: formatFileSize(maxSize),
+    };
     return (
-      <Receiver componentName="Upload">
-        {i18n =>
-          withoutPopup ? (
-            <UploadPopup
-              prefix={`${prefix}-upload`}
-              options={uploadOptions}
-              accept={accept}
-              className={className}
-              i18n={i18n}
-              showUploadPopup={this.showUpload}
-            />
-          ) : (
-            <React.Fragment>
-              <div className={className}>
-                <span
-                  className={triggerClassName}
-                  onClick={this.showUpload.bind(this, true)}
-                >
-                  {children || (Node && <Node />) || <Icon type="plus" />}
-                  {uploadOptions.localOnly && uploadOptions.maxAmount === 1 && (
-                    <FileInput {...uploadOptions} i18n={i18n} />
-                  )}
-                </span>
-                <Dialog
-                  title={i18n[`title_${this.props.type}`]}
-                  visible={visible}
-                  className={dialogClassName}
-                  onClose={this.closePopup}
-                >
-                  <UploadPopup
-                    prefix={`${prefix}-upload`}
-                    options={uploadOptions}
-                    accept={accept}
-                    className={className}
-                    i18n={i18n}
-                    showUploadPopup={this.showUpload}
-                  />
-                </Dialog>
-              </div>
-              <p className={`${prefix}-upload-tips`}>{tips}</p>
-            </React.Fragment>
-          )
-        }
-      </Receiver>
+      <div className="zent-file-upload-tips">
+        {getTipsContent(tips, config, i18n.normal.tips)}
+      </div>
     );
   }
 
-  /**
-   * 设置弹框是否显示
-   * @param [boolean] visible 是否显示弹框
-   */
-  showUpload = (visible = true) => {
-    const { localOnly, maxAmount } = this.props;
+  protected renderUploadList(i18n: II18nLocaleUpload): React.ReactNode {
+    const { sortable, pagination, pageSize } = this.props;
+    return (
+      <NormalUploadList
+        i18n={i18n}
+        fileList={this.fileList}
+        onRetry={this.retryUploadItem}
+        onDelete={this.deleteUploadItem}
+        onSortChange={this.updateFileList}
+        sortable={sortable}
+        pagination={pagination}
+        pageSize={pageSize}
+      />
+    );
+  }
 
-    if (!this.isUnmount && (!localOnly || maxAmount !== 1)) {
-      // 直接打开本地文件
-      this.setState({
-        visible,
-      });
-    }
-  };
+  protected renderTrigger(i18n: II18nLocaleUpload): React.ReactNode {
+    const { accept, maxAmount, maxSize, multiple, disabled } = this
+      .props as IUploadPropsInner;
+    const { fileList } = this.state;
+    return (
+      <NormalUploadTrigger
+        i18n={i18n}
+        accept={accept}
+        maxAmount={maxAmount}
+        maxSize={maxSize}
+        multiple={multiple}
+        disabled={disabled}
+        remainAmount={this.remainAmount}
+        fileList={fileList}
+        onAddFile={this.onTriggerUploadFile}
+        onError={this.emitOnError}
+      />
+    );
+  }
+
+  render() {
+    const { className } = this.props;
+    return (
+      <I18nReceiver<II18nLocaleUpload> componentName="Upload">
+        {i18n => {
+          return (
+            <div className={cn('zent-file-upload', className)}>
+              {this.renderUploadList(i18n)}
+              <div className="zent-file-upload-trigger-wrapper">
+                {this.renderTrigger(i18n)}
+                {this.renderTips(i18n)}
+              </div>
+            </div>
+          );
+        }}
+      </I18nReceiver>
+    );
+  }
 }
 
 export default Upload;

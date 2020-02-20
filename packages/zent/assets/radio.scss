@@ -7,17 +7,18 @@ $inner-circle-size: 8px;
 $inner-circle-offset: ($outer-circle-size - $inner-circle-size - 2px) / 2;
 
 .zent-radio-group {
-  @include font-normal;
-
   display: inline-block;
+  font-size: 0;
+
+  > :not(.zent-radio-wrap) {
+    @include font-normal;
+  }
 }
 
 .zent-radio-wrap {
-  @include font-normal;
-
   display: inline-block;
   cursor: pointer;
-  font-weight: $font-weight-normal;
+  font-size: 0;
   margin: 0;
   padding: 0;
   margin-right: 15px;
@@ -52,7 +53,9 @@ $inner-circle-offset: ($outer-circle-size - $inner-circle-size - 2px) / 2;
       cursor: pointer;
     }
 
-    & + span {
+    &-label {
+      @include font-normal;
+      display: inline;
       margin-left: 8px;
       vertical-align: middle;
     }
@@ -129,7 +132,7 @@ $inner-circle-offset: ($outer-circle-size - $inner-circle-size - 2px) / 2;
       }
     }
 
-    & .zent-radio + span {
+    & .zent-radio-label {
       @include theme-color(color, stroke, 3);
     }
   }

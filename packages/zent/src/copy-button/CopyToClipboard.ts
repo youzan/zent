@@ -1,4 +1,5 @@
 import toggleSelection from './toggleSelection';
+import createElement from '../utils/dom/createElement';
 
 function copy(text) {
   let reselectPrevious,
@@ -13,7 +14,7 @@ function copy(text) {
     range = document.createRange();
     selection = document.getSelection();
 
-    mark = document.createElement('span');
+    mark = createElement('span');
     mark.textContent = text;
     // reset user styles for span element
     mark.style.all = 'unset';
@@ -44,7 +45,7 @@ function copy(text) {
       (window as any).clipboardData.setData('text', text);
       success = true;
     } catch (e) {
-      console.error(e); // eslint-disable-line
+      console.error(e);
     }
   } finally {
     if (selection) {

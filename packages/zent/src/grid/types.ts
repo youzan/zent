@@ -67,7 +67,9 @@ export interface IGridSelection<Data = any> {
     selectedRows: Data[],
     changeRow: Data | Data[]
   ) => any;
-  getCheckboxProps?: (data: Data) => { disabled?: boolean };
+  getCheckboxProps?: (
+    data: Data
+  ) => { disabled?: boolean; reason: React.ReactNode };
 }
 
 export interface IGridExpandation<Data = any> {
@@ -75,7 +77,7 @@ export interface IGridExpandation<Data = any> {
   expandRender?: (data: Data) => React.ReactNode;
 }
 
-export type IGridRowClickHander<Data = any> = (
+export type IGridRowClickHandler<Data = any> = (
   data: Data,
   index: number,
   event: React.MouseEvent<HTMLTableRowElement>
@@ -93,3 +95,5 @@ export interface IGridCellPos {
   column: number;
   fixed?: IGridInnerFixedType;
 }
+
+export type IGridBatchRender = (data: any) => React.ReactNode;

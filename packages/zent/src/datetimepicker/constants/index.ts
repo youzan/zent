@@ -1,6 +1,5 @@
 import Popover from '../../popover';
-
-export function noop(..._: any[]): void {}
+import noop from '../../utils/noop';
 
 export const CURRENT = new Date();
 export const CURRENT_DAY = new Date(
@@ -35,7 +34,7 @@ export const commonProps = {
   popPosition: 'left',
   openPanel: false,
   onChange: noop,
-  isFooterVisble: false,
+  isFooterVisible: false,
   canClear: true,
   autoComplete: 'off',
 };

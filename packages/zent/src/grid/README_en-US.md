@@ -35,6 +35,11 @@ The function of the component is similar to the function of [Table](table) compo
 | components      | custom table element                                                                                       | object { row?: ComponentType }                                             |             | No       |
 | rowProps        | custom row props                                                                                           | (data: any, index: number) => object                                       |             | No       |
 | bordered        | whether to display the outer border and column border                                                      | bool                                                                       | `false`     | No       |
+| batchRender     | Render batch operations                                                                                    | (data: array) => React.ReactNode                                           |             | No       |
+| stickyBatch     | Automatically stick batch operation                                                                        | bool                                                                       | `false`     | No       |
+| autoStick       | Whether to stick the head to the window automatically                                                      | bool                                                                       | `false`     | No       |
+| autoStickOffsetTop          | custom offset of sticky head                                                                               | number                                                                     | `false`     | No       |
+
 
 #### onChange function declaration
 
@@ -54,7 +59,7 @@ onChange will throw an object, which includes parameters about the change part o
 | Property    | Description                                                                                         | Type                                                                                                                 | Required |
 | ----------- | --------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------- |
 | title       | column title                                                                                        | ReactNode                                                                                                            | Yes      |
-| name        | key for the corresponding data(recommanded to be set). Nested description like `a.b.c` is supported | string                                                                                                               | No       |
+| name        | key for the corresponding data(recommended to be set). | string                                                                                                               | No       |
 | width       | column width                                                                                        | string \| number                                                                                                     | No       |
 | bodyRender  | Render complex component                                                                            | ((data: any, pos: {row: number, column: number, fixed?: 'left' \| 'right'}, name: string) => ReactNode) \| ReactNode | No       |
 | className   | class name of the column title                                                                      | string                                                                                                               | No       |
@@ -73,7 +78,7 @@ onChange will throw an object, which includes parameters about the change part o
 | ---------------- | ------------------------------------------ | ----------------------------------------------------------------- | ------------- |
 | selectedRowKeys  | keys of selected rows by default           | array                                                             | No            |
 | onSelect         | callback fires when a check changes        | (selectedkeys: string[], selectedRows: Array<any>, changeRow: any | any[]) => any | No |
-| getCheckboxProps | function to get properties of the checkbox | (data: object) => { disabled?: boolean }                          | No            |
+| getCheckboxProps | function to get properties of the checkbox | (data: object) => { disabled?: boolean, reason?: ReactNode }                          | No            |
 
 #### pageInfo
 

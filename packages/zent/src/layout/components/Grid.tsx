@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
-import pickBy from 'lodash-es/pickBy';
 
 import ConfigContext from './ConfigContext';
 import BreakPointHub from './BreakPointHub';
@@ -70,7 +69,7 @@ export class LayoutGrid extends Component<ILayoutGridProps, ILayoutGridState> {
       const { breakpoints } = prevState;
 
       return {
-        breakpoints: pickBy({ ...breakpoints, [name]: matched }),
+        breakpoints: { ...breakpoints, [name]: matched },
       } as ILayoutGridState;
     });
   };

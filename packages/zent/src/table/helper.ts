@@ -1,5 +1,3 @@
-import intersection from 'lodash-es/intersection';
-
 const helper = {
   getCalculatedWidth(width) {
     let res;
@@ -67,7 +65,14 @@ const helper = {
    * @return {boolean} isSelectAll
    */
   isSelectAll(rowKeys, subRowKeys) {
-    return intersection(rowKeys, subRowKeys).length === subRowKeys.length;
+    for (let i = 0; i < subRowKeys.length; i++) {
+      const a = subRowKeys[i];
+      if (rowKeys.indexOf(a) === -1) {
+        return false;
+      }
+    }
+
+    return true;
   },
 
   /**
@@ -77,7 +82,14 @@ const helper = {
    * @return {boolean} 是否选中了部分
    */
   isSelectPart(rowKeys, subRowKeys) {
-    return intersection(rowKeys, subRowKeys).length > 0;
+    for (let i = 0; i < rowKeys.length; i++) {
+      const a = rowKeys[i];
+      if (subRowKeys.indexOf(a) !== -1) {
+        return true;
+      }
+    }
+
+    return false;
   },
 
   /**

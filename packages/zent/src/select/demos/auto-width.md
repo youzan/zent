@@ -15,7 +15,7 @@ ReactDOM.render(
 	<Select
 		autoWidth
 		open
-		className="zent-select--auto-width"
+		className="zent-select-demo-auto-width"
 	>
     <Option value="1">Option 1</Option>
     <Option value="2">Option 2</Option>
@@ -26,7 +26,7 @@ ReactDOM.render(
 ```
 
 <style>
-.zent-select--auto-width {
+.zent-select-demo-auto-width {
 	width: 300px;
 }
 </style>

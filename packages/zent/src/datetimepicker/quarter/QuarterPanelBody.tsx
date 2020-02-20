@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
 import classNames from 'classnames';
-const getQuarter = require('date-fns/get_quarter');
+import getQuarter from 'date-fns/getQuarter';
 
 import PanelCell from '../common/PanelCell';
 

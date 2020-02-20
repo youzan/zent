@@ -1,66 +1,76 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
 import classnames from 'classnames';
-import noop from 'lodash-es/noop';
-import assign from 'lodash-es/assign';
 
+import noop from '../utils/noop';
 import Popover from '../popover';
 import Icon from '../icon';
-import { I18nReceiver as Receiver } from '../i18n';
+import { I18nReceiver as Receiver, II18nLocaleCascader } from '../i18n';
 import { ICascaderItem, CascaderHandler, CascaderValue } from './types';
 import TabsPopoverContent from './components/TabsContent';
 import MenuPopoverContent from './components/MenuContent';
+import { IPopoverClickTriggerProps } from '../popover/trigger/ClickTrigger';
+import { DisabledContext, IDisabledContext } from '../disabled';
 
 const PopoverContent = Popover.Content;
 
-class PopoverClickTrigger extends Popover.Trigger.Click {
+export interface IPopverClickTriggerProps extends IPopoverClickTriggerProps {
+  disabled: boolean;
+}
+
+class PopoverClickTrigger extends Popover.Trigger.Click<
+  IPopverClickTriggerProps
+> {
   getTriggerProps(child) {
     return {
       onClick: evt => {
-        if (this.props.contentVisible) {
-          this.props.close();
-        } else {
-          this.props.open();
+        const { disabled, contentVisible } = this.props;
+        if (!disabled) {
+          if (contentVisible) {
+            this.props.close();
+          } else {
+            this.props.open();
+          }
+          this.triggerEvent(child, 'onClick', evt);
         }
-        this.triggerEvent(child, 'onClick', evt);
       },
     };
   }
 }
 
-export interface ICascaderProps {
+export interface ICascaderProps<Item extends ICascaderItem = ICascaderItem> {
   type?: 'tabs' | 'menu';
   value?: CascaderValue[];
-  options?: ICascaderItem[];
+  options?: Item[];
   title?: React.ReactNode[];
-  onChange?: (value: ICascaderItem[]) => void;
-  loadMore?: (item: ICascaderItem, stage: number) => Promise<ICascaderItem[]>;
+  onChange?: (value: Item[]) => void;
+  loadMore?: (item: Item, stage: number) => Promise<Item[]>;
   changeOnSelect?: boolean;
   placeholder?: string;
-  prefix?: string;
   className?: string;
   popClassName?: string;
-  displayText?: (value: ICascaderItem[]) => React.ReactNode;
+  displayText?: (value: Item[]) => React.ReactNode;
   expandTrigger?: 'click' | 'hover';
+  disabled?: boolean;
 }
 
-export interface ICascaderState {
+export interface ICascaderState<Item extends ICascaderItem = ICascaderItem> {
   value: CascaderValue[];
-  options: ICascaderItem[];
-  activeValue: ICascaderItem[];
+  options: Item[];
+  activeValue: Item[];
   activeId: number;
   open: boolean;
   isLoading?: boolean;
   loadingStage?: number;
-  prevProps: ICascaderProps;
+  prevProps: ICascaderProps<Item>;
 }
 
-function resetCascaderValue(
+function resetCascaderValue<Item extends ICascaderItem>(
   value: unknown[],
-  options?: ICascaderItem[],
+  options?: Item[],
   chooseNext?: boolean
 ) {
-  const activeValue = [];
+  const activeValue: Item[] = [];
   let activeId = 1;
 
   if (options && options.length > 0 && value && value.length > 0) {
@@ -71,11 +81,8 @@ function resetCascaderValue(
       if (!nextOption) break;
       activeId++;
 
-      options = nextOption.children || [];
-      activeValue.push({
-        id: nextOption.id,
-        title: nextOption.title,
-      });
+      options = (nextOption.children as Item[]) || [];
+      activeValue.push(nextOption);
     }
   }
 
@@ -87,9 +94,10 @@ function resetCascaderValue(
   };
 }
 
-export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
+export class Cascader<
+  Item extends ICascaderItem = ICascaderItem
+> extends PureComponent<ICascaderProps<Item>, ICascaderState<Item>> {
   static defaultProps = {
-    prefix: 'zent',
     className: '',
     popClassName: 'zent-cascader__popup',
     onChange: noop,
@@ -102,11 +110,14 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
     expandTrigger: 'click',
   };
 
+  static contextType = DisabledContext;
+  context!: IDisabledContext;
+
   static getDerivedStateFromProps(
     nextProps: ICascaderProps,
     { prevProps, open }: ICascaderState
   ) {
-    const newState: Partial<ICascaderState> = {
+    let newState: Partial<ICascaderState> = {
       prevProps: nextProps,
     };
 
@@ -117,7 +128,7 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
       // 在即时选中状态，展示通过计算的下一个 tab
       const chooseNext = open && nextProps.changeOnSelect;
 
-      assign(
+      newState = Object.assign(
         newState,
         resetCascaderValue(nextProps.value, nextProps.options, chooseNext)
       );
@@ -144,7 +155,7 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
     this.setState(resetCascaderValue(value, options));
   }
 
-  recursiveNextOptions(options: ICascaderItem[], id: unknown) {
+  recursiveNextOptions(options: Item[], id: unknown) {
     if (options && options.length > 0) {
       const currOptions = options.find(it => it.id === id);
       if (currOptions && currOptions.children) {
@@ -175,7 +186,7 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
     });
   };
 
-  clickHandler: CascaderHandler = (
+  clickHandler: CascaderHandler<Item> = (
     item,
     stage,
     popover,
@@ -207,7 +218,7 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
   };
 
   expandHandler = (
-    item: ICascaderItem,
+    item: Item,
     stage: number,
     popover: Popover,
     willLoading: boolean,
@@ -220,7 +231,7 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
     value = value.slice(0, stage - 1);
     value.push(item.id);
 
-    const obj: Partial<ICascaderState> = {
+    const obj: Partial<ICascaderState<Item>> = {
       value,
     };
 
@@ -237,17 +248,17 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
     // 选择即改变只针对click
     if (hasClose || (changeOnSelect && triggerType === 'click')) {
       const activeObj = resetCascaderValue(value, options);
-      assign(obj, activeObj);
-      this.setState(obj as any, () => {
+      Object.assign(obj, activeObj);
+      this.setState(obj as ICascaderState<Item>, () => {
         this.props.onChange(activeObj.activeValue);
       });
     } else {
-      this.setState(obj as any);
+      this.setState(obj as ICascaderState<Item>);
     }
   };
 
-  getPopoverContent(i18n) {
-    const { type, prefix, title, options, expandTrigger } = this.props;
+  getPopoverContent(i18n: II18nLocaleCascader) {
+    const { type, title, options, expandTrigger } = this.props;
     const { activeId, value, isLoading, loadingStage } = this.state;
     let PopoverContentType:
       | typeof TabsPopoverContent
@@ -266,7 +277,6 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
     return (
       <PopoverContent>
         <PopoverContentType
-          prefix={prefix}
           i18n={i18n}
           value={value}
           isLoading={isLoading}
@@ -286,8 +296,13 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
   render() {
     return (
       <Receiver componentName="Cascader">
-        {i18n => {
-          const { prefix, className, popClassName, placeholder } = this.props;
+        {(i18n: II18nLocaleCascader) => {
+          const {
+            className,
+            popClassName,
+            placeholder,
+            disabled = this.context.value,
+          } = this.props;
           const { activeValue, open } = this.state;
 
           let cascaderValue: React.ReactNode = placeholder || i18n.placeholder;
@@ -304,15 +319,13 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
             }
           }
 
-          const cascaderCls = classnames({
-            [`${prefix}-cascader`]: true,
-            [className]: true,
-            open,
+          const cascaderCls = classnames('zent-cascader', className, {
+            'zent-cascader--disabled': disabled,
+            'zent-cascader--open': open,
           });
 
-          const selectTextCls = classnames({
-            [`${prefix}-cascader__select-text`]: true,
-            'is-placeholder': !hasValue,
+          const selectTextCls = classnames('zent-cascader__select-text', {
+            'zent-cascader--placeholder': !hasValue,
           });
 
           return (
@@ -322,13 +335,12 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
                 position={Popover.Position.BottomLeft}
                 onShow={this.onShow}
                 onClose={this.onClose}
+                cushion={4}
               >
-                <PopoverClickTrigger>
-                  <div className={`${prefix}-cascader__select`}>
+                <PopoverClickTrigger disabled={disabled}>
+                  <div className="zent-cascader__select">
                     <div className={selectTextCls}>
-                      <span
-                        className={`${prefix}-cascader__select-text-content`}
-                      >
+                      <span className="zent-cascader__select-text-content">
                         {cascaderValue}
                       </span>
                       <Icon type="caret-down" />

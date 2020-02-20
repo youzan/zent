@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import noop from 'lodash-es/noop';
 import cx from 'classnames';
 
-import { I18nReceiver as Receiver } from '../../i18n';
+import noop from '../../utils/noop';
+import { I18nReceiver as Receiver, II18nLocaleSelect } from '../../i18n';
 
 import Tag from '../components/Tag';
 
@@ -44,6 +44,8 @@ class TagsTrigger extends PureComponent<ITagsTriggerProps, any> {
   isDelete: boolean;
   isAdded: boolean;
 
+  // 等重构再删了吧，改不动
+  // eslint-disable-next-line react/no-deprecated
   componentWillReceiveProps(nextProps) {
     const { selectedItems } = this.props;
     const { cid, text, value } = nextProps;
@@ -103,13 +105,13 @@ class TagsTrigger extends PureComponent<ITagsTriggerProps, any> {
       visible,
     } = this.props;
     const rootClass = cx(`${prefixCls}-tags`, {
-      tags__empty: !selectedItems.length,
-      visible,
+      'zent-select-tags__empty': !selectedItems.length,
+      'zent-select--visible': visible,
     });
 
     return (
       <Receiver componentName="Select">
-        {i18n => (
+        {(i18n: II18nLocaleSelect) => (
           <div className={rootClass} onClick={onClick}>
             {selectedItems.length > 0 ? (
               selectedItems.map((item, index) => {

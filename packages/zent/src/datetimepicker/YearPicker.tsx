@@ -10,8 +10,11 @@ import { I18nReceiver as Receiver } from '../i18n';
 import YearPanel from './year/YearPanel';
 import PanelFooter from './common/PanelFooter';
 import { formatDate, parseDate, dayStart } from './utils';
-import { CURRENT, noop, popPositionMap, commonProps } from './constants';
+import { CURRENT, popPositionMap, commonProps } from './constants';
 import { DatePickers } from './common/types';
+import Icon from '../icon';
+import noop from '../utils/noop';
+import warning from '../utils/warning';
 
 function getYear(val) {
   if (val instanceof Date) {
@@ -23,7 +26,7 @@ function getYear(val) {
 
 export interface IYearPickerProps extends DatePickers.ICommonProps {
   needConfirm?: boolean;
-  isFooterVisble?: boolean;
+  isFooterVisible?: boolean;
   onBeforeClear?: () => boolean;
 }
 
@@ -39,7 +42,7 @@ function extractStateFromProps(props: IYearPickerProps) {
       showPlaceholder = false;
       selected = actived = tmp;
     } else {
-      console.warn("date and format don't match."); // eslint-disable-line
+      warning(false, "date and format don't match.");
       showPlaceholder = true;
       actived = dayStart();
     }
@@ -97,13 +100,13 @@ export class YearPicker extends PureComponent<IYearPickerProps, any> {
   onSelectYear = val => {
     if (this.isDisabled(val)) return;
     const {
-      props: { isFooterVisble, onChange },
+      props: { isFooterVisible, onChange },
       state: { actived },
     } = this;
     const acp = new Date(actived);
     acp.setFullYear(val);
 
-    if (!isFooterVisble) {
+    if (!isFooterVisible) {
       this.setState({
         value: acp,
         selected: acp,
@@ -252,11 +255,12 @@ export class YearPicker extends PureComponent<IYearPickerProps, any> {
                 )}
               </Receiver>
 
-              <span className="zenticon zenticon-calendar-o" />
+              <Icon className="picker-input--icon" type="calendar-o" />
               {canClear && (
-                <span
+                <Icon
+                  className="picker-input--icon"
+                  type="close-circle"
                   onClick={this.onClearInput}
-                  className="zenticon zenticon-close-circle"
                 />
               )}
             </div>

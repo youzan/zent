@@ -7,11 +7,13 @@ import {
   IValidator,
   IValidators,
   FieldUtils,
+  isModelRef,
+  ModelRef,
 } from 'formulr';
 import {
   defaultRenderError,
   IFormFieldProps,
-  asFormChild,
+  useFormChild,
   isViewDrivenProps,
   ValidateOccasion,
   TouchWhen,
@@ -20,7 +22,7 @@ import { FormControl } from './Control';
 import { FormNotice } from './Notice';
 import { FormDescription } from './Description';
 import { $MergeParams } from './utils';
-import id from '../utils/id';
+import id from '../utils/identity';
 import noop from '../utils/noop';
 
 export { IFormFieldChildProps, IFormFieldProps } from './shared';
@@ -30,32 +32,45 @@ export function defaultGetValidateOption() {
 }
 
 function withDefaultOption(option: ValidateOption | null | undefined) {
-  if (option == null) {
-    return ValidateOption.Default;
+  return option ?? ValidateOption.Default;
+}
+
+function getValidators<Value>({
+  validators,
+  required,
+}: IFormFieldProps<Value>) {
+  validators = validators ?? [];
+  if (
+    required &&
+    !validators.some(
+      it =>
+        (it as $MergeParams<IValidator<Value>>).$$id ===
+        Validators.SYMBOL_REQUIRED
+    )
+  ) {
+    validators = ([Validators.required(required as string)] as IValidators<
+      Value
+    >).concat(validators);
   }
-  return option;
+  return validators;
 }
 
 export function FormField<Value>(props: IFormFieldProps<Value>) {
   let model: FieldModel<Value>;
   if (isViewDrivenProps(props)) {
     const { name, defaultValue, destroyOnUnmount } = props;
-    let validators = props.validators || [];
-    if (
-      props.required &&
-      !validators.some(
-        it =>
-          (it as $MergeParams<IValidator<Value>>).$$id ===
-          Validators.SYMBOL_REQUIRED
-      )
-    ) {
-      validators = ([
-        Validators.required(props.required as string),
-      ] as IValidators<Value>).concat(validators);
-    }
-    model = useField<Value>(name, defaultValue, validators);
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    model = useField<Value>(name, defaultValue, getValidators(props));
     model.destroyOnUnmount = Boolean(destroyOnUnmount);
+  } else if (isModelRef(props.model)) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    model = useField(
+      props.model as ModelRef<Value, any, any>,
+      props.defaultValue,
+      getValidators(props)
+    );
   } else {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     model = useField<Value>(props.model);
   }
   React.useImperativeHandle(props.modelRef, () => model, [model]);
@@ -81,7 +96,7 @@ export function FormField<Value>(props: IFormFieldProps<Value>) {
     touchWhen = TouchWhen.Change,
   } = props;
   const anchorRef = React.useRef<HTMLDivElement | null>(null);
-  asFormChild(model, anchorRef);
+  useFormChild(model, anchorRef);
   const normalizer = React.useCallback(
     (value: Value) => {
       const prevValue = model.value;
@@ -92,6 +107,7 @@ export function FormField<Value>(props: IFormFieldProps<Value>) {
   const markTouched = React.useCallback(() => (model.isTouched = true), [
     model,
   ]);
+  const setValue = React.useCallback(value => (model.value = value), [model]);
   const onChange = FieldUtils.useMAppend(
     touchWhen === TouchWhen.Change ? markTouched : noop,
     FieldUtils.usePipe(
@@ -101,7 +117,7 @@ export function FormField<Value>(props: IFormFieldProps<Value>) {
             model,
             withDefaultOption(getValidateOption('change'))
           )
-        : React.useCallback(value => (model.value = value), [model])
+        : setValue
     )
   );
   const onBlur = React.useCallback(() => {
@@ -111,7 +127,7 @@ export function FormField<Value>(props: IFormFieldProps<Value>) {
     if (validateOccasion & ValidateOccasion.Blur) {
       model.validate(getValidateOption('blur'));
     }
-  }, [getValidateOption, validateOccasion, touchWhen]);
+  }, [getValidateOption, validateOccasion, touchWhen, markTouched, model]);
   const {
     onCompositionStart,
     onCompositionEnd,

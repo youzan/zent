@@ -1,17 +1,10 @@
-/* eslint-disable no-lonely-if */
 import * as React from 'react';
 import { PureComponent } from 'react';
 import * as ReactDOM from 'react-dom';
 
-import throttle from 'lodash-es/throttle';
-import intersection from 'lodash-es/intersection';
-import uniq from 'lodash-es/uniq';
-import uniqBy from 'lodash-es/uniqBy';
-import pullAll from 'lodash-es/pullAll';
-import pullAllBy from 'lodash-es/pullAllBy';
-
-import { I18nReceiver as Receiver } from '../i18n';
+import { I18nReceiver as Receiver, II18nLocaleTable } from '../i18n';
 import isBrowser from '../utils/isBrowser';
+import uniq from '../utils/uniq';
 import BlockLoading from '../loading/BlockLoading';
 
 import Head from './modules/Head';
@@ -19,6 +12,8 @@ import Body from './modules/Body';
 import Foot from './modules/Foot';
 import helper from './helper';
 import { PaginationPageSizeOption } from '../pagination/components/PageSizeChanger';
+import { WindowResizeHandler } from '../utils/component/WindowResizeHandler';
+import { WindowScrollHandler } from '../utils/component/WindowScrollHandler';
 
 export type TablePaginationType = 'default' | 'lite' | 'mini';
 
@@ -41,7 +36,7 @@ export interface ITableColumn {
   isMoney?: boolean;
   needSort?: boolean;
   bodyRender?: (data: any) => React.ReactNode;
-  textAign?: 'left' | 'right' | 'center';
+  textAlign?: 'left' | 'right' | 'center';
 }
 
 export interface ITableChangeConfig {
@@ -67,7 +62,7 @@ export interface ITableProps {
     isSingleSelection?: boolean;
     needCrossPage?: boolean;
     onSelect?: (
-      selectedkeys: string[],
+      selectedKeys: string[],
       selectedRows: any[],
       currentRow: number
     ) => void;
@@ -115,7 +110,6 @@ export class Table extends PureComponent<ITableProps, any> {
   tableRectTop: number;
   tableRectHeight: number;
   foot: Foot | null = null;
-  throttleSetBatchComponents: any;
 
   constructor(props) {
     super(props);
@@ -138,6 +132,8 @@ export class Table extends PureComponent<ITableProps, any> {
 
   head: Head | null = null;
 
+  // 等重构再删了吧，改不动
+  // eslint-disable-next-line react/no-deprecated
   componentWillReceiveProps(nextProps) {
     const toggleListener = helper.toggleEventListener(this.props, nextProps);
     toggleListener && this[toggleListener](nextProps);
@@ -148,59 +144,19 @@ export class Table extends PureComponent<ITableProps, any> {
 
   componentDidMount() {
     this.mounted = true;
-    this.addEventListener(this.props);
+    if (this.props.batchComponentsAutoFixed) {
+      this.setRectParam();
+    }
   }
 
   componentWillUnmount() {
     this.mounted = false;
-    this.removeEventListener(this.props);
   }
 
-  addEventListener(props) {
-    if (props.batchComponentsAutoFixed) {
-      const { batchComponents } = props;
-
-      this.setRectParam();
-      if (batchComponents && batchComponents.length > 0) {
-        this.throttleSetBatchComponents = throttle(
-          () => {
-            this.setRectParam();
-            this.toggleBatchComponents();
-          },
-          100,
-          {
-            leading: true,
-          }
-        );
-
-        window.addEventListener(
-          'scroll',
-          this.throttleSetBatchComponents,
-          true
-        );
-        window.addEventListener(
-          'resize',
-          this.throttleSetBatchComponents,
-          true
-        );
-      }
-    }
-  }
-
-  removeEventListener(props) {
-    if (props.batchComponentsAutoFixed) {
-      window.removeEventListener(
-        'scroll',
-        this.throttleSetBatchComponents,
-        true
-      );
-      window.removeEventListener(
-        'resize',
-        this.throttleSetBatchComponents,
-        true
-      );
-    }
-  }
+  setBatchComponents = () => {
+    this.setRectParam();
+    this.toggleBatchComponents();
+  };
 
   setRectParam() {
     if (!this.mounted) {
@@ -305,15 +261,20 @@ export class Table extends PureComponent<ITableProps, any> {
     if (isSelect) {
       if (this.props.selection.needCrossPage) {
         allRowKeys = uniq(allRowKeys.concat(rowKeysCurrentPage));
-        allRows = uniqBy(allRows.concat(rowsCurrentPage), rowKey);
+        allRows = uniq(allRows.concat(rowsCurrentPage), rowKey);
       } else {
         allRowKeys = rowKeysCurrentPage;
         allRows = rowsCurrentPage;
       }
     } else {
       if (this.props.selection.needCrossPage) {
-        allRowKeys = pullAll(allRowKeys, rowKeysCurrentPage);
-        allRows = pullAllBy(allRows, rowsCurrentPage, rowKey);
+        allRowKeys = allRowKeys.filter(
+          k => rowKeysCurrentPage.indexOf(k) === -1
+        );
+        allRows = allRows.filter(r => {
+          const key = r[rowKey];
+          return rowsCurrentPage.every(p => p[rowKey] !== key);
+        });
       } else {
         allRowKeys = [];
         allRows = [];
@@ -351,9 +312,9 @@ export class Table extends PureComponent<ITableProps, any> {
     }
 
     if (!selection.needCrossPage) {
-      this.selectedRowKeys = intersection(
-        this.selectedRowKeys,
-        this.props.datasets.map(item => item[this.props.rowKey])
+      const { datasets, rowKey } = this.props;
+      this.selectedRowKeys = this.selectedRowKeys.filter(k =>
+        datasets.some(item => item[rowKey] === k)
       );
     }
     this.selectedRows = this.getSelectedRowsByKeys(this.selectedRowKeys);
@@ -407,7 +368,7 @@ export class Table extends PureComponent<ITableProps, any> {
     const rows = [];
     const self = this;
     // 之前缓存的rows和本页的总datasets整个作为搜索的区间
-    const allRows = uniqBy(
+    const allRows = uniq(
       this.selectedRows.concat(this.props.datasets),
       this.props.rowKey
     );
@@ -460,6 +421,7 @@ export class Table extends PureComponent<ITableProps, any> {
         return { canSelect: true, rowClass: '' };
       },
       expandation = null,
+      batchComponentsAutoFixed,
       batchComponents = null,
     } = this.props;
 
@@ -510,7 +472,7 @@ export class Table extends PureComponent<ITableProps, any> {
 
     return (
       <Receiver componentName="Table">
-        {i18n => (
+        {(i18n: II18nLocaleTable) => (
           <div className={`${prefix}-table-container`}>
             <BlockLoading loading={this.props.loading}>
               {columns && (
@@ -577,6 +539,15 @@ export class Table extends PureComponent<ITableProps, any> {
                 </div>
               )}
             </BlockLoading>
+            {batchComponentsAutoFixed && batchComponents?.length && (
+              <>
+                <WindowResizeHandler onResize={this.setBatchComponents} />
+                <WindowScrollHandler
+                  onScroll={this.setBatchComponents}
+                  options={{ capture: true }}
+                />
+              </>
+            )}
           </div>
         )}
       </Receiver>

@@ -1,26 +1,35 @@
 import * as React from 'react';
 import { Omit } from 'utility-types';
+import cx from 'classnames';
 import Checkbox, { ICheckboxProps, ICheckboxEvent } from '../../checkbox';
 import { IFormComponentProps } from '../shared';
 import { FormField, IFormFieldChildProps } from '../Field';
 import { $MergeParams } from '../utils';
+import { useEventCallbackRef } from '../../utils/hooks/useEventCallbackRef';
 
 export type IFormCheckboxFieldProps<Value> = IFormComponentProps<
   boolean,
   Omit<ICheckboxProps<Value>, 'checked'>
 >;
 
-function renderCheckbox<Value>(
-  childProps: IFormFieldChildProps<boolean>,
-  props: IFormCheckboxFieldProps<Value>
-) {
+function CheckboxField<Value>({
+  childProps,
+  props,
+}: {
+  childProps: IFormFieldChildProps<boolean>;
+  props: IFormCheckboxFieldProps<Value>;
+}) {
   const { value, ...passedProps } = childProps;
+
+  const onChangeRef = useEventCallbackRef(childProps.onChange);
+
   const onChange = React.useCallback(
     (e: ICheckboxEvent<Value>) => {
-      childProps.onChange(e.target.checked);
+      onChangeRef.current?.(e.target.checked);
     },
-    [childProps.onChange]
+    [onChangeRef]
   );
+
   return (
     <Checkbox
       {...props.props}
@@ -34,15 +43,17 @@ function renderCheckbox<Value>(
 export function FormCheckboxField<Value>(
   props: IFormCheckboxFieldProps<Value>
 ) {
+  const { className, ...rest } = props;
   return (
     <FormField
-      {...props}
+      {...rest}
+      className={cx(className, 'zent-form-checkbox-field')}
       defaultValue={
         (props as $MergeParams<IFormCheckboxFieldProps<Value>>).defaultValue ||
         false
       }
     >
-      {childProps => renderCheckbox(childProps, props)}
+      {childProps => <CheckboxField childProps={childProps} props={props} />}
     </FormField>
   );
 }
