@@ -243,6 +243,12 @@
     }
   }
 
+  &-tr__disable-highlight {
+    &:hover {
+      background-color: transparent;
+    }
+  }
+
   &-th,
   &-td {
     @include theme-color(border-bottom-color, stroke, 6);

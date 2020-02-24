@@ -45,6 +45,7 @@ for (let i = 0; i < 3; i++) {
 
 ReactDOM.render(
 		<Grid
+			disableHoverHighlight
 			columns={columns}
 			datasets={datasets}
 			rowClassName={(data, index) => `${data.id}-${index}`}

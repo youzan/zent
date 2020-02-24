@@ -38,7 +38,8 @@ The function of the component is similar to the function of [Table](table) compo
 | batchRender     | Render batch operations                                                                                    | (data: array) => React.ReactNode                                           |             | No       |
 | stickyBatch     | Automatically stick batch operation                                                                        | bool                                                                       | `false`     | No       |
 | autoStick       | Whether to stick the head to the window automatically                                                      | bool                                                                       | `false`     | No       |
-| autoStickOffsetTop          | custom offset of sticky head                                                                               | number                                                                     | `false`     | No       |
+| autoStickOffsetTop          | custom offset of sticky head                                                                   | number                                                                     | `false`     | No       |
+| disableHoverHighlight       |  whether to disable mouse hover highlighting                                                   | boolean                                                                    | `false`     | No       |
 
 
 #### onChange function declaration

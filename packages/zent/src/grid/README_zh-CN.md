@@ -40,6 +40,7 @@ group: 导航
 | stickyBatch     | 是否要将批量操作保持在屏幕内                                  | bool                                                                       | `false`             | 否       |
 | autoStick                | 是否自动将 head stick 到窗口                       | bool                                                                       | `false`        | 否       |
 | autoStickOffsetTop       | 自定义表头吸顶的offsetTop                          | number                                                                     | `0`        | 否       |
+| disableHoverHighlight    | 禁用鼠标hover高亮效果                              | boolean                                                                    | `false`        | 否       |
 
 
 #### onChange 函数声明

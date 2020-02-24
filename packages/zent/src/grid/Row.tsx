@@ -26,6 +26,7 @@ interface IGridRowProps<Data> {
   fixedColumnsBodyRowsHeight: Array<string | number>;
   row?: React.ComponentType;
   rowProps?: (data: Data, index: number) => any;
+  disableHoverHighlight: boolean;
 }
 
 class Row<Data> extends PureComponent<IGridRowProps<Data>> {
@@ -44,6 +45,7 @@ class Row<Data> extends PureComponent<IGridRowProps<Data>> {
       fixedColumnsBodyRowsHeight,
       row,
       rowProps = noop,
+      disableHoverHighlight,
     } = this.props;
 
     const BodyRow = row || 'tr';
@@ -84,6 +86,7 @@ class Row<Data> extends PureComponent<IGridRowProps<Data>> {
     return (
       <BodyRow
         className={classnames(`${prefix}-grid-tr`, className, {
+          [`${prefix}-grid-tr__disable-highlight`]: disableHoverHighlight,
           [`${prefix}-grid-tr__mouseover`]: mouseOverRowIndex === rowIndex,
         })}
         onClick={e => onRowClick(data, rowIndex, e)}
