@@ -22,6 +22,9 @@ export interface IFieldSetBaseProps<
    * 表单提交时滚动到错误时的`DOM`元素的`ref`(来自`React.createRef`或`React.useRef`)
    */
   scrollAnchorRef?: React.RefObject<Element>;
+  /**
+   * 校验规则数组，按数组顺序执行，直到所有都通过或者在第一个失败的地方停止
+   */
   validators?: IValidators<T>;
   children?: React.ReactNode;
   /**
