@@ -61,14 +61,15 @@ export interface IFieldSetViewDrivenProps<
 export function FieldSet<T extends Record<string, BasicModel<unknown>>>(
   props: IFieldSetModelDrivenProps<T> | IFieldSetViewDrivenProps<T>
 ) {
-  const { name, validators } = props as IFieldSetViewDrivenProps<T>;
-  const { model: rawModel } = props as IFieldSetModelDrivenProps<T>;
-  const [ctx, model] = useFieldSet(name || rawModel, validators);
-
   const {
     scrollAnchorRef,
     renderError = defaultRenderError,
+    validators,
   } = props as IFieldSetBaseProps<T>;
+  const { name } = props as IFieldSetViewDrivenProps<T>;
+  const { model: rawModel } = props as IFieldSetModelDrivenProps<T>;
+  const [ctx, model] = useFieldSet(name || rawModel, validators);
+
   useFormChild(model as BasicModel<unknown>, scrollAnchorRef);
   useValue$(model.error$, model.error$.getValue());
   return (
