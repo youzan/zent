@@ -8,6 +8,8 @@ import {
   FieldSetModel,
   IValidators,
   $FieldSetValue,
+  ModelRef,
+  FieldArrayModel,
 } from 'formulr';
 import {
   IRenderError,
@@ -37,7 +39,14 @@ export interface IFieldSetBaseProps<
 export interface IFieldSetModelDrivenProps<
   T extends Record<string, BasicModel<unknown>>
 > extends IFieldSetBaseProps<T> {
-  model: FieldSetModel<T>;
+  model:
+    | FieldSetModel<T>
+    | ModelRef<
+        $FieldSetValue<T>,
+        | FieldSetModel<Record<string, BasicModel<unknown>>>
+        | FieldArrayModel<any, FieldSetModel<T>>,
+        FieldSetModel<T>
+      >;
 }
 
 export interface IFieldSetViewDrivenProps<
