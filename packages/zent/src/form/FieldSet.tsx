@@ -7,6 +7,7 @@ import {
   IMaybeError,
   FieldSetModel,
   IValidators,
+  $FieldSetValue,
 } from 'formulr';
 import {
   IRenderError,
@@ -42,7 +43,10 @@ export interface IFieldSetModelDrivenProps<
 export interface IFieldSetViewDrivenProps<
   T extends Record<string, BasicModel<unknown>>
 >
-  extends Omit<IFormFieldViewDrivenProps<T>, 'defaultValue'>,
+  extends Omit<
+      IFormFieldViewDrivenProps<$FieldSetValue<T>>,
+      'defaultValue' | 'validators'
+    >,
     IFieldSetBaseProps<T> {}
 
 export function FieldSet<T extends Record<string, BasicModel<unknown>>>(
