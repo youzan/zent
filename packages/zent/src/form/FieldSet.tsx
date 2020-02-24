@@ -14,7 +14,6 @@ import {
   useFormChild,
   IFormFieldViewDrivenProps,
 } from './shared';
-import { Optional } from 'utility-types';
 
 export interface IFieldSetProps<T extends Record<string, BasicModel<unknown>>> {
   /**
@@ -34,7 +33,7 @@ export interface IFieldSetProps<T extends Record<string, BasicModel<unknown>>> {
 
 export function FieldSet<T extends Record<string, BasicModel<unknown>>>(
   props: IFieldSetProps<T> &
-    Optional<IFormFieldViewDrivenProps<T>, 'defaultValue'> & {
+    Omit<IFormFieldViewDrivenProps<T>, 'defaultValue'> & {
       model?: FieldSetModel<T>;
     }
 ) {
