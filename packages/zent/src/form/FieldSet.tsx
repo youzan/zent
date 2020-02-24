@@ -6,6 +6,7 @@ import {
   BasicModel,
   IMaybeError,
   FieldSetModel,
+  IValidators,
 } from 'formulr';
 import {
   IRenderError,
@@ -21,6 +22,7 @@ export interface IFieldSetBaseProps<
    * 表单提交时滚动到错误时的`DOM`元素的`ref`(来自`React.createRef`或`React.useRef`)
    */
   scrollAnchorRef?: React.RefObject<Element>;
+  validators?: IValidators<T>;
   children?: React.ReactNode;
   /**
    * 用于渲染整个 `FieldSet` 层面的错误
