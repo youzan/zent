@@ -45,7 +45,11 @@ export const FormInputField: React.FunctionComponent<IFormInputFieldProps> = pro
       defaultValue={
         (props as $MergeParams<IFormInputFieldProps>).defaultValue || ''
       }
-      touchWhen={TouchWhen.Blur}
+      touchWhen={
+        validateOccasion === ValidateOccasion.Change
+          ? TouchWhen.Change
+          : TouchWhen.Blur
+      }
       validateOccasion={validateOccasion}
     >
       {childProps => <InputField childProps={childProps} props={props} />}
