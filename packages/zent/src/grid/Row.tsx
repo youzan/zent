@@ -31,16 +31,10 @@ interface IGridRowProps<Data> {
 
 class Row<Data> extends PureComponent<IGridRowProps<Data>> {
   getOnMouseEnter = () => {
-    const {
-      onRowMouseEnter,
-      disableHoverHighlight,
-      scroll,
-      rowIndex,
-    } = this.props;
-    if (disableHoverHighlight) {
-      return null;
+    const { onRowMouseEnter, scroll, rowIndex } = this.props;
+    if (scroll && scroll.x) {
+      onRowMouseEnter(rowIndex);
     }
-    return () => scroll && scroll.x && onRowMouseEnter(rowIndex);
   };
 
   render() {
@@ -101,7 +95,7 @@ class Row<Data> extends PureComponent<IGridRowProps<Data>> {
           [`${prefix}-grid-tr__mouseover`]: mouseOverRowIndex === rowIndex,
         })}
         onClick={e => onRowClick(data, rowIndex, e)}
-        onMouseEnter={this.getOnMouseEnter()}
+        onMouseEnter={disableHoverHighlight ? null : this.getOnMouseEnter}
         style={{ height }}
         {...rowProps(data, rowIndex)}
         /* ts-plugin-version-attribute ignores this element, but it may be a tr... */

@@ -590,11 +590,9 @@ export class Grid<Data = any> extends PureComponent<
   };
 
   onRowMouseEnter = (mouseOverRowIndex: number) => {
-    if (!this.props.disableHoverHighlight) {
-      this.setState({
-        mouseOverRowIndex,
-      });
-    }
+    this.setState({
+      mouseOverRowIndex,
+    });
   };
 
   getTable = (
