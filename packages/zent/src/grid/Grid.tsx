@@ -819,15 +819,14 @@ export class Grid<Data = any> extends PureComponent<
         break;
       case 'removeAll':
         selectedRowKeys = (selectedRowKeys || []).filter(selectedRowKey => {
-          let rlt = true;
-          (data || []).forEach((key, index) => {
+          return (data || []).every((key, index) => {
             const rowIndex = this.getDataKey(key, index);
-            if (selectedRowKey === rowIndex) {
-              rlt = false;
+            const match = selectedRowKey === rowIndex;
+            if (match) {
               changeRowKeys.push(key);
             }
+            return !match;
           });
-          return rlt;
         });
         break;
       default:
