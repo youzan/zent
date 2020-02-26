@@ -49,7 +49,6 @@ class Row<Data> extends PureComponent<IGridRowProps<Data>> {
       row,
       rowProps = noop,
       disableHoverHighlight,
-      onRowMouseEnter,
       scroll,
     } = this.props;
 
