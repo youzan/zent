@@ -4,16 +4,17 @@ import { withRouter } from 'react-router-dom';
 import './style.scss';
 
 class FooterNav extends Component {
-  state = {
-    nav: { prev: null, next: null },
-  };
+  constructor(props) {
+    super(props);
 
-  componentWillMount() {
-    const { data, location } = this.props;
-    if (!location || !location.pathname || !data[location.pathname]) {
-      return;
+    this.state = {
+      nav: { prev: null, next: null },
+    };
+
+    const { data, location } = props;
+    if (location && location.pathname && data[location.pathname]) {
+      this.state.nav = data[location.pathname];
     }
-    this.setState({ nav: data[location.pathname] });
   }
 
   componentWillReceiveProps(nextProps) {

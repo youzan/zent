@@ -39,10 +39,9 @@ class Simple extends Component {
   };
 
   // 用定时器模拟loading
-  componentWillMount() {
-    let self = this;
+  componentDidMount() {
     setTimeout(() => {
-      self.setState({
+      this.setState({
         loading: false,
       });
     }, 3000);
