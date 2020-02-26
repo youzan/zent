@@ -87,6 +87,7 @@ export interface IGridProps<Data = any> {
   stickyBatch?: boolean;
   autoStick?: boolean;
   autoStickOffsetTop?: number;
+  disableHoverHighlight?: boolean; // scroll时hover每次都会重绘，提供属性去禁用，这时hover就没有样式了
 }
 
 export interface IGridState {
@@ -125,6 +126,7 @@ export class Grid<Data = any> extends PureComponent<
     stickyBatch: false,
     autoStick: false,
     autoStickOffsetTop: 0,
+    disableHoverHighlight: false,
   };
 
   mounted = false;
@@ -615,6 +617,7 @@ export class Grid<Data = any> extends PureComponent<
       rowKey,
       components,
       rowProps,
+      disableHoverHighlight,
     } = this.props;
     const { fixed, isStickyHead } = options;
     const columns = options.columns || this.store.getState('columns');
@@ -669,6 +672,7 @@ export class Grid<Data = any> extends PureComponent<
         }
         components={components}
         rowProps={rowProps}
+        disableHoverHighlight={disableHoverHighlight}
       />
     );
 
