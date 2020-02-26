@@ -1,7 +1,7 @@
 ---
-order: 1
+order: 15
 zh-CN:
-	title: 基础用法
+	title: 取消鼠标hover高亮
 	product: 商品
 	productName: 商品名
 	uv: 访问量
@@ -45,10 +45,10 @@ for (let i = 0; i < 3; i++) {
 
 ReactDOM.render(
 		<Grid
+			disableHoverHighlight
 			columns={columns}
 			datasets={datasets}
 			rowClassName={(data, index) => `${data.id}-${index}`}
-			onRowClick={(data, index, event) => { console.log(data, index, event.target, 'simple onRowClick') }}
 		/>
 	, mountNode
 );
