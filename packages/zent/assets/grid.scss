@@ -245,7 +245,7 @@
 
   &-tr__disable-highlight {
     &:hover {
-      background-color: transparent;
+      @include theme-color(background-color, stroke, 9);
     }
   }
 
