@@ -585,6 +585,7 @@ export class Grid<Data = any> extends PureComponent<
 
   onResize = () => {
     this.syncFixedTableRowHeight();
+    this.setScrollPositionClassName();
     this.toggleBatchComponents();
     this.setStickyHeadWidth();
   };
