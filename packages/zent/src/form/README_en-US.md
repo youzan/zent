@@ -19,6 +19,7 @@ The documentation for old `Form` component can be viewed [here](https://zent-con
 
 - Using `View` means the form data is constructed by the view structure. Under this strategy, all form components/hooks use a `name` for construct the internal model.
 - Using `Model` means the form data is constructed separately, and form components/hooks use `model` object from the constructed form model.
+- When using `FieldArray` in `View` mode, validators should be set on component, even if we are passing `model` to fields inside `FieldArray`.
 
 #### `Field`
 

@@ -9,6 +9,7 @@ export {
   FormStrategy,
   IValidators,
   Validators,
+  ValidateOption,
   FieldUtils,
   BasicBuilder,
   FieldArrayBuilder,
