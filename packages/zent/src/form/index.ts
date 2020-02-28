@@ -3,6 +3,7 @@ import { Form } from './Form';
 export default Form;
 
 export {
+  BasicModel,
   FieldArrayModel,
   FieldModel,
   FieldSetModel,
