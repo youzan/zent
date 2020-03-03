@@ -16,6 +16,7 @@ import {
   IImageUploadProps,
   IUploadFileItemInner,
   IUploadTipConfig,
+  IImageUploadItemProps,
 } from './types';
 import {
   defaultGetThumbSrcFromFile,
@@ -43,6 +44,7 @@ type IImageUploadPropsInner = PartialRequired<
 export class ImageUpload extends AbstractUpload<
   IImageUploadFileItem,
   IImageOnUploadSuccessReturn,
+  IImageUploadItemProps,
   IImageUploadProps
 > {
   static defaultProps: Partial<IImageUploadProps> = {
@@ -72,7 +74,8 @@ export class ImageUpload extends AbstractUpload<
   }
 
   protected renderUploadList(i18n: II18nLocaleUpload): React.ReactNode {
-    const { sortable, preview } = this.props as IImageUploadPropsInner;
+    const { sortable, preview, customUploadItem } = this
+      .props as IImageUploadPropsInner;
 
     // 上传 trigger
     const uploadTrigger = this.remainAmount > 0 && this.renderTrigger(i18n);
@@ -87,6 +90,7 @@ export class ImageUpload extends AbstractUpload<
         sortable={sortable}
         trigger={uploadTrigger}
         onPreview={preview}
+        customUploadItem={customUploadItem}
       />
     );
   }

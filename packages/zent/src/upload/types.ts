@@ -87,7 +87,8 @@ export type IImageUploadPreviewHandler = (
 // react props
 export interface IAbstractUploadProps<
   UPLOAD_ITEM extends IUploadFileItem,
-  ON_UPLOAD_SUCCESS_RETURN = void
+  ON_UPLOAD_SUCCESS_RETURN,
+  UPLOAD_ITEM_COMP_PROPS extends IUploadItemProps<UPLOAD_ITEM>
 > {
   /** 自定义 className */
   className?: string;
@@ -117,9 +118,12 @@ export interface IAbstractUploadProps<
   sortable?: boolean;
   /** 是否自动触发文件上传流程（即 onUpload 回调） */
   manualUpload?: boolean;
+  /** 自定义的上传项展示组件 */
+  customUploadItem?: React.ComponentType<UPLOAD_ITEM_COMP_PROPS>;
 }
 
-export interface IUploadProps extends IAbstractUploadProps<IUploadFileItem> {
+export interface IUploadProps
+  extends IAbstractUploadProps<IUploadFileItem, void, INormalUploadItemProps> {
   /** 提示文案 */
   tips?: string | IUploadTipsFunc<IUploadProps>;
   /** 是否展示分页信息 */
@@ -131,7 +135,8 @@ export interface IUploadProps extends IAbstractUploadProps<IUploadFileItem> {
 export interface IImageUploadProps
   extends IAbstractUploadProps<
     IImageUploadFileItem,
-    IImageOnUploadSuccessReturn
+    IImageOnUploadSuccessReturn,
+    IImageUploadItemProps
   > {
   /** 提示文案 */
   tips?: string | IUploadTipsFunc<IImageUploadProps>;
@@ -165,23 +170,30 @@ export interface IFileInputProps {
   onChange: (files: File[]) => void;
 }
 
-export interface IAbstractUploadListProps<UPLOAD_ITEM extends IUploadFileItem> {
+export interface IAbstractUploadListProps<
+  UPLOAD_ITEM extends IUploadFileItem,
+  UPLOAD_ITEM_COMP_PROPS extends IUploadItemProps<UPLOAD_ITEM>
+> {
   i18n: II18nLocaleUpload;
   fileList: UPLOAD_ITEM[];
   onRetry: (retryItem: IUploadFileItemInner<UPLOAD_ITEM>) => void;
   onDelete: (retryItem: IUploadFileItemInner<UPLOAD_ITEM>) => void;
   sortable?: boolean;
   onSortChange: (list: Array<IUploadFileItemInner<UPLOAD_ITEM>>) => void;
+  customUploadItem?: React.ComponentType<UPLOAD_ITEM_COMP_PROPS>;
 }
 
 export interface IUploadListProps
-  extends IAbstractUploadListProps<IUploadFileItem> {
+  extends IAbstractUploadListProps<IUploadFileItem, INormalUploadItemProps> {
   pagination: boolean;
   pageSize: number;
 }
 
 export interface IImageUploadListProps
-  extends IAbstractUploadListProps<IImageUploadFileItem> {
+  extends IAbstractUploadListProps<
+    IImageUploadFileItem,
+    IImageUploadItemProps
+  > {
   trigger: React.ReactNode;
   onPreview: IImageUploadPreviewHandler;
 }
@@ -189,8 +201,8 @@ export interface IImageUploadListProps
 export interface IUploadItemProps<UPLOAD_ITEM extends IUploadFileItem> {
   item: IUploadFileItemInner<UPLOAD_ITEM>;
   i18n: II18nLocaleUpload;
-  onRetry: IAbstractUploadListProps<UPLOAD_ITEM>['onRetry'];
-  onDelete: IAbstractUploadListProps<UPLOAD_ITEM>['onDelete'];
+  onRetry: IAbstractUploadListProps<UPLOAD_ITEM, any>['onRetry'];
+  onDelete: IAbstractUploadListProps<UPLOAD_ITEM, any>['onDelete'];
 }
 
 export type INormalUploadItemProps = IUploadItemProps<IUploadFileItem>;
