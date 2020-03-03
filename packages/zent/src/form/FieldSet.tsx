@@ -1,12 +1,15 @@
 import * as React from 'react';
 import {
-  IValidator,
   useFieldSet,
   FormProvider,
   useValue$,
   BasicModel,
   IMaybeError,
   FieldSetModel,
+  IValidators,
+  $FieldSetValue,
+  ModelRef,
+  FieldArrayModel,
 } from 'formulr';
 import {
   IRenderError,
@@ -15,7 +18,9 @@ import {
   IFormFieldViewDrivenProps,
 } from './shared';
 
-export interface IFieldSetProps<T extends Record<string, BasicModel<unknown>>> {
+export interface IFieldSetBaseProps<
+  T extends Record<string, BasicModel<unknown>>
+> {
   /**
    * 表单提交时滚动到错误时的`DOM`元素的`ref`(来自`React.createRef`或`React.useRef`)
    */
@@ -23,7 +28,7 @@ export interface IFieldSetProps<T extends Record<string, BasicModel<unknown>>> {
   /**
    * 校验规则数组，按数组顺序执行，直到所有都通过或者在第一个失败的地方停止
    */
-  validators?: Array<IValidator<T>>;
+  validators?: IValidators<T>;
   children?: React.ReactNode;
   /**
    * 用于渲染整个 `FieldSet` 层面的错误
@@ -31,12 +36,40 @@ export interface IFieldSetProps<T extends Record<string, BasicModel<unknown>>> {
   renderError?: IRenderError<T>;
 }
 
+export interface IFieldSetModelDrivenProps<
+  T extends Record<string, BasicModel<unknown>>
+> extends IFieldSetBaseProps<T> {
+  model:
+    | FieldSetModel<T>
+    | ModelRef<
+        $FieldSetValue<T>,
+        | FieldSetModel<Record<string, BasicModel<unknown>>>
+        | FieldArrayModel<any, FieldSetModel<T>>,
+        FieldSetModel<T>
+      >;
+}
+
+export interface IFieldSetViewDrivenProps<
+  T extends Record<string, BasicModel<unknown>>
+>
+  extends Omit<
+      IFormFieldViewDrivenProps<$FieldSetValue<T>>,
+      'defaultValue' | 'validators'
+    >,
+    IFieldSetBaseProps<T> {}
+
 export function FieldSet<T extends Record<string, BasicModel<unknown>>>(
-  props: IFieldSetProps<T> &
-    IFormFieldViewDrivenProps<T> & { model: FieldSetModel<T> }
+  props: IFieldSetModelDrivenProps<T> | IFieldSetViewDrivenProps<T>
 ) {
-  const [ctx, model] = useFieldSet(props.name || props.model, props.validators);
-  const { scrollAnchorRef, renderError = defaultRenderError } = props;
+  const {
+    scrollAnchorRef,
+    renderError = defaultRenderError,
+    validators,
+  } = props as IFieldSetBaseProps<T>;
+  const { name } = props as IFieldSetViewDrivenProps<T>;
+  const { model: rawModel } = props as IFieldSetModelDrivenProps<T>;
+  const [ctx, model] = useFieldSet(name || rawModel, validators);
+
   useFormChild(model as BasicModel<unknown>, scrollAnchorRef);
   useValue$(model.error$, model.error$.getValue());
   return (

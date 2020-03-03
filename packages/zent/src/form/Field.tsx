@@ -48,9 +48,9 @@ function getValidators<Value>({
         Validators.SYMBOL_REQUIRED
     )
   ) {
-    validators = ([Validators.required(required as string)] as IValidators<
-      Value
-    >).concat(validators);
+    validators = ([
+      Validators.required(typeof required === 'string' ? required : ''),
+    ] as IValidators<Value>).concat(validators);
   }
   return validators;
 }

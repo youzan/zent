@@ -46,10 +46,12 @@ const columns = [
 ];
 
 class Customer extends React.Component {
-  componentWillMount() {
-    this.setState({
+  constructor(props) {
+    super(props);
+
+    this.state = {
       length: 0,
-    });
+    };
   }
 
   onClick = () => {

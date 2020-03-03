@@ -69,7 +69,7 @@ export interface IGridSelection<Data = any> {
   ) => any;
   getCheckboxProps?: (
     data: Data
-  ) => { disabled?: boolean; reason: React.ReactNode };
+  ) => { disabled?: boolean; reason?: React.ReactNode };
 }
 
 export interface IGridExpandation<Data = any> {
