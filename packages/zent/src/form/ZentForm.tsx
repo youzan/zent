@@ -1,13 +1,13 @@
 import { useMemo, useReducer, FormEvent } from 'react';
 import {
-  IForm,
   ValidateOption,
   $FieldSetValue,
   useForm as superUseForm,
   FormStrategy,
   FormBuilder,
-  BasicModel,
+  AbstractModel,
   BasicBuilder,
+  IUseForm,
 } from 'formulr';
 import { Subject } from 'rxjs';
 
@@ -53,14 +53,14 @@ function formReducer(state: IFormState, action: IFormAction): IFormState {
   }
 }
 
-export class ZentForm<T extends Record<string, BasicModel<unknown>>>
-  implements IForm<T> {
+export class ZentForm<T extends Record<string, AbstractModel<unknown>>>
+  implements IUseForm<T> {
   /** @internal */
   submit$ = new Subject<FormEvent | undefined>();
 
   /** @internal */
   constructor(
-    readonly inner: IForm<T>,
+    readonly inner: IUseForm<T>,
     /** @internal */
     public state: IFormState,
     /** @internal */
@@ -160,7 +160,7 @@ export class ZentForm<T extends Record<string, BasicModel<unknown>>>
 export function useForm<
   T extends Record<string, Builder>,
   Builder extends BasicBuilder<unknown, Model>,
-  Model extends BasicModel<unknown>
+  Model extends AbstractModel<unknown>
 >(arg: FormStrategy.View | FormBuilder<T, Builder, Model>) {
   const inner = superUseForm(arg);
   const [state, dispatch] = useReducer(formReducer, initialState);

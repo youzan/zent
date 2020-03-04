@@ -3,7 +3,7 @@ import {
   FieldModel,
   IValidators,
   IMaybeError,
-  BasicModel,
+  AbstractModel,
   ValidateOption,
 } from 'formulr';
 import { Omit, Optional } from 'utility-types';
@@ -188,7 +188,7 @@ export function defaultRenderError<T>(error: IMaybeError<T>) {
 }
 
 export function useFormChild<Value>(
-  model: BasicModel<Value>,
+  model: AbstractModel<Value>,
   scrollAnchorRef?: React.RefObject<Element | null | undefined>
 ) {
   const ctx = useFormContext();

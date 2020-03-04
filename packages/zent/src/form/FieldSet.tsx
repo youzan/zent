@@ -3,7 +3,7 @@ import {
   useFieldSet,
   FormProvider,
   useValue$,
-  BasicModel,
+  AbstractModel,
   IMaybeError,
   FieldSetModel,
   IValidators,
@@ -20,7 +20,7 @@ import {
 import { useImperativeHandle } from 'react';
 
 export interface IFieldSetBaseProps<
-  T extends Record<string, BasicModel<unknown>>
+  T extends Record<string, AbstractModel<unknown>>
 > {
   /**
    * 表单提交时滚动到错误时的`DOM`元素的`ref`(来自`React.createRef`或`React.useRef`)
@@ -39,20 +39,20 @@ export interface IFieldSetBaseProps<
 }
 
 export interface IFieldSetModelDrivenProps<
-  T extends Record<string, BasicModel<unknown>>
+  T extends Record<string, AbstractModel<unknown>>
 > extends IFieldSetBaseProps<T> {
   model:
     | FieldSetModel<T>
     | ModelRef<
         $FieldSetValue<T>,
-        | FieldSetModel<Record<string, BasicModel<unknown>>>
+        | FieldSetModel<Record<string, AbstractModel<unknown>>>
         | FieldArrayModel<any, FieldSetModel<T>>,
         FieldSetModel<T>
       >;
 }
 
 export interface IFieldSetViewDrivenProps<
-  T extends Record<string, BasicModel<unknown>>
+  T extends Record<string, AbstractModel<unknown>>
 >
   extends Omit<
       IFormFieldViewDrivenProps<$FieldSetValue<T>>,
@@ -60,7 +60,7 @@ export interface IFieldSetViewDrivenProps<
     >,
     IFieldSetBaseProps<T> {}
 
-export function FieldSet<T extends Record<string, BasicModel<unknown>>>(
+export function FieldSet<T extends Record<string, AbstractModel<unknown>>>(
   props: IFieldSetModelDrivenProps<T> | IFieldSetViewDrivenProps<T>
 ) {
   const {
@@ -73,7 +73,7 @@ export function FieldSet<T extends Record<string, BasicModel<unknown>>>(
   const { model: rawModel } = props as IFieldSetModelDrivenProps<T>;
   const [ctx, model] = useFieldSet(name || rawModel, validators);
   useImperativeHandle(modelRef, () => model, [model]);
-  useFormChild(model as BasicModel<unknown>, scrollAnchorRef);
+  useFormChild(model as AbstractModel<unknown>, scrollAnchorRef);
   useValue$(model.error$, model.error$.getValue());
   return (
     <FormProvider value={ctx}>
