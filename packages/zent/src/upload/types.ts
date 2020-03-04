@@ -116,7 +116,7 @@ export interface IAbstractUploadProps<
   disabled?: boolean;
   /** 是否可排序 */
   sortable?: boolean;
-  /** 是否自动触发文件上传流程（即 onUpload 回调） */
+  /** 是否手动触发文件上传流程 */
   manualUpload?: boolean;
   /** 自定义的上传项展示组件 */
   customUploadItem?: React.ComponentType<UPLOAD_ITEM_COMP_PROPS>;
