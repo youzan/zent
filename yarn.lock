@@ -5002,10 +5002,10 @@ format@^0.2.2:
   resolved "https://registry.yarnpkg.com/format/-/format-0.2.2.tgz#d6170107e9efdc4ed30c9dc39016df942b5cb58b"
   integrity sha1-1hcBB+nv3E7TDJ3DkBbflCtctYs=
 
-formulr@~0.2.13:
-  version "0.2.13"
-  resolved "https://registry.yarnpkg.com/formulr/-/formulr-0.2.13.tgz#c7bc4fdbe525db8544fd96479759aff171434fd0"
-  integrity sha512-GgZ3p1Y+dlzuJKHXn0QH/cPDWJZ4fl6jllEko9zvhevLNuzgpvE0avPSpIjPk3s3WL6dfXkDrIAwZ/gxAGhE5Q==
+formulr@0.3.0-0:
+  version "0.3.0-0"
+  resolved "https://registry.yarnpkg.com/formulr/-/formulr-0.3.0-0.tgz#a2b4b3de27255c81861b412558fd024877915c4a"
+  integrity sha512-hW/FUibvL3EgH5OiRARYwl0MsYjk96kLveTaaWL7iCsi33l2CkvJpOSoyaoCvMyGFMwVaF2ZeGn6j/5R2bpq1A==
   dependencies:
     big.js "^5.2.2"
     rxjs "^6.4.0"
