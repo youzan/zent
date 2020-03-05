@@ -11,7 +11,7 @@ import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
 import {
   goMonths,
-  setSameDate,
+  cloneFromDate,
   formatDate,
   parseDate,
   dayStart,
@@ -155,7 +155,7 @@ export class DatePicker extends PureComponent<IDatePickerProps, any> {
     if (this.isDisabled(val)) return;
 
     // 如果选择的日期和最小日期同一天，则设置时间为最小日期的时间
-    activedTime = setSameDate(activedTime, val);
+    activedTime = cloneFromDate(val);
     if (min) {
       const minDate = parseDate(min, format);
       if (activedTime < minDate) {

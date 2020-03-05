@@ -3,7 +3,7 @@ import React from 'react';
 import Layout from './Layout';
 
 export default class CNWrapper extends React.Component {
-  componentWillMount() {
+  componentDidMount() {
     const { changeI18N, i18n } = this.props.pass;
     if (i18n !== 'zh-CN') {
       changeI18N('zh-CN');

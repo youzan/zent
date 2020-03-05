@@ -26,9 +26,15 @@ interface IGridRowProps<Data> {
   fixedColumnsBodyRowsHeight: Array<string | number>;
   row?: React.ComponentType;
   rowProps?: (data: Data, index: number) => any;
+  disableHoverHighlight: boolean;
 }
 
 class Row<Data> extends PureComponent<IGridRowProps<Data>> {
+  onMouseEnter = () => {
+    const { rowIndex, onRowMouseEnter } = this.props;
+    onRowMouseEnter(rowIndex);
+  };
+
   render() {
     const {
       prefix,
@@ -38,12 +44,12 @@ class Row<Data> extends PureComponent<IGridRowProps<Data>> {
       rowClassName,
       mouseOverRowIndex,
       onRowClick,
-      onRowMouseEnter,
       fixed,
-      scroll,
       fixedColumnsBodyRowsHeight,
       row,
       rowProps = noop,
+      disableHoverHighlight,
+      scroll,
     } = this.props;
 
     const BodyRow = row || 'tr';
@@ -81,13 +87,16 @@ class Row<Data> extends PureComponent<IGridRowProps<Data>> {
       }
     );
 
+    const supportMouseEnter = !disableHoverHighlight && scroll && scroll.x;
+
     return (
       <BodyRow
         className={classnames(`${prefix}-grid-tr`, className, {
+          [`${prefix}-grid-tr__disable-highlight`]: disableHoverHighlight,
           [`${prefix}-grid-tr__mouseover`]: mouseOverRowIndex === rowIndex,
         })}
         onClick={e => onRowClick(data, rowIndex, e)}
-        onMouseEnter={() => scroll && scroll.x && onRowMouseEnter(rowIndex)}
+        onMouseEnter={supportMouseEnter ? this.onMouseEnter : null}
         style={{ height }}
         {...rowProps(data, rowIndex)}
         /* ts-plugin-version-attribute ignores this element, but it may be a tr... */

@@ -8,6 +8,18 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 8.3.0(2020-02-26)
+
+- `Grid`
+  - ✨ Add `disableHoverHighlight` to disable row hover highlight
+  - 🦀️ Fix wrong selection data after reverting [Select All]
+- 🦀️ Fix some broken style in documentation
+- `Form`
+  - 🦀️ Update styles
+  - 🦀️ Fix `FieldSet` type definition
+  - 🦀️ Export `ValidateOption`
+- 📚 Upgrade documentation site dependencies
+
 ### 8.2.0(2020-02-18)
 
 - ✨ `BlockHeader` has a new minimum style
