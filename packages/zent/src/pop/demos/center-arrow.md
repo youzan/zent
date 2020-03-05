@@ -15,7 +15,7 @@ import { Pop, Button, Input } from 'zent';
 
 ReactDOM.render(
 	<div className="zent-doc-pop-container">
-		<Pop centerArrow trigger="hover" position="top-left" content="{i18n.contentTrue}">
+		<Pop centerArrow trigger="click" position="top-left" content="{i18n.contentTrue}">
 			<div className="zent-doc-pop-tag">Y</div>
 		</Pop>
 		<Pop trigger="hover" position="top-left" content="{i18n.contentFalse}">

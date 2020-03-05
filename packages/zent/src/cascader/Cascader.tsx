@@ -312,7 +312,7 @@ export class Cascader<
                 onClose={this.onClose}
                 cushion={4}
               >
-                <Popover.Trigger.Click>
+                <Popover.Trigger.Click toggle>
                   <div className="zent-cascader__select">
                     <div className={selectTextCls}>
                       <span className="zent-cascader__select-text-content">

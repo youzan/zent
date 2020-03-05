@@ -109,7 +109,7 @@ function PopoverContent({ children }: IPopoverContentProps) {
       portalRef
     );
     setPosition(position);
-  }, [getContainer, getPositionedParent]);
+  });
   React.useImperativeHandle(
     ctx.contentRef,
     () => ({

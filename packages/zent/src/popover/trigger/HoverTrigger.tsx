@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Subject, of } from 'rxjs';
-import { switchMap, delay } from 'rxjs/operators';
+import { Subject, Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import Context from '../Context';
 import Anchor from '../Anchor';
 import { addEventListener } from '../../utils/component/event-handler';
@@ -43,7 +43,19 @@ export function PopoverHoverTrigger<
       .pipe(
         switchMap(visible => {
           const { hideDelay = 150, showDelay = 150 } = propsRef.current;
-          return of(visible).pipe(delay(visible ? showDelay : hideDelay));
+          return new Observable<boolean>(subscriber => {
+            let timer: any = setTimeout(
+              () => {
+                subscriber.next(visible);
+                subscriber.complete();
+                timer = null;
+              },
+              visible ? showDelay : hideDelay
+            );
+            return () => {
+              timer && clearTimeout(timer);
+            };
+          });
         })
       )
       .subscribe(visible => {

@@ -23,6 +23,11 @@ class PopoverAnchor extends React.Component<IPopoverAnchorProps> {
   }
 
   render() {
+    if (process.env.NODE_ENV !== 'production') {
+      if (!this.props.children) {
+        throw new Error('Popover Anchor requires a child');
+      }
+    }
     return this.props.children;
   }
 }

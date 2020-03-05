@@ -104,11 +104,7 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
   }
 
   adjustPosition() {
-    const content = this.contentRef.current;
-    if (!content) {
-      return;
-    }
-    content.adjustPosition();
+    this.contentRef.current?.adjustPosition();
   }
 
   open = () => {
@@ -118,43 +114,6 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
   close = () => {
     this.setVisible(false);
   };
-
-  // validateChildren = memorize((children: IPopoverChildren) => {
-  //   const childArray = Children.toArray(children) as IPopoverChildren;
-  //   if (childArray.length !== 2) {
-  //     throw new Error(
-  //       'There must be one and only one trigger and content in Popover'
-  //     );
-  //   }
-  //   const _0 = childArray[0];
-  //   const _1 = childArray[1];
-  //   let trigger: IPopoverTriggerElement;
-  //   let content: IPopoverContentElement;
-  //   if (isPopoverTrigger(_0)) {
-  //     trigger = _0;
-  //   } else if (isPopoverTrigger(_1)) {
-  //     trigger = _1;
-  //   } else {
-  //     throw new Error('Missing trigger in Popover');
-  //   }
-  //   if (isPopoverContent(_0)) {
-  //     content = _0;
-  //   } else if (isPopoverContent(_1)) {
-  //     content = _1;
-  //   } else {
-  //     throw new Error('Missing content in Popover');
-  //   }
-  //   if ((trigger as any).ref) {
-  //     throw new Error('Ref on Trigger Component is not allowed');
-  //   }
-  //   if ((content as any).ref) {
-  //     throw new Error('Ref on Content Component is not allowed');
-  //   }
-  //   return {
-  //     trigger,
-  //     content,
-  //   };
-  // });
 
   /** @internal */
   positionUpdated() {
@@ -192,17 +151,16 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
   }
 
   componentDidUpdate(prevProps: IPopoverProps, prevState: IPopoverState) {
-    if (prevState.visible === this.state.visible) {
-      return;
+    if (prevState.visible !== this.state.visible) {
+      const { onShow, onClose } = this.props;
+      if (this.state.visible) {
+        this.isPositionReady = false;
+        onShow && onShow();
+      } else {
+        onClose && onClose();
+      }
     }
-    const { onShow, onClose } = this.props;
-    if (this.state.visible) {
-      this.isPositionReady = false;
-      this.adjustPosition();
-      onShow && onShow();
-    } else {
-      onClose && onClose();
-    }
+    this.adjustPosition();
   }
 
   componentWillUnmount() {
