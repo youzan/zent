@@ -3,7 +3,7 @@ import {
   useFieldSet,
   FormProvider,
   useValue$,
-  AbstractModel,
+  BasicModel,
   IMaybeError,
   FieldSetModel,
   IValidators,
@@ -20,7 +20,7 @@ import {
 import { useImperativeHandle } from 'react';
 
 export interface IFieldSetBaseProps<
-  T extends Record<string, AbstractModel<unknown>>
+  T extends Record<string, BasicModel<unknown>>
 > {
   /**
    * 表单提交时滚动到错误时的`DOM`元素的`ref`(来自`React.createRef`或`React.useRef`)
@@ -39,20 +39,20 @@ export interface IFieldSetBaseProps<
 }
 
 export interface IFieldSetModelDrivenProps<
-  T extends Record<string, AbstractModel<unknown>>
+  T extends Record<string, BasicModel<unknown>>
 > extends IFieldSetBaseProps<T> {
   model:
     | FieldSetModel<T>
     | ModelRef<
         $FieldSetValue<T>,
-        | FieldSetModel<Record<string, AbstractModel<unknown>>>
+        | FieldSetModel<Record<string, BasicModel<unknown>>>
         | FieldArrayModel<any, FieldSetModel<T>>,
         FieldSetModel<T>
       >;
 }
 
 export interface IFieldSetViewDrivenProps<
-  T extends Record<string, AbstractModel<unknown>>
+  T extends Record<string, BasicModel<unknown>>
 >
   extends Omit<
       IFormFieldViewDrivenProps<$FieldSetValue<T>>,
@@ -60,7 +60,7 @@ export interface IFieldSetViewDrivenProps<
     >,
     IFieldSetBaseProps<T> {}
 
-export function FieldSet<T extends Record<string, AbstractModel<unknown>>>(
+export function FieldSet<T extends Record<string, BasicModel<unknown>>>(
   props: IFieldSetModelDrivenProps<T> | IFieldSetViewDrivenProps<T>
 ) {
   const {
@@ -73,7 +73,7 @@ export function FieldSet<T extends Record<string, AbstractModel<unknown>>>(
   const { model: rawModel } = props as IFieldSetModelDrivenProps<T>;
   const [ctx, model] = useFieldSet(name || rawModel, validators);
   useImperativeHandle(modelRef, () => model, [model]);
-  useFormChild(model as AbstractModel<unknown>, scrollAnchorRef);
+  useFormChild(model as BasicModel<unknown>, scrollAnchorRef);
   useValue$(model.error$, model.error$.getValue());
   return (
     <FormProvider value={ctx}>
