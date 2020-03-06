@@ -31,6 +31,7 @@ export interface IGridBodyProps<Data> {
   };
   onRowClick: IGridRowClickHandler<Data>;
   onRowMouseEnter: (index: number) => void;
+  disableHoverHighlight: boolean;
 }
 
 class Body<Data> extends PureComponent<IGridBodyProps<Data>> {
@@ -52,6 +53,7 @@ class Body<Data> extends PureComponent<IGridBodyProps<Data>> {
       fixedColumnsBodyExpandRowsHeight,
       components,
       rowProps,
+      disableHoverHighlight,
     } = this.props;
     const row: React.ReactNode[] = [];
 
@@ -73,6 +75,7 @@ class Body<Data> extends PureComponent<IGridBodyProps<Data>> {
           fixedColumnsBodyRowsHeight={fixedColumnsBodyRowsHeight}
           row={components && components.row}
           rowProps={rowProps}
+          disableHoverHighlight={disableHoverHighlight}
         />
       );
       if (expandRender && expandRowKeys.length > 0) {

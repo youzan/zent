@@ -45,6 +45,17 @@ export const Progress: React.FC<IProgressProps> = props => {
     normal: normalColor,
   }[state];
 
+  // 百分比范围
+  const percentValue = React.useMemo<number>(() => {
+    if (percent < 0) {
+      return 0;
+    }
+    if (percent > 100) {
+      return 100;
+    }
+    return percent;
+  }, [percent]);
+
   // 判断使用哪种类型的进度条
   let ProgressComponent: React.ComponentType<IProgressInstanceProps>;
   switch (type) {
@@ -67,7 +78,7 @@ export const Progress: React.FC<IProgressProps> = props => {
   return (
     <div className={containerCls} {...divAttrs}>
       <ProgressComponent
-        percent={percent}
+        percent={percentValue}
         showInfo={showInfo}
         strokeWidth={strokeWidth}
         width={width}

@@ -3,12 +3,14 @@ import { Form } from './Form';
 export default Form;
 
 export {
+  BasicModel,
   FieldArrayModel,
   FieldModel,
   FieldSetModel,
   FormStrategy,
   IValidators,
   Validators,
+  ValidateOption,
   FieldUtils,
   BasicBuilder,
   FieldArrayBuilder,

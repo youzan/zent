@@ -25,7 +25,7 @@ describe('getValidDate', () => {
 describe('parseDate', () => {
   it('Date', () => {
     const now = new Date();
-    expect(parseDate(now)).toBe(now);
+    expect(parseDate(now)).toEqual(now);
     expect(parseDate('2019-01-02', 'xxx-f-d-')).toBe(null);
     expect(parseDate(now.getTime()).getTime()).toBe(now.getTime());
     expect(parseDate('2019-01-02', 'YYYY-MM-DD').getTime()).toBe(

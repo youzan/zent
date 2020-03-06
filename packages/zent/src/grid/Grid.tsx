@@ -86,6 +86,8 @@ export interface IGridProps<Data = any> {
   batchRender?: IGridBatchRender;
   stickyBatch?: boolean;
   autoStick?: boolean;
+  autoStickOffsetTop?: number;
+  disableHoverHighlight?: boolean; // scroll时hover每次都会重绘，提供属性去禁用，这时hover就没有样式了
 }
 
 export interface IGridState {
@@ -123,6 +125,8 @@ export class Grid<Data = any> extends PureComponent<
     onExpand: noop,
     stickyBatch: false,
     autoStick: false,
+    autoStickOffsetTop: 0,
+    disableHoverHighlight: false,
   };
 
   mounted = false;
@@ -581,6 +585,7 @@ export class Grid<Data = any> extends PureComponent<
 
   onResize = () => {
     this.syncFixedTableRowHeight();
+    this.setScrollPositionClassName();
     this.toggleBatchComponents();
     this.setStickyHeadWidth();
   };
@@ -613,6 +618,7 @@ export class Grid<Data = any> extends PureComponent<
       rowKey,
       components,
       rowProps,
+      disableHoverHighlight,
     } = this.props;
     const { fixed, isStickyHead } = options;
     const columns = options.columns || this.store.getState('columns');
@@ -667,6 +673,7 @@ export class Grid<Data = any> extends PureComponent<
         }
         components={components}
         rowProps={rowProps}
+        disableHoverHighlight={disableHoverHighlight}
       />
     );
 
@@ -816,14 +823,15 @@ export class Grid<Data = any> extends PureComponent<
         });
         break;
       case 'removeAll':
-        selectedRowKeys = (data || []).filter((key, index) => {
-          const rowIndex = this.getDataKey(key, index);
-          let rlt = true;
-          if (selectedRowKeys.indexOf(rowIndex) !== -1) {
-            rlt = false;
-            changeRowKeys.push(key);
-          }
-          return rlt;
+        selectedRowKeys = (selectedRowKeys || []).filter(selectedRowKey => {
+          return (data || []).every((key, index) => {
+            const rowIndex = this.getDataKey(key, index);
+            const match = selectedRowKey === rowIndex;
+            if (match) {
+              changeRowKeys.push(key);
+            }
+            return !match;
+          });
         });
         break;
       default:
@@ -1039,6 +1047,7 @@ export class Grid<Data = any> extends PureComponent<
       paginationType,
       bordered,
       autoStick,
+      autoStickOffsetTop,
     } = this.props;
     const { marginLeft, tableWidth, showStickHead } = this.state;
 
@@ -1103,7 +1112,9 @@ export class Grid<Data = any> extends PureComponent<
                     style={stickHeadWarpStyle}
                     className="zent-grid-sticky-header-warp"
                   >
-                    <Affix offsetTop={0}>{this.getStickyHead()}</Affix>
+                    <Affix offsetTop={autoStickOffsetTop}>
+                      {this.getStickyHead()}
+                    </Affix>
                   </div>
                 )}
                 {scrollTable}
