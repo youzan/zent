@@ -23,7 +23,7 @@
     "theme": "./scripts/build-theme.sh",
     "new-component": "node ./scripts/new-component.js",
     "typedoc": "typedoc --out ../../site/dist/apidoc --mode file",
-    "compile-plugins": "tsc plugins/*.ts -m commonjs",
+    "compile-plugins": "tsc -p tsconfig.plugins.json",
     "update-iconfont": "./scripts/update-iconfont.sh"
   },
   "author": "Youzan FE",

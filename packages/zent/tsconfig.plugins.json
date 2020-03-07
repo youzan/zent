@@ -1,0 +1,6 @@
+{
+  "compilerOptions": {
+    "module": "CommonJS"
+  },
+  "include": ["./plugins/*.ts"]
+}
