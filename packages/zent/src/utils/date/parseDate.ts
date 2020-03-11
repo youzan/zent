@@ -23,7 +23,7 @@ export default function parseDate(
   locale = zhCN
 ): Date {
   if (date instanceof Date) {
-    return date;
+    return new Date(date.getTime());
   }
 
   if (typeof date === 'number') {
