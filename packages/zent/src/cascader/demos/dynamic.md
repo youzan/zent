@@ -1,5 +1,5 @@
 ---
-order: 4
+order: 9
 zh-CN:
 	title: 动态加载数据 (tabs)
 	placeholder: 请选择

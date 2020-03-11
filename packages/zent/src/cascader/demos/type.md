@@ -1,5 +1,5 @@
 ---
-order: 2
+order: 1
 zh-CN:
 	title: 菜单类型
 	zj: 浙江省

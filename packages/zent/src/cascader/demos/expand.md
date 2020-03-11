@@ -1,5 +1,5 @@
 ---
-order: 6
+order: 2
 zh-CN:
 	title: 展开触发类型
 	zj: 浙江省

@@ -1,5 +1,5 @@
 ---
-order: 3
+order: 6
 zh-CN:
 	title: 选中即时改变
 	zj: 浙江省

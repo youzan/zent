@@ -1,5 +1,5 @@
 ---
-order: 1
+order: 5
 zh-CN:
 	title: 基础用法
 	zj: 浙江省
@@ -81,11 +81,10 @@ class Simple extends React.Component {
 		]
 	}
 
-	onChange = (data) => {
-		Notify.success(JSON.stringify(data));
-
+	// 触发的类型 clear add delete choosed
+	onChange = (value, selectedOptions, type) => {
 		this.setState({
-			value: data.map(item => item.id)
+			value,
 		});
 	}
 

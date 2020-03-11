@@ -1,5 +1,5 @@
 ---
-order: 8
+order: 11
 zh-CN:
 	title: 动态加载数据 (menu)
 	placeholder: 请选择
@@ -24,7 +24,9 @@ import { Cascader, Notify } from 'zent';
 class Simple extends React.Component {
 
 	state = {
-		value: ['330000', '330100', '330102'],
+		value: [
+			['330000', '330100', '330102'],
+		],
 		options: [
 			{
 				id: '330000',
@@ -39,7 +41,7 @@ class Simple extends React.Component {
 		]
 	}
 
-	// root 当前点击节点
+  // root 父节点
 	loadOptions = (root, stage, type) => new Promise((resolve, reject) => {
 		setTimeout(() => {
 			let isLeaf = stage >= 2;
@@ -48,7 +50,7 @@ class Simple extends React.Component {
 				title: `Label${stage}`,
 				isLeaf
 			}];
-			resolve(children);
+			resolve(root.children.concat(children));
 		}, 500);
 	})
 
@@ -61,16 +63,12 @@ class Simple extends React.Component {
 	render() {
 		return (
 			<Cascader
+				scrollLoadable
 				value={this.state.value}
 				options={this.state.options}
 				onChange={this.onChange}
 				loadOptions={this.loadOptions}
 				placeholder="{i18n.placeholder}"
-				title={[
-					'{i18n.pro}',
-					'{i18n.city}',
-					'{i18n.dis}'
-				]}
 			/>
 		);
 	}
