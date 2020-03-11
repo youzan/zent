@@ -43,7 +43,6 @@ export class BlockHeader extends Component<IBlockHeaderProps> {
           centerArrow
           position={position}
           content={<div className="zent-block-header__tooltip">{tooltip}</div>}
-          wrapperClassName="zent-block-header__tooltip-trigger"
         >
           <Icon
             className="zent-block-header__pop-help-icon"

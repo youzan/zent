@@ -65,11 +65,8 @@ export const goYears = (val, diff) => {
   return new Date(cp.setFullYear(cp.getFullYear() + diff));
 };
 
-export const setSameDate = (val, target) => {
-  val.setFullYear(target.getFullYear());
-  val.setMonth(target.getMonth());
-  val.setDate(target.getDate());
-  return val;
+export const cloneFromDate = target => {
+  return new Date(target.getFullYear(), target.getMonth(), target.getDate());
 };
 
 /**

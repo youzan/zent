@@ -71,7 +71,7 @@ ReactDOM.render(
       text-align: center;
 
       .zent-pop-wrapper:not(:last-child) {
-        margin-right: 10px
+        margin-right: 10px;
       }
     }
 
@@ -87,8 +87,12 @@ ReactDOM.render(
       flex-direction: column;
       height: 100%;
 
-      .zent-pop-wrapper:not(:last-child) {
-        margin-bottom: 10px
+			>* {
+				margin-left: 0 !important;
+			}
+
+      >*:not(:last-child) {
+				margin-bottom: 10px;
       }
     }
 

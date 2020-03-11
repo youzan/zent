@@ -1,23 +1,31 @@
 import * as React from 'react';
-import { Component } from 'react';
 import cx from 'classnames';
-import Portal from '../portal';
-import defer from '../utils/defer';
-import { WindowResizeHandler } from '../utils/component/WindowResizeHandler';
+import { Subject } from 'rxjs';
+import { IPopoverContext, usePopoverContext } from './Context';
+import Portal, { IPortalImperativeHandlers } from '../portal';
+import { useWindowEventHandler } from '../utils/component/WindowEventHandler';
 import findPositionedParent from '../utils/dom/findPositionedParent';
-import { getViewportSize } from '../utils/dom/getViewportSize';
-import isEqualPlacement from './placement/isEqual';
-import invisiblePlacement from './placement/invisible';
-import { PositionFunction, IPopoverPosition } from './position-function';
-import { WindowScrollHandler } from '../utils/component/WindowScrollHandler';
+import { IPopoverPosition } from './position-function';
+import { INVISIBLE_POSITION } from './placement';
+import useLazy from '../utils/useLazy';
+import useAnimationFramed from '../utils/useAnimationFramed';
+import { useContext } from 'react';
 
-export function isPositionVisible(rect) {
-  const viewSize = getViewportSize();
-  return !(rect.bottom < 0 || rect.top - viewSize.height > 0);
+interface IPopoverContentContext {
+  positionChanged$: Subject<void>;
 }
 
-function translateToContainerCoordinates(containerBB, bb) {
-  const { left, top } = containerBB;
+const ContentContext = React.createContext<IPopoverContentContext>({
+  positionChanged$: new Subject(),
+});
+
+ContentContext.displayName = 'PopoverContentContext';
+
+function translateToContainerCoordinates(
+  containerRect: ClientRect | DOMRect,
+  bb: ClientRect | DOMRect
+): ClientRect {
+  const { left, top } = containerRect;
   return {
     width: bb.width,
     height: bb.height,
@@ -28,186 +36,115 @@ function translateToContainerCoordinates(containerBB, bb) {
   };
 }
 
+function getPosition(
+  { visible, placement, popover, cushion }: IPopoverContext,
+  getContainer: () => Element | null,
+  getPositionedParent: () => Element | null,
+  portalRef: React.RefObject<IPortalImperativeHandlers>
+): IPopoverPosition {
+  const container = getContainer();
+  const parent = getPositionedParent();
+  const portal = portalRef.current;
+  const anchor = popover.getAnchor?.();
+  if (
+    !visible ||
+    !container ||
+    !parent ||
+    !portal ||
+    !anchor ||
+    !(anchor instanceof HTMLElement)
+  ) {
+    return INVISIBLE_POSITION;
+  }
+  const parentRect = parent.getBoundingClientRect();
+  const { container: content } = portal;
+  const contentRect = content.getBoundingClientRect();
+  const anchorRect = anchor.getBoundingClientRect();
+  const relativeRect = translateToContainerCoordinates(parentRect, anchorRect);
+  const position = placement({
+    relativeRect,
+    anchor,
+    anchorRect,
+    content,
+    contentRect,
+    containerRect: parentRect,
+    container,
+    cushion,
+  });
+  return position;
+}
+
 export interface IPopoverContentProps {
-  prefix?: string;
-  visible?: boolean;
-  getAnchor?: () => Element;
-  containerSelector?: string;
-  getContentNode?: () => Element;
-  placement?: PositionFunction;
-  onPositionUpdated?: () => void;
-  onPositionReady?: () => void;
-  id?: string;
-  className?: string;
-  cushion?: number;
-  anchor?: HTMLElement;
-  container?: HTMLElement;
+  children?: React.ReactNode;
 }
 
-export interface IPopoverContentState {
-  position: IPopoverPosition;
+function PopoverContent({ children }: IPopoverContentProps) {
+  const ctx = usePopoverContext();
+  const { positionChanged$: parentPositionChanged$ } = useContext(
+    ContentContext
+  );
+  const contentCtx = React.useMemo<IPopoverContentContext>(
+    () => ({
+      positionChanged$: new Subject(),
+    }),
+    []
+  );
+  const [position, setPosition] = React.useState(INVISIBLE_POSITION);
+  const contextRef = React.useRef(ctx);
+  contextRef.current = ctx;
+  const { containerSelector, portalRef } = ctx;
+  const getContainer = useLazy(
+    () => document.querySelector(containerSelector),
+    [containerSelector]
+  );
+  const getPositionedParent = useLazy(() => {
+    const container = getContainer();
+    return container && findPositionedParent(container);
+  }, [getContainer]);
+  const adjustPosition = useAnimationFramed(() => {
+    const position = getPosition(
+      contextRef.current,
+      getContainer,
+      getPositionedParent,
+      portalRef
+    );
+    setPosition(position);
+  });
+  React.useImperativeHandle(
+    ctx.contentRef,
+    () => ({
+      adjustPosition,
+    }),
+    [adjustPosition]
+  );
+  useWindowEventHandler('resize', adjustPosition);
+  useWindowEventHandler('scroll', adjustPosition, {
+    capture: true,
+  });
+  React.useEffect(() => {
+    ctx.popover.positionUpdated();
+    contentCtx.positionChanged$.next();
+  }, [ctx.popover, position, contentCtx]);
+  React.useEffect(() => {
+    const $ = parentPositionChanged$.subscribe(() => {
+      adjustPosition();
+    });
+    return () => $.unsubscribe();
+  }, [parentPositionChanged$, adjustPosition]);
+
+  return (
+    <Portal
+      ref={portalRef}
+      visible={ctx.visible}
+      selector={containerSelector}
+      className={cx('zent-popover', position.className, ctx.className)}
+      style={{ ...position.style, ...ctx.style }}
+    >
+      <ContentContext.Provider value={contentCtx}>
+        {children}
+      </ContentContext.Provider>
+    </Portal>
+  );
 }
 
-/**
- * Like triggers, content can be replaced with your own implementation, all you have to do is extend this base class.
- *
- * The props on this class are all private.
- */
-export default class PopoverContent extends Component<
-  IPopoverContentProps,
-  IPopoverContentState
-> {
-  positionReady: boolean;
-  positionedParent: Element | null;
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      position: (invisiblePlacement as any)(props.prefix),
-    };
-
-    // 标记 content 的位置是否 ready
-    this.positionReady = false;
-  }
-
-  getAnchor() {
-    return this.props.getAnchor();
-  }
-
-  getPositionedParent() {
-    // findPositionedParent returns null on fail
-    if (this.positionedParent !== undefined) {
-      return this.positionedParent;
-    }
-
-    const { containerSelector } = this.props;
-    const container = document.querySelector(containerSelector);
-    const parent = findPositionedParent(container, true);
-    this.positionedParent = parent;
-    return parent;
-  }
-
-  adjustPosition = () => {
-    if (!this.props.visible) {
-      return;
-    }
-
-    const content = this.props.getContentNode();
-
-    // 可能还未渲染出来，先放到一个不可见的位置
-    if (!content) {
-      this.setState({
-        position: (invisiblePlacement as any)(this.props.prefix),
-      });
-      defer(this.adjustPosition);
-      return;
-    }
-
-    const contentBoundingBox = content.getBoundingClientRect();
-
-    const anchor = this.getAnchor();
-    if (!anchor) {
-      return;
-    }
-    const boundingBox = anchor.getBoundingClientRect();
-
-    const parent = this.getPositionedParent();
-    if (!parent) {
-      return;
-    }
-    const parentBoundingBox = parent.getBoundingClientRect();
-
-    const relativeBB = translateToContainerCoordinates(
-      parentBoundingBox,
-      boundingBox
-    );
-    const relativeContainerBB = translateToContainerCoordinates(
-      parentBoundingBox,
-      parentBoundingBox
-    );
-    const position = this.props.placement(
-      this.props.prefix,
-      relativeBB,
-      relativeContainerBB,
-      {
-        width: contentBoundingBox.width,
-        height: contentBoundingBox.height,
-      },
-      {
-        cushion: this.props.cushion,
-        anchor,
-        container: parent,
-        anchorBoundingBoxViewport: boundingBox,
-        containerBoundingBoxViewport: parentBoundingBox,
-      }
-    );
-    if (!isEqualPlacement(this.state.position, position)) {
-      this.setState(
-        {
-          position,
-        },
-        () => {
-          this.props.onPositionUpdated();
-          if (isPositionVisible(boundingBox) && !this.positionReady) {
-            this.positionReady = true;
-            this.props.onPositionReady();
-          }
-        }
-      );
-    }
-  };
-
-  onWindowResize = (_evt, delta) => {
-    if (this.props.visible && (delta.deltaX !== 0 || delta.deltaY !== 0)) {
-      this.adjustPosition();
-    }
-  };
-
-  componentDidMount() {
-    const { visible } = this.props;
-    if (visible) {
-      this.adjustPosition();
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.visible && prevProps.visible !== this.props.visible) {
-      // reset position mark
-      this.positionReady = false;
-
-      this.adjustPosition();
-    }
-  }
-
-  render() {
-    const {
-      prefix,
-      className,
-      id,
-      visible,
-      children,
-      containerSelector,
-    } = this.props;
-    const { position } = this.state;
-
-    const cls = cx(className, `${prefix}-popover`, id, position.toString());
-
-    return (
-      <Portal
-        visible={visible}
-        selector={containerSelector}
-        className={cls}
-        style={position.getCSSStyle()}
-      >
-        <div className={`${prefix}-popover-content`}>
-          {children}
-          <WindowResizeHandler onResize={this.onWindowResize} />
-          <WindowScrollHandler
-            onScroll={this.adjustPosition}
-            options={{ capture: true }}
-          />
-        </div>
-      </Portal>
-    );
-  }
-}
+export default PopoverContent;

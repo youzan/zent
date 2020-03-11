@@ -71,7 +71,7 @@ export interface IFormProps<T extends {}>
   /**
    * 表单提交回调函数，`form.submit` 或者原生的 `DOM` 触发的 `submit` 事件都会触发 `onSubmit`
    */
-  onSubmit?: (form: ZentForm<T>, e?: React.SyntheticEvent) => void;
+  onSubmit?: (form: ZentForm<T>, e?: React.SyntheticEvent) => Promise<void>;
   /**
    * 表单提交失败时的回调函数
    */
@@ -143,6 +143,15 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
       return;
     }
 
+    const success = () => {
+      onSubmitSuccess && onSubmitSuccess();
+      form.submitSuccess();
+    };
+    const fail = (error: unknown) => {
+      onSubmitFail && onSubmitFail(error);
+      form.submitError();
+    };
+
     try {
       form.submitStart();
       await form.validate(
@@ -152,14 +161,13 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
       );
       if (!form.isValid()) {
         scrollToError && this.scrollToFirstError();
+        fail(new Error('Form validation failed'));
         return;
       }
       await onSubmit(form, e);
-      onSubmitSuccess && onSubmitSuccess();
-      form.submitSuccess();
+      success();
     } catch (error) {
-      onSubmitFail && onSubmitFail(error);
-      form.submitError();
+      fail(error);
     }
   }
 

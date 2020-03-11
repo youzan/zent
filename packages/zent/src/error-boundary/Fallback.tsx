@@ -16,7 +16,6 @@ export default function ErrorBoundaryFallbackComponent({
         <Pop
           trigger="hover"
           position="auto-bottom-center"
-          block={false}
           centerArrow
           content={<div style={stackTraceStyle}>{componentStack}</div>}
         >

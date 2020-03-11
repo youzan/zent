@@ -20,6 +20,16 @@ beforeAll(() => {
   jest.useFakeTimers();
 });
 
+beforeEach(() => {
+  jest
+    .spyOn(window, 'requestAnimationFrame')
+    .mockImplementation(cb => setTimeout(cb, 0));
+});
+
+afterEach(() => {
+  window.requestAnimationFrame.mockRestore();
+});
+
 describe('Cascader', () => {
   it('className default to zent-cascader ', () => {
     const wrapper = mount(<Cascader />);
@@ -241,7 +251,7 @@ describe('Cascader', () => {
     wrapper.find('.zent-cascader__select').simulate('click');
     jest.runAllTimers();
 
-    const pop = document.querySelector('.zent-popover-content');
+    const pop = document.querySelector('.zent-popover');
     expect(pop.querySelectorAll('.zent-cascader__list-link').length).toBe(1);
     expect(
       pop.querySelectorAll('.zent-cascader__list-link')[0].textContent
@@ -293,7 +303,7 @@ describe('Cascader', () => {
     wrapper.find('.zent-cascader__select').simulate('click');
     jest.runAllTimers();
 
-    const pop = document.querySelector('.zent-popover-content');
+    const pop = document.querySelector('.zent-popover');
 
     expect(pop.querySelectorAll('.zent-cascader__menu-item').length).toBe(1);
     expect(
@@ -351,7 +361,7 @@ describe('Cascader', () => {
     wrapper.find('.zent-cascader__select').simulate('click');
     jest.runAllTimers();
 
-    const pop = document.querySelector('.zent-popover-content');
+    const pop = document.querySelector('.zent-popover');
 
     expect(pop.querySelectorAll('.zent-cascader__menu-item').length).toBe(1);
     expect(
@@ -416,7 +426,7 @@ describe('Cascader', () => {
     wrapper.find('.zent-cascader__select').simulate('click');
     jest.runAllTimers();
 
-    const pop = document.querySelector('.zent-popover-content');
+    const pop = document.querySelector('.zent-popover');
 
     simulateRawWithTimers(
       pop.querySelectorAll('.zent-cascader__list-link')[0],
@@ -470,7 +480,7 @@ describe('Cascader', () => {
     wrapper.find('.zent-cascader__select').simulate('click');
     jest.runAllTimers();
 
-    const pop = document.querySelector('.zent-popover-content');
+    const pop = document.querySelector('.zent-popover');
 
     simulateRawWithTimers(
       pop.querySelectorAll('.zent-cascader__list-link')[0],
@@ -519,7 +529,7 @@ describe('Cascader', () => {
     wrapper.find('.zent-cascader__select').simulate('click');
     jest.runAllTimers();
 
-    const pop = document.querySelector('.zent-popover-content');
+    const pop = document.querySelector('.zent-popover');
 
     simulateRawWithTimers(
       pop.querySelectorAll('.zent-cascader__menu-item')[0],
@@ -589,7 +599,7 @@ describe('Cascader', () => {
     wrapper.find('.zent-cascader__select').simulate('click');
     jest.runAllTimers();
 
-    const pop = document.querySelector('.zent-popover-content');
+    const pop = document.querySelector('.zent-popover');
 
     simulateRawWithTimers(
       pop.querySelectorAll('.zent-cascader__list-link')[0],
