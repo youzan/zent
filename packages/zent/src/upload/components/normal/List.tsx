@@ -3,6 +3,7 @@ import {
   IUploadFileItem,
   IUploadFileItemInner,
   IUploadListProps,
+  INormalUploadItemProps,
 } from '../../types';
 import AbstractUploadList from '../AbstractList';
 import NormalUploadItem from './Item';
@@ -16,6 +17,7 @@ interface INormalUploadListState {
 
 export default class NormalUploadList extends AbstractUploadList<
   IUploadFileItem,
+  INormalUploadItemProps,
   IUploadListProps,
   INormalUploadListState
 > {
@@ -100,8 +102,10 @@ export default class NormalUploadList extends AbstractUploadList<
   renderFileItem = (
     item: IUploadFileItemInner<IUploadFileItem>
   ): React.ReactNode => {
+    const { customUploadItem: CustomUploadItem } = this.props;
+    const UploadItem = CustomUploadItem || NormalUploadItem;
     return (
-      <NormalUploadItem
+      <UploadItem
         key={item._id}
         item={item}
         i18n={this.props.i18n}
