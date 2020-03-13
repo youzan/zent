@@ -164,7 +164,7 @@
 
     &__actived {
       @include theme-color(background-color, stroke, 9);
-      @include theme-color(border-bottom-color, stroke, 9);
+      border-bottom-color: transparent;
     }
   }
 }
