@@ -8,6 +8,20 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 8.4.0(2020-03-16)
+
+- ✨ `Upload` item UI can be customized
+- ✨ Update `Tabs` button like style
+- 🦀️ Fix development compatibility issue on `Windows`
+- 🦀️ Fix an issue where `DatePicker` modifies `Date` values in props directly
+- `Grid`
+  - 🦀️ Fix shadow of fixed column when window resizes
+  - 🦀️ Fix background color when row hover highlight is disabled
+  - 🦀️ Fix TypeScript definition of `getCheckboxProps`
+- `Form`
+  - 🦀️ Export `BasicForm`
+  - 🦀️ Fix mishandling of type conversion for `required`
+
 ### 8.3.0(2020-02-26)
 
 - `Grid`
