@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>IAbstractUploadProps | zent - v8.3.0</title>
+	<title>IAbstractUploadProps | zent - v8.4.0</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">zent - v8.3.0</a>
+					<a href="../index.html" class="title">zent - v8.4.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -59,7 +59,7 @@
 					<a href="iabstractuploadprops.html">IAbstractUploadProps</a>
 				</li>
 			</ul>
-			<h1>Interface IAbstractUploadProps&lt;UPLOAD_ITEM, ON_UPLOAD_SUCCESS_RETURN&gt;</h1>
+			<h1>Interface IAbstractUploadProps&lt;UPLOAD_ITEM, ON_UPLOAD_SUCCESS_RETURN, UPLOAD_ITEM_COMP_PROPS&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -74,6 +74,9 @@
 					</li>
 					<li>
 						<h4>ON_UPLOAD_SUCCESS_RETURN</h4>
+					</li>
+					<li>
+						<h4>UPLOAD_ITEM_COMP_PROPS<span class="tsd-signature-symbol">: </span><a href="iuploaditemprops.html" class="tsd-signature-type">IUploadItemProps</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">UPLOAD_ITEM</span><span class="tsd-signature-symbol">&gt;</span></h4>
 					</li>
 				</ul>
 			</section>
@@ -103,6 +106,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="iabstractuploadprops.html#accept" class="tsd-kind-icon">accept</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="iabstractuploadprops.html#beforeupload" class="tsd-kind-icon">before<wbr>Upload</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="iabstractuploadprops.html#classname" class="tsd-kind-icon">class<wbr>Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="iabstractuploadprops.html#customuploaditem" class="tsd-kind-icon">custom<wbr>Upload<wbr>Item</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="iabstractuploadprops.html#defaultfilelist" class="tsd-kind-icon">default<wbr>File<wbr>List</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="iabstractuploadprops.html#disabled" class="tsd-kind-icon">disabled</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="iabstractuploadprops.html#filelist" class="tsd-kind-icon">file<wbr>List</a></li>
@@ -127,7 +131,7 @@
 					<div class="tsd-signature tsd-kind-icon">accept<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/868446aa/packages/zent/src/upload/types.ts#L113">packages/zent/src/upload/types.ts:113</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/11e9ba9d/packages/zent/src/upload/types.ts#L114">packages/zent/src/upload/types.ts:114</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -142,7 +146,7 @@
 					<div class="tsd-signature tsd-kind-icon">before<wbr>Upload<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/868446aa/packages/zent/src/upload/types.ts#L101">packages/zent/src/upload/types.ts:101</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/11e9ba9d/packages/zent/src/upload/types.ts#L102">packages/zent/src/upload/types.ts:102</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -181,7 +185,7 @@
 					<div class="tsd-signature tsd-kind-icon">class<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/868446aa/packages/zent/src/upload/types.ts#L93">packages/zent/src/upload/types.ts:93</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/11e9ba9d/packages/zent/src/upload/types.ts#L94">packages/zent/src/upload/types.ts:94</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -191,12 +195,27 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="customuploaditem" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> custom<wbr>Upload<wbr>Item</h3>
+					<div class="tsd-signature tsd-kind-icon">custom<wbr>Upload<wbr>Item<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">React.ComponentType</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">UPLOAD_ITEM_COMP_PROPS</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/11e9ba9d/packages/zent/src/upload/types.ts#L122">packages/zent/src/upload/types.ts:122</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>自定义的上传项展示组件</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="defaultfilelist" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> default<wbr>File<wbr>List</h3>
 					<div class="tsd-signature tsd-kind-icon">default<wbr>File<wbr>List<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">UPLOAD_ITEM</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/868446aa/packages/zent/src/upload/types.ts#L97">packages/zent/src/upload/types.ts:97</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/11e9ba9d/packages/zent/src/upload/types.ts#L98">packages/zent/src/upload/types.ts:98</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -211,7 +230,7 @@
 					<div class="tsd-signature tsd-kind-icon">disabled<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/868446aa/packages/zent/src/upload/types.ts#L115">packages/zent/src/upload/types.ts:115</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/11e9ba9d/packages/zent/src/upload/types.ts#L116">packages/zent/src/upload/types.ts:116</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -226,7 +245,7 @@
 					<div class="tsd-signature tsd-kind-icon">file<wbr>List<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">UPLOAD_ITEM</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/868446aa/packages/zent/src/upload/types.ts#L95">packages/zent/src/upload/types.ts:95</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/11e9ba9d/packages/zent/src/upload/types.ts#L96">packages/zent/src/upload/types.ts:96</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -241,12 +260,12 @@
 					<div class="tsd-signature tsd-kind-icon">manual<wbr>Upload<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/868446aa/packages/zent/src/upload/types.ts#L119">packages/zent/src/upload/types.ts:119</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/11e9ba9d/packages/zent/src/upload/types.ts#L120">packages/zent/src/upload/types.ts:120</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>是否自动触发文件上传流程（即 onUpload 回调）</p>
+							<p>是否手动触发文件上传流程</p>
 						</div>
 					</div>
 				</section>
@@ -256,7 +275,7 @@
 					<div class="tsd-signature tsd-kind-icon">max<wbr>Amount<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/868446aa/packages/zent/src/upload/types.ts#L109">packages/zent/src/upload/types.ts:109</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/11e9ba9d/packages/zent/src/upload/types.ts#L110">packages/zent/src/upload/types.ts:110</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -271,7 +290,7 @@
 					<div class="tsd-signature tsd-kind-icon">max<wbr>Size<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/868446aa/packages/zent/src/upload/types.ts#L111">packages/zent/src/upload/types.ts:111</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/11e9ba9d/packages/zent/src/upload/types.ts#L112">packages/zent/src/upload/types.ts:112</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -286,7 +305,7 @@
 					<div class="tsd-signature tsd-kind-icon">multiple<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/868446aa/packages/zent/src/upload/types.ts#L107">packages/zent/src/upload/types.ts:107</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/11e9ba9d/packages/zent/src/upload/types.ts#L108">packages/zent/src/upload/types.ts:108</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -301,7 +320,7 @@
 					<div class="tsd-signature tsd-kind-icon">on<wbr>Change<span class="tsd-signature-symbol">:</span> <a href="../globals.html#iuploadonchangehandler" class="tsd-signature-type">IUploadOnChangeHandler</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">UPLOAD_ITEM</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/868446aa/packages/zent/src/upload/types.ts#L99">packages/zent/src/upload/types.ts:99</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/11e9ba9d/packages/zent/src/upload/types.ts#L100">packages/zent/src/upload/types.ts:100</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -316,7 +335,7 @@
 					<div class="tsd-signature tsd-kind-icon">on<wbr>Error<span class="tsd-signature-symbol">:</span> <a href="../globals.html#iuploadonerrorhandler" class="tsd-signature-type">IUploadOnErrorHandler</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/868446aa/packages/zent/src/upload/types.ts#L105">packages/zent/src/upload/types.ts:105</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/11e9ba9d/packages/zent/src/upload/types.ts#L106">packages/zent/src/upload/types.ts:106</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -331,7 +350,7 @@
 					<div class="tsd-signature tsd-kind-icon">on<wbr>Upload<span class="tsd-signature-symbol">:</span> <a href="../globals.html#iuploadonuploadhandler" class="tsd-signature-type">IUploadOnUploadHandler</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ON_UPLOAD_SUCCESS_RETURN</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/868446aa/packages/zent/src/upload/types.ts#L103">packages/zent/src/upload/types.ts:103</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/11e9ba9d/packages/zent/src/upload/types.ts#L104">packages/zent/src/upload/types.ts:104</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -346,7 +365,7 @@
 					<div class="tsd-signature tsd-kind-icon">sortable<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/868446aa/packages/zent/src/upload/types.ts#L117">packages/zent/src/upload/types.ts:117</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/11e9ba9d/packages/zent/src/upload/types.ts#L118">packages/zent/src/upload/types.ts:118</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -380,6 +399,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="iabstractuploadprops.html#classname" class="tsd-kind-icon">class<wbr>Name</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="iabstractuploadprops.html#customuploaditem" class="tsd-kind-icon">custom<wbr>Upload<wbr>Item</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="iabstractuploadprops.html#defaultfilelist" class="tsd-kind-icon">default<wbr>File<wbr>List</a>

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>IImageUploadListProps | zent - v8.3.0</title>
+	<title>IImageUploadListProps | zent - v8.4.0</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">zent - v8.3.0</a>
+					<a href="../index.html" class="title">zent - v8.4.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -70,7 +70,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<a href="iabstractuploadlistprops.html" class="tsd-signature-type">IAbstractUploadListProps</a><span class="tsd-signature-symbol">&lt;</span><a href="iimageuploadfileitem.html" class="tsd-signature-type">IImageUploadFileItem</a><span class="tsd-signature-symbol">&gt;</span>
+						<a href="iabstractuploadlistprops.html" class="tsd-signature-type">IAbstractUploadListProps</a><span class="tsd-signature-symbol">&lt;</span><a href="iimageuploadfileitem.html" class="tsd-signature-type">IImageUploadFileItem</a><span class="tsd-signature-symbol">, </span><a href="../globals.html#iimageuploaditemprops" class="tsd-signature-type">IImageUploadItemProps</a><span class="tsd-signature-symbol">&gt;</span>
 						<ul class="tsd-hierarchy">
 							<li>
 								<span class="target">IImageUploadListProps</span>
@@ -86,6 +86,7 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="iimageuploadlistprops.html#customuploaditem" class="tsd-kind-icon">custom<wbr>Upload<wbr>Item</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="iimageuploadlistprops.html#filelist" class="tsd-kind-icon">file<wbr>List</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="iimageuploadlistprops.html#i18n" class="tsd-kind-icon">i18n</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="iimageuploadlistprops.html#ondelete" class="tsd-kind-icon">on<wbr>Delete</a></li>
@@ -102,13 +103,24 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a name="customuploaditem" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> custom<wbr>Upload<wbr>Item</h3>
+					<div class="tsd-signature tsd-kind-icon">custom<wbr>Upload<wbr>Item<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">React.ComponentType</span><span class="tsd-signature-symbol">&lt;</span><a href="../globals.html#iimageuploaditemprops" class="tsd-signature-type">IImageUploadItemProps</a><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="iabstractuploadlistprops.html">IAbstractUploadListProps</a>.<a href="iabstractuploadlistprops.html#customuploaditem">customUploadItem</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/11e9ba9d/packages/zent/src/upload/types.ts#L183">packages/zent/src/upload/types.ts:183</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a name="filelist" class="tsd-anchor"></a>
 					<h3>file<wbr>List</h3>
 					<div class="tsd-signature tsd-kind-icon">file<wbr>List<span class="tsd-signature-symbol">:</span> <a href="iimageuploadfileitem.html" class="tsd-signature-type">IImageUploadFileItem</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="iabstractuploadlistprops.html">IAbstractUploadListProps</a>.<a href="iabstractuploadlistprops.html#filelist">fileList</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/868446aa/packages/zent/src/upload/types.ts#L170">packages/zent/src/upload/types.ts:170</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/11e9ba9d/packages/zent/src/upload/types.ts#L178">packages/zent/src/upload/types.ts:178</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -119,7 +131,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="iabstractuploadlistprops.html">IAbstractUploadListProps</a>.<a href="iabstractuploadlistprops.html#i18n">i18n</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/868446aa/packages/zent/src/upload/types.ts#L169">packages/zent/src/upload/types.ts:169</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/11e9ba9d/packages/zent/src/upload/types.ts#L177">packages/zent/src/upload/types.ts:177</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -130,7 +142,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="iabstractuploadlistprops.html">IAbstractUploadListProps</a>.<a href="iabstractuploadlistprops.html#ondelete">onDelete</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/868446aa/packages/zent/src/upload/types.ts#L172">packages/zent/src/upload/types.ts:172</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/11e9ba9d/packages/zent/src/upload/types.ts#L180">packages/zent/src/upload/types.ts:180</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -161,7 +173,7 @@
 					<div class="tsd-signature tsd-kind-icon">on<wbr>Preview<span class="tsd-signature-symbol">:</span> <a href="../globals.html#iimageuploadpreviewhandler" class="tsd-signature-type">IImageUploadPreviewHandler</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/868446aa/packages/zent/src/upload/types.ts#L186">packages/zent/src/upload/types.ts:186</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/11e9ba9d/packages/zent/src/upload/types.ts#L198">packages/zent/src/upload/types.ts:198</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -172,7 +184,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="iabstractuploadlistprops.html">IAbstractUploadListProps</a>.<a href="iabstractuploadlistprops.html#onretry">onRetry</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/868446aa/packages/zent/src/upload/types.ts#L171">packages/zent/src/upload/types.ts:171</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/11e9ba9d/packages/zent/src/upload/types.ts#L179">packages/zent/src/upload/types.ts:179</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -204,7 +216,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="iabstractuploadlistprops.html">IAbstractUploadListProps</a>.<a href="iabstractuploadlistprops.html#onsortchange">onSortChange</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/868446aa/packages/zent/src/upload/types.ts#L174">packages/zent/src/upload/types.ts:174</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/11e9ba9d/packages/zent/src/upload/types.ts#L182">packages/zent/src/upload/types.ts:182</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -236,7 +248,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="iabstractuploadlistprops.html">IAbstractUploadListProps</a>.<a href="iabstractuploadlistprops.html#sortable">sortable</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/868446aa/packages/zent/src/upload/types.ts#L173">packages/zent/src/upload/types.ts:173</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/11e9ba9d/packages/zent/src/upload/types.ts#L181">packages/zent/src/upload/types.ts:181</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -246,7 +258,7 @@
 					<div class="tsd-signature tsd-kind-icon">trigger<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">React.ReactNode</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/868446aa/packages/zent/src/upload/types.ts#L185">packages/zent/src/upload/types.ts:185</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/11e9ba9d/packages/zent/src/upload/types.ts#L197">packages/zent/src/upload/types.ts:197</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -267,6 +279,9 @@
 					<li class="current tsd-kind-interface">
 						<a href="iimageuploadlistprops.html" class="tsd-kind-icon">IImage<wbr>Upload<wbr>List<wbr>Props</a>
 						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="iimageuploadlistprops.html#customuploaditem" class="tsd-kind-icon">custom<wbr>Upload<wbr>Item</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 								<a href="iimageuploadlistprops.html#filelist" class="tsd-kind-icon">file<wbr>List</a>
 							</li>
