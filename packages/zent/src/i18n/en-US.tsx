@@ -183,29 +183,6 @@ export const Upload: II18nLocaleUpload = {
   limit: 'Maximum number of files has been reached',
   normal: {
     add: 'Add File',
-    tips: config => {
-      const { tips, formattedMaxSize } = config;
-      const tipStr = tips ? tips : '';
-      const sizeLimitStr = formattedMaxSize
-        ? `single file no more than ${formattedMaxSize}`
-        : '';
-      return capitalize(
-        [tipStr, sizeLimitStr].filter(Boolean).join(common.comma)
-      );
-    },
-  },
-  image: {
-    tips: config => {
-      const { tips, formattedMaxSize, maxAmount } = config;
-      const tipStr = tips ? tips : '';
-      const amoutLimitStr = maxAmount ? `up to ${maxAmount}` : '';
-      const sizeLimitStr = formattedMaxSize
-        ? `single file no more than ${formattedMaxSize}`
-        : '';
-      return capitalize(
-        [tipStr, amoutLimitStr, sizeLimitStr].filter(Boolean).join(common.comma)
-      );
-    },
   },
 };
 
