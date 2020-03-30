@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IMaybeError, FormContext, IFormContext, AbstractModel } from 'formulr';
+import { IMaybeError, FormContext, IFormContext, BasicModel } from 'formulr';
 import { Subscription, combineLatest, merge } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FormError } from './Error';
@@ -37,7 +37,7 @@ export interface ICombineErrorsProps {
   /**
    * 可以传入 `model` 数组，会把这些 `model` 的组合显示，这个字段不和 `names` 同时存在
    */
-  models?: Array<AbstractModel<any>>;
+  models?: BasicModel<any>[];
   children?: (error: IMaybeError<any>) => React.ReactNode;
 }
 
@@ -81,7 +81,7 @@ export class CombineErrors extends React.Component<
   subscribe() {
     const { parent } = this.context;
     const { models, names } = this.props;
-    const fields: Array<AbstractModel<unknown>> = [];
+    const fields: BasicModel<unknown>[] = [];
     if (names) {
       for (let i = 0; i < names.length; i += 1) {
         const name = names[i];
