@@ -100,9 +100,6 @@ export function FormField<Value>(props: IFormFieldProps<Value>) {
     },
     [model, normalize]
   );
-  const markTouched = React.useCallback(() => (model.isTouched = true), [
-    model,
-  ]);
   const setValue = React.useCallback(value => (model.value = value), [model]);
   const defaultOnChangeHandler = FieldUtils.makeChangeHandler(
     model,
@@ -129,21 +126,14 @@ export function FormField<Value>(props: IFormFieldProps<Value>) {
   const onBlur = React.useCallback(
     (e: React.FocusEvent) => {
       if (touchWhen === TouchWhen.Blur) {
-        markTouched();
+        model.isTouched = true;
       }
       if (validateOccasion & ValidateOccasion.Blur) {
         model.validate(getValidateOption('blur'));
       }
       props.onBlur?.(e);
     },
-    [
-      getValidateOption,
-      validateOccasion,
-      touchWhen,
-      markTouched,
-      model,
-      props.onBlur,
-    ]
+    [getValidateOption, validateOccasion, touchWhen, model, props.onBlur]
   );
   const {
     onCompositionStart,
