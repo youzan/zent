@@ -3,15 +3,6 @@ import { Component, Children } from 'react';
 import PopoverContext, { IPopoverContext } from '../Context';
 import Anchor from '../Anchor';
 
-export interface IIsOutsideProps {
-  contentNode: Element;
-  triggerNode: Element;
-}
-
-export interface IIsOutside {
-  (e: MouseEvent, props: IIsOutsideProps): boolean;
-}
-
 export interface IPopoverTriggerProps<ChildProps> {
   children: React.ReactElement<ChildProps, any> | string | number;
 }

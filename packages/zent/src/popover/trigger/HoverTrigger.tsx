@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Subject, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import Context from '../Context';
-import Anchor from '../Anchor';
+import Anchor, { PopoverAnchorGetElementFn } from '../Anchor';
 import { addEventListener } from '../../utils/component/event-handler';
 import { isElement } from 'react-is';
 import { cloneElement } from 'react';
@@ -18,6 +18,7 @@ export interface IPopoverHoverTriggerProps<
   hideDelay?: number;
   showDelay?: number;
   anchorOnly?: boolean;
+  getElement?: PopoverAnchorGetElementFn;
   children?:
     | string
     | number
@@ -35,9 +36,11 @@ export function PopoverHoverTrigger<
   if (!ctx) {
     throw new Error('PopoverHoverTrigger must be child of Popover');
   }
+
   const propsRef = React.useRef(props);
   propsRef.current = props;
   const visible$ = React.useMemo(() => new Subject<boolean>(), []);
+
   React.useEffect(() => {
     const $ = visible$
       .pipe(
@@ -63,8 +66,10 @@ export function PopoverHoverTrigger<
       });
     return () => $.unsubscribe();
   }, [ctx.popover, visible$]);
+
   const { children } = props;
   const { portalRef, didMount } = ctx;
+
   didMount(() => {
     const { container } = portalRef.current!;
     function onMouseEnter() {
@@ -90,9 +95,10 @@ export function PopoverHoverTrigger<
       addEventListener(window, 'blur', onWindowBlur),
     ];
     return () => {
-      disposers.forEach(disposer => disposer());
+      disposers.forEach(dispose => dispose());
     };
   });
+
   let child: React.ReactNode;
   if (typeof children === 'function') {
     child = children({
@@ -124,7 +130,7 @@ export function PopoverHoverTrigger<
       </span>
     );
   }
-  return <Anchor>{child}</Anchor>;
+  return <Anchor getElement={props.getElement}>{child}</Anchor>;
 }
 
 export default PopoverHoverTrigger;

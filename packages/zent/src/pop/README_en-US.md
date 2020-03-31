@@ -41,7 +41,6 @@ A floating card opened by clicking, hovering or focusing.
 | onPositionReady | callback after content enter viewport, only called once within the life cycle | func | No | `noop` | |
 | containerSelector | pop's parent node CSS selector | string | No | `'body'` | all legal CSS selector | |
 | className | Custom class name | string | No | `''` |  |
-| wrapperClassName | Custom trigger wrapper class name | string | No | `''` |  |
 | prefix | Custom class name prefix | string | No | `'zent'` |  |
 
 `Pop` has some additional props depends on different triggers.
@@ -51,7 +50,6 @@ A floating card opened by clicking, hovering or focusing.
 | Property | Description | Type | Required |  Default |
 |------|------|------|--------|--------|
 | closeOnClickOutside | Close Pop when click outside trigger and content | bool | No | `true` |
-| isOutside | Callback to determine if click is outside of Pop | func | No | |
 
 #### Hover
 
@@ -59,8 +57,6 @@ A floating card opened by clicking, hovering or focusing.
 |------|------|------|--------|---------|
 | mouseEnterDelay | Hover open delay(in ms) | number | No | `200` |
 | mouseLeaveDelay | Hover close delay(in ms) | number | No | `200` |
-| isOutside | Callback to determine if mouse is outside of Pop | func | No | |
-| quirk | Switch to quirk mode, you don't have to move from inside to outside to trigger a close in quirk mode | bool | No | `true` |
 
 #### None
 

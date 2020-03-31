@@ -35,7 +35,6 @@ The widget supports nested pop
 | onPositionUpdated | callback after position updates, a position update does not imply a position change | func | `noop` | | No |
 | onPositionReady | callback after content enters viewport, only called once within the life cycle | func | `noop` |  | No |
 | className | custom extra class name | string | `''` |  | No |
-| wrapperClassName |  trigger outerline div classname | string | `''` |  | No |
 | width | width | string or number |  |  | No |
 | prefix | custom prefix  | string | `'zent'` |  | No |
 
@@ -51,10 +50,9 @@ Every kinds of trigger has it's own API to control component behavior, custom tr
 
 | Property        | Description          | Type        | Default           |  Required |
 | --------- | ---------------- | -------------------- | ------------- | -------- |
-| autoClose | whether to auto close pop when click `outside` | bool  | `true` | No |
-| isOutside | to determine a node is `outside` or not, click outside to close pop. default trigger and the node outside pop is `outside` | func: (node, data) => bool | `() => false` | No |
-
-The `data` in isOutside includes two attributes ：`contentNode` and `triggerNode`。
+| closeOnClickOutside | whether to auto close pop when click `outside` | bool  | `true` | No |
+| toggle | Toggle mode ｜ boolean | `false` | No |
+| getElement  | Customize trigger DOM node | (node: Element | Text | null) => Element| Text | null | findDOMNode | No |
 
 #### Trigger.Hover
 
@@ -62,28 +60,22 @@ The `data` in isOutside includes two attributes ：`contentNode` and `triggerNod
 | --------- | ---------------- | -------------------- | ------------- |---------|
 | showDelay | the duration before layer open (in milliseconds), during this time, if you move mouse out of layer, pop will not open   | number   | `150`  | No |
 | hideDelay | the duration before layer close (in milliseconds), during this time, if you move mouse out of layer, pop will not close  | number    | `150` | No |
-| isOutside | to determine a node is `outside` or not. default trigger and the node outside pop is `outside` | func: (node, data) => bool |  | No |
-| quirk | quirk mode，in this mode, mouse is not required to move out trigger and layer when close triggers | bool | `false` | No |
-
-The `data` in isOutside includes two attributes：`contentNode` 和 `triggerNode`。
+| getElement  | Customize trigger DOM node | (node: Element | Text | null) => Element| Text | null | findDOMNode | No |
+| anchorOnly | Don't open/close when mouse enter/leave | boolean | `false` | No  |
 
 #### Trigger.Focus
 
-Display when it gets focus， close when it loses focus, no params
+Display when it gets focus， close when it loses focus.
 
-#### Trigger.Base
+| Property        | Description          | Type        | Default           |  Required |
+| --------- | ---------------- | -------------------- | ------------- | -------- |
+| getElement  | Customize trigger DOM node | (node: Element | Text | null) => Element| Text | null | findDOMNode | No |
 
-All trigger's base class,  implement custom trigger need to inherit this class, you have rewrite `getTriggerProps` method to add trigger event. and you can control pop's open/close in event handle function.
+#### Trigger.Base(Deprecated)
 
-| Property                 | Description                                               | Type                     |
-| ------------------ | ------------------------------------------------ | ---------------------- |
-| getTriggerNode     | Get trigger's DOM node                               | func: () => node       |
-| getContentNode     | Get pop's DOM node                                    | func: () => node       |
-| open               | Open pop                                             | func                   |
-| close              | Close pop                                             | func                   |
-| contentVisible     | Is popover content visible          | bool                   |
-| onTriggerRefChange | Callback when ref changes. It is only needed when you rewrite render function | func:(instance) |
-| getNodeForTriggerRefChange | Callback to get the actual trigger DOM node when ref changes | (HTMLElement) => HTMLELement |
+Please use `PopoverAnchor` to implement custom trigger, checkout `ClickTrigger` source code.
+
+Custom trigger needs to inherit this class, you have rewrite `getTriggerProps` method to add trigger event.
 
 ### Position API
 
@@ -107,54 +99,40 @@ LeftBottom                                                          RightBottom
 
 Except for 12 kinds of basic position algorithm, there is 6 position algorithm to automatically determine appropriate position according to the left space in screen: `AutoBottomLeft`，`AutoBottomCenter`, `AutoBottomRight`, `AutoTopLeft`, `AutoTopCenter` and `AutoTopRight`. those algorithm is used for dropdown widget。
 
+#### Custom position
 
-Every object in position algorithm has a `locate` function which can be used to implement a combination of positioning algorithms.
+A position function is just a normal pure function.
 
+```ts
+const TopCenter: IPositionFunction = (options) => {
+	const { contentRect, relativeRect, cushion } = options;
+  const { right, left, top } = relativeRect;
+  const middle = (left + right) / 2;
+  const x = middle - contentRect.width / 2;
+  const y = top - contentRect.height - cushion;
 
-```jsx
-Popover.Position.create((anchorBoundingBox, containerBoundingBox, contentDimension, options) => {
-  if (someCondition) {
-	  return Popover.Position.BottomLeft.locate(anchorBoundingBox, containerBoundingBox, contentDimension, options);
-  }
-
-  return Popover.Position.TopRight.locate(anchorBoundingBox, containerBoundingBox, contentDimension, options);
-});
-```
-
-#### Position.create
-
-The factory function, receiving a function as parameter, is used to customize position
-
-```jsx
-// a bounding box is an object with these fields: {top, left, right, bottom, width, height}
-const position = Popover.Position.create((anchorBoundingBox, containerBoundingBox, contentDimension, options) => {
   return {
-    getCSSStyle() {
-      return {
-        position: 'fixed',
-        left: 0,
-        top: 0,
-        opacity: 0
-      };
+    style: {
+      position: 'absolute',
+      left: x,
+      top: y,
     },
 
-    name: 'position-example'
+    className: prefix('position-top-center'),
   };
-});
+};
 ```
 
-Anchor means trigger，container is nearst layer's parent node which have it's own position.
+Anchor is trigger，container is the nearest positioned parent node in the DOM tree.
 
-`anchorBoundingBox` and `containerBoundingBox` is relative to container's upper-left corner.
-
-`contentDimension` is layer's width and height.
-
-`options` contains another useful arguments:
-* `options.cushion` position offset passed by Props
-* `options.anchor` anchor's DOM node
-* `options.container` container's DOM node
-* `options.anchorBoundingBoxViewport` anchor is a coordinate relative to viewport
-* `options.containerBoundingBoxViewport` container is a coordinate relative to viewport
+- `relativeRect` anchor's position relative to container, this is what you want when calculating positions in most cases
+- `cushion` position offset
+- `anchor` anchor DOM node
+- `container` container DOM node
+- `content` content DOM node
+- `anchorRect` anchor's position/size relative to viewport
+- `containerRect` container's position/size relative to viewport
+- `contentRect` content's position/size relative to viewport
 
 #### withPopover high-level component
 
@@ -162,33 +140,9 @@ The high-level component provides some important functions. it can be used to ma
 
 | Property             | Description                    | Type               |
 | -------------- | --------------------- | ---------------- |
-| getTriggerNode | get trigger's DOM node | func: () => node |
-| getContentNode | get layer's DOM node        | func: () => node |
-| open           | open layer                  | func             |
-| close          | close layer                  | func             |
-
-Example：
-
-```jsx
-// click close button to close layer
-const HoverContent = withPopover(function HoverContent({ popover }) {
-  return (
-    <div>
-      <div>popover content</div>
-      <button onClick={popover.close}>close</button>
-    </div>
-  );
-});
-
-<Popover position={Popover.Position.RightTop} display="inline">
-  <Popover.Trigger.Hover showDelay={500} hideDelay={200}>
-    <button style={{ marginLeft: 100 }}>hover on me</button>
-  </Popover.Trigger.Hover>
-  <PopoverContent>
-    <HoverContent />
-  </PopoverContent>
-</Popover>
-```
+| open           | Open content                  | `() => void`             |
+| close          | Close content                  | `() => void`             |
+| adjustPosition | Reposition content | `() => void` |
 
 #### `adjustPosition`
 

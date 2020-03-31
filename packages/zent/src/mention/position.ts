@@ -3,8 +3,8 @@ import Mention from './Mention';
 
 export const getPopoverBottomPosition = (
   instance: Mention
-): IPositionFunction => ({ anchorRect, cushion }) => {
-  const { left, top, right, bottom } = anchorRect;
+): IPositionFunction => ({ relativeRect, cushion }) => {
+  const { left, top, right, bottom } = relativeRect;
   const { position } = instance.state;
   let x = left + position.left;
   let y = top + cushion + position.top + position.height;
@@ -36,15 +36,14 @@ export const getPopoverBottomPosition = (
       left: `${Math.round(x)}px`,
       top: `${Math.round(y)}px`,
     },
-
-    // className: 'position-mention-bottom-left',
+    className: 'position-mention-bottom-left',
   };
 };
 
 export const getPopoverTopPosition = (
   instance: Mention
-): IPositionFunction => ({ anchorRect, contentRect, cushion }) => {
-  const { left, top, right, bottom } = anchorRect;
+): IPositionFunction => ({ relativeRect, contentRect, cushion }) => {
+  const { left, top, right, bottom } = relativeRect;
   const contentHeight = contentRect.height;
   const { position } = instance.state;
   let x = left + position.left;
@@ -76,7 +75,6 @@ export const getPopoverTopPosition = (
       left: `${Math.round(x)}px`,
       top: `${Math.round(y)}px`,
     },
-
-    // name: 'position-mention-top-left',
+    className: 'position-mention-top-left',
   };
 };

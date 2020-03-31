@@ -20,10 +20,6 @@ export interface ITooltipBaseProps {
   containerSelector?: string;
   visible?: boolean;
   onVisibleChange?: (visible: boolean) => void;
-  // isOutside?: (
-  //   target: HTMLElement,
-  //   node: { contentNode: HTMLElement; triggerNode: HTMLElement }
-  // ) => boolean;
   children: ReactElement | string | number;
 }
 
@@ -94,7 +90,6 @@ export class Tooltip extends Component<ITooltipProps> {
         <Trigger.Hover
           showDelay={mouseEnterDelay}
           hideDelay={mouseLeaveDelay}
-          // isOutside={isOutside}
           anchorOnly={anchorOnly}
         >
           {children}
@@ -135,7 +130,6 @@ export class Tooltip extends Component<ITooltipProps> {
       <Popover
         visible={visible}
         onVisibleChange={onVisibleChange}
-        // wrapperClassName={`zent-tooltip-wrapper`}
         className={cls}
         cushion={cushion}
         position={getPosition(position, centerArrow)}

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { isElement } from 'react-is';
 import Context from '../Context';
-import Anchor from '../Anchor';
+import Anchor, { PopoverAnchorGetElementFn } from '../Anchor';
 import { cloneElement } from 'react';
 
 export interface IPopoverFocusTriggerChildProps<T extends Element = Element> {
@@ -12,6 +12,7 @@ export interface IPopoverFocusTriggerChildProps<T extends Element = Element> {
 export interface IPopoverFocusTriggerProps<
   ChildProps extends IPopoverFocusTriggerChildProps
 > {
+  getElement?: PopoverAnchorGetElementFn;
   children?:
     | string
     | number
@@ -21,7 +22,7 @@ export interface IPopoverFocusTriggerProps<
 
 export function PopoverFocusTrigger<
   ChildProps extends IPopoverFocusTriggerChildProps = IPopoverFocusTriggerChildProps
->({ children }: IPopoverFocusTriggerProps<ChildProps>) {
+>({ children, getElement }: IPopoverFocusTriggerProps<ChildProps>) {
   const ctx = React.useContext(Context);
   if (!ctx) {
     throw new Error('PopoverFocusTrigger must be child of Popover');
@@ -48,7 +49,7 @@ export function PopoverFocusTrigger<
   } else {
     child = <span {...childProps}>{children}</span>;
   }
-  return <Anchor>{child}</Anchor>;
+  return <Anchor getElement={getElement}>{child}</Anchor>;
 }
 
 export default PopoverFocusTrigger;

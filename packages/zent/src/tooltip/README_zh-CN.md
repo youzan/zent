@@ -34,7 +34,6 @@ group: 展示
 | 参数 | 说明 | 类型 | 是否必须 | 默认值 |
 |------|------|------|--------|-------|
 | closeOnClickOutside | 点击弹层和trigger节点外部时自动关闭 | bool | 否 | `true` |
-| isOutside | 用来判断点击目标是否在外面的可选函数 | func | 否 | |
 
 #### Hover
 
@@ -42,8 +41,6 @@ group: 展示
 |------|------|------|--------|-------|
 | mouseEnterDelay | hover打开的延迟（单位：毫秒） | number | 否 | `160` |
 | mouseLeaveDelay | 关闭的的延迟（单位：毫秒） | number | 否 | `160` |
-| isOutside | 用来判断点击目标是否在外面的可选函数 | func | 否 | |
-| quirk | 开启 Tooltip 的 quirk 模式，该模式下判断关闭条件时不需要先从内部移动出去 | bool | 否 | `true` |
 
 #### None
 

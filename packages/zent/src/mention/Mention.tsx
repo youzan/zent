@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Component } from 'react';
+import { findDOMNode } from 'react-dom';
 import cx from 'classnames';
 import isEqual from '../utils/isEqual';
 import Input, { IInputClearEvent } from '../input';
@@ -50,7 +50,7 @@ export interface IMentionProps {
   inline?: boolean;
 }
 
-export class Mention extends Component<IMentionProps> {
+export class Mention extends React.Component<IMentionProps> {
   static defaultProps = {
     multiLine: false,
     position: 'bottom',
@@ -62,7 +62,7 @@ export class Mention extends Component<IMentionProps> {
   };
 
   _compositing: boolean;
-  input: HTMLInputElement | null = null;
+  input: HTMLInputElement | HTMLTextAreaElement | null = null;
   suggestionList: SelectMenu | null = null;
 
   state = {
@@ -112,7 +112,7 @@ export class Mention extends Component<IMentionProps> {
                 position === 'bottom' ? this.BottomPosition : this.TopPosition
               }
             >
-              <Popover.Trigger.Click>
+              <Popover.Trigger.Click getElement={Utils.getInputNodeForTrigger}>
                 <Input
                   type={inputType}
                   ref={this.saveInputRef}
@@ -284,7 +284,13 @@ export class Mention extends Component<IMentionProps> {
       });
     }
 
-    this.input = instance && instance.input;
+    if (!instance) {
+      return;
+    }
+
+    // <Input> wraps native input in a div
+    const inputNode = Utils.getInputNodeForTrigger(findDOMNode(instance));
+    this.input = inputNode;
 
     if (this.input) {
       SelectionChangeEventHub.install({
