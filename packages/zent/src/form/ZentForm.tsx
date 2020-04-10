@@ -1,6 +1,5 @@
 import { useMemo, useReducer, FormEvent } from 'react';
 import {
-  IForm,
   ValidateOption,
   $FieldSetValue,
   useForm as superUseForm,
@@ -8,6 +7,7 @@ import {
   FormBuilder,
   BasicModel,
   BasicBuilder,
+  IForm,
 } from 'formulr';
 import { Subject } from 'rxjs';
 
