@@ -23,7 +23,7 @@
     "theme": "./scripts/build-theme.sh",
     "new-component": "node ./scripts/new-component.js",
     "typedoc": "typedoc --out ../../site/dist/apidoc --mode file",
-    "compile-plugins": "tsc plugins/*.ts -m commonjs",
+    "compile-plugins": "tsc -p ./plugins/tsconfig.json",
     "update-iconfont": "./scripts/update-iconfont.sh"
   },
   "author": "Youzan FE",
@@ -42,14 +42,14 @@
     "big.js": "^5.2.2",
     "classnames": "^2.2.6",
     "date-fns": "^2.7.0",
-    "formulr": "~0.2.11",
+    "formulr": "0.3.0",
     "react-is": "^16.8.1",
     "react-transition-group": "^2.6.0",
     "sortablejs": "~1.9.0",
     "tslib": "^1.9.3",
     "utility-types": "^3.4.1",
     "warning": "^4.0.3",
-    "zenticons": "3.3.0"
+    "zenticons": "3.4.0"
   },
   "devDependencies": {
     "@types/big.js": "^4.0.5",

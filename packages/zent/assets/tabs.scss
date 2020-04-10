@@ -64,11 +64,13 @@
     text-align: center;
 
     &-delete {
+      @include theme-color(color, stroke, 3);
       line-height: 1;
       position: absolute;
-      top: 0;
-      right: 4px;
-      font-size: $font-size-large;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      font-size: $font-size-normal;
       display: none;
     }
 
@@ -162,8 +164,7 @@
 
     &__actived {
       @include theme-color(background-color, stroke, 9);
-      border-bottom: 0;
-      padding-bottom: 1px;
+      border-bottom-color: transparent;
     }
   }
 }
@@ -171,10 +172,45 @@
 // 按钮模式样式
 .zent-tabs-nav-type__button {
   @include content-stretch('.zent-btn');
-  height: 32px;
 
-  .zent-btn {
+  .zent-tabs-tab {
+    @include theme-color(background-color, stroke, 9);
+    @include theme-color(color, stroke, 3);
+    @include border;
     min-width: 80px;
+    height: 32px;
+
+    &-inner {
+      padding: 5px 16px;
+    }
+
+    &:not(:first-child) {
+      margin-left: -1px;
+    }
+
+    &:first-child {
+      border-radius: 2px 0 0 2px;
+    }
+
+    &:last-child {
+      border-radius: 0 2px 2px 0;
+    }
+
+    &:hover:not(.zent-tabs-tab__disabled) {
+      @include theme-color(color, primary, 4);
+    }
+
+    &__actived {
+      @include theme-color(background-color, primary, 8);
+      @include theme-color(border-color, primary, 4);
+      @include theme-color(color, primary, 4);
+      z-index: 1;
+    }
+
+    &__disabled {
+      @include theme-color(background-color, stroke, 8);
+      @include theme-color(color, stroke, 4);
+    }
   }
 }
 
