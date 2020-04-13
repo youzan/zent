@@ -19,8 +19,6 @@ import {
 } from './locale';
 import { enUS, setLocale } from './time-locale';
 
-import capitalize from '../utils/capitalize';
-
 const common: II18nLocaleCommon = {
   confirm: 'Confirm',
   cancel: 'Cancel',
