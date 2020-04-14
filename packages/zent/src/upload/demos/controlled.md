@@ -1,9 +1,11 @@
 ---
 order: 2
 zh-CN:
-  title: 受控模式
+	title: 受控模式
+  tips: 单个文件不超过 2M
 en-US:
-  title: Controlled Mode
+	title: Controlled Mode
+  tips: Single file no more than 2M
 ---
 
 ```jsx
@@ -59,6 +61,7 @@ class Simple extends React.Component {
 				className="zent-upload-demo-pic"
 				maxSize={2 * 1024 * 1024}
 				maxAmount={3}
+				tips="{i18n.tips}"
 				onChange={this.onUploadChange}
 				onUpload={this.onUpload}
 				onError={this.onUploadError}

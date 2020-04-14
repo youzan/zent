@@ -1,9 +1,11 @@
 ---
 order: 8
 zh-CN:
-  title: 自定义展示项
+	title: 自定义展示项
+	tips: 单个文件不超过 2M
 en-US:
-  title: Custom Item
+	title: Custom Item
+  tips: Single file no more than 2M
 ---
 
 ```jsx
@@ -67,6 +69,7 @@ class Simple extends React.Component {
 				className="zent-upload-demo-pic"
 				maxSize={2 * 1024 * 1024}
 				maxAmount={3}
+				tips="{i18n.tips}"
 				onChange={this.onUploadChange}
 				onUpload={this.onUpload}
 				onError={this.onUploadError}
