@@ -45,11 +45,14 @@ $type-map: (
 );
 
 .zent-alert {
-  @include font-normal;
-  box-sizing: border-box;
   padding: 12px 16px;
   border: 1px solid $theme-stroke-5;
   border-radius: 2px;
+}
+
+.alert-item {
+  @include font-normal;
+  box-sizing: border-box;
   color: $theme-stroke-1;
   display: flex;
 
@@ -63,7 +66,7 @@ $type-map: (
     &__title {
       font-weight: $font-weight-medium;
 
-      + .zent-alert-content__description {
+      + .alert-item-content__description {
         margin-top: 8px;
       }
     }
@@ -73,7 +76,7 @@ $type-map: (
     margin-left: 16px;
     cursor: pointer;
 
-    .zent-alert-close-btn {
+    .alert-item-close-btn {
       @include theme-color(color, stroke, 4);
       font-size: 12px;
       width: 16px;
@@ -119,11 +122,11 @@ $type-map: (
     @include theme-color(background-color, $theme, $background-color);
     @include theme-color(border-color, $theme, $border-color);
 
-    .zent-alert-content__highlight {
+    .alert-item-content__highlight {
       @include theme-color(color, $theme, $highlight-color);
     }
 
-    &.zent-alert-outline {
+    &.alert-item-outline {
       @include theme-color(background-color, stroke, 9);
       @include theme-color(border-color, stroke, 5);
       @include theme-color(border-top-color, $theme, $outline-color);
@@ -131,13 +134,25 @@ $type-map: (
       border-style: solid;
       border-top-width: 4px;
 
-      .zent-alert-content__title {
+      .alert-item-content__title {
         @include theme-color(color, $theme, $outline-color);
       }
     }
 
-    .zent-alert-icon {
+    .alert-item-icon {
       @include theme-color(color, $theme, $icon-color);
     }
+  }
+}
+
+// slight类型样式
+.zent-alert-style-slight {
+  @include theme-color(background-color, stroke, 8);
+  border: 0;
+  padding: 13px 16px;
+
+  .alert-item-content {
+    font-size: $font-size-small;
+    line-height: 20px;
   }
 }
