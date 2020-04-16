@@ -19,7 +19,7 @@ class Option extends PureComponent<ISelectOptionProps, any> {
   }
 
   optionClickHandler(ev: React.MouseEvent<HTMLElement>) {
-    this.props.onClick && this.props.onClick(ev, this.props.cid);
+    this.props.onClick?.(ev, this.props.cid);
   }
 
   render() {
