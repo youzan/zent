@@ -20,7 +20,7 @@ import { DisabledContext, IDisabledContext } from '../disabled';
 const { Content } = Popover;
 
 export interface ISelectProps {
-  data: unknown[];
+  data?: unknown[];
   tags?: boolean;
   value?: any;
   index?: any;
