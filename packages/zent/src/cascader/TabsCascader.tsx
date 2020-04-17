@@ -15,19 +15,20 @@ import { isEqualArrays, arrayTreeFilter } from './common/utils';
 
 const PopoverContent = Popover.Content;
 
-interface ICascaderState<Item extends ICascaderItem = ICascaderItem> {
+interface ICascaderState {
   value: ICascaderValue[];
   activeValue: ICascaderValue[];
   activeId: number;
-  options: Item[];
+  options: ICascaderItem[];
   open: boolean;
   loadingStage?: number;
   prevProps: ITabsCascaderProps;
 }
 
-export class TabsCascader<
-  Item extends ICascaderItem = ICascaderItem
-> extends Component<ITabsCascaderProps, ICascaderState> {
+export class TabsCascader extends Component<
+  ITabsCascaderProps,
+  ICascaderState
+> {
   static defaultProps = {
     ...commonProps,
     title: [],
@@ -84,7 +85,11 @@ export class TabsCascader<
     });
   };
 
-  clickHandler: ICascaderHandler<Item> = (item, stage, popover) => {
+  clickHandler: ICascaderHandler = (
+    item: ICascaderItem,
+    stage: number,
+    popover
+  ) => {
     const { loadOptions, options, changeOnSelect } = this.props;
     const { activeValue } = this.state;
     const needLoading =
@@ -97,7 +102,7 @@ export class TabsCascader<
     const selectedOptions = arrayTreeFilter(newValues, options);
     let needClose = false;
 
-    const obj: Partial<ICascaderState<Item>> = {
+    const obj: Partial<ICascaderState> = {
       activeValue: newValues,
     };
 
@@ -117,7 +122,7 @@ export class TabsCascader<
       obj.activeId = nextStage;
     }
 
-    this.setState(obj as ICascaderState<Item>, () => {
+    this.setState(obj as ICascaderState, () => {
       if (needLoading) {
         this.setState({
           loadingStage: stage,

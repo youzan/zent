@@ -9,7 +9,7 @@ import Search from './Search';
 import Tags from './Tags';
 import { ICascaderItem, ICascaderValue } from '../types';
 
-interface ITriggerProps<Item extends ICascaderItem = ICascaderItem> {
+interface ITriggerProps<Item = ICascaderItem> {
   disabled?: boolean;
   className?: string;
   popupClassName?: string;

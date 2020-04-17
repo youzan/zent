@@ -95,6 +95,7 @@ class Simple extends React.Component {
 			<div style={{ display: 'flex', justifyContent: 'space-between', paddingRight: '100px' }}>
 				<MenuCascader
 					value={this.state.value}
+					options={this.state.options}
 					onChange={this.onChange}
 					expandTrigger="click"
 				/>

@@ -160,7 +160,8 @@ class Simple extends React.Component {
 				loadOptions={this.loadOptions}
         clearable
         searchable
-        async
+				async
+				multiple
 			/>
 		);
 	}

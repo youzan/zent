@@ -32,7 +32,7 @@ class SearchContent extends Component<ISearchContentProps> {
     );
   }
 
-  renderItemCheckbox(items) {
+  renderItemCheckbox(items: ICascaderItem[]) {
     const { multiple } = this.props;
     const item = items[items.length - 1];
 

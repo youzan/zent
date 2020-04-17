@@ -1,9 +1,7 @@
 import * as React from 'react';
 import Popover from '../popover';
 
-export interface ICascaderBaseProps<
-  Item extends ICascaderItem = ICascaderItem
-> {
+export interface ICascaderBaseProps<Item = ICascaderItem> {
   options: Item[];
   changeOnSelect?: boolean;
   placeholder?: string;
@@ -14,7 +12,7 @@ export interface ICascaderBaseProps<
   clearable?: boolean;
 }
 
-export interface IMenuCascaderProps<Item extends ICascaderItem = ICascaderItem>
+export interface IMenuCascaderProps<Item = ICascaderItem>
   extends ICascaderBaseProps {
   value?: ICascaderValue[] | Array<ICascaderValue[]>;
   onChange?: (
@@ -35,7 +33,7 @@ export interface IMenuCascaderProps<Item extends ICascaderItem = ICascaderItem>
   limit: number | false;
 }
 
-export interface ITabsCascaderProps<Item extends ICascaderItem = ICascaderItem>
+export interface ITabsCascaderProps<Item = ICascaderItem>
   extends ICascaderBaseProps {
   value?: ICascaderValue[];
   onChange?: (
@@ -70,16 +68,17 @@ export interface ICascaderItem {
   parent?: ICascaderItem | null;
 }
 
-export type ICascaderHandler<Item extends ICascaderItem = ICascaderItem> = (
+export type ICascaderHandler<Item = ICascaderItem> = (
   item: Item,
   stage: number,
   popover: Popover,
   trigger?: 'click' | 'hover'
 ) => void;
 
-export type ICascaderSearchClickHandler<
-  Item extends ICascaderItem = ICascaderItem
-> = (items: Item[], popover: Popover) => void;
+export type ICascaderSearchClickHandler<Item = ICascaderItem> = (
+  items: Item[],
+  popover: Popover
+) => void;
 
 export interface ICascaderChangeMeta {
   action?: 'clear' | 'change';
@@ -90,9 +89,7 @@ export interface ICascaderLoadMeta {
   keyword?: string;
 }
 
-export type ICascaderScrollHandler<
-  Item extends ICascaderItem = ICascaderItem
-> = (
+export type ICascaderScrollHandler<Item = ICascaderItem> = (
   closeLoading: () => void,
   parent: Item | null,
   stage: number

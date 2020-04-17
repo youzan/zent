@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ICascaderItem } from '../types';
 import Icon from '../../icon';
 
-interface ITagsTriggerProps<Item extends ICascaderItem = ICascaderItem> {
+interface ITagsTriggerProps<Item = ICascaderItem> {
   list: Array<Item[]>;
   displayRender?: (items: Item[]) => React.ReactNode;
   onRemove: (item: ICascaderItem, checked: boolean) => void;

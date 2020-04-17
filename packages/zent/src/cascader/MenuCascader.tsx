@@ -56,22 +56,23 @@ const searchFilterFn = (
   return result;
 };
 
-interface ICascaderState<Item extends ICascaderItem = ICascaderItem> {
+interface ICascaderState {
   value: ICascaderValue[] | Array<ICascaderValue[]>;
   activeValue: ICascaderValue[];
-  checkedNodes: Array<Item[]>;
+  checkedNodes: Array<ICascaderItem[]>;
   open: boolean;
   prevProps: IMenuCascaderProps;
   scrollHasMore: boolean;
   keyword: string;
   isSearching: boolean;
-  flattenOptions: Array<Item[]>;
+  flattenOptions: Array<ICascaderItem[]>;
   searchList: ICascaderSearchItem[];
 }
 
-export class MenuCascader<
-  Item extends ICascaderItem = ICascaderItem
-> extends Component<IMenuCascaderProps, ICascaderState> {
+export class MenuCascader extends Component<
+  IMenuCascaderProps,
+  ICascaderState
+> {
   static defaultProps = {
     ...commonProps,
     multiple: false,
@@ -162,7 +163,7 @@ export class MenuCascader<
     });
   };
 
-  onKeywordChange = keyword => {
+  onKeywordChange = (keyword: string) => {
     this.setState(
       { keyword, isSearching: keyword.length > 0 },
       this.debounceFilterOptions
@@ -176,7 +177,7 @@ export class MenuCascader<
     if (keyword) {
       if (async) {
         loadOptions(null, { keyword, action: 'search' }).then(
-          (options: Item[]) => {
+          (options: ICascaderItem[]) => {
             const flattenOptions = flattenTree(options);
             this.setSearchState(keyword, flattenOptions);
           }
@@ -187,7 +188,10 @@ export class MenuCascader<
     }
   }, FILTER_TIMEOUT);
 
-  setSearchState = (keyword, flattenOptions) => {
+  setSearchState = (
+    keyword: string,
+    flattenOptions: Array<ICascaderItem[]>
+  ) => {
     const { limit, filter } = this.props;
     const searchList = filter(keyword, flattenOptions) || [];
 
@@ -197,9 +201,9 @@ export class MenuCascader<
     });
   };
 
-  clickHandler: ICascaderHandler<Item> = (
-    item,
-    stage,
+  clickHandler: ICascaderHandler<ICascaderItem> = (
+    item: ICascaderItem,
+    stage: number,
     popover,
     triggerType = 'click'
   ) => {
@@ -220,7 +224,7 @@ export class MenuCascader<
     newValues.push(item.value);
     const selectedOptions = arrayTreeFilter(newValues, options);
 
-    const obj: Partial<ICascaderState<Item>> = {
+    const obj: Partial<ICascaderState> = {
       activeValue: newValues,
       keyword: '',
     };
@@ -242,7 +246,7 @@ export class MenuCascader<
       obj.value = [...newValues];
     }
 
-    this.setState(obj as ICascaderState<Item>, () => {
+    this.setState(obj as ICascaderState, () => {
       if (!multiple) {
         if (needLoading) {
           item.loading = true;
@@ -265,7 +269,10 @@ export class MenuCascader<
     });
   };
 
-  searchClickHandler: ICascaderSearchClickHandler<Item> = (items, popover) => {
+  searchClickHandler: ICascaderSearchClickHandler = (
+    items: ICascaderItem[],
+    popover
+  ) => {
     const { multiple } = this.props;
 
     if (multiple) {

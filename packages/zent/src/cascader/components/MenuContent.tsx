@@ -44,7 +44,7 @@ class MenuContent extends Component<IMenuContentProps> {
     return null;
   }
 
-  renderItemCheckbox(item) {
+  renderItemCheckbox(item: ICascaderItem) {
     const { multiple } = this.props;
 
     if (!multiple) {
