@@ -2,10 +2,10 @@
 order: 7
 zh-CN:
   title: 手动上传
-  tips: '建议尺寸 640*640'
+  tips: '建议尺寸 640*640，最多 9 张，单张图片不超过 5M'
 en-US:
   title: Manual Upload
-  tips: 'Recommended image size 640*640'
+	tips: 'Recommended image size 640*640, up to 9, single file no more than 5M'
 ---
 
 ```jsx

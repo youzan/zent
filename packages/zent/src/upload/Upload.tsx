@@ -65,16 +65,16 @@ export class Upload extends AbstractUpload<
     };
   }
 
-  protected renderTips(i18n: II18nLocaleUpload) {
+  protected renderTips() {
     const { tips, maxSize } = this.props as IUploadPropsInner;
     const config: IUploadTipConfig<IUploadProps> = {
       ...this.props,
       formattedMaxSize: formatFileSize(maxSize),
     };
+
+    const tipsContent = getTipsContent(tips, config);
     return (
-      <div className="zent-file-upload-tips">
-        {getTipsContent(tips, config, i18n.normal.tips)}
-      </div>
+      tipsContent && <div className="zent-file-upload-tips">{tipsContent}</div>
     );
   }
 
@@ -125,7 +125,7 @@ export class Upload extends AbstractUpload<
               {this.renderUploadList(i18n)}
               <div className="zent-file-upload-trigger-wrapper">
                 {this.renderTrigger(i18n)}
-                {this.renderTips(i18n)}
+                {this.renderTips()}
               </div>
             </div>
           );
