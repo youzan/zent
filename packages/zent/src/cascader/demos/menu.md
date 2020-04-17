@@ -1,7 +1,7 @@
 ---
-order: 3
+order: 1
 zh-CN:
-	title: 单选搜索
+	title: 菜单型级联
 	zj: 浙江省
 	hz: 杭州市
 	xh: 西湖区
@@ -12,7 +12,7 @@ zh-CN:
 	be: 博尔塔拉蒙古自治州
 	al: 阿拉山口市
 en-US:
-	title: Searchable Usage
+	title: Basic Usage
 	zj: Zhejiang
 	hz: Hangzhou
 	xh: Xihu
@@ -30,7 +30,7 @@ import { MenuCascader } from 'zent';
 class Simple extends React.Component {
 
 	state = {
-    value: ['330000', '330100', '330106'],
+    // value: ['330000', '330100', '330106'],
 		options: [
 			{
 				value: '330000',
@@ -65,7 +65,8 @@ class Simple extends React.Component {
 			},
 			{
 				value: '120000',
-        label: '{i18n.xj}',
+				label: '{i18n.xj}',
+				disabled: true,
 				children: [
 					{
 						value: '120100',
@@ -91,14 +92,20 @@ class Simple extends React.Component {
 
 	render() {
 		return (
-      <MenuCascader
-        value={this.state.value}
-				options={this.state.options}
-        onChange={this.onChange}
-        expandTrigger="hover"
-        clearable
-				searchable
-			/>
+			<div style={{ display: 'flex', justifyContent: 'space-between', paddingRight: '100px' }}>
+				<MenuCascader
+					value={this.state.value}
+					onChange={this.onChange}
+					expandTrigger="click"
+				/>
+				<MenuCascader
+					value={this.state.value}
+					options={this.state.options}
+					onChange={this.onChange}
+					clearable
+					expandTrigger="hover"
+				/>
+			</div>
 		);
 	}
 }

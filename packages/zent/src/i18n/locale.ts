@@ -73,6 +73,11 @@ export interface II18nLocaleTable extends II18nLocaleCommon {
 export interface II18nLocaleCascader extends II18nLocaleCommon {
   title: React.ReactNode;
   placeholder: string;
+  searchPlaceholder: string;
+  loading: string;
+  searching: string;
+  searchEmpty: string;
+  empty: string;
 }
 
 export interface II18nLocaleTimePicker extends II18nLocaleCommon {

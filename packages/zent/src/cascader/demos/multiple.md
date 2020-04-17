@@ -1,59 +1,91 @@
 ---
-order: 11
+order: 4
 zh-CN:
-	title: 动态加载数据 (menu)
-	placeholder: 请选择
+	title: 多选
 	zj: 浙江省
+	hz: 杭州市
+	xh: 西湖区
+	yh: 余杭区
+	wz: 温州市
+	lw: 龙湾区
 	xj: 新疆维吾尔自治区
-	pro: 省
-	city: 市
-	dis: 区
+	be: 博尔塔拉蒙古自治州
+	al: 阿拉山口市
 en-US:
-	title: Dynamic Loading (menu)
-	placeholder: Please choose
+	title: Multiple Usage
 	zj: Zhejiang
+	hz: Hangzhou
+	xh: Xihu
+	yh: YuHang
+	wz: Wenzhou
+	lw: Longwan
 	xj: Xinjiang
-	pro: Province
-	city: City
-	dis: District
+	be: Bortala
+	al: Alashankou
 ---
 
 ```js
-import { Cascader, Notify } from 'zent';
+import { MenuCascader } from 'zent';
 
 class Simple extends React.Component {
 
 	state = {
-		value: [
-			['330000', '330100', '330102'],
-		],
+    value: [
+      ['330000', '330100', '330106'],
+      ['330000', '330100', '330107'],
+    ],
 		options: [
 			{
-				id: '330000',
-				title: '{i18n.zj}',
-				isLeaf: false
+				value: '330000',
+        label: '{i18n.zj}',
+				children: [
+					{
+						value: '330100',
+						label: '{i18n.hz}',
+						children: [
+							{
+								value: '330106',
+                label: '{i18n.xh}',
+							},
+							{
+								value: '330107',
+                label: '{i18n.yh}',
+							}
+						]
+					},
+					{
+						value: '330200',
+						label: '{i18n.wz}',
+						children: [
+							{
+								value: '330206',
+								label: '{i18n.lw}',
+							}
+						]
+					}
+				]
 			},
 			{
-				id: '120000',
-				title: '{i18n.xj}',
-				isLeaf: false
+				value: '120000',
+        label: '{i18n.xj}',
+				children: [
+					{
+						value: '120100',
+						label: '{i18n.be}',
+						children: [
+							{
+								value: '120111',
+								label: '{i18n.al}'
+							}
+						]
+					}
+				]
 			}
 		]
 	}
 
-	loadOptions = (root, stage, type) => new Promise((resolve, reject) => {
-		setTimeout(() => {
-			let isLeaf = stage >= 2;
-			let children = [{
-				id: `66666${stage}`,
-				title: `Label${stage}`,
-				isLeaf
-			}];
-			resolve(children);
-		}, 500);
-	})
-
-	onChange = (value, selectedOptions, type) => {
+	onChange = (value, selectedOptions, meta) => {
+    console.log(value, selectedOptions, meta)
 		this.setState({
 			value,
 		});
@@ -61,13 +93,12 @@ class Simple extends React.Component {
 
 	render() {
 		return (
-			<Cascader
-				multiple
-				value={this.state.value}
+      <MenuCascader
+        value={this.state.value}
 				options={this.state.options}
-				onChange={this.onChange}
-				loadOptions={this.loadOptions}
-				placeholder="{i18n.placeholder}"
+        onChange={this.onChange}
+        expandTrigger="hover"
+        multiple
 			/>
 		);
 	}

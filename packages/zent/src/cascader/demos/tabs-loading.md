@@ -1,28 +1,38 @@
 ---
-order: 2
+order: 10
 zh-CN:
-	title: 动态加载下一级
+  title: 城市级联动态加载
+  zj: 浙江省
+  xj: 新疆维吾尔自治区
+	pro: 省
+	city: 市
+	dis: 区
 en-US:
-	title: Loading Usage
+  title: City Cascader Loading Usage
+  zj: Zhejiang
+  xj: Xinjiang
+	pro: Province
+	city: City
+	dis: District
 ---
 
 
 ```js
-import { MenuCascader } from 'zent';
+import { TabsCascader } from 'zent';
 
 class Simple extends React.Component {
 
 	state = {
-    // value: ['330000', '330100', '330106'],
+    value: [],
 		options: [
 			{
 				value: '330000',
-        label: 'Stage1',
+        label: '{i18n.zj}',
         isLeaf: false,
 			},
 			{
 				value: '120000',
-        label: 'Stage2',
+        label: '{i18n.xj}',
         isLeaf: false,
 			}
 		]
@@ -46,13 +56,11 @@ class Simple extends React.Component {
         isLeaf: selectedOptions.length >= 2,
       }];
 
-      if (meta.action === 'next') {
-        targetOption.children = res;
+      targetOption.children = res;
 
-        this.setState({
-          options: [...this.state.options],
-        });
-      }
+      this.setState({
+        options: [...this.state.options],
+      });
 
       resolve();
     }, 1000);
@@ -60,13 +68,18 @@ class Simple extends React.Component {
 
 	render() {
 		return (
-      <MenuCascader
+      <TabsCascader
         value={this.state.value}
 				options={this.state.options}
         onChange={this.onChange}
         loadOptions={this.loadOptions}
-        expandTrigger="click"
         changeOnSelect
+        clearable
+				title={[
+					'{i18n.pro}',
+					'{i18n.city}',
+					'{i18n.dis}'
+				]}
 			/>
 		);
 	}

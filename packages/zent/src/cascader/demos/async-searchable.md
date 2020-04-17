@@ -1,7 +1,7 @@
 ---
-order: 3
+order: 7
 zh-CN:
-	title: 单选搜索
+	title: 异步搜索
 	zj: 浙江省
 	hz: 杭州市
 	xh: 西湖区
@@ -12,7 +12,7 @@ zh-CN:
 	be: 博尔塔拉蒙古自治州
 	al: 阿拉山口市
 en-US:
-	title: Searchable Usage
+	title: Async Searchable Usage
 	zj: Zhejiang
 	hz: Hangzhou
 	xh: Xihu
@@ -30,7 +30,7 @@ import { MenuCascader } from 'zent';
 class Simple extends React.Component {
 
 	state = {
-    value: ['330000', '330100', '330106'],
+    value: [],
 		options: [
 			{
 				value: '330000',
@@ -89,15 +89,78 @@ class Simple extends React.Component {
 		});
 	}
 
+  loadOptions = (selectedOptions, meta) => new Promise((resolve, reject) => {
+		console.log(selectedOptions, meta)
+		const { keyword, action } = meta;
+
+    setTimeout(() => {
+      if (action === 'search') {
+				const options = [
+					{
+						"value": "330000",
+						"label": "浙江省",
+						"children": [
+							{
+								"value": "330100",
+								"label": "杭州市",
+								"children": [
+									{
+										"value": "330106",
+										"label": `${keyword}-1`
+									},
+									{
+										"value": "330107",
+										"label": `${keyword}-2`
+									}
+								]
+							},
+							{
+								"value": "330200",
+								"label": "温州市",
+								"children": [
+									{
+										"value": "330206",
+										"label": `${keyword}-3`
+									}
+								]
+							}
+						]
+					},
+					{
+						"value": "120000",
+						"label": "上海市",
+						"children": [
+							{
+								"value": "120100",
+								"label": "上海市",
+								"children": [
+									{
+										"value": "120111",
+										"label": `${keyword}-4`
+									}
+								]
+							}
+						]
+					}
+				];
+	
+				this.setState({ options });
+        resolve(options);
+      }
+    }, 1000);
+  })
+
 	render() {
 		return (
       <MenuCascader
         value={this.state.value}
 				options={this.state.options}
         onChange={this.onChange}
-        expandTrigger="hover"
+				expandTrigger="hover"
+				loadOptions={this.loadOptions}
         clearable
-				searchable
+        searchable
+        async
 			/>
 		);
 	}

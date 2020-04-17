@@ -232,12 +232,15 @@ describe('Popover', () => {
       TopLeft,
       TopCenter,
       TopRight,
+      TopLeftSticky,
+      BottomLeftSticky,
       AutoBottomLeft,
       AutoBottomCenter,
       AutoBottomRight,
       AutoTopLeft,
       AutoTopCenter,
       AutoTopRight,
+      AutoBottomLeftSticky,
     } = Popover.Position;
     const positionArr = [
       BottomLeft,
@@ -252,12 +255,15 @@ describe('Popover', () => {
       TopLeft,
       TopCenter,
       TopRight,
+      TopLeftSticky,
+      BottomLeftSticky,
       AutoBottomLeft,
       AutoBottomCenter,
       AutoBottomRight,
       AutoTopLeft,
       AutoTopCenter,
       AutoTopRight,
+      AutoBottomLeftSticky,
     ];
 
     positionArr.forEach(pos => {

@@ -108,6 +108,11 @@ export const Cascader: II18nLocaleCascader = {
   ...common,
   title: '标题',
   placeholder: '请选择',
+  searchPlaceholder: '请选择或输入搜索',
+  loading: '加载中…',
+  searching: '搜索中...',
+  searchEmpty: '无搜索结果',
+  empty: '无数据',
 };
 
 const QUARTER_NAMES = ['第一季度', '第二季度', '第三季度', '第四季度'];

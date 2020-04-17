@@ -1,74 +1,93 @@
 ---
-order: 11
+order: 6
 zh-CN:
-	title: 动态加载数据 (menu)
-	placeholder: 请选择
-	zj: 浙江省
-	xj: 新疆维吾尔自治区
-	pro: 省
-	city: 市
-	dis: 区
+	title: 滚动加载
 en-US:
-	title: Dynamic Loading (menu)
-	placeholder: Please choose
-	zj: Zhejiang
-	xj: Xinjiang
-	pro: Province
-	city: City
-	dis: District
+	title: Scroll Loading Usage
 ---
 
 ```js
-import { Cascader, Notify } from 'zent';
+import { MenuCascader } from 'zent';
+
+const OPTIONS = Array(20)
+  .fill(null)
+  .map((_, index) => ({
+    value: String(index),
+    label: `Option ${index}`,
+    isLeaf: false,
+    hasMore: true,
+  }));
+
+let optionId = 0;
 
 class Simple extends React.Component {
 
 	state = {
-		value: [
-			['330000', '330100', '330102'],
-		],
-		options: [
-			{
-				id: '330000',
-				title: '{i18n.zj}',
-				isLeaf: false
-			},
-			{
-				id: '120000',
-				title: '{i18n.xj}',
-				isLeaf: false
-			}
-		]
+		options: OPTIONS,
 	}
 
-  // root 父节点
-	loadOptions = (root, stage, type) => new Promise((resolve, reject) => {
-		setTimeout(() => {
-			let isLeaf = stage >= 2;
-			let children = [{
-				id: `66666${stage}`,
-				title: `Label${stage}`,
-				isLeaf
-			}];
-			resolve(root.children.concat(children));
-		}, 500);
-	})
-
-	onChange = (value, selectedOptions, type) => {
+	onChange = (value, selectedOptions, meta) => {
+    console.log(value, selectedOptions, meta)
 		this.setState({
 			value,
 		});
-	}
+  }
+  
+  loadOptions = (selectedOptions, meta) => new Promise((resolve, reject) => {
+    const isLeaf = selectedOptions.length >= 2;
+    const targetOption = selectedOptions[selectedOptions.length - 1];
+    console.log(selectedOptions, meta, targetOption)
+
+    setTimeout(() => {
+      let options = [...this.state.options];
+
+      if (meta.action === 'next') {
+        const res = [{
+          value: `Dynamic${targetOption.value}`,
+          label: `Dynamic${targetOption.label}`,
+          isLeaf,
+          hasMore: !isLeaf,
+        }];
+
+        targetOption.children = res;
+      } else if (meta.action === 'scroll') {
+        const res = Array(10)
+          .fill(null)
+          .map((_, index) => {
+            optionId++;
+            return {
+              value: `Value ${optionId}`,
+              label: `Scroll ${optionId}`,
+              isLeaf,
+            };
+          });
+
+        // 非第一级
+        if (targetOption) {
+          targetOption.children = (targetOption.children || []).concat(res);
+        } else {
+          options = options.concat(res);
+        }
+      }
+
+      this.setState({
+        options,
+      });
+
+      // 是否可继续加载更多
+      resolve(true);
+    }, 2000);
+  })
 
 	render() {
 		return (
-			<Cascader
-				scrollLoadable
-				value={this.state.value}
+      <MenuCascader
+        value={this.state.value}
 				options={this.state.options}
-				onChange={this.onChange}
-				loadOptions={this.loadOptions}
-				placeholder="{i18n.placeholder}"
+        onChange={this.onChange}
+        loadOptions={this.loadOptions}
+        expandTrigger="click"
+        scrollable
 			/>
 		);
 	}

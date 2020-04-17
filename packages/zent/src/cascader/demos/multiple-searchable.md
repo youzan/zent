@@ -1,7 +1,7 @@
 ---
-order: 3
+order: 5
 zh-CN:
-	title: 单选搜索
+	title: 多选搜索
 	zj: 浙江省
 	hz: 杭州市
 	xh: 西湖区
@@ -12,7 +12,7 @@ zh-CN:
 	be: 博尔塔拉蒙古自治州
 	al: 阿拉山口市
 en-US:
-	title: Searchable Usage
+	title: Multiple Search Usage
 	zj: Zhejiang
 	hz: Hangzhou
 	xh: Xihu
@@ -30,7 +30,7 @@ import { MenuCascader } from 'zent';
 class Simple extends React.Component {
 
 	state = {
-    value: ['330000', '330100', '330106'],
+    value: [],
 		options: [
 			{
 				value: '330000',
@@ -57,7 +57,6 @@ class Simple extends React.Component {
 							{
 								value: '330206',
 								label: '{i18n.lw}',
-								disabled: true,
 							}
 						]
 					}
@@ -97,7 +96,8 @@ class Simple extends React.Component {
         onChange={this.onChange}
         expandTrigger="hover"
         clearable
-				searchable
+        multiple
+        searchable
 			/>
 		);
 	}
