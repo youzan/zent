@@ -1,4 +1,5 @@
 import * as React from 'react';
+import cx from 'classnames';
 import { AlertTypes } from './types';
 import Icon, { IconType } from '../icon';
 import InlineLoading from '../loading/InlineLoading';
@@ -13,7 +14,9 @@ const iconTypeMap: {
   error: 'error-circle',
 };
 
-type IAlertItemProps = Omit<IAlertProps, 'outline' | 'closed'>;
+type IAlertItemProps = Omit<IAlertProps, 'outline' | 'closed'> & {
+  scrollRef?: React.Ref<HTMLDivElement>;
+};
 
 export class AlertItem extends React.PureComponent<IAlertItemProps> {
   static highlightClassName = 'alert-item-content__highlight';
@@ -69,14 +72,14 @@ export class AlertItem extends React.PureComponent<IAlertItemProps> {
   }
 
   render() {
-    const { extraContent } = this.props;
+    const { extraContent, scrollRef = null, className } = this.props;
 
     const alertIcon = this.renderIcon();
     const content = this.renderContent();
     const closeNode = this.renderCloseNode();
 
     return (
-      <div className="alert-item">
+      <div className={cx('alert-item', className)} ref={scrollRef}>
         {alertIcon}
         <div className="alert-item-content">{content}</div>
         {extraContent && (
