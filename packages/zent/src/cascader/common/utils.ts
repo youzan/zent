@@ -204,3 +204,36 @@ export function initialCheckedNodes(
 
   return result;
 }
+
+/**
+ * 将平铺结构转换成树
+ */
+export function buildTree(tree: ICascaderItem[], selected: ICascaderItem[]) {
+  const firstNode = selected[0];
+
+  if (selected.length > 1) {
+    firstNode.children = [];
+    buildTree(firstNode.children, selected.slice(1));
+  }
+
+  tree.push(firstNode);
+  return firstNode;
+}
+
+/**
+ * 将节点插入到树中
+ */
+export function appendNodeInTree(
+  tree: ICascaderItem[],
+  selected: ICascaderItem[]
+) {
+  const firstNode = selected[0];
+  const target = tree.find(item => item.value === firstNode.value);
+
+  if (target) {
+    target.children = target.children || [];
+    appendNodeInTree(target.children, selected.slice(1));
+  } else {
+    tree.push(buildTree([], selected));
+  }
+}

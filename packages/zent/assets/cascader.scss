@@ -142,8 +142,7 @@ $menuHeight: 180px;
       height: 32px;
       line-height: 32px;
       text-align: left;
-      padding-left: 10px;
-      padding-right: 30px;
+      padding: 0 10px;
       box-sizing: border-box;
       width: 100%;
       overflow: hidden;
@@ -160,11 +159,6 @@ $menuHeight: 180px;
         &:hover {
           @include theme-color(background-color, stroke, 9);
         }
-      }
-
-      &-label {
-        display: inline-block;
-        vertical-align: middle;
       }
 
       &--multiple {
@@ -267,6 +261,10 @@ $menuHeight: 180px;
 
       &--multiple {
         cursor: initial;
+
+        .zent-cascader__menu-item-label {
+          max-width: 82%;
+        }
       }
     }
 

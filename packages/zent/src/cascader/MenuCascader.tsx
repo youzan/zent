@@ -13,6 +13,7 @@ import {
   uncheckAllNode,
   initialCheckedNodes,
   flattenTree,
+  appendNodeInTree,
 } from './common/utils';
 import {
   ICascaderItem,
@@ -43,12 +44,7 @@ const searchFilterFn = (
     if (isMatch) {
       result.push({
         items,
-        display: (
-          <span
-            className="zent-cascader__search-item-label"
-            dangerouslySetInnerHTML={{ __html: display }}
-          ></span>
-        ),
+        display: <span dangerouslySetInnerHTML={{ __html: display }}></span>,
       });
     }
   });
@@ -59,6 +55,7 @@ const searchFilterFn = (
 interface ICascaderState {
   value: ICascaderValue[] | Array<ICascaderValue[]>;
   activeValue: ICascaderValue[];
+  // 多选时各子节点的选中状态
   checkedNodes: Array<ICascaderItem[]>;
   open: boolean;
   prevProps: IMenuCascaderProps;
@@ -90,14 +87,14 @@ export class MenuCascader extends Component<
     const newState: Partial<ICascaderState> = {
       prevProps: nextProps,
     };
-    const { multiple, searchable } = nextProps;
+    const { multiple, searchable, async } = nextProps;
 
     if (prevProps.options !== nextProps.options) {
       if (multiple) {
         linkedTreeNode(nextProps.options);
       }
 
-      if (searchable) {
+      if (searchable && !async) {
         newState.flattenOptions = searchable
           ? flattenTree(nextProps.options)
           : [];
@@ -124,13 +121,13 @@ export class MenuCascader extends Component<
   constructor(props) {
     super(props);
     const value = props.value || [];
-    const { multiple, options, searchable } = props;
+    const { multiple, options, searchable, async } = props;
 
     if (multiple) {
       linkedTreeNode(options);
     }
 
-    const flattenOptions = searchable ? flattenTree(options) : [];
+    const flattenOptions = searchable && !async ? flattenTree(options) : [];
     const initialActiveValue = multiple && value.length > 0 ? value[0] : value;
     const checkedNodes = multiple
       ? initialCheckedNodes(options, value as Array<ICascaderValue[]>)
@@ -172,28 +169,24 @@ export class MenuCascader extends Component<
 
   debounceFilterOptions = debounce(() => {
     const { keyword, flattenOptions } = this.state;
-    const { async, loadOptions } = this.props;
+    const { async, loadOptions, filter } = this.props;
 
     if (keyword) {
       if (async) {
         loadOptions(null, { keyword, action: 'search' }).then(
-          (options: ICascaderItem[]) => {
-            const flattenOptions = flattenTree(options);
-            this.setSearchState(keyword, flattenOptions);
+          (searchList: ICascaderSearchItem[]) => {
+            this.setSearchState(searchList);
           }
         );
       } else {
-        this.setSearchState(keyword, flattenOptions);
+        const searchList = filter(keyword, flattenOptions) || [];
+        this.setSearchState(searchList);
       }
     }
   }, FILTER_TIMEOUT);
 
-  setSearchState = (
-    keyword: string,
-    flattenOptions: Array<ICascaderItem[]>
-  ) => {
-    const { limit, filter } = this.props;
-    const searchList = filter(keyword, flattenOptions) || [];
+  setSearchState = (searchList: ICascaderSearchItem[]) => {
+    const { limit } = this.props;
 
     this.setState({
       searchList: limit === false ? searchList : searchList.slice(0, limit),
@@ -273,11 +266,14 @@ export class MenuCascader extends Component<
     items: ICascaderItem[],
     popover
   ) => {
-    const { multiple } = this.props;
+    const { multiple, options } = this.props;
 
     if (multiple) {
       return;
     }
+
+    // 将节点添加至树中
+    appendNodeInTree(options, items);
 
     const activeValue = items.map(item => item.value);
     const stage = items.length;
@@ -349,6 +345,17 @@ export class MenuCascader extends Component<
     });
   };
 
+  handleSearchChecked = (items: ICascaderItem[], checked: boolean) => {
+    const { options } = this.props;
+
+    // 将节点添加至树中
+    appendNodeInTree(options, items);
+
+    linkedTreeNode(options);
+
+    this.handleChecked(items[items.length - 1], checked);
+  };
+
   getPopoverContent = (i18n: II18nLocaleCascader) => {
     const {
       options,
@@ -375,7 +382,7 @@ export class MenuCascader extends Component<
             multiple={multiple}
             isSearching={isSearching}
             searchList={searchList}
-            handleChecked={this.handleChecked}
+            handleSearchChecked={this.handleSearchChecked}
             searchClickHandler={this.searchClickHandler}
           />
         ) : (

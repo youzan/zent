@@ -95,57 +95,26 @@ class Simple extends React.Component {
 
     setTimeout(() => {
       if (action === 'search') {
-				const options = [
+				const searchList = [
 					{
-						"value": "330000",
-						"label": "浙江省",
-						"children": [
-							{
-								"value": "330100",
-								"label": "杭州市",
-								"children": [
-									{
-										"value": "330106",
-										"label": `${keyword}-1`
-									},
-									{
-										"value": "330107",
-										"label": `${keyword}-2`
-									}
-								]
-							},
-							{
-								"value": "330200",
-								"label": "温州市",
-								"children": [
-									{
-										"value": "330206",
-										"label": `${keyword}-3`
-									}
-								]
-							}
-						]
+						items: [
+							{ "value": "340000", "label": "浙江省" },
+							{ "value": "340100", "label": "杭州市" },
+							{ "value": "340106", "label": `${keyword}-1` },
+						],
+						display: <span>浙江省 / 杭州市 / {keyword}-1</span>,
 					},
 					{
-						"value": "120000",
-						"label": "上海市",
-						"children": [
-							{
-								"value": "120100",
-								"label": "上海市",
-								"children": [
-									{
-										"value": "120111",
-										"label": `${keyword}-4`
-									}
-								]
-							}
-						]
-					}
+						items: [
+							{ "value": "340000", "label": "浙江省" },
+							{ "value": "340200", "label": "温州市" },
+							{ "value": "340206", "label": `${keyword}-2` },
+						],
+						display: <span>浙江省 / 温州市 / {keyword}-2</span>,
+					},
 				];
 	
-				this.setState({ options });
-        resolve(options);
+        resolve(searchList);
       }
     }, 1000);
   })

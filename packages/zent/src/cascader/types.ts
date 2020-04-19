@@ -23,7 +23,7 @@ export interface IMenuCascaderProps<Item = ICascaderItem>
   loadOptions?: (
     selectedOptions: Item[] | null,
     meta: ICascaderLoadMeta
-  ) => Promise<Item[] | void | boolean>;
+  ) => Promise<ICascaderSearchItem[] | void | boolean>;
   multiple: boolean;
   expandTrigger: 'click' | 'hover';
   scrollable: boolean;

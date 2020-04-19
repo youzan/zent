@@ -16,7 +16,7 @@ export interface ISearchContentProps {
   popover: Popover;
   i18n: II18nLocaleCascader;
   multiple: boolean;
-  handleChecked: (item: ICascaderItem, checked: boolean) => void;
+  handleSearchChecked: (items: ICascaderItem[], checked: boolean) => void;
   isSearching: boolean;
   searchList: ICascaderSearchItem[];
   searchClickHandler: ICascaderSearchClickHandler;
@@ -43,7 +43,7 @@ class SearchContent extends Component<ISearchContentProps> {
     return (
       <Checkbox
         value={item.value}
-        onChange={e => this.props.handleChecked(item, e.target.checked)}
+        onChange={e => this.props.handleSearchChecked(items, e.target.checked)}
         checked={item.checked}
         disabled={item.disabled}
       ></Checkbox>
