@@ -12,4 +12,12 @@ export interface IAlertProps
   closeContent?: React.ReactNode;
 }
 
+export interface IScrollAlertProps
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
+  type?: AlertTypes;
+  outline?: boolean;
+  scrollInterval?: number;
+  onClose?: () => void;
+}
+
 export type AlertTypes = 'info' | 'success' | 'warning' | 'error';
