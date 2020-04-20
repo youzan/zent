@@ -42,6 +42,7 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
     type: 'info',
     loading: false,
     scrollInterval: 5,
+    closed: false,
   };
 
   // activeIndex: 当前视图中的子节点索引
@@ -71,8 +72,14 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
     const containerEle = ReactDom.findDOMNode(
       this.containerRef.current
     ) as Element;
-    addEventListener(containerEle, 'mouseenter', this.stopScroll);
-    addEventListener(containerEle, 'mouseleave', this.continueScroll);
+    if (containerEle) {
+      addEventListener(containerEle, 'mouseenter', this.stopScroll);
+      addEventListener(containerEle, 'mouseleave', this.continueScroll);
+    }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalId);
   }
 
   /**
@@ -125,9 +132,10 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
   };
 
   /**
-   * 关闭函数
+   * 关闭回调函数
    */
   private onCloseItemHandler = index => {
+    const { onClose } = this.props;
     // 点击虚拟（最后一个）节点时，实际索引为0
     if (index === this.state.items.length) {
       index = 0;
@@ -142,6 +150,7 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
       this.resetChildren();
     }
     this.setState({ items: deleteItems });
+    onClose && onClose(index);
   };
 
   // 实际dom中需要渲染的子节点
@@ -149,24 +158,25 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
     const { outline, children, ...restItemProps } = this.props;
     const { items } = this.state;
     const extendChildren = cloneChildren(items || children);
+    const length = Children.count(extendChildren);
 
-    return Children.map(extendChildren, (item: React.ReactElement, index) => {
-      const props = Object.assign({}, restItemProps, { ...item.props });
-      return (
-        <AlertItem
-          className={cx(`i-${index}`, {
-            'active-item': index === this.scrollIndex,
-            'vartual-item':
-              index === 0 &&
-              this.scrollIndex === Children.count(extendChildren) - 1,
-          })}
-          {...props}
-          key={index}
-          onClose={() => this.onCloseItemHandler(index)}
-          scrollRef={!index ? this.firstChildRef : null}
-        />
-      );
-    });
+    return length
+      ? Children.map(extendChildren, (item: React.ReactElement, index) => {
+          const props = Object.assign({}, restItemProps, { ...item.props });
+          return (
+            <AlertItem
+              className={cx(`i-${index}`, {
+                'active-item': index === this.scrollIndex,
+                'vartual-item': index === 0 && this.scrollIndex === length - 1,
+              })}
+              {...props}
+              key={index}
+              onClose={() => this.onCloseItemHandler(index)}
+              scrollRef={!index ? this.firstChildRef : null}
+            />
+          );
+        })
+      : [];
   }
 
   render() {

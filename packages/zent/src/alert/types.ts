@@ -16,8 +16,9 @@ export interface IScrollAlertProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
   type?: AlertTypes;
   outline?: boolean;
+  loading?: boolean;
   scrollInterval?: number;
-  onClose?: () => void;
+  onClose?: (index: number) => void;
 }
 
 export type AlertTypes = 'info' | 'success' | 'warning' | 'error';

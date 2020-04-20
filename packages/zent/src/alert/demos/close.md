@@ -1,5 +1,5 @@
 ---
-order: 5
+order: 6
 zh-CN:
 	title: 关闭按钮及回调
 	cbContent: 关闭状态受控

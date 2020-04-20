@@ -1,5 +1,5 @@
 ---
-order: 2
+order: 3
 zh-CN:
   title: "五种样式：info, success, warning, error 和 slight"
 	info: 这个是默认的 info 样式

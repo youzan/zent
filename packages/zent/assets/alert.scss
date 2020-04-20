@@ -48,6 +48,10 @@ $type-map: (
   padding: 12px 16px;
   border: 1px solid $theme-stroke-5;
   border-radius: 2px;
+
+  &-outline {
+    border-radius: 4px;
+  }
 }
 
 .zent-scroll-alert {
@@ -131,10 +135,6 @@ $type-map: (
       line-height: 20px;
     }
   }
-
-  &-outline {
-    border-radius: 4px;
-  }
 }
 
 @each $type, $color-index-map in $type-map {
@@ -153,7 +153,7 @@ $type-map: (
       @include theme-color(color, $theme, $highlight-color);
     }
 
-    &.alert-item-outline {
+    &.zent-alert-outline {
       @include theme-color(background-color, stroke, 9);
       @include theme-color(border-color, stroke, 5);
       @include theme-color(border-top-color, $theme, $outline-color);
