@@ -125,7 +125,7 @@ export interface IAbstractUploadProps<
 export interface IUploadProps
   extends IAbstractUploadProps<IUploadFileItem, void, INormalUploadItemProps> {
   /** 提示文案 */
-  tips?: string | IUploadTipsFunc<IUploadProps>;
+  tips?: React.ReactNode | IUploadTipsFunc<IUploadProps>;
   /** 是否展示分页信息 */
   pagination?: boolean;
   /** 分页大小 */
@@ -139,7 +139,7 @@ export interface IImageUploadProps
     IImageUploadItemProps
   > {
   /** 提示文案 */
-  tips?: string | IUploadTipsFunc<IImageUploadProps>;
+  tips?: React.ReactNode | IUploadTipsFunc<IImageUploadProps>;
   /** 点击图片展示时的回调 */
   preview?: IImageUploadPreviewHandler;
   /** 将图片文件转化为展示用的缩略图 src */
