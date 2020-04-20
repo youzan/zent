@@ -266,14 +266,16 @@ export class MenuCascader extends Component<
     items: ICascaderItem[],
     popover
   ) => {
-    const { multiple, options } = this.props;
+    const { multiple, options, async } = this.props;
 
     if (multiple) {
       return;
     }
 
-    // 将节点添加至树中
-    appendNodeInTree(options, items);
+    if (async) {
+      // 将节点添加至树中
+      appendNodeInTree(options, items);
+    }
 
     const activeValue = items.map(item => item.value);
     const stage = items.length;
@@ -346,12 +348,14 @@ export class MenuCascader extends Component<
   };
 
   handleSearchChecked = (items: ICascaderItem[], checked: boolean) => {
-    const { options } = this.props;
+    const { options, async } = this.props;
 
-    // 将节点添加至树中
-    appendNodeInTree(options, items);
+    if (async) {
+      // 将节点添加至树中
+      appendNodeInTree(options, items);
 
-    linkedTreeNode(options);
+      linkedTreeNode(options);
+    }
 
     this.handleChecked(items[items.length - 1], checked);
   };

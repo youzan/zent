@@ -231,9 +231,11 @@ export function appendNodeInTree(
   const target = tree.find(item => item.value === firstNode.value);
 
   if (target) {
-    target.children = target.children || [];
-    appendNodeInTree(target.children, selected.slice(1));
-  } else {
+    if (selected.length > 1) {
+      target.children = target.children || [];
+      appendNodeInTree(target.children, selected.slice(1));
+    }
+  } else if (selected.length > 0) {
     tree.push(buildTree([], selected));
   }
 }

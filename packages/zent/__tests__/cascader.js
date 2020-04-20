@@ -33,8 +33,40 @@ afterEach(() => {
 
 describe('Cascader', () => {
   it('basic menu cascader', done => {
-    const value = [];
-    const options = [
+    let value = [];
+    let options = [];
+
+    const onChange = (newValue, selectedOptions) => {
+      expect(selectedOptions.every(item => item.extra)).toBe(true);
+      done();
+    };
+
+    const wrapper = mount(
+      <MenuCascader
+        changeOnSelect
+        value={value}
+        options={options}
+        onChange={onChange}
+        className="rc-cascader-custom"
+        placeholder="hold on"
+        popupClassName="rc-cascader-popover"
+      />
+    );
+
+    expect(wrapper.find('.zent-cascader').length).toBe(1);
+    expect(wrapper.hasClass('rc-cascader-custom')).toBe(true);
+    expect(wrapper.find('.zent-cascader--placeholder').text()).toBe('hold on');
+
+    wrapper.find('.zent-cascader').simulate('click');
+    jest.runAllTimers();
+    expect(document.querySelectorAll('.rc-cascader-popover').length).toBe(1);
+
+    wrapper.find('.zent-cascader').simulate('click');
+    jest.runAllTimers();
+    expect(document.querySelectorAll('.rc-cascader-popover').length).toBe(0);
+
+    value = [1, 2, 3];
+    options = [
       {
         value: 1,
         label: 'root',
@@ -67,34 +99,14 @@ describe('Cascader', () => {
         ],
       },
     ];
-    const onChange = (newValue, selectedOptions) => {
-      expect(selectedOptions.every(item => item.extra)).toBe(true);
-      done();
-    };
-
-    const wrapper = mount(
-      <MenuCascader
-        changeOnSelect
-        value={value}
-        options={options}
-        onChange={onChange}
-        className="rc-cascader-custom"
-        placeholder="hold on"
-        popupClassName="rc-cascader-popover"
-      />
+    wrapper.setProps({
+      value,
+      options,
+    });
+    wrapper.update();
+    expect(wrapper.find('.zent-cascader--value').text()).toBe(
+      'root / son / grandSon'
     );
-
-    expect(wrapper.find('.zent-cascader').length).toBe(1);
-    expect(wrapper.hasClass('rc-cascader-custom')).toBe(true);
-    expect(wrapper.find('.zent-cascader--placeholder').text()).toBe('hold on');
-
-    wrapper.find('.zent-cascader').simulate('click');
-    jest.runAllTimers();
-    expect(document.querySelectorAll('.rc-cascader-popover').length).toBe(1);
-
-    wrapper.find('.zent-cascader').simulate('click');
-    jest.runAllTimers();
-    expect(document.querySelectorAll('.rc-cascader-popover').length).toBe(0);
 
     wrapper.find('.zent-cascader').simulate('click');
     jest.runAllTimers();
@@ -769,10 +781,11 @@ describe('Cascader', () => {
 
     const pop = document.querySelector('.zent-popover');
     expect(pop.querySelectorAll('.zent-cascader__menu').length).toBe(3);
-    simulateRawWithTimers(
-      pop.querySelectorAll('.zent-checkbox input')[0],
-      'click'
-    );
+
+    wrapper
+      .find('.zent-checkbox input')
+      .at(0)
+      .simulate('change', { target: { checked: true } });
 
     simulateWithTimers(wrapper.find('.zent-cascader'), 'mouseEnter');
     expect(wrapper.find('.zenticon-close-circle').length).toBe(1);
@@ -909,11 +922,18 @@ describe('Cascader', () => {
         }, 50);
       });
 
+    const onChangeMock = jest.fn().mockImplementation(newValue => {
+      wrapper.setProps({
+        value: newValue,
+      });
+    });
+
     wrapper = mount(
       <MenuCascader
         value={value}
         options={options}
         loadOptions={loadOptions}
+        onChange={onChangeMock}
         clearable
         searchable
         async
@@ -923,9 +943,121 @@ describe('Cascader', () => {
     wrapper.find('.zent-cascader').simulate('click');
     jest.runAllTimers();
 
-    wrapper.find('input').simulate('change', { target: { value: 'keyword' } });
+    wrapper
+      .find('.zent-cascader--search')
+      .simulate('change', { target: { value: 'keyword' } });
 
-    wrapper.unmount();
+    jest.useFakeTimers();
+    jest.runAllTimers();
+    wrapper.update();
+
+    setTimeout(() => {
+      const pop = document.querySelector('.zent-popover');
+      expect(pop.querySelectorAll('.zent-cascader--search-item').length).toBe(
+        2
+      );
+
+      simulateRawWithTimers(
+        pop.querySelectorAll('.zent-cascader--search-item')[0],
+        'click'
+      );
+      wrapper.update();
+
+      expect(pop.querySelectorAll('.zent-cascader--search-item').length).toBe(
+        0
+      );
+
+      wrapper.unmount();
+    }, 1000);
+  });
+
+  it('async searchable multiple menu cascader', () => {
+    const value = [];
+    let options = [];
+
+    let wrapper;
+    const loadOptions = (_, meta) =>
+      new Promise(resolve => {
+        setTimeout(() => {
+          const { keyword } = meta;
+          const searchList = [
+            {
+              items: [
+                { value: '340000', label: '浙江省' },
+                { value: '340100', label: '杭州市' },
+                { value: '340106', label: `${keyword}-1` },
+              ],
+              display: <span>浙江省 / 杭州市 / {keyword}-1</span>,
+            },
+            {
+              items: [
+                { value: '340000', label: '浙江省' },
+                { value: '340200', label: '温州市' },
+                { value: '340206', label: `${keyword}-2` },
+              ],
+              display: <span>浙江省 / 温州市 / {keyword}-2</span>,
+            },
+          ];
+
+          resolve(searchList);
+        }, 50);
+      });
+
+    const onChangeMock = jest.fn().mockImplementation(newValue => {
+      wrapper.setProps({
+        value: newValue,
+      });
+    });
+
+    wrapper = mount(
+      <MenuCascader
+        value={value}
+        options={options}
+        loadOptions={loadOptions}
+        onChange={onChangeMock}
+        clearable
+        searchable
+        multiple
+        async
+      />
+    );
+
+    wrapper.find('.zent-cascader').simulate('click');
+    jest.runAllTimers();
+
+    wrapper
+      .find('.zent-cascader--search')
+      .simulate('change', { target: { value: 'keyword' } });
+
+    jest.useFakeTimers();
+    jest.runAllTimers();
+    wrapper.update();
+
+    setTimeout(() => {
+      const pop = document.querySelector('.zent-popover');
+      expect(pop.querySelectorAll('.zent-cascader--search-item').length).toBe(
+        2
+      );
+      expect(pop.querySelectorAll('.zent-checkbox').length).toBe(2);
+
+      simulateRawWithTimers(
+        pop.querySelectorAll('.zent-cascader--search-item')[0],
+        'click'
+      );
+      wrapper.update();
+
+      expect(pop.querySelectorAll('.zent-cascader--search-item').length).toBe(
+        2
+      );
+
+      wrapper
+        .find('.zent-checkbox input')
+        .at(0)
+        .simulate('change', { target: { checked: true } });
+      wrapper.update();
+
+      wrapper.unmount();
+    }, 1000);
   });
 
   it('multiple searchable menu cascader', () => {
@@ -965,6 +1097,7 @@ describe('Cascader', () => {
 
     wrapper.find('.zent-cascader').simulate('click');
     jest.runAllTimers();
+    wrapper.update();
 
     expect(wrapper.find('.zent-cascader--search').length).toBe(1);
     wrapper
