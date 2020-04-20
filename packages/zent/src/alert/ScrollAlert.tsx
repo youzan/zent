@@ -165,7 +165,7 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
           const props = Object.assign({}, restItemProps, { ...item.props });
           return (
             <AlertItem
-              className={cx(`i-${index}`, {
+              className={cx({
                 'active-item': index === this.scrollIndex,
                 'vartual-item': index === 0 && this.scrollIndex === length - 1,
               })}

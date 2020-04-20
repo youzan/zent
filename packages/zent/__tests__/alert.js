@@ -1,6 +1,6 @@
 import React from 'react';
 import Enzyme, { mount } from 'enzyme';
-import Alert from 'alert';
+import { Alert, ScrollAlert, AlertItem } from 'alert';
 import Icon from 'icon';
 import Adapter from 'enzyme-adapter-react-16';
 import InlineLoading from 'loading/InlineLoading';
@@ -16,7 +16,7 @@ describe('Alert', () => {
     );
     expect(
       wrapper.containsMatchingElement(
-        <div className="zent-alert-content">
+        <div className="alert-item-content">
           <span>foobar</span>
         </div>
       )
@@ -27,10 +27,10 @@ describe('Alert', () => {
     const wrapper = mount(<Alert title="title" description="description" />);
     expect(
       wrapper.containsMatchingElement(
-        <div className="zent-alert-content">
+        <div className="alert-item-content">
           <>
-            <h3 className="zent-alert-content__title">title</h3>
-            <p className="zent-alert-content__description">description</p>
+            <h3 className="alert-item-content__title">title</h3>
+            <p className="alert-item-content__description">description</p>
           </>
         </div>
       )
@@ -79,7 +79,7 @@ describe('Alert', () => {
     const wrapper = mount(<Alert extraContent={<div>extra-content</div>} />);
     expect(
       wrapper.containsMatchingElement(
-        <div className="zent-alert-extra-content">
+        <div className="alert-item-extra-content">
           <div>extra-content</div>
         </div>
       )
@@ -92,7 +92,7 @@ describe('Alert', () => {
         <span>foobar</span>
       </Alert>
     );
-    expect(wrapper.find('.zent-alert-close-wrapper').find(Icon).length).toBe(1);
+    expect(wrapper.find('.alert-item-close-wrapper').find(Icon).length).toBe(1);
   });
 
   it('can have custom close trigger content', () => {
@@ -103,7 +103,7 @@ describe('Alert', () => {
     );
     expect(
       wrapper
-        .find('.zent-alert-close-wrapper')
+        .find('.alert-item-close-wrapper')
         .containsMatchingElement(<a>close</a>)
     ).toBe(true);
   });
@@ -111,12 +111,61 @@ describe('Alert', () => {
   it('have onClose callback', () => {
     const onClose = jest.fn();
     let wrapper = mount(<Alert closable onClose={onClose} />);
-    wrapper.find('.zent-alert-close-wrapper').simulate('click');
+    wrapper.find('.alert-item-close-wrapper').simulate('click');
     expect(onClose.mock.calls.length).toBe(1);
   });
 
   it('can controlled by closed prop', () => {
     let wrapper = mount(<Alert closable closed />);
+    expect(wrapper.getDOMNode()).toBe(null);
+  });
+});
+
+describe('ScrollAlert', () => {
+  it('scroll alert render children', () => {
+    const wrapper = mount(
+      <ScrollAlert>
+        <AlertItem>
+          <span>foobar</span>
+        </AlertItem>
+      </ScrollAlert>
+    );
+    expect(
+      wrapper.containsMatchingElement(
+        <div className="alert-item-content">
+          <span>foobar</span>
+        </div>
+      )
+    ).toBe(true);
+  });
+
+  it('scroll alert container', () => {
+    const wrapper = mount(
+      <ScrollAlert>
+        <AlertItem>
+          <span>foobar</span>
+        </AlertItem>
+      </ScrollAlert>
+    );
+    expect(wrapper.find('.scroll-container').length).toBe(1);
+  });
+
+  it('scroll alert scroll items', () => {
+    const wrapper = mount(
+      <ScrollAlert>
+        <AlertItem>
+          <span>foobar1</span>
+        </AlertItem>
+        <AlertItem>
+          <span>foobar2</span>
+        </AlertItem>
+      </ScrollAlert>
+    );
+    expect(wrapper.find('.alert-item').length).toBe(3);
+  });
+
+  it('scroll alert has not children', () => {
+    const wrapper = mount(<ScrollAlert />);
     expect(wrapper.getDOMNode()).toBe(null);
   });
 });
