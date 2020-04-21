@@ -71,7 +71,7 @@ export interface IFormProps<T extends {}>
   /**
    * 表单提交回调函数，`form.submit` 或者原生的 `DOM` 触发的 `submit` 事件都会触发 `onSubmit`
    */
-  onSubmit?: (form: ZentForm<T>, e?: React.SyntheticEvent) => Promise<void>;
+  onSubmit?: (form: ZentForm<T>, e?: React.SyntheticEvent) => unknown;
   /**
    * 表单提交失败时的回调函数
    */
