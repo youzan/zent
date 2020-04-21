@@ -51,7 +51,7 @@ describe('Alert', () => {
     expect(wrapper.find('.zent-alert-style-info').length).toBe(1);
   });
 
-  it('has four different style type', () => {
+  it('has five different style type', () => {
     const infoWrapper = mount(<Alert type="info" />);
     expect(infoWrapper.find('.zent-alert-style-info').length).toBe(1);
 
@@ -63,6 +63,9 @@ describe('Alert', () => {
 
     const errorWrapper = mount(<Alert type="error" />);
     expect(errorWrapper.find('.zent-alert-style-error').length).toBe(1);
+
+    const slightWrapper = mount(<Alert type="slight" />);
+    expect(slightWrapper.find('.zent-alert-style-slight').length).toBe(1);
   });
 
   it('loading mode use inline loading component as style icon', () => {
@@ -137,6 +140,8 @@ describe('ScrollAlert', () => {
         </div>
       )
     ).toBe(true);
+
+    wrapper.unmount();
   });
 
   it('scroll alert container', () => {
@@ -167,5 +172,192 @@ describe('ScrollAlert', () => {
   it('scroll alert has not children', () => {
     const wrapper = mount(<ScrollAlert />);
     expect(wrapper.getDOMNode()).toBe(null);
+  });
+
+  it('scroll alert loading property', () => {
+    const wrapper = mount(
+      <ScrollAlert loading>
+        <AlertItem>foobar</AlertItem>
+      </ScrollAlert>
+    );
+    expect(wrapper.find(InlineLoading).length).toBe(1);
+  });
+
+  it('default type is info', () => {
+    const wrapper = mount(
+      <ScrollAlert>
+        <AlertItem>foobar</AlertItem>
+      </ScrollAlert>
+    );
+    expect(wrapper.find('.zent-alert-style-info').length).toBe(1);
+  });
+
+  it('different style type', () => {
+    const infoWrapper = mount(
+      <ScrollAlert type="info">
+        <AlertItem>foobar</AlertItem>
+      </ScrollAlert>
+    );
+    expect(infoWrapper.find('.zent-alert-style-info').length).toBe(1);
+
+    const successWrapper = mount(
+      <ScrollAlert type="success">
+        <AlertItem>foobar</AlertItem>
+      </ScrollAlert>
+    );
+    expect(successWrapper.find('.zent-alert-style-success').length).toBe(1);
+
+    const warningWrapper = mount(
+      <ScrollAlert type="warning">
+        <AlertItem>foobar</AlertItem>
+      </ScrollAlert>
+    );
+    expect(warningWrapper.find('.zent-alert-style-warning').length).toBe(1);
+
+    const errorWrapper = mount(
+      <ScrollAlert type="error">
+        <AlertItem>foobar</AlertItem>
+      </ScrollAlert>
+    );
+    expect(errorWrapper.find('.zent-alert-style-error').length).toBe(1);
+
+    const slightWrapper = mount(
+      <ScrollAlert type="slight">
+        <AlertItem>foobar</AlertItem>
+      </ScrollAlert>
+    );
+    expect(slightWrapper.find('.zent-alert-style-slight').length).toBe(1);
+  });
+
+  it('scroll alert have onClose callback', () => {
+    const onClose = jest.fn();
+    let wrapper = mount(
+      <ScrollAlert onClose={onClose}>
+        <AlertItem closable />
+      </ScrollAlert>
+    );
+    wrapper
+      .find('.alert-item-close-wrapper')
+      .at(0)
+      .simulate('click');
+    expect(onClose.mock.calls.length).toBe(1);
+  });
+
+  it('scroll alert interval property', () => {
+    const wrapper = mount(
+      <ScrollAlert scrollInterval={3}>
+        <AlertItem>foobar1</AlertItem>
+        <AlertItem>foobar2</AlertItem>
+      </ScrollAlert>
+    );
+
+    expect(
+      wrapper
+        .find('.alert-item')
+        .at(0)
+        .hasClass('active-item')
+    ).toBe(true);
+
+    setTimeout(function() {
+      expect(
+        wrapper
+          .find('.alert-item')
+          .at(1)
+          .hasClass('active-item')
+      ).toBe(true);
+    }, 3000);
+
+    jest.clearAllTimers();
+  });
+
+  it('scroll alert mouse events', () => {
+    const wrapper = mount(
+      <ScrollAlert>
+        <AlertItem>foobar1</AlertItem>
+        <AlertItem>foobar2</AlertItem>
+      </ScrollAlert>
+    );
+
+    expect(
+      wrapper
+        .find('.alert-item')
+        .at(0)
+        .hasClass('active-item')
+    ).toBe(true);
+
+    wrapper.update();
+
+    wrapper.find('.scroll-container').simulate('mouseEnter');
+    jest.runOnlyPendingTimers();
+    jest.runOnlyPendingTimers();
+    jest.runOnlyPendingTimers();
+    expect(
+      wrapper
+        .find('.alert-item')
+        .at(0)
+        .hasClass('active-item')
+    ).toBe(true);
+
+    wrapper.find('.scroll-container').simulate('mouseLeave');
+    setTimeout(function() {
+      expect(
+        wrapper
+          .find('.alert-item')
+          .at(1)
+          .hasClass('active-item')
+      ).toBe(true);
+    }, 5000);
+
+    jest.clearAllTimers();
+  });
+
+  it('scroll alert item close function', () => {
+    const wrapper = mount(
+      <ScrollAlert>
+        <AlertItem closable>foobar1</AlertItem>
+        <AlertItem closable>foobar2</AlertItem>
+        <AlertItem closable>foobar3</AlertItem>
+      </ScrollAlert>
+    );
+    expect(wrapper.find('.alert-item').length).toBe(4);
+
+    // 最后一个虚拟节点
+    wrapper
+      .find('.alert-item-close-wrapper')
+      .at(3)
+      .simulate('click');
+
+    expect(wrapper.find('.alert-item').length).toBe(3);
+
+    wrapper
+      .find('.alert-item-close-wrapper')
+      .at(1)
+      .simulate('click');
+    expect(wrapper.find('.alert-item').length).toBe(1);
+
+    wrapper
+      .find('.alert-item-close-wrapper')
+      .at(0)
+      .simulate('click');
+    expect(wrapper.find('.alert-item').length).toBe(0);
+  });
+
+  it('scroll alert scroll to last-child, reset items', () => {
+    jest.useFakeTimers();
+
+    const wrapper = mount(
+      <ScrollAlert>
+        <AlertItem closable>foobar1</AlertItem>
+        <AlertItem closable>foobar2</AlertItem>
+      </ScrollAlert>
+    );
+
+    jest.runOnlyPendingTimers();
+    jest.runOnlyPendingTimers();
+    jest.runOnlyPendingTimers();
+
+    expect(
+      wrapper.find('.active-item').containsMatchingElement(<div>foobar1</div>)
+    ).toBe(true);
   });
 });

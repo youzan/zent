@@ -1,12 +1,10 @@
 import * as React from 'react';
-import * as ReactDom from 'react-dom';
 import { Children, ReactNode } from 'react';
 import cx from 'classnames';
-import { addEventListener } from '../utils/component/event-handler';
 import AlertItem from './AlertItem';
 import { IScrollAlertProps } from './types';
 
-function setStyle(target, styles) {
+function setStyle(target: HTMLElement, styles: object) {
   const { style } = target;
   Object.keys(styles).forEach(attribute => {
     style[attribute] = styles[attribute];
@@ -42,7 +40,6 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
     type: 'info',
     loading: false,
     scrollInterval: 5,
-    closed: false,
   };
 
   // activeIndex: 当前视图中的子节点索引
@@ -67,15 +64,6 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
     });
 
     this.scrollHandler();
-
-    // 鼠标事件绑定
-    const containerEle = ReactDom.findDOMNode(
-      this.containerRef.current
-    ) as Element;
-    if (containerEle) {
-      addEventListener(containerEle, 'mouseenter', this.stopScroll);
-      addEventListener(containerEle, 'mouseleave', this.continueScroll);
-    }
   }
 
   componentWillUnmount() {
@@ -136,16 +124,18 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
    */
   private onCloseItemHandler = index => {
     const { onClose } = this.props;
+    const { items } = this.state;
+
     // 点击虚拟（最后一个）节点时，实际索引为0
-    if (index === this.state.items.length) {
+    if (index === items.length) {
       index = 0;
       this.resetChildren();
     }
     // 删除items元素
-    const deleteItems = this.state.items.filter((_, i) => index !== i);
+    const deleteItems = items.length && items.filter((_, i) => index !== i);
 
     // items只有一个元素时不滚动
-    if (deleteItems.length === 1) {
+    if (deleteItems && deleteItems.length === 1) {
       clearInterval(this.intervalId);
       this.resetChildren();
     }
@@ -198,6 +188,8 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
           className="scroll-container"
           ref={this.containerRef}
           style={{ height: this.containerHeight }}
+          onMouseEnter={this.stopScroll}
+          onMouseLeave={this.continueScroll}
         >
           {renderItem}
         </div>

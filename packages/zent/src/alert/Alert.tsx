@@ -41,11 +41,9 @@ export class Alert extends React.PureComponent<IAlertProps, IAlertState> {
    * 关闭回调函数
    */
   private onCloseHandler = () => {
-    if (!this.isControlled) {
-      this.setState({
-        closed: true,
-      });
-    }
+    this.setState({
+      closed: true,
+    });
     this.props.onClose && this.props.onClose();
   };
 
