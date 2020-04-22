@@ -29,8 +29,6 @@ function cloneChildren(children: React.ReactNode) {
   return length > 1 ? clonedChildren : children;
 }
 
-// 滚动动画的时长
-const DEFAULT_DURATION = 600;
 interface IState {
   items: ReactNode;
   activeIndex: number;
@@ -88,8 +86,7 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
       ++this.scrollIndex;
       setStyle(this.containerRef.current, {
         transform: `translateY(-${this.containerHeight * this.scrollIndex}px)`,
-        'transition-duration': `${DEFAULT_DURATION}ms`,
-        'transition-timing-function': 'ease-in-out',
+        'transition-duration': '600ms',
       });
 
       // 设置当前节点的索引
@@ -114,7 +111,6 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
     setStyle(this.containerRef.current, {
       transform: 'translateY(0px)',
       'transition-duration': '0ms',
-      'transition-timing-function': 'ease-in-out',
     });
     this.scrollIndex = 0;
   };

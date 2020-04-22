@@ -22,7 +22,7 @@ group: 展示
 | 参数         | 说明                   | 类型      | 默认值   | 备选值                                                    |
 | ------------ | ---------------------- | --------- | -------- | --------------------------------------------------------- |
 | className    | 自定义额外类名         | string    |          |                                                           |
-| type         | 警告提示的样式         | string    | `'info'` | `'info'`, `'success'`, `'warning'`, `'error'`, `'slight'` |
+| type         | 警告提示的样式         | string    | `'info'` | `'info'`, `'success'`, `'warning'`, `'error'`, `'hint'` |
 | loading      | 是否是加载中模式       | bool      | `false`  | `true`, `false`                                           |
 | outline      | 是否是 outline 模式    | bool      | `false`  | `true`, `false`                                           |
 | closable     | 是否可以关闭           | bool      | `false`  | `true`, `false`                                           |
@@ -34,11 +34,12 @@ group: 展示
 | description  | 内容描述               | ReactNode |          |                                                           |
 
 #### ScrollAlert
+##### 只支持等高的子节点
 
 | 参数           | 说明                        | 类型                | 默认值   | 备选值                                                    |
 | -------------- | --------------------------- | ------------------- | -------- | --------------------------------------------------------- |
 | className      | 自定义额外类名              | string              |          |                                                           |
-| type           | 警告提示的样式              | string              | `'info'` | `'info'`, `'success'`, `'warning'`, `'error'`, `'slight'` |
+| type           | 警告提示的样式              | string              | `'info'` | `'info'`, `'success'`, `'warning'`, `'error'`, `'hint'` |
 | scrollInterval | 自定义滚动间隔 （单位：秒） | number              | 5        | 大于 1                                                    |
 | loading        | 是否是加载中模式            | bool                | `false`  | `true`, `false`                                           |
 | outline        | 是否是 outline 模式         | bool                | `false`  | `true`, `false`                                           |

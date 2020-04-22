@@ -64,8 +64,8 @@ describe('Alert', () => {
     const errorWrapper = mount(<Alert type="error" />);
     expect(errorWrapper.find('.zent-alert-style-error').length).toBe(1);
 
-    const slightWrapper = mount(<Alert type="slight" />);
-    expect(slightWrapper.find('.zent-alert-style-slight').length).toBe(1);
+    const hintWrapper = mount(<Alert type="hint" />);
+    expect(hintWrapper.find('.zent-alert-style-hint').length).toBe(1);
   });
 
   it('loading mode use inline loading component as style icon', () => {
@@ -221,12 +221,12 @@ describe('ScrollAlert', () => {
     );
     expect(errorWrapper.find('.zent-alert-style-error').length).toBe(1);
 
-    const slightWrapper = mount(
-      <ScrollAlert type="slight">
+    const hintWrapper = mount(
+      <ScrollAlert type="hint">
         <AlertItem>foobar</AlertItem>
       </ScrollAlert>
     );
-    expect(slightWrapper.find('.zent-alert-style-slight').length).toBe(1);
+    expect(hintWrapper.find('.zent-alert-style-hint').length).toBe(1);
   });
 
   it('scroll alert have onClose callback', () => {

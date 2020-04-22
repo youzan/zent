@@ -6,7 +6,7 @@ import InlineLoading from '../loading/InlineLoading';
 import { IAlertProps } from './types';
 
 const iconTypeMap: {
-  [key in AlertTypes]: IconType;
+  [key in Exclude<AlertTypes, 'hint'>]: IconType;
 } = {
   info: 'info-circle',
   warning: 'warning',

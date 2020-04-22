@@ -21,4 +21,4 @@ export interface IScrollAlertProps
   onClose?: (index: number) => void;
 }
 
-export type AlertTypes = 'info' | 'success' | 'warning' | 'error';
+export type AlertTypes = 'info' | 'success' | 'warning' | 'error' | 'hint';

@@ -20,7 +20,7 @@ Alert is used to provide eye-catching information.
 | Property     | Description                                         | Type      | Default  | Alternative                                              |
 | ------------ | --------------------------------------------------- | --------- | -------- | -------------------------------------------------------- |
 | className    | custom extra class name                             | string    |          |                                                          |
-| type         | style of the Alert                                  | string    | `'info'` | `'info'`, `'success'`, `'warning'`, `'error'`,`'slight'` |
+| type         | style of the Alert                                  | string    | `'info'` | `'info'`, `'success'`, `'warning'`, `'error'`,`'hint'` |
 | loading      | determines whether the Alert use loading icon       | bool      | `false`  | `true`, `false`                                          |
 | outline      | determines whether the Alert use outline mode style | bool      | `false`  | `true`, `false`                                          |
 | closable     | determines whether the Alert can be closed or not   | bool      | `false`  | `true`, `false`                                          |
@@ -36,7 +36,7 @@ Alert is used to provide eye-catching information.
 | Property       | Description                                         | Type                | Default  | Alternative                                               |
 | -------------- | --------------------------------------------------- | ------------------- | -------- | --------------------------------------------------------- |
 | className      | custom extra class name                             | string              |          |                                                           |
-| type           | style of the Alert                                  | string              | `'info'` | `'info'`, `'success'`, `'warning'`, `'error'`, `'slight'` |
+| type           | style of the Alert                                  | string              | `'info'` | `'info'`, `'success'`, `'warning'`, `'error'`, `'hint'` |
 | scrollInterval | custom scroll interval (unit: second)               | number              | 5        | greater than 1                                            |
 | loading        | determines whether the Alert use loading icon       | bool                | `false`  | `true`, `false`                                           |
 | outline        | determines whether the Alert use outline mode style | bool                | `false`  | `true`, `false`                                           |
