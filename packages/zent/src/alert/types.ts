@@ -18,7 +18,8 @@ export interface IScrollAlertProps
   outline?: boolean;
   loading?: boolean;
   scrollInterval?: number;
-  onClose?: (index: number) => void;
+  onClose?: () => void;
+  closed?: boolean;
 }
 
 export type AlertTypes = 'info' | 'success' | 'warning' | 'error' | 'hint';

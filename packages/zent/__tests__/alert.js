@@ -229,18 +229,41 @@ describe('ScrollAlert', () => {
     expect(hintWrapper.find('.zent-alert-style-hint').length).toBe(1);
   });
 
-  it('scroll alert have onClose callback', () => {
+  it('scroll alert onClose callback, item onClose callback', () => {
     const onClose = jest.fn();
+    const onCloseItem = jest.fn();
     let wrapper = mount(
       <ScrollAlert onClose={onClose}>
-        <AlertItem closable />
+        <AlertItem closable onClose={onCloseItem}>
+          foobar1
+        </AlertItem>
+        <AlertItem closable>foobar2</AlertItem>
       </ScrollAlert>
     );
     wrapper
       .find('.alert-item-close-wrapper')
       .at(0)
       .simulate('click');
+    expect(onCloseItem.mock.calls.length).toBe(1);
+    expect(onClose.mock.calls.length).toBe(0);
+
+    wrapper
+      .find('.alert-item-close-wrapper')
+      .at(0)
+      .simulate('click');
+
     expect(onClose.mock.calls.length).toBe(1);
+  });
+
+  it('scroll alert closed property', () => {
+    let wrapper = mount(
+      <ScrollAlert closed>
+        <AlertItem>foobar1</AlertItem>
+        <AlertItem closable>foobar2</AlertItem>
+      </ScrollAlert>
+    );
+
+    expect(wrapper.find('.alert-item').length).toBe(0);
   });
 
   it('scroll alert interval property', () => {

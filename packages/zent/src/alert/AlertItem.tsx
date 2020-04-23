@@ -16,6 +16,7 @@ const iconTypeMap: {
 
 type IAlertItemProps = Omit<IAlertProps, 'outline' | 'closed'> & {
   scrollRef?: React.Ref<HTMLDivElement>;
+  onAlertItemClose?: () => void;
 };
 
 export class AlertItem extends React.PureComponent<IAlertItemProps> {
@@ -42,9 +43,17 @@ export class AlertItem extends React.PureComponent<IAlertItemProps> {
    * 关闭触发器节点
    */
   private renderCloseNode() {
-    const { closable, closeContent, onClose } = this.props as IAlertItemProps;
+    const { closable, closeContent, onClose, onAlertItemClose } = this
+      .props as IAlertItemProps;
     return closable ? (
-      <div className="alert-item-close-wrapper" onClick={onClose}>
+      <div
+        className="alert-item-close-wrapper"
+        onClick={e => {
+          onClose && onClose();
+          onAlertItemClose && onAlertItemClose();
+          e.stopPropagation();
+        }}
+      >
         {closeContent ? (
           closeContent
         ) : (

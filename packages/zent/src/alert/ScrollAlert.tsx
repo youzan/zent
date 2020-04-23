@@ -134,14 +134,15 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
     if (deleteItems && deleteItems.length === 1) {
       clearInterval(this.intervalId);
       this.resetChildren();
+    } else if (deleteItems.length === 0) {
+      onClose && onClose();
     }
     this.setState({ items: deleteItems });
-    onClose && onClose(index);
   };
 
   // 实际dom中需要渲染的子节点
   get renderItem() {
-    const { outline, children, ...restItemProps } = this.props;
+    const { outline, children, onClose, ...restItemProps } = this.props;
     const { items } = this.state;
     const extendChildren = cloneChildren(items || children);
     const length = Children.count(extendChildren);
@@ -157,7 +158,7 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
               })}
               {...props}
               key={index}
-              onClose={() => this.onCloseItemHandler(index)}
+              onAlertItemClose={() => this.onCloseItemHandler(index)}
               scrollRef={!index ? this.firstChildRef : null}
             />
           );
@@ -166,6 +167,10 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
   }
 
   render() {
+    if (this.props.closed) {
+      return null;
+    }
+
     const { className, outline, type } = this.props;
 
     const scrollCls = cx(

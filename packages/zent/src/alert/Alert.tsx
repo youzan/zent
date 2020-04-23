@@ -25,9 +25,7 @@ export class Alert extends React.PureComponent<IAlertProps, IAlertState> {
    * 判断组件是否受控
    */
   private get isControlled() {
-    const { closed } = this.props;
-    const hasClosed = closed !== undefined;
-    return hasClosed;
+    return 'closed' in this.props;
   }
 
   /**
@@ -41,9 +39,11 @@ export class Alert extends React.PureComponent<IAlertProps, IAlertState> {
    * 关闭回调函数
    */
   private onCloseHandler = () => {
-    this.setState({
-      closed: true,
-    });
+    if (!this.isControlled) {
+      this.setState({
+        closed: true,
+      });
+    }
     this.props.onClose && this.props.onClose();
   };
 
@@ -52,7 +52,7 @@ export class Alert extends React.PureComponent<IAlertProps, IAlertState> {
       return null;
     }
 
-    const { className, outline, ...restDivAttrs } = this.props;
+    const { className, outline, onClose, ...restDivAttrs } = this.props;
     const { type } = restDivAttrs;
     const containerCls = cx(
       'zent-alert',
@@ -65,7 +65,7 @@ export class Alert extends React.PureComponent<IAlertProps, IAlertState> {
 
     return (
       <div className={containerCls}>
-        <AlertItem {...restDivAttrs} onClose={this.onCloseHandler}>
+        <AlertItem {...restDivAttrs} onAlertItemClose={this.onCloseHandler}>
           {this.props.children}
         </AlertItem>
       </div>
