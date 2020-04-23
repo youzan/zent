@@ -102,7 +102,7 @@ class Simple extends React.Component {
 							{ "value": "340100", "label": "杭州市" },
 							{ "value": "340106", "label": `${keyword}-1` },
 						],
-						display: <span>浙江省 / 杭州市 / {keyword}-1</span>,
+						display: <span>浙江省 / 杭州市 / <span style={{ color: '#155bd4' }}>{keyword}</span>-1</span>,
 					},
 					{
 						items: [
@@ -110,7 +110,7 @@ class Simple extends React.Component {
 							{ "value": "340200", "label": "温州市" },
 							{ "value": "340206", "label": `${keyword}-2` },
 						],
-						display: <span>浙江省 / 温州市 / {keyword}-2</span>,
+						display: <span>浙江省 / 温州市 / <span style={{ color: '#155bd4' }}>{keyword}</span>-2</span>,
 					},
 				];
 	

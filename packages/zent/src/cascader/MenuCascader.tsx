@@ -25,6 +25,7 @@ import {
 } from './types';
 import SearchContent from './components/SearchContent';
 import debounce from '../utils/debounce';
+import TextMark from '../text-mark';
 
 const PopoverContent = Popover.Content;
 const FILTER_TIMEOUT = 500; // ms
@@ -34,22 +35,29 @@ const searchFilterFn = (
   keyword: string,
   options: Array<ICascaderItem[]>
 ): ICascaderSearchItem[] => {
-  const result = [] as ICascaderSearchItem[];
-  options.forEach(items => {
-    const display = items
-      .map(item => item.label.replace(keyword, `<em>${keyword}</em>`))
-      .join(' / ');
+  const filterOptions = options.filter(items =>
+    items.some(item => item.label.indexOf(keyword) !== -1)
+  );
 
-    const isMatch = display.indexOf('<em>') !== -1;
-    if (isMatch) {
-      result.push({
-        items,
-        display: <span dangerouslySetInnerHTML={{ __html: display }}></span>,
-      });
-    }
+  return filterOptions.map(items => {
+    const display = items.map((item, index) => {
+      return (
+        <span key={index}>
+          <TextMark
+            searchWords={[keyword]}
+            textToHighlight={item.label}
+            highlightClassName="zent-cascader--highlight"
+          />
+          {index !== items.length - 1 && ' / '}
+        </span>
+      );
+    });
+
+    return {
+      items,
+      display,
+    };
   });
-
-  return result;
 };
 
 interface ICascaderState {

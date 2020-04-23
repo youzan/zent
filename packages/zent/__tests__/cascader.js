@@ -871,6 +871,7 @@ describe('Cascader', () => {
       expect(pop.querySelectorAll('.zent-cascader--search-item').length).toBe(
         1
       );
+      expect(pop.querySelectorAll('.zent-cascader--highlight').length).toBe(1);
       simulateRawWithTimers(
         pop.querySelectorAll('.zent-cascader--search-item')[0],
         'click'
@@ -1062,7 +1063,13 @@ describe('Cascader', () => {
 
   it('multiple searchable menu cascader', () => {
     const value = [];
-    const options = [
+    let options = [];
+
+    const wrapper = mount(
+      <MenuCascader value={value} options={options} searchable multiple />
+    );
+
+    options = [
       {
         value: 1,
         label: 'root',
@@ -1090,10 +1097,9 @@ describe('Cascader', () => {
         ],
       },
     ];
-
-    const wrapper = mount(
-      <MenuCascader value={value} options={options} searchable multiple />
-    );
+    wrapper.setProps({
+      options: [...options],
+    });
 
     wrapper.find('.zent-cascader').simulate('click');
     jest.runAllTimers();

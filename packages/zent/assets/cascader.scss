@@ -165,8 +165,9 @@ $menuHeight: 180px;
         cursor: initial;
       }
 
-      em {
+      .zent-cascader--highlight {
         font-style: normal;
+        background-color: initial;
         @include theme-color(color, primary, 4);
       }
     }
