@@ -37,15 +37,15 @@ group: 展示
 
 ##### 只支持等高的子节点
 
-| 参数           | 说明                        | 类型   | 默认值   | 备选值                                                  |
-| -------------- | --------------------------- | ------ | -------- | ------------------------------------------------------- |
-| className      | 自定义额外类名              | string |          |                                                         |
-| type           | 警告提示的样式              | string | `'info'` | `'info'`, `'success'`, `'warning'`, `'error'`, `'hint'` |
-| scrollInterval | 自定义滚动间隔 （单位：秒） | number | 5        | 大于 1                                                  |
-| loading        | 是否是加载中模式            | bool   | `false`  | `true`, `false`                                         |
-| outline        | 是否是 outline 模式         | bool   | `false`  | `true`, `false`                                         |
-| onClose        | 关闭所有节点时触发的回调    | func   |          |                                                         |
-| closed         | 外部控制整个组件的关闭状态      | bool   |          |                                                         |
+| 参数           | 说明                          | 类型   | 默认值   | 备选值                                                  |
+| -------------- | ----------------------------- | ------ | -------- | ------------------------------------------------------- |
+| className      | 自定义额外类名                | string |          |                                                         |
+| type           | 警告提示的样式                | string | `'info'` | `'info'`, `'success'`, `'warning'`, `'error'`, `'hint'` |
+| scrollInterval | 自定义滚动间隔 （单位：毫秒） | number | 5000     | 大于 1000                                               |
+| loading        | 是否是加载中模式              | bool   | `false`  | `true`, `false`                                         |
+| outline        | 是否是 outline 模式           | bool   | `false`  | `true`, `false`                                         |
+| onClose        | 关闭所有节点时触发的回调      | func   |          |                                                         |
+| closed         | 外部控制整个组件的关闭状态    | bool   |          |                                                         |
 
 #### AlertItem
 

@@ -154,7 +154,7 @@ describe('ScrollAlert', () => {
         </AlertItem>
       </ScrollAlert>
     );
-    expect(wrapper.find('.scroll-container').length).toBe(1);
+    expect(wrapper.find('.zent-alert-scroll-container').length).toBe(1);
   });
 
   it('scroll alert scroll items', () => {
@@ -280,7 +280,7 @@ describe('ScrollAlert', () => {
       wrapper
         .find('.zent-alert-item')
         .at(0)
-        .hasClass('active-item')
+        .hasClass('zent-alert-scroll-active-item')
     ).toBe(true);
 
     setTimeout(function() {
@@ -288,7 +288,7 @@ describe('ScrollAlert', () => {
         wrapper
           .find('.zent-alert-item')
           .at(1)
-          .hasClass('active-item')
+          .hasClass('zent-alert-scroll-active-item')
       ).toBe(true);
     }, 3000);
 
@@ -307,12 +307,12 @@ describe('ScrollAlert', () => {
       wrapper
         .find('.zent-alert-item')
         .at(0)
-        .hasClass('active-item')
+        .hasClass('zent-alert-scroll-active-item')
     ).toBe(true);
 
     wrapper.update();
 
-    wrapper.find('.scroll-container').simulate('mouseEnter');
+    wrapper.find('.zent-alert-scroll-container').simulate('mouseEnter');
     jest.runOnlyPendingTimers();
     jest.runOnlyPendingTimers();
     jest.runOnlyPendingTimers();
@@ -320,16 +320,16 @@ describe('ScrollAlert', () => {
       wrapper
         .find('.zent-alert-item')
         .at(0)
-        .hasClass('active-item')
+        .hasClass('zent-alert-scroll-active-item')
     ).toBe(true);
 
-    wrapper.find('.scroll-container').simulate('mouseLeave');
+    wrapper.find('.zent-alert-scroll-container').simulate('mouseLeave');
     setTimeout(function() {
       expect(
         wrapper
           .find('.zent-alert-item')
           .at(1)
-          .hasClass('active-item')
+          .hasClass('zent-alert-scroll-active-item')
       ).toBe(true);
     }, 5000);
 
@@ -382,7 +382,9 @@ describe('ScrollAlert', () => {
     jest.runOnlyPendingTimers();
 
     expect(
-      wrapper.find('.active-item').containsMatchingElement(<div>foobar1</div>)
+      wrapper
+        .find('.zent-alert-scroll-active-item')
+        .containsMatchingElement(<div>foobar1</div>)
     ).toBe(true);
   });
 });

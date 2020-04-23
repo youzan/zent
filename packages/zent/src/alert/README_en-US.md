@@ -39,7 +39,7 @@ Alert is used to provide eye-catching information.
 | -------------- | --------------------------------------------------- | ------ | -------- | ------------------------------------------------------- |
 | className      | custom extra class name                             | string |          |                                                         |
 | type           | style of the Alert                                  | string | `'info'` | `'info'`, `'success'`, `'warning'`, `'error'`, `'hint'` |
-| scrollInterval | custom scroll interval (unit: second)               | number | 5        | greater than 1                                          |
+| scrollInterval | custom scroll interval (unit: ms)                   | number | 5000     | greater than 1000                                       |
 | loading        | determines whether the Alert use loading icon       | bool   | `false`  | `true`, `false`                                         |
 | outline        | determines whether the Alert use outline mode style | bool   | `false`  | `true`, `false`                                         |
 | onClose        | callback for close all AlertItem                    | func   |          |                                                         |

@@ -1,11 +1,50 @@
 import * as React from 'react';
 import cx from 'classnames';
-import { IAlertProps } from './types';
+import { AlertTypes } from './types';
 import AlertItem from './AlertItem';
+import { PartialRequired } from '../utils/types';
+import omit from '../utils/omit';
+
+interface IAlertRenderProps {
+  type?: AlertTypes;
+  loading?: boolean;
+  outline?: boolean;
+  title?: React.ReactNode;
+  description?: React.ReactNode;
+  extraContent?: React.ReactNode;
+  closable?: boolean;
+  closed?: boolean;
+  onClose?: () => void;
+  closeContent?: React.ReactNode;
+}
+
+export interface IAlertProps
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'>,
+    IAlertRenderProps {}
 
 interface IAlertState {
   closed: boolean;
 }
+
+type IAlertRequiredProps = PartialRequired<
+  IAlertProps,
+  'type' | 'loading' | 'outline' | 'closable'
+>;
+type IAlertRenderRequiredProps = PartialRequired<
+  IAlertRenderProps,
+  'outline' | 'closed' | 'onClose'
+>;
+const OmitChildProp = ['outline', 'closed', 'onClose'] as const;
+const OmitDivAttr = [
+  'title',
+  'description',
+  'loading',
+  'closable',
+  'closed',
+  'onClose',
+  'closeContent',
+  'extraContent',
+] as const;
 
 export class Alert extends React.PureComponent<IAlertProps, IAlertState> {
   static highlightClassName = 'zent-alert-content__highlight';
@@ -52,8 +91,15 @@ export class Alert extends React.PureComponent<IAlertProps, IAlertState> {
       return null;
     }
 
-    const { className, outline, onClose, ...restDivAttrs } = this.props;
-    const { type } = restDivAttrs;
+    const { className, type, outline, ...restDivAttrs } = omit(
+      this.props as IAlertRequiredProps,
+      OmitDivAttr
+    );
+    const restProps = omit(
+      this.props as IAlertRenderRequiredProps,
+      OmitChildProp
+    );
+
     const containerCls = cx(
       'zent-alert',
       `zent-alert-style-${type}`,
@@ -64,8 +110,8 @@ export class Alert extends React.PureComponent<IAlertProps, IAlertState> {
     );
 
     return (
-      <div className={containerCls}>
-        <AlertItem {...restDivAttrs} onAlertItemClose={this.onCloseHandler}>
+      <div className={containerCls} {...restDivAttrs}>
+        <AlertItem {...restProps} onAlertItemClose={this.onCloseHandler}>
           {this.props.children}
         </AlertItem>
       </div>

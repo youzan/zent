@@ -4,7 +4,7 @@ import { useMemo, useRef } from 'react';
 import { AlertTypes } from './types';
 import Icon, { IconType } from '../icon';
 import InlineLoading from '../loading/InlineLoading';
-import { IAlertProps } from './types';
+import { IAlertProps } from './Alert';
 
 const iconTypeMap: {
   [key in Exclude<AlertTypes, 'hint'>]: IconType;
@@ -58,14 +58,12 @@ export const AlertItem = React.forwardRef<HTMLDivElement, IAlertItemProps>(
         <div
           className="zent-alert-item-close-wrapper"
           onClick={e => {
-            onClose && onClose();
+            onClose?.();
             onAlertItemClose && onAlertItemClose();
             e.stopPropagation();
           }}
         >
-          {closeContent ? (
-            closeContent
-          ) : (
+          {closeContent ?? (
             <Icon type="close" className="zent-alert-item-close-btn" />
           )}
         </div>

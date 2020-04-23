@@ -2,15 +2,9 @@ import * as React from 'react';
 import { Children, ReactNode } from 'react';
 import cx from 'classnames';
 import AlertItem from './AlertItem';
-import { IScrollAlertProps } from './types';
-
-function setStyle(target: HTMLElement, styles: object) {
-  const { style } = target;
-  Object.keys(styles).forEach(attribute => {
-    style[attribute] = styles[attribute];
-  });
-}
-
+import { AlertTypes } from './types';
+import { PartialRequired } from '../utils/types';
+import omit from '../utils/omit';
 /**
  * 为满足动画的无缝衔接
  * 在原子节点后增加第一个子节点
@@ -28,26 +22,46 @@ function cloneChildren(children: React.ReactNode) {
 
   return length > 1 ? clonedChildren : children;
 }
-
+export interface IScrollAlertProps
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
+  type?: AlertTypes;
+  outline?: boolean;
+  loading?: boolean;
+  scrollInterval?: number;
+  onClose?: () => void;
+  closed?: boolean;
+}
 interface IState {
   items: ReactNode;
   activeIndex: number;
+  transitionDuration: number;
 }
+type IScrollAlertInnerProps = PartialRequired<
+  IScrollAlertProps,
+  'loading' | 'scrollInterval' | 'onClose' | 'closed'
+>;
+const OmitDivAttr = ['loading', 'scrollInterval', 'onClose', 'closed'] as const;
+
 export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
   static defaultProps = {
     type: 'info',
     loading: false,
-    scrollInterval: 5,
+    scrollInterval: 5000,
   };
 
-  // activeIndex: 当前视图中的子节点索引
-  state = { items: null, activeIndex: 0 };
+  state = {
+    items: null,
+    // 当前视图中的子节点索引
+    activeIndex: 0,
+    transitionDuration: 600,
+  };
+
   containerRef = React.createRef<HTMLDivElement>();
   firstChildRef = React.createRef<HTMLDivElement>();
   //当前视图中的子节点索引
   scrollIndex = 0;
   // 动画状态
-  animationStatus = true;
+  pauseAnimation = false;
   // 循环事件id
   intervalId: any;
 
@@ -58,7 +72,7 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
 
   componentDidMount() {
     this.setState({
-      items: this.props.children,
+      items: this.props.children ?? [],
     });
 
     this.scrollHandler();
@@ -75,44 +89,41 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
     const { scrollInterval } = this.props;
 
     this.intervalId = setInterval(() => {
-      if (!this.animationStatus) return;
+      if (this.pauseAnimation) return;
 
       // 滚动到最后一个节点时，重置为初始位置
       if (this.scrollIndex === this.renderItem.length - 1) {
         this.resetChildren();
       }
-
       // 滚动递增
       ++this.scrollIndex;
-      setStyle(this.containerRef.current, {
-        transform: `translateY(-${this.containerHeight * this.scrollIndex}px)`,
-        'transition-duration': '600ms',
-      });
 
-      // 设置当前节点的索引
-      this.setState({ activeIndex: this.scrollIndex });
-    }, scrollInterval * 1000);
+      this.setState({
+        activeIndex: this.scrollIndex,
+        transitionDuration: 600,
+      });
+    }, scrollInterval);
   };
 
   // 鼠标移入，动画暂停
   stopScroll = () => {
-    this.animationStatus = false;
+    this.pauseAnimation = true;
   };
 
   // 鼠标移出，动画继续
   continueScroll = () => {
-    this.animationStatus = true;
+    this.pauseAnimation = false;
   };
 
   /**
    * 重置节点为0
    */
   resetChildren = () => {
-    setStyle(this.containerRef.current, {
-      transform: 'translateY(0px)',
-      'transition-duration': '0ms',
-    });
     this.scrollIndex = 0;
+    this.setState({
+      transitionDuration: 0,
+      activeIndex: 0,
+    });
   };
 
   /**
@@ -128,16 +139,16 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
       this.resetChildren();
     }
     // 删除items元素
-    const deleteItems = items.length && items.filter((_, i) => index !== i);
+    const afterDeleteItems = items.filter((_, i) => index !== i);
 
     // items只有一个元素时不滚动
-    if (deleteItems && deleteItems.length === 1) {
+    if (afterDeleteItems.length === 1) {
       clearInterval(this.intervalId);
       this.resetChildren();
-    } else if (deleteItems.length === 0) {
-      onClose && onClose();
+    } else if (afterDeleteItems.length === 0) {
+      onClose?.();
     }
-    this.setState({ items: deleteItems });
+    this.setState({ items: afterDeleteItems });
   };
 
   // 实际dom中需要渲染的子节点
@@ -153,8 +164,9 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
           return (
             <AlertItem
               className={cx({
-                'active-item': index === this.scrollIndex,
-                'vartual-item': index === 0 && this.scrollIndex === length - 1,
+                'zent-alert-scroll-active-item': index === this.scrollIndex,
+                'zent-alert-scroll-virtual-item':
+                  index === 0 && this.scrollIndex === length - 1,
               })}
               {...props}
               key={index}
@@ -171,7 +183,13 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
       return null;
     }
 
-    const { className, outline, type } = this.props;
+    const { className, outline, type, ...restDivAttrs } = omit(
+      this.props as IScrollAlertInnerProps,
+      OmitDivAttr
+    );
+
+    const { activeIndex, transitionDuration } = this.state;
+    const renderItem = this.renderItem;
 
     const scrollCls = cx(
       'zent-alert-scroll',
@@ -182,13 +200,16 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
       }
     );
 
-    const renderItem = this.renderItem;
     return renderItem.length > 0 ? (
-      <div className={scrollCls}>
+      <div className={scrollCls} {...restDivAttrs}>
         <div
-          className="scroll-container"
+          className="zent-alert-scroll-container"
           ref={this.containerRef}
-          style={{ height: this.containerHeight }}
+          style={{
+            height: this.containerHeight,
+            transform: `translateY(-${this.containerHeight * activeIndex}px)`,
+            transitionDuration: `${transitionDuration}ms`,
+          }}
           onMouseEnter={this.stopScroll}
           onMouseLeave={this.continueScroll}
         >
