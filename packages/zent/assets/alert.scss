@@ -54,7 +54,7 @@ $type-map: (
   }
 }
 
-.zent-scroll-alert {
+.zent-alert-scroll {
   border: 1px solid $theme-stroke-5;
   border-radius: 2px;
   height: min-content;
@@ -67,7 +67,7 @@ $type-map: (
     transition-timing-function: 'ease-in-out';
   }
 
-  .alert-item {
+  .zent-alert-item {
     transform: translateY(0);
     opacity: 0;
     transition: opacity 0.6s ease-in-out;
@@ -81,12 +81,12 @@ $type-map: (
     opacity: 1;
   }
 
-  .zent-alert-outline {
+  &-outline {
     border-radius: 4px;
   }
 }
 
-.alert-item {
+.zent-alert-item {
   @include font-normal;
   box-sizing: border-box;
   color: $theme-stroke-1;
@@ -112,7 +112,7 @@ $type-map: (
     margin-left: 16px;
     cursor: pointer;
 
-    .alert-item-close-btn {
+    .zent-alert-item-close-btn {
       @include theme-color(color, stroke, 4);
       font-size: 12px;
       width: 16px;
@@ -154,11 +154,12 @@ $type-map: (
     @include theme-color(background-color, $theme, $background-color);
     @include theme-color(border-color, $theme, $border-color);
 
-    .alert-item-content__highlight {
+    .zent-alert-item-content__highlight {
       @include theme-color(color, $theme, $highlight-color);
     }
 
-    &.zent-alert-outline {
+    &.zent-alert-outline,
+    &.zent-alert-scroll-outline {
       @include theme-color(background-color, stroke, 9);
       @include theme-color(border-color, stroke, 5);
       @include theme-color(border-top-color, $theme, $outline-color);
@@ -166,12 +167,12 @@ $type-map: (
       border-style: solid;
       border-top-width: 4px;
 
-      .alert-item-content__title {
+      .zent-alert-item-content__title {
         @include theme-color(color, $theme, $outline-color);
       }
     }
 
-    .alert-item-icon {
+    .zent-alert-item-icon {
       @include theme-color(color, $theme, $icon-color);
     }
   }
@@ -183,7 +184,7 @@ $type-map: (
   border: 0;
   padding: 13px 16px;
 
-  .alert-item-content {
+  .zent-alert-item-content {
     font-size: $font-size-small;
     line-height: 20px;
   }

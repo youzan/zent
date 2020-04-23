@@ -16,7 +16,7 @@ describe('Alert', () => {
     );
     expect(
       wrapper.containsMatchingElement(
-        <div className="alert-item-content">
+        <div className="zent-alert-item-content">
           <span>foobar</span>
         </div>
       )
@@ -27,10 +27,10 @@ describe('Alert', () => {
     const wrapper = mount(<Alert title="title" description="description" />);
     expect(
       wrapper.containsMatchingElement(
-        <div className="alert-item-content">
+        <div className="zent-alert-item-content">
           <>
-            <h3 className="alert-item-content__title">title</h3>
-            <p className="alert-item-content__description">description</p>
+            <h3 className="zent-alert-item-content__title">title</h3>
+            <p className="zent-alert-item-content__description">description</p>
           </>
         </div>
       )
@@ -82,7 +82,7 @@ describe('Alert', () => {
     const wrapper = mount(<Alert extraContent={<div>extra-content</div>} />);
     expect(
       wrapper.containsMatchingElement(
-        <div className="alert-item-extra-content">
+        <div className="zent-alert-item-extra-content">
           <div>extra-content</div>
         </div>
       )
@@ -95,7 +95,9 @@ describe('Alert', () => {
         <span>foobar</span>
       </Alert>
     );
-    expect(wrapper.find('.alert-item-close-wrapper').find(Icon).length).toBe(1);
+    expect(
+      wrapper.find('.zent-alert-item-close-wrapper').find(Icon).length
+    ).toBe(1);
   });
 
   it('can have custom close trigger content', () => {
@@ -106,7 +108,7 @@ describe('Alert', () => {
     );
     expect(
       wrapper
-        .find('.alert-item-close-wrapper')
+        .find('.zent-alert-item-close-wrapper')
         .containsMatchingElement(<a>close</a>)
     ).toBe(true);
   });
@@ -114,7 +116,7 @@ describe('Alert', () => {
   it('have onClose callback', () => {
     const onClose = jest.fn();
     let wrapper = mount(<Alert closable onClose={onClose} />);
-    wrapper.find('.alert-item-close-wrapper').simulate('click');
+    wrapper.find('.zent-alert-item-close-wrapper').simulate('click');
     expect(onClose.mock.calls.length).toBe(1);
   });
 
@@ -135,7 +137,7 @@ describe('ScrollAlert', () => {
     );
     expect(
       wrapper.containsMatchingElement(
-        <div className="alert-item-content">
+        <div className="zent-alert-item-content">
           <span>foobar</span>
         </div>
       )
@@ -166,7 +168,7 @@ describe('ScrollAlert', () => {
         </AlertItem>
       </ScrollAlert>
     );
-    expect(wrapper.find('.alert-item').length).toBe(3);
+    expect(wrapper.find('.zent-alert-item').length).toBe(3);
   });
 
   it('scroll alert has not children', () => {
@@ -241,14 +243,14 @@ describe('ScrollAlert', () => {
       </ScrollAlert>
     );
     wrapper
-      .find('.alert-item-close-wrapper')
+      .find('.zent-alert-item-close-wrapper')
       .at(0)
       .simulate('click');
     expect(onCloseItem.mock.calls.length).toBe(1);
     expect(onClose.mock.calls.length).toBe(0);
 
     wrapper
-      .find('.alert-item-close-wrapper')
+      .find('.zent-alert-item-close-wrapper')
       .at(0)
       .simulate('click');
 
@@ -263,7 +265,7 @@ describe('ScrollAlert', () => {
       </ScrollAlert>
     );
 
-    expect(wrapper.find('.alert-item').length).toBe(0);
+    expect(wrapper.find('.zent-alert-item').length).toBe(0);
   });
 
   it('scroll alert interval property', () => {
@@ -276,7 +278,7 @@ describe('ScrollAlert', () => {
 
     expect(
       wrapper
-        .find('.alert-item')
+        .find('.zent-alert-item')
         .at(0)
         .hasClass('active-item')
     ).toBe(true);
@@ -284,7 +286,7 @@ describe('ScrollAlert', () => {
     setTimeout(function() {
       expect(
         wrapper
-          .find('.alert-item')
+          .find('.zent-alert-item')
           .at(1)
           .hasClass('active-item')
       ).toBe(true);
@@ -303,7 +305,7 @@ describe('ScrollAlert', () => {
 
     expect(
       wrapper
-        .find('.alert-item')
+        .find('.zent-alert-item')
         .at(0)
         .hasClass('active-item')
     ).toBe(true);
@@ -316,7 +318,7 @@ describe('ScrollAlert', () => {
     jest.runOnlyPendingTimers();
     expect(
       wrapper
-        .find('.alert-item')
+        .find('.zent-alert-item')
         .at(0)
         .hasClass('active-item')
     ).toBe(true);
@@ -325,7 +327,7 @@ describe('ScrollAlert', () => {
     setTimeout(function() {
       expect(
         wrapper
-          .find('.alert-item')
+          .find('.zent-alert-item')
           .at(1)
           .hasClass('active-item')
       ).toBe(true);
@@ -342,27 +344,27 @@ describe('ScrollAlert', () => {
         <AlertItem closable>foobar3</AlertItem>
       </ScrollAlert>
     );
-    expect(wrapper.find('.alert-item').length).toBe(4);
+    expect(wrapper.find('.zent-alert-item').length).toBe(4);
 
     // 最后一个虚拟节点
     wrapper
-      .find('.alert-item-close-wrapper')
+      .find('.zent-alert-item-close-wrapper')
       .at(3)
       .simulate('click');
 
-    expect(wrapper.find('.alert-item').length).toBe(3);
+    expect(wrapper.find('.zent-alert-item').length).toBe(3);
 
     wrapper
-      .find('.alert-item-close-wrapper')
+      .find('.zent-alert-item-close-wrapper')
       .at(1)
       .simulate('click');
-    expect(wrapper.find('.alert-item').length).toBe(1);
+    expect(wrapper.find('.zent-alert-item').length).toBe(1);
 
     wrapper
-      .find('.alert-item-close-wrapper')
+      .find('.zent-alert-item-close-wrapper')
       .at(0)
       .simulate('click');
-    expect(wrapper.find('.alert-item').length).toBe(0);
+    expect(wrapper.find('.zent-alert-item').length).toBe(0);
   });
 
   it('scroll alert scroll to last-child, reset items', () => {

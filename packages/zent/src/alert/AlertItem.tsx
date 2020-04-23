@@ -31,9 +31,9 @@ export class AlertItem extends React.PureComponent<IAlertItemProps> {
       children
     ) : (
       <>
-        {title && <h3 className="alert-item-content__title">{title}</h3>}
+        {title && <h3 className="zent-alert-item-content__title">{title}</h3>}
         {description && (
-          <p className="alert-item-content__description">{description}</p>
+          <p className="zent-alert-item-content__description">{description}</p>
         )}
       </>
     );
@@ -47,7 +47,7 @@ export class AlertItem extends React.PureComponent<IAlertItemProps> {
       .props as IAlertItemProps;
     return closable ? (
       <div
-        className="alert-item-close-wrapper"
+        className="zent-alert-item-close-wrapper"
         onClick={e => {
           onClose && onClose();
           onAlertItemClose && onAlertItemClose();
@@ -57,7 +57,7 @@ export class AlertItem extends React.PureComponent<IAlertItemProps> {
         {closeContent ? (
           closeContent
         ) : (
-          <Icon type="close" className="alert-item-close-btn" />
+          <Icon type="close" className="zent-alert-item-close-btn" />
         )}
       </div>
     ) : null;
@@ -70,13 +70,13 @@ export class AlertItem extends React.PureComponent<IAlertItemProps> {
     const { loading, type } = this.props as IAlertItemProps;
     return loading ? (
       <InlineLoading
-        className="alert-item-icon"
+        className="zent-alert-item-icon"
         loading
         icon="circle"
         iconSize={16}
       />
     ) : type in iconTypeMap ? (
-      <Icon className="alert-item-icon" type={iconTypeMap[type]} />
+      <Icon className="zent-alert-item-icon" type={iconTypeMap[type]} />
     ) : null;
   }
 
@@ -88,11 +88,11 @@ export class AlertItem extends React.PureComponent<IAlertItemProps> {
     const closeNode = this.renderCloseNode();
 
     return (
-      <div className={cx('alert-item', className)} ref={scrollRef}>
+      <div className={cx('zent-alert-item', className)} ref={scrollRef}>
         {alertIcon}
-        <div className="alert-item-content">{content}</div>
+        <div className="zent-alert-item-content">{content}</div>
         {extraContent && (
-          <div className="alert-item-extra-content">{extraContent}</div>
+          <div className="zent-alert-item-extra-content">{extraContent}</div>
         )}
         {closeNode}
       </div>

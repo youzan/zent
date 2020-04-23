@@ -29,7 +29,7 @@ ReactDOM.render(
 ```
 
 <style>
-.zent-alert-example .zent-scroll-alert {
+.zent-alert-example .zent-alert-scroll {
 	margin-bottom: 16px;
 }
 </style>

@@ -174,11 +174,11 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
     const { className, outline, type } = this.props;
 
     const scrollCls = cx(
-      'zent-scroll-alert',
+      'zent-alert-scroll',
       `zent-alert-style-${type}`,
       className,
       {
-        ['zent-alert-outline']: outline,
+        ['zent-alert-scroll-outline']: outline,
       }
     );
 
