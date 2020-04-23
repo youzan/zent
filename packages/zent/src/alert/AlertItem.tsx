@@ -1,5 +1,6 @@
 import * as React from 'react';
 import cx from 'classnames';
+import { useMemo, useRef } from 'react';
 import { AlertTypes } from './types';
 import Icon, { IconType } from '../icon';
 import InlineLoading from '../loading/InlineLoading';
@@ -15,89 +16,88 @@ const iconTypeMap: {
 };
 
 type IAlertItemProps = Omit<IAlertProps, 'outline' | 'closed'> & {
-  scrollRef?: React.Ref<HTMLDivElement>;
   onAlertItemClose?: () => void;
 };
 
-export class AlertItem extends React.PureComponent<IAlertItemProps> {
-  static highlightClassName = 'alert-item-content__highlight';
+export const AlertItem = React.forwardRef<HTMLDivElement, IAlertItemProps>(
+  (props, ref) => {
+    const {
+      extraContent,
+      className,
+      title,
+      description,
+      children,
+      loading,
+      type,
+      closable,
+      closeContent,
+      onAlertItemClose,
+    } = props;
 
-  /**
-   * 显示内容
-   */
-  private renderContent() {
-    const { title, description, children } = this.props;
-    return children ? (
-      children
-    ) : (
-      <>
-        {title && <h3 className="zent-alert-item-content__title">{title}</h3>}
-        {description && (
-          <p className="zent-alert-item-content__description">{description}</p>
-        )}
-      </>
-    );
-  }
+    const propsRef = useRef<IAlertItemProps>(props);
+    propsRef.current = props;
 
-  /**
-   * 关闭触发器节点
-   */
-  private renderCloseNode() {
-    const { closable, closeContent, onClose, onAlertItemClose } = this
-      .props as IAlertItemProps;
-    return closable ? (
-      <div
-        className="zent-alert-item-close-wrapper"
-        onClick={e => {
-          onClose && onClose();
-          onAlertItemClose && onAlertItemClose();
-          e.stopPropagation();
-        }}
-      >
-        {closeContent ? (
-          closeContent
-        ) : (
-          <Icon type="close" className="zent-alert-item-close-btn" />
-        )}
-      </div>
-    ) : null;
-  }
+    const renderContent = useMemo(() => {
+      return children ? (
+        children
+      ) : (
+        <>
+          {title && <h3 className="zent-alert-item-content__title">{title}</h3>}
+          {description && (
+            <p className="zent-alert-item-content__description">
+              {description}
+            </p>
+          )}
+        </>
+      );
+    }, [children, description, title]);
 
-  /**
-   * 显示icon
-   */
-  private renderIcon() {
-    const { loading, type } = this.props as IAlertItemProps;
-    return loading ? (
-      <InlineLoading
-        className="zent-alert-item-icon"
-        loading
-        icon="circle"
-        iconSize={16}
-      />
-    ) : type in iconTypeMap ? (
-      <Icon className="zent-alert-item-icon" type={iconTypeMap[type]} />
-    ) : null;
-  }
+    const renderCloseNode = useMemo(() => {
+      const { onClose } = propsRef.current;
+      return closable ? (
+        <div
+          className="zent-alert-item-close-wrapper"
+          onClick={e => {
+            onClose && onClose();
+            onAlertItemClose && onAlertItemClose();
+            e.stopPropagation();
+          }}
+        >
+          {closeContent ? (
+            closeContent
+          ) : (
+            <Icon type="close" className="zent-alert-item-close-btn" />
+          )}
+        </div>
+      ) : null;
+    }, [closable, closeContent, onAlertItemClose]);
 
-  render() {
-    const { extraContent, scrollRef = null, className } = this.props;
-
-    const alertIcon = this.renderIcon();
-    const content = this.renderContent();
-    const closeNode = this.renderCloseNode();
+    const renderIcon = useMemo(() => {
+      return loading ? (
+        <InlineLoading
+          className="zent-alert-item-icon"
+          loading
+          icon="circle"
+          iconSize={16}
+        />
+      ) : type in iconTypeMap ? (
+        <Icon className="zent-alert-item-icon" type={iconTypeMap[type]} />
+      ) : null;
+    }, [loading, type]);
 
     return (
-      <div className={cx('zent-alert-item', className)} ref={scrollRef}>
-        {alertIcon}
-        <div className="zent-alert-item-content">{content}</div>
+      <div className={cx('zent-alert-item', className)} ref={ref}>
+        {renderIcon}
+        <div className="zent-alert-item-content">{renderContent}</div>
         {extraContent && (
           <div className="zent-alert-item-extra-content">{extraContent}</div>
         )}
-        {closeNode}
+        {renderCloseNode}
       </div>
     );
   }
-}
+);
+
+AlertItem.displayName = 'AlertItem';
 
 export default AlertItem;

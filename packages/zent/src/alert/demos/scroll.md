@@ -20,7 +20,7 @@ ReactDOM.render(
 		</ScrollAlert>
 		<ScrollAlert>
 			<AlertItem title="{i18n.title}111" description="{i18n.content}111" />
-			<AlertItem title="{i18n.title}111" description="{i18n.content}222" />
+			<AlertItem title="{i18n.title}222" description="{i18n.content}222" />
 			<AlertItem title="{i18n.title}333" description="{i18n.content}333" />
 		</ScrollAlert>
 	</div>,

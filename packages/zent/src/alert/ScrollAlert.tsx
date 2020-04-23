@@ -159,7 +159,7 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
               {...props}
               key={index}
               onAlertItemClose={() => this.onCloseItemHandler(index)}
-              scrollRef={!index ? this.firstChildRef : null}
+              ref={!index ? this.firstChildRef : null}
             />
           );
         })

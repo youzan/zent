@@ -45,7 +45,7 @@ group: 展示
 | loading        | 是否是加载中模式            | bool   | `false`  | `true`, `false`                                         |
 | outline        | 是否是 outline 模式         | bool   | `false`  | `true`, `false`                                         |
 | onClose        | 关闭所有节点时触发的回调    | func   |          |                                                         |
-| closed         | 外部控制整个的关闭状态      | bool   |          |                                                         |
+| closed         | 外部控制整个组件的关闭状态      | bool   |          |                                                         |
 
 #### AlertItem
 
