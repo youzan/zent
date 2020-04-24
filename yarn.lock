@@ -5002,10 +5002,10 @@ format@^0.2.2:
   resolved "https://registry.yarnpkg.com/format/-/format-0.2.2.tgz#d6170107e9efdc4ed30c9dc39016df942b5cb58b"
   integrity sha1-1hcBB+nv3E7TDJ3DkBbflCtctYs=
 
-formulr@0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/formulr/-/formulr-0.3.0.tgz#3ac1eb5db8c3352408550a1867b739b9955a66a3"
-  integrity sha512-X1TGM8QpdsADWis8AEHf7pG0DoQyrLuLrxtfntw2svMos/FUPxynKXudHLD1pc6fHNQFZ7/6Cwy/d06NRvNPow==
+formulr@0.3.1-1:
+  version "0.3.1-1"
+  resolved "https://registry.npm.taobao.org/formulr/download/formulr-0.3.1-1.tgz#d5cd71f58d896620833895ec2ca20072b48776e6"
+  integrity sha1-1c1x9Y2JZiCDOJXsLKIAcrSHduY=
   dependencies:
     big.js "^5.2.2"
     rxjs "^6.4.0"

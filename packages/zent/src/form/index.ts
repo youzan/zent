@@ -10,6 +10,7 @@ export {
   FormStrategy,
   IValidators,
   Validators,
+  ValidatorMiddlewares,
   ValidateOption,
   FieldUtils,
   BasicBuilder,
