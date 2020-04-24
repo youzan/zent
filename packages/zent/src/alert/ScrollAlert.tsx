@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Children, ReactNode } from 'react';
 import cx from 'classnames';
-import AlertItem from './AlertItem';
+import AlertItem from './components/AlertItem';
 import { AlertTypes } from './types';
 import { PartialRequired } from '../utils/types';
 import omit from '../utils/omit';
@@ -153,7 +153,13 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
 
   // 实际dom中需要渲染的子节点
   get renderItem() {
-    const { outline, children, onClose, ...restItemProps } = this.props;
+    const {
+      outline,
+      children,
+      onClose,
+      className,
+      ...restItemProps
+    } = this.props;
     const { items } = this.state;
     const extendChildren = cloneChildren(items || children);
     const length = Children.count(extendChildren);
@@ -163,7 +169,7 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
           const props = Object.assign({}, restItemProps, { ...item.props });
           return (
             <AlertItem
-              className={cx({
+              classItemName={cx({
                 'zent-alert-scroll-active-item': index === this.scrollIndex,
                 'zent-alert-scroll-virtual-item':
                   index === 0 && this.scrollIndex === length - 1,

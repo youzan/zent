@@ -1,7 +1,7 @@
 import * as React from 'react';
 import cx from 'classnames';
 import { AlertTypes } from './types';
-import AlertItem from './AlertItem';
+import AlertItem from './components/AlertItem';
 import { PartialRequired } from '../utils/types';
 import omit from '../utils/omit';
 
