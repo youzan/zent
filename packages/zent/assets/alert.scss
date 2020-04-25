@@ -102,7 +102,7 @@ $type-map: (
     &__title {
       font-weight: $font-weight-medium;
 
-      + .alert-item-content__description {
+      + .zent-alert-item-content__description {
         margin-top: 8px;
       }
     }

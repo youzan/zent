@@ -67,7 +67,7 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
 
   // 滚动container高度为第一个子节点的高度
   get containerHeight() {
-    return this.firstChildRef.current?.offsetHeight;
+    return this.firstChildRef.current?.offsetHeight || 0;
   }
 
   componentDidMount() {

@@ -33,7 +33,7 @@ Alert is used to provide eye-catching information.
 
 #### ScrollAlert
 
-##### ScrollAlert supports equal-height children
+##### ScrollAlert only supports equal-height children
 
 | Property       | Description                                         | Type   | Default  | Alternative                                             |
 | -------------- | --------------------------------------------------- | ------ | -------- | ------------------------------------------------------- |
