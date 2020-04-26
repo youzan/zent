@@ -5,21 +5,21 @@ export interface ISelectOptionProps {
   prefixCls?: string;
   cid?: string;
   value?: any;
-  text: any;
+  text?: React.ReactNode;
   placeholder?: string;
   className?: string;
   onMouseEnter?: React.MouseEventHandler<HTMLElement>;
-  onClick: (evt: React.MouseEvent<HTMLElement>, cid: string) => void;
+  onClick?: (evt: React.MouseEvent<HTMLElement>, cid: string) => void;
 }
 
 class Option extends PureComponent<ISelectOptionProps, any> {
-  constructor(props) {
+  constructor(props: ISelectOptionProps) {
     super(props);
     this.optionClickHandler = this.optionClickHandler.bind(this);
   }
 
-  optionClickHandler(ev) {
-    this.props.onClick(ev, this.props.cid);
+  optionClickHandler(ev: React.MouseEvent<HTMLElement>) {
+    this.props.onClick?.(ev, this.props.cid);
   }
 
   render() {

@@ -49,7 +49,7 @@
     "tslib": "^1.9.3",
     "utility-types": "^3.4.1",
     "warning": "^4.0.3",
-    "zenticons": "3.3.0"
+    "zenticons": "3.4.0"
   },
   "devDependencies": {
     "@types/big.js": "^4.0.5",
