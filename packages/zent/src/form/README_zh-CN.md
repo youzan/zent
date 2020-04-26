@@ -114,7 +114,7 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 
 - `when`
 - `whenAsync`
-- `dynamicMessage`
+- `message`
 
 <!-- demo-slot-6 -->
 
