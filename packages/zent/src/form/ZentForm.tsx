@@ -130,7 +130,7 @@ export class ZentForm<T extends Record<string, BasicModel<unknown>>>
     this.inner.model.initialize(value);
   }
 
-  patchValue(value: $FieldSetValue<T>) {
+  patchValue(value: Partial<$FieldSetValue<T>>) {
     this.inner.model.patchValue(value);
   }
 
