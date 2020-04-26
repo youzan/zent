@@ -1,5 +1,5 @@
 ---
-order: 6
+order: 7
 zh-CN:
 	title: 额外内容
 	content: 额外内容会放置在 Alert 组件右侧

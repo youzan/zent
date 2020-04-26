@@ -1,5 +1,5 @@
 ---
-order: 5
+order: 6
 zh-CN:
 	title: 关闭按钮及回调
 	cbContent: 关闭状态受控
@@ -17,7 +17,7 @@ en-US:
 ---
 
 ```jsx
-import { Alert, Sweetalert } from 'zent';
+import { Alert, Sweetalert, ScrollAlert, AlertItem } from 'zent';
 
 const Simple = () => {
 	const [closed, setClosed] = React.useState(false);
@@ -25,23 +25,37 @@ const Simple = () => {
 	const onCloseHandler = () => {
 		setClosed(true);
 		Sweetalert.alert({ content: '{i18n.msg}' });
-	}
+	};
+
+	const onScrollAlertClose = () => {
+		console.log('all');
+	};
+	const onScrollAlertItemClose = () => {
+		console.log('item');
+	};
 
 	return (
 		<div className="zent-alert-example">
-			<Alert closable closeContent={<a href="javascript:;">{i18n.closeText}</a>}>
+			<Alert
+				closable
+				closeContent={<a href="javascript:;">{i18n.closeText}</a>}
+			>
 				{i18n.content}
 			</Alert>
+			<ScrollAlert onClose={onScrollAlertClose}>
+				<AlertItem closable onClose={onScrollAlertItemClose}>
+					{i18n.content}111
+				</AlertItem>
+				<AlertItem closable>{i18n.content}222</AlertItem>
+				<AlertItem closable>{i18n.content}333</AlertItem>
+			</ScrollAlert>
 			<Alert closable closed={closed} onClose={onCloseHandler}>
 				{i18n.cbContent}
 			</Alert>
 			<Button onClick={() => setClosed(false)}>{i18n.redisplay}</Button>
 		</div>
-	)
-}
+	);
+};
 
-ReactDOM.render(
-	<Simple />,
-	mountNode
-);
+ReactDOM.render(<Simple />, mountNode);
 ```
