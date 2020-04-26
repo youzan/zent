@@ -63,6 +63,7 @@ scatter: true
 <!-- demo-slot-1 -->
 <!-- demo-slot-2 -->
 <!-- demo-slot-3 -->
+<!-- demo-slot-15 -->
 
 ### 表单校验
 
@@ -71,10 +72,12 @@ scatter: true
 表单校验函数定义:
 
 ```ts
-function validate<T>(
+type AsyncValidator<T> = (
 	value: T,
-	ctx: ValidatorContext
-): IMaybeError<T> | Promise<IMaybeError<T>> | Observable<IMaybeError<T>>;
+	ctx: ValidatorContext<T>
+) => Promise<IMaybeError<T>> | Observable<IMaybeError<T>> | null;
+
+type SyncValidator<T> = (value: T, ctx: ValidatorContext<T>) => IMaybeError<T>;
 ```
 
 - 如果返回 `null` 或者 `undefined` 表示校验通过；当校验失败时返回一个[包含错误信息的对象](https://zent-contrib.github.io/formulr/interfaces/ivalidateresult.html)。
@@ -97,11 +100,29 @@ function validate<T>(
 <!-- demo-slot-4 -->
 <!-- demo-slot-5 -->
 
+### 校验中间件
+
+校验中间件作用于**校验函数本身**，可以把它视作用来装饰函数的装饰器；通过中间件可以为内置的校验函数提供一些额外能力；使用 `FieldUtils.compose` 可以将多个中间件组合成一个；
+
+校验中间件的函数签名：
+
+```ts
+type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
+```
+
+#### 内置的校验中间件
+
+- `when`
+- `whenAsync`
+- `message`
+
+<!-- demo-slot-6 -->
+
 ### `Form` 布局
 
 `Form` 组件使用 `flex` 布局，提供两种简单的样式：水平布局 `horizontal`， 垂直布局 `vertical`。
 
-<!-- demo-slot-6 -->
+<!-- demo-slot-7 -->
 
 ### `useFieldArray` 和 `FieldSet`
 
@@ -119,7 +140,7 @@ function validate<T>(
 
 - `FieldSet` 两种模式公用的参数可以在[这里查看](../../apidoc/interfaces/ifieldsetprops.html)；`View` 模式额外的参数可以在[这里查看](../../apidoc/interfaces/iformfieldviewdrivenprops.html)。
 
-<!-- demo-slot-7 -->
+<!-- demo-slot-8 -->
 
 ### 从 Model 构建表单
 
@@ -130,19 +151,19 @@ function validate<T>(
 - `Form.set` 参数是个对象，用来描述这个表单集合的结构，[查看函数定义](https://zent-contrib.github.io/formulr/globals.html#set)
 - `Form.array` 参数是一个其他函数返回的 `Builder` 对象，`array` 返回的 `Builder` 对象上有 `defaultValue` 用于设置这个 array 中的表单项的默认值，[查看函数定义](https://zent-contrib.github.io/formulr/globals.html#array)
 
-<!-- demo-slot-8 -->
+<!-- demo-slot-9 -->
 
 ### CombineErrors
 
 这个组件用来将多个字段的错误聚合成一个错误展示，需要配合 `Field` 的 `withoutError` 参数使用。
 
-<!-- demo-slot-9 -->
+<!-- demo-slot-10 -->
 
 ### 表单值的格式化
 
-可以通过 `normalize` 和 `format` 参数来格式化 `Field` 的输入输出。
+可以通过 `normalize` 和 `format` 参数来格式化 `Field` 的输入输出；使用自定义封装的表单组件时，可以为 `model` 设置 `normalizeBeforeSubmit` 属性，在调用 `form.getSubmitValue()`时可以获取到格式化之后的值
 
-<!-- demo-slot-10 -->
+<!-- demo-slot-11 -->
 
 ### 读取表单值
 
@@ -153,18 +174,19 @@ function validate<T>(
 - `Field` 组件对应 `FieldValue`，`View` 模式下指定一个 `name`；`Model` 模式下指定一个 `model`
 - `FieldSet` 组件对应 `FieldSetValue`，只有一个 `name` 参数；如果是 `Model` 模式下已经拿到对应的 model 对象了，那么直接将 `model.get(xxx)` 传给 `FieldValue` 组件即可
 - `useFieldArray` 对应 `useFieldArrayValue`，`View` 模式下指定一个 `name`；`Model` 模式下指定一个 `model`
+- `useFieldValue` 与 `FieldValue` 的能力相同，它提供了一种 hooks 的风格来获取表单值
 
-<!-- demo-slot-11 -->
+<!-- demo-slot-12 -->
 
 ### 非 `Field` 层级的校验
 
 `FieldSet` 和 `FieldArray` 和 `Field` 一样可以设置校验规则，这些校验规则是运行在 `FieldSet` 和 `FieldArray` 层级的，能拿到下层的所有数据，可以用来实现跨 `Field` 的校验。
 
-<!-- demo-slot-12 -->
+<!-- demo-slot-13 -->
 
 ### 表单值联动
 
-<!-- demo-slot-13 -->
+<!-- demo-slot-14 -->
 
 ### `Control`, `Label` 以及 `Error` 组件
 
@@ -178,10 +200,11 @@ function validate<T>(
 
 `FieldUtils` 提供一些有用的工具函数。
 
-- useMAppend 用来按顺序调用一批函数，只使用它们的副作用，忽略返回值，[查看函数定义](https://zent-contrib.github.io/formulr/globals.html#usemappend)
+- useMulti 用来按顺序调用一批函数，只使用它们的副作用，忽略返回值，[查看函数定义](https://zent-contrib.github.io/formulr/globals.html#usemulti)
 - usePipe 用来从左往右按顺序调用一批函数，上一个函数的返回值作为下一个函数的参数，返回最后一个函数的返回值，[查看函数定义](https://zent-contrib.github.io/formulr/globals.html#usepipe)
 - useCompositionHandler 用来在 `model` 上维护一个输入法编辑的状态, `model.isCompositing`，[查看函数定义](https://zent-contrib.github.io/formulr/globals.html#usecompositionhandler)。组件内部会根据这个状态在输入法输入阶段跳过校验
 - makeChangeHandler 生成一个 `onChange` 回调函数，[查看函数定义](https://zent-contrib.github.io/formulr/globals.html#makechangehandler)
+- compose 与 usePipe 类似，区别是 usePipe 作为 hook 使用，而 compose 可以用在任何地方，例如组合多个校验函数中间件，[查看函数定义](https://zent-contrib.github.io/formulr/globals.html#compose)
 
 ### Hooks
 
