@@ -180,6 +180,10 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
     const extendChildren = cloneChildren(alertItem);
     const length = Children.count(extendChildren);
 
+    if (length === 1) {
+      clearInterval(this.intervalId);
+    }
+
     return length
       ? Children.map(extendChildren, (item: React.ReactElement, index) => {
           const props = Object.assign({}, restItemProps, { ...item.props });
