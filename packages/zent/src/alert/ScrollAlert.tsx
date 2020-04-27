@@ -62,10 +62,8 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
   firstChildRef = React.createRef<HTMLDivElement>();
   //当前视图中的子节点索引
   scrollIndex = 0;
-  // 动画状态
-  pauseAnimation = false;
-  // 循环事件id
-  intervalId: any;
+  // timeout事件id
+  timeoutId: any;
 
   // 滚动container高度为第一个子节点的高度
   get containerHeight() {
@@ -76,12 +74,11 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
     this.setState({
       items: this.props.children ?? [],
     });
-
     this.scrollHandler();
   }
 
   componentWillUnmount() {
-    clearInterval(this.intervalId);
+    this.timeoutId && clearTimeout(this.timeoutId);
   }
 
   /**
@@ -90,8 +87,8 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
   scrollHandler = () => {
     const { scrollInterval } = this.props;
 
-    this.intervalId = setInterval(() => {
-      if (this.pauseAnimation) return;
+    this.timeoutId = setTimeout(() => {
+      if (!this.timeoutId) return;
 
       // 滚动到最后一个节点时，重置为初始位置
       if (this.scrollIndex === this.renderItem.length - 1) {
@@ -104,17 +101,18 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
         activeIndex: this.scrollIndex,
         transitionDuration: 600,
       });
+      this.scrollHandler();
     }, scrollInterval);
   };
 
   // 鼠标移入，动画暂停
   stopScroll = () => {
-    this.pauseAnimation = true;
+    this.timeoutId && clearTimeout(this.timeoutId);
   };
 
   // 鼠标移出，动画继续
   continueScroll = () => {
-    this.pauseAnimation = false;
+    this.timeoutId && this.scrollHandler();
   };
 
   /**
@@ -145,7 +143,7 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
 
     // items只有一个元素时不滚动
     if (afterDeleteItems.length === 1) {
-      clearInterval(this.intervalId);
+      this.timeoutId = null;
       this.resetChildren();
     } else if (afterDeleteItems.length === 0) {
       onClose?.();
@@ -181,7 +179,7 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
     const length = Children.count(extendChildren);
 
     if (length === 1) {
-      clearInterval(this.intervalId);
+      this.timeoutId = null;
     }
 
     return length
