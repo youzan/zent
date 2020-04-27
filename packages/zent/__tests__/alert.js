@@ -387,4 +387,23 @@ describe('ScrollAlert', () => {
         .containsMatchingElement(<div>foobar1</div>)
     ).toBe(true);
   });
+
+  it(' other node in scroll alert', () => {
+    const wrapper = mount(
+      <ScrollAlert>
+        <AlertItem>
+          <span>foobar1</span>
+        </AlertItem>
+        <div>
+          <span>foobar1</span>
+        </div>
+      </ScrollAlert>
+    );
+    expect(wrapper.find('.zent-alert-item').length).toBe(1);
+  });
+
+  it('scroll alert item is null', () => {
+    const wrapper = mount(<AlertItem />);
+    expect(wrapper.getDOMNode()).toBe(null);
+  });
 });

@@ -2,8 +2,10 @@ import * as React from 'react';
 import { Children, ReactNode } from 'react';
 import cx from 'classnames';
 import AlertItem from './components/AlertItem';
+import { AlertItem as AlertItemPub } from './AlertItem';
 import { AlertTypes } from './types';
 import { PartialRequired } from '../utils/types';
+import kindOf from '../utils/kindOf';
 import omit from '../utils/omit';
 /**
  * 为满足动画的无缝衔接
@@ -161,7 +163,21 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
       ...restItemProps
     } = this.props;
     const { items } = this.state;
-    const extendChildren = cloneChildren(items || children);
+    const childArray = Children.toArray(items || children);
+
+    // children类型校验
+    const alertItem = childArray.reduce<any[]>(
+      (alertItemArray, child: React.ReactElement<any>) => {
+        const type = child.type;
+        if (kindOf(type, AlertItemPub)) {
+          alertItemArray.push(child);
+        }
+        return alertItemArray;
+      },
+      []
+    );
+
+    const extendChildren = cloneChildren(alertItem);
     const length = Children.count(extendChildren);
 
     return length
