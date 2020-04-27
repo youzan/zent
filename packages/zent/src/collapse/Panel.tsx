@@ -5,6 +5,7 @@ import AnimateHeight from '../utils/component/AnimateHeight';
 import LazyMount from '../utils/component/LazyMount';
 import { EASE_IN_OUT } from '../utils/timingFunctions';
 import { DisabledContext, IDisabledContext } from '../disabled';
+import isNil from '../utils/isNil';
 
 const NO_BOTTOM_BORDER = {
   borderBottomWidth: 0,
@@ -21,8 +22,8 @@ export interface ICollapsePanelProps {
   className?: string;
   prefix?: string;
   active?: boolean;
-  onChange(key: string, active: boolean): void;
-  panelKey: string;
+  onChange?(key: string, active: boolean): void;
+  panelKey?: string;
   panelTitleBackground?: string;
   isLast?: boolean;
   bordered?: boolean;
@@ -112,8 +113,8 @@ export class CollapsePanel extends Component<ICollapsePanelProps> {
       disabled = this.context.value,
     } = this.props;
 
-    if (!disabled) {
-      onChange(panelKey, !active);
+    if (!disabled && !isNil(panelKey)) {
+      onChange?.(panelKey, !active);
     }
   };
 }
