@@ -57,6 +57,7 @@ Zent also provides separate components that construct these components, includin
 <!-- demo-slot-1 -->
 <!-- demo-slot-2 -->
 <!-- demo-slot-3 -->
+<!-- demo-slot-15 -->
 
 ### The validations of form
 
@@ -90,32 +91,50 @@ function validate<T>(
 - [maxLength](https://zent-contrib.github.io/formulr/globals.html#maxlength)
 - [pattern](https://zent-contrib.github.io/formulr/globals.html#pattern)
 
+### `ValidatorMiddleware`
+
+Validator middlewares ACTS on **validators**, which can be regarded as the decorators used to decorate functions. Middlewares can provide some additional capabilities for built-in validators. Using `FieldUtils.compose` can combine multiple middlewares into one.
+
+Signature of middlewares:
+
+```ts
+type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
+```
+
+#### Built-in ValidatorMiddlewares
+
+- `when`
+- `whenAsync`
+- `message`
+
+<!-- demo-slot-6 -->
+
 ### `Form` layouts
 
 `Form` uses `flex` for layouts, provides two kind of layouts: `horizontal`， `vertical`.
 
-<!-- demo-slot-6 -->
+<!-- demo-slot-7 -->
 
 ### `Field Array`
 
-<!-- demo-slot-7 -->
+<!-- demo-slot-8 -->
 
 ### `Model First`
 
-<!-- demo-slot-8 -->
+<!-- demo-slot-9 -->
 
 ### CombineErrors
 
 Combine error display from multiple fields.
 
-<!-- demo-slot-9 -->
+<!-- demo-slot-10 -->
 
 ### Others
-
-<!-- demo-slot-10 -->
 
 <!-- demo-slot-11 -->
 
 <!-- demo-slot-12 -->
 
 <!-- demo-slot-13 -->
+
+<!-- demo-slot-14 -->
