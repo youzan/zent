@@ -136,16 +136,16 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
       // 空节点、一个节点均不产生动画
       if (length <= 1) return;
 
-      // 滚动到最后一个节点时，重置为初始位置
-      if (this.scrollIndex === length - 1) {
-        this.resetChildren();
-      }
-
       // 滚动递增
       ++this.scrollIndex;
       this.setState({
         transitionDuration: 600,
       });
+
+      // 滚动到最后一个节点时，重置为初始位置
+      if (this.scrollIndex === length - 1) {
+        setTimeout(this.resetChildren, 600);
+      }
       this.scrollHandler();
     }, scrollInterval);
   };
