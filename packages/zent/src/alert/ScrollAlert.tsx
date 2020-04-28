@@ -236,7 +236,7 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
           onAlertItemClose={() => this.onCloseItemHandler(index)}
           ref={itemInstance => {
             if (!index) {
-              this.firstChildHeight = itemInstance?.offsetHeight;
+              this.firstChildHeight = itemInstance?.offsetHeight || 0;
             }
           }}
         />
