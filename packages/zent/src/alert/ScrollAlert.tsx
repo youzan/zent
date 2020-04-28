@@ -33,7 +33,7 @@ function getRenderChildrenFromProps(children: ReactNode) {
   const childArray = Children.toArray(children);
 
   // children类型校验
-  const alertItem = childArray.reduce<any[]>(
+  const items = childArray.reduce<any[]>(
     (alertItemArray, child: React.ReactElement<any>) => {
       const type = child.type;
       if (kindOf(type, AlertItemPub)) {
@@ -44,8 +44,8 @@ function getRenderChildrenFromProps(children: ReactNode) {
     []
   );
 
-  const renderItems = cloneChildren(alertItem);
-  return { items: alertItem, preChildren: children, renderItems };
+  const renderItems = cloneChildren(items);
+  return { items, preChildren: children, renderItems };
 }
 
 export interface IScrollAlertProps
@@ -210,6 +210,10 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
     });
   };
 
+  onFirstChildRef = itemInstance => {
+    this.firstChildHeight = itemInstance?.offsetHeight || 0;
+  };
+
   // 实际dom中需要渲染的子节点
   get renderItem() {
     const {
@@ -234,11 +238,7 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
           {...props}
           key={index}
           onAlertItemClose={() => this.onCloseItemHandler(index)}
-          ref={itemInstance => {
-            if (!index) {
-              this.firstChildHeight = itemInstance?.offsetHeight || 0;
-            }
-          }}
+          ref={!index ? this.onFirstChildRef : undefined}
         />
       );
     });
