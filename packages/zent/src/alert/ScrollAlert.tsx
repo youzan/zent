@@ -11,10 +11,10 @@ import omit from '../utils/omit';
  * 为满足动画的无缝衔接
  * 在原子节点后增加第一个子节点
  */
-function cloneChildren(children: React.ReactNode) {
+function cloneChildren(children: ReactNode): ReactNode[] {
   const length = Children.count(children);
 
-  const clonedChildren = new Array(length);
+  const clonedChildren: ReactNode[] = new Array(length);
   Children.forEach(children, (child, index) => {
     clonedChildren[index] = child;
     if (index === 0) {
@@ -22,8 +22,32 @@ function cloneChildren(children: React.ReactNode) {
     }
   });
 
-  return length > 1 ? clonedChildren : children;
+  return length > 1 ? clonedChildren : [children];
 }
+
+/**
+ * 根据props的children，获取有效的渲染节点
+ * @param children props的子节点
+ */
+function getRenderChildrenFromProps(children: ReactNode) {
+  const childArray = Children.toArray(children);
+
+  // children类型校验
+  const alertItem = childArray.reduce<any[]>(
+    (alertItemArray, child: React.ReactElement<any>) => {
+      const type = child.type;
+      if (kindOf(type, AlertItemPub)) {
+        alertItemArray.push(child);
+      }
+      return alertItemArray;
+    },
+    []
+  );
+
+  const renderItems = cloneChildren(alertItem);
+  return { items: alertItem, preChildren: children, renderItems };
+}
+
 export interface IScrollAlertProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
   type?: AlertTypes;
@@ -34,9 +58,11 @@ export interface IScrollAlertProps
   closed?: boolean;
 }
 interface IState {
-  items: ReactNode;
-  activeIndex: number;
+  items: ReactNode[];
+  renderItems: ReactNode[];
+  preChildren: ReactNode;
   transitionDuration: number;
+  containerHeight: number;
 }
 type IScrollAlertInnerProps = PartialRequired<
   IScrollAlertProps,
@@ -51,54 +77,73 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
     scrollInterval: 5000,
   };
 
-  state = {
-    items: null,
-    // 当前视图中的子节点索引
-    activeIndex: 0,
+  state: IState = {
+    items: [],
+    renderItems: [],
+    preChildren: null,
     transitionDuration: 600,
+    containerHeight: 0,
   };
 
-  containerRef = React.createRef<HTMLDivElement>();
-  firstChildRef = React.createRef<HTMLDivElement>();
   //当前视图中的子节点索引
   scrollIndex = 0;
   // timeout事件id
   timeoutId: any;
+  // 第一个子节点的高度
+  firstChildHeight = 0;
 
-  // 滚动container高度为第一个子节点的高度
-  get containerHeight() {
-    return this.firstChildRef.current?.offsetHeight || 0;
+  static getDerivedStateFromProps(
+    nextProps: IScrollAlertProps,
+    { preChildren }: IState
+  ) {
+    if (nextProps.children !== preChildren) {
+      return getRenderChildrenFromProps(nextProps.children);
+    }
+    return null;
   }
 
   componentDidMount() {
-    this.setState({
-      items: this.props.children ?? [],
-    });
+    this.setContanierHeight();
     this.scrollHandler();
   }
 
-  componentWillUnmount() {
-    this.timeoutId && clearTimeout(this.timeoutId);
+  componentDidUpdate() {
+    this.setContanierHeight();
   }
+
+  componentWillUnmount() {
+    this.clearTimer();
+  }
+
+  // 设置滚动容器高度
+  setContanierHeight = () => {
+    if (this.firstChildHeight !== this.state.containerHeight) {
+      this.setState({
+        containerHeight: this.firstChildHeight,
+      });
+    }
+  };
 
   /**
    * 节点滚动事件
    */
   scrollHandler = () => {
     const { scrollInterval } = this.props;
+    const { renderItems } = this.state;
+    const length = renderItems.length;
 
     this.timeoutId = setTimeout(() => {
-      if (!this.timeoutId) return;
+      // 空节点、一个节点均不产生动画
+      if (length <= 1) return;
 
       // 滚动到最后一个节点时，重置为初始位置
-      if (this.scrollIndex === this.renderItem.length - 1) {
+      if (this.scrollIndex === length - 1) {
         this.resetChildren();
       }
+
       // 滚动递增
       ++this.scrollIndex;
-
       this.setState({
-        activeIndex: this.scrollIndex,
         transitionDuration: 600,
       });
       this.scrollHandler();
@@ -107,12 +152,12 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
 
   // 鼠标移入，动画暂停
   stopScroll = () => {
-    this.timeoutId && clearTimeout(this.timeoutId);
+    this.clearTimer();
   };
 
   // 鼠标移出，动画继续
   continueScroll = () => {
-    this.timeoutId && this.scrollHandler();
+    this.scrollHandler();
   };
 
   /**
@@ -122,8 +167,17 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
     this.scrollIndex = 0;
     this.setState({
       transitionDuration: 0,
-      activeIndex: 0,
     });
+  };
+
+  /**
+   * 清除timeout
+   */
+  clearTimer = () => {
+    if (this.timeoutId) {
+      clearTimeout(this.timeoutId);
+      this.timeoutId = null;
+    }
   };
 
   /**
@@ -141,14 +195,19 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
     // 删除items元素
     const afterDeleteItems = items.filter((_, i) => index !== i);
 
-    // items只有一个元素时不滚动
+    // items只有一个元素时
     if (afterDeleteItems.length === 1) {
-      this.timeoutId = null;
       this.resetChildren();
-    } else if (afterDeleteItems.length === 0) {
+    }
+    // 删除所有节点时，清除timeout并触发close回调
+    else if (afterDeleteItems.length === 0) {
       onClose?.();
     }
-    this.setState({ items: afterDeleteItems });
+
+    this.setState({
+      items: afterDeleteItems,
+      renderItems: cloneChildren(afterDeleteItems),
+    });
   };
 
   // 实际dom中需要渲染的子节点
@@ -160,46 +219,29 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
       className,
       ...restItemProps
     } = this.props;
-    const { items } = this.state;
-    const childArray = Children.toArray(items || children);
+    const { renderItems } = this.state;
+    const length = renderItems.length;
 
-    // children类型校验
-    const alertItem = childArray.reduce<any[]>(
-      (alertItemArray, child: React.ReactElement<any>) => {
-        const type = child.type;
-        if (kindOf(type, AlertItemPub)) {
-          alertItemArray.push(child);
-        }
-        return alertItemArray;
-      },
-      []
-    );
-
-    const extendChildren = cloneChildren(alertItem);
-    const length = Children.count(extendChildren);
-
-    if (length === 1) {
-      this.timeoutId = null;
-    }
-
-    return length
-      ? Children.map(extendChildren, (item: React.ReactElement, index) => {
-          const props = Object.assign({}, restItemProps, { ...item.props });
-          return (
-            <AlertItem
-              classItemName={cx({
-                'zent-alert-scroll-active-item': index === this.scrollIndex,
-                'zent-alert-scroll-virtual-item':
-                  index === 0 && this.scrollIndex === length - 1,
-              })}
-              {...props}
-              key={index}
-              onAlertItemClose={() => this.onCloseItemHandler(index)}
-              ref={!index ? this.firstChildRef : null}
-            />
-          );
-        })
-      : [];
+    return Children.map(renderItems, (item: React.ReactElement, index) => {
+      const props = Object.assign({}, restItemProps, { ...item.props });
+      return (
+        <AlertItem
+          classItemName={cx({
+            'zent-alert-scroll-active-item': index === this.scrollIndex,
+            'zent-alert-scroll-virtual-item':
+              index === 0 && this.scrollIndex === length - 1,
+          })}
+          {...props}
+          key={index}
+          onAlertItemClose={() => this.onCloseItemHandler(index)}
+          ref={itemInstance => {
+            if (!index) {
+              this.firstChildHeight = itemInstance?.offsetHeight;
+            }
+          }}
+        />
+      );
+    });
   }
 
   render() {
@@ -212,7 +254,7 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
       OmitDivAttr
     );
 
-    const { activeIndex, transitionDuration } = this.state;
+    const { transitionDuration, containerHeight } = this.state;
     const renderItem = this.renderItem;
 
     const scrollCls = cx(
@@ -228,10 +270,9 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
       <div className={scrollCls} {...restDivAttrs}>
         <div
           className="zent-alert-scroll-container"
-          ref={this.containerRef}
           style={{
-            height: this.containerHeight,
-            transform: `translateY(-${this.containerHeight * activeIndex}px)`,
+            height: containerHeight,
+            transform: `translateY(-${containerHeight * this.scrollIndex}px)`,
             transitionDuration: `${transitionDuration}ms`,
           }}
           onMouseEnter={this.stopScroll}
