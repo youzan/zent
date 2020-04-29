@@ -85,7 +85,7 @@ export const FormSelectField: React.FunctionComponent<IFormSelectFieldProps<
   useFormChild(model, anchorRef);
   const onChange = React.useCallback(
     (e: any) => {
-      if (propsRef.current.props.tags) {
+      if (propsRef.current.props?.tags) {
         const value = model.value || [];
         if (!value.includes(e.target.value)) {
           model.value = [...value, e.target.value];
@@ -116,7 +116,9 @@ export const FormSelectField: React.FunctionComponent<IFormSelectFieldProps<
           {...(props.props as Omit<ISelectProps, 'value' | 'onChange'>)}
           onChange={onChange}
           value={model.value}
-        />
+        >
+          {props.children}
+        </Select>
         {after}
       </div>
       {!!notice && <FormNotice>{notice}</FormNotice>}
