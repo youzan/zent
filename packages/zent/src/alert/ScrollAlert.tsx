@@ -81,7 +81,7 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
     items: [],
     renderItems: [],
     preChildren: null,
-    transitionDuration: 600,
+    transitionDuration: 0,
     containerHeight: 0,
   };
 
