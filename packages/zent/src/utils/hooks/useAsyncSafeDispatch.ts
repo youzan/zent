@@ -1,7 +1,7 @@
 import { useCallback, useRef, useEffect } from 'react';
 
-export function useAsyncSafeDispatch<Args extends unknown[], R>(
-  dispatch: (...args: Args) => R
+export function useAsyncSafeDispatch<Args extends unknown[]>(
+  dispatch: (...args: Args) => void
 ) {
   const mounted = useMounted();
   return useCallback(
