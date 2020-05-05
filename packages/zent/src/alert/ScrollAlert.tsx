@@ -123,9 +123,6 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
     this.clearTimer();
   }
 
-  // 设置滚动容器高度
-  setContanierHeight = () => {};
-
   /**
    * 节点滚动事件
    */
