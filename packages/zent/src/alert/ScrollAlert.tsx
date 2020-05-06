@@ -63,6 +63,7 @@ interface IState {
   preChildren: ReactNode;
   transitionDuration: number;
   containerHeight: number;
+  activeIndex: number;
 }
 type IScrollAlertInnerProps = PartialRequired<
   IScrollAlertProps,
@@ -81,12 +82,11 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
     items: [],
     renderItems: [],
     preChildren: null,
-    transitionDuration: 600,
+    transitionDuration: 0,
     containerHeight: 0,
+    activeIndex: 0,
   };
 
-  //当前视图中的子节点索引
-  scrollIndex = 0;
   // timeout事件id
   timeoutId: any;
   // 第一个子节点的高度
@@ -103,49 +103,49 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
   }
 
   componentDidMount() {
-    this.setContanierHeight();
-    this.scrollHandler();
+    this.setState(
+      { containerHeight: this.firstChildHeight },
+      this.scrollHandler
+    );
   }
 
-  componentDidUpdate() {
-    this.setContanierHeight();
+  componentDidUpdate(prevProps) {
+    if (prevProps.children !== this.props.children) {
+      this.clearTimer();
+      this.setState(
+        { activeIndex: 0, containerHeight: this.firstChildHeight },
+        this.scrollHandler
+      );
+    }
   }
 
   componentWillUnmount() {
     this.clearTimer();
   }
 
-  // 设置滚动容器高度
-  setContanierHeight = () => {
-    if (this.firstChildHeight !== this.state.containerHeight) {
-      this.setState({
-        containerHeight: this.firstChildHeight,
-      });
-    }
-  };
-
   /**
    * 节点滚动事件
    */
   scrollHandler = () => {
     const { scrollInterval } = this.props;
-    const { renderItems } = this.state;
-    const length = renderItems.length;
 
     this.timeoutId = setTimeout(() => {
+      const { renderItems, activeIndex } = this.state;
+      const length = renderItems.length;
       // 空节点、一个节点均不产生动画
       if (length <= 1) return;
 
-      // 滚动递增
-      ++this.scrollIndex;
+      const index = activeIndex + 1;
       this.setState({
         transitionDuration: 600,
+        activeIndex: index,
       });
 
       // 滚动到最后一个节点时，重置为初始位置
-      if (this.scrollIndex === length - 1) {
+      if (index === length - 1) {
         setTimeout(this.resetChildren, 600);
       }
+
       this.scrollHandler();
     }, scrollInterval);
   };
@@ -164,9 +164,9 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
    * 重置节点为0
    */
   resetChildren = () => {
-    this.scrollIndex = 0;
     this.setState({
       transitionDuration: 0,
+      activeIndex: 0,
     });
   };
 
@@ -187,7 +187,7 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
     const { onClose } = this.props;
     const { items } = this.state;
 
-    // 点击虚拟（最后一个）节点时，实际索引为0
+    // 点击虚拟节点时，实际索引为0
     if (index === items.length) {
       index = 0;
       this.resetChildren();
@@ -195,13 +195,16 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
     // 删除items元素
     const afterDeleteItems = items.filter((_, i) => index !== i);
 
-    // items只有一个元素时
-    if (afterDeleteItems.length === 1) {
-      this.resetChildren();
-    }
     // 删除所有节点时，清除timeout并触发close回调
-    else if (afterDeleteItems.length === 0) {
+    if (afterDeleteItems.length === 0) {
       onClose?.();
+    }
+    // items只有一个元素时, 删除最后一项
+    else if (
+      afterDeleteItems.length === 1 ||
+      index === afterDeleteItems.length
+    ) {
+      this.resetChildren();
     }
 
     this.setState({
@@ -223,7 +226,7 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
       className,
       ...restItemProps
     } = this.props;
-    const { renderItems } = this.state;
+    const { renderItems, activeIndex } = this.state;
     const length = renderItems.length;
 
     return Children.map(renderItems, (item: React.ReactElement, index) => {
@@ -231,9 +234,9 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
       return (
         <AlertItem
           classItemName={cx({
-            'zent-alert-scroll-active-item': index === this.scrollIndex,
+            'zent-alert-scroll-active-item': index === activeIndex,
             'zent-alert-scroll-virtual-item':
-              index === 0 && this.scrollIndex === length - 1,
+              !index && activeIndex === length - 1,
           })}
           {...props}
           key={index}
@@ -254,7 +257,7 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
       OmitDivAttr
     );
 
-    const { transitionDuration, containerHeight } = this.state;
+    const { transitionDuration, containerHeight, activeIndex } = this.state;
     const renderItem = this.renderItem;
 
     const scrollCls = cx(
@@ -272,8 +275,9 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
           className="zent-alert-scroll-container"
           style={{
             height: containerHeight,
-            transform: `translateY(-${containerHeight * this.scrollIndex}px)`,
+            transform: `translateY(-${containerHeight * activeIndex}px)`,
             transitionDuration: `${transitionDuration}ms`,
+            transitionProperty: 'transform',
           }}
           onMouseEnter={this.stopScroll}
           onMouseLeave={this.continueScroll}

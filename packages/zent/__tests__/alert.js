@@ -406,4 +406,18 @@ describe('ScrollAlert', () => {
     const wrapper = mount(<AlertItem />);
     expect(wrapper.getDOMNode()).toBe(null);
   });
+
+  it('update props children', () => {
+    let children = ['1', '2', '3'];
+    const wrapper = mount(
+      <ScrollAlert>
+        {children.map(item => (
+          <AlertItem>{item}</AlertItem>
+        ))}
+      </ScrollAlert>
+    );
+
+    wrapper.setProps({ children: ['4'] });
+    expect(wrapper.state().activeIndex).toBe(0);
+  });
 });
