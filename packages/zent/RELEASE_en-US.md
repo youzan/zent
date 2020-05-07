@@ -8,6 +8,23 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 8.5.0(2020-05-07)
+
+- ✨ Add 4 new icons: `folder-o`, `open-folder-o`, `refresh`, `save-o`
+- ✨ Remove `Upload` default help text, don't render help text if `tips` is not present
+- `Alert`
+  - ✨ Add `hint` style
+  - ✨ Add `ScrollAlert` for rolling alert
+- `Form`
+  - ✨ `Field`'s `validate` now propagates to `FieldArray` or `FieldSet`
+  - ✨ Add `ValidatorMiddlewares`, these middlewares can be used to dynamically change validators behavior
+  - ✨ `FormSelectField` pass through `children`
+  - 🦀️ Fix `Form` `submit` use after unmount
+  - 🦀️ Fix `Select`、`Option`、`FormInputField` type definition
+- 🦀️ Fix `Grid` shadow after `scroll.x` changes
+- 🦀️ Fix `Collapse` type definition
+- 🦀️ Fix `Pagination` page jump not working in some cases
+
 ### 8.4.0(2020-03-16)
 
 - ✨ `Upload` item UI can be customized
