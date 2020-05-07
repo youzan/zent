@@ -31,7 +31,10 @@ export abstract class BasePageJumper<
 
   onConfirm: React.KeyboardEventHandler<HTMLInputElement> = e => {
     e.preventDefault();
-    const pageNumber = +this.state.value;
+
+    // We can't use this.state.value here, because onChanges fires on blur for normalized value
+    // e.g. If we enter 0, the value will be normalized to 1 in NumberInput, but onChange will only fire on blur.
+    const pageNumber = +(e.target as HTMLInputElement).value;
 
     if (pageNumber) {
       this.handleJump(pageNumber);
