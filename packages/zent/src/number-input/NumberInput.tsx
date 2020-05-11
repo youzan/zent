@@ -159,22 +159,16 @@ export class NumberInput extends React.Component<
       const { onChange } = this.props;
       const { value, min, max } = this.state as INumberInputIntegerState;
       const normalized = Integers.normalizeValue(value, min, max);
-      if (onChange) {
-        onChange(normalized.value);
-      } else {
-        this.setState(normalized);
-      }
+      onChange?.(normalized.value);
+      this.setState(normalized);
       const { onBlur } = this.props;
-      onBlur && onBlur(e);
+      onBlur?.(e);
     } else {
       const { onChange, decimal } = this.props;
       const { input, min, max } = this.state as INumberInputDecimalState;
       const normalized = Decimals.normalizeValue(input, min, max, decimal);
-      if (onChange) {
-        onChange(normalized.input);
-      } else {
-        this.setState(normalized);
-      }
+      onChange?.(normalized.input);
+      this.setState(normalized);
       const { onBlur } = this.props;
       onBlur && onBlur(e);
     }
@@ -201,14 +195,11 @@ export class NumberInput extends React.Component<
       } else {
         nextValue = value - 1;
       }
-      if (onChange) {
-        onChange(nextValue);
-      } else {
-        this.setState({
-          value: nextValue,
-          input: String(nextValue),
-        });
-      }
+      onChange?.(nextValue);
+      this.setState({
+        value: nextValue,
+        input: String(nextValue),
+      });
     } else {
       const { onChange, decimal } = this.props;
       const { value, min, max, delta } = this.state as INumberInputDecimalState;
@@ -223,14 +214,11 @@ export class NumberInput extends React.Component<
         nextValue = value.minus(delta);
       }
       const input = nextValue.toFixed(decimal);
-      if (onChange) {
-        onChange(input);
-      } else {
-        this.setState({
-          value: nextValue,
-          input,
-        });
-      }
+      onChange?.(input);
+      this.setState({
+        value: nextValue,
+        input,
+      });
     }
   }
 
