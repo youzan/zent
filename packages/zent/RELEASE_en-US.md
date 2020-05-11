@@ -8,6 +8,10 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 7.4.4(2020-05-11)
+
+- 🦀️ Fix a state bug in `NumberInput`
+
 ### 8.5.0(2020-05-07)
 
 - ✨ Add 4 new icons: `folder-o`, `open-folder-o`, `refresh`, `save-o`
