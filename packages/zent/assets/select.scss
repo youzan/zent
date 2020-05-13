@@ -23,6 +23,7 @@ $option-height: 32px;
   transition: border-color 0.25s;
   outline: none;
   position: relative;
+  line-height: 20px;
 
   &::after {
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAMAAAAhxq8pAAAAP1BMVEUAAAAzMzMyMjRAQEAyMjQyMjQ0NDQ2NjYyMjMzMzMyMjMyMjMzMzQyMjQ4ODgzMzNGRkYzMzMyMjUzMzMyMjNbbAmOAAAAFHRSTlMAqr0Grn1SLvTr39GXiSAUC2hbMlOyMCEAAABbSURBVBjTfc5JEoAgDETRlnkGlfufVSkLxWD5ln+RDj7xdSEkR6yTCDZHgW2OCgi0hbZEDjCOU3ZjcxlotHma0cBFjSM32ZvEQPQPR8W35gtekq3VJhA7Yxp/Dk7RDBdwecf8AAAAAElFTkSuQmCC');
@@ -35,8 +36,7 @@ $option-height: 32px;
     height: 16px;
     position: absolute;
     transition: transform 0.25s;
-    top: 0;
-    bottom: 0;
+    top: 7px;
     margin: auto;
   }
 
@@ -63,6 +63,32 @@ $option-height: 32px;
     @include placeholder;
   }
 
+  &-clearable {
+    .zenticon-close-circle {
+      @include theme-color(color, stroke, 5);
+      font-size: 16px;
+      position: absolute;
+      right: 8px;
+      top: 7px;
+      margin: auto;
+      width: 16px;
+      height: 16px;
+      display: none;
+      cursor: pointer;
+    }
+
+    &.zent-select:hover,
+    &.zent-select-active {
+      &::after {
+        display: none;
+      }
+
+      .zenticon-close-circle {
+        display: inline-block;
+      }
+    }
+  }
+
   &:hover,
   &.zent-select-active {
     @include theme-color(border-color, primary, 4);
@@ -84,10 +110,25 @@ $option-height: 32px;
     border: 0;
     margin: 0;
     padding: 0;
-    min-width: 0;
+    width: 100%;
+    min-width: 3px;
 
     &::placeholder {
       @include placeholder;
+    }
+
+    &-wrap {
+      width: 100%;
+      position: relative;
+    }
+
+    &-mirror {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 999;
+      white-space: nowrap;
+      visibility: hidden;
     }
   }
 
@@ -104,6 +145,23 @@ $option-height: 32px;
       align-items: center;
       justify-content: center;
     }
+
+    &-loading {
+      height: 96px;
+    }
+
+    &-create {
+      @include theme-color(color, primary, 4);
+      cursor: pointer;
+      padding: 10px 20px;
+      height: 48px;
+      line-height: 28px;
+      text-align: center;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      box-sizing: border-box;
+    }
   }
 
   &-option {
@@ -112,15 +170,17 @@ $option-height: 32px;
     cursor: pointer;
     display: flex;
     align-items: center;
-    padding: 7px 16px;
+    padding: 7px 12px;
 
     &-text {
-      display: flex;
-      align-items: center;
-      flex: 1 1 100%;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
+
+      mark {
+        background-color: initial;
+        @include theme-color(color, primary, 4);
+      }
     }
 
     &:hover,
@@ -154,6 +214,7 @@ $option-height: 32px;
 
     &-selected {
       @include theme-color(background-color, stroke, 8);
+      font-weight: 500;
 
       &-multiple {
         font-size: 12px;

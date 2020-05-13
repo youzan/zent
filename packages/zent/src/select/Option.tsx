@@ -41,12 +41,10 @@ function SelectOption<Item extends ISelectItem>({
       onMouseEnter={() => !value.type && onMouseEnter(index)}
       onMouseLeave={() => !value.type && onMouseLeave(index)}
     >
-      <div className="zent-select-option-text">
-        {children}
-        {multiple && selected && (
-          <Icon className="zent-select-option-selected-multiple" type="check" />
-        )}
-      </div>
+      <div className="zent-select-option-text">{children}</div>
+      {multiple && selected && (
+        <Icon className="zent-select-option-selected-multiple" type="check" />
+      )}
     </div>
   );
 }

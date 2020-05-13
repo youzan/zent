@@ -1,49 +1,73 @@
 import * as React from 'react';
+import { ISelectItem } from './Select';
 
 export interface ISelectSearchProps {
   placeholder?: string;
-  value: string;
+  keyword: string;
+  value: null | ISelectItem | ISelectItem[];
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   onIndexChange(delta: number): void;
   onEnter(): void;
+  multiple?: boolean;
 }
 
 function SelectSearch({
   placeholder,
-  value,
+  keyword,
   onChange,
   onIndexChange,
   onEnter,
+  multiple,
+  value,
 }: ISelectSearchProps) {
   const ref = React.useRef<HTMLInputElement>(null);
+  const measureRef = React.useRef<HTMLSpanElement>(null);
+  const [inputWidth, setInputWidth] = React.useState(0);
+
   React.useLayoutEffect(() => {
     ref.current!.focus({
       preventScroll: true,
     });
-  }, []);
+  }, [value]);
+
+  // We measure width and set to the input immediately
+  const mirrorValue = keyword || placeholder;
+  React.useLayoutEffect(() => {
+    setInputWidth(measureRef.current.scrollWidth);
+  }, [mirrorValue]);
+
   return (
-    <input
-      ref={ref}
-      placeholder={placeholder}
-      className="zent-select-search"
-      value={value}
-      onChange={onChange}
-      onKeyDown={e => {
-        switch (e.key) {
-          case 'ArrowUp':
-            onIndexChange(-1);
-            break;
-          case 'ArrowDown':
-            onIndexChange(1);
-            break;
-          case 'Enter':
-            onEnter();
-            break;
-          default:
-            break;
-        }
-      }}
-    />
+    <span
+      className="zent-select-search-wrap"
+      style={multiple ? { width: inputWidth } : null}
+    >
+      <input
+        ref={ref}
+        placeholder={placeholder}
+        className="zent-select-search"
+        value={keyword}
+        onChange={onChange}
+        onKeyDown={e => {
+          switch (e.key) {
+            case 'ArrowUp':
+              onIndexChange(-1);
+              break;
+            case 'ArrowDown':
+              onIndexChange(1);
+              break;
+            case 'Enter':
+              onEnter();
+              break;
+            default:
+              break;
+          }
+        }}
+      />
+      {/* Measure Node */}
+      <span ref={measureRef} className="zent-select-search-mirror" aria-hidden>
+        {mirrorValue}&nbsp;
+      </span>
+    </span>
   );
 }
 

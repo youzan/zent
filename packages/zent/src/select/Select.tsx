@@ -6,12 +6,16 @@ import Option from './Option';
 import Search from './Search';
 import { DisabledContext, IDisabledContext } from '../disabled';
 import WindowEventHandler from '../utils/component/WindowEventHandler';
+import Icon from '../icon';
+import { TextMark } from '../text-mark';
+import { BlockLoading } from '../loading/BlockLoading';
 
 export interface ISelectItem<Key extends string | number = string | number> {
   key: Key;
   text: React.ReactNode;
   type?: 'header' | 'divider';
   disabled?: boolean;
+  __display?: React.ReactNode;
 }
 
 export interface IOptionRenderer<Item extends ISelectItem> {
@@ -27,7 +31,9 @@ export interface ISelectCommonProps<Item extends ISelectItem> {
   optionPlaceholder?: string;
   inline?: boolean;
   width: React.CSSProperties['width'];
+  popupWidth?: React.CSSProperties['width'];
   filter?: ((keyword: string, item: Item) => boolean) | false;
+  highlight?: (keyword: string, item: Item) => Item;
   disabled?: boolean;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
@@ -37,6 +43,10 @@ export interface ISelectCommonProps<Item extends ISelectItem> {
   ): React.ReactNode;
   renderValue?: (value: Item) => React.ReactNode;
   renderOptionContent?: (value: Item) => React.ReactNode;
+  clearable?: boolean;
+  loading?: boolean;
+  creatable?: boolean;
+  onCreate?: (keyword: string) => void;
 }
 
 export interface ISelectSingleProps<Item extends ISelectItem>
@@ -115,6 +125,38 @@ function findPrevSelectableOption<Item extends ISelectItem>(
   return null;
 }
 
+function defaultHighlight<Item extends ISelectItem>(
+  keyword: string,
+  option: Item
+): Item {
+  if (typeof option.text !== 'string') {
+    return option;
+  }
+
+  return {
+    ...option,
+    __display: (
+      <TextMark
+        searchWords={[keyword]}
+        textToHighlight={option.text}
+        caseSensitive
+      />
+    ),
+  };
+}
+
+const DEFAULT_LOADING = (
+  <div className="zent-select-popover-loading">
+    <BlockLoading
+      loading
+      icon="circle"
+      height={96}
+      iconSize={24}
+      iconText="加载中"
+    />
+  </div>
+);
+
 export class Select<
   Item extends ISelectItem = ISelectItem
 > extends React.Component<ISelectProps<Item>, ISelectState<Item>> {
@@ -123,6 +165,8 @@ export class Select<
     renderOptionList: defaultRenderOptionList,
     width: 240,
     multiple: false,
+    clearable: false,
+    loading: false,
   };
 
   static contextType = DisabledContext;
@@ -168,6 +212,11 @@ export class Select<
         activeIndex: null,
       });
     }
+
+    // 关闭时清空搜索内容
+    if (open === false) {
+      this.clearKeyword('');
+    }
   };
 
   onSelect = (item: Item) => {
@@ -205,15 +254,19 @@ export class Select<
     if (this.disabled) {
       return;
     }
+    this.clearKeyword(e.target.value);
+  };
+
+  clearKeyword(keyword: string) {
     const { onKeywordChange: onKeyWordChange } = this.props;
     if (onKeyWordChange) {
-      onKeyWordChange(e.target.value);
+      onKeyWordChange(keyword);
     } else {
       this.setState({
-        keyword: e.target.value,
+        keyword,
       });
     }
-  };
+  }
 
   onRemove = (item: Item) => {
     if (this.disabled) {
@@ -299,7 +352,9 @@ export class Select<
         onMouseLeave={this.onOptionMouseLeave}
         multiple={multiple}
       >
-        {renderOptionContent ? renderOptionContent(option) : option.text}
+        {renderOptionContent
+          ? renderOptionContent(option)
+          : option.__display || option.text}
       </Option>
     );
   };
@@ -401,15 +456,27 @@ export class Select<
   renderValue() {
     const { placeholder, renderValue } = this.props;
     const { open: visible } = this.state;
+    const selectPlaceholder = (
+      <span className="zent-select-placeholder">{placeholder}</span>
+    );
+
     if (this.props.multiple) {
       const value = this.state.value as Item[];
-      return (
-        <TagList
-          list={value}
-          onRemove={this.onRemove}
-          renderValue={renderValue}
-        />
-      );
+      if (value && value.length > 0) {
+        return (
+          <TagList
+            list={value}
+            onRemove={this.onRemove}
+            renderValue={renderValue}
+          />
+        );
+      }
+
+      if (visible) {
+        return null;
+      }
+
+      return selectPlaceholder;
     } else {
       if (visible) {
         return null;
@@ -418,7 +485,7 @@ export class Select<
       if (value) {
         return renderValue ? renderValue(value) : value.text;
       }
-      return <span className="zent-select-placeholder">{placeholder}</span>;
+      return selectPlaceholder;
     }
   }
 
@@ -437,20 +504,88 @@ export class Select<
     return value.text;
   }
 
+  onClearChange = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const { keyword } = this.state;
+
+    if (keyword) {
+      this.clearKeyword('');
+      return;
+    }
+
+    if (this.props.multiple) {
+      const { onChange } = this.props as ISelectMultiProps<Item>;
+      if (onChange) {
+        onChange([]);
+      } else {
+        this.setState({
+          value: [],
+        });
+      }
+    } else {
+      const { onChange } = this.props as ISelectSingleProps<Item>;
+      if (onChange) {
+        onChange(null);
+      } else {
+        this.setState({
+          value: null,
+        });
+      }
+    }
+  };
+
+  onCreateClick = () => {
+    const { onCreate } = this.props;
+    const { keyword } = this.state;
+    if (onCreate) {
+      onCreate(keyword);
+      this.onVisibleChange(false);
+    }
+  };
+
+  renderEmpty() {
+    const { optionPlaceholder = '无搜索结果', creatable } = this.props;
+    const { keyword } = this.state;
+
+    if (creatable && keyword) {
+      return (
+        <div
+          className="zent-select-popover-create"
+          onClick={this.onCreateClick}
+        >
+          +点击新建：{keyword}
+        </div>
+      );
+    }
+
+    return <div className="zent-select-popover-empty">{optionPlaceholder}</div>;
+  }
+
   render() {
-    const { keyword, open: visible, active } = this.state;
+    const { keyword, open: visible, active, value } = this.state;
     const {
       inline,
       options,
       renderOptionList,
-      optionPlaceholder = '无搜索结果',
       width,
       filter = defaultFilter,
+      highlight = defaultHighlight,
+      clearable,
+      multiple,
+      popupWidth,
+      loading,
     } = this.props;
     const filtered =
       filter !== false && keyword
-        ? options.filter(it => filter(keyword, it))
+        ? options
+            .filter(it => filter(keyword, it))
+            .map(it => highlight(keyword, it))
         : options;
+    const notEmpty = multiple
+      ? Array.isArray(value) && value.length > 0
+      : !!value;
+    const showClear = clearable && (keyword || notEmpty);
+
     return (
       <>
         <Popover
@@ -459,7 +594,8 @@ export class Select<
           visible={visible}
           onVisibleChange={this.onVisibleChange}
           className="zent-select-popover"
-          style={{ width }}
+          style={{ width: popupWidth || width }}
+          cushion={4}
         >
           <Popover.Trigger.Click>
             <div
@@ -469,14 +605,20 @@ export class Select<
                 'zent-select-active': active,
                 'zent-select-visible': visible,
                 'zent-select-disabled': this.disabled,
+                'zent-select-clearable': showClear,
               })}
               style={{ width }}
             >
               {this.renderValue()}
+              {showClear && (
+                <Icon type="close-circle" onClick={this.onClearChange} />
+              )}
               {visible && (
                 <Search
                   placeholder={this.getSearchPlaceholder()}
-                  value={keyword}
+                  keyword={keyword}
+                  value={value}
+                  multiple={multiple}
                   onChange={this.onKeywordChange}
                   onIndexChange={this.onIndexChange}
                   onEnter={this.selectCurrentIndex}
@@ -485,13 +627,11 @@ export class Select<
             </div>
           </Popover.Trigger.Click>
           <Popover.Content>
-            {filtered.length ? (
-              renderOptionList(filtered, this.renderOption)
-            ) : (
-              <div className="zent-select-popover-empty">
-                {optionPlaceholder}
-              </div>
-            )}
+            {loading
+              ? DEFAULT_LOADING
+              : filtered.length
+              ? renderOptionList(filtered, this.renderOption)
+              : this.renderEmpty()}
           </Popover.Content>
         </Popover>
         <WindowEventHandler
