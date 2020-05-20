@@ -26,6 +26,6 @@
       { "transform": "./plugins/ts-plugin-version-attribute.ts" }
     ]
   },
-  "exclude": ["lib", "es", "node_modules", "__tests__"],
+  "exclude": ["umd", "lib", "es", "node_modules", "__tests__"],
   "include": ["src"]
 }
