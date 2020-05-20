@@ -59,6 +59,12 @@ $option-height: 32px;
     }
   }
 
+  &-multiple {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    line-height: 24px;
+  }
+
   &-placeholder {
     @include placeholder;
   }
@@ -149,19 +155,6 @@ $option-height: 32px;
     &-loading {
       height: 96px;
     }
-
-    &-create {
-      @include theme-color(color, primary, 4);
-      cursor: pointer;
-      padding: 10px 20px;
-      height: 48px;
-      line-height: 28px;
-      text-align: center;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      box-sizing: border-box;
-    }
   }
 
   &-option {
@@ -229,13 +222,14 @@ $option-height: 32px;
     border-width: 1px;
     border-style: solid;
     border-radius: 2px;
-    margin: 2px 4px 2px 0;
+    margin: 4px 4px 4px 0;
     padding: 0 4px;
     line-height: 16px;
     font-size: $font-size-small;
     display: flex;
     align-items: center;
     cursor: default;
+    word-break: break-all;
 
     &-close {
       @include theme-color(color, stroke, 3);

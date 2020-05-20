@@ -87,7 +87,7 @@ function defaultFilter<Item extends ISelectItem>(
   if (typeof option.text !== 'string') {
     return true;
   }
-  return option.text.includes(keyword);
+  return option.text.toLowerCase().includes(keyword.toLowerCase());
 }
 
 function defaultRenderOptionList<Item extends ISelectItem>(
@@ -136,11 +136,7 @@ function defaultHighlight<Item extends ISelectItem>(
   return {
     ...option,
     __display: (
-      <TextMark
-        searchWords={[keyword]}
-        textToHighlight={option.text}
-        caseSensitive
-      />
+      <TextMark searchWords={[keyword]} textToHighlight={option.text} />
     ),
   };
 }
@@ -156,6 +152,9 @@ const DEFAULT_LOADING = (
     />
   </div>
 );
+
+// 允许创建的临时 key
+const CREATABLE_KEY = '__ZENT_SELECT_CREATABLE_KEY__';
 
 export class Select<
   Item extends ISelectItem = ISelectItem
@@ -223,6 +222,11 @@ export class Select<
     if (item.disabled || item.type || this.disabled) {
       return;
     }
+    if (item.key === CREATABLE_KEY) {
+      this.onCreateClick();
+      return;
+    }
+
     if (this.props.multiple === false) {
       this.onVisibleChange(false);
       const { onChange } = this.props;
@@ -535,52 +539,59 @@ export class Select<
   };
 
   onCreateClick = () => {
-    const { onCreate } = this.props;
+    const { onCreate, multiple } = this.props;
     const { keyword } = this.state;
     if (onCreate) {
-      onCreate(keyword);
-      this.onVisibleChange(false);
+      onCreate(keyword.trim());
+      this.clearKeyword('');
+      !multiple && this.onVisibleChange(false);
     }
   };
 
-  renderEmpty() {
-    const { optionPlaceholder = '无搜索结果', creatable } = this.props;
-    const { keyword } = this.state;
-
-    if (creatable && keyword) {
-      return (
-        <div
-          className="zent-select-popover-create"
-          onClick={this.onCreateClick}
-        >
-          +点击新建：{keyword}
-        </div>
-      );
-    }
-
-    return <div className="zent-select-popover-empty">{optionPlaceholder}</div>;
-  }
-
-  render() {
-    const { keyword, open: visible, active, value } = this.state;
+  filteredOptions(): Item[] {
     const {
-      inline,
+      creatable,
       options,
-      renderOptionList,
-      width,
       filter = defaultFilter,
       highlight = defaultHighlight,
-      clearable,
-      multiple,
-      popupWidth,
-      loading,
     } = this.props;
+    const keyword = this.state.keyword.trim();
+
     const filtered =
       filter !== false && keyword
         ? options
             .filter(it => filter(keyword, it))
             .map(it => highlight(keyword, it))
         : options;
+
+    const createItem =
+      creatable && keyword && filtered.every(it => it.text !== keyword)
+        ? [
+            {
+              key: CREATABLE_KEY,
+              text: keyword,
+              __display: <mark>+点击新建：{keyword}</mark>,
+            },
+          ]
+        : [];
+
+    return (createItem as Item[]).concat(filtered);
+  }
+
+  render() {
+    const { keyword, open: visible, active, value } = this.state;
+    const {
+      optionPlaceholder = '无搜索结果',
+      inline,
+      renderOptionList,
+      width,
+      clearable,
+      multiple,
+      popupWidth,
+      loading,
+    } = this.props;
+
+    const filtered = this.filteredOptions();
     const notEmpty = multiple
       ? Array.isArray(value) && value.length > 0
       : !!value;
@@ -606,6 +617,7 @@ export class Select<
                 'zent-select-visible': visible,
                 'zent-select-disabled': this.disabled,
                 'zent-select-clearable': showClear,
+                'zent-select-multiple': multiple,
               })}
               style={{ width }}
             >
@@ -627,11 +639,15 @@ export class Select<
             </div>
           </Popover.Trigger.Click>
           <Popover.Content>
-            {loading
-              ? DEFAULT_LOADING
-              : filtered.length
-              ? renderOptionList(filtered, this.renderOption)
-              : this.renderEmpty()}
+            {loading ? (
+              DEFAULT_LOADING
+            ) : filtered.length ? (
+              renderOptionList(filtered, this.renderOption)
+            ) : (
+              <div className="zent-select-popover-empty">
+                {optionPlaceholder}
+              </div>
+            )}
           </Popover.Content>
         </Popover>
         <WindowEventHandler
