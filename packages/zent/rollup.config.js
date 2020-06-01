@@ -1,9 +1,6 @@
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 
-import ReactIs from 'react-is';
-import scheduler from 'scheduler';
-
 /**
  * @type {import('rollup').RollupOptions}
  */
@@ -16,18 +13,18 @@ const config = {
     globals: {
       react: 'React',
       'react-dom': 'ReactDOM',
+      'react-is': 'ReactIs',
+      scheduler: 'Scheduler',
     },
   },
-  external: ['react', 'react-dom'],
+  external: ['react', 'react-dom', 'react-is', 'scheduler'],
 
   plugins: [
     resolve(),
     commonjs({
-      include: /node_modules/,
-      namedExports: {
-        'react-is': Object.keys(ReactIs),
-        scheduler: Object.keys(scheduler),
-      },
+      include: [/node_modules/, /\/input\/TextArea/],
+      extensions: ['.js', '.ts', '.tsx'],
+      transformMixedEsModules: true,
     }),
   ],
 };
