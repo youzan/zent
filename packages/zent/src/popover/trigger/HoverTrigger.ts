@@ -155,7 +155,7 @@ function makeHoverEnterRecognizer({
 
       leave() {
         if (timerId) {
-          clearTimeout(timerId);
+          window.clearTimeout(timerId);
           timerId = undefined;
 
           state.transit(HoverState.Init);
@@ -213,7 +213,7 @@ function makeHoverLeaveRecognizer({
           }
 
           if (timerId) {
-            clearTimeout(timerId);
+            window.clearTimeout(timerId);
             timerId = undefined;
 
             state.transit(HoverState.Started);
@@ -232,7 +232,7 @@ function makeHoverLeaveRecognizer({
         }
 
         if (timerId) {
-          clearTimeout(timerId);
+          window.clearTimeout(timerId);
           timerId = undefined;
         }
 

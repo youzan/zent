@@ -3,6 +3,8 @@ import * as React from 'react';
 import * as sortableJS from 'sortablejs';
 
 import reorder from '../utils/reorder';
+import SortableJs from './sortablejs';
+import { unbox } from '../utils/alcatraz';
 
 export interface ISortableProps<T> extends sortableJS.Options {
   // zent wrapper api
@@ -31,7 +33,7 @@ export class Sortable<T> extends React.Component<ISortableProps<T>> {
       ...rest
     } = this.props;
 
-    const instance = this.containerRef.current;
+    const instance = unbox(this.containerRef.current);
     if (!instance) {
       return;
     }
@@ -64,7 +66,7 @@ export class Sortable<T> extends React.Component<ISortableProps<T>> {
       ...rest,
     };
 
-    this.sortable = sortableJS.create(instance, sortableOptions);
+    this.sortable = SortableJs.create(instance, sortableOptions);
   };
 
   destorySortableInstance() {

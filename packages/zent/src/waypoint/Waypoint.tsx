@@ -11,6 +11,7 @@ import { getCurrentPosition, WaypointPosition } from './position';
 import isBrowser from '../utils/isBrowser';
 import defer from '../utils/defer';
 import { ICancelable } from '../utils/types';
+import getComputedStyle from '../utils/dom/getComputedStyle';
 
 export interface IWaypointCallbackData {
   currentPosition: WaypointPosition;
@@ -146,7 +147,7 @@ export class Waypoint extends React.PureComponent<IWaypointProps> {
         return window;
       }
 
-      const style = window.getComputedStyle(node as Element);
+      const style = getComputedStyle(node as Element);
       const overflowDirec = horizontal
         ? style.getPropertyValue('overflow-x')
         : style.getPropertyValue('overflow-y');

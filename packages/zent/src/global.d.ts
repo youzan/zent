@@ -22,6 +22,18 @@ declare global {
   const chrome: unknown;
   const opr: unknown;
   const InstallTrigger: unknown;
+
+  /** Youzan alcatraz sandbox provide variable */
+  const alcatraz: {
+    ReactDOMYouzanShared: {
+      isYouzanDOMProxy: (obj: any) => boolean;
+      getRealDomInYouzanProxy: (obj: any) => Element;
+    };
+    zanDomUtils: {
+      createElement: typeof document.createElement;
+      createElementNS: typeof document.createElementNS;
+    };
+  };
 }
 
 export {};

@@ -3,6 +3,7 @@
 import createElement from './createElement';
 import isBrowser from '../isBrowser';
 import isFirefox from '../isFirefox';
+import getComputedStyle from './getComputedStyle';
 
 // We'll copy the properties below into the mirror div.
 // Note that some browsers, such as Firefox, do not concatenate properties
@@ -75,9 +76,7 @@ function getCaretCoordinates(
   document.body.appendChild(div);
 
   const style = div.style;
-  const computed = window.getComputedStyle
-    ? window.getComputedStyle(element)
-    : (element as any).currentStyle; // currentStyle for IE < 9
+  const computed = getComputedStyle(element);
   const isInput = element.nodeName === 'INPUT';
 
   // Default textarea styles

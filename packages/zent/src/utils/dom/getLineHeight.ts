@@ -2,6 +2,7 @@
  * Adapted from https://github.com/twolfson/line-height/blob/master/lib/line-height.js
  */
 import createElement from './createElement';
+import getComputedStyle from './getComputedStyle';
 
 export function getLineHeight(node: HTMLElement): number {
   // Grab the line-height via style
@@ -91,6 +92,6 @@ export function getLineHeight(node: HTMLElement): number {
 }
 
 function computedStyle(el: Element, prop: string) {
-  const style = window.getComputedStyle(el);
+  const style = getComputedStyle(el);
   return style.getPropertyValue(prop);
 }

@@ -17,6 +17,7 @@ import createElement from '../utils/dom/createElement';
 import { SCROLLBAR_WIDTH } from '../utils/getScrollbarWidth';
 import { setValueForStyles } from '../utils/style/CSSPropertyOperations';
 import { addEventListener } from '../utils/component/event-handler';
+import getComputedStyle from '../utils/dom/getComputedStyle';
 
 function diffStyle(prev: React.CSSProperties, next: React.CSSProperties) {
   const result: React.CSSProperties = {};
@@ -169,7 +170,7 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
       if (
         !visible ||
         !blockPageScroll ||
-        !(parent instanceof HTMLElement) ||
+        !(parent instanceof window.HTMLElement) ||
         !hasScrollbarY(parent)
       ) {
         return noop;
@@ -193,7 +194,7 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
 
         const { target } = event;
         if (
-          !(target instanceof Node) ||
+          !(target instanceof window.Node) ||
           target === node ||
           !purePortal.contains(target)
         ) {
