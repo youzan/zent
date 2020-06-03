@@ -51,6 +51,7 @@ export type IconType =
   | 'down-circle'
   | 'down-circle-o'
   | 'download'
+  | 'drag'
   | 'edit-o'
   | 'error-circle'
   | 'error-circle-o'

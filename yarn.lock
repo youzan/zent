@@ -12800,7 +12800,7 @@ yup@^0.27.0:
     synchronous-promise "^2.0.6"
     toposort "^2.0.2"
 
-zenticons@3.4.0:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/zenticons/-/zenticons-3.4.0.tgz#6d80c127d1d2e88d0c19a318517ba98f14402c8c"
-  integrity sha512-jd2LwZh29gV5ujjUH0pm0c2UElwow3z2uB3wdOOgtqmqPyDawstaHZKTak6iNadH0O6GB4QJaE2/QO/imSWjAg==
+zenticons@3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/zenticons/-/zenticons-3.5.0.tgz#103a6d7faa271f13b1e09a6c8c2febf9f00578a9"
+  integrity sha512-XremNVO/CX5vfgZ+ylAF+NFIQemuB+CpfxZQOWEUjb+jWYLSDdYe1BUsChh3PqlyS7DqELjeZTJDIucBYEXBjA==
