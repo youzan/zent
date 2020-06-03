@@ -997,6 +997,18 @@ class IconGrid extends Component {
                 <span className="zi-grid-item-name">save-o</span>
               </div>
             </CopyButton>
+            <CopyButton
+              text={this.getIconString("drag")}
+              onCopySuccess="drag 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="dragdrag"
+              >
+                <Icon type="drag" />
+                <span className="zi-grid-item-name">drag</span>
+              </div>
+            </CopyButton>
           </div>
         </div>
       
