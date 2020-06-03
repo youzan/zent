@@ -170,7 +170,7 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
       if (
         !visible ||
         !blockPageScroll ||
-        !(parent instanceof window.HTMLElement) ||
+        !(parent instanceof HTMLElement) ||
         !hasScrollbarY(parent)
       ) {
         return noop;
@@ -194,7 +194,7 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
 
         const { target } = event;
         if (
-          !(target instanceof window.Node) ||
+          !(target instanceof Node) ||
           target === node ||
           !purePortal.contains(target)
         ) {

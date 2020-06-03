@@ -3,7 +3,6 @@ import * as React from 'react';
 import * as sortableJS from 'sortablejs';
 
 import reorder from '../utils/reorder';
-import SortableJs from './sortablejs';
 import { unbox } from '../utils/alcatraz';
 
 export interface ISortableProps<T> extends sortableJS.Options {
@@ -66,7 +65,7 @@ export class Sortable<T> extends React.Component<ISortableProps<T>> {
       ...rest,
     };
 
-    this.sortable = SortableJs.create(instance, sortableOptions);
+    this.sortable = sortableJS.create(instance, sortableOptions);
   };
 
   destorySortableInstance() {

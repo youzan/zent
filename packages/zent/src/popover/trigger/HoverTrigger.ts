@@ -147,15 +147,15 @@ function makeHoverEnterRecognizer({
       enter() {
         state.transit(HoverState.Pending);
 
-        timerId = window.setTimeout(() => {
+        timerId = (setTimeout(() => {
           state.transit(HoverState.Finish);
           recognizer.uninstall();
-        }, enterDelay);
+        }, enterDelay) as unknown) as number;
       },
 
       leave() {
         if (timerId) {
-          window.clearTimeout(timerId);
+          clearTimeout(timerId);
           timerId = undefined;
 
           state.transit(HoverState.Init);
@@ -213,7 +213,7 @@ function makeHoverLeaveRecognizer({
           }
 
           if (timerId) {
-            window.clearTimeout(timerId);
+            clearTimeout(timerId);
             timerId = undefined;
 
             state.transit(HoverState.Started);
@@ -232,7 +232,7 @@ function makeHoverLeaveRecognizer({
         }
 
         if (timerId) {
-          window.clearTimeout(timerId);
+          clearTimeout(timerId);
           timerId = undefined;
         }
 

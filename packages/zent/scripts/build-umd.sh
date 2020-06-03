@@ -9,4 +9,5 @@ rm -rf umd
 $basepath/./build-theme.sh
 $basepath/./build-ts.sh
 
-rollup -c rollup.config.js
+webpack --config webpack.umd.config.js
+
