@@ -100,6 +100,22 @@ type SyncValidator<T> = (value: T, ctx: ValidatorContext<T>) => IMaybeError<T>;
 <!-- demo-slot-4 -->
 <!-- demo-slot-5 -->
 
+### 校验选项
+
+校验选项共有以下几种：
+
+- `ValidateOption.Empty`：默认行为
+- `ValidateOption.Default`：等同于`ValidateOption.Empty`
+- `ValidateOption.IncludeAsync`：校验时包含异步校验
+- `ValidateOption.IncludeUntouched`：仅对满足`!!model.touched() === true`的字段进行校验
+- `ValidateOption.IncludeChildrenRecursively`：递归校验下层的 `Field`，适用于直接从 `FieldSet` 和 `FieldArray` 触发的校验
+- `ValidateOption.ExcludePristine`：不校验没有修改过的 `Field`
+- `ValidateOption.StopPropagation`：禁止校验的冒泡行为（类似事件冒泡）
+
+校验选项是一个 `BitSet`，在自定义表单组件中，使用 `Model` 上的 `validate` 方法进行校验时，使用 `|` 运算符联合所需的选项作为参数传入即可。
+
+<!-- demo-slot-16 -->
+
 ### 校验中间件
 
 校验中间件作用于**校验函数本身**，可以把它视作用来装饰函数的装饰器；通过中间件可以为内置的校验函数提供一些额外能力；使用 `FieldUtils.compose` 可以将多个中间件组合成一个；
