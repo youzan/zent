@@ -1,10 +1,10 @@
-import { unbox } from '../alcatraz';
+import { unboxDOMNode } from '../alcatraz';
 
 function getComputedStyle(
   el: Element,
   pseudoElt?: string
 ): CSSStyleDeclaration {
-  el = unbox(el);
+  el = unboxDOMNode(el);
   if (window.getComputedStyle) {
     const styleDeclaration = window.getComputedStyle(el, pseudoElt);
     return styleDeclaration;

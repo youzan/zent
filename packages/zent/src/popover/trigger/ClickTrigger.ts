@@ -1,5 +1,6 @@
 import Trigger, { IPopoverTriggerProps } from './Trigger';
 import { addEventListener } from '../../utils/component/event-handler';
+import { boxDOMNode } from '../../utils/alcatraz';
 
 export interface IPopoverClickTriggerProps extends IPopoverTriggerProps {
   autoClose?: boolean;
@@ -22,7 +23,7 @@ export default class PopoverClickTrigger<
     }
 
     const { target } = evt;
-    if (this.props.isOutsideStacked(target)) {
+    if (this.props.isOutsideStacked(boxDOMNode(target))) {
       this.props.close();
     }
   };

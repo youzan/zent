@@ -1,9 +1,9 @@
 import createElement from '../utils/dom/createElement';
-import { unbox } from '../utils/alcatraz';
+import { unboxDOMNode } from '../utils/alcatraz';
 
 export function getNodeFromSelector(selector: string | Element): Element {
   if (selector instanceof Element) {
-    return unbox(selector);
+    return unboxDOMNode(selector);
   }
   if (typeof selector === 'string') {
     const node = document.querySelector(selector);

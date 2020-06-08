@@ -10,7 +10,7 @@ const config = {
     filename: 'zent.umd.js',
     path: path.resolve(__dirname, './umd'),
     libraryTarget: 'umd',
-    library: 'zent',
+    library: 'Zent',
     globalObject: 'this',
   },
   externals: {

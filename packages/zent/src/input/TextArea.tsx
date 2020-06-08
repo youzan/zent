@@ -4,7 +4,7 @@ const autosize = require('autosize'); // eslint-disable-line import/no-commonjs
 import noop from '../utils/noop';
 import { ITextAreaProps } from './types';
 import { createUseIMEComposition } from '../ime-composition';
-import { unbox } from '../utils/alcatraz';
+import { unboxDOMNode } from '../utils/alcatraz';
 
 export interface ITextAreaState {
   hasFocus: boolean;
@@ -49,7 +49,9 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, ITextAreaProps>(
       if (!autoSize) {
         return noop;
       }
-      const el = unbox((ref as React.RefObject<HTMLTextAreaElement>).current);
+      const el = unboxDOMNode(
+        (ref as React.RefObject<HTMLTextAreaElement>).current
+      );
       if (!el) {
         return noop;
       }
