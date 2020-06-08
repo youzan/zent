@@ -12,16 +12,16 @@ import { trimLeadingPlus } from './utils';
 
 export interface INumberInputCommonProps
   extends Omit<IInputCoreProps, 'onChange' | 'type' | 'value' | 'onInput'> {
-  type: 'number';
+  type?: 'number';
   showStepper?: boolean;
   showCounter?: boolean;
 }
 
 export interface INumberInputDecimalProps extends INumberInputCommonProps {
-  integer: false;
+  integer?: false;
   value?: string | number;
   onChange?: (value: string) => void;
-  decimal: number;
+  decimal?: number;
   onInput?: (value: string) => void;
   min?: number | string;
 }
