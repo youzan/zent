@@ -5268,7 +5268,7 @@ format@^0.2.2:
   resolved "https://registry.yarnpkg.com/format/-/format-0.2.2.tgz#d6170107e9efdc4ed30c9dc39016df942b5cb58b"
   integrity sha1-1hcBB+nv3E7TDJ3DkBbflCtctYs=
 
-formulr@~0.3.2:
+formulr@~0.3.3:
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/formulr/-/formulr-0.3.3.tgz#3bfa07de8c653b524da4099e3fe8f3fd3b3246a0"
   integrity sha512-K6StQ0n6Am1OUOGGoU+7pf7C0kE6pCBOj5z6m2PkK69YlMkEXNCirYV5SyB37AQB+GO7lc2wnlTIBrUHG85Mrw==
