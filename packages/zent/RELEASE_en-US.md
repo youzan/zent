@@ -8,6 +8,15 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 8.5.1(2020-06-10)
+
+- ✨ `Tooltip` now passes `display` prop to `Popover`
+- ✨ New icon: `drag`
+- 🦀️ Update `Dialog` TypeScript definition
+- 🦀️ Fix `NumberInput` TypeScript definition
+- 🦀️ Fix `Form` warning in React >= 16.13
+- 📚 More docs on `Form` `ValidateOption`
+
 ### 7.4.4(2020-05-11)
 
 - 🦀️ Fix a state bug in `NumberInput`
