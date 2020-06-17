@@ -20,7 +20,7 @@ import {
 import { setLocale, zhCN } from './time-locale';
 
 const common: II18nLocaleCommon = {
-  confirm: '确认',
+  confirm: '确定',
   cancel: '取消',
   ok: '我知道了',
   comma: '，',
@@ -131,7 +131,7 @@ export const TimePicker: I18nLocaleTimePicker = () => {
     endTime: '结束时间',
     to: '至',
     current: {
-      time: '此刻',
+      time: '当前时间',
       date: '今天',
       week: '本周',
       month: '当前月',
@@ -141,6 +141,7 @@ export const TimePicker: I18nLocaleTimePicker = () => {
       hour: '时',
       minute: '分',
       second: '秒',
+      year: '年',
       hourSelect: '选择小时',
       minuteSelect: '选择分钟',
       secondSelect: '选择秒',

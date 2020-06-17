@@ -147,6 +147,7 @@ export const TimePicker: I18nLocaleTimePicker = () => {
       hour: '',
       minute: '',
       second: '',
+      year: '',
       hourSelect: 'Choose hours',
       minuteSelect: 'Choose minutes',
       secondSelect: 'Choose seconds',

@@ -1,0 +1,375 @@
+@import './theme/font';
+@import './theme/default';
+
+@mixin panel-common {
+  @include theme-color(background-color, stroke, 9);
+  border-radius: 2px;
+  box-shadow: $shadow-spec-layer;
+  z-index: 10;
+}
+
+@mixin panel-footer-common {
+  @include theme-color(border-top-color, stroke, 6);
+  border-top-width: 1px;
+  border-top-style: solid;
+  box-sizing: border-box;
+  display: flex;
+  line-height: 32px;
+  padding: 8px 12px;
+}
+
+.zent-date-picker {
+  box-sizing: border-box;
+  display: inline-block;
+  line-height: normal;
+  position: relative;
+
+  &-seperator {
+    margin: 0 8px;
+  }
+
+  .zenticon {
+    @include theme-color(color, stroke, 4);
+    line-height: 32px;
+    position: absolute;
+    right: 10px;
+    top: 0;
+  }
+
+  .zent-input {
+    cursor: pointer;
+    font-size: 14px;
+  }
+
+  .zenticon-calendar-o {
+    display: block;
+  }
+
+  .zenticon-clock-o {
+    display: block;
+  }
+
+  .zenticon-close-circle {
+    display: none;
+  }
+
+  &-can-clear {
+    &:hover {
+      .zenticon-close-circle {
+        display: block;
+      }
+
+      .zenticon-calendar-o {
+        display: none;
+      }
+
+      .zenticon-clock-o {
+        display: none;
+      }
+    }
+  }
+
+  &-disabled {
+    @include theme-color(border-color, stroke, 6);
+    @include theme-color(background-color, stroke, 8);
+    @include theme-color(color, stroke, 4);
+    cursor: not-allowed;
+  }
+
+  &-combined-trigger {
+    @include theme-color(border-color, stroke, 5);
+    display: flex;
+    align-items: center;
+    height: 32px;
+    padding: 0 10px;
+    width: 360px;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 2px;
+
+    &-input {
+      @include theme-color(color, stroke, 1);
+      border: 0;
+      min-width: 60px;
+      padding: 0;
+      outline: none;
+      font-size: 14px;
+      line-height: 31px;
+    }
+
+    &-input::placeholder {
+      @include theme-color(color, stroke, 4);
+    }
+
+    &-empty-input {
+      @include theme-color(color, stroke, 4);
+    }
+
+    &-seperator {
+      @include theme-color(color, stroke, 4);
+      margin: 0 8px;
+      line-height: 31px;
+    }
+
+    &-focus {
+      @include theme-color(border-color, primary, 4);
+      box-shadow: $shadow-spec-focus;
+    }
+  }
+
+  &-panel {
+    @include panel-common;
+    width: 280px;
+    cursor: pointer;
+
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      line-height: 24px;
+      padding: 16px;
+      align-items: center;
+
+      &-title {
+        display: flex;
+        font-weight: $font-weight-medium;
+        font-size: $font-size-large;
+
+        &_clickable {
+          &:hover {
+            @include theme-color(color, primary, 5);
+            cursor: pointer;
+          }
+
+          &:nth-child(2) {
+            margin-left: 4px;
+          }
+        }
+      }
+    }
+
+    &-sub_header {
+      @include theme-color(color, stroke, 3);
+      display: flex;
+      justify-content: space-between;
+      padding: 0 24px;
+      cursor: pointer;
+    }
+
+    &-body-cells {
+      padding: 12px;
+
+      &_row {
+        display: flex;
+        justify-content: center;
+      }
+
+      &_item {
+        text-align: center;
+        padding: 0 6px;
+        margin: 4px 0;
+        cursor: pointer;
+      }
+
+      .zent-date-picker-cell-inner {
+        width: 24px;
+        height: 24px;
+        box-sizing: border-box;
+        line-height: 24px;
+      }
+
+      &_current {
+        .zent-date-picker-cell-inner {
+          @include theme-color(border-color, primary, 4);
+          @include theme-color(color, primary, 4);
+          border-radius: 2px;
+          border-width: 1px;
+          border-style: solid;
+        }
+      }
+
+      &_selected {
+        .zent-date-picker-cell-inner {
+          @include theme-color(background-color, primary, 4);
+          @include theme-color(color, stroke, 9);
+          border-radius: 2px;
+        }
+      }
+
+      &_in_range {
+        @include theme-color(background-color, primary, 8);
+      }
+
+      &_hover {
+        .zent-date-picker-cell-inner:hover {
+          @include theme-color(background-color, primary, 8);
+          border-radius: 2px;
+        }
+      }
+
+      &_over,
+      &_disabled {
+        @include theme-color(background-color, stroke, 9);
+
+        .zent-date-picker-cell-inner {
+          @include theme-color(color, stroke, 4);
+        }
+      }
+
+      &_disabled:hover {
+        cursor: not-allowed;
+      }
+
+      &_disabled.zent-date-picker-panel-body-cells_current {
+        .zent-date-picker-cell-inner {
+          @include theme-color(color, stroke, 4);
+          @include theme-color(border-color, stroke, 4);
+          border-radius: 2px;
+          border-width: 1px;
+          border-style: solid;
+        }
+      }
+    }
+
+    &-footer {
+      @include panel-footer-common;
+      justify-content: space-between;
+      align-items: center;
+      flex-flow: row-reverse;
+
+      &-input {
+        width: 94px;
+      }
+
+      &-btn {
+        margin-left: 12px;
+      }
+
+      &_diabled-current {
+        @include theme-color(color, stroke, 4);
+      }
+    }
+
+    .zenticon {
+      @include theme-color(color, stroke, 3);
+    }
+  }
+
+  &-time-panel {
+    &-body {
+      display: flex;
+
+      &_scroll {
+        @include theme-color(border-right-color, stroke, 5);
+        border-right-width: 1px;
+        border-right-style: solid;
+        flex: 1;
+        height: 288px;
+        overflow-y: scroll;
+      }
+
+      &_scroll:first-child {
+        border-top-left-radius: 2px;
+        border-bottom-left-radius: 2px;
+      }
+
+      &_scroll:last-child {
+        border-top-right-radius: 2px;
+        border-bottom-right-radius: 2px;
+        border: 0;
+      }
+
+      &_scroll::after {
+        content: '';
+        display: block;
+        height: 256px;
+      }
+
+      &-unit {
+        height: 32px;
+        text-align: center;
+        line-height: 32px;
+        cursor: pointer;
+
+        &_selected {
+          @include theme-color(background-color, stroke, 7);
+          font-weight: $font-weight-medium;
+        }
+
+        &_disabled {
+          @include theme-color(color, stroke, 4);
+        }
+
+        &_disabled:hover {
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+
+  &-combined-panel {
+    @include panel-common;
+    width: 542px;
+    display: flex;
+    flex-direction: column;
+
+    &-body {
+      display: flex;
+
+      &-item {
+        flex: 1;
+      }
+
+      &-item:last-child {
+        margin-left: -12px;
+      }
+    }
+
+    &-footer {
+      @include panel-footer-common;
+
+      &-item,
+      &-seperator {
+        margin: 0 4px;
+      }
+
+      &-seperator,
+      &-null {
+        @include theme-color(color, stroke, 4);
+      }
+
+      &-confirm {
+        position: absolute;
+        right: 16px;
+      }
+    }
+  }
+
+  &-ym-panel-body {
+    .zent-date-picker-panel-body-cells {
+      padding: 10px 24px 34px;
+
+      .zent-date-picker-cell-inner {
+        width: 64px;
+        height: 32px;
+        line-height: 32px;
+        margin: 12px 0;
+      }
+    }
+  }
+
+  &-quarter-panel-body {
+    .zent-date-picker-panel-body-cells {
+      padding: 30px 20px;
+
+      &_item {
+        margin: 20px 10px;
+
+        .zent-date-picker-cell-inner {
+          width: 92px;
+          height: 36px;
+          line-height: 36px;
+        }
+      }
+    }
+  }
+}

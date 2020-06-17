@@ -1,0 +1,95 @@
+import {
+  isSameDay,
+  isSameWeek,
+  isSameMonth,
+  isSameQuarter,
+  isSameYear,
+  isAfter,
+  isBefore,
+  startOfDay,
+  endOfDay,
+  startOfWeek,
+  endOfWeek,
+  startOfMonth,
+  endOfMonth,
+  startOfQuarter,
+  endOfQuarter,
+  startOfYear,
+  endOfYear,
+  addDays,
+  addMonths,
+  addQuarters,
+  addYears,
+  setDate,
+  getDate,
+  setWeek,
+  getWeek,
+  setMonth,
+  getMonth,
+  setQuarter,
+  getQuarter,
+  setYear,
+  getYear,
+} from 'date-fns';
+
+export const CommonDateMap = {
+  getCurrent: () => new Date(),
+  getToday: () => {
+    const NOW = new Date();
+    return new Date(NOW.getFullYear(), NOW.getMonth(), NOW.getDate());
+  },
+  getDate: (date: Date) => new Date(date).getDate(),
+  getYear: (date: Date) => new Date(date).getFullYear(),
+  getMonth: (date: Date) => new Date(date).getMonth(),
+  getHour: (date: Date) => new Date(date).getHours(),
+  getMinute: (date: Date) => new Date(date).getMinutes(),
+  getSecond: (date: Date) => new Date(date).getSeconds(),
+  isBefore,
+  isAfter,
+};
+
+export const generateDateConfig = {
+  date: {
+    set: setDate,
+    get: getDate,
+    offsetDate: addDays,
+    isSame: isSameDay,
+    startDate: startOfDay,
+    endDate: endOfDay,
+    circleEndDate: endOfMonth,
+  },
+  week: {
+    set: setWeek,
+    get: getWeek,
+    offsetDate: addDays,
+    isSame: isSameWeek,
+    startDate: startOfWeek,
+    endDate: endOfWeek,
+  },
+  month: {
+    set: setMonth,
+    get: getMonth,
+    offsetDate: addMonths,
+    isSame: (dateLeft, dateRight) =>
+      isSameYear(dateLeft, dateRight) && isSameMonth(dateLeft, dateRight),
+    startDate: startOfMonth,
+    endDate: endOfMonth,
+  },
+  quarter: {
+    set: setQuarter,
+    get: getQuarter,
+    offsetDate: addQuarters,
+    isSame: (dateLeft, dateRight) =>
+      isSameYear(dateLeft, dateRight) && isSameQuarter(dateLeft, dateRight),
+    startDate: startOfQuarter,
+    endDate: endOfQuarter,
+  },
+  year: {
+    set: setYear,
+    get: getYear,
+    offsetDate: addYears,
+    isSame: isSameYear,
+    startDate: startOfYear,
+    endDate: endOfYear,
+  },
+};
