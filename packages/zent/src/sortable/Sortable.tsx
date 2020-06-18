@@ -115,15 +115,18 @@ export class Sortable<T> extends React.Component<ISortableProps<T>> {
       dragClass: `zent-drag`,
       fallbackClass: `zent-fallback`,
       onMove: boxFnArgs(
-        (e: sortableJS.MoveEvent) => {
+        (e: sortableJS.MoveEvent, originalEvent: MouseEvent) => {
           if (onMove) {
-            return onMove(e);
+            return onMove(e, originalEvent);
           }
-          return filterClass
-            ? !e.related.classList.contains(filterClass)
-            : true;
+
+          if (filterClass && e.related.classList.contains(filterClass)) {
+            return false;
+          }
+
+          return 1;
         },
-        [boxSortableMoveEvent]
+        [boxSortableMoveEvent, boxNativeEvent]
       ),
       onEnd: boxFnArgs(
         (e: sortableJS.SortableEvent) => {
@@ -141,7 +144,6 @@ export class Sortable<T> extends React.Component<ISortableProps<T>> {
         },
         [boxSortableEvent]
       ),
-
       ...rest,
     };
 
