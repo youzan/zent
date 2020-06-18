@@ -64,6 +64,14 @@ export interface ISingleDatePanelProps {
   onChangePanel?: (type: IPickerType) => void;
 }
 
+export type ISingleDateBodyProps = Pick<
+  ISingleDatePanelProps,
+  | 'selected'
+  | 'hoverDate'
+  | 'defaultPanelDate'
+  | 'onSelected'
+  | 'disabledPanelDate'
+>;
 // **** CombinedPicker ****
 export interface IRangeTriggerProps {
   value: SingleDate;

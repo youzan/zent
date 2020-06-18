@@ -3,13 +3,14 @@ import { FC, useContext } from 'react';
 import I18nLocaleContext from '../../context/I18nLocaleContext';
 import PanelCell from '../../components/PanelCell';
 import useCellsData from '../../hooks/useCellsData';
-import { ISingleDatePanelProps } from '../../types';
+import { ISingleDateBodyProps } from '../../types';
 import { setMonth } from 'date-fns';
 
 const COL_COUNT = 3;
 const ROW_COUNT = 4;
 
-const MonthPickerBody: FC<ISingleDatePanelProps> = ({
+interface IMonthPickerBodyProps extends ISingleDateBodyProps {}
+const MonthPickerBody: FC<IMonthPickerBodyProps> = ({
   defaultPanelDate,
   onSelected,
   selected,

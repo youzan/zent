@@ -3,13 +3,14 @@ import I18nLocaleContext from '../../context/I18nLocaleContext';
 import PanelCell from '../../components/PanelCell';
 import useCellsData from '../../hooks/useCellsData';
 
-import { ISingleDatePanelProps } from '../../types';
+import { ISingleDateBodyProps } from '../../types';
 import { setQuarter } from 'date-fns';
 
 const COL_COUNT = 2;
 const ROW_COUNT = 2;
 
-const QuarterPickerBody: React.FC<ISingleDatePanelProps> = ({
+interface IQuarterPickerBodyProps extends ISingleDateBodyProps {}
+const QuarterPickerBody: React.FC<IQuarterPickerBodyProps> = ({
   defaultPanelDate,
   onSelected,
   selected,

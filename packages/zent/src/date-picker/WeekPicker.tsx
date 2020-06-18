@@ -1,5 +1,4 @@
 import WithSinglePicker from './components/WithSinglePicker';
-import WeekPickerPanel from './panels/week-panel';
 import { IDatePickerCommonProps } from './types';
 
 interface IWeekPickerProps extends IDatePickerCommonProps {
@@ -13,7 +12,6 @@ const DefaultWeekPickerProps = {
   weekStartsOn: 1,
 };
 export const WeekPicker = WithSinglePicker<IWeekPickerProps>(
-  WeekPickerPanel,
   DefaultWeekPickerProps,
   'week'
 );

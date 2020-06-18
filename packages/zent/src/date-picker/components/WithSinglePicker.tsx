@@ -27,12 +27,10 @@ type ISinglePickerProps = IDatePickerCommonProps &
   Pick<ISingleTriggerProps, 'placeholder'>;
 
 export default function WithSinglePicker<P = {}>(
-  ContentComponent: React.ComponentType<any>,
-  defaultProps: any,
+  defaultProps: Partial<P & ISinglePickerProps>,
   type: IPickerType
 ) {
   const SinglePicker: React.FC<P & ISinglePickerProps> = props => {
-    // props
     const {
       value,
       onChange,
@@ -43,7 +41,6 @@ export default function WithSinglePicker<P = {}>(
       placeholder,
       className,
       valueType = 'string',
-      // TODO <Disabled />
       disabled = false,
       canClear = true,
       openPanel,
@@ -79,6 +76,7 @@ export default function WithSinglePicker<P = {}>(
     const hoverRangeDate = useWeekRange(hoverDate, type, resetProps);
     const rangeDate = useWeekRange(selected, type, resetProps);
 
+    /* ***************  change panel start *************** */
     // 当前面板类型
     const [panelType, setPanelType] = React.useState<IPickerType>(type);
     // 当前面板组件
@@ -89,8 +87,13 @@ export default function WithSinglePicker<P = {}>(
     const onChangePanel = type => {
       setPanelType(type);
     };
-    // onSelected 选择日期
-    // finish: 标识是否完成全部选择，处理清空、日期时间等特殊清空
+    /* *************** change panel end  *************** */
+
+    /**
+     * onSelected 选择日期 触发onChange回调
+     * @param finish {boolean} 标识是否完成全部选择，处理清空、日期时间等特殊清空
+     *
+     */
     const onSelected = React.useCallback(
       (val: Date, finish = true) => {
         const { set, get } = generateDateConfig[panelType];
@@ -99,18 +102,17 @@ export default function WithSinglePicker<P = {}>(
           type,
           resetProps
         );
-
-        // 当前面板不为最小单元面板
+        // 当前面板为非最小单元选择面板
         if (panelType !== type) {
           setDefaultPanelDate(set(defaultPanelDate, get(val)));
           setPanelType(type);
           return;
-        } else {
-          // 周、月、年组件的value为数组
-          setSelected(
-            Array.isArray(selectedValue) ? selectedValue[0] : selectedValue
-          );
         }
+
+        // 周、月、年组件的value为数组
+        setSelected(
+          Array.isArray(selectedValue) ? selectedValue[0] : selectedValue
+        );
 
         if (finish) {
           // 计算回调的返回值

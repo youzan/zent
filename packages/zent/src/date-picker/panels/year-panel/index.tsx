@@ -5,7 +5,10 @@ import YearPanelBody from './YearBody';
 
 import { ISingleDatePanelProps } from '../../types';
 
-const YearPickerPanel: React.FC<ISingleDatePanelProps> = props => {
+const YearPickerPanel: React.FC<Omit<
+  ISingleDatePanelProps,
+  'rangeDate' | 'hoverRangeDate'
+>> = props => {
   const { defaultPanelDate } = props;
   const tempYear = defaultPanelDate.getFullYear();
   const [page, setPage] = useState<number>(Math.floor((tempYear - 1840) / 12));

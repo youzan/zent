@@ -1,5 +1,4 @@
 import WithSinglePicker from './components/WithSinglePicker';
-import MonthPickerPanel from './panels/month-panel';
 import { IDatePickerCommonProps } from './types';
 
 interface IMonthPickerProps extends IDatePickerCommonProps {
@@ -10,7 +9,6 @@ const DefaultMonthPickerProps = {
   format: 'YYYY-MM',
 };
 export const MonthPicker = WithSinglePicker<IMonthPickerProps>(
-  MonthPickerPanel,
   DefaultMonthPickerProps,
   'month'
 );

@@ -44,7 +44,7 @@ export default function useCellsData({
       // constants text or fetch text
       const text = texts ? texts[index] : getDate(currentDate);
 
-      /* ============ week-picker & combined-picker ============ */
+      /* *************** week-picker & combined-picker start  *************** */
       let isInHoverRange = false;
       let isRangeEndpoint = false;
       let isInRange = false;
@@ -64,6 +64,7 @@ export default function useCellsData({
           isSame(currentDate, rangeDate[0]) ||
           isSame(currentDate, rangeDate[1]);
       }
+      /* *************** week-picker & combined-picker end  *************** */
 
       // isSelected
       const isSelected =

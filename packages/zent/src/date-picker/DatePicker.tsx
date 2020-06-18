@@ -1,5 +1,4 @@
 import WithSinglePicker from './components/WithSinglePicker';
-import DatePickerPanel from './panels/date-panel';
 import { IDatePickerCommonProps } from './types';
 
 interface IDatePickerProps extends IDatePickerCommonProps {
@@ -12,7 +11,6 @@ const DefaultDatePickerProps = {
 };
 
 export const DatePicker = WithSinglePicker<IDatePickerProps>(
-  DatePickerPanel,
   DefaultDatePickerProps,
   'date'
 );

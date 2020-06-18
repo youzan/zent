@@ -43,7 +43,7 @@ const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
   );
 
   return (
-    <div className={prefixCls}>
+    <>
       <div className={`${prefixCls}-body`}>
         <div className={`${prefixCls}-body-item`}>
           <DatePanel
@@ -68,7 +68,7 @@ const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
         </div>
       </div>
       {showTime && FooterNode}
-    </div>
+    </>
   );
 };
 export default CombinedDateRangePanel;

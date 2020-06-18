@@ -40,6 +40,6 @@ const MonthPickerPanel: React.FC<ISingleDatePanelProps> = props => {
     </>
   );
 
-  return <>{MonthPanelNode}</>;
+  return MonthPanelNode;
 };
 export default MonthPickerPanel;

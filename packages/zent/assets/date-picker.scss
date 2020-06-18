@@ -1,8 +1,26 @@
 @import './theme/font';
 @import './theme/default';
 
-@mixin panel-common {
+@mixin gray-color {
+  @include theme-color(color, stroke, 4);
+}
+
+@mixin blue-bgcolor {
+  @include theme-color(background-color, primary, 8);
+}
+
+@mixin gray-bgcolor {
   @include theme-color(background-color, stroke, 9);
+}
+
+@mixin border-with-radius {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 2px;
+}
+
+@mixin panel-common {
+  @include gray-bgcolor;
   border-radius: 2px;
   box-shadow: $shadow-spec-layer;
   z-index: 10;
@@ -29,7 +47,7 @@
   }
 
   .zenticon {
-    @include theme-color(color, stroke, 4);
+    @include gray-color;
     line-height: 32px;
     position: absolute;
     right: 10px;
@@ -41,10 +59,7 @@
     font-size: 14px;
   }
 
-  .zenticon-calendar-o {
-    display: block;
-  }
-
+  .zenticon-calendar-o,
   .zenticon-clock-o {
     display: block;
   }
@@ -59,10 +74,7 @@
         display: block;
       }
 
-      .zenticon-calendar-o {
-        display: none;
-      }
-
+      .zenticon-calendar-o,
       .zenticon-clock-o {
         display: none;
       }
@@ -72,20 +84,18 @@
   &-disabled {
     @include theme-color(border-color, stroke, 6);
     @include theme-color(background-color, stroke, 8);
-    @include theme-color(color, stroke, 4);
+    @include gray-color;
     cursor: not-allowed;
   }
 
   &-combined-trigger {
     @include theme-color(border-color, stroke, 5);
+    @include border-with-radius;
     display: flex;
     align-items: center;
     height: 32px;
     padding: 0 10px;
     width: 360px;
-    border-width: 1px;
-    border-style: solid;
-    border-radius: 2px;
 
     &-input {
       @include theme-color(color, stroke, 1);
@@ -98,21 +108,21 @@
     }
 
     &-input::placeholder {
-      @include theme-color(color, stroke, 4);
+      @include gray-color;
     }
 
     &-empty-input {
-      @include theme-color(color, stroke, 4);
+      @include gray-color;
     }
 
     &-seperator {
-      @include theme-color(color, stroke, 4);
+      @include gray-color;
       margin: 0 8px;
       line-height: 31px;
     }
 
     &-focus {
-      @include theme-color(border-color, primary, 4);
+      border-color: $theme-primary-4;
       box-shadow: $shadow-spec-focus;
     }
   }
@@ -179,39 +189,39 @@
 
       &_current {
         .zent-date-picker-cell-inner {
-          @include theme-color(border-color, primary, 4);
-          @include theme-color(color, primary, 4);
-          border-radius: 2px;
-          border-width: 1px;
-          border-style: solid;
-        }
-      }
-
-      &_selected {
-        .zent-date-picker-cell-inner {
-          @include theme-color(background-color, primary, 4);
-          @include theme-color(color, stroke, 9);
-          border-radius: 2px;
+          @include border-with-radius;
+          color: $theme-primary-4;
+          border-color: $theme-primary-4;
         }
       }
 
       &_in_range {
-        @include theme-color(background-color, primary, 8);
+        @include blue-bgcolor;
+      }
+
+      &_selected {
+        @include gray-bgcolor;
+
+        .zent-date-picker-cell-inner {
+          @include theme-color(color, stroke, 9);
+          border-radius: 2px;
+          background-color: $theme-primary-4;
+        }
       }
 
       &_hover {
         .zent-date-picker-cell-inner:hover {
-          @include theme-color(background-color, primary, 8);
+          @include blue-bgcolor;
           border-radius: 2px;
         }
       }
 
       &_over,
       &_disabled {
-        @include theme-color(background-color, stroke, 9);
+        @include gray-bgcolor;
 
         .zent-date-picker-cell-inner {
-          @include theme-color(color, stroke, 4);
+          @include gray-color;
         }
       }
 
@@ -221,12 +231,14 @@
 
       &_disabled.zent-date-picker-panel-body-cells_current {
         .zent-date-picker-cell-inner {
-          @include theme-color(color, stroke, 4);
+          @include gray-color;
+          @include border-with-radius;
           @include theme-color(border-color, stroke, 4);
-          border-radius: 2px;
-          border-width: 1px;
-          border-style: solid;
         }
+      }
+
+      &_in_range.zent-date-picker-panel-body-cells_over {
+        @include blue-bgcolor;
       }
     }
 
@@ -245,7 +257,7 @@
       }
 
       &_diabled-current {
-        @include theme-color(color, stroke, 4);
+        @include gray-color;
       }
     }
 
@@ -296,7 +308,7 @@
         }
 
         &_disabled {
-          @include theme-color(color, stroke, 4);
+          @include gray-color;
         }
 
         &_disabled:hover {
@@ -334,7 +346,7 @@
 
       &-seperator,
       &-null {
-        @include theme-color(color, stroke, 4);
+        @include gray-color;
       }
 
       &-confirm {

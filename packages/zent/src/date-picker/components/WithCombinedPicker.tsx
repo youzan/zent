@@ -81,6 +81,7 @@ export default function WithCombinedPicker<P>(
       [selected]
     );
 
+    /* *************** change panel start  *************** */
     // 当前面板类型
     const [panelType, setPanelType] = React.useState<IPickerType>();
     // 当前面板组件
@@ -92,10 +93,16 @@ export default function WithCombinedPicker<P>(
     const onChangePanel = type => {
       setPanelType(type);
     };
+    /* *************** change panel end  *************** */
 
-    // onSelected 选择日期
+    /**
+     * onSelected 选择日期 触发onChange回调
+     * @param finish {boolean} 标识是否完成全部选择，处理清空、日期时间等特殊清空
+     *
+     */
     const onSelected = React.useCallback(
       (val, finish = false) => {
+        // 当前面板为非最小单元选择面板
         if (panelType) {
           const { set, get } = generateDateConfig[panelType];
           setDefaultPanelDate([
@@ -105,6 +112,7 @@ export default function WithCombinedPicker<P>(
           setPanelType(null);
           return;
         }
+
         setSelected([val[0], val[1]]);
         // 日期范围选择结束、手动触发清空操作
         if (finish && val[0] && val[1]) {
@@ -139,16 +147,22 @@ export default function WithCombinedPicker<P>(
     const renderContent = () => {
       const ContentNode = PanelComponent || ContentComponent;
       return (
-        <div className={panelType ? 'zent-date-picker-panel' : ''}>
+        <div
+          className={
+            panelType
+              ? 'zent-date-picker-panel'
+              : 'zent-date-picker-combined-panel'
+          }
+        >
           <ContentNode
             {...resetProps}
-            selected={PanelComponent ? selected[0] : selected}
+            selected={panelType ? selected[0] : selected}
             defaultPanelDate={
-              PanelComponent ? defaultPanelDate[0] : defaultPanelDate
+              panelType ? defaultPanelDate[0] : defaultPanelDate
             }
             onSelected={onSelected}
             disabledPanelDate={
-              PanelComponent ? disabledPanelDate[0] : disabledPanelDate
+              panelType ? disabledPanelDate[0] : disabledPanelDate
             }
             hoverDate={hoverDate}
             hoverRangeDate={hoverRangeDate}

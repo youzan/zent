@@ -3,13 +3,13 @@ import PanelCell from '../../components/PanelCell';
 import I18nLocaleContext from '../../context/I18nLocaleContext';
 import useCellsData from '../../hooks/useCellsData';
 
-import { ISingleDatePanelProps } from '../../types';
+import { ISingleDateBodyProps } from '../../types';
 import { setYear } from 'date-fns/esm';
 
 const COL_COUNT = 3;
 const ROW_COUNT = 4;
 
-interface IYearPickerBodyProps extends ISingleDatePanelProps {
+interface IYearPickerBodyProps extends ISingleDateBodyProps {
   firstYear: number;
 }
 const YearPickerBody: React.FC<IYearPickerBodyProps> = ({
