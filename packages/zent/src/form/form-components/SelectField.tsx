@@ -24,7 +24,7 @@ import { defaultGetValidateOption } from '../Field';
 
 export type IFormSelectFieldProps<T> = IFormComponentProps<
   T | T[],
-  Omit<ISelectProps, 'value' | 'onChange'>
+  Omit<ISelectProps, 'value' | 'onChange' | 'onDelete'>
 >;
 
 /**
@@ -100,6 +100,25 @@ export const FormSelectField: React.FunctionComponent<IFormSelectFieldProps<
     },
     [model, validateOccasion, getValidateOption]
   );
+
+  const onDelete = React.useCallback(
+    (item: { value: unknown }) => {
+      if (propsRef.current.props?.tags) {
+        const selected = model.value || [];
+        if (selected.includes(item.value)) {
+          model.value = selected.filter((it: unknown) => it !== item.value);
+        }
+      } else {
+        model.value = null;
+      }
+      if (validateOccasion & ValidateOccasion.Change) {
+        model.validate(getValidateOption('change'));
+      }
+      model.isTouched = true;
+    },
+    [getValidateOption, model, validateOccasion]
+  );
+
   return (
     <FormControl
       ref={anchorRef}
@@ -114,6 +133,7 @@ export const FormSelectField: React.FunctionComponent<IFormSelectFieldProps<
         {before}
         <Select
           {...(props.props as Omit<ISelectProps, 'value' | 'onChange'>)}
+          onDelete={onDelete}
           onChange={onChange}
           value={model.value}
         >
