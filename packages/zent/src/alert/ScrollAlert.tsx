@@ -70,6 +70,7 @@ type IScrollAlertInnerProps = PartialRequired<
   'loading' | 'scrollInterval' | 'onClose' | 'closed'
 >;
 const OmitDivAttr = ['loading', 'scrollInterval', 'onClose', 'closed'] as const;
+const { count } = Children;
 
 export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
   static defaultProps = {
@@ -92,11 +93,12 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
   // 第一个子节点的高度
   firstChildHeight = 0;
 
+  // 为实现在渲染前拿到 firstChildHeight
   static getDerivedStateFromProps(
     nextProps: IScrollAlertProps,
     { preChildren }: IState
   ) {
-    if (nextProps.children !== preChildren) {
+    if (count(nextProps.children) !== count(preChildren)) {
       return getRenderChildrenFromProps(nextProps.children);
     }
     return null;
@@ -110,7 +112,8 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.children !== this.props.children) {
+    // children length变化的时候重置渲染
+    if (count(prevProps.children) !== count(this.props.children)) {
       this.clearTimer();
       this.setState(
         { activeIndex: 0, containerHeight: this.firstChildHeight },
