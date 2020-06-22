@@ -30,7 +30,7 @@ export type IFormSelectFieldProps<T> = IFormComponentProps<
  * temporary dirty code.
  */
 export function FormSelectField<T>(props: IFormSelectFieldProps<T>) {
-  let model: FieldModel<any>;
+  let model: FieldModel<T | T[]>;
   const { name, model: rawModel } = props as IFormFieldViewDrivenProps<T> &
     IFormFieldModelDrivenProps<T>;
   if (name) {
@@ -50,11 +50,11 @@ export function FormSelectField<T>(props: IFormSelectFieldProps<T>) {
       ]);
     }
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    model = useField<any>(name, defaultValue, validators);
+    model = useField<T>(name, defaultValue, validators);
     model.destroyOnUnmount = Boolean(destroyOnUnmount);
   } else {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    model = useField<any>(rawModel);
+    model = useField<T>(rawModel);
   }
   const propsRef = React.useRef(props);
   propsRef.current = props;
@@ -79,7 +79,7 @@ export function FormSelectField<T>(props: IFormSelectFieldProps<T>) {
   const dispatch = React.useCallback(
     (value: T, isDelete: boolean) => {
       if (propsRef.current.props?.tags) {
-        const selectedValues: T[] = model.value || [];
+        const selectedValues = (model.value || []) as T[];
 
         if (isDelete) {
           model.value = selectedValues.filter(it => it !== value);
