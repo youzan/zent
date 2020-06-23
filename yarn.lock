@@ -5268,10 +5268,10 @@ format@^0.2.2:
   resolved "https://registry.yarnpkg.com/format/-/format-0.2.2.tgz#d6170107e9efdc4ed30c9dc39016df942b5cb58b"
   integrity sha1-1hcBB+nv3E7TDJ3DkBbflCtctYs=
 
-formulr@~0.3.4:
-  version "0.3.4"
-  resolved "https://registry.yarnpkg.com/formulr/-/formulr-0.3.4.tgz#2c31f32b68c061c844a3a383c36e4dfe29a2c2d4"
-  integrity sha512-+7rc++QI+bSaID58oUE1VBfI4T9XsytTckCpzrzH/MXxaHC5txWHrJZgSgIEkrEHa1h1HGwB2ASvoLe0DBw02g==
+formulr@~0.3.5:
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/formulr/-/formulr-0.3.5.tgz#f88e439bb49f6c32f2a41854326f9dcd60f925c1"
+  integrity sha512-0W+FMwRfpvmCnkL6Kk/h3CWYUr7tyQKCg+Mul3X7Xf6TK2ah9Muv4/QWUqLc/KmDNqTldDngDIs8FOIqa6yjJA==
   dependencies:
     big.js "^5.2.2"
     rxjs "^6.4.0"
