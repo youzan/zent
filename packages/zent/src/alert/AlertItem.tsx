@@ -8,8 +8,10 @@ export interface IAlertItemProps {
   description?: React.ReactNode;
   onClose?: () => void;
 }
-export const AlertItem: React.FunctionComponent<IAlertItemProps> = () => {
-  return null;
-};
+export class AlertItem extends React.Component<IAlertItemProps> {
+  render() {
+    return null;
+  }
+}
 
 export default AlertItem;
