@@ -18,7 +18,6 @@ import { FormNotice } from '../Notice';
 import { FormDescription } from '../Description';
 import { FormControl } from '../Control';
 import { defaultGetValidateOption } from '../Field';
-import { isString } from '../../utils/isString';
 
 export type IFormSelectFieldProps<T> = IFormComponentProps<
   T | T[],
@@ -46,7 +45,7 @@ export function FormSelectField<T>(props: IFormSelectFieldProps<T>) {
       !validators.some(it => it.$$id === Validators.SYMBOL_REQUIRED)
     ) {
       validators = validators.concat([
-        Validators.required(isString(required) ? required : ''),
+        Validators.required(typeof required === 'string' ? required : ''),
       ]);
     }
     // eslint-disable-next-line react-hooks/rules-of-hooks
