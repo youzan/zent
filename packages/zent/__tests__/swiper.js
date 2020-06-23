@@ -63,7 +63,7 @@ describe('Swiper', () => {
       .find('.zent-swiper__arrow')
       .at(0)
       .simulate('click');
-    jest.runAllTimers();
+    jest.runOnlyPendingTimers();
     expect(
       wrapper
         .find('.zent-swiper__dots-item')
@@ -84,7 +84,7 @@ describe('Swiper', () => {
       .find('.zent-swiper__arrow')
       .at(1)
       .simulate('click');
-    jest.runAllTimers();
+    jest.runOnlyPendingTimers();
     expect(
       wrapper
         .find('.zent-swiper__dots-item')
