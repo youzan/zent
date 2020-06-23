@@ -8,6 +8,15 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 8.5.2(2020-06-23)
+
+- `Form`
+  - 🦀️ Fix some minor issues
+  - 🦀️ `FormSelectField` is compatible with `tags` mode
+  - 🦀️ Export validator types
+- 🦀️ Fix `Swiper` transition issue in some edge cases
+- 🦀️ Fix `ScrollAlert` children check
+
 ### 8.5.1(2020-06-10)
 
 - ✨ `Tooltip` now passes `display` prop to `Popover`
