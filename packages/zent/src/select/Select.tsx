@@ -19,6 +19,22 @@ import { DisabledContext, IDisabledContext } from '../disabled';
 
 const { Content } = Popover;
 
+export interface ISelectItem<T> {
+  value: T;
+  text: string;
+}
+
+export interface ISelectChangeEventTarget<T> {
+  type: 'select-multiple' | 'select-one';
+  value: T;
+}
+
+export interface ISelectChangeEvent<T> {
+  target: ISelectChangeEventTarget<T>;
+  preventDefault(): void;
+  stopPropagation(): void;
+}
+
 export interface ISelectProps {
   data?: unknown[];
   tags?: boolean;
@@ -31,14 +47,7 @@ export interface ISelectProps {
   trigger?: React.ComponentType<any>;
   optionText?: string;
   optionValue?: string;
-  onChange?: (
-    event: {
-      target: { type: any; value: any };
-      preventDefault: () => void;
-      stopPropagation: () => void;
-    },
-    value: any
-  ) => void;
+  onChange?: (event: ISelectChangeEvent<any>, value: any) => void;
   onDelete?: (date: any) => void;
   filter?: (item: any, keyword?: string) => boolean;
   onFilter?: (item: any, keyword?: string) => boolean;
