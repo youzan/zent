@@ -70,7 +70,14 @@ type IScrollAlertInnerProps = PartialRequired<
   'loading' | 'scrollInterval' | 'onClose' | 'closed'
 >;
 const OmitDivAttr = ['loading', 'scrollInterval', 'onClose', 'closed'] as const;
-const { count } = Children;
+const DefaultState: IState = {
+  items: [],
+  renderItems: [],
+  preChildren: null,
+  transitionDuration: 0,
+  containerHeight: 0,
+  activeIndex: 0,
+};
 
 export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
   static defaultProps = {
@@ -78,48 +85,24 @@ export class ScrollAlert extends React.Component<IScrollAlertProps, IState> {
     loading: false,
     scrollInterval: 5000,
   };
-
-  state: IState = {
-    items: [],
-    renderItems: [],
-    preChildren: null,
-    transitionDuration: 0,
-    containerHeight: 0,
-    activeIndex: 0,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...DefaultState,
+      ...getRenderChildrenFromProps(props.children),
+    };
+  }
 
   // timeout事件id
   timeoutId: any;
   // 第一个子节点的高度
   firstChildHeight = 0;
 
-  // 为实现在渲染前拿到 firstChildHeight
-  static getDerivedStateFromProps(
-    nextProps: IScrollAlertProps,
-    { preChildren }: IState
-  ) {
-    if (count(nextProps.children) !== count(preChildren)) {
-      return getRenderChildrenFromProps(nextProps.children);
-    }
-    return null;
-  }
-
   componentDidMount() {
     this.setState(
       { containerHeight: this.firstChildHeight },
       this.scrollHandler
     );
-  }
-
-  componentDidUpdate(prevProps) {
-    // children length变化的时候重置渲染
-    if (count(prevProps.children) !== count(this.props.children)) {
-      this.clearTimer();
-      this.setState(
-        { activeIndex: 0, containerHeight: this.firstChildHeight },
-        this.scrollHandler
-      );
-    }
   }
 
   componentWillUnmount() {
