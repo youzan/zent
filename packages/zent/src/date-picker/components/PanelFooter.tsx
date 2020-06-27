@@ -9,7 +9,7 @@ const PanelFooter: React.FC<IPanelFooterProps> = ({
   leftNode = null,
 }) => {
   return (
-    <div className="zent-date-picker-panel-footer">
+    <div className="zent-datepicker-panel-footer">
       {rightNode}
       {leftNode}
     </div>

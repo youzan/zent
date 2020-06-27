@@ -1,9 +1,10 @@
 import * as React from 'react';
 import cx from 'classnames';
+import PanelContext from '../../context/PanelContext';
 
 import { leftPad } from '../../utils/handler';
 import scroll from '../../../utils/scroll';
-const prefixCls = 'zent-date-picker-time-panel-body';
+const prefixCls = 'zent-datepicker-time-panel-body';
 interface IUnit {
   label: React.ReactText;
   value: number;
@@ -29,27 +30,26 @@ const UNIT_MAP: Record<IUnitType, number> = {
   second: 59,
 };
 
-interface IScrollPanelProps {
+interface ITimeUnitColumnProps {
   type: IUnitType;
   selected: number;
   setting: (val: number) => void;
   disabledUnits?: number[];
-  visibleChange: boolean;
 }
-const ScrollPanel: React.FC<IScrollPanelProps> = ({
+const TimeUnitColumn: React.FC<ITimeUnitColumnProps> = ({
   type,
   selected,
   setting,
-  visibleChange,
   disabledUnits = [],
 }) => {
   const ulRef = React.createRef<HTMLDivElement>();
+  const { visibleChange } = React.useContext(PanelContext);
+
   const units = generateUnits(0, UNIT_MAP[type], disabledUnits);
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     // first scroll without duration
-    visibleChange && ulRef.current.scrollBy({ top: selected * 32 });
-
+    visibleChange && scroll(ulRef.current, 0, selected * 32, 0);
     // scroll item when `selected` changed
     selected && !visibleChange && scroll(ulRef.current, 0, selected * 32, 160);
   }, [selected, visibleChange, ulRef]);
@@ -74,4 +74,4 @@ const ScrollPanel: React.FC<IScrollPanelProps> = ({
   );
 };
 
-export default ScrollPanel;
+export default TimeUnitColumn;

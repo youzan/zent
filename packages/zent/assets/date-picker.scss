@@ -36,7 +36,7 @@
   padding: 8px 12px;
 }
 
-.zent-date-picker {
+.zent-datepicker {
   box-sizing: border-box;
   display: inline-block;
   line-height: normal;
@@ -44,6 +44,10 @@
 
   &-seperator {
     margin: 0 8px;
+  }
+
+  &-name-input {
+    display: none;
   }
 
   .zenticon {
@@ -122,7 +126,7 @@
     }
 
     &-focus {
-      border-color: $theme-primary-4;
+      @include theme-color(border-color, primary, 4);
       box-shadow: $shadow-spec-focus;
     }
   }
@@ -138,6 +142,10 @@
       line-height: 24px;
       padding: 16px;
       align-items: center;
+
+      &-arrow {
+        @include theme-color(fill, stroke, 3);
+      }
 
       &-title {
         display: flex;
@@ -180,7 +188,7 @@
         cursor: pointer;
       }
 
-      .zent-date-picker-cell-inner {
+      .zent-datepicker-cell-inner {
         width: 24px;
         height: 24px;
         box-sizing: border-box;
@@ -188,10 +196,10 @@
       }
 
       &_current {
-        .zent-date-picker-cell-inner {
+        .zent-datepicker-cell-inner {
           @include border-with-radius;
-          color: $theme-primary-4;
-          border-color: $theme-primary-4;
+          @include theme-color(color, primary, 4);
+          @include theme-color(border-color, primary, 4);
         }
       }
 
@@ -202,15 +210,15 @@
       &_selected {
         @include gray-bgcolor;
 
-        .zent-date-picker-cell-inner {
+        .zent-datepicker-cell-inner {
           @include theme-color(color, stroke, 9);
+          @include theme-color(background-color, primary, 4);
           border-radius: 2px;
-          background-color: $theme-primary-4;
         }
       }
 
       &_hover {
-        .zent-date-picker-cell-inner:hover {
+        .zent-datepicker-cell-inner:hover {
           @include blue-bgcolor;
           border-radius: 2px;
         }
@@ -220,7 +228,7 @@
       &_disabled {
         @include gray-bgcolor;
 
-        .zent-date-picker-cell-inner {
+        .zent-datepicker-cell-inner {
           @include gray-color;
         }
       }
@@ -229,15 +237,15 @@
         cursor: not-allowed;
       }
 
-      &_disabled.zent-date-picker-panel-body-cells_current {
-        .zent-date-picker-cell-inner {
+      &_disabled.zent-datepicker-panel-body-cells_current {
+        .zent-datepicker-cell-inner {
           @include gray-color;
           @include border-with-radius;
           @include theme-color(border-color, stroke, 4);
         }
       }
 
-      &_in_range.zent-date-picker-panel-body-cells_over {
+      &_in_range.zent-datepicker-panel-body-cells_over {
         @include blue-bgcolor;
       }
     }
@@ -357,10 +365,10 @@
   }
 
   &-ym-panel-body {
-    .zent-date-picker-panel-body-cells {
+    .zent-datepicker-panel-body-cells {
       padding: 10px 24px 34px;
 
-      .zent-date-picker-cell-inner {
+      .zent-datepicker-cell-inner {
         width: 64px;
         height: 32px;
         line-height: 32px;
@@ -370,13 +378,13 @@
   }
 
   &-quarter-panel-body {
-    .zent-date-picker-panel-body-cells {
+    .zent-datepicker-panel-body-cells {
       padding: 30px 20px;
 
       &_item {
         margin: 20px 10px;
 
-        .zent-date-picker-cell-inner {
+        .zent-datepicker-cell-inner {
           width: 92px;
           height: 36px;
           line-height: 36px;

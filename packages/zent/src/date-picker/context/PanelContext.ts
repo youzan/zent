@@ -1,14 +1,13 @@
-import * as React from 'react';
+import { createContext } from 'react';
 import { IDisabledTimes } from '../types';
-export interface IPanelContextProps {
+
+export interface IPanelContext {
   // date panel
   showTime?: boolean;
   disabledTimes?: IDisabledTimes;
-
   // time panel
   visibleChange?: boolean;
+  onHover?: (val: Date) => void;
 }
 
-const PanelContext = React.createContext<IPanelContextProps>({});
-
-export default PanelContext;
+export default createContext<IPanelContext>(null);

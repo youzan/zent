@@ -1,7 +1,7 @@
-import { IDateCellBase, IPickerType } from '../types';
-import { generateDateConfig, CommonDateMap } from '../utils/dateUtils';
+import { IDateCellBase, IGenerateDateConfig } from '../types';
+import { CommonDateMap } from './dateUtils';
 
-const { getDate, isAfter, isBefore } = CommonDateMap;
+const { isAfter, isBefore } = CommonDateMap;
 interface ICellDateParams {
   selected: Date;
   hoverDate: Date;
@@ -9,40 +9,43 @@ interface ICellDateParams {
   hoverRangeDate?: [Date, Date];
   disabledPanelDate: (Date) => boolean;
   defaultPanelDate: Date;
-  ROW_COUNT: number;
-  COL_COUNT: number;
-  type: IPickerType;
+  row: number;
+  col: number;
+  generateDateConfig: IGenerateDateConfig;
   texts?: Array<number | string>;
   offset?: number;
+  inView?: (val1: Date, val2: Date) => boolean;
 }
 /**
  * 根据当前组件的selected等值 获得最小单元格的属性集合
  *
  */
-export default function useCellsData({
+export default function getPanelCellsData({
   selected,
   hoverDate,
   rangeDate,
   hoverRangeDate,
   disabledPanelDate,
   defaultPanelDate,
-  ROW_COUNT,
-  COL_COUNT,
-  type,
+  row,
+  col,
+  generateDateConfig,
   texts,
   offset = 0,
+  inView = null,
 }: ICellDateParams) {
-  const { isSame, startDate, offsetDate } = generateDateConfig[type];
+  const { isSame, startDate, offsetDate } = generateDateConfig;
+
   let index = 0;
   const cells = [] as IDateCellBase[];
-  for (let row = 0; row < ROW_COUNT; row++) {
-    for (let col = 0; col < COL_COUNT; col++) {
+  for (let rowIndex = 0; rowIndex < row; rowIndex++) {
+    for (let colIndex = 0; colIndex < col; colIndex++) {
       // offset
       const currentDate = startDate(
         offsetDate(defaultPanelDate, index - offset)
       );
       // constants text or fetch text
-      const text = texts ? texts[index] : getDate(currentDate);
+      const text = texts ? texts[index] : currentDate.getDate();
 
       /* *************** week-picker & combined-picker start  *************** */
       let isInHoverRange = false;
@@ -74,15 +77,13 @@ export default function useCellsData({
       const isCurrent = isSame(new Date(), currentDate);
 
       // isInView
-      const isInView =
-        type !== 'date' ||
-        generateDateConfig.month.isSame(currentDate, defaultPanelDate);
+      const isInView = inView ? inView(currentDate, defaultPanelDate) : true;
 
       // isHover
       const isHover = isSame(hoverDate, currentDate);
 
       // isDisabled
-      const isDisabled = disabledPanelDate && disabledPanelDate(currentDate);
+      const isDisabled = disabledPanelDate?.(currentDate);
 
       cells[index] = {
         value: currentDate,

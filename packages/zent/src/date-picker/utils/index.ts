@@ -2,6 +2,7 @@ import formatBase from '../../utils/date/formatDate';
 import parseBase from '../../utils/date/parseDate';
 
 import { getLocale } from '../../i18n/time-locale';
+import { SingleDate } from '../types';
 
 /**
  *
@@ -37,3 +38,27 @@ export function formatDate(date, format, locale = getLocale()) {
 export const cloneFromDate = target => {
   return new Date(target.getFullYear(), target.getMonth(), target.getDate());
 };
+
+/**
+ * format 日期范围数组
+ * @param dates 日期数组
+ * @param format
+ */
+export function formatDateRange(dates: [Date, Date], format: string): string[] {
+  return [
+    dates[0] ? formatDate(dates[0], format) : '',
+    dates[1] ? formatDate(dates[1], format) : '',
+  ];
+}
+
+/**
+ * parse 日期范围数组
+ * @param dates 日期数组
+ * @param format
+ */
+export function parseDateRange(
+  dates: [SingleDate, SingleDate],
+  format: string
+): [Date, Date] {
+  return [parseDate(dates[0], format), parseDate(dates[1], format)];
+}

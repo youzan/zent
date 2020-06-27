@@ -1,10 +1,12 @@
 import * as React from 'react';
 import PanelCell from '../../components/PanelCell';
-import I18nLocaleContext from '../../context/I18nLocaleContext';
-import useCellsData from '../../hooks/useCellsData';
+import PanelContext from '../../context/PanelContext';
+import PickerContext from '../../context/PickerContext';
+import getPanelCellsData from '../../utils/getPanelCellsData';
 
+import { generateDateConfig } from '../../utils/dateUtils';
+import { setYear } from 'date-fns';
 import { ISingleDateBodyProps } from '../../types';
-import { setYear } from 'date-fns/esm';
 
 const COL_COUNT = 3;
 const ROW_COUNT = 4;
@@ -19,29 +21,49 @@ const YearPickerBody: React.FC<IYearPickerBodyProps> = ({
   hoverDate,
   defaultPanelDate,
   disabledPanelDate,
+  row = ROW_COUNT,
+  col = COL_COUNT,
 }) => {
-  const { i18n, onHover } = React.useContext(I18nLocaleContext);
+  const { i18n } = React.useContext(PickerContext);
+  const { onHover } = React.useContext(PanelContext);
 
-  const YearTexts = Array.from(
-    { length: 12 },
-    (_, i) => `${firstYear + i}${i18n.panel.year}`
+  const YearTexts = React.useMemo(
+    () =>
+      Array.from(
+        { length: 12 },
+        (_, i) => `${firstYear + i}${i18n.panel.year}`
+      ),
+    [firstYear, i18n]
   );
-  const cells = useCellsData({
-    selected,
-    hoverDate,
-    disabledPanelDate,
-    defaultPanelDate: setYear(defaultPanelDate, firstYear),
-    texts: YearTexts,
-    ROW_COUNT,
-    COL_COUNT,
-    type: 'year',
-  });
+  const cells = React.useMemo(
+    () =>
+      getPanelCellsData({
+        selected,
+        hoverDate,
+        disabledPanelDate,
+        defaultPanelDate: setYear(defaultPanelDate, firstYear),
+        texts: YearTexts,
+        row,
+        col,
+        generateDateConfig: generateDateConfig.year,
+      }),
+    [
+      selected,
+      hoverDate,
+      row,
+      col,
+      YearTexts,
+      defaultPanelDate,
+      firstYear,
+      disabledPanelDate,
+    ]
+  );
 
   return (
-    <div className="zent-date-picker-ym-panel-body">
+    <div className="zent-datepicker-ym-panel-body">
       <PanelCell
-        col={COL_COUNT}
-        row={ROW_COUNT}
+        col={col}
+        row={row}
         cells={cells}
         onSelected={onSelected}
         onHover={onHover}

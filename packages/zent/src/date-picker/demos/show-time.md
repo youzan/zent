@@ -38,7 +38,7 @@ class Demo extends Component {
 		return (
 			<div>
 				<DatePicker
-					className="zent-date-picker-demo"
+					className="zent-datepicker-demo"
 					showTime
 					format="YYYY-MM-DD HH:mm:ss"
 					value={dateValue}
@@ -46,7 +46,7 @@ class Demo extends Component {
 				/>
 				<br />
 				<DateRangePicker
-					className="zent-date-picker-demo"
+					className="zent-datepicker-demo"
 					showTime
 					format="YYYY-MM-DD HH:mm:ss"
 					value={rangeValue}
@@ -54,7 +54,7 @@ class Demo extends Component {
 				/>
 				<br />
 				<CombinedDateRangePicker
-					className="zent-date-picker-demo"
+					className="zent-datepicker-demo"
 					value={combinedValue}
 					format="YYYY-MM-DD HH:mm:ss"
 					showTime

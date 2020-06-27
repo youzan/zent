@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { useState, useContext } from 'react';
-import PanelHeader, { TitleCommonNode } from '../../components/PanelHeader';
+import PanelHeader, { Title } from '../../components/PanelHeader';
 
-import I18nLocaleContext from '../../context/I18nLocaleContext';
+import PickerContext from '../../context/PickerContext';
 import QuarterPanelBody from './QuarterBody';
-import { addYears } from 'date-fns/esm';
+import YearPanel from '../year-panel';
+
+import { addYears, setYear } from 'date-fns';
 import { ISingleDatePanelProps } from '../../types';
 
 const QuarterPickerPanel: React.FC<Omit<
@@ -12,30 +14,42 @@ const QuarterPickerPanel: React.FC<Omit<
   'rangeDate' | 'hoverRangeDate'
 >> = props => {
   const { defaultPanelDate, onChangePanel, ...resetProps } = props;
-  const { i18n } = useContext(I18nLocaleContext);
+  const { i18n } = useContext(PickerContext);
   const [panelDate, setPanelDate] = useState<Date>(defaultPanelDate);
+  const [showYear, setShowYear] = React.useState<boolean>(false);
 
-  return (
+  const QuarterPanelNode = (
     <>
       <PanelHeader
         titleNode={
-          <TitleCommonNode
+          <Title
             text={panelDate.getFullYear()}
             unit={i18n.panel.year}
-            onClick={() => onChangePanel('year')}
+            onClick={() => setShowYear(true)}
           />
         }
         onPrev={() => setPanelDate(addYears(panelDate, -1))}
         onNext={() => setPanelDate(addYears(panelDate, 1))}
       />
-      <QuarterPanelBody
-        {...resetProps}
-        // selected={selected}
-        // hoverDate={hoverDate}
-        // onSelected={onSelected}
-        defaultPanelDate={panelDate}
-      />
+      <QuarterPanelBody {...resetProps} defaultPanelDate={panelDate} />
     </>
   );
+
+  const onClickYear = React.useCallback(
+    val => {
+      setPanelDate(setYear(panelDate, val.getFullYear()));
+      setShowYear(false);
+    },
+    [panelDate]
+  );
+  const YearPanelNode = (
+    <YearPanel
+      {...props}
+      onSelected={onClickYear}
+      defaultPanelDate={panelDate}
+    />
+  );
+
+  return <>{!showYear ? QuarterPanelNode : YearPanelNode}</>;
 };
 export default QuarterPickerPanel;

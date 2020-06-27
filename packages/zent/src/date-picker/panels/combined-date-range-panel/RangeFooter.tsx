@@ -1,15 +1,14 @@
 import * as React from 'react';
 import cx from 'classnames';
-import { setHours, setMinutes, setSeconds } from 'date-fns';
-import I18nLocaleContext from '../../context/I18nLocaleContext';
+import { parse } from 'date-fns';
+import PickerContext from '../../context/PickerContext';
 import TimePicker from '../../TimePicker';
 import Button from '../../../button';
 
-import { parseDate, formatDate } from '../../utils/index';
+import { formatDate } from '../../utils/index';
 import { ICombinedDateRangePanelProps } from './index';
 
-const prefixCls = 'zent-date-picker-combined-panel-footer';
-const setTimes = [setHours, setMinutes, setSeconds];
+const prefixCls = 'zent-datepicker-combined-panel-footer';
 
 interface ICombinedDateRangeFooterProps
   extends Omit<
@@ -21,27 +20,20 @@ export const CombinedDateRangeFooter: React.FC<ICombinedDateRangeFooterProps> = 
   disabledTimes,
   onSelected,
 }) => {
-  const { i18n } = React.useContext(I18nLocaleContext);
+  const { i18n } = React.useContext(PickerContext);
   const [start, end] = selected;
 
   const onStartTimeChange = React.useCallback(
     (val: string) => {
-      let timeVal = parseDate(selected[0], '');
-
-      val.split(':').map((item, index) => {
-        timeVal = setTimes[index](timeVal, +item);
-      });
+      const timeVal = parse(val, 'HH:mm:ss', selected[0]);
       onSelected([timeVal, selected[1]], false);
     },
     [selected, onSelected]
   );
   const onEndTimeChange = React.useCallback(
     (val: string) => {
-      let timeVal = parseDate(selected[1], '');
-
-      val.split(':').map((item, index) => {
-        timeVal = setTimes[index](timeVal, +item);
-      });
+      // todo showSecond ? 'HH:mm:ss' : 'HH:mm'
+      const timeVal = parse(val, 'HH:mm:ss', selected[1]);
       onSelected([selected[0], timeVal], false);
     },
     [selected, onSelected]
@@ -61,7 +53,6 @@ export const CombinedDateRangeFooter: React.FC<ICombinedDateRangeFooterProps> = 
         value={start ? formatDate(start, 'HH:mm:ss') : ''}
         hiddenIcon={true}
         onChange={onStartTimeChange}
-        autoOnChange={true}
         disabledTimes={disabledTimes}
       />
       <div className={`${prefixCls}-seperator`}>{i18n.to}</div>
@@ -75,7 +66,6 @@ export const CombinedDateRangeFooter: React.FC<ICombinedDateRangeFooterProps> = 
         value={end ? formatDate(end, 'HH:mm:ss') : ''}
         hiddenIcon={true}
         onChange={onEndTimeChange}
-        autoOnChange={true}
         disabledTimes={disabledTimes}
       />
       <Button

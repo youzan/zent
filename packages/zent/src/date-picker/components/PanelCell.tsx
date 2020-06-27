@@ -3,7 +3,7 @@ import cx from 'classnames';
 import Tooltip from '../../tooltip';
 import { IDateCellBase } from '../types';
 
-const prefixCls = 'zent-date-picker-panel-body-cells';
+const prefixCls = 'zent-datepicker-panel-body-cells';
 // 获取单元格样式类
 const getCellClassName = ({
   isInView,
@@ -28,8 +28,8 @@ interface IPanelCellProps {
   cells: IDateCellBase[];
   col: number;
   row: number;
-  onSelected: (val: any) => any;
-  onHover?: (val: Date) => any;
+  onSelected: (val: Date) => void;
+  onHover?: (val: Date) => void;
   popText?: string;
 }
 const PanelCell: React.FC<IPanelCellProps> = ({
@@ -40,56 +40,65 @@ const PanelCell: React.FC<IPanelCellProps> = ({
   popText,
   onHover,
 }) => {
-  const rows = React.useMemo(
-    () => {
-      const uls = [];
-      for (let rowNum = 0; rowNum < row; rowNum++) {
-        const rowCells = cells
-          .splice(0, col)
-          .map(({ value, text, ...classNameProps }, index) => {
-            const { isSelected, isDisabled } = classNameProps;
-            const cellNode = (
-              <li
-                key={index}
-                className={getCellClassName(classNameProps)}
-                onClick={() => {
-                  !isDisabled && onSelected && onSelected(value);
-                }}
-              >
-                <div
-                  className="zent-date-picker-cell-inner"
-                  onMouseEnter={() => {
-                    !isDisabled && onHover && onHover(value);
-                  }}
-                  onMouseLeave={() => {
-                    !isDisabled && onHover && onHover(null);
-                  }}
-                >
-                  {text}
-                </div>
-              </li>
-            );
-            // 单元格支持Tooltip
-            return popText && isSelected ? (
-              <Tooltip key={index} visible={true} title={popText}>
-                {cellNode}
-              </Tooltip>
-            ) : (
-              cellNode
-            );
-          });
+  const onCellClick = React.useCallback(
+    ({ isDisabled, value }) => {
+      if (isDisabled) return;
+      onSelected?.(value);
+    },
+    [onSelected]
+  );
 
+  const onCellMouseOver = React.useCallback(
+    ({ isDisabled, value }) => {
+      if (isDisabled) return;
+      onHover?.(value);
+    },
+    [onHover]
+  );
+
+  const rows = React.useMemo(() => {
+    const uls = [];
+    let rowCells = [];
+    cells.map(({ value, text, ...classNameProps }, index) => {
+      const { isSelected, isDisabled } = classNameProps;
+      const cellNode = (
+        <li
+          key={index}
+          className={getCellClassName(classNameProps)}
+          onClick={() => onCellClick({ isDisabled, value })}
+        >
+          <div
+            className="zent-datepicker-cell-inner"
+            onMouseEnter={() => onCellMouseOver({ isDisabled, value })}
+            onMouseLeave={() => onCellMouseOver({ isDisabled, value: null })}
+          >
+            {text}
+          </div>
+        </li>
+      );
+      // 单元格支持Tooltip
+      const cell =
+        popText && isSelected ? (
+          <Tooltip key={index} visible={true} title={popText}>
+            {cellNode}
+          </Tooltip>
+        ) : (
+          cellNode
+        );
+
+      rowCells.push(cell);
+      // 换行
+      if (index % col === col - 1) {
         uls.push(
-          <ul key={cells.length} className={`${prefixCls}_row`}>
+          <ul key={index} className={`${prefixCls}_row`}>
             {rowCells}
           </ul>
         );
+        rowCells = [];
       }
-      return uls;
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [cells]
-  );
+    });
+    return uls;
+  }, [cells, col, popText, onCellClick, onCellMouseOver]);
 
   return <ul className={prefixCls}>{rows}</ul>;
 };

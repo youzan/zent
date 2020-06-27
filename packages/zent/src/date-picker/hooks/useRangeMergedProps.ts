@@ -1,21 +1,22 @@
 import * as React from 'react';
-import { CommonDateMap } from '../utils/dateUtils';
-import { parseDate } from '../utils/index';
-import processDisabledDate from '../utils/processDisabledDate';
+import { parseDate, parseDateRange } from '../utils/index';
+import unifiedDisabledDateFromProps from '../utils/unifiedDisabledDateFromProps';
 import { addMonths } from 'date-fns';
-import { IDatePickerCommonProps } from '../types';
+import { IDatePickerCommonProps, SingleDate, IDisabledDate } from '../types';
 
 interface IRangeMergedPropsParams
   extends Pick<
-    IDatePickerCommonProps,
-    'value' | 'format' | 'defaultPanelValue' | 'disabledDate'
-  > {}
+    IDatePickerCommonProps<[SingleDate, SingleDate]>,
+    'value' | 'format' | 'defaultPanelValue'
+  > {
+  disabledDatePropsRef: React.MutableRefObject<IDisabledDate>;
+}
 // range
 export default function useRangeMergedProps({
   value,
   format,
   defaultPanelValue,
-  disabledDate: disabledDateProps,
+  disabledDatePropsRef,
 }: IRangeMergedPropsParams) {
   // defaultPanelDate
   const [defaultPanelDate, setDefaultPanelDate] = React.useState<
@@ -31,7 +32,7 @@ export default function useRangeMergedProps({
 
   // defaultPanelDate
   React.useEffect(() => {
-    const current = CommonDateMap.getCurrent();
+    const current = new Date();
     setDefaultPanelDate(
       selected && !!selected[0]
         ? [
@@ -39,16 +40,16 @@ export default function useRangeMergedProps({
             parseDate(addMonths(selected[0], 1), format),
           ]
         : defaultPanelValue && defaultPanelValue[0] && defaultPanelValue[1]
-        ? [
-            parseDate(defaultPanelValue[0], format),
-            parseDate(defaultPanelValue[1], format),
-          ]
+        ? parseDateRange(defaultPanelValue, format)
         : [current, addMonths(current, 1)]
     );
   }, [defaultPanelValue, selected, format]);
 
   // disabledDate
-  const disabledDate = processDisabledDate(disabledDateProps, format);
+  const disabledDate = unifiedDisabledDateFromProps(
+    disabledDatePropsRef?.current,
+    format
+  );
 
   return {
     selected,

@@ -2,19 +2,26 @@ import { CommonDateMap } from './dateUtils';
 import { parseDate } from './index';
 import { IDisabledDate, IDisabledDateSimple } from '../types';
 
-export default function processDisabledDate(
+const { isAfter, isBefore } = CommonDateMap;
+
+/**
+ * props的DisabledDate参数 支持 {min, max} 格式
+ * 内部统一转成方法
+ * @param disabledDateProps
+ * @param format
+ */
+export default function unifiedDisabledDateFromProps(
   disabledDateProps: IDisabledDate = undefined,
   format
-) {
+): (val: Date) => boolean {
   let disabledDate = undefined;
   if (typeof disabledDateProps === 'object') {
     const { min, max } = disabledDateProps as IDisabledDateSimple;
-    // TODO
     disabledDate = date =>
-      CommonDateMap.isBefore(date, parseDate(min, format)) &&
-      CommonDateMap.isAfter(date, parseDate(max, format));
+      isBefore(date, parseDate(min, format)) &&
+      isAfter(date, parseDate(max, format));
   } else {
     disabledDate = disabledDateProps;
   }
-  return disabledDate;
+  return disabledDate as (val: Date) => boolean;
 }

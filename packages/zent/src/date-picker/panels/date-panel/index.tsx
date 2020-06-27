@@ -1,12 +1,17 @@
 import * as React from 'react';
-import I18nLocaleContext from '../../context/I18nLocaleContext';
-
+import PanelHeader, { Title } from '../../components/PanelHeader';
+import PanelSubHeader from './PanelSubHeader';
 import DatePickerBody from './DateBody';
 import DatePickerFooter from './DateFooter';
-import PanelHeader, { TitleCommonNode } from '../../components/PanelHeader';
-import PanelSubHeader from './PanelSubHeader';
+import MonthPanel from '../month-panel';
+import YearPanel from '../year-panel';
+
+import PickerContext from '../../context/PickerContext';
+
 import { ISingleDatePanelProps, IDisabledTimes } from '../../types';
-import { addMonths, addYears, setYear, setDate, setMonth } from 'date-fns';
+
+import { setYear, setMonth, addMonths, addYears } from 'date-fns';
+
 export interface IDatePickerPanelProps extends ISingleDatePanelProps {
   popText?: string;
   hideFooter?: boolean;
@@ -15,70 +20,92 @@ export interface IDatePickerPanelProps extends ISingleDatePanelProps {
 }
 const DatePickerPanel: React.FC<IDatePickerPanelProps> = props => {
   const {
-    selected,
-    showTime,
-    hideFooter = false,
     defaultPanelDate,
+    hideFooter = false,
     onSelected,
-    onChangePanel,
+    showTime,
     ...resetProps
   } = props;
+  const { i18n } = React.useContext(PickerContext);
+
+  const [showYear, setShowYear] = React.useState<boolean>(false);
+  const [showMonth, setShowMonth] = React.useState<boolean>(false);
   const [panelDate, setPanelDate] = React.useState<Date>(defaultPanelDate);
-  const { i18n } = React.useContext(I18nLocaleContext);
 
   const titleNode = React.useMemo(
     () => (
       <>
-        <TitleCommonNode
-          text={defaultPanelDate.getFullYear()}
+        <Title
+          text={panelDate.getFullYear()}
           unit={i18n.panel.year}
-          onClick={() => onChangePanel('year')}
+          onClick={() => setShowYear(true)}
         />
-        <TitleCommonNode
-          text={i18n.panel.monthNames[defaultPanelDate.getMonth()]}
-          onClick={() => onChangePanel('month')}
+        <Title
+          text={i18n.panel.monthNames[panelDate.getMonth()]}
+          onClick={() => setShowMonth(true)}
         />
       </>
     ),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [defaultPanelDate]
+    [panelDate, i18n]
   );
 
-  // 切换面板更改日期 同时保留时分秒
-  const setSelectedDate = (val: Date) => {
-    if (!selected) {
-      return onSelected(val);
-    }
-    let selectedDate = selected;
-    selectedDate = setYear(selectedDate, val.getFullYear());
-    selectedDate = setMonth(selectedDate, val.getMonth());
-    selectedDate = setDate(selectedDate, val.getDate());
-    onSelected(selectedDate, !showTime);
-  };
-
-  const DateBody = (
+  const DatePanel = (
     <>
       <PanelHeader
         showSuper={true}
         titleNode={titleNode}
-        onPrev={() => setPanelDate(addMonths(defaultPanelDate, -1))}
-        onNext={() => setPanelDate(addMonths(defaultPanelDate, 1))}
-        onSuperPrev={() => setPanelDate(addYears(defaultPanelDate, -1))}
-        onSuperNext={() => setPanelDate(addYears(defaultPanelDate, 1))}
+        onPrev={() => setPanelDate(addMonths(panelDate, -1))}
+        onNext={() => setPanelDate(addMonths(panelDate, 1))}
+        onSuperPrev={() => setPanelDate(addYears(panelDate, -1))}
+        onSuperNext={() => setPanelDate(addYears(panelDate, 1))}
       />
       <PanelSubHeader names={i18n.panel.dayNames} />
       <DatePickerBody
         {...resetProps}
-        selected={selected}
-        onSelected={setSelectedDate}
+        onSelected={val => {
+          onSelected(val, !showTime);
+        }}
         defaultPanelDate={panelDate}
       />
     </>
   );
+  const onClickYear = React.useCallback(
+    val => {
+      setPanelDate(setYear(panelDate, val.getFullYear()));
+      setShowYear(false);
+    },
+    [panelDate]
+  );
+  // 切换到年份面板
+  const YearPanelNode = (
+    <YearPanel
+      {...props}
+      onSelected={onClickYear}
+      defaultPanelDate={panelDate}
+    />
+  );
+
+  const onClickMonth = React.useCallback(
+    val => {
+      setPanelDate(setMonth(panelDate, val.getMonth()));
+      setShowMonth(false);
+    },
+    [panelDate]
+  );
+  // 切换到月份面板
+  const MonthPanelNode = (
+    <MonthPanel
+      {...props}
+      defaultPanelDate={panelDate}
+      onSelected={onClickMonth}
+    />
+  );
 
   return (
     <>
-      {DateBody}
+      {!showYear && !showMonth && DatePanel}
+      {showYear && YearPanelNode}
+      {showMonth && MonthPanelNode}
       {!hideFooter && <DatePickerFooter {...props} />}
     </>
   );

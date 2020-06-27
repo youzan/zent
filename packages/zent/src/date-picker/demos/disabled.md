@@ -11,11 +11,11 @@ import { DatePicker, CombinedDateRangePicker, DateRangePicker } from 'zent';
 
 ReactDOM.render(
 	<div>
-		<DatePicker className="zent-date-picker-demo" value="2020-01-01" disabled />
+		<DatePicker className="zent-datepicker-demo" value="2020-01-01" disabled />
 		<br />
-		<CombinedDateRangePicker className="zent-date-picker-demo" disabled />
+		<CombinedDateRangePicker className="zent-datepicker-demo" disabled />
 		<br />
-		<DateRangePicker width={120} className="zent-date-picker-demo" disabled />
+		<DateRangePicker width={120} className="zent-datepicker-demo" disabled />
 	</div>,
 	mountNode
 );

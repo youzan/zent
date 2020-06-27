@@ -45,25 +45,25 @@ class Demo extends Component {
 		const { dateValue, dateValue1, dateValue2 } = this.state;
 		return (
 			<div>
-				<div className="zent-date-picker-demo">string:</div>
+				<div className="zent-datepicker-demo">string:</div>
 				<DatePicker
 					value={dateValue}
-					className="zent-date-picker-demo"
+					className="zent-datepicker-demo"
 					onChange={this.onChangeDate}
 				/>
 				<br />
-				<div className="zent-date-picker-demo">number:</div>
+				<div className="zent-datepicker-demo">number:</div>
 				<DatePicker
 					value={dateValue1}
-					className="zent-date-picker-demo"
+					className="zent-datepicker-demo"
 					onChange={this.onChangeDate1}
 					valueType="number"
 				/>
 				<br />
-				<div className="zent-date-picker-demo">date:</div>
+				<div className="zent-datepicker-demo">date:</div>
 				<DatePicker
 					value={dateValue2}
-					className="zent-date-picker-demo"
+					className="zent-datepicker-demo"
 					onChange={this.onChangeDate2}
 					valueType="date"
 				/>

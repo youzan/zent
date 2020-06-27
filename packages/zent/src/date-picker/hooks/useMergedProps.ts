@@ -1,14 +1,25 @@
 import * as React from 'react';
-import { CommonDateMap } from '../utils/dateUtils';
 import { parseDate } from '../utils/index';
-import processDisabledDate from '../utils/processDisabledDate';
+import unifiedDisabledDateFromProps from '../utils/unifiedDisabledDateFromProps';
+import { SingleDate, IDisabledDate } from '../types';
 
-// single
+/**
+ * merge from props
+ * used by SinglePicker
+ * @param value {SingleDate}
+ * @param format {string}
+ * @param disabledDateRef {React.MutableRefObject<IDisabledDate>}
+ */
 export default function useMergedProps({
   value,
   format,
-  disabledDate,
+  disabledDateRef,
   defaultPanelValue,
+}: {
+  value: SingleDate;
+  format: string;
+  disabledDateRef: React.MutableRefObject<IDisabledDate>;
+  defaultPanelValue: SingleDate;
 }) {
   // defaultPanelDate
   const [defaultPanelDate, setDefaultPanelDate] = React.useState<Date>();
@@ -25,17 +36,19 @@ export default function useMergedProps({
         ? parseDate(defaultPanelValue, format)
         : selected
         ? parseDate(selected, format)
-        : CommonDateMap.getCurrent()
+        : new Date()
     );
   }, [defaultPanelValue, selected, value, format]);
 
-  const disabledPanelDate = processDisabledDate(disabledDate, format);
+  const disabledPanelDate = unifiedDisabledDateFromProps(
+    disabledDateRef?.current,
+    format
+  );
 
   return {
     selected,
     setSelected,
     defaultPanelDate,
-    setDefaultPanelDate,
     disabledPanelDate,
   };
 }

@@ -31,24 +31,14 @@ import {
   setYear,
   getYear,
 } from 'date-fns';
+import { IGenerateDateConfig, IPickerType } from '../types';
 
 export const CommonDateMap = {
-  getCurrent: () => new Date(),
-  getToday: () => {
-    const NOW = new Date();
-    return new Date(NOW.getFullYear(), NOW.getMonth(), NOW.getDate());
-  },
-  getDate: (date: Date) => new Date(date).getDate(),
-  getYear: (date: Date) => new Date(date).getFullYear(),
-  getMonth: (date: Date) => new Date(date).getMonth(),
-  getHour: (date: Date) => new Date(date).getHours(),
-  getMinute: (date: Date) => new Date(date).getMinutes(),
-  getSecond: (date: Date) => new Date(date).getSeconds(),
   isBefore,
   isAfter,
 };
 
-export const generateDateConfig = {
+export const generateDateConfig: Record<IPickerType, IGenerateDateConfig> = {
   date: {
     set: setDate,
     get: getDate,

@@ -21,7 +21,7 @@ export interface IDisabledDateSimple<T = SingleDate> {
 export type IDisabledDate = (val: Date) => boolean | IDisabledDateSimple;
 export interface IDatePickerCommonProps<DateValue = SingleDate> {
   value: DateValue;
-  onChange: (date: DateValue | [DateValue, DateValue]) => any;
+  onChange: (date: DateValue | [DateValue, DateValue]) => void;
   valueType?: IValueType;
   format?: string;
   defaultPanelValue?: DateValue;
@@ -45,7 +45,10 @@ export type IPickerType = 'date' | 'week' | 'month' | 'quarter' | 'year';
 
 // **** DatePicker ****
 export interface ISingleTriggerProps {
+  text?: string;
+  name?: string;
   value: SingleDate;
+  format: string;
   width: number | string;
   canClear: boolean;
   disabled: boolean;
@@ -59,6 +62,8 @@ export interface ISingleDatePanelProps {
   rangeDate?: [Date, Date];
   hoverDate?: Date;
   hoverRangeDate?: [Date, Date];
+  row?: number;
+  col?: number;
   onSelected: (val: Date, status?: boolean) => void;
   disabledPanelDate?: (val: Date) => boolean;
   onChangePanel?: (type: IPickerType) => void;
@@ -68,22 +73,27 @@ export type ISingleDateBodyProps = Pick<
   ISingleDatePanelProps,
   | 'selected'
   | 'hoverDate'
+  | 'rangeDate'
+  | 'hoverRangeDate'
   | 'defaultPanelDate'
   | 'onSelected'
   | 'disabledPanelDate'
+  | 'row'
+  | 'col'
 >;
 // **** CombinedPicker ****
 export interface IRangeTriggerProps {
-  value: SingleDate;
+  value: [SingleDate, SingleDate];
   seperator: string;
   placeholder: string[];
+  name?: string[];
   onClearInput: (evt: any) => any;
 }
 
 export interface ICombinedDatePanelProps {
   selected: [Date, Date];
   defaultPanelDate: [Date, Date];
-  defaultPanelTimes?: [string, string];
+  defaultPanelTimes?: string[];
   onSelected: (val: [Date, Date], status?: boolean) => void;
   disabledPanelDate: Array<(val: Date) => boolean>;
   hoverDate?: Date;
@@ -95,15 +105,46 @@ export interface ICombinedDatePanelProps {
 export interface ITimePickerProps
   extends Omit<
     IDatePickerCommonProps<string>,
-    'format' | 'valueType' | 'disabledDate'
+    'valueType' | 'disabledDate' | 'defaultPanelDate'
   > {
   placeholder?: string;
   hiddenIcon?: boolean;
-  autoOnChange?: boolean;
   disabledTimes?: IDisabledTimes;
+  defaultPanelTime?: string[];
+  showSecond?: boolean;
 }
-export interface ITimePanelProps extends IDisabledTimes {
+export interface ITimePickerTriggerProps
+  extends Omit<ITimePickerProps, 'value' | 'onChange'> {
   selected: string;
-  defaultPanelDate: string;
+  onSelected: (value: string) => void;
+}
+export interface ITimePanelProps {
+  disabledTimes: IDisabledTimes;
+  selected: string;
+  showSecond?: boolean;
   onSelected: (val: string, status?: boolean) => void;
+}
+export type ITimeUnitType = 'hour' | 'minute' | 'second';
+
+export enum WeekStartsOnMap {
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
+}
+export type IWeekStartsOnKey = keyof typeof WeekStartsOnMap;
+export interface IWeekOption {
+  weekStartsOn?: WeekStartsOnMap;
+}
+export interface IGenerateDateConfig {
+  set: (date: number | Date, num: number, option?: IWeekOption) => Date;
+  get: (date: number | Date, option?: IWeekOption) => number;
+  offsetDate: (date: number | Date, num: number) => Date;
+  isSame: (dateLeft: Date, dateRight: Date) => boolean;
+  startDate: (date: number | Date, option?: IWeekOption) => Date;
+  endDate: (date: number | Date, option?: IWeekOption) => Date;
+  circleEndDate?: (date: number | Date) => Date;
 }

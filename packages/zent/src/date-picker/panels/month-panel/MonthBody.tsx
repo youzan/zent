@@ -1,10 +1,13 @@
 import * as React from 'react';
 import { FC, useContext } from 'react';
-import I18nLocaleContext from '../../context/I18nLocaleContext';
+import PanelContext from '../../context/PanelContext';
+import PickerContext from '../../context/PickerContext';
 import PanelCell from '../../components/PanelCell';
-import useCellsData from '../../hooks/useCellsData';
-import { ISingleDateBodyProps } from '../../types';
+
+import getPanelCellsData from '../../utils/getPanelCellsData';
+import { generateDateConfig } from '../../utils/dateUtils';
 import { setMonth } from 'date-fns';
+import { ISingleDateBodyProps } from '../../types';
 
 const COL_COUNT = 3;
 const ROW_COUNT = 4;
@@ -16,25 +19,32 @@ const MonthPickerBody: FC<IMonthPickerBodyProps> = ({
   selected,
   disabledPanelDate,
   hoverDate,
+  row = ROW_COUNT,
+  col = COL_COUNT,
 }) => {
-  const { i18n, onHover } = useContext(I18nLocaleContext);
+  const { i18n } = useContext(PickerContext);
+  const { onHover } = useContext(PanelContext);
 
-  const cells = useCellsData({
-    selected,
-    hoverDate,
-    disabledPanelDate,
-    defaultPanelDate: setMonth(defaultPanelDate, 0),
-    texts: i18n.panel.monthNames,
-    ROW_COUNT,
-    COL_COUNT,
-    type: 'month',
-  });
+  const cells = React.useMemo(
+    () =>
+      getPanelCellsData({
+        selected,
+        hoverDate,
+        disabledPanelDate,
+        defaultPanelDate: setMonth(defaultPanelDate, 0),
+        texts: i18n.panel.monthNames,
+        row,
+        col,
+        generateDateConfig: generateDateConfig.month,
+      }),
+    [selected, hoverDate, row, col, defaultPanelDate, i18n, disabledPanelDate]
+  );
 
   return (
-    <div className="zent-date-picker-ym-panel-body">
+    <div className="zent-datepicker-ym-panel-body">
       <PanelCell
-        col={COL_COUNT}
-        row={ROW_COUNT}
+        col={col}
+        row={row}
         cells={cells}
         onSelected={onSelected}
         onHover={onHover}

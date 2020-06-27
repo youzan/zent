@@ -33,14 +33,14 @@ class Demo extends Component {
 		return (
 			<div>
 				<TimePicker
-					className="zent-date-picker-demo"
+					className="zent-datepicker-demo"
 					value={timeValue}
 					onChange={this.onChangeTime}
 					disabledTimes={this.disabledTimes}
 				/>
 				<br />
 				<DatePicker
-					className="zent-date-picker-demo"
+					className="zent-datepicker-demo"
 					value={dateValue}
 					onChange={this.onChangeRange}
 					showTime

@@ -1,20 +1,29 @@
 import * as React from 'react';
 import { FC, useContext } from 'react';
-import { startOfMonth } from 'date-fns';
-
-import I18nLocaleContext from '../../context/I18nLocaleContext';
 import PanelCell from '../../components/PanelCell';
-import useCellsData from '../../hooks/useCellsData';
-import { ISingleDatePanelProps } from '../../types';
+
+import PanelContext from '../../context/PanelContext';
+import getPanelCellsData from '../../utils/getPanelCellsData';
+
+import {
+  startOfMonth,
+  setYear,
+  setDate,
+  setMonth,
+  isSameMonth,
+} from 'date-fns';
+
+import { generateDateConfig } from '../../utils/dateUtils';
+import { ISingleDateBodyProps } from '../../types';
 
 const COL_COUNT = 7;
 const ROW_COUNT = 6;
 
-interface IDatePickerBodyProps extends ISingleDatePanelProps {
+interface IDatePickerBodyProps extends ISingleDateBodyProps {
   popText?: string;
 }
 const DatePickerBody: FC<IDatePickerBodyProps> = props => {
-  const { onHover } = useContext(I18nLocaleContext);
+  const { onHover } = useContext(PanelContext);
   const {
     selected,
     popText = '',
@@ -22,6 +31,8 @@ const DatePickerBody: FC<IDatePickerBodyProps> = props => {
     rangeDate,
     hoverDate,
     hoverRangeDate,
+    row,
+    col,
     onSelected,
     disabledPanelDate,
   } = props;
@@ -30,18 +41,46 @@ const DatePickerBody: FC<IDatePickerBodyProps> = props => {
     defaultPanelDate,
   ]);
 
-  const cells = useCellsData({
-    offset: startDateOfMonth.getDay(),
-    defaultPanelDate: startDateOfMonth,
-    selected,
-    disabledPanelDate,
-    rangeDate,
-    hoverDate,
-    hoverRangeDate,
-    ROW_COUNT,
-    COL_COUNT,
-    type: 'date',
-  });
+  const cells = React.useMemo(
+    () =>
+      getPanelCellsData({
+        offset: startDateOfMonth.getDay(),
+        defaultPanelDate: startDateOfMonth,
+        selected,
+        disabledPanelDate,
+        rangeDate,
+        hoverDate,
+        hoverRangeDate,
+        row,
+        col,
+        generateDateConfig: generateDateConfig.date,
+        inView: isSameMonth,
+      }),
+    [
+      selected,
+      rangeDate,
+      hoverDate,
+      hoverRangeDate,
+      row,
+      col,
+      startDateOfMonth,
+      disabledPanelDate,
+    ]
+  );
+
+  const setSelectedDate = React.useCallback(
+    (val: Date) => {
+      if (!selected) {
+        return onSelected(val);
+      }
+      let selectedDate = selected;
+      selectedDate = setYear(selectedDate, val.getFullYear());
+      selectedDate = setMonth(selectedDate, val.getMonth());
+      selectedDate = setDate(selectedDate, val.getDate());
+      onSelected(selectedDate);
+    },
+    [selected, onSelected]
+  );
 
   return (
     <PanelCell
@@ -49,9 +88,13 @@ const DatePickerBody: FC<IDatePickerBodyProps> = props => {
       row={ROW_COUNT}
       cells={cells}
       popText={popText}
-      onSelected={onSelected}
+      onSelected={setSelectedDate}
       onHover={onHover}
     />
   );
+};
+DatePickerBody.defaultProps = {
+  row: ROW_COUNT,
+  col: COL_COUNT,
 };
 export default DatePickerBody;

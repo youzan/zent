@@ -33,13 +33,13 @@ class Demo extends Component {
 			<div>
 				<DatePicker
 					value={dateValue}
-					className="zent-date-picker-demo"
+					className="zent-datepicker-demo"
 					onChange={this.onChangeDate}
 					disabledDate={date => date.getDay() === 1}
 				/>
 				<br />
 				<WeekPicker
-					className="zent-date-picker-demo"
+					className="zent-datepicker-demo"
 					value={weekValue}
 					onChange={this.onChangeWeek}
 					disabledDate={date => date.getDay() === 1}

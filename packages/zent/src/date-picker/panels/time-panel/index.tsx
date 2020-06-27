@@ -6,7 +6,7 @@ import { ITimePanelProps } from '../../types';
 
 const TimePickerPanel: React.FC<ITimePanelProps> = props => {
   return (
-    <div className="zent-date-picker-panel">
+    <div className="zent-datepicker-panel">
       <TimePickerBody {...props} />
       <TimePickerFooter {...props} />
     </div>

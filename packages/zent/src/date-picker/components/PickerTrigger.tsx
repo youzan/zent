@@ -2,28 +2,32 @@ import * as React from 'react';
 import cx from 'classnames';
 import Input from '../../input';
 import Icon from '../../icon';
-import noop from '../../utils/noop';
-import useInputText, { IUseInputTextParams } from '../hooks/useInputText';
-import useInputRangeText from '../hooks/useInputRangeText';
 
+import noop from '../../utils/noop';
+import { formatDateRange, formatDate } from '../utils';
 import { ISingleTriggerProps, IRangeTriggerProps } from '../types';
 
-export const SingleInputTrigger: React.FC<ISingleTriggerProps &
-  IUseInputTextParams> = ({
+export const SingleInputTrigger: React.FC<ISingleTriggerProps> = ({
   canClear,
   disabled,
   width,
+  value,
+  format,
   placeholder,
   onClearInput,
-  selected,
-  format,
-  i18n,
-  type,
-  options,
+  text,
+  name,
 }) => {
-  const text = useInputText({ selected, format, i18n, type, options });
   return (
     <>
+      {name && (
+        <div className="zent-datepicker-name-input">
+          <input
+            name={name[0]}
+            value={value ? formatDate(value, format) : ''}
+          />
+        </div>
+      )}
       <Input
         value={text}
         onChange={noop}
@@ -37,21 +41,39 @@ export const SingleInputTrigger: React.FC<ISingleTriggerProps &
   );
 };
 
-const COMBINED_PREFIXCLS = 'zent-date-picker-combined-trigger';
+const COMBINED_PREFIXCLS = 'zent-datepicker-combined-trigger';
 interface ICombinedInputTriggerProps extends IRangeTriggerProps {
   format: string;
   selected: [Date, Date];
 }
 export const CombinedInputTrigger: React.FC<ICombinedInputTriggerProps> = ({
   format,
+  value,
   selected,
   seperator,
   placeholder,
+  name,
   onClearInput,
 }) => {
-  const text = useInputRangeText(selected, format);
+  const text = React.useMemo(() => {
+    if (!selected) return [null, null];
+    return formatDateRange(selected, format);
+  }, [selected, format]);
+
   return (
     <>
+      {name && (
+        <div className="zent-datepicker-name-input">
+          <input
+            name={name[0]}
+            value={value[0] ? formatDate(value[0], format) : ''}
+          />
+          <input
+            name={name[1]}
+            value={value[1] ? formatDate(value[1], format) : ''}
+          />
+        </div>
+      )}
       <span
         className={cx(`${COMBINED_PREFIXCLS}-input`, {
           [`${COMBINED_PREFIXCLS}-empty-input`]: !text[0],

@@ -3,16 +3,12 @@ import { FC, useContext, useMemo } from 'react';
 import Input from '../input';
 import Icon from '../icon';
 import noop from '../utils/noop';
-import WithTimePicker from './components/WithTimePicker';
+import Picker from './components/TimePickerBase';
 import { leftPad } from './utils/handler';
-import I18nLocaleContext from './context/I18nLocaleContext';
+import PickerContext from './context/PickerContext';
 import TimePickerPanel from './panels/time-panel';
-import { ITimePickerProps } from './types';
+import { ITimePickerProps, ITimePickerTriggerProps } from './types';
 
-interface ITimePickerTriggerProps extends ITimePickerProps {
-  selected: string;
-  onSelected: (value: string) => any;
-}
 export const TimePickerTrigger: FC<ITimePickerTriggerProps> = ({
   placeholder,
   width,
@@ -22,7 +18,7 @@ export const TimePickerTrigger: FC<ITimePickerTriggerProps> = ({
   selected,
   onSelected,
 }) => {
-  const { i18n } = useContext(I18nLocaleContext);
+  const { i18n } = useContext(PickerContext);
   const text = useMemo(() => {
     return selected
       ? selected
@@ -57,10 +53,17 @@ export const TimePickerTrigger: FC<ITimePickerTriggerProps> = ({
   );
 };
 
-const DefaultTimePickerProps = {};
-export const TimePicker = WithTimePicker(
-  TimePickerTrigger,
-  TimePickerPanel,
-  DefaultTimePickerProps
-);
+const DefaultTimePickerProps = {
+  showSecond: true,
+};
+export const TimePicker: React.FC<ITimePickerProps> = props => {
+  return (
+    <Picker
+      {...DefaultTimePickerProps}
+      {...props}
+      TriggerComponent={TimePickerTrigger}
+      ContentComponent={TimePickerPanel}
+    />
+  );
+};
 export default TimePicker;

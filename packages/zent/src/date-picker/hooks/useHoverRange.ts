@@ -6,9 +6,10 @@ import * as React from 'react';
  */
 export default function useHoverRange(selected: [Date, Date], hoverDate: Date) {
   const [hoverRange, setHoverRange] = React.useState(null);
+
   React.useEffect(() => {
     const [start, end] = selected;
-    if (start && !end) {
+    if (start && !end && hoverDate) {
       setHoverRange([start, hoverDate]);
     } else {
       setHoverRange(null);

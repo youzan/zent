@@ -1,31 +1,27 @@
 import * as React from 'react';
 import { useState, useContext } from 'react';
-import PanelHeader, { TitleCommonNode } from '../../components/PanelHeader';
+import PanelHeader, { Title } from '../../components/PanelHeader';
 
-import I18nLocaleContext from '../../context/I18nLocaleContext';
+import PickerContext from '../../context/PickerContext';
 import MonthPanelBody from './MonthBody';
-import { addYears } from 'date-fns';
+import YearPanel from '../year-panel';
+import { addYears, setYear } from 'date-fns';
 import { ISingleDatePanelProps } from '../../types';
 
 const MonthPickerPanel: React.FC<ISingleDatePanelProps> = props => {
-  const {
-    defaultPanelDate,
-    selected,
-    onSelected,
-    onChangePanel,
-    hoverDate,
-  } = props;
-  const { i18n } = useContext(I18nLocaleContext);
+  const { defaultPanelDate, selected, onSelected, hoverDate } = props;
+  const { i18n } = useContext(PickerContext);
   const [panelDate, setPanelDate] = useState<Date>(defaultPanelDate);
+  const [showYear, setShowYear] = React.useState<boolean>(false);
 
   const MonthPanelNode = (
     <>
       <PanelHeader
         titleNode={
-          <TitleCommonNode
+          <Title
             text={panelDate.getFullYear()}
             unit={i18n.panel.year}
-            onClick={() => onChangePanel('year')}
+            onClick={() => setShowYear(true)}
           />
         }
         onPrev={() => setPanelDate(addYears(panelDate, -1))}
@@ -40,6 +36,21 @@ const MonthPickerPanel: React.FC<ISingleDatePanelProps> = props => {
     </>
   );
 
-  return MonthPanelNode;
+  const onClickYear = React.useCallback(
+    val => {
+      setPanelDate(setYear(panelDate, val.getFullYear()));
+      setShowYear(false);
+    },
+    [panelDate]
+  );
+  const YearPanelNode = (
+    <YearPanel
+      {...props}
+      onSelected={onClickYear}
+      defaultPanelDate={panelDate}
+    />
+  );
+
+  return <>{!showYear ? MonthPanelNode : YearPanelNode}</>;
 };
 export default MonthPickerPanel;

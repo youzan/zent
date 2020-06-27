@@ -4,7 +4,7 @@ interface IDateSubTitleProps {
 }
 const PanelSubHeader: React.FC<IDateSubTitleProps> = ({ names }) => {
   return (
-    <ul className="zent-date-picker-panel-sub_header">
+    <ul className="zent-datepicker-panel-sub_header">
       {names.map((item, index) => (
         <li key={index}>{item}</li>
       ))}

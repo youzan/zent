@@ -22,7 +22,7 @@ class DatePickerBasic extends Component {
 	state = {
 		dateValue: '2020-05-11',
 		rangeValue: ['2020-05-10', '2020-05-12'],
-		timeValue: '04:50:15',
+		timeValue: '14:50:32',
 		combinedValue: ['2020-05-10', '2020-05-12'],
 		weekValue: ['2020-05-11'],
 		quarterValue: '2020-01-11',
@@ -90,22 +90,22 @@ class DatePickerBasic extends Component {
 			yearValue,
 		} = this.state;
 		return (
-			<div className="zent-date-picker-example">
+			<div className="zent-datepicker-example">
 				<DatePicker
 					value={dateValue}
-					className="zent-date-picker-demo"
+					className="zent-datepicker-demo"
 					onChange={this.onChangeDate}
 					// disabledDate={{ min: '2020-5-10', max: '2020-6-10' }}
 				/>
 				<br />
 				<DateRangePicker
-					className="zent-date-picker-demo"
+					className="zent-datepicker-demo"
 					value={rangeValue}
 					onChange={this.onChangeRange}
 				/>
 				<br />
 				<TimePicker
-					className="zent-date-picker-demo"
+					className="zent-datepicker-demo"
 					value={timeValue}
 					onChange={this.onChangeTime}
 					canClear={false}
@@ -113,31 +113,31 @@ class DatePickerBasic extends Component {
 				/>
 				<br />
 				<CombinedDateRangePicker
-					className="zent-date-picker-demo"
+					className="zent-datepicker-demo"
 					value={combinedValue}
 					onChange={this.onChangeCombinedDate}
 				/>
 				<br />
 				<WeekPicker
-					className="zent-date-picker-demo"
+					className="zent-datepicker-demo"
 					value={weekValue}
 					onChange={this.onChangeWeek}
 				/>
 				<br />
 				<MonthPicker
-					className="zent-date-picker-demo"
+					className="zent-datepicker-demo"
 					value={monthValue}
 					onChange={this.onChangeMonth}
 				/>
 				<br />
 				<QuarterPicker
-					className="zent-date-picker-demo"
+					className="zent-datepicker-demo"
 					value={quarterValue}
 					onChange={this.onChangeQuarter}
 				/>
 				<br />
 				<YearPicker
-					className="zent-date-picker-demo"
+					className="zent-datepicker-demo"
 					value={yearValue}
 					onChange={this.onChangeYear}
 				/>
@@ -149,7 +149,7 @@ ReactDOM.render(<DatePickerBasic />, mountNode);
 ```
 
 <style>
-	.zent-date-picker-demo{
+	.zent-datepicker-demo{
 		margin-bottom: 10px;
 	}
 </style>

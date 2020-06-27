@@ -3,7 +3,7 @@ import Popover from '../../popover';
 
 const PickerPopover = ({ trigger, content, panelVisible, onVisibleChange }) => {
   return (
-    <div className="zent-date-picker">
+    <div className="zent-datepicker">
       <Popover
         cushion={5}
         position={Popover.Position.AutoBottomLeft}

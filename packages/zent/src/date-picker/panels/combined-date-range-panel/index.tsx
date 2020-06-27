@@ -3,7 +3,7 @@ import DatePanel from '../date-panel/index';
 import RangePickerFooter from './RangeFooter';
 import { ICombinedDatePanelProps, IDisabledTimes } from '../../types';
 
-const prefixCls = 'zent-date-picker-combined-panel';
+const prefixCls = 'zent-datepicker-combined-panel';
 export interface ICombinedDateRangePanelProps extends ICombinedDatePanelProps {
   showTime?: boolean;
   disabledTimes?: IDisabledTimes;
@@ -19,15 +19,23 @@ const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
 }) => {
   const [start, end] = selected;
 
-  const changeStartOrEnd = (val: Date) => {
-    const nullIndex = selected.indexOf(null);
-    if (nullIndex === -1) {
-      selected = [val, null];
-    } else {
-      selected[nullIndex] = val;
-    }
-    onSelected(selected, !showTime);
-  };
+  // true为选择结束日期 false为选择开始日期
+  const [status, setStatus] = React.useState(start && !end);
+
+  const onChangeStartOrEnd = React.useCallback(
+    (val: Date) => {
+      let selectedTemp;
+      if (!status) {
+        selectedTemp = [val, null];
+        setStatus(true);
+      } else {
+        selectedTemp = [selected[0], val];
+        setStatus(false);
+      }
+      onSelected(selectedTemp, !showTime);
+    },
+    [onSelected, selected, showTime, status]
+  );
 
   const FooterNode = React.useMemo(
     () => (
@@ -52,7 +60,7 @@ const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
             selected={start}
             popText={start && !end ? '请选择结束日期' : ''}
             defaultPanelDate={defaultPanelDate[0]}
-            onSelected={changeStartOrEnd}
+            onSelected={onChangeStartOrEnd}
             disabledPanelDate={disabledPanelDate[0]}
           />
         </div>
@@ -62,7 +70,7 @@ const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
             hideFooter
             selected={end}
             defaultPanelDate={defaultPanelDate[1]}
-            onSelected={changeStartOrEnd}
+            onSelected={onChangeStartOrEnd}
             disabledPanelDate={disabledPanelDate[1]}
           />
         </div>
