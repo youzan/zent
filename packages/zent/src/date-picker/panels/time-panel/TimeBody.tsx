@@ -1,14 +1,18 @@
 import * as React from 'react';
+import { setHours, setMinutes, setSeconds } from 'date-fns';
 import TimeUnitColumn from './TimeUnitColumn';
 
 import { useTimePanelValue } from '../../hooks/useTimePanelValue';
 import { ITimePanelProps, ITimeUnitType } from '../../types';
-import { setHours, setMinutes, setSeconds } from 'date-fns';
 import { formatDate } from '../../utils/index';
-
+const setTimeMap = {
+  hour: setHours,
+  minute: setMinutes,
+  second: setSeconds,
+};
 interface IUnitColumn {
   type: ITimeUnitType;
-  setValue: (Data, number) => Date;
+  format: string;
   value: number;
   disabledUnits: number[];
   max: number;
@@ -17,64 +21,84 @@ interface IUnitColumn {
 
 const TimePickerBody: React.FC<ITimePanelProps> = ({
   selected,
-  showSecond,
-  onSelected,
+  format,
   disabledTimes,
+  selectedDate,
+  hourStep,
+  minuteStep,
+  secondStep,
+  onSelected,
+  defaultTime,
 }) => {
-  const format = React.useMemo(() => (showSecond ? 'HH:mm:ss' : 'HH:mm'), [
-    showSecond,
-  ]);
-  const { panelTime, setPanelTime } = useTimePanelValue(selected, format);
+  const { panelTime, setPanelTime } = useTimePanelValue(
+    selected,
+    defaultTime,
+    format
+  );
 
   const unitColumns: IUnitColumn[] = React.useMemo(() => {
     const { disabledHours, disabledMinutes, disabledSeconds } = disabledTimes;
-
+    // HH:mm:ss 对应的unitColumn
     const UnitColumnConfig = [
       {
         type: 'hour' as ITimeUnitType,
-        value: panelTime.getHours(),
-        disabledUnits: disabledHours(),
+        format: 'HH',
+        value: panelTime?.getHours(),
+        disabledUnits: disabledHours(selectedDate),
         max: 23,
-        step: 1,
-        setValue: setHours,
+        step: hourStep,
       },
       {
         type: 'minute' as ITimeUnitType,
-        value: panelTime.getMinutes(),
-        disabledUnits: disabledMinutes(panelTime.getHours()),
+        format: 'mm',
+        value: panelTime?.getMinutes(),
+        disabledUnits: disabledMinutes(panelTime?.getHours(), selectedDate),
         max: 59,
-        step: 1,
-        setValue: setMinutes,
+        step: minuteStep,
       },
       {
         type: 'second' as ITimeUnitType,
-        value: panelTime.getSeconds(),
+        format: 'ss',
+        value: panelTime?.getSeconds(),
         disabledUnits: disabledSeconds(
-          panelTime.getHours(),
-          panelTime.getMinutes()
+          panelTime?.getHours(),
+          panelTime?.getMinutes(),
+          selectedDate
         ),
         max: 59,
-        step: 1,
-        setValue: setSeconds,
+        step: secondStep,
       },
     ];
-    return showSecond
-      ? UnitColumnConfig
-      : (UnitColumnConfig.splice(0, 2) as IUnitColumn[]);
-  }, [panelTime, showSecond, disabledTimes]);
 
-  React.useEffect(() => {
-    onSelected(formatDate(panelTime, format));
-  }, [panelTime, format, onSelected]);
+    return UnitColumnConfig.filter(item => format.indexOf(item.format) !== -1);
+  }, [
+    panelTime,
+    selectedDate,
+    format,
+    disabledTimes,
+    hourStep,
+    minuteStep,
+    secondStep,
+  ]);
+
+  const setItemTime = React.useCallback(
+    (val: number, type: string) => {
+      const time = setTimeMap[type](panelTime, val);
+      setPanelTime(time);
+      onSelected(formatDate(time, format));
+    },
+    [panelTime, format, onSelected, setPanelTime]
+  );
 
   return (
     <div className="zent-datepicker-time-panel-body">
-      {unitColumns.map(({ type, value, setValue, disabledUnits }) => (
+      {unitColumns.map(({ type, value, step, disabledUnits }) => (
         <TimeUnitColumn
           key={type}
           type={type}
+          step={step}
           selected={value}
-          setting={val => setPanelTime(setValue(panelTime, val))}
+          setting={val => setItemTime(val, type)}
           disabledUnits={disabledUnits}
         />
       ))}

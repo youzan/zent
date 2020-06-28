@@ -1,17 +1,17 @@
 import * as React from 'react';
-import { useState, useContext } from 'react';
+import { addYears, setYear } from 'date-fns';
 import PanelHeader, { Title } from '../../components/PanelHeader';
-
-import PickerContext from '../../context/PickerContext';
 import MonthPanelBody from './MonthBody';
 import YearPanel from '../year-panel';
-import { addYears, setYear } from 'date-fns';
+
+import PickerContext from '../../context/PickerContext';
+import usePanelDate from '../../hooks/usePanelDate';
 import { ISingleDatePanelProps } from '../../types';
 
 const MonthPickerPanel: React.FC<ISingleDatePanelProps> = props => {
   const { defaultPanelDate, selected, onSelected, hoverDate } = props;
-  const { i18n } = useContext(PickerContext);
-  const [panelDate, setPanelDate] = useState<Date>(defaultPanelDate);
+  const { i18n } = React.useContext(PickerContext);
+  const { panelDate, setPanelDate } = usePanelDate(defaultPanelDate);
   const [showYear, setShowYear] = React.useState<boolean>(false);
 
   const MonthPanelNode = (
@@ -41,7 +41,7 @@ const MonthPickerPanel: React.FC<ISingleDatePanelProps> = props => {
       setPanelDate(setYear(panelDate, val.getFullYear()));
       setShowYear(false);
     },
-    [panelDate]
+    [panelDate, setPanelDate]
   );
   const YearPanelNode = (
     <YearPanel

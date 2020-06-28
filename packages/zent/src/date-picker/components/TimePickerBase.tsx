@@ -27,16 +27,17 @@ const PopoverComponent: React.FC<IPickerProps> = ({
   disabledTimes,
   value,
   className,
+  canClear = true,
   TriggerComponent,
   ContentComponent,
-  defaultPanelValue,
+  defaultTime,
   ...resetProps
 }) => {
   const onChangeRef = useEventCallbackRef(onChange);
   const [panelVisible, setPanelVisible] = React.useState<boolean>(false);
   const [visibleChange, setVisibleChange] = React.useState<boolean>(true);
   const { timeValue: selected, setTimevalue: setSelected } = useTimeValue(
-    value || defaultPanelValue
+    value
   );
   const onSelected = React.useCallback(
     (val, finished = false) => {
@@ -75,11 +76,12 @@ const PopoverComponent: React.FC<IPickerProps> = ({
               trigger={
                 <div
                   className={cx({
-                    'zent-datepicker-can-clear': value,
+                    'zent-datepicker-can-clear': value && canClear,
                   })}
                 >
                   <TriggerComponent
                     {...resetProps}
+                    canClear={canClear}
                     selected={selected}
                     onSelected={onSelected}
                   />
@@ -89,6 +91,7 @@ const PopoverComponent: React.FC<IPickerProps> = ({
                 <PanelContextProvider value={{ visibleChange }}>
                   <ContentComponent
                     {...resetProps}
+                    defaultTime={defaultTime}
                     disabledTimes={initDisabledTimes}
                     selected={selected}
                     onSelected={onSelected}

@@ -7,7 +7,7 @@ import { IDatePickerCommonProps, SingleDate, IDisabledDate } from '../types';
 interface IRangeMergedPropsParams
   extends Pick<
     IDatePickerCommonProps<[SingleDate, SingleDate]>,
-    'value' | 'format' | 'defaultPanelValue'
+    'value' | 'format' | 'defaultDate'
   > {
   disabledDatePropsRef: React.MutableRefObject<IDisabledDate>;
 }
@@ -15,7 +15,7 @@ interface IRangeMergedPropsParams
 export default function useRangeMergedProps({
   value,
   format,
-  defaultPanelValue,
+  defaultDate,
   disabledDatePropsRef,
 }: IRangeMergedPropsParams) {
   // defaultPanelDate
@@ -39,11 +39,11 @@ export default function useRangeMergedProps({
             parseDate(selected[0], format),
             parseDate(addMonths(selected[0], 1), format),
           ]
-        : defaultPanelValue && defaultPanelValue[0] && defaultPanelValue[1]
-        ? parseDateRange(defaultPanelValue, format)
+        : defaultDate && defaultDate[0] && defaultDate[1]
+        ? parseDateRange(defaultDate, format)
         : [current, addMonths(current, 1)]
     );
-  }, [defaultPanelValue, selected, format]);
+  }, [defaultDate, selected, format]);
 
   // disabledDate
   const disabledDate = unifiedDisabledDateFromProps(

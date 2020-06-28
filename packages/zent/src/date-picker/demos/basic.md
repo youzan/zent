@@ -22,7 +22,7 @@ class DatePickerBasic extends Component {
 	state = {
 		dateValue: '2020-05-11',
 		rangeValue: ['2020-05-10', '2020-05-12'],
-		timeValue: '14:50:32',
+		timeValue: '14:50:30',
 		combinedValue: ['2020-05-10', '2020-05-12'],
 		weekValue: ['2020-05-11'],
 		quarterValue: '2020-01-11',
@@ -95,27 +95,6 @@ class DatePickerBasic extends Component {
 					value={dateValue}
 					className="zent-datepicker-demo"
 					onChange={this.onChangeDate}
-					// disabledDate={{ min: '2020-5-10', max: '2020-6-10' }}
-				/>
-				<br />
-				<DateRangePicker
-					className="zent-datepicker-demo"
-					value={rangeValue}
-					onChange={this.onChangeRange}
-				/>
-				<br />
-				<TimePicker
-					className="zent-datepicker-demo"
-					value={timeValue}
-					onChange={this.onChangeTime}
-					canClear={false}
-					disabledTimes={this.disabledTimes}
-				/>
-				<br />
-				<CombinedDateRangePicker
-					className="zent-datepicker-demo"
-					value={combinedValue}
-					onChange={this.onChangeCombinedDate}
 				/>
 				<br />
 				<WeekPicker
@@ -140,6 +119,26 @@ class DatePickerBasic extends Component {
 					className="zent-datepicker-demo"
 					value={yearValue}
 					onChange={this.onChangeYear}
+				/>
+				<br />
+				<TimePicker
+					className="zent-datepicker-demo"
+					value={timeValue}
+					secondStep={15}
+					onChange={this.onChangeTime}
+					disabledTimes={this.disabledTimes}
+				/>
+				<br />
+				<DateRangePicker
+					className="zent-datepicker-demo"
+					value={rangeValue}
+					onChange={this.onChangeRange}
+				/>
+				<br />
+				<CombinedDateRangePicker
+					className="zent-datepicker-demo"
+					value={combinedValue}
+					onChange={this.onChangeCombinedDate}
 				/>
 			</div>
 		);

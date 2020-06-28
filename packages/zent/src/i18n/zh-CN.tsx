@@ -122,7 +122,7 @@ export const TimePicker: I18nLocaleTimePicker = () => {
     week: '请选择自然周',
     month: '请选择月份',
     quarter: '请选择季度',
-    year: '请选择年',
+    year: '请选择年份',
     range: '开始日期 至 结束日期',
     rangeError: '请选择起止时间',
     start: '开始日期',
@@ -133,9 +133,9 @@ export const TimePicker: I18nLocaleTimePicker = () => {
     current: {
       time: '当前时间',
       date: '今天',
-      week: '本周',
+      week: '当前周',
       month: '当前月',
-      year: '今年',
+      year: '当前年',
     },
     panel: {
       hour: '时',

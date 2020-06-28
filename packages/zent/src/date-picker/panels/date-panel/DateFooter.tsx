@@ -1,18 +1,21 @@
 import * as React from 'react';
 import cx from 'classnames';
-import Button from '../../../button';
-
-import PanelFooter from '../../components/PanelFooter';
-import PickerContext from '../../context/PickerContext';
-
-import TimePicker from '../../TimePicker';
 import { parse } from 'date-fns';
+
+import Button from '../../../button';
+import TimePicker from '../../TimePicker';
+import PanelFooter from '../../components/PanelFooter';
+
+import PickerContext from '../../context/PickerContext';
 import { formatDate } from '../../utils/index';
+import { useShowTimeOption } from '../../hooks/useShowTimeOption';
+
 import { IDatePickerPanelProps } from './index';
 
 interface IDatePickerFooterProps
   extends Omit<IDatePickerPanelProps, 'popText' | 'hideFooter'> {}
 const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
+  footerText,
   showTime,
   onSelected,
   selected,
@@ -20,6 +23,7 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
   disabledTimes,
 }) => {
   const { i18n } = React.useContext(PickerContext);
+  const { format } = useShowTimeOption<string>(showTime);
 
   const onClickCurrent = React.useCallback(
     ({ isdisabledToday, today }) => {
@@ -40,9 +44,9 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
           })}
           onClick={() => onClickCurrent({ isdisabledToday, today })}
         >
-          {showTime ? i18n.current.time : i18n.current.date}
+          {footerText}
         </a>
-        {showTime && (
+        {!!showTime && (
           <Button
             type="primary"
             onClick={() => onSelected(selected)}
@@ -53,28 +57,38 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
         )}
       </div>
     );
-  }, [selected, i18n, showTime, onClickCurrent, onSelected, disabledPanelDate]);
+  }, [
+    selected,
+    i18n,
+    showTime,
+    footerText,
+    onClickCurrent,
+    onSelected,
+    disabledPanelDate,
+  ]);
 
   const onTimeChange = React.useCallback(
     val => {
-      const timeVal = parse(val, 'HH:mm:ss', selected || new Date());
+      const timeVal = parse(val, format, selected || new Date());
       onSelected(timeVal, false);
     },
-    [selected, onSelected]
+    [selected, format, onSelected]
   );
 
   const timeInput = React.useMemo(
     () =>
       showTime ? (
         <TimePicker
+          format={format}
           width={94}
-          value={formatDate(selected, 'HH:mm:ss')}
+          selectedDate={selected}
+          value={formatDate(selected, format)}
           hiddenIcon={true}
           onChange={onTimeChange}
           disabledTimes={disabledTimes}
         />
       ) : null,
-    [selected, showTime, disabledTimes, onTimeChange]
+    [selected, showTime, format, disabledTimes, onTimeChange]
   );
 
   return <PanelFooter leftNode={timeInput} rightNode={renderToday} />;

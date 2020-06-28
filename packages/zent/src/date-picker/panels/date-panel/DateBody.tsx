@@ -1,18 +1,17 @@
 import * as React from 'react';
 import { FC, useContext } from 'react';
-import PanelCell from '../../components/PanelCell';
-
-import PanelContext from '../../context/PanelContext';
-import getPanelCellsData from '../../utils/getPanelCellsData';
-
 import {
   startOfMonth,
   setYear,
   setDate,
   setMonth,
   isSameMonth,
+  parse,
 } from 'date-fns';
+import PanelCell from '../../components/PanelCell';
+import PanelContext from '../../context/PanelContext';
 
+import getPanelCellsData from '../../utils/getPanelCellsData';
 import { generateDateConfig } from '../../utils/dateUtils';
 import { ISingleDateBodyProps } from '../../types';
 
@@ -21,6 +20,8 @@ const ROW_COUNT = 6;
 
 interface IDatePickerBodyProps extends ISingleDateBodyProps {
   popText?: string;
+  defaultTime?: string;
+  format?: string;
 }
 const DatePickerBody: FC<IDatePickerBodyProps> = props => {
   const { onHover } = useContext(PanelContext);
@@ -33,6 +34,8 @@ const DatePickerBody: FC<IDatePickerBodyProps> = props => {
     hoverRangeDate,
     row,
     col,
+    defaultTime,
+    format,
     onSelected,
     disabledPanelDate,
   } = props;
@@ -71,15 +74,22 @@ const DatePickerBody: FC<IDatePickerBodyProps> = props => {
   const setSelectedDate = React.useCallback(
     (val: Date) => {
       if (!selected) {
-        return onSelected(val);
+        return onSelected(
+          defaultTime && format ? parse(defaultTime, format, val) : val
+        );
       }
       let selectedDate = selected;
       selectedDate = setYear(selectedDate, val.getFullYear());
       selectedDate = setMonth(selectedDate, val.getMonth());
       selectedDate = setDate(selectedDate, val.getDate());
-      onSelected(selectedDate);
+
+      onSelected(
+        defaultTime && format
+          ? parse(defaultTime, format, selectedDate)
+          : selectedDate
+      );
     },
-    [selected, onSelected]
+    [selected, defaultTime, format, onSelected]
   );
 
   return (

@@ -31,7 +31,6 @@ const DefaultWeekPickerProps = {
 
 export interface IWeekPickerProps extends IDatePickerCommonProps {
   placeholder?: string;
-  showTime?: boolean;
   weekStartsOn?: IWeekStartsOnKey;
 }
 
@@ -55,8 +54,15 @@ export const WeekPicker: React.FC<IWeekPickerProps> = props => {
   );
 
   const getCallbackValue = React.useCallback(
-    val => getCallbackValueRangeWithDate(val, valueType, format, generateDate),
-    [valueType, format]
+    val =>
+      getCallbackValueRangeWithDate(
+        val,
+        valueType,
+        format,
+        generateDate,
+        options
+      ),
+    [valueType, format, options]
   );
 
   return (

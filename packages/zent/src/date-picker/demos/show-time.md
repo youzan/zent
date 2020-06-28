@@ -47,8 +47,8 @@ class Demo extends Component {
 				<br />
 				<DateRangePicker
 					className="zent-datepicker-demo"
-					showTime
-					format="YYYY-MM-DD HH:mm:ss"
+					showTime={{ format: 'HH:mm', defaultTime: ['00:00', '23:59'] }}
+					format="YYYY-MM-DD HH:mm"
 					value={rangeValue}
 					onChange={this.onChangeRange}
 				/>
@@ -56,8 +56,8 @@ class Demo extends Component {
 				<CombinedDateRangePicker
 					className="zent-datepicker-demo"
 					value={combinedValue}
-					format="YYYY-MM-DD HH:mm:ss"
-					showTime
+					showTime={{ format: 'HH:mm', defaultTime: ['12:00', '23:59'] }}
+					format="YYYY-MM-DD HH:mm"
 					disabledDate={date => date.getDate() === 17}
 					onChange={this.onChangeCombinedDate}
 				/>

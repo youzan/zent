@@ -18,8 +18,8 @@ export default function unifiedDisabledDateFromProps(
   if (typeof disabledDateProps === 'object') {
     const { min, max } = disabledDateProps as IDisabledDateSimple;
     disabledDate = date =>
-      isBefore(date, parseDate(min, format)) &&
-      isAfter(date, parseDate(max, format));
+      (min && isBefore(date, parseDate(min, format))) ||
+      (max && isAfter(date, parseDate(max, format)));
   } else {
     disabledDate = disabledDateProps;
   }

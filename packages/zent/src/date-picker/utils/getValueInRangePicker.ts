@@ -1,4 +1,4 @@
-import { formatDate } from './index';
+import { formatDateRange } from './index';
 import { IValueType, SingleDate } from '../types';
 
 /**
@@ -16,7 +16,7 @@ export function getRangeValuesWithValueType(
   let resultVal = null;
   switch (valueType) {
     case 'string': {
-      resultVal = [formatDate(val[0], format), formatDate(val[1], format)];
+      resultVal = formatDateRange(val, format);
       break;
     }
     case 'number': {

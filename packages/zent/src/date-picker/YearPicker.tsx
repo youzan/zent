@@ -4,7 +4,7 @@ import PickerContext from './context/PickerContext';
 
 import SinglePicker from './components/SinglePickerBase';
 import YearPanel from './panels/year-panel';
-import { getCallbackValueRangeWithDate } from './utils/getValueInSinglePicker';
+import { getCallbackValueWithDate } from './utils/getValueInSinglePicker';
 import { generateDateConfig } from './utils/dateUtils';
 import { formatText } from './utils/formatInputText';
 import {
@@ -34,7 +34,7 @@ export const YearPicker: React.FC<IYearPickerProps> = props => {
   const getSelectedValue = React.useCallback(val => val, []);
 
   const getCallbackValue = React.useCallback(
-    val => getCallbackValueRangeWithDate(val, valueType, format, generateDate),
+    val => getCallbackValueWithDate(val, valueType, format),
     [valueType, format]
   );
 

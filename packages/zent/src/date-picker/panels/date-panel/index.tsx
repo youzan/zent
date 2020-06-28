@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { setYear, setMonth, addMonths, addYears } from 'date-fns';
 import PanelHeader, { Title } from '../../components/PanelHeader';
 import PanelSubHeader from './PanelSubHeader';
 import DatePickerBody from './DateBody';
@@ -7,16 +8,16 @@ import MonthPanel from '../month-panel';
 import YearPanel from '../year-panel';
 
 import PickerContext from '../../context/PickerContext';
-
-import { ISingleDatePanelProps, IDisabledTimes } from '../../types';
-
-import { setYear, setMonth, addMonths, addYears } from 'date-fns';
+import { useShowTimeOption } from '../../hooks/useShowTimeOption';
+import usePanelDate from '../../hooks/usePanelDate';
+import { ISingleDatePanelProps, IDisabledTimes, IShowTime } from '../../types';
 
 export interface IDatePickerPanelProps extends ISingleDatePanelProps {
   popText?: string;
   hideFooter?: boolean;
-  showTime?: boolean;
+  showTime?: IShowTime;
   disabledTimes?: IDisabledTimes;
+  footerText?: string;
 }
 const DatePickerPanel: React.FC<IDatePickerPanelProps> = props => {
   const {
@@ -24,13 +25,16 @@ const DatePickerPanel: React.FC<IDatePickerPanelProps> = props => {
     hideFooter = false,
     onSelected,
     showTime,
+    footerText = '',
     ...resetProps
   } = props;
   const { i18n } = React.useContext(PickerContext);
 
+  const { format, defaultTime } = useShowTimeOption<string>(showTime);
+
   const [showYear, setShowYear] = React.useState<boolean>(false);
   const [showMonth, setShowMonth] = React.useState<boolean>(false);
-  const [panelDate, setPanelDate] = React.useState<Date>(defaultPanelDate);
+  const { panelDate, setPanelDate } = usePanelDate(defaultPanelDate);
 
   const titleNode = React.useMemo(
     () => (
@@ -62,6 +66,8 @@ const DatePickerPanel: React.FC<IDatePickerPanelProps> = props => {
       <PanelSubHeader names={i18n.panel.dayNames} />
       <DatePickerBody
         {...resetProps}
+        format={format}
+        defaultTime={defaultTime}
         onSelected={val => {
           onSelected(val, !showTime);
         }}
@@ -74,7 +80,7 @@ const DatePickerPanel: React.FC<IDatePickerPanelProps> = props => {
       setPanelDate(setYear(panelDate, val.getFullYear()));
       setShowYear(false);
     },
-    [panelDate]
+    [panelDate, setPanelDate]
   );
   // 切换到年份面板
   const YearPanelNode = (
@@ -90,7 +96,7 @@ const DatePickerPanel: React.FC<IDatePickerPanelProps> = props => {
       setPanelDate(setMonth(panelDate, val.getMonth()));
       setShowMonth(false);
     },
-    [panelDate]
+    [panelDate, setPanelDate]
   );
   // 切换到月份面板
   const MonthPanelNode = (
@@ -106,7 +112,14 @@ const DatePickerPanel: React.FC<IDatePickerPanelProps> = props => {
       {!showYear && !showMonth && DatePanel}
       {showYear && YearPanelNode}
       {showMonth && MonthPanelNode}
-      {!hideFooter && <DatePickerFooter {...props} />}
+      {!hideFooter && (
+        <DatePickerFooter
+          {...props}
+          footerText={
+            footerText || (showTime ? i18n.current.time : i18n.current.date)
+          }
+        />
+      )}
     </>
   );
 };

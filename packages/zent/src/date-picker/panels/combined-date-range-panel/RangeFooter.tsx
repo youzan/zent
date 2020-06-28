@@ -1,10 +1,10 @@
 import * as React from 'react';
 import cx from 'classnames';
 import { parse } from 'date-fns';
-import PickerContext from '../../context/PickerContext';
 import TimePicker from '../../TimePicker';
 import Button from '../../../button';
 
+import PickerContext from '../../context/PickerContext';
 import { formatDate } from '../../utils/index';
 import { ICombinedDateRangePanelProps } from './index';
 
@@ -14,29 +14,32 @@ interface ICombinedDateRangeFooterProps
   extends Omit<
     ICombinedDateRangePanelProps,
     'defaultPanelDate' | 'disabledPanelDate'
-  > {}
+  > {
+  format: string;
+}
+
 export const CombinedDateRangeFooter: React.FC<ICombinedDateRangeFooterProps> = ({
   selected,
   disabledTimes,
   onSelected,
+  format,
 }) => {
   const { i18n } = React.useContext(PickerContext);
   const [start, end] = selected;
 
   const onStartTimeChange = React.useCallback(
     (val: string) => {
-      const timeVal = parse(val, 'HH:mm:ss', selected[0]);
+      const timeVal = parse(val, format, selected[0]);
       onSelected([timeVal, selected[1]], false);
     },
-    [selected, onSelected]
+    [selected, format, onSelected]
   );
   const onEndTimeChange = React.useCallback(
     (val: string) => {
-      // todo showSecond ? 'HH:mm:ss' : 'HH:mm'
-      const timeVal = parse(val, 'HH:mm:ss', selected[1]);
+      const timeVal = parse(val, format, selected[1]);
       onSelected([selected[0], timeVal], false);
     },
-    [selected, onSelected]
+    [selected, format, onSelected]
   );
 
   return (
@@ -50,8 +53,9 @@ export const CombinedDateRangeFooter: React.FC<ICombinedDateRangeFooterProps> = 
         width={94}
         className={`${prefixCls}-item`}
         disabled={!start}
-        value={start ? formatDate(start, 'HH:mm:ss') : ''}
+        value={start ? formatDate(start, format) : ''}
         hiddenIcon={true}
+        format={format}
         onChange={onStartTimeChange}
         disabledTimes={disabledTimes}
       />
@@ -63,8 +67,9 @@ export const CombinedDateRangeFooter: React.FC<ICombinedDateRangeFooterProps> = 
         width={94}
         disabled={!end}
         className={`${prefixCls}-item`}
-        value={end ? formatDate(end, 'HH:mm:ss') : ''}
+        value={end ? formatDate(end, format) : ''}
         hiddenIcon={true}
+        format={format}
         onChange={onEndTimeChange}
         disabledTimes={disabledTimes}
       />

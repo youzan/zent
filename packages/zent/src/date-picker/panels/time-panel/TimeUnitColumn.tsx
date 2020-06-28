@@ -11,9 +11,14 @@ interface IUnit {
   disabled?: boolean;
 }
 
-function generateUnits(start: number, end: number, disabledUnits: number[]) {
+function generateUnits(
+  start: number,
+  end: number,
+  step: number,
+  disabledUnits: number[]
+) {
   const units: IUnit[] = [];
-  for (let i = start; i <= end; i++) {
+  for (let i = start; i <= end; i += step) {
     units.push({
       label: leftPad(i, 2),
       value: i,
@@ -33,11 +38,13 @@ const UNIT_MAP: Record<IUnitType, number> = {
 interface ITimeUnitColumnProps {
   type: IUnitType;
   selected: number;
+  step: number;
   setting: (val: number) => void;
   disabledUnits?: number[];
 }
 const TimeUnitColumn: React.FC<ITimeUnitColumnProps> = ({
   type,
+  step,
   selected,
   setting,
   disabledUnits = [],
@@ -45,14 +52,16 @@ const TimeUnitColumn: React.FC<ITimeUnitColumnProps> = ({
   const ulRef = React.createRef<HTMLDivElement>();
   const { visibleChange } = React.useContext(PanelContext);
 
-  const units = generateUnits(0, UNIT_MAP[type], disabledUnits);
+  const units = generateUnits(0, UNIT_MAP[type], step, disabledUnits);
 
   React.useLayoutEffect(() => {
     // first scroll without duration
-    visibleChange && scroll(ulRef.current, 0, selected * 32, 0);
+    visibleChange && scroll(ulRef.current, 0, (selected * 32) / step, 0);
     // scroll item when `selected` changed
-    selected && !visibleChange && scroll(ulRef.current, 0, selected * 32, 160);
-  }, [selected, visibleChange, ulRef]);
+    selected &&
+      !visibleChange &&
+      scroll(ulRef.current, 0, (selected * 32) / step, 160);
+  }, [selected, visibleChange, ulRef, step]);
 
   return (
     <div className={`${prefixCls}_scroll`} ref={ulRef}>

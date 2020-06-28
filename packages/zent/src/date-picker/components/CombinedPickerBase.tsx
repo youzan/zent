@@ -13,16 +13,12 @@ import { getRangeValuesWithValueType } from '../utils/getValueInRangePicker';
 import { useEventCallbackRef } from '../../utils/hooks/useEventCallbackRef';
 
 import {
-  IDatePickerCommonProps,
+  ICombinedDateRangeProps,
   ICombinedDatePanelProps,
-  IRangeTriggerProps,
   IGenerateDateConfig,
-  SingleDate,
 } from '../types';
 
-interface ICombinedPickerProps
-  extends IDatePickerCommonProps<[SingleDate, SingleDate]>,
-    Pick<IRangeTriggerProps, 'placeholder' | 'name'> {
+interface ICombinedPickerProps extends ICombinedDateRangeProps {
   generateDateConfig: IGenerateDateConfig;
   PanelComponent: React.ComponentType<ICombinedDatePanelProps>;
 }
@@ -33,7 +29,7 @@ export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
   value,
   onChange,
   disabledDate: disabledDateProps,
-  defaultPanelValue,
+  defaultDate,
   format,
   name,
   placeholder,
@@ -61,7 +57,7 @@ export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
     value,
     format,
     disabledDatePropsRef,
-    defaultPanelValue,
+    defaultDate,
   });
   // popover visible
   const [panelVisible, setPanelVisible] = React.useState<boolean>(

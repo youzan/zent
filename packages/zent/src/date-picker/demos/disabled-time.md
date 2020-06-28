@@ -27,7 +27,15 @@ class Demo extends Component {
 		});
 	};
 
-	disabledTimes = { disabledHours: () => [2] };
+	disabledTimes1 = { disabledHours: () => [2] };
+	disabledTimes2 = {
+		disabledHours: date => {
+			return date && date.getDate() === 15 ? [3, 4, 5] : [2];
+		},
+		disabledMinutes: (hour, date) => (hour === 12 ? [10, 20, 30, 40, 50] : []),
+		disabledSeconds: () => [1, 2, 3, 4],
+	};
+
 	render() {
 		const { timeValue, dateValue } = this.state;
 		return (
@@ -36,7 +44,7 @@ class Demo extends Component {
 					className="zent-datepicker-demo"
 					value={timeValue}
 					onChange={this.onChangeTime}
-					disabledTimes={this.disabledTimes}
+					disabledTimes={this.disabledTimes1}
 				/>
 				<br />
 				<DatePicker
@@ -45,7 +53,7 @@ class Demo extends Component {
 					onChange={this.onChangeRange}
 					showTime
 					format="YYYY-MM-DD HH:mm:ss"
-					disabledTimes={this.disabledTimes}
+					disabledTimes={this.disabledTimes2}
 				/>
 			</div>
 		);

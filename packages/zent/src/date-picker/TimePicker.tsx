@@ -30,7 +30,7 @@ export const TimePickerTrigger: FC<ITimePickerTriggerProps> = ({
 
   const onClearInput = evt => {
     evt.stopPropagation();
-    onSelected('');
+    onSelected('', true);
   };
 
   return (
@@ -54,8 +54,13 @@ export const TimePickerTrigger: FC<ITimePickerTriggerProps> = ({
 };
 
 const DefaultTimePickerProps = {
-  showSecond: true,
+  format: 'HH:mm:ss',
+  selectedDate: null,
+  hourStep: 1,
+  minuteStep: 1,
+  secondStep: 1,
 };
+
 export const TimePicker: React.FC<ITimePickerProps> = props => {
   return (
     <Picker

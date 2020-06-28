@@ -24,7 +24,7 @@ export interface IDatePickerCommonProps<DateValue = SingleDate> {
   onChange: (date: DateValue | [DateValue, DateValue]) => void;
   valueType?: IValueType;
   format?: string;
-  defaultPanelValue?: DateValue;
+  defaultDate?: DateValue;
   disabledDate?: IDisabledDate;
   disabled?: boolean;
   canClear?: boolean;
@@ -36,9 +36,9 @@ export interface IDatePickerCommonProps<DateValue = SingleDate> {
 }
 
 export interface IDisabledTimes {
-  disabledHours?: () => number[];
-  disabledMinutes?: (hour: number) => number[];
-  disabledSeconds?: (hour: number, minute: number) => number[];
+  disabledHours?: (date?: Date) => number[];
+  disabledMinutes?: (hour: number, date?: Date) => number[];
+  disabledSeconds?: (hour: number, minute: number, date?: Date) => number[];
 }
 
 export type IPickerType = 'date' | 'week' | 'month' | 'quarter' | 'year';
@@ -81,7 +81,20 @@ export type ISingleDateBodyProps = Pick<
   | 'row'
   | 'col'
 >;
+export interface IShowTimeOption<T> {
+  format?: string;
+  defaultTime?: T;
+}
+export type IShowTime<T = string> = boolean | IShowTimeOption<T>;
+
 // **** CombinedPicker ****
+export interface ICombinedDateRangeProps
+  extends IDatePickerCommonProps<[SingleDate, SingleDate]> {
+  placeholder?: string[];
+  showTime?: IShowTime<string[]>;
+  width?: number;
+  name?: string[];
+}
 export interface IRangeTriggerProps {
   value: [SingleDate, SingleDate];
   seperator: string;
@@ -93,35 +106,42 @@ export interface IRangeTriggerProps {
 export interface ICombinedDatePanelProps {
   selected: [Date, Date];
   defaultPanelDate: [Date, Date];
-  defaultPanelTimes?: string[];
   onSelected: (val: [Date, Date], status?: boolean) => void;
   disabledPanelDate: Array<(val: Date) => boolean>;
   hoverDate?: Date;
   hoverRangeDate?: [Date, Date];
   rangeDate?: [Date, Date];
+  showTime?: IShowTime<string[]>;
 }
 
 // **** TimePicker ****
+interface ITimePickerBase {
+  selectedDate?: Date;
+  hourStep?: number;
+  minuteStep?: number;
+  secondStep?: number;
+  format?: string;
+  defaultTime?: string;
+}
 export interface ITimePickerProps
   extends Omit<
-    IDatePickerCommonProps<string>,
-    'valueType' | 'disabledDate' | 'defaultPanelDate'
-  > {
+      IDatePickerCommonProps<string>,
+      'valueType' | 'disabledDate' | 'defaultPanelDate'
+    >,
+    ITimePickerBase {
   placeholder?: string;
   hiddenIcon?: boolean;
   disabledTimes?: IDisabledTimes;
-  defaultPanelTime?: string[];
-  showSecond?: boolean;
 }
 export interface ITimePickerTriggerProps
   extends Omit<ITimePickerProps, 'value' | 'onChange'> {
   selected: string;
-  onSelected: (value: string) => void;
+  onSelected: (value: string, status?: boolean) => void;
 }
-export interface ITimePanelProps {
+
+export interface ITimePanelProps extends ITimePickerBase {
   disabledTimes: IDisabledTimes;
   selected: string;
-  showSecond?: boolean;
   onSelected: (val: string, status?: boolean) => void;
 }
 export type ITimeUnitType = 'hour' | 'minute' | 'second';

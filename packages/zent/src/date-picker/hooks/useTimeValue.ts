@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-export default function useTimeValue(selected: string) {
-  const [timeValue, setTimevalue] = React.useState<string>(selected);
+export default function useTimeValue(value: string) {
+  const [timeValue, setTimevalue] = React.useState<string>(value);
   React.useEffect(() => {
-    setTimevalue(selected);
-  }, [selected]);
+    setTimevalue(value);
+  }, [value]);
 
   return { timeValue, setTimevalue };
 }

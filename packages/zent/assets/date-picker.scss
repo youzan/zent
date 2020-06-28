@@ -9,7 +9,7 @@
   @include theme-color(background-color, primary, 8);
 }
 
-@mixin gray-bgcolor {
+@mixin white-bgcolor {
   @include theme-color(background-color, stroke, 9);
 }
 
@@ -20,7 +20,7 @@
 }
 
 @mixin panel-common {
-  @include gray-bgcolor;
+  @include white-bgcolor;
   border-radius: 2px;
   box-shadow: $shadow-spec-layer;
   z-index: 10;
@@ -208,7 +208,7 @@
       }
 
       &_selected {
-        @include gray-bgcolor;
+        @include white-bgcolor;
 
         .zent-datepicker-cell-inner {
           @include theme-color(color, stroke, 9);
@@ -226,7 +226,7 @@
 
       &_over,
       &_disabled {
-        @include gray-bgcolor;
+        @include white-bgcolor;
 
         .zent-datepicker-cell-inner {
           @include gray-color;
@@ -242,6 +242,14 @@
           @include gray-color;
           @include border-with-radius;
           @include theme-color(border-color, stroke, 4);
+        }
+      }
+
+      &_selected.zent-datepicker-panel-body-cells_disabled {
+        .zent-datepicker-cell-inner {
+          @include border-with-radius;
+          @include theme-color(background-color, stroke, 4);
+          @include theme-color(color, stroke, 9);
         }
       }
 

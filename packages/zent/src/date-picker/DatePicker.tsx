@@ -12,6 +12,7 @@ import {
   IDatePickerCommonProps,
   IGenerateDateConfig,
   IValueType,
+  IShowTime,
 } from './types';
 
 const generateDate: IGenerateDateConfig = generateDateConfig.date;
@@ -24,7 +25,7 @@ const PickerContextProvider = PickerContext.Provider;
 
 interface IDatePickerProps extends IDatePickerCommonProps {
   placeholder?: string;
-  showTime?: boolean;
+  showTime?: IShowTime;
 }
 
 export const DatePicker: React.FC<IDatePickerProps> = props => {

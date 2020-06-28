@@ -26,7 +26,7 @@ interface ISinglePickerProps
 export const SinglePicker: React.FC<ISinglePickerProps> = ({
   value,
   onChange,
-  defaultPanelValue,
+  defaultDate,
   disabledDate,
   format,
   name,
@@ -66,7 +66,7 @@ export const SinglePicker: React.FC<ISinglePickerProps> = ({
     value: Array.isArray(value) ? value[0] : value,
     format,
     disabledDateRef,
-    defaultPanelValue,
+    defaultDate,
   });
 
   // hover date

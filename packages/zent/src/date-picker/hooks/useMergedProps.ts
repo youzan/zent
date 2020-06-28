@@ -14,12 +14,12 @@ export default function useMergedProps({
   value,
   format,
   disabledDateRef,
-  defaultPanelValue,
+  defaultDate,
 }: {
   value: SingleDate;
   format: string;
   disabledDateRef: React.MutableRefObject<IDisabledDate>;
-  defaultPanelValue: SingleDate;
+  defaultDate: SingleDate;
 }) {
   // defaultPanelDate
   const [defaultPanelDate, setDefaultPanelDate] = React.useState<Date>();
@@ -32,13 +32,13 @@ export default function useMergedProps({
   // defaultPanelDate
   React.useEffect(() => {
     setDefaultPanelDate(
-      defaultPanelValue
-        ? parseDate(defaultPanelValue, format)
-        : selected
+      selected
         ? parseDate(selected, format)
+        : defaultDate
+        ? parseDate(defaultDate, format)
         : new Date()
     );
-  }, [defaultPanelValue, selected, value, format]);
+  }, [defaultDate, selected, value, format]);
 
   const disabledPanelDate = unifiedDisabledDateFromProps(
     disabledDateRef?.current,

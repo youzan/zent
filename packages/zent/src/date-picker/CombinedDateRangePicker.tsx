@@ -15,9 +15,8 @@ import {
 } from 'date-fns';
 
 import {
-  IDatePickerCommonProps,
+  ICombinedDateRangeProps,
   IGenerateDateConfig,
-  SingleDate,
   IValueType,
 } from './types';
 
@@ -33,12 +32,6 @@ const generateDateConfig: IGenerateDateConfig = {
 
 const PickerContextProvider = PickerContext.Provider;
 
-interface ICombinedDateRangeProps
-  extends IDatePickerCommonProps<[SingleDate, SingleDate]> {
-  placeholder?: string[];
-  showTime?: boolean;
-  width?: number;
-}
 const DefaultCombinedDateRangeProps = {
   format: 'YYYY-MM-DD',
   valueType: 'string' as IValueType,

@@ -9,12 +9,13 @@ import { ITimePanelProps } from '../../types';
 const TimePickerFooter: React.FC<ITimePanelProps> = ({
   onSelected,
   selected,
+  format,
 }) => {
   const { i18n } = useContext(PickerContext);
 
   const onClickCurrent = React.useCallback(() => {
-    onSelected(formatDate(new Date(), 'HH:mm:ss'));
-  }, [onSelected]);
+    onSelected(formatDate(new Date(), format));
+  }, [format, onSelected]);
 
   const renderToday = useMemo(() => {
     return <a onClick={onClickCurrent}>{i18n.current.time}</a>;
