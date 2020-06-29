@@ -18,7 +18,7 @@ import {
 interface IRangePickerProps
   extends IDatePickerCommonProps<[SingleDate, SingleDate]>,
     Pick<IRangeTriggerProps, 'placeholder'> {
-  generateDateConfig: IGenerateDateConfig;
+  generateDate: IGenerateDateConfig;
   PickerComponent: React.ComponentType<
     IDatePickerCommonProps & {
       placeholder: string;
@@ -36,7 +36,7 @@ const RangePicker: React.FC<IRangePickerProps> = ({
   className,
   defaultDate,
   valueType = 'string',
-  generateDateConfig,
+  generateDate,
   PickerComponent,
   showTime,
   ...resetProps
@@ -61,7 +61,7 @@ const RangePicker: React.FC<IRangePickerProps> = ({
   const [disabledStartDate, disabledEndDate] = useRangeDisabledDate({
     values: selected,
     disabledDate,
-    generateDateConfig,
+    generateDate,
     pickerType: 'range',
   });
 

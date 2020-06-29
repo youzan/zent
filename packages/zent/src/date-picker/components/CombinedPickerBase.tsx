@@ -9,6 +9,7 @@ import PickerContext from '../context/PickerContext';
 import useRangeDisabledDate from '../hooks/useRangeDisabledDate';
 import useRangeMergedProps from '../hooks/useRangeMergedProps';
 import useHoverRange from '../hooks/useHoverRange';
+import usePanelVisible from '../hooks/usePanelVisible';
 import { getRangeValuesWithValueType } from '../utils/getValueInRangePicker';
 import { useEventCallbackRef } from '../../utils/hooks/useEventCallbackRef';
 
@@ -19,7 +20,7 @@ import {
 } from '../types';
 
 interface ICombinedPickerProps extends ICombinedDateRangeProps {
-  generateDateConfig: IGenerateDateConfig;
+  generateDate: IGenerateDateConfig;
   PanelComponent: React.ComponentType<ICombinedDatePanelProps>;
 }
 const PanelContextProvider = PanelContext.Provider;
@@ -38,13 +39,17 @@ export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
   disabled,
   canClear = true,
   valueType,
-  generateDateConfig,
+  generateDate,
   PanelComponent,
+  onClose,
+  onOpen,
   ...resetProps
 }) => {
   const { i18n } = React.useContext(PickerContext);
   // props onChangeRef
   const onChangeRef = useEventCallbackRef(onChange);
+  const onOpenRef = useEventCallbackRef(onOpen);
+  const onCloseRef = useEventCallbackRef(onClose);
   const disabledDatePropsRef = useEventCallbackRef(disabledDateProps);
 
   // merged from props value
@@ -60,14 +65,13 @@ export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
     defaultDate,
   });
   // popover visible
-  const [panelVisible, setPanelVisible] = React.useState<boolean>(
-    openPanel ?? false
-  );
+  const { panelVisible, setPanelVisible } = usePanelVisible(openPanel);
+
   // rangeDisabledDate
   const disabledPanelDate = useRangeDisabledDate({
     values: selected,
     disabledDate,
-    generateDateConfig,
+    generateDate,
     pickerType: 'combined',
   });
 
@@ -95,11 +99,26 @@ export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
           getRangeValuesWithValueType(val, valueType, format)
         );
         // 关闭弹窗
-        setPanelVisible(false);
+        setPanelVisible(openPanel ?? false);
       }
     },
-    [onChangeRef, setSelected, valueType, format]
+    [onChangeRef, valueType, format, openPanel, setSelected, setPanelVisible]
   );
+
+  // didUpdate
+  const mounted = React.useRef<boolean>();
+  React.useEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true;
+    } else {
+      if (panelVisible) {
+        setHoverDate(null);
+        onOpenRef?.current();
+      } else {
+        onCloseRef?.current();
+      }
+    }
+  }, [panelVisible, onOpenRef, onCloseRef]);
 
   // popover visible onChange
   const onVisibleChange = React.useCallback(() => {
@@ -109,7 +128,14 @@ export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
     if (!selected[1]) {
       setSelected([null, null]);
     }
-  }, [openPanel, disabled, selected, setSelected, panelVisible]);
+  }, [
+    openPanel,
+    disabled,
+    selected,
+    panelVisible,
+    setSelected,
+    setPanelVisible,
+  ]);
 
   // onClear
   const onClearInput = React.useCallback(

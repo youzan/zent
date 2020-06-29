@@ -4,31 +4,16 @@ import DatePicker from './DatePicker';
 import RangePicker from './components/RangePickerBase';
 
 import PickerContext from './context/PickerContext';
-import {
-  setDate,
-  getDate,
-  addDays,
-  isSameDay,
-  startOfDay,
-  endOfDay,
-  endOfMonth,
-} from 'date-fns';
+import { generateDateConfig } from './utils/dateUtils';
 import {
   IDatePickerCommonProps,
   IGenerateDateConfig,
   SingleDate,
   IShowTime,
+  IValueType,
 } from './types';
 
-const generateDateConfig: IGenerateDateConfig = {
-  set: setDate,
-  get: getDate,
-  offsetDate: addDays,
-  isSame: isSameDay,
-  startDate: startOfDay,
-  endDate: endOfDay,
-  circleEndDate: endOfMonth,
-};
+const generateDate: IGenerateDateConfig = generateDateConfig.date;
 const PickerContextProvider = PickerContext.Provider;
 interface IDateRangePickerProps
   extends IDatePickerCommonProps<[SingleDate, SingleDate]> {
@@ -38,6 +23,7 @@ interface IDateRangePickerProps
 
 const DefaultDateRangeProps = {
   format: 'YYYY-MM-DD',
+  valueType: 'string' as IValueType,
 };
 export const DateRangePicker: React.FC<IDateRangePickerProps> = props => {
   const { placeholder } = props;
@@ -46,9 +32,8 @@ export const DateRangePicker: React.FC<IDateRangePickerProps> = props => {
       {(i18n: II18nLocaleTimePicker) => (
         <PickerContextProvider value={{ i18n }}>
           <RangePicker
-            {...DefaultDateRangeProps}
             {...props}
-            generateDateConfig={generateDateConfig}
+            generateDate={generateDate}
             placeholder={placeholder || [i18n.start, i18n.end]}
             PickerComponent={DatePicker}
           />
@@ -57,4 +42,5 @@ export const DateRangePicker: React.FC<IDateRangePickerProps> = props => {
     </Receiver>
   );
 };
+DateRangePicker.defaultProps = DefaultDateRangeProps;
 export default DateRangePicker;

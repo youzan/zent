@@ -49,7 +49,7 @@ group: 数据
 
 **注意：**
 
-- showTime 为对象时，表示支持时间选择，具体属性可参考 TimePicker，包括 format、defaultValue、hourStep、minuteStep、secondStep
+- showTime 为对象时，表示支持时间选择，具体属性可参考 TimePicker，包括 format、defaultTime、hourStep、minuteStep、secondStep
 - disabledTime 在 showTime 开启时生效，较区别与 TimePicker 的 disabledTime,增加可选参数--选中日期
   ```
   {
@@ -108,7 +108,7 @@ group: 数据
 | ------------ | -------------------------------------------------------------------- | -------------------------------------------------------- | ------------ | -------- |
 | value        | 时间                                                                 | string                                                   | -            | 是       |
 | onChange     | 选择时间回调函数                                                     | (date: string )=>{}                                      | -            | 是       |
-| defaultValue | 默认时间                                                             | string                                                   | -            | 否       |
+| defaultTime | 默认时间                                                             | string                                                   | -            | 否       |
 | placeholder  | placeholder                                                          | string                                                   | '请选择时间' | 否       |
 | format       | 返回的时间的格式 （决定面板展示的列）                                | string                                                   | `HH:mm:ss`   | 否       |
 | disabledTime | 时间禁用判断（返回{disabledHours, disabledMinutes,disabledSeconds}） | () => {disabledHours, disabledMinutes, disabledSeconds } | noop         | 否       |
@@ -130,4 +130,4 @@ group: 数据
 
 **注意：**
 
-- showTime 为对象时，defaultValue 为数组，表示默认开始时间和默认结束时间（不填为['00:00:00','23:59:59']）
+- showTime 为对象时，defaultTime 为数组，表示默认开始时间和默认结束时间（不填为['00:00:00','23:59:59']）

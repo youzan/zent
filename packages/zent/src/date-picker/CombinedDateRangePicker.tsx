@@ -1,34 +1,18 @@
 import * as React from 'react';
 import { I18nReceiver as Receiver, II18nLocaleTimePicker } from '../i18n';
-import PickerContext from './context/PickerContext';
 
 import CombinedPicker from './components/CombinedPickerBase';
 import CombinedDatePanel from './panels/combined-date-range-panel';
-import {
-  setDate,
-  getDate,
-  addDays,
-  isSameDay,
-  startOfDay,
-  endOfDay,
-  endOfMonth,
-} from 'date-fns';
 
+import PickerContext from './context/PickerContext';
+import { generateDateConfig } from './utils/dateUtils';
 import {
   ICombinedDateRangeProps,
   IGenerateDateConfig,
   IValueType,
 } from './types';
 
-const generateDateConfig: IGenerateDateConfig = {
-  set: setDate,
-  get: getDate,
-  offsetDate: addDays,
-  isSame: isSameDay,
-  startDate: startOfDay,
-  endDate: endOfDay,
-  circleEndDate: endOfMonth,
-};
+const generateDate: IGenerateDateConfig = generateDateConfig.date;
 
 const PickerContextProvider = PickerContext.Provider;
 
@@ -45,9 +29,8 @@ export const CombinedDateRangePicker: React.FC<ICombinedDateRangeProps> = props 
       {(i18n: II18nLocaleTimePicker) => (
         <PickerContextProvider value={{ i18n }}>
           <CombinedPicker
-            generateDateConfig={generateDateConfig}
-            {...DefaultCombinedDateRangeProps}
             {...props}
+            generateDate={generateDate}
             placeholder={placeholder || [i18n.start, i18n.end]}
             PanelComponent={CombinedDatePanel}
           />
@@ -56,4 +39,5 @@ export const CombinedDateRangePicker: React.FC<ICombinedDateRangeProps> = props 
     </Receiver>
   );
 };
+CombinedDateRangePicker.defaultProps = DefaultCombinedDateRangeProps;
 export default CombinedDateRangePicker;

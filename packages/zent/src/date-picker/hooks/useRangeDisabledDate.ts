@@ -16,12 +16,12 @@ const { isAfter, isBefore } = CommonDateMap;
 export default function useRangeDisabledDate<DateType>({
   values,
   disabledDate,
-  generateDateConfig,
+  generateDate,
   pickerType,
 }: {
   values: [Date, Date];
   disabledDate?: (date: Date) => boolean;
-  generateDateConfig: IGenerateDateConfig;
+  generateDate: IGenerateDateConfig;
   pickerType: keyof typeof pickerTypeMap;
 }) {
   const [start, end] = values;
@@ -29,7 +29,7 @@ export default function useRangeDisabledDate<DateType>({
     date => {
       const IsRangePicker = pickerType === pickerTypeMap.range;
       const IsCombinedPicker = pickerType === pickerTypeMap.combined;
-      const { isSame } = generateDateConfig;
+      const { isSame } = generateDate;
       if (disabledDate?.(date)) {
         return true;
       }
@@ -43,13 +43,13 @@ export default function useRangeDisabledDate<DateType>({
       }
       return false;
     },
-    [start, end, generateDateConfig, disabledDate, pickerType]
+    [start, end, generateDate, disabledDate, pickerType]
   );
 
   const disabledEndDate = React.useCallback(
     date => {
       const IsCombinedPicker = pickerType === pickerTypeMap.combined;
-      const { circleEndDate } = generateDateConfig;
+      const { circleEndDate } = generateDate;
       if (disabledDate?.(date)) {
         return true;
       }
@@ -58,7 +58,7 @@ export default function useRangeDisabledDate<DateType>({
       }
       return false;
     },
-    [start, generateDateConfig, disabledDate, pickerType]
+    [start, generateDate, disabledDate, pickerType]
   );
 
   return [disabledStartDate, disabledEndDate];

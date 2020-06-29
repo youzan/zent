@@ -3,7 +3,8 @@ import { parseDate, parseDateRange } from '../utils/index';
 import unifiedDisabledDateFromProps from '../utils/unifiedDisabledDateFromProps';
 import { addMonths } from 'date-fns';
 import { IDatePickerCommonProps, SingleDate, IDisabledDate } from '../types';
-
+const current = new Date();
+const initDate = [current, addMonths(current, 1)] as [Date, Date];
 interface IRangeMergedPropsParams
   extends Pick<
     IDatePickerCommonProps<[SingleDate, SingleDate]>,
@@ -19,9 +20,9 @@ export default function useRangeMergedProps({
   disabledDatePropsRef,
 }: IRangeMergedPropsParams) {
   // defaultPanelDate
-  const [defaultPanelDate, setDefaultPanelDate] = React.useState<
-    [Date, Date]
-  >();
+  const [defaultPanelDate, setDefaultPanelDate] = React.useState<[Date, Date]>(
+    initDate
+  );
 
   // selected
   const [selected, setSelected] = React.useState<[Date, Date]>(
@@ -32,7 +33,6 @@ export default function useRangeMergedProps({
 
   // defaultPanelDate
   React.useEffect(() => {
-    const current = new Date();
     setDefaultPanelDate(
       selected && !!selected[0]
         ? [
@@ -41,7 +41,7 @@ export default function useRangeMergedProps({
           ]
         : defaultDate && defaultDate[0] && defaultDate[1]
         ? parseDateRange(defaultDate, format)
-        : [current, addMonths(current, 1)]
+        : initDate
     );
   }, [defaultDate, selected, format]);
 

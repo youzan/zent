@@ -2,7 +2,7 @@ import * as React from 'react';
 import { parseDate } from '../utils/index';
 import unifiedDisabledDateFromProps from '../utils/unifiedDisabledDateFromProps';
 import { SingleDate, IDisabledDate } from '../types';
-
+const current = new Date();
 /**
  * merge from props
  * used by SinglePicker
@@ -22,7 +22,7 @@ export default function useMergedProps({
   defaultDate: SingleDate;
 }) {
   // defaultPanelDate
-  const [defaultPanelDate, setDefaultPanelDate] = React.useState<Date>();
+  const [defaultPanelDate, setDefaultPanelDate] = React.useState<Date>(current);
 
   // selected
   const [selected, setSelected] = React.useState<Date>(
@@ -36,7 +36,7 @@ export default function useMergedProps({
         ? parseDate(selected, format)
         : defaultDate
         ? parseDate(defaultDate, format)
-        : new Date()
+        : current
     );
   }, [defaultDate, selected, value, format]);
 

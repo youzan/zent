@@ -23,7 +23,8 @@ export const SingleInputTrigger: React.FC<ISingleTriggerProps> = ({
       {name && (
         <div className="zent-datepicker-name-input">
           <input
-            name={name[0]}
+            name={name}
+            readOnly
             value={value ? formatDate(value, format) : ''}
           />
         </div>
@@ -66,9 +67,11 @@ export const CombinedInputTrigger: React.FC<ICombinedInputTriggerProps> = ({
         <div className="zent-datepicker-name-input">
           <input
             name={name[0]}
+            readOnly
             value={value[0] ? formatDate(value[0], format) : ''}
           />
           <input
+            readOnly
             name={name[1]}
             value={value[1] ? formatDate(value[1], format) : ''}
           />

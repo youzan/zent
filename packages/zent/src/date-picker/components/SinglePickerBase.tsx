@@ -8,6 +8,7 @@ import PickerContext from '../context/PickerContext';
 import PanelContext from '../context/PanelContext';
 
 import useMergedProps from '../hooks/useMergedProps';
+import usePanelVisible from '../hooks/usePanelVisible';
 import { useEventCallbackRef } from '../../utils/hooks/useEventCallbackRef';
 import {
   IDatePickerCommonProps,
@@ -49,12 +50,12 @@ export const SinglePicker: React.FC<ISinglePickerProps> = ({
     getInputText,
   } = React.useContext(PickerContext);
   const onChangeRef = useEventCallbackRef(onChange);
+  const onOpenRef = useEventCallbackRef(onOpen);
+  const onCloseRef = useEventCallbackRef(onClose);
   const disabledDateRef = useEventCallbackRef(disabledDate);
 
   // popover visible
-  const [panelVisible, setPanelVisible] = React.useState<boolean>(
-    openPanel ?? false
-  );
+  const { panelVisible, setPanelVisible } = usePanelVisible(openPanel);
 
   // merged from props value
   const {
@@ -86,21 +87,39 @@ export const SinglePicker: React.FC<ISinglePickerProps> = ({
         const result = getCallbackValue(val);
         onChangeRef?.current(result);
         // 关闭弹窗
-        setPanelVisible(false);
-        setHoverDate(null);
+        setPanelVisible(openPanel ?? false);
       }
     },
-    [getSelectedValue, getCallbackValue, onChangeRef, setSelected]
+    [
+      getSelectedValue,
+      getCallbackValue,
+      onChangeRef,
+      openPanel,
+      setSelected,
+      setPanelVisible,
+    ]
   );
+
+  // didUpdate
+  const mounted = React.useRef<boolean>();
+  React.useEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true;
+    } else {
+      if (panelVisible) {
+        setHoverDate(null);
+        onOpenRef?.current();
+      } else {
+        onCloseRef?.current();
+      }
+    }
+  }, [panelVisible, onOpenRef, onCloseRef]);
 
   // popover visible onChange
   const onVisibleChange = React.useCallback(() => {
     if (openPanel !== undefined || disabled) return;
     setPanelVisible(!panelVisible);
-    if (!panelVisible) {
-      setHoverDate(null);
-    }
-  }, [openPanel, disabled, panelVisible]);
+  }, [openPanel, disabled, panelVisible, setPanelVisible]);
 
   // onClear
   const onClearInput = React.useCallback(
