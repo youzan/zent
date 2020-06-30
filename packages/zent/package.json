@@ -25,7 +25,7 @@
     "typedoc": "typedoc --out ../../site/dist/apidoc --mode file",
     "compile-plugins": "tsc -p ./plugins/tsconfig.json",
     "update-iconfont": "./scripts/update-iconfont.sh",
-    "build:umd": "./scripts/build-umd.sh"
+    "build:sandbox": "./scripts/build-sandbox.sh"
   },
   "author": "Youzan FE",
   "license": "MIT",
@@ -34,7 +34,7 @@
     "assets/",
     "es/",
     "css/",
-    "umd/",
+    "sandbox/",
     "dependency-graph.json"
   ],
   "dependencies": {
@@ -54,7 +54,6 @@
     "zenticons": "3.5.0"
   },
   "devDependencies": {
-    "@types/autosize": "^3.0.7",
     "@types/big.js": "^4.0.5",
     "@types/classnames": "^2.2.7",
     "@types/jest": "^24.0.17",

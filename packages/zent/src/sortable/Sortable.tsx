@@ -87,14 +87,19 @@ export class Sortable<T> extends React.Component<ISortableProps<T>> {
       return;
     }
 
-    const sortableFilter =
-      typeof filter === 'function'
-        ? boxFnArgs(filter, [boxNativeEvent, boxDOMNode])
-        : filter
-        ? filter
-        : filterClass
-        ? `.${filterClass}`
-        : '';
+    let sortableFilter: sortableJS.Options['filter'] = '';
+
+    if (filter) {
+      if (typeof filter === 'function') {
+        sortableFilter = boxFnArgs(filter, [boxNativeEvent, boxDOMNode]);
+      } else {
+        sortableFilter = filter;
+      }
+    } else {
+      if (filterClass) {
+        sortableFilter = `.${filterClass}`;
+      }
+    }
 
     boxFnPropIfExist(rest, 'scrollFn', [null, null, boxNativeEvent]);
     boxFnPropIfExist(rest, 'setData', [null, boxDOMNode]);

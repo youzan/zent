@@ -37,4 +37,4 @@ dependency-graph.json
 plugins/ts-plugin-*.js
 
 css/
-umd/
+/sandbox
