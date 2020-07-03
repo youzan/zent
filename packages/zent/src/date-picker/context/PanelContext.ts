@@ -4,10 +4,12 @@ import { IDisabledTimes, IShowTime } from '../types';
 export interface IPanelContext {
   // date panel
   showTime?: IShowTime;
-  disabledTimes?: IDisabledTimes;
+  onHover?: (val: Date) => void;
+
   // time panel
   visibleChange?: boolean;
-  onHover?: (val: Date) => void;
+  confirmStatus?: boolean;
+  disabledTimes?: IDisabledTimes;
 }
 
 export default createContext<IPanelContext>(null);

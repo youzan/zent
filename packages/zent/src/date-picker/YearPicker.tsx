@@ -7,22 +7,16 @@ import YearPanel from './panels/year-panel';
 import { getCallbackValueWithDate } from './utils/getValueInSinglePicker';
 import { generateDateConfig } from './utils/dateUtils';
 import { formatText } from './utils/formatInputText';
-import {
-  IDatePickerCommonProps,
-  IGenerateDateConfig,
-  IValueType,
-} from './types';
+import { ISingleProps, IGenerateDateConfig } from './types';
 
 const generateDate: IGenerateDateConfig = generateDateConfig.year;
 const PickerContextProvider = PickerContext.Provider;
 
-interface IYearPickerProps extends IDatePickerCommonProps {
-  placeholder?: string;
-}
+export interface IYearPickerProps extends ISingleProps {}
 
-const DefaultYearPickerProps = {
+const DefaultYearPickerProps: Partial<IYearPickerProps> = {
   format: 'YYYY',
-  valueType: 'string' as IValueType,
+  valueType: 'string',
 };
 export const YearPicker: React.FC<IYearPickerProps> = props => {
   const { format, placeholder, valueType } = props;

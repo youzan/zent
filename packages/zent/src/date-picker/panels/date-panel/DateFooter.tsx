@@ -8,23 +8,30 @@ import PanelFooter from '../../components/PanelFooter';
 
 import PickerContext from '../../context/PickerContext';
 import { formatDate } from '../../utils/index';
-import { useShowTimeOption } from '../../hooks/useShowTimeOption';
-
 import { IDatePickerPanelProps } from './index';
-
+import { IShowTimeOption } from '../../types';
+import useConfirmStatus from '../../hooks/useConfirmStatus';
+const footerPrefixCls = 'zent-datepicker-panel-footer';
 interface IDatePickerFooterProps
-  extends Omit<IDatePickerPanelProps, 'popText' | 'hideFooter'> {}
+  extends Omit<IDatePickerPanelProps, 'popText' | 'hideFooter'> {
+  showTimeOption?: IShowTimeOption<string>;
+}
 const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
   footerText,
   showTime,
-  onSelected,
-  selected,
-  disabledPanelDate,
   disabledTimes,
+  showTimeOption,
+  selected,
+  onSelected,
+  disabledPanelDate,
 }) => {
   const { i18n } = React.useContext(PickerContext);
-  const { format } = useShowTimeOption<string>(showTime);
-
+  const { format } = showTimeOption || {};
+  const confirmStatus = useConfirmStatus({
+    selected: formatDate(selected, format),
+    disabledTimesOption: disabledTimes?.(selected) || {},
+    format,
+  });
   const onClickCurrent = React.useCallback(
     ({ isdisabledToday, today }) => {
       if (isdisabledToday) return;
@@ -33,6 +40,10 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
     [onSelected]
   );
 
+  const confirmHandler = React.useCallback(() => {
+    onSelected(selected);
+  }, [selected, onSelected]);
+
   const renderToday = React.useMemo(() => {
     const today = new Date();
     const isdisabledToday = disabledPanelDate?.(today);
@@ -40,7 +51,7 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
       <div>
         <a
           className={cx({
-            'zent-datepicker-panel-footer_diabled-current': isdisabledToday,
+            [`${footerPrefixCls}-current_diabled`]: isdisabledToday,
           })}
           onClick={() => onClickCurrent({ isdisabledToday, today })}
         >
@@ -49,8 +60,9 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
         {!!showTime && (
           <Button
             type="primary"
-            onClick={() => onSelected(selected)}
-            className="zent-datepicker-panel-footer-btn"
+            disabled={confirmStatus || !selected}
+            onClick={confirmHandler}
+            className={`${footerPrefixCls}-btn`}
           >
             {i18n.confirm}
           </Button>
@@ -58,12 +70,13 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
       </div>
     );
   }, [
-    selected,
     i18n,
+    selected,
     showTime,
     footerText,
+    confirmStatus,
     onClickCurrent,
-    onSelected,
+    confirmHandler,
     disabledPanelDate,
   ]);
 
@@ -79,7 +92,7 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
     () =>
       showTime ? (
         <TimePicker
-          format={format}
+          {...showTimeOption}
           width={94}
           selectedDate={selected}
           value={formatDate(selected, format)}
@@ -88,7 +101,7 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
           disabledTimes={disabledTimes}
         />
       ) : null,
-    [selected, showTime, format, disabledTimes, onTimeChange]
+    [selected, showTime, showTimeOption, format, disabledTimes, onTimeChange]
   );
 
   return <PanelFooter leftNode={timeInput} rightNode={renderToday} />;

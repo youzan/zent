@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { useMemo, useContext } from 'react';
 import PanelFooter from '../../components/PanelFooter';
-import PickerContext from '../../context/PickerContext';
 import Button from '../../../button';
+
+import PickerContext from '../../context/PickerContext';
+import PanelContext from '../../context/PanelContext';
 import { formatDate } from '../../utils/index';
 import { ITimePanelProps } from '../../types';
 
@@ -11,25 +12,29 @@ const TimePickerFooter: React.FC<ITimePanelProps> = ({
   selected,
   format,
 }) => {
-  const { i18n } = useContext(PickerContext);
+  const { i18n } = React.useContext(PickerContext);
+  const { confirmStatus } = React.useContext(PanelContext);
 
   const onClickCurrent = React.useCallback(() => {
     onSelected(formatDate(new Date(), format));
   }, [format, onSelected]);
 
-  const renderToday = useMemo(() => {
+  const renderToday = React.useMemo(() => {
     return <a onClick={onClickCurrent}>{i18n.current.time}</a>;
   }, [i18n, onClickCurrent]);
 
-  const confirmNode = (
-    <Button
-      type="primary"
-      className="zent-datepicker-panel-footer-btn"
-      disabled={!selected}
-      onClick={() => onSelected(selected, true)}
-    >
-      {i18n.confirm}
-    </Button>
+  const confirmNode = React.useMemo(
+    () => (
+      <Button
+        type="primary"
+        className="zent-datepicker-panel-footer-btn"
+        disabled={confirmStatus}
+        onClick={() => onSelected(selected, true)}
+      >
+        {i18n.confirm}
+      </Button>
+    ),
+    [i18n, confirmStatus, selected, onSelected]
   );
 
   return <PanelFooter leftNode={renderToday} rightNode={confirmNode} />;

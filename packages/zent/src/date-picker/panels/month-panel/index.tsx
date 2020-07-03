@@ -6,9 +6,9 @@ import YearPanel from '../year-panel';
 
 import PickerContext from '../../context/PickerContext';
 import usePanelDate from '../../hooks/usePanelDate';
-import { ISingleDatePanelProps } from '../../types';
+import { ISinglePanelProps } from '../../types';
 
-const MonthPickerPanel: React.FC<ISingleDatePanelProps> = props => {
+const MonthPickerPanel: React.FC<ISinglePanelProps> = props => {
   const { defaultPanelDate, selected, onSelected, hoverDate } = props;
   const { i18n } = React.useContext(PickerContext);
   const { panelDate, setPanelDate } = usePanelDate(defaultPanelDate);

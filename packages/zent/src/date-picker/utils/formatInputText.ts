@@ -5,7 +5,7 @@ import { IWeekOption } from '../types';
 /**
  * 根据format可直接转化为text
  */
-export function formatText(selected: Date, format: string) {
+export function formatText(selected: Date, format: string): string {
   return selected ? formatDate(selected, format) : '';
 }
 /**
@@ -13,7 +13,10 @@ export function formatText(selected: Date, format: string) {
  * @param selected
  * @param i18n
  */
-export function quarterFormatText(selected: Date, i18n: II18nLocaleTimePicker) {
+export function quarterFormatText(
+  selected: Date,
+  i18n: II18nLocaleTimePicker
+): string {
   return selected
     ? i18n.panel.yearQuarterName({
         year: getYear(selected),
@@ -30,13 +33,21 @@ export function quarterFormatText(selected: Date, i18n: II18nLocaleTimePicker) {
  */
 export function weekFormatText(
   selected: Date,
-  i18n: II18nLocaleTimePicker,
   format: string,
   options: IWeekOption
-) {
-  const dates = [
-    startOfWeek(selected, options),
-    endOfWeek(selected, options),
-  ] as [Date, Date];
-  return selected ? formatDateRange(dates, format).join(`  ${i18n.to}  `) : '';
+): string[] {
+  const dates =
+    selected &&
+    ([startOfWeek(selected, options), endOfWeek(selected, options)] as [
+      Date,
+      Date
+    ]);
+  return selected ? formatDateRange(dates, format) : null;
+}
+
+export function formatTextRange(
+  selected: [Date, Date],
+  format: string
+): string[] {
+  return formatDateRange(selected, format);
 }

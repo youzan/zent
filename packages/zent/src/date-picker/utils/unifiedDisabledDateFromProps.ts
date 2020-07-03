@@ -1,6 +1,6 @@
 import { CommonDateMap } from './dateUtils';
 import { parseDate } from './index';
-import { IDisabledDate, IDisabledDateSimple } from '../types';
+import { IDisabledDate } from '../types';
 
 const { isAfter, isBefore } = CommonDateMap;
 
@@ -16,7 +16,7 @@ export default function unifiedDisabledDateFromProps(
 ): (val: Date) => boolean {
   let disabledDate = undefined;
   if (typeof disabledDateProps === 'object') {
-    const { min, max } = disabledDateProps as IDisabledDateSimple;
+    const { min, max } = disabledDateProps;
     disabledDate = date =>
       (min && isBefore(date, parseDate(min, format))) ||
       (max && isAfter(date, parseDate(max, format)));

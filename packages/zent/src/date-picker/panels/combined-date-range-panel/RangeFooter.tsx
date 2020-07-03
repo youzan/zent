@@ -6,26 +6,40 @@ import Button from '../../../button';
 
 import PickerContext from '../../context/PickerContext';
 import { formatDate } from '../../utils/index';
-import { ICombinedDateRangePanelProps } from './index';
+import useConfirmStatus from '../../hooks/useConfirmStatus';
+import { IDisabledTimes, IRangePanelProps } from '../../types';
 
 const prefixCls = 'zent-datepicker-combined-panel-footer';
 
 interface ICombinedDateRangeFooterProps
-  extends Omit<
-    ICombinedDateRangePanelProps,
-    'defaultPanelDate' | 'disabledPanelDate'
-  > {
+  extends Pick<IRangePanelProps, 'selected' | 'onSelected'> {
   format: string;
+  disabledStartTimes: IDisabledTimes;
+  disabledEndTimes: IDisabledTimes;
+  disabledConfirm: boolean;
 }
 
 export const CombinedDateRangeFooter: React.FC<ICombinedDateRangeFooterProps> = ({
   selected,
-  disabledTimes,
+  disabledStartTimes,
+  disabledConfirm,
+  disabledEndTimes,
   onSelected,
   format,
 }) => {
   const { i18n } = React.useContext(PickerContext);
   const [start, end] = selected;
+
+  const startTimeStatus = useConfirmStatus({
+    selected: formatDate(start, format),
+    disabledTimesOption: disabledEndTimes?.(start) || {},
+    format,
+  });
+  const endTimeStatus = useConfirmStatus({
+    selected: formatDate(end, format),
+    disabledTimesOption: disabledStartTimes?.(end) || {},
+    format,
+  });
 
   const onStartTimeChange = React.useCallback(
     (val: string) => {
@@ -42,6 +56,10 @@ export const CombinedDateRangeFooter: React.FC<ICombinedDateRangeFooterProps> = 
     [selected, format, onSelected]
   );
 
+  const confirmHandler = React.useCallback(() => {
+    onSelected(selected, true);
+  }, [selected, onSelected]);
+
   return (
     <>
       <div
@@ -57,7 +75,8 @@ export const CombinedDateRangeFooter: React.FC<ICombinedDateRangeFooterProps> = 
         hiddenIcon={true}
         format={format}
         onChange={onStartTimeChange}
-        disabledTimes={disabledTimes}
+        selectedDate={start}
+        disabledTimes={disabledStartTimes}
       />
       <div className={`${prefixCls}-seperator`}>{i18n.to}</div>
       <div className={cx(`${prefixCls}-item`, { [`${prefixCls}-null`]: !end })}>
@@ -71,11 +90,13 @@ export const CombinedDateRangeFooter: React.FC<ICombinedDateRangeFooterProps> = 
         hiddenIcon={true}
         format={format}
         onChange={onEndTimeChange}
-        disabledTimes={disabledTimes}
+        selectedDate={end}
+        disabledTimes={disabledEndTimes}
       />
       <Button
         type="primary"
-        onClick={() => onSelected(selected, true)}
+        onClick={confirmHandler}
+        disabled={disabledConfirm || endTimeStatus || startTimeStatus}
         className={`${prefixCls}-confirm`}
       >
         {i18n.confirm}

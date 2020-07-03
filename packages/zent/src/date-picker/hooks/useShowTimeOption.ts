@@ -2,51 +2,82 @@ import * as React from 'react';
 import { startOfToday, endOfToday } from 'date-fns';
 import { formatDate } from '../utils/index';
 import { IShowTime, IShowTimeOption } from '../types';
-const DefaultTime = 'HH:mm:ss';
-
+const DefaultFormat = 'HH:mm:ss';
+const formatStartDate = (format: string) => formatDate(startOfToday(), format);
+const formatEndDate = (format: string) => formatDate(endOfToday(), format);
+const DefaultStartTime = formatStartDate(DefaultFormat);
+const DefaultEndTime = formatEndDate(DefaultFormat);
 /**
  * 获取showTime范围
  * @param showTime
  */
-export function useShowTimeRange<T>(showTime: IShowTime<T>) {
+export function useShowTimeRangeOption<T>(
+  showTime: IShowTime<T>
+): IShowTimeOption<string>[] {
   const showTimeRef = React.useRef(showTime);
 
   const showTimeOption = React.useMemo(() => {
-    if (typeof showTimeRef?.current !== 'object') {
-      return [{}, {}];
+    if (!showTimeRef.current) {
+      return [undefined, undefined];
     }
-    const {
-      format = DefaultTime,
-      defaultTime,
-    } = showTimeRef?.current as IShowTimeOption<T>;
-    const defaultTimeStart =
-      (defaultTime && defaultTime[0]) || formatDate(startOfToday(), format);
-    const defaultTimeEnd =
-      (defaultTime && defaultTime[1]) || formatDate(endOfToday(), format);
+    if (typeof showTimeRef.current === 'object') {
+      const {
+        format = DefaultFormat,
+        defaultTime,
+        ...restOption
+      } = showTimeRef.current;
+      const defaultTimeStart = defaultTime?.[0] || formatStartDate(format);
+      const defaultTimeEnd = defaultTime?.[1] || formatEndDate(format);
 
+      return [
+        { format, defaultTime: defaultTimeStart, ...restOption },
+        { format, defaultTime: defaultTimeEnd, ...restOption },
+      ];
+    }
+    // default
     return [
-      { format, defaultTime: defaultTimeStart },
-      { format, defaultTime: defaultTimeEnd },
+      {
+        format: DefaultFormat,
+        defaultTime: DefaultStartTime,
+      },
+      {
+        format: DefaultFormat,
+        defaultTime: DefaultEndTime,
+      },
     ];
   }, [showTimeRef]);
-  return showTimeOption as IShowTimeOption<string>[];
+
+  return showTimeOption;
 }
 
 /**
  * 将showTime对象转化
  * @param showTime
  */
-export function useShowTimeOption<T>(showTime: IShowTime<T>) {
-  const showTimeOption = React.useMemo(() => {
-    if (typeof showTime !== 'object') {
-      return { format: DefaultTime, defaultTime: null };
-    }
-    const { format = DefaultTime, defaultTime } = showTime as IShowTimeOption<
-      T
-    >;
-    const defaultTimeTemp = defaultTime || formatDate(startOfToday(), format);
+export function useShowTimeOption(
+  showTime: IShowTime<string>
+): IShowTimeOption<string> {
+  const showTimeRef = React.useRef(showTime);
 
-    return { format, defaultTime: defaultTimeTemp };
-  }, [showTime]);
-  return showTimeOption as IShowTimeOption<T>;
+  const showTimeOption = React.useMemo(() => {
+    if (!showTimeRef.current) {
+      return undefined;
+    }
+    if (typeof showTimeRef.current === 'object') {
+      const {
+        format = DefaultFormat,
+        defaultTime,
+        ...restOption
+      } = showTimeRef.current;
+      const defaultTimeTemp = defaultTime || formatStartDate(format);
+      return { format, defaultTime: defaultTimeTemp, ...restOption };
+    }
+    // default
+    return {
+      format: DefaultFormat,
+      defaultTime: DefaultStartTime,
+    };
+  }, [showTimeRef]);
+
+  return showTimeOption;
 }

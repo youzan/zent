@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { CommonDateMap } from '../utils/dateUtils';
-import { IGenerateDateConfig } from '../types';
+import { IGenerateDateConfig, RangeType } from '../types';
 
 const pickerTypeMap = {
   combined: 'combined',
@@ -13,52 +13,62 @@ const { isAfter, isBefore } = CommonDateMap;
  * @param disabledDate
  * @param type
  */
-export default function useRangeDisabledDate<DateType>({
-  values,
+export default function useRangeDisabledDate({
+  selected,
   disabledDate,
   generateDate,
   pickerType,
 }: {
-  values: [Date, Date];
-  disabledDate?: (date: Date) => boolean;
+  selected: [Date, Date];
+  disabledDate: (date: Date, type?: RangeType) => boolean;
   generateDate: IGenerateDateConfig;
   pickerType: keyof typeof pickerTypeMap;
 }) {
-  const [start, end] = values;
+  const IsRangePicker = React.useMemo(
+    () => pickerType === pickerTypeMap.range,
+    [pickerType]
+  );
+  const IsCombinedPicker = React.useMemo(
+    () => pickerType === pickerTypeMap.combined,
+    [pickerType]
+  );
+
   const disabledStartDate = React.useCallback(
-    date => {
-      const IsRangePicker = pickerType === pickerTypeMap.range;
-      const IsCombinedPicker = pickerType === pickerTypeMap.combined;
+    (type: RangeType) => date => {
+      const [start, end] = selected;
       const { isSame } = generateDate;
-      if (disabledDate?.(date)) {
+      if (disabledDate?.(date, type)) {
         return true;
       }
-      // range-picker
+
       if (IsRangePicker && end) {
         return !isSame(date, end) && isAfter(date, end);
       }
-      // combined-picker
       if (IsCombinedPicker && start && !end) {
         return !isSame(date, start) && isBefore(date, start);
       }
       return false;
     },
-    [start, end, generateDate, disabledDate, pickerType]
+    [selected, generateDate, IsRangePicker, IsCombinedPicker, disabledDate]
   );
 
   const disabledEndDate = React.useCallback(
-    date => {
-      const IsCombinedPicker = pickerType === pickerTypeMap.combined;
-      const { circleEndDate } = generateDate;
-      if (disabledDate?.(date)) {
+    (type: RangeType) => date => {
+      const { circleEndDate, isSame } = generateDate;
+      const [start] = selected;
+      if (disabledDate?.(date, type)) {
         return true;
       }
-      if (start) {
-        return isBefore(date, IsCombinedPicker ? circleEndDate(start) : start);
+
+      if (IsRangePicker && start) {
+        return !isSame(date, start) && isBefore(date, start);
+      }
+      if (IsCombinedPicker && start) {
+        return isBefore(date, circleEndDate(start));
       }
       return false;
     },
-    [start, generateDate, disabledDate, pickerType]
+    [selected, generateDate, IsRangePicker, IsCombinedPicker, disabledDate]
   );
 
   return [disabledStartDate, disabledEndDate];

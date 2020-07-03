@@ -14,37 +14,30 @@ import { generateDateConfig } from './utils/dateUtils';
 import { weekFormatText } from './utils/formatInputText';
 
 import {
-  IDatePickerCommonProps,
+  ISingleProps,
   IGenerateDateConfig,
   WeekStartsOnMap,
-  IWeekStartsOnKey,
-  IValueType,
+  IWeekOption,
 } from './types';
 
 const generateDate: IGenerateDateConfig = generateDateConfig.week;
 
-const DefaultWeekPickerProps = {
+export interface IWeekPickerProps extends ISingleProps, IWeekOption {}
+export { WeekStartsOnMap };
+const DefaultWeekPickerProps: Partial<IWeekPickerProps> = {
   format: 'YYYY-MM-DD',
-  valueType: 'string' as IValueType,
-  weekStartsOn: 'Monday' as IWeekStartsOnKey,
+  valueType: 'string',
+  weekStartsOn: WeekStartsOnMap.Monday,
 };
-
-export interface IWeekPickerProps extends IDatePickerCommonProps {
-  placeholder?: string;
-  weekStartsOn?: IWeekStartsOnKey;
-}
 
 export const WeekPicker: React.FC<IWeekPickerProps> = props => {
   const { format, valueType, placeholder, weekStartsOn } = props;
 
   // generate week-date method's option
-  const options = React.useMemo(
-    () => ({ weekStartsOn: WeekStartsOnMap[weekStartsOn] }),
-    [weekStartsOn]
-  );
+  const options = React.useMemo(() => ({ weekStartsOn }), [weekStartsOn]);
 
   const getInputText = React.useCallback(
-    (val, i18n) => weekFormatText(val, i18n, format, options),
+    val => weekFormatText(val, format, options),
     [format, options]
   );
 
@@ -79,6 +72,7 @@ export const WeekPicker: React.FC<IWeekPickerProps> = props => {
         >
           <SinglePicker
             {...props}
+            seperator={i18n.to}
             placeholder={placeholder || i18n.week}
             PanelComponent={WeekPanel}
           />

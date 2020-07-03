@@ -7,13 +7,13 @@ import YearPanel from '../year-panel';
 
 import usePanelDate from '../../hooks/usePanelDate';
 import PickerContext from '../../context/PickerContext';
-import { ISingleDatePanelProps } from '../../types';
+import { ISinglePanelProps } from '../../types';
 
 const QuarterPickerPanel: React.FC<Omit<
-  ISingleDatePanelProps,
+  ISinglePanelProps,
   'rangeDate' | 'hoverRangeDate'
 >> = props => {
-  const { defaultPanelDate, onChangePanel, ...resetProps } = props;
+  const { defaultPanelDate, onChangePanel, ...restProps } = props;
   const { i18n } = React.useContext(PickerContext);
   const { panelDate, setPanelDate } = usePanelDate(defaultPanelDate);
   const [showYear, setShowYear] = React.useState<boolean>(false);
@@ -31,7 +31,7 @@ const QuarterPickerPanel: React.FC<Omit<
         onPrev={() => setPanelDate(addYears(panelDate, -1))}
         onNext={() => setPanelDate(addYears(panelDate, 1))}
       />
-      <QuarterPanelBody {...resetProps} defaultPanelDate={panelDate} />
+      <QuarterPanelBody {...restProps} defaultPanelDate={panelDate} />
     </>
   );
 

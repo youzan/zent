@@ -3,10 +3,10 @@ import { useState, useMemo } from 'react';
 import PanelHeader from '../../components/PanelHeader';
 import YearPanelBody from './YearBody';
 
-import { ISingleDatePanelProps } from '../../types';
+import { ISinglePanelProps } from '../../types';
 
 const YearPickerPanel: React.FC<Omit<
-  ISingleDatePanelProps,
+  ISinglePanelProps,
   'rangeDate' | 'hoverRangeDate'
 >> = props => {
   const { defaultPanelDate } = props;

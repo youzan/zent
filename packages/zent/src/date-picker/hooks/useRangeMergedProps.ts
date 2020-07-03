@@ -1,61 +1,56 @@
 import * as React from 'react';
-import { parseDate, parseDateRange } from '../utils/index';
-import unifiedDisabledDateFromProps from '../utils/unifiedDisabledDateFromProps';
+import { parseDateRange } from '../utils/index';
 import { addMonths } from 'date-fns';
-import { IDatePickerCommonProps, SingleDate, IDisabledDate } from '../types';
-const current = new Date();
-const initDate = [current, addMonths(current, 1)] as [Date, Date];
+import { ICommonProps, SingleDate } from '../types';
+
+function createDateRangeWithStart(dates: Date[]): [Date, Date] {
+  return [dates[0], dates[1] || addMonths(dates[0], 1)];
+}
+const initDate = createDateRangeWithStart([new Date()]);
+
 interface IRangeMergedPropsParams
   extends Pick<
-    IDatePickerCommonProps<[SingleDate, SingleDate]>,
+    ICommonProps<[SingleDate, SingleDate]>,
     'value' | 'format' | 'defaultDate'
-  > {
-  disabledDatePropsRef: React.MutableRefObject<IDisabledDate>;
-}
+  > {}
 // range
 export default function useRangeMergedProps({
   value,
   format,
   defaultDate,
-  disabledDatePropsRef,
 }: IRangeMergedPropsParams) {
   // defaultPanelDate
   const [defaultPanelDate, setDefaultPanelDate] = React.useState<[Date, Date]>(
     initDate
   );
+  // 转换成Date类型value日期，用于重置select
+  const parseValue = React.useMemo<[Date, Date]>(
+    () => (value ? parseDateRange(value, format) : [null, null]),
+    [value, format]
+  );
 
   // selected
-  const [selected, setSelected] = React.useState<[Date, Date]>(
-    value
-      ? [parseDate(value[0], format), parseDate(value[1], format)]
-      : [null, null]
-  );
+  const [selected, setSelected] = React.useState<[Date, Date]>(parseValue);
+  React.useEffect(() => {
+    setSelected(parseValue);
+  }, [parseValue]);
 
   // defaultPanelDate
   React.useEffect(() => {
     setDefaultPanelDate(
-      selected && !!selected[0]
-        ? [
-            parseDate(selected[0], format),
-            parseDate(addMonths(selected[0], 1), format),
-          ]
+      selected && selected[0]
+        ? parseDateRange(createDateRangeWithStart(selected), format)
         : defaultDate && defaultDate[0] && defaultDate[1]
         ? parseDateRange(defaultDate, format)
         : initDate
     );
   }, [defaultDate, selected, format]);
 
-  // disabledDate
-  const disabledDate = unifiedDisabledDateFromProps(
-    disabledDatePropsRef?.current,
-    format
-  );
-
   return {
     selected,
+    parseValue,
     setSelected,
     defaultPanelDate,
     setDefaultPanelDate,
-    disabledDate,
   };
 }

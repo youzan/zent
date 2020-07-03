@@ -13,7 +13,7 @@ class DatePickerBasic extends Component {
 	state = {
 		dateValue: '2020-05-11',
 		dateValue2: '2020-05-11',
-		openPanel: true,
+		openPanel: false,
 	};
 
 	onChangeDate = val => {

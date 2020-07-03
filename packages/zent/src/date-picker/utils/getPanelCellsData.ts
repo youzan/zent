@@ -37,7 +37,7 @@ export default function getPanelCellsData({
   const { isSame, startDate, offsetDate } = generateDateConfig;
 
   let index = 0;
-  const cells = [] as IDateCellBase[];
+  const cells: IDateCellBase[] = [];
   for (let rowIndex = 0; rowIndex < row; rowIndex++) {
     for (let colIndex = 0; colIndex < col; colIndex++) {
       // offset
@@ -99,5 +99,5 @@ export default function getPanelCellsData({
       index++;
     }
   }
-  return cells as IDateCellBase[];
+  return cells;
 }

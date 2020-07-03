@@ -10,6 +10,7 @@ const setTimeMap = {
   minute: setMinutes,
   second: setSeconds,
 };
+
 interface IUnitColumn {
   type: ITimeUnitType;
   format: string;
@@ -22,8 +23,7 @@ interface IUnitColumn {
 const TimePickerBody: React.FC<ITimePanelProps> = ({
   selected,
   format,
-  disabledTimes,
-  selectedDate,
+  disabledTimesOption,
   hourStep,
   minuteStep,
   secondStep,
@@ -37,34 +37,36 @@ const TimePickerBody: React.FC<ITimePanelProps> = ({
   );
 
   const unitColumns: IUnitColumn[] = React.useMemo(() => {
-    const { disabledHours, disabledMinutes, disabledSeconds } = disabledTimes;
+    const {
+      disabledHours,
+      disabledMinutes,
+      disabledSeconds,
+    } = disabledTimesOption;
     // HH:mm:ss 对应的unitColumn
-    const UnitColumnConfig = [
+    const UnitColumnConfig: IUnitColumn[] = [
       {
-        type: 'hour' as ITimeUnitType,
+        type: 'hour',
         format: 'HH',
         value: panelTime?.getHours(),
-        disabledUnits: disabledHours(selectedDate),
+        disabledUnits: disabledHours?.() || [],
         max: 23,
         step: hourStep,
       },
       {
-        type: 'minute' as ITimeUnitType,
+        type: 'minute',
         format: 'mm',
         value: panelTime?.getMinutes(),
-        disabledUnits: disabledMinutes(panelTime?.getHours(), selectedDate),
+        disabledUnits: disabledMinutes?.(panelTime?.getHours()) || [],
         max: 59,
         step: minuteStep,
       },
       {
-        type: 'second' as ITimeUnitType,
+        type: 'second',
         format: 'ss',
         value: panelTime?.getSeconds(),
-        disabledUnits: disabledSeconds(
-          panelTime?.getHours(),
-          panelTime?.getMinutes(),
-          selectedDate
-        ),
+        disabledUnits:
+          disabledSeconds?.(panelTime?.getHours(), panelTime?.getMinutes()) ||
+          [],
         max: 59,
         step: secondStep,
       },
@@ -73,9 +75,8 @@ const TimePickerBody: React.FC<ITimePanelProps> = ({
     return UnitColumnConfig.filter(item => format.indexOf(item.format) !== -1);
   }, [
     panelTime,
-    selectedDate,
     format,
-    disabledTimes,
+    disabledTimesOption,
     hourStep,
     minuteStep,
     secondStep,

@@ -11,10 +11,12 @@ import { DatePicker, DateRangePicker, CombinedDateRangePicker } from 'zent';
 
 class Demo extends Component {
 	state = {
-		dateValue: '2020-06-10 14:00:05',
+		dateValue: '',
+		rangeValue: ['2020-6-10 12:09', '2020-6-11 10:09'],
 	};
 
 	onChangeDate = val => {
+		console.log('demo onChange', val);
 		this.setState({
 			dateValue: val,
 		});

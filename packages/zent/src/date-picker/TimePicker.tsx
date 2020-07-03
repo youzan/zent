@@ -61,6 +61,7 @@ const DefaultTimePickerProps = {
   secondStep: 1,
 };
 
+export { ITimePickerProps };
 export const TimePicker: React.FC<ITimePickerProps> = props => {
   return (
     <Picker

@@ -10,9 +10,9 @@ import YearPanel from '../year-panel';
 import PickerContext from '../../context/PickerContext';
 import { useShowTimeOption } from '../../hooks/useShowTimeOption';
 import usePanelDate from '../../hooks/usePanelDate';
-import { ISingleDatePanelProps, IDisabledTimes, IShowTime } from '../../types';
+import { ISinglePanelProps, IDisabledTimes, IShowTime } from '../../types';
 
-export interface IDatePickerPanelProps extends ISingleDatePanelProps {
+export interface IDatePickerPanelProps extends ISinglePanelProps {
   popText?: string;
   hideFooter?: boolean;
   showTime?: IShowTime;
@@ -26,15 +26,14 @@ const DatePickerPanel: React.FC<IDatePickerPanelProps> = props => {
     onSelected,
     showTime,
     footerText = '',
-    ...resetProps
+    ...resetBodyProps
   } = props;
   const { i18n } = React.useContext(PickerContext);
-
-  const { format, defaultTime } = useShowTimeOption<string>(showTime);
 
   const [showYear, setShowYear] = React.useState<boolean>(false);
   const [showMonth, setShowMonth] = React.useState<boolean>(false);
   const { panelDate, setPanelDate } = usePanelDate(defaultPanelDate);
+  const showTimeOption = useShowTimeOption(showTime);
 
   const titleNode = React.useMemo(
     () => (
@@ -65,9 +64,9 @@ const DatePickerPanel: React.FC<IDatePickerPanelProps> = props => {
       />
       <PanelSubHeader names={i18n.panel.dayNames} />
       <DatePickerBody
-        {...resetProps}
-        format={format}
-        defaultTime={defaultTime}
+        {...resetBodyProps}
+        showTime={showTime}
+        showTimeOption={showTimeOption}
         onSelected={val => {
           onSelected(val, !showTime);
         }}
@@ -115,6 +114,7 @@ const DatePickerPanel: React.FC<IDatePickerPanelProps> = props => {
       {!hideFooter && (
         <DatePickerFooter
           {...props}
+          showTimeOption={showTimeOption}
           footerText={
             footerText || (showTime ? i18n.current.time : i18n.current.date)
           }

@@ -2,12 +2,22 @@ import * as React from 'react';
 import { parse } from 'date-fns';
 import DatePanel from '../date-panel/index';
 import RangePickerFooter from './RangeFooter';
-import { ICombinedDatePanelProps, IDisabledTimes } from '../../types';
-import { useShowTimeRange } from '../../hooks/useShowTimeOption';
+
+import { useShowTimeRangeOption } from '../../hooks/useShowTimeOption';
+import getRangeDisabledTimes from '../../utils/getRangeDisabledTimes';
+
+import {
+  IRangePanelProps,
+  IDisabledTimes,
+  IShowTime,
+  RangeTypeMap,
+} from '../../types';
 
 const prefixCls = 'zent-datepicker-combined-panel';
-export interface ICombinedDateRangePanelProps extends ICombinedDatePanelProps {
+
+interface ICombinedDateRangePanelProps extends IRangePanelProps {
   disabledTimes?: IDisabledTimes;
+  showTime?: IShowTime<string[]>;
 }
 const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
   onSelected,
@@ -16,36 +26,42 @@ const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
   defaultPanelDate,
   showTime,
   disabledTimes,
-  ...resetProps
+  ...restProps
 }) => {
   const [start, end] = selected;
-
-  // true为选择结束日期 false为选择开始日期
-  const [status, setStatus] = React.useState(start && !end);
-
-  const [startShowTime, endShowTime] = useShowTimeRange<string[]>(showTime);
-
+  const [startShowTime, endShowTime] = useShowTimeRangeOption<string[]>(
+    showTime
+  );
+  const {
+    disabledStartTimes,
+    disabledConfirm,
+    disabledEndTimes,
+  } = getRangeDisabledTimes({
+    selected,
+    disabledTimes,
+  });
   const onChangeStartOrEnd = React.useCallback(
     (val: Date) => {
       let selectedTemp;
-      if (!status) {
-        const { defaultTime, format } = startShowTime;
+      if (start && !end) {
+        const { defaultTime, format } = endShowTime || {};
         selectedTemp = [
-          defaultTime && format ? parse(defaultTime, format, val) : val,
+          start,
+          !!showTime ? parse(defaultTime, format, val) : val,
+        ];
+        onSelected(selectedTemp, !showTime);
+      }
+      // 选中开始时间是清除上一次的结束时间
+      else {
+        const { defaultTime, format } = startShowTime || {};
+        selectedTemp = [
+          !!showTime ? parse(defaultTime, format, val) : val,
           null,
         ];
-        setStatus(true);
-      } else {
-        const { defaultTime, format } = endShowTime;
-        selectedTemp = [
-          selected[0],
-          defaultTime && format ? parse(defaultTime, format, val) : val,
-        ];
-        setStatus(false);
+        onSelected(selectedTemp, false);
       }
-      onSelected(selectedTemp, !showTime);
     },
-    [selected, showTime, status, startShowTime, endShowTime, onSelected]
+    [start, end, showTime, startShowTime, endShowTime, onSelected]
   );
 
   const FooterNode = React.useMemo(
@@ -54,12 +70,21 @@ const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
         <RangePickerFooter
           format={startShowTime?.format}
           selected={selected}
-          disabledTimes={disabledTimes}
           onSelected={onSelected}
+          disabledStartTimes={disabledStartTimes(RangeTypeMap.START)}
+          disabledConfirm={disabledConfirm}
+          disabledEndTimes={disabledEndTimes(RangeTypeMap.END)}
         />
       </div>
     ),
-    [selected, onSelected, disabledTimes, startShowTime]
+    [
+      selected,
+      disabledConfirm,
+      startShowTime,
+      onSelected,
+      disabledStartTimes,
+      disabledEndTimes,
+    ]
   );
 
   return (
@@ -67,9 +92,10 @@ const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
       <div className={`${prefixCls}-body`}>
         <div className={`${prefixCls}-body-item`}>
           <DatePanel
-            {...resetProps}
+            {...restProps}
             hideFooter
             selected={start}
+            disabledTimes={disabledStartTimes(RangeTypeMap.START)}
             popText={start && !end ? '请选择结束日期' : ''}
             defaultPanelDate={defaultPanelDate[0]}
             onSelected={onChangeStartOrEnd}
@@ -78,9 +104,10 @@ const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
         </div>
         <div className={`${prefixCls}-body-item`}>
           <DatePanel
-            {...resetProps}
+            {...restProps}
             hideFooter
             selected={end}
+            disabledTimes={disabledEndTimes(RangeTypeMap.END)}
             defaultPanelDate={defaultPanelDate[1]}
             onSelected={onChangeStartOrEnd}
             disabledPanelDate={disabledPanelDate[1]}

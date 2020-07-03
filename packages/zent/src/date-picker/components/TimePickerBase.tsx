@@ -1,17 +1,17 @@
 import * as React from 'react';
 import cx from 'classnames';
 import { I18nReceiver as Receiver, II18nLocaleTimePicker } from '../../i18n';
+import PickerPopover from './PickerPopover';
 import PanelContext from '../context/PanelContext';
 import PickerContext from '../context/PickerContext';
+import useTimeValue from '../hooks/useTimeValue';
+import useConfirmStatus from '../hooks/useConfirmStatus';
+import { useEventCallbackRef } from '../../utils/hooks/useEventCallbackRef';
 import {
   ITimePickerProps,
   ITimePickerTriggerProps,
   ITimePanelProps,
 } from '../types';
-import PickerPopover from './PickerPopover';
-import useTimeValue from '../hooks/useTimeValue';
-import noop from '../../utils/noop';
-import { useEventCallbackRef } from '../../utils/hooks/useEventCallbackRef';
 
 const PickerContextProvider = PickerContext.Provider;
 const PanelContextProvider = PanelContext.Provider;
@@ -31,14 +31,26 @@ const PopoverComponent: React.FC<IPickerProps> = ({
   TriggerComponent,
   ContentComponent,
   defaultTime,
-  ...resetProps
+  selectedDate,
+  ...restProps
 }) => {
+  const { format } = restProps;
   const onChangeRef = useEventCallbackRef(onChange);
   const [panelVisible, setPanelVisible] = React.useState<boolean>(false);
   const [visibleChange, setVisibleChange] = React.useState<boolean>(true);
   const { timeValue: selected, setTimevalue: setSelected } = useTimeValue(
     value
   );
+  const disabledTimesOption = React.useMemo(
+    () => disabledTimes?.(selectedDate) || {},
+    [disabledTimes, selectedDate]
+  );
+  const confirmStatus = useConfirmStatus({
+    format,
+    selected,
+    disabledTimesOption,
+  });
+
   const onSelected = React.useCallback(
     (val, finished = false) => {
       setVisibleChange(false);
@@ -47,7 +59,7 @@ const PopoverComponent: React.FC<IPickerProps> = ({
       if (finished) {
         setPanelVisible(!finished);
         setVisibleChange(true);
-        onChangeRef?.current(val);
+        onChangeRef.current?.(val);
       }
     },
     [onChangeRef, setSelected]
@@ -57,12 +69,6 @@ const PopoverComponent: React.FC<IPickerProps> = ({
     panelVisible && setVisibleChange(true);
     setPanelVisible(!panelVisible);
     setSelected(value || '');
-  };
-
-  const initDisabledTimes = {
-    disabledHours: (disabledTimes?.disabledHours || noop) as () => number[],
-    disabledMinutes: (disabledTimes?.disabledMinutes || noop) as () => number[],
-    disabledSeconds: (disabledTimes?.disabledSeconds || noop) as () => number[],
   };
 
   return (
@@ -80,7 +86,7 @@ const PopoverComponent: React.FC<IPickerProps> = ({
                   })}
                 >
                   <TriggerComponent
-                    {...resetProps}
+                    {...restProps}
                     canClear={canClear}
                     selected={selected}
                     onSelected={onSelected}
@@ -88,12 +94,13 @@ const PopoverComponent: React.FC<IPickerProps> = ({
                 </div>
               }
               content={
-                <PanelContextProvider value={{ visibleChange }}>
+                <PanelContextProvider value={{ visibleChange, confirmStatus }}>
                   <ContentComponent
-                    {...resetProps}
+                    {...restProps}
                     defaultTime={defaultTime}
-                    disabledTimes={initDisabledTimes}
+                    disabledTimesOption={disabledTimesOption}
                     selected={selected}
+                    confirmStatus={confirmStatus}
                     onSelected={onSelected}
                   />
                 </PanelContextProvider>

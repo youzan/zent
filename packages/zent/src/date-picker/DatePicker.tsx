@@ -9,36 +9,35 @@ import { getCallbackValueWithDate } from './utils/getValueInSinglePicker';
 import { generateDateConfig } from './utils/dateUtils';
 import { formatText } from './utils/formatInputText';
 import {
-  IDatePickerCommonProps,
+  ISingleProps,
   IGenerateDateConfig,
-  IValueType,
   IShowTime,
+  IDisabledTimes,
 } from './types';
 
 const generateDate: IGenerateDateConfig = generateDateConfig.date;
 
-const DefaultDatePickerProps = {
-  format: 'YYYY-MM-DD',
-  valueType: 'string' as IValueType,
-};
 const PickerContextProvider = PickerContext.Provider;
 
-interface IDatePickerProps extends IDatePickerCommonProps {
-  placeholder?: string;
+export interface IDatePickerProps extends ISingleProps {
   showTime?: IShowTime;
+  disabledTimes?: IDisabledTimes;
 }
-
+const DefaultDatePickerProps: Partial<IDatePickerProps> = {
+  format: 'YYYY-MM-DD',
+  valueType: 'string',
+};
 export const DatePicker: React.FC<IDatePickerProps> = props => {
   const { format, valueType, placeholder } = props;
+  const getInputText = React.useCallback(
+    (val: Date) => formatText(val, format),
+    [format]
+  );
 
-  const getInputText = React.useCallback(val => formatText(val, format), [
-    format,
-  ]);
-
-  const getSelectedValue = React.useCallback(val => val, []);
+  const getSelectedValue = React.useCallback((val: Date) => val, []);
 
   const getCallbackValue = React.useCallback(
-    val => getCallbackValueWithDate(val, valueType, format),
+    (val: Date) => getCallbackValueWithDate(val, valueType, format),
     [valueType, format]
   );
 

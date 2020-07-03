@@ -8,28 +8,22 @@ import QuarterPanel from './panels/quarter-panel';
 import { getCallbackValueRangeWithDate } from './utils/getValueInSinglePicker';
 import { generateDateConfig } from './utils/dateUtils';
 import { quarterFormatText } from './utils/formatInputText';
-import {
-  IDatePickerCommonProps,
-  IGenerateDateConfig,
-  IValueType,
-} from './types';
+import { ISingleProps, IGenerateDateConfig } from './types';
 
 const generateDate: IGenerateDateConfig = generateDateConfig.quarter;
 const PickerContextProvider = PickerContext.Provider;
 
-interface IQuarterPickerProps extends IDatePickerCommonProps {
-  placeholder?: string;
-}
+export interface IQuarterPickerProps extends ISingleProps {}
 
-const DefaultQuarterPickerProps = {
+const DefaultQuarterPickerProps: Partial<IQuarterPickerProps> = {
   format: 'YYYY-MM',
-  valueType: 'string' as IValueType,
+  valueType: 'string',
 };
 export const QuarterPicker: React.FC<IQuarterPickerProps> = props => {
   const { format, placeholder, valueType } = props;
 
   const getInputText = React.useCallback(
-    (val, i18n) => quarterFormatText(val, i18n),
+    i18n => val => quarterFormatText(val, i18n),
     []
   );
 
@@ -49,7 +43,7 @@ export const QuarterPicker: React.FC<IQuarterPickerProps> = props => {
             generateDate,
             getCallbackValue,
             getSelectedValue,
-            getInputText,
+            getInputText: getInputText(i18n),
           }}
         >
           <SinglePicker

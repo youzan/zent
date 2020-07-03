@@ -7,22 +7,16 @@ import MonthPanel from './panels/month-panel';
 import { getCallbackValueWithDate } from './utils/getValueInSinglePicker';
 import { generateDateConfig } from './utils/dateUtils';
 import { formatText } from './utils/formatInputText';
-import {
-  IDatePickerCommonProps,
-  IGenerateDateConfig,
-  IValueType,
-} from './types';
+import { ISingleProps, IGenerateDateConfig } from './types';
 
 const generateDate: IGenerateDateConfig = generateDateConfig.month;
 const PickerContextProvider = PickerContext.Provider;
 
-interface IMonthPickerProps extends IDatePickerCommonProps {
-  placeholder?: string;
-}
+export interface IMonthPickerProps extends ISingleProps {}
 
-const DefaultMonthPickerProps = {
+const DefaultMonthPickerProps: Partial<IMonthPickerProps> = {
   format: 'YYYY-MM',
-  valueType: 'string' as IValueType,
+  valueType: 'string',
 };
 export const MonthPicker: React.FC<IMonthPickerProps> = props => {
   const { format, placeholder, valueType } = props;

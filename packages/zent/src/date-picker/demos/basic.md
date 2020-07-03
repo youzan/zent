@@ -77,7 +77,7 @@ class DatePickerBasic extends Component {
 			yearValue: val,
 		});
 	};
-	disabledTimes = { disabledHours: () => [2] };
+	disabledDate = { min: '2020-2-10', max: '2020-6-20' };
 	render() {
 		const {
 			dateValue,
@@ -126,13 +126,20 @@ class DatePickerBasic extends Component {
 					value={timeValue}
 					secondStep={15}
 					onChange={this.onChangeTime}
-					disabledTimes={this.disabledTimes}
+					disabledDate={this.disabledDate}
+				/>
+				<br />
+				<DatePicker
+					value={dateValue}
+					className="zent-datepicker-demo"
+					onChange={this.onChangeDate}
 				/>
 				<br />
 				<DateRangePicker
 					className="zent-datepicker-demo"
 					value={rangeValue}
 					onChange={this.onChangeRange}
+					disabledDate={val => val.getDate() > 15}
 				/>
 				<br />
 				<CombinedDateRangePicker

@@ -10,66 +10,70 @@ import useRangeDisabledDate from '../hooks/useRangeDisabledDate';
 import useRangeMergedProps from '../hooks/useRangeMergedProps';
 import useHoverRange from '../hooks/useHoverRange';
 import usePanelVisible from '../hooks/usePanelVisible';
+import useNormalizeDisabledDate from '../hooks/useNormalizeDisabledDate';
 import { getRangeValuesWithValueType } from '../utils/getValueInRangePicker';
 import { useEventCallbackRef } from '../../utils/hooks/useEventCallbackRef';
-
+import pick from '../../utils/pick';
 import {
-  ICombinedDateRangeProps,
-  ICombinedDatePanelProps,
+  IRangeProps,
+  IRangePanelProps,
   IGenerateDateConfig,
+  IRangeTriggerProps,
+  triggerPickProps,
+  RangeTypeMap,
 } from '../types';
 
-interface ICombinedPickerProps extends ICombinedDateRangeProps {
+interface ICombinedPickerProps
+  extends IRangeProps,
+    Pick<IRangeTriggerProps, 'placeholder' | 'name' | 'seperator'> {
   generateDate: IGenerateDateConfig;
-  PanelComponent: React.ComponentType<ICombinedDatePanelProps>;
+  PanelComponent: React.ComponentType<IRangePanelProps>;
 }
 const PanelContextProvider = PanelContext.Provider;
-const COMBINED_PREFIXCLS = 'zent-datepicker-combined-trigger';
 
 export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
   value,
   onChange,
-  disabledDate: disabledDateProps,
-  defaultDate,
-  format,
-  name,
-  placeholder,
-  className,
-  openPanel,
-  disabled,
-  canClear = true,
-  valueType,
-  generateDate,
-  PanelComponent,
-  onClose,
   onOpen,
-  ...resetProps
+  onClose,
+  disabledDate: disabledDateProps,
+  ...restProps
 }) => {
-  const { i18n } = React.useContext(PickerContext);
+  const restPropsRef = React.useRef(restProps);
+  restPropsRef.current = restProps;
+  const {
+    defaultDate,
+    format,
+    className,
+    openPanel,
+    generateDate,
+    PanelComponent,
+  } = restPropsRef.current;
+  const { getInputText } = React.useContext(PickerContext);
   // props onChangeRef
   const onChangeRef = useEventCallbackRef(onChange);
   const onOpenRef = useEventCallbackRef(onOpen);
   const onCloseRef = useEventCallbackRef(onClose);
-  const disabledDatePropsRef = useEventCallbackRef(disabledDateProps);
 
   // merged from props value
   const {
     selected,
+    parseValue,
     setSelected,
-    disabledDate,
     defaultPanelDate,
   } = useRangeMergedProps({
     value,
     format,
-    disabledDatePropsRef,
     defaultDate,
   });
   // popover visible
   const { panelVisible, setPanelVisible } = usePanelVisible(openPanel);
 
   // rangeDisabledDate
-  const disabledPanelDate = useRangeDisabledDate({
-    values: selected,
+  const disabledDate = useNormalizeDisabledDate(disabledDateProps, format);
+
+  const [disabledStartDate, disabledEndDate] = useRangeDisabledDate({
+    selected,
     disabledDate,
     generateDate,
     pickerType: 'combined',
@@ -91,21 +95,21 @@ export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
    *
    */
   const onSelected = React.useCallback(
-    (val, finish = false) => {
-      setSelected([val[0], val[1]]);
+    (val: [Date, Date], finish = false) => {
+      setSelected(val);
       // 日期范围选择结束、手动触发清空操作
-      if (finish && val[0] && val[1]) {
-        onChangeRef?.current(
+      if (finish) {
+        const { valueType, format, openPanel } = restPropsRef.current;
+        onChangeRef.current?.(
           getRangeValuesWithValueType(val, valueType, format)
         );
-        // 关闭弹窗
         setPanelVisible(openPanel ?? false);
       }
     },
-    [onChangeRef, valueType, format, openPanel, setSelected, setPanelVisible]
+    [onChangeRef, restPropsRef, setPanelVisible, setSelected]
   );
 
-  // didUpdate
+  // panelVisible didUpdate
   const mounted = React.useRef<boolean>();
   React.useEffect(() => {
     if (!mounted.current) {
@@ -113,29 +117,20 @@ export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
     } else {
       if (panelVisible) {
         setHoverDate(null);
-        onOpenRef?.current();
+        onOpenRef.current?.();
       } else {
-        onCloseRef?.current();
+        setSelected(parseValue);
+        onCloseRef.current?.();
       }
     }
-  }, [panelVisible, onOpenRef, onCloseRef]);
+  }, [panelVisible, parseValue, onOpenRef, onCloseRef, setSelected]);
 
   // popover visible onChange
   const onVisibleChange = React.useCallback(() => {
+    const { openPanel, disabled } = restPropsRef.current;
     if (openPanel !== undefined || disabled) return;
     setPanelVisible(!panelVisible);
-    // 只选中一个值时，关闭弹窗，清空选中日期
-    if (!selected[1]) {
-      setSelected([null, null]);
-    }
-  }, [
-    openPanel,
-    disabled,
-    selected,
-    panelVisible,
-    setSelected,
-    setPanelVisible,
-  ]);
+  }, [restPropsRef, panelVisible, setPanelVisible]);
 
   // onClear
   const onClearInput = React.useCallback(
@@ -146,49 +141,74 @@ export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
     [onSelected]
   );
 
+  // trigger-input text
+  const text = React.useMemo(() => getInputText(selected), [
+    selected,
+    getInputText,
+  ]);
+
+  const trigger = React.useMemo(() => {
+    const triggerProps = pick(restPropsRef.current, triggerPickProps);
+    return (
+      <div>
+        <CombinedInputTrigger
+          {...triggerProps}
+          selected={selected}
+          value={value}
+          text={text}
+          panelVisible={panelVisible}
+          onClearInput={onClearInput}
+        />
+      </div>
+    );
+  }, [selected, text, value, panelVisible, restPropsRef, onClearInput]);
+
+  const content = React.useMemo(() => {
+    return (
+      <div className="zent-datepicker-combined-panel">
+        <PanelComponent
+          {...restProps}
+          selected={selected}
+          defaultPanelDate={defaultPanelDate}
+          onSelected={onSelected}
+          disabledPanelDate={[
+            disabledStartDate?.(RangeTypeMap.START),
+            disabledEndDate?.(RangeTypeMap.END),
+          ]}
+          hoverDate={hoverDate}
+          hoverRangeDate={hoverRangeDate}
+          rangeDate={rangeDate}
+        />
+      </div>
+    );
+  }, [
+    selected,
+    hoverDate,
+    rangeDate,
+    hoverRangeDate,
+    defaultPanelDate,
+    restProps,
+    disabledStartDate,
+    disabledEndDate,
+    onSelected,
+  ]);
+
   return (
     <div className={cx('zent-datepicker', className)}>
       <PanelContextProvider value={{ onHover: setHoverDate }}>
         <PickerPopover
           panelVisible={panelVisible}
           onVisibleChange={onVisibleChange}
-          trigger={
-            <div
-              className={cx(COMBINED_PREFIXCLS, {
-                'zent-datepicker-can-clear': !disabled && canClear,
-                'zent-datepicker-disabled': disabled,
-                [`${COMBINED_PREFIXCLS}-focus`]: panelVisible,
-              })}
-            >
-              <CombinedInputTrigger
-                name={name}
-                value={value}
-                selected={selected}
-                format={format}
-                placeholder={placeholder}
-                seperator={i18n.to}
-                onClearInput={onClearInput}
-              />
-            </div>
-          }
-          content={
-            <div className="zent-datepicker-combined-panel">
-              <PanelComponent
-                {...resetProps}
-                selected={selected}
-                defaultPanelDate={defaultPanelDate}
-                onSelected={onSelected}
-                disabledPanelDate={disabledPanelDate}
-                hoverDate={hoverDate}
-                hoverRangeDate={hoverRangeDate}
-                rangeDate={rangeDate}
-              />
-            </div>
-          }
+          trigger={trigger}
+          content={content}
         />
       </PanelContextProvider>
     </div>
   );
 };
-
+CombinedPicker.defaultProps = {
+  disabled: false,
+  canClear: true,
+  width: 360,
+};
 export default CombinedPicker;

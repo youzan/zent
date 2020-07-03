@@ -46,10 +46,6 @@
     margin: 0 8px;
   }
 
-  &-name-input {
-    display: none;
-  }
-
   .zenticon {
     @include gray-color;
     line-height: 32px;
@@ -92,7 +88,7 @@
     cursor: not-allowed;
   }
 
-  &-combined-trigger {
+  &-trigger {
     @include theme-color(border-color, stroke, 5);
     @include border-with-radius;
     display: flex;
@@ -272,7 +268,7 @@
         margin-left: 12px;
       }
 
-      &_diabled-current {
+      &-current_diabled {
         @include gray-color;
       }
     }

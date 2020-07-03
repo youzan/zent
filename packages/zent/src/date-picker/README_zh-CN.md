@@ -62,14 +62,14 @@ group: 数据
 
 ### WeekPicker 其他 API
 
-| 参数         | 说明                       | 类型                                        | 默认值         | 是否必须 |
-| ------------ | -------------------------- | ------------------------------------------- | -------------- | -------- |
-| value        | 选择的日期                 | Array<string \| number \| date>             | -              | 是       |
-| onChange     | 选择日期回调函数           | (date: Array<string \| number \| date>)=>{} | -              | 是       |
-| placeholder  | placeholder                | string                                      | '请选择自然周' | 否       |
-| weekStartsOn | 一周的开始                 | WeekStartsOnMap                             | 'Monday'       | 否       |
-| format       | 返回的日期为字符串时的格式 | string                                      | `YYYY-MM-DD`   | 否       |
-| hideFooter   | 隐藏面板底部               | boolean                                     | false          | 否       |
+| 参数         | 说明                       | 类型                                        | 默认值                 | 是否必须 |
+| ------------ | -------------------------- | ------------------------------------------- | ---------------------- | -------- |
+| value        | 选择的日期                 | Array<string \| number \| date>             | -                      | 是       |
+| onChange     | 选择日期回调函数           | (date: Array<string \| number \| date>)=>{} | -                      | 是       |
+| placeholder  | placeholder                | string                                      | '请选择自然周'         | 否       |
+| weekStartsOn | 一周的开始                 | WeekStartsOnMap                             | WeekStartsOnMap.Monday | 否       |
+| format       | 返回的日期为字符串时的格式 | string                                      | `YYYY-MM-DD`           | 否       |
+| hideFooter   | 隐藏面板底部               | boolean                                     | false                  | 否       |
 
 **注意：**
 
@@ -108,7 +108,7 @@ group: 数据
 | ------------ | -------------------------------------------------------------------- | -------------------------------------------------------- | ------------ | -------- |
 | value        | 时间                                                                 | string                                                   | -            | 是       |
 | onChange     | 选择时间回调函数                                                     | (date: string )=>{}                                      | -            | 是       |
-| defaultTime | 默认时间                                                             | string                                                   | -            | 否       |
+| defaultTime  | 默认时间                                                             | string                                                   | -            | 否       |
 | placeholder  | placeholder                                                          | string                                                   | '请选择时间' | 否       |
 | format       | 返回的时间的格式 （决定面板展示的列）                                | string                                                   | `HH:mm:ss`   | 否       |
 | disabledTime | 时间禁用判断（返回{disabledHours, disabledMinutes,disabledSeconds}） | () => {disabledHours, disabledMinutes, disabledSeconds } | noop         | 否       |

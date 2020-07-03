@@ -1,33 +1,36 @@
 import * as React from 'react';
 import { parseDate } from '../utils/index';
-import unifiedDisabledDateFromProps from '../utils/unifiedDisabledDateFromProps';
-import { SingleDate, IDisabledDate } from '../types';
+import { SingleDate } from '../types';
 const current = new Date();
 /**
  * merge from props
  * used by SinglePicker
  * @param value {SingleDate}
  * @param format {string}
- * @param disabledDateRef {React.MutableRefObject<IDisabledDate>}
  */
 export default function useMergedProps({
   value,
   format,
-  disabledDateRef,
   defaultDate,
 }: {
-  value: SingleDate;
+  value: SingleDate | [SingleDate, SingleDate];
   format: string;
-  disabledDateRef: React.MutableRefObject<IDisabledDate>;
   defaultDate: SingleDate;
 }) {
+  const date = Array.isArray(value) ? value[0] : value;
   // defaultPanelDate
   const [defaultPanelDate, setDefaultPanelDate] = React.useState<Date>(current);
 
-  // selected
-  const [selected, setSelected] = React.useState<Date>(
-    value ? parseDate(value, format) : null
+  // 转换成Date类型value日期，用于重置select
+  const parseValue = React.useMemo(
+    () => (value ? parseDate(date, format) : null),
+    [value, date, format]
   );
+  // selected
+  const [selected, setSelected] = React.useState<Date>(parseValue);
+  React.useEffect(() => {
+    setSelected(parseValue);
+  }, [parseValue]);
 
   // defaultPanelDate
   React.useEffect(() => {
@@ -40,15 +43,10 @@ export default function useMergedProps({
     );
   }, [defaultDate, selected, value, format]);
 
-  const disabledPanelDate = unifiedDisabledDateFromProps(
-    disabledDateRef?.current,
-    format
-  );
-
   return {
     selected,
+    parseValue,
     setSelected,
     defaultPanelDate,
-    disabledPanelDate,
   };
 }

@@ -9,50 +9,55 @@ import PanelContext from '../context/PanelContext';
 
 import useMergedProps from '../hooks/useMergedProps';
 import usePanelVisible from '../hooks/usePanelVisible';
+import useNormalizeDisabledDate from '../hooks/useNormalizeDisabledDate';
 import { useEventCallbackRef } from '../../utils/hooks/useEventCallbackRef';
+import pick from '../../utils/pick';
 import {
-  IDatePickerCommonProps,
+  ISingleProps,
   ISingleTriggerProps,
-  ISingleDatePanelProps,
+  ISinglePanelProps,
+  triggerPickProps,
 } from '../types';
 
 const PanelContextProvider = PanelContext.Provider;
 
 interface ISinglePickerProps
-  extends IDatePickerCommonProps,
-    Pick<ISingleTriggerProps, 'placeholder' | 'name'> {
-  PanelComponent: React.ComponentType<ISingleDatePanelProps>;
+  extends ISingleProps,
+    Pick<ISingleTriggerProps, 'placeholder' | 'name' | 'seperator'> {
+  PanelComponent: React.ComponentType<ISinglePanelProps>;
 }
 
 export const SinglePicker: React.FC<ISinglePickerProps> = ({
   value,
   onChange,
-  defaultDate,
-  disabledDate,
-  format,
-  name,
-  width = 240,
-  placeholder,
-  className,
-  valueType,
-  disabled = false,
-  canClear = true,
-  openPanel,
   onOpen,
   onClose,
-  PanelComponent,
-  ...resetProps
+  disabledDate,
+  ...restProps
 }) => {
+  const restPropsRef = React.useRef(restProps);
+  restPropsRef.current = restProps;
+
   const {
-    i18n,
-    getSelectedValue,
-    getCallbackValue,
-    getInputText,
-  } = React.useContext(PickerContext);
+    defaultDate,
+    format,
+    name,
+    width,
+    placeholder,
+    className,
+    valueType,
+    disabled,
+    canClear,
+    openPanel,
+    PanelComponent,
+    ...restPanelProps
+  } = restPropsRef.current;
+  const { getSelectedValue, getCallbackValue, getInputText } = React.useContext(
+    PickerContext
+  );
   const onChangeRef = useEventCallbackRef(onChange);
   const onOpenRef = useEventCallbackRef(onOpen);
   const onCloseRef = useEventCallbackRef(onClose);
-  const disabledDateRef = useEventCallbackRef(disabledDate);
 
   // popover visible
   const { panelVisible, setPanelVisible } = usePanelVisible(openPanel);
@@ -60,15 +65,15 @@ export const SinglePicker: React.FC<ISinglePickerProps> = ({
   // merged from props value
   const {
     selected,
+    parseValue,
     setSelected,
     defaultPanelDate,
-    disabledPanelDate,
   } = useMergedProps({
-    value: Array.isArray(value) ? value[0] : value,
+    value,
     format,
-    disabledDateRef,
     defaultDate,
   });
+  const disabledPanelDate = useNormalizeDisabledDate(disabledDate, format);
 
   // hover date
   const [hoverDate, setHoverDate] = React.useState<Date>();
@@ -85,7 +90,7 @@ export const SinglePicker: React.FC<ISinglePickerProps> = ({
       if (finish) {
         // 计算回调的返回值
         const result = getCallbackValue(val);
-        onChangeRef?.current(result);
+        onChangeRef.current?.(result);
         // 关闭弹窗
         setPanelVisible(openPanel ?? false);
       }
@@ -108,18 +113,20 @@ export const SinglePicker: React.FC<ISinglePickerProps> = ({
     } else {
       if (panelVisible) {
         setHoverDate(null);
-        onOpenRef?.current();
+        onOpenRef.current?.();
       } else {
-        onCloseRef?.current();
+        setSelected(parseValue);
+        onCloseRef.current?.();
       }
     }
-  }, [panelVisible, onOpenRef, onCloseRef]);
+  }, [panelVisible, parseValue, onOpenRef, onCloseRef, setSelected]);
 
   // popover visible onChange
   const onVisibleChange = React.useCallback(() => {
+    const { openPanel, disabled } = restPropsRef.current;
     if (openPanel !== undefined || disabled) return;
     setPanelVisible(!panelVisible);
-  }, [openPanel, disabled, panelVisible, setPanelVisible]);
+  }, [restPropsRef, panelVisible, setPanelVisible]);
 
   // onClear
   const onClearInput = React.useCallback(
@@ -131,10 +138,46 @@ export const SinglePicker: React.FC<ISinglePickerProps> = ({
   );
 
   // trigger-input text
-  const text = React.useMemo(() => getInputText(selected, i18n), [
+  const text = React.useMemo(() => getInputText(selected), [
     selected,
-    i18n,
     getInputText,
+  ]);
+
+  const trigger = React.useMemo(() => {
+    const triggerProps = pick(restPropsRef.current, triggerPickProps);
+    return (
+      <div>
+        <SingleInputTrigger
+          {...triggerProps}
+          value={value}
+          text={text}
+          panelVisible={panelVisible}
+          onClearInput={onClearInput}
+        />
+      </div>
+    );
+  }, [text, value, panelVisible, restPropsRef, onClearInput]);
+
+  const content = React.useMemo(() => {
+    return (
+      <div className="zent-datepicker-panel">
+        <PanelComponent
+          {...restPanelProps}
+          selected={selected}
+          hoverDate={hoverDate}
+          defaultPanelDate={defaultPanelDate}
+          onSelected={onSelected}
+          disabledPanelDate={disabledPanelDate}
+        />
+      </div>
+    );
+  }, [
+    selected,
+    hoverDate,
+    defaultPanelDate,
+    restPanelProps,
+    disabledPanelDate,
+    onSelected,
   ]);
 
   return (
@@ -143,42 +186,17 @@ export const SinglePicker: React.FC<ISinglePickerProps> = ({
         <PickerPopover
           panelVisible={panelVisible}
           onVisibleChange={onVisibleChange}
-          trigger={
-            <div
-              className={cx({
-                'zent-datepicker-can-clear': !disabled && canClear,
-                'zent-datepicker-disabled': disabled,
-              })}
-            >
-              <SingleInputTrigger
-                text={text}
-                name={name}
-                format={format}
-                disabled={disabled}
-                canClear={canClear}
-                value={value}
-                width={width}
-                placeholder={placeholder}
-                onClearInput={onClearInput}
-              />
-            </div>
-          }
-          content={
-            <div className="zent-datepicker-panel">
-              <PanelComponent
-                {...resetProps}
-                selected={selected}
-                hoverDate={hoverDate}
-                defaultPanelDate={defaultPanelDate}
-                onSelected={onSelected}
-                disabledPanelDate={disabledPanelDate}
-              />
-            </div>
-          }
+          trigger={trigger}
+          content={content}
         />
       </PanelContextProvider>
     </div>
   );
+};
+SinglePicker.defaultProps = {
+  disabled: false,
+  canClear: true,
+  width: 240,
 };
 
 export default SinglePicker;
