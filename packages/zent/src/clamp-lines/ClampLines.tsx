@@ -154,7 +154,12 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
     return (
       <div
         className={classString}
-        style={{ maxHeight: this.maxHeight, overflowY: 'hidden' }}
+        style={{
+          maxHeight: this.maxHeight,
+          overflowY: 'hidden',
+          wordBreak: 'normal',
+          overflowWrap: 'anywhere',
+        }}
       >
         <div ref={this.element}>
           <span ref={this.innerElement}>{this.state.text}</span>
@@ -181,7 +186,7 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
 
     if (this.state.noClamp) {
       return (
-        <div className={className}>
+        <div className={className} style={{ overflowWrap: 'break-word' }}>
           {text}
           {this.renderResizable()}
         </div>
@@ -192,7 +197,11 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
       return (
         <Pop
           trigger={trigger}
-          content={<div style={{ maxWidth: popWidth }}>{renderPop(text)}</div>}
+          content={
+            <div style={{ maxWidth: popWidth, overflowWrap: 'break-word' }}>
+              {renderPop(text)}
+            </div>
+          }
         >
           {this.renderClampedText()}
         </Pop>
