@@ -17,9 +17,7 @@ const PickerContextProvider = PickerContext.Provider;
 const PanelContextProvider = PanelContext.Provider;
 interface IPickerProps extends ITimePickerProps {
   TriggerComponent: React.ComponentType<ITimePickerTriggerProps>;
-  ContentComponent: React.ComponentType<
-    Omit<ITimePanelProps, 'defaultPanelDate'>
-  >;
+  ContentComponent: React.ComponentType<ITimePanelProps>;
 }
 
 const PopoverComponent: React.FC<IPickerProps> = ({

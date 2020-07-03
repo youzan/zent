@@ -13,18 +13,17 @@ export default function useMergedProps({
   format,
   defaultDate,
 }: {
-  value: SingleDate | [SingleDate, SingleDate];
+  value: SingleDate;
   format: string;
   defaultDate: SingleDate;
 }) {
-  const date = Array.isArray(value) ? value[0] : value;
   // defaultPanelDate
   const [defaultPanelDate, setDefaultPanelDate] = React.useState<Date>(current);
 
   // 转换成Date类型value日期，用于重置select
   const parseValue = React.useMemo(
-    () => (value ? parseDate(date, format) : null),
-    [value, date, format]
+    () => (value ? parseDate(value, format) : null),
+    [value, format]
   );
   // selected
   const [selected, setSelected] = React.useState<Date>(parseValue);

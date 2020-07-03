@@ -1,26 +1,35 @@
 import * as React from 'react';
 import { I18nReceiver as Receiver, II18nLocaleTimePicker } from '../i18n';
-import PickerContext from './context/PickerContext';
-
 import SinglePicker from './components/SinglePickerBase';
 import QuarterPanel from './panels/quarter-panel';
 
+import PickerContext from './context/PickerContext';
+import { DisabledContext } from '../disabled';
 import { getCallbackValueRangeWithDate } from './utils/getValueInSinglePicker';
 import { generateDateConfig } from './utils/dateUtils';
 import { quarterFormatText } from './utils/formatInputText';
-import { ISingleProps, IGenerateDateConfig } from './types';
+import { ISingleProps, IGenerateDateConfig, RangeDate } from './types';
 
 const generateDate: IGenerateDateConfig = generateDateConfig.quarter;
 const PickerContextProvider = PickerContext.Provider;
 
-export interface IQuarterPickerProps extends ISingleProps {}
+export interface IQuarterPickerProps
+  extends Omit<ISingleProps, 'value' | 'defaultDate'> {
+  value?: RangeDate;
+  defaultDate?: RangeDate;
+}
 
 const DefaultQuarterPickerProps: Partial<IQuarterPickerProps> = {
   format: 'YYYY-MM',
   valueType: 'string',
 };
-export const QuarterPicker: React.FC<IQuarterPickerProps> = props => {
-  const { format, placeholder, valueType } = props;
+export const QuarterPicker: React.FC<IQuarterPickerProps> = ({
+  value,
+  defaultDate,
+  ...restProps
+}) => {
+  const { format, placeholder, valueType } = restProps;
+  const disabledContext = React.useContext(DisabledContext);
 
   const getInputText = React.useCallback(
     i18n => val => quarterFormatText(val, i18n),
@@ -33,7 +42,6 @@ export const QuarterPicker: React.FC<IQuarterPickerProps> = props => {
     val => getCallbackValueRangeWithDate(val, valueType, format, generateDate),
     [valueType, format]
   );
-
   return (
     <Receiver componentName="TimePicker">
       {(i18n: II18nLocaleTimePicker) => (
@@ -47,7 +55,12 @@ export const QuarterPicker: React.FC<IQuarterPickerProps> = props => {
           }}
         >
           <SinglePicker
-            {...props}
+            {...restProps}
+            value={Array.isArray(value) ? value[0] : value}
+            defaultDate={
+              Array.isArray(defaultDate) ? defaultDate[0] : defaultDate
+            }
+            disabled={disabledContext.value}
             placeholder={placeholder || i18n.quarter}
             PanelComponent={QuarterPanel}
           />

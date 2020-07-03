@@ -2,11 +2,13 @@ import * as React from 'react';
 import { FC, useContext, useMemo } from 'react';
 import Input from '../input';
 import Icon from '../icon';
-import noop from '../utils/noop';
 import Picker from './components/TimePickerBase';
-import { leftPad } from './utils/handler';
-import PickerContext from './context/PickerContext';
 import TimePickerPanel from './panels/time-panel';
+
+import { DisabledContext } from '../disabled';
+import PickerContext from './context/PickerContext';
+import { leftPad } from './utils/handler';
+import noop from '../utils/noop';
 import { ITimePickerProps, ITimePickerTriggerProps } from './types';
 
 export const TimePickerTrigger: FC<ITimePickerTriggerProps> = ({
@@ -63,13 +65,16 @@ const DefaultTimePickerProps = {
 
 export { ITimePickerProps };
 export const TimePicker: React.FC<ITimePickerProps> = props => {
+  const disabledContext = React.useContext(DisabledContext);
+
   return (
     <Picker
-      {...DefaultTimePickerProps}
       {...props}
+      disabled={disabledContext.value}
       TriggerComponent={TimePickerTrigger}
       ContentComponent={TimePickerPanel}
     />
   );
 };
+TimePicker.defaultProps = DefaultTimePickerProps;
 export default TimePicker;

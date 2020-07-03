@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { I18nReceiver as Receiver, II18nLocaleTimePicker } from '../i18n';
-import PickerContext from './context/PickerContext';
-
 import SinglePicker from './components/SinglePickerBase';
 import YearPanel from './panels/year-panel';
+
+import PickerContext from './context/PickerContext';
+import { DisabledContext } from '../disabled';
 import { getCallbackValueWithDate } from './utils/getValueInSinglePicker';
 import { generateDateConfig } from './utils/dateUtils';
 import { formatText } from './utils/formatInputText';
@@ -20,6 +21,7 @@ const DefaultYearPickerProps: Partial<IYearPickerProps> = {
 };
 export const YearPicker: React.FC<IYearPickerProps> = props => {
   const { format, placeholder, valueType } = props;
+  const disabledContext = React.useContext(DisabledContext);
 
   const getInputText = React.useCallback(val => formatText(val, format), [
     format,
@@ -46,6 +48,7 @@ export const YearPicker: React.FC<IYearPickerProps> = props => {
         >
           <SinglePicker
             {...props}
+            disabled={disabledContext.value}
             placeholder={placeholder || i18n.year}
             PanelComponent={YearPanel}
           />

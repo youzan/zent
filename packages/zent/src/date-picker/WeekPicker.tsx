@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { I18nReceiver as Receiver, II18nLocaleTimePicker } from '../i18n';
-import PickerContext from './context/PickerContext';
-const PickerContextProvider = PickerContext.Provider;
-
 import SinglePicker from './components/SinglePickerBase';
 import WeekPanel from './panels/week-panel';
 
+import PickerContext from './context/PickerContext';
+import { DisabledContext } from '../disabled';
 import {
   getSelectedValueWithDate,
   getCallbackValueRangeWithDate,
@@ -18,11 +17,18 @@ import {
   IGenerateDateConfig,
   WeekStartsOnMap,
   IWeekOption,
+  RangeDate,
 } from './types';
+const PickerContextProvider = PickerContext.Provider;
 
 const generateDate: IGenerateDateConfig = generateDateConfig.week;
 
-export interface IWeekPickerProps extends ISingleProps, IWeekOption {}
+export interface IWeekPickerProps
+  extends IWeekOption,
+    Omit<ISingleProps, 'value' | 'defaultDate'> {
+  value?: RangeDate;
+  defaultDate?: RangeDate;
+}
 export { WeekStartsOnMap };
 const DefaultWeekPickerProps: Partial<IWeekPickerProps> = {
   format: 'YYYY-MM-DD',
@@ -30,8 +36,13 @@ const DefaultWeekPickerProps: Partial<IWeekPickerProps> = {
   weekStartsOn: WeekStartsOnMap.Monday,
 };
 
-export const WeekPicker: React.FC<IWeekPickerProps> = props => {
-  const { format, valueType, placeholder, weekStartsOn } = props;
+export const WeekPicker: React.FC<IWeekPickerProps> = ({
+  value,
+  defaultDate,
+  ...restProps
+}) => {
+  const { format, valueType, placeholder, weekStartsOn } = restProps;
+  const disabledContext = React.useContext(DisabledContext);
 
   // generate week-date method's option
   const options = React.useMemo(() => ({ weekStartsOn }), [weekStartsOn]);
@@ -71,7 +82,12 @@ export const WeekPicker: React.FC<IWeekPickerProps> = props => {
           }}
         >
           <SinglePicker
-            {...props}
+            {...restProps}
+            value={Array.isArray(value) ? value[0] : value}
+            defaultDate={
+              Array.isArray(defaultDate) ? defaultDate[0] : defaultDate
+            }
+            disabled={disabledContext.value}
             seperator={i18n.to}
             placeholder={placeholder || i18n.week}
             PanelComponent={WeekPanel}

@@ -4,6 +4,7 @@ import {
   IGenerateDateConfig,
   IWeekOption,
   SingleDate,
+  RangeDate,
 } from '../types';
 import { getRangeValuesWithValueType } from './getValueInRangePicker';
 
@@ -43,7 +44,7 @@ export function getCallbackValueWithDate(
   format = ''
 ): SingleDate {
   let resultVal = null;
-  if (!value) return resultVal;
+  if (!value) return valueType === 'string' ? '' : resultVal;
 
   switch (valueType) {
     case 'string': {
@@ -77,7 +78,7 @@ export function getCallbackValueRangeWithDate(
   format = '',
   generateDateConfig: IGenerateDateConfig,
   options?: IWeekOption
-): [SingleDate, SingleDate] {
+): RangeDate {
   if (!value) return [null, null];
 
   let onChangeValue = null;

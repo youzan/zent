@@ -51,7 +51,6 @@ class Demo extends Component {
 	});
 
 	disabledTimes3 = (date, type) => {
-		console.log('deno', date, type);
 		return {
 			disabledHours: () => [3, 4, 5,],
 			disabledMinutes: () => [],

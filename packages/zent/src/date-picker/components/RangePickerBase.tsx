@@ -11,7 +11,7 @@ import { useEventCallbackRef } from '../../utils/hooks/useEventCallbackRef';
 import {
   ICommonProps,
   IRangeTriggerProps,
-  SingleDate,
+  RangeDate,
   IGenerateDateConfig,
   IShowTime,
   RangeType,
@@ -21,7 +21,7 @@ import {
 } from '../types';
 
 interface IRangePickerProps
-  extends ICommonProps<[SingleDate, SingleDate]>,
+  extends ICommonProps<RangeDate>,
     IRangeProps,
     Pick<IRangeTriggerProps, 'placeholder'> {
   generateDate: IGenerateDateConfig;

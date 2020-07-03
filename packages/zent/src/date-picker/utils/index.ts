@@ -2,7 +2,7 @@ import formatBase from '../../utils/date/formatDate';
 import parseBase from '../../utils/date/parseDate';
 
 import { getLocale } from '../../i18n/time-locale';
-import { SingleDate } from '../types';
+import { RangeDate } from '../types';
 
 /**
  *
@@ -56,9 +56,6 @@ export function formatDateRange(dates: [Date, Date], format: string): string[] {
  * @param dates 日期数组
  * @param format
  */
-export function parseDateRange(
-  dates: [SingleDate, SingleDate],
-  format: string
-): [Date, Date] {
+export function parseDateRange(dates: RangeDate, format: string): [Date, Date] {
   return [parseDate(dates[0], format), parseDate(dates[1], format)];
 }

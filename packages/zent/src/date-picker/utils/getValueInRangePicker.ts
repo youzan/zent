@@ -1,5 +1,5 @@
 import { formatDateRange } from './index';
-import { IValueType, SingleDate } from '../types';
+import { IValueType, RangeDate } from '../types';
 
 /**
  * 用于range、combined组件
@@ -11,7 +11,7 @@ export function getRangeValuesWithValueType(
   val: [Date, Date],
   valueType: IValueType,
   format = ''
-): [SingleDate, SingleDate] {
+): RangeDate {
   if (!val[0] && !val[1]) return [null, null];
   let resultVal = null;
   switch (valueType) {

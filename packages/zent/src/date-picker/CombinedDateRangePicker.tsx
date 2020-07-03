@@ -4,6 +4,7 @@ import { I18nReceiver as Receiver, II18nLocaleTimePicker } from '../i18n';
 import CombinedPicker from './components/CombinedPickerBase';
 import CombinedDatePanel from './panels/combined-date-range-panel';
 
+import { DisabledContext } from '../disabled';
 import PickerContext from './context/PickerContext';
 import { generateDateConfig } from './utils/dateUtils';
 import { IRangeProps, IGenerateDateConfig, IShowTime } from './types';
@@ -23,6 +24,8 @@ const DefaultCombinedDateRangeProps: Partial<IRangeProps> = {
 
 export const CombinedDateRangePicker: React.FC<IRangeProps> = props => {
   const { placeholder, format } = props;
+  const disabledContext = React.useContext(DisabledContext);
+
   const getInputText = React.useCallback(
     (val: [Date, Date]) => formatTextRange(val, format),
     [format]
@@ -33,6 +36,7 @@ export const CombinedDateRangePicker: React.FC<IRangeProps> = props => {
         <PickerContextProvider value={{ i18n, getInputText }}>
           <CombinedPicker
             {...props}
+            disabled={disabledContext.value}
             generateDate={generateDate}
             seperator={i18n.to}
             placeholder={placeholder || [i18n.start, i18n.end]}

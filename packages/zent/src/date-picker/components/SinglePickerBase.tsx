@@ -27,14 +27,14 @@ interface ISinglePickerProps
   PanelComponent: React.ComponentType<ISinglePanelProps>;
 }
 
-export const SinglePicker: React.FC<ISinglePickerProps> = ({
+export function SinglePicker({
   value,
   onChange,
   onOpen,
   onClose,
   disabledDate,
   ...restProps
-}) => {
+}: ISinglePickerProps) {
   const restPropsRef = React.useRef(restProps);
   restPropsRef.current = restProps;
 
@@ -192,7 +192,7 @@ export const SinglePicker: React.FC<ISinglePickerProps> = ({
       </PanelContextProvider>
     </div>
   );
-};
+}
 SinglePicker.defaultProps = {
   disabled: false,
   canClear: true,
