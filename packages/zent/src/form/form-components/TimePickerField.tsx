@@ -4,9 +4,10 @@ import { dateDefaultTimeFactory, IFormComponentProps } from '../shared';
 import TimePicker, { ITimePickerProps } from '../../date-picker/TimePicker';
 import { FormField } from '../Field';
 import { $MergeParams } from '../utils';
+import { SingleTime } from '../../date-picker/types';
 
 export type IFormTimePickerField = IFormComponentProps<
-  string,
+  SingleTime,
   Omit<ITimePickerProps, 'value'>
 >;
 

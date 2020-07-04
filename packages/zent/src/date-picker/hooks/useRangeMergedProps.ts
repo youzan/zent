@@ -1,12 +1,15 @@
 import * as React from 'react';
 import { parseDateRange } from '../utils/index';
-import { addMonths } from 'date-fns';
+import { addMonths, isSameMonth } from 'date-fns';
 import { ICommonProps, RangeDate } from '../types';
 
-function createDateRangeWithStart(dates: Date[]): [Date, Date] {
-  return [dates[0], dates[1] || addMonths(dates[0], 1)];
+function createDateRangeWithStart(dates: [Date, Date]): [Date, Date] {
+  return [
+    dates[0],
+    dates[1] && !isSameMonth(...dates) ? dates[1] : addMonths(dates[0], 1),
+  ];
 }
-const initDate = createDateRangeWithStart([new Date()]);
+const initDate = createDateRangeWithStart([new Date(), new Date()]);
 
 interface IRangeMergedPropsParams
   extends Pick<ICommonProps<RangeDate>, 'value' | 'format' | 'defaultDate'> {}

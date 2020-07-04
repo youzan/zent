@@ -11,6 +11,7 @@ import {
 	TimePicker,
 	DatePicker,
 	DateRangePicker,
+	CombinedTimeRangePicker,
 	CombinedDateRangePicker,
 } from 'zent';
 
@@ -38,7 +39,12 @@ class Demo extends Component {
 			dateValue: val,
 		});
 	};
-
+	onChangeCombinedTime = val => {
+		console.log('demo onChangeCombinedTime', val);
+		this.setState({
+			combinedTimeValue: val,
+		});
+	};
 	disabledTimes1 = () => ({
 		disabledHours: () => [2],
 	});
@@ -51,15 +57,30 @@ class Demo extends Component {
 	});
 
 	disabledTimes3 = (date, type) => {
+		return type === 'start'
+			? {
+					disabledHours: () => [3, 4, 5],
+					disabledMinutes: () => [],
+					disabledSeconds: () => [],
+			  }
+			: {};
+	};
+
+	disabledTimes4 = (date, type) => {
 		return {
-			disabledHours: () => [3, 4, 5,],
+			disabledHours: () => [3, 4, 5],
 			disabledMinutes: () => [],
 			disabledSeconds: () => [],
 		};
 	};
-
 	render() {
-		const { timeValue, dateValue, rangeValue, combinedValue } = this.state;
+		const {
+			timeValue,
+			dateValue,
+			rangeValue,
+			combinedValue,
+			combinedTimeValue,
+		} = this.state;
 		return (
 			<div>
 				<TimePicker
@@ -87,13 +108,20 @@ class Demo extends Component {
 					disabledTimes={this.disabledTimes3}
 				/>
 				<br />
+				<CombinedTimeRangePicker
+					className="zent-datepicker-demo"
+					value={combinedTimeValue}
+					onChange={this.onChangeCombinedTime}
+					disabledTimes={this.disabledTimes3}
+				/>
+				<br />
 				<CombinedDateRangePicker
 					className="zent-datepicker-demo"
 					value={combinedValue}
 					onChange={this.onChangeCombinedDate}
 					showTime
 					format="YYYY-MM-DD HH:mm:ss"
-					disabledTimes={this.disabledTimes3}
+					disabledTimes={this.disabledTimes4}
 				/>
 			</div>
 		);

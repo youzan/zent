@@ -1,4 +1,5 @@
 import * as React from 'react';
+import cx from 'classnames';
 import { parse } from 'date-fns';
 import DatePanel from '../date-panel/index';
 import RangePickerFooter from './RangeFooter';
@@ -102,7 +103,12 @@ const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
             disabledPanelDate={disabledPanelDate[0]}
           />
         </div>
-        <div className={`${prefixCls}-body-item`}>
+        <div
+          className={cx(
+            `${prefixCls}-body-item`,
+            `${prefixCls}-body-item_left12`
+          )}
+        >
           <DatePanel
             {...restProps}
             hideFooter

@@ -43,13 +43,15 @@ export const SingleInputTrigger: React.FC<ISingleTriggerProps> = ({
   text,
   name,
   canClear,
-
+  icon,
   ...restProps
 }) => {
   const [text1, text2] = Array.isArray(text) ? text : [text];
   const { disabled } = restProps;
+  const canClearMerge = canClear && !!value;
+
   return (
-    <TriggerDiv {...restProps} canClear={canClear && !!value}>
+    <TriggerDiv {...restProps} canClear={canClearMerge}>
       {name && (
         <input
           type="hidden"
@@ -77,8 +79,8 @@ export const SingleInputTrigger: React.FC<ISingleTriggerProps> = ({
           </span>
         </>
       )}
-      <Icon type="calendar-o" />
-      {canClear && <Icon type="close-circle" onClick={onClearInput} />}
+      <Icon type={icon || 'calendar-o'} />
+      {canClearMerge && <Icon type="close-circle" onClick={onClearInput} />}
     </TriggerDiv>
   );
 };
@@ -94,6 +96,7 @@ export const CombinedInputTrigger: React.FC<ICombinedInputTriggerProps> = ({
   placeholder: [startPlaceholder, endPlaceholder],
   name,
   canClear,
+  icon,
   onClearInput,
   ...restProps
 }) => {
@@ -138,7 +141,7 @@ export const CombinedInputTrigger: React.FC<ICombinedInputTriggerProps> = ({
       >
         {rightText || endPlaceholder}
       </span>
-      <Icon type="calendar-o" />
+      <Icon type={icon || 'calendar-o'} />
       <Icon type="close-circle" onClick={onClearInput} />
     </TriggerDiv>
   );

@@ -14,6 +14,7 @@ import {
 	MonthPicker,
 	YearPicker,
 	TimePicker,
+	CombinedTimeRangePicker,
 	CombinedDateRangePicker,
 	QuarterPicker,
 } from 'zent';
@@ -23,7 +24,7 @@ class DatePickerBasic extends Component {
 		dateValue: '2020-05-11',
 		rangeValue: ['2020-05-10', '2020-05-12'],
 		timeValue: '14:50:30',
-		combinedValue: ['2020-05-10', '2020-05-12'],
+		combinedDateValue: ['2020-05-10', '2020-05-12'],
 		weekValue: ['2020-05-11'],
 		quarterValue: '2020-01-11',
 	};
@@ -50,7 +51,7 @@ class DatePickerBasic extends Component {
 	onChangeCombinedDate = val => {
 		console.log('demo onChangeCombinedDate', val);
 		this.setState({
-			combinedValue: val,
+			combinedDateValue: val,
 		});
 	};
 	onChangeWeek = val => {
@@ -77,13 +78,19 @@ class DatePickerBasic extends Component {
 			yearValue: val,
 		});
 	};
-	disabledDate = { min: '2020-2-10', max: '2020-6-20' };
+	onChangeCombinedTime = val => {
+		console.log('demo onChangeCombinedTime', val);
+		this.setState({
+			combinedTimeValue: val,
+		});
+	};
 	render() {
 		const {
 			dateValue,
 			rangeValue,
 			timeValue,
-			combinedValue,
+			combinedTimeValue,
+			combinedDateValue,
 			weekValue,
 			monthValue,
 			quarterValue,
@@ -126,7 +133,13 @@ class DatePickerBasic extends Component {
 					value={timeValue}
 					secondStep={15}
 					onChange={this.onChangeTime}
-					disabledDate={this.disabledDate}
+				/>
+				<br />
+				<CombinedTimeRangePicker
+					className="zent-datepicker-demo"
+					value={combinedTimeValue}
+					secondStep={15}
+					onChange={this.onChangeCombinedTime}
 				/>
 				<br />
 				<DatePicker
@@ -144,7 +157,7 @@ class DatePickerBasic extends Component {
 				<br />
 				<CombinedDateRangePicker
 					className="zent-datepicker-demo"
-					value={combinedValue}
+					value={combinedDateValue}
 					onChange={this.onChangeCombinedDate}
 				/>
 			</div>

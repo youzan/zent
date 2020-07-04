@@ -287,7 +287,9 @@
         border-right-width: 1px;
         border-right-style: solid;
         flex: 1;
+        width: 92px;
         height: 288px;
+        box-sizing: border-box;
         overflow-y: scroll;
       }
 
@@ -326,13 +328,16 @@
         &_disabled:hover {
           cursor: not-allowed;
         }
+
+        &_available:hover {
+          @include blue-bgcolor;
+        }
       }
     }
   }
 
   &-combined-panel {
     @include panel-common;
-    width: 542px;
     display: flex;
     flex-direction: column;
 
@@ -341,10 +346,22 @@
 
       &-item {
         flex: 1;
+
+        &_left12 {
+          margin-left: -12px;
+        }
       }
 
-      &-item:last-child {
-        margin-left: -12px;
+      &-seperator {
+        @include theme-color(border-left-color, stroke, 5);
+        @include theme-color(border-right-color, stroke, 5);
+
+        border-right-width: 1px;
+        border-right-style: solid;
+        border-left-width: 1px;
+        border-left-style: solid;
+        width: 24px;
+        height: 288px;
       }
     }
 

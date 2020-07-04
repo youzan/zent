@@ -21,6 +21,7 @@ export * from './date-picker/WeekPicker';
 export * from './date-picker/MonthPicker';
 export * from './date-picker/YearPicker';
 export * from './date-picker/QuarterPicker';
+export * from './date-picker/CombinedTimeRangePicker';
 export * from './date-range-quick-picker';
 export * from './datetimepicker/common/types';
 // export * from './datetimepicker/DatePicker';

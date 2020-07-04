@@ -1,3 +1,5 @@
+import { IconType } from '../icon';
+
 export type SingleDate = string | number | Date;
 export type IValueType = 'date' | 'number' | 'string';
 export type RangeType = 'start' | 'end';
@@ -6,7 +8,10 @@ export enum RangeTypeMap {
   START = 'start',
   END = 'end',
 }
+
 export type RangeDate = [SingleDate?, SingleDate?];
+export type SingleTime = string;
+export type RangeTime = [string, string];
 export interface IDisabledDateSimple<T = SingleDate> {
   min?: T;
   max?: T;
@@ -43,6 +48,7 @@ interface ITriggerCommonProps {
   canClear?: boolean;
   disabled?: boolean;
   panelVisible: boolean;
+  icon?: IconType;
   onClearInput: (evt: any) => any;
 }
 export const triggerPickProps = [
@@ -119,39 +125,55 @@ export interface IRangePanelProps {
 }
 
 // **** TimePicker ****
-interface ITimePickerBase {
+interface ITimePickerBase<T> {
   selectedDate?: Date;
   hourStep?: number;
   minuteStep?: number;
   secondStep?: number;
-  defaultTime?: string;
+  defaultTime?: T;
   format?: string;
   disabled?: boolean;
   canClear?: boolean;
   openPanel?: boolean;
   width?: string | number;
   className?: string;
+  name?: T;
 }
 
-export interface ITimePickerProps extends ITimePickerBase {
-  value: string;
-  onChange: (date: string) => void;
-  placeholder?: string;
+export interface ITimePickerProps<T = SingleTime> extends ITimePickerBase<T> {
+  value: T;
+  onChange: (date: T) => void;
+  placeholder?: T;
   hiddenIcon?: boolean;
   disabledTimes?: IDisabledTimes;
 }
-export interface ITimePickerTriggerProps
-  extends Omit<ITimePickerProps, 'value' | 'onChange'> {
-  selected: string;
-  onSelected: (value: string, status?: boolean) => void;
+export interface ITimePickerTriggerProps<T = SingleTime>
+  extends Omit<ITimePickerProps<T>, 'value' | 'onChange'> {
+  selected: T;
+  onSelected: (value: T, status?: boolean) => void;
 }
 
-export interface ITimePanelProps extends ITimePickerBase {
+export interface ITimePanelProps<T = SingleTime> {
+  selected: T;
+  onSelected: (val: T, status?: boolean) => void;
+  format?: string;
+  defaultTime?: T;
   disabledTimesOption: IDisabledTimesOption;
-  confirmStatus: boolean;
-  selected: string;
-  onSelected: (val: string, status?: boolean) => void;
+  hourStep?: number;
+  minuteStep?: number;
+  secondStep?: number;
+  hideFooter?: boolean;
 }
+export interface ICombinedTimePanelProps
+  extends Omit<ITimePanelProps<RangeTime>, 'disabledTimesOption'> {
+  disabledTimesOption: IDisabledTimesOption[];
+}
+export const timePanelProps = [
+  'format',
+  'hourStep',
+  'minuteStep',
+  'secondStep',
+] as const;
 export interface IDisabledTimesOption {
   disabledHours?: () => number[];
   disabledMinutes?: (hour: number) => number[];

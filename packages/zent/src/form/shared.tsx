@@ -178,8 +178,13 @@ export function dateDefaultValueFactory(): DatePickers.Value {
 export function dateRangeDefaultValueFactory(): DatePickers.RangeValue {
   return [new Date(), new Date()];
 }
+
 export function dateDefaultTimeFactory(): string {
   return '';
+}
+
+export function dateRangeDefaultTimeFactory(): [string, string] {
+  return ['', ''];
 }
 export function defaultRenderError<T>(error: IMaybeError<T>) {
   if (error == null) {

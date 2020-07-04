@@ -1,57 +1,49 @@
 import * as React from 'react';
 import cx from 'classnames';
 import PickerPopover from './PickerPopover';
-import { SingleInputTrigger } from './PickerTrigger';
+import { CombinedInputTrigger } from './PickerTrigger';
 
 import PanelContext from '../context/PanelContext';
-import useTimeValue from '../hooks/useTimeValue';
-import useConfirmStatus from '../hooks/useConfirmStatus';
+import useTimeValue, { parseSelectedToRangeDate } from '../hooks/useTimeValue';
 import { useEventCallbackRef } from '../../utils/hooks/useEventCallbackRef';
+import pick from '../../utils/pick';
+import getRangeDisabledTimes from '../utils/getRangeDisabledTimes';
 import {
   ITimePickerProps,
-  ITimePanelProps,
-  timePanelProps,
+  ICombinedTimePanelProps,
   triggerPickProps,
+  RangeTypeMap,
+  timePanelProps,
+  RangeTime,
 } from '../types';
-import pick from '../../utils/pick';
 
+const prefixCls = 'zent-datepicker-combined';
 const PanelContextProvider = PanelContext.Provider;
-interface ITimePickerBaseProps extends ITimePickerProps {
-  ContentComponent: React.ComponentType<ITimePanelProps>;
+interface ITimePickerBaseProps extends ITimePickerProps<RangeTime> {
+  ContentComponent: React.ComponentType<ICombinedTimePanelProps>;
   seperator?: string;
 }
 
-const TimePickerBase: React.FC<ITimePickerBaseProps> = ({
+const CombinedTimePicker: React.FC<ITimePickerBaseProps> = ({
   onChange,
   disabledTimes,
   value,
-  className,
   ContentComponent,
   defaultTime,
   selectedDate,
   ...restProps
 }) => {
   const restPropsRef = React.useRef(restProps);
-  const { format } = restPropsRef.current;
+  const { format, className } = restPropsRef.current;
   const onChangeRef = useEventCallbackRef(onChange);
   const [panelVisible, setPanelVisible] = React.useState<boolean>(false);
   const [visibleChange, setVisibleChange] = React.useState<boolean>(true);
-  const { selected, setSelected } = useTimeValue(value);
-  const disabledTimesOption = React.useMemo(
-    () => disabledTimes?.(selectedDate) || {},
-    [disabledTimes, selectedDate]
-  );
-  const confirmStatus = useConfirmStatus({
-    selected,
-    disabledTimesOption,
-    format,
-  });
+  const { selected, setSelected } = useTimeValue<RangeTime>(value);
 
   const onSelected = React.useCallback(
     (val, finished = false) => {
       setVisibleChange(false);
       setSelected(val);
-
       if (finished) {
         setPanelVisible(!finished);
         setVisibleChange(true);
@@ -64,24 +56,49 @@ const TimePickerBase: React.FC<ITimePickerBaseProps> = ({
   const onVisibleChange = () => {
     panelVisible && setVisibleChange(true);
     setPanelVisible(!panelVisible);
-    setSelected(value || '');
+    setSelected(value || ['', '']);
   };
 
   const onClearInput = React.useCallback(
     evt => {
       evt.stopPropagation();
-      onSelected('', true);
+      onSelected(['', ''], true);
     },
     [onSelected]
+  );
+
+  const selectedDates = parseSelectedToRangeDate(
+    selected,
+    format,
+    selectedDate
+  );
+
+  // disabledTimesOption
+  const {
+    disabledStartTimes,
+    disabledConfirm,
+    disabledEndTimes,
+  } = getRangeDisabledTimes({
+    selected: selectedDates,
+    disabledTimes,
+  });
+  const disabledTimesOptionStart = React.useMemo(
+    () => disabledStartTimes?.(RangeTypeMap.START)(selectedDates[0]) || {},
+    [disabledStartTimes, selectedDates]
+  );
+  const disabledTimesOptionEnd = React.useMemo(
+    () => disabledEndTimes?.(RangeTypeMap.END)(selectedDates[1]) || {},
+    [disabledEndTimes, selectedDates]
   );
 
   const trigger = React.useMemo(() => {
     const triggerProps = pick(restPropsRef.current, triggerPickProps);
     return (
       <div>
-        <SingleInputTrigger
+        <CombinedInputTrigger
           {...triggerProps}
           value={value}
+          selected={selectedDates}
           onClearInput={onClearInput}
           panelVisible={panelVisible}
           text={selected}
@@ -89,26 +106,45 @@ const TimePickerBase: React.FC<ITimePickerBaseProps> = ({
         />
       </div>
     );
-  }, [value, selected, panelVisible, restPropsRef, onClearInput]);
+  }, [
+    value,
+    selected,
+    selectedDates,
+    panelVisible,
+    restPropsRef,
+    onClearInput,
+  ]);
 
   const content = React.useMemo(() => {
     const commonPanelProps = pick(restPropsRef.current, timePanelProps);
-
     return (
-      <div className="zent-datepicker-panel">
+      <div className={cx(`${prefixCls}-panel`, `${prefixCls}-time-panel`)}>
         <ContentComponent
           {...commonPanelProps}
           defaultTime={defaultTime}
-          disabledTimesOption={disabledTimesOption}
+          disabledTimesOption={[
+            disabledTimesOptionStart,
+            disabledTimesOptionEnd,
+          ]}
           selected={selected}
           onSelected={onSelected}
         />
       </div>
     );
-  }, [selected, restPropsRef, defaultTime, disabledTimesOption, onSelected]);
+  }, [
+    selected,
+    defaultTime,
+    restPropsRef,
+    onSelected,
+    disabledTimesOptionStart,
+    disabledTimesOptionEnd,
+  ]);
+
   return (
     <div className={cx('zent-datepicker', className)}>
-      <PanelContextProvider value={{ visibleChange, confirmStatus }}>
+      <PanelContextProvider
+        value={{ visibleChange, confirmStatus: disabledConfirm }}
+      >
         <PickerPopover
           panelVisible={panelVisible}
           onVisibleChange={onVisibleChange}
@@ -119,8 +155,8 @@ const TimePickerBase: React.FC<ITimePickerBaseProps> = ({
     </div>
   );
 };
-TimePickerBase.defaultProps = {
+CombinedTimePicker.defaultProps = {
   disabled: false,
   canClear: true,
 };
-export default TimePickerBase;
+export default CombinedTimePicker;

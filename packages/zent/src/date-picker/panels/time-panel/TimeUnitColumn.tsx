@@ -71,6 +71,7 @@ const TimeUnitColumn: React.FC<ITimeUnitColumnProps> = ({
             className={cx(`${prefixCls}-unit`, {
               [`${prefixCls}-unit_selected`]: value === selected,
               [`${prefixCls}-unit_disabled`]: disabled,
+              [`${prefixCls}-unit_available`]: !disabled,
             })}
             key={value}
             onClick={() => setting(value)}
