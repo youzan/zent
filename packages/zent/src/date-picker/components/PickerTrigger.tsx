@@ -44,6 +44,7 @@ export const SingleInputTrigger: React.FC<ISingleTriggerProps> = ({
   name,
   canClear,
   icon,
+  hiddenIcon,
   ...restProps
 }) => {
   const [text1, text2] = Array.isArray(text) ? text : [text];
@@ -79,8 +80,12 @@ export const SingleInputTrigger: React.FC<ISingleTriggerProps> = ({
           </span>
         </>
       )}
-      <Icon type={icon || 'calendar-o'} />
-      {canClearMerge && <Icon type="close-circle" onClick={onClearInput} />}
+      {!hiddenIcon && (
+        <>
+          <Icon type={icon || 'calendar-o'} />
+          {canClearMerge && <Icon type="close-circle" onClick={onClearInput} />}
+        </>
+      )}
     </TriggerDiv>
   );
 };

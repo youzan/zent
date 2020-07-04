@@ -20,7 +20,7 @@ export function getRangeValuesWithValueType(
       break;
     }
     case 'number': {
-      resultVal = [val[0].getTime(), val[1].getTime()];
+      resultVal = [val[0]?.getTime(), val[1]?.getTime()];
       break;
     }
     default: {

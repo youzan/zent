@@ -79,6 +79,7 @@ export interface ISingleTriggerProps extends ITriggerCommonProps {
   name?: string;
   value: SingleDate;
   placeholder?: string;
+  hiddenIcon?: boolean;
 }
 
 export interface ISinglePanelProps {
