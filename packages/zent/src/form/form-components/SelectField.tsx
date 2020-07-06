@@ -1,12 +1,6 @@
 import * as React from 'react';
 import { Omit } from 'utility-types';
-import {
-  FieldModel,
-  Validators,
-  useField,
-  IValidator,
-  IValidators,
-} from 'formulr';
+import { FieldModel, Validators, useField } from 'formulr';
 import {
   IFormComponentProps,
   IFormFieldViewDrivenProps,
@@ -15,54 +9,51 @@ import {
   defaultRenderError,
   useFormChild,
 } from '../shared';
-import Select, { ISelectProps } from '../../select';
+import Select, {
+  ISelectProps,
+  ISelectChangeEvent,
+  ISelectItem,
+} from '../../select';
 import { FormNotice } from '../Notice';
 import { FormDescription } from '../Description';
 import { FormControl } from '../Control';
-import { $MergeParams } from '../utils';
 import { defaultGetValidateOption } from '../Field';
 
 export type IFormSelectFieldProps<T> = IFormComponentProps<
   T | T[],
-  Omit<ISelectProps, 'value' | 'onChange'>
+  Omit<ISelectProps, 'value' | 'onChange' | 'onDelete'>
 >;
 
 /**
  * Old `Select` implementation is a disaster,
  * temporary dirty code.
  */
-export const FormSelectField: React.FunctionComponent<IFormSelectFieldProps<
-  any
->> = props => {
-  let model: FieldModel<any>;
-  if ((props as any).name) {
+export function FormSelectField<T>(props: IFormSelectFieldProps<T>) {
+  let model: FieldModel<T | T[]>;
+  const { name, model: rawModel } = props as IFormFieldViewDrivenProps<T> &
+    IFormFieldModelDrivenProps<T>;
+  if (name) {
     const {
       name,
+      required,
       defaultValue,
       destroyOnUnmount,
-    } = (props as unknown) as IFormFieldViewDrivenProps<any>;
-    let validators =
-      ((props as unknown) as IFormFieldViewDrivenProps<any>).validators || [];
+    } = props as IFormFieldViewDrivenProps<T> & IFormSelectFieldProps<T>;
+    let validators = (props as IFormFieldViewDrivenProps<T>).validators || [];
     if (
-      props.required &&
-      !validators.some(
-        it =>
-          (it as $MergeParams<IValidator<any>>).$$id ===
-          Validators.SYMBOL_REQUIRED
-      )
+      required &&
+      !validators.some(it => it.$$id === Validators.SYMBOL_REQUIRED)
     ) {
-      validators = ([
-        Validators.required(props.required as string),
-      ] as IValidators<any>).concat(validators);
+      validators = validators.concat([
+        Validators.required(typeof required === 'string' ? required : ''),
+      ]);
     }
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    model = useField<any>(name, defaultValue, validators);
+    model = useField<T>(name, defaultValue, validators);
     model.destroyOnUnmount = Boolean(destroyOnUnmount);
   } else {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    model = useField<any>(
-      ((props as unknown) as IFormFieldModelDrivenProps<any>).model
-    );
+    model = useField<T>(rawModel);
   }
   const propsRef = React.useRef(props);
   propsRef.current = props;
@@ -83,23 +74,40 @@ export const FormSelectField: React.FunctionComponent<IFormSelectFieldProps<
   } = props;
   const anchorRef = React.useRef<HTMLDivElement | null>(null);
   useFormChild(model, anchorRef);
-  const onChange = React.useCallback(
-    (e: any) => {
+
+  const dispatch = React.useCallback(
+    (value: T, isDelete: boolean) => {
       if (propsRef.current.props?.tags) {
-        const value = model.value || [];
-        if (!value.includes(e.target.value)) {
-          model.value = [...value, e.target.value];
+        const selectedValues = (model.value || []) as T[];
+
+        if (isDelete) {
+          model.value = selectedValues.filter(it => it !== value);
+        } else if (!selectedValues.includes(value)) {
+          model.value = [...selectedValues, value];
         }
       } else {
-        model.value = e.target.value;
+        model.value = value;
       }
+
       if (validateOccasion & ValidateOccasion.Change) {
         model.validate(getValidateOption('change'));
       }
+
       model.isTouched = true;
     },
-    [model, validateOccasion, getValidateOption]
+    [getValidateOption, model, validateOccasion]
   );
+
+  const onChange = React.useCallback(
+    (e: ISelectChangeEvent<T>) => dispatch(e.target.value, false),
+    [dispatch]
+  );
+
+  const onDelete = React.useCallback(
+    (item: ISelectItem<T>) => dispatch(item.value, true),
+    [dispatch]
+  );
+
   return (
     <FormControl
       ref={anchorRef}
@@ -113,7 +121,8 @@ export const FormSelectField: React.FunctionComponent<IFormSelectFieldProps<
       <div className="zent-form-control-content-inner">
         {before}
         <Select
-          {...(props.props as Omit<ISelectProps, 'value' | 'onChange'>)}
+          {...props.props}
+          onDelete={onDelete}
           onChange={onChange}
           value={model.value}
         >
@@ -126,4 +135,4 @@ export const FormSelectField: React.FunctionComponent<IFormSelectFieldProps<
       {withoutError ? null : renderError(model.error)}
     </FormControl>
   );
-};
+}

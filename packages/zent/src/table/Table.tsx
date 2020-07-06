@@ -539,7 +539,7 @@ export class Table extends PureComponent<ITableProps, any> {
                 </div>
               )}
             </BlockLoading>
-            {batchComponentsAutoFixed && batchComponents?.length && (
+            {batchComponentsAutoFixed && batchComponents?.length > 0 && (
               <>
                 <WindowResizeHandler onResize={this.setBatchComponents} />
                 <WindowScrollHandler
