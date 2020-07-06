@@ -9,6 +9,7 @@ import { getCallbackValueWithDate } from './utils/getValueInSinglePicker';
 import { generateDateConfig } from './utils/dateUtils';
 import { formatText } from './utils/formatInputText';
 import { ISingleProps, IGenerateDateConfig } from './types';
+import { YEAR_FORMAT } from './constants';
 
 const generateDate: IGenerateDateConfig = generateDateConfig.year;
 const PickerContextProvider = PickerContext.Provider;
@@ -16,11 +17,11 @@ const PickerContextProvider = PickerContext.Provider;
 export interface IYearPickerProps extends ISingleProps {}
 
 const DefaultYearPickerProps: Partial<IYearPickerProps> = {
-  format: 'YYYY',
+  format: YEAR_FORMAT,
   valueType: 'string',
 };
 export const YearPicker: React.FC<IYearPickerProps> = props => {
-  const { format, placeholder, valueType } = props;
+  const { format, placeholder, valueType, disabled } = props;
   const disabledContext = React.useContext(DisabledContext);
 
   const getInputText = React.useCallback(val => formatText(val, format), [
@@ -48,7 +49,7 @@ export const YearPicker: React.FC<IYearPickerProps> = props => {
         >
           <SinglePicker
             {...props}
-            disabled={disabledContext.value}
+            disabled={disabledContext.value || disabled}
             placeholder={placeholder || i18n.year}
             PanelComponent={YearPanel}
           />

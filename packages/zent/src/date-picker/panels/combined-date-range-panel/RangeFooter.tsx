@@ -8,6 +8,7 @@ import PickerContext from '../../context/PickerContext';
 import { formatDate } from '../../utils/index';
 import useConfirmStatus from '../../hooks/useConfirmStatus';
 import { IDisabledTimes, IRangePanelProps } from '../../types';
+import { DATE_FORMAT } from '../../constants';
 
 const prefixCls = 'zent-datepicker-combined-panel-footer';
 
@@ -65,7 +66,7 @@ export const CombinedDateRangeFooter: React.FC<ICombinedDateRangeFooterProps> = 
       <div
         className={cx(`${prefixCls}-item`, { [`${prefixCls}-null`]: !start })}
       >
-        {start ? formatDate(start, 'YYYY-MM-DD') : i18n.start}
+        {start ? formatDate(start, DATE_FORMAT) : i18n.start}
       </div>
       <TimePicker
         width={94}
@@ -80,7 +81,7 @@ export const CombinedDateRangeFooter: React.FC<ICombinedDateRangeFooterProps> = 
       />
       <div className={`${prefixCls}-seperator`}>{i18n.to}</div>
       <div className={cx(`${prefixCls}-item`, { [`${prefixCls}-null`]: !end })}>
-        {end ? formatDate(end, 'YYYY-MM-DD') : i18n.end}
+        {end ? formatDate(end, DATE_FORMAT) : i18n.end}
       </div>
       <TimePicker
         width={94}

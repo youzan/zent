@@ -9,21 +9,22 @@ import PickerContext from './context/PickerContext';
 import { generateDateConfig } from './utils/dateUtils';
 import { IRangeProps, IGenerateDateConfig, IShowTime } from './types';
 import { formatTextRange } from './utils/formatInputText';
+import { INPUT_WIDTH, COMBINED_INPUT_WIDTH, DATE_FORMAT } from './constants';
 
 const generateDate: IGenerateDateConfig = generateDateConfig.date;
 
 const PickerContextProvider = PickerContext.Provider;
 
-export interface ICombinedDateRangePickerProps {
+export interface ICombinedDateRangePickerProps extends IRangeProps {
   showTime?: IShowTime<string[]>;
 }
-const DefaultCombinedDateRangeProps: Partial<IRangeProps> = {
-  format: 'YYYY-MM-DD',
+const DefaultCombinedDateRangeProps: Partial<ICombinedDateRangePickerProps> = {
+  format: DATE_FORMAT,
   valueType: 'string',
 };
 
-export const CombinedDateRangePicker: React.FC<IRangeProps> = props => {
-  const { placeholder, format } = props;
+export const CombinedDateRangePicker: React.FC<ICombinedDateRangePickerProps> = props => {
+  const { placeholder, format, width, showTime, disabled } = props;
   const disabledContext = React.useContext(DisabledContext);
 
   const getInputText = React.useCallback(
@@ -36,7 +37,8 @@ export const CombinedDateRangePicker: React.FC<IRangeProps> = props => {
         <PickerContextProvider value={{ i18n, getInputText }}>
           <CombinedPicker
             {...props}
-            disabled={disabledContext.value}
+            width={width ?? (!!showTime ? COMBINED_INPUT_WIDTH : INPUT_WIDTH)}
+            disabled={disabledContext.value || disabled}
             generateDate={generateDate}
             seperator={i18n.to}
             placeholder={placeholder || [i18n.start, i18n.end]}

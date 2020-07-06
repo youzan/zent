@@ -16,6 +16,7 @@ import {
 } from './types';
 import { getRangeValuesWithValueType } from './utils/getValueInRangePicker';
 import getRangeDisabledTimes from './utils/getRangeDisabledTimes';
+import { INPUT_WIDTH, SINGLE_INPUT_WIDTH, DATE_FORMAT } from './constants';
 
 const generateDate: IGenerateDateConfig = generateDateConfig.date;
 const PickerContextProvider = PickerContext.Provider;
@@ -26,11 +27,19 @@ export interface IDateRangePickerProps extends ICommonProps<RangeDate> {
 }
 
 const DefaultDateRangeProps: Partial<IDateRangePickerProps> = {
-  format: 'YYYY-MM-DD',
+  format: DATE_FORMAT,
   valueType: 'string',
 };
 export const DateRangePicker: React.FC<IDateRangePickerProps> = props => {
-  const { placeholder, valueType, format, disabledTimes } = props;
+  const {
+    placeholder,
+    valueType,
+    format,
+    width,
+    showTime,
+    disabled,
+    disabledTimes,
+  } = props;
   const disabledContext = React.useContext(DisabledContext);
 
   const getCallbackValue = React.useCallback(
@@ -70,7 +79,8 @@ export const DateRangePicker: React.FC<IDateRangePickerProps> = props => {
         >
           <RangePicker
             {...props}
-            disabled={disabledContext.value}
+            disabled={disabledContext.value || disabled}
+            width={width ?? (!!showTime ? INPUT_WIDTH : SINGLE_INPUT_WIDTH)}
             generateDate={generateDate}
             seperator={i18n.to}
             placeholder={placeholder || [i18n.start, i18n.end]}

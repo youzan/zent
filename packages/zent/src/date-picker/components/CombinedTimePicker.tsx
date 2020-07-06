@@ -9,11 +9,14 @@ import { useEventCallbackRef } from '../../utils/hooks/useEventCallbackRef';
 import pick from '../../utils/pick';
 import getRangeDisabledTimes from '../utils/getRangeDisabledTimes';
 import {
+  triggerCommonProps,
+  timePanelProps,
+  defaultTimePickerProps,
+} from '../constants';
+import {
   ITimePickerProps,
   ICombinedTimePanelProps,
-  triggerPickProps,
   RangeTypeMap,
-  timePanelProps,
   RangeTime,
 } from '../types';
 
@@ -92,7 +95,7 @@ const CombinedTimePicker: React.FC<ITimePickerBaseProps> = ({
   );
 
   const trigger = React.useMemo(() => {
-    const triggerProps = pick(restPropsRef.current, triggerPickProps);
+    const triggerProps = pick(restPropsRef.current, triggerCommonProps);
     return (
       <div>
         <CombinedInputTrigger
@@ -155,8 +158,5 @@ const CombinedTimePicker: React.FC<ITimePickerBaseProps> = ({
     </div>
   );
 };
-CombinedTimePicker.defaultProps = {
-  disabled: false,
-  canClear: true,
-};
+CombinedTimePicker.defaultProps = defaultTimePickerProps;
 export default CombinedTimePicker;

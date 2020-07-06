@@ -8,17 +8,14 @@ import { ITimePickerProps } from './types';
 
 const PickerContextProvider = PickerContext.Provider;
 const DefaultTimePickerProps = {
-  format: 'HH:mm:ss',
-  selectedDate: null,
   hourStep: 1,
   minuteStep: 1,
   secondStep: 1,
-  width: 240,
 };
 
 export { ITimePickerProps };
 export const TimePicker: React.FC<ITimePickerProps> = props => {
-  const { placeholder } = props;
+  const { placeholder, disabled } = props;
   const disabledContext = React.useContext(DisabledContext);
 
   return (
@@ -32,7 +29,7 @@ export const TimePicker: React.FC<ITimePickerProps> = props => {
           <TimePickerBase
             {...props}
             placeholder={placeholder || i18n.time}
-            disabled={disabledContext.value}
+            disabled={disabledContext.value || disabled}
             ContentComponent={TimePickerPanel}
           />
         </PickerContextProvider>

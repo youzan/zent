@@ -2,11 +2,12 @@ import * as React from 'react';
 import { startOfToday, endOfToday } from 'date-fns';
 import { formatDate } from '../utils/index';
 import { IShowTime, IShowTimeOption } from '../types';
-const DefaultFormat = 'HH:mm:ss';
+import { TIME_FORMAT } from '../constants';
+
 const formatStartDate = (format: string) => formatDate(startOfToday(), format);
 const formatEndDate = (format: string) => formatDate(endOfToday(), format);
-const DefaultStartTime = formatStartDate(DefaultFormat);
-const DefaultEndTime = formatEndDate(DefaultFormat);
+const DefaultStartTime = formatStartDate(TIME_FORMAT);
+const DefaultEndTime = formatEndDate(TIME_FORMAT);
 /**
  * 获取showTime范围
  * @param showTime
@@ -22,7 +23,7 @@ export function useShowTimeRangeOption<T>(
     }
     if (typeof showTimeRef.current === 'object') {
       const {
-        format = DefaultFormat,
+        format = TIME_FORMAT,
         defaultTime,
         ...restOption
       } = showTimeRef.current;
@@ -37,11 +38,11 @@ export function useShowTimeRangeOption<T>(
     // default
     return [
       {
-        format: DefaultFormat,
+        format: TIME_FORMAT,
         defaultTime: DefaultStartTime,
       },
       {
-        format: DefaultFormat,
+        format: TIME_FORMAT,
         defaultTime: DefaultEndTime,
       },
     ];
@@ -65,7 +66,7 @@ export function useShowTimeOption(
     }
     if (typeof showTimeRef.current === 'object') {
       const {
-        format = DefaultFormat,
+        format = TIME_FORMAT,
         defaultTime,
         ...restOption
       } = showTimeRef.current;
@@ -74,7 +75,7 @@ export function useShowTimeOption(
     }
     // default
     return {
-      format: DefaultFormat,
+      format: TIME_FORMAT,
       defaultTime: DefaultStartTime,
     };
   }, [showTimeRef]);

@@ -15,7 +15,7 @@ ReactDOM.render(
 		<br />
 		<CombinedDateRangePicker className="zent-datepicker-demo" disabled />
 		<br />
-		<DateRangePicker width={120} className="zent-datepicker-demo" disabled />
+		<DateRangePicker className="zent-datepicker-demo" disabled />
 	</div>,
 	mountNode
 );

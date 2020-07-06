@@ -14,7 +14,7 @@ import {
   IShowTime,
   IDisabledTimes,
 } from './types';
-
+import { DATE_FORMAT } from './constants';
 const generateDate: IGenerateDateConfig = generateDateConfig.date;
 
 const PickerContextProvider = PickerContext.Provider;
@@ -24,11 +24,12 @@ export interface IDatePickerProps extends ISingleProps {
   disabledTimes?: IDisabledTimes;
 }
 const DefaultDatePickerProps: Partial<IDatePickerProps> = {
-  format: 'YYYY-MM-DD',
+  format: DATE_FORMAT,
   valueType: 'string',
 };
+
 export const DatePicker: React.FC<IDatePickerProps> = props => {
-  const { format, valueType, placeholder } = props;
+  const { format, valueType, placeholder, disabled } = props;
   const disabledContext = React.useContext(DisabledContext);
 
   const getInputText = React.useCallback(
@@ -57,7 +58,7 @@ export const DatePicker: React.FC<IDatePickerProps> = props => {
         >
           <SinglePicker
             {...props}
-            disabled={disabledContext.value}
+            disabled={disabledContext.value || disabled}
             placeholder={placeholder || i18n.date}
             PanelComponent={DatePanel}
           />

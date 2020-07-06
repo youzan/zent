@@ -14,12 +14,12 @@ import useNormalizeDisabledDate from '../hooks/useNormalizeDisabledDate';
 import { getRangeValuesWithValueType } from '../utils/getValueInRangePicker';
 import { useEventCallbackRef } from '../../utils/hooks/useEventCallbackRef';
 import pick from '../../utils/pick';
+import { triggerCommonProps } from '../constants';
 import {
   IRangeProps,
   IRangePanelProps,
   IGenerateDateConfig,
   IRangeTriggerProps,
-  triggerPickProps,
   RangeTypeMap,
 } from '../types';
 
@@ -148,7 +148,7 @@ export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
   ]);
 
   const trigger = React.useMemo(() => {
-    const triggerProps = pick(restPropsRef.current, triggerPickProps);
+    const triggerProps = pick(restPropsRef.current, triggerCommonProps);
     return (
       <div>
         <CombinedInputTrigger
@@ -209,6 +209,5 @@ export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
 CombinedPicker.defaultProps = {
   disabled: false,
   canClear: true,
-  width: 360,
 };
 export default CombinedPicker;

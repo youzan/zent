@@ -7,13 +7,13 @@ import PanelContext from '../context/PanelContext';
 import useTimeValue from '../hooks/useTimeValue';
 import useConfirmStatus from '../hooks/useConfirmStatus';
 import { useEventCallbackRef } from '../../utils/hooks/useEventCallbackRef';
-import {
-  ITimePickerProps,
-  ITimePanelProps,
-  timePanelProps,
-  triggerPickProps,
-} from '../types';
 import pick from '../../utils/pick';
+import {
+  triggerCommonProps,
+  timePanelProps,
+  defaultTimePickerProps,
+} from '../constants';
+import { ITimePickerProps, ITimePanelProps } from '../types';
 
 const PanelContextProvider = PanelContext.Provider;
 interface ITimePickerBaseProps extends ITimePickerProps {
@@ -77,7 +77,7 @@ const TimePickerBase: React.FC<ITimePickerBaseProps> = ({
 
   const trigger = React.useMemo(() => {
     const { hiddenIcon } = restPropsRef.current;
-    const triggerProps = pick(restPropsRef.current, triggerPickProps);
+    const triggerProps = pick(restPropsRef.current, triggerCommonProps);
     return (
       <div>
         <SingleInputTrigger
@@ -121,8 +121,5 @@ const TimePickerBase: React.FC<ITimePickerBaseProps> = ({
     </div>
   );
 };
-TimePickerBase.defaultProps = {
-  disabled: false,
-  canClear: true,
-};
+TimePickerBase.defaultProps = defaultTimePickerProps;
 export default TimePickerBase;

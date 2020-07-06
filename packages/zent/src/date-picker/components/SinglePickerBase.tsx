@@ -12,12 +12,8 @@ import usePanelVisible from '../hooks/usePanelVisible';
 import useNormalizeDisabledDate from '../hooks/useNormalizeDisabledDate';
 import { useEventCallbackRef } from '../../utils/hooks/useEventCallbackRef';
 import pick from '../../utils/pick';
-import {
-  ISingleProps,
-  ISingleTriggerProps,
-  ISinglePanelProps,
-  triggerPickProps,
-} from '../types';
+import { triggerCommonProps, INPUT_WIDTH } from '../constants';
+import { ISingleProps, ISingleTriggerProps, ISinglePanelProps } from '../types';
 
 const PanelContextProvider = PanelContext.Provider;
 
@@ -144,7 +140,7 @@ export function SinglePicker({
   ]);
 
   const trigger = React.useMemo(() => {
-    const triggerProps = pick(restPropsRef.current, triggerPickProps);
+    const triggerProps = pick(restPropsRef.current, triggerCommonProps);
     return (
       <div>
         <SingleInputTrigger
@@ -196,7 +192,7 @@ export function SinglePicker({
 SinglePicker.defaultProps = {
   disabled: false,
   canClear: true,
-  width: 240,
+  width: INPUT_WIDTH,
 };
 
 export default SinglePicker;

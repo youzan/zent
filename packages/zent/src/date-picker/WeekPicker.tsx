@@ -11,7 +11,7 @@ import {
 } from './utils/getValueInSinglePicker';
 import { generateDateConfig } from './utils/dateUtils';
 import { weekFormatText } from './utils/formatInputText';
-
+import { DATE_FORMAT } from './constants';
 import {
   ISingleProps,
   IGenerateDateConfig,
@@ -19,8 +19,8 @@ import {
   IWeekOption,
   RangeDate,
 } from './types';
-const PickerContextProvider = PickerContext.Provider;
 
+const PickerContextProvider = PickerContext.Provider;
 const generateDate: IGenerateDateConfig = generateDateConfig.week;
 
 export interface IWeekPickerProps
@@ -31,7 +31,7 @@ export interface IWeekPickerProps
 }
 export { WeekStartsOnMap };
 const DefaultWeekPickerProps: Partial<IWeekPickerProps> = {
-  format: 'YYYY-MM-DD',
+  format: DATE_FORMAT,
   valueType: 'string',
   weekStartsOn: WeekStartsOnMap.Monday,
 };
@@ -39,6 +39,7 @@ const DefaultWeekPickerProps: Partial<IWeekPickerProps> = {
 export const WeekPicker: React.FC<IWeekPickerProps> = ({
   value,
   defaultDate,
+  disabled,
   ...restProps
 }) => {
   const { format, valueType, placeholder, weekStartsOn } = restProps;
@@ -87,7 +88,7 @@ export const WeekPicker: React.FC<IWeekPickerProps> = ({
             defaultDate={
               Array.isArray(defaultDate) ? defaultDate[0] : defaultDate
             }
-            disabled={disabledContext.value}
+            disabled={disabledContext.value || disabled}
             seperator={i18n.to}
             placeholder={placeholder || i18n.week}
             PanelComponent={WeekPanel}

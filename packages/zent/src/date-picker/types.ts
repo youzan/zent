@@ -51,15 +51,7 @@ interface ITriggerCommonProps {
   icon?: IconType;
   onClearInput: (evt: any) => any;
 }
-export const triggerPickProps = [
-  'width',
-  'name',
-  'format',
-  'seperator',
-  'disabled',
-  'canClear',
-  'placeholder',
-] as const;
+
 export interface IShowTimeOption<T> {
   format?: string;
   defaultTime?: T;
@@ -169,12 +161,7 @@ export interface ICombinedTimePanelProps
   extends Omit<ITimePanelProps<RangeTime>, 'disabledTimesOption'> {
   disabledTimesOption: IDisabledTimesOption[];
 }
-export const timePanelProps = [
-  'format',
-  'hourStep',
-  'minuteStep',
-  'secondStep',
-] as const;
+
 export interface IDisabledTimesOption {
   disabledHours?: () => number[];
   disabledMinutes?: (hour: number) => number[];

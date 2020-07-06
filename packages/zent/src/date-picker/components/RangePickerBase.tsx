@@ -129,4 +129,5 @@ const RangePicker: React.FC<IRangePickerProps> = ({
     </>
   );
 };
+
 export default RangePicker;

@@ -5,6 +5,8 @@ import Icon from '../../icon';
 import { formatDateRange, formatDate } from '../utils';
 import { ISingleTriggerProps, IRangeTriggerProps } from '../types';
 
+const TriggerPrefixCls = 'zent-datepicker-trigger';
+
 type ITriggerDivProps = Pick<
   ISingleTriggerProps,
   'disabled' | 'canClear' | 'panelVisible' | 'width'
@@ -21,10 +23,10 @@ const TriggerDiv: React.FC<ITriggerDivProps> = ({
   };
   return (
     <div
-      className={cx(COMBINED_PREFIXCLS, {
+      className={cx(TriggerPrefixCls, {
         'zent-datepicker-can-clear': !disabled && canClear,
         'zent-datepicker-disabled': disabled,
-        [`${COMBINED_PREFIXCLS}-focus`]: panelVisible,
+        [`${TriggerPrefixCls}-focus`]: panelVisible,
       })}
       style={triggerStyle}
     >
@@ -32,8 +34,6 @@ const TriggerDiv: React.FC<ITriggerDivProps> = ({
     </div>
   );
 };
-const COMBINED_PREFIXCLS = 'zent-datepicker-trigger';
-
 export const SingleInputTrigger: React.FC<ISingleTriggerProps> = ({
   value,
   format,
@@ -62,18 +62,18 @@ export const SingleInputTrigger: React.FC<ISingleTriggerProps> = ({
         />
       )}
       <span
-        className={cx(`${COMBINED_PREFIXCLS}-input`, {
-          [`${COMBINED_PREFIXCLS}-empty-input`]: !text1 || disabled,
+        className={cx(`${TriggerPrefixCls}-input`, {
+          [`${TriggerPrefixCls}-empty-input`]: !text1 || disabled,
         })}
       >
         {text1 || placeholder}
       </span>
       {text2 && (
         <>
-          <span className={`${COMBINED_PREFIXCLS}-seperator`}>{seperator}</span>
+          <span className={`${TriggerPrefixCls}-seperator`}>{seperator}</span>
           <span
-            className={cx(`${COMBINED_PREFIXCLS}-input`, {
-              [`${COMBINED_PREFIXCLS}-empty-input`]: !text2,
+            className={cx(`${TriggerPrefixCls}-input`, {
+              [`${TriggerPrefixCls}-empty-input`]: !text2,
             })}
           >
             {text2}
@@ -132,16 +132,16 @@ export const CombinedInputTrigger: React.FC<ICombinedInputTriggerProps> = ({
         </>
       )}
       <span
-        className={cx(`${COMBINED_PREFIXCLS}-input`, {
-          [`${COMBINED_PREFIXCLS}-empty-input`]: !leftText,
+        className={cx(`${TriggerPrefixCls}-input`, {
+          [`${TriggerPrefixCls}-empty-input`]: !leftText,
         })}
       >
         {leftText || startPlaceholder}
       </span>
-      <span className={`${COMBINED_PREFIXCLS}-seperator`}>{seperator}</span>
+      <span className={`${TriggerPrefixCls}-seperator`}>{seperator}</span>
       <span
-        className={cx(`${COMBINED_PREFIXCLS}-input`, {
-          [`${COMBINED_PREFIXCLS}-empty-input`]: !rightText,
+        className={cx(`${TriggerPrefixCls}-input`, {
+          [`${TriggerPrefixCls}-empty-input`]: !rightText,
         })}
       >
         {rightText || endPlaceholder}

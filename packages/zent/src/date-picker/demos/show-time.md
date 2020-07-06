@@ -58,9 +58,11 @@ class Demo extends Component {
 				<CombinedDateRangePicker
 					className="zent-datepicker-demo"
 					value={combinedValue}
-					showTime={{ format: 'HH:mm', defaultTime: ['12:00', '23:59'] }}
-					format="YYYY-MM-DD HH:mm"
-					disabledDate={date => date.getDate() === 17}
+					showTime={{
+						format: 'HH:mm:ss',
+						defaultTime: ['12:00:00', '23:59:59'],
+					}}
+					format="YYYY-MM-DD HH:mm:ss"
 					onChange={this.onChangeCombinedDate}
 				/>
 			</div>

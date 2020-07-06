@@ -2,13 +2,13 @@ import * as React from 'react';
 import noop from '../../utils/noop';
 
 const XMLNS = 'http://www.w3.org/2000/svg';
-const prefixCls = 'zent-datepicker-panel-header';
 const transformMap = {
   left: '',
   right: 'matrix(-1 0 0 1 18 0)',
 };
 const Path = 'M10 11l-1 1-4-4-1-1 5-5 1 1-4 4 4 4z';
 
+const prefixCls = 'zent-datepicker-panel-header';
 interface IArrowProps {
   onClick: () => void;
   type: 'left' | 'right';
