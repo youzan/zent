@@ -6,9 +6,15 @@ basepath=$(dirname $0)
 
 rm -rf umd
 
+
 $basepath/./build-theme.sh
+
+echo "Generating sandbox entry file..."
+node ./scripts/generate-sandbox-entry.js
 $basepath/./build-ts.sh
 
-cross-env NODE_ENV=development webpack --config webpack.sandbox.config.js
-cross-env NODE_ENV=production webpack --config webpack.sandbox.config.js
+echo "Packing sandbox umd file..."
+webpack --config webpack.sandbox.config.js
+echo "Minimize sandbox umd file..."
+terser -c -m -o ./sandbox/zent.sandbox.min.js ./sandbox/zent.sandbox.js
 
