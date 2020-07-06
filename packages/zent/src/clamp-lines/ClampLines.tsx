@@ -186,7 +186,10 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
 
     if (this.state.noClamp) {
       return (
-        <div className={className} style={{ overflowWrap: 'break-word' }}>
+        <div
+          className={className}
+          style={{ wordBreak: 'normal', overflowWrap: 'anywhere' }}
+        >
           {text}
           {this.renderResizable()}
         </div>
@@ -198,7 +201,13 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
         <Pop
           trigger={trigger}
           content={
-            <div style={{ maxWidth: popWidth, overflowWrap: 'break-word' }}>
+            <div
+              style={{
+                maxWidth: popWidth,
+                wordBreak: 'normal',
+                overflowWrap: 'anywhere',
+              }}
+            >
               {renderPop(text)}
             </div>
           }

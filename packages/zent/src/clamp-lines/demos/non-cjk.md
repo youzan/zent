@@ -14,7 +14,7 @@ ReactDOM.render(
 		<ClampLines
 			lines={3}
 			popWidth={300}
-			text="Firstword 中文字 Secondwordisveryloooooooong thirdword fourthword"
+			text="FirstWord SecondWordIsVeryLoooooooong thirdWord fourthWord"
 		/>
 	</div>
 	, mountNode
