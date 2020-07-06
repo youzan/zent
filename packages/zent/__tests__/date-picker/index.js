@@ -10,11 +10,12 @@ import QuarterPicker from 'date-picker/QuarterPicker';
 import YearPicker from 'date-picker/YearPicker';
 import TimePicker from 'date-picker/TimePicker';
 import CombinedTimeRangePicker from 'date-picker/CombinedTimeRangePicker';
+import { Disabled } from 'disabled';
 import { formatDate } from 'date-picker/utils/index';
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe('DateTimePicker', () => {
+describe('All of the Picker', () => {
   it('DatePicker value and onChange', () => {
     let wrapper;
     const onChangeMock = jest.fn().mockImplementation(value => {
@@ -155,5 +156,16 @@ describe('DateTimePicker', () => {
 
     expect(wrapper.prop('value')[0]).toBe('02:00:00');
     expect(wrapper.prop('value')[1]).toBe('03:00:00');
+  });
+
+  it('DatePicker used in Disabled', () => {
+    const wrapper = mount(
+      <Disabled>
+        <DatePicker />
+      </Disabled>
+    );
+    wrapper.find('.zent-datepicker-trigger').simulate('click');
+    const pop = document.querySelector('.zent-datepicker-panel-footer');
+    expect(pop).toBe(null);
   });
 });

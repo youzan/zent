@@ -1,7 +1,7 @@
 ---
 order: 4
 zh-CN:
-	title: 禁用部分时间，可以通过传入 disabledTime 函数来实现
+	title: 禁用部分时间，可以通过传入 disabledTimes 函数来实现
 en-US:
 	title: Set showTime to true to allow time selection
 ---
@@ -36,7 +36,7 @@ class Demo extends Component {
 	};
 	onChangeRange = val => {
 		this.setState({
-			dateValue: val,
+			rangeValue: val,
 		});
 	};
 	onChangeCombinedTime = val => {
