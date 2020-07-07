@@ -139,6 +139,8 @@ export interface ITimePickerProps<T = SingleTime> extends ITimePickerBase<T> {
   placeholder?: T;
   hiddenIcon?: boolean;
   disabledTimes?: IDisabledTimes;
+  onOpen?: () => void;
+  onClose?: () => void;
 }
 export interface ITimePickerTriggerProps<T = SingleTime>
   extends Omit<ITimePickerProps<T>, 'value' | 'onChange'> {
@@ -159,7 +161,8 @@ export interface ITimePanelProps<T = SingleTime> {
 }
 export interface ICombinedTimePanelProps
   extends Omit<ITimePanelProps<RangeTime>, 'disabledTimesOption'> {
-  disabledTimesOption: IDisabledTimesOption[];
+  disabledTimesOptionStart: IDisabledTimesOption;
+  disabledTimesOptionEnd: IDisabledTimesOption;
 }
 
 export interface IDisabledTimesOption {

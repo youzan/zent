@@ -9,7 +9,7 @@ import PickerContext from '../context/PickerContext';
 import useRangeDisabledDate from '../hooks/useRangeDisabledDate';
 import useRangeMergedProps from '../hooks/useRangeMergedProps';
 import useHoverRange from '../hooks/useHoverRange';
-import usePanelVisible from '../hooks/usePanelVisible';
+import useSinglePopoverVisible from '../hooks/useSinglePopoverVisible';
 import useNormalizeDisabledDate from '../hooks/useNormalizeDisabledDate';
 import { getRangeValuesWithValueType } from '../utils/getValueInRangePicker';
 import { useEventCallbackRef } from '../../utils/hooks/useEventCallbackRef';
@@ -46,14 +46,13 @@ export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
     format,
     className,
     openPanel,
+    disabled,
     generateDate,
     PanelComponent,
   } = restPropsRef.current;
   const { getInputText } = React.useContext(PickerContext);
   // props onChangeRef
   const onChangeRef = useEventCallbackRef(onChange);
-  const onOpenRef = useEventCallbackRef(onOpen);
-  const onCloseRef = useEventCallbackRef(onClose);
 
   // merged from props value
   const {
@@ -66,12 +65,23 @@ export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
     format,
     defaultDate,
   });
+
   // popover visible
-  const { panelVisible, setPanelVisible } = usePanelVisible(openPanel);
+  const {
+    panelVisible,
+    setPanelVisible,
+    onVisibleChange,
+  } = useSinglePopoverVisible(
+    openPanel,
+    disabled,
+    parseValue,
+    setSelected,
+    onOpen,
+    onClose
+  );
 
   // rangeDisabledDate
   const disabledDate = useNormalizeDisabledDate(disabledDateProps, format);
-
   const [disabledStartDate, disabledEndDate] = useRangeDisabledDate({
     selected,
     disabledDate,
@@ -108,29 +118,6 @@ export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
     },
     [onChangeRef, restPropsRef, setPanelVisible, setSelected]
   );
-
-  // panelVisible didUpdate
-  const mounted = React.useRef<boolean>();
-  React.useEffect(() => {
-    if (!mounted.current) {
-      mounted.current = true;
-    } else {
-      if (panelVisible) {
-        setHoverDate(null);
-        onOpenRef.current?.();
-      } else {
-        setSelected(parseValue);
-        onCloseRef.current?.();
-      }
-    }
-  }, [panelVisible, parseValue, onOpenRef, onCloseRef, setSelected]);
-
-  // popover visible onChange
-  const onVisibleChange = React.useCallback(() => {
-    const { openPanel, disabled } = restPropsRef.current;
-    if (openPanel !== undefined || disabled) return;
-    setPanelVisible(!panelVisible);
-  }, [restPropsRef, panelVisible, setPanelVisible]);
 
   // onClear
   const onClearInput = React.useCallback(

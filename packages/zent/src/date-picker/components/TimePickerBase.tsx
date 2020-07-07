@@ -13,8 +13,10 @@ import {
   timePanelProps,
   defaultTimePickerProps,
 } from '../constants';
-import { ITimePickerProps, ITimePanelProps } from '../types';
+import { ITimePickerProps, ITimePanelProps, SingleTime } from '../types';
+import useSinglePopoverVisible from '../hooks/useSinglePopoverVisible';
 
+const emptyTime: SingleTime = '';
 const PanelContextProvider = PanelContext.Provider;
 interface ITimePickerBaseProps extends ITimePickerProps {
   ContentComponent: React.ComponentType<ITimePanelProps>;
@@ -24,6 +26,8 @@ interface ITimePickerBaseProps extends ITimePickerProps {
 const TimePickerBase: React.FC<ITimePickerBaseProps> = ({
   onChange,
   disabledTimes,
+  onOpen,
+  onClose,
   value,
   className,
   ContentComponent,
@@ -32,11 +36,25 @@ const TimePickerBase: React.FC<ITimePickerBaseProps> = ({
   ...restProps
 }) => {
   const restPropsRef = React.useRef(restProps);
-  const { format } = restPropsRef.current;
+  const { format, openPanel, disabled } = restPropsRef.current;
   const onChangeRef = useEventCallbackRef(onChange);
-  const [panelVisible, setPanelVisible] = React.useState<boolean>(false);
+
   const [visibleChange, setVisibleChange] = React.useState<boolean>(true);
-  const { selected, setSelected } = useTimeValue(value);
+  const { selected, setSelected } = useTimeValue(value, emptyTime);
+
+  const {
+    panelVisible,
+    setPanelVisible,
+    onVisibleChange,
+  } = useSinglePopoverVisible(
+    openPanel,
+    disabled,
+    value ?? emptyTime,
+    setSelected,
+    onOpen,
+    onClose
+  );
+
   const disabledTimesOption = React.useMemo(
     () => disabledTimes?.(selectedDate) || {},
     [disabledTimes, selectedDate]
@@ -53,24 +71,18 @@ const TimePickerBase: React.FC<ITimePickerBaseProps> = ({
       setSelected(val);
 
       if (finished) {
-        setPanelVisible(!finished);
         setVisibleChange(true);
         onChangeRef.current?.(val);
+        setPanelVisible(openPanel ?? false);
       }
     },
-    [onChangeRef, setSelected]
+    [openPanel, onChangeRef, setSelected, setPanelVisible]
   );
-
-  const onVisibleChange = () => {
-    panelVisible && setVisibleChange(true);
-    setPanelVisible(!panelVisible);
-    setSelected(value || '');
-  };
 
   const onClearInput = React.useCallback(
     evt => {
       evt.stopPropagation();
-      onSelected('', true);
+      onSelected(emptyTime, true);
     },
     [onSelected]
   );

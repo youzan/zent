@@ -1,7 +1,7 @@
 import * as React from 'react';
 import cx from 'classnames';
 import { parse } from 'date-fns';
-
+import Pop from '../../../pop';
 import Button from '../../../button';
 import TimePicker from '../../TimePicker';
 import PanelFooter from '../../components/PanelFooter';
@@ -44,6 +44,20 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
     onSelected(selected);
   }, [selected, onSelected]);
 
+  const confirmBtn = React.useMemo(
+    () => (
+      <Button
+        type="primary"
+        disabled={confirmStatus || !selected}
+        onClick={confirmHandler}
+        className={`${footerPrefixCls}-btn`}
+      >
+        {i18n.confirm}
+      </Button>
+    ),
+    [i18n, confirmStatus, selected, confirmHandler]
+  );
+
   const renderToday = React.useMemo(() => {
     const today = new Date();
     const isdisabledToday = disabledPanelDate?.(today);
@@ -57,26 +71,23 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
         >
           {footerText}
         </a>
-        {!!showTime && (
-          <Button
-            type="primary"
-            disabled={confirmStatus || !selected}
-            onClick={confirmHandler}
-            className={`${footerPrefixCls}-btn`}
-          >
-            {i18n.confirm}
-          </Button>
-        )}
+        {!!showTime &&
+          (confirmStatus ? (
+            <Pop content={i18n.rangePop} trigger={'hover'}>
+              {confirmBtn}
+            </Pop>
+          ) : (
+            confirmBtn
+          ))}
       </div>
     );
   }, [
     i18n,
-    selected,
     showTime,
     footerText,
     confirmStatus,
+    confirmBtn,
     onClickCurrent,
-    confirmHandler,
     disabledPanelDate,
   ]);
 

@@ -131,6 +131,7 @@ export const TimePicker: I18nLocaleTimePicker = () => {
     year: 'Please select a year',
     range: 'Please select a range',
     rangeError: 'Please select the starting and ending time',
+    rangePop: 'The start is not allow to set after the end',
     start: 'Start date',
     end: 'End date',
     startTime: 'Start time',

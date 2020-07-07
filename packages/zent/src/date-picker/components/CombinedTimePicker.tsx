@@ -8,6 +8,7 @@ import useTimeValue, { parseSelectedToRangeDate } from '../hooks/useTimeValue';
 import { useEventCallbackRef } from '../../utils/hooks/useEventCallbackRef';
 import pick from '../../utils/pick';
 import getRangeDisabledTimes from '../utils/getRangeDisabledTimes';
+import { startOfToday } from 'date-fns';
 import {
   triggerCommonProps,
   timePanelProps,
@@ -19,8 +20,10 @@ import {
   RangeTypeMap,
   RangeTime,
 } from '../types';
+import useSinglePopoverVisible from '../hooks/useSinglePopoverVisible';
 
 const prefixCls = 'zent-datepicker-combined';
+const emptyTimeRange: RangeTime = ['', ''];
 const PanelContextProvider = PanelContext.Provider;
 interface ITimePickerBaseProps extends ITimePickerProps<RangeTime> {
   ContentComponent: React.ComponentType<ICombinedTimePanelProps>;
@@ -30,6 +33,8 @@ interface ITimePickerBaseProps extends ITimePickerProps<RangeTime> {
 const CombinedTimePicker: React.FC<ITimePickerBaseProps> = ({
   onChange,
   disabledTimes,
+  onOpen,
+  onClose,
   value,
   ContentComponent,
   defaultTime,
@@ -37,11 +42,27 @@ const CombinedTimePicker: React.FC<ITimePickerBaseProps> = ({
   ...restProps
 }) => {
   const restPropsRef = React.useRef(restProps);
-  const { format, className } = restPropsRef.current;
+  const { format, className, openPanel, disabled } = restPropsRef.current;
   const onChangeRef = useEventCallbackRef(onChange);
-  const [panelVisible, setPanelVisible] = React.useState<boolean>(false);
+
+  const { selected, setSelected } = useTimeValue<RangeTime>(
+    value,
+    emptyTimeRange
+  );
   const [visibleChange, setVisibleChange] = React.useState<boolean>(true);
-  const { selected, setSelected } = useTimeValue<RangeTime>(value);
+
+  const {
+    panelVisible,
+    setPanelVisible,
+    onVisibleChange,
+  } = useSinglePopoverVisible(
+    openPanel,
+    disabled,
+    value ?? emptyTimeRange,
+    setSelected,
+    onOpen,
+    onClose
+  );
 
   const onSelected = React.useCallback(
     (val, finished = false) => {
@@ -53,19 +74,13 @@ const CombinedTimePicker: React.FC<ITimePickerBaseProps> = ({
         onChangeRef.current?.(val);
       }
     },
-    [onChangeRef, setSelected]
+    [onChangeRef, setSelected, setPanelVisible]
   );
-
-  const onVisibleChange = () => {
-    panelVisible && setVisibleChange(true);
-    setPanelVisible(!panelVisible);
-    setSelected(value || ['', '']);
-  };
 
   const onClearInput = React.useCallback(
     evt => {
       evt.stopPropagation();
-      onSelected(['', ''], true);
+      onSelected(emptyTimeRange, true);
     },
     [onSelected]
   );
@@ -85,12 +100,17 @@ const CombinedTimePicker: React.FC<ITimePickerBaseProps> = ({
     selected: selectedDates,
     disabledTimes,
   });
+
   const disabledTimesOptionStart = React.useMemo(
-    () => disabledStartTimes?.(RangeTypeMap.START)(selectedDates[0]) || {},
+    () =>
+      disabledStartTimes?.(RangeTypeMap.START)(
+        selectedDates[0] ?? startOfToday()
+      ),
     [disabledStartTimes, selectedDates]
   );
   const disabledTimesOptionEnd = React.useMemo(
-    () => disabledEndTimes?.(RangeTypeMap.END)(selectedDates[1]) || {},
+    () =>
+      disabledEndTimes?.(RangeTypeMap.END)(selectedDates[1] ?? startOfToday()),
     [disabledEndTimes, selectedDates]
   );
 
@@ -125,10 +145,8 @@ const CombinedTimePicker: React.FC<ITimePickerBaseProps> = ({
         <ContentComponent
           {...commonPanelProps}
           defaultTime={defaultTime}
-          disabledTimesOption={[
-            disabledTimesOptionStart,
-            disabledTimesOptionEnd,
-          ]}
+          disabledTimesOptionStart={disabledTimesOptionStart}
+          disabledTimesOptionEnd={disabledTimesOptionEnd}
           selected={selected}
           onSelected={onSelected}
         />

@@ -8,8 +8,8 @@ import PickerContext from '../context/PickerContext';
 import PanelContext from '../context/PanelContext';
 
 import useMergedProps from '../hooks/useMergedProps';
-import usePanelVisible from '../hooks/usePanelVisible';
 import useNormalizeDisabledDate from '../hooks/useNormalizeDisabledDate';
+import useSinglePopoverVisible from '../hooks/useSinglePopoverVisible';
 import { useEventCallbackRef } from '../../utils/hooks/useEventCallbackRef';
 import pick from '../../utils/pick';
 import { triggerCommonProps, INPUT_WIDTH } from '../constants';
@@ -52,11 +52,6 @@ export function SinglePicker({
     PickerContext
   );
   const onChangeRef = useEventCallbackRef(onChange);
-  const onOpenRef = useEventCallbackRef(onOpen);
-  const onCloseRef = useEventCallbackRef(onClose);
-
-  // popover visible
-  const { panelVisible, setPanelVisible } = usePanelVisible(openPanel);
 
   // merged from props value
   const {
@@ -69,6 +64,21 @@ export function SinglePicker({
     format,
     defaultDate,
   });
+
+  // popover visible
+  const {
+    panelVisible,
+    setPanelVisible,
+    onVisibleChange,
+  } = useSinglePopoverVisible(
+    openPanel,
+    disabled,
+    parseValue,
+    setSelected,
+    onOpen,
+    onClose
+  );
+
   const disabledPanelDate = useNormalizeDisabledDate(disabledDate, format);
 
   // hover date
@@ -100,29 +110,6 @@ export function SinglePicker({
       setPanelVisible,
     ]
   );
-
-  // didUpdate
-  const mounted = React.useRef<boolean>();
-  React.useEffect(() => {
-    if (!mounted.current) {
-      mounted.current = true;
-    } else {
-      if (panelVisible) {
-        setHoverDate(null);
-        onOpenRef.current?.();
-      } else {
-        setSelected(parseValue);
-        onCloseRef.current?.();
-      }
-    }
-  }, [panelVisible, parseValue, onOpenRef, onCloseRef, setSelected]);
-
-  // popover visible onChange
-  const onVisibleChange = React.useCallback(() => {
-    const { openPanel, disabled } = restPropsRef.current;
-    if (openPanel !== undefined || disabled) return;
-    setPanelVisible(!panelVisible);
-  }, [restPropsRef, panelVisible, setPanelVisible]);
 
   // onClear
   const onClearInput = React.useCallback(

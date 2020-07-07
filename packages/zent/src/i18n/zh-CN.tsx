@@ -125,6 +125,7 @@ export const TimePicker: I18nLocaleTimePicker = () => {
     year: '请选择年份',
     range: '开始日期 至 结束日期',
     rangeError: '请选择起止时间',
+    rangePop: '开始时间不得早于结束时间',
     start: '开始日期',
     end: '结束日期',
     startTime: '开始时间',

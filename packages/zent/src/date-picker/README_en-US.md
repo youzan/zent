@@ -83,12 +83,12 @@ DateTime pickers, provides basic time choosing functionality.
 
 ### QuarterPicker 其他 API
 
-| Property    | Description                                 | Type                                          | Default      | Required |
-| ----------- | ------------------------------------------- | --------------------------------------------- | ------------ | -------- |
-| value       | Selected date                               | Array<string \| number \| date>               | -            | Yes      |
-| onChange    | Callback when the selected date is changing | (date: Array<string \| number \| date>) => {} | -            | Yes      |
-| placeholder | The placeholder of date input               | string                                        | '请选择季度' | No       |
-| format      | To set the date format                      | string                                        | `YYYY-MM`    | No       |
+| Property    | Description                                 | Type                                          | Default                   | Required |
+| ----------- | ------------------------------------------- | --------------------------------------------- | ------------------------- | -------- |
+| value       | Selected date                               | Array<string \| number \| date>               | -                         | Yes      |
+| onChange    | Callback when the selected date is changing | (date: Array<string \| number \| date>) => {} | -                         | Yes      |
+| placeholder | The placeholder of date input               | string                                        | `Please select a quarter` | No       |
+| format      | To set the date format                      | string                                        | `YYYY-MM`                 | No       |
 
 **Additional**
 

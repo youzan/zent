@@ -1,6 +1,7 @@
 import * as React from 'react';
 import PanelFooter from '../../components/PanelFooter';
 import Button from '../../../button';
+import Pop from '../../../pop';
 import PickerContext from '../../context/PickerContext';
 import PanelContext from '../../context/PanelContext';
 import { ITimePanelProps, RangeTime } from '../../types';
@@ -12,19 +13,29 @@ const CombinedTimeFooter: React.FC<Pick<
   const { i18n } = React.useContext(PickerContext);
   const { confirmStatus } = React.useContext(PanelContext);
 
-  const confirmNode = React.useMemo(
-    () => (
+  const confirmHandler = React.useCallback(() => onSelected(selected, true), [
+    selected,
+    onSelected,
+  ]);
+  const confirmNode = React.useMemo(() => {
+    const confirmBtn = (
       <Button
         type="primary"
-        className="zent-datepicker-panel-footer-btn"
+        onClick={confirmHandler}
         disabled={confirmStatus}
-        onClick={() => onSelected(selected, true)}
+        className="zent-datepicker-panel-footer-btn"
       >
         {i18n.confirm}
       </Button>
-    ),
-    [i18n, confirmStatus, selected, onSelected]
-  );
+    );
+    return confirmStatus ? (
+      <Pop content={i18n.rangePop} trigger={'hover'}>
+        {confirmBtn}
+      </Pop>
+    ) : (
+      confirmBtn
+    );
+  }, [i18n, confirmStatus, confirmHandler]);
 
   return <PanelFooter rightNode={confirmNode} />;
 };

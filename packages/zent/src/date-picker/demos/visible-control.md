@@ -13,7 +13,7 @@ class DatePickerBasic extends Component {
 	state = {
 		dateValue: '2020-05-11',
 		dateValue2: '2020-05-11',
-		openPanel: false,
+		openPanel: true,
 	};
 
 	onChangeDate = val => {
@@ -54,6 +54,16 @@ class DatePickerBasic extends Component {
 					value={dateValue2}
 					onChange={this.onChangeDate2}
 					openPanel={false}
+				/>
+				<br />
+				<CombinedDateRangePicker
+					className="zent-datepicker-demo"
+					onOpen={() => {
+						console.log('open');
+					}}
+					onClose={() => {
+						console.log('close');
+					}}
 				/>
 			</div>
 		);

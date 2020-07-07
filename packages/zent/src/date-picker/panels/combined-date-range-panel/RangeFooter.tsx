@@ -3,6 +3,7 @@ import cx from 'classnames';
 import { parse } from 'date-fns';
 import TimePicker from '../../TimePicker';
 import Button from '../../../button';
+import Pop from '../../../pop';
 
 import PickerContext from '../../context/PickerContext';
 import { formatDate } from '../../utils/index';
@@ -42,6 +43,10 @@ export const CombinedDateRangeFooter: React.FC<ICombinedDateRangeFooterProps> = 
     format,
   });
 
+  const disabledStatus = React.useMemo(
+    () => disabledConfirm || endTimeStatus || startTimeStatus,
+    [disabledConfirm, endTimeStatus, startTimeStatus]
+  );
   const onStartTimeChange = React.useCallback(
     (val: string) => {
       const timeVal = parse(val, format, selected[0]);
@@ -61,6 +66,19 @@ export const CombinedDateRangeFooter: React.FC<ICombinedDateRangeFooterProps> = 
     onSelected(selected, true);
   }, [selected, onSelected]);
 
+  const confirmBtn = React.useMemo(
+    () => (
+      <Button
+        type="primary"
+        onClick={confirmHandler}
+        disabled={disabledStatus}
+        className={`${prefixCls}-confirm`}
+      >
+        {i18n.confirm}
+      </Button>
+    ),
+    [i18n, disabledStatus, confirmHandler]
+  );
   return (
     <>
       <div
@@ -94,14 +112,13 @@ export const CombinedDateRangeFooter: React.FC<ICombinedDateRangeFooterProps> = 
         selectedDate={end}
         disabledTimes={disabledEndTimes}
       />
-      <Button
-        type="primary"
-        onClick={confirmHandler}
-        disabled={disabledConfirm || endTimeStatus || startTimeStatus}
-        className={`${prefixCls}-confirm`}
-      >
-        {i18n.confirm}
-      </Button>
+      {disabledStatus ? (
+        <Pop content={i18n.rangePop} trigger={'hover'}>
+          {confirmBtn}
+        </Pop>
+      ) : (
+        confirmBtn
+      )}
     </>
   );
 };
