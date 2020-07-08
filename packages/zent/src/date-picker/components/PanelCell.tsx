@@ -16,8 +16,8 @@ const getCellClassName = ({
 }: Omit<IDateCellBase, 'value' | 'text'>) => {
   return cx(`${prefixCls}_item`, {
     [`${prefixCls}_over`]: !isInView,
-    [`${prefixCls}_hover`]: !isSelected && !isDisabled && isHover,
     [`${prefixCls}_disabled`]: isDisabled,
+    [`${prefixCls}_available`]: !isSelected && !isDisabled,
     [`${prefixCls}_current`]: isInView && isCurrent,
     [`${prefixCls}_selected`]: isInView && isSelected,
     [`${prefixCls}_in_range`]: !isDisabled && (isInRange || isInHoverRange),

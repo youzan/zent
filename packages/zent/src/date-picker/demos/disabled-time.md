@@ -17,10 +17,10 @@ import {
 
 class Demo extends Component {
 	state = {
-		timeValue: '00:30:00',
-		dateValue: '2020-06-10 14:00:05',
-		rangeValue: [],
-		combinedValue: ['2020-06-10 07:00:05', '2020-06-10 14:00:05'],
+		// timeValue: '00:30:00',
+		// dateValue: '2020-06-10 14:00:05',
+		// rangeValue: [],
+		// combinedValue: ['2020-06-10 07:00:05', '2020-06-10 14:00:05'],
 	};
 
 	onChangeTime = val => {
@@ -30,11 +30,13 @@ class Demo extends Component {
 		});
 	};
 	onChangeDate = val => {
+		console.log('demo onChangeDate', val);
 		this.setState({
 			dateValue: val,
 		});
 	};
 	onChangeRange = val => {
+		console.log('demo onChangeRange', val);
 		this.setState({
 			rangeValue: val,
 		});
@@ -45,9 +47,17 @@ class Demo extends Component {
 			combinedTimeValue: val,
 		});
 	};
+	onChangeCombinedDate = val => {
+		console.log('demo onChangeCombinedDate', val);
+		this.setState({
+			combinedValue: val,
+		});
+	};
+
 	disabledTimes1 = () => ({
 		disabledHours: () => [2],
 	});
+
 	disabledTimes2 = date => ({
 		disabledHours: () => {
 			return date && date.getDate() === 15 ? [3, 4, 5] : [2];
@@ -73,6 +83,7 @@ class Demo extends Component {
 			disabledSeconds: () => [],
 		};
 	};
+
 	render() {
 		const {
 			timeValue,
@@ -95,7 +106,7 @@ class Demo extends Component {
 					showTime
 					format="YYYY-MM-DD HH:mm:ss"
 					value={dateValue}
-					onChange={this.onChange}
+					onChange={this.onChangeDate}
 					disabledTimes={this.disabledTimes2}
 				/>
 				<br />

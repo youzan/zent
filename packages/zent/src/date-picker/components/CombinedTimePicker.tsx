@@ -7,19 +7,14 @@ import PanelContext from '../context/PanelContext';
 import useTimeValue, { parseSelectedToRangeDate } from '../hooks/useTimeValue';
 import { useEventCallbackRef } from '../../utils/hooks/useEventCallbackRef';
 import pick from '../../utils/pick';
-import getRangeDisabledTimes from '../utils/getRangeDisabledTimes';
+import useRangeDisabledTimes from '../hooks/useRangeDisabledTimes';
 import { startOfToday } from 'date-fns';
 import {
   triggerCommonProps,
   timePanelProps,
   defaultTimePickerProps,
 } from '../constants';
-import {
-  ITimePickerProps,
-  ICombinedTimePanelProps,
-  RangeTypeMap,
-  RangeTime,
-} from '../types';
+import { ITimePickerProps, ICombinedTimePanelProps, RangeTime } from '../types';
 import useSinglePopoverVisible from '../hooks/useSinglePopoverVisible';
 
 const prefixCls = 'zent-datepicker-combined';
@@ -42,6 +37,7 @@ const CombinedTimePicker: React.FC<ITimePickerBaseProps> = ({
   ...restProps
 }) => {
   const restPropsRef = React.useRef(restProps);
+  restPropsRef.current = restProps;
   const { format, className, openPanel, disabled } = restPropsRef.current;
   const onChangeRef = useEventCallbackRef(onChange);
 
@@ -96,21 +92,17 @@ const CombinedTimePicker: React.FC<ITimePickerBaseProps> = ({
     disabledStartTimes,
     disabledConfirm,
     disabledEndTimes,
-  } = getRangeDisabledTimes({
+  } = useRangeDisabledTimes({
     selected: selectedDates,
     disabledTimes,
   });
 
   const disabledTimesOptionStart = React.useMemo(
-    () =>
-      disabledStartTimes?.(RangeTypeMap.START)(
-        selectedDates[0] ?? startOfToday()
-      ),
+    () => disabledStartTimes?.(selectedDates[0] ?? startOfToday()),
     [disabledStartTimes, selectedDates]
   );
   const disabledTimesOptionEnd = React.useMemo(
-    () =>
-      disabledEndTimes?.(RangeTypeMap.END)(selectedDates[1] ?? startOfToday()),
+    () => disabledEndTimes?.(selectedDates[1] ?? startOfToday()),
     [disabledEndTimes, selectedDates]
   );
 

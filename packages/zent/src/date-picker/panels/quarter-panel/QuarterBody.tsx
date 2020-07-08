@@ -17,7 +17,6 @@ const QuarterPickerBody: React.FC<IQuarterPickerBodyProps> = ({
   onSelected,
   selected,
   disabledPanelDate,
-  hoverDate,
   row = ROW_COUNT,
   col = COL_COUNT,
 }) => {
@@ -28,7 +27,6 @@ const QuarterPickerBody: React.FC<IQuarterPickerBodyProps> = ({
     () =>
       getPanelCellsData({
         selected,
-        hoverDate,
         disabledPanelDate,
         defaultPanelDate: setQuarter(defaultPanelDate, 1),
         texts: i18n.panel.quarterNames,
@@ -36,7 +34,7 @@ const QuarterPickerBody: React.FC<IQuarterPickerBodyProps> = ({
         col,
         generateDateConfig: generateDateConfig.quarter,
       }),
-    [selected, hoverDate, row, col, defaultPanelDate, i18n, disabledPanelDate]
+    [selected, row, col, defaultPanelDate, i18n, disabledPanelDate]
   );
 
   return (

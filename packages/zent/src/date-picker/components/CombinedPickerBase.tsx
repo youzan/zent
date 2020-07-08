@@ -20,7 +20,6 @@ import {
   IRangePanelProps,
   IGenerateDateConfig,
   IRangeTriggerProps,
-  RangeTypeMap,
 } from '../types';
 
 interface ICombinedPickerProps
@@ -123,7 +122,7 @@ export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
   const onClearInput = React.useCallback(
     evt => {
       evt.stopPropagation();
-      onSelected([null, null]);
+      onSelected([null, null], true);
     },
     [onSelected]
   );
@@ -149,19 +148,16 @@ export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
       </div>
     );
   }, [selected, text, value, panelVisible, restPropsRef, onClearInput]);
-
   const content = React.useMemo(() => {
     return (
       <div className="zent-datepicker-combined-panel">
         <PanelComponent
-          {...restProps}
+          {...restPropsRef.current}
           selected={selected}
           defaultPanelDate={defaultPanelDate}
           onSelected={onSelected}
-          disabledPanelDate={[
-            disabledStartDate?.(RangeTypeMap.START),
-            disabledEndDate?.(RangeTypeMap.END),
-          ]}
+          disabledStartDate={disabledStartDate}
+          disabledEndDate={disabledEndDate}
           hoverDate={hoverDate}
           hoverRangeDate={hoverRangeDate}
           rangeDate={rangeDate}
@@ -174,7 +170,7 @@ export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
     rangeDate,
     hoverRangeDate,
     defaultPanelDate,
-    restProps,
+    restPropsRef,
     disabledStartDate,
     disabledEndDate,
     onSelected,

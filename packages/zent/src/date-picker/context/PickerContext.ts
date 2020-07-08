@@ -9,10 +9,6 @@ export interface IPickerContextProps {
   getSelectedValue?: (val: Date) => Date;
   getCallbackValue?: (val: Date | Date[]) => SingleDate | RangeDate;
   getInputText?: (val: Date | [Date, Date]) => string | string[];
-
-  // range picker
-  getStartCustomProps?: (val: [Date, Date]) => any;
-  getEndCustomProps?: (val: [Date, Date]) => any;
 }
 
 const PickerContext = React.createContext<IPickerContextProps | null>(null);

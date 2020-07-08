@@ -24,7 +24,6 @@ const WeekPickerPanel: React.FC<ISinglePanelProps &
       {...restProps}
       footerText={i18n.current.week}
       selected={selected}
-      hoverDate={hoverDate}
       rangeDate={rangeDate}
       hoverRangeDate={hoverRangeDate}
     />

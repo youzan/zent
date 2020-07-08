@@ -18,7 +18,6 @@ const MonthPickerBody: FC<IMonthPickerBodyProps> = ({
   onSelected,
   selected,
   disabledPanelDate,
-  hoverDate,
   row = ROW_COUNT,
   col = COL_COUNT,
 }) => {
@@ -29,7 +28,6 @@ const MonthPickerBody: FC<IMonthPickerBodyProps> = ({
     () =>
       getPanelCellsData({
         selected,
-        hoverDate,
         disabledPanelDate,
         defaultPanelDate: setMonth(defaultPanelDate, 0),
         texts: i18n.panel.monthNames,
@@ -37,7 +35,7 @@ const MonthPickerBody: FC<IMonthPickerBodyProps> = ({
         col,
         generateDateConfig: generateDateConfig.month,
       }),
-    [selected, hoverDate, row, col, defaultPanelDate, i18n, disabledPanelDate]
+    [selected, row, col, defaultPanelDate, i18n, disabledPanelDate]
   );
 
   return (

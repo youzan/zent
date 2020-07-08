@@ -18,7 +18,6 @@ const YearPickerBody: React.FC<IYearPickerBodyProps> = ({
   firstYear,
   onSelected,
   selected,
-  hoverDate,
   defaultPanelDate,
   disabledPanelDate,
   row = ROW_COUNT,
@@ -31,7 +30,7 @@ const YearPickerBody: React.FC<IYearPickerBodyProps> = ({
     () =>
       Array.from(
         { length: 12 },
-        (_, i) => `${firstYear + i}${i18n.panel.year}`
+        (_, i) => firstYear + i <= 3000 && `${firstYear + i}${i18n.panel.year}`
       ),
     [firstYear, i18n]
   );
@@ -39,7 +38,6 @@ const YearPickerBody: React.FC<IYearPickerBodyProps> = ({
     () =>
       getPanelCellsData({
         selected,
-        hoverDate,
         disabledPanelDate,
         defaultPanelDate: setYear(defaultPanelDate, firstYear),
         texts: YearTexts,
@@ -49,7 +47,6 @@ const YearPickerBody: React.FC<IYearPickerBodyProps> = ({
       }),
     [
       selected,
-      hoverDate,
       row,
       col,
       YearTexts,

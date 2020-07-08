@@ -54,11 +54,6 @@
     top: 0;
   }
 
-  .zent-input {
-    cursor: pointer;
-    font-size: 14px;
-  }
-
   .zenticon-calendar-o,
   .zenticon-clock-o {
     display: block;
@@ -94,8 +89,9 @@
     display: flex;
     align-items: center;
     height: 32px;
-    padding: 0 10px;
     width: 360px;
+    padding: 0 10px;
+    box-sizing: border-box;
 
     &-input {
       @include theme-color(color, stroke, 1);
@@ -213,7 +209,7 @@
         }
       }
 
-      &_hover {
+      &_available:hover {
         .zent-datepicker-cell-inner:hover {
           @include blue-bgcolor;
           border-radius: 2px;

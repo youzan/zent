@@ -12,10 +12,8 @@ import {
   RangeDate,
   IShowTime,
   IDisabledTimes,
-  RangeTypeMap,
 } from './types';
 import { getRangeValuesWithValueType } from './utils/getValueInRangePicker';
-import getRangeDisabledTimes from './utils/getRangeDisabledTimes';
 import { INPUT_WIDTH, SINGLE_INPUT_WIDTH, DATE_FORMAT } from './constants';
 
 const generateDate: IGenerateDateConfig = generateDateConfig.date;
@@ -31,40 +29,13 @@ const DefaultDateRangeProps: Partial<IDateRangePickerProps> = {
   valueType: 'string',
 };
 export const DateRangePicker: React.FC<IDateRangePickerProps> = props => {
-  const {
-    placeholder,
-    valueType,
-    format,
-    width,
-    showTime,
-    disabled,
-    disabledTimes,
-  } = props;
+  const { placeholder, valueType, format, width, showTime, disabled } = props;
   const disabledContext = React.useContext(DisabledContext);
 
   const getCallbackValue = React.useCallback(
     val => getRangeValuesWithValueType(val, valueType, format),
     [valueType, format]
   );
-
-  const getStartCustomProps = (
-    val: [Date, Date]
-  ): { disabledTimes: IDisabledTimes } => {
-    const { disabledStartTimes } = getRangeDisabledTimes({
-      selected: val,
-      disabledTimes,
-    });
-    return { disabledTimes: disabledStartTimes(RangeTypeMap.START) };
-  };
-  const getEndCustomProps = (
-    val: [Date, Date]
-  ): { disabledTimes: IDisabledTimes } => {
-    const { disabledEndTimes } = getRangeDisabledTimes({
-      selected: val,
-      disabledTimes,
-    });
-    return { disabledTimes: disabledEndTimes(RangeTypeMap.END) };
-  };
 
   return (
     <Receiver componentName="TimePicker">
@@ -73,8 +44,6 @@ export const DateRangePicker: React.FC<IDateRangePickerProps> = props => {
           value={{
             i18n,
             getCallbackValue,
-            getStartCustomProps,
-            getEndCustomProps,
           }}
         >
           <RangePicker

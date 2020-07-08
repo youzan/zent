@@ -16,6 +16,7 @@ interface IDatePickerFooterProps
   extends Omit<IDatePickerPanelProps, 'popText' | 'hideFooter'> {
   showTimeOption?: IShowTimeOption<string>;
 }
+const today = new Date();
 const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
   footerText,
   showTime,
@@ -32,13 +33,17 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
     disabledTimesOption: disabledTimes?.(selected) || {},
     format,
   });
-  const onClickCurrent = React.useCallback(
-    ({ isdisabledToday, today }) => {
-      if (isdisabledToday) return;
-      onSelected(today);
-    },
-    [onSelected]
+  const isDisableConfirm = React.useMemo(
+    () => selected && disabledPanelDate?.(selected),
+    [selected, disabledPanelDate]
   );
+  const isDisabledToday = React.useMemo(() => disabledPanelDate?.(today), [
+    disabledPanelDate,
+  ]);
+  const onClickCurrent = React.useCallback(() => {
+    if (isDisabledToday) return;
+    onSelected(today);
+  }, [isDisabledToday, onSelected]);
 
   const confirmHandler = React.useCallback(() => {
     onSelected(selected);
@@ -48,32 +53,33 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
     () => (
       <Button
         type="primary"
-        disabled={confirmStatus || !selected}
+        disabled={confirmStatus || isDisableConfirm || !selected}
         onClick={confirmHandler}
         className={`${footerPrefixCls}-btn`}
       >
         {i18n.confirm}
       </Button>
     ),
-    [i18n, confirmStatus, selected, confirmHandler]
+    [i18n, confirmStatus, selected, isDisableConfirm, confirmHandler]
   );
 
   const renderToday = React.useMemo(() => {
-    const today = new Date();
-    const isdisabledToday = disabledPanelDate?.(today);
     return (
       <div>
         <a
           className={cx({
-            [`${footerPrefixCls}-current_diabled`]: isdisabledToday,
+            [`${footerPrefixCls}-current_diabled`]: isDisabledToday,
           })}
-          onClick={() => onClickCurrent({ isdisabledToday, today })}
+          onClick={onClickCurrent}
         >
           {footerText}
         </a>
         {!!showTime &&
-          (confirmStatus ? (
-            <Pop content={i18n.rangePop} trigger={'hover'}>
+          (confirmStatus || isDisableConfirm ? (
+            <Pop
+              content={confirmStatus ? i18n.timeErrorPop : i18n.dateErrorPop}
+              trigger={'hover'}
+            >
               {confirmBtn}
             </Pop>
           ) : (
@@ -86,9 +92,10 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
     showTime,
     footerText,
     confirmStatus,
+    isDisableConfirm,
+    isDisabledToday,
     confirmBtn,
     onClickCurrent,
-    disabledPanelDate,
   ]);
 
   const onTimeChange = React.useCallback(

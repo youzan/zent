@@ -1,6 +1,6 @@
 import * as React from 'react';
 import cx from 'classnames';
-import { parse } from 'date-fns';
+import { parse, isSameDay } from 'date-fns';
 import TimePicker from '../../TimePicker';
 import Button from '../../../button';
 import Pop from '../../../pop';
@@ -113,7 +113,12 @@ export const CombinedDateRangeFooter: React.FC<ICombinedDateRangeFooterProps> = 
         disabledTimes={disabledEndTimes}
       />
       {disabledStatus ? (
-        <Pop content={i18n.rangePop} trigger={'hover'}>
+        <Pop
+          content={
+            isSameDay(start, end) ? i18n.timeErrorPop : i18n.dateErrorPop
+          }
+          trigger={'hover'}
+        >
           {confirmBtn}
         </Pop>
       ) : (

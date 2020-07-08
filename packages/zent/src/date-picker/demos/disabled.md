@@ -13,6 +13,8 @@ ReactDOM.render(
 	<div>
 		<DatePicker className="zent-datepicker-demo" value="2020-01-01" disabled />
 		<br />
+		<TimePicker className="zent-datepicker-demo" value="06:06:06" disabled />
+		<br />
 		<CombinedDateRangePicker className="zent-datepicker-demo" disabled />
 		<br />
 		<DateRangePicker className="zent-datepicker-demo" disabled />

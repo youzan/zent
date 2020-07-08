@@ -33,7 +33,6 @@ export function SinglePicker({
 }: ISinglePickerProps) {
   const restPropsRef = React.useRef(restProps);
   restPropsRef.current = restProps;
-
   const {
     defaultDate,
     format,
@@ -51,6 +50,7 @@ export function SinglePicker({
   const { getSelectedValue, getCallbackValue, getInputText } = React.useContext(
     PickerContext
   );
+  // props onChangeRef
   const onChangeRef = useEventCallbackRef(onChange);
 
   // merged from props value
@@ -86,7 +86,7 @@ export function SinglePicker({
 
   /**
    * onSelected 选择日期 触发onChange回调
-   * @param finish {boolean} 标识是否完成全部选择，处理清空、日期时间等特殊清空
+   * finish默认true表示选中日期即触发回调，支持时间选择等特殊情况时不直接触发回调
    *
    */
   const onSelected = React.useCallback(

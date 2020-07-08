@@ -14,6 +14,7 @@ export default function useSinglePopoverVisible(
   );
   const onOpenRef = useEventCallbackRef(onOpen);
   const onCloseRef = useEventCallbackRef(onClose);
+  const defaultSelectedRef = React.useRef(defaultSelected);
 
   React.useEffect(() => {
     setPanelVisible(openPanel ?? undefined);
@@ -32,11 +33,11 @@ export default function useSinglePopoverVisible(
       if (panelVisible) {
         onOpenRef.current?.();
       } else {
-        setSelected(defaultSelected);
+        setSelected(defaultSelectedRef.current);
         onCloseRef.current?.();
       }
     }
-  }, [panelVisible, defaultSelected, onOpenRef, onCloseRef, setSelected]);
+  }, [panelVisible, defaultSelectedRef, onOpenRef, onCloseRef, setSelected]);
 
   return { panelVisible, setPanelVisible, onVisibleChange };
 }

@@ -18,22 +18,25 @@ import {
   IDisabledTimes,
   IRangeProps,
   RangeTypeMap,
+  ISingleProps,
 } from '../types';
+import useRangeDisabledTimes from '../hooks/useRangeDisabledTimes';
 
+const { START, END } = RangeTypeMap;
 interface IRangePickerProps
   extends ICommonProps<RangeDate>,
     IRangeProps,
     Pick<IRangeTriggerProps, 'placeholder'> {
   generateDate: IGenerateDateConfig;
   PickerComponent: React.ComponentType<
-    ICommonProps & {
-      placeholder?: string;
+    ISingleProps & {
       showTime?: IShowTime<string>;
       disabledTimes?: IDisabledTimes;
     }
   >;
   showTime?: IShowTime<string[]>;
   seperator: string;
+  disabledTimes?: IDisabledTimes;
 }
 
 const RangePicker: React.FC<IRangePickerProps> = ({
@@ -46,18 +49,17 @@ const RangePicker: React.FC<IRangePickerProps> = ({
   onChange,
   onClose,
   onOpen,
+  disabledTimes,
   generateDate,
   PickerComponent,
   showTime,
   seperator,
   ...restProps
 }) => {
-  const { format } = restProps;
-  const {
-    getCallbackValue,
-    getStartCustomProps,
-    getEndCustomProps,
-  } = React.useContext(PickerContext);
+  const restPropsRef = React.useRef(restProps);
+  restPropsRef.current = restProps;
+  const { format } = restPropsRef.current;
+  const { getCallbackValue } = React.useContext(PickerContext);
   const onChangeRef = useEventCallbackRef(onChange);
   // selected
   const { selected, setSelected, defaultPanelDate } = useRangeMergedProps({
@@ -81,8 +83,7 @@ const RangePicker: React.FC<IRangePickerProps> = ({
 
   const onChangeStartOrEnd = React.useCallback(
     (type: RangeType) => (val: Date) => {
-      const dates: [Date, Date] =
-        type === RangeTypeMap.START ? [val, end] : [start, val];
+      const dates: [Date, Date] = type === START ? [val, end] : [start, val];
       setSelected(dates);
       // props onChange
       onChangeRef.current?.(getCallbackValue(dates));
@@ -90,39 +91,39 @@ const RangePicker: React.FC<IRangePickerProps> = ({
     [start, end, onChangeRef, getCallbackValue, setSelected]
   );
 
-  const startCustomProps = getStartCustomProps
-    ? getStartCustomProps(selected)
-    : {};
-  const endCustomProps = getEndCustomProps ? getEndCustomProps(selected) : {};
+  const { disabledStartTimes, disabledEndTimes } = useRangeDisabledTimes({
+    selected,
+    disabledTimes,
+  });
 
   return (
     <>
       <div className={cx('zent-datepicker', className)}>
         <PickerComponent
-          {...restProps}
-          {...startCustomProps}
+          {...restPropsRef.current}
           defaultDate={defaultPanelDate?.[0]}
           showTime={startShowTime}
           valueType="date"
           value={start}
-          onChange={onChangeStartOrEnd(RangeTypeMap.START)}
-          onOpen={() => onOpen?.(RangeTypeMap.START)}
-          onClose={() => onClose?.(RangeTypeMap.START)}
-          disabledDate={disabledStartDate(RangeTypeMap.START)}
+          disabledTimes={disabledStartTimes}
+          onChange={onChangeStartOrEnd(START)}
+          onOpen={() => onOpen?.(START)}
+          onClose={() => onClose?.(START)}
+          disabledDate={disabledStartDate}
           placeholder={placeholder[0]}
         />
         <span className="zent-datepicker-seperator">{seperator}</span>
         <PickerComponent
-          {...restProps}
-          {...endCustomProps}
+          {...restPropsRef.current}
           defaultDate={defaultPanelDate?.[1]}
           showTime={endShowTime}
           valueType="date"
           value={end}
-          onChange={onChangeStartOrEnd(RangeTypeMap.END)}
-          onOpen={() => onOpen?.(RangeTypeMap.END)}
-          onClose={() => onClose?.(RangeTypeMap.END)}
-          disabledDate={disabledEndDate?.(RangeTypeMap.END)}
+          disabledTimes={disabledEndTimes}
+          onChange={onChangeStartOrEnd(END)}
+          onOpen={() => onOpen?.(END)}
+          onClose={() => onClose?.(END)}
+          disabledDate={disabledEndDate}
           placeholder={placeholder[1]}
         />
       </div>

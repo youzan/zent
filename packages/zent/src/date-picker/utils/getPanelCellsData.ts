@@ -4,7 +4,6 @@ import { CommonDateMap } from './dateUtils';
 const { isAfter, isBefore } = CommonDateMap;
 interface ICellDateParams {
   selected: Date;
-  hoverDate: Date;
   rangeDate?: [Date, Date];
   hoverRangeDate?: [Date, Date];
   disabledPanelDate: (Date) => boolean;
@@ -22,7 +21,6 @@ interface ICellDateParams {
  */
 export default function getPanelCellsData({
   selected,
-  hoverDate,
   rangeDate,
   hoverRangeDate,
   disabledPanelDate,
@@ -54,7 +52,6 @@ export default function getPanelCellsData({
       //  hover-range
       if (hoverRangeDate) {
         isInHoverRange =
-          hoverDate &&
           isAfter(currentDate, offsetDate(hoverRangeDate[0], -1)) &&
           isBefore(currentDate, hoverRangeDate[1]);
       }
@@ -79,9 +76,6 @@ export default function getPanelCellsData({
       // isInView
       const isInView = inView ? inView(currentDate, defaultPanelDate) : true;
 
-      // isHover
-      const isHover = isSame(hoverDate, currentDate);
-
       // isDisabled
       const isDisabled = disabledPanelDate?.(currentDate);
 
@@ -91,7 +85,6 @@ export default function getPanelCellsData({
         isCurrent,
         isSelected,
         isInView,
-        isHover,
         isDisabled,
         isInHoverRange,
         isInRange,

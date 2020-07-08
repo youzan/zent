@@ -36,6 +36,7 @@ const TimePickerBase: React.FC<ITimePickerBaseProps> = ({
   ...restProps
 }) => {
   const restPropsRef = React.useRef(restProps);
+  restPropsRef.current = restProps;
   const { format, openPanel, disabled } = restPropsRef.current;
   const onChangeRef = useEventCallbackRef(onChange);
 

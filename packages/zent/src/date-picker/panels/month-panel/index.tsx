@@ -9,7 +9,7 @@ import usePanelDate from '../../hooks/usePanelDate';
 import { ISinglePanelProps } from '../../types';
 
 const MonthPickerPanel: React.FC<ISinglePanelProps> = props => {
-  const { defaultPanelDate, selected, onSelected, hoverDate } = props;
+  const { defaultPanelDate, selected, onSelected } = props;
   const { i18n } = React.useContext(PickerContext);
   const { panelDate, setPanelDate } = usePanelDate(defaultPanelDate);
   const [showYear, setShowYear] = React.useState<boolean>(false);
@@ -30,7 +30,6 @@ const MonthPickerPanel: React.FC<ISinglePanelProps> = props => {
       <MonthPanelBody
         defaultPanelDate={panelDate}
         selected={selected}
-        hoverDate={hoverDate}
         onSelected={onSelected}
       />
     </>

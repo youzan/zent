@@ -11,10 +11,10 @@ import { DatePicker, WeekPicker, CombinedDateRangePicker } from 'zent';
 
 class Demo extends Component {
 	state = {
-		dateValue: '2020-06-10',
-		dateValue2: '2020-06-12',
-		rangeValue: ['2020-06-08'],
-		combinedValue: ['2020-06-10', '2020-06-15'],
+		// dateValue: '2020-06-10',
+		// dateValue2: '2020-06-12',
+		// rangeValue: ['2020-06-08'],
+		// combinedValue: ['2020-06-10', '2020-06-15'],
 	};
 
 	onChangeDate = val => {
@@ -42,13 +42,10 @@ class Demo extends Component {
 		});
 	};
 
-	onDisabledRange = (val, type) => {
-		return type === 'start' ? val.getDate() === 15 : false;
-	};
+	onDisabledRange = (val, type) =>
+		type === 'start' ? val.getDate() === 15 : false;
 
-	onDisabledCombinedDate = val => {
-		return val.getDate() < 9;
-	};
+	onDisabledCombinedDate = val => val.getDate() < 9;
 
 	render() {
 		const { dateValue, dateValue2, rangeValue, combinedValue } = this.state;
@@ -65,7 +62,7 @@ class Demo extends Component {
 					value={dateValue2}
 					className="zent-datepicker-demo"
 					onChange={this.onChangeDate}
-					disabledDate={{ max: '2020-6-15' }}
+					disabledDate={{ min: '2020-6-15' }}
 				/>
 				<br />
 				<DateRangePicker

@@ -16,6 +16,7 @@ export function useShowTimeRangeOption<T>(
   showTime: IShowTime<T>
 ): IShowTimeOption<string>[] {
   const showTimeRef = React.useRef(showTime);
+  showTimeRef.current = showTime;
 
   const showTimeOption = React.useMemo(() => {
     if (!showTimeRef.current) {
@@ -59,6 +60,7 @@ export function useShowTimeOption(
   showTime: IShowTime<string>
 ): IShowTimeOption<string> {
   const showTimeRef = React.useRef(showTime);
+  showTimeRef.current = showTime;
 
   const showTimeOption = React.useMemo(() => {
     if (!showTimeRef.current) {

@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { CommonDateMap } from '../utils/dateUtils';
-import { IGenerateDateConfig, RangeType } from '../types';
+import { IGenerateDateConfig, RangeType, RangeTypeMap } from '../types';
 
 const pickerTypeMap = {
   combined: 'combined',
   range: 'range',
 };
 const { isAfter, isBefore } = CommonDateMap;
+const { START, END } = RangeTypeMap;
+
 /**
  * 开始、结束日期的disabledDate方法（用于选择范围日期组件的）
  * @param values
@@ -24,6 +26,9 @@ export default function useRangeDisabledDate({
   generateDate: IGenerateDateConfig;
   pickerType: keyof typeof pickerTypeMap;
 }) {
+  const disabledDateRef = React.useRef(disabledDate);
+  disabledDateRef.current = disabledDate;
+
   const IsRangePicker = React.useMemo(
     () => pickerType === pickerTypeMap.range,
     [pickerType]
@@ -34,10 +39,11 @@ export default function useRangeDisabledDate({
   );
 
   const disabledStartDate = React.useCallback(
-    (type: RangeType) => date => {
+    date => {
+      if (!date) return false;
       const [start, end] = selected;
       const { isSame } = generateDate;
-      if (disabledDate?.(date, type)) {
+      if (disabledDateRef.current?.(date, START)) {
         return true;
       }
 
@@ -49,14 +55,15 @@ export default function useRangeDisabledDate({
       }
       return false;
     },
-    [selected, generateDate, IsRangePicker, IsCombinedPicker, disabledDate]
+    [selected, IsRangePicker, IsCombinedPicker, disabledDateRef, generateDate]
   );
 
   const disabledEndDate = React.useCallback(
-    (type: RangeType) => date => {
+    date => {
+      if (!date) return false;
       const { circleEndDate, isSame } = generateDate;
       const [start] = selected;
-      if (disabledDate?.(date, type)) {
+      if (disabledDateRef.current?.(date, END)) {
         return true;
       }
 
@@ -68,7 +75,7 @@ export default function useRangeDisabledDate({
       }
       return false;
     },
-    [selected, generateDate, IsRangePicker, IsCombinedPicker, disabledDate]
+    [selected, IsRangePicker, IsCombinedPicker, disabledDateRef, generateDate]
   );
 
   return [disabledStartDate, disabledEndDate];

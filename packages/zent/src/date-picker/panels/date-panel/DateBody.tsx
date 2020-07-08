@@ -30,7 +30,6 @@ const DatePickerBody: FC<IDatePickerBodyProps> = props => {
     popText = '',
     defaultPanelDate,
     rangeDate,
-    hoverDate,
     hoverRangeDate,
     row,
     col,
@@ -52,7 +51,6 @@ const DatePickerBody: FC<IDatePickerBodyProps> = props => {
         selected,
         disabledPanelDate,
         rangeDate,
-        hoverDate,
         hoverRangeDate,
         row,
         col,
@@ -62,7 +60,6 @@ const DatePickerBody: FC<IDatePickerBodyProps> = props => {
     [
       selected,
       rangeDate,
-      hoverDate,
       hoverRangeDate,
       row,
       col,

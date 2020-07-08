@@ -113,7 +113,8 @@ export interface IRangePanelProps {
   hoverDate?: Date;
   hoverRangeDate?: [Date, Date];
   rangeDate?: [Date, Date];
-  disabledPanelDate: Array<(val: Date) => boolean>;
+  disabledStartDate: (val: Date) => boolean;
+  disabledEndDate: (val: Date) => boolean;
   onSelected: (val: [Date, Date], status?: boolean) => void;
 }
 
