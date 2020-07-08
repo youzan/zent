@@ -6,6 +6,7 @@ import Trigger, { IPopoverTriggerProps } from './Trigger';
 import { addEventListener } from '../../utils/component/event-handler';
 import noop from '../../utils/noop';
 import { runOnceInNextFrame } from '../../utils/nextFrame';
+import { boxDOMNode } from '../../utils/alcatraz';
 
 const MOUSE_EVENT_WHITE_LIST = [
   'down',
@@ -147,10 +148,10 @@ function makeHoverEnterRecognizer({
       enter() {
         state.transit(HoverState.Pending);
 
-        timerId = window.setTimeout(() => {
+        timerId = (setTimeout(() => {
           state.transit(HoverState.Finish);
           recognizer.uninstall();
-        }, enterDelay);
+        }, enterDelay) as unknown) as number;
       },
 
       leave() {
@@ -194,7 +195,7 @@ function makeHoverLeaveRecognizer({
       move: runOnceInNextFrame(evt => {
         const { target } = evt;
 
-        if (isOutSide(target)) {
+        if (isOutSide(boxDOMNode(target as Node))) {
           if (!quirk && !state.is(HoverState.Started)) {
             return;
           }

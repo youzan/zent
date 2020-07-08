@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Component, Children } from 'react';
 import DOMRef from '../../utils/component/DOMRef';
+import { boxDOMNode } from '../../utils/alcatraz';
+import contains from '../../utils/dom/contains';
 
 export interface IPopoverTriggerProps {
   getTriggerNode?: () => HTMLElement;
@@ -42,17 +44,17 @@ export class PopoverTrigger<
     const box = getContentNode();
     const anchor = getTriggerNode();
     if (isOutside) {
-      return isOutside(target, {
-        contentNode: box,
-        triggerNode: anchor,
+      return isOutside(boxDOMNode(target), {
+        contentNode: boxDOMNode(box),
+        triggerNode: boxDOMNode(anchor),
       });
     }
 
-    if (anchor && anchor.contains(target)) {
+    if (anchor && contains(anchor, target)) {
       return false;
     }
 
-    if (box && box.contains(target)) {
+    if (box && contains(box, target)) {
       return false;
     }
 
