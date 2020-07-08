@@ -18,7 +18,7 @@ import {
   createAsyncValidator,
   isAsyncValidator,
   useFieldValue,
-} from 'formulr';
+} from './formulr';
 import memorize from '../utils/memorize-one';
 import { FormContext, IFormChild, IZentFormContext } from './context';
 import { ZentForm, useForm } from './ZentForm';
