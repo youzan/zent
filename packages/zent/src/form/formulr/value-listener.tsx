@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { merge, never, of, Observable } from 'rxjs';
+import { merge, of, Observable, NEVER } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';
 import { useFormContext, FormContext, IFormContext } from './context';
 import { useValue$ } from './hooks';
@@ -12,6 +12,7 @@ import {
   isFieldArrayModel,
   isModelRef,
   ModelRef,
+  IModel,
 } from './models';
 import { noop, $MergeProps } from './utils';
 
@@ -20,14 +21,13 @@ export interface IFieldSetValueProps {
   children?: React.ReactNode;
 }
 
-function getModelFromContext<Model>(
+function useModelFromContext<Model>(
   ctx: IFormContext,
   name: string | undefined,
   model: Model | undefined,
   check: (m: any) => m is Model
 ): Model | null {
   const { parent } = ctx;
-  /* eslint-disable-next-line react-hooks/rules-of-hooks */
   const m = React.useMemo(() => {
     if (typeof name === 'string') {
       const m = parent.get(name);
@@ -40,9 +40,7 @@ function getModelFromContext<Model>(
     }
     return null;
   }, [name, model, check, parent]);
-  /* eslint-disable-next-line react-hooks/rules-of-hooks */
   const [maybeModel, setModel] = React.useState(m);
-  /* eslint-disable-next-line react-hooks/rules-of-hooks */
   React.useEffect(() => {
     if (!name) {
       return noop;
@@ -67,7 +65,7 @@ function getModelFromContext<Model>(
  */
 export function FieldSetValue({ name, children }: IFieldSetValueProps) {
   const ctx = useFormContext();
-  const model = getModelFromContext(ctx, name, undefined, isFieldSetModel);
+  const model = useModelFromContext(ctx, name, undefined, isFieldSetModel);
   const childContext = React.useMemo<IFormContext>(
     () => ({
       ...ctx,
@@ -135,15 +133,12 @@ export function useFieldValue<T>(field: string | FieldModel<T>): T | null {
     return () => $.unsubscribe();
   }, [field, ctx.parent]);
 
-  if (!model) {
-    /* eslint-disable-next-line react-hooks/rules-of-hooks */
-    useValue$(never(), null);
-    return null;
-  } else if (isModelRef<T, any, FieldModel<T>>(model)) {
-    /* eslint-disable-next-line react-hooks/rules-of-hooks */
-    const [value, setValue] = React.useState<T | null>(null);
-    /* eslint-disable-next-line react-hooks/rules-of-hooks */
-    React.useEffect(() => {
+  const [value, setValue] = React.useState<T | null>(() =>
+    model && !isModelRef(model) ? model.value : null
+  );
+
+  React.useEffect(() => {
+    if (isModelRef(model)) {
       const $ = model.model$
         .pipe(
           switchMap<FieldModel<T> | null, Observable<T | null>>(it => {
@@ -153,13 +148,19 @@ export function useFieldValue<T>(field: string | FieldModel<T>): T | null {
             return of(null);
           })
         )
-        .subscribe((value: T | null) => setValue(value));
+        .subscribe(setValue);
+
       return () => $.unsubscribe();
-    }, [model]);
-    return value;
-  }
-  /* eslint-disable-next-line react-hooks/rules-of-hooks */
-  return useValue$(model.value$, model.value);
+    } else if (model) {
+      const $ = model.value$.subscribe(setValue);
+
+      return () => $.unsubscribe;
+    } else {
+      return noop;
+    }
+  }, [model]);
+
+  return value;
 }
 
 /**
@@ -183,18 +184,13 @@ export function useFieldArrayValue<Item, Child extends BasicModel<Item>>(
   field: string | FieldArrayModel<Item, Child>
 ) {
   const ctx = useFormContext();
-  const model = getModelFromContext(
+  const model = useModelFromContext(
     ctx,
     field as string | undefined,
     field as FieldArrayModel<Item, Child> | undefined,
     isFieldArrayModel
   );
-  if (!model) {
-    /* eslint-disable-next-line react-hooks/rules-of-hooks */
-    useValue$(never(), null);
-    return null;
-  }
-  /* eslint-disable-next-line react-hooks/rules-of-hooks */
-  const children = useValue$(model.children$, model.children);
-  return children;
+  const maybeChildren = useValue$(model?.children$ ?? NEVER, model?.children);
+
+  return maybeChildren as IModel<Item>[] | null;
 }
