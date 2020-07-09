@@ -1,7 +1,7 @@
 import * as React from 'react';
 import cx from 'classnames';
-
 import { Label } from './Label';
+import { FormContext } from './context';
 
 export interface IFormControlProps {
   className?: string;
