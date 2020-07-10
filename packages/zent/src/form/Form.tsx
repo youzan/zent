@@ -53,7 +53,7 @@ function makeChildrenContext(
 }
 
 function makeContext(
-  labelWidth: string | number,
+  labelWidth: React.CSSProperties['flexBasis'],
   labelPosition: React.CSSProperties['justifyContent']
 ): IZentFormContext {
   return {
