@@ -25,6 +25,7 @@ group: 数据
 | width             | 输入框宽度                               | string or number |    `''`          | 否       |
 | popupWidth        | 弹层宽度                               | string or number |     `''`          | 否       |
 | multiple          | 是否多选                             | bool             | `false`             | 否       |
+| collapsable       | 多选时是否折叠进行单行显示              | bool             | `false`             | 否       |
 | clearable         | 显示清除按钮                             | bool             | `false`             | 否       |
 | loading           | 是否加载中                        | bool             | `false`             | 否       |
 | creatable         | 允许创建不存在的项                        | bool             | `false`             | 否       |

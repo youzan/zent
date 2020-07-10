@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { ISelectItem } from './Select';
+import { forwardRef } from 'react';
 
 export interface ISelectSearchProps {
   placeholder?: string;
@@ -11,15 +12,18 @@ export interface ISelectSearchProps {
   multiple?: boolean;
 }
 
-function SelectSearch({
-  placeholder,
-  keyword,
-  onChange,
-  onIndexChange,
-  onEnter,
-  multiple,
-  value,
-}: ISelectSearchProps) {
+function SelectSearch(
+  {
+    placeholder,
+    keyword,
+    onChange,
+    onIndexChange,
+    onEnter,
+    multiple,
+    value,
+  }: ISelectSearchProps,
+  cmdRef
+) {
   const ref = React.useRef<HTMLInputElement>(null);
   const measureRef = React.useRef<HTMLSpanElement>(null);
   const [inputWidth, setInputWidth] = React.useState(0);
@@ -29,6 +33,14 @@ function SelectSearch({
       preventScroll: true,
     });
   }, [value]);
+
+  React.useImperativeHandle(cmdRef, () => ({
+    focus: () => {
+      ref.current!.focus({
+        preventScroll: true,
+      });
+    },
+  }));
 
   // We measure width and set to the input immediately
   const mirrorValue = keyword || placeholder;
@@ -71,4 +83,4 @@ function SelectSearch({
   );
 }
 
-export default SelectSearch;
+export default forwardRef(SelectSearch);

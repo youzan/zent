@@ -9,6 +9,7 @@ import WindowEventHandler from '../utils/component/WindowEventHandler';
 import Icon from '../icon';
 import { TextMark } from '../text-mark';
 import { BlockLoading } from '../loading/BlockLoading';
+import { Pop } from '../pop';
 
 export interface ISelectItem<Key extends string | number = string | number> {
   key: Key;
@@ -47,6 +48,7 @@ export interface ISelectCommonProps<Item extends ISelectItem> {
   loading?: boolean;
   creatable?: boolean;
   onCreate?: (keyword: string) => void;
+  collapsable?: false;
 }
 
 export interface ISelectSingleProps<Item extends ISelectItem>
@@ -173,6 +175,7 @@ export class Select<
 
   elementRef = React.createRef<HTMLDivElement>();
   popoverRef = React.createRef<Popover>();
+  inputRef = React.createRef<HTMLInputElement>();
 
   constructor(props: ISelectProps<Item>) {
     super(props);
@@ -240,10 +243,16 @@ export class Select<
     } else {
       const { onChange, isEqual } = this.props;
       const value = this.state.value as Item[];
-      if (value.findIndex(it => isEqual(it, item)) >= 0) {
-        return;
+      const valueIndex = value.findIndex(it => isEqual(it, item));
+      let nextValue = [];
+
+      if (valueIndex >= 0) {
+        nextValue = [...value];
+        nextValue.splice(valueIndex, 1);
+      } else {
+        nextValue = value.concat([item]);
       }
-      const nextValue = value.concat([item]);
+
       if (onChange) {
         onChange(nextValue);
       } else {
@@ -458,22 +467,17 @@ export class Select<
   }
 
   renderValue() {
-    const { placeholder, renderValue } = this.props;
+    const { placeholder, renderValue, multiple } = this.props;
     const { open: visible } = this.state;
     const selectPlaceholder = (
       <span className="zent-select-placeholder">{placeholder}</span>
     );
 
-    if (this.props.multiple) {
+    if (multiple) {
       const value = this.state.value as Item[];
+
       if (value && value.length > 0) {
-        return (
-          <TagList
-            list={value}
-            onRemove={this.onRemove}
-            renderValue={renderValue}
-          />
-        );
+        return this.renderTagList(value);
       }
 
       if (visible) {
@@ -487,10 +491,53 @@ export class Select<
       }
       const value = this.state.value as Item | null;
       if (value) {
-        return renderValue ? renderValue(value) : value.text;
+        return renderValue ? (
+          renderValue(value)
+        ) : (
+          <span className="zent-select-text">{value.text}</span>
+        );
       }
       return selectPlaceholder;
     }
+  }
+
+  renderTagList(value: Item[]) {
+    const { renderValue, collapsable } = this.props;
+    const tagsValue = collapsable ? value.slice(0, 1) : value;
+    const collapsedValue = value.slice(1);
+
+    return (
+      <>
+        <TagList
+          list={tagsValue}
+          onRemove={this.onRemove}
+          renderValue={renderValue}
+        />
+        {collapsable && collapsedValue.length > 0 && (
+          <Pop
+            trigger="hover"
+            position="auto-top-center"
+            cushion={15}
+            content={
+              <div className="zent-select-collapsed-content">
+                {collapsedValue.map((item, index) => {
+                  return (
+                    <span key={item.key}>
+                      {renderValue ? renderValue(item) : item.text}
+                      {index !== collapsedValue.length - 1 && '、'}
+                    </span>
+                  );
+                })}
+              </div>
+            }
+          >
+            <span className="zent-select-collapsed-trigger">
+              +{collapsedValue.length}
+            </span>
+          </Pop>
+        )}
+      </>
+    );
   }
 
   getSearchPlaceholder(): string {
@@ -578,6 +625,11 @@ export class Select<
     return (createItem as Item[]).concat(filtered);
   }
 
+  onSelectClick = () => {
+    // 命令式聚焦搜索框
+    this.inputRef?.current?.focus();
+  };
+
   render() {
     const { keyword, open: visible, active, value } = this.state;
     const {
@@ -589,6 +641,7 @@ export class Select<
       multiple,
       popupWidth,
       loading,
+      collapsable,
     } = this.props;
 
     const filtered = this.filteredOptions();
@@ -618,8 +671,10 @@ export class Select<
                 'zent-select-disabled': this.disabled,
                 'zent-select-clearable': showClear,
                 'zent-select-multiple': multiple,
+                'zent-select-collapsable': collapsable,
               })}
               style={{ width }}
+              onClick={this.onSelectClick}
             >
               {this.renderValue()}
               {showClear && (
@@ -634,6 +689,7 @@ export class Select<
                   onChange={this.onKeywordChange}
                   onIndexChange={this.onIndexChange}
                   onEnter={this.selectCurrentIndex}
+                  ref={this.inputRef}
                 />
               )}
             </div>

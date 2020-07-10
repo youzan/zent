@@ -24,6 +24,7 @@ Select is a drop-down selection component with variety functions.
 | width             | input-box's width                                            | string or number | `''`                 | no       |
 | popupWidth        | pupup's width                                                | string or number | `''`                 | no       |
 | multiple          | Support multiple selected options                            | bool             | `false`             | no       |
+| collapsable       | Support collapsed tags in multiple mode            | bool             | `false`             | no       |
 | clearable         | Is the select value clearable                                | bool             | `false`             | no       |
 | loading           | Is the select in a state of loading                          | bool             | `false`             | no       |
 | creatable         | Allow options to be created                                  | bool             | `false`             | no       |

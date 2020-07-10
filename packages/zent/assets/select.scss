@@ -4,8 +4,28 @@
 
 $option-height: 32px;
 
+@mixin ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 @mixin placeholder {
   @include theme-color(color, stroke, 4);
+  @include ellipsis;
+}
+
+@mixin tag-style {
+  @include theme-color(border-color, stroke, 4);
+  border-radius: 2px;
+  margin: 4px 4px 4px 0;
+  padding: 0 4px;
+  line-height: 16px;
+  font-size: $font-size-small;
+  display: flex;
+  align-items: center;
+  word-break: break-all;
+  box-sizing: border-box;
 }
 
 .zent-select {
@@ -60,13 +80,17 @@ $option-height: 32px;
   }
 
   &-multiple {
-    padding-top: 3px;
-    padding-bottom: 3px;
-    line-height: 24px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    line-height: 26px;
   }
 
   &-placeholder {
     @include placeholder;
+  }
+
+  &-text {
+    @include ellipsis;
   }
 
   &-clearable {
@@ -109,6 +133,12 @@ $option-height: 32px;
 
   &.zent-select-inline {
     display: inline-flex;
+  }
+
+  &-collapsable {
+    .zent-select-search-wrap {
+      flex: 1;
+    }
   }
 
   &-search {
@@ -219,17 +249,10 @@ $option-height: 32px;
 
   &-tag {
     @include theme-color(border-color, stroke, 4);
+    @include tag-style;
     border-width: 1px;
     border-style: solid;
-    border-radius: 2px;
-    margin: 4px 4px 4px 0;
-    padding: 0 4px;
-    line-height: 16px;
-    font-size: $font-size-small;
-    display: flex;
-    align-items: center;
     cursor: default;
-    word-break: break-all;
 
     &-close {
       @include theme-color(color, stroke, 3);
@@ -239,6 +262,23 @@ $option-height: 32px;
       &::before {
         font-size: 8px;
       }
+    }
+  }
+
+  &-collapsed {
+    &-trigger {
+      @include theme-color(background-color, stroke, 7);
+      @include tag-style;
+      cursor: pointer;
+      min-width: 46px;
+      justify-content: center;
+    }
+
+    &-content {
+      max-width: 216px;
+      line-height: 20px;
+      font-size: $font-size-normal;
+      @include theme-color(border-color, stroke, 4);
     }
   }
 }

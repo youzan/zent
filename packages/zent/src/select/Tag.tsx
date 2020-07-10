@@ -15,7 +15,11 @@ function SelectTag<Item extends ISelectItem>({
 }: ISelectTagProps<Item>) {
   return (
     <div className="zent-select-tag">
-      {renderValue ? renderValue(item) : item.text}
+      {renderValue ? (
+        renderValue(item)
+      ) : (
+        <span className="zent-select-tag-inner">{item.text}</span>
+      )}
       <Icon
         type="close"
         className="zent-select-tag-close"
