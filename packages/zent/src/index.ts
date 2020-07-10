@@ -72,6 +72,7 @@ export * from './tag';
 export * from './text-mark';
 export * from './timeline';
 export * from './tooltip';
+export * from './transfer';
 export * from './tree';
 export * from './upload';
 export * from './waypoint';
