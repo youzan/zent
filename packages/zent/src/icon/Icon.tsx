@@ -139,6 +139,7 @@ export type IconType =
   | 'summary-o'
   | 'tendency-o'
   | 'text-guide-o'
+  | 'thumbnail'
   | 'ticket'
   | 'ticket-o'
   | 'tools-o'
