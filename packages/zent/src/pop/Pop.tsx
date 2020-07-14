@@ -83,6 +83,7 @@ export interface IPopCommonProps {
   onPositionUpdated?: () => void;
   onPositionReady?: () => void;
   className?: string;
+  style?: React.CSSProperties;
   containerSelector?: string;
   onConfirm?: IPopActionCallback;
   onCancel?: IPopActionCallback;
@@ -184,6 +185,7 @@ export class Pop extends Component<IPopProps, IPopState> {
   render() {
     const {
       className,
+      style,
       trigger,
       visible,
       onShow,
@@ -224,6 +226,7 @@ export class Pop extends Component<IPopProps, IPopState> {
           'zent-pop--has-header': hasHeader,
           'zent-pop--no-header': !hasHeader,
         })}
+        style={style}
         cushion={cushion}
         position={getArrowPosition(position, centerArrow)}
         onShow={onShow}

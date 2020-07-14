@@ -13,7 +13,7 @@ const { Trigger } = Popover;
 
 export interface ITooltipBaseProps {
   title: React.ReactNode;
-  display?: string;
+  style?: React.CSSProperties;
   position?: PopPositions | IPositionFunction;
   cushion?: number;
   centerArrow?: boolean;
@@ -118,7 +118,7 @@ export class Tooltip extends Component<ITooltipProps> {
       cushion,
       centerArrow,
       containerSelector,
-      display,
+      style,
     } = this.props;
 
     const cls = cx(`zent-tooltip`, className);
@@ -137,7 +137,7 @@ export class Tooltip extends Component<ITooltipProps> {
         position={getPosition(position, centerArrow)}
         containerSelector={containerSelector}
         ref={this.popoverRef}
-        display={display}
+        style={style}
       >
         {this.renderTrigger()}
         {this.renderContent()}

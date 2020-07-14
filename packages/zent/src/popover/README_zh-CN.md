@@ -24,7 +24,6 @@ group: 基础
 |------|------|------|--------|--------|-------|
 | position | 定位的方式, 参见 `Popover.Position` | Positon | | | 是 |
 | cushion | 定位的偏移量, 通常用来预留空间给小箭头等东西 | number | `0` | | 否 |
-| display | 在文档流里的出现形式 | string | `'block'` | 所有CSS中合法的 `display` 值 | 否 |
 | onShow | 弹层显示后的回调函数 | func | `noop` | | 否 |
 | onClose | 弹层关闭后的回调函数 | func | `noop` | | 否 |
 | onBeforeShow | 弹层打开前的回调函数, 只有用户触发的打开操作才会调用, 外部设置 `visible` 不会调用 | func | `noop` | | 否 |
@@ -34,9 +33,8 @@ group: 基础
 | onVisibleChange | 手动控制时的回调函数, 必须和`visible`一起使用, 只有用户手动触发的打开／关闭操作才会调用 | func | | | 否 |
 | onPositionUpdated | 位置更新时的回调，不保证调用这个函数时位置一定变化 | func | `noop` |  | 否 |
 | onPositionReady | content 在第一次屏幕内可见时的回调，组件生命周期内只调用一次 | func | `noop` |  | 否 |
-| className | 自定义额外类名 | string | `''` |  | 否 |
-| width | 宽度 | string or number |  |  | 否 |
-| prefix | 自定义前缀 | string | `'zent'` |  | 否 |
+| className | 弹层的自定义类名 | string | `''` |  | 否 |
+| style | 弹层的自定义样式 | `CssProperties` |  |  | 否 |
 
 `onBeforeShow` 和 `onBeforeClose` 可以返回一个 `Promise`，`Popover` 会在 `Promise` resolve 后打开/关闭，如果 `Promise` reject 的话打开/关闭操作终止。
 
