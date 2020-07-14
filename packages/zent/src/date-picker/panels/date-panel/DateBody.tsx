@@ -87,8 +87,7 @@ const DatePickerBody: FC<IDatePickerBodyProps> = props => {
 
   return (
     <PanelCell
-      col={COL_COUNT}
-      row={ROW_COUNT}
+      col={col}
       cells={cells}
       popText={popText}
       onSelected={setSelectedDate}

@@ -6,7 +6,7 @@
 }
 
 .zent-date-range-picker__btn {
-  @include theme-color(color, stroke, 4);
+  @include theme-color(color, primary, 4);
 
   margin-left: 16px;
   display: inline-block;
@@ -17,10 +17,5 @@
 
   &:first-child {
     margin-left: 24px;
-  }
-
-  &:hover,
-  &.active {
-    @include theme-color(color, primary, 4);
   }
 }

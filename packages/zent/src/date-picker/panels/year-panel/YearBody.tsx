@@ -20,8 +20,8 @@ const YearPickerBody: React.FC<IYearPickerBodyProps> = ({
   selected,
   defaultPanelDate,
   disabledPanelDate,
-  row = ROW_COUNT,
-  col = COL_COUNT,
+  row,
+  col,
 }) => {
   const { i18n } = React.useContext(PickerContext);
   const { onHover } = React.useContext(PanelContext);
@@ -60,12 +60,15 @@ const YearPickerBody: React.FC<IYearPickerBodyProps> = ({
     <div className="zent-datepicker-ym-panel-body">
       <PanelCell
         col={col}
-        row={row}
         cells={cells}
         onSelected={onSelected}
         onHover={onHover}
       />
     </div>
   );
+};
+YearPickerBody.defaultProps = {
+  row: ROW_COUNT,
+  col: COL_COUNT,
 };
 export default YearPickerBody;

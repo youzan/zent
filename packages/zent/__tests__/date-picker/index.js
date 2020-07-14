@@ -42,6 +42,7 @@ describe('All of the Picker', () => {
     wrapper = mount(
       <WeekPicker
         value={['2020-05-11', '2020-05-17']}
+        defaultDate={['2020-05-11', '2020-05-17']}
         onChange={onChangeMock}
       />
     );
@@ -54,6 +55,14 @@ describe('All of the Picker', () => {
     expect(onChangeMock.mock.calls.length).toBe(1);
     expect(wrapper.prop('value')[0]).toBe('2020-04-27');
     expect(wrapper.prop('value')[1]).toBe('2020-05-03');
+
+    mount(
+      <WeekPicker
+        value="2020-05-11"
+        defaultDate="2020-05-11"
+        onChange={onChangeMock}
+      />
+    );
   });
 
   it('MonthPicker value and onChange', () => {
@@ -81,7 +90,9 @@ describe('All of the Picker', () => {
       wrapper.setProps({ value });
     });
 
-    wrapper = mount(<QuarterPicker onChange={onChangeMock} />);
+    wrapper = mount(
+      <QuarterPicker onChange={onChangeMock} defaultDate={new Date()} />
+    );
     wrapper.find('.zent-datepicker-trigger').simulate('click');
     expect(wrapper.find('.zent-datepicker-trigger-focus').length).toBe(1);
     const pop = document.querySelector('.zent-popover');
@@ -94,6 +105,13 @@ describe('All of the Picker', () => {
     );
     expect(wrapper.prop('value')[1]).toBe(
       formatDate(startOfYear(new Date()).setMonth(2), 'YYYY-MM')
+    );
+
+    mount(
+      <QuarterPicker
+        onChange={onChangeMock}
+        defaultDate={[new Date(), new Date()]}
+      />
     );
   });
 

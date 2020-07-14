@@ -18,8 +18,8 @@ const MonthPickerBody: FC<IMonthPickerBodyProps> = ({
   onSelected,
   selected,
   disabledPanelDate,
-  row = ROW_COUNT,
-  col = COL_COUNT,
+  row,
+  col,
 }) => {
   const { i18n } = useContext(PickerContext);
   const { onHover } = useContext(PanelContext);
@@ -42,12 +42,15 @@ const MonthPickerBody: FC<IMonthPickerBodyProps> = ({
     <div className="zent-datepicker-ym-panel-body">
       <PanelCell
         col={col}
-        row={row}
         cells={cells}
         onSelected={onSelected}
         onHover={onHover}
       />
     </div>
   );
+};
+MonthPickerBody.defaultProps = {
+  row: ROW_COUNT,
+  col: COL_COUNT,
 };
 export default MonthPickerBody;

@@ -27,23 +27,21 @@ const getCellClassName = ({
 interface IPanelCellProps {
   cells: IDateCellBase[];
   col: number;
-  row: number;
   onSelected: (val: Date) => void;
-  onHover?: (val: Date) => void;
+  onHover: (val: Date) => void;
   popText?: string;
 }
 const PanelCell: React.FC<IPanelCellProps> = ({
   cells,
   onSelected,
-  row,
-  col = 2,
+  col,
   popText,
   onHover,
 }) => {
   const onCellClick = React.useCallback(
     ({ isDisabled, value }) => {
       if (isDisabled) return;
-      onSelected?.(value);
+      onSelected(value);
     },
     [onSelected]
   );
@@ -51,7 +49,7 @@ const PanelCell: React.FC<IPanelCellProps> = ({
   const onCellMouseOver = React.useCallback(
     ({ isDisabled, value }) => {
       if (isDisabled) return;
-      onHover?.(value);
+      onHover(value);
     },
     [onHover]
   );

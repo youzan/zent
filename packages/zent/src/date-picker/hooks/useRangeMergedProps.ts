@@ -3,21 +3,29 @@ import { parseDateRange } from '../utils/index';
 import { addMonths, isSameMonth } from 'date-fns';
 import { ICommonProps, RangeDate } from '../types';
 
-function createDateRangeWithStart(dates: [Date, Date]): [Date, Date] {
+function createDateRangeWithStart(
+  dates: [Date, Date],
+  addMonthNum
+): [Date, Date] {
   return [
     dates[0],
-    dates[1] && !isSameMonth(...dates) ? dates[1] : addMonths(dates[0], 1),
+    dates[1] && !isSameMonth(...dates)
+      ? dates[1]
+      : addMonths(dates[0], addMonthNum),
   ];
 }
-const initDate = createDateRangeWithStart([new Date(), new Date()]);
+const initDate = createDateRangeWithStart([new Date(), new Date()], 0);
 
 interface IRangeMergedPropsParams
-  extends Pick<ICommonProps<RangeDate>, 'value' | 'format' | 'defaultDate'> {}
+  extends Pick<ICommonProps<RangeDate>, 'value' | 'format' | 'defaultDate'> {
+  addMonthNum?: number;
+}
 // range
 export default function useRangeMergedProps({
   value,
   format,
   defaultDate,
+  addMonthNum = 0,
 }: IRangeMergedPropsParams) {
   // defaultPanelDate
   const [defaultPanelDate, setDefaultPanelDate] = React.useState<[Date, Date]>(
@@ -39,12 +47,15 @@ export default function useRangeMergedProps({
   React.useEffect(() => {
     setDefaultPanelDate(
       selected && selected[0]
-        ? parseDateRange(createDateRangeWithStart(selected), format)
+        ? parseDateRange(
+            createDateRangeWithStart(selected, addMonthNum),
+            format
+          )
         : defaultDate && defaultDate[0] && defaultDate[1]
         ? parseDateRange(defaultDate, format)
         : initDate
     );
-  }, [defaultDate, selected, format]);
+  }, [defaultDate, selected, format, addMonthNum]);
 
   return {
     selected,

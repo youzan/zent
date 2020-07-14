@@ -63,6 +63,7 @@ export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
     value,
     format,
     defaultDate,
+    addMonthNum: 1,
   });
 
   // popover visible

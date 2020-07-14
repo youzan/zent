@@ -74,7 +74,7 @@ const TimeUnitColumn: React.FC<ITimeUnitColumnProps> = ({
               [`${prefixCls}-unit_available`]: !disabled,
             })}
             key={value}
-            onClick={() => setting(value)}
+            onClick={() => !disabled && setting(value)}
           >
             {label}
           </div>

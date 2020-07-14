@@ -4,12 +4,11 @@ import Adapter from 'enzyme-adapter-react-16';
 import { Simulate } from 'react-dom/test-utils';
 import DateRangePicker from 'date-picker/DateRangePicker';
 import { formatDate } from 'date-picker/utils/index';
-import { isSameDay } from 'date-fns';
 
 Enzyme.configure({ adapter: new Adapter() });
 const DateTimeFormat = 'YYYY-MM-DD HH:mm';
 
-describe('DateRangePicker', () => {
+describe('RangePicker', () => {
   it('DateRangePicker showTime', () => {
     let wrapper;
     const onChangeMock = jest.fn().mockImplementation(value => {
@@ -20,6 +19,7 @@ describe('DateRangePicker', () => {
         showTime={{ format: 'HH:mm', defaultTime: ['00:00', '23:59'] }}
         format={DateTimeFormat}
         onChange={onChangeMock}
+        width={260}
       />
     );
     wrapper
@@ -32,23 +32,17 @@ describe('DateRangePicker', () => {
     expect(wrapper.prop('value')[0]).toBe(
       formatDate(new Date(), DateTimeFormat)
     );
-  });
-
-  it('DateRangePicker valueType equals to `number`', () => {
-    let wrapper;
-    const onChangeMock = jest.fn().mockImplementation(value => {
-      wrapper.setProps({ value });
+    wrapper.setProps({
+      showTime: {
+        format: 'HH:mm:ss',
+      },
     });
-    wrapper = mount(
-      <DateRangePicker valueType="number" onChange={onChangeMock} />
-    );
     wrapper
       .find('.zent-datepicker-trigger')
-      .first()
+      .at(0)
       .simulate('click');
-    const pop = document.querySelector('.zent-datepicker-panel-footer');
-    Simulate.click(pop.querySelector('a'));
-    expect(isSameDay(wrapper.prop('value')[0], new Date())).toBe(true);
+    wrapper.unmount();
+    mount(<DateRangePicker showTime onChange={onChangeMock} />);
   });
 
   it('DateRangePicker valueType equals to `date`', () => {
@@ -57,7 +51,7 @@ describe('DateRangePicker', () => {
       wrapper.setProps({ value });
     });
     wrapper = mount(
-      <DateRangePicker valueType="number" onChange={onChangeMock} />
+      <DateRangePicker valueType="date" onChange={onChangeMock} />
     );
     wrapper
       .find('.zent-datepicker-trigger')
@@ -65,42 +59,73 @@ describe('DateRangePicker', () => {
       .simulate('click');
     const pop = document.querySelector('.zent-datepicker-panel-footer');
     Simulate.click(pop.querySelector('a'));
-    expect(isSameDay(wrapper.prop('value')[0], new Date())).toBe(true);
+    expect(typeof wrapper.prop('value')[0]).toBe('object');
+    wrapper.unmount();
   });
 
-  it('DateRangePicker disabledDate', () => {
-    let wrapper;
-    const disabledDate = jest.fn().mockImplementation(() => false);
-    const onChangeMock = jest.fn().mockImplementation(value => {
-      wrapper.setProps({ value });
-    });
-    wrapper = mount(
-      <DateRangePicker
-        value
-        disabledDate={disabledDate}
-        onChange={onChangeMock}
-      />
+  it('DateRangePicker onOpen / onClose callback', () => {
+    const onOpen = jest.fn();
+    const onClose = jest.fn();
+    const wrapper = mount(
+      <DateRangePicker value={[]} onOpen={onOpen} onClose={onClose} />
     );
+
     wrapper
       .find('.zent-datepicker-trigger')
-      .first()
+      .at(0)
       .simulate('click');
-
-    const pop = document.querySelector('.zent-datepicker-panel-footer');
-    Simulate.click(pop.querySelector('a'));
+    expect(onOpen.mock.calls.length).toBe(1);
+    const pop1 = document.querySelector('.zent-datepicker-panel-footer');
+    Simulate.click(pop1.querySelector('a'));
 
     wrapper
       .find('.zent-datepicker-trigger')
       .at(1)
       .simulate('click');
-
     const pop2 = document.querySelector('.zent-datepicker-panel-footer');
     Simulate.click(pop2.querySelector('a'));
-    expect(wrapper.prop('value')[1]).toBe(formatDate(new Date(), 'YYYY-MM-DD'));
+    jest.runAllTimers();
+    expect(onOpen.mock.calls[0][0]).toBe('start');
+    expect(onOpen.mock.calls[1][0]).toBe('end');
+    expect(onClose.mock.calls[0][0]).toBe('start');
+    expect(onClose.mock.calls[1][0]).toBe('end');
+    wrapper.unmount();
+  });
 
+  it('DateRangePicker disabledDate', () => {
+    const disabledDate = jest
+      .fn()
+      .mockImplementation((val, type) =>
+        type === 'start' ? val.getDate() === 15 : val.getDate() === 12
+      );
+    const wrapper = mount(
+      <DateRangePicker
+        value={['2020-05-15', '2020-05-20']}
+        disabledDate={disabledDate}
+      />
+    );
     wrapper
       .find('.zent-datepicker-trigger')
-      .first()
+      .at(0)
       .simulate('click');
+
+    wrapper.setProps({ value: ['2020-05-15', '2020-05-12'] });
+    wrapper
+      .find('.zent-datepicker-trigger')
+      .at(1)
+      .simulate('click');
+    wrapper.update();
+    wrapper.unmount();
+  });
+
+  it('DateRangePicker defaultDate', () => {
+    const wrapper = mount(
+      <DateRangePicker defaultDate={['2020-05-01', '2020-06-01']} />
+    );
+    wrapper
+      .find('.zent-datepicker-trigger')
+      .at(0)
+      .simulate('click');
+    wrapper.unmount();
   });
 });

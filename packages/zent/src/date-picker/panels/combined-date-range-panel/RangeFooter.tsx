@@ -50,14 +50,14 @@ export const CombinedDateRangeFooter: React.FC<ICombinedDateRangeFooterProps> = 
   const onStartTimeChange = React.useCallback(
     (val: string) => {
       const timeVal = parse(val, format, selected[0]);
-      onSelected([timeVal, selected[1]], false);
+      onSelected([timeVal, selected[1]]);
     },
     [selected, format, onSelected]
   );
   const onEndTimeChange = React.useCallback(
     (val: string) => {
       const timeVal = parse(val, format, selected[1]);
-      onSelected([selected[0], timeVal], false);
+      onSelected([selected[0], timeVal]);
     },
     [selected, format, onSelected]
   );

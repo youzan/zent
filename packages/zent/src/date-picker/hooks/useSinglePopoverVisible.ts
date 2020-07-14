@@ -15,6 +15,7 @@ export default function useSinglePopoverVisible(
   const onOpenRef = useEventCallbackRef(onOpen);
   const onCloseRef = useEventCallbackRef(onClose);
   const defaultSelectedRef = React.useRef(defaultSelected);
+  defaultSelectedRef.current = defaultSelected;
 
   React.useEffect(() => {
     setPanelVisible(openPanel ?? undefined);

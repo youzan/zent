@@ -26,8 +26,5 @@ export function useTimePanelValue(
     setPanelTime(value ? parse(value, format, initTimeDate) : initTimeDate);
   }, [value, defaultTime, format]);
 
-  if (panelTime && !(panelTime instanceof Date)) {
-    throw new Error('Picker Value does not match the `form` Props');
-  }
   return { panelTime, setPanelTime };
 }

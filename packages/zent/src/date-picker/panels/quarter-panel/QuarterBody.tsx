@@ -17,8 +17,8 @@ const QuarterPickerBody: React.FC<IQuarterPickerBodyProps> = ({
   onSelected,
   selected,
   disabledPanelDate,
-  row = ROW_COUNT,
-  col = COL_COUNT,
+  row,
+  col,
 }) => {
   const { i18n } = React.useContext(PickerContext);
   const { onHover } = React.useContext(PanelContext);
@@ -41,12 +41,15 @@ const QuarterPickerBody: React.FC<IQuarterPickerBodyProps> = ({
     <div className="zent-datepicker-quarter-panel-body">
       <PanelCell
         col={col}
-        row={row}
         cells={cells}
         onSelected={onSelected}
         onHover={onHover}
       />
     </div>
   );
+};
+QuarterPickerBody.defaultProps = {
+  row: ROW_COUNT,
+  col: COL_COUNT,
 };
 export default QuarterPickerBody;

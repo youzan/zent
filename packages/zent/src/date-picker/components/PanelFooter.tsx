@@ -2,10 +2,10 @@ import * as React from 'react';
 
 interface IPanelFooterProps {
   leftNode?: React.ReactNode;
-  rightNode?: React.ReactNode;
+  rightNode: React.ReactNode;
 }
 const PanelFooter: React.FC<IPanelFooterProps> = ({
-  rightNode = null,
+  rightNode,
   leftNode = null,
 }) => {
   return (

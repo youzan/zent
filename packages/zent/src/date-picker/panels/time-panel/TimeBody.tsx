@@ -42,12 +42,14 @@ const TimePickerBody: React.FC<ITimePanelProps> = ({
       disabledMinutes,
       disabledSeconds,
     } = disabledTimesOption;
+    const panelTimeHours = panelTime.getHours();
+    const panelTimeMins = panelTime.getMinutes();
     // HH:mm:ss 对应的unitColumn
     const UnitColumnConfig: IUnitColumn[] = [
       {
         type: 'hour',
         format: 'HH',
-        value: panelTime?.getHours(),
+        value: panelTimeHours,
         disabledUnits: disabledHours?.() || [],
         max: 23,
         step: hourStep,
@@ -55,18 +57,16 @@ const TimePickerBody: React.FC<ITimePanelProps> = ({
       {
         type: 'minute',
         format: 'mm',
-        value: panelTime?.getMinutes(),
-        disabledUnits: disabledMinutes?.(panelTime?.getHours()) || [],
+        value: panelTimeMins,
+        disabledUnits: disabledMinutes?.(panelTimeHours) || [],
         max: 59,
         step: minuteStep,
       },
       {
         type: 'second',
         format: 'ss',
-        value: panelTime?.getSeconds(),
-        disabledUnits:
-          disabledSeconds?.(panelTime?.getHours(), panelTime?.getMinutes()) ||
-          [],
+        value: panelTime.getSeconds(),
+        disabledUnits: disabledSeconds?.(panelTimeHours, panelTimeMins) || [],
         max: 59,
         step: secondStep,
       },

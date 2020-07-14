@@ -10,10 +10,15 @@ import { IValueType, RangeDate } from '../types';
 export function getRangeValuesWithValueType(
   val: [Date, Date],
   valueType: IValueType,
-  format = ''
+  format: string
 ): RangeDate {
-  if (!val[0] && !val[1]) return [null, null];
+  if (!val[0] && !val[1]) {
+    const emptyRes = valueType === 'string' ? '' : null;
+    return [emptyRes, emptyRes];
+  }
+
   let resultVal = null;
+
   switch (valueType) {
     case 'string': {
       resultVal = formatDateRange(val, format);
@@ -23,9 +28,11 @@ export function getRangeValuesWithValueType(
       resultVal = [val[0]?.getTime(), val[1]?.getTime()];
       break;
     }
-    default: {
+    case 'date': {
       resultVal = val;
+      break;
     }
+    default:
   }
   return resultVal;
 }

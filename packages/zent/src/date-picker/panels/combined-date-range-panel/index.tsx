@@ -55,7 +55,7 @@ const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
           !!showTime ? parse(defaultTime, format, val) : val,
           null,
         ];
-        onSelected(selectedTemp, false);
+        onSelected(selectedTemp);
       }
     },
     [start, end, showTime, startShowTime, endShowTime, onSelected]

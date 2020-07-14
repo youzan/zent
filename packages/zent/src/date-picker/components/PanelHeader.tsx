@@ -15,7 +15,7 @@ interface IArrowProps {
 }
 const DoubleArrow: React.FC<IArrowProps> = ({ onClick, type }) => (
   <svg
-    width="18"
+    width="14"
     height="14"
     xmlns={XMLNS}
     className={`${prefixCls}-arrow`}
@@ -30,7 +30,7 @@ const DoubleArrow: React.FC<IArrowProps> = ({ onClick, type }) => (
 
 const Arrow: React.FC<IArrowProps> = ({ onClick, type }) => (
   <svg
-    width="18"
+    width="14"
     height="14"
     xmlns={XMLNS}
     className={`${prefixCls}-arrow`}
@@ -45,11 +45,7 @@ interface ITitleProps {
   onClick?: () => void;
 }
 
-export const Title: React.FC<ITitleProps> = ({
-  text,
-  unit = '',
-  onClick = noop,
-}) => (
+export const Title: React.FC<ITitleProps> = ({ text, unit = '', onClick }) => (
   <div className={`${prefixCls}-title_clickable`} onClick={onClick}>
     {text}
     {unit}
@@ -59,28 +55,27 @@ export const Title: React.FC<ITitleProps> = ({
 interface IPanelHeaderProps {
   showSuper?: boolean;
   titleNode?: React.ReactNode;
-  onPrev?: () => void;
-  onNext?: () => void;
-  onTitleClick?: () => void;
+  onPrev: () => void;
+  onNext: () => void;
   onSuperPrev?: () => void;
   onSuperNext?: () => void;
 }
 const PanelHeader: React.FC<IPanelHeaderProps> = ({
   showSuper = false,
   titleNode,
-  onPrev = noop,
-  onNext = noop,
+  onPrev,
+  onNext,
   onSuperPrev = noop,
   onSuperNext = noop,
 }) => {
   return (
     <div className={prefixCls}>
-      <div>
+      <div className={`${prefixCls}-btns`}>
         {showSuper && <DoubleArrow onClick={onSuperPrev} type="left" />}
         <Arrow onClick={onPrev} type="left" />
       </div>
       <div className={`${prefixCls}-title`}>{titleNode}</div>
-      <div>
+      <div className={`${prefixCls}-btns`}>
         <Arrow onClick={onNext} type="right" />
         {showSuper && <DoubleArrow onClick={onSuperNext} type="right" />}
       </div>

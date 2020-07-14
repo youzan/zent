@@ -49,6 +49,7 @@
   .zenticon {
     @include gray-color;
     line-height: 32px;
+    font-size: 18px;
     position: absolute;
     right: 10px;
     top: 0;
@@ -64,6 +65,8 @@
   }
 
   &-can-clear {
+    cursor: pointer;
+
     &:hover {
       .zenticon-close-circle {
         display: block;
@@ -135,8 +138,18 @@
       padding: 16px;
       align-items: center;
 
+      &-btns {
+        display: flex;
+        width: 36px;
+        justify-content: space-between;
+      }
+
       &-arrow {
         @include theme-color(fill, stroke, 3);
+      }
+
+      &-arrow:hover {
+        @include theme-color(fill, primary, 5);
       }
 
       &-title {
@@ -162,7 +175,7 @@
       display: flex;
       justify-content: space-between;
       padding: 0 24px;
-      cursor: pointer;
+      cursor: default;
     }
 
     &-body-cells {
