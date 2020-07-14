@@ -5,7 +5,7 @@ import {
   IMaybeError,
   BasicModel,
   ValidateOption,
-} from 'formulr';
+} from './formulr';
 import { Omit, Optional } from 'utility-types';
 import { FormError } from './Error';
 import { IFormControlProps } from './Control';

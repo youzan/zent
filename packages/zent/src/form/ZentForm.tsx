@@ -8,7 +8,7 @@ import {
   BasicModel,
   BasicBuilder,
   IForm,
-} from 'formulr';
+} from './formulr';
 import { Subject } from 'rxjs';
 import { useAsyncSafeDispatch } from '../utils/hooks/useAsyncSafeDispatch';
 

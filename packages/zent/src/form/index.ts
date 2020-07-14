@@ -24,7 +24,7 @@ export {
   $FieldSetBuilderChildren,
   $FieldSetValue,
   INormalizeBeforeSubmit,
-} from 'formulr';
+} from './formulr';
 
 export * from './form-components';
 export * from './Form';
