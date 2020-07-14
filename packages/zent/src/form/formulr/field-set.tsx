@@ -11,9 +11,10 @@ import {
 } from './models';
 import { useValue$ } from './hooks';
 import { IValidators } from './validate';
-import { isPlainObject, useDestroyOnUnmount } from './utils';
+import { useDestroyOnUnmount } from './utils';
 import { get, isSome, or } from './maybe';
 import { UnexpectedFormStrategyError } from './error';
+import isPlainObject from '../../utils/isPlainObject';
 
 export type IUseFieldSet<T extends Record<string, BasicModel<any>>> = [
   IFormContext,

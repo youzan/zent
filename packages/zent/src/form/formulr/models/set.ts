@@ -2,10 +2,10 @@ import { Subject } from 'rxjs';
 import { BasicModel, isModel } from './basic';
 import { IMaybeError, ValidateOption } from '../validate';
 import { Maybe, None, Some } from '../maybe';
-import { isPlainObject } from '../utils';
 import { IModel } from './base';
 import isNil from '../../../utils/isNil';
 import uniqueId from '../../../utils/uniqueId';
+import isPlainObject from '../../../utils/isPlainObject';
 
 type $FieldSetValue<Children extends Record<string, BasicModel<any>>> = {
   [Key in keyof Children]: Children[Key]['phantomValue'];
