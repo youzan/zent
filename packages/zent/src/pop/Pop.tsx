@@ -237,19 +237,21 @@ export class Pop extends Component<IPopProps, IPopState> {
         {this.renderTrigger()}
         <Popover.Content>
           {hasHeader && <div className="zent-pop-header">{header}</div>}
-          <div className="zent-pop-inner">{content}</div>
-          {(onCancel || onConfirm) && (
-            <Action
-              onConfirm={onConfirm}
-              onCancel={onCancel}
-              confirmText={confirmText}
-              cancelText={cancelText}
-              confirmPending={confirmPending}
-              cancelPending={cancelPending}
-              changePending={this.changePending}
-              type={type}
-            />
-          )}
+          <div className="zent-pop-inner">
+            {content}
+            {(onCancel || onConfirm) && (
+              <Action
+                onConfirm={onConfirm}
+                onCancel={onCancel}
+                confirmText={confirmText}
+                cancelText={cancelText}
+                confirmPending={confirmPending}
+                cancelPending={cancelPending}
+                changePending={this.changePending}
+                type={type}
+              />
+            )}
+          </div>
           <div className="zent-pop-arrow" />
         </Popover.Content>
       </Popover>
