@@ -31,6 +31,7 @@ import { ZentForm, useForm } from './ZentForm';
 import scroll from '../utils/scroll';
 import { CombineErrors } from './CombineErrors';
 import { ValidateOccasion, TouchWhen } from './shared';
+import { Disabled } from '../disabled';
 
 export {
   IRenderError,
@@ -42,12 +43,8 @@ export {
   IFormComponentProps,
 } from './shared';
 
-function makeChildrenContext(
-  disabled: boolean,
-  children: IFormChild[]
-): IZentFormChildrenContext {
+function makeChildrenContext(children: IFormChild[]): IZentFormChildrenContext {
   return {
-    disabled,
     children,
   };
 }
@@ -262,30 +259,32 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
       labelPosition,
       ...props
     } = this.props;
-    const childrenCtx = this.getChildrenContext(disabled, this.children);
+    const childrenCtx = this.getChildrenContext(this.children);
     const ctx = this.getContext(labelWidth, labelPosition);
     return (
-      <FormContext.Provider value={ctx}>
-        <FormChildrenContext.Provider value={childrenCtx}>
-          <FormProvider value={form.ctx}>
-            <form
-              ref={this.formRef}
-              {...props}
-              className={cx(
-                {
-                  'zent-form-vertical': layout === 'vertical',
-                  'zent-form-horizontal': layout === 'horizontal',
-                },
-                className
-              )}
-              onSubmit={this.onSubmit}
-              onKeyDown={this.onKeyDown}
-            >
-              {children}
-            </form>
-          </FormProvider>
-        </FormChildrenContext.Provider>
-      </FormContext.Provider>
+      <Disabled value={disabled}>
+        <FormContext.Provider value={ctx}>
+          <FormChildrenContext.Provider value={childrenCtx}>
+            <FormProvider value={form.ctx}>
+              <form
+                ref={this.formRef}
+                {...props}
+                className={cx(
+                  {
+                    'zent-form-vertical': layout === 'vertical',
+                    'zent-form-horizontal': layout === 'horizontal',
+                  },
+                  className
+                )}
+                onSubmit={this.onSubmit}
+                onKeyDown={this.onKeyDown}
+              >
+                {children}
+              </form>
+            </FormProvider>
+          </FormChildrenContext.Provider>
+        </FormContext.Provider>
+      </Disabled>
     );
   }
 }

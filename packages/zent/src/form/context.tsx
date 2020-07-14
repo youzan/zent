@@ -7,7 +7,6 @@ export interface IFormChild {
 
 export interface IZentFormChildrenContext {
   children: IFormChild[];
-  disabled: boolean;
 }
 
 export const FormChildrenContext = createContext<IZentFormChildrenContext | null>(
