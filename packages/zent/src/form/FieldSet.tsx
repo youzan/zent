@@ -10,7 +10,7 @@ import {
   $FieldSetValue,
   ModelRef,
   FieldArrayModel,
-} from 'formulr';
+} from './formulr';
 import {
   IRenderError,
   defaultRenderError,
