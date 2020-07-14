@@ -1,22 +1,31 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, CSSProperties } from 'react';
 
 export interface IFormChild {
   valid(): boolean;
   getDOMNode(): Element | null | undefined;
 }
 
-export interface IZentFormContext {
+export interface IZentFormChildrenContext {
   children: IFormChild[];
 }
 
-export const FormContext = createContext<IZentFormContext | null>(null);
+export const FormChildrenContext = createContext<IZentFormChildrenContext | null>(
+  null
+);
 
-FormContext.displayName = 'ZentFormContext';
+FormChildrenContext.displayName = 'ZentFormChildrenContext';
 
-export function useFormContext(): IZentFormContext {
-  const ctx = useContext(FormContext);
+export function useFormChildrenContext(): IZentFormChildrenContext {
+  const ctx = useContext(FormChildrenContext);
   if (ctx === null) {
     throw new Error('Component must be used under Form');
   }
   return ctx;
 }
+
+export interface IZentFormContext {
+  labelWidth?: React.CSSProperties['flexBasis'];
+  labelPosition?: CSSProperties['justifyContent'];
+}
+
+export const FormContext = createContext<IZentFormContext>({});
