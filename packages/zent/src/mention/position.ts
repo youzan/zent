@@ -1,5 +1,6 @@
 import { IPositionFunction } from '../popover';
 import Mention from './Mention';
+import getComputedStyle from '../utils/dom/getComputedStyle';
 
 export const getPopoverBottomPosition = (
   instance: Mention

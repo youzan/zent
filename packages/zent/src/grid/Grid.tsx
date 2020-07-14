@@ -48,6 +48,7 @@ import {
 } from './types';
 import { ICheckboxEvent } from '../checkbox';
 import isBrowser from '../utils/isBrowser';
+import isSameNode from '../utils/dom/isSameNode';
 
 function stopPropagation(e: React.MouseEvent) {
   e.stopPropagation();
@@ -540,17 +541,17 @@ export class Grid<Data = any> extends PureComponent<
       const bodyTable = this.bodyTable?.current;
 
       if (this.lastScrollLeft !== target.scrollLeft && scroll.x) {
-        if (scrollHeader && target === scrollHeader) {
+        if (scrollHeader && isSameNode(target, scrollHeader)) {
           this.forceScroll(bodyTable, scrollLeft, 'Left');
           autoStick && this.forceScroll(stickyHead, scrollLeft, 'Left');
         }
 
-        if (bodyTable && target === bodyTable) {
+        if (bodyTable && isSameNode(target, bodyTable)) {
           this.forceScroll(scrollHeader, scrollLeft, 'Left');
           autoStick && this.forceScroll(stickyHead, scrollLeft, 'Left');
         }
 
-        if (autoStick && target === stickyHead) {
+        if (autoStick && isSameNode(target, stickyHead)) {
           this.forceScroll(bodyTable, scrollLeft, 'Left');
           this.forceScroll(scrollHeader, scrollLeft, 'Left');
         }
@@ -559,17 +560,17 @@ export class Grid<Data = any> extends PureComponent<
       }
 
       if (this.lastScrollTop !== target.scrollTop && scroll.y) {
-        if (leftBody && target === leftBody) {
+        if (leftBody && isSameNode(target, leftBody)) {
           this.forceScroll(rightBody, scrollTop, 'Top');
           this.forceScroll(bodyTable, scrollTop, 'Top');
         }
 
-        if (rightBody && target === rightBody) {
+        if (rightBody && isSameNode(target, rightBody)) {
           this.forceScroll(leftBody, scrollTop, 'Top');
           this.forceScroll(bodyTable, scrollTop, 'Top');
         }
 
-        if (bodyTable && target === bodyTable) {
+        if (bodyTable && isSameNode(target, bodyTable)) {
           this.forceScroll(rightBody, scrollTop, 'Top');
           this.forceScroll(leftBody, scrollTop, 'Top');
         }
@@ -1034,8 +1035,11 @@ export class Grid<Data = any> extends PureComponent<
     }
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     if (this.isAnyColumnsFixed()) {
+      if (this.props.scroll?.x !== prevProps.scroll?.x) {
+        this.setScrollPositionClassName();
+      }
       this.syncFixedTableRowHeight();
     }
   }

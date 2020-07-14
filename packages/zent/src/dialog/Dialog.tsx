@@ -31,8 +31,8 @@ export interface IDialogProps {
   mask?: boolean;
   maskClosable?: boolean;
   className?: string;
-  prefix: string;
-  style: React.CSSProperties;
+  prefix?: string;
+  style?: React.CSSProperties;
   onOpened?: () => void;
   onClosed?: () => void;
 }

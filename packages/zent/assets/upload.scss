@@ -136,6 +136,7 @@
     }
 
     &-actions {
+      @include theme-color(color, primary, 4);
       margin-left: 4px;
 
       a {

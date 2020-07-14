@@ -1,5 +1,5 @@
 ---
-order: 3
+order: 4
 zh-CN:
 	title: Loading 模式
 	content: 消息加载中...

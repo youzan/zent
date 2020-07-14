@@ -1,6 +1,6 @@
 {
   "name": "zent",
-  "version": "8.3.0",
+  "version": "8.5.2",
   "description": "一套前端设计语言和基于React的实现",
   "bugs": "https://github.com/youzan/zent/issues",
   "repository": {
@@ -23,8 +23,9 @@
     "theme": "./scripts/build-theme.sh",
     "new-component": "node ./scripts/new-component.js",
     "typedoc": "typedoc --out ../../site/dist/apidoc --mode file",
-    "compile-plugins": "tsc plugins/*.ts -m commonjs",
-    "update-iconfont": "./scripts/update-iconfont.sh"
+    "compile-plugins": "tsc -p ./plugins/tsconfig.json",
+    "update-iconfont": "./scripts/update-iconfont.sh",
+    "build:sandbox": "./scripts/build-sandbox.sh"
   },
   "author": "Youzan FE",
   "license": "MIT",
@@ -33,23 +34,24 @@
     "assets/",
     "es/",
     "css/",
+    "sandbox/",
     "dependency-graph.json"
   ],
   "dependencies": {
-    "@types/autosize": "^3.0.6",
+    "@types/autosize": "^3.0.7",
     "@types/sortablejs": "~1.7.2",
     "autosize": "^4.0.0",
     "big.js": "^5.2.2",
     "classnames": "^2.2.6",
     "date-fns": "^2.7.0",
-    "formulr": "~0.2.11",
+    "formulr": "~0.3.5",
     "react-is": "^16.8.1",
     "react-transition-group": "^2.6.0",
     "sortablejs": "~1.9.0",
     "tslib": "^1.9.3",
     "utility-types": "^3.4.1",
     "warning": "^4.0.3",
-    "zenticons": "3.3.0"
+    "zenticons": "3.6.0"
   },
   "devDependencies": {
     "@types/big.js": "^4.0.5",
@@ -74,11 +76,14 @@
     "react-dom": "16.11.x",
     "react-window": "^1.8.5",
     "sass": "^1.22.7",
+    "terser": "^4.8.0",
     "ts-jest": "^24.0.0",
     "ts-node": "^8.0.3",
     "ttypescript": "^1.5.8",
     "typedoc": "~0.15.2",
-    "typescript": "~3.7.2"
+    "typescript": "~3.7.2",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
   },
   "peerDependencies": {
     "@types/react": "^16.9.7"

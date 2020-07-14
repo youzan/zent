@@ -25,6 +25,7 @@ import { ZentForm, useForm } from './ZentForm';
 import scroll from '../utils/scroll';
 import { CombineErrors } from './CombineErrors';
 import { ValidateOccasion, TouchWhen } from './shared';
+import { Disabled } from '../disabled';
 
 export {
   IRenderError,
@@ -36,14 +37,8 @@ export {
   IFormComponentProps,
 } from './shared';
 
-function makeContext(
-  disabled: boolean,
-  children: IFormChild[]
-): IZentFormContext {
-  return {
-    disabled,
-    children,
-  };
+function makeContext(children: IFormChild[]): IZentFormContext {
+  return { children };
 }
 
 export interface IFormProps<T extends {}>
@@ -71,7 +66,10 @@ export interface IFormProps<T extends {}>
   /**
    * 表单提交回调函数，`form.submit` 或者原生的 `DOM` 触发的 `submit` 事件都会触发 `onSubmit`
    */
-  onSubmit?: (form: ZentForm<T>, e?: React.SyntheticEvent) => Promise<void>;
+  onSubmit?: (
+    form: ZentForm<T>,
+    e?: React.SyntheticEvent
+  ) => void | Promise<unknown>;
   /**
    * 表单提交失败时的回调函数
    */
@@ -227,27 +225,29 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
       scrollToError,
       ...props
     } = this.props;
-    const ctx = this.getContext(disabled, this.children);
+    const ctx = this.getContext(this.children);
     return (
-      <FormContext.Provider value={ctx}>
-        <FormProvider value={form.ctx}>
-          <form
-            ref={this.formRef}
-            {...props}
-            className={cx(
-              {
-                'zent-form-vertical': layout === 'vertical',
-                'zent-form-horizontal': layout === 'horizontal',
-              },
-              className
-            )}
-            onSubmit={this.onSubmit}
-            onKeyDown={this.onKeyDown}
-          >
-            {children}
-          </form>
-        </FormProvider>
-      </FormContext.Provider>
+      <Disabled value={disabled}>
+        <FormContext.Provider value={ctx}>
+          <FormProvider value={form.ctx}>
+            <form
+              ref={this.formRef}
+              {...props}
+              className={cx(
+                {
+                  'zent-form-vertical': layout === 'vertical',
+                  'zent-form-horizontal': layout === 'horizontal',
+                },
+                className
+              )}
+              onSubmit={this.onSubmit}
+              onKeyDown={this.onKeyDown}
+            >
+              {children}
+            </form>
+          </FormProvider>
+        </FormContext.Provider>
+      </Disabled>
     );
   }
 }

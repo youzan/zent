@@ -19,7 +19,7 @@ export type IInputChangeEvent =
 export interface IInputCommonProps {
   className?: string;
   width?: number | string;
-  size: 'large' | 'normal' | 'small';
+  size?: 'large' | 'normal' | 'small';
   onPressEnter?: React.KeyboardEventHandler<HTMLInputElement>;
   autoFocus?: boolean;
   autoSelect?: boolean;
@@ -35,7 +35,7 @@ export interface IInputCoreProps
       'size' | 'value' | 'onChange'
     >,
     IInputCommonProps {
-  type: 'text' | 'number' | 'password';
+  type?: 'text' | 'number' | 'password';
   icon?: IconType;
   showClear?: boolean;
   addonBefore?: React.ReactNode;

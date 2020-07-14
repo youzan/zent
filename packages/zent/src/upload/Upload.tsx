@@ -15,6 +15,7 @@ import {
   IUploadFileItemInner,
   IUploadProps,
   IUploadTipConfig,
+  INormalUploadItemProps,
 } from './types';
 import { formatFileSize } from './utils/format-file-size';
 import { getTipsContent } from './utils/get-tips-content';
@@ -36,6 +37,7 @@ type IUploadPropsInner = PartialRequired<
 export class Upload extends AbstractUpload<
   IUploadFileItem,
   void,
+  INormalUploadItemProps,
   IUploadProps
 > {
   static defaultProps: Partial<IUploadProps> = {
@@ -63,21 +65,21 @@ export class Upload extends AbstractUpload<
     };
   }
 
-  protected renderTips(i18n: II18nLocaleUpload) {
+  protected renderTips() {
     const { tips, maxSize } = this.props as IUploadPropsInner;
     const config: IUploadTipConfig<IUploadProps> = {
       ...this.props,
       formattedMaxSize: formatFileSize(maxSize),
     };
+
+    const tipsContent = getTipsContent(tips, config);
     return (
-      <div className="zent-file-upload-tips">
-        {getTipsContent(tips, config, i18n.normal.tips)}
-      </div>
+      tipsContent && <div className="zent-file-upload-tips">{tipsContent}</div>
     );
   }
 
   protected renderUploadList(i18n: II18nLocaleUpload): React.ReactNode {
-    const { sortable, pagination, pageSize } = this.props;
+    const { sortable, pagination, pageSize, customUploadItem } = this.props;
     return (
       <NormalUploadList
         i18n={i18n}
@@ -88,6 +90,7 @@ export class Upload extends AbstractUpload<
         sortable={sortable}
         pagination={pagination}
         pageSize={pageSize}
+        customUploadItem={customUploadItem}
       />
     );
   }
@@ -122,7 +125,7 @@ export class Upload extends AbstractUpload<
               {this.renderUploadList(i18n)}
               <div className="zent-file-upload-trigger-wrapper">
                 {this.renderTrigger(i18n)}
-                {this.renderTips(i18n)}
+                {this.renderTips()}
               </div>
             </div>
           );
