@@ -8,7 +8,7 @@ import Pop from '../../../pop';
 import PickerContext from '../../context/PickerContext';
 import { formatDate } from '../../utils/index';
 import useConfirmStatus from '../../hooks/useConfirmStatus';
-import { IDisabledTimes, IRangePanelProps } from '../../types';
+import { IDisabledTime, IRangePanelProps } from '../../types';
 import { DATE_FORMAT } from '../../constants';
 
 const prefixCls = 'zent-datepicker-combined-panel-footer';
@@ -16,8 +16,8 @@ const prefixCls = 'zent-datepicker-combined-panel-footer';
 interface ICombinedDateRangeFooterProps
   extends Pick<IRangePanelProps, 'selected' | 'onSelected'> {
   format: string;
-  disabledStartTimes: IDisabledTimes;
-  disabledEndTimes: IDisabledTimes;
+  disabledStartTimes: IDisabledTime;
+  disabledEndTimes: IDisabledTime;
   disabledConfirm: boolean;
 }
 
@@ -95,7 +95,7 @@ export const CombinedDateRangeFooter: React.FC<ICombinedDateRangeFooterProps> = 
         format={format}
         onChange={onStartTimeChange}
         selectedDate={start}
-        disabledTimes={disabledStartTimes}
+        disabledTime={disabledStartTimes}
       />
       <div className={`${prefixCls}-seperator`}>{i18n.to}</div>
       <div className={cx(`${prefixCls}-item`, { [`${prefixCls}-null`]: !end })}>
@@ -110,7 +110,7 @@ export const CombinedDateRangeFooter: React.FC<ICombinedDateRangeFooterProps> = 
         format={format}
         onChange={onEndTimeChange}
         selectedDate={end}
-        disabledTimes={disabledEndTimes}
+        disabledTime={disabledEndTimes}
       />
       {disabledStatus ? (
         <Pop

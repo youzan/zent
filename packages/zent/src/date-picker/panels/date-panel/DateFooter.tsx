@@ -20,7 +20,7 @@ const today = new Date();
 const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
   footerText,
   showTime,
-  disabledTimes,
+  disabledTime,
   showTimeOption,
   selected,
   onSelected,
@@ -30,7 +30,7 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
   const { format } = showTimeOption || {};
   const confirmStatus = useConfirmStatus({
     selected: formatDate(selected, format),
-    disabledTimesOption: disabledTimes?.(selected) || {},
+    disabledTimesOption: disabledTime?.(selected) || {},
     format,
   });
   const isDisableConfirm = React.useMemo(
@@ -116,10 +116,10 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
           value={formatDate(selected, format)}
           hiddenIcon={true}
           onChange={onTimeChange}
-          disabledTimes={disabledTimes}
+          disabledTime={disabledTime}
         />
       ) : null,
-    [selected, showTime, showTimeOption, format, disabledTimes, onTimeChange]
+    [selected, showTime, showTimeOption, format, disabledTime, onTimeChange]
   );
 
   return <PanelFooter leftNode={timeInput} rightNode={renderToday} />;

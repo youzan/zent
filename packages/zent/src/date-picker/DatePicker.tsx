@@ -12,7 +12,7 @@ import {
   ISingleProps,
   IGenerateDateConfig,
   IShowTime,
-  IDisabledTimes,
+  IDisabledTime,
 } from './types';
 import { DATE_FORMAT } from './constants';
 const generateDate: IGenerateDateConfig = generateDateConfig.date;
@@ -21,7 +21,7 @@ const PickerContextProvider = PickerContext.Provider;
 
 export interface IDatePickerProps extends ISingleProps {
   showTime?: IShowTime;
-  disabledTimes?: IDisabledTimes;
+  disabledTime?: IDisabledTime;
 }
 const DefaultDatePickerProps: Partial<IDatePickerProps> = {
   format: DATE_FORMAT,

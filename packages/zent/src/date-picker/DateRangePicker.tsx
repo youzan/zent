@@ -11,7 +11,7 @@ import {
   IGenerateDateConfig,
   RangeDate,
   IShowTime,
-  IDisabledTimes,
+  IDisabledTime,
 } from './types';
 import { getRangeValuesWithValueType } from './utils/getValueInRangePicker';
 import { INPUT_WIDTH, SINGLE_INPUT_WIDTH, DATE_FORMAT } from './constants';
@@ -21,7 +21,7 @@ const PickerContextProvider = PickerContext.Provider;
 export interface IDateRangePickerProps extends ICommonProps<RangeDate> {
   placeholder?: string[];
   showTime?: IShowTime<string[]>;
-  disabledTimes?: IDisabledTimes;
+  disabledTime?: IDisabledTime;
 }
 
 const DefaultDateRangeProps: Partial<IDateRangePickerProps> = {

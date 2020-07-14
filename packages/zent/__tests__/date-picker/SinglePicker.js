@@ -83,13 +83,11 @@ describe('SinglePicker', () => {
   });
 
   it('DatePicker disabledTime', () => {
-    const disabledTimes = jest.fn();
-    const wrapper = mount(
-      <DatePicker showTime disabledTimes={disabledTimes} />
-    );
+    const disabledTime = jest.fn();
+    const wrapper = mount(<DatePicker showTime disabledTime={disabledTime} />);
     wrapper.find('.zent-datepicker-trigger').simulate('click');
 
-    expect(disabledTimes.mock.calls.length).toBeGreaterThan(0);
+    expect(disabledTime.mock.calls.length).toBeGreaterThan(0);
     wrapper.unmount();
   });
 

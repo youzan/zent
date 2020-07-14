@@ -10,13 +10,13 @@ import YearPanel from '../year-panel';
 import PickerContext from '../../context/PickerContext';
 import { useShowTimeOption } from '../../hooks/useShowTimeOption';
 import usePanelDate from '../../hooks/usePanelDate';
-import { ISinglePanelProps, IDisabledTimes, IShowTime } from '../../types';
+import { ISinglePanelProps, IDisabledTime, IShowTime } from '../../types';
 
 export interface IDatePickerPanelProps extends ISinglePanelProps {
   popText?: string;
   hideFooter?: boolean;
   showTime?: IShowTime;
-  disabledTimes?: IDisabledTimes;
+  disabledTime?: IDisabledTime;
   footerText?: string;
 }
 const DatePickerPanel: React.FC<IDatePickerPanelProps> = props => {

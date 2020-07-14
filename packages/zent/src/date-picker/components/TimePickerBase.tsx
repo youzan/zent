@@ -25,7 +25,7 @@ interface ITimePickerBaseProps extends ITimePickerProps {
 
 const TimePickerBase: React.FC<ITimePickerBaseProps> = ({
   onChange,
-  disabledTimes,
+  disabledTime,
   onOpen,
   onClose,
   value,
@@ -57,8 +57,8 @@ const TimePickerBase: React.FC<ITimePickerBaseProps> = ({
   );
 
   const disabledTimesOption = React.useMemo(
-    () => disabledTimes?.(selectedDate) || {},
-    [disabledTimes, selectedDate]
+    () => disabledTime?.(selectedDate) || {},
+    [disabledTime, selectedDate]
   );
   const confirmStatus = useConfirmStatus({
     selected,

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { isSameDay, isSameHour, isSameMinute } from 'date-fns';
-import { IDisabledTimes, RangeTypeMap } from '../types';
+import { IDisabledTime, RangeTypeMap } from '../types';
 
 const { START, END } = RangeTypeMap;
 /**
@@ -9,15 +9,15 @@ const { START, END } = RangeTypeMap;
  * @param disabledDate
  * @param type
  */
-export default function useRangeDisabledTimes({
+export default function useRangeDisabledTime({
   selected,
-  disabledTimes,
+  disabledTime,
 }: {
   selected: [Date, Date];
-  disabledTimes: IDisabledTimes;
+  disabledTime: IDisabledTime;
 }) {
-  const disabledTimesRef = React.useRef(disabledTimes);
-  disabledTimesRef.current = disabledTimes;
+  const disabledTimesRef = React.useRef(disabledTime);
+  disabledTimesRef.current = disabledTime;
   const [start, end] = selected;
 
   const disabledEndTimes = React.useCallback(

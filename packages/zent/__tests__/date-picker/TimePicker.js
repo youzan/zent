@@ -49,12 +49,12 @@ describe('TimePicker', () => {
     expect(wrapper.prop('value')[1]).toBe('');
   });
 
-  it('CombinedTimeRangePicker disabledTimes', () => {
+  it('CombinedTimeRangePicker disabledTime', () => {
     let wrapper;
     const onChangeMock = jest.fn().mockImplementation(value => {
       wrapper.setProps({ value });
     });
-    const disabledTimes = jest.fn().mockImplementation((_, type) => {
+    const disabledTime = jest.fn().mockImplementation((_, type) => {
       return type === 'start'
         ? {
             disabledHours: () => [0],
@@ -65,7 +65,7 @@ describe('TimePicker', () => {
     wrapper = mount(
       <CombinedTimeRangePicker
         value={['02:04:00', '02:04:30']}
-        disabledTimes={disabledTimes}
+        disabledTime={disabledTime}
         onChange={onChangeMock}
       />
     );

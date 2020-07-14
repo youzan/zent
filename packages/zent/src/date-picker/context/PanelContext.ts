@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { IDisabledTimes, IShowTime } from '../types';
+import { IDisabledTime, IShowTime } from '../types';
 
 export interface IPanelContext {
   // date panel
@@ -9,7 +9,7 @@ export interface IPanelContext {
   // time panel
   visibleChange?: boolean;
   confirmStatus?: boolean;
-  disabledTimes?: IDisabledTimes;
+  disabledTime?: IDisabledTime;
 }
 
 export default createContext<IPanelContext>(null);

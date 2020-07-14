@@ -139,7 +139,7 @@ export interface ITimePickerProps<T = SingleTime> extends ITimePickerBase<T> {
   onChange: (date: T) => void;
   placeholder?: T;
   hiddenIcon?: boolean;
-  disabledTimes?: IDisabledTimes;
+  disabledTime?: IDisabledTime;
   onOpen?: () => void;
   onClose?: () => void;
 }
@@ -154,7 +154,7 @@ export interface ITimePanelProps<T = SingleTime> {
   onSelected: (val: T, status?: boolean) => void;
   format?: string;
   defaultTime?: T;
-  disabledTimesOption: IDisabledTimesOption;
+  disabledTimesOption: IDisabledTimeOption;
   hourStep?: number;
   minuteStep?: number;
   secondStep?: number;
@@ -162,19 +162,19 @@ export interface ITimePanelProps<T = SingleTime> {
 }
 export interface ICombinedTimePanelProps
   extends Omit<ITimePanelProps<RangeTime>, 'disabledTimesOption'> {
-  disabledTimesOptionStart: IDisabledTimesOption;
-  disabledTimesOptionEnd: IDisabledTimesOption;
+  disabledTimesOptionStart: IDisabledTimeOption;
+  disabledTimesOptionEnd: IDisabledTimeOption;
 }
 
-export interface IDisabledTimesOption {
+export interface IDisabledTimeOption {
   disabledHours?: () => number[];
   disabledMinutes?: (hour: number) => number[];
   disabledSeconds?: (hour: number, minute: number) => number[];
 }
-export type IDisabledTimes = (
+export type IDisabledTime = (
   date?: Date,
   type?: RangeType
-) => IDisabledTimesOption;
+) => IDisabledTimeOption;
 export type ITimeUnitType = 'hour' | 'minute' | 'second';
 
 export enum WeekStartsOnMap {

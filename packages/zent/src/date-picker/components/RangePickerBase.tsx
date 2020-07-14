@@ -15,12 +15,12 @@ import {
   IGenerateDateConfig,
   IShowTime,
   RangeType,
-  IDisabledTimes,
+  IDisabledTime,
   IRangeProps,
   RangeTypeMap,
   ISingleProps,
 } from '../types';
-import useRangeDisabledTimes from '../hooks/useRangeDisabledTimes';
+import useRangeDisabledTime from '../hooks/useRangeDisabledTime';
 
 const { START, END } = RangeTypeMap;
 interface IRangePickerProps
@@ -31,12 +31,12 @@ interface IRangePickerProps
   PickerComponent: React.ComponentType<
     ISingleProps & {
       showTime?: IShowTime<string>;
-      disabledTimes?: IDisabledTimes;
+      disabledTime?: IDisabledTime;
     }
   >;
   showTime?: IShowTime<string[]>;
   seperator: string;
-  disabledTimes?: IDisabledTimes;
+  disabledTime?: IDisabledTime;
 }
 
 const RangePicker: React.FC<IRangePickerProps> = ({
@@ -49,7 +49,7 @@ const RangePicker: React.FC<IRangePickerProps> = ({
   onChange,
   onClose,
   onOpen,
-  disabledTimes,
+  disabledTime,
   generateDate,
   PickerComponent,
   showTime,
@@ -91,9 +91,9 @@ const RangePicker: React.FC<IRangePickerProps> = ({
     [start, end, onChangeRef, getCallbackValue, setSelected]
   );
 
-  const { disabledStartTimes, disabledEndTimes } = useRangeDisabledTimes({
+  const { disabledStartTimes, disabledEndTimes } = useRangeDisabledTime({
     selected,
-    disabledTimes,
+    disabledTime,
   });
 
   return (
@@ -105,7 +105,7 @@ const RangePicker: React.FC<IRangePickerProps> = ({
           showTime={startShowTime}
           valueType="date"
           value={start}
-          disabledTimes={disabledStartTimes}
+          disabledTime={disabledStartTimes}
           onChange={onChangeStartOrEnd(START)}
           onOpen={() => onOpen?.(START)}
           onClose={() => onClose?.(START)}
@@ -119,7 +119,7 @@ const RangePicker: React.FC<IRangePickerProps> = ({
           showTime={endShowTime}
           valueType="date"
           value={end}
-          disabledTimes={disabledEndTimes}
+          disabledTime={disabledEndTimes}
           onChange={onChangeStartOrEnd(END)}
           onOpen={() => onOpen?.(END)}
           onClose={() => onClose?.(END)}

@@ -7,7 +7,7 @@ import PanelContext from '../context/PanelContext';
 import useTimeValue, { parseSelectedToRangeDate } from '../hooks/useTimeValue';
 import { useEventCallbackRef } from '../../utils/hooks/useEventCallbackRef';
 import pick from '../../utils/pick';
-import useRangeDisabledTimes from '../hooks/useRangeDisabledTimes';
+import useRangeDisabledTime from '../hooks/useRangeDisabledTime';
 import { startOfToday } from 'date-fns';
 import {
   triggerCommonProps,
@@ -27,7 +27,7 @@ interface ITimePickerBaseProps extends ITimePickerProps<RangeTime> {
 
 const CombinedTimePicker: React.FC<ITimePickerBaseProps> = ({
   onChange,
-  disabledTimes,
+  disabledTime,
   onOpen,
   onClose,
   value,
@@ -92,9 +92,9 @@ const CombinedTimePicker: React.FC<ITimePickerBaseProps> = ({
     disabledStartTimes,
     disabledConfirm,
     disabledEndTimes,
-  } = useRangeDisabledTimes({
+  } = useRangeDisabledTime({
     selected: selectedDates,
-    disabledTimes,
+    disabledTime,
   });
 
   const disabledTimesOptionStart = React.useMemo(

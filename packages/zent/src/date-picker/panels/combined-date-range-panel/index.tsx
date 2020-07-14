@@ -5,14 +5,14 @@ import DatePanel from '../date-panel/index';
 import RangePickerFooter from './RangeFooter';
 
 import { useShowTimeRangeOption } from '../../hooks/useShowTimeOption';
-import useRangeDisabledTimes from '../../hooks/useRangeDisabledTimes';
+import useRangeDisabledTime from '../../hooks/useRangeDisabledTime';
 
-import { IRangePanelProps, IDisabledTimes, IShowTime } from '../../types';
+import { IRangePanelProps, IDisabledTime, IShowTime } from '../../types';
 
 const prefixCls = 'zent-datepicker-combined-panel';
 
 interface ICombinedDateRangePanelProps extends IRangePanelProps {
-  disabledTimes?: IDisabledTimes;
+  disabledTime?: IDisabledTime;
   showTime?: IShowTime<string[]>;
 }
 const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
@@ -22,7 +22,7 @@ const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
   disabledEndDate,
   defaultPanelDate,
   showTime,
-  disabledTimes,
+  disabledTime,
   ...restProps
 }) => {
   const [start, end] = selected;
@@ -33,9 +33,9 @@ const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
     disabledStartTimes,
     disabledConfirm,
     disabledEndTimes,
-  } = useRangeDisabledTimes({
+  } = useRangeDisabledTime({
     selected,
-    disabledTimes,
+    disabledTime,
   });
   const onChangeStartOrEnd = React.useCallback(
     (val: Date) => {
@@ -99,7 +99,7 @@ const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
             {...restProps}
             hideFooter
             selected={start}
-            disabledTimes={disabledStartTimes}
+            disabledTime={disabledStartTimes}
             popText={start && !end ? '请选择结束日期' : ''}
             defaultPanelDate={defaultPanelDate[0]}
             onSelected={onChangeStartOrEnd}
@@ -116,7 +116,7 @@ const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
             {...restProps}
             hideFooter
             selected={end}
-            disabledTimes={disabledEndTimes}
+            disabledTime={disabledEndTimes}
             defaultPanelDate={defaultPanelDate[1]}
             onSelected={onChangeStartOrEnd}
             disabledPanelDate={disabledEndDate}

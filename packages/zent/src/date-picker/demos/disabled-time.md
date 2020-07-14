@@ -1,7 +1,7 @@
 ---
 order: 4
 zh-CN:
-	title: 禁用部分时间，可以通过传入 disabledTimes 函数来实现
+	title: 禁用部分时间，可以通过传入 disabledTime 函数来实现
 en-US:
 	title: Set showTime to true to allow time selection
 ---
@@ -98,7 +98,7 @@ class Demo extends Component {
 					className="zent-datepicker-demo"
 					value={timeValue}
 					onChange={this.onChangeTime}
-					disabledTimes={this.disabledTimes1}
+					disabledTime={this.disabledTimes1}
 				/>
 				<br />
 				<DatePicker
@@ -107,7 +107,7 @@ class Demo extends Component {
 					format="YYYY-MM-DD HH:mm:ss"
 					value={dateValue}
 					onChange={this.onChangeDate}
-					disabledTimes={this.disabledTimes2}
+					disabledTime={this.disabledTimes2}
 				/>
 				<br />
 				<DateRangePicker
@@ -116,14 +116,14 @@ class Demo extends Component {
 					format="YYYY-MM-DD HH:mm"
 					value={rangeValue}
 					onChange={this.onChangeRange}
-					disabledTimes={this.disabledTimes3}
+					disabledTime={this.disabledTimes3}
 				/>
 				<br />
 				<CombinedTimeRangePicker
 					className="zent-datepicker-demo"
 					value={combinedTimeValue}
 					onChange={this.onChangeCombinedTime}
-					disabledTimes={this.disabledTimes3}
+					disabledTime={this.disabledTimes3}
 				/>
 				<br />
 				<CombinedDateRangePicker
@@ -132,7 +132,7 @@ class Demo extends Component {
 					onChange={this.onChangeCombinedDate}
 					showTime
 					format="YYYY-MM-DD HH:mm:ss"
-					disabledTimes={this.disabledTimes4}
+					disabledTime={this.disabledTimes4}
 				/>
 			</div>
 		);
