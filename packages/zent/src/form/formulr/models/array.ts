@@ -4,13 +4,11 @@ import { ValidateOption } from '../validate';
 import { isModelRef, ModelRef } from './ref';
 import { BasicBuilder } from '../builders/basic';
 import { or, Some } from '../maybe';
-import UniqueId from '../unique-id';
 import { IModel } from './base';
 import isNil from '../../../utils/isNil';
+import uniqueId from '../../../utils/uniqueId';
 
 const FIELD_ARRAY_ID = Symbol('field-array');
-
-const uniqueId = new UniqueId('field-array');
 
 class FieldArrayModel<
   Item,
@@ -32,7 +30,7 @@ class FieldArrayModel<
     childBuilder: BasicBuilder<Item, Child> | null,
     private readonly defaultValue: readonly Item[]
   ) {
-    super(uniqueId.get());
+    super(uniqueId('field-array-'));
     this.childFactory = childBuilder
       ? (defaultValue: Item) => {
           const child = childBuilder.build(Some(defaultValue));

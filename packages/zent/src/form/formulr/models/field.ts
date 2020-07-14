@@ -4,15 +4,13 @@ import { Some, None, or, isSome, get } from '../maybe';
 import { ValidateOption } from '../validate';
 import { id } from '../utils';
 import isNil from '../../../utils/isNil';
-import UniqueId from '../unique-id';
+import uniqueId from '../../../utils/uniqueId';
 
 const FIELD_ID = Symbol('field');
 
 export interface INormalizeBeforeSubmit<A, B> {
   (a: A): B;
 }
-
-const uniqueId = new UniqueId('field');
 
 class FieldModel<Value> extends BasicModel<Value> {
   /**
@@ -37,7 +35,7 @@ class FieldModel<Value> extends BasicModel<Value> {
 
   /** @internal */
   constructor(private readonly defaultValue: Value) {
-    super(uniqueId.get());
+    super(uniqueId('field-'));
     this.value$ = new BehaviorSubject(defaultValue);
   }
 

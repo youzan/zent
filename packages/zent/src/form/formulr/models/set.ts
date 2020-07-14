@@ -3,17 +3,15 @@ import { BasicModel, isModel } from './basic';
 import { IMaybeError, ValidateOption } from '../validate';
 import { Maybe, None, Some } from '../maybe';
 import { isPlainObject } from '../utils';
-import UniqueId from '../unique-id';
 import { IModel } from './base';
 import isNil from '../../../utils/isNil';
+import uniqueId from '../../../utils/uniqueId';
 
 type $FieldSetValue<Children extends Record<string, BasicModel<any>>> = {
   [Key in keyof Children]: Children[Key]['phantomValue'];
 };
 
 const SET_ID = Symbol('set');
-
-const uniqueId = new UniqueId('field-set');
 
 class FieldSetModel<
   Children extends Record<string, BasicModel<any>> = Record<
@@ -36,7 +34,7 @@ class FieldSetModel<
   owner: IModel<any> | null = null;
 
   /** @internal */
-  constructor(children: Children, id = uniqueId.get()) {
+  constructor(children: Children, id = uniqueId('field-set-')) {
     super(id);
     const keys = Object.keys(children);
     const keysLength = keys.length;

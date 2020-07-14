@@ -2,7 +2,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { FieldSetModel } from './set';
 import { BasicModel } from './basic';
 import { ValidateOption } from '../validate';
-import UniqueId from '../unique-id';
+import uniqueId from '../../../utils/uniqueId';
 
 enum FormStrategy {
   /**
@@ -17,8 +17,6 @@ enum FormStrategy {
 }
 
 const FORM_ID = Symbol('form');
-
-const uniqueId = new UniqueId('form');
 
 class FormModel<
   Children extends Record<string, BasicModel<unknown>> = Record<
@@ -48,7 +46,7 @@ class FormModel<
   }
 
   constructor(readonly children: Children) {
-    super(children, uniqueId.get());
+    super(children, uniqueId('form-'));
     const keys = Object.keys(children);
     const keysLength = keys.length;
     for (let index = 0; index < keysLength; index++) {
