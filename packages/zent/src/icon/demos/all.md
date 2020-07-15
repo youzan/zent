@@ -1923,15 +1923,11 @@ ReactDOM.render(<IconGrid />, mountNode);
 ```
 
 <style>
-.zenticon {
-	font-size: 20px;
-}
-
-.zenticon-youzan {
-	color: #EB0B19;
-}
-
 .zi-grid {
+	.zenticon {
+		font-size: 20px;
+	}
+
 	&-toolbar {
 		display: flex;
 		align-items: center;
