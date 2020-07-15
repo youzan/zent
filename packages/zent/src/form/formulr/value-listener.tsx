@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { merge, of, Observable, NEVER } from 'rxjs';
-import { filter, switchMap } from 'rxjs/operators';
+import { merge, of, Observable, NEVER, asapScheduler } from 'rxjs';
+import { filter, switchMap, observeOn } from 'rxjs/operators';
 import { useFormContext, FormContext, IFormContext } from './context';
 import { useValue$ } from './hooks';
 import {
@@ -52,13 +52,13 @@ function useModelFromContext<Model>(
         filter(change => change === name),
         /**
          * `FieldSetModel.prototype.registerChild` will be called inside `useMemo`
-         * which executed in render phase, so consume at next microtask queue to
+         * which executed in render phase, so use asynchronous scheduler to
          * avoid react warning below:
          *
          * Cannot update a component from inside the function body of a different
          * component.
          */
-        switchMap(it => Promise.resolve(it))
+        observeOn(asapScheduler)
       )
       .subscribe(name => {
         const candidate = parent.get(name);
@@ -141,13 +141,13 @@ export function useFieldValue<T>(field: string | FieldModel<T>): T | null {
         filter(change => change === field),
         /**
          * `FieldSetModel.prototype.registerChild` will be called inside `useMemo`
-         * which executed in render phase, so consume at next microtask queue to
+         * which executed in render phase, so use asynchronous scheduler to
          * avoid react warning below:
          *
          * Cannot update a component from inside the function body of a different
          * component.
          */
-        switchMap(it => Promise.resolve(it))
+        observeOn(asapScheduler)
       )
       .subscribe(name => {
         const candidate = ctx.parent.get(name);
@@ -173,14 +173,14 @@ export function useFieldValue<T>(field: string | FieldModel<T>): T | null {
             return of(null);
           }),
           /**
-           * Because `ModelRef.prototype.setModel` will be called
-           * inside `useMemo`, consume at next microtask queue to
-           * avoid react warning below.
+           * `ModelRef.prototype.setModel` will be called
+           * inside `useMemo`, so use asynchronous scheduler
+           * to avoid react warning below.
            *
            * Cannot update a component from inside the function body
            * of a different component.
            */
-          switchMap(it => Promise.resolve(it))
+          observeOn(asapScheduler)
         )
         .subscribe(setValue);
 
@@ -208,6 +208,7 @@ export function FieldValue<T>(
   if (children) {
     return children(value);
   }
+
   return (value as unknown) as React.ReactElement;
 }
 

@@ -60,6 +60,7 @@ scatter: true
 - `Model` 模式还支持[以下参数](../../apidoc/interfaces/iformfieldmodeldrivenprops.html)。注意，此模式下校验规则正常是设置在 model 上的，而不是表单项组件上。
 - 在 `View` 模式下使用 `FieldArray` 时，由于该组件的特殊性，虽然此时传给 `Field` 的是 `model`（按上述规则这就是 `Model` 模式），但是校验规则还是需要设置在表单项上。
 
+<!-- demo-slot-17 -->
 <!-- demo-slot-1 -->
 <!-- demo-slot-2 -->
 <!-- demo-slot-3 -->
