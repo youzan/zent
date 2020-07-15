@@ -1,4 +1,4 @@
-import { IPopoverPosition, IPositionFunction } from '../position-function';
+import { IPopoverPosition } from '../position-function';
 import { prefix } from './prefix';
 
 export const INVISIBLE_POSITION: IPopoverPosition = {
@@ -10,8 +10,4 @@ export const INVISIBLE_POSITION: IPopoverPosition = {
     opacity: 0,
   },
   className: prefix('position-invisible'),
-};
-
-export const Invisible: IPositionFunction = () => {
-  return INVISIBLE_POSITION;
 };
