@@ -10,7 +10,17 @@ en-US:
 import { Icon } from 'zent';
 
 ReactDOM.render(
-	<Icon type="youzan" />
+	<Icon type="youzan" className="zenticon-demo" />
 	, mountNode
 );
 ```
+
+<style>
+	.zenticon-demo {
+		font-size: 40px;
+	}
+
+	.zenticon-youzan.zenticon-demo {
+		color: #EB0B19;
+	}
+</style>
