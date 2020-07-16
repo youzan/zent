@@ -4,7 +4,9 @@ const parseValue = require('postcss-value-parser');
 const path = require('path');
 const { KEYFRAME_NAME_PREFIX } = require('./constants');
 
-const THEME_FILE = path.resolve(__dirname, '../assets/theme/_default.scss');
+const THEME_FILES = ['_default.scss', '_override.scss'].map(f =>
+  path.resolve(__dirname, '../assets/theme', f)
+);
 
 const ErrorMessages = {
   color: 'raw colors not allowed, use color variables in theme/default',
@@ -27,7 +29,7 @@ module.exports = postcss.plugin('postcss-plugin-lint', () => {
       }
     });
 
-    const isThemeFile = THEME_FILE === root.source.input.file;
+    const isThemeFile = THEME_FILES.includes(root.source.input.file);
     root.walkDecls(decl => {
       const words = parseValue(decl.value);
       words.walk(node => {

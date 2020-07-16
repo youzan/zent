@@ -66,7 +66,11 @@ export class TimelineItem extends PureComponent<ITimelineItemProps> {
     this.popover && this.popover.adjustPosition();
   };
 
-  position: IPositionFunction = ({ anchorRect, contentRect }) => {
+  position: IPositionFunction = ({
+    anchorRect,
+    contentRect,
+    containerRect,
+  }) => {
     const { type } = this.props;
     const x = anchorRect.left;
     const middle = (anchorRect.top + anchorRect.bottom) / 2;
@@ -76,13 +80,15 @@ export class TimelineItem extends PureComponent<ITimelineItemProps> {
         type === 'horizontal'
           ? {
               position: 'absolute',
-              left: `${Math.round(this.mousePosition.x)}px`,
+              left: `${Math.round(
+                this.mousePosition.x - containerRect.left
+              )}px`,
               top: `${Math.round(y - 40)}px`,
             }
           : {
               position: 'absolute',
               left: `${Math.round(x + 20)}px`,
-              top: `${Math.round(this.mousePosition.y)}px`,
+              top: `${Math.round(this.mousePosition.y - containerRect.top)}px`,
             },
     };
   };

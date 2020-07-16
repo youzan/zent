@@ -16,6 +16,7 @@ import {
   IImageUploadProps,
   IUploadFileItemInner,
   IUploadTipConfig,
+  IImageUploadItemProps,
 } from './types';
 import {
   defaultGetThumbSrcFromFile,
@@ -43,6 +44,7 @@ type IImageUploadPropsInner = PartialRequired<
 export class ImageUpload extends AbstractUpload<
   IImageUploadFileItem,
   IImageOnUploadSuccessReturn,
+  IImageUploadItemProps,
   IImageUploadProps
 > {
   static defaultProps: Partial<IImageUploadProps> = {
@@ -72,7 +74,8 @@ export class ImageUpload extends AbstractUpload<
   }
 
   protected renderUploadList(i18n: II18nLocaleUpload): React.ReactNode {
-    const { sortable, preview } = this.props as IImageUploadPropsInner;
+    const { sortable, preview, customUploadItem } = this
+      .props as IImageUploadPropsInner;
 
     // 上传 trigger
     const uploadTrigger = this.remainAmount > 0 && this.renderTrigger(i18n);
@@ -87,6 +90,7 @@ export class ImageUpload extends AbstractUpload<
         sortable={sortable}
         trigger={uploadTrigger}
         onPreview={preview}
+        customUploadItem={customUploadItem}
       />
     );
   }
@@ -108,16 +112,15 @@ export class ImageUpload extends AbstractUpload<
     });
   }
 
-  protected renderTips(i18n: II18nLocaleUpload): React.ReactNode {
+  protected renderTips(): React.ReactNode {
     const { tips, maxSize } = this.props as IImageUploadPropsInner;
     const config: IUploadTipConfig<IImageUploadProps> = {
       ...this.props,
       formattedMaxSize: formatFileSize(maxSize),
     };
+    const tipsContent = getTipsContent(tips, config);
     return (
-      <div className="zent-image-upload-tips">
-        {getTipsContent(tips, config, i18n.image.tips)}
-      </div>
+      tipsContent && <div className="zent-image-upload-tips">{tipsContent}</div>
     );
   }
 
@@ -149,7 +152,7 @@ export class ImageUpload extends AbstractUpload<
           return (
             <div className={cn('zent-image-upload', className)}>
               {this.renderUploadList(i18n)}
-              {this.renderTips(i18n)}
+              {this.renderTips()}
             </div>
           );
         }}

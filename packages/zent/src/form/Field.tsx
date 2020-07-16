@@ -9,7 +9,7 @@ import {
   FieldUtils,
   isModelRef,
   ModelRef,
-} from 'formulr';
+} from './formulr';
 import {
   defaultRenderError,
   IFormFieldProps,
@@ -23,8 +23,6 @@ import { FormNotice } from './Notice';
 import { FormDescription } from './Description';
 import { $MergeParams } from './utils';
 import id from '../utils/identity';
-import noop from '../utils/noop';
-
 export { IFormFieldChildProps, IFormFieldProps } from './shared';
 
 export function defaultGetValidateOption() {
@@ -74,8 +72,6 @@ export function FormField<Value>(props: IFormFieldProps<Value>) {
     model = useField<Value>(props.model);
   }
   React.useImperativeHandle(props.modelRef, () => model, [model]);
-  const propsRef = React.useRef(props);
-  propsRef.current = props;
   const {
     className,
     style,
@@ -104,34 +100,48 @@ export function FormField<Value>(props: IFormFieldProps<Value>) {
     },
     [model, normalize]
   );
-  const markTouched = React.useCallback(() => (model.isTouched = true), [
-    model,
-  ]);
   const setValue = React.useCallback(value => (model.value = value), [model]);
-  const onChange = FieldUtils.useMAppend(
-    touchWhen === TouchWhen.Change ? markTouched : noop,
+  const defaultOnChangeHandler = FieldUtils.makeChangeHandler(
+    model,
+    withDefaultOption(getValidateOption('change')),
+    props.onChange
+  );
+  const onChange = FieldUtils.useMulti(
+    () => {
+      if (touchWhen === TouchWhen.Change) {
+        model.isTouched = true;
+      }
+    },
     FieldUtils.usePipe(
       normalizer,
       ValidateOccasion.Change & validateOccasion
-        ? FieldUtils.makeChangeHandler(
-            model,
-            withDefaultOption(getValidateOption('change'))
-          )
-        : setValue
-    )
+        ? defaultOnChangeHandler
+        : (value: Value) => {
+            setValue(value);
+            props.onChange?.(value);
+          }
+    ),
+    [model, touchWhen, normalizer, validateOccasion, defaultOnChangeHandler]
   );
-  const onBlur = React.useCallback(() => {
-    if (touchWhen === TouchWhen.Blur) {
-      markTouched();
-    }
-    if (validateOccasion & ValidateOccasion.Blur) {
-      model.validate(getValidateOption('blur'));
-    }
-  }, [getValidateOption, validateOccasion, touchWhen, markTouched, model]);
+  const onBlur = React.useCallback(
+    (e: React.FocusEvent) => {
+      if (touchWhen === TouchWhen.Blur) {
+        model.isTouched = true;
+      }
+      if (validateOccasion & ValidateOccasion.Blur) {
+        model.validate(getValidateOption('blur'));
+      }
+      props.onBlur?.(e);
+    },
+    [getValidateOption, validateOccasion, touchWhen, model, props.onBlur]
+  );
   const {
     onCompositionStart,
     onCompositionEnd,
-  } = FieldUtils.useCompositionHandler(model);
+  } = FieldUtils.useCompositionHandler(model, {
+    onCompositionStart: props.onCompositionStart,
+    onCompositionEnd: props.onCompositionEnd,
+  });
   return (
     <FormControl
       ref={anchorRef}

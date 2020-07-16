@@ -949,6 +949,78 @@ class IconGrid extends Component {
                 <span className="zi-grid-item-name">filter-o</span>
               </div>
             </CopyButton>
+            <CopyButton
+              text={this.getIconString("refresh")}
+              onCopySuccess="refresh 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="refreshrefreshoutline"
+              >
+                <Icon type="refresh" />
+                <span className="zi-grid-item-name">refresh</span>
+              </div>
+            </CopyButton>
+            <CopyButton
+              text={this.getIconString("folder-o")}
+              onCopySuccess="folder-o 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="folder-ofolderoutline"
+              >
+                <Icon type="folder-o" />
+                <span className="zi-grid-item-name">folder-o</span>
+              </div>
+            </CopyButton>
+            <CopyButton
+              text={this.getIconString("open-folder-o")}
+              onCopySuccess="open-folder-o 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="open-folder-oopen-folderoutline"
+              >
+                <Icon type="open-folder-o" />
+                <span className="zi-grid-item-name">open-folder-o</span>
+              </div>
+            </CopyButton>
+            <CopyButton
+              text={this.getIconString("save-o")}
+              onCopySuccess="save-o 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="save-osaveoutline"
+              >
+                <Icon type="save-o" />
+                <span className="zi-grid-item-name">save-o</span>
+              </div>
+            </CopyButton>
+            <CopyButton
+              text={this.getIconString("drag")}
+              onCopySuccess="drag 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="dragdrag"
+              >
+                <Icon type="drag" />
+                <span className="zi-grid-item-name">drag</span>
+              </div>
+            </CopyButton>
+            <CopyButton
+              text={this.getIconString("thumbnail")}
+              onCopySuccess="thumbnail 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="thumbnailthumbnail"
+              >
+                <Icon type="thumbnail" />
+                <span className="zi-grid-item-name">thumbnail</span>
+              </div>
+            </CopyButton>
           </div>
         </div>
       
@@ -1851,15 +1923,11 @@ ReactDOM.render(<IconGrid />, mountNode);
 ```
 
 <style>
-.zenticon {
-	font-size: 20px;
-}
-
-.zenticon-youzan {
-	color: #EB0B19;
-}
-
 .zi-grid {
+	.zenticon {
+		font-size: 20px;
+	}
+
 	&-toolbar {
 		display: flex;
 		align-items: center;

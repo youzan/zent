@@ -20,10 +20,10 @@ group: 展示
 | centerArrow | 是否按小箭头居中对齐trigger来定位 | bool | 否 | `false` |  |
 | cushion | 与 Popover 中的`cushion`含义（定位的偏移量）相同，通常为弹框边缘与 trigger 元素之间的距离 | number | 否 | `10` |  |
 | containerSelector | 弹层渲染加载到的父节点CSS selector | string | 否 | `'body'` | 所有合法的CSS selector |
-| className | 自定义类名 | string | 否 | `''` |  |
-| prefix | 自定义前缀 | string | 否 | `'zent'` |  |
 | visible | 外部维护 `Tooltip` 的显示状态，此时外部拥有 `Tooltip` 的控制权 | bool | 否 |  | |
 | onVisibleChange | 必须和 `visible` 一起使用 | func | 否 | | |
+| className | 自定义类名 | string | 否 | `''` |  |
+| style | 自定义样式 | CSSProperties | 否 |  |  |
 
 #### 触发方式的额外API
 

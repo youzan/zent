@@ -179,28 +179,6 @@ export const Upload: II18nLocaleUpload = {
   limit: '文件添加个数已达上限',
   normal: {
     add: '添加文件',
-    tips: config => {
-      const { tips, formattedMaxSize } = config;
-      const tipStr = tips ? tips : '';
-      const sizeLimitStr = formattedMaxSize
-        ? `单个文件不超过 ${formattedMaxSize}`
-        : '';
-      return [tipStr, sizeLimitStr].filter(Boolean).join(common.comma);
-    },
-  },
-  image: {
-    tips: config => {
-      const { tips, formattedMaxSize, maxAmount } = config;
-      const tipStr = tips ? tips : '';
-      const amoutLimitStr =
-        maxAmount !== Infinity ? `最多 ${maxAmount} 张` : '';
-      const sizeLimitStr = formattedMaxSize
-        ? `单张图片不超过 ${formattedMaxSize}`
-        : '';
-      return [tipStr, amoutLimitStr, sizeLimitStr]
-        .filter(Boolean)
-        .join(common.comma);
-    },
   },
 };
 

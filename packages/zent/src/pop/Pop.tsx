@@ -83,6 +83,7 @@ export interface IPopCommonProps {
   onPositionUpdated?: () => void;
   onPositionReady?: () => void;
   className?: string;
+  style?: React.CSSProperties;
   containerSelector?: string;
   onConfirm?: IPopActionCallback;
   onCancel?: IPopActionCallback;
@@ -164,6 +165,7 @@ export class Pop extends Component<IPopProps, IPopState> {
           <Trigger.Hover
             showDelay={props.mouseEnterDelay}
             hideDelay={props.mouseLeaveDelay}
+            anchorOnly={props.anchorOnly}
           >
             {props.children}
           </Trigger.Hover>
@@ -184,6 +186,7 @@ export class Pop extends Component<IPopProps, IPopState> {
   render() {
     const {
       className,
+      style,
       trigger,
       visible,
       onShow,
@@ -224,6 +227,7 @@ export class Pop extends Component<IPopProps, IPopState> {
           'zent-pop--has-header': hasHeader,
           'zent-pop--no-header': !hasHeader,
         })}
+        style={style}
         cushion={cushion}
         position={getArrowPosition(position, centerArrow)}
         onShow={onShow}
@@ -237,19 +241,21 @@ export class Pop extends Component<IPopProps, IPopState> {
         {this.renderTrigger()}
         <Popover.Content>
           {hasHeader && <div className="zent-pop-header">{header}</div>}
-          <div className="zent-pop-inner">{content}</div>
-          {(onCancel || onConfirm) && (
-            <Action
-              onConfirm={onConfirm}
-              onCancel={onCancel}
-              confirmText={confirmText}
-              cancelText={cancelText}
-              confirmPending={confirmPending}
-              cancelPending={cancelPending}
-              changePending={this.changePending}
-              type={type}
-            />
-          )}
+          <div className="zent-pop-inner">
+            {content}
+            {(onCancel || onConfirm) && (
+              <Action
+                onConfirm={onConfirm}
+                onCancel={onCancel}
+                confirmText={confirmText}
+                cancelText={cancelText}
+                confirmPending={confirmPending}
+                cancelPending={cancelPending}
+                changePending={this.changePending}
+                type={type}
+              />
+            )}
+          </div>
           <div className="zent-pop-arrow" />
         </Popover.Content>
       </Popover>

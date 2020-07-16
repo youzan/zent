@@ -1,5 +1,5 @@
 ---
-order: 7
+order: 8
 zh-CN:
 	title: Outline 模式
 	content: outline 模式公告内容
@@ -39,6 +39,10 @@ ReactDOM.render(
 			title="{i18n.title}"
 			description="{i18n.content}"
 		/>
+		<ScrollAlert type="info" outline>
+			<AlertItem title="{i18n.title}111" description="{i18n.content}111" />
+			<AlertItem title="{i18n.title}222" description="{i18n.content}222" />
+		</ScrollAlert>
 	</div>,
 	mountNode
 );

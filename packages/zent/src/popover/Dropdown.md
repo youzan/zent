@@ -19,7 +19,6 @@ const { MenuItem } = Menu;
 ReactDOM.render(
 	<Popover 
 		position={Popover.Position.AutoBottomLeft} 
-		display="inline"
 		cushion={5}>
 		<Popover.Trigger.Click>
 			<Button type="primary">点击打开菜单</Button>
@@ -45,7 +44,6 @@ const { MenuItem } = Menu;
 ReactDOM.render(
 	<Popover 
 		position={Popover.Position.AutoBottomLeft} 
-		display="inline"
 		cushion={5}>
 		<Popover.Trigger.Hover>
 			<Button type="primary">Hover打开菜单</Button>
@@ -79,7 +77,6 @@ class PopoverDemo extends Component {
 				visible={this.state.visible} 
 				onVisibleChange={v => this.setState({ visible: v })}
 				position={Popover.Position.AutoBottomLeft} 
-				display="inline"
 				cushion={5}>
 				<Popover.Trigger.Click>
 					<Button type="primary">点击打开菜单</Button>

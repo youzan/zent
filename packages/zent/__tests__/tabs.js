@@ -123,8 +123,8 @@ describe('Tabs', () => {
     /**
      * @param {string} type
      */
-    const ensure = (type, tabComponentOverride) => {
-      const tabComponent = tabComponentOverride || `${capitalize(type)}Tab`;
+    const ensure = type => {
+      const tabComponent = `${capitalize(type)}Tab`;
       const onChange = jest.fn();
       const wrapper = mount(
         <Tabs type={type} activeId="foobar" onChange={onChange}>
@@ -147,7 +147,7 @@ describe('Tabs', () => {
 
     ensure('normal');
     ensure('card');
-    ensure('button', 'Button');
+    ensure('button');
   });
 
   it('onTabDel callback', () => {

@@ -41,8 +41,8 @@ group: 反馈
 | onPositionUpdated | 位置更新时的回调，不保证调用这个函数时位置一定变化 | func | 否 | `noop` | |
 | onPositionReady | 位置进入窗口时的回调，生命周期内只调用一次 | func | 否 | `noop` | |
 | containerSelector | 弹层的父节点CSS selector | string | 否 | `'body'` | 所有合法的CSS selector | |
-| className | 自定义类名 | string | 否 | `''` |  |
-| prefix | 自定义前缀 | string | 否 | `'zent'` |  |
+| className | 弹层自定义类名 | string | 否 |  |  |
+| style | 弹层自定义样式 | `CSSProperties` | 否 |  |  |
 
 根据 `trigger` 值的不同, `Pop` 提供了一些额外的控制参数.
 
@@ -58,6 +58,7 @@ group: 反馈
 |------|------|------|--------|-------|
 | mouseEnterDelay | hover打开的延迟（单位：毫秒） | number | 否 | `200` |
 | mouseLeaveDelay | 关闭的的延迟（单位：毫秒） | number | 否 | `200` |
+| anchorOnly | 仅考虑 Trigger 作为触发区域 | boolean | 否 | `false` |
 
 #### None
 

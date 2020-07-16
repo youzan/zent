@@ -18,15 +18,15 @@ group: 展示
 
 #### Collpase
 
-| 参数                 | 说明                                     | 类型     | 是否必须 | 默认值      | 备选值   |
-| -------------------- | ---------------------------------------- | -------- | -------- | ----------- | -------- |
-| onChange             | 切换面板的回调函数                       | `func`   | 是       |             |          |
-| activeKey            | 当前打开的面板 id                        | `string` | 否       |             |          |
-| accordion            | 手风琴模式，一次只能有一个 active 的面板 | `bool`   | 否       | `false`     | `true`   |
-| bordered             | 是否有外边框                             | `bool`   | 否       | `true`      | `false`  |
-| panelTitleBackground | Panel 标题底色                           | `string` | 否       | `'default'` | `'none'` |
-| className            | 额外类名                                 | `string` | 否       |             |          |
-| prefix               | 自定义类名前缀                           | `string` | 否       |             |          |
+| 参数                 | 说明                                     | 类型                | 是否必须 | 默认值      | 备选值   |
+| -------------------- | ---------------------------------------- | ------------------- | -------- | ----------- | -------- |
+| onChange             | 切换面板的回调函数                       | `func`              | 是       |             |          |
+| activeKey            | 当前打开的面板 id                        | `string | string[]` | 否       |             |          |
+| accordion            | 手风琴模式，一次只能有一个 active 的面板 | `bool`              | 否       | `false`     | `true`   |
+| bordered             | 是否有外边框                             | `bool`              | 否       | `true`      | `false`  |
+| panelTitleBackground | Panel 标题底色                           | `string`            | 否       | `'default'` | `'none'` |
+| className            | 额外类名                                 | `string`            | 否       |             |          |
+| prefix               | 自定义类名前缀                           | `string`            | 否       |             |          |
 
 #### Collpase.Panel
 

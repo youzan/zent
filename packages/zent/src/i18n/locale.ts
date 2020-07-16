@@ -122,17 +122,6 @@ export interface II18nLocaleUpload extends II18nLocaleCommon {
   limit: string;
   normal: {
     add: string;
-    tips: (options: {
-      tips: string;
-      formattedMaxSize: string | null;
-    }) => string;
-  };
-  image: {
-    tips: (options: {
-      tips: string;
-      formattedMaxSize: string | null;
-      maxAmount: number;
-    }) => string;
   };
 }
 

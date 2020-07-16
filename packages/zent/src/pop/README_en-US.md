@@ -40,8 +40,8 @@ A floating card opened by clicking, hovering or focusing.
 | onPositionUpdated | callback after position updates, a position update does not imply a position change | func | No | `noop` | |
 | onPositionReady | callback after content enter viewport, only called once within the life cycle | func | No | `noop` | |
 | containerSelector | pop's parent node CSS selector | string | No | `'body'` | all legal CSS selector | |
-| className | Custom class name | string | No | `''` |  |
-| prefix | Custom class name prefix | string | No | `'zent'` |  |
+| className | Custom content class name | string | No |  |  |
+| style | Custom content style | `CSSProperties` | No |  |  |
 
 `Pop` has some additional props depends on different triggers.
 
@@ -57,6 +57,7 @@ A floating card opened by clicking, hovering or focusing.
 |------|------|------|--------|---------|
 | mouseEnterDelay | Hover open delay(in ms) | number | No | `200` |
 | mouseLeaveDelay | Hover close delay(in ms) | number | No | `200` |
+| anchorOnly | Only use trigger as hot area | boolean | No | `false` |
 
 #### None
 

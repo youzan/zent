@@ -37,3 +37,5 @@ dependency-graph.json
 plugins/ts-plugin-*.js
 
 css/
+sandbox/
+index.sandbox.ts

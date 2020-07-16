@@ -2,10 +2,10 @@
 order: 6
 zh-CN:
   title: 图片上传
-  tips: '建议尺寸 640*640'
+  tips: '建议尺寸 640*640，最多 9 张，单张图片不超过 5M'
 en-US:
   title: Image Upload
-  tips: 'Recommended image size 640*640'
+  tips: 'Recommended image size 640*640, up to 9, single file no more than 5M'
 ---
 
 ```jsx
@@ -56,6 +56,7 @@ class Simple extends React.Component {
 			<ImageUpload
 				className="zent-image-upload-demo"
 				maxSize={5 * 1024 * 1024}
+				tips="建议尺寸 640*640，最多 9 张，单张图片不超过 5M"
 				maxAmount={9}
 				multiple
 				sortable

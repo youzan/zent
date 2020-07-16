@@ -1,14 +1,18 @@
 import * as React from 'react';
 import { Omit } from 'utility-types';
 
-import NumberInput, { INumberInputProps } from '../../number-input';
+import NumberInput, {
+  INumberInputDecimalProps,
+  INumberInputIntegerProps,
+} from '../../number-input';
 import { IFormComponentProps } from '../shared';
 import { FormField } from '../Field';
 import { $MergeParams } from '../utils';
 
 export type IFormNumberInputFieldProps = IFormComponentProps<
   number | string | null,
-  Omit<INumberInputProps, 'value'>
+  | Omit<INumberInputDecimalProps, 'value'>
+  | Omit<INumberInputIntegerProps, 'value'>
 >;
 
 export const FormNumberInputField: React.FunctionComponent<IFormNumberInputFieldProps> = props => {
@@ -23,3 +27,4 @@ export const FormNumberInputField: React.FunctionComponent<IFormNumberInputField
     </FormField>
   );
 };
+<NumberInput />;

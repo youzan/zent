@@ -45,11 +45,50 @@ $type-map: (
 );
 
 .zent-alert {
-  @include font-normal;
-  box-sizing: border-box;
   padding: 12px 16px;
   border: 1px solid $theme-stroke-5;
   border-radius: 2px;
+
+  &-outline {
+    border-radius: 4px;
+  }
+}
+
+.zent-alert-scroll {
+  border: 1px solid $theme-stroke-5;
+  border-radius: 2px;
+  height: min-content;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+
+  .zent-alert-scroll-container {
+    padding: 12px 16px;
+    transition-timing-function: 'ease-in-out';
+  }
+
+  .zent-alert-item {
+    transform: translateY(0);
+    opacity: 0;
+    transition: opacity 0.6s ease-in-out;
+  }
+
+  .zent-alert-scroll-active-item {
+    opacity: 1;
+  }
+
+  .zent-alert-scroll-virtual-item {
+    opacity: 1;
+  }
+
+  &-outline {
+    border-radius: 4px;
+  }
+}
+
+.zent-alert-item {
+  @include font-normal;
+  box-sizing: border-box;
   color: $theme-stroke-1;
   display: flex;
 
@@ -63,7 +102,7 @@ $type-map: (
     &__title {
       font-weight: $font-weight-medium;
 
-      + .zent-alert-content__description {
+      + .zent-alert-item-content__description {
         margin-top: 8px;
       }
     }
@@ -73,7 +112,7 @@ $type-map: (
     margin-left: 16px;
     cursor: pointer;
 
-    .zent-alert-close-btn {
+    .zent-alert-item-close-btn {
       @include theme-color(color, stroke, 4);
       font-size: 12px;
       width: 16px;
@@ -101,10 +140,6 @@ $type-map: (
       line-height: 20px;
     }
   }
-
-  &-outline {
-    border-radius: 4px;
-  }
 }
 
 @each $type, $color-index-map in $type-map {
@@ -119,11 +154,12 @@ $type-map: (
     @include theme-color(background-color, $theme, $background-color);
     @include theme-color(border-color, $theme, $border-color);
 
-    .zent-alert-content__highlight {
+    .zent-alert-item-content__highlight {
       @include theme-color(color, $theme, $highlight-color);
     }
 
-    &.zent-alert-outline {
+    &.zent-alert-outline,
+    &.zent-alert-scroll-outline {
       @include theme-color(background-color, stroke, 9);
       @include theme-color(border-color, stroke, 5);
       @include theme-color(border-top-color, $theme, $outline-color);
@@ -131,13 +167,25 @@ $type-map: (
       border-style: solid;
       border-top-width: 4px;
 
-      .zent-alert-content__title {
+      .zent-alert-item-content__title {
         @include theme-color(color, $theme, $outline-color);
       }
     }
 
-    .zent-alert-icon {
+    .zent-alert-item-icon {
       @include theme-color(color, $theme, $icon-color);
     }
+  }
+}
+
+// hint类型样式
+.zent-alert-style-hint {
+  @include theme-color(background-color, stroke, 8);
+  border: 0;
+  padding: 13px 16px;
+
+  .zent-alert-item-content {
+    font-size: $font-size-small;
+    line-height: 20px;
   }
 }
