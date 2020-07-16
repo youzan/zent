@@ -50,36 +50,36 @@ class SearchBox extends Component {
     const { locale } = this.props;
 
     return (
-      <Popover
-        position={Popover.Position.BottomLeft}
-        visible={resultVisible}
-        cushion={5}
-        onVisibleChange={this.onResultVisibleChange.bind(this)}
-        display="inline-block"
-        wrapperClassName="zandoc-react-search-box-popover-wrapper"
-      >
-        <Popover.Trigger.Click>
-          <Input
-            className="zandoc-react-search-box-input"
-            icon="search"
-            placeholder={i18n[locale].placeholder}
-            value={keyword}
-            onChange={this.onKeywordChange.bind(this)}
-            onClick={this.onInputClick.bind(this)}
-            onKeyDown={this.onKeydown.bind(this)}
-          />
-        </Popover.Trigger.Click>
+      <div className="zandoc-react-search-box-popover-wrapper">
+        <Popover
+          position={Popover.Position.BottomLeft}
+          visible={resultVisible}
+          cushion={5}
+          onVisibleChange={this.onResultVisibleChange.bind(this)}
+        >
+          <Popover.Trigger.Click>
+            <Input
+              className="zandoc-react-search-box-input"
+              icon="search"
+              placeholder={i18n[locale].placeholder}
+              value={keyword}
+              onChange={this.onKeywordChange.bind(this)}
+              onClick={this.onInputClick.bind(this)}
+              onKeyDown={this.onKeydown.bind(this)}
+            />
+          </Popover.Trigger.Click>
 
-        <Popover.Content>
-          <ResultList
-            matches={matches}
-            activeIndex={activeIndex}
-            locale={locale}
-            redirectToResult={this.redirectToResult.bind(this)}
-            clearActiveIndex={this.clearActiveIndex.bind(this)}
-          />
-        </Popover.Content>
-      </Popover>
+          <Popover.Content>
+            <ResultList
+              matches={matches}
+              activeIndex={activeIndex}
+              locale={locale}
+              redirectToResult={this.redirectToResult.bind(this)}
+              clearActiveIndex={this.clearActiveIndex.bind(this)}
+            />
+          </Popover.Content>
+        </Popover>
+      </div>
     );
   }
 

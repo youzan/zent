@@ -1009,6 +1009,18 @@ class IconGrid extends Component {
                 <span className="zi-grid-item-name">drag</span>
               </div>
             </CopyButton>
+            <CopyButton
+              text={this.getIconString("thumbnail")}
+              onCopySuccess="thumbnail 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="thumbnailthumbnail"
+              >
+                <Icon type="thumbnail" />
+                <span className="zi-grid-item-name">thumbnail</span>
+              </div>
+            </CopyButton>
           </div>
         </div>
       
@@ -1911,15 +1923,11 @@ ReactDOM.render(<IconGrid />, mountNode);
 ```
 
 <style>
-.zenticon {
-	font-size: 20px;
-}
-
-.zenticon-youzan {
-	color: #EB0B19;
-}
-
 .zi-grid {
+	.zenticon {
+		font-size: 20px;
+	}
+
 	&-toolbar {
 		display: flex;
 		align-items: center;

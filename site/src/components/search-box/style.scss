@@ -5,6 +5,7 @@
     margin-top: 15px;
     margin-left: 20px;
     vertical-align: top;
+    display: inline-block;
   }
 
   &-input {
@@ -21,7 +22,7 @@
 
   &-result-list {
     background: #fff;
-    border: 1px solid #e5e5e5;
+    border: 1px solid #ebedf0;
     border-radius: 2px;
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
     width: 250px;
@@ -45,7 +46,7 @@
 
     &:hover,
     &__active {
-      background: #59f;
+      background: $menu-hover-bg;
 
       .zandoc-react-search-box-result-item__title {
         color: #fff;

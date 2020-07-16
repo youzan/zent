@@ -51,7 +51,7 @@
     "tslib": "^1.9.3",
     "utility-types": "^3.4.1",
     "warning": "^4.0.3",
-    "zenticons": "3.5.0"
+    "zenticons": "3.6.1"
   },
   "devDependencies": {
     "@types/big.js": "^4.0.5",
@@ -74,13 +74,14 @@
     "postcss-value-parser": "^4.0.2",
     "react": "16.11.x",
     "react-dom": "16.11.x",
+    "react-window": "^1.8.5",
     "sass": "^1.22.7",
     "terser": "^4.8.0",
     "ts-jest": "^24.0.0",
     "ts-node": "^8.0.3",
     "ttypescript": "^1.5.8",
     "typedoc": "~0.15.2",
-    "typescript": "~3.7.2",
+    "typescript": "~3.9.6",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11"
   },

@@ -9,34 +9,9 @@ import { I18nReceiver as Receiver, II18nLocaleCascader } from '../i18n';
 import { ICascaderItem, CascaderHandler, CascaderValue } from './types';
 import TabsPopoverContent from './components/TabsContent';
 import MenuPopoverContent from './components/MenuContent';
-import { IPopoverClickTriggerProps } from '../popover/trigger/ClickTrigger';
 import { DisabledContext, IDisabledContext } from '../disabled';
 
 const PopoverContent = Popover.Content;
-
-export interface IPopverClickTriggerProps extends IPopoverClickTriggerProps {
-  disabled: boolean;
-}
-
-class PopoverClickTrigger extends Popover.Trigger.Click<
-  IPopverClickTriggerProps
-> {
-  getTriggerProps(child) {
-    return {
-      onClick: evt => {
-        const { disabled, contentVisible } = this.props;
-        if (!disabled) {
-          if (contentVisible) {
-            this.props.close();
-          } else {
-            this.props.open();
-          }
-          this.triggerEvent(child, 'onClick', evt);
-        }
-      },
-    };
-  }
-}
 
 export interface ICascaderProps<Item extends ICascaderItem = ICascaderItem> {
   type?: 'tabs' | 'menu';
@@ -337,7 +312,7 @@ export class Cascader<
                 onClose={this.onClose}
                 cushion={4}
               >
-                <PopoverClickTrigger disabled={disabled}>
+                <Popover.Trigger.Click toggle>
                   <div className="zent-cascader__select">
                     <div className={selectTextCls}>
                       <span className="zent-cascader__select-text-content">
@@ -346,7 +321,7 @@ export class Cascader<
                       <Icon type="caret-down" />
                     </div>
                   </div>
-                </PopoverClickTrigger>
+                </Popover.Trigger.Click>
                 {this.getPopoverContent(i18n)}
               </Popover>
             </div>

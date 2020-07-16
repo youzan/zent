@@ -82,13 +82,13 @@ export const boxNativeEvent = <T>(
 export const boxFnArgs = <T extends Function>(
   fn: T,
   argBoxings: Function[]
-) => {
-  return function(...args) {
+): T => {
+  return (function(...args) {
     const boxedArgs = args.map((arg, index) =>
       argBoxings[index] ? argBoxings[index](arg) : arg
     );
     return fn?.(...boxedArgs);
-  };
+  } as unknown) as T;
 };
 
 export const alcatrazDomUtils = isAlcatrazEnv && alcatraz.zanDomUtils;

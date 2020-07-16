@@ -1,5 +1,5 @@
-import createPlacement from './create';
-import { PositionFunctionImpl } from '../position-function';
+import { IPositionFunction } from '../position-function';
+import { prefix } from './prefix';
 
 /**
  * -------------------------------
@@ -7,55 +7,18 @@ import { PositionFunctionImpl } from '../position-function';
  * |                    |---------
  * ----------------------
  */
-const locate: PositionFunctionImpl = (
-  anchorBoundingBox,
-  containerBoundingBox,
-  contentDimension,
-  options
-) => {
-  const { right, top } = anchorBoundingBox;
-  const x = right + options.cushion;
+export const RightTop: IPositionFunction = ({ relativeRect, cushion }) => {
+  const { right, top } = relativeRect;
+  const x = right + cushion;
   const y = top;
 
   return {
-    getCSSStyle() {
-      return {
-        position: 'absolute',
-        left: `${Math.round(x)}px`,
-        top: `${Math.round(y)}px`,
-      };
+    style: {
+      position: 'absolute',
+      left: x,
+      top: y,
     },
 
-    name: 'position-right-top',
+    className: prefix('position-right-top'),
   };
 };
-
-const RightTop = createPlacement(locate);
-
-export default RightTop;
-
-/**
- * ----------------------------------
- * |                  |   popover   |
- * |   anchor          --------------|
- * ----------------------------------|
- */
-// export function TopRightInnerPlacement(anchorBoundingBox, containerBoundingBox) {
-//   const { right, top } = anchorBoundingBox;
-//   const x = containerBoundingBox.right - right;
-//   const y = top;
-
-//   return {
-//     getCSSStyle() {
-//       return {
-//         position: 'absolute',
-//         right: `${x}px`,
-//         top: `${y}px`
-//       };
-//     },
-
-//     toString() {
-//       return 'rt-i';
-//     }
-//   };
-// }

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IMaybeError, FormContext, IFormContext, BasicModel } from 'formulr';
+import { IMaybeError, FormContext, IFormContext, BasicModel } from './formulr';
 import { Subscription, combineLatest, merge } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FormError } from './Error';

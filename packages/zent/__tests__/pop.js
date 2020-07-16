@@ -14,6 +14,16 @@ function findContent() {
   return document.querySelectorAll(`.zent-pop-content-${contentId}`);
 }
 
+beforeEach(() => {
+  jest
+    .spyOn(window, 'requestAnimationFrame')
+    .mockImplementation(cb => setTimeout(cb, 0));
+});
+
+afterEach(() => {
+  window.requestAnimationFrame.mockRestore();
+});
+
 // function findHeader() {
 //   return document.querySelectorAll(`.zent-pop-header-${headerId}`);
 // }
@@ -54,7 +64,6 @@ describe('Pop', () => {
         </Pop>
       );
       expect(wrapper.find('Portal').length).toBe(0);
-      expect(wrapper.find('Popover').prop('display')).toBe('inline-block');
     });
   });
 
@@ -68,28 +77,6 @@ describe('Pop', () => {
       );
     }).not.toThrow();
     expect(wrapper.prop('position')).toBe('top-center');
-  });
-
-  it('Pop can have custom prefix, className, and block switch, meanwhile content and header pass through prop', () => {
-    const wrapper = mount(
-      <Pop
-        content={content()}
-        trigger="click"
-        prefix="foo"
-        className="quux"
-        wrapperClassName="bar"
-        block
-        header={header()}
-      >
-        <Button onClick={addClick}>click</Button>
-      </Pop>
-    );
-    expect(wrapper.find('Popover div').hasClass('foo-pop-wrapper')).toBe(true);
-    expect(wrapper.find('Popover div').hasClass('bar')).toBe(true);
-    expect(wrapper.find('Popover').prop('display')).toBe('block');
-
-    wrapper.find('button').simulate('click');
-    expect(document.querySelector('.foo-pop.quux')).toBeTruthy();
   });
 
   it('Pop has its core function, powered by zent-popover, the content of popover has onConfirm and onCancel switches', () => {
@@ -226,6 +213,7 @@ describe('Pop', () => {
       expect(
         document.querySelector(`${arrowClassName}-${position}`)
       ).toBeTruthy();
+      wrapper.unmount();
     };
 
     [

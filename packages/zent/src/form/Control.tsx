@@ -1,6 +1,5 @@
 import * as React from 'react';
 import cx from 'classnames';
-
 import { Label } from './Label';
 
 export interface IFormControlProps {

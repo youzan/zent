@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Component } from 'react';
+import { findDOMNode } from 'react-dom';
 import cx from 'classnames';
 import isEqual from '../utils/isEqual';
 import Input, { IInputClearEvent } from '../input';
@@ -47,9 +47,10 @@ export interface IMentionProps {
   onBlur?: React.FocusEventHandler;
   onKeyUp?: React.FocusEventHandler;
   onKeyDown?: React.KeyboardEventHandler;
+  inline?: boolean;
 }
 
-export class Mention extends Component<IMentionProps> {
+export class Mention extends React.Component<IMentionProps> {
   static defaultProps = {
     multiLine: false,
     position: 'bottom',
@@ -57,10 +58,11 @@ export class Mention extends Component<IMentionProps> {
     suggestions: [],
     triggerText: '@',
     prefix: 'zent',
+    inline: true,
   };
 
   _compositing: boolean;
-  input: HTMLInputElement | null = null;
+  input: HTMLInputElement | HTMLTextAreaElement | null = null;
   suggestionList: SelectMenu | null = null;
 
   state = {
@@ -92,6 +94,7 @@ export class Mention extends Component<IMentionProps> {
 
       className,
       prefix,
+      inline,
       ...passThroughProps
     } = this.props;
     const inputType = multiLine ? 'textarea' : 'text';
@@ -108,15 +111,12 @@ export class Mention extends Component<IMentionProps> {
               position={
                 position === 'bottom' ? this.BottomPosition : this.TopPosition
               }
-              display="inline-block"
-              wrapperClassName={cx(`${prefix}-mention`, className)}
             >
-              <Popover.Trigger.Click
-                getNodeForTriggerRefChange={Utils.getInputNodeForTrigger}
-              >
+              <Popover.Trigger.Click getElement={Utils.getInputNodeForTrigger}>
                 <Input
                   type={inputType}
                   ref={this.saveInputRef}
+                  className={cx('zent-mention', className)}
                   onChange={this.onInputChange}
                   // onFocus={this.onInputFocus}
                   onBlur={this.onInputBlur}
@@ -126,6 +126,7 @@ export class Mention extends Component<IMentionProps> {
                   onWheel={this.onInputScroll}
                   onCompositionStart={this.onInputCompositionStart}
                   onCompositionEnd={this.onInputCompositionEnd}
+                  inline={inline}
                   {...(passThroughProps as any)}
                 />
               </Popover.Trigger.Click>
@@ -283,7 +284,13 @@ export class Mention extends Component<IMentionProps> {
       });
     }
 
-    this.input = instance && instance.input;
+    if (!instance) {
+      return;
+    }
+
+    // <Input> wraps native input in a div
+    const inputNode = Utils.getInputNodeForTrigger(findDOMNode(instance));
+    this.input = inputNode;
 
     if (this.input) {
       SelectionChangeEventHub.install({

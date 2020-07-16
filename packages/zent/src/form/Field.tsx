@@ -9,7 +9,7 @@ import {
   FieldUtils,
   isModelRef,
   ModelRef,
-} from 'formulr';
+} from './formulr';
 import {
   defaultRenderError,
   IFormFieldProps,

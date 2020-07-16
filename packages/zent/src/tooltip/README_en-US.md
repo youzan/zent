@@ -20,10 +20,10 @@ group: FIXME group name here
 | centerArrow | Always center arrow to trigger | bool | No | `false` |  |
 | cushion | Same as the `cushion` in Popover, which is usually the distance between the edge of the Tooltip and the trigger element | number | No | `10` |  |
 | containerSelector | tooltip's parent node CSS selector | string | No | `'body'` | all legal CSS selector | |
-| className | Custom class name | string | No | `''` |  |
-| prefix | Custom class name prefix | string | No | `'zent'` |  |
 | visible | Tooltip switch to controlled mode if this prop is set | bool | No | | |
 | onVisibleChange | Must be used with `visible` | func | No | | |
+| className | Custom class name | string | No | `''` |  |
+| style | Custom styles | CSSProperties | No |  |  |
 
 #### Extra API to trigger
 
