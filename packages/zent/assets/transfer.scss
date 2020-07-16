@@ -8,17 +8,19 @@
   &__item {
     width: 240px;
     box-sizing: border-box;
-    border: 1px solid $theme-stroke-5;
+    border: 1px solid;
+    @include theme-color(border-color, stroke, 5);
 
     &__allCheckbox {
-      border-bottom: 1px solid $theme-stroke-5;
+      border-bottom: 1px solid;
+      @include theme-color(border-color, stroke, 5);
       padding: 6px 0 6px 12px;
       display: flex;
     }
 
     &__search {
       padding: 8px 12px;
-      background-color: $theme-stroke-9;
+      @include theme-color(background-color, stroke, 9);
     }
 
     &__grid {
@@ -60,14 +62,14 @@
     }
 
     &__icon {
-      stroke: #fff;
+      @include theme-color(stroke, stroke, 9);
       position: absolute;
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
 
       &--disabled {
-        stroke: #bbb;
+        @include theme-color(stroke, stroke, 4);
       }
     }
   }

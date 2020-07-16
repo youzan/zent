@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState, useMemo, useCallback, useEffect } from 'react';
 import cx from 'classnames';
 
-import { ITransfer, ColumnType } from './types';
+import { ITransfer, TransferColumnType } from './types';
 import { Direction } from './constants';
 import TransferItem from './components/TransferItem';
 import ArrowButton from './components/ArrowButton';
@@ -68,9 +68,13 @@ export const Transfer: React.FC<ITransfer> = ({
   const getColumns = useCallback(
     (direction: Direction) => {
       if (Direction.left === direction) {
-        return (Array.isArray(columns[0]) ? columns[0] : columns) as ColumnType;
+        return (Array.isArray(columns[0])
+          ? columns[0]
+          : columns) as TransferColumnType;
       }
-      return (Array.isArray(columns[0]) ? columns[1] : columns) as ColumnType;
+      return (Array.isArray(columns[0])
+        ? columns[1]
+        : columns) as TransferColumnType;
     },
     [columns]
   );
@@ -198,4 +202,6 @@ Transfer.defaultProps = {
   targetKeys: [],
   selectedRowKeys: [],
   className: '',
+  showSearch: false,
+  searchPlaceholder: '',
 };

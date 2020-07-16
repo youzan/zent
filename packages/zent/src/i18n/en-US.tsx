@@ -16,6 +16,7 @@ import {
   II18nLocaleSwitch,
   II18nLocaleTable,
   II18nLocaleUpload,
+  II18nLocaleTransfer,
 } from './locale';
 import { enUS, setLocale } from './time-locale';
 
@@ -186,4 +187,8 @@ export const Upload: II18nLocaleUpload = {
 
 export const Mention: II18nLocaleMention = {
   noContent: 'No result found, press SPACE to finish typing',
+};
+
+export const Transfer: II18nLocaleTransfer = {
+  placeholder: 'Please Enter',
 };

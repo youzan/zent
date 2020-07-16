@@ -3,14 +3,14 @@ import cx from 'classnames';
 
 import Button from '../../button';
 import { Direction } from '../constants';
-import { IArrowButton } from '../types';
+import { ITransferArrowButton } from '../types';
 
 const ArrowButton = ({
   direction,
   onChange,
   disabled,
   prefix,
-}: IArrowButton) => {
+}: ITransferArrowButton) => {
   return (
     <Button
       type={disabled ? 'default' : 'primary'}

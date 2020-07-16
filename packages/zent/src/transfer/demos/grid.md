@@ -43,8 +43,16 @@ ReactDOM.render(
 			datasets={datasets}
 			targetKeys={targetKeys}
 			onChange={transferData}
+			scroll={{ y: 198, x: 0 }}
+			className="grid-transfer"
 		/>
 	</div>,
 	mountNode
 );
 ```
+
+<style>
+.grid-transfer .zent-grid-thead .zent-grid-tr {
+	height: 36px;
+}
+</style>

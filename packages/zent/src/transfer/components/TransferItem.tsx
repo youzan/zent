@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useState, useCallback, useEffect, useMemo } from 'react';
 import cx from 'classnames';
 
+import { I18nReceiver as Receiver, II18nLocaleCascader } from '../../i18n';
 import { Grid, Input, Checkbox } from '../../index';
 import { ITransferItem } from '../types';
 import { IGridColumn } from '../../grid';
@@ -98,51 +99,58 @@ const TransferItem: React.FC<ITransferItem> = ({
   }, [columns]);
 
   return (
-    <div className={classNamePrefix}>
-      <div className={`${classNamePrefix}__allCheckbox`}>
-        {columns[0]?.title ? (
-          Title
-        ) : (
-          <Checkbox
-            checked={checked}
-            indeterminate={indeterminate}
-            onChange={changeCheckBox}
-          >
-            {Title}
-          </Checkbox>
-        )}
-      </div>
+    <Receiver componentName="Transfer">
+      {(i18n: II18nLocaleCascader) => {
+        return (
+          <div className={classNamePrefix}>
+            <div className={`${classNamePrefix}__allCheckbox`}>
+              {columns[0]?.title ? (
+                Title
+              ) : (
+                <Checkbox
+                  checked={checked}
+                  indeterminate={indeterminate}
+                  onChange={changeCheckBox}
+                >
+                  {Title}
+                </Checkbox>
+              )}
+            </div>
 
-      {showSearch && (
-        <div className={`${classNamePrefix}__search`}>
-          <Input
-            placeholder={searchPlaceholder || '请输入搜索内容'}
-            icon="search"
-            onChange={changeInput}
-            value={inputVal}
-            showClear
-          />
-        </div>
-      )}
-      <Grid
-        className={cx(`${classNamePrefix}__grid`, {
-          [`${classNamePrefix}__header--hidden`]: false === !!columns[0]?.title,
-        })}
-        rowClassName={`${classNamePrefix}__grid__row`}
-        datasets={listData}
-        rowKey={rowKey}
-        selection={{
-          selectedRowKeys,
-          onSelect,
-          getCheckboxProps,
-          ...selection,
-        }}
-        columns={girdColumns}
-        onRowClick={handleRowClick}
-        emptyLabel={emptyLabel || '暂无数据'}
-        {...gridRest}
-      />
-    </div>
+            {showSearch && (
+              <div className={`${classNamePrefix}__search`}>
+                <Input
+                  placeholder={searchPlaceholder || i18n.placeholder}
+                  icon="search"
+                  onChange={changeInput}
+                  value={inputVal}
+                  showClear
+                />
+              </div>
+            )}
+            <Grid
+              className={cx(`${classNamePrefix}__grid`, {
+                [`${classNamePrefix}__header--hidden`]:
+                  false === !!columns[0]?.title,
+              })}
+              rowClassName={`${classNamePrefix}__grid__row`}
+              datasets={listData}
+              rowKey={rowKey}
+              selection={{
+                selectedRowKeys,
+                onSelect,
+                getCheckboxProps,
+                ...selection,
+              }}
+              columns={girdColumns}
+              onRowClick={handleRowClick}
+              emptyLabel={emptyLabel || '暂无数据'}
+              {...gridRest}
+            />
+          </div>
+        );
+      }}
+    </Receiver>
   );
 };
 
