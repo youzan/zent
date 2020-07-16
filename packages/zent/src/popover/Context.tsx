@@ -27,7 +27,7 @@ context.displayName = 'ZentPopoverContext';
 export function usePopoverContext(): IPopoverContext {
   const ctx = useContext(context);
   if (!ctx) {
-    throw new Error();
+    throw new Error('Popover context not found');
   }
   return ctx;
 }

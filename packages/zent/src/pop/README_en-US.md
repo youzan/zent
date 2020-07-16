@@ -57,6 +57,7 @@ A floating card opened by clicking, hovering or focusing.
 |------|------|------|--------|---------|
 | mouseEnterDelay | Hover open delay(in ms) | number | No | `200` |
 | mouseLeaveDelay | Hover close delay(in ms) | number | No | `200` |
+| anchorOnly | Only use trigger as hot area | boolean | No | `false` |
 
 #### None
 

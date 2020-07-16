@@ -58,6 +58,7 @@ group: 反馈
 |------|------|------|--------|-------|
 | mouseEnterDelay | hover打开的延迟（单位：毫秒） | number | 否 | `200` |
 | mouseLeaveDelay | 关闭的的延迟（单位：毫秒） | number | 否 | `200` |
+| anchorOnly | 仅考虑 Trigger 作为触发区域 | boolean | 否 | `false` |
 
 #### None
 

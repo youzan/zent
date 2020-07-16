@@ -59,7 +59,7 @@ group: 基础
 | showDelay | 打开弹层前的延迟（单位毫秒）, 如果在这段时间内鼠标移出弹层范围, 弹层不会打开   | number   | `150`  | 否 |
 | hideDelay | 关闭弹层前的延迟（单位毫秒）, 如果在这段时间内鼠标重新移入弹层范围, 弹层不会关闭 | number    | `150` | 否 |
 | getElement  | 自定义 trigger 的 DOM 节点 | (node: Element | Text | null) => Element| Text | null | findDOMNode 的结果 | 否 |
-| anchorOnly | 鼠标移入/移出不触发打开/关闭行为 | boolean | `false` | 否  |
+| anchorOnly | 仅考虑 Trigger 作为触发区域 | boolean | `false` | 否  |
 
 #### Trigger.Focus
 
@@ -72,8 +72,6 @@ group: 基础
 #### Trigger.Base(已废弃)
 
 请使用 `PopoverAnchor` 实现自定义的 trigger，请参考 `ClickTrigger` 的源码。
-
-实现自定义 trigger 需继承这个类, 继承时需要重写 `getTriggerProps` 方法给 trigger 添加事件, 然后在事件处理函数控制弹层的开/闭。
 
 ### Position API
 

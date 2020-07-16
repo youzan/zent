@@ -24,7 +24,8 @@ group: 数据
 | valueFromOptions | 是否只能选中选项中存在的值 | bool | 否 | `false` | |
 | className | 可选，自定义输入框容器额外类名 | string | 否 | `''` | |
 | popupClassName | 可选，自定义popup的类名 | string | 否 | `''` | |
-| width | 输入框宽度 | string or number | 否 | | |
+| width | 输入框宽度 | `string` \| `number` | 否 | | |
+| inline | 输入框 inline 展示 | `boolean` | 否 | | |
 
 ### data 结构
 * 使用方式 1: string array, 此时选项显示内容和选项value相同, 推荐使用

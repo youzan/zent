@@ -165,6 +165,7 @@ export class Pop extends Component<IPopProps, IPopState> {
           <Trigger.Hover
             showDelay={props.mouseEnterDelay}
             hideDelay={props.mouseLeaveDelay}
+            anchorOnly={props.anchorOnly}
           >
             {props.children}
           </Trigger.Hover>

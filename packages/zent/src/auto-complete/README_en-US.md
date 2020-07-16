@@ -13,18 +13,19 @@ AutoComplete of input field.
 
 | Props    |   Description          | Type     | Required            | Default        | Alternative |
 | --------- | ------------- | ------ | ---------- | ------------------- | -------------- |
-| value | Selected value | any | no | | |
-| initialValue | Initial value | any | no | | |
-| placeholder | Input placeholder | string | no | | |
-| data | Option data | array | no | [] | |
-| onChange | The callback when value is changed | function (value) {} | no | | |
-| onSearch | The callback when input text is changed | function (searchText) {} | no | | |
-| onSelect | The callback when option is selected | function (value) {} | no | | |
-| filterOption | Filter function for options | function (searchText, { value, content }) {} | no | caselessMatch | |
-| valueFromOptions | Whether value can only be one of the options' value | bool | no | `false` | |
-| className | Optional, custom input wrapper className | string | no | `''` | |
-| popupClassName | Optional, custom popup classname  | string | no | `''` | |
-| width | The input-box width | string or number | no | | |
+| value | Selected value | any | No | | |
+| initialValue | Initial value | any | No | | |
+| placeholder | Input placeholder | string | No | | |
+| data | Option data | array | No | [] | |
+| onChange | The callback when value is changed | function (value) {} | No | | |
+| onSearch | The callback when input text is changed | function (searchText) {} | No | | |
+| onSelect | The callback when option is selected | function (value) {} | No | | |
+| filterOption | Filter function for options | function (searchText, { value, content }) {} | No | caselessMatch | |
+| valueFromOptions | Whether value can only be one of the options' value | bool | No | `false` | |
+| className | Optional, custom input wrapper className | string | No | `''` | |
+| popupClassName | Optional, custom popup classname  | string | No | `''` | |
+| width | Input width | `string` \| `number` | No | | |
+| inline | Input inline display | `boolean` | No | | |
 
 ### data structure
 * Case 1: string array, the content and value is the same, recommended.

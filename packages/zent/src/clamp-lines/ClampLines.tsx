@@ -9,12 +9,12 @@ import { getLineHeight } from '../utils/dom/getLineHeight';
 
 export interface IClampLinesProps {
   text: string;
-  lines: number;
+  lines?: number;
   ellipsis?: string;
   showPop?: boolean;
   popWidth?: number;
   trigger?: 'click' | 'hover' | 'focus';
-  renderPop: (text: string) => React.ReactNode;
+  renderPop?: (text: string) => React.ReactNode;
   resizable?: boolean;
   extra?: React.ReactNode;
   className?: string;

@@ -59,7 +59,7 @@ Every kinds of trigger has it's own API to control component behavior, custom tr
 | showDelay | the duration before layer open (in milliseconds), during this time, if you move mouse out of layer, pop will not open   | number   | `150`  | No |
 | hideDelay | the duration before layer close (in milliseconds), during this time, if you move mouse out of layer, pop will not close  | number    | `150` | No |
 | getElement  | Customize trigger DOM node | (node: Element | Text | null) => Element| Text | null | findDOMNode | No |
-| anchorOnly | Don't open/close when mouse enter/leave | boolean | `false` | No  |
+| anchorOnly | Only use trigger as hot area | boolean | `false` | No  |
 
 #### Trigger.Focus
 
@@ -72,8 +72,6 @@ Display when it gets focus， close when it loses focus.
 #### Trigger.Base(Deprecated)
 
 Please use `PopoverAnchor` to implement custom trigger, checkout `ClickTrigger` source code.
-
-Custom trigger needs to inherit this class, you have rewrite `getTriggerProps` method to add trigger event.
 
 ### Position API
 
