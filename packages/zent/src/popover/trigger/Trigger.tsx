@@ -31,7 +31,7 @@ export class PopoverTrigger<
       | string
       | number = Children.only(this.props.children);
     if (!child) {
-      throw new Error();
+      throw new Error('Popover Trigger requires a child');
     }
     if (typeof child === 'number' || typeof child === 'string') {
       child = <span>{child}</span>;

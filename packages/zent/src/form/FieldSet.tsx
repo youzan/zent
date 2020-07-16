@@ -10,13 +10,14 @@ import {
   $FieldSetValue,
   ModelRef,
   FieldArrayModel,
-} from 'formulr';
+} from './formulr';
 import {
   IRenderError,
   defaultRenderError,
   useFormChild,
   IFormFieldViewDrivenProps,
 } from './shared';
+import { useImperativeHandle } from 'react';
 
 export interface IFieldSetBaseProps<
   T extends Record<string, BasicModel<unknown>>
@@ -34,6 +35,7 @@ export interface IFieldSetBaseProps<
    * 用于渲染整个 `FieldSet` 层面的错误
    */
   renderError?: IRenderError<T>;
+  modelRef?: React.RefObject<FieldSetModel<T>>;
 }
 
 export interface IFieldSetModelDrivenProps<
@@ -65,11 +67,12 @@ export function FieldSet<T extends Record<string, BasicModel<unknown>>>(
     scrollAnchorRef,
     renderError = defaultRenderError,
     validators,
+    modelRef,
   } = props as IFieldSetBaseProps<T>;
   const { name } = props as IFieldSetViewDrivenProps<T>;
   const { model: rawModel } = props as IFieldSetModelDrivenProps<T>;
   const [ctx, model] = useFieldSet(name || rawModel, validators);
-
+  useImperativeHandle(modelRef, () => model, [model]);
   useFormChild(model as BasicModel<unknown>, scrollAnchorRef);
   useValue$(model.error$, model.error$.getValue());
   return (

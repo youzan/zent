@@ -52,7 +52,7 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
     block,
     loading,
     disabled = disabledContext.value,
-    bordered,
+    bordered = true,
     icon,
     children,
   } = props;

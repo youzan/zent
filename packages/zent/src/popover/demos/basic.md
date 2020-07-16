@@ -16,11 +16,11 @@ en-US:
 import { Popover, Button } from 'zent';
 
 ReactDOM.render(
-	<Popover 
-		className="zent-doc-popover" 
-		position={Popover.Position.BottomLeft} 
-		display="inline"
-		cushion={5}>
+	<Popover
+		className="zent-doc-popover"
+		position={Popover.Position.BottomLeft}
+		cushion={5}
+	>
 		<Popover.Trigger.Click>
 			<Button type="primary">{i18n.click}</Button>
 		</Popover.Trigger.Click>
@@ -28,7 +28,7 @@ ReactDOM.render(
 			<div>{i18n.msg1}</div>
 			<div>{i18n.msg2}</div>
 		</Popover.Content>
-	</Popover>
-	, mountNode
+	</Popover>,
+	mountNode
 );
 ```

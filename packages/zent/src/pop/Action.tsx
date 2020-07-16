@@ -68,15 +68,9 @@ function PopAction({
 }: IPopActionProps) {
   const popover = usePopover();
   const onConfirmClick = React.useCallback(() => {
-    if (!onConfirm) {
-      return;
-    }
     handleClick('confirmPending', changePending, popover, onConfirm);
   }, [onConfirm, popover, changePending]);
   const onCancelClick = React.useCallback(() => {
-    if (!onCancel) {
-      return;
-    }
     handleClick('cancelPending', changePending, popover, onCancel);
   }, [onCancel, popover, changePending]);
   return (

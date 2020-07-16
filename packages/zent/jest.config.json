@@ -45,6 +45,8 @@
     "<rootDir>/src/utils/component/AnimateHeight.tsx",
     "<rootDir>/scr/utils/component/LazyMount.tsx",
     "<rootDir>/scr/utils/date",
+    "<rootDir>/src/utils/alcatraz",
+    "<rootDir>/src/utils/dom/contains.ts",
     "<rootDir>/src/i18n",
     "<rootDir>/src/pagination",
     "<rootDir>/src/placeholder",

@@ -9,12 +9,12 @@ import { getLineHeight } from '../utils/dom/getLineHeight';
 
 export interface IClampLinesProps {
   text: string;
-  lines: number;
+  lines?: number;
   ellipsis?: string;
   showPop?: boolean;
   popWidth?: number;
-  trigger: 'click' | 'hover' | 'focus';
-  renderPop: (text: string) => React.ReactNode;
+  trigger?: 'click' | 'hover' | 'focus';
+  renderPop?: (text: string) => React.ReactNode;
   resizable?: boolean;
   extra?: React.ReactNode;
   className?: string;
@@ -152,7 +152,12 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
     return (
       <div
         className={classString}
-        style={{ maxHeight: this.maxHeight, overflowY: 'hidden' }}
+        style={{
+          maxHeight: this.maxHeight,
+          overflowY: 'hidden',
+          wordBreak: 'normal',
+          overflowWrap: 'anywhere',
+        }}
       >
         <div ref={this.element}>
           <span ref={this.innerElement}>{this.state.text}</span>
@@ -179,7 +184,10 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
 
     if (this.state.noClamp) {
       return (
-        <div className={className}>
+        <div
+          className={className}
+          style={{ wordBreak: 'normal', overflowWrap: 'anywhere' }}
+        >
           {text}
           {this.renderResizable()}
         </div>
@@ -189,9 +197,18 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
     if (showPop) {
       return (
         <Pop
-          // FIXME: looks like a typescript bug
-          trigger={trigger as any}
-          content={<div style={{ maxWidth: popWidth }}>{renderPop(text)}</div>}
+          trigger={trigger}
+          content={
+            <div
+              style={{
+                maxWidth: popWidth,
+                wordBreak: 'normal',
+                overflowWrap: 'anywhere',
+              }}
+            >
+              {renderPop(text)}
+            </div>
+          }
         >
           {this.renderClampedText()}
         </Pop>

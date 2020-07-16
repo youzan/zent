@@ -22,21 +22,19 @@ The widget supports nested pop
 
 | Property | Description | Type | Default | Alternative | Required |
 |------|------|------|--------|--------|--------|
-| position | position way, refer to `Popover.Positon` | Positon | | | Yes |
-| cushion | position offset, generally it reserves a space for some icon like arrow | number | `0` | | No |
-| display | the display property specifies the type of box used for an HTML element. | string | `'block'` | all legal `display` value in CSS | No |
-| onShow |  the callback after pop shows| func | `noop` | | No |
-| onClose | the callback after pop closes | func | `noop` | | No |
-| onBeforeShow | the callback before pop opens, only triggered by user's operation, setting `visible` outside will not call | func | `noop` | | No |
-| onBeforeClose | the callback after pop closes, only triggered by user's operation, setting `visible` outside will not call | `noop` | | No |
-| containerSelector | pop's parent node CSS selector | string | `'body'` | all legal CSS selector | No |
-| visible | manual control pop's show or hide, must be used with `onVisibleChange`  | bool | | | No |
-| onVisibleChange | the callback when manual control, must be used with `visible`,  only triggered by user's open/close operation | func | | | No |
-| onPositionUpdated | callback after position updates, a position update does not imply a position change | func | `noop` | | No |
-| onPositionReady | callback after content enters viewport, only called once within the life cycle | func | `noop` |  | No |
-| className | custom extra class name | string | `''` |  | No |
-| width | width | string or number |  |  | No |
-| prefix | custom prefix  | string | `'zent'` |  | No |
+| position | Position way, refer to `Popover.Positon` | Positon | | | Yes |
+| cushion | Position offset, generally it reserves a space for some icon like arrow | number | `0` | | No |
+| onShow |  Callback after pop shows| func | `noop` | | No |
+| onClose | Callback after pop closes | func | `noop` | | No |
+| onBeforeShow | Callback before pop opens, only triggered by user's operation, setting `visible` outside will not call | func | `noop` | | No |
+| onBeforeClose | Callback after pop closes, only triggered by user's operation, setting `visible` outside will not call | `noop` | | No |
+| containerSelector | Pop's parent node CSS selector | string | `'body'` | all legal CSS selector | No |
+| visible | Manually control pop's show or hide, must be used with `onVisibleChange`  | bool | | | No |
+| onVisibleChange | Callback when manual control, must be used with `visible`,  only triggered by user's open/close operation | func | | | No |
+| onPositionUpdated | Callback after position updates, a position update does not imply a position change | func | `noop` | | No |
+| onPositionReady | Callback after content enters viewport, only called once within the life cycle | func | `noop` |  | No |
+| className | Custom extra content class name | string | `''` |  | No |
+| style | Custom content styles | `CssProperties` |  |  | 否 |
 
 `onBeforeShow` and `onBeforeClose` will return a  `Promise`，`Popover` will open/close after `Promise` resolve，if  `Promise` reject, open/close opreation will stop.
 
@@ -61,7 +59,7 @@ Every kinds of trigger has it's own API to control component behavior, custom tr
 | showDelay | the duration before layer open (in milliseconds), during this time, if you move mouse out of layer, pop will not open   | number   | `150`  | No |
 | hideDelay | the duration before layer close (in milliseconds), during this time, if you move mouse out of layer, pop will not close  | number    | `150` | No |
 | getElement  | Customize trigger DOM node | (node: Element | Text | null) => Element| Text | null | findDOMNode | No |
-| anchorOnly | Don't open/close when mouse enter/leave | boolean | `false` | No  |
+| anchorOnly | Only use trigger as hot area | boolean | `false` | No  |
 
 #### Trigger.Focus
 
@@ -74,8 +72,6 @@ Display when it gets focus， close when it loses focus.
 #### Trigger.Base(Deprecated)
 
 Please use `PopoverAnchor` to implement custom trigger, checkout `ClickTrigger` source code.
-
-Custom trigger needs to inherit this class, you have rewrite `getTriggerProps` method to add trigger event.
 
 ### Position API
 

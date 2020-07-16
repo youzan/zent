@@ -69,10 +69,13 @@ export class ArrowButton extends Component<
     const btn = (
       <Button
         {...rest}
-        className={cx('zent-pagination-arrow-button', {
-          'zent-pagination-button--layout': !disabledHelp,
-          'zent-pagination-page-button--no-border': !bordered,
-        })}
+        className={cx(
+          'zent-pagination-arrow-button',
+          'zent-pagination-button--layout',
+          {
+            'zent-pagination-page-button--no-border': !bordered,
+          }
+        )}
       >
         <Arrow />
       </Button>
@@ -122,6 +125,7 @@ class DoubleArrowButton extends Component<
         className={cx(
           'zent-pagination-arrow-button',
           'zent-pagination-arrow-button--double',
+          'zent-pagination-button--layout',
           {
             'zent-pagination-arrow-button--double-active': isActive,
             'zent-pagination-page-button--no-border': !bordered,

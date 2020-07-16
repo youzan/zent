@@ -28,7 +28,6 @@ ReactDOM.render(
 	<Popover 
 		className="zent-doc-popover" 
 		position={Popover.Position.BottomLeft} 
-		display="inline"
 		cushion={5}>
 		<Popover.Trigger.Click>
 			<Button type="primary">{i18n.click}</Button>

@@ -1,6 +1,5 @@
-import { useMemo, useReducer, FormEvent } from 'react';
+import { useMemo, FormEvent, useReducer } from 'react';
 import {
-  IForm,
   ValidateOption,
   $FieldSetValue,
   useForm as superUseForm,
@@ -8,8 +7,10 @@ import {
   FormBuilder,
   BasicModel,
   BasicBuilder,
-} from 'formulr';
+  IForm,
+} from './formulr';
 import { Subject } from 'rxjs';
+import { useAsyncSafeDispatch } from '../utils/hooks/useAsyncSafeDispatch';
 
 export interface IFormAction {
   type: 'SUBMIT_START' | 'SUBMIT_SUCCESS' | 'SUBMIT_ERROR';
@@ -130,7 +131,7 @@ export class ZentForm<T extends Record<string, BasicModel<unknown>>>
     this.inner.model.initialize(value);
   }
 
-  patchValue(value: $FieldSetValue<T>) {
+  patchValue(value: Partial<$FieldSetValue<T>>) {
     this.inner.model.patchValue(value);
   }
 
@@ -163,8 +164,10 @@ export function useForm<
   Model extends BasicModel<unknown>
 >(arg: FormStrategy.View | FormBuilder<T, Builder, Model>) {
   const inner = superUseForm(arg);
-  const [state, dispatch] = useReducer(formReducer, initialState);
+  const [state, _dispatch] = useReducer(formReducer, initialState);
+  const dispatch = useAsyncSafeDispatch(_dispatch);
   const form = useMemo(() => new ZentForm(inner, state, dispatch), [
+    dispatch,
     inner,
     state,
   ]);

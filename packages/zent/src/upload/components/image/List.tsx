@@ -8,11 +8,13 @@ import {
   IImageUploadListProps,
   IUploadFileItem,
   IUploadFileItemInner,
+  IImageUploadItemProps,
 } from '../../types';
 import AbstractUploadList from '../AbstractList';
 
 export default class ImageUploadList extends AbstractUploadList<
   IImageUploadFileItem,
+  IImageUploadItemProps,
   IImageUploadListProps
 > {
   getRenderFileList() {
@@ -32,8 +34,10 @@ export default class ImageUploadList extends AbstractUploadList<
   renderFileItem = (
     item: IUploadFileItemInner<IUploadFileItem>
   ): React.ReactNode => {
+    const { customUploadItem: CustomUploadItem } = this.props;
+    const UploadItem = CustomUploadItem || ImageUploadItem;
     return (
-      <ImageUploadItem
+      <UploadItem
         key={item._id}
         item={item}
         i18n={this.props.i18n}
