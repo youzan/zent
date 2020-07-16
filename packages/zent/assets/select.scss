@@ -1,233 +1,190 @@
 @import './theme/default';
 @import './theme/font';
-@import './mixins/index';
+@import './mixins/popup';
+
+$option-height: 32px;
+
+@mixin placeholder {
+  @include theme-color(color, stroke, 4);
+}
 
 .zent-select {
+  @include theme-color(border-color, stroke, 5);
+  @include theme-color(background-color, stroke, 9);
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 2px;
   cursor: pointer;
-  display: inline-block;
-  font-size: 0;
-  line-height: 1.5;
-  margin-right: 10px;
+  min-height: 32px;
+  padding: 5px 25px 5px 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  transition: border-color 0.25s;
   outline: none;
   position: relative;
-  text-align: left;
-  user-select: none;
-  width: 240px;
-  vertical-align: middle;
+  line-height: 20px;
 
-  &--disabled {
+  &::after {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAMAAAAhxq8pAAAAP1BMVEUAAAAzMzMyMjRAQEAyMjQyMjQ0NDQ2NjYyMjMzMzMyMjMyMjMzMzQyMjQ4ODgzMzNGRkYzMzMyMjUzMzMyMjNbbAmOAAAAFHRSTlMAqr0Grn1SLvTr39GXiSAUC2hbMlOyMCEAAABbSURBVBjTfc5JEoAgDETRlnkGlfufVSkLxWD5ln+RDj7xdSEkR6yTCDZHgW2OCgi0hbZEDjCOU3ZjcxlotHma0cBFjSM32ZvEQPQPR8W35gtekq3VJhA7Yxp/Dk7RDBdwecf8AAAAAElFTkSuQmCC');
+    background-repeat: no-repeat;
+    background-size: 10px 8px;
+    background-position: center;
+    content: '';
+    right: 8px;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    transition: transform 0.25s;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+  }
+
+  &.zent-select-disabled {
     @include theme-color(color, stroke, 5);
+    @include theme-color(border-color, stroke, 5);
+    @include theme-color(background-color, stroke, 8);
     cursor: not-allowed;
+    user-select: none;
 
-    .zent-select-input,
-    .zent-select-text,
-    .zent-select-tags {
+    &:hover {
+      @include theme-color(color, stroke, 5);
       @include theme-color(border-color, stroke, 5);
       @include theme-color(background-color, stroke, 8);
+      box-shadow: none;
+    }
 
-      &::after {
-        opacity: 0.25;
+    &::after {
+      opacity: 0.25;
+    }
+  }
+
+  &-placeholder {
+    @include placeholder;
+  }
+
+  &:hover,
+  &.zent-select-active {
+    @include theme-color(border-color, primary, 4);
+    box-shadow: $shadow-spec-focus;
+  }
+
+  &.zent-select-visible {
+    &::after {
+      transform: rotate(180deg);
+    }
+  }
+
+  &.zent-select-inline {
+    display: inline-flex;
+  }
+
+  &-search {
+    outline: none;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+
+    &::placeholder {
+      @include placeholder;
+    }
+  }
+
+  &-popover {
+    @include popup;
+    max-height: 8 * $option-height;
+    overflow-y: auto;
+
+    &-empty {
+      @include theme-color(color, stroke, 4);
+      padding: 0 20px;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  &-option {
+    height: $option-height;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 7px 16px;
+
+    &-text {
+      display: flex;
+      align-items: center;
+      flex: 1 1 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    &:hover,
+    &-active,
+    &-active.zent-select-option-selected {
+      @include theme-color(background-color, primary, 8);
+    }
+
+    &-header {
+      @include theme-color(color, stroke, 4);
+      cursor: default;
+      font-size: $font-size-small;
+
+      &:hover,
+      &.zent-select-option-active {
+        @include theme-color(background-color, stroke, 9);
+        cursor: default;
+      }
+    }
+
+    &-disabled {
+      @include theme-color(color, stroke, 4);
+      cursor: not-allowed;
+
+      &:hover,
+      &.zent-select-option-active {
+        @include theme-color(background-color, stroke, 9);
+        cursor: not-allowed;
+      }
+    }
+
+    &-selected {
+      @include theme-color(background-color, stroke, 8);
+
+      &-multiple {
+        font-size: 12px;
+        display: block;
+        margin-left: auto;
       }
     }
   }
 
-  .zent-select-text,
-  .zent-select-popup,
-  .zent-select-input,
-  .zent-select-tags {
-    font-size: $font-size-normal;
-    line-height: 18px;
-  }
-
-  &__popover {
-    width: 240px;
-    line-height: 1.5;
-    cursor: pointer;
-    text-align: left;
-    user-select: none;
-
-    &.zent-select-auto-width {
-      width: auto;
-    }
-  }
-}
-
-.zent-select-input,
-.zent-select-text,
-.zent-select-tags {
-  @include theme-color(border-color, stroke, 5);
-  @include theme-color(background-color, stroke, 9);
-  box-sizing: border-box;
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 2px;
-  display: inline-block;
-  min-height: 30px;
-  max-height: 76px;
-  outline: none;
-  padding: 5px 10px;
-  transition: border-color 0.25s;
-  width: 100%;
-  position: relative;
-
-  &::after {
-    // This component will be removed soon, update base64 image for now
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAFKADAAQAAAABAAAADAAAAADBhQ6EAAABS0lEQVQoFWNkAAJjY5Pp////TwMymUB8MsA/RkaGmWfPns2CGvD/IdAQcg0D2c/0/z/jEzADRPj6+nYxMDDuBbHJA4yHlJUVO0F6GWEGWFlZif348fMckC8NEyOSfsXJyWF49OjRZyD1cANBHBMTE+v//xkOAMOTBcQnAvxjZmZyP3369B6YWmYYA0Q/e/bssZSU5Fcg0x1ZHBcbGBHNZ86cmYcsjxERwJjqAzp8HbIibGygYfuAYd+ILofiZZikubk53+/ff84C+SowMWSakZHxBQsLs8HJkydfIouD2BguBAkCFX4CaggBavwO4iMDoNhfBob/UdgMA6nDaiBI4tSpUxeZmBizQWxU8L8BGCz7UcUQPJwGgpQAY28+MDzhgQ4Mt13AcGtDaMdkocQypjQDg4GB/s5v377yAQ27wcvLm7JgwQKMYEDWBwBOUl3zzR8jCAAAAABJRU5ErkJggg==');
-    background-repeat: no-repeat;
-    background-size: 10px 6px;
-    background-position: center;
-    top: 50%;
-    right: 8px;
-    width: 16px;
-    content: '';
-    height: 16px;
-    position: absolute;
-    transform: translateY(-50%);
-    transition: transform 0.25s;
-  }
-
-  &.zent-select--visible {
-    @include theme-color(border-color, primary, 4);
-    box-shadow: $shadow-spec-focus;
-
-    &::after {
-      transform: rotate(180deg) translateY(50%);
-    }
-  }
-}
-
-.zent-select-placeholder {
-  @include theme-color(color, stroke, 4);
-}
-
-.zent-select-simple {
-  @include theme-color(color, primary, 4);
-
-  &::after {
-    @include theme-color(border-top-color, primary, 4);
-    content: '';
-    border-left: 4px solid transparent;
-    border-top-width: 6px;
-    border-top-style: solid;
-    border-right: 4px solid transparent;
-    display: inline-block;
-    margin-left: 5px;
-    height: 1px;
-    transition: transform 0.25s;
-  }
-}
-
-.zent-select-text {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  padding: 6px 25px 6px 12px;
-}
-
-.zent-select-tags {
-  padding: 4px 25px 4px 12px;
-  max-height: none;
-
-  // sass-lint:disable no-vendor-prefixes
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  // sass-lint:enable no-vendor-prefixes
-
-  &__empty {
-    padding: 6px 25px 6px 12px;
-    line-height: 18px;
-  }
-
-  .zent-select-inner {
-    border: 0;
-    display: inline-block;
-    outline: none;
-  }
-
-  .zent-select-tag {
+  &-tag {
     @include theme-color(border-color, stroke, 4);
     border-width: 1px;
     border-style: solid;
     border-radius: 2px;
-    display: inline-block;
     margin: 2px 4px 2px 0;
-    padding: 0 18px 0 4px;
+    padding: 0 4px;
     line-height: 16px;
     font-size: $font-size-small;
-    position: relative;
-  }
+    display: flex;
+    align-items: center;
+    cursor: default;
 
-  .zent-select-delete {
-    display: block;
-    position: absolute;
-    right: 4px;
-    top: 50%;
-    transform: translateY(-50%);
-    @include theme-color(color, stroke, 3);
-  }
-}
+    &-close {
+      @include theme-color(color, stroke, 3);
+      cursor: pointer;
+      margin-left: 5px;
 
-.zent-select-popup {
-  @include popup;
-
-  .zent-select-option,
-  .zent-select-filter,
-  .zent-select-empty {
-    @include popup-menu-item-common;
-  }
-
-  .zent-select-search {
-    position: relative;
-    box-sizing: border-box;
-    border-width: 0 0 1px;
-    padding-left: 20px;
-
-    &.zent-input--has-focus {
-      @include theme-color(border-color, stroke, 6);
-      box-shadow: none;
-    }
-
-    &::before {
-      background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAM1BMVEUAAABmZmZmZmZnZ2dnZ2dmZmZnZ2dmZmZsbGxnZ2dmZmZoaGhnZ2dmZmZnZ2dmZmZmZmYOy3DdAAAAEHRSTlMAVttEnOWJNwzzpVHsz8ZQ9cP58AAAAItJREFUKM+FkdsSgCAIRFXEa7f//9okSsqRaZ8WjrOoGJYtLmdXrPmquuOWq+9+OF4KQ39C6lX6mFL0l33SKB+BPSDNYW/pEPWZUMV3K5QjAymt9KQoIPas3FwSkFqZNbBoUZs23GvXBeWBq/YlQT5xkP0nsqg1dCKrXTYPzQkZxGTXCJoZ0YDZEeEEs9MNoPE7LN4AAAAASUVORK5CYII=);
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: 12px;
-      content: '';
-      height: 100%;
-      left: 10px;
-      position: absolute;
-      width: 12px;
-    }
-  }
-
-  .zent-select-filter {
-    @include theme-color(border-color, stroke, 6);
-    border-style: solid;
-    border-width: 0 0 1px;
-    padding-left: 30px;
-    width: 100%;
-    box-sizing: border-box;
-    height: 30px;
-  }
-
-  .zent-select-option {
-    @include popup-menu-item-specific;
-  }
-
-  .zent-select-empty {
-    @include theme-color(color, stroke, 3);
-  }
-}
-
-.has-error {
-  :not(.no-error) {
-    & > .zent-select-input,
-    & > .zent-select-text,
-    & > .zent-select-tags {
-      @include theme-color(border-color, error, 2);
-      border-width: 1px;
-      border-style: solid;
+      &::before {
+        font-size: 8px;
+      }
     }
   }
 }

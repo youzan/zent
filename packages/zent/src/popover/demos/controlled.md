@@ -30,7 +30,6 @@ class PopoverDemo extends Component {
 					visible={this.state.visible} 
 					onVisibleChange={v => this.setState({ visible: v })}
 					position={Popover.Position.BottomLeft} 
-					display="inline"
 					cushion={5}>
 					<Popover.Trigger.Base>
 						<Button type="primary" onClick={() => this.setState({ visible: true })}>{i18n.click}</Button>

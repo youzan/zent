@@ -58,8 +58,9 @@ const boxFnPropIfExist = <T extends any>(
   propName: keyof T,
   argBoxings: Function[]
 ) => {
-  if (obj[propName] && typeof obj[propName] === 'function') {
-    obj[propName] = boxFnArgs(obj[propName], argBoxings);
+  const val = obj[propName];
+  if (typeof val === 'function') {
+    obj[propName] = boxFnArgs(val, argBoxings);
   }
 };
 

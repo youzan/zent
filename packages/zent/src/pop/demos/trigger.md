@@ -30,7 +30,7 @@ ReactDOM.render(
 			<Button type="primary">{i18n.clickText}</Button>
 		</Pop>
 		<Pop trigger="focus" content="{i18n.focusContent}">
-			<Input defaultValue="{i18n.focusText}" />
+			<Input defaultValue="{i18n.focusText}" inline />
 		</Pop>
 	</div>
 	, mountNode
@@ -39,16 +39,11 @@ ReactDOM.render(
 
 <style>
 	.zent-doc-pop-container {
-		.zent-pop-wrapper {
-			margin-right: 10px;
-		}
+		display: flex;
+		align-items: center;
 
-		.zent-doc-pop-tag {
-			border: 1px solid #e5e5e5;
-			border-radius: 20%;
-			padding: 3px;
-			font-size: 12px;
-			cursor: default;
+		.zent-input-wrapper {
+			margin-left: 10px;
 		}
 	}
 </style>

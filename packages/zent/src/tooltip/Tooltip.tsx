@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { Component } from 'react';
+import { Component, ReactElement } from 'react';
 import cx from 'classnames';
 import noop from '../utils/noop';
 import { PopPositions } from '../pop';
 
-import Popover, { PositionFunction } from '../popover';
+import Popover, { IPositionFunction } from '../popover';
 
 import NoneTrigger from './NoneTrigger';
 import getPosition from '../utils/getArrowPosition';
@@ -13,18 +13,15 @@ const { Trigger } = Popover;
 
 export interface ITooltipBaseProps {
   title: React.ReactNode;
-  display?: string;
-  position?: PopPositions | PositionFunction;
+  style?: React.CSSProperties;
+  position?: PopPositions | IPositionFunction;
   cushion?: number;
   centerArrow?: boolean;
   className?: string;
   containerSelector?: string;
   visible?: boolean;
   onVisibleChange?: (visible: boolean) => void;
-  isOutside?: (
-    target: HTMLElement,
-    node: { contentNode: HTMLElement; triggerNode: HTMLElement }
-  ) => boolean;
+  children: ReactElement | string | number;
 }
 
 interface ITooltipTriggerProps extends ITooltipBaseProps {
@@ -40,7 +37,7 @@ interface ITooltipTriggerClickProps extends ITooltipBaseProps {
 // trigger: hover
 interface ITooltipTriggerHoverProps extends ITooltipBaseProps {
   trigger?: 'hover';
-  quirk?: boolean;
+  anchorOnly?: boolean;
   mouseEnterDelay?: number;
   mouseLeaveDelay?: number;
 }
@@ -73,12 +70,12 @@ export class Tooltip extends Component<ITooltipProps> {
   }
 
   renderTrigger() {
-    const { isOutside, children } = this.props;
+    const { children } = this.props;
 
     if (this.props.trigger === 'click') {
       const { closeOnClickOutside = true } = this.props;
       return (
-        <Trigger.Click autoClose={closeOnClickOutside} isOutside={isOutside}>
+        <Trigger.Click closeOnClickOutside={closeOnClickOutside}>
           {children}
         </Trigger.Click>
       );
@@ -88,14 +85,13 @@ export class Tooltip extends Component<ITooltipProps> {
       const {
         mouseLeaveDelay = 200,
         mouseEnterDelay = 200,
-        quirk = true,
+        anchorOnly = true,
       } = this.props;
       return (
         <Trigger.Hover
           showDelay={mouseEnterDelay}
           hideDelay={mouseLeaveDelay}
-          isOutside={isOutside}
-          quirk={quirk}
+          anchorOnly={anchorOnly}
         >
           {children}
         </Trigger.Hover>
@@ -122,7 +118,7 @@ export class Tooltip extends Component<ITooltipProps> {
       cushion,
       centerArrow,
       containerSelector,
-      display,
+      style,
     } = this.props;
 
     const cls = cx(`zent-tooltip`, className);
@@ -136,13 +132,12 @@ export class Tooltip extends Component<ITooltipProps> {
       <Popover
         visible={visible}
         onVisibleChange={onVisibleChange}
-        wrapperClassName={`zent-tooltip-wrapper`}
         className={cls}
         cushion={cushion}
         position={getPosition(position, centerArrow)}
         containerSelector={containerSelector}
         ref={this.popoverRef}
-        display={display}
+        style={style}
       >
         {this.renderTrigger()}
         {this.renderContent()}

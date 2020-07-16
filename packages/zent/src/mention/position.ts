@@ -1,89 +1,81 @@
-import Popover from '../popover';
+import { IPositionFunction } from '../popover';
+import Mention from './Mention';
 import getComputedStyle from '../utils/dom/getComputedStyle';
 
-export const getPopoverBottomPosition = instance =>
-  Popover.Position.create(
-    (anchorBoundingBox, containerBoundingBox, contentDimension, options) => {
-      return {
-        getCSSStyle: () => {
-          const { left, top, right, bottom } = anchorBoundingBox;
-          const { position } = instance.state;
-          let x = left + position.left;
-          let y = top + options.cushion + position.top + position.height;
-          const inputStyles = getComputedStyle(instance.input);
-          const leftSpace =
-            parseInt(inputStyles.paddingLeft, 10) +
-            parseInt(inputStyles.borderLeftWidth, 10);
-          const rightSpace =
-            parseInt(inputStyles.paddingRight, 10) +
-            parseInt(inputStyles.borderRightWidth, 10);
+export const getPopoverBottomPosition = (
+  instance: Mention
+): IPositionFunction => ({ relativeRect, cushion }) => {
+  const { left, top, right, bottom } = relativeRect;
+  const { position } = instance.state;
+  let x = left + position.left;
+  let y = top + cushion + position.top + position.height;
+  const inputStyles = getComputedStyle(instance.input);
+  const leftSpace =
+    parseInt(inputStyles.paddingLeft, 10) +
+    parseInt(inputStyles.borderLeftWidth, 10);
+  const rightSpace =
+    parseInt(inputStyles.paddingRight, 10) +
+    parseInt(inputStyles.borderRightWidth, 10);
 
-          if (x > right - rightSpace) {
-            x = right - rightSpace;
-          }
-          if (x < left + leftSpace) {
-            x = left + leftSpace;
-          }
+  if (x > right - rightSpace) {
+    x = right - rightSpace;
+  }
+  if (x < left + leftSpace) {
+    x = left + leftSpace;
+  }
 
-          if (y < top) {
-            y = top;
-          }
-          if (y > bottom) {
-            y = bottom;
-          }
+  if (y < top) {
+    y = top;
+  }
+  if (y > bottom) {
+    y = bottom;
+  }
 
-          return {
-            position: 'absolute',
-            left: `${Math.round(x)}px`,
-            top: `${Math.round(y)}px`,
-          };
-        },
+  return {
+    style: {
+      position: 'absolute',
+      left: `${Math.round(x)}px`,
+      top: `${Math.round(y)}px`,
+    },
+    className: 'position-mention-bottom-left',
+  };
+};
 
-        name: 'position-mention-bottom-left',
-      };
-    }
-  );
+export const getPopoverTopPosition = (
+  instance: Mention
+): IPositionFunction => ({ relativeRect, contentRect, cushion }) => {
+  const { left, top, right, bottom } = relativeRect;
+  const contentHeight = contentRect.height;
+  const { position } = instance.state;
+  let x = left + position.left;
+  let y = top - contentHeight - cushion + position.top;
+  const inputStyles = getComputedStyle(instance.input);
+  const leftSpace =
+    parseInt(inputStyles.paddingLeft, 10) +
+    parseInt(inputStyles.borderLeftWidth, 10);
+  const rightSpace =
+    parseInt(inputStyles.paddingRight, 10) +
+    parseInt(inputStyles.borderRightWidth, 10);
 
-export const getPopoverTopPosition = instance =>
-  Popover.Position.create(
-    (anchorBoundingBox, containerBoundingBox, contentDimension, options) => {
-      return {
-        getCSSStyle: () => {
-          const { left, top, right, bottom } = anchorBoundingBox;
-          const contentHeight = contentDimension.height;
-          const { position } = instance.state;
-          let x = left + position.left;
-          let y = top - contentHeight - options.cushion + position.top;
-          const inputStyles = getComputedStyle(instance.input);
-          const leftSpace =
-            parseInt(inputStyles.paddingLeft, 10) +
-            parseInt(inputStyles.borderLeftWidth, 10);
-          const rightSpace =
-            parseInt(inputStyles.paddingRight, 10) +
-            parseInt(inputStyles.borderRightWidth, 10);
+  if (x > right - rightSpace) {
+    x = right - rightSpace;
+  }
+  if (x < left + leftSpace) {
+    x = left + leftSpace;
+  }
 
-          if (x > right - rightSpace) {
-            x = right - rightSpace;
-          }
-          if (x < left + leftSpace) {
-            x = left + leftSpace;
-          }
-
-          if (y + contentHeight < top) {
-            y = top - contentHeight;
-          }
-          if (y + contentHeight > bottom) {
-            y = bottom - contentHeight;
-          }
-
-          return {
-            position: 'absolute',
-            left: `${Math.round(x)}px`,
-            top: `${Math.round(y)}px`,
-          };
-        },
-
-        name: 'position-mention-top-left',
-      };
-    }
-  );
+  if (y + contentHeight < top) {
+    y = top - contentHeight;
+  }
+  if (y + contentHeight > bottom) {
+    y = bottom - contentHeight;
+  }
+  return {
+    style: {
+      position: 'absolute',
+      left: `${Math.round(x)}px`,
+      top: `${Math.round(y)}px`,
+    },
+    className: 'position-mention-top-left',
+  };
+};

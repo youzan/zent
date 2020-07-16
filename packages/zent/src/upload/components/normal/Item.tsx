@@ -96,17 +96,14 @@ const NormalUploadItem: React.FC<INormalUploadItemProps> = props => {
     <li key={item._id} className={cls}>
       <div className="zent-file-upload-item-info">
         {getFileIcon(item)}
-        <Pop
-          wrapperClassName="zent-file-upload-item-name-wrapper"
-          content={item.name}
-          trigger="hover"
-          mouseEnterDelay={500}
-        >
-          <p className="zent-file-upload-item-name-line">
-            <span className="zent-file-upload-item-name">{filename}</span>
-            <span className="zent-file-upload-item-name-ext">{ext}</span>
-          </p>
-        </Pop>
+        <div className="zent-file-upload-item-name-wrapper">
+          <Pop content={item.name} trigger="hover" mouseEnterDelay={500}>
+            <p className="zent-file-upload-item-name-line">
+              <span className="zent-file-upload-item-name">{filename}</span>
+              <span className="zent-file-upload-item-name-ext">{ext}</span>
+            </p>
+          </Pop>
+        </div>
         <div className="zent-file-upload-item-actions">
           {isFailed && (
             <a className="zent-file-upload-item-retry" onClick={retryHandler}>

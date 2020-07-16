@@ -16,12 +16,24 @@ import { Pop, Button, Input } from 'zent';
 ReactDOM.render(
 	<div className="zent-doc-pop-container">
 		<Pop centerArrow trigger="hover" position="top-left" content="{i18n.contentTrue}">
-			<span className="zent-doc-pop-tag">Y</span>
+			<div className="zent-doc-pop-tag">Y</div>
 		</Pop>
 		<Pop trigger="hover" position="top-left" content="{i18n.contentFalse}">
-			<span className="zent-doc-pop-tag">N</span>
+			<div className="zent-doc-pop-tag">N</div>
 		</Pop>
 	</div>
 	, mountNode
 );
 ```
+
+<style>
+.zent-doc-pop-tag {
+	width: 20px;
+	height: 20px;
+	text-align: center;
+	line-height: 20px;
+	border: 1px solid #e5e5e5;
+	border-radius: 5px;
+	margin-right: 10px;
+}
+</style>
