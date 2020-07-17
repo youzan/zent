@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { Omit } from 'utility-types';
-import { DatePickers } from '../../datetimepicker/common/types';
 import DateRangePicker, {
   IDateRangePickerProps,
-} from '../../datetimepicker/DateRangePicker';
+} from '../../date-picker/DateRangePicker';
 import { FormField } from '../Field';
 import { IFormComponentProps, dateRangeDefaultValueFactory } from '../shared';
 import { $MergeParams } from '../utils';
+import { RangeDate } from '../../date-picker/types';
 
 export type IFormDateRangePickerFieldProps = IFormComponentProps<
-  DatePickers.RangeValue,
+  RangeDate,
   Omit<IDateRangePickerProps, 'value'>
 >;
 

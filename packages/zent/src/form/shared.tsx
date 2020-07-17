@@ -10,7 +10,7 @@ import { Omit, Optional } from 'utility-types';
 import { FormError } from './Error';
 import { IFormControlProps } from './Control';
 import { useFormChildrenContext, IFormChild } from './context';
-import { DatePickers } from '../datetimepicker/common/types';
+import { SingleDate, RangeDate } from '../date-picker/types';
 import { $MergeParams } from './utils';
 
 export interface IRenderError<T> {
@@ -172,14 +172,21 @@ export type IFormComponentProps<
     | Optional<IFormFieldModelDrivenProps<Value>, 'defaultValue'>
   );
 
-export function dateDefaultValueFactory(): DatePickers.Value {
+export function dateDefaultValueFactory(): SingleDate {
   return new Date();
 }
 
-export function dateRangeDefaultValueFactory(): DatePickers.RangeValue {
+export function dateRangeDefaultValueFactory(): RangeDate {
   return [new Date(), new Date()];
 }
 
+export function dateDefaultTimeFactory(): string {
+  return '';
+}
+
+export function dateRangeDefaultTimeFactory(): [string, string] {
+  return ['', ''];
+}
 export function defaultRenderError<T>(error: IMaybeError<T>) {
   if (error == null) {
     return null;
