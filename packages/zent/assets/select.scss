@@ -185,100 +185,100 @@ $option-height: 32px;
     &-loading {
       height: 96px;
     }
-  }
 
-  &-option {
-    height: $option-height;
-    box-sizing: border-box;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    padding: 7px 12px;
+    &-option {
+      height: $option-height;
+      box-sizing: border-box;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      padding: 7px 12px;
 
-    &-text {
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
+      &-text {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
 
-      mark {
-        background-color: initial;
-        @include theme-color(color, primary, 4);
+        mark {
+          background-color: initial;
+          @include theme-color(color, primary, 4);
+        }
       }
-    }
-
-    &:hover,
-    &-active,
-    &-active.zent-select-option-selected {
-      @include theme-color(background-color, primary, 8);
-    }
-
-    &-header {
-      @include theme-color(color, stroke, 4);
-      cursor: default;
-      font-size: $font-size-small;
 
       &:hover,
-      &.zent-select-option-active {
-        @include theme-color(background-color, stroke, 9);
+      &-active,
+      &-active.zent-select-option-selected {
+        @include theme-color(background-color, primary, 8);
+      }
+
+      &-header {
+        @include theme-color(color, stroke, 4);
         cursor: default;
+        font-size: $font-size-small;
+
+        &:hover,
+        &.zent-select-option-active {
+          @include theme-color(background-color, stroke, 9);
+          cursor: default;
+        }
       }
-    }
 
-    &-disabled {
-      @include theme-color(color, stroke, 4);
-      cursor: not-allowed;
-
-      &:hover,
-      &.zent-select-option-active {
-        @include theme-color(background-color, stroke, 9);
+      &-disabled {
+        @include theme-color(color, stroke, 4);
         cursor: not-allowed;
+
+        &:hover,
+        &.zent-select-option-active {
+          @include theme-color(background-color, stroke, 9);
+          cursor: not-allowed;
+        }
+      }
+
+      &-selected {
+        @include theme-color(background-color, stroke, 8);
+        font-weight: 500;
+
+        &-multiple {
+          font-size: 12px;
+          display: block;
+          margin-left: auto;
+        }
       }
     }
 
-    &-selected {
-      @include theme-color(background-color, stroke, 8);
-      font-weight: 500;
-
-      &-multiple {
-        font-size: 12px;
-        display: block;
-        margin-left: auto;
-      }
-    }
-  }
-
-  &-tag {
-    @include theme-color(border-color, stroke, 4);
-    @include tag-style;
-    border-width: 1px;
-    border-style: solid;
-    cursor: default;
-
-    &-close {
-      @include theme-color(color, stroke, 3);
-      cursor: pointer;
-      margin-left: 5px;
-
-      &::before {
-        font-size: 8px;
-      }
-    }
-  }
-
-  &-collapsed {
-    &-trigger {
-      @include theme-color(background-color, stroke, 7);
-      @include tag-style;
-      cursor: pointer;
-      min-width: 46px;
-      justify-content: center;
-    }
-
-    &-content {
-      max-width: 216px;
-      line-height: 20px;
-      font-size: $font-size-normal;
+    &-tag {
       @include theme-color(border-color, stroke, 4);
+      @include tag-style;
+      border-width: 1px;
+      border-style: solid;
+      cursor: default;
+
+      &-close {
+        @include theme-color(color, stroke, 3);
+        cursor: pointer;
+        margin-left: 5px;
+
+        &::before {
+          font-size: 8px;
+        }
+      }
+    }
+
+    &-collapsed {
+      &-trigger {
+        @include theme-color(background-color, stroke, 7);
+        @include tag-style;
+        cursor: pointer;
+        min-width: 46px;
+        justify-content: center;
+      }
+
+      &-content {
+        max-width: 216px;
+        line-height: 20px;
+        font-size: $font-size-normal;
+        @include theme-color(border-color, stroke, 4);
+      }
     }
   }
 }
