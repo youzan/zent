@@ -72,13 +72,12 @@ const TransferItem: React.FC<ITransferItem> = ({
   const handleRowClick = useCallback(
     (data, index, event) => {
       const key = data[rowKey];
-      onRowClick
-        ? onRowClick(data, index, event)
-        : changeSelectedRowKeys(
-            selectedRowKeys.includes(key)
-              ? selectedRowKeys.filter(item => key !== item)
-              : selectedRowKeys.concat(key)
-          );
+      onRowClick && onRowClick(data, index, event);
+      changeSelectedRowKeys(
+        selectedRowKeys.includes(key)
+          ? selectedRowKeys.filter(item => key !== item)
+          : selectedRowKeys.concat(key)
+      );
     },
     [onRowClick, changeSelectedRowKeys, selectedRowKeys, rowKey]
   );

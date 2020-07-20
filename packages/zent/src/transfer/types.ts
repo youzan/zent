@@ -34,7 +34,8 @@ export interface ITransferDirectionChangeProps {
   direction: Direction;
 }
 
-export interface ITransfer {
+export interface ITransfer
+  extends Partial<Omit<IGridProps, 'columns' | 'rowKey' | 'datasets'>> {
   rowKey: string; // 指定数据列的主键，会使用主键值从datasets中筛选出targetKeys
   datasets: ITransferData[]; // 数据源，其中的数据将会被渲染到左边一栏中，targetKeys 中指定的除外。
   showSearch?: boolean; // 是否显示搜索框
@@ -42,7 +43,7 @@ export interface ITransfer {
   targetKeys?: string[]; // 显示在右侧框数据的 key 集合
   selectedRowKeys?: string[]; // 设置哪些项应该被选中，会和勾选的项合并
   titles?: React.ReactNode[]; // 标题集合，顺序从左至右
-  onChange: (params: ITransferDirectionChangeProps) => void; // 选项在两栏之间转移时的回调函数
+  transferChange: (params: ITransferDirectionChangeProps) => void; // 选项在两栏之间转移时的回调函数
   columns: TransferColumnType | [TransferColumnType, TransferColumnType]; // 表格列配置
   prefix?: string;
   searchPlaceholder?: string; //搜索框文案

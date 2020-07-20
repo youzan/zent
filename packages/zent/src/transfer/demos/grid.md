@@ -42,7 +42,7 @@ ReactDOM.render(
 			columns={[leftColumns, rightColumns]}
 			datasets={datasets}
 			targetKeys={targetKeys}
-			onChange={transferData}
+			transferChange={transferData}
 			scroll={{ y: 198, x: 0 }}
 			className="grid-transfer"
 		/>

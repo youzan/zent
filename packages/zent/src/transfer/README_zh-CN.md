@@ -24,7 +24,7 @@ group: 数据
 | filterOption      | 搜索筛选方法，接收 inputValue、option 两个参数，当 option 符合筛选条件时，应返回 true，反之则返回 false。 | \(inputValue: string, option: ITransferData\) => boolean;        |                        |        |
 | selectedRowKeys   | 设置哪些项应该被选中，会和勾选的项合并                                                                    | string\[\]                                                       | \[\]                   |        |
 | titles            | 标题集合，顺序从左至右                                                                                    | React\.ReactNode\[\]                                             | \['Source', 'Target'\] |        |
-| onChange          | 选项在两栏之间转移时的回调函数                                                                            | \(params: ITransferDirectionChangeProps\) => void;               |                        |        |
+| transferChange          | 选项在两栏之间转移时的回调函数                                                                            | \(params: ITransferDirectionChangeProps\) => void;               |                        |        |
 | columns           | 表格列配置                                                                                                | TransferColumnType \| \[TransferColumnType, TransferColumnType\] |                        |        |
 | prefix            | 自定义前缀                                                                                                | string                                                           | zent                   |        |
 | searchPlaceholder | 搜索框文案                                                                                                | string                                                           | 请输入搜索内容         |        |

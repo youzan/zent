@@ -12,7 +12,7 @@ export const Transfer: React.FC<ITransfer> = ({
   targetKeys,
   selectedRowKeys,
   titles,
-  onChange,
+  transferChange,
   rowKey,
   prefix,
   columns,
@@ -140,7 +140,7 @@ export const Transfer: React.FC<ITransfer> = ({
       );
 
       setSelectedRowKeys(selectKeys);
-      onChange({
+      transferChange({
         ...result[direction],
         selectedRowKeys: selectKeys,
         direction,
@@ -153,7 +153,7 @@ export const Transfer: React.FC<ITransfer> = ({
       rowKey,
       selectedRowKeysState,
       targetKeys,
-      onChange,
+      transferChange,
     ]
   );
 

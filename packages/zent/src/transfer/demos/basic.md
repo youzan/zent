@@ -34,7 +34,7 @@ ReactDOM.render(
 			columns={columns}
 			datasets={datasets}
 			targetKeys={targetKeys}
-			onChange={transferData}
+			transferChange={transferData}
 		/>
 	</div>,
 	mountNode
