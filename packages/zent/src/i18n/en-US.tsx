@@ -191,4 +191,6 @@ export const Mention: II18nLocaleMention = {
 
 export const Transfer: II18nLocaleTransfer = {
   placeholder: 'Please Enter',
+  item: 'item',
+  items: 'items',
 };

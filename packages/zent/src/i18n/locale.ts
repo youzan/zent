@@ -129,4 +129,6 @@ export interface II18nLocaleMention {
 
 export interface II18nLocaleTransfer {
   placeholder: string;
+  item: string;
+  items: string;
 }

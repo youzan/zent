@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState, useCallback, useEffect, useMemo } from 'react';
 import cx from 'classnames';
 
-import { I18nReceiver as Receiver, II18nLocaleCascader } from '../../i18n';
+import { I18nReceiver as Receiver, II18nLocaleTransfer } from '../../i18n';
 import { Grid, Input, Checkbox } from '../../index';
 import { ITransferItem } from '../types';
 import { IGridColumn } from '../../grid';
@@ -60,14 +60,21 @@ const TransferItem: React.FC<ITransferItem> = ({
     setInputVal(val);
   }, []);
 
-  const Title = useMemo(() => {
-    if (selectedRowKeys.length > 0) {
-      return title
-        ? `${title}（${selectedRowKeys.length}/${listData.length}）`
-        : `${selectedRowKeys.length}/${listData.length}`;
-    }
-    return title ? `${title}（${listData.length}）` : listData.length;
-  }, [title, listData, selectedRowKeys]);
+  const getTitle = useCallback(
+    ({ item, items }) => {
+      const totalText = `${listData.length} ${
+        listData.length > 1 ? items : item
+      }`;
+
+      if (selectedRowKeys.length > 0) {
+        return title
+          ? `${title}（${selectedRowKeys.length}/${totalText}）`
+          : `${selectedRowKeys.length}/${totalText}`;
+      }
+      return title ? `${title}（${totalText}）` : totalText;
+    },
+    [title, listData, selectedRowKeys]
+  );
 
   const handleRowClick = useCallback(
     (data, index, event) => {
@@ -99,19 +106,19 @@ const TransferItem: React.FC<ITransferItem> = ({
 
   return (
     <Receiver componentName="Transfer">
-      {(i18n: II18nLocaleCascader) => {
+      {(i18n: II18nLocaleTransfer) => {
         return (
           <div className={classNamePrefix}>
             <div className={`${classNamePrefix}__allCheckbox`}>
               {columns[0]?.title ? (
-                Title
+                getTitle(i18n)
               ) : (
                 <Checkbox
                   checked={checked}
                   indeterminate={indeterminate}
                   onChange={changeCheckBox}
                 >
-                  {Title}
+                  {getTitle(i18n)}
                 </Checkbox>
               )}
             </div>

@@ -187,4 +187,6 @@ export const Mention: II18nLocaleMention = {
 
 export const Transfer: II18nLocaleTransfer = {
   placeholder: '请输入搜索内容',
+  item: '项',
+  items: '项',
 };
