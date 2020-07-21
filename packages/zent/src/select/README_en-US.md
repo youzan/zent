@@ -16,7 +16,7 @@ Select is a drop-down selection component with variety functions.
 | value             | Selected value, when tags type, can be passed into the array | any              | `null`               | no       |
 | disabled          | Disable switch                                               | bool             | `false`              | no       |
 | placeholder       | The default prompt text                                      | string           | `'please choose'`    | no       |
-| optionPlaceholder | Empty list prompt text                                       | string           | `'No matches found'` | no       |
+| notFoundContent | Empty list prompt text                                       | string           | `'No matches found'` | no       |
 | onChange          | Select changed callback                                      | function         | `noop`               | no       |
 | filter            | Filter conditions, set to open the filter function           | function         | `false`              | no       |
 | highlight         | Highlight filterd options                                    | function         | `noop`               | no       |
@@ -25,6 +25,7 @@ Select is a drop-down selection component with variety functions.
 | popupWidth        | pupup's width                                                | string or number | `''`                 | no       |
 | multiple          | Support multiple selected options                            | bool             | `false`             | no       |
 | collapsable       | Support collapsed tags in multiple mode            | bool             | `false`             | no       |
+| tagsLimit         | Dispaly tags count in collapsed mode            | number             | `1`             | no       |
 | clearable         | Is the select value clearable                                | bool             | `false`             | no       |
 | loading           | Is the select in a state of loading                          | bool             | `false`             | no       |
 | creatable         | Allow options to be created                                  | bool             | `false`             | no       |

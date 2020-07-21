@@ -26,8 +26,6 @@ function SelectOption<Item extends ISelectItem>({
   multiple,
   children,
 }: IOptionProps<Item>) {
-  const passProps = typeof value.text === 'string' ? { title: value.text } : {};
-
   return (
     <div
       className={cx('zent-select-option', {
@@ -42,7 +40,7 @@ function SelectOption<Item extends ISelectItem>({
       }}
       onMouseEnter={() => !value.type && onMouseEnter(index)}
       onMouseLeave={() => !value.type && onMouseLeave(index)}
-      {...passProps}
+      title={typeof value.text === 'string' && value.text}
     >
       <div className="zent-select-option-text">{children}</div>
       {multiple && selected && (

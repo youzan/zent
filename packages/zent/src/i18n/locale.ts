@@ -51,6 +51,7 @@ export interface II18nLocaleRangePicker {
 export interface II18nLocaleSelect {
   input: string;
   empty: string;
+  separator: string;
 }
 
 export interface II18nLocaleSwitch {

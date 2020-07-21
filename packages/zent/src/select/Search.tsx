@@ -1,38 +1,38 @@
 import * as React from 'react';
-import { ISelectItem } from './Select';
 import { forwardRef } from 'react';
 
 export interface ISelectSearchProps {
   placeholder?: string;
-  keyword: string;
-  value: null | ISelectItem | ISelectItem[];
+  value: string;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   onIndexChange(delta: number): void;
   onEnter(): void;
   multiple?: boolean;
 }
 
+interface ISelectImperativeHandlers {
+  focus: () => void;
+}
+
+/**
+ * 多选时的最小搜索输入框宽度
+ */
+const MIN_SEARCH_INPUT_WIDTH = 10;
+
 function SelectSearch(
   {
     placeholder,
-    keyword,
     onChange,
     onIndexChange,
     onEnter,
     multiple,
     value,
   }: ISelectSearchProps,
-  cmdRef
+  cmdRef: React.RefObject<ISelectImperativeHandlers>
 ) {
   const ref = React.useRef<HTMLInputElement>(null);
   const measureRef = React.useRef<HTMLSpanElement>(null);
   const [inputWidth, setInputWidth] = React.useState(0);
-
-  React.useLayoutEffect(() => {
-    ref.current!.focus({
-      preventScroll: true,
-    });
-  }, [value]);
 
   React.useImperativeHandle(cmdRef, () => ({
     focus: () => {
@@ -42,8 +42,14 @@ function SelectSearch(
     },
   }));
 
+  React.useLayoutEffect(() => {
+    ref.current!.focus({
+      preventScroll: true,
+    });
+  }, []);
+
   // We measure width and set to the input immediately
-  const mirrorValue = keyword || placeholder;
+  const mirrorValue = value || placeholder;
   React.useLayoutEffect(() => {
     setInputWidth(measureRef.current.scrollWidth);
   }, [mirrorValue]);
@@ -51,13 +57,17 @@ function SelectSearch(
   return (
     <span
       className="zent-select-search-wrap"
-      style={multiple ? { width: inputWidth } : null}
+      style={
+        multiple
+          ? { width: Math.max(inputWidth, MIN_SEARCH_INPUT_WIDTH) }
+          : null
+      }
     >
       <input
         ref={ref}
         placeholder={placeholder}
         className="zent-select-search"
-        value={keyword}
+        value={value}
         onChange={onChange}
         onKeyDown={e => {
           switch (e.key) {
@@ -77,7 +87,7 @@ function SelectSearch(
       />
       {/* Measure Node */}
       <span ref={measureRef} className="zent-select-search-mirror" aria-hidden>
-        {mirrorValue}&nbsp;
+        {mirrorValue}
       </span>
     </span>
   );

@@ -81,7 +81,8 @@ export const RangePicker: II18nLocaleRangePicker = {
 
 export const Select: II18nLocaleSelect = {
   input: '请选择',
-  empty: '没有找到匹配项',
+  empty: '无搜索结果',
+  separator: '、',
 };
 
 export const Switch: II18nLocaleSwitch = {
