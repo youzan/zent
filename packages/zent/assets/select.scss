@@ -212,9 +212,14 @@ $option-height: 32px;
     padding: 7px 12px;
 
     &-text {
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
+      @include ellipsis;
+      display: flex;
+      align-items: center;
+      flex: 1 1 100%;
+
+      &-content {
+        @include ellipsis;
+      }
 
       mark {
         background-color: initial;
@@ -259,6 +264,7 @@ $option-height: 32px;
         font-size: 12px;
         display: block;
         margin-left: auto;
+        padding-left: 8px;
       }
     }
   }

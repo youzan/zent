@@ -31,6 +31,7 @@ group: 数据
 | loading           | 是否加载中                        | bool             | `false`             | 否       |
 | creatable         | 允许创建不存在的项                        | bool             | `false`             | 否       |
 | onCreate         | 创建新选项的回调函数                 | function         | `noop`             | 否       |
+| isValidNewOption | 基于当前的输入判断是否显示点击新建       | function         | `(keyword, options) => boolean`             | 否       |
 | keyword          | 搜索的关键词                        | string           | `''`              | 否       |
 | onKeywordChange  | 搜索关键词变更后的回调函数            | function         | `noop`             | 否       |
 | isEqual         | 比较两个选项是否相等                  | function         | `(a, b) => a.key === b.key`   | 否       |

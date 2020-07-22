@@ -30,6 +30,7 @@ Select is a drop-down selection component with variety functions.
 | loading           | Is the select in a state of loading                          | bool             | `false`             | no       |
 | creatable         | Allow options to be created                                  | bool             | `false`             | no       |
 | onCreate          | Select create callback                                       | function         | `noop`             | no       |
+| isValidNewOption  | Determines whether the "+Click add" option should be displayed based on the current input value         | function         | `(keyword, options) => boolean`             | no       |
 | keyword           | Search's keyword                                             | string           | `''`              | no       |
 | onKeywordChange   | Keyword changed callback                                     | function         | `noop`             | no       |
 | isEqual           | Compare two option is equal                            | function         | `(a, b) => a.key === b.key`   | no       |

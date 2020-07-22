@@ -49,6 +49,7 @@ export interface ISelectCommonProps<Item extends ISelectItem> {
   loading?: boolean;
   creatable?: boolean;
   onCreate?: (text: string) => void;
+  isValidNewOption?: (keyword: string, options: Item[]) => boolean;
   collapsable?: false;
   tagsLimit?: number;
 }
@@ -152,6 +153,17 @@ const DEFAULT_LOADING = (
   </div>
 );
 
+function defaultIsValidNewOption(
+  keyword: string,
+  options: ISelectItem[]
+): boolean {
+  return options.every(
+    it =>
+      (typeof it.text === 'string' ? it.text.toLowerCase() : it.text) !==
+      keyword.toLowerCase()
+  );
+}
+
 // 允许创建的临时 key
 const SELECT_CREATABLE_KEY = '__ZENT_SELECT_CREATABLE_KEY__';
 
@@ -165,7 +177,6 @@ export class Select<
     multiple: false,
     clearable: false,
     loading: false,
-    tagsLimit: 1,
   };
 
   static contextType = DisabledContext;
@@ -347,8 +358,9 @@ export class Select<
       multiple,
       renderOptionContent,
       highlight = defaultHighlight,
+      filter,
     } = this.props;
-    const { value, activeIndex, keyword } = this.state;
+    const { value, activeIndex } = this.state;
     const selected =
       !!value &&
       (multiple
@@ -357,11 +369,24 @@ export class Select<
 
     let optionContent: React.ReactNode = null;
     if (option.key === SELECT_CREATABLE_KEY) {
-      optionContent = <mark>+点击新建：{option.text}</mark>;
+      optionContent = (
+        <Receiver componentName="Select">
+          {(i18n: II18nLocaleSelect) => (
+            <mark>
+              {i18n.create}
+              {option.text}
+            </mark>
+          )}
+        </Receiver>
+      );
+    } else if (renderOptionContent) {
+      optionContent = renderOptionContent(option);
     } else {
-      optionContent = renderOptionContent
-        ? renderOptionContent(option)
-        : highlight(keyword.trim(), option);
+      const keyword = this.state.keyword.trim();
+      optionContent =
+        filter !== false && keyword.length > 0
+          ? highlight(keyword, option)
+          : option.text;
     }
 
     return (
@@ -511,7 +536,7 @@ export class Select<
   }
 
   renderTagList(value: Item[], i18n: II18nLocaleSelect) {
-    const { renderValue, collapsable, tagsLimit } = this.props;
+    const { renderValue, collapsable, tagsLimit = 1 } = this.props;
     const tagsValue = collapsable ? value.slice(0, tagsLimit) : value;
     const collapsedValue = value.slice(tagsLimit);
 
@@ -610,30 +635,27 @@ export class Select<
   filterOptions = memoize(
     (
       creatable: boolean,
-      options: Item[],
+      options: Item[] = [],
       filter: ((keyword: string, item: Item) => boolean) | false,
-      keyword: string
+      keyword: string,
+      isValidNewOption: (keyword: string, options: Item[]) => boolean
     ): Item[] => {
       const filtered =
         filter !== false && keyword
           ? options.filter(it => filter(keyword, it))
           : options;
 
-      const createItem =
-        creatable &&
-        keyword &&
-        filtered.every(
-          it =>
-            (typeof it.text === 'string' ? it.text.toLowerCase() : it.text) !==
-            keyword.toLowerCase()
-        )
-          ? {
-              key: SELECT_CREATABLE_KEY,
-              text: keyword,
-            }
+      const pendingCreateOption =
+        creatable && keyword && isValidNewOption(keyword, options)
+          ? [
+              {
+                key: SELECT_CREATABLE_KEY,
+                text: keyword,
+              },
+            ]
           : [];
 
-      return filtered.concat(createItem as Item);
+      return (pendingCreateOption as Item[]).concat(filtered);
     }
   );
 
@@ -650,6 +672,7 @@ export class Select<
       creatable,
       options,
       filter = defaultFilter,
+      isValidNewOption = defaultIsValidNewOption,
     } = this.props;
     const keyword = this.state.keyword.trim();
 
@@ -657,7 +680,13 @@ export class Select<
       return DEFAULT_LOADING;
     }
 
-    const filtered = this.filterOptions(creatable, options, filter, keyword);
+    const filtered = this.filterOptions(
+      creatable,
+      options,
+      filter,
+      keyword,
+      isValidNewOption
+    );
     return filtered.length ? (
       renderOptionList(filtered, this.renderOption)
     ) : (
@@ -680,7 +709,7 @@ export class Select<
 
     const notEmpty = multiple
       ? Array.isArray(value) && value.length > 0
-      : !!value;
+      : value;
     const showClear = clearable && !this.disabled && (keyword || notEmpty);
 
     return (

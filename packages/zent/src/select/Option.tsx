@@ -43,7 +43,7 @@ function SelectOption<Item extends ISelectItem>({
       title={typeof value.text === 'string' && value.text}
     >
       <div className="zent-select-option-text">
-        {children}
+        <p className="zent-select-option-text-content">{children}</p>
         {multiple && selected && (
           <Icon className="zent-select-option-selected-multiple" type="check" />
         )}

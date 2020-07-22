@@ -83,6 +83,7 @@ export const Select: II18nLocaleSelect = {
   input: '请选择',
   empty: '无搜索结果',
   separator: '、',
+  create: '+点击新建：',
 };
 
 export const Switch: II18nLocaleSwitch = {

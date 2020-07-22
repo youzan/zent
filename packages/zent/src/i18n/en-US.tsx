@@ -83,6 +83,7 @@ export const Select: II18nLocaleSelect = {
   input: 'Please choose...',
   empty: 'Not Found',
   separator: ', ',
+  create: '+Click add: ',
 };
 
 export const Sweetalert: II18nLocaleSweetalert = {

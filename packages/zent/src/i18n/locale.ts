@@ -52,6 +52,7 @@ export interface II18nLocaleSelect {
   input: string;
   empty: string;
   separator: string;
+  create: string;
 }
 
 export interface II18nLocaleSwitch {
