@@ -116,41 +116,41 @@ export class SplitButton<Value> extends Component<ISplitButtonProps<Value>> {
         >
           {children}
         </Button>
-        <Popover
-          wrapperClassName={cx(`${prefix}-split-button__dropdown-wrapper`)}
-          visible={this.state.isShowDropdown}
-          onVisibleChange={isShow => this.toggleDropdown(isShow)}
-          position={Popover.Position[position] as any}
-          display="inline"
-          cushion={5}
-        >
-          <Trigger>
-            <Button
-              className={cx(`${prefix}-split-button__dropdown`, {
-                [`${prefix}-split-button__dropdown-disabled`]: loading,
-              })}
-              type={type}
-              size={size}
-              disabled={disabled}
-            >
-              <Icon
-                className={`${prefix}-split-button__dropdown-icon`}
-                type="caret-down"
-              />
-            </Button>
-          </Trigger>
-          <Popover.Content>
-            <Menu onClick={this.handleSelect}>
-              {dropdownData.map(item => {
-                return (
-                  <MenuItem key={`${item[dropdownValue]}`}>
-                    {item[dropdownText]}
-                  </MenuItem>
-                );
-              })}
-            </Menu>
-          </Popover.Content>
-        </Popover>
+        <div className="zent-split-button__dropdown-wrapper">
+          <Popover
+            visible={this.state.isShowDropdown}
+            onVisibleChange={isShow => this.toggleDropdown(isShow)}
+            position={Popover.Position[position] as any}
+            cushion={5}
+          >
+            <Trigger>
+              <Button
+                className={cx(`${prefix}-split-button__dropdown`, {
+                  [`${prefix}-split-button__dropdown-disabled`]: loading,
+                })}
+                type={type}
+                size={size}
+                disabled={disabled}
+              >
+                <Icon
+                  className={`${prefix}-split-button__dropdown-icon`}
+                  type="caret-down"
+                />
+              </Button>
+            </Trigger>
+            <Popover.Content>
+              <Menu onClick={this.handleSelect}>
+                {dropdownData.map(item => {
+                  return (
+                    <MenuItem key={`${item[dropdownValue]}`}>
+                      {item[dropdownText]}
+                    </MenuItem>
+                  );
+                })}
+              </Menu>
+            </Popover.Content>
+          </Popover>
+        </div>
       </div>
     );
   }

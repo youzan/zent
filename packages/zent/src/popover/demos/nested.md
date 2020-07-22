@@ -31,7 +31,6 @@ class Demo extends React.Component {
 			<Popover
 				className="zent-doc-popover"
 				position={Popover.Position.BottomLeft}
-				display="inline"
 				cushion={5}
 			>
 				<Popover.Trigger.Click>
@@ -42,7 +41,6 @@ class Demo extends React.Component {
 					<Popover
 						className="zent-doc-popover"
 						position={Popover.Position.BottomLeft}
-						display="inline"
 						cushion={5}
 						visible={this.state.visible}
 						onVisibleChange={this.onVisibleChange}

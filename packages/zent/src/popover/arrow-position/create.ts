@@ -1,15 +1,18 @@
-import { CSSProperties } from 'react';
+import { prefix } from '../placement/prefix';
+import { IPopoverPosition } from '../position-function';
 
-export default function createArrowPosition(x, y, side) {
+export default function createArrowPosition(
+  x: number,
+  y: number,
+  side: string
+): IPopoverPosition {
   return {
-    getCSSStyle(): CSSProperties {
-      return {
-        position: 'absolute',
-        left: `${Math.round(x)}px`,
-        top: `${Math.round(y)}px`,
-      };
+    style: {
+      position: 'absolute',
+      left: `${Math.round(x)}px`,
+      top: `${Math.round(y)}px`,
     },
 
-    name: `position-arrow-${side}`,
+    className: prefix(`position-arrow-${side}`),
   };
 }

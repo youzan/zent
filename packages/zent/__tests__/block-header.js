@@ -39,7 +39,6 @@ describe('BlockHeader', () => {
       <BlockHeader title="title" tooltip={<span>tooltip</span>} />
     );
     expect(wrapper.find('.zent-block-header__pop').length).toBe(1);
-    expect(wrapper.find('.zent-block-header__tooltip-trigger').length).toBe(1);
   });
 
   it('BlockHeader has left content', () => {

@@ -14,46 +14,46 @@ const trigger = 'hover';
 ReactDOM.render(
 	<div className="zent-doc-tooltip-positions">
 		<div className="zent-doc-tooltip-positions-top-row">
-			<Tooltip trigger={trigger} position="top-left" title="Top Left">
+			<Tooltip trigger={trigger} position="top-left" title="TL">
 				<Button>TopLeft</Button>
 			</Tooltip>
-			<Tooltip trigger={trigger} position="top-center" title="Top Center">
+			<Tooltip trigger={trigger} position="top-center" title="TC">
 				<Button>TopCenter</Button>
 			</Tooltip>
-			<Tooltip trigger={trigger} position="top-right" title="Top Right">
+			<Tooltip trigger={trigger} position="top-right" title="TR">
 				<Button>TopRight</Button>
 			</Tooltip>
 		</div>
 		<div className="zent-doc-tooltip-positions-bottom-row">
-			<Tooltip trigger={trigger} position="bottom-left" title="Bottom Left">
+			<Tooltip trigger={trigger} position="bottom-left" title="BL">
 				<Button>BottomLeft</Button>
 			</Tooltip>
-			<Tooltip trigger={trigger} position="bottom-center" title="Bottom Center">
+			<Tooltip trigger={trigger} position="bottom-center" title="BC">
 				<Button>BottomCenter</Button>
 			</Tooltip>
-			<Tooltip trigger={trigger} position="bottom-right" title="Bottom Right">
+			<Tooltip trigger={trigger} position="bottom-right" title="BR">
 				<Button>BottomRight</Button>
 			</Tooltip>
 		</div>
 		<div className="zent-doc-tooltip-positions-left-col">
-			<Tooltip trigger={trigger} position="left-top" title="Left Top">
+			<Tooltip trigger={trigger} position="left-top" title="LT">
 				<Button>LeftTop</Button>
 			</Tooltip>
-			<Tooltip trigger={trigger} position="left-center" title="Left Center">
+			<Tooltip trigger={trigger} position="left-center" title="LC">
 				<Button>LeftCenter</Button>
 			</Tooltip>
-			<Tooltip trigger={trigger} position="left-bottom" title="Left Bottom">
+			<Tooltip trigger={trigger} position="left-bottom" title="LB">
 				<Button>LeftBottom</Button>
 			</Tooltip>
 		</div>
 		<div className="zent-doc-tooltip-positions-right-col">
-			<Tooltip trigger={trigger} position="right-top" title="Right Top">
+			<Tooltip trigger={trigger} position="right-top" title="RT">
 				<Button>RightTop</Button>
 			</Tooltip>
-			<Tooltip trigger={trigger} position="right-center" title="Right Center">
+			<Tooltip trigger={trigger} position="right-center" title="RC">
 				<Button>RightCenter</Button>
 			</Tooltip>
-			<Tooltip trigger={trigger} position="right-bottom" title="Right Bottom">
+			<Tooltip trigger={trigger} position="right-bottom" title="RB">
 				<Button>RightBottom</Button>
 			</Tooltip>
 		</div>
@@ -88,8 +88,12 @@ ReactDOM.render(
       flex-direction: column;
       height: 100%;
 
-      .zent-tooltip-wrapper:not(:last-child) {
-        margin-bottom: 10px
+			.zent-btn {
+				margin-left: 0 !important;
+			}
+
+      .zent-btn:not(:last-child) {
+        margin-bottom: 10px;
       }
     }
 

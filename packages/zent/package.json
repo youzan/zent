@@ -72,12 +72,13 @@
     "postcss-value-parser": "^4.0.2",
     "react": "16.11.x",
     "react-dom": "16.11.x",
+    "react-window": "^1.8.5",
     "sass": "^1.22.7",
     "ts-jest": "^24.0.0",
     "ts-node": "^8.0.3",
     "ttypescript": "^1.5.8",
     "typedoc": "~0.15.2",
-    "typescript": "~3.7.2"
+    "typescript": "~3.9.6"
   },
   "peerDependencies": {
     "@types/react": "^16.9.7"
