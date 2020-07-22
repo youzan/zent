@@ -17,8 +17,6 @@ import createElement from '../utils/dom/createElement';
 import { SCROLLBAR_WIDTH } from '../utils/getScrollbarWidth';
 import { setValueForStyles } from '../utils/style/CSSPropertyOperations';
 import { addEventListener } from '../utils/component/event-handler';
-import getComputedStyle from '../utils/dom/getComputedStyle';
-import { boxNativeEvent, boxDOMNode } from '../utils/alcatraz';
 
 function diffStyle(prev: React.CSSProperties, next: React.CSSProperties) {
   const result: React.CSSProperties = {};
@@ -199,7 +197,7 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
           target === node ||
           !purePortal.contains(target)
         ) {
-          onClose && onClose(boxNativeEvent(event));
+          onClose && onClose(event);
         }
       }
 
@@ -223,7 +221,7 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
       }
 
       const { onLayerReady } = propsRef.current;
-      onLayerReady && onLayerReady(boxDOMNode(node));
+      onLayerReady && onLayerReady(node);
 
       return dispose;
     }, [useLayerForClickAway, closeOnClickOutside, node]);

@@ -6,7 +6,6 @@ import Trigger, { IPopoverTriggerProps } from './Trigger';
 import { addEventListener } from '../../utils/component/event-handler';
 import noop from '../../utils/noop';
 import { runOnceInNextFrame } from '../../utils/nextFrame';
-import { boxDOMNode } from '../../utils/alcatraz';
 
 const MOUSE_EVENT_WHITE_LIST = [
   'down',
@@ -195,7 +194,7 @@ function makeHoverLeaveRecognizer({
       move: runOnceInNextFrame(evt => {
         const { target } = evt;
 
-        if (isOutSide(boxDOMNode(target as Node))) {
+        if (isOutSide(target as Node)) {
           if (!quirk && !state.is(HoverState.Started)) {
             return;
           }

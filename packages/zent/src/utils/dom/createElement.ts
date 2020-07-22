@@ -1,5 +1,3 @@
-import { isAlcatrazEnv, alcatrazDomUtils } from '../alcatraz';
-
 /**
  * Creates an instance of the element for the specified tag.
  * @param tagName The name of an element.
@@ -19,10 +17,8 @@ function createElement(
 ): HTMLElement;
 
 function createElement(tagName, options?) {
-  const node = isAlcatrazEnv
-    ? alcatrazDomUtils.createElement(tagName, options)
-    : // eslint-disable-next-line ban/ban
-      document.createElement(tagName, options);
+  // eslint-disable-next-line ban/ban
+  const node = document.createElement(tagName, options);
   node.setAttribute('data-zv', __ZENT_VERSION__);
   return node;
 }
