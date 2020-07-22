@@ -11,13 +11,13 @@ import { TextMark } from '../text-mark';
 import { BlockLoading } from '../loading/BlockLoading';
 import { Pop } from '../pop';
 import { I18nReceiver as Receiver, II18nLocaleSelect } from '../i18n';
+import memoize from '../utils/memorize-one';
 
 export interface ISelectItem<Key extends string | number = string | number> {
   key: Key;
   text: React.ReactNode;
   type?: 'header' | 'divider';
   disabled?: boolean;
-  __display?: React.ReactNode;
 }
 
 export interface IOptionRenderer<Item extends ISelectItem> {
@@ -48,7 +48,7 @@ export interface ISelectCommonProps<Item extends ISelectItem> {
   clearable?: boolean;
   loading?: boolean;
   creatable?: boolean;
-  onCreate?: (keyword: string) => void;
+  onCreate?: (text: string) => void;
   collapsable?: false;
   tagsLimit?: number;
 }
@@ -132,17 +132,12 @@ function findPrevSelectableOption<Item extends ISelectItem>(
 function defaultHighlight<Item extends ISelectItem>(
   keyword: string,
   option: Item
-): Item {
+): React.ReactNode {
   if (typeof option.text !== 'string') {
-    return option;
+    return option.text;
   }
 
-  return {
-    ...option,
-    __display: (
-      <TextMark searchWords={[keyword]} textToHighlight={option.text} />
-    ),
-  };
+  return <TextMark searchWords={[keyword]} textToHighlight={option.text} />;
 }
 
 const DEFAULT_LOADING = (
@@ -158,7 +153,7 @@ const DEFAULT_LOADING = (
 );
 
 // 允许创建的临时 key
-const CREATABLE_KEY = '__ZENT_SELECT_CREATABLE_KEY__';
+const SELECT_CREATABLE_KEY = '__ZENT_SELECT_CREATABLE_KEY__';
 
 export class Select<
   Item extends ISelectItem = ISelectItem
@@ -228,7 +223,7 @@ export class Select<
     if (item.disabled || item.type || this.disabled) {
       return;
     }
-    if (item.key === CREATABLE_KEY) {
+    if (item.key === SELECT_CREATABLE_KEY) {
       this.onCreateClick();
       return;
     }
@@ -347,13 +342,28 @@ export class Select<
   };
 
   renderOption: IOptionRenderer<Item> = (option: Item, index: number) => {
-    const { isEqual, multiple, renderOptionContent } = this.props;
-    const { value, activeIndex } = this.state;
+    const {
+      isEqual,
+      multiple,
+      renderOptionContent,
+      highlight = defaultHighlight,
+    } = this.props;
+    const { value, activeIndex, keyword } = this.state;
     const selected =
       !!value &&
       (multiple
         ? (value as Item[]).findIndex(it => isEqual(it, option)) >= 0
         : isEqual(value as Item, option));
+
+    let optionContent: React.ReactNode = null;
+    if (option.key === SELECT_CREATABLE_KEY) {
+      optionContent = <mark>+点击新建：{option.text}</mark>;
+    } else {
+      optionContent = renderOptionContent
+        ? renderOptionContent(option)
+        : highlight(keyword.trim(), option);
+    }
+
     return (
       <Option
         key={option.key}
@@ -366,9 +376,7 @@ export class Select<
         onMouseLeave={this.onOptionMouseLeave}
         multiple={multiple}
       >
-        {renderOptionContent
-          ? renderOptionContent(option)
-          : option.__display || option.text}
+        {optionContent}
       </Option>
     );
   };
@@ -599,66 +607,81 @@ export class Select<
     }
   };
 
-  filteredOptions(): Item[] {
-    const {
-      creatable,
-      options,
-      filter = defaultFilter,
-      highlight = defaultHighlight,
-    } = this.props;
-    const keyword = this.state.keyword.trim();
+  filterOptions = memoize(
+    (
+      creatable: boolean,
+      options: Item[],
+      filter: ((keyword: string, item: Item) => boolean) | false,
+      keyword: string
+    ): Item[] => {
+      const filtered =
+        filter !== false && keyword
+          ? options.filter(it => filter(keyword, it))
+          : options;
 
-    const filtered =
-      filter !== false && keyword
-        ? options
-            .filter(it => filter(keyword, it))
-            .map(it => highlight(keyword, it))
-        : options;
-
-    const createItem =
-      creatable &&
-      keyword &&
-      filtered.every(
-        it =>
-          (typeof it.text === 'string' ? it.text.toLowerCase() : it.text) !==
-          keyword.toLowerCase()
-      )
-        ? [
-            {
-              key: CREATABLE_KEY,
+      const createItem =
+        creatable &&
+        keyword &&
+        filtered.every(
+          it =>
+            (typeof it.text === 'string' ? it.text.toLowerCase() : it.text) !==
+            keyword.toLowerCase()
+        )
+          ? {
+              key: SELECT_CREATABLE_KEY,
               text: keyword,
-              __display: <mark>+点击新建：{keyword}</mark>,
-            },
-          ]
-        : [];
+            }
+          : [];
 
-    return (createItem as Item[]).concat(filtered);
-  }
+      return filtered.concat(createItem as Item);
+    }
+  );
 
   focusSearchInput = () => {
     // 命令式聚焦搜索框
     this.inputRef?.current?.focus();
   };
 
+  renderPopoverContent(i18n: II18nLocaleSelect): React.ReactNode {
+    const {
+      notFoundContent,
+      renderOptionList,
+      loading,
+      creatable,
+      options,
+      filter = defaultFilter,
+    } = this.props;
+    const keyword = this.state.keyword.trim();
+
+    if (loading) {
+      return DEFAULT_LOADING;
+    }
+
+    const filtered = this.filterOptions(creatable, options, filter, keyword);
+    return filtered.length ? (
+      renderOptionList(filtered, this.renderOption)
+    ) : (
+      <div className="zent-select-popover-empty">
+        {notFoundContent ?? i18n.empty}
+      </div>
+    );
+  }
+
   render() {
     const { keyword, open: visible, active, value } = this.state;
     const {
-      notFoundContent,
       inline,
-      renderOptionList,
       width,
       clearable,
       multiple,
       popupWidth,
-      loading,
       collapsable,
     } = this.props;
 
-    const filtered = this.filteredOptions();
     const notEmpty = multiple
       ? Array.isArray(value) && value.length > 0
       : !!value;
-    const showClear = clearable && (keyword || notEmpty);
+    const showClear = clearable && !this.disabled && (keyword || notEmpty);
 
     return (
       <>
@@ -670,7 +693,7 @@ export class Select<
               visible={visible}
               onVisibleChange={this.onVisibleChange}
               className="zent-select-popover"
-              style={{ width: popupWidth || width }}
+              style={{ width: popupWidth ?? width }}
               cushion={4}
             >
               <Popover.Trigger.Click>
@@ -706,15 +729,7 @@ export class Select<
                 </div>
               </Popover.Trigger.Click>
               <Popover.Content>
-                {loading ? (
-                  DEFAULT_LOADING
-                ) : filtered.length ? (
-                  renderOptionList(filtered, this.renderOption)
-                ) : (
-                  <div className="zent-select-popover-empty">
-                    {notFoundContent || i18n.empty}
-                  </div>
-                )}
+                {this.renderPopoverContent(i18n)}
               </Popover.Content>
             </Popover>
           )}

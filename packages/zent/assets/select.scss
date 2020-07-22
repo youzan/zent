@@ -77,6 +77,23 @@ $option-height: 32px;
     &::after {
       opacity: 0.25;
     }
+
+    .zent-select-tag {
+      @include theme-color(color, stroke, 4);
+      @include theme-color(border-color, stroke, 5);
+      @include theme-color(background-color, stroke, 8);
+      cursor: not-allowed;
+    }
+
+    .zent-select-tag-close {
+      @include theme-color(color, stroke, 5);
+      cursor: not-allowed;
+    }
+
+    .zent-select-tag-collapsed-trigger {
+      @include theme-color(color, stroke, 4);
+      @include theme-color(background-color, stroke, 6);
+    }
   }
 
   &-multiple {
