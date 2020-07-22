@@ -11,8 +11,6 @@ import { getCurrentPosition, WaypointPosition } from './position';
 import isBrowser from '../utils/isBrowser';
 import defer from '../utils/defer';
 import { ICancelable } from '../utils/types';
-import getComputedStyle from '../utils/dom/getComputedStyle';
-import { boxNativeEvent } from '../utils/alcatraz';
 
 export interface IWaypointCallbackData {
   currentPosition: WaypointPosition;
@@ -196,7 +194,7 @@ export class Waypoint extends React.PureComponent<IWaypointProps> {
     const callbackArg = {
       currentPosition,
       previousPosition,
-      event: boxNativeEvent(event),
+      event,
       waypointTop: bounds.waypointTop,
       waypointBottom: bounds.waypointBottom,
       viewportTop: bounds.viewportTop,
@@ -227,7 +225,7 @@ export class Waypoint extends React.PureComponent<IWaypointProps> {
       onEnter?.({
         currentPosition: WaypointPosition.Inside,
         previousPosition,
-        event: boxNativeEvent(event),
+        event,
         waypointTop: bounds.waypointTop,
         waypointBottom: bounds.waypointBottom,
         viewportTop: bounds.viewportTop,
@@ -236,7 +234,7 @@ export class Waypoint extends React.PureComponent<IWaypointProps> {
       onLeave?.({
         currentPosition,
         previousPosition: WaypointPosition.Inside,
-        event: boxNativeEvent(event),
+        event,
         waypointTop: bounds.waypointTop,
         waypointBottom: bounds.waypointBottom,
         viewportTop: bounds.viewportTop,

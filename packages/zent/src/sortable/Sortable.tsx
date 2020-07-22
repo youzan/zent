@@ -3,12 +3,6 @@ import * as React from 'react';
 import * as sortableJS from 'sortablejs';
 
 import reorder from '../utils/reorder';
-import {
-  unboxDOMNode,
-  boxNativeEvent,
-  boxDOMNode,
-  boxFnArgs,
-} from '../utils/alcatraz';
 
 export interface ISortableProps<T> extends sortableJS.Options {
   // zent wrapper api
@@ -18,50 +12,6 @@ export interface ISortableProps<T> extends sortableJS.Options {
   filterClass?: string;
   onChange?: (newItems: T[]) => void;
 }
-
-const boxSortableEvent = (event: sortableJS.SortableEvent) => {
-  return boxNativeEvent(event, {
-    extraWhiteList: {
-      allowAccessProps: [
-        {
-          proxyProps: {
-            clone: boxDOMNode,
-            from: boxDOMNode,
-            item: boxDOMNode,
-            to: boxDOMNode,
-          },
-        },
-      ],
-    },
-  });
-};
-
-const boxSortableMoveEvent = (event: sortableJS.MoveEvent) => {
-  return boxNativeEvent(event, {
-    extraWhiteList: {
-      allowAccessProps: [
-        {
-          proxyProps: {
-            dragged: boxDOMNode,
-            from: boxDOMNode,
-            related: boxDOMNode,
-            to: boxDOMNode,
-          },
-        },
-      ],
-    },
-  });
-};
-
-const boxFnPropIfExist = <T extends any>(
-  obj: T,
-  propName: keyof T,
-  argBoxings: Function[]
-) => {
-  if (obj[propName] && typeof obj[propName] === 'function') {
-    obj[propName] = boxFnArgs(obj[propName], argBoxings);
-  }
-};
 
 export class Sortable<T> extends React.Component<ISortableProps<T>> {
   static defaultProps = {
@@ -78,77 +28,44 @@ export class Sortable<T> extends React.Component<ISortableProps<T>> {
       onChange,
       filterClass,
       children,
-      filter,
       ...rest
     } = this.props;
 
-    const instance = unboxDOMNode(this.containerRef.current);
+    const instance = this.containerRef.current;
     if (!instance) {
       return;
     }
 
-    let sortableFilter: sortableJS.Options['filter'] = '';
-
-    if (filter) {
-      if (typeof filter === 'function') {
-        sortableFilter = boxFnArgs(filter, [boxNativeEvent, boxDOMNode]);
-      } else {
-        sortableFilter = filter;
-      }
-    } else {
-      if (filterClass) {
-        sortableFilter = `.${filterClass}`;
-      }
-    }
-
-    boxFnPropIfExist(rest, 'scrollFn', [null, null, boxNativeEvent]);
-    boxFnPropIfExist(rest, 'setData', [null, boxDOMNode]);
-    boxFnPropIfExist(rest, 'onStart', [boxSortableEvent]);
-    boxFnPropIfExist(rest, 'onAdd', [boxSortableEvent]);
-    boxFnPropIfExist(rest, 'onClone', [boxSortableEvent]);
-    boxFnPropIfExist(rest, 'onChoose', [boxSortableEvent]);
-    boxFnPropIfExist(rest, 'onUnchoose', [boxSortableEvent]);
-    boxFnPropIfExist(rest, 'onUpdate', [boxSortableEvent]);
-    boxFnPropIfExist(rest, 'onSort', [boxSortableEvent]);
-    boxFnPropIfExist(rest, 'onRemove', [boxSortableEvent]);
-    boxFnPropIfExist(rest, 'onFilter', [boxSortableEvent]);
-
     const sortableOptions: sortableJS.Options = {
-      filter: sortableFilter,
+      filter: filterClass ? `.${filterClass}` : '',
       ghostClass: `zent-ghost`,
       chosenClass: `zent-chosen`,
       dragClass: `zent-drag`,
       fallbackClass: `zent-fallback`,
-      onMove: boxFnArgs(
-        (e: sortableJS.MoveEvent, originalEvent: MouseEvent) => {
-          if (onMove) {
-            return onMove(e, originalEvent);
-          }
+      onMove: (e, originalEvent) => {
+        if (onMove) {
+          return onMove(e, originalEvent);
+        }
 
-          if (filterClass && e.related.classList.contains(filterClass)) {
-            return false;
-          }
+        if (filterClass && e.related.classList.contains(filterClass)) {
+          return false;
+        }
 
-          return 1;
-        },
-        [boxSortableMoveEvent, boxNativeEvent]
-      ),
-      onEnd: boxFnArgs(
-        (e: sortableJS.SortableEvent) => {
-          const { items } = this.props;
-          onEnd && onEnd(e);
+        return 1;
+      },
+      onEnd: e => {
+        const { items } = this.props;
+        onEnd && onEnd(e);
 
-          if (!items) {
-            return;
-          }
+        if (!items) {
+          return;
+        }
 
-          const { oldIndex, newIndex } = e;
-          const newItems = reorder(items, oldIndex, newIndex);
+        const { oldIndex, newIndex } = e;
+        const newItems = reorder(items, oldIndex, newIndex);
 
-          onChange && onChange(newItems);
-        },
-        [boxSortableEvent]
-      ),
+        onChange && onChange(newItems);
+      },
       ...rest,
     };
 

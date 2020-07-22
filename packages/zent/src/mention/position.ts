@@ -1,5 +1,4 @@
 import Popover from '../popover';
-import getComputedStyle from '../utils/dom/getComputedStyle';
 
 export const getPopoverBottomPosition = instance =>
   Popover.Position.create(
