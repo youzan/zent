@@ -10,17 +10,14 @@ export const Label: React.FunctionComponent<ILabelProps> = ({
   children,
   required,
 }) => {
-  const { labelPosition, labelWidth } = React.useContext(FormContext);
+  const { labelStyle } = React.useContext(FormContext);
 
   return (
     <label
       className={cx('zent-form-label', {
         'zent-form-label-required': required,
       })}
-      style={{
-        flexBasis: labelWidth,
-        justifyContent: labelPosition,
-      }}
+      style={labelStyle}
     >
       {children}
     </label>
