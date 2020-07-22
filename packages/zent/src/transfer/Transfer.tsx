@@ -2,12 +2,12 @@ import * as React from 'react';
 import { useState, useMemo, useCallback, useEffect } from 'react';
 import cx from 'classnames';
 
-import { ITransfer, TransferColumnType } from './types';
+import { TransferColumnType, ITransferItem, TransferType } from './types';
 import { Direction } from './constants';
 import TransferItem from './components/TransferItem';
 import ArrowButton from './components/ArrowButton';
 
-export const Transfer: React.FC<ITransfer> = ({
+export const Transfer: React.FC<TransferType> = ({
   datasets,
   targetKeys,
   selectedRowKeys,
@@ -17,13 +17,14 @@ export const Transfer: React.FC<ITransfer> = ({
   prefix,
   columns,
   className,
+  children,
   ...rest
 }) => {
   const classNamePrefix = `${prefix}-transfer`;
   const [selectedRowKeysState, setSelectedRowKeys] = useState(selectedRowKeys);
 
   const singleDirectionData = useCallback(
-    direction => {
+    (direction: Direction) => {
       return datasets.filter(({ [rowKey]: key }) =>
         Direction.left === direction
           ? !targetKeys.includes(key)
@@ -50,7 +51,7 @@ export const Transfer: React.FC<ITransfer> = ({
   );
 
   const changeSelectedRowKeys = useCallback(
-    direction => (keys: string[]) => {
+    (direction: Direction) => (keys: string[]) => {
       const otherDirectionSelectedRowKeys = singleDirectionSelectedRowKeys(
         getOtherDirection(direction)
       );
@@ -68,12 +69,12 @@ export const Transfer: React.FC<ITransfer> = ({
   const getColumns = useCallback(
     (direction: Direction) => {
       if (Direction.left === direction) {
-        return (Array.isArray(columns[0])
+        return (Array.isArray(columns?.[0])
           ? columns[0]
           : columns) as TransferColumnType;
       }
-      return (Array.isArray(columns[0])
-        ? columns[1]
+      return (Array.isArray(columns?.[0])
+        ? columns?.[1]
         : columns) as TransferColumnType;
     },
     [columns]
@@ -105,6 +106,30 @@ export const Transfer: React.FC<ITransfer> = ({
     changeSelectedRowKeys,
     getColumns,
   ]);
+
+  const getRenderList = useCallback(
+    (props: ITransferItem): React.ReactNode => {
+      const {
+        direction,
+        selectedRowKeys,
+        changeSelectedRowKeys,
+        datasets,
+      } = props;
+      const childrenNode =
+        children &&
+        children({
+          direction,
+          selectedRowKeys,
+          changeSelectedRowKeys,
+          datasets,
+        });
+      if (childrenNode) {
+        return childrenNode;
+      }
+      return <TransferItem {...props} />;
+    },
+    [children]
+  );
 
   const transferSelectedKeys = useCallback(
     (direction: Direction) => () => {
@@ -158,7 +183,7 @@ export const Transfer: React.FC<ITransfer> = ({
   );
 
   const getArrowButton = useCallback(
-    direction => (
+    (direction: Direction) => (
       <div className={`${classNamePrefix}__arrow__item`}>
         <ArrowButton
           disabled={
@@ -186,12 +211,12 @@ export const Transfer: React.FC<ITransfer> = ({
 
   return (
     <div className={cx(`${classNamePrefix}`, className)}>
-      <TransferItem {...commonProps} {...transferItemProps[Direction.left]} />
+      {getRenderList({ ...commonProps, ...transferItemProps[Direction.left] })}
       <div className={`${classNamePrefix}__arrow`}>
         {getArrowButton(Direction.right)}
         {getArrowButton(Direction.left)}
       </div>
-      <TransferItem {...commonProps} {...transferItemProps[Direction.right]} />
+      {getRenderList({ ...commonProps, ...transferItemProps[Direction.right] })}
     </div>
   );
 };

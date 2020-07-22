@@ -11,7 +11,7 @@ group: 数据
 
 ### 使用指南
 
-穿梭框列表使用`Grid`组件实现，支持`Grid`组件所有属性。
+穿梭框列表使用`Grid`组件实现，会透传`Grid`组件的 prop（`API`中定义的属性除外）。
 
 ### API
 
@@ -24,8 +24,19 @@ group: 数据
 | filterOption      | 搜索筛选方法，接收 inputValue、option 两个参数，当 option 符合筛选条件时，应返回 true，反之则返回 false。 | \(inputValue: string, option: ITransferData\) => boolean;        |                        |        |
 | selectedRowKeys   | 设置哪些项应该被选中，会和勾选的项合并                                                                    | string\[\]                                                       | \[\]                   |        |
 | titles            | 标题集合，顺序从左至右                                                                                    | React\.ReactNode\[\]                                             | \['Source', 'Target'\] |        |
-| transferChange          | 选项在两栏之间转移时的回调函数                                                                            | \(params: ITransferDirectionChangeProps\) => void;               |                        |        |
+| transferChange    | 选项在两栏之间转移时的回调函数                                                                            | \(params: ITransferDirectionChangeProps\) => void;               |                        |        |
 | columns           | 表格列配置                                                                                                | TransferColumnType \| \[TransferColumnType, TransferColumnType\] |                        |        |
 | prefix            | 自定义前缀                                                                                                | string                                                           | zent                   |        |
 | searchPlaceholder | 搜索框文案                                                                                                | string                                                           | 请输入搜索内容         |        |
 | className         | 自定义额外类名                                                                                            | string                                                           | ''                     |        |
+
+#### Render Props
+
+Transfer 支持接收 children 自定义渲染列表，并返回以下参数：
+
+| 参数                  | 说明           | 类型                      | 默认值 | 备选值 |
+| --------------------- | -------------- | ------------------------- | ------ | ------ |
+| direction             | 渲染列表的方向 | left \| right             |        |        |  |
+| datasets              | 数据源         | ITransferData\[\]         |        |        |
+| selectedRowKeys       | 选中的条目     | string\[\]                |        |        |
+| changeSelectedRowKeys | 勾选条目       | (keys: string[]) => void; |        |        |

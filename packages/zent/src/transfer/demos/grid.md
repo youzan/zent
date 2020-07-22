@@ -10,20 +10,26 @@ en-US:
 import { useState, useCallback } from 'react';
 import { Transfer } from 'zent';
 
-const data = new Array(20)
-	.fill()
-	.map((_, index) => ({ option: index, text: `option${index}` }));
+const data = new Array(20).fill().map((_, index) => ({
+	option: index,
+	text1: `Option${index}`,
+	text2: `Product${index}`,
+}));
 
 const leftColumns = [
 	{
-		name: 'text',
-		title: 'left',
+		name: 'text1',
+		title: 'left1',
+	},
+	{
+		name: 'text2',
+		title: 'left2',
 	},
 ];
 
 const rightColumns = [
 	{
-		name: 'text',
+		name: 'text1',
 		title: 'right',
 	},
 ];
@@ -52,6 +58,9 @@ ReactDOM.render(
 ```
 
 <style>
+.grid-transfer .zent-transfer__item {
+	width: 400px;
+}
 .grid-transfer .zent-grid-thead .zent-grid-tr {
 	height: 36px;
 }

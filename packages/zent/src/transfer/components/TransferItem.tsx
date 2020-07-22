@@ -21,6 +21,7 @@ const TransferItem: React.FC<ITransferItem> = ({
   searchPlaceholder,
   onRowClick,
   emptyLabel,
+  direction,
   ...gridRest
 }) => {
   const classNamePrefix = `${prefix}__item`;
@@ -150,7 +151,7 @@ const TransferItem: React.FC<ITransferItem> = ({
               }}
               columns={girdColumns}
               onRowClick={handleRowClick}
-              emptyLabel={emptyLabel || '暂无数据'}
+              emptyLabel={emptyLabel || i18n.emptyLabel}
               {...gridRest}
             />
           </div>

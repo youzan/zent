@@ -193,4 +193,5 @@ export const Transfer: II18nLocaleTransfer = {
   placeholder: 'Please Enter',
   item: 'item',
   items: 'items',
+  emptyLabel: 'No Data',
 };
