@@ -33,20 +33,21 @@ function SelectSearch(
   const ref = React.useRef<HTMLInputElement>(null);
   const measureRef = React.useRef<HTMLSpanElement>(null);
   const [inputWidth, setInputWidth] = React.useState(0);
+  const focusSearchInput = React.useCallback(() => {
+    ref.current!.focus({
+      preventScroll: true,
+    });
+  }, [ref]);
 
   React.useImperativeHandle(cmdRef, () => ({
     focus: () => {
-      ref.current!.focus({
-        preventScroll: true,
-      });
+      focusSearchInput();
     },
   }));
 
   React.useLayoutEffect(() => {
-    ref.current!.focus({
-      preventScroll: true,
-    });
-  }, []);
+    focusSearchInput();
+  }, [focusSearchInput]);
 
   // We measure width and set to the input immediately
   const mirrorValue = value || placeholder;
