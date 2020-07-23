@@ -2,17 +2,23 @@ import * as React from 'react';
 import { useState, useCallback, useEffect, useMemo } from 'react';
 import cx from 'classnames';
 
-import { I18nReceiver as Receiver, II18nLocaleTransfer } from '../../i18n';
-import { Grid, Input, Checkbox } from '../../index';
+import {
+  Grid,
+  Input,
+  Checkbox,
+  IGridColumn,
+  I18nReceiver as Receiver,
+  II18nLocaleTransfer,
+} from '../../index';
 import { ITransferItem } from '../types';
-import { IGridColumn } from '../../grid';
+import { pickGridProps } from '../constants';
+import { pick } from '../utils';
 
 const TransferItem: React.FC<ITransferItem> = ({
   prefix,
   title,
   datasets,
   selectedRowKeys,
-  selection,
   changeSelectedRowKeys,
   rowKey,
   filterOption,
@@ -20,9 +26,9 @@ const TransferItem: React.FC<ITransferItem> = ({
   columns,
   searchPlaceholder,
   onRowClick,
-  emptyLabel,
   direction,
-  ...gridRest
+  selection,
+  ...rest
 }) => {
   const classNamePrefix = `${prefix}__item`;
   const [inputVal, setInputVal] = useState('');
@@ -136,13 +142,13 @@ const TransferItem: React.FC<ITransferItem> = ({
               </div>
             )}
             <Grid
+              rowKey={rowKey}
               className={cx(`${classNamePrefix}__grid`, {
                 [`${classNamePrefix}__header--hidden`]:
                   false === !!columns[0]?.title,
               })}
               rowClassName={`${classNamePrefix}__grid__row`}
               datasets={listData}
-              rowKey={rowKey}
               selection={{
                 selectedRowKeys,
                 onSelect,
@@ -151,8 +157,8 @@ const TransferItem: React.FC<ITransferItem> = ({
               }}
               columns={girdColumns}
               onRowClick={handleRowClick}
-              emptyLabel={emptyLabel || i18n.emptyLabel}
-              {...gridRest}
+              emptyLabel={i18n.emptyLabel}
+              {...pick(rest, pickGridProps)}
             />
           </div>
         );
