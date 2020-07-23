@@ -1034,8 +1034,11 @@ export class Grid<Data = any> extends PureComponent<
     }
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     if (this.isAnyColumnsFixed()) {
+      if (this.props.scroll?.x !== prevProps.scroll?.x) {
+        this.setScrollPositionClassName();
+      }
       this.syncFixedTableRowHeight();
     }
   }

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { isElement } from 'react-is';
 import { IPortalImperativeHandlers } from '../../portal';
 import { usePopoverContext } from '../Context';
-import Anchor from '../Anchor';
+import Anchor, { PopoverAnchorGetElementFn } from '../Anchor';
 import { useWindowEventHandler } from '../../utils/component/WindowEventHandler';
 import { cloneElement } from 'react';
 
@@ -15,6 +15,7 @@ export interface IPopoverClickTriggerProps<
 > {
   closeOnClickOutside?: boolean;
   toggle?: boolean;
+  getElement?: PopoverAnchorGetElementFn;
   children?:
     | (string | number | React.ReactElement<ChildProps, any>)
     | ((childProps: IPopoverClickTriggerChildProps) => React.ReactNode);
@@ -38,6 +39,7 @@ export function PopoverClickTrigger<
 >({
   children,
   toggle,
+  getElement,
   closeOnClickOutside = true,
 }: IPopoverClickTriggerProps<ChildProps>) {
   const ctx = usePopoverContext();
@@ -85,7 +87,11 @@ export function PopoverClickTrigger<
     child = <span onClick={onClick}>{children}</span>;
   }
 
-  return <Anchor ref={anchorRef}>{child}</Anchor>;
+  return (
+    <Anchor getElement={getElement} ref={anchorRef}>
+      {child}
+    </Anchor>
+  );
 }
 
 export default PopoverClickTrigger;

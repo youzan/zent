@@ -5,11 +5,11 @@ import {
   IMaybeError,
   BasicModel,
   ValidateOption,
-} from 'formulr';
+} from './formulr';
 import { Omit, Optional } from 'utility-types';
 import { FormError } from './Error';
 import { IFormControlProps } from './Control';
-import { useFormContext, IFormChild } from './context';
+import { useFormChildrenContext, IFormChild } from './context';
 import { DatePickers } from '../datetimepicker/common/types';
 import { $MergeParams } from './utils';
 
@@ -95,7 +95,8 @@ export enum TouchWhen {
 }
 
 export interface IFormFieldPropsBase<Value>
-  extends Omit<IFormControlProps, 'required' | 'invalid'> {
+  extends Omit<IFormControlProps, 'required' | 'invalid'>,
+    Partial<Omit<IFormFieldChildProps<Value>, 'value'>> {
   /**
    * 自定义错误渲染，参数是 `validator` 返回的对象，一次只会有一个错误
    */
@@ -190,7 +191,7 @@ export function useFormChild<Value>(
   model: BasicModel<Value>,
   scrollAnchorRef?: React.RefObject<Element | null | undefined>
 ) {
-  const ctx = useFormContext();
+  const ctx = useFormChildrenContext();
   const posRef = React.useRef(ctx.children.length);
   React.useEffect(() => {
     const formChild: IFormChild = {

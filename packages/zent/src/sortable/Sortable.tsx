@@ -42,11 +42,16 @@ export class Sortable<T> extends React.Component<ISortableProps<T>> {
       chosenClass: `zent-chosen`,
       dragClass: `zent-drag`,
       fallbackClass: `zent-fallback`,
-      onMove: e => {
+      onMove: (e, originalEvent) => {
         if (onMove) {
-          return onMove(e);
+          return onMove(e, originalEvent);
         }
-        return filterClass ? !e.related.classList.contains(filterClass) : true;
+
+        if (filterClass && e.related.classList.contains(filterClass)) {
+          return false;
+        }
+
+        return 1;
       },
       onEnd: e => {
         const { items } = this.props;

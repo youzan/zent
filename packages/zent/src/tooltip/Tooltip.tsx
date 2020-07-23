@@ -13,6 +13,7 @@ const { Trigger } = Popover;
 
 export interface ITooltipBaseProps {
   title: React.ReactNode;
+  style?: React.CSSProperties;
   position?: PopPositions | IPositionFunction;
   cushion?: number;
   centerArrow?: boolean;
@@ -20,10 +21,6 @@ export interface ITooltipBaseProps {
   containerSelector?: string;
   visible?: boolean;
   onVisibleChange?: (visible: boolean) => void;
-  // isOutside?: (
-  //   target: HTMLElement,
-  //   node: { contentNode: HTMLElement; triggerNode: HTMLElement }
-  // ) => boolean;
   children: ReactElement | string | number;
 }
 
@@ -94,7 +91,6 @@ export class Tooltip extends Component<ITooltipProps> {
         <Trigger.Hover
           showDelay={mouseEnterDelay}
           hideDelay={mouseLeaveDelay}
-          // isOutside={isOutside}
           anchorOnly={anchorOnly}
         >
           {children}
@@ -122,6 +118,7 @@ export class Tooltip extends Component<ITooltipProps> {
       cushion,
       centerArrow,
       containerSelector,
+      style,
     } = this.props;
 
     const cls = cx(`zent-tooltip`, className);
@@ -135,12 +132,12 @@ export class Tooltip extends Component<ITooltipProps> {
       <Popover
         visible={visible}
         onVisibleChange={onVisibleChange}
-        // wrapperClassName={`zent-tooltip-wrapper`}
         className={cls}
         cushion={cushion}
         position={getPosition(position, centerArrow)}
         containerSelector={containerSelector}
         ref={this.popoverRef}
+        style={style}
       >
         {this.renderTrigger()}
         {this.renderContent()}

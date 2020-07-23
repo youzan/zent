@@ -8,8 +8,12 @@ export {
   FieldModel,
   FieldSetModel,
   FormStrategy,
+  ISyncValidator,
+  IAsyncValidator,
+  IValidator,
   IValidators,
   Validators,
+  ValidatorMiddlewares,
   ValidateOption,
   FieldUtils,
   BasicBuilder,
@@ -20,7 +24,7 @@ export {
   $FieldSetBuilderChildren,
   $FieldSetValue,
   INormalizeBeforeSubmit,
-} from 'formulr';
+} from './formulr';
 
 export * from './form-components';
 export * from './Form';
@@ -30,3 +34,4 @@ export * from './Label';
 export * from './Field';
 export * from './FieldSet';
 export * from './Description';
+export { FormContext } from './context';

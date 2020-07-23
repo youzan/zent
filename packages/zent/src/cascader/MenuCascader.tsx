@@ -26,6 +26,7 @@ import {
 import SearchContent from './components/SearchContent';
 import debounce from '../utils/debounce';
 import TextMark from '../text-mark';
+import { DisabledContext, IDisabledContext } from '../disabled';
 
 const PopoverContent = Popover.Content;
 const FILTER_TIMEOUT = 500; // ms
@@ -87,6 +88,9 @@ export class MenuCascader extends Component<
     limit: 50,
     filter: searchFilterFn,
   };
+
+  static contextType = DisabledContext;
+  context!: IDisabledContext;
 
   static getDerivedStateFromProps(
     nextProps: IMenuCascaderProps,
@@ -153,6 +157,11 @@ export class MenuCascader extends Component<
       flattenOptions,
       searchList: [],
     };
+  }
+
+  get disabled() {
+    const { disabled = this.context.value } = this.props;
+    return disabled;
   }
 
   rerender() {
@@ -421,7 +430,6 @@ export class MenuCascader extends Component<
       popupClassName,
       placeholder,
       displayRender,
-      disabled,
       multiple,
       searchable,
       clearable,
@@ -438,7 +446,7 @@ export class MenuCascader extends Component<
       popupClassName,
       placeholder,
       displayRender,
-      disabled,
+      disabled: this.disabled,
       value,
       selectedOptions,
       open,

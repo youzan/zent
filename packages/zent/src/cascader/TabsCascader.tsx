@@ -12,6 +12,7 @@ import {
 } from './types';
 import CascaderTrigger from './trigger';
 import { isEqualArrays, arrayTreeFilter } from './common/utils';
+import { DisabledContext, IDisabledContext } from '../disabled';
 
 const PopoverContent = Popover.Content;
 
@@ -33,6 +34,9 @@ export class TabsCascader extends Component<
     ...commonProps,
     title: [],
   };
+
+  static contextType = DisabledContext;
+  context!: IDisabledContext;
 
   static getDerivedStateFromProps(
     nextProps: ITabsCascaderProps,
@@ -71,6 +75,11 @@ export class TabsCascader extends Component<
       open: false,
       prevProps: props,
     };
+  }
+
+  get disabled() {
+    const { disabled = this.context.value } = this.props;
+    return disabled;
   }
 
   onVisibleChange = (open: boolean) => {
@@ -180,7 +189,6 @@ export class TabsCascader extends Component<
       popupClassName,
       placeholder,
       displayRender,
-      disabled,
       clearable,
       value,
       options,
@@ -192,7 +200,7 @@ export class TabsCascader extends Component<
       popupClassName,
       placeholder,
       displayRender,
-      disabled,
+      disabled: this.disabled,
       selectedOptions,
       open,
       clearable,

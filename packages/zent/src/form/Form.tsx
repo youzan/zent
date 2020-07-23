@@ -18,13 +18,18 @@ import {
   createAsyncValidator,
   isAsyncValidator,
   useFieldValue,
-} from 'formulr';
+} from './formulr';
 import memorize from '../utils/memorize-one';
-import { FormContext, IFormChild, IZentFormContext } from './context';
+import {
+  FormChildrenContext,
+  IFormChild,
+  IZentFormChildrenContext,
+} from './context';
 import { ZentForm, useForm } from './ZentForm';
 import scroll from '../utils/scroll';
 import { CombineErrors } from './CombineErrors';
 import { ValidateOccasion, TouchWhen } from './shared';
+import { Disabled } from '../disabled';
 
 export {
   IRenderError,
@@ -36,12 +41,8 @@ export {
   IFormComponentProps,
 } from './shared';
 
-function makeContext(
-  disabled: boolean,
-  children: IFormChild[]
-): IZentFormContext {
+function makeChildrenContext(children: IFormChild[]): IZentFormChildrenContext {
   return {
-    disabled,
     children,
   };
 }
@@ -61,6 +62,7 @@ export interface IFormProps<T extends {}>
    */
   form: ZentForm<T>;
   /**
+   * @deprecated
    * 禁用表单输入，开启后表单内所有元素不可编辑。注意：自定义组件需要自己实现禁用逻辑和展示
    */
   disabled?: boolean;
@@ -71,7 +73,10 @@ export interface IFormProps<T extends {}>
   /**
    * 表单提交回调函数，`form.submit` 或者原生的 `DOM` 触发的 `submit` 事件都会触发 `onSubmit`
    */
-  onSubmit?: (form: ZentForm<T>, e?: React.SyntheticEvent) => Promise<void>;
+  onSubmit?: (
+    form: ZentForm<T>,
+    e?: React.SyntheticEvent
+  ) => void | Promise<unknown>;
   /**
    * 表单提交失败时的回调函数
    */
@@ -111,7 +116,7 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
   readonly formRef = React.createRef<HTMLFormElement>();
 
   private readonly children: IFormChild[] = [];
-  private getContext = memorize(makeContext);
+  private getChildrenContext = memorize(makeChildrenContext);
   private subscription: Subscription | null = null;
 
   private onSubmit: React.FormEventHandler<HTMLFormElement> = e => {
@@ -223,31 +228,36 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
       className,
       form,
       onSubmit,
+      onSubmitFail,
+      onSubmitSuccess,
+      disableEnterSubmit,
       disabled = false,
       scrollToError,
       ...props
     } = this.props;
-    const ctx = this.getContext(disabled, this.children);
+    const childrenCtx = this.getChildrenContext(this.children);
     return (
-      <FormContext.Provider value={ctx}>
-        <FormProvider value={form.ctx}>
-          <form
-            ref={this.formRef}
-            {...props}
-            className={cx(
-              {
-                'zent-form-vertical': layout === 'vertical',
-                'zent-form-horizontal': layout === 'horizontal',
-              },
-              className
-            )}
-            onSubmit={this.onSubmit}
-            onKeyDown={this.onKeyDown}
-          >
-            {children}
-          </form>
-        </FormProvider>
-      </FormContext.Provider>
+      <Disabled value={disabled}>
+        <FormChildrenContext.Provider value={childrenCtx}>
+          <FormProvider value={form.ctx}>
+            <form
+              ref={this.formRef}
+              {...props}
+              className={cx(
+                {
+                  'zent-form-vertical': layout === 'vertical',
+                  'zent-form-horizontal': layout === 'horizontal',
+                },
+                className
+              )}
+              onSubmit={this.onSubmit}
+              onKeyDown={this.onKeyDown}
+            >
+              {children}
+            </form>
+          </FormProvider>
+        </FormChildrenContext.Provider>
+      </Disabled>
     );
   }
 }

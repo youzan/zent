@@ -42,12 +42,16 @@ function getPosition(
   getPositionedParent: () => Element | null,
   portalRef: React.RefObject<IPortalImperativeHandlers>
 ): IPopoverPosition {
+  // skip expensive DOM operations
+  if (!visible) {
+    return INVISIBLE_POSITION;
+  }
+
   const container = getContainer();
   const parent = getPositionedParent();
   const portal = portalRef.current;
   const anchor = popover.getAnchor?.();
   if (
-    !visible ||
     !container ||
     !parent ||
     !portal ||
@@ -56,6 +60,7 @@ function getPosition(
   ) {
     return INVISIBLE_POSITION;
   }
+
   const parentRect = parent.getBoundingClientRect();
   const { container: content } = portal;
   const contentRect = content.getBoundingClientRect();
@@ -68,7 +73,7 @@ function getPosition(
     content,
     contentRect,
     containerRect: parentRect,
-    container,
+    container: parent,
     cushion,
   });
   return position;

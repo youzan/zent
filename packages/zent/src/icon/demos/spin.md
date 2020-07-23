@@ -10,7 +10,7 @@ en-US:
 import { Icon } from 'zent';
 
 ReactDOM.render(
-	<Icon type="flow-o" spin />
+	<Icon type="flow-o" spin className="zenticon-demo" />
 	, mountNode
 );
 ```

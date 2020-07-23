@@ -3,11 +3,13 @@ import {
   IUploadFileItem,
   IAbstractUploadListProps,
   IUploadFileItemInner,
+  IUploadItemProps,
 } from '../types';
 
 abstract class AbstractUploadList<
   UPLOAD_ITEM extends IUploadFileItem,
-  P extends IAbstractUploadListProps<UPLOAD_ITEM>,
+  UPLOAD_ITEM_COMP_PROPS extends IUploadItemProps<UPLOAD_ITEM>,
+  P extends IAbstractUploadListProps<UPLOAD_ITEM, UPLOAD_ITEM_COMP_PROPS>,
   S = {}
 > extends React.PureComponent<P, S> {
   /**

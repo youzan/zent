@@ -8,6 +8,59 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 8.5.2(2020-06-23)
+
+- `Form`
+  - 🦀️ Fix some minor issues
+  - 🦀️ `FormSelectField` is compatible with `tags` mode
+  - 🦀️ Export validator types
+- 🦀️ Fix `Swiper` transition issue in some edge cases
+- 🦀️ Fix `ScrollAlert` children check
+
+### 8.5.1(2020-06-10)
+
+- ✨ `Tooltip` now passes `display` prop to `Popover`
+- ✨ New icon: `drag`
+- 🦀️ Update `Dialog` TypeScript definition
+- 🦀️ Fix `NumberInput` TypeScript definition
+- 🦀️ Fix `Form` warning in React >= 16.13
+- 📚 More docs on `Form` `ValidateOption`
+
+### 7.4.4(2020-05-11)
+
+- 🦀️ Fix a state bug in `NumberInput`
+
+### 8.5.0(2020-05-07)
+
+- ✨ Add 4 new icons: `folder-o`, `open-folder-o`, `refresh`, `save-o`
+- ✨ Remove `Upload` default help text, don't render help text if `tips` is not present
+- `Alert`
+  - ✨ Add `hint` style
+  - ✨ Add `ScrollAlert` for rolling alert
+- `Form`
+  - ✨ `Field`'s `validate` now propagates to `FieldArray` or `FieldSet`
+  - ✨ Add `ValidatorMiddlewares`, these middlewares can be used to dynamically change validators behavior
+  - ✨ `FormSelectField` pass through `children`
+  - 🦀️ Fix `Form` `submit` use after unmount
+  - 🦀️ Fix `Select`、`Option`、`FormInputField` type definition
+- 🦀️ Fix `Grid` shadow after `scroll.x` changes
+- 🦀️ Fix `Collapse` type definition
+- 🦀️ Fix `Pagination` page jump not working in some cases
+
+### 8.4.0(2020-03-16)
+
+- ✨ `Upload` item UI can be customized
+- ✨ Update `Tabs` button like style
+- 🦀️ Fix development compatibility issue on `Windows`
+- 🦀️ Fix an issue where `DatePicker` modifies `Date` values in props directly
+- `Grid`
+  - 🦀️ Fix shadow of fixed column when window resizes
+  - 🦀️ Fix background color when row hover highlight is disabled
+  - 🦀️ Fix TypeScript definition of `getCheckboxProps`
+- `Form`
+  - 🦀️ Export `BasicForm`
+  - 🦀️ Fix mishandling of type conversion for `required`
+
 ### 8.3.0(2020-02-26)
 
 - `Grid`

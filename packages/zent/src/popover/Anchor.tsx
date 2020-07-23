@@ -2,16 +2,30 @@ import * as React from 'react';
 import { findDOMNode } from 'react-dom';
 import Context, { IPopoverContext } from './Context';
 
+export type PopoverAnchorGetElementFn = (
+  node: Element | Text | null
+) => Element | Text | null;
+
 export interface IPopoverAnchorProps {
   onClick?: () => void;
+
+  /**
+   * Anchor on some internal node.
+   *
+   * e.g. Always anchor in the <input> node when using <Input> with prefix/suffix
+   */
+  getElement?: PopoverAnchorGetElementFn;
 }
 
-class PopoverAnchor extends React.Component<IPopoverAnchorProps> {
+export class PopoverAnchor extends React.Component<IPopoverAnchorProps> {
   static contextType = Context;
   declare context: IPopoverContext;
 
   getElement() {
-    return findDOMNode(this);
+    const { getElement } = this.props;
+    const node = findDOMNode(this);
+
+    return getElement ? getElement(node) : node;
   }
 
   componentDidMount() {

@@ -14,46 +14,46 @@ const trigger = 'hover';
 ReactDOM.render(
 	<div className="zent-doc-pop-positions">
 		<div className="zent-doc-pop-positions-top-row">
-			<Pop trigger={trigger} position="top-left" content="Top Left">
+			<Pop trigger={trigger} position="top-left" content="TL">
 				<Button>TopLeft</Button>
 			</Pop>
-			<Pop trigger={trigger} position="top-center" content="Top Center">
+			<Pop trigger={trigger} position="top-center" content="TC">
 				<Button>TopCenter</Button>
 			</Pop>
-			<Pop trigger={trigger} position="top-right" content="Top Right">
+			<Pop trigger={trigger} position="top-right" content="TR">
 				<Button>TopRight</Button>
 			</Pop>
 		</div>
 		<div className="zent-doc-pop-positions-bottom-row">
-			<Pop trigger={trigger} position="bottom-left" content="Bottom Left">
+			<Pop trigger={trigger} position="bottom-left" content="BL">
 				<Button>BottomLeft</Button>
 			</Pop>
-			<Pop trigger={trigger} position="bottom-center" content="Bottom Center">
+			<Pop trigger={trigger} position="bottom-center" content="BC">
 				<Button>BottomCenter</Button>
 			</Pop>
-			<Pop trigger={trigger} position="bottom-right" content="Bottom Right">
+			<Pop trigger={trigger} position="bottom-right" content="BR">
 				<Button>BottomRight</Button>
 			</Pop>
 		</div>
 		<div className="zent-doc-pop-positions-left-col">
-			<Pop trigger={trigger} position="left-top" content="Left Top">
+			<Pop trigger={trigger} position="left-top" content="LT">
 				<Button>LeftTop</Button>
 			</Pop>
-			<Pop trigger={trigger} position="left-center" content="Left Center">
+			<Pop trigger={trigger} position="left-center" content="LC">
 				<Button>LeftCenter</Button>
 			</Pop>
-			<Pop trigger={trigger} position="left-bottom" content="Left Bottom">
+			<Pop trigger={trigger} position="left-bottom" content="LB">
 				<Button>LeftBottom</Button>
 			</Pop>
 		</div>
 		<div className="zent-doc-pop-positions-right-col">
-			<Pop trigger={trigger} position="right-top" content="Right Top">
+			<Pop trigger={trigger} position="right-top" content="RT">
 				<Button>RightTop</Button>
 			</Pop>
-			<Pop trigger={trigger} position="right-center" content="Right Center">
+			<Pop trigger={trigger} position="right-center" content="RC">
 				<Button>RightCenter</Button>
 			</Pop>
-			<Pop trigger={trigger} position="right-bottom" content="Right Bottom">
+			<Pop trigger={trigger} position="right-bottom" content="RB">
 				<Button>RightBottom</Button>
 			</Pop>
 		</div>

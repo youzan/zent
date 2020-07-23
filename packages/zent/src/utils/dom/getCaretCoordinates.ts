@@ -75,9 +75,7 @@ function getCaretCoordinates(
   document.body.appendChild(div);
 
   const style = div.style;
-  const computed = window.getComputedStyle
-    ? window.getComputedStyle(element)
-    : (element as any).currentStyle; // currentStyle for IE < 9
+  const computed = getComputedStyle(element);
   const isInput = element.nodeName === 'INPUT';
 
   // Default textarea styles

@@ -12,6 +12,5 @@ export const commonProps = {
   popupClassName: 'zent-cascader__popup',
   displayRender: (selectedOptions: ICascaderItem[]) =>
     selectedOptions.map(it => it.label).join(' / '),
-  disabled: false,
   clearable: false,
 };

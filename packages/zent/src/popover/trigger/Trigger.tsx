@@ -3,15 +3,6 @@ import { Component, Children } from 'react';
 import PopoverContext, { IPopoverContext } from '../Context';
 import Anchor from '../Anchor';
 
-export interface IIsOutsideProps {
-  contentNode: Element;
-  triggerNode: Element;
-}
-
-export interface IIsOutside {
-  (e: MouseEvent, props: IIsOutsideProps): boolean;
-}
-
 export interface IPopoverTriggerProps<ChildProps> {
   children: React.ReactElement<ChildProps, any> | string | number;
 }
@@ -40,7 +31,7 @@ export class PopoverTrigger<
       | string
       | number = Children.only(this.props.children);
     if (!child) {
-      throw new Error();
+      throw new Error('Popover Trigger requires a child');
     }
     if (typeof child === 'number' || typeof child === 'string') {
       child = <span>{child}</span>;

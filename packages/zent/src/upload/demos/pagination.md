@@ -2,8 +2,10 @@
 order: 4
 zh-CN:
   title: 文件列表分页
+	tips: 单个文件不超过 10M
 en-US:
-  title: Filelist pagination
+	title: Filelist pagination
+  tips: Single file no more than 10M
 ---
 
 ```jsx
@@ -57,6 +59,7 @@ class Simple extends React.Component {
 				multiple
 				className="zent-upload-demo-pic"
 				maxSize={10 * 1024 * 1024}
+				tips="{i18n.tips}"
 				onChange={this.onUploadChange}
 				onUpload={this.onUpload}
 				onError={this.onUploadError}

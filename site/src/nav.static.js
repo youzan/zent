@@ -13,6 +13,12 @@ module.exports = {
                 "DocLoadable({ loader: () => import('../../packages/zent/README_zh-CN.md') })",
             },
             {
+              title: 'Babel 插件',
+              path: 'guides/babel-plugin-zent',
+              source:
+                "DocLoadable({ loader: () => import('../../packages/babel-plugin-zent/README_zh-CN.md') })",
+            },
+            {
               title: '国际化',
               path: 'guides/i18n',
               source:
@@ -21,13 +27,6 @@ module.exports = {
             {
               title: 'API文档',
               link: 'apidoc',
-            },
-            {
-              title: 'babel-plugin-zent',
-              path: 'guides/babel-plugin-zent',
-              hidden: true,
-              source:
-                "DocLoadable({ loader: () => import('../../packages/babel-plugin-zent/README_zh-CN.md') })",
             },
           ],
         },
@@ -125,6 +124,12 @@ module.exports = {
                 "DocLoadable({ loader: () => import('../../packages/zent/README_en-US.md') })",
             },
             {
+              title: 'Babel Plugin',
+              path: 'guides/babel-plugin-zent',
+              source:
+                "DocLoadable({ loader: () => import('../../packages/babel-plugin-zent/README_en-US.md') })",
+            },
+            {
               title: 'Internationalization',
               path: 'guides/i18n',
               source:
@@ -133,13 +138,6 @@ module.exports = {
             {
               title: 'API Document',
               link: 'apidoc',
-            },
-            {
-              title: 'babel-plugin-zent',
-              path: 'guides/babel-plugin-zent',
-              hidden: true,
-              source:
-                "DocLoadable({ loader: () => import('../../packages/babel-plugin-zent/README_en-US.md') })",
             },
           ],
         },
