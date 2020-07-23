@@ -147,7 +147,7 @@ class MenuContent extends Component<IMenuContentProps> {
 
     PanelEls.push(this.renderCascaderItems(options, stage, popover, null));
 
-    if (value && value.length > 0 && options && options.length > 0) {
+    if (value?.length > 0 && options?.length > 0) {
       for (let i = 0; i < value.length; i++) {
         stage++;
         // 记录滚动加载的父元素

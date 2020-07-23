@@ -4,9 +4,9 @@ import { ICascaderItem, ICascaderValue } from '../types';
  * 查找树中某个节点的子节点
  */
 export function recursiveNextOptions(options: ICascaderItem[], id: unknown) {
-  if (options && options.length > 0) {
+  if (options?.length > 0) {
     const currOptions = options.find(it => it.value === id);
-    if (currOptions && currOptions.children) {
+    if (Array.isArray(currOptions?.children)) {
       return currOptions.children;
     }
   }
@@ -43,7 +43,7 @@ export function arrayTreeFilter<Item extends ICascaderItem>(
 ) {
   const selected: Item[] = [];
 
-  if (options && options.length > 0 && value && value.length > 0) {
+  if (options?.length > 0 && value?.length > 0) {
     for (let i = 0; i < value.length; i++) {
       const id = value[i];
       const nextOption = options.find(it => it.value === id);
@@ -196,7 +196,7 @@ export function initialCheckedNodes(
 ): Array<ICascaderItem[]> {
   const result = [];
 
-  if (values && values.length > 0) {
+  if (values?.length > 0) {
     values.forEach(value => {
       const checkedNodes = arrayTreeFilter(value, tree);
       result.push(checkedNodes);

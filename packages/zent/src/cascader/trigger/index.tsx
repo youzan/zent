@@ -4,7 +4,6 @@ import classnames from 'classnames';
 import Popover, { IPositionFunction } from '../../popover';
 import Icon from '../../icon';
 import { I18nReceiver as Receiver, II18nLocaleCascader } from '../../i18n';
-import { DisabledContext, IDisabledContext } from '../../disabled';
 import Search from './Search';
 import Tags from './Tags';
 import { ICascaderItem, ICascaderValue } from '../types';
@@ -36,9 +35,6 @@ interface ITriggerState {
 }
 
 export class CascaderTrigger extends Component<ITriggerProps, ITriggerState> {
-  static contextType = DisabledContext;
-  context!: IDisabledContext;
-
   elementRef = React.createRef<HTMLDivElement>();
   popoverRef = React.createRef<Popover>();
 
@@ -50,13 +46,8 @@ export class CascaderTrigger extends Component<ITriggerProps, ITriggerState> {
     active: false,
   };
 
-  get disabled() {
-    const { disabled = this.context.value } = this.props;
-    return disabled;
-  }
-
   onVisibleChange = (open: boolean) => {
-    if (this.disabled) {
+    if (this.props.disabled) {
       return;
     }
 
@@ -68,7 +59,7 @@ export class CascaderTrigger extends Component<ITriggerProps, ITriggerState> {
     const { selectedOptions, value, multiple } = this.props;
     const placeholder = i18n.searchPlaceholder;
 
-    if (multiple || !(value && value.length)) {
+    if (multiple || !value?.length) {
       return placeholder;
     }
 
@@ -110,20 +101,21 @@ export class CascaderTrigger extends Component<ITriggerProps, ITriggerState> {
       checkedNodes,
       onRemove,
       keyword,
+      disabled,
     } = this.props;
     const { active } = this.state;
 
     const notEmpty = multiple
       ? checkedNodes.length > 0
       : selectedOptions.length > 0;
-    const cascaderValue: React.ReactNode = notEmpty
+    const cascaderDisplay: React.ReactNode = notEmpty
       ? displayRender(selectedOptions)
       : searchable
       ? i18n.searchPlaceholder
       : placeholder || i18n.placeholder;
 
     const cascaderCls = classnames('zent-cascader', className, {
-      'zent-cascader--disabled': this.disabled,
+      'zent-cascader--disabled': disabled,
       'zent-cascader--active': open || active,
       'zent-cascader--visible': open,
       'zent-cascader--multiple': multiple,
@@ -133,8 +125,7 @@ export class CascaderTrigger extends Component<ITriggerProps, ITriggerState> {
       'zent-cascader--placeholder': !notEmpty,
     });
     const showSearch = open && searchable;
-    const showClear =
-      clearable && active && (notEmpty || keyword) && !this.disabled;
+    const showClear = clearable && active && (notEmpty || keyword) && !disabled;
     const showLabels = !showSearch && !(multiple && notEmpty);
     const showTags = multiple && notEmpty;
 
@@ -155,7 +146,7 @@ export class CascaderTrigger extends Component<ITriggerProps, ITriggerState> {
           )}
           {showLabels && (
             <>
-              <span className={selectTriggerCls}>{cascaderValue}</span>{' '}
+              <span className={selectTriggerCls}>{cascaderDisplay}</span>{' '}
             </>
           )}
           {showSearch && (

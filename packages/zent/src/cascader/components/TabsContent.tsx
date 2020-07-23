@@ -79,7 +79,7 @@ class TabsContent extends Component<ITabsContentProps> {
         options = recursiveNextOptions(options, value[i - 1]);
       }
 
-      if (options && options.length > 0) {
+      if (options?.length > 0) {
         const selectedItem = options.find(item => item.value === value[i]);
         const tabTitle = selectedItem?.label || title[i] || i18n.title;
 

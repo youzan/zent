@@ -29,10 +29,9 @@ import TextMark from '../text-mark';
 import { DisabledContext, IDisabledContext } from '../disabled';
 
 const PopoverContent = Popover.Content;
-const FILTER_TIMEOUT = 500; // ms
+const FILTER_TIMEOUT = 100; // ms
 
-// 默认的搜索方法
-const searchFilterFn = (
+const defaultSearchFilter = (
   keyword: string,
   options: Array<ICascaderItem[]>
 ): ICascaderSearchItem[] => {
@@ -86,7 +85,7 @@ export class MenuCascader extends Component<
     scrollable: false,
     searchable: false,
     limit: 50,
-    filter: searchFilterFn,
+    filter: defaultSearchFilter,
   };
 
   static contextType = DisabledContext;
