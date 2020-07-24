@@ -1,9 +1,11 @@
+import { IGridProps } from '../grid';
+
 export enum Direction {
   left = 'left',
   right = 'right',
 }
 
-export const pickGridProps = [
+export const pickGridProps: Array<keyof IGridProps> = [
   'onChange',
   'scroll',
   'sortBy',
