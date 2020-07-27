@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Omit } from 'utility-types';
 import { dateDefaultTimeFactory, IFormComponentProps } from '../shared';
-import TimePicker, { ITimePickerProps } from '../../date-picker/TimePicker';
+import { TimePicker, ITimePickerProps } from '../../date-picker';
 import { FormField } from '../Field';
 import { $MergeParams } from '../utils';
-import { SingleTime } from '../../date-picker/types';
+import { SingleTime } from '../../date-picker';
 
 export type IFormTimePickerField = IFormComponentProps<
   SingleTime,

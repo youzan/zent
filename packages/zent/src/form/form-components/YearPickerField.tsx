@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Omit } from 'utility-types';
 import { dateDefaultValueFactory, IFormComponentProps } from '../shared';
-import YearPicker, { IYearPickerProps } from '../../date-picker/YearPicker';
+import { YearPicker, IYearPickerProps } from '../../date-picker';
 import { FormField } from '../Field';
 import { $MergeParams } from '../utils';
-import { SingleDate } from '../../date-picker/types';
+import { SingleDate } from '../../date-picker';
 
 export type IFormYearPickerFieldProps = IFormComponentProps<
   SingleDate,

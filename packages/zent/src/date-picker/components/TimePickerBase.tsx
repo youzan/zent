@@ -83,9 +83,9 @@ const TimePickerBase: React.FC<ITimePickerBaseProps> = ({
   const onClearInput = React.useCallback(
     evt => {
       evt.stopPropagation();
-      onSelected(emptyTime, true);
+      onChangeRef.current?.(emptyTime);
     },
-    [onSelected]
+    [onChangeRef]
   );
 
   const trigger = React.useMemo(() => {

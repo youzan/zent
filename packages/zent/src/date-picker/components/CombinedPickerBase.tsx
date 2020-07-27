@@ -122,10 +122,13 @@ export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
   // onClear
   const onClearInput = React.useCallback(
     evt => {
+      const { valueType, format } = restPropsRef.current;
       evt.stopPropagation();
-      onSelected([null, null], true);
+      onChangeRef.current?.(
+        getRangeValuesWithValueType(null, valueType, format)
+      );
     },
-    [onSelected]
+    [restPropsRef, onChangeRef]
   );
 
   // trigger-input text

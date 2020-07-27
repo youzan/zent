@@ -2,7 +2,7 @@ import React from 'react';
 import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { Simulate } from 'react-dom/test-utils';
-import CombinedDateRangePicker from 'date-picker/CombinedDateRangePicker';
+import { CombinedDateRangePicker } from 'date-picker';
 
 Enzyme.configure({ adapter: new Adapter() });
 const DateTimeFormat = 'YYYY-MM-DD HH:mm';

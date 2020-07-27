@@ -76,9 +76,9 @@ const CombinedTimePicker: React.FC<ITimePickerBaseProps> = ({
   const onClearInput = React.useCallback(
     evt => {
       evt.stopPropagation();
-      onSelected(emptyTimeRange, true);
+      onChangeRef.current?.(emptyTimeRange);
     },
-    [onSelected]
+    [onChangeRef]
   );
 
   const selectedDates = parseSelectedToRangeDate(

@@ -12,7 +12,7 @@ export function getRangeValuesWithValueType(
   valueType: IValueType,
   format: string
 ): RangeDate {
-  if (!val[0] && !val[1]) {
+  if (!val || (!val[0] && !val[1])) {
     const emptyRes = valueType === 'string' ? '' : null;
     return [emptyRes, emptyRes];
   }

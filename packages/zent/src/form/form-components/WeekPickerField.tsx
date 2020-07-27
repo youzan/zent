@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Omit } from 'utility-types';
 import { IFormComponentProps, dateRangeDefaultValueFactory } from '../shared';
-import WeekPicker, { IWeekPickerProps } from '../../date-picker/WeekPicker';
+import { WeekPicker, IWeekPickerProps } from '../../date-picker';
 import { FormField } from '../Field';
 import { $MergeParams } from '../utils';
-import { RangeDate } from '../../date-picker/types';
+import { RangeDate } from '../../date-picker';
 
 export type IFormWeekPickerFieldProps = IFormComponentProps<
   RangeDate,

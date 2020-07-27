@@ -3,13 +3,15 @@ import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { Simulate } from 'react-dom/test-utils';
 import { startOfYear } from 'date-fns';
-import DatePicker from 'date-picker/DatePicker';
-import WeekPicker from 'date-picker/WeekPicker';
-import MonthPicker from 'date-picker/MonthPicker';
-import QuarterPicker from 'date-picker/QuarterPicker';
-import YearPicker from 'date-picker/YearPicker';
-import TimePicker from 'date-picker/TimePicker';
-import CombinedTimeRangePicker from 'date-picker/CombinedTimeRangePicker';
+import {
+  DatePicker,
+  WeekPicker,
+  MonthPicker,
+  QuarterPicker,
+  YearPicker,
+  TimePicker,
+  CombinedTimeRangePicker,
+} from 'date-picker';
 import { Disabled } from 'disabled';
 import { formatDate } from 'date-picker/utils/index';
 

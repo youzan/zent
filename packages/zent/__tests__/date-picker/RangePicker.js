@@ -2,7 +2,7 @@ import React from 'react';
 import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { Simulate } from 'react-dom/test-utils';
-import DateRangePicker from 'date-picker/DateRangePicker';
+import { DateRangePicker } from 'date-picker';
 import { formatDate } from 'date-picker/utils/index';
 
 Enzyme.configure({ adapter: new Adapter() });

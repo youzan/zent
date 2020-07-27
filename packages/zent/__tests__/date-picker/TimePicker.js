@@ -2,8 +2,7 @@ import React from 'react';
 import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { Simulate } from 'react-dom/test-utils';
-import CombinedTimeRangePicker from 'date-picker/CombinedTimeRangePicker';
-import TimePicker from 'date-picker/TimePicker';
+import { CombinedTimeRangePicker, TimePicker } from 'date-picker';
 
 Enzyme.configure({ adapter: new Adapter() });
 

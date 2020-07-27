@@ -76,7 +76,7 @@ export function getCallbackValueRangeWithDate(
   generateDateConfig: IGenerateDateConfig,
   options?: IWeekOption
 ): RangeDate {
-  if (!value) return [null, null];
+  if (!value) return valueType === 'string' ? ['', ''] : [null, null];
 
   let onChangeValue = null;
   const { startDate, endDate } = generateDateConfig;

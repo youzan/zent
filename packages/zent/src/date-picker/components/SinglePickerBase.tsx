@@ -95,8 +95,7 @@ export function SinglePicker({
 
       if (finish) {
         // 计算回调的返回值
-        const result = getCallbackValue(val);
-        onChangeRef.current?.(result);
+        onChangeRef.current?.(getCallbackValue(val));
         // 关闭弹窗
         setPanelVisible(openPanel ?? false);
       }
@@ -115,9 +114,9 @@ export function SinglePicker({
   const onClearInput = React.useCallback(
     evt => {
       evt.stopPropagation();
-      onSelected(null);
+      onChangeRef.current?.(getCallbackValue(null));
     },
-    [onSelected]
+    [onChangeRef, getCallbackValue]
   );
 
   // trigger-input text

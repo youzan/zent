@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Omit } from 'utility-types';
-import MonthPicker, { IMonthPickerProps } from '../../date-picker/MonthPicker';
+import { MonthPicker, IMonthPickerProps } from '../../date-picker';
 import { dateDefaultValueFactory, IFormComponentProps } from '../shared';
 import { FormField } from '../Field';
 import { $MergeParams } from '../utils';
-import { SingleDate } from '../../date-picker/types';
+import { SingleDate } from '../../date-picker';
 
 export type IFormMonthPickerFieldProps = IFormComponentProps<
   SingleDate,

@@ -26,20 +26,24 @@
   z-index: 10;
 }
 
+@mixin center-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 @mixin panel-footer-common {
   @include theme-color(border-top-color, stroke, 6);
   border-top-width: 1px;
   border-top-style: solid;
   box-sizing: border-box;
   display: flex;
-  line-height: 32px;
   padding: 8px 12px;
 }
 
 .zent-datepicker {
   box-sizing: border-box;
   display: inline-block;
-  line-height: normal;
   position: relative;
 
   &-seperator {
@@ -48,11 +52,11 @@
 
   .zenticon {
     @include gray-color;
-    line-height: 32px;
     font-size: 18px;
     position: absolute;
     right: 10px;
-    top: 0;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
   .zenticon-calendar-o,
@@ -102,8 +106,7 @@
       min-width: 60px;
       padding: 0;
       outline: none;
-      font-size: 14px;
-      line-height: 31px;
+      font-size: $font-size-normal;
     }
 
     &-input::placeholder {
@@ -117,7 +120,6 @@
     &-seperator {
       @include gray-color;
       margin: 0 8px;
-      line-height: 31px;
     }
 
     &-focus {
@@ -132,9 +134,9 @@
     cursor: pointer;
 
     &-header {
+      @include font-large;
       display: flex;
       justify-content: space-between;
-      line-height: 24px;
       padding: 16px;
       align-items: center;
 
@@ -155,7 +157,6 @@
       &-title {
         display: flex;
         font-weight: $font-weight-medium;
-        font-size: $font-size-large;
 
         &_clickable {
           &:hover {
@@ -182,8 +183,7 @@
       padding: 12px;
 
       &_row {
-        display: flex;
-        justify-content: center;
+        @include center-div;
       }
 
       &_item {
@@ -194,10 +194,10 @@
       }
 
       .zent-datepicker-cell-inner {
+        @include center-div;
         width: 24px;
         height: 24px;
         box-sizing: border-box;
-        line-height: 24px;
       }
 
       &_current {
@@ -320,9 +320,8 @@
       }
 
       &-unit {
+        @include center-div;
         height: 32px;
-        text-align: center;
-        line-height: 32px;
         cursor: pointer;
 
         &_selected {
@@ -399,9 +398,9 @@
       padding: 10px 24px 34px;
 
       .zent-datepicker-cell-inner {
+        @include center-div;
         width: 64px;
         height: 32px;
-        line-height: 32px;
         margin: 12px 0;
       }
     }
@@ -415,9 +414,9 @@
         margin: 20px 10px;
 
         .zent-datepicker-cell-inner {
+          @include center-div;
           width: 92px;
           height: 36px;
-          line-height: 36px;
         }
       }
     }

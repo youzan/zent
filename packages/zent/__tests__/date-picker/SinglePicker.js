@@ -2,11 +2,13 @@ import React from 'react';
 import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { Simulate } from 'react-dom/test-utils';
-import DatePicker from 'date-picker/DatePicker';
-import WeekPicker from 'date-picker/WeekPicker';
-import MonthPicker from 'date-picker/MonthPicker';
-import QuarterPicker from 'date-picker/QuarterPicker';
-import YearPicker from 'date-picker/YearPicker';
+import {
+  DatePicker,
+  WeekPicker,
+  MonthPicker,
+  QuarterPicker,
+  YearPicker,
+} from 'date-picker';
 import { formatDate } from 'date-picker/utils/index';
 import { isSameDay, addDays } from 'date-fns';
 

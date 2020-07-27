@@ -11,7 +11,7 @@ import {
 import { FormField } from '../Field';
 import { $MergeParams } from '../utils';
 import { useEventCallbackRef } from '../../utils/hooks/useEventCallbackRef';
-import { RangeDate } from '../../date-picker/types';
+import { RangeDate } from '../../date-picker';
 
 export type IFormDateRangeQuickPickerFieldProps = IFormComponentProps<
   RangeDate,

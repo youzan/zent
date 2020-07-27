@@ -146,7 +146,6 @@ class DatePickerBasic extends Component {
 					className="zent-datepicker-demo"
 					value={rangeValue}
 					onChange={this.onChangeRange}
-					disabledDate={val => val.getDate() > 15}
 				/>
 				<br />
 				<CombinedDateRangePicker
