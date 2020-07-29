@@ -4,7 +4,6 @@ import {
   getSelectedValueWithDate,
   getCallbackValueWithDate,
   getCallbackValueRangeWithDate,
-  leftPad,
 } from 'date-picker/utils';
 import { addDays } from 'date-fns';
 
@@ -28,10 +27,5 @@ describe('Utils', () => {
     getCallbackValueWithDate(null, 'string', format);
     getCallbackValueWithDate(null, 'date', format);
     getCallbackValueRangeWithDate(null, 'string', format, dateConfig.day);
-  });
-
-  it('handler', () => {
-    expect(leftPad('1', 2, '1')).toBe('11');
-    expect(leftPad('1')).toBe('01');
   });
 });

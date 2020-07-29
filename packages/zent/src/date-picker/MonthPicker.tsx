@@ -21,8 +21,13 @@ const DefaultMonthPickerProps: Partial<IMonthPickerProps> = {
   valueType: 'string',
 };
 export const MonthPicker: React.FC<IMonthPickerProps> = props => {
-  const { format, placeholder, valueType, disabled } = props;
   const disabledContext = React.useContext(DisabledContext);
+  const {
+    format,
+    placeholder,
+    valueType,
+    disabled = disabledContext.value,
+  } = props;
 
   const getInputText = React.useCallback(val => formatText(val, format), [
     format,
@@ -49,7 +54,7 @@ export const MonthPicker: React.FC<IMonthPickerProps> = props => {
         >
           <SinglePicker
             {...props}
-            disabled={disabledContext.value || disabled}
+            disabled={disabled}
             placeholder={placeholder || i18n.month}
             PanelComponent={MonthPanel}
           />

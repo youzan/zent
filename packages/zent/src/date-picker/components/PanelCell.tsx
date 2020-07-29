@@ -61,7 +61,7 @@ const PanelCell: React.FC<IPanelCellProps> = ({
       const { isSelected, isDisabled } = classNameProps;
       const cellNode = (
         <li
-          key={index}
+          key={value.getTime()}
           className={getCellClassName(classNameProps)}
           onClick={() => onCellClick({ isDisabled, value })}
         >
@@ -77,7 +77,7 @@ const PanelCell: React.FC<IPanelCellProps> = ({
       // 单元格支持Tooltip
       const cell =
         popText && isSelected ? (
-          <Tooltip key={index} visible={true} title={popText}>
+          <Tooltip visible={true} title={popText}>
             {cellNode}
           </Tooltip>
         ) : (

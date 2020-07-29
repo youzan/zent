@@ -1,13 +1,18 @@
 ---
 order: 6
 zh-CN:
-	title: 传入 disabled 使输入框处于禁用状态
+	title: 传入 disabled 使输入框处于禁用状态，优先级高于 Disabled 组件
 en-US:
 	title: Disabled input
 ---
 
 ```jsx
-import { DatePicker, CombinedDateRangePicker, DateRangePicker } from 'zent';
+import {
+	DatePicker,
+	CombinedDateRangePicker,
+	DateRangePicker,
+	Disabled,
+} from 'zent';
 
 ReactDOM.render(
 	<div>
@@ -17,7 +22,9 @@ ReactDOM.render(
 		<br />
 		<CombinedDateRangePicker className="zent-datepicker-demo" disabled />
 		<br />
-		<DateRangePicker className="zent-datepicker-demo" disabled />
+		<Disabled>
+			<DateRangePicker className="zent-datepicker-demo" disabled={false} />
+		</Disabled>
 	</div>,
 	mountNode
 );

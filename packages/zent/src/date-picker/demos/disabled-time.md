@@ -16,12 +16,7 @@ import {
 } from 'zent';
 
 class Demo extends Component {
-	state = {
-		// timeValue: '00:30:00',
-		// dateValue: '2020-06-10 14:00:05',
-		// rangeValue: [],
-		// combinedValue: ['2020-06-10 07:00:05', '2020-06-10 14:00:05'],
-	};
+	state = {};
 
 	onChangeTime = val => {
 		console.log('demo onChangeTime', val);

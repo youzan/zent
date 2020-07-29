@@ -2,7 +2,6 @@ import * as React from 'react';
 import cx from 'classnames';
 import PanelContext from '../../context/PanelContext';
 
-import { leftPad } from '../../utils/handler';
 import scroll from '../../../utils/scroll';
 const prefixCls = 'zent-datepicker-time-panel-body';
 interface IUnit {
@@ -20,7 +19,7 @@ function generateUnits(
   const units: IUnit[] = [];
   for (let i = start; i <= end; i += step) {
     units.push({
-      label: leftPad(i, 2),
+      label: i.toString().padStart(2, '0'),
       value: i,
       disabled: disabledUnits.includes(i),
     });
@@ -56,7 +55,7 @@ const TimeUnitColumn: React.FC<ITimeUnitColumnProps> = ({
 
   React.useLayoutEffect(() => {
     // first scroll without duration
-    visibleChange && scroll(ulRef.current, 0, (selected * 32) / step, 0);
+    visibleChange && scroll(ulRef.current, 0, (selected * 32) / step, 1);
     // scroll item when `selected` changed
     selected &&
       !visibleChange &&

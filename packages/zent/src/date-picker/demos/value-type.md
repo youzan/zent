@@ -10,11 +10,7 @@ en-US:
 import { DatePicker, WeekPicker } from 'zent';
 
 class Demo extends Component {
-	state = {
-		// dateValue: '2020-06-10',
-		// dateValue1: '2020-06-10',
-		// dateValue2: '2020-06-10',
-	};
+	state = {};
 
 	onChangeDate = val => {
 		console.log('valueType is `string`', val);

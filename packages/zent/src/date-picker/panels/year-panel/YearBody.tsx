@@ -7,6 +7,7 @@ import getPanelCellsData from '../../utils/getPanelCellsData';
 import { dateConfig } from '../../utils/dateUtils';
 import { setYear } from 'date-fns';
 import { ISingleDateBodyProps } from '../../types';
+import { MAX_YEAR } from '../../constants';
 
 const COL_COUNT = 3;
 const ROW_COUNT = 4;
@@ -30,7 +31,8 @@ const YearPickerBody: React.FC<IYearPickerBodyProps> = ({
     () =>
       Array.from(
         { length: 12 },
-        (_, i) => firstYear + i <= 3000 && `${firstYear + i}${i18n.panel.year}`
+        (_, i) =>
+          firstYear + i <= MAX_YEAR && `${firstYear + i}${i18n.panel.year}`
       ),
     [firstYear, i18n]
   );

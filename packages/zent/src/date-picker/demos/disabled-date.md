@@ -10,12 +10,7 @@ en-US:
 import { DatePicker, WeekPicker, CombinedDateRangePicker } from 'zent';
 
 class Demo extends Component {
-	state = {
-		// dateValue: '2020-06-10',
-		// dateValue2: '2020-06-12',
-		// rangeValue: ['2020-06-08'],
-		// combinedValue: ['2020-06-10', '2020-06-15'],
-	};
+	state = {};
 
 	onChangeDate = val => {
 		this.setState({

@@ -117,7 +117,7 @@ export const CombinedDateRangeFooter: React.FC<ICombinedDateRangeFooterProps> = 
           content={
             isSameDay(start, end) ? i18n.timeErrorPop : i18n.dateErrorPop
           }
-          trigger={'hover'}
+          trigger="hover"
         >
           {confirmBtn}
         </Pop>

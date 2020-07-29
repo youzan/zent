@@ -79,13 +79,13 @@ interface IDisableDateMap {
 | value       | Selected date                               | `string` \| `Date` \| `number`           | -                                                     | Yes      |
 | onChange    | Callback when the selected date is changing | `(date: string \| Date \| number) => {}` | -                                                     | Yes      |
 | placeholder | The placeholder of date input               | string                                   | `'Please select a year'` \| `'Please select a month'` | No       |
-| format      | To set the date format                      | string                                   | `'YYYY'` / `'YYYY-MM'`                                | No       |
+| format      | To set the date format                      | string                                   | `'YYYY'` \| `'YYYY-MM'`                                | No       |
 
 **Additional**
 
 - `value` is a single date in `YearPicker` / `MonthPicker`
 
-### QuarterPicker 其他 API
+### QuarterPicker API
 
 | Property    | Description                                 | Type                                            | Default                     | Required |
 | ----------- | ------------------------------------------- | ----------------------------------------------- | --------------------------- | -------- |

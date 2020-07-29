@@ -29,7 +29,7 @@ const CombinedTimeFooter: React.FC<Pick<
       </Button>
     );
     return confirmStatus ? (
-      <Pop content={i18n.timeErrorPop} trigger={'hover'}>
+      <Pop content={i18n.timeErrorPop} trigger="hover">
         {confirmBtn}
       </Pop>
     ) : (

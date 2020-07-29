@@ -20,14 +20,7 @@ import {
 } from 'zent';
 
 class DatePickerBasic extends Component {
-	state = {
-		// dateValue: '2020-05-11',
-		// rangeValue: ['2020-05-10', '2020-05-12'],
-		// timeValue: '14:50:30',
-		// combinedDateValue: ['2020-05-10', '2020-05-12'],
-		// weekValue: ['2020-05-11'],
-		// quarterValue: '2020-01-11',
-	};
+	state = {};
 
 	onChangeDate = val => {
 		console.log('demo onChangeDate', val);

@@ -7,6 +7,10 @@ export const DATE_FORMAT = 'YYYY-MM-DD';
 export const MONTH_FORMAT = 'YYYY-MM';
 export const YEAR_FORMAT = 'YYYY';
 
+// 年份范围：1840-3000
+export const MIN_YEAR = 3000;
+export const MAX_YEAR = 3000;
+
 export const triggerCommonProps = [
   'width',
   'name',

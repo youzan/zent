@@ -5,7 +5,6 @@ import { RangeDate } from '../types';
 export * from './getValueInRangePicker';
 export * from './getValueInSinglePicker';
 export * from './dateUtils';
-export * from './handler';
 /**
  *
  * parse date

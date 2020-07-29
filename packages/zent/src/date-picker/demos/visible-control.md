@@ -7,7 +7,7 @@ en-US:
 ---
 
 ```jsx
-import {} from 'zent';
+import { DatePicker, CombinedDateRangePicker, Notify } from 'zent';
 
 class DatePickerBasic extends Component {
 	state = {
@@ -42,10 +42,10 @@ class DatePickerBasic extends Component {
 					onChange={this.onChangeDate}
 					openPanel={openPanel}
 					onOpen={() => {
-						console.log('open');
+						Notify.info('open');
 					}}
 					onClose={() => {
-						console.log('close');
+						Notify.info('close');
 					}}
 				/>
 				<br />
@@ -59,10 +59,10 @@ class DatePickerBasic extends Component {
 				<CombinedDateRangePicker
 					className="zent-datepicker-demo"
 					onOpen={() => {
-						console.log('open');
+						Notify.info('open');
 					}}
 					onClose={() => {
-						console.log('close');
+						Notify.info('close');
 					}}
 				/>
 			</div>

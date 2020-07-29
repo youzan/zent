@@ -47,7 +47,7 @@ export const SingleInputTrigger: React.FC<ISingleTriggerProps> = ({
   hiddenIcon,
   ...restProps
 }) => {
-  const [text1, text2] = Array.isArray(text) ? text : [text];
+  const [startText, endText] = Array.isArray(text) ? text : [text];
   const { disabled } = restProps;
   const canClearMerge = canClear && !!value;
 
@@ -63,20 +63,20 @@ export const SingleInputTrigger: React.FC<ISingleTriggerProps> = ({
       )}
       <span
         className={cx(`${TriggerPrefixCls}-input`, {
-          [`${TriggerPrefixCls}-empty-input`]: !text1 || disabled,
+          [`${TriggerPrefixCls}-empty-input`]: !startText || disabled,
         })}
       >
-        {text1 || placeholder}
+        {startText || placeholder}
       </span>
-      {text2 && (
+      {endText && (
         <>
           <span className={`${TriggerPrefixCls}-seperator`}>{seperator}</span>
           <span
             className={cx(`${TriggerPrefixCls}-input`, {
-              [`${TriggerPrefixCls}-empty-input`]: !text2,
+              [`${TriggerPrefixCls}-empty-input`]: !endText,
             })}
           >
-            {text2}
+            {endText}
           </span>
         </>
       )}

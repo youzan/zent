@@ -12,8 +12,9 @@ export interface ICombinedTimeRangePickerProps
   extends ITimePickerProps<RangeTime> {}
 
 export const CombinedTimeRangePicker: React.FC<ICombinedTimeRangePickerProps> = props => {
-  const { placeholder, disabled } = props;
   const disabledContext = React.useContext(DisabledContext);
+  const { placeholder, disabled = disabledContext.value } = props;
+
   return (
     <Receiver componentName="TimePicker">
       {(i18n: II18nLocaleTimePicker) => (
@@ -26,7 +27,7 @@ export const CombinedTimeRangePicker: React.FC<ICombinedTimeRangePickerProps> = 
             {...props}
             seperator={i18n.to}
             placeholder={placeholder || [i18n.startTime, i18n.endTime]}
-            disabled={disabledContext.value || disabled}
+            disabled={disabled}
             ContentComponent={CombinedTimePanel}
           />
         </PickerContextProvider>

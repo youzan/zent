@@ -3,17 +3,19 @@ import { useState, useMemo } from 'react';
 import PanelHeader from '../../components/PanelHeader';
 import YearPanelBody from './YearBody';
 
+import { MAX_YEAR, MIN_YEAR } from '../../constants';
 import { ISinglePanelProps } from '../../types';
 
-// 年份范围：1840-3000
 const YearPickerPanel: React.FC<Omit<
   ISinglePanelProps,
   'rangeDate' | 'hoverRangeDate'
 >> = props => {
   const { defaultPanelDate } = props;
   const tempYear = defaultPanelDate.getFullYear();
-  const [page, setPage] = useState<number>(Math.floor((tempYear - 1840) / 12));
-  const firstYear = useMemo(() => 1840 + page * 12, [page]);
+  const [page, setPage] = useState<number>(
+    Math.floor((tempYear - MIN_YEAR) / 12)
+  );
+  const firstYear = useMemo(() => MIN_YEAR + page * 12, [page]);
 
   const onClickPrev = React.useCallback(() => page > 0 && setPage(page - 1), [
     page,
@@ -25,7 +27,7 @@ const YearPickerPanel: React.FC<Omit<
     <>
       <PanelHeader
         titleNode={`${firstYear} - ${
-          firstYear + 11 > 3000 ? 3000 : firstYear + 11
+          firstYear + 11 > MAX_YEAR ? MAX_YEAR : firstYear + 11
         }`}
         onPrev={onClickPrev}
         onNext={onClickNext}

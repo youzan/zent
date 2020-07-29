@@ -78,7 +78,7 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
           (confirmStatus || isDisableConfirm ? (
             <Pop
               content={confirmStatus ? i18n.timeErrorPop : i18n.dateErrorPop}
-              trigger={'hover'}
+              trigger="hover"
             >
               {confirmBtn}
             </Pop>

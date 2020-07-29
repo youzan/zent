@@ -24,8 +24,14 @@ const DefaultCombinedDateRangeProps: Partial<ICombinedDateRangePickerProps> = {
 };
 
 export const CombinedDateRangePicker: React.FC<ICombinedDateRangePickerProps> = props => {
-  const { placeholder, format, width, showTime, disabled } = props;
   const disabledContext = React.useContext(DisabledContext);
+  const {
+    placeholder,
+    format,
+    width,
+    showTime,
+    disabled = disabledContext.value,
+  } = props;
 
   const getInputText = React.useCallback(
     (val: [Date, Date]) => formatTextRange(val, format),
@@ -38,7 +44,7 @@ export const CombinedDateRangePicker: React.FC<ICombinedDateRangePickerProps> = 
           <CombinedPicker
             {...props}
             width={width ?? (!!showTime ? COMBINED_INPUT_WIDTH : INPUT_WIDTH)}
-            disabled={disabledContext.value || disabled}
+            disabled={disabled}
             generateDate={generateDate}
             seperator={i18n.to}
             placeholder={placeholder || [i18n.start, i18n.end]}

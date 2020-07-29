@@ -36,14 +36,15 @@ const DefaultWeekPickerProps: Partial<IWeekPickerProps> = {
   weekStartsOn: WeekStartsOnMap.Monday,
 };
 
-export const WeekPicker: React.FC<IWeekPickerProps> = ({
-  value,
-  defaultDate,
-  disabled,
-  ...restProps
-}) => {
-  const { format, valueType, placeholder, weekStartsOn } = restProps;
+export const WeekPicker: React.FC<IWeekPickerProps> = props => {
   const disabledContext = React.useContext(DisabledContext);
+  const {
+    value,
+    defaultDate,
+    disabled = disabledContext.value,
+    ...restProps
+  } = props;
+  const { format, valueType, placeholder, weekStartsOn } = restProps;
 
   // generate week-date method's option
   const options = React.useMemo(() => ({ weekStartsOn }), [weekStartsOn]);
@@ -88,7 +89,7 @@ export const WeekPicker: React.FC<IWeekPickerProps> = ({
             defaultDate={
               Array.isArray(defaultDate) ? defaultDate[0] : defaultDate
             }
-            disabled={disabledContext.value || disabled}
+            disabled={disabled}
             seperator={i18n.to}
             placeholder={placeholder || i18n.week}
             PanelComponent={WeekPanel}

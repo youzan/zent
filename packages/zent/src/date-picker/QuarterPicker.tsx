@@ -24,14 +24,15 @@ const DefaultQuarterPickerProps: Partial<IQuarterPickerProps> = {
   format: MONTH_FORMAT,
   valueType: 'string',
 };
-export const QuarterPicker: React.FC<IQuarterPickerProps> = ({
-  value,
-  defaultDate,
-  disabled,
-  ...restProps
-}) => {
-  const { format, placeholder, valueType } = restProps;
+export const QuarterPicker: React.FC<IQuarterPickerProps> = props => {
   const disabledContext = React.useContext(DisabledContext);
+  const {
+    value,
+    defaultDate,
+    disabled = disabledContext.value,
+    ...restProps
+  } = props;
+  const { format, placeholder, valueType } = restProps;
 
   const getInputText = React.useCallback(
     i18n => val => quarterFormatText(val, i18n),
@@ -62,7 +63,7 @@ export const QuarterPicker: React.FC<IQuarterPickerProps> = ({
             defaultDate={
               Array.isArray(defaultDate) ? defaultDate[0] : defaultDate
             }
-            disabled={disabledContext.value || disabled}
+            disabled={disabled}
             placeholder={placeholder || i18n.quarter}
             PanelComponent={QuarterPanel}
           />

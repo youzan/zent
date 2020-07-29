@@ -29,8 +29,13 @@ const DefaultDatePickerProps: Partial<IDatePickerProps> = {
 };
 
 export const DatePicker: React.FC<IDatePickerProps> = props => {
-  const { format, valueType, placeholder, disabled } = props;
   const disabledContext = React.useContext(DisabledContext);
+  const {
+    format,
+    valueType,
+    placeholder,
+    disabled = disabledContext.value,
+  } = props;
 
   const getInputText = React.useCallback(
     (val: Date) => formatText(val, format),
@@ -58,7 +63,7 @@ export const DatePicker: React.FC<IDatePickerProps> = props => {
         >
           <SinglePicker
             {...props}
-            disabled={disabledContext.value || disabled}
+            disabled={disabled}
             placeholder={placeholder || i18n.date}
             PanelComponent={DatePanel}
           />

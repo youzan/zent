@@ -21,8 +21,13 @@ const DefaultYearPickerProps: Partial<IYearPickerProps> = {
   valueType: 'string',
 };
 export const YearPicker: React.FC<IYearPickerProps> = props => {
-  const { format, placeholder, valueType, disabled } = props;
   const disabledContext = React.useContext(DisabledContext);
+  const {
+    format,
+    placeholder,
+    valueType,
+    disabled = disabledContext.value,
+  } = props;
 
   const getInputText = React.useCallback(val => formatText(val, format), [
     format,
@@ -49,7 +54,7 @@ export const YearPicker: React.FC<IYearPickerProps> = props => {
         >
           <SinglePicker
             {...props}
-            disabled={disabledContext.value || disabled}
+            disabled={disabled}
             placeholder={placeholder || i18n.year}
             PanelComponent={YearPanel}
           />

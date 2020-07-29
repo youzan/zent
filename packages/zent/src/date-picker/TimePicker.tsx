@@ -15,8 +15,8 @@ const DefaultTimePickerProps = {
 
 export { ITimePickerProps };
 export const TimePicker: React.FC<ITimePickerProps> = props => {
-  const { placeholder, disabled } = props;
   const disabledContext = React.useContext(DisabledContext);
+  const { placeholder, disabled = disabledContext.value } = props;
 
   return (
     <Receiver componentName="TimePicker">
@@ -29,7 +29,7 @@ export const TimePicker: React.FC<ITimePickerProps> = props => {
           <TimePickerBase
             {...props}
             placeholder={placeholder || i18n.time}
-            disabled={disabledContext.value || disabled}
+            disabled={disabled}
             ContentComponent={TimePickerPanel}
           />
         </PickerContextProvider>
