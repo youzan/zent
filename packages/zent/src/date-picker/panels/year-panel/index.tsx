@@ -3,7 +3,7 @@ import { useState, useMemo } from 'react';
 import PanelHeader from '../../components/PanelHeader';
 import YearPanelBody from './YearBody';
 
-import { MAX_YEAR, MIN_YEAR } from '../../constants';
+import { MAX_YEAR, MIN_YEAR, MAX_PAGE } from '../../constants';
 import { ISinglePanelProps } from '../../types';
 
 const YearPickerPanel: React.FC<Omit<
@@ -20,9 +20,10 @@ const YearPickerPanel: React.FC<Omit<
   const onClickPrev = React.useCallback(() => page > 0 && setPage(page - 1), [
     page,
   ]);
-  const onClickNext = React.useCallback(() => page < 96 && setPage(page + 1), [
-    page,
-  ]);
+  const onClickNext = React.useCallback(
+    () => page < MAX_PAGE && setPage(page + 1),
+    [page]
+  );
   return (
     <>
       <PanelHeader

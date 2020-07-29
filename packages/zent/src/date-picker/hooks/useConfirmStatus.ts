@@ -13,15 +13,16 @@ export default function useConfirmStatus({
     const hour = date.getHours();
     const minute = date.getMinutes();
 
-    const disabledHour = disabledTimesOption.disabledHours?.()?.includes(hour);
-    const disabledMinute = disabledTimesOption
-      .disabledMinutes?.(hour)
-      ?.includes(minute);
-    const disabledSecond = disabledTimesOption
-      .disabledSeconds?.(hour, minute)
-      ?.includes(date.getSeconds());
+    const disabledHour = () =>
+      disabledTimesOption.disabledHours?.()?.includes(hour);
+    const disabledMinute = () =>
+      disabledTimesOption.disabledMinutes?.(hour)?.includes(minute);
+    const disabledSecond = () =>
+      disabledTimesOption
+        .disabledSeconds?.(hour, minute)
+        ?.includes(date.getSeconds());
 
-    setConfirmStatus(disabledHour || disabledMinute || disabledSecond);
+    setConfirmStatus(disabledHour() || disabledMinute() || disabledSecond());
   }, [selected, format, disabledTimesOption]);
   return confirmStatus;
 }

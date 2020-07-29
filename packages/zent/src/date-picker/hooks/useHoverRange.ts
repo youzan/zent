@@ -9,6 +9,7 @@ export default function useHoverRange(selected: [Date, Date], hoverDate: Date) {
 
   React.useEffect(() => {
     const [start, end] = selected;
+    // 只选中开始日期，hover结束日期时生效
     if (start && !end && hoverDate) {
       setHoverRange([start, hoverDate]);
     } else {
