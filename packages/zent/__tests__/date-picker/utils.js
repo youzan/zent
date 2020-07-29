@@ -1,6 +1,6 @@
 import {
   getRangeValuesWithValueType,
-  generateDateConfig,
+  dateConfig,
   getSelectedValueWithDate,
   getCallbackValueWithDate,
   getCallbackValueRangeWithDate,
@@ -22,17 +22,12 @@ describe('Utils', () => {
   });
 
   it('getValueInSinglePicker', () => {
-    getSelectedValueWithDate(null, generateDateConfig.week, {
+    getSelectedValueWithDate(null, dateConfig.week, {
       weekStartsOn: 1,
     });
     getCallbackValueWithDate(null, 'string', format);
     getCallbackValueWithDate(null, 'date', format);
-    getCallbackValueRangeWithDate(
-      null,
-      'string',
-      format,
-      generateDateConfig.day
-    );
+    getCallbackValueRangeWithDate(null, 'string', format, dateConfig.day);
   });
 
   it('handler', () => {

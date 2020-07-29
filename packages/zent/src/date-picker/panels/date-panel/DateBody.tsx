@@ -12,7 +12,7 @@ import PanelCell from '../../components/PanelCell';
 import PanelContext from '../../context/PanelContext';
 
 import getPanelCellsData from '../../utils/getPanelCellsData';
-import { generateDateConfig } from '../../utils/dateUtils';
+import { dateConfig } from '../../utils/dateUtils';
 import { ISingleDateBodyProps, IShowTime, IShowTimeOption } from '../../types';
 
 const COL_COUNT = 7;
@@ -54,7 +54,7 @@ const DatePickerBody: FC<IDatePickerBodyProps> = props => {
         hoverRangeDate,
         row,
         col,
-        generateDateConfig: generateDateConfig.date,
+        dateConfig: dateConfig.date,
         inView: isSameMonth,
       }),
     [

@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { CommonDateMap } from '../utils/dateUtils';
+import { isAfter, isBefore } from 'date-fns';
 import { IGenerateDateConfig, RangeType, RangeTypeMap } from '../types';
 
 const pickerTypeMap = {
   combined: 'combined',
   range: 'range',
 };
-const { isAfter, isBefore } = CommonDateMap;
 const { START, END } = RangeTypeMap;
 
 /**

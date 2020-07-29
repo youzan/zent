@@ -9,7 +9,7 @@ import {
   getSelectedValueWithDate,
   getCallbackValueRangeWithDate,
 } from './utils/getValueInSinglePicker';
-import { generateDateConfig } from './utils/dateUtils';
+import { dateConfig } from './utils/dateUtils';
 import { weekFormatText } from './utils/formatInputText';
 import { DATE_FORMAT } from './constants';
 import {
@@ -21,7 +21,7 @@ import {
 } from './types';
 
 const PickerContextProvider = PickerContext.Provider;
-const generateDate: IGenerateDateConfig = generateDateConfig.week;
+const generateDate: IGenerateDateConfig = dateConfig.week;
 
 export interface IWeekPickerProps
   extends IWeekOption,

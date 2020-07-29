@@ -1,8 +1,6 @@
-import { CommonDateMap } from './dateUtils';
+import { isAfter, isBefore } from 'date-fns';
 import { parseDate } from './index';
 import { IDisabledDate } from '../types';
-
-const { isAfter, isBefore } = CommonDateMap;
 
 /**
  * props的DisabledDate参数 支持 {min, max} 格式

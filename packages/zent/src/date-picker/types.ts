@@ -15,7 +15,6 @@ export type RangeTime = [string, string];
 export interface IDisabledDateSimple<T = SingleDate> {
   min?: T;
   max?: T;
-  includeMin?: boolean;
 }
 export interface ICommonProps<DateValue = SingleDate> {
   value: DateValue;
@@ -49,7 +48,7 @@ interface ITriggerCommonProps {
   disabled?: boolean;
   panelVisible: boolean;
   icon?: IconType;
-  onClearInput: (evt: any) => any;
+  onClearInput: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
 
 export interface IShowTimeOption<T> {

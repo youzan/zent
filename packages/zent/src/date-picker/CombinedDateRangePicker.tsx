@@ -6,12 +6,12 @@ import CombinedDatePanel from './panels/combined-date-range-panel';
 
 import { DisabledContext } from '../disabled';
 import PickerContext from './context/PickerContext';
-import { generateDateConfig } from './utils/dateUtils';
+import { dateConfig } from './utils/dateUtils';
 import { IRangeProps, IGenerateDateConfig, IShowTime } from './types';
 import { formatTextRange } from './utils/formatInputText';
 import { INPUT_WIDTH, COMBINED_INPUT_WIDTH, DATE_FORMAT } from './constants';
 
-const generateDate: IGenerateDateConfig = generateDateConfig.date;
+const generateDate: IGenerateDateConfig = dateConfig.date;
 
 const PickerContextProvider = PickerContext.Provider;
 

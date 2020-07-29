@@ -6,12 +6,12 @@ import { DisabledContext } from '../disabled';
 
 import PickerContext from './context/PickerContext';
 import { getCallbackValueWithDate } from './utils/getValueInSinglePicker';
-import { generateDateConfig } from './utils/dateUtils';
+import { dateConfig } from './utils/dateUtils';
 import { formatText } from './utils/formatInputText';
 import { ISingleProps, IGenerateDateConfig } from './types';
 import { MONTH_FORMAT } from './constants';
 
-const generateDate: IGenerateDateConfig = generateDateConfig.month;
+const generateDate: IGenerateDateConfig = dateConfig.month;
 const PickerContextProvider = PickerContext.Provider;
 
 export interface IMonthPickerProps extends ISingleProps {}

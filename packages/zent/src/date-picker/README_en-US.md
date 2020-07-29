@@ -40,15 +40,15 @@ interface IDisableDateMap {
 
 ### DatePicker API
 
-| Property     | Description                                 | Type                                   | Default                  | Required |
-| ------------ | ------------------------------------------- | -------------------------------------- | ------------------------ | -------- |
-| value        | Selected date                               | `string` \| `Date` \| `number`         | -                        | Yes      |
-| onChange     | Callback when the selected date is changing | `(date: string | Date | number) => {}` | -                        | Yes      |
-| placeholder  | The placeholder of date input               | `string`                               | `'Please select a date'` | No       |
-| format       | To set the date format                      | `string`                               | `'YYYY-MM-DD'`           | No       |
-| hideFooter   | Whether to show footer                      | `boolean`                              | `false`                  | No       |
-| showTime     | To provide an additional time selection     | `boolean` \| `object`                  | `false`                  | No       |
-| disabledTime | To specify the time that cannot be selected | `(date?: Date) => IDisabledTimeOption` | -                        | No       |
+| Property     | Description                                 | Type                                     | Default                  | Required |
+| ------------ | ------------------------------------------- | ---------------------------------------- | ------------------------ | -------- |
+| value        | Selected date                               | `string` \| `Date` \| `number`           | -                        | Yes      |
+| onChange     | Callback when the selected date is changing | `(date: string \| Date \| number) => {}` | -                        | Yes      |
+| placeholder  | The placeholder of date input               | `string`                                 | `'Please select a date'` | No       |
+| format       | To set the date format                      | `string`                                 | `'YYYY-MM-DD'`           | No       |
+| hideFooter   | Whether to show footer                      | `boolean`                                | `false`                  | No       |
+| showTime     | To provide an additional time selection     | `boolean` \| `object`                    | `false`                  | No       |
+| disabledTime | To specify the time that cannot be selected | `(date?: Date) => IDisabledTimeOption`   | -                        | No       |
 
 **Additional**
 
@@ -72,14 +72,14 @@ interface IDisableDateMap {
 - `value` is a range of dates in `WeekPicker`
 - `weekStartsOnMap`: `Monday`、`Tuesday`、`Wednesday`、`Thursday`、`Friday`、`Saturday`、`Sunday`
 
-### YearPicker/MonthPicker API
+### YearPicker / MonthPicker API
 
-| Property    | Description                                 | Type                                   | Default                        | Required |
-| ----------- | ------------------------------------------- | -------------------------------------- | ------------------------------ | -------- |
-| value       | Selected date                               | `string` \| `Date` \| `number`         | -                              | Yes      |
-| onChange    | Callback when the selected date is changing | `(date: string | Date | number) => {}` | -                              | Yes      |
-| placeholder | The placeholder of date input               | string                                 | `Please select a year / month` | No       |
-| format      | To set the date format                      | string                                 | `YYYY` / `YYYY-MM`             | No       |
+| Property    | Description                                 | Type                                     | Default                                               | Required |
+| ----------- | ------------------------------------------- | ---------------------------------------- | ----------------------------------------------------- | -------- |
+| value       | Selected date                               | `string` \| `Date` \| `number`           | -                                                     | Yes      |
+| onChange    | Callback when the selected date is changing | `(date: string \| Date \| number) => {}` | -                                                     | Yes      |
+| placeholder | The placeholder of date input               | string                                   | `'Please select a year'` \| `'Please select a month'` | No       |
+| format      | To set the date format                      | string                                   | `'YYYY'` / `'YYYY-MM'`                                | No       |
 
 **Additional**
 
@@ -146,3 +146,19 @@ interface IDisabledTimeOption {
 **Additional**
 
 - `disabledTime(val, type)`, the `type` is `'start' | 'end'`
+
+### Format string
+
+|           | Format character | Output                                   |
+| --------- | ---------------- | ---------------------------------------- |
+| **Year**  | YY               | 70 71 ... 29 30                          |
+|           | YYYY             | 1970 1971 ... 2029 2030                  |
+| **Month** | M                | 1 2 ... 11 1                             |
+|           | MM               | 01 02 ... 11 12                          |
+|           | MMM              | Jan, Feb ... Nov, Dec                    |
+|           | MMMM             | January, February ... November, December |
+| **Date**  | D                | 1 2 ... 30 31                            |
+|           | DD               | 01 02 ... 30 31                          |
+|           | d                | 0 1 ... 5 6                              |
+|           | ddd              | Sun, Mon ... Fri, Sat                    |
+|           | dddd             | Sunday, Monday ... Friday, Saturday      |

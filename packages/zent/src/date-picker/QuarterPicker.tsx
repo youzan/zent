@@ -6,12 +6,12 @@ import QuarterPanel from './panels/quarter-panel';
 import PickerContext from './context/PickerContext';
 import { DisabledContext } from '../disabled';
 import { getCallbackValueRangeWithDate } from './utils/getValueInSinglePicker';
-import { generateDateConfig } from './utils/dateUtils';
+import { dateConfig } from './utils/dateUtils';
 import { quarterFormatText } from './utils/formatInputText';
 import { ISingleProps, IGenerateDateConfig, RangeDate } from './types';
 import { MONTH_FORMAT } from './constants';
 
-const generateDate: IGenerateDateConfig = generateDateConfig.quarter;
+const generateDate: IGenerateDateConfig = dateConfig.quarter;
 const PickerContextProvider = PickerContext.Provider;
 
 export interface IQuarterPickerProps

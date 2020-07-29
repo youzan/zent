@@ -4,8 +4,6 @@ import {
   isSameMonth,
   isSameQuarter,
   isSameYear,
-  isAfter,
-  isBefore,
   startOfDay,
   endOfDay,
   startOfWeek,
@@ -33,12 +31,7 @@ import {
 } from 'date-fns';
 import { IGenerateDateConfig, IPickerType } from '../types';
 
-export const CommonDateMap = {
-  isBefore,
-  isAfter,
-};
-
-export const generateDateConfig: Record<IPickerType, IGenerateDateConfig> = {
+export const dateConfig: Record<IPickerType, IGenerateDateConfig> = {
   date: {
     set: setDate,
     get: getDate,

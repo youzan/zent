@@ -5,7 +5,7 @@ import PickerContext from '../../context/PickerContext';
 import PanelCell from '../../components/PanelCell';
 
 import getPanelCellsData from '../../utils/getPanelCellsData';
-import { generateDateConfig } from '../../utils/dateUtils';
+import { dateConfig } from '../../utils/dateUtils';
 import { setMonth } from 'date-fns';
 import { ISingleDateBodyProps } from '../../types';
 
@@ -33,7 +33,7 @@ const MonthPickerBody: FC<IMonthPickerBodyProps> = ({
         texts: i18n.panel.monthNames,
         row,
         col,
-        generateDateConfig: generateDateConfig.month,
+        dateConfig: dateConfig.month,
       }),
     [selected, row, col, defaultPanelDate, i18n, disabledPanelDate]
   );

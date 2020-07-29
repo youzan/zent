@@ -6,12 +6,12 @@ import YearPanel from './panels/year-panel';
 import PickerContext from './context/PickerContext';
 import { DisabledContext } from '../disabled';
 import { getCallbackValueWithDate } from './utils/getValueInSinglePicker';
-import { generateDateConfig } from './utils/dateUtils';
+import { dateConfig } from './utils/dateUtils';
 import { formatText } from './utils/formatInputText';
 import { ISingleProps, IGenerateDateConfig } from './types';
 import { YEAR_FORMAT } from './constants';
 
-const generateDate: IGenerateDateConfig = generateDateConfig.year;
+const generateDate: IGenerateDateConfig = dateConfig.year;
 const PickerContextProvider = PickerContext.Provider;
 
 export interface IYearPickerProps extends ISingleProps {}

@@ -4,7 +4,7 @@ import PanelContext from '../../context/PanelContext';
 import PickerContext from '../../context/PickerContext';
 import getPanelCellsData from '../../utils/getPanelCellsData';
 
-import { generateDateConfig } from '../../utils/dateUtils';
+import { dateConfig } from '../../utils/dateUtils';
 import { setYear } from 'date-fns';
 import { ISingleDateBodyProps } from '../../types';
 
@@ -43,7 +43,7 @@ const YearPickerBody: React.FC<IYearPickerBodyProps> = ({
         texts: YearTexts,
         row,
         col,
-        generateDateConfig: generateDateConfig.year,
+        dateConfig: dateConfig.year,
       }),
     [
       selected,

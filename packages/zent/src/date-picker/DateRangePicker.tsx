@@ -5,7 +5,7 @@ import RangePicker from './components/RangePickerBase';
 
 import { DisabledContext } from '../disabled';
 import PickerContext from './context/PickerContext';
-import { generateDateConfig } from './utils/dateUtils';
+import { dateConfig } from './utils/dateUtils';
 import {
   ICommonProps,
   IGenerateDateConfig,
@@ -16,7 +16,7 @@ import {
 import { getRangeValuesWithValueType } from './utils/getValueInRangePicker';
 import { INPUT_WIDTH, SINGLE_INPUT_WIDTH, DATE_FORMAT } from './constants';
 
-const generateDate: IGenerateDateConfig = generateDateConfig.date;
+const generateDate: IGenerateDateConfig = dateConfig.date;
 const PickerContextProvider = PickerContext.Provider;
 export interface IDateRangePickerProps extends ICommonProps<RangeDate> {
   placeholder?: string[];

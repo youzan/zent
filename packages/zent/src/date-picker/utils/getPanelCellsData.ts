@@ -1,7 +1,6 @@
+import { isAfter, isBefore } from 'date-fns';
 import { IDateCellBase, IGenerateDateConfig } from '../types';
-import { CommonDateMap } from './dateUtils';
 
-const { isAfter, isBefore } = CommonDateMap;
 interface ICellDateParams {
   selected: Date;
   rangeDate?: [Date, Date];
@@ -10,7 +9,7 @@ interface ICellDateParams {
   defaultPanelDate: Date;
   row: number;
   col: number;
-  generateDateConfig: IGenerateDateConfig;
+  dateConfig: IGenerateDateConfig;
   texts?: Array<number | string>;
   offset?: number;
   inView?: (val1: Date, val2: Date) => boolean;
@@ -27,12 +26,12 @@ export default function getPanelCellsData({
   defaultPanelDate,
   row,
   col,
-  generateDateConfig,
+  dateConfig,
   texts,
   offset = 0,
   inView = null,
 }: ICellDateParams) {
-  const { isSame, startDate, offsetDate } = generateDateConfig;
+  const { isSame, startDate, offsetDate } = dateConfig;
 
   let index = 0;
   const cells: IDateCellBase[] = [];

@@ -23,7 +23,7 @@
   @include white-bgcolor;
   border-radius: 2px;
   box-shadow: $shadow-spec-layer;
-  z-index: 10;
+  z-index: 1;
 }
 
 @mixin center-div {

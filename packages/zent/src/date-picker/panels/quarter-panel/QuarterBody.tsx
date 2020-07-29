@@ -4,7 +4,7 @@ import PickerContext from '../../context/PickerContext';
 import PanelCell from '../../components/PanelCell';
 
 import getPanelCellsData from '../../utils/getPanelCellsData';
-import { generateDateConfig } from '../../utils/dateUtils';
+import { dateConfig } from '../../utils/dateUtils';
 import { setQuarter } from 'date-fns';
 import { ISingleDateBodyProps } from '../../types';
 
@@ -32,7 +32,7 @@ const QuarterPickerBody: React.FC<IQuarterPickerBodyProps> = ({
         texts: i18n.panel.quarterNames,
         row,
         col,
-        generateDateConfig: generateDateConfig.quarter,
+        dateConfig: dateConfig.quarter,
       }),
     [selected, row, col, defaultPanelDate, i18n, disabledPanelDate]
   );

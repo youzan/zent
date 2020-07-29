@@ -6,7 +6,7 @@ import DatePanel from './panels/date-panel';
 
 import PickerContext from './context/PickerContext';
 import { getCallbackValueWithDate } from './utils/getValueInSinglePicker';
-import { generateDateConfig } from './utils/dateUtils';
+import { dateConfig } from './utils/dateUtils';
 import { formatText } from './utils/formatInputText';
 import {
   ISingleProps,
@@ -15,7 +15,7 @@ import {
   IDisabledTime,
 } from './types';
 import { DATE_FORMAT } from './constants';
-const generateDate: IGenerateDateConfig = generateDateConfig.date;
+const generateDate: IGenerateDateConfig = dateConfig.date;
 
 const PickerContextProvider = PickerContext.Provider;
 

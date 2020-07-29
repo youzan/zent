@@ -6,16 +6,16 @@ import { IGenerateDateConfig, IWeekOption } from '../types';
  */
 export default function useWeekRange(
   date: Date,
-  generateDateConfig: IGenerateDateConfig,
+  dateConfig: IGenerateDateConfig,
   options: IWeekOption
 ) {
   const [rangeDate, setRangeDate] = React.useState<Date[]>(null);
 
   React.useEffect(() => {
-    const { startDate, endDate } = generateDateConfig;
+    const { startDate, endDate } = dateConfig;
     const range = [startDate(date, options), endDate(date, options)];
     setRangeDate(date ? range : null);
-  }, [date, generateDateConfig, options]);
+  }, [date, dateConfig, options]);
 
   return rangeDate as [Date, Date];
 }

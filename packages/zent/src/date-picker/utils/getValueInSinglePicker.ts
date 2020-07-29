@@ -12,18 +12,18 @@ import { getRangeValuesWithValueType } from './getValueInRangePicker';
  * 根据选择日期获取可用的选中日期
  * 主要用于周组件
  * @param value
- * @param generateDateConfig
+ * @param dateConfig
  * @param options
  */
 export function getSelectedValueWithDate(
   value: Date,
-  generateDateConfig: IGenerateDateConfig,
+  dateConfig: IGenerateDateConfig,
   options: IWeekOption
 ): Date {
   const onChangeValue = null;
   if (!value) return onChangeValue;
 
-  const { startDate } = generateDateConfig;
+  const { startDate } = dateConfig;
   return startDate(value, options);
 }
 
@@ -66,20 +66,20 @@ export function getCallbackValueWithDate(
  * @param value
  * @param valueType
  * @param format
- * @param generateDateConfig
+ * @param dateConfig
  * @param options
  */
 export function getCallbackValueRangeWithDate(
   value: Date,
   valueType: IValueType,
   format: string,
-  generateDateConfig: IGenerateDateConfig,
+  dateConfig: IGenerateDateConfig,
   options?: IWeekOption
 ): RangeDate {
   if (!value) return valueType === 'string' ? ['', ''] : [null, null];
 
   let onChangeValue = null;
-  const { startDate, endDate } = generateDateConfig;
+  const { startDate, endDate } = dateConfig;
   if (options) {
     onChangeValue = [startDate(value, options), endDate(value, options)];
   } else {

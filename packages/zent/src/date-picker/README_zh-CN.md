@@ -47,15 +47,15 @@ interface IDisableDateMap {
 
 ### DatePicker 其他 API
 
-| 参数         | 说明                 | 类型                                   | 默认值         | 是否必须 |
-| ------------ | -------------------- | -------------------------------------- | -------------- | -------- |
-| value        | 选择的日期           | `string` \| `Date` \| `number`         | -              | 是       |
-| onChange     | 选择日期回调函数     | `(date: string | Date | number) => {}` | -              | 是       |
-| placeholder  | 输入框提示文字       | `string`                               | `'请选择日期'` | 否       |
-| format       | 设置字符串日期的格式 | `string`                               | `'YYYY-MM-DD'` | 否       |
-| hideFooter   | 隐藏面板底部         | `boolean`                              | `false`        | 否       |
-| showTime     | 是否支持时间选择功能 | `boolean` \| `object`                  | `false`        | 否       |
-| disabledTime | 时间禁用判断         | `(date?: Date) => IDisabledTimeOption` | -              | 否       |
+| 参数         | 说明                 | 类型                                     | 默认值         | 是否必须 |
+| ------------ | -------------------- | ---------------------------------------- | -------------- | -------- |
+| value        | 选择的日期           | `string` \| `Date` \| `number`           | -              | 是       |
+| onChange     | 选择日期回调函数     | `(date: string \| Date \| number) => {}` | -              | 是       |
+| placeholder  | 输入框提示文字       | `string`                                 | `'请选择日期'` | 否       |
+| format       | 设置字符串日期的格式 | `string`                                 | `'YYYY-MM-DD'` | 否       |
+| hideFooter   | 隐藏面板底部         | `boolean`                                | `false`        | 否       |
+| showTime     | 是否支持时间选择功能 | `boolean` \| `object`                    | `false`        | 否       |
+| disabledTime | 时间禁用判断         | `(date?: Date) => IDisabledTimeOption`   | -              | 否       |
 
 **注意：**
 
@@ -79,14 +79,14 @@ interface IDisableDateMap {
 - `WeekPicker` 的 `value` 和 `onChange` 回调日期均为数组
 - `WeekStartsOnMap` 枚举： `'Sunday'`、`'Monday'`、`'Tuesday'`、`'Wednesday'`、`'Thursday'`、`'Friday'`、`'Saturday'`
 
-### YearPicker/MonthPicker 其他 API
+### YearPicker / MonthPicker 其他 API
 
-| 参数        | 说明                 | 类型                                   | 默认值                           | 是否必须 |
-| ----------- | -------------------- | -------------------------------------- | -------------------------------- | -------- |
-| value       | 选择的日期           | `string` \| `Date` \| `number`         | -                                | 是       |
-| onChange    | 选择日期回调函数     | `(date: string | Date | number) => {}` | -                                | 是       |
-| placeholder | 输入框提示文字       | `string`                               | `'请选择年份'` \| `'请选择月份'` | 否       |
-| format      | 设置字符串日期的格式 | `string`                               | `'YYYY'` \| `'YYYY-MM'`          | 否       |
+| 参数        | 说明                 | 类型                                     | 默认值                           | 是否必须 |
+| ----------- | -------------------- | ---------------------------------------- | -------------------------------- | -------- |
+| value       | 选择的日期           | `string` \| `Date` \| `number`           | -                                | 是       |
+| onChange    | 选择日期回调函数     | `(date: string \| Date \| number) => {}` | -                                | 是       |
+| placeholder | 输入框提示文字       | `string`                                 | `'请选择年份'` \| `'请选择月份'` | 否       |
+| format      | 设置字符串日期的格式 | `string`                                 | `'YYYY'` \| `'YYYY-MM'`          | 否       |
 
 **注意：**
 
@@ -153,3 +153,19 @@ interface IDisabledTimeOption {
 **注意：**
 
 - `disabledTime` 回调方法的第二个参数均为`type?: 'start' | 'end'`
+
+#### 格式化字符表
+
+|           | 字符 | 输出                              |
+| --------- | ---- | --------------------------------- |
+| **Year**  | YY   | 70 71 ... 29 30                   |
+|           | YYYY | 1970 1971 ... 2029 2030           |
+| **Month** | M    | 1 2 ... 11 1                      |
+|           | MM   | 01 02 ... 11 12                   |
+|           | MMM  | 1 月, 2 月 ... 11 月, 12 月       |
+|           | MMMM | 一月, 二月 ... 十一月, 十二月     |
+| **Date**  | D    | 1 2 ... 30 31                     |
+|           | DD   | 01 02 ... 30 31                   |
+|           | d    | 0 1 ... 5 6                       |
+|           | ddd  | 周日, 周一 ... 周五, 周六         |
+|           | dddd | 星期日, 星期一 ... 星期五, 星期六 |
