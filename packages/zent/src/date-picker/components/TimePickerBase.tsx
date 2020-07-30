@@ -13,12 +13,12 @@ import {
   timePanelProps,
   defaultTimePickerProps,
 } from '../constants';
-import { ITimePickerProps, ITimePanelProps, SingleTime } from '../types';
+import { ISingleTimePickerProps, ITimePanelProps, SingleTime } from '../types';
 import useSinglePopoverVisible from '../hooks/useSinglePopoverVisible';
 
 const emptyTime: SingleTime = '';
 const PanelContextProvider = PanelContext.Provider;
-interface ITimePickerBaseProps extends ITimePickerProps {
+interface ITimePickerBaseProps extends ISingleTimePickerProps {
   ContentComponent: React.ComponentType<ITimePanelProps>;
   seperator?: string;
 }
@@ -47,7 +47,7 @@ const TimePickerBase: React.FC<ITimePickerBaseProps> = ({
     panelVisible,
     setPanelVisible,
     onVisibleChange,
-  } = useSinglePopoverVisible(
+  } = useSinglePopoverVisible<string>(
     openPanel,
     disabled,
     value ?? emptyTime,

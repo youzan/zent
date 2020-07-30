@@ -77,7 +77,7 @@ const PanelCell: React.FC<IPanelCellProps> = ({
       // 单元格支持Tooltip
       const cell =
         popText && isSelected ? (
-          <Tooltip visible={true} title={popText}>
+          <Tooltip key={value.getTime()} visible={true} title={popText}>
             {cellNode}
           </Tooltip>
         ) : (
@@ -88,7 +88,7 @@ const PanelCell: React.FC<IPanelCellProps> = ({
       // 换行
       if (index % col === col - 1) {
         uls.push(
-          <ul key={index} className={`${prefixCls}_row`}>
+          <ul key={value.getTime()} className={`${prefixCls}_row`}>
             {rowCells}
           </ul>
         );

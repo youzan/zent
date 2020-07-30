@@ -16,6 +16,7 @@ import { useEventCallbackRef } from '../../utils/hooks/useEventCallbackRef';
 import pick from '../../utils/pick';
 import { triggerCommonProps } from '../constants';
 import {
+  RangeDate,
   IRangeProps,
   IRangePanelProps,
   IGenerateDateConfig,
@@ -24,7 +25,7 @@ import {
 
 interface ICombinedPickerProps
   extends IRangeProps,
-    Pick<IRangeTriggerProps, 'placeholder' | 'name' | 'seperator'> {
+    Pick<IRangeTriggerProps, 'seperator'> {
   generateDate: IGenerateDateConfig;
   PanelComponent: React.ComponentType<IRangePanelProps>;
 }
@@ -71,7 +72,7 @@ export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
     panelVisible,
     setPanelVisible,
     onVisibleChange,
-  } = useSinglePopoverVisible(
+  } = useSinglePopoverVisible<RangeDate>(
     openPanel,
     disabled,
     parseValue,

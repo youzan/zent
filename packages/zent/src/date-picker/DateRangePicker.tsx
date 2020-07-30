@@ -7,9 +7,8 @@ import { DisabledContext } from '../disabled';
 import PickerContext from './context/PickerContext';
 import { dateConfig } from './utils/dateUtils';
 import {
-  ICommonProps,
   IGenerateDateConfig,
-  RangeDate,
+  IRangeProps,
   IShowTime,
   IDisabledTime,
 } from './types';
@@ -18,8 +17,7 @@ import { INPUT_WIDTH, SINGLE_INPUT_WIDTH, DATE_FORMAT } from './constants';
 
 const generateDate: IGenerateDateConfig = dateConfig.date;
 const PickerContextProvider = PickerContext.Provider;
-export interface IDateRangePickerProps extends ICommonProps<RangeDate> {
-  placeholder?: string[];
+export interface IDateRangePickerProps extends IRangeProps {
   showTime?: IShowTime<string[]>;
   disabledTime?: IDisabledTime;
 }

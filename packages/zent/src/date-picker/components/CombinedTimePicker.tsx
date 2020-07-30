@@ -14,13 +14,17 @@ import {
   timePanelProps,
   defaultTimePickerProps,
 } from '../constants';
-import { ITimePickerProps, ICombinedTimePanelProps, RangeTime } from '../types';
+import {
+  IRangeTimePickerProps,
+  ICombinedTimePanelProps,
+  RangeTime,
+} from '../types';
 import useSinglePopoverVisible from '../hooks/useSinglePopoverVisible';
 
 const prefixCls = 'zent-datepicker-combined';
 const emptyTimeRange: RangeTime = ['', ''];
 const PanelContextProvider = PanelContext.Provider;
-interface ITimePickerBaseProps extends ITimePickerProps<RangeTime> {
+interface ITimePickerBaseProps extends IRangeTimePickerProps {
   ContentComponent: React.ComponentType<ICombinedTimePanelProps>;
   seperator?: string;
 }
@@ -51,7 +55,7 @@ const CombinedTimePicker: React.FC<ITimePickerBaseProps> = ({
     panelVisible,
     setPanelVisible,
     onVisibleChange,
-  } = useSinglePopoverVisible(
+  } = useSinglePopoverVisible<RangeTime>(
     openPanel,
     disabled,
     value ?? emptyTimeRange,

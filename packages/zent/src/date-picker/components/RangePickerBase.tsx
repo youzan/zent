@@ -9,9 +9,6 @@ import useNormalizeDisabledDate from '../hooks/useNormalizeDisabledDate';
 import { useEventCallbackRef } from '../../utils/hooks/useEventCallbackRef';
 
 import {
-  ICommonProps,
-  IRangeTriggerProps,
-  RangeDate,
   IGenerateDateConfig,
   IShowTime,
   RangeType,
@@ -23,10 +20,7 @@ import {
 import useRangeDisabledTime from '../hooks/useRangeDisabledTime';
 
 const { START, END } = RangeTypeMap;
-interface IRangePickerProps
-  extends ICommonProps<RangeDate>,
-    IRangeProps,
-    Pick<IRangeTriggerProps, 'placeholder'> {
+interface IRangePickerProps extends IRangeProps {
   generateDate: IGenerateDateConfig;
   PickerComponent: React.ComponentType<
     ISingleProps & {
@@ -54,6 +48,7 @@ const RangePicker: React.FC<IRangePickerProps> = ({
   PickerComponent,
   showTime,
   seperator,
+  name,
   ...restProps
 }) => {
   const restPropsRef = React.useRef(restProps);
@@ -110,6 +105,7 @@ const RangePicker: React.FC<IRangePickerProps> = ({
           onOpen={() => onOpen?.(START)}
           onClose={() => onClose?.(START)}
           disabledDate={disabledStartDate}
+          name={name?.[0]}
           placeholder={placeholder[0]}
         />
         <span className="zent-datepicker-seperator">{seperator}</span>
@@ -124,6 +120,7 @@ const RangePicker: React.FC<IRangePickerProps> = ({
           onOpen={() => onOpen?.(END)}
           onClose={() => onClose?.(END)}
           disabledDate={disabledEndDate}
+          name={name?.[1]}
           placeholder={placeholder[1]}
         />
       </div>

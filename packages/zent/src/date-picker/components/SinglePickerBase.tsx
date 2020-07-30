@@ -70,7 +70,7 @@ export function SinglePicker({
     panelVisible,
     setPanelVisible,
     onVisibleChange,
-  } = useSinglePopoverVisible(
+  } = useSinglePopoverVisible<Date>(
     openPanel,
     disabled,
     parseValue,

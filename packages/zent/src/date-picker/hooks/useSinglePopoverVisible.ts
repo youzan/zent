@@ -1,24 +1,22 @@
 import * as React from 'react';
 import { useEventCallbackRef } from '../../utils/hooks/useEventCallbackRef';
 
-export default function useSinglePopoverVisible(
-  openPanel,
-  disabled,
-  defaultSelected,
-  setSelected,
-  onOpen,
-  onClose
+export default function useSinglePopoverVisible<DateType>(
+  openPanel: boolean,
+  disabled: boolean,
+  defaultSelected: DateType,
+  setSelected: React.Dispatch<React.SetStateAction<DateType>>,
+  onOpen: () => void,
+  onClose: () => void
 ) {
-  const [panelVisible, setPanelVisible] = React.useState<boolean>(
-    openPanel ?? undefined
-  );
+  const [panelVisible, setPanelVisible] = React.useState<boolean>(openPanel);
   const onOpenRef = useEventCallbackRef(onOpen);
   const onCloseRef = useEventCallbackRef(onClose);
-  const defaultSelectedRef = React.useRef(defaultSelected);
+  const defaultSelectedRef = React.useRef<DateType>(defaultSelected);
   defaultSelectedRef.current = defaultSelected;
 
   React.useEffect(() => {
-    setPanelVisible(openPanel ?? undefined);
+    setPanelVisible(openPanel);
   }, [openPanel]);
 
   const onVisibleChange = React.useCallback(() => {

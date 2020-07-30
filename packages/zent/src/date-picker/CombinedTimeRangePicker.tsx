@@ -4,12 +4,11 @@ import CombinedTimePickerBase from './components/CombinedTimePicker';
 import CombinedTimePanel from './panels/combined-time-range-panel';
 import { DisabledContext } from '../disabled';
 import PickerContext from './context/PickerContext';
-import { ITimePickerProps, RangeTime } from './types';
+import { IRangeTimePickerProps } from './types';
 
 const PickerContextProvider = PickerContext.Provider;
 
-export interface ICombinedTimeRangePickerProps
-  extends ITimePickerProps<RangeTime> {}
+export interface ICombinedTimeRangePickerProps extends IRangeTimePickerProps {}
 
 export const CombinedTimeRangePicker: React.FC<ICombinedTimeRangePickerProps> = props => {
   const disabledContext = React.useContext(DisabledContext);

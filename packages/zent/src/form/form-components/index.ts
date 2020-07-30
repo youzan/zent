@@ -1,6 +1,8 @@
 export * from './CheckboxField';
 export * from './CheckboxGroupField';
 export * from './ColorPickerField';
+export * from './CombinedDateRangePickerField';
+export * from './CombinedTimeRangePickerField';
 export * from './DatePickerField';
 export * from './DateRangePickerField';
 export * from './DateRangeQuickPickerField';
@@ -12,6 +14,5 @@ export * from './RadioGroupField';
 export * from './SelectField';
 export * from './SwitchField';
 export * from './TimePickerField';
-export * from './CombinedTimeRangePickerField';
 export * from './WeekPickerField';
 export * from './YearPickerField';

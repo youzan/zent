@@ -33,11 +33,10 @@ export default function useMergedProps({
 
   // defaultPanelDate
   React.useEffect(() => {
+    // 优先级：select > defaultDate
     setDefaultPanelDate(
-      selected
-        ? parseDate(selected, format)
-        : defaultDate
-        ? parseDate(defaultDate, format)
+      selected || defaultDate
+        ? parseDate(selected || defaultDate, format)
         : current
     );
   }, [defaultDate, selected, value, format]);

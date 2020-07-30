@@ -4,7 +4,7 @@ import TimePickerBase from './components/TimePickerBase';
 import TimePickerPanel from './panels/time-panel';
 import { DisabledContext } from '../disabled';
 import PickerContext from './context/PickerContext';
-import { ITimePickerProps } from './types';
+import { ISingleTimePickerProps } from './types';
 
 const PickerContextProvider = PickerContext.Provider;
 const DefaultTimePickerProps = {
@@ -12,8 +12,7 @@ const DefaultTimePickerProps = {
   minuteStep: 1,
   secondStep: 1,
 };
-
-export { ITimePickerProps };
+export interface ITimePickerProps extends ISingleTimePickerProps {}
 export const TimePicker: React.FC<ITimePickerProps> = props => {
   const disabledContext = React.useContext(DisabledContext);
   const { placeholder, disabled = disabledContext.value } = props;
