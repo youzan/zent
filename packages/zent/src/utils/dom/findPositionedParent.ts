@@ -1,5 +1,3 @@
-import getComputedStyle from './getComputedStyle';
-
 /**
  * Find the first positioned ancestor up in the DOM tree.
  *

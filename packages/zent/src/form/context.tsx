@@ -24,8 +24,7 @@ export function useFormChildrenContext(): IZentFormChildrenContext {
 }
 
 export interface IZentFormContext {
-  labelWidth?: React.CSSProperties['flexBasis'];
-  labelPosition?: CSSProperties['justifyContent'];
+  labelStyle?: CSSProperties;
 }
 
 export const FormContext = createContext<IZentFormContext>({});
