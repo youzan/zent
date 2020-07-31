@@ -1,4 +1,4 @@
-import TextMark from './TextMark';
+import { TextMark } from './TextMark';
 export {
   TextMarkSanitizeFunction,
   TextMarkFindChunksFunction,

@@ -7,7 +7,7 @@ export interface ISelectSearchProps {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   onIndexChange(delta: number): void;
   onEnter(): void;
-  multiple?: boolean;
+  autoWidth?: boolean;
 }
 
 interface ISelectImperativeHandlers {
@@ -25,7 +25,7 @@ function SelectSearch(
     onChange,
     onIndexChange,
     onEnter,
-    multiple,
+    autoWidth,
     value,
   }: ISelectSearchProps,
   cmdRef: React.RefObject<ISelectImperativeHandlers>
@@ -59,7 +59,7 @@ function SelectSearch(
     <span
       className="zent-select-search-wrap"
       style={
-        multiple
+        autoWidth
           ? { width: Math.max(inputWidth, MIN_SEARCH_INPUT_WIDTH) }
           : null
       }

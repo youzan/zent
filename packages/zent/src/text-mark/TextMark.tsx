@@ -165,5 +165,3 @@ export function TextMark({
     </span>
   );
 }
-
-export default TextMark;

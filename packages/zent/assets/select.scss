@@ -113,7 +113,7 @@ $option-height: 32px;
   &-clearable {
     .zenticon-close-circle {
       @include theme-color(color, stroke, 5);
-      font-size: 16px;
+      font-size: $font-size-large;
       position: absolute;
       right: 8px;
       top: 7px;
@@ -178,13 +178,13 @@ $option-height: 32px;
       position: absolute;
       top: 0;
       left: 0;
-      z-index: 999;
+      z-index: 1;
       white-space: nowrap;
       visibility: hidden;
     }
   }
 
-  &-popover {
+  &-popup {
     @include popup;
     max-height: 8 * $option-height;
     overflow-y: auto;
@@ -221,8 +221,7 @@ $option-height: 32px;
         @include ellipsis;
       }
 
-      mark {
-        background-color: initial;
+      &-highlight {
         @include theme-color(color, primary, 4);
       }
     }
@@ -258,7 +257,7 @@ $option-height: 32px;
 
     &-selected {
       @include theme-color(background-color, stroke, 8);
-      font-weight: 500;
+      font-weight: $font-weight-medium;
 
       &-multiple {
         font-size: 12px;
@@ -297,11 +296,10 @@ $option-height: 32px;
     }
 
     &-content {
+      @include font-normal;
       max-width: 216px;
       max-height: 80px;
       overflow-y: auto;
-      line-height: 20px;
-      font-size: $font-size-normal;
       word-break: break-all;
       @include theme-color(border-color, stroke, 4);
     }

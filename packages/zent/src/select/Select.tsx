@@ -12,6 +12,7 @@ import { BlockLoading } from '../loading/BlockLoading';
 import { Pop } from '../pop';
 import { I18nReceiver as Receiver, II18nLocaleSelect } from '../i18n';
 import memoize from '../utils/memorize-one';
+import uniqueId from '../utils/uniqueId';
 
 export interface ISelectItem<Key extends string | number = string | number> {
   key: Key;
@@ -51,7 +52,7 @@ export interface ISelectCommonProps<Item extends ISelectItem> {
   onCreate?: (text: string) => void;
   isValidNewOption?: (keyword: string, options: Item[]) => boolean;
   collapsable?: false;
-  tagsLimit?: number;
+  collapseAt?: number;
 }
 
 export interface ISelectSingleProps<Item extends ISelectItem>
@@ -138,11 +139,17 @@ function defaultHighlight<Item extends ISelectItem>(
     return option.text;
   }
 
-  return <TextMark searchWords={[keyword]} textToHighlight={option.text} />;
+  return (
+    <TextMark
+      searchWords={[keyword]}
+      textToHighlight={option.text}
+      highlightStyle={{ backgroundColor: 'initial', color: '#155bd4' }}
+    />
+  );
 }
 
 const DEFAULT_LOADING = (
-  <div className="zent-select-popover-loading">
+  <div className="zent-select-popup-loading">
     <BlockLoading
       loading
       icon="circle"
@@ -165,7 +172,7 @@ function defaultIsValidNewOption(
 }
 
 // 允许创建的临时 key
-const SELECT_CREATABLE_KEY = '__ZENT_SELECT_CREATABLE_KEY__';
+const SELECT_CREATABLE_KEY = uniqueId('__ZENT_SELECT_CREATABLE_KEY__');
 
 export class Select<
   Item extends ISelectItem = ISelectItem
@@ -239,7 +246,6 @@ export class Select<
       return;
     }
 
-    this.focusSearchInput();
     if (this.props.multiple === false) {
       this.onVisibleChange(false);
       const { onChange } = this.props;
@@ -254,6 +260,7 @@ export class Select<
       const { onChange, isEqual } = this.props;
       const value = this.state.value as Item[];
       const valueIndex = value.findIndex(it => isEqual(it, item));
+      this.focusSearchInput();
       const nextValue =
         valueIndex >= 0
           ? value.filter((_it, index) => index !== valueIndex)
@@ -291,31 +298,17 @@ export class Select<
     if (this.disabled) {
       return;
     }
+
+    const { value } = this.state;
+    const { onChange, isEqual } = this.props as ISelectMultiProps<Item>;
+    const nextValue = (value as Item[]).filter(it => !isEqual(item, it));
     this.focusSearchInput();
-    if (this.props.multiple === true) {
-      const { value } = this.state;
-      const { onChange, isEqual } = this.props;
-      const nextValue = (value as Item[]).filter(it => !isEqual(item, it));
-      if (onChange) {
-        onChange(nextValue);
-      } else {
-        this.setState({
-          value: nextValue,
-        });
-      }
+    if (onChange) {
+      onChange(nextValue);
     } else {
-      const { onChange, isEqual } = this.props as ISelectSingleProps<Item>;
-      const value = this.state.value as Item | null;
-      if (value && isEqual(value, item)) {
-        return;
-      }
-      if (onChange) {
-        onChange(item);
-      } else {
-        this.setState({
-          value: item,
-        });
-      }
+      this.setState({
+        value: nextValue,
+      });
     }
   };
 
@@ -372,10 +365,10 @@ export class Select<
       optionContent = (
         <Receiver componentName="Select">
           {(i18n: II18nLocaleSelect) => (
-            <mark>
+            <span className="zent-select-option-text-highlight">
               {i18n.create}
               {option.text}
-            </mark>
+            </span>
           )}
         </Receiver>
       );
@@ -503,22 +496,17 @@ export class Select<
   renderValue(i18n: II18nLocaleSelect) {
     const { placeholder, renderValue, multiple } = this.props;
     const { open } = this.state;
-    const selectPlaceholder = (
-      <span className="zent-select-placeholder">{placeholder}</span>
-    );
 
     if (multiple) {
       const value = this.state.value as Item[];
 
-      if (value && value.length > 0) {
+      if (value?.length > 0) {
         return this.renderTagList(value, i18n);
       }
 
       if (open) {
         return null;
       }
-
-      return selectPlaceholder;
     } else {
       if (open) {
         return null;
@@ -531,14 +519,15 @@ export class Select<
           <span className="zent-select-text">{value.text}</span>
         );
       }
-      return selectPlaceholder;
     }
+
+    return <span className="zent-select-placeholder">{placeholder}</span>;
   }
 
   renderTagList(value: Item[], i18n: II18nLocaleSelect) {
-    const { renderValue, collapsable, tagsLimit = 1 } = this.props;
-    const tagsValue = collapsable ? value.slice(0, tagsLimit) : value;
-    const collapsedValue = value.slice(tagsLimit);
+    const { renderValue, collapsable, collapseAt = 1 } = this.props;
+    const tagsValue = collapsable ? value.slice(0, collapseAt) : value;
+    const collapsedValue = value.slice(collapseAt);
 
     return (
       <>
@@ -559,7 +548,8 @@ export class Select<
                     return (
                       <span key={item.key}>
                         {renderValue ? renderValue(item) : item.text}
-                        {index !== collapsedValue.length - 1 && i18n.separator}
+                        {index !== collapsedValue.length - 1 &&
+                          i18n.tagSeparator}
                       </span>
                     );
                   })}
@@ -603,20 +593,22 @@ export class Select<
 
     if (this.props.multiple) {
       const { onChange } = this.props as ISelectMultiProps<Item>;
+      const value = [];
       if (onChange) {
-        onChange([]);
+        onChange(value);
       } else {
         this.setState({
-          value: [],
+          value,
         });
       }
     } else {
       const { onChange } = this.props as ISelectSingleProps<Item>;
+      const value = null;
       if (onChange) {
-        onChange(null);
+        onChange(value);
       } else {
         this.setState({
-          value: null,
+          value,
         });
       }
     }
@@ -690,7 +682,7 @@ export class Select<
     return filtered.length ? (
       renderOptionList(filtered, this.renderOption)
     ) : (
-      <div className="zent-select-popover-empty">
+      <div className="zent-select-popup-empty">
         {notFoundContent ?? i18n.empty}
       </div>
     );
@@ -721,7 +713,7 @@ export class Select<
               position={Popover.Position.AutoBottomLeft}
               visible={visible}
               onVisibleChange={this.onVisibleChange}
-              className="zent-select-popover"
+              className="zent-select-popup"
               style={{ width: popupWidth ?? width }}
               cushion={4}
             >
@@ -748,7 +740,7 @@ export class Select<
                     <Search
                       placeholder={this.getSearchPlaceholder()}
                       value={keyword}
-                      multiple={multiple}
+                      autoWidth={multiple}
                       onChange={this.onKeywordChange}
                       onIndexChange={this.onIndexChange}
                       onEnter={this.selectCurrentIndex}

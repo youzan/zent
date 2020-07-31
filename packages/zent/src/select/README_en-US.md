@@ -21,11 +21,11 @@ Select is a drop-down selection component with variety functions.
 | filter            | Filter conditions, set to open the filter function           | function         | `false`              | no       |
 | highlight         | Highlight filterd options                                    | function         | `noop`               | no       |
 | className         | Optional, custom trigger additional classname                | string           | `''`                 | no       |
-| width             | input-box's width                                            | string or number | `''`                 | no       |
-| popupWidth        | pupup's width                                                | string or number | `''`                 | no       |
+| width             | input-box's width                                            | string | number | `''`                 | no       |
+| popupWidth        | pupup's width                                                | string | number | `''`                 | no       |
 | multiple          | Support multiple selected options                            | bool             | `false`             | no       |
 | collapsable       | Support collapsed tags in multiple mode            | bool             | `false`             | no       |
-| tagsLimit         | Dispaly tags count in collapsed mode            | number             | `1`             | no       |
+| collapseAt         | Dispaly tags count in collapsed mode            | number             | `1`             | no       |
 | clearable         | Is the select value clearable                                | bool             | `false`             | no       |
 | loading           | Is the select in a state of loading                          | bool             | `false`             | no       |
 | creatable         | Allow options to be created                                  | bool             | `false`             | no       |
