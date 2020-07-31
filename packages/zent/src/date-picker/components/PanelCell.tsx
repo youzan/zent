@@ -28,7 +28,7 @@ interface IPanelCellProps {
   cells: IDateCellBase[];
   col: number;
   onSelected: (val: Date) => void;
-  onHover: (val: Date) => void;
+  onHover?: (val: Date) => void;
   popText?: string;
 }
 const PanelCell: React.FC<IPanelCellProps> = ({
@@ -49,14 +49,14 @@ const PanelCell: React.FC<IPanelCellProps> = ({
   const onCellMouseOver = React.useCallback(
     ({ isDisabled, value }) => {
       if (isDisabled) return;
-      onHover(value);
+      onHover?.(value);
     },
     [onHover]
   );
 
   const rows = React.useMemo(() => {
-    const uls = [];
-    let rowCells = [];
+    const uls: React.ReactNode[] = [];
+    let rowCells: React.ReactNode[] = [];
     cells.map(({ value, text, ...classNameProps }, index) => {
       const { isSelected, isDisabled } = classNameProps;
       const cellNode = (

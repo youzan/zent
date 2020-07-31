@@ -9,34 +9,40 @@ import { getCallbackValueWithDate } from './utils/getValueInSinglePicker';
 import { dateConfig } from './utils/dateUtils';
 import { formatText } from './utils/formatInputText';
 import { ISingleProps, IGenerateDateConfig } from './types';
-import { YEAR_FORMAT } from './constants';
+import { YEAR_FORMAT, defaultDatePickerCommonProps } from './constants';
 
 const generateDate: IGenerateDateConfig = dateConfig.year;
 const PickerContextProvider = PickerContext.Provider;
 
 export interface IYearPickerProps extends ISingleProps {}
-
-const DefaultYearPickerProps: Partial<IYearPickerProps> = {
+const DefaultYearPickerProps = {
   format: YEAR_FORMAT,
-  valueType: 'string',
 };
+
 export const YearPicker: React.FC<IYearPickerProps> = props => {
   const disabledContext = React.useContext(DisabledContext);
+  const propsRequired = {
+    ...defaultDatePickerCommonProps,
+    ...DefaultYearPickerProps,
+    ...props,
+  };
+
   const {
     format,
     placeholder,
     valueType,
     disabled = disabledContext.value,
-  } = props;
+  } = propsRequired;
 
-  const getInputText = React.useCallback(val => formatText(val, format), [
-    format,
-  ]);
+  const getInputText = React.useCallback(
+    (val: Date | null) => formatText(val, format),
+    [format]
+  );
 
-  const getSelectedValue = React.useCallback(val => val, []);
+  const getSelectedValue = React.useCallback((val: Date) => val, []);
 
   const getCallbackValue = React.useCallback(
-    val => getCallbackValueWithDate(val, valueType, format),
+    (val: Date) => getCallbackValueWithDate(val, valueType, format),
     [valueType, format]
   );
 
@@ -53,7 +59,7 @@ export const YearPicker: React.FC<IYearPickerProps> = props => {
           }}
         >
           <SinglePicker
-            {...props}
+            {...propsRequired}
             disabled={disabled}
             placeholder={placeholder || i18n.year}
             PanelComponent={YearPanel}
@@ -63,5 +69,4 @@ export const YearPicker: React.FC<IYearPickerProps> = props => {
     </Receiver>
   );
 };
-YearPicker.defaultProps = DefaultYearPickerProps;
 export default YearPicker;

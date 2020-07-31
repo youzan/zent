@@ -11,23 +11,35 @@ import {
   IRangeProps,
   IShowTime,
   IDisabledTime,
+  StringArray,
+  DateNullArray,
 } from './types';
 import { getRangeValuesWithValueType } from './utils/getValueInRangePicker';
-import { INPUT_WIDTH, SINGLE_INPUT_WIDTH, DATE_FORMAT } from './constants';
+import {
+  INPUT_WIDTH,
+  SINGLE_INPUT_WIDTH,
+  DATE_FORMAT,
+  defaultDatePickerCommonProps,
+} from './constants';
 
 const generateDate: IGenerateDateConfig = dateConfig.date;
 const PickerContextProvider = PickerContext.Provider;
 export interface IDateRangePickerProps extends IRangeProps {
-  showTime?: IShowTime<string[]>;
+  showTime?: IShowTime<StringArray>;
   disabledTime?: IDisabledTime;
 }
-
-const DefaultDateRangeProps: Partial<IDateRangePickerProps> = {
+const DefaultDateRangeProps = {
   format: DATE_FORMAT,
-  valueType: 'string',
 };
+
 export const DateRangePicker: React.FC<IDateRangePickerProps> = props => {
   const disabledContext = React.useContext(DisabledContext);
+  const propsRequired = {
+    ...defaultDatePickerCommonProps,
+    ...DefaultDateRangeProps,
+    ...props,
+  };
+
   const {
     placeholder,
     valueType,
@@ -35,10 +47,10 @@ export const DateRangePicker: React.FC<IDateRangePickerProps> = props => {
     width,
     showTime,
     disabled = disabledContext.value,
-  } = props;
+  } = propsRequired;
 
-  const getCallbackValue = React.useCallback(
-    val => getRangeValuesWithValueType(val, valueType, format),
+  const getCallbackRangeValue = React.useCallback(
+    (val: DateNullArray) => getRangeValuesWithValueType(valueType, format, val),
     [valueType, format]
   );
 
@@ -48,11 +60,11 @@ export const DateRangePicker: React.FC<IDateRangePickerProps> = props => {
         <PickerContextProvider
           value={{
             i18n,
-            getCallbackValue,
+            getCallbackRangeValue,
           }}
         >
           <RangePicker
-            {...props}
+            {...propsRequired}
             disabled={disabled}
             width={width ?? (!!showTime ? INPUT_WIDTH : SINGLE_INPUT_WIDTH)}
             generateDate={generateDate}
@@ -65,5 +77,4 @@ export const DateRangePicker: React.FC<IDateRangePickerProps> = props => {
     </Receiver>
   );
 };
-DateRangePicker.defaultProps = DefaultDateRangeProps;
 export default DateRangePicker;

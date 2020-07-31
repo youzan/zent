@@ -1,11 +1,11 @@
 import { isAfter, isBefore } from 'date-fns';
-import { IDateCellBase, IGenerateDateConfig } from '../types';
+import { IDateCellBase, IGenerateDateConfig, DateArray } from '../types';
 
 interface ICellDateParams {
-  selected: Date;
-  rangeDate?: [Date, Date];
-  hoverRangeDate?: [Date, Date];
-  disabledPanelDate: (Date) => boolean;
+  selected: Date | null;
+  rangeDate?: DateArray | null;
+  hoverRangeDate?: DateArray | null;
+  disabledPanelDate: (date: Date) => boolean;
   defaultPanelDate: Date;
   row: number;
   col: number;
@@ -29,7 +29,7 @@ export default function getPanelCellsData({
   dateConfig,
   texts,
   offset = 0,
-  inView = null,
+  inView,
 }: ICellDateParams) {
   const { isSame, startDate, offsetDate } = dateConfig;
 
@@ -67,7 +67,7 @@ export default function getPanelCellsData({
 
       // isSelected
       const isSelected =
-        selected && (isSame(selected, currentDate) || isRangeEndpoint);
+        !!selected && (isSame(selected, currentDate) || isRangeEndpoint);
 
       // isCurrent
       const isCurrent = isSame(new Date(), currentDate);
@@ -76,7 +76,7 @@ export default function getPanelCellsData({
       const isInView = inView ? inView(currentDate, defaultPanelDate) : true;
 
       // isDisabled
-      const isDisabled = disabledPanelDate?.(currentDate);
+      const isDisabled = disabledPanelDate(currentDate);
 
       cells[index] = {
         value: currentDate,

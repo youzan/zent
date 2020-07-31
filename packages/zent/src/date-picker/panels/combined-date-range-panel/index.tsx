@@ -7,13 +7,19 @@ import RangePickerFooter from './RangeFooter';
 import { useShowTimeRangeOption } from '../../hooks/useShowTimeOption';
 import useRangeDisabledTime from '../../hooks/useRangeDisabledTime';
 
-import { IRangePanelProps, IDisabledTime, IShowTime } from '../../types';
+import {
+  IRangePanelProps,
+  IDisabledTime,
+  IShowTime,
+  StringArray,
+  DateNullArray,
+} from '../../types';
 
 const prefixCls = 'zent-datepicker-combined-panel';
 
 interface ICombinedDateRangePanelProps extends IRangePanelProps {
   disabledTime?: IDisabledTime;
-  showTime?: IShowTime<string[]>;
+  showTime?: IShowTime<StringArray>;
 }
 const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
   onSelected,
@@ -26,9 +32,7 @@ const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
   ...restProps
 }) => {
   const [start, end] = selected;
-  const [startShowTime, endShowTime] = useShowTimeRangeOption<string[]>(
-    showTime
-  );
+  const [startShowTime, endShowTime] = useShowTimeRangeOption(showTime);
   const {
     disabledStartTimes,
     disabledConfirm,
@@ -39,20 +43,22 @@ const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
   });
   const onChangeStartOrEnd = React.useCallback(
     (val: Date) => {
-      let selectedTemp;
+      let selectedTemp: DateNullArray;
       if (start && !end) {
-        const { defaultTime, format } = endShowTime || {};
         selectedTemp = [
           start,
-          !!showTime ? parse(defaultTime, format, val) : val,
+          endShowTime
+            ? parse(endShowTime.defaultTime, endShowTime.format, val)
+            : val,
         ];
         onSelected(selectedTemp, !showTime);
       }
       // 选中开始时间是清除上一次的结束时间
       else {
-        const { defaultTime, format } = startShowTime || {};
         selectedTemp = [
-          !!showTime ? parse(defaultTime, format, val) : val,
+          startShowTime
+            ? parse(startShowTime.defaultTime, startShowTime.format, val)
+            : val,
           null,
         ];
         onSelected(selectedTemp);
@@ -69,18 +75,19 @@ const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
   ]);
 
   const FooterNode = React.useMemo(
-    () => (
-      <div className={`${prefixCls}-footer`}>
-        <RangePickerFooter
-          format={startShowTime?.format}
-          selected={selected}
-          onSelected={onSelected}
-          disabledStartTimes={disabledFooterStartTimes}
-          disabledConfirm={disabledConfirm}
-          disabledEndTimes={disabledFooterEndTimes}
-        />
-      </div>
-    ),
+    () =>
+      startShowTime ? (
+        <div className={`${prefixCls}-footer`}>
+          <RangePickerFooter
+            format={startShowTime?.format}
+            selected={selected}
+            onSelected={onSelected}
+            disabledStartTimes={disabledFooterStartTimes}
+            disabledConfirm={disabledConfirm}
+            disabledEndTimes={disabledFooterEndTimes}
+          />
+        </div>
+      ) : null,
     [
       selected,
       disabledConfirm,
@@ -123,7 +130,7 @@ const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
           />
         </div>
       </div>
-      {!!showTime && FooterNode}
+      {FooterNode}
     </>
   );
 };

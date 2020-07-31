@@ -1,10 +1,11 @@
 import formatBase from '../../utils/date/formatDate';
 import parseBase from '../../utils/date/parseDate';
 
-import { RangeDate } from '../types';
+import { SingleDate, RangeDate, DateNullArray } from '../types';
 export * from './getValueInRangePicker';
 export * from './getValueInSinglePicker';
 export * from './dateUtils';
+export { parseBase, formatBase };
 /**
  *
  * parse date
@@ -12,30 +13,34 @@ export * from './dateUtils';
  * @param {string} format
  * @returns {Date}
  */
-export function parseDate(dateValue: string | number | Date, format: string) {
+export function parseDate(
+  format: string,
+  dateValue?: string | number | Date | null
+): Date | null {
   return dateValue ? parseBase(dateValue, format) : null;
 }
 
 /**
- *
- * @param {Date|number} date The date to format
+ * 空值处理
+ * @param {Date|number|string} date The date to format
  * @param {string} format
- * @returns {strning} format result
+ * @returns {string} format result
  */
-export function formatDate(date, format) {
-  return formatBase(date, format);
+export function formatDate(format: string, date?: SingleDate | null): string {
+  return date ? formatBase(date, format) : '';
 }
 
 /**
+ * 空值处理
  * format 日期范围数组
  * @param dates 日期数组
  * @param format
  */
-export function formatDateRange(dates: [Date, Date], format: string): string[] {
-  return [
-    dates[0] ? formatDate(dates[0], format) : '',
-    dates[1] ? formatDate(dates[1], format) : '',
-  ];
+export function formatDateRange(
+  dates: [SingleDate | null, SingleDate | null],
+  format: string
+): [string, string] {
+  return [formatDate(format, dates[0]), formatDate(format, dates[1])];
 }
 
 /**
@@ -43,6 +48,9 @@ export function formatDateRange(dates: [Date, Date], format: string): string[] {
  * @param dates 日期数组
  * @param format
  */
-export function parseDateRange(dates: RangeDate, format: string): [Date, Date] {
-  return [parseDate(dates[0], format), parseDate(dates[1], format)];
+export function parseDateRange(
+  dates: RangeDate,
+  format: string
+): DateNullArray {
+  return [parseDate(format, dates[0]), parseDate(format, dates[1])];
 }

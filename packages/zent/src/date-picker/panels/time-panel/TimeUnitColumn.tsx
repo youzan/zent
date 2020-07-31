@@ -37,13 +37,13 @@ const UNIT_MAP: Record<IUnitType, number> = {
 interface ITimeUnitColumnProps {
   type: IUnitType;
   selected: number;
-  step: number;
+  step?: number;
   setting: (val: number) => void;
   disabledUnits?: number[];
 }
 const TimeUnitColumn: React.FC<ITimeUnitColumnProps> = ({
   type,
-  step,
+  step = 1,
   selected,
   setting,
   disabledUnits = [],
@@ -55,10 +55,14 @@ const TimeUnitColumn: React.FC<ITimeUnitColumnProps> = ({
 
   React.useLayoutEffect(() => {
     // first scroll without duration
-    visibleChange && scroll(ulRef.current, 0, (selected * 32) / step, 1);
+    visibleChange &&
+      ulRef.current &&
+      scroll(ulRef.current, 0, (selected * 32) / step, 1);
+
     // scroll item when `selected` changed
     selected &&
       !visibleChange &&
+      ulRef.current &&
       scroll(ulRef.current, 0, (selected * 32) / step, 160);
   }, [selected, visibleChange, ulRef, step]);
 

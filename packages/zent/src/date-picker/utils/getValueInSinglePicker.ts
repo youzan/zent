@@ -5,6 +5,7 @@ import {
   IWeekOption,
   SingleDate,
   RangeDate,
+  DateNullArray,
 } from '../types';
 import { getRangeValuesWithValueType } from './getValueInRangePicker';
 
@@ -19,7 +20,7 @@ export function getSelectedValueWithDate(
   value: Date,
   dateConfig: IGenerateDateConfig,
   options: IWeekOption
-): Date {
+): Date | null {
   const onChangeValue = null;
   if (!value) return onChangeValue;
 
@@ -38,26 +39,19 @@ export function getCallbackValueWithDate(
   valueType: IValueType,
   format: string
 ): SingleDate {
-  let resultVal = null;
-  if (!value) return valueType === 'string' ? '' : resultVal;
-
   switch (valueType) {
     case 'string': {
-      resultVal = formatDate(value, format);
-      break;
+      return formatDate(format, value);
     }
     case 'number': {
-      resultVal = value.getTime();
-      break;
+      return value.getTime();
     }
     case 'date': {
-      resultVal = value;
-      break;
+      return value;
     }
     default:
+      return value;
   }
-
-  return resultVal;
 }
 
 /**
@@ -76,9 +70,7 @@ export function getCallbackValueRangeWithDate(
   dateConfig: IGenerateDateConfig,
   options?: IWeekOption
 ): RangeDate {
-  if (!value) return valueType === 'string' ? ['', ''] : [null, null];
-
-  let onChangeValue = null;
+  let onChangeValue: DateNullArray;
   const { startDate, endDate } = dateConfig;
   if (options) {
     onChangeValue = [startDate(value, options), endDate(value, options)];
@@ -86,5 +78,5 @@ export function getCallbackValueRangeWithDate(
     onChangeValue = [startDate(value), endDate(value)];
   }
 
-  return getRangeValuesWithValueType(onChangeValue, valueType, format);
+  return getRangeValuesWithValueType(valueType, format, onChangeValue);
 }

@@ -2,8 +2,12 @@ import * as React from 'react';
 import cx from 'classnames';
 import Icon from '../../icon';
 
-import { formatDateRange, formatDate } from '../utils';
-import { ISingleTriggerProps, IRangeTriggerProps } from '../types';
+import { formatDate, formatDateRange } from '../utils';
+import {
+  ISingleTriggerProps,
+  IRangeTriggerProps,
+  DateNullArray,
+} from '../types';
 
 const TriggerPrefixCls = 'zent-datepicker-trigger';
 
@@ -58,7 +62,7 @@ export const SingleInputTrigger: React.FC<ISingleTriggerProps> = ({
           type="hidden"
           name={name}
           readOnly
-          value={value ? formatDate(value, format) : ''}
+          value={formatDate(format, value)}
         />
       )}
       <span
@@ -91,7 +95,7 @@ export const SingleInputTrigger: React.FC<ISingleTriggerProps> = ({
 };
 
 interface ICombinedInputTriggerProps extends IRangeTriggerProps {
-  selected: [Date, Date];
+  selected: DateNullArray;
 }
 export const CombinedInputTrigger: React.FC<ICombinedInputTriggerProps> = ({
   format,
@@ -121,13 +125,13 @@ export const CombinedInputTrigger: React.FC<ICombinedInputTriggerProps> = ({
             type="hidden"
             name={name?.[0]}
             readOnly
-            value={value?.[0] ? formatDate(value[0], format) : ''}
+            value={formatDate(format, value?.[0])}
           />
           <input
             readOnly
             type="hidden"
             name={name?.[1]}
-            value={value?.[1] ? formatDate(value[1], format) : ''}
+            value={formatDate(format, value?.[1])}
           />
         </>
       )}

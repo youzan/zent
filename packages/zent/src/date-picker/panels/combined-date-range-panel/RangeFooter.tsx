@@ -33,13 +33,13 @@ export const CombinedDateRangeFooter: React.FC<ICombinedDateRangeFooterProps> = 
   const [start, end] = selected;
 
   const startTimeStatus = useConfirmStatus({
-    selected: formatDate(start, format),
-    disabledTimesOption: disabledEndTimes?.(start) || {},
+    selected: formatDate(format, start),
+    disabledTimesOption: (start && disabledEndTimes?.(start)) || {},
     format,
   });
   const endTimeStatus = useConfirmStatus({
-    selected: formatDate(end, format),
-    disabledTimesOption: disabledStartTimes?.(end) || {},
+    selected: formatDate(format, end),
+    disabledTimesOption: (end && disabledStartTimes?.(end)) || {},
     format,
   });
 
@@ -49,14 +49,14 @@ export const CombinedDateRangeFooter: React.FC<ICombinedDateRangeFooterProps> = 
   );
   const onStartTimeChange = React.useCallback(
     (val: string) => {
-      const timeVal = parse(val, format, selected[0]);
+      const timeVal = selected[0] && parse(val, format, selected[0]);
       onSelected([timeVal, selected[1]]);
     },
     [selected, format, onSelected]
   );
   const onEndTimeChange = React.useCallback(
     (val: string) => {
-      const timeVal = parse(val, format, selected[1]);
+      const timeVal = selected[1] && parse(val, format, selected[1]);
       onSelected([selected[0], timeVal]);
     },
     [selected, format, onSelected]
@@ -84,13 +84,13 @@ export const CombinedDateRangeFooter: React.FC<ICombinedDateRangeFooterProps> = 
       <div
         className={cx(`${prefixCls}-item`, { [`${prefixCls}-null`]: !start })}
       >
-        {start ? formatDate(start, DATE_FORMAT) : i18n.start}
+        {start ? formatDate(DATE_FORMAT, start) : i18n.start}
       </div>
       <TimePicker
         width={94}
         className={`${prefixCls}-item`}
         disabled={!start}
-        value={start ? formatDate(start, format) : ''}
+        value={formatDate(format, start)}
         hiddenIcon={true}
         format={format}
         onChange={onStartTimeChange}
@@ -99,13 +99,13 @@ export const CombinedDateRangeFooter: React.FC<ICombinedDateRangeFooterProps> = 
       />
       <div className={`${prefixCls}-seperator`}>{i18n.to}</div>
       <div className={cx(`${prefixCls}-item`, { [`${prefixCls}-null`]: !end })}>
-        {end ? formatDate(end, DATE_FORMAT) : i18n.end}
+        {end ? formatDate(DATE_FORMAT, end) : i18n.end}
       </div>
       <TimePicker
         width={94}
         disabled={!end}
         className={`${prefixCls}-item`}
-        value={end ? formatDate(end, format) : ''}
+        value={formatDate(format, end)}
         hiddenIcon={true}
         format={format}
         onChange={onEndTimeChange}
@@ -115,7 +115,9 @@ export const CombinedDateRangeFooter: React.FC<ICombinedDateRangeFooterProps> = 
       {disabledStatus ? (
         <Pop
           content={
-            isSameDay(start, end) ? i18n.timeErrorPop : i18n.dateErrorPop
+            start && end && isSameDay(start, end)
+              ? i18n.timeErrorPop
+              : i18n.dateErrorPop
           }
           trigger="hover"
         >

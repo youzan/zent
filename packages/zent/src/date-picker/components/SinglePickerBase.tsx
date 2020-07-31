@@ -13,13 +13,17 @@ import useSinglePopoverVisible from '../hooks/useSinglePopoverVisible';
 import { useEventCallbackRef } from '../../utils/hooks/useEventCallbackRef';
 import pick from '../../utils/pick';
 import { triggerCommonProps, INPUT_WIDTH } from '../constants';
-import { ISingleProps, ISingleTriggerProps, ISinglePanelProps } from '../types';
+import {
+  ISinglePropsWithDefault,
+  ISingleTriggerProps,
+  ISinglePanelProps,
+} from '../types';
 
 const PanelContextProvider = PanelContext.Provider;
 
 interface ISinglePickerProps
-  extends ISingleProps,
-    Pick<ISingleTriggerProps, 'placeholder' | 'name' | 'seperator'> {
+  extends ISinglePropsWithDefault,
+    Pick<ISingleTriggerProps, 'seperator'> {
   PanelComponent: React.ComponentType<ISinglePanelProps>;
 }
 
@@ -70,16 +74,16 @@ export function SinglePicker({
     panelVisible,
     setPanelVisible,
     onVisibleChange,
-  } = useSinglePopoverVisible<Date>(
-    openPanel,
-    disabled,
+  } = useSinglePopoverVisible<Date | null>(
     parseValue,
     setSelected,
     onOpen,
-    onClose
+    onClose,
+    disabled,
+    openPanel
   );
 
-  const disabledPanelDate = useNormalizeDisabledDate(disabledDate, format);
+  const disabledPanelDate = useNormalizeDisabledDate(format, disabledDate);
 
   // hover date
   const [hoverDate, setHoverDate] = React.useState<Date>();
@@ -91,11 +95,11 @@ export function SinglePicker({
    */
   const onSelected = React.useCallback(
     (val: Date, finish = true) => {
-      setSelected(getSelectedValue(val));
+      setSelected(getSelectedValue?.(val) || null);
 
       if (finish) {
         // 计算回调的返回值
-        onChangeRef.current?.(getCallbackValue(val));
+        onChangeRef.current?.(getCallbackValue?.(val) || null);
         // 关闭弹窗
         setPanelVisible(openPanel ?? false);
       }
@@ -114,13 +118,13 @@ export function SinglePicker({
   const onClearInput = React.useCallback(
     evt => {
       evt.stopPropagation();
-      onChangeRef.current?.(getCallbackValue(null));
+      onChangeRef.current?.(null);
     },
-    [onChangeRef, getCallbackValue]
+    [onChangeRef]
   );
 
   // trigger-input text
-  const text = React.useMemo(() => getInputText(selected), [
+  const text = React.useMemo(() => getInputText?.(selected), [
     selected,
     getInputText,
   ]);

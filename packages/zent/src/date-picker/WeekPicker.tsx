@@ -11,46 +11,47 @@ import {
 } from './utils/getValueInSinglePicker';
 import { dateConfig } from './utils/dateUtils';
 import { weekFormatText } from './utils/formatInputText';
-import { DATE_FORMAT } from './constants';
+import { DATE_FORMAT, defaultDatePickerCommonProps } from './constants';
 import {
-  ISingleProps,
   IGenerateDateConfig,
   WeekStartsOnMap,
   IWeekOption,
-  RangeDate,
+  ISingleSepcialProps,
 } from './types';
 
-const PickerContextProvider = PickerContext.Provider;
 const generateDate: IGenerateDateConfig = dateConfig.week;
+const PickerContextProvider = PickerContext.Provider;
 
-export interface IWeekPickerProps
-  extends IWeekOption,
-    Omit<ISingleProps, 'value' | 'defaultDate'> {
-  value?: RangeDate;
-  defaultDate?: RangeDate;
-}
 export { WeekStartsOnMap };
-const DefaultWeekPickerProps: Partial<IWeekPickerProps> = {
+export interface IWeekPickerProps extends IWeekOption, ISingleSepcialProps {}
+
+const DefaultWeekPickerProps = {
   format: DATE_FORMAT,
-  valueType: 'string',
   weekStartsOn: WeekStartsOnMap.Monday,
 };
 
 export const WeekPicker: React.FC<IWeekPickerProps> = props => {
   const disabledContext = React.useContext(DisabledContext);
+  const propsRequired = {
+    ...defaultDatePickerCommonProps,
+    ...DefaultWeekPickerProps,
+    ...props,
+  };
+
   const {
     value,
     defaultDate,
     disabled = disabledContext.value,
+    placeholder,
     ...restProps
-  } = props;
-  const { format, valueType, placeholder, weekStartsOn } = restProps;
+  } = propsRequired;
+  const { weekStartsOn, format, valueType } = restProps;
 
   // generate week-date method's option
   const options = React.useMemo(() => ({ weekStartsOn }), [weekStartsOn]);
 
   const getInputText = React.useCallback(
-    val => weekFormatText(val, format, options),
+    (val: Date | null) => weekFormatText(val, format, options),
     [format, options]
   );
 
@@ -99,5 +100,4 @@ export const WeekPicker: React.FC<IWeekPickerProps> = props => {
     </Receiver>
   );
 };
-WeekPicker.defaultProps = DefaultWeekPickerProps;
 export default WeekPicker;

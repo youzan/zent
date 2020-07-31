@@ -18,8 +18,8 @@ const MonthPickerBody: FC<IMonthPickerBodyProps> = ({
   onSelected,
   selected,
   disabledPanelDate,
-  row,
-  col,
+  row = ROW_COUNT,
+  col = COL_COUNT,
 }) => {
   const { i18n } = useContext(PickerContext);
   const { onHover } = useContext(PanelContext);
@@ -49,8 +49,5 @@ const MonthPickerBody: FC<IMonthPickerBodyProps> = ({
     </div>
   );
 };
-MonthPickerBody.defaultProps = {
-  row: ROW_COUNT,
-  col: COL_COUNT,
-};
+
 export default MonthPickerBody;

@@ -5,7 +5,10 @@ import TimeUnitColumn from './TimeUnitColumn';
 import { useTimePanelValue } from '../../hooks/useTimePanelValue';
 import { ITimePanelProps, ITimeUnitType } from '../../types';
 import { formatDate } from '../../utils/index';
-const setTimeMap = {
+const setTimeMap: Record<
+  ITimeUnitType,
+  (date: Date | number, minutes: number) => Date
+> = {
   hour: setHours,
   minute: setMinutes,
   second: setSeconds,
@@ -17,7 +20,7 @@ interface IUnitColumn {
   value: number;
   disabledUnits: number[];
   max: number;
-  step: number;
+  step?: number;
 }
 
 const TimePickerBody: React.FC<ITimePanelProps> = ({
@@ -83,10 +86,10 @@ const TimePickerBody: React.FC<ITimePanelProps> = ({
   ]);
 
   const setItemTime = React.useCallback(
-    (val: number, type: string) => {
+    (val: number, type: ITimeUnitType) => {
       const time = setTimeMap[type](panelTime, val);
       setPanelTime(time);
-      onSelected(formatDate(time, format));
+      onSelected(formatDate(format, time));
     },
     [panelTime, format, onSelected, setPanelTime]
   );

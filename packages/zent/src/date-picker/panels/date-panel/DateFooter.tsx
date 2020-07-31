@@ -9,12 +9,13 @@ import PanelFooter from '../../components/PanelFooter';
 import PickerContext from '../../context/PickerContext';
 import { formatDate } from '../../utils/index';
 import { IDatePickerPanelProps } from './index';
-import { IShowTimeOption } from '../../types';
+import { IShowTimeOptionWithDefault } from '../../types';
 import useConfirmStatus from '../../hooks/useConfirmStatus';
+
 const footerPrefixCls = 'zent-datepicker-panel-footer';
 interface IDatePickerFooterProps
   extends Omit<IDatePickerPanelProps, 'popText' | 'hideFooter'> {
-  showTimeOption?: IShowTimeOption<string>;
+  showTimeOption?: IShowTimeOptionWithDefault;
 }
 const today = new Date();
 const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
@@ -27,17 +28,17 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
   disabledPanelDate,
 }) => {
   const { i18n } = React.useContext(PickerContext);
-  const { format } = showTimeOption || {};
+  const { format = '' } = showTimeOption || {};
   const confirmStatus = useConfirmStatus({
-    selected: formatDate(selected, format),
-    disabledTimesOption: disabledTime?.(selected) || {},
+    selected: formatDate(format, selected),
+    disabledTimesOption: (selected && disabledTime?.(selected)) || {},
     format,
   });
   const isDisableConfirm = React.useMemo(
-    () => selected && disabledPanelDate?.(selected),
+    () => selected && disabledPanelDate(selected),
     [selected, disabledPanelDate]
   );
-  const isDisabledToday = React.useMemo(() => disabledPanelDate?.(today), [
+  const isDisabledToday = React.useMemo(() => disabledPanelDate(today), [
     disabledPanelDate,
   ]);
   const onClickCurrent = React.useCallback(() => {
@@ -46,7 +47,7 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
   }, [isDisabledToday, onSelected]);
 
   const confirmHandler = React.useCallback(() => {
-    onSelected(selected);
+    selected && onSelected(selected);
   }, [selected, onSelected]);
 
   const confirmBtn = React.useMemo(
@@ -113,7 +114,7 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
           {...showTimeOption}
           width={94}
           selectedDate={selected}
-          value={formatDate(selected, format)}
+          value={formatDate(format, selected)}
           hiddenIcon={true}
           onChange={onTimeChange}
           disabledTime={disabledTime}

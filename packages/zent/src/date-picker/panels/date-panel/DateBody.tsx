@@ -13,7 +13,11 @@ import PanelContext from '../../context/PanelContext';
 
 import getPanelCellsData from '../../utils/getPanelCellsData';
 import { dateConfig } from '../../utils/dateUtils';
-import { ISingleDateBodyProps, IShowTime, IShowTimeOption } from '../../types';
+import {
+  ISingleDateBodyProps,
+  IShowTime,
+  IShowTimeOptionWithDefault,
+} from '../../types';
 
 const COL_COUNT = 7;
 const ROW_COUNT = 6;
@@ -21,7 +25,7 @@ const ROW_COUNT = 6;
 interface IDatePickerBodyProps extends ISingleDateBodyProps {
   popText?: string;
   showTime?: IShowTime;
-  showTimeOption?: IShowTimeOption<string>;
+  showTimeOption?: IShowTimeOptionWithDefault;
 }
 const DatePickerBody: FC<IDatePickerBodyProps> = props => {
   const { onHover } = useContext(PanelContext);
@@ -31,9 +35,8 @@ const DatePickerBody: FC<IDatePickerBodyProps> = props => {
     defaultPanelDate,
     rangeDate,
     hoverRangeDate,
-    row,
-    col,
-    showTime,
+    row = ROW_COUNT,
+    col = COL_COUNT,
     showTimeOption,
     onSelected,
     disabledPanelDate,
@@ -70,10 +73,12 @@ const DatePickerBody: FC<IDatePickerBodyProps> = props => {
 
   const setSelectedDate = React.useCallback(
     (val: Date) => {
-      const defaultTime = showTimeOption?.defaultTime;
-      const format = showTimeOption?.format;
       if (!selected) {
-        return onSelected(!!showTime ? parse(defaultTime, format, val) : val);
+        return onSelected(
+          showTimeOption
+            ? parse(showTimeOption.defaultTime, showTimeOption.format, val)
+            : val
+        );
       }
       let selectedDate = selected;
       selectedDate = setYear(selectedDate, val.getFullYear());
@@ -82,7 +87,7 @@ const DatePickerBody: FC<IDatePickerBodyProps> = props => {
 
       onSelected(selectedDate);
     },
-    [selected, showTimeOption, showTime, onSelected]
+    [selected, showTimeOption, onSelected]
   );
 
   return (
@@ -95,8 +100,5 @@ const DatePickerBody: FC<IDatePickerBodyProps> = props => {
     />
   );
 };
-DatePickerBody.defaultProps = {
-  row: ROW_COUNT,
-  col: COL_COUNT,
-};
+
 export default DatePickerBody;

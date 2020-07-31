@@ -3,11 +3,11 @@ import { IDisabledDate } from '../types';
 import unifiedDisabledDateFromProps from '../utils/unifiedDisabledDateFromProps';
 
 export default function useNormalizeDisabledDate(
-  disabledDate: IDisabledDate,
-  format: string
+  format: string,
+  disabledDate: IDisabledDate
 ) {
   const normalizedDisabledDate = React.useCallback(
-    unifiedDisabledDateFromProps(disabledDate, format),
+    unifiedDisabledDateFromProps(format, disabledDate),
     [disabledDate, format]
   );
   return normalizedDisabledDate;

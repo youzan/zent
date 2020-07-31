@@ -1,16 +1,18 @@
 import * as React from 'react';
 import { I18nReceiver as Receiver, II18nLocaleTimePicker } from '../i18n';
-import TimePickerBase from './components/TimePickerBase';
-import TimePickerPanel from './panels/time-panel';
+
+import TimeRangePickerBase from './components/TimeRangePickerBase';
 import { DisabledContext } from '../disabled';
 import PickerContext from './context/PickerContext';
-import { ISingleTimePickerProps } from './types';
-import { INPUT_WIDTH, defaultTimePickerProps } from './constants';
+
+import { ITimeRangePickerProps } from './types';
+import { SINGLE_INPUT_WIDTH, defaultTimePickerProps } from './constants';
+import TimePicker from './TimePicker';
 
 const PickerContextProvider = PickerContext.Provider;
 
-export interface ITimePickerProps extends ISingleTimePickerProps {}
-export const TimePicker: React.FC<ITimePickerProps> = props => {
+export { ITimeRangePickerProps };
+export const TimeRangePicker: React.FC<ITimeRangePickerProps> = props => {
   const disabledContext = React.useContext(DisabledContext);
   const propsRequired = { ...defaultTimePickerProps, ...props };
 
@@ -29,17 +31,18 @@ export const TimePicker: React.FC<ITimePickerProps> = props => {
             i18n,
           }}
         >
-          <TimePickerBase
+          <TimeRangePickerBase
             {...propsRequired}
             format={format}
-            placeholder={placeholder || i18n.time}
+            placeholder={placeholder || [i18n.startTime, i18n.endTime]}
             disabled={disabled}
-            width={width ?? INPUT_WIDTH}
-            ContentComponent={TimePickerPanel}
+            seperator={i18n.to}
+            width={width ?? SINGLE_INPUT_WIDTH}
+            PickerComponent={TimePicker}
           />
         </PickerContextProvider>
       )}
     </Receiver>
   );
 };
-export default TimePicker;
+export default TimeRangePicker;

@@ -9,34 +9,41 @@ import { getCallbackValueWithDate } from './utils/getValueInSinglePicker';
 import { dateConfig } from './utils/dateUtils';
 import { formatText } from './utils/formatInputText';
 import { ISingleProps, IGenerateDateConfig } from './types';
-import { MONTH_FORMAT } from './constants';
+import { MONTH_FORMAT, defaultDatePickerCommonProps } from './constants';
 
 const generateDate: IGenerateDateConfig = dateConfig.month;
 const PickerContextProvider = PickerContext.Provider;
 
 export interface IMonthPickerProps extends ISingleProps {}
 
-const DefaultMonthPickerProps: Partial<IMonthPickerProps> = {
+const DefaultMonthPickerProps = {
   format: MONTH_FORMAT,
-  valueType: 'string',
 };
+
 export const MonthPicker: React.FC<IMonthPickerProps> = props => {
   const disabledContext = React.useContext(DisabledContext);
+  const propsRequired = {
+    ...defaultDatePickerCommonProps,
+    ...DefaultMonthPickerProps,
+    ...props,
+  };
+
   const {
     format,
-    placeholder,
     valueType,
+    placeholder,
     disabled = disabledContext.value,
-  } = props;
+  } = propsRequired;
 
-  const getInputText = React.useCallback(val => formatText(val, format), [
-    format,
-  ]);
+  const getInputText = React.useCallback(
+    (val: Date | null) => formatText(val, format),
+    [format]
+  );
 
-  const getSelectedValue = React.useCallback(val => val, []);
+  const getSelectedValue = React.useCallback((val: Date) => val, []);
 
   const getCallbackValue = React.useCallback(
-    val => getCallbackValueWithDate(val, valueType, format),
+    (val: Date) => getCallbackValueWithDate(val, valueType, format),
     [valueType, format]
   );
 
@@ -53,7 +60,7 @@ export const MonthPicker: React.FC<IMonthPickerProps> = props => {
           }}
         >
           <SinglePicker
-            {...props}
+            {...propsRequired}
             disabled={disabled}
             placeholder={placeholder || i18n.month}
             PanelComponent={MonthPanel}
@@ -63,5 +70,4 @@ export const MonthPicker: React.FC<IMonthPickerProps> = props => {
     </Receiver>
   );
 };
-MonthPicker.defaultProps = DefaultMonthPickerProps;
 export default MonthPicker;

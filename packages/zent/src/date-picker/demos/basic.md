@@ -17,6 +17,7 @@ import {
 	CombinedTimeRangePicker,
 	CombinedDateRangePicker,
 	QuarterPicker,
+	TimeRangePicker,
 } from 'zent';
 
 class DatePickerBasic extends Component {
@@ -77,12 +78,19 @@ class DatePickerBasic extends Component {
 			combinedTimeValue: val,
 		});
 	};
+	onChangeTimeRange = val => {
+		console.log('demo onChangeTimeRange', val);
+		this.setState({
+			timeRangeValue: val,
+		});
+	};
 	render() {
 		const {
 			dateValue,
 			rangeValue,
 			timeValue,
 			combinedTimeValue,
+			timeRangeValue,
 			combinedDateValue,
 			weekValue,
 			monthValue,
@@ -133,6 +141,12 @@ class DatePickerBasic extends Component {
 					value={combinedTimeValue}
 					secondStep={15}
 					onChange={this.onChangeCombinedTime}
+				/>
+				<br />
+				<TimeRangePicker
+					className="zent-datepicker-demo"
+					value={timeRangeValue}
+					onChange={this.onChangeTimeRange}
 				/>
 				<br />
 				<DateRangePicker

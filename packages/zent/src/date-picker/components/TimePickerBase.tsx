@@ -13,12 +13,16 @@ import {
   timePanelProps,
   defaultTimePickerProps,
 } from '../constants';
-import { ISingleTimePickerProps, ITimePanelProps, SingleTime } from '../types';
+import {
+  ISingleTimePickerPropsWithDefault,
+  ITimePanelProps,
+  SingleTime,
+} from '../types';
 import useSinglePopoverVisible from '../hooks/useSinglePopoverVisible';
 
 const emptyTime: SingleTime = '';
 const PanelContextProvider = PanelContext.Provider;
-interface ITimePickerBaseProps extends ISingleTimePickerProps {
+interface ITimePickerBaseProps extends ISingleTimePickerPropsWithDefault {
   ContentComponent: React.ComponentType<ITimePanelProps>;
   seperator?: string;
 }
@@ -33,6 +37,7 @@ const TimePickerBase: React.FC<ITimePickerBaseProps> = ({
   ContentComponent,
   defaultTime,
   selectedDate,
+  autoComplete,
   ...restProps
 }) => {
   const restPropsRef = React.useRef(restProps);
@@ -41,19 +46,19 @@ const TimePickerBase: React.FC<ITimePickerBaseProps> = ({
   const onChangeRef = useEventCallbackRef(onChange);
 
   const [visibleChange, setVisibleChange] = React.useState<boolean>(true);
-  const { selected, setSelected } = useTimeValue(value, emptyTime);
+  const { selected, setSelected } = useTimeValue(emptyTime, value);
 
   const {
     panelVisible,
     setPanelVisible,
     onVisibleChange,
   } = useSinglePopoverVisible<string>(
-    openPanel,
-    disabled,
     value ?? emptyTime,
     setSelected,
     onOpen,
-    onClose
+    onClose,
+    disabled,
+    openPanel
   );
 
   const disabledTimesOption = React.useMemo(
@@ -71,13 +76,13 @@ const TimePickerBase: React.FC<ITimePickerBaseProps> = ({
       setVisibleChange(false);
       setSelected(val);
 
-      if (finished) {
-        setVisibleChange(true);
+      if (finished || autoComplete) {
         onChangeRef.current?.(val);
-        setPanelVisible(openPanel ?? false);
+        finished && setVisibleChange(true);
+        finished && setPanelVisible(openPanel ?? false);
       }
     },
-    [openPanel, onChangeRef, setSelected, setPanelVisible]
+    [openPanel, onChangeRef, setSelected, setPanelVisible, autoComplete]
   );
 
   const onClearInput = React.useCallback(

@@ -16,7 +16,7 @@ const TimePickerFooter: React.FC<ITimePanelProps> = ({
   const { confirmStatus } = React.useContext(PanelContext);
 
   const onClickCurrent = React.useCallback(() => {
-    onSelected(formatDate(new Date(), format), true);
+    onSelected(formatDate(format, new Date()), true);
   }, [format, onSelected]);
 
   const renderToday = React.useMemo(() => {

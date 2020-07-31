@@ -17,8 +17,8 @@ const QuarterPickerBody: React.FC<IQuarterPickerBodyProps> = ({
   onSelected,
   selected,
   disabledPanelDate,
-  row,
-  col,
+  row = ROW_COUNT,
+  col = COL_COUNT,
 }) => {
   const { i18n } = React.useContext(PickerContext);
   const { onHover } = React.useContext(PanelContext);
@@ -48,8 +48,5 @@ const QuarterPickerBody: React.FC<IQuarterPickerBodyProps> = ({
     </div>
   );
 };
-QuarterPickerBody.defaultProps = {
-  row: ROW_COUNT,
-  col: COL_COUNT,
-};
+
 export default QuarterPickerBody;

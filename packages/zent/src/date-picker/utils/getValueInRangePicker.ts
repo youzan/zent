@@ -1,38 +1,29 @@
 import { formatDateRange } from './index';
-import { IValueType, RangeDate } from '../types';
+import { IValueType, DateNullArray, RangeDate } from '../types';
 
 /**
  * 用于range、combined组件
- * @param val
+ * @param value
  * @param valueType
  * @param format
  */
 export function getRangeValuesWithValueType(
-  val: [Date, Date],
   valueType: IValueType,
-  format: string
+  format: string,
+  value: DateNullArray
 ): RangeDate {
-  if (!val || (!val[0] && !val[1])) {
-    const emptyRes = valueType === 'string' ? '' : null;
-    return [emptyRes, emptyRes];
-  }
-
-  let resultVal = null;
-
   switch (valueType) {
     case 'string': {
-      resultVal = formatDateRange(val, format);
-      break;
+      return formatDateRange(value, format);
     }
     case 'number': {
-      resultVal = [val[0]?.getTime(), val[1]?.getTime()];
-      break;
+      return [value[0]?.getTime() || 0, value[1]?.getTime() || 0];
     }
     case 'date': {
-      resultVal = val;
-      break;
+      return value;
     }
-    default:
+    default: {
+      return value;
+    }
   }
-  return resultVal;
 }

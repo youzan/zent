@@ -12,4 +12,4 @@ export interface IPanelContext {
   disabledTime?: IDisabledTime;
 }
 
-export default createContext<IPanelContext>(null);
+export default createContext<IPanelContext>({});

@@ -1,12 +1,12 @@
 import { getYear, getQuarter, startOfWeek, endOfWeek } from 'date-fns';
 import { formatDate, formatDateRange } from './index';
 import { II18nLocaleTimePicker } from '../../i18n';
-import { IWeekOption } from '../types';
+import { IWeekOption, DateNullArray, StringArray } from '../types';
 /**
  * 根据format可直接转化为text
  */
-export function formatText(selected: Date, format: string): string {
-  return selected ? formatDate(selected, format) : '';
+export function formatText(selected: Date | null, format: string): string {
+  return selected ? formatDate(format, selected) : '';
 }
 /**
  * 自定义季度text
@@ -14,7 +14,7 @@ export function formatText(selected: Date, format: string): string {
  * @param i18n
  */
 export function quarterFormatText(
-  selected: Date,
+  selected: Date | null,
   i18n: II18nLocaleTimePicker
 ): string {
   return selected
@@ -32,22 +32,22 @@ export function quarterFormatText(
  * @param options
  */
 export function weekFormatText(
-  selected: Date,
+  selected: Date | null,
   format: string,
   options: IWeekOption
-): string[] {
+): StringArray {
   const dates =
     selected &&
     ([startOfWeek(selected, options), endOfWeek(selected, options)] as [
       Date,
       Date
     ]);
-  return selected ? formatDateRange(dates, format) : null;
+  return dates ? formatDateRange(dates, format) : ['', ''];
 }
 
 export function formatTextRange(
-  selected: [Date, Date],
+  selected: DateNullArray,
   format: string
-): string[] {
+): StringArray {
   return formatDateRange(selected, format);
 }

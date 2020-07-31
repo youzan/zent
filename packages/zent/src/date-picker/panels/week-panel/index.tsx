@@ -16,8 +16,8 @@ const WeekPickerPanel: React.FC<ISinglePanelProps &
   const { generateDate, i18n } = React.useContext(PickerContext);
   const options = React.useMemo(() => ({ weekStartsOn }), [weekStartsOn]);
   // special handler on week-picker
-  const hoverRangeDate = useWeekRange(hoverDate, generateDate, options);
-  const rangeDate = useWeekRange(selected, generateDate, options);
+  const hoverRangeDate = useWeekRange(generateDate, hoverDate, options);
+  const rangeDate = useWeekRange(generateDate, selected, options);
 
   return (
     <DatePickerPanel

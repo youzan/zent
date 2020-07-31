@@ -8,43 +8,48 @@ import { DisabledContext } from '../disabled';
 import { getCallbackValueRangeWithDate } from './utils/getValueInSinglePicker';
 import { dateConfig } from './utils/dateUtils';
 import { quarterFormatText } from './utils/formatInputText';
-import { ISingleProps, IGenerateDateConfig, RangeDate } from './types';
-import { MONTH_FORMAT } from './constants';
+import { ISingleSepcialProps, IGenerateDateConfig } from './types';
+import { MONTH_FORMAT, defaultDatePickerCommonProps } from './constants';
 
 const generateDate: IGenerateDateConfig = dateConfig.quarter;
 const PickerContextProvider = PickerContext.Provider;
 
-export interface IQuarterPickerProps
-  extends Omit<ISingleProps, 'value' | 'defaultDate'> {
-  value?: RangeDate;
-  defaultDate?: RangeDate;
-}
+export interface IQuarterPickerProps extends ISingleSepcialProps {}
 
-const DefaultQuarterPickerProps: Partial<IQuarterPickerProps> = {
+const DefaultQuarterPickerProps = {
   format: MONTH_FORMAT,
-  valueType: 'string',
 };
+
 export const QuarterPicker: React.FC<IQuarterPickerProps> = props => {
   const disabledContext = React.useContext(DisabledContext);
+  const propsRequired = {
+    ...defaultDatePickerCommonProps,
+    ...DefaultQuarterPickerProps,
+    ...props,
+  };
+
   const {
     value,
     defaultDate,
     disabled = disabledContext.value,
+    placeholder,
     ...restProps
-  } = props;
-  const { format, placeholder, valueType } = restProps;
+  } = propsRequired;
+  const { format, valueType } = restProps;
 
   const getInputText = React.useCallback(
-    i18n => val => quarterFormatText(val, i18n),
+    i18n => (val: Date | null) => quarterFormatText(val, i18n),
     []
   );
 
   const getSelectedValue = React.useCallback(val => val, []);
 
   const getCallbackValue = React.useCallback(
-    val => getCallbackValueRangeWithDate(val, valueType, format, generateDate),
+    (val: Date) =>
+      getCallbackValueRangeWithDate(val, valueType, format, generateDate),
     [valueType, format]
   );
+
   return (
     <Receiver componentName="TimePicker">
       {(i18n: II18nLocaleTimePicker) => (
@@ -72,5 +77,4 @@ export const QuarterPicker: React.FC<IQuarterPickerProps> = props => {
     </Receiver>
   );
 };
-QuarterPicker.defaultProps = DefaultQuarterPickerProps;
 export default QuarterPicker;

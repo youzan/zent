@@ -1,20 +1,20 @@
 import * as React from 'react';
 import { startOfToday, endOfToday } from 'date-fns';
-import { formatDate } from '../utils/index';
-import { IShowTime, IShowTimeOption } from '../types';
+import { formatBase } from '../utils/index';
+import { IShowTime, StringArray, IShowTimeOptionWithDefault } from '../types';
 import { TIME_FORMAT } from '../constants';
 
-const formatStartDate = (format: string) => formatDate(startOfToday(), format);
-const formatEndDate = (format: string) => formatDate(endOfToday(), format);
+const formatStartDate = (format: string) => formatBase(startOfToday(), format);
+const formatEndDate = (format: string) => formatBase(endOfToday(), format);
 const DefaultStartTime = formatStartDate(TIME_FORMAT);
 const DefaultEndTime = formatEndDate(TIME_FORMAT);
 /**
  * 获取showTime范围
  * @param showTime
  */
-export function useShowTimeRangeOption<T>(
-  showTime: IShowTime<T>
-): IShowTimeOption<string>[] {
+export function useShowTimeRangeOption(
+  showTime?: IShowTime<StringArray>
+): Array<IShowTimeOptionWithDefault | undefined> {
   const showTimeRef = React.useRef(showTime);
   showTimeRef.current = showTime;
 
@@ -57,8 +57,8 @@ export function useShowTimeRangeOption<T>(
  * @param showTime
  */
 export function useShowTimeOption(
-  showTime: IShowTime<string>
-): IShowTimeOption<string> {
+  showTime?: IShowTime<string>
+): IShowTimeOptionWithDefault | undefined {
   const showTimeRef = React.useRef(showTime);
   showTimeRef.current = showTime;
 

@@ -21,18 +21,16 @@ const YearPickerBody: React.FC<IYearPickerBodyProps> = ({
   selected,
   defaultPanelDate,
   disabledPanelDate,
-  row,
-  col,
+  row = ROW_COUNT,
+  col = COL_COUNT,
 }) => {
   const { i18n } = React.useContext(PickerContext);
   const { onHover } = React.useContext(PanelContext);
 
   const YearTexts = React.useMemo(
     () =>
-      Array.from(
-        { length: 12 },
-        (_, i) =>
-          firstYear + i <= MAX_YEAR && `${firstYear + i}${i18n.panel.year}`
+      Array.from({ length: 12 }, (_, i) =>
+        firstYear + i <= MAX_YEAR ? `${firstYear + i}${i18n.panel.year}` : ''
       ),
     [firstYear, i18n]
   );
@@ -69,8 +67,5 @@ const YearPickerBody: React.FC<IYearPickerBodyProps> = ({
     </div>
   );
 };
-YearPickerBody.defaultProps = {
-  row: ROW_COUNT,
-  col: COL_COUNT,
-};
+
 export default YearPickerBody;
