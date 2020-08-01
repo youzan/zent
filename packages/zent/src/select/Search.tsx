@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { forwardRef } from 'react';
+import cx from 'classnames';
 
 export interface ISelectSearchProps {
   placeholder?: string;
@@ -14,11 +15,6 @@ interface ISelectImperativeHandlers {
   focus: () => void;
 }
 
-/**
- * 多选时的最小搜索输入框宽度
- */
-const MIN_SEARCH_INPUT_WIDTH = 10;
-
 function SelectSearch(
   {
     placeholder,
@@ -31,8 +27,6 @@ function SelectSearch(
   cmdRef: React.RefObject<ISelectImperativeHandlers>
 ) {
   const ref = React.useRef<HTMLInputElement>(null);
-  const measureRef = React.useRef<HTMLSpanElement>(null);
-  const [inputWidth, setInputWidth] = React.useState(0);
   const focusSearchInput = React.useCallback(() => {
     ref.current!.focus({
       preventScroll: true,
@@ -51,19 +45,12 @@ function SelectSearch(
 
   // We measure width and set to the input immediately
   const mirrorValue = value || placeholder;
-  React.useLayoutEffect(() => {
-    setInputWidth(measureRef.current.scrollWidth);
-  }, [mirrorValue]);
+  const searchClass = cx('zent-select-search-wrap', {
+    'zent-select-search-wrap-auto-width': autoWidth,
+  });
 
   return (
-    <span
-      className="zent-select-search-wrap"
-      style={
-        autoWidth
-          ? { width: Math.max(inputWidth, MIN_SEARCH_INPUT_WIDTH) }
-          : null
-      }
-    >
+    <span className={searchClass}>
       <input
         ref={ref}
         placeholder={placeholder}
@@ -87,9 +74,11 @@ function SelectSearch(
         }}
       />
       {/* Measure Node */}
-      <span ref={measureRef} className="zent-select-search-mirror" aria-hidden>
-        {mirrorValue}
-      </span>
+      {autoWidth && (
+        <p className="zent-select-search-mirror" aria-hidden>
+          {mirrorValue}
+        </p>
+      )}
     </span>
   );
 }

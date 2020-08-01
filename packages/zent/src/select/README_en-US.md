@@ -29,7 +29,7 @@ Select is a drop-down selection component with variety functions.
 | clearable         | Is the select value clearable                                | bool             | `false`             | no       |
 | loading           | Is the select in a state of loading                          | bool             | `false`             | no       |
 | creatable         | Allow options to be created                                  | bool             | `false`             | no       |
-| onCreate          | Select create callback                                       | function         | `noop`             | no       |
+| onCreate          | Select create callback                                       | function         | `(keyword) => Promise<void>`             | no       |
 | isValidNewOption  | Determines whether the "+Click add" option should be displayed based on the current input value         | function         | `(keyword, options) => boolean`             | no       |
 | keyword           | Search's keyword                                             | string           | `''`              | no       |
 | onKeywordChange   | Keyword changed callback                                     | function         | `noop`             | no       |

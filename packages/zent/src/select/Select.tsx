@@ -49,7 +49,7 @@ export interface ISelectCommonProps<Item extends ISelectItem> {
   clearable?: boolean;
   loading?: boolean;
   creatable?: boolean;
-  onCreate?: (text: string) => void;
+  onCreate?: (text: string) => Promise<void>;
   isValidNewOption?: (keyword: string, options: Item[]) => boolean;
   collapsable?: false;
   collapseAt?: number;
@@ -617,11 +617,17 @@ export class Select<
   onCreateClick = () => {
     const { onCreate, multiple } = this.props;
     const { keyword } = this.state;
-    if (onCreate) {
-      onCreate(keyword.trim());
-      this.resetKeyword();
-      !multiple && this.onVisibleChange(false);
-    }
+
+    onCreate &&
+      onCreate(keyword.trim()).then(() => {
+        this.resetKeyword();
+
+        if (multiple) {
+          this.focusSearchInput();
+        } else {
+          this.onVisibleChange(false);
+        }
+      });
   };
 
   filterOptions = memoize(

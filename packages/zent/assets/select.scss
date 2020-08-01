@@ -99,7 +99,10 @@ $option-height: 32px;
   &-multiple {
     padding-top: 2px;
     padding-bottom: 2px;
-    line-height: 26px;
+
+    .zent-select-placeholder {
+      margin: 3px 0;
+    }
   }
 
   &-placeholder {
@@ -172,13 +175,22 @@ $option-height: 32px;
     &-wrap {
       width: 100%;
       position: relative;
+
+      &-auto-width {
+        width: auto;
+        min-width: 10px;
+        margin: 3px 0;
+      }
+
+      .zent-select-search {
+        min-width: 10px;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
     }
 
     &-mirror {
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 1;
       white-space: nowrap;
       visibility: hidden;
     }
@@ -260,7 +272,7 @@ $option-height: 32px;
       font-weight: $font-weight-medium;
 
       &-multiple {
-        font-size: 12px;
+        font-size: $font-size-small;
         display: block;
         margin-left: auto;
         padding-left: 8px;
@@ -279,10 +291,6 @@ $option-height: 32px;
       @include theme-color(color, stroke, 3);
       cursor: pointer;
       margin-left: 5px;
-
-      &::before {
-        font-size: 8px;
-      }
     }
   }
 
