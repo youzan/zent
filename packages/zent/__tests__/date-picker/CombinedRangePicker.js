@@ -47,8 +47,7 @@ describe('CombinedRangePicker', () => {
     );
     wrapper.find('.zent-datepicker-can-clear').simulate('mouseenter');
     wrapper.find('.zenticon-close-circle').simulate('click');
-    expect(wrapper.prop('value')[0]).toBe('');
-    expect(wrapper.prop('value')[1]).toBe('');
+    expect(wrapper.prop('value')[0]).toBe(null);
 
     wrapper.setProps({
       value: ['2020-05-11', '2020-05-20'],
@@ -58,7 +57,6 @@ describe('CombinedRangePicker', () => {
     wrapper.find('.zent-datepicker-can-clear').simulate('mouseenter');
     wrapper.find('.zenticon-close-circle').simulate('click');
     expect(wrapper.prop('value')[0]).toBe(null);
-    expect(wrapper.prop('value')[1]).toBe(null);
   });
 
   it('CombinedDateRangePicker hoverRange', () => {

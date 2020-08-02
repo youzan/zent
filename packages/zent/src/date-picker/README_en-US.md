@@ -10,7 +10,7 @@ DateTime pickers, provides basic time choosing functionality.
 
 ## Guides
 
-- Included pickers：`DatePicker`、`WeekPicker`、`MonthPicker`、`QuarterPicker`、`YearPicker`、`DateRangePicker`、`CombinedDateRangePicker`、`TimePicker` and `CombinedTimeRangePicker`.
+- Included pickers：`DatePicker`、`WeekPicker`、`MonthPicker`、`QuarterPicker`、`YearPicker`、`DateRangePicker`、`CombinedDateRangePicker`、`TimePicker`、`TimeRangePicker` and `CombinedTimeRangePicker`.
 - `DatePicker` 、`CombinedDateRangePicker` and `DateRangePicker` can use `showTime` to allow time selection.
 
 ### Common API
@@ -79,7 +79,7 @@ interface IDisableDateMap {
 | value       | Selected date                               | `string` \| `Date` \| `number`           | -                                                     | Yes      |
 | onChange    | Callback when the selected date is changing | `(date: string \| Date \| number) => {}` | -                                                     | Yes      |
 | placeholder | The placeholder of date input               | string                                   | `'Please select a year'` \| `'Please select a month'` | No       |
-| format      | To set the date format                      | string                                   | `'YYYY'` \| `'YYYY-MM'`                                | No       |
+| format      | To set the date format                      | string                                   | `'YYYY'` \| `'YYYY-MM'`                               | No       |
 
 **Additional**
 
@@ -120,7 +120,7 @@ interface IDisabledTimeOption {
 }
 ```
 
-### DateRangePicker/CombinedDateRangePicker （Base on DatePicker）
+### DateRangePicker / CombinedDateRangePicker （Base on DatePicker）
 
 | Property    | Description                                       | Type                                            | Default                     | Required |
 | ----------- | ------------------------------------------------- | ----------------------------------------------- | --------------------------- | -------- |
@@ -134,7 +134,7 @@ interface IDisabledTimeOption {
 - When return value of `showTime` is an object, `defaultTime` should be a range of datetimes. (default: ['00:00:00','23:59:59'])
 - `disabledDate(val, type)` or `disabledTime(val, type)`, the `type` is `'start' | 'end'`
 
-### CombinedTimeRangePicker API （Base on TimePicker）
+### TimeRangePicker / CombinedTimeRangePicker API （Base on TimePicker）
 
 | Property    | Description                                 | Type                              | Default                     | Required |
 | ----------- | ------------------------------------------- | --------------------------------- | --------------------------- | -------- |

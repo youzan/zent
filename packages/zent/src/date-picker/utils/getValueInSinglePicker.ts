@@ -46,9 +46,6 @@ export function getCallbackValueWithDate(
     case 'number': {
       return value.getTime();
     }
-    case 'date': {
-      return value;
-    }
     default:
       return value;
   }

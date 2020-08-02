@@ -13,11 +13,11 @@ const format = 'YYYY-MM-DD';
 
 describe('Utils', () => {
   it('getRangeValuesWithValueType', () => {
-    getRangeValuesWithValueType([today, tomorrow], 'number', format);
-    getRangeValuesWithValueType([today, tomorrow], 'string', format);
-    getRangeValuesWithValueType([today, tomorrow], 'date', format);
-    getRangeValuesWithValueType([today], 'number', format);
-    getRangeValuesWithValueType([null, today], 'number', format);
+    getRangeValuesWithValueType('number', format, [today, tomorrow]);
+    getRangeValuesWithValueType('string', format, [today, tomorrow]);
+    getRangeValuesWithValueType('date', format, [today, tomorrow]);
+    getRangeValuesWithValueType('number', format, [today]);
+    getRangeValuesWithValueType('number', format, [null, today]);
   });
 
   it('getValueInSinglePicker', () => {
@@ -26,6 +26,11 @@ describe('Utils', () => {
     });
     getCallbackValueWithDate(null, 'string', format);
     getCallbackValueWithDate(null, 'date', format);
-    getCallbackValueRangeWithDate(null, 'string', format, dateConfig.day);
+    getCallbackValueRangeWithDate(
+      new Date(),
+      'string',
+      format,
+      dateConfig.date
+    );
   });
 });

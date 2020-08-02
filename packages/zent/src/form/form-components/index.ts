@@ -14,5 +14,6 @@ export * from './RadioGroupField';
 export * from './SelectField';
 export * from './SwitchField';
 export * from './TimePickerField';
+export * from './TimeRangePickerField';
 export * from './WeekPickerField';
 export * from './YearPickerField';

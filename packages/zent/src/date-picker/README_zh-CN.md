@@ -11,7 +11,7 @@ group: 数据
 
 ### 使用指南
 
-- 包含以下组件：`DatePicker`、`WeekPicker`、`MonthPicker`、`QuarterPicker`、`YearPicker`、`DateRangePicker`、`CombinedDateRangePicker`、`TimePicker` 和 `CombinedTimeRangePicker`。
+- 包含以下组件：`DatePicker`、`WeekPicker`、`MonthPicker`、`QuarterPicker`、`YearPicker`、`DateRangePicker`、`CombinedDateRangePicker`、`TimePicker`、`TimeRangePicker` 和 `CombinedTimeRangePicker`。
 - `DatePicker` 、`CombinedDateRangePicker` 和 `DateRangePicker` 可以通过 `showTime` 属性来支持时间的选择。
 
 ### API
@@ -127,7 +127,7 @@ interface IDisabledTimeOption {
 }
 ```
 
-### DateRangePicker/CombinedDateRangePicker API （基于 DatePicker）
+### DateRangePicker / CombinedDateRangePicker API （基于 DatePicker）
 
 | 参数        | 说明             | 类型                                            | 默认值                    | 是否必须 |
 | ----------- | ---------------- | ----------------------------------------------- | ------------------------- | -------- |
@@ -141,7 +141,7 @@ interface IDisabledTimeOption {
 - `showTime` 为对象时，`defaultTime` 为数组，表示默认开始时间和默认结束时间（不填为['00:00:00','23:59:59']）
 - `disabledDate`、`disabledTime` 回调方法的第二个参数均为`type?: 'start' | 'end'`
 
-### CombinedTimeRangePicker API （基于 TimePicker）
+### TimeRangePicker / CombinedTimeRangePicker API （基于 TimePicker）
 
 | 参数        | 说明             | 类型                              | 默认值                     | 是否必须 |
 | ----------- | ---------------- | --------------------------------- | -------------------------- | -------- |

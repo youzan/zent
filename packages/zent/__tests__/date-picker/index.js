@@ -11,6 +11,7 @@ import {
   YearPicker,
   TimePicker,
   CombinedTimeRangePicker,
+  TimeRangePicker,
 } from 'date-picker';
 import { Disabled } from 'disabled';
 import { formatDate } from 'date-picker/utils/index';
@@ -73,7 +74,12 @@ describe('All of the Picker', () => {
       wrapper.setProps({ value });
     });
 
-    wrapper = mount(<MonthPicker onChange={onChangeMock} />);
+    wrapper = mount(
+      <MonthPicker
+        value={formatDate('YYYY-MM', new Date())}
+        onChange={onChangeMock}
+      />
+    );
     wrapper.find('.zent-datepicker-trigger').simulate('click');
     expect(wrapper.find('.zent-datepicker-trigger-focus').length).toBe(1);
     const pop = document.querySelector('.zent-popover');
@@ -82,7 +88,7 @@ describe('All of the Picker', () => {
     );
     expect(onChangeMock.mock.calls.length).toBe(1);
     expect(wrapper.prop('value')).toBe(
-      formatDate(startOfYear(new Date()), 'YYYY-MM')
+      formatDate('YYYY-MM', startOfYear(new Date()))
     );
   });
 
@@ -93,7 +99,11 @@ describe('All of the Picker', () => {
     });
 
     wrapper = mount(
-      <QuarterPicker onChange={onChangeMock} defaultDate={new Date()} />
+      <QuarterPicker
+        value={[formatDate('YYYY-MM', startOfYear(new Date()))]}
+        onChange={onChangeMock}
+        defaultDate={new Date()}
+      />
     );
     wrapper.find('.zent-datepicker-trigger').simulate('click');
     expect(wrapper.find('.zent-datepicker-trigger-focus').length).toBe(1);
@@ -103,10 +113,10 @@ describe('All of the Picker', () => {
     );
     expect(onChangeMock.mock.calls.length).toBe(1);
     expect(wrapper.prop('value')[0]).toBe(
-      formatDate(startOfYear(new Date()), 'YYYY-MM')
+      formatDate('YYYY-MM', startOfYear(new Date()))
     );
     expect(wrapper.prop('value')[1]).toBe(
-      formatDate(startOfYear(new Date()).setMonth(2), 'YYYY-MM')
+      formatDate('YYYY-MM', startOfYear(new Date()).setMonth(2))
     );
 
     mount(
@@ -140,14 +150,14 @@ describe('All of the Picker', () => {
       wrapper.setProps({ value });
     });
 
-    wrapper = mount(<TimePicker onChange={onChangeMock} />);
+    wrapper = mount(<TimePicker value="00:00:00" onChange={onChangeMock} />);
     wrapper.find('.zent-datepicker-trigger').simulate('click');
     expect(wrapper.find('.zent-datepicker-trigger-focus').length).toBe(1);
     const pop = document.querySelector('.zent-datepicker-panel-footer');
 
     Simulate.click(pop.querySelector('a'));
     expect(onChangeMock.mock.calls.length).toBe(1);
-    expect(wrapper.prop('value')).toBe(formatDate(new Date(), 'HH:mm:ss'));
+    expect(wrapper.prop('value')).toBe(formatDate('HH:mm:ss', new Date()));
   });
 
   it('CombinedTimeRangePicker value and onChange', () => {
@@ -156,7 +166,9 @@ describe('All of the Picker', () => {
       wrapper.setProps({ value });
     });
 
-    wrapper = mount(<CombinedTimeRangePicker onChange={onChangeMock} />);
+    wrapper = mount(
+      <CombinedTimeRangePicker value={[]} onChange={onChangeMock} />
+    );
     wrapper.find('.zent-datepicker-trigger').simulate('click');
     expect(wrapper.find('.zent-datepicker-trigger-focus').length).toBe(1);
     const pop = document.querySelector('.zent-popover');
@@ -178,6 +190,43 @@ describe('All of the Picker', () => {
     expect(wrapper.prop('value')[1]).toBe('03:00:00');
   });
 
+  it('TimeRangePicker  value and onChange', () => {
+    let wrapper;
+    const onChangeMock = jest.fn().mockImplementation(value => {
+      wrapper.setProps({ value });
+    });
+    wrapper = mount(
+      <TimeRangePicker
+        value={['00:30:00', '00:50:00']}
+        onChange={onChangeMock}
+      />
+    );
+
+    wrapper
+      .find('.zent-datepicker-trigger')
+      .at(0)
+      .simulate('click');
+    const pop = document.querySelector('.zent-datepicker-panel-footer');
+
+    Simulate.click(
+      pop.querySelectorAll('.zent-datepicker-panel-footer-btn')[0]
+    );
+    expect(onChangeMock.mock.calls.length).toBe(1);
+    expect(wrapper.prop('value')[0]).toBe('00:30:00');
+
+    wrapper
+      .find('.zent-datepicker-trigger')
+      .at(1)
+      .simulate('click');
+    const pop2 = document.querySelector('.zent-datepicker-panel-footer');
+
+    Simulate.click(
+      pop2.querySelectorAll('.zent-datepicker-panel-footer-btn')[0]
+    );
+    expect(onChangeMock.mock.calls.length).toBe(2);
+    expect(wrapper.prop('value')[1]).toBe('00:50:00');
+    wrapper.unmount();
+  });
   it('DatePicker used in Disabled', () => {
     const wrapper = mount(
       <Disabled>

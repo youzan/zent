@@ -43,6 +43,7 @@ describe('SinglePicker', () => {
     });
     wrapper = mount(
       <DatePicker
+        value="2020-08-01 12:00"
         showTime={{ format: 'HH:mm', defaultTime: '00:00' }}
         format={DateTimeFormat}
         onChange={onChangeMock}
@@ -53,7 +54,7 @@ describe('SinglePicker', () => {
     const pop = document.querySelector('.zent-datepicker-panel-footer');
     Simulate.click(pop.querySelector('a'));
 
-    expect(wrapper.prop('value')).toBe(formatDate(new Date(), DateTimeFormat));
+    expect(wrapper.prop('value')).toBe(formatDate(DateTimeFormat, new Date()));
     wrapper.unmount();
   });
 
@@ -75,7 +76,9 @@ describe('SinglePicker', () => {
       min: addDays(new Date(), -3),
       max: addDays(new Date(), -1),
     };
-    const wrapper = mount(<DatePicker showTime disabledDate={disabledDate} />);
+    const wrapper = mount(
+      <DatePicker value={undefined} showTime disabledDate={disabledDate} />
+    );
     wrapper.find('.zent-datepicker-trigger').simulate('click');
 
     const pop = document.querySelector('.zent-datepicker-panel-footer');
@@ -131,7 +134,7 @@ describe('SinglePicker', () => {
 
     wrapper.find('.zent-datepicker-can-clear').simulate('mouseenter');
     wrapper.find('.zenticon-close-circle').simulate('click');
-    expect(wrapper.prop('value')).toBe('');
+    expect(wrapper.prop('value')).toBe(null);
   });
 
   it('DatePicker name', () => {

@@ -20,6 +20,7 @@ describe('RangePicker', () => {
         format={DateTimeFormat}
         onChange={onChangeMock}
         width={260}
+        value={['2020-08-01 12:00']}
       />
     );
     wrapper
@@ -30,7 +31,7 @@ describe('RangePicker', () => {
     expect(pop.querySelectorAll('.zent-datepicker').length).toBe(1);
     Simulate.click(pop.querySelector('a'));
     expect(wrapper.prop('value')[0]).toBe(
-      formatDate(new Date(), DateTimeFormat)
+      formatDate(DateTimeFormat, new Date())
     );
     wrapper.setProps({
       showTime: {
@@ -42,7 +43,6 @@ describe('RangePicker', () => {
       .at(0)
       .simulate('click');
     wrapper.unmount();
-    mount(<DateRangePicker showTime onChange={onChangeMock} />);
   });
 
   it('DateRangePicker valueType equals to `date`', () => {
@@ -51,7 +51,11 @@ describe('RangePicker', () => {
       wrapper.setProps({ value });
     });
     wrapper = mount(
-      <DateRangePicker valueType="date" onChange={onChangeMock} />
+      <DateRangePicker
+        value={[new Date()]}
+        valueType="date"
+        onChange={onChangeMock}
+      />
     );
     wrapper
       .find('.zent-datepicker-trigger')

@@ -9,18 +9,18 @@ import { FormField } from '../Field';
 import { $MergeParams } from '../utils';
 import { RangeTime } from '../../date-picker';
 
-export type IFormTimeRangePickerFieldProps = IFormComponentProps<
+export type ICombinedFormTimeRangePickerFieldProps = IFormComponentProps<
   RangeTime,
   Omit<ICombinedTimeRangePickerProps, 'value'>
 >;
 
-export const FormCombinedTimeRangePickerField: React.FunctionComponent<IFormTimeRangePickerFieldProps> = props => {
+export const FormCombinedTimeRangePickerField: React.FunctionComponent<ICombinedFormTimeRangePickerFieldProps> = props => {
   return (
     <FormField
       {...props}
       defaultValue={
-        (props as $MergeParams<IFormTimeRangePickerFieldProps>).defaultValue ||
-        dateRangeDefaultTimeFactory
+        (props as $MergeParams<ICombinedFormTimeRangePickerFieldProps>)
+          .defaultValue || dateRangeDefaultTimeFactory
       }
     >
       {childProps => (

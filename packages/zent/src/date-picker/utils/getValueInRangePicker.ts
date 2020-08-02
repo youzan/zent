@@ -19,9 +19,6 @@ export function getRangeValuesWithValueType(
     case 'number': {
       return [value[0]?.getTime() || 0, value[1]?.getTime() || 0];
     }
-    case 'date': {
-      return value;
-    }
     default: {
       return value;
     }

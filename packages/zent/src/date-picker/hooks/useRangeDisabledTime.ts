@@ -105,7 +105,7 @@ export default function useRangeDisabledTime({
   );
 
   const disabledConfirm: boolean = React.useMemo(
-    () => !!start && !!end && start > end,
+    () => !start || !end || (!!start && !!end && start > end),
     [start, end]
   );
   return { disabledStartTimes, disabledEndTimes, disabledConfirm };
