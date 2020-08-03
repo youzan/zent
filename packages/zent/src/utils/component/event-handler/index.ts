@@ -3,7 +3,6 @@ import { useRef, useEffect } from 'react';
 import { TargetEventHandlers } from './TargetEventHandlers';
 import { normalizeEventOptions } from './normalize-event-options';
 import { eventOptionsKey } from './event-option-key';
-import { unboxDOMNode } from '../../alcatraz';
 
 // This export is only for unit testing
 export const targetMap = new WeakMap<EventTarget, TargetEventHandlers>();
@@ -14,7 +13,6 @@ export function addEventListener<T extends EventTarget = HTMLElement>(
   listener: EventListener,
   options?: AddEventListenerOptions
 ) {
-  target = unboxDOMNode(target);
   if (!targetMap.has(target)) {
     targetMap.set(target, new TargetEventHandlers(target));
   }

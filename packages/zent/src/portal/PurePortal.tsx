@@ -5,7 +5,6 @@ import { createPortal } from 'react-dom';
 import memoize from '../utils/memorize-one';
 import { getNodeFromSelector, removeAllChildren } from './util';
 import { IPortalContext, PortalContext } from './context';
-import contains from '../utils/dom/contains';
 
 export interface IPurePortalProps {
   selector: string | HTMLElement;
@@ -47,7 +46,7 @@ export class PurePortal extends Component<IPurePortalProps> {
     if (!container) {
       return false;
     }
-    if (contains(container, el)) {
+    if (container.contains(el)) {
       return true;
     }
     for (const child of this.childContext.children) {

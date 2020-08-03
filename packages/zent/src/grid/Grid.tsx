@@ -48,7 +48,6 @@ import {
 } from './types';
 import { ICheckboxEvent } from '../checkbox';
 import isBrowser from '../utils/isBrowser';
-import isSameNode from '../utils/dom/isSameNode';
 
 function stopPropagation(e: React.MouseEvent) {
   e.stopPropagation();
@@ -541,17 +540,17 @@ export class Grid<Data = any> extends PureComponent<
       const bodyTable = this.bodyTable?.current;
 
       if (this.lastScrollLeft !== target.scrollLeft && scroll.x) {
-        if (scrollHeader && isSameNode(target, scrollHeader)) {
+        if (scrollHeader && target === scrollHeader) {
           this.forceScroll(bodyTable, scrollLeft, 'Left');
           autoStick && this.forceScroll(stickyHead, scrollLeft, 'Left');
         }
 
-        if (bodyTable && isSameNode(target, bodyTable)) {
+        if (bodyTable && target === bodyTable) {
           this.forceScroll(scrollHeader, scrollLeft, 'Left');
           autoStick && this.forceScroll(stickyHead, scrollLeft, 'Left');
         }
 
-        if (autoStick && isSameNode(target, stickyHead)) {
+        if (autoStick && target === stickyHead) {
           this.forceScroll(bodyTable, scrollLeft, 'Left');
           this.forceScroll(scrollHeader, scrollLeft, 'Left');
         }
@@ -560,17 +559,17 @@ export class Grid<Data = any> extends PureComponent<
       }
 
       if (this.lastScrollTop !== target.scrollTop && scroll.y) {
-        if (leftBody && isSameNode(target, leftBody)) {
+        if (leftBody && target === leftBody) {
           this.forceScroll(rightBody, scrollTop, 'Top');
           this.forceScroll(bodyTable, scrollTop, 'Top');
         }
 
-        if (rightBody && isSameNode(target, rightBody)) {
+        if (rightBody && target === rightBody) {
           this.forceScroll(leftBody, scrollTop, 'Top');
           this.forceScroll(bodyTable, scrollTop, 'Top');
         }
 
-        if (bodyTable && isSameNode(target, bodyTable)) {
+        if (bodyTable && target === bodyTable) {
           this.forceScroll(rightBody, scrollTop, 'Top');
           this.forceScroll(leftBody, scrollTop, 'Top');
         }
