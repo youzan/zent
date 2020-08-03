@@ -1,5 +1,5 @@
 import { formatDateRange } from './index';
-import { IValueType, DateNullArray, RangeDate } from '../types';
+import { IValueType, DateNullTuple, RangeDate } from '../types';
 
 /**
  * 用于range、combined组件
@@ -10,7 +10,7 @@ import { IValueType, DateNullArray, RangeDate } from '../types';
 export function getRangeValuesWithValueType(
   valueType: IValueType,
   format: string,
-  value: DateNullArray
+  value: DateNullTuple
 ): RangeDate {
   switch (valueType) {
     case 'string': {

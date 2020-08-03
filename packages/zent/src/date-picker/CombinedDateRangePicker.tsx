@@ -11,8 +11,8 @@ import {
   IRangeProps,
   IGenerateDateConfig,
   IShowTime,
-  DateNullArray,
-  StringArray,
+  DateNullTuple,
+  StringTuple,
 } from './types';
 import { formatTextRange } from './utils/formatInputText';
 import {
@@ -26,7 +26,7 @@ const generateDate: IGenerateDateConfig = dateConfig.date;
 const PickerContextProvider = PickerContext.Provider;
 
 export interface ICombinedDateRangePickerProps extends IRangeProps {
-  showTime?: IShowTime<StringArray>;
+  showTime?: IShowTime<StringTuple>;
 }
 const DefaultCombinedDateRangeProps = {
   format: DATE_FORMAT,
@@ -49,7 +49,7 @@ export const CombinedDateRangePicker: React.FC<ICombinedDateRangePickerProps> = 
   } = propsRequired;
 
   const getInputRangeText = React.useCallback(
-    (val: DateNullArray) => formatTextRange(val, format),
+    (val: DateNullTuple) => formatTextRange(val, format),
     [format]
   );
 

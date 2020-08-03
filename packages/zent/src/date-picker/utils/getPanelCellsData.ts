@@ -1,10 +1,10 @@
 import { isAfter, isBefore } from 'date-fns';
-import { IDateCellBase, IGenerateDateConfig, DateArray } from '../types';
+import { IDateCellBase, IGenerateDateConfig, DateTuple } from '../types';
 
 interface ICellDateParams {
   selected: Date | null;
-  rangeDate?: DateArray | null;
-  hoverRangeDate?: DateArray | null;
+  rangeDate?: DateTuple | null;
+  hoverRangeDate?: DateTuple | null;
   disabledPanelDate: (date: Date) => boolean;
   defaultPanelDate: Date;
   row: number;

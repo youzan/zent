@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { isSameDay, isSameHour, isSameMinute } from 'date-fns';
-import { IDisabledTime, RangeTypeMap, DateNullArray } from '../types';
+import { IDisabledTime, RangeTypeMap, DateNullTuple } from '../types';
 
 const { START, END } = RangeTypeMap;
 
@@ -20,7 +20,7 @@ export default function useRangeDisabledTime({
   selected,
   disabledTime,
 }: {
-  selected: DateNullArray;
+  selected: DateNullTuple;
   disabledTime?: IDisabledTime;
 }) {
   const disabledTimesRef = React.useRef(disabledTime);

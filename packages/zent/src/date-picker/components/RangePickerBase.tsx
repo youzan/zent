@@ -16,8 +16,8 @@ import {
   IRangePropsWithDefault,
   RangeTypeMap,
   ISingleProps,
-  StringArray,
-  DateNullArray,
+  StringTuple,
+  DateNullTuple,
 } from '../types';
 import useRangeDisabledTime from '../hooks/useRangeDisabledTime';
 
@@ -30,7 +30,7 @@ interface IRangePickerProps extends IRangePropsWithDefault {
       disabledTime?: IDisabledTime;
     }
   >;
-  showTime?: IShowTime<StringArray>;
+  showTime?: IShowTime<StringTuple>;
   seperator: string;
   disabledTime?: IDisabledTime;
 }
@@ -78,7 +78,7 @@ const RangePicker: React.FC<IRangePickerProps> = ({
 
   const onChangeStartOrEnd = React.useCallback(
     (type: RangeType) => (val: Date | null) => {
-      const dates: DateNullArray = type === START ? [val, end] : [start, val];
+      const dates: DateNullTuple = type === START ? [val, end] : [start, val];
       setSelected(dates);
       // props onChange
       onChangeRef.current?.(getCallbackRangeValue?.(dates) || null);

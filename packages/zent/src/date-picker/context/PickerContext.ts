@@ -6,8 +6,8 @@ import {
   IGenerateDateConfig,
   SingleDate,
   RangeDate,
-  DateNullArray,
-  StringArray,
+  DateNullTuple,
+  StringTuple,
 } from '../types';
 
 export interface IPickerContextProps {
@@ -16,11 +16,11 @@ export interface IPickerContextProps {
   generateDate?: IGenerateDateConfig;
   getSelectedValue?: (val: Date) => Date | null;
   getCallbackValue?: (val: Date) => SingleDate | RangeDate | null;
-  getInputText?: (val: Date | null) => string | StringArray;
+  getInputText?: (val: Date | null) => string | StringTuple;
 
   // range picker
-  getCallbackRangeValue?: (val: DateNullArray) => RangeDate | null;
-  getInputRangeText?: (val: DateNullArray) => StringArray;
+  getCallbackRangeValue?: (val: DateNullTuple) => RangeDate | null;
+  getInputRangeText?: (val: DateNullTuple) => StringTuple;
 }
 
 const PickerContext = React.createContext<IPickerContextProps>({

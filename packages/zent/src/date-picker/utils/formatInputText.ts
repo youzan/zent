@@ -1,7 +1,7 @@
 import { getYear, getQuarter, startOfWeek, endOfWeek } from 'date-fns';
 import { formatDate, formatDateRange } from './index';
 import { II18nLocaleTimePicker } from '../../i18n';
-import { IWeekOption, DateNullArray, StringArray } from '../types';
+import { IWeekOption, DateNullTuple, StringTuple } from '../types';
 /**
  * 根据format可直接转化为text
  */
@@ -35,7 +35,7 @@ export function weekFormatText(
   selected: Date | null,
   format: string,
   options: IWeekOption
-): StringArray {
+): StringTuple {
   const dates =
     selected &&
     ([startOfWeek(selected, options), endOfWeek(selected, options)] as [
@@ -46,8 +46,8 @@ export function weekFormatText(
 }
 
 export function formatTextRange(
-  selected: DateNullArray,
+  selected: DateNullTuple,
   format: string
-): StringArray {
+): StringTuple {
   return formatDateRange(selected, format);
 }

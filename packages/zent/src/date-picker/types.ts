@@ -2,6 +2,14 @@ import { IconType } from '../icon';
 import { PartialRequired } from '../utils/types';
 
 export type SingleDate = string | number | Date;
+export type RangeDate = [SingleDate | null, SingleDate | null];
+export type SingleTime = string;
+export type RangeTime = [string, string];
+
+export type DateTuple = [Date, Date];
+export type DateNullTuple = [Date | null, Date | null];
+export type StringTuple = [string, string];
+
 export type IValueType = 'date' | 'number' | 'string';
 export type RangeType = 'start' | 'end';
 export type IPickerType = 'date' | 'week' | 'month' | 'quarter' | 'year';
@@ -10,12 +18,6 @@ export enum RangeTypeMap {
   END = 'end',
 }
 
-export type RangeDate = [SingleDate | null, SingleDate | null];
-export type SingleTime = string;
-export type RangeTime = [string, string];
-export type DateArray = [Date, Date];
-export type DateNullArray = [Date | null, Date | null];
-export type StringArray = [string, string];
 export interface IDisabledDateSimple<T = SingleDate> {
   min?: T;
   max?: T;
@@ -46,7 +48,7 @@ export interface IDateCellBase {
   isInHoverRange?: boolean;
 }
 interface ITriggerCommonProps {
-  text?: string | StringArray;
+  text?: string | StringTuple;
   format: string;
   seperator?: string;
   width?: number | string;
@@ -96,8 +98,8 @@ export interface ISinglePanelProps {
   selected: Date | null;
   defaultPanelDate: Date;
   hoverDate?: Date;
-  hoverRangeDate?: DateArray | null;
-  rangeDate?: DateArray | null;
+  hoverRangeDate?: DateTuple | null;
+  rangeDate?: DateTuple | null;
   row?: number;
   col?: number;
   onSelected: (val: Date, status?: boolean) => void;
@@ -122,19 +124,19 @@ export type IRangePropsWithDefault = PartialRequired<
 
 export interface IRangeTriggerProps extends ITriggerCommonProps {
   value: RangeDate;
-  placeholder: StringArray;
-  name?: StringArray;
+  placeholder: StringTuple;
+  name?: StringTuple;
 }
 
 export interface IRangePanelProps {
-  selected: DateNullArray;
-  defaultPanelDate: DateArray;
+  selected: DateNullTuple;
+  defaultPanelDate: DateTuple;
   hoverDate?: Date;
-  hoverRangeDate?: DateArray | null;
-  rangeDate?: DateArray | null;
+  hoverRangeDate?: DateTuple | null;
+  rangeDate?: DateTuple | null;
   disabledStartDate: (date: Date) => boolean;
   disabledEndDate: (date: Date) => boolean;
-  onSelected: (val: DateNullArray, status?: boolean) => void;
+  onSelected: (val: DateNullTuple, status?: boolean) => void;
 }
 
 // **** TimePicker ****

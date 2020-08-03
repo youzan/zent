@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { parse } from 'date-fns';
-import { RangeTime, DateNullArray, SingleTime } from '../types';
+import { RangeTime, DateNullTuple, SingleTime } from '../types';
 
 export default function useTimeValue<T = SingleTime>(
   defaultValue: T,
@@ -18,7 +18,7 @@ export function parseSelectedToRangeDate(
   value: RangeTime,
   format: string,
   selectedDate: Date
-): DateNullArray {
+): DateNullTuple {
   return value
     ? [
         value[0] ? parse(value[0], format, selectedDate) : null,

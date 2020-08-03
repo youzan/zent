@@ -4,7 +4,7 @@ import {
   IGenerateDateConfig,
   RangeType,
   RangeTypeMap,
-  DateNullArray,
+  DateNullTuple,
   IDisabledDateFunc,
 } from '../types';
 
@@ -26,7 +26,7 @@ export default function useRangeDisabledDate({
   generateDate,
   pickerType,
 }: {
-  selected: DateNullArray;
+  selected: DateNullTuple;
   disabledDate: (date: Date, type?: RangeType) => boolean;
   generateDate: IGenerateDateConfig;
   pickerType: keyof typeof pickerTypeMap;

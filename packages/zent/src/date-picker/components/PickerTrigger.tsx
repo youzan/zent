@@ -6,7 +6,7 @@ import { formatDate, formatDateRange } from '../utils';
 import {
   ISingleTriggerProps,
   IRangeTriggerProps,
-  DateNullArray,
+  DateNullTuple,
 } from '../types';
 
 const TriggerPrefixCls = 'zent-datepicker-trigger';
@@ -95,7 +95,7 @@ export const SingleInputTrigger: React.FC<ISingleTriggerProps> = ({
 };
 
 interface ICombinedInputTriggerProps extends IRangeTriggerProps {
-  selected: DateNullArray;
+  selected: DateNullTuple;
 }
 export const CombinedInputTrigger: React.FC<ICombinedInputTriggerProps> = ({
   format,

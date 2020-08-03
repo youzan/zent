@@ -5,7 +5,7 @@ import {
   IWeekOption,
   SingleDate,
   RangeDate,
-  DateNullArray,
+  DateNullTuple,
 } from '../types';
 import { getRangeValuesWithValueType } from './getValueInRangePicker';
 
@@ -67,7 +67,7 @@ export function getCallbackValueRangeWithDate(
   dateConfig: IGenerateDateConfig,
   options?: IWeekOption
 ): RangeDate {
-  let onChangeValue: DateNullArray;
+  let onChangeValue: DateNullTuple;
   const { startDate, endDate } = dateConfig;
   if (options) {
     onChangeValue = [startDate(value, options), endDate(value, options)];

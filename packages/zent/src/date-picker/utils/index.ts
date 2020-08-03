@@ -1,7 +1,7 @@
 import formatBase from '../../utils/date/formatDate';
 import parseBase from '../../utils/date/parseDate';
 
-import { SingleDate, RangeDate, DateNullArray } from '../types';
+import { SingleDate, RangeDate, DateNullTuple } from '../types';
 export * from './getValueInRangePicker';
 export * from './getValueInSinglePicker';
 export * from './dateUtils';
@@ -51,6 +51,6 @@ export function formatDateRange(
 export function parseDateRange(
   dates: RangeDate,
   format: string
-): DateNullArray {
+): DateNullTuple {
   return [parseDate(format, dates[0]), parseDate(format, dates[1])];
 }

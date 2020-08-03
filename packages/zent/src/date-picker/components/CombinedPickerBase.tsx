@@ -19,9 +19,9 @@ import { triggerCommonProps } from '../constants';
 import {
   IRangePanelProps,
   IGenerateDateConfig,
-  DateNullArray,
+  DateNullTuple,
   IRangePropsWithDefault,
-  DateArray,
+  DateTuple,
 } from '../types';
 
 interface ICombinedPickerProps extends IRangePropsWithDefault {
@@ -72,7 +72,7 @@ export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
     panelVisible,
     setPanelVisible,
     onVisibleChange,
-  } = useSinglePopoverVisible<DateNullArray>(
+  } = useSinglePopoverVisible<DateNullTuple>(
     parseValue,
     setSelected,
     onOpen,
@@ -95,7 +95,7 @@ export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
   // hover range date
   const hoverRangeDate = useHoverRange(selected, hoverDate);
   // rangeDate
-  const rangeDate = React.useMemo<DateArray | null>(() => {
+  const rangeDate = React.useMemo<DateTuple | null>(() => {
     const [startRangeDate, endRangeDate] = selected;
     return startRangeDate && endRangeDate
       ? [startRangeDate, endRangeDate]
@@ -108,7 +108,7 @@ export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
    *
    */
   const onSelected = React.useCallback(
-    (val: DateNullArray, finish = false) => {
+    (val: DateNullTuple, finish = false) => {
       setSelected(val);
       // 日期范围选择结束、手动触发清空操作
       if (finish) {

@@ -11,15 +11,15 @@ import {
   IRangePanelProps,
   IDisabledTime,
   IShowTime,
-  StringArray,
-  DateNullArray,
+  StringTuple,
+  DateNullTuple,
 } from '../../types';
 
 const prefixCls = 'zent-datepicker-combined-panel';
 
 interface ICombinedDateRangePanelProps extends IRangePanelProps {
   disabledTime?: IDisabledTime;
-  showTime?: IShowTime<StringArray>;
+  showTime?: IShowTime<StringTuple>;
 }
 const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
   onSelected,
@@ -43,7 +43,7 @@ const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
   });
   const onChangeStartOrEnd = React.useCallback(
     (val: Date) => {
-      let selectedTemp: DateNullArray;
+      let selectedTemp: DateNullTuple;
       if (start && !end) {
         selectedTemp = [
           start,

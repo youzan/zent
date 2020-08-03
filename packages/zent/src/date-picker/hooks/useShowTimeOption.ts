@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { startOfToday, endOfToday } from 'date-fns';
 import { formatBase } from '../utils/index';
-import { IShowTime, StringArray, IShowTimeOptionWithDefault } from '../types';
+import { IShowTime, StringTuple, IShowTimeOptionWithDefault } from '../types';
 import { TIME_FORMAT } from '../constants';
 
 const formatStartDate = (format: string) => formatBase(startOfToday(), format);
@@ -13,7 +13,7 @@ const DefaultEndTime = formatEndDate(TIME_FORMAT);
  * @param showTime
  */
 export function useShowTimeRangeOption(
-  showTime?: IShowTime<StringArray>
+  showTime?: IShowTime<StringTuple>
 ): Array<IShowTimeOptionWithDefault | undefined> {
   const showTimeRef = React.useRef(showTime);
   showTimeRef.current = showTime;

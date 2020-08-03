@@ -11,8 +11,8 @@ import {
   IRangeProps,
   IShowTime,
   IDisabledTime,
-  StringArray,
-  DateNullArray,
+  StringTuple,
+  DateNullTuple,
 } from './types';
 import { getRangeValuesWithValueType } from './utils/getValueInRangePicker';
 import {
@@ -25,7 +25,7 @@ import {
 const generateDate: IGenerateDateConfig = dateConfig.date;
 const PickerContextProvider = PickerContext.Provider;
 export interface IDateRangePickerProps extends IRangeProps {
-  showTime?: IShowTime<StringArray>;
+  showTime?: IShowTime<StringTuple>;
   disabledTime?: IDisabledTime;
 }
 const DefaultDateRangeProps = {
@@ -50,7 +50,7 @@ export const DateRangePicker: React.FC<IDateRangePickerProps> = props => {
   } = propsRequired;
 
   const getCallbackRangeValue = React.useCallback(
-    (val: DateNullArray) => getRangeValuesWithValueType(valueType, format, val),
+    (val: DateNullTuple) => getRangeValuesWithValueType(valueType, format, val),
     [valueType, format]
   );
 
