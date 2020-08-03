@@ -1,185 +1,112 @@
 import * as React from 'react';
-import { useState, useMemo, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import cx from 'classnames';
 
+import uniq from '../utils/uniq';
 import { TransferColumnType, ITransferItem, TransferType } from './types';
-import { Direction } from './constants';
+import { Direction, GridProps } from './constants';
 import TransferItem from './components/TransferItem';
 import ArrowButton from './components/ArrowButton';
+import { getOppositeDirection, pick } from './utils';
 
 export const Transfer: React.FC<TransferType> = ({
-  datasets,
+  keyName,
+  dataSource,
   targetKeys,
-  selectedRowKeys,
+  onChange,
+  selectedKeys,
+  onSelectChange,
   titles,
-  transferChange,
-  rowKey,
-  prefix,
-  columns,
-  className,
+  showSearch,
+  searchPlaceholder,
+  filterOption,
   children,
-  ...rest
+  grid,
+  className,
+  prefix,
 }) => {
+  const { columns, ...gridRest } = grid;
   const classNamePrefix = `${prefix}-transfer`;
-  const [selectedRowKeysState, setSelectedRowKeys] = useState(selectedRowKeys);
+  const [selectedKeysState, setSelectedKeys] = useState(selectedKeys);
 
-  const singleDirectionData = useCallback(
-    (direction: Direction) => {
-      return datasets.filter(({ [rowKey]: key }) =>
-        Direction.left === direction
-          ? !targetKeys.includes(key)
-          : targetKeys.includes(key)
-      );
-    },
-    [datasets, rowKey, targetKeys]
+  const getSingleDirectionData = useCallback(
+    (direction: Direction) =>
+      Direction.Left === direction
+        ? dataSource.filter(({ [keyName]: key }) => !targetKeys.includes(key))
+        : targetKeys.map(item =>
+            dataSource.find(({ [keyName]: key }) => item === key)
+          ),
+    [dataSource, keyName, targetKeys]
   );
 
-  const singleDirectionSelectedRowKeys = useCallback(
+  const getSingleDirectionSelectedKeys = useCallback(
     (direction: Direction) =>
-      selectedRowKeysState.filter(key =>
-        Direction.left === direction
+      selectedKeysState.filter(key =>
+        Direction.Left === direction
           ? !targetKeys.includes(key)
           : targetKeys.includes(key)
       ),
-    [selectedRowKeysState, targetKeys]
+    [selectedKeysState, targetKeys]
   );
 
-  const getOtherDirection = useCallback(
-    (direction: Direction) =>
-      Direction.left === direction ? Direction.right : Direction.left,
-    []
-  );
-
-  const changeSelectedRowKeys = useCallback(
+  const handleSelectChange = useCallback(
     (direction: Direction) => (keys: string[]) => {
-      const otherDirectionSelectedRowKeys = singleDirectionSelectedRowKeys(
-        getOtherDirection(direction)
+      const selectedKeys = keys.concat(
+        getSingleDirectionSelectedKeys(getOppositeDirection(direction))
       );
-      setSelectedRowKeys(keys.concat(otherDirectionSelectedRowKeys));
+      onSelectChange
+        ? onSelectChange(selectedKeys)
+        : setSelectedKeys(selectedKeys);
     },
-    [singleDirectionSelectedRowKeys, getOtherDirection]
+    [getSingleDirectionSelectedKeys, onSelectChange]
   );
-
-  const commonProps = {
-    prefix: classNamePrefix,
-    rowKey,
-    ...rest,
-  };
 
   const getColumns = useCallback(
     (direction: Direction) => {
-      if (Direction.left === direction) {
-        return (Array.isArray(columns?.[0])
-          ? columns[0]
-          : columns) as TransferColumnType;
-      }
+      const col = Direction.Left === direction ? columns?.[0] : columns?.[1];
+
       return (Array.isArray(columns?.[0])
-        ? columns?.[1]
+        ? col
         : columns) as TransferColumnType;
     },
     [columns]
   );
 
-  const transferItemProps = useMemo(() => {
-    return {
-      [Direction.left]: {
-        direction: Direction.left,
-        title: titles[0],
-        datasets: singleDirectionData(Direction.left),
-        selectedRowKeys: singleDirectionSelectedRowKeys(Direction.left),
-        changeSelectedRowKeys: changeSelectedRowKeys(Direction.left),
-        columns: getColumns(Direction.left),
-      },
-      [Direction.right]: {
-        direction: Direction.right,
-        title: titles[1],
-        datasets: singleDirectionData(Direction.right),
-        selectedRowKeys: singleDirectionSelectedRowKeys(Direction.right),
-        changeSelectedRowKeys: changeSelectedRowKeys(Direction.right),
-        columns: getColumns(Direction.right),
-      },
-    };
-  }, [
-    titles,
-    singleDirectionData,
-    singleDirectionSelectedRowKeys,
-    changeSelectedRowKeys,
-    getColumns,
-  ]);
-
   const getRenderList = useCallback(
     (props: ITransferItem): React.ReactNode => {
-      const {
-        direction,
-        selectedRowKeys,
-        changeSelectedRowKeys,
-        datasets,
-      } = props;
+      const { direction, selectedKeys, handleSelectChange } = props;
       const childrenNode =
         children &&
         children({
           direction,
-          selectedRowKeys,
-          changeSelectedRowKeys,
-          datasets,
+          selectedKeys,
+          handleSelectChange,
         });
-      if (childrenNode) {
-        return childrenNode;
-      }
-      return <TransferItem {...props} />;
+      return childrenNode ? childrenNode : <TransferItem {...props} />;
     },
     [children]
   );
 
-  const transferSelectedKeys = useCallback(
+  const handleTransfer = useCallback(
     (direction: Direction) => () => {
-      const otherDirection = getOtherDirection(direction);
-      const transferredKeys = singleDirectionSelectedRowKeys(otherDirection);
-      const directionData = singleDirectionData(direction);
-      const transferredData = singleDirectionData(
-        otherDirection
-      ).filter(({ [rowKey]: key }) => transferredKeys.includes(key));
-      const otherDirectionExcludeTransferredData = singleDirectionData(
-        otherDirection
-      ).filter(({ [rowKey]: key }) => !transferredKeys.includes(key));
-      const result = {
-        [Direction.right]: {
-          datasets: otherDirectionExcludeTransferredData.concat(
-            transferredData,
-            directionData
-          ),
-          targetKeys: transferredKeys.concat(targetKeys),
-        },
-        [Direction.left]: {
-          datasets: transferredData.concat(
-            directionData,
-            otherDirectionExcludeTransferredData
-          ),
-          targetKeys: targetKeys.filter(
-            item => !transferredKeys.includes(item)
-          ),
-        },
-      };
-      const selectKeys = selectedRowKeysState.filter(
+      const otherDirection = getOppositeDirection(direction);
+      const transferredKeys = getSingleDirectionSelectedKeys(otherDirection);
+      const selectedKeys = selectedKeysState.filter(
         item => !transferredKeys.includes(item)
       );
 
-      setSelectedRowKeys(selectKeys);
-      transferChange({
-        ...result[direction],
-        selectedRowKeys: selectKeys,
+      setSelectedKeys(selectedKeys);
+      onChange({
+        targetKeys:
+          Direction.Right === direction
+            ? transferredKeys.concat(targetKeys)
+            : targetKeys.filter(item => !transferredKeys.includes(item)),
         direction,
+        transferredKeys,
+        selectedKeys,
       });
     },
-    [
-      singleDirectionData,
-      singleDirectionSelectedRowKeys,
-      getOtherDirection,
-      rowKey,
-      selectedRowKeysState,
-      targetKeys,
-      transferChange,
-    ]
+    [getSingleDirectionSelectedKeys, selectedKeysState, targetKeys, onChange]
   );
 
   const getArrowButton = useCallback(
@@ -187,46 +114,70 @@ export const Transfer: React.FC<TransferType> = ({
       <div className={`${classNamePrefix}__arrow__item`}>
         <ArrowButton
           disabled={
-            !singleDirectionSelectedRowKeys(getOtherDirection(direction)).length
+            !getSingleDirectionSelectedKeys(getOppositeDirection(direction))
+              .length
           }
           direction={direction}
-          onChange={transferSelectedKeys(direction)}
+          onChange={handleTransfer(direction)}
           prefix={classNamePrefix}
         />
       </div>
     ),
-    [
-      transferSelectedKeys,
-      singleDirectionSelectedRowKeys,
-      getOtherDirection,
-      classNamePrefix,
-    ]
+    [handleTransfer, getSingleDirectionSelectedKeys, classNamePrefix]
   );
 
   useEffect(() => {
-    setSelectedRowKeys(
-      Array.from(new Set([...selectedRowKeys, ...selectedRowKeysState]))
-    );
-  }, [selectedRowKeys]); // eslint-disable-line
+    setSelectedKeys(preState => uniq([...selectedKeys, ...preState]));
+  }, [selectedKeys]);
 
   return (
     <div className={cx(`${classNamePrefix}`, className)}>
-      {getRenderList({ ...commonProps, ...transferItemProps[Direction.left] })}
+      {getRenderList({
+        title: titles?.[0],
+        direction: Direction.Left,
+        keyName,
+        dataSets: getSingleDirectionData(Direction.Left),
+        selectedKeys: getSingleDirectionSelectedKeys(Direction.Left),
+        handleSelectChange: handleSelectChange(Direction.Left),
+        showSearch,
+        searchPlaceholder,
+        filterOption,
+        grid: {
+          columns: getColumns(Direction.Left),
+          ...pick(gridRest, GridProps),
+        },
+        prefix: classNamePrefix,
+      })}
       <div className={`${classNamePrefix}__arrow`}>
-        {getArrowButton(Direction.right)}
-        {getArrowButton(Direction.left)}
+        {getArrowButton(Direction.Right)}
+        {getArrowButton(Direction.Left)}
       </div>
-      {getRenderList({ ...commonProps, ...transferItemProps[Direction.right] })}
+      {getRenderList({
+        title: titles?.[1],
+        direction: Direction.Right,
+        keyName,
+        dataSets: getSingleDirectionData(Direction.Right),
+        selectedKeys: getSingleDirectionSelectedKeys(Direction.Right),
+        handleSelectChange: handleSelectChange(Direction.Right),
+        showSearch,
+        searchPlaceholder,
+        filterOption,
+        grid: {
+          columns: getColumns(Direction.Right),
+          ...pick(gridRest, GridProps),
+        },
+        prefix: classNamePrefix,
+      })}
     </div>
   );
 };
 
 Transfer.defaultProps = {
-  prefix: 'zent',
   titles: ['Source', 'Target'],
   targetKeys: [],
-  selectedRowKeys: [],
-  className: '',
+  selectedKeys: [],
   showSearch: false,
   searchPlaceholder: '',
+  className: '',
+  prefix: 'zent',
 };

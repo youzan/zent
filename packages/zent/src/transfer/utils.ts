@@ -1,4 +1,5 @@
 import { IGridProps } from '../grid';
+import { Direction } from './constants';
 
 type GridKey = keyof IGridProps;
 
@@ -13,3 +14,6 @@ export const pick = (obj: Record<string, any>, pickKeys: GridKey[]) => {
     return val;
   }, {});
 };
+
+export const getOppositeDirection = (direction: Direction) =>
+  Direction.Left === direction ? Direction.Right : Direction.Left;

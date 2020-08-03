@@ -10,59 +10,46 @@ import {
   I18nReceiver as Receiver,
   II18nLocaleTransfer,
 } from '../../index';
-import { ITransferItem } from '../types';
-import { pickGridProps } from '../constants';
+import { ITransferItem, ITransferData } from '../types';
+import { GridProps } from '../constants';
 import { pick } from '../utils';
 
 const TransferItem: React.FC<ITransferItem> = ({
   prefix,
   title,
-  datasets,
-  selectedRowKeys,
-  changeSelectedRowKeys,
-  rowKey,
+  dataSets,
+  selectedKeys,
+  handleSelectChange,
+  keyName,
   filterOption,
   showSearch,
-  columns,
   searchPlaceholder,
-  onRowClick,
-  direction,
-  selection,
-  ...rest
+  grid,
 }) => {
+  const { rowKey, columns, selection, onRowClick, ...gridRest } = grid;
   const classNamePrefix = `${prefix}__item`;
   const [inputVal, setInputVal] = useState('');
-  const [listData, setListData] = useState(datasets);
-  const checked =
-    selectedRowKeys.length &&
-    selectedRowKeys.length ===
-      listData.filter(({ disabled }) => !disabled).length;
-  const indeterminate = selectedRowKeys.length && !checked;
-
-  const onSelect = useCallback(
-    keys => {
-      changeSelectedRowKeys(keys);
-    },
-    [changeSelectedRowKeys]
-  );
+  const [listData, setListData] = useState(dataSets);
+  const allChecked =
+    selectedKeys.length &&
+    selectedKeys.length === listData.filter(({ disabled }) => !disabled).length;
+  const indeterminate = selectedKeys.length && !allChecked;
 
   const getCheckboxProps = ({ disabled }: { disabled: boolean }) => ({
     disabled,
   });
 
-  const changeCheckBox = useCallback(() => {
-    if (selectedRowKeys.length === 0 || indeterminate) {
-      changeSelectedRowKeys(
-        listData
-          .filter(({ disabled }) => !disabled)
-          .map(({ [rowKey]: key }) => key)
-      );
-      return;
-    }
-    changeSelectedRowKeys([]);
-  }, [changeSelectedRowKeys, listData, indeterminate, selectedRowKeys, rowKey]);
+  const handleCheckBoxChange = useCallback(() => {
+    handleSelectChange(
+      selectedKeys.length === 0 || indeterminate
+        ? listData
+            .filter(({ disabled }) => !disabled)
+            .map(({ [keyName]: key }) => key)
+        : []
+    );
+  }, [handleSelectChange, listData, indeterminate, selectedKeys, keyName]);
 
-  const changeInput = useCallback(e => {
+  const handleInputChange = useCallback(e => {
     const val = e.target.value;
     setInputVal(val);
   }, []);
@@ -73,36 +60,42 @@ const TransferItem: React.FC<ITransferItem> = ({
         listData.length > 1 ? items : item
       }`;
 
-      if (selectedRowKeys.length > 0) {
+      if (selectedKeys.length > 0) {
         return title
-          ? `${title}（${selectedRowKeys.length}/${totalText}）`
-          : `${selectedRowKeys.length}/${totalText}`;
+          ? `${title}（${selectedKeys.length}/${totalText}）`
+          : `${selectedKeys.length}/${totalText}`;
       }
       return title ? `${title}（${totalText}）` : totalText;
     },
-    [title, listData, selectedRowKeys]
+    [title, listData, selectedKeys]
   );
 
   const handleRowClick = useCallback(
-    (data, index, event) => {
-      const key = data[rowKey];
-      onRowClick && onRowClick(data, index, event);
-      changeSelectedRowKeys(
-        selectedRowKeys.includes(key)
-          ? selectedRowKeys.filter(item => key !== item)
-          : selectedRowKeys.concat(key)
-      );
+    (
+      data: ITransferData,
+      index: number,
+      event: React.MouseEvent<HTMLTableRowElement>
+    ) => {
+      const { [keyName]: key, disabled } = data;
+      onRowClick
+        ? onRowClick(data, index, event)
+        : !disabled &&
+          handleSelectChange(
+            selectedKeys.includes(key)
+              ? selectedKeys.filter(item => key !== item)
+              : selectedKeys.concat(key)
+          );
     },
-    [onRowClick, changeSelectedRowKeys, selectedRowKeys, rowKey]
+    [onRowClick, handleSelectChange, selectedKeys, keyName]
   );
 
   useEffect(() => {
     setListData(
       showSearch && filterOption
-        ? datasets.filter(item => filterOption(inputVal, item))
-        : datasets
+        ? dataSets.filter(item => filterOption(inputVal, item))
+        : dataSets
     );
-  }, [datasets, filterOption, inputVal, showSearch]);
+  }, [dataSets, filterOption, inputVal, showSearch]);
 
   const girdColumns = useMemo(() => {
     const res = columns[0]?.title
@@ -121,9 +114,9 @@ const TransferItem: React.FC<ITransferItem> = ({
                 getTitle(i18n)
               ) : (
                 <Checkbox
-                  checked={checked}
+                  checked={allChecked}
                   indeterminate={indeterminate}
-                  onChange={changeCheckBox}
+                  onChange={handleCheckBoxChange}
                 >
                   {getTitle(i18n)}
                 </Checkbox>
@@ -135,14 +128,14 @@ const TransferItem: React.FC<ITransferItem> = ({
                 <Input
                   placeholder={searchPlaceholder || i18n.placeholder}
                   icon="search"
-                  onChange={changeInput}
+                  onChange={handleInputChange}
                   value={inputVal}
                   showClear
                 />
               </div>
             )}
             <Grid
-              rowKey={rowKey}
+              rowKey={rowKey || keyName}
               className={cx(`${classNamePrefix}__grid`, {
                 [`${classNamePrefix}__header--hidden`]:
                   false === !!columns[0]?.title,
@@ -150,25 +143,22 @@ const TransferItem: React.FC<ITransferItem> = ({
               rowClassName={`${classNamePrefix}__grid__row`}
               datasets={listData}
               selection={{
-                selectedRowKeys,
-                onSelect,
-                getCheckboxProps,
-                ...selection,
+                selectedRowKeys: selectedKeys,
+                onSelect: handleSelectChange,
+                getCheckboxProps:
+                  getCheckboxProps || selection?.getCheckboxProps,
               }}
               columns={girdColumns}
               onRowClick={handleRowClick}
               emptyLabel={i18n.emptyLabel}
-              {...pick(rest, pickGridProps)}
+              scroll={{ y: 240, x: 0 }}
+              {...pick(gridRest, GridProps)}
             />
           </div>
         );
       }}
     </Receiver>
   );
-};
-
-TransferItem.defaultProps = {
-  scroll: { y: 240, x: 0 },
 };
 
 export default TransferItem;

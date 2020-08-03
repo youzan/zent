@@ -12,7 +12,7 @@ import { Transfer } from 'zent';
 
 const data = new Array(20)
 	.fill()
-	.map((_, index) => ({ option: index, text: `option${index}` }));
+	.map((_, index) => ({ option: String(index), text: `option${index}` }));
 
 const columns = [
 	{
@@ -20,23 +20,18 @@ const columns = [
 	},
 ];
 
-const [datasets, setDatasets] = useState(data);
 const [targetKeys, setTargetKeys] = useState([]);
-const transferData = useCallback(({ datasets, targetKeys }) => {
-	setDatasets(datasets);
-	setTargetKeys(targetKeys);
-}, []);
 
 ReactDOM.render(
 	<div>
 		<Transfer
-			rowKey="option"
-			columns={columns}
-			datasets={datasets}
+			keyName="option"
+			dataSource={data}
 			targetKeys={targetKeys}
-			transferChange={transferData}
+			onChange={({ targetKeys }) => setTargetKeys(targetKeys)}
 			showSearch
 			filterOption={(inputValue, { text }) => text.indexOf(inputValue) > -1}
+			grid={{ columns }}
 		/>
 	</div>,
 	mountNode

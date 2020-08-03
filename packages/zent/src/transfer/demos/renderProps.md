@@ -30,59 +30,62 @@ en-US:
 import { useState, useCallback, useMemo } from 'react';
 import { Transfer, Grid, Tree } from 'zent';
 
-const treeData = useMemo(
-	() => [
-		{
-			id: 1,
-			title: '{i18n.title1}',
-			children: [
-				{
-					id: 2,
-					title: '{i18n.title2}',
-					children: [
-						{
-							id: 3,
-							title: '{i18n.title3}',
-							children: [
-								{
-									id: 7,
-									title: '{i18n.title7}',
-								},
-								{
-									id: 8,
-									title: '{i18n.title8}',
-								},
-								{
-									id: 9,
-									title: '{i18n.title9}',
-								},
-								{
-									id: 10,
-									title: '{i18n.title10}',
-								},
-							],
-						},
-						{
-							id: 4,
-							title: '{i18n.title4}',
-						},
-						{
-							id: 5,
-							title: '{i18n.title5}',
-						},
-					],
-				},
-				{
-					id: 6,
-					title: '{i18n.title6}',
-				},
-			],
-		},
-	],
-	[]
-);
+const treeData = [
+	{
+		id: 1,
+		title: '{i18n.title1}',
+		children: [
+			{
+				id: 2,
+				title: '{i18n.title2}',
+				children: [
+					{
+						id: 3,
+						title: '{i18n.title3}',
+						children: [
+							{
+								id: 7,
+								title: '{i18n.title7}',
+							},
+							{
+								id: 8,
+								title: '{i18n.title8}',
+							},
+							{
+								id: 9,
+								title: '{i18n.title9}',
+							},
+							{
+								id: 10,
+								title: '{i18n.title10}',
+							},
+						],
+					},
+					{
+						id: 4,
+						title: '{i18n.title4}',
+					},
+					{
+						id: 5,
+						title: '{i18n.title5}',
+					},
+				],
+			},
+			{
+				id: 6,
+				title: '{i18n.title6}',
+			},
+		],
+	},
+];
 
-const transferDataSource = useCallback(() => {
+const columns = [
+	{
+		name: 'title',
+	},
+];
+
+const transferDataSource = useMemo(() => {
 	const result = [];
 	function flatten(list = []) {
 		list.forEach(item => {
@@ -94,23 +97,18 @@ const transferDataSource = useCallback(() => {
 	return result;
 }, [treeData]);
 
-const [datasets, setDatasets] = useState(transferDataSource());
 const [targetKeys, setTargetKeys] = useState([]);
-const transferData = useCallback(({ datasets, targetKeys }) => {
-	setDatasets(datasets);
-	setTargetKeys(targetKeys);
-}, []);
 
 ReactDOM.render(
 	<div>
 		<Transfer
-			rowKey="id"
-			datasets={datasets}
+			keyName="id"
+			dataSource={transferDataSource}
 			targetKeys={targetKeys}
-			transferChange={transferData}
-			columns={[{ name: 'title' }]}
+			onChange={({ targetKeys }) => setTargetKeys(targetKeys)}
+			grid={{ columns }}
 		>
-			{({ direction, selectedRowKeys, changeSelectedRowKeys }) => {
+			{({ direction, selectedKeys, handleSelectChange }) => {
 				if ('left' === direction) {
 					return (
 						<Tree
@@ -118,11 +116,11 @@ ReactDOM.render(
 							size="small"
 							data={treeData}
 							onCheck={(checked, helpInfo) => {
-								changeSelectedRowKeys(
+								handleSelectChange(
 									checked.filter(item => !targetKeys.includes(item))
 								);
 							}}
-							checkedKeys={[...selectedRowKeys, ...targetKeys]}
+							checkedKeys={[...selectedKeys, ...targetKeys]}
 							disabledCheckedKeys={targetKeys}
 							expandAll
 						/>

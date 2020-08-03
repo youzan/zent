@@ -1,25 +1,23 @@
-import { IGridProps } from '../grid';
+import { GridPropsType } from './types';
 
 export enum Direction {
-  left = 'left',
-  right = 'right',
+  Left = 'left',
+  Right = 'right',
 }
 
-export const pickGridProps: Array<keyof IGridProps> = [
+export const GridProps: Array<GridPropsType> = [
+  'rowKey',
   'onChange',
   'scroll',
   'sortBy',
   'sortType',
   'defaultSortType',
   'emptyLabel',
-  'expandation',
-  'loading',
+  'bordered',
+  'onRowClick',
   'ellipsis',
-  'onExpand',
   'components',
   'rowProps',
-  'batchRender',
-  'stickyBatch',
   'autoStick',
   'autoStickOffsetTop',
   'disableHoverHighlight',

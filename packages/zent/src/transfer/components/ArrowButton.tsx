@@ -28,7 +28,7 @@ const ArrowButton = ({
       >
         <path
           d={
-            Direction.left === direction
+            Direction.Left === direction
               ? 'M8 1L1.78 7 8 13'
               : 'M1 1l6.22 6L1 13'
           }

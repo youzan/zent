@@ -11,7 +11,7 @@ import { useState, useCallback } from 'react';
 import { Transfer } from 'zent';
 
 const data = new Array(20).fill().map((_, index) => ({
-	option: index,
+	option: String(index),
 	text1: `Option${index}`,
 	text2: `Product${index}`,
 }));
@@ -34,23 +34,17 @@ const rightColumns = [
 	},
 ];
 
-const [datasets, setDatasets] = useState(data);
 const [targetKeys, setTargetKeys] = useState([]);
-const transferData = useCallback(({ datasets, targetKeys }) => {
-	setDatasets(datasets);
-	setTargetKeys(targetKeys);
-}, []);
 
 ReactDOM.render(
 	<div>
 		<Transfer
-			rowKey="option"
-			columns={[leftColumns, rightColumns]}
-			datasets={datasets}
-			targetKeys={targetKeys}
-			transferChange={transferData}
-			scroll={{ y: 198, x: 0 }}
+			keyName="option"
 			className="grid-transfer"
+			dataSource={data}
+			targetKeys={targetKeys}
+			onChange={({ targetKeys }) => setTargetKeys(targetKeys)}
+			grid={{ columns: [leftColumns, rightColumns], scroll: { y: 198, x: 0 } }}
 		/>
 	</div>,
 	mountNode

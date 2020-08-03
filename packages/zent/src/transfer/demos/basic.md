@@ -7,12 +7,16 @@ en-US:
 ---
 
 ```js
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { Transfer } from 'zent';
 
 const data = new Array(20)
 	.fill()
-	.map((_, index) => ({ option: index, text: `option${index}` }));
+	.map((_, index) => ({
+		option: String(index),
+		text: `option${index}`,
+		disabled: index === 1 || index === 3 || index === 5 || index === 10,
+	}));
 
 const columns = [
 	{
@@ -20,21 +24,16 @@ const columns = [
 	},
 ];
 
-const [datasets, setDatasets] = useState(data);
-const [targetKeys, setTargetKeys] = useState([]);
-const transferData = useCallback(({ datasets, targetKeys }) => {
-	setDatasets(datasets);
-	setTargetKeys(targetKeys);
-}, []);
+const [targetKeys, setTargetKeys] = useState(['5', '9', '10', '15']);
 
 ReactDOM.render(
 	<div>
 		<Transfer
-			rowKey="option"
-			columns={columns}
-			datasets={datasets}
+			keyName="option"
+			dataSource={data}
 			targetKeys={targetKeys}
-			transferChange={transferData}
+			onChange={({ targetKeys }) => setTargetKeys(targetKeys)}
+			grid={{ columns }}
 		/>
 	</div>,
 	mountNode

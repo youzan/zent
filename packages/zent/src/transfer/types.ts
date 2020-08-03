@@ -8,62 +8,88 @@ export interface ITransferData {
 }
 
 export type TransferColumnType = Array<
-  Omit<IGridColumn<any>, 'title'> & {
+  {
     title?: React.ReactNode;
-  }
+    name: string;
+  } & Omit<IGridColumn<ITransferData>, 'title' | 'name'>
 >;
 
-export interface ITransferItem extends Omit<IGridProps, 'columns'> {
-  prefix: string;
-  title?: React.ReactNode;
-  direction: TransferDirection;
-  rowKey: string; // 指定数据列的主键
-  datasets: ITransferData[];
-  selectedRowKeys: string[]; // 设置哪些项应该被选中
-  showSearch?: boolean; // 是否显示搜索框
-  filterOption?: (inputValue: string, option: any) => boolean; // 接收 inputValue option 两个参数，当 option 符合筛选条件时，应返回 true，反之则返回 false。
-  changeSelectedRowKeys: (keys: string[]) => void;
-  columns: TransferColumnType;
-  searchPlaceholder?: string; //搜索框文案
-}
-
 export interface ITransferDirectionChangeProps {
-  datasets: ITransferData[];
   targetKeys: string[];
-  selectedRowKeys: string[];
+  transferredKeys: string[];
   direction: TransferDirection;
+  selectedKeys: string[];
 }
 
 interface ITransferChildrenProps {
   direction: TransferDirection;
-  selectedRowKeys: string[];
-  changeSelectedRowKeys: (keys: string[]) => void;
-  datasets: ITransferData[];
+  selectedKeys: string[];
+  handleSelectChange: (keys: string[]) => void;
 }
+
+export type GridPropsType =
+  | 'rowKey'
+  | 'onChange'
+  | 'scroll'
+  | 'sortBy'
+  | 'sortType'
+  | 'defaultSortType'
+  | 'emptyLabel'
+  | 'bordered'
+  | 'onRowClick'
+  | 'ellipsis'
+  | 'components'
+  | 'rowProps'
+  | 'autoStick'
+  | 'autoStickOffsetTop'
+  | 'disableHoverHighlight';
+
+type GridType = {
+  columns: TransferColumnType | [TransferColumnType, TransferColumnType];
+  selection?: {
+    getCheckboxProps: (
+      data: ITransferData
+    ) => { disabled?: boolean; reason?: React.ReactNode };
+  };
+} & Pick<IGridProps<ITransferData>, GridPropsType>;
 
 type OneRequired =
   | {
-      columns: TransferColumnType | [TransferColumnType, TransferColumnType]; // 表格列配置
       children?: (props: ITransferChildrenProps) => React.ReactNode;
+      grid: GridType;
     }
   | {
-      columns?: TransferColumnType | [TransferColumnType, TransferColumnType]; // 表格列配置
       children: (props: ITransferChildrenProps) => React.ReactNode;
+      grid?: GridType;
     };
 
-interface ITransfer
-  extends Partial<Omit<IGridProps, 'columns' | 'rowKey' | 'datasets'>> {
-  rowKey: string; // 指定数据列的主键，会使用主键值从datasets中筛选出targetKeys
-  datasets: ITransferData[]; // 数据源，其中的数据将会被渲染到左边一栏中，targetKeys 中指定的除外。
+export interface ITransferItem {
+  title?: React.ReactNode;
+  direction: TransferDirection;
+  keyName: string; // 主键
+  dataSets: ITransferData[];
+  selectedKeys: string[]; // 设置哪些项应该被选中
+  handleSelectChange: (keys: string[]) => void;
   showSearch?: boolean; // 是否显示搜索框
-  filterOption?: (inputValue: string, option: ITransferData) => boolean; // 接收 inputValue option 两个参数，当 option 符合筛选条件时，应返回 true，反之则返回 false。
-  targetKeys?: string[]; // 显示在右侧框数据的 key 集合
-  selectedRowKeys?: string[]; // 设置哪些项应该被选中，会和勾选的项合并
-  titles?: React.ReactNode[]; // 标题集合，顺序从左至右
-  transferChange: (params: ITransferDirectionChangeProps) => void; // 选项在两栏之间转移时的回调函数
-  prefix?: string;
   searchPlaceholder?: string; //搜索框文案
+  filterOption?: (inputValue: string, option: ITransferData) => boolean; // 接收 inputValue option 两个参数，当 option 符合筛选条件时，应返回 true，反之则返回 false。
+  grid: Omit<GridType, 'columns'> & { columns: TransferColumnType };
+  prefix: string;
+}
+
+interface ITransfer {
+  keyName: string; // 指定dataSource的主键，会使用主键值从dataSource中筛选出targetKeys
+  dataSource: ITransferData[]; // 数据源，其中的数据将会被渲染到左边一栏中，targetKeys 中指定的除外。
+  onChange: (params: ITransferDirectionChangeProps) => void; // 选项在两栏之间转移时的回调函数
+  targetKeys?: string[]; // 显示在右侧框数据的 key 集合
+  selectedKeys?: string[]; // 设置哪些项应该被选中，会和勾选的项合并
+  onSelectChange?: (selectedKeys: string[]) => void; // 选中项发生改变时的回调函数
+  titles?: React.ReactNode[]; // 标题集合，顺序从左至右
+  showSearch?: boolean; // 是否显示搜索框
+  searchPlaceholder?: string; //搜索框文案
+  filterOption?: (inputValue: string, option: ITransferData) => boolean; // 接收 inputValue option 两个参数，当 option 符合筛选条件时，应返回 true，反之则返回 false。
   className?: string;
+  prefix?: string;
 }
 
 export type TransferType = OneRequired & ITransfer;
