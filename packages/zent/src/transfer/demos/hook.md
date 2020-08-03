@@ -98,7 +98,7 @@ const transferDataSource = useMemo(() => {
 	return result;
 }, [treeData]);
 
-const { targetKeys, selectedKeys, onChange, onSelectChange } = useTransfer();
+const { targetKeys, selectedKeys, onChange, onSelectChange } = useTransfer({ targetKeys: [8, 9] });
 
 ReactDOM.render(
 	<div className="transfer-hook">
@@ -116,9 +116,10 @@ ReactDOM.render(
 			disabledCheckedKeys={targetKeys}
 			expandAll
 		/>
-		<Icon className="icon" type="left" onClick={() => onChange('left')} />
-		<Icon className="icon" type="right" onClick={() => onChange('right')} />
+		<Icon className="left-icon" type="left" onClick={() => onChange('left')} />
+		<Icon className="right-icon" type="right" onClick={() => onChange('right')} />
 		<Grid
+			className="transfer-gird"
 			datasets={targetKeys.map(key => transferDataSource.find(item => key === item.id))}
 			selection={{
 				selectedRowKeys: targetKeys.filter(item => selectedKeys.includes(item)),
@@ -136,9 +137,19 @@ ReactDOM.render(
 	display: flex;
 	align-items: center;
 
-	.icon {
+	.left-icon {
 		font-size: 30px;
-		padding: 20px 10px;
+		padding: 20px 0 20px 10px;
+	}
+
+	.right-icon {
+		font-size: 30px;
+		padding: 20px 30px 20px 0;
+	}
+
+	.transfer-gird {
+		height: 240px;
+		width: 200px;
 	}
 }
 </style>

@@ -5,18 +5,23 @@ import { getOppositeDirection } from './utils';
 import { ITransferHook } from './types';
 
 export const useTransfer = (params: ITransferHook = {}) => {
-  const { selectedKeys = [], targetKeys: defaultTargetKeys = [] } = params;
+  const {
+    targetKeys: defaultTargetKeys = [],
+    selectedKeys: defaultSelectedKeys = [],
+  } = params;
   const [targetKeys, setTargetKeys] = useState<string[]>(defaultTargetKeys);
-  const [selectedKeysState, setSelectedKeys] = useState<string[]>(selectedKeys);
+  const [selectedKeys, setSelectedKeys] = useState<string[]>(
+    defaultSelectedKeys
+  );
 
   const getSingleDirectionSelectedKeys = useCallback(
     (direction: Direction) =>
-      selectedKeysState.filter(key =>
+      selectedKeys.filter(key =>
         Direction.Left === direction
           ? !targetKeys.includes(key)
           : targetKeys.includes(key)
       ),
-    [selectedKeysState, targetKeys]
+    [selectedKeys, targetKeys]
   );
 
   const onChange = useCallback(
@@ -25,7 +30,7 @@ export const useTransfer = (params: ITransferHook = {}) => {
       const transferredKeys = getSingleDirectionSelectedKeys(otherDirection);
 
       setSelectedKeys(
-        selectedKeysState.filter(item => !transferredKeys.includes(item))
+        selectedKeys.filter(item => !transferredKeys.includes(item))
       );
       setTargetKeys(
         Direction.Right === direction
@@ -33,7 +38,7 @@ export const useTransfer = (params: ITransferHook = {}) => {
           : targetKeys.filter(item => !transferredKeys.includes(item))
       );
     },
-    [getSingleDirectionSelectedKeys, selectedKeysState, targetKeys]
+    [getSingleDirectionSelectedKeys, selectedKeys, targetKeys]
   );
 
   const onSelectChange = useCallback(
@@ -49,7 +54,7 @@ export const useTransfer = (params: ITransferHook = {}) => {
 
   return {
     targetKeys,
-    selectedKeys: selectedKeysState,
+    selectedKeys,
     onChange,
     onSelectChange,
   };

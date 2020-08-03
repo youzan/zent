@@ -80,3 +80,22 @@ Transfer 支持接收 children 自定义渲染列表，并返回以下参数：
 | nowrap      | 是否换行 默认换行                                             |     | bool                                                                                                                 | 否    |
 | defaultText | 默认显示文字                                                |     | ReactNode                                                                                                            | 否    |
 | children    | 渲染分组表头                                                |     | array                                                                                                                |  否    |
+
+### useTransfer
+传送左右两边数据的hook。
+
+#### Params
+
+| 参数           | 说明                  | 类型         | 默认值  | 是否必填 |
+|--------------|---------------------|------------|------|------|---|
+| selectedKeys | 初始选中项 | `string[]` | `[]` | 否    |
+| targetKeys   | 初始显示在右侧框数据的`key`集合    | `string[]` | `[]` | 否    |
+
+#### Result
+
+| 参数             | 说明                  | 类型                                                       |
+|----------------|---------------------|----------------------------------------------------------|
+| selectedKeys   | 设置哪些项应该被选中，会和勾选的项合并 | `string[]`                                               |
+| targetKeys     | 显示在右侧框数据的`key`集合    | `string[]`                                               |
+| onChange       | 选项在两栏之间转移时的回调函数     | `(direction: Direction) => void`                         |
+| onSelectChange | 选中项发生改变时的回调函数       | `(direction: Direction, selectedKeys: string[]) => void` |
