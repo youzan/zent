@@ -181,3 +181,5 @@ Transfer.defaultProps = {
   className: '',
   prefix: 'zent',
 };
+
+export default Transfer;

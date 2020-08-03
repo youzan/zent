@@ -100,3 +100,8 @@ export interface ITransferArrowButton {
   prefix: string;
   onChange: () => void;
 }
+
+export interface ITransferHook {
+  selectedKeys?: string[];
+  targetKeys?: string[];
+}

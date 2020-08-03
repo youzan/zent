@@ -59,6 +59,10 @@
 
     &__button {
       position: relative;
+
+      .zenticon:last-child {
+        margin: 0;
+      }
     }
 
     &__icon {
@@ -67,6 +71,7 @@
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
+      font-size: 20px;
 
       &--disabled {
         @include theme-color(stroke, stroke, 4);

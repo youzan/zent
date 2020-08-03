@@ -1,7 +1,7 @@
 ---
-order: 4
+order: 5
 zh-CN:
-	title: 自定义渲染列表
+	title: useTransfer
 	title1: 杭州有赞科技有限公司
 	title2: 技术
 	title3: 后端
@@ -13,7 +13,7 @@ zh-CN:
 	title9: GO
 	title10: .NET
 en-US:
-	title: render props
+	title: useTransfer
 	title1: Hangzhou Youzan Technology Co. Ltd
 	title2: Engineer
 	title3: Back End Engineer
@@ -28,7 +28,7 @@ en-US:
 
 ```js
 import { useState, useCallback, useMemo } from 'react';
-import { Transfer, Tree } from 'zent';
+import { useTransfer, Grid, Tree, Icon } from 'zent';
 
 const treeData = [
 	{
@@ -82,6 +82,7 @@ const treeData = [
 const columns = [
 	{
 		name: 'title',
+		title: 'tree node',
 	},
 ];
 
@@ -97,38 +98,47 @@ const transferDataSource = useMemo(() => {
 	return result;
 }, [treeData]);
 
-const [targetKeys, setTargetKeys] = useState([]);
+const { targetKeys, selectedKeys, onChange, onSelectChange } = useTransfer();
 
 ReactDOM.render(
-	<div>
-		<Transfer
-			keyName="id"
-			dataSource={transferDataSource}
-			targetKeys={targetKeys}
-			onChange={({ targetKeys }) => setTargetKeys(targetKeys)}
-			grid={{ columns }}
-		>
-			{({ direction, selectedKeys, handleSelectChange }) => {
-				if ('left' === direction) {
-					return (
-						<Tree
-							checkable
-							size="small"
-							data={treeData}
-							onCheck={(checked, helpInfo) => {
-								handleSelectChange(
-									checked.filter(item => !targetKeys.includes(item))
-								);
-							}}
-							checkedKeys={Array.from(new Set([...selectedKeys, ...targetKeys]))}
-							disabledCheckedKeys={targetKeys}
-							expandAll
-						/>
-					);
-				}
+	<div className="transfer-hook">
+		<Tree
+			checkable
+			size="small"
+			data={treeData}
+			onCheck={checked => {
+				onSelectChange(
+					'left',
+					checked.filter(item => !targetKeys.includes(item))
+				);
 			}}
-		</Transfer>
+			checkedKeys={Array.from(new Set([...selectedKeys, ...targetKeys]))}
+			disabledCheckedKeys={targetKeys}
+			expandAll
+		/>
+		<Icon className="icon" type="left" onClick={() => onChange('left')} />
+		<Icon className="icon" type="right" onClick={() => onChange('right')} />
+		<Grid
+			datasets={targetKeys.map(key => transferDataSource.find(item => key === item.id))}
+			selection={{
+				selectedRowKeys: targetKeys.filter(item => selectedKeys.includes(item)),
+				onSelect: keys => onSelectChange('right', keys),
+			}}
+			columns={columns}
+			scroll={{ y: 240, x: 0 }}
+		/>
 	</div>,
 	mountNode
 );
 ```
+<style>
+.transfer-hook {
+	display: flex;
+	align-items: center;
+
+	.icon {
+		font-size: 30px;
+		padding: 20px 10px;
+	}
+}
+</style>

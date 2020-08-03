@@ -4,6 +4,7 @@ import cx from 'classnames';
 import Button from '../../button';
 import { Direction } from '../constants';
 import { ITransferArrowButton } from '../types';
+import Icon from '../../icon';
 
 const ArrowButton = ({
   direction,
@@ -18,25 +19,12 @@ const ArrowButton = ({
       onClick={onChange}
       className={`${prefix}__arrow__button`}
     >
-      <svg
-        width="9"
-        height="14"
-        xmlns="http://www.w3.org/2000/svg"
+      <Icon
+        type={Direction.Right === direction ? 'right' : 'left'}
         className={cx(`${prefix}__arrow__icon`, {
           [`${prefix}__arrow__icon--disabled`]: disabled,
         })}
-      >
-        <path
-          d={
-            Direction.Left === direction
-              ? 'M8 1L1.78 7 8 13'
-              : 'M1 1l6.22 6L1 13'
-          }
-          strokeWidth={2}
-          fill="none"
-          fillRule="evenodd"
-        />
-      </svg>
+      />
     </Button>
   );
 };
