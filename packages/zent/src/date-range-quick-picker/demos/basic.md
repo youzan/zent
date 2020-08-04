@@ -2,8 +2,8 @@
 order: 1
 zh-CN:
 	title: 基础用法
-	today: 今
-	yesterday: 昨
+	today: 今天
+	yesterday: 昨天
 	seven: 近7天
 	thirty: 近30天
 en-US:

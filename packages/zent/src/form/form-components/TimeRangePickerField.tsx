@@ -1,15 +1,13 @@
 import * as React from 'react';
 import { Omit } from 'utility-types';
-import { DatePickers } from '../../datetimepicker/common/types';
-import { IFormComponentProps, dateRangeDefaultValueFactory } from '../shared';
-import TimeRangePicker, {
-  ITimeRangePickerProps,
-} from '../../datetimepicker/TimeRangePicker';
+import { IFormComponentProps, dateRangeDefaultTimeFactory } from '../shared';
+import { TimeRangePicker, ITimeRangePickerProps } from '../../date-picker';
 import { FormField } from '../Field';
 import { $MergeParams } from '../utils';
+import { RangeTime } from '../../date-picker';
 
 export type IFormTimeRangePickerFieldProps = IFormComponentProps<
-  DatePickers.RangeValue,
+  RangeTime,
   Omit<ITimeRangePickerProps, 'value'>
 >;
 
@@ -19,7 +17,7 @@ export const FormTimeRangePickerField: React.FunctionComponent<IFormTimeRangePic
       {...props}
       defaultValue={
         (props as $MergeParams<IFormTimeRangePickerFieldProps>).defaultValue ||
-        dateRangeDefaultValueFactory
+        dateRangeDefaultTimeFactory
       }
     >
       {childProps => <TimeRangePicker {...props.props} {...childProps} />}
