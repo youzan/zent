@@ -406,7 +406,7 @@ export class NumberInput extends React.Component<
       onInput,
 
       ...inputProps
-    } = this.props as INumberInputDecimalProps & INumberInputIntegerProps;
+    } = this.props as INumberInputProps & { decimal?: number }; // make tsc happy
     const { input } = this.state;
     if (showStepper && showCounter) {
       throw new Error(
