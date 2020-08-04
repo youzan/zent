@@ -60,26 +60,26 @@ Transfer 支持接收 children 自定义渲染列表，并返回以下参数：
 | components            | 自定义`table`内的组件                            | `object { row?: ComponentType }`                                                                           |                  |        | 否    |
 | rowProps              | 自定义传入 row 的属性                             | `(data: any, index: number) => object`                                                                     |                  |        | 否    |
 | autoStick             | 是否自动将 head stick 到窗口                      | `bool`                                                                                                     | `false`          | `true` | 否    |
-| autoStickOffsetTop    | 自定义表头吸顶的offsetTop                         | `number`                                                                                                   | 0                |        | 否    |
+| autoStickOffsetTop    | 自定义表头吸顶的offsetTop                         | `number`                                                                                                   | `0`                |        | 否    |
 | disableHoverHighlight | 禁用鼠标hover高亮效果                             | `bool`                                                                                                     | `false`          | `true` | 否    |
 
 #### columns
 
-| 参数          | 说明                                                    | 默认值 | 类型                                                                                                                   | 是否必须 |
-|-------------|-------------------------------------------------------|-----|----------------------------------------------------------------------------------------------------------------------|------|
-| name        | 列表展示数据的`key`                                          |     | string                                                                                                               | 是    |
-| title       | 列头的名称                                                 | ''  | ReactNode                                                                                                            | 否    |
-| width       | 列表宽度                                                  |     | string \| number                                                                                                     | 否    |
-| bodyRender  | 渲染复杂组件                                                |     | ((data: any, pos: {row: number, column: number, fixed?: 'left' \| 'right'}, name: string) => ReactNode) \| ReactNode | 否    |
-| className   | 列头的 className                                         |     | string                                                                                                               | 否    |
-| needSort    | 是否支持排序 (使用此功能 请设置 name)                               |     | bool                                                                                                                 | 否    |
-| colSpan     | 列合并 当为 0 时不渲染                                         |     | number                                                                                                               | 否    |
-| fixed       | 是否固定列 可选值为 `left` `right` `true` (`true` 与 `left` 等效) |     | bool \| strig                                                                                                        | 否    |
-| onCellClick | 点击单元格回调                                               |     | (data: any, event: Event) => any                                                                                     | 否    |
-| textAlign   | 文本对齐方式                                                |     | string                                                                                                               | 否    |
-| nowrap      | 是否换行 默认换行                                             |     | bool                                                                                                                 | 否    |
-| defaultText | 默认显示文字                                                |     | ReactNode                                                                                                            | 否    |
-| children    | 渲染分组表头                                                |     | array                                                                                                                |  否    |
+| 参数          | 说明                                                    | 类型                                                                                                                   | 默认值 | 是否必须 |
+|-------------|-------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|-----|------|
+| name        | 列表展示数据的`key`                                          | string                                                                                                               |     | 是    |
+| title       | 列头的名称                                                 | ReactNode                                                                                                            | ''  | 否    |
+| width       | 列表宽度                                                  | string \| number                                                                                                     |     | 否    |
+| bodyRender  | 渲染复杂组件                                                | ((data: any, pos: {row: number, column: number, fixed?: 'left' \| 'right'}, name: string) => ReactNode) \| ReactNode |     | 否    |
+| className   | 列头的 className                                         | string                                                                                                               |     | 否    |
+| needSort    | 是否支持排序 (使用此功能 请设置 name)                               | bool                                                                                                                 |     | 否    |
+| colSpan     | 列合并 当为 0 时不渲染                                         | number                                                                                                               |     | 否    |
+| fixed       | 是否固定列 可选值为 `left` `right` `true` (`true` 与 `left` 等效) | bool \| strig                                                                                                        |     | 否    |
+| onCellClick | 点击单元格回调                                               | (data: any, event: Event) => any                                                                                     |     | 否    |
+| textAlign   | 文本对齐方式                                                | string                                                                                                               |     | 否    |
+| nowrap      | 是否换行 默认换行                                             | bool                                                                                                                 |     | 否    |
+| defaultText | 默认显示文字                                                | ReactNode                                                                                                            |     | 否    |
+| children    | 渲染分组表头                                                | array                                                                                                                |     | 否    |
 
 ### useTransfer
 传送左右两边数据的hook。

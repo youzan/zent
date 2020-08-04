@@ -13,7 +13,7 @@ zh-CN:
 	title9: GO
 	title10: .NET
 en-US:
-	title: render props
+	title: Render props
 	title1: Hangzhou Youzan Technology Co. Ltd
 	title2: Engineer
 	title3: Back End Engineer
