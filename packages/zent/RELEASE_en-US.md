@@ -8,6 +8,12 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 8.5.4(2020-08-04)
+
+- 🦀️ Fix unmatched `TypeScript` and `tslib` version in `8.5.3`
+- 🦀️ Fix label text color in disabled `Checkbox`
+- 📚 Add a new demo for custom `Form` field
+
 ### 8.5.3(2020-07-22)
 
 - ✨ Add a new icon `thumbnail`
