@@ -126,7 +126,6 @@ ReactDOM.render(
 				onSelect: keys => onSelectChange('right', keys),
 			}}
 			columns={columns}
-			scroll={{ y: 240, x: 0 }}
 		/>
 	</div>,
 	mountNode
@@ -148,7 +147,7 @@ ReactDOM.render(
 	}
 
 	.transfer-gird {
-		height: 240px;
+		min-height: 240px;
 		width: 200px;
 	}
 }

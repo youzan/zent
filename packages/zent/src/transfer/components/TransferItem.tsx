@@ -151,7 +151,7 @@ const TransferItem: React.FC<ITransferItem> = ({
               columns={girdColumns}
               onRowClick={handleRowClick}
               emptyLabel={i18n.emptyLabel}
-              scroll={{ y: 240, x: 0 }}
+              scroll={{ y: 240 }}
               {...pick(gridRest, GridProps)}
             />
           </div>
