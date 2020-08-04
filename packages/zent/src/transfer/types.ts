@@ -44,6 +44,21 @@ export type GridPropsType =
   | 'autoStickOffsetTop'
   | 'disableHoverHighlight';
 
+export type TransferGridPropsType =
+  | 'onChange'
+  | 'scroll'
+  | 'sortBy'
+  | 'sortType'
+  | 'defaultSortType'
+  | 'emptyLabel'
+  | 'bordered'
+  | 'ellipsis'
+  | 'components'
+  | 'rowProps'
+  | 'autoStick'
+  | 'autoStickOffsetTop'
+  | 'disableHoverHighlight';
+
 type GridType = {
   columns: TransferColumnType | [TransferColumnType, TransferColumnType];
   selection?: {

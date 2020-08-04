@@ -3,11 +3,12 @@ import { useState, useCallback, useEffect } from 'react';
 import cx from 'classnames';
 
 import uniq from '../utils/uniq';
+import pick from '../utils/pick';
 import { TransferColumnType, ITransferItem, TransferType } from './types';
 import { Direction, GridProps } from './constants';
 import TransferItem from './components/TransferItem';
 import ArrowButton from './components/ArrowButton';
-import { getOppositeDirection, pick } from './utils';
+import { getOppositeDirection } from './utils';
 
 export const Transfer: React.FC<TransferType> = ({
   keyName,

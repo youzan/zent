@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useState, useCallback, useEffect, useMemo } from 'react';
 import cx from 'classnames';
 
+import pick from '../../utils/pick';
 import {
   Grid,
   Input,
@@ -10,9 +11,8 @@ import {
   I18nReceiver as Receiver,
   II18nLocaleTransfer,
 } from '../../index';
-import { ITransferItem, ITransferData } from '../types';
+import { ITransferItem, ITransferData, TransferGridPropsType } from '../types';
 import { GridProps } from '../constants';
-import { pick } from '../utils';
 
 const TransferItem: React.FC<ITransferItem> = ({
   prefix,
@@ -152,7 +152,7 @@ const TransferItem: React.FC<ITransferItem> = ({
               onRowClick={handleRowClick}
               emptyLabel={i18n.emptyLabel}
               scroll={{ y: 240 }}
-              {...pick(gridRest, GridProps)}
+              {...pick(gridRest, GridProps as Array<TransferGridPropsType>)}
             />
           </div>
         );

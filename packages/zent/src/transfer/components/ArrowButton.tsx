@@ -6,12 +6,12 @@ import { Direction } from '../constants';
 import { ITransferArrowButton } from '../types';
 import Icon from '../../icon';
 
-const ArrowButton = ({
+const ArrowButton: React.FC<ITransferArrowButton> = ({
   direction,
   onChange,
   disabled,
   prefix,
-}: ITransferArrowButton) => {
+}) => {
   return (
     <Button
       type={disabled ? 'default' : 'primary'}

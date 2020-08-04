@@ -1,14 +1,14 @@
 import { useState, useCallback } from 'react';
 
-import { Direction } from './constants';
-import { getOppositeDirection } from './utils';
-import { ITransferHook } from './types';
+import { Direction } from '../constants';
+import { getOppositeDirection } from '../utils';
+import { ITransferHook } from '../types';
 
-export const useTransfer = (params: ITransferHook = {}) => {
+export default function useTransfer(params?: ITransferHook) {
   const {
     targetKeys: defaultTargetKeys = [],
     selectedKeys: defaultSelectedKeys = [],
-  } = params;
+  } = params || {};
   const [targetKeys, setTargetKeys] = useState<string[]>(defaultTargetKeys);
   const [selectedKeys, setSelectedKeys] = useState<string[]>(
     defaultSelectedKeys
@@ -58,4 +58,4 @@ export const useTransfer = (params: ITransferHook = {}) => {
     onChange,
     onSelectChange,
   };
-};
+}
