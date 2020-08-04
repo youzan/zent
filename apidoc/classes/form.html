@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Form | zent - v8.5.3</title>
-	<meta name="description" content="">
+	<title>Form | zent</title>
+	<meta name="description" content="Documentation for zent">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
 </head>
@@ -13,7 +13,7 @@
 	<div class="tsd-page-toolbar">
 		<div class="container">
 			<div class="table-wrap">
-				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.js" data-base="..">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
 					<div class="field">
 						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
 						<input id="tsd-search-field" type="text" />
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">zent - v8.5.3</a>
+					<a href="../index.html" class="title">zent</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -70,7 +70,7 @@
 				<h3>Type parameters</h3>
 				<ul class="tsd-type-parameters">
 					<li>
-						<h4>T<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">__type</span></h4>
+						<h4>T<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{}</span></h4>
 					</li>
 					<li>
 						<h4>S</h4>
@@ -181,11 +181,20 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from Component.__constructor</p>
+								<p>Inherited from <a href="alertitem.html">AlertItem</a>.<a href="alertitem.html#constructor">constructor</a></p>
 								<ul>
 									<li>Defined in node_modules/@types/react/index.d.ts:486</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>deprecated</dt>
+									<dd></dd>
+									<dt>see</dt>
+									<dd><p><a href="https://reactjs.org/docs/legacy-context.html">https://reactjs.org/docs/legacy-context.html</a></p>
+									</dd>
+								</dl>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -196,7 +205,7 @@
 						</li>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from Component.__constructor</p>
+								<p>Inherited from <a href="alertitem.html">AlertItem</a>.<a href="alertitem.html#constructor">constructor</a></p>
 								<ul>
 									<li>Defined in node_modules/@types/react/index.d.ts:488</li>
 								</ul>
@@ -228,11 +237,11 @@
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="children" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> children</h3>
-					<div class="tsd-signature tsd-kind-icon">children<span class="tsd-signature-symbol">:</span> <a href="../interfaces/iformchild.html" class="tsd-signature-type">IFormChild</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></div>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> <span class="tsd-flag ts-flagReadonly">Readonly</span> children</h3>
+					<div class="tsd-signature tsd-kind-icon">children<span class="tsd-signature-symbol">:</span> <a href="../interfaces/iformchild.html" class="tsd-signature-type">IFormChild</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/form/Form.tsx#L118">packages/zent/src/form/Form.tsx:118</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/form/Form.tsx#L118">packages/zent/src/form/Form.tsx:118</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -241,7 +250,7 @@
 					<h3>context</h3>
 					<div class="tsd-signature tsd-kind-icon">context<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from Component.context</p>
+						<p>Inherited from <a href="alertitem.html">AlertItem</a>.<a href="alertitem.html#context">context</a></p>
 						<ul>
 							<li>Defined in node_modules/@types/react/index.d.ts:486</li>
 						</ul>
@@ -266,30 +275,30 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="formref" class="tsd-anchor"></a>
-					<h3>form<wbr>Ref</h3>
-					<div class="tsd-signature tsd-kind-icon">form<wbr>Ref<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RefObject</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">HTMLFormElement</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;React.createRef&lt;HTMLFormElement&gt;()</span></div>
+					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> form<wbr>Ref</h3>
+					<div class="tsd-signature tsd-kind-icon">form<wbr>Ref<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RefObject</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">HTMLFormElement</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = React.createRef&lt;HTMLFormElement&gt;()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/form/Form.tsx#L116">packages/zent/src/form/Form.tsx:116</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/form/Form.tsx#L116">packages/zent/src/form/Form.tsx:116</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="getchildrencontext" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> get<wbr>Children<wbr>Context</h3>
-					<div class="tsd-signature tsd-kind-icon">get<wbr>Children<wbr>Context<span class="tsd-signature-symbol">:</span> <a href="../globals.html#makechildrencontext" class="tsd-signature-type">makeChildrenContext</a><span class="tsd-signature-symbol"> =&nbsp;memorize(makeChildrenContext)</span></div>
+					<div class="tsd-signature tsd-kind-icon">get<wbr>Children<wbr>Context<span class="tsd-signature-symbol">:</span> <a href="../globals.html#makechildrencontext" class="tsd-signature-type">makeChildrenContext</a><span class="tsd-signature-symbol"> = memorize(makeChildrenContext)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/form/Form.tsx#L119">packages/zent/src/form/Form.tsx:119</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/form/Form.tsx#L119">packages/zent/src/form/Form.tsx:119</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="props" class="tsd-anchor"></a>
-					<h3>props</h3>
-					<div class="tsd-signature tsd-kind-icon">props<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/iformprops.html" class="tsd-signature-type">IFormProps</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> props</h3>
+					<div class="tsd-signature tsd-kind-icon">props<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/iformprops.html" class="tsd-signature-type">IFormProps</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span>children<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">ReactNode</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from Component.props</p>
+						<p>Inherited from <a href="alertitem.html">AlertItem</a>.<a href="alertitem.html#props">props</a></p>
 						<ul>
 							<li>Defined in node_modules/@types/react/index.d.ts:511</li>
 						</ul>
@@ -298,9 +307,9 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="refs" class="tsd-anchor"></a>
 					<h3>refs</h3>
-					<div class="tsd-signature tsd-kind-icon">refs<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<div class="tsd-signature tsd-kind-icon">refs<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{}</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from Component.refs</p>
+						<p>Inherited from <a href="alertitem.html">AlertItem</a>.<a href="alertitem.html#refs">refs</a></p>
 						<ul>
 							<li>Defined in node_modules/@types/react/index.d.ts:517</li>
 						</ul>
@@ -326,7 +335,7 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<h3>state</h3>
 					<div class="tsd-signature tsd-kind-icon">state<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from Component.state</p>
+						<p>Inherited from <a href="alertitem.html">AlertItem</a>.<a href="alertitem.html#state">state</a></p>
 						<ul>
 							<li>Defined in node_modules/@types/react/index.d.ts:512</li>
 						</ul>
@@ -335,80 +344,80 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="subscription" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> subscription</h3>
-					<div class="tsd-signature tsd-kind-icon">subscription<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Subscription</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> =&nbsp;null</span></div>
+					<div class="tsd-signature tsd-kind-icon">subscription<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Subscription</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/form/Form.tsx#L120">packages/zent/src/form/Form.tsx:120</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/form/Form.tsx#L120">packages/zent/src/form/Form.tsx:120</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
 					<a name="combineerrors" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> Combine<wbr>Errors</h3>
-					<div class="tsd-signature tsd-kind-icon">Combine<wbr>Errors<span class="tsd-signature-symbol">:</span> <a href="combineerrors.html" class="tsd-signature-type">CombineErrors</a><span class="tsd-signature-symbol"> =&nbsp;CombineErrors</span></div>
+					<div class="tsd-signature tsd-kind-icon">Combine<wbr>Errors<span class="tsd-signature-symbol">:</span> <a href="combineerrors.html" class="tsd-signature-type">CombineErrors</a><span class="tsd-signature-symbol"> = CombineErrors</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/form/Form.tsx#L97">packages/zent/src/form/Form.tsx:97</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/form/Form.tsx#L97">packages/zent/src/form/Form.tsx:97</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
 					<a name="fieldsetvalue" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> Field<wbr>Set<wbr>Value</h3>
-					<div class="tsd-signature tsd-kind-icon">Field<wbr>Set<wbr>Value<span class="tsd-signature-symbol">:</span> <a href="../globals.html#fieldsetvalue" class="tsd-signature-type">FieldSetValue</a><span class="tsd-signature-symbol"> =&nbsp;FieldSetValue</span></div>
+					<div class="tsd-signature tsd-kind-icon">Field<wbr>Set<wbr>Value<span class="tsd-signature-symbol">:</span> <a href="../globals.html#fieldsetvalue" class="tsd-signature-type">FieldSetValue</a><span class="tsd-signature-symbol"> = FieldSetValue</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/form/Form.tsx#L107">packages/zent/src/form/Form.tsx:107</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/form/Form.tsx#L107">packages/zent/src/form/Form.tsx:107</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
 					<a name="fieldvalue" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> Field<wbr>Value</h3>
-					<div class="tsd-signature tsd-kind-icon">Field<wbr>Value<span class="tsd-signature-symbol">:</span> <a href="../globals.html#fieldvalue" class="tsd-signature-type">FieldValue</a><span class="tsd-signature-symbol"> =&nbsp;FieldValue</span></div>
+					<div class="tsd-signature tsd-kind-icon">Field<wbr>Value<span class="tsd-signature-symbol">:</span> <a href="../globals.html#fieldvalue" class="tsd-signature-type">FieldValue</a><span class="tsd-signature-symbol"> = FieldValue</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/form/Form.tsx#L106">packages/zent/src/form/Form.tsx:106</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/form/Form.tsx#L106">packages/zent/src/form/Form.tsx:106</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
 					<a name="touchwhen" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> Touch<wbr>When</h3>
-					<div class="tsd-signature tsd-kind-icon">Touch<wbr>When<span class="tsd-signature-symbol">:</span> <a href="../enums/touchwhen.html" class="tsd-signature-type">TouchWhen</a><span class="tsd-signature-symbol"> =&nbsp;TouchWhen</span></div>
+					<div class="tsd-signature tsd-kind-icon">Touch<wbr>When<span class="tsd-signature-symbol">:</span> <a href="../enums/touchwhen.html" class="tsd-signature-type">TouchWhen</a><span class="tsd-signature-symbol"> = TouchWhen</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/form/Form.tsx#L114">packages/zent/src/form/Form.tsx:114</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/form/Form.tsx#L114">packages/zent/src/form/Form.tsx:114</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
 					<a name="validateoccasion" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> Validate<wbr>Occasion</h3>
-					<div class="tsd-signature tsd-kind-icon">Validate<wbr>Occasion<span class="tsd-signature-symbol">:</span> <a href="../enums/validateoccasion.html" class="tsd-signature-type">ValidateOccasion</a><span class="tsd-signature-symbol"> =&nbsp;ValidateOccasion</span></div>
+					<div class="tsd-signature tsd-kind-icon">Validate<wbr>Occasion<span class="tsd-signature-symbol">:</span> <a href="../enums/validateoccasion.html" class="tsd-signature-type">ValidateOccasion</a><span class="tsd-signature-symbol"> = ValidateOccasion</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/form/Form.tsx#L113">packages/zent/src/form/Form.tsx:113</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/form/Form.tsx#L113">packages/zent/src/form/Form.tsx:113</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
 					<a name="validateoption" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> Validate<wbr>Option</h3>
-					<div class="tsd-signature tsd-kind-icon">Validate<wbr>Option<span class="tsd-signature-symbol">:</span> <a href="../enums/validateoption.html" class="tsd-signature-type">ValidateOption</a><span class="tsd-signature-symbol"> =&nbsp;ValidateOption</span></div>
+					<div class="tsd-signature tsd-kind-icon">Validate<wbr>Option<span class="tsd-signature-symbol">:</span> <a href="../enums/validateoption.html" class="tsd-signature-type">ValidateOption</a><span class="tsd-signature-symbol"> = ValidateOption</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/form/Form.tsx#L110">packages/zent/src/form/Form.tsx:110</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/form/Form.tsx#L110">packages/zent/src/form/Form.tsx:110</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
 					<a name="array" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> array</h3>
-					<div class="tsd-signature tsd-kind-icon">array<span class="tsd-signature-symbol">:</span> <a href="../globals.html#array" class="tsd-signature-type">array</a><span class="tsd-signature-symbol"> =&nbsp;array</span></div>
+					<div class="tsd-signature tsd-kind-icon">array<span class="tsd-signature-symbol">:</span> <a href="../globals.html#array" class="tsd-signature-type">array</a><span class="tsd-signature-symbol"> = array</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/form/Form.tsx#L104">packages/zent/src/form/Form.tsx:104</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/form/Form.tsx#L104">packages/zent/src/form/Form.tsx:104</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -417,7 +426,7 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> <span class="tsd-flag ts-flagOptional">Optional</span> context<wbr>Type</h3>
 					<div class="tsd-signature tsd-kind-icon">context<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Context</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from Component.contextType</p>
+						<p>Inherited from <a href="alertitem.html">AlertItem</a>.<a href="alertitem.html#contexttype">contextType</a></p>
 						<ul>
 							<li>Defined in node_modules/@types/react/index.d.ts:468</li>
 						</ul>
@@ -434,7 +443,7 @@ class Foo extends React.Component {
   static contextType = Ctx
   context!: React.ContextType&lt;typeof Ctx&gt;
   render () {
-    return &lt;&gt;My context's value: {this.context}&lt;/&gt;;
+    return &lt;&gt;My context&#x27;s value: {this.context}&lt;/&gt;;
   }
 }</code></pre>
 						<dl class="tsd-comment-tags">
@@ -447,120 +456,120 @@ class Foo extends React.Component {
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
 					<a name="createasyncvalidator" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> create<wbr>Async<wbr>Validator</h3>
-					<div class="tsd-signature tsd-kind-icon">create<wbr>Async<wbr>Validator<span class="tsd-signature-symbol">:</span> <a href="../globals.html#createasyncvalidator" class="tsd-signature-type">createAsyncValidator</a><span class="tsd-signature-symbol"> =&nbsp;createAsyncValidator</span></div>
+					<div class="tsd-signature tsd-kind-icon">create<wbr>Async<wbr>Validator<span class="tsd-signature-symbol">:</span> <a href="../globals.html#createasyncvalidator" class="tsd-signature-type">createAsyncValidator</a><span class="tsd-signature-symbol"> = createAsyncValidator</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/form/Form.tsx#L111">packages/zent/src/form/Form.tsx:111</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/form/Form.tsx#L111">packages/zent/src/form/Form.tsx:111</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
 					<a name="displayname" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> display<wbr>Name</h3>
-					<div class="tsd-signature tsd-kind-icon">display<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;ZentForm&quot;</span></div>
+					<div class="tsd-signature tsd-kind-icon">display<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;ZentForm&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/form/Form.tsx#L95">packages/zent/src/form/Form.tsx:95</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/form/Form.tsx#L95">packages/zent/src/form/Form.tsx:95</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
 					<a name="field" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> field</h3>
-					<div class="tsd-signature tsd-kind-icon">field<span class="tsd-signature-symbol">:</span> <a href="../globals.html#field" class="tsd-signature-type">field</a><span class="tsd-signature-symbol"> =&nbsp;field</span></div>
+					<div class="tsd-signature tsd-kind-icon">field<span class="tsd-signature-symbol">:</span> <a href="../globals.html#field" class="tsd-signature-type">field</a><span class="tsd-signature-symbol"> = field</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/form/Form.tsx#L102">packages/zent/src/form/Form.tsx:102</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/form/Form.tsx#L102">packages/zent/src/form/Form.tsx:102</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
 					<a name="form-1" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> form</h3>
-					<div class="tsd-signature tsd-kind-icon">form<span class="tsd-signature-symbol">:</span> <a href="../globals.html#form" class="tsd-signature-type">form</a><span class="tsd-signature-symbol"> =&nbsp;form</span></div>
+					<div class="tsd-signature tsd-kind-icon">form<span class="tsd-signature-symbol">:</span> <a href="../globals.html#form" class="tsd-signature-type">form</a><span class="tsd-signature-symbol"> = form</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/form/Form.tsx#L105">packages/zent/src/form/Form.tsx:105</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/form/Form.tsx#L105">packages/zent/src/form/Form.tsx:105</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
 					<a name="isasyncvalidator" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> is<wbr>Async<wbr>Validator</h3>
-					<div class="tsd-signature tsd-kind-icon">is<wbr>Async<wbr>Validator<span class="tsd-signature-symbol">:</span> <a href="../globals.html#isasyncvalidator" class="tsd-signature-type">isAsyncValidator</a><span class="tsd-signature-symbol"> =&nbsp;isAsyncValidator</span></div>
+					<div class="tsd-signature tsd-kind-icon">is<wbr>Async<wbr>Validator<span class="tsd-signature-symbol">:</span> <a href="../globals.html#isasyncvalidator" class="tsd-signature-type">isAsyncValidator</a><span class="tsd-signature-symbol"> = isAsyncValidator</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/form/Form.tsx#L112">packages/zent/src/form/Form.tsx:112</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/form/Form.tsx#L112">packages/zent/src/form/Form.tsx:112</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
 					<a name="set" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> set</h3>
-					<div class="tsd-signature tsd-kind-icon">set<span class="tsd-signature-symbol">:</span> <a href="../globals.html#set" class="tsd-signature-type">set</a><span class="tsd-signature-symbol"> =&nbsp;set</span></div>
+					<div class="tsd-signature tsd-kind-icon">set<span class="tsd-signature-symbol">:</span> <a href="../globals.html#set" class="tsd-signature-type">set</a><span class="tsd-signature-symbol"> = set</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/form/Form.tsx#L103">packages/zent/src/form/Form.tsx:103</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/form/Form.tsx#L103">packages/zent/src/form/Form.tsx:103</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
 					<a name="usefield" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> use<wbr>Field</h3>
-					<div class="tsd-signature tsd-kind-icon">use<wbr>Field<span class="tsd-signature-symbol">:</span> <a href="../globals.html#usefield" class="tsd-signature-type">useField</a><span class="tsd-signature-symbol"> =&nbsp;useField</span></div>
+					<div class="tsd-signature tsd-kind-icon">use<wbr>Field<span class="tsd-signature-symbol">:</span> <a href="../globals.html#usefield" class="tsd-signature-type">useField</a><span class="tsd-signature-symbol"> = useField</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/form/Form.tsx#L99">packages/zent/src/form/Form.tsx:99</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/form/Form.tsx#L99">packages/zent/src/form/Form.tsx:99</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
 					<a name="usefieldarray" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> use<wbr>Field<wbr>Array</h3>
-					<div class="tsd-signature tsd-kind-icon">use<wbr>Field<wbr>Array<span class="tsd-signature-symbol">:</span> <a href="../globals.html#usefieldarray" class="tsd-signature-type">useFieldArray</a><span class="tsd-signature-symbol"> =&nbsp;useFieldArray</span></div>
+					<div class="tsd-signature tsd-kind-icon">use<wbr>Field<wbr>Array<span class="tsd-signature-symbol">:</span> <a href="../globals.html#usefieldarray" class="tsd-signature-type">useFieldArray</a><span class="tsd-signature-symbol"> = useFieldArray</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/form/Form.tsx#L100">packages/zent/src/form/Form.tsx:100</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/form/Form.tsx#L100">packages/zent/src/form/Form.tsx:100</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
 					<a name="usefieldarrayvalue" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> use<wbr>Field<wbr>Array<wbr>Value</h3>
-					<div class="tsd-signature tsd-kind-icon">use<wbr>Field<wbr>Array<wbr>Value<span class="tsd-signature-symbol">:</span> <a href="../globals.html#usefieldarrayvalue" class="tsd-signature-type">useFieldArrayValue</a><span class="tsd-signature-symbol"> =&nbsp;useFieldArrayValue</span></div>
+					<div class="tsd-signature tsd-kind-icon">use<wbr>Field<wbr>Array<wbr>Value<span class="tsd-signature-symbol">:</span> <a href="../globals.html#usefieldarrayvalue" class="tsd-signature-type">useFieldArrayValue</a><span class="tsd-signature-symbol"> = useFieldArrayValue</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/form/Form.tsx#L108">packages/zent/src/form/Form.tsx:108</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/form/Form.tsx#L108">packages/zent/src/form/Form.tsx:108</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
 					<a name="usefieldset" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> use<wbr>Field<wbr>Set</h3>
-					<div class="tsd-signature tsd-kind-icon">use<wbr>Field<wbr>Set<span class="tsd-signature-symbol">:</span> <a href="../globals.html#usefieldset" class="tsd-signature-type">useFieldSet</a><span class="tsd-signature-symbol"> =&nbsp;useFieldSet</span></div>
+					<div class="tsd-signature tsd-kind-icon">use<wbr>Field<wbr>Set<span class="tsd-signature-symbol">:</span> <a href="../globals.html#usefieldset" class="tsd-signature-type">useFieldSet</a><span class="tsd-signature-symbol"> = useFieldSet</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/form/Form.tsx#L101">packages/zent/src/form/Form.tsx:101</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/form/Form.tsx#L101">packages/zent/src/form/Form.tsx:101</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
 					<a name="usefieldvalue" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> use<wbr>Field<wbr>Value</h3>
-					<div class="tsd-signature tsd-kind-icon">use<wbr>Field<wbr>Value<span class="tsd-signature-symbol">:</span> <a href="../globals.html#usefieldvalue" class="tsd-signature-type">useFieldValue</a><span class="tsd-signature-symbol"> =&nbsp;useFieldValue</span></div>
+					<div class="tsd-signature tsd-kind-icon">use<wbr>Field<wbr>Value<span class="tsd-signature-symbol">:</span> <a href="../globals.html#usefieldvalue" class="tsd-signature-type">useFieldValue</a><span class="tsd-signature-symbol"> = useFieldValue</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/form/Form.tsx#L109">packages/zent/src/form/Form.tsx:109</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/form/Form.tsx#L109">packages/zent/src/form/Form.tsx:109</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
 					<a name="useform" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> use<wbr>Form</h3>
-					<div class="tsd-signature tsd-kind-icon">use<wbr>Form<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">useForm</span><span class="tsd-signature-symbol"> =&nbsp;useForm</span></div>
+					<div class="tsd-signature tsd-kind-icon">use<wbr>Form<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">useForm</span><span class="tsd-signature-symbol"> = useForm</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/form/Form.tsx#L98">packages/zent/src/form/Form.tsx:98</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/form/Form.tsx#L98">packages/zent/src/form/Form.tsx:98</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -576,7 +585,7 @@ class Foo extends React.Component {
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from DeprecatedLifecycle.UNSAFE_componentWillMount</p>
+								<p>Inherited from <a href="waypoint.html">Waypoint</a>.<a href="waypoint.html#unsafe_componentwillmount">UNSAFE_componentWillMount</a></p>
 								<ul>
 									<li>Defined in node_modules/@types/react/index.d.ts:712</li>
 								</ul>
@@ -614,7 +623,7 @@ class Foo extends React.Component {
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from DeprecatedLifecycle.UNSAFE_componentWillReceiveProps</p>
+								<p>Inherited from <a href="waypoint.html">Waypoint</a>.<a href="waypoint.html#unsafe_componentwillreceiveprops">UNSAFE_componentWillReceiveProps</a></p>
 								<ul>
 									<li>Defined in node_modules/@types/react/index.d.ts:744</li>
 								</ul>
@@ -663,7 +672,7 @@ class Foo extends React.Component {
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from DeprecatedLifecycle.UNSAFE_componentWillUpdate</p>
+								<p>Inherited from <a href="waypoint.html">Waypoint</a>.<a href="waypoint.html#unsafe_componentwillupdate">UNSAFE_componentWillUpdate</a></p>
 								<ul>
 									<li>Defined in node_modules/@types/react/index.d.ts:772</li>
 								</ul>
@@ -708,12 +717,12 @@ class Foo extends React.Component {
 					<a name="componentdidcatch" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> component<wbr>Did<wbr>Catch</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">component<wbr>Did<wbr>Catch<span class="tsd-signature-symbol">(</span>error<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Error</span>, errorInfo<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ErrorInfo</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">component<wbr>Did<wbr>Catch<span class="tsd-signature-symbol">(</span>error<span class="tsd-signature-symbol">: </span><a href="formulrerror.html#error" class="tsd-signature-type">Error</a>, errorInfo<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ErrorInfo</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from ComponentLifecycle.componentDidCatch</p>
+								<p>Inherited from <a href="waypoint.html">Waypoint</a>.<a href="waypoint.html#componentdidcatch">componentDidCatch</a></p>
 								<ul>
 									<li>Defined in node_modules/@types/react/index.d.ts:641</li>
 								</ul>
@@ -727,7 +736,7 @@ class Foo extends React.Component {
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>error: <span class="tsd-signature-type">Error</span></h5>
+									<h5>error: <a href="formulrerror.html#error" class="tsd-signature-type">Error</a></h5>
 								</li>
 								<li>
 									<h5>errorInfo: <span class="tsd-signature-type">ErrorInfo</span></h5>
@@ -746,9 +755,9 @@ class Foo extends React.Component {
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Overrides ComponentLifecycle.componentDidMount</p>
+								<p>Overrides <a href="alert.html">Alert</a>.<a href="alert.html#componentdidmount">componentDidMount</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/form/Form.tsx#L209">packages/zent/src/form/Form.tsx:209</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/form/Form.tsx#L209">packages/zent/src/form/Form.tsx:209</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -764,9 +773,9 @@ class Foo extends React.Component {
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Overrides NewLifecycle.componentDidUpdate</p>
+								<p>Overrides <a href="alert.html">Alert</a>.<a href="alert.html#componentdidupdate">componentDidUpdate</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/form/Form.tsx#L213">packages/zent/src/form/Form.tsx:213</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/form/Form.tsx#L213">packages/zent/src/form/Form.tsx:213</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -788,7 +797,7 @@ class Foo extends React.Component {
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from DeprecatedLifecycle.componentWillMount</p>
+								<p>Inherited from <a href="waypoint.html">Waypoint</a>.<a href="waypoint.html#componentwillmount">componentWillMount</a></p>
 								<ul>
 									<li>Defined in node_modules/@types/react/index.d.ts:698</li>
 								</ul>
@@ -825,7 +834,7 @@ class Foo extends React.Component {
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from DeprecatedLifecycle.componentWillReceiveProps</p>
+								<p>Inherited from <a href="waypoint.html">Waypoint</a>.<a href="waypoint.html#componentwillreceiveprops">componentWillReceiveProps</a></p>
 								<ul>
 									<li>Defined in node_modules/@types/react/index.d.ts:727</li>
 								</ul>
@@ -873,9 +882,9 @@ class Foo extends React.Component {
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Overrides ComponentLifecycle.componentWillUnmount</p>
+								<p>Overrides <a href="alert.html">Alert</a>.<a href="alert.html#componentwillunmount">componentWillUnmount</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/form/Form.tsx#L220">packages/zent/src/form/Form.tsx:220</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/form/Form.tsx#L220">packages/zent/src/form/Form.tsx:220</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -891,7 +900,7 @@ class Foo extends React.Component {
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from DeprecatedLifecycle.componentWillUpdate</p>
+								<p>Inherited from <a href="waypoint.html">Waypoint</a>.<a href="waypoint.html#componentwillupdate">componentWillUpdate</a></p>
 								<ul>
 									<li>Defined in node_modules/@types/react/index.d.ts:757</li>
 								</ul>
@@ -935,12 +944,12 @@ class Foo extends React.Component {
 					<a name="forceupdate" class="tsd-anchor"></a>
 					<h3>force<wbr>Update</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">force<wbr>Update<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">force<wbr>Update<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from Component.forceUpdate</p>
+								<p>Inherited from <a href="alertitem.html">AlertItem</a>.<a href="alertitem.html#forceupdate">forceUpdate</a></p>
 								<ul>
 									<li>Defined in node_modules/@types/react/index.d.ts:503</li>
 								</ul>
@@ -948,9 +957,9 @@ class Foo extends React.Component {
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <span class="tsd-signature-type">function</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
 									<ul class="tsd-parameters">
-										<li class="tsd-parameter-siganture">
+										<li class="tsd-parameter-signature">
 											<ul class="tsd-signatures tsd-kind-type-literal">
 												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 											</ul>
@@ -976,7 +985,7 @@ class Foo extends React.Component {
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from NewLifecycle.getSnapshotBeforeUpdate</p>
+								<p>Inherited from <a href="waypoint.html">Waypoint</a>.<a href="waypoint.html#getsnapshotbeforeupdate">getSnapshotBeforeUpdate</a></p>
 								<ul>
 									<li>Defined in node_modules/@types/react/index.d.ts:677</li>
 								</ul>
@@ -999,10 +1008,7 @@ class Foo extends React.Component {
 									<h5>prevState: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">SS</span>
-								<span class="tsd-signature-symbol"> | </span>
-								<span class="tsd-signature-type">null</span>
-							</h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">SS</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -1016,7 +1022,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/form/Form.tsx#L127">packages/zent/src/form/Form.tsx:127</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/form/Form.tsx#L127">packages/zent/src/form/Form.tsx:127</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1039,7 +1045,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/form/Form.tsx#L122">packages/zent/src/form/Form.tsx:122</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/form/Form.tsx#L122">packages/zent/src/form/Form.tsx:122</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1061,9 +1067,9 @@ class Foo extends React.Component {
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Overrides Component.render</p>
+								<p>Overrides <a href="basetab.html">BaseTab</a>.<a href="basetab.html#render">render</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/form/Form.tsx#L224">packages/zent/src/form/Form.tsx:224</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/form/Form.tsx#L224">packages/zent/src/form/Form.tsx:224</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Element</span></h4>
@@ -1080,7 +1086,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/form/Form.tsx#L179">packages/zent/src/form/Form.tsx:179</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/form/Form.tsx#L179">packages/zent/src/form/Form.tsx:179</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1091,12 +1097,12 @@ class Foo extends React.Component {
 					<a name="setstate" class="tsd-anchor"></a>
 					<h3>set<wbr>State</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">set<wbr>State&lt;K&gt;<span class="tsd-signature-symbol">(</span>state<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span>, callback<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">set<wbr>State&lt;K&gt;<span class="tsd-signature-symbol">(</span>state<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span>prevState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span>, props<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/iformprops.html" class="tsd-signature-type">IFormProps</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">)</span>, callback<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from Component.setState</p>
+								<p>Inherited from <a href="alertitem.html">AlertItem</a>.<a href="alertitem.html#setstate">setState</a></p>
 								<ul>
 									<li>Defined in node_modules/@types/react/index.d.ts:498</li>
 								</ul>
@@ -1104,18 +1110,18 @@ class Foo extends React.Component {
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>K<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">keyof S</span></h4>
+									<h4>K<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">keyof </span><span class="tsd-signature-type">S</span></h4>
 								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>state: <span class="tsd-signature-type">function</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span></h5>
+									<h5>state: <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span>prevState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span>, props<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/iformprops.html" class="tsd-signature-type">IFormProps</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">)</span></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <span class="tsd-signature-type">function</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
 									<ul class="tsd-parameters">
-										<li class="tsd-parameter-siganture">
+										<li class="tsd-parameter-signature">
 											<ul class="tsd-signatures tsd-kind-type-literal">
 												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 											</ul>
@@ -1141,7 +1147,7 @@ class Foo extends React.Component {
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from ComponentLifecycle.shouldComponentUpdate</p>
+								<p>Inherited from <a href="waypoint.html">Waypoint</a>.<a href="waypoint.html#shouldcomponentupdate">shouldComponentUpdate</a></p>
 								<ul>
 									<li>Defined in node_modules/@types/react/index.d.ts:631</li>
 								</ul>
@@ -1182,7 +1188,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/form/Form.tsx#L139">packages/zent/src/form/Form.tsx:139</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/form/Form.tsx#L139">packages/zent/src/form/Form.tsx:139</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1205,7 +1211,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/form/Form.tsx#L193">packages/zent/src/form/Form.tsx:193</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/form/Form.tsx#L193">packages/zent/src/form/Form.tsx:193</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1228,7 +1234,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/form/Form.tsx#L197">packages/zent/src/form/Form.tsx:197</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/form/Form.tsx#L197">packages/zent/src/form/Form.tsx:197</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1245,7 +1251,7 @@ class Foo extends React.Component {
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/form/Form.tsx#L202">packages/zent/src/form/Form.tsx:202</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/form/Form.tsx#L202">packages/zent/src/form/Form.tsx:202</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1436,37 +1442,10 @@ class Foo extends React.Component {
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
-				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
-				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
-				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
-				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
-				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
-				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
-				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
-				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
-				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
-				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
-				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
-				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
-				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
 				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
 				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
 				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
-				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
@@ -1475,18 +1454,20 @@ class Foo extends React.Component {
 				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
 			</ul>
 			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
-				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
 			</ul>
 		</div>
 	</div>
@@ -1496,6 +1477,5 @@ class Foo extends React.Component {
 </div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>
-<script>if (location.protocol == 'file:') document.write('<script src="../assets/js/search.js"><' + '/script>');</script>
 </body>
 </html>

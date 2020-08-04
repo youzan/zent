@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>IImageUploadProps | zent - v8.5.3</title>
-	<meta name="description" content="">
+	<title>IImageUploadProps | zent</title>
+	<meta name="description" content="Documentation for zent">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
 </head>
@@ -13,7 +13,7 @@
 	<div class="tsd-page-toolbar">
 		<div class="container">
 			<div class="table-wrap">
-				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.js" data-base="..">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
 					<div class="field">
 						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
 						<input id="tsd-search-field" type="text" />
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">zent - v8.5.3</a>
+					<a href="../index.html" class="title">zent</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -118,7 +118,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="iabstractuploadprops.html">IAbstractUploadProps</a>.<a href="iabstractuploadprops.html#accept">accept</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/upload/types.ts#L114">packages/zent/src/upload/types.ts:114</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/upload/types.ts#L114">packages/zent/src/upload/types.ts:114</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -130,11 +130,11 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a name="beforeupload" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> before<wbr>Upload</h3>
-					<div class="tsd-signature tsd-kind-icon">before<wbr>Upload<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<div class="tsd-signature tsd-kind-icon">before<wbr>Upload<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>file<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">File</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="iabstractuploadprops.html">IAbstractUploadProps</a>.<a href="iabstractuploadprops.html#beforeupload">beforeUpload</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/upload/types.ts#L102">packages/zent/src/upload/types.ts:102</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/upload/types.ts#L102">packages/zent/src/upload/types.ts:102</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -145,8 +145,8 @@
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
-							<li class="tsd-parameter-siganture">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
+							<li class="tsd-parameter-signature">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
 									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>file<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">File</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
@@ -157,10 +157,7 @@
 												<h5>file: <span class="tsd-signature-type">File</span></h5>
 											</li>
 										</ul>
-										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span>
-											<span class="tsd-signature-symbol"> | </span>
-											<span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span>
-										</h4>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
 									</li>
 								</ul>
 							</li>
@@ -174,7 +171,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="iabstractuploadprops.html">IAbstractUploadProps</a>.<a href="iabstractuploadprops.html#classname">className</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/upload/types.ts#L94">packages/zent/src/upload/types.ts:94</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/upload/types.ts#L94">packages/zent/src/upload/types.ts:94</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -190,7 +187,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="iabstractuploadprops.html">IAbstractUploadProps</a>.<a href="iabstractuploadprops.html#customuploaditem">customUploadItem</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/upload/types.ts#L122">packages/zent/src/upload/types.ts:122</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/upload/types.ts#L122">packages/zent/src/upload/types.ts:122</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -206,7 +203,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="iabstractuploadprops.html">IAbstractUploadProps</a>.<a href="iabstractuploadprops.html#defaultfilelist">defaultFileList</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/upload/types.ts#L98">packages/zent/src/upload/types.ts:98</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/upload/types.ts#L98">packages/zent/src/upload/types.ts:98</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -222,7 +219,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="iabstractuploadprops.html">IAbstractUploadProps</a>.<a href="iabstractuploadprops.html#disabled">disabled</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/upload/types.ts#L116">packages/zent/src/upload/types.ts:116</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/upload/types.ts#L116">packages/zent/src/upload/types.ts:116</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -238,7 +235,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="iabstractuploadprops.html">IAbstractUploadProps</a>.<a href="iabstractuploadprops.html#filelist">fileList</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/upload/types.ts#L96">packages/zent/src/upload/types.ts:96</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/upload/types.ts#L96">packages/zent/src/upload/types.ts:96</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -250,10 +247,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="getthumbsrcfromfile" class="tsd-anchor"></a>
 					<h3>get<wbr>Thumb<wbr>Src<wbr>From<wbr>File</h3>
-					<div class="tsd-signature tsd-kind-icon">get<wbr>Thumb<wbr>Src<wbr>From<wbr>File<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<div class="tsd-signature tsd-kind-icon">get<wbr>Thumb<wbr>Src<wbr>From<wbr>File<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>file<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">File</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/upload/types.ts#L146">packages/zent/src/upload/types.ts:146</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/upload/types.ts#L146">packages/zent/src/upload/types.ts:146</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -264,8 +261,8 @@
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
-							<li class="tsd-parameter-siganture">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
+							<li class="tsd-parameter-signature">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
 									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>file<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">File</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
@@ -276,10 +273,7 @@
 												<h5>file: <span class="tsd-signature-type">File</span></h5>
 											</li>
 										</ul>
-										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span>
-											<span class="tsd-signature-symbol"> | </span>
-											<span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span>
-										</h4>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
 									</li>
 								</ul>
 							</li>
@@ -293,7 +287,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="iabstractuploadprops.html">IAbstractUploadProps</a>.<a href="iabstractuploadprops.html#manualupload">manualUpload</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/upload/types.ts#L120">packages/zent/src/upload/types.ts:120</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/upload/types.ts#L120">packages/zent/src/upload/types.ts:120</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -309,7 +303,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="iabstractuploadprops.html">IAbstractUploadProps</a>.<a href="iabstractuploadprops.html#maxamount">maxAmount</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/upload/types.ts#L110">packages/zent/src/upload/types.ts:110</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/upload/types.ts#L110">packages/zent/src/upload/types.ts:110</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -325,7 +319,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="iabstractuploadprops.html">IAbstractUploadProps</a>.<a href="iabstractuploadprops.html#maxsize">maxSize</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/upload/types.ts#L112">packages/zent/src/upload/types.ts:112</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/upload/types.ts#L112">packages/zent/src/upload/types.ts:112</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -341,7 +335,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="iabstractuploadprops.html">IAbstractUploadProps</a>.<a href="iabstractuploadprops.html#multiple">multiple</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/upload/types.ts#L108">packages/zent/src/upload/types.ts:108</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/upload/types.ts#L108">packages/zent/src/upload/types.ts:108</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -357,7 +351,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="iabstractuploadprops.html">IAbstractUploadProps</a>.<a href="iabstractuploadprops.html#onchange">onChange</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/upload/types.ts#L100">packages/zent/src/upload/types.ts:100</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/upload/types.ts#L100">packages/zent/src/upload/types.ts:100</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -373,7 +367,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="iabstractuploadprops.html">IAbstractUploadProps</a>.<a href="iabstractuploadprops.html#onerror">onError</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/upload/types.ts#L106">packages/zent/src/upload/types.ts:106</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/upload/types.ts#L106">packages/zent/src/upload/types.ts:106</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -389,7 +383,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="iabstractuploadprops.html">IAbstractUploadProps</a>.<a href="iabstractuploadprops.html#onupload">onUpload</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/upload/types.ts#L104">packages/zent/src/upload/types.ts:104</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/upload/types.ts#L104">packages/zent/src/upload/types.ts:104</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -404,7 +398,7 @@
 					<div class="tsd-signature tsd-kind-icon">preview<span class="tsd-signature-symbol">:</span> <a href="../globals.html#iimageuploadpreviewhandler" class="tsd-signature-type">IImageUploadPreviewHandler</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/upload/types.ts#L144">packages/zent/src/upload/types.ts:144</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/upload/types.ts#L144">packages/zent/src/upload/types.ts:144</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -420,7 +414,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="iabstractuploadprops.html">IAbstractUploadProps</a>.<a href="iabstractuploadprops.html#sortable">sortable</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/upload/types.ts#L118">packages/zent/src/upload/types.ts:118</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/upload/types.ts#L118">packages/zent/src/upload/types.ts:118</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -435,7 +429,7 @@
 					<div class="tsd-signature tsd-kind-icon">tips<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">React.ReactNode</span><span class="tsd-signature-symbol"> | </span><a href="../globals.html#iuploadtipsfunc" class="tsd-signature-type">IUploadTipsFunc</a><span class="tsd-signature-symbol">&lt;</span><a href="iimageuploadprops.html" class="tsd-signature-type">IImageUploadProps</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/94a7ec8e9/packages/zent/src/upload/types.ts#L142">packages/zent/src/upload/types.ts:142</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/2b2ae5d1c/packages/zent/src/upload/types.ts#L142">packages/zent/src/upload/types.ts:142</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -529,37 +523,10 @@
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
-				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
-				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
-				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
-				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
-				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
-				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
-				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
-				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
-				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
-				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
-				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
-				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
-				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
 				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
 				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
 				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
-				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
@@ -568,18 +535,20 @@
 				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
 			</ul>
 			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
-				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
 			</ul>
 		</div>
 	</div>
@@ -589,6 +558,5 @@
 </div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>
-<script>if (location.protocol == 'file:') document.write('<script src="../assets/js/search.js"><' + '/script>');</script>
 </body>
 </html>
