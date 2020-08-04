@@ -485,7 +485,7 @@ export class Select<
             </div>
           </Popover.Trigger.Click>
           <Popover.Content>
-            {filtered.length ? (
+            {filtered?.length ? (
               renderOptionList(filtered, this.renderOption)
             ) : (
               <div className="zent-select-popover-empty">

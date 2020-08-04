@@ -83,7 +83,8 @@ export interface II18nLocaleTimePicker extends II18nLocaleCommon {
   quarter: string;
   year: string;
   range: string;
-  rangeError: string;
+  timeErrorPop: string;
+  dateErrorPop: string;
   start: string;
   end: string;
   startTime: string;
@@ -100,12 +101,13 @@ export interface II18nLocaleTimePicker extends II18nLocaleCommon {
     hour: string;
     minute: string;
     second: string;
+    year: string;
     hourSelect: string;
     minuteSelect: string;
     secondSelect: string;
     titleFormat: string;
     quarterNames: string[];
-    yearQuarterName(options: { year: string; quarter: string }): string;
+    yearQuarterName(options: { year: number; quarter: number }): string;
     dayNames: string[];
     monthNames: string[];
   };
