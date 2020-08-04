@@ -5,9 +5,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, v[0-9]+ ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, v[0-9]+ ]
 
 jobs:
   build:
@@ -21,6 +21,4 @@ jobs:
       with:
         node-version: '12'
     - run: yarn
-    - run: yarn build
     - run: yarn lint
-    - run: yarn test
