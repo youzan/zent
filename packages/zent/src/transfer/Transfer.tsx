@@ -75,7 +75,19 @@ export const Transfer: React.FC<TransferType> = ({
 
   const getRenderList = useCallback(
     (props: ITransferItem): React.ReactNode => {
-      const { direction, selectedKeys, handleSelectChange } = props;
+      const {
+        direction,
+        selectedKeys,
+        handleSelectChange,
+        title,
+        keyName,
+        dataSets,
+        showSearch,
+        searchPlaceholder,
+        filterOption,
+        grid,
+        prefix,
+      } = props;
       const childrenNode =
         children &&
         children({
@@ -83,7 +95,23 @@ export const Transfer: React.FC<TransferType> = ({
           selectedKeys,
           handleSelectChange,
         });
-      return childrenNode ? childrenNode : <TransferItem {...props} />;
+      return childrenNode ? (
+        childrenNode
+      ) : (
+        <TransferItem
+          title={title}
+          direction={direction}
+          keyName={keyName}
+          dataSets={dataSets}
+          selectedKeys={selectedKeys}
+          handleSelectChange={handleSelectChange}
+          showSearch={showSearch}
+          searchPlaceholder={searchPlaceholder}
+          filterOption={filterOption}
+          grid={grid}
+          prefix={prefix}
+        />
+      );
     },
     [children]
   );
