@@ -33,7 +33,7 @@ ReactDOM.render(
 			dataSource={data}
 			targetKeys={targetKeys}
 			onChange={({ targetKeys }) => setTargetKeys(targetKeys)}
-			grid={{ columns }}
+			list={{ columns }}
 		/>
 	</div>,
 	mountNode

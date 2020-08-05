@@ -31,7 +31,7 @@ ReactDOM.render(
 			onChange={({ targetKeys }) => setTargetKeys(targetKeys)}
 			showSearch
 			filterOption={(inputValue, { text }) => text.indexOf(inputValue) > -1}
-			grid={{ columns }}
+			list={{ columns }}
 		/>
 	</div>,
 	mountNode

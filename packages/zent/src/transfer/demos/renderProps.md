@@ -106,7 +106,7 @@ ReactDOM.render(
 			dataSource={transferDataSource}
 			targetKeys={targetKeys}
 			onChange={({ targetKeys }) => setTargetKeys(targetKeys)}
-			grid={{ columns }}
+			list={{ columns }}
 		>
 			{({ direction, selectedKeys, handleSelectChange }) => {
 				if ('left' === direction) {

@@ -1,11 +1,11 @@
-import { GridPropsType } from './types';
+import { ListPropsType } from './types';
 
 export enum Direction {
   Left = 'left',
   Right = 'right',
 }
 
-export const GridProps: Array<GridPropsType> = [
+export const GridProps: Array<ListPropsType> = [
   'rowKey',
   'onChange',
   'scroll',

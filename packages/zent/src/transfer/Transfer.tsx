@@ -22,12 +22,11 @@ export const Transfer: React.FC<TransferType> = ({
   searchPlaceholder,
   filterOption,
   children,
-  grid,
+  list,
   className,
-  prefix,
 }) => {
-  const { columns, ...gridRest } = grid;
-  const classNamePrefix = `${prefix}-transfer`;
+  const { columns, ...gridRest } = list;
+  const classNamePrefix = 'zent-transfer';
   const [selectedKeysState, setSelectedKeys] = useState(selectedKeys);
 
   const getSingleDirectionData = useCallback(
@@ -85,7 +84,7 @@ export const Transfer: React.FC<TransferType> = ({
         showSearch,
         searchPlaceholder,
         filterOption,
-        grid,
+        list,
         prefix,
       } = props;
       const childrenNode =
@@ -108,7 +107,7 @@ export const Transfer: React.FC<TransferType> = ({
           showSearch={showSearch}
           searchPlaceholder={searchPlaceholder}
           filterOption={filterOption}
-          grid={grid}
+          list={list}
           prefix={prefix}
         />
       );
@@ -171,7 +170,7 @@ export const Transfer: React.FC<TransferType> = ({
         showSearch,
         searchPlaceholder,
         filterOption,
-        grid: {
+        list: {
           columns: getColumns(Direction.Left),
           ...pick(gridRest, GridProps),
         },
@@ -191,7 +190,7 @@ export const Transfer: React.FC<TransferType> = ({
         showSearch,
         searchPlaceholder,
         filterOption,
-        grid: {
+        list: {
           columns: getColumns(Direction.Right),
           ...pick(gridRest, GridProps),
         },
@@ -208,7 +207,6 @@ Transfer.defaultProps = {
   showSearch: false,
   searchPlaceholder: '',
   className: '',
-  prefix: 'zent',
 };
 
 export default Transfer;

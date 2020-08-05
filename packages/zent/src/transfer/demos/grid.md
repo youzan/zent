@@ -44,7 +44,7 @@ ReactDOM.render(
 			dataSource={data}
 			targetKeys={targetKeys}
 			onChange={({ targetKeys }) => setTargetKeys(targetKeys)}
-			grid={{ columns: [leftColumns, rightColumns], scroll: { y: 198, x: 0 } }}
+			list={{ columns: [leftColumns, rightColumns], scroll: { y: 198 } }}
 		/>
 	</div>,
 	mountNode

@@ -27,7 +27,7 @@ interface ITransferChildrenProps {
   handleSelectChange: (keys: string[]) => void;
 }
 
-export type GridPropsType =
+export type ListPropsType =
   | 'rowKey'
   | 'onChange'
   | 'scroll'
@@ -44,7 +44,7 @@ export type GridPropsType =
   | 'autoStickOffsetTop'
   | 'disableHoverHighlight';
 
-export type TransferGridPropsType =
+export type TransferListPropsType =
   | 'onChange'
   | 'scroll'
   | 'sortBy'
@@ -59,23 +59,23 @@ export type TransferGridPropsType =
   | 'autoStickOffsetTop'
   | 'disableHoverHighlight';
 
-type GridType = {
+type ListType = {
   columns: TransferColumnType | [TransferColumnType, TransferColumnType];
   selection?: {
     getCheckboxProps: (
       data: ITransferData
     ) => { disabled?: boolean; reason?: React.ReactNode };
   };
-} & Pick<IGridProps<ITransferData>, GridPropsType>;
+} & Pick<IGridProps<ITransferData>, ListPropsType>;
 
 type OneRequired =
   | {
       children?: (props: ITransferChildrenProps) => React.ReactNode;
-      grid: GridType;
+      list: ListType;
     }
   | {
       children: (props: ITransferChildrenProps) => React.ReactNode;
-      grid?: GridType;
+      list?: ListType;
     };
 
 export interface ITransferItem {
@@ -88,7 +88,7 @@ export interface ITransferItem {
   showSearch?: boolean; // 是否显示搜索框
   searchPlaceholder?: string; //搜索框文案
   filterOption?: (inputValue: string, option: ITransferData) => boolean; // 接收 inputValue option 两个参数，当 option 符合筛选条件时，应返回 true，反之则返回 false。
-  grid: Omit<GridType, 'columns'> & { columns: TransferColumnType };
+  list: Omit<ListType, 'columns'> & { columns: TransferColumnType };
   prefix: string;
 }
 
@@ -104,7 +104,6 @@ interface ITransfer {
   searchPlaceholder?: string; //搜索框文案
   filterOption?: (inputValue: string, option: ITransferData) => boolean; // 接收 inputValue option 两个参数，当 option 符合筛选条件时，应返回 true，反之则返回 false。
   className?: string;
-  prefix?: string;
 }
 
 export type TransferType = OneRequired & ITransfer;

@@ -11,7 +11,7 @@ import {
   I18nReceiver as Receiver,
   II18nLocaleTransfer,
 } from '../../index';
-import { ITransferItem, ITransferData, TransferGridPropsType } from '../types';
+import { ITransferItem, ITransferData, TransferListPropsType } from '../types';
 import { GridProps } from '../constants';
 
 const TransferItem: React.FC<ITransferItem> = ({
@@ -24,9 +24,9 @@ const TransferItem: React.FC<ITransferItem> = ({
   filterOption,
   showSearch,
   searchPlaceholder,
-  grid,
+  list,
 }) => {
-  const { rowKey, columns, selection, onRowClick, ...gridRest } = grid;
+  const { rowKey, columns, selection, onRowClick, ...gridRest } = list;
   const classNamePrefix = `${prefix}__item`;
   const [inputVal, setInputVal] = useState('');
   const [listData, setListData] = useState(dataSets);
@@ -152,7 +152,7 @@ const TransferItem: React.FC<ITransferItem> = ({
               onRowClick={handleRowClick}
               emptyLabel={i18n.emptyLabel}
               scroll={{ y: 240 }}
-              {...pick(gridRest, GridProps as Array<TransferGridPropsType>)}
+              {...pick(gridRest, GridProps as Array<TransferListPropsType>)}
             />
           </div>
         );
