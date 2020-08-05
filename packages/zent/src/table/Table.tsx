@@ -29,13 +29,22 @@ export interface ITablePageInfo {
   pageSizeOptions?: PaginationPageSizeOption[];
 }
 
+export interface ITableCellPos {
+  row: number;
+  column: number;
+}
+
 export interface ITableColumn {
   title: string;
   name: string;
   width?: number | string;
   isMoney?: boolean;
   needSort?: boolean;
-  bodyRender?: (data: any) => React.ReactNode;
+  bodyRender?: (
+    data: any,
+    pos?: ITableCellPos,
+    name?: string
+  ) => React.ReactNode;
   textAlign?: 'left' | 'right' | 'center';
 }
 
