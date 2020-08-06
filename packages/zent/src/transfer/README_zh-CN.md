@@ -56,7 +56,7 @@ Transfer 支持接收 children 自定义渲染列表，并返回以下参数：
 | ----------- | ----------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | ------ | -------- |
 | name        | 列表展示数据的`key`                                               | string                                                                                                               |        | 是       |
 | title       | 列头的名称                                                        | ReactNode                                                                                                            | ''     | 否       |
-以上props和`Grid`不同，[查看其他属性说明](https://youzan.github.io/zent/zh/component/grid#columns)。
+以上 props 和 `Grid` 不同，[查看其他属性说明](https://youzan.github.io/zent/zh/component/grid#columns)。
 
 ### useTransfer
 
