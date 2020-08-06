@@ -50,7 +50,7 @@ Transfer accept children to customize render list, using follow props:
 | scroll                | Can be scrolled in x/y direction, x or y can be a number that indicates the width and height of table body | `{ x?: number, y?: number }`                                                                               | { y: 240 }                  | No       |
 | emptyLabel            | Text to be displayed when there's no data                                                                  | `string`                                                                                                   | `'No data'`                 | No       |
 
-The above props are different from `Grid`, `onChange`, `sortBy`, `sortType`, `defaultSortType`, `bordered`, `onRowClick`, `ellipsis`, `components`, `rowProps`, `autoStick`, `autoStickOffsetTop`, `disableHoverHighlight` will be passed down.([View props description](/en/component/grid#api)).
+The above props are different from `Grid`, `onChange`, `sortBy`, `sortType`, `defaultSortType`, `bordered`, `onRowClick`, `ellipsis`, `components`, `rowProps`, `autoStick`, `autoStickOffsetTop`, `disableHoverHighlight` will be passed down.([View props description](https://youzan.github.io/zent/en/component/grid#api)).
 
 #### columns
 
@@ -58,7 +58,7 @@ The above props are different from `Grid`, `onChange`, `sortBy`, `sortType`, `de
 | ----------- | ----------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ------- | -------- |
 | name        | Key for the corresponding data                                                                  | `string`                                                                                                               |         | Yes      |
 | title       | Column title                                                                                    | `ReactNode`                                                                                                            | ''      | No       |
-The above props are different from `Grid`, [View other props descriptions](/en/component/grid#columns).
+The above props are different from `Grid`, [View other props descriptions](https://youzan.github.io/zent/en/component/grid#columns).
 
 ### useTransfer
 
