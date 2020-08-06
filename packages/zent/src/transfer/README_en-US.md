@@ -11,8 +11,6 @@ Double column transfer choice box.
 
 ### Guides
 
-Transfer list is implemented using the `Grid` component, and the partial prop of the `Grid` component will be passed down (See the `list` property for details).
-
 ### API
 
 | Property          | Description                                                                                                                                                                | Type                                                     | Default                | Alternative | Required |
