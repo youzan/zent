@@ -1,0 +1,46 @@
+name: 'CI'
+
+on:
+  push:
+    branches:
+      - master
+      - v[0-9]+
+  pull_request:
+    branches:
+      - master
+      - v[0-9]+
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js '12'
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12'
+    - uses: bahmutov/npm-install@v1
+    - run: yarn build
+    - run: yarn test
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js '12'
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12'
+    - uses: bahmutov/npm-install@v1
+    - run: yarn lint
+
+  check-git-hooks:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js '12'
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12'
+    - uses: bahmutov/npm-install@v1
+    - run: yarn check-git-hooks
