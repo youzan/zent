@@ -22,6 +22,7 @@ ColorPicker is used for color selection and supports multiple formats.
 | className     | The custom classname   | string  | `''`     |         |
 | wrapperClassName | The  custom classname of trigger's parent node | string | `''` |  |
 | prefix        | The custom prefix  | string              | `'zent'` |         |
+| disabled        | Disable the ColorPicker       | bool                | -       |         |
 
 #### ColorBoard
 

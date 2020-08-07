@@ -10,6 +10,7 @@ import cx from 'classnames';
 import ColorBoard from './ColorBoard';
 import SketchPresetColors from './SketchPresetColors';
 import Popover from '../popover';
+import { DisabledContext, IDisabledContext } from '../disabled';
 
 export type PresetColors = string[];
 export type ColorPickerType = 'default' | 'simple';
@@ -23,6 +24,7 @@ export interface IColorPickerProps {
   className?: string;
   wrapperClassName?: string;
   prefix?: string;
+  disabled?: boolean;
 }
 
 export class ColorPicker extends PureComponent<IColorPickerProps> {
@@ -57,6 +59,13 @@ export class ColorPicker extends PureComponent<IColorPickerProps> {
   };
 
   static ColorBoard = ColorBoard;
+  static contextType = DisabledContext;
+  context!: IDisabledContext;
+
+  get disabled() {
+    const { disabled = this.context.value } = this.props;
+    return disabled;
+  }
 
   handleChange = color => {
     const { onChange, showAlpha } = this.props;
@@ -68,6 +77,9 @@ export class ColorPicker extends PureComponent<IColorPickerProps> {
   };
 
   handleVisibleChange = visible => {
+    if (this.disabled) {
+      return;
+    }
     this.setState({
       popVisible: visible,
     });
@@ -100,7 +112,8 @@ export class ColorPicker extends PureComponent<IColorPickerProps> {
             className={cx(
               `${prefix}-color-picker`,
               wrapperClassName,
-              openClassName
+              openClassName,
+              { [`${prefix}-color-picker_disabled`]: this.disabled }
             )}
             tabIndex={0}
           >
