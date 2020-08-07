@@ -1,4 +1,6 @@
 import * as React from 'react';
+import formatDate from 'date-fns/format';
+import endOfToday from 'date-fns/endOfToday';
 import {
   FieldModel,
   IValidators,
@@ -10,9 +12,10 @@ import { Omit, Optional } from 'utility-types';
 import { FormError } from './Error';
 import { IFormControlProps } from './Control';
 import { useFormChildrenContext, IFormChild } from './context';
-import { DatePickers } from '../datetimepicker/common/types';
+import { SingleDate, RangeDate } from '../date-picker';
 import { $MergeParams } from './utils';
 
+const TimeFormat = 'HH:mm:ss';
 export interface IRenderError<T> {
   (error: IMaybeError<T>): React.ReactNode;
 }
@@ -172,12 +175,23 @@ export type IFormComponentProps<
     | Optional<IFormFieldModelDrivenProps<Value>, 'defaultValue'>
   );
 
-export function dateDefaultValueFactory(): DatePickers.Value {
+export function dateDefaultValueFactory(): SingleDate {
   return new Date();
 }
 
-export function dateRangeDefaultValueFactory(): DatePickers.RangeValue {
+export function dateRangeDefaultValueFactory(): RangeDate {
   return [new Date(), new Date()];
+}
+
+export function dateDefaultTimeFactory(): string {
+  return formatDate(new Date(), TimeFormat);
+}
+
+export function dateRangeDefaultTimeFactory(): [string, string] {
+  return [
+    formatDate(new Date(), TimeFormat),
+    formatDate(endOfToday(), TimeFormat),
+  ];
 }
 
 export function defaultRenderError<T>(error: IMaybeError<T>) {

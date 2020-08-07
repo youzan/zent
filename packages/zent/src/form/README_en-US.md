@@ -41,6 +41,8 @@ Zent provides several common field components. You can use custom field componen
 - `FormTimePickerField`
 - `FormTimeRangePickerField`
 - `FormDateRangePickerField`
+- `FormCombinedTimeRangePickerField`
+- `FormCombinedDateRangePickerField`
 - `FormDateRangeQuickPickerField`
 
 Zent also provides separate components that construct these components, including `FormControl`, `Label`, `FormError`.
@@ -56,6 +58,7 @@ Zent also provides separate components that construct these components, includin
 
 <!-- demo-slot-1 -->
 <!-- demo-slot-2 -->
+<!-- demo-slot-18 -->
 <!-- demo-slot-3 -->
 <!-- demo-slot-15 -->
 

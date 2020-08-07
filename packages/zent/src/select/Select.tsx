@@ -696,7 +696,7 @@ export class Select<
       keyword,
       isValidNewOption
     );
-    return filtered.length ? (
+    return filtered?.length ? (
       renderOptionList(filtered, this.renderOption)
     ) : (
       <div className="zent-select-popup-empty">

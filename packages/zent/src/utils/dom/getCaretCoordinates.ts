@@ -3,7 +3,6 @@
 import createElement from './createElement';
 import isBrowser from '../isBrowser';
 import isFirefox from '../isFirefox';
-import getComputedStyle from './getComputedStyle';
 
 // We'll copy the properties below into the mirror div.
 // Note that some browsers, such as Firefox, do not concatenate properties

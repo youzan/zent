@@ -6,6 +6,7 @@
   "scripts": {
     "test": "./scripts/test.sh",
     "test-component": "./scripts/test-component.sh",
+    "check-git-hooks": "./scripts/check-git-hooks.sh",
     "lint": "yarn lint-ts && yarn lint-js && yarn lint-style",
     "lint-ts": "yarn workspace zent lint-ts",
     "lint-js": "yarn workspace zent lint-js && yarn workspace babel-plugin-zent lint-js && yarn workspace zent-docs lint-js",

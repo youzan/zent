@@ -24,8 +24,6 @@ import {
   FormChildrenContext,
   IFormChild,
   IZentFormChildrenContext,
-  FormContext,
-  IZentFormContext,
 } from './context';
 import { ZentForm, useForm } from './ZentForm';
 import scroll from '../utils/scroll';
@@ -49,16 +47,6 @@ function makeChildrenContext(children: IFormChild[]): IZentFormChildrenContext {
   };
 }
 
-function makeContext(
-  labelWidth: React.CSSProperties['flexBasis'],
-  labelPosition: React.CSSProperties['justifyContent']
-): IZentFormContext {
-  return {
-    labelWidth,
-    labelPosition,
-  };
-}
-
 export interface IFormProps<T extends {}>
   extends Omit<
     React.FormHTMLAttributes<HTMLFormElement>,
@@ -73,18 +61,6 @@ export interface IFormProps<T extends {}>
    * `useForm`得到的`model`
    */
   form: ZentForm<T>;
-  /**
-   * FormControl的label宽度
-   *
-   * @default '120px'
-   */
-  labelWidth?: React.CSSProperties['flexBasis'];
-  /**
-   * FormControl的label文本对齐方式
-   *
-   * @default 'flex-end'
-   */
-  labelPosition?: React.CSSProperties['justifyContent'];
   /**
    * @deprecated
    * 禁用表单输入，开启后表单内所有元素不可编辑。注意：自定义组件需要自己实现禁用逻辑和展示
@@ -141,7 +117,6 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
 
   private readonly children: IFormChild[] = [];
   private getChildrenContext = memorize(makeChildrenContext);
-  private getContext = memorize(makeContext);
   private subscription: Subscription | null = null;
 
   private onSubmit: React.FormEventHandler<HTMLFormElement> = e => {
@@ -258,35 +233,30 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
       disableEnterSubmit,
       disabled = false,
       scrollToError,
-      labelWidth,
-      labelPosition,
       ...props
     } = this.props;
     const childrenCtx = this.getChildrenContext(this.children);
-    const ctx = this.getContext(labelWidth, labelPosition);
     return (
       <Disabled value={disabled}>
-        <FormContext.Provider value={ctx}>
-          <FormChildrenContext.Provider value={childrenCtx}>
-            <FormProvider value={form.ctx}>
-              <form
-                ref={this.formRef}
-                {...props}
-                className={cx(
-                  {
-                    'zent-form-vertical': layout === 'vertical',
-                    'zent-form-horizontal': layout === 'horizontal',
-                  },
-                  className
-                )}
-                onSubmit={this.onSubmit}
-                onKeyDown={this.onKeyDown}
-              >
-                {children}
-              </form>
-            </FormProvider>
-          </FormChildrenContext.Provider>
-        </FormContext.Provider>
+        <FormChildrenContext.Provider value={childrenCtx}>
+          <FormProvider value={form.ctx}>
+            <form
+              ref={this.formRef}
+              {...props}
+              className={cx(
+                {
+                  'zent-form-vertical': layout === 'vertical',
+                  'zent-form-horizontal': layout === 'horizontal',
+                },
+                className
+              )}
+              onSubmit={this.onSubmit}
+              onKeyDown={this.onKeyDown}
+            >
+              {children}
+            </form>
+          </FormProvider>
+        </FormChildrenContext.Provider>
       </Disabled>
     );
   }
