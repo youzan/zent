@@ -80,6 +80,7 @@ export interface ISelectState<Item extends ISelectItem> {
   value: null | Item | Item[];
   activeIndex: null | number;
   prevOptions: Item[];
+  createLoading: boolean;
 }
 
 function defaultIsEqual<Item extends ISelectItem>(a: Item, b: Item) {
@@ -208,6 +209,7 @@ export class Select<
       active: false,
       activeIndex: null,
       prevOptions: props.options,
+      createLoading: false,
     };
   }
 
@@ -353,7 +355,7 @@ export class Select<
       highlight = defaultHighlight,
       filter,
     } = this.props;
-    const { value, activeIndex } = this.state;
+    const { value, activeIndex, createLoading } = this.state;
     const selected =
       !!value &&
       (multiple
@@ -361,7 +363,9 @@ export class Select<
         : isEqual(value as Item, option));
 
     let optionContent: React.ReactNode = null;
+    let loading = false;
     if (option.key === SELECT_CREATABLE_KEY) {
+      loading = createLoading;
       optionContent = (
         <Receiver componentName="Select">
           {(i18n: II18nLocaleSelect) => (
@@ -393,6 +397,7 @@ export class Select<
         onMouseEnter={this.onOptionMouseEnter}
         onMouseLeave={this.onOptionMouseLeave}
         multiple={multiple}
+        loading={loading}
       >
         {optionContent}
       </Option>
@@ -618,16 +623,22 @@ export class Select<
     const { onCreate, multiple } = this.props;
     const { keyword } = this.state;
 
-    onCreate &&
-      onCreate(keyword.trim()).then(() => {
-        this.resetKeyword();
+    if (onCreate) {
+      this.setState({ createLoading: true });
 
-        if (multiple) {
-          this.focusSearchInput();
-        } else {
-          this.onVisibleChange(false);
-        }
-      });
+      onCreate(keyword.trim())
+        .then(() => {
+          if (multiple) {
+            this.focusSearchInput();
+          } else {
+            this.onVisibleChange(false);
+          }
+          this.resetKeyword();
+        })
+        .finally(() => {
+          this.setState({ createLoading: false });
+        });
+    }
   };
 
   filterOptions = memoize(
