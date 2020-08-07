@@ -23,6 +23,7 @@ group: 数据
 | className     | 可选，自定义类名      | string              | `''`     |         |
 | wrapperClassName | 可选，自定义trigger包裹节点的类名 | string | `''`    |         |
 | prefix        | 可选，自定义前缀      | string              | `'zent'` |         |
+| disabled        | 可选，禁用状态      | bool                | -       |         |
 
 #### ColorBoard
 
