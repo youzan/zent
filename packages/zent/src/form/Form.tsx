@@ -178,7 +178,9 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
   }
 
   scrollToFirstError() {
-    for (let i = this.children.length - 1; i >= 0; i--) {
+    const xPositions: number[] = [];
+    const yPositions: number[] = [];
+    for (let i = 0; i < this.children.length; i += 1) {
       const child = this.children[i];
       const el = child.getDOMNode();
       if (!el || child.valid()) {
@@ -188,8 +190,11 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
       const { x: pageXOffset, y: pageYOffset } = getScrollPosition();
       const y = elementBound.top + pageYOffset;
       const x = elementBound.left + pageXOffset;
-      scroll(document.body, x, y);
-      break;
+      xPositions.push(x);
+      yPositions.push(y);
+    }
+    if (xPositions.length) {
+      scroll(document.body, Math.min(...xPositions), Math.min(...yPositions));
     }
   }
 
