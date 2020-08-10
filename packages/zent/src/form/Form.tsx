@@ -30,6 +30,7 @@ import scroll from '../utils/scroll';
 import { CombineErrors } from './CombineErrors';
 import { ValidateOccasion, TouchWhen } from './shared';
 import { Disabled } from '../disabled';
+import getScrollPosition from '../utils/dom/getScollPosition';
 
 export {
   IRenderError,
@@ -184,8 +185,9 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
         continue;
       }
       const elementBound = el.getBoundingClientRect();
-      const y = elementBound.top + window.pageYOffset;
-      const x = elementBound.left + window.pageXOffset;
+      const { x: pageXOffset, y: pageYOffset } = getScrollPosition();
+      const y = elementBound.top + pageYOffset;
+      const x = elementBound.left + pageXOffset;
       scroll(document.body, x, y);
       break;
     }
