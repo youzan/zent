@@ -15,6 +15,7 @@ import { DisabledContext, IDisabledContext } from '../disabled';
 export type PresetColors = string[];
 export type ColorPickerType = 'default' | 'simple';
 
+const prefixCls = 'zent-color-picker';
 export interface IColorPickerProps {
   color: string;
   showAlpha?: boolean;
@@ -23,7 +24,6 @@ export interface IColorPickerProps {
   onChange?: (color: string) => any;
   className?: string;
   wrapperClassName?: string;
-  prefix?: string;
   disabled?: boolean;
 }
 
@@ -37,7 +37,6 @@ export class ColorPicker extends PureComponent<IColorPickerProps> {
     onChange() {},
     className: '',
     wrapperClassName: '',
-    prefix: 'zent',
     type: 'default',
     presetColors: [
       '#FFFFFF',
@@ -89,19 +88,18 @@ export class ColorPicker extends PureComponent<IColorPickerProps> {
     const {
       color,
       showAlpha,
-      prefix,
       className,
       wrapperClassName,
       type,
       presetColors,
     } = this.props;
     const { popVisible } = this.state;
-    const openClassName = popVisible ? 'zent-color-picker--open' : '';
+    const openClassName = popVisible ? `${prefixCls}--open` : '';
     const backgroundColor = color;
 
     return (
       <Popover
-        className={cx(`${prefix}-color-picker-popover`, className)}
+        className={cx(`${prefixCls}-popover`, className)}
         position={Popover.Position.AutoBottomLeft}
         cushion={5}
         visible={popVisible}
@@ -109,17 +107,14 @@ export class ColorPicker extends PureComponent<IColorPickerProps> {
       >
         <Popover.Trigger.Click toggle>
           <div
-            className={cx(
-              `${prefix}-color-picker`,
-              wrapperClassName,
-              openClassName,
-              { [`${prefix}-color-picker_disabled`]: this.disabled }
-            )}
+            className={cx(prefixCls, wrapperClassName, openClassName, {
+              [`${prefixCls}_disabled`]: this.disabled,
+            })}
             tabIndex={0}
           >
-            <div className={`${prefix}-color-picker__text`}>
+            <div className={`${prefixCls}__text`}>
               <div
-                className={`${prefix}-color-picker__preview`}
+                className={`${prefixCls}__preview`}
                 style={{ backgroundColor }}
               />
             </div>
@@ -130,7 +125,6 @@ export class ColorPicker extends PureComponent<IColorPickerProps> {
             <SketchPresetColors
               colors={presetColors}
               onClick={this.handleChange}
-              prefix={prefix}
               type={type}
             />
           ) : (
@@ -138,7 +132,6 @@ export class ColorPicker extends PureComponent<IColorPickerProps> {
               color={color}
               showAlpha={showAlpha}
               onChange={this.handleChange}
-              prefix={prefix}
               type={type}
             />
           )}

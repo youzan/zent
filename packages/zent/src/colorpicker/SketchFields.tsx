@@ -129,12 +129,12 @@ export default class SketchFileds extends PureComponent<any> {
   }
 
   render() {
-    const { prefix, rgb } = this.props;
+    const { rgb } = this.props;
     const { hexColor } = this.state;
     const styles = this.styles;
 
     return (
-      <div style={styles.fields} className={`${prefix}-colorpicker-input`}>
+      <div style={styles.fields}>
         <div style={styles.double}>
           <EditableInput
             style={{ input: styles.input, label: styles.label }}
