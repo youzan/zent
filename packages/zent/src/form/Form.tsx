@@ -177,16 +177,17 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
   }
 
   scrollToFirstError() {
-    for (let i = 0; i < this.children.length; i += 1) {
+    for (let i = this.children.length - 1; i >= 0; i--) {
       const child = this.children[i];
       const el = child.getDOMNode();
-      if (!el) {
+      if (!el || child.valid()) {
         continue;
       }
       const elementBound = el.getBoundingClientRect();
       const y = elementBound.top + window.pageYOffset;
       const x = elementBound.left + window.pageXOffset;
       scroll(document.body, x, y);
+      break;
     }
   }
 
