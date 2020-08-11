@@ -27,20 +27,15 @@ interface ITransferChildrenProps {
   handleSelectChange: (keys: string[]) => void;
 }
 
-export type ListPropsType =
+// 透传到Grid组件的prop类型
+export type PassDownGridPropsType =
   | 'rowKey'
-  | 'onRowClick'
-  | 'selection'
-  | 'className'
-  | 'rowClassName'
-  | TransferListPropsType;
-
-export type TransferListPropsType =
   | 'scroll'
+  | 'emptyLabel'
+  | 'onRowClick'
   | 'sortBy'
   | 'sortType'
   | 'defaultSortType'
-  | 'emptyLabel'
   | 'bordered'
   | 'ellipsis'
   | 'components'
@@ -49,7 +44,11 @@ export type TransferListPropsType =
   | 'autoStickOffsetTop'
   | 'disableHoverHighlight'
   | 'onChange'
-  | 'loading';
+  | 'loading'
+  | 'className'
+  | 'rowClassName';
+
+export type ListPropsType = 'selection' | PassDownGridPropsType;
 
 type ListType = {
   columns: TransferColumnType;

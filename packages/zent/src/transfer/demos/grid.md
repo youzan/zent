@@ -47,10 +47,10 @@ ReactDOM.render(
 			pagination
 			list={[
 				{
-					columns: leftColumns
+					columns: leftColumns, scroll: { y: 198 }
 				},
 				{ 
-					columns: rightColumns
+					columns: rightColumns, scroll: { y: 198 }
 				},
 			]}
 		/>

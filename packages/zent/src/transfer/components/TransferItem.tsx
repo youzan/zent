@@ -13,8 +13,8 @@ import {
   II18nLocaleTransfer,
   MiniPagination,
 } from '../../index';
-import { ITransferItem, ITransferData, TransferListPropsType } from '../types';
-import { GridProps } from '../constants';
+import { ITransferItem, ITransferData } from '../types';
+import { PassDownGridProps } from '../constants';
 
 const TransferItem: React.FC<ITransferItem> = ({
   prefix,
@@ -29,15 +29,7 @@ const TransferItem: React.FC<ITransferItem> = ({
   list,
   pagination,
 }) => {
-  const {
-    rowKey,
-    columns,
-    selection,
-    onRowClick,
-    className = '',
-    rowClassName = '',
-    ...gridRest
-  } = list;
+  const { columns, selection, ...gridRest } = list;
   const [inputVal, setInputVal] = useState('');
   const [listData, setListData] = useState(dataSets);
   const [pageCurrent, setPageCurrent] = useState(1);
@@ -91,16 +83,14 @@ const TransferItem: React.FC<ITransferItem> = ({
       event: React.MouseEvent<HTMLTableRowElement>
     ) => {
       const { [keyName]: key, disabled } = data;
-      onRowClick
-        ? onRowClick(data, index, event)
-        : !disabled &&
-          handleSelectChange(
-            selectedKeys.includes(key)
-              ? selectedKeys.filter(item => key !== item)
-              : selectedKeys.concat(key)
-          );
+      !disabled &&
+        handleSelectChange(
+          selectedKeys.includes(key)
+            ? selectedKeys.filter(item => key !== item)
+            : selectedKeys.concat(key)
+        );
     },
-    [onRowClick, handleSelectChange, selectedKeys, keyName]
+    [handleSelectChange, selectedKeys, keyName]
   );
 
   const currentPageData = useMemo(() => {
@@ -167,16 +157,12 @@ const TransferItem: React.FC<ITransferItem> = ({
               </div>
             )}
             <Grid
-              rowKey={rowKey || keyName}
-              className={cx(
-                `${classNamePrefix}__grid`,
-                {
-                  [`${classNamePrefix}__header--hidden`]:
-                    false === !!columns[0]?.title,
-                },
-                className
-              )}
-              rowClassName={`${classNamePrefix}__grid__row ${rowClassName}`}
+              rowKey={keyName}
+              className={cx(`${classNamePrefix}__grid`, {
+                [`${classNamePrefix}__header--hidden`]:
+                  false === !!columns[0]?.title,
+              })}
+              rowClassName={`${classNamePrefix}__grid__row`}
               datasets={currentPageData}
               selection={{
                 selectedRowKeys: selectedKeys,
@@ -188,7 +174,7 @@ const TransferItem: React.FC<ITransferItem> = ({
               onRowClick={handleRowClick}
               emptyLabel={i18n.emptyLabel}
               scroll={{ y: 240 }}
-              {...pick(gridRest, GridProps as Array<TransferListPropsType>)}
+              {...pick(gridRest, PassDownGridProps)}
             />
             {pagination && listData.length ? (
               <MiniPagination

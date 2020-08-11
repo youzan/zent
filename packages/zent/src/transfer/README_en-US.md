@@ -44,12 +44,9 @@ Transfer accept children to customize render list, using follow props:
 | Property   | Descripition                                                                                               | Type                                                                                                       | Default                     | Required |
 | ---------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | --------------------------- | -------- |
 | columns    | Columns                                                                                                    | `TransferColumnType | [TransferColumnType, TransferColumnType]`                                            |                             | Yes      |
-| selection  | The configuration for selection(Currently only supports `getCheckboxProps`)                                | `object { getCheckboxProps: ( data: ITransferData) => { disabled?: boolean; reason?: React.ReactNode }; }` |                             | No       |
-| rowKey     | Key for each row                                                                                           | `string`                                                                                                   | Take the value of `keyName` | No       |
-| scroll     | Can be scrolled in x/y direction, x or y can be a number that indicates the width and height of table body | `{ x?: number, y?: number }`                                                                               | { y: 240 }                  | No       |
-| emptyLabel | Text to be displayed when there's no data                                                                  | `string`                                                                                                   | `'No data'`                 | No       |
+| selection  | The configuration for selection(Currently only supports `getCheckboxProps`)                                | `object { getCheckboxProps: ( data: ITransferData) => { disabled?: boolean; reason?: React.ReactNode }; }` |                             | No       |                                                                                                 | `'No data'`                 | No       |
 
-The above props are different from `Grid`, `onChange`, `sortBy`, `sortType`, `defaultSortType`, `bordered`, `onRowClick`, `ellipsis`, `components`, `rowProps`, `autoStick`, `autoStickOffsetTop`, `disableHoverHighlight` will be passed down.([View props description](https://youzan.github.io/zent/en/component/grid#api)).
+The above props are different from `Grid`, `rowKey`、`scroll`、`emptyLabel`、`onRowClick`、`sortBy`、`sortType`、`defaultSortType`、`bordered`、`ellipsis`、`components`、`rowProps`、`autoStick`、`autoStickOffsetTop`、`disableHoverHighlight`、`onChange`、`loading`、`className`、`rowClassName` will be passed down.([View props description](https://youzan.github.io/zent/en/component/grid#api)).
 
 #### columns
 
@@ -73,9 +70,11 @@ Hook for sending left and right data.
 
 #### Result
 
-| Property       | Description                                                                         | Type                                                     |
-| -------------- | ----------------------------------------------------------------------------------- | -------------------------------------------------------- |
-| selectedKeys   | A set of keys of selected items                                                     | `string[]`                                               |
-| targetKeys     | A set of keys of elements that are listed on the right column                       | `string[]`                                               |
-| onChange       | A callback function that is executed when the transfer between columns is completed | `(direction: Direction) => void`                         |
-| onSelectChange | A callback function which is executed when a check changes                          | `(direction: Direction, selectedKeys: string[]) => void` |
+| Property           | Description                                                   | Type                                                     |
+| ------------------ | ------------------------------------------------------------- | -------------------------------------------------------- |
+| selectedKeys       | A set of keys of selected items                               | `string[]`                                               |
+| targetKeys         | A set of keys of elements that are listed on the right column | `string[]`                                               |
+| transferKeys       | A function that transfer selected items on the left or right  | `(direction: Direction) => void`                         |
+| changeSelectedKeys | A function that set selected items on the left or right       | `(direction: Direction, selectedKeys: string[]) => void` |
+| resetSelectedKeys  | A function that reset selected items                          | `(keys: string[]) => void`                               |
+| resetTargetKeys    | A function that reset targetKeys                              | `(keys: string[]) => void`                               |

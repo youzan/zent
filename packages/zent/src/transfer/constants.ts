@@ -1,28 +1,31 @@
-import { ListPropsType } from './types';
+import { ListPropsType, PassDownGridPropsType } from './types';
 
 export enum Direction {
   Left = 'left',
   Right = 'right',
 }
-
-export const GridProps: Array<ListPropsType> = [
+export const PassDownGridProps: Array<PassDownGridPropsType> = [
   'rowKey',
-  'onChange',
   'scroll',
+  'emptyLabel',
+  'onRowClick',
   'sortBy',
   'sortType',
   'defaultSortType',
-  'emptyLabel',
   'bordered',
-  'onRowClick',
   'ellipsis',
   'components',
   'rowProps',
   'autoStick',
   'autoStickOffsetTop',
   'disableHoverHighlight',
-  'selection',
+  'onChange',
+  'loading',
   'className',
   'rowClassName',
-  'loading',
+];
+
+export const ListProps: Array<ListPropsType> = [
+  'selection',
+  ...PassDownGridProps,
 ];

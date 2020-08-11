@@ -4,7 +4,7 @@ import cx from 'classnames';
 
 import pick from '../utils/pick';
 import { TransferColumnType, ITransferItem, TransferType } from './types';
-import { Direction, GridProps } from './constants';
+import { Direction, ListProps } from './constants';
 import TransferItem from './components/TransferItem';
 import ArrowButton from './components/ArrowButton';
 import { getOppositeDirection } from './utils';
@@ -185,7 +185,7 @@ export const Transfer: React.FC<TransferType> = ({
         filterOption,
         list: {
           columns: getColumns(Direction.Left),
-          ...pick(getListProps(Direction.Left), GridProps),
+          ...pick(getListProps(Direction.Left), ListProps),
         },
         prefix: classNamePrefix,
         pagination,
@@ -208,7 +208,7 @@ export const Transfer: React.FC<TransferType> = ({
         filterOption,
         list: {
           columns: getColumns(Direction.Right),
-          ...pick(getListProps(Direction.Right), GridProps),
+          ...pick(getListProps(Direction.Right), ListProps),
         },
         prefix: classNamePrefix,
         pagination,

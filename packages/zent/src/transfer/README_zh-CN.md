@@ -45,11 +45,8 @@ Transfer 支持接收 children 自定义渲染列表，并返回以下参数：
 | ---------- | -------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | --------------- | ------ | -------- |
 | columns    | 表格列配置                                         | `TransferColumnType | [TransferColumnType, TransferColumnType]`                                            |                 |        | 是       |
 | selection  | 表格的选择功能配置，(当前仅支持`getCheckboxProps`) | `object { getCheckboxProps: ( data: ITransferData) => { disabled?: boolean; reason?: React.ReactNode }; }` |                 |        | 否       |
-| rowKey     | 每一行的`key`                                      | `string`                                                                                                   | 取`keyName`的值 |        | 否       |
-| scroll     | 横向或纵向指定滚动区域的宽高度                     | `{ x?: number, y?: number }`                                                                               | { y: 240 }      |        | 否       |
-| emptyLabel | 列表为空时的提示文案                               | `string`                                                                                                   | `暂无数据`      |        | 否       |
 
-以上 props 和`Grid`不同，支持透传的属性有`onChange`、`sortBy`、`sortType`、`defaultSortType`、`bordered`、`onRowClick`、`ellipsis`、`components`、`rowProps`、`autoStick`、`autoStickOffsetTop`、`disableHoverHighlight`（[查看属性说明](https://youzan.github.io/zent/zh/component/grid#api)）。
+以上 props 和`Grid`不同，支持透传的属性有`rowKey`、`scroll`、`emptyLabel`、`onRowClick`、`sortBy`、`sortType`、`defaultSortType`、`bordered`、`ellipsis`、`components`、`rowProps`、`autoStick`、`autoStickOffsetTop`、`disableHoverHighlight`、`onChange`、`loading`、`className`、`rowClassName`（[查看属性说明](https://youzan.github.io/zent/zh/component/grid#api)）。
 
 #### columns
 
@@ -68,14 +65,16 @@ Transfer 支持接收 children 自定义渲染列表，并返回以下参数：
 
 | 参数         | 说明                            | 类型       | 默认值 | 是否必填 |
 | ------------ | ------------------------------- | ---------- | ------ | -------- |
-| selectedKeys | 设置选中项                      | `string[]` | `[]`   | 否       |
-| targetKeys   | 设置显示在右侧框数据的`key`集合 | `string[]` | `[]`   | 否       |
+| selectedKeys | 初始选中项                      | `string[]` | `[]`   | 否       |
+| targetKeys   | 初始显示在右侧框数据的`key`集合 | `string[]` | `[]`   | 否       |
 
 #### Result
 
-| 参数           | 说明                           | 类型                                                     |
-| -------------- | ------------------------------ | -------------------------------------------------------- |
-| selectedKeys   | 选中项                         | `string[]`                                               |
-| targetKeys     | 显示在右侧框数据的`key`集合    | `string[]`                                               |
-| onChange       | 选项在两栏之间转移时的回调函数 | `(direction: Direction) => void`                         |
-| onSelectChange | 选中项发生改变时的回调函数     | `(direction: Direction, selectedKeys: string[]) => void` |
+| 参数               | 说明                       | 类型                                                     |
+| ------------------ | -------------------------- | -------------------------------------------------------- |
+| selectedKeys       | 选中项                     | `string[]`                                               |
+| targetKeys         | 显示在右侧数据的`key`集合  | `string[]`                                               |
+| transferKeys       | 转移左侧或右侧选项的函数   | `(direction: Direction) => void`                         |
+| changeSelectedKeys | 设置左侧或右侧选中项的函数 | `(direction: Direction, selectedKeys: string[]) => void` |
+| resetSelectedKeys  | 重置选中项的函数           | `(keys: string[]) => void`                               |
+| resetTargetKeys    | 重置`targetKeys`的函数     | `(keys: string[]) => void`                               |
