@@ -28,7 +28,7 @@ Double column transfer choice box.
 | pagination        | List pagination. Not work in render props. PageSize is 10 by default                                                                                                       | `boolean | { pageSize: number }`                                     | `false`                |             | No       |
 | disabled          | Whether disabled transfer                                                                                                                                                  | `boolean`                                                            | `false`                | `true`      | No       |
 | className         | Extra custom class name                                                                                                                                                    | `string`                                                             | ''                     |             | No       |
-| list              | Set list props                                                                                                                                                             | `Object ListType`                                                    |                        |             | No       |
+| list              | Set list props                                                                                                                                                             | `Object ListType` ｜ `[ListType, ListType]`                                                    |                        |             | No       |
 
 #### Render Props
 
@@ -44,7 +44,7 @@ Transfer accept children to customize render list, using follow props:
 
 | Property  | Descripition                                                                | Type                                                                                                       | Default | Required |
 | --------- | --------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ------- | -------- |
-| columns   | Columns                                                                     | `TransferColumnType | [TransferColumnType, TransferColumnType]`                                            |         | Yes      |
+| columns   | Columns                                                                     | `TransferColumnType`                                            |         | Yes      |
 | selection | The configuration for selection(Currently only supports `getCheckboxProps`) | `object { getCheckboxProps: ( data: ITransferData) => { disabled?: boolean; reason?: React.ReactNode }; }` |         | No       |
 
 The above props are different from `Grid`, `rowKey`、`scroll`、`emptyLabel`、`onRowClick`、`sortBy`、`sortType`、`defaultSortType`、`bordered`、`ellipsis`、`components`、`rowProps`、`autoStick`、`autoStickOffsetTop`、`disableHoverHighlight`、`onChange`、`loading`、`className`、`rowClassName` will be passed down.([View props description](https://youzan.github.io/zent/en/component/grid#api)).
