@@ -8,6 +8,7 @@ import { Direction, ListProps } from './constants';
 import TransferItem from './components/TransferItem';
 import ArrowButton from './components/ArrowButton';
 import { getOppositeDirection } from './utils';
+import { Disabled } from '../disabled';
 
 export const Transfer: React.FC<TransferType> = ({
   keyName,
@@ -170,50 +171,52 @@ export const Transfer: React.FC<TransferType> = ({
   }, [selectedKeysProp]);
 
   return (
-    <div className={cx(`${classNamePrefix}`, className)}>
-      {getRenderList({
-        title: titles?.[0],
-        direction: Direction.Left,
-        keyName,
-        dataSets: useMemo(() => getSingleDirectionData(Direction.Left), [
-          getSingleDirectionData,
-        ]),
-        selectedKeys: getSingleDirectionSelectedKeys(Direction.Left),
-        handleSelectChange: handleSelectChange(Direction.Left),
-        showSearch,
-        searchPlaceholder,
-        filterOption,
-        list: {
-          columns: getColumns(Direction.Left),
-          ...pick(getListProps(Direction.Left), ListProps),
-        },
-        prefix: classNamePrefix,
-        pagination,
-      })}
-      <div className={`${classNamePrefix}__arrow`}>
-        {getArrowButton(Direction.Right)}
-        {getArrowButton(Direction.Left)}
+    <Disabled>
+      <div className={cx(`${classNamePrefix}`, className)}>
+        {getRenderList({
+          title: titles?.[0],
+          direction: Direction.Left,
+          keyName,
+          dataSets: useMemo(() => getSingleDirectionData(Direction.Left), [
+            getSingleDirectionData,
+          ]),
+          selectedKeys: getSingleDirectionSelectedKeys(Direction.Left),
+          handleSelectChange: handleSelectChange(Direction.Left),
+          showSearch,
+          searchPlaceholder,
+          filterOption,
+          list: {
+            columns: getColumns(Direction.Left),
+            ...pick(getListProps(Direction.Left), ListProps),
+          },
+          prefix: classNamePrefix,
+          pagination,
+        })}
+        <div className={`${classNamePrefix}__arrow`}>
+          {getArrowButton(Direction.Right)}
+          {getArrowButton(Direction.Left)}
+        </div>
+        {getRenderList({
+          title: titles?.[1],
+          direction: Direction.Right,
+          keyName,
+          dataSets: useMemo(() => getSingleDirectionData(Direction.Right), [
+            getSingleDirectionData,
+          ]),
+          selectedKeys: getSingleDirectionSelectedKeys(Direction.Right),
+          handleSelectChange: handleSelectChange(Direction.Right),
+          showSearch,
+          searchPlaceholder,
+          filterOption,
+          list: {
+            columns: getColumns(Direction.Right),
+            ...pick(getListProps(Direction.Right), ListProps),
+          },
+          prefix: classNamePrefix,
+          pagination,
+        })}
       </div>
-      {getRenderList({
-        title: titles?.[1],
-        direction: Direction.Right,
-        keyName,
-        dataSets: useMemo(() => getSingleDirectionData(Direction.Right), [
-          getSingleDirectionData,
-        ]),
-        selectedKeys: getSingleDirectionSelectedKeys(Direction.Right),
-        handleSelectChange: handleSelectChange(Direction.Right),
-        showSearch,
-        searchPlaceholder,
-        filterOption,
-        list: {
-          columns: getColumns(Direction.Right),
-          ...pick(getListProps(Direction.Right), ListProps),
-        },
-        prefix: classNamePrefix,
-        pagination,
-      })}
-    </div>
+    </Disabled>
   );
 };
 
