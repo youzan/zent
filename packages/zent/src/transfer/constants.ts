@@ -21,4 +21,8 @@ export const GridProps: Array<ListPropsType> = [
   'autoStick',
   'autoStickOffsetTop',
   'disableHoverHighlight',
+  'selection',
+  'className',
+  'rowClassName',
+  'loading',
 ];

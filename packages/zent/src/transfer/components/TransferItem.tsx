@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useState, useCallback, useEffect, useMemo } from 'react';
 import cx from 'classnames';
+import Decimal from 'big.js';
 
 import pick from '../../utils/pick';
 import {
@@ -10,6 +11,7 @@ import {
   IGridColumn,
   I18nReceiver as Receiver,
   II18nLocaleTransfer,
+  MiniPagination,
 } from '../../index';
 import { ITransferItem, ITransferData, TransferListPropsType } from '../types';
 import { GridProps } from '../constants';
@@ -25,11 +27,23 @@ const TransferItem: React.FC<ITransferItem> = ({
   showSearch,
   searchPlaceholder,
   list,
+  pagination,
 }) => {
-  const { rowKey, columns, selection, onRowClick, ...gridRest } = list;
-  const classNamePrefix = `${prefix}__item`;
+  const {
+    rowKey,
+    columns,
+    selection,
+    onRowClick,
+    className = '',
+    rowClassName = '',
+    ...gridRest
+  } = list;
   const [inputVal, setInputVal] = useState('');
   const [listData, setListData] = useState(dataSets);
+  const [pageCurrent, setPageCurrent] = useState(1);
+
+  const classNamePrefix = `${prefix}__item`;
+  const pageSize = typeof pagination === 'object' ? pagination.pageSize : 10;
   const allChecked =
     selectedKeys.length &&
     selectedKeys.length === listData.filter(({ disabled }) => !disabled).length;
@@ -89,13 +103,19 @@ const TransferItem: React.FC<ITransferItem> = ({
     [onRowClick, handleSelectChange, selectedKeys, keyName]
   );
 
-  useEffect(() => {
-    setListData(
-      showSearch && filterOption
-        ? dataSets.filter(item => filterOption(inputVal, item))
-        : dataSets
+  const currentPageData = useMemo(() => {
+    if (!pagination) {
+      return listData;
+    }
+    return listData.slice(
+      +new Decimal(pageCurrent).minus(1).mul(pageSize),
+      +new Decimal(pageCurrent).mul(pageSize)
     );
-  }, [dataSets, filterOption, inputVal, showSearch]);
+  }, [listData, pageCurrent, pagination, pageSize]);
+
+  const handlePageChange = useCallback(({ current }) => {
+    setPageCurrent(current);
+  }, []);
 
   const girdColumns = useMemo(() => {
     const res = columns[0]?.title
@@ -104,25 +124,37 @@ const TransferItem: React.FC<ITransferItem> = ({
     return res as IGridColumn<any>[];
   }, [columns]);
 
+  useEffect(() => {
+    setListData(
+      showSearch && filterOption
+        ? dataSets.filter(item => filterOption(inputVal, item))
+        : dataSets
+    );
+  }, [dataSets, filterOption, inputVal, showSearch]);
+
+  useEffect(() => {
+    if (pagination && listData.length) {
+      const maxPageCount = Math.ceil(listData.length / pageSize);
+      if (pageCurrent > maxPageCount) {
+        setPageCurrent(maxPageCount);
+      }
+    }
+  }, [listData, pageCurrent, pageSize, pagination]);
+
   return (
     <Receiver componentName="Transfer">
       {(i18n: II18nLocaleTransfer) => {
         return (
           <div className={classNamePrefix}>
             <div className={`${classNamePrefix}__allCheckbox`}>
-              {columns[0]?.title ? (
-                getTitle(i18n)
-              ) : (
-                <Checkbox
-                  checked={allChecked}
-                  indeterminate={indeterminate}
-                  onChange={handleCheckBoxChange}
-                >
-                  {getTitle(i18n)}
-                </Checkbox>
-              )}
+              <Checkbox
+                checked={allChecked}
+                indeterminate={indeterminate}
+                onChange={handleCheckBoxChange}
+              >
+                {getTitle(i18n)}
+              </Checkbox>
             </div>
-
             {showSearch && (
               <div className={`${classNamePrefix}__search`}>
                 <Input
@@ -136,17 +168,21 @@ const TransferItem: React.FC<ITransferItem> = ({
             )}
             <Grid
               rowKey={rowKey || keyName}
-              className={cx(`${classNamePrefix}__grid`, {
-                [`${classNamePrefix}__header--hidden`]:
-                  false === !!columns[0]?.title,
-              })}
-              rowClassName={`${classNamePrefix}__grid__row`}
-              datasets={listData}
+              className={cx(
+                `${classNamePrefix}__grid`,
+                {
+                  [`${classNamePrefix}__header--hidden`]:
+                    false === !!columns[0]?.title,
+                },
+                className
+              )}
+              rowClassName={`${classNamePrefix}__grid__row ${rowClassName}`}
+              datasets={currentPageData}
               selection={{
                 selectedRowKeys: selectedKeys,
                 onSelect: handleSelectChange,
                 getCheckboxProps:
-                  getCheckboxProps || selection?.getCheckboxProps,
+                  selection?.getCheckboxProps || getCheckboxProps,
               }}
               columns={girdColumns}
               onRowClick={handleRowClick}
@@ -154,6 +190,15 @@ const TransferItem: React.FC<ITransferItem> = ({
               scroll={{ y: 240 }}
               {...pick(gridRest, GridProps as Array<TransferListPropsType>)}
             />
+            {pagination && listData.length ? (
+              <MiniPagination
+                className={`${classNamePrefix}__pagination`}
+                current={pageCurrent}
+                pageSize={pageSize}
+                total={listData.length}
+                onChange={handlePageChange}
+              />
+            ) : null}
           </div>
         );
       }}

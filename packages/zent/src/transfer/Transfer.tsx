@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useMemo } from 'react';
 import cx from 'classnames';
 
-import uniq from '../utils/uniq';
 import pick from '../utils/pick';
 import { TransferColumnType, ITransferItem, TransferType } from './types';
 import { Direction, GridProps } from './constants';
@@ -15,7 +14,7 @@ export const Transfer: React.FC<TransferType> = ({
   dataSource,
   targetKeys,
   onChange,
-  selectedKeys,
+  selectedKeys: selectedKeysProp,
   onSelectChange,
   titles,
   showSearch,
@@ -23,11 +22,21 @@ export const Transfer: React.FC<TransferType> = ({
   filterOption,
   children,
   list,
+  pagination,
   className,
 }) => {
-  const { columns, ...gridRest } = list;
   const classNamePrefix = 'zent-transfer';
-  const [selectedKeysState, setSelectedKeys] = useState(selectedKeys);
+  const [selectedKeysState, setSelectedKeys] = useState(selectedKeysProp);
+
+  const getListProps = useCallback(
+    (direction: Direction) => {
+      if (!Array.isArray(list)) {
+        return list;
+      }
+      return Direction.Left === direction ? list[0] : list[1];
+    },
+    [list]
+  );
 
   const getSingleDirectionData = useCallback(
     (direction: Direction) =>
@@ -63,13 +72,14 @@ export const Transfer: React.FC<TransferType> = ({
 
   const getColumns = useCallback(
     (direction: Direction) => {
+      const { columns } = getListProps(direction);
       const col = Direction.Left === direction ? columns?.[0] : columns?.[1];
 
       return (Array.isArray(columns?.[0])
         ? col
         : columns) as TransferColumnType;
     },
-    [columns]
+    [getListProps]
   );
 
   const getRenderList = useCallback(
@@ -109,10 +119,11 @@ export const Transfer: React.FC<TransferType> = ({
           filterOption={filterOption}
           list={list}
           prefix={prefix}
+          pagination={pagination}
         />
       );
     },
-    [children]
+    [children, pagination]
   );
 
   const handleTransfer = useCallback(
@@ -155,8 +166,8 @@ export const Transfer: React.FC<TransferType> = ({
   );
 
   useEffect(() => {
-    setSelectedKeys(preState => uniq([...selectedKeys, ...preState]));
-  }, [selectedKeys]);
+    setSelectedKeys(selectedKeysProp);
+  }, [selectedKeysProp]);
 
   return (
     <div className={cx(`${classNamePrefix}`, className)}>
@@ -164,7 +175,9 @@ export const Transfer: React.FC<TransferType> = ({
         title: titles?.[0],
         direction: Direction.Left,
         keyName,
-        dataSets: getSingleDirectionData(Direction.Left),
+        dataSets: useMemo(() => getSingleDirectionData(Direction.Left), [
+          getSingleDirectionData,
+        ]),
         selectedKeys: getSingleDirectionSelectedKeys(Direction.Left),
         handleSelectChange: handleSelectChange(Direction.Left),
         showSearch,
@@ -172,9 +185,10 @@ export const Transfer: React.FC<TransferType> = ({
         filterOption,
         list: {
           columns: getColumns(Direction.Left),
-          ...pick(gridRest, GridProps),
+          ...pick(getListProps(Direction.Left), GridProps),
         },
         prefix: classNamePrefix,
+        pagination,
       })}
       <div className={`${classNamePrefix}__arrow`}>
         {getArrowButton(Direction.Right)}
@@ -184,7 +198,9 @@ export const Transfer: React.FC<TransferType> = ({
         title: titles?.[1],
         direction: Direction.Right,
         keyName,
-        dataSets: getSingleDirectionData(Direction.Right),
+        dataSets: useMemo(() => getSingleDirectionData(Direction.Right), [
+          getSingleDirectionData,
+        ]),
         selectedKeys: getSingleDirectionSelectedKeys(Direction.Right),
         handleSelectChange: handleSelectChange(Direction.Right),
         showSearch,
@@ -192,9 +208,10 @@ export const Transfer: React.FC<TransferType> = ({
         filterOption,
         list: {
           columns: getColumns(Direction.Right),
-          ...pick(gridRest, GridProps),
+          ...pick(getListProps(Direction.Right), GridProps),
         },
         prefix: classNamePrefix,
+        pagination,
       })}
     </div>
   );
@@ -207,6 +224,7 @@ Transfer.defaultProps = {
   showSearch: false,
   searchPlaceholder: '',
   className: '',
+  pagination: false,
 };
 
 export default Transfer;
