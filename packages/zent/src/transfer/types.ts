@@ -62,11 +62,11 @@ type ListType = {
 type OneRequired =
   | {
       children?: (props: ITransferChildrenProps) => React.ReactNode;
-      list: ListType | ListType[];
+      list: ListType | [ListType, ListType];
     }
   | {
       children: (props: ITransferChildrenProps) => React.ReactNode;
-      list?: ListType | ListType[];
+      list?: ListType | [ListType, ListType];
     };
 
 export interface ITransferItem {
@@ -92,7 +92,7 @@ interface ITransfer {
   targetKeys?: string[]; // 显示在右侧框数据的 key 集合
   selectedKeys?: string[]; // 设置哪些项应该被选中
   onSelectChange?: (selectedKeys: string[]) => void; // 选中项发生改变时的回调函数
-  titles?: React.ReactNode[]; // 标题集合，顺序从左至右
+  titles?: [React.ReactNode, React.ReactNode]; // 标题集合，顺序从左至右
   showSearch?: boolean; // 是否显示搜索框
   searchPlaceholder?: string; //搜索框文案
   filterOption?: (inputValue: string, option: ITransferData) => boolean; // 接收 inputValue option 两个参数，当 option 符合筛选条件时，应返回 true，反之则返回 false。
