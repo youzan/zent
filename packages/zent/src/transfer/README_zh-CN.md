@@ -26,6 +26,7 @@ group: 数据
 | searchPlaceholder | 搜索框文案                                                                                    | `string`                                                             | `请输入搜索内容`       |        | 否       |
 | filterOption      | 接收`inputValue`、`option`两个参数，当`option`符合筛选条件时，应返回`true`，反之则返回`false` | `(inputValue: string, option: ITransferData) => boolean`             |                        |        | 否       |
 | pagination        | 列表分页，自定义渲染列表下无效，pageSize 默认 10 条                                           | `boolean | { pageSize: number }`                                     | false                  |        | 否       |
+| disabled          | 是否禁用                                                                                      | `boolean`                                                            | false                  |        | 否       |
 | className         | 自定义类名                                                                                    | `string`                                                             | ''                     |        | 否       |
 | list              | 设置列表属性                                                                                  | `Object ListType`                                                    |                        |        | 否       |
 
@@ -41,10 +42,10 @@ Transfer 支持接收 children 自定义渲染列表，并返回以下参数：
 
 #### list
 
-| 参数       | 说明                                               | 类型                                                                                                       | 默认值          | 备选值 | 是否必填 |
-| ---------- | -------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | --------------- | ------ | -------- |
-| columns    | 表格列配置                                         | `TransferColumnType | [TransferColumnType, TransferColumnType]`                                            |                 |        | 是       |
-| selection  | 表格的选择功能配置，(当前仅支持`getCheckboxProps`) | `object { getCheckboxProps: ( data: ITransferData) => { disabled?: boolean; reason?: React.ReactNode }; }` |                 |        | 否       |
+| 参数      | 说明                                               | 类型                                                                                                       | 默认值 | 备选值 | 是否必填 |
+| --------- | -------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ------ | ------ | -------- |
+| columns   | 表格列配置                                         | `TransferColumnType | [TransferColumnType, TransferColumnType]`                                            |        |        | 是       |
+| selection | 表格的选择功能配置，(当前仅支持`getCheckboxProps`) | `object { getCheckboxProps: ( data: ITransferData) => { disabled?: boolean; reason?: React.ReactNode }; }` |        |        | 否       |
 
 以上 props 和`Grid`不同，支持透传的属性有`rowKey`、`scroll`、`emptyLabel`、`onRowClick`、`sortBy`、`sortType`、`defaultSortType`、`bordered`、`ellipsis`、`components`、`rowProps`、`autoStick`、`autoStickOffsetTop`、`disableHoverHighlight`、`onChange`、`loading`、`className`、`rowClassName`（[查看属性说明](https://youzan.github.io/zent/zh/component/grid#api)）。
 

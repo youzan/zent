@@ -24,6 +24,7 @@ export const Transfer: React.FC<TransferType> = ({
   children,
   list,
   pagination,
+  disabled,
   className,
 }) => {
   const classNamePrefix = 'zent-transfer';
@@ -121,10 +122,11 @@ export const Transfer: React.FC<TransferType> = ({
           list={list}
           prefix={prefix}
           pagination={pagination}
+          disabled={disabled}
         />
       );
     },
-    [children, pagination]
+    [children, pagination, disabled]
   );
 
   const handleTransfer = useCallback(
@@ -154,6 +156,7 @@ export const Transfer: React.FC<TransferType> = ({
       <div className={`${classNamePrefix}__arrow__item`}>
         <ArrowButton
           disabled={
+            disabled ||
             !getSingleDirectionSelectedKeys(getOppositeDirection(direction))
               .length
           }
@@ -163,16 +166,24 @@ export const Transfer: React.FC<TransferType> = ({
         />
       </div>
     ),
-    [handleTransfer, getSingleDirectionSelectedKeys, classNamePrefix]
+    [handleTransfer, getSingleDirectionSelectedKeys, classNamePrefix, disabled]
   );
+
+  const Wrap = useMemo(() => (disabled ? Disabled : React.Fragment), [
+    disabled,
+  ]);
 
   useEffect(() => {
     setSelectedKeys(selectedKeysProp);
   }, [selectedKeysProp]);
 
   return (
-    <Disabled>
-      <div className={cx(`${classNamePrefix}`, className)}>
+    <Wrap>
+      <div
+        className={cx(`${classNamePrefix}`, className, {
+          [`${classNamePrefix}--disabled`]: disabled,
+        })}
+      >
         {getRenderList({
           title: titles?.[0],
           direction: Direction.Left,
@@ -191,6 +202,7 @@ export const Transfer: React.FC<TransferType> = ({
           },
           prefix: classNamePrefix,
           pagination,
+          disabled,
         })}
         <div className={`${classNamePrefix}__arrow`}>
           {getArrowButton(Direction.Right)}
@@ -214,9 +226,10 @@ export const Transfer: React.FC<TransferType> = ({
           },
           prefix: classNamePrefix,
           pagination,
+          disabled,
         })}
       </div>
-    </Disabled>
+    </Wrap>
   );
 };
 

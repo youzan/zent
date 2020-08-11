@@ -28,6 +28,7 @@ const TransferItem: React.FC<ITransferItem> = ({
   searchPlaceholder,
   list,
   pagination,
+  disabled: compontentDisabled,
 }) => {
   const { columns, selection, ...gridRest } = list;
   const [inputVal, setInputVal] = useState('');
@@ -77,20 +78,17 @@ const TransferItem: React.FC<ITransferItem> = ({
   );
 
   const handleRowClick = useCallback(
-    (
-      data: ITransferData,
-      index: number,
-      event: React.MouseEvent<HTMLTableRowElement>
-    ) => {
+    (data: ITransferData) => {
       const { [keyName]: key, disabled } = data;
       !disabled &&
+        !compontentDisabled &&
         handleSelectChange(
           selectedKeys.includes(key)
             ? selectedKeys.filter(item => key !== item)
             : selectedKeys.concat(key)
         );
     },
-    [handleSelectChange, selectedKeys, keyName]
+    [handleSelectChange, selectedKeys, keyName, compontentDisabled]
   );
 
   const currentPageData = useMemo(() => {
@@ -135,7 +133,11 @@ const TransferItem: React.FC<ITransferItem> = ({
     <Receiver componentName="Transfer">
       {(i18n: II18nLocaleTransfer) => {
         return (
-          <div className={classNamePrefix}>
+          <div
+            className={cx(classNamePrefix, {
+              [`${classNamePrefix}--disabled`]: compontentDisabled,
+            })}
+          >
             <div className={`${classNamePrefix}__allCheckbox`}>
               <Checkbox
                 checked={allChecked}
@@ -162,7 +164,9 @@ const TransferItem: React.FC<ITransferItem> = ({
                 [`${classNamePrefix}__header--hidden`]:
                   false === !!columns[0]?.title,
               })}
-              rowClassName={`${classNamePrefix}__grid__row`}
+              rowClassName={cx(`${classNamePrefix}__grid__row`, {
+                [`${classNamePrefix}__grid__row--disabled`]: compontentDisabled,
+              })}
               datasets={currentPageData}
               selection={{
                 selectedRowKeys: selectedKeys,

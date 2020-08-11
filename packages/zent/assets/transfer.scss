@@ -11,6 +11,10 @@
     border: 1px solid;
     @include theme-color(border-color, stroke, 5);
 
+    &--disabled {
+      @include theme-color(background-color, stroke, 8);
+    }
+
     &__allCheckbox {
       border-bottom: 1px solid;
       @include theme-color(border-color, stroke, 5);
@@ -34,6 +38,11 @@
           padding-top: 8px;
           padding-bottom: 8px;
           padding-right: 16px;
+        }
+
+        &--disabled {
+          cursor: not-allowed;
+          @include theme-color(background-color, stroke, 8);
         }
       }
 

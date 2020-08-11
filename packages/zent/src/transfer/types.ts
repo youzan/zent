@@ -81,7 +81,8 @@ export interface ITransferItem {
   filterOption?: (inputValue: string, option: ITransferData) => boolean; // 接收 inputValue option 两个参数，当 option 符合筛选条件时，应返回 true，反之则返回 false。
   list: Omit<ListType, 'columns'> & { columns: TransferColumnType };
   prefix: string;
-  pagination: boolean | { pageSize: number };
+  pagination: boolean | { pageSize: number }; // 分页配置
+  disabled: boolean; // 是否禁用
 }
 
 interface ITransfer {
@@ -95,7 +96,8 @@ interface ITransfer {
   showSearch?: boolean; // 是否显示搜索框
   searchPlaceholder?: string; //搜索框文案
   filterOption?: (inputValue: string, option: ITransferData) => boolean; // 接收 inputValue option 两个参数，当 option 符合筛选条件时，应返回 true，反之则返回 false。
-  pagination: boolean | { pageSize: number };
+  pagination: boolean | { pageSize: number }; // 分页配置
+  disabled: boolean; // 是否禁用
   className?: string;
 }
 

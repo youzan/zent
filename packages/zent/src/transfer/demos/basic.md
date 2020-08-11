@@ -8,15 +8,12 @@ en-US:
 
 ```js
 import { useState } from 'react';
-import { Transfer } from 'zent';
+import { Transfer, Switch } from 'zent';
 
-const data = new Array(20)
-	.fill()
-	.map((_, index) => ({
-		option: String(index),
-		text: `option${index}`,
-		disabled: index === 1 || index === 3 || index === 5 || index === 10,
-	}));
+const data = new Array(20).fill().map((_, index) => ({
+	option: String(index),
+	text: `option${index}`,
+}));
 
 const columns = [
 	{
@@ -25,6 +22,7 @@ const columns = [
 ];
 
 const [targetKeys, setTargetKeys] = useState(['5', '9', '10', '15']);
+const [checked, setChecked] = useState(false);
 
 ReactDOM.render(
 	<div>
@@ -34,7 +32,15 @@ ReactDOM.render(
 			targetKeys={targetKeys}
 			onChange={({ targetKeys }) => setTargetKeys(targetKeys)}
 			list={{ columns }}
+			disabled={checked}
 		/>
+		<div style={{ marginTop: '20px' }}>
+			<Switch
+				checked={checked}
+				onChange={() => setChecked(!checked)}
+			/>
+			disabled
+		</div>
 	</div>,
 	mountNode
 );
