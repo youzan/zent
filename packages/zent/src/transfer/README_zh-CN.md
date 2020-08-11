@@ -25,8 +25,8 @@ group: 数据
 | showSearch        | 是否显示搜索框                                                                                | `boolean`                                                            | `false`                | `true` | 否       |
 | searchPlaceholder | 搜索框文案                                                                                    | `string`                                                             | `请输入搜索内容`       |        | 否       |
 | filterOption      | 接收`inputValue`、`option`两个参数，当`option`符合筛选条件时，应返回`true`，反之则返回`false` | `(inputValue: string, option: ITransferData) => boolean`             |                        |        | 否       |
-| pagination        | 列表分页，自定义渲染列表下无效，pageSize 默认 10 条                                           | `boolean | { pageSize: number }`                                     | false                  |        | 否       |
-| disabled          | 是否禁用                                                                                      | `boolean`                                                            | false                  |        | 否       |
+| pagination        | 列表分页，自定义渲染列表下无效，pageSize 默认 10 条                                           | `boolean | { pageSize: number }`                                     | `false`                |        | 否       |
+| disabled          | 是否禁用                                                                                      | `boolean`                                                            | `false`                | `true` | 否       |
 | className         | 自定义类名                                                                                    | `string`                                                             | ''                     |        | 否       |
 | list              | 设置列表属性                                                                                  | `Object ListType`                                                    |                        |        | 否       |
 
