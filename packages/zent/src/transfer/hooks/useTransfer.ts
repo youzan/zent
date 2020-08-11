@@ -2,9 +2,11 @@ import { useState, useCallback } from 'react';
 
 import { Direction } from '../constants';
 import { getOppositeDirection } from '../utils';
-import { ITransferHook } from '../types';
+import { ITransferHookParams, ITransferHookResult } from '../types';
 
-export default function useTransfer(params?: ITransferHook) {
+export default function useTransfer(
+  params?: ITransferHookParams
+): ITransferHookResult {
   const {
     targetKeys: defaultTargetKeys = [],
     selectedKeys: defaultSelectedKeys = [],
@@ -24,7 +26,7 @@ export default function useTransfer(params?: ITransferHook) {
     [selectedKeys, targetKeys]
   );
 
-  const onChange = useCallback(
+  const transferKeys = useCallback(
     (direction: Direction) => {
       const otherDirection = getOppositeDirection(direction);
       const transferredKeys = getSingleDirectionSelectedKeys(otherDirection);
@@ -41,7 +43,7 @@ export default function useTransfer(params?: ITransferHook) {
     [getSingleDirectionSelectedKeys, selectedKeys, targetKeys]
   );
 
-  const onSelectChange = useCallback(
+  const changeSelectedKeys = useCallback(
     (direction: Direction, keys: string[]) => {
       setSelectedKeys(
         keys.concat(
@@ -52,10 +54,20 @@ export default function useTransfer(params?: ITransferHook) {
     [getSingleDirectionSelectedKeys]
   );
 
+  const resetSelectedKeys = useCallback((keys: string[]) => {
+    setSelectedKeys(keys);
+  }, []);
+
+  const resetTargetKeys = useCallback((keys: string[]) => {
+    setTargetKeys(keys);
+  }, []);
+
   return {
     targetKeys,
     selectedKeys,
-    onChange,
-    onSelectChange,
+    transferKeys,
+    changeSelectedKeys,
+    resetSelectedKeys,
+    resetTargetKeys,
   };
 }

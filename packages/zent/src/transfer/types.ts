@@ -109,7 +109,16 @@ export interface ITransferArrowButton {
   onChange: () => void;
 }
 
-export interface ITransferHook {
+export interface ITransferHookParams {
   selectedKeys?: string[];
   targetKeys?: string[];
+}
+
+export interface ITransferHookResult {
+  targetKeys: string[];
+  selectedKeys: string[];
+  transferKeys: (direction: TransferDirection) => void;
+  changeSelectedKeys: (direction: TransferDirection, keys: string[]) => void;
+  resetSelectedKeys: (keys: string[]) => void;
+  resetTargetKeys: (keys: string[]) => void;
 }
