@@ -1,4 +1,5 @@
 import { IGridColumn, IGridProps } from '../grid';
+import { ListPropsType } from './constants';
 
 export type TransferDirection = 'left' | 'right';
 
@@ -26,29 +27,6 @@ interface ITransferChildrenProps {
   selectedKeys: string[];
   handleSelectChange: (keys: string[]) => void;
 }
-
-// 透传到Grid组件的prop类型
-export type PassDownGridPropsType =
-  | 'rowKey'
-  | 'scroll'
-  | 'emptyLabel'
-  | 'onRowClick'
-  | 'sortBy'
-  | 'sortType'
-  | 'defaultSortType'
-  | 'bordered'
-  | 'ellipsis'
-  | 'components'
-  | 'rowProps'
-  | 'autoStick'
-  | 'autoStickOffsetTop'
-  | 'disableHoverHighlight'
-  | 'onChange'
-  | 'loading'
-  | 'className'
-  | 'rowClassName';
-
-export type ListPropsType = 'selection' | PassDownGridPropsType;
 
 type ListType = {
   columns: TransferColumnType;
