@@ -25,10 +25,10 @@ Double column transfer choice box.
 | showSearch        | If included, a search box is shown on each column                                                                                                                          | `boolean`                                                            | `false`                | No       |
 | searchPlaceholder | Search input placeholder                                                                                                                                                   | `string`                                                             | `Please Enter`         | No       |
 | filterOption      | A function to determine whether an item should show in search result list                                                                                                  | `(inputValue: string, option: ITransferData) => boolean`             |                        | No       |
-| pagination        | List pagination. Not work in render props. PageSize is 10 by default                                                                                                       | `boolean | { pageSize: number }`                                     |                        | No       |
+| pagination        | List pagination. Not work in render props. PageSize is 10 by default                                                                                                       | `boolean` \| `{ pageSize: number }`                                     |                        | No       |
 | disabled          | Whether disabled transfer                                                                                                                                                  | `boolean`                                                            | `false`                | No       |
 | className         | Extra custom class name                                                                                                                                                    | `string`                                                             | `''`                     | No       |
-| list              | Set list props                                                                                                                                                             | `Object ListType` ｜ `[ListType, ListType]`                          |                        | No       |
+| list              | Set list props                                                                                                                                                             | `Object ListType` \| `[ListType, ListType]`                          |                        | No       |
 
 #### Render Props
 
@@ -36,7 +36,7 @@ Transfer accept children to customize render list, using follow props:
 
 | Property           | Description             | Type                       |
 | ------------------ | ----------------------- | -------------------------- |
-| direction          | List render direction   | `left \| right`            |
+| direction          | List render direction   | `left` \| `right`            |
 | selectedKeys       | Selected items          | `string[]`                 |
 | handleSelectChange | Select a group of items | `(keys: string[]) => void` |
 
