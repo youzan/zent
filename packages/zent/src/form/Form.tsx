@@ -30,6 +30,7 @@ import scroll from '../utils/scroll';
 import { CombineErrors } from './CombineErrors';
 import { ValidateOccasion, TouchWhen } from './shared';
 import { Disabled } from '../disabled';
+import getScrollPosition from '../utils/dom/getScollPosition';
 
 export {
   IRenderError,
@@ -177,16 +178,34 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
   }
 
   scrollToFirstError() {
+    let scrollX = Infinity;
+    let scrollY = Infinity;
     for (let i = 0; i < this.children.length; i += 1) {
       const child = this.children[i];
       const el = child.getDOMNode();
-      if (!el) {
+      if (!el || child.valid()) {
         continue;
       }
       const elementBound = el.getBoundingClientRect();
-      const y = elementBound.top + window.pageYOffset;
-      const x = elementBound.left + window.pageXOffset;
-      scroll(document.body, x, y);
+      const y = elementBound.top;
+      const x = elementBound.left;
+
+      /**
+       * Find the position of first field in view
+       *
+       * Example:
+       * Field1  Field2
+       * Field3
+       */
+      if (y < scrollY || (y === scrollY && x < scrollX)) {
+        scrollX = x;
+        scrollY = y;
+      }
+    }
+
+    if (scrollX !== Infinity) {
+      const { x, y } = getScrollPosition();
+      scroll(document.body, scrollX + x, scrollY + y);
     }
   }
 
