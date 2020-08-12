@@ -31,6 +31,7 @@ import { CombineErrors } from './CombineErrors';
 import { ValidateOccasion, TouchWhen } from './shared';
 import { Disabled } from '../disabled';
 import getScrollPosition from '../utils/dom/getScollPosition';
+import { isYesterday } from 'date-fns';
 
 export {
   IRenderError,
@@ -187,9 +188,8 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
         continue;
       }
       const elementBound = el.getBoundingClientRect();
-      const { x: pageXOffset, y: pageYOffset } = getScrollPosition();
-      const y = elementBound.top + pageYOffset;
-      const x = elementBound.left + pageXOffset;
+      const y = elementBound.top;
+      const x = elementBound.left;
 
       /**
        * Find the position of first field in view
@@ -204,7 +204,8 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
     }
 
     if (scrollX > -1) {
-      scroll(document.body, scrollX, scrollY);
+      const { x, y } = getScrollPosition();
+      scroll(document.body, scrollX + x, scrollY + y);
     }
   }
 
