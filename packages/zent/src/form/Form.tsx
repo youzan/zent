@@ -203,7 +203,7 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
       }
     }
 
-    if (~scrollX) {
+    if (scrollX > -1) {
       scroll(document.body, scrollX, scrollY);
     }
   }
