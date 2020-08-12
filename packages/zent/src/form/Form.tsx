@@ -178,9 +178,8 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
   }
 
   scrollToFirstError() {
-    type X = number;
-    type Y = number;
-    const positions: [X, Y][] = [];
+    let scrollX = -1;
+    let scrollY = -1;
     for (let i = 0; i < this.children.length; i += 1) {
       const child = this.children[i];
       const el = child.getDOMNode();
@@ -191,21 +190,21 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
       const { x: pageXOffset, y: pageYOffset } = getScrollPosition();
       const y = elementBound.top + pageYOffset;
       const x = elementBound.left + pageXOffset;
-      positions.push([x, y]);
+
+      /**
+       * Find the position of first field in view
+       * @example
+       * Field1  Field2
+       * Field3
+       */
+      if (y < scrollY || (y === scrollY && x < scrollX)) {
+        scrollX = x;
+        scrollY = y;
+      }
     }
 
-    /**
-     * Take the fields with the smallest `y`, then take
-     * the field with the smallest `x` as the scrolling
-     * target within these fields.
-     */
-    positions.sort(([x1, y1], [x2, y2]) => {
-      const diffY = y1 - y2;
-      return diffY ? diffY : x1 - x2;
-    });
-    const target = positions[0];
-    if (target) {
-      scroll(document.body, target[0], target[1]);
+    if (~scrollX) {
+      scroll(document.body, scrollX, scrollY);
     }
   }
 
