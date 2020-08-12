@@ -192,7 +192,8 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
 
       /**
        * Find the position of first field in view
-       * @example
+       *
+       * Example:
        * Field1  Field2
        * Field3
        */
