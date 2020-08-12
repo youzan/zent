@@ -31,7 +31,6 @@ import { CombineErrors } from './CombineErrors';
 import { ValidateOccasion, TouchWhen } from './shared';
 import { Disabled } from '../disabled';
 import getScrollPosition from '../utils/dom/getScollPosition';
-import isNil from '../utils/isNil';
 
 export {
   IRenderError,
