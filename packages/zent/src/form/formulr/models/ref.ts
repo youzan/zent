@@ -2,6 +2,7 @@ import { BehaviorSubject } from 'rxjs';
 import { IModel } from './base';
 import { ValidateOption, IMaybeError, IValidators } from '../validate';
 import { Maybe, None } from '../maybe';
+import uniqueId from '../../../utils/uniqueId';
 
 const REF_ID = Symbol('ref');
 
@@ -16,6 +17,8 @@ class ModelRef<Value, Parent extends IModel<any>, Model extends IModel<Value>>
    * @internal
    */
   patchedValue: Maybe<Value> = None();
+
+  id = uniqueId('model-ref-');
 
   model$: BehaviorSubject<Model | null>;
 

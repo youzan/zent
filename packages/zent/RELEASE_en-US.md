@@ -8,6 +8,26 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 8.5.4(2020-08-04)
+
+- 🦀️ Fix unmatched `TypeScript` and `tslib` version in `8.5.3`
+- 🦀️ Fix label text color in disabled `Checkbox`
+- 📚 Add a new demo for custom `Form` field
+
+### 8.5.3(2020-07-22)
+
+- ✨ Add a new icon `thumbnail`
+- `Form`
+  - ✨ Merge `formulr` into `Zent` repository
+  - ✨ Add `FormContext`, only supports `labelStyle` for now
+  - 🦀️ Ensure `FieldArray`'s child has an `id`, no need to use array indices for `key`
+  - 🦀️ Fix a React warning
+- 🦀️ Fix an issue in `Grid` when `batchComponents` is an empty array
+- 🦀️ Fix style lint when building custom theme
+- 🦀️ Allow word wrap in `ClampLines`
+- 📚 Add `babel-plugin-zent` link in doc site side nav
+- 📚 Fix some style issue in doc site
+
 ### 8.5.2(2020-06-23)
 
 - `Form`

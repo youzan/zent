@@ -64,6 +64,7 @@ scatter: true
 
 <!-- demo-slot-1 -->
 <!-- demo-slot-2 -->
+<!-- demo-slot-18 -->
 <!-- demo-slot-3 -->
 <!-- demo-slot-15 -->
 
@@ -213,6 +214,18 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 - `Control` 封装了 label、自定义组件以及错误信息的结构，[查看文档](../../apidoc/interfaces/iformcontrolprops.html)
 - `Label` 表单项的 label 组件，适用于连 `Control` 也不想使用的场景，[查看文档](../../apidoc/interfaces/ilabelprops.html)
 - `Error` 表单项的错误信息组件，同 `Label` 一样适用于深度自定义的场景，[查看文档](http://127.0.0.1:4396/apidoc/interfaces/iformerrorprops.html)
+
+### 表单上下文
+
+使用`FormContext`对整个表单的行为进行控制，目前支持对`Label`组件进行样式自定义
+
+```ts
+interface IZentFormContext {
+	labelStyle?: CSSProperties;
+}
+```
+
+<!-- demo-slot-17 -->
 
 ### `FieldUtils`
 

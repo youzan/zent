@@ -16,6 +16,7 @@ import {
   II18nLocaleSwitch,
   II18nLocaleTable,
   II18nLocaleUpload,
+  II18nLocaleTransfer,
 } from './locale';
 import { setLocale, zhCN } from './time-locale';
 
@@ -184,4 +185,11 @@ export const Upload: II18nLocaleUpload = {
 
 export const Mention: II18nLocaleMention = {
   noContent: '无匹配结果，轻敲空格完成输入',
+};
+
+export const Transfer: II18nLocaleTransfer = {
+  placeholder: '请输入搜索内容',
+  item: '项',
+  items: '项',
+  emptyLabel: '暂无数据',
 };
