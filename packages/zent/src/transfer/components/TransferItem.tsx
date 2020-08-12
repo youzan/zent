@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useState, useCallback, useEffect, useMemo } from 'react';
 import cx from 'classnames';
-import Decimal from 'big.js';
 
 import pick from '../../utils/pick';
 import {
@@ -96,8 +95,8 @@ const TransferItem: React.FC<ITransferItem> = ({
       return listData;
     }
     return listData.slice(
-      +new Decimal(pageCurrent).minus(1).mul(pageSize),
-      +new Decimal(pageCurrent).mul(pageSize)
+      pageCurrent * pageSize - pageSize,
+      pageCurrent * pageSize
     );
   }, [listData, pageCurrent, pagination, pageSize]);
 
