@@ -179,8 +179,8 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
   }
 
   scrollToFirstError() {
-    let scrollX: number | undefined;
-    let scrollY: number | undefined;
+    let scrollX = Infinity;
+    let scrollY = Infinity;
     for (let i = 0; i < this.children.length; i += 1) {
       const child = this.children[i];
       const el = child.getDOMNode();
@@ -198,13 +198,13 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
        * Field1  Field2
        * Field3
        */
-      if (isNil(scrollX) || y < scrollY || (y === scrollY && x < scrollX)) {
+      if (y < scrollY || (y === scrollY && x < scrollX)) {
         scrollX = x;
         scrollY = y;
       }
     }
 
-    if (!isNil(scrollX)) {
+    if (scrollX !== Infinity) {
       const { x, y } = getScrollPosition();
       scroll(document.body, scrollX + x, scrollY + y);
     }
