@@ -11,7 +11,20 @@ on:
       - v[0-9]+
 
 jobs:
+  # bahmutov/npm-install caches npm packages, we don't want CI to fail
+  # when two or more jobs are trying to create the same cache
+  validate-cache:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js '12'
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12'
+    - uses: bahmutov/npm-install@v1
+
   test:
+    needs: validate-cache
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -24,6 +37,7 @@ jobs:
     - run: yarn test
 
   lint:
+    needs: validate-cache
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -35,6 +49,7 @@ jobs:
     - run: yarn lint
 
   check-git-hooks:
+    needs: validate-cache
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
