@@ -31,6 +31,7 @@ import { CombineErrors } from './CombineErrors';
 import { ValidateOccasion, TouchWhen } from './shared';
 import { Disabled } from '../disabled';
 import getScrollPosition from '../utils/dom/getScollPosition';
+import isNil from '../utils/isNil';
 
 export {
   IRenderError,
@@ -178,8 +179,8 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
   }
 
   scrollToFirstError() {
-    let scrollX = -1;
-    let scrollY = -1;
+    let scrollX: number | undefined;
+    let scrollY: number | undefined;
     for (let i = 0; i < this.children.length; i += 1) {
       const child = this.children[i];
       const el = child.getDOMNode();
@@ -197,13 +198,13 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
        * Field1  Field2
        * Field3
        */
-      if (y < scrollY || (y === scrollY && x < scrollX)) {
+      if (isNil(scrollX) || y < scrollY || (y === scrollY && x < scrollX)) {
         scrollX = x;
         scrollY = y;
       }
     }
 
-    if (scrollX > -1) {
+    if (!isNil(scrollX)) {
       const { x, y } = getScrollPosition();
       scroll(document.body, scrollX + x, scrollY + y);
     }
