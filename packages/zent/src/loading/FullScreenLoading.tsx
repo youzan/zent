@@ -18,6 +18,7 @@ export function FullScreenLoading(props: IFullScreenLoadingProps) {
     iconText,
     textPosition = 'bottom',
     zIndex,
+    colorPreset = 'primary',
   } = props;
   const delayed = useDelayed({ loading, delay });
 
@@ -38,6 +39,7 @@ export function FullScreenLoading(props: IFullScreenLoadingProps) {
         size={iconSize}
         text={iconText}
         textPosition={textPosition}
+        colorPreset={colorPreset}
       />
     </Portal>
   );
