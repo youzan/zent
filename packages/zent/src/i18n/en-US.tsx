@@ -82,7 +82,9 @@ export const RangePicker: II18nLocaleRangePicker = {
 
 export const Select: II18nLocaleSelect = {
   input: 'Please choose...',
-  empty: 'No matches found',
+  empty: 'Not Found',
+  tagSeparator: ', ',
+  create: '+Create: ',
 };
 
 export const Sweetalert: II18nLocaleSweetalert = {

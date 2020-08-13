@@ -2,6 +2,7 @@ import * as React from 'react';
 import cx from 'classnames';
 import { ISelectItem } from './Select';
 import Icon from '../icon';
+import { InlineLoading } from '../loading/InlineLoading';
 
 export interface IOptionProps<Item extends ISelectItem> {
   value: Item;
@@ -13,6 +14,7 @@ export interface IOptionProps<Item extends ISelectItem> {
   onMouseLeave(index: number): void;
   multiple: boolean;
   children?: React.ReactNode;
+  loading: boolean;
 }
 
 function SelectOption<Item extends ISelectItem>({
@@ -25,6 +27,7 @@ function SelectOption<Item extends ISelectItem>({
   onMouseLeave,
   multiple,
   children,
+  loading,
 }: IOptionProps<Item>) {
   return (
     <div
@@ -40,11 +43,20 @@ function SelectOption<Item extends ISelectItem>({
       }}
       onMouseEnter={() => !value.type && onMouseEnter(index)}
       onMouseLeave={() => !value.type && onMouseLeave(index)}
+      title={typeof value.text === 'string' && value.text}
     >
       <div className="zent-select-option-text">
-        {children}
+        <p className="zent-select-option-text-content">{children}</p>
         {multiple && selected && (
           <Icon className="zent-select-option-selected-multiple" type="check" />
+        )}
+        {loading && (
+          <InlineLoading
+            loading
+            icon="circle"
+            iconSize={18}
+            className="zent-select-option-loading"
+          />
         )}
       </div>
     </div>
