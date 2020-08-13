@@ -2,16 +2,17 @@
  * Get current scroll position in page
  */
 export default function getScrollPosition() {
+  const { pageXOffset, pageYOffset } = window;
   const x =
-    window.pageXOffset !== undefined
-      ? window.pageXOffset
+    pageXOffset !== undefined
+      ? pageXOffset
       : ((document.documentElement ||
           document.body.parentNode ||
           document.body) as any).scrollLeft;
 
   const y =
-    window.pageYOffset !== undefined
-      ? window.pageYOffset
+    pageYOffset !== undefined
+      ? pageYOffset
       : ((document.documentElement ||
           document.body.parentNode ||
           document.body) as any).scrollTop;

@@ -6,13 +6,20 @@ import { IIconProps } from './IconProps';
 
 const DEFAULT_SIZE = 24;
 
-export default function CircleIcon({ size, text, textPosition }: IIconProps) {
+export default function CircleIcon({
+  size,
+  text,
+  textPosition,
+  colorPreset,
+}: IIconProps) {
   size = size || DEFAULT_SIZE;
 
   return (
     <div
       className={cx(
         'zent-loading-icon-and-text',
+        'zent-loading-icon-and-text--circle',
+        `zent-loading-color-preset--${colorPreset}`,
         getTextPosition(textPosition)
       )}
     >

@@ -16,6 +16,7 @@ export function BlockLoading(props: IBlockLoadingProps) {
     iconSize,
     iconText,
     textPosition = 'bottom',
+    colorPreset = 'primary',
   } = props;
   const hasChildren = !!children;
   const delayed = useDelayed({ loading, delay });
@@ -39,6 +40,7 @@ export function BlockLoading(props: IBlockLoadingProps) {
           size={iconSize}
           text={iconText}
           textPosition={textPosition}
+          colorPreset={colorPreset}
         />
       )}
     </div>
