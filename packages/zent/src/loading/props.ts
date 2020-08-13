@@ -1,11 +1,14 @@
 import * as React from 'react';
 
+export type LoadingColorPreset = 'primary' | 'grey';
+
 export interface ILoadingBaseProps {
   loading?: boolean;
   delay?: number;
   icon?: 'youzan' | 'circle';
   iconSize?: number;
   iconText?: React.ReactNode;
+  colorPreset?: LoadingColorPreset;
   textPosition?: 'top' | 'bottom' | 'left' | 'right';
   className?: string;
 }

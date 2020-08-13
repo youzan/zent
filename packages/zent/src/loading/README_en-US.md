@@ -18,24 +18,25 @@ group: Feedback
 
 #### Common props
 
-| Property     | Description                          | Type   | Required | Default    | Alternative                      |
-| ------------ | ------------------------------------ | ------ | -------- | ---------- | -------------------------------- |
-| loading      | Loading state                        | bool   | No       | `false`    | `true`                           |
-| delay        | Milliseconds to delay before loading | number | No       | `0`        |                                  |
-| icon         | Icon type                            | string | No       | `'youzan'` | `'circle'`                       |
-| iconSize     | Icon size                            | number | No       |            |                                  |
-| iconText     | Icon text                            | string | No       |            |                                  |
-| textPosition | Text position relative to icon       | string | No       | `'bottom'` | `'top'` \| `'left'` \| `'right'` |
-| className    | Custom class                         | string | No       |            |                                  |
+| Property     | Description                          | Type      | Required | Default     | Alternative                      |
+| ------------ | ------------------------------------ | --------- | -------- | ----------- | -------------------------------- |
+| loading      | Loading state                        | `boolean` | No       | `false`     | `true`                           |
+| delay        | Milliseconds to delay before loading | `number`  | No       | `0`         |                                  |
+| icon         | Icon type                            | `string`  | No       | `'youzan'`  | `'circle'`                       |
+| iconSize     | Icon size                            | `number`  | No       |             |                                  |
+| iconText     | Icon text                            | `string`  | No       |             |                                  |
+| colorPreset  | Color preset                         | `string`  | No       | `'primary'` | `'grey'`                         |
+| textPosition | Text position relative to icon       | `string`  | No       | `'bottom'`  | `'top'` \| `'left'` \| `'right'` |
+| className    | Custom class                         | `string`  | No       |             |                                  |
 
 #### BlockLoading
 
 Block level `Loading`, content can be wrapped or a default height will be used. Used for loading a page section.
 
-| Property | Description                                                       | Type   | Required | Default | Alternative |
-| -------- | ----------------------------------------------------------------- | ------ | -------- | ------- | ----------- |
-| height   | Uses content height if wrapping content, or uses a default height | number | No       | `160`   |             |
-| children | Wrapped content                                                   | node   | No       |         |             |
+| Property | Description                                                       | Type        | Required | Default | Alternative |
+| -------- | ----------------------------------------------------------------- | ----------- | -------- | ------- | ----------- |
+| height   | Uses content height if wrapping content, or uses a default height | `number`    | No       | `160`   |             |
+| children | Wrapped content                                                   | `ReactNode` | No       |         |             |
 
 #### InlineLoading
 
@@ -45,6 +46,6 @@ Inline `Loading`, can't wrap content.
 
 Full screen `Loading`, can't wrap content. Used for page loading.
 
-| Property | Description  | Type   | Required | Default | Alternative |
-| -------- | ------------ | ------ | -------- | ------- | ----------- |
-| zIndex   | Mask z-index | number | No       |         |             |
+| Property | Description  | Type     | Required | Default | Alternative |
+| -------- | ------------ | -------- | -------- | ------- | ----------- |
+| zIndex   | Mask z-index | `number` | No       |         |             |
