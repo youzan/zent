@@ -22,13 +22,14 @@ group: 反馈
 
 | 参数         | 说明                 | 类型   | 是否必填 | 默认值     | 备选值                           |
 | ------------ | -------------------- | ------ | -------- | ---------- | -------------------------------- |
-| loading      | 显示控制             | bool   | 否       | `false`    | `true`                           |
+| loading      | 显示控制             | `boolean`   | 否       | `false`    | `true`                           |
 | delay        | 显示延迟时间（毫秒） | number | 否       | `0`        |                                  |
-| icon         | 图标样式             | string | 否       | `'youzan'` | `'circle'`                       |
-| iconSize     | 图标大小             | number | 否       |            |                                  |
-| iconText     | 图标文案             | string | 否       |            |                                  |
-| textPosition | 文案相对图标的位置   | string | 否       | `'bottom'` | `'top'` \| `'left'` \| `'right'` |
-| className    | 自定义额外类名       | string | 否       |            |                                  |
+| icon         | 图标样式             | `string` | 否       | `'youzan'` | `'circle'`                       |
+| iconSize     | 图标大小             | `number` | 否       |            |                                  |
+| iconText     | 图标文案             | `string` | 否       |            |                                  |
+| colorPreset  | 预设主题色           | `string` | 否       | `'primary'` | `'grey'`                       |
+| textPosition | 文案相对图标的位置   | `string` | 否       | `'bottom'` | `'top'` \| `'left'` \| `'right'` |
+| className    | 自定义额外类名       | `string` | 否       |            |                                  |
 
 #### BlockLoading
 
@@ -36,8 +37,8 @@ group: 反馈
 
 | 参数     | 说明                                                   | 类型   | 是否必填 | 默认值 | 备选值 |
 | -------- | ------------------------------------------------------ | ------ | -------- | ------ | ------ |
-| height   | 如果包裹了组件，默认表现为组件高度；否则将使用默认高度 | number | `160`    |        |        |
-| children | 包裹的内容                                             | node   | 否       |        |        |
+| height   | 如果包裹了组件，默认表现为组件高度；否则将使用默认高度 | `number` | `160`    |        |        |
+| children | 包裹的内容                                      | `ReactNode`   | 否       |        |        |
 
 #### InlineLoading
 
@@ -49,4 +50,4 @@ group: 反馈
 
 | 参数   | 说明         | 类型   | 是否必填 | 默认值 | 备选值 |
 | ------ | ------------ | ------ | -------- | ------ | ------ |
-| zIndex | 蒙层 z-index | number | 否       |        |        |
+| zIndex | 蒙层 z-index | `number` | 否       |        |        |

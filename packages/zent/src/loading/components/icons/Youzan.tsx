@@ -8,13 +8,20 @@ const DEFAULT_WIDTH = 19;
 const DEFAULT_HEIGHT = 23;
 const DEFAULT_SIZE = 40;
 
-export default function YouzanIcon({ size, text, textPosition }: IIconProps) {
+export default function YouzanIcon({
+  size,
+  text,
+  textPosition,
+  colorPreset,
+}: IIconProps) {
   size = size || DEFAULT_SIZE;
 
   return (
     <div
       className={cx(
         'zent-loading-icon-and-text',
+        'zent-loading-icon-and-text--youzan',
+        `zent-loading-color-preset--${colorPreset}`,
         getTextPosition(textPosition)
       )}
     >
