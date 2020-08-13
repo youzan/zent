@@ -27,7 +27,6 @@ describe('TimePicker', () => {
     wrapper = mount(
       <CombinedTimeRangePicker
         value={['00:03:00', '01:04:00']}
-        selectedDate={new Date()}
         onChange={onChangeMock}
       />
     );

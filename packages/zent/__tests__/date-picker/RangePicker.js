@@ -3,7 +3,6 @@ import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { Simulate } from 'react-dom/test-utils';
 import { DateRangePicker } from 'date-picker';
-import { formatDate } from 'date-picker/utils/index';
 
 Enzyme.configure({ adapter: new Adapter() });
 const DateTimeFormat = 'YYYY-MM-DD HH:mm';
@@ -27,21 +26,17 @@ describe('RangePicker', () => {
       .find('.zent-datepicker-trigger')
       .first()
       .simulate('click');
-    const pop = document.querySelector('.zent-datepicker-panel-footer');
+    const pop = document.querySelector('.zent-datepicker-panel');
     expect(pop.querySelectorAll('.zent-datepicker').length).toBe(1);
-    Simulate.click(pop.querySelector('a'));
-    expect(wrapper.prop('value')[0]).toBe(
-      formatDate(DateTimeFormat, new Date())
+    // unit
+    Simulate.click(
+      pop.querySelectorAll('.zent-datepicker-panel-body-cells_item')[0]
     );
-    wrapper.setProps({
-      showTime: {
-        format: 'HH:mm:ss',
-      },
-    });
-    wrapper
-      .find('.zent-datepicker-trigger')
-      .at(0)
-      .simulate('click');
+    // confirm
+    Simulate.click(
+      pop.querySelectorAll('.zent-datepicker-panel-footer-btn')[0]
+    );
+    expect(wrapper.prop('value')[0]).toBe('2020-07-26 12:00');
     wrapper.unmount();
   });
 
