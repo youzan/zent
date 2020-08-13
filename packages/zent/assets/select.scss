@@ -4,8 +4,28 @@
 
 $option-height: 32px;
 
+@mixin ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 @mixin placeholder {
   @include theme-color(color, stroke, 4);
+  @include ellipsis;
+}
+
+@mixin tag-style {
+  @include theme-color(border-color, stroke, 4);
+  border-radius: 2px;
+  margin: 4px 4px 4px 0;
+  padding: 0 4px;
+  line-height: 16px;
+  font-size: $font-size-small;
+  display: flex;
+  align-items: center;
+  word-break: break-all;
+  box-sizing: border-box;
 }
 
 .zent-select {
@@ -36,8 +56,7 @@ $option-height: 32px;
     height: 16px;
     position: absolute;
     transition: transform 0.25s;
-    top: 0;
-    bottom: 0;
+    top: 7px;
     margin: auto;
   }
 
@@ -58,10 +77,66 @@ $option-height: 32px;
     &::after {
       opacity: 0.25;
     }
+
+    .zent-select-tag {
+      @include theme-color(color, stroke, 4);
+      @include theme-color(border-color, stroke, 5);
+      @include theme-color(background-color, stroke, 8);
+      cursor: not-allowed;
+    }
+
+    .zent-select-tag-close {
+      @include theme-color(color, stroke, 5);
+      cursor: not-allowed;
+    }
+
+    .zent-select-tag-collapsed-trigger {
+      @include theme-color(color, stroke, 4);
+      @include theme-color(background-color, stroke, 6);
+    }
+  }
+
+  &-multiple {
+    padding-top: 2px;
+    padding-bottom: 2px;
+
+    .zent-select-placeholder {
+      margin: 3px 0;
+    }
   }
 
   &-placeholder {
     @include placeholder;
+  }
+
+  &-text {
+    @include ellipsis;
+  }
+
+  &-clearable {
+    .zenticon-close-circle {
+      @include theme-color(color, stroke, 5);
+      font-size: $font-size-large;
+      position: absolute;
+      right: 8px;
+      top: 7px;
+      margin: auto;
+      width: 16px;
+      height: 16px;
+      display: none;
+      cursor: pointer;
+    }
+
+    &.zent-select:hover,
+    &.zent-select-active {
+      &::after {
+        display: none;
+      }
+
+      .zenticon-close-circle {
+        display: inline-block;
+      }
+    }
   }
 
   &:hover,
@@ -80,19 +155,49 @@ $option-height: 32px;
     display: inline-flex;
   }
 
+  &-collapsable {
+    .zent-select-search-wrap {
+      flex: 1;
+    }
+  }
+
   &-search {
     outline: none;
     border: 0;
     margin: 0;
     padding: 0;
-    min-width: 0;
+    width: 100%;
 
     &::placeholder {
       @include placeholder;
     }
+
+    &-wrap {
+      width: 100%;
+      position: relative;
+
+      &-auto-width {
+        width: auto;
+        min-width: 10px;
+        min-height: 20px;
+        margin: 3px 0;
+      }
+
+      .zent-select-search {
+        min-width: 10px;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    }
+
+    &-mirror {
+      white-space: nowrap;
+      visibility: hidden;
+    }
   }
 
-  &-popover {
+  &-popup {
     @include popup;
     max-height: 8 * $option-height;
     overflow-y: auto;
@@ -105,6 +210,10 @@ $option-height: 32px;
       align-items: center;
       justify-content: center;
     }
+
+    &-loading {
+      height: 96px;
+    }
   }
 
   &-option {
@@ -113,15 +222,21 @@ $option-height: 32px;
     cursor: pointer;
     display: flex;
     align-items: center;
-    padding: 7px 16px;
+    padding: 7px 12px;
 
     &-text {
+      @include ellipsis;
       display: flex;
       align-items: center;
       flex: 1 1 100%;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
+
+      &-content {
+        @include ellipsis;
+      }
+
+      &-highlight {
+        @include theme-color(color, primary, 4);
+      }
     }
 
     &:hover,
@@ -155,36 +270,52 @@ $option-height: 32px;
 
     &-selected {
       @include theme-color(background-color, stroke, 8);
+      font-weight: $font-weight-medium;
 
       &-multiple {
-        font-size: 12px;
+        font-size: $font-size-small;
         display: block;
         margin-left: auto;
+        padding-left: 8px;
       }
+    }
+
+    &-loading {
+      margin-left: auto;
+      padding-left: 8px;
     }
   }
 
   &-tag {
     @include theme-color(border-color, stroke, 4);
+    @include tag-style;
     border-width: 1px;
     border-style: solid;
-    border-radius: 2px;
-    margin: 2px 4px 2px 0;
-    padding: 0 4px;
-    line-height: 16px;
-    font-size: $font-size-small;
-    display: flex;
-    align-items: center;
     cursor: default;
 
     &-close {
       @include theme-color(color, stroke, 3);
       cursor: pointer;
       margin-left: 5px;
+    }
+  }
 
-      &::before {
-        font-size: 8px;
-      }
+  &-tag-collapsed {
+    &-trigger {
+      @include theme-color(background-color, stroke, 7);
+      @include tag-style;
+      cursor: pointer;
+      min-width: 46px;
+      justify-content: center;
+    }
+
+    &-content {
+      @include font-normal;
+      max-width: 216px;
+      max-height: 80px;
+      overflow-y: auto;
+      word-break: break-all;
+      @include theme-color(border-color, stroke, 4);
     }
   }
 }

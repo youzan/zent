@@ -164,6 +164,6 @@ $size: 16px;
   }
 
   .zent-checkbox-label {
-    @include theme-color(color, stroke, 4);
+    @include theme-color(color, stroke, 3);
   }
 }

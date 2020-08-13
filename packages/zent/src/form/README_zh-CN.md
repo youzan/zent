@@ -52,6 +52,8 @@ scatter: true
 - `FormTimePickerField`
 - `FormTimeRangePickerField`
 - `FormDateRangePickerField`
+- `FormCombinedTimeRangePickerField`
+- `FormCombinedDateRangePickerField`
 - `FormDateRangeQuickPickerField`
 
 `Field` 组件支持的完整参数列表可以[参考这里](../../apidoc/interfaces/iformfieldpropsbase.html)，以及[这里除 `invalid` 之外的参数](../../apidoc/interfaces/iformcontrolprops.html)；这些都是两种模式下通用的参数。
@@ -62,6 +64,7 @@ scatter: true
 
 <!-- demo-slot-1 -->
 <!-- demo-slot-2 -->
+<!-- demo-slot-18 -->
 <!-- demo-slot-3 -->
 <!-- demo-slot-15 -->
 

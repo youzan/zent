@@ -16,11 +16,12 @@ import {
   II18nLocaleSwitch,
   II18nLocaleTable,
   II18nLocaleUpload,
+  II18nLocaleTransfer,
 } from './locale';
 import { setLocale, zhCN } from './time-locale';
 
 const common: II18nLocaleCommon = {
-  confirm: '确认',
+  confirm: '确定',
   cancel: '取消',
   ok: '我知道了',
   comma: '，',
@@ -81,7 +82,9 @@ export const RangePicker: II18nLocaleRangePicker = {
 
 export const Select: II18nLocaleSelect = {
   input: '请选择',
-  empty: '没有找到匹配项',
+  empty: '无搜索结果',
+  tagSeparator: '、',
+  create: '+点击新建：',
 };
 
 export const Switch: II18nLocaleSwitch = {
@@ -127,25 +130,27 @@ export const TimePicker: I18nLocaleTimePicker = () => {
     week: '请选择自然周',
     month: '请选择月份',
     quarter: '请选择季度',
-    year: '请选择年',
+    year: '请选择年份',
     range: '开始日期 至 结束日期',
-    rangeError: '请选择起止时间',
+    timeErrorPop: '时间不可用',
+    dateErrorPop: '日期不可用',
     start: '开始日期',
     end: '结束日期',
     startTime: '开始时间',
     endTime: '结束时间',
     to: '至',
     current: {
-      time: '此刻',
+      time: '当前时间',
       date: '今天',
-      week: '本周',
+      week: '当前周',
       month: '当前月',
-      year: '今年',
+      year: '当前年',
     },
     panel: {
       hour: '时',
       minute: '分',
       second: '秒',
+      year: '年',
       hourSelect: '选择小时',
       minuteSelect: '选择分钟',
       secondSelect: '选择秒',
@@ -187,4 +192,11 @@ export const Upload: II18nLocaleUpload = {
 
 export const Mention: II18nLocaleMention = {
   noContent: '无匹配结果，轻敲空格完成输入',
+};
+
+export const Transfer: II18nLocaleTransfer = {
+  placeholder: '请输入搜索内容',
+  item: '项',
+  items: '项',
+  emptyLabel: '暂无数据',
 };

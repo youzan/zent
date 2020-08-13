@@ -34,4 +34,23 @@ describe('<TextMark />', () => {
     expect(wrapper.find('.zent-demo-text-mark-active').length).toBe(1);
     expect(wrapper.find('.zent-demo-text-mark-highlight').length).toBe(2);
   });
+
+  it('textmark highlight className is object', () => {
+    const wrapper = mount(
+      <TextMark
+        activeIndex={1}
+        activeClassName="zent-demo-text-mark-active"
+        highlightClassName={{
+          abc: 'zent-demo-text-mark-highlight-abc',
+          '123': 'zent-demo-text-mark-highlight-123',
+        }}
+        searchWords={['abc', '123']}
+        textToHighlight="abc先生测试ABC的123"
+      />
+    );
+    expect(wrapper.find('mark').length).toBe(3);
+    expect(wrapper.find('.zent-demo-text-mark-active').length).toBe(1);
+    expect(wrapper.find('.zent-demo-text-mark-highlight-abc').length).toBe(2);
+    expect(wrapper.find('.zent-demo-text-mark-highlight-123').length).toBe(1);
+  });
 });

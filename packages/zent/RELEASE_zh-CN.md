@@ -8,6 +8,26 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 8.5.4(2020-08-04)
+
+- 🦀️ 修复上个版本 `TypeScript` 和 `tslib` 不匹配的问题
+- 🦀️ 修复 `Checkbox` 禁用时的文字颜色
+- 📚 增加一个 `Form` 自定义表单项的示例
+
+### 8.5.3(2020-07-22)
+
+- ✨ 添加新图标 `thumbnail`
+- `Form`
+  - ✨ `formulr` 合入仓库内，不再单独发包
+  - ✨ 增加 `FormContext` 支持自定义 `labelStyle`
+  - 🦀️ 确保 `FieldArray` 的 child 上一定存在 `id` 属性，可以避免使用数组下标作为 key
+  - 🦀️ 修复一个 React 的 warning
+- 🦀️ 修复 `Grid` `batchComponents` 为空数组是的渲染问题
+- 🦀️ 修复编译自定义主题时的代码校验逻辑
+- 🦀️ `ClampLines` 允许超长非 CJK 字符串词内折行
+- 📚 文档导航增加 `babel-plugin-zent` 的链接
+- 📚 修复文档的一些样式问题
+
 ### 8.5.2(2020-06-23)
 
 - `Form`
@@ -46,7 +66,7 @@
 - 🦀️ 修复 `Grid` `scroll.x` 变化时固定列阴影展示问题
 - 🦀️ 修复 `Collapse` 的类型定义
 - 🦀️ 修复 `Pagination` 跳转页码按回车没反应的问题
-  
+
 ### 8.4.0(2020-03-16)
 
 - ✨ `Upload` 支持自定义上传项 UI
@@ -129,7 +149,7 @@
   - ✨ 删除 `prefix` 支持
   - 🦀️ 更新组件的箭头图标，和其他组件保持一致
   - 🦀️ [breaking change] 所有 CSS 类名增加前缀，例如 `.tags__empty` 这种都被替换掉了
-- ✨优化了全局事件处理
+- ✨ 优化了全局事件处理
 - `Icon`
   - ✨ 增加两个新图标 `filter-o` 和 `scan-code-o`
   - ✨ 重命名 `text-guide` 为 `text-guide-o`
@@ -164,7 +184,7 @@
 
 ### 7.4.1(2019-12-13)
 
-- ✨新增 3 个新图标：`doc`, `video`, `audio`
+- ✨ 新增 3 个新图标：`doc`, `video`, `audio`
 - ✨ 使用一个内置的精简版替换 `tinycolor2`
 - 🦀️ 修复 `Layout` 组件不兼容 SSR 的问题
 - 🦀️ `Grid` 的 column name 支持 `a.b.c` 这种写法，不推荐使用，仅为和老版本兼容
@@ -310,7 +330,7 @@
 
 ⚠️ 这个版本引入了一个 `FormSelectField` 在 `tags` 模式下的不兼容改动，`6.5.2` 已经回滚这个改动。
 
-- ✨ `FormSelectField` 支持 `tags` 模式 (*已回滚*)
+- ✨ `FormSelectField` 支持 `tags` 模式 (_已回滚_)
 - 🦀️ 修复 `Select` 组件 placeholder 颜色不对的问题
 - 🦀️ 修复 `Upload` 上传多个音频时的样式问题
 
@@ -732,13 +752,13 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContextProvider } from 'react-dnd';
 
 export default class YourApp {
-  render() {
-    return (
-      <DragDropContextProvider backend={HTML5Backend}>
-      /* ... */
-      </DragDropContextProvider>
-    );
-  };
+	render() {
+		return (
+			<DragDropContextProvider backend={HTML5Backend}>
+				/* ... */
+			</DragDropContextProvider>
+		);
+	}
 }
 ```
 

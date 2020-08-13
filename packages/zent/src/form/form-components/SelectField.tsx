@@ -16,7 +16,7 @@ function renderSelect(
   childProps: IFormFieldChildProps<any>,
   props: IFormSelectFieldProps<any>
 ) {
-  return <Select {...(props as any)} {...childProps} />;
+  return <Select {...(props.props as any)} {...childProps} />;
 }
 
 export function FormSelectField<T extends ISelectItem>(
