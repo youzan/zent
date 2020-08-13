@@ -13,6 +13,7 @@ import { Transfer, Switch, Disabled } from 'zent';
 const data = new Array(20).fill().map((_, index) => ({
 	option: String(index),
 	text: `option${index}`,
+	disabled: index === 1 || index === 2 || index === 3,
 }));
 
 const columns = [
@@ -22,6 +23,7 @@ const columns = [
 ];
 
 const [targetKeys, setTargetKeys] = useState(['5', '9', '10', '15']);
+const [selectedKeys, setSelectedKeys] = useState([]);
 const [checked, setChecked] = useState(false);
 const Wrap = checked ? Disabled : React.Fragment;
 
@@ -32,8 +34,13 @@ ReactDOM.render(
 				keyName="option"
 				dataSource={data}
 				targetKeys={targetKeys}
-				onChange={({ targetKeys }) => setTargetKeys(targetKeys)}
+				onChange={({ targetKeys, selectedKeys }) => {
+					setTargetKeys(targetKeys);
+					setSelectedKeys(selectedKeys);
+				}}
 				list={{ columns }}
+				selectedKeys={selectedKeys}
+				onSelectChange={items => setSelectedKeys(items)}
 			/>
 		</Wrap>
 		<div style={{ marginTop: '20px' }}>

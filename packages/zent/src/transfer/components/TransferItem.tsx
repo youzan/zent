@@ -42,7 +42,7 @@ const TransferItem: React.FC<ITransferItem> = ({
   const indeterminate = selectedKeys.length && !allChecked;
 
   const getCheckboxProps = ({ disabled }: { disabled: boolean }) => ({
-    disabled,
+    disabled: compontentDisabled || disabled,
   });
 
   const handleCheckBoxChange = useCallback(() => {
