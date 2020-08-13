@@ -12,7 +12,7 @@ import { Transfer } from 'zent';
 
 const data = new Array(20)
 	.fill()
-	.map((_, index) => ({ option: String(index), text: `option${index}`, disabled: index % 2 === 1 }));
+	.map((_, index) => ({ option: String(index), text: `option${index}` }));
 
 const columns = [
 	{
