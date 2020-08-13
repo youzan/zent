@@ -4,6 +4,7 @@ import { Swatch } from './common';
 import { PresetColors, ColorPickerType } from '.';
 
 export type SketchPresetColorValue = string | { hex: string; source: string };
+const prefixCls = 'zent-color-picker';
 
 export interface ISketchPresetColors {
   colors: PresetColors;
@@ -11,16 +12,10 @@ export interface ISketchPresetColors {
     color: SketchPresetColorValue,
     e?: React.MouseEvent<HTMLElement>
   ): any;
-  prefix: string;
   type: ColorPickerType;
 }
 
-const SketchPresetColors = ({
-  colors,
-  onClick,
-  prefix,
-  type,
-}: ISketchPresetColors) => {
+const SketchPresetColors = ({ colors, onClick, type }: ISketchPresetColors) => {
   const styles: any = reactCSS(
     {
       default: {
@@ -65,11 +60,11 @@ const SketchPresetColors = ({
 
   if (type === 'simple') {
     return (
-      <div className={`${prefix}-colorpicker-colors-select`}>
+      <div className={`${prefixCls}-colors-select`}>
         {colors.map(color => (
           <div
             key={color}
-            className={`${prefix}-colorpicker-colors-select__preview`}
+            className={`${prefixCls}-colors-select__preview`}
             style={{ backgroundColor: color }}
             onClick={() => onClick(color)}
             title={color}
@@ -80,7 +75,7 @@ const SketchPresetColors = ({
   }
 
   return (
-    <div style={styles.colors} className={`${prefix}-colorpicker-colors`}>
+    <div style={styles.colors}>
       {colors.map(colorObjOrString => {
         const c =
           typeof colorObjOrString === 'string'

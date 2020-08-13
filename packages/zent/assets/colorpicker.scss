@@ -15,6 +15,10 @@
   height: 30px;
   vertical-align: middle;
 
+  &_disabled {
+    cursor: not-allowed;
+  }
+
   &-wrapper {
     font-size: 0;
   }
@@ -37,37 +41,39 @@
     border-width: 1px;
     border-style: solid;
     border-radius: 2px;
-    display: inline-block;
-    width: 50px;
-    height: 30px;
+    width: 60px;
+    height: 32px;
     outline: none;
-    padding: 5px;
     transition: border-color 0.25s;
-    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   &__preview {
     box-sizing: border-box;
-    width: 38px;
-    height: 18px;
+    width: 52px;
+    height: 24px;
   }
-}
 
-.zent-colorpicker-colors-select {
-  @include theme-color(background-color, stroke, 9);
-  width: 190px;
-  box-shadow: $shadow-spec-layer;
-  box-sizing: content-box;
-  line-height: 10px;
-  padding-top: 10px;
-}
+  &-colors-select {
+    @include theme-color(background-color, stroke, 9);
+    width: 190px;
+    box-shadow: $shadow-spec-layer;
+    box-sizing: content-box;
+    line-height: 10px;
+    padding-top: 10px;
+    border-radius: 2px;
+  }
 
-.zent-colorpicker-colors-select__preview {
-  width: 20px;
-  height: 20px;
-  display: inline-block;
-  margin-left: 10px;
-  margin-bottom: 10px;
-  cursor: pointer;
-  box-shadow: inset 0 0 0 1px rgba(black, 0.2); // border
+  &-colors-select__preview {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    box-shadow: inset 0 0 0 1px rgba(black, 0.15); // border
+    border-radius: 2px;
+  }
 }
