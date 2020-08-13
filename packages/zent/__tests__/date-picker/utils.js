@@ -26,11 +26,6 @@ describe('Utils', () => {
     });
     getCallbackValueWithDate(null, 'string', format);
     getCallbackValueWithDate(null, 'date', format);
-    getCallbackValueRangeWithDate(
-      new Date(),
-      'string',
-      format,
-      dateConfig.date
-    );
+    getCallbackValueRangeWithDate(today, 'string', format, dateConfig.date);
   });
 });

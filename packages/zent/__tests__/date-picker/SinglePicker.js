@@ -9,8 +9,6 @@ import {
   QuarterPicker,
   YearPicker,
 } from 'date-picker';
-import { formatDate } from 'date-picker/utils/index';
-import { isSameDay, addDays } from 'date-fns';
 
 Enzyme.configure({ adapter: new Adapter() });
 const DateTimeFormat = 'YYYY-MM-DD HH:mm';
@@ -44,46 +42,85 @@ describe('SinglePicker', () => {
     wrapper = mount(
       <DatePicker
         value="2020-08-01 12:00"
-        showTime={{ format: 'HH:mm', defaultTime: '00:00' }}
+        showTime={{ format: 'HH:mm' }}
         format={DateTimeFormat}
         onChange={onChangeMock}
       />
     );
     wrapper.find('.zent-datepicker-trigger').simulate('click');
 
-    const pop = document.querySelector('.zent-datepicker-panel-footer');
-    Simulate.click(pop.querySelector('a'));
-
-    expect(wrapper.prop('value')).toBe(formatDate(DateTimeFormat, new Date()));
+    const pop = document.querySelector('.zent-datepicker-panel');
+    // unit
+    Simulate.click(
+      pop.querySelectorAll('.zent-datepicker-panel-body-cells_item')[0]
+    );
+    // confirm
+    Simulate.click(
+      pop.querySelectorAll('.zent-datepicker-panel-footer-btn')[0]
+    );
+    expect(wrapper.prop('value')).toBe('2020-07-26 12:00');
     wrapper.unmount();
+
+    const onChangeMock2 = jest.fn();
+    const wrapper2 = mount(
+      <DatePicker
+        value="2020-08-01 12:00"
+        showTime={{ format: 'HH:mm' }}
+        format={DateTimeFormat}
+        onChange={onChangeMock2}
+      />
+    );
+    wrapper2.find('.zent-datepicker-trigger').simulate('click');
+    const pop2 = document.querySelector('.zent-datepicker-panel-footer');
+    Simulate.click(pop2.querySelector('a'));
+    expect(onChangeMock2.mock.calls.length).toBe(1);
+    wrapper2.unmount();
   });
 
   it('DatePicker disabledDate', () => {
     const disabledDate = jest
       .fn()
-      .mockImplementation(date => isSameDay(date, new Date()));
-    const wrapper = mount(<DatePicker showTime disabledDate={disabledDate} />);
+      .mockImplementation(date => date.getDate() === 26);
+    const onChangeMock = jest.fn();
+    const wrapper = mount(
+      <DatePicker
+        value="2020-08-01"
+        disabledDate={disabledDate}
+        onChange={onChangeMock}
+      />
+    );
     wrapper.find('.zent-datepicker-trigger').simulate('click');
 
-    const pop = document.querySelector('.zent-datepicker-panel-footer');
-    Simulate.click(pop.querySelector('a'));
-    expect(wrapper.prop('value')).toBe(undefined);
+    const pop = document.querySelector('.zent-datepicker-panel');
+    // unit
+    Simulate.click(
+      pop.querySelectorAll('.zent-datepicker-panel-body-cells_item')[0]
+    );
+    expect(onChangeMock.mock.calls.length).toBe(0);
     wrapper.unmount();
   });
 
   it('DatePicker disabledDate with `min`, `max`', () => {
     const disabledDate = {
-      min: addDays(new Date(), -3),
-      max: addDays(new Date(), -1),
+      min: '2020-08-01',
+      max: '2020-08-03',
     };
+    const onChangeMock = jest.fn();
     const wrapper = mount(
-      <DatePicker value={undefined} showTime disabledDate={disabledDate} />
+      <DatePicker
+        value={undefined}
+        disabledDate={disabledDate}
+        onChange={onChangeMock}
+      />
     );
     wrapper.find('.zent-datepicker-trigger').simulate('click');
 
-    const pop = document.querySelector('.zent-datepicker-panel-footer');
-    Simulate.click(pop.querySelector('a'));
-    expect(wrapper.prop('value')).toBe(undefined);
+    const pop = document.querySelector('.zent-datepicker-panel');
+    // unit
+    Simulate.click(
+      pop.querySelectorAll('.zent-datepicker-panel-body-cells_item')[0]
+    );
+    expect(onChangeMock.mock.calls.length).toBe(0);
     wrapper.unmount();
   });
 

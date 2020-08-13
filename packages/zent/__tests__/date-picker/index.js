@@ -2,7 +2,6 @@ import React from 'react';
 import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { Simulate } from 'react-dom/test-utils';
-import { startOfYear } from 'date-fns';
 import {
   DatePicker,
   WeekPicker,
@@ -14,7 +13,6 @@ import {
   TimeRangePicker,
 } from 'date-picker';
 import { Disabled } from 'disabled';
-import { formatDate } from 'date-picker/utils/index';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -74,12 +72,7 @@ describe('All of the Picker', () => {
       wrapper.setProps({ value });
     });
 
-    wrapper = mount(
-      <MonthPicker
-        value={formatDate('YYYY-MM', new Date())}
-        onChange={onChangeMock}
-      />
-    );
+    wrapper = mount(<MonthPicker value="2020-08" onChange={onChangeMock} />);
     wrapper.find('.zent-datepicker-trigger').simulate('click');
     expect(wrapper.find('.zent-datepicker-trigger-focus').length).toBe(1);
     const pop = document.querySelector('.zent-popover');
@@ -87,9 +80,7 @@ describe('All of the Picker', () => {
       pop.querySelectorAll('.zent-datepicker-panel-body-cells_item')[0]
     );
     expect(onChangeMock.mock.calls.length).toBe(1);
-    expect(wrapper.prop('value')).toBe(
-      formatDate('YYYY-MM', startOfYear(new Date()))
-    );
+    expect(wrapper.prop('value')).toBe('2020-01');
   });
 
   it('QuarterPicker value and onChange', () => {
@@ -99,11 +90,7 @@ describe('All of the Picker', () => {
     });
 
     wrapper = mount(
-      <QuarterPicker
-        value={[formatDate('YYYY-MM', startOfYear(new Date()))]}
-        onChange={onChangeMock}
-        defaultDate={new Date()}
-      />
+      <QuarterPicker value={['2020-04']} onChange={onChangeMock} />
     );
     wrapper.find('.zent-datepicker-trigger').simulate('click');
     expect(wrapper.find('.zent-datepicker-trigger-focus').length).toBe(1);
@@ -112,19 +99,10 @@ describe('All of the Picker', () => {
       pop.querySelectorAll('.zent-datepicker-panel-body-cells_item')[0]
     );
     expect(onChangeMock.mock.calls.length).toBe(1);
-    expect(wrapper.prop('value')[0]).toBe(
-      formatDate('YYYY-MM', startOfYear(new Date()))
-    );
-    expect(wrapper.prop('value')[1]).toBe(
-      formatDate('YYYY-MM', startOfYear(new Date()).setMonth(2))
-    );
+    expect(wrapper.prop('value')[0]).toBe('2020-01');
+    expect(wrapper.prop('value')[1]).toBe('2020-03');
 
-    mount(
-      <QuarterPicker
-        onChange={onChangeMock}
-        defaultDate={[new Date(), new Date()]}
-      />
-    );
+    wrapper.unmount();
   });
 
   it('YearPicker value and onChange', () => {
@@ -153,11 +131,20 @@ describe('All of the Picker', () => {
     wrapper = mount(<TimePicker value="00:00:00" onChange={onChangeMock} />);
     wrapper.find('.zent-datepicker-trigger').simulate('click');
     expect(wrapper.find('.zent-datepicker-trigger-focus').length).toBe(1);
-    const pop = document.querySelector('.zent-datepicker-panel-footer');
+    const pop = document.querySelector('.zent-popover');
 
-    Simulate.click(pop.querySelector('a'));
+    // unit
+    Simulate.click(
+      pop
+        .querySelectorAll('.zent-datepicker-time-panel-body_scroll')[0]
+        .querySelectorAll('.zent-datepicker-time-panel-body-unit')[1]
+    );
+
+    // confirm
+    Simulate.click(pop.querySelector('.zent-datepicker-panel-footer-btn'));
     expect(onChangeMock.mock.calls.length).toBe(1);
-    expect(wrapper.prop('value')).toBe(formatDate('HH:mm:ss', new Date()));
+    expect(wrapper.prop('value')).toBe('01:00:00');
+    wrapper.unmount();
   });
 
   it('CombinedTimeRangePicker value and onChange', () => {
