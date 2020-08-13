@@ -80,7 +80,7 @@ export interface ISelectState<Item extends ISelectItem> {
   value: null | Item | Item[];
   activeIndex: null | number;
   prevOptions: Item[];
-  createLoading: boolean;
+  creating: boolean;
 }
 
 function defaultIsEqual<Item extends ISelectItem>(a: Item, b: Item) {
@@ -209,7 +209,7 @@ export class Select<
       active: false,
       activeIndex: null,
       prevOptions: props.options,
-      createLoading: false,
+      creating: false,
     };
   }
 
@@ -355,7 +355,7 @@ export class Select<
       highlight = defaultHighlight,
       filter,
     } = this.props;
-    const { value, activeIndex, createLoading } = this.state;
+    const { value, activeIndex, creating } = this.state;
     const selected =
       !!value &&
       (multiple
@@ -365,7 +365,7 @@ export class Select<
     let optionContent: React.ReactNode = null;
     let loading = false;
     if (option.key === SELECT_CREATABLE_KEY) {
-      loading = createLoading;
+      loading = creating;
       optionContent = (
         <Receiver componentName="Select">
           {(i18n: II18nLocaleSelect) => (
@@ -624,7 +624,7 @@ export class Select<
     const { keyword } = this.state;
 
     if (onCreate) {
-      this.setState({ createLoading: true });
+      this.setState({ creating: true });
 
       onCreate(keyword.trim())
         .then(() => {
@@ -636,7 +636,7 @@ export class Select<
           this.resetKeyword();
         })
         .finally(() => {
-          this.setState({ createLoading: false });
+          this.setState({ creating: false });
         });
     }
   };
