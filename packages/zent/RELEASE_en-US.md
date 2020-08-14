@@ -8,6 +8,16 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 8.5.5(2020-08-14)
+
+- ✨ `Loading` has a new prop `colorPreset`
+- ✨ `ColorPicker` now supports `disabled`, and is compatible with `Disabled` component
+- 🦀️ Fix `Table`'s `renderBody` TypeScript definition
+- 🦀️ Fix `Form`'s `scrollToError` scrolls to wrong position
+- 🦀️ Remove unused dependency `formulr`
+- 🦀️ Updated two icons: `calendar-o` and `gift`
+- 📚 Update `prismjs` to `1.21.0` for documentation code highlight
+
 ### 8.5.4(2020-08-04)
 
 - 🦀️ Fix unmatched `TypeScript` and `tslib` version in `8.5.3`
