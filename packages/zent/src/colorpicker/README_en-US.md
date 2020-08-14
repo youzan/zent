@@ -21,7 +21,7 @@ ColorPicker is used for color selection and supports multiple formats.
 | onChange      | The callback function that is triggerd when color is changed | func(color) | `noop`   |  |
 | className     | The custom classname   | string  | `''`     |         |
 | wrapperClassName | The  custom classname of trigger's parent node | string | `''` |  |
-| prefix        | The custom prefix  | string              | `'zent'` |         |
+| disabled        | Disable the ColorPicker       | bool                | -       |         |
 
 #### ColorBoard
 
@@ -31,4 +31,3 @@ ColorPicker is used for color selection and supports multiple formats.
 | showAlpha     | Whether to show opacity selection    | bool                | `false`  |   `true/false`     |
 | onChange      | The callback function that is triggerd when color is changed    | func(color)         | `noop`   |         |
 | className     | The cutom clasname      | string              | `''`     |         |
-| prefix        | The custom prefix      | string              | `'zent'` |         |

@@ -158,7 +158,6 @@ export default class EditableInput extends Component<any, any> {
     return (
       <div style={styles.wrap}>
         <input
-          prefix="colorpicker-rgb"
           style={styles.input}
           ref={this.inputRef}
           value={this.state.value}

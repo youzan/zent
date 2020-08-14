@@ -13318,7 +13318,7 @@ yup@^0.27.0:
     synchronous-promise "^2.0.6"
     toposort "^2.0.2"
 
-zenticons@3.6.1:
-  version "3.6.1"
-  resolved "https://registry.yarnpkg.com/zenticons/-/zenticons-3.6.1.tgz#01d91390b9f7104312f6d494e227887b626c2a31"
-  integrity sha512-znslD2r92uIjKPJQF3hNurJGxEdYR19UG8v8fhB1DXN+kPSzagP2Rkxx5+M320kn57ionUcjeqbIEQlbmpEIwg==
+zenticons@3.6.2:
+  version "3.6.2"
+  resolved "https://registry.npm.taobao.org/zenticons/download/zenticons-3.6.2.tgz#77280cb8ad1eabecbc069b541ef13aa983be7c55"
+  integrity sha1-dygMuK0eq+y8BptUHvE6qYO+fFU=
