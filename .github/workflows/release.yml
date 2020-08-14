@@ -80,7 +80,7 @@ jobs:
       - uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          publish_dir: ./site/dist
 
   deploy-doc-beta:
     if: "github.event.release.prerelease"
@@ -106,4 +106,4 @@ jobs:
         with:
           personal_token: ${{ secrets.PERSONAL_TOKEN }}
           external_repository: 'youzan/zent-beta'
-          publish_dir: ./dist
+          publish_dir: ./site/dist
