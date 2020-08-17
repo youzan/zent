@@ -26,6 +26,7 @@ Double column transfer choice box.
 | searchPlaceholder | Search input placeholder                                                                                                                                                   | `string`                                                             | `Please Enter`         | No       |
 | filterOption      | A function to determine whether an item should show in search result list                                                                                                  | `(inputValue: string, option: ITransferData) => boolean`             |                        | No       |
 | pagination        | List pagination. Not work in render props. PageSize is 10 by default                                                                                                       | `boolean` \| `{ pageSize: number }`                                     |                        | No       |
+| disabled          | Whether disabled transfer                                                                                                                                                  | `boolean`                                                            |                 |  No       |
 | className         | Extra custom class name                                                                                                                                                    | `string`                                                             | `''`                     | No       |
 | list              | Set list props                                                                                                                                                             | `Object ListType` \| `[ListType, ListType]`                          |                        | No       |
 
@@ -67,6 +68,7 @@ Hook for sending left and right data.
 | ------------ | ------------------------------------------------- | ---------- | ------- | -------- |
 | selectedKeys | Default Selected items                            | `string[]` | `[]`    | No       |
 | targetKeys   | Default items that are listed on the right column | `string[]` | `[]`    | No       |
+| disabledKeys | disabled items                                    | `string[]` | `[]`    | No       |
 
 #### Result
 

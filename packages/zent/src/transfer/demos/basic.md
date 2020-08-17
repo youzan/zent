@@ -13,7 +13,7 @@ import { Transfer, Switch, Disabled } from 'zent';
 const data = new Array(20).fill().map((_, index) => ({
 	option: String(index),
 	text: `option${index}`,
-	disabled: index % 2 === 1
+	disabled: index % 2 === 1,
 }));
 
 const columns = [
@@ -25,24 +25,22 @@ const columns = [
 const [targetKeys, setTargetKeys] = useState(['8', '9', '10', '15']);
 const [selectedKeys, setSelectedKeys] = useState([]);
 const [checked, setChecked] = useState(false);
-const Wrap = checked ? Disabled : React.Fragment;
 
 ReactDOM.render(
 	<div>
-		<Wrap>
-			<Transfer
-				keyName="option"
-				dataSource={data}
-				targetKeys={targetKeys}
-				onChange={({ targetKeys, selectedKeys }) => {
-					setTargetKeys(targetKeys);
-					setSelectedKeys(selectedKeys);
-				}}
-				list={{ columns }}
-				selectedKeys={selectedKeys}
-				onSelectChange={items => setSelectedKeys(items)}
-			/>
-		</Wrap>
+		<Transfer
+			keyName="option"
+			dataSource={data}
+			targetKeys={targetKeys}
+			onChange={({ targetKeys, selectedKeys }) => {
+				setTargetKeys(targetKeys);
+				setSelectedKeys(selectedKeys);
+			}}
+			list={{ columns }}
+			selectedKeys={selectedKeys}
+			onSelectChange={items => setSelectedKeys(items)}
+			disabled={checked}
+		/>
 		<div style={{ marginTop: '20px' }}>
 			<Switch checked={checked} onChange={() => setChecked(!checked)} />
 			disabled

@@ -26,6 +26,7 @@ group: 数据
 | searchPlaceholder | 搜索框文案                                                                                    | `string`                                                             | `请输入搜索内容`       | 否       |
 | filterOption      | 接收`inputValue`、`option`两个参数，当`option`符合筛选条件时，应返回`true`，反之则返回`false` | `(inputValue: string, option: ITransferData) => boolean`             |                        | 否       |
 | pagination        | 列表分页，自定义渲染列表下无效，pageSize 默认 10 条                                           | `boolean` \| `{ pageSize: number }`                                   |                        | 否       |
+| disabled          | 是否禁用                                                                                      | `boolean`                                                            |                  | 否       |
 | className         | 自定义类名                                                                                    | `string`                                                             | `''`                     | 否       |
 | list              | 设置列表属性                                                                                  | `Object ListType` \| `[ListType, ListType]`                          |                        | 否       |
 
@@ -67,6 +68,7 @@ Transfer 支持接收 children 自定义渲染列表，并返回以下参数：
 | ------------ | ------------------------------- | ---------- | ------ | -------- |
 | selectedKeys | 初始选中项                      | `string[]` | `[]`   | 否       |
 | targetKeys   | 初始显示在右侧框数据的`key`集合 | `string[]` | `[]`   | 否       |
+| disabledKeys   | 禁用的`key`集合 | `string[]` | `[]`   | 否       |
 
 #### Result
 

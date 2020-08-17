@@ -14,6 +14,7 @@ import {
 } from '../../index';
 import { ITransferItem, ITransferData } from '../types';
 import { PassDownGridProps } from '../constants';
+import { getDisabledKeys } from '../utils';
 
 const TransferItem: React.FC<ITransferItem> = ({
   prefix,
@@ -33,27 +34,47 @@ const TransferItem: React.FC<ITransferItem> = ({
   const [inputVal, setInputVal] = useState('');
   const [listData, setListData] = useState(dataSets);
   const [pageCurrent, setPageCurrent] = useState(1);
+  const disabledKeys = useMemo(() => getDisabledKeys(listData, keyName), [
+    listData,
+    keyName,
+  ]);
+  const selectedKeysExcludeDisabled = selectedKeys.filter(
+    key => !disabledKeys.includes(key)
+  );
 
   const classNamePrefix = `${prefix}__item`;
   const pageSize = typeof pagination === 'object' ? pagination.pageSize : 10;
   const allChecked =
-    selectedKeys.length &&
-    selectedKeys.length === listData.filter(({ disabled }) => !disabled).length;
-  const indeterminate = selectedKeys.length && !allChecked;
+    selectedKeysExcludeDisabled.length &&
+    selectedKeysExcludeDisabled.length ===
+      listData.filter(({ disabled }) => !disabled).length;
+  const indeterminate = selectedKeysExcludeDisabled.length && !allChecked;
 
   const getCheckboxProps = ({ disabled }: { disabled: boolean }) => ({
     disabled: compontentDisabled || disabled,
   });
 
   const handleCheckBoxChange = useCallback(() => {
+    const items = listData.map(({ [keyName]: key }) => key);
+
     handleSelectChange(
-      selectedKeys.length === 0 || indeterminate
-        ? listData
-            .filter(({ disabled }) => !disabled)
-            .map(({ [keyName]: key }) => key)
-        : []
+      selectedKeysExcludeDisabled.length === 0 || indeterminate
+        ? items.filter(
+            key => !disabledKeys.includes(key) || selectedKeys.includes(key)
+          )
+        : items.filter(
+            key => disabledKeys.includes(key) && selectedKeys.includes(key)
+          )
     );
-  }, [handleSelectChange, listData, indeterminate, selectedKeys, keyName]);
+  }, [
+    handleSelectChange,
+    listData,
+    indeterminate,
+    selectedKeys,
+    keyName,
+    disabledKeys,
+    selectedKeysExcludeDisabled,
+  ]);
 
   const handleInputChange = useCallback(e => {
     const val = e.target.value;
@@ -66,14 +87,14 @@ const TransferItem: React.FC<ITransferItem> = ({
         listData.length > 1 ? items : item
       }`;
 
-      if (selectedKeys.length > 0) {
+      if (selectedKeysExcludeDisabled.length > 0) {
         return title
-          ? `${title}（${selectedKeys.length}/${totalText}）`
-          : `${selectedKeys.length}/${totalText}`;
+          ? `${title}（${selectedKeysExcludeDisabled.length}/${totalText}）`
+          : `${selectedKeysExcludeDisabled.length}/${totalText}`;
       }
       return title ? `${title}（${totalText}）` : totalText;
     },
-    [title, listData, selectedKeys]
+    [title, listData, selectedKeysExcludeDisabled]
   );
 
   const handleRowClick = useCallback(
@@ -142,6 +163,7 @@ const TransferItem: React.FC<ITransferItem> = ({
                 checked={allChecked}
                 indeterminate={indeterminate}
                 onChange={handleCheckBoxChange}
+                disabled={compontentDisabled}
               >
                 {getTitle(i18n)}
               </Checkbox>

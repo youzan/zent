@@ -91,6 +91,7 @@ export interface ITransferArrowButton {
 export interface ITransferHookParams {
   selectedKeys?: string[];
   targetKeys?: string[];
+  disabledKeys?: string[];
 }
 
 export interface ITransferHookResult {
