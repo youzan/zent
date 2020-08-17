@@ -1,6 +1,6 @@
 {
   "name": "zent",
-  "version": "8.5.4",
+  "version": "8.5.5",
   "description": "一套前端设计语言和基于React的实现",
   "bugs": "https://github.com/youzan/zent/issues",
   "repository": {
@@ -49,7 +49,7 @@
     "tslib": "^2.0.0",
     "utility-types": "^3.4.1",
     "warning": "^4.0.3",
-    "zenticons": "3.6.1"
+    "zenticons": "3.6.2"
   },
   "devDependencies": {
     "@types/big.js": "^4.0.5",

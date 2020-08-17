@@ -22,7 +22,7 @@ group: 数据
 | onChange      | 颜色变化时回调函数    | func(color)         | `noop`   |         |
 | className     | 可选，自定义类名      | string              | `''`     |         |
 | wrapperClassName | 可选，自定义trigger包裹节点的类名 | string | `''`    |         |
-| prefix        | 可选，自定义前缀      | string              | `'zent'` |         |
+| disabled        | 可选，禁用状态      | bool                | -       |         |
 
 #### ColorBoard
 
@@ -32,4 +32,3 @@ group: 数据
 | showAlpha     | 是否显示透明度选择    | bool                | `false`  |   `true/false`     |
 | onChange      | 颜色变化时回调函数    | func(color)         | `noop`   |         |
 | className     | 可选，自定义类名      | string              | `''`     |         |
-| prefix        | 可选，自定义前缀      | string              | `'zent'` |         |
