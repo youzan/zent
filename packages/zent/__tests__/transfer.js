@@ -7,31 +7,31 @@ import { Direction } from 'transfer/constants';
 
 Enzyme.configure({ adapter: new Adapter() });
 
-const listCommonProps = {
-  dataSource: [
-    {
-      key: 'a',
-      title: 'a',
-    },
-    {
-      key: 'b',
-      title: 'b',
-    },
-    {
-      key: 'c',
-      title: 'c',
-      disabled: true,
-    },
-  ],
-  selectedKeys: ['a'],
-  targetKeys: ['b'],
-  list: {
-    columns: [{ name: 'title' }],
-  },
-  keyName: 'title',
-};
-
 describe('<Transfer />', () => {
+  const listCommonProps = {
+    dataSource: [
+      {
+        key: 'a',
+        title: 'a',
+      },
+      {
+        key: 'b',
+        title: 'b',
+      },
+      {
+        key: 'c',
+        title: 'c',
+        disabled: true,
+      },
+    ],
+    selectedKeys: ['a'],
+    targetKeys: ['b'],
+    list: {
+      columns: [{ name: 'title' }],
+    },
+    keyName: 'title',
+  };
+
   it('should move selected keys to right list', () => {
     const handleChange = jest.fn();
     const wrapper = mount(
@@ -131,13 +131,92 @@ describe('useTransfer', () => {
       });
       expect(targetKeys).toEqual(['a', 'b', 'c']);
       expect(selectedKeys).toEqual(['a']);
+      return null;
+    };
+    mount(<TransferCpn />);
+  });
+
+  it('should move selected keys exclude disabled to corresponding list', () => {
+    const TransferCpn = () => {
+      const { targetKeys, selectedKeys, transferKeys } = useTransfer({
+        targetKeys: ['a'],
+        selectedKeys: ['b', 'c'],
+        disabledKeys: ['b'],
+      });
       return (
-        <div>
-          {targetKeys}
-          {selectedKeys}
+        <div
+          id="res"
+          targetKeys={targetKeys}
+          selectedKeys={selectedKeys}
+          onClick={() => transferKeys(Direction.Right)}
+        >
+          res
         </div>
       );
     };
-    mount(<TransferCpn />);
+    const wrapper = mount(<TransferCpn />);
+    wrapper.find('#res').simulate('click');
+    expect(wrapper.find('#res').prop('targetKeys')).toEqual(['c', 'a']);
+    expect(wrapper.find('#res').prop('selectedKeys')).toEqual(['b']);
+  });
+
+  it('change selected keys', () => {
+    const TransferCpn = () => {
+      const { selectedKeys, changeSelectedKeys } = useTransfer({
+        selectedKeys: ['a'],
+      });
+      return (
+        <div
+          id="res"
+          selectedKeys={selectedKeys}
+          onClick={() => changeSelectedKeys(Direction.Right, ['b', 'c'])}
+        >
+          res
+        </div>
+      );
+    };
+    const wrapper = mount(<TransferCpn />);
+    wrapper.find('#res').simulate('click');
+    expect(wrapper.find('#res').prop('selectedKeys')).toEqual(['b', 'c', 'a']);
+  });
+
+  it('reset selected keys', () => {
+    const TransferCpn = () => {
+      const { selectedKeys, resetSelectedKeys } = useTransfer({
+        selectedKeys: ['a'],
+      });
+      return (
+        <div
+          id="res"
+          selectedKeys={selectedKeys}
+          onClick={() => resetSelectedKeys(['b', 'c'])}
+        >
+          res
+        </div>
+      );
+    };
+    const wrapper = mount(<TransferCpn />);
+    wrapper.find('#res').simulate('click');
+    expect(wrapper.find('#res').prop('selectedKeys')).toEqual(['b', 'c']);
+  });
+
+  it('reset target keys', () => {
+    const TransferCpn = () => {
+      const { targetKeys, resetTargetKeys } = useTransfer({
+        targetKeys: ['a'],
+      });
+      return (
+        <div
+          id="res"
+          targetKeys={targetKeys}
+          onClick={() => resetTargetKeys(['b', 'c'])}
+        >
+          res
+        </div>
+      );
+    };
+    const wrapper = mount(<TransferCpn />);
+    wrapper.find('#res').simulate('click');
+    expect(wrapper.find('#res').prop('targetKeys')).toEqual(['b', 'c']);
   });
 });
