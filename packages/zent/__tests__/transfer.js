@@ -2,7 +2,7 @@ import React from 'react';
 import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import Transfer from 'transfer';
+import Transfer, { useTransfer } from 'transfer';
 import { Direction } from 'transfer/constants';
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -122,14 +122,22 @@ describe('<Transfer />', () => {
   });
 });
 
-// describe('useTransfer', () => {
-//   it('default value', () => {
-//     const { targetKeys, selectedKeys } = useTransfer({
-//       targetKeys: ['a', 'b', 'c'],
-//       selectedKeys: ['a'],
-//     });
-
-//     expect(targetKeys).toBe(['a', 'b', 'c']);
-//     expect(selectedKeys).toBe(['a']);
-//   });
-// });
+describe('useTransfer', () => {
+  it('default value', () => {
+    const TransferCpn = () => {
+      const { targetKeys, selectedKeys } = useTransfer({
+        targetKeys: ['a', 'b', 'c'],
+        selectedKeys: ['a'],
+      });
+      expect(targetKeys).toEqual(['a', 'b', 'c']);
+      expect(selectedKeys).toEqual(['a']);
+      return (
+        <div>
+          {targetKeys}
+          {selectedKeys}
+        </div>
+      );
+    };
+    mount(<TransferCpn />);
+  });
+});
