@@ -5,8 +5,6 @@ import cx from 'classnames';
 import pick from '../../utils/pick';
 import {
   Grid,
-  Input,
-  Checkbox,
   IGridColumn,
   I18nReceiver as Receiver,
   II18nLocaleTransfer,
@@ -15,6 +13,8 @@ import {
 import { ITransferItem, ITransferData } from '../types';
 import { PassDownGridProps } from '../constants';
 import { getDisabledKeys } from '../utils';
+import Search from './Search';
+import AllCheckBox from './AllCheckBox';
 
 const TransferItem: React.FC<ITransferItem> = ({
   prefix,
@@ -30,72 +30,60 @@ const TransferItem: React.FC<ITransferItem> = ({
   pagination,
   disabled: compontentDisabled,
 }) => {
+  const classNamePrefix = `${prefix}__item`;
+  const pageSize = typeof pagination === 'object' ? pagination.pageSize : 10;
   const { columns, selection, ...gridRest } = list;
+
   const [inputVal, setInputVal] = useState('');
   const [listData, setListData] = useState(dataSets);
   const [pageCurrent, setPageCurrent] = useState(1);
+
   const disabledKeys = useMemo(() => getDisabledKeys(listData, keyName), [
     listData,
     keyName,
   ]);
-  const selectedKeysExcludeDisabled = selectedKeys.filter(
-    key => !disabledKeys.includes(key)
+  const selectedKeysLength = useMemo(
+    () => selectedKeys.filter(key => !disabledKeys.includes(key)).length,
+    [disabledKeys, selectedKeys]
+  );
+  const isAllChecked = useMemo(
+    () =>
+      selectedKeysLength &&
+      selectedKeysLength ===
+        listData.filter(({ disabled }) => !disabled).length,
+    [listData, selectedKeysLength]
   );
 
-  const classNamePrefix = `${prefix}__item`;
-  const pageSize = typeof pagination === 'object' ? pagination.pageSize : 10;
-  const allChecked =
-    selectedKeysExcludeDisabled.length &&
-    selectedKeysExcludeDisabled.length ===
-      listData.filter(({ disabled }) => !disabled).length;
-  const indeterminate = selectedKeysExcludeDisabled.length && !allChecked;
-
-  const getCheckboxProps = ({ disabled }: { disabled: boolean }) => ({
-    disabled: compontentDisabled || disabled,
-  });
+  const getCheckboxProps = useCallback(
+    ({ disabled }: { disabled: boolean }) => ({
+      disabled: compontentDisabled || disabled,
+    }),
+    [compontentDisabled]
+  );
 
   const handleCheckBoxChange = useCallback(() => {
     const items = listData.map(({ [keyName]: key }) => key);
 
     handleSelectChange(
-      selectedKeysExcludeDisabled.length === 0 || indeterminate
-        ? items.filter(
-            key => !disabledKeys.includes(key) || selectedKeys.includes(key)
-          )
-        : items.filter(
-            key => disabledKeys.includes(key) && selectedKeys.includes(key)
-          )
+      items.filter(key =>
+        isAllChecked
+          ? disabledKeys.includes(key) && selectedKeys.includes(key)
+          : !disabledKeys.includes(key) || selectedKeys.includes(key)
+      )
     );
   }, [
     handleSelectChange,
     listData,
-    indeterminate,
     selectedKeys,
     keyName,
     disabledKeys,
-    selectedKeysExcludeDisabled,
+    isAllChecked,
   ]);
 
   const handleInputChange = useCallback(e => {
     const val = e.target.value;
     setInputVal(val);
   }, []);
-
-  const getTitle = useCallback(
-    ({ item, items }) => {
-      const totalText = `${listData.length} ${
-        listData.length > 1 ? items : item
-      }`;
-
-      if (selectedKeysExcludeDisabled.length > 0) {
-        return title
-          ? `${title}（${selectedKeysExcludeDisabled.length}/${totalText}）`
-          : `${selectedKeysExcludeDisabled.length}/${totalText}`;
-      }
-      return title ? `${title}（${totalText}）` : totalText;
-    },
-    [title, listData, selectedKeysExcludeDisabled]
-  );
 
   const handleRowClick = useCallback(
     (data: ITransferData) => {
@@ -111,6 +99,10 @@ const TransferItem: React.FC<ITransferItem> = ({
     [handleSelectChange, selectedKeys, keyName, compontentDisabled]
   );
 
+  const handlePageChange = useCallback(({ current }) => {
+    setPageCurrent(current);
+  }, []);
+
   const currentPageData = useMemo(() => {
     if (!pagination) {
       return listData;
@@ -120,10 +112,6 @@ const TransferItem: React.FC<ITransferItem> = ({
       pageCurrent * pageSize
     );
   }, [listData, pageCurrent, pagination, pageSize]);
-
-  const handlePageChange = useCallback(({ current }) => {
-    setPageCurrent(current);
-  }, []);
 
   const girdColumns = useMemo(() => {
     const res = columns[0]?.title
@@ -158,27 +146,24 @@ const TransferItem: React.FC<ITransferItem> = ({
               [`${classNamePrefix}--disabled`]: compontentDisabled,
             })}
           >
-            <div className={`${classNamePrefix}__allCheckbox`}>
-              <Checkbox
-                checked={allChecked}
-                indeterminate={indeterminate}
-                onChange={handleCheckBoxChange}
-                disabled={compontentDisabled}
-              >
-                {getTitle(i18n)}
-              </Checkbox>
-            </div>
-            {showSearch && (
-              <div className={`${classNamePrefix}__search`}>
-                <Input
-                  placeholder={searchPlaceholder || i18n.placeholder}
-                  icon="search"
-                  onChange={handleInputChange}
-                  value={inputVal}
-                  showClear
-                />
-              </div>
-            )}
+            <AllCheckBox
+              classNamePrefix={classNamePrefix}
+              isAllChecked={isAllChecked}
+              handleCheckBoxChange={handleCheckBoxChange}
+              compontentDisabled={compontentDisabled}
+              i18n={i18n}
+              selectedKeysLength={selectedKeysLength}
+              listDataLength={listData.length}
+              title={title}
+            />
+            <Search
+              showSearch={showSearch}
+              searchPlaceholder={searchPlaceholder}
+              handleInputChange={handleInputChange}
+              inputVal={inputVal}
+              classNamePrefix={classNamePrefix}
+              i18n={i18n}
+            />
             <Grid
               rowKey={keyName}
               className={cx(`${classNamePrefix}__grid`, {
