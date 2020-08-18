@@ -56,7 +56,6 @@ export * from './steps';
 export * from './sweetalert';
 export * from './swiper';
 export * from './switch';
-export * from './table';
 export * from './tabs/Tabs';
 export * from './tabs/types';
 export * from './tabs/VerticalTabs';
