@@ -199,11 +199,7 @@ export const Transfer: React.FC<TransferType> = ({
   }, [selectedKeysProp]);
 
   return (
-    <div
-      className={cx(`${classNamePrefix}`, className, {
-        [`${classNamePrefix}--disabled`]: disabled,
-      })}
-    >
+    <div className={cx(`${classNamePrefix}`, className)}>
       {getRenderList({
         title: titles?.[0],
         direction: Direction.Left,
