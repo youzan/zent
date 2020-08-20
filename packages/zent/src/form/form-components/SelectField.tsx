@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Omit } from 'utility-types';
 import { FieldModel, Validators, useField } from '../formulr';
 import {
   IFormComponentProps,
@@ -19,27 +18,40 @@ import { FormDescription } from '../Description';
 import { FormControl } from '../Control';
 import { defaultGetValidateOption } from '../Field';
 
-export type IFormSelectFieldProps<T> = IFormComponentProps<
-  T | T[],
-  Omit<ISelectProps, 'value' | 'onChange' | 'onDelete'>
+export type IFormSelectFieldInnerProps = Omit<
+  ISelectProps,
+  'value' | 'onChange' | 'onDelete'
 >;
+
+export type IFormSelectFieldProps<
+  T,
+  P extends IFormSelectFieldInnerProps
+> = IFormComponentProps<T, P>;
 
 /**
  * Old `Select` implementation is a disaster,
  * temporary dirty code.
  */
-export function FormSelectField<T>(props: IFormSelectFieldProps<T>) {
-  let model: FieldModel<T | T[]>;
-  const { name, model: rawModel } = props as IFormFieldViewDrivenProps<T> &
-    IFormFieldModelDrivenProps<T>;
+export function FormSelectField<Item, P extends IFormSelectFieldInnerProps>(
+  props: IFormSelectFieldProps<P['tags'] extends true ? Item[] : Item, P>
+) {
+  type FieldValue = P['tags'] extends true ? Item[] : Item;
+
+  let model: FieldModel<FieldValue>;
+  const { name, model: rawModel } = props as IFormFieldViewDrivenProps<
+    FieldValue
+  > &
+    IFormFieldModelDrivenProps<FieldValue>;
   if (name) {
     const {
       name,
       required,
       defaultValue,
       destroyOnUnmount,
-    } = props as IFormFieldViewDrivenProps<T> & IFormSelectFieldProps<T>;
-    let validators = (props as IFormFieldViewDrivenProps<T>).validators || [];
+    } = props as IFormFieldViewDrivenProps<FieldValue> &
+      IFormSelectFieldProps<FieldValue, P>;
+    let validators =
+      (props as IFormFieldViewDrivenProps<FieldValue>).validators || [];
     if (
       required &&
       !validators.some(it => it.$$id === Validators.SYMBOL_REQUIRED)
@@ -49,11 +61,11 @@ export function FormSelectField<T>(props: IFormSelectFieldProps<T>) {
       ]);
     }
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    model = useField<T>(name, defaultValue, validators);
+    model = useField<FieldValue>(name, defaultValue, validators);
     model.destroyOnUnmount = Boolean(destroyOnUnmount);
   } else {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    model = useField<T>(rawModel);
+    model = useField<FieldValue>(rawModel);
   }
   const propsRef = React.useRef(props);
   propsRef.current = props;
@@ -76,17 +88,17 @@ export function FormSelectField<T>(props: IFormSelectFieldProps<T>) {
   useFormChild(model, anchorRef);
 
   const dispatch = React.useCallback(
-    (value: T, isDelete: boolean) => {
+    (value: Item, isDelete: boolean) => {
       if (propsRef.current.props?.tags) {
-        const selectedValues = (model.value || []) as T[];
+        const selectedValues = (model.value || []) as Item[];
 
         if (isDelete) {
-          model.value = selectedValues.filter(it => it !== value);
+          (model.value as Item[]) = selectedValues.filter(it => it !== value);
         } else if (!selectedValues.includes(value)) {
-          model.value = [...selectedValues, value];
+          (model.value as Item[]) = [...selectedValues, value];
         }
       } else {
-        model.value = value;
+        (model.value as Item) = value;
       }
 
       if (validateOccasion & ValidateOccasion.Change) {
@@ -99,12 +111,12 @@ export function FormSelectField<T>(props: IFormSelectFieldProps<T>) {
   );
 
   const onChange = React.useCallback(
-    (e: ISelectChangeEvent<T>) => dispatch(e.target.value, false),
+    (e: ISelectChangeEvent<Item>) => dispatch(e.target.value, false),
     [dispatch]
   );
 
   const onDelete = React.useCallback(
-    (item: ISelectItem<T>) => dispatch(item.value, true),
+    (item: ISelectItem<Item>) => dispatch(item.value, true),
     [dispatch]
   );
 
