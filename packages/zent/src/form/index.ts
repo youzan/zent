@@ -24,6 +24,8 @@ export {
   $FieldSetBuilderChildren,
   $FieldSetValue,
   INormalizeBeforeSubmit,
+  IMaybeError,
+  ValidatorContext,
 } from './formulr';
 
 export * from './form-components';
