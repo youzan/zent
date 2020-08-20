@@ -11,15 +11,12 @@ describe('<Transfer />', () => {
   const listCommonProps = {
     dataSource: [
       {
-        key: 'a',
         title: 'a',
       },
       {
-        key: 'b',
         title: 'b',
       },
       {
-        key: 'c',
         title: 'c',
         disabled: true,
       },
@@ -104,7 +101,7 @@ describe('<Transfer />', () => {
     );
     wrapper
       .find('Row')
-      .filterWhere(n => n.prop('data').key === 'a')
+      .filterWhere(n => n.prop('data').title === 'a')
       .simulate('click');
     expect(handleSelectChange).toHaveBeenLastCalledWith([]);
   });
@@ -116,7 +113,7 @@ describe('<Transfer />', () => {
     );
     wrapper
       .find('Row')
-      .filterWhere(n => n.prop('data').key === 'b')
+      .filterWhere(n => n.prop('data').title === 'b')
       .simulate('click');
     expect(handleSelectChange).toHaveBeenLastCalledWith(['b', 'a']);
   });
@@ -210,24 +207,61 @@ describe('<Transfer />', () => {
           current: 2,
         })
       );
-      // console.log('11111111111');
-      // wrapper.setProps({ targetKeys: ['b', 'c'] });
-      // expect(
-      //   wrapper
-      //     .find('MiniPagination')
-      //     .first()
-      //     .props()
-      // ).toEqual(
-      //   expect.objectContaining({
-      //     current: 1,
-      //   })
-      // );
     });
   });
 
   it('disabled transfer', () => {
     const wrapper = mount(<Transfer {...listCommonProps} disabled />);
     expect(wrapper.find('.zent-transfer__item--disabled')).toHaveLength(2);
+  });
+
+  it('list', () => {
+    const dataSource = [
+      {
+        title: 'a',
+        text: '1',
+      },
+      {
+        title: 'b',
+        text: '2',
+      },
+      {
+        title: 'c',
+        text: '3',
+      },
+    ];
+    const list = [
+      {
+        columns: [{ name: 'title', title: 'left' }],
+      },
+      {
+        columns: [
+          { name: 'title', title: 'right1' },
+          { name: 'text', title: 'right2' },
+        ],
+      },
+    ];
+    const wrapper = mount(
+      <Transfer {...listCommonProps} dataSource={dataSource} list={list} />
+    );
+    expect(wrapper.find('.zent-transfer')).toHaveLength(1);
+  });
+
+  it('all selected', () => {
+    const wrapper = mount(<Transfer {...listCommonProps} />);
+    wrapper
+      .find('AllCheckBox')
+      .at(1)
+      .find('Checkbox')
+      .find('input')
+      .simulate('change');
+    expect(
+      wrapper
+        .find('AllCheckBox')
+        .at(1)
+        .find('Checkbox')
+        .prop('children')
+    ).toEqual('Target（1/1 项）');
   });
 });
 
