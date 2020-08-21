@@ -4,8 +4,8 @@ export const getLeft = (value: number, min: number, max: number) => {
   return ((value - min) * 100) / (max - min);
 };
 
-export const getValue = (value: number, min: number, max: number) => {
-  return min + (max - min) * value;
+export const getValue = (ratio: number, min: number, max: number) => {
+  return min + (max - min) * ratio;
 };
 
 export const toFixed = (value: number, fractionDigits: number) => {
