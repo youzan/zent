@@ -8,6 +8,14 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 8.5.6(2020-08-21)
+
+- 🦀️ Fix `Slider` value out of range
+- 🦀️ Adjust space between succesive `Checkbox`s
+- `Form`
+  - 🦀️ Export `IMaybeError` and `ValidatorContext`
+  - 🦀️ Fix `FormSelectField` type definition
+
 ### 8.5.5(2020-08-14)
 
 - ✨ `Loading` has a new prop `colorPreset`
