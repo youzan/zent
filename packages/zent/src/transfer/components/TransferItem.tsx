@@ -3,13 +3,9 @@ import { useState, useCallback, useEffect, useMemo } from 'react';
 import cx from 'classnames';
 
 import pick from '../../utils/pick';
-import {
-  Grid,
-  IGridColumn,
-  I18nReceiver as Receiver,
-  II18nLocaleTransfer,
-  MiniPagination,
-} from '../../index';
+import Grid, { IGridColumn } from '../../grid';
+import { I18nReceiver as Receiver, II18nLocaleTransfer } from '../../i18n';
+import MiniPagination from '../../pagination/MiniPagination';
 import { ITransferItem, ITransferData } from '../types';
 import { PassDownGridProps } from '../constants';
 import { getDisabledKeys } from '../utils';

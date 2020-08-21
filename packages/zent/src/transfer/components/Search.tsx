@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Input from '../../input';
-import { II18nLocaleTransfer } from '../../index';
+import { II18nLocaleTransfer } from '../../i18n';
 
 interface IProps {
   showSearch: boolean;

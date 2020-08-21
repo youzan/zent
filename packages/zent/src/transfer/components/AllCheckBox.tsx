@@ -2,7 +2,8 @@ import * as React from 'react';
 import { useCallback } from 'react';
 
 import Checkbox from '../../checkbox';
-import { II18nLocaleTransfer, ICheckboxEvent } from '../../index';
+import { ICheckboxEvent } from '../../checkbox';
+import { II18nLocaleTransfer } from '../../i18n';
 
 interface IProps {
   isAllChecked: boolean;
