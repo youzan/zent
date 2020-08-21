@@ -65,7 +65,9 @@
     "<rootDir>/src/utils/warning.ts",
     "<rootDir>/src/tabs/components/TabDivide.tsx",
     "<rootDir>/src/grid",
-    "<rootDir>/src/upload"
+    "<rootDir>/src/upload",
+    "<rootDir>/src/mention",
+    "<rootDir>/src/copy-button"
   ],
   "moduleDirectories": ["node_modules", "src"]
 }
