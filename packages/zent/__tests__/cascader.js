@@ -855,7 +855,7 @@ describe('Cascader', () => {
 
     const pop = document.querySelector('.zent-popover');
     expect(pop.querySelector('.zent-cascader--search-empty').textContent).toBe(
-      '搜索中...'
+      '无搜索结果'
     );
 
     simulateWithTimers(wrapper.find('.zent-cascader'), 'mouseEnter');
@@ -1111,9 +1111,6 @@ describe('Cascader', () => {
       .simulate('change', { target: { value: 'anotherGrandSon' } });
 
     const pop = document.querySelector('.zent-popover');
-    expect(pop.querySelector('.zent-cascader--search-empty').textContent).toBe(
-      '搜索中...'
-    );
 
     setTimeout(() => {
       expect(pop.querySelectorAll('.zent-cascader--search-item').length).toBe(
@@ -1214,9 +1211,7 @@ describe('Cascader', () => {
     wrapper.update();
 
     const pop = document.querySelector('.zent-popover');
-    expect(pop.querySelectorAll('.zent-cascader__scroll-loading').length).toBe(
-      1
-    );
+    expect(pop.querySelectorAll('.zent-loading').length).toBe(1);
 
     setTimeout(() => {
       simulateRawWithTimers(
@@ -1225,9 +1220,7 @@ describe('Cascader', () => {
       );
       jest.runAllTimers();
       wrapper.update();
-      expect(
-        pop.querySelectorAll('.zent-cascader__scroll-loading').length
-      ).toBe(0);
+      expect(pop.querySelectorAll('.zent-loading').length).toBe(0);
       wrapper.unmount();
     }, 1000);
   });

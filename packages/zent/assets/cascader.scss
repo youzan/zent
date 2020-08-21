@@ -298,14 +298,6 @@ $menuHeight: 180px;
     }
   }
 
-  &__scroll-loading {
-    height: 32px;
-    line-height: 32px;
-    text-align: center;
-    font-size: 12px;
-    @include theme-color(color, stroke, 3);
-  }
-
   &__list {
     font-size: 0;
     padding: 8px 0 8px 12px;
