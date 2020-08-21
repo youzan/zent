@@ -14,7 +14,6 @@ import {
   II18nLocaleSelect,
   II18nLocaleSweetalert,
   II18nLocaleSwitch,
-  II18nLocaleTable,
   II18nLocaleUpload,
   II18nLocaleTransfer,
 } from './locale';
@@ -82,7 +81,9 @@ export const RangePicker: II18nLocaleRangePicker = {
 
 export const Select: II18nLocaleSelect = {
   input: '请选择',
-  empty: '没有找到匹配项',
+  empty: '无搜索结果',
+  tagSeparator: '、',
+  create: '+点击新建：',
 };
 
 export const Switch: II18nLocaleSwitch = {
@@ -96,11 +97,6 @@ export const Sweetalert: II18nLocaleSweetalert = {
 };
 
 export const Grid: II18nLocaleGrid = {
-  ...common,
-  emptyLabel: '没有更多数据了',
-};
-
-export const Table: II18nLocaleTable = {
   ...common,
   emptyLabel: '没有更多数据了',
 };

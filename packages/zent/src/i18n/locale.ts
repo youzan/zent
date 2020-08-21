@@ -51,6 +51,8 @@ export interface II18nLocaleRangePicker {
 export interface II18nLocaleSelect {
   input: string;
   empty: string;
+  tagSeparator: string;
+  create: string;
 }
 
 export interface II18nLocaleSwitch {
@@ -63,10 +65,6 @@ export interface II18nLocaleSweetalert extends II18nLocaleCommon {
 }
 
 export interface II18nLocaleGrid extends II18nLocaleCommon {
-  emptyLabel: string;
-}
-
-export interface II18nLocaleTable extends II18nLocaleCommon {
   emptyLabel: string;
 }
 

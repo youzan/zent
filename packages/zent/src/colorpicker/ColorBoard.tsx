@@ -1,5 +1,4 @@
 import * as React from 'react';
-import cx from 'classnames';
 import reactCSS from './helpers/reactcss';
 import { ColorWrap, Saturation, Hue, Alpha, Checkboard } from './common';
 import SketchFields from './SketchFields';
@@ -15,7 +14,6 @@ const Sketch = ({
   showAlpha,
   presetColors,
   renderers,
-  prefix,
   className,
   type,
 }) => {
@@ -101,10 +99,7 @@ const Sketch = ({
   );
 
   return (
-    <div
-      style={styles.picker}
-      className={cx(`${prefix}-colorpicker-board`, className)}
-    >
+    <div style={styles.picker} className={className}>
       <div style={styles.saturation}>
         <Saturation
           style={styles.Saturation}
@@ -140,12 +135,10 @@ const Sketch = ({
         hex={hex}
         onChange={onChange}
         showAlpha={showAlpha}
-        prefix={prefix}
       />
       <SketchPresetColors
         colors={presetColors}
         onClick={onChange}
-        prefix={prefix}
         type={type}
       />
     </div>
@@ -172,7 +165,6 @@ Sketch.defaultProps = {
   ],
   width: 200,
   showAlpha: false,
-  prefix: 'zent',
   className: '',
 };
 
