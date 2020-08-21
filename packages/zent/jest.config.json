@@ -69,7 +69,8 @@
     "<rootDir>/src/mention",
     "<rootDir>/src/copy-button",
     "<rootDir>/src/text-mark",
-    "<rootDir>/src/avatar"
+    "<rootDir>/src/avatar",
+    "<rootDir>/src/utils/hooks"
   ],
   "moduleDirectories": ["node_modules", "src"]
 }
