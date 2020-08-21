@@ -64,7 +64,8 @@
     "<rootDir>/src/utils/nextFrame.ts",
     "<rootDir>/src/utils/warning.ts",
     "<rootDir>/src/tabs/components/TabDivide.tsx",
-    "<rootDir>/src/grid"
+    "<rootDir>/src/grid",
+    "<rootDir>/src/upload"
   ],
   "moduleDirectories": ["node_modules", "src"]
 }
