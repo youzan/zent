@@ -84,7 +84,7 @@ $menuHeight: 180px;
     @include theme-color(color, stroke, 4);
   }
 
-  &--value {
+  &--text {
     display: inline-block;
     white-space: nowrap;
     overflow: hidden;

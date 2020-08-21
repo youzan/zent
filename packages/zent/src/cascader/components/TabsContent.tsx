@@ -69,13 +69,12 @@ class TabsContent extends Component<ITabsContentProps> {
       ITabPanelProps<string | number>
     >> = [];
     let { title, options, value } = this.props;
-    const hasValue = value.length > 0;
-    const iteratorSum = hasValue ? value.length : 0;
+    const length = value?.length || 0;
 
-    for (let i = 0; i < iteratorSum + 1; i++) {
+    for (let i = 0; i < length + 1; i++) {
       const tabIndex = i + 1;
 
-      // 获取 children 的子节点列表
+      // 获取子节点列表
       if (i > 0) {
         options = findNextOptions(options, value[i - 1]);
       }

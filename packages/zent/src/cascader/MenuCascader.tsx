@@ -79,6 +79,35 @@ export class MenuCascader extends Component<
   IMenuCascaderProps,
   ICascaderState
 > {
+  constructor(props) {
+    super(props);
+    const value = props.value || [];
+    const { multiple, options, searchable, async } = props;
+
+    if (multiple) {
+      linkChildrenNode(options);
+    }
+
+    const flattenOptions = searchable && !async ? flattenTree(options) : [];
+    const initialActiveValue = multiple && value.length > 0 ? value[0] : value;
+    const checkedNodes = multiple
+      ? updateTreeState(options, value as Array<CascaderValue[]>)
+      : [];
+
+    this.state = {
+      value,
+      activeValue: initialActiveValue,
+      open: false,
+      prevProps: props,
+      scrollHasMore: props.scrollable,
+      checkedNodes,
+      keyword: '',
+      isSearching: false,
+      flattenOptions,
+      searchList: [],
+    };
+  }
+
   static defaultProps = {
     ...commonProps,
     multiple: false,
@@ -129,35 +158,6 @@ export class MenuCascader extends Component<
     }
 
     return newState;
-  }
-
-  constructor(props) {
-    super(props);
-    const value = props.value || [];
-    const { multiple, options, searchable, async } = props;
-
-    if (multiple) {
-      linkChildrenNode(options);
-    }
-
-    const flattenOptions = searchable && !async ? flattenTree(options) : [];
-    const initialActiveValue = multiple && value.length > 0 ? value[0] : value;
-    const checkedNodes = multiple
-      ? updateTreeState(options, value as Array<CascaderValue[]>)
-      : [];
-
-    this.state = {
-      value,
-      activeValue: initialActiveValue,
-      open: false,
-      prevProps: props,
-      scrollHasMore: props.scrollable,
-      checkedNodes,
-      keyword: '',
-      isSearching: false,
-      flattenOptions,
-      searchList: [],
-    };
   }
 
   get disabled() {
@@ -372,7 +372,7 @@ export class MenuCascader extends Component<
     });
   };
 
-  handleSearchChecked = (items: ICascaderItem[], checked: boolean) => {
+  handleSearchOptionChecked = (items: ICascaderItem[], checked: boolean) => {
     const { options, async } = this.props;
 
     if (async) {
@@ -420,7 +420,7 @@ export class MenuCascader extends Component<
             multiple={multiple}
             isSearching={isSearching}
             searchList={searchList}
-            handleSearchChecked={this.handleSearchChecked}
+            handleSearchOptionChecked={this.handleSearchOptionChecked}
             searchClickHandler={this.searchClickHandler}
           />
         ) : (
@@ -458,21 +458,6 @@ export class MenuCascader extends Component<
       multiple ? activeValue : value,
       options
     );
-    const passProps = {
-      className,
-      popupClassName,
-      placeholder,
-      renderValue,
-      disabled: this.disabled,
-      value,
-      selectedOptions,
-      open,
-      multiple,
-      searchable,
-      clearable,
-      checkedNodes,
-      keyword,
-    };
 
     return (
       <Receiver componentName="Cascader">
@@ -487,8 +472,20 @@ export class MenuCascader extends Component<
             >
               <Popover.Trigger.Click toggle={!searchable}>
                 <CascaderTrigger
-                  {...passProps}
+                  className={className}
+                  popupClassName={popupClassName}
+                  placeholder={placeholder}
+                  renderValue={renderValue}
+                  disabled={this.disabled}
+                  selectedOptions={selectedOptions}
+                  open={open}
+                  clearable={clearable}
+                  value={value}
                   i18n={i18n}
+                  multiple={multiple}
+                  searchable={searchable}
+                  checkedNodes={checkedNodes}
+                  keyword={keyword}
                   onClear={this.onClear}
                   onRemove={this.onRemove}
                   onKeywordChange={this.onKeywordChange}

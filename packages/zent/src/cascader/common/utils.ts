@@ -1,4 +1,5 @@
 import { ICascaderItem, CascaderValue } from '../types';
+import memoize from '../../utils/memorize-one';
 
 /**
  * 查找树中某个节点的子节点
@@ -28,13 +29,12 @@ export function findNextOptions(options: ICascaderItem[], id: unknown) {
     }],
   }];
   const values = ['a', 'b', 'c'];
-  const result = getPathInTree(data, values);
+  getPathInTree(data, values);
 
-  console.log(result);
   [
     { value: 'a', children: [...] },
     { value: 'b', children: [...] },
-    { value: 'c', children: [...] }
+    { value: 'c' }
   ]
  */
 export function getPathInTree<Item extends ICascaderItem>(
@@ -59,7 +59,7 @@ export function getPathInTree<Item extends ICascaderItem>(
 
 /**
  * 赋值父节点的指向 parent 字段给所有叶子节点
- * @param children 叶子节点列表
+ * @param children 子节点列表
  * @param parent 父节点
  */
 export function linkChildrenNode(
@@ -139,7 +139,7 @@ function getCheckedOptions(tree: ICascaderItem[]) {
 }
 
 /**
- * 触发树中某一个节点的复选框选中
+ * 更新节点的选中状态，获取所有选中的值
  */
 export function checkTreeNode(
   tree: ICascaderItem[],
@@ -224,3 +224,10 @@ export function appendNodeInTree(
     tree.push(buildTree([], selected));
   }
 }
+
+/**
+ * 获取级联项的值
+ */
+export const renderOptionsValue = memoize((items: ICascaderItem[]): string =>
+  items.map(it => it.label).join(' / ')
+);

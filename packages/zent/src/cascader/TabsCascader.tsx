@@ -31,6 +31,20 @@ export class TabsCascader extends Component<
   ITabsCascaderProps,
   ICascaderState
 > {
+  constructor(props) {
+    super(props);
+    const value = props.value || [];
+
+    this.state = {
+      value,
+      activeValue: value,
+      activeId: value.length || 1,
+      options: props.options || [],
+      open: false,
+      prevProps: props,
+    };
+  }
+
   static defaultProps = {
     ...commonProps,
     title: [],
@@ -61,20 +75,6 @@ export class TabsCascader extends Component<
     }
 
     return newState;
-  }
-
-  constructor(props) {
-    super(props);
-    const value = props.value || [];
-
-    this.state = {
-      value,
-      activeValue: value,
-      activeId: value.length || 1,
-      options: props.options || [],
-      open: false,
-      prevProps: props,
-    };
   }
 
   get disabled() {
@@ -208,17 +208,6 @@ export class TabsCascader extends Component<
     } = this.props;
     const { open } = this.state;
     const selectedOptions = getPathInTree(value, options);
-    const passProps = {
-      className,
-      popupClassName,
-      placeholder,
-      renderValue,
-      disabled: this.disabled,
-      selectedOptions,
-      open,
-      clearable,
-      value,
-    };
 
     return (
       <Receiver componentName="Cascader">
@@ -233,7 +222,15 @@ export class TabsCascader extends Component<
             >
               <Popover.Trigger.Click toggle>
                 <CascaderTrigger
-                  {...passProps}
+                  className={className}
+                  popupClassName={popupClassName}
+                  placeholder={placeholder}
+                  renderValue={renderValue}
+                  disabled={this.disabled}
+                  selectedOptions={selectedOptions}
+                  open={open}
+                  clearable={clearable}
+                  value={value}
                   i18n={i18n}
                   onClear={this.onClear}
                 />

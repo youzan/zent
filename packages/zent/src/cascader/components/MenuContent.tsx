@@ -47,6 +47,7 @@ class MenuContent extends Component<IMenuContentProps> {
 
   renderItemCheckbox(item: ICascaderItem) {
     const { multiple } = this.props;
+    const { value, checked, indeterminate, disabled } = item;
 
     if (!multiple) {
       return null;
@@ -54,11 +55,11 @@ class MenuContent extends Component<IMenuContentProps> {
 
     return (
       <Checkbox
-        value={item.value}
+        value={value}
         onChange={e => this.props.handleChecked(item, e.target.checked)}
-        checked={item.checked}
-        indeterminate={item.indeterminate}
-        disabled={item.disabled}
+        checked={checked}
+        indeterminate={indeterminate}
+        disabled={disabled}
       ></Checkbox>
     );
   }

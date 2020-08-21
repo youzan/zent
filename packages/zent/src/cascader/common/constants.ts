@@ -1,5 +1,4 @@
-import { ICascaderItem } from '../types';
-import memoize from '../../utils/memorize-one';
+import { renderOptionsValue } from './utils';
 
 /**
  * 通用的 defaultProps
@@ -11,8 +10,6 @@ export const commonProps = {
   placeholder: '',
   className: '',
   popupClassName: 'zent-cascader__popup',
-  renderValue: memoize((selectedOptions: ICascaderItem[]): string =>
-    selectedOptions.map(it => it.label).join(' / ')
-  ),
+  renderValue: renderOptionsValue,
   clearable: false,
 };

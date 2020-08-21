@@ -7,6 +7,7 @@ import Search from './Search';
 import Tags from './Tags';
 import { ICascaderItem, CascaderValue } from '../types';
 import memoize from '../../utils/memorize-one';
+import { renderOptionsValue } from '../common/utils';
 
 interface ITriggerProps<Item = ICascaderItem> {
   disabled?: boolean;
@@ -56,7 +57,7 @@ export class CascaderTrigger extends Component<ITriggerProps, ITriggerState> {
         return placeholder;
       }
 
-      return selectedOptions.map(item => item.label).join(' / ');
+      return renderOptionsValue(selectedOptions);
     }
   );
 
@@ -120,7 +121,7 @@ export class CascaderTrigger extends Component<ITriggerProps, ITriggerState> {
       'zent-cascader--multiple': multiple,
     });
 
-    const selectTriggerCls = classnames('zent-cascader--value', {
+    const selectTriggerCls = classnames('zent-cascader--text', {
       'zent-cascader--placeholder': !notEmpty,
     });
     const showSearch = open && searchable;

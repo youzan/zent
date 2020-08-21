@@ -17,7 +17,7 @@ export interface ISearchContentProps {
   popover: Popover;
   i18n: II18nLocaleCascader;
   multiple: boolean;
-  handleSearchChecked: (items: ICascaderItem[], checked: boolean) => void;
+  handleSearchOptionChecked: (items: ICascaderItem[], checked: boolean) => void;
   isSearching: boolean;
   searchList: ICascaderSearchItem[];
   searchClickHandler: CascaderSearchClickHandler;
@@ -54,7 +54,9 @@ class SearchContent extends Component<ISearchContentProps> {
     return (
       <Checkbox
         value={item.value}
-        onChange={e => this.props.handleSearchChecked(items, e.target.checked)}
+        onChange={e =>
+          this.props.handleSearchOptionChecked(items, e.target.checked)
+        }
         checked={item.checked}
         disabled={item.disabled}
       ></Checkbox>
@@ -66,7 +68,7 @@ class SearchContent extends Component<ISearchContentProps> {
 
     return (
       <ul className="zent-cascader--search-list">
-        {searchList.map((searchItem, index) => {
+        {searchList.map(searchItem => {
           const { items, display } = searchItem;
           const searchItemCls = cx('zent-cascader--search-item', {
             'zent-cascader--search-item--multiple': multiple,
@@ -74,7 +76,7 @@ class SearchContent extends Component<ISearchContentProps> {
 
           return (
             <li
-              key={index}
+              key={items.map(li => li.value).join('-')}
               className={searchItemCls}
               onClick={() => searchClickHandler(items, popover)}
             >
