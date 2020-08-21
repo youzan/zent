@@ -232,7 +232,7 @@ describe('Cascader', () => {
       val && val.length > 0 ? val[val.length - 1].label : '';
 
     const wrapper = mount(
-      <TabsCascader value={value} options={options} displayRender={textFn} />
+      <TabsCascader value={value} options={options} renderValue={textFn} />
     );
 
     expect(wrapper.find('.zent-cascader--value').text()).toBe(

@@ -1,28 +1,29 @@
 import * as React from 'react';
 import { Component } from 'react';
 import Popover from '../popover';
-import { II18nLocaleCascader } from '../i18n';
+import { I18nReceiver as Receiver, II18nLocaleCascader } from '../i18n';
 import TabsContent from './components/TabsContent';
 import { commonProps } from './common/constants';
 import {
   ITabsCascaderProps,
   ICascaderItem,
-  ICascaderHandler,
-  ICascaderValue,
+  CascaderHandler,
+  CascaderValue,
+  CascaderChangeAction,
+  CascaderLoadAction,
 } from './types';
 import CascaderTrigger from './trigger';
-import { isEqualArrays, arrayTreeFilter } from './common/utils';
+import { getPathInTree } from './common/utils';
 import { DisabledContext, IDisabledContext } from '../disabled';
-
-const PopoverContent = Popover.Content;
+import shallowEqual from '../utils/shallowEqual';
 
 interface ICascaderState {
-  value: ICascaderValue[];
-  activeValue: ICascaderValue[];
+  value: CascaderValue[];
+  activeValue: CascaderValue[];
   activeId: number;
   options: ICascaderItem[];
   open: boolean;
-  loadingStage?: number;
+  loadingLevel?: number;
   prevProps: ITabsCascaderProps;
 }
 
@@ -50,10 +51,9 @@ export class TabsCascader extends Component<
       newState.options = nextProps.options || [];
     }
 
-    if (!open && !isEqualArrays(prevProps.value, nextProps.value)) {
+    if (!open && !shallowEqual(prevProps.value, nextProps.value)) {
       const newValue = nextProps.value || [];
       Object.assign(newState, {
-        ...newState,
         value: newValue,
         activeValue: newValue,
         activeId: newValue.length || 1,
@@ -83,6 +83,10 @@ export class TabsCascader extends Component<
   }
 
   onVisibleChange = (open: boolean) => {
+    if (this.disabled) {
+      return;
+    }
+
     this.setState({
       open,
     });
@@ -94,9 +98,14 @@ export class TabsCascader extends Component<
     });
   };
 
-  clickHandler: ICascaderHandler = (
+  /**
+   * 城市级联某一层级的子节点点击事件
+   * @param item 点击的节点
+   * @param level 当前的层级，从 1 开始计数
+   */
+  clickHandler: CascaderHandler = (
     item: ICascaderItem,
-    stage: number,
+    level: number,
     popover
   ) => {
     const { loadOptions, options, changeOnSelect } = this.props;
@@ -106,9 +115,9 @@ export class TabsCascader extends Component<
       loadOptions &&
       (!item.children || item.children.length === 0);
 
-    const newValues = activeValue.slice(0, stage - 1) as ICascaderValue[];
+    const newValues = activeValue.slice(0, level - 1) as CascaderValue[];
     newValues.push(item.value);
-    const selectedOptions = arrayTreeFilter(newValues, options);
+    const selectedOptions = getPathInTree(newValues, options);
     let needClose = false;
 
     const obj: Partial<ICascaderState> = {
@@ -126,26 +135,30 @@ export class TabsCascader extends Component<
       obj.value = [...newValues];
     }
 
-    const nextStage = stage + 1;
+    const nextLevel = level + 1;
     if (!needLoading && !needClose) {
-      obj.activeId = nextStage;
+      obj.activeId = nextLevel;
     }
 
     this.setState(obj as ICascaderState, () => {
       if (needLoading) {
         this.setState({
-          loadingStage: stage,
+          loadingLevel: level,
         });
-        loadOptions(selectedOptions, { action: 'next' }).then(() => {
-          this.setState({
-            activeId: nextStage,
-            loadingStage: -1, // 标识取消 loading 状态
-          });
-        });
+        loadOptions(selectedOptions, { action: CascaderLoadAction.Next }).then(
+          () => {
+            this.setState({
+              activeId: nextLevel,
+              loadingLevel: null, // 标识取消 loading 状态
+            });
+          }
+        );
       }
 
       if (needTriggerChange) {
-        this.props.onChange(obj.value, selectedOptions, { action: 'change' });
+        this.props.onChange(obj.value, selectedOptions, {
+          action: CascaderChangeAction.Change,
+        });
       }
     });
   };
@@ -158,28 +171,28 @@ export class TabsCascader extends Component<
         open: false,
       },
       () => {
-        this.props.onChange(null, null, { action: 'clear' });
+        this.props.onChange(null, null, { action: CascaderChangeAction.Clear });
       }
     );
   };
 
   getPopoverContent = (i18n: II18nLocaleCascader) => {
     const { title, options } = this.props;
-    const { activeValue, loadingStage, activeId } = this.state;
+    const { activeValue, loadingLevel, activeId } = this.state;
 
     return (
-      <PopoverContent>
+      <Popover.Content>
         <TabsContent
           i18n={i18n}
           value={activeValue}
-          loadingStage={loadingStage}
+          loadingLevel={loadingLevel}
           clickHandler={this.clickHandler}
           activeId={activeId}
           onTabsChange={this.onTabsChange}
           title={title}
           options={options}
         />
-      </PopoverContent>
+      </Popover.Content>
     );
   };
 
@@ -188,18 +201,18 @@ export class TabsCascader extends Component<
       className,
       popupClassName,
       placeholder,
-      displayRender,
+      renderValue,
       clearable,
       value,
       options,
     } = this.props;
     const { open } = this.state;
-    const selectedOptions = arrayTreeFilter(value, options);
+    const selectedOptions = getPathInTree(value, options);
     const passProps = {
       className,
       popupClassName,
       placeholder,
-      displayRender,
+      renderValue,
       disabled: this.disabled,
       selectedOptions,
       open,
@@ -208,13 +221,28 @@ export class TabsCascader extends Component<
     };
 
     return (
-      <CascaderTrigger
-        {...passProps}
-        onClear={this.onClear}
-        onVisibleChange={this.onVisibleChange}
-        getPopoverContent={this.getPopoverContent}
-        position={Popover.Position.BottomLeft}
-      />
+      <Receiver componentName="Cascader">
+        {(i18n: II18nLocaleCascader) => {
+          return (
+            <Popover
+              className={popupClassName}
+              position={Popover.Position.AutoBottomLeftSticky}
+              visible={open}
+              onVisibleChange={this.onVisibleChange}
+              cushion={4}
+            >
+              <Popover.Trigger.Click toggle>
+                <CascaderTrigger
+                  {...passProps}
+                  i18n={i18n}
+                  onClear={this.onClear}
+                />
+              </Popover.Trigger.Click>
+              {this.getPopoverContent(i18n)}
+            </Popover>
+          );
+        }}
+      </Receiver>
     );
   }
 }

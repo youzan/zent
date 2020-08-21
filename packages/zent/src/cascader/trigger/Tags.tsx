@@ -1,41 +1,28 @@
 import * as React from 'react';
 import { ICascaderItem } from '../types';
-import Icon from '../../icon';
+import Tag from './Tag';
 
-interface ITagsTriggerProps<Item = ICascaderItem> {
+export interface ICascaderTagListProps<Item extends ICascaderItem> {
   list: Array<Item[]>;
-  displayRender?: (items: Item[]) => React.ReactNode;
-  onRemove: (item: ICascaderItem, checked: boolean) => void;
+  onRemove(item: Item): void;
+  renderValue?: (items: Item[]) => React.ReactNode;
 }
 
-class TagsTrigger extends React.Component<ITagsTriggerProps> {
-  renderTag(item: ICascaderItem[]) {
-    const { displayRender, onRemove } = this.props;
+function CascaderTagList(props: ICascaderTagListProps<ICascaderItem>) {
+  const { list, renderValue, onRemove } = props;
 
-    return (
-      <div
-        className="zent-cascader--tag"
-        key={item.map(li => li.value).join('-')}
-      >
-        {displayRender(item)}
-        <Icon
-          type="close"
-          className="zent-cascader--tag-close"
-          onClick={e => {
-            e.stopPropagation();
-            // 最后一项取消选中
-            onRemove(item[item.length - 1], false);
-          }}
+  return (
+    <>
+      {list.map(items => (
+        <Tag
+          key={items.map(li => li.value).join('-')}
+          items={items}
+          onRemove={onRemove}
+          renderValue={renderValue}
         />
-      </div>
-    );
-  }
-
-  render() {
-    const { list } = this.props;
-
-    return list.map(items => this.renderTag(items));
-  }
+      ))}
+    </>
+  );
 }
 
-export default TagsTrigger;
+export default React.memo(CascaderTagList);

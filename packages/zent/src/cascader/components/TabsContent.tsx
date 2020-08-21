@@ -3,8 +3,8 @@ import { Component } from 'react';
 import classnames from 'classnames';
 import Popover from '../../popover';
 import Tabs, { ITabPanelElement, ITabPanelProps } from '../../tabs';
-import { recursiveNextOptions } from '../common/utils';
-import { ICascaderHandler, ICascaderValue, ICascaderItem } from '../types';
+import { findNextOptions } from '../common/utils';
+import { CascaderHandler, CascaderValue, ICascaderItem } from '../types';
 import { II18nLocaleCascader } from '../../i18n';
 
 const TabPanel = Tabs.TabPanel;
@@ -12,10 +12,11 @@ const withPopover = Popover.withPopover;
 
 interface ITabsContentProps {
   className?: string;
-  clickHandler: ICascaderHandler;
-  value: ICascaderValue[];
+  clickHandler: CascaderHandler;
+  value: CascaderValue[];
   options: ICascaderItem[];
-  loadingStage: number;
+  // 正在加载中的层级，从 1 开始计数
+  loadingLevel: number;
   popover: Popover;
   activeId: number;
   onTabsChange: (id: number) => void;
@@ -24,12 +25,12 @@ interface ITabsContentProps {
 }
 
 class TabsContent extends Component<ITabsContentProps> {
-  renderCascaderItems(items: ICascaderItem[], stage: number, popover: Popover) {
+  renderCascaderItems(items: ICascaderItem[], level: number, popover: Popover) {
     const { value, clickHandler } = this.props;
 
     const cascaderItems = items.map(item => {
       const cascaderItemCls = classnames('zent-cascader__list-link', {
-        'zent-cascader__list-link--active': item.value === value[stage - 1],
+        'zent-cascader__list-link--active': item.value === value[level - 1],
       });
 
       return (
@@ -37,7 +38,7 @@ class TabsContent extends Component<ITabsContentProps> {
           <span
             className={cascaderItemCls}
             title={item.label}
-            onClick={() => clickHandler(item, stage, popover)}
+            onClick={() => clickHandler(item, level, popover)}
           >
             {item.label}
           </span>
@@ -48,10 +49,10 @@ class TabsContent extends Component<ITabsContentProps> {
     return <div className="zent-cascader__list">{cascaderItems}</div>;
   }
 
-  renderTabTitle(title: React.ReactNode, stage: number) {
-    const { loadingStage } = this.props;
+  renderTabTitle(title: React.ReactNode, level: number) {
+    const { loadingLevel } = this.props;
 
-    if (stage === loadingStage) {
+    if (level === loadingLevel) {
       return (
         <div className="zent-cascader__loading">
           <div className="zent-cascader__loading-label">{title}</div>
@@ -76,7 +77,7 @@ class TabsContent extends Component<ITabsContentProps> {
 
       // 获取 children 的子节点列表
       if (i > 0) {
-        options = recursiveNextOptions(options, value[i - 1]);
+        options = findNextOptions(options, value[i - 1]);
       }
 
       if (options?.length > 0) {

@@ -1,5 +1,4 @@
 import getViewportSize from '../../utils/dom/getViewportSize';
-
 import { BottomLeft } from './bottom-left';
 import { BottomLeftSticky } from './bottom-left-sticky';
 import { TopLeft } from './top-left';
@@ -20,7 +19,7 @@ export const AutoBottomLeftSticky: IPositionFunction = props => {
   let horizontal;
   let vertical;
 
-  // 当右边放得下时，跟 anchor 对齐，否则往左平移
+  // 当右边放得下时，跟 anchor 对齐，否则与页面右边界对齐
   if (viewport.width - anchorRect.left > contentRect.width) {
     horizontal = 'Left';
   } else {

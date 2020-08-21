@@ -188,6 +188,10 @@ $menuHeight: 180px;
 
     &:last-child {
       border-right: 0;
+
+      .zent-cascader__menu-item {
+        padding-right: 10px;
+      }
     }
 
     &-item {
@@ -200,12 +204,12 @@ $menuHeight: 180px;
       height: 32px;
       line-height: 32px;
       text-align: left;
-      padding-left: 10px;
-      padding-right: 30px;
+      padding: 0 30px 0 10px;
       box-sizing: border-box;
       width: 190px;
       overflow: hidden;
       text-overflow: ellipsis;
+      display: flex;
 
       &--leaf {
         padding-right: 10px;
@@ -262,19 +266,11 @@ $menuHeight: 180px;
 
       &--multiple {
         cursor: initial;
-
-        .zent-cascader__menu-item-label {
-          max-width: 82%;
-        }
       }
     }
 
     .zent-checkbox-wrap {
       margin-right: 8px;
-
-      &:last-child {
-        margin-right: 8px;
-      }
     }
 
     &-scroller {
@@ -299,10 +295,6 @@ $menuHeight: 180px;
       @include theme-color(color, stroke, 3);
       cursor: pointer;
       margin-left: 5px;
-
-      &::before {
-        font-size: 8px;
-      }
     }
   }
 

@@ -110,11 +110,9 @@ export const Table: II18nLocaleTable = {
 export const Cascader: II18nLocaleCascader = {
   ...common,
   title: 'Title',
-  placeholder: 'Please choose',
-  searchPlaceholder: 'Please choose or search',
-  loading: 'Loading...',
-  searching: 'Searching...',
-  searchEmpty: 'Empty Result',
+  placeholder: 'Please select',
+  searchPlaceholder: 'Please select or search',
+  searchEmpty: 'No result',
   empty: 'Empty',
 };
 

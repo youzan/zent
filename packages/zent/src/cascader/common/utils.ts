@@ -1,12 +1,12 @@
-import { ICascaderItem, ICascaderValue } from '../types';
+import { ICascaderItem, CascaderValue } from '../types';
 
 /**
  * 查找树中某个节点的子节点
  */
-export function recursiveNextOptions(options: ICascaderItem[], id: unknown) {
+export function findNextOptions(options: ICascaderItem[], id: unknown) {
   if (options?.length > 0) {
     const currOptions = options.find(it => it.value === id);
-    if (Array.isArray(currOptions?.children)) {
+    if (currOptions && Array.isArray(currOptions.children)) {
       return currOptions.children;
     }
   }
@@ -28,7 +28,7 @@ export function recursiveNextOptions(options: ICascaderItem[], id: unknown) {
     }],
   }];
   const values = ['a', 'b', 'c'];
-  const result = arrayTreeFilter(data, values);
+  const result = getPathInTree(data, values);
 
   console.log(result);
   [
@@ -37,8 +37,8 @@ export function recursiveNextOptions(options: ICascaderItem[], id: unknown) {
     { value: 'c', children: [...] }
   ]
  */
-export function arrayTreeFilter<Item extends ICascaderItem>(
-  value: ICascaderValue[] | Array<ICascaderValue[]>,
+export function getPathInTree<Item extends ICascaderItem>(
+  value: CascaderValue[] | Array<CascaderValue[]>,
   options?: Item[]
 ) {
   const selected: Item[] = [];
@@ -58,44 +58,18 @@ export function arrayTreeFilter<Item extends ICascaderItem>(
 }
 
 /**
- * 浅比较两个数组是否相等
+ * 赋值父节点的指向 parent 字段给所有叶子节点
+ * @param children 叶子节点列表
+ * @param parent 父节点
  */
-export function isEqualArrays(arrA: any[], arrB: any[]): boolean {
-  if (arrA === arrB) {
-    return true;
-  }
-
-  if (!arrA || !arrB) {
-    return false;
-  }
-
-  const len = arrA.length;
-
-  if (arrB.length !== len) {
-    return false;
-  }
-
-  // eslint-disable-next-line no-plusplus
-  for (let i = 0; i < len; i++) {
-    if (arrA[i] !== arrB[i]) {
-      return false;
-    }
-  }
-
-  return true;
-}
-
-/**
- * 初始化 tree 的数据结构，给子节点赋值父元素给 parent 字段
- */
-export function linkedTreeNode(
-  tree: ICascaderItem[],
+export function linkChildrenNode(
+  children: ICascaderItem[],
   parent: ICascaderItem | null = null
 ) {
-  if (Array.isArray(tree)) {
-    tree.forEach(item => {
+  if (Array.isArray(children)) {
+    children.forEach(item => {
       item.parent = parent;
-      linkedTreeNode(item.children, item);
+      linkChildrenNode(item.children, item);
     });
   }
 }
@@ -103,23 +77,23 @@ export function linkedTreeNode(
 /**
  * 递归选中后代节点
  */
-function checkedChildrenNode(node: ICascaderItem, checked: boolean) {
+function toggleChildren(node: ICascaderItem, checked: boolean) {
   node.checked = checked;
   node.indeterminate = false;
 
   if (Array.isArray(node.children)) {
     node.children.forEach(item => {
       if (!item.disabled) {
-        checkedChildrenNode(item, checked);
+        toggleChildren(item, checked);
       }
     });
   }
 }
 
 /**
- * 递归选中祖先节点
+ * 递归更新祖先节点状态
  */
-function checkedParentNode(parent: ICascaderItem | null) {
+function updateParentState(parent: ICascaderItem | null) {
   if (parent) {
     const children = parent.children;
     const everyChecked = children.every(item => item.checked);
@@ -128,12 +102,14 @@ function checkedParentNode(parent: ICascaderItem | null) {
       ? false
       : children.some(item => item.checked || item.indeterminate);
 
-    checkedParentNode(parent.parent);
+    updateParentState(parent.parent);
   }
 }
 
 /**
  * 平铺树形结构
+ * @param tree 树形结构
+ * @param sum 暂存的节点层级路径
  */
 export function flattenTree(
   tree: ICascaderItem[],
@@ -157,57 +133,57 @@ export function flattenTree(
 /**
  * 获取所有选中的节点
  */
-function traverseTree4CheckedOptions(tree: ICascaderItem[]) {
+function getCheckedOptions(tree: ICascaderItem[]) {
   const flattenNodes = flattenTree(tree);
   return flattenNodes.filter(list => list[list.length - 1].checked);
 }
 
 /**
- * 触发树中某一个节点的复选框选中时
+ * 触发树中某一个节点的复选框选中
  */
-export function checkedTreeNode(
+export function checkTreeNode(
   tree: ICascaderItem[],
   node: ICascaderItem,
   checked: boolean
 ): Array<ICascaderItem[]> {
   // 1. 遍历子节点
-  checkedChildrenNode(node, checked);
+  toggleChildren(node, checked);
 
   // 2. 遍历父节点
-  checkedParentNode(node.parent);
+  updateParentState(node.parent);
 
   // 3. 获取所有选中的节点
-  return traverseTree4CheckedOptions(tree);
+  return getCheckedOptions(tree);
 }
 
 /**
  * 清空节点的选中状态
  */
-export function uncheckAllNode(tree: ICascaderItem[]) {
-  tree.forEach(node => checkedChildrenNode(node, false));
+export function uncheckAll(tree: ICascaderItem[]) {
+  tree.forEach(node => toggleChildren(node, false));
 }
 
 /**
- * 多选状态下 - 初始化选中的节点
+ * 多选状态下 - 数据 value 更新树的状态
  */
-export function initialCheckedNodes(
+export function updateTreeState(
   tree: ICascaderItem[],
-  values: Array<ICascaderValue[]>
+  values: Array<CascaderValue[]>
 ): Array<ICascaderItem[]> {
   const result = [];
 
   if (values?.length > 0) {
     values.forEach(value => {
-      const checkedNodes = arrayTreeFilter(value, tree);
+      const checkedNodes = getPathInTree(value, tree);
       result.push(checkedNodes);
 
       const leafNode = checkedNodes[checkedNodes.length - 1];
 
       // 1. 遍历子节点
-      checkedChildrenNode(leafNode, true);
+      toggleChildren(leafNode, true);
 
       // 2. 遍历父节点
-      checkedParentNode(leafNode.parent);
+      updateParentState(leafNode.parent);
     });
   }
 
@@ -236,8 +212,8 @@ export function appendNodeInTree(
   tree: ICascaderItem[],
   selected: ICascaderItem[]
 ) {
-  const firstNode = selected[0];
-  const target = tree.find(item => item.value === firstNode.value);
+  const firstNodeValue = selected[0].value;
+  const target = tree.find(item => item.value === firstNodeValue);
 
   if (target) {
     if (selected.length > 1) {

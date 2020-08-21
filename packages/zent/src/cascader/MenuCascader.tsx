@@ -1,35 +1,36 @@
 import * as React from 'react';
 import { Component } from 'react';
 import Popover from '../popover';
-import { II18nLocaleCascader } from '../i18n';
+import { I18nReceiver as Receiver, II18nLocaleCascader } from '../i18n';
 import MenuContent from './components/MenuContent';
 import { commonProps } from './common/constants';
 import CascaderTrigger from './trigger';
 import {
-  arrayTreeFilter,
-  isEqualArrays,
-  checkedTreeNode,
-  linkedTreeNode,
-  uncheckAllNode,
-  initialCheckedNodes,
+  getPathInTree,
+  checkTreeNode,
+  linkChildrenNode,
+  uncheckAll,
+  updateTreeState,
   flattenTree,
   appendNodeInTree,
 } from './common/utils';
 import {
   ICascaderItem,
-  ICascaderHandler,
-  ICascaderValue,
+  CascaderHandler,
+  CascaderValue,
   IMenuCascaderProps,
   ICascaderSearchItem,
-  ICascaderSearchClickHandler,
+  CascaderSearchClickHandler,
+  CascaderChangeAction,
+  CascaderLoadAction,
 } from './types';
 import SearchContent from './components/SearchContent';
 import debounce from '../utils/debounce';
 import TextMark from '../text-mark';
 import { DisabledContext, IDisabledContext } from '../disabled';
+import shallowEqual from '../utils/shallowEqual';
 
-const PopoverContent = Popover.Content;
-const FILTER_TIMEOUT = 100; // ms
+const FILTER_TIMEOUT = 200; // ms
 
 const defaultSearchFilter = (
   keyword: string,
@@ -61,8 +62,8 @@ const defaultSearchFilter = (
 };
 
 interface ICascaderState {
-  value: ICascaderValue[] | Array<ICascaderValue[]>;
-  activeValue: ICascaderValue[];
+  value: CascaderValue[] | Array<CascaderValue[]>;
+  activeValue: CascaderValue[];
   // 多选时各子节点的选中状态
   checkedNodes: Array<ICascaderItem[]>;
   open: boolean;
@@ -84,6 +85,7 @@ export class MenuCascader extends Component<
     expandTrigger: 'click',
     scrollable: false,
     searchable: false,
+    async: false,
     limit: 50,
     filter: defaultSearchFilter,
   };
@@ -102,7 +104,7 @@ export class MenuCascader extends Component<
 
     if (prevProps.options !== nextProps.options) {
       if (multiple) {
-        linkedTreeNode(nextProps.options);
+        linkChildrenNode(nextProps.options);
       }
 
       if (searchable && !async) {
@@ -112,17 +114,17 @@ export class MenuCascader extends Component<
       }
     }
 
-    if (!isEqualArrays(prevProps.value, nextProps.value)) {
+    if (!shallowEqual(prevProps.value, nextProps.value)) {
       const newValue = nextProps.value || [];
       newState.value = newValue;
 
       if (multiple) {
-        newState.checkedNodes = initialCheckedNodes(
+        newState.checkedNodes = updateTreeState(
           nextProps.options,
-          newValue as Array<ICascaderValue[]>
+          newValue as Array<CascaderValue[]>
         );
       } else {
-        newState.activeValue = newValue as ICascaderValue[];
+        newState.activeValue = newValue as CascaderValue[];
       }
     }
 
@@ -135,13 +137,13 @@ export class MenuCascader extends Component<
     const { multiple, options, searchable, async } = props;
 
     if (multiple) {
-      linkedTreeNode(options);
+      linkChildrenNode(options);
     }
 
     const flattenOptions = searchable && !async ? flattenTree(options) : [];
     const initialActiveValue = multiple && value.length > 0 ? value[0] : value;
     const checkedNodes = multiple
-      ? initialCheckedNodes(options, value as Array<ICascaderValue[]>)
+      ? updateTreeState(options, value as Array<CascaderValue[]>)
       : [];
 
     this.state = {
@@ -169,6 +171,9 @@ export class MenuCascader extends Component<
 
   onVisibleChange = (open: boolean) => {
     const { keyword } = this.state;
+    if (this.disabled) {
+      return;
+    }
 
     this.setState({
       open,
@@ -177,23 +182,24 @@ export class MenuCascader extends Component<
   };
 
   onKeywordChange = (keyword: string) => {
-    this.setState(
-      { keyword, isSearching: keyword.length > 0 },
-      this.debounceFilterOptions
-    );
+    this.setState({ keyword }, this.filterOptions);
   };
 
-  debounceFilterOptions = debounce(() => {
+  filterOptions = debounce(() => {
     const { keyword, flattenOptions } = this.state;
     const { async, loadOptions, filter } = this.props;
 
     if (keyword) {
       if (async) {
-        loadOptions(null, { keyword, action: 'search' }).then(
-          (searchList: ICascaderSearchItem[]) => {
+        this.setState({ isSearching: true });
+
+        loadOptions(null, { keyword, action: CascaderLoadAction.Search })
+          .then((searchList: ICascaderSearchItem[]) => {
             this.setSearchState(searchList);
-          }
-        );
+          })
+          .finally(() => {
+            this.setState({ isSearching: false });
+          });
       } else {
         const searchList = filter(keyword, flattenOptions) || [];
         this.setSearchState(searchList);
@@ -206,13 +212,12 @@ export class MenuCascader extends Component<
 
     this.setState({
       searchList: limit === false ? searchList : searchList.slice(0, limit),
-      isSearching: false,
     });
   };
 
-  clickHandler: ICascaderHandler<ICascaderItem> = (
+  clickHandler: CascaderHandler<ICascaderItem> = (
     item: ICascaderItem,
-    stage: number,
+    level: number,
     popover,
     triggerType = 'click'
   ) => {
@@ -229,9 +234,9 @@ export class MenuCascader extends Component<
 
     let needClose = false;
 
-    const newValues = activeValue.slice(0, stage - 1) as ICascaderValue[];
+    const newValues = activeValue.slice(0, level - 1) as CascaderValue[];
     newValues.push(item.value);
-    const selectedOptions = arrayTreeFilter(newValues, options);
+    const selectedOptions = getPathInTree(newValues, options);
 
     const obj: Partial<ICascaderState> = {
       activeValue: newValues,
@@ -261,7 +266,9 @@ export class MenuCascader extends Component<
           item.loading = true;
           this.rerender();
 
-          loadOptions(selectedOptions, { action: 'next' }).finally(() => {
+          loadOptions(selectedOptions, {
+            action: CascaderLoadAction.Next,
+          }).finally(() => {
             item.loading = false;
             this.rerender();
           });
@@ -271,14 +278,14 @@ export class MenuCascader extends Component<
           this.props.onChange(
             selectedOptions.map(it => it.value),
             selectedOptions,
-            { action: 'change' }
+            { action: CascaderChangeAction.Change }
           );
         }
       }
     });
   };
 
-  searchClickHandler: ICascaderSearchClickHandler = (
+  searchClickHandler: CascaderSearchClickHandler = (
     items: ICascaderItem[],
     popover
   ) => {
@@ -294,10 +301,10 @@ export class MenuCascader extends Component<
     }
 
     const activeValue = items.map(item => item.value);
-    const stage = items.length;
+    const level = items.length;
 
     this.setState({ activeValue }, () => {
-      this.clickHandler(items[stage - 1], stage, popover);
+      this.clickHandler(items[level - 1], level, popover);
     });
   };
 
@@ -305,7 +312,7 @@ export class MenuCascader extends Component<
     const { multiple, options } = this.props;
 
     if (multiple) {
-      uncheckAllNode(options);
+      uncheckAll(options);
     }
 
     this.setState(
@@ -316,7 +323,7 @@ export class MenuCascader extends Component<
         checkedNodes: [],
       },
       () => {
-        this.props.onChange([], [], { action: 'clear' });
+        this.props.onChange([], [], { action: CascaderChangeAction.Clear });
       }
     );
   };
@@ -324,7 +331,7 @@ export class MenuCascader extends Component<
   scrollLoadMore = (
     closeLoading: () => void,
     parent: ICascaderItem | null,
-    stage: number
+    level: number
   ) => {
     const { loadOptions, options } = this.props;
     // 判断是否要加载更多
@@ -334,32 +341,34 @@ export class MenuCascader extends Component<
     }
 
     const { activeValue } = this.state;
-    const newValues = activeValue.slice(0, stage - 1) as ICascaderValue[];
-    const selectedOptions = arrayTreeFilter(newValues, options);
+    const newValues = activeValue.slice(0, level - 1) as CascaderValue[];
+    const selectedOptions = getPathInTree(newValues, options);
 
-    return loadOptions(selectedOptions, { action: 'scroll' }).then(
-      (hasMore: boolean) => {
-        let { scrollHasMore } = this.state;
+    return loadOptions(selectedOptions, {
+      action: CascaderLoadAction.Scroll,
+    }).then((hasMore: boolean) => {
+      let { scrollHasMore } = this.state;
 
-        if (parent) {
-          parent.hasMore = hasMore;
-        } else {
-          scrollHasMore = hasMore;
-        }
-
-        this.setState({ scrollHasMore });
-        closeLoading && closeLoading();
+      if (parent) {
+        parent.hasMore = hasMore;
+      } else {
+        scrollHasMore = hasMore;
       }
-    );
+
+      this.setState({ scrollHasMore });
+      closeLoading && closeLoading();
+    });
   };
 
   handleChecked = (item: ICascaderItem, checked: boolean) => {
     const { options } = this.props;
-    const checkedNodes = checkedTreeNode(options, item, checked);
+    const checkedNodes = checkTreeNode(options, item, checked);
     const value = checkedNodes.map(list => list.map(node => node.value));
 
     this.setState({ checkedNodes }, () => {
-      this.props.onChange(value, checkedNodes, { action: 'change' });
+      this.props.onChange(value, checkedNodes, {
+        action: CascaderChangeAction.Change,
+      });
     });
   };
 
@@ -370,10 +379,19 @@ export class MenuCascader extends Component<
       // 将节点添加至树中
       appendNodeInTree(options, items);
 
-      linkedTreeNode(options);
+      linkChildrenNode(options);
     }
 
     this.handleChecked(items[items.length - 1], checked);
+  };
+
+  onRemove = (item: ICascaderItem) => {
+    if (this.disabled) {
+      return;
+    }
+
+    // 只有多选情况下才存在移除，即取消叶子节点的选中
+    this.handleChecked(item, false);
   };
 
   getPopoverContent = (i18n: II18nLocaleCascader) => {
@@ -395,7 +413,7 @@ export class MenuCascader extends Component<
     const showSearch = searchable && open && keyword;
 
     return (
-      <PopoverContent>
+      <Popover.Content>
         {showSearch ? (
           <SearchContent
             i18n={i18n}
@@ -419,7 +437,7 @@ export class MenuCascader extends Component<
             handleChecked={this.handleChecked}
           />
         )}
-      </PopoverContent>
+      </Popover.Content>
     );
   };
 
@@ -428,7 +446,7 @@ export class MenuCascader extends Component<
       className,
       popupClassName,
       placeholder,
-      displayRender,
+      renderValue,
       multiple,
       searchable,
       clearable,
@@ -436,7 +454,7 @@ export class MenuCascader extends Component<
       value,
     } = this.props;
     const { open, checkedNodes, activeValue, keyword } = this.state;
-    const selectedOptions = arrayTreeFilter(
+    const selectedOptions = getPathInTree(
       multiple ? activeValue : value,
       options
     );
@@ -444,7 +462,7 @@ export class MenuCascader extends Component<
       className,
       popupClassName,
       placeholder,
-      displayRender,
+      renderValue,
       disabled: this.disabled,
       value,
       selectedOptions,
@@ -457,15 +475,30 @@ export class MenuCascader extends Component<
     };
 
     return (
-      <CascaderTrigger
-        {...passProps}
-        onClear={this.onClear}
-        onVisibleChange={this.onVisibleChange}
-        getPopoverContent={this.getPopoverContent}
-        position={Popover.Position.AutoBottomLeftSticky}
-        onRemove={this.handleChecked}
-        onKeywordChange={this.onKeywordChange}
-      />
+      <Receiver componentName="Cascader">
+        {(i18n: II18nLocaleCascader) => {
+          return (
+            <Popover
+              className={popupClassName}
+              position={Popover.Position.AutoBottomLeftSticky}
+              visible={open}
+              onVisibleChange={this.onVisibleChange}
+              cushion={4}
+            >
+              <Popover.Trigger.Click toggle={!searchable}>
+                <CascaderTrigger
+                  {...passProps}
+                  i18n={i18n}
+                  onClear={this.onClear}
+                  onRemove={this.onRemove}
+                  onKeywordChange={this.onKeywordChange}
+                />
+              </Popover.Trigger.Click>
+              {this.getPopoverContent(i18n)}
+            </Popover>
+          );
+        }}
+      </Receiver>
     );
   }
 }

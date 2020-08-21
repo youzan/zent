@@ -4,28 +4,29 @@ import classnames from 'classnames';
 import Popover from '../../popover';
 import Icon from '../../icon';
 import Checkbox from '../../checkbox';
-import { recursiveNextOptions } from '../common/utils';
+import { findNextOptions } from '../common/utils';
 import {
-  ICascaderHandler,
+  CascaderHandler,
   ICascaderItem,
-  ICascaderValue,
-  ICascaderScrollHandler,
+  CascaderValue,
+  CascaderScrollHandler,
 } from '../types';
 import InfiniteScroller from '../../infinite-scroller';
 import { II18nLocaleCascader } from '../../i18n';
+import BlockLoading from '../../loading/BlockLoading';
 
 const withPopover = Popover.withPopover;
 
 export interface IMenuContentProps {
   className?: string;
-  clickHandler: ICascaderHandler;
-  value: ICascaderValue[] | Array<ICascaderValue[]>;
+  clickHandler: CascaderHandler;
+  value: CascaderValue[] | Array<CascaderValue[]>;
   options: ICascaderItem[];
   expandTrigger?: 'click' | 'hover';
   popover: Popover;
   i18n: II18nLocaleCascader;
   scrollable: boolean;
-  scrollLoadMore: ICascaderScrollHandler;
+  scrollLoadMore: CascaderScrollHandler;
   scrollHasMore: boolean;
   multiple: boolean;
   handleChecked: (item: ICascaderItem, checked: boolean) => void;
@@ -64,7 +65,7 @@ class MenuContent extends Component<IMenuContentProps> {
 
   renderCascaderItems(
     items: ICascaderItem[],
-    stage: number,
+    level: number,
     popover,
     parent: ICascaderItem | null
   ) {
@@ -89,7 +90,7 @@ class MenuContent extends Component<IMenuContentProps> {
     }
 
     const cascaderItems = items.map(item => {
-      const isActive = item.value === value[stage - 1];
+      const isActive = item.value === value[level - 1];
       const cascaderItemCls = classnames('zent-cascader__menu-item', {
         'zent-cascader__menu-item--active': isActive,
         'zent-cascader__menu-item--disabled': item.disabled,
@@ -101,10 +102,10 @@ class MenuContent extends Component<IMenuContentProps> {
         <div
           className={cascaderItemCls}
           title={item.label}
-          onClick={() => clickHandler(item, stage, popover, 'click')}
+          onClick={() => clickHandler(item, level, popover, 'click')}
           onMouseEnter={() =>
             expandTrigger === 'hover' &&
-            clickHandler(item, stage, popover, 'hover')
+            clickHandler(item, level, popover, 'hover')
           }
           key={item.value}
         >
@@ -116,18 +117,22 @@ class MenuContent extends Component<IMenuContentProps> {
     });
 
     return (
-      <div key={stage} className="zent-cascader__menu">
+      <div key={level} className="zent-cascader__menu">
         {scrollable && hasMore ? (
           <InfiniteScroller
             className="zent-cascader__menu-scroller"
             hasMore={hasMore}
             loader={
-              <div className="zent-cascader__scroll-loading">
-                {i18n.loading}
-              </div>
+              <BlockLoading
+                height={32}
+                iconSize={18}
+                loading
+                colorPreset="grey"
+                icon="circle"
+              />
             }
             loadMore={closeLoading =>
-              scrollLoadMore(closeLoading, parent, stage)
+              scrollLoadMore(closeLoading, parent, level)
             }
           >
             {cascaderItems}
@@ -143,20 +148,20 @@ class MenuContent extends Component<IMenuContentProps> {
     const PanelEls = [];
     const { value } = this.props;
     let { options } = this.props;
-    let stage = 1;
+    let level = 1;
 
-    PanelEls.push(this.renderCascaderItems(options, stage, popover, null));
+    PanelEls.push(this.renderCascaderItems(options, level, popover, null));
 
     if (value?.length > 0 && options?.length > 0) {
       for (let i = 0; i < value.length; i++) {
-        stage++;
+        level++;
         // 记录滚动加载的父元素
         const parent = options.find(it => it.value === value[i]);
-        options = recursiveNextOptions(options, value[i] as number);
+        options = findNextOptions(options, value[i] as number);
 
         if (options) {
           PanelEls.push(
-            this.renderCascaderItems(options, stage, popover, parent)
+            this.renderCascaderItems(options, level, popover, parent)
           );
         }
       }

@@ -4,11 +4,12 @@ import Popover from '../../popover';
 import {
   ICascaderItem,
   ICascaderSearchItem,
-  ICascaderSearchClickHandler,
+  CascaderSearchClickHandler,
 } from '../types';
 import { II18nLocaleCascader } from '../../i18n';
 import { Checkbox } from '../../checkbox';
 import cx from 'classnames';
+import BlockLoading from '../../loading/BlockLoading';
 
 const withPopover = Popover.withPopover;
 
@@ -19,7 +20,7 @@ export interface ISearchContentProps {
   handleSearchChecked: (items: ICascaderItem[], checked: boolean) => void;
   isSearching: boolean;
   searchList: ICascaderSearchItem[];
-  searchClickHandler: ICascaderSearchClickHandler;
+  searchClickHandler: CascaderSearchClickHandler;
 }
 
 class SearchContent extends Component<ISearchContentProps> {
@@ -27,7 +28,17 @@ class SearchContent extends Component<ISearchContentProps> {
     const { isSearching, i18n } = this.props;
     return (
       <div className="zent-cascader--search-empty">
-        {isSearching ? i18n.searching : i18n.searchEmpty}
+        {isSearching ? (
+          <BlockLoading
+            height={32}
+            iconSize={18}
+            loading
+            colorPreset="grey"
+            icon="circle"
+          />
+        ) : (
+          i18n.searchEmpty
+        )}
       </div>
     );
   }

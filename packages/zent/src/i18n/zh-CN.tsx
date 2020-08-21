@@ -112,8 +112,6 @@ export const Cascader: II18nLocaleCascader = {
   title: '标题',
   placeholder: '请选择',
   searchPlaceholder: '请选择或输入搜索',
-  loading: '加载中…',
-  searching: '搜索中...',
   searchEmpty: '无搜索结果',
   empty: '无数据',
 };

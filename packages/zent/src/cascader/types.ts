@@ -7,16 +7,16 @@ export interface ICascaderBaseProps<Item = ICascaderItem> {
   placeholder?: string;
   className?: string;
   popupClassName?: string;
-  displayRender?: (selectedOptions: Item[]) => React.ReactNode;
+  renderValue?: (selectedOptions: Item[]) => React.ReactNode;
   disabled?: boolean;
   clearable?: boolean;
 }
 
 export interface IMenuCascaderProps<Item = ICascaderItem>
   extends ICascaderBaseProps {
-  value?: ICascaderValue[] | Array<ICascaderValue[]>;
+  value?: CascaderValue[] | Array<CascaderValue[]>;
   onChange?: (
-    value: ICascaderValue[] | Array<ICascaderValue[]>,
+    value: CascaderValue[] | Array<CascaderValue[]>,
     selectedOptions: Item[] | Array<Item[]>,
     meta: ICascaderChangeMeta
   ) => void;
@@ -24,28 +24,28 @@ export interface IMenuCascaderProps<Item = ICascaderItem>
     selectedOptions: Item[] | null,
     meta: ICascaderLoadMeta
   ) => Promise<ICascaderSearchItem[] | void | boolean>;
-  multiple: boolean;
-  expandTrigger: 'click' | 'hover';
-  scrollable: boolean;
-  searchable: boolean;
-  async: boolean;
-  filter: (keyword: string, options: Array<Item[]>) => ICascaderSearchItem[];
-  limit: number | false;
+  multiple?: boolean;
+  expandTrigger?: 'click' | 'hover';
+  scrollable?: boolean;
+  searchable?: boolean;
+  async?: boolean;
+  filter?: (keyword: string, options: Array<Item[]>) => ICascaderSearchItem[];
+  limit?: number | false;
 }
 
 export interface ITabsCascaderProps<Item = ICascaderItem>
   extends ICascaderBaseProps {
-  value?: ICascaderValue[];
+  value?: CascaderValue[];
   onChange?: (
-    value: ICascaderValue[],
+    value: CascaderValue[],
     selectedOptions: Item[],
     meta: ICascaderChangeMeta
   ) => void;
   loadOptions?: (
     selectedOptions: Item[],
-    meta: { action: 'next' }
+    meta: { action: CascaderLoadAction.Next }
   ) => Promise<void>;
-  title: string[];
+  title?: string[];
 }
 
 export interface ICascaderSearchItem {
@@ -53,7 +53,7 @@ export interface ICascaderSearchItem {
   display: React.ReactNode;
 }
 
-export type ICascaderValue = string | number;
+export type CascaderValue = string | number;
 
 export interface ICascaderItem {
   value: string | number;
@@ -68,29 +68,40 @@ export interface ICascaderItem {
   parent?: ICascaderItem | null;
 }
 
-export type ICascaderHandler<Item = ICascaderItem> = (
+export type CascaderHandler<Item = ICascaderItem> = (
   item: Item,
-  stage: number,
+  level: number,
   popover: Popover,
   trigger?: 'click' | 'hover'
 ) => void;
 
-export type ICascaderSearchClickHandler<Item = ICascaderItem> = (
+export type CascaderSearchClickHandler<Item = ICascaderItem> = (
   items: Item[],
   popover: Popover
 ) => void;
 
+export enum CascaderChangeAction {
+  Clear = 'clear',
+  Change = 'change',
+}
+
 export interface ICascaderChangeMeta {
-  action?: 'clear' | 'change';
+  action: CascaderChangeAction;
+}
+
+export enum CascaderLoadAction {
+  Next = 'next',
+  Scroll = 'scroll',
+  Search = 'search',
 }
 
 export interface ICascaderLoadMeta {
-  action: 'next' | 'scroll' | 'search';
+  action: CascaderLoadAction;
   keyword?: string;
 }
 
-export type ICascaderScrollHandler<Item = ICascaderItem> = (
+export type CascaderScrollHandler<Item = ICascaderItem> = (
   closeLoading: () => void,
   parent: Item | null,
-  stage: number
-) => Promise<unknown>;
+  level: number
+) => Promise<void>;

@@ -6,28 +6,25 @@ export interface ISearchTriggerProps {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-class SearchTrigger extends React.Component<ISearchTriggerProps> {
-  inputRef = React.createRef<HTMLInputElement>();
+function SearchInput(props: ISearchTriggerProps) {
+  const ref = React.useRef<HTMLInputElement>(null);
+  const { placeholder, value, onChange } = props;
 
-  componentDidMount() {
-    this.inputRef.current!.focus({
+  React.useLayoutEffect(() => {
+    ref.current!.focus({
       preventScroll: true,
     });
-  }
+  }, []);
 
-  render() {
-    const { placeholder, value, onChange } = this.props;
-
-    return (
-      <input
-        ref={this.inputRef}
-        placeholder={placeholder}
-        className="zent-cascader--search"
-        value={value}
-        onChange={onChange}
-      />
-    );
-  }
+  return (
+    <input
+      ref={ref}
+      placeholder={placeholder}
+      className="zent-cascader--search"
+      value={value}
+      onChange={onChange}
+    />
+  );
 }
 
-export default SearchTrigger;
+export default React.memo(SearchInput);
