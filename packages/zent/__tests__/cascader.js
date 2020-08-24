@@ -104,7 +104,7 @@ describe('Cascader', () => {
       options,
     });
     wrapper.update();
-    expect(wrapper.find('.zent-cascader--value').text()).toBe(
+    expect(wrapper.find('.zent-cascader--text').text()).toBe(
       'root / son / grandSon'
     );
 
@@ -235,9 +235,7 @@ describe('Cascader', () => {
       <TabsCascader value={value} options={options} renderValue={textFn} />
     );
 
-    expect(wrapper.find('.zent-cascader--value').text()).toBe(
-      'anotherGrandSon'
-    );
+    expect(wrapper.find('.zent-cascader--text').text()).toBe('anotherGrandSon');
   });
 
   it('tabs cascader has default value and options', () => {
@@ -272,7 +270,7 @@ describe('Cascader', () => {
     ];
 
     const wrapper = mount(<TabsCascader value={value} options={options} />);
-    expect(wrapper.find('.zent-cascader--value').text()).toBe(
+    expect(wrapper.find('.zent-cascader--text').text()).toBe(
       'root / anotherSon / anotherGrandSon'
     );
 
@@ -468,7 +466,7 @@ describe('Cascader', () => {
       'click'
     );
     wrapper.update();
-    expect(wrapper.find('.zent-cascader--value').text()).toBe('root');
+    expect(wrapper.find('.zent-cascader--text').text()).toBe('root');
     expect(onChangeMock.mock.calls.length).toBe(1);
 
     // disabled
@@ -477,21 +475,21 @@ describe('Cascader', () => {
       'click'
     );
     wrapper.update();
-    expect(wrapper.find('.zent-cascader--value').text()).toBe('root');
+    expect(wrapper.find('.zent-cascader--text').text()).toBe('root');
 
     simulateRawWithTimers(
       pop.querySelectorAll('.zent-cascader__menu-item')[1],
       'click'
     );
     wrapper.update();
-    expect(wrapper.find('.zent-cascader--value').text()).toBe('root / son');
+    expect(wrapper.find('.zent-cascader--text').text()).toBe('root / son');
 
     simulateRawWithTimers(
       pop.querySelectorAll('.zent-cascader__menu-item')[3],
       'click'
     );
     wrapper.update();
-    expect(wrapper.find('.zent-cascader--value').text()).toBe(
+    expect(wrapper.find('.zent-cascader--text').text()).toBe(
       'root / son / grandSon'
     );
     expect(document.querySelectorAll('.zent-cascader__popup').length).toBe(0);
@@ -548,7 +546,7 @@ describe('Cascader', () => {
       />
     );
 
-    expect(wrapper.find('.zent-cascader--value').text()).toBe('请选择');
+    expect(wrapper.find('.zent-cascader--text').text()).toBe('请选择');
     wrapper.find('.zent-cascader').simulate('click');
     jest.runAllTimers();
 
@@ -560,7 +558,7 @@ describe('Cascader', () => {
     );
     wrapper.update();
 
-    expect(wrapper.find('.zent-cascader--value').text()).toBe('root');
+    expect(wrapper.find('.zent-cascader--text').text()).toBe('root');
     expect(onChangeMock.mock.calls.length).toBe(1);
     expect(pop.querySelectorAll('.zent-tabs-tab').length).toBe(2);
 
@@ -576,7 +574,7 @@ describe('Cascader', () => {
       'click'
     );
     wrapper.update();
-    expect(wrapper.find('.zent-cascader--value').text()).toBe(
+    expect(wrapper.find('.zent-cascader--text').text()).toBe(
       'root / son / grandSon'
     );
     expect(document.querySelectorAll('.zent-cascader__popup').length).toBe(0);
@@ -876,7 +874,7 @@ describe('Cascader', () => {
         pop.querySelectorAll('.zent-cascader--search-item')[0],
         'click'
       );
-      expect(wrapper.find('.zent-cascader--value').text()).toBe(
+      expect(wrapper.find('.zent-cascader--text').text()).toBe(
         'root / anotherSon / anotherGrandSon'
       );
 
