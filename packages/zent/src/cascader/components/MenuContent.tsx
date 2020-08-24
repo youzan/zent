@@ -27,7 +27,7 @@ export interface IMenuContentProps {
   i18n: II18nLocaleCascader;
   scrollable: boolean;
   scrollLoadMore: CascaderScrollHandler;
-  scrollHasMore: boolean;
+  scrollMore: boolean;
   multiple: boolean;
   handleChecked: (item: ICascaderItem, checked: boolean) => void;
 }
@@ -76,11 +76,11 @@ class MenuContent extends Component<IMenuContentProps> {
       expandTrigger,
       i18n,
       scrollLoadMore,
-      scrollHasMore,
+      scrollMore,
       scrollable,
       multiple,
     } = this.props;
-    const hasMore = parent === null ? scrollHasMore : parent.hasMore;
+    const hasMore = parent === null ? scrollMore : parent.hasMore;
 
     if (items.length === 0) {
       return (
@@ -98,17 +98,21 @@ class MenuContent extends Component<IMenuContentProps> {
         'zent-cascader__menu-item--multiple': multiple,
         'zent-cascader__menu-item--leaf': item.isLeaf,
       });
+      const menuItemProps = item.disabled
+        ? {}
+        : {
+            onClick: () => clickHandler(item, level, popover, 'click'),
+            onMouseEnter: () =>
+              expandTrigger === 'hover' &&
+              clickHandler(item, level, popover, 'hover'),
+          };
 
       return (
         <div
           className={cascaderItemCls}
           title={item.label}
-          onClick={() => clickHandler(item, level, popover, 'click')}
-          onMouseEnter={() =>
-            expandTrigger === 'hover' &&
-            clickHandler(item, level, popover, 'hover')
-          }
           key={item.value}
+          {...menuItemProps}
         >
           {this.renderItemCheckbox(item)}
           <span className="zent-cascader__menu-item-label">{item.label}</span>

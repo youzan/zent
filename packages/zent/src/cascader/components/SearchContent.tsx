@@ -63,22 +63,31 @@ class SearchContent extends Component<ISearchContentProps> {
     );
   }
 
+  handleClick(items: ICascaderItem[]) {
+    const { popover, searchClickHandler } = this.props;
+    searchClickHandler(items, popover);
+  }
+
   renderPanels() {
-    const { popover, searchList, searchClickHandler, multiple } = this.props;
+    const { searchList, multiple } = this.props;
 
     return (
       <ul className="zent-cascader--search-list">
         {searchList.map(searchItem => {
           const { items, display } = searchItem;
+          const leafNode = items[items.length - 1];
           const searchItemCls = cx('zent-cascader--search-item', {
             'zent-cascader--search-item--multiple': multiple,
           });
+          const searchItemProps = leafNode.disabled
+            ? {}
+            : { onClick: () => this.handleClick(items) };
 
           return (
             <li
               key={items.map(li => li.value).join('-')}
               className={searchItemCls}
-              onClick={() => searchClickHandler(items, popover)}
+              {...searchItemProps}
             >
               {this.renderItemCheckbox(items)}
               {display}

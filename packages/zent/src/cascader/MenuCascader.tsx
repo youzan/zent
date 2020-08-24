@@ -64,11 +64,11 @@ const defaultSearchFilter = (
 interface ICascaderState {
   value: CascaderValue[] | Array<CascaderValue[]>;
   activeValue: CascaderValue[];
-  // 多选时各子节点的选中状态
-  checkedNodes: Array<ICascaderItem[]>;
-  open: boolean;
+  // 多选时所有选中节点的数据
+  multipleSelected: Array<ICascaderItem[]>;
+  visible: boolean;
   prevProps: IMenuCascaderProps;
-  scrollHasMore: boolean;
+  scrollMore: boolean;
   keyword: string;
   isSearching: boolean;
   flattenOptions: Array<ICascaderItem[]>;
@@ -90,17 +90,17 @@ export class MenuCascader extends Component<
 
     const flattenOptions = searchable && !async ? flattenTree(options) : [];
     const initialActiveValue = multiple && value.length > 0 ? value[0] : value;
-    const checkedNodes = multiple
+    const multipleSelected = multiple
       ? updateTreeState(options, value as Array<CascaderValue[]>)
       : [];
 
     this.state = {
       value,
       activeValue: initialActiveValue,
-      open: false,
+      visible: false,
       prevProps: props,
-      scrollHasMore: props.scrollable,
-      checkedNodes,
+      scrollMore: props.scrollable,
+      multipleSelected,
       keyword: '',
       isSearching: false,
       flattenOptions,
@@ -148,7 +148,7 @@ export class MenuCascader extends Component<
       newState.value = newValue;
 
       if (multiple) {
-        newState.checkedNodes = updateTreeState(
+        newState.multipleSelected = updateTreeState(
           nextProps.options,
           newValue as Array<CascaderValue[]>
         );
@@ -169,15 +169,15 @@ export class MenuCascader extends Component<
     this.setState({});
   }
 
-  onVisibleChange = (open: boolean) => {
+  onVisibleChange = (visible: boolean) => {
     const { keyword } = this.state;
     if (this.disabled) {
       return;
     }
 
     this.setState({
-      open,
-      keyword: open === false ? '' : keyword,
+      visible,
+      keyword: visible === false ? '' : keyword,
     });
   };
 
@@ -221,10 +221,6 @@ export class MenuCascader extends Component<
     popover,
     triggerType = 'click'
   ) => {
-    if (item.disabled) {
-      return;
-    }
-
     const { loadOptions, changeOnSelect, options, multiple } = this.props;
     const { activeValue } = this.state;
     const needLoading =
@@ -319,8 +315,8 @@ export class MenuCascader extends Component<
       {
         value: [],
         activeValue: [],
-        open: false,
-        checkedNodes: [],
+        visible: false,
+        multipleSelected: [],
       },
       () => {
         this.props.onChange([], [], { action: CascaderChangeAction.Clear });
@@ -335,7 +331,7 @@ export class MenuCascader extends Component<
   ) => {
     const { loadOptions, options } = this.props;
     // 判断是否要加载更多
-    const currentHasMore = parent ? parent.hasMore : this.state.scrollHasMore;
+    const currentHasMore = parent ? parent.hasMore : this.state.scrollMore;
     if (currentHasMore === false) {
       return Promise.resolve();
     }
@@ -347,26 +343,26 @@ export class MenuCascader extends Component<
     return loadOptions(selectedOptions, {
       action: CascaderLoadAction.Scroll,
     }).then((hasMore: boolean) => {
-      let { scrollHasMore } = this.state;
+      let { scrollMore } = this.state;
 
       if (parent) {
         parent.hasMore = hasMore;
       } else {
-        scrollHasMore = hasMore;
+        scrollMore = hasMore;
       }
 
-      this.setState({ scrollHasMore });
+      this.setState({ scrollMore });
       closeLoading && closeLoading();
     });
   };
 
   handleChecked = (item: ICascaderItem, checked: boolean) => {
     const { options } = this.props;
-    const checkedNodes = checkTreeNode(options, item, checked);
-    const value = checkedNodes.map(list => list.map(node => node.value));
+    const multipleSelected = checkTreeNode(options, item, checked);
+    const value = multipleSelected.map(list => list.map(node => node.value));
 
-    this.setState({ checkedNodes }, () => {
-      this.props.onChange(value, checkedNodes, {
+    this.setState({ multipleSelected }, () => {
+      this.props.onChange(value, multipleSelected, {
         action: CascaderChangeAction.Change,
       });
     });
@@ -404,13 +400,13 @@ export class MenuCascader extends Component<
     } = this.props;
     const {
       activeValue,
-      scrollHasMore,
-      open,
+      scrollMore,
+      visible,
       keyword,
       isSearching,
       searchList,
     } = this.state;
-    const showSearch = searchable && open && keyword;
+    const showSearch = searchable && visible && keyword;
 
     return (
       <Popover.Content>
@@ -430,7 +426,7 @@ export class MenuCascader extends Component<
             expandTrigger={expandTrigger}
             i18n={i18n}
             scrollable={scrollable}
-            scrollHasMore={scrollHasMore}
+            scrollMore={scrollMore}
             multiple={multiple}
             clickHandler={this.clickHandler}
             scrollLoadMore={this.scrollLoadMore}
@@ -453,7 +449,7 @@ export class MenuCascader extends Component<
       options,
       value,
     } = this.props;
-    const { open, checkedNodes, activeValue, keyword } = this.state;
+    const { visible, multipleSelected, activeValue, keyword } = this.state;
     const selectedOptions = getPathInTree(
       multiple ? activeValue : value,
       options
@@ -466,25 +462,24 @@ export class MenuCascader extends Component<
             <Popover
               className={popupClassName}
               position={Popover.Position.AutoBottomLeftSticky}
-              visible={open}
+              visible={visible}
               onVisibleChange={this.onVisibleChange}
               cushion={4}
             >
               <Popover.Trigger.Click toggle={!searchable}>
                 <CascaderTrigger
                   className={className}
-                  popupClassName={popupClassName}
                   placeholder={placeholder}
                   renderValue={renderValue}
                   disabled={this.disabled}
                   selectedOptions={selectedOptions}
-                  open={open}
+                  visible={visible}
                   clearable={clearable}
                   value={value}
                   i18n={i18n}
                   multiple={multiple}
                   searchable={searchable}
-                  checkedNodes={checkedNodes}
+                  multipleSelected={multipleSelected}
                   keyword={keyword}
                   onClear={this.onClear}
                   onRemove={this.onRemove}

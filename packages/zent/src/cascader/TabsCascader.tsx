@@ -22,7 +22,7 @@ interface ICascaderState {
   activeValue: CascaderValue[];
   activeId: number;
   options: ICascaderItem[];
-  open: boolean;
+  visible: boolean;
   loadingLevel?: number;
   prevProps: ITabsCascaderProps;
 }
@@ -40,7 +40,7 @@ export class TabsCascader extends Component<
       activeValue: value,
       activeId: value.length || 1,
       options: props.options || [],
-      open: false,
+      visible: false,
       prevProps: props,
     };
   }
@@ -55,7 +55,7 @@ export class TabsCascader extends Component<
 
   static getDerivedStateFromProps(
     nextProps: ITabsCascaderProps,
-    { prevProps, open }: ICascaderState
+    { prevProps, visible }: ICascaderState
   ) {
     const newState: Partial<ICascaderState> = {
       prevProps: nextProps,
@@ -65,7 +65,7 @@ export class TabsCascader extends Component<
       newState.options = nextProps.options || [];
     }
 
-    if (!open && !shallowEqual(prevProps.value, nextProps.value)) {
+    if (!visible && !shallowEqual(prevProps.value, nextProps.value)) {
       const newValue = nextProps.value || [];
       Object.assign(newState, {
         value: newValue,
@@ -82,13 +82,13 @@ export class TabsCascader extends Component<
     return disabled;
   }
 
-  onVisibleChange = (open: boolean) => {
+  onVisibleChange = (visible: boolean) => {
     if (this.disabled) {
       return;
     }
 
     this.setState({
-      open,
+      visible,
     });
   };
 
@@ -168,7 +168,7 @@ export class TabsCascader extends Component<
       {
         value: [],
         activeValue: [],
-        open: false,
+        visible: false,
       },
       () => {
         this.props.onChange(null, null, { action: CascaderChangeAction.Clear });
@@ -206,7 +206,7 @@ export class TabsCascader extends Component<
       value,
       options,
     } = this.props;
-    const { open } = this.state;
+    const { visible } = this.state;
     const selectedOptions = getPathInTree(value, options);
 
     return (
@@ -216,19 +216,18 @@ export class TabsCascader extends Component<
             <Popover
               className={popupClassName}
               position={Popover.Position.AutoBottomLeftSticky}
-              visible={open}
+              visible={visible}
               onVisibleChange={this.onVisibleChange}
               cushion={4}
             >
               <Popover.Trigger.Click toggle>
                 <CascaderTrigger
                   className={className}
-                  popupClassName={popupClassName}
                   placeholder={placeholder}
                   renderValue={renderValue}
                   disabled={this.disabled}
                   selectedOptions={selectedOptions}
-                  open={open}
+                  visible={visible}
                   clearable={clearable}
                   value={value}
                   i18n={i18n}

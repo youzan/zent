@@ -174,10 +174,10 @@ export function updateTreeState(
 
   if (values?.length > 0) {
     values.forEach(value => {
-      const checkedNodes = getPathInTree(value, tree);
-      result.push(checkedNodes);
+      const multipleSelected = getPathInTree(value, tree);
+      result.push(multipleSelected);
 
-      const leafNode = checkedNodes[checkedNodes.length - 1];
+      const leafNode = multipleSelected[multipleSelected.length - 1];
 
       // 1. 遍历子节点
       toggleChildren(leafNode, true);

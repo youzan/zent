@@ -12,17 +12,16 @@ import { renderOptionsValue } from '../common/utils';
 interface ITriggerProps<Item = ICascaderItem> {
   disabled?: boolean;
   className?: string;
-  popupClassName?: string;
   placeholder?: string;
   multiple?: boolean;
   searchable?: boolean;
   clearable?: boolean;
-  open: boolean;
+  visible: boolean;
   selectedOptions: Item[];
   value: CascaderValue[] | Array<CascaderValue[]>;
   renderValue?: (selectedOptions: Item[]) => React.ReactNode;
   onClear: () => void;
-  checkedNodes?: Array<Item[]>;
+  multipleSelected?: Array<Item[]>;
   onRemove?: (item: ICascaderItem) => void;
   keyword?: string;
   onKeywordChange?: (keyword: string) => void;
@@ -37,7 +36,7 @@ interface ITriggerState {
 
 export class CascaderTrigger extends Component<ITriggerProps, ITriggerState> {
   static defaultProps = {
-    checkedNodes: [],
+    multipleSelected: [],
   };
 
   state = {
@@ -90,12 +89,12 @@ export class CascaderTrigger extends Component<ITriggerProps, ITriggerState> {
       className,
       placeholder,
       selectedOptions,
-      open,
+      visible,
       searchable,
       renderValue,
       clearable,
       multiple,
-      checkedNodes,
+      multipleSelected,
       onRemove,
       keyword,
       disabled,
@@ -106,7 +105,7 @@ export class CascaderTrigger extends Component<ITriggerProps, ITriggerState> {
     const { active } = this.state;
 
     const notEmpty = multiple
-      ? checkedNodes.length > 0
+      ? multipleSelected.length > 0
       : selectedOptions.length > 0;
     const cascaderDisplay: React.ReactNode = notEmpty
       ? renderValue(selectedOptions)
@@ -116,15 +115,15 @@ export class CascaderTrigger extends Component<ITriggerProps, ITriggerState> {
 
     const cascaderCls = classnames('zent-cascader', className, {
       'zent-cascader--disabled': disabled,
-      'zent-cascader--active': open || active,
-      'zent-cascader--visible': open,
+      'zent-cascader--active': visible || active,
+      'zent-cascader--visible': visible,
       'zent-cascader--multiple': multiple,
     });
 
     const selectTriggerCls = classnames('zent-cascader--text', {
       'zent-cascader--placeholder': !notEmpty,
     });
-    const showSearch = open && searchable;
+    const showSearch = visible && searchable;
     const showClear = clearable && active && (notEmpty || keyword) && !disabled;
     const showLabels = !showSearch && !(multiple && notEmpty);
     const showTags = multiple && notEmpty;
@@ -138,7 +137,7 @@ export class CascaderTrigger extends Component<ITriggerProps, ITriggerState> {
       >
         {showTags && (
           <Tags
-            list={checkedNodes}
+            list={multipleSelected}
             renderValue={renderValue}
             onRemove={onRemove}
           />
