@@ -68,7 +68,8 @@ interface ICascaderLoadMeta {
 | scrollable    | 是否支持滚动加载                         | `bool`                 |    否     | `false`                 |  `true`   |
 | searchable    | 是否显示搜索框                           | `bool`                |    否     | `false`                 |  `true`   |
 | async         | 是否异步搜索                             | `bool`                |    否     | `false`                 | `true`    |
-| filter        | 搜索每一项是否匹配                        | `func`                |    否     | `(keyword: string, options: ICascaderItem[]) => ReactNode`      |         |
+| filter        | 根据关键词进行过滤                         | `func`                |    否     | `(keyword: string, items: ICascaderItem[]) => boolean`      |         |
+| highlight     | 根据关键词高亮每一项                       | `func`                |    否     | `(keyword: string, items: ICascaderItem[]) => ReactNode`      |         |
 | limit         | 搜索结果展示数量                          | `number`              |    否     | `50`                    |         |
 
 

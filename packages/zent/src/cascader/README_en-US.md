@@ -66,7 +66,8 @@ interface ICascaderLoadMeta {
 | scrollable    | Can scroll load data dynamicly        | `bool`                 |    no     | `false`                 |  `true`   |
 | searchable    | Can search                            | `bool`                |    no     | `false`                 |  `true`   |
 | async         | Can async search                      | `bool`                |    no     | `false`                 | `true`    |
-| filter        | Filter options by keyword             | `func`                |    no     | `(keyword: string, options: ICascaderItem[]) => ReactNode`      |         |
+| filter        | Filter options by keyword             | `func`                |    no     | `(keyword: string, items: ICascaderItem[]) => boolean`      |         |
+| highlight     | Highlight options by keyword          | `func`                |    no     | `(keyword: string, items: ICascaderItem[]) => ReactNode`      |         |
 | limit         | Limit search result count             | `number`              |    no     | `50`                    |         |
 
 

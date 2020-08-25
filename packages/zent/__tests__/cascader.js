@@ -899,22 +899,16 @@ describe('Cascader', () => {
         setTimeout(() => {
           const { keyword } = meta;
           const searchList = [
-            {
-              items: [
-                { value: '340000', label: '浙江省' },
-                { value: '340100', label: '杭州市' },
-                { value: '340106', label: `${keyword}-1` },
-              ],
-              display: <span>浙江省 / 杭州市 / {keyword}-1</span>,
-            },
-            {
-              items: [
-                { value: '340000', label: '浙江省' },
-                { value: '340200', label: '温州市' },
-                { value: '340206', label: `${keyword}-2` },
-              ],
-              display: <span>浙江省 / 温州市 / {keyword}-2</span>,
-            },
+            [
+              { value: '340000', label: '浙江省' },
+              { value: '340100', label: '杭州市' },
+              { value: '340106', label: `${keyword}-1` },
+            ],
+            [
+              { value: '340000', label: '浙江省' },
+              { value: '340200', label: '温州市' },
+              { value: '340206', label: `${keyword}-2` },
+            ],
           ];
 
           resolve(searchList);
@@ -980,22 +974,16 @@ describe('Cascader', () => {
         setTimeout(() => {
           const { keyword } = meta;
           const searchList = [
-            {
-              items: [
-                { value: '340000', label: '浙江省' },
-                { value: '340100', label: '杭州市' },
-                { value: '340106', label: `${keyword}-1` },
-              ],
-              display: <span>浙江省 / 杭州市 / {keyword}-1</span>,
-            },
-            {
-              items: [
-                { value: '340000', label: '浙江省' },
-                { value: '340200', label: '温州市' },
-                { value: '340206', label: `${keyword}-2` },
-              ],
-              display: <span>浙江省 / 温州市 / {keyword}-2</span>,
-            },
+            [
+              { value: '340000', label: '浙江省' },
+              { value: '340100', label: '杭州市' },
+              { value: '340106', label: `${keyword}-1` },
+            ],
+            [
+              { value: '340000', label: '浙江省' },
+              { value: '340200', label: '温州市' },
+              { value: '340206', label: `${keyword}-2` },
+            ],
           ];
 
           resolve(searchList);

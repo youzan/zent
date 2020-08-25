@@ -1,11 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react';
 import Popover from '../../popover';
-import {
-  ICascaderItem,
-  ICascaderSearchItem,
-  CascaderSearchClickHandler,
-} from '../types';
+import { ICascaderItem, CascaderSearchClickHandler } from '../types';
 import { II18nLocaleCascader } from '../../i18n';
 import { Checkbox } from '../../checkbox';
 import cx from 'classnames';
@@ -19,8 +15,10 @@ export interface ISearchContentProps {
   multiple: boolean;
   handleSearchOptionChecked: (items: ICascaderItem[], checked: boolean) => void;
   isSearching: boolean;
-  searchList: ICascaderSearchItem[];
+  keyword: string;
+  searchList: Array<ICascaderItem[]>;
   searchClickHandler: CascaderSearchClickHandler;
+  highlight: (keyword: string, items: ICascaderItem[]) => React.ReactNode;
 }
 
 class SearchContent extends Component<ISearchContentProps> {
@@ -69,12 +67,11 @@ class SearchContent extends Component<ISearchContentProps> {
   }
 
   renderPanels() {
-    const { searchList, multiple } = this.props;
+    const { searchList, multiple, highlight, keyword } = this.props;
 
     return (
       <ul className="zent-cascader--search-list">
-        {searchList.map(searchItem => {
-          const { items, display } = searchItem;
+        {searchList.map(items => {
           const leafNode = items[items.length - 1];
           const searchItemCls = cx('zent-cascader--search-item', {
             'zent-cascader--search-item--multiple': multiple,
@@ -90,7 +87,7 @@ class SearchContent extends Component<ISearchContentProps> {
               {...searchItemProps}
             >
               {this.renderItemCheckbox(items)}
-              {display}
+              {highlight(keyword, items)}
             </li>
           );
         })}

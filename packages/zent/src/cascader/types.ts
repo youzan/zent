@@ -23,13 +23,14 @@ export interface IMenuCascaderProps<Item = ICascaderItem>
   loadOptions?: (
     selectedOptions: Item[] | null,
     meta: ICascaderLoadMeta
-  ) => Promise<ICascaderSearchItem[] | void | boolean>;
+  ) => Promise<Array<Item[]> | void | boolean>;
   multiple?: boolean;
   expandTrigger?: 'click' | 'hover';
   scrollable?: boolean;
   searchable?: boolean;
   async?: boolean;
-  filter?: (keyword: string, options: Array<Item[]>) => ICascaderSearchItem[];
+  filter?: (keyword: string, items: Item[]) => boolean;
+  highlight?: (keyword: string, items: Item[]) => React.ReactNode;
   limit?: number | false;
 }
 
@@ -46,11 +47,6 @@ export interface ITabsCascaderProps<Item = ICascaderItem>
     meta: { action: CascaderLoadAction.Next }
   ) => Promise<void>;
   title?: string[];
-}
-
-export interface ICascaderSearchItem {
-  items: ICascaderItem[];
-  display: React.ReactNode;
 }
 
 export type CascaderValue = string | number;

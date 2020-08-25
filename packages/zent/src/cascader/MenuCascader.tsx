@@ -19,7 +19,6 @@ import {
   CascaderHandler,
   CascaderValue,
   IMenuCascaderProps,
-  ICascaderSearchItem,
   CascaderSearchClickHandler,
   CascaderChangeAction,
   CascaderLoadAction,
@@ -32,32 +31,27 @@ import shallowEqual from '../utils/shallowEqual';
 
 const FILTER_TIMEOUT = 200; // ms
 
-const defaultSearchFilter = (
-  keyword: string,
-  options: Array<ICascaderItem[]>
-): ICascaderSearchItem[] => {
-  const filterOptions = options.filter(items =>
-    items.some(item => item.label.indexOf(keyword) !== -1)
+const defaultFilter = (keyword: string, items: ICascaderItem[]): boolean => {
+  return items.some(item =>
+    item.label.toLowerCase().includes(keyword.toLowerCase())
   );
+};
 
-  return filterOptions.map(items => {
-    const display = items.map((item, index) => {
-      return (
-        <span key={index}>
-          <TextMark
-            searchWords={[keyword]}
-            textToHighlight={item.label}
-            highlightClassName="zent-cascader--highlight"
-          />
-          {index !== items.length - 1 && ' / '}
-        </span>
-      );
-    });
-
-    return {
-      items,
-      display,
-    };
+const defaultHighlight = (
+  keyword: string,
+  items: ICascaderItem[]
+): React.ReactNode => {
+  return items.map((item, index) => {
+    return (
+      <span key={index}>
+        <TextMark
+          searchWords={[keyword]}
+          textToHighlight={item.label}
+          highlightClassName="zent-cascader--highlight"
+        />
+        {index !== items.length - 1 && ' / '}
+      </span>
+    );
   });
 };
 
@@ -72,7 +66,7 @@ interface ICascaderState {
   keyword: string;
   isSearching: boolean;
   flattenOptions: Array<ICascaderItem[]>;
-  searchList: ICascaderSearchItem[];
+  searchList: Array<ICascaderItem[]>;
 }
 
 export class MenuCascader extends Component<
@@ -116,7 +110,8 @@ export class MenuCascader extends Component<
     searchable: false,
     async: false,
     limit: 50,
-    filter: defaultSearchFilter,
+    filter: defaultFilter,
+    highlight: defaultHighlight,
   };
 
   static contextType = DisabledContext;
@@ -194,20 +189,21 @@ export class MenuCascader extends Component<
         this.setState({ isSearching: true });
 
         loadOptions(null, { keyword, action: CascaderLoadAction.Search })
-          .then((searchList: ICascaderSearchItem[]) => {
+          .then((searchList: Array<ICascaderItem[]>) => {
             this.setSearchState(searchList);
           })
           .finally(() => {
             this.setState({ isSearching: false });
           });
       } else {
-        const searchList = filter(keyword, flattenOptions) || [];
+        const searchList =
+          flattenOptions.filter(items => filter(keyword, items)) || [];
         this.setSearchState(searchList);
       }
     }
   }, FILTER_TIMEOUT);
 
-  setSearchState = (searchList: ICascaderSearchItem[]) => {
+  setSearchState = (searchList: Array<ICascaderItem[]>) => {
     const { limit } = this.props;
 
     this.setState({
@@ -378,6 +374,7 @@ export class MenuCascader extends Component<
       linkChildrenNode(options);
     }
 
+    this.setState({ keyword: '' });
     this.handleChecked(items[items.length - 1], checked);
   };
 
@@ -397,6 +394,7 @@ export class MenuCascader extends Component<
       scrollable,
       multiple,
       searchable,
+      highlight,
     } = this.props;
     const {
       activeValue,
@@ -416,6 +414,8 @@ export class MenuCascader extends Component<
             multiple={multiple}
             isSearching={isSearching}
             searchList={searchList}
+            keyword={keyword}
+            highlight={highlight}
             handleSearchOptionChecked={this.handleSearchOptionChecked}
             searchClickHandler={this.searchClickHandler}
           />
