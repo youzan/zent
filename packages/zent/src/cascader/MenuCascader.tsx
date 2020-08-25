@@ -11,8 +11,8 @@ import {
   linkChildrenNode,
   uncheckAll,
   updateTreeState,
-  flattenTree,
   appendNodeInTree,
+  flattenTree,
 } from './common/utils';
 import {
   ICascaderItem,
@@ -65,8 +65,8 @@ interface ICascaderState {
   scrollMore: boolean;
   keyword: string;
   isSearching: boolean;
-  flattenOptions: Array<ICascaderItem[]>;
   searchList: Array<ICascaderItem[]>;
+  loading: boolean;
 }
 
 export class MenuCascader extends Component<
@@ -76,29 +76,28 @@ export class MenuCascader extends Component<
   constructor(props) {
     super(props);
     const value = props.value || [];
-    const { multiple, options, searchable, async } = props;
+    const { multiple, options, scrollable } = props;
 
     if (multiple) {
       linkChildrenNode(options);
     }
 
-    const flattenOptions = searchable && !async ? flattenTree(options) : [];
-    const initialActiveValue = multiple && value.length > 0 ? value[0] : value;
+    const activeValue = multiple && value.length > 0 ? value[0] : value;
     const multipleSelected = multiple
       ? updateTreeState(options, value as Array<CascaderValue[]>)
       : [];
 
     this.state = {
       value,
-      activeValue: initialActiveValue,
+      activeValue,
       visible: false,
       prevProps: props,
-      scrollMore: props.scrollable,
+      scrollMore: scrollable,
       multipleSelected,
       keyword: '',
       isSearching: false,
-      flattenOptions,
       searchList: [],
+      loading: false,
     };
   }
 
@@ -124,17 +123,11 @@ export class MenuCascader extends Component<
     const newState: Partial<ICascaderState> = {
       prevProps: nextProps,
     };
-    const { multiple, searchable, async } = nextProps;
+    const { multiple } = nextProps;
 
     if (prevProps.options !== nextProps.options) {
       if (multiple) {
         linkChildrenNode(nextProps.options);
-      }
-
-      if (searchable && !async) {
-        newState.flattenOptions = searchable
-          ? flattenTree(nextProps.options)
-          : [];
       }
     }
 
@@ -160,10 +153,6 @@ export class MenuCascader extends Component<
     return disabled;
   }
 
-  rerender() {
-    this.setState({});
-  }
-
   onVisibleChange = (visible: boolean) => {
     const { keyword } = this.state;
     if (this.disabled) {
@@ -181,8 +170,8 @@ export class MenuCascader extends Component<
   };
 
   filterOptions = debounce(() => {
-    const { keyword, flattenOptions } = this.state;
-    const { async, loadOptions, filter } = this.props;
+    const { keyword } = this.state;
+    const { async, options, loadOptions, filter } = this.props;
 
     if (keyword) {
       if (async) {
@@ -196,8 +185,9 @@ export class MenuCascader extends Component<
             this.setState({ isSearching: false });
           });
       } else {
-        const searchList =
-          flattenOptions.filter(items => filter(keyword, items)) || [];
+        const searchList = flattenTree(options).filter(items =>
+          filter(keyword, items)
+        );
         this.setSearchState(searchList);
       }
     }
@@ -226,12 +216,12 @@ export class MenuCascader extends Component<
 
     let needClose = false;
 
-    const newValues = activeValue.slice(0, level - 1) as CascaderValue[];
-    newValues.push(item.value);
-    const selectedOptions = getPathInTree(newValues, options);
+    const newValue = activeValue.slice(0, level - 1) as CascaderValue[];
+    newValue.push(item.value);
+    const selectedOptions = getPathInTree(newValue, options);
 
-    const obj: Partial<ICascaderState> = {
-      activeValue: newValues,
+    const newState: Partial<ICascaderState> = {
+      activeValue: newValue,
       keyword: '',
     };
 
@@ -249,20 +239,20 @@ export class MenuCascader extends Component<
       needClose || (changeOnSelect && triggerType === 'click');
 
     if (needTriggerChange && !multiple) {
-      obj.value = [...newValues];
+      newState.value = [...newValue];
     }
 
-    this.setState(obj as ICascaderState, () => {
+    this.setState(newState as ICascaderState, () => {
       if (!multiple) {
         if (needLoading) {
           item.loading = true;
-          this.rerender();
+          this.setState({ loading: true });
 
           loadOptions(selectedOptions, {
             action: CascaderLoadAction.Next,
           }).finally(() => {
             item.loading = false;
-            this.rerender();
+            this.setState({ loading: false });
           });
         }
 
@@ -333,8 +323,8 @@ export class MenuCascader extends Component<
     }
 
     const { activeValue } = this.state;
-    const newValues = activeValue.slice(0, level - 1) as CascaderValue[];
-    const selectedOptions = getPathInTree(newValues, options);
+    const newValue = activeValue.slice(0, level - 1) as CascaderValue[];
+    const selectedOptions = getPathInTree(newValue, options);
 
     return loadOptions(selectedOptions, {
       action: CascaderLoadAction.Scroll,

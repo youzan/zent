@@ -164,7 +164,7 @@ export function uncheckAll(tree: ICascaderItem[]) {
 }
 
 /**
- * 多选状态下 - 数据 value 更新树的状态
+ * 更新树所有节点的状态及获取值对应的 options
  */
 export function updateTreeState(
   tree: ICascaderItem[],

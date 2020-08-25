@@ -120,7 +120,7 @@ export class TabsCascader extends Component<
     const selectedOptions = getPathInTree(newValues, options);
     let needClose = false;
 
-    const obj: Partial<ICascaderState> = {
+    const newState: Partial<ICascaderState> = {
       activeValue: newValues,
     };
 
@@ -132,15 +132,15 @@ export class TabsCascader extends Component<
     const needTriggerChange = needClose || changeOnSelect;
 
     if (needTriggerChange) {
-      obj.value = [...newValues];
+      newState.value = [...newValues];
     }
 
     const nextLevel = level + 1;
     if (!needLoading && !needClose) {
-      obj.activeId = nextLevel;
+      newState.activeId = nextLevel;
     }
 
-    this.setState(obj as ICascaderState, () => {
+    this.setState(newState as ICascaderState, () => {
       if (needLoading) {
         this.setState({
           loadingLevel: level,
@@ -156,7 +156,7 @@ export class TabsCascader extends Component<
       }
 
       if (needTriggerChange) {
-        this.props.onChange(obj.value, selectedOptions, {
+        this.props.onChange(newState.value, selectedOptions, {
           action: CascaderChangeAction.Change,
         });
       }

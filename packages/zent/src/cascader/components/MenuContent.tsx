@@ -82,7 +82,7 @@ class MenuContent extends Component<IMenuContentProps> {
     } = this.props;
     const hasMore = parent === null ? scrollMore : parent.hasMore;
 
-    if (items.length === 0) {
+    if (!items || items?.length === 0) {
       return (
         <div className="zent-cascader__menu-empty" key="menu-empty">
           {i18n.empty}
