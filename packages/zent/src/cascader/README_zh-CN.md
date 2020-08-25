@@ -13,6 +13,12 @@ group: 数据
 
 `Cascader` 包含 `MenuCascader` 及 `TabsCascader`，它们大部分 API 是共用的。
 
+### Break Change
+- 不支持 `type` 属性，将 `Cascader` 拆分成了 `MenuCascader` 及 `TabsCascader` 两个组件
+- 数据源 `options` 每一项的数据结构由 `{ id, title }` 更改为 `{ value, label }`
+- 加载数据方法由 `loadMore` 更改为 `loadOptions`
+- 展示值的方法由 `displayText` 更改为 `renderValue`
+
 ### 共用的 API
 
 | 参数         | 说明                                    | 类型                    | 是否必填   | 默认值                   | 备选值 |

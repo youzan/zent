@@ -6,6 +6,7 @@ import { II18nLocaleCascader } from '../../i18n';
 import { Checkbox } from '../../checkbox';
 import cx from 'classnames';
 import BlockLoading from '../../loading/BlockLoading';
+import { getOptionsValue } from '../common/utils';
 
 const withPopover = Popover.withPopover;
 
@@ -82,7 +83,7 @@ class SearchContent extends Component<ISearchContentProps> {
 
           return (
             <li
-              key={items.map(li => li.value).join('-')}
+              key={getOptionsValue(items)}
               className={searchItemCls}
               {...searchItemProps}
             >

@@ -1,4 +1,4 @@
-import { renderOptionsValue } from './utils';
+import { getOptionsLabel } from './utils';
 
 /**
  * 通用的 defaultProps
@@ -10,6 +10,6 @@ export const commonProps = {
   placeholder: '',
   className: '',
   popupClassName: 'zent-cascader__popup',
-  renderValue: renderOptionsValue,
+  renderValue: getOptionsLabel,
   clearable: false,
 };

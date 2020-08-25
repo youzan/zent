@@ -12,6 +12,12 @@ Cascader is used for cascade operation, e.g. cascade location selection.
 
 `Cascader` contains `MenuCascader` and `TabsCascader`, most of their APIS are shared.
 
+### Break Change
+- Not Support `type` API，`Cascader` separate to `MenuCascader` and `TabsCascader`
+- Change `options` each item structure from `{ id, title }` to `{ value, label }`
+- Change fetch otions method from `loadMore` to `loadOptions`
+- Change render item method from `displayText` to `renderValue`
+
 ### Shared APIS
 
 | Props        | Description                            | Type                   | Required   | Default                 | Alternatives |

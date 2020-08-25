@@ -26,7 +26,7 @@ export interface IMenuContentProps {
   popover: Popover;
   i18n: II18nLocaleCascader;
   scrollable: boolean;
-  scrollLoadMore: CascaderScrollHandler;
+  scrollLoad: CascaderScrollHandler;
   scrollMore: boolean;
   multiple: boolean;
   handleChecked: (item: ICascaderItem, checked: boolean) => void;
@@ -75,7 +75,7 @@ class MenuContent extends Component<IMenuContentProps> {
       clickHandler,
       expandTrigger,
       i18n,
-      scrollLoadMore,
+      scrollLoad,
       scrollMore,
       scrollable,
       multiple,
@@ -122,7 +122,10 @@ class MenuContent extends Component<IMenuContentProps> {
     });
 
     return (
-      <div key={level} className="zent-cascader__menu">
+      <div
+        key={`menu-${value.slice(0, level - 1).join('-')}`}
+        className="zent-cascader__menu"
+      >
         {scrollable && hasMore ? (
           <InfiniteScroller
             className="zent-cascader__menu-scroller"
@@ -136,9 +139,7 @@ class MenuContent extends Component<IMenuContentProps> {
                 icon="circle"
               />
             }
-            loadMore={closeLoading =>
-              scrollLoadMore(closeLoading, parent, level)
-            }
+            loadMore={closeLoading => scrollLoad(closeLoading, parent, level)}
           >
             {cascaderItems}
           </InfiniteScroller>
@@ -162,7 +163,7 @@ class MenuContent extends Component<IMenuContentProps> {
         level++;
         // 记录滚动加载的父元素
         const parent = options.find(it => it.value === value[i]);
-        options = findNextOptions(options, value[i] as number);
+        options = findNextOptions(options, value[i]);
 
         if (options) {
           PanelEls.push(

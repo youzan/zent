@@ -7,7 +7,7 @@ import Search from './Search';
 import Tags from './Tags';
 import { ICascaderItem, CascaderValue } from '../types';
 import memoize from '../../utils/memorize-one';
-import { renderOptionsValue } from '../common/utils';
+import { getOptionsLabel } from '../common/utils';
 
 interface ITriggerProps<Item = ICascaderItem> {
   disabled?: boolean;
@@ -56,7 +56,7 @@ export class CascaderTrigger extends Component<ITriggerProps, ITriggerState> {
         return placeholder;
       }
 
-      return renderOptionsValue(selectedOptions);
+      return getOptionsLabel(selectedOptions);
     }
   );
 

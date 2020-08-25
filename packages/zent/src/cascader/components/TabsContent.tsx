@@ -72,7 +72,7 @@ class TabsContent extends Component<ITabsContentProps> {
     const length = value?.length || 0;
 
     for (let i = 0; i < length + 1; i++) {
-      const tabIndex = i + 1;
+      const level = i + 1;
 
       // 获取子节点列表
       if (i > 0) {
@@ -85,11 +85,11 @@ class TabsContent extends Component<ITabsContentProps> {
 
         PanelEls.push(
           <TabPanel
-            tab={this.renderTabTitle(tabTitle, tabIndex)}
-            id={tabIndex}
-            key={tabIndex}
+            tab={this.renderTabTitle(tabTitle, level)}
+            id={level}
+            key={`tab-${value.slice(0, level - 1).join('-')}`}
           >
-            {this.renderCascaderItems(options, tabIndex, popover)}
+            {this.renderCascaderItems(options, level, popover)}
           </TabPanel>
         );
       }

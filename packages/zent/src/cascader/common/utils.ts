@@ -226,8 +226,15 @@ export function appendNodeInTree(
 }
 
 /**
+ * 获取级联项的文本
+ */
+export const getOptionsLabel = memoize((items: ICascaderItem[]): string =>
+  items.map(it => it.label).join(' / ')
+);
+
+/**
  * 获取级联项的值
  */
-export const renderOptionsValue = memoize((items: ICascaderItem[]): string =>
-  items.map(it => it.label).join(' / ')
+export const getOptionsValue = memoize((items: ICascaderItem[]): string =>
+  items.map(it => it.value).join('-')
 );

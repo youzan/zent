@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { ICascaderItem } from '../types';
 import Tag from './Tag';
+import { getOptionsValue } from '../common/utils';
 
 export interface ICascaderTagListProps<Item extends ICascaderItem> {
   list: Array<Item[]>;
@@ -15,7 +16,7 @@ function CascaderTagList(props: ICascaderTagListProps<ICascaderItem>) {
     <>
       {list.map(items => (
         <Tag
-          key={items.map(li => li.value).join('-')}
+          key={getOptionsValue(items)}
           items={items}
           onRemove={onRemove}
           renderValue={renderValue}

@@ -43,7 +43,7 @@ const defaultHighlight = (
 ): React.ReactNode => {
   return items.map((item, index) => {
     return (
-      <span key={index}>
+      <span key={`level${index}-${item.value}`}>
         <TextMark
           searchWords={[keyword]}
           textToHighlight={item.label}
@@ -310,7 +310,7 @@ export class MenuCascader extends Component<
     );
   };
 
-  scrollLoadMore = (
+  scrollLoad = (
     closeLoading: () => void,
     parent: ICascaderItem | null,
     level: number
@@ -419,7 +419,7 @@ export class MenuCascader extends Component<
             scrollMore={scrollMore}
             multiple={multiple}
             clickHandler={this.clickHandler}
-            scrollLoadMore={this.scrollLoadMore}
+            scrollLoad={this.scrollLoad}
             handleChecked={this.handleChecked}
           />
         )}
