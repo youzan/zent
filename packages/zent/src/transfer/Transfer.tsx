@@ -1,21 +1,25 @@
 import * as React from 'react';
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useMemo, useContext } from 'react';
 import cx from 'classnames';
 
-import uniq from '../utils/uniq';
 import pick from '../utils/pick';
 import { TransferColumnType, ITransferItem, TransferType } from './types';
-import { Direction, GridProps } from './constants';
+import { Direction, ListProps } from './constants';
 import TransferItem from './components/TransferItem';
 import ArrowButton from './components/ArrowButton';
-import { getOppositeDirection } from './utils';
+import {
+  getOppositeDirection,
+  getSingleDirectionSelectedKeysExcludeDisabled,
+  getDisabledKeys,
+} from './utils';
+import { DisabledContext } from '../disabled';
 
 export const Transfer: React.FC<TransferType> = ({
   keyName,
   dataSource,
   targetKeys,
   onChange,
-  selectedKeys,
+  selectedKeys: selectedKeysProp,
   onSelectChange,
   titles,
   showSearch,
@@ -23,11 +27,28 @@ export const Transfer: React.FC<TransferType> = ({
   filterOption,
   children,
   list,
+  pagination,
+  disabled: compontentDisabled,
   className,
 }) => {
-  const { columns, ...gridRest } = list;
   const classNamePrefix = 'zent-transfer';
-  const [selectedKeysState, setSelectedKeys] = useState(selectedKeys);
+  const [selectedKeysState, setSelectedKeys] = useState(selectedKeysProp);
+  const { value } = useContext(DisabledContext);
+  const disabled = compontentDisabled ?? value;
+  const disabledKeys = useMemo(() => getDisabledKeys(dataSource, keyName), [
+    dataSource,
+    keyName,
+  ]);
+
+  const getListProps = useCallback(
+    (direction: Direction) => {
+      if (!Array.isArray(list)) {
+        return list;
+      }
+      return Direction.Left === direction ? list[0] : list[1];
+    },
+    [list]
+  );
 
   const getSingleDirectionData = useCallback(
     (direction: Direction) =>
@@ -63,13 +84,14 @@ export const Transfer: React.FC<TransferType> = ({
 
   const getColumns = useCallback(
     (direction: Direction) => {
+      const { columns } = getListProps(direction);
       const col = Direction.Left === direction ? columns?.[0] : columns?.[1];
 
       return (Array.isArray(columns?.[0])
         ? col
         : columns) as TransferColumnType;
     },
-    [columns]
+    [getListProps]
   );
 
   const getRenderList = useCallback(
@@ -94,31 +116,37 @@ export const Transfer: React.FC<TransferType> = ({
           selectedKeys,
           handleSelectChange,
         });
-      return childrenNode ? (
-        childrenNode
-      ) : (
-        <TransferItem
-          title={title}
-          direction={direction}
-          keyName={keyName}
-          dataSets={dataSets}
-          selectedKeys={selectedKeys}
-          handleSelectChange={handleSelectChange}
-          showSearch={showSearch}
-          searchPlaceholder={searchPlaceholder}
-          filterOption={filterOption}
-          list={list}
-          prefix={prefix}
-        />
+      return (
+        childrenNode ?? (
+          <TransferItem
+            title={title}
+            direction={direction}
+            keyName={keyName}
+            dataSets={dataSets}
+            selectedKeys={selectedKeys}
+            handleSelectChange={handleSelectChange}
+            showSearch={showSearch}
+            searchPlaceholder={searchPlaceholder}
+            filterOption={filterOption}
+            list={list}
+            prefix={prefix}
+            pagination={pagination}
+            disabled={disabled}
+          />
+        )
       );
     },
-    [children]
+    [children, pagination, disabled]
   );
 
   const handleTransfer = useCallback(
     (direction: Direction) => () => {
-      const otherDirection = getOppositeDirection(direction);
-      const transferredKeys = getSingleDirectionSelectedKeys(otherDirection);
+      const transferredKeys = getSingleDirectionSelectedKeysExcludeDisabled({
+        direction: getOppositeDirection(direction),
+        selectedKeys: selectedKeysState,
+        targetKeys,
+        disabledKeys,
+      });
       const selectedKeys = selectedKeysState.filter(
         item => !transferredKeys.includes(item)
       );
@@ -134,7 +162,7 @@ export const Transfer: React.FC<TransferType> = ({
         selectedKeys,
       });
     },
-    [getSingleDirectionSelectedKeys, selectedKeysState, targetKeys, onChange]
+    [selectedKeysState, targetKeys, onChange, disabledKeys]
   );
 
   const getArrowButton = useCallback(
@@ -142,8 +170,13 @@ export const Transfer: React.FC<TransferType> = ({
       <div className={`${classNamePrefix}__arrow__item`}>
         <ArrowButton
           disabled={
-            !getSingleDirectionSelectedKeys(getOppositeDirection(direction))
-              .length
+            disabled ||
+            !getSingleDirectionSelectedKeysExcludeDisabled({
+              direction: getOppositeDirection(direction),
+              selectedKeys: selectedKeysState,
+              targetKeys,
+              disabledKeys,
+            }).length
           }
           direction={direction}
           onChange={handleTransfer(direction)}
@@ -151,12 +184,19 @@ export const Transfer: React.FC<TransferType> = ({
         />
       </div>
     ),
-    [handleTransfer, getSingleDirectionSelectedKeys, classNamePrefix]
+    [
+      handleTransfer,
+      classNamePrefix,
+      disabled,
+      targetKeys,
+      selectedKeysState,
+      disabledKeys,
+    ]
   );
 
   useEffect(() => {
-    setSelectedKeys(preState => uniq([...selectedKeys, ...preState]));
-  }, [selectedKeys]);
+    setSelectedKeys(selectedKeysProp);
+  }, [selectedKeysProp]);
 
   return (
     <div className={cx(`${classNamePrefix}`, className)}>
@@ -164,7 +204,9 @@ export const Transfer: React.FC<TransferType> = ({
         title: titles?.[0],
         direction: Direction.Left,
         keyName,
-        dataSets: getSingleDirectionData(Direction.Left),
+        dataSets: useMemo(() => getSingleDirectionData(Direction.Left), [
+          getSingleDirectionData,
+        ]),
         selectedKeys: getSingleDirectionSelectedKeys(Direction.Left),
         handleSelectChange: handleSelectChange(Direction.Left),
         showSearch,
@@ -172,9 +214,11 @@ export const Transfer: React.FC<TransferType> = ({
         filterOption,
         list: {
           columns: getColumns(Direction.Left),
-          ...pick(gridRest, GridProps),
+          ...pick(getListProps(Direction.Left), ListProps),
         },
         prefix: classNamePrefix,
+        pagination,
+        disabled,
       })}
       <div className={`${classNamePrefix}__arrow`}>
         {getArrowButton(Direction.Right)}
@@ -184,7 +228,9 @@ export const Transfer: React.FC<TransferType> = ({
         title: titles?.[1],
         direction: Direction.Right,
         keyName,
-        dataSets: getSingleDirectionData(Direction.Right),
+        dataSets: useMemo(() => getSingleDirectionData(Direction.Right), [
+          getSingleDirectionData,
+        ]),
         selectedKeys: getSingleDirectionSelectedKeys(Direction.Right),
         handleSelectChange: handleSelectChange(Direction.Right),
         showSearch,
@@ -192,9 +238,11 @@ export const Transfer: React.FC<TransferType> = ({
         filterOption,
         list: {
           columns: getColumns(Direction.Right),
-          ...pick(gridRest, GridProps),
+          ...pick(getListProps(Direction.Right), ListProps),
         },
         prefix: classNamePrefix,
+        pagination,
+        disabled,
       })}
     </div>
   );
@@ -207,6 +255,7 @@ Transfer.defaultProps = {
   showSearch: false,
   searchPlaceholder: '',
   className: '',
+  pagination: false,
 };
 
 export default Transfer;

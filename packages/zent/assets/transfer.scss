@@ -11,6 +11,10 @@
     border: 1px solid;
     @include theme-color(border-color, stroke, 5);
 
+    &--disabled {
+      @include theme-color(background-color, stroke, 8);
+    }
+
     &__allCheckbox {
       border-bottom: 1px solid;
       @include theme-color(border-color, stroke, 5);
@@ -35,12 +39,21 @@
           padding-bottom: 8px;
           padding-right: 16px;
         }
+
+        &--disabled {
+          cursor: not-allowed;
+          @include theme-color(background-color, stroke, 8);
+        }
       }
 
       .zent-grid-empty {
         line-height: 240px;
         border: 0;
       }
+    }
+
+    &__pagination {
+      margin: 10px 0;
     }
 
     &__header--hidden {

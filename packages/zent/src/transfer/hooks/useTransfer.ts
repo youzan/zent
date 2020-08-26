@@ -1,13 +1,19 @@
 import { useState, useCallback } from 'react';
 
 import { Direction } from '../constants';
-import { getOppositeDirection } from '../utils';
-import { ITransferHook } from '../types';
+import {
+  getOppositeDirection,
+  getSingleDirectionSelectedKeysExcludeDisabled,
+} from '../utils';
+import { ITransferHookParams, ITransferHookResult } from '../types';
 
-export default function useTransfer(params?: ITransferHook) {
+export default function useTransfer(
+  params?: ITransferHookParams
+): ITransferHookResult {
   const {
     targetKeys: defaultTargetKeys = [],
     selectedKeys: defaultSelectedKeys = [],
+    disabledKeys = [],
   } = params || {};
   const [targetKeys, setTargetKeys] = useState<string[]>(defaultTargetKeys);
   const [selectedKeys, setSelectedKeys] = useState<string[]>(
@@ -24,10 +30,14 @@ export default function useTransfer(params?: ITransferHook) {
     [selectedKeys, targetKeys]
   );
 
-  const onChange = useCallback(
+  const transferKeys = useCallback(
     (direction: Direction) => {
-      const otherDirection = getOppositeDirection(direction);
-      const transferredKeys = getSingleDirectionSelectedKeys(otherDirection);
+      const transferredKeys = getSingleDirectionSelectedKeysExcludeDisabled({
+        direction: getOppositeDirection(direction),
+        selectedKeys,
+        targetKeys,
+        disabledKeys,
+      });
 
       setSelectedKeys(
         selectedKeys.filter(item => !transferredKeys.includes(item))
@@ -38,10 +48,10 @@ export default function useTransfer(params?: ITransferHook) {
           : targetKeys.filter(item => !transferredKeys.includes(item))
       );
     },
-    [getSingleDirectionSelectedKeys, selectedKeys, targetKeys]
+    [selectedKeys, targetKeys, disabledKeys]
   );
 
-  const onSelectChange = useCallback(
+  const changeSelectedKeys = useCallback(
     (direction: Direction, keys: string[]) => {
       setSelectedKeys(
         keys.concat(
@@ -52,10 +62,20 @@ export default function useTransfer(params?: ITransferHook) {
     [getSingleDirectionSelectedKeys]
   );
 
+  const resetSelectedKeys = useCallback((keys: string[]) => {
+    setSelectedKeys(keys);
+  }, []);
+
+  const resetTargetKeys = useCallback((keys: string[]) => {
+    setTargetKeys(keys);
+  }, []);
+
   return {
     targetKeys,
     selectedKeys,
-    onChange,
-    onSelectChange,
+    transferKeys,
+    changeSelectedKeys,
+    resetSelectedKeys,
+    resetTargetKeys,
   };
 }
