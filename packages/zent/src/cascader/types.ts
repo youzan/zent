@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Popover from '../popover';
+import { II18nLocaleCascader } from '../i18n';
 
 export interface ICascaderBaseProps<Item = ICascaderItem> {
   options: Item[];
@@ -100,3 +101,24 @@ export type CascaderScrollHandler<Item = ICascaderItem> = (
   parent: Item | null,
   level: number
 ) => Promise<void>;
+
+export interface ICascaderBaseTriggerProps {
+  disabled?: boolean;
+  className?: string;
+  multiple?: boolean;
+  clearable?: boolean;
+  visible: boolean;
+  onClear: () => void;
+  selectedPaths?: Array<ICascaderItem[]>;
+  keyword?: string;
+  onKeywordChange?: (keyword: string) => void;
+  // 为触发 Popover.Trigger 的 click 事件
+  onClick?: (...args: any[]) => void;
+  children?: React.ReactNode;
+  placeholder?: string;
+  searchable?: boolean;
+  renderValue: (selectedPath: ICascaderItem[]) => React.ReactNode;
+  i18n: II18nLocaleCascader;
+  showLabels?: boolean;
+  hasValue: boolean;
+}

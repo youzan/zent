@@ -1,12 +1,12 @@
 import * as React from 'react';
 
-export interface ISearchTriggerProps {
+export interface ISearchInputProps {
   placeholder?: string;
   value: string;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-function SearchInput(props: ISearchTriggerProps) {
+function SearchInput(props: ISearchInputProps) {
   const ref = React.useRef<HTMLInputElement>(null);
   const { placeholder, value, onChange } = props;
 

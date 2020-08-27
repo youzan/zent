@@ -105,32 +105,30 @@ function updateParentState(parent: ICascaderItem | null) {
   }
 }
 
+function recursiveFlattenTree(
+  list: ICascaderItem[],
+  path: ICascaderItem[]
+): Array<ICascaderItem[]> {
+  let result = [] as Array<ICascaderItem[]>;
+
+  list.forEach(node => {
+    const currentPath = path.concat(node);
+
+    if (Array.isArray(node.children)) {
+      result = result.concat(recursiveFlattenTree(node.children, currentPath));
+    } else {
+      result.push(currentPath);
+    }
+  });
+
+  return result;
+}
+
 /**
  * 平铺树形结构
  * @param tree 树形结构
  */
 export function flattenTree(tree: ICascaderItem[]): Array<ICascaderItem[]> {
-  function recursiveFlattenTree(
-    list: ICascaderItem[],
-    path: ICascaderItem[]
-  ): Array<ICascaderItem[]> {
-    let result = [] as Array<ICascaderItem[]>;
-
-    list.forEach(node => {
-      const currentPath = path.concat(node);
-
-      if (Array.isArray(node.children)) {
-        result = result.concat(
-          recursiveFlattenTree(node.children, currentPath)
-        );
-      } else {
-        result.push(currentPath);
-      }
-    });
-
-    return result;
-  }
-
   return recursiveFlattenTree(tree, []);
 }
 

@@ -12,10 +12,10 @@ import {
   CascaderChangeAction,
   CascaderLoadAction,
 } from './types';
-import CascaderTrigger from './trigger';
 import { getPathInTree } from './common/utils';
 import { DisabledContext, IDisabledContext } from '../disabled';
 import shallowEqual from '../utils/shallowEqual';
+import SingleTrigger from './trigger/SingleTrigger';
 
 interface ICascaderState {
   value: CascaderValue[];
@@ -209,6 +209,7 @@ export class TabsCascader extends Component<
     const { visible } = this.state;
     const selectedPath = getPathInTree(value, options);
     const selectedPaths = selectedPath.length > 0 ? [selectedPath] : [];
+    const hasValue = selectedPaths.length > 0;
 
     return (
       <Receiver componentName="Cascader">
@@ -222,7 +223,7 @@ export class TabsCascader extends Component<
               cushion={4}
             >
               <Popover.Trigger.Click toggle>
-                <CascaderTrigger
+                <SingleTrigger
                   className={className}
                   placeholder={placeholder}
                   renderValue={renderValue}
@@ -233,6 +234,7 @@ export class TabsCascader extends Component<
                   value={value}
                   i18n={i18n}
                   onClear={this.onClear}
+                  hasValue={hasValue}
                 />
               </Popover.Trigger.Click>
               {this.getPopoverContent(i18n)}

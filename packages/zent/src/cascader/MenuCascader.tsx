@@ -4,7 +4,6 @@ import Popover from '../popover';
 import { I18nReceiver as Receiver, II18nLocaleCascader } from '../i18n';
 import MenuContent from './components/MenuContent';
 import { commonProps } from './common/constants';
-import CascaderTrigger from './trigger';
 import {
   getPathInTree,
   checkTreeNode,
@@ -29,6 +28,8 @@ import debounce from '../utils/debounce';
 import TextMark from '../text-mark';
 import { DisabledContext, IDisabledContext } from '../disabled';
 import shallowEqual from '../utils/shallowEqual';
+import MultipleTrigger from './trigger/MultipleTrigger';
+import SingleTrigger from './trigger/SingleTrigger';
 
 const FILTER_DEBOUNCE_TIME = 200; // ms
 
@@ -437,17 +438,34 @@ export class MenuCascader extends Component<
       className,
       popupClassName,
       placeholder,
-      renderValue,
       multiple,
       searchable,
       clearable,
       value,
+      renderValue,
     } = this.props;
     const { visible, selectedPaths, keyword } = this.state;
+    const hasValue = selectedPaths.length > 0;
 
     return (
       <Receiver componentName="Cascader">
         {(i18n: II18nLocaleCascader) => {
+          const triggerCommonProps = {
+            placeholder,
+            disabled: this.disabled,
+            className,
+            clearable,
+            visible,
+            selectedPaths,
+            keyword,
+            searchable,
+            i18n,
+            hasValue,
+            renderValue,
+            onClear: this.onClear,
+            onKeywordChange: this.onKeywordChange,
+          };
+
           return (
             <Popover
               className={popupClassName}
@@ -457,23 +475,17 @@ export class MenuCascader extends Component<
               cushion={4}
             >
               <Popover.Trigger.Click toggle={!searchable}>
-                <CascaderTrigger
-                  className={className}
-                  placeholder={placeholder}
-                  renderValue={renderValue}
-                  disabled={this.disabled}
-                  visible={visible}
-                  clearable={clearable}
-                  value={value}
-                  i18n={i18n}
-                  multiple={multiple}
-                  searchable={searchable}
-                  selectedPaths={selectedPaths}
-                  keyword={keyword}
-                  onClear={this.onClear}
-                  onRemove={this.onRemove}
-                  onKeywordChange={this.onKeywordChange}
-                />
+                {multiple ? (
+                  <MultipleTrigger
+                    {...triggerCommonProps}
+                    onRemove={this.onRemove}
+                  />
+                ) : (
+                  <SingleTrigger
+                    {...triggerCommonProps}
+                    value={value as CascaderValue[]}
+                  />
+                )}
               </Popover.Trigger.Click>
               <Popover.Content>
                 {this.renderPopoverContent(i18n)}
