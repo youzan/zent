@@ -14,16 +14,24 @@ function CascaderTagList(props: ICascaderTagListProps<ICascaderItem>) {
 
   return (
     <>
-      {list.map(items => (
-        <Tag
-          key={getOptionsValue(items)}
-          items={items}
-          onRemove={onRemove}
-          renderValue={renderValue}
-        />
-      ))}
+      {list.map(items => {
+        const removeCallback = (e: React.MouseEvent) => {
+          e.stopPropagation();
+          // 即移除最后一级叶子节点的选中状态
+          onRemove(items[items.length - 1]);
+        };
+
+        return (
+          <Tag
+            key={getOptionsValue(items)}
+            items={items}
+            onRemove={removeCallback}
+            renderValue={renderValue}
+          />
+        );
+      })}
     </>
   );
 }
 
-export default React.memo(CascaderTagList);
+export default CascaderTagList;

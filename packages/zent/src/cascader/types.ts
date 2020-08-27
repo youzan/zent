@@ -15,7 +15,7 @@ export interface ICascaderBaseProps<Item = ICascaderItem> {
 export interface IMenuCascaderProps<Item = ICascaderItem>
   extends ICascaderBaseProps {
   value?: CascaderValue[] | Array<CascaderValue[]>;
-  onChange?: (
+  onChange: (
     value: CascaderValue[] | Array<CascaderValue[]>,
     selectedOptions: Item[] | Array<Item[]>,
     meta: ICascaderChangeMeta
@@ -23,12 +23,13 @@ export interface IMenuCascaderProps<Item = ICascaderItem>
   loadOptions?: (
     selectedOptions: Item[] | null,
     meta: ICascaderLoadMeta
-  ) => Promise<Array<Item[]> | void | boolean>;
+  ) => Promise<void | boolean>;
   multiple?: boolean;
   expandTrigger?: 'click' | 'hover';
   scrollable?: boolean;
   searchable?: boolean;
   async?: boolean;
+  asyncFilter?: (keyword: string) => Promise<Array<Item[]>>;
   filter?: (keyword: string, items: Item[]) => boolean;
   highlight?: (keyword: string, items: Item[]) => React.ReactNode;
   limit?: number | false;
@@ -37,14 +38,14 @@ export interface IMenuCascaderProps<Item = ICascaderItem>
 export interface ITabsCascaderProps<Item = ICascaderItem>
   extends ICascaderBaseProps {
   value?: CascaderValue[];
-  onChange?: (
+  onChange: (
     value: CascaderValue[],
     selectedOptions: Item[],
     meta: ICascaderChangeMeta
   ) => void;
   loadOptions?: (
     selectedOptions: Item[],
-    meta: { action: CascaderLoadAction.Next }
+    meta: { action: CascaderLoadAction.LoadChildren }
   ) => Promise<void>;
   title?: string[];
 }
@@ -86,14 +87,12 @@ export interface ICascaderChangeMeta {
 }
 
 export enum CascaderLoadAction {
-  Next = 'next',
+  LoadChildren = 'loadChildren',
   Scroll = 'scroll',
-  Search = 'search',
 }
 
 export interface ICascaderLoadMeta {
   action: CascaderLoadAction;
-  keyword?: string;
 }
 
 export type CascaderScrollHandler<Item = ICascaderItem> = (

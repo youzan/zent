@@ -27,4 +27,4 @@ function SearchInput(props: ISearchTriggerProps) {
   );
 }
 
-export default React.memo(SearchInput);
+export default SearchInput;

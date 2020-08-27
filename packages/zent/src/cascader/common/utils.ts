@@ -1,5 +1,4 @@
 import { ICascaderItem, CascaderValue } from '../types';
-import memoize from '../../utils/memorize-one';
 
 /**
  * 查找树中某个节点的子节点
@@ -109,25 +108,30 @@ function updateParentState(parent: ICascaderItem | null) {
 /**
  * 平铺树形结构
  * @param tree 树形结构
- * @param sum 暂存的节点层级路径
  */
-export function flattenTree(
-  tree: ICascaderItem[],
-  sum: ICascaderItem[] = []
-): Array<ICascaderItem[]> {
-  let result = [] as Array<ICascaderItem[]>;
+export function flattenTree(tree: ICascaderItem[]): Array<ICascaderItem[]> {
+  function recursiveFlattenTree(
+    list: ICascaderItem[],
+    path: ICascaderItem[]
+  ): Array<ICascaderItem[]> {
+    let result = [] as Array<ICascaderItem[]>;
 
-  tree.forEach(node => {
-    const path = sum.concat(node);
+    list.forEach(node => {
+      const currentPath = path.concat(node);
 
-    if (Array.isArray(node.children)) {
-      result = result.concat(flattenTree(node.children, path));
-    } else {
-      result.push(path);
-    }
-  });
+      if (Array.isArray(node.children)) {
+        result = result.concat(
+          recursiveFlattenTree(node.children, currentPath)
+        );
+      } else {
+        result.push(currentPath);
+      }
+    });
 
-  return result;
+    return result;
+  }
+
+  return recursiveFlattenTree(tree, []);
 }
 
 /**
@@ -174,10 +178,10 @@ export function updateTreeState(
 
   if (values?.length > 0) {
     values.forEach(value => {
-      const multipleSelected = getPathInTree(value, tree);
-      result.push(multipleSelected);
+      const nodePath = getPathInTree(value, tree);
+      result.push(nodePath);
 
-      const leafNode = multipleSelected[multipleSelected.length - 1];
+      const leafNode = nodePath[nodePath.length - 1];
 
       // 1. 遍历子节点
       toggleChildren(leafNode, true);
@@ -228,13 +232,11 @@ export function appendNodeInTree(
 /**
  * 获取级联项的文本
  */
-export const getOptionsLabel = memoize((items: ICascaderItem[]): string =>
-  items.map(it => it.label).join(' / ')
-);
+export const getOptionsLabel = (items: ICascaderItem[]): string =>
+  items.map(it => it.label).join(' / ');
 
 /**
  * 获取级联项的值
  */
-export const getOptionsValue = memoize((items: ICascaderItem[]): string =>
-  items.map(it => it.value).join('-')
-);
+export const getOptionsValue = (items: ICascaderItem[]): string =>
+  items.map(it => it.value).join('-');

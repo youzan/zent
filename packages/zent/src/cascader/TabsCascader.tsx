@@ -145,14 +145,14 @@ export class TabsCascader extends Component<
         this.setState({
           loadingLevel: level,
         });
-        loadOptions(selectedOptions, { action: CascaderLoadAction.Next }).then(
-          () => {
-            this.setState({
-              activeId: nextLevel,
-              loadingLevel: null, // 标识取消 loading 状态
-            });
-          }
-        );
+        loadOptions(selectedOptions, {
+          action: CascaderLoadAction.LoadChildren,
+        }).then(() => {
+          this.setState({
+            activeId: nextLevel,
+            loadingLevel: null, // 标识取消 loading 状态
+          });
+        });
       }
 
       if (needTriggerChange) {
@@ -207,7 +207,8 @@ export class TabsCascader extends Component<
       options,
     } = this.props;
     const { visible } = this.state;
-    const selectedOptions = getPathInTree(value, options);
+    const selectedPath = getPathInTree(value, options);
+    const selectedPaths = selectedPath.length > 0 ? [selectedPath] : [];
 
     return (
       <Receiver componentName="Cascader">
@@ -215,7 +216,7 @@ export class TabsCascader extends Component<
           return (
             <Popover
               className={popupClassName}
-              position={Popover.Position.AutoBottomLeftSticky}
+              position={Popover.Position.AutoBottomLeftInViewport}
               visible={visible}
               onVisibleChange={this.onVisibleChange}
               cushion={4}
@@ -226,7 +227,7 @@ export class TabsCascader extends Component<
                   placeholder={placeholder}
                   renderValue={renderValue}
                   disabled={this.disabled}
-                  selectedOptions={selectedOptions}
+                  selectedPaths={selectedPaths}
                   visible={visible}
                   clearable={clearable}
                   value={value}

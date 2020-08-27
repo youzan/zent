@@ -1,18 +1,18 @@
 import getViewportSize from '../../utils/dom/getViewportSize';
 import { BottomLeft } from './bottom-left';
-import { BottomLeftSticky } from './bottom-left-sticky';
+import { BottomLeftInViewport } from './bottom-left-in-viewport';
 import { TopLeft } from './top-left';
-import { TopLeftSticky } from './top-left-sticky';
+import { TopLeftInViewport } from './top-left-in-viewport';
 import { IPositionFunction } from '../position-function';
 
 const positionMap: Record<string, IPositionFunction> = {
   BottomLeft,
-  BottomLeftSticky,
+  BottomLeftInViewport,
   TopLeft,
-  TopLeftSticky,
+  TopLeftInViewport,
 };
 
-export const AutoBottomLeftSticky: IPositionFunction = props => {
+export const AutoBottomLeftInViewport: IPositionFunction = props => {
   const { contentRect, cushion, anchorRect } = props;
   const viewport = getViewportSize();
 
@@ -23,7 +23,7 @@ export const AutoBottomLeftSticky: IPositionFunction = props => {
   if (viewport.width - anchorRect.left > contentRect.width) {
     horizontal = 'Left';
   } else {
-    horizontal = 'LeftSticky';
+    horizontal = 'LeftInViewport';
   }
 
   // 只有当下面放不下，并且上面能够放下时才移动到上面

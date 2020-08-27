@@ -4,7 +4,7 @@ import Icon from '../../icon';
 
 export interface ICascaderTagProps<Item extends ICascaderItem> {
   items: Item[];
-  onRemove(item: Item): void;
+  onRemove(e: React.MouseEvent): void;
   renderValue?: (items: Item[]) => React.ReactNode;
 }
 
@@ -17,14 +17,10 @@ function CascaderTag(props: ICascaderTagProps<ICascaderItem>) {
       <Icon
         type="close"
         className="zent-cascader--tag-close"
-        onClick={e => {
-          e.stopPropagation();
-          // 即移除最后一级叶子节点的选中状态
-          onRemove(items[items.length - 1]);
-        }}
+        onClick={onRemove}
       />
     </div>
   );
 }
 
-export default React.memo(CascaderTag);
+export default CascaderTag;

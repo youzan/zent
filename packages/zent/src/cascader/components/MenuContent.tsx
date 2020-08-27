@@ -27,7 +27,7 @@ export interface IMenuContentProps {
   i18n: II18nLocaleCascader;
   scrollable: boolean;
   scrollLoad: CascaderScrollHandler;
-  scrollMore: boolean;
+  firstLevelHasMore: boolean;
   multiple: boolean;
   handleChecked: (item: ICascaderItem, checked: boolean) => void;
 }
@@ -76,11 +76,11 @@ class MenuContent extends Component<IMenuContentProps> {
       expandTrigger,
       i18n,
       scrollLoad,
-      scrollMore,
+      firstLevelHasMore,
       scrollable,
       multiple,
     } = this.props;
-    const hasMore = parent === null ? scrollMore : parent.hasMore;
+    const hasMore = parent === null ? firstLevelHasMore : parent.hasMore;
 
     if (!items || items?.length === 0) {
       return (

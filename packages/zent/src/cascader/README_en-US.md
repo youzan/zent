@@ -12,27 +12,21 @@ Cascader is used for cascade operation, e.g. cascade location selection.
 
 `Cascader` contains `MenuCascader` and `TabsCascader`, most of their APIS are shared.
 
-### Break Change
-- Not Support `type` API，`Cascader` separate to `MenuCascader` and `TabsCascader`
-- Change `options` each item structure from `{ id, title }` to `{ value, label }`
-- Change fetch otions method from `loadMore` to `loadOptions`
-- Change render item method from `displayText` to `renderValue`
-
 ### Shared APIS
 
 | Props        | Description                            | Type                   | Required   | Default                 | Alternatives |
 | ------------ | -------------------------------------- | ---------------------- | --------  | -------------------- -- | -------- |
-| value        | Selected value                         | `CascaderValue[]`     |    no     | `[]`                      |         |
-| options      | Optional data source                   | `ICascaderItem[]`     |    yes     | `[]`                      |         |
-| onChange     | Callback when data changes             | `func`                |    no     |  `(value: CascaderValue[], selectedOptions: ICascaderItem[], meta: ICascaderChangeMeta) => void`          |         |
-| loadOptions  | Function to load data dynamicly, must return a Promise         | `func`                 |    no     | `(selectedOptions: ICascaderItem[], meta: ICascaderLoadMeta) => Promise<options>`        |         |
-| changeOnSelect  | Trigger onChange on each selection        | `bool`                |    no     |  `false`                  | `true`   |
-| placeholder  |  Placeholder text of input box               | `string`              |    no     |  `Please choose`          |         |
-| className    |  Custom classname                      | `string`              |    no     |                           |         |
-| popupClassName  | Custom classname of popover         | `string`               |    no     |  `zent-cascader__popup`  |         |
-| renderValue   | Render option value                    | `func`                 |    no     |  `selectedOptions: ICascaderItem[] =>  selectedOptions.map(option => option.label).join(' / ')`                    |         |
-| disabled     |  Disable cascader                       | `bool`                 |    no     |  `false`                 | `true`  |
-| clearable    |  Show clear button                      | `bool`                 |    no     |  `false`                 | `true`        |
+| value        | Selected value                         | `CascaderValue[]`     |    No     | `[]`                      |         |
+| options      | Optional data source                   | `ICascaderItem[]`     |    Yes     | `[]`                      |         |
+| onChange     | Callback when data changes             | `(value: CascaderValue[], selectedOptions: ICascaderItem[], meta: ICascaderChangeMeta) => void`                |    No     |     -          |         |
+| loadOptions  | Function to load data dynamicly, must return a Promise         |  `(selectedOptions: ICascaderItem[], meta: ICascaderLoadMeta) => Promise<void | boolean>`                |    No     |     -    |         |
+| changeOnSelect  | Trigger onChange on each selection        | `bool`                |    No     |  `false`                  | `true`   |
+| placeholder  |  Placeholder text of input box               | `string`              |    No     |  `Please choose`          |         |
+| className    |  Custom classname                      | `string`              |    No     |                           |         |
+| popupClassName  | Custom classname of popover         | `string`               |    No     |  `zent-cascader__popup`  |         |
+| renderValue   | Render option value                    | `(selectedOptions: ICascaderItem[]) =>  string`                |    No     |    `selectedOptions =>  selectedOptions.map(option => option.label).join(' / ')`   |         |
+| disabled     |  Disable cascader                       | `bool`                 |    No     |  `false`                 | `true`  |
+| clearable    |  Show clear button                      | `bool`                 |    No     |  `false`                 | `true`        |
 
 
 #### ICascaderItem
@@ -59,7 +53,6 @@ interface ICascaderChangeMeta {
 ```ts
 interface ICascaderLoadMeta {
   action: CascaderLoadAction;
-  keyword?: string;
 }
 ```
 
@@ -67,14 +60,15 @@ interface ICascaderLoadMeta {
 
 | Props        | Description                            | Type                   | Required   | Default                | Alternatives |
 | ------------ | -------------------------------------- | ---------------------- | --------  | -------------------- -- | -------- |
-| multiple     | Multiple                              | `bool`                 |    no     | `false`                 | `true`   |
-| expandTrigger | Secondary menu expand trigger type    | `string`               |    no     | `click`                 |  `hover`  |
-| scrollable    | Can scroll load data dynamicly        | `bool`                 |    no     | `false`                 |  `true`   |
-| searchable    | Can search                            | `bool`                |    no     | `false`                 |  `true`   |
-| async         | Can async search                      | `bool`                |    no     | `false`                 | `true`    |
-| filter        | Filter options by keyword             | `func`                |    no     | `(keyword: string, items: ICascaderItem[]) => boolean`      |         |
-| highlight     | Highlight options by keyword          | `func`                |    no     | `(keyword: string, items: ICascaderItem[]) => ReactNode`      |         |
-| limit         | Limit search result count             | `number`              |    no     | `50`                    |         |
+| multiple     | Multiple                              | `bool`                 |    No     | `false`                 | `true`   |
+| expandTrigger | Secondary menu expand trigger type    | `string`               |    No     | `click`                 |  `hover`  |
+| scrollable    | Can scroll load data dynamicly        | `bool`                 |    No     | `false`                 |  `true`   |
+| searchable    | Can search                            | `bool`                |    No     | `false`                 |  `true`   |
+| async         | Can async search                      | `bool`                |    No     | `false`                 | `true`    |
+| asyncFilter   | Async filter by keyword               | `(keyword: string) => Promise<Array<ICascaderItem[]>>`                        |    No     |    -      |         |
+| filter        | Filter options by keyword             | `(keyword: string, items: ICascaderItem[]) => boolean`                |    No     |   -    |         |
+| highlight     | Highlight options by keyword          | `(keyword: string, items: ICascaderItem[]) => ReactNode`              |    No     |   -      |         |
+| limit         | Limit search result count             | `number`              |    No     | `50`                    |         |
 
 
 - When `multiple` is `true`，onChange params such as value  and selectedOptions are double dimensional array
@@ -84,4 +78,4 @@ interface ICascaderLoadMeta {
 
 | Props        | Description                            | Type                   | Required   | Default                | Alternatives |
 | ------------ | -------------------------------------- | ---------------------- | --------  | -------------------- -- | -------- |
-| title        | Title of tab                           | `ReactNode[]`          |    no     |  `[]`                   |          |
+| title        | Title of tab                           | `ReactNode[]`          |    No     |  `[]`                   |          |

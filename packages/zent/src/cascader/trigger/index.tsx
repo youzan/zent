@@ -17,11 +17,10 @@ interface ITriggerProps<Item = ICascaderItem> {
   searchable?: boolean;
   clearable?: boolean;
   visible: boolean;
-  selectedOptions: Item[];
   value: CascaderValue[] | Array<CascaderValue[]>;
-  renderValue?: (selectedOptions: Item[]) => React.ReactNode;
+  renderValue?: (selectedPath: Item[]) => React.ReactNode;
   onClear: () => void;
-  multipleSelected?: Array<Item[]>;
+  selectedPaths?: Array<Item[]>;
   onRemove?: (item: ICascaderItem) => void;
   keyword?: string;
   onKeywordChange?: (keyword: string) => void;
@@ -36,7 +35,7 @@ interface ITriggerState {
 
 export class CascaderTrigger extends Component<ITriggerProps, ITriggerState> {
   static defaultProps = {
-    multipleSelected: [],
+    selectedPaths: [],
   };
 
   state = {
@@ -46,7 +45,7 @@ export class CascaderTrigger extends Component<ITriggerProps, ITriggerState> {
   getSearchPlaceholder = memoize(
     (
       i18n: II18nLocaleCascader,
-      selectedOptions: ICascaderItem[],
+      selectedPaths: Array<ICascaderItem[]>,
       value: CascaderValue[] | Array<CascaderValue[]>,
       multiple: boolean
     ): string => {
@@ -56,7 +55,7 @@ export class CascaderTrigger extends Component<ITriggerProps, ITriggerState> {
         return placeholder;
       }
 
-      return getOptionsLabel(selectedOptions);
+      return getOptionsLabel(selectedPaths[0]);
     }
   );
 
@@ -88,13 +87,12 @@ export class CascaderTrigger extends Component<ITriggerProps, ITriggerState> {
     const {
       className,
       placeholder,
-      selectedOptions,
       visible,
       searchable,
       renderValue,
       clearable,
       multiple,
-      multipleSelected,
+      selectedPaths,
       onRemove,
       keyword,
       disabled,
@@ -104,11 +102,9 @@ export class CascaderTrigger extends Component<ITriggerProps, ITriggerState> {
     } = this.props;
     const { active } = this.state;
 
-    const notEmpty = multiple
-      ? multipleSelected.length > 0
-      : selectedOptions.length > 0;
+    const notEmpty = selectedPaths.length > 0;
     const cascaderDisplay: React.ReactNode = notEmpty
-      ? renderValue(selectedOptions)
+      ? renderValue(selectedPaths[0])
       : searchable
       ? i18n.searchPlaceholder
       : placeholder || i18n.placeholder;
@@ -137,7 +133,7 @@ export class CascaderTrigger extends Component<ITriggerProps, ITriggerState> {
       >
         {showTags && (
           <Tags
-            list={multipleSelected}
+            list={selectedPaths}
             renderValue={renderValue}
             onRemove={onRemove}
           />
@@ -149,7 +145,7 @@ export class CascaderTrigger extends Component<ITriggerProps, ITriggerState> {
           <Search
             placeholder={this.getSearchPlaceholder(
               i18n,
-              selectedOptions,
+              selectedPaths,
               value,
               multiple
             )}

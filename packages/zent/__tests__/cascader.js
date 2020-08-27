@@ -894,10 +894,9 @@ describe('Cascader', () => {
     let options = [];
 
     let wrapper;
-    const loadOptions = (_, meta) =>
+    const asyncFilter = keyword =>
       new Promise(resolve => {
         setTimeout(() => {
-          const { keyword } = meta;
           const searchList = [
             [
               { value: '340000', label: '浙江省' },
@@ -925,7 +924,7 @@ describe('Cascader', () => {
       <MenuCascader
         value={value}
         options={options}
-        loadOptions={loadOptions}
+        asyncFilter={asyncFilter}
         onChange={onChangeMock}
         clearable
         searchable
@@ -969,10 +968,9 @@ describe('Cascader', () => {
     let options = [];
 
     let wrapper;
-    const loadOptions = (_, meta) =>
+    const asyncFilter = keyword =>
       new Promise(resolve => {
         setTimeout(() => {
-          const { keyword } = meta;
           const searchList = [
             [
               { value: '340000', label: '浙江省' },
@@ -1000,7 +998,7 @@ describe('Cascader', () => {
       <MenuCascader
         value={value}
         options={options}
-        loadOptions={loadOptions}
+        asyncFilter={asyncFilter}
         onChange={onChangeMock}
         clearable
         searchable

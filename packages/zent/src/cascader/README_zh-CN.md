@@ -13,25 +13,19 @@ group: 数据
 
 `Cascader` 包含 `MenuCascader` 及 `TabsCascader`，它们大部分 API 是共用的。
 
-### Break Change
-- 不支持 `type` 属性，将 `Cascader` 拆分成了 `MenuCascader` 及 `TabsCascader` 两个组件
-- 数据源 `options` 每一项的数据结构由 `{ id, title }` 更改为 `{ value, label }`
-- 加载数据方法由 `loadMore` 更改为 `loadOptions`
-- 展示值的方法由 `displayText` 更改为 `renderValue`
-
 ### 共用的 API
 
 | 参数         | 说明                                    | 类型                    | 是否必填   | 默认值                   | 备选值 |
 | ------------ | -------------------------------------- | ---------------------- | --------  | -------------------- -- | -------- |
 | value        | 级联的选中值                             | `CascaderValue[]`     |    否     | `[]`                      |         |
 | options      | 可选项数据源                             | `ICascaderItem[]`     |    是     | `[]`                      |         |
-| onChange     | 选择完成后的回调                          | `func`                |    否     |  `(value: CascaderValue[], selectedOptions: ICascaderItem[], meta: ICascaderChangeMeta) => void`          |         |
-| loadOptions  | 动态加载级联的数据                        | `func`                 |    否     | `(selectedOptions: ICascaderItem[], meta: ICascaderLoadMeta) => Promise<options>`        |         |
+| onChange     | 选择完成后的回调                          | `(value: CascaderValue[], selectedOptions: ICascaderItem[], meta: ICascaderChangeMeta) => void`      |    是     |    -       |         |
+| loadOptions  | 动态加载级联的数据                        | `(selectedOptions: ICascaderItem[], meta: ICascaderLoadMeta) => Promise<void | boolean>`                        |    否     |    -      |         |
 | changeOnSelect  | 是否选择即时触发改变                    | `bool`                |    否     |  `false`                  | `true`   |
 | placeholder  |  输入框占位文本                           | `string`              |    否     |  `请选择`                  |         |
 | className    |  自定义额外类名                           | `string`              |    否     |                           |         |
 | popupClassName  | popover 自定义类名                    | `string`               |    否     |  `zent-cascader__popup`  |         |
-| renderValue   | 渲染输入框中选项值                    | `func`                    |    否     |  `selectedOptions: ICascaderItem[] =>  selectedOptions.map(option => option.label).join(' / ')`                    |         |
+| renderValue   | 渲染输入框中选项值                       | `(selectedOptions: ICascaderItem[]) =>  string`   |    否     |  `selectedOptions =>  selectedOptions.map(option => option.label).join(' / ')`                    |         |
 | disabled     |  是否禁用                                | `bool`                 |    否     |  `false`                 | `true`  |
 | clearable    |  显示清除按钮                             | `bool`                 |    否     |  `false`                 | `true`        |
 
@@ -60,7 +54,6 @@ interface ICascaderChangeMeta {
 ```ts
 interface ICascaderLoadMeta {
   action: CascaderLoadAction;
-  keyword?: string;
 }
 ```
 
@@ -74,13 +67,14 @@ interface ICascaderLoadMeta {
 | scrollable    | 是否支持滚动加载                         | `bool`                 |    否     | `false`                 |  `true`   |
 | searchable    | 是否显示搜索框                           | `bool`                |    否     | `false`                 |  `true`   |
 | async         | 是否异步搜索                             | `bool`                |    否     | `false`                 | `true`    |
-| filter        | 根据关键词进行过滤                         | `func`                |    否     | `(keyword: string, items: ICascaderItem[]) => boolean`      |         |
-| highlight     | 根据关键词高亮每一项                       | `func`                |    否     | `(keyword: string, items: ICascaderItem[]) => ReactNode`      |         |
+| asyncFilter   | 根据关键词异步搜索                        | `(keyword: string) => Promise<Array<ICascaderItem[]>>`                        |    否     |    -      |         |
+| filter        | 根据关键词进行过滤                         | `(keyword: string, items: ICascaderItem[]) => boolean`        |    否     |   -    |         |
+| highlight     | 根据关键词高亮每一项                       | `(keyword: string, items: ICascaderItem[]) => ReactNode`      |    否     |   -    |         |
 | limit         | 搜索结果展示数量                          | `number`              |    否     | `50`                    |         |
 
 
 - 当 `multiple` 为 `true` 时，`onChange` 中的 `value` 及 `selectedOptions` 为二维数组
-- 参数 `scrollable` 与当前节点的 `hasMore` 属性组合可判断它的子节点是否可滚动加载
+- 组件参数 `scrollable` 与节点的 `hasMore` 属性组合可判断它的子节点是否可滚动加载，第一个层级由于无父节点，默认有更多数据
 
 ### TabsCascader
 
