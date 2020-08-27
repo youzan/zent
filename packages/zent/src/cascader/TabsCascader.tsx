@@ -231,7 +231,6 @@ export class TabsCascader extends Component<
                   selectedPaths={selectedPaths}
                   visible={visible}
                   clearable={clearable}
-                  value={value}
                   i18n={i18n}
                   onClear={this.onClear}
                   hasValue={hasValue}

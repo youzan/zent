@@ -441,7 +441,6 @@ export class MenuCascader extends Component<
       multiple,
       searchable,
       clearable,
-      value,
       renderValue,
     } = this.props;
     const { visible, selectedPaths, keyword } = this.state;
@@ -481,10 +480,7 @@ export class MenuCascader extends Component<
                     onRemove={this.onRemove}
                   />
                 ) : (
-                  <SingleTrigger
-                    {...triggerCommonProps}
-                    value={value as CascaderValue[]}
-                  />
+                  <SingleTrigger {...triggerCommonProps} />
                 )}
               </Popover.Trigger.Click>
               <Popover.Content>

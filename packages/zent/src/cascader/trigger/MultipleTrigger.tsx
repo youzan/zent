@@ -29,6 +29,7 @@ export class MultipleTrigger extends Component<IMultipleTriggerProps> {
       i18n,
       hasValue,
       searchable,
+      placeholder,
       onClick,
       onClear,
       onKeywordChange,
@@ -40,6 +41,7 @@ export class MultipleTrigger extends Component<IMultipleTriggerProps> {
 
     return (
       <BaseTrigger
+        placeholder={placeholder}
         disabled={disabled}
         className={className}
         multiple
@@ -52,6 +54,7 @@ export class MultipleTrigger extends Component<IMultipleTriggerProps> {
         onClick={onClick}
         i18n={i18n}
         renderValue={renderValue}
+        searchable={searchable}
         hasValue={hasValue}
         showLabels={!showTags && !showSearch}
       >

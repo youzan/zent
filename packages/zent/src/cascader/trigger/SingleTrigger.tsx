@@ -2,18 +2,12 @@ import * as React from 'react';
 import { Component } from 'react';
 import BaseTrigger from './BaseTrigger';
 import { II18nLocaleCascader } from '../../i18n';
-import {
-  ICascaderItem,
-  CascaderValue,
-  ICascaderBaseTriggerProps,
-} from '../types';
+import { ICascaderItem, ICascaderBaseTriggerProps } from '../types';
 import memoize from '../../utils/memorize-one';
 import { getOptionsLabel } from '../common/utils';
 import Search from './Search';
 
-interface ISingleTriggerProps extends ICascaderBaseTriggerProps {
-  value: CascaderValue[];
-}
+interface ISingleTriggerProps extends ICascaderBaseTriggerProps {}
 
 export class SingleTrigger extends Component<ISingleTriggerProps> {
   static defaultProps = {
@@ -23,12 +17,11 @@ export class SingleTrigger extends Component<ISingleTriggerProps> {
   getSearchPlaceholder = memoize(
     (
       i18n: II18nLocaleCascader,
-      selectedPaths: Array<ICascaderItem[]>,
-      value: CascaderValue[] | Array<CascaderValue[]>
+      selectedPaths: Array<ICascaderItem[]>
     ): string => {
       const placeholder = i18n.searchPlaceholder;
 
-      if (!value?.length) {
+      if (!selectedPaths?.length) {
         return placeholder;
       }
 
@@ -49,9 +42,9 @@ export class SingleTrigger extends Component<ISingleTriggerProps> {
       keyword,
       disabled,
       i18n,
-      value,
       hasValue,
       searchable,
+      placeholder,
       onClick,
       onClear,
       onKeywordChange,
@@ -74,10 +67,12 @@ export class SingleTrigger extends Component<ISingleTriggerProps> {
         renderValue={renderValue}
         showLabels={!showSearch}
         hasValue={hasValue}
+        placeholder={placeholder}
+        searchable={searchable}
       >
         {showSearch && (
           <Search
-            placeholder={this.getSearchPlaceholder(i18n, selectedPaths, value)}
+            placeholder={this.getSearchPlaceholder(i18n, selectedPaths)}
             value={keyword}
             onChange={this.onKeywordChange}
           />
