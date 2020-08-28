@@ -60,8 +60,7 @@ const CircleProgress: React.FC<IProgressInstanceProps> = props => {
             cx={mid}
             cy={mid}
             r={radius}
-            stroke={color}
-            strokeWidth={strokeWidth}
+            style={{ stroke: color, strokeWidth }}
             strokeDasharray={circumference}
             strokeDashoffset={offset}
           />
