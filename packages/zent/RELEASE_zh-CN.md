@@ -8,6 +8,10 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 8.5.7(2020-08-28)
+
+- 🦀️ 修复 `Progress` 组件 `circle` 类型的 `normalColor`，`successColor`，`exceptionColor` 和 `strokeWidth` 不生效问题
+
 ### 8.5.6(2020-08-21)
 
 - 🦀️ 修复 `Slider` 值超出范围的问题
