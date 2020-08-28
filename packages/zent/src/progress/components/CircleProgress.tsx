@@ -80,7 +80,6 @@ const CircleProgress: React.FC<IProgressInstanceProps> = props => {
         <div
           className="zent-progress-info"
           style={{
-            lineHeight: `${progressWidth}px`,
             color,
           }}
         >
