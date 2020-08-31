@@ -4,7 +4,7 @@ import BaseTrigger from './BaseTrigger';
 import { II18nLocaleCascader } from '../../i18n';
 import { ICascaderItem, ICascaderBaseTriggerProps } from '../types';
 import memoize from '../../utils/memorize-one';
-import { getOptionsLabel } from '../common/utils';
+import { getOptionsLabel } from '../utils';
 import Search from './Search';
 
 interface ISingleTriggerProps extends ICascaderBaseTriggerProps {}

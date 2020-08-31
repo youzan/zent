@@ -3,7 +3,7 @@ import { Component } from 'react';
 import Popover from '../popover';
 import { I18nReceiver as Receiver, II18nLocaleCascader } from '../i18n';
 import MenuContent from './components/MenuContent';
-import { commonProps } from './common/constants';
+import { commonProps } from './constants';
 import {
   getPathInTree,
   checkTreeNode,
@@ -13,7 +13,7 @@ import {
   appendNodeInTree,
   flattenTree,
   getOptionsValue,
-} from './common/utils';
+} from './utils';
 import {
   ICascaderItem,
   CascaderHandler,
@@ -209,7 +209,7 @@ export class MenuCascader extends Component<
   clickHandler: CascaderHandler<ICascaderItem> = (
     item: ICascaderItem,
     level: number,
-    popover,
+    closePopup,
     triggerType = 'click'
   ) => {
     const { loadOptions, changeOnSelect, options, multiple } = this.props;
@@ -236,7 +236,7 @@ export class MenuCascader extends Component<
       !multiple
     ) {
       needClose = true;
-      popover.close();
+      closePopup();
     }
 
     // 是否需要触发 props.onChange，选择即改变时最后一级需要点击触发浮层关闭
@@ -274,7 +274,7 @@ export class MenuCascader extends Component<
 
   searchClickHandler: CascaderSearchClickHandler = (
     items: ICascaderItem[],
-    popover
+    closePopup
   ) => {
     const { multiple, options, async } = this.props;
 
@@ -291,7 +291,7 @@ export class MenuCascader extends Component<
     const level = items.length;
 
     this.setState({ activeValue }, () => {
-      this.clickHandler(items[level - 1], level, popover);
+      this.clickHandler(items[level - 1], level, closePopup);
     });
   };
 
@@ -315,11 +315,7 @@ export class MenuCascader extends Component<
     );
   };
 
-  scrollLoad = (
-    closeLoading: () => void,
-    parent: ICascaderItem | null,
-    level: number
-  ) => {
+  scrollLoad = (parent: ICascaderItem | null, level: number) => {
     const { loadOptions, options } = this.props;
     // 判断是否要加载更多
     const currentHasMore = parent
@@ -345,7 +341,6 @@ export class MenuCascader extends Component<
       }
 
       this.setState({ firstLevelHasMore });
-      closeLoading && closeLoading();
     });
   };
 
@@ -426,7 +421,7 @@ export class MenuCascader extends Component<
         scrollable={scrollable}
         firstLevelHasMore={firstLevelHasMore}
         multiple={multiple}
-        clickHandler={this.clickHandler}
+        onClick={this.clickHandler}
         scrollLoad={this.scrollLoad}
         handleChecked={this.handleChecked}
       />

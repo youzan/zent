@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Popover from '../popover';
 import { II18nLocaleCascader } from '../i18n';
 
 export interface ICascaderBaseProps<Item = ICascaderItem> {
@@ -69,13 +68,13 @@ export interface ICascaderItem {
 export type CascaderHandler<Item = ICascaderItem> = (
   item: Item,
   level: number,
-  popover: Popover,
+  closePopup: () => void,
   trigger?: 'click' | 'hover'
 ) => void;
 
 export type CascaderSearchClickHandler<Item = ICascaderItem> = (
   items: Item[],
-  popover: Popover
+  closePopup: () => void
 ) => void;
 
 export enum CascaderChangeAction {
@@ -97,7 +96,6 @@ export interface ICascaderLoadMeta {
 }
 
 export type CascaderScrollHandler<Item = ICascaderItem> = (
-  closeLoading: () => void,
   parent: Item | null,
   level: number
 ) => Promise<void>;

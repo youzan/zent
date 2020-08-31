@@ -3,7 +3,7 @@ import { Component } from 'react';
 import Popover from '../popover';
 import { I18nReceiver as Receiver, II18nLocaleCascader } from '../i18n';
 import TabsContent from './components/TabsContent';
-import { commonProps } from './common/constants';
+import { commonProps } from './constants';
 import {
   ITabsCascaderProps,
   ICascaderItem,
@@ -12,7 +12,7 @@ import {
   CascaderChangeAction,
   CascaderLoadAction,
 } from './types';
-import { getPathInTree } from './common/utils';
+import { getPathInTree } from './utils';
 import { DisabledContext, IDisabledContext } from '../disabled';
 import shallowEqual from '../utils/shallowEqual';
 import SingleTrigger from './trigger/SingleTrigger';
@@ -106,7 +106,7 @@ export class TabsCascader extends Component<
   clickHandler: CascaderHandler = (
     item: ICascaderItem,
     level: number,
-    popover
+    closePopup
   ) => {
     const { loadOptions, options, changeOnSelect } = this.props;
     const { activeValue } = this.state;
@@ -126,7 +126,7 @@ export class TabsCascader extends Component<
 
     if (!(item.children || item.isLeaf === false)) {
       needClose = true;
-      popover.close();
+      closePopup();
     }
 
     const needTriggerChange = needClose || changeOnSelect;
@@ -186,7 +186,7 @@ export class TabsCascader extends Component<
           i18n={i18n}
           value={activeValue}
           loadingLevel={loadingLevel}
-          clickHandler={this.clickHandler}
+          onClick={this.clickHandler}
           activeId={activeId}
           onTabsChange={this.onTabsChange}
           title={title}

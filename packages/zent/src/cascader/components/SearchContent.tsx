@@ -1,17 +1,19 @@
 import * as React from 'react';
-import { Component } from 'react';
+import cx from 'classnames';
+
 import Popover from '../../popover';
 import { ICascaderItem, CascaderSearchClickHandler } from '../types';
 import { II18nLocaleCascader } from '../../i18n';
 import { Checkbox } from '../../checkbox';
-import cx from 'classnames';
 import BlockLoading from '../../loading/BlockLoading';
-import { getOptionsValue } from '../common/utils';
+import { getOptionsValue } from '../utils';
 
 const withPopover = Popover.withPopover;
 
 export interface ISearchContentProps {
+  // injected by withPopover
   popover: Popover;
+
   i18n: II18nLocaleCascader;
   multiple: boolean;
   handleSearchOptionChecked: (items: ICascaderItem[], checked: boolean) => void;
@@ -22,7 +24,9 @@ export interface ISearchContentProps {
   highlight: (keyword: string, items: ICascaderItem[]) => React.ReactNode;
 }
 
-class SearchContent extends Component<ISearchContentProps> {
+class SearchContent extends React.Component<ISearchContentProps> {
+  closePopup = () => this.props.popover?.close();
+
   renderSearchingOrEmpty() {
     const { isSearching, i18n } = this.props;
     return (
@@ -64,7 +68,7 @@ class SearchContent extends Component<ISearchContentProps> {
 
   handleClick(items: ICascaderItem[]) {
     const { popover, searchClickHandler } = this.props;
-    searchClickHandler(items, popover);
+    searchClickHandler(items, this.closePopup);
   }
 
   renderPanels() {
@@ -109,6 +113,4 @@ class SearchContent extends Component<ISearchContentProps> {
   }
 }
 
-export default withPopover(
-  SearchContent as React.ComponentType<ISearchContentProps>
-);
+export default withPopover(SearchContent);

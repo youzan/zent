@@ -1,4 +1,4 @@
-import { ICascaderItem, CascaderValue } from '../types';
+import { ICascaderItem, CascaderValue } from './types';
 
 /**
  * 查找树中某个节点的子节点

@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import Popover from '../../popover';
 import Icon from '../../icon';
 import Checkbox from '../../checkbox';
-import { findNextOptions } from '../common/utils';
+import { findNextOptions } from '../utils';
 import {
   CascaderHandler,
   ICascaderItem,
@@ -18,12 +18,14 @@ import BlockLoading from '../../loading/BlockLoading';
 const withPopover = Popover.withPopover;
 
 export interface IMenuContentProps {
+  // injected by withPopover
+  popover: Popover;
+
   className?: string;
-  clickHandler: CascaderHandler;
+  onClick: CascaderHandler;
   value: CascaderValue[] | Array<CascaderValue[]>;
   options: ICascaderItem[];
   expandTrigger?: 'click' | 'hover';
-  popover: Popover;
   i18n: II18nLocaleCascader;
   scrollable: boolean;
   scrollLoad: CascaderScrollHandler;
@@ -33,7 +35,9 @@ export interface IMenuContentProps {
 }
 
 class MenuContent extends Component<IMenuContentProps> {
-  getMenuItemIcon(item, isActive) {
+  closePopup = () => this.props.popover?.close();
+
+  getMenuItemIcon(item: ICascaderItem, isActive: boolean) {
     if (item.children || item.isLeaf === false) {
       if (item.loading && isActive) {
         return <i className="zent-cascader__menu-item-loading zenticon" />;
@@ -67,21 +71,9 @@ class MenuContent extends Component<IMenuContentProps> {
   renderCascaderItems(
     items: ICascaderItem[],
     level: number,
-    popover,
     parent: ICascaderItem | null
   ) {
-    const {
-      value,
-      clickHandler,
-      expandTrigger,
-      i18n,
-      scrollLoad,
-      firstLevelHasMore,
-      scrollable,
-      multiple,
-    } = this.props;
-    const hasMore = parent === null ? firstLevelHasMore : parent.hasMore;
-
+    const { i18n } = this.props;
     if (!items || items?.length === 0) {
       return (
         <div className="zent-cascader__menu-empty" key="menu-empty">
@@ -90,6 +82,17 @@ class MenuContent extends Component<IMenuContentProps> {
       );
     }
 
+    const {
+      value,
+      onClick: clickHandler,
+      expandTrigger,
+      scrollLoad,
+      firstLevelHasMore,
+      scrollable,
+      multiple,
+    } = this.props;
+
+    const hasMore = parent === null ? firstLevelHasMore : parent.hasMore;
     const cascaderItems = items.map(item => {
       const isActive = item.value === value[level - 1];
       const cascaderItemCls = classnames('zent-cascader__menu-item', {
@@ -101,10 +104,10 @@ class MenuContent extends Component<IMenuContentProps> {
       const menuItemProps = item.disabled
         ? {}
         : {
-            onClick: () => clickHandler(item, level, popover, 'click'),
+            onClick: () => clickHandler(item, level, this.closePopup, 'click'),
             onMouseEnter: () =>
               expandTrigger === 'hover' &&
-              clickHandler(item, level, popover, 'hover'),
+              clickHandler(item, level, this.closePopup, 'hover'),
           };
 
       return (
@@ -139,7 +142,7 @@ class MenuContent extends Component<IMenuContentProps> {
                 icon="circle"
               />
             }
-            loadMore={closeLoading => scrollLoad(closeLoading, parent, level)}
+            loadMore={() => scrollLoad(parent, level)}
           >
             {cascaderItems}
           </InfiniteScroller>
@@ -150,13 +153,13 @@ class MenuContent extends Component<IMenuContentProps> {
     );
   }
 
-  renderPanels(popover) {
+  renderPanels() {
     const PanelEls = [];
     const { value } = this.props;
     let { options } = this.props;
     let level = 1;
 
-    PanelEls.push(this.renderCascaderItems(options, level, popover, null));
+    PanelEls.push(this.renderCascaderItems(options, level, null));
 
     if (value?.length > 0 && options?.length > 0) {
       for (let i = 0; i < value.length; i++) {
@@ -166,9 +169,7 @@ class MenuContent extends Component<IMenuContentProps> {
         options = findNextOptions(options, value[i]);
 
         if (options) {
-          PanelEls.push(
-            this.renderCascaderItems(options, level, popover, parent)
-          );
+          PanelEls.push(this.renderCascaderItems(options, level, parent));
         }
       }
     }
@@ -177,15 +178,12 @@ class MenuContent extends Component<IMenuContentProps> {
   }
 
   render() {
-    const { popover } = this.props;
     return (
       <div className="zent-cascader__popup-inner zent-cascader__popup-inner-menu">
-        {this.renderPanels(popover)}
+        {this.renderPanels()}
       </div>
     );
   }
 }
 
-export default withPopover(
-  MenuContent as React.ComponentType<IMenuContentProps>
-);
+export default withPopover(MenuContent);

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ICascaderItem } from '../types';
 import Tag from './Tag';
-import { getOptionsValue } from '../common/utils';
+import { getOptionsValue } from '../utils';
 
 export interface ICascaderTagsProps<Item extends ICascaderItem> {
   list: Array<Item[]>;

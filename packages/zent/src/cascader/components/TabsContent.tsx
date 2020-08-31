@@ -3,7 +3,7 @@ import { Component } from 'react';
 import classnames from 'classnames';
 import Popover from '../../popover';
 import Tabs, { ITabPanelElement, ITabPanelProps } from '../../tabs';
-import { findNextOptions } from '../common/utils';
+import { findNextOptions } from '../utils';
 import { CascaderHandler, CascaderValue, ICascaderItem } from '../types';
 import { II18nLocaleCascader } from '../../i18n';
 
@@ -11,13 +11,15 @@ const TabPanel = Tabs.TabPanel;
 const withPopover = Popover.withPopover;
 
 interface ITabsContentProps {
+  // injected by withPopover
+  popover: Popover;
+
   className?: string;
-  clickHandler: CascaderHandler;
+  onClick: CascaderHandler;
   value: CascaderValue[];
   options: ICascaderItem[];
   // 正在加载中的层级，从 1 开始计数
   loadingLevel: number;
-  popover: Popover;
   activeId: number;
   onTabsChange: (id: number) => void;
   title: React.ReactNode[];
@@ -25,9 +27,10 @@ interface ITabsContentProps {
 }
 
 class TabsContent extends Component<ITabsContentProps> {
-  renderCascaderItems(items: ICascaderItem[], level: number, popover: Popover) {
-    const { value, clickHandler } = this.props;
+  closePopup = () => this.props.popover?.close();
 
+  renderCascaderItems(items: ICascaderItem[], level: number, popover: Popover) {
+    const { value, onClick: clickHandler } = this.props;
     const cascaderItems = items.map(item => {
       const cascaderItemCls = classnames('zent-cascader__list-link', {
         'zent-cascader__list-link--active': item.value === value[level - 1],
@@ -38,7 +41,7 @@ class TabsContent extends Component<ITabsContentProps> {
           <span
             className={cascaderItemCls}
             title={item.label}
-            onClick={() => clickHandler(item, level, popover)}
+            onClick={() => clickHandler(item, level, this.closePopup)}
           >
             {item.label}
           </span>
@@ -116,6 +119,4 @@ class TabsContent extends Component<ITabsContentProps> {
   }
 }
 
-export default withPopover(
-  TabsContent as React.ComponentType<ITabsContentProps>
-);
+export default withPopover(TabsContent);
