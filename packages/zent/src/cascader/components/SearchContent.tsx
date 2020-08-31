@@ -67,7 +67,7 @@ class SearchContent extends React.Component<ISearchContentProps> {
   }
 
   handleClick(items: ICascaderItem[]) {
-    const { popover, searchClickHandler } = this.props;
+    const { searchClickHandler } = this.props;
     searchClickHandler(items, this.closePopup);
   }
 
