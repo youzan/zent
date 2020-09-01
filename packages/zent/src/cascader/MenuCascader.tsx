@@ -277,7 +277,7 @@ export class MenuCascader extends React.Component<
     });
   };
 
-  searchClickHandler: CascaderSearchClickHandler = (
+  onSearchOptionClick: CascaderSearchClickHandler = (
     items: ICascaderItem[],
     closePopup
   ) => {
@@ -361,7 +361,7 @@ export class MenuCascader extends React.Component<
     });
   };
 
-  handleSearchOptionChecked = (items: ICascaderItem[], checked: boolean) => {
+  toggleSearchOption = (items: ICascaderItem[], checked: boolean) => {
     const { options, async } = this.props;
 
     if (async) {
@@ -411,8 +411,8 @@ export class MenuCascader extends React.Component<
           searchList={searchList}
           keyword={keyword}
           highlight={highlight}
-          handleSearchOptionChecked={this.handleSearchOptionChecked}
-          searchClickHandler={this.searchClickHandler}
+          onOptionToggle={this.toggleSearchOption}
+          onOptionClick={this.onSearchOptionClick}
         />
       );
     }

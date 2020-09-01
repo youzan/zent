@@ -14,18 +14,23 @@ export interface ISearchContentProps {
   // injected by withPopover
   popover: Popover;
 
-  i18n: II18nLocaleCascader;
   multiple: boolean;
-  handleSearchOptionChecked: (items: ICascaderItem[], checked: boolean) => void;
+  onOptionToggle: (items: ICascaderItem[], checked: boolean) => void;
+  onOptionClick: CascaderSearchClickHandler;
   isSearching: boolean;
   keyword: string;
   searchList: Array<ICascaderItem[]>;
-  searchClickHandler: CascaderSearchClickHandler;
   highlight: (keyword: string, items: ICascaderItem[]) => React.ReactNode;
+  i18n: II18nLocaleCascader;
 }
 
 class SearchContent extends React.Component<ISearchContentProps> {
   closePopup = () => this.props.popover?.close();
+
+  onOptionClick(items: ICascaderItem[]) {
+    const { onOptionClick: searchClickHandler } = this.props;
+    searchClickHandler(items, this.closePopup);
+  }
 
   renderSearchingOrEmpty() {
     const { isSearching, i18n } = this.props;
@@ -46,31 +51,6 @@ class SearchContent extends React.Component<ISearchContentProps> {
     );
   }
 
-  renderItemCheckbox(items: ICascaderItem[]) {
-    const { multiple } = this.props;
-    const item = items[items.length - 1];
-
-    if (!multiple) {
-      return null;
-    }
-
-    return (
-      <Checkbox
-        value={item.value}
-        onChange={e =>
-          this.props.handleSearchOptionChecked(items, e.target.checked)
-        }
-        checked={item.checked}
-        disabled={item.disabled}
-      ></Checkbox>
-    );
-  }
-
-  handleClick(items: ICascaderItem[]) {
-    const { searchClickHandler } = this.props;
-    searchClickHandler(items, this.closePopup);
-  }
-
   renderPanels() {
     const { searchList, multiple, highlight, keyword } = this.props;
 
@@ -81,17 +61,25 @@ class SearchContent extends React.Component<ISearchContentProps> {
           const searchItemCls = cx('zent-cascader--search-item', {
             'zent-cascader--search-item--multiple': multiple,
           });
-          const searchItemProps = leafNode.disabled
-            ? {}
-            : { onClick: () => this.handleClick(items) };
 
           return (
             <li
               key={getOptionsValue(items)}
               className={searchItemCls}
-              {...searchItemProps}
+              onClick={
+                leafNode.disabled ? undefined : () => this.onOptionClick(items)
+              }
             >
-              {this.renderItemCheckbox(items)}
+              {multiple && (
+                <Checkbox
+                  value={leafNode.value}
+                  onChange={e =>
+                    this.props.onOptionToggle(items, e.target.checked)
+                  }
+                  checked={leafNode.checked}
+                  disabled={leafNode.disabled}
+                />
+              )}
               {highlight(keyword, items)}
             </li>
           );
