@@ -1,20 +1,19 @@
 import * as React from 'react';
+import cx from 'classnames';
 
 import Popover from '../popover';
 import { I18nReceiver as Receiver, II18nLocaleCascader } from '../i18n';
+import { DisabledContext, IDisabledContext } from '../disabled';
+import shallowEqual from '../utils/shallowEqual';
 import TabsContent from './components/TabsContent';
-import { commonProps } from './constants';
 import {
   ITabsCascaderProps,
   ICascaderItem,
-  CascaderHandler,
+  CascaderTabsClickHandler,
   CascaderValue,
   CascaderChangeAction,
-  CascaderLoadAction,
 } from './types';
-import { getPathInTree } from './utils';
-import { DisabledContext, IDisabledContext } from '../disabled';
-import shallowEqual from '../utils/shallowEqual';
+import { getPathInTree, getOptionsLabel } from './utils';
 import { SingleTrigger } from './trigger/SingleTrigger';
 
 interface ICascaderState {
@@ -31,9 +30,19 @@ export class TabsCascader extends React.Component<
   ITabsCascaderProps,
   ICascaderState
 > {
+  static defaultProps = {
+    value: [],
+    options: [],
+    changeOnSelect: false,
+    renderValue: getOptionsLabel,
+    clearable: false,
+    title: [],
+  };
+
   constructor(props: ITabsCascaderProps) {
     super(props);
-    const value = props.value || [];
+
+    const { value } = props;
 
     this.state = {
       value,
@@ -44,11 +53,6 @@ export class TabsCascader extends React.Component<
       prevProps: props,
     };
   }
-
-  static defaultProps = {
-    ...commonProps,
-    title: [],
-  };
 
   static contextType = DisabledContext;
   context!: IDisabledContext;
@@ -103,7 +107,7 @@ export class TabsCascader extends React.Component<
    * @param item 点击的节点
    * @param level 当前的层级，从 1 开始计数
    */
-  clickHandler: CascaderHandler = (
+  onClick: CascaderTabsClickHandler = (
     item: ICascaderItem,
     level: number,
     closePopup
@@ -145,9 +149,7 @@ export class TabsCascader extends React.Component<
         this.setState({
           loadingLevel: level,
         });
-        loadOptions(selectedOptions, {
-          action: CascaderLoadAction.LoadChildren,
-        }).then(() => {
+        loadOptions(selectedOptions).then(() => {
           this.setState({
             activeId: nextLevel,
             loadingLevel: null, // 标识取消 loading 状态
@@ -186,7 +188,7 @@ export class TabsCascader extends React.Component<
           i18n={i18n}
           value={activeValue}
           loadingLevel={loadingLevel}
-          onClick={this.clickHandler}
+          onClick={this.onClick}
           activeId={activeId}
           onTabsChange={this.onTabsChange}
           title={title}
@@ -216,7 +218,7 @@ export class TabsCascader extends React.Component<
         {(i18n: II18nLocaleCascader) => {
           return (
             <Popover
-              className={popupClassName}
+              className={cx('zent-cascader__popup', popupClassName)}
               position={Popover.Position.AutoBottomLeftInViewport}
               visible={visible}
               onVisibleChange={this.onVisibleChange}

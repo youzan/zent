@@ -1,8 +1,9 @@
 import * as React from 'react';
+import cx from 'classnames';
+
 import Popover from '../popover';
 import { I18nReceiver as Receiver, II18nLocaleCascader } from '../i18n';
 import MenuContent from './components/MenuContent';
-import { commonProps } from './constants';
 import {
   getPathInTree,
   checkTreeNode,
@@ -12,6 +13,7 @@ import {
   appendNodeInTree,
   flattenTree,
   getOptionsValue,
+  getOptionsLabel,
 } from './utils';
 import {
   ICascaderItem,
@@ -103,13 +105,17 @@ export class MenuCascader extends React.Component<
   }
 
   static defaultProps = {
-    ...commonProps,
+    value: [],
+    options: [],
+    changeOnSelect: false,
+    clearable: false,
     multiple: false,
     expandTrigger: 'click',
     scrollable: false,
     searchable: false,
     async: false,
     limit: 50,
+    renderValue: getOptionsLabel,
     filter: defaultFilter,
     highlight: defaultHighlight,
   };
@@ -461,7 +467,7 @@ export class MenuCascader extends React.Component<
 
           return (
             <Popover
-              className={popupClassName}
+              className={cx('zent-cascader__popup', popupClassName)}
               position={Popover.Position.AutoBottomLeftInViewport}
               visible={visible}
               onVisibleChange={this.onVisibleChange}

@@ -3,8 +3,11 @@ import { ICascaderItem, CascaderValue } from './types';
 /**
  * 查找树中某个节点的子节点
  */
-export function findNextOptions(options: ICascaderItem[], id: unknown) {
-  if (options?.length > 0) {
+export function getNodeChildren(
+  options: ICascaderItem[] | null | undefined,
+  id: unknown
+): ICascaderItem[] | null {
+  if (options && options.length > 0) {
     const currOptions = options.find(it => it.value === id);
     if (currOptions && Array.isArray(currOptions.children)) {
       return currOptions.children;

@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import Popover from '../../popover';
 import Icon from '../../icon';
 import Checkbox from '../../checkbox';
-import { findNextOptions } from '../utils';
+import { getNodeChildren } from '../utils';
 import {
   CascaderHandler,
   ICascaderItem,
@@ -166,7 +166,7 @@ class MenuContent extends React.Component<IMenuContentProps> {
         level++;
         // 记录滚动加载的父元素
         const parent = options.find(it => it.value === value[i]);
-        options = findNextOptions(options, value[i]);
+        options = getNodeChildren(options, value[i]);
 
         if (options) {
           PanelEls.push(this.renderCascaderItems(options, level, parent));

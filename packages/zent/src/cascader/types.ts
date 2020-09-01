@@ -44,10 +44,7 @@ export interface ITabsCascaderProps<Item = ICascaderItem>
     selectedOptions: Item[],
     meta: ICascaderChangeMeta
   ) => void;
-  loadOptions?: (
-    selectedOptions: Item[],
-    meta: { action: CascaderLoadAction.LoadChildren }
-  ) => Promise<void>;
+  loadOptions?: (selectedOptions: Item[]) => Promise<void>;
   title?: string[];
 }
 
@@ -65,6 +62,12 @@ export interface ICascaderItem {
   indeterminate?: boolean;
   parent?: ICascaderItem | null;
 }
+
+export type CascaderTabsClickHandler<Item = ICascaderItem> = (
+  item: Item,
+  level: number,
+  closePopup: () => void
+) => void;
 
 export type CascaderHandler<Item = ICascaderItem> = (
   item: Item,

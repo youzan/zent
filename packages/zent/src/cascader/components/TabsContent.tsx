@@ -3,9 +3,13 @@ import classnames from 'classnames';
 
 import Popover from '../../popover';
 import Tabs, { ITabPanelElement, ITabPanelProps } from '../../tabs';
-import { findNextOptions } from '../utils';
-import { CascaderHandler, CascaderValue, ICascaderItem } from '../types';
 import { II18nLocaleCascader } from '../../i18n';
+import { getNodeChildren } from '../utils';
+import {
+  CascaderTabsClickHandler,
+  CascaderValue,
+  ICascaderItem,
+} from '../types';
 
 const TabPanel = Tabs.TabPanel;
 const withPopover = Popover.withPopover;
@@ -14,8 +18,7 @@ interface ITabsContentProps {
   // injected by withPopover
   popover: Popover;
 
-  className?: string;
-  onClick: CascaderHandler;
+  onClick: CascaderTabsClickHandler;
   value: CascaderValue[];
   options: ICascaderItem[];
   // 正在加载中的层级，从 1 开始计数
@@ -24,32 +27,37 @@ interface ITabsContentProps {
   onTabsChange: (id: number) => void;
   title: React.ReactNode[];
   i18n: II18nLocaleCascader;
+  className?: string;
 }
 
 class TabsContent extends React.Component<ITabsContentProps> {
   closePopup = () => this.props.popover?.close();
 
-  renderCascaderItems(items: ICascaderItem[], level: number, popover: Popover) {
-    const { value, onClick: clickHandler } = this.props;
-    const cascaderItems = items.map(item => {
-      const cascaderItemCls = classnames('zent-cascader__list-link', {
-        'zent-cascader__list-link--active': item.value === value[level - 1],
-      });
+  renderCascaderItems(items: ICascaderItem[], level: number) {
+    const val = this.props.value[level - 1];
 
-      return (
-        <div className="zent-cascader__list-item" key={item.value}>
-          <span
-            className={cascaderItemCls}
-            title={item.label}
-            onClick={() => clickHandler(item, level, this.closePopup)}
-          >
-            {item.label}
-          </span>
-        </div>
-      );
-    });
+    return (
+      <div className="zent-cascader__list">
+        {items.map(item => {
+          const { value } = item;
+          const cascaderItemCls = classnames('zent-cascader__list-link', {
+            'zent-cascader__list-link--active': value === val,
+          });
 
-    return <div className="zent-cascader__list">{cascaderItems}</div>;
+          return (
+            <div className="zent-cascader__list-item" key={value}>
+              <span
+                className={cascaderItemCls}
+                title={item.label}
+                onClick={() => this.props.onClick(item, level, this.closePopup)}
+              >
+                {item.label}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    );
   }
 
   renderTabTitle(title: React.ReactNode, level: number) {
@@ -67,32 +75,32 @@ class TabsContent extends React.Component<ITabsContentProps> {
     return title;
   }
 
-  renderPanels(popover: Popover, i18n: II18nLocaleCascader) {
+  renderPanels(i18n: II18nLocaleCascader) {
     const PanelEls: Array<ITabPanelElement<
       ITabPanelProps<string | number>
     >> = [];
-    let { title, options, value } = this.props;
-    const length = value?.length || 0;
+    const { title, value } = this.props;
+    const maxLevel = value.length + 1;
 
-    for (let i = 0; i < length + 1; i++) {
-      const level = i + 1;
-
-      // 获取子节点列表
-      if (i > 0) {
-        options = findNextOptions(options, value[i - 1]);
-      }
-
-      if (options?.length > 0) {
-        const selectedItem = options.find(item => item.value === value[i]);
-        const tabTitle = selectedItem?.label || title[i] || i18n.title;
+    for (
+      let i = 0,
+        options: ICascaderItem[] | null | undefined = this.props.options;
+      i < maxLevel;
+      i++, options = getNodeChildren(options, value[i - 1])
+    ) {
+      if (options && options.length > 0) {
+        const val = value[i];
+        const selectedItem = options.find(item => item.value === val);
+        const tabTitle = selectedItem?.label ?? title[i] ?? i18n.title;
+        const level = i + 1;
 
         PanelEls.push(
           <TabPanel
             tab={this.renderTabTitle(tabTitle, level)}
             id={level}
-            key={`tab-${value.slice(0, level - 1).join('-')}`}
+            key={`tab-${value.slice(0, i).join('-')}`}
           >
-            {this.renderCascaderItems(options, level, popover)}
+            {this.renderCascaderItems(options, level)}
           </TabPanel>
         );
       }
@@ -102,7 +110,7 @@ class TabsContent extends React.Component<ITabsContentProps> {
   }
 
   render() {
-    const { activeId, popover, i18n, onTabsChange } = this.props;
+    const { activeId, i18n, onTabsChange } = this.props;
 
     return (
       <div className="zent-cascader__popup-inner">
@@ -112,7 +120,7 @@ class TabsContent extends React.Component<ITabsContentProps> {
           type="card"
           className="zent-cascader__tabs"
         >
-          {this.renderPanels(popover, i18n)}
+          {this.renderPanels(i18n)}
         </Tabs>
       </div>
     );
