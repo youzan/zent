@@ -6,7 +6,7 @@ export interface ISearchInputProps {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-function SearchInput(props: ISearchInputProps) {
+export function SearchInput(props: ISearchInputProps) {
   const ref = React.useRef<HTMLInputElement>(null);
   const { placeholder, value, onChange } = props;
 
@@ -26,5 +26,3 @@ function SearchInput(props: ISearchInputProps) {
     />
   );
 }
-
-export default SearchInput;

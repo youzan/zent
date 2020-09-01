@@ -1,15 +1,15 @@
 import * as React from 'react';
-import { Component } from 'react';
-import Search from './Search';
+
 import { ICascaderItem, ICascaderBaseTriggerProps } from '../types';
+import { SearchInput } from './Search';
 import Tags from './Tags';
-import BaseTrigger from './BaseTrigger';
+import { BaseTrigger } from './BaseTrigger';
 
 interface IMultipleTriggerProps extends ICascaderBaseTriggerProps {
   onRemove: (item: ICascaderItem) => void;
 }
 
-export class MultipleTrigger extends Component<IMultipleTriggerProps> {
+export class MultipleTrigger extends React.Component<IMultipleTriggerProps> {
   static defaultProps = {
     selectedPaths: [],
   };
@@ -66,7 +66,7 @@ export class MultipleTrigger extends Component<IMultipleTriggerProps> {
           />
         )}
         {showSearch && (
-          <Search
+          <SearchInput
             placeholder={i18n.searchPlaceholder}
             value={keyword}
             onChange={this.onKeywordChange}
@@ -76,5 +76,3 @@ export class MultipleTrigger extends Component<IMultipleTriggerProps> {
     );
   }
 }
-
-export default MultipleTrigger;

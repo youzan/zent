@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Component } from 'react';
 import classnames from 'classnames';
+
 import Icon from '../../icon';
 import { ICascaderBaseTriggerProps } from '../types';
 
@@ -8,7 +8,7 @@ interface ITriggerState {
   active: boolean;
 }
 
-export class BaseTrigger extends Component<
+export class BaseTrigger extends React.Component<
   ICascaderBaseTriggerProps,
   ITriggerState
 > {
@@ -16,7 +16,7 @@ export class BaseTrigger extends Component<
     active: false,
   };
 
-  onClearClick = e => {
+  onClearClick = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     e.stopPropagation();
 
@@ -92,5 +92,3 @@ export class BaseTrigger extends Component<
     );
   }
 }
-
-export default BaseTrigger;

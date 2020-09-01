@@ -1,15 +1,15 @@
 import * as React from 'react';
-import { Component } from 'react';
-import BaseTrigger from './BaseTrigger';
-import { II18nLocaleCascader } from '../../i18n';
-import { ICascaderItem, ICascaderBaseTriggerProps } from '../types';
+
 import memoize from '../../utils/memorize-one';
+import { II18nLocaleCascader } from '../../i18n';
+import { BaseTrigger } from './BaseTrigger';
+import { ICascaderItem, ICascaderBaseTriggerProps } from '../types';
 import { getOptionsLabel } from '../utils';
-import Search from './Search';
+import { SearchInput } from './Search';
 
 interface ISingleTriggerProps extends ICascaderBaseTriggerProps {}
 
-export class SingleTrigger extends Component<ISingleTriggerProps> {
+export class SingleTrigger extends React.Component<ISingleTriggerProps> {
   static defaultProps = {
     selectedPaths: [],
   };
@@ -71,7 +71,7 @@ export class SingleTrigger extends Component<ISingleTriggerProps> {
         searchable={searchable}
       >
         {showSearch && (
-          <Search
+          <SearchInput
             placeholder={this.getSearchPlaceholder(i18n, selectedPaths)}
             value={keyword}
             onChange={this.onKeywordChange}
@@ -81,5 +81,3 @@ export class SingleTrigger extends Component<ISingleTriggerProps> {
     );
   }
 }
-
-export default SingleTrigger;

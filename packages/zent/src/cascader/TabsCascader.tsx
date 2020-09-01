@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Component } from 'react';
+
 import Popover from '../popover';
 import { I18nReceiver as Receiver, II18nLocaleCascader } from '../i18n';
 import TabsContent from './components/TabsContent';
@@ -15,7 +15,7 @@ import {
 import { getPathInTree } from './utils';
 import { DisabledContext, IDisabledContext } from '../disabled';
 import shallowEqual from '../utils/shallowEqual';
-import SingleTrigger from './trigger/SingleTrigger';
+import { SingleTrigger } from './trigger/SingleTrigger';
 
 interface ICascaderState {
   value: CascaderValue[];
@@ -27,11 +27,11 @@ interface ICascaderState {
   prevProps: ITabsCascaderProps;
 }
 
-export class TabsCascader extends Component<
+export class TabsCascader extends React.Component<
   ITabsCascaderProps,
   ICascaderState
 > {
-  constructor(props) {
+  constructor(props: ITabsCascaderProps) {
     super(props);
     const value = props.value || [];
 

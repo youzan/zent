@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Component } from 'react';
 import Popover from '../popover';
 import { I18nReceiver as Receiver, II18nLocaleCascader } from '../i18n';
 import MenuContent from './components/MenuContent';
@@ -28,8 +27,8 @@ import debounce from '../utils/debounce';
 import TextMark from '../text-mark';
 import { DisabledContext, IDisabledContext } from '../disabled';
 import shallowEqual from '../utils/shallowEqual';
-import MultipleTrigger from './trigger/MultipleTrigger';
-import SingleTrigger from './trigger/SingleTrigger';
+import { MultipleTrigger } from './trigger/MultipleTrigger';
+import { SingleTrigger } from './trigger/SingleTrigger';
 
 const FILTER_DEBOUNCE_TIME = 200; // ms
 
@@ -70,7 +69,7 @@ interface ICascaderState {
   loading: boolean;
 }
 
-export class MenuCascader extends Component<
+export class MenuCascader extends React.Component<
   IMenuCascaderProps,
   ICascaderState
 > {

@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Component } from 'react';
 import classnames from 'classnames';
+
 import Popover from '../../popover';
 import Icon from '../../icon';
 import Checkbox from '../../checkbox';
@@ -34,7 +34,7 @@ export interface IMenuContentProps {
   handleChecked: (item: ICascaderItem, checked: boolean) => void;
 }
 
-class MenuContent extends Component<IMenuContentProps> {
+class MenuContent extends React.Component<IMenuContentProps> {
   closePopup = () => this.props.popover?.close();
 
   getMenuItemIcon(item: ICascaderItem, isActive: boolean) {

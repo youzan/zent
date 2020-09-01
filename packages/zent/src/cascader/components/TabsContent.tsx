@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Component } from 'react';
 import classnames from 'classnames';
+
 import Popover from '../../popover';
 import Tabs, { ITabPanelElement, ITabPanelProps } from '../../tabs';
 import { findNextOptions } from '../utils';
@@ -26,7 +26,7 @@ interface ITabsContentProps {
   i18n: II18nLocaleCascader;
 }
 
-class TabsContent extends Component<ITabsContentProps> {
+class TabsContent extends React.Component<ITabsContentProps> {
   closePopup = () => this.props.popover?.close();
 
   renderCascaderItems(items: ICascaderItem[], level: number, popover: Popover) {
