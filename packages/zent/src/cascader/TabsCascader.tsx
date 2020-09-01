@@ -19,6 +19,10 @@ import { SingleTrigger } from './trigger/SingleTrigger';
 interface ICascaderState {
   value: CascaderValue[];
   activeValue: CascaderValue[];
+
+  /**
+   * starts from 1, not zero
+   */
   activeId: number;
   options: ICascaderItem[];
   visible: boolean;
@@ -48,7 +52,7 @@ export class TabsCascader extends React.Component<
       value,
       activeValue: value,
       activeId: value.length || 1,
-      options: props.options || [],
+      options: props.options ?? [],
       visible: false,
       prevProps: props,
     };
@@ -82,8 +86,7 @@ export class TabsCascader extends React.Component<
   }
 
   get disabled() {
-    const { disabled = this.context.value } = this.props;
-    return disabled;
+    return this.props.disabled ?? this.context.value;
   }
 
   onVisibleChange = (visible: boolean) => {
@@ -121,18 +124,13 @@ export class TabsCascader extends React.Component<
 
     const newValues = activeValue.slice(0, level - 1) as CascaderValue[];
     newValues.push(item.value);
-    const selectedOptions = getPathInTree(newValues, options);
-    let needClose = false;
+    const selectedOptions = getPathInTree(options, newValues);
 
     const newState: Partial<ICascaderState> = {
       activeValue: newValues,
     };
 
-    if (!(item.children || item.isLeaf === false)) {
-      needClose = true;
-      closePopup();
-    }
-
+    const needClose = !(item.children || item.isLeaf === false);
     const needTriggerChange = needClose || changeOnSelect;
 
     if (needTriggerChange) {
@@ -149,18 +147,29 @@ export class TabsCascader extends React.Component<
         this.setState({
           loadingLevel: level,
         });
-        loadOptions(selectedOptions).then(() => {
-          this.setState({
-            activeId: nextLevel,
-            loadingLevel: null, // 标识取消 loading 状态
-          });
-        });
+        loadOptions(selectedOptions).then(
+          () => {
+            this.setState({
+              activeId: nextLevel,
+              loadingLevel: null,
+            });
+          },
+          () => {
+            this.setState({
+              loadingLevel: null,
+            });
+          }
+        );
       }
 
       if (needTriggerChange) {
         this.props.onChange(newState.value, selectedOptions, {
           action: CascaderChangeAction.Change,
         });
+      }
+
+      if (needClose) {
+        closePopup();
       }
     });
   };
@@ -173,28 +182,8 @@ export class TabsCascader extends React.Component<
         visible: false,
       },
       () => {
-        this.props.onChange(null, null, { action: CascaderChangeAction.Clear });
+        this.props.onChange([], [], { action: CascaderChangeAction.Clear });
       }
-    );
-  };
-
-  getPopoverContent = (i18n: II18nLocaleCascader) => {
-    const { title, options } = this.props;
-    const { activeValue, loadingLevel, activeId } = this.state;
-
-    return (
-      <Popover.Content>
-        <TabsContent
-          i18n={i18n}
-          value={activeValue}
-          loadingLevel={loadingLevel}
-          onClick={this.onClick}
-          activeId={activeId}
-          onTabsChange={this.onTabsChange}
-          title={title}
-          options={options}
-        />
-      </Popover.Content>
     );
   };
 
@@ -206,10 +195,11 @@ export class TabsCascader extends React.Component<
       renderValue,
       clearable,
       value,
+      title,
       options,
     } = this.props;
-    const { visible } = this.state;
-    const selectedPath = getPathInTree(value, options);
+    const { visible, activeValue, loadingLevel, activeId } = this.state;
+    const selectedPath = getPathInTree(options, value);
     const selectedPaths = selectedPath.length > 0 ? [selectedPath] : [];
     const hasValue = selectedPaths.length > 0;
 
@@ -238,7 +228,18 @@ export class TabsCascader extends React.Component<
                   hasValue={hasValue}
                 />
               </Popover.Trigger.Click>
-              {this.getPopoverContent(i18n)}
+              <Popover.Content>
+                <TabsContent
+                  i18n={i18n}
+                  value={activeValue}
+                  loadingLevel={loadingLevel}
+                  onClick={this.onClick}
+                  activeId={activeId}
+                  onTabsChange={this.onTabsChange}
+                  title={title}
+                  options={options}
+                />
+              </Popover.Content>
             </Popover>
           );
         }}

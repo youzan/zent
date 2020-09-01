@@ -40,18 +40,18 @@ export function getNodeChildren(
   ]
  */
 export function getPathInTree<Item extends ICascaderItem>(
-  value: CascaderValue[] | Array<CascaderValue[]>,
-  options?: Item[]
+  tree: Item[],
+  values: CascaderValue[] | Array<CascaderValue[]>
 ) {
   const selected: Item[] = [];
 
-  if (options?.length > 0 && value?.length > 0) {
-    for (let i = 0; i < value.length; i++) {
-      const id = value[i];
-      const nextOption = options.find(it => it.value === id);
+  if (tree?.length > 0 && values?.length > 0) {
+    for (let i = 0; i < values.length; i++) {
+      const id = values[i];
+      const nextOption = tree.find(it => it.value === id);
       if (!nextOption) break;
 
-      options = (nextOption.children as Item[]) || [];
+      tree = (nextOption.children as Item[]) || [];
       selected.push(nextOption);
     }
   }
@@ -179,7 +179,7 @@ export function updateTreeState(
 
   if (values?.length > 0) {
     values.forEach(value => {
-      const nodePath = getPathInTree(value, tree);
+      const nodePath = getPathInTree(tree, value);
       result.push(nodePath);
 
       const leafNode = nodePath[nodePath.length - 1];

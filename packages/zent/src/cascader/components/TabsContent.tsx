@@ -21,8 +21,15 @@ interface ITabsContentProps {
   onClick: CascaderTabsClickHandler;
   value: CascaderValue[];
   options: ICascaderItem[];
-  // 正在加载中的层级，从 1 开始计数
+
+  /**
+   * 正在加载中的层级，从 1 开始计数
+   */
   loadingLevel: number;
+
+  /**
+   * Starts from 1, not zero
+   */
   activeId: number;
   onTabsChange: (id: number) => void;
   title: React.ReactNode[];

@@ -228,7 +228,7 @@ export class MenuCascader extends React.Component<
 
     const newValue = activeValue.slice(0, level - 1) as CascaderValue[];
     newValue.push(item.value);
-    const selectedOptions = getPathInTree(newValue, options);
+    const selectedOptions = getPathInTree(options, newValue);
 
     const newState: Partial<ICascaderState> = {
       activeValue: newValue,
@@ -332,7 +332,7 @@ export class MenuCascader extends React.Component<
 
     const { activeValue } = this.state;
     const newValue = activeValue.slice(0, level - 1) as CascaderValue[];
-    const selectedOptions = getPathInTree(newValue, options);
+    const selectedOptions = getPathInTree(options, newValue);
 
     return loadOptions(selectedOptions, {
       action: CascaderLoadAction.Scroll,
