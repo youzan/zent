@@ -95,6 +95,7 @@ module.exports = {
     'no-throw-literal': 'error',
     'no-unsafe-finally': 'error',
     'no-unused-labels': 'error',
+    'no-nested-ternary': 'error',
     'no-var': 'error',
     'object-shorthand': 'error',
     'prefer-const': [

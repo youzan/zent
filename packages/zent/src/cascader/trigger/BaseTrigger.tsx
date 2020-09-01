@@ -41,7 +41,6 @@ export class BaseTrigger extends React.Component<
       className,
       visible,
       clearable,
-      multiple,
       selectedPaths,
       keyword,
       disabled,
@@ -52,25 +51,28 @@ export class BaseTrigger extends React.Component<
       i18n,
       placeholder,
       showLabels,
-      hasValue,
     } = this.props;
     const { active } = this.state;
+    const hasValue = selectedPaths.length > 0;
 
     const cascaderCls = classnames('zent-cascader', className, {
       'zent-cascader--disabled': disabled,
       'zent-cascader--active': visible || active,
       'zent-cascader--visible': visible,
-      'zent-cascader--multiple': multiple,
     });
 
     const triggerTextCls = classnames('zent-cascader--text', {
       'zent-cascader--placeholder': !hasValue,
     });
-    const triggerText: React.ReactNode = hasValue
-      ? renderValue(selectedPaths[0])
-      : searchable
-      ? i18n.searchPlaceholder
-      : placeholder || i18n.placeholder;
+
+    let triggerText: React.ReactNode;
+    if (hasValue) {
+      triggerText = renderValue(selectedPaths[0]);
+    } else if (searchable) {
+      triggerText = i18n.searchPlaceholder;
+    } else {
+      triggerText = placeholder || i18n.placeholder;
+    }
 
     const showClear = clearable && active && (hasValue || keyword) && !disabled;
 

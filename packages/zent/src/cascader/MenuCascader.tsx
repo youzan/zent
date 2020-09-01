@@ -29,7 +29,7 @@ import debounce from '../utils/debounce';
 import TextMark from '../text-mark';
 import { DisabledContext, IDisabledContext } from '../disabled';
 import shallowEqual from '../utils/shallowEqual';
-import { MultipleTrigger } from './trigger/MultipleTrigger';
+import { TagsTrigger } from './trigger/TagsTrigger';
 import { SingleTrigger } from './trigger/SingleTrigger';
 
 const FILTER_DEBOUNCE_TIME = 200; // ms
@@ -455,11 +455,9 @@ export class MenuCascader extends React.Component<
             className,
             clearable,
             visible,
-            selectedPaths,
             keyword,
             searchable,
             i18n,
-            hasValue,
             renderValue,
             onClear: this.onClear,
             onKeywordChange: this.onKeywordChange,
@@ -475,12 +473,16 @@ export class MenuCascader extends React.Component<
             >
               <Popover.Trigger.Click toggle={!searchable}>
                 {multiple ? (
-                  <MultipleTrigger
+                  <TagsTrigger
                     {...triggerCommonProps}
+                    selectedPaths={selectedPaths}
                     onRemove={this.onRemove}
                   />
                 ) : (
-                  <SingleTrigger {...triggerCommonProps} />
+                  <SingleTrigger
+                    {...triggerCommonProps}
+                    selectedPath={hasValue ? selectedPaths[0] : []}
+                  />
                 )}
               </Popover.Trigger.Click>
               <Popover.Content>

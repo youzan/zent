@@ -107,7 +107,6 @@ export type CascaderScrollHandler<Item = ICascaderItem> = (
 export interface ICascaderBaseTriggerProps {
   disabled?: boolean;
   className?: string;
-  multiple?: boolean;
   clearable?: boolean;
   visible: boolean;
   onClear: () => void;
@@ -122,5 +121,4 @@ export interface ICascaderBaseTriggerProps {
   renderValue: (selectedPath: ICascaderItem[]) => React.ReactNode;
   i18n: II18nLocaleCascader;
   showLabels?: boolean;
-  hasValue: boolean;
 }

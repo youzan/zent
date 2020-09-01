@@ -1,33 +1,19 @@
 import * as React from 'react';
 
-import memoize from '../../utils/memorize-one';
-import { II18nLocaleCascader } from '../../i18n';
 import { BaseTrigger } from './BaseTrigger';
 import { ICascaderItem, ICascaderBaseTriggerProps } from '../types';
 import { getOptionsLabel } from '../utils';
 import { SearchInput } from './Search';
 
-interface ISingleTriggerProps extends ICascaderBaseTriggerProps {}
+export interface ISingleTriggerProps
+  extends Omit<ICascaderBaseTriggerProps, 'selectedPaths'> {
+  selectedPath: ICascaderItem[];
+}
 
 export class SingleTrigger extends React.Component<ISingleTriggerProps> {
   static defaultProps = {
-    selectedPaths: [],
+    selectedPath: [],
   };
-
-  getSearchPlaceholder = memoize(
-    (
-      i18n: II18nLocaleCascader,
-      selectedPaths: Array<ICascaderItem[]>
-    ): string => {
-      const placeholder = i18n.searchPlaceholder;
-
-      if (!selectedPaths?.length) {
-        return placeholder;
-      }
-
-      return getOptionsLabel(selectedPaths[0]);
-    }
-  );
 
   onKeywordChange: React.ChangeEventHandler<HTMLInputElement> = e => {
     this.props.onKeywordChange(e.target.value);
@@ -38,11 +24,10 @@ export class SingleTrigger extends React.Component<ISingleTriggerProps> {
       className,
       visible,
       clearable,
-      selectedPaths,
+      selectedPath,
       keyword,
       disabled,
       i18n,
-      hasValue,
       searchable,
       placeholder,
       onClick,
@@ -51,6 +36,11 @@ export class SingleTrigger extends React.Component<ISingleTriggerProps> {
       renderValue,
     } = this.props;
     const showSearch = visible && searchable;
+    const hasValue = selectedPath.length > 0;
+    const inputPlaceholder = hasValue
+      ? getOptionsLabel(selectedPath)
+      : i18n.searchPlaceholder;
+    const selectedPaths = hasValue ? [selectedPath] : [];
 
     return (
       <BaseTrigger
@@ -66,13 +56,12 @@ export class SingleTrigger extends React.Component<ISingleTriggerProps> {
         i18n={i18n}
         renderValue={renderValue}
         showLabels={!showSearch}
-        hasValue={hasValue}
         placeholder={placeholder}
         searchable={searchable}
       >
         {showSearch && (
           <SearchInput
-            placeholder={this.getSearchPlaceholder(i18n, selectedPaths)}
+            placeholder={inputPlaceholder}
             value={keyword}
             onChange={this.onKeywordChange}
           />

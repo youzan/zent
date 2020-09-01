@@ -1,15 +1,16 @@
 import * as React from 'react';
+import cx from 'classnames';
 
 import { ICascaderItem, ICascaderBaseTriggerProps } from '../types';
 import { SearchInput } from './Search';
 import Tags from './Tags';
 import { BaseTrigger } from './BaseTrigger';
 
-interface IMultipleTriggerProps extends ICascaderBaseTriggerProps {
+interface ITagsTriggerProps extends ICascaderBaseTriggerProps {
   onRemove: (item: ICascaderItem) => void;
 }
 
-export class MultipleTrigger extends React.Component<IMultipleTriggerProps> {
+export class TagsTrigger extends React.Component<ITagsTriggerProps> {
   static defaultProps = {
     selectedPaths: [],
   };
@@ -27,7 +28,6 @@ export class MultipleTrigger extends React.Component<IMultipleTriggerProps> {
       keyword,
       disabled,
       i18n,
-      hasValue,
       searchable,
       placeholder,
       onClick,
@@ -36,15 +36,14 @@ export class MultipleTrigger extends React.Component<IMultipleTriggerProps> {
       renderValue,
       onRemove,
     } = this.props;
-    const showTags = hasValue;
+    const showTags = selectedPaths.length > 0;
     const showSearch = visible && searchable;
 
     return (
       <BaseTrigger
         placeholder={placeholder}
         disabled={disabled}
-        className={className}
-        multiple
+        className={cx(className, 'zent-cascader--multiple')}
         clearable={clearable}
         visible={visible}
         onClear={onClear}
@@ -55,7 +54,6 @@ export class MultipleTrigger extends React.Component<IMultipleTriggerProps> {
         i18n={i18n}
         renderValue={renderValue}
         searchable={searchable}
-        hasValue={hasValue}
         showLabels={!showTags && !showSearch}
       >
         {showTags && (

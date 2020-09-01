@@ -200,8 +200,6 @@ export class TabsCascader extends React.Component<
     } = this.props;
     const { visible, activeValue, loadingLevel, activeId } = this.state;
     const selectedPath = getPathInTree(options, value);
-    const selectedPaths = selectedPath.length > 0 ? [selectedPath] : [];
-    const hasValue = selectedPaths.length > 0;
 
     return (
       <Receiver componentName="Cascader">
@@ -220,12 +218,11 @@ export class TabsCascader extends React.Component<
                   placeholder={placeholder}
                   renderValue={renderValue}
                   disabled={this.disabled}
-                  selectedPaths={selectedPaths}
+                  selectedPath={selectedPath}
                   visible={visible}
                   clearable={clearable}
                   i18n={i18n}
                   onClear={this.onClear}
-                  hasValue={hasValue}
                 />
               </Popover.Trigger.Click>
               <Popover.Content>
