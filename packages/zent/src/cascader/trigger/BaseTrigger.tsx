@@ -1,11 +1,31 @@
 import * as React from 'react';
 import classnames from 'classnames';
 
+import { ICascaderItem } from '../types';
 import Icon from '../../icon';
-import { ICascaderBaseTriggerProps } from '../types';
+import { II18nLocaleCascader } from '../../i18n';
 
 interface ITriggerState {
   active: boolean;
+}
+
+export interface ICascaderBaseTriggerProps {
+  disabled?: boolean;
+  className?: string;
+  clearable?: boolean;
+  visible: boolean;
+  onClear: () => void;
+  selectedPaths?: Array<ICascaderItem[]>;
+  keyword?: string;
+  onKeywordChange?: (keyword: string) => void;
+  // 为触发 Popover.Trigger 的 click 事件
+  onClick?: (...args: any[]) => void;
+  children?: React.ReactNode;
+  placeholder?: string;
+  searchable?: boolean;
+  renderValue: (selectedPath: ICascaderItem[]) => React.ReactNode;
+  i18n: II18nLocaleCascader;
+  showLabels?: boolean;
 }
 
 export class BaseTrigger extends React.Component<

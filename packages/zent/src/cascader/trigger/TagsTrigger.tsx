@@ -1,10 +1,10 @@
 import * as React from 'react';
 import cx from 'classnames';
 
-import { ICascaderItem, ICascaderBaseTriggerProps } from '../types';
+import { ICascaderItem } from '../types';
 import { SearchInput } from './Search';
 import Tags from './Tags';
-import { BaseTrigger } from './BaseTrigger';
+import { BaseTrigger, ICascaderBaseTriggerProps } from './BaseTrigger';
 
 interface ITagsTriggerProps extends ICascaderBaseTriggerProps {
   onRemove: (item: ICascaderItem) => void;

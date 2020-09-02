@@ -3,13 +3,13 @@ import * as React from 'react';
 import { ICascaderItem } from '../types';
 import Icon from '../../icon';
 
-export interface ICascaderTagProps<Item extends ICascaderItem> {
-  items: Item[];
+export interface ICascaderTagProps {
+  items: ICascaderItem[];
   onRemove(e: React.MouseEvent): void;
-  renderValue?: (items: Item[]) => React.ReactNode;
+  renderValue?: (items: ICascaderItem[]) => React.ReactNode;
 }
 
-function CascaderTag(props: ICascaderTagProps<ICascaderItem>) {
+function CascaderTag(props: ICascaderTagProps) {
   const { items, renderValue, onRemove } = props;
 
   return (

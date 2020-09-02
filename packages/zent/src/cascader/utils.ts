@@ -39,11 +39,11 @@ export function getNodeChildren(
     { value: 'c' }
   ]
  */
-export function getPathInTree<Item extends ICascaderItem>(
-  tree: Item[],
+export function getPathInTree(
+  tree: ICascaderItem[],
   values: CascaderValue[] | Array<CascaderValue[]>
 ) {
-  const selected: Item[] = [];
+  const selected: ICascaderItem[] = [];
 
   if (tree?.length > 0 && values?.length > 0) {
     for (let i = 0; i < values.length; i++) {
@@ -51,13 +51,29 @@ export function getPathInTree<Item extends ICascaderItem>(
       const nextOption = tree.find(it => it.value === id);
       if (!nextOption) break;
 
-      tree = (nextOption.children as Item[]) || [];
+      tree = nextOption.children || [];
       selected.push(nextOption);
     }
   }
 
   return selected;
 }
+
+/**
+ * 获取级联项的文本
+ */
+export const getOptionsLabel = (items: ICascaderItem[]): string =>
+  items.map(it => it.label).join(' / ');
+
+/**
+ * 获取级联项的值
+ */
+export const getOptionsValue = (items: ICascaderItem[]): string =>
+  items.map(it => it.value).join('-');
+
+/**
+ * TODO: remove these functions
+ */
 
 /**
  * 赋值父节点的指向 parent 字段给所有叶子节点
@@ -112,7 +128,7 @@ function recursiveFlattenTree(
   list: ICascaderItem[],
   path: ICascaderItem[]
 ): Array<ICascaderItem[]> {
-  let result = [] as Array<ICascaderItem[]>;
+  let result: Array<ICascaderItem[]> = [];
 
   list.forEach(node => {
     const currentPath = path.concat(node);
@@ -138,7 +154,7 @@ export function flattenTree(tree: ICascaderItem[]): Array<ICascaderItem[]> {
 /**
  * 获取所有选中的节点
  */
-function getCheckedOptions(tree: ICascaderItem[]) {
+function getCheckedOptions(tree: ICascaderItem[]): Array<ICascaderItem[]> {
   const flattenNodes = flattenTree(tree);
   return flattenNodes.filter(list => list[list.length - 1].checked);
 }
@@ -198,7 +214,7 @@ export function updateTreeState(
 /**
  * 将平铺结构转换成树
  */
-export function buildTree(tree: ICascaderItem[], selected: ICascaderItem[]) {
+function buildTree(tree: ICascaderItem[], selected: ICascaderItem[]) {
   const firstNode = selected[0];
 
   if (selected.length > 1) {
@@ -229,15 +245,3 @@ export function appendNodeInTree(
     tree.push(buildTree([], selected));
   }
 }
-
-/**
- * 获取级联项的文本
- */
-export const getOptionsLabel = (items: ICascaderItem[]): string =>
-  items.map(it => it.label).join(' / ');
-
-/**
- * 获取级联项的值
- */
-export const getOptionsValue = (items: ICascaderItem[]): string =>
-  items.map(it => it.value).join('-');

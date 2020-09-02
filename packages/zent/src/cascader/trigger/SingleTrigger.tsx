@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { BaseTrigger } from './BaseTrigger';
-import { ICascaderItem, ICascaderBaseTriggerProps } from '../types';
+import { BaseTrigger, ICascaderBaseTriggerProps } from './BaseTrigger';
+import { ICascaderItem } from '../types';
 import { getOptionsLabel } from '../utils';
 import { SearchInput } from './Search';
 

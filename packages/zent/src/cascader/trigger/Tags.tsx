@@ -4,13 +4,13 @@ import { ICascaderItem } from '../types';
 import Tag from './Tag';
 import { getOptionsValue } from '../utils';
 
-export interface ICascaderTagsProps<Item extends ICascaderItem> {
-  list: Array<Item[]>;
-  onRemove(item: Item): void;
-  renderValue?: (items: Item[]) => React.ReactNode;
+export interface ICascaderTagsProps {
+  list: Array<ICascaderItem[]>;
+  onRemove(item: ICascaderItem): void;
+  renderValue?: (items: ICascaderItem[]) => React.ReactNode;
 }
 
-function CascaderTagList(props: ICascaderTagsProps<ICascaderItem>) {
+function CascaderTagList(props: ICascaderTagsProps) {
   const { list, renderValue, onRemove } = props;
 
   return (

@@ -7,14 +7,26 @@ import { DisabledContext, IDisabledContext } from '../disabled';
 import shallowEqual from '../utils/shallowEqual';
 import TabsContent from './components/TabsContent';
 import {
-  ITabsCascaderProps,
   ICascaderItem,
   CascaderTabsClickHandler,
   CascaderValue,
   CascaderChangeAction,
+  ICascaderChangeMeta,
+  ICascaderBaseProps,
 } from './types';
 import { getPathInTree, getOptionsLabel } from './utils';
 import { SingleTrigger } from './trigger/SingleTrigger';
+
+export interface ITabsCascaderProps extends ICascaderBaseProps {
+  value?: CascaderValue[];
+  onChange: (
+    value: CascaderValue[],
+    selectedOptions: ICascaderItem[],
+    meta: ICascaderChangeMeta
+  ) => void;
+  loadOptions?: (selectedOptions: ICascaderItem[]) => Promise<void>;
+  title?: string[];
+}
 
 interface ICascaderState {
   value: CascaderValue[];

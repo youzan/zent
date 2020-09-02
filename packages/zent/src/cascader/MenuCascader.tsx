@@ -19,10 +19,12 @@ import {
   ICascaderItem,
   CascaderHandler,
   CascaderValue,
-  IMenuCascaderProps,
   CascaderSearchClickHandler,
   CascaderChangeAction,
   CascaderLoadAction,
+  ICascaderBaseProps,
+  ICascaderChangeMeta,
+  ICascaderLoadMeta,
 } from './types';
 import SearchContent from './components/SearchContent';
 import debounce from '../utils/debounce';
@@ -31,6 +33,70 @@ import { DisabledContext, IDisabledContext } from '../disabled';
 import shallowEqual from '../utils/shallowEqual';
 import { TagsTrigger } from './trigger/TagsTrigger';
 import { SingleTrigger } from './trigger/SingleTrigger';
+
+export interface IMenuCascaderCommonProps extends ICascaderBaseProps {
+  loadOptions?: (
+    selectedOptions: ICascaderItem[] | null,
+    meta: ICascaderLoadMeta
+  ) => Promise<void | boolean>;
+  expandTrigger?: 'click' | 'hover';
+  scrollable?: boolean;
+  searchable?: boolean;
+  async?: boolean;
+  asyncFilter?: (keyword: string) => Promise<Array<ICascaderItem[]>>;
+  filter?: (keyword: string, items: ICascaderItem[]) => boolean;
+  highlight?: (keyword: string, items: ICascaderItem[]) => React.ReactNode;
+  limit?: number | false;
+}
+
+export interface IMenuCascaderSingleProps extends IMenuCascaderCommonProps {
+  multiple?: false;
+  value?: CascaderValue[];
+  onChange: (
+    value: CascaderValue[],
+    selectedOptions: ICascaderItem[],
+    meta: ICascaderChangeMeta
+  ) => void;
+}
+
+export interface IMenuCascaderMultipleProps extends IMenuCascaderCommonProps {
+  value?: Array<CascaderValue[]>;
+  onChange: (
+    value: Array<CascaderValue[]>,
+    selectedOptions: Array<ICascaderItem[]>,
+    meta: ICascaderChangeMeta
+  ) => void;
+  multiple?: boolean;
+}
+
+export type IMenuCascaderProps =
+  | IMenuCascaderMultipleProps
+  | IMenuCascaderSingleProps;
+
+interface ICascaderState {
+  value: CascaderValue[] | Array<CascaderValue[]>;
+  activeValue: CascaderValue[];
+  selectedPaths: Array<ICascaderItem[]>;
+  visible: boolean;
+  prevProps: IMenuCascaderProps;
+  firstLevelHasMore: boolean;
+  keyword: string;
+  isSearching: boolean;
+  searchList: Array<ICascaderItem[]>;
+  loading: boolean;
+}
+
+function isMultiple(
+  props: IMenuCascaderProps
+): props is IMenuCascaderMultipleProps {
+  return props.multiple;
+}
+
+function isSingle(
+  props: IMenuCascaderProps
+): props is IMenuCascaderSingleProps {
+  return !props.multiple;
+}
 
 const FILTER_DEBOUNCE_TIME = 200; // ms
 
@@ -58,52 +124,10 @@ const defaultHighlight = (
   });
 };
 
-interface ICascaderState {
-  value: CascaderValue[] | Array<CascaderValue[]>;
-  activeValue: CascaderValue[];
-  selectedPaths: Array<ICascaderItem[]>;
-  visible: boolean;
-  prevProps: IMenuCascaderProps;
-  firstLevelHasMore: boolean;
-  keyword: string;
-  isSearching: boolean;
-  searchList: Array<ICascaderItem[]>;
-  loading: boolean;
-}
-
 export class MenuCascader extends React.Component<
   IMenuCascaderProps,
   ICascaderState
 > {
-  constructor(props) {
-    super(props);
-    const value = props.value || [];
-    const { multiple, options, scrollable } = props;
-
-    if (multiple) {
-      linkChildrenNode(options);
-    }
-
-    const activeValue = multiple && value.length > 0 ? value[0] : value;
-    const selectedPaths =
-      (value.length > 0 &&
-        updateTreeState(options, multiple ? value : [value])) ||
-      [];
-
-    this.state = {
-      value,
-      activeValue,
-      visible: false,
-      prevProps: props,
-      firstLevelHasMore: scrollable,
-      selectedPaths,
-      keyword: '',
-      isSearching: false,
-      searchList: [],
-      loading: false,
-    };
-  }
-
   static defaultProps = {
     value: [],
     options: [],
@@ -119,6 +143,43 @@ export class MenuCascader extends React.Component<
     filter: defaultFilter,
     highlight: defaultHighlight,
   };
+
+  constructor(props: IMenuCascaderProps) {
+    super(props);
+
+    if (isMultiple(props)) {
+      linkChildrenNode(props.options);
+    }
+
+    let activeValue: CascaderValue[] = [];
+    if (isMultiple(props) && props.value.length > 0) {
+      activeValue = props.value[0];
+    }
+    if (isSingle(props)) {
+      activeValue = props.value;
+    }
+
+    const selectedPaths =
+      (props.value.length > 0 &&
+        updateTreeState(
+          props.options,
+          isMultiple(props) ? props.value : [props.value]
+        )) ||
+      [];
+
+    this.state = {
+      value: props.value,
+      activeValue,
+      visible: false,
+      prevProps: props,
+      firstLevelHasMore: props.scrollable,
+      selectedPaths,
+      keyword: '',
+      isSearching: false,
+      searchList: [],
+      loading: false,
+    };
+  }
 
   static contextType = DisabledContext;
   context!: IDisabledContext;
@@ -211,7 +272,7 @@ export class MenuCascader extends React.Component<
     });
   };
 
-  onMenuOptionClick: CascaderHandler<ICascaderItem> = (
+  onMenuOptionClick: CascaderHandler = (
     item: ICascaderItem,
     level: number,
     closePopup,
@@ -252,7 +313,7 @@ export class MenuCascader extends React.Component<
     }
 
     this.setState(newState as ICascaderState, () => {
-      if (!multiple) {
+      if (isSingle(this.props)) {
         if (needLoading) {
           item.loading = true;
           this.setState({ loading: true });
@@ -352,16 +413,21 @@ export class MenuCascader extends React.Component<
     });
   };
 
+  /**
+   * 复选框勾选/取消勾选才会触发，所以仅适用于多选场景
+   */
   toggleMenuOption = (item: ICascaderItem, checked: boolean) => {
-    const { options } = this.props;
-    const selectedPaths = checkTreeNode(options, item, checked);
-    const value = selectedPaths.map(list => list.map(node => node.value));
+    if (isMultiple(this.props)) {
+      const { options, onChange } = this.props;
+      const selectedPaths = checkTreeNode(options, item, checked);
+      const value = selectedPaths.map(list => list.map(node => node.value));
 
-    this.setState({ selectedPaths }, () => {
-      this.props.onChange(value, selectedPaths, {
-        action: CascaderChangeAction.Change,
+      this.setState({ selectedPaths }, () => {
+        onChange(value, selectedPaths, {
+          action: CascaderChangeAction.Change,
+        });
       });
-    });
+    }
   };
 
   toggleSearchOption = (items: ICascaderItem[], checked: boolean) => {

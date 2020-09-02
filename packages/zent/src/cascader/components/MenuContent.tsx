@@ -17,22 +17,34 @@ import BlockLoading from '../../loading/BlockLoading';
 
 const withPopover = Popover.withPopover;
 
-export interface IMenuContentProps {
+export interface IMenuContentCommonProps {
   // injected by withPopover
   popover: Popover;
 
   onClick: CascaderHandler;
-  value: CascaderValue[] | Array<CascaderValue[]>;
   options: ICascaderItem[];
   expandTrigger?: 'click' | 'hover';
   i18n: II18nLocaleCascader;
   scrollable: boolean;
   scrollLoad: CascaderScrollHandler;
   firstLevelHasMore: boolean;
-  multiple: boolean;
   onOptionToggle: (item: ICascaderItem, checked: boolean) => void;
   className?: string;
 }
+
+export interface IMenuContentMultipleProps extends IMenuContentCommonProps {
+  multiple: true;
+  value: Array<CascaderValue[]>;
+}
+
+export interface IMenuContentSingleProps extends IMenuContentCommonProps {
+  multiple: false;
+  value: CascaderValue[];
+}
+
+export type IMenuContentProps =
+  | IMenuContentMultipleProps
+  | IMenuContentSingleProps;
 
 class MenuContent extends React.Component<IMenuContentProps> {
   render() {
