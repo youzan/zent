@@ -21,7 +21,7 @@ class TextArea extends React.Component {
 	render() {
 		const { value } = this.state;
 		return <div>
-      <Input type="textarea" value={value} onChange={this.handleChange} maxLength={100} showCount autoSize />
+      <Input type="textarea" value={value} onChange={this.handleChange} maxLength={10} showCount autoSize />
   </div>
 	}
 }

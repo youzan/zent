@@ -57,6 +57,7 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, ITextAreaProps>(
         autosize.destroy(el);
       };
     }, [autoSize, ref]);
+    const isOutOfRange = value?.length > maxLength;
     return (
       <>
         <textarea
@@ -66,13 +67,16 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, ITextAreaProps>(
             'zent-textarea-with-count': showCount,
           })}
           value={value}
-          maxLength={maxLength}
           onChange={onChange}
           onCompositionStart={onCompositionStart}
           onCompositionEnd={onCompositionEnd}
         />
         {showCount && (
-          <span className="zent-textarea-count">
+          <span
+            className={cx('zent-textarea-count', {
+              'zent-textarea-out-of-range-text': isOutOfRange,
+            })}
+          >
             {(value || '').length}/{maxLength}
           </span>
         )}
