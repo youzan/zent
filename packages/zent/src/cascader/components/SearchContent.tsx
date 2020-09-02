@@ -28,8 +28,8 @@ class SearchContent extends React.Component<ISearchContentProps> {
   closePopup = () => this.props.popover?.close();
 
   onOptionClick(items: ICascaderItem[]) {
-    const { onOptionClick: searchClickHandler } = this.props;
-    searchClickHandler(items, this.closePopup);
+    const { onOptionClick } = this.props;
+    onOptionClick(items, this.closePopup);
   }
 
   renderSearchingOrEmpty() {
@@ -67,7 +67,9 @@ class SearchContent extends React.Component<ISearchContentProps> {
               key={getOptionsValue(items)}
               className={searchItemCls}
               onClick={
-                leafNode.disabled ? undefined : () => this.onOptionClick(items)
+                leafNode.disabled || multiple
+                  ? undefined
+                  : () => this.onOptionClick(items)
               }
             >
               {multiple && (

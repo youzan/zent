@@ -211,7 +211,7 @@ export class MenuCascader extends React.Component<
     });
   };
 
-  clickHandler: CascaderHandler<ICascaderItem> = (
+  onMenuOptionClick: CascaderHandler<ICascaderItem> = (
     item: ICascaderItem,
     level: number,
     closePopup,
@@ -241,7 +241,6 @@ export class MenuCascader extends React.Component<
       !multiple
     ) {
       needClose = true;
-      closePopup();
     }
 
     // 是否需要触发 props.onChange，选择即改变时最后一级需要点击触发浮层关闭
@@ -274,6 +273,10 @@ export class MenuCascader extends React.Component<
           );
         }
       }
+
+      if (needClose) {
+        closePopup();
+      }
     });
   };
 
@@ -296,7 +299,7 @@ export class MenuCascader extends React.Component<
     const level = items.length;
 
     this.setState({ activeValue }, () => {
-      this.clickHandler(items[level - 1], level, closePopup);
+      this.onMenuOptionClick(items[level - 1], level, closePopup);
     });
   };
 
@@ -349,7 +352,7 @@ export class MenuCascader extends React.Component<
     });
   };
 
-  handleChecked = (item: ICascaderItem, checked: boolean) => {
+  toggleMenuOption = (item: ICascaderItem, checked: boolean) => {
     const { options } = this.props;
     const selectedPaths = checkTreeNode(options, item, checked);
     const value = selectedPaths.map(list => list.map(node => node.value));
@@ -371,8 +374,7 @@ export class MenuCascader extends React.Component<
       linkChildrenNode(options);
     }
 
-    this.setState({ keyword: '' });
-    this.handleChecked(items[items.length - 1], checked);
+    this.toggleMenuOption(items[items.length - 1], checked);
   };
 
   onRemove = (item: ICascaderItem) => {
@@ -381,7 +383,7 @@ export class MenuCascader extends React.Component<
     }
 
     // 只有多选情况下才存在移除，即取消叶子节点的选中
-    this.handleChecked(item, false);
+    this.toggleMenuOption(item, false);
   };
 
   renderPopoverContent = (i18n: II18nLocaleCascader) => {
@@ -426,9 +428,9 @@ export class MenuCascader extends React.Component<
         scrollable={scrollable}
         firstLevelHasMore={firstLevelHasMore}
         multiple={multiple}
-        onClick={this.clickHandler}
+        onClick={this.onMenuOptionClick}
         scrollLoad={this.scrollLoad}
-        handleChecked={this.handleChecked}
+        onOptionToggle={this.toggleMenuOption}
       />
     );
   };

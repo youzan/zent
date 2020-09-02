@@ -21,7 +21,6 @@ export interface IMenuContentProps {
   // injected by withPopover
   popover: Popover;
 
-  className?: string;
   onClick: CascaderHandler;
   value: CascaderValue[] | Array<CascaderValue[]>;
   options: ICascaderItem[];
@@ -31,10 +30,19 @@ export interface IMenuContentProps {
   scrollLoad: CascaderScrollHandler;
   firstLevelHasMore: boolean;
   multiple: boolean;
-  handleChecked: (item: ICascaderItem, checked: boolean) => void;
+  onOptionToggle: (item: ICascaderItem, checked: boolean) => void;
+  className?: string;
 }
 
 class MenuContent extends React.Component<IMenuContentProps> {
+  render() {
+    return (
+      <div className="zent-cascader__popup-inner zent-cascader__popup-inner-menu">
+        {this.renderPanels()}
+      </div>
+    );
+  }
+
   closePopup = () => this.props.popover?.close();
 
   getMenuItemIcon(item: ICascaderItem, isActive: boolean) {
@@ -47,25 +55,6 @@ class MenuContent extends React.Component<IMenuContentProps> {
     }
 
     return null;
-  }
-
-  renderItemCheckbox(item: ICascaderItem) {
-    const { multiple } = this.props;
-    const { value, checked, indeterminate, disabled } = item;
-
-    if (!multiple) {
-      return null;
-    }
-
-    return (
-      <Checkbox
-        value={value}
-        onChange={e => this.props.handleChecked(item, e.target.checked)}
-        checked={checked}
-        indeterminate={indeterminate}
-        disabled={disabled}
-      ></Checkbox>
-    );
   }
 
   renderCascaderItems(
@@ -84,7 +73,7 @@ class MenuContent extends React.Component<IMenuContentProps> {
 
     const {
       value,
-      onClick: clickHandler,
+      onClick,
       expandTrigger,
       scrollLoad,
       firstLevelHasMore,
@@ -101,23 +90,32 @@ class MenuContent extends React.Component<IMenuContentProps> {
         'zent-cascader__menu-item--multiple': multiple,
         'zent-cascader__menu-item--leaf': item.isLeaf,
       });
-      const menuItemProps = item.disabled
-        ? {}
-        : {
-            onClick: () => clickHandler(item, level, this.closePopup, 'click'),
-            onMouseEnter: () =>
-              expandTrigger === 'hover' &&
-              clickHandler(item, level, this.closePopup, 'hover'),
-          };
 
       return (
         <div
           className={cascaderItemCls}
           title={item.label}
           key={item.value}
-          {...menuItemProps}
+          onClick={
+            item.disabled
+              ? undefined
+              : () => onClick(item, level, this.closePopup, 'click')
+          }
+          onMouseEnter={
+            item.disabled && expandTrigger === 'hover'
+              ? undefined
+              : () => onClick(item, level, this.closePopup, 'hover')
+          }
         >
-          {this.renderItemCheckbox(item)}
+          {multiple && (
+            <Checkbox
+              value={item.value}
+              onChange={e => this.props.onOptionToggle(item, e.target.checked)}
+              checked={item.checked}
+              indeterminate={item.indeterminate}
+              disabled={item.disabled}
+            />
+          )}
           <span className="zent-cascader__menu-item-label">{item.label}</span>
           {this.getMenuItemIcon(item, isActive)}
         </div>
@@ -175,14 +173,6 @@ class MenuContent extends React.Component<IMenuContentProps> {
     }
 
     return PanelEls;
-  }
-
-  render() {
-    return (
-      <div className="zent-cascader__popup-inner zent-cascader__popup-inner-menu">
-        {this.renderPanels()}
-      </div>
-    );
   }
 }
 
