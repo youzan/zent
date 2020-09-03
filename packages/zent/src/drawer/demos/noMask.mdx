@@ -1,0 +1,53 @@
+---
+order: 2
+zh-CN:
+	title: 无遮罩
+en-US:
+	title: No mask usage
+---
+
+```js
+import { useState } from 'react';
+import { Button, Drawer } from 'zent';
+
+function SimpleDrawer() {
+  const [visible, setVisible] = useState(false);
+  const [content, setContent] = useState(false);
+  return (
+    <>
+      <Button
+        onClick={e => {
+          e.nativeEvent.stopImmediatePropagation();
+          setVisible(true);
+          setContent(true);
+        }}
+      >
+        显示111
+      </Button>
+      <Button
+        onClick={e => {
+          e.nativeEvent.stopImmediatePropagation();
+          setVisible(true);
+          setContent(false);
+        }}
+      >
+        显示222
+      </Button>
+      <Drawer
+        title="Drawer Title"
+        footer={<Button onClick={() => setVisible(false)}>关闭</Button>}
+        visible={visible}
+        onClose={() => setVisible(false)}
+        mask={false}
+      >
+        <Button onClick={() => setVisible(false)}>关闭</Button>
+        <div style={{ height: '50px' }}>
+          {content ? 'content111' : 'content222'}
+        </div>
+      </Drawer>
+    </>
+  );
+}
+
+ReactDOM.render(<SimpleDrawer />, mountNode);
+```

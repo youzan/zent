@@ -1,0 +1,61 @@
+---
+order: 1
+zh-CN:
+	title: 基础用法
+en-US:
+	title: Basic usage
+---
+
+```js
+import { useState } from 'react';
+import { Button, Drawer } from 'zent';
+
+function SimpleDrawer() {
+  const [visible, setVisible] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setVisible(true)}>显示</Button>
+      <Drawer
+        title="Drawer Title"
+        footer={<Button onClick={() => setVisible(false)}>关闭</Button>}
+        visible={visible}
+        onClose={() => setVisible(false)}
+        // maskClosable
+      >
+        <Button onClick={() => setVisible(false)}>关闭</Button>
+        <div style={{ height: '50px' }}>drawer Content</div>
+        <div style={{ height: '50px' }}>drawer Content</div>
+        <div style={{ height: '50px' }}>drawer Content</div>
+        <div style={{ height: '50px' }}>drawer Content</div>
+        <div style={{ height: '50px' }}>drawer Content</div>
+        <div style={{ height: '50px' }}>drawer Content</div>
+        <div style={{ height: '50px' }}>drawer Content</div>
+        <div style={{ height: '50px' }}>drawer Content</div>
+        <div style={{ height: '50px' }}>drawer Content</div>
+        <div style={{ height: '50px' }}>drawer Content</div>
+        <div style={{ height: '50px' }}>drawer Content</div>
+        <div style={{ height: '50px' }}>drawer Content</div>
+        <div style={{ height: '50px' }}>drawer Content</div>
+        <div style={{ height: '50px' }}>drawer Content</div>
+        <div style={{ height: '50px' }}>drawer Content</div>
+        <div style={{ height: '50px' }}>drawer Content</div>
+        <div style={{ height: '50px' }}>drawer Content</div>
+        <div style={{ height: '50px' }}>drawer Content</div>
+        <div style={{ height: '50px' }}>drawer Content</div>
+        <div style={{ height: '50px' }}>drawer Content</div>
+        <div style={{ height: '50px' }}>drawer Content</div>
+        <div style={{ height: '50px' }}>drawer Content</div>
+        <div style={{ height: '50px' }}>drawer Content</div>
+        <div style={{ height: '50px' }}>drawer Content</div>
+        <div style={{ height: '50px' }}>drawer Content</div>
+        <div style={{ height: '50px' }}>drawer Content</div>
+        <div style={{ height: '50px' }}>drawer Content</div>
+        <div style={{ height: '50px' }}>drawer Content</div>
+        <div style={{ height: '50px' }}>drawer Content1</div>
+      </Drawer>
+    </>
+  );
+}
+
+ReactDOM.render(<SimpleDrawer />, mountNode);
+```

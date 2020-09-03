@@ -17,6 +17,7 @@ export * from './date-picker';
 export * from './date-range-quick-picker';
 export * from './dialog';
 export * from './disabled';
+export * from './drawer';
 export * from './dropdown';
 export * from './error-boundary';
 export * from './form';

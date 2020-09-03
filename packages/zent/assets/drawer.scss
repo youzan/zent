@@ -1,0 +1,131 @@
+@import './theme/default';
+@import './theme/font';
+
+$header-height: 56px;
+$footer-height: 50px;
+$transition-duration: 220ms;
+$transition-backdrop-appear-duration: 300ms;
+$content-width: 45%;
+$drawer-ease-out: cubic-bezier(0, 0, 0.58, 1);
+
+.drawer {
+  &-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    height: 100%;
+    z-index: 1050;
+  }
+
+  &-content {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: $content-width;
+    height: 100%;
+    z-index: 1051;
+
+    &--transparent {
+      box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  &-header {
+    line-height: $header-height;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid;
+    @include theme-color(border-color, stroke, 5);
+    @include theme-color(background-color, stroke, 9);
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 1;
+
+    &__title {
+      padding-left: 23px;
+    }
+
+    &__icon--close {
+      padding: 0 13px;
+      font-size: 24px;
+      cursor: pointer;
+    }
+  }
+
+  &-body {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    @include theme-color(background-color, stroke, 9);
+    overflow-y: auto;
+
+    &--pt {
+      padding-top: $header-height;
+    }
+
+    &--pb {
+      padding-bottom: $footer-height;
+    }
+  }
+
+  &-footer {
+    border-top: 1px solid;
+    @include theme-color(border-color, stroke, 5);
+    @include theme-color(background-color, stroke, 9);
+    position: absolute;
+    line-height: $footer-height;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+  }
+
+  &-transition {
+    &-appear {
+      transform: translateX(100%);
+    }
+
+    &-appear-active {
+      transform: translateX(0);
+      transition: transform $transition-duration $drawer-ease-out;
+    }
+
+    &-exit {
+      transform: translateX(0);
+    }
+
+    &-exit-active {
+      transform: translateX(100%);
+      transition: transform $transition-duration $drawer-ease-out;
+    }
+
+    &__backdrop {
+      &-appear {
+        opacity: 0;
+      }
+
+      &-appear-active {
+        opacity: 1;
+        transition: opacity $transition-backdrop-appear-duration
+          $drawer-ease-out;
+      }
+
+      &-exit {
+        opacity: 1;
+      }
+
+      &-exit-active {
+        opacity: 0;
+        transition: opacity $transition-duration $drawer-ease-out;
+      }
+    }
+  }
+}
