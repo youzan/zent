@@ -37,6 +37,7 @@ A input widget for buiding forms in React, based on raw input. you can enter con
 | onChange           | change event, `e.fromClearButton` is `true` if clear button is clicked | func(e:Event)    |            |                                        | No       |
 | onPressEnter       | enter event                                                            | func(e:Event)    |            |                                        | No       |
 | icon               | icon                                                                   | string           |            |                                        | No       |
+| onIconClick        | icon click event                                                       | func(e:Event)    |            |                                        | No       |
 
 _Except for the attributes listed above, `Input` supports all attributes that React supports for native input._
 
