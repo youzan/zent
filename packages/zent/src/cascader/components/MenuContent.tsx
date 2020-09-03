@@ -58,7 +58,8 @@ class MenuContent extends React.Component<IMenuContentProps> {
   closePopup = () => this.props.popover?.close();
 
   getMenuItemIcon(item: ICascaderItem, isActive: boolean) {
-    if (item.children || item.isLeaf === false) {
+    const hasChildren = item.children && item.children.length > 0;
+    if (hasChildren || item.isLeaf === false) {
       if (item.loading && isActive) {
         return <i className="zent-cascader__menu-item-loading zenticon" />;
       }
@@ -109,12 +110,12 @@ class MenuContent extends React.Component<IMenuContentProps> {
           title={item.label}
           key={item.value}
           onClick={
-            item.disabled
+            item.disabled || expandTrigger !== 'click'
               ? undefined
               : () => onClick(item, level, this.closePopup, 'click')
           }
           onMouseEnter={
-            item.disabled && expandTrigger === 'hover'
+            item.disabled || expandTrigger !== 'hover'
               ? undefined
               : () => onClick(item, level, this.closePopup, 'hover')
           }

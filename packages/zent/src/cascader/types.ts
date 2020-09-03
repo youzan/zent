@@ -1,34 +1,40 @@
 import * as React from 'react';
 
 export interface ICascaderBaseProps {
-  options: ICascaderItem[];
+  options: IPublicCascaderItem[];
   changeOnSelect?: boolean;
   placeholder?: string;
   className?: string;
   popupClassName?: string;
-  renderValue?: (selectedOptions: ICascaderItem[]) => React.ReactNode;
+  renderValue?: (selectedOptions: IPublicCascaderItem[]) => React.ReactNode;
   disabled?: boolean;
   clearable?: boolean;
 }
 
 export type CascaderValue = string | number;
 
-export interface ICascaderItem {
-  value: string | number;
+/**
+ * 外部节点数据结构
+ */
+export interface IPublicCascaderItem {
+  value: CascaderValue;
   label: string;
-
-  // internal
-  children?: ICascaderItem[];
+  children?: IPublicCascaderItem[];
   disabled?: boolean;
-  loading?: boolean;
-  hasMore?: boolean;
   isLeaf?: boolean;
+  hasMore?: boolean;
+
+  // custom properties
+  [key: string]: unknown;
+}
+
+// todo: remove this
+export interface ICascaderItem extends IPublicCascaderItem {
+  children?: ICascaderItem[];
+  loading?: boolean;
   checked?: boolean;
   indeterminate?: boolean;
   parent?: ICascaderItem | null;
-
-  // custom
-  [key: string]: unknown;
 }
 
 export type CascaderTabsClickHandler = (

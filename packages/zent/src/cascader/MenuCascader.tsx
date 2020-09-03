@@ -280,10 +280,8 @@ export class MenuCascader extends React.Component<
   ) => {
     const { loadOptions, changeOnSelect, options, multiple } = this.props;
     const { activeValue } = this.state;
-    const needLoading =
-      item.isLeaf === false &&
-      loadOptions &&
-      (!item.children || item.children.length === 0);
+    const hasChildren = item.children && item.children.length > 0;
+    const needLoading = item.isLeaf === false && !hasChildren && loadOptions;
 
     let needClose = false;
 
@@ -297,7 +295,7 @@ export class MenuCascader extends React.Component<
     };
 
     if (
-      !(item.children || item.isLeaf === false) &&
+      !(hasChildren || item.isLeaf === false) &&
       triggerType === 'click' &&
       !multiple
     ) {

@@ -13,6 +13,7 @@ import {
   CascaderChangeAction,
   ICascaderChangeMeta,
   ICascaderBaseProps,
+  IPublicCascaderItem,
 } from './types';
 import { getPathInTree, getOptionsLabel } from './utils';
 import { SingleTrigger } from './trigger/SingleTrigger';
@@ -21,25 +22,32 @@ export interface ITabsCascaderProps extends ICascaderBaseProps {
   value?: CascaderValue[];
   onChange: (
     value: CascaderValue[],
-    selectedOptions: ICascaderItem[],
+    selectedOptions: IPublicCascaderItem[],
     meta: ICascaderChangeMeta
   ) => void;
-  loadOptions?: (selectedOptions: ICascaderItem[]) => Promise<void>;
+  loadOptions?: (selectedOptions: IPublicCascaderItem[]) => Promise<void>;
   title?: string[];
 }
 
 interface ICascaderState {
-  value: CascaderValue[];
   activeValue: CascaderValue[];
 
   /**
    * starts from 1, not zero
    */
   activeId: number;
-  options: ICascaderItem[];
+
+  /**
+   * Is popup open
+   */
   visible: boolean;
-  loadingLevel?: number;
+
   prevProps: ITabsCascaderProps;
+
+  /**
+   * Loading data on this level
+   */
+  loadingLevel: number | null;
 }
 
 export class TabsCascader extends React.Component<
@@ -61,12 +69,11 @@ export class TabsCascader extends React.Component<
     const { value } = props;
 
     this.state = {
-      value,
       activeValue: value,
       activeId: value.length || 1,
-      options: props.options ?? [],
       visible: false,
       prevProps: props,
+      loadingLevel: null,
     };
   }
 
@@ -81,14 +88,9 @@ export class TabsCascader extends React.Component<
       prevProps: nextProps,
     };
 
-    if (prevProps.options !== nextProps.options) {
-      newState.options = nextProps.options || [];
-    }
-
     if (!visible && !shallowEqual(prevProps.value, nextProps.value)) {
-      const newValue = nextProps.value || [];
+      const newValue = nextProps.value;
       Object.assign(newState, {
-        value: newValue,
         activeValue: newValue,
         activeId: newValue.length || 1,
       });
@@ -129,27 +131,21 @@ export class TabsCascader extends React.Component<
   ) => {
     const { loadOptions, options, changeOnSelect } = this.props;
     const { activeValue } = this.state;
-    const needLoading =
-      item.isLeaf === false &&
-      loadOptions &&
-      (!item.children || item.children.length === 0);
+    const hasChildren = item.children && item.children.length > 0;
+    const needLoading = item.isLeaf === false && !hasChildren && loadOptions;
 
-    const newValues = activeValue.slice(0, level - 1) as CascaderValue[];
-    newValues.push(item.value);
-    const selectedOptions = getPathInTree(options, newValues);
+    const newValue = activeValue.slice(0, level - 1) as CascaderValue[];
+    newValue.push(item.value);
+    const selectedOptions = getPathInTree(options, newValue);
 
     const newState: Partial<ICascaderState> = {
-      activeValue: newValues,
+      activeValue: newValue,
     };
 
-    const needClose = !(item.children || item.isLeaf === false);
+    const needClose = !(hasChildren || item.isLeaf === false);
     const needTriggerChange = needClose || changeOnSelect;
-
-    if (needTriggerChange) {
-      newState.value = [...newValues];
-    }
-
     const nextLevel = level + 1;
+
     if (!needLoading && !needClose) {
       newState.activeId = nextLevel;
     }
@@ -175,7 +171,7 @@ export class TabsCascader extends React.Component<
       }
 
       if (needTriggerChange) {
-        this.props.onChange(newState.value, selectedOptions, {
+        this.props.onChange(newValue, selectedOptions, {
           action: CascaderChangeAction.Change,
         });
       }
@@ -189,7 +185,6 @@ export class TabsCascader extends React.Component<
   onClear = () => {
     this.setState(
       {
-        value: [],
         activeValue: [],
         visible: false,
       },
