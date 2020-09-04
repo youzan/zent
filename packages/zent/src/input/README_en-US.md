@@ -43,11 +43,12 @@ _Except for the attributes listed above, `Input` supports all attributes that Re
 
 #### textarea
 
-| Property  | Description                 | Type   | Default | Alternative | Required |
-| --------- | --------------------------- | ------ | ------- | ----------- | -------- |
-| maxLength | Max length of the value     | number |         |             | No       |
-| showCount | Show character count        | bool   | false   |             | No       |
-| autoSize  | Auto resize on value change | bool   | false   |             | No       |
+| Property          | Description                       | Type   | Default | Alternative | Required |
+| ----------------- | --------------------------------- | ------ | ------- | ----------- | -------- |
+| maxLength         | Max length of the value           | number |         |             | No       |
+| showCount         | Show character count              | bool   | false   |             | No       |
+| autoSize          | Auto resize on value change       | bool   | false   |             | No       |
+| maxCharacterCount | Check the max length of the value | number |         |             | No       |
 
 #### focus
 

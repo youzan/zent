@@ -141,7 +141,8 @@ export class Input extends Component<IInputProps, IInputState> {
     let isOutOfRange = false;
     let children: React.ReactNode;
     if (props.type === 'textarea') {
-      isOutOfRange = this.elementRef.current?.value?.length > props.maxLength;
+      isOutOfRange =
+        this.elementRef.current?.value?.length > props?.maxCharacterCount;
       children = (
         <TextArea
           {...props}
