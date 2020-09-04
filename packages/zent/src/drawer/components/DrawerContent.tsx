@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { useMemo } from 'react';
 import cx from 'classnames';
-import Icon from '../../icon';
 import { CSSTransition } from 'react-transition-group';
 
+import Icon from '../../icon';
 import { IDrawerContent } from '../types';
 import { TransitionTimeOut } from '../constants';
 
@@ -11,7 +11,6 @@ const DrawerContent: React.FC<IDrawerContent> = ({
   mask,
   visible,
   title,
-  className,
   onClose,
   children,
   footer,
@@ -50,7 +49,6 @@ const DrawerContent: React.FC<IDrawerContent> = ({
     >
       <div
         className={cx('drawer-content', {
-          [className]: !!className,
           ['drawer-content--transparent']: !mask,
         })}
         onClick={e => {

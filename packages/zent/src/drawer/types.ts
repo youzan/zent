@@ -17,7 +17,6 @@ export interface IDrawerBackdrop {
 export interface IDrawerContent {
   onClose: DrawerCloseFuncType;
   visible: boolean;
-  className: string;
   mask: boolean;
   title: React.ReactNode;
   footer: React.ReactNode;
@@ -26,9 +25,9 @@ export interface IDrawerContent {
 }
 
 export interface IDrawerProps {
-  onClose?: DrawerCloseFuncType; // 点击遮罩层或右上角叉的回调
+  onClose?: DrawerCloseFuncType; // 关闭drawer的回调
   className?: string; // 对话框外层容器的类名
-  visible: boolean; // Drawer是否可见
+  visible?: boolean; // Drawer是否可见
   maskClosable?: boolean; // 点击遮罩触发onClose
   closeOnESC?: boolean; // 按下 ESC 键时触发onClose
   mask?: boolean; // 是否显示遮罩

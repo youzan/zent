@@ -14,22 +14,22 @@ function SimpleDrawer() {
   const [visible, setVisible] = useState(false);
   return (
     <>
-      <Button onClick={() => setVisible(true)}>显示</Button>
+      <Button onClick={() => setVisible(true)}>show</Button>
       <Drawer
         title="Drawer Title"
         footer={
           <div style={{ 'text-align': 'center' }}>
-            <Button onClick={() => setVisible(false)}>关闭</Button>
+            <Button onClick={() => setVisible(false)}>close</Button>
           </div>
         }
         visible={visible}
         onClose={() => setVisible(false)}
       >
         <Button style={{ margin: '10px 20px' }} onClick={() => setVisible(false)}>
-          关闭
+          close
         </Button>
         {new Array(30).fill().map((_, index) => (
-          <div style={{ 'padding': '10px' }}>drawer Content{index}</div>
+          <div style={{ 'padding': '10px' }} key={index} >drawer Content{index}</div>
         ))}
       </Drawer>
     </>

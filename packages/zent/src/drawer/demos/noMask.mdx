@@ -22,7 +22,7 @@ function SimpleDrawer() {
           setContent(true);
         }}
       >
-        显示111
+        show111
       </Button>
       <Button
         onClick={e => {
@@ -31,13 +31,13 @@ function SimpleDrawer() {
           setContent(false);
         }}
       >
-        显示222
+        show222
       </Button>
       <Drawer
         title="Drawer Title"
         footer={
           <div style={{ 'text-align': 'center' }}>
-            <Button onClick={() => setVisible(false)}>关闭</Button>
+            <Button onClick={() => setVisible(false)}>close</Button>
           </div>
         }
         visible={visible}
@@ -48,7 +48,7 @@ function SimpleDrawer() {
           style={{ 'margin': '20px' }}
           onClick={() => setVisible(false)}
         >
-          关闭
+          close
         </Button>
         <div style={{ height: '50px', 'padding-left': '20px' }}>
           {content ? '111' : '222'}

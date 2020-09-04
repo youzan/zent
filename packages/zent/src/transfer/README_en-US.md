@@ -9,8 +9,6 @@ group: Data Entry
 
 Double column transfer choice box.
 
-### Guides
-
 ### API
 
 | Property          | Description                                                                                                                                                                | Type                                                                 | Default                                | Required |

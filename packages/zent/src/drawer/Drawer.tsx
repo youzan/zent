@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { useEffect, useCallback, useRef } from 'react';
-import Portal from '../portal';
+import cx from 'classnames';
 
+import Portal from '../portal';
 import DrawerBackdrop from './components/DrawerBackdrop';
 import DrawerContent from './components/DrawerContent';
 import { IDrawerProps } from './types';
@@ -45,24 +46,25 @@ export const Drawer: React.FC<IDrawerProps> = ({
       closeOnESC={closeOnESC}
       blockPageScroll={mask}
     >
-      <DrawerBackdrop
-        mask={mask}
-        maskClosable={maskClosable}
-        visible={visible}
-        onClose={onClose}
-      />
-      <DrawerContent
-        mask={mask}
-        visible={visible}
-        title={title}
-        footer={footer}
-        className={className}
-        onClose={onClose}
-        onEntered={onOpened}
-        onExited={onExited}
-      >
-        {children}
-      </DrawerContent>
+      <div className={cx({ [className]: !!className })}>
+        <DrawerBackdrop
+          mask={mask}
+          maskClosable={maskClosable}
+          visible={visible}
+          onClose={onClose}
+        />
+        <DrawerContent
+          mask={mask}
+          visible={visible}
+          title={title}
+          footer={footer}
+          onClose={onClose}
+          onEntered={onOpened}
+          onExited={onExited}
+        >
+          {children}
+        </DrawerContent>
+      </div>
     </Portal>
   );
 };
@@ -75,6 +77,7 @@ Drawer.defaultProps = {
   mask: true,
   footer: null,
   title: null,
+  onClose: () => {},
 };
 
 export default Drawer;
