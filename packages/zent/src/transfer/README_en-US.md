@@ -1,6 +1,5 @@
 ---
 title: Transfer
-subtitle: Transfer
 path: component/transfer
 group: Data Entry
 ---
