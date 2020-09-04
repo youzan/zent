@@ -5,15 +5,18 @@ import { CSSTransition } from 'react-transition-group';
 
 import Icon from '../../icon';
 import { IDrawerContent } from '../types';
-import { TransitionTimeOut } from '../constants';
+import { TransitionTimeOut, StyleMap } from '../constants';
 
 const DrawerContent: React.FC<IDrawerContent> = ({
   mask,
   visible,
   title,
-  onClose,
   children,
   footer,
+  placement,
+  height,
+  width,
+  onClose,
   onEntered,
   onExited,
 }) => {
@@ -36,6 +39,13 @@ const DrawerContent: React.FC<IDrawerContent> = ({
     [footer]
   );
 
+  const customWH = useMemo(() => {
+    if ('left' === placement || 'right' === placement) {
+      return { width };
+    }
+    return { height };
+  }, [placement, height, width]);
+
   return (
     <CSSTransition
       appear
@@ -43,18 +53,22 @@ const DrawerContent: React.FC<IDrawerContent> = ({
       unmountOnExit
       in={visible}
       timeout={TransitionTimeOut}
-      classNames="drawer-transition"
+      classNames={`drawer-transition-${placement}`}
       onEntered={onEntered}
       onExited={onExited}
     >
       <div
         className={cx('drawer-content', {
-          ['drawer-content--transparent']: !mask,
+          [`drawer-content--transparent-${placement}`]: !mask,
         })}
         onClick={e => {
           if (!mask) {
             e.nativeEvent.stopImmediatePropagation();
           }
+        }}
+        style={{
+          ...StyleMap[placement],
+          ...customWH,
         }}
       >
         {Header}

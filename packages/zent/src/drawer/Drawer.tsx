@@ -19,6 +19,9 @@ export const Drawer: React.FC<IDrawerProps> = ({
   closeOnESC,
   mask,
   footer,
+  placement,
+  width,
+  height,
 }) => {
   const { exiting, onExited } = useDrawerExiting(visible);
   const ref = useRef<() => void>();
@@ -61,6 +64,9 @@ export const Drawer: React.FC<IDrawerProps> = ({
           onClose={onClose}
           onEntered={onOpened}
           onExited={onExited}
+          placement={placement}
+          width={width}
+          height={height}
         >
           {children}
         </DrawerContent>
@@ -78,6 +84,9 @@ Drawer.defaultProps = {
   footer: null,
   title: null,
   onClose: () => {},
+  placement: 'right',
+  width: '45%',
+  height: '45%',
 };
 
 export default Drawer;

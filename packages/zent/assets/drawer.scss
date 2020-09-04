@@ -5,7 +5,6 @@ $header-height: 56px;
 $footer-height: 50px;
 $transition-duration: 220ms;
 $transition-backdrop-appear-duration: 300ms;
-$content-width: 45%;
 $drawer-ease-out: cubic-bezier(0, 0, 0.58, 1);
 
 .drawer {
@@ -22,17 +21,26 @@ $drawer-ease-out: cubic-bezier(0, 0, 0.58, 1);
 
   &-content {
     position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: $content-width;
-    height: 100%;
     z-index: 1051;
     display: flex;
     flex-direction: column;
 
     &--transparent {
-      box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
+      &-top {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      &-right {
+        box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
+      }
+
+      &-bottom {
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      &-left {
+        box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+      }
     }
   }
 
@@ -69,22 +77,91 @@ $drawer-ease-out: cubic-bezier(0, 0, 0.58, 1);
   }
 
   &-transition {
-    &-appear {
-      transform: translateX(100%);
+    @mixin appear($val: 100%, $placement: X) {
+      transform: translate#{$placement }($val);
     }
-
-    &-appear-active {
-      transform: translateX(0);
+    @mixin appear-active($val: 0, $placement: X) {
+      transform: translate#{$placement }($val);
+      transition: transform $transition-duration $drawer-ease-out;
+    }
+    @mixin exit($val: 0, $placement: X) {
+      transform: translate#{$placement }($val);
+    }
+    @mixin exit-active($val: 100%, $placement: X) {
+      transform: translate#{$placement }($val);
       transition: transform $transition-duration $drawer-ease-out;
     }
 
-    &-exit {
-      transform: translateX(0);
+    &-top {
+      &-appear {
+        @include appear(-100%, Y);
+      }
+
+      &-appear-active {
+        @include appear-active(0, Y);
+      }
+
+      &-exit {
+        @include exit(0, Y);
+      }
+
+      &-exit-active {
+        @include exit-active(-100%, Y);
+      }
     }
 
-    &-exit-active {
-      transform: translateX(100%);
-      transition: transform $transition-duration $drawer-ease-out;
+    &-right {
+      &-appear {
+        @include appear;
+      }
+
+      &-appear-active {
+        @include appear-active;
+      }
+
+      &-exit {
+        @include exit;
+      }
+
+      &-exit-active {
+        @include exit-active;
+      }
+    }
+
+    &-bottom {
+      &-appear {
+        @include appear(100%, Y);
+      }
+
+      &-appear-active {
+        @include appear-active(0, Y);
+      }
+
+      &-exit {
+        @include exit(0, Y);
+      }
+
+      &-exit-active {
+        @include exit-active(100%, Y);
+      }
+    }
+
+    &-left {
+      &-appear {
+        @include appear(-100%, X);
+      }
+
+      &-appear-active {
+        @include appear-active(0, X);
+      }
+
+      &-exit {
+        @include exit(0, X);
+      }
+
+      &-exit-active {
+        @include exit-active(-100%, X);
+      }
     }
 
     &__backdrop {

@@ -1,3 +1,5 @@
+export type DrawerPlacement = 'left' | 'right' | 'top' | 'bottom';
+
 export type DrawerCloseFuncType = (
   e:
     | React.MouseEvent<HTMLSpanElement, MouseEvent>
@@ -22,6 +24,9 @@ export interface IDrawerContent {
   footer: React.ReactNode;
   onExited: (node: HTMLElement) => void;
   onEntered: (node: HTMLElement) => void;
+  placement: DrawerPlacement;
+  width: string | number;
+  height: string | number;
 }
 
 export interface IDrawerProps {
@@ -33,4 +38,7 @@ export interface IDrawerProps {
   mask?: boolean; // 是否显示遮罩
   title?: React.ReactNode; // 自定义头部内容
   footer?: React.ReactNode; // 自定义底部内容
+  placement?: DrawerPlacement;
+  width?: string | number;
+  height?: string | number;
 }
