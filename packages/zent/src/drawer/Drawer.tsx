@@ -21,13 +21,6 @@ export const Drawer: React.FC<IDrawerProps> = ({
 }) => {
   const { exiting, onExited } = useDrawerExiting(visible);
   const ref = useRef<() => void>();
-  useEffect(() => {
-    return () => {
-      if (!visible) {
-        ref.current?.();
-      }
-    };
-  });
 
   const onOpened = useCallback(() => {
     if (!mask) {
@@ -36,6 +29,14 @@ export const Drawer: React.FC<IDrawerProps> = ({
       });
     }
   }, [onClose, mask]);
+
+  useEffect(() => {
+    return () => {
+      if (!visible) {
+        ref.current?.();
+      }
+    };
+  });
 
   return (
     <Portal

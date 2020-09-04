@@ -60,14 +60,7 @@ const DrawerContent: React.FC<IDrawerContent> = ({
         }}
       >
         {Header}
-        <div
-          className={cx('drawer-body', {
-            'drawer-body--pt': !!title,
-            'drawer-body--pb': !!footer,
-          })}
-        >
-          {children}
-        </div>
+        <div className="drawer-body">{children}</div>
         {Footer}
       </div>
     </CSSTransition>

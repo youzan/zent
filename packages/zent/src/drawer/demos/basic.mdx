@@ -17,41 +17,20 @@ function SimpleDrawer() {
       <Button onClick={() => setVisible(true)}>显示</Button>
       <Drawer
         title="Drawer Title"
-        footer={<Button onClick={() => setVisible(false)}>关闭</Button>}
+        footer={
+          <div style={{ 'text-align': 'center' }}>
+            <Button onClick={() => setVisible(false)}>关闭</Button>
+          </div>
+        }
         visible={visible}
         onClose={() => setVisible(false)}
-        // maskClosable
       >
-        <Button onClick={() => setVisible(false)}>关闭</Button>
-        <div style={{ height: '50px' }}>drawer Content</div>
-        <div style={{ height: '50px' }}>drawer Content</div>
-        <div style={{ height: '50px' }}>drawer Content</div>
-        <div style={{ height: '50px' }}>drawer Content</div>
-        <div style={{ height: '50px' }}>drawer Content</div>
-        <div style={{ height: '50px' }}>drawer Content</div>
-        <div style={{ height: '50px' }}>drawer Content</div>
-        <div style={{ height: '50px' }}>drawer Content</div>
-        <div style={{ height: '50px' }}>drawer Content</div>
-        <div style={{ height: '50px' }}>drawer Content</div>
-        <div style={{ height: '50px' }}>drawer Content</div>
-        <div style={{ height: '50px' }}>drawer Content</div>
-        <div style={{ height: '50px' }}>drawer Content</div>
-        <div style={{ height: '50px' }}>drawer Content</div>
-        <div style={{ height: '50px' }}>drawer Content</div>
-        <div style={{ height: '50px' }}>drawer Content</div>
-        <div style={{ height: '50px' }}>drawer Content</div>
-        <div style={{ height: '50px' }}>drawer Content</div>
-        <div style={{ height: '50px' }}>drawer Content</div>
-        <div style={{ height: '50px' }}>drawer Content</div>
-        <div style={{ height: '50px' }}>drawer Content</div>
-        <div style={{ height: '50px' }}>drawer Content</div>
-        <div style={{ height: '50px' }}>drawer Content</div>
-        <div style={{ height: '50px' }}>drawer Content</div>
-        <div style={{ height: '50px' }}>drawer Content</div>
-        <div style={{ height: '50px' }}>drawer Content</div>
-        <div style={{ height: '50px' }}>drawer Content</div>
-        <div style={{ height: '50px' }}>drawer Content</div>
-        <div style={{ height: '50px' }}>drawer Content1</div>
+        <Button style={{ margin: '10px 20px' }} onClick={() => setVisible(false)}>
+          关闭
+        </Button>
+        {new Array(30).fill().map((_, index) => (
+          <div style={{ 'padding': '10px' }}>drawer Content{index}</div>
+        ))}
       </Drawer>
     </>
   );

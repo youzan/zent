@@ -35,14 +35,23 @@ function SimpleDrawer() {
       </Button>
       <Drawer
         title="Drawer Title"
-        footer={<Button onClick={() => setVisible(false)}>关闭</Button>}
+        footer={
+          <div style={{ 'text-align': 'center' }}>
+            <Button onClick={() => setVisible(false)}>关闭</Button>
+          </div>
+        }
         visible={visible}
         onClose={() => setVisible(false)}
         mask={false}
       >
-        <Button onClick={() => setVisible(false)}>关闭</Button>
-        <div style={{ height: '50px' }}>
-          {content ? 'content111' : 'content222'}
+        <Button
+          style={{ 'margin': '20px' }}
+          onClick={() => setVisible(false)}
+        >
+          关闭
+        </Button>
+        <div style={{ height: '50px', 'padding-left': '20px' }}>
+          {content ? '111' : '222'}
         </div>
       </Drawer>
     </>
