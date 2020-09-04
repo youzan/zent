@@ -38,7 +38,7 @@ function SimpleDrawer() {
       <Drawer
         title="Drawer Title"
         footer={
-          <div style={{ 'text-align': 'center' }}>
+          <div style={{ textAlign: 'center' }}>
             <Button onClick={() => setVisible(false)}>close</Button>
           </div>
         }
@@ -49,7 +49,7 @@ function SimpleDrawer() {
         <Button style={{ margin: '20px' }} onClick={() => setVisible(false)}>
           close
         </Button>
-        <div style={{ 'font-size': '50px', 'padding-left': '20px' }}>
+        <div style={{ fontSize: '50px', paddingLeft: '20px' }}>
           {content ? '111' : '222'}
         </div>
       </Drawer>
