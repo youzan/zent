@@ -36,12 +36,6 @@ function SimpleDrawer() {
         Show222
       </Button>
       <Drawer
-        title="Drawer Title"
-        footer={
-          <div style={{ textAlign: 'center' }}>
-            <Button onClick={() => setVisible(false)}>close</Button>
-          </div>
-        }
         visible={visible}
         onClose={() => setVisible(false)}
         mask={false}

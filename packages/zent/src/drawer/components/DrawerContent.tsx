@@ -16,28 +16,43 @@ const DrawerContent: React.FC<IDrawerContent> = ({
   placement,
   height,
   width,
+  closeBtn,
   onClose,
   onEntered,
   onExited,
 }) => {
   const Header = useMemo(() => {
-    const classNamePrefix = 'drawer-header';
+    if (!title) {
+      return null;
+    }
+
     return (
-      title && (
-        <div className={classNamePrefix}>
-          <span className={`${classNamePrefix}__title`}>{title}</span>
-          <span onClick={onClose} className={`${classNamePrefix}__icon--close`}>
-            <Icon type="close" />
-          </span>
-        </div>
-      )
+      <div className="drawer-header">
+        {typeof title === 'number' || typeof title === 'string' ? (
+          <span className="drawer-header__title">{title}</span>
+        ) : (
+          title
+        )}
+      </div>
     );
-  }, [title, onClose]);
+  }, [title]);
 
   const Footer = useMemo(
     () => footer && <div className="drawer-footer">{footer}</div>,
     [footer]
   );
+
+  const CloseBtn = useMemo(() => {
+    if (!closeBtn) {
+      return null;
+    }
+
+    return (
+      <div onClick={onClose} className="drawer-close">
+        {true === closeBtn ? <Icon type="close" /> : closeBtn}
+      </div>
+    );
+  }, [closeBtn, onClose]);
 
   const customWH = useMemo(() => {
     if ('left' === placement || 'right' === placement) {
@@ -71,6 +86,7 @@ const DrawerContent: React.FC<IDrawerContent> = ({
           ...customWH,
         }}
       >
+        {CloseBtn}
         {Header}
         <div className="drawer-body">{children}</div>
         {Footer}

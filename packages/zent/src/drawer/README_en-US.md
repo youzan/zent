@@ -23,3 +23,4 @@ A panel which slides in from the edge of the screen.
 | width        | Placement is left or right, width of the Drawer dialog                                        | `string` \| `number`                   | `45%`   | 否       |
 | height       | Placement is top or bottom, height of the Drawer dialog                                       | `string` \| `number`                   | `45%`   | 否       |
 | className    | The class name of the container of the Drawer dialog                                          | `string`                               | `''`    | 否       |
+| closeBtn     | Custom close btn                                                                              | `ReactNode`                            | `true`  | 否       |

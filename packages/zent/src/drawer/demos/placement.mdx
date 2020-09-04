@@ -35,12 +35,14 @@ function SimpleDrawer() {
         Open
       </Button>
       <Drawer
-        title="Drawer Title"
         visible={visible}
         onClose={() => setVisible(false)}
         placement={placement}
+        maskClosable
       >
-        <div>Drawer Content</div>
+        <div>Drawer Content ...</div>
+        <div>Drawer Content ...</div>
+        <div>Drawer Content ...</div>
       </Drawer>
     </>
   );

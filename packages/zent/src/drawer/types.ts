@@ -27,6 +27,7 @@ export interface IDrawerContent {
   placement: DrawerPlacement;
   width: string | number;
   height: string | number;
+  closeBtn: React.ReactNode;
 }
 
 export interface IDrawerProps {
@@ -41,4 +42,5 @@ export interface IDrawerProps {
   placement?: DrawerPlacement;
   width?: string | number;
   height?: string | number;
+  closeBtn?: React.ReactNode;
 }

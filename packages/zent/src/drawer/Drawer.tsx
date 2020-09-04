@@ -22,6 +22,7 @@ export const Drawer: React.FC<IDrawerProps> = ({
   placement,
   width,
   height,
+  closeBtn,
 }) => {
   const { exiting, onExited } = useDrawerExiting(visible);
   const ref = useRef<() => void>();
@@ -67,6 +68,7 @@ export const Drawer: React.FC<IDrawerProps> = ({
           placement={placement}
           width={width}
           height={height}
+          closeBtn={closeBtn}
         >
           {children}
         </DrawerContent>
@@ -87,6 +89,7 @@ Drawer.defaultProps = {
   placement: 'right',
   width: '45%',
   height: '45%',
+  closeBtn: true,
 };
 
 export default Drawer;
