@@ -8,7 +8,6 @@ import {
   ModelRef,
   isModelRef,
   isFieldModel,
-  IModel,
 } from './models';
 import { useValue$ } from './hooks';
 import { useFormContext } from './context';
