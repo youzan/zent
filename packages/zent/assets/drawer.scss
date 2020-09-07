@@ -14,7 +14,7 @@ $drawer-ease-out: cubic-bezier(0, 0, 0.58, 1);
     right: 0;
     left: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(black, 0.6);
     height: 100%;
     z-index: 1050;
   }
@@ -28,19 +28,19 @@ $drawer-ease-out: cubic-bezier(0, 0, 0.58, 1);
 
     &--transparent {
       &-top {
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 2px 8px rgba(black, 0.2);
       }
 
       &-right {
-        box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
+        box-shadow: -2px 0 8px rgba(black, 0.2);
       }
 
       &-bottom {
-        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 -2px 8px rgba(black, 0.2);
       }
 
       &-left {
-        box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+        box-shadow: 2px 0 8px rgba(black, 0.2);
       }
     }
   }
