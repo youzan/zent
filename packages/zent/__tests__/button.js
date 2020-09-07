@@ -172,7 +172,7 @@ describe('<Button />', () => {
       />
     );
     const buttonNode = findRenderedDOMComponentWithTag(tree, 'button');
-    expect(buttonNode.disabled).toBe(true);
+    expect(buttonNode.disabled).toBe(false);
     expect(buttonNode.classList.contains('zent-btn-loading')).toBe(true);
     expect(buttonNode.classList.contains('zent-btn-disabled')).toBe(false);
     Simulate.click(buttonNode);
