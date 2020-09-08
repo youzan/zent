@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect, useCallback, useRef } from 'react';
+import { useCallback, useRef } from 'react';
 import cx from 'classnames';
 
 import Portal from '../portal';
@@ -27,7 +27,7 @@ export const Drawer: React.FC<IDrawerProps> = ({
   const { exiting, onExited } = useDrawerExiting(visible);
   const ref = useRef<() => void>();
 
-  const onOpened = useCallback(() => {
+  const onDrawerOpened = useCallback(() => {
     if (!mask) {
       ref.current = addEventListener(document, 'click', e => {
         onClose(e);
@@ -35,13 +35,12 @@ export const Drawer: React.FC<IDrawerProps> = ({
     }
   }, [onClose, mask]);
 
-  useEffect(() => {
-    return () => {
-      if (!visible) {
-        ref.current?.();
-      }
-    };
-  });
+  const onDrawerExited = useCallback(() => {
+    if (!mask) {
+      ref.current?.();
+    }
+    onExited();
+  }, [mask, onExited]);
 
   return (
     <Portal
@@ -63,8 +62,8 @@ export const Drawer: React.FC<IDrawerProps> = ({
           title={title}
           footer={footer}
           onClose={onClose}
-          onEntered={onOpened}
-          onExited={onExited}
+          onEntered={onDrawerOpened}
+          onExited={onDrawerExited}
           placement={placement}
           width={width}
           height={height}
