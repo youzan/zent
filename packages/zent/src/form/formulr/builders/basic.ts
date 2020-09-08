@@ -2,15 +2,15 @@ import { IModel } from '../models/base';
 import { IValidators } from '../validate';
 import { Maybe } from '../maybe';
 
+export type $GetBuilderValue<T> = T extends BasicBuilder<infer V, infer _>
+  ? V
+  : never;
+
+export type $GetBuilderModel<T> = T extends BasicBuilder<infer _, infer M>
+  ? M
+  : never;
+
 export abstract class BasicBuilder<Value, Model extends IModel<Value>> {
-  /**
-   * @internal
-   */
-  readonly phantomValue!: Value;
-  /**
-   * @internal
-   */
-  readonly phantomModel!: Model;
   protected _validators: IValidators<Value> = [];
 
   abstract build(defaultValue?: Maybe<Value>): Model;

@@ -1,5 +1,6 @@
 import { IMaybeError, IValidators, ValidateOption } from '../validate';
 import { FormModel } from './form';
+import { UnknownFieldSetModelChildren } from '../utils';
 
 export interface IModel<Value> {
   getRawValue(): any;
@@ -15,7 +16,7 @@ export interface IModel<Value> {
   initialize(value: Value): void;
   error: IMaybeError<Value>;
   owner: IModel<any> | null;
-  form: FormModel<any> | null | undefined;
+  form: FormModel<UnknownFieldSetModelChildren> | null | undefined;
   dispose(): void;
   validators: IValidators<Value>;
 }

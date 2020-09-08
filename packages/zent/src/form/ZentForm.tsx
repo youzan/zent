@@ -5,12 +5,14 @@ import {
   useForm as superUseForm,
   FormStrategy,
   FormBuilder,
-  BasicModel,
-  BasicBuilder,
   IForm,
 } from './formulr';
 import { Subject } from 'rxjs';
 import { useAsyncSafeDispatch } from '../utils/hooks/useAsyncSafeDispatch';
+import {
+  UnknownFieldSetModelChildren,
+  UnknownFieldSetBuilderChildren,
+} from './formulr/utils';
 
 export interface IFormAction {
   type: 'SUBMIT_START' | 'SUBMIT_SUCCESS' | 'SUBMIT_ERROR';
@@ -54,7 +56,7 @@ function formReducer(state: IFormState, action: IFormAction): IFormState {
   }
 }
 
-export class ZentForm<T extends Record<string, BasicModel<unknown>>>
+export class ZentForm<T extends UnknownFieldSetModelChildren>
   implements IForm<T> {
   /** @internal */
   submit$ = new Subject<FormEvent | undefined>();
@@ -158,11 +160,9 @@ export class ZentForm<T extends Record<string, BasicModel<unknown>>>
   }
 }
 
-export function useForm<
-  T extends Record<string, Builder>,
-  Builder extends BasicBuilder<unknown, Model>,
-  Model extends BasicModel<unknown>
->(arg: FormStrategy.View | FormBuilder<T, Builder, Model>) {
+export function useForm<T extends UnknownFieldSetBuilderChildren>(
+  arg: FormStrategy.View | FormBuilder<T>
+) {
   const inner = superUseForm(arg);
   const [state, _dispatch] = useReducer(formReducer, initialState);
   const dispatch = useAsyncSafeDispatch(_dispatch);

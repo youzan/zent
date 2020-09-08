@@ -6,7 +6,6 @@ import { useValue$ } from './hooks';
 import {
   FieldModel,
   FieldArrayModel,
-  BasicModel,
   isFieldSetModel,
   isFieldModel,
   isFieldArrayModel,
@@ -180,9 +179,9 @@ export function FieldValue<T>(
 /**
  * 根据 `name` 或者 `model` 订阅 `FieldArray` 的更新
  */
-export function useFieldArrayValue<Item, Child extends BasicModel<Item>>(
+export function useFieldArrayValue<Item, Child extends IModel<Item>>(
   field: string | FieldArrayModel<Item, Child>
-) {
+): Child[] | null {
   const ctx = useFormContext();
   const model = useModelFromContext(
     ctx,
@@ -192,5 +191,5 @@ export function useFieldArrayValue<Item, Child extends BasicModel<Item>>(
   );
   const maybeChildren = useValue$(model?.children$ ?? NEVER, model?.children);
 
-  return maybeChildren as IModel<Item>[] | null;
+  return maybeChildren as Child[] | null;
 }
