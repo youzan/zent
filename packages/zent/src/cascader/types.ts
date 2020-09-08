@@ -21,7 +21,11 @@ export interface IPublicCascaderItem {
   label: string;
   children?: IPublicCascaderItem[];
   disabled?: boolean;
+
+  // childrenLoaded
   isLeaf?: boolean;
+
+  // hasMoreSiblings
   hasMore?: boolean;
 
   // custom properties
@@ -30,11 +34,11 @@ export interface IPublicCascaderItem {
 
 // todo: remove this
 export interface ICascaderItem extends IPublicCascaderItem {
-  children?: ICascaderItem[];
-  loading?: boolean;
-  checked?: boolean;
-  indeterminate?: boolean;
-  parent?: ICascaderItem | null;
+  children: ICascaderItem[];
+  loading: boolean;
+  checked: boolean;
+  indeterminate: boolean;
+  parent: ICascaderItem | null;
 }
 
 export type CascaderTabsClickHandler = (

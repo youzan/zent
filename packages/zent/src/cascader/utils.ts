@@ -5,10 +5,10 @@ import { ICascaderItem, CascaderValue } from './types';
  */
 export function getNodeChildren(
   options: ICascaderItem[] | null | undefined,
-  id: unknown
+  value: unknown
 ): ICascaderItem[] | null {
   if (options && options.length > 0) {
-    const currOptions = options.find(it => it.value === id);
+    const currOptions = options.find(it => it.value === value);
     if (currOptions && Array.isArray(currOptions.children)) {
       return currOptions.children;
     }
@@ -16,6 +16,22 @@ export function getNodeChildren(
 
   return null;
 }
+
+/**
+ * 获取级联项的文本
+ */
+export const getOptionsLabel = (items: ICascaderItem[]): string =>
+  items.map(it => it.label).join(' / ');
+
+/**
+ * 获取级联项的值
+ */
+export const getOptionsValue = (items: ICascaderItem[]): string =>
+  items.map(it => it.value).join('-');
+
+/**
+ * TODO: remove these functions
+ */
 
 /**
  * 从树形数据中查找匹配的节点
@@ -58,22 +74,6 @@ export function getPathInTree(
 
   return selected;
 }
-
-/**
- * 获取级联项的文本
- */
-export const getOptionsLabel = (items: ICascaderItem[]): string =>
-  items.map(it => it.label).join(' / ');
-
-/**
- * 获取级联项的值
- */
-export const getOptionsValue = (items: ICascaderItem[]): string =>
-  items.map(it => it.value).join('-');
-
-/**
- * TODO: remove these functions
- */
 
 /**
  * 赋值父节点的指向 parent 字段给所有叶子节点

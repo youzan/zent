@@ -83,7 +83,6 @@ interface ICascaderState {
   keyword: string;
   isSearching: boolean;
   searchList: Array<ICascaderItem[]>;
-  loading: boolean;
 }
 
 function isMultiple(
@@ -177,7 +176,6 @@ export class MenuCascader extends React.Component<
       keyword: '',
       isSearching: false,
       searchList: [],
-      loading: false,
     };
   }
 
@@ -314,13 +312,11 @@ export class MenuCascader extends React.Component<
       if (isSingle(this.props)) {
         if (needLoading) {
           item.loading = true;
-          this.setState({ loading: true });
 
           loadOptions(selectedOptions, {
             action: CascaderLoadAction.LoadChildren,
           }).finally(() => {
             item.loading = false;
-            this.setState({ loading: false });
           });
         }
 

@@ -15,8 +15,9 @@ import {
   ICascaderBaseProps,
   IPublicCascaderItem,
 } from './types';
-import { getPathInTree, getOptionsLabel } from './utils';
+import { getOptionsLabel } from './utils';
 import { SingleTrigger } from './trigger/SingleTrigger';
+import { Forest } from './forest';
 
 export interface ITabsCascaderProps extends ICascaderBaseProps {
   value?: CascaderValue[];
@@ -30,6 +31,8 @@ export interface ITabsCascaderProps extends ICascaderBaseProps {
 }
 
 interface ICascaderState {
+  options: Forest;
+
   activeValue: CascaderValue[];
 
   /**
@@ -69,6 +72,7 @@ export class TabsCascader extends React.Component<
     const { value } = props;
 
     this.state = {
+      options: new Forest(props.options),
       activeValue: value,
       activeId: value.length || 1,
       visible: false,
@@ -82,7 +86,7 @@ export class TabsCascader extends React.Component<
 
   static getDerivedStateFromProps(
     nextProps: ITabsCascaderProps,
-    { prevProps, visible }: ICascaderState
+    { prevProps, visible, options }: ICascaderState
   ) {
     const newState: Partial<ICascaderState> = {
       prevProps: nextProps,
@@ -94,6 +98,10 @@ export class TabsCascader extends React.Component<
         activeValue: newValue,
         activeId: newValue.length || 1,
       });
+    }
+
+    if (nextProps.options !== prevProps.options) {
+      newState.options = new Forest(nextProps.options);
     }
 
     return newState;
@@ -129,14 +137,14 @@ export class TabsCascader extends React.Component<
     level: number,
     closePopup
   ) => {
-    const { loadOptions, options, changeOnSelect } = this.props;
-    const { activeValue } = this.state;
+    const { loadOptions, changeOnSelect } = this.props;
+    const { activeValue, options } = this.state;
     const hasChildren = item.children && item.children.length > 0;
     const needLoading = item.isLeaf === false && !hasChildren && loadOptions;
 
     const newValue = activeValue.slice(0, level - 1) as CascaderValue[];
     newValue.push(item.value);
-    const selectedOptions = getPathInTree(options, newValue);
+    const selectedOptions = options.getPathByValue(newValue);
 
     const newState: Partial<ICascaderState> = {
       activeValue: newValue,
@@ -203,10 +211,15 @@ export class TabsCascader extends React.Component<
       clearable,
       value,
       title,
-      options,
     } = this.props;
-    const { visible, activeValue, loadingLevel, activeId } = this.state;
-    const selectedPath = getPathInTree(options, value);
+    const {
+      visible,
+      activeValue,
+      loadingLevel,
+      activeId,
+      options,
+    } = this.state;
+    const selectedPath = options.getPathByValue(value);
 
     return (
       <Receiver componentName="Cascader">
@@ -241,7 +254,7 @@ export class TabsCascader extends React.Component<
                   activeId={activeId}
                   onTabsChange={this.onTabsChange}
                   title={title}
-                  options={options}
+                  options={options.getTrees()}
                 />
               </Popover.Content>
             </Popover>
