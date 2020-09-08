@@ -20,6 +20,7 @@ const DrawerContent: React.FC<IDrawerContent> = ({
   onClose,
   onEntered,
   onExited,
+  onExit,
 }) => {
   const Header = useMemo(() => {
     if (!title) {
@@ -70,6 +71,7 @@ const DrawerContent: React.FC<IDrawerContent> = ({
       timeout={TransitionTimeOut}
       classNames={`drawer-transition-${placement}`}
       onEntered={onEntered}
+      onExit={onExit}
       onExited={onExited}
     >
       <div

@@ -35,12 +35,11 @@ export const Drawer: React.FC<IDrawerProps> = ({
     }
   }, [onClose, mask]);
 
-  const onDrawerExited = useCallback(() => {
+  const onDrawerExit = useCallback(() => {
     if (!mask) {
       ref.current?.();
     }
-    onExited();
-  }, [mask, onExited]);
+  }, [mask]);
 
   return (
     <Portal
@@ -63,7 +62,8 @@ export const Drawer: React.FC<IDrawerProps> = ({
           footer={footer}
           onClose={onClose}
           onEntered={onDrawerOpened}
-          onExited={onDrawerExited}
+          onExit={onDrawerExit}
+          onExited={onExited}
           placement={placement}
           width={width}
           height={height}

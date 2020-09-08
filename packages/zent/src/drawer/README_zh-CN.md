@@ -24,4 +24,4 @@ group: 反馈
 | width        | 宽度，在 `placement` 为 `left` 或 `right` 时使用 | `string` \| `number`                   | `45%`   | 否       |
 | height       | 宽度，在 `placement` 为 `top` 或 `bottom` 时使用 | `string` \| `number`                   | `45%`   | 否       |
 | className    | 对话框外层容器的类名                             | `string`                               | `''`    | 否       |
-| closeBtn     | 自定义关闭按钮                                   | `ReactNode`                            | `true`  | 否       |
+| closeBtn     | 自定义关闭按钮，为`false`会隐藏`closeBtn`        | `ReactNode`                            | `true`  | 否       |

@@ -22,8 +22,9 @@ export interface IDrawerContent {
   mask: boolean;
   title: React.ReactNode;
   footer: React.ReactNode;
-  onExited: (node: HTMLElement) => void;
   onEntered: (node: HTMLElement) => void;
+  onExit: (node: HTMLElement) => void;
+  onExited: (node: HTMLElement) => void;
   placement: DrawerPlacement;
   width: string | number;
   height: string | number;
