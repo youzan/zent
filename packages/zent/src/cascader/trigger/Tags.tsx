@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { ICascaderItem } from '../types';
 import Tag from './Tag';
-import { getOptionsValue } from '../utils';
+import { getPathValue } from '../path-fns';
 
 export interface ICascaderTagsProps {
   list: Array<ICascaderItem[]>;
@@ -24,7 +24,7 @@ function CascaderTagList(props: ICascaderTagsProps) {
 
         return (
           <Tag
-            key={getOptionsValue(items)}
+            key={getPathValue(items)}
             items={items}
             onRemove={removeCallback}
             renderValue={renderValue}

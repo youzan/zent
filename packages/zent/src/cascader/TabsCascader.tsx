@@ -15,7 +15,7 @@ import {
   ICascaderBaseProps,
   IPublicCascaderItem,
 } from './types';
-import { getOptionsLabel } from './utils';
+import { getPathLabel } from './path-fns';
 import { SingleTrigger } from './trigger/SingleTrigger';
 import { Forest } from './forest';
 
@@ -61,7 +61,7 @@ export class TabsCascader extends React.Component<
     value: [],
     options: [],
     changeOnSelect: false,
-    renderValue: getOptionsLabel,
+    renderValue: getPathLabel,
     clearable: false,
     title: [],
   };
@@ -139,8 +139,7 @@ export class TabsCascader extends React.Component<
   ) => {
     const { loadOptions, changeOnSelect } = this.props;
     const { activeValue, options } = this.state;
-    const hasChildren = item.children && item.children.length > 0;
-    const needLoading = item.isLeaf === false && !hasChildren && loadOptions;
+    const needLoading = item.loadChildrenOnExpand && loadOptions;
 
     const newValue = activeValue.slice(0, level - 1) as CascaderValue[];
     newValue.push(item.value);
@@ -150,7 +149,8 @@ export class TabsCascader extends React.Component<
       activeValue: newValue,
     };
 
-    const needClose = !(hasChildren || item.isLeaf === false);
+    const hasChildren = item.children && item.children.length > 0;
+    const needClose = !item.loadChildrenOnExpand && !hasChildren;
     const needTriggerChange = needClose || changeOnSelect;
     const nextLevel = level + 1;
 

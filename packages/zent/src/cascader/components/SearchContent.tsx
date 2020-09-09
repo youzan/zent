@@ -6,7 +6,8 @@ import { ICascaderItem, CascaderSearchClickHandler } from '../types';
 import { II18nLocaleCascader } from '../../i18n';
 import { Checkbox } from '../../checkbox';
 import BlockLoading from '../../loading/BlockLoading';
-import { getOptionsValue, getNodeKey } from '../utils';
+import { getNodeKey } from '../node-fns';
+import { getPathValue } from '../path-fns';
 
 const withPopover = Popover.withPopover;
 
@@ -77,7 +78,7 @@ class SearchContent extends React.Component<ISearchContentProps> {
 
           return (
             <li
-              key={getOptionsValue(items)}
+              key={getPathValue(items)}
               className={searchItemCls}
               onClick={
                 leafNode.disabled || multiple

@@ -4,12 +4,11 @@ import classnames from 'classnames';
 import Popover from '../../popover';
 import Icon from '../../icon';
 import Checkbox from '../../checkbox';
-import { getNodeChildren, getNodeKey } from '../utils';
+import { getNodeChildren, getNodeKey } from '../node-fns';
 import {
   CascaderMenuClickHandler,
   ICascaderItem,
   CascaderValue,
-  CascaderScrollHandler,
   CascaderMenuHoverHandler,
 } from '../types';
 import InfiniteScroller from '../../infinite-scroller';
@@ -26,8 +25,8 @@ export interface IMenuContentCommonProps {
   expandTrigger?: 'click' | 'hover';
   i18n: II18nLocaleCascader;
   scrollable: boolean;
-  scrollLoad: CascaderScrollHandler;
-  firstLevelHasMore: boolean;
+  scrollLoad: (parent: ICascaderItem | null, level: number) => Promise<void>;
+  loadChildrenOnScroll: boolean;
   onOptionToggle: (item: ICascaderItem, checked: boolean) => void;
   onOptionHover: CascaderMenuHoverHandler;
   onOptionClick: CascaderMenuClickHandler;
@@ -66,13 +65,17 @@ class MenuContent extends React.Component<IMenuContentProps> {
 
   getMenuItemIcon(item: ICascaderItem, isActive: boolean) {
     const { loading } = this.props;
-    const hasChildren = item.children && item.children.length > 0;
-    if (hasChildren || item.isLeaf === false) {
+
+    if (item.loadChildrenOnExpand) {
       const itemKey = getNodeKey(item);
       if (loading.indexOf(itemKey) !== -1 && isActive) {
         return <i className="zent-cascader__menu-item-loading zenticon" />;
       }
+    }
 
+    // 有 children 或者需要加载 children 的时候说明非叶子节点
+    const hasChildren = item.children && item.children.length > 0;
+    if (hasChildren || item.loadChildrenOnExpand) {
       return <Icon className="zent-cascader__menu-item-icon" type="right" />;
     }
 
@@ -99,20 +102,22 @@ class MenuContent extends React.Component<IMenuContentProps> {
       onOptionHover,
       expandTrigger,
       scrollLoad,
-      firstLevelHasMore,
+      loadChildrenOnScroll,
       scrollable,
       multiple,
       selectionMap,
     } = this.props;
 
-    const hasMore = parent === null ? firstLevelHasMore : parent.hasMore;
+    const hasMore =
+      parent === null ? loadChildrenOnScroll : parent.loadChildrenOnScroll;
     const cascaderItems = items.map(item => {
       const isActive = item.value === value[level - 1];
       const cascaderItemCls = classnames('zent-cascader__menu-item', {
         'zent-cascader__menu-item--active': isActive,
         'zent-cascader__menu-item--disabled': item.disabled,
         'zent-cascader__menu-item--multiple': multiple,
-        'zent-cascader__menu-item--leaf': item.isLeaf,
+        'zent-cascader__menu-item--leaf':
+          item.children.length === 0 && !item.loadChildrenOnExpand,
       });
 
       let checkState: 'on' | 'off' | 'partial' | undefined;
@@ -170,6 +175,7 @@ class MenuContent extends React.Component<IMenuContentProps> {
               />
             }
             loadMore={() => scrollLoad(parent, level)}
+            skipLoadOnMount
           >
             {cascaderItems}
           </InfiniteScroller>

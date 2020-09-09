@@ -22,23 +22,21 @@ export interface IPublicCascaderItem {
   children?: IPublicCascaderItem[];
   disabled?: boolean;
 
-  // childrenLoaded
-  isLeaf?: boolean;
+  // 下一级展开时加载
+  loadChildrenOnExpand?: boolean;
 
-  // hasMoreSiblings
-  hasMore?: boolean;
+  // 滚动到底部时加载
+  loadChildrenOnScroll?: boolean;
 
   // custom properties
   [key: string]: unknown;
 }
 
-// todo: remove this
 export interface ICascaderItem extends IPublicCascaderItem {
   children: ICascaderItem[];
   parent: ICascaderItem | null;
 }
 
-// todo: move to separate files
 export type CascaderTabsClickHandler = (
   item: ICascaderItem,
   level: number,
@@ -78,8 +76,3 @@ export enum CascaderLoadAction {
 export interface ICascaderLoadMeta {
   action: CascaderLoadAction;
 }
-
-export type CascaderScrollHandler = (
-  parent: ICascaderItem | null,
-  level: number
-) => Promise<void>;

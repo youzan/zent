@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { BaseTrigger, ICascaderBaseTriggerProps } from './BaseTrigger';
 import { ICascaderItem } from '../types';
-import { getOptionsLabel } from '../utils';
+import { getPathLabel } from '../path-fns';
 import { SearchInput } from './Search';
 
 export interface ISingleTriggerProps
@@ -38,7 +38,7 @@ export class SingleTrigger extends React.Component<ISingleTriggerProps> {
     const showSearch = visible && searchable;
     const hasValue = selectedPath.length > 0;
     const inputPlaceholder = hasValue
-      ? getOptionsLabel(selectedPath)
+      ? getPathLabel(selectedPath)
       : i18n.searchPlaceholder;
     const selectedPaths = hasValue ? [selectedPath] : [];
 

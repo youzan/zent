@@ -1,20 +1,90 @@
 import { IPublicCascaderItem, ICascaderItem, CascaderValue } from './types';
-import { isPathEqual } from './utils';
+import { isPathEqual } from './path-fns';
 
-interface IBuildStackFrame {
-  node: ICascaderItem;
+interface IBuildStackFrame<T> {
+  node: T;
   children?: IPublicCascaderItem[];
 }
 
-interface IInsertStackFrame {
-  parent: ICascaderItem | null;
-  children: ICascaderItem[];
+interface IInsertStackFrame<T> {
+  parent: T | null;
+  children: T[];
   node?: IPublicCascaderItem;
 }
 
 interface IReduceNodeDfsFrame {
   node: ICascaderItem;
   phase: 'recurse' | 'visit';
+}
+
+export function clone<T extends IPublicCascaderItem>(
+  from: IPublicCascaderItem[],
+  cloneNode: (node: IPublicCascaderItem, parent: T) => T
+): T[] {
+  const stack: IBuildStackFrame<T>[] = from.map(n => ({
+    node: cloneNode(n, null),
+    children: n.children,
+  }));
+  const trees = stack.map(n => n.node);
+
+  while (stack.length > 0) {
+    const state = stack.pop();
+    if (!state) {
+      continue;
+    }
+
+    const { node, children } = state;
+    children?.forEach(n => {
+      const m = cloneNode(n, node);
+      stack.push({ node: m, children: n.children });
+      node.children.push(m);
+    });
+  }
+
+  return trees;
+}
+
+export function insertPath<T extends IPublicCascaderItem>(
+  trees: T[],
+  path: IPublicCascaderItem[],
+  createNode: (node: IPublicCascaderItem, parent: T) => T
+): T[] {
+  const stack: IInsertStackFrame<T>[] = [
+    {
+      parent: null,
+      children: trees,
+      node: path.shift(),
+    },
+  ];
+
+  while (stack.length > 0) {
+    const frame = stack.pop();
+    if (!frame) {
+      continue;
+    }
+
+    const { children, node } = frame;
+
+    // done
+    if (!node) {
+      break;
+    }
+
+    const nval = node.value;
+    let matchedNode = children.find(n => n.value === nval);
+    if (!matchedNode) {
+      matchedNode = createNode(node, frame.parent);
+      children.push(matchedNode);
+    }
+
+    stack.push({
+      parent: matchedNode,
+      children: matchedNode.children as T[],
+      node: path.shift(),
+    });
+  }
+
+  return trees;
 }
 
 /**
@@ -28,29 +98,12 @@ export class Forest {
   }
 
   private build(from: IPublicCascaderItem[]) {
-    const stack: IBuildStackFrame[] = from.map(n => ({
-      node: createNode(n, null),
-      children: n.children,
-    }));
-    const trees = stack.map(n => n.node);
-
-    while (stack.length > 0) {
-      const state = stack.pop();
-      if (!state) {
-        continue;
-      }
-
-      const { node, children } = state;
-      children?.forEach(n => {
-        const m = createNode(n, node);
-        stack.push({ node: m, children: n.children });
-        node.children.push(m);
-      });
-    }
-
-    return trees;
+    return clone(from, createNode);
   }
 
+  /**
+   * Like Array.prototype.reduce but works on tree paths.
+   */
   reducePath<T>(
     callback: (
       accumulator: T,
@@ -92,6 +145,11 @@ export class Forest {
     return acc;
   }
 
+  /**
+   * Like Array.prototype.reduce but work on tree nodes.
+   *
+   * Nodes are reduced in pre-order.
+   */
   reduceNode<T>(
     callback: (accumulator: T, node: ICascaderItem, terminate: () => void) => T,
     initialValue: T
@@ -122,6 +180,9 @@ export class Forest {
     return acc;
   }
 
+  /**
+   * Same as reduceNode, but in post-order
+   */
   reduceNodeDfs<T>(
     callback: (accumulator: T, node: ICascaderItem, terminate: () => void) => T,
     initialValue: T
@@ -167,7 +228,9 @@ export class Forest {
   }
 
   /**
-   * Sort paths using orders in `this.trees`
+   * Sort paths using orders in `this.trees`.
+   *
+   * Does not mutate `paths`.
    */
   sort(paths: Array<ICascaderItem[]>): Array<ICascaderItem[]> {
     return this.reducePath((acc, path) => {
@@ -183,53 +246,15 @@ export class Forest {
     return new Forest(this.trees);
   }
 
+  /**
+   * Insert a path into tree.
+   *
+   * Modifies tree in place.
+   */
   insertPath(path: IPublicCascaderItem[]): this {
-    const stack: IInsertStackFrame[] = [
-      {
-        parent: null,
-        children: this.trees,
-        node: path.shift(),
-      },
-    ];
-
-    while (stack.length > 0) {
-      const frame = stack.pop();
-      if (!frame) {
-        continue;
-      }
-
-      const { children, node } = frame;
-
-      // done
-      if (!node) {
-        break;
-      }
-
-      const nval = node.value;
-      let matchedNode = children.find(n => n.value === nval);
-      if (!matchedNode) {
-        matchedNode = createNode(node, frame.parent);
-        children.push(matchedNode);
-      }
-
-      stack.push({
-        parent: matchedNode,
-        children: matchedNode.children,
-        node: path.shift(),
-      });
-    }
-
+    insertPath(this.trees, path, createNode);
     return this;
   }
-
-  // merge(other: IPublicCascaderItem[]): Forest {
-  //   const otherForest = new Forest(other);
-
-  //   return otherForest.reducePath((clone, path) => {
-  //     clone.insertPath(path);
-  //     return clone;
-  //   }, this.clone());
-  // }
 
   getTrees(): ICascaderItem[] {
     return this.trees;
@@ -257,6 +282,9 @@ export class Forest {
     }, []);
   }
 
+  /**
+   * Returns all paths from root to leaf that contains `startNode`
+   */
   getPaths(startNode: ICascaderItem) {
     const depth = getDepth(startNode);
     const idx = depth - 1;
@@ -272,6 +300,9 @@ export class Forest {
   }
 }
 
+/**
+ * Returns node depth, root node has depth 1.
+ */
 function getDepth(node: ICascaderItem): number {
   let depth = 1;
   let { parent } = node;

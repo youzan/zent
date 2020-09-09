@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import Popover from '../../popover';
 import Tabs, { ITabPanelElement, ITabPanelProps } from '../../tabs';
 import { II18nLocaleCascader } from '../../i18n';
-import { getNodeChildren } from '../utils';
+import { getNodeChildren } from '../node-fns';
 import {
   CascaderTabsClickHandler,
   CascaderValue,

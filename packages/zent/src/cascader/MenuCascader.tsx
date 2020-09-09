@@ -7,11 +7,11 @@ import MenuContent from './components/MenuContent';
 import {
   union,
   difference,
-  getOptionsValue,
-  getOptionsLabel,
-  getNodeKey,
+  getPathValue,
+  getPathLabel,
   getPathToNode,
-} from './utils';
+} from './path-fns';
+import { getNodeKey } from './node-fns';
 import {
   ICascaderItem,
   CascaderValue,
@@ -21,6 +21,8 @@ import {
   ICascaderBaseProps,
   ICascaderChangeMeta,
   ICascaderLoadMeta,
+  CascaderMenuClickHandler,
+  CascaderMenuHoverHandler,
 } from './types';
 import SearchContent from './components/SearchContent';
 import debounce from '../utils/debounce';
@@ -43,7 +45,7 @@ export interface IMenuCascaderCommonProps extends ICascaderBaseProps {
   /**
    * 滚动加载开启时，指定第一级数据是否还有更多数据
    */
-  firstLevelHasMore?: boolean;
+  loadChildrenOnScroll?: boolean;
   searchable?: boolean;
   async?: boolean;
   asyncFilter?: (
@@ -122,7 +124,7 @@ const defaultHighlight = (
 ): React.ReactNode => {
   return items.map((item, index) => {
     return (
-      <span key={getOptionsValue(items.slice(0, index + 1))}>
+      <span key={getPathValue(items.slice(0, index + 1))}>
         <TextMark
           searchWords={[keyword]}
           textToHighlight={item.label}
@@ -189,11 +191,11 @@ export class MenuCascader extends React.Component<
     multiple: false,
     expandTrigger: 'click',
     scrollable: false,
-    firstLevelHasMore: false,
+    loadChildrenOnScroll: false,
     searchable: false,
     async: false,
     limit: 50,
-    renderValue: getOptionsLabel,
+    renderValue: getPathLabel,
     filter: defaultFilter,
     highlight: defaultHighlight,
   };
@@ -350,15 +352,11 @@ export class MenuCascader extends React.Component<
     });
   };
 
-  onMenuOptionHover = (item: ICascaderItem, level: number) => {
+  onMenuOptionHover: CascaderMenuHoverHandler = (item, level) => {
     this.onMenuOptionSelect(item, level, noop, 'hover');
   };
 
-  onMenuOptionClick = (
-    item: ICascaderItem,
-    level: number,
-    closePopup: () => void
-  ) => {
+  onMenuOptionClick: CascaderMenuClickHandler = (item, level, closePopup) => {
     this.onMenuOptionSelect(item, level, closePopup, 'click');
   };
 
@@ -370,10 +368,7 @@ export class MenuCascader extends React.Component<
   ) => {
     const { loadOptions, changeOnSelect, multiple } = this.props;
     const { activeValue, options, loading } = this.state;
-    const hasChildren = item.children && item.children.length > 0;
-    const needLoading = item.isLeaf === false && !hasChildren && loadOptions;
-
-    let needClose = false;
+    const needLoading = item.loadChildrenOnExpand && loadOptions;
 
     const newValue = activeValue.slice(0, level - 1) as CascaderValue[];
     newValue.push(item.value);
@@ -384,13 +379,12 @@ export class MenuCascader extends React.Component<
       keyword: '',
     };
 
-    if (
-      !(hasChildren || item.isLeaf === false) &&
+    const hasChildren = item.children && item.children.length > 0;
+    const needClose =
+      !item.loadChildrenOnExpand &&
+      !hasChildren &&
       !multiple &&
-      source === 'click'
-    ) {
-      needClose = true;
-    }
+      source === 'click';
 
     const needTriggerChange =
       needClose || (changeOnSelect && source === 'click');
@@ -455,10 +449,7 @@ export class MenuCascader extends React.Component<
     }
   };
 
-  onSearchOptionClick: CascaderSearchClickHandler = (
-    items: ICascaderItem[],
-    closePopup
-  ) => {
+  onSearchOptionClick: CascaderSearchClickHandler = (items, closePopup) => {
     const activeValue = items.map(item => item.value);
     const level = items.length;
 
@@ -488,8 +479,8 @@ export class MenuCascader extends React.Component<
     const { loadOptions } = this.props;
     // 判断是否要加载更多
     const currentHasMore = parent
-      ? parent.hasMore
-      : this.props.firstLevelHasMore;
+      ? parent.loadChildrenOnScroll
+      : this.props.loadChildrenOnScroll;
 
     if (currentHasMore === false) {
       return Promise.resolve();
@@ -517,7 +508,7 @@ export class MenuCascader extends React.Component<
       multiple,
       searchable,
       highlight,
-      firstLevelHasMore,
+      loadChildrenOnScroll,
     } = this.props;
     const {
       options,
@@ -553,7 +544,7 @@ export class MenuCascader extends React.Component<
         expandTrigger={expandTrigger}
         i18n={i18n}
         scrollable={scrollable}
-        firstLevelHasMore={firstLevelHasMore}
+        loadChildrenOnScroll={loadChildrenOnScroll}
         multiple={multiple}
         onOptionClick={this.onMenuOptionClick}
         onOptionHover={this.onMenuOptionHover}

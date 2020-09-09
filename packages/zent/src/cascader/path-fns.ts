@@ -1,22 +1,8 @@
 import { ICascaderItem } from './types';
 
 /**
- * 查找树中某个节点的子节点
+ * 判断树的两个路径是否相同
  */
-export function getNodeChildren(
-  options: ICascaderItem[] | null | undefined,
-  value: unknown
-): ICascaderItem[] | null {
-  if (options && options.length > 0) {
-    const currOptions = options.find(it => it.value === value);
-    if (currOptions && Array.isArray(currOptions.children)) {
-      return currOptions.children;
-    }
-  }
-
-  return null;
-}
-
 export function isPathEqual(x: ICascaderItem[], y: ICascaderItem[]): boolean {
   if (x.length !== y.length) {
     return false;
@@ -31,6 +17,9 @@ export function isPathEqual(x: ICascaderItem[], y: ICascaderItem[]): boolean {
   return true;
 }
 
+/**
+ * 合并树的路径
+ */
 export function union(
   x: Array<ICascaderItem[]>,
   y: Array<ICascaderItem[]>
@@ -48,6 +37,9 @@ export function union(
   );
 }
 
+/**
+ * 两个树路径集合的差集
+ */
 export function difference(
   x: Array<ICascaderItem[]>,
   y: Array<ICascaderItem[]>
@@ -55,21 +47,15 @@ export function difference(
   return x.filter(i => y.every(j => !isPathEqual(i, j)));
 }
 
-export function getNodeKey(node: ICascaderItem): string {
-  const values = [];
-  while (node) {
-    values.unshift(node.value);
-    node = node.parent;
-  }
-  return values.map((s, i) => `${i}$${s}`).join('@');
-}
-
+/**
+ * 从根节点到 `node` 的路径
+ */
 export function getPathToNode(node: ICascaderItem): ICascaderItem[] {
   let parent = node;
   const path = [];
 
   while (parent) {
-    path.push(parent);
+    path.unshift(parent);
     parent = parent.parent;
   }
 
@@ -77,13 +63,13 @@ export function getPathToNode(node: ICascaderItem): ICascaderItem[] {
 }
 
 /**
- * 获取级联项的文本
+ * 获取路径的 label 描述
  */
-export const getOptionsLabel = (items: ICascaderItem[]): string =>
-  items.map(it => it.label).join(' / ');
+export const getPathLabel = (path: ICascaderItem[]): string =>
+  path.map(it => it.label).join(' / ');
 
 /**
- * 获取级联项的值
+ * 获取路径的 value 描述
  */
-export const getOptionsValue = (items: ICascaderItem[]): string =>
-  items.map(it => it.value).join('-');
+export const getPathValue = (path: ICascaderItem[]): string =>
+  path.map(it => it.value).join('-');
