@@ -21,3 +21,40 @@ function getNode(options, path) {
 
   return node;
 }
+
+function insertPath(options, path) {
+  const stack = [
+    {
+      children: options,
+      node: path.shift(),
+    },
+  ];
+
+  while (stack.length > 0) {
+    const frame = stack.pop();
+    if (!frame) {
+      continue;
+    }
+
+    const { children, node } = frame;
+
+    // done
+    if (!node) {
+      break;
+    }
+
+    const nval = node.value;
+    let matchedNode = children.find(n => n.value === nval);
+    if (!matchedNode) {
+      matchedNode = { ...node, children: [] };
+      children.push(matchedNode);
+    }
+
+    stack.push({
+      children: matchedNode.children,
+      node: path.shift(),
+    });
+  }
+
+  return options;
+}

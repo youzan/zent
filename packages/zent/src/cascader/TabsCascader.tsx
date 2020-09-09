@@ -38,7 +38,7 @@ interface ICascaderState {
   /**
    * starts from 1, not zero
    */
-  activeId: number;
+  activeTab: number;
 
   /**
    * Is popup open
@@ -74,7 +74,7 @@ export class TabsCascader extends React.Component<
     this.state = {
       options: new Forest(props.options),
       activeValue: value,
-      activeId: value.length || 1,
+      activeTab: value.length || 1,
       visible: false,
       prevProps: props,
       loadingLevel: null,
@@ -96,7 +96,7 @@ export class TabsCascader extends React.Component<
       const newValue = nextProps.value;
       Object.assign(newState, {
         activeValue: newValue,
-        activeId: newValue.length || 1,
+        activeTab: newValue.length || 1,
       });
     }
 
@@ -123,7 +123,7 @@ export class TabsCascader extends React.Component<
 
   onTabsChange = (activeId: number) => {
     this.setState({
-      activeId,
+      activeTab: activeId,
     });
   };
 
@@ -155,7 +155,7 @@ export class TabsCascader extends React.Component<
     const nextLevel = level + 1;
 
     if (!needLoading && !needClose) {
-      newState.activeId = nextLevel;
+      newState.activeTab = nextLevel;
     }
 
     this.setState(newState as ICascaderState, () => {
@@ -166,7 +166,7 @@ export class TabsCascader extends React.Component<
         loadOptions(selectedOptions).then(
           () => {
             this.setState({
-              activeId: nextLevel,
+              activeTab: nextLevel,
               loadingLevel: null,
             });
           },
@@ -216,7 +216,7 @@ export class TabsCascader extends React.Component<
       visible,
       activeValue,
       loadingLevel,
-      activeId,
+      activeTab,
       options,
     } = this.state;
     const selectedPath = options.getPathByValue(value);
@@ -251,7 +251,7 @@ export class TabsCascader extends React.Component<
                   value={activeValue}
                   loadingLevel={loadingLevel}
                   onClick={this.onClick}
-                  activeId={activeId}
+                  activeId={activeTab}
                   onTabsChange={this.onTabsChange}
                   title={title}
                   options={options.getTrees()}

@@ -1,4 +1,5 @@
 import { IPublicCascaderItem, ICascaderItem, CascaderValue } from './types';
+import { isPathEqual } from './utils';
 
 interface IBuildStackFrame {
   node: ICascaderItem;
@@ -9,6 +10,11 @@ interface IInsertStackFrame {
   parent: ICascaderItem | null;
   children: ICascaderItem[];
   node?: IPublicCascaderItem;
+}
+
+interface IReduceNodeDfsFrame {
+  node: ICascaderItem;
+  phase: 'recurse' | 'visit';
 }
 
 /**
@@ -116,6 +122,63 @@ export class Forest {
     return acc;
   }
 
+  reduceNodeDfs<T>(
+    callback: (accumulator: T, node: ICascaderItem, terminate: () => void) => T,
+    initialValue: T
+  ): T {
+    const stack: IReduceNodeDfsFrame[] = this.trees.map(n => ({
+      node: n,
+      phase: 'recurse',
+    }));
+    let acc = initialValue;
+    let earlyExit = false;
+    const terminate = () => {
+      earlyExit = true;
+    };
+
+    while (stack.length > 0) {
+      const frame = stack.pop();
+      if (!frame) {
+        continue;
+      }
+
+      const { node, phase } = frame;
+      if (phase === 'recurse') {
+        stack.push({
+          node,
+          phase: 'visit',
+        });
+
+        node.children.forEach(node => {
+          stack.push({
+            node,
+            phase: 'recurse',
+          });
+        });
+      } else if (phase === 'visit') {
+        acc = callback(acc, node, terminate);
+        if (earlyExit) {
+          break;
+        }
+      }
+    }
+
+    return acc;
+  }
+
+  /**
+   * Sort paths using orders in `this.trees`
+   */
+  sort(paths: Array<ICascaderItem[]>): Array<ICascaderItem[]> {
+    return this.reducePath((acc, path) => {
+      if (paths.some(x => isPathEqual(x, path))) {
+        acc.push(path);
+      }
+
+      return acc;
+    }, []);
+  }
+
   clone(): Forest {
     return new Forest(this.trees);
   }
@@ -193,6 +256,20 @@ export class Forest {
       return i === size ? path : path.slice(0, size);
     }, []);
   }
+
+  getPaths(startNode: ICascaderItem) {
+    const depth = getDepth(startNode);
+    const idx = depth - 1;
+    const { value } = startNode;
+
+    return this.reducePath((acc, path) => {
+      if (path[idx].value === value) {
+        acc.push(path);
+      }
+
+      return acc;
+    }, []);
+  }
 }
 
 function getDepth(node: ICascaderItem): number {
@@ -226,9 +303,6 @@ function createNode(
 ): ICascaderItem {
   return {
     ...item,
-    loading: false,
-    checked: false,
-    indeterminate: false,
     parent,
     children: [],
   };

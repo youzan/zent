@@ -6,7 +6,7 @@ import { ICascaderItem, CascaderSearchClickHandler } from '../types';
 import { II18nLocaleCascader } from '../../i18n';
 import { Checkbox } from '../../checkbox';
 import BlockLoading from '../../loading/BlockLoading';
-import { getOptionsValue } from '../utils';
+import { getOptionsValue, getNodeKey } from '../utils';
 
 const withPopover = Popover.withPopover;
 
@@ -22,6 +22,8 @@ export interface ISearchContentProps {
   searchList: Array<ICascaderItem[]>;
   highlight: (keyword: string, items: ICascaderItem[]) => React.ReactNode;
   i18n: II18nLocaleCascader;
+
+  selectionMap: Map<string, 'on' | 'off' | 'partial'>;
 }
 
 class SearchContent extends React.Component<ISearchContentProps> {
@@ -52,7 +54,13 @@ class SearchContent extends React.Component<ISearchContentProps> {
   }
 
   renderPanels() {
-    const { searchList, multiple, highlight, keyword } = this.props;
+    const {
+      searchList,
+      multiple,
+      highlight,
+      keyword,
+      selectionMap,
+    } = this.props;
 
     return (
       <ul className="zent-cascader--search-list">
@@ -61,6 +69,11 @@ class SearchContent extends React.Component<ISearchContentProps> {
           const searchItemCls = cx('zent-cascader--search-item', {
             'zent-cascader--search-item--multiple': multiple,
           });
+
+          let checkState: 'on' | 'off' | 'partial' | undefined;
+          if (multiple) {
+            checkState = selectionMap.get(getNodeKey(leafNode));
+          }
 
           return (
             <li
@@ -78,7 +91,7 @@ class SearchContent extends React.Component<ISearchContentProps> {
                   onChange={e =>
                     this.props.onOptionToggle(items, e.target.checked)
                   }
-                  checked={leafNode.checked}
+                  checked={checkState === 'on'}
                   disabled={leafNode.disabled}
                 />
               )}

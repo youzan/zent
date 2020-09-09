@@ -4,12 +4,13 @@ import classnames from 'classnames';
 import Popover from '../../popover';
 import Icon from '../../icon';
 import Checkbox from '../../checkbox';
-import { getNodeChildren } from '../utils';
+import { getNodeChildren, getNodeKey } from '../utils';
 import {
-  CascaderHandler,
+  CascaderMenuClickHandler,
   ICascaderItem,
   CascaderValue,
   CascaderScrollHandler,
+  CascaderMenuHoverHandler,
 } from '../types';
 import InfiniteScroller from '../../infinite-scroller';
 import { II18nLocaleCascader } from '../../i18n';
@@ -21,7 +22,6 @@ export interface IMenuContentCommonProps {
   // injected by withPopover
   popover: Popover;
 
-  onClick: CascaderHandler;
   options: ICascaderItem[];
   expandTrigger?: 'click' | 'hover';
   i18n: II18nLocaleCascader;
@@ -29,7 +29,14 @@ export interface IMenuContentCommonProps {
   scrollLoad: CascaderScrollHandler;
   firstLevelHasMore: boolean;
   onOptionToggle: (item: ICascaderItem, checked: boolean) => void;
+  onOptionHover: CascaderMenuHoverHandler;
+  onOptionClick: CascaderMenuClickHandler;
   className?: string;
+
+  loading: string[];
+
+  // 节点选中状态
+  selectionMap: Map<string, 'on' | 'off' | 'partial'>;
 }
 
 export interface IMenuContentMultipleProps extends IMenuContentCommonProps {
@@ -58,9 +65,11 @@ class MenuContent extends React.Component<IMenuContentProps> {
   closePopup = () => this.props.popover?.close();
 
   getMenuItemIcon(item: ICascaderItem, isActive: boolean) {
+    const { loading } = this.props;
     const hasChildren = item.children && item.children.length > 0;
     if (hasChildren || item.isLeaf === false) {
-      if (item.loading && isActive) {
+      const itemKey = getNodeKey(item);
+      if (loading.indexOf(itemKey) !== -1 && isActive) {
         return <i className="zent-cascader__menu-item-loading zenticon" />;
       }
 
@@ -86,12 +95,14 @@ class MenuContent extends React.Component<IMenuContentProps> {
 
     const {
       value,
-      onClick,
+      onOptionClick,
+      onOptionHover,
       expandTrigger,
       scrollLoad,
       firstLevelHasMore,
       scrollable,
       multiple,
+      selectionMap,
     } = this.props;
 
     const hasMore = parent === null ? firstLevelHasMore : parent.hasMore;
@@ -104,28 +115,33 @@ class MenuContent extends React.Component<IMenuContentProps> {
         'zent-cascader__menu-item--leaf': item.isLeaf,
       });
 
+      let checkState: 'on' | 'off' | 'partial' | undefined;
+      if (multiple) {
+        checkState = selectionMap.get(getNodeKey(item));
+      }
+
       return (
         <div
           className={cascaderItemCls}
           title={item.label}
           key={item.value}
           onClick={
-            item.disabled || expandTrigger !== 'click'
+            item.disabled
               ? undefined
-              : () => onClick(item, level, this.closePopup, 'click')
+              : () => onOptionClick(item, level, this.closePopup)
           }
           onMouseEnter={
             item.disabled || expandTrigger !== 'hover'
               ? undefined
-              : () => onClick(item, level, this.closePopup, 'hover')
+              : () => onOptionHover(item, level)
           }
         >
           {multiple && (
             <Checkbox
               value={item.value}
               onChange={e => this.props.onOptionToggle(item, e.target.checked)}
-              checked={item.checked}
-              indeterminate={item.indeterminate}
+              checked={checkState === 'on'}
+              indeterminate={checkState === 'partial'}
               disabled={item.disabled}
             />
           )}
@@ -179,7 +195,7 @@ class MenuContent extends React.Component<IMenuContentProps> {
         const parent = options.find(it => it.value === value[i]);
         options = getNodeChildren(options, value[i]);
 
-        if (options) {
+        if (options.length > 0) {
           PanelEls.push(this.renderCascaderItems(options, level, parent));
         }
       }

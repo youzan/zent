@@ -35,23 +35,25 @@ export interface IPublicCascaderItem {
 // todo: remove this
 export interface ICascaderItem extends IPublicCascaderItem {
   children: ICascaderItem[];
-  loading: boolean;
-  checked: boolean;
-  indeterminate: boolean;
   parent: ICascaderItem | null;
 }
 
+// todo: move to separate files
 export type CascaderTabsClickHandler = (
   item: ICascaderItem,
   level: number,
   closePopup: () => void
 ) => void;
 
-export type CascaderHandler = (
+export type CascaderMenuClickHandler = (
   item: ICascaderItem,
   level: number,
-  closePopup: () => void,
-  trigger?: 'click' | 'hover'
+  closePopup: () => void
+) => void;
+
+export type CascaderMenuHoverHandler = (
+  item: ICascaderItem,
+  level: number
 ) => void;
 
 export type CascaderSearchClickHandler = (
