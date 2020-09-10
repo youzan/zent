@@ -318,11 +318,11 @@ function reversePush<T>(arr: T[], from: T[]): T[] {
 }
 
 function createNode(
-  item: IPublicCascaderItem,
+  node: IPublicCascaderItem,
   parent: ICascaderItem | null
 ): ICascaderItem {
   return {
-    ...item,
+    ...node,
     parent,
     children: [],
   };

@@ -16,12 +16,12 @@ export interface ISearchContentProps {
   popover: Popover;
 
   multiple: boolean;
-  onOptionToggle: (items: ICascaderItem[], checked: boolean) => void;
+  onOptionToggle: (path: ICascaderItem[], checked: boolean) => void;
   onOptionClick: CascaderSearchClickHandler;
   isSearching: boolean;
   keyword: string;
   searchList: Array<ICascaderItem[]>;
-  highlight: (keyword: string, items: ICascaderItem[]) => React.ReactNode;
+  highlight: (keyword: string, path: ICascaderItem[]) => React.ReactNode;
   i18n: II18nLocaleCascader;
 
   selectionMap: Map<string, 'on' | 'off' | 'partial'>;
@@ -30,9 +30,9 @@ export interface ISearchContentProps {
 class SearchContent extends React.Component<ISearchContentProps> {
   closePopup = () => this.props.popover?.close();
 
-  onOptionClick(items: ICascaderItem[]) {
+  onOptionClick(path: ICascaderItem[]) {
     const { onOptionClick } = this.props;
-    onOptionClick(items, this.closePopup);
+    onOptionClick(path, this.closePopup);
   }
 
   renderSearchingOrEmpty() {
@@ -65,8 +65,8 @@ class SearchContent extends React.Component<ISearchContentProps> {
 
     return (
       <ul className="zent-cascader--search-list">
-        {searchList.map(items => {
-          const leafNode = items[items.length - 1];
+        {searchList.map(path => {
+          const leafNode = path[path.length - 1];
           const searchItemCls = cx('zent-cascader--search-item', {
             'zent-cascader--search-item--multiple': multiple,
           });
@@ -78,25 +78,25 @@ class SearchContent extends React.Component<ISearchContentProps> {
 
           return (
             <li
-              key={getPathValue(items)}
+              key={getPathValue(path)}
               className={searchItemCls}
               onClick={
                 leafNode.disabled || multiple
                   ? undefined
-                  : () => this.onOptionClick(items)
+                  : () => this.onOptionClick(path)
               }
             >
               {multiple && (
                 <Checkbox
                   value={leafNode.value}
                   onChange={e =>
-                    this.props.onOptionToggle(items, e.target.checked)
+                    this.props.onOptionToggle(path, e.target.checked)
                   }
                   checked={checkState === 'on'}
                   disabled={leafNode.disabled}
                 />
               )}
-              {highlight(keyword, items)}
+              {highlight(keyword, path)}
             </li>
           );
         })}

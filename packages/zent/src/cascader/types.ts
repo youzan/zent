@@ -38,19 +38,19 @@ export interface ICascaderItem extends IPublicCascaderItem {
 }
 
 export type CascaderTabsClickHandler = (
-  item: ICascaderItem,
+  node: ICascaderItem,
   closePopup: () => void
 ) => void;
 
 export type CascaderMenuClickHandler = (
-  item: ICascaderItem,
+  node: ICascaderItem,
   closePopup: () => void
 ) => void;
 
-export type CascaderMenuHoverHandler = (item: ICascaderItem) => void;
+export type CascaderMenuHoverHandler = (node: ICascaderItem) => void;
 
 export type CascaderSearchClickHandler = (
-  items: ICascaderItem[],
+  path: ICascaderItem[],
   closePopup: () => void
 ) => void;
 

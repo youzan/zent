@@ -27,7 +27,7 @@ export interface IMenuContentCommonProps {
   scrollable: boolean;
   scrollLoad: (parent: ICascaderItem | null) => Promise<void>;
   loadChildrenOnScroll: boolean;
-  onOptionToggle: (item: ICascaderItem, checked: boolean) => void;
+  onOptionToggle: (node: ICascaderItem, checked: boolean) => void;
   onOptionHover: CascaderMenuHoverHandler;
   onOptionClick: CascaderMenuClickHandler;
   className?: string;
@@ -63,19 +63,19 @@ class MenuContent extends React.Component<IMenuContentProps> {
 
   closePopup = () => this.props.popover?.close();
 
-  getMenuItemIcon(item: ICascaderItem, isActive: boolean) {
+  getMenuItemIcon(node: ICascaderItem, isActive: boolean) {
     const { loading } = this.props;
 
-    if (item.loadChildrenOnExpand) {
-      const itemKey = getNodeKey(item);
-      if (loading.indexOf(itemKey) !== -1 && isActive) {
+    if (node.loadChildrenOnExpand) {
+      const nodeKey = getNodeKey(node);
+      if (loading.indexOf(nodeKey) !== -1 && isActive) {
         return <i className="zent-cascader__menu-item-loading zenticon" />;
       }
     }
 
     // 有 children 或者需要加载 children 的时候说明非叶子节点
-    const hasChildren = item.children && item.children.length > 0;
-    if (hasChildren || item.loadChildrenOnExpand) {
+    const hasChildren = node.children && node.children.length > 0;
+    if (hasChildren || node.loadChildrenOnExpand) {
       return <Icon className="zent-cascader__menu-item-icon" type="right" />;
     }
 
@@ -83,12 +83,12 @@ class MenuContent extends React.Component<IMenuContentProps> {
   }
 
   renderCascaderItems(
-    items: ICascaderItem[],
+    path: ICascaderItem[],
     level: number,
     parent: ICascaderItem | null
   ) {
     const { i18n } = this.props;
-    if (!items || items?.length === 0) {
+    if (!path || path?.length === 0) {
       return (
         <div className="zent-cascader__menu-empty" key="menu-empty">
           {i18n.empty}
@@ -110,48 +110,48 @@ class MenuContent extends React.Component<IMenuContentProps> {
 
     const hasMore =
       parent === null ? loadChildrenOnScroll : parent.loadChildrenOnScroll;
-    const cascaderItems = items.map(item => {
-      const isActive = item.value === value[level - 1];
+    const cascaderItems = path.map(node => {
+      const isActive = node.value === value[level - 1];
       const cascaderItemCls = classnames('zent-cascader__menu-item', {
         'zent-cascader__menu-item--active': isActive,
-        'zent-cascader__menu-item--disabled': item.disabled,
+        'zent-cascader__menu-item--disabled': node.disabled,
         'zent-cascader__menu-item--multiple': multiple,
         'zent-cascader__menu-item--leaf':
-          item.children.length === 0 && !item.loadChildrenOnExpand,
+          node.children.length === 0 && !node.loadChildrenOnExpand,
       });
 
       let checkState: 'on' | 'off' | 'partial' | undefined;
       if (multiple) {
-        checkState = selectionMap.get(getNodeKey(item));
+        checkState = selectionMap.get(getNodeKey(node));
       }
 
       return (
         <div
           className={cascaderItemCls}
-          title={item.label}
-          key={item.value}
+          title={node.label}
+          key={node.value}
           onClick={
-            item.disabled
+            node.disabled
               ? undefined
-              : () => onOptionClick(item, this.closePopup)
+              : () => onOptionClick(node, this.closePopup)
           }
           onMouseEnter={
-            item.disabled || expandTrigger !== 'hover'
+            node.disabled || expandTrigger !== 'hover'
               ? undefined
-              : () => onOptionHover(item)
+              : () => onOptionHover(node)
           }
         >
           {multiple && (
             <Checkbox
-              value={item.value}
-              onChange={e => this.props.onOptionToggle(item, e.target.checked)}
+              value={node.value}
+              onChange={e => this.props.onOptionToggle(node, e.target.checked)}
               checked={checkState === 'on'}
               indeterminate={checkState === 'partial'}
-              disabled={item.disabled}
+              disabled={node.disabled}
             />
           )}
-          <span className="zent-cascader__menu-item-label">{item.label}</span>
-          {this.getMenuItemIcon(item, isActive)}
+          <span className="zent-cascader__menu-item-label">{node.label}</span>
+          {this.getMenuItemIcon(node, isActive)}
         </div>
       );
     });

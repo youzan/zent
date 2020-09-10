@@ -128,24 +128,24 @@ export class TabsCascader extends React.Component<
 
   /**
    * 城市级联某一层级的子节点点击事件
-   * @param item 点击的节点
+   * @param node 点击的节点
    * @param level 当前的层级，从 1 开始计数
    */
-  onClick: CascaderTabsClickHandler = (item, closePopup) => {
+  onClick: CascaderTabsClickHandler = (node, closePopup) => {
     const { loadOptions, changeOnSelect } = this.props;
-    const needLoading = item.loadChildrenOnExpand && loadOptions;
+    const needLoading = node.loadChildrenOnExpand && loadOptions;
 
-    const selectedOptions = getPathToNode(item);
-    const newValue = selectedOptions.map(node => node.value);
+    const selectedOptions = getPathToNode(node);
+    const newValue = selectedOptions.map(n => n.value);
 
     const newState: Partial<ICascaderState> = {
       activeValue: newValue,
     };
 
-    const hasChildren = item.children && item.children.length > 0;
-    const needClose = !item.loadChildrenOnExpand && !hasChildren;
+    const hasChildren = node.children && node.children.length > 0;
+    const needClose = !node.loadChildrenOnExpand && !hasChildren;
     const needTriggerChange = needClose || changeOnSelect;
-    const level = getNodeDepth(item);
+    const level = getNodeDepth(node);
     const nextLevel = level + 1;
 
     if (!needLoading && !needClose) {
@@ -174,7 +174,7 @@ export class TabsCascader extends React.Component<
 
       if (needTriggerChange) {
         this.props.onChange(
-          selectedOptions.map(node => node.value),
+          selectedOptions.map(n => n.value),
           selectedOptions,
           {
             action: CascaderChangeAction.Change,

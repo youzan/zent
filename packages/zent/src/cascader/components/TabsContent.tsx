@@ -40,13 +40,13 @@ interface ITabsContentProps {
 class TabsContent extends React.Component<ITabsContentProps> {
   closePopup = () => this.props.popover?.close();
 
-  renderCascaderItems(items: ICascaderItem[], level: number) {
+  renderCascaderItems(path: ICascaderItem[], level: number) {
     const val = this.props.value[level - 1];
 
     return (
       <div className="zent-cascader__list">
-        {items.map(item => {
-          const { value } = item;
+        {path.map(node => {
+          const { value } = node;
           const cascaderItemCls = classnames('zent-cascader__list-link', {
             'zent-cascader__list-link--active': value === val,
           });
@@ -55,10 +55,10 @@ class TabsContent extends React.Component<ITabsContentProps> {
             <div className="zent-cascader__list-item" key={value}>
               <span
                 className={cascaderItemCls}
-                title={item.label}
-                onClick={() => this.props.onClick(item, this.closePopup)}
+                title={node.label}
+                onClick={() => this.props.onClick(node, this.closePopup)}
               >
-                {item.label}
+                {node.label}
               </span>
             </div>
           );
@@ -97,7 +97,7 @@ class TabsContent extends React.Component<ITabsContentProps> {
     ) {
       if (options && options.length > 0) {
         const val = value[i];
-        const selectedItem = options.find(item => item.value === val);
+        const selectedItem = options.find(n => n.value === val);
         const tabTitle = selectedItem?.label ?? title[i] ?? i18n.title;
         const level = i + 1;
 

@@ -52,8 +52,8 @@ export interface IMenuCascaderCommonProps extends ICascaderBaseProps {
     keyword: string,
     limit: number
   ) => Promise<Array<ICascaderItem[]>>;
-  filter?: (keyword: string, items: ICascaderItem[]) => boolean;
-  highlight?: (keyword: string, items: ICascaderItem[]) => React.ReactNode;
+  filter?: (keyword: string, path: ICascaderItem[]) => boolean;
+  highlight?: (keyword: string, path: ICascaderItem[]) => React.ReactNode;
   limit?: number;
 }
 
@@ -112,25 +112,25 @@ function isSingle(
 
 const FILTER_DEBOUNCE_TIME = 200; // ms
 
-const defaultFilter = (keyword: string, items: ICascaderItem[]): boolean => {
-  return items.some(item =>
-    item.label.toLowerCase().includes(keyword.toLowerCase())
+const defaultFilter = (keyword: string, path: ICascaderItem[]): boolean => {
+  return path.some(node =>
+    node.label.toLowerCase().includes(keyword.toLowerCase())
   );
 };
 
 const defaultHighlight = (
   keyword: string,
-  items: ICascaderItem[]
+  path: ICascaderItem[]
 ): React.ReactNode => {
-  return items.map((item, index) => {
+  return path.map((node, index) => {
     return (
-      <span key={getPathValue(items.slice(0, index + 1))}>
+      <span key={getPathValue(path.slice(0, index + 1))}>
         <TextMark
           searchWords={[keyword]}
-          textToHighlight={item.label}
+          textToHighlight={node.label}
           highlightClassName="zent-cascader--highlight"
         />
-        {index !== items.length - 1 && ' / '}
+        {index !== path.length - 1 && ' / '}
       </span>
     );
   });
@@ -338,7 +338,7 @@ export class MenuCascader extends React.Component<
           acc.push(path);
           return acc;
         }, [])
-        .filter(items => filter(keyword, items));
+        .filter(path => filter(keyword, path));
       this.setSearchState(searchList);
     }
   }, FILTER_DEBOUNCE_TIME);
@@ -352,24 +352,24 @@ export class MenuCascader extends React.Component<
     });
   };
 
-  onMenuOptionHover: CascaderMenuHoverHandler = item => {
-    this.onMenuOptionSelect(item, noop, 'hover');
+  onMenuOptionHover: CascaderMenuHoverHandler = node => {
+    this.onMenuOptionSelect(node, noop, 'hover');
   };
 
-  onMenuOptionClick: CascaderMenuClickHandler = (item, closePopup) => {
-    this.onMenuOptionSelect(item, closePopup, 'click');
+  onMenuOptionClick: CascaderMenuClickHandler = (node, closePopup) => {
+    this.onMenuOptionSelect(node, closePopup, 'click');
   };
 
   onMenuOptionSelect = (
-    item: ICascaderItem,
+    node: ICascaderItem,
     closePopup: () => void,
     source: 'click' | 'hover'
   ) => {
     const { loadOptions, changeOnSelect, multiple } = this.props;
     const { loading } = this.state;
-    const needLoading = item.loadChildrenOnExpand && loadOptions;
+    const needLoading = node.loadChildrenOnExpand && loadOptions;
 
-    const selectedOptions = getPathToNode(item);
+    const selectedOptions = getPathToNode(node);
     const newValue = selectedOptions.map(n => n.value);
 
     const newState: Partial<ICascaderState> = {
@@ -377,9 +377,9 @@ export class MenuCascader extends React.Component<
       keyword: '',
     };
 
-    const hasChildren = item.children && item.children.length > 0;
+    const hasChildren = node.children && node.children.length > 0;
     const needClose =
-      !item.loadChildrenOnExpand &&
+      !node.loadChildrenOnExpand &&
       !hasChildren &&
       !multiple &&
       source === 'click';
@@ -388,9 +388,9 @@ export class MenuCascader extends React.Component<
       needClose || (changeOnSelect && source === 'click');
 
     // 设置 loading 状态
-    const itemKey = getNodeKey(item);
+    const nodeKey = getNodeKey(node);
     if (needLoading) {
-      newState.loading = toggleLoading(loading, itemKey, true);
+      newState.loading = toggleLoading(loading, nodeKey, true);
     }
 
     this.setState(newState as ICascaderState, () => {
@@ -401,7 +401,7 @@ export class MenuCascader extends React.Component<
           // 结束 loading 状态
           this.setState(state => {
             return {
-              loading: toggleLoading(state.loading, itemKey, false),
+              loading: toggleLoading(state.loading, nodeKey, false),
             };
           });
         });
@@ -426,18 +426,18 @@ export class MenuCascader extends React.Component<
   /**
    * 复选框勾选/取消勾选才会触发，所以仅适用于多选场景
    */
-  toggleMenuOption = (item: ICascaderItem, checked: boolean) => {
+  toggleMenuOption = (node: ICascaderItem, checked: boolean) => {
     if (isMultiple(this.props)) {
       const { onChange } = this.props;
       const { options, selectedPaths: oldSelectedPaths } = this.state;
 
-      const affectedPaths = options.getPaths(item);
+      const affectedPaths = options.getPaths(node);
       let selectedPaths = checked
         ? union(oldSelectedPaths, affectedPaths)
         : difference(oldSelectedPaths, affectedPaths);
       selectedPaths = options.sort(selectedPaths);
 
-      const value = selectedPaths.map(list => list.map(node => node.value));
+      const value = selectedPaths.map(list => list.map(n => n.value));
 
       this.setState({ selectedPaths }, () => {
         onChange(value, selectedPaths, {
@@ -447,16 +447,16 @@ export class MenuCascader extends React.Component<
     }
   };
 
-  onSearchOptionClick: CascaderSearchClickHandler = (items, closePopup) => {
-    const activeValue = items.map(item => item.value);
+  onSearchOptionClick: CascaderSearchClickHandler = (path, closePopup) => {
+    const activeValue = path.map(n => n.value);
 
     this.setState({ activeValue }, () => {
-      this.onMenuOptionClick(items[items.length - 1], closePopup);
+      this.onMenuOptionClick(path[path.length - 1], closePopup);
     });
   };
 
-  toggleSearchOption = (items: ICascaderItem[], checked: boolean) => {
-    this.toggleMenuOption(items[items.length - 1], checked);
+  toggleSearchOption = (path: ICascaderItem[], checked: boolean) => {
+    this.toggleMenuOption(path[path.length - 1], checked);
   };
 
   onClear = () => {
@@ -489,13 +489,13 @@ export class MenuCascader extends React.Component<
     });
   };
 
-  onRemove = (item: ICascaderItem) => {
+  onRemove = (node: ICascaderItem) => {
     if (this.disabled) {
       return;
     }
 
     // 只有多选情况下才存在移除，即取消叶子节点的选中
-    this.toggleMenuOption(item, false);
+    this.toggleMenuOption(node, false);
   };
 
   renderPopoverContent = (i18n: II18nLocaleCascader) => {

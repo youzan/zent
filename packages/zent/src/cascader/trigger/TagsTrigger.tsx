@@ -7,7 +7,7 @@ import Tags from './Tags';
 import { BaseTrigger, ICascaderBaseTriggerProps } from './BaseTrigger';
 
 interface ITagsTriggerProps extends ICascaderBaseTriggerProps {
-  onRemove: (item: ICascaderItem) => void;
+  onRemove: (node: ICascaderItem) => void;
 }
 
 export class TagsTrigger extends React.Component<ITagsTriggerProps> {

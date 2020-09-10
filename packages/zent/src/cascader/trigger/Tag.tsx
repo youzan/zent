@@ -4,17 +4,17 @@ import { ICascaderItem } from '../types';
 import Icon from '../../icon';
 
 export interface ICascaderTagProps {
-  items: ICascaderItem[];
+  path: ICascaderItem[];
   onRemove(e: React.MouseEvent): void;
-  renderValue?: (items: ICascaderItem[]) => React.ReactNode;
+  renderValue?: (path: ICascaderItem[]) => React.ReactNode;
 }
 
 function CascaderTag(props: ICascaderTagProps) {
-  const { items, renderValue, onRemove } = props;
+  const { path, renderValue, onRemove } = props;
 
   return (
     <div className="zent-cascader--tag">
-      {renderValue(items)}
+      {renderValue(path)}
       <Icon
         type="close"
         className="zent-cascader--tag-close"

@@ -57,8 +57,8 @@ interface ICascaderItem {
 | searchable           | 是否显示搜索框             | `boolean`                                                | 否       | `false` | `true`  |
 | async                | 是否异步搜索               | `boolean`                                                | 否       | `false` | `true`  |
 | asyncFilter          | 根据关键词异步搜索         | `(keyword: string) => Promise<Array<ICascaderItem[]>>`   | 否       | -       |         |
-| filter               | 根据关键词进行过滤         | `(keyword: string, items: ICascaderItem[]) => boolean`   | 否       | -       |         |
-| highlight            | 根据关键词高亮每一项       | `(keyword: string, items: ICascaderItem[]) => ReactNode` | 否       | -       |         |
+| filter               | 根据关键词进行过滤         | `(keyword: string, path: ICascaderItem[]) => boolean`   | 否       | -       |         |
+| highlight            | 根据关键词高亮每一项       | `(keyword: string, path: ICascaderItem[]) => ReactNode` | 否       | -       |         |
 | limit                | 搜索结果展示数量           | `number`                                                 | 否       | `50`    |         |
 
 - 当 `multiple` 为 `true` 时，`onChange` 中的 `value` 及 `selectedOptions` 为二维数组

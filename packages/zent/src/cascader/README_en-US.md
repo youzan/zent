@@ -56,8 +56,8 @@ interface ICascaderItem {
 | searchable           | Can search                                  | `boolean`                                                | No       | `false` | `true`       |
 | async                | Can async search                            | `boolean`                                                | No       | `false` | `true`       |
 | asyncFilter          | Async filter by keyword                     | `(keyword: string) => Promise<Array<ICascaderItem[]>>`   | No       | -       |              |
-| filter               | Filter options by keyword                   | `(keyword: string, items: ICascaderItem[]) => boolean`   | No       | -       |              |
-| highlight            | Highlight options by keyword                | `(keyword: string, items: ICascaderItem[]) => ReactNode` | No       | -       |              |
+| filter               | Filter options by keyword                   | `(keyword: string, path: ICascaderItem[]) => boolean`   | No       | -       |              |
+| highlight            | Highlight options by keyword                | `(keyword: string, path: ICascaderItem[]) => ReactNode` | No       | -       |              |
 | limit                | Limit search result count                   | `number`                                                 | No       | `50`    |              |
 
 - When `multiple` is `true`，`onChange` parameters such as `value` and `selectedOptions` are two dimensional arrays

@@ -6,8 +6,8 @@ import { getPathValue } from '../path-fns';
 
 export interface ICascaderTagsProps {
   list: Array<ICascaderItem[]>;
-  onRemove(item: ICascaderItem): void;
-  renderValue?: (items: ICascaderItem[]) => React.ReactNode;
+  onRemove(node: ICascaderItem): void;
+  renderValue?: (path: ICascaderItem[]) => React.ReactNode;
 }
 
 function CascaderTagList(props: ICascaderTagsProps) {
@@ -15,17 +15,17 @@ function CascaderTagList(props: ICascaderTagsProps) {
 
   return (
     <>
-      {list.map(items => {
+      {list.map(path => {
         const removeCallback = (e: React.MouseEvent) => {
           e.stopPropagation();
           // 即移除最后一级叶子节点的选中状态
-          onRemove(items[items.length - 1]);
+          onRemove(path[path.length - 1]);
         };
 
         return (
           <Tag
-            key={getPathValue(items)}
-            items={items}
+            key={getPathValue(path)}
+            path={path}
             onRemove={removeCallback}
             renderValue={renderValue}
           />
