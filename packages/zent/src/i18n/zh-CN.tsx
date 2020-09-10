@@ -14,7 +14,6 @@ import {
   II18nLocaleSelect,
   II18nLocaleSweetalert,
   II18nLocaleSwitch,
-  II18nLocaleTable,
   II18nLocaleUpload,
   II18nLocaleTransfer,
 } from './locale';
@@ -98,11 +97,6 @@ export const Sweetalert: II18nLocaleSweetalert = {
 };
 
 export const Grid: II18nLocaleGrid = {
-  ...common,
-  emptyLabel: '没有更多数据了',
-};
-
-export const Table: II18nLocaleTable = {
   ...common,
   emptyLabel: '没有更多数据了',
 };

@@ -14,7 +14,6 @@ import {
   II18nLocaleSelect,
   II18nLocaleSweetalert,
   II18nLocaleSwitch,
-  II18nLocaleTable,
   II18nLocaleUpload,
   II18nLocaleTransfer,
 } from './locale';
@@ -98,11 +97,6 @@ export const Switch: II18nLocaleSwitch = {
 };
 
 export const Grid: II18nLocaleGrid = {
-  ...common,
-  emptyLabel: 'No data',
-};
-
-export const Table: II18nLocaleTable = {
   ...common,
   emptyLabel: 'No data',
 };

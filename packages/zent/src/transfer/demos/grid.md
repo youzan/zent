@@ -10,7 +10,7 @@ en-US:
 import { useState, useCallback } from 'react';
 import { Transfer } from 'zent';
 
-const data = new Array(20).fill().map((_, index) => ({
+const data = new Array(200).fill().map((_, index) => ({
 	option: String(index),
 	text1: `Option${index}`,
 	text2: `Product${index}`,
@@ -44,7 +44,15 @@ ReactDOM.render(
 			dataSource={data}
 			targetKeys={targetKeys}
 			onChange={({ targetKeys }) => setTargetKeys(targetKeys)}
-			list={{ columns: [leftColumns, rightColumns], scroll: { y: 198 } }}
+			pagination
+			list={[
+				{
+					columns: leftColumns, scroll: { y: 198 }
+				},
+				{ 
+					columns: rightColumns, scroll: { y: 198 }
+				},
+			]}
 		/>
 	</div>,
 	mountNode
@@ -52,7 +60,7 @@ ReactDOM.render(
 ```
 
 <style>
-.grid-transfer .zent-transfer__item {
+.grid-transfer .zent-transfer__item:first-child {
 	width: 400px;
 }
 .grid-transfer .zent-grid-thead .zent-grid-tr {
