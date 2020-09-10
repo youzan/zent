@@ -77,3 +77,4 @@ interface ICascaderItem {
 - `clone(options: ICascaderItem[]): ICascaderItem[]`
 - `insertPath(options: ICascaderItem[], path: ICascaderItem[]): ICascaderItem[]`
 - `getNode(options: ICascaderItem[], path: ICascaderItem[]): ICascaderItem | null`
+- `merge(options: ICascaderItem[], another: ICascaderItem[]): ICascaderItem[]`
