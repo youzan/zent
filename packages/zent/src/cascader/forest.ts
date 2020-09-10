@@ -292,7 +292,8 @@ export class Forest {
     const { value } = startNode;
 
     return this.reducePath((acc, path) => {
-      if (path[idx].value === value) {
+      // filter out paths that contain disabled node
+      if (path[idx].value === value && path.every(node => !node.disabled)) {
         acc.push(path);
       }
 

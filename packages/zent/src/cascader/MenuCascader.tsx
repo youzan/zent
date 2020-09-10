@@ -139,7 +139,6 @@ const defaultHighlight = (
 function getActiveValue(props: IMenuCascaderProps) {
   let activeValue: CascaderValue[] = [];
   if (isMultiple(props) && props.value.length > 0) {
-    // todo: 初始值的设置逻辑梳理
     activeValue = props.value[0];
   }
   if (isSingle(props)) {
@@ -258,7 +257,9 @@ export class MenuCascader extends React.Component<
         );
         map.set(key, selected ? 'on' : 'off');
       } else {
-        const childrenState = node.children.reduce(
+        // 忽略禁用的选项
+        const children = node.children.filter(n => !n.disabled);
+        const childrenState = children.reduce(
           (acc, n) => {
             const k = getNodeKey(n);
             const v = map.get(k);
@@ -274,8 +275,8 @@ export class MenuCascader extends React.Component<
           { on: 0, off: 0 }
         );
 
-        const childrenCount = node.children.length;
-        if (childrenState.on === childrenCount) {
+        const childrenCount = children.length;
+        if (childrenState.on === childrenCount && childrenCount > 0) {
           map.set(key, 'on');
         } else if (childrenState.off === childrenCount) {
           map.set(key, 'off');
