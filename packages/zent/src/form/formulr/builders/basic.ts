@@ -1,6 +1,7 @@
 import { IModel } from '../models/base';
 import { IValidators } from '../validate';
 import { Maybe } from '../maybe';
+import { UnknownObject } from '../utils';
 
 export type $GetBuilderValue<T> = T extends BasicBuilder<infer V, infer _>
   ? V
@@ -13,7 +14,9 @@ export type $GetBuilderModel<T> = T extends BasicBuilder<infer _, infer M>
 export abstract class BasicBuilder<Value, Model extends IModel<Value>> {
   protected _validators: IValidators<Value> = [];
 
-  abstract build(defaultValue?: Maybe<Value>): Model;
+  abstract build(
+    defaultValue?: Maybe<Value extends UnknownObject ? Partial<Value> : Value>
+  ): Model;
 
   /**
    * 设置 builder 上的校验规则

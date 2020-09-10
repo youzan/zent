@@ -97,7 +97,7 @@ export function useFieldSet<T extends UnknownFieldSetModelChildren>(
     () => ({
       strategy,
       form,
-      parent: model as FieldSetModel,
+      parent: (model as unknown) as FieldSetModel,
     }),
     [strategy, form, model]
   );

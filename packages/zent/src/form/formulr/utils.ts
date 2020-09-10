@@ -35,6 +35,7 @@ export type $MergeProps<T> = (T extends any
 
 export const { isArray } = Array;
 
+export type UnknownObject = Record<string, unknown>;
 export type UnknownFieldSetModelChildren = Record<string, BasicModel<any>>;
 export type UnknownFieldSetBuilderChildren = Record<
   string,

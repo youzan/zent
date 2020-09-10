@@ -7,17 +7,21 @@ export class FieldArrayBuilder<
 > extends BasicBuilder<
   readonly ($GetBuilderValue<ChildBuilder> | null)[],
   FieldArrayModel<
-    $GetBuilderValue<ChildBuilder>,
+    $GetBuilderValue<ChildBuilder> | null,
     $GetBuilderModel<ChildBuilder>
   >
 > {
-  private _defaultValue: ReadonlyArray<$GetBuilderValue<ChildBuilder>> = [];
+  private _defaultValue: ReadonlyArray<$GetBuilderValue<
+    ChildBuilder
+  > | null> = [];
 
   constructor(private readonly childBuilder: ChildBuilder) {
     super();
   }
 
-  defaultValue(defaultValue: ReadonlyArray<$GetBuilderValue<ChildBuilder>>) {
+  defaultValue(
+    defaultValue: ReadonlyArray<$GetBuilderValue<ChildBuilder> | null>
+  ) {
     this._defaultValue = defaultValue;
     return this;
   }
@@ -25,11 +29,11 @@ export class FieldArrayBuilder<
   build(
     defaultValue?: Maybe<ReadonlyArray<$GetBuilderValue<ChildBuilder> | null>>
   ): FieldArrayModel<
-    $GetBuilderValue<ChildBuilder>,
+    $GetBuilderValue<ChildBuilder> | null,
     $GetBuilderModel<ChildBuilder>
   > {
     const model = new FieldArrayModel<
-      $GetBuilderValue<ChildBuilder>,
+      $GetBuilderValue<ChildBuilder> | null,
       $GetBuilderModel<ChildBuilder>
     >(
       this.childBuilder,

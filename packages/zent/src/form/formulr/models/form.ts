@@ -30,12 +30,12 @@ class FormModel<
   private readonly workingValidators = new Set<Observable<unknown>>();
   readonly isValidating$ = new BehaviorSubject(false);
 
-  get owner(): this {
+  get owner() {
     return this;
   }
 
-  get form(): this {
-    return this;
+  get form() {
+    return (this as unknown) as FormModel;
   }
 
   constructor(readonly children: Children) {
