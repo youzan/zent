@@ -1,86 +1,184 @@
 @import './theme/default';
 @import './theme/font';
 
+$popupWidth: 240px;
+$menuHeight: 180px;
+
 .zent-cascader {
-  display: inline-block;
+  display: flex;
+  flex-wrap: wrap;
+  cursor: pointer;
+  font-size: $font-size-normal;
+  position: relative;
+  text-align: left;
+  user-select: none;
+  width: $popupWidth;
+  vertical-align: middle;
+  box-sizing: border-box;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 2px;
+  min-height: 30px;
+  line-height: 18px;
+  padding: 6px 30px 6px 10px;
+  transition: border-color 0.25s;
+  @include theme-color(border-color, stroke, 5);
+  @include theme-color(background-color, stroke, 9);
 
-  &--open {
-    .zent-cascader__select-text {
-      @include theme-color(border-color, primary, 3);
-      @include theme-shadow(focus);
+  .zenticon-caret-down,
+  .zenticon-close-circle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: $font-size-large;
+  }
 
-      .zenticon {
-        transform: rotate(180deg) translateY(50%);
+  .zenticon-caret-down {
+    transition: transform 0.25s;
+    @include theme-color(color, stroke, 1);
+  }
+
+  .zenticon-close-circle {
+    font-size: 18px;
+    right: 6px;
+    @include theme-color(color, stroke, 4);
+  }
+
+  &--active {
+    @include theme-color(border-color, primary, 3);
+    @include theme-shadow(focus);
+  }
+
+  &--visible {
+    .zenticon-caret-down {
+      transform: rotate(180deg) translateY(50%);
+    }
+
+    &.zent-cascader--multiple {
+      .zenticon-caret-down {
+        transform: rotate(180deg);
       }
     }
   }
 
   &--disabled {
-    .zent-cascader__select {
-      .zent-cascader__select-text {
-        cursor: not-allowed;
-        @include theme-color(color, stroke, 4);
-        @include theme-color(border-color, stroke, 5);
-        @include theme-color(background-color, stroke, 8);
-      }
+    cursor: not-allowed;
+    @include theme-color(color, stroke, 4);
+    @include theme-color(border-color, stroke, 5);
+    @include theme-color(background-color, stroke, 8);
+
+    &:hover {
+      @include theme-color(color, stroke, 4);
+      @include theme-color(border-color, stroke, 5);
+      @include theme-color(background-color, stroke, 8);
+      box-shadow: none;
+    }
+
+    .zenticon {
+      opacity: 0.25;
     }
   }
 
-  &__select {
-    cursor: pointer;
-    display: inline-block;
-    font-size: 0;
-    position: relative;
-    text-align: left;
-    user-select: none;
-    width: 260px;
-    vertical-align: middle;
+  &--placeholder {
+    @include theme-color(color, stroke, 4);
+  }
 
-    &-text {
-      @include theme-color(border-color, stroke, 5);
-      @include theme-color(background-color, stroke, 9);
-      box-sizing: border-box;
-      border-width: 1px;
-      border-style: solid;
-      border-radius: 2px;
-      display: inline-block;
-      min-height: 30px;
-      line-height: 1.5;
-      max-height: 76px;
-      padding: 5px 30px 5px 10px;
-      transition: border-color 0.25s;
-      width: 100%;
-      position: relative;
+  &--text {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+
+  &--multiple {
+    .zent-cascader--tag + .zent-cascader--search {
+      margin-top: 2px;
+    }
+
+    .zenticon-caret-down,
+    .zenticon-close-circle {
+      top: 8px;
+      transform: none;
+    }
+  }
+
+  &--search-empty,
+  &__menu-empty {
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @include theme-color(color, stroke, 4);
+  }
+
+  &--search-empty {
+    width: 100%;
+  }
+
+  &__menu-empty {
+    width: $popupWidth;
+  }
+
+  &--search {
+    outline: none;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+    width: 100%;
+
+    &::placeholder {
+      @include theme-color(color, stroke, 4);
+    }
+
+    &-item {
+      @include theme-color(color, stroke, 1);
+      font-size: $font-size-normal;
+      cursor: pointer;
       white-space: nowrap;
+      position: relative;
+      height: 32px;
+      line-height: 32px;
+      text-align: left;
+      padding: 0 10px;
+      box-sizing: border-box;
+      width: 100%;
       overflow: hidden;
       text-overflow: ellipsis;
-      font-size: $font-size-normal;
 
-      &-content {
-        line-height: inherit;
+      &:hover {
+        @include theme-color(background-color, primary, 8);
       }
 
-      &.zent-cascader--placeholder {
+      &--disabled {
         @include theme-color(color, stroke, 4);
+        cursor: not-allowed;
+
+        &:hover {
+          @include theme-color(background-color, stroke, 9);
+        }
       }
 
-      .zenticon {
-        position: absolute;
-        right: 10px;
-        top: 50%;
-        transform: translateY(-50%);
-        transition: transform 0.25s;
-        font-size: $font-size-large;
+      &--multiple {
+        cursor: initial;
+      }
+
+      .zent-cascader--highlight {
+        font-style: normal;
+        background-color: initial;
+        @include theme-color(color, primary, 4);
       }
     }
   }
 
   &__menu {
-    @include theme-color(border-right, stroke, 5);
+    @include theme-color(border-right, stroke, 6);
     display: inline-block;
     vertical-align: top;
     min-width: 111px;
-    height: 180px;
+    height: $menuHeight;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -88,27 +186,50 @@
     border-right-style: solid;
     overflow: auto;
 
+    &:last-child {
+      border-right: 0;
+
+      .zent-cascader__menu-item {
+        padding-right: 10px;
+      }
+    }
+
     &-item {
-      @include theme-color(color, stroke, 2);
+      @include theme-color(color, stroke, 1);
       font-size: $font-size-normal;
       cursor: pointer;
       white-space: nowrap;
       transition: all 0.3s;
       position: relative;
       height: 32px;
-      line-height: 30px;
+      line-height: 32px;
       text-align: left;
-      padding-left: 10px;
-      padding-right: 30px;
+      padding: 0 30px 0 10px;
       box-sizing: border-box;
+      width: 190px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: flex;
+
+      &--leaf {
+        padding-right: 10px;
+      }
+
+      &-label {
+        display: inline-block;
+        vertical-align: middle;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
 
       &-icon {
         position: absolute;
         right: 10px;
         top: 50%;
         transform: translateY(-50%);
-        color: $theme-stroke-4;
         font-size: 12px;
+        @include theme-color(color, stroke, 1);
       }
 
       &-loading {
@@ -118,7 +239,7 @@
         position: absolute;
         display: inline-block;
         animation: zent-ani-spin 1s infinite linear;
-        border: 1px solid $theme-stroke-4;
+        border: 1px solid $theme-primary-4;
         border-radius: 50%;
         right: 10px;
         top: 50%;
@@ -131,23 +252,62 @@
       }
 
       &--active {
-        background: $theme-stroke-8;
-        font-weight: 600;
+        @include theme-color(background-color, stroke, 8);
       }
+
+      &--disabled {
+        @include theme-color(color, stroke, 4);
+        cursor: not-allowed;
+
+        &:hover {
+          @include theme-color(background-color, stroke, 9);
+        }
+      }
+
+      &--multiple {
+        cursor: initial;
+      }
+    }
+
+    .zent-checkbox-wrap {
+      margin-right: 8px;
+    }
+
+    &-scroller {
+      height: $menuHeight;
+    }
+  }
+
+  &--tag {
+    @include theme-color(border-color, stroke, 4);
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 2px;
+    margin: 2px 4px 2px 0;
+    padding: 0 4px;
+    line-height: 16px;
+    font-size: $font-size-small;
+    display: flex;
+    align-items: center;
+    cursor: default;
+
+    &-close {
+      @include theme-color(color, stroke, 3);
+      cursor: pointer;
+      margin-left: 5px;
     }
   }
 
   &__list {
     font-size: 0;
-    padding: 10px 4px;
-    min-height: 80px;
+    padding: 8px 0 8px 12px;
+    min-height: 215px;
+    box-sizing: border-box;
 
     &-item {
       display: inline-block;
-      line-height: 30px;
-      height: 30px;
-      width: 108px;
       box-sizing: border-box;
+      margin: 8px 4px;
     }
 
     &-link {
@@ -155,19 +315,20 @@
       display: inline-block;
       font-size: $font-size-normal;
       padding: 0 5px;
-      line-height: 18px;
+      line-height: 24px;
       vertical-align: middle;
-      max-width: 98px;
+      width: 114px;
+      box-sizing: border-box;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
 
-      &:hover {
+      &:hover:not(.zent-cascader__list-link--active) {
         @include theme-color(background-color, primary, 8);
       }
 
       &--active {
-        @include theme-color(background-color, primary, 3);
+        @include theme-color(background-color, primary, 4);
         @include theme-color(color, stroke, 9);
         border-radius: 2px;
       }
@@ -184,8 +345,18 @@
         height: auto;
       }
 
+      &-panel-wrapper {
+        margin-top: 0;
+      }
+
       &-tab {
         border-radius: 0;
+      }
+
+      &-tab-inner {
+        max-width: 96px;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
   }
@@ -196,12 +367,19 @@
     &-inner {
       @include theme-color(background-color, stroke, 9);
       @include theme-shadow(layer);
-      width: 440px;
+      width: 512px;
       box-sizing: border-box;
 
-      &-menu {
+      &-menu,
+      &-search {
         width: auto;
         white-space: nowrap;
+      }
+
+      &-search {
+        max-height: $menuHeight;
+        overflow-y: auto;
+        width: $popupWidth;
       }
     }
   }
@@ -214,6 +392,9 @@
       line-height: 16px;
       display: inline-block;
       vertical-align: middle;
+      max-width: 78px;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     &-icon {

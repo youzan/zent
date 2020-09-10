@@ -1,114 +1,214 @@
 import * as React from 'react';
-import { PureComponent } from 'react';
 import classnames from 'classnames';
 
 import Popover from '../../popover';
 import Icon from '../../icon';
-import { CascaderHandler, ICascaderItem, CascaderValue } from '../types';
+import Checkbox from '../../checkbox';
+import { getNodeChildren, getNodeKey } from '../node-fns';
+import {
+  CascaderMenuClickHandler,
+  ICascaderItem,
+  CascaderValue,
+  CascaderMenuHoverHandler,
+} from '../types';
+import InfiniteScroller from '../../infinite-scroller';
+import { II18nLocaleCascader } from '../../i18n';
+import BlockLoading from '../../loading/BlockLoading';
 
 const withPopover = Popover.withPopover;
 
-export interface IMenuContentProps {
-  className?: string;
-  clickHandler: CascaderHandler;
-  value: CascaderValue[];
-  options: ICascaderItem[];
-  isLoading?: boolean;
-  recursiveNextOptions(
-    options: ICascaderItem[],
-    value: CascaderValue
-  ): ICascaderItem[];
-  expandTrigger?: 'click' | 'hover';
-  loadingStage: number;
+export interface IMenuContentCommonProps {
+  // injected by withPopover
   popover: Popover;
+
+  options: ICascaderItem[];
+  expandTrigger?: 'click' | 'hover';
+  i18n: II18nLocaleCascader;
+  scrollable: boolean;
+  scrollLoad: (parent: ICascaderItem | null) => Promise<void>;
+  loadChildrenOnScroll: boolean;
+  onOptionToggle: (node: ICascaderItem, checked: boolean) => void;
+  onOptionHover: CascaderMenuHoverHandler;
+  onOptionClick: CascaderMenuClickHandler;
+  className?: string;
+
+  loading: string[];
+
+  // 节点选中状态
+  selectionMap: Map<string, 'on' | 'off' | 'partial'>;
 }
 
-class MenuContent extends PureComponent<IMenuContentProps> {
-  getMenuItemIcon(item, isShowLoading, isActive) {
-    if (item.children || item.isLeaf === false) {
-      if (isShowLoading && isActive) {
+export interface IMenuContentMultipleProps extends IMenuContentCommonProps {
+  multiple: true;
+  value: Array<CascaderValue[]>;
+}
+
+export interface IMenuContentSingleProps extends IMenuContentCommonProps {
+  multiple: false;
+  value: CascaderValue[];
+}
+
+export type IMenuContentProps =
+  | IMenuContentMultipleProps
+  | IMenuContentSingleProps;
+
+class MenuContent extends React.Component<IMenuContentProps> {
+  render() {
+    return (
+      <div className="zent-cascader__popup-inner zent-cascader__popup-inner-menu">
+        {this.renderPanels()}
+      </div>
+    );
+  }
+
+  closePopup = () => this.props.popover?.close();
+
+  getMenuItemIcon(node: ICascaderItem, isActive: boolean) {
+    const { loading } = this.props;
+
+    if (node.loadChildrenOnExpand) {
+      const nodeKey = getNodeKey(node);
+      if (loading.indexOf(nodeKey) !== -1 && isActive) {
         return <i className="zent-cascader__menu-item-loading zenticon" />;
       }
+    }
 
+    // 有 children 或者需要加载 children 的时候说明非叶子节点
+    const hasChildren = node.children && node.children.length > 0;
+    if (hasChildren || node.loadChildrenOnExpand) {
       return <Icon className="zent-cascader__menu-item-icon" type="right" />;
     }
+
     return null;
   }
 
-  renderCascaderItems(items: ICascaderItem[], stage: number, popover) {
+  renderCascaderItems(
+    path: ICascaderItem[],
+    level: number,
+    parent: ICascaderItem | null
+  ) {
+    const { i18n } = this.props;
+    if (!path || path?.length === 0) {
+      return (
+        <div className="zent-cascader__menu-empty" key="menu-empty">
+          {i18n.empty}
+        </div>
+      );
+    }
+
     const {
       value,
-      clickHandler,
-      isLoading,
-      loadingStage,
+      onOptionClick,
+      onOptionHover,
       expandTrigger,
+      scrollLoad,
+      loadChildrenOnScroll,
+      scrollable,
+      multiple,
+      selectionMap,
     } = this.props;
 
-    const isShowLoading = isLoading && stage === loadingStage;
-
-    const cascaderItems = items.map(item => {
-      const isActive = item.id === value[stage - 1];
+    const hasMore =
+      parent === null ? loadChildrenOnScroll : parent.loadChildrenOnScroll;
+    const cascaderItems = path.map(node => {
+      const isActive = node.value === value[level - 1];
       const cascaderItemCls = classnames('zent-cascader__menu-item', {
         'zent-cascader__menu-item--active': isActive,
+        'zent-cascader__menu-item--disabled': node.disabled,
+        'zent-cascader__menu-item--multiple': multiple,
+        'zent-cascader__menu-item--leaf':
+          node.children.length === 0 && !node.loadChildrenOnExpand,
       });
 
+      let checkState: 'on' | 'off' | 'partial' | undefined;
+      if (multiple) {
+        checkState = selectionMap.get(getNodeKey(node));
+      }
+
       return (
-        <li
+        <div
           className={cascaderItemCls}
-          title={item.title}
-          onClick={() => clickHandler(item, stage, popover, 'click')}
-          onMouseEnter={() =>
-            expandTrigger === 'hover' &&
-            clickHandler(item, stage, popover, 'hover')
+          title={node.label}
+          key={node.value}
+          onClick={
+            node.disabled
+              ? undefined
+              : () => onOptionClick(node, this.closePopup)
           }
-          key={item.id}
+          onMouseEnter={
+            node.disabled || expandTrigger !== 'hover'
+              ? undefined
+              : () => onOptionHover(node)
+          }
         >
-          {item.title}
-          {this.getMenuItemIcon(item, isShowLoading, isActive)}
-          {}
-        </li>
+          {multiple && (
+            <Checkbox
+              value={node.value}
+              onChange={e => this.props.onOptionToggle(node, e.target.checked)}
+              checked={checkState === 'on'}
+              indeterminate={checkState === 'partial'}
+              disabled={node.disabled}
+            />
+          )}
+          <span className="zent-cascader__menu-item-label">{node.label}</span>
+          {this.getMenuItemIcon(node, isActive)}
+        </div>
       );
     });
 
     return (
-      <ul key={stage} className="zent-cascader__menu">
-        {cascaderItems}
-      </ul>
+      <div
+        key={`menu-${value.slice(0, level - 1).join('-')}`}
+        className="zent-cascader__menu"
+      >
+        {scrollable && hasMore ? (
+          <InfiniteScroller
+            className="zent-cascader__menu-scroller"
+            hasMore={hasMore}
+            loader={
+              <BlockLoading
+                height={32}
+                iconSize={18}
+                loading
+                colorPreset="grey"
+                icon="circle"
+              />
+            }
+            loadMore={() => scrollLoad(parent)}
+            skipLoadOnMount
+          >
+            {cascaderItems}
+          </InfiniteScroller>
+        ) : (
+          cascaderItems
+        )}
+      </div>
     );
   }
 
-  renderPanels(popover) {
+  renderPanels() {
     const PanelEls = [];
-    const { value, recursiveNextOptions } = this.props;
+    const { value } = this.props;
     let { options } = this.props;
-    let tabIndex = 1;
+    let level = 1;
 
-    PanelEls.push(this.renderCascaderItems(options, tabIndex, popover));
+    PanelEls.push(this.renderCascaderItems(options, level, null));
 
-    if (value && value.length > 0) {
+    if (value?.length > 0 && options?.length > 0) {
       for (let i = 0; i < value.length; i++) {
-        tabIndex++;
-        options = recursiveNextOptions(options, value[i]);
+        level++;
+        // 记录滚动加载的父元素
+        const parent = options.find(it => it.value === value[i]);
+        options = getNodeChildren(options, value[i]);
 
-        if (options) {
-          PanelEls.push(this.renderCascaderItems(options, tabIndex, popover));
+        if (options.length > 0) {
+          PanelEls.push(this.renderCascaderItems(options, level, parent));
         }
       }
     }
 
     return PanelEls;
   }
-
-  render() {
-    const { popover } = this.props;
-    return (
-      <div className="zent-cascader__popup-inner zent-cascader__popup-inner-menu">
-        {this.renderPanels(popover)}
-      </div>
-    );
-  }
 }
 
-export default withPopover(
-  MenuContent as React.ComponentType<IMenuContentProps>
-);
+export default withPopover(MenuContent);

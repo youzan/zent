@@ -72,16 +72,24 @@ export const AlertItem = React.forwardRef<HTMLDivElement, IAlertItemProps>(
     }, [closable, closeContent, onAlertItemClose]);
 
     const renderIcon = useMemo(() => {
-      return loading ? (
-        <InlineLoading
-          className="zent-alert-item-icon"
-          loading
-          icon="circle"
-          iconSize={16}
-        />
-      ) : type in iconTypeMap ? (
-        <Icon className="zent-alert-item-icon" type={iconTypeMap[type]} />
-      ) : null;
+      if (loading) {
+        return (
+          <InlineLoading
+            className="zent-alert-item-icon"
+            loading
+            icon="circle"
+            iconSize={16}
+          />
+        );
+      }
+
+      if (type in iconTypeMap) {
+        return (
+          <Icon className="zent-alert-item-icon" type={iconTypeMap[type]} />
+        );
+      }
+
+      return null;
     }, [loading, type]);
 
     return (
