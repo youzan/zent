@@ -165,10 +165,6 @@ $large-size: 40px;
     right: 15px;
     font-size: 10px;
   }
-
-  &-out-of-range-text {
-    @include theme-color(color, error, 4);
-  }
 }
 
 .has-error {
@@ -190,6 +186,10 @@ $large-size: 40px;
       @include theme-color(border-color, error, 4);
       border-width: 1px;
       border-style: solid;
+
+      .zent-textarea-out-of-range-text {
+        @include theme-color(color, error, 4);
+      }
     }
   }
 }
