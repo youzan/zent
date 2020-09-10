@@ -49,6 +49,7 @@ export function insertPath<T extends IPublicCascaderItem>(
   path: IPublicCascaderItem[],
   createNode: (node: IPublicCascaderItem, parent: T) => T
 ): T[] {
+  path = path.slice();
   const stack: IInsertStackFrame<T>[] = [
     {
       parent: null,
