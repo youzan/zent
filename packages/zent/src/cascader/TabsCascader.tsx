@@ -15,7 +15,7 @@ import {
   ICascaderBaseProps,
   IPublicCascaderItem,
 } from './types';
-import { getPathLabel } from './path-fns';
+import { getPathLabel, getPathToNode } from './path-fns';
 import { SingleTrigger } from './trigger/SingleTrigger';
 import { Forest } from './forest';
 
@@ -95,7 +95,6 @@ export class TabsCascader extends React.Component<
     if (!visible && !shallowEqual(prevProps.value, nextProps.value)) {
       const newValue = nextProps.value;
       Object.assign(newState, {
-        activeValue: newValue,
         activeTab: newValue.length || 1,
       });
     }
@@ -138,12 +137,10 @@ export class TabsCascader extends React.Component<
     closePopup
   ) => {
     const { loadOptions, changeOnSelect } = this.props;
-    const { activeValue, options } = this.state;
     const needLoading = item.loadChildrenOnExpand && loadOptions;
 
-    const newValue = activeValue.slice(0, level - 1) as CascaderValue[];
-    newValue.push(item.value);
-    const selectedOptions = options.getPathByValue(newValue);
+    const selectedOptions = getPathToNode(item);
+    const newValue = selectedOptions.map(node => node.value);
 
     const newState: Partial<ICascaderState> = {
       activeValue: newValue,
@@ -179,9 +176,13 @@ export class TabsCascader extends React.Component<
       }
 
       if (needTriggerChange) {
-        this.props.onChange(newValue, selectedOptions, {
-          action: CascaderChangeAction.Change,
-        });
+        this.props.onChange(
+          selectedOptions.map(node => node.value),
+          selectedOptions,
+          {
+            action: CascaderChangeAction.Change,
+          }
+        );
       }
 
       if (needClose) {

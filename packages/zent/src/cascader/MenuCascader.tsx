@@ -233,7 +233,6 @@ export class MenuCascader extends React.Component<
 
     if (!shallowEqual(prevProps.value, nextProps.value)) {
       newState.selectedPaths = getSelectedPaths(nextProps, options);
-      newState.activeValue = getActiveValue(nextProps);
     }
 
     return newState;
@@ -368,12 +367,11 @@ export class MenuCascader extends React.Component<
     source: 'click' | 'hover'
   ) => {
     const { loadOptions, changeOnSelect, multiple } = this.props;
-    const { activeValue, options, loading } = this.state;
+    const { loading } = this.state;
     const needLoading = item.loadChildrenOnExpand && loadOptions;
 
-    const newValue = activeValue.slice(0, level - 1) as CascaderValue[];
-    newValue.push(item.value);
-    const selectedOptions = options.getPathByValue(newValue);
+    const selectedOptions = getPathToNode(item);
+    const newValue = selectedOptions.map(n => n.value);
 
     const newState: Partial<ICascaderState> = {
       activeValue: newValue,

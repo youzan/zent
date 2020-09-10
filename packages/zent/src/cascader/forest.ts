@@ -279,7 +279,7 @@ export class Forest {
       }
 
       terminate();
-      return i === size ? path : path.slice(0, size);
+      return i === path.length ? path : path.slice(0, size);
     }, []);
   }
 

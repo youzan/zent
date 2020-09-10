@@ -4,6 +4,7 @@ import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import MenuCascader from 'cascader/MenuCascader';
 import TabsCascader from 'cascader/TabsCascader';
+import { clone, getNode, insertPath } from 'cascader/public-options-fns';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -591,37 +592,44 @@ describe('Cascader', () => {
   });
 
   it('tabs cascader loadOptions when click item', () => {
-    const value = [];
-    const options = [
+    let value = [];
+    let options = [
       {
         value: 1,
         label: 'root',
-        isLeaf: false,
+        loadChildrenOnExpand: true,
       },
     ];
 
     let wrapper;
     const loadOptions = selectedOptions =>
       new Promise(resolve => {
-        setTimeout(() => {
-          const stage = selectedOptions.length - 1;
-          const targetOption = selectedOptions[stage];
-          const isLeaf = selectedOptions.length >= 2;
-          targetOption.children = [
-            {
-              value: `66666${stage}`,
-              label: `Label${stage}`,
-              isLeaf,
-            },
-          ];
-          wrapper.setProps({
-            options: [...options],
-          });
-          resolve();
-        }, 500);
+        const stage = selectedOptions.length - 1;
+        const nonLeaf = selectedOptions.length < 2;
+
+        const newOptions = clone(options);
+        const node = getNode(newOptions, selectedOptions);
+        node.children = [
+          {
+            value: `66666${stage}`,
+            label: `Label${stage}`,
+            loadChildrenOnExpand: nonLeaf,
+          },
+        ];
+        wrapper.setProps({
+          options: newOptions,
+        });
+        resolve();
       });
     wrapper = mount(
-      <TabsCascader value={value} options={options} loadOptions={loadOptions} />
+      <TabsCascader
+        value={value}
+        options={options}
+        onChange={val => {
+          value = val;
+        }}
+        loadOptions={loadOptions}
+      />
     );
 
     wrapper.find('.zent-cascader').simulate('click');
@@ -639,35 +647,40 @@ describe('Cascader', () => {
   });
 
   it('menu cascader loadOptions when click item', () => {
-    const value = [];
+    let value = [];
     const options = [
       {
         value: 1,
         label: 'root',
-        isLeaf: false,
+        loadChildrenOnExpand: true,
       },
     ];
 
     let wrapper;
     const loadOptions = selectedOptions =>
       new Promise(resolve => {
-        setTimeout(() => {
-          const targetOption = selectedOptions[selectedOptions.length - 1];
-          targetOption.children = [
-            {
-              value: `66666${targetOption.value}`,
-              label: `Label${targetOption.label}`,
-              isLeaf: selectedOptions.length >= 2,
-            },
-          ];
-          wrapper.setProps({
-            options: [...options],
-          });
-          resolve();
-        }, 500);
+        const targetOption = selectedOptions[selectedOptions.length - 1];
+        targetOption.children = [
+          {
+            value: `66666${targetOption.value}`,
+            label: `Label${targetOption.label}`,
+            loadChildrenOnExpand: selectedOptions.length < 2,
+          },
+        ];
+        wrapper.setProps({
+          options: [...options],
+        });
+        resolve();
       });
     wrapper = mount(
-      <MenuCascader value={value} options={options} loadOptions={loadOptions} />
+      <MenuCascader
+        value={value}
+        options={options}
+        onChange={val => {
+          value = val;
+        }}
+        loadOptions={loadOptions}
+      />
     );
 
     wrapper.find('.zent-cascader').simulate('click');
@@ -865,28 +878,24 @@ describe('Cascader', () => {
       .find('input')
       .simulate('change', { target: { value: 'anotherGrandSon' } });
 
-    setTimeout(() => {
-      expect(pop.querySelectorAll('.zent-cascader--search-item').length).toBe(
-        1
-      );
-      expect(pop.querySelectorAll('.zent-cascader--highlight').length).toBe(1);
-      simulateRawWithTimers(
-        pop.querySelectorAll('.zent-cascader--search-item')[0],
-        'click'
-      );
-      expect(wrapper.find('.zent-cascader--text').text()).toBe(
-        'root / anotherSon / anotherGrandSon'
-      );
+    expect(pop.querySelectorAll('.zent-cascader--search-item').length).toBe(1);
+    expect(pop.querySelectorAll('.zent-cascader--highlight').length).toBe(1);
+    simulateRawWithTimers(
+      pop.querySelectorAll('.zent-cascader--search-item')[0],
+      'click'
+    );
+    expect(wrapper.find('.zent-cascader--text').text()).toBe(
+      'root / anotherSon / anotherGrandSon'
+    );
 
-      simulateWithTimers(wrapper.find('.zent-cascader'), 'mouseEnter');
-      expect(wrapper.find('.zenticon-close-circle').length).toBe(1);
-      simulateWithTimers(wrapper.find('.zenticon-close-circle'), 'click');
-      expect(wrapper.find('.zent-cascader--placeholder').text()).toBe(
-        '请选择或输入搜索'
-      );
+    simulateWithTimers(wrapper.find('.zent-cascader'), 'mouseEnter');
+    expect(wrapper.find('.zenticon-close-circle').length).toBe(1);
+    simulateWithTimers(wrapper.find('.zenticon-close-circle'), 'click');
+    expect(wrapper.find('.zent-cascader--placeholder').text()).toBe(
+      '请选择或输入搜索'
+    );
 
-      wrapper.unmount();
-    }, 1000);
+    wrapper.unmount();
   });
 
   it('async searchable menu cascader', () => {
@@ -896,22 +905,32 @@ describe('Cascader', () => {
     let wrapper;
     const asyncFilter = keyword =>
       new Promise(resolve => {
-        setTimeout(() => {
-          const searchList = [
-            [
-              { value: '340000', label: '浙江省' },
-              { value: '340100', label: '杭州市' },
-              { value: '340106', label: `${keyword}-1` },
-            ],
-            [
-              { value: '340000', label: '浙江省' },
-              { value: '340200', label: '温州市' },
-              { value: '340206', label: `${keyword}-2` },
-            ],
-          ];
+        const searchList = [
+          [
+            { value: '340000', label: '浙江省' },
+            { value: '340100', label: '杭州市' },
+            { value: '340106', label: `${keyword}-1` },
+          ],
+          [
+            { value: '340000', label: '浙江省' },
+            { value: '340200', label: '温州市' },
+            { value: '340206', label: `${keyword}-2` },
+          ],
+        ];
 
-          resolve(searchList);
-        }, 50);
+        const newOptions = clone(options);
+        searchList.forEach(path => insertPath(newOptions, path));
+
+        wrapper.setProps({
+          options: newOptions,
+        });
+
+        wrapper.setState({
+          isSearching: false,
+          searchResultList: searchList,
+        });
+
+        resolve(searchList);
       });
 
     const onChangeMock = jest.fn().mockImplementation(newValue => {
@@ -939,28 +958,20 @@ describe('Cascader', () => {
       .find('.zent-cascader--search')
       .simulate('change', { target: { value: 'keyword' } });
 
-    jest.useFakeTimers();
     jest.runAllTimers();
+
+    const pop = document.querySelector('.zent-popover');
+    expect(pop.querySelectorAll('.zent-cascader--search-item').length).toBe(2);
+
+    simulateRawWithTimers(
+      pop.querySelectorAll('.zent-cascader--search-item')[0],
+      'click'
+    );
     wrapper.update();
 
-    setTimeout(() => {
-      const pop = document.querySelector('.zent-popover');
-      expect(pop.querySelectorAll('.zent-cascader--search-item').length).toBe(
-        2
-      );
+    expect(pop.querySelectorAll('.zent-cascader--search-item').length).toBe(0);
 
-      simulateRawWithTimers(
-        pop.querySelectorAll('.zent-cascader--search-item')[0],
-        'click'
-      );
-      wrapper.update();
-
-      expect(pop.querySelectorAll('.zent-cascader--search-item').length).toBe(
-        0
-      );
-
-      wrapper.unmount();
-    }, 1000);
+    wrapper.unmount();
   });
 
   it('async searchable multiple menu cascader', () => {
@@ -970,22 +981,32 @@ describe('Cascader', () => {
     let wrapper;
     const asyncFilter = keyword =>
       new Promise(resolve => {
-        setTimeout(() => {
-          const searchList = [
-            [
-              { value: '340000', label: '浙江省' },
-              { value: '340100', label: '杭州市' },
-              { value: '340106', label: `${keyword}-1` },
-            ],
-            [
-              { value: '340000', label: '浙江省' },
-              { value: '340200', label: '温州市' },
-              { value: '340206', label: `${keyword}-2` },
-            ],
-          ];
+        const searchList = [
+          [
+            { value: '340000', label: '浙江省' },
+            { value: '340100', label: '杭州市' },
+            { value: '340106', label: `${keyword}-1` },
+          ],
+          [
+            { value: '340000', label: '浙江省' },
+            { value: '340200', label: '温州市' },
+            { value: '340206', label: `${keyword}-2` },
+          ],
+        ];
 
-          resolve(searchList);
-        }, 50);
+        const newOptions = clone(options);
+        searchList.forEach(path => insertPath(newOptions, path));
+
+        wrapper.setState({
+          isSearching: false,
+          searchResultList: searchList,
+        });
+
+        wrapper.setProps({
+          options: newOptions,
+        });
+
+        resolve(searchList);
       });
 
     const onChangeMock = jest.fn().mockImplementation(newValue => {
@@ -1007,53 +1028,37 @@ describe('Cascader', () => {
       />
     );
 
-    wrapper.find('.zent-cascader').simulate('click');
+    asyncFilter('keyword');
+    wrapper.setState({
+      keyword: 'keyword',
+      visible: true,
+    });
     jest.runAllTimers();
 
-    wrapper
-      .find('.zent-cascader--search')
-      .simulate('change', { target: { value: 'keyword' } });
+    const pop = document.querySelector('.zent-popover');
+    expect(pop.querySelectorAll('.zent-cascader--search-item').length).toBe(2);
+    expect(pop.querySelectorAll('.zent-checkbox').length).toBe(2);
 
-    jest.useFakeTimers();
-    jest.runAllTimers();
+    simulateRawWithTimers(
+      pop.querySelectorAll('.zent-cascader--search-item')[0],
+      'click'
+    );
     wrapper.update();
 
-    setTimeout(() => {
-      const pop = document.querySelector('.zent-popover');
-      expect(pop.querySelectorAll('.zent-cascader--search-item').length).toBe(
-        2
-      );
-      expect(pop.querySelectorAll('.zent-checkbox').length).toBe(2);
+    expect(pop.querySelectorAll('.zent-cascader--search-item').length).toBe(2);
 
-      simulateRawWithTimers(
-        pop.querySelectorAll('.zent-cascader--search-item')[0],
-        'click'
-      );
-      wrapper.update();
+    wrapper
+      .find('.zent-checkbox input')
+      .at(0)
+      .simulate('change', { target: { checked: true } });
+    wrapper.update();
 
-      expect(pop.querySelectorAll('.zent-cascader--search-item').length).toBe(
-        2
-      );
-
-      wrapper
-        .find('.zent-checkbox input')
-        .at(0)
-        .simulate('change', { target: { checked: true } });
-      wrapper.update();
-
-      wrapper.unmount();
-    }, 1000);
+    wrapper.unmount();
   });
 
   it('multiple searchable menu cascader', () => {
     const value = [];
-    let options = [];
-
-    const wrapper = mount(
-      <MenuCascader value={value} options={options} searchable multiple />
-    );
-
-    options = [
+    const options = [
       {
         value: 1,
         label: 'root',
@@ -1081,9 +1086,10 @@ describe('Cascader', () => {
         ],
       },
     ];
-    wrapper.setProps({
-      options: [...options],
-    });
+
+    const wrapper = mount(
+      <MenuCascader value={value} options={options} searchable multiple />
+    );
 
     wrapper.find('.zent-cascader').simulate('click');
     jest.runAllTimers();
@@ -1094,25 +1100,20 @@ describe('Cascader', () => {
       .find('.zent-cascader--search')
       .simulate('change', { target: { value: 'anotherGrandSon' } });
 
+    jest.runAllTimers();
+
     const pop = document.querySelector('.zent-popover');
+    expect(pop.querySelectorAll('.zent-cascader--search-item').length).toBe(1);
+    expect(pop.querySelectorAll('.zent-checkbox').length).toBe(1);
 
-    setTimeout(() => {
-      expect(pop.querySelectorAll('.zent-cascader--search-item').length).toBe(
-        1
-      );
-      expect(pop.querySelectorAll('.zent-checkbox').length).toBe(1);
+    simulateRawWithTimers(
+      pop.querySelectorAll('.zent-cascader--search-item')[0],
+      'click'
+    );
+    wrapper.update();
+    expect(pop.querySelectorAll('.zent-cascader--search-item').length).toBe(1);
 
-      simulateRawWithTimers(
-        pop.querySelectorAll('.zent-cascader--search-item')[0],
-        'click'
-      );
-      wrapper.update();
-      expect(pop.querySelectorAll('.zent-cascader--search-item').length).toBe(
-        1
-      );
-
-      wrapper.unmount();
-    }, 1000);
+    wrapper.unmount();
   });
 
   it('scrollable menu cascader', () => {
@@ -1121,7 +1122,7 @@ describe('Cascader', () => {
       {
         value: 1,
         label: 'root',
-        hasMore: false,
+        loadChildrenOnScroll: false,
         children: [
           {
             value: 2,
@@ -1151,33 +1152,31 @@ describe('Cascader', () => {
     let wrapper;
     const loadOptions = selectedOptions =>
       new Promise(resolve => {
-        setTimeout(() => {
-          const isLeaf = selectedOptions.length >= 2;
-          const targetOption = selectedOptions[selectedOptions.length - 1];
+        const nonLeaf = selectedOptions.length < 2;
+        const targetOption = selectedOptions[selectedOptions.length - 1];
 
-          const res = Array(10)
-            .fill(null)
-            .map(() => {
-              optionId++;
-              return {
-                value: `Value ${optionId}`,
-                label: `Scroll ${optionId}`,
-                isLeaf,
-              };
-            });
-
-          // 非第一级
-          if (targetOption) {
-            targetOption.children = (targetOption.children || []).concat(res);
-          } else {
-            options = options.concat(res);
-          }
-          wrapper.setProps({
-            options: [...options],
+        const res = Array(10)
+          .fill(null)
+          .map(() => {
+            optionId++;
+            return {
+              value: `Value ${optionId}`,
+              label: `Scroll ${optionId}`,
+              loadChildrenOnExpand: nonLeaf,
+            };
           });
 
-          resolve(false);
-        }, 500);
+        // 非第一级
+        if (targetOption) {
+          targetOption.children = (targetOption.children || []).concat(res);
+        } else {
+          options = options.concat(res);
+        }
+        wrapper.setProps({
+          options: [...options],
+        });
+
+        resolve(false);
       });
 
     wrapper = mount(
@@ -1190,23 +1189,21 @@ describe('Cascader', () => {
       />
     );
 
-    wrapper.find('.zent-cascader').simulate('click');
-    jest.runAllTimers();
-    wrapper.update();
+    wrapper.setState({
+      visible: true,
+    });
 
     const pop = document.querySelector('.zent-popover');
-    expect(pop.querySelectorAll('.zent-loading').length).toBe(1);
+    expect(pop.querySelectorAll('.zent-loading').length).toBe(0);
 
-    setTimeout(() => {
-      simulateRawWithTimers(
-        pop.querySelectorAll('.zent-cascader__menu-item')[0],
-        'click'
-      );
-      jest.runAllTimers();
-      wrapper.update();
-      expect(pop.querySelectorAll('.zent-loading').length).toBe(0);
-      wrapper.unmount();
-    }, 1000);
+    simulateRawWithTimers(
+      pop.querySelectorAll('.zent-cascader__menu-item')[0],
+      'click'
+    );
+    jest.runAllTimers();
+    wrapper.update();
+    expect(pop.querySelectorAll('.zent-loading').length).toBe(0);
+    wrapper.unmount();
   });
 
   it('menu cascader empty', () => {
