@@ -7,7 +7,6 @@ import { DisabledContext, IDisabledContext } from '../disabled';
 import shallowEqual from '../utils/shallowEqual';
 import TabsContent from './components/TabsContent';
 import {
-  ICascaderItem,
   CascaderTabsClickHandler,
   CascaderValue,
   CascaderChangeAction,
