@@ -166,10 +166,13 @@ export function useForm<
   const inner = superUseForm(arg);
   const [state, _dispatch] = useReducer(formReducer, initialState);
   const dispatch = useAsyncSafeDispatch(_dispatch);
+  /**
+   * Sync state in render phase to avoid creating ZentForm unnecessarily.
+   */
+  /* eslint-disable-next-line react-hooks/exhaustive-deps */
   const form = useMemo(() => new ZentForm(inner, state, dispatch), [
-    dispatch,
     inner,
-    state,
+    dispatch,
   ]);
   form.state = state;
   return form;
