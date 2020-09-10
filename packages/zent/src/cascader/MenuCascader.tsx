@@ -352,17 +352,16 @@ export class MenuCascader extends React.Component<
     });
   };
 
-  onMenuOptionHover: CascaderMenuHoverHandler = (item, level) => {
-    this.onMenuOptionSelect(item, level, noop, 'hover');
+  onMenuOptionHover: CascaderMenuHoverHandler = item => {
+    this.onMenuOptionSelect(item, noop, 'hover');
   };
 
-  onMenuOptionClick: CascaderMenuClickHandler = (item, level, closePopup) => {
-    this.onMenuOptionSelect(item, level, closePopup, 'click');
+  onMenuOptionClick: CascaderMenuClickHandler = (item, closePopup) => {
+    this.onMenuOptionSelect(item, closePopup, 'click');
   };
 
   onMenuOptionSelect = (
     item: ICascaderItem,
-    level: number,
     closePopup: () => void,
     source: 'click' | 'hover'
   ) => {
@@ -450,10 +449,9 @@ export class MenuCascader extends React.Component<
 
   onSearchOptionClick: CascaderSearchClickHandler = (items, closePopup) => {
     const activeValue = items.map(item => item.value);
-    const level = items.length;
 
     this.setState({ activeValue }, () => {
-      this.onMenuOptionClick(items[level - 1], level, closePopup);
+      this.onMenuOptionClick(items[items.length - 1], closePopup);
     });
   };
 
@@ -474,7 +472,7 @@ export class MenuCascader extends React.Component<
     );
   };
 
-  scrollLoad = (parent: ICascaderItem | null, level: number) => {
+  scrollLoad = (parent: ICascaderItem | null) => {
     const { loadOptions } = this.props;
     // 判断是否要加载更多
     const currentHasMore = parent

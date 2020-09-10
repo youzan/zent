@@ -56,7 +56,7 @@ class TabsContent extends React.Component<ITabsContentProps> {
               <span
                 className={cascaderItemCls}
                 title={item.label}
-                onClick={() => this.props.onClick(item, level, this.closePopup)}
+                onClick={() => this.props.onClick(item, this.closePopup)}
               >
                 {item.label}
               </span>

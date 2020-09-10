@@ -1,5 +1,6 @@
 import { IPublicCascaderItem, ICascaderItem, CascaderValue } from './types';
 import { isPathEqual } from './path-fns';
+import { getNodeDepth } from './node-fns';
 
 interface IBuildStackFrame<T> {
   node: T;
@@ -127,7 +128,7 @@ export class Forest {
         continue;
       }
 
-      const depth = getDepth(node);
+      const depth = getNodeDepth(node);
       while (depth <= path.length) {
         path.pop();
       }
@@ -287,7 +288,7 @@ export class Forest {
    * Returns all paths from root to leaf that contains `startNode`
    */
   getPaths(startNode: ICascaderItem) {
-    const depth = getDepth(startNode);
+    const depth = getNodeDepth(startNode);
     const idx = depth - 1;
     const { value } = startNode;
 
@@ -300,20 +301,6 @@ export class Forest {
       return acc;
     }, []);
   }
-}
-
-/**
- * Returns node depth, root node has depth 1.
- */
-function getDepth(node: ICascaderItem): number {
-  let depth = 1;
-  let { parent } = node;
-
-  while (parent) {
-    parent = parent.parent;
-    depth++;
-  }
-  return depth;
 }
 
 function reverse<T>(arr: T[]): T[] {

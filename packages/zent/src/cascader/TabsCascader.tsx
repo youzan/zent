@@ -18,6 +18,7 @@ import {
 import { getPathLabel, getPathToNode } from './path-fns';
 import { SingleTrigger } from './trigger/SingleTrigger';
 import { Forest } from './forest';
+import { getNodeDepth } from './node-fns';
 
 export interface ITabsCascaderProps extends ICascaderBaseProps {
   value?: CascaderValue[];
@@ -131,11 +132,7 @@ export class TabsCascader extends React.Component<
    * @param item 点击的节点
    * @param level 当前的层级，从 1 开始计数
    */
-  onClick: CascaderTabsClickHandler = (
-    item: ICascaderItem,
-    level: number,
-    closePopup
-  ) => {
+  onClick: CascaderTabsClickHandler = (item, closePopup) => {
     const { loadOptions, changeOnSelect } = this.props;
     const needLoading = item.loadChildrenOnExpand && loadOptions;
 
@@ -149,6 +146,7 @@ export class TabsCascader extends React.Component<
     const hasChildren = item.children && item.children.length > 0;
     const needClose = !item.loadChildrenOnExpand && !hasChildren;
     const needTriggerChange = needClose || changeOnSelect;
+    const level = getNodeDepth(item);
     const nextLevel = level + 1;
 
     if (!needLoading && !needClose) {

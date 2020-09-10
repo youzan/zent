@@ -28,3 +28,17 @@ export function getNodeKey(node: ICascaderItem): string {
   }
   return values.map((s, i) => `${i}$${s}`).join('@');
 }
+
+/**
+ * Returns node depth, root node has depth 1.
+ */
+export function getNodeDepth(node: ICascaderItem): number {
+  let depth = 1;
+  let { parent } = node;
+
+  while (parent) {
+    parent = parent.parent;
+    depth++;
+  }
+  return depth;
+}

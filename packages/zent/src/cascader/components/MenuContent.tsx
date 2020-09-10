@@ -25,7 +25,7 @@ export interface IMenuContentCommonProps {
   expandTrigger?: 'click' | 'hover';
   i18n: II18nLocaleCascader;
   scrollable: boolean;
-  scrollLoad: (parent: ICascaderItem | null, level: number) => Promise<void>;
+  scrollLoad: (parent: ICascaderItem | null) => Promise<void>;
   loadChildrenOnScroll: boolean;
   onOptionToggle: (item: ICascaderItem, checked: boolean) => void;
   onOptionHover: CascaderMenuHoverHandler;
@@ -133,12 +133,12 @@ class MenuContent extends React.Component<IMenuContentProps> {
           onClick={
             item.disabled
               ? undefined
-              : () => onOptionClick(item, level, this.closePopup)
+              : () => onOptionClick(item, this.closePopup)
           }
           onMouseEnter={
             item.disabled || expandTrigger !== 'hover'
               ? undefined
-              : () => onOptionHover(item, level)
+              : () => onOptionHover(item)
           }
         >
           {multiple && (
@@ -174,7 +174,7 @@ class MenuContent extends React.Component<IMenuContentProps> {
                 icon="circle"
               />
             }
-            loadMore={() => scrollLoad(parent, level)}
+            loadMore={() => scrollLoad(parent)}
             skipLoadOnMount
           >
             {cascaderItems}
