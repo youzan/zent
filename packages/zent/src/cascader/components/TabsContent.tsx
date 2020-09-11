@@ -44,15 +44,15 @@ class TabsContent extends React.Component<ITabsContentProps> {
     const val = this.props.value[level - 1];
 
     return (
-      <div className="zent-cascader__list">
+      <div className="zent-cascader-v2__list">
         {path.map(node => {
           const { value } = node;
-          const cascaderItemCls = classnames('zent-cascader__list-link', {
-            'zent-cascader__list-link--active': value === val,
+          const cascaderItemCls = classnames('zent-cascader-v2__list-link', {
+            'zent-cascader-v2__list-link--active': value === val,
           });
 
           return (
-            <div className="zent-cascader__list-item" key={value}>
+            <div className="zent-cascader-v2__list-item" key={value}>
               <span
                 className={cascaderItemCls}
                 title={node.label}
@@ -72,9 +72,9 @@ class TabsContent extends React.Component<ITabsContentProps> {
 
     if (level === loadingLevel) {
       return (
-        <div className="zent-cascader__loading">
-          <div className="zent-cascader__loading-label">{title}</div>
-          <div className="zent-cascader__loading-icon" />
+        <div className="zent-cascader-v2__loading">
+          <div className="zent-cascader-v2__loading-label">{title}</div>
+          <div className="zent-cascader-v2__loading-icon" />
         </div>
       );
     }
@@ -120,12 +120,12 @@ class TabsContent extends React.Component<ITabsContentProps> {
     const { activeId, i18n, onTabsChange } = this.props;
 
     return (
-      <div className="zent-cascader__popup-inner">
+      <div className="zent-cascader-v2__popup-inner">
         <Tabs
           activeId={activeId}
           onChange={onTabsChange}
           type="card"
-          className="zent-cascader__tabs"
+          className="zent-cascader-v2__tabs"
         >
           {this.renderPanels(i18n)}
         </Tabs>

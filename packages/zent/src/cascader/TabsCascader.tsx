@@ -224,7 +224,7 @@ export class TabsCascader extends React.Component<
         {(i18n: II18nLocaleCascader) => {
           return (
             <Popover
-              className={cx('zent-cascader__popup', popupClassName)}
+              className={cx('zent-cascader-v2__popup', popupClassName)}
               position={Popover.Position.AutoBottomLeftInViewport}
               visible={visible}
               onVisibleChange={this.onVisibleChange}
