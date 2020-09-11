@@ -31,11 +31,11 @@ function SelectOption<Item extends ISelectItem>({
 }: IOptionProps<Item>) {
   return (
     <div
-      className={cx('zent-select-option', {
-        'zent-select-option-active': active,
-        'zent-select-option-selected': !multiple && selected,
-        'zent-select-option-disabled': value.disabled,
-        'zent-select-option-header': value.type === 'header',
+      className={cx('zent-select-v2-option', {
+        'zent-select-v2-option-active': active,
+        'zent-select-v2-option-selected': !multiple && selected,
+        'zent-select-v2-option-disabled': value.disabled,
+        'zent-select-v2-option-header': value.type === 'header',
       })}
       onClick={e => {
         e.preventDefault();
@@ -45,17 +45,20 @@ function SelectOption<Item extends ISelectItem>({
       onMouseLeave={() => !value.type && onMouseLeave(index)}
       title={typeof value.text === 'string' && value.text}
     >
-      <div className="zent-select-option-text">
-        <p className="zent-select-option-text-content">{children}</p>
+      <div className="zent-select-v2-option-text">
+        <p className="zent-select-v2-option-text-content">{children}</p>
         {multiple && selected && (
-          <Icon className="zent-select-option-selected-multiple" type="check" />
+          <Icon
+            className="zent-select-v2-option-selected-multiple"
+            type="check"
+          />
         )}
         {loading && (
           <InlineLoading
             loading
             icon="circle"
             iconSize={18}
-            className="zent-select-option-loading"
+            className="zent-select-v2-option-loading"
           />
         )}
       </div>

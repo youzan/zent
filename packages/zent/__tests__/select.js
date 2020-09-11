@@ -218,7 +218,7 @@ describe('<Select />', () => {
     expect(wrapper.find('TagsTrigger').length).toBe(1);
     wrapper.find('TagsTrigger').simulate('click');
     const pop = new ReactWrapper(wrapper.instance().popup, true);
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 27 });
+    wrapper.find('.zent-select-v2').simulate('keydown', { keyCode: 27 });
     wrapper.find('TagsTrigger').simulate('click');
     expect(pop.find('.current').length).toBe(1);
     pop.find('Popup').simulate('keydown', { keyCode: 41 });
@@ -315,6 +315,6 @@ describe('<Select />', () => {
       .at(0)
       .simulate('click');
     expect(wrapper.state('selectedItem').value).toBe(undefined);
-    expect(wrapper.find('.zent-select-text').text()).toBe(I18nDefault.input);
+    expect(wrapper.find('.zent-select-v2-text').text()).toBe(I18nDefault.input);
   });
 });
