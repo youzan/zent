@@ -90,9 +90,11 @@ export function useField<Value>(
 /**
  * 创建一个 `Field`
  *
- * @param field `Field` 对应的 model 对象，用于关联 `Field` 和 model；当 `FormStrategy` 是 `Model` 的时候才能用
+ * @param field `Field` 对应的 model 对象，用于关联 `Field` 和 model；当 `FormStrategy` 是 `Model` 或渲染 `FieldArray` 的时候才能使用
  */
-export function useField<Value>(field: FieldModel<Value>): FieldModel<Value>;
+export function useField<Value>(
+  field: FieldModel<Value> | ModelRef<Value, any, FieldModel<Value>>
+): FieldModel<Value>;
 
 export function useField<Value>(
   field: FieldModel<Value> | ModelRef<Value, any, FieldModel<Value>> | string,

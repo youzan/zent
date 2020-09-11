@@ -58,6 +58,8 @@ export class ZentForm<T extends Record<string, BasicModel<unknown>>>
   implements IForm<T> {
   /** @internal */
   submit$ = new Subject<FormEvent | undefined>();
+  /** @internal */
+  reset$ = new Subject<FormEvent | undefined>();
 
   /** @internal */
   constructor(
@@ -137,6 +139,14 @@ export class ZentForm<T extends Record<string, BasicModel<unknown>>>
 
   resetValue() {
     this.inner.model.reset();
+  }
+
+  reset(e: FormEvent) {
+    this.reset$.next(e);
+  }
+
+  clear() {
+    this.inner.model.clear();
   }
 
   submitStart() {

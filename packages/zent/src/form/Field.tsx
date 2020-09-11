@@ -33,6 +33,19 @@ function withDefaultOption(option: ValidateOption | null | undefined) {
   return option ?? ValidateOption.Default;
 }
 
+/**
+ * 为 model 设置初始值，初始值会被作为 effect 的依赖，谨慎使用字面量
+ * @param model
+ * @param initialValue
+ */
+export function useInitialValue<T>(model: FieldModel<T>, initialValue: T) {
+  React.useEffect(() => {
+    if (initialValue !== undefined) {
+      model.initialize(initialValue);
+    }
+  }, [model, initialValue]);
+}
+
 function getValidators<Value>({
   validators,
   required,
@@ -71,6 +84,9 @@ export function FormField<Value>(props: IFormFieldProps<Value>) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     model = useField<Value>(props.model);
   }
+
+  useInitialValue(model, props.initialValue);
+
   React.useImperativeHandle(props.modelRef, () => model, [model]);
   const {
     className,

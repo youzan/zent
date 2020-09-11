@@ -5,6 +5,8 @@ import {
   IMaybeError,
   BasicModel,
   ValidateOption,
+  ModelRef,
+  IModel,
 } from './formulr';
 import { Omit, Optional } from 'utility-types';
 import { FormError } from './Error';
@@ -23,9 +25,13 @@ export interface IFormFieldViewDrivenProps<T> {
    */
   name: string;
   /**
-   * 默认值
+   * 缺省值，作为没有用户输入时的值，不可变
    */
   defaultValue: T | (() => T);
+  /**
+   * 初始值，在逻辑上作为字段首次展示的值，可变
+   */
+  initialValue?: T;
   /**
    * 校验规则列表，执行的时候会按数组顺序逐个调用，直到所有都通过或者在第一个失败的地方停止
    */
@@ -42,7 +48,7 @@ export interface IFormFieldModelDrivenProps<T> {
    * 表单项对应的数据
    * 只有 FormStrategy 是 View 的时候才会出现 ModelRef
    */
-  model: FieldModel<T>;
+  model: FieldModel<T> | ModelRef<T, IModel<any>, FieldModel<T>>;
   /**
    * 仅当 model 是个 ModelRef 的时候有效。
    */
@@ -51,6 +57,10 @@ export interface IFormFieldModelDrivenProps<T> {
    * 仅当 model 是个 ModelRef 的时候有效。
    */
   defaultValue: T | (() => T);
+  /**
+   * 仅当值不等于 `undefined` 时生效
+   */
+  initialValue?: T;
 }
 
 export type IFormFieldModelProps<T> =

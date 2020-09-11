@@ -56,7 +56,7 @@ export interface IFieldSetViewDrivenProps<
 >
   extends Omit<
       IFormFieldViewDrivenProps<$FieldSetValue<T>>,
-      'defaultValue' | 'validators'
+      'defaultValue' | 'validators' | 'initialValue'
     >,
     IFieldSetBaseProps<T> {}
 
