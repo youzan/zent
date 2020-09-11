@@ -150,7 +150,7 @@ function defaultHighlight<Item extends ISelectItem>(
 }
 
 const DEFAULT_LOADING = (
-  <div className="zent-select-popup-loading">
+  <div className="zent-select-v2-popup-loading">
     <BlockLoading
       loading
       icon="circle"
@@ -369,7 +369,7 @@ export class Select<
       optionContent = (
         <Receiver componentName="Select">
           {(i18n: II18nLocaleSelect) => (
-            <span className="zent-select-option-text-highlight">
+            <span className="zent-select-v2-option-text-highlight">
               {i18n.create}
               {option.text}
             </span>
@@ -521,12 +521,12 @@ export class Select<
         return renderValue ? (
           renderValue(value)
         ) : (
-          <span className="zent-select-text">{value.text}</span>
+          <span className="zent-select-v2-text">{value.text}</span>
         );
       }
     }
 
-    return <span className="zent-select-placeholder">{placeholder}</span>;
+    return <span className="zent-select-v2-placeholder">{placeholder}</span>;
   }
 
   renderTagList(value: Item[], i18n: II18nLocaleSelect) {
@@ -547,7 +547,7 @@ export class Select<
             position="auto-top-center"
             cushion={15}
             content={
-              <div className="zent-select-tag-collapsed-content">
+              <div className="zent-select-v2-tag-collapsed-content">
                 <div>
                   {collapsedValue.map((item, index) => {
                     return (
@@ -562,7 +562,7 @@ export class Select<
               </div>
             }
           >
-            <span className="zent-select-tag-collapsed-trigger">
+            <span className="zent-select-v2-tag-collapsed-trigger">
               +{collapsedValue.length}
             </span>
           </Pop>
@@ -699,7 +699,7 @@ export class Select<
     return filtered?.length ? (
       renderOptionList(filtered, this.renderOption)
     ) : (
-      <div className="zent-select-popup-empty">
+      <div className="zent-select-v2-popup-empty">
         {notFoundContent ?? i18n.empty}
       </div>
     );
@@ -730,21 +730,21 @@ export class Select<
               position={Popover.Position.AutoBottomLeft}
               visible={visible}
               onVisibleChange={this.onVisibleChange}
-              className="zent-select-popup"
+              className="zent-select-v2-popup"
               style={{ width: popupWidth ?? width }}
               cushion={4}
             >
               <Popover.Trigger.Click>
                 <div
                   ref={this.elementRef}
-                  className={cx('zent-select', {
-                    'zent-select-inline': inline,
-                    'zent-select-active': active,
-                    'zent-select-visible': visible,
-                    'zent-select-disabled': this.disabled,
-                    'zent-select-clearable': showClear,
-                    'zent-select-multiple': multiple,
-                    'zent-select-collapsable': collapsable,
+                  className={cx('zent-select-v2', {
+                    'zent-select-v2-inline': inline,
+                    'zent-select-v2-active': active,
+                    'zent-select-v2-visible': visible,
+                    'zent-select-v2-disabled': this.disabled,
+                    'zent-select-v2-clearable': showClear,
+                    'zent-select-v2-multiple': multiple,
+                    'zent-select-v2-collapsable': collapsable,
                   })}
                   style={{ width }}
                   onClick={this.focusSearchInput}

@@ -14,15 +14,15 @@ function SelectTag<Item extends ISelectItem>({
   renderValue,
 }: ISelectTagProps<Item>) {
   return (
-    <div className="zent-select-tag">
+    <div className="zent-select-v2-tag">
       {renderValue ? (
         renderValue(item)
       ) : (
-        <span className="zent-select-tag-text">{item.text}</span>
+        <span className="zent-select-v2-tag-text">{item.text}</span>
       )}
       <Icon
         type="close"
-        className="zent-select-tag-close"
+        className="zent-select-v2-tag-close"
         onClick={e => {
           e.stopPropagation();
           onRemove(item);
