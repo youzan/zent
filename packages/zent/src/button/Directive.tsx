@@ -11,7 +11,6 @@ export interface IButtonDirectiveChildProps {
   onClick?: React.MouseEventHandler;
   children?: React.ReactNode;
   'data-zv'?: string;
-  disabled?: boolean;
 }
 
 export type IButtonSize = 'medium' | 'large' | 'small';
@@ -90,7 +89,6 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
     {
       className,
       onClick,
-      disabled,
       'data-zv': __ZENT_VERSION__,
     } as Partial<ChildProps>,
     iconNode,
