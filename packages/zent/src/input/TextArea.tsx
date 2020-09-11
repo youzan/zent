@@ -58,7 +58,8 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, ITextAreaProps>(
         autosize.destroy(el);
       };
     }, [autoSize, ref]);
-    const isOutOfRange = value?.length > maxCharacterCount;
+    const isOutOfRange =
+      !!maxCharacterCount && !!value ? value.length > maxCharacterCount : false;
     return (
       <>
         <textarea
