@@ -1,7 +1,6 @@
 import { IModel } from '../models/base';
 import { IValidators } from '../validate';
 import { Maybe } from '../maybe';
-import { UnknownObject } from '../utils';
 
 export type $GetBuilderValue<T> = T extends BasicBuilder<infer V, infer _>
   ? V
@@ -15,7 +14,15 @@ export abstract class BasicBuilder<Value, Model extends IModel<Value>> {
   protected _validators: IValidators<Value> = [];
 
   abstract build(
-    defaultValue?: Maybe<Value extends UnknownObject ? Partial<Value> : Value>
+    defaultValue?: Maybe<
+      /**
+       * To use friendly, don't use `extends` keyword to constraint generic type.
+       * -> `Value extends Record<string, unknown> ? Partial<Value> : Value`
+       *
+       * Note that this will convert `Array<T>` to `Array<T | undefined>` which is unsafe.
+       */
+      Partial<Value>
+    >
   ): Model;
 
   /**
