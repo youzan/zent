@@ -4,7 +4,7 @@
 $popupWidth: 240px;
 $menuHeight: 180px;
 
-.zent-cascader {
+.zent-cascader-v2 {
   display: flex;
   flex-wrap: wrap;
   cursor: pointer;
@@ -55,7 +55,7 @@ $menuHeight: 180px;
       transform: rotate(180deg) translateY(50%);
     }
 
-    &.zent-cascader--multiple {
+    &.zent-cascader-v2--multiple {
       .zenticon-caret-down {
         transform: rotate(180deg);
       }
@@ -93,7 +93,7 @@ $menuHeight: 180px;
   }
 
   &--multiple {
-    .zent-cascader--tag + .zent-cascader--search {
+    .zent-cascader-v2--tag + .zent-cascader-v2--search {
       margin-top: 2px;
     }
 
@@ -165,7 +165,7 @@ $menuHeight: 180px;
         cursor: initial;
       }
 
-      .zent-cascader--highlight {
+      .zent-cascader-v2--highlight {
         font-style: normal;
         background-color: initial;
         @include theme-color(color, primary, 4);
@@ -189,7 +189,7 @@ $menuHeight: 180px;
     &:last-child {
       border-right: 0;
 
-      .zent-cascader__menu-item {
+      .zent-cascader-v2__menu-item {
         padding-right: 10px;
       }
     }
@@ -323,7 +323,7 @@ $menuHeight: 180px;
       text-overflow: ellipsis;
       white-space: nowrap;
 
-      &:hover:not(.zent-cascader__list-link--active) {
+      &:hover:not(.zent-cascader-v2__list-link--active) {
         @include theme-color(background-color, primary, 8);
       }
 

@@ -20,7 +20,7 @@ export function SearchInput(props: ISearchInputProps) {
     <input
       ref={ref}
       placeholder={placeholder}
-      className="zent-cascader--search"
+      className="zent-cascader-v2--search"
       value={value}
       onChange={onChange}
     />
