@@ -28,7 +28,6 @@ export type IButtonHtmlType = 'button' | 'submit' | 'reset';
 
 export interface IButtonDirectiveRenderProps {
   disabled: boolean;
-  loading: boolean;
 }
 
 export interface IButtonDirectiveProps<
@@ -76,7 +75,6 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
     typeof children === 'function'
       ? children({
           disabled,
-          loading,
         })
       : children;
 
