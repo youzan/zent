@@ -98,6 +98,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="iformprops.html#disabled" class="tsd-kind-icon">disabled</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="iformprops.html#form" class="tsd-kind-icon">form</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="iformprops.html#layout" class="tsd-kind-icon">layout</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="iformprops.html#onreset" class="tsd-kind-icon">on<wbr>Reset</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="iformprops.html#onsubmit" class="tsd-kind-icon">on<wbr>Submit</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="iformprops.html#onsubmitfail" class="tsd-kind-icon">on<wbr>Submit<wbr>Fail</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="iformprops.html#onsubmitsuccess" class="tsd-kind-icon">on<wbr>Submit<wbr>Success</a></li>
@@ -115,7 +116,7 @@
 					<div class="tsd-signature tsd-kind-icon">disable<wbr>Enter<wbr>Submit<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/47fd212/packages/zent/src/form/Form.tsx#L92">packages/zent/src/form/Form.tsx:92</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/edfe66a/packages/zent/src/form/Form.tsx#L96">packages/zent/src/form/Form.tsx:96</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -130,7 +131,7 @@
 					<div class="tsd-signature tsd-kind-icon">disabled<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/47fd212/packages/zent/src/form/Form.tsx#L69">packages/zent/src/form/Form.tsx:69</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/edfe66a/packages/zent/src/form/Form.tsx#L69">packages/zent/src/form/Form.tsx:69</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -147,7 +148,7 @@
 					<div class="tsd-signature tsd-kind-icon">form<span class="tsd-signature-symbol">:</span> <a href="../classes/zentform.html" class="tsd-signature-type">ZentForm</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/47fd212/packages/zent/src/form/Form.tsx#L64">packages/zent/src/form/Form.tsx:64</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/edfe66a/packages/zent/src/form/Form.tsx#L64">packages/zent/src/form/Form.tsx:64</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -162,7 +163,7 @@
 					<div class="tsd-signature tsd-kind-icon">layout<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"horizontal"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vertical"</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/47fd212/packages/zent/src/form/Form.tsx#L60">packages/zent/src/form/Form.tsx:60</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/edfe66a/packages/zent/src/form/Form.tsx#L60">packages/zent/src/form/Form.tsx:60</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -177,12 +178,48 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="onreset" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> on<wbr>Reset</h3>
+					<div class="tsd-signature tsd-kind-icon">on<wbr>Reset<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">FormEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">HTMLFormElement</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/edfe66a/packages/zent/src/form/Form.tsx#L92">packages/zent/src/form/Form.tsx:92</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>表单重置回调函数，<code>form.reset</code> 或者原生的 <code>DOM</code> 触发的 <code>reset</code> 事件都会触发 <code>onReset</code></p>
+						</div>
+					</div>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-signature">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">FormEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">HTMLFormElement</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5><span class="tsd-flag ts-flagOptional">Optional</span> e: <span class="tsd-signature-type">FormEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">HTMLFormElement</span><span class="tsd-signature-symbol">&gt;</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="onsubmit" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> on<wbr>Submit</h3>
 					<div class="tsd-signature tsd-kind-icon">on<wbr>Submit<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>form<span class="tsd-signature-symbol">: </span><a href="../classes/zentform.html" class="tsd-signature-type">ZentForm</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span>, e<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">SyntheticEvent</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/47fd212/packages/zent/src/form/Form.tsx#L77">packages/zent/src/form/Form.tsx:77</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/edfe66a/packages/zent/src/form/Form.tsx#L77">packages/zent/src/form/Form.tsx:77</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -221,7 +258,7 @@
 					<div class="tsd-signature tsd-kind-icon">on<wbr>Submit<wbr>Fail<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/47fd212/packages/zent/src/form/Form.tsx#L84">packages/zent/src/form/Form.tsx:84</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/edfe66a/packages/zent/src/form/Form.tsx#L84">packages/zent/src/form/Form.tsx:84</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -257,7 +294,7 @@
 					<div class="tsd-signature tsd-kind-icon">on<wbr>Submit<wbr>Success<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/47fd212/packages/zent/src/form/Form.tsx#L88">packages/zent/src/form/Form.tsx:88</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/edfe66a/packages/zent/src/form/Form.tsx#L88">packages/zent/src/form/Form.tsx:88</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -287,7 +324,7 @@
 					<div class="tsd-signature tsd-kind-icon">scroll<wbr>ToError<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/47fd212/packages/zent/src/form/Form.tsx#L73">packages/zent/src/form/Form.tsx:73</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/edfe66a/packages/zent/src/form/Form.tsx#L73">packages/zent/src/form/Form.tsx:73</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -324,6 +361,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="iformprops.html#layout" class="tsd-kind-icon">layout</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="iformprops.html#onreset" class="tsd-kind-icon">on<wbr>Reset</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="iformprops.html#onsubmit" class="tsd-kind-icon">on<wbr>Submit</a>

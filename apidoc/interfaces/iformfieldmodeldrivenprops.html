@@ -90,6 +90,7 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="iformfieldmodeldrivenprops.html#defaultvalue" class="tsd-kind-icon">default<wbr>Value</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="iformfieldmodeldrivenprops.html#initialvalue" class="tsd-kind-icon">initial<wbr>Value</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="iformfieldmodeldrivenprops.html#model" class="tsd-kind-icon">model</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="iformfieldmodeldrivenprops.html#validators" class="tsd-kind-icon">validators</a></li>
 							</ul>
@@ -105,7 +106,7 @@
 					<div class="tsd-signature tsd-kind-icon">default<wbr>Value<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/47fd212/packages/zent/src/form/shared.tsx#L53">packages/zent/src/form/shared.tsx:53</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/edfe66a/packages/zent/src/form/shared.tsx#L59">packages/zent/src/form/shared.tsx:59</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -115,12 +116,27 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="model" class="tsd-anchor"></a>
-					<h3>model</h3>
-					<div class="tsd-signature tsd-kind-icon">model<span class="tsd-signature-symbol">:</span> <a href="../classes/fieldmodel.html" class="tsd-signature-type">FieldModel</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<a name="initialvalue" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> initial<wbr>Value</h3>
+					<div class="tsd-signature tsd-kind-icon">initial<wbr>Value<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">T</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/47fd212/packages/zent/src/form/shared.tsx#L45">packages/zent/src/form/shared.tsx:45</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/edfe66a/packages/zent/src/form/shared.tsx#L63">packages/zent/src/form/shared.tsx:63</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>仅当值不等于 <code>undefined</code> 时生效</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="model" class="tsd-anchor"></a>
+					<h3>model</h3>
+					<div class="tsd-signature tsd-kind-icon">model<span class="tsd-signature-symbol">:</span> <a href="../classes/fieldmodel.html" class="tsd-signature-type">FieldModel</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="../classes/modelref.html" class="tsd-signature-type">ModelRef</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><a href="imodel.html" class="tsd-signature-type">IModel</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><a href="../classes/fieldmodel.html" class="tsd-signature-type">FieldModel</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/edfe66a/packages/zent/src/form/shared.tsx#L51">packages/zent/src/form/shared.tsx:51</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -136,7 +152,7 @@
 					<div class="tsd-signature tsd-kind-icon">validators<span class="tsd-signature-symbol">:</span> <a href="../globals.html#ivalidators" class="tsd-signature-type">IValidators</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/47fd212/packages/zent/src/form/shared.tsx#L49">packages/zent/src/form/shared.tsx:49</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/edfe66a/packages/zent/src/form/shared.tsx#L55">packages/zent/src/form/shared.tsx:55</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -164,6 +180,9 @@
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="iformfieldmodeldrivenprops.html#defaultvalue" class="tsd-kind-icon">default<wbr>Value</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="iformfieldmodeldrivenprops.html#initialvalue" class="tsd-kind-icon">initial<wbr>Value</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="iformfieldmodeldrivenprops.html#model" class="tsd-kind-icon">model</a>
