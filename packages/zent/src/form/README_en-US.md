@@ -62,7 +62,7 @@ The `form` object has some basic capabilities：
 - `form.initialize` assigns value for specified fields and set `initialValue` 。
 - `form.reset` emits `reset` event explicitly. Reset all fields to `initialValue` . If `initialValue` does not exist, use `defaultValue`.
 - `form.resetValue` Reset all fields to `initialValue` . If `initialValue` does not exist, use `defaultValue`. It doesn't emit `reset` event.
-- `form.clear` Reset all fields to `defaultValue` and clear `initialValue` for theom.
+- `form.clear` Reset all fields to `defaultValue` and clear `initialValue` for them.
 
 Note:
 
