@@ -24,6 +24,10 @@ class EventTest extends React.Component {
     this.addLog('key down');
   }
 
+  onIconClick = e => {
+		this.addLog('icon click');
+  }
+  
   addLog(msg) {
     const { logs } = this.state;
     logs.push(msg)
@@ -35,6 +39,11 @@ class EventTest extends React.Component {
       <div>
         <Input onPressEnter={this.onPressEnter} placeholder="Press Enter"/>
         <Input onKeyDown={this.onKeyDown} placeholder="Key down"/>
+				<Input
+					icon="search"
+					onIconClick={this.onIconClick}
+					placeholder="Icon click"
+				/>
         <div>{this.state.logs.map((log, index) => <p key={index}>{log}</p>)}</div>
       </div>
     );
