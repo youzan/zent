@@ -26,6 +26,11 @@ export type IButtonType =
 
 export type IButtonHtmlType = 'button' | 'submit' | 'reset';
 
+export interface IButtonDirectiveRenderProps {
+  disabled: boolean;
+  loading: boolean;
+}
+
 export interface IButtonDirectiveProps<
   ChildProps extends Omit<IButtonDirectiveChildProps, 'children'>
 > {
@@ -38,7 +43,9 @@ export interface IButtonDirectiveProps<
   style?: React.CSSProperties;
   icon?: IconType;
   block?: boolean;
-  children: React.ReactElement<ChildProps>;
+  children:
+    | React.ReactElement<ChildProps>
+    | ((props: IButtonDirectiveRenderProps) => React.ReactElement<ChildProps>);
 }
 
 export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
@@ -56,16 +63,30 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
     icon,
     children,
   } = props;
-  if (!isElement(children)) {
+  if (!isElement(children) && typeof children !== 'function') {
     throw new Error(
-      'Button Directive child must be element, string | number | boolean | null | undefined is not accepted'
+      'Button Directive child must be element or function, string | number | boolean | null | undefined is not accepted'
     );
   }
+  const disabledRef = React.useRef(disabled);
+  disabledRef.current = disabled;
   const propsRef = React.useRef(props);
   propsRef.current = props;
+  const innerChildren =
+    typeof children === 'function'
+      ? children({
+          disabled,
+          loading,
+        })
+      : children;
+
+  const innerChildrenRef = React.useRef(innerChildren);
+  innerChildrenRef.current = innerChildren;
+
   const onClick = React.useCallback((e: React.MouseEvent) => {
-    const { loading, disabled, children } = propsRef.current;
-    const { onClick } = children.props;
+    const { loading } = propsRef.current;
+    const { onClick } = innerChildrenRef.current.props;
+    const disabled = disabledRef.current;
     if (!onClick || loading || disabled) {
       return;
     }
@@ -82,10 +103,11 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
       'zent-btn-border-transparent': !bordered,
     },
     'zent-btn',
-    children.props.className
+    innerChildren.props.className
   );
+
   return React.cloneElement<ChildProps>(
-    children,
+    innerChildren,
     {
       className,
       onClick,
@@ -93,7 +115,7 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
     } as Partial<ChildProps>,
     iconNode,
     // Wrap text in a `span`, or we won't be able to control icon margins
-    ...(React.Children.map(children.props.children, child =>
+    ...(React.Children.map(innerChildren.props.children, child =>
       typeof child === 'string' ? <span>{child}</span> : child
     ) || [])
   );
