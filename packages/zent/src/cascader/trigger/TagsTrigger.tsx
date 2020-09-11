@@ -43,7 +43,7 @@ export class TagsTrigger extends React.Component<ITagsTriggerProps> {
       <BaseTrigger
         placeholder={placeholder}
         disabled={disabled}
-        className={cx(className, 'zent-cascader--multiple')}
+        className={cx(className, 'zent-cascader-v2--multiple')}
         clearable={clearable}
         visible={visible}
         onClear={onClear}

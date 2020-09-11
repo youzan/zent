@@ -38,7 +38,7 @@ class SearchContent extends React.Component<ISearchContentProps> {
   renderSearchingOrEmpty() {
     const { isSearching, i18n } = this.props;
     return (
-      <div className="zent-cascader--search-empty">
+      <div className="zent-cascader-v2--search-empty">
         {isSearching ? (
           <BlockLoading
             height={32}
@@ -64,11 +64,11 @@ class SearchContent extends React.Component<ISearchContentProps> {
     } = this.props;
 
     return (
-      <ul className="zent-cascader--search-list">
+      <ul className="zent-cascader-v2--search-list">
         {searchList.map(path => {
           const leafNode = path[path.length - 1];
-          const searchItemCls = cx('zent-cascader--search-item', {
-            'zent-cascader--search-item--multiple': multiple,
+          const searchItemCls = cx('zent-cascader-v2--search-item', {
+            'zent-cascader-v2--search-item--multiple': multiple,
           });
 
           let checkState: 'on' | 'off' | 'partial' | undefined;
@@ -108,7 +108,7 @@ class SearchContent extends React.Component<ISearchContentProps> {
     const { isSearching, searchList } = this.props;
 
     return (
-      <div className="zent-cascader__popup-inner zent-cascader__popup-inner-search">
+      <div className="zent-cascader-v2__popup-inner zent-cascader-v2__popup-inner-search">
         {isSearching || !searchList.length
           ? this.renderSearchingOrEmpty()
           : this.renderPanels()}

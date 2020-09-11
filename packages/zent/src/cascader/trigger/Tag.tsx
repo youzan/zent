@@ -13,11 +13,11 @@ function CascaderTag(props: ICascaderTagProps) {
   const { path, renderValue, onRemove } = props;
 
   return (
-    <div className="zent-cascader--tag">
+    <div className="zent-cascader-v2--tag">
       {renderValue(path)}
       <Icon
         type="close"
-        className="zent-cascader--tag-close"
+        className="zent-cascader-v2--tag-close"
         onClick={onRemove}
       />
     </div>

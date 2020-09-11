@@ -54,15 +54,17 @@ describe('Cascader', () => {
       />
     );
 
-    expect(wrapper.find('.zent-cascader').length).toBe(1);
+    expect(wrapper.find('.zent-cascader-v2').length).toBe(1);
     expect(wrapper.hasClass('rc-cascader-custom')).toBe(true);
-    expect(wrapper.find('.zent-cascader--placeholder').text()).toBe('hold on');
+    expect(wrapper.find('.zent-cascader-v2--placeholder').text()).toBe(
+      'hold on'
+    );
 
-    wrapper.find('.zent-cascader').simulate('click');
+    wrapper.find('.zent-cascader-v2').simulate('click');
     jest.runAllTimers();
     expect(document.querySelectorAll('.rc-cascader-popover').length).toBe(1);
 
-    wrapper.find('.zent-cascader').simulate('click');
+    wrapper.find('.zent-cascader-v2').simulate('click');
     jest.runAllTimers();
     expect(document.querySelectorAll('.rc-cascader-popover').length).toBe(0);
 
@@ -105,17 +107,17 @@ describe('Cascader', () => {
       options,
     });
     wrapper.update();
-    expect(wrapper.find('.zent-cascader--text').text()).toBe(
+    expect(wrapper.find('.zent-cascader-v2--text').text()).toBe(
       'root / son / grandSon'
     );
 
-    wrapper.find('.zent-cascader').simulate('click');
+    wrapper.find('.zent-cascader-v2').simulate('click');
     jest.runAllTimers();
 
     const pop = document.querySelector('.zent-popover');
 
     simulateRawWithTimers(
-      pop.querySelectorAll('.zent-cascader__menu-item')[0],
+      pop.querySelectorAll('.zent-cascader-v2__menu-item')[0],
       'click'
     );
     wrapper.update();
@@ -166,25 +168,27 @@ describe('Cascader', () => {
       />
     );
 
-    expect(wrapper.find('.zent-cascader').length).toBe(1);
+    expect(wrapper.find('.zent-cascader-v2').length).toBe(1);
     expect(wrapper.hasClass('rc-cascader-custom')).toBe(true);
-    expect(wrapper.find('.zent-cascader--placeholder').text()).toBe('hold on');
+    expect(wrapper.find('.zent-cascader-v2--placeholder').text()).toBe(
+      'hold on'
+    );
 
-    simulateWithTimers(wrapper.find('.zent-cascader'), 'click');
+    simulateWithTimers(wrapper.find('.zent-cascader-v2'), 'click');
     wrapper.update();
     expect(document.querySelectorAll('.rc-cascader-popover').length).toBe(1);
 
-    simulateWithTimers(wrapper.find('.zent-cascader'), 'click');
+    simulateWithTimers(wrapper.find('.zent-cascader-v2'), 'click');
     wrapper.update();
     expect(document.querySelectorAll('.rc-cascader-popover').length).toBe(0);
 
-    simulateWithTimers(wrapper.find('.zent-cascader'), 'click');
+    simulateWithTimers(wrapper.find('.zent-cascader-v2'), 'click');
     wrapper.update();
     const pop = document.querySelector('.zent-popover');
 
-    expect(pop.querySelectorAll('.zent-cascader__list-item').length).toBe(1);
+    expect(pop.querySelectorAll('.zent-cascader-v2__list-item').length).toBe(1);
     expect(
-      pop.querySelectorAll('.zent-cascader__list-item')[0].textContent
+      pop.querySelectorAll('.zent-cascader-v2__list-item')[0].textContent
     ).toBe('root');
 
     const allTabs = document.querySelectorAll('.zent-tabs-tab');
@@ -192,7 +196,7 @@ describe('Cascader', () => {
     expect(allTabs[0].textContent).toBe('省份');
 
     simulateRawWithTimers(
-      pop.querySelectorAll('.zent-cascader__list-item')[0],
+      pop.querySelectorAll('.zent-cascader-v2__list-item')[0],
       'click'
     );
 
@@ -236,7 +240,9 @@ describe('Cascader', () => {
       <TabsCascader value={value} options={options} renderValue={textFn} />
     );
 
-    expect(wrapper.find('.zent-cascader--text').text()).toBe('anotherGrandSon');
+    expect(wrapper.find('.zent-cascader-v2--text').text()).toBe(
+      'anotherGrandSon'
+    );
   });
 
   it('tabs cascader has default value and options', () => {
@@ -271,18 +277,18 @@ describe('Cascader', () => {
     ];
 
     const wrapper = mount(<TabsCascader value={value} options={options} />);
-    expect(wrapper.find('.zent-cascader--text').text()).toBe(
+    expect(wrapper.find('.zent-cascader-v2--text').text()).toBe(
       'root / anotherSon / anotherGrandSon'
     );
 
-    wrapper.find('.zent-cascader').simulate('click');
+    wrapper.find('.zent-cascader-v2').simulate('click');
     jest.runAllTimers();
 
     expect(
-      wrapper.find('.zent-cascader').hasClass('zent-cascader--visible')
+      wrapper.find('.zent-cascader-v2').hasClass('zent-cascader-v2--visible')
     ).toBe(true);
     expect(
-      wrapper.find('.zent-cascader').hasClass('zent-cascader--active')
+      wrapper.find('.zent-cascader-v2').hasClass('zent-cascader-v2--active')
     ).toBe(true);
     const allTabs = document.querySelectorAll('.zent-tabs-tab');
     expect(allTabs.length).toBe(3);
@@ -294,10 +300,10 @@ describe('Cascader', () => {
     simulateRawWithTimers(document.querySelector('.zent-tabs-tab'), 'click');
     wrapper.update();
 
-    simulateWithTimers(wrapper.find('.zent-cascader'), 'click');
+    simulateWithTimers(wrapper.find('.zent-cascader-v2'), 'click');
     wrapper.update();
-    expect(wrapper.hasClass('zent-cascader--visible')).toBe(false);
-    expect(wrapper.hasClass('zent-cascader--active')).toBe(false);
+    expect(wrapper.hasClass('zent-cascader-v2--visible')).toBe(false);
+    expect(wrapper.hasClass('zent-cascader-v2--active')).toBe(false);
     wrapper.unmount();
   });
 
@@ -334,18 +340,18 @@ describe('Cascader', () => {
 
     const wrapper = mount(<MenuCascader value={value} options={options} />);
 
-    wrapper.find('.zent-cascader').simulate('click');
+    wrapper.find('.zent-cascader-v2').simulate('click');
     jest.runAllTimers();
 
     const pop = document.querySelector('.zent-popover');
 
-    expect(pop.querySelectorAll('.zent-cascader__menu-item').length).toBe(1);
+    expect(pop.querySelectorAll('.zent-cascader-v2__menu-item').length).toBe(1);
     expect(
-      pop.querySelectorAll('.zent-cascader__menu-item')[0].textContent
+      pop.querySelectorAll('.zent-cascader-v2__menu-item')[0].textContent
     ).toBe('root');
 
     simulateRawWithTimers(
-      pop.querySelectorAll('.zent-cascader__menu-item')[0],
+      pop.querySelectorAll('.zent-cascader-v2__menu-item')[0],
       'click'
     );
 
@@ -387,22 +393,22 @@ describe('Cascader', () => {
       <MenuCascader value={value} options={options} expandTrigger="hover" />
     );
 
-    wrapper.find('.zent-cascader').simulate('click');
+    wrapper.find('.zent-cascader-v2').simulate('click');
     jest.runAllTimers();
 
     const pop = document.querySelector('.zent-popover');
 
-    expect(pop.querySelectorAll('.zent-cascader__menu-item').length).toBe(1);
+    expect(pop.querySelectorAll('.zent-cascader-v2__menu-item').length).toBe(1);
     expect(
-      pop.querySelectorAll('.zent-cascader__menu-item')[0].textContent
+      pop.querySelectorAll('.zent-cascader-v2__menu-item')[0].textContent
     ).toBe('root');
 
     simulateRawWithTimers(
-      pop.querySelectorAll('.zent-cascader__menu-item')[0],
+      pop.querySelectorAll('.zent-cascader-v2__menu-item')[0],
       'mouseEnter'
     );
 
-    expect(pop.querySelectorAll('.zent-cascader__menu').length).toBe(2);
+    expect(pop.querySelectorAll('.zent-cascader-v2__menu').length).toBe(2);
 
     wrapper.unmount();
   });
@@ -457,43 +463,45 @@ describe('Cascader', () => {
       />
     );
 
-    wrapper.find('.zent-cascader').simulate('click');
+    wrapper.find('.zent-cascader-v2').simulate('click');
     jest.runAllTimers();
 
     const pop = document.querySelector('.zent-popover');
 
     simulateRawWithTimers(
-      pop.querySelectorAll('.zent-cascader__menu-item')[0],
+      pop.querySelectorAll('.zent-cascader-v2__menu-item')[0],
       'click'
     );
     wrapper.update();
-    expect(wrapper.find('.zent-cascader--text').text()).toBe('root');
+    expect(wrapper.find('.zent-cascader-v2--text').text()).toBe('root');
     expect(onChangeMock.mock.calls.length).toBe(1);
 
     // disabled
     simulateRawWithTimers(
-      pop.querySelectorAll('.zent-cascader__menu-item')[2],
+      pop.querySelectorAll('.zent-cascader-v2__menu-item')[2],
       'click'
     );
     wrapper.update();
-    expect(wrapper.find('.zent-cascader--text').text()).toBe('root');
+    expect(wrapper.find('.zent-cascader-v2--text').text()).toBe('root');
 
     simulateRawWithTimers(
-      pop.querySelectorAll('.zent-cascader__menu-item')[1],
+      pop.querySelectorAll('.zent-cascader-v2__menu-item')[1],
       'click'
     );
     wrapper.update();
-    expect(wrapper.find('.zent-cascader--text').text()).toBe('root / son');
+    expect(wrapper.find('.zent-cascader-v2--text').text()).toBe('root / son');
 
     simulateRawWithTimers(
-      pop.querySelectorAll('.zent-cascader__menu-item')[3],
+      pop.querySelectorAll('.zent-cascader-v2__menu-item')[3],
       'click'
     );
     wrapper.update();
-    expect(wrapper.find('.zent-cascader--text').text()).toBe(
+    expect(wrapper.find('.zent-cascader-v2--text').text()).toBe(
       'root / son / grandSon'
     );
-    expect(document.querySelectorAll('.zent-cascader__popup').length).toBe(0);
+    expect(document.querySelectorAll('.zent-cascader-v2__popup').length).toBe(
+      0
+    );
 
     wrapper.unmount();
   });
@@ -547,46 +555,50 @@ describe('Cascader', () => {
       />
     );
 
-    expect(wrapper.find('.zent-cascader--text').text()).toBe('请选择');
-    wrapper.find('.zent-cascader').simulate('click');
+    expect(wrapper.find('.zent-cascader-v2--text').text()).toBe('请选择');
+    wrapper.find('.zent-cascader-v2').simulate('click');
     jest.runAllTimers();
 
     const pop = document.querySelector('.zent-popover');
 
     simulateRawWithTimers(
-      pop.querySelectorAll('.zent-cascader__list-link')[0],
+      pop.querySelectorAll('.zent-cascader-v2__list-link')[0],
       'click'
     );
     wrapper.update();
 
-    expect(wrapper.find('.zent-cascader--text').text()).toBe('root');
+    expect(wrapper.find('.zent-cascader-v2--text').text()).toBe('root');
     expect(onChangeMock.mock.calls.length).toBe(1);
     expect(pop.querySelectorAll('.zent-tabs-tab').length).toBe(2);
 
     simulateRawWithTimers(
-      pop.querySelectorAll('.zent-cascader__list-link')[1],
+      pop.querySelectorAll('.zent-cascader-v2__list-link')[1],
       'click'
     );
     wrapper.update();
     expect(pop.querySelectorAll('.zent-tabs-tab').length).toBe(3);
 
     simulateRawWithTimers(
-      pop.querySelectorAll('.zent-cascader__list-link')[3],
+      pop.querySelectorAll('.zent-cascader-v2__list-link')[3],
       'click'
     );
     wrapper.update();
-    expect(wrapper.find('.zent-cascader--text').text()).toBe(
+    expect(wrapper.find('.zent-cascader-v2--text').text()).toBe(
       'root / son / grandSon'
     );
-    expect(document.querySelectorAll('.zent-cascader__popup').length).toBe(0);
+    expect(document.querySelectorAll('.zent-cascader-v2__popup').length).toBe(
+      0
+    );
 
-    simulateWithTimers(wrapper.find('.zent-cascader'), 'mouseEnter');
+    simulateWithTimers(wrapper.find('.zent-cascader-v2'), 'mouseEnter');
     expect(wrapper.find('.zenticon-close-circle').length).toBe(1);
-    simulateWithTimers(wrapper.find('.zent-cascader'), 'mouseLeave');
+    simulateWithTimers(wrapper.find('.zent-cascader-v2'), 'mouseLeave');
     expect(wrapper.find('.zenticon-close-circle').length).toBe(0);
-    simulateWithTimers(wrapper.find('.zent-cascader'), 'mouseEnter');
+    simulateWithTimers(wrapper.find('.zent-cascader-v2'), 'mouseEnter');
     simulateWithTimers(wrapper.find('.zenticon-close-circle'), 'click');
-    expect(wrapper.find('.zent-cascader--placeholder').text()).toBe('请选择');
+    expect(wrapper.find('.zent-cascader-v2--placeholder').text()).toBe(
+      '请选择'
+    );
 
     wrapper.unmount();
   });
@@ -632,17 +644,19 @@ describe('Cascader', () => {
       />
     );
 
-    wrapper.find('.zent-cascader').simulate('click');
+    wrapper.find('.zent-cascader-v2').simulate('click');
     jest.runAllTimers();
 
     const pop = document.querySelector('.zent-popover');
 
     simulateRawWithTimers(
-      pop.querySelectorAll('.zent-cascader__list-link')[0],
+      pop.querySelectorAll('.zent-cascader-v2__list-link')[0],
       'click'
     );
 
-    expect(pop.querySelectorAll('.zent-cascader__loading-icon').length).toBe(1);
+    expect(pop.querySelectorAll('.zent-cascader-v2__loading-icon').length).toBe(
+      1
+    );
     wrapper.unmount();
   });
 
@@ -683,13 +697,13 @@ describe('Cascader', () => {
       />
     );
 
-    wrapper.find('.zent-cascader').simulate('click');
+    wrapper.find('.zent-cascader-v2').simulate('click');
     jest.runAllTimers();
 
     const pop = document.querySelector('.zent-popover');
 
     simulateRawWithTimers(
-      pop.querySelectorAll('.zent-cascader__menu-item')[0],
+      pop.querySelectorAll('.zent-cascader-v2__menu-item')[0],
       'click'
     );
 
@@ -701,18 +715,20 @@ describe('Cascader', () => {
       <MenuCascader disabled clearable multiple searchable />
     );
     expect(
-      wrapper.find('.zent-cascader').hasClass('zent-cascader--disabled')
+      wrapper.find('.zent-cascader-v2').hasClass('zent-cascader-v2--disabled')
     ).toBe(true);
 
-    simulateWithTimers(wrapper.find('.zent-cascader'), 'mouseEnter');
+    simulateWithTimers(wrapper.find('.zent-cascader-v2'), 'mouseEnter');
     jest.runAllTimers();
     wrapper.update();
     expect(wrapper.find('.zenticon-close-circle').length).toBe(0);
 
-    wrapper.find('.zent-cascader').simulate('click');
+    wrapper.find('.zent-cascader-v2').simulate('click');
     jest.runAllTimers();
     wrapper.update();
-    expect(document.querySelectorAll('.zent-cascader__popup').length).toBe(0);
+    expect(document.querySelectorAll('.zent-cascader-v2__popup').length).toBe(
+      0
+    );
 
     wrapper.unmount();
   });
@@ -720,7 +736,7 @@ describe('Cascader', () => {
   it('tabs cascader is disabled', () => {
     const wrapper = mount(<TabsCascader disabled />);
     expect(
-      wrapper.find('.zent-cascader').hasClass('zent-cascader--disabled')
+      wrapper.find('.zent-cascader-v2').hasClass('zent-cascader-v2--disabled')
     ).toBe(true);
     wrapper.unmount();
   });
@@ -777,7 +793,7 @@ describe('Cascader', () => {
       />
     );
 
-    expect(wrapper.find('.zent-cascader--tag').length).toBe(2);
+    expect(wrapper.find('.zent-cascader-v2--tag').length).toBe(2);
     wrapper
       .find('.zenticon-close')
       .at(0)
@@ -785,23 +801,25 @@ describe('Cascader', () => {
     jest.runAllTimers();
     wrapper.update();
 
-    expect(wrapper.find('.zent-cascader--tag').length).toBe(1);
-    wrapper.find('.zent-cascader').simulate('click');
+    expect(wrapper.find('.zent-cascader-v2--tag').length).toBe(1);
+    wrapper.find('.zent-cascader-v2').simulate('click');
     jest.runAllTimers();
     wrapper.update();
 
     const pop = document.querySelector('.zent-popover');
-    expect(pop.querySelectorAll('.zent-cascader__menu').length).toBe(3);
+    expect(pop.querySelectorAll('.zent-cascader-v2__menu').length).toBe(3);
 
     wrapper
       .find('.zent-checkbox input')
       .at(0)
       .simulate('change', { target: { checked: true } });
 
-    simulateWithTimers(wrapper.find('.zent-cascader'), 'mouseEnter');
+    simulateWithTimers(wrapper.find('.zent-cascader-v2'), 'mouseEnter');
     expect(wrapper.find('.zenticon-close-circle').length).toBe(1);
     simulateWithTimers(wrapper.find('.zenticon-close-circle'), 'click');
-    expect(wrapper.find('.zent-cascader--placeholder').text()).toBe('请选择');
+    expect(wrapper.find('.zent-cascader-v2--placeholder').text()).toBe(
+      '请选择'
+    );
 
     wrapper.unmount();
   });
@@ -855,43 +873,47 @@ describe('Cascader', () => {
       />
     );
 
-    wrapper.find('.zent-cascader').simulate('click');
+    wrapper.find('.zent-cascader-v2').simulate('click');
     jest.runAllTimers();
 
     expect(wrapper.find('input').length).toBe(1);
-    expect(wrapper.find('input').hasClass('zent-cascader--search')).toBe(true);
+    expect(wrapper.find('input').hasClass('zent-cascader-v2--search')).toBe(
+      true
+    );
     wrapper
       .find('input')
       .simulate('change', { target: { value: 'anotherGrandSon' } });
 
     const pop = document.querySelector('.zent-popover');
-    expect(pop.querySelector('.zent-cascader--search-empty').textContent).toBe(
-      '无搜索结果'
-    );
+    expect(
+      pop.querySelector('.zent-cascader-v2--search-empty').textContent
+    ).toBe('无搜索结果');
 
-    simulateWithTimers(wrapper.find('.zent-cascader'), 'mouseEnter');
+    simulateWithTimers(wrapper.find('.zent-cascader-v2'), 'mouseEnter');
     expect(wrapper.find('.zenticon-close-circle').length).toBe(1);
     simulateWithTimers(wrapper.find('.zenticon-close-circle'), 'click');
-    expect(wrapper.find('.zent-cascader--search').props().value).toBe('');
+    expect(wrapper.find('.zent-cascader-v2--search').props().value).toBe('');
 
     wrapper
       .find('input')
       .simulate('change', { target: { value: 'anotherGrandSon' } });
 
-    expect(pop.querySelectorAll('.zent-cascader--search-item').length).toBe(1);
-    expect(pop.querySelectorAll('.zent-cascader--highlight').length).toBe(1);
+    expect(pop.querySelectorAll('.zent-cascader-v2--search-item').length).toBe(
+      1
+    );
+    expect(pop.querySelectorAll('.zent-cascader-v2--highlight').length).toBe(1);
     simulateRawWithTimers(
-      pop.querySelectorAll('.zent-cascader--search-item')[0],
+      pop.querySelectorAll('.zent-cascader-v2--search-item')[0],
       'click'
     );
-    expect(wrapper.find('.zent-cascader--text').text()).toBe(
+    expect(wrapper.find('.zent-cascader-v2--text').text()).toBe(
       'root / anotherSon / anotherGrandSon'
     );
 
-    simulateWithTimers(wrapper.find('.zent-cascader'), 'mouseEnter');
+    simulateWithTimers(wrapper.find('.zent-cascader-v2'), 'mouseEnter');
     expect(wrapper.find('.zenticon-close-circle').length).toBe(1);
     simulateWithTimers(wrapper.find('.zenticon-close-circle'), 'click');
-    expect(wrapper.find('.zent-cascader--placeholder').text()).toBe(
+    expect(wrapper.find('.zent-cascader-v2--placeholder').text()).toBe(
       '请选择或输入搜索'
     );
 
@@ -951,25 +973,29 @@ describe('Cascader', () => {
       />
     );
 
-    wrapper.find('.zent-cascader').simulate('click');
+    wrapper.find('.zent-cascader-v2').simulate('click');
     jest.runAllTimers();
 
     wrapper
-      .find('.zent-cascader--search')
+      .find('.zent-cascader-v2--search')
       .simulate('change', { target: { value: 'keyword' } });
 
     jest.runAllTimers();
 
     const pop = document.querySelector('.zent-popover');
-    expect(pop.querySelectorAll('.zent-cascader--search-item').length).toBe(2);
+    expect(pop.querySelectorAll('.zent-cascader-v2--search-item').length).toBe(
+      2
+    );
 
     simulateRawWithTimers(
-      pop.querySelectorAll('.zent-cascader--search-item')[0],
+      pop.querySelectorAll('.zent-cascader-v2--search-item')[0],
       'click'
     );
     wrapper.update();
 
-    expect(pop.querySelectorAll('.zent-cascader--search-item').length).toBe(0);
+    expect(pop.querySelectorAll('.zent-cascader-v2--search-item').length).toBe(
+      0
+    );
 
     wrapper.unmount();
   });
@@ -1036,16 +1062,20 @@ describe('Cascader', () => {
     jest.runAllTimers();
 
     const pop = document.querySelector('.zent-popover');
-    expect(pop.querySelectorAll('.zent-cascader--search-item').length).toBe(2);
+    expect(pop.querySelectorAll('.zent-cascader-v2--search-item').length).toBe(
+      2
+    );
     expect(pop.querySelectorAll('.zent-checkbox').length).toBe(2);
 
     simulateRawWithTimers(
-      pop.querySelectorAll('.zent-cascader--search-item')[0],
+      pop.querySelectorAll('.zent-cascader-v2--search-item')[0],
       'click'
     );
     wrapper.update();
 
-    expect(pop.querySelectorAll('.zent-cascader--search-item').length).toBe(2);
+    expect(pop.querySelectorAll('.zent-cascader-v2--search-item').length).toBe(
+      2
+    );
 
     wrapper
       .find('.zent-checkbox input')
@@ -1091,27 +1121,31 @@ describe('Cascader', () => {
       <MenuCascader value={value} options={options} searchable multiple />
     );
 
-    wrapper.find('.zent-cascader').simulate('click');
+    wrapper.find('.zent-cascader-v2').simulate('click');
     jest.runAllTimers();
     wrapper.update();
 
-    expect(wrapper.find('.zent-cascader--search').length).toBe(1);
+    expect(wrapper.find('.zent-cascader-v2--search').length).toBe(1);
     wrapper
-      .find('.zent-cascader--search')
+      .find('.zent-cascader-v2--search')
       .simulate('change', { target: { value: 'anotherGrandSon' } });
 
     jest.runAllTimers();
 
     const pop = document.querySelector('.zent-popover');
-    expect(pop.querySelectorAll('.zent-cascader--search-item').length).toBe(1);
+    expect(pop.querySelectorAll('.zent-cascader-v2--search-item').length).toBe(
+      1
+    );
     expect(pop.querySelectorAll('.zent-checkbox').length).toBe(1);
 
     simulateRawWithTimers(
-      pop.querySelectorAll('.zent-cascader--search-item')[0],
+      pop.querySelectorAll('.zent-cascader-v2--search-item')[0],
       'click'
     );
     wrapper.update();
-    expect(pop.querySelectorAll('.zent-cascader--search-item').length).toBe(1);
+    expect(pop.querySelectorAll('.zent-cascader-v2--search-item').length).toBe(
+      1
+    );
 
     wrapper.unmount();
   });
@@ -1197,7 +1231,7 @@ describe('Cascader', () => {
     expect(pop.querySelectorAll('.zent-loading').length).toBe(0);
 
     simulateRawWithTimers(
-      pop.querySelectorAll('.zent-cascader__menu-item')[0],
+      pop.querySelectorAll('.zent-cascader-v2__menu-item')[0],
       'click'
     );
     jest.runAllTimers();
@@ -1212,14 +1246,14 @@ describe('Cascader', () => {
 
     const wrapper = mount(<MenuCascader value={value} options={options} />);
 
-    wrapper.find('.zent-cascader').simulate('click');
+    wrapper.find('.zent-cascader-v2').simulate('click');
     jest.runAllTimers();
 
     const pop = document.querySelector('.zent-popover');
 
-    expect(pop.querySelectorAll('.zent-cascader__menu-item').length).toBe(0);
+    expect(pop.querySelectorAll('.zent-cascader-v2__menu-item').length).toBe(0);
     expect(
-      pop.querySelectorAll('.zent-cascader__menu-empty')[0].textContent
+      pop.querySelectorAll('.zent-cascader-v2__menu-empty')[0].textContent
     ).toBe('无数据');
 
     wrapper.unmount();
