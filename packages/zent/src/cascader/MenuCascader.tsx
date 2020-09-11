@@ -128,7 +128,7 @@ const defaultHighlight = (
         <TextMark
           searchWords={[keyword]}
           textToHighlight={node.label}
-          highlightClassName="zent-cascader--highlight"
+          highlightClassName="zent-cascader-v2--highlight"
         />
         {index !== path.length - 1 && ' / '}
       </span>
@@ -585,7 +585,7 @@ export class MenuCascader extends React.Component<
 
           return (
             <Popover
-              className={cx('zent-cascader__popup', popupClassName)}
+              className={cx('zent-cascader-v2__popup', popupClassName)}
               position={Popover.Position.AutoBottomLeftInViewport}
               visible={visible}
               onVisibleChange={this.onVisibleChange}
