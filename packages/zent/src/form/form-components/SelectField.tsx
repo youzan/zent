@@ -16,7 +16,7 @@ import Select, {
 import { FormNotice } from '../Notice';
 import { FormDescription } from '../Description';
 import { FormControl } from '../Control';
-import { defaultGetValidateOption } from '../Field';
+import { defaultGetValidateOption, useInitialValue } from '../Field';
 
 export type IFormSelectFieldInnerProps = Omit<
   ISelectProps,
@@ -67,6 +67,9 @@ export function FormSelectField<Item, P extends IFormSelectFieldInnerProps>(
     // eslint-disable-next-line react-hooks/rules-of-hooks
     model = useField<FieldValue>(rawModel);
   }
+
+  useInitialValue(model, props.initialValue);
+
   const propsRef = React.useRef(props);
   propsRef.current = props;
   const {
