@@ -57,7 +57,7 @@ export class Button extends React.Component<IButtonProps> {
         bordered={bordered}
         icon={icon}
       >
-        {({ disabled }) =>
+        {disabled =>
           href || target ? (
             <a
               href={disabled || loading ? undefined : href || ''}

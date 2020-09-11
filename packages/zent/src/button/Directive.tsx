@@ -26,10 +26,6 @@ export type IButtonType =
 
 export type IButtonHtmlType = 'button' | 'submit' | 'reset';
 
-export interface IButtonDirectiveRenderProps {
-  disabled: boolean;
-}
-
 export interface IButtonDirectiveProps<
   ChildProps extends Omit<IButtonDirectiveChildProps, 'children'>
 > {
@@ -44,7 +40,7 @@ export interface IButtonDirectiveProps<
   block?: boolean;
   children:
     | React.ReactElement<ChildProps>
-    | ((props: IButtonDirectiveRenderProps) => React.ReactElement<ChildProps>);
+    | ((disabled: boolean) => React.ReactElement<ChildProps>);
 }
 
 export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
@@ -72,11 +68,7 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
   const propsRef = React.useRef(props);
   propsRef.current = props;
   const innerChildren =
-    typeof children === 'function'
-      ? children({
-          disabled,
-        })
-      : children;
+    typeof children === 'function' ? children(disabled) : children;
 
   const innerChildrenRef = React.useRef(innerChildren);
   innerChildrenRef.current = innerChildren;
