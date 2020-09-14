@@ -8,9 +8,10 @@ import { DisabledContext } from '../disabled';
 
 export interface IButtonDirectiveChildProps {
   className?: string;
-  onClick?: React.MouseEventHandler;
+  disabled?: boolean;
   children?: React.ReactNode;
   'data-zv'?: string;
+  onClick?: React.MouseEventHandler;
 }
 
 export type IButtonSize = 'medium' | 'large' | 'small';
@@ -101,6 +102,7 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
     {
       className,
       onClick,
+      disabled,
       'data-zv': __ZENT_VERSION__,
     } as Partial<ChildProps>,
     iconNode,
