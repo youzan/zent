@@ -30,10 +30,7 @@ class FormModel<
   private readonly workingValidators = new Set<Observable<unknown>>();
   readonly isValidating$ = new BehaviorSubject(false);
 
-  get owner() {
-    return this;
-  }
-
+  readonly owner = this;
   get form() {
     return (this as unknown) as FormModel;
   }
