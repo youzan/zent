@@ -94,7 +94,7 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
     children,
     {
       className,
-      disabled,
+      disabled: !!(disabled || loading),
       onClick,
       'data-zv': __ZENT_VERSION__,
     } as Partial<ChildProps>,
