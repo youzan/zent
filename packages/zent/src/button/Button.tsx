@@ -68,11 +68,7 @@ export class Button extends React.Component<IButtonProps> {
               {children}
             </a>
           ) : (
-            <button
-              type={htmlType}
-              disabled={!!(disabled || loading)}
-              {...props}
-            >
+            <button type={htmlType} disabled={disabled || loading} {...props}>
               {children}
             </button>
           )

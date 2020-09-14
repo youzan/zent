@@ -97,14 +97,19 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
     innerChildren.props.className
   );
 
+  const extraProps = {
+    className,
+    onClick,
+    'data-zv': __ZENT_VERSION__,
+  } as Partial<ChildProps>;
+
+  if (typeof children !== 'function') {
+    extraProps.disabled = disabled;
+  }
+
   return React.cloneElement<ChildProps>(
     innerChildren,
-    {
-      className,
-      onClick,
-      disabled,
-      'data-zv': __ZENT_VERSION__,
-    } as Partial<ChildProps>,
+    extraProps,
     iconNode,
     // Wrap text in a `span`, or we won't be able to control icon margins
     ...(React.Children.map(innerChildren.props.children, child =>
