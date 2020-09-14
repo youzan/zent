@@ -57,22 +57,15 @@ export class Button extends React.Component<IButtonProps> {
         bordered={bordered}
         icon={icon}
       >
-        {disabled =>
-          href || target ? (
-            <a
-              href={disabled || loading ? undefined : href || ''}
-              target={target}
-              download={download}
-              {...props}
-            >
-              {children}
-            </a>
-          ) : (
-            <button type={htmlType} disabled={disabled || loading} {...props}>
-              {children}
-            </button>
-          )
-        }
+        {href || target ? (
+          <a href={href} target={target} download={download} {...props}>
+            {children}
+          </a>
+        ) : (
+          <button type={htmlType} {...props}>
+            {children}
+          </button>
+        )}
       </ButtonDirective>
     );
   }

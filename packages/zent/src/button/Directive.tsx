@@ -2,7 +2,6 @@ import * as React from 'react';
 import cx from 'classnames';
 import { isElement } from 'react-is';
 import { Omit } from 'utility-types';
-
 import Icon, { IconType } from '../icon';
 import { DisabledContext } from '../disabled';
 
@@ -39,9 +38,7 @@ export interface IButtonDirectiveProps<
   style?: React.CSSProperties;
   icon?: IconType;
   block?: boolean;
-  children:
-    | React.ReactElement<ChildProps>
-    | ((disabled: boolean) => React.ReactElement<ChildProps>);
+  children: React.ReactElement<ChildProps>;
 }
 
 export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
@@ -59,29 +56,25 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
     icon,
     children,
   } = props;
-  if (!isElement(children) && typeof children !== 'function') {
+  if (!isElement(children)) {
     throw new Error(
-      'Button Directive child must be element or function, string | number | boolean | null | undefined is not accepted'
+      'Button Directive child must be element, string | number | boolean | null | undefined is not accepted'
     );
   }
   const disabledRef = React.useRef(disabled);
   disabledRef.current = disabled;
   const propsRef = React.useRef(props);
   propsRef.current = props;
-  const innerChildren =
-    typeof children === 'function' ? children(disabled) : children;
-
-  const innerChildrenRef = React.useRef(innerChildren);
-  innerChildrenRef.current = innerChildren;
 
   const onClick = React.useCallback((e: React.MouseEvent) => {
-    const { loading } = propsRef.current;
-    const { onClick } = innerChildrenRef.current.props;
+    const { loading, children } = propsRef.current;
+    const { onClick } = children.props;
     const disabled = disabledRef.current;
-    if (!onClick || loading || disabled) {
+    if (loading || disabled) {
+      e.preventDefault();
       return;
     }
-    onClick(e);
+    onClick?.(e);
   }, []);
   const iconNode = icon ? <Icon type={icon} /> : null;
   const className = cx(
@@ -94,25 +87,20 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
       'zent-btn-border-transparent': !bordered,
     },
     'zent-btn',
-    innerChildren.props.className
+    children.props.className
   );
 
-  const extraProps = {
-    className,
-    onClick,
-    'data-zv': __ZENT_VERSION__,
-  } as Partial<ChildProps>;
-
-  if (typeof children !== 'function') {
-    extraProps.disabled = disabled;
-  }
-
   return React.cloneElement<ChildProps>(
-    innerChildren,
-    extraProps,
+    children,
+    {
+      className,
+      disabled,
+      onClick,
+      'data-zv': __ZENT_VERSION__,
+    } as Partial<ChildProps>,
     iconNode,
     // Wrap text in a `span`, or we won't be able to control icon margins
-    ...(React.Children.map(innerChildren.props.children, child =>
+    ...(React.Children.map(children.props.children, child =>
       typeof child === 'string' ? <span>{child}</span> : child
     ) || [])
   );
