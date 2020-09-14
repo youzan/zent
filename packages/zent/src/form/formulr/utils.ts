@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { FieldSetModel, BasicModel, ModelRef } from './models';
+import { BasicBuilder } from './builders';
 
 export function noop() {
   // noop
@@ -33,3 +34,10 @@ export type $MergeProps<T> = (T extends any
   : never;
 
 export const { isArray } = Array;
+
+export type UnknownObject = Record<string, unknown>;
+export type UnknownFieldSetModelChildren = Record<string, BasicModel<any>>;
+export type UnknownFieldSetBuilderChildren = Record<
+  string,
+  BasicBuilder<any, BasicModel<any>>
+>;

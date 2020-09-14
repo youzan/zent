@@ -1,12 +1,14 @@
 import { BasicBuilder } from './basic';
-import { $FieldSetValue, FormModel, BasicModel } from '../models';
+import { $FieldSetValue, FormModel } from '../models';
 import { $FieldSetBuilderChildren, $FieldSetBuilderDefaultValue } from './set';
 import { Maybe, Some, or } from '../maybe';
+import {
+  UnknownFieldSetModelChildren,
+  UnknownFieldSetBuilderChildren,
+} from '../utils';
 
 export class FormBuilder<
-  ChildBuilders extends Record<string, Builder>,
-  Builder extends BasicBuilder<unknown, Model>,
-  Model extends BasicModel<unknown>
+  ChildBuilders extends UnknownFieldSetBuilderChildren
 > extends BasicBuilder<
   $FieldSetValue<$FieldSetBuilderChildren<ChildBuilders>>,
   FormModel<$FieldSetBuilderChildren<ChildBuilders>>
@@ -20,8 +22,8 @@ export class FormBuilder<
       defaultValues,
       () => ({})
     );
-    const children = {} as $FieldSetBuilderChildren<ChildBuilders>;
-    Object.keys(this._childBuilders).forEach((key: keyof ChildBuilders) => {
+    const children = {} as UnknownFieldSetModelChildren;
+    Object.keys(this._childBuilders).forEach(key => {
       const childBuilder = this._childBuilders[key];
       if (defaults.hasOwnProperty(key)) {
         children[key] = childBuilder.build(Some(defaults[key]));
@@ -30,7 +32,7 @@ export class FormBuilder<
       }
     });
     const model = new FormModel<$FieldSetBuilderChildren<ChildBuilders>>(
-      children
+      children as $FieldSetBuilderChildren<ChildBuilders>
     );
     model.validators = this._validators;
     return model;
