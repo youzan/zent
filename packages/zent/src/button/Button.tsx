@@ -58,7 +58,7 @@ export class Button extends React.Component<IButtonProps> {
         icon={icon}
       >
         {href || target ? (
-          <a href={href} target={target} download={download} {...props}>
+          <a href={href || ''} target={target} download={download} {...props}>
             {children}
           </a>
         ) : (
