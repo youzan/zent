@@ -6,7 +6,6 @@ import { useValue$ } from './hooks';
 import {
   FieldModel,
   FieldArrayModel,
-  BasicModel,
   isFieldSetModel,
   isFieldModel,
   isFieldArrayModel,
@@ -107,7 +106,7 @@ export type IFieldValueProps<T> =
 export function useFieldValue<T>(field: string | FieldModel<T>): T | null {
   const ctx = useFormContext();
   const [model, setModel] = React.useState<
-    FieldModel<T> | ModelRef<T, any, FieldModel<T>> | null
+    FieldModel<T> | ModelRef<T, IModel<any>, FieldModel<T>> | null
   >(
     isFieldModel<T>(field) || isModelRef<T, any, FieldModel<T>>(field)
       ? field
@@ -134,15 +133,17 @@ export function useFieldValue<T>(field: string | FieldModel<T>): T | null {
   }, [field, ctx.parent]);
 
   const [value, setValue] = React.useState<T | null>(() =>
-    model && !isModelRef(model) ? model.value : null
+    model && !isModelRef<T, IModel<any>, FieldModel<T>>(model)
+      ? model.value
+      : null
   );
 
   React.useEffect(() => {
-    if (isModelRef(model)) {
+    if (isModelRef<T, IModel<any>, FieldModel<T>>(model)) {
       const $ = model.model$
         .pipe(
           switchMap<FieldModel<T> | null, Observable<T | null>>(it => {
-            if (isFieldModel(it)) {
+            if (isFieldModel<T>(it)) {
               return it.value$;
             }
             return of(null);
@@ -180,9 +181,9 @@ export function FieldValue<T>(
 /**
  * 根据 `name` 或者 `model` 订阅 `FieldArray` 的更新
  */
-export function useFieldArrayValue<Item, Child extends BasicModel<Item>>(
+export function useFieldArrayValue<Item, Child extends IModel<Item>>(
   field: string | FieldArrayModel<Item, Child>
-) {
+): Child[] | null {
   const ctx = useFormContext();
   const model = useModelFromContext(
     ctx,
@@ -192,5 +193,5 @@ export function useFieldArrayValue<Item, Child extends BasicModel<Item>>(
   );
   const maybeChildren = useValue$(model?.children$ ?? NEVER, model?.children);
 
-  return maybeChildren as IModel<Item>[] | null;
+  return maybeChildren as Child[] | null;
 }

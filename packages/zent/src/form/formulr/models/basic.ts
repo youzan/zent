@@ -14,8 +14,6 @@ import { IModel } from './base';
 const MODEL_ID = Symbol('model');
 
 abstract class BasicModel<Value> implements IModel<Value> {
-  /** @internal */
-  phantomValue!: Value;
   /**
    * @internal
    */

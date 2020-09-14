@@ -8,6 +8,16 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 8.5.8(2020-09-11)
+
+- 🦀️ 调整 `Button` 之间的间距
+- `Form`
+  - ✨ `Field` 组件支持初始值 `initialValue`，并增加 `reset` 事件用于触发表单重置
+  - 🦀️ 修复 `state` 变更导致 `ZentForm` 不必要的重新创建
+- `Input`
+  - ✨ 增加 `onIconClick` 回调
+  - ✨ `TextareaInput` 新增 `maxCharacterCount` 属性支持文本超长及错误提示
+
 ### 8.5.7(2020-08-28)
 
 - 🦀️ 修复 `Progress` 组件 `circle` 类型的 `normalColor`，`successColor`，`exceptionColor` 和 `strokeWidth` 不生效问题

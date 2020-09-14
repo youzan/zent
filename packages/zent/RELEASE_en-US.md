@@ -8,6 +8,16 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 8.5.8(2020-09-11)
+
+- 🦀️ Adjust space between succesive `Button`s
+- `Form`
+  - ✨ Add `form.resetValue` to reset all fields to `initialValue`
+  - 🦀️ Fix unnessary creation of `ZentForm`
+- `Input`
+  - ✨ Add a new `onIconClick` callback
+  - ✨ `TextareaInput` add `maxCharacterCount` prop to support textarea's value out of range
+
 ### 8.5.7(2020-08-28)
 
 - 🦀️ Fix `Progress` of `circle`'s `normalColor`, `successColor`, `exceptionColor` and `strokeWidth` not working
