@@ -75,14 +75,14 @@ export class BaseTrigger extends React.Component<
     const { active } = this.state;
     const hasValue = selectedPaths.length > 0;
 
-    const cascaderCls = classnames('zent-cascader', className, {
-      'zent-cascader--disabled': disabled,
-      'zent-cascader--active': visible || active,
-      'zent-cascader--visible': visible,
+    const cascaderCls = classnames('zent-cascader-v2', className, {
+      'zent-cascader-v2--disabled': disabled,
+      'zent-cascader-v2--active': visible || active,
+      'zent-cascader-v2--visible': visible,
     });
 
-    const triggerTextCls = classnames('zent-cascader--text', {
-      'zent-cascader--placeholder': !hasValue,
+    const triggerTextCls = classnames('zent-cascader-v2--text', {
+      'zent-cascader-v2--placeholder': !hasValue,
     });
 
     let triggerText: React.ReactNode;

@@ -28,7 +28,7 @@ $option-height: 32px;
   box-sizing: border-box;
 }
 
-.zent-select {
+.zent-select-v2 {
   @include theme-color(border-color, stroke, 5);
   @include theme-color(background-color, stroke, 9);
   border-width: 1px;
@@ -60,7 +60,7 @@ $option-height: 32px;
     margin: auto;
   }
 
-  &.zent-select-disabled {
+  &.zent-select-v2-disabled {
     @include theme-color(color, stroke, 5);
     @include theme-color(border-color, stroke, 5);
     @include theme-color(background-color, stroke, 8);
@@ -78,19 +78,19 @@ $option-height: 32px;
       opacity: 0.25;
     }
 
-    .zent-select-tag {
+    .zent-select-v2-tag {
       @include theme-color(color, stroke, 4);
       @include theme-color(border-color, stroke, 5);
       @include theme-color(background-color, stroke, 8);
       cursor: not-allowed;
     }
 
-    .zent-select-tag-close {
+    .zent-select-v2-tag-close {
       @include theme-color(color, stroke, 5);
       cursor: not-allowed;
     }
 
-    .zent-select-tag-collapsed-trigger {
+    .zent-select-v2-tag-collapsed-trigger {
       @include theme-color(color, stroke, 4);
       @include theme-color(background-color, stroke, 6);
     }
@@ -100,7 +100,7 @@ $option-height: 32px;
     padding-top: 2px;
     padding-bottom: 2px;
 
-    .zent-select-placeholder {
+    .zent-select-v2-placeholder {
       margin: 3px 0;
     }
   }
@@ -127,8 +127,8 @@ $option-height: 32px;
       cursor: pointer;
     }
 
-    &.zent-select:hover,
-    &.zent-select-active {
+    &.zent-select-v2:hover,
+    &.zent-select-v2-active {
       &::after {
         display: none;
       }
@@ -140,23 +140,23 @@ $option-height: 32px;
   }
 
   &:hover,
-  &.zent-select-active {
+  &.zent-select-v2-active {
     @include theme-color(border-color, primary, 4);
     box-shadow: $shadow-spec-focus;
   }
 
-  &.zent-select-visible {
+  &.zent-select-v2-visible {
     &::after {
       transform: rotate(180deg);
     }
   }
 
-  &.zent-select-inline {
+  &.zent-select-v2-inline {
     display: inline-flex;
   }
 
   &-collapsable {
-    .zent-select-search-wrap {
+    .zent-select-v2-search-wrap {
       flex: 1;
     }
   }
@@ -183,7 +183,7 @@ $option-height: 32px;
         margin: 3px 0;
       }
 
-      .zent-select-search {
+      .zent-select-v2-search {
         min-width: 10px;
         position: absolute;
         top: 0;
@@ -241,7 +241,7 @@ $option-height: 32px;
 
     &:hover,
     &-active,
-    &-active.zent-select-option-selected {
+    &-active.zent-select-v2-option-selected {
       @include theme-color(background-color, primary, 8);
     }
 
@@ -251,7 +251,7 @@ $option-height: 32px;
       font-size: $font-size-small;
 
       &:hover,
-      &.zent-select-option-active {
+      &.zent-select-v2-option-active {
         @include theme-color(background-color, stroke, 9);
         cursor: default;
       }
@@ -262,7 +262,7 @@ $option-height: 32px;
       cursor: not-allowed;
 
       &:hover,
-      &.zent-select-option-active {
+      &.zent-select-v2-option-active {
         @include theme-color(background-color, stroke, 9);
         cursor: not-allowed;
       }

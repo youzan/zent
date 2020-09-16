@@ -55,7 +55,7 @@ export type IMenuContentProps =
 class MenuContent extends React.Component<IMenuContentProps> {
   render() {
     return (
-      <div className="zent-cascader__popup-inner zent-cascader__popup-inner-menu">
+      <div className="zent-cascader-v2__popup-inner zent-cascader-v2__popup-inner-menu">
         {this.renderPanels()}
       </div>
     );
@@ -69,14 +69,14 @@ class MenuContent extends React.Component<IMenuContentProps> {
     if (node.loadChildrenOnExpand) {
       const nodeKey = getNodeKey(node);
       if (loading.indexOf(nodeKey) !== -1 && isActive) {
-        return <i className="zent-cascader__menu-item-loading zenticon" />;
+        return <i className="zent-cascader-v2__menu-item-loading zenticon" />;
       }
     }
 
     // 有 children 或者需要加载 children 的时候说明非叶子节点
     const hasChildren = node.children && node.children.length > 0;
     if (hasChildren || node.loadChildrenOnExpand) {
-      return <Icon className="zent-cascader__menu-item-icon" type="right" />;
+      return <Icon className="zent-cascader-v2__menu-item-icon" type="right" />;
     }
 
     return null;
@@ -90,7 +90,7 @@ class MenuContent extends React.Component<IMenuContentProps> {
     const { i18n } = this.props;
     if (!path || path?.length === 0) {
       return (
-        <div className="zent-cascader__menu-empty" key="menu-empty">
+        <div className="zent-cascader-v2__menu-empty" key="menu-empty">
           {i18n.empty}
         </div>
       );
@@ -112,11 +112,11 @@ class MenuContent extends React.Component<IMenuContentProps> {
       parent === null ? loadChildrenOnScroll : parent.loadChildrenOnScroll;
     const cascaderItems = path.map(node => {
       const isActive = node.value === value[level - 1];
-      const cascaderItemCls = classnames('zent-cascader__menu-item', {
-        'zent-cascader__menu-item--active': isActive,
-        'zent-cascader__menu-item--disabled': node.disabled,
-        'zent-cascader__menu-item--multiple': multiple,
-        'zent-cascader__menu-item--leaf':
+      const cascaderItemCls = classnames('zent-cascader-v2__menu-item', {
+        'zent-cascader-v2__menu-item--active': isActive,
+        'zent-cascader-v2__menu-item--disabled': node.disabled,
+        'zent-cascader-v2__menu-item--multiple': multiple,
+        'zent-cascader-v2__menu-item--leaf':
           node.children.length === 0 && !node.loadChildrenOnExpand,
       });
 
@@ -150,7 +150,9 @@ class MenuContent extends React.Component<IMenuContentProps> {
               disabled={node.disabled}
             />
           )}
-          <span className="zent-cascader__menu-item-label">{node.label}</span>
+          <span className="zent-cascader-v2__menu-item-label">
+            {node.label}
+          </span>
           {this.getMenuItemIcon(node, isActive)}
         </div>
       );
@@ -159,11 +161,11 @@ class MenuContent extends React.Component<IMenuContentProps> {
     return (
       <div
         key={`menu-${value.slice(0, level - 1).join('-')}`}
-        className="zent-cascader__menu"
+        className="zent-cascader-v2__menu"
       >
         {scrollable && hasMore ? (
           <InfiniteScroller
-            className="zent-cascader__menu-scroller"
+            className="zent-cascader-v2__menu-scroller"
             hasMore={hasMore}
             loader={
               <BlockLoading
