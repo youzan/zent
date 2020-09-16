@@ -181,6 +181,16 @@ $large-size: 40px;
     &__not-editable {
       @include theme-color(border-color, stroke, 5);
     }
+
+    &.zent-textarea-wrapper.zent-textarea-wrapper-out-of-range {
+      @include theme-color(border-color, error, 4);
+      border-width: 1px;
+      border-style: solid;
+
+      .zent-textarea-out-of-range-text {
+        @include theme-color(color, error, 4);
+      }
+    }
   }
 }
 

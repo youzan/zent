@@ -56,5 +56,6 @@ export interface ITextAreaProps
   showCount?: boolean;
   autoSize?: boolean;
   value?: string;
+  maxCharacterCount?: number;
   onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }

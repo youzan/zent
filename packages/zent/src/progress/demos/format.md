@@ -22,7 +22,12 @@ class App extends Component {
 				<Progress
 					percent={80}
 					type="circle"
-					format={percent => `{i18n.content} ${percent}%`}
+					format={percent => (
+						<div>
+							<div>{i18n.content}</div>
+							<div>{percent}%</div>
+						</div>
+					)}
 				/>
 			</div>
 		);

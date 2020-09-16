@@ -1,8 +1,8 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 import { FieldSetModel } from './set';
-import { BasicModel } from './basic';
 import { ValidateOption } from '../validate';
 import uniqueId from '../../../utils/uniqueId';
+import { UnknownFieldSetModelChildren } from '../utils';
 
 enum FormStrategy {
   /**
@@ -19,10 +19,7 @@ enum FormStrategy {
 const FORM_ID = Symbol('form');
 
 class FormModel<
-  Children extends Record<string, BasicModel<unknown>> = Record<
-    string,
-    BasicModel<unknown>
-  >
+  Children extends UnknownFieldSetModelChildren = UnknownFieldSetModelChildren
 > extends FieldSetModel<Children> {
   /**
    * @internal
@@ -33,16 +30,9 @@ class FormModel<
   private readonly workingValidators = new Set<Observable<unknown>>();
   readonly isValidating$ = new BehaviorSubject(false);
 
-  get owner(): BasicModel<any> | null {
-    return this;
-  }
-
-  set owner(owner: BasicModel<any> | null) {
-    // noop
-  }
-
-  get form(): FormModel | null | undefined {
-    return this as FormModel<any>;
+  readonly owner = this;
+  get form() {
+    return (this as unknown) as FormModel;
   }
 
   constructor(readonly children: Children) {
@@ -90,12 +80,9 @@ class FormModel<
 
 FormModel.prototype[FORM_ID] = true;
 
-function isFormModel<
-  Children extends Record<string, BasicModel<any>> = Record<
-    string,
-    BasicModel<any>
-  >
->(maybeModel: any): maybeModel is FormModel<Children> {
+function isFormModel<Children extends UnknownFieldSetModelChildren>(
+  maybeModel: any
+): maybeModel is FormModel<Children> {
   return !!(maybeModel && maybeModel[FORM_ID]);
 }
 

@@ -13,4 +13,8 @@ export * from './context';
 export * from './hooks';
 export * from './value-listener';
 export * from './maybe';
+export {
+  UnknownFieldSetModelChildren,
+  UnknownFieldSetBuilderChildren,
+} from './utils';
 export { Validators, FieldUtils, ValidatorMiddlewares };

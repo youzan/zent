@@ -11,22 +11,39 @@ import { Input } from 'zent';
 
 class TextArea extends React.Component {
 	state = {
-		value: ''
-	}
+		value: '',
+		value2: '',
+	};
 
-	handleChange = (e) => {
+	handleChange = e => {
 		this.setState({ value: e.target.value });
-	}
-
+	};
+	handleMaxCharacterChange = e => {
+		this.setState({ value2: e.target.value });
+	};
 	render() {
-		const { value } = this.state;
-		return <div>
-      <Input type="textarea" value={value} onChange={this.handleChange} maxLength={100} showCount autoSize />
-  </div>
+		const { value, value2 } = this.state;
+		return (
+			<div>
+				<Input
+					type="textarea"
+					value={value}
+					onChange={this.handleChange}
+					maxLength={10}
+					showCount
+					autoSize
+				/>
+				<Input
+					type="textarea"
+					value={value2}
+					onChange={this.handleMaxCharacterChange}
+					maxCharacterCount={10}
+					showCount
+					autoSize
+				/>
+			</div>
+		);
 	}
 }
-ReactDOM.render(
-  <TextArea />
-  , mountNode
-);
+ReactDOM.render(<TextArea />, mountNode);
 ```

@@ -56,6 +56,21 @@ Zent also provides separate components that construct these components, includin
 
 #### Basic Usages
 
+The `form` object has some basic capabilities：
+
+- `form.submit` emits `submit` event explicitly. It automatically triggers the validation.
+- `form.validate` triggers the validation.
+- `form.patchValue` assigns value for specified fields.
+- `form.initialize` assigns value for specified fields and set `initialValue` 。
+- `form.reset` emits `reset` event explicitly. Reset all fields to `initialValue` . If `initialValue` does not exist, use `defaultValue`.
+- `form.resetValue` Reset all fields to `initialValue` . If `initialValue` does not exist, use `defaultValue`. It doesn't emit `reset` event.
+- `form.clear` Reset all fields to `defaultValue` and clear `initialValue` for them.
+
+Note:
+
+- `initialValue`: It's logically the first displayed value of the form component and can be updated.
+- `defaultValue`: It's a value that's used when the form component has no user input and cannot be updated once the component is rendered.
+
 <!-- demo-slot-1 -->
 <!-- demo-slot-2 -->
 <!-- demo-slot-18 -->

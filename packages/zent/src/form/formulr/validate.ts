@@ -3,6 +3,7 @@ import { catchError, map, concatAll, filter, takeWhile } from 'rxjs/operators';
 import { BasicModel, isFieldSetModel } from './models';
 import { finalizeWithLast } from './finalize-with-last';
 import isNil from '../../utils/isNil';
+import { UnknownObject } from './utils';
 
 export const ASYNC_VALIDATOR = Symbol('AsyncValidator');
 
@@ -136,7 +137,7 @@ export class ValidatorContext<T> {
     if (names.length === 0) {
       return this.model.owner.getRawValue() as T;
     }
-    const data: Record<string, unknown> = {};
+    const data: UnknownObject = {};
     for (let i = 0; i < names.length; i += 1) {
       const name = names[i];
       const model = this.model.owner.get(name);
@@ -147,11 +148,8 @@ export class ValidatorContext<T> {
     return data as T;
   }
 
-  getFormValue<T extends object = Record<string, unknown>>():
-    | T
-    | null
-    | undefined {
-    return this.model.form?.getRawValue();
+  getFormValue<T extends UnknownObject>(): T | null | undefined {
+    return this.model.form?.getRawValue() as T | null | undefined;
   }
 }
 

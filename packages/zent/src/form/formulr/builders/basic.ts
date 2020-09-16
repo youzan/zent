@@ -2,18 +2,28 @@ import { IModel } from '../models/base';
 import { IValidators } from '../validate';
 import { Maybe } from '../maybe';
 
+export type $GetBuilderValue<T> = T extends BasicBuilder<infer V, infer _>
+  ? V
+  : never;
+
+export type $GetBuilderModel<T> = T extends BasicBuilder<infer _, infer M>
+  ? M
+  : never;
+
 export abstract class BasicBuilder<Value, Model extends IModel<Value>> {
-  /**
-   * @internal
-   */
-  readonly phantomValue!: Value;
-  /**
-   * @internal
-   */
-  readonly phantomModel!: Model;
   protected _validators: IValidators<Value> = [];
 
-  abstract build(defaultValue?: Maybe<Value>): Model;
+  abstract build(
+    defaultValue?: Maybe<
+      /**
+       * To use friendly, don't use `extends` keyword to constraint generic type.
+       * -> `Value extends Record<string, unknown> ? Partial<Value> : Value`
+       *
+       * Note that this will convert `Array<T>` to `Array<T | undefined>` which is unsafe.
+       */
+      Partial<Value>
+    >
+  ): Model;
 
   /**
    * 设置 builder 上的校验规则
