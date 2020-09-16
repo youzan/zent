@@ -24,7 +24,7 @@ group: 数据
 | changeOnSelect | 是否选择即时触发改变 | `boolean`                                                                                       | 否       | `false`                                                                      | `true` |
 | placeholder    | 输入框占位文本       | `string`                                                                                        | 否       | `请选择`                                                                     |        |
 | className      | 自定义额外类名       | `string`                                                                                        | 否       |                                                                              |        |
-| popupClassName | popover 自定义类名   | `string`                                                                                        | 否       | `zent-cascader__popup`                                                       |        |
+| popupClassName | popover 自定义类名   | `string`                                                                                        | 否       |                                                                              |        |
 | renderValue    | 渲染输入框中选项值   | `(selectedOptions: ICascaderItem[]) => string`                                                  | 否       | `selectedOptions => selectedOptions.map(option => option.label).join(' / ')` |        |
 | disabled       | 是否禁用             | `boolean`                                                                                       | 否       | `false`                                                                      | `true` |
 | clearable      | 显示清除按钮         | `boolean`                                                                                       | 否       | `false`                                                                      | `true` |
@@ -48,18 +48,18 @@ interface ICascaderItem {
 
 ### MenuCascader
 
-| 参数                 | 说明                       | 类型                                                     | 是否必填 | 默认值  | 备选值  |
-| -------------------- | -------------------------- | -------------------------------------------------------- | -------- | ------- | ------- |
-| multiple             | 是否支持多选               | `boolean`                                                | 否       | `false` | `true`  |
-| expandTrigger        | 次级菜单的展开方式         | `string`                                                 | 否       | `click` | `hover` |
-| scrollable           | 是否支持滚动加载           | `boolean`                                                | 否       | `false` | `true`  |
-| loadChildrenOnScroll | 第一级数据是否还有更多数据 | `boolean`                                                | 否       | `false` | `true`  |
-| searchable           | 是否显示搜索框             | `boolean`                                                | 否       | `false` | `true`  |
-| async                | 是否异步搜索               | `boolean`                                                | 否       | `false` | `true`  |
-| asyncFilter          | 根据关键词异步搜索         | `(keyword: string) => Promise<Array<ICascaderItem[]>>`   | 否       | -       |         |
+| 参数                 | 说明                       | 类型                                                    | 是否必填 | 默认值  | 备选值  |
+| -------------------- | -------------------------- | ------------------------------------------------------- | -------- | ------- | ------- |
+| multiple             | 是否支持多选               | `boolean`                                               | 否       | `false` | `true`  |
+| expandTrigger        | 次级菜单的展开方式         | `string`                                                | 否       | `click` | `hover` |
+| scrollable           | 是否支持滚动加载           | `boolean`                                               | 否       | `false` | `true`  |
+| loadChildrenOnScroll | 第一级数据是否还有更多数据 | `boolean`                                               | 否       | `false` | `true`  |
+| searchable           | 是否显示搜索框             | `boolean`                                               | 否       | `false` | `true`  |
+| async                | 是否异步搜索               | `boolean`                                               | 否       | `false` | `true`  |
+| asyncFilter          | 根据关键词异步搜索         | `(keyword: string) => Promise<Array<ICascaderItem[]>>`  | 否       | -       |         |
 | filter               | 根据关键词进行过滤         | `(keyword: string, path: ICascaderItem[]) => boolean`   | 否       | -       |         |
 | highlight            | 根据关键词高亮每一项       | `(keyword: string, path: ICascaderItem[]) => ReactNode` | 否       | -       |         |
-| limit                | 搜索结果展示数量           | `number`                                                 | 否       | `50`    |         |
+| limit                | 搜索结果展示数量           | `number`                                                | 否       | `50`    |         |
 
 - 当 `multiple` 为 `true` 时，`onChange` 中的 `value` 及 `selectedOptions` 为二维数组
 - 组件参数 `scrollable` 与节点的 `loadChildrenOnScroll` 属性组合可判断它的子节点是否需要滚动加载更多数据；第一个层级由于无父节点，使用 `props` 上的 `loadChildrenOnScroll` 参数

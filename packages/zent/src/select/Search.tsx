@@ -45,8 +45,8 @@ function SelectSearch(
 
   // We measure width and set to the input immediately
   const mirrorValue = value || placeholder;
-  const searchClass = cx('zent-select-search-wrap', {
-    'zent-select-search-wrap-auto-width': autoWidth,
+  const searchClass = cx('zent-select-v2-search-wrap', {
+    'zent-select-v2-search-wrap-auto-width': autoWidth,
   });
 
   return (
@@ -54,7 +54,7 @@ function SelectSearch(
       <input
         ref={ref}
         placeholder={placeholder}
-        className="zent-select-search"
+        className="zent-select-v2-search"
         value={value}
         onChange={onChange}
         onKeyDown={e => {
@@ -75,7 +75,7 @@ function SelectSearch(
       />
       {/* Measure Node */}
       {autoWidth && (
-        <p className="zent-select-search-mirror" aria-hidden>
+        <p className="zent-select-v2-search-mirror" aria-hidden>
           {mirrorValue}
         </p>
       )}

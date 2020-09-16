@@ -23,7 +23,7 @@ Cascader is used for cascade operation, e.g. cascade location selection.
 | changeOnSelect | Trigger onChange on each selection                     | `boolean`                                                                                       | No       | `false`                                                                      | `true`       |
 | placeholder    | Placeholder text of input box                          | `string`                                                                                        | No       | `Please choose`                                                              |              |
 | className      | Custom classname                                       | `string`                                                                                        | No       |                                                                              |              |
-| popupClassName | Custom classname of popover                            | `string`                                                                                        | No       | `zent-cascader__popup`                                                       |              |
+| popupClassName | Custom classname of popover                            | `string`                                                                                        | No       |                                                                              |              |
 | renderValue    | Render option value                                    | `(selectedOptions: ICascaderItem[]) => string`                                                  | No       | `selectedOptions => selectedOptions.map(option => option.label).join(' / ')` |              |
 | disabled       | Disable cascader                                       | `boolean`                                                                                       | No       | `false`                                                                      | `true`       |
 | clearable      | Show clear button                                      | `boolean`                                                                                       | No       | `false`                                                                      | `true`       |
@@ -47,26 +47,26 @@ interface ICascaderItem {
 
 ### MenuCascader
 
-| Props                | Description                                 | Type                                                     | Required | Default | Alternatives |
-| -------------------- | ------------------------------------------- | -------------------------------------------------------- | -------- | ------- | ------------ |
-| multiple             | Multiple                                    | `boolean`                                                | No       | `false` | `true`       |
-| expandTrigger        | Secondary menu expand trigger type          | `string`                                                 | No       | `click` | `hover`      |
-| scrollable           | Can scroll load data dynamicly              | `boolean`                                                | No       | `false` | `true`       |
-| loadChildrenOnScroll | Load children when scrolling in first level | `boolean`                                                | No       | `false` | `true`       |
-| searchable           | Can search                                  | `boolean`                                                | No       | `false` | `true`       |
-| async                | Can async search                            | `boolean`                                                | No       | `false` | `true`       |
-| asyncFilter          | Async filter by keyword                     | `(keyword: string) => Promise<Array<ICascaderItem[]>>`   | No       | -       |              |
+| Props                | Description                                 | Type                                                    | Required | Default | Alternatives |
+| -------------------- | ------------------------------------------- | ------------------------------------------------------- | -------- | ------- | ------------ |
+| multiple             | Multiple                                    | `boolean`                                               | No       | `false` | `true`       |
+| expandTrigger        | Secondary menu expand trigger type          | `string`                                                | No       | `click` | `hover`      |
+| scrollable           | Can scroll load data dynamicly              | `boolean`                                               | No       | `false` | `true`       |
+| loadChildrenOnScroll | Load children when scrolling in first level | `boolean`                                               | No       | `false` | `true`       |
+| searchable           | Can search                                  | `boolean`                                               | No       | `false` | `true`       |
+| async                | Can async search                            | `boolean`                                               | No       | `false` | `true`       |
+| asyncFilter          | Async filter by keyword                     | `(keyword: string) => Promise<Array<ICascaderItem[]>>`  | No       | -       |              |
 | filter               | Filter options by keyword                   | `(keyword: string, path: ICascaderItem[]) => boolean`   | No       | -       |              |
 | highlight            | Highlight options by keyword                | `(keyword: string, path: ICascaderItem[]) => ReactNode` | No       | -       |              |
-| limit                | Limit search result count                   | `number`                                                 | No       | `50`    |              |
+| limit                | Limit search result count                   | `number`                                                | No       | `50`    |              |
 
 - When `multiple` is `true`，`onChange` parameters such as `value` and `selectedOptions` are two dimensional arrays
 - Use `scrollable` and `loadChildrenOnScroll` to control auto loading data when scrolling to bottom
 
 ### TabsCascader
 
-| Props | Description  | Type          | Required | Default | Alternatives |
-| ----- | ------------ | ------------- | -------- | ------- | ------------ |
+| Props | Description   | Type          | Required | Default | Alternatives |
+| ----- | ------------- | ------------- | -------- | ------- | ------------ |
 | title | Title of tabs | `ReactNode[]` | No       | `[]`    |              |
 
 ### Options manipulate functions
