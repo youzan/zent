@@ -59,6 +59,20 @@
 
 由于 `Select` 和时间选择组件的重构，这些组件对应的 `Field` 也做了相应改造，如果希望使用在新 `Form`（基于 formulr）中使用这些老版本的 `Field`，请使用 `@zent/compat` 这个包里的 `formulr/form-components`。⚠️ 注意：这些 `Field` 组件不再迭代新功能，也不再修 bug，只会酌情处理致命的问题。
 
+### `previewImage`
+
+所有 CSS 类名都加了 `zent-image-p-` 的前缀，如果有自定义样式不正常请检查类名是否正确。
+
+- `zent-show-image`
+- `image-is-zooming`
+- `image-p-footer-paging`
+- `show-rotate-btn`
+- `rotate-action`
+
+### 文档
+
+- 删除 [`Sku`](https://github.com/zent-contrib/sku) 和 [`Design`](https://github.com/zent-contrib/design) 的文档，这两个组件上个版本已经移除，如果需要查看它们的文档请到对应的仓库看。
+
 ## 新功能
 
 - 新增 `Transfer` 组件，一个左右布局的选择组件。
