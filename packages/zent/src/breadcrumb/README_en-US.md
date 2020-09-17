@@ -22,7 +22,6 @@ Breadcrumb is used to provide a hierarchical navigation structure and mark the c
 | --------- | ------------- | ------ | ---------- |
 | breads      | data  | array | `[]`   |
 | className | extra custom class name  | string | `''`       |
-| prefix    | custom prefix    | string | `'zent'`   |
 
 #### Item
 

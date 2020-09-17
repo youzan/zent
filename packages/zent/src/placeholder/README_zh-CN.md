@@ -35,7 +35,6 @@ group: 反馈
 | style        | 额外样式       | `object`  |  否       | `{}`       |  |
 | animate      | 是否开启动画   | `bool`    | 否         |  `true`   | `false`  |
 | className    | 额外类名       | `string`  | 否         |  `''`     |   |
-| prefix       | 自定义类名前缀  | `string`  | 否         | `'zent'`  |   |
 
 ### RichTextBlock
 
@@ -56,7 +55,6 @@ group: 反馈
 | style        | 额外样式       | `object`  |  否       | `{}`       |  |
 | animate      | 是否开启动画   | `bool`    | 否         |  `true`   | `false`  |
 | className    | 额外类名       | `string`  | 否         |  `''`     |   |
-| prefix       | 自定义类名前缀  | `string`  | 否         | `'zent'`  |   |
 
 ### TextRowDashed
 
@@ -69,7 +67,6 @@ group: 反馈
 | style        | 额外样式       | `object`  |  否       | `{}`       |  |
 | animate      | 是否开启动画   | `bool`    | 否         |  `true`   | `false`  |
 | className    | 额外类名       | `string`  | 否         |  `''`     |   |
-| prefix       | 自定义类名前缀  | `string`  | 否         | `'zent'`  |   |
 
 ### Circle
 
@@ -81,7 +78,6 @@ group: 反馈
 | style        | 额外样式       | `object`  |  否       | `{}`       |  |
 | animate      | 是否开启动画   | `bool`    | 否         |  `true`   | `false`  |
 | className    | 额外类名       | `string`  | 否         |  `''`     |   |
-| prefix       | 自定义类名前缀  | `string`  | 否         | `'zent'`  |   |
 
 ### Rectangle
 
@@ -94,4 +90,3 @@ group: 反馈
 | style        | 额外样式       | `object`  |  否       | `{}`       |  |
 | animate      | 是否开启动画   | `bool`    | 否         |  `true`   | `false`  |
 | className    | 额外类名       | `string`  | 否         |  `''`     |   |
-| prefix       | 自定义类名前缀  | `string`  | 否         | `'zent'`  |   |

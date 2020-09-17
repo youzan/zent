@@ -13,13 +13,11 @@ export interface IStepsProps {
   sequence?: boolean;
   onStepChange?: (stepIndex: number) => void;
   className?: string;
-  prefix?: string;
 }
 
 export class Steps extends Component<IStepsProps> {
   static defaultProps = {
     className: '',
-    prefix: 'zent',
     type: 'number',
     current: 0,
     direction: 'horizontal',

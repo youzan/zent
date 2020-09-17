@@ -27,7 +27,6 @@ group: 数据
 | onChange      | 变化时回调函数                        | `(e:Event) => void`   |          |
 | labelStyle    | label 的内联样式                      | `React.CSSProperties` |          |
 | className     | 自定义额外类名                        | `string`              |          |
-| prefix        | 自定义前缀                            | `string`              | `'zent'` |
 
 #### Checkbox Group API
 
@@ -39,6 +38,5 @@ group: 数据
 | readOnly     | 使组件只读                  | `boolean`                           |                 |
 | onChange     | 变化时回调函数              | `(checkedValueList: any[]) => void` |                 |
 | className    | 自定义额外类名              | `string`                            |                 |
-| prefix       | 自定义前缀                  | `string`                            | `'zent'`        |
 
 [controlled-components]: https://facebook.github.io/react/docs/forms.html#controlled-components

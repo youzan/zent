@@ -27,7 +27,6 @@ Dialog is used for opening a floating layer.
 | mask         | visibility of the mask | bool   | `true`   |
 | maskClosable | wether click on the mask is to close the dialog | bool   | `true`   |
 | className    | custom classname                       | string | `''`     |
-| prefix       | custom prefix                   | string | `'zent'` |
 | style        | custom style object                 | object | `{}`     |
 
 

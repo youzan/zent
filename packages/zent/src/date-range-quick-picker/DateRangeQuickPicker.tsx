@@ -46,7 +46,6 @@ export class DateRangeQuickPicker extends Component<
   IDateRangeQuickPickerProps
 > {
   static defaultProps = {
-    prefix: 'zent',
     className: '',
     value: [],
     valueType: 'string',

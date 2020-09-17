@@ -11,14 +11,13 @@ group: Data Display
 
 ### Timeline
 
-| Property  | Description             | Type   | Default        | Alternative                 | Optional |
-| --------- | ----------------------- | ------ | -------------- | --------------------------- | -------- |
-| type      | horizontal or vertical  | string | `'horizontal'` | `'horizontal' | 'vertical'` | yes      |
-| size      | size                    | number |                |                             | yes      |
-| timeline  | pass an array as data   | Array  |                | yes                         | yes      |
-| className | custom className        | string | `''`           |                             | yes      |
-| prefix    | custom className prefix | string | `'zent'`       |                             | yes      |
-| style     | custom style            | object |                |                             | yes      |
+| Property  | Description            | Type   | Default        | Alternative                 | Optional |
+| --------- | ---------------------- | ------ | -------------- | --------------------------- | -------- |
+| type      | horizontal or vertical | string | `'horizontal'` | `'horizontal' | 'vertical'` | yes      |
+| size      | size                   | number |                |                             | yes      |
+| timeline  | pass an array as data  | Array  |                | yes                         | yes      |
+| className | custom className       | string | `''`           |                             | yes      |
+| style     | custom style           | object |                |                             | yes      |
 
 ### Timeline Item
 
@@ -34,7 +33,6 @@ group: Data Display
 | showDot   | should display the dot                                 | boolean | `true`         | `true | false`              | yes      |
 | size      | size                                                   | number  |                |                             | yes      |
 | className | custom className                                       | string  | `''`           |                             | yes      |
-| prefix    | custom className prefix                                | string  | `'zent'`       |                             | yes      |
 | style     | custom style                                           | object  |                |                             | yes      |
 
 ### Timeline Array

@@ -21,11 +21,6 @@ describe('Badge', () => {
     expect(wrapper.find('.zent-badge.news-badge').length).toBe(1);
   });
 
-  it('can have custom prefix', () => {
-    const wrapper = mount(<Badge prefix="book">book</Badge>);
-    expect(wrapper.find('.book-badge').length).toBe(1);
-  });
-
   it('show diaplay max count when count exceed max count', () => {
     const wrapper = mount(<Badge count={100}>news</Badge>);
     expect(wrapper.find('.zent-badge-count').length).toBe(1);

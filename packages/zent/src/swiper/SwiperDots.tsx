@@ -5,7 +5,6 @@ import cx from 'classnames';
 const buildInDotsColors = ['black', 'blue', 'red', 'green'];
 
 export interface ISwiperDotsProps {
-  prefix?: string;
   dotsColor: string;
   dotsSize?: 'normal' | 'small' | 'large';
   items: React.ReactNode;
@@ -28,7 +27,6 @@ export default class SwiperDots extends PureComponent<ISwiperDotsProps> {
 
   render() {
     const {
-      prefix,
       dotsColor,
       dotsSize,
       items,
@@ -36,10 +34,10 @@ export default class SwiperDots extends PureComponent<ISwiperDotsProps> {
       onDotsClick,
     } = this.props;
     const classString = cx(
-      `${prefix}-swiper__dots`,
-      `${prefix}-swiper__dots-${dotsSize}`,
+      'zent-swiper__dots',
+      `zent-swiper__dots-${dotsSize}`,
       {
-        [`${prefix}-swiper__dots-${dotsColor}`]: this.isBuildInColor(dotsColor),
+        [`zent-swiper__dots-${dotsColor}`]: this.isBuildInColor(dotsColor),
       }
     );
 
@@ -56,15 +54,15 @@ export default class SwiperDots extends PureComponent<ISwiperDotsProps> {
               <li
                 key={index}
                 style={{ background: dotsColor }}
-                className={`${prefix}-swiper__dots-item ${prefix}-swiper__dots-item-active`}
+                className="zent-swiper__dots-item zent-swiper__dots-item-active"
               />
             );
           }
           return (
             <li
               key={index}
-              className={cx(`${prefix}-swiper__dots-item`, {
-                [`${prefix}-swiper__dots-item-active`]: isActive,
+              className={cx('zent-swiper__dots-item', {
+                'zent-swiper__dots-item-active': isActive,
               })}
               onClick={() => onDotsClick(index)}
             />

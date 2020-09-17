@@ -21,4 +21,3 @@ group: 展示
 | resizable | 是否响应窗口的resize | `boolean` | `false` |  |
 | extra     | 额外节点，用于显示`更多`一类的操作 | `ReactElement` | `null` |  |
 | className | 自定义额外类名 | `string` | `''` |  |
-| prefix    | 自定义前缀 | `string` | `zent` |  |

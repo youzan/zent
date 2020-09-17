@@ -7,7 +7,6 @@ export interface IMenuItemProps {
   key?: string;
   disabled?: boolean;
   className?: string;
-  prefix?: string;
   specKey?: unknown;
   onClick?: (e: React.MouseEvent, index: unknown) => void;
   isInline?: boolean;
@@ -18,10 +17,6 @@ export interface IMenuItemProps {
 }
 
 export class MenuItem extends Component<IMenuItemProps> {
-  static defaultProps = {
-    prefix: 'zent',
-  };
-
   handleClick = (e: React.MouseEvent) => {
     const { specKey, onClick, disabled, isInline, handleSelect } = this.props;
 
@@ -37,7 +32,6 @@ export class MenuItem extends Component<IMenuItemProps> {
   render() {
     const {
       specKey,
-      prefix,
       className,
       children,
       disabled,
@@ -55,10 +49,10 @@ export class MenuItem extends Component<IMenuItemProps> {
 
     return (
       <li
-        className={cx(`${prefix}-menu-item`, className, {
-          [`${prefix}-menu__inline-item`]: isInline,
-          [`${prefix}-menu__inline-item-selected`]: isSelected,
-          [`${prefix}-menu-item-disabled`]: disabled,
+        className={cx('zent-menu-item', className, {
+          'zent-menu__inline-item': isInline,
+          'zent-menu__inline-item-selected': isSelected,
+          'zent-menu-item-disabled': disabled,
         })}
         style={styleObj}
         onClick={this.handleClick}

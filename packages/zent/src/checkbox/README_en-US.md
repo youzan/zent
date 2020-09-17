@@ -26,7 +26,6 @@ group: Data Entry
 | onChange      | The callback function that is triggered when the checkbox is changed | `(e:Event) => void`   |          |
 | labelStyle    | Label inline style                                                   | `React.CSSProperties` |          |
 | className     | The custom classname                                                 | `string`              |          |
-| prefix        | The custom prefix                                                    | `string`              | `'zent'` |
 
 #### Checkbox Group API
 
@@ -38,6 +37,5 @@ group: Data Entry
 | readOnly     | It specifies the component is read-only                                    | `boolean`                           |                 |
 | onChange     | The callback function that is triggered when the checkbox group is changed | `(checkedValueList: any[]) => void` |                 |
 | className    | The custom classname                                                       | `string`                            |                 |
-| prefix       | The custom prefix                                                          | `string`                            | `'zent'`        |
 
 [controlled-components]: https://facebook.github.io/react/docs/forms.html#controlled-components

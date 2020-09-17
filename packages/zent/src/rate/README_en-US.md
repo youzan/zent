@@ -22,4 +22,3 @@ Rate component.
 | disabled   | disable the interaction                 | `boolean`                 | No       | `false`                |             |
 | readOnly   | read only, unlike `disabled`, the cursor will be 'auto' and the value can be accurate to 0.1.    | `boolean`  | No | `false`  |        |
 | style      | custom style object of rate             | `object`                  | No       | -                      |             |
-| prefix     | custom prefix                           | `string`         				 | No       | `'zent'`               |             |
