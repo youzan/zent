@@ -12,7 +12,6 @@ interface ICollapseProps {
   bordered?: boolean;
   panelTitleBackground?: string;
   className?: string;
-  prefix?: string;
 }
 
 export class Collapse extends Component<ICollapseProps> {
@@ -20,7 +19,6 @@ export class Collapse extends Component<ICollapseProps> {
     bordered: true,
     panelTitleBackground: 'default',
     accordion: false,
-    prefix: 'zent',
   };
 
   static Panel = Panel;
@@ -28,7 +26,6 @@ export class Collapse extends Component<ICollapseProps> {
   render() {
     const {
       className,
-      prefix,
       bordered,
       panelTitleBackground,
       children,
@@ -37,9 +34,9 @@ export class Collapse extends Component<ICollapseProps> {
 
     return (
       <div
-        className={cx(`${prefix}-collapse`, className, {
-          [`${prefix}-collapse--has-border`]: bordered,
-          [`${prefix}-collpase--no-border`]: !bordered,
+        className={cx('zent-collapse', className, {
+          'zent-collapse--has-border': bordered,
+          'zent-collpase--no-border': !bordered,
         })}
       >
         {React.Children.map(children, (c, idx) => {

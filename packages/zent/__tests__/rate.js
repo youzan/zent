@@ -6,12 +6,10 @@ import Rate from 'rate';
 Enzyme.configure({ adapter: new Adapter() });
 
 describe('Rate', () => {
-  it('can have custom wrapper classNames and prefix', () => {
-    const wrapper = shallow(
-      <Rate className="test-rate-wrapper" prefix="wulv" />
-    );
+  it('can have custom wrapper classNames', () => {
+    const wrapper = shallow(<Rate className="test-rate-wrapper" />);
     expect(wrapper.hasClass('test-rate-wrapper')).toBe(true);
-    expect(wrapper.hasClass('wulv-rate')).toBe(true);
+    expect(wrapper.hasClass('zent-rate')).toBe(true);
   });
 
   it('will render div wrapper contains an Rate without any props', () => {

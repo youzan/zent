@@ -23,7 +23,6 @@ group: 导航
 | --------- | ------------- | ------ | ---------- |
 | breads      | 数据  | array | `[]`   |
 | className | 自定义额外类名  | string | `''`       |
-| prefix    | 自定义前缀    | string | `'zent'`   |
 
 #### Item
 

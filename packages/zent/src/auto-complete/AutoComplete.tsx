@@ -65,7 +65,6 @@ export class AutoComplete<Value> extends Component<
   IAutoCompleteState
 > {
   static defaultProps = {
-    prefix: 'zent',
     filterOption: caselessMatchFilterOption,
     valueFromOptions: false,
     valueField: 'value',

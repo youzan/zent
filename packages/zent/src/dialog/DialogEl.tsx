@@ -10,7 +10,6 @@ export interface IMousePosition {
 }
 
 export interface IDialogInnerElProps {
-  prefix?: string;
   title?: React.ReactNode;
   onClose?: (e: KeyboardEvent | MouseEvent | TouchEvent) => void;
   className?: string;
@@ -51,21 +50,21 @@ export class DialogInnerEl extends Component<IDialogInnerElProps> {
   }
 
   renderHeader() {
-    let { prefix, title } = this.props;
+    let { title } = this.props;
     if (!title) {
       return null;
     }
 
     title =
       typeof title === 'number' || typeof title === 'string' ? (
-        <span className={`${prefix}-dialog-r-title-text`}>{title}</span>
+        <span className="zent-dialog-r-title-text">{title}</span>
       ) : (
         title
       );
 
     return (
-      <div className={`${prefix}-dialog-r-header`}>
-        <div className={`${prefix}-dialog-r-title`}>{title}</div>
+      <div className="zent-dialog-r-header">
+        <div className="zent-dialog-r-title">{title}</div>
       </div>
     );
   }
@@ -78,12 +77,12 @@ export class DialogInnerEl extends Component<IDialogInnerElProps> {
   };
 
   render() {
-    const { className, prefix, closeBtn, footer, style, children } = this.props;
+    const { className, closeBtn, footer, style, children } = this.props;
 
     const Header = this.renderHeader();
 
-    const closeBtnCls = cx(`${prefix}-dialog-r-close`, {
-      [`${prefix}-dialog-r-has-title`]: !!Header,
+    const closeBtnCls = cx('zent-dialog-r-close', {
+      'zent-dialog-r-has-title': !!Header,
     });
     const Closer = closeBtn && (
       <button type="button" className={closeBtnCls} onClick={this.onClickClose}>
@@ -92,18 +91,18 @@ export class DialogInnerEl extends Component<IDialogInnerElProps> {
     );
 
     const Footer = footer && (
-      <div className={`${prefix}-dialog-r-footer`}>{footer}</div>
+      <div className="zent-dialog-r-footer">{footer}</div>
     );
 
     return (
       <div
-        className={`${prefix}-dialog-r ${className}`}
+        className={`zent-dialog-r ${className}`}
         style={style}
         ref={el => (this.dialogEl = el)}
       >
         {Closer}
         {Header}
-        <div className={`${prefix}-dialog-r-body`}>{children}</div>
+        <div className="zent-dialog-r-body">{children}</div>
         {Footer}
       </div>
     );
@@ -111,7 +110,6 @@ export class DialogInnerEl extends Component<IDialogInnerElProps> {
 }
 
 export interface IDialogElWrapper {
-  prefix?: string;
   mask?: boolean;
   maskClosable?: boolean;
   visible?: boolean;
@@ -145,16 +143,12 @@ export class DialogElWrapper extends Component<IDialogElWrapper> {
   };
 
   render() {
-    const { prefix, mask, visible, children } = this.props;
+    const { mask, visible, children } = this.props;
 
     return (
-      <div
-        ref={this.rootRef}
-        tabIndex={-1}
-        className={`${prefix}-dialog-r-root`}
-      >
-        {visible && mask && <div className={`${prefix}-dialog-r-backdrop`} />}
-        <div className={`${prefix}-dialog-r-wrap`} onClick={this.onMaskClick}>
+      <div ref={this.rootRef} tabIndex={-1} className="zent-dialog-r-root">
+        {visible && mask && <div className="zent-dialog-r-backdrop" />}
+        <div className="zent-dialog-r-wrap" onClick={this.onMaskClick}>
           {children}
         </div>
       </div>

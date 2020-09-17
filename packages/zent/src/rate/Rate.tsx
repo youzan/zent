@@ -16,7 +16,6 @@ export interface IRateProps {
   count: number;
   disabled?: boolean;
   style?: React.CSSProperties;
-  prefix?: string;
   readOnly?: boolean;
 }
 
@@ -40,7 +39,6 @@ export class Rate extends Component<IRateProps, IRateState> {
     count: 5,
     allowHalf: false,
     allowClear: true,
-    prefix: 'zent',
     character: <StarIcon className="zent-rate-star-icon" />,
     readOnly: false,
   };
@@ -141,7 +139,6 @@ export class Rate extends Component<IRateProps, IRateState> {
       count,
       allowHalf,
       style,
-      prefix,
       disabled = this.context.value,
       className,
       character,
@@ -158,7 +155,6 @@ export class Rate extends Component<IRateProps, IRateState> {
           ref={starRefs[index]}
           index={index}
           disabled={disabled}
-          prefix={prefix}
           allowHalf={allowHalf}
           value={hoverValue !== null ? hoverValue : value}
           onClick={this.onClick}
@@ -171,10 +167,10 @@ export class Rate extends Component<IRateProps, IRateState> {
     return (
       <ul
         className={classNames(
-          `${prefix}-rate`,
+          'zent-rate',
           {
-            [`${prefix}-rate-disabled`]: disabled,
-            [`${prefix}-rate-readonly`]: readOnly,
+            'zent-rate-disabled': disabled,
+            'zent-rate-readonly': readOnly,
           },
           className
         )}

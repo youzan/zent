@@ -49,7 +49,6 @@ export interface ITreeProps extends ICreateStateByPropsParams {
   onExpand?: (data: ITreeData, config: { isExpanded: boolean }) => void;
   autoExpandOnSelect?: boolean;
   onSelect?: (data: ITreeData, target: HTMLSpanElement) => void;
-  prefix?: string;
 }
 
 export interface ITreeState {
@@ -70,7 +69,6 @@ export class Tree extends Component<ITreeProps, ITreeState> {
     foldable: true,
     checkable: false,
     size: 'medium',
-    prefix: 'zent',
   };
 
   constructor(props: ITreeProps) {
@@ -384,12 +382,11 @@ export class Tree extends Component<ITreeProps, ITreeState> {
       rootInfoMap,
       renderKey: { id, children },
     } = this.state;
-    const { prefix } = this.props;
     if (roots && roots.length > 0) {
       return roots.map(root => {
         const rootId = root[id];
         const isShowChildren = expandNode.indexOf(rootId) > -1;
-        const barClassName = classnames(`${prefix}-tree-bar`, {
+        const barClassName = classnames('zent-tree-bar', {
           off: !isShowChildren,
         });
 
@@ -410,7 +407,7 @@ export class Tree extends Component<ITreeProps, ITreeState> {
                 duration={200}
                 height={isShowChildren ? 'auto' : 0}
               >
-                <ul key={`ul-${rootId}`} className={`${prefix}-tree-child`}>
+                <ul key={`ul-${rootId}`} className="zent-tree-child">
                   {this.renderTreeNodes(root[children])}
                 </ul>
               </AnimateHeight>
@@ -424,10 +421,10 @@ export class Tree extends Component<ITreeProps, ITreeState> {
   }
 
   render() {
-    const { commonStyle, prefix, size } = this.props;
+    const { commonStyle, size } = this.props;
     const { tree } = this.state;
-    const classNames = classnames(`${prefix}-tree`, {
-      [`${prefix}-tree-${size}`]: size !== 'medium',
+    const classNames = classnames('zent-tree', {
+      [`zent-tree-${size}`]: size !== 'medium',
     });
 
     return (

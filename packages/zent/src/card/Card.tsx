@@ -12,7 +12,6 @@ export interface ICardProps {
   bodyStyle?: React.CSSProperties;
   loading?: boolean;
   className?: string;
-  prefix?: string;
 }
 
 export class Card extends Component<ICardProps> {
@@ -22,7 +21,6 @@ export class Card extends Component<ICardProps> {
     bodyStyle: {},
     loading: false,
     className: '',
-    prefix: 'zent',
   };
 
   render() {
@@ -35,7 +33,6 @@ export class Card extends Component<ICardProps> {
       children,
       className,
       bodyStyle,
-      prefix,
     } = this.props;
 
     const isValidTitle = !isNil(title);
@@ -43,23 +40,23 @@ export class Card extends Component<ICardProps> {
 
     return (
       <div
-        className={cx(`${prefix}-card`, className, {
-          [`${prefix}-card--normal`]: type === 'normal',
-          [`${prefix}-card--nested`]: type === 'nested',
+        className={cx('zent-card', className, {
+          'zent-card--normal': type === 'normal',
+          'zent-card--nested': type === 'nested',
         })}
         style={style}
       >
         {(isValidTitle || isValidAction) && (
-          <div className={`${prefix}-card-header`}>
+          <div className="zent-card-header">
             {isValidTitle && (
-              <h3 className={`${prefix}-card-header__title`}>{title}</h3>
+              <h3 className="zent-card-header__title">{title}</h3>
             )}
             {isValidAction && (
-              <div className={`${prefix}-card-header__action`}>{action}</div>
+              <div className="zent-card-header__action">{action}</div>
             )}
           </div>
         )}
-        <div className={`${prefix}-card-body`} style={bodyStyle}>
+        <div className="zent-card-body" style={bodyStyle}>
           {loading ? <Placeholder.TextBlock rows={5} /> : children}
         </div>
       </div>

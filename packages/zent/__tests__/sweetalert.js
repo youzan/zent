@@ -115,14 +115,11 @@ describe('alert', () => {
     expect(document.querySelectorAll('.zent-sweetalert-alert').length).toBe(0);
   });
 
-  it('customize prefix and className', () => {
+  it('customize className', () => {
     close = alert({
-      prefix: 'foobar',
       className: 'quux',
     });
-    expect(document.querySelectorAll('.foobar-sweetalert-alert').length).toBe(
-      1
-    );
+    expect(document.querySelectorAll('.zent-sweetalert-alert').length).toBe(1);
     expect(document.querySelectorAll('.quux').length).toBe(1);
     unmount();
   });
@@ -183,12 +180,11 @@ describe('confirm', () => {
     );
   });
 
-  it('customize prefix and className', () => {
+  it('customize className', () => {
     close = confirm({
-      prefix: 'foobar',
       className: 'quux',
     });
-    expect(document.querySelectorAll('.foobar-sweetalert-confirm').length).toBe(
+    expect(document.querySelectorAll('.zent-sweetalert-confirm').length).toBe(
       1
     );
     expect(document.querySelectorAll('.quux').length).toBe(1);

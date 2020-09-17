@@ -25,4 +25,3 @@ Card is used for information displayed on the card container.
 | style      | Custom style of the card container | `object` | `{}` |  |
 | bodyStyle  | Custom style of the content area | `object` | `{}` |  |
 | className  | Custom calssname | `string` | `''` |  |
-| prefix     | Custom prefix | `string` | `zent` |  |

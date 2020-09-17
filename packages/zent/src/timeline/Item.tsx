@@ -5,18 +5,12 @@ import cx from 'classnames';
 import Popover, { IPositionFunction } from '../popover';
 import { TimelineDot } from './Dot';
 
-const TimelineItemOptionalPop = ({
-  children,
-  tip,
-  prefix,
-  position,
-  popoverRef,
-}) => {
+const TimelineItemOptionalPop = ({ children, tip, position, popoverRef }) => {
   if (tip) {
     return (
       <Popover
         ref={popoverRef}
-        className={`${prefix}-timeline-tip`}
+        className="zent-timeline-tip"
         position={position}
         cushion={20}
       >
@@ -38,7 +32,6 @@ export interface ITimelineItemProps {
   dotColor?: string;
   label?: React.ReactNode;
   tip?: React.ReactNode;
-  prefix?: string;
   className?: string;
   style?: React.CSSProperties;
   type?: 'vertical' | 'horizontal';
@@ -46,7 +39,6 @@ export interface ITimelineItemProps {
 
 export class TimelineItem extends PureComponent<ITimelineItemProps> {
   static defaultProps = {
-    prefix: 'zent',
     showLabel: true,
     showDot: true,
     lineColor: '#f2f3f5',
@@ -106,7 +98,6 @@ export class TimelineItem extends PureComponent<ITimelineItemProps> {
       className,
       style,
       type,
-      prefix,
       lineColor,
       dotColor,
     } = this.props;
@@ -114,19 +105,18 @@ export class TimelineItem extends PureComponent<ITimelineItemProps> {
 
     return (
       <li
-        className={cx(`${prefix}-timeline-item`, className)}
+        className={cx('zent-timeline-item', className)}
         style={style}
         onMouseMove={this.onMouseMove}
       >
         <TimelineItemOptionalPop
           tip={tip}
-          prefix={prefix}
           position={this.position}
           popoverRef={this.popoverRef}
         >
-          <div className={`${prefix}-timeline-item-hover`}>
+          <div className="zent-timeline-item-hover">
             <div
-              className={`${prefix}-timeline-item-line`}
+              className="zent-timeline-item-line"
               style={{
                 [key]: size,
                 backgroundColor: color || lineColor,
@@ -137,7 +127,7 @@ export class TimelineItem extends PureComponent<ITimelineItemProps> {
           </div>
         </TimelineItemOptionalPop>
         {showLabel && (
-          <label className={`${prefix}-timeline-item-label`}>{label}</label>
+          <label className="zent-timeline-item-label">{label}</label>
         )}
       </li>
     );

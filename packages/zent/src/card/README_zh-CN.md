@@ -26,4 +26,3 @@ group: 展示
 | style     | 卡片容器自定义样式 | `object` | `{}` |  |
 | bodyStyle | 内容区域自定义样式 | `object` | `{}` |  |
 | className | 自定义额外类名 | `string` | `''` |  |
-| prefix    | 自定义前缀 | `string` | `zent` |  |

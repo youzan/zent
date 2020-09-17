@@ -11,11 +11,6 @@ describe('Swiper', () => {
     expect(wrapper.children().hasClass('zent-swiper')).toBe(true);
   });
 
-  it('can have custom prefix', () => {
-    const wrapper = mount(<Swiper prefix="dwb" />);
-    expect(wrapper.children().hasClass('dwb-swiper')).toBe(true);
-  });
-
   it('can have custom className', () => {
     const wrapper = mount(<Swiper className="dengwenbo" />);
     expect(wrapper.children().hasClass('dengwenbo')).toBe(true);

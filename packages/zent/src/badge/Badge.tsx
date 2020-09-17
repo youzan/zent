@@ -13,7 +13,6 @@ export interface IBadgeProps {
   style?: React.CSSProperties;
   children: React.ReactNode;
   className: string;
-  prefix: string;
 }
 
 export class Badge extends PureComponent<IBadgeProps> {
@@ -23,19 +22,10 @@ export class Badge extends PureComponent<IBadgeProps> {
     dot: false,
     showZero: false,
     className: '',
-    prefix: 'zent',
   };
 
   renderCount() {
-    const {
-      count,
-      maxCount,
-      dot,
-      showZero,
-      offset,
-      style,
-      prefix,
-    } = this.props;
+    const { count, maxCount, dot, showZero, offset, style } = this.props;
     const posStyle =
       Array.isArray(offset) && offset.length === 2
         ? {
@@ -45,10 +35,10 @@ export class Badge extends PureComponent<IBadgeProps> {
         : NO_STYLE;
     const badgeStyle = style ? { ...style, ...posStyle } : posStyle;
     if (dot) {
-      return <span className={`${prefix}-badge-dot`} style={badgeStyle} />;
+      return <span className="zent-badge-dot" style={badgeStyle} />;
     } else if (count > 0 || (count === 0 && showZero)) {
       return (
-        <span className={`${prefix}-badge-count`} style={badgeStyle}>
+        <span className="zent-badge-count" style={badgeStyle}>
           {count > maxCount ? `${maxCount}+` : count}
         </span>
       );
@@ -57,22 +47,20 @@ export class Badge extends PureComponent<IBadgeProps> {
   }
 
   render() {
-    const { className, prefix, children } = this.props;
+    const { className, children } = this.props;
     const containerCls = cx({
-      [`${prefix}-badge`]: true,
-      [`${prefix}-badge--has-content`]: children,
-      [`${prefix}-badge--no-content`]: !children,
+      'zent-badge': true,
+      'zent-badge--has-content': children,
+      'zent-badge--no-content': !children,
       [className]: !!className,
 
       // For compatibility only
-      [`${prefix}-badge-none-cont`]: !children,
+      'zent-badge-none-cont': !children,
     });
 
     return (
       <div className={containerCls}>
-        {children ? (
-          <div className={`${prefix}-badge-content`}>{children}</div>
-        ) : null}
+        {children ? <div className="zent-badge-content">{children}</div> : null}
         {this.renderCount()}
       </div>
     );

@@ -21,7 +21,6 @@ group: 数据
 | suggestions | 提及的提示内容 | `array` | 否 | | |
 | suggestionNotFoundContent | 提及的提示为空时的提示内容 | `node` | `'无匹配结果，轻敲空格完成输入'` | |
 | triggerText | 提及的触发前缀 | `string` | 否 | `'@'` | |
-| prefix | 自定义类名前缀 | `string` | 否 | `'zent'` | |
 | className | 自定义类名 | `string` | 否 | | |
 
 > `Mention` 支持 `Input` 的 props，例如 `placeholder` 等。

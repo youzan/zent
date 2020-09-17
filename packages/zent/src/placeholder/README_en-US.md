@@ -34,7 +34,6 @@ Text block, lines can be dashed.
 | style        | Additional styles    | `object`  |  No       | `{}`       |  |
 | animate      | Animate shapes  | `bool`    | No         |  `true`   | `false`  |
 | className    | Additional class      | `string`  | No         |  `''`     |   |
-| prefix       | Custom class name prefix | `string`  | No         | `'zent'`  |   |
 
 ### RichTextBlock
 
@@ -55,7 +54,6 @@ Solid text row.
 | style        | Additional styles    | `object`  |  No       | `{}`       |  |
 | animate      | Animate shapes  | `bool`    | No         |  `true`   | `false`  |
 | className    | Additional class      | `string`  | No         |  `''`     |   |
-| prefix       | Custom class name prefix | `string`  | No         | `'zent'`  |   |
 
 ### TextRowDashed
 
@@ -68,7 +66,6 @@ Dashed text row.
 | style        | Additional styles    | `object`  |  No       | `{}`       |  |
 | animate      | Animate shapes  | `bool`    | No         |  `true`   | `false`  |
 | className    | Additional class      | `string`  | No         |  `''`     |   |
-| prefix       | Custom class name prefix | `string`  | No         | `'zent'`  |   |
 
 ### Circle
 
@@ -78,7 +75,6 @@ Dashed text row.
 | style        | Additional styles    | `object`  |  No       | `{}`       |  |
 | animate      | Animate shapes  | `bool`    | No         |  `true`   | `false`  |
 | className    | Additional class      | `string`  | No         |  `''`     |   |
-| prefix       | Custom class name prefix | `string`  | No         | `'zent'`  |   |
 
 ### Rectangle
 
@@ -89,4 +85,3 @@ Dashed text row.
 | style        | Additional styles    | `object`  |  No       | `{}`       |  |
 | animate      | Animate shapes  | `bool`    | No         |  `true`   | `false`  |
 | className    | Additional class      | `string`  | No         |  `''`     |   |
-| prefix       | Custom class name prefix | `string`  | No         | `'zent'`  |   |
