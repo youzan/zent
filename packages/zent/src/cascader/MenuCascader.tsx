@@ -431,7 +431,10 @@ export class MenuCascader extends React.Component<
       const { onChange } = this.props;
       const { options, selectedPaths: oldSelectedPaths } = this.state;
 
-      const affectedPaths = options.getPaths(node);
+      // filter out paths that contain disabled node
+      const affectedPaths = options.getPaths(node, path =>
+        path.every(node => !node.disabled)
+      );
       let selectedPaths = checked
         ? union(oldSelectedPaths, affectedPaths)
         : difference(oldSelectedPaths, affectedPaths);

@@ -286,15 +286,20 @@ export class Forest {
 
   /**
    * Returns all paths from root to leaf that contains `startNode`
+   *
+   * An optional `predicate` function can be used to filter results,
+   * return `true` to keep it, `false` to drop it.
    */
-  getPaths(startNode: ICascaderItem) {
+  getPaths(
+    startNode: ICascaderItem,
+    predicate?: (path: ICascaderItem[]) => boolean
+  ) {
     const depth = getNodeDepth(startNode);
     const idx = depth - 1;
     const { value } = startNode;
 
     return this.reducePath((acc, path) => {
-      // filter out paths that contain disabled node
-      if (path[idx].value === value && path.every(node => !node.disabled)) {
+      if (path[idx].value === value && (!predicate || predicate(path))) {
         acc.push(path);
       }
 
