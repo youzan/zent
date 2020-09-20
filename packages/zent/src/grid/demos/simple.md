@@ -1,4 +1,4 @@
----
+<!-- ---
 order: 1
 zh-CN:
 	title: 基础用法
@@ -21,10 +21,13 @@ const columns = [
 	{
 		title: '{i18n.productName}',
 		name: 'name',
-		className: 'name'
+		className: 'name',
+		textAlign: 'center',
+		colSpan: 2,
 	}, {
 		title: '{i18n.uv}',
-		name: 'uv'
+		name: 'uv',
+		colSpan: 0,
 	}, {
 		title: '{i18n.stock}',
 		name: 'stock',
@@ -53,4 +56,4 @@ ReactDOM.render(
 	, mountNode
 );
 
-```
+``` -->

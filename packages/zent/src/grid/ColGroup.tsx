@@ -1,25 +1,19 @@
 import * as React from 'react';
-import { PureComponent } from 'react';
-import { getLeafColumns } from './utils';
-import { IGridInnerColumn } from './Grid';
+import { IGridColumn } from './types';
 
 export interface IGridColGroupProps<Data> {
-  columns: Array<IGridInnerColumn<Data>>;
+  columns: Array<IGridColumn<Data>>;
+  originColumns: Array<IGridColumn<Data>>;
 }
 
-class ColGroup<Data> extends PureComponent<IGridColGroupProps<Data>> {
-  render() {
-    const { columns } = this.props;
+function ColGroup<Data>({ columns, originColumns }: IGridColGroupProps<Data>) {
+  const cols = columns.map((column, index) => {
+    const width =
+      typeof column.width === 'number' ? `${column.width}px` : column.width;
+    return <col key={column.key || index} style={{ width, minWidth: width }} />;
+  });
 
-    const leafColumns = getLeafColumns(columns);
-
-    const cols = (leafColumns || []).map((c, index) => {
-      const width = typeof c.width === 'number' ? `${c.width}px` : c.width;
-      return <col key={c.key || index} style={{ width, minWidth: width }} />;
-    });
-
-    return <colgroup>{cols}</colgroup>;
-  }
+  return <colgroup>{cols}</colgroup>;
 }
 
 export default ColGroup;

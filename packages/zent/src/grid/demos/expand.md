@@ -1,4 +1,4 @@
----
+<!-- ---
 order: 10
 zh-CN:
 	title: 可展开模式
@@ -10,16 +10,25 @@ en-US:
 import { Grid } from 'zent';
 
 const datasets = [{
+  id: 5024217,
   item_id: '5024217',
   bro_uvpv: '0/0',
   stock_num: '60',
   sold_num: 0,
+  subRows: [{
+    item_id: '5024217',
+    bro_uvpv: '0/0',
+    stock_num: '60',
+    sold_num: 0,
+  }]
 }, {
-  item_id: '5024277',
+  id: 5024276,
+  item_id: '5024276',
   bro_uvpv: '0/0',
   stock_num: 59,
   sold_num: 0,
 }, {
+  id: 13213123,
   item_id: '13213123',
   bro_uvpv: '0/0',
   stock_num: 159,
@@ -28,12 +37,7 @@ const datasets = [{
 const columns = [{
   title: 'Product',
   width: '50px',
-  fixed: true,
-  bodyRender: (data) => {
-    return (
-      <div>{data.item_id}</div>
-    );
-  }
+  name: 'item_id'
 }, {
   title: 'PV',
   name: 'bro_uvpv',
@@ -45,7 +49,6 @@ const columns = [{
 }, {
   title: 'Sales',
   name: 'sold_num',
-  fixed: 'right'
 }];
 
 class RowClass extends React.Component {
@@ -79,18 +82,10 @@ class RowClass extends React.Component {
         onChange={this.onChange.bind(this)}
         getRowConf={this.getRowConf}
         rowKey="item_id"
-        scroll={{ x: 1300 }}
         expandation={{
           isExpanded(record, index) {
-            return (index % 2 === 0);
+            return (index === 0);
           },
-          expandRender(record) {
-            return (
-              <div>
-                {record.item_id}
-              </div>
-            );
-          }
         }}
         onExpand={this.onExpand}
       />
@@ -102,4 +97,4 @@ ReactDOM.render(
   <RowClass />,
   mountNode
 );
-```
+``` -->

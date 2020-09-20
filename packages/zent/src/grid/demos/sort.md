@@ -1,4 +1,4 @@
----
+<!-- ---
 order: 5
 zh-CN:
 	title: 排序
@@ -59,7 +59,7 @@ class Sort extends React.Component {
   	console.log(conf, 'conf')
 		const { sortType, sortBy } = conf;
 		const { datasets } = this.state;
-		let sortDatasets = datasets;
+    let sortDatasets = datasets;
 		if (sortType === 'asc') {
 			sortDatasets = datasets.sort((a, b) => a[sortBy] - b[sortBy]);
 		} else if (sortType === 'desc') {
@@ -85,4 +85,4 @@ ReactDOM.render(
     <Sort />
   , mountNode
 );
-```
+``` -->

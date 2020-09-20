@@ -1,4 +1,4 @@
----
+<!-- ---
 order: 3
 zh-CN:
 	title: 分页
@@ -31,13 +31,15 @@ const columns = [
 		onCellClick: data => {
 			console.log(data, 'data');
 		},
+		fixed: true,
 	},
 	{
 		title: '{i18n.uv}',
 		name: 'uv',
+		fixed: true,
 	},
 	{
-		title: '{i18n.uv}',
+		title: '{i18n.stock}',
 		name: 'stock',
 	},
 ];
@@ -72,6 +74,7 @@ class PageInfo extends React.Component {
 	};
 
 	onChange = ({ current, pageSize }) => {
+		console.log(current, pageSize);
 		this.setState({
 			current,
 			pageSize,
@@ -98,4 +101,4 @@ class PageInfo extends React.Component {
 }
 
 ReactDOM.render(<PageInfo />, mountNode);
-```
+``` -->

@@ -34,6 +34,8 @@ export type IGridColumnBodyRenderFunc<Data> = (
 ) => React.ReactNode;
 
 export interface IGridColumn<Data = any> {
+  id?: string;
+  key?: string;
   title: React.ReactNode;
   name?: string;
   width?: React.CSSProperties['width'];
@@ -51,6 +53,9 @@ export interface IGridColumn<Data = any> {
   nowrap?: boolean;
   defaultText?: React.ReactNode;
   children?: Array<IGridColumn<Data>>;
+  accessor?: string;
+  sortDescFirst?: boolean;
+  columns?: Data[];
 }
 
 export interface IGridOnChangeConfig {
@@ -60,7 +65,11 @@ export interface IGridOnChangeConfig {
   sortType?: GridSortType;
 }
 
+export type IGridChangeHandler = (conf: IGridOnChangeConfig) => void;
+
 export interface IGridSelection<Data = any> {
+  type: 'checkbox' | 'radio';
+  needCrossPage: boolean;
   selectedRowKeys?: string[];
   onSelect?: (
     selectedkeys: string[],
@@ -97,3 +106,44 @@ export interface IGridCellPos {
 }
 
 export type IGridBatchRender = (data: any) => React.ReactNode;
+
+export interface IGridProps<Data = any> {
+  columns?: IGridColumn[];
+  children?: React.ReactNode;
+  datasets: Data[];
+  rowKey?: string;
+  onChange?: (conf: IGridOnChangeConfig) => any;
+  scroll?: IGridScrollDelta;
+  sortBy?: string;
+  sortType?: GridSortType;
+  defaultSortType?: GridSortType;
+  emptyLabel?: React.ReactNode;
+  selection?: IGridSelection<Data>;
+  expandation?: IGridExpandation<Data>;
+  loading?: boolean;
+  bordered?: boolean;
+  className?: string;
+  rowClassName?: GridRowClassNameType<Data>;
+  pageInfo?: IGridPageInfo;
+  paginationType?: GridPaginationType;
+  onRowClick?: IGridRowClickHandler<Data>;
+  ellipsis?: boolean;
+  onExpand?: IGridOnExpandHandler<Data>;
+  components?: {
+    row?: React.ComponentType;
+  };
+  rowProps?: (data: Data, index: number) => any;
+  batchRender?: IGridBatchRender;
+  stickyBatch?: boolean;
+  autoStick?: boolean;
+  autoStickOffsetTop?: number;
+  disableHoverHighlight?: boolean; // scroll时hover每次都会重绘，提供属性去禁用，这时hover就没有样式了
+}
+
+export interface IGridFixedPosition {
+  fixed?: GridFixedType;
+  left?: number;
+  right?: number;
+  isLastLeftFixedColumn?: boolean;
+  isFirstRightFixedColumn?: boolean;
+}

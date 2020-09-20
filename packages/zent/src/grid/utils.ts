@@ -1,109 +1,51 @@
-import { IGridInnerColumn } from './Grid';
+import {
+  usePagination,
+  useRowSelect,
+  useSortBy,
+  useExpanded,
+} from 'react-table';
+import { IGridProps, IGridColumn } from './types';
 
-function setRowSpan<Data>(
-  column: IGridInnerColumn<Data>,
-  rows: Array<Array<IGridInnerColumn<Data>>>,
-  currentRow: number
+export function getHooks(props: IGridProps) {
+  const hooks = [useSortBy, useExpanded] as any;
+  const { pageInfo, selection } = props;
+  pageInfo && hooks.push(usePagination);
+  selection && hooks.push(useRowSelect);
+  return hooks;
+}
+
+export function getFixedPosition(
+  columns: IGridColumn[],
+  columnsWidth: Map<IGridColumn, number>,
+  currentIndex: number
 ) {
-  const rowSpan = rows.length - currentRow;
-  if (
-    column &&
-    !column.children && // parent columns are supposed to be one row
-    rowSpan > 1 &&
-    (!column.rowSpan || column.rowSpan < rowSpan)
-  ) {
-    column.rowSpan = rowSpan;
-  }
-}
+  const prevColumn = columns[currentIndex - 1];
+  const nextColumn = columns[currentIndex + 1];
+  const currentColumn = columns[currentIndex];
+  const { fixed } = currentColumn;
 
-export function groupedColumns<Data>(
-  columns: Array<IGridInnerColumn<Data>>,
-  currentRow = 0,
-  parentColumn: IGridInnerColumn<Data> = {} as IGridInnerColumn<Data>,
-  rows: Array<Array<IGridInnerColumn<Data>>> = []
-) {
-  // track how many rows we got
-  rows[currentRow] = rows[currentRow] || [];
-  const grouped: Array<IGridInnerColumn<Data>> = [];
-  columns.forEach((column, index) => {
-    const newColumn = { ...column };
-    rows[currentRow].push(newColumn);
-    parentColumn.colSpan = parentColumn.colSpan || 0;
-    if (newColumn.children && newColumn.children.length > 0) {
-      if (newColumn.needSort) {
-        newColumn.needSort = false;
-      }
-      newColumn.children = groupedColumns(
-        newColumn.children,
-        currentRow + 1,
-        newColumn,
-        rows
-      );
-      parentColumn.colSpan += newColumn.colSpan as number;
-    } else {
-      parentColumn.colSpan++;
-    }
-    // update rowspan to all same row columns
-    for (let i = 0; i < rows[currentRow].length - 1; ++i) {
-      setRowSpan(rows[currentRow][i], rows, currentRow);
-    }
-    // last column, update rowspan immediately
-    if (index + 1 === columns.length) {
-      setRowSpan(newColumn, rows, currentRow);
-    }
-    grouped.push(newColumn);
-  });
-  return grouped;
-}
+  let prevColumnWidth = 0;
+  let nextColumnWidth = 0;
 
-export function getLeafColumns<Data>(columns: Array<IGridInnerColumn<Data>>) {
-  const leafColumns: Array<IGridInnerColumn<Data>> = [];
-  columns.forEach(column => {
-    if (!column.children) {
-      leafColumns.push(column);
-    } else {
-      leafColumns.push(...getLeafColumns(column.children));
-    }
-  });
-  return leafColumns;
-}
-
-export function needFixBatchComps(
-  isTableInView: boolean,
-  isHeaderInView: boolean,
-  isFootInView: boolean
-) {
-  if (isTableInView && !isHeaderInView && !isFootInView) {
-    return true;
-  }
-  return false;
-}
-
-export function isElementInView(el: Element, offset = 0) {
-  if (el) {
-    const footerRect = el.getBoundingClientRect();
-    const footerY =
-      footerRect.top - document.documentElement.getBoundingClientRect().top;
-    return (
-      footerY + footerRect.height - offset > window.pageYOffset &&
-      footerY <= window.pageYOffset + window.innerHeight - offset
-    );
-  } else {
-    return false;
-  }
-}
-
-export function mapDOMNodes<T extends Node, V>(
-  nodes: NodeListOf<T>,
-  callback: (val: T, idx: number) => V
-): V[] {
-  const result: V[] = [];
-  if (!nodes) {
-    return result;
+  if (prevColumn) {
+    prevColumnWidth = columnsWidth.get(prevColumn);
   }
 
-  for (let i = 0; i < nodes.length; i++) {
-    result.push(callback(nodes[i], i));
+  if (nextColumn) {
+    nextColumnWidth = columnsWidth.get(nextColumn);
   }
-  return result;
+
+  return {
+    left: prevColumnWidth,
+    right: nextColumnWidth,
+    fixed,
+    isLastLeftFixedColumn:
+      (currentColumn.fixed === true || currentColumn.fixed === 'left') &&
+      nextColumn &&
+      !nextColumn.fixed,
+    isFirstRightFixedColumn:
+      currentColumn.fixed === 'right' &&
+      prevColumn &&
+      prevColumn.fixed !== 'right',
+  };
 }

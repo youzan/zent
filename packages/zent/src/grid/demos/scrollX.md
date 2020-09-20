@@ -1,4 +1,4 @@
----
+<!-- ---
 order: 7
 zh-CN:
 	title: 水平滚动
@@ -26,18 +26,37 @@ const columns = [
 		title: '{i18n.productName}',
 		name: 'name',
 		width: 100,
-		fixed: true
+		fixed: 'left'
 	}, {
 		title: '{i18n.uv}',
 		name: 'uv',
-		width: 100,
-		fixed: true
+	},{
+		title: '{i18n.uv}',
+		name: 'uv0001',
+	},{
+		title: '{i18n.uv}',
+		name: 'uv0002',
+	},{
+		title: '{i18n.uv}',
+		name: 'uv0003',
 	}, {
 		title: '{i18n.stock}',
 		name: 'stock'
 	}, {
 		title: '{i18n.soldNumber}',
-		name: 'sold_num'
+		name: 'sold_num001',
+	},{
+		title: '{i18n.soldNumber}',
+		name: 'sold_num002',
+	},{
+		title: '{i18n.soldNumber}',
+		name: 'sold_num003',
+	},{
+		title: '{i18n.soldNumber}',
+		name: 'sold_num004',
+	},{
+		title: '{i18n.soldNumber}',
+		name: 'sold_num005',
 	}, {
 		title: '{i18n.createdTime}',
 		name: 'created_time',
@@ -70,4 +89,4 @@ ReactDOM.render(
 	, mountNode
 );
 
-```
+``` -->

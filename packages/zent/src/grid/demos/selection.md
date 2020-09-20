@@ -85,23 +85,22 @@ class Selection extends React.Component {
 				}}
 				paginationType="lite"
 				selection={{
+					type: 'checkbox',
+					needCrossPage: false,
 					selectedRowKeys: this.state.selectedRowKeys,
 					onSelect: (selectedRowKeys, selectedRows, currentRow) => {
-						if (selectedRowKeys.length > 2) {
-							Notify.error('你最多选择两个');
-							this.setState({
-								selectedRowKeys: [].concat(this.state.selectedRowKeys),
-							});
-						} else {
-							this.setState({
-								selectedRowKeys,
-							});
-						}
+						console.log(selectedRowKeys, selectedRows, currentRow);
+						this.setState({
+							selectedRowKeys,
+						});
 					},
 					getCheckboxProps: data => ({
 						disabled: data.name === '{i18n.babyProducts} 1',
 						reason: '{i18n.reason}'
 					}),
+					render() {
+						return <div>自定义</div>
+					},
 				}}
 				rowKey="id"
 				onChange={this.onChange}

@@ -19,14 +19,20 @@
   line-height: 1.5;
   overflow: hidden;
 
+  &-fixed {
+    .zent-grid-container {
+      overflow-x: scroll;
+    }
+  }
+
   &.zent-grid-scroll-position-left {
-    .zent-grid-fixed-left {
+    .zent-grid-fixed-left::after {
       box-shadow: none;
     }
   }
 
   &.zent-grid-scroll-position-right {
-    .zent-grid-fixed-right {
+    .zent-grid-fixed-right::after {
       box-shadow: none;
     }
   }
@@ -135,14 +141,19 @@
     }
   }
 
+  &-footer {
+    margin-top: 17px;
+  }
+
   &-fixed {
     width: auto;
+    position: sticky;
+    z-index: 1;
+    @include theme-color(background-color, stroke, 9);
   }
 
   &-fixed-left,
   &-fixed-right {
-    position: absolute;
-    top: 0;
     overflow: hidden;
 
     .zent-grid-fixed {
@@ -151,49 +162,26 @@
     }
   }
 
-  &-fixed-left {
-    // sass-lint:disable-block no-duplicate-properties
-    left: 0;
-    // FIXME: 为了让fix住的部分底部阴影去除
-    box-shadow: 6px 0 6px -4px rgba($theme-stroke-4, 0.5);
-    box-shadow: 6px 0 6px -4px rgba(var(--theme-stroke-4, to-rgb($theme-stroke-4)), 0.5);
-
-    .zent-grid-header .zent-grid-table {
-      border-right: 0;
-    }
-
-    .zent-grid-body {
-      margin-right: -20px;
-      box-sizing: border-box;
-      margin-bottom: -15px;
-      overflow: scroll;
-    }
-
-    table {
-      width: auto;
-    }
+  &-fixed-left-last::after,
+  &-fixed-right-first::after {
+    content: '';
+    width: 5px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
   }
 
-  &-fixed-right {
-    // sass-lint:disable-block no-duplicate-properties
+  &-fixed-left-last::after {
     right: 0;
-    // FIXME: 为了让fix住的部分底部阴影去除
-    box-shadow: -6px 0 6px -4px rgba($theme-stroke-4, 0.5);
-    box-shadow: -6px 0 6px -4px rgba(var(--theme-stroke-4, to-rgb($theme-stroke-4)), 0.5);
+    box-shadow: inset 6px 0 6px -4px rgba($theme-stroke-4, 0.5);
+    box-shadow: inset 6px 0 6px -4px rgba(var(--theme-stroke-4, to-rgb($theme-stroke-4)), 0.5);
+  }
 
-    .zent-grid-header .zent-grid-table {
-      border-left: 0;
-    }
-
-    .zent-grid-body .zent-grid-table {
-      border-left: 0;
-    }
-
-    .zent-grid-body {
-      box-sizing: border-box;
-      margin-bottom: -15px;
-      overflow: scroll;
-    }
+  &-fixed-right-first::after {
+    left: 0;
+    box-shadow: inset -6px 0 6px -4px rgba($theme-stroke-4, 0.5);
+    box-shadow: inset -6px 0 6px -4px
+      rgba(var(--theme-stroke-4, to-rgb($theme-stroke-4)), 0.5);
   }
 
   &-scroll {
@@ -229,9 +217,10 @@
     display: table-row;
     height: 56px;
 
-    &:hover,
-    &__mouseover {
-      @include theme-color(background-color, primary, 8);
+    &:hover {
+      .zent-grid-td {
+        @include theme-color(background-color, primary, 8);
+      }
     }
 
     &__expanded {
@@ -285,7 +274,6 @@
   &-td {
     line-height: 20px;
     padding: 10px 12px;
-    position: relative;
 
     .zent-grid-expandable-btn {
       @include theme-color(border-color, stroke, 6);

@@ -1,4 +1,4 @@
----
+<!-- ---
 order: 13
 zh-CN:
 	title: 表头分组
@@ -29,7 +29,7 @@ import { Grid } from 'zent';
 
 const datasets = [];
 
-for (let i = 0; i < 19; i++) {
+for (let i = 0; i < 5; i++) {
 	datasets.push({
 		id: `id-${i}`,
 		name: `{i18n.product} ${i}`,
@@ -126,4 +126,4 @@ ReactDOM.render(
 		<HeaderGroup />
 	, mountNode
 );
-```
+``` -->

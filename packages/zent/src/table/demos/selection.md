@@ -113,7 +113,7 @@ class Selection extends React.Component {
 
 	getRowConf(rowData, index) {
 		return {
-			canSelect: index % 2 === 0,
+			canSelect: index > 3,
 		};
 	}
 

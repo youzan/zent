@@ -1,7 +1,7 @@
----
-order: 15
+<!-- ---
+order: 2
 zh-CN:
-	title: 取消鼠标hover高亮
+	title: jsx 风格
 	product: 商品
 	productName: 商品名
 	uv: 访问量
@@ -16,6 +16,8 @@ en-US:
 
 ```jsx
 import { Grid } from 'zent';
+
+const { Column } = Grid;
 
 const columns = [
 	{
@@ -44,13 +46,13 @@ for (let i = 0; i < 3; i++) {
 }
 
 ReactDOM.render(
-		<Grid
-			disableHoverHighlight
-			columns={columns}
-			datasets={datasets}
-			rowClassName={(data, index) => `${data.id}-${index}`}
-		/>
+		<Grid datasets={datasets} rowClassName={(data, index) => `${data.id}-${index}`} onRowClick={(data, index, event) => { console.log(data, index, event.target, 'simple onRowClick') }}
+    >
+      <Column title="{i18n.productName}" name="name" className="name" />
+      <Column title="{i18n.uv}" name="uv" />
+      <Column title="{i18n.stock}" name="stock" defaultText="{0}" />
+    </Grid>
 	, mountNode
 );
 
-```
+``` -->
