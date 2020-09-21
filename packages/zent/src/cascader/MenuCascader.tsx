@@ -68,13 +68,13 @@ export interface IMenuCascaderSingleProps extends IMenuCascaderCommonProps {
 }
 
 export interface IMenuCascaderMultipleProps extends IMenuCascaderCommonProps {
+  multiple?: true;
   value?: Array<CascaderValue[]>;
   onChange: (
     value: Array<CascaderValue[]>,
     selectedOptions: Array<ICascaderItem[]>,
     meta: ICascaderChangeMeta
   ) => void;
-  multiple?: boolean;
 }
 
 export type IMenuCascaderProps =
