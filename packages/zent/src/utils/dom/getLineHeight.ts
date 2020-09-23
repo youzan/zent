@@ -91,6 +91,6 @@ export function getLineHeight(node: HTMLElement): number {
 }
 
 function computedStyle(el: Element, prop: string) {
-  const style = window.getComputedStyle(el);
+  const style = getComputedStyle(el);
   return style.getPropertyValue(prop);
 }

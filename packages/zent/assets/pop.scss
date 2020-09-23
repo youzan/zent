@@ -32,6 +32,10 @@
   .zent-pop-buttons {
     text-align: right;
     vertical-align: top;
+
+    .zent-btn + .zent-btn {
+      margin-left: 8px;
+    }
   }
 
   .zent-pop-arrow {

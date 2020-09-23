@@ -25,7 +25,6 @@ Collapse/expand contents.
 | bordered             | Bordered                                  | `bool`              | No       | `true`      | `false`     |
 | panelTitleBackground | Panel background                          | `string`            | No       | `'default'` | `'none'`    |
 | className            | Custom class names                        | `string`            | No       |             |             |
-| prefix               | Custom class prefix                       | `string`            | No       |             |             |
 
 #### Collpase.Panel
 
@@ -37,4 +36,3 @@ Collapse/expand contents.
 | showArrow | Show arrow in the title | `bool`   | No       | `true`  | `false`     |
 | style     | Custom styles           | `object` | No       |         |             |
 | className | Custom class names      | `string` | No       |         |             |
-| prefix    | Custom class prefix     | `string` | No       |         |             |

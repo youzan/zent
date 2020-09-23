@@ -1,6 +1,6 @@
 {
   "name": "zent",
-  "version": "8.5.1",
+  "version": "9.0.0-beta1",
   "description": "一套前端设计语言和基于React的实现",
   "bugs": "https://github.com/youzan/zent/issues",
   "repository": {
@@ -36,22 +36,22 @@
     "dependency-graph.json"
   ],
   "dependencies": {
-    "@types/autosize": "^3.0.6",
+    "@types/autosize": "^3.0.7",
     "@types/sortablejs": "~1.7.2",
     "autosize": "^4.0.0",
     "big.js": "^5.2.2",
     "classnames": "^2.2.6",
     "date-fns": "^2.7.0",
-    "formulr": "~0.3.5",
     "rc-resize-observer": "^0.2.3",
     "react-is": "^16.8.1",
     "react-table": "^7.5.0",
     "react-transition-group": "^2.6.0",
+    "rxjs": "^6.6.2",
     "sortablejs": "~1.9.0",
-    "tslib": "^1.9.3",
+    "tslib": "^2.0.0",
     "utility-types": "^3.4.1",
     "warning": "^4.0.3",
-    "zenticons": "3.5.0"
+    "zenticons": "3.6.2"
   },
   "devDependencies": {
     "@types/big.js": "^4.0.5",
@@ -73,14 +73,15 @@
     "postcss-scss": "^2.0.0",
     "postcss-selector-parser": "^6.0.2",
     "postcss-value-parser": "^4.0.2",
-    "react": "16.11.x",
-    "react-dom": "16.11.x",
+    "react": "16.13.x",
+    "react-dom": "16.13.x",
+    "react-window": "^1.8.5",
     "sass": "^1.22.7",
     "ts-jest": "^24.0.0",
     "ts-node": "^8.0.3",
     "ttypescript": "^1.5.8",
-    "typedoc": "~0.15.2",
-    "typescript": "~3.7.2"
+    "typedoc": "~0.17.8",
+    "typescript": "~3.9.7"
   },
   "peerDependencies": {
     "@types/react": "^16.9.7"

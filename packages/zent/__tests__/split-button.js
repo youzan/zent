@@ -11,11 +11,6 @@ describe('SplitButton', () => {
     expect(wrapper.children().hasClass('zent-split-button')).toBe(true);
   });
 
-  it('can hav custom prefix', () => {
-    const wrapper = mount(<SplitButton prefix="arvin" />);
-    expect(wrapper.children().hasClass('arvin-split-button')).toBe(true);
-  });
-
   it('can have custom className', () => {
     const wrapper = mount(<SplitButton className="arvin" />);
     expect(wrapper.children().hasClass('arvin')).toBe(true);

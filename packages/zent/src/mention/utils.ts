@@ -29,16 +29,20 @@ export function isWhiteSpace(c) {
   return /^\s$/.test(c);
 }
 
-export function getInputNodeForTrigger(node) {
-  if (!node) {
-    return node;
+export function getInputNodeForTrigger(
+  node: Element | Text | null
+): HTMLInputElement | HTMLTextAreaElement | null {
+  if (!node || node.nodeType === Node.TEXT_NODE) {
+    return null;
   }
 
-  if (node.tagName === 'INPUT') {
-    return node;
+  const elem = node as Element;
+  const { tagName } = elem;
+  if (tagName === 'INPUT' || tagName === 'TEXTAREA') {
+    return elem as HTMLInputElement | HTMLTextAreaElement;
   }
 
-  return node.querySelector('input') || node;
+  return elem.querySelector('input') || elem.querySelector('textarea') || null;
 }
 
 export function getMenuListItems(suggestions, notFoundContent) {

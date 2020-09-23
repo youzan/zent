@@ -22,5 +22,4 @@ Switch is a switching selector。
 | disabled  | Disable the switch                                                              | bool                | `false`     | `true`      |
 | size      | The size of the switch                                                          | string              | `'default'` | `'small'`   |
 | className | The custom classname                                                            | string              | `''`        |             |
-| prefix    | The custom prefix                                                               | string              | `'zent'`    |             |
 | loading   | The status of loading                                                           | bool                | `false`     | `true`      |

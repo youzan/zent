@@ -24,7 +24,9 @@ export {
   $FieldSetBuilderChildren,
   $FieldSetValue,
   INormalizeBeforeSubmit,
-} from 'formulr';
+  IMaybeError,
+  ValidatorContext,
+} from './formulr';
 
 export * from './form-components';
 export * from './Form';
@@ -34,3 +36,5 @@ export * from './Label';
 export * from './Field';
 export * from './FieldSet';
 export * from './Description';
+export * from './Notice';
+export { FormContext } from './context';

@@ -25,7 +25,6 @@
   },
   "timers": "fake",
   "testPathIgnorePatterns": [
-    "<rootDir>/__tests__/table/comp",
     "<rootDir>/__tests__/select.js",
     "<rootDir>/__tests__/datetimepicker",
     "<rootDir>/__tests__/portal/.+"
@@ -45,6 +44,8 @@
     "<rootDir>/src/utils/component/AnimateHeight.tsx",
     "<rootDir>/scr/utils/component/LazyMount.tsx",
     "<rootDir>/scr/utils/date",
+    "<rootDir>/src/utils/alcatraz",
+    "<rootDir>/src/utils/dom/contains.ts",
     "<rootDir>/src/i18n",
     "<rootDir>/src/pagination",
     "<rootDir>/src/placeholder",
@@ -61,7 +62,8 @@
     "<rootDir>/src/notice/.+",
     "<rootDir>/src/utils/nextFrame.ts",
     "<rootDir>/src/utils/warning.ts",
-    "<rootDir>/src/tabs/components/TabDivide.tsx"
+    "<rootDir>/src/tabs/components/TabDivide.tsx",
+    "<rootDir>/src/grid"
   ],
   "moduleDirectories": ["node_modules", "src"]
 }

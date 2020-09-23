@@ -7,7 +7,6 @@ import Icon from '../../icon';
 export interface IStepProps {
   title?: React.ReactNode;
   description?: React.ReactNode;
-  prefix?: string;
   status?: 'wait' | 'finish' | 'error';
   isCurrentStep?: boolean;
   isLastFinishStep?: boolean;
@@ -25,7 +24,6 @@ export default class Step extends Component<IStepProps> {
     const props = this.props;
 
     const {
-      prefix,
       isCurrentStep,
       status = 'wait',
       isLastFinishStep,
@@ -44,13 +42,13 @@ export default class Step extends Component<IStepProps> {
       iconNode = <Icon type="error-circle" />;
     } else {
       iconNode = (
-        <span className={`${prefix}-icon`}>{sequence ? stepNumber : ''}</span>
+        <span className="zent-icon">{sequence ? stepNumber : ''}</span>
       );
     }
 
     const classString = classNames(
-      `${prefix}-steps-item`,
-      `${prefix}-steps-status-${status}`,
+      'zent-steps-item',
+      `zent-steps-status-${status}`,
       {
         'is-current': isCurrentStep,
         'is-last-finish': isLastFinishStep,
@@ -60,18 +58,18 @@ export default class Step extends Component<IStepProps> {
     return (
       <div className={classString}>
         {!stepLast && (
-          <div className={`${prefix}-steps-tail`}>
+          <div className="zent-steps-tail">
             <i />
           </div>
         )}
-        <div className={`${prefix}-steps-step`}>
-          <div className={`${prefix}-step-head`}>
-            <div className={`${prefix}-step-head-inner`}>{iconNode}</div>
+        <div className="zent-steps-step">
+          <div className="zent-step-head">
+            <div className="zent-step-head-inner">{iconNode}</div>
           </div>
-          <div className={`${prefix}-step-main`}>
-            <div className={`${prefix}-step-title`}>{title}</div>
+          <div className="zent-step-main">
+            <div className="zent-step-title">{title}</div>
             {description && (
-              <div className={`${prefix}-step-description`}>{description}</div>
+              <div className="zent-step-description">{description}</div>
             )}
           </div>
         </div>

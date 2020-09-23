@@ -82,7 +82,7 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
 
   componentDidMount() {
     const { text } = this.props;
-    if (text && isBrowser) {
+    if (text && isBrowser && this.element.current) {
       this.lineHeight = getLineHeight(this.element.current);
       this.clampLines();
     }
@@ -148,13 +148,16 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
 
   renderClampedText() {
     const { className } = this.props;
-    const classString = cx('zent-clamp-lines', {
-      [className]: className,
-    });
+    const classString = cx('zent-clamp-lines', className);
     return (
       <div
         className={classString}
-        style={{ maxHeight: this.maxHeight, overflowY: 'hidden' }}
+        style={{
+          maxHeight: this.maxHeight,
+          overflowY: 'hidden',
+          wordBreak: 'normal',
+          overflowWrap: 'anywhere',
+        }}
       >
         <div ref={this.element}>
           <span ref={this.innerElement}>{this.state.text}</span>
@@ -181,7 +184,10 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
 
     if (this.state.noClamp) {
       return (
-        <div className={className}>
+        <div
+          className={className}
+          style={{ wordBreak: 'normal', overflowWrap: 'anywhere' }}
+        >
           {text}
           {this.renderResizable()}
         </div>
@@ -192,7 +198,17 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
       return (
         <Pop
           trigger={trigger}
-          content={<div style={{ maxWidth: popWidth }}>{renderPop(text)}</div>}
+          content={
+            <div
+              style={{
+                maxWidth: popWidth,
+                wordBreak: 'normal',
+                overflowWrap: 'anywhere',
+              }}
+            >
+              {renderPop(text)}
+            </div>
+          }
         >
           {this.renderClampedText()}
         </Pop>

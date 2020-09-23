@@ -3,7 +3,6 @@ import { Component } from 'react';
 import cx from 'classnames';
 
 export interface IRateStarProps {
-  prefix?: string;
   value: number;
   allowHalf?: boolean;
   disabled?: boolean;
@@ -28,18 +27,18 @@ export default class Star extends Component<IRateStarProps> {
   };
 
   getClassName() {
-    const { prefix, index, value, allowHalf, readOnly } = this.props;
+    const { index, value, allowHalf, readOnly } = this.props;
     const starValue = index + 1;
     const isFull = starValue <= value;
     const isZero = starValue > Math.ceil(value);
     const isHalf = allowHalf && value + 0.5 === starValue;
     const isPart =
       readOnly && starValue > value && starValue === Math.ceil(value);
-    return cx(`${prefix}-rate-star`, {
-      [`${prefix}-rate-star-full`]: isFull,
-      [`${prefix}-rate-star-zero`]: isZero,
-      [`${prefix}-rate-star-half`]: isHalf,
-      [`${prefix}-rate-star-part`]: isPart,
+    return cx('zent-rate-star', {
+      'zent-rate-star-full': isFull,
+      'zent-rate-star-zero': isZero,
+      'zent-rate-star-half': isHalf,
+      'zent-rate-star-part': isPart,
     });
   }
 
@@ -50,7 +49,7 @@ export default class Star extends Component<IRateStarProps> {
 
   render() {
     const { onHover, onClick } = this;
-    const { disabled, prefix, character, readOnly } = this.props;
+    const { disabled, character, readOnly } = this.props;
     const disableEdit = disabled || readOnly;
     return (
       <li
@@ -60,12 +59,12 @@ export default class Star extends Component<IRateStarProps> {
         onMouseMove={disableEdit ? undefined : onHover}
       >
         <div
-          className={`${prefix}-rate-star-first`}
+          className="zent-rate-star-first"
           style={readOnly ? { width: this.getFloatValue() } : undefined}
         >
           {character}
         </div>
-        <div className={`${prefix}-rate-star-second`}>{character}</div>
+        <div className="zent-rate-star-second">{character}</div>
       </li>
     );
   }

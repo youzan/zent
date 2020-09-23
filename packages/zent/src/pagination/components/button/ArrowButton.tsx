@@ -23,7 +23,7 @@ interface IPaginationDoubleArrowButtonState {
   prevActive: boolean;
 }
 
-const DEFAULT_DISABLED_POP_PROPS: Optional<IPopProps, 'content'> = {
+const DEFAULT_DISABLED_POP_PROPS: Optional<IPopProps, 'content' | 'type'> = {
   position: 'top-right',
   trigger: 'hover',
   centerArrow: true,
@@ -69,26 +69,24 @@ export class ArrowButton extends Component<
     const btn = (
       <Button
         {...rest}
-        className={cx('zent-pagination-arrow-button', {
-          'zent-pagination-button--layout': !disabledHelp,
-          'zent-pagination-page-button--no-border': !bordered,
-        })}
+        className={cx(
+          'zent-pagination-arrow-button',
+          'zent-pagination-button--layout',
+          {
+            'zent-pagination-page-button--no-border': !bordered,
+          }
+        )}
       >
         <Arrow />
       </Button>
     );
 
     if (disabledHelp && rest.disabled) {
-      const { wrapperClassName, ...otherProps } = disabledHelp;
-      const popProps = {
-        wrapperClassName: cx(
-          'zent-pagination-button--layout',
-          wrapperClassName
-        ),
-        ...DEFAULT_DISABLED_POP_PROPS,
-        ...otherProps,
-      };
-      return <Pop {...popProps}>{btn}</Pop>;
+      return (
+        <Pop {...DEFAULT_DISABLED_POP_PROPS} {...disabledHelp}>
+          {btn}
+        </Pop>
+      );
     }
 
     return btn;
@@ -127,6 +125,7 @@ class DoubleArrowButton extends Component<
         className={cx(
           'zent-pagination-arrow-button',
           'zent-pagination-arrow-button--double',
+          'zent-pagination-button--layout',
           {
             'zent-pagination-arrow-button--double-active': isActive,
             'zent-pagination-page-button--no-border': !bordered,

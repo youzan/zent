@@ -32,18 +32,15 @@ ReactDOM.render(
 		<Tooltip trigger="focus" title="{i18n.focusContent}">
 			<Input defaultValue="{i18n.focusText}" />
 		</Tooltip>
-	</div>
-	, mountNode
-)
+	</div>,
+	mountNode
+);
 ```
 
 <style>
 	.zent-doc-tooltip-container {
-	    display: flex;
-        justify-content: center;
-		.zent-tooltip-wrapper {
-			margin-right: 10px;
-		}
+		display: flex;
+		justify-content: center;
 
 		.zent-doc-tooltip-tag {
 			border: 1px solid #e5e5e5;
@@ -51,6 +48,14 @@ ReactDOM.render(
 			padding: 3px;
 			font-size: 12px;
 			cursor: default;
+
+			&:not(:last-child) {
+				margin-right: 10px;
+			}
+		}
+
+		.zent-input-wrapper {
+			margin-left: 10px;
 		}
 	}
 </style>

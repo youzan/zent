@@ -14,8 +14,8 @@ import {
   II18nLocaleSelect,
   II18nLocaleSweetalert,
   II18nLocaleSwitch,
-  II18nLocaleTable,
   II18nLocaleUpload,
+  II18nLocaleTransfer,
 } from './locale';
 import { enUS, setLocale } from './time-locale';
 
@@ -81,7 +81,9 @@ export const RangePicker: II18nLocaleRangePicker = {
 
 export const Select: II18nLocaleSelect = {
   input: 'Please choose...',
-  empty: 'No matches found',
+  empty: 'Not Found',
+  tagSeparator: ', ',
+  create: '+Create: ',
 };
 
 export const Sweetalert: II18nLocaleSweetalert = {
@@ -99,15 +101,13 @@ export const Grid: II18nLocaleGrid = {
   emptyLabel: 'No data',
 };
 
-export const Table: II18nLocaleTable = {
-  ...common,
-  emptyLabel: 'No data',
-};
-
 export const Cascader: II18nLocaleCascader = {
   ...common,
   title: 'Title',
-  placeholder: 'Please choose',
+  placeholder: 'Please select',
+  searchPlaceholder: 'Please select or search',
+  searchEmpty: 'No result',
+  empty: 'Empty',
 };
 
 const QUARTER_NAMES = [
@@ -128,7 +128,8 @@ export const TimePicker: I18nLocaleTimePicker = () => {
     quarter: 'Please select a quarter',
     year: 'Please select a year',
     range: 'Please select a range',
-    rangeError: 'Please select the starting and ending time',
+    timeErrorPop: 'Selected time is unavailable',
+    dateErrorPop: 'Selected date is unavailable',
     start: 'Start date',
     end: 'End date',
     startTime: 'Start time',
@@ -145,6 +146,7 @@ export const TimePicker: I18nLocaleTimePicker = () => {
       hour: '',
       minute: '',
       second: '',
+      year: '',
       hourSelect: 'Choose hours',
       minuteSelect: 'Choose minutes',
       secondSelect: 'Choose seconds',
@@ -186,4 +188,11 @@ export const Upload: II18nLocaleUpload = {
 
 export const Mention: II18nLocaleMention = {
   noContent: 'No result found, press SPACE to finish typing',
+};
+
+export const Transfer: II18nLocaleTransfer = {
+  placeholder: 'Please Enter',
+  item: 'item',
+  items: 'items',
+  emptyLabel: 'No Data',
 };

@@ -224,16 +224,18 @@ export class Slider extends React.Component<ISliderProps, ISliderState> {
   private getValueFromEvent(e: MouseEvent | React.MouseEvent) {
     const { min, max } = this.props;
     const el = this.containerRef.current!;
-    let nextValue =
+    const ratio =
       (e.clientX - el.getBoundingClientRect().left) / el.clientWidth;
-    nextValue = getValue(nextValue, min, max);
+    const nextValue = getValue(ratio, min, max);
     return nextValue;
   }
 
   private onMouseDown: React.MouseEventHandler<HTMLDivElement> = e => {
     this.mouseDown = true;
     const value = this.getValueFromEvent(e);
-    this.onChange(value);
+    const { min, max } = this.props;
+    const nextValue = withinRange(value, min, max);
+    this.onChange(nextValue);
   };
 
   private onWindowMouseUp = () => {

@@ -1,11 +1,15 @@
 import capitalize from './capitalize';
-import Popover from '../popover';
+import Popover, { IPositionFunction } from '../popover';
+import { PopPositions } from '../pop';
 
 const { Position } = Popover;
 
 const { Arrow } = Position;
 
-export default function getPosition(position, centerArrow) {
+export default function getPosition(
+  position: PopPositions | IPositionFunction,
+  centerArrow: boolean
+) {
   if (typeof position === 'function') {
     return position;
   }

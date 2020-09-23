@@ -28,7 +28,7 @@ module.exports = {
     extensions: ['.tsx', '.ts', '.js', '.md'],
     alias: Object.assign({
       zent$: path.resolve(__dirname, '../zent'),
-      'zent-utils': path.resolve(__dirname, '../../packages/zent/src/utils'),
+      'zent/es': path.resolve(__dirname, '../../packages/zent/src'),
     }),
   },
 
@@ -46,7 +46,6 @@ module.exports = {
         test: /\.s?css$/,
         use: [
           DEV ? 'style-loader' : MiniCssExtractPlugin.loader,
-          'cache-loader',
           {
             loader: 'css-loader',
             options: {
@@ -80,7 +79,8 @@ module.exports = {
           {
             loader: 'babel-loader',
             options: {
-              cacheDirectory: true,
+              // We have TypeScript plugin for rewriting modules, don't enable cache
+              cacheDirectory: false,
             },
           },
         ],
@@ -144,7 +144,7 @@ module.exports = {
           {
             loader: 'awesome-typescript-loader',
             options: {
-              useCache: true,
+              useCache: false,
               getCustomTransformers: program => ({
                 before: [
                   tsCompilerConstantsPlugin(program),

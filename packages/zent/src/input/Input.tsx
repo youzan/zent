@@ -138,24 +138,15 @@ export class Input extends Component<IInputProps, IInputState> {
       width,
     };
 
-    const wrapClass = classNames(
-      'zent-input-wrapper',
-      `zent-input--size-${size}`,
-      {
-        'zent-input-wrapper__not-editable': !editable,
-        'zent-textarea-wrapper': isTextarea,
-        'zent-input-addons':
-          !isTextarea &&
-          ((props as IInputCoreProps).addonAfter ||
-            (props as IInputCoreProps).addonBefore),
-        'zent-input--has-focus': hasFocus,
-        'zent-input-wrapper-inline': props.inline,
-      },
-      className
-    );
-
+    let isOutOfRange = false;
     let children: React.ReactNode;
     if (props.type === 'textarea') {
+      const textValue = this.elementRef.current?.value;
+
+      isOutOfRange =
+        !!props.maxCharacterCount && !!textValue
+          ? textValue.length > props.maxCharacterCount
+          : false;
       children = (
         <TextArea
           {...props}
@@ -179,6 +170,23 @@ export class Input extends Component<IInputProps, IInputState> {
         />
       );
     }
+
+    const wrapClass = classNames(
+      'zent-input-wrapper',
+      `zent-input--size-${size}`,
+      {
+        'zent-input-wrapper__not-editable': !editable,
+        'zent-textarea-wrapper': isTextarea,
+        'zent-textarea-wrapper-out-of-range': isOutOfRange,
+        'zent-input-addons':
+          !isTextarea &&
+          ((props as IInputCoreProps).addonAfter ||
+            (props as IInputCoreProps).addonBefore),
+        'zent-input--has-focus': hasFocus,
+        'zent-input-wrapper-inline': props.inline,
+      },
+      className
+    );
 
     return (
       <div className={wrapClass} style={wrapperStyle}>

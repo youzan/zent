@@ -8,6 +8,67 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 8.5.8(2020-09-11)
+
+- 🦀️ Adjust space between succesive `Button`s
+- `Form`
+  - ✨ Add `form.resetValue` to reset all fields to `initialValue`
+  - 🦀️ Fix unnessary creation of `ZentForm`
+- `Input`
+  - ✨ Add a new `onIconClick` callback
+  - ✨ `TextareaInput` add `maxCharacterCount` prop to support textarea's value out of range
+
+### 8.5.7(2020-08-28)
+
+- 🦀️ Fix `Progress` of `circle`'s `normalColor`, `successColor`, `exceptionColor` and `strokeWidth` not working
+
+### 8.5.6(2020-08-21)
+
+- 🦀️ Fix `Slider` value out of range
+- 🦀️ Adjust space between succesive `Checkbox`s
+- `Form`
+  - 🦀️ Export `IMaybeError` and `ValidatorContext`
+  - 🦀️ Fix `FormSelectField` type definition
+
+### 8.5.5(2020-08-14)
+
+- ✨ `Loading` has a new prop `colorPreset`
+- ✨ `ColorPicker` now supports `disabled`, and is compatible with `Disabled` component
+- 🦀️ Fix `Table`'s `renderBody` TypeScript definition
+- 🦀️ Fix `Form`'s `scrollToError` scrolls to wrong position
+- 🦀️ Remove unused dependency `formulr`
+- 🦀️ Updated two icons: `calendar-o` and `gift`
+- 📚 Update `prismjs` to `1.21.0` for documentation code highlight
+
+### 8.5.4(2020-08-04)
+
+- 🦀️ Fix unmatched `TypeScript` and `tslib` version in `8.5.3`
+- 🦀️ Fix label text color in disabled `Checkbox`
+- 📚 Add a new demo for custom `Form` field
+
+### 8.5.3(2020-07-22)
+
+- ✨ Add a new icon `thumbnail`
+- `Form`
+  - ✨ Merge `formulr` into `Zent` repository
+  - ✨ Add `FormContext`, only supports `labelStyle` for now
+  - 🦀️ Ensure `FieldArray`'s child has an `id`, no need to use array indices for `key`
+  - 🦀️ Fix a React warning
+- 🦀️ Fix an issue in `Grid` when `batchComponents` is an empty array
+- 🦀️ Fix style lint when building custom theme
+- 🦀️ Allow word wrap in `ClampLines`
+- 📚 Add `babel-plugin-zent` link in doc site side nav
+- 📚 Fix some style issue in doc site
+
+### 8.5.2(2020-06-23)
+
+- `Form`
+  - 🦀️ Fix some minor issues
+  - 🦀️ `FormSelectField` is compatible with `tags` mode
+  - 🦀️ Export validator types
+- 🦀️ Fix `Swiper` transition issue in some edge cases
+- 🦀️ Fix `ScrollAlert` children check
+
 ### 8.5.1(2020-06-10)
 
 - ✨ `Tooltip` now passes `display` prop to `Popover`
@@ -290,7 +351,7 @@ This is major release with lots of breaking changes, read the [full change log](
 
 ⚠️ `6.5.2` reverted a regression for `FormSelectField` in `tags` mode.
 
-- ✨ Support `tags` mode in `FormSelectField` (*reverted*)
+- ✨ Support `tags` mode in `FormSelectField` (_reverted_)
 - 🦀️ Fix `Select` placeholder color
 - 🦀️ Fix `Upload` broken style when uploading multiple audio files
 
@@ -434,7 +495,7 @@ If you rely on `zent-select` when overwriting `Select` popover style, use `zent-
 - ✨ Upgrade DnD library in `Design`
 - ✨ Add open/close animation to `Dialog`
 - `YearPicker`
-  - ✨ Add  `max` and `min` support
+  - ✨ Add `max` and `min` support
   - ✨ `value` supports `Date` type
 - 🦀️ Fix `Loading` `height` ignored in some cases
 - 🦀️ Fix `BlockHeader` style
@@ -613,7 +674,7 @@ If you rely on `zent-select` when overwriting `Select` popover style, use `zent-
 - 🦀️ Fix `NumberInput` inconsistent `onBlur` and `onChange` values
 - 🦀️ Fix `Upload` image order after uploading
 - 🦀️ Fix `Select` item order in tag mode
-- 🦀️ Fix can not edit hex in  `ColorPicker`
+- 🦀️ Fix can not edit hex in `ColorPicker`
 - 🦀️ Fix `textarea` height tingle
 - 🦀️ Fix some typo
 - 🦀️ Fix `yarn new-component` command
@@ -715,13 +776,13 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContextProvider } from 'react-dnd';
 
 export default class YourApp {
-  render() {
-    return (
-      <DragDropContextProvider backend={HTML5Backend}>
-      /* ... */
-      </DragDropContextProvider>
-    );
-  };
+	render() {
+		return (
+			<DragDropContextProvider backend={HTML5Backend}>
+				/* ... */
+			</DragDropContextProvider>
+		);
+	}
 }
 ```
 
@@ -755,14 +816,14 @@ export default class YourApp {
   - 🦀️ Fix styles in `disabled` state
 - 🦀️ Fix cannot upload the same image twice in `Upload`
 - 🦀️ Fix exceptions when `data` in `undefined` or `null` in `Select`
-- 🦀️ Fix disable logic in  `MonthPicker`
+- 🦀️ Fix disable logic in `MonthPicker`
 - 🦀️ Fix `emptyLabel` type in `Table`
 - 🦀️ Fix TypeScript definition for `Button`
 
 ### 3.9.5 (2017-11-13)
 
 - ✨ You can search components in doc site now.
-- 🦀️ Fix disable logic in  `DatePicker`
+- 🦀️ Fix disable logic in `DatePicker`
 
 ### 3.9.4 (2017-11-09)
 

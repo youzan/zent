@@ -2,24 +2,15 @@ import * as React from 'react';
 import { PureComponent } from 'react';
 import cx from 'classnames';
 
-import Popover from '../popover';
+import Popover, { IPositionFunction } from '../popover';
 import { TimelineDot } from './Dot';
 
-const TimelineItemOptionalPop = ({
-  children,
-  tip,
-  display,
-  prefix,
-  position,
-  popoverRef,
-}) => {
+const TimelineItemOptionalPop = ({ children, tip, position, popoverRef }) => {
   if (tip) {
     return (
       <Popover
         ref={popoverRef}
-        className={`${prefix}-timeline-tip`}
-        wrapperClassName={`${prefix}-timeline-item-wrapper`}
-        display={display}
+        className="zent-timeline-tip"
         position={position}
         cushion={20}
       >
@@ -41,7 +32,6 @@ export interface ITimelineItemProps {
   dotColor?: string;
   label?: React.ReactNode;
   tip?: React.ReactNode;
-  prefix?: string;
   className?: string;
   style?: React.CSSProperties;
   type?: 'vertical' | 'horizontal';
@@ -49,7 +39,6 @@ export interface ITimelineItemProps {
 
 export class TimelineItem extends PureComponent<ITimelineItemProps> {
   static defaultProps = {
-    prefix: 'zent',
     showLabel: true,
     showDot: true,
     lineColor: '#f2f3f5',
@@ -69,32 +58,32 @@ export class TimelineItem extends PureComponent<ITimelineItemProps> {
     this.popover && this.popover.adjustPosition();
   };
 
-  position = Popover.Position.create(
-    (anchorBoundingBox, containerBoundingBox, contentDimension) => {
-      const x = anchorBoundingBox.left;
-      const middle = (anchorBoundingBox.top + anchorBoundingBox.bottom) / 2;
-      const y = middle - contentDimension.height / 2;
-
-      return {
-        getCSSStyle: () => {
-          if (this.props.type === 'horizontal') {
-            return {
+  position: IPositionFunction = ({
+    anchorRect,
+    contentRect,
+    containerRect,
+  }) => {
+    const { type } = this.props;
+    const x = anchorRect.left;
+    const middle = (anchorRect.top + anchorRect.bottom) / 2;
+    const y = middle - contentRect.height / 2;
+    return {
+      style:
+        type === 'horizontal'
+          ? {
               position: 'absolute',
-              left: `${Math.round(this.mousePosition.x)}px`,
+              left: `${Math.round(
+                this.mousePosition.x - containerRect.left
+              )}px`,
               top: `${Math.round(y - 40)}px`,
-            };
-          }
-          return {
-            position: 'absolute',
-            left: `${Math.round(x + 20)}px`,
-            top: `${Math.round(this.mousePosition.y)}px`,
-          };
-        },
-
-        name: 'timeline-tip-position',
-      };
-    }
-  );
+            }
+          : {
+              position: 'absolute',
+              left: `${Math.round(x + 20)}px`,
+              top: `${Math.round(this.mousePosition.y - containerRect.top)}px`,
+            },
+    };
+  };
 
   popoverRef = el => (this.popover = el);
 
@@ -109,29 +98,25 @@ export class TimelineItem extends PureComponent<ITimelineItemProps> {
       className,
       style,
       type,
-      prefix,
       lineColor,
       dotColor,
     } = this.props;
-    const display = type === 'vertical' ? 'inline-block' : 'block';
     const key = type === 'vertical' ? 'height' : 'width';
 
     return (
       <li
-        className={cx(`${prefix}-timeline-item`, className)}
+        className={cx('zent-timeline-item', className)}
         style={style}
         onMouseMove={this.onMouseMove}
       >
         <TimelineItemOptionalPop
-          display={display}
           tip={tip}
-          prefix={prefix}
           position={this.position}
           popoverRef={this.popoverRef}
         >
-          <div className={`${prefix}-timeline-item-hover`}>
+          <div className="zent-timeline-item-hover">
             <div
-              className={`${prefix}-timeline-item-line`}
+              className="zent-timeline-item-line"
               style={{
                 [key]: size,
                 backgroundColor: color || lineColor,
@@ -142,7 +127,7 @@ export class TimelineItem extends PureComponent<ITimelineItemProps> {
           </div>
         </TimelineItemOptionalPop>
         {showLabel && (
-          <label className={`${prefix}-timeline-item-label`}>{label}</label>
+          <label className="zent-timeline-item-label">{label}</label>
         )}
       </li>
     );

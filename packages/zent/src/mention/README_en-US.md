@@ -20,7 +20,6 @@ Use `Mention` when you need to mention someone or something when typing, e.g. @s
 | suggestions | Suggestions for current mention | `array` | No | | |
 | suggestionNotFoundContent | Content to display when no suggestion found | `node` | No | `'No results found, press SPACE to finish typing'` | |
 | triggerText | Text to trigger a mention | `string` | No | `'@'` | |
-| prefix | Custom class prefix | `string` | No | `'zent'` | |
 | className | Custom class name | `string` | No | | |
 
 > `Mention` supports all `Input` props，e.g. `placeholder`.

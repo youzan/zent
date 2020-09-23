@@ -1,18 +1,23 @@
 import * as React from 'react';
+import formatDate from 'date-fns/format';
+import endOfToday from 'date-fns/endOfToday';
 import {
   FieldModel,
   IValidators,
   IMaybeError,
   BasicModel,
   ValidateOption,
-} from 'formulr';
+  ModelRef,
+  IModel,
+} from './formulr';
 import { Omit, Optional } from 'utility-types';
 import { FormError } from './Error';
 import { IFormControlProps } from './Control';
-import { useFormContext, IFormChild } from './context';
-import { DatePickers } from '../datetimepicker/common/types';
+import { useFormChildrenContext, IFormChild } from './context';
+import { SingleDate, RangeDate } from '../date-picker';
 import { $MergeParams } from './utils';
 
+const TimeFormat = 'HH:mm:ss';
 export interface IRenderError<T> {
   (error: IMaybeError<T>): React.ReactNode;
 }
@@ -23,9 +28,13 @@ export interface IFormFieldViewDrivenProps<T> {
    */
   name: string;
   /**
-   * 默认值
+   * 缺省值，作为没有用户输入时的值，不可变
    */
   defaultValue: T | (() => T);
+  /**
+   * 初始值，在逻辑上作为字段首次展示的值，可变
+   */
+  initialValue?: T;
   /**
    * 校验规则列表，执行的时候会按数组顺序逐个调用，直到所有都通过或者在第一个失败的地方停止
    */
@@ -42,7 +51,7 @@ export interface IFormFieldModelDrivenProps<T> {
    * 表单项对应的数据
    * 只有 FormStrategy 是 View 的时候才会出现 ModelRef
    */
-  model: FieldModel<T>;
+  model: FieldModel<T> | ModelRef<T, IModel<any>, FieldModel<T>>;
   /**
    * 仅当 model 是个 ModelRef 的时候有效。
    */
@@ -51,6 +60,10 @@ export interface IFormFieldModelDrivenProps<T> {
    * 仅当 model 是个 ModelRef 的时候有效。
    */
   defaultValue: T | (() => T);
+  /**
+   * 仅当值不等于 `undefined` 时生效
+   */
+  initialValue?: T;
 }
 
 export type IFormFieldModelProps<T> =
@@ -144,9 +157,7 @@ export interface IFormFieldPropsBase<Value>
    * @param source - 校验触发的来源
    * @returns 校验规则执行的选项 https://zent-contrib.github.io/formulr/enums/validateoption.html
    */
-  getValidateOption?: (
-    source: 'blur' | 'change'
-  ) => ValidateOption | null | undefined;
+  getValidateOption?: (source: 'blur' | 'change') => ValidateOption | undefined;
   modelRef?: React.RefObject<FieldModel<Value>>;
   /**
    * 什么时候标记表单项为 `touched`
@@ -172,12 +183,23 @@ export type IFormComponentProps<
     | Optional<IFormFieldModelDrivenProps<Value>, 'defaultValue'>
   );
 
-export function dateDefaultValueFactory(): DatePickers.Value {
+export function dateDefaultValueFactory(): SingleDate {
   return new Date();
 }
 
-export function dateRangeDefaultValueFactory(): DatePickers.RangeValue {
+export function dateRangeDefaultValueFactory(): RangeDate {
   return [new Date(), new Date()];
+}
+
+export function dateDefaultTimeFactory(): string {
+  return formatDate(new Date(), TimeFormat);
+}
+
+export function dateRangeDefaultTimeFactory(): [string, string] {
+  return [
+    formatDate(new Date(), TimeFormat),
+    formatDate(endOfToday(), TimeFormat),
+  ];
 }
 
 export function defaultRenderError<T>(error: IMaybeError<T>) {
@@ -191,7 +213,7 @@ export function useFormChild<Value>(
   model: BasicModel<Value>,
   scrollAnchorRef?: React.RefObject<Element | null | undefined>
 ) {
-  const ctx = useFormContext();
+  const ctx = useFormChildrenContext();
   const posRef = React.useRef(ctx.children.length);
   React.useEffect(() => {
     const formChild: IFormChild = {

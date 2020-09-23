@@ -5,12 +5,14 @@ import {
   useForm as superUseForm,
   FormStrategy,
   FormBuilder,
-  BasicModel,
-  BasicBuilder,
   IForm,
-} from 'formulr';
+} from './formulr';
 import { Subject } from 'rxjs';
 import { useAsyncSafeDispatch } from '../utils/hooks/useAsyncSafeDispatch';
+import {
+  UnknownFieldSetModelChildren,
+  UnknownFieldSetBuilderChildren,
+} from './formulr/utils';
 
 export interface IFormAction {
   type: 'SUBMIT_START' | 'SUBMIT_SUCCESS' | 'SUBMIT_ERROR';
@@ -54,10 +56,12 @@ function formReducer(state: IFormState, action: IFormAction): IFormState {
   }
 }
 
-export class ZentForm<T extends Record<string, BasicModel<unknown>>>
+export class ZentForm<T extends UnknownFieldSetModelChildren>
   implements IForm<T> {
   /** @internal */
   submit$ = new Subject<FormEvent | undefined>();
+  /** @internal */
+  reset$ = new Subject<FormEvent | undefined>();
 
   /** @internal */
   constructor(
@@ -139,6 +143,14 @@ export class ZentForm<T extends Record<string, BasicModel<unknown>>>
     this.inner.model.reset();
   }
 
+  reset(e: FormEvent) {
+    this.reset$.next(e);
+  }
+
+  clear() {
+    this.inner.model.clear();
+  }
+
   submitStart() {
     this.dispatch({
       type: 'SUBMIT_START',
@@ -158,18 +170,19 @@ export class ZentForm<T extends Record<string, BasicModel<unknown>>>
   }
 }
 
-export function useForm<
-  T extends Record<string, Builder>,
-  Builder extends BasicBuilder<unknown, Model>,
-  Model extends BasicModel<unknown>
->(arg: FormStrategy.View | FormBuilder<T, Builder, Model>) {
+export function useForm<T extends UnknownFieldSetBuilderChildren>(
+  arg: FormStrategy.View | FormBuilder<T>
+) {
   const inner = superUseForm(arg);
   const [state, _dispatch] = useReducer(formReducer, initialState);
   const dispatch = useAsyncSafeDispatch(_dispatch);
+  /**
+   * Sync state in render phase to avoid creating ZentForm unnecessarily.
+   */
+  /* eslint-disable-next-line react-hooks/exhaustive-deps */
   const form = useMemo(() => new ZentForm(inner, state, dispatch), [
-    dispatch,
     inner,
-    state,
+    dispatch,
   ]);
   form.state = state;
   return form;

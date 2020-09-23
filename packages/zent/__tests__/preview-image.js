@@ -22,7 +22,9 @@ describe('previewImage render', () => {
       index: 0,
     });
     expect(document.querySelectorAll('.zent-image-p-anchor').length).toBe(1);
-    expect(document.querySelectorAll('.zent-show-image').length).toBe(1);
+    expect(document.querySelectorAll('.zent-image-p-show-image').length).toBe(
+      1
+    );
 
     Simulate.click(document.querySelector('.zent-image-p-close'));
 

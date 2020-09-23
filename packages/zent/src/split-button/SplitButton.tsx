@@ -40,7 +40,6 @@ export interface ISplitButtonProps<Value> {
     | 'auto-top-left'
     | 'auto-top-right';
   className?: string;
-  prefix?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   onSelect?: (key: string) => void;
 }
@@ -54,7 +53,6 @@ export class SplitButton<Value> extends Component<ISplitButtonProps<Value>> {
     dropdownValue: 'value',
     dropdownText: 'text',
     dropdownPosition: 'auto-bottom-left',
-    prefix: 'zent',
   };
 
   static contextType = DisabledContext;
@@ -85,12 +83,11 @@ export class SplitButton<Value> extends Component<ISplitButtonProps<Value>> {
       dropdownText,
       dropdownPosition,
       className,
-      prefix,
       children,
       onClick,
     } = this.props;
 
-    const classString = cx(`${prefix}-split-button`, className);
+    const classString = cx('zent-split-button', className);
 
     const trigger = capitalize(dropdownTrigger) as keyof typeof Popover.Trigger;
 
@@ -107,7 +104,7 @@ export class SplitButton<Value> extends Component<ISplitButtonProps<Value>> {
     return (
       <div className={classString}>
         <Button
-          className={`${prefix}-split-button__main`}
+          className="zent-split-button__main"
           type={type}
           size={size}
           onClick={onClick}
@@ -116,41 +113,41 @@ export class SplitButton<Value> extends Component<ISplitButtonProps<Value>> {
         >
           {children}
         </Button>
-        <Popover
-          wrapperClassName={cx(`${prefix}-split-button__dropdown-wrapper`)}
-          visible={this.state.isShowDropdown}
-          onVisibleChange={isShow => this.toggleDropdown(isShow)}
-          position={Popover.Position[position] as any}
-          display="inline"
-          cushion={5}
-        >
-          <Trigger>
-            <Button
-              className={cx(`${prefix}-split-button__dropdown`, {
-                [`${prefix}-split-button__dropdown-disabled`]: loading,
-              })}
-              type={type}
-              size={size}
-              disabled={disabled}
-            >
-              <Icon
-                className={`${prefix}-split-button__dropdown-icon`}
-                type="caret-down"
-              />
-            </Button>
-          </Trigger>
-          <Popover.Content>
-            <Menu onClick={this.handleSelect}>
-              {dropdownData.map(item => {
-                return (
-                  <MenuItem key={`${item[dropdownValue]}`}>
-                    {item[dropdownText]}
-                  </MenuItem>
-                );
-              })}
-            </Menu>
-          </Popover.Content>
-        </Popover>
+        <div className="zent-split-button__dropdown-wrapper">
+          <Popover
+            visible={this.state.isShowDropdown}
+            onVisibleChange={isShow => this.toggleDropdown(isShow)}
+            position={Popover.Position[position] as any}
+            cushion={5}
+          >
+            <Trigger>
+              <Button
+                className={cx('zent-split-button__dropdown', {
+                  'zent-split-button__dropdown-disabled': loading,
+                })}
+                type={type}
+                size={size}
+                disabled={disabled}
+              >
+                <Icon
+                  className="zent-split-button__dropdown-icon"
+                  type="caret-down"
+                />
+              </Button>
+            </Trigger>
+            <Popover.Content>
+              <Menu onClick={this.handleSelect}>
+                {dropdownData.map(item => {
+                  return (
+                    <MenuItem key={`${item[dropdownValue]}`}>
+                      {item[dropdownText]}
+                    </MenuItem>
+                  );
+                })}
+              </Menu>
+            </Popover.Content>
+          </Popover>
+        </div>
       </div>
     );
   }

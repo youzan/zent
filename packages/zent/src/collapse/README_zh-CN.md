@@ -26,7 +26,6 @@ group: 展示
 | bordered             | 是否有外边框                             | `bool`              | 否       | `true`      | `false`  |
 | panelTitleBackground | Panel 标题底色                           | `string`            | 否       | `'default'` | `'none'` |
 | className            | 额外类名                                 | `string`            | 否       |             |          |
-| prefix               | 自定义类名前缀                           | `string`            | 否       |             |          |
 
 #### Collpase.Panel
 
@@ -38,4 +37,3 @@ group: 展示
 | showArrow | 是否显示箭头图标 | `bool`   | 否       | `true`  | `false` |
 | style     | 额外样式         | `object` | 否       |         |         |
 | className | 额外类名         | `string` | 否       |         |         |
-| prefix    | 自定义类名前缀   | `string` | 否       |         |         |

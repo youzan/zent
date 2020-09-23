@@ -146,7 +146,7 @@ export class Waypoint extends React.PureComponent<IWaypointProps> {
         return window;
       }
 
-      const style = window.getComputedStyle(node as Element);
+      const style = getComputedStyle(node as Element);
       const overflowDirec = horizontal
         ? style.getPropertyValue('overflow-x')
         : style.getPropertyValue('overflow-y');

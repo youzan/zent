@@ -7,6 +7,16 @@ import Popover from 'popover';
 
 Enzyme.configure({ adapter: new Adapter() });
 
+beforeEach(() => {
+  jest
+    .spyOn(window, 'requestAnimationFrame')
+    .mockImplementation(cb => setTimeout(cb, 0));
+});
+
+afterEach(() => {
+  window.requestAnimationFrame.mockRestore();
+});
+
 /* eslint-disable */
 const PopoverContent = Popover.Content;
 const PopoverClickTrigger = Popover.Trigger.Click;
@@ -63,34 +73,32 @@ describe('Popover', () => {
     expect(wrapper.find('PurePortal').length).toBe(0);
     simulateWithTimers(wrapper.find('button'), 'click');
     expect(wrapper.find('PurePortal').length).toBe(1);
-    expect(document.querySelectorAll('.zent-popover-content div').length).toBe(
-      2
+    expect(document.querySelectorAll('.zent-popover div').length).toBe(2);
+    expect(document.querySelectorAll('.zent-popover div')[1].textContent).toBe(
+      'line two'
     );
-    expect(
-      document.querySelectorAll('.zent-popover-content div')[1].textContent
-    ).toBe('line two');
 
-    // HACK: branch window.resize (throttle)
-    wrapper
-      .find('PopoverContent')
-      .instance()
-      .onWindowResize(
-        {},
-        {
-          deltaX: 0,
-          deltaY: 0,
-        }
-      );
-    wrapper
-      .find('PopoverContent')
-      .instance()
-      .onWindowResize(
-        {},
-        {
-          deltaX: 10,
-          deltaY: 10,
-        }
-      );
+    // // HACK: branch window.resize (throttle)
+    // wrapper
+    //   .find('PopoverContent')
+    //   .instance()
+    //   .onWindowResize(
+    //     {},
+    //     {
+    //       deltaX: 0,
+    //       deltaY: 0,
+    //     }
+    //   );
+    // wrapper
+    //   .find('PopoverContent')
+    //   .instance()
+    //   .onWindowResize(
+    //     {},
+    //     {
+    //       deltaX: 10,
+    //       deltaY: 10,
+    //     }
+    //   );
 
     simulateWithTimers(wrapper.find('button'), 'click');
     expect(wrapper.find('PurePortal').length).toBe(1);
@@ -155,51 +163,45 @@ describe('Popover', () => {
     jest.runAllTimers();
   });
 
-  it('Popover has children validation and position type check', () => {
-    // NOTE: children.length === 2
-    expect(() => {
-      mount(
-        <Popover position={Popover.Position.BottomLeft} display="inline">
-          <span className="foo" />
-        </Popover>
-      );
-    }).toThrow();
+  // it('Popover has children validation and position type check', () => {
+  //   // NOTE: children.length === 2
+  //   expect(() => {
+  //     mount(
+  //       <Popover position={Popover.Position.BottomLeft} display="inline">
+  //         <span className="foo" />
+  //       </Popover>
+  //     );
+  //   }).toThrow();
+  //
+  //   // NOTE: must have one PopoverTrigger
+  //   expect(() => {
+  //     mount(
+  //       <Popover position={Popover.Position.BottomLeft} display="inline">
+  //         <span className="foo" />
+  //         <PopoverContent>
+  //           <div>popover content</div>
+  //           <div>line two</div>
+  //         </PopoverContent>
+  //       </Popover>
+  //     );
+  //   }).toThrow();
+  //
+  //   // NOTE: must have one PopoverContent
+  //   expect(() => {
+  //     mount(
+  //       <Popover position={Popover.Position.BottomLeft} display="inline">
+  //         <PopoverClickTrigger>
+  //           <Button>click me</Button>
+  //         </PopoverClickTrigger>
+  //         <span className="foo" />
+  //       </Popover>
+  //     );
+  //   }).toThrow();
+  // });
 
-    // NOTE: must have one PopoverTrigger
-    expect(() => {
-      mount(
-        <Popover position={Popover.Position.BottomLeft} display="inline">
-          <span className="foo" />
-          <PopoverContent>
-            <div>popover content</div>
-            <div>line two</div>
-          </PopoverContent>
-        </Popover>
-      );
-    }).toThrow();
-
-    // NOTE: must have one PopoverContent
-    expect(() => {
-      mount(
-        <Popover position={Popover.Position.BottomLeft} display="inline">
-          <PopoverClickTrigger>
-            <Button>click me</Button>
-          </PopoverClickTrigger>
-          <span className="foo" />
-        </Popover>
-      );
-    }).toThrow();
-  });
-
-  it('Popover can have custom prefix and custom className and custom placement position', () => {
+  it('Popover can have custom className and custom placement position', () => {
     const wrapper = mount(
-      <Popover
-        position={Popover.Position.BottomLeft}
-        display="inline"
-        prefix="foo"
-        wrapperClassName="foo"
-        className="bar"
-      >
+      <Popover position={Popover.Position.BottomLeft} className="bar">
         <PopoverClickTrigger>
           <Button>click me</Button>
         </PopoverClickTrigger>
@@ -208,21 +210,12 @@ describe('Popover', () => {
         </PopoverContent>
       </Popover>
     );
-    expect(wrapper.find('.foo-popover-wrapper').length).toBe(1);
-    expect(wrapper.find('.foo-popover-wrapper').hasClass('foo')).toBe(true);
     simulateWithTimers(wrapper.find('button'), 'click');
 
     // popover portal still in root tail of body..
     expect(wrapper.find(PopoverClickTrigger).find('button').length).toBe(1);
 
     wrapper.unmount();
-
-    // NOTE: createPlacement method need a function as arg[0] and this function need return object that contains some needed keys.
-    expect(() => {
-      createPlacement(() => {
-        return null;
-      })();
-    }).toThrow();
   });
 
   it('Popover have series of placement position class', () => {
@@ -239,12 +232,15 @@ describe('Popover', () => {
       TopLeft,
       TopCenter,
       TopRight,
+      TopLeftInViewport,
+      BottomLeftInViewport,
       AutoBottomLeft,
       AutoBottomCenter,
       AutoBottomRight,
       AutoTopLeft,
       AutoTopCenter,
       AutoTopRight,
+      AutoBottomLeftInViewport,
     } = Popover.Position;
     const positionArr = [
       BottomLeft,
@@ -259,12 +255,15 @@ describe('Popover', () => {
       TopLeft,
       TopCenter,
       TopRight,
+      TopLeftInViewport,
+      BottomLeftInViewport,
       AutoBottomLeft,
       AutoBottomCenter,
       AutoBottomRight,
       AutoTopLeft,
       AutoTopCenter,
       AutoTopRight,
+      AutoBottomLeftInViewport,
     ];
 
     positionArr.forEach(pos => {
@@ -279,21 +278,8 @@ describe('Popover', () => {
           </PopoverContent>
         </Popover>
       );
-      wrapper
-        .find('PopoverClickTrigger')
-        .instance()
-        .onClickOutside({ target: document.createElement('div') });
-      expect(wrapper.find('PurePortal').length).toBe(0);
-
       simulateWithTimers(wrapper.find('button'), 'click');
       expect(wrapper.find('PurePortal').length).toBe(1);
-
-      wrapper
-        .find('PopoverClickTrigger')
-        .instance()
-        .onClickOutside({ target: document.createElement('div') });
-      wrapper.update();
-      expect(wrapper.find('.first-content').length).toBe(0);
       wrapper.unmount();
     });
   });
@@ -328,44 +314,6 @@ describe('Popover', () => {
     );
     simulateWithTimers(wrapper.find('button'), 'click');
     wrapper.unmount();
-  });
-
-  it('throws if only has visible', () => {
-    expect(() =>
-      mount(
-        <Popover
-          visible
-          position={Popover.Position.BottomLeft}
-          display="inline"
-        >
-          <PopoverClickTrigger>
-            <Button>click me</Button>
-          </PopoverClickTrigger>
-          <PopoverContent>
-            <div>popover content</div>
-            <div>line two</div>
-          </PopoverContent>
-        </Popover>
-      )
-    ).toThrow();
-
-    expect(() =>
-      mount(
-        <Popover
-          onVisibleChange={() => {}}
-          position={Popover.Position.BottomLeft}
-          display="inline"
-        >
-          <PopoverClickTrigger>
-            <Button>click me</Button>
-          </PopoverClickTrigger>
-          <PopoverContent>
-            <div>popover content</div>
-            <div>line two</div>
-          </PopoverContent>
-        </Popover>
-      )
-    ).toThrow();
   });
 
   it('can be controlled by visible & onVisibleChange', () => {
@@ -439,11 +387,11 @@ describe('Popover', () => {
     return p.then(v => {
       expect(v).toBe(2);
       jest.runAllTimers();
-      expect(document.querySelectorAll('.zent-popover-content').length).toBe(1);
+      expect(document.querySelectorAll('.zent-popover').length).toBe(1);
 
       wrapper.unmount();
       dispatchWithTimers(document.body, new MouseEvent('click'));
-      expect(document.querySelectorAll('.zent-popover-content').length).toBe(0);
+      expect(document.querySelectorAll('.zent-popover').length).toBe(0);
     });
   });
 
@@ -468,11 +416,11 @@ describe('Popover', () => {
     );
     wrapper.find('button').simulate('click');
     jest.runAllTimers();
-    expect(document.querySelectorAll('.zent-popover-content').length).toBe(1);
+    expect(document.querySelectorAll('.zent-popover').length).toBe(1);
 
     wrapper.unmount();
     dispatchWithTimers(document.body, new MouseEvent('click'));
-    expect(document.querySelectorAll('.zent-popover-content').length).toBe(0);
+    expect(document.querySelectorAll('.zent-popover').length).toBe(0);
   });
 
   it('hover trigger closes on window blur', () => {
@@ -511,33 +459,8 @@ describe('Popover', () => {
     Object.defineProperty(evt, 'target', descriptor);
 
     dispatchWithTimers(window, fakeEvent);
-    expect(document.querySelectorAll('.zent-popover-content').length).toBe(0);
+    expect(document.querySelectorAll('.zent-popover').length).toBe(0);
     wrapper.unmount();
-  });
-
-  it('Click trigger supports custom isOutside', () => {
-    const wrapper = mount(
-      <Popover position={Popover.Position.BottomLeft} display="inline">
-        <PopoverClickTrigger isOutside={() => false}>
-          <Button>click me</Button>
-        </PopoverClickTrigger>
-        <PopoverContent>
-          <div>popover content</div>
-          <div>line two</div>
-        </PopoverContent>
-      </Popover>
-    );
-    simulateWithTimers(wrapper.find('button'), 'click');
-    expect(wrapper.find('PurePortal').length).toBe(1);
-
-    dispatchWithTimers(document.body, new MouseEvent('click'));
-    expect(document.querySelectorAll('.zent-popover-content').length).toBe(1);
-
-    wrapper.unmount();
-
-    // const popover = document.querySelector('.zent-popover');
-    // popover.parentNode.removeChild(popover);
-    expect(document.querySelectorAll('.zent-popover-content').length).toBe(0);
   });
 
   it('can be nested', () => {
@@ -575,19 +498,19 @@ describe('Popover', () => {
 
     simulateWithTimers(wrapper.find('.trigger-level-1').at(0), 'click');
     wrapper.update();
-    expect(document.querySelectorAll('.zent-popover-content').length).toBe(1);
+    expect(document.querySelectorAll('.zent-popover').length).toBe(1);
 
     simulateRawWithTimers(document.querySelector('.trigger-level-2'), 'click');
     wrapper.update();
-    expect(document.querySelectorAll('.zent-popover-content').length).toBe(2);
+    expect(document.querySelectorAll('.zent-popover').length).toBe(2);
 
     simulateRawWithTimers(document.querySelector('.trigger-level-3'), 'click');
     wrapper.update();
-    expect(document.querySelectorAll('.zent-popover-content').length).toBe(3);
+    expect(document.querySelectorAll('.zent-popover').length).toBe(3);
 
     // dispatchWithTimers(document.body, new MouseEvent('click'));
     // wrapper.update();
-    // expect(document.querySelectorAll('.zent-popover-content').length).toBe(0);
+    // expect(document.querySelectorAll('.zent-popover').length).toBe(0);
 
     wrapper.unmount();
   });
@@ -622,87 +545,76 @@ describe('Popover', () => {
       height: 1,
     };
     let options = {
-      anchorBoundingBoxViewport: anchor,
       cushion: 0,
+      anchorRect: anchor,
+      containerRect: viewport,
+      contentRect: content,
+      relativeRect: viewport,
+      anchor: {},
+      container: {},
+      content: {},
     };
-    let container = viewport;
 
-    expect(
-      AutoBottomLeft.locate(anchor, container, content, options).name
-    ).toBe('position-top-right');
+    expect(AutoBottomLeft(options).className).toBe(
+      'zent-popover-position-top-right'
+    );
 
     anchor.left = 5;
     anchor.right = 6;
-    expect(
-      AutoBottomRight.locate(anchor, container, content, options).name
-    ).toBe('position-top-left');
+    expect(AutoBottomRight(options).className).toBe(
+      'zent-popover-position-top-left'
+    );
 
     anchor.left = 1020;
     anchor.right = 1021;
-    expect(
-      AutoBottomCenter.locate(anchor, container, content, options).name
-    ).toBe('position-top-right');
+    expect(AutoBottomCenter(options).className).toBe(
+      'zent-popover-position-top-right'
+    );
 
     anchor.left = 1;
     anchor.right = 2;
-    expect(
-      AutoBottomCenter.locate(anchor, container, content, options).name
-    ).toBe('position-top-left');
+    expect(AutoBottomCenter(options).className).toBe(
+      'zent-popover-position-top-left'
+    );
 
     anchor.left = 1020;
     anchor.right = 1021;
     anchor.top = 1;
     anchor.bottom = 2;
-    expect(AutoTopLeft.locate(anchor, container, content, options).name).toBe(
-      'position-bottom-right'
+    expect(AutoTopLeft(options).className).toBe(
+      'zent-popover-position-bottom-right'
     );
 
     anchor.left = 5;
     anchor.right = 6;
-    expect(AutoTopRight.locate(anchor, container, content, options).name).toBe(
-      'position-bottom-left'
+    expect(AutoTopRight(options).className).toBe(
+      'zent-popover-position-bottom-left'
     );
 
     anchor.left = 1020;
     anchor.right = 1021;
-    expect(AutoTopCenter.locate(anchor, container, content, options).name).toBe(
-      'position-bottom-right'
+    expect(AutoTopCenter(options).className).toBe(
+      'zent-popover-position-bottom-right'
     );
 
     anchor.left = 1;
     anchor.right = 2;
-    expect(AutoTopCenter.locate(anchor, container, content, options).name).toBe(
-      'position-bottom-left'
+    expect(AutoTopCenter(options).className).toBe(
+      'zent-popover-position-bottom-left'
     );
   });
 
-  it('throws if trigger has no children', () => {
+  it('throws if anchor has no children', () => {
     expect(() =>
       mount(
         <Popover position={Popover.Position.BottomLeft} display="inline">
-          <PopoverClickTrigger />
+          <Popover.Anchor />
           <PopoverContent>
             <div>popover content</div>
           </PopoverContent>
         </Popover>
       )
-    ).toThrow(/Popover trigger requires a child/);
-  });
-
-  it('throws if trigger has more than one chilren', () => {
-    expect(() =>
-      mount(
-        <Popover position={Popover.Position.BottomLeft} display="inline">
-          <PopoverClickTrigger>
-            <span>1</span>
-            <span>2</span>
-          </PopoverClickTrigger>
-          <PopoverContent>
-            <div>popover content</div>
-          </PopoverContent>
-        </Popover>
-      )
-    ).toThrow(/Popover trigger requires only one child/);
+    ).toThrow(/Popover Anchor requires a child/);
   });
 
   it('trigger wraps number/string in a span', () => {
@@ -715,49 +627,7 @@ describe('Popover', () => {
       </Popover>
     );
 
-    expect(
-      wrapper.find('.zent-popover-wrapper span').instance().textContent
-    ).toBe('abc');
-  });
-
-  it("won't close if click within trigger/content", () => {
-    let trigger = new PopoverBaseTrigger({
-      injectIsOutsideSelf() {},
-      getTriggerNode() {
-        return {
-          contains() {
-            return true;
-          },
-        };
-      },
-      getContentNode() {
-        return {
-          contains() {
-            return true;
-          },
-        };
-      },
-    });
-    expect(trigger.isOutsideSelf()).toBe(false);
-
-    trigger = new PopoverBaseTrigger({
-      injectIsOutsideSelf() {},
-      getTriggerNode() {
-        return {
-          contains() {
-            return false;
-          },
-        };
-      },
-      getContentNode() {
-        return {
-          contains() {
-            return true;
-          },
-        };
-      },
-    });
-    expect(trigger.isOutsideSelf()).toBe(false);
+    expect(wrapper.find('span').instance().textContent).toBe('abc');
   });
 
   it('has adjustPosition method', () => {
@@ -771,27 +641,5 @@ describe('Popover', () => {
     );
 
     expect(() => wrapper.instance().adjustPosition()).not.toThrow();
-  });
-
-  it('trigger can customize trigger node', () => {
-    const getNodeForTriggerRefChange = jest.fn();
-    const onRefChange = jest.fn();
-    const wrapper = mount(
-      <Popover position={Popover.Position.BottomLeft} display="inline">
-        <PopoverClickTrigger
-          getNodeForTriggerRefChange={getNodeForTriggerRefChange}
-        >
-          <span ref={onRefChange}>abc</span>
-        </PopoverClickTrigger>
-        <PopoverContent>
-          <div>popover content</div>
-        </PopoverContent>
-      </Popover>
-    );
-
-    expect(getNodeForTriggerRefChange.mock.calls.length).toBe(1);
-    expect(onRefChange.mock.calls.length).toBe(1);
-
-    wrapper.unmount();
   });
 });

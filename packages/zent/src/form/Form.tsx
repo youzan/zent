@@ -18,13 +18,19 @@ import {
   createAsyncValidator,
   isAsyncValidator,
   useFieldValue,
-} from 'formulr';
+} from './formulr';
 import memorize from '../utils/memorize-one';
-import { FormContext, IFormChild, IZentFormContext } from './context';
+import {
+  FormChildrenContext,
+  IFormChild,
+  IZentFormChildrenContext,
+} from './context';
 import { ZentForm, useForm } from './ZentForm';
 import scroll from '../utils/scroll';
 import { CombineErrors } from './CombineErrors';
 import { ValidateOccasion, TouchWhen } from './shared';
+import { Disabled } from '../disabled';
+import getScrollPosition from '../utils/dom/getScollPosition';
 
 export {
   IRenderError,
@@ -36,12 +42,8 @@ export {
   IFormComponentProps,
 } from './shared';
 
-function makeContext(
-  disabled: boolean,
-  children: IFormChild[]
-): IZentFormContext {
+function makeChildrenContext(children: IFormChild[]): IZentFormChildrenContext {
   return {
-    disabled,
     children,
   };
 }
@@ -61,6 +63,7 @@ export interface IFormProps<T extends {}>
    */
   form: ZentForm<T>;
   /**
+   * @deprecated
    * 禁用表单输入，开启后表单内所有元素不可编辑。注意：自定义组件需要自己实现禁用逻辑和展示
    */
   disabled?: boolean;
@@ -83,6 +86,10 @@ export interface IFormProps<T extends {}>
    * 表单提交成功时的回调函数
    */
   onSubmitSuccess?: () => void;
+  /**
+   * 表单重置回调函数，`form.reset` 或者原生的 `DOM` 触发的 `reset` 事件都会触发 `onReset`
+   */
+  onReset?: (e?: React.FormEvent<HTMLFormElement>) => void;
   /**
    * 禁用表单内 `input` 元素的回车提交功能
    */
@@ -114,12 +121,18 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
   readonly formRef = React.createRef<HTMLFormElement>();
 
   private readonly children: IFormChild[] = [];
-  private getContext = memorize(makeContext);
-  private subscription: Subscription | null = null;
+  private getChildrenContext = memorize(makeChildrenContext);
+  private submitSubscription: Subscription | null = null;
+  private resetSubscription: Subscription | null = null;
 
   private onSubmit: React.FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
     this.props.form.submit(e);
+  };
+
+  private onReset: React.FormEventHandler<HTMLFormElement> = e => {
+    e.preventDefault();
+    this.props.form.reset(e);
   };
 
   private onKeyDown: React.KeyboardEventHandler<HTMLFormElement> = e => {
@@ -133,6 +146,12 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
     }
     onKeyDown && onKeyDown(e);
   };
+
+  private reset(e?: React.FormEvent<HTMLFormElement>) {
+    const { form, onReset } = this.props;
+    form.resetValue();
+    onReset?.(e);
+  }
 
   private async submit(e?: React.SyntheticEvent) {
     const {
@@ -175,16 +194,34 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
   }
 
   scrollToFirstError() {
+    let scrollX = Infinity;
+    let scrollY = Infinity;
     for (let i = 0; i < this.children.length; i += 1) {
       const child = this.children[i];
       const el = child.getDOMNode();
-      if (!el) {
+      if (!el || child.valid()) {
         continue;
       }
       const elementBound = el.getBoundingClientRect();
-      const y = elementBound.top + window.pageYOffset;
-      const x = elementBound.left + window.pageXOffset;
-      scroll(document.body, x, y);
+      const y = elementBound.top;
+      const x = elementBound.left;
+
+      /**
+       * Find the position of first field in view
+       *
+       * Example:
+       * Field1  Field2
+       * Field3
+       */
+      if (y < scrollY || (y === scrollY && x < scrollX)) {
+        scrollX = x;
+        scrollY = y;
+      }
+    }
+
+    if (scrollX !== Infinity) {
+      const { x, y } = getScrollPosition();
+      scroll(document.body, scrollX + x, scrollY + y);
     }
   }
 
@@ -192,15 +229,25 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
     this.submit(e);
   };
 
+  private resetListener = (e?: React.FormEvent<HTMLFormElement>) => {
+    this.reset(e);
+  };
+
   private subscribe() {
     const { form } = this.props;
-    this.subscription = form.submit$.subscribe(this.submitListener);
+    this.submitSubscription = form.submit$.subscribe(this.submitListener);
+    this.resetSubscription = form.reset$.subscribe(this.resetListener);
   }
 
   private unsubscribe() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-      this.subscription = null;
+    if (this.submitSubscription) {
+      this.submitSubscription.unsubscribe();
+      this.submitSubscription = null;
+    }
+
+    if (this.resetSubscription) {
+      this.resetSubscription.unsubscribe();
+      this.resetSubscription = null;
     }
   }
 
@@ -226,31 +273,37 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
       className,
       form,
       onSubmit,
+      onSubmitFail,
+      onSubmitSuccess,
+      disableEnterSubmit,
       disabled = false,
       scrollToError,
       ...props
     } = this.props;
-    const ctx = this.getContext(disabled, this.children);
+    const childrenCtx = this.getChildrenContext(this.children);
     return (
-      <FormContext.Provider value={ctx}>
-        <FormProvider value={form.ctx}>
-          <form
-            ref={this.formRef}
-            {...props}
-            className={cx(
-              {
-                'zent-form-vertical': layout === 'vertical',
-                'zent-form-horizontal': layout === 'horizontal',
-              },
-              className
-            )}
-            onSubmit={this.onSubmit}
-            onKeyDown={this.onKeyDown}
-          >
-            {children}
-          </form>
-        </FormProvider>
-      </FormContext.Provider>
+      <Disabled value={disabled}>
+        <FormChildrenContext.Provider value={childrenCtx}>
+          <FormProvider value={form.ctx}>
+            <form
+              ref={this.formRef}
+              {...props}
+              className={cx(
+                {
+                  'zent-form-vertical': layout === 'vertical',
+                  'zent-form-horizontal': layout === 'horizontal',
+                },
+                className
+              )}
+              onSubmit={this.onSubmit}
+              onReset={this.onReset}
+              onKeyDown={this.onKeyDown}
+            >
+              {children}
+            </form>
+          </FormProvider>
+        </FormChildrenContext.Provider>
+      </Disabled>
     );
   }
 }

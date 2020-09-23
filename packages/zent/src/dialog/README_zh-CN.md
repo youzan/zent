@@ -30,7 +30,6 @@ group: 反馈
 | mask         | 是否显示遮罩                        | bool   | `true`   |
 | maskClosable | 点击遮罩是否可以关闭                    | bool   | `true`   |
 | className    | 自定义额外类名                       | string | `''`     |
-| prefix       | 自定义前缀                         | string | `'zent'` |
 | style        | 自定义样式                         | object | `{}`     |
 
 
