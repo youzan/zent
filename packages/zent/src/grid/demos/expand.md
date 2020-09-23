@@ -1,4 +1,4 @@
-<!-- ---
+---
 order: 10
 zh-CN:
 	title: 可展开模式
@@ -97,4 +97,4 @@ ReactDOM.render(
   <RowClass />,
   mountNode
 );
-``` -->
+```

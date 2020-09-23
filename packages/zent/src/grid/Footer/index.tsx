@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Pagination from '../../pagination';
+import { defaultPageInfo } from '../constants';
 import {
   IGridPageInfo,
   GridPaginationType,
@@ -15,11 +16,6 @@ interface IGridFooterProps {
   batchRender: IGridBatchRender;
   onChange: IGridChangeHandler;
 }
-
-const defaultPageInfo = {
-  current: 1,
-  pageSize: 10,
-};
 
 function Footer(props: IGridFooterProps) {
   const { prefix, pageInfo } = props;

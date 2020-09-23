@@ -1,4 +1,4 @@
-<!-- ---
+---
 order: 1
 zh-CN:
 	title: 基础用法
@@ -56,4 +56,4 @@ ReactDOM.render(
 	, mountNode
 );
 
-``` -->
+```

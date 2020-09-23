@@ -1,4 +1,4 @@
-<!-- ---
+---
 order: 5
 zh-CN:
 	title: 排序
@@ -85,4 +85,4 @@ ReactDOM.render(
     <Sort />
   , mountNode
 );
-``` -->
+```

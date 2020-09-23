@@ -1,4 +1,4 @@
-<!-- ---
+---
 order: 6
 zh-CN:
 	title: 合并单元格
@@ -90,4 +90,4 @@ ReactDOM.render(
 	, mountNode
 );
 
-``` -->
+```

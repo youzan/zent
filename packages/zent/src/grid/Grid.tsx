@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useTable, UseRowSelectInstanceProps } from 'react-table';
+import { useTable } from 'react-table';
 import classnames from 'classnames';
 import { WindowScrollHandler } from '../utils/component/WindowScrollHandler';
 import {
@@ -19,7 +19,6 @@ import ColumnGroup from './ColumnGroup';
 import useColumns from './hooks/useColumns';
 import useHeaderGroups from './hooks/useHeaderGroups';
 import { getHooks, getFixedPosition } from './utils';
-// import { defaultPageInfo } from './constants';
 
 const prefix = 'zent';
 
@@ -46,7 +45,6 @@ export function Grid<Data = any>(props: IGridProps) {
   const [, forceUpdate] = React.useState({});
   const [isScrolledToLeft, setScrolledLeft] = React.useState(false);
   const [isScrolledToRight, setScrolledRight] = React.useState(false);
-  // const [ fixedColumns, SetFixedColumns ] = React.useState(new Map());
   const tableRef = React.useRef<HTMLDivElement>();
 
   const mounted = React.useRef(false);
@@ -69,16 +67,14 @@ export function Grid<Data = any>(props: IGridProps) {
 
   const hooks = getHooks(props);
 
-  const instance = useTable<UseRowSelectInstanceProps<any>>(
+  const instance = useTable(
     {
       data: datasets,
       columns,
       initialState: {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-        // @ts-ignore
         pageIndex: pageInfo?.current,
         pageSize: pageInfo?.pageSize,
-        sortBy: [sortBy || ''],
+        sortBy: sortBy ? [{ id: sortBy, desc: sortType === 'desc' }] : [],
         hiddenColumns: columns.filter(column => column.colSpan === 0),
       },
       disableMultiSort: true,
@@ -87,7 +83,7 @@ export function Grid<Data = any>(props: IGridProps) {
       expandSubRows: !expandation?.expandRender,
       useControlledState: state =>
         React.useMemo(() => {
-          const selectedRowIds: string[] = [];
+          const selectedRowIds: Record<string, boolean> = {};
           selection?.selectedRowKeys.forEach(item => {
             selectedRowIds[item] = true;
           });

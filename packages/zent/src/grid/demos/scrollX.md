@@ -1,4 +1,4 @@
-<!-- ---
+---
 order: 7
 zh-CN:
 	title: 水平滚动
@@ -89,4 +89,4 @@ ReactDOM.render(
 	, mountNode
 );
 
-``` -->
+```

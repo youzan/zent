@@ -1,4 +1,4 @@
-<!-- ---
+---
 order: 2
 zh-CN:
 	title: jsx 风格
@@ -55,4 +55,4 @@ ReactDOM.render(
 	, mountNode
 );
 
-``` -->
+```
