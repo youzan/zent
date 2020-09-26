@@ -68,8 +68,8 @@ export interface IGridOnChangeConfig {
 export type IGridChangeHandler = (conf: IGridOnChangeConfig) => void;
 
 export interface IGridSelection<Data = any> {
-  type: 'checkbox' | 'radio';
-  needCrossPage: boolean;
+  type?: 'checkbox' | 'radio';
+  needCrossPage?: boolean;
   selectedRowKeys?: string[];
   onSelect?: (
     selectedkeys: string[],
