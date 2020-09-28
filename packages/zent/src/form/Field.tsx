@@ -38,7 +38,7 @@ function withDefaultOption(option: ValidateOption | null | undefined) {
  * @param model
  * @param initialValue
  */
-export function useInitialValue<T>(model: FieldModel<T>, initialValue: T) {
+export function useInitialValue<T>(model: FieldModel<T>, initialValue?: T) {
   React.useEffect(() => {
     if (initialValue !== undefined) {
       model.initialize(initialValue);
