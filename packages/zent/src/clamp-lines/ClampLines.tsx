@@ -73,8 +73,7 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
   }
 
   componentDidUpdate(prevProps: IClampLinesProps) {
-    const { original } = this.state;
-    if (original && prevProps.text !== original) {
+    if (prevProps.text !== this.state.original) {
       this.clampLines();
     }
   }
