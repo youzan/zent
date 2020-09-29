@@ -1,4 +1,4 @@
-import { useMemo, useEffect } from 'react';
+import { useMemo } from 'react';
 import { IFormContext, useFormContext } from './context';
 import {
   $FieldSetValue,
@@ -29,9 +29,8 @@ function useFieldSetModel<T extends UnknownFieldSetModelChildren>(
   parent: FieldSetModel,
   strategy: FormStrategy
 ) {
-  const { model, effect } = useMemo(() => {
+  const model = useMemo(() => {
     let model: FieldSetModel<T>;
-    let effect: (() => void) | undefined;
     if (typeof field === 'string') {
       if (strategy !== FormStrategy.View) {
         throw UnexpectedFormStrategyError;
@@ -48,8 +47,7 @@ function useFieldSetModel<T extends UnknownFieldSetModelChildren>(
           }
         }
         model.patchedValue = v;
-        effect = () =>
-          parent.registerChild(field, model as BasicModel<unknown>);
+        parent.registerChild(field, model as BasicModel<unknown>);
       } else {
         model = m;
       }
@@ -60,17 +58,15 @@ function useFieldSetModel<T extends UnknownFieldSetModelChildren>(
         model.patchedValue = or(field.patchedValue, () =>
           or(field.initialValue, () => ({}))
         );
-        effect = () => field.setModel(model);
+        field.setModel(model);
       } else {
         model = m;
       }
     } else {
       model = field;
     }
-    return { model, effect };
+    return model;
   }, [field, parent, strategy]);
-
-  useEffect(() => effect?.(), [effect]);
 
   return model;
 }
