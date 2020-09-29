@@ -48,7 +48,9 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
   constructor(props: IClampLinesProps) {
     super(props);
 
-    this.original = props.text;
+    const { text } = props;
+
+    this.original = text;
 
     this.state = {
       noClamp: false,
@@ -79,10 +81,11 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
   }
 
   componentDidMount() {
-    const { text } = this.props;
     this.lineHeight = getLineHeight(this.element.current);
-    if (text) {
+    if (this.props.text) {
       this.clampLines();
+    } else {
+      this.setState({ noClamp: true });
     }
   }
 
