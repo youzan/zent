@@ -4,7 +4,6 @@ import cx from 'classnames';
 import identity from '../utils/identity';
 import Pop from '../pop';
 import { WindowResizeHandler } from '../utils/component/WindowResizeHandler';
-import isBrowser from '../utils/isBrowser';
 import { getLineHeight } from '../utils/dom/getLineHeight';
 
 export interface IClampLinesProps {
@@ -74,18 +73,14 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
   }
 
   componentDidUpdate(prevProps: IClampLinesProps) {
-    const { text } = prevProps;
-    if (text && text !== this.state.original) {
+    if (prevProps.text !== this.state.original) {
       this.clampLines();
     }
   }
 
   componentDidMount() {
-    const { text } = this.props;
-    if (text && isBrowser) {
-      this.lineHeight = getLineHeight(this.element.current);
-      this.clampLines();
-    }
+    this.lineHeight = getLineHeight(this.element.current);
+    this.clampLines();
   }
 
   handleResize = () => {
@@ -179,10 +174,6 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
       trigger,
       renderPop,
     } = this.props;
-
-    if (!text) {
-      return null;
-    }
 
     if (this.state.noClamp) {
       return (
