@@ -167,7 +167,7 @@ export function useFieldValue<T>(field: string | FieldModel<T>): T | null {
 
   React.useEffect(() => {
     if (isModelRef<T, IModel<any>, FieldModel<T>>(model)) {
-      const $ = merge(model.model$)
+      const $ = model.model$
         .pipe(
           observeOn(asapScheduler),
           switchMap<FieldModel<T> | null, Observable<T | null>>(it => {
