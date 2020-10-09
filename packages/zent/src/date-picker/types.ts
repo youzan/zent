@@ -17,6 +17,39 @@ export enum RangeTypeMap {
   START = 'start',
   END = 'end',
 }
+/* ******************************** valueType & onChange ******************************** */
+// prettier-ignore
+interface IValueTypeSingleMap {
+  'string': string;
+  'number': number;
+  'date': Date;
+}
+// prettier-ignore
+interface IValueTypeSingleSpecialMap {
+  'string': [string, string];
+  'number': [number, number];
+  'date': [Date, Date];
+}
+// prettier-ignore
+interface IValueTypeRangeMap {
+  'string': [string | null, string | null];
+  'number': [number | null, number | null];
+  'date': [Date | null, Date | null];
+}
+
+export interface ISingleRelatedType<T extends IValueType> {
+  valueType?: T;
+  onChange: (date: IValueTypeSingleMap[T] | null) => void;
+}
+export interface ISingleSpecialRelatedType<T extends IValueType> {
+  valueType?: T;
+  onChange: (date: IValueTypeSingleSpecialMap[T] | null) => void;
+}
+export interface IRangeRelatedType<T extends IValueType> {
+  valueType?: T;
+  onChange: (date: IValueTypeRangeMap[T] | null) => void;
+}
+/* ******************************** valueType & onChange ******************************** */
 
 export interface IDisabledDateSimple<T = SingleDate> {
   min?: T;
@@ -43,7 +76,6 @@ export interface IDateCellBase {
   isCurrent?: boolean;
   isDisabled?: boolean;
   isInView?: boolean;
-  isHover?: boolean;
   isInRange?: boolean;
   isInHoverRange?: boolean;
 }
@@ -77,10 +109,10 @@ export interface ISingleProps extends ICommonProps<SingleDate> {
   name?: string;
 }
 // 季度、周组件
-export interface ISingleSepcialProps
+export interface ISingleSpecialProps
   extends Omit<ISingleProps, 'value' | 'defaultDate'> {
-  value: [SingleDate, SingleDate];
-  defaultDate?: [SingleDate, SingleDate];
+  value: SingleDate | RangeDate;
+  defaultDate?: SingleDate | RangeDate;
 }
 
 export type ISinglePropsWithDefault = PartialRequired<

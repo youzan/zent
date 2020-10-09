@@ -8,18 +8,27 @@ import { DisabledContext } from '../disabled';
 import { getCallbackValueWithDate } from './utils/getValueInSinglePicker';
 import { dateConfig } from './utils/dateUtils';
 import { formatText } from './utils/formatInputText';
-import { ISingleProps, IGenerateDateConfig } from './types';
+import {
+  ISingleProps,
+  IGenerateDateConfig,
+  IValueType,
+  ISingleRelatedType,
+} from './types';
 import { YEAR_FORMAT, defaultDatePickerCommonProps } from './constants';
 
 const generateDate: IGenerateDateConfig = dateConfig.year;
 const PickerContextProvider = PickerContext.Provider;
 
-export interface IYearPickerProps extends ISingleProps {}
+export interface IYearPickerProps<T extends IValueType = 'string'>
+  extends Omit<ISingleProps, 'valueType' | 'onChange'>,
+    ISingleRelatedType<T> {}
 const DefaultYearPickerProps = {
   format: YEAR_FORMAT,
 };
 
-export const YearPicker: React.FC<IYearPickerProps> = props => {
+export const YearPicker = <T extends IValueType = 'string'>(
+  props: IYearPickerProps<T>
+) => {
   const disabledContext = React.useContext(DisabledContext);
   const propsRequired = {
     ...defaultDatePickerCommonProps,

@@ -13,13 +13,17 @@ import {
   IGenerateDateConfig,
   IShowTime,
   IDisabledTime,
+  IValueType,
+  ISingleRelatedType,
 } from './types';
 import { DATE_FORMAT, defaultDatePickerCommonProps } from './constants';
 
 const generateDate: IGenerateDateConfig = dateConfig.date;
 const PickerContextProvider = PickerContext.Provider;
 
-export interface IDatePickerProps extends ISingleProps {
+export interface IDatePickerProps<T extends IValueType = 'string'>
+  extends Omit<ISingleProps, 'valueType' | 'onChange'>,
+    ISingleRelatedType<T> {
   showTime?: IShowTime;
   disabledTime?: IDisabledTime;
 }
@@ -27,7 +31,9 @@ const defaultDatePickerProps = {
   format: DATE_FORMAT,
 };
 
-export const DatePicker: React.FC<IDatePickerProps> = props => {
+export const DatePicker = <T extends IValueType = 'string'>(
+  props: IDatePickerProps<T>
+) => {
   const disabledContext = React.useContext(DisabledContext);
   const propsRequired = {
     ...defaultDatePickerCommonProps,

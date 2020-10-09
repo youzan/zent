@@ -50,7 +50,7 @@ interface IDisableDateMap {
 | 参数         | 说明                 | 类型                                     | 默认值         | 是否必须 |
 | ------------ | -------------------- | ---------------------------------------- | -------------- | -------- |
 | value        | 选择的日期           | `string` \| `Date` \| `number`           | -              | 是       |
-| onChange     | 选择日期回调函数     | `(date: string \| Date \| number) => {}` | -              | 是       |
+| onChange     | 选择日期回调函数     | `(date: string | Date | number) => {}` | -              | 是       |
 | placeholder  | 输入框提示文字       | `string`                                 | `'请选择日期'` | 否       |
 | format       | 设置字符串日期的格式 | `string`                                 | `'YYYY-MM-DD'` | 否       |
 | hideFooter   | 隐藏面板底部         | `boolean`                                | `false`        | 否       |
@@ -67,8 +67,8 @@ interface IDisableDateMap {
 
 | 参数         | 说明                 | 类型                                            | 默认值                   | 是否必须 |
 | ------------ | -------------------- | ----------------------------------------------- | ------------------------ | -------- |
-| value        | 选择的日期           | `Array<string \| Date \| number>`               | -                        | 是       |
-| onChange     | 选择日期回调函数     | `(date: Array<string \| Date \| number>) => {}` | -                        | 是       |
+| value        | 选择的日期           | `Array<string | Date | number>`               | -                        | 是       |
+| onChange     | 选择日期回调函数     | `(date: Array<string | Date | number>) => {}` | -                        | 是       |
 | placeholder  | 输入框提示文字       | `string`                                        | `'请选择自然周'`         | 否       |
 | weekStartsOn | 一周的开始           | `WeekStartsOnMap`                               | `WeekStartsOnMap.Monday` | 否       |
 | format       | 设置字符串日期的格式 | `string`                                        | `'YYYY-MM-DD'`           | 否       |
@@ -84,7 +84,7 @@ interface IDisableDateMap {
 | 参数        | 说明                 | 类型                                     | 默认值                           | 是否必须 |
 | ----------- | -------------------- | ---------------------------------------- | -------------------------------- | -------- |
 | value       | 选择的日期           | `string` \| `Date` \| `number`           | -                                | 是       |
-| onChange    | 选择日期回调函数     | `(date: string \| Date \| number) => {}` | -                                | 是       |
+| onChange    | 选择日期回调函数     | `(date: string | Date | number) => {}` | -                                | 是       |
 | placeholder | 输入框提示文字       | `string`                                 | `'请选择年份'` \| `'请选择月份'` | 否       |
 | format      | 设置字符串日期的格式 | `string`                                 | `'YYYY'` \| `'YYYY-MM'`          | 否       |
 
@@ -96,8 +96,8 @@ interface IDisableDateMap {
 
 | 参数        | 说明                 | 类型                                            | 默认值         | 是否必须 |
 | ----------- | -------------------- | ----------------------------------------------- | -------------- | -------- |
-| value       | 选择的日期           | `Array<string \| Date \| number>`               | -              | 是       |
-| onChange    | 选择日期回调函数     | `(date: Array<string \| Date \| number>) => {}` | -              | 是       |
+| value       | 选择的日期           | `Array<string | Date | number>`               | -              | 是       |
+| onChange    | 选择日期回调函数     | `(date: Array<string | Date | number>) => {}` | -              | 是       |
 | placeholder | 输入框提示文字       | `string`                                        | `'请选择季度'` | 否       |
 | format      | 设置字符串日期的格式 | `string`                                        | `'YYYY-MM'`    | 否       |
 
@@ -131,8 +131,8 @@ interface IDisabledTimeOption {
 
 | 参数        | 说明             | 类型                                            | 默认值                    | 是否必须 |
 | ----------- | ---------------- | ----------------------------------------------- | ------------------------- | -------- |
-| value       | 选择的日期       | `Array<string \| Date \| number>`               | -                         | 是       |
-| onChange    | 选择日期回调函数 | `(date: Array<string \| Date \| number>) => {}` | -                         | 是       |
+| value       | 选择的日期       | `Array<string | Date | number>`               | -                         | 是       |
+| onChange    | 选择日期回调函数 | `(date: Array<string | Date | number>) => {}` | -                         | 是       |
 | placeholder | 输入框提示文字   | `[string, string]`                              | `['开始日期','结束日期']` | 否       |
 | defaultDate | 默认面板日期     | `[string, string]`                              | -                         | 否       |
 
