@@ -45,11 +45,13 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, ITextAreaProps>(
       onCompositionEndProp
     );
 
+    const textareaRef = ref as React.RefObject<HTMLTextAreaElement>;
+
     React.useLayoutEffect(() => {
       if (!autoSize) {
         return noop;
       }
-      const el = (ref as React.RefObject<HTMLTextAreaElement>).current;
+      const el = textareaRef.current;
       if (!el) {
         return noop;
       }
@@ -57,7 +59,15 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, ITextAreaProps>(
       return () => {
         autosize.destroy(el);
       };
-    }, [autoSize, ref]);
+    }, [autoSize, textareaRef]);
+
+    React.useLayoutEffect(() => {
+      const el = textareaRef.current;
+      if (autoSize && el) {
+        autosize.update(el);
+      }
+    }, [value, autoSize, textareaRef]);
+
     const isOutOfRange =
       !!maxCharacterCount && !!value ? value.length > maxCharacterCount : false;
     return (
