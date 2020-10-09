@@ -8,19 +8,28 @@ import { DisabledContext } from '../disabled';
 import { getCallbackValueRangeWithDate } from './utils/getValueInSinglePicker';
 import { dateConfig } from './utils/dateUtils';
 import { quarterFormatText } from './utils/formatInputText';
-import { ISingleSepcialProps, IGenerateDateConfig } from './types';
+import {
+  ISingleSpecialProps,
+  IGenerateDateConfig,
+  IValueType,
+  ISingleSpecialRelatedType,
+} from './types';
 import { MONTH_FORMAT, defaultDatePickerCommonProps } from './constants';
 
 const generateDate: IGenerateDateConfig = dateConfig.quarter;
 const PickerContextProvider = PickerContext.Provider;
 
-export interface IQuarterPickerProps extends ISingleSepcialProps {}
+export interface IQuarterPickerProps<T extends IValueType = 'string'>
+  extends Omit<ISingleSpecialProps, 'valueType' | 'onChange'>,
+    ISingleSpecialRelatedType<T> {}
 
 const DefaultQuarterPickerProps = {
   format: MONTH_FORMAT,
 };
 
-export const QuarterPicker: React.FC<IQuarterPickerProps> = props => {
+export const QuarterPicker = <T extends IValueType = 'string'>(
+  props: IQuarterPickerProps<T>
+) => {
   const disabledContext = React.useContext(DisabledContext);
   const propsRequired = {
     ...defaultDatePickerCommonProps,

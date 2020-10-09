@@ -13,6 +13,8 @@ import {
   IShowTime,
   DateNullTuple,
   StringTuple,
+  IValueType,
+  IRangeRelatedType,
 } from './types';
 import { formatTextRange } from './utils/formatInputText';
 import {
@@ -25,14 +27,18 @@ import {
 const generateDate: IGenerateDateConfig = dateConfig.date;
 const PickerContextProvider = PickerContext.Provider;
 
-export interface ICombinedDateRangePickerProps extends IRangeProps {
+export interface ICombinedDateRangePickerProps<T extends IValueType = 'string'>
+  extends Omit<IRangeProps, 'valueType' | 'onChange'>,
+    IRangeRelatedType<T> {
   showTime?: IShowTime<StringTuple>;
 }
 const DefaultCombinedDateRangeProps = {
   format: DATE_FORMAT,
 };
 
-export const CombinedDateRangePicker: React.FC<ICombinedDateRangePickerProps> = props => {
+export const CombinedDateRangePicker = <T extends IValueType = 'string'>(
+  props: ICombinedDateRangePickerProps<T>
+) => {
   const disabledContext = React.useContext(DisabledContext);
   const propsRequired = {
     ...defaultDatePickerCommonProps,

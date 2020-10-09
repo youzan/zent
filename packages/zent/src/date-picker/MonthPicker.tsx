@@ -8,19 +8,28 @@ import PickerContext from './context/PickerContext';
 import { getCallbackValueWithDate } from './utils/getValueInSinglePicker';
 import { dateConfig } from './utils/dateUtils';
 import { formatText } from './utils/formatInputText';
-import { ISingleProps, IGenerateDateConfig } from './types';
+import {
+  ISingleProps,
+  IGenerateDateConfig,
+  IValueType,
+  ISingleRelatedType,
+} from './types';
 import { MONTH_FORMAT, defaultDatePickerCommonProps } from './constants';
 
 const generateDate: IGenerateDateConfig = dateConfig.month;
 const PickerContextProvider = PickerContext.Provider;
 
-export interface IMonthPickerProps extends ISingleProps {}
+export interface IMonthPickerProps<T extends IValueType = 'string'>
+  extends Omit<ISingleProps, 'valueType' | 'onChange'>,
+    ISingleRelatedType<T> {}
 
 const DefaultMonthPickerProps = {
   format: MONTH_FORMAT,
 };
 
-export const MonthPicker: React.FC<IMonthPickerProps> = props => {
+export const MonthPicker = <T extends IValueType = 'string'>(
+  props: IMonthPickerProps<T>
+) => {
   const disabledContext = React.useContext(DisabledContext);
   const propsRequired = {
     ...defaultDatePickerCommonProps,

@@ -16,21 +16,28 @@ import {
   IGenerateDateConfig,
   WeekStartsOnMap,
   IWeekOption,
-  ISingleSepcialProps,
+  ISingleSpecialProps,
+  IValueType,
+  ISingleSpecialRelatedType,
 } from './types';
 
 const generateDate: IGenerateDateConfig = dateConfig.week;
 const PickerContextProvider = PickerContext.Provider;
 
 export { WeekStartsOnMap };
-export interface IWeekPickerProps extends IWeekOption, ISingleSepcialProps {}
+export interface IWeekPickerProps<T extends IValueType = 'string'>
+  extends IWeekOption,
+    Omit<ISingleSpecialProps, 'valueType' | 'onChange'>,
+    ISingleSpecialRelatedType<T> {}
 
 const DefaultWeekPickerProps = {
   format: DATE_FORMAT,
   weekStartsOn: WeekStartsOnMap.Monday,
 };
 
-export const WeekPicker: React.FC<IWeekPickerProps> = props => {
+export const WeekPicker = <T extends IValueType = 'string'>(
+  props: IWeekPickerProps<T>
+) => {
   const disabledContext = React.useContext(DisabledContext);
   const propsRequired = {
     ...defaultDatePickerCommonProps,
