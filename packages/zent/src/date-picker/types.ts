@@ -43,7 +43,6 @@ export interface IDateCellBase {
   isCurrent?: boolean;
   isDisabled?: boolean;
   isInView?: boolean;
-  isHover?: boolean;
   isInRange?: boolean;
   isInHoverRange?: boolean;
 }
