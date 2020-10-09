@@ -36,9 +36,7 @@
     "dependency-graph.json"
   ],
   "dependencies": {
-    "@types/autosize": "^3.0.7",
     "@types/sortablejs": "~1.7.2",
-    "autosize": "^4.0.0",
     "big.js": "^5.2.2",
     "classnames": "^2.2.6",
     "date-fns": "^2.7.0",
