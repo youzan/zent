@@ -1,500 +1,783 @@
-/**
- * Select 垃圾代码，需要清理
- */
-
 import * as React from 'react';
 import cx from 'classnames';
-
-import isEqual from '../utils/isEqual';
-import omit from '../utils/omit';
-import noop from '../utils/noop';
 import Popover from '../popover';
-import Option from './components/Option';
-import Trigger from './trigger';
-import Popup from './Popup';
-import SelectTrigger from './trigger/BaseTrigger';
-import InputTrigger from './trigger/InputTrigger';
-import TagsTrigger from './trigger/TagsTrigger';
+import TagList from './TagList';
+import Option from './Option';
+import Search from './Search';
 import { DisabledContext, IDisabledContext } from '../disabled';
+import WindowEventHandler from '../utils/component/WindowEventHandler';
+import Icon from '../icon';
+import { TextMark } from '../text-mark';
+import { BlockLoading } from '../loading/BlockLoading';
+import { Pop } from '../pop';
+import { I18nReceiver as Receiver, II18nLocaleSelect } from '../i18n';
+import memoize from '../utils/memorize-one';
+import uniqueId from '../utils/uniqueId';
 
-const { Content } = Popover;
-
-export interface ISelectItem<T> {
-  value: T;
-  text: string;
-}
-
-export interface ISelectChangeEventTarget<T> {
-  type: 'select-multiple' | 'select-one';
-  value: T;
-}
-
-export interface ISelectChangeEvent<T> {
-  target: ISelectChangeEventTarget<T>;
-  preventDefault(): void;
-  stopPropagation(): void;
-}
-
-export interface ISelectProps {
-  data?: unknown[];
-  tags?: boolean;
-  value?: any;
-  index?: any;
+export interface ISelectItem<Key extends string | number = string | number> {
+  key: Key;
+  text: React.ReactNode;
+  type?: 'header' | 'divider';
   disabled?: boolean;
-  placeholder?: string;
-  searchPlaceholder?: string;
-  emptyText?: string;
-  trigger?: React.ComponentType<any>;
-  optionText?: string;
-  optionValue?: string;
-  onChange?: (event: ISelectChangeEvent<any>, value: any) => void;
-  onDelete?: (date: any) => void;
-  filter?: (item: any, keyword?: string) => boolean;
-  onFilter?: (item: any, keyword?: string) => boolean;
-  maxToShow?: number;
-  onAsyncFilter?: (keyword: string, callback: (data: any) => void) => void;
-  onEmptySelected?: (
-    event: React.SyntheticEvent<HTMLSpanElement>,
-    value?: unknown
-  ) => void;
-  onOpen?: () => void;
-  className?: string;
-  popupClassName?: string;
-  autoWidth?: boolean;
-
-  /* Add a reset option */
-  resetOption?: boolean;
-  resetText?: string;
-
-  /* Retain selected option with null as its value. Valid iff resetOption is false */
-  retainNullOption?: boolean;
-
-  width?: number | string;
-  simple?: boolean;
-  search?: boolean;
 }
 
-export class Select extends React.Component<ISelectProps, any> {
+export interface IOptionRenderer<Item extends ISelectItem> {
+  (item: Item, index: number): React.ReactNode;
+}
+
+export interface ISelectCommonProps<Item extends ISelectItem> {
+  keyword?: string;
+  onKeywordChange?: (keyword: string) => void;
+  options: Item[];
+  isEqual: (a: Item, b: Item) => boolean;
+  placeholder?: string;
+  notFoundContent?: string;
+  inline?: boolean;
+  width: React.CSSProperties['width'];
+  popupWidth?: React.CSSProperties['width'];
+  filter?: ((keyword: string, item: Item) => boolean) | false;
+  highlight?: (keyword: string, item: Item) => Item;
+  disabled?: boolean;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  renderOptionList<Item extends ISelectItem>(
+    options: Item[],
+    renderOption: IOptionRenderer<Item>
+  ): React.ReactNode;
+  renderValue?: (value: Item) => React.ReactNode;
+  renderOptionContent?: (value: Item) => React.ReactNode;
+  clearable?: boolean;
+  loading?: boolean;
+  creatable?: boolean;
+  onCreate?: (text: string) => Promise<void>;
+  isValidNewOption?: (keyword: string, options: Item[]) => boolean;
+  collapsable?: false;
+  collapseAt?: number;
+}
+
+export interface ISelectSingleProps<Item extends ISelectItem>
+  extends ISelectCommonProps<Item> {
+  value?: Item | null;
+  multiple: false;
+  onChange?: (value: Item | null) => void;
+}
+
+export interface ISelectMultiProps<Item extends ISelectItem>
+  extends ISelectCommonProps<Item> {
+  value?: Item[];
+  multiple: true;
+  onChange?: (value: Item[]) => void;
+}
+
+export type ISelectProps<Item extends ISelectItem = ISelectItem> =
+  | ISelectSingleProps<Item>
+  | ISelectMultiProps<Item>;
+
+export interface ISelectState<Item extends ISelectItem> {
+  open: boolean;
+  active: boolean;
+  keyword: string;
+  value: null | Item | Item[];
+  activeIndex: null | number;
+  prevOptions: Item[];
+  creating: boolean;
+}
+
+function defaultIsEqual<Item extends ISelectItem>(a: Item, b: Item) {
+  return a.key === b.key;
+}
+
+function defaultFilter<Item extends ISelectItem>(
+  keyword: string,
+  option: Item
+): boolean {
+  if (typeof option.text !== 'string') {
+    return true;
+  }
+  return option.text.toLowerCase().includes(keyword.toLowerCase());
+}
+
+function defaultRenderOptionList<Item extends ISelectItem>(
+  options: Item[],
+  renderOption: IOptionRenderer<Item>
+) {
+  return options.map(renderOption);
+}
+
+function isSelectable<Item extends ISelectItem>(item: Item) {
+  return !item.disabled && !item.type;
+}
+
+function findNextSelectableOption<Item extends ISelectItem>(
+  options: Item[],
+  start: number
+): number | null {
+  for (let i = start; i < options.length; i += 1) {
+    if (isSelectable(options[i])) {
+      return i;
+    }
+  }
+  return null;
+}
+
+function findPrevSelectableOption<Item extends ISelectItem>(
+  options: Item[],
+  start: number
+) {
+  for (let i = start; i >= 0; i -= 1) {
+    if (isSelectable(options[i])) {
+      return i;
+    }
+  }
+  return null;
+}
+
+function defaultHighlight<Item extends ISelectItem>(
+  keyword: string,
+  option: Item
+): React.ReactNode {
+  if (typeof option.text !== 'string') {
+    return option.text;
+  }
+
+  return (
+    <TextMark
+      searchWords={[keyword]}
+      textToHighlight={option.text}
+      highlightStyle={{ backgroundColor: 'initial', color: '#155bd4' }}
+    />
+  );
+}
+
+const DEFAULT_LOADING = (
+  <div className="zent-select-v2-popup-loading">
+    <BlockLoading
+      loading
+      icon="circle"
+      height={96}
+      iconSize={24}
+      iconText="加载中"
+    />
+  </div>
+);
+
+function defaultIsValidNewOption(
+  keyword: string,
+  options: ISelectItem[]
+): boolean {
+  return options.every(
+    it =>
+      (typeof it.text === 'string' ? it.text.toLowerCase() : it.text) !==
+      keyword.toLowerCase()
+  );
+}
+
+// 允许创建的临时 key
+const SELECT_CREATABLE_KEY = uniqueId('__ZENT_SELECT_CREATABLE_KEY__');
+
+export class Select<
+  Item extends ISelectItem = ISelectItem
+> extends React.Component<ISelectProps<Item>, ISelectState<Item>> {
   static defaultProps = {
-    open: false,
-    optionValue: 'value',
-    optionText: 'text',
-    onChange: noop,
-    onDelete: noop,
-    onEmptySelected: noop,
-    onOpen: noop,
-    autoWidth: false,
-
-    // 重置为默认值
-    resetOption: false,
-    resetText: '...',
-
-    retainNullOption: false,
-
-    // 内部状态标记，默认初始值为 null
-    value: null,
-    index: null,
-    initialValue: null,
-    initialIndex: null,
+    isEqual: defaultIsEqual,
+    renderOptionList: defaultRenderOptionList,
+    width: 240,
+    multiple: false,
+    clearable: false,
+    loading: false,
   };
-
-  static Option = Option;
-  static SelectTrigger = SelectTrigger;
-  static InputTrigger = InputTrigger;
-  static TagsTrigger = TagsTrigger;
 
   static contextType = DisabledContext;
   context!: IDisabledContext;
 
-  popover: Popover | null = null;
-  popup: React.ComponentType<any> | null = null;
-  uniformedData: Array<{
-    cid: string;
-    value: any;
-    text: any;
-  }>;
+  elementRef = React.createRef<HTMLDivElement>();
+  popoverRef = React.createRef<Popover>();
+  inputRef = React.createRef<HTMLInputElement>();
 
-  constructor(props: ISelectProps) {
+  constructor(props: ISelectProps<Item>) {
     super(props);
-
+    let value: null | Item | Item[];
+    if (props.multiple) {
+      value = props.value || [];
+    } else {
+      value = props.value || null;
+    }
     this.state = {
-      selectedItems: [],
-      selectedItem: {
-        value: '',
-        text: '',
-      },
-
-      // popover content 位置就绪可以进行 focus 操作的标记.
-      optionsReady: false,
-      ...props,
-    };
-
-    /**
-     * data支持字符串数组和对象数组两种模式
-     *
-     * 字符串数组默认value为下标
-     * 对象数组需提供value和text, 或者通过 optionValue(prop) optionText(prop) 自定义
-     *
-     */
-    this.uniformedData = this.uniformData(props);
-    Object.assign(this.state, this.findSelected(props));
-  }
-
-  // 等重构再删了吧，改不动
-  // eslint-disable-next-line react/no-deprecated
-  componentWillReceiveProps(nextProps) {
-    this.uniformedData = this.uniformData(nextProps);
-    this.setState(this.findSelected(nextProps));
-  }
-
-  /**
-   * 将使用 child-element 传入的 Options 格式化为对象数组(未严格约束)
-   * data-prop 的优先级高于 child-element
-   *
-   * @param {object} props - props of Select
-   * @returns {object[]} uniformedData - 格式化后对象数组
-   * @returns {string} uniformedData[].cid - internal id of option
-   * @returns {string} uniformedData[].text - text of an option
-   * @returns {any} uniformedData[].value - token of an option
-   * @memberof Select
-   */
-  uniformData(props) {
-    const {
-      data,
-      children,
-      optionValue,
-      optionText,
-      resetOption,
-      resetText,
-    } = props;
-
-    // 在需要时插入重置选项。
-    let uniformedData =
-      resetOption && (data || children)
-        ? [{ cid: '-1', value: null, text: resetText }] // insert reset option
-        : [];
-
-    // data-prop 高优先级, 格式化 optionValue、optionText
-    if (data) {
-      uniformedData = uniformedData.concat(
-        data.map((option, index) => {
-          // 处理字符串数组
-          if (typeof option !== 'object') {
-            return { text: option, value: option, cid: `${index}` };
-          }
-
-          // hacky the quirk when optionText = 'value' and avoid modify props
-          const optCopy = { ...option };
-
-          optCopy.cid = `${index}`;
-          if (optionValue) {
-            optCopy.value = option[optionValue];
-          }
-          if (optionText) {
-            optCopy.text = option[optionText];
-          }
-          return optCopy;
-        })
-      );
-      return uniformedData;
-    }
-
-    // 格式化 child-element
-    if (children) {
-      uniformedData = uniformedData.concat(
-        React.Children.map(children, (item, index) => {
-          let value = item.props.value;
-          value = typeof value === 'undefined' ? item : value;
-          return {
-            ...item.props,
-            value,
-            cid: `${index}`,
-            text: item.props.children,
-          };
-        })
-      );
-    }
-
-    return uniformedData;
-  }
-
-  /**
-   * accept uniformed data to traverse then inject selected option or options to next state
-   *
-   * @param {object[]} data - uniformed data
-   * @param {object} props - props of Select
-   * @memberof Select
-   */
-  findSelected(props, data = this.uniformedData) {
-    // option 数组置空后重置组件状态
-    if (!data || !data.length) {
-      return {
-        selectedItem: {},
-        selectedItems: [],
-      };
-    }
-
-    const { selectedItem, selectedItems } = this.state;
-    const { value, index, initialIndex, initialValue } = props;
-
-    // initialize selected internal state
-    const selected = { sItem: selectedItem, sItems: [] };
-
-    data.forEach((item, i) => {
-      // 处理 quirk 默认选项(initialIndex, initialValue) , 主要用于在非受控组件模式下指定默认值
-      if (
-        selectedItems.length === 0 &&
-        !selectedItem.cid &&
-        (initialValue !== null || initialIndex !== null)
-      ) {
-        const coord = { value: initialValue, index: initialIndex };
-        this.locateSelected(selected, coord, item, i);
-      }
-
-      // 处理受控逻辑(index, value)
-      if (value !== null || index !== null) {
-        this.locateSelected(selected, { value, index }, item, i);
-      }
-    });
-
-    return {
-      selectedItem: selected.sItem,
-      selectedItems: selected.sItems,
+      keyword: props.keyword || '',
+      value,
+      open: false,
+      active: false,
+      activeIndex: null,
+      prevOptions: props.options,
+      creating: false,
     };
   }
 
-  /**
-   * judge if param 'item' selected
-   *
-   * @param {object} state - next state marked selected item or items
-   * @param {object} coord - coordinate for seleted judging
-   * @param {object} item - option object after uniformed
-   * @param {number} i - index of option in options list
-   * @memberof Select
-   * */
-  locateSelected(state, coord, item, i) {
-    const { value, index } = coord;
-
-    if (Array.isArray(value)) {
-      const valueIndex = value.indexOf(item.value);
-      // rerender 去重
-      if (
-        valueIndex > -1 &&
-        !state.sItems.find(
-          selected => selected && selected.value === item.value
-        )
-      ) {
-        state.sItems[valueIndex] = item;
-      } else if (value.length === 0) {
-        // 多选重置
-        state.sItem = {};
-        state.sItems = [];
-      }
-    } else if (typeof value === 'object' && isEqual(value, item.value)) {
-      state.sItem = item;
-    } else if (
-      (typeof value !== 'undefined' &&
-        typeof value !== 'object' &&
-        `${item.value}` === `${value}`) ||
-      (index !== 'undefined' && `${i}` === `${index}`)
-    ) {
-      state.sItem = item;
-    } else if (!value && !index && value !== 0) {
-      // github#406 修复option-value为假值数字0时的异常重置。
-      // 单选重置
-      state.sItem = {};
-      state.sItems = [];
-    }
+  get disabled() {
+    const { disabled = this.context.value } = this.props;
+    return disabled;
   }
 
-  // 接收trigger改变后的数据，将数据传给popup
-  triggerChangeHandler = data => {
-    this.setState(data);
-  };
-
-  triggerDeleteHandler = data => {
-    let { selectedItems } = this.state;
-    selectedItems = selectedItems.filter(item => item.cid !== data.cid);
-    this.setState(
-      {
-        selectedItems,
-      },
-      () => {
-        this.props.onDelete(data);
-      }
-    );
-  };
-
-  // 将被选中的option的数据传给trigger
-  optionChangedHandler = (ev, selectedItem) => {
-    const result = {};
-    ev = ev || {
-      preventDefault: noop,
-      stopPropagation: noop,
-    };
-    const {
-      onEmptySelected,
-      optionValue,
-      optionText,
-      tags,
-      onChange,
-      retainNullOption,
-      resetOption,
-    } = this.props;
-    const { selectedItems } = this.state;
-    if (!selectedItem) {
-      onEmptySelected(ev);
+  onVisibleChange = (open: boolean) => {
+    if (this.disabled) {
       return;
     }
-    const args = omit(selectedItem, ['cid']);
-    result[optionValue] = selectedItem.value;
-    result[optionText] = selectedItem.text;
-    const data = { ...args, ...result };
-    if (tags) {
-      if (!selectedItems.some(item => item.cid === selectedItem.cid)) {
-        selectedItems.push(selectedItem);
-      }
-    } else if (
-      selectedItem.value === null &&
-      (resetOption || !retainNullOption)
-    ) {
-      // customize reset option
-      selectedItem = {};
+    const { onOpenChange } = this.props;
+    if (onOpenChange) {
+      onOpenChange(open);
+    } else {
+      this.setState({
+        open,
+        active: open,
+        activeIndex: null,
+      });
     }
-    this.setState(
-      {
-        keyword: null,
-        selectedItems,
-        selectedItem,
-      },
-      () => {
-        onChange(
-          {
-            target: {
-              ...this.props,
-              type: tags ? 'select-multiple' : 'select-one',
-              value: selectedItem.value,
-            },
 
-            preventDefault() {
-              ev.preventDefault();
-            },
+    // 关闭时清空搜索内容
+    if (open === false) {
+      this.resetKeyword();
+    }
+  };
 
-            stopPropagation() {
-              ev.stopPropagation();
-            },
-          },
-          data
-        );
+  onSelect = (item: Item) => {
+    if (item.disabled || item.type || this.disabled) {
+      return;
+    }
+    if (item.key === SELECT_CREATABLE_KEY) {
+      this.onCreateClick();
+      return;
+    }
+
+    if (this.props.multiple === false) {
+      this.onVisibleChange(false);
+      const { onChange } = this.props;
+      if (onChange) {
+        onChange(item);
+      } else {
+        this.setState({
+          value: item,
+        });
       }
+    } else {
+      const { onChange, isEqual } = this.props;
+      const value = this.state.value as Item[];
+      const valueIndex = value.findIndex(it => isEqual(it, item));
+      this.focusSearchInput();
+      const nextValue =
+        valueIndex >= 0
+          ? value.filter((_it, index) => index !== valueIndex)
+          : value.concat([item]);
+
+      if (onChange) {
+        onChange(nextValue);
+      } else {
+        this.setState({
+          value: nextValue,
+        });
+      }
+    }
+  };
+
+  onKeywordChange: React.ChangeEventHandler<HTMLInputElement> = e => {
+    if (this.disabled) {
+      return;
+    }
+    this.resetKeyword(e.target.value);
+  };
+
+  resetKeyword(keyword = '') {
+    const { onKeywordChange } = this.props;
+    if (onKeywordChange) {
+      onKeywordChange(keyword);
+    } else {
+      this.setState({
+        keyword,
+      });
+    }
+  }
+
+  onRemove = (item: Item) => {
+    if (this.disabled) {
+      return;
+    }
+
+    const { value } = this.state;
+    const { onChange, isEqual } = this.props as ISelectMultiProps<Item>;
+    const nextValue = (value as Item[]).filter(it => !isEqual(item, it));
+    this.focusSearchInput();
+    if (onChange) {
+      onChange(nextValue);
+    } else {
+      this.setState({
+        value: nextValue,
+      });
+    }
+  };
+
+  onOptionMouseEnter = (index: number) => {
+    if (this.disabled) {
+      return;
+    }
+    this.setState({
+      activeIndex: index,
+    });
+  };
+
+  onOptionMouseLeave = (index: number) => {
+    if (this.disabled) {
+      return;
+    }
+    this.setState(state =>
+      state.activeIndex === index
+        ? {
+            activeIndex: null,
+          }
+        : null
     );
   };
 
-  handlePopoverVisibleChange = visible => {
-    if (visible) {
-      this.props.onOpen();
-    } else {
-      this.setState({ optionsReady: false });
+  selectCurrentIndex = () => {
+    if (this.disabled) {
+      return;
     }
-    this.setState({ open: visible });
+    const { activeIndex } = this.state;
+    const { options } = this.props;
+    if (activeIndex !== null) {
+      this.onSelect(options[activeIndex]);
+    }
   };
 
-  render() {
+  renderOption: IOptionRenderer<Item> = (option: Item, index: number) => {
     const {
-      placeholder,
-      maxToShow,
-      className,
-      popupClassName,
-      disabled = this.context.value,
-      emptyText,
-      filter = this.props.onFilter, // TODO: confusing code
-      onAsyncFilter,
-      searchPlaceholder,
-      autoWidth,
-      width,
+      isEqual,
+      multiple,
+      renderOptionContent,
+      highlight = defaultHighlight,
+      filter,
+    } = this.props;
+    const { value, activeIndex, creating } = this.state;
+    const selected =
+      !!value &&
+      (multiple
+        ? (value as Item[]).findIndex(it => isEqual(it, option)) >= 0
+        : isEqual(value as Item, option));
 
-      // Old API about trigger
-      simple,
-      search,
-      tags,
-      trigger,
+    let optionContent: React.ReactNode = null;
+    let loading = false;
+    if (option.key === SELECT_CREATABLE_KEY) {
+      loading = creating;
+      optionContent = (
+        <Receiver componentName="Select">
+          {(i18n: II18nLocaleSelect) => (
+            <span className="zent-select-v2-option-text-highlight">
+              {i18n.create}
+              {option.text}
+            </span>
+          )}
+        </Receiver>
+      );
+    } else if (renderOptionContent) {
+      optionContent = renderOptionContent(option);
+    } else {
+      const keyword = this.state.keyword.trim();
+      optionContent =
+        filter !== false && keyword.length > 0
+          ? highlight(keyword, option)
+          : option.text;
+    }
+
+    return (
+      <Option
+        key={option.key}
+        value={option}
+        selected={selected}
+        active={index === activeIndex}
+        onSelect={this.onSelect}
+        index={index}
+        onMouseEnter={this.onOptionMouseEnter}
+        onMouseLeave={this.onOptionMouseLeave}
+        multiple={multiple}
+        loading={loading}
+      >
+        {optionContent}
+      </Option>
+    );
+  };
+
+  globalClick = (e: MouseEvent) => {
+    if (
+      this.disabled ||
+      this.state.open ||
+      !this.state.active ||
+      !this.elementRef.current ||
+      !this.popoverRef.current
+    ) {
+      return;
+    }
+    if (!this.elementRef.current.contains(e.target as Element)) {
+      this.setState({
+        active: false,
+      });
+    }
+  };
+
+  onIndexChange = (delta: 1 | -1) => {
+    if (this.disabled) {
+      return;
+    }
+    this.setState((state, { options }) => {
+      let nextIndex: number;
+      if (state.activeIndex === null) {
+        if (delta < 0) {
+          nextIndex = options.length - 1;
+        } else {
+          nextIndex = 0;
+        }
+      } else {
+        nextIndex = state.activeIndex + delta;
+      }
+      if (nextIndex >= options.length) {
+        nextIndex = options.length - 1;
+      }
+      if (nextIndex < 0) {
+        nextIndex = 0;
+      }
+      if (!isSelectable(options[nextIndex])) {
+        let enabled: number | null;
+        if (delta > 0) {
+          enabled = findNextSelectableOption(options, nextIndex);
+        } else {
+          enabled = findPrevSelectableOption(options, nextIndex);
+        }
+        if (!enabled) {
+          return null;
+        }
+        nextIndex = enabled;
+      }
+      if (state.activeIndex === nextIndex) {
+        return null;
+      }
+      return {
+        activeIndex: nextIndex,
+      };
+    });
+  };
+
+  static getDerivedStateFromProps<Item extends ISelectItem = ISelectItem>(
+    props: ISelectProps<Item>,
+    state: ISelectState<Item>
+  ): Partial<ISelectState<Item>> | null {
+    const nextState: Partial<ISelectState<Item>> = {
+      prevOptions: props.options,
+    };
+    if (typeof props.keyword === 'string') {
+      nextState.keyword = props.keyword;
+    }
+    if (typeof props.open === 'boolean') {
+      nextState.open = props.open;
+      nextState.active = props.open;
+    }
+    if (props.multiple) {
+      if (Array.isArray(props.value)) {
+        nextState.value = props.value;
+      }
+    } else {
+      if ('value' in props) {
+        nextState.value = props.value;
+      }
+    }
+    if (props.options !== state.prevOptions && state.activeIndex !== null) {
+      if (!props.options.length) {
+        nextState.activeIndex = null;
+      } else {
+        if (state.activeIndex >= props.options.length) {
+          nextState.activeIndex = props.options.length - 1;
+        }
+      }
+    }
+    return nextState;
+  }
+
+  renderValue(i18n: II18nLocaleSelect) {
+    const { placeholder, renderValue, multiple } = this.props;
+    const { open } = this.state;
+
+    if (multiple) {
+      const value = this.state.value as Item[];
+
+      if (value?.length > 0) {
+        return this.renderTagList(value, i18n);
+      }
+
+      if (open) {
+        return null;
+      }
+    } else {
+      if (open) {
+        return null;
+      }
+      const value = this.state.value as Item | null;
+      if (value) {
+        return renderValue ? (
+          renderValue(value)
+        ) : (
+          <span className="zent-select-v2-text">{value.text}</span>
+        );
+      }
+    }
+
+    return <span className="zent-select-v2-placeholder">{placeholder}</span>;
+  }
+
+  renderTagList(value: Item[], i18n: II18nLocaleSelect) {
+    const { renderValue, collapsable, collapseAt = 1 } = this.props;
+    const tagsValue = collapsable ? value.slice(0, collapseAt) : value;
+    const collapsedValue = value.slice(collapseAt);
+
+    return (
+      <>
+        <TagList
+          list={tagsValue}
+          onRemove={this.onRemove}
+          renderValue={renderValue}
+        />
+        {collapsable && collapsedValue.length > 0 && (
+          <Pop
+            trigger="hover"
+            position="auto-top-center"
+            cushion={15}
+            content={
+              <div className="zent-select-v2-tag-collapsed-content">
+                <div>
+                  {collapsedValue.map((item, index) => {
+                    return (
+                      <span key={item.key}>
+                        {renderValue ? renderValue(item) : item.text}
+                        {index !== collapsedValue.length - 1 &&
+                          i18n.tagSeparator}
+                      </span>
+                    );
+                  })}
+                </div>
+              </div>
+            }
+          >
+            <span className="zent-select-v2-tag-collapsed-trigger">
+              +{collapsedValue.length}
+            </span>
+          </Pop>
+        )}
+      </>
+    );
+  }
+
+  getSearchPlaceholder(): string {
+    const { placeholder } = this.props;
+    if (this.props.multiple) {
+      if ((this.state.value as Item[]).length) {
+        return '';
+      }
+      return placeholder;
+    }
+    const value = this.state.value as Item | null;
+    if (!value || typeof value.text !== 'string') {
+      return placeholder;
+    }
+    return value.text;
+  }
+
+  onClear = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const { keyword } = this.state;
+    this.focusSearchInput();
+
+    if (keyword) {
+      this.resetKeyword();
+      return;
+    }
+
+    if (this.props.multiple) {
+      const { onChange } = this.props as ISelectMultiProps<Item>;
+      const value = [];
+      if (onChange) {
+        onChange(value);
+      } else {
+        this.setState({
+          value,
+        });
+      }
+    } else {
+      const { onChange } = this.props as ISelectSingleProps<Item>;
+      const value = null;
+      if (onChange) {
+        onChange(value);
+      } else {
+        this.setState({
+          value,
+        });
+      }
+    }
+  };
+
+  onCreateClick = () => {
+    const { onCreate, multiple } = this.props;
+    const { keyword } = this.state;
+
+    if (onCreate) {
+      this.setState({ creating: true });
+
+      onCreate(keyword.trim())
+        .then(() => {
+          if (multiple) {
+            this.focusSearchInput();
+          } else {
+            this.onVisibleChange(false);
+          }
+          this.resetKeyword();
+        })
+        .finally(() => {
+          this.setState({ creating: false });
+        });
+    }
+  };
+
+  filterOptions = memoize(
+    (
+      creatable: boolean,
+      options: Item[] = [],
+      filter: ((keyword: string, item: Item) => boolean) | false,
+      keyword: string,
+      isValidNewOption: (keyword: string, options: Item[]) => boolean
+    ): Item[] => {
+      const filtered =
+        filter !== false && keyword
+          ? options.filter(it => filter(keyword, it))
+          : options;
+
+      const pendingCreateOption =
+        creatable && keyword && isValidNewOption(keyword, options)
+          ? [
+              {
+                key: SELECT_CREATABLE_KEY,
+                text: keyword,
+              },
+            ]
+          : [];
+
+      return (pendingCreateOption as Item[]).concat(filtered);
+    }
+  );
+
+  focusSearchInput = () => {
+    // 命令式聚焦搜索框
+    this.inputRef?.current?.focus();
+  };
+
+  renderPopoverContent(i18n: II18nLocaleSelect): React.ReactNode {
+    const {
+      notFoundContent,
+      renderOptionList,
+      loading,
+      creatable,
+      options,
+      filter = defaultFilter,
+      isValidNewOption = defaultIsValidNewOption,
+    } = this.props;
+    const keyword = this.state.keyword.trim();
+
+    if (loading) {
+      return DEFAULT_LOADING;
+    }
+
+    const filtered = this.filterOptions(
+      creatable,
+      options,
+      filter,
+      keyword,
+      isValidNewOption
+    );
+    return filtered?.length ? (
+      renderOptionList(filtered, this.renderOption)
+    ) : (
+      <div className="zent-select-v2-popup-empty">
+        {notFoundContent ?? i18n.empty}
+      </div>
+    );
+  }
+
+  render() {
+    const { keyword, open: visible, active, value } = this.state;
+    const {
+      inline,
+      width,
+      clearable,
+      multiple,
+      popupWidth,
+      collapsable,
     } = this.props;
 
-    const {
-      open,
-      selectedItems,
-      selectedItem = {},
-      extraFilter,
-      optionsReady,
-      keyword = null,
-    } = this.state;
+    const notEmpty = multiple
+      ? Array.isArray(value) && value.length > 0
+      : value;
+    const showClear = clearable && !this.disabled && (keyword || notEmpty);
 
-    const { cid = '' } = selectedItem;
-
-    const disabledCls = disabled ? 'zent-select--disabled' : '';
-    const prefixCls = 'zent-select';
     return (
-      <Popover
-        display="inline-block"
-        cushion={4}
-        ref={ref => (this.popover = ref)}
-        position={Popover.Position.AutoBottomLeft}
-        visible={open}
-        className={cx(`${prefixCls}__popover`, popupClassName, {
-          'zent-select-auto-width': autoWidth,
-        })}
-        wrapperClassName={cx(prefixCls, className, disabledCls)}
-        onVisibleChange={this.handlePopoverVisibleChange}
-        width={width}
-        onPositionReady={() => {
-          this.setState({
-            optionsReady: true,
-          });
-        }}
-      >
-        <Trigger
-          visible={open}
-          disabled={disabled}
-          prefixCls={prefixCls}
-          placeholder={placeholder}
-          selectedItems={selectedItems}
-          keyword={keyword}
-          {...selectedItem}
-          trigger={{
-            simple,
-            search,
-            tags,
-            trigger,
-          }}
-          onChange={this.triggerChangeHandler}
-          onDelete={this.triggerDeleteHandler}
+      <>
+        <Receiver componentName="Select">
+          {(i18n: II18nLocaleSelect) => (
+            <Popover
+              ref={this.popoverRef}
+              position={Popover.Position.AutoBottomLeft}
+              visible={visible}
+              onVisibleChange={this.onVisibleChange}
+              className="zent-select-v2-popup"
+              style={{ width: popupWidth ?? width }}
+              cushion={4}
+            >
+              <Popover.Trigger.Click>
+                <div
+                  ref={this.elementRef}
+                  className={cx('zent-select-v2', {
+                    'zent-select-v2-inline': inline,
+                    'zent-select-v2-active': active,
+                    'zent-select-v2-visible': visible,
+                    'zent-select-v2-disabled': this.disabled,
+                    'zent-select-v2-clearable': showClear,
+                    'zent-select-v2-multiple': multiple,
+                    'zent-select-v2-collapsable': collapsable,
+                  })}
+                  style={{ width }}
+                  onClick={this.focusSearchInput}
+                >
+                  {this.renderValue(i18n)}
+                  {showClear && (
+                    <Icon type="close-circle" onClick={this.onClear} />
+                  )}
+                  {visible && (
+                    <Search
+                      placeholder={this.getSearchPlaceholder()}
+                      value={keyword}
+                      autoWidth={multiple}
+                      onChange={this.onKeywordChange}
+                      onIndexChange={this.onIndexChange}
+                      onEnter={this.selectCurrentIndex}
+                      ref={this.inputRef}
+                    />
+                  )}
+                </div>
+              </Popover.Trigger.Click>
+              <Popover.Content>
+                {this.renderPopoverContent(i18n)}
+              </Popover.Content>
+            </Popover>
+          )}
+        </Receiver>
+        <WindowEventHandler
+          eventName="click"
+          listener={this.globalClick}
+          options={{ capture: true }}
         />
-        <Content>
-          <Popup
-            ref={ref => (this.popup = ref)}
-            cid={cid}
-            prefixCls={prefixCls}
-            data={this.uniformedData}
-            ready={optionsReady}
-            selectedItems={selectedItems}
-            extraFilter={extraFilter}
-            searchPlaceholder={searchPlaceholder}
-            emptyText={emptyText}
-            keyword={keyword}
-            filter={filter}
-            onAsyncFilter={onAsyncFilter}
-            maxToShow={maxToShow}
-            onChange={this.optionChangedHandler}
-            // WTF
-            // onFocus={this.popupFocusHandler}
-            // onBlur={this.popupBlurHandler}
-            autoWidth={autoWidth}
-            adjustPosition={
-              this.popover && this.popover.adjustPosition.bind(this.popover)
-            }
-          />
-        </Content>
-      </Popover>
+      </>
     );
   }
 }

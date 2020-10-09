@@ -20,6 +20,5 @@ Represent a person or a thing, supports icons, images or character.
 | bordered  | Show border | `bool` | No | `false` | `true` | 
 | style  | Custom styles | `object` | No | | |
 | className    | Custom class name      |  `string`    | NO |           |         |
-| prefix | Custom class name prefix  | `string` | No | | |
 
 **WARNING**：`icon`, `src` and `children` are mutual exclusive，using more than one at the same time is undefined behavior.

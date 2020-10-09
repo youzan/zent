@@ -25,26 +25,11 @@ describe('Menu component', () => {
     );
   });
 
-  it('can have prefix', () => {
-    let wrapper = mount(
-      <Menu prefix="hello">
-        <MenuItem key="1-1" prefix="food">
-          食品分类
-        </MenuItem>
-      </Menu>
-    );
-
-    expect(wrapper.find('.hello-menu').length).toBe(1);
-    expect(wrapper.find('.food-menu-item').length).toBe(1);
-  });
-
   it('can have onClick handler', () => {
     const onClick = jest.fn();
     let wrapper = mount(
-      <Menu prefix="hello" onClick={onClick}>
-        <MenuItem key="1-1" prefix="food">
-          食品分类
-        </MenuItem>
+      <Menu onClick={onClick}>
+        <MenuItem key="1-1">食品分类</MenuItem>
       </Menu>
     );
     wrapper.find('MenuItem').simulate('click');
@@ -54,10 +39,8 @@ describe('Menu component', () => {
   it('can have submenu', () => {
     const onClick = jest.fn();
     let wrapper = mount(
-      <Menu prefix="hello" onClick={onClick}>
-        <MenuItem key="1-1" prefix="food">
-          食品分类
-        </MenuItem>
+      <Menu onClick={onClick}>
+        <MenuItem key="1-1">食品分类</MenuItem>
         <SubMenu title="美妆分类" className="submenu">
           {null}
           <MenuItem key="3-1">眼影</MenuItem>

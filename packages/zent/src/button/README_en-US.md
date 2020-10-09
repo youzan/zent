@@ -36,7 +36,6 @@ Button. Basic style and basic status are provided.
 | download         | HTML5 download                                                                                       |        |             |
 | className        | custom class name                                                                                    | string |             |                                      |
 | style            | custom style                                                                                         | object |             |                                      |
-| prefix           | custom prefix                                                                                        | string | `'zent'`    |                                      |
 
 #### ButtonDirective
 

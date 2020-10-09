@@ -11,7 +11,6 @@ export interface IPlaceholderRichTextBlock {
   style?: React.CSSProperties;
   rows?: number;
   shape?: string;
-  prefix?: string;
   size?: number;
   animate?: boolean;
   dashed?: boolean;
@@ -26,7 +25,6 @@ export default class RichTextBlock extends PureComponent<
   static defaultProps = {
     style: {},
     className: '',
-    prefix: 'zent',
     shape: 'circle',
     animate: true,
     dashed: true,
@@ -39,7 +37,6 @@ export default class RichTextBlock extends PureComponent<
       style,
       rows,
       shape,
-      prefix,
       size,
       animate,
       dashed,
@@ -47,7 +44,7 @@ export default class RichTextBlock extends PureComponent<
       dashSegments,
       lineSpacing,
     } = this.props;
-    const classes = cx(`${prefix}-placeholder-richtext-block`, className);
+    const classes = cx('zent-placeholder-richtext-block', className);
     const shapeStyle = { marginRight: 10 };
 
     return (

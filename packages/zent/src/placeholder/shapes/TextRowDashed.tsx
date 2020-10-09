@@ -6,7 +6,6 @@ import { DEFAULT_SEGMENTS } from './consts';
 
 export interface IPlaceholderTextRowDashedProps {
   className?: string;
-  prefix?: string;
   style?: React.CSSProperties;
   lineSpacing?: number | string;
   animate?: boolean;
@@ -24,7 +23,6 @@ export default class TextRowDashed extends PureComponent<
   static defaultProps = {
     lineSpacing: '0.7em',
     animate: true,
-    prefix: 'zent',
   };
 
   constructor(props) {
@@ -36,20 +34,13 @@ export default class TextRowDashed extends PureComponent<
   }
 
   render() {
-    const {
-      className,
-      lineSpacing,
-      animate,
-      segments,
-      style,
-      prefix,
-    } = this.props;
+    const { className, lineSpacing, animate, segments, style } = this.props;
     const defaultStyles = {
       marginTop: lineSpacing,
     };
-    const classes = cx(`${prefix}-placeholder-text-row-dashed`, className);
-    const segmengtClasses = cx(`${prefix}-placeholder-shape`, {
-      [`${prefix}-placeholder-shape--animate`]: animate,
+    const classes = cx('zent-placeholder-text-row-dashed', className);
+    const segmengtClasses = cx('zent-placeholder-shape', {
+      'zent-placeholder-shape--animate': animate,
     });
     const rawSegments = Array.isArray(segments)
       ? segments
@@ -60,7 +51,7 @@ export default class TextRowDashed extends PureComponent<
         {rawSegments.map((seg, i) => (
           <div
             key={i}
-            className={`${prefix}-placeholder-text-row-dashed-segment`}
+            className="zent-placeholder-text-row-dashed-segment"
             style={{ width: `${seg}%`, paddingLeft: i === 0 ? 0 : '0.3em' }}
           >
             <div className={segmengtClasses} />

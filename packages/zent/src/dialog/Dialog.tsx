@@ -31,7 +31,6 @@ export interface IDialogProps {
   mask?: boolean;
   maskClosable?: boolean;
   className?: string;
-  prefix?: string;
   style?: React.CSSProperties;
   onOpened?: () => void;
   onClosed?: () => void;
@@ -44,7 +43,6 @@ export interface IDialogState {
 
 export class Dialog extends Component<IDialogProps, IDialogState> {
   static defaultProps = {
-    prefix: 'zent',
     onClose() {},
     visible: false,
     className: '',
@@ -104,7 +102,6 @@ export class Dialog extends Component<IDialogProps, IDialogState> {
   render() {
     const {
       visible,
-      prefix,
       closeBtn,
       style,
       onOpened,
@@ -132,12 +129,11 @@ export class Dialog extends Component<IDialogProps, IDialogState> {
       <Portal
         visible={visible || exiting}
         onClose={this.onClose}
-        className={`${prefix}-dialog-r-anchor`}
+        className="zent-dialog-r-anchor"
         closeOnESC={closeBtn}
         blockPageScroll
       >
         <DialogElWrapper
-          prefix={prefix}
           mask={mask}
           maskClosable={maskClosable}
           visible={visible}
@@ -149,13 +145,12 @@ export class Dialog extends Component<IDialogProps, IDialogState> {
             unmountOnExit
             in={visible}
             timeout={TIMEOUT}
-            classNames={`${prefix}-zoom`}
+            classNames="zent-zoom"
             onEntered={onOpened}
             onExited={this.onExited}
           >
             <DialogInnerEl
               {...props}
-              prefix={prefix}
               style={elStyle}
               closeBtn={closeBtn}
               mousePosition={this.lastMousePosition}

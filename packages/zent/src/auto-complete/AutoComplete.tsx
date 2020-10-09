@@ -51,6 +51,7 @@ export interface IAutoCompleteProps<Value> {
   contentField: string;
   textField: string;
   disabled?: boolean;
+  inline?: boolean;
 }
 
 export interface IAutoCompleteState {
@@ -64,12 +65,12 @@ export class AutoComplete<Value> extends Component<
   IAutoCompleteState
 > {
   static defaultProps = {
-    prefix: 'zent',
     filterOption: caselessMatchFilterOption,
     valueFromOptions: false,
     valueField: 'value',
     contentField: 'content',
     textField: 'text',
+    width: 160,
   };
 
   static contextType = DisabledContext;
@@ -358,6 +359,7 @@ export class AutoComplete<Value> extends Component<
       className,
       popupClassName,
       disabled = this.context.value,
+      inline,
     } = this.props;
     const { open, searchText } = this.state;
     const items = this.getTransformedItemConfigsFromProps();
@@ -368,18 +370,15 @@ export class AutoComplete<Value> extends Component<
 
     return (
       <Popover
-        display="inline-block"
         position={Popover.Position.AutoBottomLeft}
         visible={open}
         className={cn(prefixCls, popupClassName)}
-        wrapperClassName={cn(prefixCls, className, { disabled })}
         onVisibleChange={this.togglePopoverOpen}
-        width={width}
         cushion={4}
       >
         <Popover.Trigger.Click>
           <Input
-            className={cn({
+            className={cn('zent-auto-complete', className, {
               active: open,
             })}
             value={(open ? searchText : displayValue) || ''}
@@ -388,6 +387,8 @@ export class AutoComplete<Value> extends Component<
             onKeyDown={this.onSearchKeyDown}
             onBlur={this.onSearchBlur}
             disabled={disabled}
+            width={width}
+            inline={inline}
           />
         </Popover.Trigger.Click>
         <Popover.Content>

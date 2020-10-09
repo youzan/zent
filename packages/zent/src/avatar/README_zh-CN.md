@@ -21,6 +21,5 @@ group: 展示
 | bordered  | 是否显示边框 | `bool` | 否 | `false` | `true` | 
 | style   | 自定义样式  | `object` | 否 | | |
 | className    | 自定义类名     |  `string`    |  否 |           |             |
-| prefix | 自定义类前缀  | `string` | 否 | | |
 
 **注意**：`icon`, `src` 以及 `children` 是三选一互斥的，同时传入多个的行为未定义，请不要这样用。

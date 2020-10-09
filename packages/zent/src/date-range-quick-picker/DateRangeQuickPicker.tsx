@@ -5,18 +5,18 @@ import cx from 'classnames';
 import formatDate from '../utils/date/formatDate';
 import { getValidDate } from '../utils/date/helpers';
 import isEqual from '../utils/isEqual';
-import { DatePickers } from '../datetimepicker/common/types';
-import DateRangePicker from '../datetimepicker/DateRangePicker';
+import { DateRangePicker } from '../date-picker';
 import { I18nReceiver as Receiver } from '../i18n';
+import { SingleDate, RangeDate } from '../date-picker';
 
 const ONE_DAY = 1000 * 60 * 60 * 24;
 
 export type DateRangeQuickPickerValueType = 'string' | 'number' | 'date';
 
-export type DateRangeQuickPickerPresetValue = number | DatePickers.RangeValue;
+export type DateRangeQuickPickerPresetValue = number | RangeDate;
 
 export type DateRangeQuickPickerChangeCallback = (
-  value: DatePickers.RangeValue,
+  value: RangeDate,
   choosePresetValue?: DateRangeQuickPickerPresetValue
 ) => void;
 
@@ -27,7 +27,7 @@ export interface IDateRangeQuickPickerPreset {
 
 export interface IDateRangeQuickPickerProps {
   onChange: DateRangeQuickPickerChangeCallback;
-  value: DatePickers.RangeValue;
+  value: RangeDate;
   valueType?: DateRangeQuickPickerValueType;
   format: string;
   /**
@@ -37,8 +37,8 @@ export interface IDateRangeQuickPickerProps {
   chosenDays?: DateRangeQuickPickerPresetValue;
   preset?: IDateRangeQuickPickerPreset[];
   defaultSelectedPresetIndex?: number;
-  min?: DatePickers.Value;
-  max?: DatePickers.Value;
+  min?: SingleDate;
+  max?: SingleDate;
   className?: string;
 }
 
@@ -46,7 +46,6 @@ export class DateRangeQuickPicker extends Component<
   IDateRangeQuickPickerProps
 > {
   static defaultProps = {
-    prefix: 'zent',
     className: '',
     value: [],
     valueType: 'string',
@@ -80,7 +79,7 @@ export class DateRangeQuickPicker extends Component<
     }
   }
 
-  handleTimeChange = (value: DatePickers.RangeValue) => {
+  handleTimeChange = (value: RangeDate) => {
     const { onChange } = this.props;
     onChange(value, NaN);
   };
@@ -140,9 +139,9 @@ function calculateTime(
   format: string,
   chosenItem: DateRangeQuickPickerPresetValue,
   valueType: DateRangeQuickPickerValueType
-): DatePickers.RangeValue {
-  let startTime: DatePickers.Value;
-  let endTime: DatePickers.Value;
+): RangeDate {
+  let startTime: SingleDate;
+  let endTime: SingleDate;
 
   const today = getToday();
   const tomorrow = today + ONE_DAY;

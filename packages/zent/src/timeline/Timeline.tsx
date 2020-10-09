@@ -33,13 +33,11 @@ export interface ITimelineProps {
   timeline?: ITimelineArrayItem[];
   type?: 'vertical' | 'horizontal';
   className?: string;
-  prefix?: string;
   style?: React.CSSProperties;
 }
 
 export class Timeline extends PureComponent<ITimelineProps> {
   static defaultProps = {
-    prefix: 'zent',
     type: 'horizontal',
     size: '100%',
     style: {},
@@ -69,7 +67,7 @@ export class Timeline extends PureComponent<ITimelineProps> {
   }
 
   render() {
-    const { size, prefix, type, className } = this.props;
+    const { size, type, className } = this.props;
     const key = type === 'horizontal' ? 'width' : 'height';
     const style = {
       ...this.props.style,
@@ -79,10 +77,10 @@ export class Timeline extends PureComponent<ITimelineProps> {
     return (
       <ul
         className={cx(
-          `${prefix}-timeline`,
-          `${prefix}-timeline-${type}`,
+          'zent-timeline',
+          `zent-timeline-${type}`,
           {
-            [`${prefix}-timeline-dynamic`]: Boolean(size),
+            'zent-timeline-dynamic': Boolean(size),
           },
           className
         )}

@@ -12,7 +12,6 @@ export interface ISubMenuProps {
   disabled?: boolean;
   overlayClassName?: string;
   className?: string;
-  prefix?: string;
   isInline?: boolean;
   onClick?: (e: React.MouseEvent, index: string) => void;
   specKey?: string;
@@ -32,7 +31,6 @@ export interface ISubMenuState {
 export default class SubMenu extends CommonMenu<ISubMenuProps, ISubMenuState> {
   static defaultProps = {
     className: '',
-    prefix: 'zent',
   };
 
   leaveTimer: number;
@@ -115,7 +113,6 @@ export default class SubMenu extends CommonMenu<ISubMenuProps, ISubMenuState> {
 
   renderContent() {
     const {
-      prefix,
       children,
       specKey,
       overlayClassName,
@@ -127,7 +124,6 @@ export default class SubMenu extends CommonMenu<ISubMenuProps, ISubMenuState> {
     if (!isInline) {
       return (
         <SubPopupMenu
-          prefix={prefix}
           visible={this.state.subMenuVisible}
           onClick={this.handleClick}
           specKey={specKey}
@@ -141,7 +137,7 @@ export default class SubMenu extends CommonMenu<ISubMenuProps, ISubMenuState> {
 
     return (
       <AnimateHeight duration={200} height={isExpand ? 'auto' : 0}>
-        <ul className={`${prefix}-menu__inner`}>
+        <ul className="zent-menu__inner">
           {React.Children.map(children, this.renderInlineChild)}
         </ul>
       </AnimateHeight>
@@ -150,7 +146,6 @@ export default class SubMenu extends CommonMenu<ISubMenuProps, ISubMenuState> {
 
   render() {
     const {
-      prefix,
       className,
       disabled,
       title,
@@ -166,20 +161,20 @@ export default class SubMenu extends CommonMenu<ISubMenuProps, ISubMenuState> {
     const styleObj = getExtraStyle({ isInline, depth, inlineIndent });
 
     const cls = cx(className, {
-      [`${prefix}-menu-item`]: !isInline,
-      [`${prefix}-menu-item-disabled`]: disabled,
-      [`${prefix}-submenu`]: !isInline,
-      [`${prefix}-menu__inline-submenu`]: isInline,
-      [`${prefix}-menu__inline-item-disabled`]: disabled && isInline,
+      'zent-menu-item': !isInline,
+      'zent-menu-item-disabled': disabled,
+      'zent-submenu': !isInline,
+      'zent-menu__inline-submenu': isInline,
+      'zent-menu__inline-item-disabled': disabled && isInline,
     });
 
     return (
       <li className={cls} {...eventHanders}>
         <div
           className={cx({
-            [`${prefix}-submenu-title`]: !isInline,
-            [`${prefix}-menu__inline-submenu-title`]: isInline,
-            [`${prefix}-submenu-disabled`]: disabled,
+            'zent-submenu-title': !isInline,
+            'zent-menu__inline-submenu-title': isInline,
+            'zent-submenu-disabled': disabled,
           })}
           style={styleObj}
           onClick={this.titleClickHandler}
@@ -187,9 +182,8 @@ export default class SubMenu extends CommonMenu<ISubMenuProps, ISubMenuState> {
           {title}
           {!disabled && (
             <Icon
-              className={cx(`${prefix}-submenu-title-operate-icon`, {
-                [`${prefix}-menu__inline-submenu-icon--expand`]:
-                  isInline && isExpand,
+              className={cx('zent-submenu-title-operate-icon', {
+                'zent-menu__inline-submenu-icon--expand': isInline && isExpand,
               })}
               type="right"
             />

@@ -27,7 +27,6 @@ group: 导航
 | loading         | 表格是否处于 loading 状态                                     | bool                                                                       | `false`            | 否       |
 | className       | 自定义额外类名                                                | string                                                                     | `''`               | 否       |
 | rowClassName    | 表格行的类名                                                  | string \| (data: object, rowIndex: number) => string                       | ''                 | 否       |
-| prefix          | 自定义前缀                                                    | string                                                                     | `'zent'`           | 否       |
 | pageInfo        | table 对应的分页信息                                          | object                                                                     | null               | 否       |
 | paginationType  | 分页器类型，可选 `'lite'` \| `'mini'`                                    | string                                                                     | `'default'`        | 否       |
 | onRowClick      | 点击行时触发                                                  | (data: any, index: number, event: Event) => any                            |                    | 否       |

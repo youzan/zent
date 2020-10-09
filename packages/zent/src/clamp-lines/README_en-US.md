@@ -20,4 +20,3 @@ group: Data Display
 | resizable | If the container is resizable | `boolean` | `false` |  |
 | extra     | Custom extra node，such as `More` | `ReactElement` | `null` |  |
 | className  | Custom calssname | `string` | `''` |  |
-| prefix     | Custom prefix | `string` | `zent` |  |

@@ -44,6 +44,7 @@ module.exports = {
     'consistent-return': 0,
     'no-unused-expressions': 0,
     'prefer-template': 1,
+    'no-nested-ternary': 'error',
     'no-plusplus': 0,
     'no-multi-assign': 0,
     'no-useless-escape': 0,

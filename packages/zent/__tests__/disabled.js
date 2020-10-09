@@ -34,7 +34,7 @@ it('disabled children', () => {
           <Radio.Button value="C">C</Radio.Button>
         </Radio.Group>
         <Rate />
-        <Select />
+        <Select options={[]} />
         <Slider value={0} />
         <Switch />
         <SplitButton>SplitButton</SplitButton>
@@ -53,7 +53,9 @@ it('disabled children', () => {
       div
     );
     expect(
-      document.querySelectorAll('#root > .zent-auto-complete.disabled').length
+      document.querySelectorAll(
+        '#root > .zent-auto-complete.zent-input-wrapper__not-editable'
+      ).length
     ).toBe(1);
     expect(
       document.querySelectorAll('#root > .zent-btn-disabled.zent-btn').length
@@ -62,7 +64,7 @@ it('disabled children', () => {
       document.querySelectorAll(
         '#root > .zent-input-wrapper.zent-input-wrapper__not-editable'
       ).length
-    ).toBe(3);
+    ).toBe(4);
     expect(
       document.querySelectorAll(
         '#root > .zent-checkbox-wrap.zent-checkbox-disabled'
@@ -82,7 +84,7 @@ it('disabled children', () => {
       document.querySelectorAll('#root > .zent-rate.zent-rate-disabled').length
     ).toBe(1);
     expect(
-      document.querySelectorAll('#root > .zent-select--disabled').length
+      document.querySelectorAll('#root > .zent-select-v2-disabled').length
     ).toBe(1);
     expect(
       document.querySelectorAll('#root > .zent-slider.zent-slider-disabled')
@@ -129,7 +131,7 @@ it('self props has a higher priority', () => {
           <Radio.Button value="C">C</Radio.Button>
         </Radio.Group>
         <Rate disabled={false} />
-        <Select disabled={false} />
+        <Select options={[]} disabled={false} />
         <Slider disabled={false} value={0} />
         <Switch disabled={false} />
         <SplitButton disabled={false}>SplitButton</SplitButton>
@@ -177,7 +179,7 @@ it('self props has a higher priority', () => {
       document.querySelectorAll('#root > .zent-rate.zent-rate-disabled').length
     ).toBe(0);
     expect(
-      document.querySelectorAll('#root > .zent-select.disabled').length
+      document.querySelectorAll('#root > .zent-select-v2.disabled').length
     ).toBe(0);
     expect(
       document.querySelectorAll('#root > .zent-slider.zent-slider-disabled')

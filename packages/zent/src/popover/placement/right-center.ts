@@ -1,5 +1,5 @@
-import createPlacement from './create';
-import { PositionFunctionImpl } from '../position-function';
+import { IPositionFunction } from '../position-function';
+import { prefix } from './prefix';
 
 /**
  * ----------------------
@@ -8,30 +8,23 @@ import { PositionFunctionImpl } from '../position-function';
  * |                    |---------
  * |--------------------|
  */
-const locate: PositionFunctionImpl = (
-  anchorBoundingBox,
-  containerBoundingBox,
-  contentDimension,
-  options
-) => {
-  const { right, top, bottom } = anchorBoundingBox;
-  const x = right + options.cushion;
+export const RightCenter: IPositionFunction = ({
+  contentRect,
+  relativeRect,
+  cushion,
+}) => {
+  const { right, top, bottom } = relativeRect;
+  const x = right + cushion;
   const middle = (top + bottom) / 2;
-  const y = middle - contentDimension.height / 2;
+  const y = middle - contentRect.height / 2;
 
   return {
-    getCSSStyle() {
-      return {
-        position: 'absolute',
-        left: `${Math.round(x)}px`,
-        top: `${Math.round(y)}px`,
-      };
+    style: {
+      position: 'absolute',
+      left: x,
+      top: y,
     },
 
-    name: 'position-right-center',
+    className: prefix('position-right-center'),
   };
 };
-
-const RightCenter = createPlacement(locate);
-
-export default RightCenter;

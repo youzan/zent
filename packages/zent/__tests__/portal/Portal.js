@@ -93,18 +93,6 @@ describe('Portal', () => {
     unmountPortal(wrapper);
   });
 
-  xit('should support custom prefix', () => {
-    const wrapper = mount(
-      <Portal prefix="custom-prefix">
-        <div className="portal-child" />
-      </Portal>
-    );
-    const container = document.body.querySelector('.custom-prefix-portal');
-    expect(container).toBeTruthy();
-    expect(container.querySelector('.portal-child')).toBeTruthy();
-    unmountPortal(wrapper);
-  });
-
   it('should re-mount when `selector` changes', () => {
     const { wrapper, container } = mountPortal();
 
@@ -133,18 +121,6 @@ describe('Portal', () => {
 
     jest.runOnlyPendingTimers();
     expect(container.querySelector('.zent-portal.new-className')).toBeTruthy();
-    unmountPortal(wrapper);
-    removeContainer(container);
-  });
-
-  it('should only update container attributes when `prefix` changes', () => {
-    const { wrapper, container } = mountPortal();
-    wrapper.setProps({
-      prefix: 'new-prefix',
-    });
-
-    jest.runOnlyPendingTimers();
-    expect(container.querySelector('.new-prefix-portal')).toBeTruthy();
     unmountPortal(wrapper);
     removeContainer(container);
   });

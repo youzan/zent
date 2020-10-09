@@ -51,6 +51,8 @@ export interface II18nLocaleRangePicker {
 export interface II18nLocaleSelect {
   input: string;
   empty: string;
+  tagSeparator: string;
+  create: string;
 }
 
 export interface II18nLocaleSwitch {
@@ -66,13 +68,12 @@ export interface II18nLocaleGrid extends II18nLocaleCommon {
   emptyLabel: string;
 }
 
-export interface II18nLocaleTable extends II18nLocaleCommon {
-  emptyLabel: string;
-}
-
 export interface II18nLocaleCascader extends II18nLocaleCommon {
   title: React.ReactNode;
   placeholder: string;
+  searchPlaceholder: string;
+  searchEmpty: string;
+  empty: string;
 }
 
 export interface II18nLocaleTimePicker extends II18nLocaleCommon {
@@ -83,7 +84,8 @@ export interface II18nLocaleTimePicker extends II18nLocaleCommon {
   quarter: string;
   year: string;
   range: string;
-  rangeError: string;
+  timeErrorPop: string;
+  dateErrorPop: string;
   start: string;
   end: string;
   startTime: string;
@@ -100,12 +102,13 @@ export interface II18nLocaleTimePicker extends II18nLocaleCommon {
     hour: string;
     minute: string;
     second: string;
+    year: string;
     hourSelect: string;
     minuteSelect: string;
     secondSelect: string;
     titleFormat: string;
     quarterNames: string[];
-    yearQuarterName(options: { year: string; quarter: string }): string;
+    yearQuarterName(options: { year: number; quarter: number }): string;
     dayNames: string[];
     monthNames: string[];
   };
@@ -125,4 +128,11 @@ export interface II18nLocaleUpload extends II18nLocaleCommon {
 
 export interface II18nLocaleMention {
   noContent: string;
+}
+
+export interface II18nLocaleTransfer {
+  placeholder: string;
+  item: string;
+  items: string;
+  emptyLabel: string;
 }

@@ -1,5 +1,5 @@
-import createPlacement from './create';
-import { PositionFunctionImpl } from '../position-function';
+import { IPositionFunction } from '../position-function';
+import { prefix } from './prefix';
 
 /**
  * ---------
@@ -9,29 +9,22 @@ import { PositionFunctionImpl } from '../position-function';
  * |              |
  * ----------------
  */
-const locate: PositionFunctionImpl = (
-  anchorBoundingBox,
-  containerBoundingBox,
-  contentDimension,
-  options
-) => {
-  const { left, top } = anchorBoundingBox;
+export const TopLeft: IPositionFunction = ({
+  contentRect,
+  relativeRect,
+  cushion,
+}) => {
+  const { left, top } = relativeRect;
   const x = left;
-  const y = top - contentDimension.height - options.cushion;
+  const y = top - contentRect.height - cushion;
 
   return {
-    getCSSStyle() {
-      return {
-        position: 'absolute',
-        left: `${Math.round(x)}px`,
-        top: `${Math.round(y)}px`,
-      };
+    style: {
+      position: 'absolute',
+      left: x,
+      top: y,
     },
 
-    name: 'position-top-left',
+    className: prefix('position-top-left'),
   };
 };
-
-const TopLeft = createPlacement(locate);
-
-export default TopLeft;

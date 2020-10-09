@@ -57,6 +57,12 @@ module.exports = {
                 "DocLoadable({ loader: () => import('../../packages/zent/RELEASE_zh-CN.md') })",
             },
             {
+              title: '9.0.0 迁移指南',
+              path: 'guides/changelog-v9',
+              source:
+                "DocLoadable({ loader: () => import('../../packages/zent/RELEASE_v9.md') })",
+            },
+            {
               title: '7.0.0 迁移指南',
               path: 'guides/changelog-v7',
               source:

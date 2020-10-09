@@ -41,9 +41,8 @@ group: 反馈
 | onPositionUpdated | 位置更新时的回调，不保证调用这个函数时位置一定变化 | func | 否 | `noop` | |
 | onPositionReady | 位置进入窗口时的回调，生命周期内只调用一次 | func | 否 | `noop` | |
 | containerSelector | 弹层的父节点CSS selector | string | 否 | `'body'` | 所有合法的CSS selector | |
-| className | 自定义类名 | string | 否 | `''` |  |
-| wrapperClassName | 自定义trigger包裹节点的类名 | string | 否 | `''` |  |
-| prefix | 自定义前缀 | string | 否 | `'zent'` |  |
+| className | 弹层自定义类名 | string | 否 |  |  |
+| style | 弹层自定义样式 | `CSSProperties` | 否 |  |  |
 
 根据 `trigger` 值的不同, `Pop` 提供了一些额外的控制参数.
 
@@ -52,7 +51,6 @@ group: 反馈
 | 参数 | 说明 | 类型 | 是否必须 | 默认值 |
 |------|------|------|--------|-------|
 | closeOnClickOutside | 点击弹层和trigger节点外部时自动关闭 | bool | 否 | `true` |
-| isOutside | 用来判断点击目标是否在外面的可选函数 | func | 否 | |
 
 #### Hover
 
@@ -60,8 +58,7 @@ group: 反馈
 |------|------|------|--------|-------|
 | mouseEnterDelay | hover打开的延迟（单位：毫秒） | number | 否 | `200` |
 | mouseLeaveDelay | 关闭的的延迟（单位：毫秒） | number | 否 | `200` |
-| isOutside | 用来判断点击目标是否在外面的可选函数 | func | 否 | |
-| quirk | 开启 Popover 的 quirk 模式，该模式下判断关闭条件时不需要先从内部移动出去 | bool | 否 | `true` |
+| anchorOnly | 仅考虑 Trigger 作为触发区域 | boolean | 否 | `false` |
 
 #### None
 

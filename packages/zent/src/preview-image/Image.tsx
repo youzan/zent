@@ -11,7 +11,6 @@ const TRANSITION_DURATION = 500; // ms
 
 export interface IPreviewImageProps {
   className: string;
-  prefix: string;
   showRotateBtn: boolean;
   images: any[];
   index: number;
@@ -29,7 +28,6 @@ export default class Image extends Component<IPreviewImageProps, any> {
 
   static defaultProps = {
     className: '',
-    prefix: 'zent',
     showRotateBtn: true,
     images: [],
     index: 0,
@@ -133,31 +131,28 @@ export default class Image extends Component<IPreviewImageProps, any> {
   };
 
   render() {
-    const { images, prefix, showRotateBtn, className } = this.props;
+    const { images, showRotateBtn, className } = this.props;
     const { scaleTag, imageIndex, imageStyle } = this.state;
-    const imageClassName = cx(`${prefix}-show-image`, {
-      'image-is-zooming': scaleTag,
+    const imageClassName = cx('zent-image-p-show-image', {
+      'zent-image-p-is-zooming': scaleTag,
     });
 
     return (
       <Portal
         visible
         onClose={this.onClose}
-        className={cx(`${prefix}-image-p-anchor`, className)}
+        className={cx('zent-image-p-anchor', className)}
         closeOnESC
         blockPageScroll
       >
-        <div className={`${prefix}-image-p-backdrop`}>
-          <div className={`${prefix}-image-p-wrap`}>
-            <div className={`${prefix}-image-p-close`} onClick={this.onClose}>
+        <div className="zent-image-p-backdrop">
+          <div className="zent-image-p-wrap">
+            <div className="zent-image-p-close" onClick={this.onClose}>
               <Icon type="close" />
             </div>
             <Receiver componentName="PreviewImage">
               {(i18n: II18nLocalePreviewImage) => (
-                <div
-                  className={`${prefix}-image-p-body`}
-                  onClick={this.onMaskClick}
-                >
+                <div className="zent-image-p-body" onClick={this.onMaskClick}>
                   {images.map((image, index) => {
                     if (index === imageIndex) {
                       return (
@@ -179,18 +174,18 @@ export default class Image extends Component<IPreviewImageProps, any> {
             <Receiver componentName="PreviewImage">
               {(i18n: II18nLocalePreviewImage) => {
                 const needPager = images.length > 1;
-                const footerCxs = cx(`${prefix}-image-p-footer`, {
-                  'show-rotate-btn': showRotateBtn,
-                  'image-p-footer-paging': needPager,
+                const footerCxs = cx('zent-image-p-footer', {
+                  'zent-image-p-show-rotate-btn': showRotateBtn,
+                  'zent-image-p-footer-paging': needPager,
                 });
-                const rotateCxs = cx(`${prefix}-image-p-action`, {
-                  'rotate-action': !needPager,
+                const rotateCxs = cx('zent-image-p-action', {
+                  'zent-image-p-rotate-action': !needPager,
                 });
                 return (
                   <div className={footerCxs}>
                     {needPager && (
                       <span
-                        className={`${prefix}-image-p-action`}
+                        className="zent-image-p-action"
                         onClick={this.handlePreviousAction}
                       >
                         {i18n.prev}
@@ -210,7 +205,7 @@ export default class Image extends Component<IPreviewImageProps, any> {
                     )}
                     {needPager && (
                       <span
-                        className={`${prefix}-image-p-action`}
+                        className="zent-image-p-action"
                         onClick={this.handleNextAction}
                       >
                         {i18n.next}

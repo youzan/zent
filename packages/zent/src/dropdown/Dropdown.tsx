@@ -11,10 +11,8 @@ export interface IDropdownProps extends IPopoverProps {}
 
 export const Dropdown: React.FC<IDropdownProps> = ({
   cushion = 4,
-  display = 'inline',
   visible = false,
   onVisibleChange,
-  wrapperClassName,
   className,
   ...rest
 }) => {
@@ -35,10 +33,8 @@ export const Dropdown: React.FC<IDropdownProps> = ({
   return (
     <DropdownContext.Provider value={vis}>
       <Popover
-        wrapperClassName={cx(wrapperClassName, 'zent-dropdown-wrapper')}
         className={cx(className, 'zent-dropdown')}
         cushion={cushion}
-        display={display}
         visible={vis}
         onVisibleChange={onVisChange}
         {...rest}
