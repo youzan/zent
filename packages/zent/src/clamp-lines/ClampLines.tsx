@@ -75,17 +75,21 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
   }
 
   componentDidUpdate(prevProps: IClampLinesProps) {
-    if (prevProps.text !== this.state.original) {
+    const { original } = this.state;
+
+    if (!this.lineHeight && original) {
+      this.lineHeight = getLineHeight(this.element.current);
+    }
+
+    if (prevProps.text !== original) {
       this.clampLines();
     }
   }
 
   componentDidMount() {
-    this.lineHeight = getLineHeight(this.element.current);
     if (this.props.text) {
+      this.lineHeight = getLineHeight(this.element.current);
       this.clampLines();
-    } else {
-      this.setState({ noClamp: true });
     }
   }
 
@@ -180,6 +184,10 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
       trigger,
       renderPop,
     } = this.props;
+
+    if (!text) {
+      return null;
+    }
 
     if (this.state.noClamp) {
       return (
