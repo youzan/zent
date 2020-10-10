@@ -43,14 +43,8 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
   lineHeight = 0;
   maxHeight = 0;
 
-  original: string;
-
   constructor(props: IClampLinesProps) {
     super(props);
-
-    const { text } = props;
-
-    this.original = text;
 
     this.state = {
       noClamp: false,
