@@ -71,7 +71,7 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
   componentDidUpdate(prevProps: IClampLinesProps) {
     const { original } = this.state;
 
-    if (!this.lineHeight) {
+    if (!this.lineHeight && this.element.current) {
       this.lineHeight = getLineHeight(this.element.current);
     }
 
@@ -81,7 +81,7 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
   }
 
   componentDidMount() {
-    if (this.props.text) {
+    if (this.element.current) {
       this.lineHeight = getLineHeight(this.element.current);
       this.clampLines();
     }
