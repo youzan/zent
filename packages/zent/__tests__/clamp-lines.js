@@ -53,12 +53,12 @@ describe('ClampLines', () => {
       <ClampLines delay={0} lines={2} popWidth={400} resizable text="" />
     );
     const instance = wrapper.find(ClampLines).instance();
-    instance.element.current = {
-      clientHeight: 20,
-    };
-    instance.innerElement.current = {
-      textContent: '',
-    };
+    const element = document.createElement('div');
+    element.style.height = '20px';
+    instance.element.current = element;
+    const innerElement = document.createElement('div');
+    innerElement.textContent = '';
+    instance.innerElement.current = innerElement;
     const spy = jest.spyOn(instance, 'clampLines');
     instance.handleResize();
     jest.runOnlyPendingTimers();
