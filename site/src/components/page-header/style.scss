@@ -81,7 +81,7 @@
 
     &__i18n-switcher {
       top: 18px;
-      right: 85px;
+      right: 84px;
       color: #455a64;
       padding: 0 7px;
       font-size: 14px;
@@ -99,6 +99,13 @@
         color: $link-color;
         border-color: $link-color;
       }
+    }
+
+    &__version-select.zent-select-v2 {
+      position: absolute;
+      top: 50%;
+      right: 135px;
+      transform: translateY(-50%);
     }
   }
 }
