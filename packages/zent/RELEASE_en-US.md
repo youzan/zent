@@ -8,6 +8,16 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 8.5.9(2020-10-12)
+
+- `Form`
+  - 🦀️ Fix cannot assign value to `FormModel.prototype.owner`
+  - 🦀️ Optimize async subscribe logic in `value-listener`
+  - 🦀️ Optimize TypeScript definitions
+- 🦀️ Fix incorrect handleing of `disabled` in `Button`
+- 🦀️ Fix runtime error in `Portal` when used in SSR mode
+- 🦀️ Fix `ClampLines` render issues when text is empty
+
 ### 8.5.8(2020-09-11)
 
 - 🦀️ Adjust space between succesive `Button`s

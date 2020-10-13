@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { merge, of, Observable, NEVER } from 'rxjs';
-import { filter, switchMap } from 'rxjs/operators';
+import { of, Observable, NEVER, asapScheduler, merge } from 'rxjs';
+import { filter, switchMap, observeOn } from 'rxjs/operators';
 import { useFormContext, FormContext, IFormContext } from './context';
 import { useValue$ } from './hooks';
 import {
@@ -46,8 +46,20 @@ function useModelFromContext<Model>(
     }
     const m = parent.get(name);
     check(m) && setModel(m);
+
+    /**
+     * Because `FieldSetModel.prototype.registerChild` will be
+     * called inside `useMemo`, consume at next micro task queue
+     * to avoid react warning below.
+     *
+     * Cannot update a component from inside the function body
+     * of a different component.
+     */
     const $ = merge(parent.childRegister$, parent.childRemove$)
-      .pipe(filter(change => change === name))
+      .pipe(
+        observeOn(asapScheduler),
+        filter(change => change === name)
+      )
       .subscribe(name => {
         const candidate = parent.get(name);
         if (check(candidate)) {
@@ -110,7 +122,10 @@ export function useFieldValue<T>(field: string | FieldModel<T>): T | null {
   >(
     isFieldModel<T>(field) || isModelRef<T, any, FieldModel<T>>(field)
       ? field
-      : null
+      : () => {
+          const m = ctx.parent.get(field);
+          return isFieldModel<T>(m) ? m : null;
+        }
   );
   React.useEffect(() => {
     if (typeof field !== 'string') {
@@ -121,8 +136,20 @@ export function useFieldValue<T>(field: string | FieldModel<T>): T | null {
     if (isFieldModel<T>(m)) {
       setModel(m);
     }
+
+    /**
+     * Because `FieldSetModel.prototype.registerChild` will be
+     * called inside `useMemo`, consume at next micro task queue
+     * to avoid react warning below.
+     *
+     * Cannot update a component from inside the function body
+     * of a different component.
+     */
     const $ = merge(ctx.parent.childRegister$, ctx.parent.childRemove$)
-      .pipe(filter(change => change === field))
+      .pipe(
+        observeOn(asapScheduler),
+        filter(change => change === field)
+      )
       .subscribe(name => {
         const candidate = ctx.parent.get(name);
         if (isFieldModel<T>(candidate)) {
@@ -142,6 +169,7 @@ export function useFieldValue<T>(field: string | FieldModel<T>): T | null {
     if (isModelRef<T, IModel<any>, FieldModel<T>>(model)) {
       const $ = model.model$
         .pipe(
+          observeOn(asapScheduler),
           switchMap<FieldModel<T> | null, Observable<T | null>>(it => {
             if (isFieldModel<T>(it)) {
               return it.value$;

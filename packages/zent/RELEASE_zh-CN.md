@@ -8,6 +8,16 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 8.5.9(2020-10-12)
+
+- `Form`
+  - 🦀️ 修复 `FormModel.prototype.owner` 不能赋值的问题
+  - 🦀️ 优化了 `value-listener` 中异步订阅的逻辑
+  - 🦀️ 类型定义优化
+- 🦀️ 修复 `Button` 部分场景下 `disabled` 处理逻辑不对的问题
+- 🦀️ 修复 `Portal` 在 SSR 场景下的报错
+- 🦀️ 修复 `ClampLines` 在文本为空时可能出现的渲染问题
+
 ### 8.5.8(2020-09-11)
 
 - 🦀️ 调整 `Button` 之间的间距
