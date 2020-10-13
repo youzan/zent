@@ -53,6 +53,7 @@ export interface ISelectCommonProps<Item extends ISelectItem> {
   isValidNewOption?: (keyword: string, options: Item[]) => boolean;
   collapsable?: false;
   collapseAt?: number;
+  className?: string;
 }
 
 export interface ISelectSingleProps<Item extends ISelectItem>
@@ -714,6 +715,7 @@ export class Select<
       multiple,
       popupWidth,
       collapsable,
+      className,
     } = this.props;
 
     const notEmpty = multiple
@@ -737,7 +739,7 @@ export class Select<
               <Popover.Trigger.Click>
                 <div
                   ref={this.elementRef}
-                  className={cx('zent-select-v2', {
+                  className={cx('zent-select-v2', className, {
                     'zent-select-v2-inline': inline,
                     'zent-select-v2-active': active,
                     'zent-select-v2-visible': visible,
