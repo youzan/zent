@@ -152,6 +152,6 @@ export class CombineErrors extends React.Component<
     if (error === null) {
       return null;
     }
-    return <FormError>{error.message}</FormError>;
+    return <FormError>{error?.message}</FormError>;
   }
 }

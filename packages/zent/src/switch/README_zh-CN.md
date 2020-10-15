@@ -23,5 +23,4 @@ group: 数据
 | disabled  | 状态控制                                    | bool                | `false`     | `true`    |
 | size      | 开关大小                                    | string              | `'default'` | `'small'` |
 | className | 自定义额外类名                              | string              | `''`        |           |
-| prefix    | 自定义前缀                                  | string              | `'zent'`    |           |
 | loading   | 加载中状态                                  | bool                | `false`     | `true`    |

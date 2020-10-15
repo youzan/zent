@@ -15,7 +15,7 @@ export interface IModel<Value> {
   initialize(value: Value): void;
   error: IMaybeError<Value>;
   owner: IModel<any> | null;
-  form: FormModel<any> | null | undefined;
+  form: FormModel | null | undefined;
   dispose(): void;
   validators: IValidators<Value>;
 }

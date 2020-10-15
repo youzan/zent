@@ -38,16 +38,18 @@ group: 数据
 | onChange           | change 事件回调函数，`e.fromClearButton` 为 `true` 说明事件来自清空按钮 | func(e:Event)    |            |                                        | 否       |
 | onPressEnter       | 回车事件                                                                | func(e:Event)    |            |                                        | 否       |
 | icon               | 图标                                                                    | string           |            |                                        | 否       |
+| onIconClick        | 图标点击事件                                                            | func(e:Event)    |            |                                        | 否       |
 
 _除了以上属性外，所有 react 支持的 input 属性，Input 组件都支持_
 
 #### textarea
 
-| 参数      | 说明     | 类型   | 默认值 | 备选值 | 是否必填 |
-| --------- | -------- | ------ | ------ | ------ | -------- |
-| maxLength | 最大长度 | number |        |        | 否       |
-| showCount | 显示计数 | bool   | false  |        | 否       |
-| autoSize  | 自动高度 | bool   | false  |        | 否       |
+| 参数              | 说明         | 类型   | 默认值 | 备选值 | 是否必填 |
+| ----------------- | ------------ | ------ | ------ | ------ | -------- |
+| maxLength         | 最大长度     | number |        |        | 否       |
+| showCount         | 显示计数     | bool   | false  |        | 否       |
+| autoSize          | 自动高度     | bool   | false  |        | 否       |
+| maxCharacterCount | 校验最大长度 | number |        |        | 否       |
 
 #### focus
 

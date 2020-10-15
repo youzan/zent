@@ -1,4 +1,4 @@
-import { useMemo, useEffect } from 'react';
+import { useMemo } from 'react';
 import {
   FieldModel,
   BasicModel,
@@ -29,9 +29,8 @@ function useModelAndChildProps<Value>(
   defaultValue: Value | (() => Value),
   form: FormModel
 ) {
-  const { model, effect } = useMemo(() => {
+  const model = useMemo(() => {
     let model: FieldModel<Value>;
-    let effect: (() => void) | undefined;
     if (typeof field === 'string') {
       if (strategy !== FormStrategy.View) {
         throw UnexpectedFormStrategyError;
@@ -43,8 +42,7 @@ function useModelAndChildProps<Value>(
           isValueFactory(defaultValue) ? defaultValue : () => defaultValue
         );
         model = new FieldModel<Value>(v);
-        effect = () =>
-          parent.registerChild(field, model as BasicModel<unknown>);
+        parent.registerChild(field, model as BasicModel<unknown>);
       } else {
         model = m;
       }
@@ -58,18 +56,16 @@ function useModelAndChildProps<Value>(
           )
         );
         model = new FieldModel<Value>(v);
-        effect = () => field.setModel(model);
+        field.setModel(model);
       } else {
         model = m;
       }
     } else {
       model = field;
     }
-    return { model, effect };
+    return model;
     /** ignore defaultValue */
   }, [field, parent, strategy, form]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  useEffect(() => effect?.(), [effect]);
 
   return model;
 }
@@ -90,9 +86,11 @@ export function useField<Value>(
 /**
  * 创建一个 `Field`
  *
- * @param field `Field` 对应的 model 对象，用于关联 `Field` 和 model；当 `FormStrategy` 是 `Model` 的时候才能用
+ * @param field `Field` 对应的 model 对象，用于关联 `Field` 和 model；当 `FormStrategy` 是 `Model` 或渲染 `FieldArray` 的时候才能使用
  */
-export function useField<Value>(field: FieldModel<Value>): FieldModel<Value>;
+export function useField<Value>(
+  field: FieldModel<Value> | ModelRef<Value, any, FieldModel<Value>>
+): FieldModel<Value>;
 
 export function useField<Value>(
   field: FieldModel<Value> | ModelRef<Value, any, FieldModel<Value>> | string,

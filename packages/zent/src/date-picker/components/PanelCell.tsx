@@ -10,7 +10,6 @@ const getCellClassName = ({
   isCurrent,
   isSelected,
   isDisabled,
-  isHover,
   isInRange,
   isInHoverRange,
 }: Omit<IDateCellBase, 'value' | 'text'>) => {
@@ -20,7 +19,8 @@ const getCellClassName = ({
     [`${prefixCls}_available`]: !isSelected && !isDisabled,
     [`${prefixCls}_current`]: isInView && isCurrent,
     [`${prefixCls}_selected`]: isInView && isSelected,
-    [`${prefixCls}_in_range`]: !isDisabled && (isInRange || isInHoverRange),
+    [`${prefixCls}_in_range`]:
+      !isDisabled && isInView && (isInRange || isInHoverRange),
   });
 };
 

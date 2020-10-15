@@ -12,12 +12,12 @@ $rgbamaskbgcolor: rgba(black, 0.6);
   box-sizing: border-box;
   z-index: 1;
 
-  .zent-show-image {
+  .zent-image-p-show-image {
     max-width: 90vw;
     max-height: 90vh;
     cursor: zoom-in;
 
-    &.image-is-zooming {
+    &.zent-image-p-is-zooming {
       cursor: zoom-out;
     }
   }
@@ -62,15 +62,15 @@ $rgbamaskbgcolor: rgba(black, 0.6);
   z-index: 2;
   font-size: $font-size-large;
 
-  &.image-p-footer-paging {
+  &.zent-image-p-footer-paging {
     min-width: 216px;
 
-    &.show-rotate-btn {
+    &.zent-image-p-show-rotate-btn {
       min-width: 308px;
     }
   }
 
-  &.show-rotate-btn {
+  &.zent-image-p-show-rotate-btn {
     min-width: 92px;
   }
 
@@ -95,7 +95,7 @@ $rgbamaskbgcolor: rgba(black, 0.6);
       border-radius: 0 40px 40px 0;
     }
 
-    &.rotate-action {
+    &.zent-image-p-rotate-action {
       border-radius: 40px;
     }
   }

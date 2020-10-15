@@ -1,40 +1,39 @@
 import * as React from 'react';
 import { Component } from 'react';
+import cx from 'classnames';
 
 export interface ITimelineLegendProps {
   color?: string;
   children?: React.ReactNode;
-  prefix?: string;
   className?: string;
   style?: React.CSSProperties;
 }
 
-export const TimelineDot = ({ color = '', prefix = 'zent', ...props }) => (
+export const TimelineDot = ({ color = '', ...props }) => (
   <div
     {...props}
-    className={`${prefix}-timeline-dot`}
+    className="zent-timeline-dot"
     style={{ borderColor: color }}
   />
 );
 
 export class TimelineLegend extends Component<ITimelineLegendProps> {
   static defaultProps = {
-    prefix: 'zent',
     className: '',
   };
 
   render() {
-    const { color, children, prefix, style, className } = this.props;
+    const { color, children, style, className } = this.props;
 
     return (
-      <div className={`${prefix}-timeline-legend ${className}`} style={style}>
+      <div className={cx('zent-timeline-legend', className)} style={style}>
         <div
-          className={`${prefix}-timeline-legend-line`}
+          className="zent-timeline-legend-line"
           style={{ backgroundColor: color }}
         >
-          <TimelineDot color={color} prefix={prefix} />
+          <TimelineDot color={color} />
         </div>
-        <label className={`${prefix}-timeline-legend-label`}>{children}</label>
+        <label className="zent-timeline-legend-label">{children}</label>
       </div>
     );
   }

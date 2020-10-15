@@ -151,7 +151,7 @@ describe('RadioGroup Section', () => {
     ).toBe(true);
   });
 
-  it('RadioGroup can have custom prefix, className, style object', () => {
+  it('RadioGroup can have custom className, style object', () => {
     const styleObj = {
       color: 'red',
     };

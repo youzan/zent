@@ -1,16 +1,37 @@
 import React, { Component } from 'react';
+import { Select } from 'zent';
 
+import pkg from '../../../../packages/zent/package.json';
 import SearchBox from '../search-box';
 import RouterContext from '../router-context-type';
 import './style.scss';
 
-const CONTROLLS = {
+const CONTROLS = {
   'zh-CN': 'EN',
   'en-US': '中文',
 };
 
+const VERSIONS = [
+  {
+    key: 'latest',
+    text: pkg.version,
+  },
+  {
+    key: 'v7',
+    text: '7.x',
+  },
+  {
+    key: 'v6',
+    text: '6.x',
+  },
+];
+
 export default class PageHeader extends Component {
   static contextTypes = RouterContext;
+
+  state = {
+    version: VERSIONS[0],
+  };
 
   toggle = () => {
     const { replace } = this.context.router.history;
@@ -23,8 +44,25 @@ export default class PageHeader extends Component {
     replace(path.join('/'));
   };
 
+  changeVersion = value => {
+    this.setState(
+      {
+        version: value,
+      },
+      () => {
+        const version = value.key;
+        if (version === 'latest') {
+          return;
+        }
+
+        window.location.href = `https://youzan.github.io/zent-${version}`;
+      }
+    );
+  };
+
   render() {
     const { i18n, sideNavData } = this.props;
+    const { version } = this.state;
 
     return (
       <div className="page-header">
@@ -38,6 +76,21 @@ export default class PageHeader extends Component {
           </a>
           <div className="page-header__search-sep" />
           <SearchBox locale={i18n} navData={sideNavData} />
+          <div
+            className="page-header__i18n-switcher"
+            type="primary"
+            onClick={this.toggle}
+          >
+            {CONTROLS[i18n] || ''}
+          </div>
+          <Select
+            className="page-header__version-select"
+            options={VERSIONS}
+            value={version}
+            onChange={this.changeVersion}
+            inline
+            width={120}
+          />
           <ul className="page-header__navs">
             <li className="page-header__item">
               <a href="https://github.com/youzan/zent">
@@ -51,13 +104,6 @@ export default class PageHeader extends Component {
               </a>
             </li>
           </ul>
-          <div
-            className="page-header__i18n-switcher"
-            type="primary"
-            onClick={this.toggle}
-          >
-            {CONTROLLS[i18n] || ''}
-          </div>
         </div>
       </div>
     );

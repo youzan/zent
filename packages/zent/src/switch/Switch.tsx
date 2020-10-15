@@ -17,7 +17,6 @@ export interface ISwitchProps {
 export class Switch extends Component<ISwitchProps> {
   static defaultProps = {
     size: 'default',
-    prefix: 'zent',
   };
 
   static contextType = DisabledContext;

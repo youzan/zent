@@ -8,6 +8,38 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 8.5.9(2020-10-12)
+
+- `Form`
+  - 🦀️ 修复 `FormModel.prototype.owner` 不能赋值的问题
+  - 🦀️ 优化了 `value-listener` 中异步订阅的逻辑
+  - 🦀️ 类型定义优化
+- 🦀️ 修复 `Button` 部分场景下 `disabled` 处理逻辑不对的问题
+- 🦀️ 修复 `Portal` 在 SSR 场景下的报错
+- 🦀️ 修复 `ClampLines` 在文本为空时可能出现的渲染问题
+
+### 8.5.8(2020-09-11)
+
+- 🦀️ 调整 `Button` 之间的间距
+- `Form`
+  - ✨ `Field` 组件支持初始值 `initialValue`，并增加 `reset` 事件用于触发表单重置
+  - 🦀️ 修复 `state` 变更导致 `ZentForm` 不必要的重新创建
+- `Input`
+  - ✨ 增加 `onIconClick` 回调
+  - ✨ `TextareaInput` 新增 `maxCharacterCount` 属性支持文本超长及错误提示
+
+### 8.5.7(2020-08-28)
+
+- 🦀️ 修复 `Progress` 组件 `circle` 类型的 `normalColor`，`successColor`，`exceptionColor` 和 `strokeWidth` 不生效问题
+
+### 8.5.6(2020-08-21)
+
+- 🦀️ 修复 `Slider` 值超出范围的问题
+- 🦀️ 调整 `Checkbox` 之间的间距
+- `Form`
+  - 🦀️ 导出 `IMaybeError` 和 `ValidatorContext`
+  - 🦀️ 优化 `FormSelectField` 的类型定义
+
 ### 8.5.5(2020-08-14)
 
 - ✨ `Loading` 组件支持 `colorPreset` 参数

@@ -6,18 +6,16 @@ import { IModel } from './base';
 import isNil from '../../../utils/isNil';
 import uniqueId from '../../../utils/uniqueId';
 import isPlainObject from '../../../utils/isPlainObject';
+import { UnknownFieldSetModelChildren } from '../utils';
 
-type $FieldSetValue<Children extends Record<string, BasicModel<any>>> = {
-  [Key in keyof Children]: Children[Key]['phantomValue'];
+type $FieldSetValue<Children extends UnknownFieldSetModelChildren> = {
+  [Key in keyof Children]: Children[Key] extends IModel<infer V> ? V : never;
 };
 
 const SET_ID = Symbol('set');
 
 class FieldSetModel<
-  Children extends Record<string, BasicModel<any>> = Record<
-    string,
-    BasicModel<any>
-  >
+  Children extends UnknownFieldSetModelChildren = UnknownFieldSetModelChildren
 > extends BasicModel<$FieldSetValue<Children>> {
   /**
    * @internal
@@ -25,7 +23,7 @@ class FieldSetModel<
   [SET_ID]!: boolean;
 
   /** @internal */
-  patchedValue: $FieldSetValue<Children> | null = null;
+  patchedValue: Partial<$FieldSetValue<Children>> | null = null;
 
   childRegister$ = new Subject<string>();
   childRemove$ = new Subject<string>();
@@ -70,7 +68,7 @@ class FieldSetModel<
    */
   getPatchedValue<T>(name: string): Maybe<T> {
     if (this.patchedValue && name in this.patchedValue) {
-      return Some<T>(this.patchedValue[name]);
+      return Some<T>(this.patchedValue[name] as T);
     }
     return None();
   }
@@ -111,11 +109,12 @@ class FieldSetModel<
    * @param model 字段对应的 model
    */
   registerChild(name: string, model: BasicModel<any>) {
-    if (this.children.hasOwnProperty(name) && this.children[name] !== model) {
+    const children: UnknownFieldSetModelChildren = this.children;
+    if (children.hasOwnProperty(name) && children[name] !== model) {
       this.removeChild(name);
     }
     model.owner = this;
-    (this.children as Record<string, BasicModel<unknown>>)[name] = model;
+    children[name] = model;
     this.childRegister$.next(name);
   }
 
@@ -269,12 +268,9 @@ class FieldSetModel<
 
 FieldSetModel.prototype[SET_ID] = true;
 
-function isFieldSetModel<
-  Children extends Record<string, BasicModel<any>> = Record<
-    string,
-    BasicModel<any>
-  >
->(maybeModel: any): maybeModel is FieldSetModel<Children> {
+function isFieldSetModel<Children extends UnknownFieldSetModelChildren>(
+  maybeModel: any
+): maybeModel is FieldSetModel<Children> {
   return !!(maybeModel && maybeModel[SET_ID]);
 }
 

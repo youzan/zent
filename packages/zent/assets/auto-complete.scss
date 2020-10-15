@@ -1,19 +1,10 @@
 @import './theme/default';
 
 .zent-auto-complete {
+  min-width: 160px;
+
   &.disabled {
     @include theme-color(color, stroke, 5);
     cursor: not-allowed;
-
-    .zent-select-input,
-    .zent-select-text,
-    .zent-select-tags {
-      @include theme-color(border-color, stroke, 6);
-      @include theme-color(background-color, stroke, 8);
-
-      &::after {
-        opacity: 0.25;
-      }
-    }
   }
 }

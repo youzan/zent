@@ -16,7 +16,6 @@ function setStyle(target: any, styles: any) {
 
 export interface ISwiperProps {
   className?: string;
-  prefix?: string;
   transitionDuration?: number;
   autoplay?: boolean;
   autoplayInterval?: number;
@@ -37,7 +36,6 @@ export interface ISwiperState {
 export class Swiper extends Component<ISwiperProps, ISwiperState> {
   static defaultProps = {
     className: '',
-    prefix: 'zent',
     transitionDuration: 300,
     autoplay: false,
     autoplayInterval: 3000,
@@ -308,7 +306,6 @@ export class Swiper extends Component<ISwiperProps, ISwiperState> {
   render() {
     const {
       className,
-      prefix,
       dots,
       dotsColor,
       dotsSize,
@@ -318,8 +315,8 @@ export class Swiper extends Component<ISwiperProps, ISwiperState> {
     } = this.props;
     const { currentIndex } = this.state;
 
-    const classString = cx(`${prefix}-swiper`, className, {
-      [`${prefix}-swiper-light`]: arrows && arrowsType === 'light',
+    const classString = cx('zent-swiper', className, {
+      'zent-swiper-light': arrows && arrowsType === 'light',
     });
     const childrenCount = Children.count(children);
     const clonedChildren = this.cloneChildren(children);
@@ -333,30 +330,21 @@ export class Swiper extends Component<ISwiperProps, ISwiperState> {
       >
         {arrows && childrenCount > 1 && (
           <div
-            className={`${prefix}-swiper__arrow ${prefix}-swiper__arrow-left`}
+            className="zent-swiper__arrow zent-swiper__arrow-left"
             onClick={this.prev}
           >
-            <Icon
-              type="right-circle"
-              className={`${prefix}-swiper__arrow-icon`}
-            />
+            <Icon type="right-circle" className="zent-swiper__arrow-icon" />
           </div>
         )}
         {arrows && childrenCount > 1 && (
           <div
-            className={`${prefix}-swiper__arrow ${prefix}-swiper__arrow-right`}
+            className="zent-swiper__arrow zent-swiper__arrow-right"
             onClick={this.next}
           >
-            <Icon
-              type="right-circle"
-              className={`${prefix}-swiper__arrow-icon`}
-            />
+            <Icon type="right-circle" className="zent-swiper__arrow-icon" />
           </div>
         )}
-        <div
-          ref={this.getSwiperContainer}
-          className={`${prefix}-swiper__container`}
-        >
+        <div ref={this.getSwiperContainer} className="zent-swiper__container">
           {Children.map(clonedChildren, (child: any, index: number) => {
             return cloneElement(child, {
               key: index - 1,
@@ -366,7 +354,6 @@ export class Swiper extends Component<ISwiperProps, ISwiperState> {
         </div>
         {dots && childrenCount > 1 && (
           <SwiperDots
-            prefix={prefix}
             dotsColor={dotsColor}
             dotsSize={dotsSize}
             items={children}

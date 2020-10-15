@@ -1,19 +1,23 @@
-import { BasicBuilder } from './basic';
+import { BasicBuilder, $GetBuilderModel } from './basic';
 import { FieldSetModel, $FieldSetValue } from '../models';
 import { Maybe, Some, None, or } from '../maybe';
+import {
+  UnknownFieldSetModelChildren,
+  UnknownFieldSetBuilderChildren,
+} from '../utils';
 
 export type $FieldSetBuilderChildren<
-  ChildBuilders extends Record<string, BasicBuilder<any, any>>
+  ChildBuilders extends UnknownFieldSetBuilderChildren
 > = {
-  [Key in keyof ChildBuilders]: ChildBuilders[Key]['phantomModel'];
+  [Key in keyof ChildBuilders]: $GetBuilderModel<ChildBuilders[Key]>;
 };
 
 export type $FieldSetBuilderDefaultValue<
-  ChildBuilders extends Record<string, BasicBuilder<any, any>>
+  ChildBuilders extends UnknownFieldSetBuilderChildren
 > = Partial<$FieldSetValue<$FieldSetBuilderChildren<ChildBuilders>>>;
 
 export class FieldSetBuilder<
-  ChildBuilders extends Record<string, BasicBuilder<any, any>>
+  ChildBuilders extends UnknownFieldSetBuilderChildren
 > extends BasicBuilder<
   $FieldSetValue<$FieldSetBuilderChildren<ChildBuilders>>,
   FieldSetModel<$FieldSetBuilderChildren<ChildBuilders>>
@@ -27,8 +31,8 @@ export class FieldSetBuilder<
       defaultValues,
       () => ({})
     );
-    const children = {} as $FieldSetBuilderChildren<ChildBuilders>;
-    Object.keys(this._childBuilders).forEach((key: keyof ChildBuilders) => {
+    const children = {} as UnknownFieldSetModelChildren;
+    Object.keys(this._childBuilders).forEach(key => {
       const childBuilder = this._childBuilders[key];
       if (defaults.hasOwnProperty(key)) {
         children[key] = childBuilder.build(Some(defaults[key]));
@@ -37,7 +41,7 @@ export class FieldSetBuilder<
       }
     });
     const model = new FieldSetModel<$FieldSetBuilderChildren<ChildBuilders>>(
-      children
+      children as $FieldSetBuilderChildren<ChildBuilders>
     );
     model.validators = this._validators;
     return model;

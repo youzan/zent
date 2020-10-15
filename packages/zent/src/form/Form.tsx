@@ -87,6 +87,10 @@ export interface IFormProps<T extends {}>
    */
   onSubmitSuccess?: () => void;
   /**
+   * 表单重置回调函数，`form.reset` 或者原生的 `DOM` 触发的 `reset` 事件都会触发 `onReset`
+   */
+  onReset?: (e?: React.FormEvent<HTMLFormElement>) => void;
+  /**
    * 禁用表单内 `input` 元素的回车提交功能
    */
   disableEnterSubmit?: boolean;
@@ -118,11 +122,17 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
 
   private readonly children: IFormChild[] = [];
   private getChildrenContext = memorize(makeChildrenContext);
-  private subscription: Subscription | null = null;
+  private submitSubscription: Subscription | null = null;
+  private resetSubscription: Subscription | null = null;
 
   private onSubmit: React.FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
     this.props.form.submit(e);
+  };
+
+  private onReset: React.FormEventHandler<HTMLFormElement> = e => {
+    e.preventDefault();
+    this.props.form.reset(e);
   };
 
   private onKeyDown: React.KeyboardEventHandler<HTMLFormElement> = e => {
@@ -136,6 +146,12 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
     }
     onKeyDown && onKeyDown(e);
   };
+
+  private reset(e?: React.FormEvent<HTMLFormElement>) {
+    const { form, onReset } = this.props;
+    form.resetValue();
+    onReset?.(e);
+  }
 
   private async submit(e?: React.SyntheticEvent) {
     const {
@@ -213,15 +229,25 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
     this.submit(e);
   };
 
+  private resetListener = (e?: React.FormEvent<HTMLFormElement>) => {
+    this.reset(e);
+  };
+
   private subscribe() {
     const { form } = this.props;
-    this.subscription = form.submit$.subscribe(this.submitListener);
+    this.submitSubscription = form.submit$.subscribe(this.submitListener);
+    this.resetSubscription = form.reset$.subscribe(this.resetListener);
   }
 
   private unsubscribe() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-      this.subscription = null;
+    if (this.submitSubscription) {
+      this.submitSubscription.unsubscribe();
+      this.submitSubscription = null;
+    }
+
+    if (this.resetSubscription) {
+      this.resetSubscription.unsubscribe();
+      this.resetSubscription = null;
     }
   }
 
@@ -270,6 +296,7 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
                 className
               )}
               onSubmit={this.onSubmit}
+              onReset={this.onReset}
               onKeyDown={this.onKeyDown}
             >
               {children}

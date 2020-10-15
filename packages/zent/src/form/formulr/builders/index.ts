@@ -3,7 +3,7 @@ import { FieldBuilder } from './field';
 import { FieldSetBuilder } from './set';
 import { BasicBuilder } from './basic';
 import { FormBuilder } from './form';
-import { BasicModel } from '../models';
+import { UnknownFieldSetBuilderChildren } from '../utils';
 
 export * from './array';
 export * from './field';
@@ -33,11 +33,9 @@ export function array<ChildBuilder extends BasicBuilder<any, any>>(
  * 创建一个 `FieldSet` builder
  * @param childBuilders `FieldSet` 每个字段对应的 builder 对象，其值可以是 `field`、`array` 或者 `set` 的返回值
  */
-export function set<
-  ChildBuilders extends Record<string, Builder>,
-  Builder extends BasicBuilder<any, Model>,
-  Model extends BasicModel<any>
->(childBuilders: ChildBuilders) {
+export function set<ChildBuilders extends UnknownFieldSetBuilderChildren>(
+  childBuilders: ChildBuilders
+) {
   return new FieldSetBuilder<ChildBuilders>(childBuilders);
 }
 
@@ -45,10 +43,8 @@ export function set<
  * 创建一个 `Form` builder，是最顶层的 builder 对象
  * @param childBuilders `Form` 每个字段对应的 builder 对象，其值可以是 `field`、`array` 或者 `set` 的返回值
  */
-export function form<
-  ChildBuilders extends Record<string, Builder>,
-  Builder extends BasicBuilder<any, Model>,
-  Model extends BasicModel<any>
->(childBuilders: ChildBuilders) {
-  return new FormBuilder<ChildBuilders, Builder, Model>(childBuilders);
+export function form<ChildBuilders extends UnknownFieldSetBuilderChildren>(
+  childBuilders: ChildBuilders
+) {
+  return new FormBuilder<ChildBuilders>(childBuilders);
 }

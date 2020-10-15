@@ -12,27 +12,26 @@ Swiper is used for a group of flat content circulated.
 
 **Nodes in `children` must pass `style` down to native DOM nodes.**
 
-| Property | Description | Type | Default | Optional |
-| -------- | ----------- | ---- | ------- | -------  |
-| transitionDuration | switch animation duration(ms) | number | `300` |  |
-| autoplay | switch automatically | bool | `false` | `true`|
-| autoplayInterval | automatic switch interval(ms) | number | `3000` |  |
-| dots| wether to show the page button below | bool | `true` | `false` |
-| dotsColor | page button color | string | `'black'` | any css color value in string |
-| dotsSize | page button size | string | `'normal'` | `'small'`, `'large'` |
-| arrows | wether to show flip button on both sides | bool | `false` |  |
-| arrowsType | flip button color | string | `'dark'` | `'dark'`, `'light'` |
-| onChange | switch callback | (current: number, prev: number): void | `noop` | |
-| className | custom classname | string | `''` | |
-| prefix | custom prefix | string | `'zent'` | |
+| Property           | Description                              | Type                                  | Default    | Optional                      |
+| ------------------ | ---------------------------------------- | ------------------------------------- | ---------- | ----------------------------- |
+| transitionDuration | switch animation duration(ms)            | number                                | `300`      |                               |
+| autoplay           | switch automatically                     | bool                                  | `false`    | `true`                        |
+| autoplayInterval   | automatic switch interval(ms)            | number                                | `3000`     |                               |
+| dots               | wether to show the page button below     | bool                                  | `true`     | `false`                       |
+| dotsColor          | page button color                        | string                                | `'black'`  | any css color value in string |
+| dotsSize           | page button size                         | string                                | `'normal'` | `'small'`, `'large'`          |
+| arrows             | wether to show flip button on both sides | bool                                  | `false`    |                               |
+| arrowsType         | flip button color                        | string                                | `'dark'`   | `'dark'`, `'light'`           |
+| onChange           | switch callback                          | (current: number, prev: number): void | `noop`     |                               |
+| className          | custom classname                         | string                                | `''`       |                               |
 
 ### Instance Methods
 
-| Method Name | Instruction | Parameter | Parameter Description |
-| ----------- | --------------------------------------- | ------ | ------ |
-| swipeTo | manual switch the content | index | figure index, 0 based |
-| prev | switch to the previous |  |  |
-| next | switch to the next |  |  |
+| Method Name | Instruction               | Parameter | Parameter Description |
+| ----------- | ------------------------- | --------- | --------------------- |
+| swipeTo     | manual switch the content | index     | figure index, 0 based |
+| prev        | switch to the previous    |           |                       |
+| next        | switch to the next        |           |                       |
 
 <style>
 .swiper-demo-container {

@@ -22,17 +22,6 @@ describe('Steps', () => {
     expect(wrapper.find('Step').length).toBe(3);
   });
 
-  it('custom className and prefix', () => {
-    const wrapper = mount(
-      <Steps className="custom-steps" prefix="django">
-        <Step title="第一步" />
-        <Step title="第二步" />
-        <Step title="第三步" />
-      </Steps>
-    );
-    expect(wrapper.find('.custom-steps.django-steps').length).toBe(1);
-  });
-
   it('current step', () => {
     const ensure = current => {
       current = current || 1;

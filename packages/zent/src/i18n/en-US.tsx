@@ -104,7 +104,10 @@ export const Grid: II18nLocaleGrid = {
 export const Cascader: II18nLocaleCascader = {
   ...common,
   title: 'Title',
-  placeholder: 'Please choose',
+  placeholder: 'Please select',
+  searchPlaceholder: 'Please select or search',
+  searchEmpty: 'No result',
+  empty: 'Empty',
 };
 
 const QUARTER_NAMES = [

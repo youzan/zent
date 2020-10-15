@@ -41,7 +41,6 @@ export interface IMentionProps {
   suggestionNotFoundContent?: React.ReactNode;
   triggerText?: string;
   className?: string;
-  prefix?: string;
   loading?: boolean;
   type?: string;
   onBlur?: React.FocusEventHandler;
@@ -57,7 +56,6 @@ export class Mention extends React.Component<IMentionProps> {
     suggestionNotFoundContent: '',
     suggestions: [],
     triggerText: '@',
-    prefix: 'zent',
     inline: true,
   };
 
@@ -93,7 +91,6 @@ export class Mention extends React.Component<IMentionProps> {
       type,
 
       className,
-      prefix,
       inline,
       ...passThroughProps
     } = this.props;

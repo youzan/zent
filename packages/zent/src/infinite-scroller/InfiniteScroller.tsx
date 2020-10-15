@@ -3,6 +3,7 @@ import cx from 'classnames';
 import BlockLoading from '../loading/BlockLoading';
 import { Waypoint, IWaypointCallbackData, WaypointPosition } from '../waypoint';
 import isBrowser from '../utils/isBrowser';
+import { useMounted } from '../utils/hooks/useMounted';
 
 export interface IInfiniteScrollerProps {
   className?: string;
@@ -25,10 +26,13 @@ export const InfiniteScroller: React.FC<IInfiniteScrollerProps> = ({
   children,
 }) => {
   const [loading, setLoading] = React.useState(false);
+  const mounted = useMounted();
 
   const stopLoading = React.useCallback(() => {
-    setLoading(false);
-  }, []);
+    if (mounted.current) {
+      setLoading(false);
+    }
+  }, [mounted]);
 
   const load = React.useCallback(() => {
     if (typeof loadMore !== 'function') {

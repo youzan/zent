@@ -43,7 +43,7 @@ interface IDisableDateMap {
 | Property     | Description                                 | Type                                     | Default                  | Required |
 | ------------ | ------------------------------------------- | ---------------------------------------- | ------------------------ | -------- |
 | value        | Selected date                               | `string` \| `Date` \| `number`           | -                        | Yes      |
-| onChange     | Callback when the selected date is changing | `(date: string \| Date \| number) => {}` | -                        | Yes      |
+| onChange     | Callback when the selected date is changing | `(date: string | Date | number) => {}` | -                        | Yes      |
 | placeholder  | The placeholder of date input               | `string`                                 | `'Please select a date'` | No       |
 | format       | To set the date format                      | `string`                                 | `'YYYY-MM-DD'`           | No       |
 | hideFooter   | Whether to show footer                      | `boolean`                                | `false`                  | No       |
@@ -60,8 +60,8 @@ interface IDisableDateMap {
 
 | Property     | Description                                 | Type                                            | Default                  | Required |
 | ------------ | ------------------------------------------- | ----------------------------------------------- | ------------------------ | -------- |
-| value        | Selected date                               | `Array<string \| Date \| number>`               | -                        | Yes      |
-| onChange     | Callback when the selected date is changing | `(date: Array<string \| Date \| number>) => {}` | -                        | Yes      |
+| value        | Selected date                               | `Array<string | Date | number>`               | -                        | Yes      |
+| onChange     | Callback when the selected date is changing | `(date: Array<string | Date | number>) => {}` | -                        | Yes      |
 | placeholder  | The placeholder of date input               | `string`                                        | `'Please select a week'` | No       |
 | weekStartsOn | To set the start day of a week              | `WeekStartsOnMap`                               | `WeekStartsOnMap.Monday` | No       |
 | format       | To set the date format                      | `string`                                        | `'YYYY-MM-DD'`           | No       |
@@ -77,7 +77,7 @@ interface IDisableDateMap {
 | Property    | Description                                 | Type                                     | Default                                               | Required |
 | ----------- | ------------------------------------------- | ---------------------------------------- | ----------------------------------------------------- | -------- |
 | value       | Selected date                               | `string` \| `Date` \| `number`           | -                                                     | Yes      |
-| onChange    | Callback when the selected date is changing | `(date: string \| Date \| number) => {}` | -                                                     | Yes      |
+| onChange    | Callback when the selected date is changing | `(date: string | Date | number) => {}` | -                                                     | Yes      |
 | placeholder | The placeholder of date input               | string                                   | `'Please select a year'` \| `'Please select a month'` | No       |
 | format      | To set the date format                      | string                                   | `'YYYY'` \| `'YYYY-MM'`                               | No       |
 
@@ -89,8 +89,8 @@ interface IDisableDateMap {
 
 | Property    | Description                                 | Type                                            | Default                     | Required |
 | ----------- | ------------------------------------------- | ----------------------------------------------- | --------------------------- | -------- |
-| value       | Selected date                               | `Array<string \| Date \| number>`               | -                           | Yes      |
-| onChange    | Callback when the selected date is changing | `(date: Array<string \| Date \| number>) => {}` | -                           | Yes      |
+| value       | Selected date                               | `Array<string | Date | number>`               | -                           | Yes      |
+| onChange    | Callback when the selected date is changing | `(date: Array<string | Date | number>) => {}` | -                           | Yes      |
 | placeholder | The placeholder of date input               | `string`                                        | `'Please select a quarter'` | No       |
 | format      | To set the date format                      | `string`                                        | `'YYYY-MM'`                 | No       |
 
@@ -124,8 +124,8 @@ interface IDisabledTimeOption {
 
 | Property    | Description                                       | Type                                            | Default                     | Required |
 | ----------- | ------------------------------------------------- | ----------------------------------------------- | --------------------------- | -------- |
-| value       | Selected date range                               | `Array<string \| Date \| number>`               | -                           | Yes      |
-| onChange    | Callback when the selected date range is changing | `(date: Array<string \| Date \| number>) => {}` | -                           | Yes      |
+| value       | Selected date range                               | `Array<string | Date | number>`               | -                           | Yes      |
+| onChange    | Callback when the selected date range is changing | `(date: Array<string | Date | number>) => {}` | -                           | Yes      |
 | placeholder | The placeholder of dates input                    | `[string, string]`                              | `['Start date','End date']` | No       |
 | defaultDate | Default date range                                | `[string, string]`                              | -                           | No       |
 
