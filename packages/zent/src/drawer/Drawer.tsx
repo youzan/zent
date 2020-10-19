@@ -5,11 +5,11 @@ import cx from 'classnames';
 import Portal from '../portal';
 import DrawerBackdrop from './components/DrawerBackdrop';
 import DrawerContent from './components/DrawerContent';
-import { IDrawerProps } from './types';
-import useDrawerExiting from './hooks/useDrawerExiting';
+import { DrawerPropsType } from './types';
+import { useDrawerExiting } from './hooks/useDrawerExiting';
 import { addEventListener } from '../utils/component/event-handler';
 
-export const Drawer: React.FC<IDrawerProps> = ({
+export const Drawer: React.FC<DrawerPropsType> = ({
   onClose,
   title,
   children,
@@ -20,18 +20,17 @@ export const Drawer: React.FC<IDrawerProps> = ({
   mask,
   footer,
   placement,
-  width,
-  height,
   closeBtn,
+  ...rest
 }) => {
+  const width = 'width' in rest ? rest.width : null;
+  const height = 'height' in rest ? rest.height : null;
   const { exiting, onExited } = useDrawerExiting(visible);
   const ref = useRef<() => void>();
 
   const onDrawerOpened = useCallback(() => {
     if (!mask) {
-      ref.current = addEventListener(document, 'click', e => {
-        onClose(e);
-      });
+      ref.current = addEventListener(document, 'click', onClose);
     }
   }, [onClose, mask]);
 

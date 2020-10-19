@@ -5,9 +5,10 @@ $header-height: 56px;
 $footer-height: 50px;
 $transition-duration: 220ms;
 $transition-backdrop-appear-duration: 300ms;
-$drawer-ease-out: cubic-bezier(0, 0, 0.58, 1);
+$drawer-ease-out: $timing-fn-ease-out;
+$z-index: 1010;
 
-.drawer {
+.zent-drawer {
   &-backdrop {
     position: fixed;
     top: 0;
@@ -16,32 +17,18 @@ $drawer-ease-out: cubic-bezier(0, 0, 0.58, 1);
     bottom: 0;
     background-color: rgba(black, 0.6);
     height: 100%;
-    z-index: 1050;
+    z-index: $z-index;
   }
 
   &-content {
     position: fixed;
-    z-index: 1051;
+    z-index: $z-index;
     display: flex;
     flex-direction: column;
     @include theme-color(background-color, stroke, 9);
 
     &--transparent {
-      &-top {
-        box-shadow: 0 2px 8px rgba(black, 0.2);
-      }
-
-      &-right {
-        box-shadow: -2px 0 8px rgba(black, 0.2);
-      }
-
-      &-bottom {
-        box-shadow: 0 -2px 8px rgba(black, 0.2);
-      }
-
-      &-left {
-        box-shadow: 2px 0 8px rgba(black, 0.2);
-      }
+      @include theme-shadow(modal);
     }
   }
 

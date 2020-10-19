@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 
-const useDrawerExiting = (visible: boolean) => {
+export const useDrawerExiting = (visible: boolean) => {
   const [exiting, setExiting] = useState(false);
   const [prevVisible, setPrevVisible] = useState(visible);
 
@@ -17,5 +17,3 @@ const useDrawerExiting = (visible: boolean) => {
 
   return { exiting, onExited };
 };
-
-export default useDrawerExiting;

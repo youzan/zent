@@ -10,9 +10,9 @@ const DrawerBackdrop: React.FC<IDrawerBackdrop> = ({
   visible,
   onClose,
 }) => {
-  const onMaskClick = (e: React.MouseEvent<HTMLDivElement>) => {
+  const onMaskClick = () => {
     if (mask && maskClosable) {
-      onClose(e);
+      onClose();
     }
   };
 
@@ -23,9 +23,9 @@ const DrawerBackdrop: React.FC<IDrawerBackdrop> = ({
       unmountOnExit
       in={visible && mask}
       timeout={TransitionTimeOut}
-      classNames="drawer-transition__backdrop"
+      classNames="zent-drawer-transition__backdrop"
     >
-      <div className="drawer-backdrop" onClick={onMaskClick} />
+      <div className="zent-drawer-backdrop" onClick={onMaskClick} />
     </CSSTransition>
   );
 };

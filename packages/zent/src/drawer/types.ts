@@ -1,23 +1,14 @@
 export type DrawerPlacement = 'left' | 'right' | 'top' | 'bottom';
 
-export type DrawerCloseFuncType = (
-  e:
-    | React.MouseEvent<HTMLSpanElement, MouseEvent>
-    | MouseEvent
-    | KeyboardEvent
-    | TouchEvent
-    | Event
-) => void;
-
 export interface IDrawerBackdrop {
   mask: boolean;
   visible: boolean;
   maskClosable: boolean;
-  onClose: DrawerCloseFuncType;
+  onClose: () => void;
 }
 
 export interface IDrawerContent {
-  onClose: DrawerCloseFuncType;
+  onClose: () => void;
   visible: boolean;
   mask: boolean;
   title: React.ReactNode;
@@ -26,13 +17,13 @@ export interface IDrawerContent {
   onExit: (node: HTMLElement) => void;
   onExited: (node: HTMLElement) => void;
   placement: DrawerPlacement;
-  width: string | number;
-  height: string | number;
   closeBtn: React.ReactNode;
+  width?: string | number;
+  height?: string | number;
 }
 
-export interface IDrawerProps {
-  onClose?: DrawerCloseFuncType; // 关闭drawer的回调
+interface IDrawerProps {
+  onClose?: () => void; // 关闭drawer的回调
   className?: string; // 对话框外层容器的类名
   visible?: boolean; // Drawer是否可见
   maskClosable?: boolean; // 点击遮罩触发onClose
@@ -40,8 +31,16 @@ export interface IDrawerProps {
   mask?: boolean; // 是否显示遮罩
   title?: React.ReactNode; // 自定义头部内容
   footer?: React.ReactNode; // 自定义底部内容
-  placement?: DrawerPlacement;
-  width?: string | number;
-  height?: string | number;
-  closeBtn?: React.ReactNode;
+  placement?: DrawerPlacement; // Drawer 的显示方向
+  closeBtn?: React.ReactNode; // 自定义关闭按钮
 }
+
+export type DrawerPropsType = (
+  | {
+      width?: string | number;
+    }
+  | {
+      height?: string | number;
+    }
+) &
+  IDrawerProps;
