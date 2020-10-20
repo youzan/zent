@@ -1,7 +1,7 @@
 import * as React from 'react';
 import cx from 'classnames';
 import Icon from '../icon';
-import AnimateHeight from '../utils/component/AnimateHeight';
+import { AnimateHeight } from '../utils/component/AnimateHeight';
 import CommonMenu from './CommonMenu';
 import SubPopupMenu from './SubPopupMenu';
 import { getExtraStyle } from './utils';

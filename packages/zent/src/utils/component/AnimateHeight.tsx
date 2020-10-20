@@ -9,20 +9,19 @@ function applyHeight(el: HTMLDivElement, height: number | string) {
   }
 }
 
-export interface IAnimationHeightProps {
+export interface IAnimateHeightProps {
+  height: number | string;
   appear?: boolean;
-  duration: number;
-  easing: string;
+  duration?: number;
+  easing?: string;
   className?: string;
   style?: React.CSSProperties;
   overflow: 'hidden' | 'scroll' | 'auto';
-  height: number | string;
 }
 
-export default class AnimationHeight extends React.Component<
-  IAnimationHeightProps
-> {
+export class AnimateHeight extends React.Component<IAnimateHeightProps> {
   static defaultProps = {
+    appear: false,
     duration: 200,
     easing: 'ease',
     overflow: 'hidden',
@@ -38,7 +37,7 @@ export default class AnimationHeight extends React.Component<
       el.style.height = '0px';
       runInNextFrame(() => {
         if (this.props.height === height) {
-          el.style.height = `${el.scrollHeight}px`;
+          el.style.height = `${el.offsetHeight}px`;
           this.timer = (setTimeout(() => {
             this.timer = null;
             if (this.props.height === height) {
@@ -52,7 +51,7 @@ export default class AnimationHeight extends React.Component<
     }
   }
 
-  componentDidUpdate(prevProps: IAnimationHeightProps) {
+  componentDidUpdate(prevProps: IAnimateHeightProps) {
     const { height, duration } = this.props;
     if (prevProps.height === height) {
       return;
@@ -63,18 +62,34 @@ export default class AnimationHeight extends React.Component<
     }
     const el = this.ref.current as HTMLDivElement;
     if (prevProps.height === 'auto') {
-      el.style.height = `${el.scrollHeight}px`;
+      el.style.height = `${el.offsetHeight}px`;
       runInNextFrame(() => {
         if (this.props.height === height) {
           applyHeight(el, height);
         }
       });
     } else if (height === 'auto') {
-      el.style.height = `${el.scrollHeight}px`;
-      this.timer = (setTimeout(() => {
-        this.timer = null;
-        el.style.height = 'auto';
-      }, duration) as unknown) as number;
+      // save current height
+      const prevHeight = el.offsetHeight;
+
+      // get target height
+      el.style.height = 'auto';
+      const newHeight = el.offsetHeight;
+
+      // reset height to current height
+      el.style.height = `${prevHeight}px`;
+      runInNextFrame(() => {
+        // animate to target height('auto')
+        el.style.height = `${newHeight}px`;
+
+        // reset height style to 'auto' after animation
+        this.timer = (setTimeout(() => {
+          this.timer = null;
+          if (this.props.height === height) {
+            el.style.height = height;
+          }
+        }, duration) as unknown) as number;
+      });
     } else {
       applyHeight(el, height);
     }

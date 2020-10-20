@@ -26,7 +26,7 @@ import {
   IZentFormChildrenContext,
 } from './context';
 import { ZentForm, useForm } from './ZentForm';
-import scroll from '../utils/scroll';
+import { smoothScroll } from '../utils/scroll';
 import { CombineErrors } from './CombineErrors';
 import { ValidateOccasion, TouchWhen } from './shared';
 import { Disabled } from '../disabled';
@@ -221,7 +221,7 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
 
     if (scrollX !== Infinity) {
       const { x, y } = getScrollPosition();
-      scroll(document.body, scrollX + x, scrollY + y);
+      smoothScroll(document.body, scrollX + x, scrollY + y);
     }
   }
 

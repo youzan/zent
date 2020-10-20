@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
-import AnimateHeight from '../utils/component/AnimateHeight';
+import { AnimateHeight } from '../utils/component/AnimateHeight';
 import LazyMount from '../utils/component/LazyMount';
 import { EASE_IN_OUT } from '../utils/timingFunctions';
 import { DisabledContext, IDisabledContext } from '../disabled';
