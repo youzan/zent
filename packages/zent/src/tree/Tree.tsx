@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import classnames from 'classnames';
 
-import AnimateHeight from '../utils/component/AnimateHeight';
+import { AnimateHeight } from '../utils/component/AnimateHeight';
 import Checkbox from '../checkbox';
 import Loading from './components/Loading';
 

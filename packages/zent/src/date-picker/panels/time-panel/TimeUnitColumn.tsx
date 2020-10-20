@@ -2,7 +2,8 @@ import * as React from 'react';
 import cx from 'classnames';
 import PanelContext from '../../context/PanelContext';
 
-import scroll from '../../../utils/scroll';
+import { smoothScroll } from '../../../utils/scroll';
+
 const prefixCls = 'zent-datepicker-time-panel-body';
 interface IUnit {
   label: React.ReactText;
@@ -57,13 +58,13 @@ const TimeUnitColumn: React.FC<ITimeUnitColumnProps> = ({
     // first scroll without duration
     visibleChange &&
       ulRef.current &&
-      scroll(ulRef.current, 0, (selected * 32) / step, 1);
+      smoothScroll(ulRef.current, 0, (selected * 32) / step, 1);
 
     // scroll item when `selected` changed
     selected &&
       !visibleChange &&
       ulRef.current &&
-      scroll(ulRef.current, 0, (selected * 32) / step, 160);
+      smoothScroll(ulRef.current, 0, (selected * 32) / step, 160);
   }, [selected, visibleChange, ulRef, step]);
 
   return (
