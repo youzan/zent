@@ -13,13 +13,11 @@ export interface IDrawerContent {
   mask: boolean;
   title: React.ReactNode;
   footer: React.ReactNode;
-  onEntered: (node: HTMLElement) => void;
-  onExit: (node: HTMLElement) => void;
   onExited: (node: HTMLElement) => void;
   placement: DrawerPlacement;
   closeBtn: React.ReactNode;
-  width?: string | number;
-  height?: string | number;
+  width: string | number;
+  height: string | number;
 }
 
 interface IDrawerProps {
@@ -31,16 +29,17 @@ interface IDrawerProps {
   mask?: boolean; // 是否显示遮罩
   title?: React.ReactNode; // 自定义头部内容
   footer?: React.ReactNode; // 自定义底部内容
-  placement?: DrawerPlacement; // Drawer 的显示方向
   closeBtn?: React.ReactNode; // 自定义关闭按钮
 }
 
 export type DrawerPropsType = (
   | {
       width?: string | number;
+      placement: 'left' | 'right';
     }
   | {
       height?: string | number;
+      placement: 'top' | 'bottom';
     }
 ) &
   IDrawerProps;

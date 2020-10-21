@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useCallback, useRef } from 'react';
 import cx from 'classnames';
 
 import Portal from '../portal';
@@ -7,7 +6,6 @@ import DrawerBackdrop from './components/DrawerBackdrop';
 import DrawerContent from './components/DrawerContent';
 import { DrawerPropsType } from './types';
 import { useDrawerExiting } from './hooks/useDrawerExiting';
-import { addEventListener } from '../utils/component/event-handler';
 
 export const Drawer: React.FC<DrawerPropsType> = ({
   onClose,
@@ -23,22 +21,9 @@ export const Drawer: React.FC<DrawerPropsType> = ({
   closeBtn,
   ...rest
 }) => {
-  const width = 'width' in rest ? rest.width : null;
-  const height = 'height' in rest ? rest.height : null;
+  const width = 'width' in rest ? rest.width : '45%';
+  const height = 'height' in rest ? rest.height : '45%';
   const { exiting, onExited } = useDrawerExiting(visible);
-  const ref = useRef<() => void>();
-
-  const onDrawerOpened = useCallback(() => {
-    if (!mask) {
-      ref.current = addEventListener(document, 'click', onClose);
-    }
-  }, [onClose, mask]);
-
-  const onDrawerExit = useCallback(() => {
-    if (!mask) {
-      ref.current?.();
-    }
-  }, [mask]);
 
   return (
     <Portal
@@ -60,8 +45,6 @@ export const Drawer: React.FC<DrawerPropsType> = ({
           title={title}
           footer={footer}
           onClose={onClose}
-          onEntered={onDrawerOpened}
-          onExit={onDrawerExit}
           onExited={onExited}
           placement={placement}
           width={width}
@@ -85,8 +68,6 @@ Drawer.defaultProps = {
   title: null,
   onClose: () => {},
   placement: 'right',
-  width: '45%',
-  height: '45%',
   closeBtn: true,
 };
 
