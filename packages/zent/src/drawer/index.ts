@@ -1,5 +1,5 @@
 import Drawer from './Drawer';
 export * from './Drawer';
-export { DrawerPropsType } from './types';
+export { DrawerProps } from './types';
 
 export default Drawer;

@@ -7,20 +7,31 @@ export interface IDrawerBackdrop {
   onClose: () => void;
 }
 
-export interface IDrawerContent {
+interface IDrawerContentCommonProps {
   onClose: () => void;
   visible: boolean;
   mask: boolean;
   title: React.ReactNode;
   footer: React.ReactNode;
   onExited: (node: HTMLElement) => void;
-  placement: DrawerPlacement;
   closeBtn: React.ReactNode;
-  width: string | number;
-  height: string | number;
 }
 
-interface IDrawerProps {
+interface IHorizontalDrawerContentProps extends IDrawerContentCommonProps {
+  width: string | number;
+  placement: 'left' | 'right';
+}
+
+interface IVerticalDrawerContentProps extends IDrawerContentCommonProps {
+  height: string | number;
+  placement: 'top' | 'bottom';
+}
+
+export type DrawerContentProps =
+  | IHorizontalDrawerContentProps
+  | IVerticalDrawerContentProps;
+
+interface IDrawerCommonProps {
   onClose?: () => void; // 关闭drawer的回调
   className?: string; // 对话框外层容器的类名
   visible?: boolean; // Drawer是否可见
@@ -32,14 +43,14 @@ interface IDrawerProps {
   closeBtn?: React.ReactNode; // 自定义关闭按钮
 }
 
-export type DrawerPropsType = (
-  | {
-      width?: string | number;
-      placement: 'left' | 'right';
-    }
-  | {
-      height?: string | number;
-      placement: 'top' | 'bottom';
-    }
-) &
-  IDrawerProps;
+interface IHorizontalDrawerProps extends IDrawerCommonProps {
+  width?: string | number;
+  placement: 'left' | 'right';
+}
+
+interface IVerticalDrawerProps extends IDrawerCommonProps {
+  height?: string | number;
+  placement: 'top' | 'bottom';
+}
+
+export type DrawerProps = IHorizontalDrawerProps | IVerticalDrawerProps;

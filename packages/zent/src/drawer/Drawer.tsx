@@ -4,10 +4,10 @@ import cx from 'classnames';
 import Portal from '../portal';
 import DrawerBackdrop from './components/DrawerBackdrop';
 import DrawerContent from './components/DrawerContent';
-import { DrawerPropsType } from './types';
+import { DrawerProps } from './types';
 import { useDrawerExiting } from './hooks/useDrawerExiting';
 
-export const Drawer: React.FC<DrawerPropsType> = ({
+export const Drawer: React.FC<DrawerProps> = ({
   onClose,
   title,
   children,

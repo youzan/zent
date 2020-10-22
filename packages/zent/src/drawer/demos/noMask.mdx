@@ -17,23 +17,13 @@ function SimpleDrawer() {
     <>
       <Button
         onClick={e => {
-          e.nativeEvent.stopImmediatePropagation();
+          e.nativeEvent.stopImmediatePropagation(); // 阻止原生click事件冒泡，让drawer不关闭的同时修改children
           setVisible(true);
-          setContent(true);
+          setContent(!content);
         }}
         type="primary"
       >
-        Show111
-      </Button>
-      <Button
-        onClick={e => {
-          e.nativeEvent.stopImmediatePropagation();
-          setVisible(true);
-          setContent(false);
-        }}
-        type="primary"
-      >
-        Show222
+        Toggle Content
       </Button>
       <Drawer
         visible={visible}
