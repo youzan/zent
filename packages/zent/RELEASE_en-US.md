@@ -8,6 +8,10 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 8.5.10(2020-10-22)
+
+- Fix a bug that prevents moving an item to the front in `Sortable`
+
 ### 8.5.9(2020-10-12)
 
 - `Form`
