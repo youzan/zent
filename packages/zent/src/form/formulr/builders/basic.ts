@@ -21,7 +21,7 @@ export abstract class BasicBuilder<Value, Model extends IModel<Value>> {
        *
        * Note that this will convert `Array<T>` to `Array<T | undefined>` which is unsafe.
        */
-      Partial<Value>
+      any extends Value ? any : Partial<Value>
     >
   ): Model;
 
