@@ -1,10 +1,16 @@
 import cx from 'classnames';
 import * as React from 'react';
-import * as sortableJS from 'sortablejs';
+
+// use this only as type, @types/sortablejs and sortablejs cannot be used with `esModuleInterop: false`
+import * as _sortableJS from 'sortablejs';
 
 import reorder from '../utils/reorder';
 
-export interface ISortableProps<T> extends sortableJS.Options {
+// use this as value
+const sortableJS: typeof _sortableJS = (_sortableJS as any).default;
+
+export interface ISortableProps<T>
+  extends Omit<_sortableJS.Options, 'onChange'> {
   // zent wrapper api
   tag?: React.ComponentType | string;
   className?: string;
@@ -18,7 +24,7 @@ export class Sortable<T> extends React.Component<ISortableProps<T>> {
     tag: 'div',
   };
 
-  sortable: sortableJS;
+  sortable: _sortableJS;
   containerRef = React.createRef<HTMLElement>();
 
   initSortable = () => {
@@ -36,7 +42,7 @@ export class Sortable<T> extends React.Component<ISortableProps<T>> {
       return;
     }
 
-    const sortableOptions: sortableJS.Options = {
+    const sortableOptions: _sortableJS.Options = {
       filter: filterClass ? `.${filterClass}` : '',
       ghostClass: `zent-ghost`,
       chosenClass: `zent-chosen`,
@@ -51,7 +57,8 @@ export class Sortable<T> extends React.Component<ISortableProps<T>> {
           return false;
         }
 
-        return 1;
+        // insert point is based on direction
+        return true;
       },
       onEnd: e => {
         const { items } = this.props;
