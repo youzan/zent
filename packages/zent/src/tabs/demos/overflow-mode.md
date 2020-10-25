@@ -49,6 +49,7 @@ class Simple extends Component {
 					onChange={this.onTabChange}
 					tabs={this.state.tabs}
 					overflowMode="flip"
+					type="card"
 				/>
 			</div>
 		);
