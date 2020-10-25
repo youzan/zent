@@ -1,0 +1,65 @@
+---
+order: 8
+zh-CN:
+  title: 支持多标签滚动查看
+  tabPrefix: 标签
+
+en-US:
+  title: Operations in more tabs
+  tabPrefix: Tab
+---
+
+```jsx
+import { Tabs } from 'zent';
+
+const tabs = Array(15)
+	.fill(null)
+	.map((_, index) => ({
+		title: `tab${index + 1}`,
+		key: index + 1,
+	}));
+
+class Simple extends Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			activeId: 2,
+			tabs: tabs,
+		};
+	}
+
+	onTabChange = id => {
+		this.setState({
+			activeId: id,
+		});
+	};
+
+	render() {
+		return (
+			<div className="zent-tabs-demo">
+				<Tabs
+					activeId={this.state.activeId}
+					onChange={this.onTabChange}
+					tabs={this.state.tabs}
+					overflowMode="anchor"
+				/>
+				<Tabs
+					activeId={this.state.activeId}
+					onChange={this.onTabChange}
+					tabs={this.state.tabs}
+					overflowMode="flip"
+				/>
+			</div>
+		);
+	}
+}
+
+ReactDOM.render(<Simple />, mountNode);
+```
+
+<style>
+.zent-tabs-demo .zent-tabs {
+    margin-bottom: 16px;
+}
+</style>
