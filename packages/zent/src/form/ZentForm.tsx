@@ -61,7 +61,7 @@ export class ZentForm<T extends UnknownFieldSetModelChildren>
   /** @internal */
   submit$ = new Subject<FormEvent | undefined>();
   /** @internal */
-  reset$ = new Subject<FormEvent | undefined>();
+  reset$ = new Subject<FormEvent<HTMLFormElement> | undefined>();
 
   /** @internal */
   constructor(
@@ -143,7 +143,7 @@ export class ZentForm<T extends UnknownFieldSetModelChildren>
     this.inner.model.reset();
   }
 
-  reset(e: FormEvent) {
+  reset(e: FormEvent<HTMLFormElement>) {
     this.reset$.next(e);
   }
 

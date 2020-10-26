@@ -4,7 +4,6 @@ import cx from 'classnames';
 import Switch, { ISwitchProps } from '../../switch';
 import { IFormComponentProps, IFormFieldChildProps } from '../shared';
 import { FormField } from '../Field';
-import { $MergeParams } from '../utils';
 
 export type IFormSwitchFieldProps = IFormComponentProps<
   boolean,
@@ -27,10 +26,7 @@ export const FormSwitchField: React.FunctionComponent<IFormSwitchFieldProps> = p
       {...rest}
       className={cx(className, 'zent-form-switch-field')}
       defaultValue={
-        typeof (props as $MergeParams<IFormSwitchFieldProps>).defaultValue ===
-        'boolean'
-          ? (props as $MergeParams<IFormSwitchFieldProps>).defaultValue
-          : false
+        typeof props.defaultValue === 'boolean' ? props.defaultValue : false
       }
     >
       {childProps => renderSwitch(childProps, props)}
