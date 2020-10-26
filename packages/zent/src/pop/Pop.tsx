@@ -69,7 +69,7 @@ export type PopPositions =
 
 export interface IPopCommonProps {
   content: React.ReactNode;
-  position: PopPositions | IPositionFunction;
+  position?: PopPositions | IPositionFunction;
   cushion?: number;
   centerArrow?: boolean;
   header?: React.ReactNode;
@@ -77,7 +77,7 @@ export interface IPopCommonProps {
   onClose?: () => void;
   onBeforeShow?: IPopoverBeforeHook;
   onBeforeClose?: IPopoverBeforeHook;
-  type: 'primary' | 'default' | 'danger' | 'success';
+  type?: 'primary' | 'default' | 'danger' | 'success';
   visible?: boolean;
   onVisibleChange?: (visible: boolean) => void;
   onPositionUpdated?: () => void;
