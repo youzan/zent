@@ -1,6 +1,5 @@
 ---
 title: Transfer
-subtitle: Transfer
 path: component/transfer
 group: Data Entry
 ---
@@ -8,8 +7,6 @@ group: Data Entry
 ## Transfer
 
 Double column transfer choice box.
-
-### Guides
 
 ### API
 
