@@ -1,12 +1,12 @@
 import toggleSelection from './toggleSelection';
 import createElement from '../utils/dom/createElement';
 
-function copy(text) {
-  let reselectPrevious,
-    range,
-    selection,
-    mark,
-    success = false;
+function copy(text: string) {
+  let reselectPrevious: () => void;
+  let range: Range;
+  let selection: Selection;
+  let mark: HTMLSpanElement;
+  let success = false;
 
   try {
     reselectPrevious = toggleSelection();
@@ -20,14 +20,14 @@ function copy(text) {
     mark.style.all = 'unset';
     // prevents scrolling to the end of the page
     mark.style.position = 'fixed';
-    mark.style.top = 0;
+    mark.style.top = '0';
     mark.style.clip = 'rect(0, 0, 0, 0)';
     // used to preserve spaces and line breaks
     mark.style.whiteSpace = 'pre';
     // do not inherit user-select (it may be `none`)
     mark.style.webkitUserSelect = 'text';
-    mark.style.MozUserSelect = 'text';
-    mark.style.msUserSelect = 'text';
+    (mark.style as any).MozUserSelect = 'text';
+    (mark.style as any).msUserSelect = 'text';
     mark.style.userSelect = 'text';
 
     document.body.appendChild(mark);
