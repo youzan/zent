@@ -13,7 +13,7 @@ export interface ICopyToClipboardChildProps {
 }
 
 export class CopyToClipboard extends Component<ICopyToClipboardProps> {
-  onClick = event => {
+  onClick = (event: React.MouseEvent) => {
     const { text, onCopy, children } = this.props;
 
     const elem = React.Children.only<any>(children);
