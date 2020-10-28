@@ -16,6 +16,8 @@ import { Input } from 'zent';
 ReactDOM.render(
   <div>
 			<Input value="Blah" disabled />
+			<Input value="Blah" disabled showClear />
+			<Input value="Blah" readOnly showClear />
 			<Input icon="search" disabled />
 			<Input value="42" disabled addonBefore="$" />
 			<Input value="42" readOnly addonAfter="{i18n.days}" />
