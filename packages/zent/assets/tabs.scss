@@ -241,10 +241,14 @@
     @include border;
     @include theme-color(background-color, stroke, 8);
     border-left: 0;
-    min-width: 104px;
+    padding: 0 20px;
+    height: 40px;
+    box-sizing: border-box;
 
     &-inner {
-      padding: 9px 16px;
+      min-width: 56px;
+      line-height: 40px;
+      text-align: center;
     }
 
     &:first-child {
@@ -275,7 +279,9 @@
     height: 32px;
 
     &-inner {
-      padding: 5px 16px;
+      min-width: 14px;
+      line-height: 32px;
+      padding: 0 20px;
     }
 
     &:not(:first-child) {

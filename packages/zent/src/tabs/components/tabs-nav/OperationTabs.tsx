@@ -41,114 +41,150 @@ abstract class OperationTabs<
     return this.tabsWrapperRef.current?.offsetWidth || 0;
   }
 
-  get maxTransformIndex() {
-    const { list, tabsTotalWidth } = this.tabsWidths;
-    let maxTransformIndex = 0;
-    const transformRange = tabsTotalWidth - this.tabsWrapperWidth;
-    list.reduce((total, { width }, index) => {
-      const innerTotal = total + width;
-      if (innerTotal === transformRange && total < transformRange) {
-        maxTransformIndex = index;
-      }
-      if (innerTotal > transformRange && total < transformRange) {
-        maxTransformIndex = index + 1;
-      }
-      return innerTotal;
-    }, 0);
-    return maxTransformIndex;
-  }
-
-  onPageChange = (targetIndex: number, disabled = false) => {
-    if (disabled) return;
-    let transformLeft = 0;
-    let endIndex = 0;
-    const { list, tabsTotalWidth } = this.tabsWidths;
-    const tabsWrapperWidth = this.tabsWrapperWidth;
-    const transformRange = tabsTotalWidth - tabsWrapperWidth;
+  getCurrentTransformX(targetIndex: number) {
+    const { list } = this.tabsWidths;
+    let transformX = 0;
     list.reduce((total, { width }, index) => {
       if (index === targetIndex) {
-        transformLeft = total;
+        transformX = total;
       }
       return total + width;
     }, 0);
-    let visibleTotal = 0;
-    list.reduce((total, { width, id }, index) => {
-      if (index >= targetIndex) {
-        visibleTotal = total + width;
+
+    return transformX;
+  }
+
+  getTargetIndex = (transformRange, initalTarget) => {
+    const { list } = this.tabsWidths;
+    let targetIndex = initalTarget;
+    const indexOffset = !initalTarget ? 1 : 0;
+
+    list.reduce((total, { width }, index) => {
+      const nextTotal = total + width;
+      if (nextTotal >= transformRange && total < transformRange) {
+        targetIndex = index + indexOffset;
       }
-      if (visibleTotal >= tabsWrapperWidth && total < tabsWrapperWidth) {
-        endIndex = index;
-      }
-      return visibleTotal;
+      return nextTotal;
     }, 0);
 
-    const maxIndex = this.maxTransformIndex;
-    const isOverMaxIndex = targetIndex >= maxIndex;
+    return targetIndex;
+  };
+
+  onStartChange = (startIndex: number) => {
+    const { list, tabsTotalWidth } = this.tabsWidths;
+    const tabsWrapperWidth = this.tabsWrapperWidth;
+    const currentTransform =
+      this.getCurrentTransformX(startIndex) + tabsWrapperWidth;
+
+    const transformRange = Math.min(currentTransform, tabsTotalWidth);
+    if (currentTransform > tabsTotalWidth) {
+      startIndex = this.getTargetIndex(tabsTotalWidth - tabsWrapperWidth, 0);
+    }
+    const endIndex = this.getTargetIndex(transformRange, list.length - 1);
+    const transformLeft = transformRange - tabsWrapperWidth;
     this.setState({
-      startIndex: isOverMaxIndex ? maxIndex : targetIndex,
-      maxTransformIndex: maxIndex,
-      transformLeft: isOverMaxIndex ? transformRange : transformLeft,
-      endIndex: isOverMaxIndex ? list.length : endIndex,
+      startIndex,
+      endIndex,
+      transformLeft,
+    });
+  };
+
+  onEndChange = (endIndex: number) => {
+    const { list } = this.tabsWidths;
+    const tabsWrapperWidth = this.tabsWrapperWidth;
+    const currentTransform =
+      this.getCurrentTransformX(endIndex) - tabsWrapperWidth;
+
+    const transformRange = Math.max(currentTransform, 0);
+    if (currentTransform < 0) {
+      endIndex = this.getTargetIndex(tabsWrapperWidth, list.length - 1);
+    }
+    const startIndex = this.getTargetIndex(transformRange, 0);
+    this.setState({
+      startIndex,
+      endIndex,
+      transformLeft: transformRange,
     });
   };
 
   onAnchorPageChange = (tab: IInnerTab<Id>) => {
-    let targetIndex = 0;
-    this.tabsWidths.list.map((item, index) => {
-      if (item.id === tab.key) {
-        targetIndex = index;
-        return;
-      }
-    });
+    if (tab.disabled) return;
+    const targetIndex = this.tabsWidths.list.findIndex(
+      item => item.id === tab.key
+    );
+
+    const { startIndex, endIndex } = this.state;
+    if (targetIndex <= startIndex) {
+      this.onStartChange(targetIndex);
+    }
+    if (targetIndex >= endIndex) {
+      this.onEndChange(targetIndex + 1);
+    }
     this.props.onChange?.(tab.key);
-    this.onPageChange(targetIndex);
   };
 
-  renderOverflowOperations(tabs: Array<IInnerTab<Id>>) {
-    const tabsCount = tabs.length;
-    if (!tabsCount) return null;
-    const { overflowMode } = this.props;
-    const { startIndex } = this.state;
+  onSlidePageChange = (isPrev: boolean, disabled = false) => {
+    if (disabled) return;
+    const { startIndex, endIndex } = this.state;
+    if (isPrev) {
+      this.onEndChange(startIndex);
+    } else {
+      this.onStartChange(endIndex);
+    }
+  };
 
-    return overflowMode === 'slide' ? (
+  renderSlideOperations() {
+    const { tabDataList } = this.props;
+    const { startIndex, endIndex } = this.state;
+    const disablePrev = !startIndex;
+    const disableNext = endIndex === tabDataList.length - 1;
+    return (
       <SlideOperation
-        min={startIndex}
-        max={this.maxTransformIndex}
-        onChange={this.onPageChange}
+        disablePrev={disablePrev}
+        disableNext={disableNext}
+        onPrevChange={() => this.onSlidePageChange(true, disablePrev)}
+        onNextChange={() => this.onSlidePageChange(false, disableNext)}
       />
-    ) : (
-      <AnchorOperation<Id> tabs={tabs} onChange={this.onAnchorPageChange} />
     );
   }
 
-  componentDidMount() {
-    this.onPageChange(0);
+  renderAnchorOperations(tabs: Array<IInnerTab<Id>>) {
+    return !!tabs.length ? (
+      <AnchorOperation<Id> tabs={tabs} onChange={this.onAnchorPageChange} />
+    ) : null;
   }
+
+  componentDidMount() {
+    this.onStartChange(0);
+  }
+
+  onResize = () => {
+    this.onStartChange(this.state.startIndex);
+  };
 
   getHiddenTabs() {
     const { tabDataList } = this.props;
     const { startIndex, endIndex } = this.state;
-    const startHiddenTabs = tabDataList.slice(0, startIndex);
-    const endHiddenTabs = tabDataList.slice(endIndex);
-    return [...startHiddenTabs, ...endHiddenTabs];
-  }
 
-  onResize = () => {
-    this.onPageChange(this.state.startIndex);
-  };
+    return tabDataList.reduce((hiddenTabs, tab, index) => {
+      if (index < startIndex || index >= endIndex) {
+        hiddenTabs.push(tab);
+      }
+      return hiddenTabs;
+    }, []);
+  }
 
   render() {
     const { overflowMode, tabs } = this.props;
-    const { transformLeft, startIndex } = this.state;
+    const { transformLeft, startIndex, endIndex } = this.state;
     const contentClassName = `${classNamePrefix}-${overflowMode}`;
     const hiddenTabs = this.getHiddenTabs();
     return (
       <>
         <div
           className={cn(contentClassName, {
-            [`${contentClassName}-left`]: !!transformLeft,
-            [`${contentClassName}-right`]:
-              this.maxTransformIndex !== startIndex && hiddenTabs.length,
+            [`${contentClassName}-left`]: !!startIndex,
+            [`${contentClassName}-right`]: endIndex !== tabs.length - 1,
           })}
           ref={this.tabsWrapperRef}
         >
@@ -161,7 +197,8 @@ abstract class OperationTabs<
           </div>
         </div>
         <div className={`${contentClassName}-option`}>
-          {this.renderOverflowOperations(hiddenTabs)}
+          {overflowMode === 'slide' && this.renderSlideOperations()}
+          {overflowMode === 'anchor' && this.renderAnchorOperations(hiddenTabs)}
         </div>
         <WindowResizeHandler onResize={this.onResize} />
       </>

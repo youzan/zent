@@ -126,9 +126,14 @@ describe('Tabs', () => {
 
   it('overflowMode props', () => {
     const wrapper = mount(
-      <Tabs activeId="1" overflowMode="flip" tabs={overflowTabs} />
+      <Tabs activeId="1" overflowMode="slide" tabs={overflowTabs} />
     );
-    expect(wrapper.find('.zent-tabs-nav-tabs-content-flip').length).toBe(1);
+    expect(wrapper.find('.zent-tabs-nav-tabs-content-slide').length).toBe(1);
+
+    const wrapper2 = mount(
+      <Tabs activeId="1" overflowMode="anchor" tabs={overflowTabs} />
+    );
+    expect(wrapper2.find('.zent-tabs-nav-tabs-content-anchor').length).toBe(1);
   });
 
   it('onChange callback', () => {
