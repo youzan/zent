@@ -8,6 +8,12 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 8.5.11(2020-10-28)
+
+- 🦀️ Fix type definitions in `Form`
+- 🦀️ Fix `WindowEventHandler` compatibilty issue with SSR
+- 🦀️ Hide clear button when `Input` is not editable
+
 ### 8.5.10(2020-10-22)
 
 - Fix a bug that prevents moving an item to the front in `Sortable`
