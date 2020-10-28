@@ -1,5 +1,6 @@
 @import './theme/default';
 @import './theme/font';
+@import './theme/timing-functions';
 
 @mixin border($direct: null) {
   @if $direct {
@@ -20,6 +21,15 @@
       flex: 1 1 auto;
     }
   }
+}
+
+@mixin inset-box-shadow($offsetX) {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  width: 5px;
+  height: 100%;
+  box-shadow: inset #{$offsetX}px 0 5px -5px $theme-stroke-4;
 }
 
 .zent-tabs {
@@ -49,7 +59,7 @@
       margin-left: 8px;
     }
 
-    &-tabs-content-flip,
+    &-tabs-content-slide,
     &-tabs-content-anchor {
       width: 100%;
       display: flex;
@@ -62,7 +72,7 @@
 
       &-main {
         display: flex;
-        transition: transform 220ms ease-in-out;
+        transition: transform 220ms $timing-fn-ease-in-out;
       }
 
       .zent-tabs-tab {
@@ -70,23 +80,15 @@
       }
 
       &-left::before {
-        content: '';
-        position: absolute;
+        @include inset-box-shadow(5);
+
         left: 0;
-        z-index: 1;
-        width: 5px;
-        height: 100%;
-        box-shadow: inset 5px 0 5px -5px $theme-stroke-4;
       }
 
       &-right::after {
-        content: '';
-        position: absolute;
+        @include inset-box-shadow(-5);
+
         right: 0;
-        z-index: 1;
-        width: 5px;
-        height: 100%;
-        box-shadow: inset -5px 0 5px -5px $theme-stroke-4;
       }
 
       &-option {

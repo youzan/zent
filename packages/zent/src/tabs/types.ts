@@ -22,7 +22,7 @@ export interface IInnerTab<Id> extends ITab<Id> {
 export type IVerticalInnerTab<Id> = IInnerTab<Id> | IVerticalDivide;
 
 export type TabType = 'normal' | 'card' | 'button';
-export type ITabOverflowMode = 'flip' | 'anchor';
+export type ITabOverflowMode = 'slide' | 'anchor';
 export interface ITabPanelProps<Id> {
   id: Id;
   tab: React.ReactNode;

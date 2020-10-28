@@ -25,7 +25,7 @@ group: 导航
 | onDelete           | 关闭 tab 时                                                          | (id: string \| number) => any |            |                        | 否       |
 | candel             | 是否可删除                                                           | bool                          | `false`    |                        | 否       |
 | unmountPanelOnHide | panel 非 active 时，不使用 `display: none` 隐藏而是直接 unmount 组件 | bool                          | `false`    |                        | 否       |
-| overflowMode       | 标签过多时查看全部标签的方式                                         | string                        | `''`       | `'flip'` \| `'anchor'` | 否       |
+| overflowMode       | 标签过多时查看全部标签的方式                                         | string                        | `''`       | `'slide'` \| `'anchor'` | 否       |
 
 tabs 参数类型：
 

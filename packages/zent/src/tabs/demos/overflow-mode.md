@@ -48,7 +48,7 @@ class Simple extends Component {
 					activeId={this.state.activeId}
 					onChange={this.onTabChange}
 					tabs={this.state.tabs}
-					overflowMode="flip"
+					overflowMode="slide"
 					type="card"
 				/>
 			</div>

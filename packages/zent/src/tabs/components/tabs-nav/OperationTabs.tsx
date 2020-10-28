@@ -1,8 +1,9 @@
 import * as React from 'react';
 import cn from 'classnames';
 import AnchorOperation from '../operation/AnchorOperation';
-import FlipOperation from '../operation/FlipOperation';
+import SlideOperation from '../operation/SlideOperation';
 import { IInnerTab, ITabsNavProps } from '../../types';
+import { WindowResizeHandler } from '../../../utils/component/WindowResizeHandler';
 
 const classNamePrefix = 'zent-tabs-nav-tabs-content';
 
@@ -57,7 +58,7 @@ abstract class OperationTabs<
     return maxTransformIndex;
   }
 
-  onPageChange(targetIndex: number, disabled = false) {
+  onPageChange = (targetIndex: number, disabled = false) => {
     if (disabled) return;
     let transformLeft = 0;
     let endIndex = 0;
@@ -89,9 +90,9 @@ abstract class OperationTabs<
       transformLeft: isOverMaxIndex ? transformRange : transformLeft,
       endIndex: isOverMaxIndex ? list.length : endIndex,
     });
-  }
+  };
 
-  onAnchorPageChange(tab: IInnerTab<Id>) {
+  onAnchorPageChange = (tab: IInnerTab<Id>) => {
     let targetIndex = 0;
     this.tabsWidths.list.map((item, index) => {
       if (item.id === tab.key) {
@@ -101,7 +102,7 @@ abstract class OperationTabs<
     });
     this.props.onChange?.(tab.key);
     this.onPageChange(targetIndex);
-  }
+  };
 
   renderOverflowOperations(tabs: Array<IInnerTab<Id>>) {
     const tabsCount = tabs.length;
@@ -109,17 +110,14 @@ abstract class OperationTabs<
     const { overflowMode } = this.props;
     const { startIndex } = this.state;
 
-    return overflowMode === 'flip' ? (
-      <FlipOperation
+    return overflowMode === 'slide' ? (
+      <SlideOperation
         min={startIndex}
         max={this.maxTransformIndex}
-        onChange={this.onPageChange.bind(this)}
+        onChange={this.onPageChange}
       />
     ) : (
-      <AnchorOperation<Id>
-        tabs={tabs}
-        onChange={this.onAnchorPageChange.bind(this)}
-      />
+      <AnchorOperation<Id> tabs={tabs} onChange={this.onAnchorPageChange} />
     );
   }
 
@@ -134,6 +132,10 @@ abstract class OperationTabs<
     const endHiddenTabs = tabDataList.slice(endIndex);
     return [...startHiddenTabs, ...endHiddenTabs];
   }
+
+  onResize = () => {
+    this.onPageChange(this.state.startIndex);
+  };
 
   render() {
     const { overflowMode, tabs } = this.props;
@@ -161,6 +163,7 @@ abstract class OperationTabs<
         <div className={`${contentClassName}-option`}>
           {this.renderOverflowOperations(hiddenTabs)}
         </div>
+        <WindowResizeHandler onResize={this.onResize} />
       </>
     );
   }

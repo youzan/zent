@@ -18,7 +18,7 @@ const AnchorOperation = <Id extends string | number = string>({
         <Icon type="more" />
       </Popover.Trigger.Hover>
       <Popover.Content>
-        <ul className="zent-tabs-hidden-tabs">
+        <div className="zent-tabs-hidden-tabs">
           {tabs.map(item => (
             <div
               key={item.key}
@@ -28,7 +28,7 @@ const AnchorOperation = <Id extends string | number = string>({
               {item.title}
             </div>
           ))}
-        </ul>
+        </div>
       </Popover.Content>
     </Popover>
   );
