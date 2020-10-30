@@ -48,6 +48,10 @@ export const InputCore = React.forwardRef<
     onCompositionEndProp
   );
 
+  // No clear button when input is disabled or readonly
+  const showClearIcon =
+    showClear && valueProp && !otherProps.disabled && !otherProps.readOnly;
+
   return (
     <>
       {addonBefore && (
@@ -62,7 +66,7 @@ export const InputCore = React.forwardRef<
         onCompositionStart={onCompositionStart}
         onCompositionEnd={onCompositionEnd}
       />
-      {showClear && valueProp && (
+      {showClearIcon && (
         <Icon
           className="zent-input-close"
           type="close-circle"

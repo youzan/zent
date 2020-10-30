@@ -43,7 +43,7 @@ export function FormRadioGroupField<T>(
     <FormField
       {...rest}
       className={cx(className, 'zent-form-radio-group-field')}
-      defaultValue={'defaultValue' in props ? props.defaultValue : null}
+      defaultValue={props.defaultValue ?? null}
     >
       {childProps => <RadioGroupField childProps={childProps} props={props} />}
     </FormField>
