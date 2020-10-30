@@ -47,18 +47,19 @@ abstract class OperationTabs<
     return this.tabsWrapperRef.current?.offsetWidth || 0;
   }
 
-  getTargetIndex = (transformRange, initalTarget) => {
+  getTargetIndex = (translateX: number, initalTarget: number) => {
     const { list } = this.tabsInfo;
     let targetIndex = initalTarget;
     const indexOffset = !initalTarget ? 1 : 0;
 
     for (let index = 0; index < list.length; index++) {
       const { width, accumWidth } = list[index];
-      if (accumWidth + width >= transformRange && accumWidth < transformRange) {
+      if (accumWidth + width >= translateX && accumWidth < translateX) {
         targetIndex = index + indexOffset;
         return targetIndex;
       }
     }
+    return targetIndex;
   };
 
   getHiddenTabs() {
