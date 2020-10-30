@@ -101,6 +101,7 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
 
   const onTimeChange = React.useCallback(
     val => {
+      if (!val) return;
       const timeVal = parse(val, format, selected || new Date());
       onSelected(timeVal, false);
     },
