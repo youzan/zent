@@ -7,6 +7,11 @@ import { WindowResizeHandler } from '../../../utils/component/WindowResizeHandle
 
 const classNamePrefix = 'zent-tabs-nav-tabs-content';
 
+interface ITabsItem {
+  id: string | number;
+  width: number;
+  accumWidth: number;
+}
 interface IOperationTabsProps<Id>
   extends Pick<ITabsNavProps<Id>, 'tabDataList' | 'onChange' | 'overflowMode'> {
   tabs: React.ReactNode[];
@@ -20,18 +25,19 @@ abstract class OperationTabs<
   state = {
     startIndex: 0,
     endIndex: 0,
-    transformLeft: 0,
+    translateX: 0,
   };
 
-  get tabsWidths() {
+  get tabsInfo() {
     const { tabDataList } = this.props;
     const tabs = this.tabsMainRef.current?.children || [];
-    const list = [];
+    const list: ITabsItem[] = [];
+
     let tabsTotalWidth = 0;
     for (let i = 0; i < tabs.length; i++) {
       const width = (tabs[i] as HTMLDivElement).offsetWidth;
       const id = tabDataList[i].key;
-      list.push({ id, width });
+      list.push({ id, width, accumWidth: tabsTotalWidth });
       tabsTotalWidth += width;
     }
     return { list, tabsTotalWidth };
@@ -41,75 +47,82 @@ abstract class OperationTabs<
     return this.tabsWrapperRef.current?.offsetWidth || 0;
   }
 
-  getCurrentTransformX(targetIndex: number) {
-    const { list } = this.tabsWidths;
-    let transformX = 0;
-    list.reduce((total, { width }, index) => {
-      if (index === targetIndex) {
-        transformX = total;
-      }
-      return total + width;
-    }, 0);
-
-    return transformX;
-  }
-
   getTargetIndex = (transformRange, initalTarget) => {
-    const { list } = this.tabsWidths;
+    const { list } = this.tabsInfo;
     let targetIndex = initalTarget;
     const indexOffset = !initalTarget ? 1 : 0;
 
-    list.reduce((total, { width }, index) => {
-      const nextTotal = total + width;
-      if (nextTotal >= transformRange && total < transformRange) {
+    for (let index = 0; index < list.length; index++) {
+      const { width, accumWidth } = list[index];
+      if (accumWidth + width >= transformRange && accumWidth < transformRange) {
         targetIndex = index + indexOffset;
+        return targetIndex;
       }
-      return nextTotal;
-    }, 0);
-
-    return targetIndex;
+    }
   };
 
-  onStartChange = (startIndex: number) => {
-    const { list, tabsTotalWidth } = this.tabsWidths;
-    const tabsWrapperWidth = this.tabsWrapperWidth;
-    const currentTransform =
-      this.getCurrentTransformX(startIndex) + tabsWrapperWidth;
+  getHiddenTabs() {
+    const { tabDataList } = this.props;
+    const { startIndex, endIndex } = this.state;
 
-    const transformRange = Math.min(currentTransform, tabsTotalWidth);
-    if (currentTransform > tabsTotalWidth) {
+    return tabDataList.reduce((hiddenTabs, tab, index) => {
+      if (index < startIndex || index >= endIndex) {
+        hiddenTabs.push(tab);
+      }
+      return hiddenTabs;
+    }, []);
+  }
+
+  onStartChange = (startIndex: number) => {
+    const { list, tabsTotalWidth } = this.tabsInfo;
+    const tabsWrapperWidth = this.tabsWrapperWidth;
+    const currentIndexTranslateX =
+      list[startIndex].accumWidth + tabsWrapperWidth;
+
+    const availableTranslateX = Math.min(
+      currentIndexTranslateX,
+      tabsTotalWidth
+    );
+
+    // 当前开始索引对应的偏移量大于标签总宽度时，调整可视范围的开始索引
+    if (currentIndexTranslateX > tabsTotalWidth) {
       startIndex = this.getTargetIndex(tabsTotalWidth - tabsWrapperWidth, 0);
     }
-    const endIndex = this.getTargetIndex(transformRange, list.length - 1);
-    const transformLeft = transformRange - tabsWrapperWidth;
+
+    const endIndex = this.getTargetIndex(availableTranslateX, list.length - 1);
+    const translateX = availableTranslateX - tabsWrapperWidth;
+
     this.setState({
       startIndex,
       endIndex,
-      transformLeft,
+      translateX,
     });
   };
 
   onEndChange = (endIndex: number) => {
-    const { list } = this.tabsWidths;
+    const { list } = this.tabsInfo;
     const tabsWrapperWidth = this.tabsWrapperWidth;
-    const currentTransform =
-      this.getCurrentTransformX(endIndex) - tabsWrapperWidth;
+    const currentIndexTranslateX = list[endIndex].accumWidth - tabsWrapperWidth;
 
-    const transformRange = Math.max(currentTransform, 0);
-    if (currentTransform < 0) {
+    const availableTranslateX = Math.max(currentIndexTranslateX, 0);
+
+    // 当前结束索引对应的偏移量小于0时，调整可视范围的结束索引
+    if (currentIndexTranslateX < 0) {
       endIndex = this.getTargetIndex(tabsWrapperWidth, list.length - 1);
     }
-    const startIndex = this.getTargetIndex(transformRange, 0);
+
+    const startIndex = this.getTargetIndex(availableTranslateX, 0);
+
     this.setState({
       startIndex,
       endIndex,
-      transformLeft: transformRange,
+      translateX: availableTranslateX,
     });
   };
 
   onAnchorPageChange = (tab: IInnerTab<Id>) => {
     if (tab.disabled) return;
-    const targetIndex = this.tabsWidths.list.findIndex(
+    const targetIndex = this.tabsInfo.list.findIndex(
       item => item.id === tab.key
     );
 
@@ -162,21 +175,9 @@ abstract class OperationTabs<
     this.onStartChange(this.state.startIndex);
   };
 
-  getHiddenTabs() {
-    const { tabDataList } = this.props;
-    const { startIndex, endIndex } = this.state;
-
-    return tabDataList.reduce((hiddenTabs, tab, index) => {
-      if (index < startIndex || index >= endIndex) {
-        hiddenTabs.push(tab);
-      }
-      return hiddenTabs;
-    }, []);
-  }
-
   render() {
     const { overflowMode, tabs } = this.props;
-    const { transformLeft, startIndex, endIndex } = this.state;
+    const { translateX, startIndex, endIndex } = this.state;
     const contentClassName = `${classNamePrefix}-${overflowMode}`;
     const hiddenTabs = this.getHiddenTabs();
     return (
@@ -191,7 +192,7 @@ abstract class OperationTabs<
           <div
             className={cn(`${contentClassName}-main`)}
             ref={this.tabsMainRef}
-            style={{ transform: `translate(-${transformLeft}px, 0)` }}
+            style={{ transform: `translate(-${translateX}px, 0)` }}
           >
             {tabs}
           </div>

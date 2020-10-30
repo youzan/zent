@@ -74,6 +74,7 @@ export interface ITabsNavProps<Id>
   candel: boolean;
   stretch: boolean;
   navExtraContent: React.ReactNode;
+  type: TabType;
   overflowMode: ITabOverflowMode;
 }
 

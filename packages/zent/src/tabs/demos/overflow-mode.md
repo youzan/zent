@@ -1,11 +1,11 @@
 ---
 order: 8
 zh-CN:
-  title: 支持多标签滚动查看
+  title: 支持多标签滚动查看（仅限 `normal` 、`card` 类型）
   tabPrefix: 选项
 
 en-US:
-  title: Operations in more tabs
+  title: Operations in more tabs (only avaliable in `normal` and `card` type)
   tabPrefix: Tab
 ---
 
@@ -35,16 +35,6 @@ class Simple extends Component {
 		});
 	};
 
-	onTabAdd = () => {
-		let { tabs } = this.state;
-		tabs.push({
-			title: 'tab26',
-			key: '26',
-		});
-		this.setState({
-			tabs,
-		});
-	};
 	render() {
 		return (
 			<div className="zent-tabs-demo">
@@ -53,13 +43,6 @@ class Simple extends Component {
 					onChange={this.onTabChange}
 					tabs={this.state.tabs}
 					overflowMode="slide"
-					navExtraContent={
-						<Icon
-							type="plus"
-							className="zent-tabs-add-btn"
-							onClick={this.onTabAdd}
-						/>
-					}
 				/>
 				<Tabs
 					activeId={this.state.activeId}

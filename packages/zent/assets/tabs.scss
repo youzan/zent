@@ -190,6 +190,15 @@
     &:hover {
       @include theme-color(background-color, primary, 8);
     }
+
+    &-disabled {
+      @include theme-color(color, stroke, 4);
+
+      &:hover {
+        @include theme-color(background-color, stroke, 9);
+        cursor: not-allowed;
+      }
+    }
   }
 }
 
@@ -241,13 +250,13 @@
     @include border;
     @include theme-color(background-color, stroke, 8);
     border-left: 0;
-    padding: 0 20px;
     height: 40px;
     box-sizing: border-box;
+    padding: 0 20px 0 19px;
 
     &-inner {
       min-width: 56px;
-      line-height: 40px;
+      line-height: 38px;
       text-align: center;
     }
 
@@ -280,7 +289,7 @@
 
     &-inner {
       min-width: 14px;
-      line-height: 32px;
+      line-height: 30px;
       padding: 0 20px;
     }
 

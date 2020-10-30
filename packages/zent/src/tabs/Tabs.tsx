@@ -107,6 +107,7 @@ export class Tabs<Id extends string | number = string> extends BaseTabs<
         stretch={stretch}
         overflowMode={overflowMode}
         navExtraContent={navExtraContent}
+        type={type}
       />
     );
   }
