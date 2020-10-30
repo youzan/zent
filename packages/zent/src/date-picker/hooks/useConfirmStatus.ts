@@ -28,7 +28,7 @@ export default function useConfirmStatus({
         ?.includes(date.getSeconds());
 
     setConfirmStatus(
-      disabledHour() || disabledMinute() || disabledSecond() || false
+      !selected || disabledHour() || disabledMinute() || disabledSecond()
     );
   }, [selected, format, disabledTimesOption]);
   return confirmStatus;
