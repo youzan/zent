@@ -38,9 +38,12 @@ abstract class CommonTabsNav<
     const navExtraContent = this.renderNavExtraContent();
     const { tabDataList, overflowMode, onChange, type } = this.props;
     const tabs = this.renderTabs();
+    const isOperationTabs =
+      overflowMode && (type === 'normal' || type === 'card');
+
     return (
       <div className={this.tabsNavCls}>
-        {overflowMode && type !== 'button' ? (
+        {isOperationTabs ? (
           <OperationTabs
             overflowMode={overflowMode}
             onChange={onChange}

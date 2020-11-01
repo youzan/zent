@@ -4,6 +4,7 @@ import AnchorOperation from '../operation/AnchorOperation';
 import SlideOperation from '../operation/SlideOperation';
 import { IInnerTab, ITabsNavProps } from '../../types';
 import { WindowResizeHandler } from '../../../utils/component/WindowResizeHandler';
+import memorizeOne from '../../../utils/memorize-one';
 
 const classNamePrefix = 'zent-tabs-nav-tabs-content';
 
@@ -12,10 +13,15 @@ interface ITabsItem {
   width: number;
   accumWidth: number;
 }
+interface ITabsInfo {
+  list: ITabsItem[];
+  tabsTotalWidth: number;
+}
 interface IOperationTabsProps<Id>
   extends Pick<ITabsNavProps<Id>, 'tabDataList' | 'onChange' | 'overflowMode'> {
   tabs: React.ReactNode[];
 }
+
 abstract class OperationTabs<
   Id extends string | number
 > extends React.Component<IOperationTabsProps<Id>> {
@@ -28,7 +34,11 @@ abstract class OperationTabs<
     translateX: 0,
   };
 
-  get tabsInfo() {
+  get tabsWrapperWidth() {
+    return this.tabsWrapperRef.current?.offsetWidth || 0;
+  }
+
+  getTabsInfo(): ITabsInfo {
     const { tabDataList } = this.props;
     const tabs = this.tabsMainRef.current?.children || [];
     const list: ITabsItem[] = [];
@@ -43,12 +53,12 @@ abstract class OperationTabs<
     return { list, tabsTotalWidth };
   }
 
-  get tabsWrapperWidth() {
-    return this.tabsWrapperRef.current?.offsetWidth || 0;
-  }
-
-  getTargetIndex = (translateX: number, initalTarget: number) => {
-    const { list } = this.tabsInfo;
+  getTargetIndex = (
+    translateX: number,
+    tabsInfo: ITabsInfo,
+    initalTarget = 0
+  ) => {
+    const { list } = tabsInfo;
     let targetIndex = initalTarget;
     const indexOffset = !initalTarget ? 1 : 0;
 
@@ -62,20 +72,23 @@ abstract class OperationTabs<
     return targetIndex;
   };
 
-  getHiddenTabs() {
-    const { tabDataList } = this.props;
-    const { startIndex, endIndex } = this.state;
+  getHiddenTabs = memorizeOne(
+    (
+      tabDataList: Array<IInnerTab<Id>>,
+      startIndex: number,
+      endIndex: number
+    ) => {
+      return tabDataList.reduce((hiddenTabs, tab, index) => {
+        if (index < startIndex || index >= endIndex) {
+          hiddenTabs.push(tab);
+        }
+        return hiddenTabs;
+      }, []);
+    }
+  );
 
-    return tabDataList.reduce((hiddenTabs, tab, index) => {
-      if (index < startIndex || index >= endIndex) {
-        hiddenTabs.push(tab);
-      }
-      return hiddenTabs;
-    }, []);
-  }
-
-  onStartChange = (startIndex: number) => {
-    const { list, tabsTotalWidth } = this.tabsInfo;
+  onStartChange = (startIndex: number, tabsInfo: ITabsInfo) => {
+    const { list, tabsTotalWidth } = tabsInfo;
     const tabsWrapperWidth = this.tabsWrapperWidth;
     const currentIndexTranslateX =
       list[startIndex].accumWidth + tabsWrapperWidth;
@@ -87,10 +100,17 @@ abstract class OperationTabs<
 
     // 当前开始索引对应的偏移量大于标签总宽度时，调整可视范围的开始索引
     if (currentIndexTranslateX > tabsTotalWidth) {
-      startIndex = this.getTargetIndex(tabsTotalWidth - tabsWrapperWidth, 0);
+      startIndex = this.getTargetIndex(
+        tabsTotalWidth - tabsWrapperWidth,
+        tabsInfo
+      );
     }
 
-    const endIndex = this.getTargetIndex(availableTranslateX, list.length - 1);
+    const endIndex = this.getTargetIndex(
+      availableTranslateX,
+      tabsInfo,
+      list.length - 1
+    );
     const translateX = availableTranslateX - tabsWrapperWidth;
 
     this.setState({
@@ -100,8 +120,8 @@ abstract class OperationTabs<
     });
   };
 
-  onEndChange = (endIndex: number) => {
-    const { list } = this.tabsInfo;
+  onEndChange = (endIndex: number, tabsInfo: ITabsInfo) => {
+    const { list } = tabsInfo;
     const tabsWrapperWidth = this.tabsWrapperWidth;
     const currentIndexTranslateX = list[endIndex].accumWidth - tabsWrapperWidth;
 
@@ -109,10 +129,14 @@ abstract class OperationTabs<
 
     // 当前结束索引对应的偏移量小于0时，调整可视范围的结束索引
     if (currentIndexTranslateX < 0) {
-      endIndex = this.getTargetIndex(tabsWrapperWidth, list.length - 1);
+      endIndex = this.getTargetIndex(
+        tabsWrapperWidth,
+        tabsInfo,
+        list.length - 1
+      );
     }
 
-    const startIndex = this.getTargetIndex(availableTranslateX, 0);
+    const startIndex = this.getTargetIndex(availableTranslateX, tabsInfo);
 
     this.setState({
       startIndex,
@@ -123,16 +147,15 @@ abstract class OperationTabs<
 
   onAnchorPageChange = (tab: IInnerTab<Id>) => {
     if (tab.disabled) return;
-    const targetIndex = this.tabsInfo.list.findIndex(
-      item => item.id === tab.key
-    );
+    const tabsInfo = this.getTabsInfo();
+    const targetIndex = tabsInfo.list.findIndex(item => item.id === tab.key);
 
     const { startIndex, endIndex } = this.state;
     if (targetIndex <= startIndex) {
-      this.onStartChange(targetIndex);
+      this.onStartChange(targetIndex, tabsInfo);
     }
     if (targetIndex >= endIndex) {
-      this.onEndChange(targetIndex + 1);
+      this.onEndChange(targetIndex + 1, tabsInfo);
     }
     this.props.onChange?.(tab.key);
   };
@@ -140,10 +163,11 @@ abstract class OperationTabs<
   onSlidePageChange = (isPrev: boolean, disabled = false) => {
     if (disabled) return;
     const { startIndex, endIndex } = this.state;
+    const tabsInfo = this.getTabsInfo();
     if (isPrev) {
-      this.onEndChange(startIndex);
+      this.onEndChange(startIndex, tabsInfo);
     } else {
-      this.onStartChange(endIndex);
+      this.onStartChange(endIndex, tabsInfo);
     }
   };
 
@@ -169,18 +193,18 @@ abstract class OperationTabs<
   }
 
   componentDidMount() {
-    this.onStartChange(0);
+    this.onStartChange(0, this.getTabsInfo());
   }
 
   onResize = () => {
-    this.onStartChange(this.state.startIndex);
+    this.onStartChange(this.state.startIndex, this.getTabsInfo());
   };
 
   render() {
-    const { overflowMode, tabs } = this.props;
+    const { overflowMode, tabs, tabDataList } = this.props;
     const { translateX, startIndex, endIndex } = this.state;
     const contentClassName = `${classNamePrefix}-${overflowMode}`;
-    const hiddenTabs = this.getHiddenTabs();
+    const hiddenTabs = this.getHiddenTabs(tabDataList, startIndex, endIndex);
     return (
       <>
         <div
