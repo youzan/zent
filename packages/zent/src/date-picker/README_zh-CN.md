@@ -135,11 +135,13 @@ interface IDisabledTimeOption {
 | onChange    | 选择日期回调函数 | `(date: Array<string | Date | number>) => {}` | -                         | 是       |
 | placeholder | 输入框提示文字   | `[string, string]`                              | `['开始日期','结束日期']` | 否       |
 | defaultDate | 默认面板日期     | `[string, string]`                              | -                         | 否       |
+| dateSpan    | 日期跨度         | `number`                                      | -                         | 否       |
 
 **注意：**
 
 - `showTime` 为对象时，`defaultTime` 为数组，表示默认开始时间和默认结束时间（不填为['00:00:00','23:59:59']）
 - `disabledDate`、`disabledTime` 回调方法的第二个参数均为`type?: 'start' | 'end'`
+- `dateSpan` 仅 `DateRangePicker` 和 `CombinedDateRangePicker` 组件可用
 
 ### TimeRangePicker / CombinedTimeRangePicker API （基于 TimePicker）
 

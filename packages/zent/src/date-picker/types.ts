@@ -148,6 +148,7 @@ export interface IRangeProps extends ICommonProps<RangeDate> {
   onOpen?: (type?: RangeType) => void;
   onClose?: (type?: RangeType) => void;
   name?: [string, string];
+  dateSpan?: number; // 快捷可选日期跨度
 }
 export type IRangePropsWithDefault = PartialRequired<
   IRangeProps,

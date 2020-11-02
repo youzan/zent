@@ -128,11 +128,13 @@ interface IDisabledTimeOption {
 | onChange    | Callback when the selected date range is changing | `(date: Array<string | Date | number>) => {}` | -                           | Yes      |
 | placeholder | The placeholder of dates input                    | `[string, string]`                              | `['Start date','End date']` | No       |
 | defaultDate | Default date range                                | `[string, string]`                              | -                           | No       |
+| dateSpan    | Quick set the time span                           | `number`                                      | -                           | No       |
 
 **Additional**
 
 - When return value of `showTime` is an object, `defaultTime` should be a range of datetimes. (default: ['00:00:00','23:59:59'])
 - `disabledDate(val, type)` or `disabledTime(val, type)`, the `type` is `'start' | 'end'`
+- Only supports `dateSpan` for `DateRangePicker` and `CombinedDateRangePicker`.
 
 ### TimeRangePicker / CombinedTimeRangePicker API （Base on TimePicker）
 
