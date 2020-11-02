@@ -39,20 +39,15 @@ export default function getPanelCellsData({
   const cells: IDateCellBase[] = [];
   for (let rowIndex = 0; rowIndex < row; rowIndex++) {
     for (let colIndex = 0; colIndex < col; colIndex++) {
-      // offset
       const currentDate = startDate(
         offsetDate(defaultPanelDate, index - offset)
       );
-      // constants text or fetch text
       const text = texts ? texts[index] : currentDate.getDate();
 
-      // isCurrent
       const isCurrent = isSame(new Date(), currentDate);
 
-      // isInView
       const isInView = inView ? inView(currentDate, defaultPanelDate) : true;
 
-      // isDisabled
       const isDisabled = disabledPanelDate(currentDate);
 
       /* *************** week-picker & combined-picker start  *************** */
@@ -79,7 +74,6 @@ export default function getPanelCellsData({
       }
       /* *************** week-picker & combined-picker end  *************** */
 
-      // isSelected
       const isSelected =
         !!selected && (isSame(selected, currentDate) || isRangeEndpoint);
 
