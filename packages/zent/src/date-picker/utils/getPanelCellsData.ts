@@ -13,6 +13,7 @@ interface ICellDateParams {
   texts?: Array<number | string>;
   offset?: number;
   inView?: (val1: Date, val2: Date) => boolean;
+  canHoverOverView?: boolean;
 }
 /**
  * 根据当前组件的selected等值 获得最小单元格的属性集合
@@ -30,6 +31,7 @@ export default function getPanelCellsData({
   texts,
   offset = 0,
   inView,
+  canHoverOverView,
 }: ICellDateParams) {
   const { isSame, startDate, offsetDate } = dateConfig;
 
@@ -37,12 +39,16 @@ export default function getPanelCellsData({
   const cells: IDateCellBase[] = [];
   for (let rowIndex = 0; rowIndex < row; rowIndex++) {
     for (let colIndex = 0; colIndex < col; colIndex++) {
-      // offset
       const currentDate = startDate(
         offsetDate(defaultPanelDate, index - offset)
       );
-      // constants text or fetch text
       const text = texts ? texts[index] : currentDate.getDate();
+
+      const isCurrent = isSame(new Date(), currentDate);
+
+      const isInView = inView ? inView(currentDate, defaultPanelDate) : true;
+
+      const isDisabled = disabledPanelDate(currentDate);
 
       /* *************** week-picker & combined-picker start  *************** */
       let isInHoverRange = false;
@@ -50,9 +56,12 @@ export default function getPanelCellsData({
       let isInRange = false;
       //  hover-range
       if (hoverRangeDate) {
-        isInHoverRange =
+        const isInHoverRangeDate =
           isAfter(currentDate, offsetDate(hoverRangeDate[0], -1)) &&
           isBefore(currentDate, hoverRangeDate[1]);
+        isInHoverRange = canHoverOverView
+          ? isInHoverRangeDate
+          : isInHoverRangeDate && isInView;
       }
       // selected range
       if (rangeDate) {
@@ -65,18 +74,8 @@ export default function getPanelCellsData({
       }
       /* *************** week-picker & combined-picker end  *************** */
 
-      // isSelected
       const isSelected =
         !!selected && (isSame(selected, currentDate) || isRangeEndpoint);
-
-      // isCurrent
-      const isCurrent = isSame(new Date(), currentDate);
-
-      // isInView
-      const isInView = inView ? inView(currentDate, defaultPanelDate) : true;
-
-      // isDisabled
-      const isDisabled = disabledPanelDate(currentDate);
 
       cells[index] = {
         value: currentDate,
