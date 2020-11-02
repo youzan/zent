@@ -59,6 +59,7 @@ const DatePickerBody: FC<IDatePickerBodyProps> = props => {
         col,
         dateConfig: dateConfig.date,
         inView: isSameMonth,
+        canHoverOverView: !popText,
       }),
     [
       selected,
@@ -67,6 +68,7 @@ const DatePickerBody: FC<IDatePickerBodyProps> = props => {
       row,
       col,
       startDateOfMonth,
+      popText,
       disabledPanelDate,
     ]
   );
