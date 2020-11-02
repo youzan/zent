@@ -1,16 +1,13 @@
 import * as React from 'react';
 import BaseTabsNav from '../base/BaseTabsNav';
+import OperationTabs from './OperationTabs';
 import cn from 'classnames';
 import { IInnerTab, ITabsNavProps } from '../../types';
 import { commonTransformTabData } from '../../utils';
 
-abstract class CommonTabsNav<Id> extends BaseTabsNav<
-  Id,
-  IInnerTab<Id>,
-  ITabsNavProps<Id>
-> {
-  protected scrollGroup: React.ElementType = 'div';
-
+abstract class CommonTabsNav<
+  Id extends string | number = string
+> extends BaseTabsNav<Id, IInnerTab<Id>, ITabsNavProps<Id>> {
   get tabsNavCls() {
     const { stretch } = this.props;
     return cn('zent-tabs-nav', `zent-tabs-nav-type__${this.typeName}`, {
@@ -39,19 +36,27 @@ abstract class CommonTabsNav<Id> extends BaseTabsNav<
 
   render() {
     const navExtraContent = this.renderNavExtraContent();
-    const ScrollGroupComp = this.scrollGroup;
+    const { tabDataList, overflowMode, onChange, type } = this.props;
+    const tabs = this.renderTabs();
+    const isOperationTabs =
+      overflowMode && (type === 'normal' || type === 'card');
+
     return (
       <div className={this.tabsNavCls}>
-        <div className="zent-tabs-nav-content">
-          <ScrollGroupComp
-            className="zent-tabs-scroll"
-            role="tablist"
-            /* ts-plugin-version-attribute ignores this element, but it may be a div... */
-            data-zv={__ZENT_VERSION__}
-          >
-            {this.renderTabs()}
-          </ScrollGroupComp>
-        </div>
+        {isOperationTabs ? (
+          <OperationTabs
+            overflowMode={overflowMode}
+            onChange={onChange}
+            tabDataList={tabDataList}
+            tabs={tabs}
+          />
+        ) : (
+          <div className="zent-tabs-nav-content">
+            <div className="zent-tabs-scroll" role="tablist">
+              {tabs}
+            </div>
+          </div>
+        )}
         {navExtraContent}
       </div>
     );

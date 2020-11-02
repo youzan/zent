@@ -1,5 +1,6 @@
 @import './theme/default';
 @import './theme/font';
+@import './theme/timing-functions';
 
 @mixin border($direct: null) {
   @if $direct {
@@ -20,6 +21,15 @@
       flex: 1 1 auto;
     }
   }
+}
+
+@mixin inset-box-shadow($offsetX) {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  width: 5px;
+  height: 100%;
+  box-shadow: inset #{$offsetX}px 0 5px -5px $theme-stroke-4;
 }
 
 .zent-tabs {
@@ -47,6 +57,68 @@
       display: flex;
       align-items: center;
       margin-left: 8px;
+    }
+
+    &-tabs-content-slide,
+    &-tabs-content-anchor {
+      width: 100%;
+      display: flex;
+      flex-grow: 1;
+      align-items: flex-end;
+      overflow: hidden;
+      white-space: nowrap;
+      position: relative;
+      height: 40px;
+
+      &-main {
+        display: flex;
+        transition: transform 220ms $timing-fn-ease-in-out;
+      }
+
+      .zent-tabs-tab {
+        flex-shrink: 0;
+      }
+
+      &-left::before {
+        @include inset-box-shadow(5);
+
+        left: 0;
+      }
+
+      &-right::after {
+        @include inset-box-shadow(-5);
+
+        right: 0;
+      }
+
+      &-option {
+        @include theme-color(background-color, stroke, 9);
+
+        height: 100%;
+        display: flex;
+        align-items: center;
+
+        .zenticon {
+          @include theme-color(color, stroke, 1);
+
+          padding: 0 6px;
+          font-size: $font-size-h4;
+        }
+
+        .zenticon-more {
+          font-size: $font-size-h3;
+          padding: 7px;
+        }
+
+        .zenticon + .zenticon {
+          margin-left: 4px;
+        }
+
+        .icon-disabled {
+          @include theme-color(color, stroke, 4);
+          cursor: not-allowed;
+        }
+      }
     }
   }
 
@@ -101,22 +173,54 @@
   }
 }
 
+.zent-tabs-hidden {
+  &-tabs {
+    @include theme-color(background-color, stroke, 9);
+    min-width: 148px;
+    border-radius: 2px;
+    box-shadow: $shadow-spec-modal;
+    max-height: 256px;
+    overflow-y: scroll;
+  }
+
+  &-tab {
+    padding: 6px 12px;
+    cursor: default;
+
+    &:hover {
+      @include theme-color(background-color, primary, 8);
+    }
+
+    &-disabled {
+      @include theme-color(color, stroke, 4);
+
+      &:hover {
+        @include theme-color(background-color, stroke, 9);
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
 // 普通模式样式
 .zent-tabs-nav-type__normal {
   @include content-stretch('.zent-tabs-tab');
   @include border(bottom);
-  height: 48px;
+  height: 40px;
 
   .zent-tabs-nav-content {
-    padding: 0 16px;
     margin-bottom: -1px;
   }
 
   .zent-tabs-tab {
-    padding: 0 16px;
+    padding: 0 20px;
 
     &-inner {
-      padding: 14px 16px;
+      min-width: 56px;
+      line-height: 40px;
+      text-align: center;
+      height: 40px;
+      box-sizing: border-box;
     }
 
     &__actived {
@@ -126,7 +230,6 @@
         @include theme-color(border-bottom-color, primary, 4);
         border-bottom-width: 2px;
         border-bottom-style: solid;
-        padding: 14px 16px 12px;
         margin-bottom: -1px;
       }
     }
@@ -147,10 +250,14 @@
     @include border;
     @include theme-color(background-color, stroke, 8);
     border-left: 0;
-    min-width: 104px;
+    height: 40px;
+    box-sizing: border-box;
+    padding: 0 20px 0 19px;
 
     &-inner {
-      padding: 9px 16px;
+      min-width: 56px;
+      line-height: 38px;
+      text-align: center;
     }
 
     &:first-child {
@@ -181,7 +288,9 @@
     height: 32px;
 
     &-inner {
-      padding: 5px 16px;
+      min-width: 14px;
+      line-height: 30px;
+      padding: 0 20px;
     }
 
     &:not(:first-child) {
