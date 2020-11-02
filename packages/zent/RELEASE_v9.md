@@ -1,5 +1,22 @@
 # 9.0.0 迁移指南
 
+## 9.0.0-beta3 (2020-11-02)
+
+- ✨ 新增 `Drawer` 组件
+- ✨ `Tabs` 新增标签栏分页和锚点功能
+- ✨ `@zent/compat` 增加老版本的 `Pop` 和 `Tooltip` 组件，方便迁移
+- ✨ 日期区间选择组件支持限制可选范围
+- 🦀️ 修复周选择组件的样式问题
+- 🦀️ 修复 `Pop` 的类型定义
+- 🦀️ 修复时间选择组件禁用逻辑
+
+## 9.0.0-beta2 (2020-10-23)
+
+- ✨ 导出 `EventHandler`、`SmoothScroll` 和 `AnimateHeight`
+- 📚 增加 `v6`、`v7` 使用文档版本选择
+- 🦀️ 修复 `Cascader` 组件 `multiple` 参数的类型定义问题
+- 🦀️ 修改 `DatePicker` 组件 `valueType` 和 `onChange` 参数的类型定义
+
 ## Breaking Changes
 
 ### 移除 `prefix` 支持
@@ -36,6 +53,8 @@
 ### `Pop` 和 `Tooltip`
 
 `Popover` 的改动同样适用于 `Pop` 和 `Tooltip`，这里不再重复，请参考上文 `Popover` 的描述以及 `Pop` 和 `Tooltip` 各自的文档说明。
+
+老版本的 `Pop` 和 `Tooltip` 已经迁移到 `@zent/compat`。
 
 ### 重写 `Select`
 
@@ -76,10 +95,3 @@
 ## 新功能
 
 - 新增 `Transfer` 组件，一个左右布局的选择组件。
-
-## 9.0.0-beta2（2020-10-23）
-
-- ✨ 导出 `EventHandler`、`SmoothScroll` 和 `AnimateHeight`
-- 📚 增加 `v6`、`v7` 使用文档版本选择
-- 🦀️ 修复 `Cascader` 组件 `multiple` 参数的类型定义问题
-- 🦀️ 修改 `DatePicker` 组件 `valueType` 和 `onChange` 参数的类型定义
