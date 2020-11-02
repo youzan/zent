@@ -36,6 +36,7 @@ export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
   onChange,
   onOpen,
   onClose,
+  dateSpan,
   disabledDate: disabledDateProps,
   ...restProps
 }) => {
@@ -83,12 +84,13 @@ export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
 
   // rangeDisabledDate
   const disabledDate = useNormalizeDisabledDate(format, disabledDateProps);
-  const [disabledStartDate, disabledEndDate] = useRangeDisabledDate({
+  const [disabledStartDate, disabledEndDate] = useRangeDisabledDate(
     selected,
     disabledDate,
     generateDate,
-    pickerType: 'combined',
-  });
+    'combined',
+    dateSpan
+  );
 
   // hover date
   const [hoverDate, setHoverDate] = React.useState<Date>();

@@ -51,6 +51,7 @@ const RangePicker: React.FC<IRangePickerProps> = ({
   showTime,
   seperator,
   name,
+  dateSpan,
   ...restProps
 }) => {
   const restPropsRef = React.useRef(restProps);
@@ -69,12 +70,13 @@ const RangePicker: React.FC<IRangePickerProps> = ({
 
   // rangeDisabledDate
   const disabledDate = useNormalizeDisabledDate(format, disabledDateProps);
-  const [disabledStartDate, disabledEndDate] = useRangeDisabledDate({
+  const [disabledStartDate, disabledEndDate] = useRangeDisabledDate(
     selected,
     disabledDate,
     generateDate,
-    pickerType: 'range',
-  });
+    'range',
+    dateSpan
+  );
 
   const onChangeStartOrEnd = React.useCallback(
     (type: RangeType) => (val: Date | null) => {

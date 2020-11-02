@@ -56,7 +56,7 @@ export interface IDisabledDateSimple<T = SingleDate> {
   max?: T;
 }
 export type IDisabledDateFunc = (date: Date) => boolean;
-export type IRangeDisabledDateFunc = (date?: Date, type?: RangeType) => boolean;
+export type IRangeDisabledDateFunc = (date: Date, type?: RangeType) => boolean;
 interface ICommonProps<DateValue = SingleDate> {
   value: DateValue;
   onChange: (date: SingleDate | RangeDate | null) => void;
@@ -148,6 +148,7 @@ export interface IRangeProps extends ICommonProps<RangeDate> {
   onOpen?: (type?: RangeType) => void;
   onClose?: (type?: RangeType) => void;
   name?: [string, string];
+  dateSpan?: number; // 快捷可选日期跨度
 }
 export type IRangePropsWithDefault = PartialRequired<
   IRangeProps,
