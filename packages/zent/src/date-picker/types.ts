@@ -56,7 +56,7 @@ export interface IDisabledDateSimple<T = SingleDate> {
   max?: T;
 }
 export type IDisabledDateFunc = (date: Date) => boolean;
-export type IRangeDisabledDateFunc = (date?: Date, type?: RangeType) => boolean;
+export type IRangeDisabledDateFunc = (date: Date, type?: RangeType) => boolean;
 interface ICommonProps<DateValue = SingleDate> {
   value: DateValue;
   onChange: (date: SingleDate | RangeDate | null) => void;
