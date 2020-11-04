@@ -157,7 +157,7 @@ export interface IAbstractUploadTriggerProps<
   maxSize: number;
   maxAmount: number;
   multiple?: boolean;
-  onAddFile: (file: File) => void;
+  onAddFile: (file: File) => Promise<void>;
   onError: IUploadOnErrorHandler;
 }
 

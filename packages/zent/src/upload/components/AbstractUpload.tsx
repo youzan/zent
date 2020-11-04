@@ -266,7 +266,7 @@ abstract class AbstractUpload<
     );
 
     // check is need upload
-    beforeUploadRes
+    return beforeUploadRes
       .then(() => {
         // create upload file item async
         return this.createNewUploadFileItem(file);

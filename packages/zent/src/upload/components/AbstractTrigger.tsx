@@ -5,6 +5,7 @@ import FileInput from './FileInput';
 import Notify from '../../notify';
 import { IAbstractUploadTriggerProps, IUploadFileItem } from '../types';
 import { formatFileSize } from '../utils/format-file-size';
+import { execPromiseQueue } from '../../utils/promise-queue';
 
 abstract class AbstractTrigger<
   UPLOAD_ITEM extends IUploadFileItem
@@ -61,9 +62,7 @@ abstract class AbstractTrigger<
       return this.onOverMaxSize(overMaxSizeFiles);
     }
 
-    files.forEach(file => {
-      this.props.onAddFile(file);
-    });
+    execPromiseQueue(files, file => this.props.onAddFile(file));
   };
 
   protected onTriggerDragOver: React.DragEventHandler = e => {
