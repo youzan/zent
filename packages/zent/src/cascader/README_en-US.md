@@ -59,8 +59,10 @@ interface ICascaderItem {
 | filter               | Filter options by keyword                   | `(keyword: string, path: ICascaderItem[]) => boolean`   | No       | -       |              |
 | highlight            | Highlight options by keyword                | `(keyword: string, path: ICascaderItem[]) => ReactNode` | No       | -       |              |
 | limit                | Limit search result count                   | `number`                                                | No       | `50`    |              |
+| renderTags           | Render tag list                             | `(props: ICascaderTagsProps) => ReactNode`              | No       |         |              |
 
 - When `multiple` is `true`，`onChange` parameters such as `value` and `selectedOptions` are two dimensional arrays
+- `renderTags` is only available in multi select mode
 - Use `scrollable` and `loadChildrenOnScroll` to control auto loading data when scrolling to bottom
 
 ### TabsCascader

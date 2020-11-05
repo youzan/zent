@@ -60,8 +60,10 @@ interface ICascaderItem {
 | filter               | 根据关键词进行过滤         | `(keyword: string, path: ICascaderItem[]) => boolean`   | 否       | -       |         |
 | highlight            | 根据关键词高亮每一项       | `(keyword: string, path: ICascaderItem[]) => ReactNode` | 否       | -       |         |
 | limit                | 搜索结果展示数量           | `number`                                                | 否       | `50`    |         |
+| renderTags           | 自定义标签列表整体的展示   | `(props: ICascaderTagsProps) => ReactNode`              | 否       |         |         |
 
 - 当 `multiple` 为 `true` 时，`onChange` 中的 `value` 及 `selectedOptions` 为二维数组
+- `renderTags` 仅当多选模式下有效
 - 组件参数 `scrollable` 与节点的 `loadChildrenOnScroll` 属性组合可判断它的子节点是否需要滚动加载更多数据；第一个层级由于无父节点，使用 `props` 上的 `loadChildrenOnScroll` 参数
 
 ### TabsCascader
