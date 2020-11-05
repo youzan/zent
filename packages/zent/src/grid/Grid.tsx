@@ -58,7 +58,9 @@ function stopPropagation(e: React.MouseEvent) {
 
 const prefix = 'zent';
 
-export interface IGridProps<Data = any> {
+export interface IRowComponentProps {}
+
+export interface IGridProps<Data = any, RowProps extends object = object> {
   columns: IGridColumn[];
   datasets: Data[];
   rowKey?: string;
@@ -80,9 +82,9 @@ export interface IGridProps<Data = any> {
   ellipsis?: boolean;
   onExpand?: IGridOnExpandHandler<Data>;
   components?: {
-    row?: React.ComponentType;
+    row?: React.ComponentType<RowProps>;
   };
-  rowProps?: (data: Data, index: number) => any;
+  rowProps?: (data: Data, index: number) => RowProps;
   batchRender?: IGridBatchRender;
   stickyBatch?: boolean;
   autoStick?: boolean;
@@ -105,10 +107,10 @@ export interface IGridInnerColumn<Data> extends IGridColumn<Data> {
   key?: string;
 }
 
-export class Grid<Data = any> extends PureComponent<
-  IGridProps<Data>,
-  IGridState
-> {
+export class Grid<
+  Data = any,
+  RowProps extends object = object
+> extends PureComponent<IGridProps<Data, RowProps>, IGridState> {
   static defaultProps: Partial<IGridProps> = {
     className: '',
     bordered: false,
@@ -152,7 +154,7 @@ export class Grid<Data = any> extends PureComponent<
   lastScrollTop!: number;
   stickyHead = React.createRef<HTMLDivElement>();
 
-  constructor(props: IGridProps<Data>) {
+  constructor(props: IGridProps<Data, RowProps>) {
     super(props);
 
     const expandRowKeys = this.getExpandRowKeys(props);
@@ -174,7 +176,7 @@ export class Grid<Data = any> extends PureComponent<
     };
   }
 
-  getExpandRowKeys(props: IGridProps<Data>) {
+  getExpandRowKeys(props: IGridProps<Data, RowProps>) {
     const { expandation, datasets } = props;
     if (expandation) {
       const { isExpanded } = expandation;
@@ -347,7 +349,7 @@ export class Grid<Data = any> extends PureComponent<
   };
 
   getColumns = (
-    props: IGridProps<Data>,
+    props: IGridProps<Data, RowProps>,
     columnsArg?: Array<IGridInnerColumn<Data>>,
     expandRowKeysArg?: boolean[]
   ) => {
@@ -997,7 +999,7 @@ export class Grid<Data = any> extends PureComponent<
 
   // 等重构再删了吧，改不动
   // eslint-disable-next-line react/no-deprecated
-  componentWillReceiveProps(nextProps: IGridProps<Data>) {
+  componentWillReceiveProps(nextProps: IGridProps<Data, RowProps>) {
     if (nextProps.selection?.hasOwnProperty('selectedRowKeys')) {
       this.store.setState({
         selectedRowKeys: nextProps.selection.selectedRowKeys || [],
