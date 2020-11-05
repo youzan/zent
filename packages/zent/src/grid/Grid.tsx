@@ -58,8 +58,6 @@ function stopPropagation(e: React.MouseEvent) {
 
 const prefix = 'zent';
 
-export interface IRowComponentProps {}
-
 export interface IGridProps<Data = any, RowProps extends object = object> {
   columns: IGridColumn[];
   datasets: Data[];
