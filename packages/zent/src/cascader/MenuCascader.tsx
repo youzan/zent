@@ -34,6 +34,9 @@ import { SingleTrigger } from './trigger/SingleTrigger';
 import { Forest } from './forest';
 import noop from '../utils/noop';
 import memorizeOne from '../utils/memorize-one';
+import { ICascaderTagsProps } from './trigger/Tags';
+
+export { ICascaderTagsProps };
 
 export interface IMenuCascaderCommonProps extends ICascaderBaseProps {
   loadOptions?: (
@@ -75,6 +78,7 @@ export interface IMenuCascaderMultipleProps extends IMenuCascaderCommonProps {
     selectedOptions: Array<ICascaderItem[]>,
     meta: ICascaderChangeMeta
   ) => void;
+  renderTags?: (props: ICascaderTagsProps) => React.ReactNode;
 }
 
 export type IMenuCascaderProps =
@@ -561,7 +565,6 @@ export class MenuCascader extends React.Component<
       className,
       popupClassName,
       placeholder,
-      multiple,
       searchable,
       clearable,
       renderValue,
@@ -595,11 +598,12 @@ export class MenuCascader extends React.Component<
               cushion={4}
             >
               <Popover.Trigger.Click toggle={!searchable}>
-                {multiple ? (
+                {isMultiple(this.props) ? (
                   <TagsTrigger
                     {...triggerCommonProps}
                     selectedPaths={selectedPaths}
                     onRemove={this.onRemove}
+                    renderTags={this.props.renderTags}
                   />
                 ) : (
                   <SingleTrigger

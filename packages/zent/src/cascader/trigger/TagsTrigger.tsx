@@ -3,11 +3,12 @@ import cx from 'classnames';
 
 import { ICascaderItem } from '../types';
 import { SearchInput } from './Search';
-import Tags from './Tags';
+import Tags, { ICascaderTagsProps } from './Tags';
 import { BaseTrigger, ICascaderBaseTriggerProps } from './BaseTrigger';
 
 interface ITagsTriggerProps extends ICascaderBaseTriggerProps {
   onRemove: (node: ICascaderItem) => void;
+  renderTags?: (props: ICascaderTagsProps) => React.ReactNode;
 }
 
 export class TagsTrigger extends React.Component<ITagsTriggerProps> {
@@ -34,6 +35,7 @@ export class TagsTrigger extends React.Component<ITagsTriggerProps> {
       onClear,
       onKeywordChange,
       renderValue,
+      renderTags,
       onRemove,
     } = this.props;
     const showTags = selectedPaths.length > 0;
@@ -56,13 +58,17 @@ export class TagsTrigger extends React.Component<ITagsTriggerProps> {
         searchable={searchable}
         showLabels={!showTags && !showSearch}
       >
-        {showTags && (
-          <Tags
-            list={selectedPaths}
-            renderValue={renderValue}
-            onRemove={onRemove}
-          />
-        )}
+        {showTags &&
+          // Allow customize rendering of tag list
+          (typeof renderTags === 'function' ? (
+            renderTags({ list: selectedPaths, renderValue, onRemove })
+          ) : (
+            <Tags
+              list={selectedPaths}
+              renderValue={renderValue}
+              onRemove={onRemove}
+            />
+          ))}
         {showSearch && (
           <SearchInput
             placeholder={i18n.searchPlaceholder}
