@@ -114,3 +114,6 @@ export function smoothScroll(
     y,
   });
 }
+
+// for backward compatibility
+export default smoothScroll;
