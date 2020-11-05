@@ -8,6 +8,11 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 8.5.12(2020-11-05)
+
+- 🦀️ Fix wrong file order when uploading in `Upload`
+- 🦀️ Fix custom row component prop type in `Grid`
+
 ### 8.5.11(2020-10-28)
 
 - 🦀️ Fix type definitions in `Form`
