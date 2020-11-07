@@ -58,7 +58,7 @@ export interface IDisabledDateSimple<T = SingleDate> {
 export type IDisabledDateFunc = (date: Date) => boolean;
 export type IRangeDisabledDateFunc = (date: Date, type?: RangeType) => boolean;
 interface ICommonProps<DateValue = SingleDate> {
-  value: DateValue;
+  value: DateValue | null;
   onChange: (date: SingleDate | RangeDate | null) => void;
   defaultDate?: DateValue;
   valueType?: IValueType;
@@ -111,7 +111,7 @@ export interface ISingleProps extends ICommonProps<SingleDate> {
 // 季度、周组件
 export interface ISingleSpecialProps
   extends Omit<ISingleProps, 'value' | 'defaultDate'> {
-  value: SingleDate | RangeDate;
+  value: SingleDate | RangeDate | null;
   defaultDate?: SingleDate | RangeDate;
 }
 
@@ -156,7 +156,7 @@ export type IRangePropsWithDefault = PartialRequired<
 >;
 
 export interface IRangeTriggerProps extends ITriggerCommonProps {
-  value: RangeDate;
+  value: RangeDate | null;
   placeholder: StringTuple;
   name?: StringTuple;
 }
