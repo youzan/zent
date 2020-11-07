@@ -1021,6 +1021,30 @@ class IconGrid extends Component {
                 <span className="zi-grid-item-name">thumbnail</span>
               </div>
             </CopyButton>
+            <CopyButton
+              text={this.getIconString("eye")}
+              onCopySuccess="eye 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="eyeeyefilled"
+              >
+                <Icon type="eye" />
+                <span className="zi-grid-item-name">eye</span>
+              </div>
+            </CopyButton>
+            <CopyButton
+              text={this.getIconString("closed-eye")}
+              onCopySuccess="closed-eye 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="closed-eyeclosed-eyeoutline"
+              >
+                <Icon type="closed-eye" />
+                <span className="zi-grid-item-name">closed-eye</span>
+              </div>
+            </CopyButton>
           </div>
         </div>
       
