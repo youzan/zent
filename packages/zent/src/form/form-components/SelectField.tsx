@@ -5,11 +5,8 @@ import { FormField } from '../Field';
 
 export type IFormSelectFieldProps<T extends ISelectItem> = IFormComponentProps<
   (T | null) | T[],
-  Omit<ISelectProps<T>, 'value' | 'multiple' | 'onChange'>
-> & {
-  multiple?: boolean;
-  options: T[];
-};
+  Omit<ISelectProps<T>, 'value' | 'onChange'>
+>;
 
 function renderSelect(
   childProps: IFormFieldChildProps<any>,
@@ -22,7 +19,7 @@ export function FormSelectField<T extends ISelectItem>(
   props: IFormSelectFieldProps<T>
 ) {
   return (
-    <FormField {...props} defaultValue={props.multiple ? [] : null}>
+    <FormField {...props} defaultValue={props.props.multiple ? [] : null}>
       {childProps => renderSelect(childProps, props)}
     </FormField>
   );
