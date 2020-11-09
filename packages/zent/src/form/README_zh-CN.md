@@ -197,7 +197,8 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 
 ### 表单值的格式化
 
-可以通过 `normalize` 和 `format` 参数来格式化 `Field` 的输入输出；使用自定义封装的表单组件时，可以为 `model` 设置 `normalizeBeforeSubmit` 属性，在调用 `form.getSubmitValue()`时可以获取到格式化之后的值
+- 可以通过 `normalize` 和 `format` 参数来格式化 `Field` 的输入输出
+- 也可以使用 `normalizeBeforeSubmit` 属性和 `form.getSubmitValue()` 方法，在不改变 model 内存储值的情况下修改表单提交的值
 
 <!-- demo-slot-11 -->
 
