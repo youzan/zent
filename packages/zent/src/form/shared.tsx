@@ -53,7 +53,7 @@ export interface IFormFieldViewDrivenProps<T> {
   /**
    * 用于表单提交前格式化 `Field` 值的回调函数
    */
-  normalizeBeforeSubmit: INormalizeBeforeSubmit<T, any>;
+  normalizeBeforeSubmit?: INormalizeBeforeSubmit<T, any>;
 }
 
 export interface IFormFieldModelDrivenProps<T> {
