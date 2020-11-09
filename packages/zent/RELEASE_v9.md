@@ -2,6 +2,10 @@
 
 ## 9.0.0-beta7 (2020-11-09)
 
+- 🦀️ 视图模式下 `normalizeBeforeSubmit` 可选
+
+## 9.0.0-beta7 (2020-11-09)
+
 - [breaking change] 修改 `FormSelectField` props 的传递方式，所有 `Select` 的属性都通过 `props.props` 传递，和其他 `Field` 一致，受影响的只有 `multiple` 和 `options` 两个属性
 - ✨ `Form` 视图模式增加 `normalizeBeforeSubmit` 支持
 - 🦀️ 修复 model builder `normalizeBeforeSubmit` 运行时报错的问题
