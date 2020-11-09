@@ -69,10 +69,19 @@ function getValidators<Value>({
 export function FormField<Value>(props: IFormFieldProps<Value>) {
   let model: FieldModel<Value>;
   if (isViewDrivenProps(props)) {
-    const { name, defaultValue, destroyOnUnmount } = props;
+    const {
+      name,
+      defaultValue,
+      destroyOnUnmount,
+      normalizeBeforeSubmit,
+    } = props;
     // eslint-disable-next-line react-hooks/rules-of-hooks
     model = useField<Value>(name, defaultValue, getValidators(props));
     model.destroyOnUnmount = Boolean(destroyOnUnmount);
+
+    if (typeof normalizeBeforeSubmit === 'function') {
+      model.normalizeBeforeSubmit = normalizeBeforeSubmit;
+    }
   } else if (isModelRef(props.model)) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     model = useField(
