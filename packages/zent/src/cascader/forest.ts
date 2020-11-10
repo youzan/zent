@@ -299,7 +299,12 @@ export class Forest {
     const { value } = startNode;
 
     return this.reducePath((acc, path) => {
-      if (path[idx].value === value && (!predicate || predicate(path))) {
+      // Paths may have different lengths
+      if (
+        path.length > idx &&
+        path[idx].value === value &&
+        (!predicate || predicate(path))
+      ) {
         acc.push(path);
       }
 
