@@ -52,7 +52,6 @@ Our goal is making React development faster and simpler.
 - `es6.array.find`
 - `es6.array.find-index`
 - `es7.array.includes`
-- `es2019.array.flat`
 
 ## Install
 
