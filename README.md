@@ -25,17 +25,17 @@ Our goal is making React development faster and simpler.
 
 ### Features
 
-- High quality React components
-- Builtin TypeScript support
-- Supports custom themes
-- Import JavaScript and styles only if they are used
-- Handmade icon font
+* High quality React components
+* Builtin TypeScript support
+* Supports custom themes
+* Import JavaScript and styles only if they are used
+* Handmade icon font
 
 ### Supported Environments
 
-- React >= 16.8
-- Modern browsers but not IE
-- Supports server-side rendering(SSR)
+* React >= 16.8
+* Modern browsers but not IE
+* Supports server-side rendering(SSR)
 
 ### Required polyfills
 
