@@ -1,4 +1,4 @@
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { BasicModel, isModel } from './basic';
 import { IMaybeError, ValidateOption } from '../validate';
 import { Maybe, None, Some } from '../maybe';
@@ -26,10 +26,19 @@ class FieldSetModel<
   patchedValue: Partial<$FieldSetValue<Children>> | null = null;
 
   childRegister$ = new Subject<string>();
+
   childRemove$ = new Subject<string>();
+
   readonly children: Children = {} as Children;
 
   owner: IModel<any> | null = null;
+
+  private readonly invalidModels: Set<BasicModel<unknown>> = new Set();
+
+  private readonly mapModelToSubscription: Map<
+    BasicModel<unknown>,
+    Subscription
+  > = new Map();
 
   /** @internal */
   constructor(children: Children, id = uniqueId('field-set-')) {
@@ -41,6 +50,11 @@ class FieldSetModel<
       const child = children[name];
       this.registerChild(name, child);
     }
+    const $ = this.error$.subscribe(maybeError => {
+      const selfValid = isNil(maybeError);
+      this.valid$.next(selfValid && !this.invalidModels.size);
+    });
+    this.mapModelToSubscription.set(this as BasicModel<unknown>, $);
     this.children = children;
   }
 
@@ -115,6 +129,7 @@ class FieldSetModel<
     }
     model.owner = this;
     children[name] = model;
+    this.aggregateValid(model);
     this.childRegister$.next(name);
   }
 
@@ -125,6 +140,7 @@ class FieldSetModel<
   removeChild(name: string) {
     const model = this.children[name];
     model.owner = null;
+    this.unwindValid(model);
     delete this.children[name];
     this.childRemove$.next(name);
     return model;
@@ -132,29 +148,14 @@ class FieldSetModel<
 
   dispose() {
     super.dispose();
+    this.mapModelToSubscription.forEach(it => it.unsubscribe());
+    this.mapModelToSubscription.clear();
+    this.invalidModels.clear();
     const { children } = this;
     Object.keys(children).forEach(key => {
       const child = children[key];
       child.dispose();
     });
-  }
-
-  /**
-   * 是否 `FieldSet` 所有字段都通过了校验
-   */
-  valid() {
-    if (!isNil(this.error$.getValue())) {
-      return false;
-    }
-    const keys = Object.keys(this.children);
-    for (let i = 0; i < keys.length; i += 1) {
-      const key = keys[i];
-      const child = this.children[key];
-      if (!child.valid()) {
-        return false;
-      }
-    }
-    return true;
   }
 
   /**
@@ -263,6 +264,36 @@ class FieldSetModel<
     name: Name
   ): Children[Name] | undefined | null {
     return this.children[name as string] as any;
+  }
+
+  /**
+   * Aggregate `valid$` of the model
+   * @param model
+   */
+  private aggregateValid(model: BasicModel<unknown>) {
+    if (model && !this.mapModelToSubscription.has(model)) {
+      const { invalidModels, mapModelToSubscription, valid$ } = this;
+      const $ = model.valid$.subscribe(valid => {
+        if (valid) {
+          invalidModels.delete(model);
+        } else {
+          invalidModels.add(model);
+        }
+
+        valid$.next(!invalidModels.size && isNil(this.error$.value));
+      });
+      mapModelToSubscription.set(model, $);
+    }
+  }
+
+  /**
+   * Unwind `valid$` of the model
+   * @param model
+   */
+  private unwindValid(model: BasicModel<unknown>) {
+    const $ = this.mapModelToSubscription.get(model);
+    $?.unsubscribe();
+    this.mapModelToSubscription.delete(model);
   }
 }
 

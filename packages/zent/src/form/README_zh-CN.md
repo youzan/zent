@@ -118,6 +118,12 @@ type SyncValidator<T> = (value: T, ctx: ValidatorContext<T>) => IMaybeError<T>;
 <!-- demo-slot-4 -->
 <!-- demo-slot-5 -->
 
+#### 校验状态
+
+`Model` 上的 `valid` 方法会返回该 `Model` 的校验状态（与其内部 `Model` 校验状态组合计算），如需监听校验状态的变更，可以订阅 `Model` 上的 `valid$` 属性，它是一个 `Rxjs.BehaviorSubject` 对象。
+
+<!-- demo-slot-19 -->
+
 ### 校验选项
 
 校验选项共有以下几种：
