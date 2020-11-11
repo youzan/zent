@@ -31,7 +31,7 @@ interface IValueTypeSingleSpecialMap {
   'date': [Date, Date];
 }
 // prettier-ignore
-interface IValueTypeRangeMap {
+export interface IValueTypeRangeMap {
   'string': [string | null, string | null];
   'number': [number | null, number | null];
   'date': [Date | null, Date | null];
