@@ -223,10 +223,7 @@ export class Pop extends Component<IPopProps, IPopState> {
         ref={this.popoverRef}
         visible={closePending ? true : visible}
         onVisibleChange={closePending ? noop : onVisibleChange}
-        className={cx('zent-pop', className, {
-          'zent-pop--has-header': hasHeader,
-          'zent-pop--no-header': !hasHeader,
-        })}
+        className={cx('zent-pop', className)}
         style={style}
         cushion={cushion}
         position={getArrowPosition(position, centerArrow)}

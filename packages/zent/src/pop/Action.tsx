@@ -6,10 +6,9 @@ import Popover from '../popover';
 import { usePopover } from '../popover/withPopover';
 import { IPopState } from './Pop';
 
-export interface IPopActionCallback {
-  (close: () => void): void;
-  (): Promise<void>;
-}
+export type IPopActionCallback =
+  | (() => Promise<void>)
+  | ((close: () => void) => void);
 
 export interface IChangePending {
   (key: keyof IPopState, state: boolean, callback?: () => void): void;
@@ -47,7 +46,7 @@ function handleClick(
     return callback(finishClose);
   }
 
-  const maybePromise = callback();
+  const maybePromise = (callback as () => Promise<void>)();
   if (isPromise(maybePromise)) {
     startClose();
     maybePromise.then(finishClose).catch(() => changePending(stateKey, false));
