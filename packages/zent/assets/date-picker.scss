@@ -261,6 +261,10 @@
       &_in_range.zent-datepicker-panel-body-cells_over {
         @include blue-bgcolor;
       }
+
+      &_selected.zent-datepicker-panel-body-cells_over {
+        @include white-bgcolor;
+      }
     }
 
     &-footer {
