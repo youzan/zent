@@ -13,7 +13,7 @@ interface ICellDateParams {
   texts?: Array<number | string>;
   offset?: number;
   inView?: (val1: Date, val2: Date) => boolean;
-  canHoverOverView?: boolean;
+  dsableRangeOverView?: boolean;
 }
 /**
  * 根据当前组件的selected等值 获得最小单元格的属性集合
@@ -31,7 +31,7 @@ export default function getPanelCellsData({
   texts,
   offset = 0,
   inView,
-  canHoverOverView,
+  dsableRangeOverView,
 }: ICellDateParams) {
   const { isSame, startDate, offsetDate } = dateConfig;
 
@@ -59,15 +59,20 @@ export default function getPanelCellsData({
         const isInHoverRangeDate =
           isAfter(currentDate, offsetDate(hoverRangeDate[0], -1)) &&
           isBefore(currentDate, hoverRangeDate[1]);
-        isInHoverRange = canHoverOverView
-          ? isInHoverRangeDate
-          : isInHoverRangeDate && isInView;
+
+        isInHoverRange = dsableRangeOverView
+          ? isInHoverRangeDate && isInView
+          : isInHoverRangeDate;
       }
       // selected range
       if (rangeDate) {
-        isInRange =
+        const isInRangeDate =
           isAfter(currentDate, rangeDate[0]) &&
           isBefore(currentDate, rangeDate[1]);
+
+        isInRange = dsableRangeOverView
+          ? isInRangeDate && isInView
+          : isInRangeDate;
         isRangeEndpoint =
           isSame(currentDate, rangeDate[0]) ||
           isSame(currentDate, rangeDate[1]);

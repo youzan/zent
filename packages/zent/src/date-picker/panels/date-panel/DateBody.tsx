@@ -24,6 +24,7 @@ const ROW_COUNT = 6;
 
 interface IDatePickerBodyProps extends ISingleDateBodyProps {
   popText?: string;
+  dsableRangeOverView?: boolean;
   showTime?: IShowTime;
   showTimeOption?: IShowTimeOptionWithDefault;
 }
@@ -32,6 +33,7 @@ const DatePickerBody: FC<IDatePickerBodyProps> = props => {
   const {
     selected,
     popText = '',
+    dsableRangeOverView = false,
     defaultPanelDate,
     rangeDate,
     hoverRangeDate,
@@ -59,16 +61,16 @@ const DatePickerBody: FC<IDatePickerBodyProps> = props => {
         col,
         dateConfig: dateConfig.date,
         inView: isSameMonth,
-        canHoverOverView: !popText,
+        dsableRangeOverView,
       }),
     [
+      dsableRangeOverView,
       selected,
       rangeDate,
       hoverRangeDate,
       row,
       col,
       startDateOfMonth,
-      popText,
       disabledPanelDate,
     ]
   );
