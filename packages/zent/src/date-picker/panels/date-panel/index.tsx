@@ -13,7 +13,7 @@ import usePanelDate from '../../hooks/usePanelDate';
 import { ISinglePanelProps, IDisabledTime, IShowTime } from '../../types';
 
 export interface IDatePickerPanelProps extends ISinglePanelProps {
-  dsableRangeOverView?: boolean;
+  disableRangeOverView?: boolean;
   popText?: string;
   hideFooter?: boolean;
   showTime?: IShowTime;

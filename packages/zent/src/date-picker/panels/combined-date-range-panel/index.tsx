@@ -105,7 +105,7 @@ const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
           <DatePanel
             {...restProps}
             hideFooter
-            dsableRangeOverView
+            disableRangeOverView
             selected={start}
             disabledTime={disabledStartTimes}
             popText={start && !end ? '请选择结束日期' : ''}
@@ -123,7 +123,7 @@ const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
           <DatePanel
             {...restProps}
             hideFooter
-            dsableRangeOverView
+            disableRangeOverView
             selected={end}
             disabledTime={disabledEndTimes}
             defaultPanelDate={defaultPanelDate[1]}
