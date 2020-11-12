@@ -251,12 +251,15 @@ export class MenuCascader extends React.Component<
     const newState: Partial<IMenuCascaderState> = {
       prevProps: props,
     };
+
+    let newOptions = options;
     if (prevProps.options !== props.options) {
-      newState.options = new Forest(props.options);
+      newOptions = new Forest(props.options);
+      newState.options = newOptions;
     }
 
     if (!shallowEqual(prevProps.value, props.value)) {
-      newState.selectedPaths = getSelectedPaths(props, options);
+      newState.selectedPaths = getSelectedPaths(props, newOptions);
     }
 
     // Reset highlighted item when popup closes
