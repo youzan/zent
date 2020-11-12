@@ -9,6 +9,8 @@ export interface ICascaderBaseProps {
   renderValue?: (selectedOptions: IPublicCascaderItem[]) => React.ReactNode;
   disabled?: boolean;
   clearable?: boolean;
+  visible?: boolean;
+  onVisibleChange?: (visible: boolean) => void;
 }
 
 export type CascaderValue = string | number;

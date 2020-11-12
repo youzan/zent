@@ -85,9 +85,10 @@ export type IMenuCascaderProps =
   | IMenuCascaderMultipleProps
   | IMenuCascaderSingleProps;
 
-interface ICascaderState {
+interface IMenuCascaderState {
   options: Forest;
 
+  // Value to highlight
   activeValue: CascaderValue[];
 
   // 节点选中状态根据这个数据实时计算
@@ -182,9 +183,28 @@ function toggleLoading(
   return loading;
 }
 
+function isControlled(props: IMenuCascaderProps): boolean {
+  return (
+    'visible' in props &&
+    'onVisibleChange' in props &&
+    typeof props.onVisibleChange === 'function'
+  );
+}
+
+function getVisible(
+  props: IMenuCascaderProps,
+  state: IMenuCascaderState
+): boolean {
+  if (isControlled(props)) {
+    return !!props.visible;
+  }
+
+  return state.visible;
+}
+
 export class MenuCascader extends React.Component<
   IMenuCascaderProps,
-  ICascaderState
+  IMenuCascaderState
 > {
   static defaultProps = {
     value: [],
@@ -224,19 +244,25 @@ export class MenuCascader extends React.Component<
   context!: IDisabledContext;
 
   static getDerivedStateFromProps(
-    nextProps: IMenuCascaderProps,
-    { prevProps, options }: ICascaderState
+    props: IMenuCascaderProps,
+    state: IMenuCascaderState
   ) {
-    const newState: Partial<ICascaderState> = {
-      prevProps: nextProps,
+    const { prevProps, options } = state;
+    const newState: Partial<IMenuCascaderState> = {
+      prevProps: props,
     };
-    if (prevProps.options !== nextProps.options) {
-      options = new Forest(nextProps.options);
-      newState.options = options;
+    if (prevProps.options !== props.options) {
+      newState.options = new Forest(props.options);
     }
 
-    if (!shallowEqual(prevProps.value, nextProps.value)) {
-      newState.selectedPaths = getSelectedPaths(nextProps, options);
+    if (!shallowEqual(prevProps.value, props.value)) {
+      newState.selectedPaths = getSelectedPaths(props, options);
+    }
+
+    // Reset highlighted item when popup closes
+    const visible = getVisible(props, state);
+    if (!visible) {
+      newState.activeValue = getActiveValue(props);
     }
 
     return newState;
@@ -245,6 +271,24 @@ export class MenuCascader extends React.Component<
   get disabled() {
     const { disabled = this.context.value } = this.props;
     return disabled;
+  }
+
+  isControlled(): boolean {
+    return isControlled(this.props);
+  }
+
+  getVisible(): boolean {
+    return getVisible(this.props, this.state);
+  }
+
+  setVisible(visible: boolean): void {
+    if (this.isControlled()) {
+      this.props.onVisibleChange(visible);
+    } else {
+      this.setState({
+        visible,
+      });
+    }
   }
 
   // 根据选中信息生成所有节点的选中状态表 O(n)
@@ -308,8 +352,8 @@ export class MenuCascader extends React.Component<
       return;
     }
 
+    this.setVisible(visible);
     this.setState({
-      visible,
       keyword: visible === false ? '' : keyword,
     });
   };
@@ -376,7 +420,7 @@ export class MenuCascader extends React.Component<
     const selectedOptions = getPathToNode(node);
     const newValue = selectedOptions.map(n => n.value);
 
-    const newState: Partial<ICascaderState> = {
+    const newState: Partial<IMenuCascaderState> = {
       activeValue: newValue,
       keyword: '',
     };
@@ -397,7 +441,7 @@ export class MenuCascader extends React.Component<
       newState.loading = toggleLoading(loading, nodeKey, true);
     }
 
-    this.setState(newState as ICascaderState, () => {
+    this.setState(newState as IMenuCascaderState, () => {
       if (needLoading) {
         loadOptions(selectedOptions, {
           action: CascaderLoadAction.LoadChildren,
@@ -467,11 +511,11 @@ export class MenuCascader extends React.Component<
   };
 
   onClear = () => {
+    this.setVisible(false);
     this.setState(
       {
         activeValue: [],
         selectedPaths: [],
-        visible: false,
       },
       () => {
         this.props.onChange([], [], { action: CascaderChangeAction.Clear });
@@ -517,13 +561,13 @@ export class MenuCascader extends React.Component<
     const {
       options,
       activeValue,
-      visible,
       keyword,
       isSearching,
       searchResultList,
       loading,
       selectedPaths,
     } = this.state;
+    const visible = this.getVisible();
 
     if (searchable && visible && keyword) {
       return (
@@ -569,7 +613,8 @@ export class MenuCascader extends React.Component<
       clearable,
       renderValue,
     } = this.props;
-    const { visible, selectedPaths, keyword } = this.state;
+    const { selectedPaths, keyword } = this.state;
+    const visible = this.getVisible();
     const hasValue = selectedPaths.length > 0;
 
     return (

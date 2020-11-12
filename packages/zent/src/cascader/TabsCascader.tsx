@@ -4,7 +4,6 @@ import cx from 'classnames';
 import Popover from '../popover';
 import { I18nReceiver as Receiver, II18nLocaleCascader } from '../i18n';
 import { DisabledContext, IDisabledContext } from '../disabled';
-import shallowEqual from '../utils/shallowEqual';
 import TabsContent from './components/TabsContent';
 import {
   CascaderTabsClickHandler,
@@ -30,9 +29,12 @@ export interface ITabsCascaderProps extends ICascaderBaseProps {
   title?: string[];
 }
 
-interface ICascaderState {
+interface ITabsCascaderState {
   options: Forest;
 
+  /**
+   * value to highlight
+   */
   activeValue: CascaderValue[];
 
   /**
@@ -53,9 +55,28 @@ interface ICascaderState {
   loadingLevel: number | null;
 }
 
+function isControlled(props: ITabsCascaderProps) {
+  return (
+    'visible' in props &&
+    'onVisibleChange' in props &&
+    typeof props.onVisibleChange === 'function'
+  );
+}
+
+function getVisible(
+  props: ITabsCascaderProps,
+  state: ITabsCascaderState
+): boolean {
+  if (isControlled(props)) {
+    return props.visible;
+  }
+
+  return state.visible;
+}
+
 export class TabsCascader extends React.Component<
   ITabsCascaderProps,
-  ICascaderState
+  ITabsCascaderState
 > {
   static defaultProps = {
     value: [],
@@ -85,22 +106,23 @@ export class TabsCascader extends React.Component<
   context!: IDisabledContext;
 
   static getDerivedStateFromProps(
-    nextProps: ITabsCascaderProps,
-    { prevProps, visible, options }: ICascaderState
+    props: ITabsCascaderProps,
+    state: ITabsCascaderState
   ) {
-    const newState: Partial<ICascaderState> = {
-      prevProps: nextProps,
+    const newState: Partial<ITabsCascaderState> = {
+      prevProps: props,
     };
+    const { prevProps } = state;
+    const visible = getVisible(props, state);
 
-    if (!visible && !shallowEqual(prevProps.value, nextProps.value)) {
-      const newValue = nextProps.value;
-      Object.assign(newState, {
-        activeTab: newValue.length || 1,
-      });
+    if (!visible) {
+      const newValue = props.value;
+      newState.activeValue = newValue;
+      newState.activeTab = newValue.length || 1;
     }
 
-    if (nextProps.options !== prevProps.options) {
-      newState.options = new Forest(nextProps.options);
+    if (props.options !== prevProps.options) {
+      newState.options = new Forest(props.options);
     }
 
     return newState;
@@ -110,14 +132,30 @@ export class TabsCascader extends React.Component<
     return this.props.disabled ?? this.context.value;
   }
 
+  isControlled(): boolean {
+    return isControlled(this.props);
+  }
+
+  getVisible(): boolean {
+    return getVisible(this.props, this.state);
+  }
+
+  setVisible(visible: boolean): void {
+    if (this.isControlled()) {
+      this.props.onVisibleChange(visible);
+    } else {
+      this.setState({
+        visible,
+      });
+    }
+  }
+
   onVisibleChange = (visible: boolean) => {
     if (this.disabled) {
       return;
     }
 
-    this.setState({
-      visible,
-    });
+    this.setVisible(visible);
   };
 
   onTabsChange = (activeId: number) => {
@@ -138,7 +176,7 @@ export class TabsCascader extends React.Component<
     const selectedOptions = getPathToNode(node);
     const newValue = selectedOptions.map(n => n.value);
 
-    const newState: Partial<ICascaderState> = {
+    const newState: Partial<ITabsCascaderState> = {
       activeValue: newValue,
     };
 
@@ -152,7 +190,7 @@ export class TabsCascader extends React.Component<
       newState.activeTab = nextLevel;
     }
 
-    this.setState(newState as ICascaderState, () => {
+    this.setState(newState as ITabsCascaderState, () => {
       if (needLoading) {
         this.setState({
           loadingLevel: level,
@@ -189,10 +227,10 @@ export class TabsCascader extends React.Component<
   };
 
   onClear = () => {
+    this.setVisible(false);
     this.setState(
       {
         activeValue: [],
-        visible: false,
       },
       () => {
         this.props.onChange([], [], { action: CascaderChangeAction.Clear });
@@ -210,13 +248,8 @@ export class TabsCascader extends React.Component<
       value,
       title,
     } = this.props;
-    const {
-      visible,
-      activeValue,
-      loadingLevel,
-      activeTab,
-      options,
-    } = this.state;
+    const { activeValue, loadingLevel, activeTab, options } = this.state;
+    const visible = this.getVisible();
     const selectedPath = options.getPathByValue(value);
 
     return (
