@@ -10,6 +10,7 @@ import {
   ICascaderItem,
   CascaderValue,
   CascaderMenuHoverHandler,
+  ICascaderBaseProps,
 } from '../types';
 import InfiniteScroller from '../../infinite-scroller';
 import { II18nLocaleCascader } from '../../i18n';
@@ -36,6 +37,9 @@ export interface IMenuContentCommonProps {
 
   // 节点选中状态
   selectionMap: Map<string, 'on' | 'off' | 'partial'>;
+
+  renderItemContent?: ICascaderBaseProps['renderItemContent'];
+  getItemTooltip?: ICascaderBaseProps['getItemTooltip'];
 }
 
 export interface IMenuContentMultipleProps extends IMenuContentCommonProps {
@@ -52,7 +56,22 @@ export type IMenuContentProps =
   | IMenuContentMultipleProps
   | IMenuContentSingleProps;
 
+function defaultRenderItemContent(node: ICascaderItem): React.ReactNode {
+  return (
+    <span className="zent-cascader-v2__menu-item-label">{node.label}</span>
+  );
+}
+
+function defaultGetItemTooltip(node: ICascaderItem): string {
+  return node.label;
+}
+
 class MenuContent extends React.Component<IMenuContentProps> {
+  static defaultProps = {
+    renderItemContent: defaultRenderItemContent,
+    getItemTooltip: defaultGetItemTooltip,
+  };
+
   render() {
     return (
       <div className="zent-cascader-v2__popup-inner zent-cascader-v2__popup-inner-menu">
@@ -106,6 +125,8 @@ class MenuContent extends React.Component<IMenuContentProps> {
       scrollable,
       multiple,
       selectionMap,
+      renderItemContent,
+      getItemTooltip,
     } = this.props;
 
     const hasMore =
@@ -128,7 +149,7 @@ class MenuContent extends React.Component<IMenuContentProps> {
       return (
         <div
           className={cascaderItemCls}
-          title={node.label}
+          title={getItemTooltip(node)}
           key={node.value}
           onClick={
             node.disabled
@@ -150,9 +171,7 @@ class MenuContent extends React.Component<IMenuContentProps> {
               disabled={node.disabled}
             />
           )}
-          <span className="zent-cascader-v2__menu-item-label">
-            {node.label}
-          </span>
+          {renderItemContent(node)}
           {this.getMenuItemIcon(node, isActive)}
         </div>
       );

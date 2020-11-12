@@ -8,6 +8,7 @@ import { getNodeChildren } from '../node-fns';
 import {
   CascaderTabsClickHandler,
   CascaderValue,
+  ICascaderBaseProps,
   ICascaderItem,
 } from '../types';
 
@@ -35,9 +36,25 @@ interface ITabsContentProps {
   title: React.ReactNode[];
   i18n: II18nLocaleCascader;
   className?: string;
+
+  renderItemContent?: ICascaderBaseProps['renderItemContent'];
+  getItemTooltip?: ICascaderBaseProps['getItemTooltip'];
+}
+
+function defaultRenderItemContent(node: ICascaderItem): React.ReactNode {
+  return node.label;
+}
+
+function defaultGetItemTooltip(node: ICascaderItem): string {
+  return node.label;
 }
 
 class TabsContent extends React.Component<ITabsContentProps> {
+  static defaultProps = {
+    renderItemContent: defaultRenderItemContent,
+    getItemTooltip: defaultGetItemTooltip,
+  };
+
   closePopup = () => this.props.popover?.close();
 
   renderCascaderItems(path: ICascaderItem[], level: number) {
@@ -55,10 +72,10 @@ class TabsContent extends React.Component<ITabsContentProps> {
             <div className="zent-cascader-v2__list-item" key={value}>
               <span
                 className={cascaderItemCls}
-                title={node.label}
+                title={this.props.getItemTooltip(node)}
                 onClick={() => this.props.onClick(node, this.closePopup)}
               >
-                {node.label}
+                {this.props.renderItemContent(node)}
               </span>
             </div>
           );

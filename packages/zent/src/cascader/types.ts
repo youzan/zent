@@ -11,6 +11,18 @@ export interface ICascaderBaseProps {
   clearable?: boolean;
   visible?: boolean;
   onVisibleChange?: (visible: boolean) => void;
+
+  /**
+   * Customize content for item
+   */
+  renderItemContent?: (node: ICascaderItem) => React.ReactNode;
+
+  /**
+   * Customize tooltip for item.
+   *
+   * Return `undefined` to disabled tooltip
+   */
+  getItemTooltip?: (node: ICascaderItem) => string | undefined;
 }
 
 export type CascaderValue = string | number;
