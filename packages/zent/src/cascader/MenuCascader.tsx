@@ -562,6 +562,7 @@ export class MenuCascader extends React.Component<
       loadChildrenOnScroll,
       renderItemContent,
       getItemTooltip,
+      renderList,
     } = this.props;
     const {
       options,
@@ -607,6 +608,7 @@ export class MenuCascader extends React.Component<
         selectionMap={this.getSelectionMap(selectedPaths)}
         renderItemContent={renderItemContent}
         getItemTooltip={getItemTooltip}
+        renderList={renderList}
       />
     );
   };

@@ -40,6 +40,7 @@ export interface IMenuContentCommonProps {
 
   renderItemContent?: ICascaderBaseProps['renderItemContent'];
   getItemTooltip?: ICascaderBaseProps['getItemTooltip'];
+  renderList?: ICascaderBaseProps['renderList'];
 }
 
 export interface IMenuContentMultipleProps extends IMenuContentCommonProps {
@@ -102,12 +103,12 @@ class MenuContent extends React.Component<IMenuContentProps> {
   }
 
   renderCascaderItems(
-    path: ICascaderItem[],
+    nodes: ICascaderItem[],
     level: number,
     parent: ICascaderItem | null
   ) {
     const { i18n } = this.props;
-    if (!path || path?.length === 0) {
+    if (!nodes || nodes?.length === 0) {
       return (
         <div className="zent-cascader-v2__menu-empty" key="menu-empty">
           {i18n.empty}
@@ -127,11 +128,11 @@ class MenuContent extends React.Component<IMenuContentProps> {
       selectionMap,
       renderItemContent,
       getItemTooltip,
+      renderList,
     } = this.props;
 
-    const hasMore =
-      parent === null ? loadChildrenOnScroll : parent.loadChildrenOnScroll;
-    const cascaderItems = path.map(node => {
+    // `style` can be used to position when used with a custom virtual list renderer
+    const renderItem = (node: ICascaderItem, style?: React.CSSProperties) => {
       const isActive = node.value === value[level - 1];
       const cascaderItemCls = classnames('zent-cascader-v2__menu-item', {
         'zent-cascader-v2__menu-item--active': isActive,
@@ -161,6 +162,7 @@ class MenuContent extends React.Component<IMenuContentProps> {
               ? undefined
               : () => onOptionHover(node)
           }
+          style={style}
         >
           {multiple && (
             <Checkbox
@@ -175,13 +177,25 @@ class MenuContent extends React.Component<IMenuContentProps> {
           {this.getMenuItemIcon(node, isActive)}
         </div>
       );
-    });
+    };
+
+    const key = `menu-${value.slice(0, level - 1).join('-')}`;
+
+    // bail out if custom list renderer is provided
+    if (typeof renderList === 'function') {
+      return (
+        <div key={key} className="zent-cascader-v2__menu">
+          {renderList(nodes, renderItem)}
+        </div>
+      );
+    }
+
+    const cascaderItems = nodes.map(node => renderItem(node));
+    const hasMore =
+      parent === null ? loadChildrenOnScroll : parent.loadChildrenOnScroll;
 
     return (
-      <div
-        key={`menu-${value.slice(0, level - 1).join('-')}`}
-        className="zent-cascader-v2__menu"
-      >
+      <div key={key} className="zent-cascader-v2__menu">
         {scrollable && hasMore ? (
           <InfiniteScroller
             className="zent-cascader-v2__menu-scroller"

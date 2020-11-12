@@ -249,6 +249,7 @@ export class TabsCascader extends React.Component<
       title,
       renderItemContent,
       getItemTooltip,
+      renderList,
     } = this.props;
     const { activeValue, loadingLevel, activeTab, options } = this.state;
     const visible = this.getVisible();
@@ -290,6 +291,7 @@ export class TabsCascader extends React.Component<
                   options={options.getTrees()}
                   renderItemContent={renderItemContent}
                   getItemTooltip={getItemTooltip}
+                  renderList={renderList}
                 />
               </Popover.Content>
             </Popover>

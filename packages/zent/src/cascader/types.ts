@@ -6,14 +6,18 @@ export interface ICascaderBaseProps {
   placeholder?: string;
   className?: string;
   popupClassName?: string;
-  renderValue?: (selectedOptions: IPublicCascaderItem[]) => React.ReactNode;
   disabled?: boolean;
   clearable?: boolean;
   visible?: boolean;
   onVisibleChange?: (visible: boolean) => void;
 
   /**
-   * Customize content for item
+   * Customize rendering of select value
+   */
+  renderValue?: (selectedOptions: ICascaderItem[]) => React.ReactNode;
+
+  /**
+   * Customize rendering of item
    */
   renderItemContent?: (node: ICascaderItem) => React.ReactNode;
 
@@ -23,6 +27,14 @@ export interface ICascaderBaseProps {
    * Return `undefined` to disabled tooltip
    */
   getItemTooltip?: (node: ICascaderItem) => string | undefined;
+
+  /**
+   * Customize rendering of item list
+   */
+  renderList?: (
+    nodes: ICascaderItem[],
+    renderItem: (node: ICascaderItem) => React.ReactNode
+  ) => React.ReactNode;
 }
 
 export type CascaderValue = string | number;

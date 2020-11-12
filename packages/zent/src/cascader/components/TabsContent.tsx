@@ -39,6 +39,7 @@ interface ITabsContentProps {
 
   renderItemContent?: ICascaderBaseProps['renderItemContent'];
   getItemTooltip?: ICascaderBaseProps['getItemTooltip'];
+  renderList?: ICascaderBaseProps['renderList'];
 }
 
 function defaultRenderItemContent(node: ICascaderItem): React.ReactNode {
@@ -57,29 +58,35 @@ class TabsContent extends React.Component<ITabsContentProps> {
 
   closePopup = () => this.props.popover?.close();
 
-  renderCascaderItems(path: ICascaderItem[], level: number) {
+  renderCascaderItems(nodes: ICascaderItem[], level: number) {
     const val = this.props.value[level - 1];
 
+    // `style` can be used to position when used with a custom virtual list renderer
+    const renderItem = (node: ICascaderItem, style?: React.CSSProperties) => {
+      const { value } = node;
+      const cascaderItemCls = classnames('zent-cascader-v2__list-link', {
+        'zent-cascader-v2__list-link--active': value === val,
+      });
+
+      return (
+        <div className="zent-cascader-v2__list-item" key={value} style={style}>
+          <span
+            className={cascaderItemCls}
+            title={this.props.getItemTooltip(node)}
+            onClick={() => this.props.onClick(node, this.closePopup)}
+          >
+            {this.props.renderItemContent(node)}
+          </span>
+        </div>
+      );
+    };
+
+    const { renderList } = this.props;
     return (
       <div className="zent-cascader-v2__list">
-        {path.map(node => {
-          const { value } = node;
-          const cascaderItemCls = classnames('zent-cascader-v2__list-link', {
-            'zent-cascader-v2__list-link--active': value === val,
-          });
-
-          return (
-            <div className="zent-cascader-v2__list-item" key={value}>
-              <span
-                className={cascaderItemCls}
-                title={this.props.getItemTooltip(node)}
-                onClick={() => this.props.onClick(node, this.closePopup)}
-              >
-                {this.props.renderItemContent(node)}
-              </span>
-            </div>
-          );
-        })}
+        {typeof renderList === 'function'
+          ? renderList(nodes, renderItem)
+          : nodes.map(node => renderItem(node))}
       </div>
     );
   }
