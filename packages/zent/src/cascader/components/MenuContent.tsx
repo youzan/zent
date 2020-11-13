@@ -10,6 +10,7 @@ import {
   ICascaderItem,
   CascaderValue,
   CascaderMenuHoverHandler,
+  ICascaderBaseProps,
 } from '../types';
 import InfiniteScroller from '../../infinite-scroller';
 import { II18nLocaleCascader } from '../../i18n';
@@ -36,6 +37,10 @@ export interface IMenuContentCommonProps {
 
   // 节点选中状态
   selectionMap: Map<string, 'on' | 'off' | 'partial'>;
+
+  renderItemContent?: ICascaderBaseProps['renderItemContent'];
+  getItemTooltip?: ICascaderBaseProps['getItemTooltip'];
+  renderList?: ICascaderBaseProps['renderList'];
 }
 
 export interface IMenuContentMultipleProps extends IMenuContentCommonProps {
@@ -52,7 +57,22 @@ export type IMenuContentProps =
   | IMenuContentMultipleProps
   | IMenuContentSingleProps;
 
+function defaultRenderItemContent(node: ICascaderItem): React.ReactNode {
+  return (
+    <span className="zent-cascader-v2__menu-item-label">{node.label}</span>
+  );
+}
+
+function defaultGetItemTooltip(node: ICascaderItem): string {
+  return node.label;
+}
+
 class MenuContent extends React.Component<IMenuContentProps> {
+  static defaultProps = {
+    renderItemContent: defaultRenderItemContent,
+    getItemTooltip: defaultGetItemTooltip,
+  };
+
   render() {
     return (
       <div className="zent-cascader-v2__popup-inner zent-cascader-v2__popup-inner-menu">
@@ -83,12 +103,12 @@ class MenuContent extends React.Component<IMenuContentProps> {
   }
 
   renderCascaderItems(
-    path: ICascaderItem[],
+    nodes: ICascaderItem[],
     level: number,
     parent: ICascaderItem | null
   ) {
     const { i18n } = this.props;
-    if (!path || path?.length === 0) {
+    if (!nodes || nodes?.length === 0) {
       return (
         <div className="zent-cascader-v2__menu-empty" key="menu-empty">
           {i18n.empty}
@@ -106,11 +126,13 @@ class MenuContent extends React.Component<IMenuContentProps> {
       scrollable,
       multiple,
       selectionMap,
+      renderItemContent,
+      getItemTooltip,
+      renderList,
     } = this.props;
 
-    const hasMore =
-      parent === null ? loadChildrenOnScroll : parent.loadChildrenOnScroll;
-    const cascaderItems = path.map(node => {
+    // `style` can be used to position when used with a custom virtual list renderer
+    const renderItem = (node: ICascaderItem, style?: React.CSSProperties) => {
       const isActive = node.value === value[level - 1];
       const cascaderItemCls = classnames('zent-cascader-v2__menu-item', {
         'zent-cascader-v2__menu-item--active': isActive,
@@ -128,7 +150,7 @@ class MenuContent extends React.Component<IMenuContentProps> {
       return (
         <div
           className={cascaderItemCls}
-          title={node.label}
+          title={getItemTooltip(node)}
           key={node.value}
           onClick={
             node.disabled
@@ -140,6 +162,7 @@ class MenuContent extends React.Component<IMenuContentProps> {
               ? undefined
               : () => onOptionHover(node)
           }
+          style={style}
         >
           {multiple && (
             <Checkbox
@@ -150,19 +173,29 @@ class MenuContent extends React.Component<IMenuContentProps> {
               disabled={node.disabled}
             />
           )}
-          <span className="zent-cascader-v2__menu-item-label">
-            {node.label}
-          </span>
+          {renderItemContent(node)}
           {this.getMenuItemIcon(node, isActive)}
         </div>
       );
-    });
+    };
+
+    const key = `menu-${value.slice(0, level - 1).join('-')}`;
+
+    // bail out if custom list renderer is provided
+    if (typeof renderList === 'function') {
+      return (
+        <div key={key} className="zent-cascader-v2__menu">
+          {renderList(nodes, renderItem)}
+        </div>
+      );
+    }
+
+    const cascaderItems = nodes.map(node => renderItem(node));
+    const hasMore =
+      parent === null ? loadChildrenOnScroll : parent.loadChildrenOnScroll;
 
     return (
-      <div
-        key={`menu-${value.slice(0, level - 1).join('-')}`}
-        className="zent-cascader-v2__menu"
-      >
+      <div key={key} className="zent-cascader-v2__menu">
         {scrollable && hasMore ? (
           <InfiniteScroller
             className="zent-cascader-v2__menu-scroller"

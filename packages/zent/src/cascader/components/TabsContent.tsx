@@ -8,6 +8,7 @@ import { getNodeChildren } from '../node-fns';
 import {
   CascaderTabsClickHandler,
   CascaderValue,
+  ICascaderBaseProps,
   ICascaderItem,
 } from '../types';
 
@@ -35,34 +36,57 @@ interface ITabsContentProps {
   title: React.ReactNode[];
   i18n: II18nLocaleCascader;
   className?: string;
+
+  renderItemContent?: ICascaderBaseProps['renderItemContent'];
+  getItemTooltip?: ICascaderBaseProps['getItemTooltip'];
+  renderList?: ICascaderBaseProps['renderList'];
+}
+
+function defaultRenderItemContent(node: ICascaderItem): React.ReactNode {
+  return node.label;
+}
+
+function defaultGetItemTooltip(node: ICascaderItem): string {
+  return node.label;
 }
 
 class TabsContent extends React.Component<ITabsContentProps> {
+  static defaultProps = {
+    renderItemContent: defaultRenderItemContent,
+    getItemTooltip: defaultGetItemTooltip,
+  };
+
   closePopup = () => this.props.popover?.close();
 
-  renderCascaderItems(path: ICascaderItem[], level: number) {
+  renderCascaderItems(nodes: ICascaderItem[], level: number) {
     const val = this.props.value[level - 1];
 
+    // `style` can be used to position when used with a custom virtual list renderer
+    const renderItem = (node: ICascaderItem, style?: React.CSSProperties) => {
+      const { value } = node;
+      const cascaderItemCls = classnames('zent-cascader-v2__list-link', {
+        'zent-cascader-v2__list-link--active': value === val,
+      });
+
+      return (
+        <div className="zent-cascader-v2__list-item" key={value} style={style}>
+          <span
+            className={cascaderItemCls}
+            title={this.props.getItemTooltip(node)}
+            onClick={() => this.props.onClick(node, this.closePopup)}
+          >
+            {this.props.renderItemContent(node)}
+          </span>
+        </div>
+      );
+    };
+
+    const { renderList } = this.props;
     return (
       <div className="zent-cascader-v2__list">
-        {path.map(node => {
-          const { value } = node;
-          const cascaderItemCls = classnames('zent-cascader-v2__list-link', {
-            'zent-cascader-v2__list-link--active': value === val,
-          });
-
-          return (
-            <div className="zent-cascader-v2__list-item" key={value}>
-              <span
-                className={cascaderItemCls}
-                title={node.label}
-                onClick={() => this.props.onClick(node, this.closePopup)}
-              >
-                {node.label}
-              </span>
-            </div>
-          );
-        })}
+        {typeof renderList === 'function'
+          ? renderList(nodes, renderItem)
+          : nodes.map(node => renderItem(node))}
       </div>
     );
   }
