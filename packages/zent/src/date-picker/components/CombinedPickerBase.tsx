@@ -38,6 +38,7 @@ export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
   onClose,
   dateSpan,
   disabledDate: disabledDateProps,
+  disabled,
   ...restProps
 }) => {
   const restPropsRef = React.useRef(restProps);
@@ -47,7 +48,6 @@ export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
     format,
     className,
     openPanel,
-    disabled,
     generateDate,
     PanelComponent,
   } = restPropsRef.current;
@@ -145,6 +145,7 @@ export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
       <div>
         <CombinedInputTrigger
           {...triggerProps}
+          disabled={disabled}
           selected={selected}
           value={value}
           text={text}
@@ -153,7 +154,7 @@ export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
         />
       </div>
     );
-  }, [selected, text, value, panelVisible, restPropsRef, onClearInput]);
+  }, [selected, text, value, panelVisible, disabled, onClearInput]);
   const content = React.useMemo(() => {
     return (
       <div className="zent-datepicker-combined-panel">
