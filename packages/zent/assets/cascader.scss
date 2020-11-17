@@ -233,7 +233,7 @@ $menuHeight: 180px;
       }
 
       &-loading {
-        @include theme-border(1px, solid, primary 4);
+        @include theme-border(1px, solid, primary, 4);
         width: 12px;
         height: 12px;
         margin-top: -6px;
