@@ -8,6 +8,10 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 8.4.0-1(2020-11-17)
+
+- 🦀️ Fix CSS Variable support in some components
+
 ### 8.4.0(2020-03-16)
 
 - ✨ `Upload` item UI can be customized
