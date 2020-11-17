@@ -28,7 +28,7 @@ module.exports = {
     extensions: ['.tsx', '.ts', '.js', '.md'],
     alias: Object.assign({
       zent$: path.resolve(__dirname, '../zent'),
-      'zent-utils': path.resolve(__dirname, '../../packages/zent/src/utils'),
+      'zent/es': path.resolve(__dirname, '../../packages/zent/src'),
     }),
   },
 

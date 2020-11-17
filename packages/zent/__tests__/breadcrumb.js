@@ -179,15 +179,10 @@ describe('Breadcrumb', () => {
     expect(wrapper.find('.zent-breadcrumb').length).toBe(1);
   });
 
-  it('can have custom prefix', () => {
-    const wrapper = shallow(<Breadcrumb prefix="foo" />);
-    expect(wrapper.find('.foo-breadcrumb').length).toBe(1);
-  });
-
   it('can have custom className', () => {
-    const wrapper = shallow(<Breadcrumb prefix="foo" className="bar" />);
+    const wrapper = shallow(<Breadcrumb className="bar" />);
     expect(
-      wrapper.containsMatchingElement(<div className="foo-breadcrumb bar" />)
+      wrapper.containsMatchingElement(<div className="zent-breadcrumb bar" />)
     ).toBe(true);
   });
 });

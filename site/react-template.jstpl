@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import smoothScroll from 'zent-utils/scroll';
+import { smoothScroll as _scroll } from 'zent';
 IMPORTS
 
 DEMO_DECLARATIONS
@@ -74,7 +74,7 @@ export default class ZentDocContainer extends Component {
     const hash = location.hash;
     if (hash) {
       const anchor = document.querySelector(`a[href="${hash}"]`);
-      anchor && smoothScroll(document.documentElement, 0, offsetY(anchor, -9));
+      anchor && _scroll(document.documentElement, 0, offsetY(anchor, -9));
     }
   }
 

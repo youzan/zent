@@ -24,4 +24,3 @@ Badge normally appears in the upper right corner of the notification or avatar w
 | offset   | Badge offset, `[x, y]` | `array` | No | | |
 | style    | Custom style | `object` | No | | |
 | className| The custom classname | `string`   | No | `''` |   |
-| prefix | The custom prefix | `string`   | No | `'zent'` |  |

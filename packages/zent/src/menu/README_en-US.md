@@ -23,7 +23,6 @@ Menu, can be used to provide navigation.
 | defaultSelectedKey | the default selected Key for MenuItem | string | |
 | inlineIndent | the distance in px when the mode is inline | number | 24 | |
 | className | class name for the node | string |  |
-| prefix | custom prefix | string | 'zent' | |
 
 
 #### MenuItem
@@ -33,7 +32,6 @@ Menu, can be used to provide navigation.
 | key | the unique identify of the item | string | an ID generated internally |
 | disabled | whether to disable the menu item  | bool |  |
 | className | custom class name | string |  |
-| prefix | custom prefix | string | 'zent' |
 
 
 #### SubMenu
@@ -45,7 +43,6 @@ Menu, can be used to provide navigation.
 | disabled | whether to disable the submenu  | bool |  |
 | overlayClassName | custom class name of the pop menu | string |  |
 | className | custom class name of the submenu item | string |  |
-| prefix | custom prefix of the submenu item | string | 'zent' |
 
 
 ### FAQ

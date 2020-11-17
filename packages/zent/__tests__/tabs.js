@@ -6,7 +6,12 @@ import VerticalTabs from 'tabs/VerticalTabs';
 import capitalize from 'utils/capitalize';
 
 Enzyme.configure({ adapter: new Adapter() });
-
+const overflowTabs = Array(15)
+  .fill(null)
+  .map((_, index) => ({
+    title: `tab${index + 1}`,
+    key: index + 1,
+  }));
 describe('Tabs', () => {
   const TabPanel = Tabs.TabPanel;
 
@@ -117,6 +122,18 @@ describe('Tabs', () => {
     expect(
       wrapper.find('.zent-tabs-nav').hasClass(`zent-tabs-nav__stretch`)
     ).toBe(true);
+  });
+
+  it('overflowMode props', () => {
+    const wrapper = mount(
+      <Tabs activeId="1" overflowMode="slide" tabs={overflowTabs} />
+    );
+    expect(wrapper.find('.zent-tabs-nav-tabs-content-slide').length).toBe(1);
+
+    const wrapper2 = mount(
+      <Tabs activeId="1" overflowMode="anchor" tabs={overflowTabs} />
+    );
+    expect(wrapper2.find('.zent-tabs-nav-tabs-content-anchor').length).toBe(1);
   });
 
   it('onChange callback', () => {

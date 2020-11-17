@@ -1,6 +1,6 @@
 {
   "name": "zent",
-  "version": "8.5.12",
+  "version": "9.0.0-beta11",
   "description": "一套前端设计语言和基于React的实现",
   "bugs": "https://github.com/youzan/zent/issues",
   "repository": {
@@ -36,9 +36,7 @@
     "dependency-graph.json"
   ],
   "dependencies": {
-    "@types/autosize": "^3.0.7",
     "@types/sortablejs": "~1.10.6",
-    "autosize": "^4.0.0",
     "big.js": "^5.2.2",
     "classnames": "^2.2.6",
     "date-fns": "^2.7.0",
@@ -49,7 +47,7 @@
     "tslib": "^2.0.0",
     "utility-types": "^3.4.1",
     "warning": "^4.0.3",
-    "zenticons": "3.6.2"
+    "zenticons": "3.6.3"
   },
   "devDependencies": {
     "@types/big.js": "^4.0.5",
@@ -72,6 +70,7 @@
     "postcss-value-parser": "^4.0.2",
     "react": "16.13.x",
     "react-dom": "16.13.x",
+    "react-window": "^1.8.5",
     "sass": "^1.22.7",
     "ts-jest": "^24.0.0",
     "ts-node": "^8.0.3",

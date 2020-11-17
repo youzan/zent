@@ -25,4 +25,3 @@ group: 展示
 | offset   | 偏移量，格式为 `[x, y]` | `array` | 否 | | |
 | style    | 自定义样式          | `object`  | 否 |  | |
 | className| 自定义额外类名      | `string`  | 否 | `''`         |                  |
-| prefix   | 自定义前缀          | `string` | 否  | `'zent'`    |                  |

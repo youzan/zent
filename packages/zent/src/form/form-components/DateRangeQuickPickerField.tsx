@@ -4,7 +4,6 @@ import DateRangeQuickPicker, {
   DateRangeQuickPickerPresetValue,
   IDateRangeQuickPickerProps,
 } from '../../date-range-quick-picker';
-import { DatePickers } from '../../datetimepicker/common/types';
 import {
   IFormComponentProps,
   dateRangeDefaultValueFactory,
@@ -13,14 +12,15 @@ import {
 import { FormField } from '../Field';
 import { $MergeParams } from '../utils';
 import { useEventCallbackRef } from '../../utils/hooks/useEventCallbackRef';
+import { RangeDate } from '../../date-picker';
 
 export type IFormDateRangeQuickPickerFieldProps = IFormComponentProps<
-  DatePickers.RangeValue,
+  RangeDate,
   Omit<IDateRangeQuickPickerProps, 'value'>
 >;
 
 const DateRangeQuickPickerField: React.FC<{
-  childProps: IFormFieldChildProps<DatePickers.RangeValue>;
+  childProps: IFormFieldChildProps<RangeDate>;
   props: IFormDateRangeQuickPickerFieldProps;
 }> = ({ childProps, props }) => {
   const [chosenDays, setChosenDays] = React.useState<
@@ -30,10 +30,7 @@ const DateRangeQuickPickerField: React.FC<{
   const onChangeRef = useEventCallbackRef(childProps.onChange);
 
   const onChange = React.useCallback(
-    (
-      value: DatePickers.RangeValue,
-      chosenDays?: DateRangeQuickPickerPresetValue
-    ) => {
+    (value: RangeDate, chosenDays: DateRangeQuickPickerPresetValue) => {
       onChangeRef.current?.(value);
       setChosenDays(chosenDays);
     },

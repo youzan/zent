@@ -1,15 +1,13 @@
 import * as React from 'react';
 import { Omit } from 'utility-types';
-import QuarterPicker, {
-  IQuarterPickerProps,
-} from '../../datetimepicker/QuarterPicker';
+import { QuarterPicker, IQuarterPickerProps } from '../../date-picker';
 import { IFormComponentProps, dateRangeDefaultValueFactory } from '../shared';
 import { FormField } from '../Field';
-import { DatePickers } from '../../datetimepicker/common/types';
 import { $MergeParams } from '../utils';
+import { RangeDate } from '../../date-picker';
 
 export type IFormQuarterPickerFieldProps = IFormComponentProps<
-  DatePickers.RangeValue,
+  RangeDate,
   Omit<IQuarterPickerProps, 'value'>
 >;
 

@@ -20,16 +20,14 @@ group: Data Entry
 | onChange     | change callback                                           | `(e: Event) => void` |                     |
 | isValueEqual | Optional, a function to determine whether values is equal | `(a, b) => boolean`  | `(a, b) => a === b` |
 | className    | custom classname                                          | `string`             |                     |
-| prefix       | custom prefix                                             | `string`             | `'zent'`            |
 
 #### Radio
 
-| Props      | Description                                     | Type                  | Default  |
-| ---------- | ----------------------------------------------- | --------------------- | -------- |
-| value      | Compare according to the, determine if selected | `any`                 |          |
-| disabled   | Disable the radio                               | `boolean`                |          |
-| readOnly   | It specifies the component is read-only         | `boolean`                |          |
-| labelStyle | Label inline style                              | `React.CSSProperties` |          |
-| className  | custom classname                                | `string`              |          |
-| width      | radio's width                                   | `string` \| `number`  |          |
-| prefix     | custom prefix                                   | `string`              | `'zent'` |
+| Props      | Description                                     | Type                  | Default |
+| ---------- | ----------------------------------------------- | --------------------- | ------- |
+| value      | Compare according to the, determine if selected | `any`                 |         |
+| disabled   | Disable the radio                               | `boolean`             |         |
+| readOnly   | It specifies the component is read-only         | `boolean`             |         |
+| labelStyle | Label inline style                              | `React.CSSProperties` |         |
+| className  | custom classname                                | `string`              |         |
+| width      | radio's width                                   | `string` \| `number`  |         |

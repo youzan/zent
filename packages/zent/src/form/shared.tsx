@@ -1,4 +1,6 @@
 import * as React from 'react';
+import formatDate from 'date-fns/format';
+import endOfToday from 'date-fns/endOfToday';
 import {
   FieldModel,
   IValidators,
@@ -7,14 +9,16 @@ import {
   ValidateOption,
   ModelRef,
   IModel,
+  INormalizeBeforeSubmit,
 } from './formulr';
 import { Omit, Optional } from 'utility-types';
 import { FormError } from './Error';
 import { IFormControlProps } from './Control';
 import { useFormChildrenContext, IFormChild } from './context';
-import { DatePickers } from '../datetimepicker/common/types';
+import { SingleDate, RangeDate } from '../date-picker';
 import { $MergeParams } from './utils';
 
+const TimeFormat = 'HH:mm:ss';
 export interface IRenderError<T> {
   (error: IMaybeError<T>): React.ReactNode;
 }
@@ -24,23 +28,32 @@ export interface IFormFieldViewDrivenProps<T> {
    * 表单项对应的数据字段名
    */
   name: string;
+
   /**
    * 缺省值，作为没有用户输入时的值，不可变
    */
   defaultValue: T | (() => T);
+
   /**
    * 初始值，在逻辑上作为字段首次展示的值，可变
    */
   initialValue?: T;
+
   /**
    * 校验规则列表，执行的时候会按数组顺序逐个调用，直到所有都通过或者在第一个失败的地方停止
    */
   validators?: IValidators<T>;
+
   /**
    * 是否在组件 `unmount` 的时候清除数据
    * @defaultValue `false`
    */
   destroyOnUnmount?: boolean;
+
+  /**
+   * 用于表单提交前格式化 `Field` 值的回调函数
+   */
+  normalizeBeforeSubmit?: INormalizeBeforeSubmit<T, any>;
 }
 
 export interface IFormFieldModelDrivenProps<T> {
@@ -180,12 +193,23 @@ export type IFormComponentProps<
     | Optional<IFormFieldModelDrivenProps<Value>, 'defaultValue'>
   );
 
-export function dateDefaultValueFactory(): DatePickers.Value {
+export function dateDefaultValueFactory(): SingleDate {
   return new Date();
 }
 
-export function dateRangeDefaultValueFactory(): DatePickers.RangeValue {
+export function dateRangeDefaultValueFactory(): RangeDate {
   return [new Date(), new Date()];
+}
+
+export function dateDefaultTimeFactory(): string {
+  return formatDate(new Date(), TimeFormat);
+}
+
+export function dateRangeDefaultTimeFactory(): [string, string] {
+  return [
+    formatDate(new Date(), TimeFormat),
+    formatDate(endOfToday(), TimeFormat),
+  ];
 }
 
 export function defaultRenderError<T>(error: IMaybeError<T>) {

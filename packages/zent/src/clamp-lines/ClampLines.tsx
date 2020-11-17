@@ -147,9 +147,7 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
 
   renderClampedText() {
     const { className } = this.props;
-    const classString = cx('zent-clamp-lines', {
-      [className]: className,
-    });
+    const classString = cx('zent-clamp-lines', className);
     return (
       <div
         className={classString}

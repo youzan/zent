@@ -1,7 +1,7 @@
 import React from 'react';
 import Enzyme, { shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import AnimateHeight from 'utils/component/AnimateHeight';
+import { AnimateHeight } from 'utils/component/AnimateHeight';
 import NewTree from 'tree/Tree';
 
 Enzyme.configure({ adapter: new Adapter() });

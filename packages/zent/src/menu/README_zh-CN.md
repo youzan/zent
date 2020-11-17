@@ -24,7 +24,6 @@ group: 导航
 | defaultSelectedKey | 默认选中的MenuItem的key | string | |
 | inlineIndent | inline模式下的缩进长度(px) | number | 24 | |
 | className | 节点类名 | string |  | |
-| prefix | 自定义前缀 | string | 'zent' | |
 
 
 #### MenuItem
@@ -34,7 +33,6 @@ group: 导航
 | key | item 的唯一标志 | string | 内部生成的唯一ID |
 | disabled | 是否禁用当前菜单项 | bool |  |
 | className | 节点自定义类名 | string |  |
-| prefix | 节点自定义前缀 | string | 'zent' |
 
 
 #### SubMenu
@@ -46,7 +44,6 @@ group: 导航
 | disabled | 是否禁用当前子菜单 | bool |  |
 | overlayClassName | 弹出菜单的自定义类名 | string |  |
 | className | 子菜单项自定义类名 | string |  |
-| prefix | 子菜单项自定义前缀 | string | 'zent' |
 
 
 ### FAQ

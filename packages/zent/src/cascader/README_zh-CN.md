@@ -11,25 +11,77 @@ group: 数据
 
 ### API
 
-#### Cascader
+`Cascader` 包含 `MenuCascader` 及 `TabsCascader`，它们大部分 API 是共用的。
 
-| 参数 | 说明 | 类型 | 默认值 | 备选值 |
-|------|------|------|--------|--------|
-| value | 级联的选中值 | array | [] | '' |
-| type | UI 类型，有标签形式和菜单形式 | string | `'tabs'` | `'menu'` |
-| options | 可选项数据源 | array | [] | '' |
-| title | tab子项的标题，每一项的默认值是 `标题` | array | [] | '' |
-| onChange | 数据变化时的回调 | func | noop | '' |
-| loadMore | 动态加载级联的数据，返回值需为 Promise | func | - | '' |
-| changeOnSelect | 是否选择即触发改变 | boolean | false | '' |
-| expandTrigger | 次级菜单的展开方式，可选 'click' 和 'hover'， 只针对type='menu' | string | 'click' | 'hover' |
-| placeholder | 输入框占位文本 | string | '请选择' | '' |
-| className | 自定义额外类名 | string | '' | '' |
-| popClassName | popover自定义类名 | string | ''zent-cascader__popup'' | '' |
-| displayText | 用于自定义选中展示文字的函数, selectedOptionArray => text | func | - | |
-| disabled | 是否禁用 | boolean | false | true |
+### 共用的 API
 
--   级联数据可以通过初始时传入全量 `options	` ，也可以通过 `loadMore` 动态加载
--   通过 `loadMore` 加载数据时，参数 `root` 表示当前点击元素的数据对象，`stage` 表示当前是第几层级
--   参数 `isLeaf` 是配合 `loadMore` 使用的，表示点击该节点时是否不再继续发请求
+| 参数              | 说明                                                                    | 类型                                                                                                          | 是否必填 | 默认值       | 备选值 |
+| ----------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | -------- | ------------ | ------ |
+| value             | 级联的选中值                                                            | `CascaderValue[]`                                                                                             | 否       | `[]`         |        |
+| options           | 可选项数据源                                                            | `ICascaderItem[]`                                                                                             | 是       | `[]`         |        |
+| onChange          | 选择完成后的回调                                                        | `(value: CascaderValue[], selectedOptions: ICascaderItem[], meta: ICascaderChangeMeta) => void`               | 是       | -            |        |
+| loadOptions       | 动态加载级联的数据                                                      | `(selectedOptions: ICascaderItem[], meta: ICascaderLoadMeta) => Promise<void>`                                | 否       | -            |        |
+| changeOnSelect    | 是否选择即时触发改变                                                    | `boolean`                                                                                                     | 否       | `false`      | `true` |
+| placeholder       | 输入框占位文本                                                          | `string`                                                                                                      | 否       | `请选择`     |        |
+| className         | 自定义额外类名                                                          | `string`                                                                                                      | 否       |              |        |
+| popupClassName    | popover 自定义类名                                                      | `string`                                                                                                      | 否       |              |        |
+| disabled          | 是否禁用                                                                | `boolean`                                                                                                     | 否       | `false`      | `true` |
+| clearable         | 显示清除按钮                                                            | `boolean`                                                                                                     | 否       | `false`      | `true` |
+| visible           | 和 `onVisibleChange` 一起使用时 `Cascader` 的打开关闭状态完全由外部控制 | `boolean`                                                                                                     | 否       |              |        |
+| onVisibleChange   | 配合 `visible` 一起使用                                                 | `(visible: boolean) => void`                                                                                  | 否       |              |        |
+| renderValue       | 渲染选中中的一个选项值                                                      | `(selectedOptions: ICascaderItem[]) => string`                                                                | 否       |              |        |
+| renderItemContent | 自定义渲染选项内容                                                      | `(node: ICascaderItem) => ReactNode`                                                                          | 否       | `node.label` |        |
+| getItemTooltip    | 自定义选项的 tooltip                                                    | `(node: ICascaderItem) => string`                                                                             | 否       | `node.label` |        |
+| renderList        | 自定义渲染选项列表                                                      | `(nodes: ICascaderItem[], renderItem: (node: ICascaderItem, style: CSSProperties) => ReactNode) => ReactNode` | 否       |              |        |
 
+#### ICascaderItem
+
+```ts
+interface ICascaderItem {
+	value: string | number;
+	label: string;
+	children?: ICascaderItem[];
+	disabled?: boolean;
+	loadChildrenOnExpand?: boolean; // 展开下一级时触发加载数据
+	loadChildrenOnScroll?: boolean; // 滚动时触发加载数据
+}
+```
+
+#### Meta 参数
+
+`ICascaderChangeMeta` 和 `ICascaderLoadMeta` 用于区分触发 `onChange` 和 `loadOptions` 的场景，使用时根据不同触发场景坑需要做不同逻辑处理。例如 `loadOptions` 可能是由于展开下一级或者滚动时触发的。
+
+### MenuCascader
+
+| 参数                 | 说明                       | 类型                                                    | 是否必填 | 默认值  | 备选值  |
+| -------------------- | -------------------------- | ------------------------------------------------------- | -------- | ------- | ------- |
+| multiple             | 是否支持多选               | `boolean`                                               | 否       | `false` | `true`  |
+| expandTrigger        | 次级菜单的展开方式         | `string`                                                | 否       | `click` | `hover` |
+| scrollable           | 是否支持滚动加载           | `boolean`                                               | 否       | `false` | `true`  |
+| loadChildrenOnScroll | 第一级数据是否还有更多数据 | `boolean`                                               | 否       | `false` | `true`  |
+| searchable           | 是否显示搜索框             | `boolean`                                               | 否       | `false` | `true`  |
+| async                | 是否异步搜索               | `boolean`                                               | 否       | `false` | `true`  |
+| asyncFilter          | 根据关键词异步搜索         | `(keyword: string) => Promise<Array<ICascaderItem[]>>`  | 否       | -       |         |
+| filter               | 根据关键词进行过滤         | `(keyword: string, path: ICascaderItem[]) => boolean`   | 否       | -       |         |
+| highlight            | 根据关键词高亮每一项       | `(keyword: string, path: ICascaderItem[]) => ReactNode` | 否       | -       |         |
+| limit                | 搜索结果展示数量           | `number`                                                | 否       | `50`    |         |
+| renderTags           | 自定义标签列表整体的展示   | `(props: ICascaderTagsProps) => ReactNode`              | 否       |         |         |
+
+- 当 `multiple` 为 `true` 时，`onChange` 中的 `value` 及 `selectedOptions` 为二维数组
+- `renderTags` 仅当多选模式下有效
+- 组件参数 `scrollable` 与节点的 `loadChildrenOnScroll` 属性组合可判断它的子节点是否需要滚动加载更多数据；第一个层级由于无父节点，使用 `props` 上的 `loadChildrenOnScroll` 参数
+
+### TabsCascader
+
+| 参数  | 说明                   | 类型          | 是否必填 | 默认值 | 备选值 |
+| ----- | ---------------------- | ------------- | -------- | ------ | ------ |
+| title | 弹层中每一级的标题文案 | `ReactNode[]` | 否       | `[]`   |        |
+
+### Options 处理函数
+
+`Cascader` 实现了部分常用的操作 `options` 的函数，这些函数没有在 `zent` 里直接导出，如需使用需要从 `zent/es/cascader/public-options-fns` 引入。函数具体说明文档参考各自的文档注释，编辑器有提示。
+
+- `clone(options: ICascaderItem[]): ICascaderItem[]`
+- `insertPath(options: ICascaderItem[], path: ICascaderItem[]): ICascaderItem[]`
+- `getNode(options: ICascaderItem[], path: ICascaderItem[]): ICascaderItem | null`
+- `merge(options: ICascaderItem[], another: ICascaderItem[]): ICascaderItem[]`

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
-import AnimateHeight from '../utils/component/AnimateHeight';
+import { AnimateHeight } from '../utils/component/AnimateHeight';
 import LazyMount from '../utils/component/LazyMount';
 import { EASE_IN_OUT } from '../utils/timingFunctions';
 import { DisabledContext, IDisabledContext } from '../disabled';
@@ -20,7 +20,6 @@ export interface ICollapsePanelProps {
   showArrow: boolean;
   style?: React.CSSProperties;
   className?: string;
-  prefix?: string;
   active?: boolean;
   onChange?(key: string, active: boolean): void;
   panelKey?: string;
@@ -32,7 +31,6 @@ export interface ICollapsePanelProps {
 export class CollapsePanel extends Component<ICollapsePanelProps> {
   static defaultProps = {
     showArrow: true,
-    prefix: 'zent',
   };
 
   static contextType = DisabledContext;
@@ -49,7 +47,6 @@ export class CollapsePanel extends Component<ICollapsePanelProps> {
       style,
       active,
       disabled = this.context.value,
-      prefix,
       showArrow,
       className,
       isLast,
@@ -66,25 +63,25 @@ export class CollapsePanel extends Component<ICollapsePanelProps> {
 
     return (
       <div
-        className={cx(`${prefix}-collapse-panel`, className, {
-          [`${prefix}-collapse-panel--has-arrow`]: showArrow,
-          [`${prefix}-collapse-panel--active`]: active,
-          [`${prefix}-collapse-panel--inactive`]: !active,
-          [`${prefix}-collapse-panel--disabled`]: disabled,
+        className={cx('zent-collapse-panel', className, {
+          'zent-collapse-panel--has-arrow': showArrow,
+          'zent-collapse-panel--active': active,
+          'zent-collapse-panel--inactive': !active,
+          'zent-collapse-panel--disabled': disabled,
         })}
         style={style}
       >
         <div
-          className={cx(`${prefix}-collapse-panel__title`, {
-            [`${prefix}-collapse-panel__title--bg-none`]:
+          className={cx('zent-collapse-panel__title', {
+            'zent-collapse-panel__title--bg-none':
               panelTitleBackground === 'none',
-            [`${prefix}-collapse-panel__title--bg-default`]:
+            'zent-collapse-panel__title--bg-default':
               panelTitleBackground === 'default',
           })}
           style={titleStyle}
           onClick={this.toggle}
         >
-          {showArrow && <Arrow className={`${prefix}-collapse-panel__arrow`} />}
+          {showArrow && <Arrow className="zent-collapse-panel__arrow" />}
           {title}
         </div>
         <LazyMount mount={active}>
@@ -93,12 +90,10 @@ export class CollapsePanel extends Component<ICollapsePanelProps> {
             duration={160}
             height={active ? 'auto' : 0}
             easing={EASE_IN_OUT}
-            className={`${prefix}-collapse-panel__content-box`}
+            className="zent-collapse-panel__content-box"
             style={contentBoxStyle}
           >
-            <div className={`${prefix}-collapse-panel__content`}>
-              {children}
-            </div>
+            <div className="zent-collapse-panel__content">{children}</div>
           </AnimateHeight>
         </LazyMount>
       </div>

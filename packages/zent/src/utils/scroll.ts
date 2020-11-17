@@ -16,7 +16,7 @@ const now =
 /**
  * changes scroll position inside an element
  */
-function scrollElement(x: number, y: number) {
+function scrollElement(this: HTMLElement, x: number, y: number) {
   this.scrollLeft = x;
   this.scrollTop = y;
 }
@@ -35,9 +35,9 @@ interface IStepContext {
   startY: number;
   x: number;
   y: number;
-  scrollable: boolean;
+  scrollable: HTMLElement | Window;
   duration: number;
-  method(scrollable: boolean, x: number, y: number): void;
+  method(this: HTMLElement | Window, x: number, y: number): void;
 }
 
 /**
@@ -73,7 +73,7 @@ function step(context: IStepContext) {
  * @param {Number} y target position y
  * @param {Number} duration animation duration
  */
-export default function smoothScroll(
+export function smoothScroll(
   el: HTMLElement | Window,
   x: number,
   y: number,
@@ -83,10 +83,10 @@ export default function smoothScroll(
     return;
   }
 
-  let scrollable;
-  let startX;
-  let startY;
-  let method;
+  let scrollable: HTMLElement | Window;
+  let startX: number;
+  let startY: number;
+  let method: (x: number, y: number) => void;
   const startTime = now();
 
   // define scroll context
@@ -114,3 +114,6 @@ export default function smoothScroll(
     y,
   });
 }
+
+// for backward compatibility
+export default smoothScroll;

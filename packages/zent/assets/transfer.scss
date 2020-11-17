@@ -1,0 +1,94 @@
+@import './theme/default';
+@import './theme/font';
+
+.zent-transfer {
+  display: flex;
+  align-items: center;
+
+  &__item {
+    width: 240px;
+    box-sizing: border-box;
+    border: 1px solid;
+    @include theme-color(border-color, stroke, 5);
+
+    &--disabled {
+      @include theme-color(background-color, stroke, 8);
+    }
+
+    &__allCheckbox {
+      border-bottom: 1px solid;
+      @include theme-color(border-color, stroke, 5);
+      padding: 6px 0 6px 12px;
+      display: flex;
+    }
+
+    &__search {
+      padding: 8px 12px;
+      @include theme-color(background-color, stroke, 9);
+    }
+
+    &__grid {
+      height: 240px;
+
+      &__row {
+        height: inherit;
+
+        .zent-grid-td {
+          border: 0;
+          padding-top: 8px;
+          padding-bottom: 8px;
+          padding-right: 16px;
+        }
+
+        &--disabled {
+          cursor: not-allowed;
+          @include theme-color(background-color, stroke, 8);
+        }
+      }
+
+      .zent-grid-empty {
+        line-height: 240px;
+        border: 0;
+      }
+    }
+
+    &__pagination {
+      margin: 10px 0;
+    }
+
+    &__header--hidden {
+      .zent-grid-header {
+        display: none;
+      }
+    }
+  }
+
+  &__arrow {
+    padding: 0 16px;
+
+    &__item:nth-child(1) {
+      padding-bottom: 16px;
+    }
+
+    &__button {
+      position: relative;
+
+      .zenticon:last-child {
+        margin: 0;
+      }
+    }
+
+    &__icon {
+      @include theme-color(stroke, stroke, 9);
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 20px;
+
+      &--disabled {
+        @include theme-color(stroke, stroke, 4);
+      }
+    }
+  }
+}

@@ -9,7 +9,6 @@ import { PureComponent } from 'react';
 import cx from 'classnames';
 import ColorBoard from './ColorBoard';
 import SketchPresetColors from './SketchPresetColors';
-import PopoverClickTrigger from './PopoverClickTrigger';
 import Popover from '../popover';
 import { DisabledContext, IDisabledContext } from '../disabled';
 
@@ -100,15 +99,13 @@ export class ColorPicker extends PureComponent<IColorPickerProps> {
 
     return (
       <Popover
-        wrapperClassName="zent-color-picker-wrapper"
         className={cx(`${prefixCls}-popover`, className)}
         position={Popover.Position.AutoBottomLeft}
-        display="inline-block"
         cushion={5}
         visible={popVisible}
         onVisibleChange={this.handleVisibleChange}
       >
-        <PopoverClickTrigger>
+        <Popover.Trigger.Click toggle>
           <div
             className={cx(prefixCls, wrapperClassName, openClassName, {
               [`${prefixCls}_disabled`]: this.disabled,
@@ -122,7 +119,7 @@ export class ColorPicker extends PureComponent<IColorPickerProps> {
               />
             </div>
           </div>
-        </PopoverClickTrigger>
+        </Popover.Trigger.Click>
         <Popover.Content>
           {type === 'simple' ? (
             <SketchPresetColors

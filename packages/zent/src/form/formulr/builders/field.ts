@@ -17,6 +17,7 @@ export class FieldBuilder<Value> extends BasicBuilder<
     normalizeBeforeSubmit: INormalizeBeforeSubmit<Value, T>
   ) {
     this._normalizeBeforeSubmit = normalizeBeforeSubmit;
+    return this;
   }
 
   build(defaultValue?: Maybe<Value>) {

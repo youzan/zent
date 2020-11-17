@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react';
 import memoize from '../../utils/memorize-one';
-import Select from '../../select';
+import Select, { ISelectItem } from '../../select';
 import { I18nReceiver as Receiver, II18nLocalePagination } from '../../i18n';
 
 export interface IPaginationPageSizeCompoundOption {
@@ -28,13 +28,16 @@ export interface IPaginationPageSizeChangerProps
 const memoizedNormalizeSelectOptions = memoize(function normalizeSelectOptions(
   pageSizeOptions: PaginationPageSizeOption[],
   i18n: II18nLocalePagination
-) {
+): ISelectItem<number>[] {
   return (pageSizeOptions || []).map(opt => {
     if (typeof opt === 'number') {
-      return { value: opt, text: `${opt} ${i18n.items}` };
+      return { key: opt, text: `${opt} ${i18n.items}` };
     }
 
-    return opt;
+    return {
+      key: opt.value,
+      text: opt.text,
+    };
   });
 });
 
@@ -114,16 +117,18 @@ class PageSizeSelect extends Component<
     return (
       <Select
         width={i18n.selectWidth}
-        autoWidth
-        data={options}
-        value={pageSize}
+        options={options}
+        value={{
+          key: pageSize,
+          text: String(pageSize),
+        }}
         onChange={this.onChange}
       />
     );
   }
 
-  onChange = (evt: any, data: any) => {
-    this.props.onPageSizeChange(data.value);
+  onChange = ({ key }: ISelectItem<number>) => {
+    this.props.onPageSizeChange(key);
   };
 }
 

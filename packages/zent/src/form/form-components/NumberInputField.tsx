@@ -9,22 +9,25 @@ import { IFormComponentProps } from '../shared';
 import { FormField } from '../Field';
 import { $MergeParams } from '../utils';
 
-export type IFormNumberInputFieldProps = IFormComponentProps<
-  number | string | null,
+export type IFormNumberInputFieldProps<T> = IFormComponentProps<
+  T,
   | Omit<INumberInputDecimalProps, 'value'>
   | Omit<INumberInputIntegerProps, 'value'>
 >;
 
-export const FormNumberInputField: React.FunctionComponent<IFormNumberInputFieldProps> = props => {
+export function FormNumberInputField<T extends number | string | null = number>(
+  props: IFormNumberInputFieldProps<T>
+) {
   return (
     <FormField
       {...props}
       defaultValue={
-        (props as $MergeParams<IFormNumberInputFieldProps>).defaultValue || ''
+        (props as $MergeParams<IFormNumberInputFieldProps<T>>).defaultValue ||
+        ''
       }
     >
       {childProps => <NumberInput {...props.props} {...(childProps as any)} />}
     </FormField>
   );
-};
+}
 <NumberInput />;

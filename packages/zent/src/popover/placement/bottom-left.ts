@@ -1,5 +1,5 @@
-import createPlacement from './create';
-import { PositionFunctionImpl } from '../position-function';
+import { IPositionFunction } from '../position-function';
+import { prefix } from './prefix';
 
 /**
  * ---------------
@@ -9,29 +9,18 @@ import { PositionFunctionImpl } from '../position-function';
  * |popover|
  * ---------
  */
-const locate: PositionFunctionImpl = (
-  anchorBoundingBox,
-  containerBoundingBox,
-  contentDimension,
-  options
-) => {
-  const { left, bottom } = anchorBoundingBox;
+export const BottomLeft: IPositionFunction = ({ relativeRect, cushion }) => {
+  const { left, bottom } = relativeRect;
   const x = left;
-  const y = bottom + options.cushion;
+  const y = bottom + cushion;
 
   return {
-    getCSSStyle() {
-      return {
-        position: 'absolute',
-        left: `${Math.round(x)}px`,
-        top: `${Math.round(y)}px`,
-      };
+    style: {
+      position: 'absolute',
+      left: x,
+      top: y,
     },
 
-    name: 'position-bottom-left',
+    className: prefix('position-bottom-left'),
   };
 };
-
-const BottomLeft = createPlacement(locate);
-
-export default BottomLeft;

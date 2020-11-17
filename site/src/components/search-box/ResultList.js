@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
 import cx from 'classnames';
-import scroll from 'zent-utils/scroll';
+import { smoothScroll } from 'zent';
 
 import { SKIP_SCROLL } from './constants';
 
@@ -118,7 +118,7 @@ export default class ResultList extends Component {
           itemHeight;
       }
 
-      scroll(this.list, 0, scrollY, 100);
+      smoothScroll(this.list, 0, scrollY, 100);
     }
   }
 }

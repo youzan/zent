@@ -32,6 +32,7 @@
   .zent-pop-buttons {
     text-align: right;
     vertical-align: top;
+    margin-top: 16px;
 
     .zent-btn + .zent-btn {
       margin-left: 8px;
@@ -55,19 +56,6 @@
     position: absolute;
     width: var(--CSS_ARROW_COVER_SIZE);
     height: var(--CSS_ARROW_COVER_SIZE);
-  }
-
-  &--no-header {
-    .zent-pop-buttons {
-      display: inline-block;
-      margin-left: 24px;
-    }
-  }
-
-  &--has-header {
-    .zent-pop-buttons {
-      margin-top: 16px;
-    }
   }
 
   &.zent-popover-position,

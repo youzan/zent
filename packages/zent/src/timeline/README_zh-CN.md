@@ -17,7 +17,6 @@ group: 展示
 | size      | 大小           | number |                |                             | 是   |
 | timeline  | 时间轴数组     | Array  |                | 是                          | 是   |
 | className | 自定义额外类名 | string | `''`           |                             | 是   |
-| prefix    | 自定义前缀     | string | `'zent'`       |                             | 是   |
 | style     | 自定义样式     | object |                |                             | 是   |
 
 ### Timeline Item
@@ -34,7 +33,6 @@ group: 展示
 | showDot   | 是否显示圆点                        | boolean | `true`         | `true | false`              | 是   |
 | size      | 大小                                | number  |                |                             | 是   |
 | className | 自定义额外类名                      | string  | `''`           |                             | 是   |
-| prefix    | 自定义前缀                          | string  | `'zent'`       |                             | 是   |
 | style     | 自定义样式                          | object  |                |                             | 是   |
 
 ### Timeline 数组
