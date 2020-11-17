@@ -73,6 +73,7 @@
   }
 
   &:after {
+    @include theme-shadow(layer);
     z-index: 1;
   }
 
