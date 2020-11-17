@@ -224,6 +224,7 @@ $menuHeight: 180px;
       }
 
       &-icon {
+        @include theme-color(color, stroke, 4);
         position: absolute;
         right: 10px;
         top: 50%;
@@ -233,6 +234,7 @@ $menuHeight: 180px;
       }
 
       &-loading {
+        @include theme-border(1px, solid, stroke, 4);
         width: 12px;
         height: 12px;
         margin-top: -6px;

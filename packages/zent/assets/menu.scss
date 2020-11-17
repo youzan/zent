@@ -17,12 +17,12 @@ $menu-border-radius: 2px;
 .zent-menu {
   @include theme-color(color, stroke, 1);
   @include theme-color(background-color, stroke, 9);
+  @include theme-shadow(layer);
   font-size: $font-size-normal;
   width: $menu-item-width;
   list-style: none;
   padding: 0;
   margin: 0;
-  box-shadow: $shadow-spec-layer;
   border-radius: $menu-border-radius;
 
   &-item {
@@ -69,11 +69,11 @@ $menu-border-radius: 2px;
   }
 
   .zenticon-right {
+    @include theme-color(color, stroke, 3);
     position: absolute;
     right: 10px;
     top: 50%;
     transform: translateY(-50%);
-    color: $theme-stroke-3;
     font-size: 12px;
   }
 
@@ -111,17 +111,17 @@ $menu-border-radius: 2px;
       cursor: pointer;
 
       &:hover {
-        color: $theme-primary-4;
+        @include theme-color(color, primary, 4);
       }
     }
 
     &-selected {
-      color: $theme-stroke-9;
-      background-color: $theme-primary-4;
+      @include theme-color(color, stroke, 9);
+      @include theme-color(background-color, primary, 4);
 
       &:not(.zent-menu-item-disabled):hover {
-        color: $theme-stroke-9;
-        background-color: $theme-primary-3;
+        @include theme-color(color, stroke, 9);
+        @include theme-color(background-color, primary, 3);
       }
     }
   }
@@ -139,8 +139,8 @@ $menu-border-radius: 2px;
     }
 
     .zent-menu__inner {
+      @include theme-color(background-color, stroke, 9);
       width: 100%;
-      background-color: $theme-stroke-9;
       list-style: none;
       padding: 0;
       margin: 0;
@@ -162,11 +162,11 @@ $menu-border-radius: 2px;
       }
 
       &:not(.zent-submenu-disabled):hover {
-        color: $theme-primary-4;
-        background-color: $theme-stroke-9;
+        @include theme-color(color, primary, 4);
+        @include theme-color(background-color, stroke, 9);
 
         .zenticon {
-          color: $theme-primary-4;
+          @include theme-color(color, primary, 4);
         }
       }
     }
