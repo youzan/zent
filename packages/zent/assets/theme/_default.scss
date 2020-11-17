@@ -128,8 +128,12 @@ $theme-shadow: (
   @return red($color), green($color), blue($color);
 }
 
-@mixin theme-color($prop, $cat, $i) {
+@mixin theme-color($prop, $cat, $i, $opacity: 1) {
   $color: get-color($cat, $i);
+
+  @if $opacity < 1 {
+    $color: rgba($color, $opacity);
+  }
 
   #{$prop}: $color;
   #{$prop}: var(--theme-#{$cat}-#{$i}, $color);
@@ -140,6 +144,37 @@ $theme-shadow: (
 
   box-shadow: $color;
   box-shadow: var(--shadow-spec-#{$name}, $color);
+}
+
+@mixin theme-border-impl($prop, $width, $style, $cat, $i, $opacity) {
+  $color: get-color($cat, $i);
+
+  @if $opacity < 1 {
+    $color: rgba($color, $opacity);
+  }
+
+  #{$prop}: $width $style $color;
+  #{$prop}: $width $style var(--theme-#{$cat}-#{$i}, $color);
+}
+
+@mixin theme-border($width, $style, $cat, $i, $opacity: 1) {
+  @include theme-border-impl(border, $width, $style, $cat, $i, $opacity);
+}
+
+@mixin theme-border-top($width, $style, $cat, $i, $opacity: 1) {
+  @include theme-border-impl(border-top, $width, $style, $cat, $i, $opacity);
+}
+
+@mixin theme-border-right($width, $style, $cat, $i, $opacity: 1) {
+  @include theme-border-impl(border-right, $width, $style, $cat, $i, $opacity);
+}
+
+@mixin theme-border-bottom($width, $style, $cat, $i, $opacity: 1) {
+  @include theme-border-impl(border-bottom, $width, $style, $cat, $i, $opacity);
+}
+
+@mixin theme-border-left($width, $style, $cat, $i, $opacity: 1) {
+  @include theme-border-impl(border-left, $width, $style, $cat, $i, $opacity);
 }
 
 @mixin default-theme-variables {
