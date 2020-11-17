@@ -218,7 +218,7 @@
       align-items: center;
 
       &__white {
-        background-color: rgba($theme-stroke-9, 0.8);
+        @include theme-color(background-color, stroke, 9, 0.8);
       }
 
       &__black {

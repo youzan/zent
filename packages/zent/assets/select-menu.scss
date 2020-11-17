@@ -20,9 +20,9 @@
 }
 
 .zent-menu-item-group-header {
+  @include theme-color(color, stroke, 3);
   font-size: 11px;
   background: none;
-  color: $theme-stroke-3;
   cursor: default;
   text-transform: uppercase;
   padding: 5px 7px;

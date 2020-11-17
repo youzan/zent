@@ -103,22 +103,22 @@
       box-sizing: border-box;
 
       &-icon {
+        @include theme-color(color, stroke, 4);
         position: absolute;
         right: 10px;
         top: 50%;
         transform: translateY(-50%);
-        color: $theme-stroke-4;
         font-size: 12px;
       }
 
       &-loading {
+        @include theme-border(1px, solid, stroke, 4);
         width: 12px;
         height: 12px;
         margin-top: -6px;
         position: absolute;
         display: inline-block;
         animation: zent-ani-spin 1s infinite linear;
-        border: 1px solid $theme-stroke-4;
         border-radius: 50%;
         right: 10px;
         top: 50%;
@@ -131,7 +131,7 @@
       }
 
       &--active {
-        background: $theme-stroke-8;
+        @include theme-color(background-color, stroke, 8);
         font-weight: 600;
       }
     }

@@ -5,9 +5,9 @@
 .zent-pop {
   @include font-normal;
   @include theme-color(background-color, stroke, 9);
+  @include theme-shadow(layer);
 
   border-radius: 2px;
-  box-shadow: $shadow-spec-layer;
   z-index: 2000;
 
   .zent-pop-inner,
@@ -36,12 +36,12 @@
 
   .zent-pop-arrow {
     @include theme-color(background-color, stroke, 9);
+    @include theme-shadow(layer);
 
     position: absolute;
     z-index: 1;
     width: var(--CSS_ARROW_SIZE);
     height: var(--CSS_ARROW_SIZE);
-    box-shadow: $shadow-spec-layer;
     overflow: hidden;
   }
 

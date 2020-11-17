@@ -15,12 +15,7 @@
 
   &.zent-loading--has-children {
     .zent-loading-mask {
-      // sass-lint:disable-block no-duplicate-properties
-      background-color: rgba($theme-stroke-9, 0.6);
-      background-color: rgba(
-        var(--theme-stroke-9, to-rgb($theme-stroke-9)),
-        0.5
-      );
+      @include theme-color(background-color, stroke, 9, 0.5);
     }
   }
 
@@ -79,8 +74,9 @@
 
   &:after {
     @include theme-color(background-color, stroke, 9);
+    @include theme-shadow(layer);
+
     z-index: 1;
-    box-shadow: $shadow-spec-layer;
   }
 
   &-svg {
