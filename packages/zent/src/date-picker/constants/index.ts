@@ -22,7 +22,6 @@ export const triggerCommonProps = [
   'name',
   'format',
   'seperator',
-  'disabled',
   'canClear',
   'placeholder',
 ] as const;

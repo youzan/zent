@@ -42,6 +42,7 @@
 }
 
 .zent-datepicker {
+  @include theme-color(background-color, stroke, 9);
   box-sizing: border-box;
   display: inline-block;
   position: relative;
