@@ -45,6 +45,8 @@ $type-map: (
 );
 
 .zent-alert {
+  @include theme-border(1px, solid, stroke, 5);
+
   padding: 12px 16px;
   border-radius: 2px;
 
