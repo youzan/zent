@@ -88,7 +88,7 @@
 
   &.zent-select--visible {
     @include theme-color(border-color, primary, 4);
-    box-shadow: $shadow-spec-focus;
+    @include theme-shadow(focus);
 
     &::after {
       transform: rotate(180deg) translateY(50%);
