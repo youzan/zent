@@ -26,7 +26,7 @@
   &--open {
     .zent-color-picker__text {
       @include theme-color(border-color, primary, 4);
-      box-shadow: $shadow-spec-focus;
+      @include theme-shadow(focus);
 
       &::after {
         transform: rotate(180deg);
@@ -58,8 +58,8 @@
 
   &-colors-select {
     @include theme-color(background-color, stroke, 9);
+    @include theme-shadow(layer);
     width: 190px;
-    box-shadow: $shadow-spec-layer;
     box-sizing: content-box;
     line-height: 10px;
     padding-top: 10px;

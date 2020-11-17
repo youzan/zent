@@ -2,14 +2,14 @@
 @import '../theme/font';
 
 @mixin popup {
-  box-shadow: $shadow-spec-layer;
+  @include theme-shadow(layer);
+  @include theme-color(background-color, stroke, 9);
   left: 0;
   outline: none;
   overflow-y: auto;
   position: relative;
   width: 100%;
   z-index: 2000;
-  background-color: $theme-stroke-9;
   max-height: 224px;
   border-radius: 3px;
   font-size: $font-size-normal;

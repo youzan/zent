@@ -1,7 +1,7 @@
 @import '../theme/default';
 
 @mixin popup-menu-item-common {
-  background-color: $theme-stroke-9;
+  @include theme-color(background-color, stroke, 9);
   display: block;
   outline: none;
   padding: 7px 16px;
@@ -14,18 +14,18 @@
   &.current,
   &.hover,
   &:hover {
-    background-color: $theme-primary-8;
+    @include theme-color(background-color, primary, 8);
   }
 
   &.active {
+    @include theme-color(background-color, stroke, 8);
     font-weight: 500;
-    background-color: $theme-stroke-8;
   }
 
   &.active:hover,
   &.active.hover,
   &.active.current {
-    background-color: $theme-stroke-8;
+    @include theme-color(background-color, stroke, 8);
   }
 }
 

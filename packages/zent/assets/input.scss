@@ -2,7 +2,6 @@
 @import './theme/font';
 
 $border-radius: 2px;
-$focus-box-shadow: $shadow-spec-focus;
 $border-transition: border 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 $normal-size: 32px;
 $small-size: 24px;
@@ -50,7 +49,7 @@ $large-size: 40px;
 
   &.zent-input--has-focus:not(.zent-input-wrapper__not-editable) {
     @include theme-color(border-color, primary, 4);
-    box-shadow: $focus-box-shadow;
+    @include theme-shadow(focus);
   }
 
   &__not-editable {

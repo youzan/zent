@@ -21,8 +21,8 @@
 
 @mixin panel-common {
   @include white-bgcolor;
+  @include theme-shadow(layer);
   border-radius: 2px;
-  box-shadow: $shadow-spec-layer;
   z-index: 1;
 }
 
@@ -125,7 +125,7 @@
 
     &-focus {
       @include theme-color(border-color, primary, 4);
-      box-shadow: $shadow-spec-focus;
+      @include theme-shadow(focus);
     }
   }
 

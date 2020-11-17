@@ -8,6 +8,7 @@
   padding: 8px 7px;
 
   &-main {
+    @include theme-color(background-color, stroke, 6);
     flex: 1;
     height: 14px;
     cursor: pointer;
@@ -17,7 +18,6 @@
     border-radius: 8px;
     box-sizing: border-box;
     user-select: none;
-    background-color: $theme-stroke-6;
     background-clip: content-box;
 
     &:hover {

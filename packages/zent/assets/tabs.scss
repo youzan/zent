@@ -24,12 +24,14 @@
 }
 
 @mixin inset-box-shadow($offsetX) {
+  // sass-lint:disable-block no-duplicate-properties
   content: '';
   position: absolute;
   z-index: 1;
   width: 5px;
   height: 100%;
   box-shadow: inset #{$offsetX}px 0 5px -5px $theme-stroke-4;
+  box-shadow: inset #{$offsetX}px 0 5px -5px var(--theme-stroke-4, $theme-stroke-4);
 }
 
 .zent-tabs {
@@ -176,9 +178,9 @@
 .zent-tabs-hidden {
   &-tabs {
     @include theme-color(background-color, stroke, 9);
+    @include theme-shadow(modal);
     min-width: 148px;
     border-radius: 2px;
-    box-shadow: $shadow-spec-modal;
     max-height: 256px;
     overflow-y: scroll;
   }

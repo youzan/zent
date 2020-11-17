@@ -15,7 +15,9 @@
   }
 
   &-minimum {
+    // sass-lint:disable-block no-duplicate-properties
     box-shadow: 0 1px 0 0 $theme-stroke-6;
+    box-shadow: 0 1px 0 0 var(--theme-stroke-6, $theme-stroke-6);
   }
 
   &__title {
