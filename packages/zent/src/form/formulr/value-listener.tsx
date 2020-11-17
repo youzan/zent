@@ -6,6 +6,7 @@ import { useValue$ } from './hooks';
 import {
   FieldModel,
   FieldArrayModel,
+  FieldSetModel,
   isFieldSetModel,
   isFieldModel,
   isFieldArrayModel,
@@ -16,7 +17,8 @@ import {
 import { noop, $MergeProps } from './utils';
 
 export interface IFieldSetValueProps {
-  name: string;
+  name?: string;
+  model?: FieldSetModel;
   children?: React.ReactNode;
 }
 
@@ -74,9 +76,13 @@ function useModelFromContext<Model>(
 /**
  * 根据 `name` 订阅 `FieldSet` 的值
  */
-export function FieldSetValue({ name, children }: IFieldSetValueProps) {
+export function FieldSetValue({
+  name,
+  model: modelProps,
+  children,
+}: IFieldSetValueProps) {
   const ctx = useFormContext();
-  const model = useModelFromContext(ctx, name, undefined, isFieldSetModel);
+  const model = useModelFromContext(ctx, name, modelProps, isFieldSetModel);
   const childContext = React.useMemo<IFormContext>(
     () => ({
       ...ctx,
