@@ -54,7 +54,7 @@ $type-map: (
 }
 
 .zent-alert-scroll {
-  border: 1px solid $theme-stroke-5;
+  @include theme-border(1px, solid, stroke, 5);
   border-radius: 2px;
   height: min-content;
   box-sizing: border-box;
@@ -87,8 +87,8 @@ $type-map: (
 
 .zent-alert-item {
   @include font-normal;
+  @include theme-color(color, stroke, 1);
   box-sizing: border-box;
-  color: $theme-stroke-1;
   display: flex;
 
   &-content {
