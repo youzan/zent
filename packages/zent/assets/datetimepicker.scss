@@ -135,10 +135,10 @@ $input-width: 190px;
     .year-picker,
     .quarter-picker {
       @include theme-color(background-color, stroke, 9);
+      @include theme-shadow(layer);
       width: $default-width;
       font-size: $font-size-normal;
       border-radius: 2px;
-      box-shadow: $shadow-spec-layer;
       z-index: 10;
     }
 
