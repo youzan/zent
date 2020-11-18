@@ -172,7 +172,7 @@ class FieldArrayModel<
   pop() {
     const children = this.children$.getValue().slice();
     const child = children.pop();
-    child && this.unwindChild(child);
+    child && this.disposeChild(child);
     this.children$.next(children);
     return child;
   }
@@ -183,7 +183,7 @@ class FieldArrayModel<
   shift() {
     const children = this.children$.getValue().slice();
     const child = children.shift();
-    child && this.unwindChild(child);
+    child && this.disposeChild(child);
     this.children$.next(children);
     return child;
   }
@@ -214,7 +214,7 @@ class FieldArrayModel<
       ...insertedChildren
     );
     this.children$.next(children);
-    removedChildren.forEach(this.unwindChild);
+    removedChildren.forEach(this.disposeChild);
     return removedChildren;
   }
 
@@ -332,7 +332,7 @@ class FieldArrayModel<
     }
   }
 
-  private unwindChild = (child: Child) => {
+  private disposeChild = (child: Child) => {
     this.unsubscribeValid(child);
     child.owner = null;
   };
