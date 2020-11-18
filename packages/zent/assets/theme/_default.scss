@@ -131,12 +131,8 @@ $theme-shadow: (
 @mixin theme-color($prop, $cat, $i, $opacity: 1) {
   $color: get-color($cat, $i);
 
-  @if $opacity < 1 {
-    $color: rgba($color, $opacity);
-  }
-
   #{$prop}: $color;
-  #{$prop}: var(--theme-#{$cat}-#{$i}, $color);
+  #{$prop}: rgba(var(--theme-#{$cat}-#{$i}, to-rgb($color)), $opacity);
 }
 
 @mixin theme-shadow($name) {
@@ -149,12 +145,9 @@ $theme-shadow: (
 @mixin theme-border-impl($prop, $width, $style, $cat, $i, $opacity) {
   $color: get-color($cat, $i);
 
-  @if $opacity < 1 {
-    $color: rgba($color, $opacity);
-  }
-
   #{$prop}: $width $style $color;
-  #{$prop}: $width $style var(--theme-#{$cat}-#{$i}, $color);
+  #{$prop}: $width $style
+    rgba(var(--theme-#{$cat}-#{$i}, to-rgb($color)), $opacity);
 }
 
 @mixin theme-border($width, $style, $cat, $i, $opacity: 1) {
