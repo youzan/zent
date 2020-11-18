@@ -149,6 +149,7 @@ $inner-circle-offset: ($outer-circle-size - $inner-circle-size - 2px) / 2;
   box-sizing: border-box;
   display: inline-block;
   padding: 5px 10px;
+  text-align: center;
   transition: all 100ms $timing-fn-ease-in;
 
   > input[type='radio'] {
