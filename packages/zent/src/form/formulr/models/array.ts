@@ -160,13 +160,9 @@ class FieldArrayModel<
    * @param items 待添加的值
    */
   push(...items: Item[]) {
-    const nextChildren: Child[] = this.children$.getValue().concat(
-      items.map(child => {
-        const model = this.childFactory(child);
-        this.aggregateValid(model);
-        return model;
-      })
-    );
+    const nextChildren = this.children$
+      .getValue()
+      .concat(items.map(this.buildChild));
     this.children$.next(nextChildren);
   }
 
@@ -176,10 +172,7 @@ class FieldArrayModel<
   pop() {
     const children = this.children$.getValue().slice();
     const child = children.pop();
-    if (child) {
-      this.unwindValid(child);
-      child.owner = null;
-    }
+    child && this.unwindChild(child);
     this.children$.next(children);
     return child;
   }
@@ -190,10 +183,7 @@ class FieldArrayModel<
   shift() {
     const children = this.children$.getValue().slice();
     const child = children.shift();
-    if (child) {
-      this.unwindValid(child);
-      child.owner = null;
-    }
+    child && this.unwindChild(child);
     this.children$.next(children);
     return child;
   }
@@ -204,11 +194,7 @@ class FieldArrayModel<
    */
   unshift(...items: Item[]) {
     const nextChildren = items
-      .map(child => {
-        const model = this.childFactory(child);
-        this.aggregateValid(model);
-        return model;
-      })
+      .map(this.buildChild)
       .concat(this.children$.getValue());
     this.children$.next(nextChildren);
   }
@@ -221,23 +207,14 @@ class FieldArrayModel<
    */
   splice(start: number, deleteCount = 0, ...items: readonly Item[]): Child[] {
     const children = this.children$.getValue().slice();
-    const insertedChildren = items.map(child => {
-      const model = this.childFactory(child);
-      this.aggregateValid(model);
-      return model;
-    });
+    const insertedChildren = items.map(this.buildChild);
     const removedChildren = children.splice(
       start,
       deleteCount,
       ...insertedChildren
     );
     this.children$.next(children);
-    removedChildren.forEach(child => {
-      if (child) {
-        this.unwindValid(child);
-        child.owner = null;
-      }
-    });
+    removedChildren.forEach(this.unwindChild);
     return removedChildren;
   }
 
@@ -307,32 +284,25 @@ class FieldArrayModel<
   }
 
   /**
-   * Aggregate `valid$` of children
+   * Subscribe `valid$` of children
    * @param model
    */
-  private aggregateValid(child: Child) {
-    const { mapModelToSubscription, invalidModels } = this;
-    if (isModelRef(child)) {
+  private subscribeValid(child: Child) {
+    const { mapModelToSubscription } = this;
+    if (isModelRef<Item, this, Child>(child)) {
       const $ = child.model$.pipe(pairwise()).subscribe(pair => {
-        const [prev, current] = (pair as unknown) as [
-          BasicModel<unknown>?,
-          BasicModel<unknown>?
-        ];
+        const [prev, current] = pair;
 
-        /** unwind dropped model */
-        if (prev) {
-          invalidModels.delete(prev as BasicModel<unknown>);
-          mapModelToSubscription
-            .get(prev as BasicModel<unknown>)
-            ?.unsubscribe();
+        this.unsubscribeValid(prev);
+
+        if (isModel(current)) {
+          this.subscribeValidSubject(current);
         }
-
-        this.subscribeValidSubject(current);
       });
 
       mapModelToSubscription.set(child, $);
-    } else {
-      this.subscribeValidSubject((child as unknown) as BasicModel<unknown>);
+    } else if (isModel(child)) {
+      this.subscribeValidSubject(child);
     }
   }
 
@@ -352,15 +322,26 @@ class FieldArrayModel<
     }
   }
 
-  private unwindValid(child: Child) {
+  private unsubscribeValid(child: Child) {
     this.mapModelToSubscription.get(child)?.unsubscribe();
-    if (!isModelRef(child)) {
-      this.invalidModels.delete((child as unknown) as BasicModel<unknown>);
-    } else {
+    if (isModel(child)) {
+      this.invalidModels.delete(child);
+    } else if (isModelRef(child)) {
       const model = child.getModel();
       model && this.mapModelToSubscription.get(model)?.unsubscribe();
     }
   }
+
+  private unwindChild = (child: Child) => {
+    this.unsubscribeValid(child);
+    child.owner = null;
+  };
+
+  private buildChild = (child: Item) => {
+    const model = this.childFactory(child);
+    this.subscribeValid(model);
+    return model;
+  };
 }
 
 FieldArrayModel.prototype[FIELD_ARRAY_ID] = true;

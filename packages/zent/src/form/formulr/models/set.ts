@@ -129,7 +129,7 @@ class FieldSetModel<
     }
     model.owner = this;
     children[name] = model;
-    this.aggregateValid(model);
+    this.subscribeValid(model);
     this.childRegister$.next(name);
   }
 
@@ -140,7 +140,7 @@ class FieldSetModel<
   removeChild(name: string) {
     const model = this.children[name];
     model.owner = null;
-    this.unwindValid(model);
+    this.unsubscribeValid(model);
     delete this.children[name];
     this.childRemove$.next(name);
     return model;
@@ -267,10 +267,10 @@ class FieldSetModel<
   }
 
   /**
-   * Aggregate `valid$` of the model
+   * Subscribe `valid$` of the model
    * @param model
    */
-  private aggregateValid(model: BasicModel<unknown>) {
+  private subscribeValid(model: BasicModel<unknown>) {
     if (model && !this.mapModelToSubscription.has(model)) {
       const { invalidModels, mapModelToSubscription, valid$ } = this;
       const $ = model.valid$.subscribe(valid => {
@@ -287,10 +287,10 @@ class FieldSetModel<
   }
 
   /**
-   * Unwind `valid$` of the model
+   * Unsubscribe `valid$` of the model
    * @param model
    */
-  private unwindValid(model: BasicModel<unknown>) {
+  private unsubscribeValid(model: BasicModel<unknown>) {
     const $ = this.mapModelToSubscription.get(model);
     $?.unsubscribe();
     this.mapModelToSubscription.delete(model);
