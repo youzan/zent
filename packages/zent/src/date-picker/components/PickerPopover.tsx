@@ -14,6 +14,7 @@ const PickerPopover = ({
 }: IPickerPopoverProps) => {
   return (
     <Popover
+      className="zent-datepicker-popup"
       cushion={5}
       position={Popover.Position.AutoBottomLeft}
       visible={panelVisible}
