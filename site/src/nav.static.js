@@ -45,6 +45,12 @@ module.exports = {
               source:
                 "DocLoadable({ loader: () => import('../../packages/zent/docs/THEME_zh-CN.md') })",
             },
+            {
+              title: '编码规范',
+              path: 'guides/writing-themable-code',
+              source:
+                "DocLoadable({ loader: () => import('../../packages/zent/docs/Theme-Coding_zh-CN.md') })",
+            },
           ],
         },
         {
@@ -161,6 +167,12 @@ module.exports = {
               path: 'guides/theme',
               source:
                 "DocLoadable({ loader: () => import('../../packages/zent/docs/THEME_en-US.md') })",
+            },
+            {
+              title: 'Coding Guides',
+              path: 'guides/writing-themable-code',
+              source:
+                "DocLoadable({ loader: () => import('../../packages/zent/docs/Theme-Coding_en-US.md') })",
             },
           ],
         },

@@ -31,7 +31,7 @@
   width: 5px;
   height: 100%;
   box-shadow: inset #{$offsetX}px 0 5px -5px $theme-stroke-4;
-  box-shadow: inset #{$offsetX}px 0 5px -5px var(--theme-stroke-4, $theme-stroke-4);
+  box-shadow: inset #{$offsetX}px 0 5px -5px theme-rgb(stroke, 4);
 }
 
 .zent-tabs {
