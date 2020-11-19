@@ -40,20 +40,6 @@ class FieldModel<Value> extends BasicModel<Value> {
   }
 
   /**
-   * 获取 `Field` 当前的值
-   */
-  get value() {
-    return this.value$.getValue();
-  }
-
-  /**
-   * 设置 `Field` 的值
-   */
-  set value(value: Value) {
-    this.value$.next(value);
-  }
-
-  /**
    * 重置 `Field` 为初始值，初始值通过 `initialize` 设置；如果初始值不存在就使用默认值
    */
   reset() {
@@ -90,18 +76,14 @@ class FieldModel<Value> extends BasicModel<Value> {
   }
 
   /**
-   * `Field` 是否所有校验都通过了
-   */
-  valid() {
-    return isNil(this.error$.getValue());
-  }
-
-  /**
    * 执行 `Field` 的校验规则
    * @param option 执行校验规则的参数
    */
   validate(option = ValidateOption.Default) {
-    return this.triggerValidate(option);
+    return this.triggerValidate(option).then(maybeError => {
+      this.valid$.next(isNil(maybeError));
+      return maybeError;
+    });
   }
 
   /**
