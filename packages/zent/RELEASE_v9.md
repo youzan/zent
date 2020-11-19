@@ -1,5 +1,12 @@
 # 9.0.0 迁移指南
 
+## 9.0.0-beta12 (2020-11-19)
+
+- 🦀️ 修复 `RadioButton` 文字不居中的问题
+- 🦀️ 修复 `DatePicker` 弹层的 `z-index` 问题
+- 🦀️ 修复主题色问题
+- 📚 增加主题色相关 mixin 和 function 文档
+
 ## 9.0.0-beta12 (2020-11-17)
 
 - ✨ `FieldSetValue` 支持直接传入 model
