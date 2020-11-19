@@ -40,13 +40,6 @@ class FieldModel<Value> extends BasicModel<Value> {
   }
 
   /**
-   * 设置 `Field` 的值
-   */
-  set value(value: Value) {
-    this.value$.next(value);
-  }
-
-  /**
    * 重置 `Field` 为初始值，初始值通过 `initialize` 设置；如果初始值不存在就使用默认值
    */
   reset() {

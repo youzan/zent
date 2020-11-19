@@ -56,6 +56,10 @@ abstract class BasicModel<Value> implements IModel<Value> {
     return this.value$.value;
   }
 
+  set value(value: Value) {
+    this.patchValue(value);
+  }
+
   get form() {
     return this.owner?.form;
   }
