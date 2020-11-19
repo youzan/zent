@@ -1,4 +1,4 @@
-## Writing themable style
+## Coding Guides
 
 Zent provides some useful SCSS mixins and functions to help write themable style.
 
