@@ -91,6 +91,10 @@
     cursor: not-allowed;
   }
 
+  &-popup {
+    z-index: 2000;
+  }
+
   &-trigger {
     @include theme-color(border-color, stroke, 5);
     @include border-with-radius;
