@@ -14,9 +14,9 @@
     );
     background: linear-gradient(
       to right,
-      rgba(var(--theme-stroke-7, to-rgb($theme-stroke-7)), 0.7),
-      var(--theme-stroke-7, $theme-stroke-7),
-      var(--theme-stroke-8, $theme-stroke-8)
+      theme-rgba(stroke, 7, 0.7),
+      theme-rgb(stroke, 7),
+      theme-rgb(stroke, 8)
     );
     background-size: 300% 300%;
   }

@@ -52,11 +52,6 @@ $theme-warn-3: #ef8030 !default;
 $theme-warn-4: #f1924e !default;
 $theme-warn-5: #fff5ed !default;
 
-// Shadow
-$shadow-spec-focus: 0 0 4px 0 rgba($theme-primary-1, 0.2) !default;
-$shadow-spec-layer: 0 2px 8px 0 rgba($theme-stroke-4, 0.5) !default;
-$shadow-spec-modal: 0 2px 24px 0 rgba($theme-stroke-4, 0.5) !default;
-
 // Rate color
 $rate-star-color: #fad20c !default;
 
@@ -114,12 +109,6 @@ $theme-colors: (
   ),
 );
 
-$theme-shadow: (
-  'focus': $shadow-spec-focus,
-  'layer': $shadow-spec-layer,
-  'modal': $shadow-spec-modal,
-);
-
 @function get-color($cat, $i) {
   @return nth(map-get($theme-colors, $cat), $i);
 }
@@ -128,33 +117,25 @@ $theme-shadow: (
   @return red($color), green($color), blue($color);
 }
 
-@mixin theme-color($prop, $cat, $i, $opacity: 1) {
-  $color: get-color($cat, $i);
-
-  @if $opacity < 1 {
-    $color: rgba($color, $opacity);
-  }
-
-  #{$prop}: $color;
-  #{$prop}: var(--theme-#{$cat}-#{$i}, $color);
+@function theme-rgb($cat, $i) {
+  @return rgb(var(--theme-#{$cat}-#{$i}, to-rgb(get-color($cat, $i))));
 }
 
-@mixin theme-shadow($name) {
-  $color: map-get($theme-shadow, $name);
+@function theme-rgba($cat, $i, $opacity) {
+  @return rgba(
+    var(--theme-#{$cat}-#{$i}, to-rgb(get-color($cat, $i))),
+    $opacity
+  );
+}
 
-  box-shadow: $color;
-  box-shadow: var(--shadow-spec-#{$name}, $color);
+@mixin theme-color($prop, $cat, $i, $opacity: 1) {
+  #{$prop}: rgba(get-color($cat, $i), $opacity);
+  #{$prop}: theme-rgba($cat, $i, $opacity);
 }
 
 @mixin theme-border-impl($prop, $width, $style, $cat, $i, $opacity) {
-  $color: get-color($cat, $i);
-
-  @if $opacity < 1 {
-    $color: rgba($color, $opacity);
-  }
-
-  #{$prop}: $width $style $color;
-  #{$prop}: $width $style var(--theme-#{$cat}-#{$i}, $color);
+  #{$prop}: $width $style rgba(get-color($cat, $i), $opacity);
+  #{$prop}: $width $style theme-rgba($cat, $i, $opacity);
 }
 
 @mixin theme-border($width, $style, $cat, $i, $opacity: 1) {
@@ -177,10 +158,38 @@ $theme-shadow: (
   @include theme-border-impl(border-left, $width, $style, $cat, $i, $opacity);
 }
 
-@mixin default-theme-variables {
-  @each $cat, $list in $theme-colors {
-    @for $i from 1 through length($list) {
-      #{--theme-#{$cat}-#{$i}}: nth($list, $i);
-    }
-  }
+// Shadow
+$shadow-spec-focus: 0 0 4px 0 rgba($theme-primary-1, 0.2) !default;
+$shadow-spec-layer: 0 2px 8px 0 rgba($theme-stroke-4, 0.5) !default;
+$shadow-spec-modal: 0 2px 24px 0 rgba($theme-stroke-4, 0.5) !default;
+$shadow-spec-focus-var: 0 0 4px 0 theme-rgba(primary, 1, 0.2) !default;
+$shadow-spec-layer-var: 0 2px 8px 0 theme-rgba(stroke, 4, 0.5) !default;
+$shadow-spec-modal-var: 0 2px 24px 0 theme-rgba(stroke, 4, 0.5) !default;
+
+$theme-shadow: (
+  'focus': $shadow-spec-focus,
+  'layer': $shadow-spec-layer,
+  'modal': $shadow-spec-modal,
+);
+
+$theme-shadow-var: (
+  'focus': $shadow-spec-focus-var,
+  'layer': $shadow-spec-layer-var,
+  'modal': $shadow-spec-modal-var,
+);
+
+@mixin theme-shadow($name) {
+  $shadow: map-get($theme-shadow, $name);
+  $shadow-var: map-get($theme-shadow-var, $name);
+
+  box-shadow: $shadow;
+  box-shadow: var(--shadow-spec-#{$name}, $shadow-var);
 }
+
+// @mixin default-theme-variables {
+//   @each $cat, $list in $theme-colors {
+//     @for $i from 1 through length($list) {
+//       #{--theme-#{$cat}-#{$i}}: nth($list, $i);
+//     }
+//   }
+// }
