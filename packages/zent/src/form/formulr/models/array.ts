@@ -1,4 +1,4 @@
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { BasicModel, isModel } from './basic';
 import { ValidateOption } from '../validate';
 import { isModelRef, ModelRef } from './ref';
@@ -8,6 +8,7 @@ import { IModel } from './base';
 import isNil from '../../../utils/isNil';
 import uniqueId from '../../../utils/uniqueId';
 import { pairwise } from 'rxjs/operators';
+import { createUnexpectedModelError, NullModelReferenceError } from '../error';
 
 const FIELD_ARRAY_ID = Symbol('field-array');
 
@@ -24,11 +25,13 @@ class FieldArrayModel<
 
   owner: IModel<any> | null = null;
 
-  private readonly invalidModels: Set<BasicModel<unknown>> = new Set();
+  readonly value$: BehaviorSubject<readonly Item[]>;
 
-  private readonly mapModelToSubscription: Map<
+  private readonly invalidModels: Set<BasicModel<Item>> = new Set();
+
+  private readonly mapModelToSubscriptions: Map<
     IModel<any>,
-    Subscription
+    Subscription[]
   > = new Map();
 
   private readonly childFactory: (defaultValue: Item) => Child;
@@ -39,6 +42,7 @@ class FieldArrayModel<
     private readonly defaultValue: readonly Item[]
   ) {
     super(uniqueId('field-array-'));
+    this.value$ = new BehaviorSubject(defaultValue);
     this.childFactory = childBuilder
       ? (defaultValue: Item) => {
           const child = childBuilder.build(Some(defaultValue));
@@ -56,7 +60,7 @@ class FieldArrayModel<
       const selfValid = isNil(maybeError);
       this.valid$.next(selfValid && !this.invalidModels.size);
     });
-    this.mapModelToSubscription.set(this, $);
+    this.mapModelToSubscriptions.set(this, [$]);
     this.children$ = new BehaviorSubject(children);
   }
 
@@ -89,31 +93,15 @@ class FieldArrayModel<
   /**
    * 获取 `FieldArray` 内的原始值
    */
-  getRawValue(): (Item | null)[] {
-    return this.children$.getValue().map(child => {
-      if (isModelRef<Item, this, Child>(child)) {
-        const model = child.getModel();
-        return model ? model.getRawValue() : null;
-      } else if (isModel<Item>(child)) {
-        return child.getRawValue();
-      }
-      return null;
-    });
+  getRawValue() {
+    return this._getValue(model => model.getRawValue());
   }
 
   /**
    * 获取 `FieldArray` 的用于表单提交的值，和原始值可能不一致
    */
-  getSubmitValue(): (Item | null)[] {
-    return this.children$.getValue().map(child => {
-      if (isModelRef<Item, this, Child>(child)) {
-        const model = child.getModel();
-        return model ? model.getSubmitValue() : null;
-      } else if (isModel<Item>(child)) {
-        return child.getSubmitValue();
-      }
-      return null;
-    });
+  getSubmitValue() {
+    return this._getValue(model => model.getSubmitValue());
   }
 
   /**
@@ -162,7 +150,7 @@ class FieldArrayModel<
   push(...items: Item[]) {
     const nextChildren = this.children$
       .getValue()
-      .concat(items.map(this.buildChild));
+      .concat(items.map(this._buildChild));
     this.children$.next(nextChildren);
   }
 
@@ -172,8 +160,9 @@ class FieldArrayModel<
   pop() {
     const children = this.children$.getValue().slice();
     const child = children.pop();
-    child && this.disposeChild(child);
+    child && this._disposeChild(child);
     this.children$.next(children);
+    this.value$.next(this.getRawValue());
     return child;
   }
 
@@ -183,8 +172,9 @@ class FieldArrayModel<
   shift() {
     const children = this.children$.getValue().slice();
     const child = children.shift();
-    child && this.disposeChild(child);
+    child && this._disposeChild(child);
     this.children$.next(children);
+    this.value$.next(this.getRawValue());
     return child;
   }
 
@@ -194,7 +184,7 @@ class FieldArrayModel<
    */
   unshift(...items: Item[]) {
     const nextChildren = items
-      .map(this.buildChild)
+      .map(this._buildChild)
       .concat(this.children$.getValue());
     this.children$.next(nextChildren);
   }
@@ -207,14 +197,15 @@ class FieldArrayModel<
    */
   splice(start: number, deleteCount = 0, ...items: readonly Item[]): Child[] {
     const children = this.children$.getValue().slice();
-    const insertedChildren = items.map(this.buildChild);
+    const insertedChildren = items.map(this._buildChild);
     const removedChildren = children.splice(
       start,
       deleteCount,
       ...insertedChildren
     );
     this.children$.next(children);
-    removedChildren.forEach(this.disposeChild);
+    removedChildren.forEach(this._disposeChild);
+    this.value$.next(this.getRawValue());
     return removedChildren;
   }
 
@@ -274,8 +265,10 @@ class FieldArrayModel<
 
   dispose() {
     super.dispose();
-    this.mapModelToSubscription.forEach(it => it.unsubscribe());
-    this.mapModelToSubscription.clear();
+    this.mapModelToSubscriptions.forEach(subs =>
+      subs.forEach(it => it.unsubscribe())
+    );
+    this.mapModelToSubscriptions.clear();
     this.invalidModels.clear();
     this.children.forEach(child => {
       child.dispose();
@@ -284,64 +277,133 @@ class FieldArrayModel<
   }
 
   /**
-   * Subscribe `valid$` of children
+   * Base method for gettting value from array model
+   * @param getter map model to value
+   */
+  private _getValue<V>(getter: (model: BasicModel<Item>) => V): V[] {
+    return this.children$.getValue().map(child => {
+      if (isModelRef<Item, this, BasicModel<Item>>(child)) {
+        const model = child.getModel();
+        if (model) {
+          return getter(model);
+        }
+        throw NullModelReferenceError;
+      } else if (isModel<Item>(child)) {
+        return getter(child);
+      }
+      throw createUnexpectedModelError(child);
+    });
+  }
+
+  /**
+   * Handle different types of the child
    * @param model
    */
-  private subscribeValid(child: Child) {
-    const { mapModelToSubscription } = this;
-    if (isModelRef<Item, this, Child>(child)) {
+  private _subscribeChild(child: Child) {
+    const { mapModelToSubscriptions } = this;
+    if (isModelRef<Item, FieldArrayModel<Item, Child>, Child>(child)) {
       const $ = child.model$.pipe(pairwise()).subscribe(pair => {
         const [prev, current] = pair;
 
-        this.unsubscribeValid(prev);
+        prev && this._unsubscribeChild(prev);
 
-        if (isModel(current)) {
-          this.subscribeValidSubject(current);
+        if (isModel<Item>(current)) {
+          this._subscribeChildModel(current);
         }
       });
 
-      mapModelToSubscription.set(child, $);
-    } else if (isModel(child)) {
-      this.subscribeValidSubject(child);
+      mapModelToSubscriptions.set(child, [$]);
+    } else if (isModel<Item>(child)) {
+      this._subscribeChildModel(child);
     }
   }
 
-  private subscribeValidSubject(model?: BasicModel<unknown>) {
-    const { mapModelToSubscription, invalidModels, valid$, error$ } = this;
-    if (model && !mapModelToSubscription.has(model)) {
-      const $ = model.valid$.subscribe(valid => {
-        if (valid) {
-          invalidModels.delete(model);
+  /**
+   * Subscribe `valid$` and `value$` of the child
+   * @param model
+   */
+  private _subscribeChildModel(model: BasicModel<Item>) {
+    const { error$, valid$, value$, invalidModels } = this;
+    this._subscribeObservable(model, model.valid$, valid => {
+      if (valid) {
+        invalidModels.delete(model);
+      } else {
+        invalidModels.add(model);
+      }
+
+      valid$.next(!invalidModels.size && isNil(error$.value));
+    });
+
+    this._subscribeObservable(model, model.value$, childValue => {
+      /** 直接使用 getRawValue 便于实现，后续可以优化 value 更新的过程 */
+      const index = this.children.findIndex(it => {
+        if (
+          isModelRef<Item, FieldArrayModel<Item, Child>, BasicModel<Item>>(it)
+        ) {
+          return it.getModel() === model;
+        } else if (isModel<Item>(it)) {
+          return it === model;
         } else {
-          invalidModels.add(model);
+          throw createUnexpectedModelError(it);
         }
-
-        valid$.next(!invalidModels.size && isNil(error$.value));
       });
-      mapModelToSubscription.set(model, $);
-    }
+      const copy = [...value$.value];
+      copy.splice(index, 1, childValue);
+      value$.next(copy);
+    });
   }
 
-  private unsubscribeValid(child: Child) {
-    this.mapModelToSubscription.get(child)?.unsubscribe();
-    if (isModel(child)) {
+  /**
+   * Subscribe a specified observable of the model
+   * @param model as the key for mapping to subscription
+   * @param observable
+   * @param observer
+   */
+  private _subscribeObservable<T>(
+    model: BasicModel<Item>,
+    observable: Observable<T>,
+    observer: (value: T) => void
+  ) {
+    const { mapModelToSubscriptions } = this;
+    const $ = observable.subscribe(observer);
+    const subs = mapModelToSubscriptions.get(model) || [];
+    mapModelToSubscriptions.set(model, [...subs, $]);
+  }
+
+  /**
+   * Unsubscribe `valid$` and `value$` of the model
+   * @param model
+   */
+  private _unsubscribeChild(child: Child) {
+    let model: BasicModel<Item> | null = null;
+    if (isModel<Item>(child)) {
       this.invalidModels.delete(child);
-    } else if (isModelRef(child)) {
-      const model = child.getModel();
-      model && this.mapModelToSubscription.get(model)?.unsubscribe();
+      model = child;
+    } else if (isModelRef<Item, this, BasicModel<Item>>(child)) {
+      model = child.getModel();
+    }
+    this._unsubscribeModel(child);
+    if (model) {
+      this._unsubscribeModel(model);
     }
   }
 
-  private disposeChild = (child: Child) => {
-    this.unsubscribeValid(child);
+  private _disposeChild = (child: Child) => {
+    this._unsubscribeChild(child);
     child.owner = null;
   };
 
-  private buildChild = (child: Item) => {
+  private _buildChild = (child: Item) => {
     const model = this.childFactory(child);
-    this.subscribeValid(model);
+    this._subscribeChild(model);
     return model;
   };
+
+  private _unsubscribeModel(model: IModel<Item>) {
+    const subs = this.mapModelToSubscriptions.get(model);
+    subs?.forEach(sub => sub.unsubscribe());
+    this.mapModelToSubscriptions.delete(model);
+  }
 }
 
 FieldArrayModel.prototype[FIELD_ARRAY_ID] = true;

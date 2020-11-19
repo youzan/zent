@@ -1,4 +1,4 @@
-import { Subject, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
 import { BasicModel, isModel } from './basic';
 import { IMaybeError, ValidateOption } from '../validate';
 import { Maybe, None, Some } from '../maybe';
@@ -33,11 +33,13 @@ class FieldSetModel<
 
   owner: IModel<any> | null = null;
 
+  readonly value$ = new BehaviorSubject({} as $FieldSetValue<Children>);
+
   private readonly invalidModels: Set<BasicModel<unknown>> = new Set();
 
-  private readonly mapModelToSubscription: Map<
+  private readonly mapModelToSubscriptions: Map<
     BasicModel<unknown>,
-    Subscription
+    Subscription[]
   > = new Map();
 
   /** @internal */
@@ -54,7 +56,7 @@ class FieldSetModel<
       const selfValid = isNil(maybeError);
       this.valid$.next(selfValid && !this.invalidModels.size);
     });
-    this.mapModelToSubscription.set(this as BasicModel<unknown>, $);
+    this.mapModelToSubscriptions.set(this as BasicModel<unknown>, [$]);
     this.children = children;
   }
 
@@ -124,12 +126,16 @@ class FieldSetModel<
    */
   registerChild(name: string, model: BasicModel<any>) {
     const children: UnknownFieldSetModelChildren = this.children;
-    if (children.hasOwnProperty(name) && children[name] !== model) {
+    const prev = children[name];
+
+    if (children.hasOwnProperty(name) && prev !== model) {
       this.removeChild(name);
     }
     model.owner = this;
     children[name] = model;
-    this.subscribeValid(model);
+    if (prev !== model) {
+      this._subscribeChild(name, model);
+    }
     this.childRegister$.next(name);
   }
 
@@ -140,16 +146,21 @@ class FieldSetModel<
   removeChild(name: string) {
     const model = this.children[name];
     model.owner = null;
-    this.unsubscribeValid(model);
+    this._unsubscribeChild(model);
     delete this.children[name];
+    const copy = { ...this.value$.value };
+    delete copy[name];
+    this.value$.next(copy);
     this.childRemove$.next(name);
     return model;
   }
 
   dispose() {
     super.dispose();
-    this.mapModelToSubscription.forEach(it => it.unsubscribe());
-    this.mapModelToSubscription.clear();
+    this.mapModelToSubscriptions.forEach(subs =>
+      subs.forEach(sub => sub.unsubscribe())
+    );
+    this.mapModelToSubscriptions.clear();
     this.invalidModels.clear();
     const { children } = this;
     Object.keys(children).forEach(key => {
@@ -267,33 +278,51 @@ class FieldSetModel<
   }
 
   /**
-   * Subscribe `valid$` of the model
+   * Subscribe `valid$` and `value$` of the model
    * @param model
    */
-  private subscribeValid(model: BasicModel<unknown>) {
-    if (model && !this.mapModelToSubscription.has(model)) {
-      const { invalidModels, mapModelToSubscription, valid$ } = this;
-      const $ = model.valid$.subscribe(valid => {
-        if (valid) {
-          invalidModels.delete(model);
-        } else {
-          invalidModels.add(model);
-        }
+  private _subscribeChild(name: string, model: BasicModel<unknown>) {
+    const { invalidModels, valid$, value$ } = this;
+    this._subscribeObservable(model, model.valid$, valid => {
+      if (valid) {
+        invalidModels.delete(model);
+      } else {
+        invalidModels.add(model);
+      }
 
-        valid$.next(!invalidModels.size && isNil(this.error$.value));
-      });
-      mapModelToSubscription.set(model, $);
-    }
+      valid$.next(!invalidModels.size && isNil(this.error$.value));
+    });
+    this._subscribeObservable(model, model.value$, childValue => {
+      /** 直接使用 getRawValue 便于实现，后续可以优化 value 更新的过程 */
+      value$.next({ ...value$.value, [name]: childValue });
+    });
   }
 
   /**
-   * Unsubscribe `valid$` of the model
+   * Unsubscribe `valid$` and `value$` of the model
    * @param model
    */
-  private unsubscribeValid(model: BasicModel<unknown>) {
-    const $ = this.mapModelToSubscription.get(model);
-    $?.unsubscribe();
-    this.mapModelToSubscription.delete(model);
+  private _unsubscribeChild(model: BasicModel<unknown>) {
+    const subs = this.mapModelToSubscriptions.get(model);
+    subs?.forEach(sub => sub.unsubscribe());
+    this.mapModelToSubscriptions.delete(model);
+  }
+
+  /**
+   * Subscribe a specified observable of the model
+   * @param model as the key for mapping to subscription
+   * @param observable
+   * @param observer
+   */
+  private _subscribeObservable<T>(
+    model: BasicModel<unknown>,
+    observable: Observable<T>,
+    observer: (value: T) => void
+  ) {
+    const { mapModelToSubscriptions } = this;
+    const $ = observable.subscribe(observer);
+    const subs = mapModelToSubscriptions.get(model) || [];
+    mapModelToSubscriptions.set(model, [...subs, $]);
   }
 }
 

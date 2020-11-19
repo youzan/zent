@@ -220,6 +220,8 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 - `useFieldValue` 与 `FieldValue` 的能力相同，它提供了一种 hooks 的风格来获取表单值
 
 <!-- demo-slot-12 -->
+<!-- demo-slot-20 -->
+
 
 ### 非 `Field` 层级的校验
 

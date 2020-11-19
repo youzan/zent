@@ -43,12 +43,14 @@ abstract class BasicModel<Value> implements IModel<Value> {
   /** @internal */
   [MODEL_ID]!: boolean;
 
-  abstract getRawValue(): any;
+  abstract getRawValue(): Value;
   abstract getSubmitValue(): any;
 
   readonly error$ = new BehaviorSubject<IMaybeError<Value>>(null);
 
   readonly valid$ = new BehaviorSubject(true);
+
+  abstract readonly value$: BehaviorSubject<Value>;
 
   get form() {
     return this.owner?.form;
