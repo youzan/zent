@@ -40,13 +40,6 @@ class FieldModel<Value> extends BasicModel<Value> {
   }
 
   /**
-   * 获取 `Field` 当前的值
-   */
-  get value() {
-    return this.value$.getValue();
-  }
-
-  /**
    * 设置 `Field` 的值
    */
   set value(value: Value) {
