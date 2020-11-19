@@ -52,6 +52,10 @@ abstract class BasicModel<Value> implements IModel<Value> {
 
   abstract readonly value$: BehaviorSubject<Value>;
 
+  get value() {
+    return this.value$.value;
+  }
+
   get form() {
     return this.owner?.form;
   }

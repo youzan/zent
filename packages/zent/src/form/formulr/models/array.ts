@@ -1,4 +1,4 @@
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, asapScheduler } from 'rxjs';
 import { BasicModel, isModel } from './basic';
 import { ValidateOption } from '../validate';
 import { isModelRef, ModelRef } from './ref';
@@ -7,7 +7,7 @@ import { or, Some } from '../maybe';
 import { IModel } from './base';
 import isNil from '../../../utils/isNil';
 import uniqueId from '../../../utils/uniqueId';
-import { pairwise } from 'rxjs/operators';
+import { observeOn, pairwise } from 'rxjs/operators';
 import { createUnexpectedModelError, NullModelReferenceError } from '../error';
 
 const FIELD_ARRAY_ID = Symbol('field-array');
@@ -365,7 +365,7 @@ class FieldArrayModel<
     observer: (value: T) => void
   ) {
     const { mapModelToSubscriptions } = this;
-    const $ = observable.subscribe(observer);
+    const $ = observable.pipe(observeOn(asapScheduler)).subscribe(observer);
     const subs = mapModelToSubscriptions.get(model) || [];
     mapModelToSubscriptions.set(model, [...subs, $]);
   }

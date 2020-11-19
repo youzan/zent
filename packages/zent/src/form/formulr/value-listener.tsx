@@ -7,11 +7,12 @@ import {
   FieldModel,
   FieldArrayModel,
   isFieldSetModel,
-  isFieldModel,
   isFieldArrayModel,
   isModelRef,
   ModelRef,
   IModel,
+  BasicModel,
+  isModel,
 } from './models';
 import { noop, $MergeProps } from './utils';
 
@@ -115,25 +116,25 @@ export type IFieldValueProps<T> =
   | IFieldValueModelDrivenProps<T>
   | IFieldValueViewDrivenProps<T>;
 
-export function useFieldValue<T>(field: string | FieldModel<T>): T | null {
+export function useFieldValue<T>(field: string | BasicModel<T>): T | null {
   const ctx = useFormContext();
   const [model, setModel] = React.useState<
-    FieldModel<T> | ModelRef<T, IModel<any>, FieldModel<T>> | null
+    BasicModel<T> | ModelRef<T, IModel<any>, BasicModel<T>> | null
   >(
-    isFieldModel<T>(field) || isModelRef<T, any, FieldModel<T>>(field)
+    isModel<T>(field) || isModelRef<T, any, BasicModel<T>>(field)
       ? field
       : () => {
           const m = ctx.parent.get(field);
-          return isFieldModel<T>(m) ? m : null;
+          return isModel<T>(m) ? m : null;
         }
   );
   React.useEffect(() => {
     if (typeof field !== 'string') {
-      setModel(isFieldModel(field) || isModelRef(field) ? field : null);
+      setModel(isModel<T>(field) || isModelRef(field) ? field : null);
       return noop;
     }
     const m = ctx.parent.get(field);
-    if (isFieldModel<T>(m)) {
+    if (isModel<T>(m)) {
       setModel(m);
     }
 
@@ -152,7 +153,7 @@ export function useFieldValue<T>(field: string | FieldModel<T>): T | null {
       )
       .subscribe(name => {
         const candidate = ctx.parent.get(name);
-        if (isFieldModel<T>(candidate)) {
+        if (isModel<T>(candidate)) {
           setModel(candidate);
         }
       });
@@ -160,18 +161,16 @@ export function useFieldValue<T>(field: string | FieldModel<T>): T | null {
   }, [field, ctx.parent]);
 
   const [value, setValue] = React.useState<T | null>(() =>
-    model && !isModelRef<T, IModel<any>, FieldModel<T>>(model)
-      ? model.value
-      : null
+    isModel<T>(model) ? model.value : null
   );
 
   React.useEffect(() => {
-    if (isModelRef<T, IModel<any>, FieldModel<T>>(model)) {
+    if (isModelRef<T, IModel<any>, BasicModel<T>>(model)) {
       const $ = model.model$
         .pipe(
           observeOn(asapScheduler),
-          switchMap<FieldModel<T> | null, Observable<T | null>>(it => {
-            if (isFieldModel<T>(it)) {
+          switchMap<BasicModel<T> | null, Observable<T | null>>(it => {
+            if (isModel<T>(it)) {
               return it.value$;
             }
             return of(null);

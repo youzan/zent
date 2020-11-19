@@ -1,4 +1,10 @@
-import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
+import {
+  asapScheduler,
+  BehaviorSubject,
+  Observable,
+  Subject,
+  Subscription,
+} from 'rxjs';
 import { BasicModel, isModel } from './basic';
 import { IMaybeError, ValidateOption } from '../validate';
 import { Maybe, None, Some } from '../maybe';
@@ -7,6 +13,7 @@ import isNil from '../../../utils/isNil';
 import uniqueId from '../../../utils/uniqueId';
 import isPlainObject from '../../../utils/isPlainObject';
 import { UnknownFieldSetModelChildren } from '../utils';
+import { observeOn } from 'rxjs/operators';
 
 type $FieldSetValue<Children extends UnknownFieldSetModelChildren> = {
   [Key in keyof Children]: Children[Key] extends IModel<infer V> ? V : never;
@@ -320,7 +327,7 @@ class FieldSetModel<
     observer: (value: T) => void
   ) {
     const { mapModelToSubscriptions } = this;
-    const $ = observable.subscribe(observer);
+    const $ = observable.pipe(observeOn(asapScheduler)).subscribe(observer);
     const subs = mapModelToSubscriptions.get(model) || [];
     mapModelToSubscriptions.set(model, [...subs, $]);
   }
