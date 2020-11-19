@@ -8,6 +8,11 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 8.4.0-2(2020-11-19)
+
+- ✨ Add two functions `theme-rgb` and `theme-rgba` 
+- 🦀️ Fix shadow theme issue
+
 ### 8.4.0-1(2020-11-17)
 
 - 🦀️ Fix CSS Variable support in some components
