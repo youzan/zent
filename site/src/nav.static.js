@@ -46,7 +46,7 @@ module.exports = {
                 "DocLoadable({ loader: () => import('../../packages/zent/docs/THEME_zh-CN.md') })",
             },
             {
-              title: '编写可定制主题的代码',
+              title: '编码规范',
               path: 'guides/writing-themable-code',
               source:
                 "DocLoadable({ loader: () => import('../../packages/zent/docs/Theme-Coding_zh-CN.md') })",
@@ -169,7 +169,7 @@ module.exports = {
                 "DocLoadable({ loader: () => import('../../packages/zent/docs/THEME_en-US.md') })",
             },
             {
-              title: 'Writing themable code',
+              title: 'Coding Guides',
               path: 'guides/writing-themable-code',
               source:
                 "DocLoadable({ loader: () => import('../../packages/zent/docs/Theme-Coding_en-US.md') })",
