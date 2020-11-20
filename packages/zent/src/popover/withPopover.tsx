@@ -6,7 +6,7 @@ import PopoverContext from './Context';
 import Popover from './Popover';
 
 function isClassComponent(component: Function) {
-  return !!component.prototype.isReactComponent;
+  return !!component?.prototype?.isReactComponent;
 }
 
 export function usePopover() {
