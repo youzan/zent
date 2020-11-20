@@ -118,14 +118,21 @@ $theme-colors: (
 }
 
 @function theme-rgb($cat, $i) {
-  @return rgb(var(--theme-#{$cat}-#{$i}, to-rgb(get-color($cat, $i))));
+  $css-var: var(--theme-#{$cat}-#{$i}, to-rgb(get-color($cat, $i)));
+
+  // `unquote` is a workaround for node-sass misinterprets rgb as builtin function
+  // https://github.com/sass/node-sass/issues/2251
+  // dart-sass doesn't seem to have this issue.
+  @return unquote('rgb(#{$css-var})');
 }
 
 @function theme-rgba($cat, $i, $opacity) {
-  @return rgba(
-    var(--theme-#{$cat}-#{$i}, to-rgb(get-color($cat, $i))),
-    $opacity
-  );
+  $css-var: var(--theme-#{$cat}-#{$i}, to-rgb(get-color($cat, $i)));
+
+  // `unquote` is a workaround for node-sass misinterprets rgba as builtin function
+  // https://github.com/sass/node-sass/issues/2251
+  // dart-sass doesn't seem to have this issue.
+  @return unquote('rgba(#{$css-var}, #{$opacity})');
 }
 
 @mixin theme-color($prop, $cat, $i, $opacity: 1) {
