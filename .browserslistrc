@@ -1,7 +1,7 @@
 > 1% in alt-as
-Chrome >= 39
-Safari >= 9
-Firefox >= 57
+Chrome >= 49
+Safari >= 10
+Firefox >= 78
 not ie > 0
 not ios_saf > 0
 not op_mini all
