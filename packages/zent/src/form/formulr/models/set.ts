@@ -14,6 +14,7 @@ import uniqueId from '../../../utils/uniqueId';
 import isPlainObject from '../../../utils/isPlainObject';
 import { UnknownFieldSetModelChildren } from '../utils';
 import { observeOn } from 'rxjs/operators';
+import omit from '../../../utils/omit';
 
 type $FieldSetValue<Children extends UnknownFieldSetModelChildren> = {
   [Key in keyof Children]: Children[Key] extends IModel<infer V> ? V : never;
@@ -155,23 +156,19 @@ class FieldSetModel<
     model.owner = null;
     this._unsubscribeChild(model);
     delete this.children[name];
-    const copy = { ...this.value$.value };
-    delete copy[name];
-    this.value$.next(copy);
+    this.value$.next(
+      omit(this.value$.value, [name]) as $FieldSetValue<Children>
+    );
     this.childRemove$.next(name);
     return model;
   }
 
   dispose() {
     super.dispose();
-    this.mapModelToSubscriptions.forEach(subs =>
-      subs.forEach(sub => sub.unsubscribe())
-    );
-    this.mapModelToSubscriptions.clear();
-    this.invalidModels.clear();
     const { children } = this;
     Object.keys(children).forEach(key => {
       const child = children[key];
+      this._unsubscribeChild(child);
       child.dispose();
     });
   }
@@ -300,7 +297,6 @@ class FieldSetModel<
       valid$.next(!invalidModels.size && isNil(this.error$.value));
     });
     this._subscribeObservable(model, model.value$, childValue => {
-      /** 直接使用 getRawValue 便于实现，后续可以优化 value 更新的过程 */
       value$.next({ ...value$.value, [name]: childValue });
     });
   }
@@ -313,6 +309,7 @@ class FieldSetModel<
     const subs = this.mapModelToSubscriptions.get(model);
     subs?.forEach(sub => sub.unsubscribe());
     this.mapModelToSubscriptions.delete(model);
+    this.invalidModels.delete(model);
   }
 
   /**
@@ -328,8 +325,12 @@ class FieldSetModel<
   ) {
     const { mapModelToSubscriptions } = this;
     const $ = observable.pipe(observeOn(asapScheduler)).subscribe(observer);
-    const subs = mapModelToSubscriptions.get(model) || [];
-    mapModelToSubscriptions.set(model, [...subs, $]);
+    const subs = mapModelToSubscriptions.get(model);
+    if (subs) {
+      subs.push($);
+    } else {
+      mapModelToSubscriptions.set(model, [$]);
+    }
   }
 }
 

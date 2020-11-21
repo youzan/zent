@@ -265,12 +265,9 @@ class FieldArrayModel<
 
   dispose() {
     super.dispose();
-    this.mapModelToSubscriptions.forEach(subs =>
-      subs.forEach(it => it.unsubscribe())
-    );
-    this.mapModelToSubscriptions.clear();
     this.invalidModels.clear();
     this.children.forEach(child => {
+      this._unsubscribeChild(child);
       child.dispose();
     });
     this.children$.next([]);
@@ -335,7 +332,6 @@ class FieldArrayModel<
     });
 
     this._subscribeObservable(model, model.value$, childValue => {
-      /** 直接使用 getRawValue 便于实现，后续可以优化 value 更新的过程 */
       const index = this.children.findIndex(it => {
         if (
           isModelRef<Item, FieldArrayModel<Item, Child>, BasicModel<Item>>(it)
@@ -366,8 +362,12 @@ class FieldArrayModel<
   ) {
     const { mapModelToSubscriptions } = this;
     const $ = observable.pipe(observeOn(asapScheduler)).subscribe(observer);
-    const subs = mapModelToSubscriptions.get(model) || [];
-    mapModelToSubscriptions.set(model, [...subs, $]);
+    const subs = mapModelToSubscriptions.get(model);
+    if (subs) {
+      subs.push($);
+    } else {
+      mapModelToSubscriptions.set(model, [$]);
+    }
   }
 
   /**
@@ -403,6 +403,9 @@ class FieldArrayModel<
     const subs = this.mapModelToSubscriptions.get(model);
     subs?.forEach(sub => sub.unsubscribe());
     this.mapModelToSubscriptions.delete(model);
+    if (isModel<Item>(model)) {
+      this.invalidModels.delete(model);
+    }
   }
 }
 
