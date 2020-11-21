@@ -9,10 +9,9 @@ import usePanelDate from '../../hooks/usePanelDate';
 import PickerContext from '../../context/PickerContext';
 import { ISinglePanelProps } from '../../types';
 
-const QuarterPickerPanel: React.FC<Omit<
-  ISinglePanelProps,
-  'rangeDate' | 'hoverRangeDate'
->> = props => {
+const QuarterPickerPanel: React.FC<
+  Omit<ISinglePanelProps, 'rangeDate' | 'hoverRangeDate'>
+> = props => {
   const { defaultPanelDate, onChangePanel, ...restProps } = props;
   const { i18n } = React.useContext(PickerContext);
   const { panelDate, setPanelDate } = usePanelDate(defaultPanelDate);

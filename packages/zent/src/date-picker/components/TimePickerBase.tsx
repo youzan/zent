@@ -124,7 +124,14 @@ const TimePickerBase: React.FC<ITimePickerBaseProps> = ({
         />
       </div>
     );
-  }, [selected, restPropsRef, defaultTime, disabledTimesOption, onSelected]);
+  }, [
+    selected,
+    restPropsRef,
+    defaultTime,
+    disabledTimesOption,
+    onSelected,
+    ContentComponent,
+  ]);
 
   return (
     <div className={cx('zent-datepicker', className)}>

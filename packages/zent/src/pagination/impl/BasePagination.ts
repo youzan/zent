@@ -34,8 +34,8 @@ export type PaginationLayoutFunction = (
 export abstract class BasePagination<
   IProps extends IBasePaginationProps
 > extends Component<IProps> {
-  name!: string;
-  layoutFn!: PaginationLayoutFunction;
+  abstract readonly name: string;
+  abstract readonly layoutFn: PaginationLayoutFunction;
 
   getLayout = memoize((props: IProps) => {
     return this.layoutFn(this.getLayoutOptions(props));

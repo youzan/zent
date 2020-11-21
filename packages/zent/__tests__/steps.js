@@ -1,6 +1,6 @@
 import React from 'react';
 import Enzyme, { mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import Steps from 'steps';
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -76,10 +76,7 @@ describe('Steps', () => {
     expect(wrapper.find('.zent-steps-breadcrumb').length).toBe(1);
     expect(clicked).toBe(false);
     wrapper.setProps({ sequence: false });
-    wrapper
-      .find('.zent-steps-item')
-      .last()
-      .simulate('click');
+    wrapper.find('.zent-steps-item').last().simulate('click');
     expect(clicked).toBe(true);
   });
 

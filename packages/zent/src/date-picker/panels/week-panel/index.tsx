@@ -6,13 +6,9 @@ import { ISinglePanelProps } from '../../types';
 import { IWeekPickerProps } from '../../WeekPicker';
 import PickerContext from '../../context/PickerContext';
 
-const WeekPickerPanel: React.FC<ISinglePanelProps &
-  Pick<IWeekPickerProps, 'weekStartsOn'>> = ({
-  selected,
-  hoverDate,
-  weekStartsOn,
-  ...restProps
-}) => {
+const WeekPickerPanel: React.FC<
+  ISinglePanelProps & Pick<IWeekPickerProps, 'weekStartsOn'>
+> = ({ selected, hoverDate, weekStartsOn, ...restProps }) => {
   const { generateDate, i18n } = React.useContext(PickerContext);
   const options = React.useMemo(() => ({ weekStartsOn }), [weekStartsOn]);
   // special handler on week-picker

@@ -1,6 +1,6 @@
 import React from 'react';
 import Enzyme, { mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import TextMark from 'text-mark';
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -42,7 +42,7 @@ describe('<TextMark />', () => {
         activeClassName="zent-demo-text-mark-active"
         highlightClassName={{
           abc: 'zent-demo-text-mark-highlight-abc',
-          '123': 'zent-demo-text-mark-highlight-123',
+          123: 'zent-demo-text-mark-highlight-123',
         }}
         searchWords={['abc', '123']}
         textToHighlight="abc先生测试ABC的123"

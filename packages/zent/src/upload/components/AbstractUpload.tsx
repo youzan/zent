@@ -97,7 +97,7 @@ abstract class AbstractUpload<
   updateFileList = (
     list: UPLOAD_ITEM[],
     detail?: IUploadChangeDetail<UPLOAD_ITEM>,
-    cb?: Function
+    cb?: () => void
   ) => {
     const updateCallback = () => {
       this.props.onChange(list, detail);
@@ -202,10 +202,9 @@ abstract class AbstractUpload<
       ...overrideProps,
     };
 
-    const newFileList = this.fileList.map(
-      (item: IUploadFileItemInner<UPLOAD_ITEM>) =>
-        item._id === updateItem._id ? newItem : item
-    );
+    const newFileList = (this.fileList as Array<
+      IUploadFileItemInner<UPLOAD_ITEM>
+    >).map(item => (item._id === updateItem._id ? newItem : item));
     this.updateFileList(newFileList, {
       item: newItem,
       type: 'change',

@@ -42,9 +42,7 @@ export class Waypoint extends React.PureComponent<IWaypointProps> {
     fireOnRapidScroll: true,
   };
 
-  private refElement: React.MutableRefObject<Element> = React.createRef<
-    Element
-  >();
+  private refElement: React.MutableRefObject<Element> = React.createRef<Element>();
   private cancelOnNextTick: ICancelable;
   private scrollEventListenerUnsubscribe: () => void;
   private resizeEventListenerUnsubscribe: () => void;

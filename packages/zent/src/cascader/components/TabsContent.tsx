@@ -107,9 +107,9 @@ class TabsContent extends React.Component<ITabsContentProps> {
   }
 
   renderPanels(i18n: II18nLocaleCascader) {
-    const PanelEls: Array<ITabPanelElement<
-      ITabPanelProps<string | number>
-    >> = [];
+    const PanelEls: Array<
+      ITabPanelElement<ITabPanelProps<string | number>>
+    > = [];
     const { title, value } = this.props;
     const maxLevel = value.length + 1;
 

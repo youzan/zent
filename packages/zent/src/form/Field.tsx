@@ -131,6 +131,8 @@ export function FormField<Value>(props: IFormFieldProps<Value>) {
     withDefaultOption(getValidateOption('change')),
     props.onChange
   );
+
+  const onChangeProps = props.onChange;
   const onChange = FieldUtils.useMulti(
     () => {
       if (touchWhen === TouchWhen.Change) {
@@ -143,11 +145,20 @@ export function FormField<Value>(props: IFormFieldProps<Value>) {
         ? defaultOnChangeHandler
         : (value: Value) => {
             setValue(value);
-            props.onChange?.(value);
+            onChangeProps?.(value);
           }
     ),
-    [model, touchWhen, normalizer, validateOccasion, defaultOnChangeHandler]
+    [
+      model,
+      touchWhen,
+      normalizer,
+      validateOccasion,
+      defaultOnChangeHandler,
+      onChangeProps,
+    ]
   );
+
+  const onBlurProps = props.onBlur;
   const onBlur = React.useCallback(
     (e: React.FocusEvent) => {
       if (touchWhen === TouchWhen.Blur) {
@@ -156,9 +167,9 @@ export function FormField<Value>(props: IFormFieldProps<Value>) {
       if (validateOccasion & ValidateOccasion.Blur) {
         model.validate(getValidateOption('blur'));
       }
-      props.onBlur?.(e);
+      onBlurProps?.(e);
     },
-    [getValidateOption, validateOccasion, touchWhen, model, props.onBlur]
+    [getValidateOption, validateOccasion, touchWhen, model, onBlurProps]
   );
   const {
     onCompositionStart,

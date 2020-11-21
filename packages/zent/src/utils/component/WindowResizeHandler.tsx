@@ -32,6 +32,7 @@ export const WindowResizeHandler: React.FC<IWindowResizeHandlerProps> = props =>
   const cb = React.useRef(props.onResize);
   cb.current = props.onResize;
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const onResize = React.useCallback(
     runOnceInNextFrame((evt: UIEvent) => {
       const viewportSize = getViewportSize();

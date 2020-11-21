@@ -27,9 +27,9 @@ export function useDestroyOnUnmount<Model extends BasicModel<any>>(
   );
 }
 
-export type $MergeProps<T> = (T extends any
-? (t: T) => void
-: never) extends (r: infer R) => void
+export type $MergeProps<T> = (T extends any ? (t: T) => void : never) extends (
+  r: infer R
+) => void
   ? R
   : never;
 

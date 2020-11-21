@@ -11,9 +11,7 @@ export class FieldArrayBuilder<
     $GetBuilderModel<ChildBuilder>
   >
 > {
-  private _defaultValue: ReadonlyArray<$GetBuilderValue<
-    ChildBuilder
-  > | null> = [];
+  private _defaultValue: ReadonlyArray<$GetBuilderValue<ChildBuilder> | null> = [];
 
   constructor(private readonly childBuilder: ChildBuilder) {
     super();

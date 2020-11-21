@@ -19,9 +19,7 @@ export interface IPlaceholderRichTextBlock {
   lineSpacing;
 }
 
-export default class RichTextBlock extends PureComponent<
-  IPlaceholderRichTextBlock
-> {
+export default class RichTextBlock extends PureComponent<IPlaceholderRichTextBlock> {
   static defaultProps = {
     style: {},
     className: '',

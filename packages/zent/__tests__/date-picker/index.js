@@ -1,6 +1,6 @@
 import React from 'react';
 import Enzyme, { mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import { Simulate } from 'react-dom/test-utils';
 import {
   DatePicker,
@@ -189,10 +189,7 @@ describe('All of the Picker', () => {
       />
     );
 
-    wrapper
-      .find('.zent-datepicker-trigger')
-      .at(0)
-      .simulate('click');
+    wrapper.find('.zent-datepicker-trigger').at(0).simulate('click');
     const pop = document.querySelector('.zent-datepicker-panel-footer');
 
     Simulate.click(
@@ -201,10 +198,7 @@ describe('All of the Picker', () => {
     expect(onChangeMock.mock.calls.length).toBe(1);
     expect(wrapper.prop('value')[0]).toBe('00:30:00');
 
-    wrapper
-      .find('.zent-datepicker-trigger')
-      .at(1)
-      .simulate('click');
+    wrapper.find('.zent-datepicker-trigger').at(1).simulate('click');
     const pop2 = document.querySelector('.zent-datepicker-panel-footer');
 
     Simulate.click(

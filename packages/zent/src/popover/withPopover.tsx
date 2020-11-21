@@ -5,7 +5,7 @@ import { isForwardRef } from 'react-is';
 import PopoverContext from './Context';
 import Popover from './Popover';
 
-function isClassComponent(component: Function) {
+function isClassComponent(component: any) {
   return !!component?.prototype?.isReactComponent;
 }
 

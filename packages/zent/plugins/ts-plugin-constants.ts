@@ -6,7 +6,7 @@ import {
 } from './css-compiler-constants';
 const pkg: { version: string } = require('../package.json');
 
-type ConstantType = number | string | boolean;
+type ConstantType = number | string;
 
 /**
  * Define compiler constants here.
@@ -33,7 +33,13 @@ export default function compilerConstantsTransformer(
         const { text: idName } = node;
         if (BuiltinConstants.hasOwnProperty(idName)) {
           const value = BuiltinConstants[idName];
-          return ts.createLiteral(value);
+          if (typeof value === 'string') {
+            return ts.factory.createStringLiteral(value);
+          } else if (typeof value === 'number') {
+            return ts.factory.createNumericLiteral(value);
+          } else {
+            throw new Error(`unknow constant type ${value}`);
+          }
         }
       }
 

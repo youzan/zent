@@ -1,7 +1,7 @@
 import React from 'react';
 import Enzyme, { mount, shallow } from 'enzyme';
 import Breadcrumb from 'breadcrumb';
-import Adapter from 'enzyme-adapter-react-16';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -69,18 +69,8 @@ describe('Breadcrumb', () => {
       </Breadcrumb>
     );
     expect(wrapper.find('a').length).toBe(2);
-    expect(
-      wrapper
-        .find('a')
-        .first()
-        .text()
-    ).toBe('bar');
-    expect(
-      wrapper
-        .find('a')
-        .last()
-        .text()
-    ).toBe('foo');
+    expect(wrapper.find('a').first().text()).toBe('bar');
+    expect(wrapper.find('a').last().text()).toBe('foo');
     expect(wrapper.find('a.foobar').length).toBe(1);
     expect(wrapper.find('a.barfoo').length).toBe(1);
   });
@@ -111,17 +101,9 @@ describe('Breadcrumb', () => {
     expect(wrapper.find('span.foo').text()).toBe('bar');
     expect(wrapper.find('a').length).toBe(3);
     expect(
-      wrapper
-        .find(Breadcrumb.Item)
-        .at(0)
-        .find('[href="bar"]').length
+      wrapper.find(Breadcrumb.Item).at(0).find('[href="bar"]').length
     ).toBe(1);
-    expect(
-      wrapper
-        .find(Breadcrumb.Item)
-        .at(1)
-        .find('a').length
-    ).toBe(1);
+    expect(wrapper.find(Breadcrumb.Item).at(1).find('a').length).toBe(1);
     expect(
       wrapper
         .find(Breadcrumb.Item)
@@ -131,11 +113,7 @@ describe('Breadcrumb', () => {
         .exists()
     ).toBe(false);
     expect(
-      wrapper
-        .find(Breadcrumb.Item)
-        .at(2)
-        .find('[href="regularbar"]')
-        .exists()
+      wrapper.find(Breadcrumb.Item).at(2).find('[href="regularbar"]').exists()
     ).toBe(true);
   });
 
@@ -160,18 +138,10 @@ describe('Breadcrumb', () => {
     );
     expect(wrapper.find(Breadcrumb.Item).length).toBe(2);
     expect(wrapper.find(Breadcrumb.Item).length).toBe(2);
-    expect(
-      wrapper
-        .find(Breadcrumb.Item)
-        .at(0)
-        .props().download
-    ).toBe('fooProp');
-    expect(
-      wrapper
-        .find(Breadcrumb.Item)
-        .at(1)
-        .props().target
-    ).toBe('_blank');
+    expect(wrapper.find(Breadcrumb.Item).at(0).props().download).toBe(
+      'fooProp'
+    );
+    expect(wrapper.find(Breadcrumb.Item).at(1).props().target).toBe('_blank');
   });
 
   it('className default to zent-breadcrumb ', () => {

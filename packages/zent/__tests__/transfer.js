@@ -1,6 +1,6 @@
 import React from 'react';
 import Enzyme, { mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 
 import Transfer, { useTransfer } from 'transfer';
 import { Direction } from 'transfer/constants';
@@ -35,10 +35,7 @@ describe('<Transfer />', () => {
       <Transfer {...listCommonProps} onChange={handleChange} />
     );
 
-    wrapper
-      .find('ArrowButton')
-      .at(0)
-      .simulate('click');
+    wrapper.find('ArrowButton').at(0).simulate('click');
 
     expect(handleChange).toHaveBeenCalledWith({
       targetKeys: ['a', 'b'],
@@ -58,10 +55,7 @@ describe('<Transfer />', () => {
       />
     );
 
-    wrapper
-      .find('ArrowButton')
-      .at(1)
-      .simulate('click');
+    wrapper.find('ArrowButton').at(1).simulate('click');
 
     expect(handleChange).toHaveBeenCalledWith({
       targetKeys: [],
@@ -81,10 +75,7 @@ describe('<Transfer />', () => {
       />
     );
 
-    wrapper
-      .find('ArrowButton')
-      .at(0)
-      .simulate('click');
+    wrapper.find('ArrowButton').at(0).simulate('click');
 
     expect(handleChange).toHaveBeenCalledWith({
       targetKeys: ['a', 'b'],
@@ -128,12 +119,7 @@ describe('<Transfer />', () => {
       .at(0)
       .find('Input')
       .simulate('change', { target: { value: 'a' } });
-    expect(
-      wrapper
-        .find('TransferItem')
-        .at(0)
-        .find('Row')
-    ).toHaveLength(1);
+    expect(wrapper.find('TransferItem').at(0).find('Row')).toHaveLength(1);
   });
 
   it('should display the correct title', () => {
@@ -142,31 +128,20 @@ describe('<Transfer />', () => {
     );
 
     expect(
-      wrapper
-        .find('AllCheckBox')
-        .at(0)
-        .find('Checkbox')
-        .prop('children')
+      wrapper.find('AllCheckBox').at(0).find('Checkbox').prop('children')
     ).toEqual('leftTitle（1/2 项）');
 
     expect(
-      wrapper
-        .find('AllCheckBox')
-        .at(1)
-        .find('Checkbox')
-        .prop('children')
+      wrapper.find('AllCheckBox').at(1).find('Checkbox').prop('children')
     ).toEqual('rightTitle（1 项）');
   });
 
   describe('pagination', () => {
     it('boolean', () => {
       const wrapper = mount(<Transfer {...listCommonProps} pagination />);
-      expect(
-        wrapper
-          .find('MiniPagination')
-          .first()
-          .prop('pageSize')
-      ).toEqual(10);
+      expect(wrapper.find('MiniPagination').first().prop('pageSize')).toEqual(
+        10
+      );
     });
 
     it('object', () => {
@@ -179,12 +154,9 @@ describe('<Transfer />', () => {
           .first()
           .find('.zent-transfer__item__grid__row')
       ).toHaveLength(1);
-      expect(
-        wrapper
-          .find('MiniPagination')
-          .first()
-          .prop('pageSize')
-      ).toEqual(1);
+      expect(wrapper.find('MiniPagination').first().prop('pageSize')).toEqual(
+        1
+      );
     });
 
     it('not exceed max size', () => {
@@ -197,12 +169,7 @@ describe('<Transfer />', () => {
         .find('ArrowButton')
         .at(1)
         .simulate('click');
-      expect(
-        wrapper
-          .find('MiniPagination')
-          .first()
-          .props()
-      ).toEqual(
+      expect(wrapper.find('MiniPagination').first().props()).toEqual(
         expect.objectContaining({
           current: 2,
         })
@@ -256,11 +223,7 @@ describe('<Transfer />', () => {
       .find('input')
       .simulate('change');
     expect(
-      wrapper
-        .find('AllCheckBox')
-        .at(1)
-        .find('Checkbox')
-        .prop('children')
+      wrapper.find('AllCheckBox').at(1).find('Checkbox').prop('children')
     ).toEqual('Target（1/1 项）');
   });
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 import Enzyme, { shallow, mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import { AnimateHeight } from 'utils/component/AnimateHeight';
 import NewTree from 'tree/Tree';
 
@@ -59,12 +59,7 @@ describe('new Tree', () => {
       <NewTree dataType="plain" renderKey={renderKey} data={data} />
     );
     const state = wrapper.state();
-    expect(
-      wrapper
-        .find('span')
-        .at(0)
-        .text()
-    ).toBe('root');
+    expect(wrapper.find('span').at(0).text()).toBe('root');
     expect(state.tree[0].name).toBe('root');
     expect(state.tree[0].uId).toBe(1);
     expect(state.tree[0].group.length).toBe(2);
@@ -123,39 +118,11 @@ describe('new Tree', () => {
     expect(wrapper.hasClass('zent-tree')).toBe(true);
     expect(wrapper.find('.zent-tree').find('li').length).toBe(4);
     expect(wrapper.find('.zent-tree').find('ul').length).toBe(3);
-    expect(
-      wrapper
-        .find('.zent-tree')
-        .children()
-        .at(0)
-        .type()
-    ).toBe('li');
-    expect(
-      wrapper
-        .find('li')
-        .at(0)
-        .childAt(0)
-        .type()
-    ).toBe('div');
-    expect(
-      wrapper
-        .find('li')
-        .at(0)
-        .childAt(1)
-        .type()
-    ).toBe(AnimateHeight);
-    expect(
-      wrapper
-        .find('li')
-        .at(0)
-        .childAt(1)
-        .childAt(0)
-        .type()
-    ).toBe('ul');
-    const example = wrapper
-      .find('li')
-      .at(0)
-      .childAt(0);
+    expect(wrapper.find('.zent-tree').children().at(0).type()).toBe('li');
+    expect(wrapper.find('li').at(0).childAt(0).type()).toBe('div');
+    expect(wrapper.find('li').at(0).childAt(1).type()).toBe(AnimateHeight);
+    expect(wrapper.find('li').at(0).childAt(1).childAt(0).type()).toBe('ul');
+    const example = wrapper.find('li').at(0).childAt(0);
     expect(example.hasClass('zent-tree-bar')).toBe(true);
     expect(example.hasClass('off')).toBe(true);
     expect(example.children().length).toBe(2);
@@ -163,12 +130,7 @@ describe('new Tree', () => {
     expect(example.childAt(1).type()).toBe('div');
     expect(example.childAt(1).hasClass('zent-tree-node')).toBe(true);
     expect(example.childAt(1).find('span').length).toBe(1);
-    expect(
-      example
-        .childAt(1)
-        .find('span')
-        .text()
-    ).toBe('root');
+    expect(example.childAt(1).find('span').text()).toBe('root');
   });
 
   it('Tree support "tree" data as default set', () => {
@@ -199,49 +161,23 @@ describe('new Tree', () => {
     expect(wrapper.hasClass('zent-tree')).toBe(true);
     expect(wrapper.find('.zent-tree').find('li').length).toBe(4);
     expect(wrapper.find('.zent-tree').find('ul').length).toBe(3);
-    expect(
-      wrapper
-        .find('.zent-tree')
-        .children()
-        .at(0)
-        .type()
-    ).toBe('li');
-    expect(
-      wrapper
-        .find('li')
-        .at(0)
-        .childAt(0)
-        .type()
-    ).toBe('div');
-    expect(
-      wrapper
-        .find('li')
-        .at(0)
-        .childAt(1)
-        .type()
-    ).toBe(AnimateHeight);
+    expect(wrapper.find('.zent-tree').children().at(0).type()).toBe('li');
+    expect(wrapper.find('li').at(0).childAt(0).type()).toBe('div');
+    expect(wrapper.find('li').at(0).childAt(1).type()).toBe(AnimateHeight);
     /**
      * No icon in Node without Leaf
      * .zent-tree-bar.off?
      *   .zent-tree-node
      *     span||{{title}}
      */
-    const example = wrapper
-      .find('li')
-      .at(2)
-      .childAt(0);
+    const example = wrapper.find('li').at(2).childAt(0);
     expect(example.hasClass('zent-tree-bar')).toBe(true);
     expect(example.hasClass('off')).toBe(true);
     expect(example.children().length).toBe(1);
     expect(example.childAt(0).type()).toBe('div');
     expect(example.childAt(0).hasClass('zent-tree-node')).toBe(true);
     expect(example.childAt(0).find('span').length).toBe(1);
-    expect(
-      example
-        .childAt(0)
-        .find('span')
-        .text()
-    ).toBe('grandSon');
+    expect(example.childAt(0).find('span').text()).toBe('grandSon');
   });
 
   // BUG: 应该在deepClone里直接抛出一个错误
@@ -304,31 +240,10 @@ describe('new Tree', () => {
     expect(wrapper.hasClass('zent-tree')).toBe(true);
     expect(wrapper.find('.zent-tree').find('li').length).toBe(4);
     expect(wrapper.find('.zent-tree').find('ul').length).toBe(3);
-    expect(
-      wrapper
-        .find('.zent-tree')
-        .children()
-        .at(0)
-        .type()
-    ).toBe('li');
-    expect(
-      wrapper
-        .find('li')
-        .at(0)
-        .childAt(0)
-        .type()
-    ).toBe('div');
-    expect(
-      wrapper
-        .find('li')
-        .at(0)
-        .childAt(1)
-        .type()
-    ).toBe(AnimateHeight);
-    const example = wrapper
-      .find('li')
-      .at(0)
-      .childAt(0);
+    expect(wrapper.find('.zent-tree').children().at(0).type()).toBe('li');
+    expect(wrapper.find('li').at(0).childAt(0).type()).toBe('div');
+    expect(wrapper.find('li').at(0).childAt(1).type()).toBe(AnimateHeight);
+    const example = wrapper.find('li').at(0).childAt(0);
     expect(example.hasClass('zent-tree-bar')).toBe(true);
     expect(example.hasClass('off')).toBe(true);
     expect(example.children().length).toBe(2);
@@ -336,12 +251,7 @@ describe('new Tree', () => {
     expect(example.childAt(1).type()).toBe('div');
     expect(example.childAt(1).hasClass('zent-tree-node')).toBe(true);
     expect(example.childAt(1).find('span').length).toBe(1);
-    expect(
-      example
-        .childAt(1)
-        .find('span')
-        .text()
-    ).toBe('root');
+    expect(example.childAt(1).find('span').text()).toBe('root');
   });
 
   it('Tree Support expandAll prop and render function as prop', () => {
@@ -375,12 +285,7 @@ describe('new Tree', () => {
         expandAll
       />
     );
-    expect(
-      wrapper
-        .find('span')
-        .at(0)
-        .text()
-    ).toBe('zent-root');
+    expect(wrapper.find('span').at(0).text()).toBe('zent-root');
   });
 
   it('Tree Support foldable to control expandable', () => {
@@ -449,12 +354,7 @@ describe('new Tree', () => {
     ];
     const wrapper = shallow(<NewTree dataType="plain" data={data} />);
     expect(wrapper.find('li').length).toBe(1);
-    expect(
-      wrapper
-        .find('li')
-        .find('span')
-        .text()
-    ).toBe('root');
+    expect(wrapper.find('li').find('span').text()).toBe('root');
   });
 
   it('Tree will update when data prop changed', () => {
@@ -633,16 +533,10 @@ describe('new Tree', () => {
       },
     ];
     let hackWrapper = mount(<NewTree data={hackData} />);
-    hackWrapper
-      .find('span')
-      .at(1)
-      .simulate('click');
+    hackWrapper.find('span').at(1).simulate('click');
     const onSelectMock = jest.fn();
     hackWrapper = mount(<NewTree data={hackData} onSelect={onSelectMock} />);
-    hackWrapper
-      .find('span')
-      .at(1)
-      .simulate('click');
+    hackWrapper.find('span').at(1).simulate('click');
     expect(onSelectMock.mock.calls.length).toBe(1);
   });
 
@@ -670,29 +564,13 @@ describe('new Tree', () => {
       />
     );
 
-    wrapper
-      .find('.content')
-      .at(0)
-      .simulate('click');
-    expect(
-      wrapper
-        .find('.zent-tree-bar')
-        .at(0)
-        .hasClass('off')
-    ).toBe(true);
+    wrapper.find('.content').at(0).simulate('click');
+    expect(wrapper.find('.zent-tree-bar').at(0).hasClass('off')).toBe(true);
     expect(onExpandMock.mock.calls.length).toBe(0);
     expect(onSelectMock.mock.calls.length).toBe(1);
 
-    wrapper
-      .find('i')
-      .at(0)
-      .simulate('click');
-    expect(
-      wrapper
-        .find('.zent-tree-bar')
-        .at(0)
-        .hasClass('off')
-    ).toBe(false);
+    wrapper.find('i').at(0).simulate('click');
+    expect(wrapper.find('.zent-tree-bar').at(0).hasClass('off')).toBe(false);
     expect(onExpandMock.mock.calls.length).toBe(1);
     expect(onSelectMock.mock.calls.length).toBe(1);
   });
@@ -873,27 +751,18 @@ describe('new Tree', () => {
     };
     holdWrapper = mount(<NewTree data={holdData} loadMore={holdLoadMore} />);
 
-    holdWrapper
-      .find('i')
-      .at(0)
-      .simulate('click');
+    holdWrapper.find('i').at(0).simulate('click');
 
     setImmediate(() => {
       expect(holdWrapper.state().expandNode).toEqual([1]);
       holdWrapper.update();
-      holdWrapper
-        .find('i')
-        .at(1)
-        .simulate('click');
+      holdWrapper.find('i').at(1).simulate('click');
       setImmediate(() => {
         expect(holdWrapper.state().expandNode).toEqual([1]);
         holdWrapper.update();
-        expect(
-          holdWrapper
-            .find('.zent-tree-bar')
-            .at(0)
-            .hasClass('off')
-        ).toBe(false);
+        expect(holdWrapper.find('.zent-tree-bar').at(0).hasClass('off')).toBe(
+          false
+        );
 
         done();
       });
@@ -917,10 +786,7 @@ describe('new Tree', () => {
     };
     wrapper = mount(<NewTree data={data} loadMore={holdLoadMore} />);
 
-    wrapper
-      .find('i')
-      .at(0)
-      .simulate('click');
+    wrapper.find('i').at(0).simulate('click');
 
     expect(wrapper.state().loadingNode).toEqual([1]);
 
@@ -993,19 +859,9 @@ describe('new Tree', () => {
       />
     );
 
-    expect(
-      wrapper
-        .find('Checkbox')
-        .at(4)
-        .prop('checked')
-    ).toBe(true);
+    expect(wrapper.find('Checkbox').at(4).prop('checked')).toBe(true);
 
-    expect(
-      wrapper
-        .find('Checkbox')
-        .at(0)
-        .prop('indeterminate')
-    ).toBe(true);
+    expect(wrapper.find('Checkbox').at(0).prop('indeterminate')).toBe(true);
 
     wrapper
       .find('Checkbox input')
@@ -1017,24 +873,14 @@ describe('new Tree', () => {
         .not({ disabled: true })
         .everyWhere(n => n.prop('checked'))
     ).toBe(true);
-    expect(
-      wrapper
-        .find('Checkbox')
-        .at(6)
-        .prop('checked')
-    ).toBe(true);
+    expect(wrapper.find('Checkbox').at(6).prop('checked')).toBe(true);
     expect(onCheckedData.length).toBe(8);
 
     wrapper
       .find('Checkbox input')
       .at(0)
       .simulate('change', { target: { checked: false } });
-    expect(
-      wrapper
-        .find('Checkbox')
-        .at(6)
-        .prop('checked')
-    ).toBe(true);
+    expect(wrapper.find('Checkbox').at(6).prop('checked')).toBe(true);
 
     expect(
       wrapper
@@ -1055,40 +901,15 @@ describe('new Tree', () => {
       .find('Checkbox input')
       .at(1)
       .simulate('change', { target: { checked: false } });
-    expect(
-      wrapper
-        .find('Checkbox')
-        .at(1)
-        .prop('checked')
-    ).toBe(false);
-    expect(
-      wrapper
-        .find('Checkbox')
-        .at(3)
-        .prop('checked')
-    ).toBe(false);
-    expect(
-      wrapper
-        .find('Checkbox')
-        .at(2)
-        .prop('checked')
-    ).toBe(false);
-    expect(
-      wrapper
-        .find('Checkbox')
-        .at(6)
-        .prop('checked')
-    ).toBe(true);
+    expect(wrapper.find('Checkbox').at(1).prop('checked')).toBe(false);
+    expect(wrapper.find('Checkbox').at(3).prop('checked')).toBe(false);
+    expect(wrapper.find('Checkbox').at(2).prop('checked')).toBe(false);
+    expect(wrapper.find('Checkbox').at(6).prop('checked')).toBe(true);
     wrapper
       .find('Checkbox input')
       .at(6)
       .simulate('change', { target: { checked: false } });
-    expect(
-      wrapper
-        .find('Checkbox')
-        .at(6)
-        .prop('checked')
-    ).toBe(false);
+    expect(wrapper.find('Checkbox').at(6).prop('checked')).toBe(false);
   });
 
   it('Tree disabled check', () => {
@@ -1118,26 +939,11 @@ describe('new Tree', () => {
       />
     );
 
-    expect(
-      disabledWrapper
-        .find('Checkbox')
-        .at(0)
-        .prop('disabled')
-    ).toBe(true);
+    expect(disabledWrapper.find('Checkbox').at(0).prop('disabled')).toBe(true);
 
-    expect(
-      disabledWrapper
-        .find('Checkbox')
-        .at(1)
-        .prop('disabled')
-    ).toBe(true);
+    expect(disabledWrapper.find('Checkbox').at(1).prop('disabled')).toBe(true);
 
-    expect(
-      disabledWrapper
-        .find('Checkbox')
-        .at(2)
-        .prop('disabled')
-    ).toBe(true);
+    expect(disabledWrapper.find('Checkbox').at(2).prop('disabled')).toBe(true);
 
     const disabledData2 = [
       {
@@ -1197,31 +1003,16 @@ describe('new Tree', () => {
       />
     );
 
-    expect(
-      disabledWrapper2
-        .find('Checkbox')
-        .at(0)
-        .prop('checked')
-    ).toBe(true);
+    expect(disabledWrapper2.find('Checkbox').at(0).prop('checked')).toBe(true);
 
-    expect(
-      disabledWrapper2
-        .find('Checkbox')
-        .at(4)
-        .prop('disabled')
-    ).toBe(true);
+    expect(disabledWrapper2.find('Checkbox').at(4).prop('disabled')).toBe(true);
 
     disabledWrapper2
       .find('Checkbox input')
       .at(4)
       .simulate('change', { target: { checked: false } });
 
-    expect(
-      disabledWrapper2
-        .find('Checkbox')
-        .at(4)
-        .prop('disabled')
-    ).toBe(true);
+    expect(disabledWrapper2.find('Checkbox').at(4).prop('disabled')).toBe(true);
   });
 
   it('Tree supports custom operations', () => {
@@ -1254,47 +1045,13 @@ describe('new Tree', () => {
     ];
     const wrapper = mount(<NewTree data={data} operations={operations} />);
     expect(wrapper.find('.operation').length).toBe(2);
-    expect(
-      wrapper
-        .find('.operation')
-        .at(0)
-        .find('span').length
-    ).toBe(1);
-    expect(
-      wrapper
-        .find('.operation')
-        .at(0)
-        .find('.foo').length
-    ).toBe(1);
-    expect(
-      wrapper
-        .find('.operation')
-        .at(0)
-        .find('.bar').length
-    ).toBe(0);
-    expect(
-      wrapper
-        .find('.operation')
-        .at(1)
-        .find('span').length
-    ).toBe(2);
-    wrapper
-      .find('.operation')
-      .at(0)
-      .find('span')
-      .simulate('click');
-    wrapper
-      .find('.operation')
-      .at(1)
-      .find('span')
-      .at(0)
-      .simulate('click');
-    wrapper
-      .find('.operation')
-      .at(1)
-      .find('span')
-      .at(1)
-      .simulate('click');
+    expect(wrapper.find('.operation').at(0).find('span').length).toBe(1);
+    expect(wrapper.find('.operation').at(0).find('.foo').length).toBe(1);
+    expect(wrapper.find('.operation').at(0).find('.bar').length).toBe(0);
+    expect(wrapper.find('.operation').at(1).find('span').length).toBe(2);
+    wrapper.find('.operation').at(0).find('span').simulate('click');
+    wrapper.find('.operation').at(1).find('span').at(0).simulate('click');
+    wrapper.find('.operation').at(1).find('span').at(1).simulate('click');
     expect(actionMockClone.mock.calls.length).toBe(2);
     expect(actionMockDelete.mock.calls.length).toBe(1);
 

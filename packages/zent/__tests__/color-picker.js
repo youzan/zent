@@ -1,6 +1,6 @@
 import React from 'react';
 import Enzyme, { mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import ColorPicker from 'colorpicker';
 import * as alpha from 'colorpicker/helpers/alpha';
 import * as hue from 'colorpicker/helpers/hue';
@@ -120,12 +120,9 @@ describe('ColorPicker', () => {
     const wrapper = mount(<SketchFields {...red} onChange={handleChange} />);
     const editableInputs = wrapper.find('EditableInput');
     expect(editableInputs.length).toBe(5);
-    expect(
-      editableInputs
-        .at(0)
-        .instance()
-        .props.onChange(data, e)
-    ).toBe(undefined);
+    expect(editableInputs.at(0).instance().props.onChange(data, e)).toBe(
+      undefined
+    );
   });
 
   it('SketchPresetColors renders correctly', () => {
@@ -988,7 +985,7 @@ describe('ColorPicker', () => {
     };
     const activeNames = ['test1'];
     expect(mergeClasses(classes, activeNames)).toMatchObject({
-      name: { '0': 'n', '1': 'a', '2': 'm', '3': 'e' },
+      name: { 0: 'n', 1: 'a', 2: 'm', 3: 'e' },
     });
   });
 

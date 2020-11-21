@@ -189,6 +189,7 @@ export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
     disabledStartDate,
     disabledEndDate,
     onSelected,
+    PanelComponent,
   ]);
 
   return (

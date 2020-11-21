@@ -164,6 +164,7 @@ export function SinglePicker({
     restPanelProps,
     disabledPanelDate,
     onSelected,
+    PanelComponent,
   ]);
 
   return (

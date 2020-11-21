@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Simulate } from 'react-dom/test-utils';
 import Enzyme, { mount } from 'enzyme';
 import Dialog from 'dialog';
-import Adapter from 'enzyme-adapter-react-16';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 
 Enzyme.configure({ adapter: new Adapter() });
 

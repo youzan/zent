@@ -1,4 +1,4 @@
-export default function omit<T extends object, K extends keyof T>(
+export default function omit<T extends Record<string, any>, K extends keyof T>(
   obj: T | null | undefined,
   paths: ReadonlyArray<K>
 ): Omit<T, K> {
