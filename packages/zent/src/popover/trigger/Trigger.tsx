@@ -11,7 +11,7 @@ export interface IPopoverTriggerProps<ChildProps> {
  * @deprecated
  */
 export class PopoverTrigger<
-  TriggerChildProps = Record<string, unknown>,
+  TriggerChildProps = {}, // eslint-disable-line @typescript-eslint/ban-types
   T extends IPopoverTriggerProps<TriggerChildProps> = IPopoverTriggerProps<TriggerChildProps>
 > extends Component<T> {
   static contextType = PopoverContext;

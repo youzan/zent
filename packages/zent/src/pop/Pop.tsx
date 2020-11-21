@@ -21,7 +21,8 @@ import noop from '../utils/noop';
 
 const { Trigger } = Popover;
 
-export interface IPopNoneTriggerProps<Props = Record<string, unknown>>
+// eslint-disable-next-line @typescript-eslint/ban-types
+export interface IPopNoneTriggerProps<Props = {}>
   extends IPopoverTriggerProps<Props>,
     IPopCommonProps {
   trigger: 'none';
