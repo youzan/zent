@@ -13,12 +13,17 @@ const TIMEOUT = 300; // ms
 let mousePosition: IMousePosition | null = null;
 
 if (isBrowser) {
-  addEventListener(document.documentElement, 'click', (e: MouseEvent) => {
-    mousePosition = {
-      x: e.clientX,
-      y: e.clientY,
-    };
-  });
+  addEventListener(
+    document.documentElement,
+    'click',
+    (e: MouseEvent) => {
+      mousePosition = {
+        x: e.clientX,
+        y: e.clientY,
+      };
+    },
+    { capture: true }
+  );
 }
 
 export interface IDialogProps {
