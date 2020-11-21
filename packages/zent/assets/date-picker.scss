@@ -42,7 +42,6 @@
 }
 
 .zent-datepicker {
-  @include theme-color(background-color, stroke, 9);
   box-sizing: border-box;
   display: inline-block;
   position: relative;
@@ -98,6 +97,8 @@
   &-trigger {
     @include theme-color(border-color, stroke, 5);
     @include border-with-radius;
+    @include theme-color(background-color, stroke, 9);
+
     display: flex;
     align-items: center;
     height: 32px;
