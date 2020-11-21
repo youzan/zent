@@ -2,7 +2,10 @@ import { Component, ReactNode } from 'react';
 
 import I18nContext from './I18nContext';
 
-export interface II18nReceiverProps<CONF = Record<string, any>, P = {}> {
+export interface II18nReceiverProps<
+  CONF = Record<string, any>,
+  P = Record<string, unknown>
+> {
   componentName: string;
   defaultI18n?: () => {
     [key: string]: {
@@ -14,7 +17,7 @@ export interface II18nReceiverProps<CONF = Record<string, any>, P = {}> {
 
 export default class I18nReceiver<
   CONF = Record<string, any>,
-  P extends {} = {}
+  P = Record<string, unknown>
 > extends Component<II18nReceiverProps<CONF, P> & P> {
   static contextType = I18nContext;
 

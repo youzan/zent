@@ -48,6 +48,7 @@ function makeChildrenContext(children: IFormChild[]): IZentFormChildrenContext {
   };
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export interface IFormProps<T extends {}>
   extends Omit<
     React.FormHTMLAttributes<HTMLFormElement>,
@@ -96,6 +97,7 @@ export interface IFormProps<T extends {}>
   disableEnterSubmit?: boolean;
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export class Form<T extends {}> extends React.Component<IFormProps<T>> {
   static displayName = 'ZentForm';
 

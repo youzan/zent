@@ -1,6 +1,6 @@
 import React from 'react';
 import Enzyme, { mount, render } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import NumberInput from 'number-input';
 import { trimLeadingPlus } from 'number-input/utils';
 import Decimal from 'big.js';

@@ -21,7 +21,7 @@ import noop from '../utils/noop';
 
 const { Trigger } = Popover;
 
-export interface IPopNoneTriggerProps<Props extends object>
+export interface IPopNoneTriggerProps<Props = Record<string, unknown>>
   extends IPopoverTriggerProps<Props>,
     IPopCommonProps {
   trigger: 'none';
@@ -29,13 +29,15 @@ export interface IPopNoneTriggerProps<Props extends object>
 
 export interface IPopClickTriggerProps<
   Props extends IPopoverClickTriggerChildProps
-> extends IPopoverClickTriggerProps<Props>, IPopCommonProps {
+> extends IPopoverClickTriggerProps<Props>,
+    IPopCommonProps {
   trigger: 'click';
 }
 
 export interface IPopHoverTriggerProps<
   Props extends IPopoverHoverTriggerChildProps
-> extends IPopoverHoverTriggerProps<Props>, IPopCommonProps {
+> extends IPopoverHoverTriggerProps<Props>,
+    IPopCommonProps {
   trigger: 'hover';
   mouseEnterDelay?: number;
   mouseLeaveDelay?: number;
@@ -43,7 +45,8 @@ export interface IPopHoverTriggerProps<
 
 export interface IPopFocusTriggerProps<
   Props extends IPopoverFocusTriggerChildProps
-> extends IPopoverFocusTriggerProps<Props>, IPopCommonProps {
+> extends IPopoverFocusTriggerProps<Props>,
+    IPopCommonProps {
   trigger: 'focus';
 }
 

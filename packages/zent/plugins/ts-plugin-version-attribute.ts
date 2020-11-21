@@ -15,17 +15,31 @@ export default function htmlElementTransformer(
       if (ts.isJsxOpeningElement(node) || ts.isJsxSelfClosingElement(node)) {
         const { tagName } = node;
         if (ts.isIdentifier(tagName) && isNativeHtmlTag(tagName.text)) {
-          const clone = ts.getMutableClone(node);
-          clone.attributes = ts.createJsxAttributes(
+          const attributes = ts.factory.createJsxAttributes(
             [].concat(
               node.attributes.properties,
-              ts.createJsxAttribute(
-                ts.createIdentifier(VERSION_ATTRIBUTE_NAME),
-                ts.createStringLiteral(pkg.version)
+              ts.factory.createJsxAttribute(
+                ts.factory.createIdentifier(VERSION_ATTRIBUTE_NAME),
+                ts.factory.createStringLiteral(pkg.version)
               )
             )
           );
-          return clone;
+
+          if (ts.isJsxOpeningElement(node)) {
+            return ts.factory.updateJsxOpeningElement(
+              node,
+              node.tagName,
+              node.typeArguments,
+              attributes
+            );
+          } else if (ts.isJsxSelfClosingElement(node)) {
+            return ts.factory.updateJsxSelfClosingElement(
+              node,
+              node.tagName,
+              node.typeArguments,
+              attributes
+            );
+          }
         }
       }
 

@@ -19,12 +19,15 @@ export interface IWindowScrollHandler {
 export const WindowScrollHandler: React.FC<IWindowScrollHandler> = props => {
   const cb = React.useRef(props.onScroll);
   cb.current = props.onScroll;
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const onScroll = React.useCallback(
     runOnceInNextFrame((evt: UIEvent) => {
       cb.current(evt);
     }),
     []
   );
+
   React.useEffect(() => {
     return onScroll.cancel;
   }, [onScroll]);

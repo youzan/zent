@@ -153,6 +153,7 @@ const CombinedTimePicker: React.FC<ITimePickerBaseProps> = ({
     onSelected,
     disabledTimesOptionStart,
     disabledTimesOptionEnd,
+    ContentComponent,
   ]);
 
   return (

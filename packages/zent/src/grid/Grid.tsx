@@ -58,7 +58,7 @@ function stopPropagation(e: React.MouseEvent) {
 
 const prefix = 'zent';
 
-export interface IGridProps<Data = any, RowProps extends object = object> {
+export interface IGridProps<Data = any, RowProps = Record<string, unknown>> {
   columns: IGridColumn[];
   datasets: Data[];
   rowKey?: string;
@@ -107,7 +107,7 @@ export interface IGridInnerColumn<Data> extends IGridColumn<Data> {
 
 export class Grid<
   Data = any,
-  RowProps extends object = object
+  RowProps = Record<string, unknown>
 > extends PureComponent<IGridProps<Data, RowProps>, IGridState> {
   static defaultProps: Partial<IGridProps> = {
     className: '',

@@ -10,7 +10,7 @@ abstract class AbstractUploadList<
   UPLOAD_ITEM extends IUploadFileItem,
   UPLOAD_ITEM_COMP_PROPS extends IUploadItemProps<UPLOAD_ITEM>,
   P extends IAbstractUploadListProps<UPLOAD_ITEM, UPLOAD_ITEM_COMP_PROPS>,
-  S = {}
+  S = Record<string, unknown>
 > extends React.PureComponent<P, S> {
   /**
    * 展示单个上传文件项

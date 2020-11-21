@@ -5,9 +5,7 @@ import Icon from '../../../icon';
 import { IUploadFileItem } from '../../types';
 import AbstractTrigger from '../AbstractTrigger';
 
-export default class NormalUploadTrigger extends AbstractTrigger<
-  IUploadFileItem
-> {
+export default class NormalUploadTrigger extends AbstractTrigger<IUploadFileItem> {
   renderFileItemCount() {
     const { fileList, maxAmount } = this.props;
     if (maxAmount === Infinity) {

@@ -1,6 +1,6 @@
 import React from 'react';
 import Enzyme, { shallow, mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import Rate from 'rate';
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -28,13 +28,9 @@ describe('Rate', () => {
       }
     }
     const wrapper = mount(<Test />);
-    expect(
-      wrapper
-        .find('Rate')
-        .at(0)
-        .children()
-        .hasClass('zent-rate')
-    ).toBe(true);
+    expect(wrapper.find('Rate').at(0).children().hasClass('zent-rate')).toBe(
+      true
+    );
     expect(wrapper.find('.zent-rate-star').length).toBe(5);
     expect(wrapper.find('.zent-rate-star-full').length).toBe(2);
   });
@@ -60,11 +56,7 @@ describe('Rate', () => {
     expect(wrapper.find('.zent-rate-star-full').length).toBe(2);
     expect(wrapper.find('.zent-rate-star-zero').length).toBe(2);
     expect(
-      wrapper
-        .find('Star')
-        .at(2)
-        .children()
-        .hasClass('zent-rate-star-half')
+      wrapper.find('Star').at(2).children().hasClass('zent-rate-star-half')
     ).toBe(true);
   });
 
@@ -91,28 +83,16 @@ describe('Rate', () => {
     const wrapper = mount(<EventTest />);
 
     expect(wrapper.find('.zent-rate-star-full').length).toBe(2);
-    wrapper
-      .find('Star')
-      .at(3)
-      .simulate('click');
+    wrapper.find('Star').at(3).simulate('click');
 
     expect(wrapper.find('.zent-rate-star-full').length).toBe(4);
-    wrapper
-      .find('Star')
-      .at(3)
-      .simulate('click');
+    wrapper.find('Star').at(3).simulate('click');
     expect(wrapper.find('.zent-rate-star-full').length).toBe(0);
 
-    wrapper
-      .find('Star')
-      .at(4)
-      .simulate('mousemove', { pageX: 42 });
+    wrapper.find('Star').at(4).simulate('mousemove', { pageX: 42 });
     expect(wrapper.find('.zent-rate-star-full').length).toBe(5);
 
-    wrapper
-      .find('Star')
-      .at(4)
-      .simulate('mousemove', { pageX: -1 });
+    wrapper.find('Star').at(4).simulate('mousemove', { pageX: -1 });
     expect(wrapper.find('.zent-rate-star-full').length).toBe(4);
   });
 });

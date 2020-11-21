@@ -22,7 +22,8 @@ const simpleIsEqual: EqualityFn = (
 // ResultFn:        Generic type (which is the same as the resultFn).
 // (...Array<any>): Accepts any length of arguments - and they are not checked
 // mixed:           The result can be anything but needs to be checked before usage
-export default function<F extends Function>(
+// eslint-disable-next-line @typescript-eslint/ban-types
+export default function <F extends Function>(
   resultFn: F,
   isEqual: EqualityFn = simpleIsEqual
 ): F {
@@ -32,7 +33,7 @@ export default function<F extends Function>(
   let calledOnce = false;
 
   // breaking cache when context (this) or arguments change
-  const result = function(...newArgs: unknown[]) {
+  const result = function (...newArgs: unknown[]) {
     if (calledOnce && lastThis === this && isEqual(newArgs, lastArgs)) {
       return lastResult;
     }
