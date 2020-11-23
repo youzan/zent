@@ -136,14 +136,12 @@ class FieldSetModel<
     const children: UnknownFieldSetModelChildren = this.children;
     const prev = children[name];
 
-    if (children.hasOwnProperty(name) && prev !== model) {
-      this.removeChild(name);
+    if (prev !== model) {
+      prev && this.removeChild(name);
+      this._subscribeChild(name, model);
     }
     model.owner = this;
     children[name] = model;
-    if (prev !== model) {
-      this._subscribeChild(name, model);
-    }
     this.childRegister$.next(name);
   }
 
