@@ -86,7 +86,7 @@ class FieldArrayModel<
   /**
    * 获取 `FieldArray` 内的所有 model
    */
-  get children() {
+  get children(): ReadonlyArray<Child> {
     return this.children$.getValue();
   }
 
