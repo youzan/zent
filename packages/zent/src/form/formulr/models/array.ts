@@ -59,18 +59,23 @@ class FieldArrayModel<
             Some(defaultValue),
             this
           ) as unknown) as Child;
-    const children = this.defaultValue.map(this.childFactory);
+    const children = this.defaultValue.map(this._buildChild);
     const $ = this.error$.subscribe(maybeError => {
       const selfValid = isNil(maybeError);
       this.valid$.next(selfValid && !this.invalidModels.size);
     });
     this.mapModelToSubscriptions.set(this, [$]);
     this.children$ = new BehaviorSubject(children);
-    this.children$.pipe(skip(1)).subscribe(() => {
-      scheduleCallback(IdlePriority, () => {
-        this.value$.next(this.getRawValue());
+    this.children$
+      .pipe(
+        /** Skip the first subscription to avoid setting `defaultValue` repeatedly  */
+        skip(1)
+      )
+      .subscribe(() => {
+        scheduleCallback(IdlePriority, () => {
+          this.value$.next(this.getRawValue());
+        });
       });
-    });
   }
 
   /**
@@ -355,7 +360,7 @@ class FieldArrayModel<
         copy.splice(index, 1, childValue);
         value$.next(copy);
       },
-      true
+      true /** New value will be inserted in the observer of `children$`, skip the first subscription when inserting a new child */
     );
   }
 
@@ -364,7 +369,7 @@ class FieldArrayModel<
    * @param model as the key for mapping to subscription
    * @param observable
    * @param observer
-   * @param skipFirst skip the first value
+   * @param skipFirst skip the first subscription
    */
   private _subscribeObservable<T>(
     model: BasicModel<Item>,
