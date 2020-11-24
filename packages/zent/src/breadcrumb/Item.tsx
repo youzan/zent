@@ -3,7 +3,7 @@ import { Component } from 'react';
 
 export interface IBreadcrumbItemProps {
   className?: string;
-  name: React.ReactNode;
+  name?: React.ReactNode;
   href?: string;
 }
 
