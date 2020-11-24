@@ -72,6 +72,7 @@ class FieldArrayModel<
         skip(1)
       )
       .subscribe(() => {
+        /** Waiting `setModel` in `render` of child component(s), or `getRawValue` will throw `NullModelReferenceError` */
         scheduleCallback(IdlePriority, () => {
           this.value$.next(this.getRawValue());
         });
