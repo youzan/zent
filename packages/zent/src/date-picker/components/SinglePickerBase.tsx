@@ -182,7 +182,6 @@ export function SinglePicker({
   );
 }
 SinglePicker.defaultProps = {
-  // disabled: false,
   canClear: true,
   width: INPUT_WIDTH,
 };
