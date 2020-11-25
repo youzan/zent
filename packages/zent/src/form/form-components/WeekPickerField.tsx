@@ -16,7 +16,7 @@ export const FormWeekPickerField: React.FunctionComponent<IFormWeekPickerFieldPr
     <FormField
       {...props}
       defaultValue={
-        (props as $MergeParams<IFormWeekPickerFieldProps>).defaultValue ||
+        (props as $MergeParams<IFormWeekPickerFieldProps>).defaultValue ??
         dateRangeDefaultValueFactory
       }
     >

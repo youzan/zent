@@ -16,7 +16,7 @@ export const FormDatePickerField: React.FunctionComponent<IFormDatePickerField> 
     <FormField
       {...props}
       defaultValue={
-        (props as $MergeParams<IFormDatePickerField>).defaultValue ||
+        (props as $MergeParams<IFormDatePickerField>).defaultValue ??
         dateDefaultValueFactory
       }
     >

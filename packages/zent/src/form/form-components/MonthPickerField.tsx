@@ -16,7 +16,7 @@ export const FormMonthPickerField: React.FunctionComponent<IFormMonthPickerField
     <FormField
       {...props}
       defaultValue={
-        (props as $MergeParams<IFormMonthPickerFieldProps>).defaultValue ||
+        (props as $MergeParams<IFormMonthPickerFieldProps>).defaultValue ??
         dateDefaultValueFactory
       }
     >

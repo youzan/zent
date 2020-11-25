@@ -16,7 +16,7 @@ export const FormDateRangePickerField: React.FunctionComponent<IFormDateRangePic
     <FormField
       {...props}
       defaultValue={
-        (props as $MergeParams<IFormDateRangePickerFieldProps>).defaultValue ||
+        (props as $MergeParams<IFormDateRangePickerFieldProps>).defaultValue ??
         dateRangeDefaultValueFactory
       }
     >

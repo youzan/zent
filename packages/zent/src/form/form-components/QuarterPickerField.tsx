@@ -16,7 +16,7 @@ export const FormQuarterPickerField: React.FunctionComponent<IFormQuarterPickerF
     <FormField
       {...props}
       defaultValue={
-        (props as $MergeParams<IFormQuarterPickerFieldProps>).defaultValue ||
+        (props as $MergeParams<IFormQuarterPickerFieldProps>).defaultValue ??
         dateRangeDefaultValueFactory
       }
     >
