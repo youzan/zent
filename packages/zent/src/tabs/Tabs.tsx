@@ -113,9 +113,9 @@ export class Tabs<Id extends string | number = string> extends BaseTabs<
   }
 
   renderTabPanel(tabItem: IInnerTab<Id>) {
-    const { unmountPanelOnHide } = this.props;
+    const { unmountPanelOnHide, disabledLazyMount } = this.props;
     return (
-      <LazyMount mount={tabItem.actived} key={tabItem.key}>
+      <LazyMount mount={disabledLazyMount || tabItem.actived} key={tabItem.key}>
         <TabPanel
           tab={tabItem.title}
           actived={tabItem.actived}
