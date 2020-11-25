@@ -15,5 +15,3 @@ export function useAnimationFramed(callback: () => void) {
     }
   }, []);
 }
-
-export default useAnimationFramed;
