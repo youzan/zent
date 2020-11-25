@@ -249,6 +249,7 @@ export class Select<
       return;
     }
 
+    this.setState({ keyword: '' });
     if (this.props.multiple === false) {
       this.onVisibleChange(false);
       const { onChange } = this.props;
