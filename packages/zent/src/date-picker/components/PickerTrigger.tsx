@@ -49,14 +49,14 @@ export const SingleInputTrigger: React.FC<ISingleTriggerProps> = ({
   canClear,
   icon,
   hiddenIcon,
+  disabled,
   ...restProps
 }) => {
   const [startText, endText] = Array.isArray(text) ? text : [text];
-  const { disabled } = restProps;
   const canClearMerge = canClear && !!value;
 
   return (
-    <TriggerDiv {...restProps} canClear={canClearMerge}>
+    <TriggerDiv {...restProps} disabled={disabled} canClear={canClearMerge}>
       {name && (
         <input
           type="hidden"
@@ -107,6 +107,7 @@ export const CombinedInputTrigger: React.FC<ICombinedInputTriggerProps> = ({
   canClear,
   icon,
   onClearInput,
+  disabled,
   ...restProps
 }) => {
   const [leftText, rightText] = React.useMemo(() => {
@@ -117,6 +118,7 @@ export const CombinedInputTrigger: React.FC<ICombinedInputTriggerProps> = ({
   return (
     <TriggerDiv
       {...restProps}
+      disabled={disabled}
       canClear={canClear && (!!leftText || !!rightText)}
     >
       {name && (

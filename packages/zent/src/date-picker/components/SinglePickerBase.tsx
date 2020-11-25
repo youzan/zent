@@ -136,13 +136,14 @@ export function SinglePicker({
         <SingleInputTrigger
           {...triggerProps}
           value={value}
+          disabled={disabled}
           text={text}
           panelVisible={panelVisible}
           onClearInput={onClearInput}
         />
       </div>
     );
-  }, [text, value, panelVisible, restPropsRef, onClearInput]);
+  }, [text, value, panelVisible, restPropsRef, disabled, onClearInput]);
 
   const content = React.useMemo(() => {
     return (
@@ -181,7 +182,7 @@ export function SinglePicker({
   );
 }
 SinglePicker.defaultProps = {
-  disabled: false,
+  // disabled: false,
   canClear: true,
   width: INPUT_WIDTH,
 };

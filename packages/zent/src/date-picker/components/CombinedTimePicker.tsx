@@ -40,11 +40,12 @@ const CombinedTimePicker: React.FC<ITimePickerBaseProps> = ({
   ContentComponent,
   defaultTime,
   selectedDate,
+  disabled,
   ...restProps
 }) => {
   const restPropsRef = React.useRef(restProps);
   restPropsRef.current = restProps;
-  const { format, className, openPanel, disabled } = restPropsRef.current;
+  const { format, className, openPanel } = restPropsRef.current;
   const onChangeRef = useEventCallbackRef(onChange);
 
   const { selected, setSelected } = useTimeValue<RangeTime>(
@@ -115,6 +116,7 @@ const CombinedTimePicker: React.FC<ITimePickerBaseProps> = ({
         <CombinedInputTrigger
           {...triggerProps}
           value={value}
+          disabled={disabled}
           selected={selectedDates}
           onClearInput={onClearInput}
           panelVisible={panelVisible}
@@ -129,6 +131,7 @@ const CombinedTimePicker: React.FC<ITimePickerBaseProps> = ({
     selectedDates,
     panelVisible,
     restPropsRef,
+    disabled,
     onClearInput,
   ]);
 
