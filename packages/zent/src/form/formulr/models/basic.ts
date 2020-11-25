@@ -48,9 +48,9 @@ abstract class BasicModel<Value> implements IModel<Value> {
 
   readonly error$ = new BehaviorSubject<IMaybeError<Value>>(null);
 
-  readonly valid$ = new BehaviorSubject(true);
+  abstract get valid$(): BehaviorSubject<boolean>;
 
-  abstract readonly value$: BehaviorSubject<Value>;
+  abstract get value$(): BehaviorSubject<Value>;
 
   get value() {
     return this.value$.value;

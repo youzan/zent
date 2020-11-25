@@ -1,4 +1,4 @@
-import { BehaviorSubject, Observable, Subscription, asapScheduler } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { BasicModel, isModel } from './basic';
 import { ValidateOption } from '../validate';
 import { isModelRef, ModelRef } from './ref';
@@ -7,12 +7,13 @@ import { or, Some } from '../maybe';
 import { IModel } from './base';
 import isNil from '../../../utils/isNil';
 import uniqueId from '../../../utils/uniqueId';
-import { observeOn, pairwise, skip } from 'rxjs/operators';
+import { pairwise, skip } from 'rxjs/operators';
 import { createUnexpectedModelError, NullModelReferenceError } from '../error';
 import {
   unstable_IdlePriority as IdlePriority,
   unstable_scheduleCallback as scheduleCallback,
 } from 'scheduler';
+import warning from '../../../utils/warning';
 
 const FIELD_ARRAY_ID = Symbol('field-array');
 
@@ -29,7 +30,9 @@ class FieldArrayModel<
 
   owner: IModel<any> | null = null;
 
-  readonly value$: BehaviorSubject<readonly Item[]>;
+  private _valid$?: BehaviorSubject<boolean>;
+
+  private _value$?: BehaviorSubject<readonly Item[]>;
 
   private readonly invalidModels: Set<BasicModel<Item>> = new Set();
 
@@ -46,7 +49,6 @@ class FieldArrayModel<
     private readonly defaultValue: readonly Item[]
   ) {
     super(uniqueId('field-array-'));
-    this.value$ = new BehaviorSubject(defaultValue);
     this.childFactory = childBuilder
       ? (defaultValue: Item) => {
           const child = childBuilder.build(Some(defaultValue));
@@ -60,23 +62,30 @@ class FieldArrayModel<
             this
           ) as unknown) as Child;
     const children = this.defaultValue.map(this._buildChild);
-    const $ = this.error$.subscribe(maybeError => {
-      const selfValid = isNil(maybeError);
-      this.valid$.next(selfValid && !this.invalidModels.size);
-    });
-    this.mapModelToSubscriptions.set(this, [$]);
     this.children$ = new BehaviorSubject(children);
-    this.children$
-      .pipe(
-        /** Skip the first subscription to avoid setting `defaultValue` repeatedly  */
-        skip(1)
-      )
-      .subscribe(() => {
-        /** Waiting `setModel` in `render` of child component(s), or `getRawValue` will throw `NullModelReferenceError` */
-        scheduleCallback(IdlePriority, () => {
-          this.value$.next(this.getRawValue());
-        });
-      });
+    this.children$.pipe(pairwise()).subscribe(([prev, current]) => {
+      for (const child of prev) {
+        if (!current.includes(child)) {
+          this._unsubscribeChild(child);
+        }
+      }
+    });
+  }
+
+  get value$() {
+    if (!this._value$) {
+      this._initValue$();
+    }
+
+    return this._value$!;
+  }
+
+  get valid$() {
+    if (!this._valid$) {
+      this._initValid$();
+    }
+
+    return this._valid$!;
   }
 
   /**
@@ -284,6 +293,48 @@ class FieldArrayModel<
     this.children$.next([]);
   }
 
+  private _initValue$() {
+    warning(
+      false,
+      'Subscribing value of field array might cause performance problems, do it with caution'
+    );
+    const value$ = new BehaviorSubject<readonly Item[]>(this.getRawValue());
+    this._value$ = value$;
+
+    /** Skip the first subscription to avoid setting initialValue repeatedly */
+    this.children$.pipe(skip(1)).subscribe(() => {
+      /** Waiting `setModel` in `render` of child component(s), or `getRawValue` will throw `NullModelReferenceError` */
+      scheduleCallback(IdlePriority, () => {
+        value$.next(this.getRawValue());
+      });
+    });
+
+    for (const child of this.children) {
+      this._subscribeChild(child);
+    }
+  }
+
+  private _initValid$() {
+    const valid$ = new BehaviorSubject(true);
+    this._valid$ = valid$;
+
+    const $ = this.error$.subscribe(maybeError => {
+      const selfValid = isNil(maybeError);
+      this.valid$.next(selfValid && !this.invalidModels.size);
+    });
+    this.mapModelToSubscriptions.set(this, [$]);
+
+    /** Skip the first subscription to avoid setting initialValue repeatedly */
+    this.children$.pipe(skip(1)).subscribe(() => {
+      /** Emit valid$ when children removed */
+      valid$.next(isNil(this.error) && !this.invalidModels.size);
+    });
+
+    for (const child of this.children) {
+      this._subscribeChild(child);
+    }
+  }
+
   /**
    * Base method for gettting value from array model
    * @param getter map model to value
@@ -308,21 +359,28 @@ class FieldArrayModel<
    * @param model
    */
   private _subscribeChild(child: Child) {
-    const { mapModelToSubscriptions } = this;
-    if (isModelRef<Item, FieldArrayModel<Item, Child>, Child>(child)) {
-      const $ = child.model$.pipe(pairwise()).subscribe(pair => {
-        const [prev, current] = pair;
-
-        prev && this._unsubscribeChild(prev);
-
-        if (isModel<Item>(current)) {
-          this._subscribeChildModel(current);
+    const { _valid$, _value$, mapModelToSubscriptions } = this;
+    if (_valid$ || _value$) {
+      if (isModelRef<Item, FieldArrayModel<Item, Child>, Child>(child)) {
+        /** Subscribe current model immediately */
+        const model = child.getModel();
+        if (isModel<Item>(model)) {
+          this._subscribeChildModel(model);
         }
-      });
 
-      mapModelToSubscriptions.set(child, [$]);
-    } else if (isModel<Item>(child)) {
-      this._subscribeChildModel(child);
+        /** Replace subscription while model updated */
+        const $ = child.model$.pipe(pairwise()).subscribe(([prev, current]) => {
+          prev && this._unsubscribeChild(prev);
+
+          if (isModel<Item>(current)) {
+            this._subscribeChildModel(current);
+          }
+        });
+
+        mapModelToSubscriptions.set(child, [$]);
+      } else if (isModel<Item>(child)) {
+        this._subscribeChildModel(child);
+      }
     }
   }
 
@@ -331,38 +389,44 @@ class FieldArrayModel<
    * @param model
    */
   private _subscribeChildModel(model: BasicModel<Item>) {
-    const { error$, valid$, value$, invalidModels } = this;
-    this._subscribeObservable(model, model.valid$, valid => {
-      if (valid) {
-        invalidModels.delete(model);
-      } else {
-        invalidModels.add(model);
-      }
+    const { error$, _valid$, _value$, invalidModels } = this;
+    if (_valid$) {
+      this._subscribeObservable(model, model.valid$, valid => {
+        if (valid) {
+          invalidModels.delete(model);
+        } else {
+          invalidModels.add(model);
+        }
 
-      valid$.next(!invalidModels.size && isNil(error$.value));
-    });
+        _valid$.next(!invalidModels.size && isNil(error$.value));
+      });
+    }
 
-    this._subscribeObservable(
-      model,
-      model.value$,
-      childValue => {
-        const index = this.children.findIndex(it => {
-          if (
-            isModelRef<Item, FieldArrayModel<Item, Child>, BasicModel<Item>>(it)
-          ) {
-            return it.getModel() === model;
-          } else if (isModel<Item>(it)) {
-            return it === model;
-          } else {
-            throw createUnexpectedModelError(it);
-          }
-        });
-        const copy = [...value$.value];
-        copy.splice(index, 1, childValue);
-        value$.next(copy);
-      },
-      true /** New value will be inserted in the observer of `children$`, skip the first subscription when inserting a new child */
-    );
+    if (_value$) {
+      this._subscribeObservable(
+        model,
+        model.value$,
+        childValue => {
+          const index = this.children.findIndex(it => {
+            if (
+              isModelRef<Item, FieldArrayModel<Item, Child>, BasicModel<Item>>(
+                it
+              )
+            ) {
+              return it.getModel() === model;
+            } else if (isModel<Item>(it)) {
+              return it === model;
+            } else {
+              throw createUnexpectedModelError(it);
+            }
+          });
+          const copy = [..._value$.value];
+          copy.splice(index, 1, childValue);
+          _value$.next(copy);
+        },
+        true /** New value will be inserted in the observer of `children$`, skip the first subscription when inserting a new child */
+      );
+    }
   }
 
   /**
@@ -379,11 +443,9 @@ class FieldArrayModel<
     skipFirst?: boolean
   ) {
     const { mapModelToSubscriptions } = this;
-    const operators = [observeOn(asapScheduler)];
-    if (skipFirst) {
-      operators.push(skip(1));
-    }
-    const $ = observable.pipe.apply(observable, operators).subscribe(observer);
+    const $ = (skipFirst ? observable.pipe(skip(1)) : observable).subscribe(
+      observer
+    );
     const subs = mapModelToSubscriptions.get(model);
     if (subs) {
       subs.push($);

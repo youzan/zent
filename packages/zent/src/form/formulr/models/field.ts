@@ -18,7 +18,10 @@ class FieldModel<Value> extends BasicModel<Value> {
    */
   [FIELD_ID]!: boolean;
 
-  readonly value$: BehaviorSubject<Value>;
+  readonly _value$ = new BehaviorSubject(this.defaultValue);
+
+  readonly _valid$ = new BehaviorSubject(true);
+
   isTouched = false;
 
   /**
@@ -36,7 +39,14 @@ class FieldModel<Value> extends BasicModel<Value> {
   /** @internal */
   constructor(private readonly defaultValue: Value) {
     super(uniqueId('field-'));
-    this.value$ = new BehaviorSubject(defaultValue);
+  }
+
+  get value$() {
+    return this._value$;
+  }
+
+  get valid$() {
+    return this._valid$;
   }
 
   /**

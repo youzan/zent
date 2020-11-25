@@ -1,10 +1,4 @@
-import {
-  asapScheduler,
-  BehaviorSubject,
-  Observable,
-  Subject,
-  Subscription,
-} from 'rxjs';
+import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
 import { BasicModel, isModel } from './basic';
 import { IMaybeError, ValidateOption } from '../validate';
 import { Maybe, None, Some } from '../maybe';
@@ -13,8 +7,8 @@ import isNil from '../../../utils/isNil';
 import uniqueId from '../../../utils/uniqueId';
 import isPlainObject from '../../../utils/isPlainObject';
 import { UnknownFieldSetModelChildren } from '../utils';
-import { observeOn } from 'rxjs/operators';
 import omit from '../../../utils/omit';
+import warning from '../../../utils/warning';
 
 type $FieldSetValue<Children extends UnknownFieldSetModelChildren> = {
   [Key in keyof Children]: Children[Key] extends IModel<infer V> ? V : never;
@@ -41,7 +35,9 @@ class FieldSetModel<
 
   owner: IModel<any> | null = null;
 
-  readonly value$ = new BehaviorSubject({} as $FieldSetValue<Children>);
+  private _valid$?: BehaviorSubject<boolean>;
+
+  private _value$?: BehaviorSubject<$FieldSetValue<Children>>;
 
   private readonly invalidModels: Set<BasicModel<unknown>> = new Set();
 
@@ -60,12 +56,23 @@ class FieldSetModel<
       const child = children[name];
       this.registerChild(name, child);
     }
-    const $ = this.error$.subscribe(maybeError => {
-      const selfValid = isNil(maybeError);
-      this.valid$.next(selfValid && !this.invalidModels.size);
-    });
-    this.mapModelToSubscriptions.set(this as BasicModel<unknown>, [$]);
     this.children = children;
+  }
+
+  get value$() {
+    if (!this._value$) {
+      this._initValue$();
+    }
+
+    return this._value$!;
+  }
+
+  get valid$() {
+    if (!this._valid$) {
+      this._initValid$();
+    }
+
+    return this._valid$!;
   }
 
   /**
@@ -154,7 +161,7 @@ class FieldSetModel<
     model.owner = null;
     this._unsubscribeChild(model);
     delete this.children[name];
-    this.value$.next(
+    this._value$?.next(
       omit(this.value$.value, [name]) as $FieldSetValue<Children>
     );
     this.childRemove$.next(name);
@@ -279,24 +286,57 @@ class FieldSetModel<
     return this.children[name as string] as any;
   }
 
+  private _setValid() {
+    this._valid$?.next(isNil(this.error) && !this.invalidModels.size);
+  }
+
+  private _initValue$() {
+    warning(
+      false,
+      'Subscribing value of form or field set might cause performance problems, do it with caution'
+    );
+    this._value$ = new BehaviorSubject({} as $FieldSetValue<Children>);
+    for (const [name, model] of Object.entries(this.children)) {
+      this._subscribeChild(name, model);
+    }
+  }
+
+  private _initValid$() {
+    const valid$ = new BehaviorSubject<boolean>(true);
+    this._valid$ = valid$;
+    const $ = this.error$.subscribe(() => {
+      this._setValid();
+    });
+    this.mapModelToSubscriptions.set(this as BasicModel<unknown>, [$]);
+    for (const [name, model] of Object.entries(this.children)) {
+      this._subscribeChild(name, model);
+    }
+  }
+
   /**
    * Subscribe `valid$` and `value$` of the model
    * @param model
    */
   private _subscribeChild(name: string, model: BasicModel<unknown>) {
-    const { invalidModels, valid$, value$ } = this;
-    this._subscribeObservable(model, model.valid$, valid => {
-      if (valid) {
-        invalidModels.delete(model);
-      } else {
-        invalidModels.add(model);
-      }
+    const { invalidModels, _valid$, _value$ } = this;
 
-      valid$.next(!invalidModels.size && isNil(this.error$.value));
-    });
-    this._subscribeObservable(model, model.value$, childValue => {
-      value$.next({ ...value$.value, [name]: childValue });
-    });
+    if (_valid$) {
+      this._subscribeObservable(model, model.valid$, valid => {
+        if (valid) {
+          invalidModels.delete(model);
+        } else {
+          invalidModels.add(model);
+        }
+
+        this._setValid();
+      });
+    }
+
+    if (_value$) {
+      this._subscribeObservable(model, model.value$, childValue => {
+        _value$.next({ ..._value$.value, [name]: childValue });
+      });
+    }
   }
 
   /**
@@ -308,6 +348,7 @@ class FieldSetModel<
     subs?.forEach(sub => sub.unsubscribe());
     this.mapModelToSubscriptions.delete(model);
     this.invalidModels.delete(model);
+    this._setValid();
   }
 
   /**
@@ -322,7 +363,7 @@ class FieldSetModel<
     observer: (value: T) => void
   ) {
     const { mapModelToSubscriptions } = this;
-    const $ = observable.pipe(observeOn(asapScheduler)).subscribe(observer);
+    const $ = observable.subscribe(observer);
     const subs = mapModelToSubscriptions.get(model);
     if (subs) {
       subs.push($);
