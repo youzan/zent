@@ -19,7 +19,10 @@ export function FormSelectField<T extends ISelectItem>(
   props: IFormSelectFieldProps<T>
 ) {
   return (
-    <FormField {...props} defaultValue={props.props?.multiple ? [] : null}>
+    <FormField
+      {...props}
+      defaultValue={props.defaultValue ?? (props.props?.multiple ? [] : null)}
+    >
       {childProps => renderSelect(childProps, props)}
     </FormField>
   );
