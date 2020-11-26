@@ -315,6 +315,10 @@ class FieldArrayModel<
   }
 
   private _initValid$() {
+    warning(
+      false,
+      'Subscribing valid of field array might cause performance problems, do it with caution'
+    );
     const valid$ = new BehaviorSubject(true);
     this._valid$ = valid$;
 

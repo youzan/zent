@@ -188,7 +188,7 @@ export function useFieldValue<T>(field: string | BasicModel<T>): T | null {
     } else if (model) {
       const $ = model.value$.subscribe(setValue);
 
-      return () => $.unsubscribe;
+      return () => $.unsubscribe();
     } else {
       return noop;
     }

@@ -302,6 +302,10 @@ class FieldSetModel<
   }
 
   private _initValid$() {
+    warning(
+      false,
+      'Subscribing valid of form or field set might cause performance problems, do it with caution'
+    );
     const valid$ = new BehaviorSubject<boolean>(true);
     this._valid$ = valid$;
     const $ = this.error$.subscribe(() => {

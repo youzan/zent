@@ -1,4 +1,4 @@
-import { useMemo, FormEvent, useReducer } from 'react';
+import { useMemo, FormEvent, useReducer, useEffect, useState } from 'react';
 import {
   ValidateOption,
   $FieldSetValue,
@@ -186,4 +186,23 @@ export function useForm<T extends UnknownFieldSetBuilderChildren>(
   ]);
   form.state = state;
   return form;
+}
+
+/**
+ * Subscribe value of form. Note that this hook might cause performance problem(s), use it with caution.
+ * @param form Return value of `Form.useForm`
+ * @param defaultValue It's **NOT** recommended to set `defaultValue` by operators such as `=` and `??`
+ */
+export function useFormValue<T extends UnknownFieldSetModelChildren>(
+  form: ZentForm<T>,
+  defaultValue?: $FieldSetValue<T>
+) {
+  const [value, setValue] = useState(defaultValue);
+
+  useEffect(() => {
+    const $ = form.model.value$.subscribe(setValue);
+    return $.unsubscribe.bind($);
+  }, [form]);
+
+  return value;
 }
