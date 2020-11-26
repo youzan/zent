@@ -1,22 +1,27 @@
 import * as React from 'react';
 import { Omit } from 'utility-types';
-import { QuarterPicker, IQuarterPickerProps } from '../../date-picker';
+import {
+  QuarterPicker,
+  IQuarterPickerProps,
+  IValueType,
+  RangeDate,
+} from '../../date-picker';
 import { IFormComponentProps, dateRangeDefaultValueFactory } from '../shared';
 import { FormField } from '../Field';
 import { $MergeParams } from '../utils';
-import { RangeDate } from '../../date-picker';
 
-export type IFormQuarterPickerFieldProps = IFormComponentProps<
-  RangeDate,
-  Omit<IQuarterPickerProps, 'value'>
->;
+export type IFormQuarterPickerFieldProps<
+  T extends IValueType
+> = IFormComponentProps<RangeDate, Omit<IQuarterPickerProps<T>, 'value'>>;
 
-export const FormQuarterPickerField: React.FunctionComponent<IFormQuarterPickerFieldProps> = props => {
+export const FormQuarterPickerField = <T extends IValueType = 'string'>(
+  props: IFormQuarterPickerFieldProps<T>
+) => {
   return (
     <FormField
       {...props}
       defaultValue={
-        (props as $MergeParams<IFormQuarterPickerFieldProps>).defaultValue ||
+        (props as $MergeParams<IFormQuarterPickerFieldProps<T>>).defaultValue ??
         dateRangeDefaultValueFactory
       }
     >
