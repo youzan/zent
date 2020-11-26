@@ -53,7 +53,7 @@ export const FormDateRangeQuickPickerField: React.FunctionComponent<IFormDateRan
       {...props}
       defaultValue={
         (props as $MergeParams<IFormDateRangeQuickPickerFieldProps>)
-          .defaultValue || dateRangeDefaultValueFactory
+          .defaultValue ?? dateRangeDefaultValueFactory
       }
     >
       {childProps => (
