@@ -25,7 +25,7 @@ Tabs is used to switch different view in one page.
 | candel             | Whether the tab can be deleted.                                           | bool                          | `false`    |                         | no       |
 | unmountPanelOnHide | Unmount TabPanel on inactive instead of using `display: none` style cover | bool                          | `false`    |                         | no       |
 | overflowMode       | Support operations to fit in more tabs                                    | string                        | `''`       | `'slide'` \| `'anchor'` | no       |
-| disableLazyMount   | disable lazyMount of `TabPanel`                                           | bool                          | `false`    |                         | no       | 
+| disableLazyMount   | Disable lazyMount of `TabPanel`                                           | bool                          | `false`    |                         | no       | 
 
 Paramerter type of `tabs`：
 
