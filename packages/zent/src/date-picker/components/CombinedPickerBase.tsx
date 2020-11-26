@@ -163,6 +163,7 @@ export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
     disabled,
     onClearInput,
   ]);
+
   const content = React.useMemo(() => {
     return (
       <div className="zent-datepicker-combined-panel">
