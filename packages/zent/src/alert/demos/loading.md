@@ -9,13 +9,18 @@ en-US:
 ---
 
 ```jsx
-import { Alert } from 'zent';
+import { Alert, BlockLoading } from 'zent';
 
 ReactDOM.render(
 	<div className="zent-alert-example">
 		<Alert type="info" loading>
 			{i18n.content}
 		</Alert>
+		<BlockLoading>
+			<Alert type="info" loading>
+				{i18n.content}
+			</Alert>
+		</BlockLoading>
 	</div>,
 	mountNode
 );
