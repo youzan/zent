@@ -44,6 +44,7 @@ export interface IBaseTabsProps<Id, TabPanelProps> {
   className?: string;
   tabs?: Array<ITab<Id>>;
   unmountPanelOnHide?: boolean;
+  disableLazyMount?: boolean;
   children?:
     | ITabPanelElement<TabPanelProps>
     | Array<ITabPanelElement<TabPanelProps>>;
