@@ -15,9 +15,7 @@ export interface IAbstractPaginationProps extends IBasePaginationProps {
   buttonBordered?: boolean;
 }
 
-export abstract class AbstractPagination extends BasePagination<
-  IAbstractPaginationProps
-> {
+export abstract class AbstractPagination extends BasePagination<IAbstractPaginationProps> {
   render() {
     const layout = this.getLayout(this.props);
     const {

@@ -6,10 +6,9 @@ import YearPanelBody from './YearBody';
 import { MAX_YEAR, MIN_YEAR, MAX_PAGE } from '../../constants';
 import { ISinglePanelProps } from '../../types';
 
-const YearPickerPanel: React.FC<Omit<
-  ISinglePanelProps,
-  'rangeDate' | 'hoverRangeDate'
->> = props => {
+const YearPickerPanel: React.FC<
+  Omit<ISinglePanelProps, 'rangeDate' | 'hoverRangeDate'>
+> = props => {
   const { defaultPanelDate } = props;
   const tempYear = defaultPanelDate.getFullYear();
   const [page, setPage] = useState<number>(

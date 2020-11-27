@@ -3,9 +3,9 @@ import CardTab from '../tab/CardTab';
 import CommonTabsNav from './CommonTabsNav';
 import { IInnerTab } from '../../types';
 
-class CardTabsNav<Id extends string | number = string> extends CommonTabsNav<
-  Id
-> {
+class CardTabsNav<
+  Id extends string | number = string
+> extends CommonTabsNav<Id> {
   protected typeName = 'card';
 
   renderTab(data: IInnerTab<Id>): React.ReactNode {
