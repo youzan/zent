@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { merge, asapScheduler, Observable, of } from 'rxjs';
+import { merge, asapScheduler, Observable, of, BehaviorSubject } from 'rxjs';
 import { observeOn, filter, switchMap } from 'rxjs/operators';
 import noop from '../../../utils/noop';
 import { useFormContext } from '../context';
 import { BasicModel, IModel, isModel, isModelRef, ModelRef } from '../models';
 import { $MergeProps } from '../utils';
 
-export interface IFieldValueCommonProps<T> {
+export interface IFieldListenerCommonProps<T> {
   /**
    * render props，参数是 Field 当前的值
    */
@@ -14,12 +14,12 @@ export interface IFieldValueCommonProps<T> {
 }
 
 export interface IFieldValueViewDrivenProps<T>
-  extends IFieldValueCommonProps<T> {
+  extends IFieldListenerCommonProps<T> {
   name: string;
 }
 
 export interface IFieldValueModelDrivenProps<T>
-  extends IFieldValueCommonProps<T> {
+  extends IFieldListenerCommonProps<T> {
   model: BasicModel<T>;
 }
 
@@ -27,21 +27,95 @@ export type IFieldValueProps<T> =
   | IFieldValueModelDrivenProps<T>
   | IFieldValueViewDrivenProps<T>;
 
-export function useFieldValue<T>(field: string | BasicModel<T>): T | null {
+export interface IFieldValidViewDrivenProps
+  extends IFieldListenerCommonProps<boolean> {
+  name: string;
+}
+
+export interface IFieldValidModelDrivenProps<T>
+  extends IFieldListenerCommonProps<boolean> {
+  model: BasicModel<T>;
+}
+
+export type IFieldValidProps<T> =
+  | IFieldValidModelDrivenProps<T>
+  | IFieldValidViewDrivenProps;
+
+/**
+ * Subscribe the value state of a model
+ * @param field
+ */
+export function useFieldValue<T>(field: string | IModel<T>) {
+  return useFieldObservable<IModel<T>, T, T>(field, getValueObservable);
+}
+
+/**
+ * 根据 `name` 或者 `model` 订阅字段值的更新
+ */
+export function FieldValue<T>(
+  props: IFieldValueProps<T>
+): React.ReactElement | null {
+  const { name, model, children } = props as $MergeProps<IFieldValueProps<T>>;
+  const value = useFieldValue(model || name);
+  if (children) {
+    return children(value);
+  }
+  return (value as unknown) as React.ReactElement;
+}
+
+/**
+ * Subscribe the valid state of a model
+ * @param field
+ */
+export function useFieldValid<T>(field: string | IModel<T>) {
+  return useFieldObservable<IModel<T>, T, boolean>(field, getValidObservable);
+}
+
+/**
+ * 根据 `name` 或者 `model` 订阅字段校验状态的更新
+ */
+export function FieldValid<T>(
+  props: IFieldValidProps<T>
+): React.ReactElement | null {
+  const { name, model, children } = props as $MergeProps<IFieldValidProps<T>>;
+  const value = useFieldValid(model || name);
+  if (children) {
+    return children(value);
+  }
+  return (value as unknown) as React.ReactElement;
+}
+
+function getValueObservable<T>(model: BasicModel<T>) {
+  return model.value$;
+}
+
+function getValidObservable<T>(model: BasicModel<T>) {
+  return model.valid$;
+}
+
+function useFieldObservable<M extends IModel<T>, T, V>(
+  field: M | string,
+  observable: (model: BasicModel<T>) => BehaviorSubject<V>
+) {
   const ctx = useFormContext();
   const [model, setModel] = React.useState<
-    BasicModel<T> | ModelRef<T, IModel<any>, BasicModel<T>> | null
+    BasicModel<T> | ModelRef<T, IModel<unknown>, BasicModel<T>> | null
   >(
-    isModel<T>(field) || isModelRef<T, any, BasicModel<T>>(field)
+    isModel<T>(field) || isModelRef<T, IModel<unknown>, BasicModel<T>>(field)
       ? field
       : () => {
-          const m = ctx.parent.get(field);
+          const m = ctx.parent.get(field as string);
           return isModel<T>(m) ? m : null;
         }
   );
   React.useEffect(() => {
     if (typeof field !== 'string') {
-      setModel(isModel(field) || isModelRef(field) ? field : null);
+      setModel(
+        isModel<T>(field) ||
+          isModelRef<T, IModel<unknown>, BasicModel<T>>(field)
+          ? field
+          : null
+      );
       return noop;
     }
     const m = ctx.parent.get(field);
@@ -69,11 +143,11 @@ export function useFieldValue<T>(field: string | BasicModel<T>): T | null {
         }
       });
     return () => $.unsubscribe();
-  }, [field, ctx.parent]);
+  }, [field, ctx, ctx.parent]);
 
-  const [value, setValue] = React.useState<T | null>(() =>
-    model && !isModelRef<T, IModel<any>, BasicModel<T>>(model)
-      ? model.value
+  const [value, setValue] = React.useState<V | null>(() =>
+    model && !isModelRef<T, IModel<unknown>, BasicModel<T>>(model)
+      ? observable(model).value
       : null
   );
 
@@ -82,9 +156,9 @@ export function useFieldValue<T>(field: string | BasicModel<T>): T | null {
       const $ = model.model$
         .pipe(
           observeOn(asapScheduler),
-          switchMap<BasicModel<T> | null, Observable<T | null>>(it => {
+          switchMap<BasicModel<T> | null, Observable<V | null>>(it => {
             if (isModel<T>(it)) {
-              return it.value$;
+              return observable(it);
             }
             return of(null);
           })
@@ -93,36 +167,13 @@ export function useFieldValue<T>(field: string | BasicModel<T>): T | null {
 
       return () => $.unsubscribe();
     } else if (model) {
-      const $ = model.value$.subscribe(setValue);
+      const $ = observable(model).subscribe(setValue);
 
       return () => $.unsubscribe();
     } else {
       return noop;
     }
-  }, [model]);
+  }, [model, observable]);
 
   return value;
 }
-
-/**
- * 根据 `name` 或者 `model` 订阅字段的更新
- */
-export function FieldValue<T>(
-  props: IFieldValueProps<T>
-): React.ReactElement | null {
-  const { name, model, children } = props as $MergeProps<IFieldValueProps<T>>;
-  const value = useFieldValue(model || name);
-  if (children) {
-    return children(value);
-  }
-  return (value as unknown) as React.ReactElement;
-}
-
-// export function useFieldValid(nameOrModel: string | BasicModel<unknown>) {
-//   let ctx: IFormContext | undefined;
-//   if (typeof nameOrModel === 'string') {
-//     /* eslint-disable-next-line react-hooks/rules-of-hooks */
-//     ctx = useFormContext();
-//   }
-//   const value;
-// }

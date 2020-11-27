@@ -13,7 +13,7 @@ import {
   unstable_IdlePriority as IdlePriority,
   unstable_scheduleCallback as scheduleCallback,
 } from 'scheduler';
-import warning from '../../../utils/warning';
+import { warning } from '../utils';
 
 const FIELD_ARRAY_ID = Symbol('field-array');
 
@@ -288,7 +288,7 @@ class FieldArrayModel<
 
   private _initValue$() {
     warning(
-      false,
+      'Subscribe Value',
       'Subscribing value of field array might cause performance problems, do it with caution'
     );
     const value$ = new BehaviorSubject<readonly Item[]>(this.getRawValue());
@@ -314,7 +314,7 @@ class FieldArrayModel<
 
   private _initValid$() {
     warning(
-      false,
+      'Subscribe Valid',
       'Subscribing valid of field array might cause performance problems, do it with caution'
     );
     const valid$ = new BehaviorSubject(isNil(this.error));

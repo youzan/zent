@@ -18,6 +18,8 @@ import {
   createAsyncValidator,
   isAsyncValidator,
   useFieldValue,
+  FieldValid,
+  useFieldValid,
 } from './formulr';
 import memorize from '../utils/memorize-one';
 import {
@@ -129,6 +131,8 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
   static useFormValue = useFormValue;
   static useFieldArrayValue = useFieldArrayValue;
   static useFieldValue = useFieldValue;
+  static FieldValid = FieldValid;
+  static useFieldValid = useFieldValid;
   static ValidateOption = ValidateOption;
   static createAsyncValidator = createAsyncValidator;
   static isAsyncValidator = isAsyncValidator;

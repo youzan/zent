@@ -8,7 +8,7 @@ import uniqueId from '../../../utils/uniqueId';
 import isPlainObject from '../../../utils/isPlainObject';
 import { UnknownFieldSetModelChildren } from '../utils';
 import omit from '../../../utils/omit';
-import warning from '../../../utils/warning';
+import { warning } from '../utils';
 
 type $FieldSetValue<Children extends UnknownFieldSetModelChildren> = {
   [Key in keyof Children]: Children[Key] extends IModel<infer V> ? V : never;
@@ -289,7 +289,7 @@ class FieldSetModel<
 
   private _initValue$() {
     warning(
-      false,
+      'Subscribe Value',
       'Subscribing value of form or field set might cause performance problems, do it with caution'
     );
     const value$ = new BehaviorSubject({} as $FieldSetValue<Children>);
@@ -313,7 +313,7 @@ class FieldSetModel<
 
   private _initValid$() {
     warning(
-      false,
+      'Subscribe Valid',
       'Subscribing valid of form or field set might cause performance problems, do it with caution'
     );
     const valid$ = new BehaviorSubject(isNil(this.error));
