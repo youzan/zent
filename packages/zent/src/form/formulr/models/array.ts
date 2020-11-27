@@ -63,13 +63,6 @@ class FieldArrayModel<
           ) as unknown) as Child;
     const children = this.defaultValue.map(this._buildChild);
     this.children$ = new BehaviorSubject(children);
-    this.children$.pipe(pairwise()).subscribe(([prev, current]) => {
-      for (const child of prev) {
-        if (!current.includes(child)) {
-          this._unsubscribeChild(child);
-        }
-      }
-    });
   }
 
   get value$() {
@@ -312,6 +305,11 @@ class FieldArrayModel<
     for (const child of this.children) {
       this._subscribeChild(child);
     }
+
+    /** Do it if there's no initilized observavble  */
+    if (!this._valid$) {
+      this._initUnsubscribeChild();
+    }
   }
 
   private _initValid$() {
@@ -337,6 +335,24 @@ class FieldArrayModel<
     for (const child of this.children) {
       this._subscribeChild(child);
     }
+
+    /** Do it if there's no initilized observavble  */
+    if (!this._value$) {
+      this._initUnsubscribeChild();
+    }
+  }
+
+  /**
+   * Subscribe `children$` to unsubscribe the removed child
+   */
+  private _initUnsubscribeChild() {
+    this.children$.pipe(pairwise()).subscribe(([prev, current]) => {
+      for (const child of prev) {
+        if (!current.includes(child)) {
+          this._unsubscribeChild(child);
+        }
+      }
+    });
   }
 
   /**
