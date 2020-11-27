@@ -24,7 +24,7 @@ function is(x: any, y: any) {
  * when any key has values which are not strictly equal between the arguments.
  * Returns true when the values of all keys are strictly equal.
  */
-function shallowEqual<A extends {}, B extends {}>(objA: A, objB: B): boolean {
+function shallowEqual(objA: any, objB: any): boolean {
   if (is(objA, objB)) {
     return true;
   }

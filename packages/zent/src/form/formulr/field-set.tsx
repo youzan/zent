@@ -43,7 +43,7 @@ function useFieldSetModel<T extends UnknownFieldSetModelChildren>(
         if (isSome(potential)) {
           const inner = get(potential);
           if (isPlainObject(inner)) {
-            v = inner;
+            v = inner as any;
           }
         }
         model.patchedValue = v;

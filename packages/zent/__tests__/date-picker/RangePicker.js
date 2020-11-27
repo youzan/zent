@@ -1,6 +1,6 @@
 import React from 'react';
 import Enzyme, { mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import { Simulate } from 'react-dom/test-utils';
 import { DateRangePicker } from 'date-picker';
 
@@ -22,10 +22,7 @@ describe('RangePicker', () => {
         value={['2020-08-01 12:00']}
       />
     );
-    wrapper
-      .find('.zent-datepicker-trigger')
-      .first()
-      .simulate('click');
+    wrapper.find('.zent-datepicker-trigger').first().simulate('click');
     const pop = document.querySelector('.zent-datepicker-panel');
     expect(pop.querySelectorAll('.zent-datepicker').length).toBe(1);
     // unit
@@ -52,10 +49,7 @@ describe('RangePicker', () => {
         onChange={onChangeMock}
       />
     );
-    wrapper
-      .find('.zent-datepicker-trigger')
-      .first()
-      .simulate('click');
+    wrapper.find('.zent-datepicker-trigger').first().simulate('click');
     const pop = document.querySelector('.zent-datepicker-panel-footer');
     Simulate.click(pop.querySelector('a'));
     expect(typeof wrapper.prop('value')[0]).toBe('object');
@@ -69,18 +63,12 @@ describe('RangePicker', () => {
       <DateRangePicker value={[]} onOpen={onOpen} onClose={onClose} />
     );
 
-    wrapper
-      .find('.zent-datepicker-trigger')
-      .at(0)
-      .simulate('click');
+    wrapper.find('.zent-datepicker-trigger').at(0).simulate('click');
     expect(onOpen.mock.calls.length).toBe(1);
     const pop1 = document.querySelector('.zent-datepicker-panel-footer');
     Simulate.click(pop1.querySelector('a'));
 
-    wrapper
-      .find('.zent-datepicker-trigger')
-      .at(1)
-      .simulate('click');
+    wrapper.find('.zent-datepicker-trigger').at(1).simulate('click');
     const pop2 = document.querySelector('.zent-datepicker-panel-footer');
     Simulate.click(pop2.querySelector('a'));
     jest.runAllTimers();
@@ -103,16 +91,10 @@ describe('RangePicker', () => {
         disabledDate={disabledDate}
       />
     );
-    wrapper
-      .find('.zent-datepicker-trigger')
-      .at(0)
-      .simulate('click');
+    wrapper.find('.zent-datepicker-trigger').at(0).simulate('click');
 
     wrapper.setProps({ value: ['2020-05-15', '2020-05-12'] });
-    wrapper
-      .find('.zent-datepicker-trigger')
-      .at(1)
-      .simulate('click');
+    wrapper.find('.zent-datepicker-trigger').at(1).simulate('click');
     wrapper.update();
     wrapper.unmount();
   });
@@ -121,10 +103,7 @@ describe('RangePicker', () => {
     const wrapper = mount(
       <DateRangePicker defaultDate={['2020-05-01', '2020-06-01']} />
     );
-    wrapper
-      .find('.zent-datepicker-trigger')
-      .at(0)
-      .simulate('click');
+    wrapper.find('.zent-datepicker-trigger').at(0).simulate('click');
     wrapper.unmount();
   });
 });

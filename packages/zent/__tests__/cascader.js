@@ -1,7 +1,7 @@
 import React from 'react';
 import { Simulate } from 'react-dom/test-utils';
 import Enzyme, { mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import MenuCascader from 'cascader/MenuCascader';
 import TabsCascader from 'cascader/TabsCascader';
 import { clone, getNode, insertPath } from 'cascader/public-options-fns';
@@ -794,10 +794,7 @@ describe('Cascader', () => {
     );
 
     expect(wrapper.find('.zent-cascader-v2--tag').length).toBe(2);
-    wrapper
-      .find('.zenticon-close')
-      .at(0)
-      .simulate('click');
+    wrapper.find('.zenticon-close').at(0).simulate('click');
     jest.runAllTimers();
     wrapper.update();
 

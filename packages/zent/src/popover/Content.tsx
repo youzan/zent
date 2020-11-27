@@ -7,9 +7,10 @@ import { useWindowEventHandler } from '../utils/component/WindowEventHandler';
 import findPositionedParent from '../utils/dom/findPositionedParent';
 import { IPopoverPosition } from './position-function';
 import { INVISIBLE_POSITION } from './placement';
-import useLazy from '../utils/useLazy';
-import useAnimationFramed from '../utils/useAnimationFramed';
+import { useLazy } from '../utils/hooks/useLazy';
+import { useAnimationFramed } from '../utils/hooks/useAnimationFramed';
 import { useContext } from 'react';
+import { useMounted } from '../utils/hooks/useMounted';
 
 interface IPopoverContentContext {
   positionChanged$: Subject<void>;
@@ -106,7 +107,12 @@ function PopoverContent({ children }: IPopoverContentProps) {
     const container = getContainer();
     return container && findPositionedParent(container);
   }, [getContainer]);
+  const mounted = useMounted();
   const adjustPosition = useAnimationFramed(() => {
+    if (!mounted.current) {
+      return;
+    }
+
     const position = getPosition(
       contextRef.current,
       getContainer,

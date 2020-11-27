@@ -38,11 +38,12 @@ const TimePickerBase: React.FC<ITimePickerBaseProps> = ({
   defaultTime,
   selectedDate,
   autoComplete,
+  disabled,
   ...restProps
 }) => {
   const restPropsRef = React.useRef(restProps);
   restPropsRef.current = restProps;
-  const { format, openPanel, disabled } = restPropsRef.current;
+  const { format, openPanel } = restPropsRef.current;
   const onChangeRef = useEventCallbackRef(onChange);
 
   const [visibleChange, setVisibleChange] = React.useState<boolean>(true);
@@ -101,6 +102,7 @@ const TimePickerBase: React.FC<ITimePickerBaseProps> = ({
         <SingleInputTrigger
           {...triggerProps}
           value={value}
+          disabled={disabled}
           hiddenIcon={hiddenIcon}
           onClearInput={onClearInput}
           panelVisible={panelVisible}
@@ -109,7 +111,7 @@ const TimePickerBase: React.FC<ITimePickerBaseProps> = ({
         />
       </div>
     );
-  }, [value, selected, panelVisible, restPropsRef, onClearInput]);
+  }, [value, selected, panelVisible, restPropsRef, disabled, onClearInput]);
 
   const content = React.useMemo(() => {
     const commonPanelProps = pick(restPropsRef.current, timePanelProps);
@@ -124,7 +126,14 @@ const TimePickerBase: React.FC<ITimePickerBaseProps> = ({
         />
       </div>
     );
-  }, [selected, restPropsRef, defaultTime, disabledTimesOption, onSelected]);
+  }, [
+    selected,
+    restPropsRef,
+    defaultTime,
+    disabledTimesOption,
+    onSelected,
+    ContentComponent,
+  ]);
 
   return (
     <div className={cx('zent-datepicker', className)}>

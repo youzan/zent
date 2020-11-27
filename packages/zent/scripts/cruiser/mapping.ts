@@ -112,14 +112,17 @@ function createDependencyGraph(exportedNames: IExportedName[]): Graph {
  * https://gist.github.com/shinout/1232505
  */
 function tsort(edges: Graph): string[] {
-  const nodes = {}; // hash: stringified id of the node => { id: id, afters: list of ids }
-  const sorted = []; // sorted list of IDs ( returned value )
-  const visited = {}; // hash: id of already visited node => true
+  class Node {
+    afters: string[];
 
-  const Node = function(id) {
-    this.id = id;
-    this.afters = [];
-  };
+    constructor(public id: string) {
+      this.afters = [];
+    }
+  }
+
+  const nodes: Record<string, Node> = {}; // hash: stringified id of the node => { id: id, afters: list of ids }
+  const sorted: string[] = []; // sorted list of IDs ( returned value )
+  const visited: Record<string, boolean> = {}; // hash: id of already visited node => true
 
   // 1. build data structures
   edges.forEach(v => {

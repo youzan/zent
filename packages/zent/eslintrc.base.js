@@ -3,9 +3,20 @@ module.exports = {
   plugins: ['@typescript-eslint', 'import', 'ban', 'prettier'],
   extends: ['prettier/@typescript-eslint', 'plugin:import/typescript'],
   rules: {
-    '@typescript-eslint/ban-ts-ignore': 'error',
+    '@typescript-eslint/ban-ts-comment': 'error',
     '@typescript-eslint/ban-types': 'error',
-    '@typescript-eslint/class-name-casing': 'error',
+    '@typescript-eslint/naming-convention': [
+      'error',
+      {
+        selector: 'interface',
+        format: ['PascalCase'],
+        prefix: ['I'],
+      },
+      {
+        selector: 'class',
+        format: ['PascalCase'],
+      },
+    ],
     '@typescript-eslint/consistent-type-assertions': 'error',
     '@typescript-eslint/consistent-type-definitions': 'error',
     '@typescript-eslint/explicit-member-accessibility': [
@@ -13,10 +24,6 @@ module.exports = {
       {
         accessibility: 'no-public',
       },
-    ],
-    '@typescript-eslint/interface-name-prefix': [
-      'error',
-      { prefixWithI: 'always' },
     ],
     '@typescript-eslint/member-delimiter-style': [
       'error',
@@ -90,7 +97,8 @@ module.exports = {
     'no-console': ['error', { allow: ['warn', 'error'] }],
     'no-debugger': 'error',
     'no-new-wrappers': 'error',
-    'no-redeclare': 'error',
+    'no-redeclare': 'off',
+    '@typescript-eslint/no-redeclare': ['error'],
     'no-return-await': 'error',
     'no-throw-literal': 'error',
     'no-unsafe-finally': 'error',

@@ -13,5 +13,3 @@ export function useLazy<T>(init: () => T, deps: any[]): () => T | null {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
 }
-
-export default useLazy;

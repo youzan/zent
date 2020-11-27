@@ -1,6 +1,6 @@
 import React from 'react';
 import Enzyme, { mount, ReactWrapper } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 
 import { Select as I18nDefault } from 'i18n/default';
 import Select, { Option } from 'select';
@@ -62,10 +62,7 @@ describe('<Select />', () => {
     const wrapper = mount(<Select data={[1, 2, 3]} />);
     wrapper.find('SelectTrigger').simulate('click');
     const pop = new ReactWrapper(wrapper.instance().popup, true);
-    pop
-      .find('Option')
-      .at(1)
-      .simulate('click');
+    pop.find('Option').at(1).simulate('click');
     expect(wrapper.state('selectedItem').value).toBe(2);
   });
 
@@ -170,35 +167,19 @@ describe('<Select />', () => {
     expect(wrapper.find('TagsTrigger').length).toBe(1);
     wrapper.find('TagsTrigger').simulate('click');
     const pop = new ReactWrapper(wrapper.instance().popup, true);
-    pop
-      .find('Option')
-      .at(1)
-      .simulate('click');
+    pop.find('Option').at(1).simulate('click');
     wrapper.find('TagsTrigger').simulate('click');
-    pop
-      .find('Option')
-      .at(2)
-      .simulate('click');
+    pop.find('Option').at(2).simulate('click');
     expect(wrapper.state('selectedItems').length).toBe(2);
-    wrapper
-      .find('Tag')
-      .at(0)
-      .find('i')
-      .simulate('click');
+    wrapper.find('Tag').at(0).find('i').simulate('click');
     expect(wrapper.state('selectedItems').length).toBe(1);
     wrapper.find('TagsTrigger').simulate('click');
-    pop
-      .find('Option')
-      .at(2)
-      .simulate('click');
+    pop.find('Option').at(2).simulate('click');
     expect(wrapper.state('selectedItems').length).toBe(1);
 
     // HACK: branch
     wrapper.find('TagsTrigger').simulate('click');
-    pop
-      .find('Option')
-      .at(3)
-      .simulate('click');
+    pop.find('Option').at(3).simulate('click');
   });
 
   it('Popup 按键事件测试', () => {
@@ -265,10 +246,7 @@ describe('<Select />', () => {
     const wrapper = mount(<Select data={data} />);
     wrapper.find('SelectTrigger').simulate('click');
     const pop = new ReactWrapper(wrapper.instance().popup, true);
-    pop
-      .find('Option')
-      .at(1)
-      .simulate('click');
+    pop.find('Option').at(1).simulate('click');
 
     // HACK: branch Select.js line 89
     wrapper.setProps({ data });
@@ -303,17 +281,11 @@ describe('<Select />', () => {
     wrapper.find('SelectTrigger').simulate('click');
     let pop = new ReactWrapper(wrapper.instance().popup, true);
     expect(pop.find('Option').length).toBe(4);
-    pop
-      .find('Option')
-      .at(1)
-      .simulate('click');
+    pop.find('Option').at(1).simulate('click');
     expect(wrapper.state('selectedItem').value).toBe('1');
     wrapper.find('SelectTrigger').simulate('click');
     pop = new ReactWrapper(wrapper.instance().popup, true);
-    pop
-      .find('Option')
-      .at(0)
-      .simulate('click');
+    pop.find('Option').at(0).simulate('click');
     expect(wrapper.state('selectedItem').value).toBe(undefined);
     expect(wrapper.find('.zent-select-v2-text').text()).toBe(I18nDefault.input);
   });

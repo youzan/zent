@@ -1,5 +1,5 @@
 // 支持一维对象字段提取
-export default function pick<T extends object, K extends keyof T>(
+export default function pick<T extends Record<string, any>, K extends keyof T>(
   obj: T | null | undefined,
   keys: ReadonlyArray<K>
 ): Pick<T, K> {

@@ -1,6 +1,6 @@
 import React from 'react';
 import Enzyme, { shallow, mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 
 import Timeline from 'timeline';
 import { TimelineDot } from 'timeline/Dot';
@@ -23,10 +23,7 @@ describe('Timeline', () => {
       wrapper.find('.zent-timeline-legend-line').prop('style').backgroundColor
     ).toBe(color1);
     expect(
-      wrapper
-        .find('.zent-timeline-legend-line')
-        .find(TimelineDot)
-        .props().color
+      wrapper.find('.zent-timeline-legend-line').find(TimelineDot).props().color
     ).toBe(color1);
   });
 
@@ -93,13 +90,9 @@ describe('Timeline', () => {
 
     const wrapper = mount(<Timeline timeline={timeline} />);
     expect(wrapper.find('.zent-timeline').children().length).toBe(5);
-    expect(
-      wrapper
-        .find('.zent-timeline')
-        .childAt(0)
-        .find('label')
-        .text()
-    ).toBe('hello');
+    expect(wrapper.find('.zent-timeline').childAt(0).find('label').text()).toBe(
+      'hello'
+    );
     expect(
       wrapper
         .find('.zent-timeline')

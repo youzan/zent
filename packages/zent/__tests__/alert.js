@@ -2,7 +2,7 @@ import React from 'react';
 import Enzyme, { mount } from 'enzyme';
 import { Alert, ScrollAlert, AlertItem } from 'alert';
 import Icon from 'icon';
-import Adapter from 'enzyme-adapter-react-16';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import InlineLoading from 'loading/InlineLoading';
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -242,17 +242,11 @@ describe('ScrollAlert', () => {
         <AlertItem closable>foobar2</AlertItem>
       </ScrollAlert>
     );
-    wrapper
-      .find('.zent-alert-item-close-wrapper')
-      .at(0)
-      .simulate('click');
+    wrapper.find('.zent-alert-item-close-wrapper').at(0).simulate('click');
     expect(onCloseItem.mock.calls.length).toBe(1);
     expect(onClose.mock.calls.length).toBe(0);
 
-    wrapper
-      .find('.zent-alert-item-close-wrapper')
-      .at(0)
-      .simulate('click');
+    wrapper.find('.zent-alert-item-close-wrapper').at(0).simulate('click');
 
     expect(onClose.mock.calls.length).toBe(1);
   });
@@ -283,7 +277,7 @@ describe('ScrollAlert', () => {
         .hasClass('zent-alert-scroll-active-item')
     ).toBe(true);
 
-    setTimeout(function() {
+    setTimeout(function () {
       expect(
         wrapper
           .find('.zent-alert-item')
@@ -324,7 +318,7 @@ describe('ScrollAlert', () => {
     ).toBe(true);
 
     wrapper.find('.zent-alert-scroll-container').simulate('mouseLeave');
-    setTimeout(function() {
+    setTimeout(function () {
       expect(
         wrapper
           .find('.zent-alert-item')
@@ -347,23 +341,14 @@ describe('ScrollAlert', () => {
     expect(wrapper.find('.zent-alert-item').length).toBe(4);
 
     // 最后一个虚拟节点
-    wrapper
-      .find('.zent-alert-item-close-wrapper')
-      .at(3)
-      .simulate('click');
+    wrapper.find('.zent-alert-item-close-wrapper').at(3).simulate('click');
 
     expect(wrapper.find('.zent-alert-item').length).toBe(3);
 
-    wrapper
-      .find('.zent-alert-item-close-wrapper')
-      .at(1)
-      .simulate('click');
+    wrapper.find('.zent-alert-item-close-wrapper').at(1).simulate('click');
     expect(wrapper.find('.zent-alert-item').length).toBe(1);
 
-    wrapper
-      .find('.zent-alert-item-close-wrapper')
-      .at(0)
-      .simulate('click');
+    wrapper.find('.zent-alert-item-close-wrapper').at(0).simulate('click');
     expect(wrapper.find('.zent-alert-item').length).toBe(0);
   });
 

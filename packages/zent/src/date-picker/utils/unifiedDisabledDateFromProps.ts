@@ -15,7 +15,7 @@ export default function unifiedDisabledDateFromProps(
   format: string,
   disabledDateProps: IDisabledDate
 ): IDisabledDateFunc {
-  let disabledDate;
+  let disabledDate: IDisabledDateFunc;
   if (typeof disabledDateProps === 'object') {
     const { min, max } = disabledDateProps as IDisabledDateSimple;
     disabledDate = (date: Date) =>

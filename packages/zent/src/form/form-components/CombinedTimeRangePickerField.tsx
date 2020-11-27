@@ -20,7 +20,7 @@ export const FormCombinedTimeRangePickerField: React.FunctionComponent<ICombined
       {...props}
       defaultValue={
         (props as $MergeParams<ICombinedFormTimeRangePickerFieldProps>)
-          .defaultValue || dateRangeDefaultTimeFactory
+          .defaultValue ?? dateRangeDefaultTimeFactory
       }
     >
       {childProps => (

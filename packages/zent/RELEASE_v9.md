@@ -1,5 +1,28 @@
 # 9.0.0 迁移指南
 
+## 9.0.0-beta16 (2020-11-24)
+
+- ✨ `Form` 增加 `willScrollToError` 回调，用于需要在滚动到错误前需要做一些额外操作的场景
+- 🦀️ 修复 `Select` 通过键盘选择时的问题
+
+## 9.0.0-beta15 (2020-11-21)
+
+- 🦀️ 修复 `React@v17` 下 `Dialog` 动画的问题
+- 🦀️ 修复 `DatePicker` 背景色问题
+- ✨ 升级开发依赖：`React@v17` `TypeScript@v4.1`
+
+## 9.0.0-beta14 (2020-11-20)
+
+- 🦀️ 修复 `node-sass` 导致的一个问题
+- ✨ 升级 `caniuse-lite` 数据库
+
+## 9.0.0-beta13 (2020-11-19)
+
+- 🦀️ 修复 `RadioButton` 文字不居中的问题
+- 🦀️ 修复 `DatePicker` 弹层的 `z-index` 问题
+- 🦀️ 修复主题色问题
+- 📚 增加主题色相关 mixin 和 function 文档
+
 ## 9.0.0-beta12 (2020-11-17)
 
 - ✨ `FieldSetValue` 支持直接传入 model

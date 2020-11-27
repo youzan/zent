@@ -1,13 +1,13 @@
 import React from 'react';
 import Enzyme, { mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import Input from 'input';
 
 Enzyme.configure({ adapter: new Adapter() });
 
 describe('Input', () => {
   beforeAll(() => {
-    window.getSelection = function() {
+    window.getSelection = function () {
       return 'autoSelect';
     };
   });
@@ -83,39 +83,19 @@ describe('Input', () => {
   it('can insert div aside controlled by prop addon(Before|After)(node)', () => {
     const wrapper = mount(<Input addonAfter="foo" addonBefore="bar" />);
     expect(
-      wrapper
-        .find('.zent-input-wrapper')
-        .childAt(0)
-        .childAt(0)
-        .type()
+      wrapper.find('.zent-input-wrapper').childAt(0).childAt(0).type()
     ).toBe('div');
     expect(
-      wrapper
-        .find('.zent-input-wrapper')
-        .childAt(0)
-        .childAt(0)
-        .text()
+      wrapper.find('.zent-input-wrapper').childAt(0).childAt(0).text()
     ).toBe('bar');
     expect(
-      wrapper
-        .find('.zent-input-wrapper')
-        .childAt(0)
-        .childAt(1)
-        .type()
+      wrapper.find('.zent-input-wrapper').childAt(0).childAt(1).type()
     ).toBe('input');
     expect(
-      wrapper
-        .find('.zent-input-wrapper')
-        .childAt(0)
-        .childAt(2)
-        .type()
+      wrapper.find('.zent-input-wrapper').childAt(0).childAt(2).type()
     ).toBe('div');
     expect(
-      wrapper
-        .find('.zent-input-wrapper')
-        .childAt(0)
-        .childAt(2)
-        .text()
+      wrapper.find('.zent-input-wrapper').childAt(0).childAt(2).text()
     ).toBe('foo');
   });
 

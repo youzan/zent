@@ -1,6 +1,6 @@
 import React from 'react';
 import Enzyme, { mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import Swiper from 'swiper';
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -54,10 +54,7 @@ describe('Swiper', () => {
         .hasClass('zent-swiper__dots-item-active')
     ).toBe(true);
     expect(wrapper.find('.swiper-text-child').length).toBe(5);
-    wrapper
-      .find('.zent-swiper__arrow')
-      .at(0)
-      .simulate('click');
+    wrapper.find('.zent-swiper__arrow').at(0).simulate('click');
     jest.runOnlyPendingTimers();
     expect(
       wrapper
@@ -65,20 +62,14 @@ describe('Swiper', () => {
         .at(2)
         .hasClass('zent-swiper__dots-item-active')
     ).toBe(true);
-    wrapper
-      .find('.zent-swiper__dots-item')
-      .at(2)
-      .simulate('click');
+    wrapper.find('.zent-swiper__dots-item').at(2).simulate('click');
     expect(
       wrapper
         .find('.zent-swiper__dots-item')
         .at(2)
         .hasClass('zent-swiper__dots-item-active')
     ).toBe(true);
-    wrapper
-      .find('.zent-swiper__arrow')
-      .at(1)
-      .simulate('click');
+    wrapper.find('.zent-swiper__arrow').at(1).simulate('click');
     jest.runOnlyPendingTimers();
     expect(
       wrapper
@@ -86,10 +77,7 @@ describe('Swiper', () => {
         .at(0)
         .hasClass('zent-swiper__dots-item-active')
     ).toBe(true);
-    wrapper
-      .find('.zent-swiper__dots-item')
-      .at(2)
-      .simulate('click');
+    wrapper.find('.zent-swiper__dots-item').at(2).simulate('click');
     expect(
       wrapper
         .find('.zent-swiper__dots-item')
@@ -131,10 +119,7 @@ describe('Swiper', () => {
     ).toBe(true);
     wrapper.simulate('mouseEnter');
     wrapper.simulate('mouseLeave');
-    wrapper
-      .find('.zent-swiper__dots-item')
-      .at(1)
-      .simulate('click');
+    wrapper.find('.zent-swiper__dots-item').at(1).simulate('click');
     expect(
       wrapper
         .find('.zent-swiper__dots-item')

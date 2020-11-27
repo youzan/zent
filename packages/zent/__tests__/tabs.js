@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Enzyme, { mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import Tabs from 'tabs';
 import VerticalTabs from 'tabs/VerticalTabs';
 import capitalize from 'utils/capitalize';
@@ -154,10 +154,7 @@ describe('Tabs', () => {
         </Tabs>
       );
 
-      wrapper
-        .find(tabComponent)
-        .last()
-        .simulate('click');
+      wrapper.find(tabComponent).last().simulate('click');
       expect(onChange.mock.calls.length).toBe(1);
       expect(onChange.mock.calls[0][0]).toBe('quux');
     };
@@ -235,10 +232,7 @@ describe('Tabs', () => {
       wrapper.find('.add-link').simulate('click');
       expect(wrapper.find(tabComponent).length).toBe(3);
 
-      wrapper
-        .find(tabComponent)
-        .last()
-        .simulate('click');
+      wrapper.find(tabComponent).last().simulate('click');
       expect(wrapper.state('active')).toBe('bar');
 
       wrapper
@@ -337,10 +331,7 @@ describe('VerticalTabs', () => {
       />
     );
     expect(
-      wrapper
-        .find('.zent-tabs-scroll')
-        .getDOMNode()
-        .getAttribute('style')
+      wrapper.find('.zent-tabs-scroll').getDOMNode().getAttribute('style')
     ).toBe('max-height: 100px;');
   });
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 import Enzyme, { mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import { Simulate } from 'react-dom/test-utils';
 import Pop from 'pop';
 import Button from 'button';
@@ -234,7 +234,7 @@ describe('Pop', () => {
 
   it('onConfirm/onCancel can be async(callback)', () => {
     let b = 1;
-    const onCancel = function(close) {
+    const onCancel = function (close) {
       setTimeout(() => {
         expect(b).toBe(1);
         b++;

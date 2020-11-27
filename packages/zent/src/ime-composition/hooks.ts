@@ -43,6 +43,7 @@ export function createUseIMEComposition(
       onCompositionEndRef.current = onCompositionEndProp;
     }, [onChangeProp, onCompositionStartProp, onCompositionEndProp]);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const onCompositionValueChange = React.useCallback(
       ((...args) => {
         if (isCompositionRef.current) {

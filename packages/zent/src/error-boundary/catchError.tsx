@@ -8,13 +8,16 @@ export interface ICatchErrorOption {
   FallbackComponent?: React.ComponentType<IErrorBoundaryFallbackComponentProps>;
 }
 
-export const catchError = ({
-  FallbackComponent,
-  onError,
-}: ICatchErrorOption = {}) => BaseComponent => props => (
-  <ErrorBoundary FallbackComponent={FallbackComponent} onError={onError}>
-    <BaseComponent {...props} />
-  </ErrorBoundary>
-);
+function catchError({ FallbackComponent, onError }: ICatchErrorOption = {}) {
+  return function catchErrorInner<P>(BaseComponent: React.ComponentType<P>) {
+    return function CatchError(props: P) {
+      return (
+        <ErrorBoundary FallbackComponent={FallbackComponent} onError={onError}>
+          <BaseComponent {...props} />
+        </ErrorBoundary>
+      );
+    };
+  };
+}
 
 export default catchError;

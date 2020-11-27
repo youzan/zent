@@ -2,6 +2,7 @@ import { Component, ReactNode } from 'react';
 
 import I18nContext from './I18nContext';
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export interface II18nReceiverProps<CONF = Record<string, any>, P = {}> {
   componentName: string;
   defaultI18n?: () => {
@@ -14,7 +15,8 @@ export interface II18nReceiverProps<CONF = Record<string, any>, P = {}> {
 
 export default class I18nReceiver<
   CONF = Record<string, any>,
-  P extends {} = {}
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  P = {}
 > extends Component<II18nReceiverProps<CONF, P> & P> {
   static contextType = I18nContext;
 

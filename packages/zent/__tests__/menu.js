@@ -1,6 +1,6 @@
 import React from 'react';
 import Enzyme, { mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import Menu from 'menu';
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -85,10 +85,7 @@ describe('Menu component', () => {
 
     expect(wrapper.find('.zent-menu-item-disabled').length).toBe(2);
 
-    wrapper
-      .find('MenuItem')
-      .at(0)
-      .simulate('click');
+    wrapper.find('MenuItem').at(0).simulate('click');
     expect(onClick.mock.calls.length).toBe(0);
   });
 
@@ -152,10 +149,7 @@ describe('Menu component', () => {
         </SubMenu>
       </Menu>
     );
-    wrapper
-      .find('.abc > div')
-      .at(0)
-      .simulate('click');
+    wrapper.find('.abc > div').at(0).simulate('click');
 
     expect(subMenuClick.mock.calls[0][0]).toBe('333');
   });
@@ -177,16 +171,10 @@ describe('Menu component', () => {
         </SubMenu>
       </Menu>
     );
-    wrapper
-      .find('.submenu > div')
-      .at(0)
-      .simulate('click');
+    wrapper.find('.submenu > div').at(0).simulate('click');
     expect(onExpandCallback.mock.calls[0][0]).toEqual(['444']);
 
-    wrapper
-      .find('.submenu > div')
-      .at(0)
-      .simulate('click');
+    wrapper.find('.submenu > div').at(0).simulate('click');
     expect(onExpandCallback.mock.calls[1][0]).toEqual(['333', '444']);
   });
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 import Enzyme, { mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import Radio from 'radio';
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -24,43 +24,15 @@ describe('Radio Section', () => {
     const wrapper = mount(<Radio />);
     expect(wrapper.childAt(0).type()).toBe('label');
     expect(wrapper.childAt(0).hasClass('zent-radio-wrap')).toBe(true);
-    expect(
-      wrapper
-        .childAt(0)
-        .childAt(0)
-        .type()
-    ).toBe('span');
-    expect(
-      wrapper
-        .childAt(0)
-        .childAt(0)
-        .hasClass('zent-radio')
-    ).toBe(true);
+    expect(wrapper.childAt(0).childAt(0).type()).toBe('span');
+    expect(wrapper.childAt(0).childAt(0).hasClass('zent-radio')).toBe(true);
     expect(wrapper.childAt(0).children().length).toBe(1);
+    expect(wrapper.find('.zent-radio').childAt(0).type()).toBe('span');
     expect(
-      wrapper
-        .find('.zent-radio')
-        .childAt(0)
-        .type()
-    ).toBe('span');
-    expect(
-      wrapper
-        .find('.zent-radio')
-        .childAt(0)
-        .hasClass('zent-radio-inner')
+      wrapper.find('.zent-radio').childAt(0).hasClass('zent-radio-inner')
     ).toBe(true);
-    expect(
-      wrapper
-        .find('.zent-radio')
-        .childAt(1)
-        .type()
-    ).toBe('input');
-    expect(
-      wrapper
-        .find('.zent-radio')
-        .childAt(1)
-        .props().type
-    ).toBe('radio');
+    expect(wrapper.find('.zent-radio').childAt(1).type()).toBe('input');
+    expect(wrapper.find('.zent-radio').childAt(1).props().type).toBe('radio');
   });
 
   it('Radio can have custom className and children', () => {
@@ -71,12 +43,7 @@ describe('Radio Section', () => {
     );
     expect(wrapper.childAt(0).hasClass('zent-radio-wrap')).toBe(true);
     expect(wrapper.childAt(0).hasClass('foo')).toBe(true);
-    expect(
-      wrapper
-        .childAt(0)
-        .childAt(0)
-        .hasClass('zent-radio')
-    ).toBe(true);
+    expect(wrapper.childAt(0).childAt(0).hasClass('zent-radio')).toBe(true);
     expect(wrapper.find('.zent-radio-inner').length).toBe(1);
     expect(wrapper.find('.zent-radio-children').length).toBe(1);
   });
@@ -198,27 +165,15 @@ describe('RadioGroup Section', () => {
     );
 
     expect(
-      wrapper
-        .find(Radio)
-        .at(0)
-        .children()
-        .hasClass('zent-radio-checked')
+      wrapper.find(Radio).at(0).children().hasClass('zent-radio-checked')
     ).toBe(true);
     wrapper.setProps({ value: null });
     expect(
-      wrapper
-        .find(Radio)
-        .at(2)
-        .children()
-        .hasClass('zent-radio-checked')
+      wrapper.find(Radio).at(2).children().hasClass('zent-radio-checked')
     ).toBe(true);
     wrapper.setProps({ value: 321 });
     expect(
-      wrapper
-        .find(Radio)
-        .at(1)
-        .children()
-        .hasClass('zent-radio-checked')
+      wrapper.find(Radio).at(1).children().hasClass('zent-radio-checked')
     ).toBe(true);
   });
 
@@ -244,51 +199,25 @@ describe('RadioGroup Section', () => {
       wrapper.setProps({ value: evt.target.value });
     });
     expect(
-      wrapper
-        .find(Radio)
-        .at(0)
-        .children()
-        .hasClass('zent-radio-checked')
+      wrapper.find(Radio).at(0).children().hasClass('zent-radio-checked')
     ).toBe(true);
 
     // Radio features
-    wrapper
-      .find('input')
-      .at(3)
-      .simulate('change');
+    wrapper.find('input').at(3).simulate('change');
     expect(groupChangeMock.mock.calls.length).toBe(1);
     expect(
-      wrapper
-        .find(Radio)
-        .at(3)
-        .children()
-        .hasClass('zent-radio-checked')
+      wrapper.find(Radio).at(3).children().hasClass('zent-radio-checked')
     ).toBe(true);
     expect(
-      wrapper
-        .find(Radio)
-        .at(0)
-        .children()
-        .hasClass('zent-radio-checked')
+      wrapper.find(Radio).at(0).children().hasClass('zent-radio-checked')
     ).toBe(false);
 
-    wrapper
-      .find('input')
-      .at(1)
-      .simulate('change');
+    wrapper.find('input').at(1).simulate('change');
     expect(
-      wrapper
-        .find(Radio)
-        .at(1)
-        .children()
-        .hasClass('zent-radio-checked')
+      wrapper.find(Radio).at(1).children().hasClass('zent-radio-checked')
     ).toBe(true);
     expect(
-      wrapper
-        .find(Radio)
-        .at(3)
-        .children()
-        .hasClass('zent-radio-checked')
+      wrapper.find(Radio).at(3).children().hasClass('zent-radio-checked')
     ).toBe(false);
   });
 

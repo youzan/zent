@@ -6,6 +6,7 @@ export default function useNormalizeDisabledDate(
   format: string,
   disabledDate: IDisabledDate
 ) {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const normalizedDisabledDate = React.useCallback(
     unifiedDisabledDateFromProps(format, disabledDate),
     [disabledDate, format]

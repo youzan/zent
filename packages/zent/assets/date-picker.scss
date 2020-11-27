@@ -42,7 +42,6 @@
 }
 
 .zent-datepicker {
-  @include theme-color(background-color, stroke, 9);
   box-sizing: border-box;
   display: inline-block;
   position: relative;
@@ -84,13 +83,6 @@
     }
   }
 
-  &-disabled {
-    @include theme-color(border-color, stroke, 6);
-    @include theme-color(background-color, stroke, 8);
-    @include gray-color;
-    cursor: not-allowed;
-  }
-
   &-popup {
     z-index: 2000;
   }
@@ -98,6 +90,8 @@
   &-trigger {
     @include theme-color(border-color, stroke, 5);
     @include border-with-radius;
+    @include theme-color(background-color, stroke, 9);
+
     display: flex;
     align-items: center;
     height: 32px;
@@ -131,6 +125,13 @@
       @include theme-color(border-color, primary, 4);
       @include theme-shadow(focus);
     }
+  }
+
+  &-disabled {
+    @include theme-color(border-color, stroke, 6);
+    @include theme-color(background-color, stroke, 8);
+    @include gray-color;
+    cursor: not-allowed;
   }
 
   &-panel {

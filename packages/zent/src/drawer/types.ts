@@ -13,7 +13,7 @@ interface IDrawerContentCommonProps {
   mask: boolean;
   title: React.ReactNode;
   footer: React.ReactNode;
-  onExited: (node: HTMLElement) => void;
+  onExited: () => void;
   closeBtn: React.ReactNode;
 }
 

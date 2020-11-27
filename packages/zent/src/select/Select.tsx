@@ -106,7 +106,7 @@ function defaultRenderOptionList<Item extends ISelectItem>(
 }
 
 function isSelectable<Item extends ISelectItem>(item: Item) {
-  return !item.disabled && !item.type;
+  return !!item && !item.disabled && !item.type;
 }
 
 function findNextSelectableOption<Item extends ISelectItem>(
@@ -435,7 +435,7 @@ export class Select<
           nextIndex = 0;
         }
       } else {
-        nextIndex = state.activeIndex + delta;
+        nextIndex = (state.activeIndex + delta) % options.length;
       }
       if (nextIndex >= options.length) {
         nextIndex = options.length - 1;

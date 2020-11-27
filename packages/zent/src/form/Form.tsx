@@ -31,6 +31,7 @@ import { CombineErrors } from './CombineErrors';
 import { ValidateOccasion, TouchWhen } from './shared';
 import { Disabled } from '../disabled';
 import getScrollPosition from '../utils/dom/getScollPosition';
+import isPromise from '../utils/isPromise';
 
 export {
   IRenderError,
@@ -48,6 +49,7 @@ function makeChildrenContext(children: IFormChild[]): IZentFormChildrenContext {
   };
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export interface IFormProps<T extends {}>
   extends Omit<
     React.FormHTMLAttributes<HTMLFormElement>,
@@ -58,19 +60,28 @@ export interface IFormProps<T extends {}>
    * @defaultValue `'vertical'`
    */
   layout?: 'horizontal' | 'vertical';
+
   /**
    * `useForm`得到的`model`
    */
   form: ZentForm<T>;
+
   /**
-   * @deprecated
    * 禁用表单输入，开启后表单内所有元素不可编辑。注意：自定义组件需要自己实现禁用逻辑和展示
    */
   disabled?: boolean;
+
   /**
    * 表单校验报错时自动滚动到第一个错误的位置
    */
   scrollToError?: boolean;
+
+  /**
+   * 触发滚动到第一个错误前的回调函数
+   * 如果返回一个 `Promise`，当 `Promise` `resolve` 时才会继续执行滚动，`reject` 将终止滚动操作
+   */
+  willScrollToError?: (form: ZentForm<T>) => void | Promise<void>;
+
   /**
    * 表单提交回调函数，`form.submit` 或者原生的 `DOM` 触发的 `submit` 事件都会触发 `onSubmit`
    */
@@ -78,24 +89,29 @@ export interface IFormProps<T extends {}>
     form: ZentForm<T>,
     e?: React.SyntheticEvent
   ) => void | Promise<unknown>;
+
   /**
    * 表单提交失败时的回调函数
    */
   onSubmitFail?: (e: unknown) => void;
+
   /**
    * 表单提交成功时的回调函数
    */
   onSubmitSuccess?: () => void;
+
   /**
    * 表单重置回调函数，`form.reset` 或者原生的 `DOM` 触发的 `reset` 事件都会触发 `onReset`
    */
   onReset?: (e?: React.FormEvent<HTMLFormElement>) => void;
+
   /**
    * 禁用表单内 `input` 元素的回车提交功能
    */
   disableEnterSubmit?: boolean;
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export class Form<T extends {}> extends React.Component<IFormProps<T>> {
   static displayName = 'ZentForm';
 
@@ -195,6 +211,23 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
   }
 
   scrollToFirstError() {
+    const { willScrollToError, form } = this.props;
+    if (typeof willScrollToError !== 'function') {
+      this._scrollToFirstError();
+    } else {
+      const p = willScrollToError(form);
+      if (!isPromise<void>(p)) {
+        this._scrollToFirstError();
+      } else {
+        // Do not scroll if promise rejects
+        p.then(() => {
+          this._scrollToFirstError();
+        }).catch(() => {});
+      }
+    }
+  }
+
+  private _scrollToFirstError() {
     let scrollX = Infinity;
     let scrollY = Infinity;
     for (let i = 0; i < this.children.length; i += 1) {

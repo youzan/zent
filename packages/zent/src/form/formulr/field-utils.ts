@@ -83,6 +83,8 @@ export function useMulti<T, R>(...funcs: any[]): (t: T) => void {
   } else {
     deps = funcs;
   }
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   return useCallback(multi(...funcs), deps);
 }
 
