@@ -58,7 +58,7 @@ describe('MediaQuery', () => {
     };
     const eqOrig = QueryHandler.prototype.equals;
     const destroyOrig = QueryHandler.prototype.destroy;
-    let equals = jest.fn(function(...args) {
+    let equals = jest.fn(function (...args) {
       return eqOrig.call(this, ...args);
     });
     let destroy = jest.fn();
