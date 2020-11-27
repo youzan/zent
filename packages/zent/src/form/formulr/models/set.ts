@@ -27,9 +27,9 @@ class FieldSetModel<
   /** @internal */
   patchedValue: Partial<$FieldSetValue<Children>> | null = null;
 
-  childRegister$ = new Subject<string>();
+  readonly childRegister$ = new Subject<string>();
 
-  childRemove$ = new Subject<string>();
+  readonly childRemove$ = new Subject<string>();
 
   readonly children: Children = {} as Children;
 
@@ -161,9 +161,6 @@ class FieldSetModel<
     model.owner = null;
     this._unsubscribeChild(model);
     delete this.children[name];
-    this._value$?.next(
-      omit(this.value$.value, [name]) as $FieldSetValue<Children>
-    );
     this.childRemove$.next(name);
     return model;
   }
@@ -295,10 +292,23 @@ class FieldSetModel<
       false,
       'Subscribing value of form or field set might cause performance problems, do it with caution'
     );
-    this._value$ = new BehaviorSubject({} as $FieldSetValue<Children>);
+    const value$ = new BehaviorSubject({} as $FieldSetValue<Children>);
+    this._value$ = value$;
     for (const [name, model] of Object.entries(this.children)) {
       this._subscribeChild(name, model);
     }
+
+    const { childRegister$, childRemove$ } = this;
+
+    childRegister$.subscribe(name => {
+      value$.next({
+        ...value$.value,
+        [name]: this.children[name].getRawValue(),
+      });
+    });
+    childRemove$.subscribe(name => {
+      value$.next(omit(value$.value, [name]) as $FieldSetValue<Children>);
+    });
   }
 
   private _initValid$() {
