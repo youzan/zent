@@ -317,7 +317,7 @@ class FieldArrayModel<
       false,
       'Subscribing valid of field array might cause performance problems, do it with caution'
     );
-    const valid$ = new BehaviorSubject(true);
+    const valid$ = new BehaviorSubject(isNil(this.error));
     this._valid$ = valid$;
 
     const $ = this.error$.subscribe(maybeError => {
