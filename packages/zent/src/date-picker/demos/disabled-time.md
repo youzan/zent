@@ -14,7 +14,10 @@ import {
 	CombinedTimeRangePicker,
 	CombinedDateRangePicker,
 } from 'zent';
-
+import { isSameDay } from 'date-fns';
+const initArray = targetNum => {
+	return Array.from({ length: targetNum }, (_, index) => index);
+};
 class Demo extends Component {
 	state = {};
 
@@ -53,13 +56,24 @@ class Demo extends Component {
 		disabledHours: () => [2],
 	});
 
-	disabledTimes2 = date => ({
-		disabledHours: () => {
-			return date && date.getDate() === 15 ? [3, 4, 5] : [2];
-		},
-		disabledMinutes: hour => (hour === 12 ? [10, 20, 30, 40, 50] : []),
-		disabledSeconds: () => [1, 2, 3, 4],
-	});
+	disabledTimes2 = date => {
+		const current = new Date();
+		const hour = current.getHours();
+		const minute = current.getMinutes();
+		const second = current.getSeconds();
+		const isSame = isSameDay(date, current);
+		return isSame
+			? {
+					disabledHours: () => initArray(hour, 24),
+					disabledMinutes: hourValue =>
+						hourValue === hour ? initArray(minute, 59) : [],
+					disabledSeconds: (hourValue, minuteValue) =>
+						hourValue === hour && minuteValue === minute
+							? initArray(second, 59)
+							: [],
+			  }
+			: {};
+	};
 
 	disabledTimes3 = (date, type) => {
 		return type === 'start'
@@ -72,11 +86,7 @@ class Demo extends Component {
 	};
 
 	disabledTimes4 = (date, type) => {
-		return {
-			disabledHours: () => [3, 4, 5],
-			disabledMinutes: () => [],
-			disabledSeconds: () => [],
-		};
+		return type === 'start' ? this.disabledTimes2(date) : {};
 	};
 
 	render() {
@@ -101,6 +111,7 @@ class Demo extends Component {
 					showTime
 					format="YYYY-MM-DD HH:mm:ss"
 					value={dateValue}
+					disabledDate={{ min: new Date() }}
 					onChange={this.onChangeDate}
 					disabledTime={this.disabledTimes2}
 				/>
@@ -126,6 +137,7 @@ class Demo extends Component {
 					value={combinedValue}
 					onChange={this.onChangeCombinedDate}
 					showTime
+					disabledDate={{ min: new Date() }}
 					format="YYYY-MM-DD HH:mm:ss"
 					disabledTime={this.disabledTimes4}
 				/>
