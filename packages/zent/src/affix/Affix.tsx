@@ -4,7 +4,7 @@ import cx from 'classnames';
 import { Waypoint, IWaypointCallbackData, WaypointPosition } from '../waypoint';
 import { useCallbackRef } from '../utils/hooks/useCallbackRef';
 import isBrowser from '../utils/isBrowser';
-
+import useSingleResizeObserver from '../utils/hooks/use-resize-observer';
 export interface IAffixProps {
   offsetTop?: number;
   offsetBottom?: number;
@@ -34,23 +34,36 @@ export const Affix: React.FC<IAffixProps> = ({
   const useTop = typeof offsetTop === 'number';
   const useBottom = typeof offsetBottom === 'number';
 
+  const setRect = React.useCallback(
+    ({ contentRect: { width, height } }: ResizeObserverEntry) => {
+      setWidth(width);
+      setHeight(height);
+    },
+    []
+  );
+
+  const { observe, unObserve, observerInstance } = useSingleResizeObserver(
+    setRect
+  );
+
   const pin = React.useCallback(
     (expectedPosition: WaypointPosition) => ({
       currentPosition,
     }: IWaypointCallbackData) => {
+      const node = placeholderRef.current?.current;
       if (currentPosition !== expectedPosition) {
         return;
       }
-
-      const node = placeholderRef.current?.current;
       if (node) {
         setWidth(node.offsetWidth);
         setHeight(node.offsetHeight);
       }
       setPosition(currentPosition);
+      observe(node);
+      observerInstance?.observe(node);
       onPinCallbackRef.current?.();
     },
-    [onPinCallbackRef]
+    [onPinCallbackRef, observe, observerInstance]
   );
 
   const unpin = React.useCallback(
@@ -61,13 +74,13 @@ export const Affix: React.FC<IAffixProps> = ({
       if (previousPosition !== expectedPrevPosition) {
         return;
       }
-
       setWidth(undefined);
       setHeight(undefined);
       setPosition(currentPosition);
+      unObserve();
       onUnpinCallbackRef.current?.();
     },
-    [onUnpinCallbackRef]
+    [onUnpinCallbackRef, unObserve]
   );
 
   const [pinTop, unpinTop] = React.useMemo(
@@ -85,10 +98,9 @@ export const Affix: React.FC<IAffixProps> = ({
     }
 
     return {
-      width,
       height,
     };
-  }, [width, height, position]);
+  }, [height, position]);
 
   const containerStyle = React.useMemo<React.CSSProperties>(() => {
     if (
