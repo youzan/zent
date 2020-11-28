@@ -1480,6 +1480,11 @@
     "@types/prop-types" "*"
     csstype "^2.2.0"
 
+"@types/resize-observer-browser@^0.1.4":
+  version "0.1.4"
+  resolved "http://registry.npm.qima-inc.com/@types/resize-observer-browser/download/@types/resize-observer-browser-0.1.4.tgz#84879a4d6d4aaefde53d4b29c91c0c4cbcffc26f"
+  integrity sha1-hIeaTW1Krv3lPUspyRwMTLz/wm8=
+
 "@types/sortablejs@~1.10.6":
   version "1.10.6"
   resolved "https://registry.yarnpkg.com/@types/sortablejs/-/sortablejs-1.10.6.tgz#98725ae08f1dfe28b8da0fdf302c417f5ff043c0"

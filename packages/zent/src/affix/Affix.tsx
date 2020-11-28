@@ -4,6 +4,7 @@ import cx from 'classnames';
 import { Waypoint, IWaypointCallbackData, WaypointPosition } from '../waypoint';
 import { useCallbackRef } from '../utils/hooks/useCallbackRef';
 import isBrowser from '../utils/isBrowser';
+import { useSingleResizeObserver } from '../utils/hooks/use-resize-observer';
 
 export interface IAffixProps {
   offsetTop?: number;
@@ -34,6 +35,16 @@ export const Affix: React.FC<IAffixProps> = ({
   const useTop = typeof offsetTop === 'number';
   const useBottom = typeof offsetBottom === 'number';
 
+  const setRect = React.useCallback(
+    ({ contentRect: { width, height } }: ResizeObserverEntry) => {
+      setWidth(width);
+      setHeight(height);
+    },
+    []
+  );
+
+  const { observe, unObserve } = useSingleResizeObserver(setRect);
+
   const pin = React.useCallback(
     (expectedPosition: WaypointPosition) => ({
       currentPosition,
@@ -47,10 +58,11 @@ export const Affix: React.FC<IAffixProps> = ({
         setWidth(node.offsetWidth);
         setHeight(node.offsetHeight);
       }
+      observe(node);
       setPosition(currentPosition);
       onPinCallbackRef.current?.();
     },
-    [onPinCallbackRef]
+    [onPinCallbackRef, observe]
   );
 
   const unpin = React.useCallback(
@@ -64,10 +76,11 @@ export const Affix: React.FC<IAffixProps> = ({
 
       setWidth(undefined);
       setHeight(undefined);
+      unObserve();
       setPosition(currentPosition);
       onUnpinCallbackRef.current?.();
     },
-    [onUnpinCallbackRef]
+    [onUnpinCallbackRef, unObserve]
   );
 
   const [pinTop, unpinTop] = React.useMemo(
@@ -85,10 +98,9 @@ export const Affix: React.FC<IAffixProps> = ({
     }
 
     return {
-      width,
       height,
     };
-  }, [width, height, position]);
+  }, [height, position]);
 
   const containerStyle = React.useMemo<React.CSSProperties>(() => {
     if (
