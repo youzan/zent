@@ -426,7 +426,11 @@ export class Select<
     if (this.disabled) {
       return;
     }
-    this.setState((state, { options }) => {
+    this.setState((state, { options: _options }) => {
+      const options = state.keyword
+        ? _options.filter(it => defaultFilter(state.keyword, it))
+        : _options;
+
       let nextIndex: number;
       if (state.activeIndex === null) {
         if (delta < 0) {
