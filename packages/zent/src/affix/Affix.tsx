@@ -4,7 +4,7 @@ import cx from 'classnames';
 import { Waypoint, IWaypointCallbackData, WaypointPosition } from '../waypoint';
 import { useCallbackRef } from '../utils/hooks/useCallbackRef';
 import isBrowser from '../utils/isBrowser';
-import useSingleResizeObserver from '../utils/hooks/use-resize-observer';
+import { useSingleResizeObserver } from '../utils/hooks/use-resize-observer';
 export interface IAffixProps {
   offsetTop?: number;
   offsetBottom?: number;
@@ -42,9 +42,7 @@ export const Affix: React.FC<IAffixProps> = ({
     []
   );
 
-  const { observe, unObserve, observerInstance } = useSingleResizeObserver(
-    setRect
-  );
+  const { observe, unObserve } = useSingleResizeObserver(setRect);
 
   const pin = React.useCallback(
     (expectedPosition: WaypointPosition) => ({
@@ -60,10 +58,9 @@ export const Affix: React.FC<IAffixProps> = ({
       }
       setPosition(currentPosition);
       observe(node);
-      observerInstance?.observe(node);
       onPinCallbackRef.current?.();
     },
-    [onPinCallbackRef, observe, observerInstance]
+    [onPinCallbackRef, observe]
   );
 
   const unpin = React.useCallback(

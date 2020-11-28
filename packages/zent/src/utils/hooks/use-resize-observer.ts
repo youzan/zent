@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { runOnceInNextFrame } from '../nextFrame';
 
 const ResizeObserver = window.ResizeObserver;
@@ -7,36 +7,41 @@ interface IUseResizeObserverCallback {
   (entry: ResizeObserverEntry): void;
 }
 
-const useSingleResizeObserver = (callback: IUseResizeObserverCallback) => {
-  const observerInstanceRef = useRef<ResizeObserver>(
-    ResizeObserver &&
+export const useSingleResizeObserver = (
+  callback: IUseResizeObserverCallback
+) => {
+  const getObserverInstance = useCallback(
+    () =>
+      ResizeObserver &&
       new ResizeObserver(
         runOnceInNextFrame(entries => {
           callback(entries[0]);
         })
-      )
+      ),
+    [callback]
   );
+  const observerInstanceRef = useRef<ResizeObserver>(getObserverInstance());
 
-  const observerInstance = observerInstanceRef.current;
+  useEffect(() => {
+    observerInstanceRef.current = getObserverInstance();
+  }, [getObserverInstance]);
 
   const observe = useCallback(
     (target: HTMLElement) => {
-      if (observerInstance && target) {
-        observerInstance.observe(target);
+      if (target) {
+        observerInstanceRef?.current.observe(target);
       }
     },
-    [observerInstance]
+    [observerInstanceRef]
   );
 
   const unObserve = useCallback(() => {
-    observerInstance?.disconnect();
-  }, [observerInstance]);
+    observerInstanceRef?.current.disconnect();
+  }, [observerInstanceRef]);
 
   return {
-    observerInstance,
+    observerInstance: observerInstanceRef.current,
     observe,
     unObserve,
   };
 };
-
-export default useSingleResizeObserver;
