@@ -1,5 +1,17 @@
 # 9.0.0 迁移指南
 
+## 9.0.0-beta17 (2020-11-27)
+
+- ✨ `Tabs` 增加 `disableLazyMount` 参数，但不推荐使用
+- 🦀️ `Breadcrumb.Item` `name` 改为可选
+- 🦀️ 修复嵌套 `Loading` 组件的样式问题
+- 🦀️ 修复 `Popover` 一个可能的在 `unmount` 之后还更新状态的问题
+- 🦀️ 修复 `DatePicker` `disabled` 属性不生效的问题
+- 🦀️ 修复 `FormSelectField` 默认值不生效的问题
+- 🦀️ 修复 `FormDatePickerField` 默认值不生效的问题
+- 🦀️ 移除 `Form` 校验上下文中 `getFormValue` 的范型约束
+- 🦀️ 修复 `useFieldValue` 中一个未正确清理订阅的问题
+
 ## 9.0.0-beta16 (2020-11-24)
 
 - ✨ `Form` 增加 `willScrollToError` 回调，用于需要在滚动到错误前需要做一些额外操作的场景

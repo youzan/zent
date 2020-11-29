@@ -43,7 +43,7 @@ Dialog is used for opening a floating layer.
 
 A `ref` function passed to `openDialog` can provide a reference to the instance, **`ref` in string format is non-supported.**
 
-> The return value of `openDialog` is a function which can close the dialog manually, and close the dialog with this function won't trigger `onClose`. **It is recommended to use `closeDialog`.**
+> The return value of `openDialog` is a function which can close the dialog manually, and close the dialog with this function won't trigger `onClose`.
 
 
 #### closeDialog
