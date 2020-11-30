@@ -182,6 +182,9 @@ export class Select<
   static defaultProps = {
     isEqual: defaultIsEqual,
     renderOptionList: defaultRenderOptionList,
+    filter: defaultFilter,
+    isValidNewOption: defaultIsValidNewOption,
+    highlight: defaultHighlight,
     width: 240,
     multiple: false,
     clearable: false,
@@ -353,7 +356,7 @@ export class Select<
       isEqual,
       multiple,
       renderOptionContent,
-      highlight = defaultHighlight,
+      highlight,
       filter,
     } = this.props;
     const { value, activeIndex, creating } = this.state;
@@ -427,9 +430,15 @@ export class Select<
       return;
     }
     this.setState((state, { options: _options }) => {
-      const options = state.keyword
-        ? _options.filter(it => defaultFilter(state.keyword, it))
-        : _options;
+      const { creatable, filter, isValidNewOption } = this.props;
+
+      const options = this.filterOptions(
+        creatable,
+        _options,
+        filter,
+        state.keyword,
+        isValidNewOption
+      );
 
       let nextIndex: number;
       if (state.activeIndex === null) {
@@ -685,8 +694,8 @@ export class Select<
       loading,
       creatable,
       options,
-      filter = defaultFilter,
-      isValidNewOption = defaultIsValidNewOption,
+      filter,
+      isValidNewOption,
     } = this.props;
     const keyword = this.state.keyword.trim();
 
