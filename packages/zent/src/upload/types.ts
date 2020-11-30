@@ -29,10 +29,10 @@ export type IUploadFileItemInner<
 };
 
 // onChange types
-export type IUploadOnChangeHandler<UPLOAD_ITEM extends IUploadFileItem> = (
-  list: Array<IUploadFileItemInner<UPLOAD_ITEM>>,
-  detail?: IUploadChangeDetail<UPLOAD_ITEM>
-) => void;
+export type IUploadOnChangeHandler<
+  Value,
+  UPLOAD_ITEM extends IUploadFileItem
+> = (value: Value, detail?: IUploadChangeDetail<UPLOAD_ITEM>) => void;
 
 export interface IUploadChangeDetail<UPLOAD_ITEM extends IUploadFileItem> {
   item: IUploadFileItemInner<UPLOAD_ITEM>;
@@ -125,7 +125,10 @@ export interface IAbstractMultiUploadProps<
   /** 用于设置已上传的文件列表 */
   defaultFileList?: UPLOAD_ITEM[];
   /** 文件上传组件内容发生变化时的回调函数 */
-  onChange: IUploadOnChangeHandler<UPLOAD_ITEM>;
+  onChange: IUploadOnChangeHandler<
+    Array<IUploadFileItemInner<UPLOAD_ITEM>>,
+    UPLOAD_ITEM
+  >;
   /** 是否支持文件多选 */
   multiple?: boolean;
   /** 文件数量限制，Infinity 为无限制 */
@@ -160,6 +163,14 @@ export interface IImageUploadProps
   preview?: IImageUploadPreviewHandler;
   /** 将图片文件转化为展示用的缩略图 src */
   getThumbSrcFromFile: (file: File) => string | Promise<string>;
+}
+
+export interface ISingleUploadProps
+  extends IAbstractUploadProps<IUploadFileItem, void, ISinglelUploadItemProps> {
+  /** 提示文案 */
+  tips?: React.ReactNode | IUploadTipsFunc<ISingleUploadProps>;
+  onChange: IUploadOnChangeHandler<IUploadFileItem | null, IUploadFileItem>;
+  value?: IUploadFileItem | null;
 }
 
 export interface IAbstractUploadTriggerProps<
@@ -222,6 +233,7 @@ export interface IUploadItemProps<UPLOAD_ITEM extends IUploadFileItem> {
 }
 
 export type INormalUploadItemProps = IUploadItemProps<IUploadFileItem>;
+export type ISinglelUploadItemProps = IUploadItemProps<IUploadFileItem>;
 
 export type IImageUploadItemProps = IUploadItemProps<IImageUploadFileItem> & {
   onPreview: (file: IImageUploadFileItem) => void;

@@ -31,7 +31,7 @@ const SingleUploadItem: React.FC<INormalUploadItemProps> = props => {
             className="zent-single-upload-item-loading"
             loading
             icon="circle"
-            iconSize={16}
+            iconSize={14}
           />
         )}
         <div className="zent-single-upload-item-name">{item.name}</div>

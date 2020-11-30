@@ -3,13 +3,12 @@ import cn from 'classnames';
 import { I18nReceiver, II18nLocaleUpload } from '../i18n';
 import AbstractUpload from './components/AbstractUpload';
 import {
-  IAbstractUploadProps,
-  INormalUploadItemProps,
+  ISinglelUploadItemProps,
+  ISingleUploadProps,
   IUploadChangeDetail,
   IUploadFileItem,
   IUploadFileItemInner,
   IUploadTipConfig,
-  IUploadTipsFunc,
 } from './types';
 import { formatFileSize } from './utils/format-file-size';
 import { getTipsContent } from './utils/get-tips-content';
@@ -19,17 +18,6 @@ import { FILE_UPLOAD_STATUS } from './constants';
 import { wrapPromise } from './utils/wrap-promise';
 import SingleUploadTrigger from './components/single/Trigger';
 import SingleUploadItem from './components/single/Item';
-
-interface ISingleUploadProps
-  extends IAbstractUploadProps<IUploadFileItem, void, INormalUploadItemProps> {
-  /** 提示文案 */
-  tips?: React.ReactNode | IUploadTipsFunc<ISingleUploadProps>;
-  onChange: (
-    item: IUploadFileItem | null,
-    detail?: IUploadChangeDetail<IUploadFileItem>
-  ) => void;
-  value?: IUploadFileItem | null;
-}
 
 interface ISingleUploadState {
   value: IUploadFileItemInner<IUploadFileItem> | null;
@@ -43,7 +31,7 @@ type ISingleUploadPropsInner = PartialRequired<
 export class SingleUpload extends AbstractUpload<
   IUploadFileItem,
   void,
-  INormalUploadItemProps,
+  ISinglelUploadItemProps,
   ISingleUploadProps,
   ISingleUploadState
 > {
@@ -203,8 +191,11 @@ export class SingleUpload extends AbstractUpload<
   }
 
   renderItem(i18n: II18nLocaleUpload): React.ReactNode {
+    const { customUploadItem } = this.props;
+
+    const UploadItem = customUploadItem || SingleUploadItem;
     return (
-      <SingleUploadItem
+      <UploadItem
         item={this.value}
         i18n={i18n}
         onDelete={this.deleteUploadItem}

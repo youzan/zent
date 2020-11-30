@@ -2,10 +2,12 @@
 order: 7
 zh-CN:
   title: 手动上传
-  tips: '建议尺寸 640*640，最多 9 张，单张图片不超过 5M'
+	tips: '建议尺寸 640*640，最多 9 张，单张图片不超过 5M'
+	start: 开始上传
 en-US:
   title: Manual Upload
 	tips: 'Recommended image size 640*640, up to 9, single file no more than 5M'
+  start: Start Upload
 ---
 
 ```jsx
@@ -115,7 +117,7 @@ class Simple extends React.Component {
 					className="zent-image-upload-skip-demo-btn"
 					onClick={this.startUpload}
 				>
-					开始上传
+					{i18n.start}
 				</Button>
 			</>
 		);
