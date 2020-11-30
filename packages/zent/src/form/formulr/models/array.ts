@@ -218,8 +218,8 @@ class FieldArrayModel<
       deleteCount,
       ...insertedChildren
     );
-    this.children$.next(children);
     removedChildren.forEach(this._disposeChild);
+    this.children$.next(children);
     return removedChildren;
   }
 

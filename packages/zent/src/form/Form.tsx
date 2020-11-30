@@ -27,7 +27,7 @@ import {
   IFormChild,
   IZentFormChildrenContext,
 } from './context';
-import { ZentForm, useForm, useFormValue } from './ZentForm';
+import { ZentForm, useForm, useFormValue, useFormValid } from './ZentForm';
 import { smoothScroll } from '../utils/scroll';
 import { CombineErrors } from './CombineErrors';
 import { ValidateOccasion, TouchWhen } from './shared';
@@ -132,6 +132,7 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
   static useFieldArrayValue = useFieldArrayValue;
   static useFieldValue = useFieldValue;
   static FieldValid = FieldValid;
+  static useFormValid = useFormValid;
   static useFieldValid = useFieldValid;
   static ValidateOption = ValidateOption;
   static createAsyncValidator = createAsyncValidator;

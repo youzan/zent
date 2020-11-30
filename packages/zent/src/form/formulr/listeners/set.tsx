@@ -1,7 +1,7 @@
 import * as React from 'react';
 import FormContext, { IFormContext, useFormContext } from '../context';
 import { FieldSetModel, isFieldSetModel } from '../models';
-import { useModelFromContext } from './utils';
+import { useModelFromContext } from './use-model';
 
 export interface IFieldSetValueProps {
   name?: string;
