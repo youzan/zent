@@ -182,6 +182,9 @@ export class Select<
   static defaultProps = {
     isEqual: defaultIsEqual,
     renderOptionList: defaultRenderOptionList,
+    filter: defaultFilter,
+    isValidNewOption: defaultIsValidNewOption,
+    highlight: defaultHighlight,
     width: 240,
     multiple: false,
     clearable: false,
@@ -241,7 +244,7 @@ export class Select<
   };
 
   onSelect = (item: Item) => {
-    if (item.disabled || item.type || this.disabled) {
+    if (!item || item.disabled || item.type || this.disabled) {
       return;
     }
     if (item.key === SELECT_CREATABLE_KEY) {
@@ -341,8 +344,21 @@ export class Select<
     if (this.disabled) {
       return;
     }
-    const { activeIndex } = this.state;
-    const { options } = this.props;
+    const { activeIndex, keyword } = this.state;
+    const {
+      creatable,
+      options: _options,
+      filter,
+      isValidNewOption,
+    } = this.props;
+
+    const options = this.filterOptions(
+      creatable,
+      _options,
+      filter,
+      keyword,
+      isValidNewOption
+    );
     if (activeIndex !== null) {
       this.onSelect(options[activeIndex]);
     }
@@ -353,7 +369,7 @@ export class Select<
       isEqual,
       multiple,
       renderOptionContent,
-      highlight = defaultHighlight,
+      highlight,
       filter,
     } = this.props;
     const { value, activeIndex, creating } = this.state;
@@ -426,42 +442,52 @@ export class Select<
     if (this.disabled) {
       return;
     }
-    this.setState((state, { options }) => {
-      let nextIndex: number;
-      if (state.activeIndex === null) {
-        if (delta < 0) {
-          nextIndex = options.length - 1;
+    this.setState(
+      (state, { options: _options, creatable, filter, isValidNewOption }) => {
+        const options = this.filterOptions(
+          creatable,
+          _options,
+          filter,
+          state.keyword,
+          isValidNewOption
+        );
+
+        let nextIndex: number;
+        if (state.activeIndex === null) {
+          if (delta < 0) {
+            nextIndex = options.length - 1;
+          } else {
+            nextIndex = 0;
+          }
         } else {
+          nextIndex = (state.activeIndex + delta) % options.length;
+        }
+        if (nextIndex >= options.length) {
+          nextIndex = options.length - 1;
+        }
+        if (nextIndex < 0) {
           nextIndex = 0;
         }
-      } else {
-        nextIndex = (state.activeIndex + delta) % options.length;
-      }
-      if (nextIndex >= options.length) {
-        nextIndex = options.length - 1;
-      }
-      if (nextIndex < 0) {
-        nextIndex = 0;
-      }
-      if (!isSelectable(options[nextIndex])) {
-        let enabled: number | null;
-        if (delta > 0) {
-          enabled = findNextSelectableOption(options, nextIndex);
-        } else {
-          enabled = findPrevSelectableOption(options, nextIndex);
+        if (!isSelectable(options[nextIndex])) {
+          let enabled: number | null;
+          if (delta > 0) {
+            enabled = findNextSelectableOption(options, nextIndex);
+          } else {
+            enabled = findPrevSelectableOption(options, nextIndex);
+          }
+          if (!enabled) {
+            return null;
+          }
+          nextIndex = enabled;
         }
-        if (!enabled) {
+        if (state.activeIndex === nextIndex) {
           return null;
         }
-        nextIndex = enabled;
+        return {
+          activeIndex: nextIndex,
+        };
       }
-      if (state.activeIndex === nextIndex) {
-        return null;
-      }
-      return {
-        activeIndex: nextIndex,
-      };
-    });
+    );
   };
 
   static getDerivedStateFromProps<Item extends ISelectItem = ISelectItem>(
@@ -681,8 +707,8 @@ export class Select<
       loading,
       creatable,
       options,
-      filter = defaultFilter,
-      isValidNewOption = defaultIsValidNewOption,
+      filter,
+      isValidNewOption,
     } = this.props;
     const keyword = this.state.keyword.trim();
 
