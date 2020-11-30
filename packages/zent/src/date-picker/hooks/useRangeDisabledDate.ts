@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { isAfter, isBefore } from 'date-fns';
+import { endOfDay, isAfter, isBefore, startOfDay } from 'date-fns';
 import {
   IGenerateDateConfig,
   RangeType,
@@ -40,7 +40,8 @@ export default function useRangeDisabledDate(
   );
 
   const disabledStartDate = React.useCallback(
-    (date: Date) => {
+    (value: Date) => {
+      const date = endOfDay(value);
       const [start, end] = selected;
       const { isSame, offsetDate } = generateDate;
       if (disabledDateRef.current?.(date, START)) {
@@ -72,7 +73,8 @@ export default function useRangeDisabledDate(
   );
 
   const disabledEndDate = React.useCallback(
-    (date: Date) => {
+    (value: Date) => {
+      const date = startOfDay(value);
       const { circleEndDate, isSame, offsetDate } = generateDate;
       const [start] = selected;
       if (disabledDateRef.current?.(date, END)) {

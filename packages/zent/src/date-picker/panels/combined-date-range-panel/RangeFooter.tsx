@@ -29,7 +29,7 @@ export const CombinedDateRangeFooter: React.FC<ICombinedDateRangeFooterProps> = 
   onSelected,
   format,
 }) => {
-  const { i18n } = React.useContext(PickerContext);
+  const { i18n, autoComplete } = React.useContext(PickerContext);
   const [start, end] = selected;
 
   const startTimeStatus = useConfirmStatus({
@@ -96,6 +96,7 @@ export const CombinedDateRangeFooter: React.FC<ICombinedDateRangeFooterProps> = 
         onChange={onStartTimeChange}
         selectedDate={start}
         disabledTime={disabledStartTimes}
+        autoComplete={autoComplete}
       />
       <div className={`${prefixCls}-seperator`}>{i18n.to}</div>
       <div className={cx(`${prefixCls}-item`, { [`${prefixCls}-null`]: !end })}>
@@ -111,6 +112,7 @@ export const CombinedDateRangeFooter: React.FC<ICombinedDateRangeFooterProps> = 
         onChange={onEndTimeChange}
         selectedDate={end}
         disabledTime={disabledEndTimes}
+        autoComplete={autoComplete}
       />
       {disabledStatus ? (
         <Pop

@@ -19,6 +19,7 @@ export interface IPickerContextProps {
   getInputText?: (val: Date | null) => string | StringTuple;
 
   // range picker
+  autoComplete?: boolean;
   getCallbackRangeValue?: (val: DateNullTuple) => RangeDate | null;
   getInputRangeText?: (val: DateNullTuple) => StringTuple;
 }
