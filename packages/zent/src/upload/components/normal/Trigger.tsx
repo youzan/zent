@@ -13,7 +13,7 @@ export default class NormalUploadTrigger extends AbstractTrigger<IUploadFileItem
     }
     return (
       <span className="zent-file-upload-trigger-text-count">
-        {fileList.length}/{maxAmount}
+        {fileList?.length || 0}/{maxAmount}
       </span>
     );
   }
@@ -34,7 +34,8 @@ export default class NormalUploadTrigger extends AbstractTrigger<IUploadFileItem
       >
         <Icon type="upload" className="zent-file-upload-trigger-icon" />
         <span className="zent-file-upload-trigger-text">
-          {i18n.normal.add} {this.renderFileItemCount()}
+          {i18n.add}
+          {this.renderFileItemCount()}
         </span>
         {this.renderFileInput()}
       </div>

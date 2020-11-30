@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import * as React from 'react';
 
-import AbstractUpload from './components/AbstractUpload';
+import AbstractMultiUpload from './components/AbstractMultiUpload';
 import ImageUploadList from './components/image/List';
 import ImageUploadTrigger from './components/image/Trigger';
 import {
@@ -41,7 +41,7 @@ type IImageUploadPropsInner = PartialRequired<
   | 'manualUpload'
 >;
 
-export class ImageUpload extends AbstractUpload<
+export class ImageUpload extends AbstractMultiUpload<
   IImageUploadFileItem,
   IImageOnUploadSuccessReturn,
   IImageUploadItemProps,

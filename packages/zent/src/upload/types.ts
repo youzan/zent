@@ -84,7 +84,7 @@ export type IImageUploadPreviewHandler = (
   fileList: IImageUploadFileItem[]
 ) => void;
 
-// react props
+/** 基础上传组件 props */
 export interface IAbstractUploadProps<
   UPLOAD_ITEM extends IUploadFileItem,
   ON_UPLOAD_SUCCESS_RETURN,
@@ -92,38 +92,54 @@ export interface IAbstractUploadProps<
 > {
   /** 自定义 className */
   className?: string;
-  /** 上传组件文件列表 */
-  fileList?: UPLOAD_ITEM[];
-  /** 用于设置已上传的文件列表 */
-  defaultFileList?: UPLOAD_ITEM[];
-  /** 文件上传组件内容发生变化时的回调函数 */
-  onChange: IUploadOnChangeHandler<UPLOAD_ITEM>;
   /** 文件上传前的处理函数，若返回 false 或 Promie.reject，则不上传该文件 */
   beforeUpload?: (file: File) => boolean | Promise<void>;
   /** 文件上传回调 */
   onUpload?: IUploadOnUploadHandler<ON_UPLOAD_SUCCESS_RETURN>;
   /** 发生内部错误时的统一回调函数，错误类型见 IUploadErrorMessageConfigMap */
   onError?: IUploadOnErrorHandler;
-  /** 是否支持文件多选 */
-  multiple?: boolean;
-  /** 文件数量限制，Infinity 为无限制 */
-  maxAmount?: number;
   /** 文件大小限制，Infinity 为无限制 */
   maxSize?: number;
   /** 可选文件类型 */
   accept?: string;
   /** 是否禁用 */
   disabled?: boolean;
-  /** 是否可排序 */
-  sortable?: boolean;
   /** 是否手动触发文件上传流程 */
   manualUpload?: boolean;
   /** 自定义的上传项展示组件 */
   customUploadItem?: React.ComponentType<UPLOAD_ITEM_COMP_PROPS>;
 }
 
+/** 复数上传组件 props */
+export interface IAbstractMultiUploadProps<
+  UPLOAD_ITEM extends IUploadFileItem,
+  ON_UPLOAD_SUCCESS_RETURN,
+  UPLOAD_ITEM_COMP_PROPS extends IUploadItemProps<UPLOAD_ITEM>
+> extends IAbstractUploadProps<
+    UPLOAD_ITEM,
+    ON_UPLOAD_SUCCESS_RETURN,
+    UPLOAD_ITEM_COMP_PROPS
+  > {
+  /** 上传组件文件列表 */
+  fileList?: UPLOAD_ITEM[];
+  /** 用于设置已上传的文件列表 */
+  defaultFileList?: UPLOAD_ITEM[];
+  /** 文件上传组件内容发生变化时的回调函数 */
+  onChange: IUploadOnChangeHandler<UPLOAD_ITEM>;
+  /** 是否支持文件多选 */
+  multiple?: boolean;
+  /** 文件数量限制，Infinity 为无限制 */
+  maxAmount?: number;
+  /** 是否可排序 */
+  sortable?: boolean;
+}
+
 export interface IUploadProps
-  extends IAbstractUploadProps<IUploadFileItem, void, INormalUploadItemProps> {
+  extends IAbstractMultiUploadProps<
+    IUploadFileItem,
+    void,
+    INormalUploadItemProps
+  > {
   /** 提示文案 */
   tips?: React.ReactNode | IUploadTipsFunc<IUploadProps>;
   /** 是否展示分页信息 */
@@ -133,7 +149,7 @@ export interface IUploadProps
 }
 
 export interface IImageUploadProps
-  extends IAbstractUploadProps<
+  extends IAbstractMultiUploadProps<
     IImageUploadFileItem,
     IImageOnUploadSuccessReturn,
     IImageUploadItemProps
@@ -150,10 +166,10 @@ export interface IAbstractUploadTriggerProps<
   UPLOAD_ITEM extends IUploadFileItem
 > {
   i18n: II18nLocaleUpload;
-  fileList: UPLOAD_ITEM[];
+  fileList?: UPLOAD_ITEM[];
   disabled?: boolean;
   accept?: string;
-  remainAmount: number;
+  remainAmount?: number;
   maxSize: number;
   maxAmount: number;
   multiple?: boolean;

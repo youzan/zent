@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import * as React from 'react';
 
-import AbstractUpload from './components/AbstractUpload';
+import AbstractMultiUpload from './components/AbstractMultiUpload';
 import NormalUploadList from './components/normal/List';
 import NormalUploadTrigger from './components/normal/Trigger';
 import {
@@ -34,7 +34,7 @@ type IUploadPropsInner = PartialRequired<
   | 'manualUpload'
 >;
 
-export class Upload extends AbstractUpload<
+export class Upload extends AbstractMultiUpload<
   IUploadFileItem,
   void,
   INormalUploadItemProps,
@@ -88,8 +88,8 @@ export class Upload extends AbstractUpload<
         onDelete={this.deleteUploadItem}
         onSortChange={this.updateFileList}
         sortable={sortable}
-        pagination={pagination}
-        pageSize={pageSize}
+        pagination={pagination!}
+        pageSize={pageSize!}
         customUploadItem={customUploadItem}
       />
     );
