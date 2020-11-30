@@ -3,45 +3,48 @@ import { runOnceInNextFrame } from '../nextFrame';
 
 const ResizeObserver = window.ResizeObserver;
 
-interface IUseResizeObserverCallback {
-  (entry: ResizeObserverEntry): void;
-}
+export const useResizeObserver = (callback: ResizeObserverCallback) => {
+  const observerRef = useRef<ResizeObserver>(null);
 
-export const useSingleResizeObserver = (
-  callback: IUseResizeObserverCallback
-) => {
   const getObserverInstance = useCallback(
     () =>
       ResizeObserver &&
       new ResizeObserver(
-        runOnceInNextFrame(entries => {
-          callback(entries[0]);
+        runOnceInNextFrame((entries, observer) => {
+          callback(entries, observer);
         })
       ),
     [callback]
   );
-  const observerInstanceRef = useRef<ResizeObserver>(getObserverInstance());
 
   useEffect(() => {
-    observerInstanceRef.current = getObserverInstance();
+    observerRef.current = getObserverInstance();
   }, [getObserverInstance]);
 
   const observe = useCallback(
     (target: HTMLElement) => {
       if (target) {
-        observerInstanceRef.current?.observe(target);
+        observerRef.current?.observe(target);
       }
     },
-    [observerInstanceRef]
+    [observerRef]
   );
 
-  const unObserve = useCallback(() => {
-    observerInstanceRef.current?.disconnect();
-  }, [observerInstanceRef]);
+  const unobserve = useCallback(
+    (target: HTMLElement) => {
+      observerRef.current?.unobserve(target);
+    },
+    [observerRef]
+  );
+
+  const disconnect = useCallback(() => {
+    observerRef.current?.disconnect();
+  }, [observerRef]);
 
   return {
-    observerInstance: observerInstanceRef.current,
+    observer: observerRef,
     observe,
-    unObserve,
+    unobserve,
+    disconnect,
   };
 };
