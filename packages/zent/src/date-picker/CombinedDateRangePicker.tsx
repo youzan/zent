@@ -62,7 +62,9 @@ export const CombinedDateRangePicker = <T extends IValueType = 'string'>(
   return (
     <Receiver componentName="TimePicker">
       {(i18n: II18nLocaleTimePicker) => (
-        <PickerContextProvider value={{ i18n, getInputRangeText }}>
+        <PickerContextProvider
+          value={{ i18n, autoComplete: !!showTime, getInputRangeText }}
+        >
           <CombinedPicker
             {...propsRequired}
             width={width ?? (!!showTime ? COMBINED_INPUT_WIDTH : INPUT_WIDTH)}

@@ -64,7 +64,7 @@ class Demo extends Component {
 		const isSame = isSameDay(date, current);
 		return isSame
 			? {
-					disabledHours: () => initArray(hour, 24),
+					disabledHours: () => initArray(hour, 23),
 					disabledMinutes: hourValue =>
 						hourValue === hour ? initArray(minute, 59) : [],
 					disabledSeconds: (hourValue, minuteValue) =>

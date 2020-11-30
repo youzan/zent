@@ -35,6 +35,8 @@ export const DatePicker = <T extends IValueType = 'string'>(
   props: IDatePickerProps<T>
 ) => {
   const disabledContext = React.useContext(DisabledContext);
+  const parentContext = React.useContext(PickerContext);
+
   const propsRequired = {
     ...defaultDatePickerCommonProps,
     ...defaultDatePickerProps,
@@ -65,6 +67,7 @@ export const DatePicker = <T extends IValueType = 'string'>(
       {(i18n: II18nLocaleTimePicker) => (
         <PickerContextProvider
           value={{
+            ...parentContext,
             i18n,
             generateDate,
             getCallbackValue,

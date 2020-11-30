@@ -27,7 +27,7 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
   onSelected,
   disabledPanelDate,
 }) => {
-  const { i18n } = React.useContext(PickerContext);
+  const { i18n, autoComplete } = React.useContext(PickerContext);
   const { format = '' } = showTimeOption || {};
   const confirmStatus = useConfirmStatus({
     selected: formatDate(format, selected),
@@ -119,9 +119,18 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
           hiddenIcon={true}
           onChange={onTimeChange}
           disabledTime={disabledTime}
+          autoComplete={autoComplete}
         />
       ) : null,
-    [selected, showTime, showTimeOption, format, disabledTime, onTimeChange]
+    [
+      autoComplete,
+      selected,
+      showTime,
+      showTimeOption,
+      format,
+      disabledTime,
+      onTimeChange,
+    ]
   );
 
   return <PanelFooter leftNode={timeInput} rightNode={renderToday} />;

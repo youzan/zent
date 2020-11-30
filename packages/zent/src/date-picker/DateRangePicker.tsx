@@ -66,6 +66,7 @@ export const DateRangePicker = <T extends IValueType = 'string'>(
         <PickerContextProvider
           value={{
             i18n,
+            autoComplete: !!showTime,
             getCallbackRangeValue,
           }}
         >
