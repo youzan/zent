@@ -3,17 +3,11 @@ import { runOnceInNextFrame } from '../nextFrame';
 
 const ResizeObserver = window.ResizeObserver;
 
-export const useResizeObserver = (callback: ResizeObserverCallback) => {
+const useResizeObserver = (callback: ResizeObserverCallback) => {
   const observerRef = useRef<ResizeObserver>(null);
 
   const getObserverInstance = useCallback(
-    () =>
-      ResizeObserver &&
-      new ResizeObserver(
-        runOnceInNextFrame((entries, observer) => {
-          callback(entries, observer);
-        })
-      ),
+    () => ResizeObserver && new ResizeObserver(runOnceInNextFrame(callback)),
     [callback]
   );
 
@@ -48,3 +42,5 @@ export const useResizeObserver = (callback: ResizeObserverCallback) => {
     disconnect,
   };
 };
+
+export default useResizeObserver;

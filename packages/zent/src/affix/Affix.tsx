@@ -4,7 +4,7 @@ import cx from 'classnames';
 import { Waypoint, IWaypointCallbackData, WaypointPosition } from '../waypoint';
 import { useCallbackRef } from '../utils/hooks/useCallbackRef';
 import isBrowser from '../utils/isBrowser';
-import { useResizeObserver } from '../utils/hooks/use-resize-observer';
+import useResizeObserver from '../utils/hooks/use-resize-observer';
 
 export interface IAffixProps {
   offsetTop?: number;
@@ -35,9 +35,9 @@ export const Affix: React.FC<IAffixProps> = ({
   const useTop = typeof offsetTop === 'number';
   const useBottom = typeof offsetBottom === 'number';
 
-  const setSize = React.useCallback((entrys: ResizeObserverEntry[]) => {
-    const { borderBoxSize, contentRect } = entrys[0];
-    if (borderBoxSize?.length > 0) {
+  const setSize = React.useCallback((entries: ResizeObserverEntry[]) => {
+    const { borderBoxSize, contentRect } = entries[0];
+    if (borderBoxSize && borderBoxSize.length > 0) {
       const [{ inlineSize: width, blockSize: height }] = borderBoxSize;
       setWidth(width);
       setHeight(height);
