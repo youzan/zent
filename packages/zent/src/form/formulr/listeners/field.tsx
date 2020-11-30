@@ -166,7 +166,7 @@ function useFieldObservable<M extends IModel<T>, T, V>(
         .subscribe(setValue);
 
       return () => $.unsubscribe();
-    } else if (model) {
+    } else if (isModel<T>(model)) {
       const $ = observable(model).subscribe(setValue);
 
       return () => $.unsubscribe();
