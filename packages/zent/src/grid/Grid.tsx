@@ -61,7 +61,7 @@ const prefix = 'zent';
 // eslint-disable-next-line @typescript-eslint/ban-types
 export interface IGridProps<Data = any, RowProps = {}> {
   columns: IGridColumn[];
-  datasets: Data[];
+  datasets: ReadonlyArray<Data>;
   rowKey?: string;
   onChange?: (conf: IGridOnChangeConfig) => any;
   scroll?: IGridScrollDelta;
