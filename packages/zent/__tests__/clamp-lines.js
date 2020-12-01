@@ -15,7 +15,7 @@ describe('ClampLines', () => {
     const instance = wrapper.find(ClampLines).instance();
     instance.maxHeight = 40;
     instance.lineHeight = 20;
-    instance.element.current = {
+    instance.element = {
       clientHeight: 20,
     };
     instance.innerElement.current = {
@@ -55,12 +55,12 @@ describe('ClampLines', () => {
     const instance = wrapper.find(ClampLines).instance();
     const element = document.createElement('div');
     element.style.height = '20px';
-    instance.element.current = element;
+    instance.element = element;
     const innerElement = document.createElement('div');
     innerElement.textContent = '';
     instance.innerElement.current = innerElement;
     const spy = jest.spyOn(instance, 'clampLines');
-    instance.handleResize();
+    instance.handleWindowResize();
     jest.runOnlyPendingTimers();
     expect(spy).toBeCalled();
   });
