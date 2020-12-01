@@ -59,9 +59,15 @@ describe('ClampLines', () => {
     const innerElement = document.createElement('div');
     innerElement.textContent = '';
     instance.innerElement.current = innerElement;
-    const spy = jest.spyOn(instance, 'clampLines');
+
+    let spy = jest.spyOn(instance, 'clampLines');
     instance.handleWindowResize();
     jest.runOnlyPendingTimers();
     expect(spy).toBeCalled();
+
+    instance.containerWidth = 200;
+    instance.handleContainerResize([{ contentBoxSize: [{ inlineSize: 400 }] }]);
+    jest.runOnlyPendingTimers();
+    expect(spy.mock.calls.length).toBe(2);
   });
 });
