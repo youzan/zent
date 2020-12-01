@@ -1,4 +1,4 @@
-module.exports = function(api) {
+module.exports = function (api) {
   api.cache(true);
 
   const envSpecificPlugins =
@@ -15,7 +15,12 @@ module.exports = function(api) {
           corejs: 3,
         },
       ],
-      '@babel/preset-react',
+      [
+        '@babel/preset-react',
+        {
+          runtime: 'automatic',
+        },
+      ],
     ],
 
     plugins: [

@@ -1,12 +1,12 @@
 import { Link } from 'link';
-import React from 'react';
+import { Component } from 'react';
 import {
   renderIntoDocument,
   findRenderedDOMComponentWithTag,
   Simulate,
 } from 'react-dom/test-utils';
 
-class Wrapper extends React.Component {
+class Wrapper extends Component {
   render() {
     return this.props.children;
   }

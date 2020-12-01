@@ -1,4 +1,3 @@
-import React from 'react';
 import Enzyme, { mount, shallow } from 'enzyme';
 import Breadcrumb from 'breadcrumb';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';

@@ -1,4 +1,4 @@
-import React from 'react';
+import { Component } from 'react';
 import {
   renderIntoDocument,
   findRenderedDOMComponentWithTag,
@@ -7,7 +7,7 @@ import {
 import { Button, ButtonGroup, ButtonDirective } from 'button';
 import Icon from 'icon';
 
-class Wrapper extends React.Component {
+class Wrapper extends Component {
   render() {
     return this.props.children;
   }

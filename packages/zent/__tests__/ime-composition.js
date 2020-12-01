@@ -1,6 +1,6 @@
 import IMEComposition from 'ime-composition';
 import Input from 'input';
-import React from 'react';
+import { Component } from 'react';
 import Enzyme, { mount } from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 
@@ -10,7 +10,7 @@ describe('IMEComposition', () => {
   it('not change value when enable', () => {
     const onChange = jest.fn();
 
-    class Simple extends React.Component {
+    class Simple extends Component {
       state = {
         value: '',
       };

@@ -1,4 +1,4 @@
-import React from 'react';
+import { Component } from 'react';
 import Enzyme, { mount } from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import Input from 'input';
@@ -28,7 +28,7 @@ describe('Input', () => {
   });
 
   it('can supports showClear props', () => {
-    class InputTest extends React.Component {
+    class InputTest extends Component {
       state = {
         value: '',
       };
@@ -160,7 +160,7 @@ describe('Input', () => {
   });
 
   it('can supports textarea with onChange and autoSize', () => {
-    class TextArea extends React.Component {
+    class TextArea extends Component {
       state = {
         value: '',
       };
