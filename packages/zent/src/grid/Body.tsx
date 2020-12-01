@@ -25,7 +25,7 @@ export interface IGridBodyProps<Data> {
   mouseOverRowIndex: number;
   expandRender: IGridExpandation<Data>['expandRender'];
   rowProps?: (data: Data, index: number) => any;
-  datasets: Data[];
+  datasets: ReadonlyArray<Data>;
   components?: {
     row?: React.ComponentType;
   };
