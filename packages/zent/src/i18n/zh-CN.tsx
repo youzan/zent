@@ -178,6 +178,7 @@ export const Upload: II18nLocaleUpload = {
   failed: '上传失败',
   limit: '文件添加个数已达上限',
   add: '添加文件',
+  uploading: '文件上传中',
 };
 
 export const Mention: II18nLocaleMention = {

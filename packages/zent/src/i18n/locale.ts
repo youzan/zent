@@ -122,6 +122,7 @@ export interface II18nLocaleUpload extends II18nLocaleCommon {
   failed: string;
   limit: string;
   add: string;
+  uploading: string;
 }
 
 export interface II18nLocaleMention {

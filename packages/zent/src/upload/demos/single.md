@@ -13,8 +13,15 @@ en-US:
 import { SingleUpload, Notify } from 'zent';
 
 class Simple extends React.Component {
+	state = {
+		value: null,
+	}
+
 	onUploadChange = item => {
 		console.log(item);
+		this.setState(() => ({
+			value: item,
+		}))
 	};
 
 	onUpload = (file, report) => {
@@ -46,11 +53,13 @@ class Simple extends React.Component {
 	};
 
 	render() {
+		const { value } = this.state;
 		return (
 			<SingleUpload
 				className="zent-upload-demo-pic"
 				maxSize={2 * 1024 * 1024}
 				tips="{i18n.tips}"
+				value={value}
 				onChange={this.onUploadChange}
 				onUpload={this.onUpload}
 				onError={this.onUploadError}

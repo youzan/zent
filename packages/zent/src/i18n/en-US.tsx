@@ -182,6 +182,7 @@ export const Upload: II18nLocaleUpload = {
   failed: 'Failed',
   limit: 'Maximum number of files has been reached',
   add: 'Add File',
+  uploading: 'File uploading',
 };
 
 export const Mention: II18nLocaleMention = {

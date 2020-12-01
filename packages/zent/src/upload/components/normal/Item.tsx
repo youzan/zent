@@ -33,7 +33,7 @@ const getFileIcon = (item: IUploadFileItem) => {
 
   // 上传失败 icon
   if (status === FILE_UPLOAD_STATUS.failed) {
-    return <Icon className="zent-file-upload-item-icon" type="warning" />;
+    return <Icon className="zent-file-upload-item-icon" type="error-circle" />;
   }
 
   // 上传中 icon
