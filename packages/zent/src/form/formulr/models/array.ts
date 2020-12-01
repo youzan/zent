@@ -86,7 +86,7 @@ class FieldArrayModel<
    */
   reset() {
     const children = or(this.initialValue, () => this.defaultValue).map(
-      this.childFactory
+      this._buildChild
     );
     this.children$.next(children);
   }
@@ -96,7 +96,7 @@ class FieldArrayModel<
    */
   clear() {
     this.initialValue = undefined;
-    const children = this.defaultValue.map(this.childFactory);
+    const children = this.defaultValue.map(this._buildChild);
     this.children$.next(children);
   }
 
@@ -156,7 +156,7 @@ class FieldArrayModel<
    */
   initialize(values: Item[]) {
     this.initialValue = Some(values);
-    const children = values.map(this.childFactory);
+    const children = values.map(this._buildChild);
     this.children$.next(children);
   }
 
