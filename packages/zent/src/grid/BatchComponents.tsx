@@ -10,7 +10,7 @@ export interface IBatchComponentsProps<Data = any> {
   batchRender: IGridBatchRender;
   prefix: string;
   position: 'header' | 'foot';
-  onSelect: (type: string, datasets: Data[]) => void;
+  onSelect: (type: string, datasets: ReadonlyArray<Data>) => void;
   store: Store;
   datasets: ReadonlyArray<Data>;
   getDataKey: (data: Data, rowIndex: string | number) => string;

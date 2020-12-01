@@ -8,7 +8,10 @@ export interface IGridSelectionAllCheckboxProps<Data> {
   datasets: ReadonlyArray<Data>;
   getDataKey: (data: Data, rowIndex: number | string) => string;
   disabled: boolean;
-  onSelect: (type: 'selectAll' | 'removeAll', datasets: Data[]) => void;
+  onSelect: (
+    type: 'selectAll' | 'removeAll',
+    datasets: ReadonlyArray<Data>
+  ) => void;
 }
 
 interface IGridSelectionAllCheckboxState {
