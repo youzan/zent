@@ -1,5 +1,3 @@
-import React from 'react';
-
 import PageHeader from './page-header';
 import PageFooter from './page-footer';
 import SideNav from './side-nav';

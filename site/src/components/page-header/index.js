@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { Select } from 'zent';
 
 import pkg from '../../../../packages/zent/package.json';
