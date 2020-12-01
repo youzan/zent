@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { I18nReceiver as Receiver, II18nLocalePagination } from '../../../i18n';
 import { NumberInput } from '../../../number-input';
 

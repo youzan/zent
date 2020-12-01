@@ -1,5 +1,5 @@
-import * as React from 'react';
 import cx from 'classnames';
+import { forwardRef } from 'react';
 import Icon from '../icon';
 
 const PRESET_COLOR = {
@@ -23,7 +23,7 @@ export interface ITagProps {
   children?: React.ReactNode;
 }
 
-export const Tag = React.forwardRef<HTMLDivElement, ITagProps>(
+export const Tag = forwardRef<HTMLDivElement, ITagProps>(
   (
     {
       theme = 'red',

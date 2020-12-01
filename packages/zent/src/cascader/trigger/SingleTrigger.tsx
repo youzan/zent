@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { Component } from 'react';
 
 import { BaseTrigger, ICascaderBaseTriggerProps } from './BaseTrigger';
 import { ICascaderItem } from '../types';
@@ -10,7 +10,7 @@ export interface ISingleTriggerProps
   selectedPath: ICascaderItem[];
 }
 
-export class SingleTrigger extends React.Component<ISingleTriggerProps> {
+export class SingleTrigger extends Component<ISingleTriggerProps> {
   static defaultProps = {
     selectedPath: [],
   };

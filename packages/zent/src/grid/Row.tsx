@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { PureComponent } from 'react';
 import classnames from 'classnames';
 import Cell from './Cell';

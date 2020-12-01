@@ -1,5 +1,6 @@
-import * as React from 'react';
 import cx from 'classnames';
+import { PureComponent } from 'react';
+
 import { AlertTypes } from './types';
 import AlertItem from './components/AlertItem';
 import { PartialRequired } from '../utils/types';
@@ -46,7 +47,7 @@ const OmitDivAttr = [
   'extraContent',
 ] as const;
 
-export class Alert extends React.PureComponent<IAlertProps, IAlertState> {
+export class Alert extends PureComponent<IAlertProps, IAlertState> {
   static highlightClassName = 'zent-alert-content__highlight';
 
   static defaultProps = {

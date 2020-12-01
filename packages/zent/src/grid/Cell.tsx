@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { Component } from 'react';
+import { Component, isValidElement } from 'react';
 import classnames from 'classnames';
 import { IGridInnerColumn } from './Grid';
 import { IGridCellPos } from './types';
@@ -18,7 +17,7 @@ class Cell<Data> extends Component<IGridCellProps<Data>> {
   isInvalidRenderCellText(text: any) {
     return (
       text &&
-      !React.isValidElement(text) &&
+      !isValidElement(text) &&
       Object.prototype.toString.call(text) === '[object Object]'
     );
   }

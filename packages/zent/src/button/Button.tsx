@@ -1,4 +1,5 @@
-import * as React from 'react';
+import { Component } from 'react';
+
 import { Omit } from 'utility-types';
 import Group from './Group';
 import { IButtonDirectiveProps, ButtonDirective } from './Directive';
@@ -17,7 +18,7 @@ export interface IButtonProps
   download?: string;
 }
 
-export class Button extends React.Component<IButtonProps> {
+export class Button extends Component<IButtonProps> {
   static defaultProps = {
     type: 'default',
     size: 'medium',

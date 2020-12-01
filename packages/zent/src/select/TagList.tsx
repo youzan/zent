@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { memo } from 'react';
 import { ISelectItem } from './Select';
 import Tag from './Tag';
 
@@ -27,4 +27,4 @@ function SelectTagList<Item extends ISelectItem>({
   );
 }
 
-export default React.memo(SelectTagList);
+export default memo(SelectTagList);

@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import PanelHeader from '../../components/PanelHeader';
 import YearPanelBody from './YearBody';
 
@@ -16,13 +15,10 @@ const YearPickerPanel: React.FC<
   );
   const firstYear = useMemo(() => MIN_YEAR + page * 12, [page]);
 
-  const onClickPrev = React.useCallback(() => page > 0 && setPage(page - 1), [
+  const onClickPrev = useCallback(() => page > 0 && setPage(page - 1), [page]);
+  const onClickNext = useCallback(() => page < MAX_PAGE && setPage(page + 1), [
     page,
   ]);
-  const onClickNext = React.useCallback(
-    () => page < MAX_PAGE && setPage(page + 1),
-    [page]
-  );
   return (
     <>
       <PanelHeader

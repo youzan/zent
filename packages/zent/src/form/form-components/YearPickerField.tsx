@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Omit } from 'utility-types';
 import { dateDefaultValueFactory, IFormComponentProps } from '../shared';
 import {

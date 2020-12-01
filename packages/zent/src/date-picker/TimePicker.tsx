@@ -1,4 +1,5 @@
-import * as React from 'react';
+import { useContext } from 'react';
+
 import { I18nReceiver as Receiver, II18nLocaleTimePicker } from '../i18n';
 import TimePickerBase from './components/TimePickerBase';
 import TimePickerPanel from './panels/time-panel';
@@ -11,7 +12,7 @@ const PickerContextProvider = PickerContext.Provider;
 
 export interface ITimePickerProps extends ISingleTimePickerProps {}
 export const TimePicker: React.FC<ITimePickerProps> = props => {
-  const disabledContext = React.useContext(DisabledContext);
+  const disabledContext = useContext(DisabledContext);
   const propsRequired = { ...defaultTimePickerProps, ...props };
 
   const {

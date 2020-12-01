@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { createContext, createRef, Component } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { CSSTransitionClassNames } from 'react-transition-group/CSSTransition';
 import { isElement } from 'react-is';
@@ -19,7 +19,7 @@ export interface INoticeContext {
   onClose(): void;
 }
 
-export const NoticeContext = React.createContext<INoticeContext | null>(null);
+export const NoticeContext = createContext<INoticeContext | null>(null);
 
 NoticeContext.displayName = 'ZentNoticeContext';
 
@@ -35,11 +35,11 @@ const classNames: CSSTransitionClassNames = {
   exitDone: 'zent-notice-animation-exit-done',
 };
 
-export default class NoticeWrap extends React.Component<
+export default class NoticeWrap extends Component<
   INoticeWrapProps,
   INoticeWrapState
 > {
-  private elementRef = React.createRef<HTMLDivElement>();
+  private elementRef = createRef<HTMLDivElement>();
 
   state: INoticeWrapState = {
     entered: false,

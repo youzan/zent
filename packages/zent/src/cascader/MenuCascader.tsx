@@ -1,5 +1,5 @@
-import * as React from 'react';
 import cx from 'classnames';
+import { Component } from 'react';
 
 import Popover from '../popover';
 import { I18nReceiver as Receiver, II18nLocaleCascader } from '../i18n';
@@ -202,7 +202,7 @@ function getVisible(
   return state.visible;
 }
 
-export class MenuCascader extends React.Component<
+export class MenuCascader extends Component<
   IMenuCascaderProps,
   IMenuCascaderState
 > {

@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { useState, useCallback, useEffect, useMemo, useContext } from 'react';
 import cx from 'classnames';
 

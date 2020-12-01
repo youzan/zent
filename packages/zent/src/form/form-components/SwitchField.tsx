@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Omit } from 'utility-types';
 import cx from 'classnames';
 import Switch, { ISwitchProps } from '../../switch';

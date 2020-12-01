@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { createElement, forwardRef, useContext } from 'react';
 import { Omit } from 'utility-types';
 import { isForwardRef } from 'react-is';
 
@@ -10,7 +10,7 @@ function isClassComponent(component: any) {
 }
 
 export function usePopover() {
-  const ctx = React.useContext(PopoverContext);
+  const ctx = useContext(PopoverContext);
   if (ctx === null) {
     throw new Error('usePopover must be used as child of Popover');
   }
@@ -29,7 +29,7 @@ export function exposePopover<N extends string>(propName: N) {
     const componentName =
       Base.displayName || Base.constructor.name || 'Component';
     const shouldPassRef = isClassComponent(Base) || isForwardRef(Base);
-    const comp = React.forwardRef<any, Props>((props, ref) => {
+    const comp = forwardRef<any, Props>((props, ref) => {
       const popover = usePopover();
       const childProps: any = {
         [propName]: popover,
@@ -37,7 +37,7 @@ export function exposePopover<N extends string>(propName: N) {
       if (shouldPassRef) {
         childProps.ref = ref;
       }
-      return React.createElement(Base, {
+      return createElement(Base, {
         ...props,
         ...childProps,
       });

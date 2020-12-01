@@ -1,4 +1,3 @@
-import * as React from 'react';
 import reactCSS from './helpers/reactcss';
 import { ColorWrap, Saturation, Hue, Alpha, Checkboard } from './common';
 import SketchFields from './SketchFields';

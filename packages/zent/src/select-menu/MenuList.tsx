@@ -3,8 +3,8 @@
  *
  * @author hyczzhu
  */
-import * as React from 'react';
-import { Component } from 'react';
+import { createRef, Component } from 'react';
+
 import { IMenuListItem, MenuListItem, handleItemClick } from './MenuListItem';
 
 const menuListPaddingTop = 0;
@@ -25,8 +25,8 @@ export default class MenuList extends Component<
   IMenuListProps,
   IMenuListState
 > {
-  private refMenuScrollContainer = React.createRef<HTMLDivElement>();
-  private refMenuItemList = React.createRef<HTMLUListElement>();
+  private refMenuScrollContainer = createRef<HTMLDivElement>();
+  private refMenuItemList = createRef<HTMLUListElement>();
 
   constructor(props) {
     super(props);

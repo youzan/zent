@@ -1,10 +1,10 @@
-import * as React from 'react';
+import { useCallback, useContext, useMemo } from 'react';
 import cx from 'classnames';
 import { parse, isSameDay } from 'date-fns';
+
 import TimePicker from '../../TimePicker';
 import Button from '../../../button';
 import Pop from '../../../pop';
-
 import PickerContext from '../../context/PickerContext';
 import { formatDate } from '../../utils/index';
 import useConfirmStatus from '../../hooks/useConfirmStatus';
@@ -29,7 +29,7 @@ export const CombinedDateRangeFooter: React.FC<ICombinedDateRangeFooterProps> = 
   onSelected,
   format,
 }) => {
-  const { i18n, autoComplete } = React.useContext(PickerContext);
+  const { i18n, autoComplete } = useContext(PickerContext);
   const [start, end] = selected;
 
   const startTimeStatus = useConfirmStatus({
@@ -43,18 +43,18 @@ export const CombinedDateRangeFooter: React.FC<ICombinedDateRangeFooterProps> = 
     format,
   });
 
-  const disabledStatus = React.useMemo(
+  const disabledStatus = useMemo(
     () => disabledConfirm || endTimeStatus || startTimeStatus,
     [disabledConfirm, endTimeStatus, startTimeStatus]
   );
-  const onStartTimeChange = React.useCallback(
+  const onStartTimeChange = useCallback(
     (val: string) => {
       const timeVal = selected[0] && parse(val, format, selected[0]);
       onSelected([timeVal, selected[1]]);
     },
     [selected, format, onSelected]
   );
-  const onEndTimeChange = React.useCallback(
+  const onEndTimeChange = useCallback(
     (val: string) => {
       const timeVal = selected[1] && parse(val, format, selected[1]);
       onSelected([selected[0], timeVal]);
@@ -62,11 +62,11 @@ export const CombinedDateRangeFooter: React.FC<ICombinedDateRangeFooterProps> = 
     [selected, format, onSelected]
   );
 
-  const confirmHandler = React.useCallback(() => {
+  const confirmHandler = useCallback(() => {
     onSelected(selected, true);
   }, [selected, onSelected]);
 
-  const confirmBtn = React.useMemo(
+  const confirmBtn = useMemo(
     () => (
       <Button
         type="primary"

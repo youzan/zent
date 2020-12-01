@@ -1,5 +1,6 @@
-import * as React from 'react';
 import cx from 'classnames';
+import { forwardRef } from 'react';
+
 import { Label } from './Label';
 
 export interface IFormControlProps {
@@ -24,7 +25,7 @@ export interface IFormControlProps {
   withoutLabel?: boolean;
 }
 
-export const FormControl = React.forwardRef<HTMLDivElement, IFormControlProps>(
+export const FormControl = forwardRef<HTMLDivElement, IFormControlProps>(
   (
     { className, style, label, children, required, invalid, withoutLabel },
     ref

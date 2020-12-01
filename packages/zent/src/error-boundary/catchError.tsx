@@ -1,4 +1,3 @@
-import * as React from 'react';
 import ErrorBoundary, {
   IErrorBoundaryFallbackComponentProps,
 } from './ErrorBoundary';

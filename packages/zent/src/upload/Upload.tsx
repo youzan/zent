@@ -1,5 +1,4 @@
 import cn from 'classnames';
-import * as React from 'react';
 
 import AbstractUpload from './components/AbstractUpload';
 import NormalUploadList from './components/normal/List';

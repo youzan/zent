@@ -1,9 +1,9 @@
-import * as React from 'react';
 import classnames from 'classnames';
 
 import { ICascaderItem } from '../types';
 import Icon from '../../icon';
 import { II18nLocaleCascader } from '../../i18n';
+import { Component } from 'react';
 
 interface ITriggerState {
   active: boolean;
@@ -28,7 +28,7 @@ export interface ICascaderBaseTriggerProps {
   showLabels?: boolean;
 }
 
-export class BaseTrigger extends React.Component<
+export class BaseTrigger extends Component<
   ICascaderBaseTriggerProps,
   ITriggerState
 > {

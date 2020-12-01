@@ -1,4 +1,3 @@
-import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Component, createRef } from 'react';
 import { Omit } from 'utility-types';

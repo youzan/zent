@@ -1,4 +1,5 @@
-import * as React from 'react';
+import { memo } from 'react';
+
 interface IDateSubTitleProps {
   names: string[];
 }
@@ -11,4 +12,5 @@ const PanelSubHeader: React.FC<IDateSubTitleProps> = ({ names }) => {
     </ul>
   );
 };
-export default React.memo(PanelSubHeader, () => true);
+
+export default memo(PanelSubHeader, () => true);

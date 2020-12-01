@@ -1,5 +1,5 @@
-import * as React from 'react';
 import cx from 'classnames';
+import { Children } from 'react';
 import Icon from '../icon';
 import { AnimateHeight } from '../utils/component/AnimateHeight';
 import CommonMenu from './CommonMenu';
@@ -138,7 +138,7 @@ export default class SubMenu extends CommonMenu<ISubMenuProps, ISubMenuState> {
     return (
       <AnimateHeight duration={200} height={isExpand ? 'auto' : 0}>
         <ul className="zent-menu__inner">
-          {React.Children.map(children, this.renderInlineChild)}
+          {Children.map(children, this.renderInlineChild)}
         </ul>
       </AnimateHeight>
     );

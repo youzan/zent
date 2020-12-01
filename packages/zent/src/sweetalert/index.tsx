@@ -1,4 +1,3 @@
-import * as React from 'react';
 import cx from 'classnames';
 
 import { I18nReceiver as Receiver, II18nLocaleSweetalert } from '../i18n';

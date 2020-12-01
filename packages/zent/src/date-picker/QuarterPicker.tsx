@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useContext, useCallback } from 'react';
 import { I18nReceiver as Receiver, II18nLocaleTimePicker } from '../i18n';
 import SinglePicker from './components/SinglePickerBase';
 import QuarterPanel from './panels/quarter-panel';
@@ -30,7 +30,7 @@ const DefaultQuarterPickerProps = {
 export const QuarterPicker = <T extends IValueType = 'string'>(
   props: IQuarterPickerProps<T>
 ) => {
-  const disabledContext = React.useContext(DisabledContext);
+  const disabledContext = useContext(DisabledContext);
   const propsRequired = {
     ...defaultDatePickerCommonProps,
     ...DefaultQuarterPickerProps,
@@ -46,14 +46,14 @@ export const QuarterPicker = <T extends IValueType = 'string'>(
   } = propsRequired;
   const { format, valueType } = restProps;
 
-  const getInputText = React.useCallback(
+  const getInputText = useCallback(
     i18n => (val: Date | null) => quarterFormatText(val, i18n),
     []
   );
 
-  const getSelectedValue = React.useCallback(val => val, []);
+  const getSelectedValue = useCallback(val => val, []);
 
-  const getCallbackValue = React.useCallback(
+  const getCallbackValue = useCallback(
     (val: Date) =>
       getCallbackValueRangeWithDate(val, valueType, format, generateDate),
     [valueType, format]

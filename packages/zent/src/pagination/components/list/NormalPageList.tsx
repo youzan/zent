@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import ArrowButton from '../button/ArrowButton';
 import PageNumberButton from '../button/PageNumberButton';
 import BasePageList from './BasePageList';

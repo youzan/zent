@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Omit } from 'utility-types';
 import { dateDefaultTimeFactory, IFormComponentProps } from '../shared';
 import { TimePicker, ITimePickerProps } from '../../date-picker';

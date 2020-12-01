@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useLayoutEffect, useRef } from 'react';
 
 export interface ISearchInputProps {
   placeholder?: string;
@@ -7,10 +7,10 @@ export interface ISearchInputProps {
 }
 
 export function SearchInput(props: ISearchInputProps) {
-  const ref = React.useRef<HTMLInputElement>(null);
+  const ref = useRef<HTMLInputElement>(null);
   const { placeholder, value, onChange } = props;
 
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     ref.current!.focus({
       preventScroll: true,
     });

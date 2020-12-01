@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import { NumberInput } from '../../../number-input';
 import BasePageJumper, {
   IPaginationBaseJumperProps,

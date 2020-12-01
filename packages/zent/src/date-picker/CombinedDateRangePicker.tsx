@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useContext, useCallback } from 'react';
 import { I18nReceiver as Receiver, II18nLocaleTimePicker } from '../i18n';
 
 import CombinedPicker from './components/CombinedPickerBase';
@@ -39,7 +39,7 @@ const DefaultCombinedDateRangeProps = {
 export const CombinedDateRangePicker = <T extends IValueType = 'string'>(
   props: ICombinedDateRangePickerProps<T>
 ) => {
-  const disabledContext = React.useContext(DisabledContext);
+  const disabledContext = useContext(DisabledContext);
   const propsRequired = {
     ...defaultDatePickerCommonProps,
     ...DefaultCombinedDateRangeProps,
@@ -54,7 +54,7 @@ export const CombinedDateRangePicker = <T extends IValueType = 'string'>(
     disabled = disabledContext.value,
   } = propsRequired;
 
-  const getInputRangeText = React.useCallback(
+  const getInputRangeText = useCallback(
     (val: DateNullTuple) => formatTextRange(val, format),
     [format]
   );

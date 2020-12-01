@@ -1,5 +1,5 @@
-import * as React from 'react';
 import cx from 'classnames';
+import { Children } from 'react';
 
 import noop from '../utils/noop';
 import CommonMenu from './CommonMenu';
@@ -90,7 +90,7 @@ export class Menu extends CommonMenu<IMenuProps, any> {
 
     return (
       <ul className={classString} style={style}>
-        {React.Children.map(children, this.renderMenuItem)}
+        {Children.map(children, this.renderMenuItem)}
       </ul>
     );
   }

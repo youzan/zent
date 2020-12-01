@@ -1,4 +1,3 @@
-import * as React from 'react';
 import noop from '../../utils/noop';
 
 const XMLNS = 'http://www.w3.org/2000/svg';

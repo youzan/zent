@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useCallback, useRef } from 'react';
 import cx from 'classnames';
 import { startOfToday } from 'date-fns';
 
@@ -38,7 +38,7 @@ const TimeRangePickerBase: React.FC<ITimeRangePickerBaseProps> = ({
   name,
   ...restProps
 }) => {
-  const restPropsRef = React.useRef(restProps);
+  const restPropsRef = useRef(restProps);
   restPropsRef.current = restProps;
 
   const { format } = restPropsRef.current;
@@ -51,7 +51,7 @@ const TimeRangePickerBase: React.FC<ITimeRangePickerBaseProps> = ({
   );
   const [start, end] = selected;
 
-  const onChangeStartOrEnd = React.useCallback(
+  const onChangeStartOrEnd = useCallback(
     (type: RangeType) => (val: string) => {
       const times: RangeTime = type === START ? [val, end] : [start, val];
       setSelected(times);
@@ -71,11 +71,11 @@ const TimeRangePickerBase: React.FC<ITimeRangePickerBaseProps> = ({
     disabledTime,
   });
 
-  const disabledStart = React.useCallback(
+  const disabledStart = useCallback(
     () => disabledStartTimes?.(selectedDates[0] ?? startOfToday()),
     [disabledStartTimes, selectedDates]
   );
-  const disabledEnd = React.useCallback(
+  const disabledEnd = useCallback(
     () => disabledEndTimes?.(selectedDates[1] ?? startOfToday()),
     [disabledEndTimes, selectedDates]
   );

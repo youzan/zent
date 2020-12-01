@@ -1,4 +1,5 @@
-import * as React from 'react';
+import { Component, createRef } from 'react';
+
 import { runInNextFrame } from '../nextFrame';
 
 function applyHeight(el: HTMLDivElement, height: number | string) {
@@ -19,7 +20,7 @@ export interface IAnimateHeightProps {
   overflow: 'hidden' | 'scroll' | 'auto';
 }
 
-export class AnimateHeight extends React.Component<IAnimateHeightProps> {
+export class AnimateHeight extends Component<IAnimateHeightProps> {
   static defaultProps = {
     appear: false,
     duration: 200,
@@ -27,7 +28,7 @@ export class AnimateHeight extends React.Component<IAnimateHeightProps> {
     overflow: 'hidden',
   };
 
-  private ref = React.createRef<HTMLDivElement>();
+  private ref = createRef<HTMLDivElement>();
   private timer: number | null = null;
 
   componentDidMount() {

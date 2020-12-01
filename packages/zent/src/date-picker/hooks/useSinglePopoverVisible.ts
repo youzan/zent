@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useEventCallbackRef } from '../../utils/hooks/useEventCallbackRef';
 
 export default function useSinglePopoverVisible<DateType>(
@@ -9,25 +9,23 @@ export default function useSinglePopoverVisible<DateType>(
   disabled?: boolean,
   openPanel?: boolean
 ) {
-  const [panelVisible, setPanelVisible] = React.useState<boolean>(
-    openPanel ?? false
-  );
+  const [panelVisible, setPanelVisible] = useState<boolean>(openPanel ?? false);
   const onOpenRef = useEventCallbackRef(onOpen);
   const onCloseRef = useEventCallbackRef(onClose);
-  const defaultSelectedRef = React.useRef<DateType>(defaultSelected);
+  const defaultSelectedRef = useRef<DateType>(defaultSelected);
   defaultSelectedRef.current = defaultSelected;
 
-  React.useEffect(() => {
+  useEffect(() => {
     setPanelVisible(openPanel ?? false);
   }, [openPanel]);
 
-  const onVisibleChange = React.useCallback(() => {
+  const onVisibleChange = useCallback(() => {
     if (openPanel !== undefined || disabled) return;
     setPanelVisible(!panelVisible);
   }, [panelVisible, openPanel, disabled]);
 
-  const mounted = React.useRef<boolean>();
-  React.useEffect(() => {
+  const mounted = useRef<boolean>();
+  useEffect(() => {
     if (!mounted.current) {
       mounted.current = true;
     } else {

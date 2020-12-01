@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { PureComponent } from 'react';
+import { cloneElement, PureComponent } from 'react';
 import { getKeyFromChildrenIndex } from './utils';
 
 export default abstract class CommonMenu<T, S> extends PureComponent<T, S> {
@@ -12,6 +11,6 @@ export default abstract class CommonMenu<T, S> extends PureComponent<T, S> {
       ...extraProps,
     };
 
-    return React.cloneElement(component, newChildProps);
+    return cloneElement(component, newChildProps);
   }
 }

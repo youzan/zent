@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useRef, useCallback, useMemo } from 'react';
 import { isSameDay, isSameHour, isSameMinute } from 'date-fns';
 import { IDisabledTime, RangeTypeMap, DateNullTuple } from '../types';
 
@@ -23,11 +23,11 @@ export default function useRangeDisabledTime({
   selected: DateNullTuple;
   disabledTime?: IDisabledTime;
 }) {
-  const disabledTimesRef = React.useRef(disabledTime);
+  const disabledTimesRef = useRef(disabledTime);
   disabledTimesRef.current = disabledTime;
   const [start, end] = selected;
 
-  const disabledEndTimes = React.useCallback(
+  const disabledEndTimes = useCallback(
     (date?: Date | null) => {
       const sameDay = start && date ? isSameDay(start, date) : false;
       const sameHour = start && date ? isSameHour(start, date) : false;
@@ -63,7 +63,7 @@ export default function useRangeDisabledTime({
     [start, disabledTimesRef]
   );
 
-  const disabledStartTimes = React.useCallback(
+  const disabledStartTimes = useCallback(
     (date?: Date | null) => {
       const sameDay = date && end ? isSameDay(date, end) : false;
       const sameHour = date && end ? isSameHour(date, end) : false;
@@ -104,7 +104,7 @@ export default function useRangeDisabledTime({
     [end, disabledTimesRef]
   );
 
-  const disabledConfirm: boolean = React.useMemo(
+  const disabledConfirm: boolean = useMemo(
     () => !start || !end || (!!start && !!end && start > end),
     [start, end]
   );

@@ -1,6 +1,5 @@
-import * as React from 'react';
 import * as ReactDom from 'react-dom';
-import { PureComponent } from 'react';
+import { createRef, PureComponent } from 'react';
 import classnames from 'classnames';
 import isEqual from '../utils/isEqual';
 
@@ -139,20 +138,20 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
     };
   } = {};
   store: Store = new Store();
-  gridNode = React.createRef<HTMLDivElement>();
-  footNode = React.createRef<Footer>();
+  gridNode = createRef<HTMLDivElement>();
+  footNode = createRef<Footer>();
   footEl: Element;
   headerEl: Element;
-  headerNode = React.createRef<Header<Data>>();
-  bodyTable = React.createRef<HTMLDivElement>();
-  leftBody = React.createRef<HTMLDivElement>();
-  rightBody = React.createRef<HTMLDivElement>();
-  scrollBody = React.createRef<HTMLDivElement>();
-  scrollHeader = React.createRef<HTMLDivElement>();
+  headerNode = createRef<Header<Data>>();
+  bodyTable = createRef<HTMLDivElement>();
+  leftBody = createRef<HTMLDivElement>();
+  rightBody = createRef<HTMLDivElement>();
+  scrollBody = createRef<HTMLDivElement>();
+  scrollHeader = createRef<HTMLDivElement>();
   scrollPosition!: GridScrollPosition;
   lastScrollLeft!: number;
   lastScrollTop!: number;
-  stickyHead = React.createRef<HTMLDivElement>();
+  stickyHead = createRef<HTMLDivElement>();
 
   constructor(props: IGridProps<Data, RowProps>) {
     super(props);

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { forwardRef } from 'react';
 
 import Icon from '../icon';
 import { IInputCoreProps } from './types';
@@ -10,7 +10,7 @@ function preventDefault(e: React.MouseEvent<HTMLElement>) {
 
 const useIMEComposition = createUseIMEComposition();
 
-export const InputCore = React.forwardRef<
+export const InputCore = forwardRef<
   HTMLInputElement,
   IInputCoreProps & { onClear: React.MouseEventHandler<HTMLElement> }
 >((props, ref) => {

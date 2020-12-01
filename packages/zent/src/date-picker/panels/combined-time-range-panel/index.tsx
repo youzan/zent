@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useCallback } from 'react';
 import TimePanel from '../time-panel/index';
 import CombinedTimeFooter from './CombinedTimeFooter';
 import { ICombinedTimePanelProps } from '../../types';
@@ -15,7 +15,7 @@ const CombinedTimeRangePanel: React.FC<ICombinedTimePanelProps> = ({
 }) => {
   const [start, end] = selected;
 
-  const onChangeStartOrEnd = React.useCallback(
+  const onChangeStartOrEnd = useCallback(
     (index: number) => (val: string) => {
       onSelected(index ? [selected[0], val] : [val, selected[1]]);
     },

@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Component } from 'react';
 import memoize from '../../utils/memorize-one';
 import Select, { ISelectItem } from '../../select';

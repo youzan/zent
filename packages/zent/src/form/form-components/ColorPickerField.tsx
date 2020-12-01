@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Omit } from 'utility-types';
 import ColorPicker, { IColorPickerProps } from '../../colorpicker';
 import { FormField, IFormFieldChildProps } from '../Field';

@@ -1,11 +1,11 @@
-import * as React from 'react';
+import { PureComponent } from 'react';
 import { IBaseTabsNavProps } from '../../types';
 
 abstract class BaseTabsNav<
   Id,
   InnerTab,
   TabsNavProps extends IBaseTabsNavProps<Id, InnerTab>
-> extends React.PureComponent<TabsNavProps> {
+> extends PureComponent<TabsNavProps> {
   protected abstract typeName: string;
 
   abstract transformTabDataList(tabDataList: InnerTab[]): InnerTab[];

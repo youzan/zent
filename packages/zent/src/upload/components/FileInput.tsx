@@ -1,12 +1,11 @@
-import * as React from 'react';
-import { PureComponent } from 'react';
+import { createRef, PureComponent } from 'react';
 import { IFileInputProps } from '../types';
 
 /**
  * 文件上传 Input 控件
  */
 export default class FileInput extends PureComponent<IFileInputProps> {
-  inputRef = React.createRef<HTMLInputElement>();
+  inputRef = createRef<HTMLInputElement>();
 
   open = () => {
     this.inputRef.current && this.inputRef.current.click();

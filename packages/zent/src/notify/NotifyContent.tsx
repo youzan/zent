@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Component } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import Portal from '../portal';

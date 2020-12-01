@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { Component } from 'react';
+import { Component, createRef } from 'react';
 import classNames from 'classnames';
 import StarIcon from './star-icon';
 
@@ -28,7 +27,7 @@ export interface IRateState {
 function refArray(length: number): Array<React.RefObject<Star>> {
   const refs = [];
   for (let i = 0; i < length; i += 1) {
-    refs.push(React.createRef<Star>());
+    refs.push(createRef<Star>());
   }
   return refs;
 }

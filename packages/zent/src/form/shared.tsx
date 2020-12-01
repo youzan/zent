@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useEffect, useRef } from 'react';
 import formatDate from 'date-fns/format';
 import endOfToday from 'date-fns/endOfToday';
 import {
@@ -224,8 +224,8 @@ export function useFormChild<Value>(
   scrollAnchorRef?: React.RefObject<Element | null | undefined>
 ) {
   const ctx = useFormChildrenContext();
-  const posRef = React.useRef(ctx.children.length);
-  React.useEffect(() => {
+  const posRef = useRef(ctx.children.length);
+  useEffect(() => {
     const formChild: IFormChild = {
       valid() {
         return model.valid();

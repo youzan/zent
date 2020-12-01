@@ -1,5 +1,4 @@
 import cn from 'classnames';
-import * as React from 'react';
 
 import Icon from '../../../icon';
 import { IImageUploadFileItem } from '../../types';

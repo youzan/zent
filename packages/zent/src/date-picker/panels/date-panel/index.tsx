@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useCallback, useContext, useMemo, useState } from 'react';
 import { setYear, setMonth, addMonths, addYears } from 'date-fns';
 import PanelHeader, { Title } from '../../components/PanelHeader';
 import PanelSubHeader from './PanelSubHeader';
@@ -29,14 +29,14 @@ const DatePickerPanel: React.FC<IDatePickerPanelProps> = props => {
     footerText = '',
     ...resetBodyProps
   } = props;
-  const { i18n } = React.useContext(PickerContext);
+  const { i18n } = useContext(PickerContext);
 
-  const [showYear, setShowYear] = React.useState<boolean>(false);
-  const [showMonth, setShowMonth] = React.useState<boolean>(false);
+  const [showYear, setShowYear] = useState<boolean>(false);
+  const [showMonth, setShowMonth] = useState<boolean>(false);
   const { panelDate, setPanelDate } = usePanelDate(defaultPanelDate);
   const showTimeOption = useShowTimeOption(showTime);
 
-  const titleNode = React.useMemo(
+  const titleNode = useMemo(
     () => (
       <>
         <Title
@@ -75,7 +75,7 @@ const DatePickerPanel: React.FC<IDatePickerPanelProps> = props => {
       />
     </>
   );
-  const onClickYear = React.useCallback(
+  const onClickYear = useCallback(
     val => {
       setPanelDate(setYear(panelDate, val.getFullYear()));
       setShowYear(false);
@@ -91,7 +91,7 @@ const DatePickerPanel: React.FC<IDatePickerPanelProps> = props => {
     />
   );
 
-  const onClickMonth = React.useCallback(
+  const onClickMonth = useCallback(
     val => {
       setPanelDate(setMonth(panelDate, val.getMonth()));
       setShowMonth(false);

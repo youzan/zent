@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { Component } from 'react';
+import { Component, createRef } from 'react';
 import cx from 'classnames';
 import identity from '../utils/identity';
 import Pop from '../pop';
@@ -41,7 +40,7 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
   // Here we are using function ref because we need to be notified whenever ref changes
   element: HTMLDivElement | null = null;
 
-  innerElement = React.createRef<HTMLSpanElement>();
+  innerElement = createRef<HTMLSpanElement>();
   lineHeight = 0;
   maxHeight = 0;
   resizeObserver: ResizeObserver | null = null;

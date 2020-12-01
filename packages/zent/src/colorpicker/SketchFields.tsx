@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { PureComponent } from 'react';
 import reactCSS from './helpers/reactcss';
 import color from './helpers/color';

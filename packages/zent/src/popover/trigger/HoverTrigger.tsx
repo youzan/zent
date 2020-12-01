@@ -1,11 +1,10 @@
-import * as React from 'react';
+import { cloneElement, useContext, useEffect, useMemo, useRef } from 'react';
 import { Subject, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import Context from '../Context';
 import Anchor, { PopoverAnchorGetElementFn } from '../Anchor';
 import { addEventListener } from '../../utils/component/event-handler';
 import { isElement } from 'react-is';
-import { cloneElement } from 'react';
 
 export interface IPopoverHoverTriggerChildProps {
   onMouseEnter?: (...args: any[]) => void;
@@ -32,16 +31,16 @@ export interface IPopoverHoverTriggerProps<
 export function PopoverHoverTrigger<
   ChildProps extends IPopoverHoverTriggerChildProps = IPopoverHoverTriggerChildProps
 >(props: IPopoverHoverTriggerProps<ChildProps>) {
-  const ctx = React.useContext(Context);
+  const ctx = useContext(Context);
   if (!ctx) {
     throw new Error('PopoverHoverTrigger must be child of Popover');
   }
 
-  const propsRef = React.useRef(props);
+  const propsRef = useRef(props);
   propsRef.current = props;
-  const visible$ = React.useMemo(() => new Subject<boolean>(), []);
+  const visible$ = useMemo(() => new Subject<boolean>(), []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const $ = visible$
       .pipe(
         switchMap(visible => {

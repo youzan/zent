@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Input from '../../input';
 import { II18nLocaleTransfer } from '../../i18n';
 

@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import TimeFooter from './TimeFooter';
 import TimePickerBody from './TimeBody';
 import { ITimePanelProps } from '../../types';
