@@ -1,5 +1,18 @@
 # 9.0.0 迁移指南
 
+## 9.0.0-beta18 (2020-12-01)
+
+- ✨ `Affix` 支持固定时宽度自适应原位置的容器大小
+- ✨ `ClampLines` 支持自适应容器大小
+- `Form`
+  - ✨ 新增 `useFormValid`, `useFieldValid` 以及 `FieldValid` 用于监听是否有校验错误
+  - ✨ `set`, `array` 支持深度订阅值的改变
+- 🦀️ 修复 `openDialog` 返回值的类型
+- `DatePicker`
+  - 🦀️ 修复 `disabledTime` 校验不及时的问题
+  - 🦀️ 修复 `disabledDate` 传入包含时间的 `min`、`max` 时不生效的问题
+- 🦀️ 修复 `Select` 搜索结果列表键盘选择错误的问题
+
 ## 9.0.0-beta17 (2020-11-27)
 
 - ✨ `Tabs` 增加 `disableLazyMount` 参数，但不推荐使用
