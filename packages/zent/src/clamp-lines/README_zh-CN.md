@@ -7,6 +7,11 @@ group: 展示
 
 ## ClampLines
 
+限制文本最大行数。
+
+- 自适应容器大小需要 `ResizeObserver` 支持，部分老浏览器需要自行引入 polyfill。
+- 当 `ResizeObserver` 不存在时，该组件仅能处理由于窗口大小变化而导致的容器大小变化。
+
 ### API
 
 | 参数        | 说明      | 类型     | 默认值  | 备选值 |
@@ -18,6 +23,6 @@ group: 展示
 | popWidth  | pop的宽度 | `number` | `250` |  |
 | trigger   | Pop的触发方式 | `string` | `'hover'` | `'click'`, `'focus'` |
 | renderPop | 自定义Pop content的显示 | `function` | `identity` |  |
-| resizable | 是否响应窗口的resize | `boolean` | `false` |  |
+| resizable | 是否响应容器的大小变化 | `boolean` | `false` |  |
 | extra     | 额外节点，用于显示`更多`一类的操作 | `ReactElement` | `null` |  |
 | className | 自定义额外类名 | `string` | `''` |  |

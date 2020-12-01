@@ -3,7 +3,7 @@ import { runOnceInNextFrame } from '../nextFrame';
 
 const ResizeObserver = window.ResizeObserver;
 
-const useResizeObserver = (callback: ResizeObserverCallback) => {
+export const useResizeObserver = (callback: ResizeObserverCallback) => {
   const observerRef = useRef<ResizeObserver>(null);
 
   const getObserverInstance = useCallback(
@@ -16,16 +16,16 @@ const useResizeObserver = (callback: ResizeObserverCallback) => {
   }, [getObserverInstance]);
 
   const observe = useCallback(
-    (target: HTMLElement) => {
+    (target: Element, options?: ResizeObserverOptions) => {
       if (target) {
-        observerRef.current?.observe(target);
+        observerRef.current?.observe(target, options);
       }
     },
     [observerRef]
   );
 
   const unobserve = useCallback(
-    (target: HTMLElement) => {
+    (target: Element) => {
       observerRef.current?.unobserve(target);
     },
     [observerRef]
@@ -42,5 +42,3 @@ const useResizeObserver = (callback: ResizeObserverCallback) => {
     disconnect,
   };
 };
-
-export default useResizeObserver;

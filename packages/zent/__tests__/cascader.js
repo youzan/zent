@@ -4,7 +4,7 @@ import Enzyme, { mount } from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import MenuCascader from 'cascader/MenuCascader';
 import TabsCascader from 'cascader/TabsCascader';
-import { clone, getNode, insertPath } from 'cascader/public-options-fns';
+import { clone, getNode, insertPath, merge } from 'cascader/public-options-fns';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -1254,5 +1254,104 @@ describe('Cascader', () => {
     ).toBe('无数据');
 
     wrapper.unmount();
+  });
+
+  it('public options fns', () => {
+    const options = [
+      {
+        value: 1,
+        label: 'root',
+        loadChildrenOnScroll: false,
+        children: [
+          {
+            value: 2,
+            label: 'son',
+            children: [
+              {
+                value: 3,
+                label: 'grandSon',
+              },
+            ],
+          },
+          {
+            value: 4,
+            label: 'anotherSon',
+            children: [
+              {
+                value: 5,
+                label: 'anotherGrandSon',
+              },
+            ],
+          },
+        ],
+      },
+    ];
+    const anotherOptions = [
+      {
+        value: 1,
+        label: 'root',
+        children: [
+          {
+            value: 3,
+            label: '3',
+            children: [],
+          },
+          {
+            value: 2,
+            label: 'son',
+            children: [
+              {
+                value: 4,
+                label: '4',
+              },
+            ],
+          },
+        ],
+      },
+    ];
+
+    const ret = merge(options, anotherOptions);
+    expect(ret).toEqual([
+      {
+        value: 1,
+        label: 'root',
+        loadChildrenOnScroll: false,
+        children: [
+          {
+            value: 2,
+            label: 'son',
+            children: [
+              {
+                value: 3,
+                label: 'grandSon',
+              },
+              {
+                value: 4,
+                label: '4',
+              },
+            ],
+          },
+          {
+            value: 4,
+            label: 'anotherSon',
+            children: [
+              {
+                value: 5,
+                label: 'anotherGrandSon',
+              },
+            ],
+          },
+          {
+            value: 3,
+            label: '3',
+            children: [],
+          },
+        ],
+      },
+    ]);
+
+    expect(getNode(options, [{ value: 1 }, { value: 2 }, { value: 33 }])).toBe(
+      null
+    );
   });
 });

@@ -38,10 +38,14 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
     extra: null,
   };
 
-  element = React.createRef<HTMLDivElement>();
+  // Here we are using function ref because we need to be notified whenever ref changes
+  element: HTMLDivElement | null = null;
+
   innerElement = React.createRef<HTMLSpanElement>();
   lineHeight = 0;
   maxHeight = 0;
+  resizeObserver: ResizeObserver | null = null;
+  containerWidth = NaN;
 
   constructor(props: IClampLinesProps) {
     super(props);
@@ -71,8 +75,8 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
   componentDidUpdate(prevProps: IClampLinesProps) {
     const { original } = this.state;
 
-    if (!this.lineHeight && this.element.current) {
-      this.lineHeight = getLineHeight(this.element.current);
+    if (!this.lineHeight && this.element) {
+      this.lineHeight = getLineHeight(this.element);
     }
 
     if (prevProps.text !== original) {
@@ -81,18 +85,78 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
   }
 
   componentDidMount() {
-    if (this.element.current) {
-      this.lineHeight = getLineHeight(this.element.current);
+    if (this.element) {
+      this.lineHeight = getLineHeight(this.element);
       this.clampLines();
     }
   }
 
-  handleResize = () => {
+  componentWillUnmount() {
+    const observer = this.getResizeObserver();
+    if (observer) {
+      observer.disconnect();
+    }
+  }
+
+  handleWindowResize = () => {
     this.setState({ noClamp: false }, this.clampLines);
   };
 
+  handleContainerResize: ResizeObserverCallback = entries => {
+    const { contentBoxSize, contentRect } = entries[0];
+
+    let width = NaN;
+    if (contentBoxSize) {
+      // FIXME: ONLY works with horizontal writing mode
+      width = contentBoxSize[0].inlineSize;
+    } else {
+      width = contentRect.width;
+    }
+
+    // Compare with previous value to see if width actually changed
+    if (!Number.isNaN(this.containerWidth) && width !== this.containerWidth) {
+      this.setState({ noClamp: false }, this.clampLines);
+    }
+    this.containerWidth = width;
+  };
+
+  onContainerRefChange = (node: HTMLDivElement | null) => {
+    this.element = node;
+
+    this.observe(node);
+  };
+
+  onNoClampContainerRefChange = (node: HTMLDivElement | null) => {
+    this.observe(node);
+  };
+
+  getResizeObserver() {
+    // Do nothing if `ResizeObserver` is not available
+    if (!this.resizeObserver && window.ResizeObserver) {
+      this.resizeObserver = new window.ResizeObserver(
+        this.handleContainerResize
+      );
+    }
+
+    return this.resizeObserver;
+  }
+
+  observe(node: Element) {
+    const observer = this.getResizeObserver();
+    if (!observer || !this.props.resizable) {
+      return;
+    }
+
+    // Reset container width whenever it changes
+    this.containerWidth = NaN;
+    observer.disconnect();
+    if (node) {
+      observer.observe(node);
+    }
+  }
+
   clampLines() {
-    if (!this.innerElement.current || !this.element.current) {
+    if (!this.innerElement.current || !this.element) {
       return;
     }
 
@@ -120,7 +184,7 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
         return;
       }
 
-      if (this.element.current.clientHeight < maxHeight) {
+      if (this.element.clientHeight < maxHeight) {
         start = middle + 1;
       } else {
         end = middle - 1;
@@ -139,8 +203,9 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
   }
 
   renderResizable() {
-    if (this.props.resizable) {
-      return <WindowResizeHandler onResize={this.handleResize} />;
+    // Only listen to window resize event if ResizeObserver is not available
+    if (this.props.resizable && !window.ResizeObserver) {
+      return <WindowResizeHandler onResize={this.handleWindowResize} />;
     }
     return null;
   }
@@ -158,7 +223,7 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
           overflowWrap: 'anywhere',
         }}
       >
-        <div ref={this.element}>
+        <div ref={this.onContainerRefChange}>
           <span ref={this.innerElement}>{this.state.text}</span>
           {this.props.extra}
         </div>
@@ -184,6 +249,7 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
     if (this.state.noClamp) {
       return (
         <div
+          ref={this.onNoClampContainerRefChange}
           className={className}
           style={{ wordBreak: 'normal', overflowWrap: 'anywhere' }}
         >

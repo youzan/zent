@@ -6,6 +6,11 @@ group: Data Display
 
 ## ClampLines
 
+Limit number of lines shown for text.
+
+- Reacting to container resize requires `ResizeObserver`, you may need to provide your own polyfill for legacy browsers.
+- `resizable` will only work on Window resize if `ResizeObserver` is not available
+
 ### API
 
 | Props     | Description      | Type     | Default  | Alternative |
@@ -17,6 +22,6 @@ group: Data Display
 | popWidth  | The width of pop | `number` | `250` |  |
 | trigger   | The time to trigger pop | `string` | `'hover'` | `'click'`, `'focus'` |
 | renderPop | customize your pop text | `function` | `identity` |  |
-| resizable | If the container is resizable | `boolean` | `false` |  |
+| resizable | React to container resize | `boolean` | `false` |  |
 | extra     | Custom extra node，such as `More` | `ReactElement` | `null` |  |
 | className  | Custom calssname | `string` | `''` |  |
