@@ -120,6 +120,16 @@ type SyncValidator<T> = (value: T, ctx: ValidatorContext<T>) => IMaybeError<T>;
 <!-- demo-slot-4 -->
 <!-- demo-slot-5 -->
 
+#### 校验状态
+
+Zent 提供了 2 种监听表单校验状态的方法：
+
+- `Form.FieldValid`：接收 `name` 或 `model`，将其校验状态作为 `children` 的第一个参数
+- `Form.useFieldValid`：接收 `name` 或 `model`，返回其校验状态
+- `Form.useFormValid`：接收 `ZentForm` 对象（即 `useForm` 的返回值），返回表单的校验状态
+
+<!-- demo-slot-19 -->
+
 ### 校验选项
 
 校验选项共有以下几种：
@@ -210,10 +220,12 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 
 - `Field` 组件对应 `FieldValue`，`View` 模式下指定一个 `name`；`Model` 模式下指定一个 `model`
 - `FieldSet` 组件对应 `FieldSetValue`，只有一个 `name` 参数；如果是 `Model` 模式下已经拿到对应的 model 对象了，那么直接将 `model.get(xxx)` 传给 `FieldValue` 组件即可
-- `useFieldArray` 对应 `useFieldArrayValue`，`View` 模式下指定一个 `name`；`Model` 模式下指定一个 `model`
-- `useFieldValue` 与 `FieldValue` 的能力相同，它提供了一种 hooks 的风格来获取表单值
+- `Form.useFieldArray` 对应 `useFieldArrayValue`，`View` 模式下指定一个 `name`；`Model` 模式下指定一个 `model`。注意，它只会监听 `children` 的增、删行为，不会监听 `children` 内部的变动
+- `Form.useFieldValue` 提供了一种 hooks 的风格来获取表单值（包括 FieldSet、FieldArray、Field），它可以深度监听表单值
+- `Form.useFormValue` 提供了一种 hooks 的风格来获取整个表单的值，它可以深度监听表单值
 
 <!-- demo-slot-12 -->
+<!-- demo-slot-20 -->
 
 ### 非 `Field` 层级的校验
 

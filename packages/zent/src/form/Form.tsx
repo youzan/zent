@@ -18,6 +18,8 @@ import {
   createAsyncValidator,
   isAsyncValidator,
   useFieldValue,
+  FieldValid,
+  useFieldValid,
 } from './formulr';
 import memorize from '../utils/memorize-one';
 import {
@@ -25,7 +27,7 @@ import {
   IFormChild,
   IZentFormChildrenContext,
 } from './context';
-import { ZentForm, useForm } from './ZentForm';
+import { ZentForm, useForm, useFormValue, useFormValid } from './ZentForm';
 import { smoothScroll } from '../utils/scroll';
 import { CombineErrors } from './CombineErrors';
 import { ValidateOccasion, TouchWhen } from './shared';
@@ -126,8 +128,12 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
   static form = form;
   static FieldValue = FieldValue;
   static FieldSetValue = FieldSetValue;
+  static useFormValue = useFormValue;
   static useFieldArrayValue = useFieldArrayValue;
   static useFieldValue = useFieldValue;
+  static FieldValid = FieldValid;
+  static useFormValid = useFormValid;
+  static useFieldValid = useFieldValid;
   static ValidateOption = ValidateOption;
   static createAsyncValidator = createAsyncValidator;
   static isAsyncValidator = isAsyncValidator;

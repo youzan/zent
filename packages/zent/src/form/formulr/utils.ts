@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { FieldSetModel, BasicModel, ModelRef } from './models';
 import { BasicBuilder } from './builders';
+import _warning from '../../utils/warning';
 
 export function noop() {
   // noop
@@ -41,3 +42,12 @@ export type UnknownFieldSetBuilderChildren = Record<
   string,
   BasicBuilder<any, BasicModel<any>>
 >;
+
+const warnings: Record<string, boolean> = {};
+
+export function warning(id: string, message: string) {
+  if (!warnings[id]) {
+    warnings[id] = true;
+    _warning(false, message);
+  }
+}

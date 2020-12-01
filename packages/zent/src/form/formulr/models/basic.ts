@@ -43,10 +43,22 @@ abstract class BasicModel<Value> implements IModel<Value> {
   /** @internal */
   [MODEL_ID]!: boolean;
 
-  abstract getRawValue(): any;
+  abstract getRawValue(): Value;
   abstract getSubmitValue(): any;
 
   readonly error$ = new BehaviorSubject<IMaybeError<Value>>(null);
+
+  abstract get valid$(): BehaviorSubject<boolean>;
+
+  abstract get value$(): BehaviorSubject<Value>;
+
+  get value() {
+    return this.value$.value;
+  }
+
+  set value(value: Value) {
+    this.patchValue(value);
+  }
 
   get form() {
     return this.owner?.form;
@@ -63,7 +75,6 @@ abstract class BasicModel<Value> implements IModel<Value> {
   abstract pristine(): boolean;
   abstract touched(): boolean;
   abstract dirty(): boolean;
-  abstract valid(): boolean;
   abstract patchValue(value: Value): void;
   abstract reset(): void;
   abstract clear(): void;
@@ -74,6 +85,10 @@ abstract class BasicModel<Value> implements IModel<Value> {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
     this.subscriptions = [];
     this.owner = null;
+  }
+
+  valid() {
+    return this.valid$.value;
   }
 
   protected triggerValidate(option: ValidateOption) {

@@ -18,7 +18,10 @@ class FieldModel<Value> extends BasicModel<Value> {
    */
   [FIELD_ID]!: boolean;
 
-  readonly value$: BehaviorSubject<Value>;
+  readonly _value$ = new BehaviorSubject(this.defaultValue);
+
+  readonly _valid$ = new BehaviorSubject(true);
+
   isTouched = false;
 
   /**
@@ -36,21 +39,14 @@ class FieldModel<Value> extends BasicModel<Value> {
   /** @internal */
   constructor(private readonly defaultValue: Value) {
     super(uniqueId('field-'));
-    this.value$ = new BehaviorSubject(defaultValue);
   }
 
-  /**
-   * 获取 `Field` 当前的值
-   */
-  get value() {
-    return this.value$.getValue();
+  get value$() {
+    return this._value$;
   }
 
-  /**
-   * 设置 `Field` 的值
-   */
-  set value(value: Value) {
-    this.value$.next(value);
+  get valid$() {
+    return this._valid$;
   }
 
   /**
@@ -90,18 +86,14 @@ class FieldModel<Value> extends BasicModel<Value> {
   }
 
   /**
-   * `Field` 是否所有校验都通过了
-   */
-  valid() {
-    return isNil(this.error$.getValue());
-  }
-
-  /**
    * 执行 `Field` 的校验规则
    * @param option 执行校验规则的参数
    */
   validate(option = ValidateOption.Default) {
-    return this.triggerValidate(option);
+    return this.triggerValidate(option).then(maybeError => {
+      this.valid$.next(isNil(maybeError));
+      return maybeError;
+    });
   }
 
   /**
