@@ -126,7 +126,7 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
     this.observe(node);
   };
 
-  onNoClmapContainerRefChange = (node: HTMLDivElement | null) => {
+  onNoClampContainerRefChange = (node: HTMLDivElement | null) => {
     this.observe(node);
   };
 
@@ -249,7 +249,7 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
     if (this.state.noClamp) {
       return (
         <div
-          ref={this.onNoClmapContainerRefChange}
+          ref={this.onNoClampContainerRefChange}
           className={className}
           style={{ wordBreak: 'normal', overflowWrap: 'anywhere' }}
         >
