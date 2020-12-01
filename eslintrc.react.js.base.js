@@ -33,6 +33,8 @@ module.exports = {
     'react/destructuring-assignment': 0,
     'react/button-has-type': 0,
     'react/no-access-state-in-setstate': 0,
+    'react/jsx-uses-react': 'off',
+    'react/react-in-jsx-scope': 'off',
     'no-param-reassign': 0,
     'no-return-assign': 0,
     'no-underscore-dangle': [
