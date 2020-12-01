@@ -4,7 +4,7 @@ import cx from 'classnames';
 import { Waypoint, IWaypointCallbackData, WaypointPosition } from '../waypoint';
 import { useCallbackRef } from '../utils/hooks/useCallbackRef';
 import isBrowser from '../utils/isBrowser';
-import useResizeObserver from '../utils/hooks/use-resize-observer';
+import { useResizeObserver } from '../utils/hooks/use-resize-observer';
 
 export interface IAffixProps {
   offsetTop?: number;
