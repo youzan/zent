@@ -108,6 +108,14 @@ class FieldArrayModel<
   }
 
   /**
+   * 获取指定下标的子 model
+   * @param index child model index
+   */
+  get(index: number): Child {
+    return this.children[index];
+  }
+
+  /**
    * 获取 `FieldArray` 内的原始值
    */
   getRawValue() {
