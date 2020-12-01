@@ -14,7 +14,6 @@ import { IImageUploadItemProps } from '../../types';
 const ImageUploadItem: React.FC<IImageUploadItemProps> = props => {
   const { i18n, item, onPreview } = props;
   const isFailed = item.status === FILE_UPLOAD_STATUS.failed;
-  const isSuccess = item.status === FILE_UPLOAD_STATUS.success;
 
   const { isHover, onMouseEnter, onMouseLeave } = useHover();
 
@@ -29,7 +28,6 @@ const ImageUploadItem: React.FC<IImageUploadItemProps> = props => {
   );
 
   const cls = cn('zent-image-upload-item', {
-    ['zent-image-upload-item__success']: isSuccess,
     ['zent-image-upload-item__failed']: isFailed,
     ['zent-image-upload-item__hover']: isHover,
   });
@@ -38,10 +36,14 @@ const ImageUploadItem: React.FC<IImageUploadItemProps> = props => {
   const failedFallback = React.useMemo(() => {
     const failedIconType = isHover ? 'upload' : 'warning';
     const failedText = isHover ? i18n.retry : i18n.failed;
-    const failedCls = cn('zent-image-upload-item-backdrop', {
-      ['zent-image-upload-item-backdrop__failed']: !isHover,
-      ['zent-image-upload-item-backdrop__retry']: isHover,
-    });
+    const failedCls = cn(
+      'zent-image-upload-item-backdrop',
+      'zent-image-upload-item-backdrop__white',
+      {
+        ['zent-image-upload-item-backdrop__failed']: !isHover,
+        ['zent-image-upload-item-backdrop__retry']: isHover,
+      }
+    );
     return (
       isFailed && (
         <div className={failedCls} onClick={retryHandler}>
@@ -61,23 +63,19 @@ const ImageUploadItem: React.FC<IImageUploadItemProps> = props => {
       onMouseLeave={onMouseLeave}
       className={cls}
     >
-      {/* 上传成功，展示缩略图 */}
-      {item.status === FILE_UPLOAD_STATUS.success && (
-        <img
-          className="zent-image-upload-item-thumb"
-          src={item.thumbSrc || item.src}
-          alt={item.name}
-          onClick={previewHandler}
-        />
-      )}
+      <img
+        className="zent-image-upload-item-thumb"
+        src={item.thumbSrc || item.src}
+        alt={item.name}
+        onClick={previewHandler}
+      />
       {/* 上传中的状态显示 */}
       {item.status === FILE_UPLOAD_STATUS.uploading && (
-        <div className="zent-image-upload-item-backdrop">
+        <div className="zent-image-upload-item-backdrop zent-image-upload-item-backdrop__black">
           <Progress
             width={48}
             showInfo={false}
             className="zent-image-upload-item-progress"
-            bgColor="#fff"
             strokeWidth={4}
             status="normal"
             percent={item.percent}

@@ -202,7 +202,6 @@
 
   &-item {
     @include image-item;
-    @include theme-color(background-color, stroke, 8);
     position: relative;
     margin-right: 12px;
     margin-bottom: 12px;
@@ -217,6 +216,14 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
+
+      &__white {
+        @include theme-color(background-color, stroke, 9, 0.8);
+      }
+
+      &__black {
+        background-color: rgba(black, 0.6);
+      }
 
       &__failed {
         @include theme-color(color, error, 2);
@@ -270,10 +277,6 @@
           display: inline-block;
         }
       }
-    }
-
-    &__success {
-      background-color: transparent;
     }
   }
 }
