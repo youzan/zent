@@ -2,6 +2,7 @@ import { IMaybeError, IValidators, ValidateOption } from '../validate';
 import { FormModel } from './form';
 
 export interface IModel<Value> {
+  readonly id: string;
   getRawValue(): Value;
   getSubmitValue(): any;
   pristine(): boolean;
