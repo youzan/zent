@@ -1,12 +1,8 @@
-import { BehaviorSubject } from 'rxjs';
 import { IMaybeError, IValidators, ValidateOption } from '../validate';
 import { FormModel } from './form';
 
 export interface IModel<Value> {
   readonly id: string;
-  readonly valid$: BehaviorSubject<boolean>;
-  readonly value$: BehaviorSubject<Value>;
-  value: Value;
   getRawValue(): Value;
   getSubmitValue(): any;
   pristine(): boolean;
