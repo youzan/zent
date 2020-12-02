@@ -1,5 +1,10 @@
 # 9.0.0 迁移指南
 
+## 9.0.0-beta20 (2020-12-02)
+
+- 修复 `FieldArrayModel` 一些情况下下 `children` 和 `value` 个数对不上的问题
+- `ModelRef` 内部为初始化完成前使用 `initialValue`，而不抛异常
+
 ## 9.0.0-beta19 (2020-12-01)
 
 - ✨ `Form` `FieldArrayModel` 增加 `get` 方法用于获取指定下标的子 model
