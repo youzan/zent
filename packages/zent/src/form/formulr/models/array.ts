@@ -3,16 +3,12 @@ import { BasicModel, isModel } from './basic';
 import { ValidateOption } from '../validate';
 import { isModelRef, ModelRef } from './ref';
 import { BasicBuilder } from '../builders/basic';
-import { or, Some } from '../maybe';
+import { get, or, Some } from '../maybe';
 import { IModel } from './base';
 import isNil from '../../../utils/isNil';
 import uniqueId from '../../../utils/uniqueId';
 import { pairwise, skip } from 'rxjs/operators';
-import { createUnexpectedModelError, NullModelReferenceError } from '../error';
-import {
-  unstable_IdlePriority as IdlePriority,
-  unstable_scheduleCallback as scheduleCallback,
-} from 'scheduler';
+import { createUnexpectedModelError } from '../error';
 import { warning } from '../utils';
 
 const FIELD_ARRAY_ID = Symbol('field-array');
@@ -304,10 +300,7 @@ class FieldArrayModel<
 
     /** Skip the first subscription to avoid setting initialValue repeatedly */
     this.children$.pipe(skip(1)).subscribe(() => {
-      /** Waiting `setModel` in `render` of child component(s), or `getRawValue` will throw `NullModelReferenceError` */
-      scheduleCallback(IdlePriority, () => {
-        value$.next(this.getRawValue());
-      });
+      value$.next(this.getRawValue());
     });
 
     for (const child of this.children) {
@@ -370,11 +363,9 @@ class FieldArrayModel<
   private _getValue<V>(getter: (model: BasicModel<Item>) => V): V[] {
     return this.children$.getValue().map(child => {
       if (isModelRef<Item, this, BasicModel<Item>>(child)) {
-        const model = child.getModel();
-        if (model) {
-          return getter(model);
-        }
-        throw NullModelReferenceError;
+        return (or(child.patchedValue, () =>
+          get(child.initialValue)
+        ) as unknown) as V;
       } else if (isModel<Item>(child)) {
         return getter(child);
       }
