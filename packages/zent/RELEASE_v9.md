@@ -1,9 +1,15 @@
 # 9.0.0 迁移指南
 
+## 9.0.0-beta21 (2020-12-02)
+
+- `Form`
+  - 🦀️ 修复 `set.value` 和 `array.value` 不正确的触发了对 `value` 的持续监听
+  - 🦀️ 修复 `array.getRawValue` 总是返回初始值的问题
+
 ## 9.0.0-beta20 (2020-12-02)
 
-- 修复 `FieldArrayModel` 一些情况下下 `children` 和 `value` 个数对不上的问题
-- `ModelRef` 内部为初始化完成前使用 `initialValue`，而不抛异常
+- 🦀️ 修复 `FieldArrayModel` 一些情况下下 `children` 和 `value` 个数对不上的问题
+- 🦀️ `ModelRef` 内部为初始化完成前使用 `initialValue`，而不抛异常
 
 ## 9.0.0-beta19 (2020-12-01)
 

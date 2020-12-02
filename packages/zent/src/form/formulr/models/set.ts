@@ -63,7 +63,7 @@ class FieldSetModel<
   }
 
   get value() {
-    if ('_value$' in this) {
+    if (this._value$) {
       return this._value$.value;
     }
     return this.getRawValue();
