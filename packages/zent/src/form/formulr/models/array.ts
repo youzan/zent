@@ -61,6 +61,13 @@ class FieldArrayModel<
     this.children$ = new BehaviorSubject(children);
   }
 
+  get value() {
+    if ('_value$' in this) {
+      return this._value$.value;
+    }
+    return this.getRawValue();
+  }
+
   get value$() {
     if (!this._value$) {
       this._initValue$();
