@@ -366,9 +366,7 @@ class FieldArrayModel<
         const model = child.getModel();
         return isModel<Item>(model)
           ? getter(model)
-          : ((or(child.patchedValue, () =>
-              get(child.initialValue)
-            ) as unknown) as V);
+          : ((get(child.initialValue) as unknown) as V);
       } else if (isModel<Item>(child)) {
         return getter(child);
       }
