@@ -363,9 +363,12 @@ class FieldArrayModel<
   private _getValue<V>(getter: (model: BasicModel<Item>) => V): V[] {
     return this.children$.getValue().map(child => {
       if (isModelRef<Item, this, BasicModel<Item>>(child)) {
-        return (or(child.patchedValue, () =>
-          get(child.initialValue)
-        ) as unknown) as V;
+        const model = child.getModel();
+        return isModel<Item>(model)
+          ? getter(model)
+          : ((or(child.patchedValue, () =>
+              get(child.initialValue)
+            ) as unknown) as V);
       } else if (isModel<Item>(child)) {
         return getter(child);
       }
