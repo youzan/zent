@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import { ChangeEventHandler, useCallback, useContext, useRef } from 'react';
+import { useCallback, useContext, useRef } from 'react';
 
 import getWidth from '../utils/getWidth';
 import GroupContext, { ICheckboxContext } from './GroupContext';
@@ -64,7 +64,7 @@ export function Checkbox<Value>(props: ICheckboxProps<Value>) {
   const propsRef = useRef(props);
   propsRef.current = props;
   const ctxOnChange = groupCtx && groupCtx.onChange;
-  const onChange: ChangeEventHandler<HTMLInputElement> = useCallback(
+  const onChange: React.ChangeEventHandler<HTMLInputElement> = useCallback(
     evt => {
       const { value, onChange } = propsRef.current;
       if (ctxOnChange) {
