@@ -1,23 +1,6 @@
 {
+  "extends": "./tsconfig.json",
   "compilerOptions": {
-    "target": "es5",
-    "module": "es2015",
-    "moduleResolution": "node",
-    "allowSyntheticDefaultImports": false,
-    "outDir": "dist",
-    "jsx": "react-jsx",
-    "allowJs": true,
-    "lib": [
-      "dom",
-      "es2017"
-    ]
-  },
-  "exclude": [
-    "lib",
-    "es",
-  ],
-  "include": [
-    "src",
-    "../packages/zent/src",
-  ]
+    "jsx": "react-jsx"
+  }
 }
