@@ -1,5 +1,4 @@
-import * as React from 'react';
-
+import { PureComponent } from 'react';
 import { II18nLocaleUpload } from '../../i18n';
 import { FILE_UPLOAD_STATUS } from '../constants';
 import {
@@ -26,7 +25,7 @@ abstract class AbstractUpload<
     ON_UPLOAD_SUCCESS_RETURN,
     UPLOAD_ITEM_COMP_PROPS
   >
-> extends React.PureComponent<P, IAbstractUploadState<UPLOAD_ITEM>> {
+> extends PureComponent<P, IAbstractUploadState<UPLOAD_ITEM>> {
   constructor(props: P) {
     super(props);
 

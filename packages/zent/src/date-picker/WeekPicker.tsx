@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useContext, useMemo, useCallback } from 'react';
 import { I18nReceiver as Receiver, II18nLocaleTimePicker } from '../i18n';
 import SinglePicker from './components/SinglePickerBase';
 import WeekPanel from './panels/week-panel';
@@ -38,7 +38,7 @@ const DefaultWeekPickerProps = {
 export const WeekPicker = <T extends IValueType = 'string'>(
   props: IWeekPickerProps<T>
 ) => {
-  const disabledContext = React.useContext(DisabledContext);
+  const disabledContext = useContext(DisabledContext);
   const propsRequired = {
     ...defaultDatePickerCommonProps,
     ...DefaultWeekPickerProps,
@@ -55,19 +55,19 @@ export const WeekPicker = <T extends IValueType = 'string'>(
   const { weekStartsOn, format, valueType } = restProps;
 
   // generate week-date method's option
-  const options = React.useMemo(() => ({ weekStartsOn }), [weekStartsOn]);
+  const options = useMemo(() => ({ weekStartsOn }), [weekStartsOn]);
 
-  const getInputText = React.useCallback(
+  const getInputText = useCallback(
     (val: Date | null) => weekFormatText(val, format, options),
     [format, options]
   );
 
-  const getSelectedValue = React.useCallback(
+  const getSelectedValue = useCallback(
     val => getSelectedValueWithDate(val, generateDate, options),
     [options]
   );
 
-  const getCallbackValue = React.useCallback(
+  const getCallbackValue = useCallback(
     val =>
       getCallbackValueRangeWithDate(
         val,

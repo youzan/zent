@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import {
   renderIntoDocument,
@@ -19,7 +19,7 @@ import NumberInput from 'number-input';
 
 describe('Slider', () => {
   it('will render div wrapper contains an Slider without any props', () => {
-    class Wrapper extends React.Component {
+    class Wrapper extends Component {
       state = {
         value: 0,
       };
@@ -82,7 +82,7 @@ describe('Slider', () => {
   });
 
   it('can range props', () => {
-    class Wrapper extends React.Component {
+    class Wrapper extends Component {
       state = {
         value: [20, 30],
       };
@@ -177,7 +177,7 @@ describe('Slider', () => {
       50: '50%',
       100: '100%',
     };
-    class Wrapper extends React.Component {
+    class Wrapper extends Component {
       state = {
         value: [0, 20],
       };
@@ -316,7 +316,7 @@ describe('Slider', () => {
   });
 
   it('can input onchange props', () => {
-    class Wrapper extends React.Component {
+    class Wrapper extends Component {
       state = {
         value: [20, 30],
       };

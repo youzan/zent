@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { FC, useContext } from 'react';
+import { useMemo, FC, useContext } from 'react';
 import PanelContext from '../../context/PanelContext';
 import PickerContext from '../../context/PickerContext';
 import PanelCell from '../../components/PanelCell';
@@ -24,7 +23,7 @@ const MonthPickerBody: FC<IMonthPickerBodyProps> = ({
   const { i18n } = useContext(PickerContext);
   const { onHover } = useContext(PanelContext);
 
-  const cells = React.useMemo(
+  const cells = useMemo(
     () =>
       getPanelCellsData({
         selected,

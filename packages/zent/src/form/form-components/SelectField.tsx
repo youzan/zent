@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { IFormComponentProps, IFormFieldChildProps } from '../shared';
 import Select, { ISelectProps, ISelectItem } from '../../select';
 import { FormField } from '../Field';

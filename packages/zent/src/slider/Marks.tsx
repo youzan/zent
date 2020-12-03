@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { memo } from 'react';
 import { getLeft } from './common';
 
 export interface ISliderMarksProps {
@@ -8,7 +8,7 @@ export interface ISliderMarksProps {
   potentialValues: number[];
 }
 
-const SliderMarks = React.memo(
+const SliderMarks = memo(
   ({ marks, min, max, potentialValues }: ISliderMarksProps) => (
     <>
       {potentialValues.map(value => {

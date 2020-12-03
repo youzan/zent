@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { Component } from 'react';
+import { Component, createRef } from 'react';
 
 import * as Position from './placement';
 import PopoverContent from './Content';
@@ -62,9 +61,9 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
   private pendingOnBeforeHook = false;
   private didMountHooks: Array<() => () => void> = [];
   private didMountCleanup: Array<() => void> = [];
-  readonly portalRef = React.createRef<IPortalImperativeHandlers>();
+  readonly portalRef = createRef<IPortalImperativeHandlers>();
   isPositionReady = false;
-  readonly contentRef = React.createRef<IPopoverContentImperativeHandle>();
+  readonly contentRef = createRef<IPopoverContentImperativeHandle>();
 
   state = {
     visible: false,

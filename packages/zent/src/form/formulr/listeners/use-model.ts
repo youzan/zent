@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { merge, asapScheduler } from 'rxjs';
 import { observeOn, filter } from 'rxjs/operators';
 import noop from '../../../utils/noop';
@@ -11,7 +11,7 @@ export function useModelFromContext<Model>(
   check: (m: any) => m is Model
 ): Model | null {
   const { parent } = ctx;
-  const m = React.useMemo(() => {
+  const m = useMemo(() => {
     if (typeof name === 'string') {
       const m = parent.get(name);
       if (check(m)) {
@@ -23,8 +23,8 @@ export function useModelFromContext<Model>(
     }
     return null;
   }, [name, model, check, parent]);
-  const [maybeModel, setModel] = React.useState(m);
-  React.useEffect(() => {
+  const [maybeModel, setModel] = useState(m);
+  useEffect(() => {
     if (!name) {
       return noop;
     }

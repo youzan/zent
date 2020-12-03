@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Component, createRef } from 'react';
 import cx from 'classnames';
 import focusWithoutScroll from '../utils/dom/focusWithoutScroll';

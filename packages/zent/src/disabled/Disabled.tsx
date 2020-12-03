@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { createContext, useMemo } from 'react';
 
 export interface IDisabledProps {
   value?: boolean;
@@ -8,17 +8,17 @@ export interface IDisabledContext {
   value: boolean;
 }
 
-export const DisabledContext = React.createContext<IDisabledContext>({
+export const DisabledContext = createContext<IDisabledContext>({
   value: false,
 });
 
 DisabledContext.displayName = 'DisabledContext';
 
-export const Disabled: React.FunctionComponent<IDisabledProps> = ({
+export const Disabled: React.FC<IDisabledProps> = ({
   value = true,
   children,
 }) => {
-  const ctx = React.useMemo(
+  const ctx = useMemo(
     () => ({
       value,
     }),

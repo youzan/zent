@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { IProgressInfoProps } from '../types';
 import { Icon } from '../../icon';
 

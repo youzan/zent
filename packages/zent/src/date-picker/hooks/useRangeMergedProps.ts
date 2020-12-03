@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { parseDateRange } from '../utils/index';
 import { addMonths } from 'date-fns';
 import { IRangeProps, DateNullTuple, DateTuple } from '../types';
@@ -30,23 +30,21 @@ export default function useRangeMergedProps({
   addMonthNum = 0,
 }: IRangeMergedPropsParams) {
   // defaultPanelDate
-  const [defaultPanelDate, setDefaultPanelDate] = React.useState<DateTuple>(
-    initDate
-  );
+  const [defaultPanelDate, setDefaultPanelDate] = useState<DateTuple>(initDate);
   // 转换成Date类型value日期，用于重置select
-  const parseValue = React.useMemo<DateNullTuple>(
+  const parseValue = useMemo<DateNullTuple>(
     () => (value ? parseDateRange(value, format) : [null, null]),
     [value, format]
   );
 
   // selected
-  const [selected, setSelected] = React.useState<DateNullTuple>(parseValue);
-  React.useEffect(() => {
+  const [selected, setSelected] = useState<DateNullTuple>(parseValue);
+  useEffect(() => {
     setSelected(parseValue);
   }, [parseValue]);
 
   // defaultPanelDate
-  React.useEffect(() => {
+  useEffect(() => {
     let initDateRange: DateTuple = initDate;
     // 优先级：select > defaultDate
     if (selected?.[0] || selected?.[1]) {

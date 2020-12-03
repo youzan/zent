@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useMemo } from 'react';
 import cx from 'classnames';
 import {
   IProgressProps,
@@ -31,7 +31,7 @@ export const Progress: React.FC<IProgressProps> = props => {
   >;
 
   // 计算 progress 状态
-  const state = React.useMemo<IProgressStatus>(() => {
+  const state = useMemo<IProgressStatus>(() => {
     if (avaliableStatus.indexOf(status) !== -1) {
       return status;
     }
@@ -46,7 +46,7 @@ export const Progress: React.FC<IProgressProps> = props => {
   }[state];
 
   // 百分比范围
-  const percentValue = React.useMemo<number>(() => {
+  const percentValue = useMemo<number>(() => {
     if (percent < 0) {
       return 0;
     }

@@ -1,13 +1,13 @@
-import * as React from 'react';
+import { useState, useCallback } from 'react';
 
 export function useHover(initial = false) {
-  const [isHover, setIsHover] = React.useState(initial);
+  const [isHover, setIsHover] = useState(initial);
 
-  const onMouseEnter = React.useCallback(() => {
+  const onMouseEnter = useCallback(() => {
     setIsHover(true);
   }, []);
 
-  const onMouseLeave = React.useCallback(() => {
+  const onMouseLeave = useCallback(() => {
     setIsHover(false);
   }, []);
 

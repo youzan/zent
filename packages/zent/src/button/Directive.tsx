@@ -1,7 +1,8 @@
-import * as React from 'react';
 import cx from 'classnames';
 import { isElement } from 'react-is';
 import { Omit } from 'utility-types';
+import { Children, cloneElement, useCallback, useContext, useRef } from 'react';
+
 import Icon, { IconType } from '../icon';
 import { DisabledContext } from '../disabled';
 
@@ -44,7 +45,7 @@ export interface IButtonDirectiveProps<
 export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
   props: IButtonDirectiveProps<ChildProps>
 ) {
-  const disabledContext = React.useContext(DisabledContext);
+  const disabledContext = useContext(DisabledContext);
   const {
     outline,
     type = 'default',
@@ -61,12 +62,12 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
       'Button Directive child must be element, string | number | boolean | null | undefined is not accepted'
     );
   }
-  const disabledRef = React.useRef(disabled);
+  const disabledRef = useRef(disabled);
   disabledRef.current = disabled;
-  const propsRef = React.useRef(props);
+  const propsRef = useRef(props);
   propsRef.current = props;
 
-  const onClick = React.useCallback((e: React.MouseEvent) => {
+  const onClick = useCallback((e: React.MouseEvent) => {
     const { loading, children } = propsRef.current;
     const { onClick } = children.props;
     const disabled = disabledRef.current;
@@ -90,7 +91,7 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
     children.props.className
   );
 
-  return React.cloneElement<ChildProps>(
+  return cloneElement<ChildProps>(
     children,
     {
       className,
@@ -100,7 +101,7 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
     } as Partial<ChildProps>,
     iconNode,
     // Wrap text in a `span`, or we won't be able to control icon margins
-    ...(React.Children.map(children.props.children, child =>
+    ...(Children.map(children.props.children, child =>
       typeof child === 'string' ? <span>{child}</span> : child
     ) || [])
   );

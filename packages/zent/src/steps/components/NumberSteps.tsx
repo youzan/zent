@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { Component } from 'react';
+import { Children, cloneElement, Component } from 'react';
 import classNames from 'classnames';
 import { isElement } from 'react-is';
 import { IStepsProps } from '../Steps';
@@ -9,7 +8,7 @@ export default class NumberSteps extends Component<IStepsProps> {
     const props = this.props;
     const { className, children, current, status, direction, sequence } = props;
 
-    const lastIndex = React.Children.count(children) - 1;
+    const lastIndex = Children.count(children) - 1;
     const classString = classNames(
       className,
       'zent-steps',
@@ -18,7 +17,7 @@ export default class NumberSteps extends Component<IStepsProps> {
 
     return (
       <div className={classString}>
-        {React.Children.map(children, (item, index) => {
+        {Children.map(children, (item, index) => {
           const np = {
             sequence,
             stepNumber: (index + 1).toString(),
@@ -42,7 +41,7 @@ export default class NumberSteps extends Component<IStepsProps> {
             }
           }
 
-          return React.cloneElement(item, np);
+          return cloneElement(item, np);
         })}
       </div>
     );

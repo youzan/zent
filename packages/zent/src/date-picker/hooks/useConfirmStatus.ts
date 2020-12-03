@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { parse } from 'date-fns';
 import { IDisabledTimeOption } from '../types';
 interface IUseConfirmStatus {
@@ -11,9 +11,9 @@ export default function useConfirmStatus({
   selected,
   format,
 }: IUseConfirmStatus) {
-  const [confirmStatus, setConfirmStatus] = React.useState<boolean>(false);
+  const [confirmStatus, setConfirmStatus] = useState<boolean>(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const date = parse(selected, format, new Date());
     const hour = date.getHours();
     const minute = date.getMinutes();

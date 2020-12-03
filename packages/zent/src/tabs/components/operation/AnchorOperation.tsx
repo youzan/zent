@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState, useCallback } from 'react';
 import cn from 'classnames';
 import { IInnerTab } from '../../types';
 import Icon from '../../../icon';
@@ -15,9 +15,9 @@ const AnchorOperation = <Id extends string | number = string>({
   onChange,
 }: IAnchorOperationProps<Id>) => {
   const onChangeRef = useEventCallbackRef(onChange);
-  const [visible, setVisible] = React.useState<boolean>(false);
+  const [visible, setVisible] = useState<boolean>(false);
 
-  const onClick = React.useCallback(
+  const onClick = useCallback(
     item => {
       onChangeRef.current(item);
       !item.disabled && setVisible(false);

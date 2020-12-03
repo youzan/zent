@@ -1,8 +1,7 @@
-import * as React from 'react';
+import { cloneElement, useContext } from 'react';
 import { isElement } from 'react-is';
 import Context from '../Context';
 import Anchor, { PopoverAnchorGetElementFn } from '../Anchor';
-import { cloneElement } from 'react';
 
 export interface IPopoverFocusTriggerChildProps<T extends Element = Element> {
   onFocus?: (...args: any[]) => void;
@@ -23,7 +22,7 @@ export interface IPopoverFocusTriggerProps<
 export function PopoverFocusTrigger<
   ChildProps extends IPopoverFocusTriggerChildProps = IPopoverFocusTriggerChildProps
 >({ children, getElement }: IPopoverFocusTriggerProps<ChildProps>) {
-  const ctx = React.useContext(Context);
+  const ctx = useContext(Context);
   if (!ctx) {
     throw new Error('PopoverFocusTrigger must be child of Popover');
   }

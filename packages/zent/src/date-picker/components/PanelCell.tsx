@@ -1,5 +1,5 @@
-import * as React from 'react';
 import cx from 'classnames';
+import { useCallback, useMemo } from 'react';
 import Tooltip from '../../tooltip';
 import { IDateCellBase } from '../types';
 
@@ -37,7 +37,7 @@ const PanelCell: React.FC<IPanelCellProps> = ({
   popText,
   onHover,
 }) => {
-  const onCellClick = React.useCallback(
+  const onCellClick = useCallback(
     ({ isDisabled, value }) => {
       if (isDisabled) return;
       onSelected(value);
@@ -45,7 +45,7 @@ const PanelCell: React.FC<IPanelCellProps> = ({
     [onSelected]
   );
 
-  const onCellMouseOver = React.useCallback(
+  const onCellMouseOver = useCallback(
     ({ isDisabled, value }) => {
       if (isDisabled) return;
       onHover?.(value);
@@ -53,7 +53,7 @@ const PanelCell: React.FC<IPanelCellProps> = ({
     [onHover]
   );
 
-  const rows = React.useMemo(() => {
+  const rows = useMemo(() => {
     const uls: React.ReactNode[] = [];
     let rowCells: React.ReactNode[] = [];
     cells.map(({ value, text, ...classNameProps }, index) => {

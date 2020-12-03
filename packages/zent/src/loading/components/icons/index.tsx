@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import YouzanIcon from './Youzan';
 import CircleIcon from './Circle';
 import { IIconProps } from './IconProps';

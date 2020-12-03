@@ -1,10 +1,9 @@
-import * as React from 'react';
+import { cloneElement, useCallback, useRef } from 'react';
 import { isElement } from 'react-is';
 import { IPortalImperativeHandlers } from '../../portal';
 import { usePopoverContext } from '../Context';
 import Anchor, { PopoverAnchorGetElementFn } from '../Anchor';
 import { useWindowEventHandler } from '../../utils/component/WindowEventHandler';
-import { cloneElement } from 'react';
 
 export interface IPopoverClickTriggerChildProps {
   onClick?: (...args: any[]) => void;
@@ -43,8 +42,8 @@ export function PopoverClickTrigger<
   closeOnClickOutside = true,
 }: IPopoverClickTriggerProps<ChildProps>) {
   const ctx = usePopoverContext();
-  const anchorRef = React.useRef<Anchor>(null);
-  const globalClick = React.useCallback(
+  const anchorRef = useRef<Anchor>(null);
+  const globalClick = useCallback(
     (e: MouseEvent) => {
       const anchor = anchorRef.current;
       if (!anchor) {

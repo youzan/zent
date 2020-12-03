@@ -33,7 +33,7 @@ Our goal is making React development faster and simpler.
 
 ### Supported Environments
 
-* React >= 16.8
+* React >= 17
 * Modern browsers but not IE
 * Supports server-side rendering(SSR)
 

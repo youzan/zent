@@ -1,4 +1,3 @@
-import * as React from 'react';
 import reactCSS from '../helpers/reactcss';
 
 export const Swatch = ({ color, style, onClick, title = color }) => {

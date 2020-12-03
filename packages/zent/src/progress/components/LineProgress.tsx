@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { DEFAULT_WIDTH } from '../constants';
 import ProgressInfo from './ProgressInfo';
 import { IProgressInstanceProps } from '../types';

@@ -1,4 +1,3 @@
-import * as React from 'react';
 import CardTab from '../tab/CardTab';
 import CommonTabsNav from './CommonTabsNav';
 import { IInnerTab } from '../../types';

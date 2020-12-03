@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Popover, { IPopoverClickTriggerChildProps } from '../../popover';
 interface IPickerPopoverProps {
   trigger: React.ReactElement<IPopoverClickTriggerChildProps, any>;

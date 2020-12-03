@@ -1,4 +1,3 @@
-import * as React from 'react';
 import cx from 'classnames';
 
 import MiniPageList from './components/list/MiniPageList';

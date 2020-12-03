@@ -1,5 +1,6 @@
-import * as React from 'react';
 import cx from 'classnames';
+import { Component, createRef } from 'react';
+
 import Popover from '../popover';
 import TagList from './TagList';
 import Option from './Option';
@@ -176,9 +177,10 @@ function defaultIsValidNewOption(
 // 允许创建的临时 key
 const SELECT_CREATABLE_KEY = uniqueId('__ZENT_SELECT_CREATABLE_KEY__');
 
-export class Select<
-  Item extends ISelectItem = ISelectItem
-> extends React.Component<ISelectProps<Item>, ISelectState<Item>> {
+export class Select<Item extends ISelectItem = ISelectItem> extends Component<
+  ISelectProps<Item>,
+  ISelectState<Item>
+> {
   static defaultProps = {
     isEqual: defaultIsEqual,
     renderOptionList: defaultRenderOptionList,
@@ -194,9 +196,9 @@ export class Select<
   static contextType = DisabledContext;
   context!: IDisabledContext;
 
-  elementRef = React.createRef<HTMLDivElement>();
-  popoverRef = React.createRef<Popover>();
-  inputRef = React.createRef<HTMLInputElement>();
+  elementRef = createRef<HTMLDivElement>();
+  popoverRef = createRef<Popover>();
+  inputRef = createRef<HTMLInputElement>();
 
   constructor(props: ISelectProps<Item>) {
     super(props);

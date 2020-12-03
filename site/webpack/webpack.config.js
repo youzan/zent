@@ -145,6 +145,10 @@ module.exports = {
             loader: 'awesome-typescript-loader',
             options: {
               useCache: false,
+              tsconfig: path.resolve(
+                __dirname,
+                DEV ? '../tsconfig.json' : '../tsconfig-prod.json'
+              ),
               getCustomTransformers: program => ({
                 before: [
                   tsCompilerConstantsPlugin(program),

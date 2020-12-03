@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useLayoutEffect } from 'react';
 
 export interface IMountElementProps {
   node: HTMLElement;
@@ -7,7 +7,7 @@ export interface IMountElementProps {
 }
 
 const MountElement = ({ node, getParent, selector }: IMountElementProps) => {
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     const parent = getParent(selector);
     parent.appendChild(node);
     return () => {

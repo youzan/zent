@@ -1,4 +1,3 @@
-import React from 'react';
 import Enzyme, { mount } from 'enzyme';
 import { Simulate } from 'react-dom/test-utils';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';

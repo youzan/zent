@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { Component, createRef } from 'react';
 import * as ReactDOM from 'react-dom';
 import Wrap, { INoticeWrapProps } from './Wrap';
 import NoticeWrap from './Wrap';
@@ -66,7 +66,7 @@ let uniqueId = 0;
 
 export const instanceMap = new Map<number, React.RefObject<Wrap>>();
 
-class NoticeContainer extends React.Component<
+class NoticeContainer extends Component<
   INoticeContainerProps,
   INoticeContainerState
 > {
@@ -82,7 +82,7 @@ class NoticeContainer extends React.Component<
 
   push(children: React.ReactNode) {
     const id = uniqueId;
-    const ref = React.createRef<Wrap>();
+    const ref = createRef<Wrap>();
     const el = (
       <Wrap ref={ref} key={id} id={id} onExited={this.onExited}>
         {children}

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useRef, useMemo } from 'react';
 import { startOfToday, endOfToday } from 'date-fns';
 import { formatBase } from '../utils/index';
 import { IShowTime, StringTuple, IShowTimeOptionWithDefault } from '../types';
@@ -15,10 +15,10 @@ const DefaultEndTime = formatEndDate(TIME_FORMAT);
 export function useShowTimeRangeOption(
   showTime?: IShowTime<StringTuple>
 ): Array<IShowTimeOptionWithDefault | undefined> {
-  const showTimeRef = React.useRef(showTime);
+  const showTimeRef = useRef(showTime);
   showTimeRef.current = showTime;
 
-  const showTimeOption = React.useMemo(() => {
+  const showTimeOption = useMemo(() => {
     if (!showTimeRef.current) {
       return [undefined, undefined];
     }
@@ -59,10 +59,10 @@ export function useShowTimeRangeOption(
 export function useShowTimeOption(
   showTime?: IShowTime<string>
 ): IShowTimeOptionWithDefault | undefined {
-  const showTimeRef = React.useRef(showTime);
+  const showTimeRef = useRef(showTime);
   showTimeRef.current = showTime;
 
-  const showTimeOption = React.useMemo(() => {
+  const showTimeOption = useMemo(() => {
     if (!showTimeRef.current) {
       return undefined;
     }

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useEffect, useState } from 'react';
 import { merge, asapScheduler, Observable, of, BehaviorSubject } from 'rxjs';
 import { observeOn, filter, switchMap } from 'rxjs/operators';
 import noop from '../../../utils/noop';
@@ -98,7 +98,7 @@ function useFieldObservable<M extends IModel<T>, T, V>(
   observable: (model: BasicModel<T>) => BehaviorSubject<V>
 ) {
   const ctx = useFormContext();
-  const [model, setModel] = React.useState<
+  const [model, setModel] = useState<
     BasicModel<T> | ModelRef<T, IModel<unknown>, BasicModel<T>> | null
   >(
     isModel<T>(field) || isModelRef<T, IModel<unknown>, BasicModel<T>>(field)
@@ -108,7 +108,7 @@ function useFieldObservable<M extends IModel<T>, T, V>(
           return isModel<T>(m) ? m : null;
         }
   );
-  React.useEffect(() => {
+  useEffect(() => {
     if (typeof field !== 'string') {
       setModel(
         isModel<T>(field) ||
@@ -145,13 +145,13 @@ function useFieldObservable<M extends IModel<T>, T, V>(
     return () => $.unsubscribe();
   }, [field, ctx, ctx.parent]);
 
-  const [value, setValue] = React.useState<V | null>(() =>
+  const [value, setValue] = useState<V | null>(() =>
     model && !isModelRef<T, IModel<unknown>, BasicModel<T>>(model)
       ? observable(model).value
       : null
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isModelRef<T, IModel<any>, BasicModel<T>>(model)) {
       const $ = model.model$
         .pipe(

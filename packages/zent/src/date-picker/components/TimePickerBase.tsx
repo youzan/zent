@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useMemo, useCallback, useRef, useState } from 'react';
 import cx from 'classnames';
 import PickerPopover from './PickerPopover';
 import { SingleInputTrigger } from './PickerTrigger';
@@ -41,12 +41,12 @@ const TimePickerBase: React.FC<ITimePickerBaseProps> = ({
   disabled,
   ...restProps
 }) => {
-  const restPropsRef = React.useRef(restProps);
+  const restPropsRef = useRef(restProps);
   restPropsRef.current = restProps;
   const { format, openPanel } = restPropsRef.current;
   const onChangeRef = useEventCallbackRef(onChange);
 
-  const [visibleChange, setVisibleChange] = React.useState<boolean>(true);
+  const [visibleChange, setVisibleChange] = useState<boolean>(true);
   const { selected, setSelected } = useTimeValue(emptyTime, value);
 
   const {
@@ -62,7 +62,7 @@ const TimePickerBase: React.FC<ITimePickerBaseProps> = ({
     openPanel
   );
 
-  const disabledTimesOption = React.useMemo(
+  const disabledTimesOption = useMemo(
     () => disabledTime?.(selectedDate) || {},
     [disabledTime, selectedDate]
   );
@@ -72,7 +72,7 @@ const TimePickerBase: React.FC<ITimePickerBaseProps> = ({
     format,
   });
 
-  const onSelected = React.useCallback(
+  const onSelected = useCallback(
     (val, finished = false) => {
       setVisibleChange(false);
       setSelected(val);
@@ -86,7 +86,7 @@ const TimePickerBase: React.FC<ITimePickerBaseProps> = ({
     [openPanel, onChangeRef, setSelected, setPanelVisible, autoComplete]
   );
 
-  const onClearInput = React.useCallback(
+  const onClearInput = useCallback(
     evt => {
       evt.stopPropagation();
       onChangeRef.current?.(emptyTime);
@@ -94,7 +94,7 @@ const TimePickerBase: React.FC<ITimePickerBaseProps> = ({
     [onChangeRef]
   );
 
-  const trigger = React.useMemo(() => {
+  const trigger = useMemo(() => {
     const { hiddenIcon } = restPropsRef.current;
     const triggerProps = pick(restPropsRef.current, triggerCommonProps);
     return (
@@ -113,7 +113,7 @@ const TimePickerBase: React.FC<ITimePickerBaseProps> = ({
     );
   }, [value, selected, panelVisible, restPropsRef, disabled, onClearInput]);
 
-  const content = React.useMemo(() => {
+  const content = useMemo(() => {
     const commonPanelProps = pick(restPropsRef.current, timePanelProps);
     return (
       <div className="zent-datepicker-panel">

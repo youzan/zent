@@ -1,7 +1,7 @@
-import * as React from 'react';
+import { createRef, useContext, useLayoutEffect } from 'react';
 import cx from 'classnames';
-import PanelContext from '../../context/PanelContext';
 
+import PanelContext from '../../context/PanelContext';
 import { smoothScroll } from '../../../utils/scroll';
 
 const prefixCls = 'zent-datepicker-time-panel-body';
@@ -49,12 +49,12 @@ const TimeUnitColumn: React.FC<ITimeUnitColumnProps> = ({
   setting,
   disabledUnits = [],
 }) => {
-  const ulRef = React.createRef<HTMLDivElement>();
-  const { visibleChange } = React.useContext(PanelContext);
+  const ulRef = createRef<HTMLDivElement>();
+  const { visibleChange } = useContext(PanelContext);
 
   const units = generateUnits(0, UNIT_MAP[type], step, disabledUnits);
 
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     // first scroll without duration
     visibleChange &&
       ulRef.current &&

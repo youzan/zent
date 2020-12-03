@@ -1,9 +1,9 @@
-import React from 'react';
+import { Component } from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
 import Checkbox from 'checkbox';
 
-class Wrapper extends React.Component {
+class Wrapper extends Component {
   render() {
     return this.props.children;
   }

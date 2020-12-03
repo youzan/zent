@@ -1,4 +1,3 @@
-import React from 'react';
 import Enzyme, { mount, render } from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import NumberInput from 'number-input';

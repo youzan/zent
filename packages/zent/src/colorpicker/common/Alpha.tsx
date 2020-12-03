@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Component, createRef } from 'react';
 import reactCSS from '../helpers/reactcss';
 import * as alpha from '../helpers/alpha';

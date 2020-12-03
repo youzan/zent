@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Component, Children, cloneElement } from 'react';
 import cx from 'classnames';
 

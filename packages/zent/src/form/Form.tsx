@@ -1,7 +1,8 @@
-import * as React from 'react';
 import cx from 'classnames';
 import { Omit } from 'utility-types';
 import { Subscription } from 'rxjs';
+import { Component, createRef } from 'react';
+
 import {
   FormProvider,
   useField,
@@ -114,7 +115,7 @@ export interface IFormProps<T extends {}>
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-export class Form<T extends {}> extends React.Component<IFormProps<T>> {
+export class Form<T extends {}> extends Component<IFormProps<T>> {
   static displayName = 'ZentForm';
 
   static CombineErrors = CombineErrors;
@@ -140,7 +141,7 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
   static ValidateOccasion = ValidateOccasion;
   static TouchWhen = TouchWhen;
 
-  readonly formRef = React.createRef<HTMLFormElement>();
+  readonly formRef = createRef<HTMLFormElement>();
 
   private readonly children: IFormChild[] = [];
   private getChildrenContext = memorize(makeChildrenContext);

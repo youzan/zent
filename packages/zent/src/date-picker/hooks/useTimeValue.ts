@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { parse } from 'date-fns';
 import { RangeTime, DateNullTuple, SingleTime } from '../types';
 
@@ -6,8 +6,8 @@ export default function useTimeValue<T = SingleTime>(
   defaultValue: T,
   value?: T
 ) {
-  const [selected, setSelected] = React.useState<T>(value ?? defaultValue);
-  React.useEffect(() => {
+  const [selected, setSelected] = useState<T>(value ?? defaultValue);
+  useEffect(() => {
     setSelected(value ?? defaultValue);
   }, [value, defaultValue]);
 

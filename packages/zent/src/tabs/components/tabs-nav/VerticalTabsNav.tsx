@@ -1,4 +1,3 @@
-import * as React from 'react';
 import cn from 'classnames';
 import VerticalTab from '../tab/VerticalTab';
 import BaseTabsNav from '../base/BaseTabsNav';

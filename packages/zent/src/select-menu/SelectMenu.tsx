@@ -3,8 +3,7 @@
  *
  * @author hyczzhu
  */
-import * as React from 'react';
-import { Component } from 'react';
+import { Component, createRef } from 'react';
 
 import memoize from '../utils/memorize-one';
 import MenuList from './MenuList';
@@ -71,7 +70,7 @@ export class SelectMenu extends Component<ISelectMenuProps, ISelectMenuState> {
 
   static caselessMatchFilterOption = caselessMatchFilterOption;
 
-  private refMenuItemList = React.createRef<MenuList>();
+  private refMenuItemList = createRef<MenuList>();
 
   /**
    * Wrap items with its idx.

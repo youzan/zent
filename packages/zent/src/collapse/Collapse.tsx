@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { Component } from 'react';
+import { Children, cloneElement, Component } from 'react';
 import cx from 'classnames';
 import kindOf from '../utils/kindOf';
 import Panel from './Panel';
@@ -39,19 +38,19 @@ export class Collapse extends Component<ICollapseProps> {
           'zent-collpase--no-border': !bordered,
         })}
       >
-        {React.Children.map(children, (c, idx) => {
+        {Children.map(children, (c, idx) => {
           if (!isElement(c) || !kindOf(c.type, Panel)) {
             throw new Error(
               `Invalid children supplied to Collapse. Each child should be a Panel.`
             );
           }
 
-          return React.cloneElement(c, {
+          return cloneElement(c, {
             onChange: this.onChange,
             active: isPanelActive(activeKey, c.key),
             panelKey: c.key,
             panelTitleBackground,
-            isLast: idx === React.Children.count(children) - 1,
+            isLast: idx === Children.count(children) - 1,
             bordered,
           });
         })}

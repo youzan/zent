@@ -1,4 +1,3 @@
-import * as React from 'react';
 import isNil from '../../../utils/isNil';
 
 export const renderHeader = (title: React.ReactNode) => {

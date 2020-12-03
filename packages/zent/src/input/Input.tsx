@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { Component } from 'react';
+import { Component, createRef } from 'react';
 import classNames from 'classnames';
 import { IInputProps, IInputCoreProps, IInputClearEvent } from './types';
 import { InputCore } from './InputCore';
@@ -22,7 +21,7 @@ export class Input extends Component<IInputProps, IInputState> {
 
   context!: IInputContext;
 
-  elementRef = React.createRef<HTMLInputElement & HTMLTextAreaElement>();
+  elementRef = createRef<HTMLInputElement & HTMLTextAreaElement>();
 
   /**
    * backward compatibility

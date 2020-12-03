@@ -1,4 +1,3 @@
-import * as React from 'react';
 import cx from 'classnames';
 
 export type PointId = 'point-left' | 'point-right' | 'point-single';

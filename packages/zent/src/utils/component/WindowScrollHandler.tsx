@@ -1,4 +1,5 @@
-import * as React from 'react';
+import { useCallback, useEffect, useRef } from 'react';
+
 import { WindowEventHandler } from './WindowEventHandler';
 import { runOnceInNextFrame } from '../nextFrame';
 
@@ -17,18 +18,18 @@ export interface IWindowScrollHandler {
  * `onScroll` is throttled to run only once in a frame, you don't have to throttle you callback.
  */
 export const WindowScrollHandler: React.FC<IWindowScrollHandler> = props => {
-  const cb = React.useRef(props.onScroll);
+  const cb = useRef(props.onScroll);
   cb.current = props.onScroll;
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const onScroll = React.useCallback(
+  const onScroll = useCallback(
     runOnceInNextFrame((evt: UIEvent) => {
       cb.current(evt);
     }),
     []
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     return onScroll.cancel;
   }, [onScroll]);
 

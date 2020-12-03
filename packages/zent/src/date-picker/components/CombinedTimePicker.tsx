@@ -1,8 +1,8 @@
-import * as React from 'react';
 import cx from 'classnames';
+import { useCallback, useMemo, useRef, useState } from 'react';
+
 import PickerPopover from './PickerPopover';
 import { CombinedInputTrigger } from './PickerTrigger';
-
 import PanelContext from '../context/PanelContext';
 import useTimeValue, { parseSelectedToRangeDate } from '../hooks/useTimeValue';
 import { useEventCallbackRef } from '../../utils/hooks/useEventCallbackRef';
@@ -43,7 +43,7 @@ const CombinedTimePicker: React.FC<ITimePickerBaseProps> = ({
   disabled,
   ...restProps
 }) => {
-  const restPropsRef = React.useRef(restProps);
+  const restPropsRef = useRef(restProps);
   restPropsRef.current = restProps;
   const { format, className, openPanel } = restPropsRef.current;
   const onChangeRef = useEventCallbackRef(onChange);
@@ -52,7 +52,7 @@ const CombinedTimePicker: React.FC<ITimePickerBaseProps> = ({
     emptyTimeRange,
     value
   );
-  const [visibleChange, setVisibleChange] = React.useState<boolean>(true);
+  const [visibleChange, setVisibleChange] = useState<boolean>(true);
 
   const {
     panelVisible,
@@ -67,7 +67,7 @@ const CombinedTimePicker: React.FC<ITimePickerBaseProps> = ({
     openPanel
   );
 
-  const onSelected = React.useCallback(
+  const onSelected = useCallback(
     (val: RangeTime, finished = false) => {
       setVisibleChange(false);
       setSelected(val);
@@ -80,7 +80,7 @@ const CombinedTimePicker: React.FC<ITimePickerBaseProps> = ({
     [onChangeRef, setSelected, setPanelVisible]
   );
 
-  const onClearInput = React.useCallback(
+  const onClearInput = useCallback(
     evt => {
       evt.stopPropagation();
       onChangeRef.current?.(emptyTimeRange);
@@ -100,16 +100,16 @@ const CombinedTimePicker: React.FC<ITimePickerBaseProps> = ({
     disabledTime,
   });
 
-  const disabledTimesOptionStart = React.useMemo(
+  const disabledTimesOptionStart = useMemo(
     () => disabledStartTimes?.(selectedDates[0] ?? startOfToday()),
     [disabledStartTimes, selectedDates]
   );
-  const disabledTimesOptionEnd = React.useMemo(
+  const disabledTimesOptionEnd = useMemo(
     () => disabledEndTimes?.(selectedDates[1] ?? startOfToday()),
     [disabledEndTimes, selectedDates]
   );
 
-  const trigger = React.useMemo(() => {
+  const trigger = useMemo(() => {
     const triggerProps = pick(restPropsRef.current, triggerCommonProps);
     return (
       <div>
@@ -135,7 +135,7 @@ const CombinedTimePicker: React.FC<ITimePickerBaseProps> = ({
     onClearInput,
   ]);
 
-  const content = React.useMemo(() => {
+  const content = useMemo(() => {
     const commonPanelProps = pick(restPropsRef.current, timePanelProps);
     return (
       <div className={cx(`${prefixCls}-panel`, `${prefixCls}-time-panel`)}>

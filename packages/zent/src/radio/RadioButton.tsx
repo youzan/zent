@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useContext } from 'react';
 import cx from 'classnames';
 
 import getWidth from '../utils/getWidth';
@@ -18,8 +18,8 @@ export function RadioButton<Value>(props: IRadioProps<Value>) {
     width,
     ...others
   } = props;
-  const disabledCtx = React.useContext(DisabledContext);
-  const groupCtx = React.useContext(GroupContext);
+  const disabledCtx = useContext(DisabledContext);
+  const groupCtx = useContext(GroupContext);
   if (!groupCtx) {
     throw new Error('Radio.Button must be nested within Radio.Group');
   }

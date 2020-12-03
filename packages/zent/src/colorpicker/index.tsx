@@ -4,7 +4,6 @@
  *
  * It's a modified Sketch color picker.
  */
-import * as React from 'react';
 import { PureComponent } from 'react';
 import cx from 'classnames';
 import ColorBoard from './ColorBoard';

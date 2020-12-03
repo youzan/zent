@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { ReactNode } from 'react';
+import { ReactNode, useCallback, useRef } from 'react';
 import { Omit } from 'utility-types';
 
 import { IRadioContext } from './GroupContext';
@@ -42,10 +41,10 @@ export function useRadioHandler<Value>(
   ctx: IRadioContext<Value> | null,
   props: IRadioProps<Value>
 ) {
-  const propsRef = React.useRef(props);
+  const propsRef = useRef(props);
   propsRef.current = props;
   const cxOnChange = ctx && ctx.onRadioChange;
-  return React.useCallback(
+  return useCallback(
     event => {
       const e = makeEvent(event, propsRef.current);
       if (cxOnChange) {

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { parse } from 'date-fns';
 const current = new Date();
 const initTimeDate = new Date(
@@ -18,11 +18,11 @@ export function useTimePanelValue(
   format: string
 ) {
   const value = selected || defaultTime;
-  const [panelTime, setPanelTime] = React.useState<Date>(
+  const [panelTime, setPanelTime] = useState<Date>(
     value ? parse(value, format, initTimeDate) : initTimeDate
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     setPanelTime(value ? parse(value, format, initTimeDate) : initTimeDate);
   }, [value, defaultTime, format]);
 

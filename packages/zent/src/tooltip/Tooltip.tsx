@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { Component, ReactElement } from 'react';
+import { Component, createRef, ReactElement } from 'react';
 import cx from 'classnames';
 import noop from '../utils/noop';
 import { PopPositions } from '../pop';
@@ -56,7 +55,7 @@ export class Tooltip extends Component<ITooltipProps> {
     containerSelector: 'body',
   };
 
-  popoverRef = React.createRef<Popover>();
+  popoverRef = createRef<Popover>();
 
   renderContent() {
     const { title } = this.props;

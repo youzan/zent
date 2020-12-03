@@ -1,5 +1,6 @@
-import * as React from 'react';
 import cn from 'classnames';
+import { Component, createRef } from 'react';
+
 import AnchorOperation from '../operation/AnchorOperation';
 import SlideOperation from '../operation/SlideOperation';
 import { IInnerTab, ITabsNavProps } from '../../types';
@@ -22,11 +23,11 @@ interface IOperationTabsProps<Id>
   tabs: React.ReactNode[];
 }
 
-abstract class OperationTabs<
-  Id extends string | number
-> extends React.Component<IOperationTabsProps<Id>> {
-  tabsWrapperRef = React.createRef<HTMLDivElement>();
-  tabsMainRef = React.createRef<HTMLDivElement>();
+abstract class OperationTabs<Id extends string | number> extends Component<
+  IOperationTabsProps<Id>
+> {
+  tabsWrapperRef = createRef<HTMLDivElement>();
+  tabsMainRef = createRef<HTMLDivElement>();
 
   state = {
     startIndex: 0,

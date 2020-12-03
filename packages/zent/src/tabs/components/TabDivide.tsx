@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { IVerticalDivide } from '../types';
 
 function TabDivide(_props: React.PropsWithChildren<Partial<IVerticalDivide>>) {

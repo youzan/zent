@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { DateTuple, DateNullTuple } from '../types';
 /**
  * 根据选中的开始日期和hover日期，得到hover的范围日期
@@ -9,9 +9,9 @@ export default function useHoverRange(
   selected: DateNullTuple,
   hoverDate?: Date
 ) {
-  const [hoverRange, setHoverRange] = React.useState<DateTuple | null>(null);
+  const [hoverRange, setHoverRange] = useState<DateTuple | null>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const [start, end] = selected;
     // 只选中开始日期，hover结束日期时生效
     if (start && !end && hoverDate) {

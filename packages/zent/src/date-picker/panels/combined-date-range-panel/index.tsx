@@ -1,9 +1,9 @@
-import * as React from 'react';
+import { useCallback, useMemo } from 'react';
 import cx from 'classnames';
 import { parse } from 'date-fns';
+
 import DatePanel from '../date-panel/index';
 import RangePickerFooter from './RangeFooter';
-
 import { useShowTimeRangeOption } from '../../hooks/useShowTimeOption';
 import useRangeDisabledTime from '../../hooks/useRangeDisabledTime';
 
@@ -41,7 +41,7 @@ const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
     selected,
     disabledTime,
   });
-  const onChangeStartOrEnd = React.useCallback(
+  const onChangeStartOrEnd = useCallback(
     (val: Date) => {
       let selectedTemp: DateNullTuple;
       if (start && !end) {
@@ -67,14 +67,14 @@ const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
     [start, end, showTime, startShowTime, endShowTime, onSelected]
   );
 
-  const disabledFooterStartTimes = React.useCallback(disabledStartTimes, [
+  const disabledFooterStartTimes = useCallback(disabledStartTimes, [
     disabledStartTimes,
   ]);
-  const disabledFooterEndTimes = React.useCallback(disabledEndTimes, [
+  const disabledFooterEndTimes = useCallback(disabledEndTimes, [
     disabledEndTimes,
   ]);
 
-  const FooterNode = React.useMemo(
+  const FooterNode = useMemo(
     () =>
       startShowTime ? (
         <div className={`${prefixCls}-footer`}>

@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import * as React from 'react';
+import { useCallback, useMemo } from 'react';
 
 import { Icon } from '../../../icon';
 import { Progress } from '../../../progress';
@@ -19,7 +19,7 @@ const ImageUploadItem: React.FC<IImageUploadItemProps> = props => {
 
   const { deleteHandler, retryHandler } = useItemHandler(props);
 
-  const previewHandler = React.useCallback<React.MouseEventHandler>(
+  const previewHandler = useCallback<React.MouseEventHandler>(
     e => {
       e.stopPropagation();
       onPreview(item);
@@ -33,7 +33,7 @@ const ImageUploadItem: React.FC<IImageUploadItemProps> = props => {
   });
 
   // 上传失败的状态和操作显示
-  const failedFallback = React.useMemo(() => {
+  const failedFallback = useMemo(() => {
     const failedIconType = isHover ? 'upload' : 'warning';
     const failedText = isHover ? i18n.retry : i18n.failed;
     const failedCls = cn(

@@ -1,5 +1,5 @@
-import * as React from 'react';
 import cx from 'classnames';
+import { forwardRef } from 'react';
 
 /* auto-generate: start */
 export type IconType =
@@ -167,7 +167,7 @@ export interface IIconProps extends React.HTMLAttributes<HTMLElement> {
   spin?: boolean;
 }
 
-const Icon = React.forwardRef<HTMLElement, IIconProps>(
+const Icon = forwardRef<HTMLElement, IIconProps>(
   ({ className, spin, type, ...otherProps }, ref) => (
     <i
       ref={ref}

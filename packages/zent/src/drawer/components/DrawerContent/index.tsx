@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { useMemo, useCallback, useRef } from 'react';
 import cx from 'classnames';
 import { CSSTransition } from 'react-transition-group';

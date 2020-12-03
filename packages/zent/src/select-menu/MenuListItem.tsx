@@ -1,5 +1,5 @@
-import * as React from 'react';
 import cx from 'classnames';
+import { Component } from 'react';
 
 export interface IMenuListItem {
   value?: any;
@@ -22,7 +22,7 @@ export interface IMenuListItemProps {
   onRequestClose: () => void;
 }
 
-export class MenuListItem extends React.Component<IMenuListItemProps> {
+export class MenuListItem extends Component<IMenuListItemProps> {
   onClick = (e: React.MouseEvent<HTMLLIElement>) => {
     const { item, onRequestClose } = this.props;
 

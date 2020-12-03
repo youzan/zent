@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import { ICascaderItem } from '../types';
 import Tag from './Tag';
 import { getPathValue } from '../path-fns';

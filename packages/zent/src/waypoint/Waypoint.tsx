@@ -1,8 +1,9 @@
 /**
  * Modified from https://github.com/civiccc/react-waypoint
  */
+import { Children, cloneElement, createRef, PureComponent } from 'react';
+
 import { addEventListener } from '../utils/component/event-handler';
-import * as React from 'react';
 import { isForwardRef } from 'react-is';
 
 import { computeOffsetPixels } from './offset';
@@ -34,7 +35,7 @@ export interface IWaypointProps {
   onPositionChange?: (data: IWaypointCallbackData) => void;
 }
 
-export class Waypoint extends React.PureComponent<IWaypointProps> {
+export class Waypoint extends PureComponent<IWaypointProps> {
   static defaultProps = {
     topOffset: '0px',
     bottomOffset: '0px',
@@ -42,7 +43,7 @@ export class Waypoint extends React.PureComponent<IWaypointProps> {
     fireOnRapidScroll: true,
   };
 
-  private refElement: React.MutableRefObject<Element> = React.createRef<Element>();
+  private refElement: React.MutableRefObject<Element> = createRef<Element>();
   private cancelOnNextTick: ICancelable;
   private scrollEventListenerUnsubscribe: () => void;
   private resizeEventListenerUnsubscribe: () => void;
@@ -292,7 +293,7 @@ export class Waypoint extends React.PureComponent<IWaypointProps> {
       );
     }
 
-    const child = React.Children.only(children);
+    const child = Children.only(children);
     if (isDOMElement(child) || isForwardRef(child)) {
       const ref = (node: Element) => {
         this.refElement.current = node;
@@ -307,10 +308,10 @@ export class Waypoint extends React.PureComponent<IWaypointProps> {
         }
       };
 
-      return React.cloneElement(child, { ref });
+      return cloneElement(child, { ref });
     }
 
-    return React.cloneElement(child as any, { innerRef: this.refElement });
+    return cloneElement(child as any, { innerRef: this.refElement });
   }
 }
 

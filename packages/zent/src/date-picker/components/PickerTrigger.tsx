@@ -1,7 +1,7 @@
-import * as React from 'react';
+import { useMemo } from 'react';
+
 import cx from 'classnames';
 import Icon from '../../icon';
-
 import { formatDate, formatDateRange } from '../utils';
 import {
   ISingleTriggerProps,
@@ -110,7 +110,7 @@ export const CombinedInputTrigger: React.FC<ICombinedInputTriggerProps> = ({
   disabled,
   ...restProps
 }) => {
-  const [leftText, rightText] = React.useMemo(() => {
+  const [leftText, rightText] = useMemo(() => {
     if (!selected) return [null, null];
     return formatDateRange(selected, format);
   }, [selected, format]);

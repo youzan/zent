@@ -20,7 +20,7 @@ Zent ( \ˈzent\ ) 是有赞 PC 端 WebUI 规范的 React 实现，提供了一�
 
 ### 支持环境
 
-* React >= 16.8
+* React >= 17
 * 支持服务端渲染(SSR)
 
 ### 浏览器

@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { Component } from 'react';
+import { Component, createRef } from 'react';
 import cx from 'classnames';
 
 import Popover, {
@@ -119,7 +118,7 @@ export class Pop extends Component<IPopProps, IPopState> {
 
   static withPop = exposePopover('pop');
 
-  private popoverRef = React.createRef<Popover>();
+  private popoverRef = createRef<Popover>();
   private isUnmounted = false;
 
   state = {

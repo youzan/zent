@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Icon from '../icon';
 import Pop from '../pop';
 

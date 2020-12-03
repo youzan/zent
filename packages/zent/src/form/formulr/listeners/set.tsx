@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useMemo } from 'react';
 import FormContext, { IFormContext, useFormContext } from '../context';
 import { FieldSetModel, isFieldSetModel } from '../models';
 import { useModelFromContext } from './use-model';
@@ -19,7 +19,7 @@ export function FieldSetValue({
 }: IFieldSetValueProps) {
   const ctx = useFormContext();
   const model = useModelFromContext(ctx, name, modelProps, isFieldSetModel);
-  const childContext = React.useMemo<IFormContext>(
+  const childContext = useMemo<IFormContext>(
     () => ({
       ...ctx,
       parent: model!,

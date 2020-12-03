@@ -24,7 +24,6 @@
  * Adapted from https://sourcegraph.com/github.com/bvaughn/react-highlight-words/-/blob/src/Highlighter.js
  */
 
-import * as React from 'react';
 import cx from 'classnames';
 import {
   findAll,

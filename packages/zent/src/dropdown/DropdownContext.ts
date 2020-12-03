@@ -1,3 +1,3 @@
-import * as React from 'react';
+import { createContext } from 'react';
 
-export const DropdownContext = React.createContext<boolean>(false);
+export const DropdownContext = createContext<boolean>(false);

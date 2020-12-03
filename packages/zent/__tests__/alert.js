@@ -1,4 +1,3 @@
-import React from 'react';
 import Enzyme, { mount } from 'enzyme';
 import { Alert, ScrollAlert, AlertItem } from 'alert';
 import Icon from 'icon';

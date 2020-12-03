@@ -1,4 +1,3 @@
-import * as React from 'react';
 import reactCSS from '../helpers/reactcss';
 import * as checkboard from '../helpers/checkboard';
 

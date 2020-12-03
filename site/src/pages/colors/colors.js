@@ -1,4 +1,3 @@
-import React from 'react';
 import cx from 'classnames';
 
 import { H2, H4 } from '../../components/markdown/heading';

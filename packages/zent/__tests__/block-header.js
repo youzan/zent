@@ -1,4 +1,3 @@
-import React from 'react';
 import Enzyme, { mount } from 'enzyme';
 import BlockHeader from 'block-header';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';

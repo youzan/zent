@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 interface IPanelFooterProps {
   leftNode?: React.ReactNode;
   rightNode: React.ReactNode;

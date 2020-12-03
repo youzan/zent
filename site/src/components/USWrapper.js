@@ -1,8 +1,8 @@
-import React from 'react';
+import { Component } from 'react';
 
 import Layout from './Layout';
 
-export default class CNWrapper extends React.Component {
+export default class CNWrapper extends Component {
   componentDidMount() {
     const { changeI18N, i18n } = this.props.pass;
     if (i18n !== 'en-US') {

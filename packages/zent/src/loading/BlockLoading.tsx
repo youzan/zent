@@ -1,4 +1,3 @@
-import * as React from 'react';
 import cx from 'classnames';
 
 import { IBlockLoadingProps } from './props';

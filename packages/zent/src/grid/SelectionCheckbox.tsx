@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { PureComponent } from 'react';
 import Checkbox, { ICheckboxProps } from '../checkbox';
 import Pop from '../pop';

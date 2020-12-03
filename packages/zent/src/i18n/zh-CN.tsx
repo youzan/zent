@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import {
   I18nLocaleTimePicker,
   II18nLocaleCascader,

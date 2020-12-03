@@ -1,4 +1,3 @@
-import * as React from 'react';
 import cx from 'classnames';
 
 export interface IFormNoticeProps {
@@ -6,7 +5,7 @@ export interface IFormNoticeProps {
   style?: React.CSSProperties;
 }
 
-export const FormNotice: React.FunctionComponent<IFormNoticeProps> = ({
+export const FormNotice: React.FC<IFormNoticeProps> = ({
   className,
   style,
   children,
