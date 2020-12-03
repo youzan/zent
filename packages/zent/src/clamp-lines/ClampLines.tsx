@@ -159,12 +159,17 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
       return;
     }
 
-    const original = this.state.original;
+    const { original } = this.state;
+
+    // Convert to char array, it's using `String.prototype[@@iterator]()` internally
+    // Its length is not necessarily equal to `original.length` because of unicode surrogate pairs
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/@@iterator
+    const chars = Array.from(original);
     // Don't compare to n*lineHeight, n-line element height is not necessarily equal to n*lineHeight
     const maxHeight = this.lineHeight * (this.props.lines + 1);
     let start = 0;
     let middle = 0;
-    let end = original.length;
+    let end = chars.length;
 
     this.maxHeight = maxHeight;
 
@@ -174,8 +179,8 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
     while (start <= end) {
       middle = Math.floor((start + end) / 2);
       this.innerElement.current.textContent =
-        original.slice(0, middle) + this.getEllipsis();
-      if (middle === original.length) {
+        slice(chars, 0, middle) + this.getEllipsis();
+      if (middle === chars.length) {
         this.setState({
           text: original,
           noClamp: true,
@@ -191,9 +196,9 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
     }
 
     this.innerElement.current.textContent =
-      original.slice(0, middle - 1) + this.getEllipsis();
+      slice(chars, 0, middle - 1) + this.getEllipsis();
     this.setState({
-      text: original.slice(0, middle - 1) + this.getEllipsis(),
+      text: slice(chars, 0, middle - 1) + this.getEllipsis(),
     });
   }
 
@@ -281,6 +286,10 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
 
     return this.renderClampedText();
   }
+}
+
+function slice(chars: string[], start: number, end: number): string {
+  return chars.slice(start, end).join('');
 }
 
 export default ClampLines;
