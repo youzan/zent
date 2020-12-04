@@ -3,7 +3,7 @@
  */
 import createElement from './createElement';
 
-export function getLineHeight(node: HTMLElement): number {
+export function getLineHeight(node: HTMLElement, chars = '&nbsp;'): number {
   // Grab the line-height via style
   let lnHeightStr = computedStyle(node, 'line-height');
   let lnHeight = parseFloat(lnHeightStr);
@@ -56,7 +56,7 @@ export function getLineHeight(node: HTMLElement): number {
     // Create a temporary node
     const nodeName = node.nodeName;
     const offScreenNode = createElement(nodeName);
-    offScreenNode.innerHTML = '&nbsp;';
+    offScreenNode.innerHTML = `<span>${chars}</span>`;
 
     // If we have a text area, reset it to only 1 row
     // https://github.com/twolfson/line-height/issues/4
@@ -66,13 +66,20 @@ export function getLineHeight(node: HTMLElement): number {
 
     // Set the font-size of the element
     const fontSizeStr = computedStyle(node, 'font-size');
-    offScreenNode.style.fontSize = fontSizeStr;
+    const { style } = offScreenNode;
+    style.fontSize = fontSizeStr;
 
     // Remove default padding/border which can affect offset height
     // https://github.com/twolfson/line-height/issues/4
     // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetHeight
-    offScreenNode.style.padding = '0px';
-    offScreenNode.style.border = '0px';
+    style.padding = '0px';
+    style.border = '0px';
+
+    style.color = 'transparent';
+    style.background = 'transparent';
+    style.position = 'absolute';
+    style.top = '-10000px';
+    style.left = '-10000px';
 
     // Append it to the body
     const body = document.body;

@@ -4,6 +4,8 @@ import identity from '../utils/identity';
 import Pop from '../pop';
 import { WindowResizeHandler } from '../utils/component/WindowResizeHandler';
 import { getLineHeight } from '../utils/dom/getLineHeight';
+import { containsEmoji } from '../utils/unicode/isEmoji';
+import { containsCJK } from '../utils/unicode/isCJK';
 
 export interface IClampLinesProps {
   text: string;
@@ -22,7 +24,13 @@ export interface IClampLinesState {
   noClamp: boolean;
   text: string;
   original: string;
+  maxHeight: number;
 }
+
+const WORDBREAK_STYLES: React.CSSProperties = {
+  wordBreak: 'break-all',
+  overflowWrap: 'break-word',
+};
 
 export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
   static defaultProps = {
@@ -41,8 +49,7 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
   element: HTMLDivElement | null = null;
 
   innerElement = createRef<HTMLSpanElement>();
-  lineHeight = 0;
-  maxHeight = 0;
+  // lineHeight = 0;
   resizeObserver: ResizeObserver | null = null;
   containerWidth = NaN;
 
@@ -53,6 +60,7 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
       noClamp: false,
       text: '',
       original: props.text,
+      maxHeight: 0,
     };
   }
 
@@ -74,10 +82,6 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
   componentDidUpdate(prevProps: IClampLinesProps) {
     const { original } = this.state;
 
-    if (!this.lineHeight && this.element) {
-      this.lineHeight = getLineHeight(this.element);
-    }
-
     if (prevProps.text !== original) {
       this.clampLines();
     }
@@ -85,7 +89,6 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
 
   componentDidMount() {
     if (this.element) {
-      this.lineHeight = getLineHeight(this.element);
       this.clampLines();
     }
   }
@@ -107,7 +110,11 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
     let width = NaN;
     if (contentBoxSize) {
       // FIXME: ONLY works with horizontal writing mode
-      width = contentBoxSize[0].inlineSize;
+      // Note: Firefox(81 and 83 tested) incorrectly returns contentBoxSize as an ResizeObserverSize,
+      // but it should be ResizeObserverSize[]
+      width = Array.isArray(contentBoxSize)
+        ? contentBoxSize[0].inlineSize
+        : (contentBoxSize as ResizeObserverSize).inlineSize;
     } else {
       width = contentRect.width;
     }
@@ -160,45 +167,55 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
     }
 
     const { original } = this.state;
+    const lineHeight = getCharsetAwareLineHeight(this.element, original);
+    // TLDR; n-line element height is not necessarily equal to n*lineHeight
+    // So this is an approximation
+    //
+    // The reason is different characters have different heights.
+    // For example, a line contains emoji character usually has a larger line-height than
+    // a line with only ASCII characters, so are CJK characters.
+    const maxHeight = lineHeight * this.props.lines;
+
+    // try to fit all
+    this.innerElement.current.textContent = original;
+    if (this.element.clientHeight <= maxHeight) {
+      this.setState({
+        text: original,
+        noClamp: true,
+        maxHeight,
+      });
+      return;
+    }
 
     // Convert to char array, it's using `String.prototype[@@iterator]()` internally
     // Its length is not necessarily equal to `original.length` because of unicode surrogate pairs
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/@@iterator
     const chars = Array.from(original);
-    // Don't compare to n*lineHeight, n-line element height is not necessarily equal to n*lineHeight
-    const maxHeight = this.lineHeight * (this.props.lines + 1);
+
+    // binary search to find suitable text size
+    // this is a variant to find the `rightmost` index satisfing the condition
     let start = 0;
     let middle = 0;
     let end = chars.length;
-
-    this.maxHeight = maxHeight;
-
-    this.setState({ text: '' });
-
-    // binary search to find suitable text size
-    while (start <= end) {
+    while (start < end) {
       middle = Math.floor((start + end) / 2);
       this.innerElement.current.textContent =
         slice(chars, 0, middle) + this.getEllipsis();
-      if (middle === chars.length) {
-        this.setState({
-          text: original,
-          noClamp: true,
-        });
-        return;
-      }
-
-      if (this.element.clientHeight < maxHeight) {
-        start = middle + 1;
+      const height = this.element.clientHeight;
+      if (height > maxHeight) {
+        end = middle;
       } else {
-        end = middle - 1;
+        start = middle + 1;
       }
     }
 
+    // The rightmost character satisfing height <= maxHeight is at `end - 1`
+    const overflowIndex = end - 1;
     this.innerElement.current.textContent =
-      slice(chars, 0, middle - 1) + this.getEllipsis();
+      slice(chars, 0, overflowIndex) + this.getEllipsis();
     this.setState({
-      text: slice(chars, 0, middle - 1) + this.getEllipsis(),
+      text: slice(chars, 0, overflowIndex) + this.getEllipsis(),
+      maxHeight,
     });
   }
 
@@ -221,10 +238,9 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
       <div
         className={classString}
         style={{
-          maxHeight: this.maxHeight,
+          maxHeight: this.state.maxHeight,
           overflowY: 'hidden',
-          wordBreak: 'normal',
-          overflowWrap: 'anywhere',
+          ...WORDBREAK_STYLES,
         }}
       >
         <div ref={this.onContainerRefChange}>
@@ -255,7 +271,7 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
         <div
           ref={this.onNoClampContainerRefChange}
           className={className}
-          style={{ wordBreak: 'normal', overflowWrap: 'anywhere' }}
+          style={WORDBREAK_STYLES}
         >
           {text}
           {this.renderResizable()}
@@ -271,8 +287,7 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
             <div
               style={{
                 maxWidth: popWidth,
-                wordBreak: 'normal',
-                overflowWrap: 'anywhere',
+                ...WORDBREAK_STYLES,
               }}
             >
               {renderPop(text)}
@@ -290,6 +305,15 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
 
 function slice(chars: string[], start: number, end: number): string {
   return chars.slice(start, end).join('');
+}
+
+function getCharsetAwareLineHeight(node: HTMLElement, str: string): number {
+  const emojiHeight = containsEmoji(str)
+    ? getLineHeight(node, '🇨🇳')
+    : -Infinity;
+  const cjkHeight = containsCJK(str) ? getLineHeight(node, '世界') : -Infinity;
+  const asciiHeight = getLineHeight(node);
+  return Math.max(emojiHeight, cjkHeight, asciiHeight);
 }
 
 export default ClampLines;

@@ -8,6 +8,9 @@ basepath=$(dirname $0)
 echo "Clean up TypeScript output..."
 rm -rf es
 
+# Generate unicode regexps
+node $basepath/./generate-unicode-regexp.js
+
 echo "Compile TypeScript..."
 ttsc
 
