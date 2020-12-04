@@ -17,14 +17,13 @@ export interface IClampLinesProps {
   renderPop?: (text: string) => React.ReactNode;
   resizable?: boolean;
   extra?: React.ReactNode;
+  mode: 'performance' | 'correctness';
   className?: string;
 }
 
 export interface IClampLinesState {
-  noClamp: boolean;
-  text: string;
-  original: string;
-  maxHeight: number;
+  holdsFullText: boolean;
+  textSuited: string;
 }
 
 const WORDBREAK_STYLES: React.CSSProperties = {
@@ -33,7 +32,7 @@ const WORDBREAK_STYLES: React.CSSProperties = {
 };
 
 export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
-  static defaultProps = {
+  static defaultProps: Partial<IClampLinesProps> = {
     className: '',
     lines: 2,
     ellipsis: '...',
@@ -42,6 +41,7 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
     trigger: 'hover',
     renderPop: identity,
     resizable: false,
+    mode: 'performance',
     extra: null,
   };
 
@@ -49,7 +49,6 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
   element: HTMLDivElement | null = null;
 
   innerElement = createRef<HTMLSpanElement>();
-  // lineHeight = 0;
   resizeObserver: ResizeObserver | null = null;
   containerWidth = NaN;
 
@@ -57,40 +56,26 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
     super(props);
 
     this.state = {
-      noClamp: false,
-      text: '',
-      original: props.text,
-      maxHeight: 0,
+      holdsFullText: false,
+      textSuited: '',
     };
   }
 
-  static getDerivedStateFromProps(
-    props: IClampLinesProps,
-    state: IClampLinesState
-  ) {
-    const { text } = props;
-    if (state.original !== text) {
-      return {
-        original: text,
-        noClamp: false,
-      };
-    }
-
-    return null;
-  }
-
   componentDidUpdate(prevProps: IClampLinesProps) {
-    const { original } = this.state;
-
-    if (prevProps.text !== original) {
-      this.clampLines();
+    if (
+      prevProps.text !== this.props.text ||
+      prevProps.mode !== this.props.mode ||
+      prevProps.lines !== this.props.lines
+    ) {
+      // Make sure DOM node refs exists
+      this.setState({ holdsFullText: false }, () => {
+        this.clampLines();
+      });
     }
   }
 
   componentDidMount() {
-    if (this.element) {
-      this.clampLines();
-    }
+    this.clampLines();
   }
 
   componentWillUnmount() {
@@ -101,7 +86,7 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
   }
 
   handleWindowResize = () => {
-    this.setState({ noClamp: false }, this.clampLines);
+    this.setState({ holdsFullText: false }, this.clampLines);
   };
 
   handleContainerResize: ResizeObserverCallback = entries => {
@@ -121,7 +106,7 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
 
     // Compare with previous value to see if width actually changed
     if (!Number.isNaN(this.containerWidth) && width !== this.containerWidth) {
-      this.setState({ noClamp: false }, this.clampLines);
+      this.setState({ holdsFullText: false }, this.clampLines);
     }
     this.containerWidth = width;
   };
@@ -166,8 +151,28 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
       return;
     }
 
-    const { original } = this.state;
-    const lineHeight = getCharsetAwareLineHeight(this.element, original);
+    this.props.mode === 'performance'
+      ? this._clampLinesFast()
+      : this._clampLinesAccurate();
+  }
+
+  /**
+   * This algorithm relies on the assumption that each line has exactly the same height.
+   * The assumption does not always hold, especially when you mix differen languages(e.g. CJK, emoji).
+   *
+   * It's fast because it uses binary search to find the overflow position.
+   *
+   * It should work well for small `lines` even if you have mixed languages in most cases.
+   *
+   * Note:
+   *
+   * Maually setting result string to DOM before return is required, because sometimes
+   * the `setState` just before return  won't actually cause a re-render since
+   * there will cases when `props.text` changed but `state.text` remains the same as previous render.
+   */
+  private _clampLinesFast() {
+    const { text } = this.props;
+    const lineHeight = inferContentLineHeight(this.element, text);
     // TLDR; n-line element height is not necessarily equal to n*lineHeight
     // So this is an approximation
     //
@@ -177,20 +182,19 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
     const maxHeight = lineHeight * this.props.lines;
 
     // try to fit all
-    this.innerElement.current.textContent = original;
+    this.innerElement.current.textContent = text;
     if (this.element.clientHeight <= maxHeight) {
       this.setState({
-        text: original,
-        noClamp: true,
-        maxHeight,
+        textSuited: text,
+        holdsFullText: true,
       });
       return;
     }
 
     // Convert to char array, it's using `String.prototype[@@iterator]()` internally
-    // Its length is not necessarily equal to `original.length` because of unicode surrogate pairs
+    // Its length is not necessarily equal to `text.length` because of unicode surrogate pairs
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/@@iterator
-    const chars = Array.from(original);
+    const chars = Array.from(text);
 
     // binary search to find suitable text size
     // this is a variant to find the `rightmost` index satisfing the condition
@@ -211,16 +215,82 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
 
     // The rightmost character satisfing height <= maxHeight is at `end - 1`
     const overflowIndex = end - 1;
-    this.innerElement.current.textContent =
-      slice(chars, 0, overflowIndex) + this.getEllipsis();
+    const textSuited = slice(chars, 0, overflowIndex) + this.getEllipsis();
+    this.innerElement.current.textContent = textSuited;
     this.setState({
-      text: slice(chars, 0, overflowIndex) + this.getEllipsis(),
-      maxHeight,
+      textSuited,
+      holdsFullText: false,
     });
   }
 
+  /**
+   * This algorithm does not rely on the assumption that each line has same height.
+   * But it might be slow because its time complexity is proportional to text length.
+   *
+   * It works by finding wrapping point(the postion where a line wrap happens) one by one.
+   *
+   * Note:
+   *
+   * Maually setting result string to DOM before return is required, because sometimes
+   * the `setState` just before return  won't actually cause a re-render since
+   * there will cases when `props.text` changed but `state.text` remains the same as previous render.
+   */
+  private _clampLinesAccurate() {
+    // This is the line height of a `space`, we assume every line height is larger than or equal to it.
+    const miniLineHeight = getLineHeight(this.element);
+    const { text } = this.props;
+    const chars = Array.from(text); // explode to characters
+    let { lines } = this.props;
+    let prevIndex = 0;
+    let prevStr = chars[prevIndex];
+    let textSuited = '';
+
+    this.innerElement.current.textContent = prevStr;
+    let prevHeight = this.element.clientHeight;
+
+    let i = 1;
+    for (; i < chars.length && lines > 0; i++) {
+      const str = prevStr + chars[i];
+      this.innerElement.current.textContent = str;
+      const height = this.element.clientHeight;
+      if (height - prevHeight >= miniLineHeight) {
+        lines--;
+      }
+
+      if (lines > 0) {
+        prevHeight = height;
+        prevIndex = i;
+        prevStr = str;
+      } else {
+        // Find room for ellipsis
+        while (prevIndex) {
+          prevStr = slice(chars, 0, prevIndex--);
+          const str = prevStr + this.getEllipsis();
+          this.innerElement.current.textContent = str;
+          if (prevHeight === this.element.clientHeight) {
+            textSuited = str;
+            break;
+          }
+        }
+      }
+    }
+
+    if (lines > 0) {
+      // All content can fit
+      this.setState({
+        textSuited: text,
+        holdsFullText: true,
+      });
+    } else {
+      this.setState({
+        textSuited,
+        holdsFullText: false,
+      });
+    }
+  }
+
   getEllipsis() {
-    return !this.state.noClamp ? this.props.ellipsis : '';
+    return !this.state.holdsFullText ? this.props.ellipsis : '';
   }
 
   renderResizable() {
@@ -235,16 +305,9 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
     const { className } = this.props;
     const classString = cx('zent-clamp-lines', className);
     return (
-      <div
-        className={classString}
-        style={{
-          maxHeight: this.state.maxHeight,
-          overflowY: 'hidden',
-          ...WORDBREAK_STYLES,
-        }}
-      >
+      <div className={classString} style={WORDBREAK_STYLES}>
         <div ref={this.onContainerRefChange}>
-          <span ref={this.innerElement}>{this.state.text}</span>
+          <span ref={this.innerElement}>{this.state.textSuited}</span>
           {this.props.extra}
         </div>
         {this.renderResizable()}
@@ -266,7 +329,7 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
       return null;
     }
 
-    if (this.state.noClamp) {
+    if (this.state.holdsFullText) {
       return (
         <div
           ref={this.onNoClampContainerRefChange}
@@ -307,7 +370,7 @@ function slice(chars: string[], start: number, end: number): string {
   return chars.slice(start, end).join('');
 }
 
-function getCharsetAwareLineHeight(node: HTMLElement, str: string): number {
+function inferContentLineHeight(node: HTMLElement, str: string): number {
   const emojiHeight = containsEmoji(str)
     ? getLineHeight(node, '🇨🇳')
     : -Infinity;
