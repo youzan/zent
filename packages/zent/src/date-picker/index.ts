@@ -14,6 +14,7 @@ export {
   RangeDate,
   SingleTime,
   RangeTime,
+  IDisabledTime,
   IValueType,
   IValueTypeRangeMap,
 } from './types';
