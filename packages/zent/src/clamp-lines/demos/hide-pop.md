@@ -1,5 +1,5 @@
 ---
-order: 2
+order: 1
 zh-CN:
 	title: 不显示提示
 en-US:

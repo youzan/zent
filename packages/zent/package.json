@@ -73,6 +73,7 @@
     "react": "17.0.x",
     "react-dom": "17.0.x",
     "react-window": "^1.8.6",
+    "regexpu-core": "^4.7.1",
     "sass": "^1.22.7",
     "ts-jest": "^24.0.0",
     "ts-node": "^8.0.3",

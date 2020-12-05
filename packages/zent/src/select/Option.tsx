@@ -43,7 +43,7 @@ function SelectOption<Item extends ISelectItem>({
       }}
       onMouseEnter={() => !value.type && onMouseEnter(index)}
       onMouseLeave={() => !value.type && onMouseLeave(index)}
-      title={typeof value.text === 'string' && value.text}
+      title={typeof value.text === 'string' ? value.text : ''}
     >
       <div className="zent-select-v2-option-text">
         <p className="zent-select-v2-option-text-content">{children}</p>
