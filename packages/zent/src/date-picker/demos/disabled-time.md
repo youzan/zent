@@ -14,9 +14,14 @@ import {
 	CombinedTimeRangePicker,
 	CombinedDateRangePicker,
 } from 'zent';
-import { isSameDay } from 'date-fns';
+import { isSameDay, addDays } from 'date-fns';
+
 const initArray = targetNum => {
 	return Array.from({ length: targetNum }, (_, index) => index);
+};
+
+const initRemainArray = (targetNum, total) => {
+	return Array.from({ length: total - targetNum }, (_, index) => total - index);
 };
 class Demo extends Component {
 	state = {};
@@ -57,11 +62,11 @@ class Demo extends Component {
 	});
 
 	disabledTimes2 = date => {
-		const current = new Date();
-		const hour = current.getHours();
-		const minute = current.getMinutes();
-		const second = current.getSeconds();
-		const isSame = isSameDay(date, current);
+		const min = new Date();
+		const hour = min.getHours();
+		const minute = min.getMinutes();
+		const second = min.getSeconds();
+		const isSame = isSameDay(date, min);
 		return isSame
 			? {
 					disabledHours: () => initArray(hour, 23),
@@ -85,8 +90,29 @@ class Demo extends Component {
 			: {};
 	};
 
+	disabledEndTimes = date => {
+		const max = addDays(new Date(), 4);
+		const hour = max.getHours();
+		const minute = max.getMinutes();
+		const second = max.getSeconds();
+		const isSame = isSameDay(date, max);
+		return isSame
+			? {
+					disabledHours: () => initRemainArray(hour, 23),
+					disabledMinutes: hourValue =>
+						hourValue === hour ? initRemainArray(minute, 59) : [],
+					disabledSeconds: (hourValue, minuteValue) =>
+						hourValue === hour && minuteValue === minute
+							? initRemainArray(second, 59)
+							: [],
+			  }
+			: {};
+	};
+
 	disabledTimes4 = (date, type) => {
-		return type === 'start' ? this.disabledTimes2(date) : {};
+		return type === 'start'
+			? this.disabledTimes2(date)
+			: this.disabledEndTimes(date);
 	};
 
 	render() {
@@ -137,7 +163,7 @@ class Demo extends Component {
 					value={combinedValue}
 					onChange={this.onChangeCombinedDate}
 					showTime
-					disabledDate={{ min: new Date() }}
+					disabledDate={{ min: new Date(), max: addDays(new Date(), 4) }}
 					format="YYYY-MM-DD HH:mm:ss"
 					disabledTime={this.disabledTimes4}
 				/>

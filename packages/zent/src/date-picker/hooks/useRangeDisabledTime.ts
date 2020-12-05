@@ -32,6 +32,8 @@ export default function useRangeDisabledTime({
       const sameDay = start && date ? isSameDay(start, date) : false;
       const sameHour = start && date ? isSameHour(start, date) : false;
       const sameMinute = start && date ? isSameMinute(start, date) : false;
+      const endHour = date?.getHours() || 0;
+      const endMinute = date?.getMinutes() || 0;
       const startHour = start?.getHours() || 0;
       const startMinute = start?.getMinutes() || 0;
       const startSecond = start?.getSeconds() || 0;
@@ -39,12 +41,11 @@ export default function useRangeDisabledTime({
       const defaultDisabledHours =
         disabledTimesRef.current?.(date, END).disabledHours?.() || [];
       const defaultDisabledMinutes =
-        disabledTimesRef.current?.(date, END).disabledMinutes?.(startHour) ||
-        [];
+        disabledTimesRef.current?.(date, END).disabledMinutes?.(endHour) || [];
       const defaultDisabledSeconds =
         disabledTimesRef
           .current?.(date, END)
-          .disabledSeconds?.(startHour, startMinute) || [];
+          .disabledSeconds?.(endHour, endMinute) || [];
 
       // 根据开始时间生成结束时间的disabled方法
       const disabledHours = () =>
@@ -68,6 +69,8 @@ export default function useRangeDisabledTime({
       const sameDay = date && end ? isSameDay(date, end) : false;
       const sameHour = date && end ? isSameHour(date, end) : false;
       const sameMinute = date && end ? isSameMinute(date, end) : false;
+      const startHour = date?.getHours() || 0;
+      const startMinute = date?.getMinutes() || 0;
       const endHour = end?.getHours() || 0;
       const endMinute = end?.getMinutes() || 0;
       const endSecond = end?.getSeconds() || 0;
@@ -76,12 +79,12 @@ export default function useRangeDisabledTime({
       const defaultDisabledHours =
         disabledTimesRef.current?.(date, START).disabledHours?.() || [];
       const defaultDisabledMinutes =
-        disabledTimesRef.current?.(date, START).disabledMinutes?.(endHour) ||
+        disabledTimesRef.current?.(date, START).disabledMinutes?.(startHour) ||
         [];
       const defaultDisabledSeconds =
         disabledTimesRef
           .current?.(date, START)
-          .disabledSeconds?.(endHour, endMinute) || [];
+          .disabledSeconds?.(startHour, startMinute) || [];
 
       // 根据结束时间生成开始时间的disabled方法
       const disabledHours = () =>
