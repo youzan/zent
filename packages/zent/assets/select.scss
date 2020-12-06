@@ -45,12 +45,9 @@ $option-height: 32px;
   position: relative;
   line-height: 20px;
 
-  &::after {
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAMAAAAhxq8pAAAAP1BMVEUAAAAzMzMyMjRAQEAyMjQyMjQ0NDQ2NjYyMjMzMzMyMjMyMjMzMzQyMjQ4ODgzMzNGRkYzMzMyMjUzMzMyMjNbbAmOAAAAFHRSTlMAqr0Grn1SLvTr39GXiSAUC2hbMlOyMCEAAABbSURBVBjTfc5JEoAgDETRlnkGlfufVSkLxWD5ln+RDj7xdSEkR6yTCDZHgW2OCgi0hbZEDjCOU3ZjcxlotHma0cBFjSM32ZvEQPQPR8W35gtekq3VJhA7Yxp/Dk7RDBdwecf8AAAAAElFTkSuQmCC');
-    background-repeat: no-repeat;
-    background-size: 10px 8px;
-    background-position: center;
-    content: '';
+  .zenticon-caret-down {
+    @include theme-color(color, stroke, 2);
+    font-size: 18px;
     right: 8px;
     width: 16px;
     height: 16px;
@@ -72,10 +69,6 @@ $option-height: 32px;
       @include theme-color(border-color, stroke, 5);
       @include theme-color(background-color, stroke, 8);
       box-shadow: none;
-    }
-
-    &::after {
-      opacity: 0.25;
     }
 
     .zent-select-v2-tag {
@@ -116,7 +109,7 @@ $option-height: 32px;
   &-clearable {
     .zenticon-close-circle {
       @include theme-color(color, stroke, 5);
-      font-size: $font-size-large;
+      font-size: 18px;
       position: absolute;
       right: 8px;
       top: 7px;
@@ -129,7 +122,7 @@ $option-height: 32px;
 
     &.zent-select-v2:hover,
     &.zent-select-v2-active {
-      &::after {
+      .zenticon-caret-down {
         display: none;
       }
 
@@ -146,7 +139,7 @@ $option-height: 32px;
   }
 
   &.zent-select-v2-visible {
-    &::after {
+    .zenticon-caret-down {
       transform: rotate(180deg);
     }
   }

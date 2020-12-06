@@ -794,6 +794,7 @@ export class Select<Item extends ISelectItem = ISelectItem> extends Component<
                       ref={this.inputRef}
                     />
                   )}
+                  <Icon type="caret-down" />
                 </div>
               </Popover.Trigger.Click>
               <Popover.Content>

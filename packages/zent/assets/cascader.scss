@@ -31,12 +31,12 @@ $menuHeight: 180px;
     right: 10px;
     top: 50%;
     transform: translateY(-50%);
-    font-size: $font-size-large;
+    font-size: 18px;
   }
 
   .zenticon-caret-down {
     transition: transform 0.25s;
-    @include theme-color(color, stroke, 1);
+    @include theme-color(color, stroke, 2);
   }
 
   .zenticon-close-circle {
