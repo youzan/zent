@@ -62,13 +62,13 @@ const TimePickerBase: React.FC<ITimePickerBaseProps> = ({
     openPanel
   );
 
-  const disabledTimesOption = useMemo(
-    () => disabledTime?.(selectedDate) || {},
-    [disabledTime, selectedDate]
-  );
+  const disabledTimeOption = useMemo(() => disabledTime?.(selectedDate) || {}, [
+    disabledTime,
+    selectedDate,
+  ]);
   const confirmStatus = useConfirmStatus({
     selected,
-    disabledTimesOption,
+    disabledTimeOption,
     format,
   });
 
@@ -120,7 +120,7 @@ const TimePickerBase: React.FC<ITimePickerBaseProps> = ({
         <ContentComponent
           {...commonPanelProps}
           defaultTime={defaultTime}
-          disabledTimesOption={disabledTimesOption}
+          disabledTimeOption={disabledTimeOption}
           selected={selected}
           onSelected={onSelected}
         />
@@ -130,7 +130,7 @@ const TimePickerBase: React.FC<ITimePickerBaseProps> = ({
     selected,
     restPropsRef,
     defaultTime,
-    disabledTimesOption,
+    disabledTimeOption,
     onSelected,
     ContentComponent,
   ]);

@@ -23,8 +23,8 @@ export default function useRangeDisabledTime({
   selected: DateNullTuple;
   disabledTime?: IDisabledTime;
 }) {
-  const disabledTimesRef = useRef(disabledTime);
-  disabledTimesRef.current = disabledTime;
+  const disabledTimeRef = useRef(disabledTime);
+  disabledTimeRef.current = disabledTime;
   const [start, end] = selected;
 
   const disabledEndTimes = useCallback(
@@ -39,11 +39,11 @@ export default function useRangeDisabledTime({
       const startSecond = start?.getSeconds() || 0;
       // 根据disabled方法计算得到的disabled numbers
       const defaultDisabledHours =
-        disabledTimesRef.current?.(date, END).disabledHours?.() || [];
+        disabledTimeRef.current?.(date, END).disabledHours?.() || [];
       const defaultDisabledMinutes =
-        disabledTimesRef.current?.(date, END).disabledMinutes?.(endHour) || [];
+        disabledTimeRef.current?.(date, END).disabledMinutes?.(endHour) || [];
       const defaultDisabledSeconds =
-        disabledTimesRef
+        disabledTimeRef
           .current?.(date, END)
           .disabledSeconds?.(endHour, endMinute) || [];
 
@@ -61,7 +61,7 @@ export default function useRangeDisabledTime({
 
       return { disabledHours, disabledMinutes, disabledSeconds };
     },
-    [start, disabledTimesRef]
+    [start, disabledTimeRef]
   );
 
   const disabledStartTimes = useCallback(
@@ -77,12 +77,12 @@ export default function useRangeDisabledTime({
 
       // 根据disabled方法计算得到的disabled numbers
       const defaultDisabledHours =
-        disabledTimesRef.current?.(date, START).disabledHours?.() || [];
+        disabledTimeRef.current?.(date, START).disabledHours?.() || [];
       const defaultDisabledMinutes =
-        disabledTimesRef.current?.(date, START).disabledMinutes?.(startHour) ||
+        disabledTimeRef.current?.(date, START).disabledMinutes?.(startHour) ||
         [];
       const defaultDisabledSeconds =
-        disabledTimesRef
+        disabledTimeRef
           .current?.(date, START)
           .disabledSeconds?.(startHour, startMinute) || [];
 
@@ -104,7 +104,7 @@ export default function useRangeDisabledTime({
 
       return { disabledHours, disabledMinutes, disabledSeconds };
     },
-    [end, disabledTimesRef]
+    [end, disabledTimeRef]
   );
 
   const disabledConfirm: boolean = useMemo(
