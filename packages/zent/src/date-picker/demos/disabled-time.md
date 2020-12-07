@@ -17,8 +17,9 @@ import {
 import {
 	disabledTimeWithMin,
 	disabledTimeWithMax,
+	disabledTimeWithRange,
 } from 'zent/es/date-picker/disabledTimeFns';
-import { isSameDay, addDays } from 'date-fns';
+import { isSameDay, addDays, parse } from 'date-fns';
 
 const initArray = targetNum => {
 	return Array.from({ length: targetNum }, (_, index) => index);
@@ -91,10 +92,12 @@ class Demo extends Component {
 			: {};
 	};
 
-
 	disabledTime4 = (date, type) => {
 		return type === 'start'
-			? disabledTimeWithMin(date, new Date())
+			? disabledTimeWithRange(date, [
+					parse('01:00:00', 'HH:mm:ss', new Date()),
+					new Date(),
+			  ])
 			: disabledTimeWithMax(date, addDays(new Date(), 4));
 	};
 

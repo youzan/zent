@@ -1,6 +1,5 @@
 import { isSameDay } from 'date-fns';
 import { IDisabledTimeOption } from './types';
-
 const initArray = (targetNum: number) => {
   return Array.from({ length: targetNum }, (_, index) => index);
 };
@@ -47,4 +46,51 @@ export const disabledTimeWithMax = (
             : [],
       }
     : {};
+};
+
+export const disabledTimeWithRange = (
+  date: Date,
+  range: [Date | null, Date | null]
+): IDisabledTimeOption => {
+  const [min, max] = range;
+  if (min && !max) {
+    return disabledTimeWithMin(date, min);
+  }
+  if (max && !min) {
+    return disabledTimeWithMax(date, max);
+  }
+  const minHour = min.getHours();
+  const minMinute = min.getMinutes();
+  const minSecond = min.getSeconds();
+  const maxHour = max.getHours();
+  const maxMinute = max.getMinutes();
+  const maxSecond = max.getSeconds();
+  const isMinSame = isSameDay(date, min);
+  const isMaxSame = isSameDay(date, max);
+
+  return {
+    disabledHours: () => {
+      const minDisabledHours = isMinSame ? initArray(minHour) : [];
+      const maxDisabledHours = isMaxSame ? initRangeArray(maxHour, 23) : [];
+      return [...minDisabledHours, ...maxDisabledHours];
+    },
+    disabledMinutes: hourValue => {
+      const minDisabledMinutes =
+        isMinSame && hourValue === minHour ? initArray(minMinute) : [];
+      const maxDisabledMinutes =
+        isMaxSame && hourValue === maxHour ? initRangeArray(maxMinute, 59) : [];
+      return [...minDisabledMinutes, ...maxDisabledMinutes];
+    },
+    disabledSeconds: (hourValue, minuteValue) => {
+      const minDisabledSeconds =
+        isMinSame && hourValue === minHour && minuteValue === minMinute
+          ? initArray(minSecond)
+          : [];
+      const maxDisabledSeconds =
+        isMaxSame && hourValue === maxHour && minuteValue === maxMinute
+          ? initRangeArray(maxSecond, 59)
+          : [];
+      return [...minDisabledSeconds, ...maxDisabledSeconds];
+    },
+  };
 };
