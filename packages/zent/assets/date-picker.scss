@@ -108,16 +108,13 @@
       font-size: $font-size-normal;
     }
 
-    &-input::placeholder {
-      @include gray-color;
-    }
-
     &-empty-input {
-      @include gray-color;
+      @include theme-color(color, stroke, 3);
     }
 
     &-seperator {
-      @include gray-color;
+      @include theme-color(color, stroke, 3);
+
       margin: 0 8px;
     }
 
@@ -130,8 +127,15 @@
   &-disabled {
     @include theme-color(border-color, stroke, 6);
     @include theme-color(background-color, stroke, 8);
-    @include gray-color;
     cursor: not-allowed;
+
+    .zent-datepicker-trigger {
+      &-input,
+      &-empty-input,
+      &-seperator {
+        @include theme-color(color, stroke, 4);
+      }
+    }
   }
 
   &-panel {
@@ -394,7 +398,7 @@
 
       &-seperator,
       &-null {
-        @include gray-color;
+        @include theme-color(color, stroke, 3);
       }
 
       &-confirm {
