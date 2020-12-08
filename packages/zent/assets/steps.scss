@@ -114,6 +114,13 @@
     border-radius: 50%;
     text-align: center;
     font-size: $font-size-normal;
+
+    &.zent-steps-sequence {
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+      margin: 2px;
+    }
   }
 
   .zenticon {
@@ -127,9 +134,10 @@
   vertical-align: top;
   overflow: visible;
   flex: 1;
+  cursor: default;
 
   &.zent-steps-status-finish {
-    &.is-current {
+    &.zent-steps-item--current {
       .zent-steps-tail {
         i {
           &::after {
@@ -139,11 +147,11 @@
       }
     }
 
-    &.is-last-finish {
+    &.zent-steps-item--last-finished {
       .zent-steps-tail {
         i {
           &::after {
-            @include error-color(background-color);
+            @include current-bg-color(background-color);
             width: 100%;
           }
         }
@@ -219,7 +227,7 @@
     overflow: visible;
 
     &.zent-steps-status-finish {
-      &.is-current {
+      &.zent-steps-item--current {
         .zent-steps-tail {
           i {
             &::after {
@@ -230,7 +238,7 @@
         }
       }
 
-      &.is-last-finish {
+      &.zent-steps-item--last-finished {
         .zent-steps-tail {
           i {
             &::after {
@@ -315,7 +323,7 @@
     box-sizing: border-box;
     padding: 0 1px;
 
-    &.is-clicked {
+    &.zent-steps-item--clickable {
       cursor: pointer;
     }
 
@@ -340,7 +348,7 @@
       padding: 0 10px;
     }
 
-    &.is-current {
+    &.zent-steps-item--current {
       &:hover {
         .zent-steps-step {
           @include theme-color(background-color, primary, 5);
@@ -368,7 +376,7 @@
     padding: 0 8px;
     box-sizing: border-box;
 
-    &.is-clicked {
+    &.zent-steps-item--clickable {
       cursor: pointer;
     }
 
@@ -436,7 +444,7 @@
       }
     }
 
-    &.is-finish {
+    &.zent-steps-item--finished {
       &:hover {
         .zent-steps-step {
           @include theme-color(background-color, primary, 5);
@@ -503,7 +511,7 @@
     border-bottom-width: 1px;
     border-bottom-style: solid;
 
-    &.is-clicked {
+    &.zent-steps-item--clickable {
       cursor: pointer;
     }
 
@@ -524,18 +532,20 @@
       padding: 0 10px;
     }
 
-    &.is-current {
+    &.zent-steps-item--current {
       @include theme-color(background-color, stroke, 9);
       border-bottom-color: transparent;
     }
 
-    &:not(.is-current) {
+    &:not(.zent-steps-item--current) {
+      @include theme-color(background-color, stroke, 8);
+
       &:hover {
-        @include theme-color(background-color, stroke, 11);
+        @include theme-color(background-color, stroke, 7);
       }
 
       &:active {
-        @include theme-color(background-color, stroke, 10);
+        @include theme-color(background-color, stroke, 6);
       }
     }
   }
