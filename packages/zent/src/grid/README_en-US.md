@@ -70,6 +70,7 @@ onChange will throw an object, which includes parameters about the change part o
 | textAlign   | Text alignment                                                                                      | string                                                                                                               | No       |
 | nowrap      | whether to wrap, true by default                                                                    | bool                                                                                                                 | No       |
 | defaultText | default display text                                                                                | ReactNode                                                                                                            | No       |
+| isValueEmpty | the function to judge whether show the default text                                                                                | (value: any) => boolean                                                                                                            | No       |
 | children    | render grouping table headers                                                                       | array                                                                                                                | No       |
 
 #### selection
@@ -79,6 +80,10 @@ onChange will throw an object, which includes parameters about the change part o
 | selectedRowKeys  | keys of selected rows by default           | array                                                             | No            |
 | onSelect         | callback fires when a check changes        | (selectedkeys: string[], selectedRows: Array<any>, changeRow: any | any[]) => any | No |
 | getCheckboxProps | function to get properties of the checkbox | (data: object) => { disabled?: boolean, reason?: ReactNode }                          | No            |
+
+### Column Provider
+
+Support all `columns` props
 
 #### pageInfo
 
