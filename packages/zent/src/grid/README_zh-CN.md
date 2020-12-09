@@ -40,7 +40,7 @@ group: 导航
 | autoStick             | 是否自动将 head stick 到窗口                                  | bool                                                                       | `false`            | 否       |
 | autoStickOffsetTop    | 自定义表头吸顶的 offsetTop                                    | number                                                                     | `0`                | 否       |
 | disableHoverHighlight | 禁用鼠标 hover 高亮效果                                       | boolean                                                                    | `false`            | 否       |
-| loadingProps          | 基于 `BlockLoading` 的自定义加载属性                          | IBlockLoadingProps                                                         | -                  | 否       |
+| loadingProps          | 基于 `BlockLoading` 的自定义加载属性                          | `Omit<IBlockLoadingProps, 'loading'>`                                      | -                  | 否       |
 
 #### onChange 函数声明
 

@@ -39,7 +39,7 @@ The function of the component is similar to the function of [Table](table) compo
 | autoStick             | Whether to stick the head to the window automatically                                                      | bool                                                                       | `false`     | No       |
 | autoStickOffsetTop    | custom offset of sticky head                                                                               | number                                                                     | `false`     | No       |
 | disableHoverHighlight | whether to disable mouse hover highlighting                                                                | boolean                                                                    | `false`     | No       |
-| loadingProps          | All props in `BlockLoading`, exclude `loading`                                                     | IBlockLoadingProps                                                         | -           | No       |
+| loadingProps          | All props in `BlockLoading`, exclude `loading`                                                             | `Omit<IBlockLoadingProps, 'loading'>`                                      | -           | No       |
 
 #### onChange function declaration
 
