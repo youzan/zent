@@ -81,6 +81,13 @@ onChange will throw an object, which includes parameters about the change part o
 | onSelect         | callback fires when a check changes        | (selectedkeys: string[], selectedRows: Array<any>, changeRow: any | any[]) => any | No |
 | getCheckboxProps | function to get properties of the checkbox | (data: object) => { disabled?: boolean, reason?: ReactNode }                          | No            |
 
+### Provider
+
+| 参数             | 说明       | 类型     | 是否必须 |
+| --------------- | ---------- | -------- | -------- |
+| defaultText     | default display text | ReactNode | No 			|
+| isValueEmpty    | the function to judge whether show the default text  | (value: any) => boolean | No |
+
 #### pageInfo
 
 | Property        | Description                              | Type     | Required |

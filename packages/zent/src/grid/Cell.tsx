@@ -62,7 +62,7 @@ class Cell<Data> extends Component<IGridCellProps<Data>> {
       nowrap,
       className,
       defaultText = defaultTextInCtx,
-      isValueEmpty = isValueEmptyInCtx || isNil,
+      isValueEmpty = isValueEmptyInCtx ?? isNil,
     } = column;
     let text: any = getFromPath(data, name);
     if (isValueEmpty(text) && !isNil(defaultText)) {

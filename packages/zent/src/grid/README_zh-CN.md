@@ -91,6 +91,13 @@ onChange 会抛出一个对象，这个对象包含分页变化的参数：
 | pageSizeOptions | 分页选项   | number[] | 否       |
 | current         | 当前页码   | number   | 否       |
 
+### Provider
+
+| 参数             | 说明       | 类型     | 是否必须 |
+| --------------- | ---------- | -------- | -------- |
+| defaultText     | 默认显示文字 | ReactNode | 否 			|
+| isValueEmpty    | 判断是否显示默认文字  | (value: any) => boolean | 否 |
+
 ### expandation
 
 | 参数         | 说明                    | 类型                                    | 默认值 | 是否必须 |

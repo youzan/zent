@@ -1,4 +1,4 @@
 import { createContext } from 'react';
-import { IGridContext } from './types';
+import { GridColumnContext } from './types';
 
-export const GridContext = createContext<IGridContext>({});
+export const GridContext = createContext<GridColumnContext>({});

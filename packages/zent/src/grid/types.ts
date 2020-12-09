@@ -54,8 +54,7 @@ export interface IGridColumn<Data = any> {
   children?: Array<IGridColumn<Data>>;
 }
 
-export interface IGridContext
-  extends Pick<IGridColumn, 'defaultText' | 'isValueEmpty'> {}
+export type GridColumnContext = Partial<IGridColumn>;
 
 export interface IGridOnChangeConfig {
   current?: number;
