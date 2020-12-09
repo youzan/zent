@@ -45,6 +45,7 @@
   box-sizing: border-box;
   display: inline-block;
   position: relative;
+  @include theme-color(color, stroke, 1);
 
   &-seperator {
     margin: 0 8px;
@@ -85,6 +86,7 @@
 
   &-popup {
     z-index: 2000;
+    @include theme-color(color, stroke, 1);
   }
 
   &-trigger {
@@ -135,9 +137,9 @@
   }
 
   &-panel {
-    @include panel-common;
     width: 280px;
     cursor: pointer;
+    @include panel-common;
 
     &-header {
       @include font-large;

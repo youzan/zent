@@ -20,6 +20,7 @@
 }
 
 .zent-file-upload {
+  @include theme-color(color, stroke, 1);
   @include theme-color(border-color, stroke, 5);
   border-width: 1px;
   border-style: solid;

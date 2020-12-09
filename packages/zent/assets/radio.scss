@@ -23,6 +23,7 @@ $inner-circle-offset: ($outer-circle-size - $inner-circle-size - 2px) / 2;
   padding: 0;
   margin-right: 24px;
   vertical-align: middle;
+  @include theme-color(color, stroke, 1);
 
   &:last-child {
     margin-right: 0;

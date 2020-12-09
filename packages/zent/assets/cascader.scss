@@ -22,6 +22,7 @@ $menuHeight: 180px;
   line-height: 18px;
   padding: 6px 30px 6px 10px;
   transition: border-color 0.25s;
+  @include theme-color(color, stroke, 1);
   @include theme-color(border-color, stroke, 5);
   @include theme-color(background-color, stroke, 9);
 

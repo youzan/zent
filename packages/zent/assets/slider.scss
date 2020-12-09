@@ -6,6 +6,7 @@
   align-items: center;
   min-height: 30px;
   padding: 8px 7px;
+  @include theme-color(color, stroke, 1);
 
   &-main {
     @include theme-color(background-color, stroke, 6);

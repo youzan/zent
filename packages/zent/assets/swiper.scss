@@ -1,6 +1,7 @@
 @import './theme/default';
 
 .zent-swiper {
+  @include theme-color(color, stroke, 1);
   position: relative;
   overflow: hidden;
 

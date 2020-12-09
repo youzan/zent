@@ -2,6 +2,7 @@
 @import './theme/font';
 
 .zent-timeline {
+  @include theme-color(color, stroke, 1);
   padding: 10px 0;
   position: relative;
   display: flex;
@@ -24,6 +25,7 @@
   &-legend {
     height: 20px;
     line-height: 20px;
+    @include theme-color(color, stroke, 1);
 
     &-line {
       @include theme-color(background-color, primary, 4);

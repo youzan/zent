@@ -9,6 +9,7 @@
     flex-shrink: 0;
     display: inline-flex;
     flex-basis: 120px;
+    @include theme-color(color, stroke, 1);
 
     &.zent-form-label-required {
       &::before {
