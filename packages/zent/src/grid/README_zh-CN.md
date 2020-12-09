@@ -93,10 +93,7 @@ onChange 会抛出一个对象，这个对象包含分页变化的参数：
 
 ### Column Provider
 
-| 参数             | 说明       | 类型     | 是否必须 |
-| --------------- | ---------- | -------- | -------- |
-| defaultText     | 默认显示文字 | ReactNode | 否 			|
-| isValueEmpty    | 判断是否显示默认文字  | (value: any) => boolean | 否 |
+支持 `columns` 的所有参数
 
 ### expandation
 

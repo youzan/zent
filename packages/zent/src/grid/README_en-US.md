@@ -83,10 +83,7 @@ onChange will throw an object, which includes parameters about the change part o
 
 ### Column Provider
 
-| 参数             | 说明       | 类型     | 是否必须 |
-| --------------- | ---------- | -------- | -------- |
-| defaultText     | default display text | ReactNode | No 			|
-| isValueEmpty    | the function to judge whether show the default text  | (value: any) => boolean | No |
+support all `columns` props
 
 #### pageInfo
 

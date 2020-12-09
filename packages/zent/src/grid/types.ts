@@ -54,7 +54,7 @@ export interface IGridColumn<Data = any> {
   children?: Array<IGridColumn<Data>>;
 }
 
-export type GridColumnContext = Partial<IGridColumn>;
+export type GridColumnContextType = Partial<IGridColumn>;
 
 export interface IGridOnChangeConfig {
   current?: number;

@@ -1,6 +1,6 @@
 import { Component, isValidElement } from 'react';
 import classnames from 'classnames';
-import { GridContext } from './Context';
+import { GridColumnContext } from './ColumnContext';
 import { IGridInnerColumn } from './Grid';
 import { IGridCellPos } from './types';
 import isNil from '../utils/isNil';
@@ -47,7 +47,7 @@ class Cell<Data> extends Component<IGridCellProps<Data>> {
     return this.getText(this.props) !== this.getText(nextProps);
   }
 
-  static contextType = GridContext;
+  static contextType = GridColumnContext;
 
   render() {
     const { prefix, column, data, pos } = this.props;
