@@ -31,7 +31,9 @@ describe('Steps', () => {
           <Step title="第三步" />
         </Steps>
       );
-      expect(wrapper.find('.zent-steps-item.is-current').length).toBe(1);
+      expect(
+        wrapper.find('.zent-steps-item.zent-steps-item--current').length
+      ).toBe(1);
     };
     ensure();
     ensure(1);
@@ -121,6 +123,8 @@ describe('Steps', () => {
       </Steps>
     );
     expect(wrapper.find('.zent-steps-tabs').length).toBe(1);
-    expect(wrapper.find('.zent-steps-item.is-current').length).toBe(1);
+    expect(
+      wrapper.find('.zent-steps-item.zent-steps-item--current').length
+    ).toBe(1);
   });
 });
