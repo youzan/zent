@@ -36,7 +36,7 @@ $option-height: 32px;
   border-radius: 2px;
   cursor: pointer;
   min-height: 32px;
-  padding: 5px 25px 5px 10px;
+  padding: 5px 26px 5px 12px;
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
@@ -51,8 +51,7 @@ $option-height: 32px;
     right: 8px;
     position: absolute;
     transition: transform 0.25s;
-    transform: translate(0, -50%);
-    top: 50%;
+    top: 7px;
     margin: auto;
   }
 
@@ -111,8 +110,7 @@ $option-height: 32px;
       font-size: 18px;
       position: absolute;
       right: 8px;
-      top: 50%;
-      transform: translate(0, -50%);
+      top: 7px;
       margin: auto;
       display: none;
       cursor: pointer;
@@ -138,7 +136,7 @@ $option-height: 32px;
 
   &.zent-select-v2-visible {
     .zenticon-down {
-      transform: translate(0, -50%) rotate(180deg);
+      transform: rotate(180deg);
     }
   }
 
