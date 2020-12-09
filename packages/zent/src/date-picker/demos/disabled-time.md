@@ -15,10 +15,10 @@ import {
 	CombinedDateRangePicker,
 } from 'zent';
 import {
-	disabledTimeWithMin,
 	disabledTimeWithMax,
 	disabledTimeWithRange,
-} from 'zent/es/date-picker/disabledTimeFns';
+	getRangeDisabledProps,
+} from 'zent/es/date-picker/disabledHelpers';
 import { isSameDay, addDays, parse } from 'date-fns';
 
 const initArray = targetNum => {
@@ -92,14 +92,7 @@ class Demo extends Component {
 			: {};
 	};
 
-	disabledTime4 = (date, type) => {
-		return type === 'start'
-			? disabledTimeWithRange(date, [
-					parse('01:00:00', 'HH:mm:ss', new Date()),
-					new Date(),
-			  ])
-			: disabledTimeWithMax(date, addDays(new Date(), 4));
-	};
+	disabledProps = getRangeDisabledProps([new Date(), addDays(new Date(), 4)]);
 
 	render() {
 		const {
@@ -149,9 +142,8 @@ class Demo extends Component {
 					value={combinedValue}
 					onChange={this.onChangeCombinedDate}
 					showTime
-					disabledDate={{ min: new Date(), max: addDays(new Date(), 4) }}
 					format="YYYY-MM-DD HH:mm:ss"
-					disabledTime={this.disabledTime4}
+					{...this.disabledProps}
 				/>
 			</div>
 		);

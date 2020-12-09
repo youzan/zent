@@ -150,7 +150,7 @@ interface IDisabledTimeOption {
 - `disabledTime(val, type)`, the `type` is `'start' | 'end'`
 
 ### Functions
-- Provide some useful functions: `disabledTimeWithMin`、`disabledTimeWithMax` and `disabledTimeWithRange`, that can use in your `disabledTime` handlers. You need to manually import them from `zent/es/date-picker/disabledTimeFns`. 
+- Provide some useful functions: `disabledTimeWithMin`、`disabledTimeWithMax` and `disabledTimeWithRange`, that can use in your `disabledTime` handlers. You need to manually import them from `zent/es/date-picker/disabledHelpers`. 
 
 ### Format string
 

@@ -1,5 +1,13 @@
-import { isSameDay } from 'date-fns';
-import { IDisabledTimeOption } from './types';
+import { endOfDay, isAfter, isBefore, isSameDay, startOfDay } from 'date-fns';
+
+import {
+  IDisabledDateFunc,
+  IDisabledTime,
+  IDisabledTimeOption,
+  IRangeDisabledDateFunc,
+  RangeType,
+  RangeTypeMap,
+} from './types';
 const initArray = (targetNum: number) => {
   return Array.from({ length: targetNum }, (_, index) => index);
 };
@@ -92,5 +100,26 @@ export const disabledTimeWithRange = (
           : [];
       return [...minDisabledSeconds, ...maxDisabledSeconds];
     },
+  };
+};
+export const disabledDateWithRange = (
+  range: [Date | null, Date | null]
+): IDisabledDateFunc => {
+  const [min, max] = range;
+  return (date: Date) =>
+    (!!min && isBefore(endOfDay(date), min)) ||
+    (!!max && isAfter(startOfDay(date), max));
+};
+
+export const getRangeDisabledProps = (
+  range: [Date | null, Date | null]
+): { disabledDate: IRangeDisabledDateFunc; disabledTime: IDisabledTime } => {
+  const [min, max] = range;
+  return {
+    disabledDate: disabledDateWithRange(range),
+    disabledTime: (date: Date, type: RangeType) =>
+      type === RangeTypeMap.START
+        ? disabledTimeWithMin(date, min)
+        : disabledTimeWithMax(date, max),
   };
 };
