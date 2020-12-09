@@ -785,19 +785,17 @@ export class Select<Item extends ISelectItem = ISelectItem> extends Component<
                   {showClear && (
                     <Icon type="close-circle" onClick={this.onClear} />
                   )}
-                  {disableSearch
-                    ? keyword
-                    : visible && (
-                        <Search
-                          placeholder={this.getSearchPlaceholder()}
-                          value={keyword}
-                          autoWidth={multiple}
-                          onChange={this.onKeywordChange}
-                          onIndexChange={this.onIndexChange}
-                          onEnter={this.selectCurrentIndex}
-                          ref={this.inputRef}
-                        />
-                      )}
+                  {!disableSearch && visible && (
+                    <Search
+                      placeholder={this.getSearchPlaceholder()}
+                      value={keyword}
+                      autoWidth={multiple}
+                      onChange={this.onKeywordChange}
+                      onIndexChange={this.onIndexChange}
+                      onEnter={this.selectCurrentIndex}
+                      ref={this.inputRef}
+                    />
+                  )}
                   <Icon type="caret-down" />
                 </div>
               </Popover.Trigger.Click>
