@@ -1,5 +1,6 @@
 import { Component, isValidElement } from 'react';
 import classnames from 'classnames';
+import { GridContext } from './Context';
 import { IGridInnerColumn } from './Grid';
 import { IGridCellPos } from './types';
 import isNil from '../utils/isNil';
@@ -46,18 +47,25 @@ class Cell<Data> extends Component<IGridCellProps<Data>> {
     return this.getText(this.props) !== this.getText(nextProps);
   }
 
+  static contextType = GridContext;
+
   render() {
     const { prefix, column, data, pos } = this.props;
+    const {
+      isValueEmpty: isValueEmptyInCtx,
+      defaultText: defaultTextInCtx,
+    } = this.context;
     const {
       name,
       bodyRender,
       textAlign,
       nowrap,
       className,
-      defaultText,
+      defaultText = defaultTextInCtx,
+      isValueEmpty = isValueEmptyInCtx || isNil,
     } = column;
     let text: any = getFromPath(data, name);
-    if (isNil(text) && defaultText) {
+    if (isValueEmpty(text) && !isNil(defaultText)) {
       text = defaultText;
     }
     let tdProps;

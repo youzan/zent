@@ -50,8 +50,12 @@ export interface IGridColumn<Data = any> {
   textAlign?: GridTextAlign;
   nowrap?: boolean;
   defaultText?: React.ReactNode;
+  isValueEmpty?: (value: any) => boolean;
   children?: Array<IGridColumn<Data>>;
 }
+
+export interface IGridContext
+  extends Pick<IGridColumn, 'defaultText' | 'isValueEmpty'> {}
 
 export interface IGridOnChangeConfig {
   current?: number;
