@@ -45,15 +45,14 @@ $option-height: 32px;
   position: relative;
   line-height: 20px;
 
-  .zenticon-caret-down {
-    @include theme-color(color, stroke, 2);
+  .zenticon-down {
+    @include theme-color(color, stroke, 3);
     font-size: 18px;
     right: 8px;
-    width: 16px;
-    height: 16px;
     position: absolute;
     transition: transform 0.25s;
-    top: 7px;
+    transform: translate(0, -50%);
+    top: 50%;
     margin: auto;
   }
 
@@ -112,17 +111,16 @@ $option-height: 32px;
       font-size: 18px;
       position: absolute;
       right: 8px;
-      top: 7px;
+      top: 50%;
+      transform: translate(0, -50%);
       margin: auto;
-      width: 16px;
-      height: 16px;
       display: none;
       cursor: pointer;
     }
 
     &.zent-select-v2:hover,
     &.zent-select-v2-active {
-      .zenticon-caret-down {
+      .zenticon-down {
         display: none;
       }
 
@@ -139,8 +137,8 @@ $option-height: 32px;
   }
 
   &.zent-select-v2-visible {
-    .zenticon-caret-down {
-      transform: rotate(180deg);
+    .zenticon-down {
+      transform: translate(0, -50%) rotate(180deg);
     }
   }
 
@@ -266,9 +264,11 @@ $option-height: 32px;
       font-weight: $font-weight-medium;
 
       &-multiple {
-        font-size: $font-size-small;
+        @include theme-color(color, stroke, 3);
+        font-size: 18px;
         display: block;
         margin-left: auto;
+        margin-right: -4px; // align with clear/open/close icon
         padding-left: 8px;
       }
     }
