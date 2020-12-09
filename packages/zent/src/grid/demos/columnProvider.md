@@ -1,13 +1,13 @@
 ---
 order: 16
 zh-CN:
-	title: Provider
+	title: ColumnProvider
 	product: 商品
 	productName: 商品名
 	uv: 访问量
 	stock: 库存
 en-US:
-	title: Provider
+	title: ColumnProvider
 	product: Product
 	productName: Product Name
 	uv: uv
@@ -15,7 +15,7 @@ en-US:
 ---
 
 ```jsx
-import { Grid, GridProvider } from 'zent';
+import { Grid, GridColumnProvider } from 'zent';
 
 const columns = [
 	{
@@ -46,7 +46,7 @@ for (let i = 0; i < 3; i++) {
 }
 
 ReactDOM.render(
-	<GridProvider
+	<GridColumnProvider
 		value={{
 			defaultText: 'provider default',
 			isValueEmpty: value => value == null || value === '',
@@ -58,7 +58,7 @@ ReactDOM.render(
 			datasets={datasets}
 			rowClassName={(data, index) => `${data.id}-${index}`}
 		/>
-	</GridProvider>,
+	</GridColumnProvider>,
 	mountNode
 );
 ```
