@@ -83,7 +83,7 @@ onChange will throw an object, which includes parameters about the change part o
 
 ### Column Provider
 
-support all `columns` props
+Support all `columns` props
 
 #### pageInfo
 
