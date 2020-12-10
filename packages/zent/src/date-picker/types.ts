@@ -244,16 +244,16 @@ export interface ITimePanelProps<T = SingleTime> {
   onSelected: (val: T, status?: boolean) => void;
   format: string;
   defaultTime?: T;
-  disabledTimesOption: IDisabledTimeOption;
+  disabledTimeOption: IDisabledTimeOption;
   hourStep?: number;
   minuteStep?: number;
   secondStep?: number;
   hideFooter?: boolean;
 }
 export interface ICombinedTimePanelProps
-  extends Omit<ITimePanelProps<RangeTime>, 'disabledTimesOption'> {
-  disabledTimesOptionStart: IDisabledTimeOption;
-  disabledTimesOptionEnd: IDisabledTimeOption;
+  extends Omit<ITimePanelProps<RangeTime>, 'disabledTimeOption'> {
+  disabledTimeOptionStart: IDisabledTimeOption;
+  disabledTimeOptionEnd: IDisabledTimeOption;
 }
 
 export interface IDisabledTimeOption {

@@ -30,6 +30,7 @@ export interface IDateRangePickerProps<T extends IValueType = 'string'>
     IRangeRelatedType<T> {
   showTime?: IShowTimeRange<string>;
   disabledTime?: IDisabledTime;
+  hideFooter?: boolean;
 }
 const DefaultDateRangeProps = {
   format: DATE_FORMAT,

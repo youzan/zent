@@ -90,7 +90,7 @@ const CombinedTimePicker: React.FC<ITimePickerBaseProps> = ({
 
   const selectedDates = parseSelectedToRangeDate(selected, format, new Date());
 
-  // disabledTimesOption
+  // disabledTimeOption
   const {
     disabledStartTimes,
     disabledConfirm,
@@ -100,11 +100,11 @@ const CombinedTimePicker: React.FC<ITimePickerBaseProps> = ({
     disabledTime,
   });
 
-  const disabledTimesOptionStart = useMemo(
+  const disabledTimeOptionStart = useMemo(
     () => disabledStartTimes?.(selectedDates[0] ?? startOfToday()),
     [disabledStartTimes, selectedDates]
   );
-  const disabledTimesOptionEnd = useMemo(
+  const disabledTimeOptionEnd = useMemo(
     () => disabledEndTimes?.(selectedDates[1] ?? startOfToday()),
     [disabledEndTimes, selectedDates]
   );
@@ -142,8 +142,8 @@ const CombinedTimePicker: React.FC<ITimePickerBaseProps> = ({
         <ContentComponent
           {...commonPanelProps}
           defaultTime={defaultTime}
-          disabledTimesOptionStart={disabledTimesOptionStart}
-          disabledTimesOptionEnd={disabledTimesOptionEnd}
+          disabledTimeOptionStart={disabledTimeOptionStart}
+          disabledTimeOptionEnd={disabledTimeOptionEnd}
           selected={selected}
           onSelected={onSelected}
         />
@@ -154,8 +154,8 @@ const CombinedTimePicker: React.FC<ITimePickerBaseProps> = ({
     defaultTime,
     restPropsRef,
     onSelected,
-    disabledTimesOptionStart,
-    disabledTimesOptionEnd,
+    disabledTimeOptionStart,
+    disabledTimeOptionEnd,
     ContentComponent,
   ]);
 

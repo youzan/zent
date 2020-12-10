@@ -31,7 +31,7 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
   const { format = '' } = showTimeOption || {};
   const confirmStatus = useConfirmStatus({
     selected: formatDate(format, selected),
-    disabledTimesOption: (selected && disabledTime?.(selected)) || {},
+    disabledTimeOption: (selected && disabledTime?.(selected)) || {},
     format,
   });
   const isDisableConfirm = useMemo(

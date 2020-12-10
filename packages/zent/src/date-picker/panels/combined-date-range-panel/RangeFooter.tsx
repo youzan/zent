@@ -34,12 +34,12 @@ export const CombinedDateRangeFooter: React.FC<ICombinedDateRangeFooterProps> = 
 
   const startTimeStatus = useConfirmStatus({
     selected: formatDate(format, start),
-    disabledTimesOption: (start && disabledEndTimes?.(start)) || {},
+    disabledTimeOption: (start && disabledStartTimes?.(start)) || {},
     format,
   });
   const endTimeStatus = useConfirmStatus({
     selected: formatDate(format, end),
-    disabledTimesOption: (end && disabledStartTimes?.(end)) || {},
+    disabledTimeOption: (end && disabledEndTimes?.(end)) || {},
     format,
   });
 
