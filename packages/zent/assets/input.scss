@@ -65,16 +65,19 @@ $large-size: 40px;
     }
   }
 
-  .zent-input-icon {
-    @include theme-color(color, stroke, 3);
+  .zent-input-icon,
+  .zent-input-close {
     display: block;
     margin-right: 8px;
+    cursor: pointer;
+  }
+
+  .zent-input-icon {
+    @include theme-color(color, stroke, 3);
   }
 
   .zent-input-close {
-    @include theme-color(color, stroke, 5);
-    display: block;
-    margin-right: 8px;
+    @include theme-color(color, stroke, 4);
   }
 }
 
