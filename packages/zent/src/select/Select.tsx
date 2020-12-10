@@ -55,6 +55,7 @@ export interface ISelectCommonProps<Item extends ISelectItem> {
   collapsable?: false;
   collapseAt?: number;
   className?: string;
+  disableSearch?: boolean;
 }
 
 export interface ISelectSingleProps<Item extends ISelectItem>
@@ -744,6 +745,7 @@ export class Select<Item extends ISelectItem = ISelectItem> extends Component<
       popupWidth,
       collapsable,
       className,
+      disableSearch,
     } = this.props;
 
     const notEmpty = multiple
@@ -783,7 +785,7 @@ export class Select<Item extends ISelectItem = ISelectItem> extends Component<
                   {showClear && (
                     <Icon type="close-circle" onClick={this.onClear} />
                   )}
-                  {visible && (
+                  {!disableSearch && visible && (
                     <Search
                       placeholder={this.getSearchPlaceholder()}
                       value={keyword}
