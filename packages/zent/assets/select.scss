@@ -106,7 +106,7 @@ $option-height: 32px;
 
   &-clearable {
     .zenticon-close-circle {
-      @include theme-color(color, stroke, 5);
+      @include theme-color(color, stroke, 4);
       font-size: 18px;
       position: absolute;
       right: 8px;
