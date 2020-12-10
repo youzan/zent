@@ -1,6 +1,6 @@
 {
   "name": "zent",
-  "version": "9.0.0-beta.23",
+  "version": "9.0.0-beta.24",
   "description": "一套前端设计语言和基于React的实现",
   "bugs": "https://github.com/youzan/zent/issues",
   "repository": {
@@ -33,7 +33,9 @@
     "assets/",
     "es/",
     "css/",
-    "dependency-graph.json"
+    "dependency-graph.json",
+    "plugins/css-compiler-constants.js",
+    "plugins/postcss-plugin-constants.js"
   ],
   "dependencies": {
     "@types/resize-observer-browser": "^0.1.4",
