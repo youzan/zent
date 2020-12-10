@@ -91,10 +91,20 @@ interface ITriggerCommonProps {
   onClearInput: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
 
-export interface IShowTimeOption<T>
-  extends Omit<ITimePickerBase<T>, 'className' | 'selectedDate'> {}
+export interface IShowTimeOptionBase<T>
+  extends Omit<
+    ITimePickerBase<T>,
+    'className' | 'selectedDate' | 'defaultTime'
+  > {}
+export interface IShowTimeOption<T> extends IShowTimeOptionBase<T> {
+  defaultTime?: T | ((date: Date) => T);
+}
+export interface IShowTimeRangeOption<T> extends IShowTimeOptionBase<T> {
+  defaultTime?: [T | ((date: Date) => T), T | ((date: Date) => T)];
+}
 
 export type IShowTime<T = string> = boolean | IShowTimeOption<T>;
+export type IShowTimeRange<T = string> = boolean | IShowTimeRangeOption<T>;
 export type IShowTimeOptionWithDefault = PartialRequired<
   IShowTimeOption<string>,
   'format' | 'defaultTime'

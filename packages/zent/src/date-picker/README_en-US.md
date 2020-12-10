@@ -52,7 +52,7 @@ interface IDisableDateMap {
 
 **Additional**
 
-- When return value of `showTime` is an object, to provide an additional time selection, there are some properties within this object: `format`、`defaultTime`、`hourStep`、`minuteStep`、`secondStep`
+- When return value of `showTime` is an object, to provide an additional time selection, there are some properties within this object: `format`、`hourStep`、`minuteStep`、`secondStep`, but redefines the type of `defaultTime` to be `string | (date: Date) => string`
 - `disabledTime` only works with `showTime`, see the details in `TimePicker`
 - `format` should be `'YYYY-MM-DD HH:mm:ss'` when `showTime` is `true`
 
@@ -132,7 +132,7 @@ interface IDisabledTimeOption {
 
 **Additional**
 
-- When return value of `showTime` is an object, `defaultTime` should be a range of datetimes. (default: ['00:00:00','23:59:59'])
+- When return value of `showTime` is an object, `defaultTime` should be `[string | (date: Date) => string, string | (date: Date) => string]`. (default: ['00:00:00','23:59:59'])
 - `disabledDate(val, type)` or `disabledTime(val, type)`, the `type` is `'start' | 'end'`
 - Only supports `dateSpan` for `DateRangePicker` and `CombinedDateRangePicker`.
 

@@ -76,11 +76,12 @@ const DatePickerBody: FC<IDatePickerBodyProps> = props => {
 
   const setSelectedDate = useCallback(
     (val: Date) => {
+      const { defaultTime, format } = showTimeOption || {};
+      const defaultTimeFn = () =>
+        typeof defaultTime === 'function' ? defaultTime(val) : defaultTime;
       if (!selected) {
         return onSelected(
-          showTimeOption
-            ? parse(showTimeOption.defaultTime, showTimeOption.format, val)
-            : val
+          defaultTime ? parse(defaultTimeFn(), format, val) : val
         );
       }
       let selectedDate = selected;
@@ -88,7 +89,11 @@ const DatePickerBody: FC<IDatePickerBodyProps> = props => {
       selectedDate = setMonth(selectedDate, val.getMonth());
       selectedDate = setDate(selectedDate, val.getDate());
 
-      onSelected(selectedDate);
+      onSelected(
+        defaultTime
+          ? parse(defaultTimeFn(), format, selectedDate)
+          : selectedDate
+      );
     },
     [selected, showTimeOption, onSelected]
   );

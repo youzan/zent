@@ -59,7 +59,7 @@ interface IDisableDateMap {
 
 **注意：**
 
-- `showTime` 为对象时，表示支持时间选择，具体属性可参考 `TimePicker`，包括 `format`、`defaultTime`、`hourStep`、`minuteStep`、`secondStep`
+- `showTime` 为对象时，表示支持时间选择，具体属性可参考 `TimePicker`，包括 `format`、`hourStep`、`minuteStep`、`secondStep`，其中 `defaultTime` 类型定义为 `string | (date: Date) => string`
 - `disabledTime` 在 `showTime` 开启时生效，可参考 `TimePicker` 的 `IDisabledTimeOption`
 - `showTime` 时 `format` 值应为`'YYYY-MM-DD HH:mm:ss'`，使用时注意 `format` 参数
 
@@ -139,7 +139,7 @@ interface IDisabledTimeOption {
 
 **注意：**
 
-- `showTime` 为对象时，`defaultTime` 为数组，表示默认开始时间和默认结束时间（不填为['00:00:00','23:59:59']）
+- `showTime` 为对象时，`defaultTime` 类型为 `[string | (date: Date) => string, string | (date: Date) => string]`，表示默认开始时间和默认结束时间（不填为['00:00:00','23:59:59']）
 - `disabledDate`、`disabledTime` 回调方法的第二个参数均为`type?: 'start' | 'end'`
 - `dateSpan` 仅 `DateRangePicker` 和 `CombinedDateRangePicker` 组件可用
 

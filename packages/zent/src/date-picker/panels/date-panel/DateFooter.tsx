@@ -108,30 +108,33 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
     [selected, format, onSelected]
   );
 
-  const timeInput = useMemo(
-    () =>
-      showTime ? (
-        <TimePicker
-          {...showTimeOption}
-          width={94}
-          selectedDate={selected}
-          value={formatDate(format, selected)}
-          hiddenIcon={true}
-          onChange={onTimeChange}
-          disabledTime={disabledTime}
-          autoComplete={autoComplete}
-        />
-      ) : null,
-    [
-      autoComplete,
-      selected,
-      showTime,
-      showTimeOption,
-      format,
-      disabledTime,
-      onTimeChange,
-    ]
-  );
+  const timeInput = useMemo(() => {
+    const { defaultTime, ...restOption } = showTimeOption || {};
+    const defaultTimeString =
+      typeof defaultTime === 'function' ? defaultTime(selected) : defaultTime;
+
+    return showTime ? (
+      <TimePicker
+        {...restOption}
+        defaultTime={defaultTimeString}
+        width={94}
+        selectedDate={selected}
+        value={formatDate(format, selected)}
+        hiddenIcon={true}
+        onChange={onTimeChange}
+        disabledTime={disabledTime}
+        autoComplete={autoComplete}
+      />
+    ) : null;
+  }, [
+    autoComplete,
+    selected,
+    showTime,
+    showTimeOption,
+    format,
+    disabledTime,
+    onTimeChange,
+  ]);
 
   return <PanelFooter leftNode={timeInput} rightNode={renderToday} />;
 };

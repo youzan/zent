@@ -9,9 +9,8 @@ import { dateConfig } from './utils/dateUtils';
 import {
   IGenerateDateConfig,
   IRangeProps,
-  IShowTime,
+  IShowTimeRange,
   IDisabledTime,
-  StringTuple,
   DateNullTuple,
   IValueType,
   IRangeRelatedType,
@@ -29,7 +28,7 @@ const PickerContextProvider = PickerContext.Provider;
 export interface IDateRangePickerProps<T extends IValueType = 'string'>
   extends Omit<IRangeProps, 'valueType' | 'onChange'>,
     IRangeRelatedType<T> {
-  showTime?: IShowTime<StringTuple>;
+  showTime?: IShowTimeRange<string>;
   disabledTime?: IDisabledTime;
   hideFooter?: boolean;
 }

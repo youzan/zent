@@ -11,12 +11,12 @@ import { useEventCallbackRef } from '../../utils/hooks/useEventCallbackRef';
 import {
   IGenerateDateConfig,
   IShowTime,
+  IShowTimeRange,
   RangeType,
   IDisabledTime,
   IRangePropsWithDefault,
   RangeTypeMap,
   ISingleProps,
-  StringTuple,
   DateNullTuple,
 } from '../types';
 import useRangeDisabledTime from '../hooks/useRangeDisabledTime';
@@ -30,7 +30,7 @@ interface IRangePickerProps extends IRangePropsWithDefault {
       disabledTime?: IDisabledTime;
     }
   >;
-  showTime?: IShowTime<StringTuple>;
+  showTime?: IShowTimeRange<string>;
   seperator: string;
   disabledTime?: IDisabledTime;
 }

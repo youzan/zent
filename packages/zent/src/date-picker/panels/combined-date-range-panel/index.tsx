@@ -10,8 +10,7 @@ import useRangeDisabledTime from '../../hooks/useRangeDisabledTime';
 import {
   IRangePanelProps,
   IDisabledTime,
-  IShowTime,
-  StringTuple,
+  IShowTimeRange,
   DateNullTuple,
 } from '../../types';
 
@@ -19,7 +18,7 @@ const prefixCls = 'zent-datepicker-combined-panel';
 
 interface ICombinedDateRangePanelProps extends IRangePanelProps {
   disabledTime?: IDisabledTime;
-  showTime?: IShowTime<StringTuple>;
+  showTime?: IShowTimeRange<string>;
 }
 const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
   onSelected,
@@ -43,22 +42,32 @@ const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
   });
   const onChangeStartOrEnd = useCallback(
     (val: Date) => {
+      const { defaultTime: defaultTimeStart, format: formatStart } =
+        startShowTime || {};
+      const { defaultTime: defaultTimeEnd, format: formatEnd } =
+        endShowTime || {};
       let selectedTemp: DateNullTuple;
+      const defaultStartTime = (date: Date) =>
+        typeof defaultTimeStart === 'function'
+          ? defaultTimeStart(date)
+          : defaultTimeStart;
+      const defaultEndTime = (date: Date) =>
+        typeof defaultTimeEnd === 'function'
+          ? defaultTimeEnd(date)
+          : defaultTimeEnd;
       if (start && !end) {
         selectedTemp = [
-          start,
-          endShowTime
-            ? parse(endShowTime.defaultTime, endShowTime.format, val)
-            : val,
+          startShowTime
+            ? parse(defaultStartTime(start), formatStart, start)
+            : start,
+          endShowTime ? parse(defaultEndTime(val), formatEnd, val) : val,
         ];
         onSelected(selectedTemp, !showTime);
       }
       // 选中开始时间是清除上一次的结束时间
       else {
         selectedTemp = [
-          startShowTime
-            ? parse(startShowTime.defaultTime, startShowTime.format, val)
-            : val,
+          startShowTime ? parse(defaultStartTime(val), formatStart, val) : val,
           null,
         ];
         onSelected(selectedTemp);
