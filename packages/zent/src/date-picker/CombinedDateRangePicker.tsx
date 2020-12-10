@@ -10,9 +10,8 @@ import { dateConfig } from './utils/dateUtils';
 import {
   IRangeProps,
   IGenerateDateConfig,
-  IShowTime,
+  IShowTimeRange,
   DateNullTuple,
-  StringTuple,
   IValueType,
   IRangeRelatedType,
 } from './types';
@@ -30,7 +29,7 @@ const PickerContextProvider = PickerContext.Provider;
 export interface ICombinedDateRangePickerProps<T extends IValueType = 'string'>
   extends Omit<IRangeProps, 'valueType' | 'onChange'>,
     IRangeRelatedType<T> {
-  showTime?: IShowTime<StringTuple>;
+  showTime?: IShowTimeRange<string>;
 }
 const DefaultCombinedDateRangeProps = {
   format: DATE_FORMAT,

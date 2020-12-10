@@ -118,7 +118,10 @@ class Demo extends Component {
 				<br />
 				<DateRangePicker
 					className="zent-datepicker-demo"
-					showTime={{ format: 'HH:mm', defaultTime: ['00:00', '23:59'] }}
+					showTime={{ format: 'HH:mm', defaultTime: [
+							date => (isSameDay(date, new Date()) ? '12:30' : '00:00'),
+							'23:59',
+						], }}
 					format="YYYY-MM-DD HH:mm"
 					value={rangeValue}
 					onChange={this.onChangeRange}
@@ -136,7 +139,12 @@ class Demo extends Component {
 					className="zent-datepicker-demo"
 					value={combinedValue}
 					onChange={this.onChangeCombinedDate}
-					showTime
+					showTime={{
+						defaultTime: [
+							date => (isSameDay(date, new Date()) ? '12:30:00' : '00:00:00'),
+							'23:59:59',
+						],
+					}}
 					disabledDate={{ min: new Date() }}
 					format="YYYY-MM-DD HH:mm:ss"
 					disabledTime={this.disabledTimes4}
