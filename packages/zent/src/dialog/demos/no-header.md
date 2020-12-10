@@ -1,18 +1,14 @@
 ---
-order: 1
+order: 4
 zh-CN:
-	title: 基础用法
+	title: 无头部
 	show: 显示
 	content: 对话框内容
-	content1: 对话框其他内容
-	title1: 对话框
 	close: 关闭
 en-US:
-	title: Basic Usage
+	title: No Header
 	show: Show Dialog
 	content: content
-	content1: other content
-	title1: Dialog
 	close: Close
 ---
 
@@ -35,13 +31,8 @@ class Example extends React.Component {
 				<Dialog
 					visible={this.state.visible}
 					onClose={() => this.setVisible(false)}
-					footer={
-						<Button onClick={() => this.setVisible(false)}>{i18n.close}</Button>
-					}
-					title="{i18n.title1}"
 				>
 					<p>{i18n.content}</p>
-					<p>{i18n.content1}</p>
 				</Dialog>
 			</div>
 		);

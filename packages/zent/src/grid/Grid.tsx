@@ -47,6 +47,7 @@ import {
 } from './types';
 import { ICheckboxEvent } from '../checkbox';
 import isBrowser from '../utils/isBrowser';
+import { IBlockLoadingProps } from '../loading/props';
 
 function stopPropagation(e: React.MouseEvent) {
   e.stopPropagation();
@@ -88,6 +89,7 @@ export interface IGridProps<Data = any, RowProps = {}> {
   autoStick?: boolean;
   autoStickOffsetTop?: number;
   disableHoverHighlight?: boolean; // scroll时hover每次都会重绘，提供属性去禁用，这时hover就没有样式了
+  loadingProps?: Omit<IBlockLoadingProps, 'loading'>;
 }
 
 export interface IGridState {
@@ -1052,6 +1054,7 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
       bordered,
       autoStick,
       autoStickOffsetTop,
+      loadingProps = {},
     } = this.props;
     const { marginLeft, tableWidth, showStickHead } = this.state;
 
@@ -1110,7 +1113,7 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
           return (
             <div className={className} ref={this.gridNode}>
               {this.getBatchComponents('header')}
-              <BlockLoading loading={loading}>
+              <BlockLoading {...loadingProps} loading={loading}>
                 {autoStick && (
                   <div
                     style={stickHeadWarpStyle}

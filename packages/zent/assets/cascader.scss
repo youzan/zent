@@ -20,29 +20,26 @@ $menuHeight: 180px;
   border-radius: 2px;
   min-height: 30px;
   line-height: 18px;
-  padding: 6px 30px 6px 10px;
+  padding: 6px 30px 6px 12px;
   transition: border-color 0.25s;
   @include theme-color(border-color, stroke, 5);
   @include theme-color(background-color, stroke, 9);
 
-  .zenticon-caret-down,
+  .zenticon-down,
   .zenticon-close-circle {
     position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: $font-size-large;
+    right: 8px;
+    top: 7px;
+    font-size: 18px;
   }
 
-  .zenticon-caret-down {
+  .zenticon-down {
     transition: transform 0.25s;
-    @include theme-color(color, stroke, 1);
+    @include theme-color(color, stroke, 3);
   }
 
   .zenticon-close-circle {
-    font-size: 18px;
-    right: 6px;
-    @include theme-color(color, stroke, 4);
+    @include theme-color(color, stroke, 5);
   }
 
   &--active {
@@ -51,14 +48,8 @@ $menuHeight: 180px;
   }
 
   &--visible {
-    .zenticon-caret-down {
-      transform: rotate(180deg) translateY(50%);
-    }
-
-    &.zent-cascader-v2--multiple {
-      .zenticon-caret-down {
-        transform: rotate(180deg);
-      }
+    .zenticon-down {
+      transform: rotate(180deg);
     }
   }
 
@@ -204,9 +195,10 @@ $menuHeight: 180px;
       height: 32px;
       line-height: 32px;
       text-align: left;
-      padding: 0 30px 0 10px;
+      padding: 0 30px 0 12px;
       box-sizing: border-box;
-      width: 190px;
+      width: 240px;
+      max-width: 360px;
       overflow: hidden;
       text-overflow: ellipsis;
       display: flex;
@@ -225,11 +217,11 @@ $menuHeight: 180px;
 
       &-icon {
         position: absolute;
-        right: 10px;
+        right: 8px;
         top: 50%;
         transform: translateY(-50%);
-        font-size: 12px;
-        @include theme-color(color, stroke, 1);
+        font-size: 18px;
+        @include theme-color(color, stroke, 3);
       }
 
       &-loading {
