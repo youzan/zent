@@ -1,11 +1,11 @@
 @import './theme/default';
 @import './theme/font';
 
-.zent-date-range-picker__filter {
+.zent-date-range-quick-picker__filter {
   display: inline-block;
 }
 
-.zent-date-range-picker__btn {
+.zent-date-range-quick-picker__btn {
   @include theme-color(color, primary, 4);
 
   margin-left: 16px;
