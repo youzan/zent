@@ -26,6 +26,7 @@ export interface IDatePickerProps<T extends IValueType = 'string'>
     ISingleRelatedType<T> {
   showTime?: IShowTime;
   disabledTime?: IDisabledTime;
+  hideFooter?: boolean;
 }
 const defaultDatePickerProps = {
   format: DATE_FORMAT,

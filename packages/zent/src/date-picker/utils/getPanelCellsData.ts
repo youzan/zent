@@ -73,9 +73,14 @@ export default function getPanelCellsData({
         isInRange = disableRangeOverView
           ? isInRangeDate && isInView
           : isInRangeDate;
-        isRangeEndpoint =
+
+        const isRangeEndpointDate =
           isSame(currentDate, rangeDate[0]) ||
           isSame(currentDate, rangeDate[1]);
+
+        isRangeEndpoint = disableRangeOverView
+          ? isRangeEndpointDate && isInView
+          : isRangeEndpointDate;
       }
       /* *************** week-picker & combined-picker end  *************** */
 

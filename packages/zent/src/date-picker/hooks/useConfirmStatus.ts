@@ -4,10 +4,10 @@ import { IDisabledTimeOption } from '../types';
 interface IUseConfirmStatus {
   format: string;
   selected: string;
-  disabledTimesOption?: IDisabledTimeOption;
+  disabledTimeOption?: IDisabledTimeOption;
 }
 export default function useConfirmStatus({
-  disabledTimesOption,
+  disabledTimeOption,
   selected,
   format,
 }: IUseConfirmStatus) {
@@ -19,17 +19,17 @@ export default function useConfirmStatus({
     const minute = date.getMinutes();
 
     const disabledHour = () =>
-      disabledTimesOption?.disabledHours?.()?.includes(hour);
+      disabledTimeOption?.disabledHours?.()?.includes(hour);
     const disabledMinute = () =>
-      disabledTimesOption?.disabledMinutes?.(hour)?.includes(minute);
+      disabledTimeOption?.disabledMinutes?.(hour)?.includes(minute);
     const disabledSecond = () =>
-      disabledTimesOption
+      disabledTimeOption
         ?.disabledSeconds?.(hour, minute)
         ?.includes(date.getSeconds());
 
     setConfirmStatus(
       !selected || disabledHour() || disabledMinute() || disabledSecond()
     );
-  }, [selected, format, disabledTimesOption]);
+  }, [selected, format, disabledTimeOption]);
   return confirmStatus;
 }
