@@ -7,8 +7,7 @@ group: FIXME group name here
 ## Tooltip
 
 - Triggers: click, hover and focus
-- Only display prompt like `HTML title`,no more operation
-- API like Pop
+- Only display prompt like HTML `title`,no more operation
 
 ### API
 

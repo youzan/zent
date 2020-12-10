@@ -10,7 +10,7 @@ let contentId = 1;
 let headerId = 2;
 
 function findContent() {
-  return document.querySelectorAll(`.zent-pop-content-${contentId}`);
+  return document.querySelectorAll(`.zent-pop-v2-content-${contentId}`);
 }
 
 beforeEach(() => {
@@ -24,13 +24,13 @@ afterEach(() => {
 });
 
 // function findHeader() {
-//   return document.querySelectorAll(`.zent-pop-header-${headerId}`);
+//   return document.querySelectorAll(`.zent-pop-v2-header-${headerId}`);
 // }
 
 const content = () => {
   contentId++;
   return (
-    <div className={`zent-pop-content-${contentId}`}>
+    <div className={`zent-pop-v2-content-${contentId}`}>
       <a>我在测试</a>
       <div>
         <input />
@@ -42,7 +42,7 @@ const content = () => {
 const header = () => {
   headerId++;
   return (
-    <div className={`zent-pop-header-${headerId}`}>
+    <div className={`zent-pop-v2-header-${headerId}`}>
       <span />
     </div>
   );
@@ -78,7 +78,7 @@ describe('Pop', () => {
     expect(wrapper.prop('position')).toBe('top-center');
   });
 
-  it('Pop has its core function, powered by zent-popover, the content of popover has onConfirm and onCancel switches', () => {
+  it('Pop has its core function, powered by zent-popover-v2, the content of popover has onConfirm and onCancel switches', () => {
     // with both onConfirm and onCancel undefined, content will be rendered as null
     let wrapper = mount(
       <Pop
@@ -109,7 +109,7 @@ describe('Pop', () => {
     );
     wrapper.find('button').simulate('click');
     expect(findContent().length).toBe(1);
-    let btn = document.querySelectorAll('.zent-pop-buttons button');
+    let btn = document.querySelectorAll('.zent-pop-v2-buttons button');
     expect(btn.length).toBe(2);
     // expect(btn[0].textContent).toBe('确定');
     // expect(btn[1].textContent).toBe('取消');
@@ -131,7 +131,7 @@ describe('Pop', () => {
     );
     wrapper.find('button').simulate('click');
     expect(findContent().length).toBe(1);
-    btn = document.querySelectorAll('.zent-pop-buttons button');
+    btn = document.querySelectorAll('.zent-pop-v2-buttons button');
     expect(btn.length).toBe(2);
     Simulate.click(btn[0]);
     jest.runAllTimers();
@@ -152,7 +152,7 @@ describe('Pop', () => {
     let wrapper = mount(
       <Pop
         content={
-          <Button className="zent-pop-inner-button" onClick={close}>
+          <Button className="zent-pop-v2-inner-button" onClick={close}>
             内部关闭
           </Button>
         }
@@ -165,17 +165,19 @@ describe('Pop', () => {
     );
     wrapper.find('button').simulate('click');
     expect(wrapper.find('PurePortal').length).toBe(1);
-    expect(document.querySelectorAll('.zent-pop-inner-button').length).toBe(1);
-    Simulate.click(document.querySelector('.zent-pop-inner-button'));
+    expect(document.querySelectorAll('.zent-pop-v2-inner-button').length).toBe(
+      1
+    );
+    Simulate.click(document.querySelector('.zent-pop-v2-inner-button'));
     jest.runAllTimers();
-    expect(wrapper.find('.zent-pop-inner-button').length).toBe(0);
+    expect(wrapper.find('.zent-pop-v2-inner-button').length).toBe(0);
 
     // HACK: initial with truthy visible;
     visible = true;
     wrapper = mount(
       <Pop
         content={
-          <Button className="zent-pop-inner-button" onClick={close}>
+          <Button className="zent-pop-v2-inner-button" onClick={close}>
             内部关闭
           </Button>
         }
@@ -207,8 +209,8 @@ describe('Pop', () => {
       jest.runAllTimers();
       expect(findContent().length).toBe(1);
       const arrowClassName = /^.+center$/.test(position)
-        ? `.zent-popover-position`
-        : `.zent-popover-position-arrow`;
+        ? `.zent-popover-v2-position`
+        : `.zent-popover-v2-position-arrow`;
       expect(
         document.querySelector(`${arrowClassName}-${position}`)
       ).toBeTruthy();

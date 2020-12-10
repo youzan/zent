@@ -73,7 +73,7 @@ function PopAction({
     handleClick('cancelPending', changePending, popover, onCancel);
   }, [onCancel, popover, changePending]);
   return (
-    <div className="zent-pop-buttons">
+    <div className="zent-pop-v2-buttons">
       <Receiver componentName="Pop">
         {i18n => (
           <Button

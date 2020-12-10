@@ -72,10 +72,10 @@ describe('Popover', () => {
     expect(wrapper.find('PurePortal').length).toBe(0);
     simulateWithTimers(wrapper.find('button'), 'click');
     expect(wrapper.find('PurePortal').length).toBe(1);
-    expect(document.querySelectorAll('.zent-popover div').length).toBe(2);
-    expect(document.querySelectorAll('.zent-popover div')[1].textContent).toBe(
-      'line two'
-    );
+    expect(document.querySelectorAll('.zent-popover-v2 div').length).toBe(2);
+    expect(
+      document.querySelectorAll('.zent-popover-v2 div')[1].textContent
+    ).toBe('line two');
 
     // // HACK: branch window.resize (throttle)
     // wrapper
@@ -334,13 +334,13 @@ describe('Popover', () => {
         </PopoverContent>
       </Popover>
     );
-    expect(document.querySelector('.zent-popover')).toBeTruthy();
+    expect(document.querySelector('.zent-popover-v2')).toBeTruthy();
 
     wrapper.setProps({
       visible: false,
     });
     jest.runAllTimers();
-    expect(document.querySelector('.zent-popover')).toBeFalsy();
+    expect(document.querySelector('.zent-popover-v2')).toBeFalsy();
 
     // console.log(wrapper.instance());
     wrapper.instance().open();
@@ -348,13 +348,13 @@ describe('Popover', () => {
     wrapper.setProps({
       visible: true,
     });
-    expect(document.querySelector('.zent-popover')).toBeTruthy();
+    expect(document.querySelector('.zent-popover-v2')).toBeTruthy();
 
     wrapper.setProps({
       visible: false,
     });
     jest.runAllTimers();
-    expect(document.querySelector('.zent-popover')).toBeFalsy();
+    expect(document.querySelector('.zent-popover-v2')).toBeFalsy();
   });
 
   it('onBeforeXXX can return a Promise', () => {
@@ -386,11 +386,11 @@ describe('Popover', () => {
     return p.then(v => {
       expect(v).toBe(2);
       jest.runAllTimers();
-      expect(document.querySelectorAll('.zent-popover').length).toBe(1);
+      expect(document.querySelectorAll('.zent-popover-v2').length).toBe(1);
 
       wrapper.unmount();
       dispatchWithTimers(document.body, new MouseEvent('click'));
-      expect(document.querySelectorAll('.zent-popover').length).toBe(0);
+      expect(document.querySelectorAll('.zent-popover-v2').length).toBe(0);
     });
   });
 
@@ -415,11 +415,11 @@ describe('Popover', () => {
     );
     wrapper.find('button').simulate('click');
     jest.runAllTimers();
-    expect(document.querySelectorAll('.zent-popover').length).toBe(1);
+    expect(document.querySelectorAll('.zent-popover-v2').length).toBe(1);
 
     wrapper.unmount();
     dispatchWithTimers(document.body, new MouseEvent('click'));
-    expect(document.querySelectorAll('.zent-popover').length).toBe(0);
+    expect(document.querySelectorAll('.zent-popover-v2').length).toBe(0);
   });
 
   it('hover trigger closes on window blur', () => {
@@ -458,7 +458,7 @@ describe('Popover', () => {
     Object.defineProperty(evt, 'target', descriptor);
 
     dispatchWithTimers(window, fakeEvent);
-    expect(document.querySelectorAll('.zent-popover').length).toBe(0);
+    expect(document.querySelectorAll('.zent-popover-v2').length).toBe(0);
     wrapper.unmount();
   });
 
@@ -497,19 +497,19 @@ describe('Popover', () => {
 
     simulateWithTimers(wrapper.find('.trigger-level-1').at(0), 'click');
     wrapper.update();
-    expect(document.querySelectorAll('.zent-popover').length).toBe(1);
+    expect(document.querySelectorAll('.zent-popover-v2').length).toBe(1);
 
     simulateRawWithTimers(document.querySelector('.trigger-level-2'), 'click');
     wrapper.update();
-    expect(document.querySelectorAll('.zent-popover').length).toBe(2);
+    expect(document.querySelectorAll('.zent-popover-v2').length).toBe(2);
 
     simulateRawWithTimers(document.querySelector('.trigger-level-3'), 'click');
     wrapper.update();
-    expect(document.querySelectorAll('.zent-popover').length).toBe(3);
+    expect(document.querySelectorAll('.zent-popover-v2').length).toBe(3);
 
     // dispatchWithTimers(document.body, new MouseEvent('click'));
     // wrapper.update();
-    // expect(document.querySelectorAll('.zent-popover').length).toBe(0);
+    // expect(document.querySelectorAll('.zent-popover-v2').length).toBe(0);
 
     wrapper.unmount();
   });
@@ -555,25 +555,25 @@ describe('Popover', () => {
     };
 
     expect(AutoBottomLeft(options).className).toBe(
-      'zent-popover-position-top-right'
+      'zent-popover-v2-position-top-right'
     );
 
     anchor.left = 5;
     anchor.right = 6;
     expect(AutoBottomRight(options).className).toBe(
-      'zent-popover-position-top-left'
+      'zent-popover-v2-position-top-left'
     );
 
     anchor.left = 1020;
     anchor.right = 1021;
     expect(AutoBottomCenter(options).className).toBe(
-      'zent-popover-position-top-right'
+      'zent-popover-v2-position-top-right'
     );
 
     anchor.left = 1;
     anchor.right = 2;
     expect(AutoBottomCenter(options).className).toBe(
-      'zent-popover-position-top-left'
+      'zent-popover-v2-position-top-left'
     );
 
     anchor.left = 1020;
@@ -581,25 +581,25 @@ describe('Popover', () => {
     anchor.top = 1;
     anchor.bottom = 2;
     expect(AutoTopLeft(options).className).toBe(
-      'zent-popover-position-bottom-right'
+      'zent-popover-v2-position-bottom-right'
     );
 
     anchor.left = 5;
     anchor.right = 6;
     expect(AutoTopRight(options).className).toBe(
-      'zent-popover-position-bottom-left'
+      'zent-popover-v2-position-bottom-left'
     );
 
     anchor.left = 1020;
     anchor.right = 1021;
     expect(AutoTopCenter(options).className).toBe(
-      'zent-popover-position-bottom-right'
+      'zent-popover-v2-position-bottom-right'
     );
 
     anchor.left = 1;
     anchor.right = 2;
     expect(AutoTopCenter(options).className).toBe(
-      'zent-popover-position-bottom-left'
+      'zent-popover-v2-position-bottom-left'
     );
   });
 

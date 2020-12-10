@@ -30,7 +30,7 @@ describe('TimePicker', () => {
       />
     );
     wrapper.find('.zent-datepicker-trigger').simulate('click');
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
     Simulate.click(
       pop.querySelectorAll('.zent-datepicker-time-panel-body-unit')[1]
     );
@@ -67,7 +67,7 @@ describe('TimePicker', () => {
       />
     );
     wrapper.find('.zent-datepicker-trigger').simulate('click');
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
     Simulate.click(
       pop.querySelectorAll('.zent-datepicker-time-panel-body-unit')[0]
     );

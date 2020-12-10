@@ -2,7 +2,7 @@
 @import './theme/font';
 @import './mixins/pop-arrow';
 
-.zent-tooltip {
+.zent-tooltip-v2 {
   @include font-normal;
   @include theme-color(background-color, stroke, 2);
   @include theme-shadow(layer);
@@ -10,8 +10,7 @@
   border-radius: 2px;
   z-index: 2000;
 
-  .zent-tooltip-inner,
-  .zent-tooltip-header {
+  .zent-tooltip-v2-inner {
     @include theme-color(background-color, stroke, 2);
     @include theme-color(color, stroke, 9);
     position: relative;
@@ -20,21 +19,7 @@
     z-index: 2;
   }
 
-  .zent-tooltip-header {
-    @include font-large;
-
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    padding-bottom: 0;
-    font-weight: $font-weight-bold;
-  }
-
-  .zent-tooltip-buttons {
-    text-align: right;
-    vertical-align: top;
-  }
-
-  .zent-tooltip-arrow {
+  .zent-tooltip-v2-arrow {
     @include theme-color(background-color, stroke, 2);
     @include theme-shadow(layer);
 
@@ -53,21 +38,8 @@
     height: var(--CSS_ARROW_COVER_SIZE);
   }
 
-  &--no-header {
-    .zent-tooltip-buttons {
-      display: inline-block;
-      margin-left: 24px;
-    }
-  }
-
-  &--has-header {
-    .zent-tooltip-buttons {
-      margin-top: 16px;
-    }
-  }
-
-  &.zent-popover-position,
-  &.zent-popover-position-arrow {
-    @include pop-arrow('tooltip');
+  &.zent-popover-v2-position,
+  &.zent-popover-v2-position-arrow {
+    @include pop-arrow('tooltip-v2');
   }
 }

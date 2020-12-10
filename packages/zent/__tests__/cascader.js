@@ -113,7 +113,7 @@ describe('Cascader', () => {
     wrapper.find('.zent-cascader-v2').simulate('click');
     jest.runAllTimers();
 
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
 
     simulateRawWithTimers(
       pop.querySelectorAll('.zent-cascader-v2__menu-item')[0],
@@ -183,7 +183,7 @@ describe('Cascader', () => {
 
     simulateWithTimers(wrapper.find('.zent-cascader-v2'), 'click');
     wrapper.update();
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
 
     expect(pop.querySelectorAll('.zent-cascader-v2__list-item').length).toBe(1);
     expect(
@@ -342,7 +342,7 @@ describe('Cascader', () => {
     wrapper.find('.zent-cascader-v2').simulate('click');
     jest.runAllTimers();
 
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
 
     expect(pop.querySelectorAll('.zent-cascader-v2__menu-item').length).toBe(1);
     expect(
@@ -395,7 +395,7 @@ describe('Cascader', () => {
     wrapper.find('.zent-cascader-v2').simulate('click');
     jest.runAllTimers();
 
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
 
     expect(pop.querySelectorAll('.zent-cascader-v2__menu-item').length).toBe(1);
     expect(
@@ -465,7 +465,7 @@ describe('Cascader', () => {
     wrapper.find('.zent-cascader-v2').simulate('click');
     jest.runAllTimers();
 
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
 
     simulateRawWithTimers(
       pop.querySelectorAll('.zent-cascader-v2__menu-item')[0],
@@ -558,7 +558,7 @@ describe('Cascader', () => {
     wrapper.find('.zent-cascader-v2').simulate('click');
     jest.runAllTimers();
 
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
 
     simulateRawWithTimers(
       pop.querySelectorAll('.zent-cascader-v2__list-link')[0],
@@ -646,7 +646,7 @@ describe('Cascader', () => {
     wrapper.find('.zent-cascader-v2').simulate('click');
     jest.runAllTimers();
 
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
 
     simulateRawWithTimers(
       pop.querySelectorAll('.zent-cascader-v2__list-link')[0],
@@ -699,7 +699,7 @@ describe('Cascader', () => {
     wrapper.find('.zent-cascader-v2').simulate('click');
     jest.runAllTimers();
 
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
 
     simulateRawWithTimers(
       pop.querySelectorAll('.zent-cascader-v2__menu-item')[0],
@@ -802,7 +802,7 @@ describe('Cascader', () => {
     jest.runAllTimers();
     wrapper.update();
 
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
     expect(pop.querySelectorAll('.zent-cascader-v2__menu').length).toBe(3);
 
     wrapper
@@ -880,7 +880,7 @@ describe('Cascader', () => {
       .find('input')
       .simulate('change', { target: { value: 'anotherGrandSon' } });
 
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
     expect(
       pop.querySelector('.zent-cascader-v2--search-empty').textContent
     ).toBe('无搜索结果');
@@ -978,7 +978,7 @@ describe('Cascader', () => {
 
     jest.runAllTimers();
 
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
     expect(pop.querySelectorAll('.zent-cascader-v2--search-item').length).toBe(
       2
     );
@@ -1057,7 +1057,7 @@ describe('Cascader', () => {
     });
     jest.runAllTimers();
 
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
     expect(pop.querySelectorAll('.zent-cascader-v2--search-item').length).toBe(
       2
     );
@@ -1128,7 +1128,7 @@ describe('Cascader', () => {
 
     jest.runAllTimers();
 
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
     expect(pop.querySelectorAll('.zent-cascader-v2--search-item').length).toBe(
       1
     );
@@ -1223,7 +1223,7 @@ describe('Cascader', () => {
       visible: true,
     });
 
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
     expect(pop.querySelectorAll('.zent-loading').length).toBe(0);
 
     simulateRawWithTimers(
@@ -1245,7 +1245,7 @@ describe('Cascader', () => {
     wrapper.find('.zent-cascader-v2').simulate('click');
     jest.runAllTimers();
 
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
 
     expect(pop.querySelectorAll('.zent-cascader-v2__menu-item').length).toBe(0);
     expect(

@@ -61,7 +61,7 @@ describe('Timeline', () => {
     ).toBe(color3);
     second.find('.zent-timeline-item-hover').simulate('mouseenter');
     jest.runAllTimers();
-    // expect(wrapper.find('.zent-popover')).toBe('test');
+    // expect(wrapper.find('.zent-popover-v2')).toBe('test');
   });
 
   it('Timeline Vertical', () => {

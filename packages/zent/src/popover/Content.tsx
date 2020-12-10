@@ -155,7 +155,7 @@ function PopoverContent({ children }: IPopoverContentProps) {
       ref={portalRef}
       visible={ctx.visible}
       selector={containerSelector}
-      className={cx('zent-popover', position.className, ctx.className)}
+      className={cx('zent-popover-v2', position.className, ctx.className)}
       style={{ ...position.style, ...ctx.style }}
     >
       <ContentContext.Provider value={contentCtx}>

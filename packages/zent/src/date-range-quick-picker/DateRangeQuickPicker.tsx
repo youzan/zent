@@ -101,7 +101,7 @@ export class DateRangeQuickPicker extends Component<IDateRangeQuickPickerProps> 
     const selectedDays = chosenDays ?? chooseDays;
 
     return (
-      <div className={cx('zent-date-range-picker', className)}>
+      <div className={cx('zent-date-range-quick-picker', className)}>
         <DateRangePicker
           value={value}
           onChange={this.handleTimeChange}
@@ -109,13 +109,13 @@ export class DateRangeQuickPicker extends Component<IDateRangeQuickPickerProps> 
           showTime={!showTime}
           {...pickerProps}
         />
-        <div className={'zent-date-range-picker__filter'}>
+        <div className={'zent-date-range-quick-picker__filter'}>
           {preset.map((item, index) => (
             <Receiver key={index} componentName="RangePicker">
               {i18n => (
                 <span
                   key={index}
-                  className={cx('zent-date-range-picker__btn', {
+                  className={cx('zent-date-range-quick-picker__btn', {
                     active: isEqual(selectedDays, item.value),
                   })}
                   onClick={this.handleChosenDays.bind(this, item.value)}
