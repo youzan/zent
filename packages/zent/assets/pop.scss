@@ -2,7 +2,7 @@
 @import './theme/font';
 @import './mixins/pop-arrow';
 
-.zent-pop {
+.zent-pop-v2 {
   @include font-normal;
   @include theme-color(background-color, stroke, 9);
   @include theme-shadow(layer);
@@ -10,8 +10,8 @@
   border-radius: 2px;
   z-index: 2000;
 
-  .zent-pop-inner,
-  .zent-pop-header {
+  .zent-pop-v2-inner,
+  .zent-pop-v2-header {
     @include theme-color(background-color, stroke, 9);
     @include theme-color(color, stroke, 1);
     position: relative;
@@ -20,7 +20,7 @@
     z-index: 2;
   }
 
-  .zent-pop-header {
+  .zent-pop-v2-header {
     @include font-large;
 
     border-bottom-left-radius: 0;
@@ -29,7 +29,7 @@
     font-weight: $font-weight-bold;
   }
 
-  .zent-pop-buttons {
+  .zent-pop-v2-buttons {
     text-align: right;
     vertical-align: top;
     margin-top: 16px;
@@ -39,7 +39,7 @@
     }
   }
 
-  .zent-pop-arrow {
+  .zent-pop-v2-arrow {
     @include theme-color(background-color, stroke, 9);
     @include theme-shadow(layer);
 
@@ -60,6 +60,6 @@
 
   &.zent-popover-position,
   &.zent-popover-position-arrow {
-    @include pop-arrow('pop');
+    @include pop-arrow('pop-v2');
   }
 }
