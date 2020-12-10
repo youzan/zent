@@ -145,7 +145,7 @@ module.exports = {
             loader: 'awesome-typescript-loader',
             options: {
               useCache: false,
-              tsconfig: path.resolve(
+              configFileName: path.resolve(
                 __dirname,
                 DEV ? '../tsconfig.json' : '../tsconfig-prod.json'
               ),

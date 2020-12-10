@@ -1,4 +1,8 @@
 /* eslint-disable prefer-arrow-callback */
+
+/**
+ * @zent/compat 也依赖这个 plugin，所以需要放到 package 里面
+ */
 const postcss = require('postcss');
 const parseValue = require('postcss-value-parser');
 const constants = require('./css-compiler-constants');
@@ -10,8 +14,8 @@ const CompilerConstants = Object.keys(constants).reduce((acc, k) => {
 
 module.exports = postcss.plugin('postcss-plugin-constants', () => {
   return root => {
-    root.walkRules(function(rule) {
-      rule.walkDecls(function(decl) {
+    root.walkRules(function (rule) {
+      rule.walkDecls(function (decl) {
         const valueNode = parseValue(decl.value);
         let modified = false;
 
