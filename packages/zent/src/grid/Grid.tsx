@@ -1113,7 +1113,7 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
           return (
             <div className={className} ref={this.gridNode}>
               {this.getBatchComponents('header')}
-              <BlockLoading loading={loading} {...loadingProps}>
+              <BlockLoading {...loadingProps} loading={loading}>
                 {autoStick && (
                   <div
                     style={stickHeadWarpStyle}
