@@ -1,26 +1,6 @@
 @import './theme/default';
 @import './theme/font';
 
-@mixin cart-color {
-  @include theme-color(color, stroke, 1);
-}
-
-@mixin error-color($prop) {
-  @include theme-color($prop, error, 2);
-}
-
-@mixin bg-color($prop) {
-  @include theme-color($prop, stroke, 8);
-}
-
-@mixin current-bg-color($prop) {
-  @include theme-color($prop, primary, 4);
-}
-
-@mixin icon-color($prop) {
-  @include theme-color($prop, stroke, 4);
-}
-
 .zent-steps {
   width: 100%;
   line-height: 1.5;
@@ -98,14 +78,16 @@
 }
 
 .zent-step-head-inner {
-  @include icon-color(color);
+  @include theme-color(color, stroke, 4);
+
   margin: 0 8px;
   font-size: 24px;
   line-height: 24px;
 
   .zent-icon {
-    @include icon-color(background-color);
+    @include theme-color(background-color, stroke, 4);
     @include theme-color(color, stroke, 9);
+
     display: inline-block;
     vertical-align: middle;
     width: 24px;
@@ -114,6 +96,13 @@
     border-radius: 50%;
     text-align: center;
     font-size: $font-size-normal;
+
+    &.zent-steps-sequence {
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+      margin: 2px;
+    }
   }
 
   .zenticon {
@@ -127,9 +116,10 @@
   vertical-align: top;
   overflow: visible;
   flex: 1;
+  cursor: default;
 
   &.zent-steps-status-finish {
-    &.is-current {
+    &.zent-steps-item--current {
       .zent-steps-tail {
         i {
           &::after {
@@ -139,11 +129,12 @@
       }
     }
 
-    &.is-last-finish {
+    &.zent-steps-item--last-finished {
       .zent-steps-tail {
         i {
           &::after {
-            @include error-color(background-color);
+            @include theme-color(background-color, primary, 4);
+
             width: 100%;
           }
         }
@@ -151,10 +142,10 @@
     }
 
     .zent-step-head-inner {
-      @include current-bg-color(color);
+      @include theme-color(color, primary, 4);
 
       .zent-icon {
-        @include current-bg-color(background-color);
+        @include theme-color(background-color, primary, 4);
       }
     }
 
@@ -167,7 +158,7 @@
     .zent-steps-tail {
       i {
         &::after {
-          @include current-bg-color(background-color);
+          @include theme-color(background-color, primary, 4);
           width: 100%;
           transition: all 0.2s ease;
           opacity: 1;
@@ -178,12 +169,12 @@
 
   &.zent-steps-status-error {
     .zent-step-head-inner {
-      @include error-color(color);
+      @include theme-color(color, error, 2);
     }
 
     .zent-step-main {
       .zent-step-title {
-        @include error-color(color);
+        @include theme-color(color, error, 2);
       }
     }
   }
@@ -191,7 +182,7 @@
   &.zent-steps-status-process {
     .zent-step-head-inner {
       .zent-icon {
-        @include current-bg-color(background-color);
+        @include theme-color(background-color, primary, 4);
       }
     }
 
@@ -219,7 +210,7 @@
     overflow: visible;
 
     &.zent-steps-status-finish {
-      &.is-current {
+      &.zent-steps-item--current {
         .zent-steps-tail {
           i {
             &::after {
@@ -230,7 +221,7 @@
         }
       }
 
-      &.is-last-finish {
+      &.zent-steps-item--last-finished {
         .zent-steps-tail {
           i {
             &::after {
@@ -315,7 +306,7 @@
     box-sizing: border-box;
     padding: 0 1px;
 
-    &.is-clicked {
+    &.zent-steps-item--clickable {
       cursor: pointer;
     }
 
@@ -328,8 +319,8 @@
     }
 
     .zent-steps-step {
-      @include cart-color;
-      @include bg-color(background-color);
+      @include theme-color(color, stroke, 1);
+      @include theme-color(background-color, stroke, 8);
       height: 50px;
       line-height: 50px;
       font-size: $font-size-normal;
@@ -340,7 +331,7 @@
       padding: 0 10px;
     }
 
-    &.is-current {
+    &.zent-steps-item--current {
       &:hover {
         .zent-steps-step {
           @include theme-color(background-color, primary, 5);
@@ -354,7 +345,7 @@
       }
 
       .zent-steps-step {
-        @include current-bg-color(background-color);
+        @include theme-color(background-color, primary, 4);
         @include theme-color(color, stroke, 9);
       }
     }
@@ -368,7 +359,7 @@
     padding: 0 8px;
     box-sizing: border-box;
 
-    &.is-clicked {
+    &.zent-steps-item--clickable {
       cursor: pointer;
     }
 
@@ -393,8 +384,8 @@
     }
 
     .zent-steps-step {
-      @include cart-color;
-      @include bg-color(background-color);
+      @include theme-color(color, stroke, 1);
+      @include theme-color(background-color, stroke, 8);
       height: 48px;
       line-height: 48px;
       font-size: $font-size-normal;
@@ -402,7 +393,7 @@
       padding: 0 10px;
 
       &::after {
-        @include bg-color(border-left-color);
+        @include theme-color(border-left-color, stroke, 8);
         content: ' ';
         display: block;
         width: 0;
@@ -418,8 +409,9 @@
       }
 
       &::before {
-        @include bg-color(border-top-color);
-        @include bg-color(border-bottom-color);
+        @include theme-color(border-top-color, stroke, 8);
+        @include theme-color(border-bottom-color, stroke, 8);
+
         content: ' ';
         display: block;
         width: 0;
@@ -436,7 +428,7 @@
       }
     }
 
-    &.is-finish {
+    &.zent-steps-item--finished {
       &:hover {
         .zent-steps-step {
           @include theme-color(background-color, primary, 5);
@@ -468,16 +460,16 @@
       }
 
       .zent-steps-step {
-        @include current-bg-color(background-color);
+        @include theme-color(background-color, primary, 4);
         @include theme-color(color, stroke, 9);
 
         &::after {
-          @include current-bg-color(border-left-color);
+          @include theme-color(border-left-color, primary, 4);
         }
 
         &::before {
-          @include current-bg-color(border-top-color);
-          @include current-bg-color(border-bottom-color);
+          @include theme-color(border-top-color, primary, 4);
+          @include theme-color(border-bottom-color, primary, 4);
         }
       }
     }
@@ -503,7 +495,7 @@
     border-bottom-width: 1px;
     border-bottom-style: solid;
 
-    &.is-clicked {
+    &.zent-steps-item--clickable {
       cursor: pointer;
     }
 
@@ -524,18 +516,20 @@
       padding: 0 10px;
     }
 
-    &.is-current {
+    &.zent-steps-item--current {
       @include theme-color(background-color, stroke, 9);
       border-bottom-color: transparent;
     }
 
-    &:not(.is-current) {
+    &:not(.zent-steps-item--current) {
+      @include theme-color(background-color, stroke, 8);
+
       &:hover {
-        @include theme-color(background-color, stroke, 11);
+        @include theme-color(background-color, stroke, 7);
       }
 
       &:active {
-        @include theme-color(background-color, stroke, 10);
+        @include theme-color(background-color, stroke, 6);
       }
     }
   }

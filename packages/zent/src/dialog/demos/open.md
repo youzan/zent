@@ -30,5 +30,10 @@ const open = () => {
 	});
 };
 
-ReactDOM.render(<Button type="primary" onClick={open}>{i18n.open}</Button>, mountNode);
+ReactDOM.render(
+	<Button type="primary" onClick={open}>
+		{i18n.open}
+	</Button>,
+	mountNode
+);
 ```

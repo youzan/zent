@@ -42,7 +42,7 @@ class Example extends React.Component {
 }
 
 ReactDOM.render(
-	<DemoContext.Provider>
+	<DemoContext.Provider value={{ shared: 'This is from context' }}>
 		<Example />
 	</DemoContext.Provider>,
 	mountNode

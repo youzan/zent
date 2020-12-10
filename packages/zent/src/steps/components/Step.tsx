@@ -41,7 +41,9 @@ export default class Step extends Component<IStepProps> {
       iconNode = <Icon type="error-circle" />;
     } else {
       iconNode = (
-        <span className="zent-icon">{sequence ? stepNumber : ''}</span>
+        <span className="zent-icon zent-steps-sequence">
+          {sequence ? stepNumber : ''}
+        </span>
       );
     }
 
@@ -49,8 +51,8 @@ export default class Step extends Component<IStepProps> {
       'zent-steps-item',
       `zent-steps-status-${status}`,
       {
-        'is-current': isCurrentStep,
-        'is-last-finish': isLastFinishStep,
+        'zent-steps-item--current': isCurrentStep,
+        'zent-steps-item--last-finished': isLastFinishStep,
       }
     );
 

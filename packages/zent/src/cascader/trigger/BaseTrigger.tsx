@@ -94,7 +94,8 @@ export class BaseTrigger extends Component<
       triggerText = placeholder || i18n.placeholder;
     }
 
-    const showClear = clearable && active && (hasValue || keyword) && !disabled;
+    const showClear =
+      clearable && (visible || active) && (hasValue || keyword) && !disabled;
 
     return (
       <div
@@ -108,7 +109,7 @@ export class BaseTrigger extends Component<
         {showClear ? (
           <Icon type="close-circle" onClick={this.onClearClick} />
         ) : (
-          <Icon type="caret-down" />
+          <Icon type="down" />
         )}
       </div>
     );
