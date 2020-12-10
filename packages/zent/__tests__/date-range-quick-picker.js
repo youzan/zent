@@ -13,7 +13,7 @@ describe('DateRangeQuickPicker', () => {
         onChange={onChange}
       />
     );
-    expect(wrapper.find('.zent-date-range-picker').length).toBe(1);
+    expect(wrapper.find('.zent-date-range-quick-picker').length).toBe(1);
 
     wrapper.instance().handleTimeChange(['2017-02-01', '2018-02-01']);
     expect(onChange.mock.calls.length).toBe(1);
