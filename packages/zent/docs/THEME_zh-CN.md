@@ -8,21 +8,70 @@ Zent 支持主题定制，目前仅支持组件库颜色的定制。
 
 Zent 使用<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties" target="_blank">CSS Variables</a>定制主题色，对于不支持 CSS Variables 的浏览器，会降级到默认主题色，可以通过重新构建 SCSS 定制主题色。
 
-通过 CSS 变量覆盖主题色示例：
+注意：主题色需要提供两套，一套是 Hex 形式，另一套是类似 RGB 形式的，如下所示：
+
 ```css
 :root {
-  --theme-primary-1: 37, 43, 110;
-  --theme-primary-2: 60, 70, 177;
-  --theme-primary-3: 67, 79, 201;
-  --theme-primary-4: 81, 95, 240;
-  --theme-primary-5: 108, 120, 242;
-  --theme-primary-6: 126, 136, 243;
-  --theme-primary-7: 176, 182, 248;
-  --theme-primary-8: 242, 243, 254;
+	/* 只适用于没有透明度的场景 */
+  --theme-primary-1: #252b6e;
+  --theme-primary-2: #3c46b1;
+  --theme-primary-3: #434fc9;
+  --theme-primary-4: #515ff0;
+  --theme-primary-5: #6c78f2;
+  --theme-primary-6: #7e88f3;
+  --theme-primary-7: #b0b6f8;
+	--theme-primary-8: #f2f3fe;
+	
+	/* 和上面的变量值是一样的，但适用于 rgba 的场景 */
+  --theme-rgb-primary-1: 37, 43, 110;
+  --theme-rgb-primary-2: 60, 70, 177;
+  --theme-rgb-primary-3: 67, 79, 201;
+  --theme-rgb-primary-4: 81, 95, 240;
+  --theme-rgb-primary-5: 108, 120, 242;
+  --theme-rgb-primary-6: 126, 136, 243;
+  --theme-rgb-primary-7: 176, 182, 248;
+  --theme-rgb-primary-8: 242, 243, 254;
 }
 ```
 
-CSS 变量主题色生成可以参考[这个链接](https://gist.github.com/cpylua/247a2ac8da6adfe2354daceb352dcdea)。
+CSS 变量主题色生成可以参考这段代码：
+
+```scss
+// TODO: define your theme overrides here, and that's all!
+$theme-overrides: (
+	--theme-primary-1: #252b6e,
+	--theme-primary-2: #3c46b1,
+	--theme-primary-3: #434fc9,
+	--theme-primary-4: #515ff0,
+	--theme-primary-5: #6c78f2,
+	--theme-primary-6: #7e88f3,
+	--theme-primary-7: #b0b6f8,
+	--theme-primary-8: #f2f3fe,
+);
+
+@mixin theme-css-vars($vars) {
+	@each $name, $color in $vars {
+		#{$name}: $color;
+	}
+}
+
+@mixin theme-rgb-css-vars($vars) {
+	@each $name, $color in $vars {
+		#{str-insert($name, "-rgb", 8)}: to-rgb($color);
+	}
+}
+
+@function to-rgb($color) {
+	@return red($color), green($color), blue($color);
+}
+
+:root {
+	@include theme-css-vars($theme-overrides);
+
+	// Same but used in rgba contexts
+	@include theme-rgb-css-vars($theme-overrides);
+}
+```
 
 ### 重新构建 SCSS 定制主题色
 
