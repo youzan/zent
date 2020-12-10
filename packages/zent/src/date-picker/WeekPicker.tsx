@@ -28,7 +28,9 @@ export { WeekStartsOnMap };
 export interface IWeekPickerProps<T extends IValueType = 'string'>
   extends IWeekOption,
     Omit<ISingleSpecialProps, 'valueType' | 'onChange'>,
-    ISingleSpecialRelatedType<T> {}
+    ISingleSpecialRelatedType<T> {
+  hideFooter?: boolean;
+}
 
 const DefaultWeekPickerProps = {
   format: DATE_FORMAT,

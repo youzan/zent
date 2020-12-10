@@ -65,16 +65,19 @@ $large-size: 40px;
     }
   }
 
+  .zent-input-icon,
+  .zent-input-close {
+    display: block;
+    margin-right: 8px;
+    cursor: pointer;
+  }
+
   .zent-input-icon {
     @include theme-color(color, stroke, 3);
-    display: block;
-    margin-right: 10px;
   }
 
   .zent-input-close {
-    @include theme-color(color, stroke, 5);
-    display: block;
-    margin-right: 10px;
+    @include theme-color(color, stroke, 4);
   }
 }
 
@@ -104,7 +107,7 @@ $large-size: 40px;
   min-width: 80px;
   height: 100%;
   box-sizing: border-box;
-  padding: 0 10px;
+  padding: 0 12px;
   margin: 0;
   font-size: $font-size-normal;
   box-shadow: none;
@@ -147,22 +150,22 @@ $large-size: 40px;
 }
 
 .zent-textarea {
-  height: 54px;
-  padding: 5px 10px;
+  height: 76px;
+  padding: 6px 12px;
   appearance: none;
   line-height: 1.5;
 
   &-with-count {
-    padding-bottom: 21px;
+    padding-bottom: 31px;
   }
 
   &-count {
     @include theme-color(color, stroke, 3);
     display: inline-block;
     position: absolute;
-    bottom: 2px;
-    right: 15px;
-    font-size: 10px;
+    bottom: 8px;
+    right: 12px;
+    font-size: $font-size-small;
   }
 }
 

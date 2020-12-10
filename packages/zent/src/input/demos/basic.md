@@ -16,13 +16,13 @@ en-US:
 import { Input } from 'zent';
 
 ReactDOM.render(
-  <div>
-      <Input placeholder="{i18n.name}" />
-			<Input type="password" placeholder="{i18n.password}" />
-			<Input icon="search" placeholder="{i18n.icon}" />
-			<Input inline placeholder="inline-flex" />
-			<Input inline placeholder="inline-flex" style={{ marginLeft: 10 }} />
-  </div>
-  , mountNode
+	<div>
+		<Input placeholder="{i18n.name}" />
+		<Input type="password" placeholder="{i18n.password}" />
+		<Input icon="search" placeholder="{i18n.icon}" />
+		<Input inline placeholder="inline-flex" style={{ marginRight: 16 }} />
+		<Input inline placeholder="inline-flex" />
+	</div>,
+	mountNode
 );
 ```

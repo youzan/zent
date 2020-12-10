@@ -30,7 +30,9 @@ abstract class OperationTabs<Id extends string | number> extends Component<
   tabsMainRef = createRef<HTMLDivElement>();
 
   state = {
+    // 可视范围内第一个完整展示的tab下标
     startIndex: 0,
+    // 可视范围内最后一个完整展示的tab下标
     endIndex: 0,
     translateX: 0,
   };
@@ -54,20 +56,22 @@ abstract class OperationTabs<Id extends string | number> extends Component<
     return { list, tabsTotalWidth };
   }
 
-  getTargetIndex = (
-    translateX: number,
-    tabsInfo: ITabsInfo,
-    initalTarget = 0
-  ) => {
-    const { list } = tabsInfo;
-    let targetIndex = initalTarget;
-    const indexOffset = !initalTarget ? 1 : 0;
+  getTargetIndex = (translateX: number, tabsInfo: ITabsInfo, isEnd = false) => {
+    const { list, tabsTotalWidth } = tabsInfo;
+    const targetIndex = isEnd ? list.length - 1 : 0;
+    const indexOffset = isEnd ? -1 : 1;
+
+    if (translateX <= 0) {
+      return 0;
+    }
+    if (translateX >= tabsTotalWidth) {
+      return list.length - 1;
+    }
 
     for (let index = 0; index < list.length; index++) {
       const { width, accumWidth } = list[index];
       if (accumWidth + width >= translateX && accumWidth < translateX) {
-        targetIndex = index + indexOffset;
-        return targetIndex;
+        return index + indexOffset;
       }
     }
     return targetIndex;
@@ -80,7 +84,7 @@ abstract class OperationTabs<Id extends string | number> extends Component<
       endIndex: number
     ) => {
       return tabDataList.reduce((hiddenTabs, tab, index) => {
-        if (index < startIndex || index >= endIndex) {
+        if (index < startIndex || index > endIndex) {
           hiddenTabs.push(tab);
         }
         return hiddenTabs;
@@ -107,11 +111,7 @@ abstract class OperationTabs<Id extends string | number> extends Component<
       );
     }
 
-    const endIndex = this.getTargetIndex(
-      availableTranslateX,
-      tabsInfo,
-      list.length - 1
-    );
+    const endIndex = this.getTargetIndex(availableTranslateX, tabsInfo, true);
     const translateX = availableTranslateX - tabsWrapperWidth;
 
     this.setState({
@@ -124,17 +124,14 @@ abstract class OperationTabs<Id extends string | number> extends Component<
   onEndChange = (endIndex: number, tabsInfo: ITabsInfo) => {
     const { list } = tabsInfo;
     const tabsWrapperWidth = this.tabsWrapperWidth;
-    const currentIndexTranslateX = list[endIndex].accumWidth - tabsWrapperWidth;
+    const { accumWidth, width } = list[endIndex];
+    const currentIndexTranslateX = accumWidth + width - tabsWrapperWidth;
 
     const availableTranslateX = Math.max(currentIndexTranslateX, 0);
 
     // 当前结束索引对应的偏移量小于0时，调整可视范围的结束索引
     if (currentIndexTranslateX < 0) {
-      endIndex = this.getTargetIndex(
-        tabsWrapperWidth,
-        tabsInfo,
-        list.length - 1
-      );
+      endIndex = this.getTargetIndex(tabsWrapperWidth, tabsInfo, true);
     }
 
     const startIndex = this.getTargetIndex(availableTranslateX, tabsInfo);
@@ -156,7 +153,7 @@ abstract class OperationTabs<Id extends string | number> extends Component<
       this.onStartChange(targetIndex, tabsInfo);
     }
     if (targetIndex >= endIndex) {
-      this.onEndChange(targetIndex + 1, tabsInfo);
+      this.onEndChange(targetIndex, tabsInfo);
     }
     this.props.onChange?.(tab.key);
   };
@@ -166,9 +163,9 @@ abstract class OperationTabs<Id extends string | number> extends Component<
     const { startIndex, endIndex } = this.state;
     const tabsInfo = this.getTabsInfo();
     if (isPrev) {
-      this.onEndChange(startIndex, tabsInfo);
+      this.onEndChange(startIndex - 1, tabsInfo);
     } else {
-      this.onStartChange(endIndex, tabsInfo);
+      this.onStartChange(endIndex + 1, tabsInfo);
     }
   };
 
@@ -176,7 +173,7 @@ abstract class OperationTabs<Id extends string | number> extends Component<
     const { tabDataList } = this.props;
     const { startIndex, endIndex } = this.state;
     const disablePrev = !startIndex;
-    const disableNext = endIndex === tabDataList.length - 1;
+    const disableNext = endIndex >= tabDataList.length - 1;
     return (
       <SlideOperation
         disablePrev={disablePrev}
@@ -223,11 +220,16 @@ abstract class OperationTabs<Id extends string | number> extends Component<
             {tabs}
           </div>
         </div>
-        <div className={`${contentClassName}-option`}>
-          {overflowMode === 'slide' && this.renderSlideOperations()}
-          {overflowMode === 'anchor' && this.renderAnchorOperations(hiddenTabs)}
-        </div>
-        <WindowResizeHandler onResize={this.onResize} />
+        {!!hiddenTabs.length && (
+          <>
+            <div className={`${contentClassName}-option`}>
+              {overflowMode === 'slide' && this.renderSlideOperations()}
+              {overflowMode === 'anchor' &&
+                this.renderAnchorOperations(hiddenTabs)}
+            </div>
+            <WindowResizeHandler onResize={this.onResize} />
+          </>
+        )}
       </>
     );
   }

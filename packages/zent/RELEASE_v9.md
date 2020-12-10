@@ -1,5 +1,41 @@
 # 9.0.0 迁移指南
 
+## 9.0.0-beta.24 (2020-12-10)
+
+- 🦀️ 导出 `postcss-plugin-constants.js`，`@zent/compat` 需要用到
+
+## 9.0.0-beta.23 (2020-12-10)
+
+- 🦀️ 修复找不到 `ResizeObserver` 类型的问题
+
+## 9.0.0-beta.22 (2020-12-10)
+
+- 💥 使用了新的 jsx transform，不再兼容 17 以下的 React 版本
+- 💥 主题色兼容老版本，区分 `rgb` 和 `rgba` 的场景，降低升级成本
+- `Steps`
+  - 💥 CSS 类名 `is-finish` => `zent-steps-item--finished`
+  - 💥 CSS 类名 `is-current` => `zent-steps-item--current`
+  - 💥 CSS 类名 `is-clicked` => `zent-steps-item--clickable`
+  - 💥 CSS 类名 `is-last-finish` => `zent-steps-item--last-finished`
+- ✨ 更新 `Dialog` 样式，调整了最大和最小宽高，并加入了高度自适应滚动的能力
+- `Grid`
+  - ✨ 增加 `GridColumnProvider` 设置全局列属性
+  - ✨ 列属性中增加了 `isValueEmpty` 来自定义判断值为空的逻辑
+  - ✨ 支持通过 `loadingProps` 自定义加载样式
+- ✨ `Select` 支持通过 `disableSearch` 禁用搜索能力
+- ✨ 设置了全局默认文字颜色为 `theme-stroke-1`
+- `ClampLines`
+  - ✨ 增加一种新的保证结果正确的算法，但是性能较差，默认依旧使用二分算法
+  - 🦀️ 修复二分查找算法问题
+  - 🦀️ 修复 `Safari` 下样式问题
+  - 🦀️ 兼容 `Firefox` 有问题的 `ResizeObserver` 实现
+  - 🦀️ 修复一些 Unicode 字符被截断的问题
+- 🦀️ 更新 `Input` 样式
+- 🦀️ 更新 `Select` 样式
+- 🦀️ 更新 `Cascader` 样式
+- 🦀️ 更新 `Steps` 样式
+- 🦀️ 修复 `Tabs` 翻页逻辑
+
 ## 9.0.0-beta21 (2020-12-02)
 
 - `Form`
