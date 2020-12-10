@@ -8,8 +8,8 @@ const prefixCls = 'zent-datepicker-combined-panel';
 const CombinedTimeRangePanel: React.FC<ICombinedTimePanelProps> = ({
   onSelected,
   selected,
-  disabledTimesOptionStart,
-  disabledTimesOptionEnd,
+  disabledTimeOptionStart,
+  disabledTimeOptionEnd,
   defaultTime,
   ...restProps
 }) => {
@@ -31,7 +31,7 @@ const CombinedTimeRangePanel: React.FC<ICombinedTimePanelProps> = ({
             hideFooter
             selected={start}
             defaultTime={defaultTime?.[0]}
-            disabledTimesOption={disabledTimesOptionStart}
+            disabledTimeOption={disabledTimeOptionStart}
             onSelected={onChangeStartOrEnd(0)}
           />
         </div>
@@ -42,7 +42,7 @@ const CombinedTimeRangePanel: React.FC<ICombinedTimePanelProps> = ({
             hideFooter
             selected={end}
             defaultTime={defaultTime?.[1]}
-            disabledTimesOption={disabledTimesOptionEnd}
+            disabledTimeOption={disabledTimeOptionEnd}
             onSelected={onChangeStartOrEnd(1)}
           />
         </div>

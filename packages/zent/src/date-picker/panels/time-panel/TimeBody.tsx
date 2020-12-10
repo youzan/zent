@@ -27,7 +27,7 @@ interface IUnitColumn {
 const TimePickerBody: React.FC<ITimePanelProps> = ({
   selected,
   format,
-  disabledTimesOption,
+  disabledTimeOption,
   hourStep,
   minuteStep,
   secondStep,
@@ -45,7 +45,7 @@ const TimePickerBody: React.FC<ITimePanelProps> = ({
       disabledHours,
       disabledMinutes,
       disabledSeconds,
-    } = disabledTimesOption;
+    } = disabledTimeOption;
     const panelTimeHours = panelTime.getHours();
     const panelTimeMins = panelTime.getMinutes();
     // HH:mm:ss 对应的unitColumn
@@ -77,14 +77,7 @@ const TimePickerBody: React.FC<ITimePanelProps> = ({
     ];
 
     return UnitColumnConfig.filter(item => format.indexOf(item.format) !== -1);
-  }, [
-    panelTime,
-    format,
-    disabledTimesOption,
-    hourStep,
-    minuteStep,
-    secondStep,
-  ]);
+  }, [panelTime, format, disabledTimeOption, hourStep, minuteStep, secondStep]);
 
   const setItemTime = useCallback(
     (val: number, type: ITimeUnitType) => {
