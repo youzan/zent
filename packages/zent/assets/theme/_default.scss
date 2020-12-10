@@ -117,17 +117,25 @@ $theme-colors: (
   @return red($color), green($color), blue($color);
 }
 
-@function theme-rgb($cat, $i) {
-  $css-var: var(--theme-#{$cat}-#{$i}, to-rgb(get-color($cat, $i)));
+// Use this for color with opacity = 1
+// This is for backword compatibily
+@function get-css-var($cat, $i) {
+  // sass-lint:disable-block space-around-operator
+  @return --theme-#{$cat}-#{$i};
+}
 
-  // `unquote` is a workaround for node-sass misinterprets rgb as builtin function
-  // https://github.com/sass/node-sass/issues/2251
-  // dart-sass doesn't seem to have this issue.
-  @return unquote('rgb(#{$css-var})');
+// Use this for rgba support in theme colors
+@function get-rgb-css-var($cat, $i) {
+  // sass-lint:disable-block space-around-operator
+  @return --theme-rgb-#{$cat}-#{$i};
+}
+
+@function theme-rgb($cat, $i) {
+  @return var(get-css-var($cat, $i), get-color($cat, $i));
 }
 
 @function theme-rgba($cat, $i, $opacity) {
-  $css-var: var(--theme-#{$cat}-#{$i}, to-rgb(get-color($cat, $i)));
+  $css-var: var(get-rgb-css-var($cat, $i), to-rgb(get-color($cat, $i)));
 
   // `unquote` is a workaround for node-sass misinterprets rgba as builtin function
   // https://github.com/sass/node-sass/issues/2251
@@ -136,13 +144,27 @@ $theme-colors: (
 }
 
 @mixin theme-color($prop, $cat, $i, $opacity: 1) {
-  #{$prop}: rgba(get-color($cat, $i), $opacity);
-  #{$prop}: theme-rgba($cat, $i, $opacity);
+  $color: get-color($cat, $i);
+
+  @if $opacity >= 1 {
+    #{$prop}: $color;
+    #{$prop}: theme-rgb($cat, $i);
+  } @else {
+    #{$prop}: rgba($color, $opacity);
+    #{$prop}: theme-rgba($cat, $i, $opacity);
+  }
 }
 
 @mixin theme-border-impl($prop, $width, $style, $cat, $i, $opacity) {
-  #{$prop}: $width $style rgba(get-color($cat, $i), $opacity);
-  #{$prop}: $width $style theme-rgba($cat, $i, $opacity);
+  $color: get-color($cat, $i);
+
+  @if $opacity >= 1 {
+    #{$prop}: $width $style $color;
+    #{$prop}: $width $style theme-rgb($cat, $i);
+  } @else {
+    #{$prop}: $width $style rgba($color, $opacity);
+    #{$prop}: $width $style theme-rgba($cat, $i, $opacity);
+  }
 }
 
 @mixin theme-border($width, $style, $cat, $i, $opacity: 1) {
