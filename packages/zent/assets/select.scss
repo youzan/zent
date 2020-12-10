@@ -192,8 +192,8 @@ $option-height: 32px;
   }
 
   &-popup {
-    @include popup;
     @include theme-color(color, stroke, 1);
+    @include popup;
     max-height: 8 * $option-height;
     overflow-y: auto;
 

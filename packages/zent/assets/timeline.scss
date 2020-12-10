@@ -23,9 +23,9 @@
   }
 
   &-legend {
+    @include theme-color(color, stroke, 1);
     height: 20px;
     line-height: 20px;
-    @include theme-color(color, stroke, 1);
 
     &-line {
       @include theme-color(background-color, primary, 4);
