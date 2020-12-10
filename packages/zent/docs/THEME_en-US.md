@@ -8,41 +8,68 @@ Zent supports themes, only colors are customizable for now.
 
 Zent uses [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties), so it is possible to customize themes via custom CSS variables.
 
-Example (with default theme):
+Each theme color should be provided in both HEX and RGB format, for example:
+
 ```css
 :root {
-  --theme-stroke-1: #323233;
-  --theme-stroke-2: #646566;
-  --theme-stroke-3: #969799;
-  --theme-stroke-4: #c8c9cc;
-  --theme-stroke-5: #dcdee0;
-  --theme-stroke-6: #ebedf0;
-  --theme-stroke-7: #f2f3f5;
-  --theme-stroke-8: #f7f8fa;
-  --theme-stroke-9: #fff;
-  --theme-stroke-10: #eaeaea;
-  --theme-stroke-11: #f4f5f5;
-  --theme-primary-1: #0a2a61;
-  --theme-primary-2: #10439b;
-  --theme-primary-3: #114db4;
-  --theme-primary-4: #155bd4;
-  --theme-primary-5: #3773da;
-  --theme-primary-6: #5487df;
-  --theme-primary-7: #94b4eb;
-  --theme-primary-8: #edf4ff;
-  --theme-success-1: #268d37;
-  --theme-success-2: #2da641;
-  --theme-success-3: #4cb35d;
-  --theme-success-4: #66be74;
-  --theme-success-5: #f0faf2;
-  --theme-error-1: #b40000;
-  --theme-error-2: #d40000;
-  --theme-error-3: #da2626;
-  --theme-error-4: #df4545;
-  --theme-error-5: #ffebeb;
-  --theme-warn-1: #ed6a0c;
-  --theme-warn-2: #f1924e;
-  --theme-warn-3: #fff5ed;
+	/* Use these when opacity is not needed */
+  --theme-primary-1: #252b6e;
+  --theme-primary-2: #3c46b1;
+  --theme-primary-3: #434fc9;
+  --theme-primary-4: #515ff0;
+  --theme-primary-5: #6c78f2;
+  --theme-primary-6: #7e88f3;
+  --theme-primary-7: #b0b6f8;
+	--theme-primary-8: #f2f3fe;
+	
+	/* Values are the same as above, but used when opacity is required */
+  --theme-rgb-primary-1: 37, 43, 110;
+  --theme-rgb-primary-2: 60, 70, 177;
+  --theme-rgb-primary-3: 67, 79, 201;
+  --theme-rgb-primary-4: 81, 95, 240;
+  --theme-rgb-primary-5: 108, 120, 242;
+  --theme-rgb-primary-6: 126, 136, 243;
+  --theme-rgb-primary-7: 176, 182, 248;
+  --theme-rgb-primary-8: 242, 243, 254;
+}
+```
+
+These variables can be generated with this code：
+
+```scss
+// TODO: define your theme overrides here, and that's all!
+$theme-overrides: (
+	--theme-primary-1: #252b6e,
+	--theme-primary-2: #3c46b1,
+	--theme-primary-3: #434fc9,
+	--theme-primary-4: #515ff0,
+	--theme-primary-5: #6c78f2,
+	--theme-primary-6: #7e88f3,
+	--theme-primary-7: #b0b6f8,
+	--theme-primary-8: #f2f3fe,
+);
+
+@mixin theme-css-vars($vars) {
+	@each $name, $color in $vars {
+		#{$name}: $color;
+	}
+}
+
+@mixin theme-rgb-css-vars($vars) {
+	@each $name, $color in $vars {
+		#{str-insert($name, "-rgb", 8)}: to-rgb($color);
+	}
+}
+
+@function to-rgb($color) {
+	@return red($color), green($color), blue($color);
+}
+
+:root {
+	@include theme-css-vars($theme-overrides);
+
+	// Same but used in rgba contexts
+	@include theme-rgb-css-vars($theme-overrides);
 }
 ```
 
