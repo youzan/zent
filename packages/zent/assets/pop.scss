@@ -58,8 +58,8 @@
     height: var(--CSS_ARROW_COVER_SIZE);
   }
 
-  &.zent-popover-position,
-  &.zent-popover-position-arrow {
+  &.zent-popover-v2-position,
+  &.zent-popover-v2-position-arrow {
     @include pop-arrow('pop-v2');
   }
 }
