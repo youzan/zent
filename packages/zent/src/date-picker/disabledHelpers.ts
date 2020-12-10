@@ -111,7 +111,7 @@ export const disabledDateWithRange = (
     (!!max && isAfter(startOfDay(date), max));
 };
 
-export const getRangeDisabledProps = (
+export const getDisabledPropsWithRange = (
   range: [Date | null, Date | null]
 ): { disabledDate: IRangeDisabledDateFunc; disabledTime: IDisabledTime } => {
   const [min, max] = range;

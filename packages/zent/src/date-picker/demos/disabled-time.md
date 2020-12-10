@@ -17,7 +17,7 @@ import {
 import {
 	disabledTimeWithMax,
 	disabledTimeWithRange,
-	getRangeDisabledProps,
+	getDisabledPropsWithRange,
 } from 'zent/es/date-picker/disabledHelpers';
 import { isSameDay, addDays, parse } from 'date-fns';
 
@@ -92,7 +92,7 @@ class Demo extends Component {
 			: {};
 	};
 
-	disabledProps = getRangeDisabledProps([new Date(), addDays(new Date(), 4)]);
+	disabledProps = getDisabledPropsWithRange([new Date(), addDays(new Date(), 4)]);
 
 	render() {
 		const {
