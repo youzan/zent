@@ -157,7 +157,7 @@ interface IDisabledTimeOption {
 - `disabledTime` 回调方法的第二个参数均为`type?: 'start' | 'end'`
 
 ### 工具函数
-- 提供时间禁用的处理方法：`disabledTimeWithRange`、`getDisabledPropsWithRange` 等，需要从 `zent/es/date-picker/disabledHelpers` 引入。
+- 提供时间禁用的处理方法：`disabledTimeWithRange`、`getDisabledDateAndTimeWithRangeProps` 等，需要从 `zent/es/date-picker/disabledHelpers` 引入。
 
 #### 格式化字符表
 
