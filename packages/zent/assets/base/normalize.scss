@@ -472,6 +472,7 @@ body {
   font-family: $font-family;
   font-weight: $font-weight-normal;
   font-size: $font-size-normal;
+  @include theme-color(color, stroke, 1);
 
   // font smoothing
   -moz-osx-font-smoothing: grayscale;
