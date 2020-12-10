@@ -119,7 +119,7 @@ class PageSizeSelect extends Component<
         options={options}
         value={{
           key: pageSize,
-          text: String(pageSize),
+          text: `${pageSize} ${i18n.items}`,
         }}
         onChange={this.onChange}
       />
