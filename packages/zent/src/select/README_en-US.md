@@ -26,7 +26,7 @@ Select is a drop-down selection component with variety functions.
 | multiple            | Support multiple selected options                                                               | bool                 | `false`                                | no       |
 | collapsable         | Support collapsed tags in multiple mode                                                         | bool                 | 
 `false`                                | no       |
-| hideCollapsePop     | Hide tags content pop in collapsedmode                                                       | bool                 | 
+| hideCollapsePop     | Hide tags content pop in collapsed mode                                                       | bool                 | 
 `false`                                | no       |
 | collapseAt          | Dispaly tags count in collapsed mode                                                            | number               | `1`                                    | no       |
 | clearable           | Is the select value clearable                                                                   | bool                 | `false`                                | no       |

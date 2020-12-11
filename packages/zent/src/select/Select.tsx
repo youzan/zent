@@ -560,9 +560,11 @@ export class Select<Item extends ISelectItem = ISelectItem> extends Component<
     return <span className="zent-select-v2-placeholder">{placeholder}</span>;
   }
 
-  renderTagCollapsedTrigger(length: number) {
+  renderTagCollapsedTrigger(value: Item[]) {
     return (
-      <span className="zent-select-v2-tag-collapsed-trigger">+{length}</span>
+      <span className="zent-select-v2-tag-collapsed-trigger">
+        +{value.length}
+      </span>
     );
   }
 
@@ -606,10 +608,10 @@ export class Select<Item extends ISelectItem = ISelectItem> extends Component<
                 </div>
               }
             >
-              {this.renderTagCollapsedTrigger(collapsedValue.length)}
+              {this.renderTagCollapsedTrigger(collapsedValue)}
             </Pop>
           ) : (
-            this.renderTagCollapsedTrigger(collapsedValue.length)
+            this.renderTagCollapsedTrigger(collapsedValue)
           ))}
       </>
     );
