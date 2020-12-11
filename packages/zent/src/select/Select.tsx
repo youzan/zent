@@ -52,8 +52,9 @@ export interface ISelectCommonProps<Item extends ISelectItem> {
   creatable?: boolean;
   onCreate?: (text: string) => Promise<void>;
   isValidNewOption?: (keyword: string, options: Item[]) => boolean;
-  collapsable?: false;
+  collapsable?: boolean;
   collapseAt?: number;
+  hideCollapsePop?: boolean;
   className?: string;
   disableSearch?: boolean;
 }
@@ -560,7 +561,12 @@ export class Select<Item extends ISelectItem = ISelectItem> extends Component<
   }
 
   renderTagList(value: Item[], i18n: II18nLocaleSelect) {
-    const { renderValue, collapsable, collapseAt = 1 } = this.props;
+    const {
+      renderValue,
+      collapsable,
+      collapseAt = 1,
+      hideCollapsePop = false,
+    } = this.props;
     const tagsValue = collapsable ? value.slice(0, collapseAt) : value;
     const collapsedValue = value.slice(collapseAt);
 
@@ -571,32 +577,38 @@ export class Select<Item extends ISelectItem = ISelectItem> extends Component<
           onRemove={this.onRemove}
           renderValue={renderValue}
         />
-        {collapsable && collapsedValue.length > 0 && (
-          <Pop
-            trigger="hover"
-            position="auto-top-center"
-            cushion={15}
-            content={
-              <div className="zent-select-v2-tag-collapsed-content">
-                <div>
-                  {collapsedValue.map((item, index) => {
-                    return (
-                      <span key={item.key}>
-                        {renderValue ? renderValue(item) : item.text}
-                        {index !== collapsedValue.length - 1 &&
-                          i18n.tagSeparator}
-                      </span>
-                    );
-                  })}
+        {collapsable &&
+          collapsedValue.length > 0 &&
+          (!hideCollapsePop ? (
+            <Pop
+              trigger="hover"
+              position="auto-top-center"
+              cushion={15}
+              content={
+                <div className="zent-select-v2-tag-collapsed-content">
+                  <div>
+                    {collapsedValue.map((item, index) => {
+                      return (
+                        <span key={item.key}>
+                          {renderValue ? renderValue(item) : item.text}
+                          {index !== collapsedValue.length - 1 &&
+                            i18n.tagSeparator}
+                        </span>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-            }
-          >
+              }
+            >
+              <span className="zent-select-v2-tag-collapsed-trigger">
+                +{collapsedValue.length}
+              </span>
+            </Pop>
+          ) : (
             <span className="zent-select-v2-tag-collapsed-trigger">
               +{collapsedValue.length}
             </span>
-          </Pop>
-        )}
+          ))}
       </>
     );
   }
