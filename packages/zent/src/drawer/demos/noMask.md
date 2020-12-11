@@ -8,11 +8,12 @@ en-US:
 
 ```js
 import { useState } from 'react';
-import { Button, Drawer } from 'zent';
+import { Button, Drawer, Input } from 'zent';
 
 function SimpleDrawer() {
   const [visible, setVisible] = useState(false);
   const [content, setContent] = useState(false);
+  const [inputVal, setInputVal] = useState();
   return (
     <>
       <Button
@@ -30,6 +31,7 @@ function SimpleDrawer() {
         onClose={() => setVisible(false)}
         mask={false}
       >
+        <Input value={inputVal} onChange={e => setInputVal(e.target.value)} showClear width={200} />
         <Button style={{ margin: '20px' }} onClick={() => setVisible(false)}>
           close
         </Button>

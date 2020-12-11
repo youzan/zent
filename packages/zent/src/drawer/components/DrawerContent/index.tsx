@@ -32,7 +32,15 @@ const DrawerContent: React.FC<DrawerContentProps> = ({
         document,
         'click',
         e => {
-          if (!drawerEl.current?.contains(e.target as HTMLDivElement)) {
+          const target = e.target as HTMLDivElement;
+          /**
+           * `document.contains(target)`：兼容冒泡事件到达时，e.target已被移除dom树的场景
+           * https://github.com/youzan/zent/issues/1608
+           */
+          if (
+            document.contains(target) &&
+            !drawerEl.current?.contains(target)
+          ) {
             onClose();
           }
         }
