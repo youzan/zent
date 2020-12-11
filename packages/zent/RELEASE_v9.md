@@ -1,5 +1,16 @@
 # 9.0.0 迁移指南
 
+## 9.0.0-beta.25(2020-12-11)
+
+- `DatePicker`
+  - 增加 `disabledTimeWithRange`、`getDisabledDateAndTimeWithRangeProps` 等工具函数，用户处理禁用时间或禁用日期
+  - 扩展日期组件 `showTime` 时的 `defaultTime` 类型，支持根据日期自定义默认时间
+  - 暗提示文本样式修改
+- `popover` `pop` `tooltip` `daterangequickpicker` 类名修改
+  - 💥 CSS 类名 `zent-pop` => `zent-pop-v2`
+  - 💥 CSS 类名 `zent-tooltip` => `zent-tooltip-v2`
+  - 💥 CSS 类名 `zent-popover` => `zent-popover-v2`
+
 ## 9.0.0-beta.24 (2020-12-10)
 
 - 🦀️ 导出 `postcss-plugin-constants.js`，`@zent/compat` 需要用到
