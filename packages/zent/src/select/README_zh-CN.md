@@ -26,6 +26,7 @@ group: 数据
 | popupWidth          | 弹层宽度                                                           | string or number | `''`                                   | 否       |
 | multiple            | 是否多选                                                           | bool             | `false`                                | 否       |
 | collapsable         | 多选时是否折叠进行单行显示                                         | bool             | `false`                                | 否       |
+| hideCollapsePop     | 多选折叠模式下隐藏展示数据的气泡                                  | bool            | `false`                                    | 否       |
 | collapseAt          | 多选折叠模式下显示的数据                                           | number           | `1`                                    | 否       |
 | clearable           | 显示清除按钮                                                       | bool             | `false`                                | 否       |
 | loading             | 是否加载中                                                         | bool             | `false`                                | 否       |
