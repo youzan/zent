@@ -564,8 +564,8 @@ export class Select<Item extends ISelectItem = ISelectItem> extends Component<
     const {
       renderValue,
       collapsable,
+      hideCollapsePop,
       collapseAt = 1,
-      hideCollapsePop = false,
     } = this.props;
     const tagsValue = collapsable ? value.slice(0, collapseAt) : value;
     const collapsedValue = value.slice(collapseAt);
