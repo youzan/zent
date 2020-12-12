@@ -34,7 +34,7 @@ const DrawerContent: React.FC<DrawerContentProps> = ({
         e => {
           const target = e.target as HTMLDivElement;
           /**
-           * `document.contains(target)`：兼容冒泡事件到达时，e.target已被移除dom树的场景
+           * `document.contains(target)`：兼容冒泡事件到达时，e.target已被移除于dom树中的场景
            * https://github.com/youzan/zent/issues/1608
            */
           if (
