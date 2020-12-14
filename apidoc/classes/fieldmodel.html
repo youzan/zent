@@ -108,6 +108,8 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="fieldmodel.html#_field_id_" class="tsd-kind-icon">[FIELD_<wbr>ID]</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="fieldmodel.html#_model_id_" class="tsd-kind-icon">[MODEL_<wbr>ID]</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="fieldmodel.html#_valid_" class="tsd-kind-icon">_valid$</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="fieldmodel.html#_value_" class="tsd-kind-icon">_value$</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="fieldmodel.html#defaultvalue" class="tsd-kind-icon">default<wbr>Value</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="fieldmodel.html#destroyonunmount" class="tsd-kind-icon">destroy<wbr>OnUnmount</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="fieldmodel.html#error_" class="tsd-kind-icon">error$</a></li>
@@ -119,7 +121,6 @@
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="fieldmodel.html#owner" class="tsd-kind-icon">owner</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="fieldmodel.html#validate_" class="tsd-kind-icon">validate$</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="fieldmodel.html#validators" class="tsd-kind-icon">validators</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="fieldmodel.html#value_" class="tsd-kind-icon">value$</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -127,7 +128,9 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="fieldmodel.html#error" class="tsd-kind-icon">error</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="fieldmodel.html#form" class="tsd-kind-icon">form</a></li>
-								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="fieldmodel.html#value" class="tsd-kind-icon">value</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite"><a href="fieldmodel.html#valid_" class="tsd-kind-icon">valid$</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="fieldmodel.html#value" class="tsd-kind-icon">value</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite"><a href="fieldmodel.html#value_" class="tsd-kind-icon">value$</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -144,7 +147,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="fieldmodel.html#reset" class="tsd-kind-icon">reset</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="fieldmodel.html#touched" class="tsd-kind-icon">touched</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="fieldmodel.html#triggervalidate" class="tsd-kind-icon">trigger<wbr>Validate</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="fieldmodel.html#valid" class="tsd-kind-icon">valid</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="fieldmodel.html#valid" class="tsd-kind-icon">valid</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="fieldmodel.html#validate" class="tsd-kind-icon">validate</a></li>
 							</ul>
 						</section>
@@ -164,7 +167,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="basicmodel.html">BasicModel</a>.<a href="basicmodel.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/form/formulr/models/field.ts#L34">packages/zent/src/form/formulr/models/field.ts:34</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/form/formulr/models/field.ts#L37">packages/zent/src/form/formulr/models/field.ts:37</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -192,7 +195,7 @@
 					<div class="tsd-signature tsd-kind-icon">[FIELD_<wbr>ID]<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/form/formulr/models/field.ts#L19">packages/zent/src/form/formulr/models/field.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/form/formulr/models/field.ts#L19">packages/zent/src/form/formulr/models/field.ts:19</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -209,7 +212,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="fieldsetmodel.html">FieldSetModel</a>.<a href="fieldsetmodel.html#_model_id_">[MODEL_ID]</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/form/formulr/models/basic.ts#L44">packages/zent/src/form/formulr/models/basic.ts:44</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/form/formulr/models/basic.ts#L44">packages/zent/src/form/formulr/models/basic.ts:44</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -219,13 +222,33 @@
 						</dl>
 					</div>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="_valid_" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> _valid$</h3>
+					<div class="tsd-signature tsd-kind-icon">_valid$<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">BehaviorSubject</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = new BehaviorSubject(true)</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/form/formulr/models/field.ts#L23">packages/zent/src/form/formulr/models/field.ts:23</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="_value_" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> _value$</h3>
+					<div class="tsd-signature tsd-kind-icon">_value$<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">BehaviorSubject</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = new BehaviorSubject(this.defaultValue)</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/form/formulr/models/field.ts#L21">packages/zent/src/form/formulr/models/field.ts:21</a></li>
+						</ul>
+					</aside>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="defaultvalue" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> <span class="tsd-flag ts-flagReadonly">Readonly</span> default<wbr>Value</h3>
 					<div class="tsd-signature tsd-kind-icon">default<wbr>Value<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Value</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/form/formulr/models/field.ts#L37">packages/zent/src/form/formulr/models/field.ts:37</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/form/formulr/models/field.ts#L40">packages/zent/src/form/formulr/models/field.ts:40</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -236,7 +259,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="fieldsetmodel.html">FieldSetModel</a>.<a href="fieldsetmodel.html#destroyonunmount">destroyOnUnmount</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/form/formulr/models/basic.ts#L37">packages/zent/src/form/formulr/models/basic.ts:37</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/form/formulr/models/basic.ts#L37">packages/zent/src/form/formulr/models/basic.ts:37</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -252,7 +275,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="fieldsetmodel.html">FieldSetModel</a>.<a href="fieldsetmodel.html#error_">error$</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/form/formulr/models/basic.ts#L49">packages/zent/src/form/formulr/models/basic.ts:49</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/form/formulr/models/basic.ts#L49">packages/zent/src/form/formulr/models/basic.ts:49</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -261,9 +284,10 @@
 					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> id</h3>
 					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
+						<p>Implementation of <a href="../interfaces/imodel.html">IModel</a>.<a href="../interfaces/imodel.html#id">id</a></p>
 						<p>Inherited from <a href="fieldsetmodel.html">FieldSetModel</a>.<a href="fieldsetmodel.html#id">id</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/form/formulr/models/basic.ts#L55">packages/zent/src/form/formulr/models/basic.ts:55</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/form/formulr/models/basic.ts#L67">packages/zent/src/form/formulr/models/basic.ts:67</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -274,7 +298,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="fieldsetmodel.html">FieldSetModel</a>.<a href="fieldsetmodel.html#initialvalue">initialValue</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/form/formulr/models/basic.ts#L32">packages/zent/src/form/formulr/models/basic.ts:32</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/form/formulr/models/basic.ts#L32">packages/zent/src/form/formulr/models/basic.ts:32</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -291,7 +315,7 @@
 					<div class="tsd-signature tsd-kind-icon">is<wbr>Compositing<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/form/formulr/models/field.ts#L27">packages/zent/src/form/formulr/models/field.ts:27</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/form/formulr/models/field.ts#L30">packages/zent/src/form/formulr/models/field.ts:30</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -306,7 +330,7 @@
 					<div class="tsd-signature tsd-kind-icon">is<wbr>Touched<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/form/formulr/models/field.ts#L22">packages/zent/src/form/formulr/models/field.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/form/formulr/models/field.ts#L25">packages/zent/src/form/formulr/models/field.ts:25</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -316,7 +340,7 @@
 					<div class="tsd-signature tsd-kind-icon">normalize<wbr>Before<wbr>Submit<span class="tsd-signature-symbol">:</span> <a href="../interfaces/inormalizebeforesubmit.html" class="tsd-signature-type">INormalizeBeforeSubmit</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = id</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/form/formulr/models/field.ts#L32">packages/zent/src/form/formulr/models/field.ts:32</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/form/formulr/models/field.ts#L35">packages/zent/src/form/formulr/models/field.ts:35</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -333,7 +357,7 @@
 						<p>Implementation of <a href="../interfaces/imodel.html">IModel</a>.<a href="../interfaces/imodel.html#owner">owner</a></p>
 						<p>Overrides <a href="basicmodel.html">BasicModel</a>.<a href="basicmodel.html#owner">owner</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/form/formulr/models/field.ts#L34">packages/zent/src/form/formulr/models/field.ts:34</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/form/formulr/models/field.ts#L37">packages/zent/src/form/formulr/models/field.ts:37</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -344,7 +368,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="fieldsetmodel.html">FieldSetModel</a>.<a href="fieldsetmodel.html#validate_">validate$</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/form/formulr/models/basic.ts#L20">packages/zent/src/form/formulr/models/basic.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/form/formulr/models/basic.ts#L20">packages/zent/src/form/formulr/models/basic.ts:20</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -362,7 +386,7 @@
 						<p>Implementation of <a href="../interfaces/imodel.html">IModel</a>.<a href="../interfaces/imodel.html#validators">validators</a></p>
 						<p>Inherited from <a href="fieldsetmodel.html">FieldSetModel</a>.<a href="fieldsetmodel.html#validators">validators</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/form/formulr/models/basic.ts#L26">packages/zent/src/form/formulr/models/basic.ts:26</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/form/formulr/models/basic.ts#L26">packages/zent/src/form/formulr/models/basic.ts:26</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -372,16 +396,6 @@
 							</dd>
 						</dl>
 					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="value_" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> value$</h3>
-					<div class="tsd-signature tsd-kind-icon">value$<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">BehaviorSubject</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/form/formulr/models/field.ts#L21">packages/zent/src/form/formulr/models/field.ts:21</a></li>
-						</ul>
-					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -398,7 +412,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="fieldsetmodel.html">FieldSetModel</a>.<a href="fieldsetmodel.html#error">error</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/form/formulr/models/basic.ts#L99">packages/zent/src/form/formulr/models/basic.ts:99</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/form/formulr/models/basic.ts#L114">packages/zent/src/form/formulr/models/basic.ts:114</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -412,7 +426,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="fieldsetmodel.html">FieldSetModel</a>.<a href="fieldsetmodel.html#error">error</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/form/formulr/models/basic.ts#L106">packages/zent/src/form/formulr/models/basic.ts:106</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/form/formulr/models/basic.ts#L121">packages/zent/src/form/formulr/models/basic.ts:121</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -441,45 +455,55 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="fieldsetmodel.html">FieldSetModel</a>.<a href="fieldsetmodel.html#form">form</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/form/formulr/models/basic.ts#L51">packages/zent/src/form/formulr/models/basic.ts:51</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/form/formulr/models/basic.ts#L63">packages/zent/src/form/formulr/models/basic.ts:63</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="formmodel.html" class="tsd-signature-type">FormModel</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
+					<a name="valid_" class="tsd-anchor"></a>
+					<h3>valid$</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> valid$<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BehaviorSubject</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Overrides <a href="basicmodel.html">BasicModel</a>.<a href="basicmodel.html#valid_">valid$</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/form/formulr/models/field.ts#L48">packages/zent/src/form/formulr/models/field.ts:48</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">BehaviorSubject</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
 					<a name="value" class="tsd-anchor"></a>
 					<h3>value</h3>
-					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> value<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Value</span></li>
 						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> value<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="basicmodel.html">BasicModel</a>.<a href="basicmodel.html#value">value</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/form/formulr/models/field.ts#L45">packages/zent/src/form/formulr/models/field.ts:45</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/form/formulr/models/basic.ts#L55">packages/zent/src/form/formulr/models/basic.ts:55</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>获取 <code>Field</code> 当前的值</p>
-								</div>
-							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Value</span></h4>
 						</li>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="basicmodel.html">BasicModel</a>.<a href="basicmodel.html#value">value</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/form/formulr/models/field.ts#L52">packages/zent/src/form/formulr/models/field.ts:52</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/form/formulr/models/basic.ts#L59">packages/zent/src/form/formulr/models/basic.ts:59</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>设置 <code>Field</code> 的值</p>
-								</div>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -487,6 +511,24 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
+					<a name="value_" class="tsd-anchor"></a>
+					<h3>value$</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> value$<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BehaviorSubject</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Overrides <a href="basicmodel.html">BasicModel</a>.<a href="basicmodel.html#value_">value$</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/form/formulr/models/field.ts#L44">packages/zent/src/form/formulr/models/field.ts:44</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">BehaviorSubject</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -505,7 +547,7 @@
 								<p>Implementation of <a href="../interfaces/imodel.html">IModel</a>.<a href="../interfaces/imodel.html#clear">clear</a></p>
 								<p>Overrides <a href="basicmodel.html">BasicModel</a>.<a href="basicmodel.html#clear">clear</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/form/formulr/models/field.ts#L66">packages/zent/src/form/formulr/models/field.ts:66</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/form/formulr/models/field.ts#L62">packages/zent/src/form/formulr/models/field.ts:62</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -529,7 +571,7 @@
 								<p>Implementation of <a href="../interfaces/imodel.html">IModel</a>.<a href="../interfaces/imodel.html#dirty">dirty</a></p>
 								<p>Overrides <a href="basicmodel.html">BasicModel</a>.<a href="basicmodel.html#dirty">dirty</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/form/formulr/models/field.ts#L131">packages/zent/src/form/formulr/models/field.ts:131</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/form/formulr/models/field.ts#L123">packages/zent/src/form/formulr/models/field.ts:123</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -554,7 +596,7 @@
 								<p>Implementation of <a href="../interfaces/imodel.html">IModel</a>.<a href="../interfaces/imodel.html#dispose">dispose</a></p>
 								<p>Inherited from <a href="basicmodel.html">BasicModel</a>.<a href="basicmodel.html#dispose">dispose</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/form/formulr/models/basic.ts#L73">packages/zent/src/form/formulr/models/basic.ts:73</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/form/formulr/models/basic.ts#L84">packages/zent/src/form/formulr/models/basic.ts:84</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -573,7 +615,7 @@
 								<p>Implementation of <a href="../interfaces/imodel.html">IModel</a>.<a href="../interfaces/imodel.html#getrawvalue">getRawValue</a></p>
 								<p>Overrides <a href="basicmodel.html">BasicModel</a>.<a href="basicmodel.html#getrawvalue">getRawValue</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/form/formulr/models/field.ts#L80">packages/zent/src/form/formulr/models/field.ts:80</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/form/formulr/models/field.ts#L76">packages/zent/src/form/formulr/models/field.ts:76</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Value</span></h4>
@@ -592,7 +634,7 @@
 								<p>Implementation of <a href="../interfaces/imodel.html">IModel</a>.<a href="../interfaces/imodel.html#getsubmitvalue">getSubmitValue</a></p>
 								<p>Overrides <a href="basicmodel.html">BasicModel</a>.<a href="basicmodel.html#getsubmitvalue">getSubmitValue</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/form/formulr/models/field.ts#L87">packages/zent/src/form/formulr/models/field.ts:87</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/form/formulr/models/field.ts#L83">packages/zent/src/form/formulr/models/field.ts:83</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -616,7 +658,7 @@
 								<p>Implementation of <a href="../interfaces/imodel.html">IModel</a>.<a href="../interfaces/imodel.html#initialize">initialize</a></p>
 								<p>Overrides <a href="basicmodel.html">BasicModel</a>.<a href="basicmodel.html#initialize">initialize</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/form/formulr/models/field.ts#L75">packages/zent/src/form/formulr/models/field.ts:75</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/form/formulr/models/field.ts#L71">packages/zent/src/form/formulr/models/field.ts:71</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -649,7 +691,7 @@
 								<p>Implementation of <a href="../interfaces/imodel.html">IModel</a>.<a href="../interfaces/imodel.html#patchvalue">patchValue</a></p>
 								<p>Overrides <a href="basicmodel.html">BasicModel</a>.<a href="basicmodel.html#patchvalue">patchValue</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/form/formulr/models/field.ts#L111">packages/zent/src/form/formulr/models/field.ts:111</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/form/formulr/models/field.ts#L103">packages/zent/src/form/formulr/models/field.ts:103</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -682,7 +724,7 @@
 								<p>Implementation of <a href="../interfaces/imodel.html">IModel</a>.<a href="../interfaces/imodel.html#pristine">pristine</a></p>
 								<p>Overrides <a href="basicmodel.html">BasicModel</a>.<a href="basicmodel.html#pristine">pristine</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/form/formulr/models/field.ts#L118">packages/zent/src/form/formulr/models/field.ts:118</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/form/formulr/models/field.ts#L110">packages/zent/src/form/formulr/models/field.ts:110</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -706,7 +748,7 @@
 								<p>Implementation of <a href="../interfaces/imodel.html">IModel</a>.<a href="../interfaces/imodel.html#reset">reset</a></p>
 								<p>Overrides <a href="basicmodel.html">BasicModel</a>.<a href="basicmodel.html#reset">reset</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/form/formulr/models/field.ts#L59">packages/zent/src/form/formulr/models/field.ts:59</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/form/formulr/models/field.ts#L55">packages/zent/src/form/formulr/models/field.ts:55</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -730,7 +772,7 @@
 								<p>Implementation of <a href="../interfaces/imodel.html">IModel</a>.<a href="../interfaces/imodel.html#touched">touched</a></p>
 								<p>Overrides <a href="basicmodel.html">BasicModel</a>.<a href="basicmodel.html#touched">touched</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/form/formulr/models/field.ts#L138">packages/zent/src/form/formulr/models/field.ts:138</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/form/formulr/models/field.ts#L130">packages/zent/src/form/formulr/models/field.ts:130</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -753,7 +795,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="fieldsetmodel.html">FieldSetModel</a>.<a href="fieldsetmodel.html#triggervalidate">triggerValidate</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/form/formulr/models/basic.ts#L79">packages/zent/src/form/formulr/models/basic.ts:79</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/form/formulr/models/basic.ts#L94">packages/zent/src/form/formulr/models/basic.ts:94</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -766,26 +808,21 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="valid" class="tsd-anchor"></a>
 					<h3>valid</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">valid<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/imodel.html">IModel</a>.<a href="../interfaces/imodel.html#valid">valid</a></p>
-								<p>Overrides <a href="basicmodel.html">BasicModel</a>.<a href="basicmodel.html#valid">valid</a></p>
+								<p>Inherited from <a href="fieldsetmodel.html">FieldSetModel</a>.<a href="fieldsetmodel.html#valid">valid</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/form/formulr/models/field.ts#L95">packages/zent/src/form/formulr/models/field.ts:95</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/form/formulr/models/basic.ts#L90">packages/zent/src/form/formulr/models/basic.ts:90</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p><code>Field</code> 是否所有校验都通过了</p>
-								</div>
-							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 						</li>
 					</ul>
@@ -802,7 +839,7 @@
 								<p>Implementation of <a href="../interfaces/imodel.html">IModel</a>.<a href="../interfaces/imodel.html#validate">validate</a></p>
 								<p>Overrides <a href="basicmodel.html">BasicModel</a>.<a href="basicmodel.html#validate">validate</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/form/formulr/models/field.ts#L103">packages/zent/src/form/formulr/models/field.ts:103</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/form/formulr/models/field.ts#L92">packages/zent/src/form/formulr/models/field.ts:92</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -849,6 +886,12 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="fieldmodel.html#_model_id_" class="tsd-kind-icon">[MODEL_<wbr>ID]</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="fieldmodel.html#_valid_" class="tsd-kind-icon">_valid$</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="fieldmodel.html#_value_" class="tsd-kind-icon">_value$</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="fieldmodel.html#defaultvalue" class="tsd-kind-icon">default<wbr>Value</a>
 							</li>
@@ -882,17 +925,20 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="fieldmodel.html#validators" class="tsd-kind-icon">validators</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="fieldmodel.html#value_" class="tsd-kind-icon">value$</a>
-							</li>
 							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
 								<a href="fieldmodel.html#error" class="tsd-kind-icon">error</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 								<a href="fieldmodel.html#form" class="tsd-kind-icon">form</a>
 							</li>
-							<li class=" tsd-kind-accessor tsd-parent-kind-class">
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
+								<a href="fieldmodel.html#valid_" class="tsd-kind-icon">valid$</a>
+							</li>
+							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
 								<a href="fieldmodel.html#value" class="tsd-kind-icon">value</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
+								<a href="fieldmodel.html#value_" class="tsd-kind-icon">value$</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 								<a href="fieldmodel.html#clear" class="tsd-kind-icon">clear</a>
@@ -927,7 +973,7 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="fieldmodel.html#triggervalidate" class="tsd-kind-icon">trigger<wbr>Validate</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="fieldmodel.html#valid" class="tsd-kind-icon">valid</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">

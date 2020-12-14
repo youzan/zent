@@ -88,8 +88,6 @@
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ipopactionprops.html#confirmtext" class="tsd-kind-icon">confirm<wbr>Text</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ipopactionprops.html#oncancel" class="tsd-kind-icon">on<wbr>Cancel</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ipopactionprops.html#onconfirm" class="tsd-kind-icon">on<wbr>Confirm</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ipopactionprops.html#popover" class="tsd-kind-icon">popover</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ipopactionprops.html#prefix" class="tsd-kind-icon">prefix</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ipopactionprops.html#type" class="tsd-kind-icon">type</a></li>
 							</ul>
 						</section>
@@ -104,68 +102,29 @@
 					<div class="tsd-signature tsd-kind-icon">cancel<wbr>Pending<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/pop/Pop.tsx#L97">packages/zent/src/pop/Pop.tsx:97</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/pop/Action.tsx#L24">packages/zent/src/pop/Action.tsx:24</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="canceltext" class="tsd-anchor"></a>
-					<h3>cancel<wbr>Text</h3>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> cancel<wbr>Text</h3>
 					<div class="tsd-signature tsd-kind-icon">cancel<wbr>Text<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/pop/Pop.tsx#L95">packages/zent/src/pop/Pop.tsx:95</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/pop/Action.tsx#L22">packages/zent/src/pop/Action.tsx:22</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="changepending" class="tsd-anchor"></a>
 					<h3>change<wbr>Pending</h3>
-					<div class="tsd-signature tsd-kind-icon">change<wbr>Pending<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, state<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span>, callback<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
+					<div class="tsd-signature tsd-kind-icon">change<wbr>Pending<span class="tsd-signature-symbol">:</span> <a href="ichangepending.html" class="tsd-signature-type">IChangePending</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/pop/Pop.tsx#L98">packages/zent/src/pop/Pop.tsx:98</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/pop/Action.tsx#L25">packages/zent/src/pop/Action.tsx:25</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-type-declaration">
-						<h4>Type declaration</h4>
-						<ul class="tsd-parameters">
-							<li class="tsd-parameter-signature">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, state<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span>, callback<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-								</ul>
-								<ul class="tsd-descriptions">
-									<li class="tsd-description">
-										<h4 class="tsd-parameters-title">Parameters</h4>
-										<ul class="tsd-parameters">
-											<li>
-												<h5>key: <span class="tsd-signature-type">string</span></h5>
-											</li>
-											<li>
-												<h5>state: <span class="tsd-signature-type">boolean</span></h5>
-											</li>
-											<li>
-												<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
-												<ul class="tsd-parameters">
-													<li class="tsd-parameter-signature">
-														<ul class="tsd-signatures tsd-kind-type-literal">
-															<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-														</ul>
-														<ul class="tsd-descriptions">
-															<li class="tsd-description">
-																<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-															</li>
-														</ul>
-													</li>
-												</ul>
-											</li>
-										</ul>
-										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-									</li>
-								</ul>
-							</li>
-						</ul>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="confirmpending" class="tsd-anchor"></a>
@@ -173,57 +132,37 @@
 					<div class="tsd-signature tsd-kind-icon">confirm<wbr>Pending<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/pop/Pop.tsx#L96">packages/zent/src/pop/Pop.tsx:96</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/pop/Action.tsx#L23">packages/zent/src/pop/Action.tsx:23</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="confirmtext" class="tsd-anchor"></a>
-					<h3>confirm<wbr>Text</h3>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> confirm<wbr>Text</h3>
 					<div class="tsd-signature tsd-kind-icon">confirm<wbr>Text<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/pop/Pop.tsx#L94">packages/zent/src/pop/Pop.tsx:94</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/pop/Action.tsx#L21">packages/zent/src/pop/Action.tsx:21</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="oncancel" class="tsd-anchor"></a>
-					<h3>on<wbr>Cancel</h3>
-					<div class="tsd-signature tsd-kind-icon">on<wbr>Cancel<span class="tsd-signature-symbol">:</span> <a href="../globals.html#popactioncallback" class="tsd-signature-type">PopActionCallback</a></div>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> on<wbr>Cancel</h3>
+					<div class="tsd-signature tsd-kind-icon">on<wbr>Cancel<span class="tsd-signature-symbol">:</span> <a href="../globals.html#ipopactioncallback" class="tsd-signature-type">IPopActionCallback</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/pop/Pop.tsx#L93">packages/zent/src/pop/Pop.tsx:93</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/pop/Action.tsx#L20">packages/zent/src/pop/Action.tsx:20</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="onconfirm" class="tsd-anchor"></a>
-					<h3>on<wbr>Confirm</h3>
-					<div class="tsd-signature tsd-kind-icon">on<wbr>Confirm<span class="tsd-signature-symbol">:</span> <a href="../globals.html#popactioncallback" class="tsd-signature-type">PopActionCallback</a></div>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> on<wbr>Confirm</h3>
+					<div class="tsd-signature tsd-kind-icon">on<wbr>Confirm<span class="tsd-signature-symbol">:</span> <a href="../globals.html#ipopactioncallback" class="tsd-signature-type">IPopActionCallback</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/pop/Pop.tsx#L92">packages/zent/src/pop/Pop.tsx:92</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="popover" class="tsd-anchor"></a>
-					<h3>popover</h3>
-					<div class="tsd-signature tsd-kind-icon">popover<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/pop/Pop.tsx#L99">packages/zent/src/pop/Pop.tsx:99</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="prefix" class="tsd-anchor"></a>
-					<h3>prefix</h3>
-					<div class="tsd-signature tsd-kind-icon">prefix<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/pop/Pop.tsx#L90">packages/zent/src/pop/Pop.tsx:90</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/pop/Action.tsx#L19">packages/zent/src/pop/Action.tsx:19</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -233,7 +172,7 @@
 					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"primary"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"default"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"danger"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"success"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"secondary"</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/pop/Pop.tsx#L91">packages/zent/src/pop/Pop.tsx:91</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/pop/Action.tsx#L18">packages/zent/src/pop/Action.tsx:18</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -274,12 +213,6 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="ipopactionprops.html#onconfirm" class="tsd-kind-icon">on<wbr>Confirm</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="ipopactionprops.html#popover" class="tsd-kind-icon">popover</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="ipopactionprops.html#prefix" class="tsd-kind-icon">prefix</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="ipopactionprops.html#type" class="tsd-kind-icon">type</a>

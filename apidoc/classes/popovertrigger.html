@@ -59,18 +59,29 @@
 					<a href="popovertrigger.html">PopoverTrigger</a>
 				</li>
 			</ul>
-			<h1>Class PopoverTrigger&lt;T, S, SS, S&gt;</h1>
+			<h1>Class PopoverTrigger&lt;TriggerChildProps, T, S, SS, S&gt;</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<dl class="tsd-comment-tags">
+						<dt>deprecated</dt>
+						<dd></dd>
+					</dl>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-type-parameters">
 				<h3>Type parameters</h3>
 				<ul class="tsd-type-parameters">
 					<li>
-						<h4>T<span class="tsd-signature-symbol">: </span><a href="../interfaces/ipopovertriggerprops.html" class="tsd-signature-type">IPopoverTriggerProps</a></h4>
+						<h4>TriggerChildProps</h4>
+					</li>
+					<li>
+						<h4>T<span class="tsd-signature-symbol">: </span><a href="../interfaces/ipopovertriggerprops.html" class="tsd-signature-type">IPopoverTriggerProps</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TriggerChildProps</span><span class="tsd-signature-symbol">&gt;</span></h4>
 					</li>
 					<li>
 						<h4>S</h4>
@@ -93,18 +104,6 @@
 								<span class="target">PopoverTrigger</span>
 								<ul class="tsd-hierarchy">
 									<li>
-										<a href="popoverclicktrigger.html" class="tsd-signature-type">PopoverClickTrigger</a>
-									</li>
-									<li>
-										<a href="popoverhovertrigger.html" class="tsd-signature-type">PopoverHoverTrigger</a>
-									</li>
-									<li>
-										<a href="focustrigger.html" class="tsd-signature-type">FocusTrigger</a>
-									</li>
-									<li>
-										<a href="nonetrigger.html" class="tsd-signature-type">NoneTrigger</a>
-									</li>
-									<li>
 										<a href="nonetrigger.html" class="tsd-signature-type">NoneTrigger</a>
 									</li>
 								</ul>
@@ -117,20 +116,20 @@
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section ">
+						<section class="tsd-index-section tsd-is-inherited">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="popovertrigger.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><a href="popovertrigger.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section tsd-is-inherited">
+						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="popovertrigger.html#context" class="tsd-kind-icon">context</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="popovertrigger.html#context" class="tsd-kind-icon">context</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="popovertrigger.html#props" class="tsd-kind-icon">props</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="popovertrigger.html#refs" class="tsd-kind-icon">refs</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="popovertrigger.html#state" class="tsd-kind-icon">state</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="popovertrigger.html#contexttype" class="tsd-kind-icon">context<wbr>Type</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-static"><a href="popovertrigger.html#contexttype" class="tsd-kind-icon">context<wbr>Type</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -148,39 +147,72 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="popovertrigger.html#componentwillupdate" class="tsd-kind-icon">component<wbr>Will<wbr>Update</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="popovertrigger.html#forceupdate" class="tsd-kind-icon">force<wbr>Update</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="popovertrigger.html#getsnapshotbeforeupdate" class="tsd-kind-icon">get<wbr>Snapshot<wbr>Before<wbr>Update</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="popovertrigger.html#gettriggerprops" class="tsd-kind-icon">get<wbr>Trigger<wbr>Props</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="popovertrigger.html#isoutsideself" class="tsd-kind-icon">is<wbr>Outside<wbr>Self</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="popovertrigger.html#onrefchange" class="tsd-kind-icon">on<wbr>Ref<wbr>Change</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="popovertrigger.html#gettriggerprops" class="tsd-kind-icon">get<wbr>Trigger<wbr>Props</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="popovertrigger.html#render" class="tsd-kind-icon">render</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="popovertrigger.html#setstate" class="tsd-kind-icon">set<wbr>State</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="popovertrigger.html#shouldcomponentupdate" class="tsd-kind-icon">should<wbr>Component<wbr>Update</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="popovertrigger.html#triggerevent" class="tsd-kind-icon">trigger<wbr>Event</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="popovertrigger.html#validatechildren" class="tsd-kind-icon">validate<wbr>Children</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group ">
+			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
 				<h2>Constructors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
-					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Popover<wbr>Trigger<span class="tsd-signature-symbol">(</span>props<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="popovertrigger.html" class="tsd-signature-type">PopoverTrigger</a></li>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Popover<wbr>Trigger<span class="tsd-signature-symbol">(</span>props<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="popovertrigger.html" class="tsd-signature-type">PopoverTrigger</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Popover<wbr>Trigger<span class="tsd-signature-symbol">(</span>props<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, context<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="popovertrigger.html" class="tsd-signature-type">PopoverTrigger</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Overrides <a href="alertitem.html">AlertItem</a>.<a href="alertitem.html#constructor">constructor</a></p>
+								<p>Inherited from <a href="alertitem.html">AlertItem</a>.<a href="alertitem.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/popover/trigger/Trigger.tsx#L29">packages/zent/src/popover/trigger/Trigger.tsx:29</a></li>
+									<li>Defined in node_modules/@types/react/index.d.ts:473</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>deprecated</dt>
+									<dd></dd>
+									<dt>see</dt>
+									<dd><p><a href="https://reactjs.org/docs/legacy-context.html">https://reactjs.org/docs/legacy-context.html</a></p>
+									</dd>
+								</dl>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>props: <span class="tsd-signature-type">any</span></h5>
+									<h5>props: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">T</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="popovertrigger.html" class="tsd-signature-type">PopoverTrigger</a></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="alertitem.html">AlertItem</a>.<a href="alertitem.html#constructor">constructor</a></p>
+								<ul>
+									<li>Defined in node_modules/@types/react/index.d.ts:475</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>deprecated</dt>
+									<dd></dd>
+									<dt>see</dt>
+									<dd><p><a href="https://reactjs.org/docs/legacy-context.html">https://reactjs.org/docs/legacy-context.html</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>props: <span class="tsd-signature-type">T</span></h5>
+								</li>
+								<li>
+									<h5>context: <span class="tsd-signature-type">any</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="popovertrigger.html" class="tsd-signature-type">PopoverTrigger</a></h4>
@@ -188,35 +220,18 @@
 					</ul>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
 					<a name="context" class="tsd-anchor"></a>
 					<h3>context</h3>
-					<div class="tsd-signature tsd-kind-icon">context<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<div class="tsd-signature tsd-kind-icon">context<span class="tsd-signature-symbol">:</span> <a href="../interfaces/ipopovercontext.html" class="tsd-signature-type">IPopoverContext</a></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="alertitem.html">AlertItem</a>.<a href="alertitem.html#context">context</a></p>
+						<p>Overrides <a href="alertitem.html">AlertItem</a>.<a href="alertitem.html#context">context</a></p>
 						<ul>
-							<li>Defined in node_modules/@types/react/index.d.ts:486</li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/popover/trigger/Trigger.tsx#L17">packages/zent/src/popover/trigger/Trigger.tsx:17</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>If using the new style context, re-declare this in your class to be the
-								<code>React.ContextType</code> of your <code>static contextType</code>.
-							Should be used with type annotation or static contextType.</p>
-						</div>
-						<pre><code class="language-ts"><span class="hljs-keyword">static</span> contextType = MyContext
-<span class="hljs-comment">// For TS pre-3.7:</span>
-context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContext&gt;
-<span class="hljs-comment">// For TS 3.7 and above:</span>
-<span class="hljs-keyword">declare</span> context: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContext&gt;</code></pre>
-						<dl class="tsd-comment-tags">
-							<dt>see</dt>
-							<dd><p><a href="https://reactjs.org/docs/context.html">https://reactjs.org/docs/context.html</a></p>
-							</dd>
-						</dl>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="props" class="tsd-anchor"></a>
@@ -225,7 +240,7 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="alertitem.html">AlertItem</a>.<a href="alertitem.html#props">props</a></p>
 						<ul>
-							<li>Defined in node_modules/@types/react/index.d.ts:511</li>
+							<li>Defined in node_modules/@types/react/index.d.ts:498</li>
 						</ul>
 					</aside>
 				</section>
@@ -236,7 +251,7 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="alertitem.html">AlertItem</a>.<a href="alertitem.html#refs">refs</a></p>
 						<ul>
-							<li>Defined in node_modules/@types/react/index.d.ts:517</li>
+							<li>Defined in node_modules/@types/react/index.d.ts:504</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -262,41 +277,20 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="alertitem.html">AlertItem</a>.<a href="alertitem.html#state">state</a></p>
 						<ul>
-							<li>Defined in node_modules/@types/react/index.d.ts:512</li>
+							<li>Defined in node_modules/@types/react/index.d.ts:499</li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-static">
 					<a name="contexttype" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> <span class="tsd-flag ts-flagOptional">Optional</span> context<wbr>Type</h3>
-					<div class="tsd-signature tsd-kind-icon">context<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Context</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> context<wbr>Type</h3>
+					<div class="tsd-signature tsd-kind-icon">context<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Context</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ipopovercontext.html" class="tsd-signature-type">IPopoverContext</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = PopoverContext</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="alertitem.html">AlertItem</a>.<a href="alertitem.html#contexttype">contextType</a></p>
+						<p>Overrides <a href="alertitem.html">AlertItem</a>.<a href="alertitem.html#contexttype">contextType</a></p>
 						<ul>
-							<li>Defined in node_modules/@types/react/index.d.ts:468</li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/popover/trigger/Trigger.tsx#L16">packages/zent/src/popover/trigger/Trigger.tsx:16</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>If set, <code>this.context</code> will be set at runtime to the current value of the given Context.</p>
-						</div>
-						<p>Usage:</p>
-						<pre><code class="language-ts">type MyContext = number
-const Ctx = React.createContext&lt;MyContext&gt;(0)
-
-class Foo extends React.Component {
-  static contextType = Ctx
-  context!: React.ContextType&lt;typeof Ctx&gt;
-  render () {
-    return &lt;&gt;My context&#x27;s value: {this.context}&lt;/&gt;;
-  }
-}</code></pre>
-						<dl class="tsd-comment-tags">
-							<dt>see</dt>
-							<dd><p><a href="https://reactjs.org/docs/context.html#classcontexttype">https://reactjs.org/docs/context.html#classcontexttype</a></p>
-							</dd>
-						</dl>
-					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -312,7 +306,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="waypoint.html">Waypoint</a>.<a href="waypoint.html#unsafe_componentwillmount">UNSAFE_componentWillMount</a></p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:712</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:711</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -350,7 +344,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="waypoint.html">Waypoint</a>.<a href="waypoint.html#unsafe_componentwillreceiveprops">UNSAFE_componentWillReceiveProps</a></p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:744</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:743</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -399,7 +393,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="waypoint.html">Waypoint</a>.<a href="waypoint.html#unsafe_componentwillupdate">UNSAFE_componentWillUpdate</a></p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:772</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:771</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -449,7 +443,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="waypoint.html">Waypoint</a>.<a href="waypoint.html#componentdidcatch">componentDidCatch</a></p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:641</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:640</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -482,7 +476,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="alert.html">Alert</a>.<a href="alert.html#componentdidmount">componentDidMount</a></p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:620</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:619</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -505,7 +499,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="alert.html">Alert</a>.<a href="alert.html#componentdidupdate">componentDidUpdate</a></p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:683</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:682</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -541,7 +535,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="waypoint.html">Waypoint</a>.<a href="waypoint.html#componentwillmount">componentWillMount</a></p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:698</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:697</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -578,7 +572,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="waypoint.html">Waypoint</a>.<a href="waypoint.html#componentwillreceiveprops">componentWillReceiveProps</a></p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:727</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:726</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -626,7 +620,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="alert.html">Alert</a>.<a href="alert.html#componentwillunmount">componentWillUnmount</a></p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:636</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:635</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -650,7 +644,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="waypoint.html">Waypoint</a>.<a href="waypoint.html#componentwillupdate">componentWillUpdate</a></p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:757</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:756</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -699,7 +693,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="alertitem.html">AlertItem</a>.<a href="alertitem.html#forceupdate">forceUpdate</a></p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:503</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:490</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -735,7 +729,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="waypoint.html">Waypoint</a>.<a href="waypoint.html#getsnapshotbeforeupdate">getSnapshotBeforeUpdate</a></p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:677</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:676</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -760,74 +754,26 @@ class Foo extends React.Component {
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
 					<a name="gettriggerprops" class="tsd-anchor"></a>
-					<h3>get<wbr>Trigger<wbr>Props</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Trigger<wbr>Props<span class="tsd-signature-symbol">(</span>_child<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Element</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{}</span></li>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> get<wbr>Trigger<wbr>Props</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Trigger<wbr>Props<span class="tsd-signature-symbol">(</span>_child<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ReactElement</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TriggerChildProps</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TriggerChildProps</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/popover/trigger/Trigger.tsx#L63">packages/zent/src/popover/trigger/Trigger.tsx:63</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/popover/trigger/Trigger.tsx#L19">packages/zent/src/popover/trigger/Trigger.tsx:19</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> _child: <span class="tsd-signature-type">Element</span></h5>
+									<h5>_child: <span class="tsd-signature-type">ReactElement</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TriggerChildProps</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">{}</span></h4>
-							<ul class="tsd-parameters">
-							</ul>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="isoutsideself" class="tsd-anchor"></a>
-					<h3>is<wbr>Outside<wbr>Self</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">is<wbr>Outside<wbr>Self<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/popover/trigger/Trigger.tsx#L40">packages/zent/src/popover/trigger/Trigger.tsx:40</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>target: <span class="tsd-signature-type">any</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="onrefchange" class="tsd-anchor"></a>
-					<h3>on<wbr>Ref<wbr>Change</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">on<wbr>Ref<wbr>Change<span class="tsd-signature-symbol">(</span>instance<span class="tsd-signature-symbol">: </span><a href="domref.html" class="tsd-signature-type">DOMRef</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/popover/trigger/Trigger.tsx#L103">packages/zent/src/popover/trigger/Trigger.tsx:103</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>instance: <a href="domref.html" class="tsd-signature-type">DOMRef</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TriggerChildProps</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -842,7 +788,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Overrides <a href="basetab.html">BaseTab</a>.<a href="basetab.html#render">render</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/popover/trigger/Trigger.tsx#L109">packages/zent/src/popover/trigger/Trigger.tsx:109</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/popover/trigger/Trigger.tsx#L25">packages/zent/src/popover/trigger/Trigger.tsx:25</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Element</span></h4>
@@ -860,7 +806,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="alertitem.html">AlertItem</a>.<a href="alertitem.html#setstate">setState</a></p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:498</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:485</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -905,7 +851,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="waypoint.html">Waypoint</a>.<a href="waypoint.html#shouldcomponentupdate">shouldComponentUpdate</a></p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:631</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:630</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -934,52 +880,6 @@ class Foo extends React.Component {
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="triggerevent" class="tsd-anchor"></a>
-					<h3>trigger<wbr>Event</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">trigger<wbr>Event<span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, eventName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/popover/trigger/Trigger.tsx#L68">packages/zent/src/popover/trigger/Trigger.tsx:68</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>element: <span class="tsd-signature-type">any</span></h5>
-								</li>
-								<li>
-									<h5>eventName: <span class="tsd-signature-type">any</span></h5>
-								</li>
-								<li>
-									<h5>event: <span class="tsd-signature-type">any</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="validatechildren" class="tsd-anchor"></a>
-					<h3>validate<wbr>Children</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">validate<wbr>Children<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/popover/trigger/Trigger.tsx#L73">packages/zent/src/popover/trigger/Trigger.tsx:73</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
-						</li>
-					</ul>
-				</section>
 			</section>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -997,10 +897,10 @@ class Foo extends React.Component {
 					<li class="current tsd-kind-class tsd-has-type-parameter">
 						<a href="popovertrigger.html" class="tsd-kind-icon">Popover<wbr>Trigger</a>
 						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
 								<a href="popovertrigger.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
 								<a href="popovertrigger.html#context" class="tsd-kind-icon">context</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
@@ -1012,7 +912,7 @@ class Foo extends React.Component {
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="popovertrigger.html#state" class="tsd-kind-icon">state</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-static">
 								<a href="popovertrigger.html#contexttype" class="tsd-kind-icon">context<wbr>Type</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
@@ -1051,14 +951,8 @@ class Foo extends React.Component {
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="popovertrigger.html#getsnapshotbeforeupdate" class="tsd-kind-icon">get<wbr>Snapshot<wbr>Before<wbr>Update</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
 								<a href="popovertrigger.html#gettriggerprops" class="tsd-kind-icon">get<wbr>Trigger<wbr>Props</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="popovertrigger.html#isoutsideself" class="tsd-kind-icon">is<wbr>Outside<wbr>Self</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="popovertrigger.html#onrefchange" class="tsd-kind-icon">on<wbr>Ref<wbr>Change</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 								<a href="popovertrigger.html#render" class="tsd-kind-icon">render</a>
@@ -1068,12 +962,6 @@ class Foo extends React.Component {
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="popovertrigger.html#shouldcomponentupdate" class="tsd-kind-icon">should<wbr>Component<wbr>Update</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="popovertrigger.html#triggerevent" class="tsd-kind-icon">trigger<wbr>Event</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="popovertrigger.html#validatechildren" class="tsd-kind-icon">validate<wbr>Children</a>
 							</li>
 						</ul>
 					</li>

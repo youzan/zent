@@ -82,8 +82,10 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ipanelcellprops.html#cells" class="tsd-kind-icon">cells</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ipanelcellprops.html#col" class="tsd-kind-icon">col</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ipanelcellprops.html#onhover" class="tsd-kind-icon">on<wbr>Hover</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ipanelcellprops.html#onselect" class="tsd-kind-icon">on<wbr>Select</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ipanelcellprops.html#onselected" class="tsd-kind-icon">on<wbr>Selected</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ipanelcellprops.html#poptext" class="tsd-kind-icon">pop<wbr>Text</a></li>
 							</ul>
 						</section>
 					</div>
@@ -94,20 +96,30 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="cells" class="tsd-anchor"></a>
 					<h3>cells</h3>
-					<div class="tsd-signature tsd-kind-icon">cells<span class="tsd-signature-symbol">:</span> <a href="datepickers.ipanelcellvalue.html" class="tsd-signature-type">IPanelCellValue</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">[]</span></div>
+					<div class="tsd-signature tsd-kind-icon">cells<span class="tsd-signature-symbol">:</span> <a href="idatecellbase.html" class="tsd-signature-type">IDateCellBase</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/datetimepicker/common/PanelCell.tsx#L9">packages/zent/src/datetimepicker/common/PanelCell.tsx:9</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/date-picker/components/PanelCell.tsx#L27">packages/zent/src/date-picker/components/PanelCell.tsx:27</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="col" class="tsd-anchor"></a>
+					<h3>col</h3>
+					<div class="tsd-signature tsd-kind-icon">col<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/date-picker/components/PanelCell.tsx#L28">packages/zent/src/date-picker/components/PanelCell.tsx:28</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="onhover" class="tsd-anchor"></a>
-					<h3>on<wbr>Hover</h3>
-					<div class="tsd-signature tsd-kind-icon">on<wbr>Hover<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Date</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> on<wbr>Hover</h3>
+					<div class="tsd-signature tsd-kind-icon">on<wbr>Hover<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>val<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Date</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/datetimepicker/common/PanelCell.tsx#L7">packages/zent/src/datetimepicker/common/PanelCell.tsx:7</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/date-picker/components/PanelCell.tsx#L30">packages/zent/src/date-picker/components/PanelCell.tsx:30</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -115,14 +127,14 @@
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-signature">
 								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Date</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>val<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Date</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
 									<li class="tsd-description">
 										<h4 class="tsd-parameters-title">Parameters</h4>
 										<ul class="tsd-parameters">
 											<li>
-												<h5>value: <span class="tsd-signature-type">Date</span></h5>
+												<h5>val: <span class="tsd-signature-type">Date</span></h5>
 											</li>
 										</ul>
 										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -133,12 +145,12 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="onselect" class="tsd-anchor"></a>
-					<h3>on<wbr>Select</h3>
-					<div class="tsd-signature tsd-kind-icon">on<wbr>Select<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Date</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
+					<a name="onselected" class="tsd-anchor"></a>
+					<h3>on<wbr>Selected</h3>
+					<div class="tsd-signature tsd-kind-icon">on<wbr>Selected<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>val<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Date</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/8e3198d/packages/zent/src/datetimepicker/common/PanelCell.tsx#L8">packages/zent/src/datetimepicker/common/PanelCell.tsx:8</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/date-picker/components/PanelCell.tsx#L29">packages/zent/src/date-picker/components/PanelCell.tsx:29</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -146,14 +158,14 @@
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-signature">
 								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Date</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>val<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Date</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
 									<li class="tsd-description">
 										<h4 class="tsd-parameters-title">Parameters</h4>
 										<ul class="tsd-parameters">
 											<li>
-												<h5>value: <span class="tsd-signature-type">Date</span></h5>
+												<h5>val: <span class="tsd-signature-type">Date</span></h5>
 											</li>
 										</ul>
 										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -162,6 +174,16 @@
 							</li>
 						</ul>
 					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="poptext" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> pop<wbr>Text</h3>
+					<div class="tsd-signature tsd-kind-icon">pop<wbr>Text<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/018c66f/packages/zent/src/date-picker/components/PanelCell.tsx#L31">packages/zent/src/date-picker/components/PanelCell.tsx:31</a></li>
+						</ul>
+					</aside>
 				</section>
 			</section>
 		</div>
@@ -184,10 +206,16 @@
 								<a href="ipanelcellprops.html#cells" class="tsd-kind-icon">cells</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="ipanelcellprops.html#col" class="tsd-kind-icon">col</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="ipanelcellprops.html#onhover" class="tsd-kind-icon">on<wbr>Hover</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="ipanelcellprops.html#onselect" class="tsd-kind-icon">on<wbr>Select</a>
+								<a href="ipanelcellprops.html#onselected" class="tsd-kind-icon">on<wbr>Selected</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="ipanelcellprops.html#poptext" class="tsd-kind-icon">pop<wbr>Text</a>
 							</li>
 						</ul>
 					</li>
