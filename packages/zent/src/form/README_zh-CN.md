@@ -34,7 +34,7 @@ scatter: true
 
 ### 模型对应的 Hook
 
-表单模型封装了对状态的处理以及一些常用的表单操作，将这些能力与视图组件解耦，例如当前值、校验、脏检查、触碰检查等等，在视图组件中仅需要创建一个对应的 `Model` 对象并进行关联即可让组件拥有这些能力， Zent 提供了一些 Hook 用来简化 `Model` 与视图组件的关联：
+表单模型封装了对状态的处理以及一些常用的表单操作，将这些能力与视图组件解耦，例如当前值、校验、脏检查、操作检查等等，在视图组件中仅需要创建一个对应的 `Model` 对象并进行关联即可让组件拥有这些能力， Zent 提供了一些 Hook 用来简化 `Model` 与视图组件的关联：
 
 - `useField` ，创建并返回一个 `FieldModel` 对象并将其与组件进行关联，**必须在 `Form` 组件内部使用，依赖表单上下文**
 - `useFieldSet` ，创建并返回 `FieldSetModel` 对象以及局部的表单上下文，内部将 `FieldSetModel` 与组件进行关联并注册到上级的表单上下文中，**必须在 `Form` 组件内部使用，依赖表单上下文**
@@ -139,7 +139,7 @@ scatter: true
 | withoutError      | 设置不显示错误                                                 | `boolean`                                                     | 否       |
 | modelRef          | 获取 `Model` 引用                                              | `React.RefObject<FieldModel<Value>>;`                         | 否       |
 | validateOccasion  | 校验时机                                                       | `ValidateOccasion`                                            | 否       |
-| touchWhen         | 触碰时机                                                       | `TouchWhen`                                                   | 否       |
+| touchWhen         | 操作标记时机                                                   | `TouchWhen`                                                   | 否       |
 | normalize         | 触发 onChange 时会先经过 `normalize` 再写入到内部的 `model `上 | `(value: Value, prevValue: Value) => Value`                   | 否       |
 | format            | 渲染前会先经过 `format`                                        | `(value: Value) => Value`                                     | 否       |
 | getValidateOption | 根据触发校验的源头获取校验规则                                 | `(source: 'blur' \| 'change') => ValidateOption \| undefined` | 否       |
@@ -248,7 +248,7 @@ scatter: true
 
 #### ValidateOption
 
-- `ValidateOption.Empty`：仅在表单项被触碰过时才会校验自身
+- `ValidateOption.Empty`：仅在表单项被操作过时才会校验自身
 - `ValidateOption.Default`：等同于`ValidateOption.Empty`
 - `ValidateOption.IncludeAsync`：校验时包含异步校验
 - `ValidateOption.IncludeUntouched`：仅对满足`!!model.touched() === true`的字段进行校验
@@ -295,3 +295,118 @@ scatter: true
 | 参数  | 说明     | 类型     | 是否必须 |
 | ----- | -------- | -------- | -------- |
 | model | 字段模型 | `IModel` | 是       |
+
+#### BasicModel
+
+##### 属性
+
+| 属性             | 说明                                     | 类型                      |
+| ---------------- | ---------------------------------------- | ------------------------- |
+| id               | 实例的唯一标识                           | `string`                  |
+| value            | 当前值                                   | `T`                       |
+| defaultValue     | 默认值，不可变                           | `T`                       |
+| initialValue     | 初始值，可通过 `initialize` 改变         | `T`                       |
+| error            | 上一次校验的错误信息                     | `IMaybeError<T>`          |
+| owner            | 所有者，上下文中有直接关系的上级表单元素 | `BasicModel<any> \| null` |
+| form             | 所属表单                                 | `FormModel<any> \| null`  |
+| validators       | 校验规则列表                             | `IValidators<T>`          |
+| destroyOnUnmount | 是否在组件销毁的同时销毁模型，可变       | `boolean`                 |
+
+##### 方法
+
+| 方法           | 说明                                                             | 类型                                                    |
+| -------------- | ---------------------------------------------------------------- | ------------------------------------------------------- |
+| valid          | 返回当前校验状态                                                 | `() => boolean`                                         |
+| reset          | 重置为初始值                                                     | `() => void`                                            |
+| clear          | 清空当前值，设置为默认值                                         | `() => void`                                            |
+| initialize     | 重置为初始值                                                     | `(value: T) => void`                                    |
+| validate       | 发起校验                                                         | `(options?: ValidateOption) => Promise<IMayBeError<T>>` |
+| patchValue     | 修改当前值                                                       | `(value: T) => void`                                    |
+| dirty          | 值是否改变过，如果存在初始值会和初始值比较，否则和默认值比较     | `() => boolean`                                         |
+| pristine       | 值是否没有改变过，如果存在初始值会和初始值比较，否则和默认值比较 | `() => boolean`                                         |
+| touched        | 表单项是否被用户操作过                                           | `() => boolean`                                         |
+| getRawValue    | 返回未经任何处理的当前值                                         | `() => T`                                               |
+| getSubmitValue | 返回用于提交的当前值，会经过 `normalizeBeforeSubmit` 处理        | `() => any`                                             |
+
+#### FieldModel
+
+##### 属性
+
+| 属性                  | 说明                                      | 类型        |
+| --------------------- | ----------------------------------------- | ----------- |
+| isTouched             | 是否被用户操作过                          | `boolean`   |
+| isCompositing         | 输入法的 composition 状态                 | `boolean`   |
+| normalizeBeforeSubmit | 用于表单提交前格式化 `Field` 值的回调函数 | `() => any` |
+
+#### FieldSetModel
+
+##### 属性
+
+| 属性     | 说明       | 类型                              |
+| -------- | ---------- | --------------------------------- |
+| children | 子元素集合 | `Record<string, BasicModel<any>>` |
+
+##### 方法
+
+| 方法 | 说明                 | 类型                                |
+| ---- | -------------------- | ----------------------------------- |
+| get  | 获取指定名称的子元素 | `(name: string) => BasicModel<any>` |
+
+#### FieldArrayModel
+
+##### 属性
+
+| 属性      | 说明                     | 类型                       |
+| --------- | ------------------------ | -------------------------- |
+| children$ | 子元素集合的 rxjs 数据源 | `BehaviorSubject<Child[]>` |
+
+##### 方法
+
+| 方法    | 说明                     | 类型                                                                          |
+| ------- | ------------------------ | ----------------------------------------------------------------------------- |
+| get     | 获取指定索引的子元素     | `(name: number) => BasicModel<any>`                                           |
+| push    | 在尾部追加一个元素       | `(...items: Items[]) => void`                                                 |
+| pop     | 移除末位元素并返回       | `() => Child \| null`                                                         |
+| unshift | 在头部插入一个元素       | `(...items: Items[]) => void`                                                 |
+| shift   | 移除首位元素并返回       | `() => Child \| null`                                                         |
+| splice  | 可用于删除、添加指定元素 | `(start: number, deleteCount?: number, ...items: readonly Item[]) => Child[]` |
+
+#### ZentForm
+
+##### 属性
+
+| 属性              | 说明                    | 类型        |
+| ----------------- | ----------------------- | ----------- |
+| isSubmitting      | 是否正在提交            | `boolean`   |
+| isSubmitSucceeded | 是否提交成功            | `boolean`   |
+| isSubmitFailed    | 是否提交失败            | `boolean`   |
+| model             | 内部的 `FormModel` 实例 | `FormModel` |
+
+##### 方法
+
+| 方法           | 说明                              | 类型                                                    |
+| -------------- | --------------------------------- | ------------------------------------------------------- |
+| submit         | 提交表单                          | `() => void`                                            |
+| validate       | 校验表单                          | `(options?: ValidateOption) => Promise<IMayBeError<T>>` |
+| isValid        | 校验是否通过                      | `() => boolean`                                         |
+| isValidating   | 是否正在校验                      | `() => boolean`                                         |
+| getValue       | 获取未经任何处理的表单值          | `() => T`                                               |
+| getSubmitValue | 获取经过格式化的表单值            | `() => object`                                          |
+| initialize     | 初始化表单值                      | `(value: T) => void`                                    |
+| patchValue     | 修改表单值                        | `(value: T) => void`                                    |
+| resetValue     | 重置表单值                        | `() => void`                                            |
+| reset          | 重置表单值，会触发 `onReset` 回调 | `() => void`                                            |
+| clear          | 清空表单值                        | `() => void`                                            |
+
+#### useFormValue
+
+| 参数         | 说明               | 类型       | 是否必需 |
+| ------------ | ------------------ | ---------- | -------- |
+| form         | `useForm` 的返回值 | `ZentForm` | 是       |
+| defaultValue | 默认值             | `T`        | 否       |
+
+#### useFormValid
+
+| 参数 | 说明               | 类型       | 是否必需 |
+| ---- | ------------------ | ---------- | -------- |
+| form | `useForm` 的返回值 | `ZentForm` | 是       |
