@@ -1,1 +1,1 @@
-export const prefix = process.env.NODE_ENV === 'production' ? '/zent/' : '/';
+export const prefix = process.env.NODE_ENV === 'production' ? '/zent-v6/' : '/';

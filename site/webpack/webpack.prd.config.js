@@ -6,7 +6,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const happyThreadPool = require('./happypack-thread-pool');
 
-const prefix = '/zent/';
+const prefix = '/zent-v6/';
 
 module.exports = Object.assign({}, base, {
   entry: {
