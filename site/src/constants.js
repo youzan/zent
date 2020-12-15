@@ -9,5 +9,5 @@ function getPrefix() {
     return '/zent-beta/';
   }
 
-  return '/zent/';
+  return '/zent-v8/';
 }
