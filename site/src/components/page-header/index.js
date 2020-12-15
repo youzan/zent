@@ -17,6 +17,10 @@ const VERSIONS = [
     text: pkg.version,
   },
   {
+    key: 'v8',
+    text: '8.x',
+  },
+  {
     key: 'v7',
     text: '7.x',
   },
