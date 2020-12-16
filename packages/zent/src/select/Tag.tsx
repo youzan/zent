@@ -1,11 +1,11 @@
-import { memo } from 'react';
-import { ISelectItem } from './Select';
+import { memo, useCallback } from 'react';
+import type { ISelectItem, ISelectCommonProps } from './Select';
 import Icon from '../icon';
 
 export interface ISelectTagProps<Item extends ISelectItem> {
   item: Item;
   onRemove(item: Item): void;
-  renderValue?: (item: Item) => void;
+  renderValue?: ISelectCommonProps<Item>['renderValue'];
 }
 
 function SelectTag<Item extends ISelectItem>({
@@ -13,6 +13,14 @@ function SelectTag<Item extends ISelectItem>({
   onRemove,
   renderValue,
 }: ISelectTagProps<Item>) {
+  const onClick = useCallback(
+    (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+      e.stopPropagation();
+      onRemove(item);
+    },
+    [onRemove, item]
+  );
+
   return (
     <div className="zent-select-v2-tag">
       {renderValue ? (
@@ -23,10 +31,7 @@ function SelectTag<Item extends ISelectItem>({
       <Icon
         type="close"
         className="zent-select-v2-tag-close"
-        onClick={e => {
-          e.stopPropagation();
-          onRemove(item);
-        }}
+        onClick={onClick}
       />
     </div>
   );

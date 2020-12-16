@@ -1,11 +1,11 @@
 import { memo } from 'react';
-import { ISelectItem } from './Select';
+import type { ISelectItem, ISelectCommonProps } from './Select';
 import Tag from './Tag';
 
 export interface ISelectTagListProps<Item extends ISelectItem> {
   list: Item[];
   onRemove(item: Item): void;
-  renderValue?: (item: Item) => void;
+  renderValue?: ISelectCommonProps<Item>['renderValue'];
 }
 
 function SelectTagList<Item extends ISelectItem>({
@@ -20,7 +20,7 @@ function SelectTagList<Item extends ISelectItem>({
           key={it.key}
           item={it}
           onRemove={onRemove}
-          renderValue={renderValue}
+          renderValue={renderValue as any}
         />
       ))}
     </>
