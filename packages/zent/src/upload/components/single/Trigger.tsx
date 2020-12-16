@@ -1,5 +1,4 @@
 import cn from 'classnames';
-import * as React from 'react';
 
 import { IUploadFileItem } from '../../types';
 import AbstractTrigger from '../AbstractTrigger';
