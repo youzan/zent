@@ -2,7 +2,7 @@ import cx from 'classnames';
 import { Component, createRef } from 'react';
 
 import Popover from '../popover';
-import TagList from './TagList';
+import TagList, { ISelectTagListProps } from './TagList';
 import Option from './Option';
 import Search from './Search';
 import { DisabledContext, IDisabledContext } from '../disabled';
@@ -43,11 +43,11 @@ export interface ISelectCommonProps<Item extends ISelectItem> {
   disabled?: boolean;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
+  renderValue?: (value: Item) => React.ReactNode;
   renderOptionList<Item extends ISelectItem>(
     options: Item[],
     renderOption: IOptionRenderer<Item>
   ): React.ReactNode;
-  renderValue?: (value: Item) => React.ReactNode;
   renderOptionContent?: (value: Item) => React.ReactNode;
   clearable?: boolean;
   loading?: boolean;
@@ -63,16 +63,17 @@ export interface ISelectCommonProps<Item extends ISelectItem> {
 
 export interface ISelectSingleProps<Item extends ISelectItem>
   extends ISelectCommonProps<Item> {
-  value?: Item | null;
   multiple: false;
+  value?: Item | null;
   onChange?: (value: Item | null) => void;
 }
 
 export interface ISelectMultiProps<Item extends ISelectItem>
   extends ISelectCommonProps<Item> {
-  value?: Item[];
   multiple: true;
+  value?: Item[];
   onChange?: (value: Item[]) => void;
+  renderTagList?: (props: ISelectTagListProps<Item>) => React.ReactNode;
 }
 
 export type ISelectProps<Item extends ISelectItem = ISelectItem> =
@@ -646,20 +647,29 @@ export class Select<Item extends ISelectItem = ISelectItem> extends Component<
   renderTagList(value: Item[], i18n: II18nLocaleSelect) {
     const {
       renderValue,
+      renderTagList,
       collapsable,
       hideCollapsePop,
       collapseAt = 1,
-    } = this.props;
+    } = this.props as ISelectMultiProps<Item>;
     const tagsValue = collapsable ? value.slice(0, collapseAt) : value;
     const collapsedValue = value.slice(collapseAt);
 
     return (
       <>
-        <TagList
-          list={tagsValue}
-          onRemove={this.onRemove}
-          renderValue={renderValue as any}
-        />
+        {typeof renderTagList === 'function' ? (
+          renderTagList({
+            list: value,
+            onRemove: this.onRemove,
+            renderValue: renderValue as any,
+          })
+        ) : (
+          <TagList
+            list={tagsValue}
+            onRemove={this.onRemove}
+            renderValue={renderValue as any}
+          />
+        )}
         {collapsable &&
           collapsedValue.length > 0 &&
           (!hideCollapsePop ? (
