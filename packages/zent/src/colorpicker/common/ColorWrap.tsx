@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Component } from 'react';
 import debounce from '../../utils/debounce';
 import color from '../helpers/color';

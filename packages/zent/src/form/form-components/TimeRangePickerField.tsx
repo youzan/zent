@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Omit } from 'utility-types';
 import { IFormComponentProps, dateRangeDefaultTimeFactory } from '../shared';
 import { TimeRangePicker, ITimeRangePickerProps } from '../../date-picker';

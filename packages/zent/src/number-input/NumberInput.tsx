@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { Component, createRef } from 'react';
 import cx from 'classnames';
 import { Omit } from 'utility-types';
 import Decimal from 'big.js';
@@ -85,7 +85,7 @@ function getStateFromProps(props: INumberInputProps): INumberInputState {
   }
 }
 
-export class NumberInput extends React.Component<
+export class NumberInput extends Component<
   INumberInputProps,
   INumberInputState
 > {
@@ -99,7 +99,7 @@ export class NumberInput extends React.Component<
   static contextType = DisabledContext;
   context!: IDisabledContext;
   focused = false;
-  inputRef = React.createRef<Input>();
+  inputRef = createRef<Input>();
 
   private inputContext: IInputContext = {
     renderInner: children => this.renderChild(children),

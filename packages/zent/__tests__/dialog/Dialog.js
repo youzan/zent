@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { Simulate } from 'react-dom/test-utils';
 import Enzyme, { mount } from 'enzyme';
 import Dialog from 'dialog';

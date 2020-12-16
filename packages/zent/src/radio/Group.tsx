@@ -1,5 +1,6 @@
-import * as React from 'react';
 import cx from 'classnames';
+import { useContext, useMemo } from 'react';
+
 import GroupContext, { IRadioContext } from './GroupContext';
 import { IRadioEvent } from './AbstractRadio';
 import { DisabledContext } from '../disabled';
@@ -16,7 +17,7 @@ export interface IRadioGroupProps<Value> {
 }
 
 export function RadioGroup<Value>(props: IRadioGroupProps<Value>) {
-  const disabledCtx = React.useContext(DisabledContext);
+  const disabledCtx = useContext(DisabledContext);
   const {
     value,
     disabled = disabledCtx.value,
@@ -28,7 +29,7 @@ export function RadioGroup<Value>(props: IRadioGroupProps<Value>) {
     onChange,
   } = props;
 
-  const ctx = React.useMemo<IRadioContext<Value>>(
+  const ctx = useMemo<IRadioContext<Value>>(
     () => ({
       value,
       disabled,

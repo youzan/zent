@@ -1,10 +1,9 @@
-import React from 'react';
 import { Simulate } from 'react-dom/test-utils';
 import Enzyme, { mount } from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import MenuCascader from 'cascader/MenuCascader';
 import TabsCascader from 'cascader/TabsCascader';
-import { clone, getNode, insertPath } from 'cascader/public-options-fns';
+import { clone, getNode, insertPath, merge } from 'cascader/public-options-fns';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -114,7 +113,7 @@ describe('Cascader', () => {
     wrapper.find('.zent-cascader-v2').simulate('click');
     jest.runAllTimers();
 
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
 
     simulateRawWithTimers(
       pop.querySelectorAll('.zent-cascader-v2__menu-item')[0],
@@ -184,7 +183,7 @@ describe('Cascader', () => {
 
     simulateWithTimers(wrapper.find('.zent-cascader-v2'), 'click');
     wrapper.update();
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
 
     expect(pop.querySelectorAll('.zent-cascader-v2__list-item').length).toBe(1);
     expect(
@@ -343,7 +342,7 @@ describe('Cascader', () => {
     wrapper.find('.zent-cascader-v2').simulate('click');
     jest.runAllTimers();
 
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
 
     expect(pop.querySelectorAll('.zent-cascader-v2__menu-item').length).toBe(1);
     expect(
@@ -396,7 +395,7 @@ describe('Cascader', () => {
     wrapper.find('.zent-cascader-v2').simulate('click');
     jest.runAllTimers();
 
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
 
     expect(pop.querySelectorAll('.zent-cascader-v2__menu-item').length).toBe(1);
     expect(
@@ -466,7 +465,7 @@ describe('Cascader', () => {
     wrapper.find('.zent-cascader-v2').simulate('click');
     jest.runAllTimers();
 
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
 
     simulateRawWithTimers(
       pop.querySelectorAll('.zent-cascader-v2__menu-item')[0],
@@ -559,7 +558,7 @@ describe('Cascader', () => {
     wrapper.find('.zent-cascader-v2').simulate('click');
     jest.runAllTimers();
 
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
 
     simulateRawWithTimers(
       pop.querySelectorAll('.zent-cascader-v2__list-link')[0],
@@ -647,7 +646,7 @@ describe('Cascader', () => {
     wrapper.find('.zent-cascader-v2').simulate('click');
     jest.runAllTimers();
 
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
 
     simulateRawWithTimers(
       pop.querySelectorAll('.zent-cascader-v2__list-link')[0],
@@ -700,7 +699,7 @@ describe('Cascader', () => {
     wrapper.find('.zent-cascader-v2').simulate('click');
     jest.runAllTimers();
 
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
 
     simulateRawWithTimers(
       pop.querySelectorAll('.zent-cascader-v2__menu-item')[0],
@@ -803,7 +802,7 @@ describe('Cascader', () => {
     jest.runAllTimers();
     wrapper.update();
 
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
     expect(pop.querySelectorAll('.zent-cascader-v2__menu').length).toBe(3);
 
     wrapper
@@ -881,7 +880,7 @@ describe('Cascader', () => {
       .find('input')
       .simulate('change', { target: { value: 'anotherGrandSon' } });
 
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
     expect(
       pop.querySelector('.zent-cascader-v2--search-empty').textContent
     ).toBe('无搜索结果');
@@ -979,7 +978,7 @@ describe('Cascader', () => {
 
     jest.runAllTimers();
 
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
     expect(pop.querySelectorAll('.zent-cascader-v2--search-item').length).toBe(
       2
     );
@@ -1058,7 +1057,7 @@ describe('Cascader', () => {
     });
     jest.runAllTimers();
 
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
     expect(pop.querySelectorAll('.zent-cascader-v2--search-item').length).toBe(
       2
     );
@@ -1129,7 +1128,7 @@ describe('Cascader', () => {
 
     jest.runAllTimers();
 
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
     expect(pop.querySelectorAll('.zent-cascader-v2--search-item').length).toBe(
       1
     );
@@ -1224,7 +1223,7 @@ describe('Cascader', () => {
       visible: true,
     });
 
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
     expect(pop.querySelectorAll('.zent-loading').length).toBe(0);
 
     simulateRawWithTimers(
@@ -1246,7 +1245,7 @@ describe('Cascader', () => {
     wrapper.find('.zent-cascader-v2').simulate('click');
     jest.runAllTimers();
 
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
 
     expect(pop.querySelectorAll('.zent-cascader-v2__menu-item').length).toBe(0);
     expect(
@@ -1254,5 +1253,104 @@ describe('Cascader', () => {
     ).toBe('无数据');
 
     wrapper.unmount();
+  });
+
+  it('public options fns', () => {
+    const options = [
+      {
+        value: 1,
+        label: 'root',
+        loadChildrenOnScroll: false,
+        children: [
+          {
+            value: 2,
+            label: 'son',
+            children: [
+              {
+                value: 3,
+                label: 'grandSon',
+              },
+            ],
+          },
+          {
+            value: 4,
+            label: 'anotherSon',
+            children: [
+              {
+                value: 5,
+                label: 'anotherGrandSon',
+              },
+            ],
+          },
+        ],
+      },
+    ];
+    const anotherOptions = [
+      {
+        value: 1,
+        label: 'root',
+        children: [
+          {
+            value: 3,
+            label: '3',
+            children: [],
+          },
+          {
+            value: 2,
+            label: 'son',
+            children: [
+              {
+                value: 4,
+                label: '4',
+              },
+            ],
+          },
+        ],
+      },
+    ];
+
+    const ret = merge(options, anotherOptions);
+    expect(ret).toEqual([
+      {
+        value: 1,
+        label: 'root',
+        loadChildrenOnScroll: false,
+        children: [
+          {
+            value: 2,
+            label: 'son',
+            children: [
+              {
+                value: 3,
+                label: 'grandSon',
+              },
+              {
+                value: 4,
+                label: '4',
+              },
+            ],
+          },
+          {
+            value: 4,
+            label: 'anotherSon',
+            children: [
+              {
+                value: 5,
+                label: 'anotherGrandSon',
+              },
+            ],
+          },
+          {
+            value: 3,
+            label: '3',
+            children: [],
+          },
+        ],
+      },
+    ]);
+
+    expect(getNode(options, [{ value: 1 }, { value: 2 }, { value: 33 }])).toBe(
+      null
+    );
   });
 });

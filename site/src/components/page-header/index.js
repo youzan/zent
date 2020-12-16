@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { Select } from 'zent';
 
 import pkg from '../../../../packages/zent/package.json';
@@ -15,6 +15,10 @@ const VERSIONS = [
   {
     key: 'latest',
     text: pkg.version,
+  },
+  {
+    key: 'v8',
+    text: '8.x',
   },
   {
     key: 'v7',

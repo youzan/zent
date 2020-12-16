@@ -1,11 +1,11 @@
-import React from 'react';
+import { Component } from 'react';
 import Enzyme, { mount } from 'enzyme';
 import ErrorBoundary from 'error-boundary';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 
 Enzyme.configure({ adapter: new Adapter() });
 
-class ErrorComponent extends React.Component {
+class ErrorComponent extends Component {
   render() {
     throw new Error('This is an error from render.');
 
@@ -14,7 +14,7 @@ class ErrorComponent extends React.Component {
   }
 }
 
-class CustomFallback extends React.Component {
+class CustomFallback extends Component {
   render() {
     return <div className="custom-fallback-component" />;
   }

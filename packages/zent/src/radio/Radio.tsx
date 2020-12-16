@@ -1,4 +1,3 @@
-import * as React from 'react';
 import cx from 'classnames';
 
 import getWidth from '../utils/getWidth';
@@ -7,6 +6,7 @@ import RadioGroup from './Group';
 import RadioButton from './RadioButton';
 import { DisabledContext } from '../disabled';
 import GroupContext from './GroupContext';
+import { useContext } from 'react';
 
 function Radio<Value>(
   props: IRadioProps<Value> & { labelStyle?: React.CSSProperties }
@@ -24,8 +24,8 @@ function Radio<Value>(
 
     ...others
   } = props;
-  const disabledCtx = React.useContext(DisabledContext);
-  const groupCtx = React.useContext(GroupContext);
+  const disabledCtx = useContext(DisabledContext);
+  const groupCtx = useContext(GroupContext);
   const { checked, disabled, readOnly } = getRadioState(
     disabledCtx,
     groupCtx,

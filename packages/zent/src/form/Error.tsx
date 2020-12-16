@@ -1,5 +1,5 @@
-import * as React from 'react';
 import cx from 'classnames';
+import { forwardRef } from 'react';
 
 export interface IFormErrorProps {
   className?: string;
@@ -7,7 +7,7 @@ export interface IFormErrorProps {
   children?: React.ReactNode;
 }
 
-export const FormError = React.forwardRef<HTMLDivElement, IFormErrorProps>(
+export const FormError = forwardRef<HTMLDivElement, IFormErrorProps>(
   ({ className, style, children }, ref) => (
     <div
       ref={ref}

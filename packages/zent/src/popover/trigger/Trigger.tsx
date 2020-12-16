@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { Component, Children } from 'react';
+import { Component, Children, cloneElement } from 'react';
 import PopoverContext, { IPopoverContext } from '../Context';
 import Anchor from '../Anchor';
 
@@ -34,9 +33,7 @@ export class PopoverTrigger<
     if (typeof child === 'number' || typeof child === 'string') {
       child = <span>{child}</span>;
     }
-    return (
-      <Anchor>{React.cloneElement(child, this.getTriggerProps(child))}</Anchor>
-    );
+    return <Anchor>{cloneElement(child, this.getTriggerProps(child))}</Anchor>;
   }
 }
 

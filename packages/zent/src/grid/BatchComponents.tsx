@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { PureComponent } from 'react';
 import classnames from 'classnames';
 import SelectionCheckboxAll from './SelectionCheckboxAll';
@@ -10,9 +9,9 @@ export interface IBatchComponentsProps<Data = any> {
   batchRender: IGridBatchRender;
   prefix: string;
   position: 'header' | 'foot';
-  onSelect: (type: string, datasets: Data[]) => void;
+  onSelect: (type: string, datasets: ReadonlyArray<Data>) => void;
   store: Store;
-  datasets: Data[];
+  datasets: ReadonlyArray<Data>;
   getDataKey: (data: Data, rowIndex: string | number) => string;
   selection: IGridSelection;
   checkboxPropsCache: {

@@ -1,4 +1,4 @@
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
 import { BasicModel, isModel } from './basic';
 import { IMaybeError, ValidateOption } from '../validate';
 import { Maybe, None, Some } from '../maybe';
@@ -7,6 +7,8 @@ import isNil from '../../../utils/isNil';
 import uniqueId from '../../../utils/uniqueId';
 import isPlainObject from '../../../utils/isPlainObject';
 import { UnknownFieldSetModelChildren } from '../utils';
+import omit from '../../../utils/omit';
+import { warning } from '../utils';
 
 type $FieldSetValue<Children extends UnknownFieldSetModelChildren> = {
   [Key in keyof Children]: Children[Key] extends IModel<infer V> ? V : never;
@@ -22,14 +24,30 @@ class FieldSetModel<
    */
   [SET_ID]!: boolean;
 
-  /** @internal */
+  /**
+   * 上层调用 `patchValue` 的时候，子组件可能是没被挂载的状态，这时候需要用 `patchedValue` 存一下值，子组件挂载的时候从这里读
+   * @internal
+   */
   patchedValue: Partial<$FieldSetValue<Children>> | null = null;
 
-  childRegister$ = new Subject<string>();
-  childRemove$ = new Subject<string>();
+  readonly childRegister$ = new Subject<string>();
+
+  readonly childRemove$ = new Subject<string>();
+
   readonly children: Children = {} as Children;
 
   owner: IModel<any> | null = null;
+
+  private _valid$?: BehaviorSubject<boolean>;
+
+  private _value$?: BehaviorSubject<$FieldSetValue<Children>>;
+
+  private readonly invalidModels: Set<BasicModel<unknown>> = new Set();
+
+  private readonly mapModelToSubscriptions: Map<
+    BasicModel<unknown>,
+    Subscription[]
+  > = new Map();
 
   /** @internal */
   constructor(children: Children, id = uniqueId('field-set-')) {
@@ -42,6 +60,29 @@ class FieldSetModel<
       this.registerChild(name, child);
     }
     this.children = children;
+  }
+
+  get value() {
+    if (this._value$) {
+      return this._value$.value;
+    }
+    return this.getRawValue();
+  }
+
+  get value$() {
+    if (!this._value$) {
+      this._initValue$();
+    }
+
+    return this._value$!;
+  }
+
+  get valid$() {
+    if (!this._valid$) {
+      this._initValid$();
+    }
+
+    return this._valid$!;
   }
 
   /**
@@ -110,8 +151,11 @@ class FieldSetModel<
    */
   registerChild(name: string, model: BasicModel<any>) {
     const children: UnknownFieldSetModelChildren = this.children;
-    if (children.hasOwnProperty(name) && children[name] !== model) {
-      this.removeChild(name);
+    const prev = children[name];
+
+    if (prev !== model) {
+      prev && this.removeChild(name);
+      this._subscribeChild(name, model);
     }
     model.owner = this;
     children[name] = model;
@@ -125,6 +169,7 @@ class FieldSetModel<
   removeChild(name: string) {
     const model = this.children[name];
     model.owner = null;
+    this._unsubscribeChild(model);
     delete this.children[name];
     this.childRemove$.next(name);
     return model;
@@ -135,26 +180,9 @@ class FieldSetModel<
     const { children } = this;
     Object.keys(children).forEach(key => {
       const child = children[key];
+      this._unsubscribeChild(child);
       child.dispose();
     });
-  }
-
-  /**
-   * 是否 `FieldSet` 所有字段都通过了校验
-   */
-  valid() {
-    if (!isNil(this.error$.getValue())) {
-      return false;
-    }
-    const keys = Object.keys(this.children);
-    for (let i = 0; i < keys.length; i += 1) {
-      const key = keys[i];
-      const child = this.children[key];
-      if (!child.valid()) {
-        return false;
-      }
-    }
-    return true;
   }
 
   /**
@@ -263,6 +291,109 @@ class FieldSetModel<
     name: Name
   ): Children[Name] | undefined | null {
     return this.children[name as string] as any;
+  }
+
+  private _setValid() {
+    this._valid$?.next(isNil(this.error) && !this.invalidModels.size);
+  }
+
+  private _initValue$() {
+    warning(
+      'Subscribe Value',
+      'Subscribing value of form or field set might cause performance problems, do it with caution'
+    );
+    const value$ = new BehaviorSubject({} as $FieldSetValue<Children>);
+    this._value$ = value$;
+    for (const [name, model] of Object.entries(this.children)) {
+      this._subscribeChild(name, model);
+    }
+
+    const { childRegister$, childRemove$ } = this;
+
+    childRegister$.subscribe(name => {
+      value$.next({
+        ...value$.value,
+        [name]: this.children[name].getRawValue(),
+      });
+    });
+    childRemove$.subscribe(name => {
+      value$.next(omit(value$.value, [name]) as $FieldSetValue<Children>);
+    });
+  }
+
+  private _initValid$() {
+    warning(
+      'Subscribe Valid',
+      'Subscribing valid of form or field set might cause performance problems, do it with caution'
+    );
+    const valid$ = new BehaviorSubject(isNil(this.error));
+    this._valid$ = valid$;
+    const $ = this.error$.subscribe(() => {
+      this._setValid();
+    });
+    this.mapModelToSubscriptions.set(this as BasicModel<unknown>, [$]);
+    for (const [name, model] of Object.entries(this.children)) {
+      this._subscribeChild(name, model);
+    }
+  }
+
+  /**
+   * Subscribe `valid$` and `value$` of the model
+   * @param model
+   */
+  private _subscribeChild(name: string, model: BasicModel<unknown>) {
+    const { invalidModels, _valid$, _value$ } = this;
+
+    if (_valid$) {
+      this._subscribeObservable(model, model.valid$, valid => {
+        if (valid) {
+          invalidModels.delete(model);
+        } else {
+          invalidModels.add(model);
+        }
+
+        this._setValid();
+      });
+    }
+
+    if (_value$) {
+      this._subscribeObservable(model, model.value$, childValue => {
+        _value$.next({ ..._value$.value, [name]: childValue });
+      });
+    }
+  }
+
+  /**
+   * Unsubscribe `valid$` and `value$` of the model
+   * @param model
+   */
+  private _unsubscribeChild(model: BasicModel<unknown>) {
+    const subs = this.mapModelToSubscriptions.get(model);
+    subs?.forEach(sub => sub.unsubscribe());
+    this.mapModelToSubscriptions.delete(model);
+    this.invalidModels.delete(model);
+    this._setValid();
+  }
+
+  /**
+   * Subscribe a specified observable of the model
+   * @param model as the key for mapping to subscription
+   * @param observable
+   * @param observer
+   */
+  private _subscribeObservable<T>(
+    model: BasicModel<unknown>,
+    observable: Observable<T>,
+    observer: (value: T) => void
+  ) {
+    const { mapModelToSubscriptions } = this;
+    const $ = observable.subscribe(observer);
+    const subs = mapModelToSubscriptions.get(model);
+    if (subs) {
+      subs.push($);
+    } else {
+      mapModelToSubscriptions.set(model, [$]);
+    }
   }
 }
 

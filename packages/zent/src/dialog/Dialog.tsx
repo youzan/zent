@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Component } from 'react';
 import { CSSTransition } from 'react-transition-group';
 
@@ -118,12 +117,6 @@ export class Dialog extends Component<IDialogProps, IDialogState> {
     } = this.props;
     const { exiting } = this.state;
 
-    // load default max/min-width value when width is not specified in style prop
-    const elStyle = {
-      ...(style.width ? {} : { minWidth: '560px', maxWidth: '75%' }),
-      ...style,
-    };
-
     if (visible) {
       this.lastMousePosition = this.lastMousePosition || mousePosition;
     } else {
@@ -156,7 +149,7 @@ export class Dialog extends Component<IDialogProps, IDialogState> {
           >
             <DialogInnerEl
               {...props}
-              style={elStyle}
+              style={style}
               closeBtn={closeBtn}
               mousePosition={this.lastMousePosition}
             >

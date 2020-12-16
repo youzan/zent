@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useContext, useCallback } from 'react';
 import { I18nReceiver as Receiver, II18nLocaleTimePicker } from '../i18n';
 import DatePicker from './DatePicker';
 import RangePicker from './components/RangePickerBase';
@@ -9,9 +9,8 @@ import { dateConfig } from './utils/dateUtils';
 import {
   IGenerateDateConfig,
   IRangeProps,
-  IShowTime,
+  IShowTimeRange,
   IDisabledTime,
-  StringTuple,
   DateNullTuple,
   IValueType,
   IRangeRelatedType,
@@ -29,8 +28,9 @@ const PickerContextProvider = PickerContext.Provider;
 export interface IDateRangePickerProps<T extends IValueType = 'string'>
   extends Omit<IRangeProps, 'valueType' | 'onChange'>,
     IRangeRelatedType<T> {
-  showTime?: IShowTime<StringTuple>;
+  showTime?: IShowTimeRange<string>;
   disabledTime?: IDisabledTime;
+  hideFooter?: boolean;
 }
 const DefaultDateRangeProps = {
   format: DATE_FORMAT,
@@ -39,7 +39,7 @@ const DefaultDateRangeProps = {
 export const DateRangePicker = <T extends IValueType = 'string'>(
   props: IDateRangePickerProps<T>
 ) => {
-  const disabledContext = React.useContext(DisabledContext);
+  const disabledContext = useContext(DisabledContext);
   const propsRequired = {
     ...defaultDatePickerCommonProps,
     ...DefaultDateRangeProps,
@@ -55,7 +55,7 @@ export const DateRangePicker = <T extends IValueType = 'string'>(
     disabled = disabledContext.value,
   } = propsRequired;
 
-  const getCallbackRangeValue = React.useCallback(
+  const getCallbackRangeValue = useCallback(
     (val: DateNullTuple) => getRangeValuesWithValueType(valueType, format, val),
     [valueType, format]
   );
@@ -66,6 +66,7 @@ export const DateRangePicker = <T extends IValueType = 'string'>(
         <PickerContextProvider
           value={{
             i18n,
+            autoComplete: !!showTime,
             getCallbackRangeValue,
           }}
         >

@@ -1,4 +1,5 @@
-import * as React from 'react';
+import { useContext } from 'react';
+
 import { I18nReceiver as Receiver, II18nLocaleTimePicker } from '../i18n';
 import CombinedTimePickerBase from './components/CombinedTimePicker';
 import CombinedTimePanel from './panels/combined-time-range-panel';
@@ -12,7 +13,7 @@ const PickerContextProvider = PickerContext.Provider;
 export { ICombinedTimeRangePickerProps };
 
 export const CombinedTimeRangePicker: React.FC<ICombinedTimeRangePickerProps> = props => {
-  const disabledContext = React.useContext(DisabledContext);
+  const disabledContext = useContext(DisabledContext);
   const propsRequired = { ...defaultTimePickerProps, ...props };
 
   const {

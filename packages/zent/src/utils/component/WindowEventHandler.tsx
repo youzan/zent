@@ -1,4 +1,3 @@
-import * as React from 'react';
 import isBrowser from '../isBrowser';
 import { useEventHandler, EventHandler } from './event-handler';
 

@@ -9,7 +9,7 @@ function grey(msg) {
   return `${C_GREY}${msg}${C_RESET}`;
 }
 
-module.exports = function(api) {
+module.exports = function (api) {
   api.cache(true);
 
   const packagesDir = path.resolve(__dirname, './src');
@@ -72,7 +72,12 @@ module.exports = function(api) {
           useBuiltIns: false,
         },
       ],
-      '@babel/preset-react',
+      [
+        '@babel/preset-react',
+        {
+          runtime: 'automatic',
+        },
+      ],
     ],
 
     plugins: [

@@ -14,6 +14,16 @@ import {
 	CombinedTimeRangePicker,
 	CombinedDateRangePicker,
 } from 'zent';
+import {
+	disabledTimeWithMax,
+	disabledTimeWithRange,
+	getDisabledDateAndTimeWithRangeProps,
+} from 'zent/es/date-picker/disabledHelpers';
+import { isSameDay, addDays, parse } from 'date-fns';
+
+const initArray = targetNum => {
+	return Array.from({ length: targetNum }, (_, index) => index);
+};
 
 class Demo extends Component {
 	state = {};
@@ -49,19 +59,30 @@ class Demo extends Component {
 		});
 	};
 
-	disabledTimes1 = () => ({
+	disabledTime1 = () => ({
 		disabledHours: () => [2],
 	});
 
-	disabledTimes2 = date => ({
-		disabledHours: () => {
-			return date && date.getDate() === 15 ? [3, 4, 5] : [2];
-		},
-		disabledMinutes: hour => (hour === 12 ? [10, 20, 30, 40, 50] : []),
-		disabledSeconds: () => [1, 2, 3, 4],
-	});
+	disabledTime2 = date => {
+		const min = new Date();
+		const hour = min.getHours();
+		const minute = min.getMinutes();
+		const second = min.getSeconds();
+		const isSame = isSameDay(date, min);
+		return isSame
+			? {
+					disabledHours: () => initArray(hour),
+					disabledMinutes: hourValue =>
+						hourValue === hour ? initArray(minute) : [],
+					disabledSeconds: (hourValue, minuteValue) =>
+						hourValue === hour && minuteValue === minute
+							? initArray(second)
+							: [],
+			  }
+			: {};
+	};
 
-	disabledTimes3 = (date, type) => {
+	disabledTime3 = (date, type) => {
 		return type === 'start'
 			? {
 					disabledHours: () => [3, 4, 5],
@@ -71,13 +92,7 @@ class Demo extends Component {
 			: {};
 	};
 
-	disabledTimes4 = (date, type) => {
-		return {
-			disabledHours: () => [3, 4, 5],
-			disabledMinutes: () => [],
-			disabledSeconds: () => [],
-		};
-	};
+	disabledProps = getDisabledDateAndTimeWithRangeProps([new Date(), addDays(new Date(), 4)]);
 
 	render() {
 		const {
@@ -93,7 +108,7 @@ class Demo extends Component {
 					className="zent-datepicker-demo"
 					value={timeValue}
 					onChange={this.onChangeTime}
-					disabledTime={this.disabledTimes1}
+					disabledTime={this.disabledTime1}
 				/>
 				<br />
 				<DatePicker
@@ -101,33 +116,42 @@ class Demo extends Component {
 					showTime
 					format="YYYY-MM-DD HH:mm:ss"
 					value={dateValue}
+					disabledDate={{ min: new Date() }}
 					onChange={this.onChangeDate}
-					disabledTime={this.disabledTimes2}
+					disabledTime={this.disabledTime2}
 				/>
 				<br />
 				<DateRangePicker
 					className="zent-datepicker-demo"
-					showTime={{ format: 'HH:mm', defaultTime: ['00:00', '23:59'] }}
+					showTime={{ format: 'HH:mm', defaultTime: [
+							date => (isSameDay(date, new Date()) ? '12:30' : '00:00'),
+							'23:59',
+						], }}
 					format="YYYY-MM-DD HH:mm"
 					value={rangeValue}
 					onChange={this.onChangeRange}
-					disabledTime={this.disabledTimes3}
+					disabledTime={this.disabledTime3}
 				/>
 				<br />
 				<CombinedTimeRangePicker
 					className="zent-datepicker-demo"
 					value={combinedTimeValue}
 					onChange={this.onChangeCombinedTime}
-					disabledTime={this.disabledTimes3}
+					disabledTime={this.disabledTime3}
 				/>
 				<br />
 				<CombinedDateRangePicker
 					className="zent-datepicker-demo"
 					value={combinedValue}
 					onChange={this.onChangeCombinedDate}
-					showTime
+					showTime={{
+						defaultTime: [
+							date => (isSameDay(date, new Date()) ? '12:30:00' : '00:00:00'),
+							'23:59:59',
+						],
+					}}
 					format="YYYY-MM-DD HH:mm:ss"
-					disabledTime={this.disabledTimes4}
+					{...this.disabledProps}
 				/>
 			</div>
 		);

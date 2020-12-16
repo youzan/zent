@@ -1,5 +1,4 @@
 import cn from 'classnames';
-import * as React from 'react';
 
 import AbstractMultiUpload from './components/AbstractMultiUpload';
 import ImageUploadList from './components/image/List';

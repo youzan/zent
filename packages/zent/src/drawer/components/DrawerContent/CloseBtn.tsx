@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Icon from '../../../icon';
 import isNil from '../../../utils/isNil';
 

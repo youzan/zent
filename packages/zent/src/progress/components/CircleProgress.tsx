@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { IProgressInstanceProps } from '../types';
 import { DEFAULT_WIDTH } from '../constants';
 import AnimatedArc from './AnimatedArc';

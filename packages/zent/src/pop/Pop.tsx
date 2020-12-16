@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { Component } from 'react';
+import { Component, createRef } from 'react';
 import cx from 'classnames';
 
 import Popover, {
@@ -119,7 +118,7 @@ export class Pop extends Component<IPopProps, IPopState> {
 
   static withPop = exposePopover('pop');
 
-  private popoverRef = React.createRef<Popover>();
+  private popoverRef = createRef<Popover>();
   private isUnmounted = false;
 
   state = {
@@ -227,9 +226,9 @@ export class Pop extends Component<IPopProps, IPopState> {
         ref={this.popoverRef}
         visible={closePending ? true : visible}
         onVisibleChange={closePending ? noop : onVisibleChange}
-        className={cx('zent-pop', className, {
-          'zent-pop--has-header': hasHeader,
-          'zent-pop--no-header': !hasHeader,
+        className={cx('zent-pop-v2', className, {
+          'zent-pop-v2--has-header': hasHeader,
+          'zent-pop-v2--no-header': !hasHeader,
         })}
         style={style}
         cushion={cushion}
@@ -244,8 +243,8 @@ export class Pop extends Component<IPopProps, IPopState> {
       >
         {this.renderTrigger()}
         <Popover.Content>
-          {hasHeader && <div className="zent-pop-header">{header}</div>}
-          <div className="zent-pop-inner">
+          {hasHeader && <div className="zent-pop-v2-header">{header}</div>}
+          <div className="zent-pop-v2-inner">
             {content}
             {(onCancel || onConfirm) && (
               <Action
@@ -260,7 +259,7 @@ export class Pop extends Component<IPopProps, IPopState> {
               />
             )}
           </div>
-          <div className="zent-pop-arrow" />
+          <div className="zent-pop-v2-arrow" />
         </Popover.Content>
       </Popover>
     );

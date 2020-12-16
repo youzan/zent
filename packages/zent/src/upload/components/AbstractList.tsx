@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { PureComponent } from 'react';
 import {
   IUploadFileItem,
   IAbstractUploadListProps,
@@ -11,7 +11,7 @@ abstract class AbstractUploadList<
   UPLOAD_ITEM_COMP_PROPS extends IUploadItemProps<UPLOAD_ITEM>,
   P extends IAbstractUploadListProps<UPLOAD_ITEM, UPLOAD_ITEM_COMP_PROPS>,
   S = {} // eslint-disable-line @typescript-eslint/ban-types
-> extends React.PureComponent<P, S> {
+> extends PureComponent<P, S> {
   /**
    * 展示单个上传文件项
    */

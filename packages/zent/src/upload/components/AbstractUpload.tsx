@@ -1,5 +1,4 @@
-import * as React from 'react';
-
+import { PureComponent } from 'react';
 import { II18nLocaleUpload } from '../../i18n';
 import { FILE_UPLOAD_STATUS } from '../constants';
 import {
@@ -20,11 +19,7 @@ abstract class AbstractUpload<
     UPLOAD_ITEM_COMP_PROPS
   >,
   S = unknown
-> extends React.PureComponent<P, S> {
-  constructor(props: P) {
-    super(props);
-  }
-
+> extends PureComponent<P, S> {
   /**
    * 判断是否受控
    */

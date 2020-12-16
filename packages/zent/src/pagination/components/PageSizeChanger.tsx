@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Component } from 'react';
 import memoize from '../../utils/memorize-one';
 import Select, { ISelectItem } from '../../select';
@@ -120,7 +119,7 @@ class PageSizeSelect extends Component<
         options={options}
         value={{
           key: pageSize,
-          text: String(pageSize),
+          text: `${pageSize} ${i18n.items}`,
         }}
         onChange={this.onChange}
       />

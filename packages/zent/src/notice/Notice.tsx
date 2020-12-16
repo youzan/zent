@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { ReactNode, CSSProperties } from 'react';
+import { useContext, useCallback, ReactNode, CSSProperties } from 'react';
 import cx from 'classnames';
 import { Icon } from '../icon';
 import { NoticePositions, getContainer, remove } from './Container';
@@ -65,8 +64,8 @@ export function Notice({
   className,
   style,
 }: INoticeProps) {
-  const ctx = React.useContext(NoticeContext);
-  const onCloseClick = React.useCallback(() => {
+  const ctx = useContext(NoticeContext);
+  const onCloseClick = useCallback(() => {
     ctx && ctx.onClose();
     onClose && onClose();
   }, [ctx, onClose]);

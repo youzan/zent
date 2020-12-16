@@ -1,4 +1,3 @@
-import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import isBrowser from '../utils/isBrowser';
 import createElement from '../utils/dom/createElement';

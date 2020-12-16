@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { parseDate, parseBase } from '../utils/index';
 import { SingleDate } from '../types';
 const current = new Date();
@@ -18,21 +18,18 @@ export default function useMergedProps({
   defaultDate?: SingleDate;
 }) {
   // defaultPanelDate
-  const [defaultPanelDate, setDefaultPanelDate] = React.useState<Date>(current);
+  const [defaultPanelDate, setDefaultPanelDate] = useState<Date>(current);
 
   // 转换成Date类型value日期，用于重置select
-  const parseValue = React.useMemo(() => parseDate(format, value), [
-    value,
-    format,
-  ]);
+  const parseValue = useMemo(() => parseDate(format, value), [value, format]);
   // selected
-  const [selected, setSelected] = React.useState<Date | null>(parseValue);
-  React.useEffect(() => {
+  const [selected, setSelected] = useState<Date | null>(parseValue);
+  useEffect(() => {
     setSelected(parseValue);
   }, [parseValue]);
 
   // defaultPanelDate
-  React.useEffect(() => {
+  useEffect(() => {
     const dateValue = selected || defaultDate;
     // 优先级：select > defaultDate
     setDefaultPanelDate(dateValue ? parseBase(dateValue, format) : current);

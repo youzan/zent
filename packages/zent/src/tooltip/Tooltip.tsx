@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { Component, ReactElement } from 'react';
+import { Component, createRef, ReactElement } from 'react';
 import cx from 'classnames';
 import noop from '../utils/noop';
 import { PopPositions } from '../pop';
@@ -56,15 +55,15 @@ export class Tooltip extends Component<ITooltipProps> {
     containerSelector: 'body',
   };
 
-  popoverRef = React.createRef<Popover>();
+  popoverRef = createRef<Popover>();
 
   renderContent() {
     const { title } = this.props;
 
     return (
       <Popover.Content>
-        <div className={`zent-tooltip-inner`}>{title}</div>
-        <i className={`zent-tooltip-arrow`} />
+        <div className={`zent-tooltip-v2-inner`}>{title}</div>
+        <i className={`zent-tooltip-v2-arrow`} />
       </Popover.Content>
     );
   }
@@ -85,7 +84,7 @@ export class Tooltip extends Component<ITooltipProps> {
       const {
         mouseLeaveDelay = 200,
         mouseEnterDelay = 200,
-        anchorOnly = true,
+        anchorOnly,
       } = this.props;
       return (
         <Trigger.Hover
@@ -121,7 +120,7 @@ export class Tooltip extends Component<ITooltipProps> {
       style,
     } = this.props;
 
-    const cls = cx(`zent-tooltip`, className);
+    const cls = cx(`zent-tooltip-v2`, className);
 
     let { onVisibleChange } = this.props;
     if (trigger === 'none') {

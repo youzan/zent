@@ -1,5 +1,5 @@
-import * as React from 'react';
 import cx from 'classnames';
+import { useCallback, useContext, useRef } from 'react';
 
 import PickerContext from '../context/PickerContext';
 import useRangeMergedProps from '../hooks/useRangeMergedProps';
@@ -11,12 +11,12 @@ import { useEventCallbackRef } from '../../utils/hooks/useEventCallbackRef';
 import {
   IGenerateDateConfig,
   IShowTime,
+  IShowTimeRange,
   RangeType,
   IDisabledTime,
   IRangePropsWithDefault,
   RangeTypeMap,
   ISingleProps,
-  StringTuple,
   DateNullTuple,
 } from '../types';
 import useRangeDisabledTime from '../hooks/useRangeDisabledTime';
@@ -30,7 +30,7 @@ interface IRangePickerProps extends IRangePropsWithDefault {
       disabledTime?: IDisabledTime;
     }
   >;
-  showTime?: IShowTime<StringTuple>;
+  showTime?: IShowTimeRange<string>;
   seperator: string;
   disabledTime?: IDisabledTime;
 }
@@ -54,10 +54,10 @@ const RangePicker: React.FC<IRangePickerProps> = ({
   dateSpan,
   ...restProps
 }) => {
-  const restPropsRef = React.useRef(restProps);
+  const restPropsRef = useRef(restProps);
   restPropsRef.current = restProps;
   const { format } = restPropsRef.current;
-  const { getCallbackRangeValue } = React.useContext(PickerContext);
+  const { getCallbackRangeValue } = useContext(PickerContext);
   const onChangeRef = useEventCallbackRef(onChange);
   // selected
   const { selected, setSelected, defaultPanelDate } = useRangeMergedProps({
@@ -78,7 +78,7 @@ const RangePicker: React.FC<IRangePickerProps> = ({
     dateSpan
   );
 
-  const onChangeStartOrEnd = React.useCallback(
+  const onChangeStartOrEnd = useCallback(
     (type: RangeType) => (val: Date | null) => {
       const dates: DateNullTuple = type === START ? [val, end] : [start, val];
       setSelected(dates);

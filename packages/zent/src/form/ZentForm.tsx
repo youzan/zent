@@ -6,6 +6,7 @@ import {
   FormStrategy,
   FormBuilder,
   IForm,
+  useValue$,
 } from './formulr';
 import { Subject } from 'rxjs';
 import { useAsyncSafeDispatch } from '../utils/hooks/useAsyncSafeDispatch';
@@ -186,4 +187,26 @@ export function useForm<T extends UnknownFieldSetBuilderChildren>(
   ]);
   form.state = state;
   return form;
+}
+
+/**
+ * Subscribe value of form. Note that this hook might cause performance problem(s), use it with caution.
+ * @param form Return value of `Form.useForm`
+ * @param defaultValue
+ */
+export function useFormValue<T extends UnknownFieldSetModelChildren>(
+  form: ZentForm<T>,
+  defaultValue?: $FieldSetValue<T>
+) {
+  return useValue$(form.model.value$, defaultValue);
+}
+
+/**
+ * Subscribe value of form. Note that this hook might cause performance problem(s), use it with caution.
+ * @param form Return value of `Form.useForm`
+ */
+export function useFormValid<T extends UnknownFieldSetModelChildren>(
+  form: ZentForm<T>
+) {
+  return useValue$(form.model.valid$, form.model.valid$.value);
 }

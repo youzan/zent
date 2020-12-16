@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { Component } from 'react';
+import { Children, Component } from 'react';
 import cx from 'classnames';
 
 import { IStepsProps } from '../Steps';
@@ -21,7 +20,7 @@ export default class BreadcrumbSteps extends Component<IStepsProps> {
       onStepChange,
       type,
     } = props;
-    const stepWidth = `${100 / React.Children.count(children)}%`;
+    const stepWidth = `${100 / Children.count(children)}%`;
     const isBreadcrumb = type === 'breadcrumb';
     const isCard = type === 'card';
     const isTabs = type === 'tabs';
@@ -33,11 +32,12 @@ export default class BreadcrumbSteps extends Component<IStepsProps> {
 
     return (
       <div className={stepsCls}>
-        {React.Children.map(children, (item, index) => {
+        {Children.map(children, (item, index) => {
           const stepClassName = cx('zent-steps-item', {
-            'is-finish': isBreadcrumb && index <= current - 1,
-            'is-current': (isCard || isTabs) && index === current - 1,
-            'is-clicked': Boolean(onStepChange),
+            'zent-steps-item--finished': isBreadcrumb && index <= current - 1,
+            'zent-steps-item--current':
+              (isCard || isTabs) && index === current - 1,
+            'zent-steps-item--clickable': Boolean(onStepChange),
           });
 
           if (!isElement(item)) {

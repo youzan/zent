@@ -1,13 +1,13 @@
-import * as React from 'react';
+import { useState, useEffect } from 'react';
 
 /**
  * 获取面板默认位置日期
  * @param defaultPanelDate
  */
 export default function usePanelDate(defaultPanelDate: Date) {
-  const [panelDate, setPanelDate] = React.useState<Date>(defaultPanelDate);
+  const [panelDate, setPanelDate] = useState<Date>(defaultPanelDate);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setPanelDate(defaultPanelDate);
   }, [defaultPanelDate]);
 

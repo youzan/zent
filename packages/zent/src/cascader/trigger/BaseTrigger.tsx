@@ -1,9 +1,9 @@
-import * as React from 'react';
 import classnames from 'classnames';
 
 import { ICascaderItem } from '../types';
 import Icon from '../../icon';
 import { II18nLocaleCascader } from '../../i18n';
+import { Component } from 'react';
 
 interface ITriggerState {
   active: boolean;
@@ -28,7 +28,7 @@ export interface ICascaderBaseTriggerProps {
   showLabels?: boolean;
 }
 
-export class BaseTrigger extends React.Component<
+export class BaseTrigger extends Component<
   ICascaderBaseTriggerProps,
   ITriggerState
 > {
@@ -94,7 +94,8 @@ export class BaseTrigger extends React.Component<
       triggerText = placeholder || i18n.placeholder;
     }
 
-    const showClear = clearable && active && (hasValue || keyword) && !disabled;
+    const showClear =
+      clearable && (visible || active) && (hasValue || keyword) && !disabled;
 
     return (
       <div
@@ -108,7 +109,7 @@ export class BaseTrigger extends React.Component<
         {showClear ? (
           <Icon type="close-circle" onClick={this.onClearClick} />
         ) : (
-          <Icon type="caret-down" />
+          <Icon type="down" />
         )}
       </div>
     );

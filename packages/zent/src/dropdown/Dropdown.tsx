@@ -1,5 +1,6 @@
-import * as React from 'react';
 import cx from 'classnames';
+import { useCallback, useEffect, useState } from 'react';
+
 import Popover, { IPopoverProps } from '../popover/Popover';
 import PopoverClickTrigger from '../popover/trigger/ClickTrigger';
 import PopoverHoverTrigger from '../popover/trigger/HoverTrigger';
@@ -16,9 +17,9 @@ export const Dropdown: React.FC<IDropdownProps> = ({
   className,
   ...rest
 }) => {
-  const [vis, setVis] = React.useState(visible);
+  const [vis, setVis] = useState(visible);
   const onVisibleChangeProp = useCallbackRef(onVisibleChange);
-  const onVisChange = React.useCallback(
+  const onVisChange = useCallback(
     (val: boolean) => {
       setVis(val);
       onVisibleChangeProp.current?.(val);
@@ -26,7 +27,7 @@ export const Dropdown: React.FC<IDropdownProps> = ({
     [onVisibleChangeProp]
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     setVis(visible);
   }, [visible]);
 

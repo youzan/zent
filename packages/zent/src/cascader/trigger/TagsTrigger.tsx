@@ -1,5 +1,5 @@
-import * as React from 'react';
 import cx from 'classnames';
+import { Component } from 'react';
 
 import { ICascaderItem } from '../types';
 import { SearchInput } from './Search';
@@ -11,7 +11,7 @@ interface ITagsTriggerProps extends ICascaderBaseTriggerProps {
   renderTags?: (props: ICascaderTagsProps) => React.ReactNode;
 }
 
-export class TagsTrigger extends React.Component<ITagsTriggerProps> {
+export class TagsTrigger extends Component<ITagsTriggerProps> {
   static defaultProps = {
     selectedPaths: [],
   };

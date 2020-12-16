@@ -13,7 +13,6 @@ ReactDOM.render(
 	<div style={{ width: "50%", color: '#666', fontSize: 14 }}>
 		<ClampLines
 			lines={2}
-			resizable
 			popWidth={400}
 			extra={(
 				<a>更多</a>

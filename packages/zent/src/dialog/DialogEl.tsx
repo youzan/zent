@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Component, createRef } from 'react';
 import cx from 'classnames';
 import focusWithoutScroll from '../utils/dom/focusWithoutScroll';
@@ -96,13 +95,19 @@ export class DialogInnerEl extends Component<IDialogInnerElProps> {
 
     return (
       <div
-        className={`zent-dialog-r ${className}`}
+        className={cx('zent-dialog-r', className, {
+          'zent-dialog-r--has-header': !!Header,
+          'zent-dialog-r--has-footer': !!Footer,
+          'zent-dialog-r--no-close-btn': !Closer,
+        })}
         style={style}
         ref={el => (this.dialogEl = el)}
       >
         {Closer}
         {Header}
-        <div className="zent-dialog-r-body">{children}</div>
+        <div className="zent-dialog-r-body">
+          <div className="zent-dialog-r-body-content">{children}</div>
+        </div>
         {Footer}
       </div>
     );

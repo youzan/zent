@@ -1,4 +1,4 @@
-import React from 'react';
+import { Component } from 'react';
 import Enzyme, { shallow, mount } from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import Rate from 'rate';
@@ -13,7 +13,7 @@ describe('Rate', () => {
   });
 
   it('will render div wrapper contains an Rate without any props', () => {
-    class Test extends React.Component {
+    class Test extends Component {
       state = {
         value: 2,
       };
@@ -36,7 +36,7 @@ describe('Rate', () => {
   });
 
   it('can allowHalf props', () => {
-    class EventTest extends React.Component {
+    class EventTest extends Component {
       state = {
         value: 2.5,
       };
@@ -66,7 +66,7 @@ describe('Rate', () => {
   });
 
   it('can onchange props', () => {
-    class EventTest extends React.Component {
+    class EventTest extends Component {
       state = {
         value: 2,
       };

@@ -1,5 +1,6 @@
-import * as React from 'react';
 import cx from 'classnames';
+import { Component, createRef } from 'react';
+
 import Popover from '../popover';
 import TagList from './TagList';
 import Option from './Option';
@@ -51,9 +52,11 @@ export interface ISelectCommonProps<Item extends ISelectItem> {
   creatable?: boolean;
   onCreate?: (text: string) => Promise<void>;
   isValidNewOption?: (keyword: string, options: Item[]) => boolean;
-  collapsable?: false;
+  collapsable?: boolean;
   collapseAt?: number;
+  hideCollapsePop?: boolean;
   className?: string;
+  disableSearch?: boolean;
 }
 
 export interface ISelectSingleProps<Item extends ISelectItem>
@@ -176,12 +179,16 @@ function defaultIsValidNewOption(
 // 允许创建的临时 key
 const SELECT_CREATABLE_KEY = uniqueId('__ZENT_SELECT_CREATABLE_KEY__');
 
-export class Select<
-  Item extends ISelectItem = ISelectItem
-> extends React.Component<ISelectProps<Item>, ISelectState<Item>> {
+export class Select<Item extends ISelectItem = ISelectItem> extends Component<
+  ISelectProps<Item>,
+  ISelectState<Item>
+> {
   static defaultProps = {
     isEqual: defaultIsEqual,
     renderOptionList: defaultRenderOptionList,
+    filter: defaultFilter,
+    isValidNewOption: defaultIsValidNewOption,
+    highlight: defaultHighlight,
     width: 240,
     multiple: false,
     clearable: false,
@@ -191,9 +198,9 @@ export class Select<
   static contextType = DisabledContext;
   context!: IDisabledContext;
 
-  elementRef = React.createRef<HTMLDivElement>();
-  popoverRef = React.createRef<Popover>();
-  inputRef = React.createRef<HTMLInputElement>();
+  elementRef = createRef<HTMLDivElement>();
+  popoverRef = createRef<Popover>();
+  inputRef = createRef<HTMLInputElement>();
 
   constructor(props: ISelectProps<Item>) {
     super(props);
@@ -241,7 +248,7 @@ export class Select<
   };
 
   onSelect = (item: Item) => {
-    if (item.disabled || item.type || this.disabled) {
+    if (!item || item.disabled || item.type || this.disabled) {
       return;
     }
     if (item.key === SELECT_CREATABLE_KEY) {
@@ -341,8 +348,21 @@ export class Select<
     if (this.disabled) {
       return;
     }
-    const { activeIndex } = this.state;
-    const { options } = this.props;
+    const { activeIndex, keyword } = this.state;
+    const {
+      creatable,
+      options: _options,
+      filter,
+      isValidNewOption,
+    } = this.props;
+
+    const options = this.filterOptions(
+      creatable,
+      _options,
+      filter,
+      keyword,
+      isValidNewOption
+    );
     if (activeIndex !== null) {
       this.onSelect(options[activeIndex]);
     }
@@ -353,7 +373,7 @@ export class Select<
       isEqual,
       multiple,
       renderOptionContent,
-      highlight = defaultHighlight,
+      highlight,
       filter,
     } = this.props;
     const { value, activeIndex, creating } = this.state;
@@ -426,42 +446,52 @@ export class Select<
     if (this.disabled) {
       return;
     }
-    this.setState((state, { options }) => {
-      let nextIndex: number;
-      if (state.activeIndex === null) {
-        if (delta < 0) {
-          nextIndex = options.length - 1;
+    this.setState(
+      (state, { options: _options, creatable, filter, isValidNewOption }) => {
+        const options = this.filterOptions(
+          creatable,
+          _options,
+          filter,
+          state.keyword,
+          isValidNewOption
+        );
+
+        let nextIndex: number;
+        if (state.activeIndex === null) {
+          if (delta < 0) {
+            nextIndex = options.length - 1;
+          } else {
+            nextIndex = 0;
+          }
         } else {
+          nextIndex = (state.activeIndex + delta) % options.length;
+        }
+        if (nextIndex >= options.length) {
+          nextIndex = options.length - 1;
+        }
+        if (nextIndex < 0) {
           nextIndex = 0;
         }
-      } else {
-        nextIndex = (state.activeIndex + delta) % options.length;
-      }
-      if (nextIndex >= options.length) {
-        nextIndex = options.length - 1;
-      }
-      if (nextIndex < 0) {
-        nextIndex = 0;
-      }
-      if (!isSelectable(options[nextIndex])) {
-        let enabled: number | null;
-        if (delta > 0) {
-          enabled = findNextSelectableOption(options, nextIndex);
-        } else {
-          enabled = findPrevSelectableOption(options, nextIndex);
+        if (!isSelectable(options[nextIndex])) {
+          let enabled: number | null;
+          if (delta > 0) {
+            enabled = findNextSelectableOption(options, nextIndex);
+          } else {
+            enabled = findPrevSelectableOption(options, nextIndex);
+          }
+          if (!enabled) {
+            return null;
+          }
+          nextIndex = enabled;
         }
-        if (!enabled) {
+        if (state.activeIndex === nextIndex) {
           return null;
         }
-        nextIndex = enabled;
+        return {
+          activeIndex: nextIndex,
+        };
       }
-      if (state.activeIndex === nextIndex) {
-        return null;
-      }
-      return {
-        activeIndex: nextIndex,
-      };
-    });
+    );
   };
 
   static getDerivedStateFromProps<Item extends ISelectItem = ISelectItem>(
@@ -530,8 +560,21 @@ export class Select<
     return <span className="zent-select-v2-placeholder">{placeholder}</span>;
   }
 
+  renderTagCollapsedTrigger(value: Item[]) {
+    return (
+      <span className="zent-select-v2-tag-collapsed-trigger">
+        +{value.length}
+      </span>
+    );
+  }
+
   renderTagList(value: Item[], i18n: II18nLocaleSelect) {
-    const { renderValue, collapsable, collapseAt = 1 } = this.props;
+    const {
+      renderValue,
+      collapsable,
+      hideCollapsePop,
+      collapseAt = 1,
+    } = this.props;
     const tagsValue = collapsable ? value.slice(0, collapseAt) : value;
     const collapsedValue = value.slice(collapseAt);
 
@@ -542,32 +585,34 @@ export class Select<
           onRemove={this.onRemove}
           renderValue={renderValue}
         />
-        {collapsable && collapsedValue.length > 0 && (
-          <Pop
-            trigger="hover"
-            position="auto-top-center"
-            cushion={15}
-            content={
-              <div className="zent-select-v2-tag-collapsed-content">
-                <div>
-                  {collapsedValue.map((item, index) => {
-                    return (
-                      <span key={item.key}>
-                        {renderValue ? renderValue(item) : item.text}
-                        {index !== collapsedValue.length - 1 &&
-                          i18n.tagSeparator}
-                      </span>
-                    );
-                  })}
+        {collapsable &&
+          collapsedValue.length > 0 &&
+          (!hideCollapsePop ? (
+            <Pop
+              trigger="hover"
+              position="auto-top-center"
+              cushion={15}
+              content={
+                <div className="zent-select-v2-tag-collapsed-content">
+                  <div>
+                    {collapsedValue.map((item, index) => {
+                      return (
+                        <span key={item.key}>
+                          {renderValue ? renderValue(item) : item.text}
+                          {index !== collapsedValue.length - 1 &&
+                            i18n.tagSeparator}
+                        </span>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-            }
-          >
-            <span className="zent-select-v2-tag-collapsed-trigger">
-              +{collapsedValue.length}
-            </span>
-          </Pop>
-        )}
+              }
+            >
+              {this.renderTagCollapsedTrigger(collapsedValue)}
+            </Pop>
+          ) : (
+            this.renderTagCollapsedTrigger(collapsedValue)
+          ))}
       </>
     );
   }
@@ -681,8 +726,8 @@ export class Select<
       loading,
       creatable,
       options,
-      filter = defaultFilter,
-      isValidNewOption = defaultIsValidNewOption,
+      filter,
+      isValidNewOption,
     } = this.props;
     const keyword = this.state.keyword.trim();
 
@@ -716,6 +761,7 @@ export class Select<
       popupWidth,
       collapsable,
       className,
+      disableSearch,
     } = this.props;
 
     const notEmpty = multiple
@@ -755,7 +801,7 @@ export class Select<
                   {showClear && (
                     <Icon type="close-circle" onClick={this.onClear} />
                   )}
-                  {visible && (
+                  {!disableSearch && visible && (
                     <Search
                       placeholder={this.getSearchPlaceholder()}
                       value={keyword}
@@ -766,6 +812,7 @@ export class Select<
                       ref={this.inputRef}
                     />
                   )}
+                  <Icon type="down" />
                 </div>
               </Popover.Trigger.Click>
               <Popover.Content>

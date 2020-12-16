@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { Component } from 'react';
 import cx from 'classnames';
 
 import Popover from '../popover';
@@ -74,7 +74,7 @@ function getVisible(
   return state.visible;
 }
 
-export class TabsCascader extends React.Component<
+export class TabsCascader extends Component<
   ITabsCascaderProps,
   ITabsCascaderState
 > {

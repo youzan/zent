@@ -1,10 +1,11 @@
-import * as React from 'react';
+import { useCallback, useMemo } from 'react';
 import { setHours, setMinutes, setSeconds } from 'date-fns';
-import TimeUnitColumn from './TimeUnitColumn';
 
+import TimeUnitColumn from './TimeUnitColumn';
 import { useTimePanelValue } from '../../hooks/useTimePanelValue';
 import { ITimePanelProps, ITimeUnitType } from '../../types';
 import { formatDate } from '../../utils/index';
+
 const setTimeMap: Record<
   ITimeUnitType,
   (date: Date | number, minutes: number) => Date
@@ -26,7 +27,7 @@ interface IUnitColumn {
 const TimePickerBody: React.FC<ITimePanelProps> = ({
   selected,
   format,
-  disabledTimesOption,
+  disabledTimeOption,
   hourStep,
   minuteStep,
   secondStep,
@@ -39,12 +40,12 @@ const TimePickerBody: React.FC<ITimePanelProps> = ({
     format
   );
 
-  const unitColumns: IUnitColumn[] = React.useMemo(() => {
+  const unitColumns: IUnitColumn[] = useMemo(() => {
     const {
       disabledHours,
       disabledMinutes,
       disabledSeconds,
-    } = disabledTimesOption;
+    } = disabledTimeOption;
     const panelTimeHours = panelTime.getHours();
     const panelTimeMins = panelTime.getMinutes();
     // HH:mm:ss 对应的unitColumn
@@ -76,16 +77,9 @@ const TimePickerBody: React.FC<ITimePanelProps> = ({
     ];
 
     return UnitColumnConfig.filter(item => format.indexOf(item.format) !== -1);
-  }, [
-    panelTime,
-    format,
-    disabledTimesOption,
-    hourStep,
-    minuteStep,
-    secondStep,
-  ]);
+  }, [panelTime, format, disabledTimeOption, hourStep, minuteStep, secondStep]);
 
-  const setItemTime = React.useCallback(
+  const setItemTime = useCallback(
     (val: number, type: ITimeUnitType) => {
       const time = setTimeMap[type](panelTime, val);
       setPanelTime(time);

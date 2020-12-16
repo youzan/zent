@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { Component } from 'react';
+import { Component, isValidElement } from 'react';
 import classnames from 'classnames';
+import { GridColumnContext } from './ColumnContext';
 import { IGridInnerColumn } from './Grid';
 import { IGridCellPos } from './types';
 import isNil from '../utils/isNil';
@@ -18,7 +18,7 @@ class Cell<Data> extends Component<IGridCellProps<Data>> {
   isInvalidRenderCellText(text: any) {
     return (
       text &&
-      !React.isValidElement(text) &&
+      !isValidElement(text) &&
       Object.prototype.toString.call(text) === '[object Object]'
     );
   }
@@ -47,18 +47,25 @@ class Cell<Data> extends Component<IGridCellProps<Data>> {
     return this.getText(this.props) !== this.getText(nextProps);
   }
 
+  static contextType = GridColumnContext;
+
   render() {
     const { prefix, column, data, pos } = this.props;
+    const {
+      isValueEmpty: isValueEmptyInCtx,
+      defaultText: defaultTextInCtx,
+    } = this.context;
     const {
       name,
       bodyRender,
       textAlign,
       nowrap,
       className,
-      defaultText,
+      defaultText = defaultTextInCtx,
+      isValueEmpty = isValueEmptyInCtx ?? isNil,
     } = column;
     let text: any = getFromPath(data, name);
-    if (isNil(text) && defaultText) {
+    if (isValueEmpty(text) && !isNil(defaultText)) {
       text = defaultText;
     }
     let tdProps;

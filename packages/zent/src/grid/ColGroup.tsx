@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { PureComponent } from 'react';
 import { getLeafColumns } from './utils';
 import { IGridInnerColumn } from './Grid';

@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { PureComponent } from 'react';
+import { Children, cloneElement, PureComponent } from 'react';
 import cx from 'classnames';
 import { isElement } from 'react-is';
 
@@ -55,12 +54,12 @@ export class Timeline extends PureComponent<ITimelineProps> {
         return ret;
       }, []);
     }
-    return React.Children.map(children, child => {
+    return Children.map(children, child => {
       if (!isElement(child)) {
         return null;
       }
 
-      return React.cloneElement(child, {
+      return cloneElement(child, {
         type,
       });
     });

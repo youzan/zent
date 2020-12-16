@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 import getViewportSize from '../dom/getViewportSize';
 import WindowEventHandler from './WindowEventHandler';
@@ -24,16 +24,16 @@ export interface IWindowResizeHandlerProps {
  * The `onResize` callback is throttled to run only once in a frame, you don't need to throttle the callback.
  */
 export const WindowResizeHandler: React.FC<IWindowResizeHandlerProps> = props => {
-  const prevViewportSize = React.useRef<{
+  const prevViewportSize = useRef<{
     width: number;
     height: number;
   }>(null);
 
-  const cb = React.useRef(props.onResize);
+  const cb = useRef(props.onResize);
   cb.current = props.onResize;
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const onResize = React.useCallback(
+  const onResize = useCallback(
     runOnceInNextFrame((evt: UIEvent) => {
       const viewportSize = getViewportSize();
 
@@ -58,7 +58,7 @@ export const WindowResizeHandler: React.FC<IWindowResizeHandlerProps> = props =>
     []
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     prevViewportSize.current = getViewportSize();
     return onResize.cancel;
   }, [onResize]);

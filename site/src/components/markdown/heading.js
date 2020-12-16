@@ -1,6 +1,5 @@
 /* eslint-disable no-script-url */
 
-import React from 'react';
 import { slugify } from 'transliteration';
 
 export function H1(props) {

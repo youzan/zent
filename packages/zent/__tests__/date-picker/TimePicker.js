@@ -1,4 +1,3 @@
-import React from 'react';
 import Enzyme, { mount } from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import { Simulate } from 'react-dom/test-utils';
@@ -31,7 +30,7 @@ describe('TimePicker', () => {
       />
     );
     wrapper.find('.zent-datepicker-trigger').simulate('click');
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
     Simulate.click(
       pop.querySelectorAll('.zent-datepicker-time-panel-body-unit')[1]
     );
@@ -68,7 +67,7 @@ describe('TimePicker', () => {
       />
     );
     wrapper.find('.zent-datepicker-trigger').simulate('click');
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
     Simulate.click(
       pop.querySelectorAll('.zent-datepicker-time-panel-body-unit')[0]
     );

@@ -1,4 +1,4 @@
-import React from 'react';
+import { Component } from 'react';
 import Enzyme, { mount } from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import Swiper from 'swiper';
@@ -32,7 +32,7 @@ describe('Swiper', () => {
 
   it('can change page', () => {
     const childs = [1, 2, 3];
-    class Test extends React.Component {
+    class Test extends Component {
       render() {
         return (
           <Swiper arrows>
@@ -88,7 +88,7 @@ describe('Swiper', () => {
 
   it('can set props', () => {
     const childs = [1, 2, 3];
-    class Test extends React.Component {
+    class Test extends Component {
       render() {
         return (
           <Swiper
@@ -130,7 +130,7 @@ describe('Swiper', () => {
 
   it('can have customize dotsColor', () => {
     const childs = [1, 2, 3];
-    class Test extends React.Component {
+    class Test extends Component {
       render() {
         return (
           <Swiper dotsColor="#fff">

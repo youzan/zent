@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { memo } from 'react';
 import { ISelectItem } from './Select';
 import Icon from '../icon';
 
@@ -32,4 +32,4 @@ function SelectTag<Item extends ISelectItem>({
   );
 }
 
-export default React.memo(SelectTag);
+export default memo(SelectTag);

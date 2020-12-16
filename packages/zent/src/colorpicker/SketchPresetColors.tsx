@@ -1,4 +1,3 @@
-import * as React from 'react';
 import reactCSS from './helpers/reactcss';
 import { Swatch } from './common';
 import { PresetColors, ColorPickerType } from '.';

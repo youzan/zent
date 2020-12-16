@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Component, createRef } from 'react';
 import { addEventListener } from '../../utils/component/event-handler';
 import { runOnceInNextFrame } from '../../utils/nextFrame';

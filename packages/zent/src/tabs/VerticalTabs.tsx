@@ -1,6 +1,6 @@
-import * as React from 'react';
 import { isElement } from 'react-is';
 import cn from 'classnames';
+import { Children } from 'react';
 
 import isNil from '../utils/isNil';
 import noop from '../utils/noop';
@@ -59,7 +59,7 @@ export class VerticalTabs<Id extends string | number = string> extends BaseTabs<
     children: NonNullable<IVerticalTabsProps<Id>['children']>
   ): Array<IVerticalInnerTab<Id>> {
     const { activeId } = this.props;
-    return React.Children.map(
+    return Children.map(
       children,
       (
         child: React.ReactElement<

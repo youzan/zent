@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { PureComponent } from 'react';
 import classnames from 'classnames';
 import Row from './Row';
@@ -25,7 +24,7 @@ export interface IGridBodyProps<Data> {
   mouseOverRowIndex: number;
   expandRender: IGridExpandation<Data>['expandRender'];
   rowProps?: (data: Data, index: number) => any;
-  datasets: Data[];
+  datasets: ReadonlyArray<Data>;
   components?: {
     row?: React.ComponentType;
   };

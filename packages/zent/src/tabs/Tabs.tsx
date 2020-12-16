@@ -1,6 +1,6 @@
-import * as React from 'react';
 import { isElement } from 'react-is';
 import cn from 'classnames';
+import { Children } from 'react';
 
 import isNil from '../utils/isNil';
 import noop from '../utils/noop';
@@ -71,7 +71,7 @@ export class Tabs<Id extends string | number = string> extends BaseTabs<
   ): Array<IInnerTab<Id>> {
     const { activeId } = this.props;
 
-    return React.Children.map(
+    return Children.map(
       children,
       (
         child: React.ReactElement<React.PropsWithChildren<ITabPanelProps<Id>>>

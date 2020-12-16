@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { Component } from 'react';
+import { Component, createRef } from 'react';
 import cx from 'classnames';
 import Icon, { IconType } from '../icon';
 
@@ -32,8 +31,8 @@ export class Avatar extends Component<IAvatarProps, IAvatarState> {
     bordered: false,
   };
 
-  textNodeRef = React.createRef<HTMLSpanElement>();
-  avatarNodeRef = React.createRef<HTMLSpanElement>();
+  textNodeRef = createRef<HTMLSpanElement>();
+  avatarNodeRef = createRef<HTMLSpanElement>();
 
   state = {
     textScale: 1,

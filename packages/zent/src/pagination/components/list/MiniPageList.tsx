@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import ArrowButton from '../button/ArrowButton';
 import MiniPageJumper from '../jumper/MiniPageJumper';
 import BasePageList from './BasePageList';

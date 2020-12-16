@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { Component } from 'react';
 
 export interface IAlertItemProps {
   closable?: boolean;
@@ -8,7 +8,8 @@ export interface IAlertItemProps {
   description?: React.ReactNode;
   onClose?: () => void;
 }
-export class AlertItem extends React.Component<IAlertItemProps> {
+
+export class AlertItem extends Component<IAlertItemProps> {
   render() {
     return null;
   }

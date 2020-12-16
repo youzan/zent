@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useContext, useCallback } from 'react';
 import { I18nReceiver as Receiver, II18nLocaleTimePicker } from '../i18n';
 import { DisabledContext } from '../disabled';
 import SinglePicker from './components/SinglePickerBase';
@@ -26,6 +26,7 @@ export interface IDatePickerProps<T extends IValueType = 'string'>
     ISingleRelatedType<T> {
   showTime?: IShowTime;
   disabledTime?: IDisabledTime;
+  hideFooter?: boolean;
 }
 const defaultDatePickerProps = {
   format: DATE_FORMAT,
@@ -34,7 +35,9 @@ const defaultDatePickerProps = {
 export const DatePicker = <T extends IValueType = 'string'>(
   props: IDatePickerProps<T>
 ) => {
-  const disabledContext = React.useContext(DisabledContext);
+  const disabledContext = useContext(DisabledContext);
+  const parentContext = useContext(PickerContext);
+
   const propsRequired = {
     ...defaultDatePickerCommonProps,
     ...defaultDatePickerProps,
@@ -48,14 +51,14 @@ export const DatePicker = <T extends IValueType = 'string'>(
     disabled = disabledContext.value,
   } = propsRequired;
 
-  const getInputText = React.useCallback(
+  const getInputText = useCallback(
     (val: Date | null) => formatText(val, format),
     [format]
   );
 
-  const getSelectedValue = React.useCallback((val: Date) => val, []);
+  const getSelectedValue = useCallback((val: Date) => val, []);
 
-  const getCallbackValue = React.useCallback(
+  const getCallbackValue = useCallback(
     (val: Date) => getCallbackValueWithDate(val, valueType, format),
     [valueType, format]
   );
@@ -65,6 +68,7 @@ export const DatePicker = <T extends IValueType = 'string'>(
       {(i18n: II18nLocaleTimePicker) => (
         <PickerContextProvider
           value={{
+            ...parentContext,
             i18n,
             generateDate,
             getCallbackValue,

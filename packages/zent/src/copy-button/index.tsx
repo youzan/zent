@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { Component } from 'react';
+import { Component, Children } from 'react';
 import Button from '../button';
 import Notify from '../notify';
 
@@ -49,7 +48,7 @@ export class CopyButton extends Component<ICopyButtonProps> {
         {(i18n: II18nLocaleCopyButton) => (
           <CopyToClipboard text={txt} onCopy={this.onCopy(i18n)}>
             {children ? (
-              React.Children.only(children)
+              Children.only(children)
             ) : (
               <Button onClick={onClick} type="primary">
                 {i18n.copy}

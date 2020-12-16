@@ -1,4 +1,3 @@
-import React from 'react';
 import Enzyme, { mount } from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import { Simulate } from 'react-dom/test-utils';
@@ -26,7 +25,7 @@ describe('All of the Picker', () => {
     wrapper = mount(<DatePicker value="2020-05-11" onChange={onChangeMock} />);
     wrapper.find('.zent-datepicker-trigger').simulate('click');
     expect(wrapper.find('.zent-datepicker-trigger-focus').length).toBe(1);
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
     Simulate.click(
       pop.querySelectorAll('.zent-datepicker-panel-body-cells_item')[0]
     );
@@ -49,7 +48,7 @@ describe('All of the Picker', () => {
     );
     wrapper.find('.zent-datepicker-trigger').simulate('click');
     expect(wrapper.find('.zent-datepicker-trigger-focus').length).toBe(1);
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
     Simulate.click(
       pop.querySelectorAll('.zent-datepicker-panel-body-cells_item')[1]
     );
@@ -75,7 +74,7 @@ describe('All of the Picker', () => {
     wrapper = mount(<MonthPicker value="2020-08" onChange={onChangeMock} />);
     wrapper.find('.zent-datepicker-trigger').simulate('click');
     expect(wrapper.find('.zent-datepicker-trigger-focus').length).toBe(1);
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
     Simulate.click(
       pop.querySelectorAll('.zent-datepicker-panel-body-cells_item')[0]
     );
@@ -94,7 +93,7 @@ describe('All of the Picker', () => {
     );
     wrapper.find('.zent-datepicker-trigger').simulate('click');
     expect(wrapper.find('.zent-datepicker-trigger-focus').length).toBe(1);
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
     Simulate.click(
       pop.querySelectorAll('.zent-datepicker-panel-body-cells_item')[0]
     );
@@ -114,7 +113,7 @@ describe('All of the Picker', () => {
     wrapper = mount(<YearPicker value="2024" onChange={onChangeMock} />);
     wrapper.find('.zent-datepicker-trigger').simulate('click');
     expect(wrapper.find('.zent-datepicker-trigger-focus').length).toBe(1);
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
     Simulate.click(
       pop.querySelectorAll('.zent-datepicker-panel-body-cells_item')[0]
     );
@@ -131,7 +130,7 @@ describe('All of the Picker', () => {
     wrapper = mount(<TimePicker value="00:00:00" onChange={onChangeMock} />);
     wrapper.find('.zent-datepicker-trigger').simulate('click');
     expect(wrapper.find('.zent-datepicker-trigger-focus').length).toBe(1);
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
 
     // unit
     Simulate.click(
@@ -158,7 +157,7 @@ describe('All of the Picker', () => {
     );
     wrapper.find('.zent-datepicker-trigger').simulate('click');
     expect(wrapper.find('.zent-datepicker-trigger-focus').length).toBe(1);
-    const pop = document.querySelector('.zent-popover');
+    const pop = document.querySelector('.zent-popover-v2');
 
     Simulate.click(
       pop

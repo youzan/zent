@@ -91,10 +91,20 @@ interface ITriggerCommonProps {
   onClearInput: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
 
-export interface IShowTimeOption<T>
-  extends Omit<ITimePickerBase<T>, 'className' | 'selectedDate'> {}
+export interface IShowTimeOptionBase<T>
+  extends Omit<
+    ITimePickerBase<T>,
+    'className' | 'selectedDate' | 'defaultTime'
+  > {}
+export interface IShowTimeOption<T> extends IShowTimeOptionBase<T> {
+  defaultTime?: T | ((date: Date) => T);
+}
+export interface IShowTimeRangeOption<T> extends IShowTimeOptionBase<T> {
+  defaultTime?: [T | ((date: Date) => T), T | ((date: Date) => T)];
+}
 
 export type IShowTime<T = string> = boolean | IShowTimeOption<T>;
+export type IShowTimeRange<T = string> = boolean | IShowTimeRangeOption<T>;
 export type IShowTimeOptionWithDefault = PartialRequired<
   IShowTimeOption<string>,
   'format' | 'defaultTime'
@@ -234,16 +244,16 @@ export interface ITimePanelProps<T = SingleTime> {
   onSelected: (val: T, status?: boolean) => void;
   format: string;
   defaultTime?: T;
-  disabledTimesOption: IDisabledTimeOption;
+  disabledTimeOption: IDisabledTimeOption;
   hourStep?: number;
   minuteStep?: number;
   secondStep?: number;
   hideFooter?: boolean;
 }
 export interface ICombinedTimePanelProps
-  extends Omit<ITimePanelProps<RangeTime>, 'disabledTimesOption'> {
-  disabledTimesOptionStart: IDisabledTimeOption;
-  disabledTimesOptionEnd: IDisabledTimeOption;
+  extends Omit<ITimePanelProps<RangeTime>, 'disabledTimeOption'> {
+  disabledTimeOptionStart: IDisabledTimeOption;
+  disabledTimeOptionEnd: IDisabledTimeOption;
 }
 
 export interface IDisabledTimeOption {

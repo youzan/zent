@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { IGenerateDateConfig, IWeekOption, DateTuple } from '../types';
 /**
  * 获取某天对应的一周的日期范围
@@ -9,9 +9,9 @@ export default function useWeekRange(
   date?: Date | null,
   options?: IWeekOption
 ) {
-  const [rangeDate, setRangeDate] = React.useState<DateTuple | null>();
+  const [rangeDate, setRangeDate] = useState<DateTuple | null>();
 
-  React.useEffect(() => {
+  useEffect(() => {
     const { startDate, endDate } = dateConfig || {};
     const range = date
       ? ([startDate?.(date, options), endDate?.(date, options)] as DateTuple)

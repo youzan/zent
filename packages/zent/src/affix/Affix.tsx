@@ -1,9 +1,10 @@
-import * as React from 'react';
 import cx from 'classnames';
+import { createRef, useCallback, useMemo, useRef, useState } from 'react';
 
 import { Waypoint, IWaypointCallbackData, WaypointPosition } from '../waypoint';
 import { useCallbackRef } from '../utils/hooks/useCallbackRef';
 import isBrowser from '../utils/isBrowser';
+import { useResizeObserver } from '../utils/hooks/use-resize-observer';
 
 export interface IAffixProps {
   offsetTop?: number;
@@ -25,16 +26,31 @@ export const Affix: React.FC<IAffixProps> = ({
   onPin,
   onUnpin,
 }) => {
-  const [position, setPosition] = React.useState(WaypointPosition.Inside);
-  const [width, setWidth] = React.useState<number>();
-  const [height, setHeight] = React.useState<number>();
-  const placeholderRef = React.useRef(React.createRef<HTMLDivElement>());
+  const [position, setPosition] = useState(WaypointPosition.Inside);
+  const [width, setWidth] = useState<number>();
+  const [height, setHeight] = useState<number>();
+  const placeholderRef = useRef(createRef<HTMLDivElement>());
   const onPinCallbackRef = useCallbackRef(onPin);
   const onUnpinCallbackRef = useCallbackRef(onUnpin);
   const useTop = typeof offsetTop === 'number';
   const useBottom = typeof offsetBottom === 'number';
 
-  const pin = React.useCallback(
+  const setSize = useCallback((entries: ResizeObserverEntry[]) => {
+    const { borderBoxSize, contentRect } = entries[0];
+    if (borderBoxSize && borderBoxSize.length > 0) {
+      const [{ inlineSize: width, blockSize: height }] = borderBoxSize;
+      setWidth(width);
+      setHeight(height);
+    } else {
+      const { width, height } = contentRect;
+      setWidth(width);
+      setHeight(height);
+    }
+  }, []);
+
+  const { observe, disconnect } = useResizeObserver(setSize);
+
+  const pin = useCallback(
     (expectedPosition: WaypointPosition) => ({
       currentPosition,
     }: IWaypointCallbackData) => {
@@ -47,13 +63,14 @@ export const Affix: React.FC<IAffixProps> = ({
         setWidth(node.offsetWidth);
         setHeight(node.offsetHeight);
       }
+      observe(node);
       setPosition(currentPosition);
       onPinCallbackRef.current?.();
     },
-    [onPinCallbackRef]
+    [onPinCallbackRef, observe]
   );
 
-  const unpin = React.useCallback(
+  const unpin = useCallback(
     (expectedPrevPosition: WaypointPosition) => ({
       currentPosition,
       previousPosition,
@@ -64,33 +81,33 @@ export const Affix: React.FC<IAffixProps> = ({
 
       setWidth(undefined);
       setHeight(undefined);
+      disconnect();
       setPosition(currentPosition);
       onUnpinCallbackRef.current?.();
     },
-    [onUnpinCallbackRef]
+    [onUnpinCallbackRef, disconnect]
   );
 
-  const [pinTop, unpinTop] = React.useMemo(
+  const [pinTop, unpinTop] = useMemo(
     () => [pin(WaypointPosition.Above), unpin(WaypointPosition.Above)],
     [pin, unpin]
   );
-  const [pinBottom, unpinBottom] = React.useMemo(
+  const [pinBottom, unpinBottom] = useMemo(
     () => [pin(WaypointPosition.Below), unpin(WaypointPosition.Below)],
     [pin, unpin]
   );
 
-  const placeholderStyle = React.useMemo<React.CSSProperties>(() => {
+  const placeholderStyle = useMemo<React.CSSProperties>(() => {
     if (position === WaypointPosition.Inside) {
       return {};
     }
 
     return {
-      width,
       height,
     };
-  }, [width, height, position]);
+  }, [height, position]);
 
-  const containerStyle = React.useMemo<React.CSSProperties>(() => {
+  const containerStyle = useMemo<React.CSSProperties>(() => {
     if (
       position === WaypointPosition.Above ||
       position === WaypointPosition.Below

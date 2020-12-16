@@ -1,5 +1,6 @@
-import * as React from 'react';
 import { Omit } from 'utility-types';
+import { useCallback, useState } from 'react';
+
 import DateRangeQuickPicker, {
   DateRangeQuickPickerPresetValue,
   IDateRangeQuickPickerProps,
@@ -23,13 +24,13 @@ const DateRangeQuickPickerField: React.FC<{
   childProps: IFormFieldChildProps<RangeDate>;
   props: IFormDateRangeQuickPickerFieldProps;
 }> = ({ childProps, props }) => {
-  const [chosenDays, setChosenDays] = React.useState<
+  const [chosenDays, setChosenDays] = useState<
     DateRangeQuickPickerPresetValue | undefined
   >(undefined);
 
   const onChangeRef = useEventCallbackRef(childProps.onChange);
 
-  const onChange = React.useCallback(
+  const onChange = useCallback(
     (value: RangeDate, chosenDays: DateRangeQuickPickerPresetValue) => {
       onChangeRef.current?.(value);
       setChosenDays(chosenDays);
@@ -47,7 +48,7 @@ const DateRangeQuickPickerField: React.FC<{
   );
 };
 
-export const FormDateRangeQuickPickerField: React.FunctionComponent<IFormDateRangeQuickPickerFieldProps> = props => {
+export const FormDateRangeQuickPickerField: React.FC<IFormDateRangeQuickPickerFieldProps> = props => {
   return (
     <FormField
       {...props}

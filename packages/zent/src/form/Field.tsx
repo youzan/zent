@@ -1,4 +1,5 @@
-import * as React from 'react';
+import { useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+
 import {
   useField,
   Validators,
@@ -39,7 +40,7 @@ function withDefaultOption(option: ValidateOption | null | undefined) {
  * @param initialValue
  */
 export function useInitialValue<T>(model: FieldModel<T>, initialValue?: T) {
-  React.useEffect(() => {
+  useEffect(() => {
     if (initialValue !== undefined) {
       model.initialize(initialValue);
     }
@@ -96,7 +97,7 @@ export function FormField<Value>(props: IFormFieldProps<Value>) {
 
   useInitialValue(model, props.initialValue);
 
-  React.useImperativeHandle(props.modelRef, () => model, [model]);
+  useImperativeHandle(props.modelRef, () => model, [model]);
   const {
     className,
     style,
@@ -116,16 +117,16 @@ export function FormField<Value>(props: IFormFieldProps<Value>) {
     withoutLabel,
     touchWhen = TouchWhen.Change,
   } = props;
-  const anchorRef = React.useRef<HTMLDivElement | null>(null);
+  const anchorRef = useRef<HTMLDivElement | null>(null);
   useFormChild(model, anchorRef);
-  const normalizer = React.useCallback(
+  const normalizer = useCallback(
     (value: Value) => {
       const prevValue = model.value;
       return normalize(value, prevValue);
     },
     [model, normalize]
   );
-  const setValue = React.useCallback(value => (model.value = value), [model]);
+  const setValue = useCallback(value => (model.value = value), [model]);
   const defaultOnChangeHandler = FieldUtils.makeChangeHandler(
     model,
     withDefaultOption(getValidateOption('change')),
@@ -159,7 +160,7 @@ export function FormField<Value>(props: IFormFieldProps<Value>) {
   );
 
   const onBlurProps = props.onBlur;
-  const onBlur = React.useCallback(
+  const onBlur = useCallback(
     (e: React.FocusEvent) => {
       if (touchWhen === TouchWhen.Blur) {
         model.isTouched = true;

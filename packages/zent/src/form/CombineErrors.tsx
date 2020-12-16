@@ -1,8 +1,8 @@
-import * as React from 'react';
 import { IMaybeError, FormContext, IFormContext, BasicModel } from './formulr';
 import { Subscription, combineLatest, merge } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FormError } from './Error';
+import { Component } from 'react';
 
 function equal<T>(a: T[], b: T[]) {
   if (a === b) {
@@ -49,7 +49,7 @@ export interface ICombineErrorState {
  * 将多个 model 的错误组合显示，只会显示收到的第一个错误
  * Combines error of multiple models, only one at a moment.
  */
-export class CombineErrors extends React.Component<
+export class CombineErrors extends Component<
   ICombineErrorsProps,
   ICombineErrorState
 > {

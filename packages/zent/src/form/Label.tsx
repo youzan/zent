@@ -1,5 +1,5 @@
-import * as React from 'react';
 import cx from 'classnames';
+import { useContext } from 'react';
 import { FormContext } from './context';
 
 export interface ILabelProps {
@@ -10,7 +10,7 @@ export const Label: React.FunctionComponent<ILabelProps> = ({
   children,
   required,
 }) => {
-  const { labelStyle } = React.useContext(FormContext);
+  const { labelStyle } = useContext(FormContext);
 
   return (
     <label

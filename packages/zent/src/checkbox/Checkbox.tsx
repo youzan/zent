@@ -1,5 +1,5 @@
-import * as React from 'react';
 import cx from 'classnames';
+import { useCallback, useContext, useRef } from 'react';
 
 import getWidth from '../utils/getWidth';
 import GroupContext, { ICheckboxContext } from './GroupContext';
@@ -59,12 +59,12 @@ function getReadOnly<Value>(
 }
 
 export function Checkbox<Value>(props: ICheckboxProps<Value>) {
-  const disabledCtx = React.useContext(DisabledContext);
-  const groupCtx = React.useContext(GroupContext);
-  const propsRef = React.useRef(props);
+  const disabledCtx = useContext(DisabledContext);
+  const groupCtx = useContext(GroupContext);
+  const propsRef = useRef(props);
   propsRef.current = props;
   const ctxOnChange = groupCtx && groupCtx.onChange;
-  const onChange: React.ChangeEventHandler<HTMLInputElement> = React.useCallback(
+  const onChange: React.ChangeEventHandler<HTMLInputElement> = useCallback(
     evt => {
       const { value, onChange } = propsRef.current;
       if (ctxOnChange) {

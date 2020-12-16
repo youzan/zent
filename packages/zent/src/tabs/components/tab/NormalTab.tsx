@@ -1,4 +1,3 @@
-import * as React from 'react';
 import BaseTab from '../base/BaseTab';
 
 class NormalTab<Id> extends BaseTab<Id> {

@@ -5,7 +5,7 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": false,
     "outDir": "dist",
-    "jsx": "react",
+    "jsx": "react-jsxdev",
     "allowJs": true,
     "lib": [
       "dom",

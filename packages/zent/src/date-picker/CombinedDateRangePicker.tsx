@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useContext, useCallback } from 'react';
 import { I18nReceiver as Receiver, II18nLocaleTimePicker } from '../i18n';
 
 import CombinedPicker from './components/CombinedPickerBase';
@@ -10,9 +10,8 @@ import { dateConfig } from './utils/dateUtils';
 import {
   IRangeProps,
   IGenerateDateConfig,
-  IShowTime,
+  IShowTimeRange,
   DateNullTuple,
-  StringTuple,
   IValueType,
   IRangeRelatedType,
 } from './types';
@@ -30,7 +29,7 @@ const PickerContextProvider = PickerContext.Provider;
 export interface ICombinedDateRangePickerProps<T extends IValueType = 'string'>
   extends Omit<IRangeProps, 'valueType' | 'onChange'>,
     IRangeRelatedType<T> {
-  showTime?: IShowTime<StringTuple>;
+  showTime?: IShowTimeRange<string>;
 }
 const DefaultCombinedDateRangeProps = {
   format: DATE_FORMAT,
@@ -39,7 +38,7 @@ const DefaultCombinedDateRangeProps = {
 export const CombinedDateRangePicker = <T extends IValueType = 'string'>(
   props: ICombinedDateRangePickerProps<T>
 ) => {
-  const disabledContext = React.useContext(DisabledContext);
+  const disabledContext = useContext(DisabledContext);
   const propsRequired = {
     ...defaultDatePickerCommonProps,
     ...DefaultCombinedDateRangeProps,
@@ -54,7 +53,7 @@ export const CombinedDateRangePicker = <T extends IValueType = 'string'>(
     disabled = disabledContext.value,
   } = propsRequired;
 
-  const getInputRangeText = React.useCallback(
+  const getInputRangeText = useCallback(
     (val: DateNullTuple) => formatTextRange(val, format),
     [format]
   );
@@ -62,7 +61,9 @@ export const CombinedDateRangePicker = <T extends IValueType = 'string'>(
   return (
     <Receiver componentName="TimePicker">
       {(i18n: II18nLocaleTimePicker) => (
-        <PickerContextProvider value={{ i18n, getInputRangeText }}>
+        <PickerContextProvider
+          value={{ i18n, autoComplete: !!showTime, getInputRangeText }}
+        >
           <CombinedPicker
             {...propsRequired}
             width={width ?? (!!showTime ? COMBINED_INPUT_WIDTH : INPUT_WIDTH)}

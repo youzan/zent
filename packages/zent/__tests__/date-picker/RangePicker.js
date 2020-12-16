@@ -1,4 +1,3 @@
-import React from 'react';
 import Enzyme, { mount } from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import { Simulate } from 'react-dom/test-utils';
@@ -33,7 +32,7 @@ describe('RangePicker', () => {
     Simulate.click(
       pop.querySelectorAll('.zent-datepicker-panel-footer-btn')[0]
     );
-    expect(wrapper.prop('value')[0]).toBe('2020-07-26 12:00');
+    expect(wrapper.prop('value')[0]).toBe('2020-07-26 00:00');
     wrapper.unmount();
   });
 

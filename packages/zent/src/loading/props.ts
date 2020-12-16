@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 export type LoadingColorPreset = 'primary' | 'grey';
 
 export interface ILoadingBaseProps {

@@ -1,7 +1,8 @@
-import * as React from 'react';
 import cx from 'classnames';
 import { Omit } from 'utility-types';
 import { Subscription } from 'rxjs';
+import { Component, createRef } from 'react';
+
 import {
   FormProvider,
   useField,
@@ -18,6 +19,8 @@ import {
   createAsyncValidator,
   isAsyncValidator,
   useFieldValue,
+  FieldValid,
+  useFieldValid,
 } from './formulr';
 import memorize from '../utils/memorize-one';
 import {
@@ -25,7 +28,7 @@ import {
   IFormChild,
   IZentFormChildrenContext,
 } from './context';
-import { ZentForm, useForm } from './ZentForm';
+import { ZentForm, useForm, useFormValue, useFormValid } from './ZentForm';
 import { smoothScroll } from '../utils/scroll';
 import { CombineErrors } from './CombineErrors';
 import { ValidateOccasion, TouchWhen } from './shared';
@@ -112,7 +115,7 @@ export interface IFormProps<T extends {}>
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-export class Form<T extends {}> extends React.Component<IFormProps<T>> {
+export class Form<T extends {}> extends Component<IFormProps<T>> {
   static displayName = 'ZentForm';
 
   static CombineErrors = CombineErrors;
@@ -126,15 +129,19 @@ export class Form<T extends {}> extends React.Component<IFormProps<T>> {
   static form = form;
   static FieldValue = FieldValue;
   static FieldSetValue = FieldSetValue;
+  static useFormValue = useFormValue;
   static useFieldArrayValue = useFieldArrayValue;
   static useFieldValue = useFieldValue;
+  static FieldValid = FieldValid;
+  static useFormValid = useFormValid;
+  static useFieldValid = useFieldValid;
   static ValidateOption = ValidateOption;
   static createAsyncValidator = createAsyncValidator;
   static isAsyncValidator = isAsyncValidator;
   static ValidateOccasion = ValidateOccasion;
   static TouchWhen = TouchWhen;
 
-  readonly formRef = React.createRef<HTMLFormElement>();
+  readonly formRef = createRef<HTMLFormElement>();
 
   private readonly children: IFormChild[] = [];
   private getChildrenContext = memorize(makeChildrenContext);

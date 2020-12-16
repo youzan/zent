@@ -1,14 +1,16 @@
-import * as React from 'react';
 import { PureComponent } from 'react';
 import Checkbox, { ICheckboxProps } from '../checkbox';
 import Store from './Store';
 
 export interface IGridSelectionAllCheckboxProps<Data> {
   store: Store;
-  datasets: Data[];
+  datasets: ReadonlyArray<Data>;
   getDataKey: (data: Data, rowIndex: number | string) => string;
   disabled: boolean;
-  onSelect: (type: 'selectAll' | 'removeAll', datasets: Data[]) => void;
+  onSelect: (
+    type: 'selectAll' | 'removeAll',
+    datasets: ReadonlyArray<Data>
+  ) => void;
 }
 
 interface IGridSelectionAllCheckboxState {

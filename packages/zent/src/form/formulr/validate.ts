@@ -1,4 +1,4 @@
-import { Observable, from, NextObserver, empty, of, defer } from 'rxjs';
+import { Observable, from, NextObserver, of, defer, EMPTY } from 'rxjs';
 import { catchError, map, concatAll, filter, takeWhile } from 'rxjs/operators';
 import { BasicModel, isFieldSetModel } from './models';
 import { finalizeWithLast } from './finalize-with-last';
@@ -171,7 +171,7 @@ function runValidator<T>(
     }
   } catch (error) {
     reject(error);
-    return empty();
+    return EMPTY;
   }
 }
 
@@ -203,7 +203,7 @@ class ValidatorExecutor<T> {
       takeWhile(isNil, true),
       catchError(error => {
         reject(error);
-        return empty();
+        return EMPTY;
       }),
       finalizeWithLast<IMaybeError<T>>(resolve, null)
     );

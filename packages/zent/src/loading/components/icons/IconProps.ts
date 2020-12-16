@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { LoadingTextPosition } from './position';
 import { LoadingColorPreset } from '../../props';
 

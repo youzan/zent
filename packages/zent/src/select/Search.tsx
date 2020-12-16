@@ -1,5 +1,10 @@
-import * as React from 'react';
-import { forwardRef } from 'react';
+import {
+  forwardRef,
+  useCallback,
+  useImperativeHandle,
+  useLayoutEffect,
+  useRef,
+} from 'react';
 import cx from 'classnames';
 
 export interface ISelectSearchProps {
@@ -26,20 +31,20 @@ function SelectSearch(
   }: ISelectSearchProps,
   cmdRef: React.RefObject<ISelectImperativeHandlers>
 ) {
-  const ref = React.useRef<HTMLInputElement>(null);
-  const focusSearchInput = React.useCallback(() => {
+  const ref = useRef<HTMLInputElement>(null);
+  const focusSearchInput = useCallback(() => {
     ref.current!.focus({
       preventScroll: true,
     });
   }, [ref]);
 
-  React.useImperativeHandle(cmdRef, () => ({
+  useImperativeHandle(cmdRef, () => ({
     focus: () => {
       focusSearchInput();
     },
   }));
 
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     focusSearchInput();
   }, [focusSearchInput]);
 

@@ -1,12 +1,10 @@
-import * as React from 'react';
 import cx from 'classnames';
+import { useCallback, useContext, useMemo, useRef, useState } from 'react';
 
 import PickerPopover from './PickerPopover';
 import { SingleInputTrigger } from './PickerTrigger';
-
 import PickerContext from '../context/PickerContext';
 import PanelContext from '../context/PanelContext';
-
 import useMergedProps from '../hooks/useMergedProps';
 import useNormalizeDisabledDate from '../hooks/useNormalizeDisabledDate';
 import useSinglePopoverVisible from '../hooks/useSinglePopoverVisible';
@@ -35,7 +33,7 @@ export function SinglePicker({
   disabledDate,
   ...restProps
 }: ISinglePickerProps) {
-  const restPropsRef = React.useRef(restProps);
+  const restPropsRef = useRef(restProps);
   restPropsRef.current = restProps;
   const {
     defaultDate,
@@ -51,7 +49,7 @@ export function SinglePicker({
     PanelComponent,
     ...restPanelProps
   } = restPropsRef.current;
-  const { getSelectedValue, getCallbackValue, getInputText } = React.useContext(
+  const { getSelectedValue, getCallbackValue, getInputText } = useContext(
     PickerContext
   );
   // props onChangeRef
@@ -86,14 +84,14 @@ export function SinglePicker({
   const disabledPanelDate = useNormalizeDisabledDate(format, disabledDate);
 
   // hover date
-  const [hoverDate, setHoverDate] = React.useState<Date>();
+  const [hoverDate, setHoverDate] = useState<Date>();
 
   /**
    * onSelected 选择日期 触发onChange回调
    * finish默认true表示选中日期即触发回调，支持时间选择等特殊情况时不直接触发回调
    *
    */
-  const onSelected = React.useCallback(
+  const onSelected = useCallback(
     (val: Date, finish = true) => {
       setSelected(getSelectedValue?.(val) || null);
 
@@ -115,7 +113,7 @@ export function SinglePicker({
   );
 
   // onClear
-  const onClearInput = React.useCallback(
+  const onClearInput = useCallback(
     evt => {
       evt.stopPropagation();
       onChangeRef.current?.(null);
@@ -124,12 +122,12 @@ export function SinglePicker({
   );
 
   // trigger-input text
-  const text = React.useMemo(() => getInputText?.(selected), [
+  const text = useMemo(() => getInputText?.(selected), [
     selected,
     getInputText,
   ]);
 
-  const trigger = React.useMemo(() => {
+  const trigger = useMemo(() => {
     const triggerProps = pick(restPropsRef.current, triggerCommonProps);
     return (
       <div>
@@ -145,7 +143,7 @@ export function SinglePicker({
     );
   }, [text, value, panelVisible, restPropsRef, disabled, onClearInput]);
 
-  const content = React.useMemo(() => {
+  const content = useMemo(() => {
     return (
       <div className="zent-datepicker-panel">
         <PanelComponent

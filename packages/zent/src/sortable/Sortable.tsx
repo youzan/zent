@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import * as React from 'react';
+import { Component, createRef } from 'react';
 
 // use this only as type, @types/sortablejs and sortablejs cannot be used with `esModuleInterop: false`
 import * as _sortableJS from 'sortablejs';
@@ -19,13 +19,13 @@ export interface ISortableProps<T>
   onChange?: (newItems: T[]) => void;
 }
 
-export class Sortable<T> extends React.Component<ISortableProps<T>> {
+export class Sortable<T> extends Component<ISortableProps<T>> {
   static defaultProps = {
     tag: 'div',
   };
 
   sortable: _sortableJS;
-  containerRef = React.createRef<HTMLElement>();
+  containerRef = createRef<HTMLElement>();
 
   initSortable = () => {
     const {

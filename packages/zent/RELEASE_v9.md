@@ -1,5 +1,91 @@
 # 9.0.0 迁移指南
 
+## 9.0.0(2020-12-14)
+
+- 🦀️ `Drawer` 在 `nomask` 模式下，兼容冒泡事件到达时，节点已被移除 DOM 树的场景
+
+## 9.0.0-beta.26(2020-12-14)
+
+- ✨ `Select` 增加 `hideCollapsePop` 支持多选折叠模式下隐藏展示数据的气泡
+- 🦀️ 修改 `Dialog` `overflow` 样式
+
+## 9.0.0-beta.25(2020-12-11)
+
+- `DatePicker`
+  - 增加 `disabledTimeWithRange`、`getDisabledDateAndTimeWithRangeProps` 等工具函数，用户处理禁用时间或禁用日期
+  - 扩展日期组件 `showTime` 时的 `defaultTime` 类型，支持根据日期自定义默认时间
+  - 暗提示文本样式修改
+- `Popover` `Pop` `Tooltip` `DateRangeQuickPicker` 类名修改
+  - 💥 CSS 类名 `zent-pop` => `zent-pop-v2`
+  - 💥 CSS 类名 `zent-tooltip` => `zent-tooltip-v2`
+  - 💥 CSS 类名 `zent-popover` => `zent-popover-v2`
+  - 💥 CSS 类名 `zent-date-range-picker` => `zent-date-range-quick-picker`
+
+## 9.0.0-beta.24 (2020-12-10)
+
+- 🦀️ 导出 `postcss-plugin-constants.js`，`@zent/compat` 需要用到
+
+## 9.0.0-beta.23 (2020-12-10)
+
+- 🦀️ 修复找不到 `ResizeObserver` 类型的问题
+
+## 9.0.0-beta.22 (2020-12-10)
+
+- 💥 使用了新的 jsx transform，不再兼容 17 以下的 React 版本
+- 💥 主题色兼容老版本，区分 `rgb` 和 `rgba` 的场景，降低升级成本
+- `Steps`
+  - 💥 CSS 类名 `is-finish` => `zent-steps-item--finished`
+  - 💥 CSS 类名 `is-current` => `zent-steps-item--current`
+  - 💥 CSS 类名 `is-clicked` => `zent-steps-item--clickable`
+  - 💥 CSS 类名 `is-last-finish` => `zent-steps-item--last-finished`
+- ✨ 更新 `Dialog` 样式，调整了最大和最小宽高，并加入了高度自适应滚动的能力
+- `Grid`
+  - ✨ 增加 `GridColumnProvider` 设置全局列属性
+  - ✨ 列属性中增加了 `isValueEmpty` 来自定义判断值为空的逻辑
+  - ✨ 支持通过 `loadingProps` 自定义加载样式
+- ✨ `Select` 支持通过 `disableSearch` 禁用搜索能力
+- ✨ 设置了全局默认文字颜色为 `theme-stroke-1`
+- `ClampLines`
+  - ✨ 增加一种新的保证结果正确的算法，但是性能较差，默认依旧使用二分算法
+  - 🦀️ 修复二分查找算法问题
+  - 🦀️ 修复 `Safari` 下样式问题
+  - 🦀️ 兼容 `Firefox` 有问题的 `ResizeObserver` 实现
+  - 🦀️ 修复一些 Unicode 字符被截断的问题
+- 🦀️ 更新 `Input` 样式
+- 🦀️ 更新 `Select` 样式
+- 🦀️ 更新 `Cascader` 样式
+- 🦀️ 更新 `Steps` 样式
+- 🦀️ 修复 `Tabs` 翻页逻辑
+
+## 9.0.0-beta21 (2020-12-02)
+
+- `Form`
+  - 🦀️ 修复 `set.value` 和 `array.value` 不正确的触发了对 `value` 的持续监听
+  - 🦀️ 修复 `array.getRawValue` 总是返回初始值的问题
+
+## 9.0.0-beta20 (2020-12-02)
+
+- 🦀️ 修复 `FieldArrayModel` 一些情况下下 `children` 和 `value` 个数对不上的问题
+- 🦀️ `ModelRef` 内部为初始化完成前使用 `initialValue`，而不抛异常
+
+## 9.0.0-beta19 (2020-12-01)
+
+- ✨ `Form` `FieldArrayModel` 增加 `get` 方法用于获取指定下标的子 model
+- 🦀️ `Grid` 的 `datasets` 类型改为只读数组
+
+## 9.0.0-beta18 (2020-12-01)
+
+- ✨ `Affix` 支持固定时宽度自适应原位置的容器大小
+- ✨ `ClampLines` 支持自适应容器大小
+- `Form`
+  - ✨ 新增 `useFormValid`, `useFieldValid` 以及 `FieldValid` 用于监听是否有校验错误
+  - ✨ `set`, `array` 支持深度订阅值的改变
+- 🦀️ 修复 `openDialog` 返回值的类型
+- `DatePicker`
+  - 🦀️ 修复 `disabledTime` 校验不及时的问题
+  - 🦀️ 修复 `disabledDate` 传入包含时间的 `min`、`max` 时不生效的问题
+- 🦀️ 修复 `Select` 搜索结果列表键盘选择错误的问题
+
 ## 9.0.0-beta17 (2020-11-27)
 
 - ✨ `Tabs` 增加 `disableLazyMount` 参数，但不推荐使用
@@ -104,6 +190,10 @@
 
 ## Breaking Changes
 
+### React 最低版本升级到 17
+
+不再支持 React <= 16 的版本。
+
 ### 移除 `prefix` 支持
 
 所有组件都不再支持 `prefix` 属性。
@@ -115,6 +205,8 @@
 ⚠️ 如果希望使用老版本的 `Popover` 组件，请使用 `@zent/compat` 这个包。这个包里的 `Popover` 组件不再迭代，不加新功能，不改 bug。
 
 老版本的 `Popover` 因为 React 的限制，会有一个包裹层 `zent-popover-wrapper`，新版本的 React 支持了 Fragment，所以 `Popover` 不再需要这个包裹层了。由于这个改动，`Popover` 上原来用来控制这个包裹层样式的参数都被删除了，包括 `width`、`display` 以及 `wrapperClassName`，这些属性可以直接在 trigger 上自行控制。另外增加了控制弹层样式的 `style` 属性，原来的 `className` 行为未变。
+
+新版 CSS 类名有变化，具体参考上面各版本的详细说明。
 
 #### 废弃 `Trigger.Base` 基类
 
@@ -141,6 +233,8 @@
 
 老版本的 `Pop` 和 `Tooltip` 已经迁移到 `@zent/compat`。
 
+新版 CSS 类名有变化，具体参考上面各版本的详细说明。
+
 ### 重写 `Select`
 
 老版本的 `Select` 是一个非受控组件，代码逻辑难以捉摸，这次是从头开始的完全重写，可以认为是两个完全不同的组件，使用说明请参考新版 `Select` 的文档。新版加入了一些需求很大的功能，比如选项的动态加载等。
@@ -152,6 +246,12 @@
 和 `Select` 类似，这也是完全重写，和老组件没有任何关联，使用说明请参考新版组件的文档。新版本采用了全新的交互、视觉设计，新增了一些新交互的组件，比如 `CombinedDateRangePicker` 和 `CombinedTimeRangePicker`。
 
 如果希望继续使用老版本的时间选择组件，请使用 `@zent/compat` 这个包。⚠️ 注意：这个包里的时间选择组件不再迭代新功能，也不再修 bug，只会酌情处理致命的问题。
+
+### `DateRangeQuickPicker` CSS 类名变化
+
+新版 CSS 类名有变化，具体参考上面各版本的详细说明。
+
+实现上使用了新版时间选择组件。
 
 ### 重写 `Cascader`
 
@@ -173,10 +273,17 @@
 - `show-rotate-btn`
 - `rotate-action`
 
+### `Steps`
+
+新版部分 CSS 类名有变化，具体参考上面各版本的详细说明。功能无变化。
+
 ### 文档
 
 - 删除 [`Sku`](https://github.com/zent-contrib/sku) 和 [`Design`](https://github.com/zent-contrib/design) 的文档，这两个组件上个版本已经移除，如果需要查看它们的文档请到对应的仓库看。
 
 ## 新功能
 
-- 新增 `Transfer` 组件，一个左右布局的选择组件。
+- 新增 `Transfer` 组件，一个左右布局的选择组件
+- 新增 `Drawer` 组件
+- 主题色支持透明度，同时兼容老版本的主题色（老版主题色不支持透明度），详细配置参考主题色的文档
+- 其余新功能请参考上面各版本的详细说明

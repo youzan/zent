@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Component } from 'react';
 
 import { IBaseTabsProps } from '../../types';

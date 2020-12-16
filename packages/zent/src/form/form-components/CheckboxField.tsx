@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useCallback } from 'react';
 import { Omit } from 'utility-types';
 import cx from 'classnames';
 import Checkbox, { ICheckboxProps, ICheckboxEvent } from '../../checkbox';
@@ -23,7 +23,7 @@ function CheckboxField<Value>({
 
   const onChangeRef = useEventCallbackRef(childProps.onChange);
 
-  const onChange = React.useCallback(
+  const onChange = useCallback(
     (e: ICheckboxEvent<Value>) => {
       onChangeRef.current?.(e.target.checked);
     },

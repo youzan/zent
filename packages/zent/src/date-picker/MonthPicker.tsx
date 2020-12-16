@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useContext, useCallback } from 'react';
 import { I18nReceiver as Receiver, II18nLocaleTimePicker } from '../i18n';
 import SinglePicker from './components/SinglePickerBase';
 import MonthPanel from './panels/month-panel';
@@ -30,7 +30,7 @@ const DefaultMonthPickerProps = {
 export const MonthPicker = <T extends IValueType = 'string'>(
   props: IMonthPickerProps<T>
 ) => {
-  const disabledContext = React.useContext(DisabledContext);
+  const disabledContext = useContext(DisabledContext);
   const propsRequired = {
     ...defaultDatePickerCommonProps,
     ...DefaultMonthPickerProps,
@@ -44,14 +44,14 @@ export const MonthPicker = <T extends IValueType = 'string'>(
     disabled = disabledContext.value,
   } = propsRequired;
 
-  const getInputText = React.useCallback(
+  const getInputText = useCallback(
     (val: Date | null) => formatText(val, format),
     [format]
   );
 
-  const getSelectedValue = React.useCallback((val: Date) => val, []);
+  const getSelectedValue = useCallback((val: Date) => val, []);
 
-  const getCallbackValue = React.useCallback(
+  const getCallbackValue = useCallback(
     (val: Date) => getCallbackValueWithDate(val, valueType, format),
     [valueType, format]
   );

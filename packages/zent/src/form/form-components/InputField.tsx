@@ -1,5 +1,6 @@
-import * as React from 'react';
 import { Omit } from 'utility-types';
+import { useCallback } from 'react';
+
 import Input, {
   IInputProps,
   IInputClearEvent,
@@ -26,7 +27,7 @@ const InputField: React.FC<{
 }> = ({ childProps, props }) => {
   const onChangeRef = useEventCallbackRef(childProps.onChange);
 
-  const onChange = React.useCallback(
+  const onChange = useCallback(
     (
       e:
         | IInputClearEvent

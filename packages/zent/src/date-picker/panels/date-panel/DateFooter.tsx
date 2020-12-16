@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useCallback, useContext, useMemo } from 'react';
 import cx from 'classnames';
 import { parse } from 'date-fns';
 import Pop from '../../../pop';
@@ -27,30 +27,30 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
   onSelected,
   disabledPanelDate,
 }) => {
-  const { i18n } = React.useContext(PickerContext);
+  const { i18n, autoComplete } = useContext(PickerContext);
   const { format = '' } = showTimeOption || {};
   const confirmStatus = useConfirmStatus({
     selected: formatDate(format, selected),
-    disabledTimesOption: (selected && disabledTime?.(selected)) || {},
+    disabledTimeOption: (selected && disabledTime?.(selected)) || {},
     format,
   });
-  const isDisableConfirm = React.useMemo(
+  const isDisableConfirm = useMemo(
     () => selected && disabledPanelDate(selected),
     [selected, disabledPanelDate]
   );
-  const isDisabledToday = React.useMemo(() => disabledPanelDate(today), [
+  const isDisabledToday = useMemo(() => disabledPanelDate(today), [
     disabledPanelDate,
   ]);
-  const onClickCurrent = React.useCallback(() => {
+  const onClickCurrent = useCallback(() => {
     if (isDisabledToday) return;
     onSelected(today);
   }, [isDisabledToday, onSelected]);
 
-  const confirmHandler = React.useCallback(() => {
+  const confirmHandler = useCallback(() => {
     selected && onSelected(selected);
   }, [selected, onSelected]);
 
-  const confirmBtn = React.useMemo(
+  const confirmBtn = useMemo(
     () => (
       <Button
         type="primary"
@@ -64,7 +64,7 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
     [i18n, confirmStatus, selected, isDisableConfirm, confirmHandler]
   );
 
-  const renderToday = React.useMemo(() => {
+  const renderToday = useMemo(() => {
     return (
       <div>
         <a
@@ -99,7 +99,7 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
     onClickCurrent,
   ]);
 
-  const onTimeChange = React.useCallback(
+  const onTimeChange = useCallback(
     val => {
       if (!val) return;
       const timeVal = parse(val, format, selected || new Date());
@@ -108,21 +108,33 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
     [selected, format, onSelected]
   );
 
-  const timeInput = React.useMemo(
-    () =>
-      showTime ? (
-        <TimePicker
-          {...showTimeOption}
-          width={94}
-          selectedDate={selected}
-          value={formatDate(format, selected)}
-          hiddenIcon={true}
-          onChange={onTimeChange}
-          disabledTime={disabledTime}
-        />
-      ) : null,
-    [selected, showTime, showTimeOption, format, disabledTime, onTimeChange]
-  );
+  const timeInput = useMemo(() => {
+    const { defaultTime, ...restOption } = showTimeOption || {};
+    const defaultTimeString =
+      typeof defaultTime === 'function' ? defaultTime(selected) : defaultTime;
+
+    return showTime ? (
+      <TimePicker
+        {...restOption}
+        defaultTime={defaultTimeString}
+        width={94}
+        selectedDate={selected}
+        value={formatDate(format, selected)}
+        hiddenIcon={true}
+        onChange={onTimeChange}
+        disabledTime={disabledTime}
+        autoComplete={autoComplete}
+      />
+    ) : null;
+  }, [
+    autoComplete,
+    selected,
+    showTime,
+    showTimeOption,
+    format,
+    disabledTime,
+    onTimeChange,
+  ]);
 
   return <PanelFooter leftNode={timeInput} rightNode={renderToday} />;
 };

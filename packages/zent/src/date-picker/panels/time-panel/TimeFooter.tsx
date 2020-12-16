@@ -1,7 +1,7 @@
-import * as React from 'react';
+import { useCallback, useContext, useMemo } from 'react';
+
 import PanelFooter from '../../components/PanelFooter';
 import Button from '../../../button';
-
 import PickerContext from '../../context/PickerContext';
 import PanelContext from '../../context/PanelContext';
 import { formatDate } from '../../utils/index';
@@ -12,18 +12,18 @@ const TimePickerFooter: React.FC<ITimePanelProps> = ({
   selected,
   format,
 }) => {
-  const { i18n } = React.useContext(PickerContext);
-  const { confirmStatus } = React.useContext(PanelContext);
+  const { i18n } = useContext(PickerContext);
+  const { confirmStatus } = useContext(PanelContext);
 
-  const onClickCurrent = React.useCallback(() => {
+  const onClickCurrent = useCallback(() => {
     onSelected(formatDate(format, new Date()), true);
   }, [format, onSelected]);
 
-  const renderToday = React.useMemo(() => {
+  const renderToday = useMemo(() => {
     return <a onClick={onClickCurrent}>{i18n.current.time}</a>;
   }, [i18n, onClickCurrent]);
 
-  const confirmNode = React.useMemo(
+  const confirmNode = useMemo(
     () => (
       <Button
         type="primary"

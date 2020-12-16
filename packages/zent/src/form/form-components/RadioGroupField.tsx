@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useCallback } from 'react';
 import { Omit } from 'utility-types';
 import cx from 'classnames';
 
@@ -22,7 +22,7 @@ function RadioGroupField<T>({
   props: IFormRadioGroupFieldProps<T>;
 }) {
   const onChangeRef = useEventCallbackRef(childProps.onChange);
-  const onChange = React.useCallback(
+  const onChange = useCallback(
     (e: IRadioEvent<T>) => {
       onChangeRef.current?.(e.target.value);
     },

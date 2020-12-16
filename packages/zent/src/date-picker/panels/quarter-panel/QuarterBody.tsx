@@ -1,4 +1,5 @@
-import * as React from 'react';
+import { useContext, useMemo } from 'react';
+
 import PanelContext from '../../context/PanelContext';
 import PickerContext from '../../context/PickerContext';
 import PanelCell from '../../components/PanelCell';
@@ -20,10 +21,10 @@ const QuarterPickerBody: React.FC<IQuarterPickerBodyProps> = ({
   row = ROW_COUNT,
   col = COL_COUNT,
 }) => {
-  const { i18n } = React.useContext(PickerContext);
-  const { onHover } = React.useContext(PanelContext);
+  const { i18n } = useContext(PickerContext);
+  const { onHover } = useContext(PanelContext);
 
-  const cells = React.useMemo(
+  const cells = useMemo(
     () =>
       getPanelCellsData({
         selected,

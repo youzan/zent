@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { isAfter, isBefore } from 'date-fns';
+import { useRef, useMemo, useCallback } from 'react';
+import { endOfDay, isAfter, isBefore, startOfDay } from 'date-fns';
 import {
   IGenerateDateConfig,
   RangeType,
@@ -27,20 +27,20 @@ export default function useRangeDisabledDate(
   pickerType: keyof typeof pickerTypeMap,
   dateSpan = 0
 ): IDisabledDateFunc[] {
-  const disabledDateRef = React.useRef(disabledDate);
+  const disabledDateRef = useRef(disabledDate);
   disabledDateRef.current = disabledDate;
 
-  const IsRangePicker = React.useMemo(
-    () => pickerType === pickerTypeMap.range,
-    [pickerType]
-  );
-  const IsCombinedPicker = React.useMemo(
+  const IsRangePicker = useMemo(() => pickerType === pickerTypeMap.range, [
+    pickerType,
+  ]);
+  const IsCombinedPicker = useMemo(
     () => pickerType === pickerTypeMap.combined,
     [pickerType]
   );
 
-  const disabledStartDate = React.useCallback(
-    (date: Date) => {
+  const disabledStartDate = useCallback(
+    (value: Date) => {
+      const date = endOfDay(value);
       const [start, end] = selected;
       const { isSame, offsetDate } = generateDate;
       if (disabledDateRef.current?.(date, START)) {
@@ -71,8 +71,9 @@ export default function useRangeDisabledDate(
     ]
   );
 
-  const disabledEndDate = React.useCallback(
-    (date: Date) => {
+  const disabledEndDate = useCallback(
+    (value: Date) => {
+      const date = startOfDay(value);
       const { circleEndDate, isSame, offsetDate } = generateDate;
       const [start] = selected;
       if (disabledDateRef.current?.(date, END)) {

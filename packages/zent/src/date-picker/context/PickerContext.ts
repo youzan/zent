@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { createContext } from 'react';
 import { II18nLocaleTimePicker } from '../../i18n';
 import { TimePicker } from '../../i18n/default';
 
@@ -19,11 +19,12 @@ export interface IPickerContextProps {
   getInputText?: (val: Date | null) => string | StringTuple;
 
   // range picker
+  autoComplete?: boolean;
   getCallbackRangeValue?: (val: DateNullTuple) => RangeDate | null;
   getInputRangeText?: (val: DateNullTuple) => StringTuple;
 }
 
-const PickerContext = React.createContext<IPickerContextProps>({
+const PickerContext = createContext<IPickerContextProps>({
   i18n: TimePicker(),
 });
 

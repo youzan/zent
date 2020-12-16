@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { Component } from 'react';
+import { Component, createRef } from 'react';
 import cx from 'classnames';
 
 export interface IRateStarProps {
@@ -14,7 +13,7 @@ export interface IRateStarProps {
 }
 
 export default class Star extends Component<IRateStarProps> {
-  elRef = React.createRef<HTMLLIElement>();
+  elRef = createRef<HTMLLIElement>();
 
   onHover = (e: React.MouseEvent<HTMLLIElement>) => {
     const { onHover, index } = this.props;

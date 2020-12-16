@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { useMemo, useCallback, useRef } from 'react';
 import cx from 'classnames';
 import { CSSTransition } from 'react-transition-group';
@@ -33,7 +32,15 @@ const DrawerContent: React.FC<DrawerContentProps> = ({
         document,
         'click',
         e => {
-          if (!drawerEl.current?.contains(e.target as HTMLDivElement)) {
+          const target = e.target as HTMLDivElement;
+          /**
+           * `document.contains(target)`：兼容冒泡事件到达时，e.target已被移除于dom树中的场景
+           * https://github.com/youzan/zent/issues/1608
+           */
+          if (
+            document.contains(target) &&
+            !drawerEl.current?.contains(target)
+          ) {
             onClose();
           }
         }

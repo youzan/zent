@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import ImageUploadItem from './Item';
 
 import Sortable from '../../../sortable';

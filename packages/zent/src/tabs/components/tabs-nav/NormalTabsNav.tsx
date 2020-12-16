@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { IInnerTab } from '../../types';
 import NormalTab from '../tab/NormalTab';
 import CommonTabsNav from './CommonTabsNav';

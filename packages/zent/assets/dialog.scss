@@ -3,6 +3,16 @@
 
 $z-index: 1050;
 
+$vertical-padding: 56px * 2;
+$horizontal-padding: 28px * 2;
+
+$min-height: 190px;
+$min-width: 560px;
+
+// all includes padding to dialog body
+$header-height: 72px;
+$footer-height: 72px;
+
 /*
   WARNING: Do NOT use transform: translate(-50%, -50%) to center dialog,
   it makes content blurry.
@@ -49,13 +59,17 @@ $z-index: 1050;
   padding: 16px 0;
   box-sizing: border-box;
   white-space: normal;
+  min-width: $min-width;
+  max-width: calc(100vw - #{$horizontal-padding});
+  min-height: $min-height;
+  max-height: calc(100vh - #{$vertical-padding});
 }
 
 .zent-dialog-r-title {
-  @include font-normal;
+  @include font-large;
   @include theme-color(border-bottom-color, stroke, 5);
   @include theme-color(color, stroke, 1);
-  padding: 0 16px 14px;
+  padding: 0 16px 15px;
   border-bottom-width: 1px;
   border-bottom-style: solid;
   margin: 0;
@@ -68,7 +82,7 @@ $z-index: 1050;
   @include theme-color(background-color, stroke, 9);
   position: absolute;
   display: inline-block;
-  top: 4px;
+  top: 8px;
   right: 10px;
   font-size: 18px;
   line-height: 18px;
@@ -88,7 +102,7 @@ $z-index: 1050;
   }
 
   &.zent-dialog-r-has-title {
-    top: 14px;
+    top: 16px;
     right: 12px;
   }
 }
@@ -96,7 +110,8 @@ $z-index: 1050;
 .zent-dialog-r-body {
   @include font-normal;
   @include theme-color(color, stroke, 1);
-  padding: 16px;
+
+  padding-top: 16px;
 
   &.with-success-icon,
   &.with-warning-icon {
@@ -106,11 +121,81 @@ $z-index: 1050;
   &:last-child {
     padding-bottom: 0;
   }
+
+  &-content {
+    padding: 0 16px;
+    overflow-y: auto;
+  }
+}
+
+/*
+We need to consider only two cases if header is present, close button has no impact on style
+Header  CloseButton  Footer
+O       O            O
+O       O            X
+O       X            O
+O       X            X
+
+We need to consider four cases if header is not present, this time close button has impact on style
+X       O            O
+X       O            X
+X       X            O
+X       X            X
+*/
+
+// no header and has close button
+// sass-lint:disable-block no-mergeable-selectors
+.zent-dialog-r {
+  // only content
+  .zent-dialog-r-body-content {
+    min-height: $min-height - 48px;
+    max-height: calc(100vh - #{$vertical-padding + 48px});
+  }
+
+  &.zent-dialog-r--has-footer .zent-dialog-r-body-content {
+    min-height: $min-height - $footer-height - 32px;
+    max-height: calc(100vh - #{$vertical-padding + $footer-height + 32px});
+  }
+}
+
+// no header and no close button
+.zent-dialog-r.zent-dialog-r--no-close-btn:not(.zent-dialog-r--has-header) {
+  .zent-dialog-r-body {
+    padding-top: 0;
+  }
+
+  // only content
+  .zent-dialog-r-body-content {
+    min-height: $min-height - 32px;
+    max-height: calc(100vh - #{$vertical-padding + 32px});
+  }
+
+  &.zent-dialog-r--has-footer .zent-dialog-r-body-content {
+    min-height: $min-height - $footer-height - 16px;
+    max-height: calc(100vh - #{$vertical-padding + $footer-height + 16px});
+  }
+}
+
+// has header, close button doesn't matter
+.zent-dialog-r.zent-dialog-r--has-header {
+  // no footer
+  .zent-dialog-r-body-content {
+    min-height: $min-height - $header-height - 16px;
+    max-height: calc(100vh - #{$vertical-padding + $header-height + 16px});
+  }
+
+  // has footer
+  &.zent-dialog-r--has-footer .zent-dialog-r-body-content {
+    min-height: $min-height - $header-height - $footer-height;
+    max-height: calc(
+      100vh - #{$vertical-padding + $header-height + $footer-height}
+    );
+  }
 }
 
 .zent-dialog-r-footer {
   text-align: right;
-  padding: 16px 16px 0;
+  padding: 24px 16px 0;
 
   .zent-btn + .zent-btn {
     margin-left: 8px;

@@ -1,4 +1,5 @@
-import * as React from 'react';
+import { useCallback, useContext, useMemo } from 'react';
+
 import PanelFooter from '../../components/PanelFooter';
 import Button from '../../../button';
 import Pop from '../../../pop';
@@ -9,14 +10,14 @@ import { ITimePanelProps, RangeTime } from '../../types';
 const CombinedTimeFooter: React.FC<
   Pick<ITimePanelProps<RangeTime>, 'selected' | 'onSelected'>
 > = ({ onSelected, selected }) => {
-  const { i18n } = React.useContext(PickerContext);
-  const { confirmStatus } = React.useContext(PanelContext);
+  const { i18n } = useContext(PickerContext);
+  const { confirmStatus } = useContext(PanelContext);
 
-  const confirmHandler = React.useCallback(() => onSelected(selected, true), [
+  const confirmHandler = useCallback(() => onSelected(selected, true), [
     selected,
     onSelected,
   ]);
-  const confirmNode = React.useMemo(() => {
+  const confirmNode = useMemo(() => {
     const confirmBtn = (
       <Button
         type="primary"

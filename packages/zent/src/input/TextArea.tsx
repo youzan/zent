@@ -1,5 +1,6 @@
-import * as React from 'react';
 import cx from 'classnames';
+import { forwardRef, useLayoutEffect } from 'react';
+
 import { autosize, destroy, update } from '../utils/dom/autosize';
 import noop from '../utils/noop';
 import { ITextAreaProps } from './types';
@@ -11,7 +12,7 @@ export interface ITextAreaState {
 
 const useIMEComposition = createUseIMEComposition();
 
-export const TextArea = React.forwardRef<HTMLTextAreaElement, ITextAreaProps>(
+export const TextArea = forwardRef<HTMLTextAreaElement, ITextAreaProps>(
   (props, ref) => {
     const {
       value: valueProp,
@@ -47,7 +48,7 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, ITextAreaProps>(
 
     const textareaRef = ref as React.RefObject<HTMLTextAreaElement>;
 
-    React.useLayoutEffect(() => {
+    useLayoutEffect(() => {
       if (!autoSize) {
         return noop;
       }
@@ -61,7 +62,7 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, ITextAreaProps>(
       };
     }, [autoSize, textareaRef]);
 
-    React.useLayoutEffect(() => {
+    useLayoutEffect(() => {
       const el = textareaRef.current;
       if (autoSize && el) {
         update(el);

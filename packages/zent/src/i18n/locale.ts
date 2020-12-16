@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 export interface II18nLocaleCommon {
   confirm: string;
   cancel: string;
