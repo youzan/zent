@@ -26,7 +26,7 @@ group: 数据
 | popupWidth          | 弹层宽度                                                           | string or number | `''`                                   | 否       |
 | multiple            | 是否多选                                                           | bool             | `false`                                | 否       |
 | collapsable         | 多选时是否折叠进行单行显示                                         | bool             | `false`                                | 否       |
-| hideCollapsePop     | 多选折叠模式下隐藏展示数据的气泡                                  | bool            | `false`                                    | 否       |
+| hideCollapsePop     | 多选折叠模式下隐藏展示数据的气泡                                   | bool             | `false`                                | 否       |
 | collapseAt          | 多选折叠模式下显示的数据                                           | number           | `1`                                    | 否       |
 | clearable           | 显示清除按钮                                                       | bool             | `false`                                | 否       |
 | loading             | 是否加载中                                                         | bool             | `false`                                | 否       |
@@ -43,3 +43,11 @@ group: 数据
 | renderValue         | 渲染输入框中选项值                                                 | function         | `option => ReactNode`                  | 否       |
 | renderOptionContent | 渲染浮层中的每一项                                                 | function         | `option => ReactNode`                  | 否       |
 | disableSearch       | 关闭搜索功能                                                       | boolean          | `false`                                | 否       |
+
+### `Select.reviveValue`
+
+`reviveValue` 仅可用于受控模式下，一般是表单内数据需要从服务器回填并且选项列表是动态从服务器加载的场景。接受 3 种类型的参数：
+
+- 函数：`(item: ISelectItem) => ISelectItem | null` 返回非 `null` 值将使用该值替换原来的值
+- 对象：`{ key: K; [k: string]: unknown; }` 按对象字面值做全等比较，使用选项数组中第一个匹配的值替换原来的值
+- 其他（数字/字符串）：等价于 `{ key: K }` 的对象形式

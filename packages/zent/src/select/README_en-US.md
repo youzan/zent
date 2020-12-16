@@ -24,10 +24,10 @@ Select is a drop-down selection component with variety functions.
 | width               | input-box's width                                                                               | `string` \| `number` | `''`                                   | no       |
 | popupWidth          | pupup's width                                                                                   | `string` \| `number` | `''`                                   | no       |
 | multiple            | Support multiple selected options                                                               | bool                 | `false`                                | no       |
-| collapsable         | Support collapsed tags in multiple mode                                                         | bool                 | 
-`false`                                | no       |
-| hideCollapsePop     | Hide tags content pop in collapsed mode                                                       | bool                 | 
-`false`                                | no       |
+| collapsable         | Support collapsed tags in multiple mode                                                         | bool                 |
+| `false`             | no                                                                                              |
+| hideCollapsePop     | Hide tags content pop in collapsed mode                                                         | bool                 |
+| `false`             | no                                                                                              |
 | collapseAt          | Dispaly tags count in collapsed mode                                                            | number               | `1`                                    | no       |
 | clearable           | Is the select value clearable                                                                   | bool                 | `false`                                | no       |
 | loading             | Is the select in a state of loading                                                             | bool                 | `false`                                | no       |
@@ -44,3 +44,11 @@ Select is a drop-down selection component with variety functions.
 | renderValue         | Render option value                                                                             | function             | `option => ReactNode`                  | no       |
 | renderOptionContent | Render menu item content                                                                        | function             | `option => ReactNode`                  | no       |
 | disableSearch       | Disable search                                                                                  | boolean              | `false`                                | no       |
+
+### `Select.reviveValue`
+
+`reviveValue` can only be used in controlled mode. It can simplify initializing value from remote server. It's a function with 3 different types of parameters:
+
+- Function：`(item: ISelectItem) => ISelectItem | null` return non `null` value to replace current value
+- Object：`{ key: K; [k: string]: unknown; }` replace current value with the first matching option in options array using plain object equality test
+- String/Number：Shorthand of `{ key: K }`
