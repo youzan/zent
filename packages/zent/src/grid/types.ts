@@ -101,5 +101,5 @@ export interface IGridCellPos {
 
 export type IGridBatchRender = (
   data: any,
-  position: 'header' | 'foot'
+  position?: 'header' | 'foot'
 ) => React.ReactNode;
