@@ -44,10 +44,10 @@ export interface ISelectCommonProps<Item extends ISelectItem> {
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
   renderValue?: (value: Item) => React.ReactNode;
-  renderOptionList<Item extends ISelectItem>(
+  renderOptionList?: (
     options: Item[],
     renderOption: IOptionRenderer<Item>
-  ): React.ReactNode;
+  ) => React.ReactNode;
   renderOptionContent?: (value: Item) => React.ReactNode;
   clearable?: boolean;
   loading?: boolean;
