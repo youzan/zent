@@ -162,7 +162,7 @@ class BatchComponents<Data> extends PureComponent<
             disabled={disabled}
             datasets={data}
           />
-          {batchRender && batchRender(selectedRows)}
+          {batchRender && batchRender(selectedRows, position)}
         </div>
       );
     }
