@@ -99,4 +99,7 @@ export interface IGridCellPos {
   fixed?: IGridInnerFixedType;
 }
 
-export type IGridBatchRender = (data: any) => React.ReactNode;
+export type IGridBatchRender = (
+  data: any,
+  position?: 'header' | 'foot'
+) => React.ReactNode;
