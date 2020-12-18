@@ -8,6 +8,12 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 8.6.1(2020-12-18)
+
+- `Grid`
+  - 🦀️ Fix the fixed cloumns' height when head groups
+  - 🦀️ `batchRender` supports second optional parameter about position
+
 ### 8.6.0(2020-12-15)
 
 - ✨ Supports `rgba` in theme colors
