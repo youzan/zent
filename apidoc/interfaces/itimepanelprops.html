@@ -59,21 +59,13 @@
 					<a href="itimepanelprops.html">ITimePanelProps</a>
 				</li>
 			</ul>
-			<h1>Interface ITimePanelProps&lt;T&gt;</h1>
+			<h1>Interface ITimePanelProps</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-type-parameters">
-				<h3>Type parameters</h3>
-				<ul class="tsd-type-parameters">
-					<li>
-						<h4>T</h4>
-					</li>
-				</ul>
-			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -89,15 +81,12 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="itimepanelprops.html#defaulttime" class="tsd-kind-icon">default<wbr>Time</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="itimepanelprops.html#disabledtimeoption" class="tsd-kind-icon">disabled<wbr>Time<wbr>Option</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="itimepanelprops.html#format" class="tsd-kind-icon">format</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="itimepanelprops.html#hidefooter" class="tsd-kind-icon">hide<wbr>Footer</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="itimepanelprops.html#hourstep" class="tsd-kind-icon">hour<wbr>Step</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="itimepanelprops.html#minutestep" class="tsd-kind-icon">minute<wbr>Step</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="itimepanelprops.html#onselected" class="tsd-kind-icon">on<wbr>Selected</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="itimepanelprops.html#secondstep" class="tsd-kind-icon">second<wbr>Step</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="itimepanelprops.html#selected" class="tsd-kind-icon">selected</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="itimepanelprops.html#actived" class="tsd-kind-icon">actived</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="itimepanelprops.html#disabledtime" class="tsd-kind-icon">disabled<wbr>Time</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="itimepanelprops.html#i18n" class="tsd-kind-icon">i18n</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="itimepanelprops.html#max" class="tsd-kind-icon">max</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="itimepanelprops.html#min" class="tsd-kind-icon">min</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="itimepanelprops.html#onchange" class="tsd-kind-icon">on<wbr>Change</a></li>
 							</ul>
 						</section>
 					</div>
@@ -106,72 +95,62 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="defaulttime" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> default<wbr>Time</h3>
-					<div class="tsd-signature tsd-kind-icon">default<wbr>Time<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">T</span></div>
+					<a name="actived" class="tsd-anchor"></a>
+					<h3>actived</h3>
+					<div class="tsd-signature tsd-kind-icon">actived<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/0cace98cd/packages/zent/src/date-picker/types.ts#L246">packages/zent/src/date-picker/types.ts:246</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/429fab0/packages/zent/src/datetimepicker/time/TimePanel.tsx#L24">packages/zent/src/datetimepicker/time/TimePanel.tsx:24</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="disabledtimeoption" class="tsd-anchor"></a>
-					<h3>disabled<wbr>Time<wbr>Option</h3>
-					<div class="tsd-signature tsd-kind-icon">disabled<wbr>Time<wbr>Option<span class="tsd-signature-symbol">:</span> <a href="idisabledtimeoption.html" class="tsd-signature-type">IDisabledTimeOption</a></div>
+					<a name="disabledtime" class="tsd-anchor"></a>
+					<h3>disabled<wbr>Time</h3>
+					<div class="tsd-signature tsd-kind-icon">disabled<wbr>Time<span class="tsd-signature-symbol">:</span> <a href="datepickers.idisabledtime.html" class="tsd-signature-type">IDisabledTime</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/0cace98cd/packages/zent/src/date-picker/types.ts#L247">packages/zent/src/date-picker/types.ts:247</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/429fab0/packages/zent/src/datetimepicker/time/TimePanel.tsx#L27">packages/zent/src/datetimepicker/time/TimePanel.tsx:27</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="format" class="tsd-anchor"></a>
-					<h3>format</h3>
-					<div class="tsd-signature tsd-kind-icon">format<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="i18n" class="tsd-anchor"></a>
+					<h3>i18n</h3>
+					<div class="tsd-signature tsd-kind-icon">i18n<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/0cace98cd/packages/zent/src/date-picker/types.ts#L245">packages/zent/src/date-picker/types.ts:245</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/429fab0/packages/zent/src/datetimepicker/time/TimePanel.tsx#L28">packages/zent/src/datetimepicker/time/TimePanel.tsx:28</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="hidefooter" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> hide<wbr>Footer</h3>
-					<div class="tsd-signature tsd-kind-icon">hide<wbr>Footer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<a name="max" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> max</h3>
+					<div class="tsd-signature tsd-kind-icon">max<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/0cace98cd/packages/zent/src/date-picker/types.ts#L251">packages/zent/src/date-picker/types.ts:251</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/429fab0/packages/zent/src/datetimepicker/time/TimePanel.tsx#L26">packages/zent/src/datetimepicker/time/TimePanel.tsx:26</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="hourstep" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> hour<wbr>Step</h3>
-					<div class="tsd-signature tsd-kind-icon">hour<wbr>Step<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<a name="min" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> min</h3>
+					<div class="tsd-signature tsd-kind-icon">min<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/0cace98cd/packages/zent/src/date-picker/types.ts#L248">packages/zent/src/date-picker/types.ts:248</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/429fab0/packages/zent/src/datetimepicker/time/TimePanel.tsx#L25">packages/zent/src/datetimepicker/time/TimePanel.tsx:25</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="minutestep" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> minute<wbr>Step</h3>
-					<div class="tsd-signature tsd-kind-icon">minute<wbr>Step<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<a name="onchange" class="tsd-anchor"></a>
+					<h3>on<wbr>Change</h3>
+					<div class="tsd-signature tsd-kind-icon">on<wbr>Change<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>Date<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, str<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/0cace98cd/packages/zent/src/date-picker/types.ts#L249">packages/zent/src/date-picker/types.ts:249</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="onselected" class="tsd-anchor"></a>
-					<h3>on<wbr>Selected</h3>
-					<div class="tsd-signature tsd-kind-icon">on<wbr>Selected<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>val<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, status<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/0cace98cd/packages/zent/src/date-picker/types.ts#L244">packages/zent/src/date-picker/types.ts:244</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/429fab0/packages/zent/src/datetimepicker/time/TimePanel.tsx#L23">packages/zent/src/datetimepicker/time/TimePanel.tsx:23</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -179,17 +158,17 @@
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-signature">
 								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>val<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, status<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>Date<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, str<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
 									<li class="tsd-description">
 										<h4 class="tsd-parameters-title">Parameters</h4>
 										<ul class="tsd-parameters">
 											<li>
-												<h5>val: <span class="tsd-signature-type">T</span></h5>
+												<h5>Date: <span class="tsd-signature-type">any</span></h5>
 											</li>
 											<li>
-												<h5><span class="tsd-flag ts-flagOptional">Optional</span> status: <span class="tsd-signature-type">boolean</span></h5>
+												<h5>str: <span class="tsd-signature-type">any</span></h5>
 											</li>
 										</ul>
 										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -198,26 +177,6 @@
 							</li>
 						</ul>
 					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="secondstep" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> second<wbr>Step</h3>
-					<div class="tsd-signature tsd-kind-icon">second<wbr>Step<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/0cace98cd/packages/zent/src/date-picker/types.ts#L250">packages/zent/src/date-picker/types.ts:250</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="selected" class="tsd-anchor"></a>
-					<h3>selected</h3>
-					<div class="tsd-signature tsd-kind-icon">selected<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">T</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/0cace98cd/packages/zent/src/date-picker/types.ts#L243">packages/zent/src/date-picker/types.ts:243</a></li>
-						</ul>
-					</aside>
 				</section>
 			</section>
 		</div>
@@ -233,35 +192,26 @@
 				<ul class="before-current">
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface tsd-has-type-parameter">
+					<li class="current tsd-kind-interface">
 						<a href="itimepanelprops.html" class="tsd-kind-icon">ITime<wbr>Panel<wbr>Props</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="itimepanelprops.html#defaulttime" class="tsd-kind-icon">default<wbr>Time</a>
+								<a href="itimepanelprops.html#actived" class="tsd-kind-icon">actived</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="itimepanelprops.html#disabledtimeoption" class="tsd-kind-icon">disabled<wbr>Time<wbr>Option</a>
+								<a href="itimepanelprops.html#disabledtime" class="tsd-kind-icon">disabled<wbr>Time</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="itimepanelprops.html#format" class="tsd-kind-icon">format</a>
+								<a href="itimepanelprops.html#i18n" class="tsd-kind-icon">i18n</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="itimepanelprops.html#hidefooter" class="tsd-kind-icon">hide<wbr>Footer</a>
+								<a href="itimepanelprops.html#max" class="tsd-kind-icon">max</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="itimepanelprops.html#hourstep" class="tsd-kind-icon">hour<wbr>Step</a>
+								<a href="itimepanelprops.html#min" class="tsd-kind-icon">min</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="itimepanelprops.html#minutestep" class="tsd-kind-icon">minute<wbr>Step</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="itimepanelprops.html#onselected" class="tsd-kind-icon">on<wbr>Selected</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="itimepanelprops.html#secondstep" class="tsd-kind-icon">second<wbr>Step</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="itimepanelprops.html#selected" class="tsd-kind-icon">selected</a>
+								<a href="itimepanelprops.html#onchange" class="tsd-kind-icon">on<wbr>Change</a>
 							</li>
 						</ul>
 					</li>

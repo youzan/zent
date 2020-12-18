@@ -59,29 +59,18 @@
 					<a href="iquarterpickerprops.html">IQuarterPickerProps</a>
 				</li>
 			</ul>
-			<h1>Interface IQuarterPickerProps&lt;T&gt;</h1>
+			<h1>Interface IQuarterPickerProps</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-type-parameters">
-				<h3>Type parameters</h3>
-				<ul class="tsd-type-parameters">
-					<li>
-						<h4>T<span class="tsd-signature-symbol">: </span><a href="../globals.html#ivaluetype" class="tsd-signature-type">IValueType</a></h4>
-					</li>
-				</ul>
-			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
 						<span class="tsd-signature-symbol">{}</span>
-					</li>
-					<li>
-						<a href="isinglespecialrelatedtype.html" class="tsd-signature-type">ISingleSpecialRelatedType</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span>
 						<ul class="tsd-hierarchy">
 							<li>
 								<span class="target">IQuarterPickerProps</span>
@@ -94,26 +83,25 @@
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section tsd-is-inherited">
+						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="iquarterpickerprops.html#onchange" class="tsd-kind-icon">on<wbr>Change</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="iquarterpickerprops.html#valuetype" class="tsd-kind-icon">value<wbr>Type</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="iquarterpickerprops.html#disableddate" class="tsd-kind-icon">disabled<wbr>Date</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="iquarterpickerprops.html#onbeforeclear" class="tsd-kind-icon">on<wbr>Before<wbr>Clear</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-					<a name="onchange" class="tsd-anchor"></a>
-					<h3>on<wbr>Change</h3>
-					<div class="tsd-signature tsd-kind-icon">on<wbr>Change<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>date<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IValueTypeSingleSpecialMap</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="disableddate" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> disabled<wbr>Date</h3>
+					<div class="tsd-signature tsd-kind-icon">disabled<wbr>Date<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>val<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">[</span><a href="../modules/datepickers.html#value" class="tsd-signature-type">Value</a><span class="tsd-signature-symbol">, </span><a href="../modules/datepickers.html#value" class="tsd-signature-type">Value</a><span class="tsd-signature-symbol">]</span>, type<span class="tsd-signature-symbol">?: </span><a href="../modules/datepickers.html#rangetype" class="tsd-signature-type">RangeType</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="isinglespecialrelatedtype.html">ISingleSpecialRelatedType</a>.<a href="isinglespecialrelatedtype.html#onchange">onChange</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/0cace98cd/packages/zent/src/date-picker/types.ts#L46">packages/zent/src/date-picker/types.ts:46</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/429fab0/packages/zent/src/datetimepicker/QuarterPicker.tsx#L46">packages/zent/src/datetimepicker/QuarterPicker.tsx:46</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -121,33 +109,50 @@
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-signature">
 								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>date<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IValueTypeSingleSpecialMap</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>val<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">[</span><a href="../modules/datepickers.html#value" class="tsd-signature-type">Value</a><span class="tsd-signature-symbol">, </span><a href="../modules/datepickers.html#value" class="tsd-signature-type">Value</a><span class="tsd-signature-symbol">]</span>, type<span class="tsd-signature-symbol">?: </span><a href="../modules/datepickers.html#rangetype" class="tsd-signature-type">RangeType</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
 									<li class="tsd-description">
 										<h4 class="tsd-parameters-title">Parameters</h4>
 										<ul class="tsd-parameters">
 											<li>
-												<h5>date: <span class="tsd-signature-type">IValueTypeSingleSpecialMap</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></h5>
+												<h5>val: <span class="tsd-signature-symbol">[</span><a href="../modules/datepickers.html#value" class="tsd-signature-type">Value</a><span class="tsd-signature-symbol">, </span><a href="../modules/datepickers.html#value" class="tsd-signature-type">Value</a><span class="tsd-signature-symbol">]</span></h5>
+											</li>
+											<li>
+												<h5><span class="tsd-flag ts-flagOptional">Optional</span> type: <a href="../modules/datepickers.html#rangetype" class="tsd-signature-type">RangeType</a></h5>
 											</li>
 										</ul>
-										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 									</li>
 								</ul>
 							</li>
 						</ul>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-					<a name="valuetype" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> value<wbr>Type</h3>
-					<div class="tsd-signature tsd-kind-icon">value<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">T</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="onbeforeclear" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> on<wbr>Before<wbr>Clear</h3>
+					<div class="tsd-signature tsd-kind-icon">on<wbr>Before<wbr>Clear<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="isinglespecialrelatedtype.html">ISingleSpecialRelatedType</a>.<a href="isinglespecialrelatedtype.html#valuetype">valueType</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/0cace98cd/packages/zent/src/date-picker/types.ts#L45">packages/zent/src/date-picker/types.ts:45</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/429fab0/packages/zent/src/datetimepicker/QuarterPicker.tsx#L50">packages/zent/src/datetimepicker/QuarterPicker.tsx:50</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-signature">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -163,14 +168,14 @@
 				<ul class="before-current">
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface tsd-has-type-parameter">
+					<li class="current tsd-kind-interface">
 						<a href="iquarterpickerprops.html" class="tsd-kind-icon">IQuarter<wbr>Picker<wbr>Props</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="iquarterpickerprops.html#onchange" class="tsd-kind-icon">on<wbr>Change</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="iquarterpickerprops.html#disableddate" class="tsd-kind-icon">disabled<wbr>Date</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="iquarterpickerprops.html#valuetype" class="tsd-kind-icon">value<wbr>Type</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="iquarterpickerprops.html#onbeforeclear" class="tsd-kind-icon">on<wbr>Before<wbr>Clear</a>
 							</li>
 						</ul>
 					</li>
