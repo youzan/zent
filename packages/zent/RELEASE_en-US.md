@@ -9,12 +9,19 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 9.0.2(2020-12-18)
+
+- ✨ `Swiper` supports custom previous/next button
+
 ### 9.0.1(2020-12-18)
 
-- 🦀️ `DateRangeQuickPicker` formats the endtime of today to current time
 - `Select` 
   - ✨ Add value reviver support to Select
   - ✨ Support custom tag list render in multiple mode
+- `Grid`
+  - ✨ `batchRender` adds position information
+  - 🦀️ Fix incorrect height with float grouped header
+- 🦀️ `DateRangeQuickPicker` formats the endtime of today to current time
 
 ### 8.6.1(2020-12-18)
 
