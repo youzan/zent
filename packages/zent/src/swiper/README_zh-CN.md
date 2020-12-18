@@ -13,18 +13,20 @@ Swiper 主要用于对一组平级内容进行轮播展示
 
 **`children` 中的元素必须支持透传 `style` 到原生节点上，否则样式会失效。**
 
-| 参数               | 说明                 | 类型                                  | 默认值     | 备选值                                          |
-| ------------------ | -------------------- | ------------------------------------- | ---------- | ----------------------------------------------- |
-| transitionDuration | 切换动画持续时间(ms) | number                                | `300`      |                                                 |
-| autoplay           | 是否自动切换         | bool                                  | `false`    | `false`, `true`                                 |
-| autoplayInterval   | 自动切换间隔时间(ms) | number                                | `3000`     |                                                 |
-| dots               | 是否显示下方翻页按钮 | bool                                  | `true`     | `true`, `false`                                 |
-| dotsColor          | 下方翻页按钮颜色     | string                                | `'black'`  | `'blue'`, `'red'`, `'green'`, `自定义css颜色值` |
-| dotsSize           | 下方翻页按钮大小     | string                                | `'normal'` | `'small'`, `'large'`                            |
-| arrows             | 是否显示两侧翻页按钮 | bool                                  | `false`    | `true`, `false`                                 |
-| arrowsType         | 两侧箭头颜色         | string                                | `'dark'`   | `'dark'`, `'light'`                             |
-| onChange           | 切换时回调函数       | (current: number, prev: number): void | `noop`     |                                                 |
-| className          | 自定义额外类名       | string                                | `''`       |                                                 |
+| 参数               | 说明                       | 类型                                  | 默认值     | 备选值                                          |
+| ------------------ | -------------------------- | ------------------------------------- | ---------- | ----------------------------------------------- |
+| transitionDuration | 切换动画持续时间(ms)       | number                                | `300`      |                                                 |
+| autoplay           | 是否自动切换               | bool                                  | `false`    | `false`, `true`                                 |
+| autoplayInterval   | 自动切换间隔时间(ms)       | number                                | `3000`     |                                                 |
+| dots               | 是否显示下方翻页按钮       | bool                                  | `true`     | `true`, `false`                                 |
+| dotsColor          | 下方翻页按钮颜色           | string                                | `'black'`  | `'blue'`, `'red'`, `'green'`, `自定义css颜色值` |
+| dotsSize           | 下方翻页按钮大小           | string                                | `'normal'` | `'small'`, `'large'`                            |
+| arrows             | 是否显示两侧翻页按钮       | bool                                  | `false`    | `true`, `false`                                 |
+| arrowsType         | 两侧箭头颜色               | string                                | `'dark'`   | `'dark'`, `'light'`                             |
+| onChange           | 切换时回调函数             | (current: number, prev: number): void | `noop`     |                                                 |
+| renderPrevArrow    | 自定义渲染切换上一个的按钮 | `(onPrev: () => void) => ReactNode`   | 默认按钮   |                                                 |
+| renderNextArrow    | 自定义渲染切换下一个的按钮 | `(onNext: () => void) => ReactNode`   | 默认按钮   |                                                 |
+| className          | 自定义额外类名             | string                                | `''`       |                                                 |
 
 ### 实例方法
 
