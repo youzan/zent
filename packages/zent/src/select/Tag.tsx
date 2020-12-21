@@ -2,17 +2,19 @@ import { memo, useCallback } from 'react';
 import type { ISelectItem, ISelectCommonProps } from './Select';
 import Icon from '../icon';
 
-export interface ISelectTagProps<Item extends ISelectItem> {
+export interface ISelectTagProps<
+  Key extends string | number = string | number,
+  Item extends ISelectItem<Key> = ISelectItem<Key>
+> {
   item: Item;
   onRemove(item: Item): void;
-  renderValue?: ISelectCommonProps<Item>['renderValue'];
+  renderValue?: ISelectCommonProps<Key, Item>['renderValue'];
 }
 
-function SelectTag<Item extends ISelectItem>({
-  item,
-  onRemove,
-  renderValue,
-}: ISelectTagProps<Item>) {
+function SelectTag<
+  Key extends string | number = string | number,
+  Item extends ISelectItem<Key> = ISelectItem<Key>
+>({ item, onRemove, renderValue }: ISelectTagProps<Key, Item>) {
   const onClick = useCallback(
     (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
       e.stopPropagation();
