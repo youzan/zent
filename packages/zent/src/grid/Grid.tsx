@@ -214,7 +214,7 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
     const expandRows = this.bodyTable?.current?.querySelectorAll(
       `tbody .${prefix}-grid-tr__expanded`
     );
-    const headRows = this.scrollHeader
+    const headRows = this.scrollHeader?.current
       ? this.scrollHeader?.current?.querySelectorAll('thead')
       : this.bodyTable?.current?.querySelectorAll('thead');
 

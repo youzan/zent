@@ -141,7 +141,6 @@ function calculateTime(
   let endTime: SingleDate;
 
   const today = getToday();
-  const tomorrow = today + ONE_DAY;
 
   if (Array.isArray(chosenItem)) {
     [startTime, endTime] = chosenItem;
@@ -152,9 +151,7 @@ function calculateTime(
       startTime = today - chosenItem * ONE_DAY;
     }
 
-    if (chosenItem === 0) {
-      endTime = tomorrow - 1000;
-    } else if (chosenItem === 1) {
+    if (chosenItem === 1) {
       endTime = today - 1000;
     } else {
       endTime = Date.now();

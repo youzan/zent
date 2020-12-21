@@ -29,7 +29,7 @@ function SelectSearch(
     autoWidth,
     value,
   }: ISelectSearchProps,
-  cmdRef: React.RefObject<ISelectImperativeHandlers>
+  cmdRef: React.ForwardedRef<ISelectImperativeHandlers>
 ) {
   const ref = useRef<HTMLInputElement>(null);
   const focusSearchInput = useCallback(() => {

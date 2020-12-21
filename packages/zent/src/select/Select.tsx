@@ -2,7 +2,7 @@ import cx from 'classnames';
 import { Component, createRef } from 'react';
 
 import Popover from '../popover';
-import TagList from './TagList';
+import TagList, { ISelectTagListProps } from './TagList';
 import Option from './Option';
 import Search from './Search';
 import { DisabledContext, IDisabledContext } from '../disabled';
@@ -14,12 +14,14 @@ import { Pop } from '../pop';
 import { I18nReceiver as Receiver, II18nLocaleSelect } from '../i18n';
 import memoize from '../utils/memorize-one';
 import uniqueId from '../utils/uniqueId';
+import { filterReviver, reviveSelectItem } from './reviver';
 
 export interface ISelectItem<Key extends string | number = string | number> {
   key: Key;
   text: React.ReactNode;
-  type?: 'header' | 'divider';
   disabled?: boolean;
+  type?: 'header' | 'divider' | 'reviver';
+  reviver?: (item: ISelectItem<Key>) => ISelectItem<Key> | null;
 }
 
 export interface IOptionRenderer<Item extends ISelectItem> {
@@ -41,11 +43,11 @@ export interface ISelectCommonProps<Item extends ISelectItem> {
   disabled?: boolean;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
-  renderOptionList<Item extends ISelectItem>(
+  renderValue?: (value: Item) => React.ReactNode;
+  renderOptionList?: (
     options: Item[],
     renderOption: IOptionRenderer<Item>
-  ): React.ReactNode;
-  renderValue?: (value: Item) => React.ReactNode;
+  ) => React.ReactNode;
   renderOptionContent?: (value: Item) => React.ReactNode;
   clearable?: boolean;
   loading?: boolean;
@@ -61,16 +63,17 @@ export interface ISelectCommonProps<Item extends ISelectItem> {
 
 export interface ISelectSingleProps<Item extends ISelectItem>
   extends ISelectCommonProps<Item> {
-  value?: Item | null;
   multiple: false;
+  value?: Item | null;
   onChange?: (value: Item | null) => void;
 }
 
 export interface ISelectMultiProps<Item extends ISelectItem>
   extends ISelectCommonProps<Item> {
-  value?: Item[];
   multiple: true;
+  value?: Item[];
   onChange?: (value: Item[]) => void;
+  renderTagList?: (props: ISelectTagListProps<Item>) => React.ReactNode;
 }
 
 export type ISelectProps<Item extends ISelectItem = ISelectItem> =
@@ -81,7 +84,12 @@ export interface ISelectState<Item extends ISelectItem> {
   open: boolean;
   active: boolean;
   keyword: string;
+
+  /**
+   *  This is the value used for rendering even when componnet is in controlled mode
+   */
   value: null | Item | Item[];
+
   activeIndex: null | number;
   prevOptions: Item[];
   creating: boolean;
@@ -193,9 +201,13 @@ export class Select<Item extends ISelectItem = ISelectItem> extends Component<
     multiple: false,
     clearable: false,
     loading: false,
+    creatable: false,
   };
 
   static contextType = DisabledContext;
+
+  static reviveValue = reviveSelectItem;
+
   context!: IDisabledContext;
 
   elementRef = createRef<HTMLDivElement>();
@@ -204,14 +216,15 @@ export class Select<Item extends ISelectItem = ISelectItem> extends Component<
 
   constructor(props: ISelectProps<Item>) {
     super(props);
+
     let value: null | Item | Item[];
     if (props.multiple) {
-      value = props.value || [];
+      value = filterReviver(props.value ?? []);
     } else {
-      value = props.value || null;
+      value = filterReviver(props.value ?? null);
     }
     this.state = {
-      keyword: props.keyword || '',
+      keyword: props.keyword ?? '',
       value,
       open: false,
       active: false,
@@ -219,11 +232,109 @@ export class Select<Item extends ISelectItem = ISelectItem> extends Component<
       prevOptions: props.options,
       creating: false,
     };
+
+    this.tryReviveOption(props);
+  }
+
+  static getDerivedStateFromProps<Item extends ISelectItem = ISelectItem>(
+    props: ISelectProps<Item>,
+    state: ISelectState<Item>
+  ): Partial<ISelectState<Item>> | null {
+    const nextState: Partial<ISelectState<Item>> = {
+      prevOptions: props.options,
+    };
+    if (typeof props.keyword === 'string') {
+      nextState.keyword = props.keyword;
+    }
+
+    if (typeof props.open === 'boolean') {
+      nextState.open = props.open;
+      nextState.active = props.open;
+    }
+
+    if (props.multiple) {
+      if (Array.isArray(props.value)) {
+        nextState.value = filterReviver(props.value);
+      }
+    } else {
+      if ('value' in props) {
+        nextState.value = filterReviver(props.value ?? null);
+      }
+    }
+
+    if (props.options !== state.prevOptions && state.activeIndex !== null) {
+      if (!props.options.length) {
+        nextState.activeIndex = null;
+      } else {
+        if (state.activeIndex >= props.options.length) {
+          nextState.activeIndex = props.options.length - 1;
+        }
+      }
+    }
+    return nextState;
+  }
+
+  componentDidUpdate(prevProps: ISelectProps<Item>) {
+    if (
+      this.props.options !== prevProps.options ||
+      this.props.value !== prevProps.value
+    ) {
+      this.tryReviveOption(this.props);
+    }
   }
 
   get disabled() {
     const { disabled = this.context.value } = this.props;
     return disabled;
+  }
+
+  tryReviveOption(props: ISelectProps<Item>) {
+    const { options } = props;
+
+    if (props.multiple) {
+      const value = props.value ?? [];
+      let revived = false;
+      const newValue = value.map(v => {
+        if (v.type === 'reviver') {
+          for (const opt of options) {
+            const revivedOpt = v.reviver?.(opt);
+            if (revivedOpt) {
+              revived = true;
+              return revivedOpt as Item;
+            }
+          }
+        }
+
+        return v;
+      });
+
+      if (revived) {
+        if (props.onChange) {
+          props.onChange(newValue);
+        } else {
+          this.setState({ value: newValue });
+        }
+      }
+    } else if (props.multiple === false) {
+      const value = props.value ?? null;
+      if (value?.type === 'reviver') {
+        let revivedOpt: Item | null = null;
+        for (const opt of options) {
+          revivedOpt = value.reviver?.(opt) as Item;
+          if (revivedOpt) {
+            break;
+          }
+        }
+
+        if (revivedOpt) {
+          if (props.onChange) {
+            props.onChange?.(revivedOpt);
+          } else {
+            this.setState({ value: revivedOpt });
+          }
+        }
+      }
+    }
   }
 
   onVisibleChange = (open: boolean) => {
@@ -357,11 +468,11 @@ export class Select<Item extends ISelectItem = ISelectItem> extends Component<
     } = this.props;
 
     const options = this.filterOptions(
-      creatable,
-      _options,
-      filter,
       keyword,
-      isValidNewOption
+      _options,
+      filter!,
+      creatable!,
+      isValidNewOption!
     );
     if (activeIndex !== null) {
       this.onSelect(options[activeIndex]);
@@ -403,7 +514,7 @@ export class Select<Item extends ISelectItem = ISelectItem> extends Component<
       const keyword = this.state.keyword.trim();
       optionContent =
         filter !== false && keyword.length > 0
-          ? highlight(keyword, option)
+          ? highlight?.(keyword, option)
           : option.text;
     }
 
@@ -449,11 +560,11 @@ export class Select<Item extends ISelectItem = ISelectItem> extends Component<
     this.setState(
       (state, { options: _options, creatable, filter, isValidNewOption }) => {
         const options = this.filterOptions(
-          creatable,
-          _options,
-          filter,
           state.keyword,
-          isValidNewOption
+          _options,
+          filter!,
+          creatable!,
+          isValidNewOption!
         );
 
         let nextIndex: number;
@@ -493,41 +604,6 @@ export class Select<Item extends ISelectItem = ISelectItem> extends Component<
       }
     );
   };
-
-  static getDerivedStateFromProps<Item extends ISelectItem = ISelectItem>(
-    props: ISelectProps<Item>,
-    state: ISelectState<Item>
-  ): Partial<ISelectState<Item>> | null {
-    const nextState: Partial<ISelectState<Item>> = {
-      prevOptions: props.options,
-    };
-    if (typeof props.keyword === 'string') {
-      nextState.keyword = props.keyword;
-    }
-    if (typeof props.open === 'boolean') {
-      nextState.open = props.open;
-      nextState.active = props.open;
-    }
-    if (props.multiple) {
-      if (Array.isArray(props.value)) {
-        nextState.value = props.value;
-      }
-    } else {
-      if ('value' in props) {
-        nextState.value = props.value;
-      }
-    }
-    if (props.options !== state.prevOptions && state.activeIndex !== null) {
-      if (!props.options.length) {
-        nextState.activeIndex = null;
-      } else {
-        if (state.activeIndex >= props.options.length) {
-          nextState.activeIndex = props.options.length - 1;
-        }
-      }
-    }
-    return nextState;
-  }
 
   renderValue(i18n: II18nLocaleSelect) {
     const { placeholder, renderValue, multiple } = this.props;
@@ -571,20 +647,29 @@ export class Select<Item extends ISelectItem = ISelectItem> extends Component<
   renderTagList(value: Item[], i18n: II18nLocaleSelect) {
     const {
       renderValue,
+      renderTagList,
       collapsable,
       hideCollapsePop,
       collapseAt = 1,
-    } = this.props;
+    } = this.props as ISelectMultiProps<Item>;
     const tagsValue = collapsable ? value.slice(0, collapseAt) : value;
     const collapsedValue = value.slice(collapseAt);
 
     return (
       <>
-        <TagList
-          list={tagsValue}
-          onRemove={this.onRemove}
-          renderValue={renderValue}
-        />
+        {typeof renderTagList === 'function' ? (
+          renderTagList({
+            list: value,
+            onRemove: this.onRemove,
+            renderValue: renderValue as any,
+          })
+        ) : (
+          <TagList
+            list={tagsValue}
+            onRemove={this.onRemove}
+            renderValue={renderValue as any}
+          />
+        )}
         {collapsable &&
           collapsedValue.length > 0 &&
           (!hideCollapsePop ? (
@@ -623,11 +708,11 @@ export class Select<Item extends ISelectItem = ISelectItem> extends Component<
       if ((this.state.value as Item[]).length) {
         return '';
       }
-      return placeholder;
+      return placeholder ?? '';
     }
     const value = this.state.value as Item | null;
     if (!value || typeof value.text !== 'string') {
-      return placeholder;
+      return placeholder ?? '';
     }
     return value.text;
   }
@@ -644,7 +729,7 @@ export class Select<Item extends ISelectItem = ISelectItem> extends Component<
 
     if (this.props.multiple) {
       const { onChange } = this.props as ISelectMultiProps<Item>;
-      const value = [];
+      const value: Item[] = [];
       if (onChange) {
         onChange(value);
       } else {
@@ -689,19 +774,19 @@ export class Select<Item extends ISelectItem = ISelectItem> extends Component<
 
   filterOptions = memoize(
     (
-      creatable: boolean,
+      keyword: string,
       options: Item[] = [],
       filter: ((keyword: string, item: Item) => boolean) | false,
-      keyword: string,
+      creatable: boolean,
       isValidNewOption: (keyword: string, options: Item[]) => boolean
     ): Item[] => {
       const filtered =
         filter !== false && keyword
-          ? options.filter(it => filter(keyword, it))
+          ? options.filter(it => filter?.(keyword, it))
           : options;
 
       const pendingCreateOption =
-        creatable && keyword && isValidNewOption(keyword, options)
+        creatable && keyword && isValidNewOption?.(keyword, options)
           ? [
               {
                 key: SELECT_CREATABLE_KEY,
@@ -736,11 +821,11 @@ export class Select<Item extends ISelectItem = ISelectItem> extends Component<
     }
 
     const filtered = this.filterOptions(
-      creatable,
-      options,
-      filter,
       keyword,
-      isValidNewOption
+      options,
+      filter!,
+      creatable!,
+      isValidNewOption!
     );
     return filtered?.length ? (
       renderOptionList(filtered, this.renderOption)
