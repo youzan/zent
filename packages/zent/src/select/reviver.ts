@@ -33,10 +33,13 @@ export function reviveSelectItem<K extends string | number = string | number>(
   } as ISelectItem<K>;
 }
 
-export function filterReviver<T extends ISelectItem>(value: T[] | T | null) {
+export function filterReviver<
+  Key extends string | number = string | number,
+  Item extends ISelectItem<Key> = ISelectItem<Key>
+>(value: Item[] | Item | null) {
   if (Array.isArray(value)) {
     let found = false;
-    const val: T[] = [];
+    const val: Item[] = [];
 
     for (const v of value) {
       if (v.type === 'reviver') {

@@ -4,7 +4,10 @@ import { ISelectItem } from './Select';
 import Icon from '../icon';
 import { InlineLoading } from '../loading/InlineLoading';
 
-export interface IOptionProps<Item extends ISelectItem> {
+export interface IOptionProps<
+  Key extends string | number = string | number,
+  Item extends ISelectItem<Key> = ISelectItem<Key>
+> {
   value: Item;
   active: boolean;
   selected: boolean;
@@ -17,7 +20,10 @@ export interface IOptionProps<Item extends ISelectItem> {
   loading: boolean;
 }
 
-function SelectOption<Item extends ISelectItem>({
+function SelectOption<
+  Key extends string | number = string | number,
+  Item extends ISelectItem<Key> = ISelectItem<Key>
+>({
   value,
   active,
   selected,
@@ -28,7 +34,7 @@ function SelectOption<Item extends ISelectItem>({
   multiple,
   children,
   loading,
-}: IOptionProps<Item>) {
+}: IOptionProps<Key, Item>) {
   return (
     <div
       className={cx('zent-select-v2-option', {
