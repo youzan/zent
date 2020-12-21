@@ -19,6 +19,7 @@
   cursor: pointer;
 }
 
+// normal file upload
 .zent-file-upload {
   @include theme-color(border-color, stroke, 5);
   border-width: 1px;
@@ -29,7 +30,7 @@
   &-tips {
     @include theme-color(color, stroke, 3);
     @include font-small;
-    margin-top: 12px;
+    margin-top: 8px;
     text-align: center;
   }
 
@@ -47,10 +48,11 @@
     }
 
     &-text {
-      margin-left: 8px;
+      margin-left: 4px;
 
       &-count {
         @include theme-color(color, stroke, 3);
+        margin-left: 4px;
       }
     }
 
@@ -61,10 +63,6 @@
 
     &__disabled {
       @include trigger-disabled;
-
-      .zent-file-upload-trigger-text {
-        @include theme-color(color, stroke, 3);
-      }
 
       .zent-file-upload-trigger-icon {
         @include theme-color(color, stroke, 4);
@@ -166,11 +164,12 @@
   }
 }
 
+// image upload
 .zent-image-upload {
   &-tips {
     @include theme-color(color, stroke, 3);
-    @include font-normal;
-    margin-top: 8px;
+    @include font-small;
+    margin-top: 4px;
   }
 
   &-trigger {
@@ -279,5 +278,71 @@
         }
       }
     }
+  }
+}
+
+// single upload
+.zent-single-upload {
+  &-tips {
+    @include theme-color(color, stroke, 3);
+    @include font-small;
+    margin-top: 10px;
+  }
+
+  &-trigger {
+    display: inline-block;
+    cursor: pointer;
+
+    &__disabled {
+      @include trigger-disabled;
+
+      .zent-file-upload-trigger-text {
+        @include theme-color(color, stroke, 3);
+      }
+    }
+  }
+
+  &-item {
+    &-info {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    &-icon {
+      margin-right: 4px;
+    }
+
+    &-actions {
+      @include theme-color(color, primary, 4);
+      margin-left: 16px;
+
+      a {
+        cursor: pointer;
+      }
+    }
+
+    &-retry {
+      @include theme-color(border-right-color, stroke, 5);
+      border-right-width: 1px;
+      border-right-style: solid;
+      padding-right: 4px;
+      margin-right: 4px;
+    }
+
+    &__failed {
+      @include theme-color(color, error, 2);
+    }
+  }
+}
+
+// form adaptation
+.has-error {
+  .zent-file-upload {
+    @include theme-color(border-color, error, 4);
+  }
+
+  .zent-image-upload-trigger {
+    @include theme-color(border-color, error, 4);
   }
 }

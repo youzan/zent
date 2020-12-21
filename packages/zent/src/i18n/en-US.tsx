@@ -179,9 +179,8 @@ export const Upload: II18nLocaleUpload = {
   retry: 'Retry',
   failed: 'Failed',
   limit: 'Maximum number of files has been reached',
-  normal: {
-    add: 'Add File',
-  },
+  add: 'Add File',
+  uploading: 'File uploading',
 };
 
 export const Mention: II18nLocaleMention = {
