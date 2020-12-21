@@ -1,7 +1,6 @@
 import cn from 'classnames';
 
 import { Icon } from '../../../icon';
-import InlineLoading from '../../../loading/InlineLoading';
 import Pop from '../../../pop';
 import { Progress } from '../../../progress';
 import { FILE_UPLOAD_STATUS } from '../../constants';
@@ -33,18 +32,6 @@ const getFileIcon = (item: IUploadFileItem) => {
   // 上传失败 icon
   if (status === FILE_UPLOAD_STATUS.failed) {
     return <Icon className="zent-file-upload-item-icon" type="error-circle" />;
-  }
-
-  // 上传中 icon
-  if (status === FILE_UPLOAD_STATUS.uploading) {
-    return (
-      <InlineLoading
-        className="zent-file-upload-item-icon"
-        loading
-        icon="circle"
-        iconSize={16}
-      />
-    );
   }
 
   // 文件分类 icon
