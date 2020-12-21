@@ -1,5 +1,4 @@
 import Decimal from 'big.js';
-import isNil from '../utils/isNil';
 import { INumberInputDecimalProps } from './NumberInput';
 import { trimLeadingPlus } from './utils';
 
