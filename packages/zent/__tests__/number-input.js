@@ -64,6 +64,18 @@ describe('NumberInput', () => {
     wrapper = mount(<NumberInput showStepper value={6} min={0} max={3} />);
     expect(wrapper.state('input')).toBe('3');
     expect(wrapper.state('value').cmp(new Decimal(3))).toBe(0);
+
+    wrapper = mount(
+      <NumberInput showStepper step={2} value={6} min={0} max={3} decimal={2} />
+    );
+    expect(wrapper.state('input')).toBe('3.00');
+    wrapper.find('.zent-number-input-arrowdown').simulate('click');
+    expect(wrapper.state('value').cmp(new Decimal(1))).toBe(0);
+
+    wrapper = mount(<NumberInput showStepper step={2} value={6} integer />);
+    expect(wrapper.state('input')).toBe('6');
+    wrapper.find('.zent-number-input-arrowdown').simulate('click');
+    expect(wrapper.state('value') === 4).toBe(true);
   });
 
   it('NumberInput has its core function, change value with click on arrow', () => {

@@ -12,7 +12,11 @@ export function isDecimal(value: string): boolean {
   return /^[\-+]?\d*\.?\d*$/.test(value);
 }
 
-export function getDelta(decimal: number): Decimal {
+export function getDelta(decimal: number, step?: number): Decimal {
+  if (Number.isFinite(step)) {
+    return new Decimal(step);
+  }
+
   return new Decimal(1).div(Math.pow(10, decimal));
 }
 
