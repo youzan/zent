@@ -9,6 +9,13 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 9.1.0(2020-12-21)
+
+- ✨ New simple file upload component
+- ✨ Supports custom step in `NumberInput`
+- 🦀️ Fix border style issue in disabled `Button`
+- 🦀️ Fix generic types in `Select`
+
 ### 9.0.2(2020-12-18)
 
 - ✨ `Swiper` supports custom previous/next button
