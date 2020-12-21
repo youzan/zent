@@ -46,6 +46,7 @@
     "<rootDir>/scr/utils/date",
     "<rootDir>/src/utils/alcatraz",
     "<rootDir>/src/utils/dom/contains.ts",
+    "<rootDir>/src/utils/hooks/useCallbackRef.ts",
     "<rootDir>/src/i18n",
     "<rootDir>/src/pagination",
     "<rootDir>/src/placeholder",
