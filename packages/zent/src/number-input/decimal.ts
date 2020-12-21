@@ -14,7 +14,7 @@ export function isDecimal(value: string): boolean {
 }
 
 export function getDelta(decimal: number, step?: number): Decimal {
-  if (!isNil(step)) {
+  if (Number.isFinite(step)) {
     return new Decimal(step);
   }
 
