@@ -15,20 +15,21 @@ Default value type is string. Under integer mode, value type is number, with def
 
 ### API
 
-| Property    | Description                    | Type                              | Default | Alternative | Required |
-| ----------- | ------------------------------ | --------------------------------- | ------- | ----------- | -------- |
-| value       | input value                    | integer === true ? number: string |         |             | No       |
-| onChange    | change event                   | func(value: typeof value)         |         |             | No       |
-| showStepper | whether stepper is open        | bool                              | `false` |             | No       |
-| showCounter | whether counter is open        | bool                              | `false` |             | No       |
-| decimal     | number decimal                 | number                            | `0`     |             | No       |
-| min         | the minimum value in the range | number                            |         |             | No       |
-| max         | the maximum value in the range | number                            |         |             | No       |
-| placeholder | raw placeholder text           | string                            | `''`    |             | No       |
-| disabled    | whether is disable or not      | bool                              | `false` |             | No       |
-| className   | custom extra class name        | string                            | `''`    |             | No       |
-| width       | width                          | string or number                  |         |             | No       |
-| integer     | integer mode                   | bool                              | false   |             | No       |
+| Property    | Description                | Type                              | Default | Alternative | Required |
+| ----------- | -------------------------- | --------------------------------- | ------- | ----------- | -------- |
+| value       | Input value                | integer === true ? number: string |         |             | No       |
+| onChange    | Change event               | func(value: typeof value)         |         |             | No       |
+| showStepper | Show stepper               | bool                              | `false` |             | No       |
+| showCounter | Show counter               | bool                              | `false` |             | No       |
+| decimal     | Decimal                    | number                            | `0`     |             | No       |
+| step        | Step used in stepper       | number                            |         |             | No       |
+| min         | Minimum value in the range | number                            |         |             | No       |
+| max         | Maximum value in the range | number                            |         |             | No       |
+| placeholder | Placeholder text           | string                            | `''`    |             | No       |
+| disabled    | Disable input              | bool                              | `false` |             | No       |
+| className   | Extra class name           | string                            | `''`    |             | No       |
+| width       | Input width                | string or number                  |         |             | No       |
+| integer     | Integer mode               | bool                              | false   |             | No       |
 
 <style>
 .zent-number-input {

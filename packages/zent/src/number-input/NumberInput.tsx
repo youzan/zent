@@ -15,6 +15,7 @@ export interface INumberInputCommonProps
   type?: 'number';
   showStepper?: boolean;
   showCounter?: boolean;
+  step?: number;
 }
 
 export interface INumberInputDecimalProps extends INumberInputCommonProps {
@@ -45,6 +46,7 @@ export interface INumberInputIntegerState {
   input: string;
   min: number;
   max: number;
+  delta: number;
 }
 
 export interface INumberInputDecimalState {
@@ -69,6 +71,7 @@ function getStateFromProps(props: INumberInputProps): INumberInputState {
       prevProps: props,
       min,
       max,
+      delta: Integers.getDelta(props.step),
       ...Integers.normalizeValue(props.value, min, max),
     };
     return state;
@@ -78,7 +81,7 @@ function getStateFromProps(props: INumberInputProps): INumberInputState {
       prevProps: props,
       min,
       max,
-      delta: Decimals.getDelta(props.decimal),
+      delta: Decimals.getDelta(props.decimal, props.step),
       ...Decimals.normalizeValue(props.value, min, max, props.decimal),
     };
     return state;
@@ -179,7 +182,7 @@ export class NumberInput extends Component<
       return;
     }
     if (this.props.integer === true) {
-      const { value, min, max } = this.state as INumberInputIntegerState;
+      const { value, min, max, delta } = this.state as INumberInputIntegerState;
       const { canInc, canDec } = Integers.calculateLimit(value, min, max);
       if (
         value === null ||
@@ -191,9 +194,9 @@ export class NumberInput extends Component<
       const { onChange } = this.props;
       let nextValue: number;
       if (type === 'inc') {
-        nextValue = value + 1;
+        nextValue = value + delta;
       } else {
-        nextValue = value - 1;
+        nextValue = value - delta;
       }
       onChange?.(nextValue);
       this.setState({
@@ -238,9 +241,11 @@ export class NumberInput extends Component<
     if (props === prevProps) {
       return null;
     }
+
     if (props.integer !== prevProps.integer) {
       return getStateFromProps(props);
     }
+
     if (props.integer === true) {
       const nextState: INumberInputIntegerState = {
         ...(prevState as INumberInputIntegerState),
@@ -260,6 +265,8 @@ export class NumberInput extends Component<
       nextState.input = input;
       return nextState;
     }
+
+    // decimal mode
     const nextState: INumberInputDecimalState = {
       ...(prevState as INumberInputDecimalState),
       prevProps: props,
@@ -277,6 +284,14 @@ export class NumberInput extends Component<
     );
     nextState.value = value;
     nextState.input = input;
+
+    if (
+      props.step !== prevProps.step ||
+      props.decimal !== (prevProps as INumberInputDecimalProps).decimal
+    ) {
+      nextState.delta = Decimals.getDelta(props.decimal, props.step);
+    }
+
     return nextState;
   }
 

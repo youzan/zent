@@ -105,3 +105,11 @@ export function calculateLimit(
     canInc,
   };
 }
+
+export function getDelta(step?: number) {
+  if (Number.isFinite(step)) {
+    return Math.round(step);
+  }
+
+  return 1;
+}

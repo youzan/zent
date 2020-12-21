@@ -1,4 +1,5 @@
 import Decimal from 'big.js';
+import isNil from '../utils/isNil';
 import { INumberInputDecimalProps } from './NumberInput';
 import { trimLeadingPlus } from './utils';
 
@@ -12,7 +13,11 @@ export function isDecimal(value: string): boolean {
   return /^[\-+]?\d*\.?\d*$/.test(value);
 }
 
-export function getDelta(decimal: number): Decimal {
+export function getDelta(decimal: number, step?: number): Decimal {
+  if (!isNil(step)) {
+    return new Decimal(step);
+  }
+
   return new Decimal(1).div(Math.pow(10, decimal));
 }
 
