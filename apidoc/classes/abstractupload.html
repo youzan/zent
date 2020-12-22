@@ -59,7 +59,7 @@
 					<a href="abstractupload.html">AbstractUpload</a>
 				</li>
 			</ul>
-			<h1>Class AbstractUpload&lt;UPLOAD_ITEM, ON_UPLOAD_SUCCESS_RETURN, UPLOAD_ITEM_COMP_PROPS, P, SS&gt;</h1>
+			<h1>Class AbstractUpload&lt;UPLOAD_ITEM, ON_UPLOAD_SUCCESS_RETURN, UPLOAD_ITEM_COMP_PROPS, P, S, SS&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -82,6 +82,9 @@
 						<h4>P<span class="tsd-signature-symbol">: </span><a href="../interfaces/iabstractuploadprops.html" class="tsd-signature-type">IAbstractUploadProps</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">UPLOAD_ITEM</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ON_UPLOAD_SUCCESS_RETURN</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">UPLOAD_ITEM_COMP_PROPS</span><span class="tsd-signature-symbol">&gt;</span></h4>
 					</li>
 					<li>
+						<h4>S</h4>
+					</li>
+					<li>
 						<h4>SS</h4>
 					</li>
 				</ul>
@@ -90,13 +93,16 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="tsd-signature-type">PureComponent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">, </span><a href="../interfaces/iabstractuploadstate.html" class="tsd-signature-type">IAbstractUploadState</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">UPLOAD_ITEM</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>
+						<span class="tsd-signature-type">PureComponent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span>
 						<ul class="tsd-hierarchy">
 							<li>
 								<span class="target">AbstractUpload</span>
 								<ul class="tsd-hierarchy">
 									<li>
-										<a href="imageupload.html" class="tsd-signature-type">ImageUpload</a>
+										<a href="abstractmultiupload.html" class="tsd-signature-type">AbstractMultiUpload</a>
+									</li>
+									<li>
+										<a href="singleupload.html" class="tsd-signature-type">SingleUpload</a>
 									</li>
 								</ul>
 							</li>
@@ -109,17 +115,18 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Constructors</h3>
+							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="abstractupload.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="abstractupload.html#deleteuploaditem" class="tsd-kind-icon">delete<wbr>Upload<wbr>Item</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="abstractupload.html#ontriggeruploadfile" class="tsd-kind-icon">on<wbr>Trigger<wbr>Upload<wbr>File</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="abstractupload.html#retryuploaditem" class="tsd-kind-icon">retry<wbr>Upload<wbr>Item</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="abstractupload.html#updateuploaditem" class="tsd-kind-icon">update<wbr>Upload<wbr>Item</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="abstractupload.html#filelist" class="tsd-kind-icon">file<wbr>List</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="abstractupload.html#iscontrolled" class="tsd-kind-icon">is<wbr>Controlled</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="abstractupload.html#remainamount" class="tsd-kind-icon">remain<wbr>Amount</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -136,90 +143,185 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="abstractupload.html#componentwillunmount" class="tsd-kind-icon">component<wbr>Will<wbr>Unmount</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="abstractupload.html#componentwillupdate" class="tsd-kind-icon">component<wbr>Will<wbr>Update</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="abstractupload.html#createnewuploadfileitem" class="tsd-kind-icon">create<wbr>New<wbr>Upload<wbr>File<wbr>Item</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="abstractupload.html#deleteuploaditem" class="tsd-kind-icon">delete<wbr>Upload<wbr>Item</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="abstractupload.html#emitonerror" class="tsd-kind-icon">emit<wbr>OnError</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="abstractupload.html#emitonupload" class="tsd-kind-icon">emit<wbr>OnUpload</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="abstractupload.html#getsnapshotbeforeupdate" class="tsd-kind-icon">get<wbr>Snapshot<wbr>Before<wbr>Update</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="abstractupload.html#getuploaditem" class="tsd-kind-icon">get<wbr>Upload<wbr>Item</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="abstractupload.html#getuploaditem" class="tsd-kind-icon">get<wbr>Upload<wbr>Item</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="abstractupload.html#getuploadsuccessoverrideprops" class="tsd-kind-icon">get<wbr>Upload<wbr>Success<wbr>Override<wbr>Props</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="abstractupload.html#ontriggeruploadfile" class="tsd-kind-icon">on<wbr>Trigger<wbr>Upload<wbr>File</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="abstractupload.html#rendertips" class="tsd-kind-icon">render<wbr>Tips</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="abstractupload.html#rendertrigger" class="tsd-kind-icon">render<wbr>Trigger</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="abstractupload.html#renderuploadlist" class="tsd-kind-icon">render<wbr>Upload<wbr>List</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="abstractupload.html#retryuploaditem" class="tsd-kind-icon">retry<wbr>Upload<wbr>Item</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="abstractupload.html#shouldcomponentupdate" class="tsd-kind-icon">should<wbr>Component<wbr>Update</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="abstractupload.html#updatefilelist" class="tsd-kind-icon">update<wbr>File<wbr>List</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="abstractupload.html#updateuploaditem" class="tsd-kind-icon">update<wbr>Upload<wbr>Item</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="abstractupload.html#updateuploaditempercent" class="tsd-kind-icon">update<wbr>Upload<wbr>Item<wbr>Percent</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="abstractupload.html#updateuploaditemstatustofailed" class="tsd-kind-icon">update<wbr>Upload<wbr>Item<wbr>Status<wbr>ToFailed</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="abstractupload.html#updateuploaditemstatustosuccess" class="tsd-kind-icon">update<wbr>Upload<wbr>Item<wbr>Status<wbr>ToSuccess</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="abstractupload.html#getderivedstatefromprops" class="tsd-kind-icon">get<wbr>Derived<wbr>State<wbr>From<wbr>Props</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Constructors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
-					<a name="constructor" class="tsd-anchor"></a>
-					<h3>constructor</h3>
-					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Abstract<wbr>Upload<span class="tsd-signature-symbol">(</span>props<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="abstractupload.html" class="tsd-signature-type">AbstractUpload</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/5bdac68/packages/zent/src/upload/components/AbstractUpload.tsx#L28">packages/zent/src/upload/components/AbstractUpload.tsx:28</a></li>
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="deleteuploaditem" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagAbstract">Abstract</span> delete<wbr>Upload<wbr>Item</h3>
+					<div class="tsd-signature tsd-kind-icon">delete<wbr>Upload<wbr>Item<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>deleteItem<span class="tsd-signature-symbol">: </span><a href="../globals.html#iuploadfileiteminner" class="tsd-signature-type">IUploadFileItemInner</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">UPLOAD_ITEM</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/4dd720f/packages/zent/src/upload/components/AbstractUpload.tsx#L61">packages/zent/src/upload/components/AbstractUpload.tsx:61</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>删除上传文件项</p>
+						</div>
+					</div>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-signature">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>deleteItem<span class="tsd-signature-symbol">: </span><a href="../globals.html#iuploadfileiteminner" class="tsd-signature-type">IUploadFileItemInner</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">UPLOAD_ITEM</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>props: <span class="tsd-signature-type">P</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="abstractupload.html" class="tsd-signature-type">AbstractUpload</a></h4>
-						</li>
-					</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>deleteItem: <a href="../globals.html#iuploadfileiteminner" class="tsd-signature-type">IUploadFileItemInner</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">UPLOAD_ITEM</span><span class="tsd-signature-symbol">&gt;</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="ontriggeruploadfile" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagAbstract">Abstract</span> on<wbr>Trigger<wbr>Upload<wbr>File</h3>
+					<div class="tsd-signature tsd-kind-icon">on<wbr>Trigger<wbr>Upload<wbr>File<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>file<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">File</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/4dd720f/packages/zent/src/upload/components/AbstractUpload.tsx#L127">packages/zent/src/upload/components/AbstractUpload.tsx:127</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>添加新的上传项</p>
+						</div>
+					</div>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-signature">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>file<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">File</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>file: <span class="tsd-signature-type">File</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="retryuploaditem" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagAbstract">Abstract</span> retry<wbr>Upload<wbr>Item</h3>
+					<div class="tsd-signature tsd-kind-icon">retry<wbr>Upload<wbr>Item<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>retryItem<span class="tsd-signature-symbol">: </span><a href="../globals.html#iuploadfileiteminner" class="tsd-signature-type">IUploadFileItemInner</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">UPLOAD_ITEM</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/4dd720f/packages/zent/src/upload/components/AbstractUpload.tsx#L68">packages/zent/src/upload/components/AbstractUpload.tsx:68</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>重新上传文件</p>
+						</div>
+					</div>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-signature">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>retryItem<span class="tsd-signature-symbol">: </span><a href="../globals.html#iuploadfileiteminner" class="tsd-signature-type">IUploadFileItemInner</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">UPLOAD_ITEM</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>retryItem: <a href="../globals.html#iuploadfileiteminner" class="tsd-signature-type">IUploadFileItemInner</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">UPLOAD_ITEM</span><span class="tsd-signature-symbol">&gt;</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="updateuploaditem" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagAbstract">Abstract</span> update<wbr>Upload<wbr>Item</h3>
+					<div class="tsd-signature tsd-kind-icon">update<wbr>Upload<wbr>Item<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>updateItemId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, overrideProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><a href="../globals.html#iuploadfileiteminner" class="tsd-signature-type">IUploadFileItemInner</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">UPLOAD_ITEM</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/4dd720f/packages/zent/src/upload/components/AbstractUpload.tsx#L75">packages/zent/src/upload/components/AbstractUpload.tsx:75</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>更新某个上传项的属性</p>
+						</div>
+					</div>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-signature">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>updateItemId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, overrideProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><a href="../globals.html#iuploadfileiteminner" class="tsd-signature-type">IUploadFileItemInner</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">UPLOAD_ITEM</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>updateItemId: <span class="tsd-signature-type">string</span></h5>
+											</li>
+											<li>
+												<h5>overrideProps: <span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><a href="../globals.html#iuploadfileiteminner" class="tsd-signature-type">IUploadFileItemInner</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">UPLOAD_ITEM</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Accessors</h2>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="filelist" class="tsd-anchor"></a>
-					<h3>file<wbr>List</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> fileList<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">P[&quot;fileList&quot;]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-type">UPLOAD_ITEM</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>_file<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">File</span><span class="tsd-signature-symbol">; </span>_id<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">[]</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/5bdac68/packages/zent/src/upload/components/AbstractUpload.tsx#L75">packages/zent/src/upload/components/AbstractUpload.tsx:75</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>上传项列表</p>
-								</div>
-							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">P[&quot;fileList&quot;]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-type">UPLOAD_ITEM</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>_file<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">File</span><span class="tsd-signature-symbol">; </span>_id<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">[]</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
 					<a name="iscontrolled" class="tsd-anchor"></a>
 					<h3>is<wbr>Controlled</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> isControlled<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> isControlled<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/5bdac68/packages/zent/src/upload/components/AbstractUpload.tsx#L70">packages/zent/src/upload/components/AbstractUpload.tsx:70</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/4dd720f/packages/zent/src/upload/components/AbstractUpload.tsx#L26">packages/zent/src/upload/components/AbstractUpload.tsx:26</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -227,29 +329,7 @@
 									<p>判断是否受控</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="remainamount" class="tsd-anchor"></a>
-					<h3>remain<wbr>Amount</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> remainAmount<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/5bdac68/packages/zent/src/upload/components/AbstractUpload.tsx#L82">packages/zent/src/upload/components/AbstractUpload.tsx:82</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>剩余可上传文件数量</p>
-								</div>
-							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -347,7 +427,7 @@
 					<a name="unsafe_componentwillupdate" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> UNSAFE_<wbr>component<wbr>Will<wbr>Update</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">UNSAFE_<wbr>component<wbr>Will<wbr>Update<span class="tsd-signature-symbol">(</span>nextProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">&gt;</span>, nextState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/iabstractuploadstate.html" class="tsd-signature-type">IAbstractUploadState</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">UPLOAD_ITEM</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>, nextContext<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">UNSAFE_<wbr>component<wbr>Will<wbr>Update<span class="tsd-signature-symbol">(</span>nextProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">&gt;</span>, nextState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span>, nextContext<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -383,7 +463,7 @@
 									<h5>nextProps: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>nextState: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/iabstractuploadstate.html" class="tsd-signature-type">IAbstractUploadState</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">UPLOAD_ITEM</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>nextState: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
 									<h5>nextContext: <span class="tsd-signature-type">any</span></h5>
@@ -453,7 +533,7 @@
 					<a name="componentdidupdate" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> component<wbr>Did<wbr>Update</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">component<wbr>Did<wbr>Update<span class="tsd-signature-symbol">(</span>prevProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">&gt;</span>, prevState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/iabstractuploadstate.html" class="tsd-signature-type">IAbstractUploadState</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">UPLOAD_ITEM</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>, snapshot<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">SS</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">component<wbr>Did<wbr>Update<span class="tsd-signature-symbol">(</span>prevProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">&gt;</span>, prevState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span>, snapshot<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">SS</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -475,7 +555,7 @@
 									<h5>prevProps: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>prevState: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/iabstractuploadstate.html" class="tsd-signature-type">IAbstractUploadState</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">UPLOAD_ITEM</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>prevState: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> snapshot: <span class="tsd-signature-type">SS</span></h5>
@@ -598,7 +678,7 @@
 					<a name="componentwillupdate" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> component<wbr>Will<wbr>Update</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">component<wbr>Will<wbr>Update<span class="tsd-signature-symbol">(</span>nextProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">&gt;</span>, nextState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/iabstractuploadstate.html" class="tsd-signature-type">IAbstractUploadState</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">UPLOAD_ITEM</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>, nextContext<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">component<wbr>Will<wbr>Update<span class="tsd-signature-symbol">(</span>nextProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">&gt;</span>, nextState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span>, nextContext<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -633,7 +713,7 @@
 									<h5>nextProps: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>nextState: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/iabstractuploadstate.html" class="tsd-signature-type">IAbstractUploadState</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">UPLOAD_ITEM</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>nextState: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
 									<h5>nextContext: <span class="tsd-signature-type">any</span></h5>
@@ -653,7 +733,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/5bdac68/packages/zent/src/upload/components/AbstractUpload.tsx#L306">packages/zent/src/upload/components/AbstractUpload.tsx:306</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/4dd720f/packages/zent/src/upload/components/AbstractUpload.tsx#L141">packages/zent/src/upload/components/AbstractUpload.tsx:141</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -672,34 +752,6 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="deleteuploaditem" class="tsd-anchor"></a>
-					<h3>delete<wbr>Upload<wbr>Item</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">delete<wbr>Upload<wbr>Item<span class="tsd-signature-symbol">(</span>deleteItem<span class="tsd-signature-symbol">: </span><a href="../globals.html#iuploadfileiteminner" class="tsd-signature-type">IUploadFileItemInner</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">UPLOAD_ITEM</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/5bdac68/packages/zent/src/upload/components/AbstractUpload.tsx#L148">packages/zent/src/upload/components/AbstractUpload.tsx:148</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>删除上传文件项</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>deleteItem: <a href="../globals.html#iuploadfileiteminner" class="tsd-signature-type">IUploadFileItemInner</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">UPLOAD_ITEM</span><span class="tsd-signature-symbol">&gt;</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="emitonerror" class="tsd-anchor"></a>
 					<h3>emit<wbr>OnError</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -709,7 +761,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/5bdac68/packages/zent/src/upload/components/AbstractUpload.tsx#L120">packages/zent/src/upload/components/AbstractUpload.tsx:120</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/4dd720f/packages/zent/src/upload/components/AbstractUpload.tsx#L33">packages/zent/src/upload/components/AbstractUpload.tsx:33</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -740,7 +792,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/5bdac68/packages/zent/src/upload/components/AbstractUpload.tsx#L127">packages/zent/src/upload/components/AbstractUpload.tsx:127</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/4dd720f/packages/zent/src/upload/components/AbstractUpload.tsx#L40">packages/zent/src/upload/components/AbstractUpload.tsx:40</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -765,7 +817,7 @@
 					<a name="getsnapshotbeforeupdate" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> get<wbr>Snapshot<wbr>Before<wbr>Update</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Snapshot<wbr>Before<wbr>Update<span class="tsd-signature-symbol">(</span>prevProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">&gt;</span>, prevState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/iabstractuploadstate.html" class="tsd-signature-type">IAbstractUploadState</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">UPLOAD_ITEM</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SS</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Snapshot<wbr>Before<wbr>Update<span class="tsd-signature-symbol">(</span>prevProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">&gt;</span>, prevState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SS</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -790,24 +842,24 @@
 									<h5>prevProps: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>prevState: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/iabstractuploadstate.html" class="tsd-signature-type">IAbstractUploadState</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">UPLOAD_ITEM</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>prevState: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">SS</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></h4>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="getuploaditem" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> get<wbr>Upload<wbr>Item</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<h3><span class="tsd-flag ts-flagAbstract">Abstract</span> get<wbr>Upload<wbr>Item</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
 						<li class="tsd-signature tsd-kind-icon">get<wbr>Upload<wbr>Item<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../globals.html#iuploadfileiteminner" class="tsd-signature-type">IUploadFileItemInner</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">UPLOAD_ITEM</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/5bdac68/packages/zent/src/upload/components/AbstractUpload.tsx#L87">packages/zent/src/upload/components/AbstractUpload.tsx:87</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/4dd720f/packages/zent/src/upload/components/AbstractUpload.tsx#L28">packages/zent/src/upload/components/AbstractUpload.tsx:28</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -830,7 +882,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/5bdac68/packages/zent/src/upload/components/AbstractUpload.tsx#L297">packages/zent/src/upload/components/AbstractUpload.tsx:297</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/4dd720f/packages/zent/src/upload/components/AbstractUpload.tsx#L132">packages/zent/src/upload/components/AbstractUpload.tsx:132</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -848,34 +900,6 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="ontriggeruploadfile" class="tsd-anchor"></a>
-					<h3>on<wbr>Trigger<wbr>Upload<wbr>File</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">on<wbr>Trigger<wbr>Upload<wbr>File<span class="tsd-signature-symbol">(</span>file<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">File</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/5bdac68/packages/zent/src/upload/components/AbstractUpload.tsx#L260">packages/zent/src/upload/components/AbstractUpload.tsx:260</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>添加新的上传项</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>file: <span class="tsd-signature-type">File</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
 					<a name="rendertips" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> <span class="tsd-flag ts-flagAbstract">Abstract</span> render<wbr>Tips</h3>
@@ -886,7 +910,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/5bdac68/packages/zent/src/upload/components/AbstractUpload.tsx#L320">packages/zent/src/upload/components/AbstractUpload.tsx:320</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/4dd720f/packages/zent/src/upload/components/AbstractUpload.tsx#L155">packages/zent/src/upload/components/AbstractUpload.tsx:155</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -914,7 +938,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/5bdac68/packages/zent/src/upload/components/AbstractUpload.tsx#L315">packages/zent/src/upload/components/AbstractUpload.tsx:315</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/4dd720f/packages/zent/src/upload/components/AbstractUpload.tsx#L150">packages/zent/src/upload/components/AbstractUpload.tsx:150</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -932,67 +956,11 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
-					<a name="renderuploadlist" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagProtected">Protected</span> <span class="tsd-flag ts-flagAbstract">Abstract</span> render<wbr>Upload<wbr>List</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
-						<li class="tsd-signature tsd-kind-icon">render<wbr>Upload<wbr>List<span class="tsd-signature-symbol">(</span>i18n<span class="tsd-signature-symbol">: </span><a href="../interfaces/ii18nlocaleupload.html" class="tsd-signature-type">II18nLocaleUpload</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">React.ReactNode</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/5bdac68/packages/zent/src/upload/components/AbstractUpload.tsx#L325">packages/zent/src/upload/components/AbstractUpload.tsx:325</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>渲染上传列表</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>i18n: <a href="../interfaces/ii18nlocaleupload.html" class="tsd-signature-type">II18nLocaleUpload</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">React.ReactNode</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="retryuploaditem" class="tsd-anchor"></a>
-					<h3>retry<wbr>Upload<wbr>Item</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">retry<wbr>Upload<wbr>Item<span class="tsd-signature-symbol">(</span>retryItem<span class="tsd-signature-symbol">: </span><a href="../globals.html#iuploadfileiteminner" class="tsd-signature-type">IUploadFileItemInner</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">UPLOAD_ITEM</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/5bdac68/packages/zent/src/upload/components/AbstractUpload.tsx#L164">packages/zent/src/upload/components/AbstractUpload.tsx:164</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>重新上传文件</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>retryItem: <a href="../globals.html#iuploadfileiteminner" class="tsd-signature-type">IUploadFileItemInner</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">UPLOAD_ITEM</span><span class="tsd-signature-symbol">&gt;</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="shouldcomponentupdate" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> should<wbr>Component<wbr>Update</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">should<wbr>Component<wbr>Update<span class="tsd-signature-symbol">(</span>nextProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">&gt;</span>, nextState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/iabstractuploadstate.html" class="tsd-signature-type">IAbstractUploadState</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">UPLOAD_ITEM</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>, nextContext<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon">should<wbr>Component<wbr>Update<span class="tsd-signature-symbol">(</span>nextProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">&gt;</span>, nextState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span>, nextContext<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -1018,90 +986,13 @@
 									<h5>nextProps: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>nextState: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/iabstractuploadstate.html" class="tsd-signature-type">IAbstractUploadState</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">UPLOAD_ITEM</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>nextState: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
 									<h5>nextContext: <span class="tsd-signature-type">any</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="updatefilelist" class="tsd-anchor"></a>
-					<h3>update<wbr>File<wbr>List</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">update<wbr>File<wbr>List<span class="tsd-signature-symbol">(</span>list<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">UPLOAD_ITEM</span><span class="tsd-signature-symbol">[]</span>, detail<span class="tsd-signature-symbol">?: </span><a href="../interfaces/iuploadchangedetail.html" class="tsd-signature-type">IUploadChangeDetail</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">UPLOAD_ITEM</span><span class="tsd-signature-symbol">&gt;</span>, cb<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/5bdac68/packages/zent/src/upload/components/AbstractUpload.tsx#L96">packages/zent/src/upload/components/AbstractUpload.tsx:96</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>修改文件列表内容</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>list: <span class="tsd-signature-type">UPLOAD_ITEM</span><span class="tsd-signature-symbol">[]</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> detail: <a href="../interfaces/iuploadchangedetail.html" class="tsd-signature-type">IUploadChangeDetail</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">UPLOAD_ITEM</span><span class="tsd-signature-symbol">&gt;</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> cb: <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
-									<ul class="tsd-parameters">
-										<li class="tsd-parameter-signature">
-											<ul class="tsd-signatures tsd-kind-type-literal">
-												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-											</ul>
-											<ul class="tsd-descriptions">
-												<li class="tsd-description">
-													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-												</li>
-											</ul>
-										</li>
-									</ul>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="updateuploaditem" class="tsd-anchor"></a>
-					<h3>update<wbr>Upload<wbr>Item</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">update<wbr>Upload<wbr>Item<span class="tsd-signature-symbol">(</span>updateItemId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, overrideProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><a href="../globals.html#iuploadfileiteminner" class="tsd-signature-type">IUploadFileItemInner</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">UPLOAD_ITEM</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/5bdac68/packages/zent/src/upload/components/AbstractUpload.tsx#L189">packages/zent/src/upload/components/AbstractUpload.tsx:189</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>更新某个上传项的属性</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>updateItemId: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5>overrideProps: <span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><a href="../globals.html#iuploadfileiteminner" class="tsd-signature-type">IUploadFileItemInner</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">UPLOAD_ITEM</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -1115,7 +1006,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/5bdac68/packages/zent/src/upload/components/AbstractUpload.tsx#L240">packages/zent/src/upload/components/AbstractUpload.tsx:240</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/4dd720f/packages/zent/src/upload/components/AbstractUpload.tsx#L107">packages/zent/src/upload/components/AbstractUpload.tsx:107</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1146,7 +1037,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/5bdac68/packages/zent/src/upload/components/AbstractUpload.tsx#L230">packages/zent/src/upload/components/AbstractUpload.tsx:230</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/4dd720f/packages/zent/src/upload/components/AbstractUpload.tsx#L97">packages/zent/src/upload/components/AbstractUpload.tsx:97</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1174,7 +1065,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/5bdac68/packages/zent/src/upload/components/AbstractUpload.tsx#L216">packages/zent/src/upload/components/AbstractUpload.tsx:216</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/4dd720f/packages/zent/src/upload/components/AbstractUpload.tsx#L83">packages/zent/src/upload/components/AbstractUpload.tsx:83</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1195,34 +1086,6 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
-					<a name="getderivedstatefromprops" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> get<wbr>Derived<wbr>State<wbr>From<wbr>Props</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Derived<wbr>State<wbr>From<wbr>Props<span class="tsd-signature-symbol">(</span>nextProps<span class="tsd-signature-symbol">: </span><a href="../interfaces/iabstractuploadprops.html" class="tsd-signature-type">IAbstractUploadProps</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/iuploadfileitem.html" class="tsd-signature-type">IUploadFileItem</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">, </span><a href="../interfaces/iuploaditemprops.html" class="tsd-signature-type">IUploadItemProps</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/iuploadfileitem.html" class="tsd-signature-type">IUploadFileItem</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>fileList<span class="tsd-signature-symbol">: </span><a href="../interfaces/iuploadfileitem.html" class="tsd-signature-type">IUploadFileItem</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> }</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/5bdac68/packages/zent/src/upload/components/AbstractUpload.tsx#L52">packages/zent/src/upload/components/AbstractUpload.tsx:52</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>nextProps: <a href="../interfaces/iabstractuploadprops.html" class="tsd-signature-type">IAbstractUploadProps</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/iuploadfileitem.html" class="tsd-signature-type">IUploadFileItem</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">, </span><a href="../interfaces/iuploaditemprops.html" class="tsd-signature-type">IUploadItemProps</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/iuploadfileitem.html" class="tsd-signature-type">IUploadFileItem</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">{ </span>fileList<span class="tsd-signature-symbol">: </span><a href="../interfaces/iuploadfileitem.html" class="tsd-signature-type">IUploadFileItem</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> }</span></h4>
-							<ul class="tsd-parameters">
-								<li class="tsd-parameter">
-									<h5>file<wbr>List<span class="tsd-signature-symbol">: </span><a href="../interfaces/iuploadfileitem.html" class="tsd-signature-type">IUploadFileItem</a><span class="tsd-signature-symbol">[]</span></h5>
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</section>
 			</section>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -1240,17 +1103,20 @@
 					<li class="current tsd-kind-class tsd-has-type-parameter">
 						<a href="abstractupload.html" class="tsd-kind-icon">Abstract<wbr>Upload</a>
 						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="abstractupload.html#constructor" class="tsd-kind-icon">constructor</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="abstractupload.html#deleteuploaditem" class="tsd-kind-icon">delete<wbr>Upload<wbr>Item</a>
 							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="abstractupload.html#filelist" class="tsd-kind-icon">file<wbr>List</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="abstractupload.html#ontriggeruploadfile" class="tsd-kind-icon">on<wbr>Trigger<wbr>Upload<wbr>File</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="abstractupload.html#retryuploaditem" class="tsd-kind-icon">retry<wbr>Upload<wbr>Item</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="abstractupload.html#updateuploaditem" class="tsd-kind-icon">update<wbr>Upload<wbr>Item</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="abstractupload.html#iscontrolled" class="tsd-kind-icon">is<wbr>Controlled</a>
-							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="abstractupload.html#remainamount" class="tsd-kind-icon">remain<wbr>Amount</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="abstractupload.html#unsafe_componentwillmount" class="tsd-kind-icon">UNSAFE_<wbr>component<wbr>Will<wbr>Mount</a>
@@ -1286,9 +1152,6 @@
 								<a href="abstractupload.html#createnewuploadfileitem" class="tsd-kind-icon">create<wbr>New<wbr>Upload<wbr>File<wbr>Item</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="abstractupload.html#deleteuploaditem" class="tsd-kind-icon">delete<wbr>Upload<wbr>Item</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="abstractupload.html#emitonerror" class="tsd-kind-icon">emit<wbr>OnError</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
@@ -1297,14 +1160,11 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="abstractupload.html#getsnapshotbeforeupdate" class="tsd-kind-icon">get<wbr>Snapshot<wbr>Before<wbr>Update</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="abstractupload.html#getuploaditem" class="tsd-kind-icon">get<wbr>Upload<wbr>Item</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
 								<a href="abstractupload.html#getuploadsuccessoverrideprops" class="tsd-kind-icon">get<wbr>Upload<wbr>Success<wbr>Override<wbr>Props</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="abstractupload.html#ontriggeruploadfile" class="tsd-kind-icon">on<wbr>Trigger<wbr>Upload<wbr>File</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
 								<a href="abstractupload.html#rendertips" class="tsd-kind-icon">render<wbr>Tips</a>
@@ -1312,20 +1172,8 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
 								<a href="abstractupload.html#rendertrigger" class="tsd-kind-icon">render<wbr>Trigger</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
-								<a href="abstractupload.html#renderuploadlist" class="tsd-kind-icon">render<wbr>Upload<wbr>List</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="abstractupload.html#retryuploaditem" class="tsd-kind-icon">retry<wbr>Upload<wbr>Item</a>
-							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="abstractupload.html#shouldcomponentupdate" class="tsd-kind-icon">should<wbr>Component<wbr>Update</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="abstractupload.html#updatefilelist" class="tsd-kind-icon">update<wbr>File<wbr>List</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="abstractupload.html#updateuploaditem" class="tsd-kind-icon">update<wbr>Upload<wbr>Item</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="abstractupload.html#updateuploaditempercent" class="tsd-kind-icon">update<wbr>Upload<wbr>Item<wbr>Percent</a>
@@ -1335,9 +1183,6 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="abstractupload.html#updateuploaditemstatustosuccess" class="tsd-kind-icon">update<wbr>Upload<wbr>Item<wbr>Status<wbr>ToSuccess</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
-								<a href="abstractupload.html#getderivedstatefromprops" class="tsd-kind-icon">get<wbr>Derived<wbr>State<wbr>From<wbr>Props</a>
 							</li>
 						</ul>
 					</li>
