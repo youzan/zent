@@ -11,10 +11,10 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 
 ### 9.1.0(2020-12-21)
 
+- 💥 Fix generic types in `Select`, from one type parameter to two type parameters, `Select<ISelecItem<number>>` => `Select<number>`
 - ✨ New simple file upload component
 - ✨ Supports custom step in `NumberInput`
 - 🦀️ Fix border style issue in disabled `Button`
-- 🦀️ Fix generic types in `Select`
 
 ### 9.0.2(2020-12-18)
 
@@ -22,7 +22,7 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 
 ### 9.0.1(2020-12-18)
 
-- `Select` 
+- `Select`
   - ✨ Add value reviver support to Select
   - ✨ Support custom tag list render in multiple mode
 - `Grid`
