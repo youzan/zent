@@ -52,6 +52,11 @@ function makeChildrenContext(children: IFormChild[]): IZentFormChildrenContext {
   };
 }
 
+export interface IFormScrollToErrorOptions {
+  offsetX?: number;
+  offsetY?: number;
+}
+
 // eslint-disable-next-line @typescript-eslint/ban-types
 export interface IFormProps<T extends {}>
   extends Omit<
@@ -81,9 +86,15 @@ export interface IFormProps<T extends {}>
 
   /**
    * 触发滚动到第一个错误前的回调函数
-   * 如果返回一个 `Promise`，当 `Promise` `resolve` 时才会继续执行滚动，`reject` 将终止滚动操作
+   * 如果返回一个 `Promise`，当 `Promise` `resolve` 时才会继续执行滚动，`reject` 将终止滚动操作。
+   * 可以返回 `IFormScrollToErrorOptions` 用来调整滚动的位置。
    */
-  willScrollToError?: (form: ZentForm<T>) => void | Promise<void>;
+  willScrollToError?: (
+    form: ZentForm<T>
+  ) =>
+    | void
+    | IFormScrollToErrorOptions
+    | Promise<IFormScrollToErrorOptions | void>;
 
   /**
    * 表单提交回调函数，`form.submit` 或者原生的 `DOM` 触发的 `submit` 事件都会触发 `onSubmit`
@@ -222,18 +233,18 @@ export class Form<T extends {}> extends Component<IFormProps<T>> {
       this._scrollToFirstError();
     } else {
       const p = willScrollToError(form);
-      if (!isPromise<void>(p)) {
-        this._scrollToFirstError();
+      if (!isPromise<IFormScrollToErrorOptions | void>(p)) {
+        this._scrollToFirstError(p);
       } else {
         // Do not scroll if promise rejects
-        p.then(() => {
-          this._scrollToFirstError();
+        p.then(opt => {
+          this._scrollToFirstError(opt);
         }).catch(() => {});
       }
     }
   }
 
-  private _scrollToFirstError() {
+  private _scrollToFirstError(options?: IFormScrollToErrorOptions | void) {
     let scrollX = Infinity;
     let scrollY = Infinity;
     for (let i = 0; i < this.children.length; i += 1) {
@@ -261,7 +272,9 @@ export class Form<T extends {}> extends Component<IFormProps<T>> {
 
     if (scrollX !== Infinity) {
       const { x, y } = getScrollPosition();
-      smoothScroll(document.body, scrollX + x, scrollY + y);
+      const { offsetX = 0, offsetY = 0 } = (options ??
+        {}) as IFormScrollToErrorOptions;
+      smoothScroll(document.body, scrollX + x + offsetX, scrollY + y + offsetY);
     }
   }
 
