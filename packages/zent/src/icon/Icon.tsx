@@ -60,6 +60,7 @@ export type IconType =
   | 'expand-customer-o'
   | 'export'
   | 'eye'
+  | 'eye-o'
   | 'feedback'
   | 'filter-o'
   | 'flow-o'

@@ -1022,6 +1022,18 @@ class IconGrid extends Component {
               </div>
             </CopyButton>
             <CopyButton
+              text={this.getIconString("eye-o")}
+              onCopySuccess="eye-o 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="eye-oeyeoutline"
+              >
+                <Icon type="eye-o" />
+                <span className="zi-grid-item-name">eye-o</span>
+              </div>
+            </CopyButton>
+            <CopyButton
               text={this.getIconString("eye")}
               onCopySuccess="eye 已复制到剪贴板"
             >
