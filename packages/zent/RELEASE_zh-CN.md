@@ -9,6 +9,13 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 9.1.1(2021-01-05)
+
+- ✨ 新增一个图标
+- `Form`
+  - ✨ 滚动到第一个错误处功能支持通过 `willScrollToError` 自定义偏移量
+  - 🦀️ 调整表单域垂直间距为 24px
+
 ### 9.1.0(2020-12-21)
 
 - 💥 修复 `Select` 范型参数的问题，原来一个范型参数改为两个范型参数，`Select<ISelecItem<number>>` => `Select<number>`

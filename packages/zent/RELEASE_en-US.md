@@ -9,6 +9,13 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 9.1.1(2021-01-05)
+
+- ✨ Add a new icon
+- `Form`
+  - ✨ Supports custom offsets through `willScrollToError` when scrolling to first error
+  - 🦀️ Changed vertical margin between fields to 24px
+
 ### 9.1.0(2020-12-21)
 
 - 💥 Fix generic types in `Select`, from one type parameter to two type parameters, `Select<ISelecItem<number>>` => `Select<number>`
