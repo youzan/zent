@@ -371,14 +371,14 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
         const rowIndex = this.getDataKey(item, index);
 
         if (selection.getCheckboxProps) {
-          return !this.getCheckboxPropsByItem(item, rowIndex)?.disabled;
+          return !this.getCheckboxPropsByItem(item, rowIndex, selection)?.disabled;
         }
         return true;
       });
 
       const checkboxAllDisabled = data.every((item, index) => {
         const rowIndex = this.getDataKey(item, index);
-        return this.getCheckboxPropsByItem(item, rowIndex)?.disabled;
+        return this.getCheckboxPropsByItem(item, rowIndex, selection)?.disabled;
       });
 
       const selectionColumn: IGridInnerColumn<Data> = {
@@ -763,8 +763,8 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
     return null;
   };
 
-  getCheckboxPropsByItem = (data: Data, rowIndex: number) => {
-    const { selection } = this.props;
+  getCheckboxPropsByItem = (data: Data, rowIndex: number, nextSelection?: IGridSelection<Data>) => {
+    const selection = nextSelection || this.props.selection;
 
     if (!selection || !selection.getCheckboxProps) {
       return {};
