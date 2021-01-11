@@ -1,4 +1,4 @@
-import { isAfter, isBefore } from 'date-fns';
+import { isAfter, isBefore, startOfDay } from 'date-fns';
 import { IDateCellBase, IGenerateDateConfig, DateTuple } from '../types';
 
 interface ICellDateParams {
@@ -33,13 +33,13 @@ export default function getPanelCellsData({
   inView,
   disableRangeOverView,
 }: ICellDateParams) {
-  const { isSame, startDate, offsetDate } = dateConfig;
+  const { isSame, offsetDate } = dateConfig;
 
   let index = 0;
   const cells: IDateCellBase[] = [];
   for (let rowIndex = 0; rowIndex < row; rowIndex++) {
     for (let colIndex = 0; colIndex < col; colIndex++) {
-      const currentDate = startDate(
+      const currentDate = startOfDay(
         offsetDate(defaultPanelDate, index - offset)
       );
       const text = texts ? texts[index] : currentDate.getDate();
