@@ -369,11 +369,8 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
     if (selection) {
       const data = (datasets || []).filter((item, index) => {
         const rowIndex = this.getDataKey(item, index);
-
-        if (selection.getCheckboxProps) {
-          return !this.getCheckboxPropsByItem(item, rowIndex, selection)?.disabled;
-        }
-        return true;
+        return !this.getCheckboxPropsByItem(item, rowIndex, selection)
+          ?.disabled;
       });
 
       const checkboxAllDisabled = data.every((item, index) => {
@@ -763,7 +760,11 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
     return null;
   };
 
-  getCheckboxPropsByItem = (data: Data, rowIndex: number, nextSelection?: IGridSelection<Data>) => {
+  getCheckboxPropsByItem = (
+    data: Data,
+    rowIndex: number,
+    nextSelection?: IGridSelection<Data>
+  ) => {
     const selection = nextSelection || this.props.selection;
 
     if (!selection || !selection.getCheckboxProps) {
