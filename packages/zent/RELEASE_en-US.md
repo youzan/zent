@@ -9,6 +9,12 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 9.1.2(2021-01-11)
+
+- 🦀️ Fix incorrect checkbox state in `Grid`
+- 🦀️ Fix `expandAll` not reacting to props change in `Tree`
+- 🦀️ Fix `FormInputField` demo in `Form` doc
+
 ### 9.1.1(2021-01-05)
 
 - ✨ Add a new icon
