@@ -96,11 +96,10 @@ export class Tree extends Component<ITreeProps, ITreeState> {
       const formatData = createStateByProps(nextProps);
       let { expandNode } = formatData;
 
-      // // 只有在 loadMore 状态下，我会保持原有打开状态
-      // // if (prevProps.loadMore || nextProps.loadMore) {
-      // 任何情况下都做保留
-      expandNode = correctExpand(state, formatData);
-      // // }
+      // 任何情况下都做保留, 除非全展/全闭变化了
+      if (nextProps.expandAll === prevProps.expandAll) {
+        expandNode = correctExpand(state, formatData);
+      }
 
       return {
         prevProps: nextProps,
