@@ -79,7 +79,8 @@ jobs:
       - run: yarn workspace zent-docs build
       - uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          personal_token: ${{ secrets.PERSONAL_TOKEN }}
+          external_repository: 'youzan/zent-v8'
           publish_dir: ./site/dist
 
   deploy-doc-beta:
