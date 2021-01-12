@@ -56,7 +56,7 @@ class Demo extends Component {
 				<DatePicker
 					value={dateValue2}
 					className="zent-datepicker-demo"
-					onChange={this.onChangeDate}
+					onChange={this.onChangeDate2}
 					disabledDate={{ min: '2020-6-15' }}
 				/>
 				<br />
