@@ -11,6 +11,7 @@ import PickerContext from '../../context/PickerContext';
 import { useShowTimeOption } from '../../hooks/useShowTimeOption';
 import usePanelDate from '../../hooks/usePanelDate';
 import { ISinglePanelProps, IDisabledTime, IShowTime } from '../../types';
+import { useEventCallbackRef } from '../../../utils/hooks/useEventCallbackRef';
 
 export interface IDatePickerPanelProps extends ISinglePanelProps {
   disableRangeOverView?: boolean;
@@ -19,6 +20,9 @@ export interface IDatePickerPanelProps extends ISinglePanelProps {
   showTime?: IShowTime;
   disabledTime?: IDisabledTime;
   footerText?: string;
+  combinedLeft?: boolean;
+  combinedRight?: boolean;
+  onPanelDateChange?: (val: Date) => void;
 }
 const DatePickerPanel: React.FC<IDatePickerPanelProps> = props => {
   const {
@@ -27,6 +31,9 @@ const DatePickerPanel: React.FC<IDatePickerPanelProps> = props => {
     onSelected,
     showTime,
     footerText = '',
+    combinedLeft,
+    combinedRight,
+    onPanelDateChange,
     ...resetBodyProps
   } = props;
   const { i18n } = useContext(PickerContext);
@@ -35,6 +42,7 @@ const DatePickerPanel: React.FC<IDatePickerPanelProps> = props => {
   const [showMonth, setShowMonth] = useState<boolean>(false);
   const { panelDate, setPanelDate } = usePanelDate(defaultPanelDate);
   const showTimeOption = useShowTimeOption(showTime);
+  const onPanelDateChangeRef = useEventCallbackRef(onPanelDateChange);
 
   const titleNode = useMemo(
     () => (
@@ -53,15 +61,41 @@ const DatePickerPanel: React.FC<IDatePickerPanelProps> = props => {
     [panelDate, i18n]
   );
 
+  const onPrev = useCallback(() => {
+    const currentDate = addMonths(panelDate, -1);
+    setPanelDate(currentDate);
+    onPanelDateChangeRef.current?.(currentDate);
+  }, [panelDate, setPanelDate, onPanelDateChangeRef]);
+
+  const onNext = useCallback(() => {
+    const currentDate = addMonths(panelDate, 1);
+    setPanelDate(currentDate);
+    onPanelDateChangeRef.current?.(currentDate);
+  }, [panelDate, setPanelDate, onPanelDateChangeRef]);
+
+  const onSuperPrev = useCallback(() => {
+    const currentDate = addYears(panelDate, -1);
+    setPanelDate(currentDate);
+    onPanelDateChangeRef.current?.(currentDate);
+  }, [panelDate, setPanelDate, onPanelDateChangeRef]);
+
+  const onSuperNext = useCallback(() => {
+    const currentDate = addYears(panelDate, 1);
+    setPanelDate(currentDate);
+    onPanelDateChangeRef.current?.(currentDate);
+  }, [panelDate, setPanelDate, onPanelDateChangeRef]);
+
   const DatePanel = (
     <>
       <PanelHeader
         showSuper={true}
         titleNode={titleNode}
-        onPrev={() => setPanelDate(addMonths(panelDate, -1))}
-        onNext={() => setPanelDate(addMonths(panelDate, 1))}
-        onSuperPrev={() => setPanelDate(addYears(panelDate, -1))}
-        onSuperNext={() => setPanelDate(addYears(panelDate, 1))}
+        combinedLeft={combinedLeft}
+        combinedRight={combinedRight}
+        onPrev={onPrev}
+        onNext={onNext}
+        onSuperPrev={onSuperPrev}
+        onSuperNext={onSuperNext}
       />
       <PanelSubHeader names={i18n.panel.dayNames} />
       <DatePickerBody
@@ -77,10 +111,12 @@ const DatePickerPanel: React.FC<IDatePickerPanelProps> = props => {
   );
   const onClickYear = useCallback(
     val => {
-      setPanelDate(setYear(panelDate, val.getFullYear()));
+      const currentDate = setYear(panelDate, val.getFullYear());
+      setPanelDate(currentDate);
+      onPanelDateChangeRef.current?.(currentDate);
       setShowYear(false);
     },
-    [panelDate, setPanelDate]
+    [panelDate, onPanelDateChangeRef, setPanelDate]
   );
   // 切换到年份面板
   const YearPanelNode = (
@@ -93,10 +129,12 @@ const DatePickerPanel: React.FC<IDatePickerPanelProps> = props => {
 
   const onClickMonth = useCallback(
     val => {
-      setPanelDate(setMonth(panelDate, val.getMonth()));
+      const currentDate = setMonth(panelDate, val.getMonth());
+      setPanelDate(currentDate);
+      onPanelDateChangeRef.current?.(currentDate);
       setShowMonth(false);
     },
-    [panelDate, setPanelDate]
+    [panelDate, onPanelDateChangeRef, setPanelDate]
   );
   // 切换到月份面板
   const MonthPanelNode = (
