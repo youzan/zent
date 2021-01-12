@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import cx from 'classnames';
 import { parse } from 'date-fns';
 
@@ -34,6 +34,8 @@ const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
   const [start, end] = selected;
   const [startShowTime, endShowTime] = useShowTimeRangeOption(showTime);
   const [startPabelDate, setStartPanelDate] = useState(defaultPanelDate[0]);
+
+  useEffect(() => setStartPanelDate(defaultPanelDate[0]), [defaultPanelDate]);
 
   const {
     disabledStartTimes,
