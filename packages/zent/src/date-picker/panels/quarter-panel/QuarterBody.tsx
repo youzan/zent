@@ -6,7 +6,7 @@ import PanelCell from '../../components/PanelCell';
 
 import getPanelCellsData from '../../utils/getPanelCellsData';
 import { dateConfig } from '../../utils/dateUtils';
-import { setQuarter } from 'date-fns';
+import { endOfQuarter, setQuarter } from 'date-fns';
 import { ISingleDateBodyProps } from '../../types';
 
 const COL_COUNT = 2;
@@ -29,7 +29,7 @@ const QuarterPickerBody: React.FC<IQuarterPickerBodyProps> = ({
       getPanelCellsData({
         selected,
         disabledPanelDate,
-        defaultPanelDate: setQuarter(defaultPanelDate, 1),
+        defaultPanelDate: endOfQuarter(setQuarter(defaultPanelDate, 1)),
         texts: i18n.panel.quarterNames,
         row,
         col,
