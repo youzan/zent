@@ -1,5 +1,5 @@
 import { useRef, useCallback } from 'react';
-import { endOfDay, isAfter, isBefore, startOfDay } from 'date-fns';
+import { endOfDay, isAfter, isBefore } from 'date-fns';
 import { IGenerateDateConfig, RangeType, DateNullTuple } from '../types';
 
 export default function useDisabledCombinedDate(
@@ -13,8 +13,8 @@ export default function useDisabledCombinedDate(
 
   const disabledCombinedDate = useCallback(
     (type: RangeType) => (value: Date) => {
-      const date = type === 'start' ? endOfDay(value) : startOfDay(value);
-      const { offsetDate } = generateDate;
+      const date = endOfDay(value);
+      const { offsetDate, isSame } = generateDate;
       const [start, end] = selected;
 
       if (disabledDateRef.current?.(date, type)) {
@@ -22,9 +22,10 @@ export default function useDisabledCombinedDate(
       }
 
       if (start && !end) {
-        const isOutDateSpan =
-          !!dateSpan && isAfter(date, offsetDate(start, dateSpan - 1));
-        return isBefore(date, start) || (!end && isOutDateSpan);
+        return (
+          (!isSame(date, start) && isBefore(date, start)) ||
+          (!!dateSpan && isAfter(date, offsetDate(start, dateSpan - 1)))
+        );
       }
       return false;
     },

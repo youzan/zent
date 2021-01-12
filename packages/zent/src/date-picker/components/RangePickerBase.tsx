@@ -74,7 +74,6 @@ const RangePicker: React.FC<IRangePickerProps> = ({
     selected,
     disabledDate,
     generateDate,
-    'range',
     dateSpan
   );
 
