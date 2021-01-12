@@ -128,8 +128,10 @@ const DatePickerPanel: React.FC<IDatePickerPanelProps> = props => {
   );
 
   const onClickMonth = useCallback(
-    val => {
-      const currentDate = setMonth(panelDate, val.getMonth());
+    (val: Date) => {
+      const month = val.getMonth();
+      const year = val.getFullYear();
+      const currentDate = setYear(setMonth(panelDate, month), year);
       setPanelDate(currentDate);
       onPanelDateChangeRef.current?.(currentDate);
       setShowMonth(false);
