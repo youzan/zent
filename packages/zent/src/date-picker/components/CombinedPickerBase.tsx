@@ -6,7 +6,7 @@ import PickerPopover from './PickerPopover';
 
 import PanelContext from '../context/PanelContext';
 import PickerContext from '../context/PickerContext';
-import useRangeDisabledDate from '../hooks/useRangeDisabledDate';
+import useDisabledCombinedDate from '../hooks/useCombinedDisabledDate';
 import useRangeMergedProps from '../hooks/useRangeMergedProps';
 import useHoverRange from '../hooks/useHoverRange';
 import useSinglePopoverVisible from '../hooks/useSinglePopoverVisible';
@@ -22,14 +22,17 @@ import {
   DateNullTuple,
   IRangePropsWithDefault,
   DateTuple,
+  RangeTypeMap,
 } from '../types';
+
+const { START, END } = RangeTypeMap;
+const PanelContextProvider = PanelContext.Provider;
 
 interface ICombinedPickerProps extends IRangePropsWithDefault {
   seperator?: string;
   generateDate: IGenerateDateConfig;
   PanelComponent: React.ComponentType<IRangePanelProps>;
 }
-const PanelContextProvider = PanelContext.Provider;
 
 export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
   value,
@@ -84,11 +87,10 @@ export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
 
   // rangeDisabledDate
   const disabledDate = useNormalizeDisabledDate(format, disabledDateProps);
-  const [disabledStartDate, disabledEndDate] = useRangeDisabledDate(
+  const disabledCombinedDate = useDisabledCombinedDate(
     selected,
     disabledDate,
     generateDate,
-    'combined',
     dateSpan
   );
 
@@ -172,8 +174,8 @@ export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
           selected={selected}
           defaultPanelDate={defaultPanelDate}
           onSelected={onSelected}
-          disabledStartDate={disabledStartDate}
-          disabledEndDate={disabledEndDate}
+          disabledStartDate={disabledCombinedDate(START)}
+          disabledEndDate={disabledCombinedDate(END)}
           hoverDate={hoverDate}
           hoverRangeDate={hoverRangeDate}
           rangeDate={rangeDate}
@@ -187,8 +189,7 @@ export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
     hoverRangeDate,
     defaultPanelDate,
     restPropsRef,
-    disabledStartDate,
-    disabledEndDate,
+    disabledCombinedDate,
     onSelected,
     PanelComponent,
   ]);
