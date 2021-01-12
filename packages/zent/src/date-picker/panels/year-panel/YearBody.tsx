@@ -6,7 +6,7 @@ import PickerContext from '../../context/PickerContext';
 import getPanelCellsData from '../../utils/getPanelCellsData';
 
 import { dateConfig } from '../../utils/dateUtils';
-import { setYear, endOfYear } from 'date-fns';
+import { setYear } from 'date-fns';
 import { ISingleDateBodyProps } from '../../types';
 import { MAX_YEAR } from '../../constants';
 
@@ -40,7 +40,7 @@ const YearPickerBody: React.FC<IYearPickerBodyProps> = ({
       getPanelCellsData({
         selected,
         disabledPanelDate,
-        defaultPanelDate: endOfYear(setYear(defaultPanelDate, firstYear)),
+        defaultPanelDate: setYear(defaultPanelDate, firstYear),
         texts: YearTexts,
         row,
         col,
