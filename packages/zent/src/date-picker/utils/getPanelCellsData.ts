@@ -1,4 +1,4 @@
-import { isAfter, isBefore, startOfDay } from 'date-fns';
+import { eachDayOfInterval, isAfter, isBefore } from 'date-fns';
 import { IDateCellBase, IGenerateDateConfig, DateTuple } from '../types';
 
 interface ICellDateParams {
@@ -33,22 +33,23 @@ export default function getPanelCellsData({
   inView,
   disableRangeOverView,
 }: ICellDateParams) {
-  const { isSame, offsetDate } = dateConfig;
+  const { isSame, startDate, endDate, offsetDate } = dateConfig;
 
   let index = 0;
   const cells: IDateCellBase[] = [];
   for (let rowIndex = 0; rowIndex < row; rowIndex++) {
     for (let colIndex = 0; colIndex < col; colIndex++) {
-      const currentDate = startOfDay(
-        offsetDate(defaultPanelDate, index - offset)
-      );
+      const currentDate = offsetDate(defaultPanelDate, index - offset);
       const text = texts ? texts[index] : currentDate.getDate();
 
       const isCurrent = isSame(new Date(), currentDate);
 
       const isInView = inView ? inView(currentDate, defaultPanelDate) : true;
 
-      const isDisabled = disabledPanelDate(currentDate);
+      const isDisabled = eachDayOfInterval({
+        start: startDate(currentDate),
+        end: endDate(currentDate),
+      }).every(date => disabledPanelDate(date));
 
       /* *************** week-picker & combined-picker start  *************** */
       let isInHoverRange = false;

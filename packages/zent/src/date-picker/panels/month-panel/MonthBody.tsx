@@ -5,7 +5,7 @@ import PanelCell from '../../components/PanelCell';
 
 import getPanelCellsData from '../../utils/getPanelCellsData';
 import { dateConfig } from '../../utils/dateUtils';
-import { endOfMonth, setMonth } from 'date-fns';
+import { setMonth } from 'date-fns';
 import { ISingleDateBodyProps } from '../../types';
 
 const COL_COUNT = 3;
@@ -28,7 +28,7 @@ const MonthPickerBody: FC<IMonthPickerBodyProps> = ({
       getPanelCellsData({
         selected,
         disabledPanelDate,
-        defaultPanelDate: endOfMonth(setMonth(defaultPanelDate, 0)),
+        defaultPanelDate: setMonth(defaultPanelDate, 0),
         texts: i18n.panel.monthNames,
         row,
         col,
