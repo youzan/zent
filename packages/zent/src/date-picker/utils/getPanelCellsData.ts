@@ -86,7 +86,8 @@ export default function getPanelCellsData({
       /* *************** week-picker & combined-picker end  *************** */
 
       const isSelected =
-        !!selected && (isSame(selected, currentDate) || isRangeEndpoint);
+        !!selected &&
+        (rangeDate ? isRangeEndpoint : isSame(selected, currentDate));
 
       cells[index] = {
         value: currentDate,

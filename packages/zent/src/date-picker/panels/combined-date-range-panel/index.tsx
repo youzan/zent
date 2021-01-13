@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import cx from 'classnames';
 import { parse } from 'date-fns';
 
@@ -13,6 +13,7 @@ import {
   IShowTimeRange,
   DateNullTuple,
 } from '../../types';
+import { addMonths } from 'date-fns';
 
 const prefixCls = 'zent-datepicker-combined-panel';
 
@@ -32,6 +33,10 @@ const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
 }) => {
   const [start, end] = selected;
   const [startShowTime, endShowTime] = useShowTimeRangeOption(showTime);
+  const [startPabelDate, setStartPanelDate] = useState(defaultPanelDate[0]);
+
+  useEffect(() => setStartPanelDate(defaultPanelDate[0]), [defaultPanelDate]);
+
   const {
     disabledStartTimes,
     disabledConfirm,
@@ -83,6 +88,15 @@ const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
     disabledEndTimes,
   ]);
 
+  const onStartPanelDateChange = useCallback((val: Date) => {
+    setStartPanelDate(val);
+  }, []);
+
+  const onEndPanelDateChange = useCallback((val: Date) => {
+    const start = addMonths(val, -1);
+    setStartPanelDate(start);
+  }, []);
+
   const FooterNode = useMemo(
     () =>
       startShowTime ? (
@@ -113,14 +127,16 @@ const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
         <div className={`${prefixCls}-body-item`}>
           <DatePanel
             {...restProps}
+            combinedLeft
             hideFooter
             disableRangeOverView
             selected={start}
             disabledTime={disabledStartTimes}
             popText={start && !end ? '请选择结束日期' : ''}
-            defaultPanelDate={defaultPanelDate[0]}
+            defaultPanelDate={startPabelDate}
             onSelected={onChangeStartOrEnd}
             disabledPanelDate={disabledStartDate}
+            onPanelDateChange={onStartPanelDateChange}
           />
         </div>
         <div
@@ -131,13 +147,15 @@ const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
         >
           <DatePanel
             {...restProps}
+            combinedRight
             hideFooter
             disableRangeOverView
             selected={end}
             disabledTime={disabledEndTimes}
-            defaultPanelDate={defaultPanelDate[1]}
+            defaultPanelDate={addMonths(startPabelDate, 1)}
             onSelected={onChangeStartOrEnd}
             disabledPanelDate={disabledEndDate}
+            onPanelDateChange={onEndPanelDateChange}
           />
         </div>
       </div>

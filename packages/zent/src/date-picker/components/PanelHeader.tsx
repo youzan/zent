@@ -54,6 +54,8 @@ export const Title: React.FC<ITitleProps> = ({ text, unit = '', onClick }) => (
 interface IPanelHeaderProps {
   showSuper?: boolean;
   titleNode?: React.ReactNode;
+  combinedLeft?: boolean;
+  combinedRight?: boolean;
   onPrev: () => void;
   onNext: () => void;
   onSuperPrev?: () => void;
@@ -62,6 +64,8 @@ interface IPanelHeaderProps {
 const PanelHeader: React.FC<IPanelHeaderProps> = ({
   showSuper = false,
   titleNode,
+  combinedLeft,
+  combinedRight,
   onPrev,
   onNext,
   onSuperPrev = noop,
@@ -70,13 +74,21 @@ const PanelHeader: React.FC<IPanelHeaderProps> = ({
   return (
     <div className={prefixCls}>
       <div className={`${prefixCls}-btns`}>
-        {showSuper && <DoubleArrow onClick={onSuperPrev} type="left" />}
-        <Arrow onClick={onPrev} type="left" />
+        {!combinedRight && (
+          <>
+            {showSuper && <DoubleArrow onClick={onSuperPrev} type="left" />}
+            <Arrow onClick={onPrev} type="left" />
+          </>
+        )}
       </div>
       <div className={`${prefixCls}-title`}>{titleNode}</div>
       <div className={`${prefixCls}-btns`}>
-        <Arrow onClick={onNext} type="right" />
-        {showSuper && <DoubleArrow onClick={onSuperNext} type="right" />}
+        {!combinedLeft && (
+          <>
+            <Arrow onClick={onNext} type="right" />
+            {showSuper && <DoubleArrow onClick={onSuperNext} type="right" />}
+          </>
+        )}
       </div>
     </div>
   );

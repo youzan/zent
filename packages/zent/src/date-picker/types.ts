@@ -286,5 +286,4 @@ export interface IGenerateDateConfig {
   isSame: (dateLeft: Date, dateRight: Date) => boolean;
   startDate: (date: number | Date, option?: IWeekOption) => Date;
   endDate: (date: number | Date, option?: IWeekOption) => Date;
-  circleEndDate?: (date: number | Date) => Date;
 }

@@ -39,7 +39,6 @@ export const dateConfig: Record<IPickerType, IGenerateDateConfig> = {
     isSame: isSameDay,
     startDate: startOfDay,
     endDate: endOfDay,
-    circleEndDate: endOfMonth,
   },
   week: {
     set: setWeek,
