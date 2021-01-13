@@ -13,7 +13,7 @@ import {
   IShowTimeRange,
   DateNullTuple,
 } from '../../types';
-import { addMonths } from 'date-fns/esm';
+import { addMonths } from 'date-fns';
 
 const prefixCls = 'zent-datepicker-combined-panel';
 
