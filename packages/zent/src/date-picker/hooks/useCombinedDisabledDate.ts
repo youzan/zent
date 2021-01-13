@@ -2,7 +2,7 @@ import { useRef, useCallback } from 'react';
 import { endOfDay, isAfter, isBefore } from 'date-fns';
 import { IGenerateDateConfig, RangeType, DateNullTuple } from '../types';
 
-export default function useDisabledCombinedDate(
+export default function useCombinedDisabledDate(
   selected: DateNullTuple,
   disabledDate: (date: Date, type?: RangeType) => boolean,
   generateDate: IGenerateDateConfig,

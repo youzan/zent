@@ -6,7 +6,7 @@ import PickerPopover from './PickerPopover';
 
 import PanelContext from '../context/PanelContext';
 import PickerContext from '../context/PickerContext';
-import useDisabledCombinedDate from '../hooks/useCombinedDisabledDate';
+import useCombinedDisabledDate from '../hooks/useCombinedDisabledDate';
 import useRangeMergedProps from '../hooks/useRangeMergedProps';
 import useHoverRange from '../hooks/useHoverRange';
 import useSinglePopoverVisible from '../hooks/useSinglePopoverVisible';
@@ -87,7 +87,7 @@ export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
 
   // rangeDisabledDate
   const disabledDate = useNormalizeDisabledDate(format, disabledDateProps);
-  const disabledCombinedDate = useDisabledCombinedDate(
+  const disabledCombinedDate = useCombinedDisabledDate(
     selected,
     disabledDate,
     generateDate,
