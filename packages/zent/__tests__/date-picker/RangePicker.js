@@ -105,4 +105,10 @@ describe('RangePicker', () => {
     wrapper.find('.zent-datepicker-trigger').at(0).simulate('click');
     wrapper.unmount();
   });
+
+  it('DateRangePicker disabled', () => {
+    const wrapper = mount(<DateRangePicker disabled={[true, false]} />);
+    wrapper.find('.zent-datepicker-trigger').at(1).simulate('click');
+    wrapper.unmount();
+  });
 });
