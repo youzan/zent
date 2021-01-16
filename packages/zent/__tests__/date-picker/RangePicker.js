@@ -111,4 +111,9 @@ describe('RangePicker', () => {
     wrapper.find('.zent-datepicker-trigger').at(1).simulate('click');
     wrapper.unmount();
   });
+
+  it('DateRangePicker canClear', () => {
+    const wrapper = mount(<DateRangePicker canClear={[true, false]} />);
+    wrapper.unmount();
+  });
 });
