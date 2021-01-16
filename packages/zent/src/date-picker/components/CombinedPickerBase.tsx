@@ -20,7 +20,7 @@ import {
   IRangePanelProps,
   IGenerateDateConfig,
   DateNullTuple,
-  IRangePropsWithDefault,
+  ICombinedPropsWithDefault,
   DateTuple,
   RangeTypeMap,
 } from '../types';
@@ -28,7 +28,7 @@ import {
 const { START, END } = RangeTypeMap;
 const PanelContextProvider = PanelContext.Provider;
 
-interface ICombinedPickerProps extends IRangePropsWithDefault {
+interface ICombinedPickerProps extends ICombinedPropsWithDefault {
   seperator?: string;
   generateDate: IGenerateDateConfig;
   PanelComponent: React.ComponentType<IRangePanelProps>;
