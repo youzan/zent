@@ -43,7 +43,7 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
   ]);
   const onClickCurrent = useCallback(() => {
     if (isDisabledToday) return;
-    onSelected(today);
+    onSelected(new Date());
   }, [isDisabledToday, onSelected]);
 
   const confirmHandler = useCallback(() => {
