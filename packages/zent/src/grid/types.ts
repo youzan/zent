@@ -64,12 +64,18 @@ export interface IGridOnChangeConfig {
 }
 
 export interface IGridSelection<Data = any> {
+  isSingleSelection?: boolean;
   selectedRowKeys?: string[];
   onSelect?: (
     selectedkeys: string[],
     selectedRows: Data[],
     changeRow: Data | Data[]
   ) => any;
+  // use this api
+  getSelectionProps?: (
+    data: Data
+  ) => { disabled?: boolean; reason?: React.ReactNode };
+  // @depreciate use getSelectionProps
   getCheckboxProps?: (
     data: Data
   ) => { disabled?: boolean; reason?: React.ReactNode };

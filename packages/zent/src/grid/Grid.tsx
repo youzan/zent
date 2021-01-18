@@ -24,6 +24,7 @@ import Header from './Header';
 import Body from './Body';
 import Footer from './Footer';
 import SelectionCheckbox from './SelectionCheckbox';
+import SelectionRadio from './SelectionRadio';
 import Affix from '../affix';
 import SelectionCheckboxAll, {
   IGridSelectionAllCheckboxProps,
@@ -46,6 +47,7 @@ import {
   IGridBatchRender,
 } from './types';
 import { ICheckboxEvent } from '../checkbox';
+import { IRadioEvent } from '../radio';
 import isBrowser from '../utils/isBrowser';
 import { IBlockLoadingProps } from '../loading/props';
 
@@ -133,7 +135,7 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
   };
 
   mounted = false;
-  checkboxPropsCache: {
+  selectionPropsCache: {
     [key: string]: {
       disabled?: boolean;
       reason?: React.ReactNode;
@@ -349,36 +351,44 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
     );
   };
 
-  getColumns = (
+  getSelectionColumn(
     props: IGridProps<Data, RowProps>,
-    columnsArg?: Array<IGridInnerColumn<Data>>,
-    expandRowKeysArg?: boolean[]
-  ) => {
-    const { selection, datasets, expandation } = props || this.props;
-    const isStoreColumns = !columnsArg;
-
-    let columns: Array<IGridInnerColumn<Data>> = (
+    columnsArg?: Array<IGridInnerColumn<Data>>
+  ) {
+    const columns: Array<IGridInnerColumn<Data>> = (
       columnsArg || this.store.getState('columns')
     ).slice();
-    const expandRowKeys = expandRowKeysArg || this.state.expandRowKeys;
     const hasLeft = columns.some(
       column => column.fixed === 'left' || column.fixed === true
     );
 
-    // 判断是否有多选
-    if (selection) {
+    const { datasets, selection } = props || this.props;
+    if (!selection) {
+      return null;
+    }
+
+    let selectionColumn: IGridInnerColumn<Data> | null = null;
+    if (selection.isSingleSelection) {
+      // singleSelect
+      selectionColumn = {
+        title: '',
+        key: 'selection-column-single',
+        width: '20px',
+        bodyRender: this.renderSelectionRadio(),
+      };
+    } else {
+      // multi select
       const data = (datasets || []).filter((item, index) => {
         const rowIndex = this.getDataKey(item, index);
-        return !this.getCheckboxPropsByItem(item, rowIndex, selection)
-          ?.disabled;
+        return !this.getSelectionPropsByItem(item, rowIndex, selection)?.disabled;
       });
 
       const checkboxAllDisabled = data.every((item, index) => {
         const rowIndex = this.getDataKey(item, index);
-        return this.getCheckboxPropsByItem(item, rowIndex, selection)?.disabled;
+        return this.getSelectionPropsByItem(item, rowIndex, selection)?.disabled;
       });
 
-      const selectionColumn: IGridInnerColumn<Data> = {
+      selectionColumn = {
         title: (
           <SelectionCheckboxAll
             store={this.store}
@@ -392,15 +402,41 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
         width: '20px',
         bodyRender: this.renderSelectionCheckbox(),
       };
+    }
 
-      if (hasLeft) {
-        selectionColumn.fixed = 'left';
-      }
+    if (hasLeft && selectionColumn) {
+      selectionColumn.fixed = 'left';
+    }
 
-      if (columns[0] && columns[0].key === 'selection-column') {
-        columns[0] = { ...columns[0], ...selectionColumn };
-      } else {
-        columns.unshift(selectionColumn);
+    return selectionColumn;
+  }
+
+  getColumns = (
+    props: IGridProps<Data, RowProps>,
+    columnsArg?: Array<IGridInnerColumn<Data>>,
+    expandRowKeysArg?: boolean[]
+  ) => {
+    const { selection, expandation } = props || this.props;
+    const isStoreColumns = !columnsArg;
+
+    let columns: Array<IGridInnerColumn<Data>> = (
+      columnsArg || this.store.getState('columns')
+    ).slice();
+    const expandRowKeys = expandRowKeysArg || this.state.expandRowKeys;
+    const hasLeft = columns.some(
+      column => column.fixed === 'left' || column.fixed === true
+    );
+
+    // 判断是否有选择
+    if (selection) {
+      const selectionColumn = this.getSelectionColumn(props, columnsArg);
+
+      if (selectionColumn) {
+        if (columns[0] && columns[0].key === 'selection-column') {
+          columns[0] = { ...columns[0], ...selectionColumn };
+        } else {
+          columns.unshift(selectionColumn);
+        }
       }
     }
 
@@ -452,7 +488,7 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
         prefix={prefix}
         batchRender={batchRender}
         selection={selection}
-        checkboxPropsCache={this.checkboxPropsCache}
+        selectionPropsCache={this.selectionPropsCache}
         rowKey={rowKey}
       />
     );
@@ -760,21 +796,29 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
     return null;
   };
 
-  getCheckboxPropsByItem = (
+  getSelectionPropsByItem = (
     data: Data,
     rowIndex: number,
     nextSelection?: IGridSelection<Data>
   ) => {
     const selection = nextSelection || this.props.selection;
 
-    if (!selection || !selection.getCheckboxProps) {
+    if (
+      !selection ||
+      (!selection.getSelectionProps && !selection.getCheckboxProps)
+    ) {
       return {};
     }
 
-    if (!this.checkboxPropsCache[rowIndex]) {
-      this.checkboxPropsCache[rowIndex] = selection.getCheckboxProps(data);
+    if (!this.selectionPropsCache[rowIndex]) {
+      if (selection.getSelectionProps) {
+        this.selectionPropsCache[rowIndex] = selection.getSelectionProps(data);
+      } else if (selection.getCheckboxProps) {
+        this.selectionPropsCache[rowIndex] = selection.getCheckboxProps(data);
+      }
     }
-    return this.checkboxPropsCache[rowIndex];
+
+    return this.selectionPropsCache[rowIndex];
   };
 
   onSelectChange = (selectedRowKeys: string[], data: Data | Data[]) => {
@@ -790,15 +834,26 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
     }
   };
 
-  handleSelect = (data: Data, rowIndex: string, e: ICheckboxEvent<unknown>) => {
+  handleSelect = (
+    data: Data,
+    rowIndex: string,
+    e: ICheckboxEvent<unknown> | IRadioEvent<unknown>
+  ) => {
+    const { selection } = this.props;
+    const { isSingleSelection } = selection;
+
     const checked = e.target.checked;
 
     let selectedRowKeys = this.store.getState('selectedRowKeys') || [];
 
-    if (checked) {
-      selectedRowKeys = selectedRowKeys.concat(rowIndex);
+    if (isSingleSelection) {
+      selectedRowKeys = [rowIndex];
     } else {
-      selectedRowKeys = selectedRowKeys.filter(i => rowIndex !== i);
+      if (checked) {
+        selectedRowKeys = selectedRowKeys.concat(rowIndex);
+      } else {
+        selectedRowKeys = selectedRowKeys.filter(i => rowIndex !== i);
+      }
     }
 
     this.store.setState({ selectedRowKeys });
@@ -854,7 +909,7 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
   renderSelectionCheckbox: () => IGridColumnBodyRenderFunc<Data> = () => {
     return (data, { row }) => {
       const rowIndex = this.getDataKey(data, row);
-      const props = this.getCheckboxPropsByItem(data, rowIndex);
+      const props = this.getSelectionPropsByItem(data, rowIndex);
 
       return (
         <span
@@ -866,6 +921,29 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
             rowIndex={rowIndex}
             store={this.store}
             onChange={(e: ICheckboxEvent<unknown>) =>
+              this.handleSelect(data, this.getDataKey(data, row), e)
+            }
+          />
+        </span>
+      );
+    };
+  };
+
+  renderSelectionRadio: () => IGridColumnBodyRenderFunc<Data> = () => {
+    return (data, { row }) => {
+      const rowIndex = this.getDataKey(data, row);
+      const props = this.getSelectionPropsByItem(data, rowIndex);
+
+      return (
+        <span
+          onClick={stopPropagation}
+          className="zent-grid-selection-checkbox"
+        >
+          <SelectionRadio
+            {...props}
+            rowIndex={rowIndex}
+            store={this.store}
+            onChange={(e: IRadioEvent<unknown>) =>
               this.handleSelect(data, this.getDataKey(data, row), e)
             }
           />
@@ -1013,7 +1091,7 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
         selection &&
         nextProps.selection.getCheckboxProps !== selection.getCheckboxProps
       ) {
-        this.checkboxPropsCache = {};
+        this.selectionPropsCache = {};
       }
     }
 
@@ -1027,7 +1105,7 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
       nextProps.hasOwnProperty('datasets') &&
       nextProps.datasets !== this.props.datasets
     ) {
-      this.checkboxPropsCache = {};
+      this.selectionPropsCache = {};
       const expandRowKeys = this.getExpandRowKeys(nextProps);
       this.store.setState({
         columns: this.getColumns(nextProps, nextProps.columns, expandRowKeys),

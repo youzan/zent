@@ -14,7 +14,7 @@ export interface IBatchComponentsProps<Data = any> {
   datasets: ReadonlyArray<Data>;
   getDataKey: (data: Data, rowIndex: string | number) => string;
   selection: IGridSelection;
-  checkboxPropsCache: {
+  selectionPropsCache: {
     [key: string]: {
       disabled?: boolean;
     };
@@ -40,17 +40,21 @@ class BatchComponents<Data> extends PureComponent<
 
   unsubscribeBatchRenderFixed: any;
 
-  getCheckboxPropsByItem = (data: Data, rowIndex: number | string) => {
-    const { selection, checkboxPropsCache } = this.props;
+  getSelectionPropsByItem = (data: Data, rowIndex: number | string) => {
+    const { selection, selectionPropsCache } = this.props;
 
     if (!selection || !selection.getCheckboxProps) {
       return {};
     }
 
-    if (!checkboxPropsCache[rowIndex]) {
-      checkboxPropsCache[rowIndex] = selection.getCheckboxProps(data);
+    if (!selectionPropsCache[rowIndex]) {
+      if (selection.getSelectionProps) {
+        selectionPropsCache[rowIndex] = selection.getSelectionProps(data);
+      } else if (selection.getCheckboxProps) {
+        selectionPropsCache[rowIndex] = selection.getCheckboxProps(data);
+      }
     }
-    return checkboxPropsCache[rowIndex] || {};
+    return selectionPropsCache[rowIndex] || {};
   };
 
   getData = () => {
@@ -62,7 +66,7 @@ class BatchComponents<Data> extends PureComponent<
       const rowIndex = getDataKey(item, index);
 
       if (selection.getCheckboxProps) {
-        return !this.getCheckboxPropsByItem(item, rowIndex).disabled;
+        return !this.getSelectionPropsByItem(item, rowIndex).disabled;
       }
       return true;
     });
@@ -72,7 +76,7 @@ class BatchComponents<Data> extends PureComponent<
     const { getDataKey, datasets } = this.props;
     return datasets.every((item, index) => {
       const rowIndex = getDataKey(item, index);
-      return this.getCheckboxPropsByItem(item, rowIndex).disabled;
+      return this.getSelectionPropsByItem(item, rowIndex).disabled;
     });
   };
 
@@ -137,6 +141,7 @@ class BatchComponents<Data> extends PureComponent<
       position,
     } = this.props;
     const selectedRows = store.getState('selectedRows') || [];
+    const { isSingleSelection } = selection;
     const { batchNeedRenderFixed } = this.state;
     const batchRenderFixedStyles = store.getState('batchRenderFixedStyles');
     const className = classnames(
@@ -154,13 +159,15 @@ class BatchComponents<Data> extends PureComponent<
     if (selection && batchRender) {
       return (
         <div className={className} style={styles}>
-          <SelectionCheckboxAll
-            getDataKey={getDataKey}
-            onSelect={onSelect}
-            store={store}
-            disabled={disabled}
-            datasets={data}
-          />
+          {!isSingleSelection && (
+            <SelectionCheckboxAll
+              getDataKey={getDataKey}
+              onSelect={onSelect}
+              store={store}
+              disabled={disabled}
+              datasets={data}
+            />
+          )}
           {batchRender && batchRender(selectedRows, position)}
         </div>
       );
