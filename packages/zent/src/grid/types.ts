@@ -71,7 +71,6 @@ export interface IGridSelection<Data = any> {
     selectedRows: Data[],
     changeRow: Data | Data[]
   ) => any;
-  // use this api
   getSelectionProps?: (
     data: Data
   ) => { disabled?: boolean; reason?: React.ReactNode };

@@ -380,12 +380,14 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
       // multi select
       const data = (datasets || []).filter((item, index) => {
         const rowIndex = this.getDataKey(item, index);
-        return !this.getSelectionPropsByItem(item, rowIndex, selection)?.disabled;
+        return !this.getSelectionPropsByItem(item, rowIndex, selection)
+          ?.disabled;
       });
 
       const checkboxAllDisabled = data.every((item, index) => {
         const rowIndex = this.getDataKey(item, index);
-        return this.getSelectionPropsByItem(item, rowIndex, selection)?.disabled;
+        return this.getSelectionPropsByItem(item, rowIndex, selection)
+          ?.disabled;
       });
 
       selectionColumn = {
@@ -432,7 +434,13 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
       const selectionColumn = this.getSelectionColumn(props, columnsArg);
 
       if (selectionColumn) {
-        if (columns[0] && columns[0].key === 'selection-column') {
+        const maySelectionColumn = columns[0];
+        if (
+          maySelectionColumn &&
+          ['selection-column', 'selection-column-single'].includes(
+            maySelectionColumn.key
+          )
+        ) {
           columns[0] = { ...columns[0], ...selectionColumn };
         } else {
           columns.unshift(selectionColumn);

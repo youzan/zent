@@ -71,7 +71,9 @@ class SelectionCheckbox extends PureComponent<
     const { checked } = this.state;
     return reason && disabled ? (
       <Pop content={reason} trigger="hover" position="top-left" centerArrow>
-        <Radio onChange={onChange} checked={checked} disabled={disabled} />
+        <span>
+          <Radio onChange={onChange} checked={checked} disabled={disabled} />
+        </span>
       </Pop>
     ) : (
       <Radio onChange={onChange} checked={checked} disabled={disabled} />

@@ -1,7 +1,7 @@
 ---
 order: 4
 zh-CN:
-	title: 选择
+	title: 单选
 	product: 商品
 	productName: 商品名
 	uv: 访问量

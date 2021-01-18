@@ -1,5 +1,5 @@
 ---
-order: 9
+order: 10
 zh-CN:
 	title: 水平和垂直滚动
 	product: 商品

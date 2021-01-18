@@ -1,5 +1,5 @@
 ---
-order: 12
+order: 13
 zh-CN:
 	title: 拖拽排序
 	product: 商品

@@ -141,7 +141,6 @@ class BatchComponents<Data> extends PureComponent<
       position,
     } = this.props;
     const selectedRows = store.getState('selectedRows') || [];
-    const { isSingleSelection } = selection;
     const { batchNeedRenderFixed } = this.state;
     const batchRenderFixedStyles = store.getState('batchRenderFixedStyles');
     const className = classnames(
@@ -157,6 +156,7 @@ class BatchComponents<Data> extends PureComponent<
     const disabled = this.getCheckboxAllDisabled();
     const styles = batchNeedRenderFixed ? batchRenderFixedStyles : {};
     if (selection && batchRender) {
+      const { isSingleSelection } = selection;
       return (
         <div className={className} style={styles}>
           {!isSingleSelection && (
