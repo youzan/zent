@@ -135,6 +135,7 @@ interface IDisabledTimeOption {
 - When return value of `showTime` is an object, `defaultTime` should be `[string | (date: Date) => string, string | (date: Date) => string]`. (default: ['00:00:00','23:59:59'])
 - `disabledDate(val, type)` or `disabledTime(val, type)`, the `type` is `'start' | 'end'`
 - Only supports `dateSpan` for `DateRangePicker` and `CombinedDateRangePicker`.
+- Definition of `disabled` and `canClear` is `boolean | boolean[]` in `DateRangePicker`.
 
 ### TimeRangePicker / CombinedTimeRangePicker API （Base on TimePicker）
 

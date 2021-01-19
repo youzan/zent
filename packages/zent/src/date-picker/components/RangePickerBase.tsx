@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import { useCallback, useContext, useRef } from 'react';
+import { useCallback, useContext, useMemo, useRef } from 'react';
 
 import PickerContext from '../context/PickerContext';
 import useRangeMergedProps from '../hooks/useRangeMergedProps';
@@ -52,8 +52,18 @@ const RangePicker: React.FC<IRangePickerProps> = ({
   seperator,
   name,
   dateSpan,
+  disabled,
+  canClear,
   ...restProps
 }) => {
+  const disabledArr = useMemo(
+    () => (Array.isArray(disabled) ? disabled : [disabled, disabled]),
+    [disabled]
+  );
+  const canClearArr = useMemo(
+    () => (Array.isArray(canClear) ? canClear : [canClear, canClear]),
+    [canClear]
+  );
   const restPropsRef = useRef(restProps);
   restPropsRef.current = restProps;
   const { format } = restPropsRef.current;
@@ -97,6 +107,8 @@ const RangePicker: React.FC<IRangePickerProps> = ({
       <div className={cx('zent-datepicker', className)}>
         <PickerComponent
           {...restPropsRef.current}
+          disabled={disabledArr[0]}
+          canClear={canClearArr[0]}
           defaultDate={defaultPanelDate[0]}
           showTime={startShowTime}
           valueType="date"
@@ -112,6 +124,8 @@ const RangePicker: React.FC<IRangePickerProps> = ({
         <span className="zent-datepicker-seperator">{seperator}</span>
         <PickerComponent
           {...restPropsRef.current}
+          disabled={disabledArr[1]}
+          canClear={canClearArr[1]}
           defaultDate={defaultPanelDate[1]}
           showTime={endShowTime}
           valueType="date"

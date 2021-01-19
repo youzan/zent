@@ -152,7 +152,10 @@ export interface ISinglePanelProps {
 export type ISingleDateBodyProps = Omit<ISinglePanelProps, 'onChangePanel'>;
 
 /* **************************** CombinedRangePicker / RangePicker **************************** */
-export interface IRangeProps extends ICommonProps<RangeDate> {
+export interface IRangeProps
+  extends Omit<ICommonProps<RangeDate>, 'disabled' | 'canClear'> {
+  disabled?: boolean | boolean[];
+  canClear?: boolean | boolean[];
   placeholder?: [string, string];
   disabledDate?: IRangeDisabledDateFunc | IDisabledDateSimple;
   onOpen?: (type?: RangeType) => void;
@@ -160,8 +163,23 @@ export interface IRangeProps extends ICommonProps<RangeDate> {
   name?: [string, string];
   dateSpan?: number; // 快捷可选日期跨度
 }
+
+export interface ICombinedProps extends ICommonProps<RangeDate> {
+  placeholder?: [string, string];
+  disabledDate?: IRangeDisabledDateFunc | IDisabledDateSimple;
+  onOpen?: (type?: RangeType) => void;
+  onClose?: (type?: RangeType) => void;
+  name?: [string, string];
+  dateSpan?: number; // 快捷可选日期跨度
+}
+
 export type IRangePropsWithDefault = PartialRequired<
   IRangeProps,
+  'format' | 'valueType' | 'placeholder' | 'disabledDate'
+>;
+
+export type ICombinedPropsWithDefault = PartialRequired<
+  ICombinedProps,
   'format' | 'valueType' | 'placeholder' | 'disabledDate'
 >;
 

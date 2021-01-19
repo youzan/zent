@@ -142,6 +142,7 @@ interface IDisabledTimeOption {
 - `showTime` 为对象时，`defaultTime` 类型为 `[string | (date: Date) => string, string | (date: Date) => string]`，表示默认开始时间和默认结束时间（不填为['00:00:00','23:59:59']）
 - `disabledDate`、`disabledTime` 回调方法的第二个参数均为`type?: 'start' | 'end'`
 - `dateSpan` 仅 `DateRangePicker` 和 `CombinedDateRangePicker` 组件可用
+- `DateRangePicker` 的 `disabled` 、 `canClear` 属性类型为 `boolean | boolean[]`
 
 ### TimeRangePicker / CombinedTimeRangePicker API （基于 TimePicker）
 

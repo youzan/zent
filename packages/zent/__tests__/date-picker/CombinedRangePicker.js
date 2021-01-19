@@ -18,6 +18,15 @@ describe('CombinedRangePicker', () => {
     );
     wrapper.find('.zent-datepicker-trigger').simulate('click');
     const pop = document.querySelector('.zent-datepicker-combined-panel');
+
+    Simulate.click(
+      pop.querySelectorAll('.zent-datepicker-panel-header-arrow')[0]
+    );
+
+    Simulate.click(
+      pop.querySelectorAll('.zent-datepicker-panel-header-arrow')[3]
+    );
+
     const cellsLeft = pop.querySelectorAll(
       '.zent-datepicker-combined-panel-body-item'
     )[0];
@@ -158,7 +167,7 @@ describe('CombinedRangePicker', () => {
     const wrapper = mount(
       <CombinedDateRangePicker
         value={['2020-05-10 20:00:00']}
-        showTime
+        showTime={{ defualtTime: ['00:00:00', '12:00:00'] }}
         format={DateTimeSecFormat}
         onChange={onChange}
       />

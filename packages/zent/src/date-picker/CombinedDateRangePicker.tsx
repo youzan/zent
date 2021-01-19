@@ -8,7 +8,7 @@ import { DisabledContext } from '../disabled';
 import PickerContext from './context/PickerContext';
 import { dateConfig } from './utils/dateUtils';
 import {
-  IRangeProps,
+  ICombinedProps,
   IGenerateDateConfig,
   IShowTimeRange,
   DateNullTuple,
@@ -27,7 +27,7 @@ const generateDate: IGenerateDateConfig = dateConfig.date;
 const PickerContextProvider = PickerContext.Provider;
 
 export interface ICombinedDateRangePickerProps<T extends IValueType = 'string'>
-  extends Omit<IRangeProps, 'valueType' | 'onChange'>,
+  extends Omit<ICombinedProps, 'valueType' | 'onChange'>,
     IRangeRelatedType<T> {
   showTime?: IShowTimeRange<string>;
 }
