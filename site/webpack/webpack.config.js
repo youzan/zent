@@ -142,10 +142,9 @@ module.exports = {
         test: /\.tsx?$/,
         use: [
           {
-            loader: 'awesome-typescript-loader',
+            loader: 'ts-loader',
             options: {
-              useCache: false,
-              configFileName: path.resolve(
+              configFile: path.resolve(
                 __dirname,
                 DEV ? '../tsconfig.json' : '../tsconfig-prod.json'
               ),
