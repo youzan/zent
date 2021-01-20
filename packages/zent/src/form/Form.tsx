@@ -331,6 +331,7 @@ export class Form<T extends {}> extends Component<IFormProps<T>> {
       disableEnterSubmit,
       disabled = false,
       scrollToError,
+      willScrollToError,
       ...props
     } = this.props;
     const childrenCtx = this.getChildrenContext(this.children);
