@@ -4,6 +4,7 @@ import SelectionCheckboxAll from './SelectionCheckboxAll';
 import Store from './Store';
 import { IGridBatchRender, IGridSelection } from './types';
 import uniq from '../utils/uniq';
+import { getCompatSelectionPropsFn } from './utils';
 
 export interface IBatchComponentsProps<Data = any> {
   batchRender: IGridBatchRender;
@@ -42,22 +43,16 @@ class BatchComponents<Data> extends PureComponent<
 
   getSelectionPropsByItem = (data: Data, rowIndex: number | string) => {
     const { selection, selectionPropsCache } = this.props;
+    const getSelectionProps = getCompatSelectionPropsFn(selection);
 
-    if (
-      !selection ||
-      (!selection.getSelectionProps && !selection.getCheckboxProps)
-    ) {
+    if (!getSelectionProps) {
       return {};
     }
 
     if (!selectionPropsCache[rowIndex]) {
-      if (selection.getSelectionProps) {
-        selectionPropsCache[rowIndex] = selection.getSelectionProps(data);
-      } else if (selection.getCheckboxProps) {
-        // getCheckboxProps 为 9.1.2（包含）之前的 API，支持单选时替换为 getSelectionProps，保留是为了兼容业务内的老代码
-        selectionPropsCache[rowIndex] = selection.getCheckboxProps(data);
-      }
+      selectionPropsCache[rowIndex] = getSelectionProps(data);
     }
+
     return selectionPropsCache[rowIndex] || {};
   };
 
@@ -66,13 +61,10 @@ class BatchComponents<Data> extends PureComponent<
     if (!selection) {
       return datasets;
     }
+
     return (datasets || []).filter((item, index) => {
       const rowIndex = getDataKey(item, index);
-
-      if (selection.getSelectionProps || selection.getCheckboxProps) {
-        return !this.getSelectionPropsByItem(item, rowIndex).disabled;
-      }
-      return true;
+      return !(this.getSelectionPropsByItem(item, rowIndex)?.disabled ?? false);
     });
   };
 

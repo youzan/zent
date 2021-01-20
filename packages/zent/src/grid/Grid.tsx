@@ -15,6 +15,7 @@ import {
   needFixBatchComps,
   isElementInView,
   mapDOMNodes,
+  getCompatSelectionPropsFn,
 } from './utils';
 import { I18nReceiver as Receiver, II18nLocaleGrid } from '../i18n';
 import BlockLoading from '../loading/BlockLoading';
@@ -810,21 +811,14 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
     nextSelection?: IGridSelection<Data>
   ) => {
     const selection = nextSelection || this.props.selection;
+    const getSelectionProps = getCompatSelectionPropsFn(selection);
 
-    if (
-      !selection ||
-      (!selection.getSelectionProps && !selection.getCheckboxProps)
-    ) {
+    if (!getSelectionProps) {
       return {};
     }
 
     if (!this.selectionPropsCache[rowIndex]) {
-      if (selection.getSelectionProps) {
-        this.selectionPropsCache[rowIndex] = selection.getSelectionProps(data);
-      } else if (selection.getCheckboxProps) {
-        // getCheckboxProps 为 9.1.2（包含）之前的 API，支持单选时替换为 getSelectionProps，保留是为了兼容业务内的老代码
-        this.selectionPropsCache[rowIndex] = selection.getCheckboxProps(data);
-      }
+      this.selectionPropsCache[rowIndex] = getSelectionProps(data);
     }
 
     return this.selectionPropsCache[rowIndex];
@@ -1095,7 +1089,8 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
       const { selection } = this.props;
       if (
         selection &&
-        nextProps.selection.getCheckboxProps !== selection.getCheckboxProps
+        getCompatSelectionPropsFn(nextProps.selection) !==
+          getCompatSelectionPropsFn(selection)
       ) {
         this.selectionPropsCache = {};
       }
