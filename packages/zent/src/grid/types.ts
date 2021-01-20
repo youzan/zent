@@ -74,7 +74,7 @@ export interface IGridSelection<Data = any> {
   getSelectionProps?: (
     data: Data
   ) => { disabled?: boolean; reason?: React.ReactNode };
-  // @depreciate use getSelectionProps
+  // @deprecated use getSelectionProps
   getCheckboxProps?: (
     data: Data
   ) => { disabled?: boolean; reason?: React.ReactNode };

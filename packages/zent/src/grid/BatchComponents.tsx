@@ -43,7 +43,10 @@ class BatchComponents<Data> extends PureComponent<
   getSelectionPropsByItem = (data: Data, rowIndex: number | string) => {
     const { selection, selectionPropsCache } = this.props;
 
-    if (!selection || !selection.getCheckboxProps) {
+    if (
+      !selection ||
+      (!selection.getSelectionProps && !selection.getCheckboxProps)
+    ) {
       return {};
     }
 
@@ -51,6 +54,7 @@ class BatchComponents<Data> extends PureComponent<
       if (selection.getSelectionProps) {
         selectionPropsCache[rowIndex] = selection.getSelectionProps(data);
       } else if (selection.getCheckboxProps) {
+        // getCheckboxProps 为 9.1.2（包含）之前的 API，支持单选时替换为 getSelectionProps，保留是为了兼容业务内的老代码
         selectionPropsCache[rowIndex] = selection.getCheckboxProps(data);
       }
     }
@@ -65,7 +69,7 @@ class BatchComponents<Data> extends PureComponent<
     return (datasets || []).filter((item, index) => {
       const rowIndex = getDataKey(item, index);
 
-      if (selection.getCheckboxProps) {
+      if (selection.getSelectionProps || selection.getCheckboxProps) {
         return !this.getSelectionPropsByItem(item, rowIndex).disabled;
       }
       return true;

@@ -406,7 +406,7 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
       };
     }
 
-    if (hasLeft && selectionColumn) {
+    if (hasLeft) {
       selectionColumn.fixed = 'left';
     }
 
@@ -822,6 +822,7 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
       if (selection.getSelectionProps) {
         this.selectionPropsCache[rowIndex] = selection.getSelectionProps(data);
       } else if (selection.getCheckboxProps) {
+        // getCheckboxProps 为 9.1.2（包含）之前的 API，支持单选时替换为 getSelectionProps，保留是为了兼容业务内的老代码
         this.selectionPropsCache[rowIndex] = selection.getCheckboxProps(data);
       }
     }
@@ -943,10 +944,7 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
       const props = this.getSelectionPropsByItem(data, rowIndex);
 
       return (
-        <span
-          onClick={stopPropagation}
-          className="zent-grid-selection-checkbox"
-        >
+        <span onClick={stopPropagation} className="zent-grid-selection-radio">
           <SelectionRadio
             {...props}
             rowIndex={rowIndex}

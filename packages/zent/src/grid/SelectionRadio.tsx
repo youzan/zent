@@ -61,9 +61,7 @@ class SelectionCheckbox extends PureComponent<
   }
 
   componentWillUnmount() {
-    if (this.unsubscribe) {
-      this.unsubscribe();
-    }
+    this.unsubscribe?.();
   }
 
   render() {
