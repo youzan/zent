@@ -38,11 +38,11 @@ export interface ISelectCommonProps<
   keyword?: string;
   onKeywordChange?: (keyword: string) => void;
   options: Item[];
-  isEqual: (a: Item, b: Item) => boolean;
+  isEqual?: (a: Item, b: Item) => boolean;
   placeholder?: string;
   notFoundContent?: string;
   inline?: boolean;
-  width: React.CSSProperties['width'];
+  width?: React.CSSProperties['width'];
   popupWidth?: React.CSSProperties['width'];
   filter?: ((keyword: string, item: Item) => boolean) | false;
   highlight?: (keyword: string, item: Item) => Item;
