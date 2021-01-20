@@ -9,7 +9,7 @@ const GroupContextProvider = GroupContext.Provider;
 
 export interface ICheckboxGroupProps<Value> {
   value: Value[];
-  isValueEqual: (value1: Value, value2: Value) => boolean;
+  isValueEqual?: (value1: Value, value2: Value) => boolean;
   disabled?: boolean;
   readOnly?: boolean;
   onChange?: (values: Value[]) => void;
