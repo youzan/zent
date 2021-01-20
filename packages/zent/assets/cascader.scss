@@ -25,7 +25,7 @@ $menuHeight: 180px;
   @include theme-color(border-color, stroke, 5);
   @include theme-color(background-color, stroke, 9);
 
-  .zenticon-down,
+  .zenticon-caret-down,
   .zenticon-close-circle {
     position: absolute;
     right: 8px;
@@ -33,9 +33,9 @@ $menuHeight: 180px;
     font-size: 18px;
   }
 
-  .zenticon-down {
+  .zenticon-caret-down {
     transition: transform 0.25s;
-    @include theme-color(color, stroke, 3);
+    @include theme-color(color, stroke, 2);
   }
 
   .zenticon-close-circle {
@@ -48,7 +48,7 @@ $menuHeight: 180px;
   }
 
   &--visible {
-    .zenticon-down {
+    .zenticon-caret-down {
       transform: rotate(180deg);
     }
   }
@@ -66,8 +66,8 @@ $menuHeight: 180px;
       box-shadow: none;
     }
 
-    .zenticon {
-      opacity: 0.25;
+    .zenticon-caret-down {
+      @include theme-color(color, stroke, 4);
     }
   }
 

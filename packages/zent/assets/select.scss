@@ -45,8 +45,8 @@ $option-height: 32px;
   position: relative;
   line-height: 20px;
 
-  .zenticon-down {
-    @include theme-color(color, stroke, 3);
+  .zenticon-caret-down {
+    @include theme-color(color, stroke, 2);
     font-size: 18px;
     right: 8px;
     position: absolute;
@@ -85,6 +85,10 @@ $option-height: 32px;
       @include theme-color(color, stroke, 4);
       @include theme-color(background-color, stroke, 6);
     }
+
+    .zenticon-caret-down {
+      @include theme-color(color, stroke, 4);
+    }
   }
 
   &-multiple {
@@ -118,7 +122,7 @@ $option-height: 32px;
 
     &.zent-select-v2:hover,
     &.zent-select-v2-active {
-      .zenticon-down {
+      .zenticon-caret-down {
         display: none;
       }
 
@@ -135,7 +139,7 @@ $option-height: 32px;
   }
 
   &.zent-select-v2-visible {
-    .zenticon-down {
+    .zenticon-caret-down {
       transform: rotate(180deg);
     }
   }
