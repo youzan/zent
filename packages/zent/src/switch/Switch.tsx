@@ -9,7 +9,7 @@ export interface ISwitchProps {
   checkedText?: string;
   uncheckedText?: string;
   loading?: boolean;
-  size: 'default' | 'small';
+  size?: 'default' | 'small';
   className?: string;
 }
 
