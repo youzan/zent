@@ -1,5 +1,5 @@
 ---
-order: 16
+order: 18
 zh-CN:
 	title: ColumnProvider
 	product: 商品

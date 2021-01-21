@@ -4,6 +4,7 @@ import SelectionCheckboxAll from './SelectionCheckboxAll';
 import Store from './Store';
 import { IGridBatchRender, IGridSelection } from './types';
 import uniq from '../utils/uniq';
+import { getCompatSelectionPropsFn } from './utils';
 
 export interface IBatchComponentsProps<Data = any> {
   batchRender: IGridBatchRender;
@@ -14,7 +15,7 @@ export interface IBatchComponentsProps<Data = any> {
   datasets: ReadonlyArray<Data>;
   getDataKey: (data: Data, rowIndex: string | number) => string;
   selection: IGridSelection;
-  checkboxPropsCache: {
+  selectionPropsCache: {
     [key: string]: {
       disabled?: boolean;
     };
@@ -40,17 +41,19 @@ class BatchComponents<Data> extends PureComponent<
 
   unsubscribeBatchRenderFixed: any;
 
-  getCheckboxPropsByItem = (data: Data, rowIndex: number | string) => {
-    const { selection, checkboxPropsCache } = this.props;
+  getSelectionPropsByItem = (data: Data, rowIndex: number | string) => {
+    const { selection, selectionPropsCache } = this.props;
+    const getSelectionProps = getCompatSelectionPropsFn(selection);
 
-    if (!selection || !selection.getCheckboxProps) {
+    if (!getSelectionProps) {
       return {};
     }
 
-    if (!checkboxPropsCache[rowIndex]) {
-      checkboxPropsCache[rowIndex] = selection.getCheckboxProps(data);
+    if (!selectionPropsCache[rowIndex]) {
+      selectionPropsCache[rowIndex] = getSelectionProps(data);
     }
-    return checkboxPropsCache[rowIndex] || {};
+
+    return selectionPropsCache[rowIndex] || {};
   };
 
   getData = () => {
@@ -58,13 +61,10 @@ class BatchComponents<Data> extends PureComponent<
     if (!selection) {
       return datasets;
     }
+
     return (datasets || []).filter((item, index) => {
       const rowIndex = getDataKey(item, index);
-
-      if (selection.getCheckboxProps) {
-        return !this.getCheckboxPropsByItem(item, rowIndex).disabled;
-      }
-      return true;
+      return !(this.getSelectionPropsByItem(item, rowIndex)?.disabled ?? false);
     });
   };
 
@@ -72,7 +72,7 @@ class BatchComponents<Data> extends PureComponent<
     const { getDataKey, datasets } = this.props;
     return datasets.every((item, index) => {
       const rowIndex = getDataKey(item, index);
-      return this.getCheckboxPropsByItem(item, rowIndex).disabled;
+      return this.getSelectionPropsByItem(item, rowIndex).disabled;
     });
   };
 
@@ -152,15 +152,18 @@ class BatchComponents<Data> extends PureComponent<
     const disabled = this.getCheckboxAllDisabled();
     const styles = batchNeedRenderFixed ? batchRenderFixedStyles : {};
     if (selection && batchRender) {
+      const { isSingleSelection } = selection;
       return (
         <div className={className} style={styles}>
-          <SelectionCheckboxAll
-            getDataKey={getDataKey}
-            onSelect={onSelect}
-            store={store}
-            disabled={disabled}
-            datasets={data}
-          />
+          {!isSingleSelection && (
+            <SelectionCheckboxAll
+              getDataKey={getDataKey}
+              onSelect={onSelect}
+              store={store}
+              disabled={disabled}
+              datasets={data}
+            />
+          )}
           {batchRender && batchRender(selectedRows, position)}
         </div>
       );

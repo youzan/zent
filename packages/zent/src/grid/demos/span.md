@@ -1,5 +1,5 @@
 ---
-order: 6
+order: 7
 zh-CN:
 	title: 合并单元格
 	product: 商品

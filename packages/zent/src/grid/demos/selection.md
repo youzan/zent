@@ -1,7 +1,7 @@
 ---
 order: 4
 zh-CN:
-	title: 选择
+	title: 多选
 	product: 商品
 	productName: 商品名
 	uv: 访问量
@@ -98,7 +98,7 @@ class Selection extends React.Component {
 							});
 						}
 					},
-					getCheckboxProps: data => ({
+					getSelectionProps: data => ({
 						disabled: data.name === '{i18n.babyProducts} 1',
 						reason: '{i18n.reason}'
 					}),

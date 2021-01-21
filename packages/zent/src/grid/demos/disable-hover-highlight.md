@@ -1,5 +1,5 @@
 ---
-order: 15
+order: 17
 zh-CN:
 	title: 取消鼠标hover高亮
 	product: 商品
@@ -7,7 +7,7 @@ zh-CN:
 	uv: 访问量
 	stock: 库存
 en-US:
-	title: Simple
+	title: Disable Hover Highlight
 	product: Product
 	productName: Product Name
 	uv: uv

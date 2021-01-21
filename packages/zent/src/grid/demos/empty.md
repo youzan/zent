@@ -1,5 +1,5 @@
 ---
-order: 11
+order: 12
 zh-CN:
 	title: 空列表
 	product: 商品

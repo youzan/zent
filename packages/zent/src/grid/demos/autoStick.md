@@ -1,5 +1,5 @@
 ---
-order: 14
+order: 16
 zh-CN:
 	title: 表头吸顶
 	product: 商品
@@ -9,7 +9,7 @@ zh-CN:
 	soldNumber: 销量
 	createdTime: 创建时间
 en-US:
-	title: Horizontal and vertical scroll
+	title: Stick Header
 	product: Product
 	productName: Product Name
 	uv: uv

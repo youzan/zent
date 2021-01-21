@@ -63,16 +63,22 @@ export interface IGridOnChangeConfig {
   sortType?: GridSortType;
 }
 
+interface IGridSelectionProps {
+  disabled: boolean;
+  reason: React.ReactNode;
+}
+
 export interface IGridSelection<Data = any> {
+  isSingleSelection?: boolean;
   selectedRowKeys?: string[];
   onSelect?: (
     selectedkeys: string[],
     selectedRows: Data[],
     changeRow: Data | Data[]
   ) => any;
-  getCheckboxProps?: (
-    data: Data
-  ) => { disabled?: boolean; reason?: React.ReactNode };
+  getSelectionProps?: (data: Data) => Partial<IGridSelectionProps>;
+  // @deprecated use getSelectionProps
+  getCheckboxProps?: (data: Data) => Partial<IGridSelectionProps>;
 }
 
 export interface IGridExpandation<Data = any> {

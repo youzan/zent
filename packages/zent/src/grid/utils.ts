@@ -1,3 +1,4 @@
+import { IGridSelection } from './types';
 import { IGridInnerColumn } from './Grid';
 
 function setRowSpan<Data>(
@@ -106,4 +107,10 @@ export function mapDOMNodes<T extends Node, V>(
     result.push(callback(nodes[i], i));
   }
   return result;
+}
+
+export function getCompatSelectionPropsFn<Data>(
+  selection?: IGridSelection<Data>
+): IGridSelection['getSelectionProps'] | undefined {
+  return selection?.getSelectionProps || selection?.getCheckboxProps;
 }

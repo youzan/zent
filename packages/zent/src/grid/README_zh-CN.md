@@ -76,11 +76,13 @@ onChange 会抛出一个对象，这个对象包含分页变化的参数：
 
 #### Selection
 
-| 参数             | 说明                                 | 类型                                                              | 是否必须      |
-| ---------------- | ------------------------------------ | ----------------------------------------------------------------- | ------------- | --- |
-| selectedRowKeys  | 默认选中                             | array                                                             | 否            |
-| onSelect         | 每次 check 的时候触发的函数          | (selectedkeys: string[], selectedRows: Array<any>, changeRow: any | any[]) => any | 否  |
-| getCheckboxProps | 选择框属性配置 (当前仅支持 disabled) | (data: object) => { disabled?: boolean, reason?: ReactNode }      | 否            |
+| 参数             | 说明                                                  | 类型                                                              | 是否必须      |
+| ---------------- | ---------------------------------------------------- | ----------------------------------------------------------------- | ------------- |
+| selectedRowKeys  | 默认选中                                              | array                                                             | 否            |
+| onSelect         | 每次 check 的时候触发的函数                             | (selectedkeys: string[], selectedRows: Array<any>, changeRow: any | any[]) => any | 否  |
+| getCheckboxProps | **废弃，请使用 getSelectionProps** 选择框/单选框 属性配置 | (data: object) => { disabled?: boolean, reason?: ReactNode }      | 否            |
+| getSelectionProps | 选择框/单选框 属性配置 (当前仅支持 disabled) | (data: object) => { disabled?: boolean, reason?: ReactNode }           | 否            |
+| isSingleSelection | 是否是单选                                      | bool                                                              | 否            |
 
 #### pageInfo
 

@@ -1,5 +1,5 @@
 ---
-order: 10
+order: 11
 zh-CN:
 	title: 可展开模式
 en-US:
