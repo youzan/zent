@@ -9,6 +9,18 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 9.2.0(2021-01-21)
+
+- ✨ `Grid` 支持单选
+- `DatePicker`
+  - 🦀️ 修复年份、月份的禁用逻辑
+  - 🦀️ 优化 `CombinedDatePicker` 交互
+  - 🦀️ `DateRangePicker` 支持数组形式的 `disabled` 和 `canClear`
+- 🦀️ 修复 `DateRangeQuickPicker` `min` 和 `max` 不生效的问题
+- 🦀️ 修复 `Select`, `Switch` 以及 `CheckboxGroup` defaultProps 引起的类型问题
+- 🦀️ 修复 `Form` 渲染时 `willScrollToError` 的警告信息
+- 🦀️ 更新 `Select` 以及 `Cascader` 下拉箭头样式
+
 ### 9.1.2(2021-01-11)
 
 - 🦀️ 修复 `Grid` 多选框串数据的问题

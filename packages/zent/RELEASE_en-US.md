@@ -9,6 +9,18 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 9.2.0(2021-01-21)
+
+- ✨ `Grid` now supports single selection
+- `DatePicker`
+  - 🦀️ Fix year and month selection disable logic
+  - 🦀️ Update UI interaction in `CombinedDatePicker`
+  - 🦀️ `disabled` and `canClear` in `DateRangePicker` can be an array
+- 🦀️ Fix `min` and `max` not working in `DateRangeQuickPicker`
+- 🦀️ Fix typings in `Select`, `Switch` and `CheckboxGroup`
+- 🦀️ Fix React warning in `Form` with `willScrollToError`
+- 🦀️ Update arrow style in `Select` and `Cascader`
+
 ### 9.1.2(2021-01-11)
 
 - 🦀️ Fix incorrect checkbox state in `Grid`
