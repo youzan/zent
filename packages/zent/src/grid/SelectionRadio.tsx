@@ -15,6 +15,13 @@ interface IGridSelectionRadioState {
   checked: boolean;
 }
 
+const getRowCheckedState = (
+  rowInfo: Pick<IGridSelectionRadioProps, 'rowIndex' | 'store'>
+) => {
+  const { store, rowIndex } = rowInfo;
+  return (store.getState('selectedRowKeys') ?? []).indexOf(rowIndex) !== -1;
+};
+
 class SelectionCheckbox extends PureComponent<
   IGridSelectionRadioProps,
   IGridSelectionRadioState
@@ -23,17 +30,18 @@ class SelectionCheckbox extends PureComponent<
     super(props);
 
     this.state = {
-      checked: SelectionCheckbox.getCheckState(props),
+      checked: getRowCheckedState({
+        store: props.store,
+        rowIndex: props.rowIndex,
+      }),
     };
   }
 
-  static getCheckState = (props: IGridSelectionRadioProps) => {
-    const { store, rowIndex } = props;
-    return (store.getState('selectedRowKeys') ?? []).indexOf(rowIndex) !== -1;
-  };
-
   static getDerivedStateFromProps(props: IGridSelectionRadioProps, state) {
-    const checked = SelectionCheckbox.getCheckState(props);
+    const checked = getRowCheckedState({
+      store: props.store,
+      rowIndex: props.rowIndex,
+    });
     if (checked === state.checked) {
       return null;
     }
@@ -46,9 +54,12 @@ class SelectionCheckbox extends PureComponent<
   unsubscribe?: () => void;
 
   subscribe = () => {
-    const { store } = this.props;
+    const { store, rowIndex } = this.props;
     this.unsubscribe = store.subscribe('selectedRowKeys', () => {
-      const checked = SelectionCheckbox.getCheckState(this.props);
+      const checked = getRowCheckedState({
+        store,
+        rowIndex,
+      });
       if (this.state.checked !== checked) {
         this.setState({ checked });
       }
