@@ -23,7 +23,23 @@ class SelectionCheckbox extends PureComponent<
     super(props);
 
     this.state = {
-      checked: this.getCheckState(props),
+      checked: SelectionCheckbox.getCheckState(props),
+    };
+  }
+
+  static getCheckState = (props: IGridSelectionRadioProps) => {
+    const { store, rowIndex } = props;
+    return (store.getState('selectedRowKeys') ?? []).indexOf(rowIndex) !== -1;
+  };
+
+  static getDerivedStateFromProps(props: IGridSelectionRadioProps, state) {
+    const checked = SelectionCheckbox.getCheckState(props);
+    if (checked === state.checked) {
+      return null;
+    }
+
+    return {
+      checked,
     };
   }
 
@@ -32,32 +48,15 @@ class SelectionCheckbox extends PureComponent<
   subscribe = () => {
     const { store } = this.props;
     this.unsubscribe = store.subscribe('selectedRowKeys', () => {
-      const checked = this.getCheckState(this.props);
+      const checked = SelectionCheckbox.getCheckState(this.props);
       if (this.state.checked !== checked) {
         this.setState({ checked });
       }
     });
   };
 
-  getCheckState = (props: IGridSelectionRadioProps) => {
-    const { store, rowIndex } = props;
-    return (store.getState('selectedRowKeys') ?? []).indexOf(rowIndex) !== -1;
-  };
-
   componentDidMount() {
     this.subscribe();
-  }
-
-  // 等重构再删了吧，改不动
-  // eslint-disable-next-line react/no-deprecated
-  componentWillReceiveProps(
-    nextProps: IGridSelectionRadioProps,
-    nextState: IGridSelectionRadioState
-  ) {
-    const checked = this.getCheckState(nextProps);
-    if (checked !== nextState.checked) {
-      this.setState({ checked });
-    }
   }
 
   componentWillUnmount() {
