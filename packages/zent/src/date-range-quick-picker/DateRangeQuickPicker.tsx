@@ -95,6 +95,8 @@ export class DateRangeQuickPicker extends Component<IDateRangeQuickPickerProps> 
       chooseDays,
       chosenDays,
       preset,
+      min,
+      max,
       ...pickerProps
     } = this.props;
     const showTime = format === 'YYYY-MM-DD';
@@ -107,6 +109,7 @@ export class DateRangeQuickPicker extends Component<IDateRangeQuickPickerProps> 
           onChange={this.handleTimeChange}
           format={format}
           showTime={!showTime}
+          disabledDate={{ min, max }}
           {...pickerProps}
         />
         <div className={'zent-date-range-quick-picker__filter'}>
