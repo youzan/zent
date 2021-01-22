@@ -1,6 +1,5 @@
 export interface ICascaderBaseProps {
   options: IPublicCascaderItem[];
-  changeOnSelect?: boolean;
   placeholder?: string;
   className?: string;
   popupClassName?: string;
@@ -36,6 +35,8 @@ export interface ICascaderBaseProps {
 }
 
 export type CascaderValue = string | number;
+
+export type CascaderItemSelectionState = 'on' | 'off' | 'partial';
 
 /**
  * 外部节点数据结构

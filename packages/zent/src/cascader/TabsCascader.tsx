@@ -27,6 +27,7 @@ export interface ITabsCascaderProps extends ICascaderBaseProps {
   ) => void;
   loadOptions?: (selectedOptions: IPublicCascaderItem[]) => Promise<void>;
   title?: string[];
+  changeOnSelect?: boolean;
 }
 
 interface ITabsCascaderState {

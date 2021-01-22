@@ -2,7 +2,11 @@ import cx from 'classnames';
 import { Component } from 'react';
 
 import Popover from '../../popover';
-import { ICascaderItem, CascaderSearchClickHandler } from '../types';
+import {
+  ICascaderItem,
+  CascaderSearchClickHandler,
+  CascaderItemSelectionState,
+} from '../types';
 import { II18nLocaleCascader } from '../../i18n';
 import { Checkbox } from '../../checkbox';
 import BlockLoading from '../../loading/BlockLoading';
@@ -24,7 +28,7 @@ export interface ISearchContentProps {
   highlight: (keyword: string, path: ICascaderItem[]) => React.ReactNode;
   i18n: II18nLocaleCascader;
 
-  selectionMap: Map<string, 'on' | 'off' | 'partial'>;
+  selectionMap: Map<string, CascaderItemSelectionState>;
 }
 
 class SearchContent extends Component<ISearchContentProps> {
@@ -71,7 +75,7 @@ class SearchContent extends Component<ISearchContentProps> {
             'zent-cascader-v2--search-item--multiple': multiple,
           });
 
-          let checkState: 'on' | 'off' | 'partial' | undefined;
+          let checkState: CascaderItemSelectionState | undefined;
           if (multiple) {
             checkState = selectionMap.get(getNodeKey(leafNode));
           }

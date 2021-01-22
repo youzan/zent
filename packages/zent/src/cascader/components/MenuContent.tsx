@@ -11,6 +11,7 @@ import {
   CascaderValue,
   CascaderMenuHoverHandler,
   ICascaderBaseProps,
+  CascaderItemSelectionState,
 } from '../types';
 import InfiniteScroller from '../../infinite-scroller';
 import { II18nLocaleCascader } from '../../i18n';
@@ -36,7 +37,7 @@ export interface IMenuContentCommonProps {
   loading: string[];
 
   // 节点选中状态
-  selectionMap: Map<string, 'on' | 'off' | 'partial'>;
+  selectionMap: Map<string, CascaderItemSelectionState>;
 
   renderItemContent?: ICascaderBaseProps['renderItemContent'];
   getItemTooltip?: ICascaderBaseProps['getItemTooltip'];
@@ -142,7 +143,7 @@ class MenuContent extends Component<IMenuContentProps> {
           node.children.length === 0 && !node.loadChildrenOnExpand,
       });
 
-      let checkState: 'on' | 'off' | 'partial' | undefined;
+      let checkState: CascaderItemSelectionState | undefined;
       if (multiple) {
         checkState = selectionMap.get(getNodeKey(node));
       }
