@@ -13,7 +13,7 @@ interface ITagsTriggerProps extends ICascaderBaseTriggerProps {
   selectionMap: Map<string, CascaderItemSelectionState>;
 
   renderTags?: (
-    props: Omit<ICascaderTagsProps, 'simplifyPaths' | 'selectionMap'>
+    props: Pick<ICascaderTagsProps, 'list' | 'renderValue' | 'onRemove'>
   ) => React.ReactNode;
 
   simplifyPaths: boolean;
