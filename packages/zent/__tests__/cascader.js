@@ -1353,4 +1353,56 @@ describe('Cascader', () => {
       null
     );
   });
+
+  it('simplify selection', () => {
+    const value = [
+      [1, 2, 3],
+      [1, 2, 5],
+    ];
+    const options = [
+      {
+        value: 1,
+        label: 'root',
+        children: [
+          {
+            value: 2,
+            label: 'son',
+            children: [
+              {
+                value: 3,
+                label: 'grandSon',
+              },
+              {
+                value: 5,
+                label: 'anotherGrandSon',
+              },
+            ],
+          },
+        ],
+      },
+    ];
+
+    let wrapper;
+    const onChangeMock = jest.fn().mockImplementation(newValue => {
+      wrapper.setProps({
+        value: newValue,
+      });
+    });
+
+    wrapper = mount(
+      <MenuCascader
+        value={value}
+        options={options}
+        expandTrigger="hover"
+        multiple
+        simplifySelection
+        onChange={onChangeMock}
+        clearable
+      />
+    );
+
+    expect(wrapper.find('.zent-cascader-v2--tag').length).toBe(1);
+
+    wrapper.unmount();
+  });
 });

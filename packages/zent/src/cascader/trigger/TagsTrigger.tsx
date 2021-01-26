@@ -1,14 +1,22 @@
 import cx from 'classnames';
 import { Component } from 'react';
 
-import { ICascaderItem } from '../types';
+import { CascaderItemSelectionState, ICascaderItem } from '../types';
 import { SearchInput } from './Search';
 import Tags, { ICascaderTagsProps } from './Tags';
 import { BaseTrigger, ICascaderBaseTriggerProps } from './BaseTrigger';
 
 interface ITagsTriggerProps extends ICascaderBaseTriggerProps {
   onRemove: (node: ICascaderItem) => void;
-  renderTags?: (props: ICascaderTagsProps) => React.ReactNode;
+
+  // 节点选中信息
+  selectionMap: Map<string, CascaderItemSelectionState>;
+
+  renderTags?: (
+    props: Pick<ICascaderTagsProps, 'list' | 'renderValue' | 'onRemove'>
+  ) => React.ReactNode;
+
+  simplifyPaths: boolean;
 }
 
 export class TagsTrigger extends Component<ITagsTriggerProps> {
@@ -37,6 +45,8 @@ export class TagsTrigger extends Component<ITagsTriggerProps> {
       renderValue,
       renderTags,
       onRemove,
+      selectionMap,
+      simplifyPaths,
     } = this.props;
     const showTags = selectedPaths.length > 0;
     const showSearch = visible && searchable;
@@ -61,10 +71,16 @@ export class TagsTrigger extends Component<ITagsTriggerProps> {
         {showTags &&
           // Allow customize rendering of tag list
           (typeof renderTags === 'function' ? (
-            renderTags({ list: selectedPaths, renderValue, onRemove })
+            renderTags({
+              list: selectedPaths,
+              renderValue,
+              onRemove,
+            })
           ) : (
             <Tags
               list={selectedPaths}
+              selectionMap={selectionMap}
+              simplifyPaths={simplifyPaths}
               renderValue={renderValue}
               onRemove={onRemove}
             />

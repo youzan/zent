@@ -29,10 +29,12 @@ group: 数据
 | clearable         | 显示清除按钮                                                            | `boolean`                                                                                                     | 否       | `false`      | `true` |
 | visible           | 和 `onVisibleChange` 一起使用时 `Cascader` 的打开关闭状态完全由外部控制 | `boolean`                                                                                                     | 否       |              |        |
 | onVisibleChange   | 配合 `visible` 一起使用                                                 | `(visible: boolean) => void`                                                                                  | 否       |              |        |
-| renderValue       | 渲染选中中的一个选项值                                                      | `(selectedOptions: ICascaderItem[]) => string`                                                                | 否       |              |        |
+| renderValue       | 渲染选中中的一个选项值                                                  | `(selectedOptions: ICascaderItem[]) => string`                                                                | 否       |              |        |
 | renderItemContent | 自定义渲染选项内容                                                      | `(node: ICascaderItem) => ReactNode`                                                                          | 否       | `node.label` |        |
 | getItemTooltip    | 自定义选项的 tooltip                                                    | `(node: ICascaderItem) => string`                                                                             | 否       | `node.label` |        |
 | renderList        | 自定义渲染选项列表                                                      | `(nodes: ICascaderItem[], renderItem: (node: ICascaderItem, style: CSSProperties) => ReactNode) => ReactNode` | 否       |              |        |
+
+- 对于 `MenuCascader` `changeOnSelect` 仅在单选模式且子菜单展开方式为 `click` 时才生效。
 
 #### ICascaderItem
 
@@ -53,23 +55,25 @@ interface ICascaderItem {
 
 ### MenuCascader
 
-| 参数                 | 说明                       | 类型                                                    | 是否必填 | 默认值  | 备选值  |
-| -------------------- | -------------------------- | ------------------------------------------------------- | -------- | ------- | ------- |
-| multiple             | 是否支持多选               | `boolean`                                               | 否       | `false` | `true`  |
-| expandTrigger        | 次级菜单的展开方式         | `string`                                                | 否       | `click` | `hover` |
-| scrollable           | 是否支持滚动加载           | `boolean`                                               | 否       | `false` | `true`  |
-| loadChildrenOnScroll | 第一级数据是否还有更多数据 | `boolean`                                               | 否       | `false` | `true`  |
-| searchable           | 是否显示搜索框             | `boolean`                                               | 否       | `false` | `true`  |
-| async                | 是否异步搜索               | `boolean`                                               | 否       | `false` | `true`  |
-| asyncFilter          | 根据关键词异步搜索         | `(keyword: string) => Promise<Array<ICascaderItem[]>>`  | 否       | -       |         |
-| filter               | 根据关键词进行过滤         | `(keyword: string, path: ICascaderItem[]) => boolean`   | 否       | -       |         |
-| highlight            | 根据关键词高亮每一项       | `(keyword: string, path: ICascaderItem[]) => ReactNode` | 否       | -       |         |
-| limit                | 搜索结果展示数量           | `number`                                                | 否       | `50`    |         |
-| renderTags           | 自定义标签列表整体的展示   | `(props: ICascaderTagsProps) => ReactNode`              | 否       |         |         |
+| 参数                 | 说明                                   | 类型                                                    | 是否必填 | 默认值  | 备选值  |
+| -------------------- | -------------------------------------- | ------------------------------------------------------- | -------- | ------- | ------- |
+| multiple             | 是否支持多选                           | `boolean`                                               | 否       | `false` | `true`  |
+| expandTrigger        | 次级菜单的展开方式                     | `string`                                                | 否       | `click` | `hover` |
+| scrollable           | 是否支持滚动加载                       | `boolean`                                               | 否       | `false` | `true`  |
+| loadChildrenOnScroll | 第一级数据是否还有更多数据             | `boolean`                                               | 否       | `false` | `true`  |
+| searchable           | 是否显示搜索框                         | `boolean`                                               | 否       | `false` | `true`  |
+| async                | 是否异步搜索                           | `boolean`                                               | 否       | `false` | `true`  |
+| asyncFilter          | 根据关键词异步搜索                     | `(keyword: string) => Promise<Array<ICascaderItem[]>>`  | 否       | -       |         |
+| filter               | 根据关键词进行过滤                     | `(keyword: string, path: ICascaderItem[]) => boolean`   | 否       | -       |         |
+| highlight            | 根据关键词高亮每一项                   | `(keyword: string, path: ICascaderItem[]) => ReactNode` | 否       | -       |         |
+| limit                | 搜索结果展示数量                       | `number`                                                | 否       | `50`    |         |
+| renderTags           | 自定义标签列表整体的展示               | `(props: ICascaderTagsProps) => ReactNode`              | 否       |         |         |
+| simplifySelection    | 多选时合并展示同级节点，参考下面的说明 | `boolean`                                               | `否`     | `false` | `true`  |
 
 - 当 `multiple` 为 `true` 时，`onChange` 中的 `value` 及 `selectedOptions` 为二维数组
 - `renderTags` 仅当多选模式下有效
 - 组件参数 `scrollable` 与节点的 `loadChildrenOnScroll` 属性组合可判断它的子节点是否需要滚动加载更多数据；第一个层级由于无父节点，使用 `props` 上的 `loadChildrenOnScroll` 参数
+- `simplifySelection` 仅当 `multiple` 为 `true` 时生效。举例来说，开启后当四川省下所有的市都被选中时，输入框中仅展示四川省，不会展开各个具体的市。
 
 ### TabsCascader
 

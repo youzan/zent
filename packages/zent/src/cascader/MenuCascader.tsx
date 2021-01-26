@@ -23,6 +23,7 @@ import {
   ICascaderLoadMeta,
   CascaderMenuClickHandler,
   CascaderMenuHoverHandler,
+  CascaderItemSelectionState,
 } from './types';
 import SearchContent from './components/SearchContent';
 import debounce from '../utils/debounce';
@@ -68,6 +69,7 @@ export interface IMenuCascaderSingleProps extends IMenuCascaderCommonProps {
     selectedOptions: ICascaderItem[],
     meta: ICascaderChangeMeta
   ) => void;
+  changeOnSelect?: boolean;
 }
 
 export interface IMenuCascaderMultipleProps extends IMenuCascaderCommonProps {
@@ -79,6 +81,7 @@ export interface IMenuCascaderMultipleProps extends IMenuCascaderCommonProps {
     meta: ICascaderChangeMeta
   ) => void;
   renderTags?: (props: ICascaderTagsProps) => React.ReactNode;
+  simplifySelection?: boolean;
 }
 
 export type IMenuCascaderProps =
@@ -209,7 +212,6 @@ export class MenuCascader extends Component<
   static defaultProps = {
     value: [],
     options: [],
-    changeOnSelect: false,
     clearable: false,
     multiple: false,
     expandTrigger: 'click',
@@ -336,7 +338,7 @@ export class MenuCascader extends Component<
       }
 
       return map;
-    }, new Map<string, 'on' | 'off' | 'partial'>());
+    }, new Map<string, CascaderItemSelectionState>());
   });
 
   // 搜索返回的结果列表中可能没有树状结构，这里根据 value 从当前的 options 里换取树结构中的节点
@@ -416,7 +418,7 @@ export class MenuCascader extends Component<
     closePopup: () => void,
     source: 'click' | 'hover'
   ) => {
-    const { loadOptions, changeOnSelect, multiple } = this.props;
+    const { loadOptions, multiple } = this.props;
     const { loading } = this.state;
     const needLoading = node.loadChildrenOnExpand && loadOptions;
 
@@ -434,9 +436,6 @@ export class MenuCascader extends Component<
       !hasChildren &&
       !multiple &&
       source === 'click';
-
-    const needTriggerChange =
-      needClose || (changeOnSelect && source === 'click');
 
     // 设置 loading 状态
     const nodeKey = getNodeKey(node);
@@ -459,6 +458,10 @@ export class MenuCascader extends Component<
       }
 
       if (isSingle(this.props)) {
+        const { changeOnSelect = false } = this.props;
+        const needTriggerChange =
+          needClose || (changeOnSelect && source === 'click');
+
         if (needTriggerChange) {
           this.props.onChange(
             selectedOptions.map(it => it.value),
@@ -574,6 +577,7 @@ export class MenuCascader extends Component<
       selectedPaths,
     } = this.state;
     const visible = this.getVisible();
+    const selectionMap = this.getSelectionMap(selectedPaths);
 
     if (searchable && visible && keyword) {
       return (
@@ -586,7 +590,7 @@ export class MenuCascader extends Component<
           highlight={highlight}
           onOptionToggle={this.toggleSearchOption}
           onOptionClick={this.onSearchOptionClick}
-          selectionMap={this.getSelectionMap(selectedPaths)}
+          selectionMap={selectionMap}
         />
       );
     }
@@ -605,7 +609,7 @@ export class MenuCascader extends Component<
         scrollLoad={this.scrollLoad}
         onOptionToggle={this.toggleMenuOption}
         loading={loading}
-        selectionMap={this.getSelectionMap(selectedPaths)}
+        selectionMap={selectionMap}
         renderItemContent={renderItemContent}
         getItemTooltip={getItemTooltip}
         renderList={renderList}
@@ -655,7 +659,9 @@ export class MenuCascader extends Component<
                 {isMultiple(this.props) ? (
                   <TagsTrigger
                     {...triggerCommonProps}
+                    simplifyPaths={this.props.simplifySelection ?? false}
                     selectedPaths={selectedPaths}
+                    selectionMap={this.getSelectionMap(selectedPaths)}
                     onRemove={this.onRemove}
                     renderTags={this.props.renderTags}
                   />
