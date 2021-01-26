@@ -222,7 +222,8 @@ class FieldSetModel<
 
     const children = this.children;
     const keys = Object.keys(children);
-    for (let i = 0; i < keys.length; i++) {
+    const length = keys.length;
+    for (let i = 0; i < length; i++) {
       const key = keys[i];
       children[key]?.clearError();
     }

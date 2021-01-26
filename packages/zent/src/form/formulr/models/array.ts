@@ -110,7 +110,8 @@ class FieldArrayModel<
     this.error$.next(null);
 
     const children = this.children;
-    for (let i = 0; i < children.length; i++) {
+    const length = children.length;
+    for (let i = 0; i < length; i++) {
       const element = children[i];
       element.clearError();
     }
