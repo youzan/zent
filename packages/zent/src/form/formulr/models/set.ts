@@ -215,6 +215,18 @@ class FieldSetModel<
   }
 
   /**
+   * 清除 `FieldSet` 所有字段的错误信息
+   */
+  clearError() {
+    this.error$.next(null);
+    const keys = Object.keys(this.children);
+    for (let i = 0; i < keys.length; i += 1) {
+      const key = keys[i];
+      this.children[key]?.clearError();
+    }
+  }
+
+  /**
    * 重置 `FieldValue` 所有字段的值，如果存在 `initialValue` 就是用初始值，否则使用默认值
    */
   reset() {

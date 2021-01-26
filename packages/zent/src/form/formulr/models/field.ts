@@ -64,6 +64,10 @@ class FieldModel<Value> extends BasicModel<Value> {
     this.value$.next(this.defaultValue);
   }
 
+  clearError() {
+    this.error$.next(null);
+  }
+
   /**
    * 设置 `Field` 为指定的值，同时会设置初始值
    * @param value 要设置的值

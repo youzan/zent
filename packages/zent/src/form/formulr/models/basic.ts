@@ -78,6 +78,7 @@ abstract class BasicModel<Value> implements IModel<Value> {
   abstract patchValue(value: Value): void;
   abstract reset(): void;
   abstract clear(): void;
+  abstract clearError(): void;
   abstract initialize(value: Value): void;
   abstract validate(option?: ValidateOption): Promise<any>;
 
