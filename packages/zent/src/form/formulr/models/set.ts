@@ -219,10 +219,12 @@ class FieldSetModel<
    */
   clearError() {
     this.error$.next(null);
-    const keys = Object.keys(this.children);
-    for (let i = 0; i < keys.length; i += 1) {
+
+    const children = this.children;
+    const keys = Object.keys(children);
+    for (let i = 0; i < keys.length; i++) {
       const key = keys[i];
-      this.children[key]?.clearError();
+      children[key]?.clearError();
     }
   }
 
