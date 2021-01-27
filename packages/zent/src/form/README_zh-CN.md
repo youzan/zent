@@ -199,6 +199,12 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 
 <!-- demo-slot-9 -->
 
+### 通过 Model 订阅数据
+
+如果需要在表单上下文的外部监听数据变更，可以使用 `useModelValue` 来对 model 进行订阅，类似的 Hook 还有 `useModelValid`。
+
+<!-- demo-slot-21 -->
+
 ### CombineErrors
 
 这个组件用来将多个字段的错误聚合成一个错误展示，需要配合 `Field` 的 `withoutError` 参数使用。
