@@ -153,6 +153,10 @@ class ModelRef<Value, Parent extends IModel<any>, Model extends IModel<Value>>
     this.getModel()?.clear();
   }
 
+  clearError() {
+    this.getModel()?.clearError();
+  }
+
   dispose() {
     this.getModel()?.dispose();
     this.model$.next(null);

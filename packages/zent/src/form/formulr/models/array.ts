@@ -104,6 +104,20 @@ class FieldArrayModel<
   }
 
   /**
+   * 清除 `FieldArray` 所有字段的错误信息
+   */
+  clearError() {
+    this.error$.next(null);
+
+    const children = this.children;
+    const length = children.length;
+    for (let i = 0; i < length; i++) {
+      const element = children[i];
+      element.clearError();
+    }
+  }
+
+  /**
    * 获取 `FieldArray` 内的所有 model
    */
   get children(): ReadonlyArray<Child> {

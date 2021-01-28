@@ -277,6 +277,10 @@
 
 新版部分 CSS 类名有变化，具体参考上面各版本的详细说明。功能无变化。
 
+### `Table`
+
+`Table` 组件迁移到了 `@zent/comapt` 包里，功能无变化。
+
 ### 文档
 
 - 删除 [`Sku`](https://github.com/zent-contrib/sku) 和 [`Design`](https://github.com/zent-contrib/design) 的文档，这两个组件上个版本已经移除，如果需要查看它们的文档请到对应的仓库看。

@@ -3,7 +3,7 @@ import { merge, asapScheduler, Observable, of, BehaviorSubject } from 'rxjs';
 import { observeOn, filter, switchMap } from 'rxjs/operators';
 import noop from '../../../utils/noop';
 import { useFormContext } from '../context';
-import { BasicModel, IModel, isModel, isModelRef, ModelRef } from '../models';
+import { BasicModel, IModel, isModel, isModelRef } from '../models';
 import { $MergeProps } from '../utils';
 
 export interface IFieldListenerCommonProps<T> {
@@ -43,10 +43,27 @@ export type IFieldValidProps<T> =
 
 /**
  * Subscribe the value state of a model
+ * @param model
+ */
+export function useModelValue<T>(model: IModel<T>): T | null {
+  return useModelObservable(model, getValueObservable);
+}
+
+/**
+ * Subscribe the valid state of a model
+ * @param model
+ */
+export function useModelValid<T>(model: IModel<T>): boolean | null {
+  return useModelObservable(model, getValidObservable);
+}
+
+/**
+ * Subscribe the value state of a model.
+ * Note that it works in FormContext only.
  * @param field
  */
-export function useFieldValue<T>(field: string | IModel<T>) {
-  return useFieldObservable<IModel<T>, T, T>(field, getValueObservable);
+export function useFieldValue<T>(field: string | IModel<T>): T | null {
+  return useFieldObservable(field, getValueObservable);
 }
 
 /**
@@ -64,11 +81,12 @@ export function FieldValue<T>(
 }
 
 /**
- * Subscribe the valid state of a model
+ * Subscribe the valid state of a model.
+ * Note that it works in FormContext only.
  * @param field
  */
-export function useFieldValid<T>(field: string | IModel<T>) {
-  return useFieldObservable<IModel<T>, T, boolean>(field, getValidObservable);
+export function useFieldValid<T>(field: string | IModel<T>): boolean | null {
+  return useFieldObservable(field, getValidObservable);
 }
 
 /**
@@ -93,21 +111,25 @@ function getValidObservable<T>(model: BasicModel<T>) {
   return model.valid$;
 }
 
-function useFieldObservable<M extends IModel<T>, T, V>(
-  field: M | string,
+function useFieldObservable<T, V>(
+  field: IModel<T> | string,
   observable: (model: BasicModel<T>) => BehaviorSubject<V>
 ) {
   const ctx = useFormContext();
-  const [model, setModel] = useState<
-    BasicModel<T> | ModelRef<T, IModel<unknown>, BasicModel<T>> | null
-  >(
-    isModel<T>(field) || isModelRef<T, IModel<unknown>, BasicModel<T>>(field)
-      ? field
-      : () => {
-          const m = ctx.parent.get(field as string);
-          return isModel<T>(m) ? m : null;
-        }
-  );
+  const [model, setModel] = useState<IModel<T> | null>(() => {
+    if (typeof field === 'string') {
+      const m = ctx.parent.get(field);
+      return isModel<T>(m) ? m : null;
+    } else if (
+      isModel<T>(field) ||
+      isModelRef<T, IModel<unknown>, BasicModel<T>>(field)
+    ) {
+      return field;
+    } else {
+      return null;
+    }
+  });
+
   useEffect(() => {
     if (typeof field !== 'string') {
       setModel(
@@ -145,11 +167,23 @@ function useFieldObservable<M extends IModel<T>, T, V>(
     return () => $.unsubscribe();
   }, [field, ctx, ctx.parent]);
 
-  const [value, setValue] = useState<V | null>(() =>
-    model && !isModelRef<T, IModel<unknown>, BasicModel<T>>(model)
-      ? observable(model).value
-      : null
-  );
+  return useModelObservable(model, observable);
+}
+
+function useModelObservable<T, V>(
+  model: IModel<T> | null,
+  observable: (model: BasicModel<T>) => BehaviorSubject<V>
+) {
+  const [value, setValue] = useState<V | null>(() => {
+    if (isModel<T>(model)) {
+      return observable(model).value;
+    } else if (isModelRef<T, IModel<any>, BasicModel<T>>(model)) {
+      const inner = model.getModel();
+      return inner ? observable(inner).value : null;
+    } else {
+      return null;
+    }
+  });
 
   useEffect(() => {
     if (isModelRef<T, IModel<any>, BasicModel<T>>(model)) {

@@ -13,6 +13,7 @@ export interface IModel<Value> {
   validate(strategy: ValidateOption): Promise<any>;
   reset(): void;
   clear(): void;
+  clearError(): void;
   initialize(value: Value): void;
   error: IMaybeError<Value>;
   owner: IModel<any> | null;

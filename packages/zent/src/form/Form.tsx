@@ -21,6 +21,8 @@ import {
   useFieldValue,
   FieldValid,
   useFieldValid,
+  useModelValid,
+  useModelValue,
 } from './formulr';
 import memorize from '../utils/memorize-one';
 import {
@@ -146,6 +148,8 @@ export class Form<T extends {}> extends Component<IFormProps<T>> {
   static FieldValid = FieldValid;
   static useFormValid = useFormValid;
   static useFieldValid = useFieldValid;
+  static useModelValue = useModelValue;
+  static useModelValid = useModelValid;
   static ValidateOption = ValidateOption;
   static createAsyncValidator = createAsyncValidator;
   static isAsyncValidator = isAsyncValidator;

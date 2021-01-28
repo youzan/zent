@@ -141,6 +141,10 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 
 <!-- demo-slot-9 -->
 
+### Subscribe data from model
+
+<!-- demo-slot-21 -->
+
 ### CombineErrors
 
 Combine error display from multiple fields.
