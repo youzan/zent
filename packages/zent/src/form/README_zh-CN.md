@@ -201,7 +201,7 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 
 ### 通过 Model 订阅数据
 
-如果需要在表单上下文的外部监听数据变更，可以使用 `useModelValue` 来对 model 进行订阅，类似的 Hook 还有 `useModelValid`。
+由于 `useFieldValue` 依赖了 `FormContext` ，因此在表单外部监听数据变更无法通过它来实现。此时可以使用 `useModelValue` 来对 model 进行订阅，类似的 Hook 还有 `useModelValid`，它们的内部实现不依赖 `FormContext` ，可以在任意组件内监听任意字段的数据变更（只需要获取到字段的 model 引用）。
 
 <!-- demo-slot-21 -->
 
