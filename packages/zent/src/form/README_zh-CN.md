@@ -199,6 +199,12 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 
 <!-- demo-slot-9 -->
 
+### 通过 Model 订阅数据
+
+由于 `useFieldValue` 依赖了 `FormContext` ，因此在表单外部监听数据变更无法通过它来实现。此时可以使用 `useModelValue` 来对 model 进行订阅，类似的 Hook 还有 `useModelValid`，它们的内部实现不依赖 `FormContext` ，可以在任意组件内监听任意字段的数据变更（只需要获取到字段的 model 引用）。
+
+<!-- demo-slot-21 -->
+
 ### CombineErrors
 
 这个组件用来将多个字段的错误聚合成一个错误展示，需要配合 `Field` 的 `withoutError` 参数使用。
