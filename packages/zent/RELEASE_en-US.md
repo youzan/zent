@@ -9,6 +9,14 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 9.3.0(2021-01-28)
+
+- ✨ `MenuCascader` supports selection merge with `simplifySelection`
+- `Form`
+  - ✨ Add`clearError` to form models
+  - ✨ Add two new hooks `useModelValue` and `useModelValid` which don't rely on `FormContext`
+- 📚 Add missing description of `Table` in v9 changelog
+
 ### 9.2.0(2021-01-21)
 
 - ✨ `Grid` now supports single selection

@@ -9,6 +9,14 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 9.3.0(2021-01-28)
+
+- ✨ `MenuCascader` 多选模式支持通过 `simplifySelection` 参数控制是否合并展示子节点全选的选项
+- `Form`
+  - ✨ Model 上新增 `clearError` 函数，用于手动清除错误状态
+  - ✨ 增加 `useModelValue` 和 `useModelValid` 两个不依赖 `FormContext` 的 Hooks
+- 📚 9.0 的 changelog 中补充遗漏的 `Table` 迁移描述
+
 ### 9.2.0(2021-01-21)
 
 - ✨ `Grid` 支持单选
