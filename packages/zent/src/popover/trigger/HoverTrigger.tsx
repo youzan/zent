@@ -110,11 +110,11 @@ export function PopoverHoverTrigger<
     });
   } else if (isElement(children)) {
     child = cloneElement(children, {
-      onMouseEnter(...args: any[]) {
+      onPointerEnter(...args: any[]) {
         children.props.onMouseEnter?.(...args);
         visible$.next(true);
       },
-      onMouseLeave(...args: any[]) {
+      onPointerLeave(...args: any[]) {
         children.props.onMouseLeave?.(...args);
         visible$.next(false);
       },
@@ -122,8 +122,8 @@ export function PopoverHoverTrigger<
   } else {
     child = (
       <span
-        onMouseEnter={() => visible$.next(true)}
-        onMouseLeave={() => visible$.next(false)}
+        onPointerEnter={() => visible$.next(true)}
+        onPointerLeave={() => visible$.next(false)}
       >
         {children}
       </span>
