@@ -41,6 +41,25 @@ function SelectSearch(
     });
   }, [ref]);
 
+  const handleKeyboardNav = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      switch (e.key) {
+        case 'ArrowUp':
+          onIndexChange(-1);
+          break;
+        case 'ArrowDown':
+          onIndexChange(1);
+          break;
+        case 'Enter':
+          onEnter();
+          break;
+        default:
+          break;
+      }
+    },
+    [onIndexChange, onEnter]
+  );
+
   useImperativeHandle(cmdRef, () => ({
     focus: () => {
       focusSearchInput();
@@ -74,21 +93,7 @@ function SelectSearch(
         onChange={onChange}
         onCompositionStart={onCompositionStart}
         onCompositionEnd={onCompositionEnd}
-        onKeyDown={e => {
-          switch (e.key) {
-            case 'ArrowUp':
-              onIndexChange(-1);
-              break;
-            case 'ArrowDown':
-              onIndexChange(1);
-              break;
-            case 'Enter':
-              onEnter();
-              break;
-            default:
-              break;
-          }
-        }}
+        onKeyDown={handleKeyboardNav}
       />
       {/* Measure Node */}
       {autoWidth && (
