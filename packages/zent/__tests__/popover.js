@@ -126,13 +126,13 @@ describe('Popover', () => {
     expect(wrapper.find('PurePortal').length).toBe(0);
 
     // 快速进入又快速离开
-    wrapper.find('button').simulate('mouseenter');
+    wrapper.find('button').simulate('pointerenter');
     expect(wrapper.find('PurePortal').length).toBe(0);
-    wrapper.find('button').simulate('mouseleave');
+    wrapper.find('button').simulate('pointerleave');
     expect(wrapper.find('PurePortal').length).toBe(0);
 
     // hover 直到popup，然后window监听mousemove，判断是否离开。
-    simulateWithTimers(wrapper.find('button'), 'mouseenter');
+    simulateWithTimers(wrapper.find('button'), 'pointerenter');
     wrapper.update();
     expect(wrapper.find('PurePortal').length).toBe(1);
     const fakeEvent = new MouseEvent('mousemove');
@@ -434,7 +434,7 @@ describe('Popover', () => {
       </Popover>
     );
 
-    simulateWithTimers(wrapper.find('button'), 'mouseenter');
+    simulateWithTimers(wrapper.find('button'), 'pointerenter');
     wrapper.update();
     expect(wrapper.find('PurePortal').length).toBe(1);
 
