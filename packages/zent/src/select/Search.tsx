@@ -6,6 +6,7 @@ import {
   useRef,
 } from 'react';
 import cx from 'classnames';
+import { createUseIMEComposition } from '../ime-composition';
 
 export interface ISelectSearchProps {
   placeholder?: string;
@@ -20,14 +21,16 @@ interface ISelectImperativeHandlers {
   focus: () => void;
 }
 
+const useIMEComposition = createUseIMEComposition();
+
 function SelectSearch(
   {
     placeholder,
-    onChange,
+    onChange: onChangeProp,
     onIndexChange,
     onEnter,
     autoWidth,
-    value,
+    value: valueProp,
   }: ISelectSearchProps,
   cmdRef: React.ForwardedRef<ISelectImperativeHandlers>
 ) {
@@ -43,6 +46,13 @@ function SelectSearch(
       focusSearchInput();
     },
   }));
+
+  const {
+    onChange,
+    onCompositionEnd,
+    onCompositionStart,
+    value,
+  } = useIMEComposition(valueProp, onChangeProp);
 
   useLayoutEffect(() => {
     focusSearchInput();
@@ -62,6 +72,8 @@ function SelectSearch(
         className="zent-select-v2-search"
         value={value}
         onChange={onChange}
+        onCompositionStart={onCompositionStart}
+        onCompositionEnd={onCompositionEnd}
         onKeyDown={e => {
           switch (e.key) {
             case 'ArrowUp':
