@@ -135,9 +135,12 @@
       background-color: transparent;
       transition: all 0.3s ease-in-out;
 
-      &:hover,
-      &-active {
+      &:hover {
         @include theme-color(background-color, primary, 8);
+      }
+
+      &-active {
+        @include theme-color(background-color, stroke, 8);
       }
     }
 
