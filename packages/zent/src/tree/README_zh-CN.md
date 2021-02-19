@@ -27,7 +27,8 @@ group: 导航
 | operations          | 自定义操作, 包含 `name`, `icon`, `action`, `shouldRender` 属性 | array[object]      |            |                      |
 | foldable            | 是否支持点击条目时展开与收起动作                                 | bool               | `true`     |                      |
 | onCheck             | 点击checkbox的回调函数, 接受所选中节点的数组与帮助自定义的信息       | func(ids, helpInfo)|            |                      |
-| checkable           | 是否支持checkbox选择																					| bool               | `true`     |                      |                   | 
+| highlightSelected   | 是否高亮单选选中节点                                            | bool               | `false`    |                      |  
+| checkable           | 是否支持checkbox选择                                          | bool               | `true`     |                      |
 | checkedKeys         | 选中节点id数组                                                | array              |            |                      |
 | disabledCheckedKeys | 默认禁选节点id数组                                             | array              |            |                      |
 | size                | 大小                                                         | string             | `'medium'` | `'small'`, `'large'` |

@@ -58,6 +58,7 @@ export interface ITreeState {
   checkedNode: TreeRootIdArray;
   disabledNode: TreeRootIdArray;
   renderKey: ITreeRenderKey;
+  activeKey: string;
   loadingNode: TreeRootIdArray;
 }
 
@@ -68,6 +69,7 @@ export class Tree extends Component<ITreeProps, ITreeState> {
     foldable: true,
     checkable: false,
     size: 'medium',
+    highlightSelected: false,
   };
 
   constructor(props: ITreeProps) {
@@ -75,6 +77,7 @@ export class Tree extends Component<ITreeProps, ITreeState> {
     this.state = {
       prevProps: props,
       loadingNode: [],
+      activeKey: '',
       ...createStateByProps(props),
     };
   }
@@ -295,13 +298,17 @@ export class Tree extends Component<ITreeProps, ITreeState> {
     const {
       rootInfoMap,
       renderKey: { id, title },
+      activeKey,
     } = this.state;
-    const { render, onSelect } = this.props;
+    const { render, onSelect, highlightSelected } = this.props;
     return (
       <span
-        className="content"
+        className={classnames('content', {
+          'content-active': highlightSelected && root.id === activeKey,
+        })}
         onClick={e => {
           onSelect && onSelect(root, e.currentTarget);
+          this.setState({ activeKey: root.id });
 
           if (rootInfoMap[root[id]].isParent) {
             this.handleExpandClick(root, e);

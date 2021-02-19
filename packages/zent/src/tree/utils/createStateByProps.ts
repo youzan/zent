@@ -12,6 +12,7 @@ export interface ICreateStateByPropsParams {
   data: ITreeData[];
   dataType?: 'tree' | 'plain'; // 数据类型
   renderKey?: Partial<ITreeRenderKey>;
+  highlightSelected?: boolean; // 单选选中节点高亮
   checkable?: boolean; // 是否为checkbox模式
   expandAll?: boolean; // 是否展开全部节点
   checkedKeys?: TreeRootIdArray; // 默认选中节点
