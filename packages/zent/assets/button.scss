@@ -309,12 +309,16 @@ $btn-warning-active: 1;
     );
   }
 
+  &-disabled-wrapper {
+    cursor: not-allowed;
+  }
+
   &-disabled,
   &-disabled[disabled] {
     @include btn-grey(color);
     @include theme-color(background-color, stroke, 8);
     @include btn-light-grey(border-color);
-    cursor: not-allowed;
+    pointer-events: none;
 
     &:link,
     &:visited,

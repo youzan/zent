@@ -183,12 +183,18 @@ export class Input extends Component<IInputProps, IInputState> {
             (props as IInputCoreProps).addonBefore),
         'zent-input--has-focus': hasFocus,
         'zent-input-wrapper-inline': props.inline,
+        'zent-input-wrapper-disabled': disabled,
       },
       className
     );
 
     return (
-      <div className={wrapClass} style={wrapperStyle}>
+      <div
+        className={wrapClass}
+        style={wrapperStyle}
+        onMouseEnter={(props as any).onMouseEnter}
+        onMouseLeave={(props as any).onMouseLeave}
+      >
         {renderInner ? renderInner(children) : children}
       </div>
     );

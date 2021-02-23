@@ -5,6 +5,7 @@ import getWidth from '../utils/getWidth';
 import GroupContext, { ICheckboxContext } from './GroupContext';
 import { DisabledContext, IDisabledContext } from '../disabled';
 import CheckboxGroup from './Group';
+import omit from '../utils/omit';
 
 export interface ICheckboxEventTarget<Value> extends ICheckboxProps<Value> {
   type: 'checkbox';
@@ -117,11 +118,13 @@ export function Checkbox<Value>(props: ICheckboxProps<Value>) {
       style={{
         ...getWidth(width),
       }}
+      onMouseEnter={(props as any).onMouseEnter}
+      onMouseLeave={(props as any).onMouseLeave}
     >
       <span className="zent-checkbox">
         <span className="zent-checkbox-inner" />
         <input
-          {...others}
+          {...omit<any, any>(others, ['onMouseEnter', 'onMouseLeave'])}
           type="checkbox"
           checked={checked && !indeterminate}
           disabled={disabled}

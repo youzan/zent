@@ -9,7 +9,7 @@ en-US:
 ---
 
 ```jsx
-import { Pop, Radio, Checkbox, Input } from 'zent';
+import { Button, Pop, Radio, Checkbox, Input } from 'zent';
 
 ReactDOM.render(
 	<div className="zent-doc-pop-container">
@@ -35,7 +35,18 @@ ReactDOM.render(
 			position="top-left"
 			content="{i18n.content}"
 		>
-			<Input disabled />
+			<Input disabled style={{ marginRight: '12px' }} />
+		</Pop>
+		<Pop
+			centerArrow
+			trigger="hover"
+			position="top-left"
+			content="{i18n.content}"
+			fixTooltipOnDisabledChildren
+		>
+			<Button type="primary" disabled>
+				Button
+			</Button>
 		</Pop>
 	</div>,
 	mountNode

@@ -79,6 +79,10 @@ $large-size: 40px;
   .zent-input-close {
     @include theme-color(color, stroke, 4);
   }
+
+  &-disabled {
+    cursor: not-allowed;
+  }
 }
 
 .zent-textarea-wrapper.zent-input-wrapper {
@@ -122,7 +126,7 @@ $large-size: 40px;
 .zent-input[readonly] {
   @include theme-color(background-color, stroke, 8);
   @include theme-color(color, stroke, 4);
-  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .zent-input-addon-before,

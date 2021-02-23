@@ -1,4 +1,11 @@
-import { cloneElement, useContext, useEffect, useMemo, useRef } from 'react';
+import {
+  cloneElement,
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+} from 'react';
 import { Subject, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import Context from '../Context';
@@ -6,6 +13,15 @@ import Anchor, { PopoverAnchorGetElementFn } from '../Anchor';
 import { addEventListener } from '../../utils/component/event-handler';
 import { isElement } from 'react-is';
 
+interface IHoverTriggerCompatibleProps {
+  fixTooltipOnDisabledChildren?: boolean;
+}
+
+export interface IPopoverHoverTriggerContext
+  extends IHoverTriggerCompatibleProps {}
+export const PopoverHoverTriggerContext = createContext<IPopoverHoverTriggerContext>(
+  {}
+);
 export interface IPopoverHoverTriggerChildProps {
   onMouseEnter?: (...args: any[]) => void;
   onMouseLeave?: (...args: any[]) => void;
@@ -13,7 +29,7 @@ export interface IPopoverHoverTriggerChildProps {
 
 export interface IPopoverHoverTriggerProps<
   ChildProps extends IPopoverHoverTriggerChildProps
-> {
+> extends IHoverTriggerCompatibleProps {
   hideDelay?: number;
   showDelay?: number;
   anchorOnly?: boolean;
@@ -66,7 +82,7 @@ export function PopoverHoverTrigger<
     return () => $.unsubscribe();
   }, [ctx.popover, visible$]);
 
-  const { children } = props;
+  const { children, fixTooltipOnDisabledChildren } = props;
   const { portalRef, didMount } = ctx;
 
   didMount(() => {
@@ -129,7 +145,13 @@ export function PopoverHoverTrigger<
       </span>
     );
   }
-  return <Anchor getElement={props.getElement}>{child}</Anchor>;
+  return (
+    <PopoverHoverTriggerContext.Provider
+      value={{ fixTooltipOnDisabledChildren }}
+    >
+      <Anchor getElement={props.getElement}>{child}</Anchor>
+    </PopoverHoverTriggerContext.Provider>
+  );
 }
 
 export default PopoverHoverTrigger;

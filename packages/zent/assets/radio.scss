@@ -118,7 +118,7 @@ $inner-circle-offset: ($outer-circle-size - $inner-circle-size - 2px) / 2;
       }
 
       & > input[type='radio'] {
-        cursor: not-allowed;
+        pointer-events: none;
       }
     }
 
@@ -194,9 +194,10 @@ $inner-circle-offset: ($outer-circle-size - $inner-circle-size - 2px) / 2;
   &--disabled {
     @include theme-color(color, stroke, 4);
     @include theme-color(background-color, stroke, 8);
+    cursor: not-allowed;
 
     > input[type='radio'] {
-      cursor: not-allowed;
+      pointer-events: none;
     }
 
     &.zent-radio-button--checked {

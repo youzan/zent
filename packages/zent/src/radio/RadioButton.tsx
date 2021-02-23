@@ -6,6 +6,7 @@ import getWidth from '../utils/getWidth';
 import { getRadioState, useRadioHandler, IRadioProps } from './AbstractRadio';
 import { DisabledContext } from '../disabled';
 import GroupContext from './GroupContext';
+import omit from '../utils/omit';
 
 export function RadioButton<Value>(props: IRadioProps<Value>) {
   const {
@@ -42,9 +43,14 @@ export function RadioButton<Value>(props: IRadioProps<Value>) {
   };
 
   return (
-    <label className={classString} style={wrapStyle}>
+    <label
+      className={classString}
+      style={wrapStyle}
+      onMouseEnter={(props as any).onMouseEnter}
+      onMouseLeave={(props as any).onMouseLeave}
+    >
       <input
-        {...others}
+        {...omit<any, any>(others, ['onMouseEnter', 'onMouseLeave'])}
         type="radio"
         checked={!!checked}
         disabled={disabled}

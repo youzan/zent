@@ -3,6 +3,10 @@ import { Component } from 'react';
 import { Omit } from 'utility-types';
 import Group from './Group';
 import { IButtonDirectiveProps, ButtonDirective } from './Directive';
+import {
+  IPopoverHoverTriggerContext,
+  PopoverHoverTriggerContext,
+} from '../popover';
 
 export interface IButtonProps
   extends Omit<
@@ -28,6 +32,31 @@ export class Button extends Component<IButtonProps> {
 
   static Group = Group;
   static Directive = ButtonDirective;
+  static contextType = PopoverHoverTriggerContext;
+  context!: IPopoverHoverTriggerContext;
+
+  /**
+   * Why fixTooltipOnDisabledChildren?
+   * Mouse events don't trigger on disabled button
+   * https://github.com/react-component/tooltip/issues/18
+   *
+   * Workaround
+   * 1. Wrap the disabled button/input in another element.
+   * 2. Add {pointer-events: none} style to the disabled button/input.
+   */
+  renderCompatibleChildren(children: React.ReactNode) {
+    return this.context.fixTooltipOnDisabledChildren ? (
+      <span
+        className="zent-btn-disabled-wrapper"
+        onMouseEnter={(this.props as any).onMouseEnter}
+        onMouseLeave={(this.props as any).onMouseLeave}
+      >
+        {children}
+      </span>
+    ) : (
+      children
+    );
+  }
 
   render() {
     const {
@@ -48,26 +77,35 @@ export class Button extends Component<IButtonProps> {
     } = this.props;
 
     return (
-      <ButtonDirective
-        type={type}
-        size={size}
-        block={block}
-        disabled={disabled}
-        loading={loading}
-        outline={outline}
-        bordered={bordered}
-        icon={icon}
-      >
-        {href || target ? (
-          <a href={href || ''} target={target} download={download} {...props}>
-            {children}
-          </a>
-        ) : (
-          <button type={htmlType} {...props}>
-            {children}
-          </button>
+      <>
+        {this.renderCompatibleChildren(
+          <ButtonDirective
+            type={type}
+            size={size}
+            block={block}
+            disabled={disabled}
+            loading={loading}
+            outline={outline}
+            bordered={bordered}
+            icon={icon}
+          >
+            {href || target ? (
+              <a
+                href={href || ''}
+                target={target}
+                download={download}
+                {...props}
+              >
+                {children}
+              </a>
+            ) : (
+              <button type={htmlType} {...props}>
+                {children}
+              </button>
+            )}
+          </ButtonDirective>
         )}
-      </ButtonDirective>
+      </>
     );
   }
 }
