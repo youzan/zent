@@ -40,6 +40,11 @@ group: 展示
 |------|------|------|--------|-------|
 | mouseEnterDelay | hover打开的延迟（单位：毫秒） | number | 否 | `160` |
 | mouseLeaveDelay | 关闭的的延迟（单位：毫秒） | number | 否 | `160` |
+| fixTooltipOnDisabledChildren | 被禁用的子节点展示 Tooltip | boolean | 否 | `false` |
+
+**注意**
+
+- `fixTooltipOnDisabledChildren` 仅对 Zent 组件有效。
 
 #### None
 
