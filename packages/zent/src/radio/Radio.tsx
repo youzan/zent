@@ -49,13 +49,13 @@ function Radio<Value>(
     <label
       className={classString}
       style={wrapStyle}
-      onMouseEnter={(props as any).onMouseEnter}
-      onMouseLeave={(props as any).onMouseLeave}
+      onMouseEnter={props.onMouseEnter}
+      onMouseLeave={props.onMouseLeave}
     >
       <span className="zent-radio">
         <span className="zent-radio-inner" />
         <input
-          {...omit<any, any>(others, ['onMouseEnter', 'onMouseLeave'])}
+          {...omit(others, ['onMouseEnter', 'onMouseLeave'])}
           type="radio"
           checked={!!checked}
           disabled={disabled}

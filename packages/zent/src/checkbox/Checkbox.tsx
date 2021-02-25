@@ -30,6 +30,8 @@ export interface ICheckboxProps<Value> {
   labelStyle?: React.CSSProperties;
   width?: number;
   children?: React.ReactNode;
+  onMouseEnter?: React.MouseEventHandler<HTMLElement>;
+  onMouseLeave?: React.MouseEventHandler<HTMLElement>;
 }
 
 function getDisabled<Value>(
@@ -118,13 +120,13 @@ export function Checkbox<Value>(props: ICheckboxProps<Value>) {
       style={{
         ...getWidth(width),
       }}
-      onMouseEnter={(props as any).onMouseEnter}
-      onMouseLeave={(props as any).onMouseLeave}
+      onMouseEnter={props.onMouseEnter}
+      onMouseLeave={props.onMouseLeave}
     >
       <span className="zent-checkbox">
         <span className="zent-checkbox-inner" />
         <input
-          {...omit<any, any>(others, ['onMouseEnter', 'onMouseLeave'])}
+          {...omit(others, ['onMouseEnter', 'onMouseLeave'])}
           type="checkbox"
           checked={checked && !indeterminate}
           disabled={disabled}

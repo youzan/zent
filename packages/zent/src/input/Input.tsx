@@ -192,8 +192,12 @@ export class Input extends Component<IInputProps, IInputState> {
       <div
         className={wrapClass}
         style={wrapperStyle}
-        onMouseEnter={(props as any).onMouseEnter}
-        onMouseLeave={(props as any).onMouseLeave}
+        onMouseEnter={
+          props.onMouseEnter as React.MouseEventHandler<HTMLElement>
+        }
+        onMouseLeave={
+          props.onMouseLeave as React.MouseEventHandler<HTMLElement>
+        }
       >
         {renderInner ? renderInner(children) : children}
       </div>

@@ -46,11 +46,11 @@ export function RadioButton<Value>(props: IRadioProps<Value>) {
     <label
       className={classString}
       style={wrapStyle}
-      onMouseEnter={(props as any).onMouseEnter}
-      onMouseLeave={(props as any).onMouseLeave}
+      onMouseEnter={props.onMouseEnter}
+      onMouseLeave={props.onMouseLeave}
     >
       <input
-        {...omit<any, any>(others, ['onMouseEnter', 'onMouseLeave'])}
+        {...omit(others, ['onMouseEnter', 'onMouseLeave'])}
         type="radio"
         checked={!!checked}
         disabled={disabled}
