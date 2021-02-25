@@ -48,8 +48,8 @@ export class Button extends Component<IButtonProps> {
     return this.context.fixTooltipOnDisabledChildren ? (
       <span
         className="zent-btn-disabled-wrapper"
-        onMouseEnter={(this.props as any).onMouseEnter}
-        onMouseLeave={(this.props as any).onMouseLeave}
+        onMouseEnter={this.props.onMouseEnter}
+        onMouseLeave={this.props.onMouseLeave}
       >
         {children}
       </span>
@@ -76,36 +76,27 @@ export class Button extends Component<IButtonProps> {
       ...props
     } = this.props;
 
-    return (
-      <>
-        {this.renderCompatibleChildren(
-          <ButtonDirective
-            type={type}
-            size={size}
-            block={block}
-            disabled={disabled}
-            loading={loading}
-            outline={outline}
-            bordered={bordered}
-            icon={icon}
-          >
-            {href || target ? (
-              <a
-                href={href || ''}
-                target={target}
-                download={download}
-                {...props}
-              >
-                {children}
-              </a>
-            ) : (
-              <button type={htmlType} {...props}>
-                {children}
-              </button>
-            )}
-          </ButtonDirective>
+    return this.renderCompatibleChildren(
+      <ButtonDirective
+        type={type}
+        size={size}
+        block={block}
+        disabled={disabled}
+        loading={loading}
+        outline={outline}
+        bordered={bordered}
+        icon={icon}
+      >
+        {href || target ? (
+          <a href={href || ''} target={target} download={download} {...props}>
+            {children}
+          </a>
+        ) : (
+          <button type={htmlType} {...props}>
+            {children}
+          </button>
         )}
-      </>
+      </ButtonDirective>
     );
   }
 }
