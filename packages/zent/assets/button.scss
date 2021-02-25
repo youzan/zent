@@ -318,6 +318,8 @@ $btn-warning-active: 1;
     @include btn-grey(color);
     @include theme-color(background-color, stroke, 8);
     @include btn-light-grey(border-color);
+    // avoid this disabled element to be the target of pointer events, so that events will trigger on the parent element
+    // https://github.com/react-component/tooltip/issues/18
     pointer-events: none;
 
     &:link,
