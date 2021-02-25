@@ -1,5 +1,6 @@
 @import './theme/default';
 @import './theme/font';
+@import './mixins/pointer-events';
 $size: 16px;
 
 .zent-checkbox-group {
@@ -143,9 +144,7 @@ $size: 16px;
     }
 
     & > input[type='checkbox'] {
-      // avoid this disabled element to be the target of pointer events, so that events will trigger on the parent element
-      // https://github.com/react-component/tooltip/issues/18
-      pointer-events: none;
+      @include prevent-pointer-events;
     }
   }
 

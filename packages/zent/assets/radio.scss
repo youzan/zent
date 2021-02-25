@@ -1,6 +1,7 @@
 @import './theme/default';
 @import './theme/font';
 @import './theme/timing-functions';
+@import './mixins/pointer-events';
 
 $outer-circle-size: 16px;
 $inner-circle-size: 8px;
@@ -118,9 +119,7 @@ $inner-circle-offset: ($outer-circle-size - $inner-circle-size - 2px) / 2;
       }
 
       & > input[type='radio'] {
-        // avoid this disabled element to be the target of pointer events, so that events will trigger on the parent element
-        // https://github.com/react-component/tooltip/issues/18
-        pointer-events: none;
+        @include prevent-pointer-events;
       }
     }
 
@@ -199,9 +198,7 @@ $inner-circle-offset: ($outer-circle-size - $inner-circle-size - 2px) / 2;
     cursor: not-allowed;
 
     > input[type='radio'] {
-      // avoid this disabled element to be the target of pointer events, so that events will trigger on the parent element
-      // https://github.com/react-component/tooltip/issues/18
-      pointer-events: none;
+      @include prevent-pointer-events;
     }
 
     &.zent-radio-button--checked {
