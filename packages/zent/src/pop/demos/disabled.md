@@ -35,7 +35,7 @@ ReactDOM.render(
 			position="top-left"
 			content="{i18n.content}"
 		>
-			<Input disabled style={{ marginRight: '12px' }} />
+			<Input disabled className="zent-pop-disabled-mr" />
 		</Pop>
 		<Pop
 			centerArrow
@@ -44,11 +44,28 @@ ReactDOM.render(
 			content="{i18n.content}"
 			fixTooltipOnDisabledChildren
 		>
-			<Button type="primary" disabled>
+			<Button type="primary" disabled className="zent-pop-disabled-mr">
 				Button
 			</Button>
+		</Pop>
+		<Pop
+			centerArrow
+			trigger="hover"
+			position="top-left"
+			content="{i18n.content}"
+			fixTooltipOnDisabledChildren
+		>
+			<Button.Directive type="primary" disabled>
+				<a href=""> ButtonDirective </a>
+			</Button.Directive>
 		</Pop>
 	</div>,
 	mountNode
 );
 ```
+
+<style type="text/css">
+	.zent-pop-disabled-mr {
+		margin-right:12px;
+	}
+</style>

@@ -29,6 +29,15 @@ ReactDOM.render(
 		<Tooltip trigger="hover" title="{i18n.content}">
 			<Radio disabled style={{ marginLeft: '12px' }} />
 		</Tooltip>
+		<Tooltip
+			trigger="hover"
+			title="{i18n.content}"
+			fixTooltipOnDisabledChildren
+		>
+			<Button.Directive type="primary" disabled>
+				<a href=""> ButtonDirective </a>
+			</Button.Directive>
+		</Tooltip>
 	</div>,
 	mountNode
 );
