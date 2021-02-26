@@ -31,12 +31,16 @@ export interface IOptionRenderer<
   (item: Item, index: number): React.ReactNode;
 }
 
+export interface ISelectKeywordChangeMeta {
+  source: 'user-clear' | 'user-change' | 'popup-close' | 'option-create';
+}
+
 export interface ISelectCommonProps<
   Key extends string | number = string | number,
   Item extends ISelectItem<Key> = ISelectItem<Key>
 > {
   keyword?: string;
-  onKeywordChange?: (keyword: string) => void;
+  onKeywordChange?: (keyword: string, meta: ISelectKeywordChangeMeta) => void;
   options: Item[];
   isEqual?: (a: Item, b: Item) => boolean;
   placeholder?: string;
@@ -377,7 +381,7 @@ export class Select<
 
     // 关闭时清空搜索内容
     if (open === false) {
-      this.resetKeyword();
+      this.resetKeyword('popup-close');
     }
   };
 
@@ -424,13 +428,17 @@ export class Select<
     if (this.disabled) {
       return;
     }
-    this.resetKeyword(e.target.value);
+    this.setKeyword(e.target.value, 'user-change');
   };
 
-  resetKeyword(keyword = '') {
+  resetKeyword(source: ISelectKeywordChangeMeta['source']) {
+    this.setKeyword('', source);
+  }
+
+  setKeyword(keyword: string, source: ISelectKeywordChangeMeta['source']) {
     const { onKeywordChange } = this.props;
     if (onKeywordChange) {
-      onKeywordChange(keyword);
+      onKeywordChange(keyword, { source });
     } else {
       this.setState({
         keyword,
@@ -746,7 +754,7 @@ export class Select<
     this.focusSearchInput();
 
     if (keyword) {
-      this.resetKeyword();
+      this.resetKeyword('user-clear');
       return;
     }
 
@@ -787,7 +795,7 @@ export class Select<
           } else {
             this.onVisibleChange(false);
           }
-          this.resetKeyword();
+          this.resetKeyword('option-create');
         })
         .finally(() => {
           this.setState({ creating: false });
