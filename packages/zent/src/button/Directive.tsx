@@ -6,6 +6,7 @@ import { Children, cloneElement, useCallback, useContext, useRef } from 'react';
 import Icon, { IconType } from '../icon';
 import { DisabledContext } from '../disabled';
 import { PopoverHoverTriggerContext } from '../popover';
+import { renderCompatibleChildren } from './utils';
 
 export interface IButtonDirectiveChildProps {
   className?: string;
@@ -41,10 +42,12 @@ export interface IButtonDirectiveProps<
   icon?: IconType;
   block?: boolean;
   children: React.ReactElement<ChildProps>;
+  onMouseEnter?: React.MouseEventHandler<HTMLElement>;
+  onMouseLeave?: React.MouseEventHandler<HTMLElement>;
 }
 
 export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
-  props: IButtonDirectiveProps<ChildProps> & React.HTMLAttributes<HTMLElement>
+  props: IButtonDirectiveProps<ChildProps>
 ) {
   const disabledContext = useContext(DisabledContext);
   const popoverHoverTriggerContext = useContext(PopoverHoverTriggerContext);
@@ -58,6 +61,8 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
     bordered = true,
     icon,
     children,
+    onMouseEnter,
+    onMouseLeave,
   } = props;
   if (!isElement(children)) {
     throw new Error(
@@ -108,23 +113,9 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
     ) || [])
   );
 
-  /**
-   * Mouse events don't trigger on disabled button
-   * https://github.com/react-component/tooltip/issues/18
-   *
-   * Workaround
-   * 1. Wrap the disabled button/input in another element.
-   * 2. Add {pointer-events: none} style to the disabled button/input.
-   */
-  return popoverHoverTriggerContext.fixTooltipOnDisabledChildren ? (
-    <span
-      className="zent-btn-disabled-wrapper"
-      onMouseEnter={props.onMouseEnter}
-      onMouseLeave={props.onMouseLeave}
-    >
-      {commonChildren}
-    </span>
-  ) : (
-    commonChildren
-  );
+  return renderCompatibleChildren(commonChildren, {
+    disabled: popoverHoverTriggerContext.fixTooltipOnDisabledChildren,
+    onMouseEnter,
+    onMouseLeave,
+  });
 }

@@ -7,6 +7,7 @@ import {
   IPopoverHoverTriggerContext,
   PopoverHoverTriggerContext,
 } from '../popover';
+import { renderCompatibleChildren } from './utils';
 
 export interface IButtonProps
   extends Omit<
@@ -35,29 +36,6 @@ export class Button extends Component<IButtonProps> {
   static contextType = PopoverHoverTriggerContext;
   context!: IPopoverHoverTriggerContext;
 
-  /**
-   * Why fixTooltipOnDisabledChildren?
-   * Mouse events don't trigger on disabled button
-   * https://github.com/react-component/tooltip/issues/18
-   *
-   * Workaround
-   * 1. Wrap the disabled button/input in another element.
-   * 2. Add {pointer-events: none} style to the disabled button/input.
-   */
-  renderCompatibleChildren(children: React.ReactNode) {
-    return this.context.fixTooltipOnDisabledChildren ? (
-      <span
-        className="zent-btn-disabled-wrapper"
-        onMouseEnter={this.props.onMouseEnter}
-        onMouseLeave={this.props.onMouseLeave}
-      >
-        {children}
-      </span>
-    ) : (
-      children
-    );
-  }
-
   render() {
     const {
       href,
@@ -76,7 +54,7 @@ export class Button extends Component<IButtonProps> {
       ...props
     } = this.props;
 
-    return this.renderCompatibleChildren(
+    const commonChildren = (
       <ButtonDirective
         type={type}
         size={size}
@@ -98,6 +76,12 @@ export class Button extends Component<IButtonProps> {
         )}
       </ButtonDirective>
     );
+
+    return renderCompatibleChildren(commonChildren, {
+      disabled: this.context.fixTooltipOnDisabledChildren,
+      onMouseEnter: this.props.onMouseEnter,
+      onMouseLeave: this.props.onMouseLeave,
+    });
   }
 }
 
