@@ -5,7 +5,6 @@ import getWidth from '../utils/getWidth';
 import GroupContext, { ICheckboxContext } from './GroupContext';
 import { DisabledContext, IDisabledContext } from '../disabled';
 import CheckboxGroup from './Group';
-import omit from '../utils/omit';
 
 export interface ICheckboxEventTarget<Value> extends ICheckboxProps<Value> {
   type: 'checkbox';
@@ -98,6 +97,8 @@ export function Checkbox<Value>(props: ICheckboxProps<Value>) {
     // value可以是任意类型，不要写到dom上去
     value,
     labelStyle,
+    onMouseEnter,
+    onMouseLeave,
     ...others
   } = props;
   const readOnly = getReadOnly(groupCtx, props);
@@ -120,13 +121,13 @@ export function Checkbox<Value>(props: ICheckboxProps<Value>) {
       style={{
         ...getWidth(width),
       }}
-      onMouseEnter={props.onMouseEnter}
-      onMouseLeave={props.onMouseLeave}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     >
       <span className="zent-checkbox">
         <span className="zent-checkbox-inner" />
         <input
-          {...omit(others, ['onMouseEnter', 'onMouseLeave'])}
+          {...others}
           type="checkbox"
           checked={checked && !indeterminate}
           disabled={disabled}

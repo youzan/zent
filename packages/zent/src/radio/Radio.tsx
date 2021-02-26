@@ -7,7 +7,6 @@ import RadioButton from './RadioButton';
 import { DisabledContext } from '../disabled';
 import GroupContext from './GroupContext';
 import { useContext } from 'react';
-import omit from '../utils/omit';
 
 function Radio<Value>(
   props: IRadioProps<Value> & { labelStyle?: React.CSSProperties }
@@ -22,7 +21,8 @@ function Radio<Value>(
     width,
 
     labelStyle,
-
+    onMouseEnter,
+    onMouseLeave,
     ...others
   } = props;
   const disabledCtx = useContext(DisabledContext);
@@ -55,7 +55,7 @@ function Radio<Value>(
       <span className="zent-radio">
         <span className="zent-radio-inner" />
         <input
-          {...omit(others, ['onMouseEnter', 'onMouseLeave'])}
+          {...others}
           type="radio"
           checked={!!checked}
           disabled={disabled}
