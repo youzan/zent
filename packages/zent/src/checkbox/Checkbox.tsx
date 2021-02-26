@@ -29,6 +29,8 @@ export interface ICheckboxProps<Value> {
   labelStyle?: React.CSSProperties;
   width?: number;
   children?: React.ReactNode;
+  onMouseEnter?: React.MouseEventHandler<HTMLElement>;
+  onMouseLeave?: React.MouseEventHandler<HTMLElement>;
 }
 
 function getDisabled<Value>(
@@ -95,6 +97,8 @@ export function Checkbox<Value>(props: ICheckboxProps<Value>) {
     // value可以是任意类型，不要写到dom上去
     value,
     labelStyle,
+    onMouseEnter,
+    onMouseLeave,
     ...others
   } = props;
   const readOnly = getReadOnly(groupCtx, props);
@@ -117,6 +121,8 @@ export function Checkbox<Value>(props: ICheckboxProps<Value>) {
       style={{
         ...getWidth(width),
       }}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     >
       <span className="zent-checkbox">
         <span className="zent-checkbox-inner" />

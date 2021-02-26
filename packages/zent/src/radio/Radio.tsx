@@ -21,7 +21,8 @@ function Radio<Value>(
     width,
 
     labelStyle,
-
+    onMouseEnter,
+    onMouseLeave,
     ...others
   } = props;
   const disabledCtx = useContext(DisabledContext);
@@ -45,7 +46,12 @@ function Radio<Value>(
   };
 
   return (
-    <label className={classString} style={wrapStyle}>
+    <label
+      className={classString}
+      style={wrapStyle}
+      onMouseEnter={props.onMouseEnter}
+      onMouseLeave={props.onMouseLeave}
+    >
       <span className="zent-radio">
         <span className="zent-radio-inner" />
         <input

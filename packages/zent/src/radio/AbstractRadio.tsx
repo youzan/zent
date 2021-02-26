@@ -22,6 +22,8 @@ export interface IRadioProps<Value> {
   onChange?: (e: IRadioEvent<Value>) => void;
   style?: React.CSSProperties;
   children?: ReactNode;
+  onMouseEnter?: React.MouseEventHandler<HTMLElement>;
+  onMouseLeave?: React.MouseEventHandler<HTMLElement>;
 }
 
 function makeEvent<Value>(

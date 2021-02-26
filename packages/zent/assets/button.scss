@@ -1,5 +1,6 @@
 @import './theme/default';
 @import './theme/font';
+@import './mixins/pointer-events';
 
 $btn-height-small: 24px;
 $btn-height-normal: 32px;
@@ -309,12 +310,16 @@ $btn-warning-active: 1;
     );
   }
 
+  &-disabled-wrapper {
+    cursor: not-allowed;
+  }
+
   &-disabled,
   &-disabled[disabled] {
     @include btn-grey(color);
     @include theme-color(background-color, stroke, 8);
     @include btn-light-grey(border-color);
-    cursor: not-allowed;
+    @include prevent-pointer-events;
 
     &:link,
     &:visited,

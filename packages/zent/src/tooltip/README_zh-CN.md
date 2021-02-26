@@ -40,6 +40,18 @@ group: 展示
 |------|------|------|--------|-------|
 | mouseEnterDelay | hover打开的延迟（单位：毫秒） | number | 否 | `160` |
 | mouseLeaveDelay | 关闭的的延迟（单位：毫秒） | number | 否 | `160` |
+| fixTooltipOnDisabledChildren | 被禁用的子节点展示 Tooltip | boolean | 否 | `false` |
+
+**注意：**`fixTooltipOnDisabledChildren` 仅对 Zent 组件有效。
+
+背景
+
+- [原生 `input` 和 `button` 在 disabled 状态下触发鼠标事件失效](https://github.com/youzan/zent/issues/142)
+
+解决方案
+
+- 先将元素 `input` 或 `button` 包裹在另一元素内部
+- 再给元素 `input` 或 `button` 加样式 `{pointer-events: none}`
 
 #### None
 

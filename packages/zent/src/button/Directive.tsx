@@ -5,6 +5,8 @@ import { Children, cloneElement, useCallback, useContext, useRef } from 'react';
 
 import Icon, { IconType } from '../icon';
 import { DisabledContext } from '../disabled';
+import { PopoverHoverTriggerContext } from '../popover';
+import { renderCompatibleChildren } from './utils';
 
 export interface IButtonDirectiveChildProps {
   className?: string;
@@ -40,12 +42,15 @@ export interface IButtonDirectiveProps<
   icon?: IconType;
   block?: boolean;
   children: React.ReactElement<ChildProps>;
+  onMouseEnter?: React.MouseEventHandler<HTMLElement>;
+  onMouseLeave?: React.MouseEventHandler<HTMLElement>;
 }
 
 export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
   props: IButtonDirectiveProps<ChildProps>
 ) {
   const disabledContext = useContext(DisabledContext);
+  const popoverHoverTriggerContext = useContext(PopoverHoverTriggerContext);
   const {
     outline,
     type = 'default',
@@ -56,6 +61,8 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
     bordered = true,
     icon,
     children,
+    onMouseEnter,
+    onMouseLeave,
   } = props;
   if (!isElement(children)) {
     throw new Error(
@@ -91,7 +98,7 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
     children.props.className
   );
 
-  return cloneElement<ChildProps>(
+  const commonChildren = cloneElement<ChildProps>(
     children,
     {
       className,
@@ -105,4 +112,10 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
       typeof child === 'string' ? <span>{child}</span> : child
     ) || [])
   );
+
+  return renderCompatibleChildren(commonChildren, {
+    disabled: popoverHoverTriggerContext.fixTooltipOnDisabledChildren,
+    onMouseEnter,
+    onMouseLeave,
+  });
 }

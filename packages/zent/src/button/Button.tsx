@@ -3,6 +3,11 @@ import { Component } from 'react';
 import { Omit } from 'utility-types';
 import Group from './Group';
 import { IButtonDirectiveProps, ButtonDirective } from './Directive';
+import {
+  IPopoverHoverTriggerContext,
+  PopoverHoverTriggerContext,
+} from '../popover';
+import { renderCompatibleChildren } from './utils';
 
 export interface IButtonProps
   extends Omit<
@@ -28,6 +33,8 @@ export class Button extends Component<IButtonProps> {
 
   static Group = Group;
   static Directive = ButtonDirective;
+  static contextType = PopoverHoverTriggerContext;
+  context!: IPopoverHoverTriggerContext;
 
   render() {
     const {
@@ -47,7 +54,7 @@ export class Button extends Component<IButtonProps> {
       ...props
     } = this.props;
 
-    return (
+    const commonChildren = (
       <ButtonDirective
         type={type}
         size={size}
@@ -69,6 +76,12 @@ export class Button extends Component<IButtonProps> {
         )}
       </ButtonDirective>
     );
+
+    return renderCompatibleChildren(commonChildren, {
+      disabled: this.context.fixTooltipOnDisabledChildren,
+      onMouseEnter: this.props.onMouseEnter,
+      onMouseLeave: this.props.onMouseLeave,
+    });
   }
 }
 

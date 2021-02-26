@@ -1,6 +1,7 @@
 @import './theme/default';
 @import './theme/font';
 @import './theme/timing-functions';
+@import './mixins/pointer-events';
 
 $outer-circle-size: 16px;
 $inner-circle-size: 8px;
@@ -118,7 +119,7 @@ $inner-circle-offset: ($outer-circle-size - $inner-circle-size - 2px) / 2;
       }
 
       & > input[type='radio'] {
-        cursor: not-allowed;
+        @include prevent-pointer-events;
       }
     }
 
@@ -194,9 +195,10 @@ $inner-circle-offset: ($outer-circle-size - $inner-circle-size - 2px) / 2;
   &--disabled {
     @include theme-color(color, stroke, 4);
     @include theme-color(background-color, stroke, 8);
+    cursor: not-allowed;
 
     > input[type='radio'] {
-      cursor: not-allowed;
+      @include prevent-pointer-events;
     }
 
     &.zent-radio-button--checked {

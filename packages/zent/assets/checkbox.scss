@@ -1,5 +1,6 @@
 @import './theme/default';
 @import './theme/font';
+@import './mixins/pointer-events';
 $size: 16px;
 
 .zent-checkbox-group {
@@ -143,7 +144,7 @@ $size: 16px;
     }
 
     & > input[type='checkbox'] {
-      cursor: not-allowed;
+      @include prevent-pointer-events;
     }
   }
 

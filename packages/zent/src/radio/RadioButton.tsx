@@ -16,6 +16,8 @@ export function RadioButton<Value>(props: IRadioProps<Value>) {
     // value 不要放到 input 上去
     value,
     width,
+    onMouseEnter,
+    onMouseLeave,
     ...others
   } = props;
   const disabledCtx = useContext(DisabledContext);
@@ -42,7 +44,12 @@ export function RadioButton<Value>(props: IRadioProps<Value>) {
   };
 
   return (
-    <label className={classString} style={wrapStyle}>
+    <label
+      className={classString}
+      style={wrapStyle}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
       <input
         {...others}
         type="radio"

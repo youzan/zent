@@ -43,6 +43,18 @@ group: FIXME group name here
 | mouseLeaveDelay | Hover close delay(in ms) | number | No | `200` |
 | isOutside | Callback to determine if mouse is outside of Tooltip | func | No | |
 | quirk | Switch to quirk mode, you don't have to move from inside to outside to trigger a close in quirk mode | bool | No | `true` |
+| fixTooltipOnDisabledChildren | Fix the tooltip on disabled children | boolean | No | `false` |
+
+**PS:**`fixTooltipOnDisabledChildren` is only effective on Zent Components.
+
+Why
+
+- [Mouse events don't trigger on disabled button](https://github.com/youzan/zent/issues/142)
+
+Workaround
+
+- Wrap the disabled button/input in another element.
+- Then add {pointer-events: none} style to the disabled button/input.
 
 #### None
 

@@ -40,7 +40,8 @@ ReactDOM.render(
 <style>
 	.zent-doc-tooltip-container {
 		display: flex;
-		justify-content: center;
+		justify-content: left;
+		align-items: center;
 
 		.zent-doc-tooltip-tag {
 			border: 1px solid #e5e5e5;

@@ -58,6 +58,19 @@ A floating card opened by clicking, hovering or focusing.
 | mouseEnterDelay | Hover open delay(in ms) | number | No | `200` |
 | mouseLeaveDelay | Hover close delay(in ms) | number | No | `200` |
 | anchorOnly | Only use trigger as hot area | boolean | No | `false` |
+| fixTooltipOnDisabledChildren | Fix the tooltip on disabled children | boolean | No | `false` |
+
+**PS:**`fixTooltipOnDisabledChildren` is only effective on Zent Components.
+
+Why
+
+- [Mouse events don't trigger on disabled button](https://github.com/youzan/zent/issues/142)
+
+Workaround
+
+- Wrap the disabled button/input in another element.
+- Then add {pointer-events: none} style to the disabled button/input.
+
 
 #### None
 
