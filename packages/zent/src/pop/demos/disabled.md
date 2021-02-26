@@ -30,17 +30,15 @@ ReactDOM.render(
 			<Checkbox disabled></Checkbox>
 		</Pop>
 		<Pop
-			centerArrow
 			trigger="hover"
-			position="top-left"
+			position="top-center"
 			content="{i18n.content}"
 		>
 			<Input disabled className="zent-pop-disabled-mr" />
 		</Pop>
 		<Pop
-			centerArrow
 			trigger="hover"
-			position="top-left"
+			position="top-center"
 			content="{i18n.content}"
 			fixTooltipOnDisabledChildren
 		>
@@ -49,9 +47,8 @@ ReactDOM.render(
 			</Button>
 		</Pop>
 		<Pop
-			centerArrow
 			trigger="hover"
-			position="top-left"
+			position="top-center"
 			content="{i18n.content}"
 			fixTooltipOnDisabledChildren
 		>
