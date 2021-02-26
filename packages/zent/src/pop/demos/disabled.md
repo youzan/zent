@@ -42,7 +42,7 @@ ReactDOM.render(
 			content="{i18n.content}"
 			fixTooltipOnDisabledChildren
 		>
-			<Button type="primary" disabled className="zent-pop-disabled-mr">
+			<Button type="primary" disabled>
 				Button
 			</Button>
 		</Pop>
@@ -62,7 +62,8 @@ ReactDOM.render(
 ```
 
 <style type="text/css">
-	.zent-pop-disabled-mr {
+	.zent-btn-disabled-wrapper,
+    .zent-pop-disabled-mr {
 		margin-right:12px;
 	}
 </style>
