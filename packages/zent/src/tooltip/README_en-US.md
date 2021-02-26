@@ -45,9 +45,16 @@ group: FIXME group name here
 | quirk | Switch to quirk mode, you don't have to move from inside to outside to trigger a close in quirk mode | bool | No | `true` |
 | fixTooltipOnDisabledChildren | Fix the tooltip on disabled children | boolean | No | `false` |
 
-**PS**
+**PS:**`fixTooltipOnDisabledChildren` is only effective on Zent Components.
 
-- `fixTooltipOnDisabledChildren` is only effective on Zent Components.
+Why
+
+- [Mouse events don't trigger on disabled button](https://github.com/react-component/tooltip/issues/18)
+
+Workaround
+
+- Wrap the disabled button/input in another element.
+- Then add {pointer-events: none} style to the disabled button/input.
 
 #### None
 

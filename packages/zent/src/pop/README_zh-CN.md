@@ -61,9 +61,16 @@ group: 反馈
 | anchorOnly | 仅考虑 Trigger 作为触发区域 | boolean | 否 | `false` |
 | fixTooltipOnDisabledChildren | 被禁用的子节点展示 Tooltip | boolean | 否 | `false` |
 
-**注意**
+**注意：**`fixTooltipOnDisabledChildren` 仅对 Zent 组件有效。
 
-- `fixTooltipOnDisabledChildren` 仅对 Zent 组件有效。
+背景
+
+- [原生 `input` 和 `button` 在 disabled 状态下触发鼠标事件失效](https://github.com/react-component/tooltip/issues/18)
+
+解决方案
+
+- 先将元素 `input` 或 `button` 包裹在另一元素内部
+- 再给元素 `input` 或 `button` 加样式 `{pointer-events: none}`
 
 #### None
 
