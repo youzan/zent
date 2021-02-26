@@ -1,5 +1,5 @@
 @mixin prevent-pointer-events {
   // avoid this disabled element to be the target of pointer events, so that events will trigger on the parent element
-  // https://github.com/react-component/tooltip/issues/18
+  // https://github.com/youzan/zent/issues/142
   pointer-events: none;
 }

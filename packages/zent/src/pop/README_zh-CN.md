@@ -65,7 +65,7 @@ group: 反馈
 
 背景
 
-- [原生 `input` 和 `button` 在 disabled 状态下触发鼠标事件失效](https://github.com/react-component/tooltip/issues/18)
+- [原生 `input` 和 `button` 在 disabled 状态下触发鼠标事件失效](https://github.com/youzan/zent/issues/142)
 
 解决方案
 

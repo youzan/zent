@@ -64,7 +64,7 @@ A floating card opened by clicking, hovering or focusing.
 
 Why
 
-- [Mouse events don't trigger on disabled button](https://github.com/react-component/tooltip/issues/18)
+- [Mouse events don't trigger on disabled button](https://github.com/youzan/zent/issues/142)
 
 Workaround
 

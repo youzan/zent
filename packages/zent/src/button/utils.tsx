@@ -6,7 +6,7 @@ interface IOptopns {
 /**
  * Why fixTooltipOnDisabledChildren?
  * Mouse events don't trigger on disabled button
- * https://github.com/react-component/tooltip/issues/18
+ * https://github.com/youzan/zent/issues/142
  *
  * Workaround
  * 1. Wrap the disabled button/input in another element.
