@@ -7,7 +7,6 @@ import {
   IPopoverHoverTriggerContext,
   PopoverHoverTriggerContext,
 } from '../popover';
-import { renderCompatibleChildren } from './utils';
 
 export interface IButtonProps
   extends Omit<
@@ -54,7 +53,7 @@ export class Button extends Component<IButtonProps> {
       ...props
     } = this.props;
 
-    const commonChildren = (
+    return (
       <ButtonDirective
         type={type}
         size={size}
@@ -64,6 +63,8 @@ export class Button extends Component<IButtonProps> {
         outline={outline}
         bordered={bordered}
         icon={icon}
+        onMouseEnter={this.props.onMouseEnter}
+        onMouseLeave={this.props.onMouseLeave}
       >
         {href || target ? (
           <a href={href || ''} target={target} download={download} {...props}>
@@ -76,12 +77,6 @@ export class Button extends Component<IButtonProps> {
         )}
       </ButtonDirective>
     );
-
-    return renderCompatibleChildren(commonChildren, {
-      disabled: this.context.fixTooltipOnDisabledChildren,
-      onMouseEnter: this.props.onMouseEnter,
-      onMouseLeave: this.props.onMouseLeave,
-    });
   }
 }
 
