@@ -41,7 +41,7 @@ export interface IPopHoverTriggerProps<
   trigger: 'hover';
   mouseEnterDelay?: number;
   mouseLeaveDelay?: number;
-  fixTooltipOnDisabledChildren?: boolean;
+  fixMouseEventsOnDisabledChildren?: boolean;
 }
 
 export interface IPopFocusTriggerProps<
@@ -170,7 +170,9 @@ export class Pop extends Component<IPopProps, IPopState> {
             showDelay={props.mouseEnterDelay}
             hideDelay={props.mouseLeaveDelay}
             anchorOnly={props.anchorOnly}
-            fixTooltipOnDisabledChildren={props.fixTooltipOnDisabledChildren}
+            fixMouseEventsOnDisabledChildren={
+              props.fixMouseEventsOnDisabledChildren
+            }
           >
             {props.children}
           </Trigger.Hover>

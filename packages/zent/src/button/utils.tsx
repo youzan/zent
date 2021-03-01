@@ -4,7 +4,7 @@ interface IOptopns {
   onMouseLeave: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
 /**
- * Why fixTooltipOnDisabledChildren?
+ * Why fixMouseEventsOnDisabledChildren?
  * Mouse events don't trigger on disabled button
  * https://github.com/youzan/zent/issues/142
  *

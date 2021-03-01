@@ -60,6 +60,9 @@ group: 基础
 | hideDelay | 关闭弹层前的延迟（单位毫秒）, 如果在这段时间内鼠标重新移入弹层范围, 弹层不会关闭 | number    | `150` | 否 |
 | getElement  | 自定义 trigger 的 DOM 节点 | (node: Element | Text | null) => Element| Text | null | findDOMNode 的结果 | 否 |
 | anchorOnly | 仅考虑 Trigger 作为触发区域 | boolean | `false` | 否  |
+| fixMouseEventsOnDisabledChildren | 兼容禁用 Input/Button 的鼠标事件 | boolean | `false` | 否 |
+
+关于禁用元素的鼠标事件问题请参考 https://github.com/youzan/zent/issues/142
 
 #### Trigger.Focus
 

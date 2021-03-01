@@ -14,14 +14,14 @@ import { addEventListener } from '../../utils/component/event-handler';
 import { isElement } from 'react-is';
 
 interface IHoverTriggerCompatibleProps {
-  fixTooltipOnDisabledChildren?: boolean;
+  fixMouseEventsOnDisabledChildren?: boolean;
 }
 
 export interface IPopoverHoverTriggerContext
   extends Required<IHoverTriggerCompatibleProps> {}
 
 export const PopoverHoverTriggerContext = createContext<IPopoverHoverTriggerContext>(
-  { fixTooltipOnDisabledChildren: false }
+  { fixMouseEventsOnDisabledChildren: false }
 );
 export interface IPopoverHoverTriggerChildProps {
   onMouseEnter?: (...args: any[]) => void;
@@ -83,7 +83,7 @@ export function PopoverHoverTrigger<
     return () => $.unsubscribe();
   }, [ctx.popover, visible$]);
 
-  const { children, fixTooltipOnDisabledChildren } = props;
+  const { children, fixMouseEventsOnDisabledChildren = false } = props;
   const { portalRef, didMount } = ctx;
 
   didMount(() => {
@@ -148,7 +148,7 @@ export function PopoverHoverTrigger<
   }
   return (
     <PopoverHoverTriggerContext.Provider
-      value={{ fixTooltipOnDisabledChildren }}
+      value={{ fixMouseEventsOnDisabledChildren }}
     >
       <Anchor getElement={props.getElement}>{child}</Anchor>
     </PopoverHoverTriggerContext.Provider>
