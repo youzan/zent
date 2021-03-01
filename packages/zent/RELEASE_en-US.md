@@ -9,6 +9,13 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 9.4.0(2021-02-26)
+
+- ✨ `Popover` / `Pop` / `Tooltip` hover mode handles disabled `input` and `button` correctly, but only with zent native inputs and buttons
+- `Select`
+  - ✨ Add `meta` `onKeywordChange` to distinguish event source
+  - 🦀️ Suppress `onChange` events during IME composition
+
 ### 9.3.0(2021-01-28)
 
 - ✨ `MenuCascader` supports selection merge with `simplifySelection`

@@ -9,6 +9,13 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 9.4.0(2021-02-26)
+
+- ✨ `Popover` / `Pop` / `Tooltip` hover 模式兼容 `disabled` 的 `input` 和 `button`，目前仅支持 zent 内置组件，三方组件需要自行处理兼容问题，具体请参考文档
+- `Select`
+  - ✨ `onKeywordChange` 增加 `meta` 参数标识回调函数触发的原因
+  - 🦀️ 修复搜索框使用输入法时触发 `onChange` 的时机问题
+
 ### 9.3.0(2021-01-28)
 
 - ✨ `MenuCascader` 多选模式支持通过 `simplifySelection` 参数控制是否合并展示子节点全选的选项
