@@ -62,8 +62,7 @@ ReactDOM.render(
 ```
 
 <style type="text/css">
-	.zent-btn-disabled-wrapper,
     .zent-pop-disabled-mr {
-		margin-right:12px;
+		margin-right:16px;
 	}
 </style>

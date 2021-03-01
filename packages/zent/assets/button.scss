@@ -213,7 +213,10 @@ $btn-warning-active: 1;
     appearance: none;
   }
 
-  & + & {
+  & + &,
+  &-disabled-wrapper + &,
+  & + &-disabled-wrapper,
+  &-disabled-wrapper + &-disabled-wrapper {
     margin-left: 16px;
   }
 
