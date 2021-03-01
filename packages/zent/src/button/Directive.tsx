@@ -114,7 +114,7 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
   );
 
   return renderCompatibleChildren(commonChildren, {
-    disabled: popoverHoverTriggerContext.fixTooltipOnDisabledChildren,
+    disabled: popoverHoverTriggerContext.fixMouseEventsOnDisabledChildren,
     onMouseEnter,
     onMouseLeave,
   });

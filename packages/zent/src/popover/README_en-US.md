@@ -60,6 +60,9 @@ Every kinds of trigger has it's own API to control component behavior, custom tr
 | hideDelay | the duration before layer close (in milliseconds), during this time, if you move mouse out of layer, pop will not close  | number    | `150` | No |
 | getElement  | Customize trigger DOM node | (node: Element | Text | null) => Element| Text | null | findDOMNode | No |
 | anchorOnly | Only use trigger as hot area | boolean | `false` | No  |
+| fixMouseEventsOnDisabledChildren | Fix mouse events on disabled Input/Button | boolean | `false` | No | 
+
+For more info on mouse events with disabled input/button, see https://github.com/youzan/zent/issues/142
 
 #### Trigger.Focus
 

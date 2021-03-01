@@ -17,7 +17,7 @@ ReactDOM.render(
 		<Tooltip
 			trigger="hover"
 			title="{i18n.content}"
-			fixTooltipOnDisabledChildren
+			fixMouseEventsOnDisabledChildren
 		>
 			<Button type="primary" disabled>
 				Button
@@ -32,7 +32,7 @@ ReactDOM.render(
 		<Tooltip
 			trigger="hover"
 			title="{i18n.content}"
-			fixTooltipOnDisabledChildren
+			fixMouseEventsOnDisabledChildren
 		>
 			<Button.Directive type="primary" disabled>
 				<a href=""> ButtonDirective </a>

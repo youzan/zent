@@ -21,7 +21,7 @@ export interface ITooltipBaseProps {
   visible?: boolean;
   onVisibleChange?: (visible: boolean) => void;
   children: ReactElement | string | number;
-  fixTooltipOnDisabledChildren?: boolean;
+  fixMouseEventsOnDisabledChildren?: boolean;
 }
 
 interface ITooltipTriggerProps extends ITooltipBaseProps {
@@ -86,14 +86,14 @@ export class Tooltip extends Component<ITooltipProps> {
         mouseLeaveDelay = 200,
         mouseEnterDelay = 200,
         anchorOnly,
-        fixTooltipOnDisabledChildren,
+        fixMouseEventsOnDisabledChildren,
       } = this.props;
       return (
         <Trigger.Hover
           showDelay={mouseEnterDelay}
           hideDelay={mouseLeaveDelay}
           anchorOnly={anchorOnly}
-          fixTooltipOnDisabledChildren={fixTooltipOnDisabledChildren}
+          fixMouseEventsOnDisabledChildren={fixMouseEventsOnDisabledChildren}
         >
           {children}
         </Trigger.Hover>

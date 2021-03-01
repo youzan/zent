@@ -40,7 +40,7 @@ ReactDOM.render(
 			trigger="hover"
 			position="top-center"
 			content="{i18n.content}"
-			fixTooltipOnDisabledChildren
+			fixMouseEventsOnDisabledChildren
 		>
 			<Button type="primary" disabled>
 				Button
@@ -50,7 +50,7 @@ ReactDOM.render(
 			trigger="hover"
 			position="top-center"
 			content="{i18n.content}"
-			fixTooltipOnDisabledChildren
+			fixMouseEventsOnDisabledChildren
 		>
 			<Button.Directive type="primary" disabled>
 				<a href=""> ButtonDirective </a>

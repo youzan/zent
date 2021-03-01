@@ -59,9 +59,9 @@ group: 反馈
 | mouseEnterDelay | hover打开的延迟（单位：毫秒） | number | 否 | `200` |
 | mouseLeaveDelay | 关闭的的延迟（单位：毫秒） | number | 否 | `200` |
 | anchorOnly | 仅考虑 Trigger 作为触发区域 | boolean | 否 | `false` |
-| fixTooltipOnDisabledChildren | 被禁用的子节点展示 Tooltip | boolean | 否 | `false` |
+| fixMouseEventsOnDisabledChildren | 兼容处理被禁用的子节点的鼠标事件 | boolean | 否 | `false` |
 
-**注意：**`fixTooltipOnDisabledChildren` 仅对 Zent 组件有效。
+**注意：**`fixMouseEventsOnDisabledChildren` 仅对 Zent 组件有效。
 
 背景
 
