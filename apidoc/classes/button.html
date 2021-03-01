@@ -106,13 +106,13 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="button.html#context" class="tsd-kind-icon">context</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="button.html#context" class="tsd-kind-icon">context</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="button.html#props" class="tsd-kind-icon">props</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="button.html#refs" class="tsd-kind-icon">refs</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="button.html#state" class="tsd-kind-icon">state</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="button.html#directive" class="tsd-kind-icon">Directive</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="button.html#group" class="tsd-kind-icon">Group</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="button.html#contexttype" class="tsd-kind-icon">context<wbr>Type</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-static"><a href="button.html#contexttype" class="tsd-kind-icon">context<wbr>Type</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -210,33 +210,16 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
 					<a name="context" class="tsd-anchor"></a>
 					<h3>context</h3>
-					<div class="tsd-signature tsd-kind-icon">context<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<div class="tsd-signature tsd-kind-icon">context<span class="tsd-signature-symbol">:</span> <a href="../interfaces/ipopoverhovertriggercontext.html" class="tsd-signature-type">IPopoverHoverTriggerContext</a></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="alertitem.html">AlertItem</a>.<a href="alertitem.html#context">context</a></p>
+						<p>Overrides <a href="alertitem.html">AlertItem</a>.<a href="alertitem.html#context">context</a></p>
 						<ul>
-							<li>Defined in node_modules/@types/react/index.d.ts:473</li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/dda9d9e/packages/zent/src/button/Button.tsx#L36">packages/zent/src/button/Button.tsx:36</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>If using the new style context, re-declare this in your class to be the
-								<code>React.ContextType</code> of your <code>static contextType</code>.
-							Should be used with type annotation or static contextType.</p>
-						</div>
-						<pre><code class="language-ts"><span class="hljs-keyword">static</span> contextType = MyContext
-<span class="hljs-comment">// For TS pre-3.7:</span>
-context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContext&gt;
-<span class="hljs-comment">// For TS 3.7 and above:</span>
-<span class="hljs-keyword">declare</span> context: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContext&gt;</code></pre>
-						<dl class="tsd-comment-tags">
-							<dt>see</dt>
-							<dd><p><a href="https://reactjs.org/docs/context.html">https://reactjs.org/docs/context.html</a></p>
-							</dd>
-						</dl>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="props" class="tsd-anchor"></a>
@@ -292,7 +275,7 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<div class="tsd-signature tsd-kind-icon">Directive<span class="tsd-signature-symbol">:</span> <a href="../globals.html#buttondirective" class="tsd-signature-type">ButtonDirective</a><span class="tsd-signature-symbol"> = ButtonDirective</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/eaede74/packages/zent/src/button/Button.tsx#L30">packages/zent/src/button/Button.tsx:30</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/dda9d9e/packages/zent/src/button/Button.tsx#L34">packages/zent/src/button/Button.tsx:34</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -302,41 +285,20 @@ context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContex
 					<div class="tsd-signature tsd-kind-icon">Group<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">FunctionComponent</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ibuttongroupprops.html" class="tsd-signature-type">IButtonGroupProps</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = Group</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/eaede74/packages/zent/src/button/Button.tsx#L29">packages/zent/src/button/Button.tsx:29</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/dda9d9e/packages/zent/src/button/Button.tsx#L33">packages/zent/src/button/Button.tsx:33</a></li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-static">
 					<a name="contexttype" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> <span class="tsd-flag ts-flagOptional">Optional</span> context<wbr>Type</h3>
-					<div class="tsd-signature tsd-kind-icon">context<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Context</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> context<wbr>Type</h3>
+					<div class="tsd-signature tsd-kind-icon">context<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Context</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ipopoverhovertriggercontext.html" class="tsd-signature-type">IPopoverHoverTriggerContext</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = PopoverHoverTriggerContext</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="alertitem.html">AlertItem</a>.<a href="alertitem.html#contexttype">contextType</a></p>
+						<p>Overrides <a href="alertitem.html">AlertItem</a>.<a href="alertitem.html#contexttype">contextType</a></p>
 						<ul>
-							<li>Defined in node_modules/@types/react/index.d.ts:455</li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/dda9d9e/packages/zent/src/button/Button.tsx#L35">packages/zent/src/button/Button.tsx:35</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>If set, <code>this.context</code> will be set at runtime to the current value of the given Context.</p>
-						</div>
-						<p>Usage:</p>
-						<pre><code class="language-ts">type MyContext = number
-const Ctx = React.createContext&lt;MyContext&gt;(0)
-
-class Foo extends React.Component {
-  static contextType = Ctx
-  context!: React.ContextType&lt;typeof Ctx&gt;
-  render () {
-    return &lt;&gt;My context&#x27;s value: {this.context}&lt;/&gt;;
-  }
-}</code></pre>
-						<dl class="tsd-comment-tags">
-							<dt>see</dt>
-							<dd><p><a href="https://reactjs.org/docs/context.html#classcontexttype">https://reactjs.org/docs/context.html#classcontexttype</a></p>
-							</dd>
-						</dl>
-					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -811,7 +773,7 @@ class Foo extends React.Component {
 							<aside class="tsd-sources">
 								<p>Overrides <a href="basetab.html">BaseTab</a>.<a href="basetab.html#render">render</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/eaede74/packages/zent/src/button/Button.tsx#L32">packages/zent/src/button/Button.tsx:32</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/dda9d9e/packages/zent/src/button/Button.tsx#L38">packages/zent/src/button/Button.tsx:38</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Element</span></h4>
@@ -912,7 +874,7 @@ class Foo extends React.Component {
 					<div class="tsd-signature tsd-kind-icon">default<wbr>Props<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/eaede74/packages/zent/src/button/Button.tsx#L22">packages/zent/src/button/Button.tsx:22</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/dda9d9e/packages/zent/src/button/Button.tsx#L26">packages/zent/src/button/Button.tsx:26</a></li>
 						</ul>
 					</aside>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
@@ -921,7 +883,7 @@ class Foo extends React.Component {
 						<div class="tsd-signature tsd-kind-icon">bordered<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = true</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/youzan/zent/blob/eaede74/packages/zent/src/button/Button.tsx#L26">packages/zent/src/button/Button.tsx:26</a></li>
+								<li>Defined in <a href="https://github.com/youzan/zent/blob/dda9d9e/packages/zent/src/button/Button.tsx#L30">packages/zent/src/button/Button.tsx:30</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -931,7 +893,7 @@ class Foo extends React.Component {
 						<div class="tsd-signature tsd-kind-icon">html<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;button&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/youzan/zent/blob/eaede74/packages/zent/src/button/Button.tsx#L25">packages/zent/src/button/Button.tsx:25</a></li>
+								<li>Defined in <a href="https://github.com/youzan/zent/blob/dda9d9e/packages/zent/src/button/Button.tsx#L29">packages/zent/src/button/Button.tsx:29</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -941,7 +903,7 @@ class Foo extends React.Component {
 						<div class="tsd-signature tsd-kind-icon">size<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;medium&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/youzan/zent/blob/eaede74/packages/zent/src/button/Button.tsx#L24">packages/zent/src/button/Button.tsx:24</a></li>
+								<li>Defined in <a href="https://github.com/youzan/zent/blob/dda9d9e/packages/zent/src/button/Button.tsx#L28">packages/zent/src/button/Button.tsx:28</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -951,7 +913,7 @@ class Foo extends React.Component {
 						<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;default&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/youzan/zent/blob/eaede74/packages/zent/src/button/Button.tsx#L23">packages/zent/src/button/Button.tsx:23</a></li>
+								<li>Defined in <a href="https://github.com/youzan/zent/blob/dda9d9e/packages/zent/src/button/Button.tsx#L27">packages/zent/src/button/Button.tsx:27</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -976,7 +938,7 @@ class Foo extends React.Component {
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
 								<a href="button.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
 								<a href="button.html#context" class="tsd-kind-icon">context</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
@@ -994,7 +956,7 @@ class Foo extends React.Component {
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
 								<a href="button.html#group" class="tsd-kind-icon">Group</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-static">
 								<a href="button.html#contexttype" class="tsd-kind-icon">context<wbr>Type</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
