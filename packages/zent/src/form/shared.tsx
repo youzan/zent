@@ -219,6 +219,11 @@ export function defaultRenderError<T>(error: IMaybeError<T>) {
   return <FormError>{error.message}</FormError>;
 }
 
+/**
+ * 将 model 关联到一个 DOM 节点，用于自定义 Field 滚动到错误位置的场景。
+ * @param model 需要关联 DOM 节点的 model 对象
+ * @param scrollAnchorRef model 对象关联的 DOM 节点
+ */
 export function useFormChild<Value>(
   model: BasicModel<Value>,
   scrollAnchorRef?: React.RefObject<Element | null | undefined>

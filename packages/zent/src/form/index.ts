@@ -27,6 +27,7 @@ export {
   IMaybeError,
   ValidatorContext,
 } from './formulr';
+export { useFormChild } from './shared';
 
 export * from './form-components';
 export * from './Form';
