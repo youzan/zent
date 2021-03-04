@@ -10331,10 +10331,10 @@ pretty-hrtime@^1.0.3:
   resolved "https://registry.yarnpkg.com/pretty-hrtime/-/pretty-hrtime-1.0.3.tgz#b7e3ea42435a4c9b2759d99e0f201eb195802ee1"
   integrity sha1-t+PqQkNaTJsnWdmeDyAesZWALuE=
 
-prismjs@1.21.0:
-  version "1.21.0"
-  resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.21.0.tgz#36c086ec36b45319ec4218ee164c110f9fc015a3"
-  integrity sha512-uGdSIu1nk3kej2iZsLyDoJ7e9bnPzIgY0naW/HdknGj61zScaprVEVGHrPoXqI+M9sP0NDnTK2jpkvmldpuqDw==
+prismjs@^1.23.0:
+  version "1.23.0"
+  resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.23.0.tgz#d3b3967f7d72440690497652a9d40ff046067f33"
+  integrity sha512-c29LVsqOaLbBHuIbsTxaKENh1N2EQBOHaWv7gkHN4dgRbxSREqDnDbtFJYdpPauS4YCplMSNCABQ6Eeor69bAA==
   optionalDependencies:
     clipboard "^2.0.0"
 
@@ -10654,10 +10654,10 @@ react-loadable@^5.5.0:
   dependencies:
     prop-types "^15.5.0"
 
-react-markdown-doc-loader@^3.0.2:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/react-markdown-doc-loader/-/react-markdown-doc-loader-3.0.2.tgz#e379b3ec99e32ef3f998200bbe050ee7e1d4c085"
-  integrity sha512-upY0ojlTtlnfHJMqvNIM1frnJCL4jjZrvIGEMY3ZoxZIjbvt8zU/lvc/+0OYfdGQNiNhhYMI0Jk8jTGde5suLw==
+react-markdown-doc-loader@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/react-markdown-doc-loader/-/react-markdown-doc-loader-3.0.3.tgz#6d86c75efa0840ebdeaa1b8d62740bfc2f1a173b"
+  integrity sha512-VIzMl6oq1/RshIc433kWhxy4ACTdF6ZcxabQe4veXHdHMtbRbSz2BQVM2emz0gYnFlQz4nCzC8x7WRbLMaP/fw==
   dependencies:
     "@babel/generator" "^7.1.6"
     "@babel/parser" "^7.1.6"
@@ -10674,7 +10674,7 @@ react-markdown-doc-loader@^3.0.2:
     mdast-util-to-string "^1.0.2"
     postcss "^7.0.6"
     precss "^3.1.2"
-    prismjs "1.21.0"
+    prismjs "^1.23.0"
     rehype-parse "^3.1.0"
     transliteration "^1.5.3"
     unified "^6.1.1"
