@@ -249,7 +249,8 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 
 - `Control` 封装了 label、自定义组件以及错误信息的结构，[查看文档](../../apidoc/interfaces/iformcontrolprops.html)
 - `Label` 表单项的 label 组件，适用于连 `Control` 也不想使用的场景，[查看文档](../../apidoc/interfaces/ilabelprops.html)
-- `Error` 表单项的错误信息组件，同 `Label` 一样适用于深度自定义的场景，[查看文档](http://127.0.0.1:4396/apidoc/interfaces/iformerrorprops.html)
+- `Error` 表单项的错误信息组件，同 `Label` 一样适用于深度自定义的场景，[查看文档](../../apidoc/interfaces/iformerrorprops.html)
+- `useFormChild` 使用上述组件时，如果希望支持自动滚动到错误处，需要在组件内使用这个 Hook 关联 model 和 DOM 节点，[查看文档](../../apidoc/globals.html#useformchild)
 
 ### 表单上下文
 
