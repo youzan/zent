@@ -118,10 +118,6 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - 🦀️ Fix `Form` warning in React >= 16.13
 - 📚 More docs on `Form` `ValidateOption`
 
-### 7.4.4(2020-05-11)
-
-- 🦀️ Fix a state bug in `NumberInput`
-
 ### 8.5.0(2020-05-07)
 
 - ✨ Add 4 new icons: `folder-o`, `open-folder-o`, `refresh`, `save-o`
@@ -245,6 +241,14 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - 🦀️ Update `Pagination` font style
 - 🦀️ Fix `Rate` icon issue when using fraction values
 - 🦀️ Fix incorrect rewrite rules used in `babel-plugin-zent`
+
+### 7.4.5(2021-03-11)
+
+- 🦀️ Back port [PR#1406](https://github.com/youzan/zent/pull/1406)
+
+### 7.4.4(2020-05-11)
+
+- 🦀️ Fix a state bug in `NumberInput`
 
 ### 7.4.3(2019-12-19)
 
