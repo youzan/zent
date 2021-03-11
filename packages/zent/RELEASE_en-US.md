@@ -9,6 +9,14 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 9.4.1(2021-03-11)
+
+- ✨ Export `useFormChild` in `Form`
+- 🦀️ Fix incorrect selection state after `options` changes in `Cascader`
+- 📚 Use relative url for links to old versions of docs
+- 📚 Upgrade `prismjs` to fix security issues
+- 📚 Add `Dialog` UI changes to breaking changes in `v9` change log
+
 ### 9.4.0(2021-02-26)
 
 - ✨ `Popover` / `Pop` / `Tooltip` hover mode handles disabled `input` and `button` correctly, but only with zent native inputs and buttons
