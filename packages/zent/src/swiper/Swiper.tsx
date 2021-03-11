@@ -54,6 +54,7 @@ export class Swiper extends Component<ISwiperProps, ISwiperState> {
   swiperWidth!: number;
   autoplayTimer?: number;
   isSwiping!: boolean;
+  isMouseEnter!: boolean;
 
   state = {
     currentIndex: 0,
@@ -100,14 +101,11 @@ export class Swiper extends Component<ISwiperProps, ISwiperState> {
 
   startAutoplay = () => {
     const { autoplayInterval } = this.props;
-    this.autoplayTimer = setInterval(
-      this.next,
-      Number(autoplayInterval)
-    ) as any;
+    this.autoplayTimer = setTimeout(this.next, Number(autoplayInterval)) as any;
   };
 
   clearAutoplay = () => {
-    clearInterval(this.autoplayTimer);
+    clearTimeout(this.autoplayTimer);
     this.autoplayTimer = undefined;
   };
 
@@ -125,8 +123,9 @@ export class Swiper extends Component<ISwiperProps, ISwiperState> {
   };
 
   swipeTo = (index: number) => {
-    // 当动画进行时禁用用户的切换操作
-    if (this.isSwiping) {
+    /** 当index与当前index相同时，则不处理 */
+    /** 当动画进行时禁用用户的切换操作 */
+    if (index === this.state.currentIndex || this.isSwiping) {
       return;
     }
     this.isSwiping = true;
@@ -138,12 +137,25 @@ export class Swiper extends Component<ISwiperProps, ISwiperState> {
     prevIndex: number | null,
     isSilent?: boolean
   ) => {
-    const { transitionDuration, onChange } = this.props;
+    const {
+      autoplay,
+      autoplayInterval,
+      transitionDuration,
+      onChange,
+    } = this.props;
     const { length } = this.props.children as any;
     const initIndex = -1;
     const itemWidth = this.swiperWidth;
     const translateDistance = itemWidth * (initIndex - currentIndex);
     const realDuration = isSilent ? 0 : transitionDuration;
+
+    if (autoplay && !this.isMouseEnter) {
+      clearTimeout(this.autoplayTimer);
+      this.autoplayTimer = setTimeout(
+        this.next,
+        Number(autoplayInterval)
+      ) as any;
+    }
 
     setStyle(this.swiperContainer, {
       transform: `translateX(${translateDistance}px)`,
@@ -225,11 +237,15 @@ export class Swiper extends Component<ISwiperProps, ISwiperState> {
   };
 
   handleMouseEnter = () => {
+    this.isMouseEnter = true;
+
     const { autoplay } = this.props;
     autoplay && this.clearAutoplay();
   };
 
   handleMouseLeave = () => {
+    this.isMouseEnter = false;
+
     const { autoplay } = this.props;
     autoplay && this.startAutoplay();
   };

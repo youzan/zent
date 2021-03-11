@@ -24,7 +24,6 @@
     "@babel/runtime": "^7.1.5",
     "classnames": "^2.2.5",
     "core-js": "3",
-    "fibers": "3",
     "fuse.js": "^3.2.0",
     "prismjs": "1.8.4",
     "prop-types": "^15.6.0",

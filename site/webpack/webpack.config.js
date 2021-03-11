@@ -1,5 +1,4 @@
 const webpack = require('webpack');
-const Fiber = require('fibers');
 const sass = require('sass');
 const os = require('os');
 const path = require('path');
@@ -68,7 +67,6 @@ module.exports = {
             options: {
               sourceMap: DEV,
               implementation: sass,
-              fiber: Fiber,
             },
           },
         ],
