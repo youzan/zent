@@ -59,7 +59,13 @@ export default class PageHeader extends Component {
           return;
         }
 
-        window.location.href = `https://youzan.github.io/zent-${version}`;
+        const url = new URL(window.location.href);
+        const host =
+          url.hostname === '127.0.0.1' || url.hostname === 'localhost'
+            ? 'https://youzan.github.io'
+            : '';
+
+        window.location.href = `${host}/zent-${version}`;
       }
     );
   };
