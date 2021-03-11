@@ -157,16 +157,13 @@ function getActiveValue(props: IMenuCascaderProps) {
 }
 
 function getSelectedPaths(props: IMenuCascaderProps, options: Forest) {
-  let selectedPaths = isMultiple(props)
+  const selectedPaths = isMultiple(props)
     ? props.value.map(x => options.getPathByValue(x))
     : [options.getPathByValue(props.value)];
 
-  // don't return nested empty array
-  if (selectedPaths.length === 1 && selectedPaths[0].length === 0) {
-    selectedPaths = [];
-  }
-
-  return selectedPaths;
+  // Filter out nested empty arrays
+  // This can happen if `options` and `value` are set one by one
+  return selectedPaths.filter(p => p.length !== 0);
 }
 
 function toggleLoading(
@@ -255,12 +252,18 @@ export class MenuCascader extends Component<
     };
 
     let newOptions = options;
+    let optionsChanged = false;
     if (prevProps.options !== props.options) {
       newOptions = new Forest(props.options);
       newState.options = newOptions;
+      optionsChanged = true;
     }
 
-    if (!shallowEqual(prevProps.value, props.value)) {
+    if (
+      optionsChanged ||
+      prevProps.multiple !== props.multiple ||
+      !shallowEqual(prevProps.value, props.value)
+    ) {
       newState.selectedPaths = getSelectedPaths(props, newOptions);
     }
 
