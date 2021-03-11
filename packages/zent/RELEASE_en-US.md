@@ -8,6 +8,26 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 7.4.5(2021-03-11)
+
+- 🦀️ Back port [PR#1406](https://github.com/youzan/zent/pull/1406)
+
+### 7.4.4(2020-05-11)
+
+- 🦀️ Fix a state bug in `NumberInput`
+
+### 7.4.3(2019-12-19)
+
+- 🦀️ Fix `FormSelectField`'s `destroyOnUnmount` not working
+- 🦀️ Update `Form` TypeScript definition
+- 🦀️ All props are under `props` in `FormNumberInputField`(`integer`) and `FormSelectField`(`tags`, `data`)
+- 🦀️ Update form error style
+
+### 7.4.2(2019-12-13)
+
+- 🦀️ Fix a style issue in `Grid`
+- 🦀️ Fix TypeScript definition in `DateRangeQuickPicker`
+
 ### 7.4.1(2019-12-13)
 
 - ✨ New icons：`doc`, `video`, `audio`
