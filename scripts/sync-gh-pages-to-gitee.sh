@@ -12,13 +12,13 @@ if output=$(git status --porcelain) && [ -z "$output" ]; then
 
   git fetch origin gh-pages
 
-  if [ -z "$(git show-ref --verify --quiet refs/heads/gh-pages)" ]; then
+  if git show-ref --verify --quiet refs/heads/gh-pages ; then
     git checkout gh-pages
   else
     git checkout --track origin/gh-pages
   fi
 
-  git push -u gitee gh-pages
+  git push gitee gh-pages
 
   git checkout $current_branch
 else
