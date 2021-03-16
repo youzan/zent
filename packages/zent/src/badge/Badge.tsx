@@ -10,7 +10,7 @@ export interface IBadgeProps {
   showZero: boolean;
   offset?: [number, number];
   style?: React.CSSProperties;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className: string;
 }
 
