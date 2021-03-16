@@ -6,7 +6,7 @@ on:
 
 jobs:
   publish-npm:
-    if: "!github.event.release.prerelease"
+    if: '!github.event.release.prerelease'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -32,7 +32,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
   prepublish-npm:
-    if: "github.event.release.prerelease"
+    if: 'github.event.release.prerelease'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -58,7 +58,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
   deploy-doc:
-    if: "!github.event.release.prerelease"
+    if: '!github.event.release.prerelease'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -82,9 +82,25 @@ jobs:
           personal_token: ${{ secrets.PERSONAL_TOKEN }}
           external_repository: 'youzan/zent-v8'
           publish_dir: ./site/dist
+      - name: Sync gh-pages to gitee
+        uses: zent-contrib/sync-git-branch@v1
+        env:
+          # Public key is stored in @youzan-fe-bot on Github
+          SSH_PRIVATE_KEY: ${{ secrets.GITEE_SSH_PRIVATE_KEY }}
+        with:
+          source-repo: git@github.com:youzan/zent-v8.git
+          source-branch: gh-pages
+          destination-repo: git@gitee.com:zent-contrib/zent-v8.git
+      - name: Build gitee pages
+        uses: yanglbme/gitee-pages-action@main
+        with:
+          gitee-username: ${{ secrets.GITEE_USERNAME }}
+          gitee-password: ${{ secrets.GITEE_PASSWORD }}
+          gitee-repo: zent-contrib/zent-v8
+          branch: gh-pages
 
   deploy-doc-beta:
-    if: "github.event.release.prerelease"
+    if: 'github.event.release.prerelease'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
