@@ -85,6 +85,8 @@ jobs:
         uses: zent-contrib/sync-git-branch@v1
         env:
           # Public key is stored in @youzan-fe-bot on Github
+          # The reason to use a machine user account is we need access to
+          # multiple respositories, e.g. zent, zent-v8.
           SSH_PRIVATE_KEY: ${{ secrets.GITEE_SSH_PRIVATE_KEY }}
         with:
           source-branch: gh-pages
