@@ -84,6 +84,7 @@ jobs:
       - name: Sync gh-pages to gitee
         uses: zent-contrib/sync-git-branch@v1
         env:
+          # Public key is stored in @youzan-fe-bot on Github
           SSH_PRIVATE_KEY: ${{ secrets.GITEE_SSH_PRIVATE_KEY }}
         with:
           source-branch: gh-pages
