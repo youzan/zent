@@ -15,7 +15,7 @@
 [![npm version](https://img.shields.io/npm/v/zent.svg?style=flat)](https://www.npmjs.com/package/zent)
 [![bundle size](https://badgen.net/bundlephobia/minzip/zent)](https://bundlephobia.com/result?p=zent)
 [![coverage status](https://img.shields.io/coveralls/youzan/zent/master.svg?style=flat)](https://coveralls.io/github/youzan/zent?branch=master)
-[![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](packages/zent/docs/CONTRIBUTING_zh-CN.md)
+[![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](packages/zent/docs/CONTRIBUTING_en-US.md)
 
 Zent ( \ˈzent\ ) is a React component library developed and used at Youzan. Zent provides a collection of essential UI components and lots of useful domain specific components.
 

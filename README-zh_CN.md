@@ -10,7 +10,7 @@
 	Zent <small><font color="grey">( &#92;ˈzent&#92; )</font></small>, a collection of essential UI components written with React.
 </p>
 
-[![CircleCI](https://circleci.com/gh/youzan/zent.svg?style=svg)](https://circleci.com/gh/youzan/zent)
+![CI](https://github.com/youzan/zent/workflows/CI/badge.svg)
 [![npm version](https://img.shields.io/npm/v/zent.svg?style=flat)](https://www.npmjs.com/package/zent)
 [![bundle size](https://badgen.net/bundlephobia/minzip/zent)](https://bundlephobia.com/result?p=zent)
 [![coverage status](https://img.shields.io/coveralls/youzan/zent/master.svg?style=flat)](https://coveralls.io/github/youzan/zent?branch=master)
