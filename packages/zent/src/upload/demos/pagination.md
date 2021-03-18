@@ -4,7 +4,7 @@ zh-CN:
   title: 文件列表分页
 	tips: 单个文件不超过 10M
 en-US:
-	title: Filelist pagination
+	title: FileList pagination
   tips: Single file no more than 10M
 ---
 

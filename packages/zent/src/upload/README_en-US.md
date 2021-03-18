@@ -13,19 +13,19 @@ File uploader.
 #### Common Props
 
 | Property         | Description                                                                                                               | Type                                   | Default                | Required |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- | ---------------------- | -------- | --- |
-| className        | Custom classname                                                                                                          | string                                 |                        | No       |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- | ---------------------- | -------- |
+| className        | Custom className                                                                                                          | string                                 |                        | No       |
 | beforeUpload     | The pre handler before file start upload, upload will be ignore when handler return false or a rejected Promise           | `(file: File) => boolean               | Promise<void>`         |          | No  |
 | manualUpload     | Is control upload manually, if value is true, you should change file list data by yourself when upload event update       | boolean                                | false                  | No       |
 | onUpload         | The file upload handler                                                                                                   | `IUploadOnUploadHandler`               |                        | No       |
-| onError          | The unified callbak when some error happened, you can find detail in `IUploadErrorMessageConfigMap`                       | `IUploadOnErrorHandler`                | No                     |
+| onError          | The unified callback when some error happened, you can find detail in `IUploadErrorMessageConfigMap`                       | `IUploadOnErrorHandler`                | No                     |
 | maxSize          | The size limit of file, unit is byte，unlimited when value is `Infinity`                                                  | number                                 | `Infinity`             | No       |
 | accept           | Allowed file types, same with [input accept](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept) | string                                 |                        | No       |
 | disabled         | Is disable upload                                                                                                         | boolean                                |                        | No       |
 | tips             | The tips content or generator                                                                                             | `React.ReactNode` \| `IUploadTipsFunc` |                        | No       |
 | customUploadItem | Custom Upload display item                                                                                                | `React.ComponentType<IUploadFileItem   | IImageUploadFileItem>` |          | No  |
 
-#### SingleUplaod
+#### SingleUpload
 
 | Property | Description                                                    | Type                     | Default | Required |
 | -------- | -------------------------------------------------------------- | ------------------------ | ------- | -------- |
@@ -53,6 +53,6 @@ File uploader.
 #### ImageUpload
 
 | Property            | Description                                                            | Type                         | Default                                | Required             |
-| ------------------- | ---------------------------------------------------------------------- | ---------------------------- | -------------------------------------- | -------------------- | --- |
+| ------------------- | ---------------------------------------------------------------------- | ---------------------------- | -------------------------------------- | -------------------- |
 | preview             | Custom preview handler when click image                                | `IImageUploadPreviewHandler` | PreviewImages( without failed images ) | No                   |
 | getThumbSrcFromFile | Custom function to transform file to thumbSrc attribute of upload item | `(file: File) => string      | Promise<string>`                       | FileReader implement | No  |

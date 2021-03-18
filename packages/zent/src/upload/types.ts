@@ -92,7 +92,7 @@ export interface IAbstractUploadProps<
 > {
   /** 自定义 className */
   className?: string;
-  /** 文件上传前的处理函数，若返回 false 或 Promie.reject，则不上传该文件 */
+  /** 文件上传前的处理函数，若返回 false 或 Promise.reject，则不上传该文件 */
   beforeUpload?: (file: File) => boolean | Promise<void>;
   /** 文件上传回调 */
   onUpload?: IUploadOnUploadHandler<ON_UPLOAD_SUCCESS_RETURN>;
@@ -166,7 +166,7 @@ export interface IImageUploadProps
 }
 
 export interface ISingleUploadProps
-  extends IAbstractUploadProps<IUploadFileItem, void, ISinglelUploadItemProps> {
+  extends IAbstractUploadProps<IUploadFileItem, void, ISingleUploadItemProps> {
   /** 提示文案 */
   tips?: React.ReactNode | IUploadTipsFunc<ISingleUploadProps>;
   onChange: IUploadOnChangeHandler<IUploadFileItem | null, IUploadFileItem>;
@@ -233,7 +233,7 @@ export interface IUploadItemProps<UPLOAD_ITEM extends IUploadFileItem> {
 }
 
 export type INormalUploadItemProps = IUploadItemProps<IUploadFileItem>;
-export type ISinglelUploadItemProps = IUploadItemProps<IUploadFileItem>;
+export type ISingleUploadItemProps = IUploadItemProps<IUploadFileItem>;
 
 export type IImageUploadItemProps = IUploadItemProps<IImageUploadFileItem> & {
   onPreview: (file: IImageUploadFileItem) => void;
