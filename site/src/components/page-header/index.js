@@ -77,7 +77,12 @@ export default class PageHeader extends Component {
     return (
       <div className="page-header">
         <div className="page-header__top">
-          <a href="//www.youzanyun.com/zanui" className="page-header__logo">
+          <a
+            href="https://design.youzan.com/"
+            className="page-header__logo"
+            target="_blank"
+            rel="noreferrer"
+          >
             <img
               src="https://img.yzcdn.cn/public_files/2017/12/18/fd78cf6bb5d12e2a119d0576bedfd230.png"
               alt="logo"

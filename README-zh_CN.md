@@ -4,7 +4,7 @@
 	</a>
 </p>
 <p align="center">
-    <img alt="Zent logo" src="https://img.yzcdn.cn/public_files/2017/02/21/e96fcc2bb29150080fcf5da39cd27fbe.png" width="200px">
+    <img alt="Zent logo" width="160px" src="https://b.yzcdn.cn/public_files/2e7d4cf2f2ee0cf5f4abe894da2d515d.png" >
 </p>
 <p align="center">
 	Zent <small><font color="grey">( &#92;ˈzent&#92; )</font></small>, a collection of essential UI components written with React.
