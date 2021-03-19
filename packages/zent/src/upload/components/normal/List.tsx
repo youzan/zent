@@ -71,7 +71,7 @@ export default class NormalUploadList extends AbstractUploadList<
     this.props.onSortChange(newList);
   };
 
-  onPagiantionChange: PaginationChangeHandler = pageInfo => {
+  onPaginationChange: PaginationChangeHandler = pageInfo => {
     this.setState({
       current: pageInfo.current,
     });
@@ -90,7 +90,7 @@ export default class NormalUploadList extends AbstractUploadList<
     return (
       <MiniPagination
         className="zent-file-upload-list-pagination"
-        onChange={this.onPagiantionChange}
+        onChange={this.onPaginationChange}
         current={current}
         pageSize={pageSize}
         total={this.props.fileList.length}

@@ -231,15 +231,6 @@ abstract class AbstractMultiUpload<
   };
 
   /**
-   * 获取上传成功时要覆盖到 item 上的属性
-   */
-  protected getUploadSuccessOverrideProps(
-    _onUploadSuccessReturn: ON_UPLOAD_SUCCESS_RETURN
-  ): Partial<IUploadFileItemInner<UPLOAD_ITEM>> {
-    return {};
-  }
-
-  /**
    * 创建一个新的上传文件项
    */
   protected abstract createNewUploadFileItem(

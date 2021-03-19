@@ -21,12 +21,12 @@ export function defaultPreview(
   file: IImageUploadFileItem,
   fileList: IImageUploadFileItem[]
 ) {
-  const previeFiles = fileList.filter(
+  const previewFiles = fileList.filter(
     item => item.status !== FILE_UPLOAD_STATUS.failed
   );
-  const previewIndex = previeFiles.indexOf(file);
+  const previewIndex = previewFiles.indexOf(file);
   previewImage({
     index: previewIndex,
-    images: previeFiles.map(item => item.src || item.thumbSrc),
+    images: previewFiles.map(item => item.src || item.thumbSrc),
   });
 }

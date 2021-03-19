@@ -16,7 +16,7 @@ group: 数据
 | 参数             | 说明                                                                                                              | 类型                                 | 默认值                 | 是否必填 |
 | ---------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------ | ---------------------- | -------- |
 | className        | 自定义类名                                                                                                        | string                               |                        | 否       |
-| beforeUpload     | 文件上传前的预处理函数，若返回 false 或 reject 的 Promie，则不上传该文件                                          | `(file: File) => boolean             | Promise<void>`         |          | 否  |
+| beforeUpload     | 文件上传前的预处理函数，若返回 false 或 reject 的 Promise，则不上传该文件                                          | `(file: File) => boolean             | Promise<void>`         |          | 否  |
 | manualUpload     | 是否手动进行上传操作，若设置为 true，所有进度更新、上传成功失败、重试等数据更新都需要手动进行维护                 | boolean                              | false                  | 否       |
 | onUpload         | 文件上传处理                                                                                                      | `IUploadOnUploadHandler`             |                        | 否       |
 | onError          | 发生内部错误时的统一回调函数，错误类型见 `IUploadErrorMessageConfigMap`                                           | `IUploadOnErrorHandler`              | 否                     |
@@ -26,7 +26,7 @@ group: 数据
 | tips             | 提示文案                                                                                                          | `React.ReactNode` \| `IUploadTipsFunc`          |                        | 否       |
 | customUploadItem | 自定义上传项展示组件                                                                                              | `React.ComponentType<IUploadFileItem | IImageUploadFileItem>` |          | 否  |
 
-#### SingleUplaod
+#### SingleUpload
 
 | 参数     | 说明                                                               | 类型                     | 默认值 | 是否必填 |
 | -------- | ------------------------------------------------------------------ | ------------------------ | ------ | -------- |

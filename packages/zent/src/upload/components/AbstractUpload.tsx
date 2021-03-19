@@ -42,15 +42,15 @@ abstract class AbstractUpload<
     uploadItem: IUploadFileItemInner<UPLOAD_ITEM>
   ) => {
     const { onUpload, manualUpload } = this.props;
-    const uplodaItemId = uploadItem._id;
+    const uploadItemId = uploadItem._id;
     // auto start upload
     if (!manualUpload && onUpload) {
-      onUpload(file, this.updateUploadItemPercent.bind(this, uplodaItemId))
+      onUpload(file, this.updateUploadItemPercent.bind(this, uploadItemId))
         .then(onUploadReturn => {
-          this.updateUploadItemStatusToSuccess(uplodaItemId, onUploadReturn);
+          this.updateUploadItemStatusToSuccess(uploadItemId, onUploadReturn);
         })
         .catch(() => {
-          this.updateUploadItemStatusToFailed(uplodaItemId);
+          this.updateUploadItemStatusToFailed(uploadItemId);
         });
     }
   };
@@ -130,9 +130,9 @@ abstract class AbstractUpload<
    * 获取上传成功时要覆盖到 item 上的属性
    */
   protected getUploadSuccessOverrideProps(
-    _onUploadSuccessReturn: ON_UPLOAD_SUCCESS_RETURN
+    onUploadSuccessReturn: ON_UPLOAD_SUCCESS_RETURN
   ): Partial<IUploadFileItemInner<UPLOAD_ITEM>> {
-    return {};
+    return onUploadSuccessReturn;
   }
 
   /**

@@ -3,7 +3,7 @@ import cn from 'classnames';
 import { I18nReceiver, II18nLocaleUpload } from '../i18n';
 import AbstractUpload from './components/AbstractUpload';
 import {
-  ISinglelUploadItemProps,
+  ISingleUploadItemProps,
   ISingleUploadProps,
   IUploadChangeDetail,
   IUploadFileItem,
@@ -31,7 +31,7 @@ type ISingleUploadPropsInner = PartialRequired<
 export class SingleUpload extends AbstractUpload<
   IUploadFileItem,
   void,
-  ISinglelUploadItemProps,
+  ISingleUploadItemProps,
   ISingleUploadProps,
   ISingleUploadState
 > {
