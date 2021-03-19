@@ -8,6 +8,10 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 8.6.3(2021-03-19)
+
+- 🦀️ Fix `onUpload` return value being ignored in `Upload`
+
 ### 8.6.2(2021-01-11)
 
 - 🦀️ Fix `expandAll` not reacting to prop change in `Tree`
