@@ -82,6 +82,14 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 
 See [Upgrade to 9.x](./changelog-v9).
 
+### 8.6.3(2021-03-19)
+
+- 🦀️ Fix `onUpload` return value being ignored in `Upload`
+
+### 8.6.2(2021-01-11)
+
+- 🦀️ Fix `expandAll` not reacting to prop change in `Tree`
+
 ### 8.6.1(2020-12-18)
 
 - `Grid`
