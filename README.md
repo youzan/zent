@@ -4,7 +4,7 @@
   </a>
 </p>
 <p align="center">
-    <img alt="Zent logo" src="https://img.yzcdn.cn/public_files/2017/02/21/e96fcc2bb29150080fcf5da39cd27fbe.png">
+    <img alt="Zent logo" width="160px" src="https://b.yzcdn.cn/public_files/2e7d4cf2f2ee0cf5f4abe894da2d515d.png">
 </p>
 <p align="center">
   Zent <small><font color="grey">( &#92;ˈzent&#92; )</font></small>, a collection of essential UI components written with React.
@@ -15,7 +15,7 @@
 [![npm version](https://img.shields.io/npm/v/zent.svg?style=flat)](https://www.npmjs.com/package/zent)
 [![bundle size](https://badgen.net/bundlephobia/minzip/zent)](https://bundlephobia.com/result?p=zent)
 [![coverage status](https://img.shields.io/coveralls/youzan/zent/master.svg?style=flat)](https://coveralls.io/github/youzan/zent?branch=master)
-[![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](packages/zent/docs/CONTRIBUTING_zh-CN.md)
+[![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](packages/zent/docs/CONTRIBUTING_en-US.md)
 
 Zent ( \ˈzent\ ) is a React component library developed and used at Youzan. Zent provides a collection of essential UI components and lots of useful domain specific components.
 
@@ -25,17 +25,17 @@ Our goal is making React development faster and simpler.
 
 ### Features
 
-* High quality React components
-* Builtin TypeScript support
-* Supports custom themes
-* Import JavaScript and styles only if they are used
-* Handmade icon font
+- High quality React components
+- Builtin TypeScript support
+- Supports custom themes
+- Import JavaScript and styles only if they are used
+- Handmade icon font
 
 ### Supported Environments
 
-* React >= 17
-* Modern browsers but not IE
-* Supports server-side rendering(SSR)
+- React >= 17
+- Modern browsers but not IE
+- Supports server-side rendering(SSR)
 
 ### Required polyfills
 

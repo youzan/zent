@@ -78,6 +78,10 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
   - 🦀️ Fix incorrect height with float grouped header
 - 🦀️ `DateRangeQuickPicker` formats the endtime of today to current time
 
+### 9.0.0(2020-12-14)
+
+See [Upgrade to 9.x](./changelog-v9).
+
 ### 8.6.1(2020-12-18)
 
 - `Grid`
@@ -88,10 +92,6 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 
 - ✨ Supports `rgba` in theme colors
 - 🦀️ Adjust `Radio` right margin to `24px`
-
-### 9.0.0(2020-12-14)
-
-See [Upgrade to 9.x](./changelog-v9).
 
 ### 8.5.12(2020-11-05)
 
