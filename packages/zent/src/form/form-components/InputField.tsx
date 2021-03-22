@@ -9,8 +9,9 @@ import Input, {
 } from '../../input';
 import { FormField, IFormFieldChildProps } from '../Field';
 import { IFormComponentProps, TouchWhen, ValidateOccasion } from '../shared';
-import { $MergeParams } from '../utils';
+import { $MergeParams, warningUncontrolledComponentProp } from '../utils';
 import { useEventCallbackRef } from '../../utils/hooks/useEventCallbackRef';
+import * as React from 'react';
 
 /**
  * `Omit<IInputProps, ...>`无法得到正确的类型提示，因此每个类型单独Omit一次再联合
@@ -48,6 +49,16 @@ const InputField: React.FC<{
 
 export const FormInputField: React.FunctionComponent<IFormInputFieldProps> = props => {
   const { validateOccasion = ValidateOccasion.Blur } = props;
+
+  React.useEffect(() => {
+    // warning for use 'props.defaultValue' in Form Input Field
+    warningUncontrolledComponentProp(
+      'defaultValue' in props.props,
+      'defaultValue'
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <FormField
       {...props}
