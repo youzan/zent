@@ -6,12 +6,13 @@ export type $MergeParams<T> = (T extends any ? (t: T) => void : never) extends (
   ? V
   : never;
 
-export function warningUncontrolledComponentProp(
+export function warningIncorrectDefaultValueProp(
   condition: boolean,
-  propsPropName: string
+  propsPropName: string,
+  fieldCompName: string
 ) {
   warning(
     condition,
-    `Not use 'props.${propsPropName}' prop because Form Field's value must be controlled, it will be ineffective or emit some Error, You can use 'Form.initialize' method or 'defaultValue' prop on Field to initialize Field value`
+    `Do not use 'props.${propsPropName}' in '${fieldCompName}'.\nForm fields are controlled components, use 'defaultValue' prop on the field to set default value.`
   );
 }

@@ -3,7 +3,7 @@ import cn from 'classnames';
 import { IFormComponentProps, IFormFieldChildProps } from '../shared';
 import { FormField } from '../Field';
 import { Upload, IUploadFileItem, IUploadProps } from '../../upload';
-import { warningUncontrolledComponentProp } from '../utils';
+import { warningIncorrectDefaultValueProp } from '../utils';
 
 export type IFormUploadFieldProps<
   T extends IUploadFileItem
@@ -29,9 +29,10 @@ export function FormUploadField<T extends IUploadFileItem>(
 
   React.useEffect(() => {
     // warning for use 'props.defaultFileList' in Form Upload Field
-    warningUncontrolledComponentProp(
+    warningIncorrectDefaultValueProp(
       'defaultFileList' in props.props,
-      'defaultFileList'
+      'defaultFileList',
+      'FormUploadField'
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

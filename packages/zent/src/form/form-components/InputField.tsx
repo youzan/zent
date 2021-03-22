@@ -9,7 +9,7 @@ import Input, {
 } from '../../input';
 import { FormField, IFormFieldChildProps } from '../Field';
 import { IFormComponentProps, TouchWhen, ValidateOccasion } from '../shared';
-import { $MergeParams, warningUncontrolledComponentProp } from '../utils';
+import { $MergeParams, warningIncorrectDefaultValueProp } from '../utils';
 import { useEventCallbackRef } from '../../utils/hooks/useEventCallbackRef';
 import * as React from 'react';
 
@@ -52,9 +52,10 @@ export const FormInputField: React.FunctionComponent<IFormInputFieldProps> = pro
 
   React.useEffect(() => {
     // warning for use 'props.defaultValue' in Form Input Field
-    warningUncontrolledComponentProp(
+    warningIncorrectDefaultValueProp(
       'defaultValue' in props.props,
-      'defaultValue'
+      'defaultValue',
+      'FormInputField'
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
