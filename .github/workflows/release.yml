@@ -56,6 +56,15 @@ jobs:
       - run: yarn workspace zent publish --non-interactive --tag=beta
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+      - name: Send release notification to WeChat Work
+        uses: chf007/action-wechat-work@master
+        env:
+          WECHAT_WORK_BOT_WEBHOOK: ${{secrets.WECHAT_WORK_BOT_WEBHOOK}}
+        with:
+          msgtype: markdown
+          content: |
+            # ${{ github.event.release.name }}
+            ${{ github.event.release.body }}
 
   deploy-doc:
     if: '!github.event.release.prerelease'
@@ -98,3 +107,12 @@ jobs:
           gitee-password: ${{ secrets.GITEE_PASSWORD }}
           gitee-repo: zent-contrib/zent-v8
           branch: gh-pages
+      - name: Send release notification to WeChat Work
+        uses: chf007/action-wechat-work@master
+        env:
+          WECHAT_WORK_BOT_WEBHOOK: ${{secrets.WECHAT_WORK_BOT_WEBHOOK}}
+        with:
+          msgtype: markdown
+          content: |
+            # ${{ github.event.release.name }}
+            ${{ github.event.release.body }}
