@@ -98,6 +98,15 @@ jobs:
           gitee-password: ${{ secrets.GITEE_PASSWORD }}
           gitee-repo: zent-contrib/zent
           branch: gh-pages
+      - name: Send release notification to WeChat Work
+        uses: chf007/action-wechat-work@master
+        env:
+          WECHAT_WORK_BOT_WEBHOOK: ${{secrets.WECHAT_WORK_BOT_WEBHOOK}}
+        with:
+          msgtype: markdown
+          content: |
+            # ${{ github.event.release.name }}
+            ${{ github.event.release.body }}
 
   deploy-doc-beta:
     if: 'github.event.release.prerelease'
@@ -124,3 +133,12 @@ jobs:
           personal_token: ${{ secrets.PERSONAL_TOKEN }}
           external_repository: 'youzan/zent-beta'
           publish_dir: ./site/dist
+      - name: Send release notification to WeChat Work
+        uses: chf007/action-wechat-work@master
+        env:
+          WECHAT_WORK_BOT_WEBHOOK: ${{secrets.WECHAT_WORK_BOT_WEBHOOK}}
+        with:
+          msgtype: markdown
+          content: |
+            # ${{ github.event.release.name }}
+            ${{ github.event.release.body }}
