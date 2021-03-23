@@ -41,7 +41,7 @@ abstract class AbstractMultiUpload<
     const { fileList, defaultFileList } = props;
     if (fileList && defaultFileList) {
       throw new Error(
-        `props fileList can't use with defaultFileList, defaultFileList can only used in uncontrolled component`
+        `'fileList' can't be used with 'defaultFileList', 'defaultFileList' can only used in uncontrolled component`
       );
     }
 

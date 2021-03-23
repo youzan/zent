@@ -1,23 +1,18 @@
 /**
- * Copyright (c) 2014-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
+ * Similar to `warning`, but only warns once for each id.
  */
-
-/**
- * Similar to invariant but only logs a warning if the condition is not met.
- * This can be used to log issues in development environments in critical
- * paths. Removing the logging code for production environments will keep the
- * same logic and follow the same code paths.
- */
-
 const __DEV__ = process.env.NODE_ENV !== 'production';
 
-let warning = (_condition: boolean, _format: string, ..._args: string[]) => {};
+let warningOnce = (
+  _condition: boolean,
+  _id: string,
+  _format: string,
+  ..._args: string[]
+) => {};
 
 if (__DEV__) {
+  const warningCache = {};
+
   const printWarning = (format: string, ...args: string[]) => {
     let argIndex = 0;
     const message = 'Warning: ' + format.replace(/%s/g, () => args[argIndex++]);
@@ -32,17 +27,31 @@ if (__DEV__) {
     } catch (x) {}
   };
 
-  warning = (condition: boolean, format: string, ...args: string[]) => {
+  warningOnce = (
+    condition: boolean,
+    id: string,
+    format: string,
+    ...args: string[]
+  ) => {
+    if (id === undefined) {
+      throw new Error(
+        '`warningOnce(condition, id, format, ...args)` requires a warning ' +
+          'id argument'
+      );
+    }
+
     if (format === undefined) {
       throw new Error(
-        '`warning(condition, format, ...args)` requires a warning ' +
+        '`warningOnce(condition, id, format, ...args)` requires a warning ' +
           'message argument'
       );
     }
-    if (!condition) {
+
+    if (!warningCache[id] && !condition) {
+      warningCache[id] = true;
       printWarning(format, ...args);
     }
   };
 }
 
-export { warning };
+export { warningOnce };
