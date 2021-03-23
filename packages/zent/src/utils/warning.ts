@@ -46,3 +46,6 @@ if (__DEV__) {
 }
 
 export { warning };
+
+// For backward compatibility with @zent/compat
+export default warning;
