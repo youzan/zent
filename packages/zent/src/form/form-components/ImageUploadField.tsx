@@ -7,7 +7,8 @@ import {
   IImageUploadFileItem,
   IImageUploadProps,
 } from '../../upload';
-import { warningIncorrectDefaultValueProp } from '../utils';
+import { warningDefaultValueProp } from '../utils';
+import omit from '../../utils/omit';
 
 export type IFormImageUploadFieldProps<
   T extends IImageUploadFileItem
@@ -23,7 +24,7 @@ function renderImageUpload<T extends IImageUploadFileItem>(
   const { value, onChange } = childProps;
   return (
     <ImageUpload
-      {...(props.props as any)}
+      {...omit(props.props as IImageUploadProps, ['defaultFileList'])}
       fileList={value}
       onChange={onChange}
     />
@@ -37,8 +38,8 @@ export function FormImageUploadField<T extends IImageUploadFileItem>(
 
   React.useEffect(() => {
     // warning for use 'props.defaultFileList' in Form Upload Field
-    warningIncorrectDefaultValueProp(
-      'defaultFileList' in props.props,
+    warningDefaultValueProp(
+      !('defaultFileList' in (props.props ?? {})),
       'defaultFileList',
       'FormImageUploadField'
     );

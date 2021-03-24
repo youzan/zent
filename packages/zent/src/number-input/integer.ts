@@ -1,6 +1,6 @@
 import { INumberInputIntegerProps } from './NumberInput';
 import utilsIsInteger from '../utils/isInteger';
-import warning from '../utils/warning';
+import { warning } from '../utils/warning';
 
 function withinRange(min: number, max: number, num: number) {
   if (min >= num) {

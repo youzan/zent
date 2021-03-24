@@ -9,7 +9,7 @@ import isNil from '../../../utils/isNil';
 import uniqueId from '../../../utils/uniqueId';
 import { pairwise, skip } from 'rxjs/operators';
 import { createUnexpectedModelError } from '../error';
-import { warning } from '../utils';
+import { warningSubscribeValid, warningSubscribeValue } from '../warnings';
 
 const FIELD_ARRAY_ID = Symbol('field-array');
 
@@ -312,10 +312,8 @@ class FieldArrayModel<
   }
 
   private _initValue$() {
-    warning(
-      'Subscribe Value',
-      'Subscribing value of field array might cause performance problems, do it with caution'
-    );
+    warningSubscribeValue();
+
     const value$ = new BehaviorSubject<readonly Item[]>(this.getRawValue());
     this._value$ = value$;
 
@@ -335,10 +333,8 @@ class FieldArrayModel<
   }
 
   private _initValid$() {
-    warning(
-      'Subscribe Valid',
-      'Subscribing valid of field array might cause performance problems, do it with caution'
-    );
+    warningSubscribeValid();
+
     const valid$ = new BehaviorSubject(isNil(this.error));
     this._valid$ = valid$;
 

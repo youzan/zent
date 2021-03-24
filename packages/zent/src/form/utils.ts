@@ -1,4 +1,4 @@
-import warning from '../utils/warning';
+import { warningOnce } from '../utils/warningOnce';
 
 export type $MergeParams<T> = (T extends any ? (t: T) => void : never) extends (
   t: infer V
@@ -6,13 +6,15 @@ export type $MergeParams<T> = (T extends any ? (t: T) => void : never) extends (
   ? V
   : never;
 
-export function warningIncorrectDefaultValueProp(
+export function warningDefaultValueProp(
   condition: boolean,
-  propsPropName: string,
-  fieldCompName: string
+  propName: string,
+  componentName: string
 ) {
-  warning(
+  warningOnce(
     condition,
-    `Do not use 'props.${propsPropName}' in '${fieldCompName}'.\nForm fields are controlled components, use 'defaultValue' prop on the field to set default value.`
+    `${componentName}-${propName}`,
+    `Do not use 'props.${propName}' in '${componentName}'.\n` +
+      `Form fields are controlled components, use 'defaultValue' prop in '${componentName}' to set default value.`
   );
 }
