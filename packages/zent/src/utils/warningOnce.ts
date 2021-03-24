@@ -28,26 +28,26 @@ if (__DEV__) {
   };
 
   warningOnce = (
-    condition: boolean,
+    shouldBeTrue: boolean,
     id: string,
     format: string,
     ...args: string[]
   ) => {
     if (id === undefined) {
       throw new Error(
-        '`warningOnce(condition, id, format, ...args)` requires a warning ' +
+        '`warningOnce(shouldBeTrue, id, format, ...args)` requires a warning ' +
           'id argument'
       );
     }
 
     if (format === undefined) {
       throw new Error(
-        '`warningOnce(condition, id, format, ...args)` requires a warning ' +
+        '`warningOnce(shouldBeTrue, id, format, ...args)` requires a warning ' +
           'message argument'
       );
     }
 
-    if (!warningCache[id] && !condition) {
+    if (!warningCache[id] && !shouldBeTrue) {
       warningCache[id] = true;
       printWarning(format, ...args);
     }

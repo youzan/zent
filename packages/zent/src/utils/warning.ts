@@ -32,14 +32,14 @@ if (__DEV__) {
     } catch (x) {}
   };
 
-  warning = (condition: boolean, format: string, ...args: string[]) => {
+  warning = (shouldBeTrue: boolean, format: string, ...args: string[]) => {
     if (format === undefined) {
       throw new Error(
-        '`warning(condition, format, ...args)` requires a warning ' +
+        '`warning(shouldBeTrue, format, ...args)` requires a warning ' +
           'message argument'
       );
     }
-    if (!condition) {
+    if (!shouldBeTrue) {
       printWarning(format, ...args);
     }
   };
