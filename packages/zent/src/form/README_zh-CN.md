@@ -14,23 +14,76 @@ scatter: true
 
 可以在[这里查看老版 `Form` 组件的文档](https://zent-contrib.github.io/zent-compat)。
 
-### API
+### API 文档
 
-`Form` 的文档分为两部分：
+`Form` 的 API 较多，请直接查阅 tsdoc 生成的 API 文档，在[这里搜索查看](../../apidoc)即可。
 
-- 和 Zent 相关的组件 API 文档可以在[这里搜索查看](../../apidoc/classes/form.html)。
-- 其他和 Zent 无关的 [API 文档](https://zent-contrib.github.io/formulr/)，例如 `useField` 等 hooks 、`Validators` 以及其他底层基础组件。
+### Form 的分层结构
 
-#### Form 的运行模式
+为了帮助更好的理解和使用 `Form`，先从设计的角度对 `Form` 做一个概述。`Form` 设计上可以大致分为 3 层：
 
-**这是使用 `Form` 时的一个非常重要的概念，请一定理解清楚。**
+- 数据层：这一层在内部由一个叫 `formulr` 的内部包构成，它和 UI 无关
+- React 绑定层：这一层也在 `formulr` 内，但只包含最基础的 Hooks（例如 `useField` 等），依旧和 UI 无关
+- UI 层：这一层负责处理数据层和 `Zent` 组件库的适配，这一层只处理 UI 逻辑，不关心数据的具体处理逻辑
 
-`Form` 有两种运行模式(`FormStrategy`)，`View` 和 `Model`。`FormStrategy` 指明了表单是由视图驱动的还是独立数据驱动。
+### 数据层
 
-- 当使用 `View` 模式时，表单项组件和 `hooks` 接受一个 `name` 参数，根据 `name` 构建内部数据结构。
-- 当使用 `Model` 时，数据结构是在表单外构建的，表单的组件和 `hooks` 必须直接传入该字段对应的 `model`。
+数据层主要由各种类型的 model, validator 以及 builder 构成。model 主要分为以下几种：
 
-**不同模式下表单项会有一些参数不同。**
+- `IModel` 这是最底层 interface，所有 model 都实现它
+- `BasicModel` 这是一个 model 的基类，所有 model 都继承自它
+- `FieldModel` 单个表单域的 model
+- `FieldArrayModel` 一组相同表单域的 model
+- `FieldSetModel` 一组有相关性的表单域，通常这些表单域作为一个整体才有意义，比如手机号的国家代码+号码
+- `FormModel` 继承自 `FieldSetModel`，从数据层看就是 `FieldSetModel`，但是额外添加了一些表单顶层才需要的能力
+- `ModelRef` 类似 React 的 ref 概念，它的用处是在不知道具体的 model 类型时用作占位元素。只有 `View` 模式下才会出现。
+
+不管 model 是什么类型，一个 model 上一定维护着值、校验状态、错误信息以及 touched 等一些基础状态，以及读取/操作这些信息的方法。具体的方法和属性可以通过上面提到的 [API 文档](../../apidoc)中搜索相应的 model 类型查看。
+
+validator 和 builder 下文会详细说明。
+
+⚠️ 注意：不要直接操作 `FieldArrayModel` 和 `FieldSetModel` 的 `children` 属性（本身就是只读属性），请使用 model 上提供的 mutation API 操作，否则会破坏 model 内部数据一致性，导致不可预期的问题。
+
+### Form 的运行模式
+
+**这是使用 `Form` 时的一个非常重要的概念，请一定理解清楚。另外，我们推荐使用 `Model` 模式，而非 `View` 模式。**
+
+在 `ModelRef` 里提到了 `Form` 的 `View` 模式，这里详细说明以下 `Form` 的两种运行模式(`FormStrategy`)，`View` 模式和 `Model` 模式。
+
+- `View` 模式是指表单的 model 是通过 UI 的结构，由 `Form` 自动推导生成的。简单来说，先有 UI，再有 model。上面提到的 `ModelRef` 即是在一些场景下 model 还未生成时用来做占位的，所以才说 `ModelRef` 仅出现在 `View` 模式下。
+- `Model` 模式则是由开发者创建好表单的 model 结构，然后作为 `Form` 的初始化参数传入的，所以是先有 model，再有 UI。
+
+`FormStrategy` 指明了表单是由视图驱动（View 模式）的还是独立数据驱动（Model 模式），两种模式在使用 API 时也会有差异。
+
+- 当使用 `View` 模式时，表单项组件和 `hooks` 接受一个 `name` 参数而不是一个 model。
+- 当使用 `Model` 时，由于数据层是在表单外构建的，表单组件和 `hooks` 必须直接传入该字段对应的 `model`，而不是 `name`。
+- 除了上述区别之外，**不同模式下表单组件以及 `hooks` 会有一些参数不同**，具体请查阅 [API 文档](apidoc)。
+
+### 常用 `Form` API
+
+`form` 对象具备一些基础的能力：
+
+- `form.submit` 显式触发表单提交事件，会自动触发表单校验。
+- `form.validate` 触发一次表单校验。
+- `form.patchValue` 为给定的字段赋值。
+- `form.initialize` 为给定的字段赋值，同时将这个值作为 `initialValue` 。
+- `form.reset` 显式触发表单重置事件，将所有字段重置为 `initialValue` ，如果 `initialValue` 不存在，则使用 `defaultValue` 。
+- `form.resetValue` 将所有字段重置为 `initialValue` ，不会触发表单事件，如果 `initialValue` 不存在，则使用 `defaultValue` 。
+- `form.clear` 将所有字段赋值为 `defaultValue` ，同时清空 `initialValue` 。
+
+#### `defaultValue` vs `initialValue`
+
+- `initialValue`：初始值，在逻辑上作为表单首次展示的值，可以被更新。
+- `defaultValue`：缺省值，在表单没有输入时使用的值，组件一旦渲染就不可再被更新。
+
+### Hooks
+
+`Form` 提供以下基础的 hooks，在内置的这些 `Form` 组件无法满足需要时，可以使用这些 hooks 来封装自定义的 `Form` 组件。
+
+- `Form.useForm` [查看文档](https://zent-contrib.github.io/formulr/globals.html#useform)
+- `Form.useField` [查看文档](https://zent-contrib.github.io/formulr/globals.html#usefield)
+- `Form.useFieldArray` [查看文档](https://zent-contrib.github.io/formulr/globals.html#usefieldarray)
+- `Form.useFieldSet` [查看文档](https://zent-contrib.github.io/formulr/globals.html#usefieldset)
 
 #### 基础使用方法
 
@@ -63,27 +116,8 @@ scatter: true
 - 在 `View` 模式下使用 `FieldArray` 时，由于该组件的特殊性，虽然此时传给 `Field` 的是 `model`（按上述规则这就是 `Model` 模式），但是校验规则还是需要设置在表单项上。
 - 如果需要给 `Field` 封装的组件传递 props，需要将所有 props 通过 `props` 传递，例如 `<FormInputField props={{ spellCheck: false }} />`，`spellCheck` 将会被透传到 `Input` 组件上；如果直接写在 `FormInputField` 上不会生效。
 
-### 基础能力
-
-`form` 对象具备一些基础的能力：
-
-- `form.submit` 显式触发表单提交事件，会自动触发表单校验。
-- `form.validate` 触发一次表单校验。
-- `form.patchValue` 为给定的字段赋值。
-- `form.initialize` 为给定的字段赋值，同时将这个值作为 `initialValue` 。
-- `form.reset` 显式触发表单重置事件，将所有字段重置为 `initialValue` ，如果 `initialValue` 不存在，则使用 `defaultValue` 。
-- `form.resetValue` 将所有字段重置为 `initialValue` ，不会触发表单事件，如果 `initialValue` 不存在，则使用 `defaultValue` 。
-- `form.clear` 将所有字段赋值为 `defaultValue` ，同时清空 `initialValue` 。
-
-注：
-
-- `initialValue`：初始值，在逻辑上作为表单首次展示的值，可以被更新。
-- `defaultValue`：缺省值，在表单没有输入时使用的值，组件一旦渲染就不可再被更新。
-
 <!-- demo-slot-1 -->
 <!-- demo-slot-2 -->
-<!-- demo-slot-18 -->
-<!-- demo-slot-3 -->
 <!-- demo-slot-15 -->
 
 ### 表单校验
@@ -121,15 +155,11 @@ type SyncValidator<T> = (value: T, ctx: ValidatorContext<T>) => IMaybeError<T>;
 <!-- demo-slot-4 -->
 <!-- demo-slot-5 -->
 
-#### 校验状态
+### 非 `Field` 层级的校验
 
-Zent 提供了 2 种监听表单校验状态的方法：
+`FieldSet` 和 `FieldArray` 和 `Field` 一样可以设置校验规则，这些校验规则是运行在 `FieldSet` 和 `FieldArray` 层级的，能拿到下层的所有数据，可以用来实现跨 `Field` 的校验。
 
-- `Form.FieldValid`：接收 `name` 或 `model`，将其校验状态作为 `children` 的第一个参数
-- `Form.useFieldValid`：接收 `name` 或 `model`，返回其校验状态
-- `Form.useFormValid`：接收 `ZentForm` 对象（即 `useForm` 的返回值），返回表单的校验状态
-
-<!-- demo-slot-19 -->
+<!-- demo-slot-13 -->
 
 ### 校验选项
 
@@ -159,17 +189,21 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 
 #### 内置的校验中间件
 
-- `when`
-- `whenAsync`
-- `message`
+- `when` 满足条件时才执行校验逻辑
+- `whenAsync` 同 `when`，适用于移步校验函数
+- `message` 根据值返回动态的错误信息
 
 <!-- demo-slot-6 -->
 
-### `Form` 布局
+#### 订阅校验状态
 
-`Form` 组件使用 `flex` 布局，提供两种简单的样式：水平布局 `horizontal`， 垂直布局 `vertical`。
+这个功能虽然不是很常用，但是 Zent 提供了 2 种监听表单校验状态的方法：
 
-<!-- demo-slot-7 -->
+- `Form.FieldValid`：接收 `name` 或 `model`，将其校验状态作为 `children` 的第一个参数
+- `Form.useFieldValid`：接收 `name` 或 `model`，返回其校验状态
+- `Form.useFormValid`：接收 `ZentForm` 对象（即 `useForm` 的返回值），返回表单的校验状态
+
+<!-- demo-slot-19 -->
 
 ### `useFieldArray` 和 `FieldSet`
 
@@ -189,7 +223,7 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 
 <!-- demo-slot-8 -->
 
-### 从 Model 构建表单
+### Builder API 和 Model 模式
 
 使用 `Form` 的 `Model` 模式需要自己手动创建 model，我们提供了 builder API 来帮助完成这个操作。每个函数返回的都是一个 `Builder` 对象，`Builder` 对象都有一个 `validators` 方法用来配置 model 的校验规则。**Builder API 都支持链式调用**。
 
@@ -200,18 +234,6 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 
 <!-- demo-slot-9 -->
 
-### 通过 Model 订阅数据
-
-由于 `useFieldValue` 依赖了 `FormContext` ，因此在表单外部监听数据变更无法通过它来实现。此时可以使用 `useModelValue` 来对 model 进行订阅，类似的 Hook 还有 `useModelValid`，它们的内部实现不依赖 `FormContext` ，可以在任意组件内监听任意字段的数据变更（只需要获取到字段的 model 引用）。
-
-<!-- demo-slot-21 -->
-
-### CombineErrors
-
-这个组件用来将多个字段的错误聚合成一个错误展示，需要配合 `Field` 的 `withoutError` 参数使用。
-
-<!-- demo-slot-10 -->
-
 ### 表单值的格式化
 
 - 可以通过 `normalize` 和 `format` 参数来格式化 `Field` 的输入输出
@@ -219,11 +241,9 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 
 <!-- demo-slot-11 -->
 
-### 读取表单值
+### 读取/订阅表单值
 
-试想一个使用场景：我们要实现一个活动编辑器，右侧是编辑框，左侧是实时预览；这种场景下除了需要一个地方来输入表单的各个值之外，还需要在另外一个地方读取这些表单值。
-
-我们提供了一套统一的简单易用，并且使用姿势和 `Field` 非常相似的 API 来实现组件值的按需读取。这些组件只会监听所需的数据变化，不会因为没有监听的表单项变化了而产生重绘。
+试想一个使用场景：我们要实现一个活动编辑器，右侧是编辑框，左侧是实时预览；这种场景下除了需要一个地方来输入表单的各个值之外，还需要在另外一个地方读取这些表单值。我们提供了一套统一的简单易用，并且使用姿势和 `Field` 非常相似的 API 来实现组件值的按需读取。这些组件只会监听所需的数据变化，不会因为没有监听的表单项变化了而产生重绘。
 
 - `Field` 组件对应 `FieldValue`，`View` 模式下指定一个 `name`；`Model` 模式下指定一个 `model`
 - `FieldSet` 组件对应 `FieldSetValue`，只有一个 `name` 参数；如果是 `Model` 模式下已经拿到对应的 model 对象了，那么直接将 `model.get(xxx)` 传给 `FieldValue` 组件即可
@@ -231,20 +251,22 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 - `Form.useFieldValue` 提供了一种 hooks 的风格来获取表单值（包括 FieldSet、FieldArray、Field），它可以深度监听表单值
 - `Form.useFormValue` 提供了一种 hooks 的风格来获取整个表单的值，它可以深度监听表单值
 
+⚠️注意：订阅单个表单项的值一般不会有什么问题，但是订阅 `FieldArray`, `FieldSet` 或者 `Form` 的值时需要谨慎，因为这些是容器类型，订阅它们意味着需要订阅它们内部包含的所有表单项的变化，这是一个非常耗资源并且影响性能的操作，所以不推荐大范围频繁使用。针对这个问题，开发模式下会有一个警告信息来提醒使用者。
+
 <!-- demo-slot-12 -->
 <!-- demo-slot-20 -->
 
-### 非 `Field` 层级的校验
+### 通过 Model 订阅数据
 
-`FieldSet` 和 `FieldArray` 和 `Field` 一样可以设置校验规则，这些校验规则是运行在 `FieldSet` 和 `FieldArray` 层级的，能拿到下层的所有数据，可以用来实现跨 `Field` 的校验。
+由于 `useFieldValue` 依赖了 `FormContext` ，因此在表单外部监听数据变更无法通过它来实现。此时可以使用 `useModelValue` 来对 model 进行订阅，类似的 Hook 还有 `useModelValid`，它们的内部实现不依赖 `FormContext` ，可以在任意组件内监听任意字段的数据变更（只需要获取到字段的 model 引用）。
 
-<!-- demo-slot-13 -->
+<!-- demo-slot-21 -->
 
 ### 表单值联动
 
 <!-- demo-slot-14 -->
 
-### `Control`, `Label` 以及 `Error` 组件
+### 自定义表单项
 
 实现自定义 `Field` 的时候会用到这些组件，它们只是样式组件，用来提供和内置 `Field` 组件一致样式和参数。
 
@@ -252,6 +274,17 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 - `Label` 表单项的 label 组件，适用于连 `Control` 也不想使用的场景，[查看文档](../../apidoc/interfaces/ilabelprops.html)
 - `Error` 表单项的错误信息组件，同 `Label` 一样适用于深度自定义的场景，[查看文档](../../apidoc/interfaces/iformerrorprops.html)
 - `useFormChild` 使用上述组件时，如果希望支持自动滚动到错误处，需要在组件内使用这个 Hook 关联 model 和 DOM 节点，[查看文档](../../apidoc/globals.html#useformchild)
+- `CombineErrors` 这个组件用来将多个字段的错误聚合成一个错误展示，需要配合 `Field` 的 `withoutError` 参数使用。
+
+<!-- demo-slot-18 -->
+<!-- demo-slot-3 -->
+<!-- demo-slot-10 -->
+
+### `Form` 布局
+
+`Form` 组件使用 `flex` 布局，提供两种简单的样式：水平布局 `horizontal`， 垂直布局 `vertical`。
+
+<!-- demo-slot-7 -->
 
 ### 表单上下文
 
@@ -274,12 +307,3 @@ interface IZentFormContext {
 - useCompositionHandler 用来在 `model` 上维护一个输入法编辑的状态, `model.isCompositing`，[查看函数定义](https://zent-contrib.github.io/formulr/globals.html#usecompositionhandler)。组件内部会根据这个状态在输入法输入阶段跳过校验
 - makeChangeHandler 生成一个 `onChange` 回调函数，[查看函数定义](https://zent-contrib.github.io/formulr/globals.html#makechangehandler)
 - compose 与 usePipe 类似，区别是 usePipe 作为 hook 使用，而 compose 可以用在任何地方，例如组合多个校验函数中间件，[查看函数定义](https://zent-contrib.github.io/formulr/globals.html#compose)
-
-### Hooks
-
-`Form` 提供以下基础的 hooks，在内置的这些 `Form` 组件无法满足需要时，可以使用这些 hooks 来封装自定义的 `Form` 组件。
-
-- `Form.useForm` [查看文档](https://zent-contrib.github.io/formulr/globals.html#useform)
-- `Form.useField` [查看文档](https://zent-contrib.github.io/formulr/globals.html#usefield)
-- `Form.useFieldArray` [查看文档](https://zent-contrib.github.io/formulr/globals.html#usefieldarray)
-- `Form.useFieldSet` [查看文档](https://zent-contrib.github.io/formulr/globals.html#usefieldset)
