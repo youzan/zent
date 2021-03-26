@@ -9,6 +9,23 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 9.4.2(2021-03-26)
+
+- 🦀️ `Badge` 类型定义中 `children` 属性改为可选
+- 🦀️ 更新 `@wojtekmaj/enzyme-adapter-react-17` 到最新版
+- `Upload`
+  - 🦀️ 修复 `getUploadSuccessOverrideProps` 不生效的问题
+  - 🦀️ 修复一些文档和代码中的拼写错误
+- `Form`
+  - 🦀️ `FormInputField`, `FormImageUploadField` 以及 `FormUploadField` 增加往 `props.props` 上设置默认值的警告
+  - 📚 修复 `Model` 模式示例中数组下表作为 `key` 的问题
+  - 📚 调整了文档结构，增加了一些概述性说明，方便理解表单的工作原理
+- 📚 修复 `Select` 虚拟滚动示例特殊情况下崩溃的问题
+- 文档
+  - 📚 Github Actions 中增加同步 Gitee Pages 的能力
+  - 📚 Github Actions 中发版完成后增加企业微信通知
+  - 📚 更新 logo 以及设计语言网站链接
+
 ### 9.4.1(2021-03-11)
 
 - ✨ 导出 `Form` 中的 `useFormChild`，并添加了文档

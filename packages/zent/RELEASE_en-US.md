@@ -9,6 +9,23 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 9.4.2(2021-03-26)
+
+- 🦀️ Change `children` to optional in `Badge` TS definition
+- 🦀️ Upgrade `@wojtekmaj/enzyme-adapter-react-17` to latest version
+- `Upload`
+  - 🦀️ Fix `getUploadSuccessOverrideProps` not working
+  - 🦀️ Fix typos in code and doc
+- `Form`
+  - 🦀️ Add warning when setting default value in `props.props` in `FormInputField`, `FormImageUploadField` and `FormUploadField`
+  - 📚 Fix issues caused by using array index as `key` in `Model` strategy example
+  - 📚 Restructure documentation for better readbility
+- 📚 Fix crash in `Select` virtual scroll demo
+- Documentation
+  - 📚 Add sync to Gitee Pages step in Github Action
+  - 📚 Send Wechat Work notification after releasing a new version in Github Action
+  - 📚 Update logo and design site link
+
 ### 9.4.1(2021-03-11)
 
 - ✨ Export `useFormChild` in `Form`
