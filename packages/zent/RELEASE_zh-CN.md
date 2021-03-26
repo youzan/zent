@@ -18,7 +18,7 @@
   - 🦀️ 修复一些文档和代码中的拼写错误
 - `Form`
   - 🦀️ `FormInputField`, `FormImageUploadField` 以及 `FormUploadField` 增加往 `props.props` 上设置默认值的警告
-  - 📚 修复 `Model` 模式示例中数组下表作为 `key` 的问题
+  - 📚 修复 `Model` 模式示例中数组下标作为 `key` 的问题
   - 📚 调整了文档结构，增加了一些概述性说明，方便理解表单的工作原理
 - 📚 修复 `Select` 虚拟滚动示例特殊情况下崩溃的问题
 - 文档
