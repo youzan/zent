@@ -140,6 +140,7 @@ type SyncValidator<T> = (value: T, ctx: ValidatorContext<T>) => IMaybeError<T>;
 - 使用 `Form.createAsyncValidator` 来创建一个异步校验函数，[查看函数定义](https://zent-contrib.github.io/formulr/globals.html#createasyncvalidator)；通过 `Form.isAsyncValidator` 来判断函数是不是异步校验函数，[查看函数定义](https://zent-contrib.github.io/formulr/globals.html#isasyncvalidator)
 - 通过 `Field` 的 `validateOccasion` 参数控制校验时机
 - 通过 `Field` 的 `getValidateOption` 参数控制校验规则的运行时机以及哪些校验规则需要运行
+- `validator` 的执行顺序是 `validators` 数组的元素顺序，通常建议把异步校验放在最后
 
 #### 内置的校验规则
 
@@ -174,6 +175,8 @@ type SyncValidator<T> = (value: T, ctx: ValidatorContext<T>) => IMaybeError<T>;
 - `ValidateOption.StopPropagation`：禁止校验的冒泡行为（类似事件冒泡）
 
 校验选项是一个 `BitSet`，在自定义表单组件中，使用 `Model` 上的 `validate` 方法进行校验时，使用 `|` 运算符联合所需的选项作为参数传入即可。
+
+不传参数调用 `form.validate()` 等价于 `form.validate(ValidateOption.Default | ValidateOption.IncludeChildrenRecursively)`。如果调用 `form.validate` 时手动指定校验选项的话需要自行设置需要的所有选项，包括默认的两个选项。
 
 <!-- demo-slot-16 -->
 
@@ -251,7 +254,7 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 - `Form.useFieldValue` 提供了一种 hooks 的风格来获取表单值（包括 FieldSet、FieldArray、Field），它可以深度监听表单值
 - `Form.useFormValue` 提供了一种 hooks 的风格来获取整个表单的值，它可以深度监听表单值
 
-⚠️注意：订阅单个表单项的值一般不会有什么问题，但是订阅 `FieldArray`, `FieldSet` 或者 `Form` 的值时需要谨慎，因为这些是容器类型，订阅它们意味着需要订阅它们内部包含的所有表单项的变化，这是一个非常耗资源并且影响性能的操作，所以不推荐大范围频繁使用。针对这个问题，开发模式下会有一个警告信息来提醒使用者。
+⚠️ 注意：订阅单个表单项的值一般不会有什么问题，但是订阅 `FieldArray`, `FieldSet` 或者 `Form` 的值时需要谨慎，因为这些是容器类型，订阅它们意味着需要订阅它们内部包含的所有表单项的变化，这是一个非常耗资源并且影响性能的操作，所以不推荐大范围频繁使用。针对这个问题，开发模式下会有一个警告信息来提醒使用者。
 
 <!-- demo-slot-12 -->
 <!-- demo-slot-20 -->
