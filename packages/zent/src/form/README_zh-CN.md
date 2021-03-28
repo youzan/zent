@@ -70,6 +70,7 @@ validator 和 builder 下文会详细说明。
 - `form.validate()` 触发一次表单校验。
 - `form.isValid()` 表单是否通过校验，不会自动触发 `form.validate`。
 - `form.isValidating()` 表单是否正在校验过程中。
+- `form.model` 获取表单对应的 model 对象。
 - `form.getValue()` 获取表单当前的值。
 - `form.getSubmitValue()` 获取表单当前的值，用于需要在提交前通过 `normalizeBeforeSubmit` 格式化表单值的场景。
 - `form.patchValue()` 更新给定字段的值。

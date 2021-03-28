@@ -98,6 +98,9 @@ export class ZentForm<T extends UnknownFieldSetModelChildren>
     return this.inner.ctx;
   }
 
+  /**
+   * 表单的 model 对象
+   */
   get model() {
     return this.inner.model;
   }
