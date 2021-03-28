@@ -63,13 +63,20 @@ validator 和 builder 下文会详细说明。
 
 `form` 对象具备一些基础的能力：
 
-- `form.submit` 显式触发表单提交事件，会自动触发表单校验。
-- `form.validate` 触发一次表单校验。
-- `form.patchValue` 为给定的字段赋值。
-- `form.initialize` 为给定的字段赋值，同时将这个值作为 `initialValue` 。
-- `form.reset` 显式触发表单重置事件，将所有字段重置为 `initialValue` ，如果 `initialValue` 不存在，则使用 `defaultValue` 。
-- `form.resetValue` 将所有字段重置为 `initialValue` ，不会触发表单事件，如果 `initialValue` 不存在，则使用 `defaultValue` 。
-- `form.clear` 将所有字段赋值为 `defaultValue` ，同时清空 `initialValue` 。
+- `form.submit()` 显式触发表单提交事件，会自动触发表单校验。
+- `form.isSubmitting` 表单是否在提交中。
+- `form.isSubmitFailed` 表单上一次提交是否失败。
+- `form.isSubmitSucceeded` 表单上一次提交是否成功。
+- `form.validate()` 触发一次表单校验。
+- `form.isValid()` 表单是否通过校验，不会自动触发 `form.validate`。
+- `form.isValidating()` 表单是否正在校验过程中。
+- `form.getValue()` 获取表单当前的值。
+- `form.getSubmitValue()` 获取表单当前的值，用于需要在提交前通过 `normalizeBeforeSubmit` 格式化表单值的场景。
+- `form.patchValue()` 更新给定字段的值。
+- `form.initialize()` 初始化表单值，同时将这个值作为表单的 `initialValue` 。
+- `form.resetValue()` 将所有字段重置为 `initialValue` ，不会触发表单事件，如果 `initialValue` 不存在，则使用 `defaultValue` 。
+- `form.clear()` 将所有字段赋值为 `defaultValue` ，同时清空 `initialValue` 。
+- `form.reset()` 显式触发表单重置事件 。
 
 #### `defaultValue` vs `initialValue`
 
@@ -170,7 +177,7 @@ type SyncValidator<T> = (value: T, ctx: ValidatorContext<T>) => IMaybeError<T>;
 - `ValidateOption.Default`：等同于`ValidateOption.Empty`
 - `ValidateOption.IncludeAsync`：校验时包含异步校验
 - `ValidateOption.IncludeUntouched`：仅对满足`!!model.touched() === true`的字段进行校验
-- `ValidateOption.IncludeChildrenRecursively`：递归校验下层的 `Field`，适用于直接从 `FieldSet` 和 `FieldArray` 触发的校验
+- `ValidateOption.IncludeChildrenRecursively`：递归校验下层的 `Field`，适用于直接从 `Form`，`FieldSet` 或者 `FieldArray` 触发的校验
 - `ValidateOption.ExcludePristine`：不校验没有修改过的 `Field`
 - `ValidateOption.StopPropagation`：禁止校验的冒泡行为（类似事件冒泡）
 
