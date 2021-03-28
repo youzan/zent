@@ -101,6 +101,11 @@ export enum ValidateOption {
    * 不校验没有修改过的 `Field`
    */
   ExcludePristine               = 0b000010000,
+
+  /**
+   * 校验时不往上一级 `FieldSet` 或者 `FieldArray` 冒泡。
+   * 校验的冒泡只会往上冒一级。
+   */
   StopPropagation               = 0b000100000,
 
   Default                       = Empty,

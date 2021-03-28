@@ -224,7 +224,7 @@ type SyncValidator<T> = (value: T, ctx: ValidatorContext<T>) => IMaybeError<T>;
 - `ValidateOption.IncludeUntouched`：仅对满足`!!model.touched() === true`的字段进行校验
 - `ValidateOption.IncludeChildrenRecursively`：递归校验下层的 `Field`，适用于直接从 `Form`，`FieldSet` 或者 `FieldArray` 触发的校验
 - `ValidateOption.ExcludePristine`：不校验没有修改过的 `Field`
-- `ValidateOption.StopPropagation`：禁止校验的冒泡行为（类似事件冒泡）
+- `ValidateOption.StopPropagation`：校验时不往上一级 `FieldSet` 或者 `FieldArray` 冒泡。注意，校验的冒泡只会往上冒一级，不是无限往上冒的。
 
 校验选项是一个 `BitSet`，在自定义表单组件中，使用 `Model` 上的 `validate` 方法进行校验时，使用 `|` 运算符联合所需的选项作为参数传入即可。
 
