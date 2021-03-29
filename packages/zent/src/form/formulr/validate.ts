@@ -104,7 +104,7 @@ export enum ValidateOption {
 
   /**
    * 校验时不往上一级 `FieldSet` 或者 `FieldArray` 冒泡。
-   * 校验的冒泡只会往上冒一级。
+   * 校验的冒泡会一直冒到表单最顶层。
    */
   StopPropagation               = 0b000100000,
 
