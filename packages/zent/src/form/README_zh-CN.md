@@ -10,13 +10,13 @@ scatter: true
 
 ### ⚠️ 警告
 
-这是新版的 `Form` 组件，和 `7.0.0` 之前版本的 `Form` 组件不兼容。
+这是新版的 `Form` 组件，和 `7.0.0` 之前版本的 `Form` 组件不兼容，可以在[这里查看老版 `Form` 组件的文档](https://zent-contrib.github.io/zent-compat)。
 
-可以在[这里查看老版 `Form` 组件的文档](https://zent-contrib.github.io/zent-compat)。
+`Form` 和其他组件相比，本身功能和 API 都相对复杂，请先仔细阅读完本文档再使用。
 
 ### API 文档
 
-`Form` 的 API 较多，请直接查阅 tsdoc 生成的 API 文档，在[这里搜索查看](../../apidoc)即可。
+`Form` 的 API 较多，文档里遗漏某些 API 的话请尝试搜索 tsdoc 生成的 [API 文档](../../apidoc)，同时可以在 [Github 上提个 issue](https://github.com/youzan/zent/issues/new)，帮助我们改进文档，issue 里请详细描述少了哪个 API 或者组件的信息。
 
 ### Form 的分层结构
 
@@ -234,7 +234,9 @@ type SyncValidator<T> = (value: T, ctx: ValidatorContext<T>) => IMaybeError<T>;
 
 ### 校验中间件
 
-校验中间件作用于**校验函数本身**，可以把它视作用来装饰函数的装饰器；通过中间件可以为内置的校验函数提供一些额外能力，例如条件校验；使用 `FieldUtils.compose` 可以将多个中间件组合成一个；
+校验中间件作用于**校验函数本身**，可以把它视作用来装饰函数的装饰器；通过中间件可以为内置的校验函数提供一些额外能力，例如条件校验。
+
+使用 `FieldUtils.compose` 可以将多个中间件组合成一个，文档底部有 `FieldUtils.compose` 的 API 描述。
 
 校验中间件的函数签名：
 
@@ -277,7 +279,7 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 `FieldSet` 两种模式公用的参数可以在[这里查看](../../apidoc/interfaces/ifieldsetbaseprops.html)。
 
 - `validators` 校验规则数组，按数组顺序执行，直到所有都通过或者在第一个失败的地方停止
-- `scrollAnchorRef` 表单提交时滚动到错误时的DOM元素的 ref(来自 `React.createRef` 或 `React.useRef`)
+- `scrollAnchorRef` 表单提交时滚动到错误时的 DOM 元素的 ref(来自 `React.createRef` 或 `React.useRef`)
 - `renderError` 用于渲染整个 `FieldSet` 层面的错误
 - `children` 不解释
 
@@ -337,11 +339,11 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 
 实现自定义 `Field` 的时候会用到这些组件，它们只是样式组件，用来提供和内置 `Field` 组件一致样式和参数。
 
-- `Control` 封装了 label、自定义组件以及错误信息的结构，[查看文档](../../apidoc/interfaces/iformcontrolprops.html)
-- `Label` 表单项的 label 组件，适用于连 `Control` 也不想使用的场景，[查看文档](../../apidoc/interfaces/ilabelprops.html)
-- `Error` 表单项的错误信息组件，同 `Label` 一样适用于深度自定义的场景，[查看文档](../../apidoc/interfaces/iformerrorprops.html)
+- `Control` 封装了 label、自定义组件以及错误信息的结构，[查看 Props 文档](../../apidoc/interfaces/iformcontrolprops.html)
+- `Label` 表单项的 label 组件，适用于连 `Control` 也不想使用的场景，[查看 Props 文档](../../apidoc/interfaces/ilabelprops.html)
+- `Error` 表单项的错误信息组件，同 `Label` 一样适用于深度自定义的场景，[查看 Props 文档](../../apidoc/interfaces/iformerrorprops.html)
 - `useFormChild` 使用上述组件时，如果希望支持自动滚动到错误处，需要在组件内使用这个 Hook 关联 model 和 DOM 节点，[查看文档](../../apidoc/globals.html#useformchild)
-- `CombineErrors` 这个组件用来将多个字段的错误聚合成一个错误展示，需要配合 `Field` 的 `withoutError` 参数使用。
+- `CombineErrors` 这个组件用来将多个字段的错误聚合成一个错误展示，需要配合 `Field` 的 `withoutError` 参数使用，[查看 Props 文档](../../apidoc/interfaces/icombineerrorsprops.html)
 
 <!-- demo-slot-18 -->
 <!-- demo-slot-3 -->
