@@ -102,10 +102,10 @@ validator 和 builder 下文会详细说明。
 
 `Form` 提供以下基础的 hooks，在内置的这些 `Form` 组件无法满足需要时，可以使用这些 hooks 来封装自定义的 `Form` 组件。
 
-- `Form.useForm` 创建一个 `Form` 对象，[查看 API 文档](https://zent-contrib.github.io/formulr/globals.html#useform)
-- `Form.useField` 创建一个 `Field`，[查看 API 文档](https://zent-contrib.github.io/formulr/globals.html#usefield)
-- `Form.useFieldArray` 创建一个 `FieldArray`，[查看 API 文档](https://zent-contrib.github.io/formulr/globals.html#usefieldarray)
-- `Form.useFieldSet` 创建一个 `FieldSet`，[查看 API 文档](https://zent-contrib.github.io/formulr/globals.html#usefieldset)
+- `Form.useForm` 创建一个 `Form` 对象，[查看 API 文档](../../apidoc/globals.html#useform)
+- `Form.useField` 创建一个 `Field`，[查看 API 文档](../../apidoc/globals.html#usefield)
+- `Form.useFieldArray` 创建一个 `FieldArray`，[查看 API 文档](../../apidoc/globals.html#usefieldarray)
+- `Form.useFieldSet` 创建一个 `FieldSet`，[查看 API 文档](../../apidoc/globals.html#usefieldset)
 
 #### 基础使用方法
 
@@ -187,23 +187,27 @@ type AsyncValidator<T> = (
 type SyncValidator<T> = (value: T, ctx: ValidatorContext<T>) => IMaybeError<T>;
 ```
 
-- 如果返回 `null` 或者 `undefined` 表示校验通过；当校验失败时返回一个[包含错误信息的对象](https://zent-contrib.github.io/formulr/interfaces/ivalidateresult.html)。
+- 如果返回 `null` 或者 `undefined` 表示校验通过；当校验失败时返回一个[包含错误信息的对象](../../apidoc/interfaces/ivalidateresult.html)。
 - 支持返回 `Promise` 或 `Observable` 进行异步校验
-- 使用 `Form.createAsyncValidator` 来创建一个异步校验函数，[查看函数定义](https://zent-contrib.github.io/formulr/globals.html#createasyncvalidator)；通过 `Form.isAsyncValidator` 来判断函数是不是异步校验函数，[查看函数定义](https://zent-contrib.github.io/formulr/globals.html#isasyncvalidator)
+- 使用 `Form.createAsyncValidator` 来创建一个异步校验函数，[查看函数定义](../../apidoc/globals.html#createasyncvalidator)；通过 `Form.isAsyncValidator` 来判断函数是不是异步校验函数，[查看函数定义](../../apidoc/globals.html#isasyncvalidator)
 - 通过 `Field` 的 `validateOccasion` 参数控制校验时机
 - 通过 `Field` 的 `getValidateOption` 参数控制校验规则的运行时机以及哪些校验规则需要运行
 - `validator` 的执行顺序是 `validators` 数组的元素顺序，通常建议把异步校验放在最后
+- `ctx` 参数上有几个获取表单值的方法，当校验依赖其他字段的值时可能需要用到
+  - `getFormValue()` 获取整个表单当前的值
+  - `getSectionValue(...names)` 获取当前 FieldSet 或者 Form 下的某个字段的值
+  - `getSection` 或者所属 FieldSet 或者 Form 的 model 对象。
 
 #### 内置的校验规则
 
-- [`Validators.min`](https://zent-contrib.github.io/formulr/globals.html#min)
-- [`Validators.max`](https://zent-contrib.github.io/formulr/globals.html#max)
-- [`Validators.required`](https://zent-contrib.github.io/formulr/globals.html#required)
-- [`Validators.requiredTrue`](https://zent-contrib.github.io/formulr/globals.html#requiredtrue)
-- [`Validators.email`](https://zent-contrib.github.io/formulr/globals.html#email)
-- [`Validators.minLength`](https://zent-contrib.github.io/formulr/globals.html#minlength)
-- [`Validators.maxLength`](https://zent-contrib.github.io/formulr/globals.html#maxlength)
-- [`Validators.pattern`](https://zent-contrib.github.io/formulr/globals.html#pattern)
+- [`Validators.min`](../../apidoc/globals.html#min)
+- [`Validators.max`](../../apidoc/globals.html#max)
+- [`Validators.required`](../../apidoc/globals.html#required)
+- [`Validators.requiredTrue`](../../apidoc/globals.html#requiredtrue)
+- [`Validators.email`](../../apidoc/globals.html#email)
+- [`Validators.minLength`](../../apidoc/globals.html#minlength)
+- [`Validators.maxLength`](../../apidoc/globals.html#maxlength)
+- [`Validators.pattern`](../../apidoc/globals.html#pattern)
 
 <!-- demo-slot-4 -->
 <!-- demo-slot-5 -->
@@ -268,7 +272,7 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 
 - 注意并没有所谓的 `FieldArray` 组件，直接使用 `Form.useFieldArray` 这个 hooks 即可。该函数有两个重载的实现，分别对应 `Form` 的两种运行模式。
 
-- `useFieldArray` 的参数定义请[参考这里](https://zent-contrib.github.io/formulr/globals.html#usefieldarray)。
+- `useFieldArray` 的参数定义请[参考这里](../../apidoc/globals.html#usefieldarray)。
 
 - `useFieldArray` 返回值是一个 `FieldArrayModel`，通过 `children` 就能访问到所有数据，一般在 `render` 函数里对 `children` 做 `map` 操作即可。
 
@@ -296,10 +300,10 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 
 使用 `Form` 的 `Model` 模式需要自己手动创建 model，我们提供了 builder API 来帮助完成这个操作。每个函数返回的都是一个 `Builder` 对象，`Builder` 对象都有一个 `validators` 方法用来配置 model 的校验规则。**Builder API 都支持链式调用**。
 
-- `Form.form` 参数是个对象，用来描述整个 `Form` model 的结构, [查看函数定义](https://zent-contrib.github.io/formulr/globals.html#form)
-- `Form.field` 参数是 `Field` 的默认值，[查看函数定义](https://zent-contrib.github.io/formulr/globals.html#field)
-- `Form.set` 参数是个对象，用来描述这个表单集合的结构，[查看函数定义](https://zent-contrib.github.io/formulr/globals.html#set)
-- `Form.array` 参数是一个其他函数返回的 `Builder` 对象，`array` 返回的 `Builder` 对象上有 `defaultValue` 用于设置这个 array 中的表单项的默认值，[查看函数定义](https://zent-contrib.github.io/formulr/globals.html#array)
+- `Form.form` 参数是个对象，用来描述整个 `Form` model 的结构, [查看函数定义](../../apidoc/globals.html#form)
+- `Form.field` 参数是 `Field` 的默认值，[查看函数定义](../../apidoc/globals.html#field)
+- `Form.set` 参数是个对象，用来描述这个表单集合的结构，[查看函数定义](../../apidoc/globals.html#set)
+- `Form.array` 参数是一个其他函数返回的 `Builder` 对象，`array` 返回的 `Builder` 对象上有 `defaultValue` 用于设置这个 array 中的表单项的默认值，[查看函数定义](../../apidoc/globals.html#array)
 
 <!-- demo-slot-9 -->
 
@@ -371,8 +375,8 @@ interface IZentFormContext {
 
 `FieldUtils` 提供了一些有用的工具函数，如果不知道干什么用的或者看不懂，说明你没有需求，不需要用到它们，这些工具本身定位就是高级用法。
 
-- useMulti 用来按顺序调用一批函数，只使用它们的副作用，忽略返回值，[查看函数定义](https://zent-contrib.github.io/formulr/globals.html#usemulti)
-- usePipe 用来从左往右按顺序调用一批函数，上一个函数的返回值作为下一个函数的参数，返回最后一个函数的返回值，[查看函数定义](https://zent-contrib.github.io/formulr/globals.html#usepipe)
-- useCompositionHandler 用来在 `model` 上维护一个输入法编辑的状态, `model.isCompositing`，[查看函数定义](https://zent-contrib.github.io/formulr/globals.html#usecompositionhandler)。组件内部会根据这个状态在输入法输入阶段跳过校验
-- makeChangeHandler 生成一个 `onChange` 回调函数，具体说明请[查看函数定义](https://zent-contrib.github.io/formulr/globals.html#makechangehandler)
-- compose 与 usePipe 类似，区别是 usePipe 作为 hook 使用，而 compose 可以用在任何地方，例如组合多个校验函数中间件，[查看函数定义](https://zent-contrib.github.io/formulr/globals.html#compose)
+- useMulti 用来按顺序调用一批函数，只使用它们的副作用，忽略返回值，[查看函数定义](../../apidoc/globals.html#usemulti)
+- usePipe 用来从左往右按顺序调用一批函数，上一个函数的返回值作为下一个函数的参数，返回最后一个函数的返回值，[查看函数定义](../../apidoc/globals.html#usepipe)
+- useCompositionHandler 用来在 `model` 上维护一个输入法编辑的状态, `model.isCompositing`，[查看函数定义](../../apidoc/globals.html#usecompositionhandler)。组件内部会根据这个状态在输入法输入阶段跳过校验
+- makeChangeHandler 生成一个 `onChange` 回调函数，具体说明请[查看函数定义](../../apidoc/globals.html#makechangehandler)
+- compose 与 usePipe 类似，区别是 usePipe 作为 hook 使用，而 compose 可以用在任何地方，例如组合多个校验函数中间件，[查看函数定义](../../apidoc/globals.html#compose)
