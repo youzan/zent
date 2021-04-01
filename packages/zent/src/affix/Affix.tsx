@@ -1,14 +1,23 @@
 import cx from 'classnames';
-import { createRef, useCallback, useMemo, useRef, useState } from 'react';
+import {
+  createRef,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import { Waypoint, IWaypointCallbackData, WaypointPosition } from '../waypoint';
 import { useCallbackRef } from '../utils/hooks/useCallbackRef';
 import isBrowser from '../utils/isBrowser';
 import { useResizeObserver } from '../utils/hooks/use-resize-observer';
+import { WindowScrollHandler } from '../utils/component/WindowScrollHandler';
 
 export interface IAffixProps {
   offsetTop?: number;
   offsetBottom?: number;
+  target?: () => HTMLElement;
   onPin?: () => void;
   onUnpin?: () => void;
   zIndex?: number;
@@ -22,6 +31,7 @@ export const Affix: React.FC<IAffixProps> = ({
   children,
   offsetTop,
   offsetBottom,
+  target: targetProp,
   zIndex = 10,
   onPin,
   onUnpin,
@@ -34,6 +44,9 @@ export const Affix: React.FC<IAffixProps> = ({
   const onUnpinCallbackRef = useCallbackRef(onUnpin);
   const useTop = typeof offsetTop === 'number';
   const useBottom = typeof offsetBottom === 'number';
+  const [target, setTarget] = useState<HTMLElement>(null);
+  const [targetTop, setTargetTop] = useState<number>(0);
+  const [targetBottom, setTargetBottom] = useState<number>(0);
 
   const setSize = useCallback((entries: ResizeObserverEntry[]) => {
     const { borderBoxSize, contentRect } = entries[0];
@@ -118,19 +131,57 @@ export const Affix: React.FC<IAffixProps> = ({
         width,
       };
 
-      if (position === WaypointPosition.Above) {
-        styles.top = offsetTop;
+      if (target) {
+        if (position === WaypointPosition.Above) {
+          styles.top = offsetTop + targetTop;
+        } else {
+          styles.bottom = offsetBottom + (window.innerHeight - targetBottom);
+        }
       } else {
-        styles.bottom = offsetBottom;
+        if (position === WaypointPosition.Above) {
+          styles.top = offsetTop;
+        } else {
+          styles.bottom = offsetBottom;
+        }
       }
-
       return styles;
     }
 
     return { position: 'static' };
-  }, [offsetBottom, offsetTop, position, width, zIndex]);
+  }, [
+    target,
+    offsetBottom,
+    offsetTop,
+    targetTop,
+    targetBottom,
+    position,
+    width,
+    zIndex,
+  ]);
 
-  const ancestor = isBrowser ? window : undefined;
+  const targetRectChange = useCallback((target: HTMLElement) => {
+    const targetRect = target.getBoundingClientRect();
+    setTargetTop(targetRect.top);
+    setTargetBottom(targetRect.bottom);
+  }, []);
+
+  // init target
+  useEffect(() => {
+    const targetNode = targetProp?.();
+    if (targetNode) {
+      setTarget(targetNode);
+      targetRectChange(targetNode);
+    }
+  }, [targetProp, targetRectChange]);
+
+  const onWindowSrcoll = useCallback(() => {
+    target && targetRectChange(target);
+  }, [targetRectChange, target]);
+
+  const ancestor = useMemo(() => {
+    return target ?? (isBrowser ? window : undefined);
+  }, [target]);
+
   return (
     <>
       {useTop && (
@@ -158,6 +209,7 @@ export const Affix: React.FC<IAffixProps> = ({
           bottomOffset={offsetBottom}
         />
       )}
+      <WindowScrollHandler onScroll={onWindowSrcoll} />
     </>
   );
 };
