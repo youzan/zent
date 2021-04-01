@@ -196,7 +196,7 @@ type SyncValidator<T> = (value: T, ctx: ValidatorContext<T>) => IMaybeError<T>;
 - `ctx` 参数上有几个获取表单值的方法，当校验依赖其他字段的值时可能需要用到
   - `getFormValue()` 获取整个表单当前的值
   - `getSectionValue(...names)` 获取当前 FieldSet 或者 Form 下的某个字段的值
-  - `getSection` 或者所属 FieldSet 或者 Form 的 model 对象。
+  - `getSection()` 或者所属 FieldSet 或者 Form 的 model 对象。
 
 #### 内置的校验规则
 
