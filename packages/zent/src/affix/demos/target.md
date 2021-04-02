@@ -23,7 +23,7 @@ class Demo extends Component {
 					<Affix
 						offsetBottom={20}
 						offsetTop={20}
-						target={() => this.containerRef}
+						getTarget={() => this.containerRef}
 					>
 						<Button>{i18n.content}</Button>
 					</Affix>

@@ -14,7 +14,7 @@ Pin element in a specific position.
 | -------------------- | ------------------------------------ | ------------------- | -------- | ----------- |
 | offsetTop            | Offset to the top of the viewport    | `number`            |          |             |
 | offsetBottom         | Offset to the bottom of the viewport | `number`            |          |             |
-| target               | Custom target node for positioning   | `() => HTMLElement` | `window` |             |
+| getTarget            | Custom target node for positioning   | `() => HTMLElement` | `window` |             |
 | onPin                | Callback when affix pins             | `() => void`        |          |             |
 | onUnpin              | Callback when affix unpins           | `() => void`        |          |             |
 | zIndex               | Pin `z-index`                        | `number`            | 10       |             |

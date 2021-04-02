@@ -13,11 +13,13 @@ import { useCallbackRef } from '../utils/hooks/useCallbackRef';
 import isBrowser from '../utils/isBrowser';
 import { useResizeObserver } from '../utils/hooks/use-resize-observer';
 import { WindowScrollHandler } from '../utils/component/WindowScrollHandler';
+import { WindowResizeHandler } from '../utils/component/WindowResizeHandler';
+import getViewportSize from '../utils/dom/getViewportSize';
 
 export interface IAffixProps {
   offsetTop?: number;
   offsetBottom?: number;
-  target?: () => HTMLElement;
+  getTarget?: () => HTMLElement;
   onPin?: () => void;
   onUnpin?: () => void;
   zIndex?: number;
@@ -31,7 +33,7 @@ export const Affix: React.FC<IAffixProps> = ({
   children,
   offsetTop,
   offsetBottom,
-  target: targetProp,
+  getTarget,
   zIndex = 10,
   onPin,
   onUnpin,
@@ -45,8 +47,15 @@ export const Affix: React.FC<IAffixProps> = ({
   const useTop = typeof offsetTop === 'number';
   const useBottom = typeof offsetBottom === 'number';
   const [target, setTarget] = useState<HTMLElement>(null);
-  const [targetTop, setTargetTop] = useState<number>(0);
-  const [targetBottom, setTargetBottom] = useState<number>(0);
+  const [targetTop, setTargetTop] = useState(0);
+  const [targetBottom, setTargetBottom] = useState(0);
+  const [windowHeight, setWindowHeight] = useState(0);
+
+  const targetRectChange = useCallback((target: HTMLElement) => {
+    const targetRect = target.getBoundingClientRect();
+    setTargetTop(targetRect.top);
+    setTargetBottom(targetRect.bottom);
+  }, []);
 
   const setSize = useCallback((entries: ResizeObserverEntry[]) => {
     const { borderBoxSize, contentRect } = entries[0];
@@ -135,7 +144,7 @@ export const Affix: React.FC<IAffixProps> = ({
         if (position === WaypointPosition.Above) {
           styles.top = offsetTop + targetTop;
         } else {
-          styles.bottom = offsetBottom + (window.innerHeight - targetBottom);
+          styles.bottom = offsetBottom + (windowHeight - targetBottom);
         }
       } else {
         if (position === WaypointPosition.Above) {
@@ -154,29 +163,29 @@ export const Affix: React.FC<IAffixProps> = ({
     offsetTop,
     targetTop,
     targetBottom,
+    windowHeight,
     position,
     width,
     zIndex,
   ]);
 
-  const targetRectChange = useCallback((target: HTMLElement) => {
-    const targetRect = target.getBoundingClientRect();
-    setTargetTop(targetRect.top);
-    setTargetBottom(targetRect.bottom);
-  }, []);
-
   // init target
   useEffect(() => {
-    const targetNode = targetProp?.();
+    const targetNode = getTarget?.();
     if (targetNode) {
       setTarget(targetNode);
       targetRectChange(targetNode);
+      setWindowHeight(getViewportSize().height);
     }
-  }, [targetProp, targetRectChange]);
+  }, [getTarget, targetRectChange]);
 
   const onWindowSrcoll = useCallback(() => {
     target && targetRectChange(target);
   }, [targetRectChange, target]);
+
+  const onWindowResize = useCallback(() => {
+    setWindowHeight(getViewportSize().height);
+  }, []);
 
   const ancestor = useMemo(() => {
     return target ?? (isBrowser ? window : undefined);
@@ -209,7 +218,12 @@ export const Affix: React.FC<IAffixProps> = ({
           bottomOffset={offsetBottom}
         />
       )}
-      <WindowScrollHandler onScroll={onWindowSrcoll} />
+      {target && (
+        <>
+          <WindowScrollHandler onScroll={onWindowSrcoll} />
+          <WindowResizeHandler onResize={onWindowResize} />
+        </>
+      )}
     </>
   );
 };

@@ -15,7 +15,7 @@ group: 导航
 | -------------------- | ---------------------------- | ------------------- | -------- | ------ |
 | offsetTop            | 距离窗口顶部指定偏移量后触发 | `number`            |          |        |
 | offsetBottom         | 距离窗口底部指定偏移量后触发 | `number`            |          |        |
-| target               | 自定义相对定位的节点         | `() => HTMLElement` | `window` |        |
+| getTarget            | 自定义相对定位的节点         | `() => HTMLElement` | `window` |        |
 | onPin                | 触发固定后执行的回调函数     | `() => void`        |          |        |
 | onUnpin              | 固定消失后执行的回调函数     | `() => void`        |          |        |
 | zIndex               | 固定时的 `z-index`           | `number`            | 10       |        |
