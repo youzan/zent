@@ -98,6 +98,9 @@ export class ZentForm<T extends UnknownFieldSetModelChildren>
     return this.inner.ctx;
   }
 
+  /**
+   * 表单的 model 对象
+   */
   get model() {
     return this.inner.model;
   }
@@ -112,42 +115,76 @@ export class ZentForm<T extends UnknownFieldSetModelChildren>
     this.submit$.next(e);
   };
 
+  /**
+   * 触发表单校验
+   * @param option 校验选项
+   */
   validate(option: ValidateOption = ValidateOption.Default): Promise<any> {
     return this.inner.model.validate(option);
   }
 
+  /**
+   * 表单是否通过校验
+   */
   isValid() {
     return this.inner.model.valid();
   }
 
+  /**
+   * 表单是否正在校验中
+   */
   isValidating() {
     return this.inner.model.isValidating$.getValue();
   }
 
+  /**
+   * 获取表单当前值
+   */
   getValue() {
     return this.inner.model.getRawValue();
   }
 
+  /**
+   * 获取表单当前的值，用于需要在提交前通过 `normalizeBeforeSubmit` 格式化表单值的场景
+   */
   getSubmitValue() {
     return this.inner.model.getSubmitValue();
   }
 
+  /**
+   * 初始化表单值
+   * @param value 初始值
+   */
   initialize(value: $FieldSetValue<T>) {
     this.inner.model.initialize(value);
   }
 
+  /**
+   * 更新指定字段的值
+   * @param value 待更新的字段值
+   */
   patchValue(value: Partial<$FieldSetValue<T>>) {
     this.inner.model.patchValue(value);
   }
 
+  /**
+   * 重置表单值，将所有字段重置为 `initialValue` ，如果 `initialValue` 不存在，则使用 `defaultValue`
+   */
   resetValue() {
     this.inner.model.reset();
   }
 
+  /**
+   * 触发表单的重置事件
+   * @param e 重置事件对象
+   */
   reset(e: FormEvent<HTMLFormElement>) {
     this.reset$.next(e);
   }
 
+  /**
+   * 清空表单值
+   */
   clear() {
     this.inner.model.clear();
   }

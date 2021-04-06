@@ -10,13 +10,13 @@ scatter: true
 
 ### ⚠️ 警告
 
-这是新版的 `Form` 组件，和 `7.0.0` 之前版本的 `Form` 组件不兼容。
+这是新版的 `Form` 组件，和 `7.0.0` 之前版本的 `Form` 组件不兼容，可以在[这里查看老版 `Form` 组件的文档](https://zent-contrib.github.io/zent-compat)。
 
-可以在[这里查看老版 `Form` 组件的文档](https://zent-contrib.github.io/zent-compat)。
+`Form` 和其他组件相比，本身功能和 API 都相对复杂，请先仔细阅读完本文档再使用。
 
 ### API 文档
 
-`Form` 的 API 较多，请直接查阅 tsdoc 生成的 API 文档，在[这里搜索查看](../../apidoc)即可。
+`Form` 的 API 较多，文档里遗漏某些 API 的话请尝试搜索 tsdoc 生成的 [API 文档](../../apidoc)，同时可以在 [Github 上提个 issue](https://github.com/youzan/zent/issues/new)，帮助我们改进文档，issue 里请详细描述少了哪个 API 或者组件的信息。
 
 ### Form 的分层结构
 
@@ -63,13 +63,35 @@ validator 和 builder 下文会详细说明。
 
 `form` 对象具备一些基础的能力：
 
-- `form.submit` 显式触发表单提交事件，会自动触发表单校验。
-- `form.validate` 触发一次表单校验。
-- `form.patchValue` 为给定的字段赋值。
-- `form.initialize` 为给定的字段赋值，同时将这个值作为 `initialValue` 。
-- `form.reset` 显式触发表单重置事件，将所有字段重置为 `initialValue` ，如果 `initialValue` 不存在，则使用 `defaultValue` 。
-- `form.resetValue` 将所有字段重置为 `initialValue` ，不会触发表单事件，如果 `initialValue` 不存在，则使用 `defaultValue` 。
-- `form.clear` 将所有字段赋值为 `defaultValue` ，同时清空 `initialValue` 。
+- `form.submit()` 显式触发表单提交事件，会自动触发表单校验。
+- `form.isSubmitting` 表单是否在提交中。
+- `form.isSubmitFailed` 表单上一次提交是否失败。
+- `form.isSubmitSucceeded` 表单上一次提交是否成功。
+- `form.validate()` 触发一次表单校验。
+- `form.isValid()` 表单是否通过校验，不会自动触发 `form.validate`。
+- `form.isValidating()` 表单是否正在校验过程中。
+- `form.model` 获取表单对应的 model 对象。
+- `form.getValue()` 获取表单当前的值。
+- `form.getSubmitValue()` 获取表单当前的值，用于需要在提交前通过 `normalizeBeforeSubmit` 格式化表单值的场景。
+- `form.patchValue()` 更新给定字段的值。
+- `form.initialize()` 初始化表单值，同时将这个值作为表单的 `initialValue` 。
+- `form.resetValue()` 将所有字段重置为 `initialValue` ，不会触发表单事件，如果 `initialValue` 不存在，则使用 `defaultValue` 。
+- `form.clear()` 将所有字段赋值为 `defaultValue` ，同时清空 `initialValue` 。
+- `form.reset()` 显式触发表单重置事件 。
+
+#### `Form` 组件的 Props
+
+- `form` `useForm` 的返回值
+- `layout` 表单的布局模式，目前支持水平布局或者垂直布局
+- `disabled` 禁用表单输入，开启后表单内所有元素不可编辑。注意：自定义组件需要自己实现禁用逻辑和展示
+- `disableEnterSubmit` 禁用表单内 `input` 元素的回车提交功能
+- `onReset` 表单重置回调函数，`form.reset` 或者原生的 DOM 触发的 `reset` 事件都会触发 `onReset`
+- `onSubmit` 表单提交回调函数，`form.submit` 或者原生的 DOM 触发的 `submit` 事件都会触发 `onSubmit`
+- `onSubmitFail` 表单提交失败时的回调函数
+- `onSubmitSuccess` 表单提交成功时的回调函数
+- `scrollToError` 表单校验报错时自动滚动到第一个错误的位置
+- `willScrollToError` 触发滚动到第一个错误前的回调函数，如果返回一个 `Promise`，当 `Promise` `resolve` 时才会继续执行滚动，`reject` 将终止滚动操作。 可以返回 `IFormScrollToErrorOptions` 用来调整滚动的位置
+- 详细参数请[参考这里](../../apidoc/interfaces/iformprops.html)
 
 #### `defaultValue` vs `initialValue`
 
@@ -80,14 +102,14 @@ validator 和 builder 下文会详细说明。
 
 `Form` 提供以下基础的 hooks，在内置的这些 `Form` 组件无法满足需要时，可以使用这些 hooks 来封装自定义的 `Form` 组件。
 
-- `Form.useForm` [查看文档](https://zent-contrib.github.io/formulr/globals.html#useform)
-- `Form.useField` [查看文档](https://zent-contrib.github.io/formulr/globals.html#usefield)
-- `Form.useFieldArray` [查看文档](https://zent-contrib.github.io/formulr/globals.html#usefieldarray)
-- `Form.useFieldSet` [查看文档](https://zent-contrib.github.io/formulr/globals.html#usefieldset)
+- `Form.useForm` 创建一个 `Form` 对象，[查看 API 文档](../../apidoc/globals.html#useform)
+- `Form.useField` 创建一个 `Field`，[查看 API 文档](../../apidoc/globals.html#usefield)
+- `Form.useFieldArray` 创建一个 `FieldArray`，[查看 API 文档](../../apidoc/globals.html#usefieldarray)
+- `Form.useFieldSet` 创建一个 `FieldSet`，[查看 API 文档](../../apidoc/globals.html#usefieldset)
 
 #### 基础使用方法
 
-所有表单组件必须包裹在一个 `Form` 组件内部，`Form` 组件的参数请[参考这里](../../apidoc/interfaces/iformprops.html)。每一个表单项对应一个 `Field`，我们已经内置了 Zent 组件对应的 `Field` 组件；也可以使用自己封装的自定义表单项组件。
+所有表单组件必须包裹在一个 `Form` 组件内部，每一个表单项对应一个 `Field`，我们已经内置了 Zent 组件对应的 `Field` 组件；也可以使用自己封装的自定义表单项组件。
 
 - `FormInputField`
 - `FormSelectField`
@@ -111,10 +133,40 @@ validator 和 builder 下文会详细说明。
 
 `Field` 组件支持的完整参数列表可以[参考这里](../../apidoc/interfaces/iformfieldpropsbase.html)，以及[这里除 `invalid` 之外的参数](../../apidoc/interfaces/iformcontrolprops.html)；这些都是两种模式下通用的参数。
 
-- `View` 模式还支持[以下参数](../../apidoc/interfaces/iformfieldviewdrivenprops.html)。
-- `Model` 模式还支持[以下参数](../../apidoc/interfaces/iformfieldmodeldrivenprops.html)。注意，此模式下校验规则正常是设置在 model 上的，而不是表单项组件上。
-- 在 `View` 模式下使用 `FieldArray` 时，由于该组件的特殊性，虽然此时传给 `Field` 的是 `model`（按上述规则这就是 `Model` 模式），但是校验规则还是需要设置在表单项上。
-- 如果需要给 `Field` 封装的组件传递 props，需要将所有 props 通过 `props` 传递，例如 `<FormInputField props={{ spellCheck: false }} />`，`spellCheck` 将会被透传到 `Input` 组件上；如果直接写在 `FormInputField` 上不会生效。
+- `after` 在表单项后面显示的自定义内容
+- `before` 在表单项前面显示的自定义内容
+- `format` 渲染前会先调用 `format` 格式化
+- `normalize` 触发 `onChange` 时会先经过 `normalize` 再写入到内部的 model 上
+- `getValidateOption` 根据触发校验的事件源头返回校验规则
+- `helpDesc` 表单项说明文案
+- `notice` 表单项警示性文案
+- `renderError` 自定义错误渲染，参数是 validator 返回的对象，一次只会有一个错误
+- `required` 是否必填，如果这项有值，会在校验规则里添加一个 `required` 规则，相当于一个快捷设置
+- `touchWhen` 什么时候标记表单项为 `touched`
+- `validateOccasion` 什么时候触发校验
+- `withoutError` 不显示错误，开启后一般需要自行处理错误的展示
+- `withoutLabel` 默认不传 `label` 的时候也会留有 `label` 的空间，使用 `withoutLabel` 去掉这个留空
+- `label` 表单项的名称
+- `className` 自定义类名
+- `children` 不解释
+
+`View` 模式还支持[以下参数](../../apidoc/interfaces/iformfieldviewdrivenprops.html)。
+
+- `defaultValue` 缺省值，作为没有用户输入时的值，不可变
+- `destroyOnUnmount` 是否在组件 `unmount` 的时候清除数据
+- `initialValue` 初始值，在逻辑上作为字段首次展示的值，可变
+- `name` 表单项对应的数据字段名
+- `normalizeBeforeSubmit` 用于表单提交前格式化 `Field` 值的回调函数
+- `validators` 校验规则列表，执行的时候会按数组顺序逐个调用，直到所有都通过或者在第一个失败的地方停止
+
+注意：在 `View` 模式下使用 `FieldArray` 时，由于该组件的特殊性，虽然此时传给 `Field` 的是个 `ModelRef`，按之前提到的规则这就是 `Model` 模式，但是校验规则还是需要设置在表单项上。
+
+`Model` 模式还支持[以下参数](../../apidoc/interfaces/iformfieldmodeldrivenprops.html)。注意，此模式下校验规则正常是设置在 model 上的，而不是表单项组件上。
+
+- `model` 表单项对应的数据
+- `initialValue` 初始值，用于覆盖 model 上的初始值，仅当值不等于 `undefined` 时生效
+
+注意：如果需要给 `Field` 封装的组件传递 props，需要将所有 props 通过 `props` 传递，例如 `<FormInputField props={{ spellCheck: false }} />`，`spellCheck` 将会被透传到 `Input` 组件上；如果直接写在 `FormInputField` 上不会生效。
 
 <!-- demo-slot-1 -->
 <!-- demo-slot-2 -->
@@ -135,23 +187,27 @@ type AsyncValidator<T> = (
 type SyncValidator<T> = (value: T, ctx: ValidatorContext<T>) => IMaybeError<T>;
 ```
 
-- 如果返回 `null` 或者 `undefined` 表示校验通过；当校验失败时返回一个[包含错误信息的对象](https://zent-contrib.github.io/formulr/interfaces/ivalidateresult.html)。
+- 如果返回 `null` 或者 `undefined` 表示校验通过；当校验失败时返回一个[包含错误信息的对象](../../apidoc/interfaces/ivalidateresult.html)。
 - 支持返回 `Promise` 或 `Observable` 进行异步校验
-- 使用 `Form.createAsyncValidator` 来创建一个异步校验函数，[查看函数定义](https://zent-contrib.github.io/formulr/globals.html#createasyncvalidator)；通过 `Form.isAsyncValidator` 来判断函数是不是异步校验函数，[查看函数定义](https://zent-contrib.github.io/formulr/globals.html#isasyncvalidator)
+- 使用 `Form.createAsyncValidator` 来创建一个异步校验函数，[查看函数定义](../../apidoc/globals.html#createasyncvalidator)；通过 `Form.isAsyncValidator` 来判断函数是不是异步校验函数，[查看函数定义](../../apidoc/globals.html#isasyncvalidator)
 - 通过 `Field` 的 `validateOccasion` 参数控制校验时机
 - 通过 `Field` 的 `getValidateOption` 参数控制校验规则的运行时机以及哪些校验规则需要运行
 - `validator` 的执行顺序是 `validators` 数组的元素顺序，通常建议把异步校验放在最后
+- `ctx` 参数上有几个获取表单值的方法，当校验依赖其他字段的值时可能需要用到
+  - `getFormValue()` 获取整个表单当前的值
+  - `getSectionValue(...names)` 获取当前 FieldSet 或者 Form 下的某个字段的值
+  - `getSection()` 或者所属 FieldSet 或者 Form 的 model 对象。
 
 #### 内置的校验规则
 
-- [`Validators.min`](https://zent-contrib.github.io/formulr/globals.html#min)
-- [`Validators.max`](https://zent-contrib.github.io/formulr/globals.html#max)
-- [`Validators.required`](https://zent-contrib.github.io/formulr/globals.html#required)
-- [`Validators.requiredTrue`](https://zent-contrib.github.io/formulr/globals.html#requiredtrue)
-- [`Validators.email`](https://zent-contrib.github.io/formulr/globals.html#email)
-- [`Validators.minLength`](https://zent-contrib.github.io/formulr/globals.html#minlength)
-- [`Validators.maxLength`](https://zent-contrib.github.io/formulr/globals.html#maxlength)
-- [`Validators.pattern`](https://zent-contrib.github.io/formulr/globals.html#pattern)
+- [`Validators.min`](../../apidoc/globals.html#min)
+- [`Validators.max`](../../apidoc/globals.html#max)
+- [`Validators.required`](../../apidoc/globals.html#required)
+- [`Validators.requiredTrue`](../../apidoc/globals.html#requiredtrue)
+- [`Validators.email`](../../apidoc/globals.html#email)
+- [`Validators.minLength`](../../apidoc/globals.html#minlength)
+- [`Validators.maxLength`](../../apidoc/globals.html#maxlength)
+- [`Validators.pattern`](../../apidoc/globals.html#pattern)
 
 <!-- demo-slot-4 -->
 <!-- demo-slot-5 -->
@@ -166,13 +222,13 @@ type SyncValidator<T> = (value: T, ctx: ValidatorContext<T>) => IMaybeError<T>;
 
 校验选项共有以下几种：
 
-- `ValidateOption.Empty`：默认行为
-- `ValidateOption.Default`：等同于`ValidateOption.Empty`
+- `ValidateOption.Empty`：校验会往上层冒泡，但不往下递归触发校验，并且会包含没有修改过的 `Field`，不校验没有 touch 过的 `Field`，不触发异步校验
+- `ValidateOption.Default`：默认行为，等同于`ValidateOption.Empty`
 - `ValidateOption.IncludeAsync`：校验时包含异步校验
 - `ValidateOption.IncludeUntouched`：仅对满足`!!model.touched() === true`的字段进行校验
-- `ValidateOption.IncludeChildrenRecursively`：递归校验下层的 `Field`，适用于直接从 `FieldSet` 和 `FieldArray` 触发的校验
+- `ValidateOption.IncludeChildrenRecursively`：递归校验下层的 `Field`，适用于直接从 `Form`，`FieldSet` 或者 `FieldArray` 触发的校验
 - `ValidateOption.ExcludePristine`：不校验没有修改过的 `Field`
-- `ValidateOption.StopPropagation`：禁止校验的冒泡行为（类似事件冒泡）
+- `ValidateOption.StopPropagation`：校验时不往上一级 `FieldSet` 或者 `FieldArray` 冒泡，冒泡会一直到最顶层的 `Form`。
 
 校验选项是一个 `BitSet`，在自定义表单组件中，使用 `Model` 上的 `validate` 方法进行校验时，使用 `|` 运算符联合所需的选项作为参数传入即可。
 
@@ -182,7 +238,9 @@ type SyncValidator<T> = (value: T, ctx: ValidatorContext<T>) => IMaybeError<T>;
 
 ### 校验中间件
 
-校验中间件作用于**校验函数本身**，可以把它视作用来装饰函数的装饰器；通过中间件可以为内置的校验函数提供一些额外能力，例如条件校验；使用 `FieldUtils.compose` 可以将多个中间件组合成一个；
+校验中间件作用于**校验函数本身**，可以把它视作用来装饰函数的装饰器；通过中间件可以为内置的校验函数提供一些额外能力，例如条件校验。
+
+使用 `FieldUtils.compose` 可以将多个中间件组合成一个，文档底部有 `FieldUtils.compose` 的 API 描述。
 
 校验中间件的函数签名：
 
@@ -214,15 +272,27 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 
 - 注意并没有所谓的 `FieldArray` 组件，直接使用 `Form.useFieldArray` 这个 hooks 即可。该函数有两个重载的实现，分别对应 `Form` 的两种运行模式。
 
-- `useFieldArray` 的参数定义请[参考这里](https://zent-contrib.github.io/formulr/globals.html#usefieldarray)。
+- `useFieldArray` 的参数定义请[参考这里](../../apidoc/globals.html#usefieldarray)。
 
 - `useFieldArray` 返回值是一个 `FieldArrayModel`，通过 `children` 就能访问到所有数据，一般在 `render` 函数里对 `children` 做 `map` 操作即可。
 
-- `FieldArrayModel` 上还有一些操作方法，例如 `push`/ `pop` 之类的，完整列表可以在[这里查看](https://zent-contrib.github.io/formulr/classes/fieldarraymodel.html)。查看时注意右上角把 `Only exported` 选项关闭。
+- `FieldArrayModel` 上还有一些操作方法： `push`，`pop`，`shift`，`unshift`，`splice`，类似数组上对应的方法，用于操作子元素。
 
 - `FieldSet` 组件和 `Form` 一样有两种运行模式，`View` 模式可以通过 `name` 参数指定对应的数据来源；`Model` 模式则通过 `model` 参数显式的设置数据来源。
 
-- `FieldSet` 两种模式公用的参数可以在[这里查看](../../apidoc/interfaces/ifieldsetprops.html)；`View` 模式额外的参数可以在[这里查看](../../apidoc/interfaces/iformfieldviewdrivenprops.html)。
+`FieldSet` 两种模式公用的参数可以在[这里查看](../../apidoc/interfaces/ifieldsetbaseprops.html)。
+
+- `validators` 校验规则数组，按数组顺序执行，直到所有都通过或者在第一个失败的地方停止
+- `scrollAnchorRef` 表单提交时滚动到错误时的 DOM 元素的 ref(来自 `React.createRef` 或 `React.useRef`)
+- `renderError` 用于渲染整个 `FieldSet` 层面的错误
+- `children` 不解释
+
+`View` 模式额外的参数：
+
+- `name` `FieldSet` 对应的数据字段名
+- `destroyOnUnmount` 是否在组件 `unmount` 的时候清除数据
+- `normalizeBeforeSubmit` 用于表单提交前格式化 `FieldSet` 值的回调函数
+- `validators` `FieldSet` 本身的校验规则列表，注意和内部 Field 的校验规则没有关系。执行的时候会按数组顺序逐个调用，直到所有都通过或者在第一个失败的地方停止
 
 <!-- demo-slot-8 -->
 
@@ -230,10 +300,10 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 
 使用 `Form` 的 `Model` 模式需要自己手动创建 model，我们提供了 builder API 来帮助完成这个操作。每个函数返回的都是一个 `Builder` 对象，`Builder` 对象都有一个 `validators` 方法用来配置 model 的校验规则。**Builder API 都支持链式调用**。
 
-- `Form.form` 参数是个对象，用来描述整个 `Form` model 的结构, [查看函数定义](https://zent-contrib.github.io/formulr/globals.html#form)
-- `Form.field` 参数是 `Field` 的默认值，[查看函数定义](https://zent-contrib.github.io/formulr/globals.html#field)
-- `Form.set` 参数是个对象，用来描述这个表单集合的结构，[查看函数定义](https://zent-contrib.github.io/formulr/globals.html#set)
-- `Form.array` 参数是一个其他函数返回的 `Builder` 对象，`array` 返回的 `Builder` 对象上有 `defaultValue` 用于设置这个 array 中的表单项的默认值，[查看函数定义](https://zent-contrib.github.io/formulr/globals.html#array)
+- `Form.form` 参数是个对象，用来描述整个 `Form` model 的结构, [查看函数定义](../../apidoc/globals.html#form)
+- `Form.field` 参数是 `Field` 的默认值，[查看函数定义](../../apidoc/globals.html#field)
+- `Form.set` 参数是个对象，用来描述这个表单集合的结构，[查看函数定义](../../apidoc/globals.html#set)
+- `Form.array` 参数是一个其他函数返回的 `Builder` 对象，`array` 返回的 `Builder` 对象上有 `defaultValue` 用于设置这个 array 中的表单项的默认值，[查看函数定义](../../apidoc/globals.html#array)
 
 <!-- demo-slot-9 -->
 
@@ -273,11 +343,11 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 
 实现自定义 `Field` 的时候会用到这些组件，它们只是样式组件，用来提供和内置 `Field` 组件一致样式和参数。
 
-- `Control` 封装了 label、自定义组件以及错误信息的结构，[查看文档](../../apidoc/interfaces/iformcontrolprops.html)
-- `Label` 表单项的 label 组件，适用于连 `Control` 也不想使用的场景，[查看文档](../../apidoc/interfaces/ilabelprops.html)
-- `Error` 表单项的错误信息组件，同 `Label` 一样适用于深度自定义的场景，[查看文档](../../apidoc/interfaces/iformerrorprops.html)
+- `Control` 封装了 label、自定义组件以及错误信息的结构，[查看 Props 文档](../../apidoc/interfaces/iformcontrolprops.html)
+- `Label` 表单项的 label 组件，适用于连 `Control` 也不想使用的场景，[查看 Props 文档](../../apidoc/interfaces/ilabelprops.html)
+- `Error` 表单项的错误信息组件，同 `Label` 一样适用于深度自定义的场景，[查看 Props 文档](../../apidoc/interfaces/iformerrorprops.html)
 - `useFormChild` 使用上述组件时，如果希望支持自动滚动到错误处，需要在组件内使用这个 Hook 关联 model 和 DOM 节点，[查看文档](../../apidoc/globals.html#useformchild)
-- `CombineErrors` 这个组件用来将多个字段的错误聚合成一个错误展示，需要配合 `Field` 的 `withoutError` 参数使用。
+- `CombineErrors` 这个组件用来将多个字段的错误聚合成一个错误展示，需要配合 `Field` 的 `withoutError` 参数使用，[查看 Props 文档](../../apidoc/interfaces/icombineerrorsprops.html)
 
 <!-- demo-slot-18 -->
 <!-- demo-slot-3 -->
@@ -303,10 +373,10 @@ interface IZentFormContext {
 
 ### `FieldUtils`
 
-`FieldUtils` 提供一些有用的工具函数。
+`FieldUtils` 提供了一些有用的工具函数，如果不知道干什么用的或者看不懂，说明你没有需求，不需要用到它们，这些工具本身定位就是高级用法。
 
-- useMulti 用来按顺序调用一批函数，只使用它们的副作用，忽略返回值，[查看函数定义](https://zent-contrib.github.io/formulr/globals.html#usemulti)
-- usePipe 用来从左往右按顺序调用一批函数，上一个函数的返回值作为下一个函数的参数，返回最后一个函数的返回值，[查看函数定义](https://zent-contrib.github.io/formulr/globals.html#usepipe)
-- useCompositionHandler 用来在 `model` 上维护一个输入法编辑的状态, `model.isCompositing`，[查看函数定义](https://zent-contrib.github.io/formulr/globals.html#usecompositionhandler)。组件内部会根据这个状态在输入法输入阶段跳过校验
-- makeChangeHandler 生成一个 `onChange` 回调函数，[查看函数定义](https://zent-contrib.github.io/formulr/globals.html#makechangehandler)
-- compose 与 usePipe 类似，区别是 usePipe 作为 hook 使用，而 compose 可以用在任何地方，例如组合多个校验函数中间件，[查看函数定义](https://zent-contrib.github.io/formulr/globals.html#compose)
+- useMulti 用来按顺序调用一批函数，只使用它们的副作用，忽略返回值，[查看函数定义](../../apidoc/globals.html#usemulti)
+- usePipe 用来从左往右按顺序调用一批函数，上一个函数的返回值作为下一个函数的参数，返回最后一个函数的返回值，[查看函数定义](../../apidoc/globals.html#usepipe)
+- useCompositionHandler 用来在 `model` 上维护一个输入法编辑的状态, `model.isCompositing`，[查看函数定义](../../apidoc/globals.html#usecompositionhandler)。组件内部会根据这个状态在输入法输入阶段跳过校验
+- makeChangeHandler 生成一个 `onChange` 回调函数，具体说明请[查看函数定义](../../apidoc/globals.html#makechangehandler)
+- compose 与 usePipe 类似，区别是 usePipe 作为 hook 使用，而 compose 可以用在任何地方，例如组合多个校验函数中间件，[查看函数定义](../../apidoc/globals.html#compose)
