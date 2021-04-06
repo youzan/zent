@@ -3,6 +3,7 @@ import {
   createRef,
   useCallback,
   useEffect,
+  useImperativeHandle,
   useMemo,
   useRef,
   useState,
@@ -12,14 +13,17 @@ import { Waypoint, IWaypointCallbackData, WaypointPosition } from '../waypoint';
 import { useCallbackRef } from '../utils/hooks/useCallbackRef';
 import isBrowser from '../utils/isBrowser';
 import { useResizeObserver } from '../utils/hooks/use-resize-observer';
-import { WindowScrollHandler } from '../utils/component/WindowScrollHandler';
 import { WindowResizeHandler } from '../utils/component/WindowResizeHandler';
 import getViewportSize from '../utils/dom/getViewportSize';
 
+interface IAffixImperativeHandlers {
+  updatePosition: () => void;
+}
 export interface IAffixProps {
   offsetTop?: number;
   offsetBottom?: number;
-  getTarget?: () => HTMLElement;
+  getTarget?: () => HTMLElement | null;
+  affixRef?: React.RefObject<IAffixImperativeHandlers>;
   onPin?: () => void;
   onUnpin?: () => void;
   zIndex?: number;
@@ -34,6 +38,7 @@ export const Affix: React.FC<IAffixProps> = ({
   offsetTop,
   offsetBottom,
   getTarget,
+  affixRef,
   zIndex = 10,
   onPin,
   onUnpin,
@@ -169,6 +174,10 @@ export const Affix: React.FC<IAffixProps> = ({
     zIndex,
   ]);
 
+  const updatePosition = useCallback(() => {
+    target && targetRectChange(target);
+  }, [target, targetRectChange]);
+
   // init target
   useEffect(() => {
     const targetNode = getTarget?.();
@@ -178,14 +187,13 @@ export const Affix: React.FC<IAffixProps> = ({
       setWindowHeight(getViewportSize().height);
     }
   }, [getTarget, targetRectChange]);
-
-  const onWindowSrcoll = useCallback(() => {
-    target && targetRectChange(target);
-  }, [targetRectChange, target]);
-
   const onWindowResize = useCallback(() => {
     setWindowHeight(getViewportSize().height);
   }, []);
+
+  useImperativeHandle(affixRef, () => ({
+    updatePosition,
+  }));
 
   const ancestor = useMemo(() => {
     return target ?? (isBrowser ? window : undefined);
@@ -220,7 +228,6 @@ export const Affix: React.FC<IAffixProps> = ({
       )}
       {target && (
         <>
-          <WindowScrollHandler onScroll={onWindowSrcoll} />
           <WindowResizeHandler onResize={onWindowResize} />
         </>
       )}
