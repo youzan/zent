@@ -15,7 +15,11 @@ export interface IWindowScrollHandler {
 /**
  * Register a scroll event on Window.
  *
- * `onScroll` is throttled to run only once in a frame, you don't have to throttle you callback.
+ * `onScroll` is throttled to run only once in a frame, you don't have to throttle your callback.
+ *
+ * `scroll` event on element does not bubble, but the `scroll` event on document does.
+ * https://developer.mozilla.org/en-US/docs/Web/API/Document/scroll_event
+ * https://developer.mozilla.org/en-US/docs/Web/API/Element/scroll_event
  */
 export const WindowScrollHandler: React.FC<IWindowScrollHandler> = props => {
   const cb = useRef(props.onScroll);
