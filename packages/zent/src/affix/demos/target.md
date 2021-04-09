@@ -28,10 +28,10 @@ class Demo extends Component {
 				>
 					<div className="affix-target__content">
 						<Affix
-							affixRef={this.affixRef}
+							ref={this.affixRef}
 							offsetBottom={20}
 							offsetTop={20}
-							getTarget={() => this.containerRef}
+							getAffixContainer={() => this.containerRef}
 						>
 							<Button>{i18n.content}</Button>
 						</Affix>
