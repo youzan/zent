@@ -4,8 +4,8 @@ zh-CN:
 	title: 自定义相对定位节点
 	content: 相对目标节点定位的固钉
 en-US:
-	title:  Target node for positioning
-	content: Affix relative to target node
+	title:  Container node for positioning
+	content: Affix relative to container node
 ---
 
 ```jsx

@@ -56,16 +56,19 @@ export const Affix = forwardRef<IAffixImperativeHandlers, IAffixProps>(
     const onUnpinCallbackRef = useCallbackRef(onUnpin);
     const useTop = typeof offsetTop === 'number';
     const useBottom = typeof offsetBottom === 'number';
-    const [target, setTarget] = useState<HTMLElement>(null);
-    const [targetTop, setTargetTop] = useState(0);
-    const [targetBottom, setTargetBottom] = useState(0);
+    const [container, setContainer] = useState<HTMLElement>(null);
+    const [containerTop, setContainerTop] = useState(0);
+    const [containerBottom, setContainerBottom] = useState(0);
     const [windowHeight, setWindowHeight] = useState(0);
 
-    const targetRectChange = useCallback((target: HTMLElement) => {
-      const targetRect = target.getBoundingClientRect();
-      setTargetTop(targetRect.top);
-      setTargetBottom(targetRect.bottom);
-    }, []);
+    const containerBoundingRectChange = useCallback(
+      (container: HTMLElement) => {
+        const rect = container.getBoundingClientRect();
+        setContainerTop(rect.top);
+        setContainerBottom(rect.bottom);
+      },
+      []
+    );
 
     const setSize = useCallback((entries: ResizeObserverEntry[]) => {
       const { borderBoxSize, contentRect } = entries[0];
@@ -150,11 +153,11 @@ export const Affix = forwardRef<IAffixImperativeHandlers, IAffixProps>(
           width,
         };
 
-        if (target) {
+        if (container) {
           if (position === WaypointPosition.Above) {
-            styles.top = offsetTop + targetTop;
+            styles.top = offsetTop + containerTop;
           } else {
-            styles.bottom = offsetBottom + (windowHeight - targetBottom);
+            styles.bottom = offsetBottom + (windowHeight - containerBottom);
           }
         } else {
           if (position === WaypointPosition.Above) {
@@ -168,11 +171,11 @@ export const Affix = forwardRef<IAffixImperativeHandlers, IAffixProps>(
 
       return { position: 'static' };
     }, [
-      target,
+      container,
       offsetBottom,
       offsetTop,
-      targetTop,
-      targetBottom,
+      containerTop,
+      containerBottom,
       windowHeight,
       position,
       width,
@@ -180,18 +183,18 @@ export const Affix = forwardRef<IAffixImperativeHandlers, IAffixProps>(
     ]);
 
     const updatePosition = useCallback(() => {
-      target && targetRectChange(target);
-    }, [target, targetRectChange]);
+      container && containerBoundingRectChange(container);
+    }, [container, containerBoundingRectChange]);
 
-    // init target
+    // init container
     useEffect(() => {
-      const targetNode = getAffixContainer?.();
-      if (targetNode) {
-        setTarget(targetNode);
-        targetRectChange(targetNode);
+      const containerNode = getAffixContainer?.();
+      if (containerNode) {
+        setContainer(containerNode);
+        containerBoundingRectChange(containerNode);
         setWindowHeight(getViewportSize().height);
       }
-    }, [getAffixContainer, targetRectChange]);
+    }, [getAffixContainer, containerBoundingRectChange]);
     const onWindowResize = useCallback(() => {
       setWindowHeight(getViewportSize().height);
     }, []);
@@ -201,8 +204,8 @@ export const Affix = forwardRef<IAffixImperativeHandlers, IAffixProps>(
     }));
 
     const ancestor = useMemo(() => {
-      return target ?? (isBrowser ? window : undefined);
-    }, [target]);
+      return container ?? (isBrowser ? window : undefined);
+    }, [container]);
 
     return (
       <>
@@ -231,7 +234,7 @@ export const Affix = forwardRef<IAffixImperativeHandlers, IAffixProps>(
             bottomOffset={offsetBottom}
           />
         )}
-        {target && (
+        {container && (
           <>
             <WindowResizeHandler onResize={onWindowResize} />
           </>
