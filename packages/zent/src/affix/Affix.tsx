@@ -234,11 +234,7 @@ export const Affix = forwardRef<IAffixImperativeHandlers, IAffixProps>(
             bottomOffset={offsetBottom}
           />
         )}
-        {container && (
-          <>
-            <WindowResizeHandler onResize={onWindowResize} />
-          </>
-        )}
+        {container && <WindowResizeHandler onResize={onWindowResize} />}
       </>
     );
   }
