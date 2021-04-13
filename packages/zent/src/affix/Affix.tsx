@@ -195,6 +195,7 @@ export const Affix = forwardRef<IAffixImperativeHandlers, IAffixProps>(
         setWindowHeight(getViewportSize().height);
       }
     }, [getAffixContainer, containerBoundingRectChange]);
+
     const onWindowResize = useCallback(() => {
       setWindowHeight(getViewportSize().height);
     }, []);
@@ -234,7 +235,9 @@ export const Affix = forwardRef<IAffixImperativeHandlers, IAffixProps>(
             bottomOffset={offsetBottom}
           />
         )}
-        {container && <WindowResizeHandler onResize={onWindowResize} />}
+        {container && (
+          <WindowResizeHandler onResize={onWindowResize} disableThrottle />
+        )}
       </>
     );
   }
