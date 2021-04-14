@@ -15,7 +15,7 @@ import { useCallbackRef } from '../utils/hooks/useCallbackRef';
 import isBrowser from '../utils/isBrowser';
 import { useResizeObserver } from '../utils/hooks/use-resize-observer';
 import { WindowResizeHandler } from '../utils/component/WindowResizeHandler';
-import getViewportSize from '../utils/dom/getViewportSize';
+import { getViewportHeight } from '../utils/dom/getViewportSize';
 
 export interface IAffixImperativeHandlers {
   updatePosition: () => void;
@@ -192,12 +192,12 @@ export const Affix = forwardRef<IAffixImperativeHandlers, IAffixProps>(
       if (containerNode) {
         setContainer(containerNode);
         containerBoundingRectChange(containerNode);
-        setWindowHeight(getViewportSize().height);
+        setWindowHeight(getViewportHeight());
       }
     }, [getAffixContainer, containerBoundingRectChange]);
 
     const onWindowResize = useCallback(() => {
-      setWindowHeight(getViewportSize().height);
+      setWindowHeight(getViewportHeight());
     }, []);
 
     useImperativeHandle(affixRef, () => ({

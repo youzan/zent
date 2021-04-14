@@ -1,12 +1,43 @@
+import { addEventListener } from '../component/event-handler';
+import isBrowser from '../isBrowser';
+
+function getWidth() {
+  return Math.max(document.documentElement.clientWidth, window.innerWidth);
+}
+function getHeight() {
+  return Math.max(document.documentElement.clientHeight, window.innerHeight);
+}
+
+let viewportHeight: number | null = null;
+let viewportWidth: number | null = null;
+if (isBrowser) {
+  viewportHeight = getHeight();
+  viewportWidth = getWidth();
+
+  addEventListener(
+    window,
+    'resize',
+    () => {
+      viewportHeight = getHeight();
+      viewportWidth = getWidth();
+    },
+    { passive: true }
+  );
+}
+export function getViewportHeight() {
+  return viewportHeight;
+}
+export function getViewportWidth() {
+  return viewportWidth;
+}
+
 /**
  * 获取viewport的宽高
  */
 export function getViewportSize() {
-  // http://stackoverflow.com/questions/1248081/get-the-browser-viewport-dimensions-with-javascript
-  const doc = document.documentElement;
   return {
-    width: Math.max(doc.clientWidth, window.innerWidth || 0),
-    height: Math.max(doc.clientHeight, window.innerHeight || 0),
+    width: viewportWidth,
+    height: viewportHeight,
   };
 }
 
