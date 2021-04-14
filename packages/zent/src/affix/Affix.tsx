@@ -64,10 +64,10 @@ export const Affix = forwardRef<IAffixImperativeHandlers, IAffixProps>(
     const containerBoundingRectChange = useCallback(
       (container: HTMLElement) => {
         const rect = container.getBoundingClientRect();
-        setContainerTop(rect.top);
-        setContainerBottom(rect.bottom);
+        useTop && setContainerTop(rect.top);
+        useBottom && setContainerBottom(rect.bottom);
       },
-      []
+      [useTop, useBottom]
     );
 
     const setSize = useCallback((entries: ResizeObserverEntry[]) => {
