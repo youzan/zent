@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef } from 'react';
 
 import { WindowEventHandler } from './WindowEventHandler';
-import { runOnceInNextFrame } from '../nextFrame';
+import { useRunOnceInNextFrame } from '../nextFrame';
 
 const OPTIONS = {
   passive: true,
@@ -9,6 +9,7 @@ const OPTIONS = {
 
 export interface IWindowScrollHandler {
   onScroll: (event: UIEvent) => void;
+  disableThrottle?: boolean;
   options?: AddEventListenerOptions;
 }
 
@@ -21,17 +22,19 @@ export interface IWindowScrollHandler {
  * https://developer.mozilla.org/en-US/docs/Web/API/Document/scroll_event
  * https://developer.mozilla.org/en-US/docs/Web/API/Element/scroll_event
  */
-export const WindowScrollHandler: React.FC<IWindowScrollHandler> = props => {
-  const cb = useRef(props.onScroll);
-  cb.current = props.onScroll;
+export const WindowScrollHandler: React.FC<IWindowScrollHandler> = ({
+  disableThrottle = false,
+  options,
+  onScroll: onScrollProp,
+}) => {
+  const cb = useRef(onScrollProp);
+  cb.current = onScrollProp;
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const onScroll = useCallback(
-    runOnceInNextFrame((evt: UIEvent) => {
-      cb.current(evt);
-    }),
-    []
-  );
+  const onScrollCallback = useCallback((evt: UIEvent) => {
+    cb.current(evt);
+  }, []);
+
+  const onScroll = useRunOnceInNextFrame(onScrollCallback, disableThrottle);
 
   useEffect(() => {
     return onScroll.cancel;
@@ -41,7 +44,7 @@ export const WindowScrollHandler: React.FC<IWindowScrollHandler> = props => {
     <WindowEventHandler
       eventName="scroll"
       listener={onScroll}
-      options={{ ...OPTIONS, ...props.options }}
+      options={{ ...OPTIONS, ...options }}
     />
   );
 };

@@ -1,4 +1,5 @@
 import { ICancelable } from './types';
+import { useMemo } from 'react';
 
 /**
  * https://medium.com/@paul_irish/requestanimationframe-scheduling-for-nerds-9c57f7438ef4
@@ -51,3 +52,13 @@ export function runOnceInNextFrame<T extends (...args: unknown[]) => void>(
 
   return fn as T & ICancelable;
 }
+
+export const useRunOnceInNextFrame = <T extends (...args: unknown[]) => void>(
+  cb: T,
+  disabled: boolean
+): T & Partial<ICancelable> => {
+  return useMemo(() => (!disabled ? runOnceInNextFrame(cb) : cb), [
+    cb,
+    disabled,
+  ]);
+};
