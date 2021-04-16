@@ -8,8 +8,8 @@ function getHeight() {
   return Math.max(document.documentElement.clientHeight, window.innerHeight);
 }
 
-let viewportHeight: number | null = null;
-let viewportWidth: number | null = null;
+let viewportHeight = 0;
+let viewportWidth = 0;
 if (isBrowser) {
   viewportHeight = getHeight();
   viewportWidth = getWidth();
