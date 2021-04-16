@@ -24,5 +24,5 @@ Pin element in a specific position.
 
 **Note**
 
-- at least one of `offsetTop` and `offsetBottom` must be set; you can set both at the same time but you're warned of bizarre things that may happen if window height is too small.
+- At least one of `offsetTop` and `offsetBottom` must be set; you can set both at the same time but you're warned of bizarre things that may happen if window height is too small.
 - Using `ref` and `getAffixContainer` for relative positioning at the same time when there are two scrollbars. You should add scroll event listener for outer scroll container manually.
