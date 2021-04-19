@@ -22,7 +22,7 @@ const columns = [
 		title: '{i18n.longName}',
 		name: 'name',
 		width: 100,
-		nowrap: true,
+		noWrap: true,
 	},
 	{
 		title: '{i18n.alignRight}',

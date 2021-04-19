@@ -1,5 +1,5 @@
 import { IMaybeError, IValidators, ValidateOption } from '../validate';
-import { FormModel } from './form';
+import type { FormModel } from './form';
 
 export interface IModel<Value> {
   readonly id: string;

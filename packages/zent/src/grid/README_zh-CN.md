@@ -30,7 +30,7 @@ group: 导航
 | pageInfo              | table 对应的分页信息                                          | object                                                                     | null               | 否       |
 | paginationType        | 分页器类型，可选 `'lite'` \| `'mini'`                         | string                                                                     | `'default'`        | 否       |
 | onRowClick            | 点击行时触发                                                  | (data: any, index: number, event: Event) => any                            |                    | 否       |
-| ellipsis              | 是否需要文字超出宽度后省略号显示 (需配置 columns 中的 nowrap) | bool                                                                       | false              | 否       |
+| ellipsis              | 是否需要文字超出宽度后省略号显示 (需配置 columns 中的 noWrap) | bool                                                                       | false              | 否       |
 | onExpand              | 点击展开图标时触发                                            | (data: {expanded: boolean, data: any, event: Event, index: number}) => any |                    | 否       |
 | components            | 自定义 table 内的组件                                         | object { row?: ComponentType }                                             |                    | 否       |
 | rowProps              | 自定义传入 row 的属性                                         | (data: any, index: number) => object                                       |                    | 否       |
@@ -69,7 +69,7 @@ onChange 会抛出一个对象，这个对象包含分页变化的参数：
 | fixed       | 是否固定列 可选值为 `left` `right` `true` (`true` 与 `left` 等效) | bool \| strig                                                                                                        | 否       |
 | onCellClick | 点击单元格回调                                                    | (data: any, event: Event) => any                                                                                     | 否       |
 | textAlign   | 文本对齐方式                                                      | string                                                                                                               | 否       |
-| nowrap      | 是否换行 默认换行                                                 | bool                                                                                                                 | 否       |
+| noWrap      | 是否换行 默认换行                                                 | bool                                                                                                                 | 否       |
 | defaultText | 默认显示文字                                                      | ReactNode                                                                                                            | 否       |
 | isValueEmpty | 判断是否显示默认文字                                               | (value: any) => boolean                                                                                                            | 否       |
 | children    | 渲染分组表头                                                      | array                                                                                                                | 否       |
@@ -79,7 +79,7 @@ onChange 会抛出一个对象，这个对象包含分页变化的参数：
 | 参数             | 说明                                                  | 类型                                                              | 是否必须      |
 | ---------------- | ---------------------------------------------------- | ----------------------------------------------------------------- | ------------- |
 | selectedRowKeys  | 默认选中                                              | array                                                             | 否            |
-| onSelect         | 每次 check 的时候触发的函数                             | (selectedkeys: string[], selectedRows: Array<any>, changeRow: any | any[]) => any | 否  |
+| onSelect         | 每次 check 的时候触发的函数                             | (selectedkeys: string[], selectedRows: Array<any>, changedRows: any \| any[]) => any | 否  |
 | getCheckboxProps | **废弃，请使用 getSelectionProps** 选择框/单选框 属性配置 | (data: object) => { disabled?: boolean, reason?: ReactNode }      | 否            |
 | getSelectionProps | 选择框/单选框 属性配置 (当前仅支持 disabled) | (data: object) => { disabled?: boolean, reason?: ReactNode }           | 否            |
 | isSingleSelection | 是否是单选                                      | bool                                                              | 否            |

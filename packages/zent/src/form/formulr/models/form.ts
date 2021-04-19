@@ -31,6 +31,7 @@ class FormModel<
   readonly isValidating$ = new BehaviorSubject(false);
 
   readonly owner = this;
+
   get form() {
     return (this as unknown) as FormModel;
   }
