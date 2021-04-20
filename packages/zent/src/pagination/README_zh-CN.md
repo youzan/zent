@@ -53,5 +53,5 @@ group: 导航
 | total          | 总个数                     | `number`                                       | `0`     | 否       |
 | pageSize       | 每页个数                   | `number`                                       | `10`    | 否       |
 | buttonBordered | 按钮是否有边框             | `boolean`                                      | `false` | 否       |
-| lastPageHelp    | 最后一页事下一页按钮的帮助提示 | `IPopProps`                                             | 默认样式   | 否       |
+| lastPageHelp    | 最后一页时下一页按钮的帮助提示 | `IPopProps`                                             | 默认样式   | 否       |
 | className      | 自定义额外类名             | `string`                                       |         | 否       |

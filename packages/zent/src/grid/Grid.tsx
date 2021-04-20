@@ -60,6 +60,7 @@ function stopPropagation(e: React.MouseEvent) {
 }
 
 const prefix = 'zent';
+const BTN_WIDTH = 28;
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export interface IGridProps<Data = any, RowProps = {}> {
@@ -374,7 +375,7 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
       selectionColumn = {
         title: '',
         key: 'selection-column-single',
-        width: '20px',
+        width: BTN_WIDTH,
         bodyRender: this.renderSelectionRadio(),
       };
     } else {
@@ -402,7 +403,7 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
           />
         ),
         key: 'selection-column',
-        width: '20px',
+        width: BTN_WIDTH,
         bodyRender: this.renderSelectionCheckbox(),
       };
     }
@@ -438,9 +439,9 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
         const maySelectionColumn = columns[0];
         if (
           maySelectionColumn &&
-          ['selection-column', 'selection-column-single'].includes(
+          ['selection-column', 'selection-column-single'].indexOf(
             maySelectionColumn.key
-          )
+          ) !== -1
         ) {
           columns[0] = { ...columns[0], ...selectionColumn };
         } else {
@@ -454,7 +455,7 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
       const expandColumn: IGridInnerColumn<Data> = {
         title: '',
         key: 'expand-column',
-        width: '20px',
+        width: BTN_WIDTH,
         bodyRender: this.getExpandBodyRender(expandRowKeys),
       };
       if (hasLeft) {

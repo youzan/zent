@@ -48,7 +48,12 @@ export interface IGridColumn<Data = any> {
     event: React.MouseEvent<HTMLTableDataCellElement>
   ) => any;
   textAlign?: GridTextAlign;
+  /**
+   * @deprecated
+   * use `noWrap`
+   */
   nowrap?: boolean;
+  noWrap?: boolean;
   defaultText?: React.ReactNode;
   isValueEmpty?: (value: any) => boolean;
   children?: Array<IGridColumn<Data>>;

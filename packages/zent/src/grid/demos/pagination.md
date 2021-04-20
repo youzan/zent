@@ -27,7 +27,7 @@ const columns = [
 		title: '{i18n.longName}',
 		name: 'name',
 		width: 100,
-		nowrap: true,
+		noWrap: true,
 		onCellClick: data => {
 			console.log(data, 'data');
 		},

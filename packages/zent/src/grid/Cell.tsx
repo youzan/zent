@@ -60,6 +60,7 @@ class Cell<Data> extends Component<IGridCellProps<Data>> {
       bodyRender,
       textAlign,
       nowrap,
+      noWrap,
       className,
       defaultText = defaultTextInCtx,
       isValueEmpty = isValueEmptyInCtx ?? isNil,
@@ -94,9 +95,12 @@ class Cell<Data> extends Component<IGridCellProps<Data>> {
       <td
         className={classnames(`${prefix}-grid-td`, className, {
           [`${prefix}-grid-text-align-${textAlign}`]: textAlign,
-          [`${prefix}-grid-nowrap`]: nowrap,
+          [`${prefix}-grid-nowrap`]: noWrap ?? nowrap,
           [`${prefix}-grid-td-multiple-row`]: tdProps && tdProps.rowSpan > 1,
-          [`${prefix}-grid-td-selection`]: column.key === 'selection-column',
+          [`${prefix}-grid-td-selection`]:
+            ['selection-column', 'selection-column-single'].indexOf(
+              column.key
+            ) !== -1,
           [`${prefix}-grid-td-expand`]: column.key === 'expand-column',
         })}
         {...tdProps}

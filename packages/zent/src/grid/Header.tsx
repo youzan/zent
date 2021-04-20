@@ -127,14 +127,16 @@ class Header<Data> extends PureComponent<
         colSpan,
         rowSpan,
         nowrap,
+        noWrap,
         textAlign,
       } = column;
       const cell: IHeaderCell = {
         key: name || key || index,
         className: classnames(`${prefix}-grid-th`, className, {
           [`${prefix}-grid-text-align-${textAlign}`]: textAlign,
-          [`${prefix}-grid-nowrap`]: nowrap,
-          [`${prefix}-grid-th-selection`]: key === 'selection-column',
+          [`${prefix}-grid-nowrap`]: noWrap ?? nowrap,
+          [`${prefix}-grid-th-selection`]:
+            ['selection-column', 'selection-column-single'].indexOf(key) !== -1,
           [`${prefix}-grid-th-expand`]: key === 'expand-column',
         }),
         children: this.getChildren(column, props),
