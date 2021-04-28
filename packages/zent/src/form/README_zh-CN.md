@@ -276,7 +276,7 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 
 - `useFieldArray` 返回值是一个 `FieldArrayModel`，通过 `children` 就能访问到所有数据，一般在 `render` 函数里对 `children` 做 `map` 操作即可。
 
-- `FieldArrayModel` 上还有一些操作方法： `push`，`pop`，`shift`，`unshift`，`splice`，类似数组上对应的方法，用于操作子元素。
+- `FieldArrayModel` 上还有一些操作方法： `push`，`pop`，`shift`，`unshift`，`splice`，类似数组上对应的方法，用于操作子元素。对 `FieldArrayModel` 内元素做增删应该使用前面说的这些方法，不应该通过 `patchValue` 来实现增删，因为 `patchValue` 只更新值，会导致内部 model 状态不一致。
 
 - `FieldSet` 组件和 `Form` 一样有两种运行模式，`View` 模式可以通过 `name` 参数指定对应的数据来源；`Model` 模式则通过 `model` 参数显式的设置数据来源。
 
