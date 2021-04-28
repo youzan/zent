@@ -5,33 +5,31 @@ import { Maybe, or } from '../maybe';
 export class FieldArrayBuilder<
   ChildBuilder extends BasicBuilder<any, any>
 > extends BasicBuilder<
-  readonly ($GetBuilderValue<ChildBuilder> | null)[],
+  readonly $GetBuilderValue<ChildBuilder>[],
   FieldArrayModel<
-    $GetBuilderValue<ChildBuilder> | null,
+    $GetBuilderValue<ChildBuilder>,
     $GetBuilderModel<ChildBuilder>
   >
 > {
-  private _defaultValue: ReadonlyArray<$GetBuilderValue<ChildBuilder> | null> = [];
+  private _defaultValue: ReadonlyArray<$GetBuilderValue<ChildBuilder>> = [];
 
   constructor(private readonly childBuilder: ChildBuilder) {
     super();
   }
 
-  defaultValue(
-    defaultValue: ReadonlyArray<$GetBuilderValue<ChildBuilder> | null>
-  ) {
+  defaultValue(defaultValue: ReadonlyArray<$GetBuilderValue<ChildBuilder>>) {
     this._defaultValue = defaultValue;
     return this;
   }
 
   build(
-    defaultValue?: Maybe<ReadonlyArray<$GetBuilderValue<ChildBuilder> | null>>
+    defaultValue?: Maybe<ReadonlyArray<$GetBuilderValue<ChildBuilder>>>
   ): FieldArrayModel<
-    $GetBuilderValue<ChildBuilder> | null,
+    $GetBuilderValue<ChildBuilder>,
     $GetBuilderModel<ChildBuilder>
   > {
     const model = new FieldArrayModel<
-      $GetBuilderValue<ChildBuilder> | null,
+      $GetBuilderValue<ChildBuilder>,
       $GetBuilderModel<ChildBuilder>
     >(
       this.childBuilder,
