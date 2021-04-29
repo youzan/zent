@@ -1,5 +1,5 @@
 import { cloneElement, useContext } from 'react';
-import { isElement } from 'react-is';
+import { isElement, isFragment } from 'react-is';
 import Context from '../Context';
 import Anchor, { PopoverAnchorGetElementFn } from '../Anchor';
 
@@ -43,7 +43,7 @@ export function PopoverFocusTrigger<
   let child: React.ReactNode;
   if (typeof children === 'function') {
     child = children(childProps);
-  } else if (isElement(children)) {
+  } else if (isElement(children) && !isFragment(children)) {
     child = cloneElement(children, childProps);
   } else {
     child = <span {...childProps}>{children}</span>;

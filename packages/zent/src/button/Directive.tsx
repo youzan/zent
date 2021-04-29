@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import { isElement } from 'react-is';
+import { isElement, isFragment } from 'react-is';
 import { Omit } from 'utility-types';
 import { Children, cloneElement, useCallback, useContext, useRef } from 'react';
 
@@ -64,15 +64,17 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
     onMouseEnter,
     onMouseLeave,
   } = props;
-  if (!isElement(children)) {
+  if (!isElement(children) || isFragment(children)) {
     throw new Error(
-      'Button Directive child must be element, string | number | boolean | null | undefined is not accepted'
+      'Button Directive child must be a non fragment element, string | number | boolean | null is not accepted'
     );
   }
   const disabledRef = useRef(disabled);
   disabledRef.current = disabled;
   const propsRef = useRef(props);
   propsRef.current = props;
+
+  const childElement = children as React.ReactElement<ChildProps>;
 
   const onClick = useCallback((e: React.MouseEvent) => {
     const { loading, children } = propsRef.current;
@@ -95,7 +97,7 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
       'zent-btn-border-transparent': !bordered,
     },
     'zent-btn',
-    children.props.className
+    childElement.props.className
   );
 
   const commonChildren = cloneElement<ChildProps>(
@@ -108,7 +110,7 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
     } as Partial<ChildProps>,
     iconNode,
     // Wrap text in a `span`, or we won't be able to control icon margins
-    ...(Children.map(children.props.children, child =>
+    ...(Children.map(childElement.props.children, child =>
       typeof child === 'string' ? <span>{child}</span> : child
     ) || [])
   );
