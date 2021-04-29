@@ -11,7 +11,7 @@ import { switchMap } from 'rxjs/operators';
 import Context from '../Context';
 import Anchor, { PopoverAnchorGetElementFn } from '../Anchor';
 import { addEventListener } from '../../utils/component/event-handler';
-import { isElement } from 'react-is';
+import { isElement, isFragment } from 'react-is';
 
 interface IHoverTriggerCompatibleProps {
   fixMouseEventsOnDisabledChildren?: boolean;
@@ -125,7 +125,7 @@ export function PopoverHoverTrigger<
         visible$.next(false);
       },
     });
-  } else if (isElement(children)) {
+  } else if (isElement(children) && !isFragment(children)) {
     child = cloneElement(children, {
       onMouseEnter(...args: any[]) {
         children.props.onMouseEnter?.(...args);

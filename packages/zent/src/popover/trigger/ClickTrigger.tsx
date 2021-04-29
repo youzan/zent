@@ -1,5 +1,5 @@
 import { cloneElement, useCallback, useRef } from 'react';
-import { isElement } from 'react-is';
+import { isElement, isFragment } from 'react-is';
 import { IPortalImperativeHandlers } from '../../portal';
 import { usePopoverContext } from '../Context';
 import Anchor, { PopoverAnchorGetElementFn } from '../Anchor';
@@ -78,7 +78,7 @@ export function PopoverClickTrigger<
     child = children({
       onClick,
     });
-  } else if (isElement(children)) {
+  } else if (isElement(children) && !isFragment(children)) {
     child = cloneElement(children, {
       onClick,
     });
