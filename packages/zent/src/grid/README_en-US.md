@@ -6,7 +6,7 @@ group: Navigation
 
 ## Grid
 
-The function of the component is similar to the function of [Table](table) component. `Grid` is implemented by `<table>` tag, while `Table` is implemented by `div` and `flex` layout.
+A table component. `Grid` is implemented using `<table>` tag.
 
 ### API
 

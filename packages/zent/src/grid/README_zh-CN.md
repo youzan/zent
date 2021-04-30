@@ -1,13 +1,13 @@
 ---
 title: Grid
-subtitle: 网格
+subtitle: 表格
 path: component/grid
 group: 导航
 ---
 
-## Grid 网格
+## Grid 表格
 
-功能和 [Table](table) 组件类似，`Grid` 是使用 `<table>` 标签实现的，而 `Table` 是使用 `div` + `flex` 布局实现的。
+表格组件，`Grid` 使用 `<table>` 标签实现的。
 
 ### API
 
