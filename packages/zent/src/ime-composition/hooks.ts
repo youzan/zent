@@ -1,8 +1,5 @@
 import { useContext, useState, useRef, useCallback, useEffect } from 'react';
-import isChrome from '../utils/isChrome';
 import { IMECompositionContext } from './context';
-
-const EMIT_CHANGE_AFTER_COMPOSITION_END = isChrome;
 
 export interface ICreateUseIMECompositionOption {
   getEventValue?: (...args: any[]) => string;
@@ -18,7 +15,7 @@ export interface IUseIMECompositionResult<OnChange> {
 const defaultOption: Required<ICreateUseIMECompositionOption> = {
   getEventValue: e => e.target.value,
 };
-
+type ElementType = HTMLInputElement | HTMLTextAreaElement;
 export function createUseIMEComposition(
   option?: ICreateUseIMECompositionOption
 ) {
@@ -27,8 +24,8 @@ export function createUseIMEComposition(
   return function useIMEComposition<OnChange extends (...args: any[]) => any>(
     propValue: string,
     onChangeProp?: OnChange,
-    onCompositionStartProp?: React.CompositionEventHandler,
-    onCompositionEndProp?: React.CompositionEventHandler
+    onCompositionStartProp?: React.CompositionEventHandler<ElementType>,
+    onCompositionEndProp?: React.CompositionEventHandler<ElementType>
   ): IUseIMECompositionResult<OnChange> {
     const ctx = useContext(IMECompositionContext);
     const isCompositionRef = useRef(false);
@@ -46,17 +43,22 @@ export function createUseIMEComposition(
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const onCompositionValueChange = useCallback(
       ((...args) => {
+        const targetValue = getEventValue(...args);
+        // 若输入值没更新，则不触发上层组件的事件
+        if (targetValue === compositionValue) {
+          return;
+        }
+        // 若输入法正在输入，则不触发上层组件的事件
         if (isCompositionRef.current) {
-          setCompositionValue(getEventValue(...args));
-          // 若输入法正在输入，则不触发上层组件的事件
+          setCompositionValue(targetValue);
           return;
         }
         return onChangeRef.current?.(...args);
       }) as OnChange,
-      [onChangeRef]
+      [compositionValue, onChangeRef]
     );
 
-    const onCompositionStart: React.CompositionEventHandler = useCallback(
+    const onCompositionStart: React.CompositionEventHandler<ElementType> = useCallback(
       e => {
         isCompositionRef.current = true;
         onCompositionStartRef.current?.(e);
@@ -64,17 +66,19 @@ export function createUseIMEComposition(
       [onCompositionStartRef]
     );
 
-    const onCompositionEnd: React.CompositionEventHandler = useCallback(
+    const onCompositionEnd: React.CompositionEventHandler<ElementType> = useCallback(
       e => {
         isCompositionRef.current = false;
         onCompositionEndRef.current?.(e);
-        // chrome 的 onCompositionEnd 事件在 onChange 后触发，需要在 onCompositionEnd 后额外触发一次 onChange 事件
-        if (EMIT_CHANGE_AFTER_COMPOSITION_END) {
+        const currentValue = e.currentTarget.value;
+        // 输入值更新时，手动触发 onChange 事件
+        if (currentValue !== propValue) {
           e.type = 'change';
+          setCompositionValue(currentValue);
           onChangeRef.current?.(e);
         }
       },
-      [onCompositionEndRef, onChangeRef]
+      [propValue, onCompositionEndRef, onChangeRef]
     );
 
     // 只处理受控的组件
