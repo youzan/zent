@@ -71,7 +71,7 @@ function useModelAndChildProps<Value>(
 }
 
 /**
- * 创建一个 `Field`
+ * 获取一个 `Field`
  *
  * @param field 字段名，当 `FormStrategy` 是 `View` 的时候才能用字段名
  * @param validators 当 `field` 是字段名的时候，可以传入`validator`
@@ -84,7 +84,7 @@ export function useField<Value>(
 ): FieldModel<Value>;
 
 /**
- * 创建一个 `Field`
+ * 获取一个 `Field`
  *
  * @param field `Field` 对应的 model 对象，用于关联 `Field` 和 model；当 `FormStrategy` 是 `Model` 或渲染 `FieldArray` 的时候才能使用
  */

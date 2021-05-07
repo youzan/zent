@@ -3,8 +3,7 @@ import { IModel } from './base';
 import { ValidateOption, IMaybeError, IValidators } from '../validate';
 import { Maybe, None } from '../maybe';
 import uniqueId from '../../../utils/uniqueId';
-
-const REF_ID = Symbol('ref');
+import { REF_ID } from './is';
 
 class ModelRef<Value, Parent extends IModel<any>, Model extends IModel<Value>>
   implements IModel<Value> {
@@ -169,10 +168,4 @@ class ModelRef<Value, Parent extends IModel<any>, Model extends IModel<Value>>
 
 ModelRef.prototype[REF_ID] = true;
 
-function isModelRef<T, P extends IModel<any>, M extends IModel<T>>(
-  maybeModelRef: any
-): maybeModelRef is ModelRef<T, P, M> {
-  return !!(maybeModelRef && maybeModelRef[REF_ID]);
-}
-
-export { ModelRef, isModelRef };
+export { ModelRef };

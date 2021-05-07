@@ -10,8 +10,7 @@ import {
 import { switchMap } from 'rxjs/operators';
 import { Maybe, None } from '../maybe';
 import { IModel } from './base';
-
-const MODEL_ID = Symbol('model');
+import { MODEL_ID } from './is';
 
 abstract class BasicModel<Value> implements IModel<Value> {
   /**
@@ -52,8 +51,22 @@ abstract class BasicModel<Value> implements IModel<Value> {
 
   abstract get value$(): BehaviorSubject<Value>;
 
+  /**
+   * @internal
+   *
+   * Same as value$ but without warning, internal code should use this method
+   */
+  abstract _getValue$(shouldWarn?: boolean): BehaviorSubject<Value>;
+
+  /**
+   * @internal
+   *
+   * Same as valid$ but without warning, internal code should use this method
+   */
+  abstract _getValid$(shouldWarn?: boolean): BehaviorSubject<boolean>;
+
   get value() {
-    return this.value$.value;
+    return this._getValue$().value;
   }
 
   set value(value: Value) {
@@ -89,7 +102,7 @@ abstract class BasicModel<Value> implements IModel<Value> {
   }
 
   valid() {
-    return this.valid$.value;
+    return this._getValid$().value;
   }
 
   protected triggerValidate(option: ValidateOption) {
@@ -126,8 +139,4 @@ abstract class BasicModel<Value> implements IModel<Value> {
 
 BasicModel.prototype[MODEL_ID] = true;
 
-function isModel<T>(maybeModel: any): maybeModel is BasicModel<T> {
-  return Boolean(maybeModel?.[MODEL_ID]);
-}
-
-export { BasicModel, isModel };
+export { BasicModel };

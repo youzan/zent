@@ -245,5 +245,6 @@ export function useFormValue<T extends UnknownFieldSetModelChildren>(
 export function useFormValid<T extends UnknownFieldSetModelChildren>(
   form: ZentForm<T>
 ) {
-  return useValue$(form.model.valid$, form.model.valid$.value);
+  const { valid$ } = form.model;
+  return useValue$(valid$, valid$.value);
 }

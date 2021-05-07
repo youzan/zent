@@ -1,5 +1,5 @@
 import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
-import { BasicModel, isModel } from './basic';
+import { BasicModel } from './basic';
 import { IMaybeError, ValidateOption } from '../validate';
 import { Maybe, None, Some } from '../maybe';
 import { IModel } from './base';
@@ -9,12 +9,11 @@ import isPlainObject from '../../../utils/isPlainObject';
 import { UnknownFieldSetModelChildren } from '../utils';
 import omit from '../../../utils/omit';
 import { warningSubscribeValid, warningSubscribeValue } from '../warnings';
+import { isModel, SET_ID } from './is';
 
 type $FieldSetValue<Children extends UnknownFieldSetModelChildren> = {
   [Key in keyof Children]: Children[Key] extends IModel<infer V> ? V : never;
 };
-
-const SET_ID = Symbol('set');
 
 class FieldSetModel<
   Children extends UnknownFieldSetModelChildren = UnknownFieldSetModelChildren
@@ -23,6 +22,11 @@ class FieldSetModel<
    * @internal
    */
   [SET_ID]!: boolean;
+
+  /**
+   * @internal
+   */
+  _tag: 'FieldSet' | 'Form';
 
   /**
    * 上层调用 `patchValue` 的时候，子组件可能是没被挂载的状态，这时候需要用 `patchedValue` 存一下值，子组件挂载的时候从这里读
@@ -60,6 +64,7 @@ class FieldSetModel<
       this.registerChild(name, child);
     }
     this.children = children;
+    this._tag = 'FieldSet';
   }
 
   get value() {
@@ -70,19 +75,27 @@ class FieldSetModel<
   }
 
   get value$() {
-    if (!this._value$) {
-      this._initValue$();
-    }
-
-    return this._value$!;
+    return this._getValue$(true);
   }
 
   get valid$() {
+    return this._getValid$(true);
+  }
+
+  _getValid$(shouldWarn = false) {
     if (!this._valid$) {
-      this._initValid$();
+      this._initValid$(shouldWarn);
     }
 
     return this._valid$!;
+  }
+
+  _getValue$(shouldWarn = false) {
+    if (!this._value$) {
+      this._initValue$(shouldWarn);
+    }
+
+    return this._value$!;
   }
 
   /**
@@ -312,8 +325,8 @@ class FieldSetModel<
     this._valid$?.next(isNil(this.error) && !this.invalidModels.size);
   }
 
-  private _initValue$() {
-    warningSubscribeValue();
+  private _initValue$(shouldWarn = false) {
+    warningSubscribeValue(shouldWarn, this._tag);
 
     const value$ = new BehaviorSubject({} as $FieldSetValue<Children>);
     this._value$ = value$;
@@ -334,8 +347,8 @@ class FieldSetModel<
     });
   }
 
-  private _initValid$() {
-    warningSubscribeValid();
+  private _initValid$(shouldWarn = false) {
+    warningSubscribeValid(shouldWarn, this._tag);
 
     const valid$ = new BehaviorSubject(isNil(this.error));
     this._valid$ = valid$;
@@ -356,7 +369,7 @@ class FieldSetModel<
     const { invalidModels, _valid$, _value$ } = this;
 
     if (_valid$) {
-      this._subscribeObservable(model, model.valid$, valid => {
+      this._subscribeObservable(model, model._getValid$(), valid => {
         if (valid) {
           invalidModels.delete(model);
         } else {
@@ -368,7 +381,7 @@ class FieldSetModel<
     }
 
     if (_value$) {
-      this._subscribeObservable(model, model.value$, childValue => {
+      this._subscribeObservable(model, model._getValue$(), childValue => {
         _value$.next({ ..._value$.value, [name]: childValue });
       });
     }
@@ -410,10 +423,4 @@ class FieldSetModel<
 
 FieldSetModel.prototype[SET_ID] = true;
 
-function isFieldSetModel<Children extends UnknownFieldSetModelChildren>(
-  maybeModel: any
-): maybeModel is FieldSetModel<Children> {
-  return !!(maybeModel && maybeModel[SET_ID]);
-}
-
-export { FieldSetModel, $FieldSetValue, isFieldSetModel };
+export { FieldSetModel, $FieldSetValue };
