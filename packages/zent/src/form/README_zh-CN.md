@@ -95,7 +95,8 @@ validator 和 builder 下文会详细说明。
   - `x` 自定义滚动的 x 轴位置，当且仅当 `scrollElement` 存在时有效
   - `y` 自定义滚动的 y 轴位置，当且仅当 `scrollElement` 存在时有效
   - `offsetX` 自定义滚动的 x 轴偏移量，当且仅当 `scrollElement` 不存在时有效
-  - `oofsetY` 自定义滚动的 y 轴偏移量，当且仅当 `scrollElement` 不存在时有效
+  - `offsetY` 自定义滚动的 y 轴偏移量，当且仅当 `scrollElement` 不存在时有效
+  - 当自定义滚动节点和位置时，可以使用组件实例上的 `getChildren()` 方法获取所有表单项的校验状态和 DOM 节点
 - 详细参数请[参考这里](../../apidoc/interfaces/iformprops.html)
 
 #### `defaultValue` vs `initialValue`

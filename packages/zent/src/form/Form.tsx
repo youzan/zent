@@ -183,6 +183,10 @@ export class Form<T extends {}> extends Component<IFormProps<T>> {
   private submitSubscription: Subscription | null = null;
   private resetSubscription: Subscription | null = null;
 
+  getChildren(): ReadonlyArray<Readonly<IFormChild>> {
+    return this.children.slice();
+  }
+
   private onSubmit: React.FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
     this.props.form.submit(e);
