@@ -9,6 +9,23 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 9.5.0(2021-05-07)
+
+- ✨ Support non `window` container in `Affix`
+- ✨ Add `ref` support to `InfiniteScroller`
+- `Form`
+  - ✨ Support customize scroll DOM node in `willScrollToError`
+  - 🦀️ Remove `null` in `ArrayBuilder` typings
+  - 🦀️ Internal code path no longer triggers subscription performance warnings
+- 🦀️ Fix incorrect handling of `Fragment` in `Popover` triggers
+- 🦀️ Fix incorrect handling of `Fragment` in `ButtonDirective`
+- 🦀️ Fix `onChange` not fired within `IMEComposition` in some browsers, e.g. Safari
+- `Grid`
+  - 🦀️ Update single/multiple/expand column styles
+  - 🦀️ Rename `nowrap` to `noWrap` in column config, `nowrap` still works
+  - 📚 Remove `Table` comparison in documentation
+- 📚 Update `Form` documentation
+
 ### 9.4.2(2021-03-26)
 
 - 🦀️ Change `children` to optional in `Badge` TS definition

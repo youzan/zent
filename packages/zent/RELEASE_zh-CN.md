@@ -9,6 +9,23 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 9.5.0(2021-05-07)
+
+- ✨ `Affix` 支持相对非 `window` 节点定位
+- ✨ `InfiniteScroller` 支持 `ref`
+- `Form`
+  - ✨ `willScrollToError` 支持自定义滚动的节点
+  - 🦀️ `ArrayBuilder` 类型中移除 `null`
+  - 🦀️ 调整订阅容器值/校验状态时的警告逻辑，内部代码不再触发警告
+- 🦀️ 修复 `Popover` trigger 中对 `Fragment` 的错误处理
+- 🦀️ 修复 `ButtonDirective` 中对 `Fragment` 的错误处理
+- 🦀️ 修复某些浏览器(Safari)里 `IMEComposition` 内输入框不触发 `onChange` 事件
+- `Grid`
+  - 🦀️ 修复并统一单选/多选/展开列的样式
+  - 🦀️ 列配置中的 `nowrap` 重命名为 `noWrap`，老字段仍然兼容
+  - 📚 更新文档中关于 `Table` 的描述
+- 📚 更新 `Form` 的文档，补充了基础 API 的信息
+
 ### 9.4.2(2021-03-26)
 
 - 🦀️ `Badge` 类型定义中 `children` 属性改为可选
