@@ -47,7 +47,6 @@ describe('IMEComposition', () => {
     wrapper
       .find('input')
       .simulate('compositionEnd', { target: { value: '123' } });
-    wrapper.find('input').simulate('change', { target: { value: '123' } });
 
     expect(onChange.mock.calls.length).toBe(2);
     expect(wrapper.state().value).toBe('123');
