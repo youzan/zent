@@ -40,6 +40,10 @@ export function createUseIMEComposition(
       onCompositionEndRef.current = onCompositionEndProp;
     }, [onChangeProp, onCompositionStartProp, onCompositionEndProp]);
 
+    useEffect(() => {
+      setCompositionValue(propValue);
+    }, [propValue]);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const onCompositionValueChange = useCallback(
       ((...args) => {
@@ -71,10 +75,10 @@ export function createUseIMEComposition(
         isCompositionRef.current = false;
         onCompositionEndRef.current?.(e);
         const currentValue = e.currentTarget.value;
+        setCompositionValue(currentValue);
         // 输入值更新时，手动触发 onChange 事件
         if (currentValue !== propValue) {
           e.type = 'change';
-          setCompositionValue(currentValue);
           onChangeRef.current?.(e);
         }
       },
