@@ -4,7 +4,7 @@
 const __DEV__ = process.env.NODE_ENV !== 'production';
 
 let warningOnce = (
-  _condition: boolean,
+  _shouldBeTrue: boolean,
   _id: string,
   _format: string,
   ..._args: string[]

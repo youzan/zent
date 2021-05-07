@@ -15,7 +15,11 @@
 
 const __DEV__ = process.env.NODE_ENV !== 'production';
 
-let warning = (_condition: boolean, _format: string, ..._args: string[]) => {};
+let warning = (
+  _shouldBeTrue: boolean,
+  _format: string,
+  ..._args: string[]
+) => {};
 
 if (__DEV__) {
   const printWarning = (format: string, ...args: string[]) => {

@@ -5,8 +5,7 @@ import { ValidateOption } from '../validate';
 import { id } from '../utils';
 import isNil from '../../../utils/isNil';
 import uniqueId from '../../../utils/uniqueId';
-
-const FIELD_ID = Symbol('field');
+import { FIELD_ID } from './is';
 
 export interface INormalizeBeforeSubmit<A, B> {
   (a: A): B;
@@ -50,10 +49,28 @@ class FieldModel<Value> extends BasicModel<Value> {
   }
 
   /**
+   * @internal
+   *
+   * The same as value$, but without warning
+   */
+  _getValue$() {
+    return this._value$;
+  }
+
+  /**
+   * @internal
+   *
+   * The same as value$, but without warning
+   */
+  _getValid$() {
+    return this._valid$;
+  }
+
+  /**
    * 重置 `Field` 为初始值，初始值通过 `initialize` 设置；如果初始值不存在就使用默认值
    */
   reset() {
-    this.value$.next(or(this.initialValue, () => this.defaultValue));
+    this._getValue$().next(or(this.initialValue, () => this.defaultValue));
   }
 
   /**
@@ -61,7 +78,7 @@ class FieldModel<Value> extends BasicModel<Value> {
    */
   clear() {
     this.initialValue = None();
-    this.value$.next(this.defaultValue);
+    this._getValue$().next(this.defaultValue);
   }
 
   clearError() {
@@ -74,11 +91,11 @@ class FieldModel<Value> extends BasicModel<Value> {
    */
   initialize(value: Value) {
     this.initialValue = Some(value);
-    this.value$.next(value);
+    this._getValue$().next(value);
   }
 
   getRawValue() {
-    return this.value$.getValue();
+    return this._getValue$().getValue();
   }
 
   /**
@@ -86,7 +103,7 @@ class FieldModel<Value> extends BasicModel<Value> {
    */
   getSubmitValue() {
     const { normalizeBeforeSubmit } = this;
-    return normalizeBeforeSubmit(this.value$.getValue());
+    return normalizeBeforeSubmit(this._getValue$().getValue());
   }
 
   /**
@@ -95,7 +112,7 @@ class FieldModel<Value> extends BasicModel<Value> {
    */
   validate(option = ValidateOption.Default) {
     return this.triggerValidate(option).then(maybeError => {
-      this.valid$.next(isNil(maybeError));
+      this._getValid$().next(isNil(maybeError));
       return maybeError;
     });
   }
@@ -105,14 +122,14 @@ class FieldModel<Value> extends BasicModel<Value> {
    * @param value 要设置的值
    */
   patchValue(value: Value) {
-    this.value$.next(value);
+    this._getValue$().next(value);
   }
 
   /**
    * `Field` 的值是否没有改变过，如果存在初始值会和初始值比较，否则和默认值比较
    */
   pristine() {
-    const value = this.value$.getValue();
+    const value = this._getValue$().getValue();
     if (isSome(this.initialValue)) {
       return value === get(this.initialValue);
     }
@@ -138,8 +155,4 @@ class FieldModel<Value> extends BasicModel<Value> {
 
 FieldModel.prototype[FIELD_ID] = true;
 
-function isFieldModel<T>(maybeModel: any): maybeModel is FieldModel<T> {
-  return !!(maybeModel && maybeModel[FIELD_ID]);
-}
-
-export { FieldModel, isFieldModel };
+export { FieldModel };

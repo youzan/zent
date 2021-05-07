@@ -1,7 +1,7 @@
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { BasicModel, isModel } from './basic';
+import { BasicModel } from './basic';
 import { ValidateOption } from '../validate';
-import { isModelRef, ModelRef } from './ref';
+import { ModelRef } from './ref';
 import { BasicBuilder } from '../builders/basic';
 import { get, or, Some } from '../maybe';
 import { IModel } from './base';
@@ -10,8 +10,7 @@ import uniqueId from '../../../utils/uniqueId';
 import { pairwise, skip } from 'rxjs/operators';
 import { createUnexpectedModelError } from '../error';
 import { warningSubscribeValid, warningSubscribeValue } from '../warnings';
-
-const FIELD_ARRAY_ID = Symbol('field-array');
+import { FIELD_ARRAY_ID, isModelRef, isModel } from './is';
 
 class FieldArrayModel<
   Item,
@@ -69,6 +68,21 @@ class FieldArrayModel<
   }
 
   get value$() {
+    return this._getValue$(true);
+  }
+
+  get valid$() {
+    return this._getValid$(true);
+  }
+
+  /**
+   * @internal
+   *
+   * The same as value$, but without warning
+   */
+  _getValue$(shouldWarn = false) {
+    warningSubscribeValue(shouldWarn, 'FieldArray');
+
     if (!this._value$) {
       this._initValue$();
     }
@@ -76,7 +90,9 @@ class FieldArrayModel<
     return this._value$!;
   }
 
-  get valid$() {
+  _getValid$(shouldWarn = false) {
+    warningSubscribeValid(shouldWarn, 'FieldArray');
+
     if (!this._valid$) {
       this._initValid$();
     }
@@ -312,8 +328,6 @@ class FieldArrayModel<
   }
 
   private _initValue$() {
-    warningSubscribeValue();
-
     const value$ = new BehaviorSubject<readonly Item[]>(this.getRawValue());
     this._value$ = value$;
 
@@ -333,14 +347,12 @@ class FieldArrayModel<
   }
 
   private _initValid$() {
-    warningSubscribeValid();
-
     const valid$ = new BehaviorSubject(isNil(this.error));
     this._valid$ = valid$;
 
     const $ = this.error$.subscribe(maybeError => {
       const selfValid = isNil(maybeError);
-      this.valid$.next(selfValid && !this.invalidModels.size);
+      valid$.next(selfValid && !this.invalidModels.size);
     });
     this.mapModelToSubscriptions.set(this, [$]);
 
@@ -428,7 +440,7 @@ class FieldArrayModel<
   private _subscribeChildModel(model: BasicModel<Item>) {
     const { error$, _valid$, _value$, invalidModels } = this;
     if (_valid$) {
-      this._subscribeObservable(model, model.valid$, valid => {
+      this._subscribeObservable(model, model._getValid$(), valid => {
         if (valid) {
           invalidModels.delete(model);
         } else {
@@ -442,7 +454,7 @@ class FieldArrayModel<
     if (_value$) {
       this._subscribeObservable(
         model,
-        model.value$,
+        model._getValue$(),
         childValue => {
           const index = this.children.findIndex(it => {
             if (
@@ -532,10 +544,4 @@ class FieldArrayModel<
 
 FieldArrayModel.prototype[FIELD_ARRAY_ID] = true;
 
-function isFieldArrayModel<Item, Child extends IModel<Item> = IModel<Item>>(
-  maybeModel: any
-): maybeModel is FieldArrayModel<Item, Child> {
-  return !!(maybeModel && maybeModel[FIELD_ARRAY_ID]);
-}
-
-export { FieldArrayModel, isFieldArrayModel };
+export { FieldArrayModel };

@@ -269,6 +269,7 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 - `Form.FieldValid`：接收 `name` 或 `model`，将其校验状态作为 `children` 的第一个参数
 - `Form.useFieldValid`：接收 `name` 或 `model`，返回其校验状态
 - `Form.useFormValid`：接收 `ZentForm` 对象（即 `useForm` 的返回值），返回表单的校验状态
+- 订阅 `FieldArray`, `FieldSet` 或者 `Form` 的校验状态可能会导致性能问题，因为这些是容器类型，订阅它们意味着需要订阅它们内部包含的所有表单项的校验状态变化，这是一个非常耗资源并且影响性能的操作，所以不推荐大范围频繁使用；开发模式下在 console 中会有一个警告信息。
 
 <!-- demo-slot-19 -->
 

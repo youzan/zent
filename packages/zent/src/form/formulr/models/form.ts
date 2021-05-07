@@ -3,6 +3,7 @@ import { FieldSetModel } from './set';
 import { ValidateOption } from '../validate';
 import uniqueId from '../../../utils/uniqueId';
 import { UnknownFieldSetModelChildren } from '../utils';
+import { FORM_ID } from './is';
 
 enum FormStrategy {
   /**
@@ -15,8 +16,6 @@ enum FormStrategy {
    */
   View,
 }
-
-const FORM_ID = Symbol('form');
 
 class FormModel<
   Children extends UnknownFieldSetModelChildren = UnknownFieldSetModelChildren
@@ -45,6 +44,7 @@ class FormModel<
       const child = children[name];
       this.registerChild(name, child);
     }
+    this._tag = 'Form';
   }
 
   /**
@@ -81,10 +81,4 @@ class FormModel<
 
 FormModel.prototype[FORM_ID] = true;
 
-function isFormModel<Children extends UnknownFieldSetModelChildren>(
-  maybeModel: any
-): maybeModel is FormModel<Children> {
-  return !!(maybeModel && maybeModel[FORM_ID]);
-}
-
-export { FormStrategy, FormModel, isFormModel };
+export { FormStrategy, FormModel };
