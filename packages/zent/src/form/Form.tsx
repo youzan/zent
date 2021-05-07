@@ -269,6 +269,14 @@ export class Form<T extends {}> extends Component<IFormProps<T>> {
   }
 
   private _scrollToFirstError(options?: IFormScrollToErrorOptions | void) {
+    // Use user supplied position if `scrollElement` exists
+    const scrollOptions = (options ?? {}) as IFormScrollToErrorOptions;
+    if (scrollOptions.scrollElement) {
+      const { x = 0, y = 0, scrollElement } = scrollOptions;
+      smoothScroll(scrollElement, x, y);
+      return;
+    }
+
     let scrollX = Infinity;
     let scrollY = Infinity;
     for (let i = 0; i < this.children.length; i += 1) {
@@ -296,18 +304,8 @@ export class Form<T extends {}> extends Component<IFormProps<T>> {
 
     if (scrollX !== Infinity) {
       const { x, y } = getScrollPosition();
-      const scrollOptions = (options ?? {}) as IFormScrollToErrorOptions;
-      if (scrollOptions.scrollElement) {
-        const { x = 0, y = 0, scrollElement } = scrollOptions;
-        smoothScroll(scrollElement, x, y);
-      } else {
-        const { offsetX = 0, offsetY = 0 } = scrollOptions;
-        smoothScroll(
-          document.body,
-          scrollX + x + offsetX,
-          scrollY + y + offsetY
-        );
-      }
+      const { offsetX = 0, offsetY = 0 } = scrollOptions;
+      smoothScroll(document.body, scrollX + x + offsetX, scrollY + y + offsetY);
     }
   }
 
