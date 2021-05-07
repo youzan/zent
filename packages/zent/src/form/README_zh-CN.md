@@ -90,7 +90,12 @@ validator 和 builder 下文会详细说明。
 - `onSubmitFail` 表单提交失败时的回调函数
 - `onSubmitSuccess` 表单提交成功时的回调函数
 - `scrollToError` 表单校验报错时自动滚动到第一个错误的位置
-- `willScrollToError` 触发滚动到第一个错误前的回调函数，如果返回一个 `Promise`，当 `Promise` `resolve` 时才会继续执行滚动，`reject` 将终止滚动操作。 可以返回 `IFormScrollToErrorOptions` 用来调整滚动的位置
+- `willScrollToError` 触发滚动到第一个错误前的回调函数，如果返回一个 `Promise`，当 `Promise` `resolve` 时才会继续执行滚动，`reject` 将终止滚动操作。 可以返回 `IFormScrollToErrorOptions` 用来调整滚动的节点和位置
+  - `scrollElement` 自定义滚动的 DOM 节点，默认 `document.body`
+  - `x` 自定义滚动的 x 轴位置，当且仅当 `scrollElement` 存在时有效
+  - `y` 自定义滚动的 y 轴位置，当且仅当 `scrollElement` 存在时有效
+  - `offsetX` 自定义滚动的 x 轴偏移量，当且仅当 `scrollElement` 不存在时有效
+  - `oofsetY` 自定义滚动的 y 轴偏移量，当且仅当 `scrollElement` 不存在时有效
 - 详细参数请[参考这里](../../apidoc/interfaces/iformprops.html)
 
 #### `defaultValue` vs `initialValue`
