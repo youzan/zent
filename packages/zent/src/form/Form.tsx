@@ -55,7 +55,27 @@ function makeChildrenContext(children: IFormChild[]): IZentFormChildrenContext {
 }
 
 export interface IFormScrollToErrorOptions {
+  /**
+   * 自定义滚动的 DOM 节点
+   */
+  scrollElement?: HTMLElement;
+
+  /**
+   * 自定义滚动的 x 轴位置，当且仅当 `scrollElement` 存在时有效
+   */
+  x?: number;
+  /**
+   * 自定义滚动的 y 轴位置，当且仅当 `scrollElement` 存在时有效
+   */
+  y?: number;
+
+  /**
+   * 自定义滚动的 x 轴偏移量，当且仅当 `scrollElement` 不存在时有效
+   */
   offsetX?: number;
+  /**
+   * 自定义滚动的 y 轴偏移量，当且仅当 `scrollElement` 不存在时有效
+   */
   offsetY?: number;
 }
 
@@ -163,6 +183,10 @@ export class Form<T extends {}> extends Component<IFormProps<T>> {
   private submitSubscription: Subscription | null = null;
   private resetSubscription: Subscription | null = null;
 
+  getChildren(): ReadonlyArray<Readonly<IFormChild>> {
+    return this.children.slice();
+  }
+
   private onSubmit: React.FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
     this.props.form.submit(e);
@@ -249,6 +273,14 @@ export class Form<T extends {}> extends Component<IFormProps<T>> {
   }
 
   private _scrollToFirstError(options?: IFormScrollToErrorOptions | void) {
+    // Use user supplied position if `scrollElement` exists
+    const scrollOptions = (options ?? {}) as IFormScrollToErrorOptions;
+    if (scrollOptions.scrollElement) {
+      const { x = 0, y = 0, scrollElement } = scrollOptions;
+      smoothScroll(scrollElement, x, y);
+      return;
+    }
+
     let scrollX = Infinity;
     let scrollY = Infinity;
     for (let i = 0; i < this.children.length; i += 1) {
@@ -276,8 +308,7 @@ export class Form<T extends {}> extends Component<IFormProps<T>> {
 
     if (scrollX !== Infinity) {
       const { x, y } = getScrollPosition();
-      const { offsetX = 0, offsetY = 0 } = (options ??
-        {}) as IFormScrollToErrorOptions;
+      const { offsetX = 0, offsetY = 0 } = scrollOptions;
       smoothScroll(document.body, scrollX + x + offsetX, scrollY + y + offsetY);
     }
   }
