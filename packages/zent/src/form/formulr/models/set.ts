@@ -83,16 +83,20 @@ class FieldSetModel<
   }
 
   _getValid$(shouldWarn = false) {
+    warningSubscribeValid(shouldWarn, this._tag);
+
     if (!this._valid$) {
-      this._initValid$(shouldWarn);
+      this._initValid$();
     }
 
     return this._valid$!;
   }
 
   _getValue$(shouldWarn = false) {
+    warningSubscribeValue(shouldWarn, this._tag);
+
     if (!this._value$) {
-      this._initValue$(shouldWarn);
+      this._initValue$();
     }
 
     return this._value$!;
@@ -325,9 +329,7 @@ class FieldSetModel<
     this._valid$?.next(isNil(this.error) && !this.invalidModels.size);
   }
 
-  private _initValue$(shouldWarn = false) {
-    warningSubscribeValue(shouldWarn, this._tag);
-
+  private _initValue$() {
     const value$ = new BehaviorSubject({} as $FieldSetValue<Children>);
     this._value$ = value$;
     for (const [name, model] of Object.entries(this.children)) {
@@ -347,9 +349,7 @@ class FieldSetModel<
     });
   }
 
-  private _initValid$(shouldWarn = false) {
-    warningSubscribeValid(shouldWarn, this._tag);
-
+  private _initValid$() {
     const valid$ = new BehaviorSubject(isNil(this.error));
     this._valid$ = valid$;
     const $ = this.error$.subscribe(() => {

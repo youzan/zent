@@ -81,16 +81,20 @@ class FieldArrayModel<
    * The same as value$, but without warning
    */
   _getValue$(shouldWarn = false) {
+    warningSubscribeValue(shouldWarn, 'FieldArray');
+
     if (!this._value$) {
-      this._initValue$(shouldWarn);
+      this._initValue$();
     }
 
     return this._value$!;
   }
 
   _getValid$(shouldWarn = false) {
+    warningSubscribeValid(shouldWarn, 'FieldArray');
+
     if (!this._valid$) {
-      this._initValid$(shouldWarn);
+      this._initValid$();
     }
 
     return this._valid$!;
@@ -323,9 +327,7 @@ class FieldArrayModel<
     this.children$.next([]);
   }
 
-  private _initValue$(shouldWarn = false) {
-    warningSubscribeValue(shouldWarn, 'FieldArray');
-
+  private _initValue$() {
     const value$ = new BehaviorSubject<readonly Item[]>(this.getRawValue());
     this._value$ = value$;
 
@@ -344,9 +346,7 @@ class FieldArrayModel<
     }
   }
 
-  private _initValid$(shouldWarn = false) {
-    warningSubscribeValid(shouldWarn, 'FieldArray');
-
+  private _initValid$() {
     const valid$ = new BehaviorSubject(isNil(this.error));
     this._valid$ = valid$;
 
