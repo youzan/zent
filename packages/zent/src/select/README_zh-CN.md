@@ -22,8 +22,8 @@ group: 数据
 | filter              | 过滤条件，设置以后才会开启过滤功能                                 | function                                                    | `noop`                      | 否       |
 | highlight           | 对搜索结果进行高亮                                                 | function                                                    | `noop`                      | 否       |
 | className           | 可选，自定义 trigger 额外类名                                      | string                                                      | `''`                        | 否       |
-| width               | 输入框宽度                                                         | string or number                                            | `''`                        | 否       |
-| popupWidth          | 弹层宽度                                                           | string or number                                            | `''`                        | 否       |
+| width               | 输入框宽度                                                         | `string` \| `number `                                           | `''`                        | 否       |
+| popupWidth          | 弹层宽度                                                           | `string` \| `number`                                            | 和触发器宽度一致                     | 否       |
 | multiple            | 是否多选                                                           | bool                                                        | `false`                     | 否       |
 | collapsable         | 多选时是否折叠进行单行显示                                         | bool                                                        | `false`                     | 否       |
 | hideCollapsePop     | 多选折叠模式下隐藏展示数据的气泡                                   | bool                                                        | `false`                     | 否       |
