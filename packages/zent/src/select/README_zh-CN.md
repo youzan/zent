@@ -42,8 +42,8 @@ group: 数据
 | renderValue         | 渲染输入框中选项值                                                 | `(item: Item) => ReactNode`                                 |                             | 否       |
 | renderTagList       | 仅在多选模式可用；渲染输入框中已选择的选项列表                     | `(props: ISelectTagListProps) => React.ReactNode`           |                             | 否       |
 | renderOptionList    | 渲染选项列表                                                       | `(options: Items[], renderOption) => ReactNode`             |                             | 否       |
-| renderOptionContent | 渲染浮层中的每一项                                                 | `(option: Item) => ReactNode``                              |                             | 否       |
-| disableSearch       | 关闭搜索功能                                                       | boolean                                                     | `false`                     | 否       |
+| renderOptionContent | 渲染浮层中的每一项                                                 | `(option: Item) => ReactNode`                              |                             | 否       |
+| disableSearch       | 关闭搜索功能                                                       | `boolean`                                                     | `false`                     | 否       |
 
 ### `Select.reviveValue`
 
