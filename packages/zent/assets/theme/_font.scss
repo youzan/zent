@@ -1,20 +1,4 @@
-$font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica,
-  Roboto, Arial, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft Yahei', SimSun,
-  sans-serif;
-
-// font weight
-$font-weight-normal: 400;
-$font-weight-medium: 500;
-$font-weight-bold: 600;
-
-// font size
-$font-size-normal: 14px;
-$font-size-small: 12px;
-$font-size-large: 16px;
-$font-size-h1: 44px;
-$font-size-h2: 34px;
-$font-size-h3: 26px;
-$font-size-h4: 20px;
+@import './variables/text';
 
 @mixin font-normal {
   font-size: $font-size-normal;

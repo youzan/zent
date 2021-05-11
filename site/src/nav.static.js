@@ -43,7 +43,7 @@ module.exports = {
               title: '定制主题',
               path: 'guides/theme',
               source:
-                "DocLoadable({ loader: () => import('../../packages/zent/docs/THEME_zh-CN.md') })",
+                "DocLoadable({ loader: () => import('./pages/theme/zh-CN.js') })",
             },
             {
               title: '编码规范',
@@ -166,7 +166,7 @@ module.exports = {
               title: 'Customize',
               path: 'guides/theme',
               source:
-                "DocLoadable({ loader: () => import('../../packages/zent/docs/THEME_en-US.md') })",
+                "DocLoadable({ loader: () => import('./pages/theme/en-US.js') })",
             },
             {
               title: 'Coding Guides',

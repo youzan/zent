@@ -12,6 +12,7 @@ export * from './cascader';
 export * from './checkbox';
 export * from './clamp-lines';
 export * from './collapse';
+export * from './color';
 export * from './colorpicker';
 export * from './copy-button';
 export * from './date-picker';

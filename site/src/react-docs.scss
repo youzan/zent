@@ -80,6 +80,32 @@
   }
 }
 
+// todo
+img[alt='zent-theme'] {
+  width: 514px;
+  height: 319px;
+}
+
+.zandoc-react-color {
+  margin-left: 10px;
+  width: 100px;
+  height: 30px;
+  padding: 4px;
+  border: 1px solid $border-color;
+  background: #fff;
+  border-radius: 4px;
+  display: inline-block;
+
+  &-picker {
+    width: 100%;
+    height: 100%;
+    border-radius: 2px;
+    text-align: center;
+    line-height: 30px;
+    color: #000;
+  }
+}
+
 .zandoc-react-color-row {
   margin-bottom: 10px;
 

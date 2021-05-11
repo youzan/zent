@@ -1,141 +1,45 @@
-@import './override';
+@import './old-default';
+@import './variables/color';
+@import './variables/text';
 
 // sass-lint:disable no-duplicate-properties
 
-// Text colors
-$theme-stroke-1: #323233 !default; // text
-$theme-stroke-2: #646566 !default; // text
-$theme-stroke-3: #969799 !default; // help text
-$theme-stroke-4: #c8c9cc !default; // disabled text
+@function get-value($content, $key) {
+  $val: map-get($content, $key);
 
-// Border and line colors
-$theme-stroke-5: #dcdee0 !default;
-$theme-stroke-6: #ebedf0 !default;
-
-// Background colors
-$theme-stroke-7: #f2f3f5 !default;
-$theme-stroke-8: #f7f8fa !default;
-$theme-stroke-9: #fff !default; // White button normal background color
-
-// Button background color
-$theme-stroke-10: #eaeaea !default; // Active
-$theme-stroke-11: #f4f5f5 !default; // Hover
-
-// Blue(primary)
-$theme-primary-1: #0a2a61 !default;
-$theme-primary-2: #10439b !default;
-$theme-primary-3: #114db4 !default;
-$theme-primary-4: #155bd4 !default;
-$theme-primary-5: #3773da !default;
-$theme-primary-6: #5487df !default;
-$theme-primary-7: #94b4eb !default;
-$theme-primary-8: #edf4ff !default;
-
-// Green
-$theme-success-1: #268d37 !default;
-$theme-success-2: #2da641 !default;
-$theme-success-3: #4cb35d !default;
-$theme-success-4: #66be74 !default;
-$theme-success-5: #f0faf2 !default;
-
-// Red
-$theme-error-1: #b40000 !default;
-$theme-error-2: #d40000 !default;
-$theme-error-3: #da2626 !default;
-$theme-error-4: #df4545 !default;
-$theme-error-5: #ffebeb !default;
-
-// Orange
-$theme-warn-1: #c95a0a !default;
-$theme-warn-2: #ed6a0c !default;
-$theme-warn-3: #ef8030 !default;
-$theme-warn-4: #f1924e !default;
-$theme-warn-5: #fff5ed !default;
-
-// Rate color
-$rate-star-color: #fad20c !default;
-
-$loading-icon-youzan-color: #e00 !default;
-
-// !!! DO NOT USE !!!
-// These variables will be removed
-$notify-error: rgba(255, 68, 68, 0.8);
-$notify-success: rgba(68, 187, 136, 0.8);
-
-$theme-colors: (
-  'stroke': (
-    $theme-stroke-1,
-    $theme-stroke-2,
-    $theme-stroke-3,
-    $theme-stroke-4,
-    $theme-stroke-5,
-    $theme-stroke-6,
-    $theme-stroke-7,
-    $theme-stroke-8,
-    $theme-stroke-9,
-    $theme-stroke-10,
-    $theme-stroke-11,
-  ),
-  'primary': (
-    $theme-primary-1,
-    $theme-primary-2,
-    $theme-primary-3,
-    $theme-primary-4,
-    $theme-primary-5,
-    $theme-primary-6,
-    $theme-primary-7,
-    $theme-primary-8,
-  ),
-  'success': (
-    $theme-success-1,
-    $theme-success-2,
-    $theme-success-3,
-    $theme-success-4,
-    $theme-success-5,
-  ),
-  'error': (
-    $theme-error-1,
-    $theme-error-2,
-    $theme-error-3,
-    $theme-error-4,
-    $theme-error-5,
-  ),
-  'warn': (
-    $theme-warn-1,
-    $theme-warn-2,
-    $theme-warn-3,
-    $theme-warn-4,
-    $theme-warn-5,
-  ),
-);
-
-@function get-color($cat, $i) {
-  @return nth(map-get($theme-colors, $cat), $i);
+  @if $val {
+    @return $val;
+  } @else {
+    @error '#{$content} doesnot has #{$key}';
+  }
 }
 
-@function to-rgb($color) {
-  @return red($color), green($color), blue($color);
+@function get-color-value($content, $status) {
+  @return get-value(get-value($color-vars, $content), $status);
 }
 
-// Use this for color with opacity = 1
-// This is for backword compatibily
-@function get-css-var($cat, $i) {
-  // sass-lint:disable-block space-around-operator
-  @return --theme-#{$cat}-#{$i};
+@function get-color-name($content, $status) {
+  $name: map-get($brand-related, #{$content}-#{$status});
+
+  @if $name {
+    @return $name;
+  } @else {
+    @return #{$content}-#{$status};
+  }
 }
 
-// Use this for rgba support in theme colors
-@function get-rgb-css-var($cat, $i) {
-  // sass-lint:disable-block space-around-operator
-  @return --theme-rgb-#{$cat}-#{$i};
+@function zent-color-var-rgb($content, $status) {
+  $color: get-color-value($content, $status);
+
+  @return var(--theme-#{get-color-name($content, $status)}, $color);
 }
 
-@function theme-rgb($cat, $i) {
-  @return var(get-css-var($cat, $i), get-color($cat, $i));
-}
-
-@function theme-rgba($cat, $i, $opacity) {
-  $css-var: var(get-rgb-css-var($cat, $i), to-rgb(get-color($cat, $i)));
+@function zent-color-var-rgba($content, $status) {
+  $color: get-color-value($content, $status);
+  $css-var: var(
+    --theme-rgb-#{get-color-name($content, $status)},
+    to-rgb($color)
+  );
 
   // `unquote` is a workaround for node-sass misinterprets rgba as builtin function
   // https://github.com/sass/node-sass/issues/2251
@@ -143,82 +47,46 @@ $theme-colors: (
   @return unquote('rgba(#{$css-var}, #{$opacity})');
 }
 
-@mixin theme-color($prop, $cat, $i, $opacity: 1) {
-  $color: get-color($cat, $i);
+@mixin zent-color($prop, $content, $status, $opacity: 1) {
+  $color: get-color-value($content, $status);
 
   @if $opacity >= 1 {
     #{$prop}: $color;
-    #{$prop}: theme-rgb($cat, $i);
+    #{$prop}: zent-color-var-rgb($content, $status);
   } @else {
     #{$prop}: rgba($color, $opacity);
-    #{$prop}: theme-rgba($cat, $i, $opacity);
+    #{$prop}: zent-color-var-rgba($content, $status);
   }
 }
 
-@mixin theme-border-impl($prop, $width, $style, $cat, $i, $opacity) {
-  $color: get-color($cat, $i);
+@function zent-font-size($content, $weight) {
+  @return get-value(get-value($font-size-vars, $content), $weight);
+}
 
-  @if $opacity >= 1 {
-    #{$prop}: $width $style $color;
-    #{$prop}: $width $style theme-rgb($cat, $i);
+@mixin zent-font($content, $weight) {
+  $font-size: zent-font-size($content, $weight);
+
+  @if $font-size > $break-size {
+    font-size: $font-size;
+    line-height: $line-height-1 * $font-size;
   } @else {
-    #{$prop}: $width $style rgba($color, $opacity);
-    #{$prop}: $width $style theme-rgba($cat, $i, $opacity);
+    font-size: $font-size;
+    line-height: $line-height-2 * $font-size;
   }
 }
 
-@mixin theme-border($width, $style, $cat, $i, $opacity: 1) {
-  @include theme-border-impl(border, $width, $style, $cat, $i, $opacity);
+@function zent-spacing($weight: 1) {
+  @return nth($spacing, $weight);
 }
 
-@mixin theme-border-top($width, $style, $cat, $i, $opacity: 1) {
-  @include theme-border-impl(border-top, $width, $style, $cat, $i, $opacity);
+@function zent-corner($weight: 2) {
+  @return nth($border-radius, $weight);
 }
 
-@mixin theme-border-right($width, $style, $cat, $i, $opacity: 1) {
-  @include theme-border-impl(border-right, $width, $style, $cat, $i, $opacity);
+@mixin zent-shadow($name) {
+  @include theme-shadow($name);
 }
 
-@mixin theme-border-bottom($width, $style, $cat, $i, $opacity: 1) {
-  @include theme-border-impl(border-bottom, $width, $style, $cat, $i, $opacity);
+@function zent-border($status: 1) {
+  @return nth($border-width, $weight);
 }
-
-@mixin theme-border-left($width, $style, $cat, $i, $opacity: 1) {
-  @include theme-border-impl(border-left, $width, $style, $cat, $i, $opacity);
-}
-
-// Shadow
-$shadow-spec-focus: 0 0 4px 0 rgba($theme-primary-1, 0.2) !default;
-$shadow-spec-layer: 0 2px 8px 0 rgba($theme-stroke-4, 0.5) !default;
-$shadow-spec-modal: 0 2px 24px 0 rgba($theme-stroke-4, 0.5) !default;
-$shadow-spec-focus-var: 0 0 4px 0 theme-rgba(primary, 1, 0.2) !default;
-$shadow-spec-layer-var: 0 2px 8px 0 theme-rgba(stroke, 4, 0.5) !default;
-$shadow-spec-modal-var: 0 2px 24px 0 theme-rgba(stroke, 4, 0.5) !default;
-
-$theme-shadow: (
-  'focus': $shadow-spec-focus,
-  'layer': $shadow-spec-layer,
-  'modal': $shadow-spec-modal,
-);
-
-$theme-shadow-var: (
-  'focus': $shadow-spec-focus-var,
-  'layer': $shadow-spec-layer-var,
-  'modal': $shadow-spec-modal-var,
-);
-
-@mixin theme-shadow($name) {
-  $shadow: map-get($theme-shadow, $name);
-  $shadow-var: map-get($theme-shadow-var, $name);
-
-  box-shadow: $shadow;
-  box-shadow: var(--shadow-spec-#{$name}, $shadow-var);
-}
-
-// @mixin default-theme-variables {
-//   @each $cat, $list in $theme-colors {
-//     @for $i from 1 through length($list) {
-//       #{--theme-#{$cat}-#{$i}}: nth($list, $i);
-//     }
-//   }
-// }

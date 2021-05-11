@@ -1,0 +1,25 @@
+$spacing: (4px, 8px, 12px, 16px, 24px, 32px, 56px, 88px);
+
+$border-radius: (2px, 4px);
+
+$border-width: (1px);
+
+// Shadow
+$shadow-spec-focus: 0 0 4px 0 rgba($theme-primary-1, 0.2) !default;
+$shadow-spec-layer: 0 2px 8px 0 rgba($theme-stroke-4, 0.5) !default;
+$shadow-spec-modal: 0 2px 24px 0 rgba($theme-stroke-4, 0.5) !default;
+$shadow-spec-focus-var: 0 0 4px 0 theme-rgba(primary, 1, 0.2) !default;
+$shadow-spec-layer-var: 0 2px 8px 0 theme-rgba(stroke, 4, 0.5) !default;
+$shadow-spec-modal-var: 0 2px 24px 0 theme-rgba(stroke, 4, 0.5) !default;
+
+$theme-shadow: (
+  'focus': $shadow-spec-focus,
+  'layer': $shadow-spec-layer,
+  'modal': $shadow-spec-modal,
+);
+
+$theme-shadow-var: (
+  'focus': $shadow-spec-focus-var,
+  'layer': $shadow-spec-layer-var,
+  'modal': $shadow-spec-modal-var,
+);

@@ -38,6 +38,7 @@
     "plugins/postcss-plugin-constants.js"
   ],
   "dependencies": {
+    "@ctrl/tinycolor": "^3.4.0",
     "@types/resize-observer-browser": "^0.1.4",
     "@types/sortablejs": "~1.10.6",
     "big.js": "^5.2.2",

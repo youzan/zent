@@ -1,0 +1,184 @@
+// sass-lint:disable no-important
+@import './names';
+
+// all color variable
+$gray-1: #fff !default; // 0,0,100
+$gray-2: #f7f7f7 !default; // 0,0,97
+$gray-3: #e0e0e0 !default; // 0,0,88
+$gray-4: #ccc !default; // 0,0,80
+$gray-5: #999 !default; // 0,0,60
+$gray-6: #333 !default; // 0,0,20
+
+$green-100: #efffe6 !default; // 98,10,100
+$green-400: #45a110 !default; // 98,90,63
+
+$yellow-100: #ffefe6 !default; // 23,10,100
+$yellow-400: #ed6a18 !default; // 23,90,93
+
+$red-100: #ffe9e6 !default; // 8,10,100
+$red-400: #d42f15 !default; // 8,90,83
+
+$blue-200: #3570d4 !default; // 218,90,83
+$blue-400: #155bd4 !default; // 218,75,85
+$blue-600: #114bad !default; // 218,91,71
+
+// color names
+$brand-color: (
+  $default: $blue-400,
+  $hover: $blue-200,
+  $active: $blue-600,
+);
+
+$text-color: (
+  $default: $gray-6,
+  $disabled: $gray-4,
+  $header: $gray-6,
+  $body: $gray-6,
+  $weaken: $gray-6,
+  $link: map-get($brand-color, $default),
+  $success: $green-400,
+  $warn: $yellow-400,
+  $error: $red-400,
+);
+
+$background-color: (
+  $default: $gray-2,
+  $active: $gray-3,
+  $success: $green-100,
+  $warn: $yellow-100,
+  $error: $red-100,
+  $white: $gray-1,
+);
+
+$border-color: (
+  $default: $gray-3,
+  $success: $green-400,
+  $warn: $yellow-400,
+  $error: $red-400,
+);
+
+$icon-color: (
+  $success: $green-400,
+  $warn: $yellow-400,
+  $error: $red-400,
+);
+
+$color-vars: (
+  $brand: $brand-color,
+  $text: $text-color,
+  $background: $background-color,
+  $border: $border-color,
+  $icon: $icon-color,
+);
+
+$brand-related: (#{$text}-#{$link}: #{$brand}-#{$default});
+
+// $extra-color: (
+//   'rate-star':
+// )
+
+// old
+// Text colors
+$theme-stroke-1: map-get($text-color, $default); // text
+$theme-stroke-2: map-get($text-color, $default); // text
+$theme-stroke-3: map-get($text-color, $weaken); // help text
+$theme-stroke-4: map-get($text-color, $disabled); // disabled text
+
+// Border and line colors
+$theme-stroke-5: map-get($border-color, $default);
+$theme-stroke-6: map-get($border-color, $default);
+
+// Background colors
+$theme-stroke-7: map-get($background-color, $default);
+$theme-stroke-8: map-get($background-color, $default);
+$theme-stroke-9: map-get(
+  $background-color,
+  $white
+); // White button normal background color
+
+// Button background color
+$theme-stroke-10: map-get($background-color, $active); // Active
+$theme-stroke-11: map-get($background-color, $default); // Hover
+
+// Blue(primary)
+$theme-primary-1: map-get($brand-color, $active);
+$theme-primary-2: map-get($brand-color, $active);
+$theme-primary-3: map-get($brand-color, $active);
+$theme-primary-4: map-get($brand-color, $default);
+$theme-primary-5: map-get($brand-color, $hover);
+$theme-primary-6: map-get($brand-color, $hover);
+$theme-primary-7: map-get($brand-color, $hover);
+$theme-primary-8: map-get($brand-color, $hover);
+
+// Green
+$theme-success-1: map-get($text-color, $success);
+$theme-success-2: map-get($text-color, $success);
+$theme-success-3: map-get($background-color, $success);
+$theme-success-4: map-get($text-color, $success);
+$theme-success-5: map-get($background-color, $success);
+
+// Red
+$theme-error-1: map-get($text-color, $error);
+$theme-error-2: map-get($text-color, $error);
+$theme-error-3: map-get($background-color, $error);
+$theme-error-4: map-get($text-color, $error);
+$theme-error-5: map-get($background-color, $error);
+
+// Orange
+$theme-warn-1: map-get($text-color, $warn);
+$theme-warn-2: map-get($text-color, $warn);
+$theme-warn-3: map-get($background-color, $warn);
+$theme-warn-4: map-get($text-color, $warn);
+$theme-warn-5: map-get($background-color, $warn);
+
+// Rate color
+$rate-star-color: #fad20c !default;
+
+$loading-icon-youzan-color: #e00 !default;
+
+$theme-colors: (
+  'stroke': (
+    $theme-stroke-1,
+    $theme-stroke-2,
+    $theme-stroke-3,
+    $theme-stroke-4,
+    $theme-stroke-5,
+    $theme-stroke-6,
+    $theme-stroke-7,
+    $theme-stroke-8,
+    $theme-stroke-9,
+    $theme-stroke-10,
+    $theme-stroke-11,
+  ),
+  'primary': (
+    $theme-primary-1,
+    $theme-primary-2,
+    $theme-primary-3,
+    $theme-primary-4,
+    $theme-primary-5,
+    $theme-primary-6,
+    $theme-primary-7,
+    $theme-primary-8,
+  ),
+  $success: (
+    $theme-success-1,
+    $theme-success-2,
+    $theme-success-3,
+    $theme-success-4,
+    $theme-success-5,
+  ),
+  $error: (
+    $theme-error-1,
+    $theme-error-2,
+    $theme-error-3,
+    $theme-error-4,
+    $theme-error-5,
+  ),
+  $warn: (
+    $theme-warn-1,
+    $theme-warn-2,
+    $theme-warn-3,
+    $theme-warn-4,
+    $theme-warn-5,
+  ),
+);

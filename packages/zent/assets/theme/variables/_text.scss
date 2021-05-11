@@ -1,0 +1,60 @@
+@import './names';
+
+$font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica,
+  Segoe UI, Arial, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft Yahei', STHeiti,
+  SimSun, sans-serif;
+
+// font weight
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 600;
+
+// font size
+$font-size: (
+  34px,
+  // 1
+  28px,
+  // 2
+  24px,
+  // 3
+  20px,
+  // 4
+  16px,
+  // 5
+  14px,
+  // 6
+  12px // 7
+);
+
+$line-height-1: 1.25;
+$line-height-2: 1.5;
+
+$break-size: 16px;
+
+$headline-size: (
+  nth($font-size, 1),
+  nth($font-size, 2),
+  nth($font-size, 3),
+  nth($font-size, 4)
+);
+
+$subtitle-size: (nth($font-size, 5), nth($font-size, 6));
+
+$body-size: (nth($font-size, 5), nth($font-size, 6));
+
+$overline-size: (nth($font-size, 7));
+
+$font-size-vars: (
+  $headline: $headline-size,
+  $subtitle: $subtitle-size,
+  $body: $body-size,
+  $overline: $overline-size,
+);
+
+$font-size-h1: 44px;
+$font-size-h2: nth($headline-size, 1);
+$font-size-h3: nth($headline-size, 3);
+$font-size-h4: nth($headline-size, 4);
+$font-size-large: nth($body-size, 1);
+$font-size-normal: nth($body-size, 2);
+$font-size-small: nth($overline-size, 1);
