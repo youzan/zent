@@ -111,6 +111,9 @@ export interface ISelectState<
   activeIndex: null | number;
   prevOptions: Item[];
   creating: boolean;
+
+  // Keep track of trigger DOM node width
+  triggerWidth: React.CSSProperties['width'];
 }
 
 function defaultIsEqual<
@@ -234,7 +237,7 @@ export class Select<
 
   context!: IDisabledContext;
 
-  elementRef = createRef<HTMLDivElement>();
+  triggerRef = createRef<HTMLDivElement>();
   popoverRef = createRef<Popover>();
   inputRef = createRef<HTMLInputElement>();
 
@@ -255,6 +258,7 @@ export class Select<
       activeIndex: null,
       prevOptions: props.options,
       creating: false,
+      triggerWidth: props.width,
     };
 
     this.tryReviveOption(props);
@@ -299,6 +303,17 @@ export class Select<
       }
     }
     return nextState;
+  }
+
+  componentDidMount() {
+    if ('popupWidth' in this.props) {
+      return;
+    }
+
+    const triggerWidth = this.triggerRef.current?.offsetWidth;
+    this.setState({
+      triggerWidth,
+    });
   }
 
   componentDidUpdate(prevProps: ISelectProps<Key, Item>) {
@@ -397,7 +412,7 @@ export class Select<
     if (this.props.multiple === true) {
       const { onChange, isEqual } = this.props;
       const value = this.state.value as Item[];
-      const valueIndex = value.findIndex(it => isEqual(it, item));
+      const valueIndex = value.findIndex(it => isEqual!(it, item));
       this.focusSearchInput();
       const nextValue =
         valueIndex >= 0
@@ -453,7 +468,7 @@ export class Select<
 
     const { value } = this.state;
     const { onChange, isEqual } = this.props as ISelectMultiProps<Key, Item>;
-    const nextValue = (value as Item[]).filter(it => !isEqual(item, it));
+    const nextValue = (value as Item[]).filter(it => !isEqual!(item, it));
     this.focusSearchInput();
     if (onChange) {
       onChange(nextValue);
@@ -522,8 +537,8 @@ export class Select<
     const selected =
       !!value &&
       (multiple
-        ? (value as Item[]).findIndex(it => isEqual(it, option)) >= 0
-        : isEqual(value as Item, option));
+        ? (value as Item[]).findIndex(it => isEqual!(it, option)) >= 0
+        : isEqual!(value as Item, option));
 
     let optionContent: React.ReactNode = null;
     let loading = false;
@@ -572,12 +587,12 @@ export class Select<
       this.disabled ||
       this.state.open ||
       !this.state.active ||
-      !this.elementRef.current ||
+      !this.triggerRef.current ||
       !this.popoverRef.current
     ) {
       return;
     }
-    if (!this.elementRef.current.contains(e.target as Element)) {
+    if (!this.triggerRef.current?.contains(e.target as Element)) {
       this.setState({
         active: false,
       });
@@ -868,7 +883,7 @@ export class Select<
   }
 
   render() {
-    const { keyword, open: visible, active, value } = this.state;
+    const { keyword, open: visible, active, value, triggerWidth } = this.state;
     const {
       inline,
       width,
@@ -895,12 +910,12 @@ export class Select<
               visible={visible}
               onVisibleChange={this.onVisibleChange}
               className="zent-select-v2-popup"
-              style={{ width: popupWidth ?? width }}
+              style={{ width: popupWidth ?? triggerWidth }}
               cushion={4}
             >
               <Popover.Trigger.Click>
                 <div
-                  ref={this.elementRef}
+                  ref={this.triggerRef}
                   className={cx('zent-select-v2', className, {
                     'zent-select-v2-inline': inline,
                     'zent-select-v2-active': active,
