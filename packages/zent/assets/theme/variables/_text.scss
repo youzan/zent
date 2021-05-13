@@ -1,16 +1,15 @@
-@import './names';
+@import './size-names';
 
 $font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica,
   Segoe UI, Arial, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft Yahei', STHeiti,
   SimSun, sans-serif;
 
-// font weight
 $font-weight-normal: 400;
 $font-weight-medium: 500;
 $font-weight-bold: 600;
 
 // font size
-$font-size: (
+$font-size-number: (
   34px,
   // 1
   28px,
@@ -29,32 +28,31 @@ $font-size: (
 $line-height-1: 1.25;
 $line-height-2: 1.5;
 
+// font weight
+$font-size: (
+  $xx-large: nth($font-size-number, 1),
+  $x-large: nth($font-size-number, 2),
+  $large: nth($font-size-number, 3),
+  $medium: nth($font-size-number, 4),
+  $small: nth($font-size-number, 5),
+  $x-small: nth($font-size-number, 6),
+  $xx-small: nth($font-size-number, 7),
+  $weight-normal: $font-weight-normal,
+  $weight-medium: $font-weight-medium,
+  $weight-bold: $font-weight-bold,
+);
+
+$line-height: (
+  $text: $line-height-1,
+  $heading: $line-height-2,
+);
+
 $break-size: 16px;
 
-$headline-size: (
-  nth($font-size, 1),
-  nth($font-size, 2),
-  nth($font-size, 3),
-  nth($font-size, 4)
-);
-
-$subtitle-size: (nth($font-size, 5), nth($font-size, 6));
-
-$body-size: (nth($font-size, 5), nth($font-size, 6));
-
-$overline-size: (nth($font-size, 7));
-
-$font-size-vars: (
-  $headline: $headline-size,
-  $subtitle: $subtitle-size,
-  $body: $body-size,
-  $overline: $overline-size,
-);
-
 $font-size-h1: 44px;
-$font-size-h2: nth($headline-size, 1);
-$font-size-h3: nth($headline-size, 3);
-$font-size-h4: nth($headline-size, 4);
-$font-size-large: nth($body-size, 1);
-$font-size-normal: nth($body-size, 2);
-$font-size-small: nth($overline-size, 1);
+$font-size-h2: nth($font-size-number, 1);
+$font-size-h3: nth($font-size-number, 3);
+$font-size-h4: nth($font-size-number, 4);
+$font-size-large: nth($font-size-number, 5);
+$font-size-normal: nth($font-size-number, 6);
+$font-size-small: nth($font-size-number, 7);

@@ -1,45 +1,34 @@
 @import './old-default';
 @import './variables/color';
 @import './variables/text';
+@import './variables/size-names';
+@import './override';
 
 // sass-lint:disable no-duplicate-properties
 
-@function get-value($content, $key) {
-  $val: map-get($content, $key);
+@function get-value($map, $key) {
+  $val: map-get($map, $key);
 
   @if $val {
     @return $val;
   } @else {
-    @error '#{$content} doesnot has #{$key}';
+    @error '#{$map} doesnot has #{$key}';
   }
 }
 
-@function get-color-value($content, $status) {
-  @return get-value(get-value($color-vars, $content), $status);
+@function get-color-value($type, $key) {
+  @return get-value(get-value($brand, $type), $key);
 }
 
-@function get-color-name($content, $status) {
-  $name: map-get($brand-related, #{$content}-#{$status});
+@function zent-color-var-rgb($type, $desc) {
+  $color: get-color-value($type, $desc);
 
-  @if $name {
-    @return $name;
-  } @else {
-    @return #{$content}-#{$status};
-  }
+  @return var(--brand-#{$type}-#{$desc}, $color);
 }
 
-@function zent-color-var-rgb($content, $status) {
-  $color: get-color-value($content, $status);
-
-  @return var(--theme-#{get-color-name($content, $status)}, $color);
-}
-
-@function zent-color-var-rgba($content, $status) {
-  $color: get-color-value($content, $status);
-  $css-var: var(
-    --theme-rgb-#{get-color-name($content, $status)},
-    to-rgb($color)
-  );
+@function zent-color-var-rgba($type, $desc) {
+  $color: get-color-value($type, $desc);
+  $css-var: var(--brand-rgb-#{$type}-#{$desc} to-rgb($color));
 
   // `unquote` is a workaround for node-sass misinterprets rgba as builtin function
   // https://github.com/sass/node-sass/issues/2251
@@ -47,46 +36,60 @@
   @return unquote('rgba(#{$css-var}, #{$opacity})');
 }
 
-@mixin zent-color($prop, $content, $status, $opacity: 1) {
-  $color: get-color-value($content, $status);
+@mixin zent-color($prop, $type, $desc, $opacity: 1) {
+  $color: get-color-value($type, $desc);
 
   @if $opacity >= 1 {
     #{$prop}: $color;
-    #{$prop}: zent-color-var-rgb($content, $status);
+    #{$prop}: zent-color-var-rgb($type, $desc);
   } @else {
     #{$prop}: rgba($color, $opacity);
-    #{$prop}: zent-color-var-rgba($content, $status);
+    #{$prop}: zent-color-var-rgba($type, $desc);
   }
 }
 
-@function zent-font-size($content, $weight) {
-  @return get-value(get-value($font-size-vars, $content), $weight);
+@function zent-size-var($map, $type, $desc) {
+  $size: get-value($map, $desc);
+
+  @return var(--size-#{$type}-#{$desc}, $size);
 }
 
-@mixin zent-font($content, $weight) {
-  $font-size: zent-font-size($content, $weight);
+@function zent-font-size-var($desc) {
+  $size: get-value($font-size, $desc);
+
+  @return var(--size-font-size-#{$desc}, $size);
+}
+
+@mixin zent-font($desc) {
+  $font-size: get-value($font-size, $desc);
+  $font-size-var: zent-font-size-var($desc);
 
   @if $font-size > $break-size {
-    font-size: $font-size;
-    line-height: $line-height-1 * $font-size;
+    font-size: $font-size-var;
+    line-height: zent-size-var($line-height, 'line-height', $text) * $font-size;
   } @else {
-    font-size: $font-size;
-    line-height: $line-height-2 * $font-size;
+    font-size: $font-size-var;
+    line-height: zent-size-var($line-height, 'line-height', $heading) *
+      $font-size;
   }
 }
 
-@function zent-spacing($weight: 1) {
-  @return nth($spacing, $weight);
+@function zent-spacing-value($desc) {
+  @return zent-size-var($spacing, 'spacing', $desc);
 }
 
-@function zent-corner($weight: 2) {
-  @return nth($border-radius, $weight);
+@mixin zent-spacing($desc) {
+  #{$prop}: zent-spacing-value($desc);
+}
+
+@mixin zent-radius($desc) {
+  border-radius: zent-size-var($border-radius, 'border-radius', $desc);
 }
 
 @mixin zent-shadow($name) {
   @include theme-shadow($name);
 }
 
-@function zent-border($status: 1) {
-  @return nth($border-width, $weight);
+@mixin zent-border-width($weight: 1) {
+  border-width: zent-size-var($border-width, 'border-width', $desc);
 }

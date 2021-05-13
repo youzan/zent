@@ -1,4 +1,3 @@
-@import './override';
 @import './variables/color';
 @import './variables/box';
 
@@ -9,39 +8,39 @@ $notify-error: rgba(255, 68, 68, 0.8);
 $notify-success: rgba(68, 187, 136, 0.8);
 
 $name-mapping: (
-  'stroke-1': #{$text}-#{$default},
-  'stroke-2': #{$text}-#{$default},
-  'stroke-3': #{$text}-#{$weaken},
-  'stroke-4': #{$text}-#{$disabled},
-  'stroke-5': #{$border}-#{$default},
-  'stroke-6': #{$border}-#{$default},
-  'stroke-7': #{$background}-#{$default},
-  'stroke-8': #{$background}-#{$default},
-  'stroke-9': #{$background}-#{$default},
-  'stroke-10': #{$background}-#{$active},
-  'primary-1': #{$brand}-#{$active},
-  'primary-2': #{$brand}-#{$active},
-  'primary-3': #{$brand}-#{$active},
-  'primary-4': #{$brand}-#{$default},
-  'primary-5': #{$brand}-#{$hover},
-  'primary-6': #{$brand}-#{$hover},
-  'primary-7': #{$brand}-#{$hover},
-  'primary-8': #{$brand}-#{$hover},
-  'success-1': #{$text}-#{$success},
-  'success-2': #{$text}-#{$success},
-  'success-3': #{$background}-#{$success},
-  'success-4': #{$text}-#{$success},
-  'success-5': #{$background}-#{$success},
-  'error-1': #{$text}-#{$error},
-  'error-2': #{$text}-#{$error},
-  'error-3': #{$background}-#{$error},
-  'error-4': #{$text}-#{$error},
-  'error-5': #{$background}-#{$error},
-  'warn-1': #{$text}-#{$warn},
-  'warn-2': #{$text}-#{$warn},
-  'warn-3': #{$background}-#{$warn},
-  'warn-4': #{$text}-#{$warn},
-  'warn-5': #{$background}-#{$warn},
+  'stroke-1': 'text-info',
+  'stroke-2': 'text-info',
+  'stroke-3': 'text-weak',
+  'stroke-4': 'text-disabled',
+  'stroke-5': 'border-info',
+  'stroke-6': 'border-info',
+  'stroke-7': 'background-info',
+  'stroke-8': 'background-info',
+  'stroke-9': 'background-info',
+  'stroke-10': 'background-alt-behavior-active',
+  'primary-1': 'background-behavior-active',
+  'primary-2': 'background-behavior-active',
+  'primary-3': 'background-behavior-active',
+  'primary-4': 'background-behavior-default',
+  'primary-5': 'background-behavior-hover',
+  'primary-6': 'background-behavior-hover',
+  'primary-7': 'background-behavior-hover',
+  'primary-8': 'background-behavior-hover',
+  'success-1': 'text-success',
+  'success-2': 'text-success',
+  'success-3': 'background-success',
+  'success-4': 'text-success',
+  'success-5': 'background-success',
+  'error-1': 'text-error',
+  'error-2': 'text-error',
+  'error-3': 'background-error',
+  'error-4': 'text-error',
+  'error-5': 'background-error',
+  'warn-1': 'text-warn',
+  'warn-2': 'text-warn',
+  'warn-3': 'background-warn',
+  'warn-4': 'text-warn',
+  'warn-5': 'background-warn',
 );
 
 @function get-color($cat, $i) {
@@ -56,13 +55,13 @@ $name-mapping: (
 // This is for backword compatibily
 @function get-css-var($cat, $i) {
   // sass-lint:disable-block space-around-operator
-  @return --theme-#{map-get($name-mapping, #{$cat}-#{$i})};
+  @return --brand-#{map-get($name-mapping, #{$cat}-#{$i})};
 }
 
 // Use this for rgba support in theme colors
 @function get-rgb-css-var($cat, $i) {
   // sass-lint:disable-block space-around-operator
-  @return --theme-rgb-#{map-get($name-mapping, #{$cat}-#{$i})};
+  @return --brand-rgb-#{map-get($name-mapping, #{$cat}-#{$i})};
 }
 
 @function theme-rgb($cat, $i) {

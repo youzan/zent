@@ -1,0 +1,53 @@
+// type
+$text: 'text' !default;
+$background: 'background' !default;
+$border: 'border' !default;
+
+// description kinds
+$info: 'info' !default;
+$icon: 'icon' !default;
+$link: 'link' !default;
+$weak-link: 'weak-link' !default;
+$behavior: 'behavior' !default;
+$alt-behavior: 'alt-behavior' !default;
+$weak-behavior: 'weak-behavior' !default;
+$hint: 'hint' !default;
+
+$separator: 'separator' !default;
+$header: 'header' !default;
+
+// description detail
+$default: 'default' !default;
+$alt: 'alt' !default;
+$disabled: 'disabled' !default;
+$active: 'active' !default;
+$hover: 'hover' !default;
+$required: 'required' !default;
+$primary: 'primary' !default;
+$weak: 'weak' !default;
+$destructive: 'destructive' !default;
+$success: 'success' !default;
+$warn: 'warn' !default;
+$error: 'error' !default;
+
+// mixin kinds and detail
+$icon-disabled: 'icon-disabled' !default;
+$icon-success: 'icon-success' !default;
+$icon-warn: 'icon-warn' !default;
+$icon-error: 'icon-error' !default;
+
+$link-hover: 'link-hover' !default;
+$link-active: 'link-active' !default;
+
+$weak-link-hover: 'weak-link-hover' !default;
+$weak-link-active: 'weak-link-active' !default;
+
+$behavior-default: 'behavior-default' !default;
+$behavior-hover: 'behavior-hover' !default;
+$behavior-active: 'behavior-active' !default;
+$alt-behavior-default: 'alt-behavior-default' !default;
+$alt-behavior-hover: 'alt-behavior-hover' !default;
+$alt-behavior-active: 'alt-behavior-active' !default;
+$weak-behavior-default: 'weak-behavior-default' !default;
+$weak-behavior-hover: 'weak-behavior-hover' !default;
+$weak-behavior-active: 'weak-behavior-active' !default;

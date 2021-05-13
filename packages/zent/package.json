@@ -24,7 +24,8 @@
     "new-component": "node ./scripts/new-component.js",
     "typedoc": "typedoc --out ../../site/dist/apidoc --mode file",
     "compile-plugins": "tsc -p ./plugins/tsconfig.json",
-    "update-iconfont": "./scripts/update-iconfont.sh"
+    "update-iconfont": "./scripts/update-iconfont.sh",
+    "var": "./scripts/postcss-vars.sh"
   },
   "author": "Youzan FE",
   "license": "MIT",

@@ -1,0 +1,47 @@
+@import './tiny-color';
+
+// sass-lint:disable no-debug
+
+$saturationLightStep: 15;
+$saturationDrakStep: 0;
+$brightnessLightStep: 0;
+$brightnessDrakStep: 12;
+
+@function getSaturation($h, $s, $v, $i, $light) {
+  $saturation: 0;
+  @if ($h == 0 and $s == 0) {
+    @return $s;
+  }
+  @if ($light) {
+    $saturation: $s - $saturationLightStep * $i;
+  } @else {
+    $saturation: $s + $saturationDrakStep * $i;
+  }
+
+  @if ($saturation > 100) {
+    $saturation: 100;
+  }
+
+  @return round($saturation);
+}
+
+@function getValue($h, $s, $v, $i, $light) {
+  @if ($light) {
+    @return ($v + $brightnessLightStep * $i);
+  }
+  @return ($v - $brightnessDrakStep * $i);
+}
+
+@function generateColor($color, $i, $light) {
+  $hsv: ch-color-to-hsv($color);
+
+  $h: nth($hsv, 1);
+  $s: nth($hsv, 2);
+  $v: nth($hsv, 3);
+
+  $adjustHue: $h;
+  $adjustSaturation: getSaturation($h, $s, $v, $i, $light);
+  $adjustLight: getValue($h, $s, $v, $i, $light);
+
+  @return ch-hsv-to-color($adjustHue, $adjustSaturation, $adjustLight);
+}

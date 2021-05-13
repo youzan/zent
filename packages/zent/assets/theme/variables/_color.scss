@@ -1,140 +1,164 @@
 // sass-lint:disable no-important
-@import './names';
+@import './color-names';
+@import '../color-generator';
 
 // all color variable
-$gray-1: #fff !default; // 0,0,100
-$gray-2: #f7f7f7 !default; // 0,0,97
-$gray-3: #e0e0e0 !default; // 0,0,88
-$gray-4: #ccc !default; // 0,0,80
-$gray-5: #999 !default; // 0,0,60
-$gray-6: #333 !default; // 0,0,20
+$brand-background-alt: #fff !default; // 0,0,100
+$brand-background-default: #f7f7f7 !default; // 0,0,97
+$brand-border-default: #e0e0e0 !default; // 0,0,88
+$brand-text-disabled: #ccc !default; // 0,0,80
+$brand-text-weak: #999 !default; // 0,0,60
+$brand-text-default: #333 !default; // 0,0,20
 
-$green-100: #efffe6 !default; // 98,10,100
-$green-400: #45a110 !default; // 98,90,63
+$brand-text-drak-default: #fff !default;
+$brand-background-drak-default: #000 !default;
+$brand-background-highlight: #e0e0e0 !default;
 
-$yellow-100: #ffefe6 !default; // 23,10,100
-$yellow-400: #ed6a18 !default; // 23,90,93
+$brand-background-success: #efffe6 !default; // 98,10,100
+$brand-success: #45a110 !default; // 98,90,63
 
-$red-100: #ffe9e6 !default; // 8,10,100
-$red-400: #d42f15 !default; // 8,90,83
+$brand-background-warn: #ffefe6 !default; // 23,10,100
+$brand-warn: #ed6a18 !default; // 23,90,93
 
-$blue-200: #3570d4 !default; // 218,90,83
-$blue-400: #155bd4 !default; // 218,75,85
-$blue-600: #114bad !default; // 218,91,71
+$brand-background-error: #ffe9e6 !default; // 8,10,100
+$brand-error: #d42f15 !default; // 8,90,83
+
+$brand-primary-default: #155bd4 !default; // 218,90,83
+$brand-primary-hover: generateColor(
+  $brand-primary-default,
+  1,
+  true
+) !default; // 218,75,85
+$brand-primary-active: generateColor(
+  $brand-primary-default,
+  1,
+  false
+) !default; // 218,91,71
+
+$rate-star: #edd418 !default;
+$youzan: #e00 !default;
 
 // color names
-$brand-color: (
-  $default: $blue-400,
-  $hover: $blue-200,
-  $active: $blue-600,
+$brand: (
+  $text: (
+    $info: $brand-text-default,
+    $disabled: $brand-text-disabled,
+    $required: $brand-error,
+    // var
+    $primary: $brand-primary-default,
+    $weak: $brand-text-weak,
+    $destructive: $brand-error,
+    $success: $brand-success,
+    $warn: $brand-warn,
+    $error: $brand-error,
+    $icon: $brand-text-weak,
+    $icon-disabled: $brand-text-disabled,
+    $icon-success: $brand-success,
+    $icon-warn: $brand-warn,
+    $icon-error: $brand-error,
+    $link: $brand-primary-default,
+    $link-hover: $brand-primary-hover,
+    $link-active: $brand-primary-active,
+    $weak-link: $brand-text-weak,
+    $weak-link-hover: $brand-primary-hover,
+    $weak-link-active: $brand-primary-active,
+    $behavior: $brand-text-drak-default,
+    $alt-behavior-default: $brand-text-default,
+    $alt-behavior-hover: $brand-primary-default,
+    $alt-behavior-active: $brand-text-default,
+    $weak-behavior: $brand-text-default,
+    $hint: $brand-text-weak,
+    'rate-star': $rate-star,
+    'youzan': $youzan,
+  ),
+  $background: (
+    $info: $brand-background-default,
+    $disabled: $brand-background-default,
+    $alt: $brand-background-alt,
+    $success: $brand-background-success,
+    $warn: $brand-background-warn,
+    $error: $brand-background-error,
+    $behavior-default: $brand-primary-default,
+    $behavior-hover: $brand-primary-hover,
+    $behavior-active: $brand-primary-active,
+    $alt-behavior-default: $brand-background-alt,
+    $alt-behavior-hover: $brand-background-alt,
+    $alt-behavior-active: $brand-background-highlight,
+    $weak-behavior-default: rgba($brand-background-drak-default, 0),
+    $weak-behavior-hover: rgba($brand-background-drak-default, 0.1),
+    $weak-behavior-active: rgba($brand-background-drak-default, 0.15),
+  ),
+  $border: (
+    $info: $brand-border-default,
+    $separator: $brand-border-default,
+    $disabled: $brand-background-default,
+    $success: $brand-success,
+    $warn: $brand-warn,
+    $error: $brand-error,
+    $behavior-default: $brand-primary-default,
+    $behavior-hover: $brand-primary-hover,
+    $behavior-active: $brand-primary-active,
+    $alt-behavior-default: $brand-border-default,
+    $alt-behavior-hover: $brand-primary-default,
+    $alt-behavior-active: $brand-border-default,
+  ),
 );
-
-$text-color: (
-  $default: $gray-6,
-  $disabled: $gray-4,
-  $header: $gray-6,
-  $body: $gray-6,
-  $weaken: $gray-6,
-  $link: map-get($brand-color, $default),
-  $success: $green-400,
-  $warn: $yellow-400,
-  $error: $red-400,
-);
-
-$background-color: (
-  $default: $gray-2,
-  $active: $gray-3,
-  $success: $green-100,
-  $warn: $yellow-100,
-  $error: $red-100,
-  $white: $gray-1,
-);
-
-$border-color: (
-  $default: $gray-3,
-  $success: $green-400,
-  $warn: $yellow-400,
-  $error: $red-400,
-);
-
-$icon-color: (
-  $success: $green-400,
-  $warn: $yellow-400,
-  $error: $red-400,
-);
-
-$color-vars: (
-  $brand: $brand-color,
-  $text: $text-color,
-  $background: $background-color,
-  $border: $border-color,
-  $icon: $icon-color,
-);
-
-$brand-related: (#{$text}-#{$link}: #{$brand}-#{$default});
-
-// $extra-color: (
-//   'rate-star':
-// )
 
 // old
 // Text colors
-$theme-stroke-1: map-get($text-color, $default); // text
-$theme-stroke-2: map-get($text-color, $default); // text
-$theme-stroke-3: map-get($text-color, $weaken); // help text
-$theme-stroke-4: map-get($text-color, $disabled); // disabled text
+$theme-stroke-1: $brand-text-default; // text
+$theme-stroke-2: $brand-text-default; // text
+$theme-stroke-3: $brand-text-weak; // help text
+$theme-stroke-4: $brand-text-disabled; // disabled text
 
 // Border and line colors
-$theme-stroke-5: map-get($border-color, $default);
-$theme-stroke-6: map-get($border-color, $default);
+$theme-stroke-5: $brand-border-default;
+$theme-stroke-6: $brand-border-default;
 
 // Background colors
-$theme-stroke-7: map-get($background-color, $default);
-$theme-stroke-8: map-get($background-color, $default);
-$theme-stroke-9: map-get(
-  $background-color,
-  $white
-); // White button normal background color
+$theme-stroke-7: $brand-background-default;
+$theme-stroke-8: $brand-background-default;
+$theme-stroke-9: $brand-background-alt; // White button normal background color
 
 // Button background color
-$theme-stroke-10: map-get($background-color, $active); // Active
-$theme-stroke-11: map-get($background-color, $default); // Hover
+$theme-stroke-10: $brand-background-highlight; // Active
+$theme-stroke-11: $brand-background-default; // Hover
 
 // Blue(primary)
-$theme-primary-1: map-get($brand-color, $active);
-$theme-primary-2: map-get($brand-color, $active);
-$theme-primary-3: map-get($brand-color, $active);
-$theme-primary-4: map-get($brand-color, $default);
-$theme-primary-5: map-get($brand-color, $hover);
-$theme-primary-6: map-get($brand-color, $hover);
-$theme-primary-7: map-get($brand-color, $hover);
-$theme-primary-8: map-get($brand-color, $hover);
+$theme-primary-1: $brand-primary-active;
+$theme-primary-2: $brand-primary-active;
+$theme-primary-3: $brand-primary-active;
+$theme-primary-4: $brand-primary-default;
+$theme-primary-5: $brand-primary-hover;
+$theme-primary-6: $brand-primary-hover;
+$theme-primary-7: $brand-primary-hover;
+$theme-primary-8: $brand-primary-hover;
 
 // Green
-$theme-success-1: map-get($text-color, $success);
-$theme-success-2: map-get($text-color, $success);
-$theme-success-3: map-get($background-color, $success);
-$theme-success-4: map-get($text-color, $success);
-$theme-success-5: map-get($background-color, $success);
+$theme-success-1: $brand-success;
+$theme-success-2: $brand-success;
+$theme-success-3: $brand-background-success;
+$theme-success-4: $brand-success;
+$theme-success-5: $brand-background-success;
 
 // Red
-$theme-error-1: map-get($text-color, $error);
-$theme-error-2: map-get($text-color, $error);
-$theme-error-3: map-get($background-color, $error);
-$theme-error-4: map-get($text-color, $error);
-$theme-error-5: map-get($background-color, $error);
+$theme-error-1: $brand-error;
+$theme-error-2: $brand-error;
+$theme-error-3: $brand-background-error;
+$theme-error-4: $brand-error;
+$theme-error-5: $brand-background-error;
 
 // Orange
-$theme-warn-1: map-get($text-color, $warn);
-$theme-warn-2: map-get($text-color, $warn);
-$theme-warn-3: map-get($background-color, $warn);
-$theme-warn-4: map-get($text-color, $warn);
-$theme-warn-5: map-get($background-color, $warn);
+$theme-warn-1: $brand-warn;
+$theme-warn-2: $brand-warn;
+$theme-warn-3: $brand-background-warn;
+$theme-warn-4: $brand-warn;
+$theme-warn-5: $brand-background-warn;
 
 // Rate color
-$rate-star-color: #fad20c !default;
+$rate-star-color: $rate-star;
 
-$loading-icon-youzan-color: #e00 !default;
+$loading-icon-youzan-color: $youzan;
 
 $theme-colors: (
   'stroke': (

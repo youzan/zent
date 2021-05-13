@@ -1,6 +1,8 @@
-import { Pop, changeThemeColor, Notify } from 'zent';
+import { Pop, BrandSdk, Notify } from 'zent';
 import { useState } from 'react';
 import { BlockPicker } from 'react-color';
+
+const { changeAllBrandColor } = BrandSdk;
 
 const colors = [
   '#ED6A18',
@@ -22,7 +24,8 @@ export default function ColorGenerator() {
 
   const onChangeComplete = c => {
     setColor(c.hex);
-    changeThemeColor(c.hex, () => Notify.success('works!'));
+
+    changeAllBrandColor(c.hex, () => Notify.success('works!'));
   };
 
   const content = () => {
