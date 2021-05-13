@@ -22,7 +22,7 @@ Select is a drop-down selection component with variety functions.
 | highlight           | Highlight filterd options                                                                       | function                                                    | `noop`                      | no       |
 | className           | Optional, custom trigger additional classname                                                   | string                                                      | `''`                        | no       |
 | width               | input-box's width                                                                               | `string` \| `number`                                        | `''`                        | no       |
-| popupWidth          | pupup's width                                                                                   | `string` \| `number`                                        | `''`                        | no       |
+| popupWidth          | pupup's width                                                                                   | `string` \| `number`                                        | Same as trigger width                      | no       |
 | multiple            | Support multiple selected options                                                               | bool                                                        | `false`                     | no       |
 | collapsable         | Support collapsed tags in multiple mode                                                         | bool                                                        |
 | `false`             | no                                                                                              |
