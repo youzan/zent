@@ -1,0 +1,82 @@
+@import '../color-generator';
+
+// all color variable
+$brand-background-alt: #fff !default; // 0,0,100
+$brand-background-default: #f7f7f7 !default; // 0,0,97
+$brand-border-default: #e0e0e0 !default; // 0,0,88
+$brand-text-disabled: #ccc !default; // 0,0,80
+$brand-text-weak: #999 !default; // 0,0,60
+$brand-text-default: #333 !default; // 0,0,20
+
+$brand-text-drak-default: #fff !default;
+$brand-background-drak-default: #000 !default;
+$brand-background-highlight: #e0e0e0 !default;
+
+$brand-background-success: #efffe6 !default; // 98,10,100
+$brand-success: #45a110 !default; // 98,90,63
+
+$brand-background-warn: #ffefe6 !default; // 23,10,100
+$brand-warn: #ed6a18 !default; // 23,90,93
+
+$brand-background-error: #ffe9e6 !default; // 8,10,100
+$brand-error: #d42f15 !default; // 8,90,83
+
+$brand-primary-default: #155bd4 !default; // 218,90,83
+$brand-primary-hover: generateColor(
+  $brand-primary-default,
+  1,
+  true
+) !default; // 218,75,85
+$brand-primary-active: generateColor(
+  $brand-primary-default,
+  1,
+  false
+) !default; // 218,91,71
+
+$rate-star: #edd418 !default;
+$youzan: #e00 !default;
+
+// size
+$spacing-size: (4px, 8px, 12px, 16px, 24px, 32px, 56px, 88px);
+
+$border-radius-size: (2px, 4px);
+
+$border-width-size: (1px);
+
+$font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica,
+  Segoe UI, Arial, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft Yahei', STHeiti,
+  SimSun, sans-serif;
+
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 600;
+
+// font size
+$font-size-number: (
+  34px,
+  // 1
+  28px,
+  // 2
+  24px,
+  // 3
+  20px,
+  // 4
+  16px,
+  // 5
+  14px,
+  // 6
+  12px // 7
+);
+
+$line-height-1: 1.25;
+$line-height-2: 1.5;
+
+$break-size: 16px;
+
+$shadow-size-focus: 0 0 4px 0 !default;
+$shadow-size-layer: 0 2px 8px 0 !default;
+$shadow-size-modal: 0 2px 24px 0 !default;
+
+$shadow-spec-focus: $shadow-size-focus rgba($brand-primary-default, 0.2) !default;
+$shadow-spec-layer: $shadow-size-layer rgba($brand-text-disabled, 0.5) !default;
+$shadow-spec-modal: $shadow-size-modal rgba($brand-text-disabled, 0.5) !default;

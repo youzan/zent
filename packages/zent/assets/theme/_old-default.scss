@@ -121,6 +121,23 @@ $name-mapping: (
   @include theme-border-impl(border-left, $width, $style, $cat, $i, $opacity);
 }
 
+// Shadow
+$shadow-spec-focus-var: $shadow-size-focus theme-rgba(primary, 1, 0.2) !default;
+$shadow-spec-layer-var: $shadow-size-layer theme-rgba(stroke, 4, 0.5) !default;
+$shadow-spec-modal-var: $shadow-size-modal theme-rgba(stroke, 4, 0.5) !default;
+
+$theme-shadow: (
+  $focus: $shadow-spec-focus,
+  $layer: $shadow-spec-layer,
+  $modal: $shadow-spec-modal,
+);
+
+$theme-shadow-var: (
+  $focus: $shadow-spec-focus-var,
+  $layer: $shadow-spec-layer-var,
+  $modal: $shadow-spec-modal-var,
+);
+
 @mixin theme-shadow($name) {
   $shadow: map-get($theme-shadow, $name);
   $shadow-var: map-get($theme-shadow-var, $name);

@@ -1,42 +1,7 @@
 // sass-lint:disable no-important
 @import './color-names';
-@import '../color-generator';
-
-// all color variable
-$brand-background-alt: #fff !default; // 0,0,100
-$brand-background-default: #f7f7f7 !default; // 0,0,97
-$brand-border-default: #e0e0e0 !default; // 0,0,88
-$brand-text-disabled: #ccc !default; // 0,0,80
-$brand-text-weak: #999 !default; // 0,0,60
-$brand-text-default: #333 !default; // 0,0,20
-
-$brand-text-drak-default: #fff !default;
-$brand-background-drak-default: #000 !default;
-$brand-background-highlight: #e0e0e0 !default;
-
-$brand-background-success: #efffe6 !default; // 98,10,100
-$brand-success: #45a110 !default; // 98,90,63
-
-$brand-background-warn: #ffefe6 !default; // 23,10,100
-$brand-warn: #ed6a18 !default; // 23,90,93
-
-$brand-background-error: #ffe9e6 !default; // 8,10,100
-$brand-error: #d42f15 !default; // 8,90,83
-
-$brand-primary-default: #155bd4 !default; // 218,90,83
-$brand-primary-hover: generateColor(
-  $brand-primary-default,
-  1,
-  true
-) !default; // 218,75,85
-$brand-primary-active: generateColor(
-  $brand-primary-default,
-  1,
-  false
-) !default; // 218,91,71
-
-$rate-star: #edd418 !default;
-$youzan: #e00 !default;
+@import './raw-vars';
+@import '../override';
 
 // color names
 $brand: (
@@ -44,7 +9,6 @@ $brand: (
     $info: $brand-text-default,
     $disabled: $brand-text-disabled,
     $required: $brand-error,
-    // var
     $primary: $brand-primary-default,
     $weak: $brand-text-weak,
     $destructive: $brand-error,

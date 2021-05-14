@@ -55,4 +55,9 @@ export const BrandSdk = {
     this.changeSize('border-width', name, size);
     cb && cb();
   },
+
+  changeShadow(name, value, cb) {
+    document.documentElement.style.setProperty('--shadow-spec-' + name, value);
+    cb && cb();
+  },
 };

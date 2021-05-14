@@ -1,8 +1,7 @@
-@import './old-default';
 @import './variables/color';
 @import './variables/text';
 @import './variables/size-names';
-@import './override';
+@import './old-default';
 
 // sass-lint:disable no-duplicate-properties
 
@@ -86,10 +85,103 @@
   border-radius: zent-size-var($border-radius, 'border-radius', $desc);
 }
 
-@mixin zent-shadow($name) {
-  @include theme-shadow($name);
+@mixin zent-border-width($desc: 1, $prop: 'border-width') {
+  #{$prop}: zent-size-var($border-width, 'border-width', $desc);
 }
 
-@mixin zent-border-width($weight: 1) {
-  border-width: zent-size-var($border-width, 'border-width', $desc);
+@mixin zent-border-impl(
+  $prop,
+  $color-type,
+  $color-desc,
+  $width-desc,
+  $style,
+  $opacity
+) {
+  @include zent-color(#{$prop}-color, $color-type, $color-desc, $opacity: 1);
+  @include zent-border-width($width-desc, #{$prop}-width);
+
+  border-style: $style;
+}
+
+@mixin zent-border($color-type, $color-desc, $width-desc, $style, $opacity: 1) {
+  @include zent-border-impl(
+    border,
+    $color-type,
+    $color-desc,
+    $width-desc,
+    $style,
+    $opacity
+  );
+}
+
+@mixin zent-border-top(
+  $color-type,
+  $color-desc,
+  $width-desc,
+  $style,
+  $opacity: 1
+) {
+  @include zent-border-impl(
+    border-top,
+    $color-type,
+    $color-desc,
+    $width-desc,
+    $style,
+    $opacity
+  );
+}
+
+@mixin zent-border-right(
+  $color-type,
+  $color-desc,
+  $width-desc,
+  $style,
+  $opacity: 1
+) {
+  @include zent-border-impl(
+    border-right,
+    $color-type,
+    $color-desc,
+    $width-desc,
+    $style,
+    $opacity
+  );
+}
+
+@mixin zent-border-bottom(
+  $color-type,
+  $color-desc,
+  $width-desc,
+  $style,
+  $opacity: 1
+) {
+  @include zent-border-impl(
+    border-bottom,
+    $color-type,
+    $color-desc,
+    $width-desc,
+    $style,
+    $opacity
+  );
+}
+
+@mixin zent-border-left(
+  $color-type,
+  $color-desc,
+  $width-desc,
+  $style,
+  $opacity: 1
+) {
+  @include zent-border-impl(
+    border-left,
+    $color-type,
+    $color-desc,
+    $width-desc,
+    $style,
+    $opacity
+  );
+}
+
+@mixin zent-shadow($desc) {
+  @include theme-shadow($desc);
 }

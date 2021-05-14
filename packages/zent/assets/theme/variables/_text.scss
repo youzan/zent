@@ -1,32 +1,6 @@
 @import './size-names';
-
-$font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica,
-  Segoe UI, Arial, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft Yahei', STHeiti,
-  SimSun, sans-serif;
-
-$font-weight-normal: 400;
-$font-weight-medium: 500;
-$font-weight-bold: 600;
-
-// font size
-$font-size-number: (
-  34px,
-  // 1
-  28px,
-  // 2
-  24px,
-  // 3
-  20px,
-  // 4
-  16px,
-  // 5
-  14px,
-  // 6
-  12px // 7
-);
-
-$line-height-1: 1.25;
-$line-height-2: 1.5;
+@import './raw-vars';
+@import '../override';
 
 // font weight
 $font-size: (
@@ -46,8 +20,6 @@ $line-height: (
   $text: $line-height-1,
   $heading: $line-height-2,
 );
-
-$break-size: 16px;
 
 $font-size-h1: 44px;
 $font-size-h2: nth($font-size-number, 1);
