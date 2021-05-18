@@ -1,53 +1,37 @@
-// type
-$text: 'text' !default;
-$background: 'background' !default;
-$border: 'border' !default;
+// is used in CSS Variable Name
+// All scene
+$content-var: 'content' !default;
+$component-primary-var: 'component-primary' !default;
+$component-outline-var: 'component-outline' !default;
+$body-var: 'body' !default;
+$link-var: 'link' !default;
+$button-var: 'button' !default;
+$rate-var: 'rate' !default;
 
-// description kinds
-$info: 'info' !default;
-$icon: 'icon' !default;
-$link: 'link' !default;
-$weak-link: 'weak-link' !default;
-$behavior: 'behavior' !default;
-$alt-behavior: 'alt-behavior' !default;
-$weak-behavior: 'weak-behavior' !default;
-$hint: 'hint' !default;
+// All Description
+$bg-var: 'bg' !default; // background-color
+$color-var: 'color' !default; // text color
+$border-color-var: 'border-color' !default; // border color
+$success-color-var: 'success-color' !default;
+$success-bg-var: 'success-bg' !default;
+$warning-color-var: 'warning-color' !default;
+$warning-bg-var: 'warning-bg' !default;
+$error-color-var: 'error-color' !default;
+$error-bg-var: 'error-bg' !default;
 
-$separator: 'separator' !default;
-$header: 'header' !default;
+$disabled-color-var: 'disabled-color' !default; // the color when it is disabled
+$required-color-var: 'required-color' !default; // the color when it is required
+$hint-color-var: 'hint-color' !default; // the color when it is for hint
 
-// description detail
-$default: 'default' !default;
-$alt: 'alt' !default;
-$disabled: 'disabled' !default;
-$active: 'active' !default;
-$hover: 'hover' !default;
-$required: 'required' !default;
-$primary: 'primary' !default;
-$weak: 'weak' !default;
-$destructive: 'destructive' !default;
-$success: 'success' !default;
-$warn: 'warn' !default;
-$error: 'error' !default;
+$hover-color-var: 'hover-color' !default; // the color of when hover it
+$active-color-var: 'active-color' !default; // the color of when click it or it is be selected
+$hover-bg-var: 'hover-bg' !default; // the background color of when hover it
+$active-bg-var: 'active-bg' !default; // the background color of when click it or it is be selected
+$hover-border-color-var: 'hover-border-color' !default; // the border color of when hover it
+$active-border-color-var: 'active-border-color' !default; // the border color of when click it or it is be selected
 
-// mixin kinds and detail
-$icon-disabled: 'icon-disabled' !default;
-$icon-success: 'icon-success' !default;
-$icon-warn: 'icon-warn' !default;
-$icon-error: 'icon-error' !default;
+$weak-color-var: 'weak-color' !default; // hint
+$weak-hover-color-var: 'weak-hover-color' !default;
+$weak-active-color-var: 'weak-active-color' !default;
 
-$link-hover: 'link-hover' !default;
-$link-active: 'link-active' !default;
-
-$weak-link-hover: 'weak-link-hover' !default;
-$weak-link-active: 'weak-link-active' !default;
-
-$behavior-default: 'behavior-default' !default;
-$behavior-hover: 'behavior-hover' !default;
-$behavior-active: 'behavior-active' !default;
-$alt-behavior-default: 'alt-behavior-default' !default;
-$alt-behavior-hover: 'alt-behavior-hover' !default;
-$alt-behavior-active: 'alt-behavior-active' !default;
-$weak-behavior-default: 'weak-behavior-default' !default;
-$weak-behavior-hover: 'weak-behavior-hover' !default;
-$weak-behavior-active: 'weak-behavior-active' !default;
+$star-color-var: 'star-color' !default;

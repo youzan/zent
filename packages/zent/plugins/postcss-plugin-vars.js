@@ -9,7 +9,7 @@ const THEME_FILES = ['_color.scss'].map(f =>
   path.resolve(__dirname, '../assets/theme/variables', f)
 );
 
-const BRAND_NAME = '$brand';
+const BRAND_NAME = '$colors';
 const varsMap = {}; // name -> names[]
 const sourceMap = {}; // index -> name
 

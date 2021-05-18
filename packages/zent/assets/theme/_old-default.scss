@@ -8,39 +8,40 @@ $notify-error: rgba(255, 68, 68, 0.8);
 $notify-success: rgba(68, 187, 136, 0.8);
 
 $name-mapping: (
-  'stroke-1': 'text-info',
-  'stroke-2': 'text-info',
-  'stroke-3': 'text-weak',
-  'stroke-4': 'text-disabled',
-  'stroke-5': 'border-info',
-  'stroke-6': 'border-info',
-  'stroke-7': 'background-info',
-  'stroke-8': 'background-info',
-  'stroke-9': 'background-info',
-  'stroke-10': 'background-alt-behavior-active',
-  'primary-1': 'background-behavior-active',
-  'primary-2': 'background-behavior-active',
-  'primary-3': 'background-behavior-active',
-  'primary-4': 'background-behavior-default',
-  'primary-5': 'background-behavior-hover',
-  'primary-6': 'background-behavior-hover',
-  'primary-7': 'background-behavior-hover',
-  'primary-8': 'background-behavior-hover',
-  'success-1': 'text-success',
-  'success-2': 'text-success',
-  'success-3': 'background-success',
-  'success-4': 'text-success',
-  'success-5': 'background-success',
-  'error-1': 'text-error',
-  'error-2': 'text-error',
-  'error-3': 'background-error',
-  'error-4': 'text-error',
-  'error-5': 'background-error',
-  'warn-1': 'text-warn',
-  'warn-2': 'text-warn',
-  'warn-3': 'background-warn',
-  'warn-4': 'text-warn',
-  'warn-5': 'background-warn',
+  'stroke-1': #{$content-var}-#{$color-var},
+  'stroke-2': #{$content-var}-#{$color-var},
+  'stroke-3': #{$content-var}-#{$hint-color-var},
+  'stroke-4': #{$content-var}-#{$disabled-color-var},
+  'stroke-5': #{$content-var}-#{$border-color-var},
+  'stroke-6': #{$content-var}-#{$border-color-var},
+  'stroke-7': #{$content-var}-#{$bg-var},
+  'stroke-8': #{$content-var}-#{$bg-var},
+  'stroke-9': #{$body-var}-#{$bg-var},
+  'stroke-10': #{$content-var}-#{$color-var},
+  'stroke-11': #{$content-var}-#{$color-var},
+  'primary-1': #{$component-primary-var}-#{$active-bg-var},
+  'primary-2': #{$component-primary-var}-#{$active-bg-var},
+  'primary-3': #{$component-primary-var}-#{$active-bg-var},
+  'primary-4': #{$component-primary-var}-#{$bg-var},
+  'primary-5': #{$component-primary-var}-#{$hover-bg-var},
+  'primary-6': #{$component-primary-var}-#{$hover-bg-var},
+  'primary-7': #{$component-primary-var}-#{$hover-bg-var},
+  'primary-8': #{$component-primary-var}-#{$hover-bg-var},
+  'success-1': #{$content-var}-#{$success-color-var},
+  'success-2': #{$content-var}-#{$success-color-var},
+  'success-3': #{$content-var}-#{$success-bg-var},
+  'success-4': #{$content-var}-#{$success-color-var},
+  'success-5': #{$content-var}-#{$success-bg-var},
+  'error-1': #{$content-var}-#{$error-color-var},
+  'error-2': #{$content-var}-#{$error-color-var},
+  'error-3': #{$content-var}-#{$error-bg-var},
+  'error-4': #{$content-var}-#{$error-color-var},
+  'error-5': #{$content-var}-#{$error-bg-var},
+  'warn-1': #{$content-var}-#{$warning-color-var},
+  'warn-2': #{$content-var}-#{$warning-color-var},
+  'warn-3': #{$content-var}-#{$warning-bg-var},
+  'warn-4': #{$content-var}-#{$warning-color-var},
+  'warn-5': #{$content-var}-#{$warning-bg-var},
 );
 
 @function get-color($cat, $i) {
@@ -55,21 +56,27 @@ $name-mapping: (
 // This is for backword compatibily
 @function get-css-var($cat, $i) {
   // sass-lint:disable-block space-around-operator
-  @return --brand-#{map-get($name-mapping, #{$cat}-#{$i})};
+  @return --#{map-get($name-mapping, #{$cat}-#{$i})};
 }
 
 // Use this for rgba support in theme colors
 @function get-rgb-css-var($cat, $i) {
   // sass-lint:disable-block space-around-operator
-  @return --brand-rgb-#{map-get($name-mapping, #{$cat}-#{$i})};
+  @return --rgb-#{map-get($name-mapping, #{$cat}-#{$i})};
 }
 
 @function theme-rgb($cat, $i) {
-  @return var(get-css-var($cat, $i), get-color($cat, $i));
+  @return var(
+    --theme-#{$cat}-#{$i},
+    var(get-css-var($cat, $i), get-color($cat, $i))
+  );
 }
 
 @function theme-rgba($cat, $i, $opacity) {
-  $css-var: var(get-rgb-css-var($cat, $i), to-rgb(get-color($cat, $i)));
+  $css-var: var(
+    --theme-rgb-#{$cat}-#{$i},
+    var(get-rgb-css-var($cat, $i), to-rgb(get-color($cat, $i)))
+  );
 
   // `unquote` is a workaround for node-sass misinterprets rgba as builtin function
   // https://github.com/sass/node-sass/issues/2251
@@ -79,6 +86,7 @@ $name-mapping: (
 
 @mixin theme-color($prop, $cat, $i, $opacity: 1) {
   $color: get-color($cat, $i);
+  // @debug $cat,$i, get-color($cat, $i);
 
   @if $opacity >= 1 {
     #{$prop}: $color;

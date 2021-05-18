@@ -1,6 +1,5 @@
 @import './variables/color';
 @import './variables/text';
-@import './variables/size-names';
 @import './old-default';
 
 // sass-lint:disable no-duplicate-properties
@@ -16,18 +15,18 @@
 }
 
 @function get-color-value($type, $key) {
-  @return get-value(get-value($brand, $type), $key);
+  @return get-value(get-value($colors, $type), $key);
 }
 
 @function zent-color-var-rgb($type, $desc) {
   $color: get-color-value($type, $desc);
 
-  @return var(--brand-#{$type}-#{$desc}, $color);
+  @return var(--#{$type}-#{$desc}, $color);
 }
 
 @function zent-color-var-rgba($type, $desc) {
   $color: get-color-value($type, $desc);
-  $css-var: var(--brand-rgb-#{$type}-#{$desc} to-rgb($color));
+  $css-var: var(--rgb-#{$type}-#{$desc} to-rgb($color));
 
   // `unquote` is a workaround for node-sass misinterprets rgba as builtin function
   // https://github.com/sass/node-sass/issues/2251
@@ -50,13 +49,13 @@
 @function zent-size-var($map, $type, $desc) {
   $size: get-value($map, $desc);
 
-  @return var(--size-#{$type}-#{$desc}, $size);
+  @return var(--#{$type}-#{$desc}, $size);
 }
 
 @function zent-font-size-var($desc) {
   $size: get-value($font-size, $desc);
 
-  @return var(--size-font-size-#{$desc}, $size);
+  @return var(--font-size-#{$desc}, $size);
 }
 
 @mixin zent-font($desc) {

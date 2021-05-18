@@ -1,63 +1,40 @@
-import { generate, toHex } from './generator';
+import { generate } from './generator';
 import { themeRefs } from './theme-ref';
-import { inputToRGB } from '@ctrl/tinycolor';
+
+const brandVars = [
+  {
+    name: 'default',
+    var: '$brand-primary-color',
+  },
+  {
+    name: 'hover',
+    var: '$brand-primary-hover-color',
+  },
+  {
+    name: 'active',
+    var: '$brand-primary-active-color',
+  },
+];
 
 // todo move size out
-const setBrandVars = (Vars, color) => {
-  return Vars.map(nameVar => {
-    document.documentElement.style.setProperty('--brand-' + nameVar, color);
-  });
+const getBrandVars = (Vars, color) => {
+  return Vars.map(nameVar => ({
+    name: `--${nameVar}`,
+    color,
+  }));
 };
 
 export const BrandSdk = {
-  changeAllBrandColor(hex, cb) {
+  getAllBrandColor(hex) {
     const calcColors = generate(hex);
-    setBrandVars(themeRefs['$brand-primary-default'], calcColors.default);
-    setBrandVars(themeRefs['$brand-primary-hover'], calcColors.hover);
-    setBrandVars(themeRefs['$brand-primary-active'], calcColors.active);
-    cb && cb();
+    return brandVars.reduce((pre, current) => {
+      return pre.concat(
+        getBrandVars(themeRefs[current.var], calcColors[current.name])
+      );
+    }, []);
   },
 
-  changeBrandColor(name, color, cb) {
-    const pColor = inputToRGB(color);
-    document.documentElement.style.setProperty(
-      '--brand-' + name,
-      toHex(pColor)
-    );
-    cb && cb();
-  },
-
-  changeSize(type, name, size) {
-    document.documentElement.style.setProperty('--size-' + type + name, size);
-  },
-
-  changeFontSize(name, size, cb) {
-    this.changeSize('font-size', name, size);
-    cb && cb();
-  },
-
-  changeLingHeightSize(name, size, cb) {
-    this.changeSize('line-height', name, size);
-    cb && cb();
-  },
-
-  changeSpacingSize(name, size, cb) {
-    this.changeSize('spacing', name, size);
-    cb && cb();
-  },
-
-  changeBorderRadiusSize(name, size, cb) {
-    this.changeSize('border-radius', name, size);
-    cb && cb();
-  },
-
-  changeBorderWidthSize(name, size, cb) {
-    this.changeSize('border-width', name, size);
-    cb && cb();
-  },
-
-  changeShadow(name, value, cb) {
-    document.documentElement.style.setProperty('--shadow-spec-' + name, value);
-    cb && cb();
+  getBrandColor(name) {
+    return themeRefs?.[name] || [];
   },
 };

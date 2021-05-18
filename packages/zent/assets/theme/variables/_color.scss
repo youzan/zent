@@ -3,126 +3,138 @@
 @import './raw-vars';
 @import '../override';
 
+// $button-text-default: rgba(0, 0, 0, 0),
+// $button-text-hover: rgba(0, 0, 0, 0.1),
+// $button-text-active: rgba(0, 0, 0, 0.15),
+
 // color names
-$brand: (
-  $text: (
-    $info: $brand-text-default,
-    $disabled: $brand-text-disabled,
-    $required: $brand-error,
-    $primary: $brand-primary-default,
-    $weak: $brand-text-weak,
-    $destructive: $brand-error,
-    $success: $brand-success,
-    $warn: $brand-warn,
-    $error: $brand-error,
-    $icon: $brand-text-weak,
-    $icon-disabled: $brand-text-disabled,
-    $icon-success: $brand-success,
-    $icon-warn: $brand-warn,
-    $icon-error: $brand-error,
-    $link: $brand-primary-default,
-    $link-hover: $brand-primary-hover,
-    $link-active: $brand-primary-active,
-    $weak-link: $brand-text-weak,
-    $weak-link-hover: $brand-primary-hover,
-    $weak-link-active: $brand-primary-active,
-    $behavior: $brand-text-drak-default,
-    $alt-behavior-default: $brand-text-default,
-    $alt-behavior-hover: $brand-primary-default,
-    $alt-behavior-active: $brand-text-default,
-    $weak-behavior: $brand-text-default,
-    $hint: $brand-text-weak,
-    'rate-star': $rate-star,
-    'youzan': $youzan,
+$colors: (
+  $body-var: (
+    $bg-var: $brand-body-bg // body background color,
   ),
-  $background: (
-    $info: $brand-background-default,
-    $disabled: $brand-background-default,
-    $alt: $brand-background-alt,
-    $success: $brand-background-success,
-    $warn: $brand-background-warn,
-    $error: $brand-background-error,
-    $behavior-default: $brand-primary-default,
-    $behavior-hover: $brand-primary-hover,
-    $behavior-active: $brand-primary-active,
-    $alt-behavior-default: $brand-background-alt,
-    $alt-behavior-hover: $brand-background-alt,
-    $alt-behavior-active: $brand-background-highlight,
-    $weak-behavior-default: rgba($brand-background-drak-default, 0),
-    $weak-behavior-hover: rgba($brand-background-drak-default, 0.1),
-    $weak-behavior-active: rgba($brand-background-drak-default, 0.15),
+  // content means all box-content contains text,image... ep like card
+  $content-var:
+    (
+      $color-var: $brand-text-color,
+      // content color
+      $disabled-color-var: $brand-disabled-color,
+      // content color when it`s disabled
+      $required-color-var: $brand-error-color,
+      // content color when it`s required
+      $hint-color-var: $brand-hint-color,
+      // content color when it`s for hint
+      $bg-var: $brand-white,
+      // content background color
+      $border-color-var: $brand-border-color,
+      // content border color
+      $success-color-var: $brand-success-color,
+      // success content text color
+      $success-bg-var: $brand-success-bg,
+      // success content background color
+      $warning-color-var: $brand-warning-color,
+      // warning content text color
+      $warning-bg-var: $brand-warning-bg,
+      // warning content background color
+      $error-color-var: $brand-error-color,
+      // error content text color
+      $error-bg-var: $brand-error-bg,
+      // error content background color
+    ),
+  $link-var: (
+    $color-var: $brand-primary-color,
+    // link text color
+    $hover-color-var: $brand-primary-hover-color,
+    $active-color-var: $brand-primary-active-color,
+    $weak-color-var: $brand-hint-color,
+    // link
+    $weak-hover-color-var: $brand-primary-hover-color,
+    $weak-active-color-var: $brand-primary-active-color,
   ),
-  $border: (
-    $info: $brand-border-default,
-    $separator: $brand-border-default,
-    $disabled: $brand-background-default,
-    $success: $brand-success,
-    $warn: $brand-warn,
-    $error: $brand-error,
-    $behavior-default: $brand-primary-default,
-    $behavior-hover: $brand-primary-hover,
-    $behavior-active: $brand-primary-active,
-    $alt-behavior-default: $brand-border-default,
-    $alt-behavior-hover: $brand-primary-default,
-    $alt-behavior-active: $brand-border-default,
-  ),
+  // under the theme, Global colors with primary bg for component, (e.g., primary button, steps ...).
+  $component-primary-var:
+    (
+      $color-var: $brand-white,
+      $hover-color-var: $brand-white,
+      $active-color-var: $brand-white,
+      $bg-var: $brand-primary-color,
+      $hover-bg-var: $brand-primary-hover-color,
+      $active-bg-var: $brand-primary-active-color,
+      $border-color-var: $brand-primary-color,
+      $hover-border-color-var: $brand-primary-hover-color,
+      $active-border-color-var: $brand-primary-active-color,
+    ),
+  // under the theme, Global colors with white bg for component, (e.g., default button, input ...).
+  $component-outline-var:
+    (
+      $color-var: $brand-text-color,
+      $hover-color-var: $brand-primary-color,
+      $active-color-var: $brand-text-color,
+      $bg-var: $brand-white,
+      $hover-bg-var: $brand-white,
+      $active-bg-var: $brand-border-color,
+      $border-color-var: $brand-border-color,
+      $hover-border-color-var: $brand-primary-color,
+      $active-border-color-var: $brand-border-color,
+    ),
+  // Rate component
+  $rate-var:
+    (
+      $star-color-var: $rate-star-color,
+    ),
 );
 
 // old
 // Text colors
-$theme-stroke-1: $brand-text-default; // text
-$theme-stroke-2: $brand-text-default; // text
-$theme-stroke-3: $brand-text-weak; // help text
-$theme-stroke-4: $brand-text-disabled; // disabled text
+$theme-stroke-1: $brand-text-color; // text
+$theme-stroke-2: $brand-text-color; // text
+$theme-stroke-3: $brand-hint-color; // help text
+$theme-stroke-4: $brand-disabled-color; // disabled text
 
 // Border and line colors
-$theme-stroke-5: $brand-border-default;
-$theme-stroke-6: $brand-border-default;
+$theme-stroke-5: $brand-border-color;
+$theme-stroke-6: $brand-border-color;
 
 // Background colors
-$theme-stroke-7: $brand-background-default;
-$theme-stroke-8: $brand-background-default;
-$theme-stroke-9: $brand-background-alt; // White button normal background color
+$theme-stroke-7: $brand-body-bg;
+$theme-stroke-8: $brand-body-bg;
+$theme-stroke-9: $brand-white; // White button normal background color
 
 // Button background color
-$theme-stroke-10: $brand-background-highlight; // Active
-$theme-stroke-11: $brand-background-default; // Hover
+$theme-stroke-10: $brand-border-color; // Active
+$theme-stroke-11: $brand-white; // Hover
 
 // Blue(primary)
-$theme-primary-1: $brand-primary-active;
-$theme-primary-2: $brand-primary-active;
-$theme-primary-3: $brand-primary-active;
-$theme-primary-4: $brand-primary-default;
-$theme-primary-5: $brand-primary-hover;
-$theme-primary-6: $brand-primary-hover;
-$theme-primary-7: $brand-primary-hover;
-$theme-primary-8: $brand-primary-hover;
+$theme-primary-1: $brand-primary-active-color;
+$theme-primary-2: $brand-primary-active-color;
+$theme-primary-3: $brand-primary-active-color;
+$theme-primary-4: $brand-primary-color;
+$theme-primary-5: $brand-primary-hover-color;
+$theme-primary-6: $brand-primary-hover-color;
+$theme-primary-7: $brand-primary-hover-color;
+$theme-primary-8: $brand-primary-hover-color;
 
 // Green
-$theme-success-1: $brand-success;
-$theme-success-2: $brand-success;
-$theme-success-3: $brand-background-success;
-$theme-success-4: $brand-success;
-$theme-success-5: $brand-background-success;
+$theme-success-1: $brand-success-color;
+$theme-success-2: $brand-success-color;
+$theme-success-3: $brand-success-bg;
+$theme-success-4: $brand-success-color;
+$theme-success-5: $brand-success-bg;
 
 // Red
-$theme-error-1: $brand-error;
-$theme-error-2: $brand-error;
-$theme-error-3: $brand-background-error;
-$theme-error-4: $brand-error;
-$theme-error-5: $brand-background-error;
+$theme-error-1: $brand-error-color;
+$theme-error-2: $brand-error-color;
+$theme-error-3: $brand-error-bg;
+$theme-error-4: $brand-error-color;
+$theme-error-5: $brand-error-bg;
 
 // Orange
-$theme-warn-1: $brand-warn;
-$theme-warn-2: $brand-warn;
-$theme-warn-3: $brand-background-warn;
-$theme-warn-4: $brand-warn;
-$theme-warn-5: $brand-background-warn;
+$theme-warn-1: $brand-warning-color;
+$theme-warn-2: $brand-warning-color;
+$theme-warn-3: $brand-warning-bg;
+$theme-warn-4: $brand-warning-color;
+$theme-warn-5: $brand-warning-bg;
 
-// Rate color
-$rate-star-color: $rate-star;
-
-$loading-icon-youzan-color: $youzan;
+$loading-icon-youzan-color: #e00 !default;
 
 $theme-colors: (
   'stroke': (
@@ -148,21 +160,21 @@ $theme-colors: (
     $theme-primary-7,
     $theme-primary-8,
   ),
-  $success: (
+  'success': (
     $theme-success-1,
     $theme-success-2,
     $theme-success-3,
     $theme-success-4,
     $theme-success-5,
   ),
-  $error: (
+  'error': (
     $theme-error-1,
     $theme-error-2,
     $theme-error-3,
     $theme-error-4,
     $theme-error-5,
   ),
-  $warn: (
+  'warn': (
     $theme-warn-1,
     $theme-warn-2,
     $theme-warn-3,

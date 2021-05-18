@@ -1,21 +1,19 @@
-@import './tiny-color';
-
-// sass-lint:disable no-debug
+@import '~sass-color-helpers/stylesheets/color-helpers/hsv-hsl';
 
 $saturationLightStep: 15;
 $saturationDrakStep: 0;
 $brightnessLightStep: 0;
 $brightnessDrakStep: 12;
 
-@function getSaturation($h, $s, $v, $i, $light) {
+@function getSaturation($h, $s, $v, $level, $light) {
   $saturation: 0;
   @if ($h == 0 and $s == 0) {
     @return $s;
   }
   @if ($light) {
-    $saturation: $s - $saturationLightStep * $i;
+    $saturation: $s - $saturationLightStep * $level;
   } @else {
-    $saturation: $s + $saturationDrakStep * $i;
+    $saturation: $s + $saturationDrakStep * $level;
   }
 
   @if ($saturation > 100) {
@@ -25,14 +23,14 @@ $brightnessDrakStep: 12;
   @return round($saturation);
 }
 
-@function getValue($h, $s, $v, $i, $light) {
+@function getValue($h, $s, $v, $level, $light) {
   @if ($light) {
-    @return ($v + $brightnessLightStep * $i);
+    @return ($v + $brightnessLightStep * $level);
   }
-  @return ($v - $brightnessDrakStep * $i);
+  @return ($v - $brightnessDrakStep * $level);
 }
 
-@function generateColor($color, $i, $light) {
+@function generateLightColor($color, $level: 1) {
   $hsv: ch-color-to-hsv($color);
 
   $h: nth($hsv, 1);
@@ -40,8 +38,22 @@ $brightnessDrakStep: 12;
   $v: nth($hsv, 3);
 
   $adjustHue: $h;
-  $adjustSaturation: getSaturation($h, $s, $v, $i, $light);
-  $adjustLight: getValue($h, $s, $v, $i, $light);
+  $adjustSaturation: getSaturation($h, $s, $v, $level, true);
+  $adjustLight: getValue($h, $s, $v, $level, true);
+
+  @return ch-hsv-to-color($adjustHue, $adjustSaturation, $adjustLight);
+}
+
+@function generateDrakColor($color, $level: 1) {
+  $hsv: ch-color-to-hsv($color);
+
+  $h: nth($hsv, 1);
+  $s: nth($hsv, 2);
+  $v: nth($hsv, 3);
+
+  $adjustHue: $h;
+  $adjustSaturation: getSaturation($h, $s, $v, $level, false);
+  $adjustLight: getValue($h, $s, $v, $level, false);
 
   @return ch-hsv-to-color($adjustHue, $adjustSaturation, $adjustLight);
 }

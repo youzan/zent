@@ -2,7 +2,7 @@ import { Pop, BrandSdk, Notify } from 'zent';
 import { useState } from 'react';
 import { BlockPicker } from 'react-color';
 
-const { changeAllBrandColor } = BrandSdk;
+const { getAllBrandColor } = BrandSdk;
 
 const colors = [
   '#ED6A18',
@@ -25,7 +25,11 @@ export default function ColorGenerator() {
   const onChangeComplete = c => {
     setColor(c.hex);
 
-    changeAllBrandColor(c.hex, () => Notify.success('works!'));
+    const brandVars = getAllBrandColor(c.hex);
+    brandVars.forEach(item => {
+      document.documentElement.style.setProperty(item.name, item.color);
+    });
+    Notify.success('it works! ');
   };
 
   const content = () => {
