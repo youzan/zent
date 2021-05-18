@@ -4,14 +4,26 @@ import kindOf from '../utils/kindOf';
 import Panel from './Panel';
 import { isElement } from 'react-is';
 
-interface ICollapseProps {
-  activeKey?: string | string[];
-  onChange: (value: string | string[]) => any;
-  accordion?: boolean;
+export interface ICollapsePropsAccordion extends ICollapsePropsBase {
+  accordion: true;
+  activeKey?: string;
+  onChange: (value: string | null) => void;
+}
+
+export interface ICollapsePropsMultiple extends ICollapsePropsBase {
+  accordion?: false;
+  activeKey?: string[];
+  onChange: (value: string[]) => void;
+}
+
+interface ICollapsePropsBase {
   bordered?: boolean;
   panelTitleBackground?: string;
   className?: string;
 }
+
+// The I prefix is for backward compatibility
+export type ICollapseProps = ICollapsePropsAccordion | ICollapsePropsMultiple;
 
 export class Collapse extends Component<ICollapseProps> {
   static defaultProps = {
@@ -45,10 +57,11 @@ export class Collapse extends Component<ICollapseProps> {
             );
           }
 
+          const key = c.key?.toString();
           return cloneElement(c, {
             onChange: this.onChange,
-            active: isPanelActive(activeKey, c.key),
-            panelKey: c.key,
+            active: isPanelActive(activeKey, key),
+            panelKey: key,
             panelTitleBackground,
             isLast: idx === Children.count(children) - 1,
             bordered,
@@ -58,17 +71,17 @@ export class Collapse extends Component<ICollapseProps> {
     );
   }
 
-  onChange = (key, active) => {
-    const { activeKey, accordion, onChange } = this.props;
-
-    if (accordion) {
+  onChange = (key: string, active: boolean) => {
+    if (this.props.accordion) {
+      const { onChange, activeKey } = this.props;
       if (activeKey !== key && active) {
         onChange(key);
       } else if (activeKey === key && !active) {
         onChange(null);
       }
     } else {
-      const activeKeyArray = [].concat(activeKey);
+      const { activeKey, onChange } = this.props as ICollapsePropsMultiple;
+      const activeKeyArray = ([] as string[]).concat(activeKey ?? []);
       const keyIndex = activeKeyArray.indexOf(key);
       if (active) {
         keyIndex === -1 && activeKeyArray.push(key);
@@ -81,13 +94,16 @@ export class Collapse extends Component<ICollapseProps> {
   };
 }
 
-function isPanelActive(activeKey, key) {
+function isPanelActive(
+  activeKey: string | string[] | undefined,
+  key: string | undefined
+) {
   if (typeof activeKey === 'string') {
     return activeKey === key;
   }
 
   if (Array.isArray(activeKey)) {
-    return activeKey.indexOf(key) !== -1;
+    return key !== undefined && activeKey.indexOf(key) !== -1;
   }
 
   return false;
