@@ -61,7 +61,7 @@ export default class SubMenu extends CommonMenu<ISubMenuProps, ISubMenuState> {
 
   titleClickHandler = e => {
     const { isInline, specKey, toggleExpand } = this.props;
-    this.props.onSubMenuClick(specKey);
+    this.props.onSubMenuClick?.(specKey);
     if (isInline) {
       toggleExpand(specKey);
     }
