@@ -37,7 +37,7 @@ const Example = () => {
 		<Menu
 			mode="inline"
 			defaultSelectedKey="1-2"
-			defaultExpandKeys={["1-4", "1-4-3"]}
+			defaultExpandedKeys={["1-4", "1-4-3"]}
 			onClick={onClick}
 		>
 			<MenuItem key="1-1">
