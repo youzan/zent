@@ -15,7 +15,13 @@
 }
 
 @function get-color-value($type, $key) {
-  @return get-value(get-value($colors, $type), $key);
+  $global-color: get-value($global-colors, $type);
+
+  @if ($global-color) {
+    @return $global-color;
+  }
+
+  @return get-value(get-value($colors-map, $type), $key);
 }
 
 @function zent-color-var-rgb($type, $desc) {

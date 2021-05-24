@@ -3,38 +3,56 @@ import { themeRefs } from './theme-ref';
 
 const brandVars = [
   {
-    name: 'default',
-    var: '$brand-primary-color',
+    index: '1',
+    var: '$primary-100',
   },
   {
-    name: 'hover',
-    var: '$brand-primary-hover-color',
+    index: '2',
+    var: '$primary-200',
   },
   {
-    name: 'active',
-    var: '$brand-primary-active-color',
+    index: '3',
+    var: '$primary-300',
+  },
+  {
+    index: '4',
+    var: '$primary-400',
+  },
+  {
+    index: '5',
+    var: '$primary-500',
   },
 ];
 
 // todo move size out
 const getBrandVars = (Vars, color) => {
-  return Vars.map(nameVar => ({
-    name: `--${nameVar}`,
-    color,
-  }));
+  if (Vars && Vars.length) {
+    return Vars.map(nameVar => ({
+      name: `--${nameVar}`,
+      color,
+    }));
+  }
+  return [];
 };
 
 export const BrandSdk = {
+  getAllColorRefs() {
+    return themeRefs;
+  },
   getAllBrandColor(hex) {
     const calcColors = generate(hex);
     return brandVars.reduce((pre, current) => {
       return pre.concat(
-        getBrandVars(themeRefs[current.var], calcColors[current.name])
+        getBrandVars(themeRefs[current.var], calcColors[current.index])
       );
     }, []);
   },
 
   getBrandColor(name) {
     return themeRefs?.[name] || [];
+  },
+
+  generateBrands(hex) {
+    return generate(hex);
   },
 };

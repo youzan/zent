@@ -1,37 +1,7 @@
-// is used in CSS Variable Name
-// All scene
-$content-var: 'content' !default;
-$component-primary-var: 'component-primary' !default;
-$component-outline-var: 'component-outline' !default;
-$body-var: 'body' !default;
-$link-var: 'link' !default;
-$button-var: 'button' !default;
-$rate-var: 'rate' !default;
-
-// All Description
-$bg-var: 'bg' !default; // background-color
-$color-var: 'color' !default; // text color
-$border-color-var: 'border-color' !default; // border color
-$success-color-var: 'success-color' !default;
-$success-bg-var: 'success-bg' !default;
-$warning-color-var: 'warning-color' !default;
-$warning-bg-var: 'warning-bg' !default;
-$error-color-var: 'error-color' !default;
-$error-bg-var: 'error-bg' !default;
-
-$disabled-color-var: 'disabled-color' !default; // the color when it is disabled
-$required-color-var: 'required-color' !default; // the color when it is required
-$hint-color-var: 'hint-color' !default; // the color when it is for hint
-
-$hover-color-var: 'hover-color' !default; // the color of when hover it
-$active-color-var: 'active-color' !default; // the color of when click it or it is be selected
-$hover-bg-var: 'hover-bg' !default; // the background color of when hover it
-$active-bg-var: 'active-bg' !default; // the background color of when click it or it is be selected
-$hover-border-color-var: 'hover-border-color' !default; // the border color of when hover it
-$active-border-color-var: 'active-border-color' !default; // the border color of when click it or it is be selected
-
-$weak-color-var: 'weak-color' !default; // hint
-$weak-hover-color-var: 'weak-hover-color' !default;
-$weak-active-color-var: 'weak-active-color' !default;
-
-$star-color-var: 'star-color' !default;
+$body: 'body' !default;
+$success: 'success' !default;
+$warning: 'warning' !default;
+$danger: 'danger' !default;
+$link: 'link' !default;
+$default: 'default' !default;
+$primary: 'primary' !default;

@@ -1,138 +1,190 @@
 // sass-lint:disable no-important
-@import './color-names';
 @import './raw-vars';
+@import './color-names';
 @import '../override';
 
-// $button-text-default: rgba(0, 0, 0, 0),
-// $button-text-hover: rgba(0, 0, 0, 0.1),
-// $button-text-active: rgba(0, 0, 0, 0.15),
+$green-100: generateLightColor($green-base, 2);
+$green-200: generateLightColor($green-base, 1);
+$green-300: $green-base;
+$green-400: generateDrakColor($green-base, 1);
+$green-500: generateDrakColor($green-base, 2);
 
-// color names
-$colors: (
-  $body-var: (
-    $bg-var: $brand-body-bg // body background color,
-  ),
-  // content means all box-content contains text,image... ep like card
-  $content-var:
-    (
-      $color-var: $brand-text-color,
-      // content color
-      $disabled-color-var: $brand-disabled-color,
-      // content color when it`s disabled
-      $required-color-var: $brand-error-color,
-      // content color when it`s required
-      $hint-color-var: $brand-hint-color,
-      // content color when it`s for hint
-      $bg-var: $brand-white,
-      // content background color
-      $border-color-var: $brand-border-color,
-      // content border color
-      $success-color-var: $brand-success-color,
-      // success content text color
-      $success-bg-var: $brand-success-bg,
-      // success content background color
-      $warning-color-var: $brand-warning-color,
-      // warning content text color
-      $warning-bg-var: $brand-warning-bg,
-      // warning content background color
-      $error-color-var: $brand-error-color,
-      // error content text color
-      $error-bg-var: $brand-error-bg,
-      // error content background color
-    ),
-  $link-var: (
-    $color-var: $brand-primary-color,
-    // link text color
-    $hover-color-var: $brand-primary-hover-color,
-    $active-color-var: $brand-primary-active-color,
-    $weak-color-var: $brand-hint-color,
-    // link
-    $weak-hover-color-var: $brand-primary-hover-color,
-    $weak-active-color-var: $brand-primary-active-color,
-  ),
-  // under the theme, Global colors with primary bg for component, (e.g., primary button, steps ...).
-  $component-primary-var:
-    (
-      $color-var: $brand-white,
-      $hover-color-var: $brand-white,
-      $active-color-var: $brand-white,
-      $bg-var: $brand-primary-color,
-      $hover-bg-var: $brand-primary-hover-color,
-      $active-bg-var: $brand-primary-active-color,
-      $border-color-var: $brand-primary-color,
-      $hover-border-color-var: $brand-primary-hover-color,
-      $active-border-color-var: $brand-primary-active-color,
-    ),
-  // under the theme, Global colors with white bg for component, (e.g., default button, input ...).
-  $component-outline-var:
-    (
-      $color-var: $brand-text-color,
-      $hover-color-var: $brand-primary-color,
-      $active-color-var: $brand-text-color,
-      $bg-var: $brand-white,
-      $hover-bg-var: $brand-white,
-      $active-bg-var: $brand-border-color,
-      $border-color-var: $brand-border-color,
-      $hover-border-color-var: $brand-primary-color,
-      $active-border-color-var: $brand-border-color,
-    ),
-  // Rate component
-  $rate-var:
-    (
-      $star-color-var: $rate-star-color,
-    ),
+$orange-100: generateLightColor($orange-base, 2);
+$orange-200: generateLightColor($orange-base, 1);
+$orange-300: $orange-base;
+$orange-400: generateDrakColor($orange-base, 1);
+$orange-500: generateDrakColor($orange-base, 2);
+
+$red-100: generateLightColor($red-base, 2);
+$red-200: generateLightColor($red-base, 1);
+$red-300: $red-base;
+$red-400: generateDrakColor($red-base, 1);
+$red-500: generateDrakColor($red-base, 2);
+
+$blue-100: generateLightColor($blue-base, 2);
+$blue-200: generateLightColor($blue-base, 1);
+$blue-300: $blue-base;
+$blue-400: generateDrakColor($blue-base, 1);
+$blue-500: generateDrakColor($blue-base, 2);
+
+$yellow-100: generateLightColor($yellow-base, 2);
+$yellow-200: generateLightColor($yellow-base, 1);
+$yellow-300: $yellow-base;
+$yellow-400: generateDrakColor($yellow-base, 1);
+$yellow-500: generateDrakColor($yellow-base, 2);
+
+$primary-100: generateLightColor($primary-base, 2);
+$primary-200: generateLightColor($primary-base, 1);
+$primary-300: $primary-base;
+$primary-400: generateDrakColor($primary-base, 1);
+$primary-500: generateDrakColor($primary-base, 2);
+
+// 中间变量
+$title-color: $gray-500; // text color
+$hint-color: $gray-400; // text color when it`s for hint
+$disabled-color: $gray-300; // text color when it`s disabled
+$section-bg: $gray-100; // background color
+$border-color: $gray-200; // border color
+
+$box-shadow-color: rgba(0, 0, 0, 0.1);
+$hover-box-shadow-color: rgba(0, 0, 0, 0.1);
+$active-box-shadow-color: rgba(0, 0, 0, 0.1);
+
+$global-colors: (
+  'title': $title-color,
+  'hint': $hint-color,
+  'disabled': $disabled-color,
+  'section': $section-bg,
+  'border': $border-color,
+  'box-shadow': $box-shadow-color,
+);
+
+$body-colors: (
+  'color': $gray-500,
+  'bg': $white,
+);
+
+$success-colors: (
+  'color': $green-300,
+  'bg': $green-100,
+  'border-color': $green-300,
+);
+
+$warning-colors: (
+  'color': $orange-300,
+  'bg': $orange-100,
+  'border-color': $orange-300,
+);
+
+$danger-colors: (
+  'color': $red-300,
+  'bg': $red-100,
+  'border-color': $red-300,
+);
+
+$link-colors: (
+  'color': $blue-300,
+  'hover-color': $blue-200,
+  'active-color': $blue-400,
+);
+
+$default-colors: (
+  'hover-color': $primary-300,
+  'hover-bg': $primary-100,
+  'hover-border-color': $primary-300,
+  'selected': $section-bg,
+  'disabled-color': $disabled-color,
+  'disabled-bg': $section-bg,
+  'disabled-border-color': $disabled-color,
+);
+
+$primary-colors: (
+  'color': $white,
+  'bg': $primary-300,
+  'border-color': $primary-300,
+  'hover-bg': $primary-200,
+  'hover-border-color': $primary-200,
+  'active-bg': $primary-400,
+  'active-border-color': $primary-400,
+);
+
+// components
+
+$weak-link-colors: (
+  'color': $hint-color,
+  'hover-color': $blue-200,
+  'active-color': $blue-400,
+);
+
+$rate-colors: (
+  'star-bg': $yellow-300,
+);
+
+$colors-map: (
+  $body: $body-colors,
+  $success: $success-colors,
+  $warning: $warning-colors,
+  $danger: $danger-colors,
+  $link: $link-colors,
+  $default: $default-colors,
+  $primary: $primary-colors,
+  'weak-link': $weak-link-colors,
+  'rate': $rate-colors,
 );
 
 // old
 // Text colors
-$theme-stroke-1: $brand-text-color; // text
-$theme-stroke-2: $brand-text-color; // text
-$theme-stroke-3: $brand-hint-color; // help text
-$theme-stroke-4: $brand-disabled-color; // disabled text
+$theme-stroke-1: $title-color; // text
+$theme-stroke-2: $title-color; // text
+$theme-stroke-3: $hint-color; // help text
+$theme-stroke-4: $disabled-color; // disabled text
 
 // Border and line colors
-$theme-stroke-5: $brand-border-color;
-$theme-stroke-6: $brand-border-color;
+$theme-stroke-5: $border-color;
+$theme-stroke-6: $border-color;
 
 // Background colors
-$theme-stroke-7: $brand-body-bg;
-$theme-stroke-8: $brand-body-bg;
-$theme-stroke-9: $brand-white; // White button normal background color
+$theme-stroke-7: $section-bg;
+$theme-stroke-8: $section-bg;
+$theme-stroke-9: map-get(
+  map-get($colors-map, $body),
+  'bg'
+); // White button normal background color
 
 // Button background color
-$theme-stroke-10: $brand-border-color; // Active
-$theme-stroke-11: $brand-white; // Hover
+$theme-stroke-10: $border-color; // Active
+$theme-stroke-11: map-get(map-get($colors-map, $body), 'bg'); // Hover
 
 // Blue(primary)
-$theme-primary-1: $brand-primary-active-color;
-$theme-primary-2: $brand-primary-active-color;
-$theme-primary-3: $brand-primary-active-color;
-$theme-primary-4: $brand-primary-color;
-$theme-primary-5: $brand-primary-hover-color;
-$theme-primary-6: $brand-primary-hover-color;
-$theme-primary-7: $brand-primary-hover-color;
-$theme-primary-8: $brand-primary-hover-color;
+$theme-primary-1: map-get(map-get($colors-map, $primary), 'active-bg');
+$theme-primary-2: map-get(map-get($colors-map, $primary), 'active-bg');
+$theme-primary-3: map-get(map-get($colors-map, $primary), 'active-bg');
+$theme-primary-4: map-get(map-get($colors-map, $primary), 'bg');
+$theme-primary-5: map-get(map-get($colors-map, $primary), 'hover-bg');
+$theme-primary-6: map-get(map-get($colors-map, $primary), 'hover-bg');
+$theme-primary-7: map-get(map-get($colors-map, $primary), 'hover-bg');
+$theme-primary-8: map-get(map-get($colors-map, $default), 'hover-bg');
 
 // Green
-$theme-success-1: $brand-success-color;
-$theme-success-2: $brand-success-color;
-$theme-success-3: $brand-success-bg;
-$theme-success-4: $brand-success-color;
-$theme-success-5: $brand-success-bg;
+$theme-success-1: map-get(map-get($colors-map, $success), 'color');
+$theme-success-2: map-get(map-get($colors-map, $success), 'color');
+$theme-success-3: map-get(map-get($colors-map, $success), 'bg');
+$theme-success-4: map-get(map-get($colors-map, $success), 'color');
+$theme-success-5: map-get(map-get($colors-map, $success), 'bg');
 
 // Red
-$theme-error-1: $brand-error-color;
-$theme-error-2: $brand-error-color;
-$theme-error-3: $brand-error-bg;
-$theme-error-4: $brand-error-color;
-$theme-error-5: $brand-error-bg;
+$theme-error-1: map-get(map-get($colors-map, $danger), 'color');
+$theme-error-2: map-get(map-get($colors-map, $danger), 'color');
+$theme-error-3: map-get(map-get($colors-map, $danger), 'bg');
+$theme-error-4: map-get(map-get($colors-map, $danger), 'color');
+$theme-error-5: map-get(map-get($colors-map, $danger), 'bg');
 
 // Orange
-$theme-warn-1: $brand-warning-color;
-$theme-warn-2: $brand-warning-color;
-$theme-warn-3: $brand-warning-bg;
-$theme-warn-4: $brand-warning-color;
-$theme-warn-5: $brand-warning-bg;
+$theme-warn-1: map-get(map-get($colors-map, $warning), 'color');
+$theme-warn-2: map-get(map-get($colors-map, $warning), 'color');
+$theme-warn-3: map-get(map-get($colors-map, $warning), 'bg');
+$theme-warn-4: map-get(map-get($colors-map, $warning), 'color');
+$theme-warn-5: map-get(map-get($colors-map, $warning), 'bg');
 
 $loading-icon-youzan-color: #e00 !default;
 

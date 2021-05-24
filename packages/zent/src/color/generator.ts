@@ -1,9 +1,11 @@
 import { rgbToHsv, rgbToHex, inputToRGB } from '@ctrl/tinycolor';
 
-const saturationLightStep = 0.15;
-const saturationDrakStep = 0;
-const brightnessLightStep = 0;
-const brightnessDrakStep = 0.12;
+const saturationLightStep = 0.4;
+const saturationDrakStep = 0.05;
+const brightnessLightStep = 0.05;
+const brightnessDrakStep = 0.2;
+const lightColors = 2;
+const darkColors = 2;
 
 interface IHsvObject {
   h: number;
@@ -15,12 +17,6 @@ interface IRgbObject {
   r: number;
   g: number;
   b: number;
-}
-
-interface IColors {
-  default: string;
-  hover: string;
-  active: string;
 }
 
 function toHsv({ r, g, b }: IRgbObject): IHsvObject {
@@ -61,32 +57,41 @@ function getValue(hsv: IHsvObject, i: number, light?: boolean): number {
   return Number(value.toFixed(2));
 }
 
-export function generate(color: string): IColors {
-  const patterns: IColors = {
-    default: '',
-    hover: '',
-    active: '',
-  };
+export function generate(color: string): string[] {
+  const patterns: string[] = [];
   const pColor = inputToRGB(color);
   const hsv = toHsv(pColor);
+  let i = lightColors;
 
-  patterns.hover = toHex(
-    inputToRGB({
-      h: hsv.h,
-      s: getSaturation(hsv, 1, true),
-      v: getValue(hsv, 1, true),
-    })
-  );
+  while (i) {
+    patterns.push(
+      toHex(
+        inputToRGB({
+          h: hsv.h,
+          s: getSaturation(hsv, i, true),
+          v: getValue(hsv, i, true),
+        })
+      )
+    );
+    i--;
+  }
 
-  patterns.default = toHex(pColor);
+  patterns.push(toHex(pColor));
 
-  patterns.active = toHex(
-    inputToRGB({
-      h: hsv.h,
-      s: getSaturation(hsv, 1),
-      v: getValue(hsv, 1),
-    })
-  );
+  i = 1;
+
+  while (i <= darkColors) {
+    patterns.push(
+      toHex(
+        inputToRGB({
+          h: hsv.h,
+          s: getSaturation(hsv, i),
+          v: getValue(hsv, i),
+        })
+      )
+    );
+    i++;
+  }
 
   return patterns;
 }

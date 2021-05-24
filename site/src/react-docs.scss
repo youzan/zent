@@ -106,6 +106,18 @@ img[alt='zent-theme'] {
   }
 }
 
+.zandoc-theme-colors {
+  display: flex;
+  margin-top: 20px;
+
+  .zandoc-theme-color {
+    width: 21px;
+    height: 14px;
+    border-radius: 4px;
+    margin-right: 4px;
+  }
+}
+
 .zandoc-react-color-row {
   margin-bottom: 10px;
 

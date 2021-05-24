@@ -2,7 +2,7 @@ import { Pop, BrandSdk, Notify } from 'zent';
 import { useState } from 'react';
 import { BlockPicker } from 'react-color';
 
-const { getAllBrandColor } = BrandSdk;
+const { getAllBrandColor, generateBrands } = BrandSdk;
 
 const colors = [
   '#ED6A18',
@@ -21,6 +21,7 @@ const colors = [
 
 export default function ColorGenerator() {
   const [color, setColor] = useState('#155BD4');
+  const [calcColors, setCalcColors] = useState(generateBrands('#155BD4'));
 
   const onChangeComplete = c => {
     setColor(c.hex);
@@ -29,6 +30,8 @@ export default function ColorGenerator() {
     brandVars.forEach(item => {
       document.documentElement.style.setProperty(item.name, item.color);
     });
+
+    setCalcColors(generateBrands(c.hex));
     Notify.success('it works! ');
   };
 
@@ -43,15 +46,24 @@ export default function ColorGenerator() {
   };
 
   return (
-    <div className="zandoc-react-color">
-      <Pop content={content()} trigger="click" position="bottom-center">
-        <div
-          className="zandoc-react-color-picker"
-          style={{ background: color }}
-        >
-          {color}
-        </div>
-      </Pop>
-    </div>
+    <>
+      <div className="zandoc-react-color">
+        <Pop content={content()} trigger="click" position="bottom-center">
+          <div
+            className="zandoc-react-color-picker"
+            style={{ background: color }}
+          >
+            {color}
+          </div>
+        </Pop>
+      </div>
+      <div className="zandoc-theme-colors">
+        {calcColors.map(item => {
+          return (
+            <div className="zandoc-theme-color" style={{ background: item }} />
+          );
+        })}
+      </div>
+    </>
   );
 }

@@ -115,6 +115,7 @@ export default function themeCN() {
       <H3>Modify theme color</H3>
       choose color:
       <ColorGenerator />
+      <p>Choose a color with a higher saturation and brightness, please</p>
     </section>
   );
 }

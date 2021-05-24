@@ -1,33 +1,54 @@
 @import '~sass-color-helpers/stylesheets/color-helpers/hsv-hsl';
 
-$saturationLightStep: 15;
-$saturationDrakStep: 0;
-$brightnessLightStep: 0;
-$brightnessDrakStep: 12;
+$saturationLightStep: 40;
+$saturationDraktStep: 5;
+$brightnessLightStep: 5;
+$brightnessDrakStep: 20;
+$lightColor: 2;
+$drakColor: 2;
 
 @function getSaturation($h, $s, $v, $level, $light) {
   $saturation: 0;
+
   @if ($h == 0 and $s == 0) {
     @return $s;
   }
   @if ($light) {
     $saturation: $s - $saturationLightStep * $level;
   } @else {
-    $saturation: $s + $saturationDrakStep * $level;
+    $saturation: $s + $saturationDraktStep * $level;
   }
 
   @if ($saturation > 100) {
-    $saturation: 100;
+    $saturation: 100%;
+  }
+
+  // 修正颜色饱和度不小于10%
+  @if ($saturation < 10) {
+    $saturation: 10%;
   }
 
   @return round($saturation);
 }
 
 @function getValue($h, $s, $v, $level, $light) {
+  $value: $v;
+
   @if ($light) {
-    @return ($v + $brightnessLightStep * $level);
+    $value: $v + $brightnessLightStep * $level;
+  } @else {
+    $value: $v - $brightnessDrakStep * $level;
   }
-  @return ($v - $brightnessDrakStep * $level);
+
+  @if ($value > 100) {
+    $value: 100%;
+  }
+
+  @if ($value < 0) {
+    $value: 0%;
+  }
+
+  @return $value;
 }
 
 @function generateLightColor($color, $level: 1) {

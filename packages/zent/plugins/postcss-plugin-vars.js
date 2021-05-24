@@ -9,7 +9,17 @@ const THEME_FILES = ['_color.scss'].map(f =>
   path.resolve(__dirname, '../assets/theme/variables', f)
 );
 
-const BRAND_NAME = '$colors';
+const BRAND_NAME = [
+  '$body-colors',
+  '$success-colors',
+  '$warning-colors',
+  '$danger-colors',
+  '$link-colors',
+  '$default-colors',
+  '$primary-colors',
+  '$weak-link-colors',
+  '$rate-colors',
+];
 const varsMap = {}; // name -> names[]
 const sourceMap = {}; // index -> name
 
@@ -33,13 +43,14 @@ module.exports = postcss.plugin('postcss-plugin-vars', () => {
   return root => {
     const isThemeFile = THEME_FILES.includes(root.source.input.file);
     root.walkDecls(decl => {
-      const isBrand = BRAND_NAME === decl.prop;
+      const isBrand = BRAND_NAME.includes(decl.prop);
       if (isThemeFile && isBrand) {
         const words = parseValue(decl.value);
+        const prefixName = /[a-zA-Z]+[^-]/.exec(decl.prop)[0];
         words.walk(node => {
           const isStateArr = isColorState(node);
           if (isStateArr) {
-            buildParent(node, varsMap, sourceMap);
+            buildParent(prefixName, node, varsMap, sourceMap);
           }
         });
         fs.writeFileSync(
@@ -62,24 +73,19 @@ function isColorState(node) {
 }
 
 // 适配现有，深度为2
-function buildParent(node, varsMap, sourceMap) {
+function buildParent(prefixName, node, varsMap, sourceMap) {
   const nodes = node.nodes;
   const prueNodes = nodes.filter(node =>
-    ['word', 'function'].includes(node.type)
+    ['string', 'word', 'function'].includes(node.type)
   );
 
-  const parentName = sourceMap[node.sourceIndex] || '';
+  const parentName = sourceMap[node.sourceIndex] || prefixName || '';
 
   for (let i = 0; i < prueNodes.length - 1; i = i + 2) {
     const name = /[^\$]+/.exec(prueNodes[i].value)?.[0];
     const value = prueNodes[i + 1];
     if (value.type === 'word') {
       const basicName = value.value;
-      const isBasicVar = /^\$brand-/.test(basicName);
-
-      if (!isBasicVar) {
-        return;
-      }
 
       const refName = parentName ? parentName + '-' + name : name;
 
