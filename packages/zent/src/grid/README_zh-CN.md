@@ -35,7 +35,7 @@ group: 导航
 | components      | 自定义 table 内的组件                                         | object { row?: ComponentType }                                             |                    | 否       |
 | rowProps        | 自定义传入 row 的属性                                         | (data: any, index: number) => object                                       |                    | 否       |
 | bordered        | 是否展示外边框和列边框                                        | bool                                                                       | `false`            | 否       |
-| batchRender     | 批量操作 render                                        | (data: array) => React.ReactNode                                           |                    | 否       |
+| batchRender     | 批量操作 render                                        | (data: array, position?: foot \| header) => React.ReactNode                                           |                    | 否       |
 | stickyBatch     | 是否要将批量操作保持在屏幕内                                  | bool                                                                       | `false`             | 否       |
 | autoStick                | 是否自动将 head stick 到窗口                       | bool                                                                       | `false`        | 否       |
 | autoStickOffsetTop       | 自定义表头吸顶的offsetTop                          | number                                                                     | `0`        | 否       |

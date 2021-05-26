@@ -1,4 +1,4 @@
----
+<!-- ---
 order: 3
 zh-CN:
 	title: 分页
@@ -101,4 +101,4 @@ class PageInfo extends React.Component {
 }
 
 ReactDOM.render(<PageInfo />, mountNode);
-```
+``` -->

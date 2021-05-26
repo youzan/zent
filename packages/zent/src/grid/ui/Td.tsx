@@ -1,17 +1,11 @@
 import * as React from 'react';
 import classnames from 'classnames';
-import {
-  IGridFixedPosition,
-  IGridColumn,
-  GridSortType,
-  GridTextAlign,
-} from '../types';
+import { clsPrefix } from '../constants';
+import { IGridColumn, GridSortType, GridTextAlign } from '../types';
 
 interface ITd {
-  prefix: string;
   children: React.ReactNode;
   type: 'th' | 'td';
-  position?: IGridFixedPosition;
   column?: IGridColumn;
   sortType?: GridSortType;
   sortBy?: string;
@@ -20,14 +14,15 @@ interface ITd {
   rowSpan?: number;
   width?: number | string;
   textAlign?: GridTextAlign;
+  style?: React.CSSProperties;
+  className?: string;
 }
 
 export default function Td(props: ITd) {
   const {
-    prefix,
     children,
     type,
-    position = {},
+    style,
     column,
     sortBy,
     sortType,
@@ -35,55 +30,22 @@ export default function Td(props: ITd) {
     colSpan,
     rowSpan,
     textAlign,
+    className,
   } = props;
-  const {
-    left,
-    right,
-    fixed,
-    isFirstRightFixedColumn,
-    isLastLeftFixedColumn,
-  } = position;
+
+  // console.log(props);
 
   const { name, needSort, nowrap } = column || {};
 
-  const style = React.useMemo(() => {
-    const style: React.CSSProperties = {};
-
-    if (fixed === 'right') {
-      style.right = `${right}px`;
-    } else if (fixed) {
-      style.left = `${left}px`;
-    }
-    return style;
-  }, [left, right, fixed]);
-
   const cls = React.useMemo(() => {
-    return classnames(`${prefix}-grid-${type}`, {
-      [`${prefix}-grid-fixed ${prefix}-grid-fixed-${fixed}`]: !!fixed,
-      [`${prefix}-grid-fixed-right-first`]: isFirstRightFixedColumn,
-      [`${prefix}-grid-fixed-left-last`]: isLastLeftFixedColumn,
-      [`${prefix}-grid-thead-sort`]: needSort,
-      [`${prefix}-grid-thead-sort-${sortType}`]: sortType && name === sortBy,
-      [`${prefix}-grid-text-align-${textAlign}`]: !!textAlign,
-      [`${prefix}-grid-nowrap`]: nowrap,
+    return classnames(className, `${clsPrefix}-${type}`, {
+      [`${clsPrefix}-text-align-${textAlign}`]: !!textAlign,
+      [`${clsPrefix}-nowrap`]: nowrap,
     });
-  }, [
-    prefix,
-    type,
-    fixed,
-    isFirstRightFixedColumn,
-    isLastLeftFixedColumn,
-    sortType,
-    sortBy,
-    needSort,
-    name,
-    textAlign,
-    nowrap,
-  ]);
+  }, [type, textAlign, nowrap, className]);
 
-  const sortCls = classnames(`${prefix}-grid-thead-sort`, {
-    [`${prefix}-grid-thead-sort-${sortType}`]:
-      sortType && column.name === sortBy,
+  const sortCls = classnames(`${clsPrefix}-thead-sort`, {
+    [`${clsPrefix}-thead-sort-${sortType}`]: sortType,
   });
 
   if (type === 'th' && colSpan === 0) {
@@ -107,13 +69,17 @@ export default function Td(props: ITd) {
       colSpan={colSpan > 1 ? colSpan : undefined}
       rowSpan={rowSpan > 1 ? rowSpan : undefined}
     >
-      {children}
       {needSort ? (
-        <span className={sortCls}>
-          <span className="caret-up" />
-          <span className="caret-down" />
-        </span>
-      ) : null}
+        <div className={`${clsPrefix}-thead-sort-btn`}>
+          {children}
+          <span className={sortCls}>
+            <span className="caret-up" />
+            <span className="caret-down" />
+          </span>
+        </div>
+      ) : (
+        children
+      )}
     </th>
   );
 }

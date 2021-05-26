@@ -1,48 +1,34 @@
 import * as React from 'react';
-import Checkbox, { ICheckboxProps } from '../../checkbox';
-import { IGridSelection } from '../types';
+import Checkbox from '../../checkbox';
+import { IGridSelection, GridHeaderRowType } from '../types';
 
 interface IGridSelectionCheckboxProps<Data> {
   disabled?: boolean;
-  onChange?: ICheckboxProps<unknown>['onChange'];
   render?: (data: Data, rowIndex: number | string) => React.ReactNode;
-  header: any;
+  header?: GridHeaderRowType;
   selection: IGridSelection<Data>;
+  indeterminate?: boolean;
+  onChange: (e: any) => void;
 }
 
 export default function SelectionCheckboxAll<Data>(
   props: IGridSelectionCheckboxProps<Data>
 ) {
-  const { header, selection, onChange } = props;
+  const { header, selection } = props;
   const { onSelect, getCheckboxProps } = selection;
-  const { rows } = header;
-
-  const [checked, setChecked] = React.useState(false);
-
-  const disabled = React.useMemo(
-    () =>
-      header.rows.every(
-        item => getCheckboxProps && getCheckboxProps(item.original).disabled
-      ),
-    [header, getCheckboxProps]
-  );
-
-  const indeterminate = React.useMemo(() => {
-    return rows.some(item => item.isSelected);
-  }, [rows]);
+  const { rows = [] } = header || {};
 
   const handleOnSelectAllChange = React.useCallback(
     e => {
-      setChecked(e.target.checked);
-      onChange(e);
       const { checked } = e.target;
+      props.header.toggleAllRowsSelected(checked);
       const selectedRowKeys = [];
       const selectedRows = [];
       if (checked) {
         for (let i = 0; i < rows.length; i++) {
           const originalRow = rows[i].original;
           const { disabled } = getCheckboxProps
-            ? getCheckboxProps(originalRow)
+            ? getCheckboxProps(originalRow as Data)
             : { disabled: false };
           if (!disabled) {
             selectedRowKeys.push(originalRow.id);
@@ -54,16 +40,8 @@ export default function SelectionCheckboxAll<Data>(
       }
       onSelect(selectedRowKeys, selectedRows, null);
     },
-    [rows, onSelect, onChange, getCheckboxProps]
+    [props.header, onSelect, rows, getCheckboxProps]
   );
 
-  return (
-    <Checkbox
-      {...props}
-      disabled={disabled}
-      checked={checked}
-      onChange={handleOnSelectAllChange}
-      indeterminate={indeterminate && checked ? false : indeterminate}
-    />
-  );
+  return <Checkbox {...props} onChange={handleOnSelectAllChange} />;
 }

@@ -1,27 +1,27 @@
 <!-- ---
-order: 4
+order: 14
 zh-CN:
-	title: 选择
+	title: 批量操作
 	product: 商品
 	productName: 商品名
 	uv: 访问量
 	stock: 库存
 	babyProducts: 母婴商品
 	petProducts: 宠物商品
-	reason: '禁用原因'
+	createdTime: 创建时间
 en-US:
-	title: Selection
+	title: Batch Components
 	product: Product
 	productName: Product Name
 	uv: uv
 	stock: stock
 	babyProducts: Baby Products
 	petProducts: Pet Products
-	reason: Reason of disabled
+	createdTime: Created Time
 ---
 
 ```jsx
-import { Grid, Notify } from 'zent';
+import { Grid, Notify, Button } from 'zent';
 
 const columns = [
 	{
@@ -36,27 +36,46 @@ const columns = [
 		title: '{i18n.stock}',
 		name: 'stock',
 	},
+	{
+		title: '{i18n.createdTime}',
+		name: 'createdTime',
+		width: 140,
+		fixed: 'right',
+	}
 ];
 
-const pageSize = 5;
-const totalItem = 10;
+const pageSize = 40;
+const totalItem = 40;
 
 const datasets = [];
 const datasets2 = [];
 
-for (let i = 0; i < 5; i++) {
+for (let i = 0; i < 40; i++) {
 	datasets.push({
 		id: `f-${i}`,
 		name: `{i18n.babyProducts} ${i}`,
 		uv: 20,
 		stock: 5,
+		createdTime: '2019-11-21'
 	});
-	datasets2.push({
-		id: `s-${i}`,
-		name: `{i18n.petProducts} ${i}`,
-		uv: 20,
-		stock: 5,
-	});
+}
+
+class Customer extends React.Component {
+	onClick = () => {
+		Notify.success(`${this.props.data.length} elements was selected`);
+	};
+
+	render() {
+		return (
+			<Button
+				key="comp"
+				className="child-comps zent-btn"
+				onClick={this.onClick}
+			>
+				Click
+			</Button>
+		);
+	}
 }
 
 class Selection extends React.Component {
@@ -64,13 +83,6 @@ class Selection extends React.Component {
 		selectedRowKeys: ['f-0'],
 		datasets,
 		current: 1,
-	};
-
-	onChange = ({ current }) => {
-		this.setState({
-			current,
-			datasets: current === 1 ? datasets : datasets2,
-		});
 	};
 
 	render() {
@@ -85,25 +97,20 @@ class Selection extends React.Component {
 				}}
 				paginationType="lite"
 				selection={{
-					type: 'checkbox',
-					needCrossPage: false,
 					selectedRowKeys: this.state.selectedRowKeys,
 					onSelect: (selectedRowKeys, selectedRows, currentRow) => {
-						console.log(selectedRowKeys, selectedRows, currentRow);
 						this.setState({
-							selectedRowKeys,
-						});
+              selectedRowKeys,
+            });
 					},
 					getCheckboxProps: data => ({
 						disabled: data.name === '{i18n.babyProducts} 1',
-						reason: '{i18n.reason}'
 					}),
-					render() {
-						return <div>自定义</div>
-					},
 				}}
 				rowKey="id"
-				onChange={this.onChange}
+				batchRender={data => <Customer data={data} /> }
+				stickyBatch
+				scroll={{x: 1300}}
 			/>
 		);
 	}

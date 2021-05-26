@@ -12,7 +12,7 @@
   position: absolute;
 }
 
-.zent-grid {
+.zent-grid-v2 {
   @include theme-color(color, stroke, 1);
   font-size: $font-size-normal;
   position: relative;
@@ -20,19 +20,19 @@
   overflow: hidden;
 
   &-fixed {
-    .zent-grid-container {
+    .zent-grid-v2-container {
       overflow-x: scroll;
     }
   }
 
-  &.zent-grid-scroll-position-left {
-    .zent-grid-fixed-left::after {
+  &.zent-grid-v2-scroll-position-left {
+    .zent-grid-v2-fixed-left::after {
       box-shadow: none;
     }
   }
 
-  &.zent-grid-scroll-position-right {
-    .zent-grid-fixed-right::after {
+  &.zent-grid-v2-scroll-position-right {
+    .zent-grid-v2-fixed-right::after {
       box-shadow: none;
     }
   }
@@ -46,7 +46,7 @@
     &-ellipsis {
       table-layout: fixed;
 
-      .zent-grid-nowrap {
+      .zent-grid-v2-nowrap {
         overflow: hidden;
         text-overflow: ellipsis;
       }
@@ -82,7 +82,7 @@
   &-text-align-right {
     text-align: right;
 
-    .zent-grid-thead-sort {
+    .zent-grid-v2-thead-sort {
       margin-right: 16px;
     }
   }
@@ -135,6 +135,11 @@
     }
   }
 
+  &-thead-fixed {
+    position: sticky;
+    top: 0;
+  }
+
   &-thead > tr > th {
     &[colspan] {
       text-align: center;
@@ -156,7 +161,7 @@
   &-fixed-right {
     overflow: hidden;
 
-    .zent-grid-fixed {
+    .zent-grid-v2-fixed {
       border-left: 0;
       border-right: 0;
     }
@@ -192,13 +197,13 @@
       min-width: 100%;
     }
 
-    .zent-grid-header {
+    .zent-grid-v2-header {
       overflow-x: scroll;
       margin-bottom: -15px;
       padding-bottom: 15px;
     }
 
-    .zent-grid-body {
+    .zent-grid-v2-body {
       position: relative;
     }
   }
@@ -218,17 +223,17 @@
     height: 56px;
 
     &:hover {
-      .zent-grid-td {
+      .zent-grid-v2-td {
         @include theme-color(background-color, primary, 8);
       }
     }
+  }
 
-    &__expanded {
-      td {
-        @include theme-color(background-color, stroke, 8);
-        padding: 10px 12px;
-        word-break: break-all;
-      }
+  &-sub-tr {
+    td {
+      @include theme-color(background-color, stroke, 8);
+      padding: 10px 12px;
+      word-break: break-all;
     }
   }
 
@@ -264,10 +269,10 @@
     font-weight: 500;
   }
 
-  &-th.zent-grid-th-selection,
-  &-td.zent-grid-td-selection,
-  &-th.zent-grid-th-expand,
-  &-td.zent-grid-td-expand {
+  &-th.zent-grid-v2-th-selection,
+  &-td.zent-grid-v2-td-selection,
+  &-th.zent-grid-v2-th-expand,
+  &-td.zent-grid-v2-td-expand {
     padding-right: 0;
   }
 
@@ -275,7 +280,7 @@
     line-height: 20px;
     padding: 10px 12px;
 
-    .zent-grid-expandable-btn {
+    .zent-grid-v2-expandable-btn {
       @include theme-color(border-color, stroke, 6);
       @include theme-color(background-color, stroke, 9);
       cursor: pointer;
@@ -288,14 +293,14 @@
       border-style: solid;
       user-select: none;
 
-      &.zent-grid-expand-btn::after {
+      &.zent-grid-v2-expand-btn::after {
         content: '+';
         box-sizing: border-box;
         width: 8px;
         display: inline-block;
       }
 
-      &.zent-grid-collapse-btn::after {
+      &.zent-grid-v2-collapse-btn::after {
         content: '-';
         box-sizing: border-box;
         width: 8px;
@@ -315,11 +320,11 @@
     margin-top: 16px;
     overflow: hidden;
 
-    .zent-grid-tfoot-page {
+    .zent-grid-v2-tfoot-page {
       margin-top: 0;
     }
 
-    .zent-grid-batch.zent-grid-batch--fixed {
+    .zent-grid-v2-batch.zent-grid-v2-batch--fixed {
       @include theme-color(background-color, stroke, 9);
       @include theme-color(border-color, stroke, 6);
       position: fixed;
@@ -343,7 +348,7 @@
     cursor: pointer;
   }
 
-  .zent-grid-batch {
+  .zent-grid-v2-batch {
     padding-left: 12px;
     padding-bottom: 12px;
     display: flex;
@@ -359,7 +364,8 @@
     }
   }
 
-  .zent-grid-batch__foot {
+  .zent-grid-v2-batch__foot {
+    padding-left: 12px;
     float: left;
   }
 
@@ -373,11 +379,11 @@
     margin-top: -1px;
   }
 
-  .zent-grid-sticky-header {
+  .zent-grid-v2-sticky-header {
     overflow-x: scroll;
   }
 
-  .zent-grid-sticky-header-warp {
+  .zent-grid-v2-sticky-header-warp {
     position: absolute;
   }
 }

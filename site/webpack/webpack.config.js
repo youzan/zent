@@ -29,6 +29,8 @@ module.exports = {
     alias: Object.assign({
       zent$: path.resolve(__dirname, '../zent'),
       'zent/es': path.resolve(__dirname, '../../packages/zent/src'),
+      react: path.resolve(__dirname, '../../node_modules/react'),
+      'react-table': '/Users/liuziyang/opensources/react-table/src',
     }),
   },
 

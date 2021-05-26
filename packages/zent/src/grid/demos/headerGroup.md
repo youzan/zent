@@ -1,4 +1,4 @@
----
+<!-- ---
 order: 13
 zh-CN:
 	title: 表头分组
@@ -126,4 +126,4 @@ ReactDOM.render(
 		<HeaderGroup />
 	, mountNode
 );
-```
+``` -->

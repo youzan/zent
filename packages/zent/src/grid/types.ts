@@ -1,4 +1,17 @@
+/* eslint-disable @typescript-eslint/interface-name-prefix */
+import {
+  Column,
+  ColumnInterfaceBasedOnValue,
+  UseRowSelectInstanceProps,
+  UseTableInstanceProps,
+  UseTableRowProps,
+  UseTableColumnProps,
+  UseTableCellProps,
+  UseRowSelectState,
+  UseRowSelectRowProps,
+} from 'react-table';
 import { PaginationPageSizeOption } from '../pagination/components/PageSizeChanger';
+import { ICheckboxProps } from '../checkbox';
 
 export type GridPaginationType = 'default' | 'lite' | 'mini';
 
@@ -55,8 +68,10 @@ export interface IGridColumn<Data = any> {
   children?: Array<IGridColumn<Data>>;
   accessor?: string;
   sortDescFirst?: boolean;
-  columns?: Data[];
+  columns?: IGridColumn[];
 }
+
+export type GridColumnType = Column<any> | IGridColumn;
 
 export interface IGridOnChangeConfig {
   current?: number;
@@ -79,6 +94,7 @@ export interface IGridSelection<Data = any> {
   getCheckboxProps?: (
     data: Data
   ) => { disabled?: boolean; reason?: React.ReactNode };
+  render?: (data: Data, rowIndex: number) => React.ReactNode;
 }
 
 export interface IGridExpandation<Data = any> {
@@ -147,3 +163,54 @@ export interface IGridFixedPosition {
   isLastLeftFixedColumn?: boolean;
   isFirstRightFixedColumn?: boolean;
 }
+
+export interface IGridInnerSelectionProps<
+  Data = any,
+  S = ICheckboxProps<unknown>['onChange']
+> {
+  rowKey: string;
+  disabled?: boolean;
+  reason?: React.ReactNode;
+  onChange: S;
+  render?: (data: Data, rowIndex: number) => React.ReactNode;
+  record: Data;
+  rowIndex: number;
+  onSelect?: (
+    selectRowKey: string[],
+    selectedRows: Data[],
+    currentRow: Data
+  ) => void;
+}
+
+export interface IExpandColumn extends ColumnInterfaceBasedOnValue {
+  id: string;
+}
+
+export type BaseGridInnerColumnsType = IGridColumn & Column<any>;
+
+export type GridInnerColumnsType = BaseGridInnerColumnsType | IExpandColumn;
+
+interface TableToggleAllPageRowsSelectedProps {}
+
+export type GridHeaderRowType = {
+  getToggleAllPageRowsSelectedProps: (
+    props?: Partial<TableToggleAllPageRowsSelectedProps>
+  ) => TableToggleAllPageRowsSelectedProps;
+  rows?: (UseTableRowProps<Record<string, unknown>> &
+    UseRowSelectRowProps<Record<string, unknown>>)[];
+} & UseRowSelectInstanceProps<Record<string, unknown>> &
+  UseTableInstanceProps<Record<string, unknown>>;
+
+export type GridHeaderCellType = {
+  id: string;
+  originalId: string;
+  title: string;
+} & GridHeaderRowType;
+
+export type GridCellType = UseTableInstanceProps<Record<string, unknown>> &
+  UseTableCellProps<Record<string, unknown>> &
+  UseTableColumnProps<Record<string, unknown>> &
+  UseRowSelectInstanceProps<Record<string, unknown>> & {
+    state: UseRowSelectState<Record<string, unknown>>;
+    row: UseRowSelectRowProps<Record<string, unknown>>;
+  };

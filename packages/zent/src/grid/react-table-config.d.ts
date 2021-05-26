@@ -1,64 +1,30 @@
 /* eslint-disable @typescript-eslint/interface-name-prefix */
+import * as React from 'react';
 import {
-  UseColumnOrderInstanceProps,
-  UseColumnOrderState,
-  UseExpandedHooks,
-  UseExpandedInstanceProps,
-  UseExpandedOptions,
-  UseExpandedRowProps,
-  UseExpandedState,
-  UseFiltersColumnOptions,
-  UseFiltersColumnProps,
-  UseFiltersInstanceProps,
-  UseFiltersOptions,
-  UseFiltersState,
-  UseGlobalFiltersColumnOptions,
-  UseGlobalFiltersInstanceProps,
-  UseGlobalFiltersOptions,
-  UseGlobalFiltersState,
-  UseGroupByCellProps,
-  UseGroupByColumnOptions,
-  UseGroupByColumnProps,
-  UseGroupByHooks,
-  UseGroupByInstanceProps,
-  UseGroupByOptions,
-  UseGroupByRowProps,
-  UseGroupByState,
-  UsePaginationInstanceProps,
   UsePaginationOptions,
-  UsePaginationState,
-  UseResizeColumnsColumnOptions,
-  UseResizeColumnsColumnProps,
-  UseResizeColumnsOptions,
-  UseResizeColumnsState,
-  UseRowSelectHooks,
-  UseRowSelectInstanceProps,
   UseRowSelectOptions,
-  UseRowSelectRowProps,
-  UseRowSelectState,
-  UseRowStateCellProps,
-  UseRowStateInstanceProps,
-  UseRowStateOptions,
-  UseRowStateRowProps,
-  UseRowStateState,
-  UseSortByColumnOptions,
-  UseSortByColumnProps,
-  UseSortByHooks,
-  UseSortByInstanceProps,
   UseSortByOptions,
-  UseSortByState,
+  UseSortByColumnProps,
+  UseExpandedState,
+  UseExpandedInstanceProps,
+  UsePaginationInstanceProps,
+  UseRowSelectInstanceProps,
+  UseRowStateInstanceProps,
+  TableToggleCommonProps,
+  TableCommonProps,
 } from 'react-table';
 
+import { GridSortType, GridFixedType } from './types';
 declare module 'react-table' {
-  // take this file as-is, or comment out the sections that don't apply to your plugin configuration
+  export function emptyRender() {}
 
-  export interface TableOptions<D extends Record<string, unknown>>
+  export interface ColumnInstance<D extends object> {
+    title: React.ReactNode;
+    name: string;
+  }
+  export interface TableOptions<D extends object>
     extends UseExpandedOptions<D>,
-      UseFiltersOptions<D>,
-      UseGlobalFiltersOptions<D>,
-      UseGroupByOptions<D>,
       UsePaginationOptions<D>,
-      UseResizeColumnsOptions<D>,
       UseRowSelectOptions<D>,
       UseRowStateOptions<D>,
       UseSortByOptions<D>,
@@ -67,68 +33,54 @@ declare module 'react-table' {
       // feature set, this is a safe default.
       Record<string, any> {}
 
-  export interface Hooks<
-    D extends Record<string, unknown> = Record<string, unknown>
-  >
-    extends UseExpandedHooks<D>,
-      UseGroupByHooks<D>,
-      UseRowSelectHooks<D>,
-      UseSortByHooks<D> {}
-
-  export interface TableInstance<
-    D extends Record<string, unknown> = Record<string, unknown>
-  >
+  export interface TableInstance<D extends object = {}>
     extends UseColumnOrderInstanceProps<D>,
       UseExpandedInstanceProps<D>,
-      UseFiltersInstanceProps<D>,
-      UseGlobalFiltersInstanceProps<D>,
-      UseGroupByInstanceProps<D>,
       UsePaginationInstanceProps<D>,
       UseRowSelectInstanceProps<D>,
       UseRowStateInstanceProps<D>,
       UseSortByInstanceProps<D> {}
 
-  export interface TableState<
-    D extends Record<string, unknown> = Record<string, unknown>
-  >
+  export interface TableState<D extends object>
     extends UseColumnOrderState<D>,
       UseExpandedState<D>,
-      UseFiltersState<D>,
-      UseGlobalFiltersState<D>,
-      UseGroupByState<D>,
       UsePaginationState<D>,
-      UseResizeColumnsState<D>,
       UseRowSelectState<D>,
-      UseRowStateState<D>,
       UseSortByState<D> {}
 
-  export interface ColumnInterface<
-    D extends Record<string, unknown> = Record<string, unknown>
-  >
-    extends UseFiltersColumnOptions<D>,
-      UseGlobalFiltersColumnOptions<D>,
-      UseGroupByColumnOptions<D>,
-      UseResizeColumnsColumnOptions<D>,
-      UseSortByColumnOptions<D> {}
+  export interface UseTableCellProps<D extends object> {
+    id: string;
+    isFirstRightFixedColumn: boolean;
+    isLastLeftFixedColumn: boolean;
+    fixed: GridFixedType;
+  }
 
-  export interface ColumnInstance<
-    D extends Record<string, unknown> = Record<string, unknown>
-  >
-    extends UseFiltersColumnProps<D>,
-      UseGroupByColumnProps<D>,
-      UseResizeColumnsColumnProps<D>,
-      UseSortByColumnProps<D> {}
-
-  export interface Cell<
-    D extends Record<string, unknown> = Record<string, unknown>,
-    V = any
-  > extends UseGroupByCellProps<D>, UseRowStateCellProps<D> {}
-
-  export interface Row<
-    D extends Record<string, unknown> = Record<string, unknown>
-  >
-    extends UseExpandedRowProps<D>,
+  export interface Row<D extends object = {}>
+    extends UseTableRowProps<D>,
+      UseExpandedRowProps<D>,
       UseGroupByRowProps<D>,
       UseRowSelectRowProps<D>,
       UseRowStateRowProps<D> {}
+
+  export interface HeaderGroup<D extends object = {}>
+    extends UseSortByColumnProps<D> {}
+
+  export interface TableToggleCommonProps extends TableCommonProps {
+    onChange?: (e: React.ChangeEvent) => void;
+  }
+  // export interface TableToggleRowsSelectedProps extends TableToggleCommonProps {
+  //   onChange: (e: React.ChangeEvent) => void;
+  // }
+
+  // export interface TableToggleAllRowsSelectedProps
+  //   extends TableToggleCommonProps {
+  //   onChange: (e: React.ChangeEvent) => void;
+  // }
+
+  export interface TableHeaderProps {
+    onClick: (e: React.MouseEvent) => void;
+    sortBy?: string;
+    sortType?: GridSortType;
+    handleOnSortTypeClick: (sortBy: string, sortType: GridSortType) => void;
+  }
 }

@@ -44,7 +44,7 @@
     "date-fns": "^2.7.0",
     "rc-resize-observer": "^0.2.3",
     "react-is": "^16.8.1",
-    "react-table": "^7.5.0",
+    "react-table": "7.6.2",
     "react-transition-group": "^2.6.0",
     "rxjs": "^6.6.2",
     "sortablejs": "~1.9.0",

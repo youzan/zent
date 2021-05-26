@@ -1,33 +1,37 @@
 import * as React from 'react';
 import Radio, { IRadioProps } from '../../radio';
+import { IGridInnerSelectionProps } from '../types';
 
-interface IGridSelectionCheckboxProps<Data> {
-  disabled?: boolean;
-  rowIndex?: number | string;
-  onChange: IRadioProps<unknown>['onChange'];
-  render: (data: Data, rowIndex: number | string) => React.ReactNode;
-  record: any;
+interface IGridInnerSelectionRadioProps<Data>
+  extends IGridInnerSelectionProps<Data, IRadioProps<unknown>['onChange']> {
   toggleAllRowsSelected?: (value: boolean) => void;
-  onSelect?: (
-    selectRowKey: string[],
-    selectedRows: Data[],
-    currentRow: Data
-  ) => void;
 }
 
 export default function SelectionCheckbox<Data>(
-  props: IGridSelectionCheckboxProps<Data>
+  props: IGridInnerSelectionRadioProps<Data>
 ) {
-  const { onChange, toggleAllRowsSelected, onSelect, record } = props;
+  const {
+    onChange,
+    toggleAllRowsSelected,
+    onSelect,
+    record,
+    rowKey,
+    render,
+    rowIndex,
+  } = props;
 
   const handleOnChange = React.useCallback(
     rest => {
       toggleAllRowsSelected && toggleAllRowsSelected(false);
       onChange(rest);
-      onSelect([record.id], [record], record);
+      onSelect([record[rowKey]], [record], record);
     },
-    [onChange, toggleAllRowsSelected, onSelect, record]
+    [onChange, toggleAllRowsSelected, onSelect, record, rowKey]
   );
+
+  if (typeof render === 'function') {
+    return <>{render(record, rowIndex)}</>;
+  }
 
   return <Radio {...props} onChange={handleOnChange} />;
 }

@@ -1,9 +1,9 @@
 import * as React from 'react';
 import classnames from 'classnames';
+import { clsPrefix } from '../constants';
 import { GridRowClassNameType, IGridRowClickHandler } from '../types';
 
 interface ITr<Data> {
-  prefix: string;
   children: React.ReactNode;
   rowClassName: string | GridRowClassNameType;
   rowIndex?: number;
@@ -14,7 +14,6 @@ interface ITr<Data> {
 
 export default function Tr<Data>(props: ITr<Data>) {
   const {
-    prefix,
     children,
     rowClassName,
     record,
@@ -28,11 +27,11 @@ export default function Tr<Data>(props: ITr<Data>) {
       typeof rowClassName === 'function'
         ? rowClassName(record, rowIndex)
         : rowClassName;
-    return classnames(`${prefix}-grid-tr`, {
+    return classnames(`${clsPrefix}-tr`, {
       [className]: !!className,
       [rowCls]: !!rowCls,
     });
-  }, [prefix, rowClassName, record, rowIndex, className]);
+  }, [rowClassName, record, rowIndex, className]);
 
   const handleOnClick = React.useCallback(
     (e: React.MouseEvent<HTMLTableRowElement>) => {

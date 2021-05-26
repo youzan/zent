@@ -1,26 +1,14 @@
 import * as React from 'react';
-import Checkbox, { ICheckboxProps } from '../../checkbox';
+import Checkbox from '../../checkbox';
 import Pop from '../../pop';
-
-interface IGridSelectionCheckboxProps<Data> {
-  disabled?: boolean;
-  reason?: boolean;
-  onChange: ICheckboxProps<unknown>['onChange'];
-  render: (data: Data, rowIndex: number) => React.ReactNode;
-  row: any;
-  onSelect?: (
-    selectRowKey: string[],
-    selectedRows: Data[],
-    currentRow: Data
-  ) => void;
-}
+import { IGridInnerSelectionProps } from '../types';
 
 export default function SelectionCheckbox<Data>(
-  props: IGridSelectionCheckboxProps<Data>
+  props: IGridInnerSelectionProps<Data>
 ) {
-  const { disabled, reason, render, row } = props;
+  const { disabled, reason, render, record, rowIndex } = props;
   if (render) {
-    return <div>{render(row.original, row.index)}</div>;
+    return <>{render(record, rowIndex)}</>;
   }
   if (disabled && reason) {
     return (

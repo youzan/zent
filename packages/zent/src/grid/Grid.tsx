@@ -1,26 +1,20 @@
 import * as React from 'react';
-import { useTable } from 'react-table';
+
+import { Column, UseTableCellProps } from 'react-table';
 import classnames from 'classnames';
 import { WindowScrollHandler } from '../utils/component/WindowScrollHandler';
-import {
-  IGridProps,
-  IGridOnChangeConfig,
-  IGridColumn,
-  IGridFixedPosition,
-  GridSortType,
-} from './types';
 import ColGroup from './ColGroup';
 import Tr from './ui/Tr';
 import Td from './ui/Td';
-import MeasureCell from './ui/MeasureCell';
 import Footer from './Footer';
-import Column from './Column';
-import ColumnGroup from './ColumnGroup';
-import useColumns from './hooks/useColumns';
-import useHeaderGroups from './hooks/useHeaderGroups';
-import { getHooks, getFixedPosition } from './utils';
-
-const prefix = 'zent';
+import { clsPrefix, defaultPageInfo } from './constants';
+import {
+  IGridProps,
+  IGridOnChangeConfig,
+  BaseGridInnerColumnsType,
+} from './types';
+import BatchComponents from './Footer/BatchOperator';
+import useGrid from './hooks/useGrid';
 
 export function Grid<Data = any>(props: IGridProps) {
   const {
@@ -29,74 +23,20 @@ export function Grid<Data = any>(props: IGridProps) {
     rowClassName,
     onRowClick,
     batchRender,
-    pageInfo,
+    pageInfo = defaultPageInfo,
     onChange,
     paginationType,
-    scroll,
     selection,
-    sortType,
-    sortBy,
     expandation,
     ellipsis,
+    autoStick,
+    sortType,
+    sortBy,
   } = props;
 
-  const [columnsWidth] = React.useState<Map<IGridColumn, number>>(new Map());
-
-  const [, forceUpdate] = React.useState({});
-  const [isScrolledToLeft, setScrolledLeft] = React.useState(false);
-  const [isScrolledToRight, setScrolledRight] = React.useState(false);
   const tableRef = React.useRef<HTMLDivElement>();
 
-  const mounted = React.useRef(false);
-
-  const handleCellWidthChange = React.useCallback(
-    (column, width) => {
-      columnsWidth.set(column, width);
-      forceUpdate({});
-    },
-    [columnsWidth]
-  );
-
-  const columns: any = useColumns<Data>({
-    columns: props.columns,
-    children: props.children,
-    expandation,
-    selection,
-    prefix,
-  });
-
-  const hooks = getHooks(props);
-
-  const instance = useTable(
-    {
-      data: datasets,
-      columns,
-      initialState: {
-        pageIndex: pageInfo?.current,
-        pageSize: pageInfo?.pageSize,
-        sortBy: sortBy ? [{ id: sortBy, desc: sortType === 'desc' }] : [],
-        hiddenColumns: columns.filter(column => column.colSpan === 0),
-      },
-      disableMultiSort: true,
-      manualSortBy: true,
-      getRowId: (row: any, relativeIndex) => `${row.id || relativeIndex}`,
-      expandSubRows: !expandation?.expandRender,
-      useControlledState: state =>
-        React.useMemo(() => {
-          const selectedRowIds: Record<string, boolean> = {};
-          selection?.selectedRowKeys.forEach(item => {
-            selectedRowIds[item] = true;
-          });
-          return {
-            ...state,
-            pageIndex: pageInfo?.current,
-            pageSize: pageInfo?.pageSize,
-            selectedRowIds,
-          };
-        }, [state]),
-    },
-    ...hooks
-  );
+  const instance = useGrid(props, tableRef);
 
   const {
     rows,
@@ -104,132 +44,146 @@ export function Grid<Data = any>(props: IGridProps) {
     getTableProps,
     getTableBodyProps,
     setPageSize,
+    gotoPage,
     visibleColumns,
-    state: { pageSize, pageIndex, sortBy: innerSortBy },
-  } = instance as any;
+    toggleAllRowsSelected,
+    headerGroups,
+    state: { pageSize, pageIndex, selectedRowIds },
+    selectedFlatRows,
+    tableContainerProps,
+  } = instance;
+
+  const currentPage = React.useMemo(() => {
+    return pageIndex + 1;
+  }, [pageIndex]);
 
   const handleOnChange = React.useCallback(
     (gridChangeConf: IGridOnChangeConfig) => {
       const {
         pageSize: currentPageSize = pageSize,
-        current = pageIndex,
+        current = currentPage,
+        sortType,
+        sortBy,
       } = gridChangeConf;
-      if (pageSize !== currentPageSize) {
+      if (currentPageSize && pageSize !== currentPageSize) {
         setPageSize(currentPageSize);
       }
 
-      onChange &&
-        onChange({
-          ...gridChangeConf,
+      if (current && currentPage !== current) {
+        gotoPage(current - 1);
+      }
+
+      if (onChange) {
+        const config: IGridOnChangeConfig = {
           current,
           pageSize,
-        });
+        };
+
+        sortBy && (config.sortBy = sortBy);
+        sortType && (config.sortType = sortType);
+
+        onChange(config);
+      }
     },
-    [onChange, setPageSize, pageSize, pageIndex]
+    [pageSize, currentPage, onChange, setPageSize, gotoPage]
   );
 
-  React.useEffect(() => {
-    if (!mounted.current) {
-      mounted.current = true;
-    } else {
-      const [sortByConfig] = innerSortBy;
-      let innerSortType: GridSortType = '';
-      let tmpSortBy = '';
-      const { id, desc } = sortByConfig || {};
-      if (id) {
-        tmpSortBy = id;
-        innerSortType = desc ? 'desc' : 'asc';
-      }
-      handleOnChange({ sortBy: tmpSortBy, sortType: innerSortType });
-    }
-  }, [innerSortBy, handleOnChange]);
+  const handleOnSortTypeClick = React.useCallback(
+    sortChangeConfig => {
+      handleOnChange({
+        ...sortChangeConfig,
+      });
+    },
+    [handleOnChange]
+  );
 
-  const onScroll = React.useCallback(() => {
-    const node = tableRef.current;
-    const isScrollToLeft = node.scrollLeft === 0;
-    const isScrollToRight =
-      node.scrollLeft + 1 >=
-      node.children[0].getBoundingClientRect().width -
-        node.getBoundingClientRect().width;
-    setScrolledLeft(isScrollToLeft);
-    setScrolledRight(isScrollToRight);
-  }, []);
+  const selectedRows = React.useMemo(() => {
+    return selectedFlatRows?.map(item => item.original);
+  }, [selectedFlatRows]);
 
-  const gridStyle = React.useMemo(() => {
-    if (scroll && scroll.x) {
-      return {
-        width: `${scroll.x}px`,
+  const getBatchRender = React.useCallback(
+    (position: string) => {
+      const handleOnSelect = (type: string) => {
+        if (type === 'selectAll') {
+          toggleAllRowsSelected(true);
+        } else {
+          toggleAllRowsSelected(false);
+        }
+        const selectedRowKeys = Object.keys(selectedRowIds);
+        selection.onSelect(selectedRowKeys, selectedRows, selectedRows);
       };
-    }
-    return {};
-  }, [scroll]);
+      return (
+        batchRender && (
+          <>
+            <BatchComponents
+              selection={selection}
+              batchRender={batchRender}
+              position={position}
+              datasets={datasets}
+              rowKey={rowKey}
+              onSelect={handleOnSelect}
+              selectedRows={selectedRows}
+            />
+          </>
+        )
+      );
+    },
+    [
+      batchRender,
+      datasets,
+      rowKey,
+      selectedRowIds,
+      selectedRows,
+      selection,
+      toggleAllRowsSelected,
+    ]
+  );
 
-  const hasAnyColumnFixed = React.useMemo(() => {
-    return columns.some(column => column.fixed);
-  }, [columns]);
-
-  const cls = React.useMemo(() => {
-    return classnames(`${prefix}-grid`, {
-      [`${prefix}-grid-fixed`]: hasAnyColumnFixed,
-      [`${prefix}-grid-scroll-position-left`]: isScrolledToLeft,
-      [`${prefix}-grid-scroll-position-right`]: isScrolledToRight,
-      [`${prefix}-grid-scroll-position-both`]:
-        !isScrolledToLeft && !isScrolledToRight,
+  const headerClx = React.useMemo(() => {
+    return classnames(`${clsPrefix}-thead`, {
+      [`${clsPrefix}-thead-fixed`]: autoStick,
     });
-  }, [isScrolledToLeft, isScrolledToRight, hasAnyColumnFixed]);
+  }, [autoStick]);
 
-  const { headerGroups } = useHeaderGroups(columns, instance.flatHeaders);
+  const tableCls = React.useMemo(() => {
+    return classnames(`${clsPrefix}-table`, {
+      [`${clsPrefix}-table-ellipsis`]: ellipsis,
+    });
+  }, [ellipsis]);
 
   return (
-    <div className={cls}>
-      <div className={`${prefix}-grid-container`} ref={tableRef}>
-        <table
-          className={classnames(`${prefix}-grid-table`, {
-            [`${prefix}-grid-table-ellipsis`]: ellipsis,
-          })}
-          {...getTableProps()}
-          style={gridStyle}
-        >
-          <ColGroup columns={visibleColumns} originColumns={columns} />
-          <thead className={`${prefix}-grid-thead`}>
+    <div {...tableContainerProps}>
+      <div className={`${clsPrefix}-container`} ref={tableRef}>
+        <table className={tableCls} {...getTableProps()}>
+          <ColGroup
+            columns={(visibleColumns as unknown) as BaseGridInnerColumnsType[]}
+          />
+          <thead className={headerClx}>
             {headerGroups.map((headerGroup, rowIndex) => {
               return (
                 <Tr
                   rowClassName={rowClassName}
                   key={rowIndex}
-                  prefix={prefix}
                   record={headerGroup}
                   rowIndex={rowIndex}
                 >
-                  {headerGroup.map((header, idx) => {
-                    const {
-                      colSpan,
-                      rowSpan,
-                      key,
-                      column,
-                      header: instanceHeader,
-                    } = header;
-                    let position: IGridFixedPosition = {};
-                    if (column && column.fixed) {
-                      position = getFixedPosition(columns, columnsWidth, idx);
-                    }
-                    const headerProps = instanceHeader.getHeaderProps(
-                      instanceHeader.getSortByToggleProps()
-                    );
-                    const { onClick } = headerProps;
+                  {headerGroup.headers.map((header, idx: number) => {
+                    const headerProps = header.getHeaderProps({
+                      sortBy,
+                      sortType,
+                      handleOnSortTypeClick,
+                    });
+
                     return (
                       <Td
+                        {...headerProps}
                         type="th"
-                        prefix={prefix}
-                        position={position}
-                        column={column}
+                        column={header}
                         sortType={sortType}
-                        onClick={onClick}
-                        rowSpan={rowSpan}
-                        key={key}
-                        colSpan={colSpan}
+                        sortBy={sortBy}
+                        key={idx}
                       >
-                        {instanceHeader.render('Header')}
+                        {header.render('Header')}
                       </Td>
                     );
                   })}
@@ -238,39 +192,30 @@ export function Grid<Data = any>(props: IGridProps) {
             })}
           </thead>
           <tbody {...getTableBodyProps()}>
-            <MeasureCell
-              columns={visibleColumns}
-              onColumnsWidthChange={handleCellWidthChange}
-            />
             {rows.map((row, rowIndex) => {
+              console.log(rows);
               prepareRow(row);
               return (
                 <React.Fragment key={row.original[rowKey] || rowIndex}>
                   <Tr
-                    prefix={prefix}
                     key={row.original[rowKey] || rowIndex}
                     rowClassName={rowClassName}
                     record={row}
                     rowIndex={rowIndex}
                     onRowClick={onRowClick}
+                    {...row.getRowProps()}
                   >
-                    {row.cells.map((cell, idx) => {
-                      const column = visibleColumns[idx];
-                      let position: IGridFixedPosition = {};
-                      if (column && column.fixed) {
-                        position = getFixedPosition(
-                          visibleColumns,
-                          columnsWidth,
-                          idx
-                        );
-                      }
+                    {row.cells.map((cell: UseTableCellProps<Column>, idx) => {
+                      const column = (visibleColumns[
+                        idx
+                      ] as unknown) as BaseGridInnerColumnsType;
                       const { rowSpan } = column;
+                      const cellProps = cell.getCellProps();
                       return (
                         <Td
-                          prefix={prefix}
+                          {...cellProps}
                           type="td"
                           key={`td-${cell.id}-${idx}`}
-                          position={position}
                           column={column}
                           rowSpan={rowSpan}
                         >
@@ -279,16 +224,9 @@ export function Grid<Data = any>(props: IGridProps) {
                       );
                     })}
                   </Tr>
-                  {row.isExpanded && expandation?.expandRender ? (
-                    <tr className={`${prefix}-grid-tr__expanded`}>
-                      <td
-                        className={`${prefix}-grid-td-expand`}
-                        colSpan={columns.length}
-                      >
-                        {expandation?.expandRender(row.original)}
-                      </td>
-                    </tr>
-                  ) : null}
+                  {/* {row.isExpanded && expandation?.expandRender
+                    ? expandation?.expandRender(row.original)
+                    : null} */}
                 </React.Fragment>
               );
             })}
@@ -296,16 +234,15 @@ export function Grid<Data = any>(props: IGridProps) {
         </table>
       </div>
       <Footer
-        prefix={prefix}
-        batchRender={batchRender}
+        batchRender={() => getBatchRender('foot')}
         pageInfo={pageInfo}
         onChange={handleOnChange}
         paginationType={paginationType}
       />
-      <WindowScrollHandler onScroll={onScroll} options={{ capture: true }} />
+      <WindowScrollHandler
+        onScroll={instance?.getScrollProps()?.onScroll}
+        options={{ capture: true }}
+      />
     </div>
   );
 }
-
-Grid.Column = Column;
-Grid.ColumnGroup = ColumnGroup;

@@ -1,28 +1,22 @@
 import * as React from 'react';
 import Pagination from '../../pagination';
-import { defaultPageInfo } from '../constants';
+// import BatchOperator from './BatchOperator';
+import { defaultPageInfo, clsPrefix } from '../constants';
 import {
   IGridPageInfo,
   GridPaginationType,
-  IGridBatchRender,
-  IGridOnChangeConfig,
   IGridChangeHandler,
 } from '../types';
 
 interface IGridFooterProps {
-  prefix: string;
   pageInfo: IGridPageInfo;
   paginationType: GridPaginationType;
-  batchRender: IGridBatchRender;
+  batchRender?: () => React.ReactNode;
   onChange: IGridChangeHandler;
 }
 
 function Footer(props: IGridFooterProps) {
-  const { prefix, pageInfo } = props;
-
-  const onChange = (conf: IGridOnChangeConfig) => {
-    props.onChange(conf);
-  };
+  const { pageInfo, onChange, batchRender } = props;
 
   const currentPageInfo = React.useMemo(() => {
     const hasPagination = pageInfo && Object.keys(pageInfo).length > 0;
@@ -36,9 +30,10 @@ function Footer(props: IGridFooterProps) {
   }, [pageInfo]);
 
   return (
-    <div className={`${prefix}-grid-tfoot`}>
+    <div className={`${clsPrefix}-tfoot`}>
+      {batchRender && batchRender()}
       {currentPageInfo && (
-        <div className={`${prefix}-grid-page`}>
+        <div className={`${clsPrefix}-page`}>
           <Pagination {...currentPageInfo} onChange={onChange} />
         </div>
       )}

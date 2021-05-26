@@ -1,4 +1,4 @@
----
+<!-- ---
 order: 2
 zh-CN:
 	title: jsx 风格
@@ -15,9 +15,7 @@ en-US:
 ---
 
 ```jsx
-import { Grid } from 'zent';
-
-const { Column } = Grid;
+import { Grid, Column } from 'zent';
 
 const columns = [
 	{
@@ -55,4 +53,4 @@ ReactDOM.render(
 	, mountNode
 );
 
-```
+``` -->

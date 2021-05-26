@@ -1,17 +1,20 @@
 import * as React from 'react';
-import { IGridColumn } from './types';
+import { BaseGridInnerColumnsType } from './types';
 
 export interface IGridColGroupProps<Data> {
-  columns: Array<IGridColumn<Data>>;
-  originColumns: Array<IGridColumn<Data>>;
+  columns: Array<BaseGridInnerColumnsType>;
 }
 
-function ColGroup<Data>({ columns, originColumns }: IGridColGroupProps<Data>) {
-  const cols = columns.map((column, index) => {
-    const width =
-      typeof column.width === 'number' ? `${column.width}px` : column.width;
-    return <col key={column.key || index} style={{ width, minWidth: width }} />;
-  });
+function ColGroup<Data>({ columns }: IGridColGroupProps<Data>) {
+  const cols = React.useMemo(() => {
+    return columns.map((column, index) => {
+      const width =
+        typeof column.width === 'number' ? `${column.width}px` : column.width;
+      return (
+        <col key={column.key || index} style={{ width, minWidth: width }} />
+      );
+    });
+  }, [columns]);
 
   return <colgroup>{cols}</colgroup>;
 }
