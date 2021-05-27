@@ -310,6 +310,7 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 - `Form.array` 参数是一个其他函数返回的 `Builder` 对象，`array` 返回的 `Builder` 对象上有 `defaultValue` 用于设置这个 array 中的表单项的默认值，[查看函数定义](../../apidoc/globals.html#array)
 
 <!-- demo-slot-9 -->
+<!-- demo-slot-22 -->
 
 ### 表单值的格式化
 

@@ -36,6 +36,17 @@ export class FieldArrayBuilder<
       or(defaultValue, () => this._defaultValue)
     );
     model.validators = this._validators;
+
+    // Remove readonly modifier temporarily
+    (model.builder as FieldArrayBuilder<ChildBuilder>) = this;
+
     return model;
+  }
+
+  /**
+   * 返回数组 child 的 builder 对象。
+   */
+  unwrap() {
+    return this.childBuilder;
   }
 }

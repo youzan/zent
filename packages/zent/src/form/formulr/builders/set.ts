@@ -1,5 +1,6 @@
 import { BasicBuilder, $GetBuilderModel } from './basic';
-import { FieldSetModel, $FieldSetValue } from '../models';
+import type { $FieldSetValue, BasicModel } from '../models';
+import { FieldSetModel } from '../models';
 import { Maybe, Some, None, or } from '../maybe';
 import {
   UnknownFieldSetModelChildren,
@@ -22,7 +23,7 @@ export class FieldSetBuilder<
   $FieldSetValue<$FieldSetBuilderChildren<ChildBuilders>>,
   FieldSetModel<$FieldSetBuilderChildren<ChildBuilders>>
 > {
-  constructor(private readonly _childBuilders: ChildBuilders) {
+  constructor(protected readonly _childBuilders: ChildBuilders) {
     super();
   }
 
@@ -44,6 +45,17 @@ export class FieldSetBuilder<
       children as $FieldSetBuilderChildren<ChildBuilders>
     );
     model.validators = this._validators;
+
+    // Remove readonly modifier temporarily
+    (model.builder as FieldSetBuilder<UnknownFieldSetBuilderChildren>) = this;
+
     return model;
+  }
+
+  /**
+   * 获取名为 `name` 的 child builder 对象。
+   */
+  get<T extends keyof ChildBuilders>(name: T): ChildBuilders[T] {
+    return this._childBuilders[name] as any;
   }
 }
