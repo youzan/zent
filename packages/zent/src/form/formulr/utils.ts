@@ -13,7 +13,7 @@ export const id = <T>(it: T) => it;
 export function useDestroyOnUnmount<Model extends BasicModel<any>>(
   field: string | BasicModel<any> | ModelRef<any, any, Model>,
   model: BasicModel<any>,
-  parent: FieldSetModel
+  parent: FieldSetModel | undefined
 ) {
   useEffect(
     () => () => {

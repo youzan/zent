@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import { merge, asapScheduler, Observable, of, BehaviorSubject } from 'rxjs';
-import { observeOn, filter, switchMap } from 'rxjs/operators';
+import { asapScheduler, Observable, of, BehaviorSubject } from 'rxjs';
+import { observeOn, switchMap } from 'rxjs/operators';
 import noop from '../../../utils/noop';
 import { useFormContext } from '../context';
 import { BasicModel, IModel, isModel, isModelRef } from '../models';
 import { $MergeProps } from '../utils';
+import { getFieldSetChildChangeObservable } from './utils';
 
 export interface IFieldListenerCommonProps<T> {
   /**
@@ -43,6 +44,7 @@ export type IFieldValidProps<T> =
 
 /**
  * Subscribe the value state of a model
+ * @deprecated Use `useFieldValue`
  * @param model
  */
 export function useModelValue<T>(model: IModel<T>): T | null {
@@ -51,6 +53,7 @@ export function useModelValue<T>(model: IModel<T>): T | null {
 
 /**
  * Subscribe the valid state of a model
+ * @deprecated Use `useFieldValid`
  * @param model
  */
 export function useModelValid<T>(model: IModel<T>): boolean | null {
@@ -115,7 +118,7 @@ function useFieldObservable<T, V>(
   field: IModel<T> | string,
   observable: (model: BasicModel<T>) => BehaviorSubject<V>
 ) {
-  const ctx = useFormContext();
+  const ctx = useFormContext(typeof field !== 'string');
   const [model, setModel] = useState<IModel<T> | null>(() => {
     if (typeof field === 'string') {
       const m = ctx.parent.get(field);
@@ -140,32 +143,22 @@ function useFieldObservable<T, V>(
       );
       return noop;
     }
+
     const m = ctx.parent.get(field);
     if (isModel<T>(m)) {
       setModel(m);
     }
 
-    /**
-     * Because `FieldSetModel.prototype.registerChild` will be
-     * called inside `useMemo`, consume at next micro task queue
-     * to avoid react warning below.
-     *
-     * Cannot update a component from inside the function body
-     * of a different component.
-     */
-    const $ = merge(ctx.parent.childRegister$, ctx.parent.childRemove$)
-      .pipe(
-        observeOn(asapScheduler),
-        filter(change => change === field)
-      )
-      .subscribe(name => {
+    const $ = getFieldSetChildChangeObservable(ctx.parent, field).subscribe(
+      name => {
         const candidate = ctx.parent.get(name);
         if (isModel<T>(candidate)) {
           setModel(candidate);
         }
-      });
+      }
+    );
     return () => $.unsubscribe();
-  }, [field, ctx, ctx.parent]);
+  }, [field, ctx, ctx?.parent]);
 
   return useModelObservable(model, observable);
 }

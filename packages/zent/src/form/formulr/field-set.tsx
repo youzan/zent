@@ -13,7 +13,10 @@ import { useValue$ } from './hooks';
 import { IValidators } from './validate';
 import { useDestroyOnUnmount, UnknownFieldSetModelChildren } from './utils';
 import { get, isSome, or } from './maybe';
-import { UnexpectedFormStrategyError } from './error';
+import {
+  createModelNotFoundError,
+  createUnexpectedModelTypeError,
+} from './error';
 import isPlainObject from '../../utils/isPlainObject';
 
 export type IUseFieldSet<T extends UnknownFieldSetModelChildren> = [
@@ -32,24 +35,31 @@ function useFieldSetModel<T extends UnknownFieldSetModelChildren>(
   const model = useMemo(() => {
     let model: FieldSetModel<T>;
     if (typeof field === 'string') {
-      if (strategy !== FormStrategy.View) {
-        throw UnexpectedFormStrategyError;
-      }
       const m = parent.get(field);
-      if (!m || !isFieldSetModel<T>(m)) {
-        model = new FieldSetModel({} as T);
-        let v: Partial<$FieldSetValue<T>> = {};
-        const potential = parent.getPatchedValue(field);
-        if (isSome(potential)) {
-          const inner = get(potential);
-          if (isPlainObject(inner)) {
-            v = inner as any;
+      if (strategy === FormStrategy.View) {
+        if (!m || !isFieldSetModel<T>(m)) {
+          model = new FieldSetModel({} as T);
+          let v: Partial<$FieldSetValue<T>> = {};
+          const potential = parent.getPatchedValue(field);
+          if (isSome(potential)) {
+            const inner = get(potential);
+            if (isPlainObject(inner)) {
+              v = inner as any;
+            }
           }
+          model.patchedValue = v;
+          parent.registerChild(field, model as BasicModel<unknown>);
+        } else {
+          model = m;
         }
-        model.patchedValue = v;
-        parent.registerChild(field, model as BasicModel<unknown>);
       } else {
-        model = m;
+        if (!m) {
+          throw createModelNotFoundError(field);
+        } else if (!isFieldSetModel<T>(m)) {
+          throw createUnexpectedModelTypeError(field, 'FieldSetModel', m);
+        } else {
+          model = m;
+        }
       }
     } else if (isModelRef<$FieldSetValue<T>, any, FieldSetModel<T>>(field)) {
       const m = field.getModel();
@@ -74,9 +84,23 @@ function useFieldSetModel<T extends UnknownFieldSetModelChildren>(
 /**
  * 创建一个 `FieldSet`
  *
- * @param field model 或者字段名，当`FormStrategy`是`View`的时候才能用字段名
- * @param validators 当`field`是字段名的时候，可以传入`validator`
+ * @param field 字段名，当`FormStrategy`是`View`的时候才能用字段名
+ * @param validators 校验器
  */
+export function useFieldSet<T extends UnknownFieldSetModelChildren>(
+  field: string | ModelRef<$FieldSetValue<T>, any, FieldSetModel<T>>,
+  validators?: IValidators<$FieldSetValue<T>>
+): IUseFieldSet<T>;
+
+/**
+ * 创建一个 `FieldSet`
+ *
+ * @param field model 对象
+ */
+export function useFieldSet<T extends UnknownFieldSetModelChildren>(
+  field: FieldSetModel<T>
+): IUseFieldSet<T>;
+
 export function useFieldSet<T extends UnknownFieldSetModelChildren>(
   field:
     | string
@@ -86,7 +110,12 @@ export function useFieldSet<T extends UnknownFieldSetModelChildren>(
 ): IUseFieldSet<T> {
   const { parent, strategy, form } = useFormContext();
   const model = useFieldSetModel(field, parent, strategy);
-  if (typeof field === 'string' || isModelRef(field)) {
+
+  // Only update validators in View mode
+  if (
+    strategy === FormStrategy.View &&
+    (typeof field === 'string' || isModelRef(field))
+  ) {
     model.validators = validators;
   }
   const childContext = useMemo(

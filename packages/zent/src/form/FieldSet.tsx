@@ -68,7 +68,8 @@ export function FieldSet<T extends UnknownFieldSetModelChildren>(
   } = props as IFieldSetBaseProps<T>;
   const { name } = props as IFieldSetViewDrivenProps<T>;
   const { model: rawModel } = props as IFieldSetModelDrivenProps<T>;
-  const [ctx, model] = useFieldSet<T>(name || rawModel, validators);
+  // It's safe to use `any`
+  const [ctx, model] = useFieldSet<T>((name ?? rawModel) as any, validators);
   useImperativeHandle(modelRef, () => model, [model]);
   useFormChild(model as BasicModel<unknown>, scrollAnchorRef);
   useValue$(model.error$, model.error$.getValue());
