@@ -78,10 +78,12 @@ function useModelAndChildProps<Value>(
 }
 
 /**
- * 获取一个 `Field`
+ * 获取一个 `Field`。
  *
- * @param field 字段名，当 `FormStrategy` 是 `View` 的时候才能用字段名
- * @param validators 当 `field` 是字段名的时候，可以传入`validator`
+ * `Model` 模式下传入字符串类型的 `field` 时， `validators` 和 `defaultValue` 均无效。
+ *
+ * @param field 字段名
+ * @param validators 校验函数数组
  * @param defaultValue 默认值
  */
 export function useField<Value>(

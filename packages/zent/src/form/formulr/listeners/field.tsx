@@ -43,7 +43,7 @@ export type IFieldValidProps<T> =
   | IFieldValidViewDrivenProps;
 
 /**
- * Subscribe the value state of a model
+ * 订阅 `model` 的值
  * @deprecated Use `useFieldValue`
  * @param model
  */
@@ -52,7 +52,7 @@ export function useModelValue<T>(model: IModel<T>): T | null {
 }
 
 /**
- * Subscribe the valid state of a model
+ * 订阅 `model` 的校验状态
  * @deprecated Use `useFieldValid`
  * @param model
  */
@@ -61,8 +61,8 @@ export function useModelValid<T>(model: IModel<T>): boolean | null {
 }
 
 /**
- * Subscribe the value state of a model.
- * Note that it works in FormContext only.
+ * 订阅 `model` 的值。
+ * 当参数是 `Model` 对象时不依赖 `FormContext`，参数是字段名时必须在有 `FormContext` 的环境下使用。
  * @param field
  */
 export function useFieldValue<T>(field: string | IModel<T>): T | null {
@@ -84,8 +84,9 @@ export function FieldValue<T>(
 }
 
 /**
- * Subscribe the valid state of a model.
- * Note that it works in FormContext only.
+ * 订阅 `model` 的校验状态
+ *
+ * 当参数是 `Model` 对象时不依赖 `FormContext`，参数是字段名时必须在有 `FormContext` 的环境下使用。
  * @param field
  */
 export function useFieldValid<T>(field: string | IModel<T>): boolean | null {
@@ -94,6 +95,8 @@ export function useFieldValid<T>(field: string | IModel<T>): boolean | null {
 
 /**
  * 根据 `name` 或者 `model` 订阅字段校验状态的更新
+ *
+ * 当参数是 `Model` 对象时不依赖 `FormContext`，参数是字段名时必须在有 `FormContext` 的环境下使用。
  */
 export function FieldValid<T>(
   props: IFieldValidProps<T>

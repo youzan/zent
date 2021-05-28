@@ -84,8 +84,10 @@ function useFieldSetModel<T extends UnknownFieldSetModelChildren>(
 /**
  * 创建一个 `FieldSet`
  *
- * @param field 字段名，当`FormStrategy`是`View`的时候才能用字段名
- * @param validators 校验器
+ * `Model` 模式下传入字符串类型的 `field` 时， `validators` 无效。
+ *
+ * @param field 字段名
+ * @param validators 校验函数数组
  */
 export function useFieldSet<T extends UnknownFieldSetModelChildren>(
   field: string | ModelRef<$FieldSetValue<T>, any, FieldSetModel<T>>,

@@ -56,7 +56,7 @@ validator 和 builder 下文会详细说明。
 `FormStrategy` 指明了表单是由视图驱动（View 模式）的还是独立数据驱动（Model 模式），两种模式在使用 API 时也会有差异。
 
 - 当使用 `View` 模式时，表单项组件和 `hooks` 接受一个 `name` 参数而不是一个 model。
-- 当使用 `Model` 时，由于数据层是在表单外构建的，表单组件和 `hooks` 必须直接传入该字段对应的 `model`，而不是 `name`。
+- 当使用 `Model` 时，由于数据层是在表单外构建的，表单组件必须直接传入该字段对应的 `model`，而不是 `name`；但是使用 Form 的 Hooks 时，支持传入字段 `name` 或者 `model`，这种场景相当于是一个只读的订阅行为。
 - 除了上述区别之外，**不同模式下表单组件以及 `hooks` 会有一些参数不同**，具体请查阅 [API 文档](apidoc)。
 
 ### 常用 `Form` API
@@ -105,10 +105,10 @@ validator 和 builder 下文会详细说明。
 
 `Form` 提供以下基础的 hooks，在内置的这些 `Form` 组件无法满足需要时，可以使用这些 hooks 来封装自定义的 `Form` 组件。
 
-- `Form.useForm` 创建一个 `Form` 对象，[查看 API 文档](../../apidoc/globals.html#useform)
-- `Form.useField` 创建一个 `Field`，[查看 API 文档](../../apidoc/globals.html#usefield)
-- `Form.useFieldArray` 创建一个 `FieldArray`，[查看 API 文档](../../apidoc/globals.html#usefieldarray)
-- `Form.useFieldSet` 创建一个 `FieldSet`，[查看 API 文档](../../apidoc/globals.html#usefieldset)
+- `Form.useForm` 获取 `Form` 对象，[查看 API 文档](../../apidoc/globals.html#useform)
+- `Form.useField` 获取 `Field`，[查看 API 文档](../../apidoc/globals.html#usefield)
+- `Form.useFieldArray` 获取 `FieldArray`，[查看 API 文档](../../apidoc/globals.html#usefieldarray)
+- `Form.useFieldSet` 获取 `FieldSet`，[查看 API 文档](../../apidoc/globals.html#usefieldset)
 
 #### 基础使用方法
 
@@ -282,7 +282,7 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 
 - `FieldArrayModel` 上还有一些操作方法： `push`，`pop`，`shift`，`unshift`，`splice`，类似数组上对应的方法，用于操作子元素。对 `FieldArrayModel` 内元素做增删应该使用前面说的这些方法，不应该通过 `patchValue` 来实现增删，因为 `patchValue` 只更新值，会导致内部 model 状态不一致。
 
-- `FieldSet` 组件和 `Form` 一样有两种运行模式，`View` 模式可以通过 `name` 参数指定对应的数据来源；`Model` 模式则通过 `model` 参数显式的设置数据来源。
+- `FieldSet` 组件和 `Form` 一样有两种运行模式，`View` 模式可以通过 `name` 参数指定对应的数据来源；`Model` 模式则通过 `model` 参数或者 `name` 参数显式的设置数据来源。
 
 `FieldSet` 两种模式公用的参数可以在[这里查看](../../apidoc/interfaces/ifieldsetbaseprops.html)。
 
@@ -293,7 +293,6 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 
 `View` 模式额外的参数：
 
-- `name` `FieldSet` 对应的数据字段名
 - `destroyOnUnmount` 是否在组件 `unmount` 的时候清除数据
 - `normalizeBeforeSubmit` 用于表单提交前格式化 `FieldSet` 值的回调函数
 - `validators` `FieldSet` 本身的校验规则列表，注意和内部 Field 的校验规则没有关系。执行的时候会按数组顺序逐个调用，直到所有都通过或者在第一个失败的地方停止
@@ -324,7 +323,7 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 
 - `Field` 组件对应 `FieldValue`，`View` 模式下指定一个 `name`；`Model` 模式下指定一个 `model`
 - `FieldSet` 组件对应 `FieldSetValue`，只有一个 `name` 参数；如果是 `Model` 模式下已经拿到对应的 model 对象了，那么直接将 `model.get(xxx)` 传给 `FieldValue` 组件即可
-- `Form.useFieldArray` 对应 `useFieldArrayValue`，`View` 模式下指定一个 `name`；`Model` 模式下指定一个 `model`。注意，它只会监听 `children` 的增、删行为，不会监听 `children` 内部的变动
+- `Form.useFieldArray` 对应 `useFieldArrayValue`，`View` 模式下指定一个 `name`；`Model` 模式下指定一个 `model` 或者 `name`。注意，它只会监听 `children` 的增、删行为，不会监听 `children` 内部的变动
 - `Form.useFieldValue` 提供了一种 hooks 的风格来获取表单值（包括 FieldSet、FieldArray、Field），它可以深度监听表单值
 - `Form.useFormValue` 提供了一种 hooks 的风格来获取整个表单的值，它可以深度监听表单值
 
@@ -335,7 +334,8 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 
 ### 通过 Model 订阅数据
 
-由于 `useFieldValue` 依赖了 `FormContext` ，因此在表单外部监听数据变更无法通过它来实现。此时可以使用 `useModelValue` 来对 model 进行订阅，类似的 Hook 还有 `useModelValid`，它们的内部实现不依赖 `FormContext` ，可以在任意组件内监听任意字段的数据变更（只需要获取到字段的 model 引用）。
+`useFieldValue` 传入 Model 类型参数时不依赖 `FormContext`，因此也可以在表单外部监听数据变更。
+`useModelValue` 和 `useModelValid` 已经废弃，不推荐使用，它们的使用场景就是在表单外部通过 Model 对象订阅数据变化。
 
 <!-- demo-slot-21 -->
 
