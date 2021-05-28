@@ -9,6 +9,14 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 9.6.0(2021-05-28)
+
+- ✨ Add `threshold` to `InfiniteScroller` to control the distance before the end of the items that will trigger a call to `loadMore`
+- ✨ Support controlled mode for menu selection and expansion in `inline` `Menu`
+- ✨ Support inline `style` in `Checkbox`
+- 🦀️ Fix trigger and popup widths not in sync when `width` is not a number and `popupWidth` is not set in `Select`
+- 📚 Update `Collapse` typings and docs
+
 ### 9.5.0(2021-05-07)
 
 - ✨ Support non `window` container in `Affix`
