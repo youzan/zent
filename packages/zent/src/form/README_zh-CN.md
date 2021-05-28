@@ -310,6 +310,24 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 - `Form.array` 参数是一个其他函数返回的 `Builder` 对象，`array` 返回的 `Builder` 对象上有 `defaultValue` 用于设置这个 array 中的表单项的默认值，[查看函数定义](../../apidoc/globals.html#array)
 
 <!-- demo-slot-9 -->
+
+### Model 模式动态增加/删除表单项
+
+有些联动的场景需要在表单项变化的时候动态删除或者增加表单项，我们提供了一组 API 来支持这类使用场景。
+
+首先，每个 model 上都有一个 `builder` 的属性，通过这个属性能够获取到这个 model 对应的 builder 对象，通过 `builder.build()` 方法就可以可以生成一个行为一样的 model 对象。注意，`builder` 对象仅在通过上述 `Builder` API 生成的 model，`View` 模式下的 model 上这个属性永远是空的。
+
+除此之外，`FieldSetModel` 以及 `FormModel` 上提供了两个方法用来完成子 model 的删除和增加：
+- `removeChild<T extends keyof Children>(name: T): Children[T] | null`
+- `registerChild(name: string, model: BasicModel): void`
+
+`FieldArrayModel` 的 `push`, `unshift` 以及 `splice` 方法也支持直接传入 model。
+
+最后，由于 `FieldSetModel` 和 `FormModel` 子 model 的增删需要触发组件重绘，因此提供了一个额外的 hook 来处理：
+- `Form.useNamedChildModel(parent: FieldSetModel, name: string): BasicModel`，注意 `FormModel` 是 `FieldSetModel` 的子类，所以也适用于这个方法。这个 hook 不监听子 model 内部状态的变化，如有需要，需使用 `useNamedChildModel` 返回 model 对象自行调用 `useField` 等 hook 来实现。
+
+通过结合上述这些能力，就可以完成 `Model` 模式下表单项的动态增删了。
+
 <!-- demo-slot-22 -->
 
 ### 表单值的格式化

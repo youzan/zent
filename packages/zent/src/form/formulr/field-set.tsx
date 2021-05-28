@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { IFormContext, useFormContext } from './context';
 import {
   $FieldSetValue,
@@ -15,6 +15,8 @@ import { useDestroyOnUnmount, UnknownFieldSetModelChildren } from './utils';
 import { get, isSome, or } from './maybe';
 import { UnexpectedFormStrategyError } from './error';
 import isPlainObject from '../../utils/isPlainObject';
+import { asapScheduler, merge } from 'rxjs';
+import { filter, observeOn } from 'rxjs/operators';
 
 export type IUseFieldSet<T extends UnknownFieldSetModelChildren> = [
   IFormContext,
@@ -104,4 +106,32 @@ export function useFieldSet<T extends UnknownFieldSetModelChildren>(
   useValue$(model.error$, model.error$.getValue());
   useDestroyOnUnmount(field, model, parent);
   return [childContext, model];
+}
+
+/**
+ * 订阅名为 `name` 的子 model 变更。
+ * 变更包括增加/删除该子 model，但不包括子 model 内部数据的变化。
+ * @param fieldSet 订阅 child 的 `FieldSetModel`
+ * @param name child 的名字
+ */
+export function useNamedChildModel<
+  T extends UnknownFieldSetModelChildren,
+  K extends keyof T = keyof T
+>(fieldSet: FieldSetModel<T>, name: K) {
+  const [child, setChild] = useState(fieldSet.get(name));
+
+  useEffect(() => {
+    // FIXME: reuse after #1707 merges
+    const $ = merge(fieldSet.childRegister$, fieldSet.childRemove$)
+      .pipe(
+        observeOn(asapScheduler),
+        filter(k => k === name)
+      )
+      .subscribe(n => {
+        setChild(fieldSet.get(n as K));
+      });
+    return () => $.unsubscribe();
+  }, [fieldSet, name]);
+
+  return child;
 }
