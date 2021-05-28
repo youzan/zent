@@ -1,5 +1,5 @@
 import { BasicBuilder, $GetBuilderModel } from './basic';
-import type { $FieldSetValue, BasicModel } from '../models';
+import type { $FieldSetValue } from '../models';
 import { FieldSetModel } from '../models';
 import { Maybe, Some, None, or } from '../maybe';
 import {
