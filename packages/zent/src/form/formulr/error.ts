@@ -18,6 +18,14 @@ export class FormulrError extends Error {
   }
 }
 
+export const FormContextNotFoundError = new FormulrError(
+  'FormContext not found',
+  [
+    'Using form hooks outside the form context',
+    "There's a copy of formulr in your project, run `yarn list formulr` to check",
+  ]
+);
+
 export const createUnexpectedModelTypeError = (
   name: string,
   expectedType: string,
