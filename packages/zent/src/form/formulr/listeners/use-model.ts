@@ -1,7 +1,7 @@
 import { useMemo, useState, useEffect } from 'react';
 import noop from '../../../utils/noop';
 import { IFormContext } from '../context';
-import { getFieldSetChildChangeObservable } from './utils';
+import { getFieldSetChildChangeObservable } from './set';
 
 // `ctx` 仅在 `name` 存在时才需要
 export function useModelFromContext<Model>(

@@ -18,8 +18,7 @@ import {
   createUnexpectedModelTypeError,
 } from './error';
 import isPlainObject from '../../utils/isPlainObject';
-import { asapScheduler, merge } from 'rxjs';
-import { filter, observeOn } from 'rxjs/operators';
+import { getFieldSetChildChangeObservable } from './listeners/set';
 
 export type IUseFieldSet<T extends UnknownFieldSetModelChildren> = [
   IFormContext,
@@ -152,15 +151,12 @@ export function useNamedChildModel<
   const [child, setChild] = useState(fieldSet.get(name));
 
   useEffect(() => {
-    // FIXME: reuse after #1707 merges
-    const $ = merge(fieldSet.childRegister$, fieldSet.childRemove$)
-      .pipe(
-        observeOn(asapScheduler),
-        filter(k => k === name)
-      )
-      .subscribe(n => {
-        setChild(fieldSet.get(n as K));
-      });
+    const $ = getFieldSetChildChangeObservable(
+      fieldSet,
+      name as string
+    ).subscribe(n => {
+      setChild(fieldSet.get(n as K));
+    });
     return () => $.unsubscribe();
   }, [fieldSet, name]);
 
