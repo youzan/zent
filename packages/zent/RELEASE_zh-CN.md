@@ -9,6 +9,14 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 9.6.0(2021-05-28)
+
+- ✨ `InfiniteScroller` 增加 `threshold` 参数，用以控制触发 `loadMore` 时距离列表底部的距离
+- ✨ `Menu` `inline` 模式支持受控的菜单展开和选中
+- ✨ `Checkbox` 支持 `style` 内联样式
+- 🦀️ 修复 `Select` 中 `width` 为非数字并且没有设置 `popupWidth` 时，弹层和输入框宽度不一致的问题
+- 📚 更新 `Collapse` 的类型定义和文档描述
+
 ### 9.5.0(2021-05-07)
 
 - ✨ `Affix` 支持相对非 `window` 节点定位

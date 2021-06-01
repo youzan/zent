@@ -119,6 +119,7 @@ export function Checkbox<Value>(props: ICheckboxProps<Value>) {
         'zent-checkbox-indeterminate': indeterminate,
       })}
       style={{
+        ...style,
         ...getWidth(width),
       }}
       onMouseEnter={onMouseEnter}

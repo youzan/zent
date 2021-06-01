@@ -18,10 +18,11 @@ group: 展示
 | 参数            | 说明                                                                    | 类型                                                              | 默认值         | 备选值  |
 | --------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------- | -------------- | ------- |
 | hasMore         | 是否还有更多数据待加载                                                  | `boolean`                                                         | `true`         | `false` |
-| loadMore        | 加载更多的回调函数，如果函数接收参数则会传入一个停止 loading 效果的回调 | `(() => Promise<unknown>) | ((stopLoading?: () => void) => void)` |                |         |
+| loadMore        | 加载更多的回调函数，如果函数接收参数则会传入一个停止 loading 效果的回调 | `(() => Promise<unknown>) \| ((stopLoading?: () => void) => void)` |                |         |
 | skipLoadOnMount | 初始化时是否触发一次数据加载                                            | `boolean`                                                         | `false`        | `true`  |
 | useWindow       | 是否使用 `window` 作为滚动容器                                          | `boolean`                                                         | `false`        | `true`  |
 | loader          | 加载时显示的内容                                                        | `ReactNode`                                                       | `BlockLoading` |         |
+| threshold | 触发 `loadMore` 时距离列表末尾的距离 | `number` | `0` |   |
 | className       | 自定义额外类名                                                          | `string`                                                          |                |         |
 
 ### loadMore

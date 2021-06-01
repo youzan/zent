@@ -13,7 +13,10 @@ import { useDestroyOnUnmount } from './utils';
 import { isSome, get } from './maybe';
 import { IValidators } from './validate';
 import { IModel } from './models/base';
-import { UnexpectedFormStrategyError } from './error';
+import {
+  createModelNotFoundError,
+  createUnexpectedModelTypeError,
+} from './error';
 
 export type IUseFieldArray<Item, Child extends IModel<Item>> = [
   Child[],
@@ -32,23 +35,30 @@ function useArrayModel<Item, Child extends IModel<Item>>(
   const model = useMemo(() => {
     let model: FieldArrayModel<Item, Child>;
     if (typeof field === 'string') {
-      if (strategy !== FormStrategy.View) {
-        throw UnexpectedFormStrategyError;
-      }
       const m = parent.get(field);
-      if (!m || !isFieldArrayModel<Item, Child>(m)) {
-        const potential = parent.getPatchedValue(field);
-        let v = defaultValue;
-        if (isSome(potential)) {
-          const inner = get(potential);
-          if (Array.isArray(inner)) {
-            v = inner;
+      if (strategy === FormStrategy.View) {
+        if (!m || !isFieldArrayModel<Item, Child>(m)) {
+          const potential = parent.getPatchedValue(field);
+          let v = defaultValue;
+          if (isSome(potential)) {
+            const inner = get(potential);
+            if (Array.isArray(inner)) {
+              v = inner;
+            }
           }
+          model = new FieldArrayModel<Item, Child>(null, v);
+          parent.registerChild(field, model);
+        } else {
+          model = m;
         }
-        model = new FieldArrayModel<Item, Child>(null, v);
-        parent.registerChild(field, model);
       } else {
-        model = m;
+        if (!m) {
+          throw createModelNotFoundError(field);
+        } else if (!isFieldArrayModel<Item, Child>(m)) {
+          throw createUnexpectedModelTypeError(field, 'FieldArrayModel', m);
+        } else {
+          model = m;
+        }
       }
     } else if (
       isModelRef<ReadonlyArray<Item>, any, FieldArrayModel<Item, Child>>(field)
@@ -84,8 +94,10 @@ function useArrayModel<Item, Child extends IModel<Item>>(
 /**
  * 创建一个 `FieldArray`
  *
- * @param field 字段名，当 `FormStrategy` 是 `View` 的时候才能用字段名
- * @param validators 当 `field` 是字段名的时候，可以传入 `validator`
+ * `Model` 模式下传入字符串类型的 `field` 时， `validators` 和 `defaultValue` 均无效。
+ *
+ * @param field 字段名
+ * @param validators 校验函数数组
  * @param defaultValue 默认值
  */
 export function useFieldArray<Item, Child extends IModel<Item>>(
@@ -111,11 +123,17 @@ export function useFieldArray<Item, Child extends IModel<Item>>(
   validators: IValidators<readonly Item[]> = [],
   defaultValue: readonly Item[] = []
 ): FieldArrayModel<Item, Child> {
-  const { parent, strategy } = useFormContext();
+  const { parent, strategy } = useFormContext(typeof field !== 'string') ?? {};
   const model = useArrayModel(field, parent, strategy, defaultValue);
-  if (typeof field === 'string' || isModelRef(field)) {
+
+  // Only update validators in View mode
+  if (
+    strategy === FormStrategy.View &&
+    (typeof field === 'string' || isModelRef(field))
+  ) {
     model.validators = validators;
   }
+
   const { error$, children$ } = model;
   /**
    * ignore returned value
