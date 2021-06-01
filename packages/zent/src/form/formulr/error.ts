@@ -1,3 +1,5 @@
+import type { IModel } from './models/base';
+import { typeOfModel } from './models/is';
 import { isArray } from './utils';
 
 export class FormulrError extends Error {
@@ -16,10 +18,31 @@ export class FormulrError extends Error {
   }
 }
 
-export const UnexpectedFormStrategyError = new FormulrError(
-  'Unexpected FormStrategy',
-  'The first argument to form hooks is string in a model-driven form context'
+export const FormContextNotFoundError = new FormulrError(
+  'FormContext not found',
+  [
+    'Using form hooks outside the form context',
+    "There's a copy of formulr in your project, run `yarn list formulr` to check",
+  ]
 );
+
+export const createUnexpectedModelTypeError = (
+  name: string,
+  expectedType: string,
+  model: IModel<unknown>
+) =>
+  new FormulrError(
+    'Model type mismatch',
+    `Model '${name}' is expected to be a '${expectedType}', but got a '${typeOfModel(
+      model
+    )}'.`
+  );
+
+export const createModelNotFoundError = (name: string) =>
+  new FormulrError(
+    'Model not found',
+    `Model '${name}' is not found in this form. Make sure model name is correct.`
+  );
 
 export const createUnexpectedModelError = (it: unknown) =>
   new FormulrError(

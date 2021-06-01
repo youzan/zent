@@ -10,7 +10,7 @@ import { useModelFromContext } from './use-model';
 export function useFieldArrayValue<Item, Child extends IModel<Item>>(
   field: string | FieldArrayModel<Item, Child>
 ): Child[] | null {
-  const ctx = useFormContext();
+  const ctx = useFormContext(typeof field !== 'string');
   const model = useModelFromContext(
     ctx,
     field as string | undefined,

@@ -46,3 +46,31 @@ export function isFormModel<Children extends UnknownFieldSetModelChildren>(
 ): maybeModel is FormModel<Children> {
   return !!(maybeModel && maybeModel[FORM_ID]);
 }
+
+export function typeOfModel(model: any) {
+  if (isFieldModel(model)) {
+    return 'FieldModel';
+  }
+
+  if (isFieldArrayModel(model)) {
+    return 'FieldArrayModel';
+  }
+
+  if (isFieldSetModel(model)) {
+    return 'FieldSetModel';
+  }
+
+  if (isFormModel(model)) {
+    return 'FormModel';
+  }
+
+  if (isModelRef(model)) {
+    return 'ModelRef';
+  }
+
+  if (isModel(model)) {
+    return 'BasicModel';
+  }
+
+  return 'unknown';
+}
