@@ -25,6 +25,7 @@ import {
   useModelValid,
   // eslint-disable-next-line import/no-deprecated
   useModelValue,
+  useNamedChildModel,
 } from './formulr';
 import memorize from '../utils/memorize-one';
 import {
@@ -149,6 +150,7 @@ export class Form<T extends {}> extends Component<IFormProps<T>> {
   static useField = useField;
   static useFieldArray = useFieldArray;
   static useFieldSet = useFieldSet;
+  static useNamedChildModel = useNamedChildModel;
   static field = field;
   static set = set;
   static array = array;

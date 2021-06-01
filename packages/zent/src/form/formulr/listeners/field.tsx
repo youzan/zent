@@ -5,7 +5,7 @@ import noop from '../../../utils/noop';
 import { useFormContext } from '../context';
 import { BasicModel, IModel, isModel, isModelRef } from '../models';
 import { $MergeProps } from '../utils';
-import { getFieldSetChildChangeObservable } from './utils';
+import { getFieldSetChildChangeObservable } from './set';
 
 export interface IFieldListenerCommonProps<T> {
   /**
