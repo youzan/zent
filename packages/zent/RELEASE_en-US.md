@@ -9,6 +9,17 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 9.7.0(2021-06-04)
+
+- ✨ Allow `Field` and `FieldArray` hooks to be used without form context if using `Model` as argument. `FieldSet` hooks always require a form context.
+- ✨ Allow referencing models using names in `Model` mode, it was only possible in `View` mode.
+- ✨ Deprecate `useModelValue` and `useModelValid`, use `useFieldValue` and `useFieldValid` instead.
+- ✨ Add `builder` property to all model objects, only available in `Model` mode
+- ✨ Expose `removeChild` and `registerChild` in `FieldSetModel` and `FormModel`
+- ✨ Overload `push`, `unshift` and `splice` method in `FieldArrayModel` to allow using model objects as arguments
+- ✨ Add `useNamedChildModel` to subscribe child model remove/register actions
+- 📚 Update docs with a new demo showing how to add or remove child models in `Model` mode
+
 ### 9.6.0(2021-05-28)
 
 - ✨ Add `threshold` to `InfiniteScroller` to control the distance before the end of the items that will trigger a call to `loadMore`
