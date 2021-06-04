@@ -25,7 +25,7 @@
 - `FieldSetModel` 和 `FormModel` 上导出两个新方法 `removeChild` 以及 `registerChild` 用于删除/添加子 model
 - 重载 `FieldArrayModel` 上的 `push`, `unshift` 以及 `splice` 方法接受 model 类型的参数，之前仅支持传 model 的值
 - 新增 `useNamedChildModel` hook，用于订阅 `FieldSetModel` 以及 `FormModel` 子 model 的增加/删除行为
-- 增加 `Model` 模式下动态增/删表单项的文档和示例，
+- 增加 `Model` 模式下动态增/删表单项的文档和示例
 
 ### 9.6.0(2021-05-28)
 
