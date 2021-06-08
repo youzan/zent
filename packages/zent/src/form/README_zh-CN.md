@@ -183,6 +183,7 @@ validator 和 builder 下文会详细说明。
 - `label` 表单项的名称
 - `className` 自定义类名
 - `children` 不解释
+- `modelRef` Field 对应 model 的 ref，可以通过这个 `modelRef.current` 直接访问 model 上的方法和属性
 
 `View` 模式还支持[以下参数](../../apidoc/interfaces/iformfieldviewdrivenprops.html)。
 
