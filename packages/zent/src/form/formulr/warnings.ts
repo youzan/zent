@@ -8,8 +8,8 @@ export function warningSubscribeValue(
 ) {
   warningOnce(
     !shouldWarn,
-    `form-subscribe-valid-${tag}`,
-    'Subscribe `valid` of %s might cause performance issues, do it with caution.',
+    `form-subscribe-value-${tag}`,
+    'Subscribe `value` of %s might cause performance issues, do it with caution.',
     tag
   );
 }
@@ -20,8 +20,8 @@ export function warningSubscribeValid(
 ) {
   warningOnce(
     !shouldWarn,
-    `form-subscribe-value-${tag}`,
-    'Subscribe `value` of %s might cause performance issues, do it with caution.',
+    `form-subscribe-valid-${tag}`,
+    'Subscribe `valid` of %s might cause performance issues, do it with caution.',
     tag
   );
 }
