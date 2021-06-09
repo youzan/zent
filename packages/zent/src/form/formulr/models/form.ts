@@ -8,6 +8,7 @@ import type {
 } from '../utils';
 import { FORM_ID } from './is';
 import type { FormBuilder } from '../builders/form';
+import { createSentinelSubject } from './sentinel-subject';
 
 enum FormStrategy {
   /**
@@ -28,6 +29,8 @@ class FormModel<
    * @internal
    */
   [FORM_ID]!: boolean;
+
+  protected readonly _displayName = 'FormModel';
 
   /** @internal */
   private readonly workingValidators = new Set<Observable<unknown>>();
@@ -53,7 +56,6 @@ class FormModel<
       const child = children[name];
       this.registerChild(name, child);
     }
-    this._tag = 'Form';
   }
 
   /**
@@ -85,6 +87,18 @@ class FormModel<
     if (isValidating !== this.isValidating$.getValue()) {
       this.isValidating$.next(isValidating);
     }
+  }
+
+  dispose() {
+    super.dispose();
+
+    this.workingValidators.clear();
+    this.isValidating$.complete();
+
+    (this.isValidating$ as BehaviorSubject<boolean>) = createSentinelSubject(
+      this._displayName,
+      false
+    );
   }
 }
 

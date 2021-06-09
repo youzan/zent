@@ -14,6 +14,7 @@ import omit from '../../../utils/omit';
 import { warningSubscribeValid, warningSubscribeValue } from '../warnings';
 import { isModel, SET_ID } from './is';
 import type { FieldSetBuilder } from '../builders/set';
+import { createSentinelSubject } from './sentinel-subject';
 
 type $FieldSetValue<Children extends UnknownFieldSetModelChildren> = {
   [Key in keyof Children]: Children[Key] extends IModel<infer V> ? V : never;
@@ -27,10 +28,12 @@ class FieldSetModel<
    */
   [SET_ID]!: boolean;
 
+  protected readonly _displayName: string = 'FieldSetModel';
+
   /**
    * @internal
    */
-  _tag: 'FieldSet' | 'Form';
+  // _tag: 'FieldSet' | 'Form';
 
   /**
    * 上层调用 `patchValue` 的时候，子组件可能是没被挂载的状态，这时候需要用 `patchedValue` 存一下值，子组件挂载的时候从这里读
@@ -73,7 +76,6 @@ class FieldSetModel<
       this.registerChild(name, child);
     }
     this.children = children;
-    this._tag = 'FieldSet';
   }
 
   get value() {
@@ -92,7 +94,7 @@ class FieldSetModel<
   }
 
   _getValid$(shouldWarn = false) {
-    warningSubscribeValid(shouldWarn, this._tag);
+    warningSubscribeValid(shouldWarn, this._displayName);
 
     if (!this._valid$) {
       this._initValid$();
@@ -102,7 +104,7 @@ class FieldSetModel<
   }
 
   _getValue$(shouldWarn = false) {
-    warningSubscribeValue(shouldWarn, this._tag);
+    warningSubscribeValue(shouldWarn, this._displayName);
 
     if (!this._value$) {
       this._initValue$();
@@ -217,6 +219,31 @@ class FieldSetModel<
       this._unsubscribeChild(child);
       child.dispose();
     });
+
+    // Close all subjects and setup sentinels to warn use after free errors
+    this._getValue$().complete();
+    this._getValid$().complete();
+    this.childRegister$.complete();
+    this.childRemove$.complete();
+
+    (this._valid$ as BehaviorSubject<boolean>) = createSentinelSubject(
+      this._displayName,
+      false
+    );
+    (this._value$ as BehaviorSubject<
+      $FieldSetValue<Children>
+    >) = createSentinelSubject(
+      this._displayName,
+      {} as $FieldSetValue<Children>
+    );
+    (this.childRegister$ as Subject<string>) = createSentinelSubject(
+      this._displayName,
+      ''
+    );
+    (this.childRemove$ as Subject<string>) = createSentinelSubject(
+      this._displayName,
+      ''
+    );
   }
 
   /**
