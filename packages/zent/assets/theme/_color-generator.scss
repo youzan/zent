@@ -1,27 +1,22 @@
 @import '~sass-color-helpers/stylesheets/color-helpers/hsv-hsl';
 
-$saturationLightStep: 40;
-$saturationDraktStep: 5;
-$brightnessLightStep: 5;
-$brightnessDrakStep: 20;
-$lightColor: 2;
-$drakColor: 2;
+$saturationBaseLightStep: 15;
+$saturationAdditiveLightStep: 6;
+$saturationDarkStep: 0;
+$brightnessLightStep: 10;
+$brightnessDarkStep: 15;
 
-@function getSaturation($h, $s, $v, $level, $light) {
+@function getLightSaturation($h, $s, $v, $level) {
   $saturation: 0;
 
   @if ($h == 0 and $s == 0) {
     @return $s;
   }
-  @if ($light) {
-    $saturation: $s - $saturationLightStep * $level;
-  } @else {
-    $saturation: $s + $saturationDraktStep * $level;
-  }
 
-  @if ($saturation > 100) {
-    $saturation: 100%;
-  }
+  $additiveLightSaturation: $level * $saturationAdditiveLightStep * ($level - 1) /
+    2;
+
+  $saturation: $s - $saturationBaseLightStep * $level - $additiveLightSaturation;
 
   // 修正颜色饱和度不小于10%
   @if ($saturation < 10) {
@@ -31,18 +26,34 @@ $drakColor: 2;
   @return round($saturation);
 }
 
-@function getValue($h, $s, $v, $level, $light) {
+@function getDarkSaturation($h, $s, $v, $level) {
+  $saturation: 0;
+
+  $saturation: $s + $saturationDarkStep * $level;
+
+  @if ($saturation > 100) {
+    $saturation: 100%;
+  }
+
+  @return round($saturation);
+}
+
+@function getLightValue($h, $s, $v, $level) {
   $value: $v;
 
-  @if ($light) {
-    $value: $v + $brightnessLightStep * $level;
-  } @else {
-    $value: $v - $brightnessDrakStep * $level;
-  }
+  $value: $v + $brightnessLightStep * ($level - 1);
 
   @if ($value > 100) {
     $value: 100%;
   }
+
+  @return $value;
+}
+
+@function getDarkValue($h, $s, $v, $level) {
+  $value: $v;
+
+  $value: $v - $brightnessDarkStep * $level;
 
   @if ($value < 0) {
     $value: 0%;
@@ -59,13 +70,13 @@ $drakColor: 2;
   $v: nth($hsv, 3);
 
   $adjustHue: $h;
-  $adjustSaturation: getSaturation($h, $s, $v, $level, true);
-  $adjustLight: getValue($h, $s, $v, $level, true);
+  $adjustSaturation: getLightSaturation($h, $s, $v, $level);
+  $adjustLight: getLightValue($h, $s, $v, $level);
 
   @return ch-hsv-to-color($adjustHue, $adjustSaturation, $adjustLight);
 }
 
-@function generateDrakColor($color, $level: 1) {
+@function generateDarkColor($color, $level: 1) {
   $hsv: ch-color-to-hsv($color);
 
   $h: nth($hsv, 1);
@@ -73,8 +84,8 @@ $drakColor: 2;
   $v: nth($hsv, 3);
 
   $adjustHue: $h;
-  $adjustSaturation: getSaturation($h, $s, $v, $level, false);
-  $adjustLight: getValue($h, $s, $v, $level, false);
+  $adjustSaturation: getDarkSaturation($h, $s, $v, $level);
+  $adjustLight: getDarkValue($h, $s, $v, $level);
 
   @return ch-hsv-to-color($adjustHue, $adjustSaturation, $adjustLight);
 }

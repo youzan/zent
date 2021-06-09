@@ -29,7 +29,7 @@ const compiler = webpack(webpackConfig);
 
 compiler.plugin('done', () => {
   if (onceMark) {
-    cp.exec(`${cmds[process.platform]} http://127.0.0.1:4396`);
+    cp.exec(`${cmds[process.platform]} http://0.0.0.0:4396`);
   }
   onceMark = false;
 });

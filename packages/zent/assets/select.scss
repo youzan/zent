@@ -135,7 +135,6 @@ $option-height: 32px;
   &:hover,
   &.zent-select-v2-active {
     @include theme-color(border-color, primary, 4);
-    @include theme-shadow(focus);
   }
 
   &.zent-select-v2-visible {

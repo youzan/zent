@@ -2,6 +2,8 @@
 @import './variables/text';
 @import './old-default';
 
+$null: 'NULL';
+
 // sass-lint:disable no-duplicate-properties
 
 @function get-value($map, $key) {
@@ -10,29 +12,40 @@
   @if $val {
     @return $val;
   } @else {
-    @error '#{$map} doesnot has #{$key}';
+    @error '#{$key} doesnot exist';
   }
 }
 
-@function get-color-value($type, $key) {
-  $global-color: get-value($global-colors, $type);
+@function get-color-value($type, $key: $null) {
+  @if $key == $null {
+    @return map-get($global-colors, $type);
+  } @else {
+    @return get-value(get-value($colors-map, $type), $key);
+  }
+}
 
-  @if ($global-color) {
-    @return $global-color;
+@function zent-color-var-rgb($type, $desc: $null) {
+  $color: get-color-value($type, $desc);
+
+  $desc-var: $desc;
+
+  @if $desc == $null {
+    $desc-var: 'color';
   }
 
-  @return get-value(get-value($colors-map, $type), $key);
+  @return var(--#{$type}-#{$desc-var}, $color);
 }
 
-@function zent-color-var-rgb($type, $desc) {
+@function zent-color-var-rgba($type, $desc: $null, $opacity: 1) {
   $color: get-color-value($type, $desc);
 
-  @return var(--#{$type}-#{$desc}, $color);
-}
+  $desc-var: $desc;
 
-@function zent-color-var-rgba($type, $desc) {
-  $color: get-color-value($type, $desc);
-  $css-var: var(--rgb-#{$type}-#{$desc} to-rgb($color));
+  @if $desc == $null {
+    $desc-var: 'color';
+  }
+
+  $css-var: var(--rgb-#{$type}-#{$desc-var} to-rgb($color));
 
   // `unquote` is a workaround for node-sass misinterprets rgba as builtin function
   // https://github.com/sass/node-sass/issues/2251
@@ -40,7 +53,7 @@
   @return unquote('rgba(#{$css-var}, #{$opacity})');
 }
 
-@mixin zent-color($prop, $type, $desc, $opacity: 1) {
+@mixin zent-color($prop, $type, $desc: $null, $opacity: 1) {
   $color: get-color-value($type, $desc);
 
   @if $opacity >= 1 {
@@ -187,6 +200,31 @@
   );
 }
 
-@mixin zent-shadow($desc) {
-  @include theme-shadow($desc);
+// Shadow
+$shadow-spec-focus-var: $shadow-size-focus zent-color-var-rgba(box-shadow) !default;
+$shadow-spec-layer-var: $shadow-size-layer zent-color-var-rgba(box-shadow) !default;
+$shadow-spec-modal-var: $shadow-size-modal zent-color-var-rgba(box-shadow) !default;
+
+$theme-shadow: (
+  $focus: $shadow-spec-focus,
+  $layer: $shadow-spec-layer,
+  $modal: $shadow-spec-modal,
+);
+
+$theme-shadow-var: (
+  $focus: $shadow-spec-focus-var,
+  $layer: $shadow-spec-layer-var,
+  $modal: $shadow-spec-modal-var,
+);
+
+@mixin theme-shadow($name) {
+  $shadow: map-get($theme-shadow, $name);
+  $shadow-var: map-get($theme-shadow-var, $name);
+
+  box-shadow: $shadow;
+  box-shadow: var(--shadow-spec-#{$name}, $shadow-var);
+}
+
+@mixin zent-shadow($name) {
+  @include theme-shadow($name);
 }

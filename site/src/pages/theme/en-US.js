@@ -115,7 +115,10 @@ export default function themeCN() {
       <H3>Modify theme color</H3>
       choose color:
       <ColorGenerator />
-      <p>Choose a color with a higher saturation and brightness, please</p>
+      <p>
+        Choose a color with a higher saturation and brightness, please. S &gt;
+        85, B &gt; 80
+      </p>
     </section>
   );
 }

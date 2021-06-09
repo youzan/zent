@@ -1,12 +1,10 @@
 import { rgbToHsv, rgbToHex, inputToRGB } from '@ctrl/tinycolor';
 
-const saturationLightStep = 0.4;
-const saturationDrakStep = 0.05;
-const brightnessLightStep = 0.05;
-const brightnessDrakStep = 0.2;
-const lightColors = 2;
-const darkColors = 2;
-
+const saturationBaseLightStep = 0.15;
+const saturationAdditiveLightStep = 0.06;
+const saturationDarkStep = 0;
+const brightnessLightStep = 0.1;
+const brightnessDarkStep = 0.15;
 interface IHsvObject {
   h: number;
   s: number;
@@ -28,32 +26,56 @@ export function toHex({ r, g, b }: IRgbObject): string {
   return `#${rgbToHex(r, g, b, false)}`;
 }
 
-function getSaturation(hsv: IHsvObject, i: number, light?: boolean): number {
+function getLightSaturation(hsv: IHsvObject, level: number): number {
   if (hsv.h === 0 && hsv.s === 0) {
     return hsv.s;
   }
   let saturation: number;
-  if (light) {
-    saturation = hsv.s - saturationLightStep * i;
-  } else {
-    saturation = hsv.s + saturationDrakStep * i;
+
+  const additiveLightSaturation =
+    (level * saturationAdditiveLightStep * (level - 1)) / 2;
+
+  saturation =
+    hsv.s - saturationBaseLightStep * level - additiveLightSaturation;
+
+  if (saturation < 0.1) {
+    saturation = 0.1;
   }
+
+  return Number(saturation.toFixed(2));
+}
+
+function getDarkSaturation(hsv: IHsvObject, level: number): number {
+  if (hsv.h === 0 && hsv.s === 0) {
+    return hsv.s;
+  }
+  let saturation: number;
+  saturation = hsv.s + saturationDarkStep * level;
+
   if (saturation > 1) {
     saturation = 1;
   }
   return Number(saturation.toFixed(2));
 }
 
-function getValue(hsv: IHsvObject, i: number, light?: boolean): number {
+function getLightValue(hsv: IHsvObject, level: number): number {
   let value: number;
-  if (light) {
-    value = hsv.v + brightnessLightStep * i;
-  } else {
-    value = hsv.v - brightnessDrakStep * i;
-  }
+  value = hsv.v + brightnessLightStep * (level - 1);
+
   if (value > 1) {
     value = 1;
   }
+  return Number(value.toFixed(2));
+}
+
+function getDarkValue(hsv: IHsvObject, level: number): number {
+  let value: number;
+  value = hsv.v - brightnessDarkStep * level;
+
+  if (value < 0.1) {
+    value = 0.1;
+  }
+
   return Number(value.toFixed(2));
 }
 
@@ -61,37 +83,30 @@ export function generate(color: string): string[] {
   const patterns: string[] = [];
   const pColor = inputToRGB(color);
   const hsv = toHsv(pColor);
-  let i = lightColors;
+  const lingterColors = [1, 4];
 
-  while (i) {
-    patterns.push(
+  lingterColors.forEach(item => {
+    patterns.unshift(
       toHex(
         inputToRGB({
           h: hsv.h,
-          s: getSaturation(hsv, i, true),
-          v: getValue(hsv, i, true),
+          s: getLightSaturation(hsv, item),
+          v: getLightValue(hsv, item),
         })
       )
     );
-    i--;
-  }
+  });
 
   patterns.push(toHex(pColor));
 
-  i = 1;
-
-  while (i <= darkColors) {
-    patterns.push(
-      toHex(
-        inputToRGB({
-          h: hsv.h,
-          s: getSaturation(hsv, i),
-          v: getValue(hsv, i),
-        })
-      )
-    );
-    i++;
-  }
-
+  patterns.push(
+    toHex(
+      inputToRGB({
+        h: hsv.h,
+        s: getDarkSaturation(hsv, 1),
+        v: getDarkValue(hsv, 1),
+      })
+    )
+  );
   return patterns;
 }

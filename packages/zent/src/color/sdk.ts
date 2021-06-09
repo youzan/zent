@@ -3,27 +3,26 @@ import { themeRefs } from './theme-ref';
 
 const brandVars = [
   {
-    index: '1',
+    index: 0,
     var: '$primary-100',
+    desc: 'lingter hover color',
   },
   {
-    index: '2',
-    var: '$primary-200',
-  },
-  {
-    index: '3',
-    var: '$primary-300',
-  },
-  {
-    index: '4',
+    index: 1,
     var: '$primary-400',
+    desc: 'primary hover color',
   },
   {
-    index: '5',
+    index: 2,
     var: '$primary-500',
+    desc: 'primary color',
+  },
+  {
+    index: 3,
+    var: '$primary-600',
+    desc: 'primary active color',
   },
 ];
-
 // todo move size out
 const getBrandVars = (Vars, color) => {
   if (Vars && Vars.length) {
@@ -53,6 +52,9 @@ export const BrandSdk = {
   },
 
   generateBrands(hex) {
-    return generate(hex);
+    const calcColors = generate(hex);
+    return brandVars.reduce((pre, current) => {
+      return pre.concat({ ...current, color: calcColors[current.index] });
+    }, []);
   },
 };

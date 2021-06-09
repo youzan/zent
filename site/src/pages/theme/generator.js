@@ -60,7 +60,12 @@ export default function ColorGenerator() {
       <div className="zandoc-theme-colors">
         {calcColors.map(item => {
           return (
-            <div className="zandoc-theme-color" style={{ background: item }} />
+            <Pop trigger="hover" content={item.desc}>
+              <div
+                className="zandoc-theme-color"
+                style={{ background: item.color }}
+              />
+            </Pop>
           );
         })}
       </div>

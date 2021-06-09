@@ -82,7 +82,7 @@ export default function themeCN() {
       <H3>动态修改主题色</H3>
       选择颜色：
       <ColorGenerator />
-      <p>建议选择饱和度和亮度更高的颜色</p>
+      <p>建议选择饱和度和亮度更高的颜色。 S &gt; 85, B &gt; 80</p>
     </section>
   );
 }

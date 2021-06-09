@@ -3,46 +3,40 @@
 @import './color-names';
 @import '../override';
 
-$green-100: generateLightColor($green-base, 2);
-$green-200: generateLightColor($green-base, 1);
-$green-300: $green-base;
-$green-400: generateDrakColor($green-base, 1);
-$green-500: generateDrakColor($green-base, 2);
+$green-100: generateLightColor($green-base, 4);
+$green-400: generateLightColor($green-base, 1);
+$green-500: $green-base;
+$green-600: generateDarkColor($green-base, 1);
 
-$orange-100: generateLightColor($orange-base, 2);
-$orange-200: generateLightColor($orange-base, 1);
-$orange-300: $orange-base;
-$orange-400: generateDrakColor($orange-base, 1);
-$orange-500: generateDrakColor($orange-base, 2);
+$orange-100: generateLightColor($orange-base, 4);
+$orange-400: generateLightColor($orange-base, 1);
+$orange-500: $orange-base;
+$orange-600: generateDarkColor($orange-base, 1);
 
-$red-100: generateLightColor($red-base, 2);
-$red-200: generateLightColor($red-base, 1);
-$red-300: $red-base;
-$red-400: generateDrakColor($red-base, 1);
-$red-500: generateDrakColor($red-base, 2);
+$red-100: generateLightColor($red-base, 4);
+$red-400: generateLightColor($red-base, 1);
+$red-500: $red-base;
+$red-600: generateDarkColor($red-base, 1);
 
-$blue-100: generateLightColor($blue-base, 2);
-$blue-200: generateLightColor($blue-base, 1);
-$blue-300: $blue-base;
-$blue-400: generateDrakColor($blue-base, 1);
-$blue-500: generateDrakColor($blue-base, 2);
+$blue-100: generateLightColor($blue-base, 4);
+$blue-400: generateLightColor($blue-base, 1);
+$blue-500: $blue-base;
+$blue-600: generateDarkColor($blue-base, 1);
 
-$yellow-100: generateLightColor($yellow-base, 2);
-$yellow-200: generateLightColor($yellow-base, 1);
-$yellow-300: $yellow-base;
-$yellow-400: generateDrakColor($yellow-base, 1);
-$yellow-500: generateDrakColor($yellow-base, 2);
+$yellow-100: generateLightColor($yellow-base, 4);
+$yellow-400: generateLightColor($yellow-base, 1);
+$yellow-500: $yellow-base;
+$yellow-600: generateDarkColor($yellow-base, 1);
 
-$primary-100: generateLightColor($primary-base, 2);
-$primary-200: generateLightColor($primary-base, 1);
-$primary-300: $primary-base;
-$primary-400: generateDrakColor($primary-base, 1);
-$primary-500: generateDrakColor($primary-base, 2);
+$primary-100: generateLightColor($primary-base, 4);
+$primary-400: generateLightColor($primary-base, 1);
+$primary-500: $primary-base;
+$primary-600: generateDarkColor($primary-base, 1);
 
 // 中间变量
 $title-color: $gray-500; // text color
 $hint-color: $gray-400; // text color when it`s for hint
-$disabled-color: $gray-300; // text color when it`s disabled
+$disabled-color: $gray-500; // text color when it`s disabled
 $section-bg: $gray-100; // background color
 $border-color: $gray-200; // border color
 
@@ -54,7 +48,7 @@ $global-colors: (
   'title': $title-color,
   'hint': $hint-color,
   'disabled': $disabled-color,
-  'section': $section-bg,
+  'section-bg': $section-bg,
   'border': $border-color,
   'box-shadow': $box-shadow-color,
 );
@@ -65,33 +59,33 @@ $body-colors: (
 );
 
 $success-colors: (
-  'color': $green-300,
+  'color': $green-500,
   'bg': $green-100,
-  'border-color': $green-300,
+  'border-color': $green-500,
 );
 
 $warning-colors: (
-  'color': $orange-300,
+  'color': $orange-500,
   'bg': $orange-100,
-  'border-color': $orange-300,
+  'border-color': $orange-500,
 );
 
 $danger-colors: (
-  'color': $red-300,
+  'color': $red-500,
   'bg': $red-100,
-  'border-color': $red-300,
+  'border-color': $red-500,
 );
 
 $link-colors: (
-  'color': $blue-300,
-  'hover-color': $blue-200,
-  'active-color': $blue-400,
+  'color': $blue-500,
+  'hover-color': $blue-400,
+  'active-color': $blue-600,
 );
 
 $default-colors: (
-  'hover-color': $primary-300,
+  'hover-color': $primary-500,
   'hover-bg': $primary-100,
-  'hover-border-color': $primary-300,
+  'hover-border-color': $primary-500,
   'selected': $section-bg,
   'disabled-color': $disabled-color,
   'disabled-bg': $section-bg,
@@ -100,34 +94,34 @@ $default-colors: (
 
 $primary-colors: (
   'color': $white,
-  'bg': $primary-300,
-  'border-color': $primary-300,
-  'hover-bg': $primary-200,
-  'hover-border-color': $primary-200,
-  'active-bg': $primary-400,
-  'active-border-color': $primary-400,
+  'bg': $primary-500,
+  'border-color': $primary-500,
+  'hover-bg': $primary-400,
+  'hover-border-color': $primary-400,
+  'active-bg': $primary-600,
+  'active-border-color': $primary-600,
 );
 
 // components
 
 $weak-link-colors: (
   'color': $hint-color,
-  'hover-color': $blue-200,
-  'active-color': $blue-400,
+  'hover-color': $blue-400,
+  'active-color': $blue-600,
 );
 
 $rate-colors: (
-  'star-bg': $yellow-300,
+  'star-bg': $yellow-500,
 );
 
 $colors-map: (
-  $body: $body-colors,
-  $success: $success-colors,
-  $warning: $warning-colors,
-  $danger: $danger-colors,
-  $link: $link-colors,
-  $default: $default-colors,
-  $primary: $primary-colors,
+  'body': $body-colors,
+  'success': $success-colors,
+  'warning': $warning-colors,
+  'danger': $danger-colors,
+  'link': $link-colors,
+  'default': $default-colors,
+  'primary': $primary-colors,
   'weak-link': $weak-link-colors,
   'rate': $rate-colors,
 );
