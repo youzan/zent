@@ -19,7 +19,7 @@ const colors = [
   '#D42F15',
 ];
 
-export default function ColorGenerator() {
+export default function ColorGenerator({ label, prompt }) {
   const [color, setColor] = useState('#155BD4');
   const [calcColors, setCalcColors] = useState(generateBrands('#155BD4'));
 
@@ -57,15 +57,18 @@ export default function ColorGenerator() {
           </div>
         </Pop>
       </div>
+      <span className="zandoc-react-color-picker-prompt">{prompt}</span>
+      <p>{label}</p>
       <div className="zandoc-theme-colors">
         {calcColors.map(item => {
           return (
-            <Pop trigger="hover" content={item.desc}>
+            <div className="zandoc-theme-item" key={item.color}>
               <div
                 className="zandoc-theme-color"
                 style={{ background: item.color }}
               />
-            </Pop>
+              <span>{item.desc}</span>
+            </div>
           );
         })}
       </div>

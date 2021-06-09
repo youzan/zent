@@ -3,7 +3,6 @@ const postcss = require('postcss');
 const parseValue = require('postcss-value-parser');
 const path = require('path');
 const fs = require('fs');
-// const { KEYFRAME_NAME_PREFIX } = require('./constants');
 
 const THEME_FILES = ['_color.scss'].map(f =>
   path.resolve(__dirname, '../assets/theme/variables', f)
@@ -20,8 +19,8 @@ const BRAND_NAME = [
   '$weak-link-colors',
   '$rate-colors',
 ];
-const varsMap = {}; // name -> names[]
-const sourceMap = {}; // index -> name
+const varsMap = {}; // { key -> name, value -> names[] }
+const sourceMap = {}; // { key -> index, value -> name }
 
 function stringify(arg) {
   return JSON.stringify(
@@ -75,15 +74,15 @@ function isColorState(node) {
 // 适配现有，深度为2
 function buildParent(prefixName, node, varsMap, sourceMap) {
   const nodes = node.nodes;
-  const prueNodes = nodes.filter(node =>
+  const matchedNodes = nodes.filter(node =>
     ['string', 'word', 'function'].includes(node.type)
   );
 
   const parentName = sourceMap[node.sourceIndex] || prefixName || '';
 
-  for (let i = 0; i < prueNodes.length - 1; i = i + 2) {
-    const name = /[^\$]+/.exec(prueNodes[i].value)?.[0];
-    const value = prueNodes[i + 1];
+  for (let i = 0; i < matchedNodes.length - 1; i = i + 2) {
+    const name = /[^\$]+/.exec(matchedNodes[i].value)?.[0];
+    const value = matchedNodes[i + 1];
     if (value.type === 'word') {
       const basicName = value.value;
 

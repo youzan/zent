@@ -23,7 +23,7 @@ const brandVars = [
     desc: 'primary active color',
   },
 ];
-// todo move size out
+
 const getBrandVars = (Vars, color) => {
   if (Vars && Vars.length) {
     return Vars.map(nameVar => ({

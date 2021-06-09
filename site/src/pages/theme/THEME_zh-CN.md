@@ -79,23 +79,6 @@ Zent 的样式使用 [scss](https://sass-lang.com) 开发，我们提供了一�
 
 这种方式对业务项目是非侵入式的，样式的定制和业务项目完全独立；但也有一个问题，就是每次更新 Zent 组件库都要重新生成一份定制主题。
 
-```jsx
-import { generate } from 'zent;
-
-const Theme = () => {
-	const style = generate('#000');
-
-	return (
-		<div style={{ backgroundColor: style.active }}>111</div>
-	)
-}
-
-ReactDOM.render(
-  <Theme />,
-	mountNode
-);
-```
-
 #### 定制方法
 
 1. 克隆 Zent [源码](https://github.com/youzan/zent)并安装依赖
@@ -103,9 +86,14 @@ ReactDOM.render(
 3. 在 `packages/zent` 目录下面执行 `yarn theme`
 4. 定制的主题样式文件会生成在 `packages/zent/css` 目录下
 
-<style>
-  img[alt="zent-theme"] {
-    width: 514px;
-    height: 319px;
-  }
-</style>
+#### 动态改变主题色
+```jsx
+import { BrandSdk } from 'zent';
+
+const { getAllBrandColor } = BrandSdk;
+
+const brandVars = getAllBrandColor(c.hex);
+brandVars.forEach(item => {
+  document.documentElement.style.setProperty(item.name, item.color);
+});
+```

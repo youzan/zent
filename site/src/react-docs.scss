@@ -96,6 +96,11 @@ img[alt='zent-theme'] {
   border-radius: 4px;
   display: inline-block;
 
+  &-title {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
   &-picker {
     width: 100%;
     height: 100%;
@@ -103,18 +108,30 @@ img[alt='zent-theme'] {
     text-align: center;
     line-height: 30px;
     color: #000;
+
+    &-prompt {
+      font-size: 14px;
+      margin-left: 4px;
+      color: #999;
+    }
   }
 }
 
 .zandoc-theme-colors {
+  margin-top: 12px;
   display: flex;
-  margin-top: 20px;
+  flex-direction: column;
+
+  .zandoc-theme-item {
+    display: flex;
+    align-items: center;
+  }
 
   .zandoc-theme-color {
-    width: 21px;
-    height: 14px;
-    border-radius: 4px;
-    margin-right: 4px;
+    width: 60px;
+    height: 30px;
+    margin: 4px 8px 4px 4px;
+    border-radius: 2px;
   }
 }
 

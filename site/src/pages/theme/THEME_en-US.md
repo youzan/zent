@@ -79,23 +79,6 @@ Styles in Zent are written in [scss](https://sass-lang.com), we have a builtin t
 
 This method is non-intrusive, but you have to manually build your custom theme every time you upgrade Zent.
 
-```jsx
-import { generate } from 'zent;
-
-const Theme = () => {
-	const style = generate('#000');
-
-	return (
-		<div style={{ backgroundColor: style.active }}>111</div>
-	)
-}
-
-ReactDOM.render(
-  <Theme />,
-	mountNode
-);
-```
-
 #### Build Steps
 
 1. Clone Zent from [github](https://github.com/youzan/zent) and install dependencies
@@ -103,9 +86,14 @@ ReactDOM.render(
 3. Run `yarn theme` within `packages/zent`
 4. Your custom theme styles are in `packages/zent/css`.
 
-<style>
-  img[alt="zent-theme"] {
-    width: 514px;
-    height: 319px;
-  }
-</style>
+#### Modify theme color
+```jsx
+import { BrandSdk } from 'zent';
+
+const { getAllBrandColor } = BrandSdk;
+
+const brandVars = getAllBrandColor(c.hex);
+brandVars.forEach(item => {
+  document.documentElement.style.setProperty(item.name, item.color);
+});
+```

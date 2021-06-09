@@ -1,6 +1,5 @@
 // sass-lint:disable no-important
 @import './raw-vars';
-@import './color-names';
 @import '../override';
 
 $green-100: generateLightColor($green-base, 4);
@@ -103,7 +102,6 @@ $primary-colors: (
 );
 
 // components
-
 $weak-link-colors: (
   'color': $hint-color,
   'hover-color': $blue-400,
@@ -141,44 +139,44 @@ $theme-stroke-6: $border-color;
 $theme-stroke-7: $section-bg;
 $theme-stroke-8: $section-bg;
 $theme-stroke-9: map-get(
-  map-get($colors-map, $body),
+  map-get($colors-map, 'body'),
   'bg'
 ); // White button normal background color
 
 // Button background color
 $theme-stroke-10: $border-color; // Active
-$theme-stroke-11: map-get(map-get($colors-map, $body), 'bg'); // Hover
+$theme-stroke-11: map-get(map-get($colors-map, 'body'), 'bg'); // Hover
 
 // Blue(primary)
-$theme-primary-1: map-get(map-get($colors-map, $primary), 'active-bg');
-$theme-primary-2: map-get(map-get($colors-map, $primary), 'active-bg');
-$theme-primary-3: map-get(map-get($colors-map, $primary), 'active-bg');
-$theme-primary-4: map-get(map-get($colors-map, $primary), 'bg');
-$theme-primary-5: map-get(map-get($colors-map, $primary), 'hover-bg');
-$theme-primary-6: map-get(map-get($colors-map, $primary), 'hover-bg');
-$theme-primary-7: map-get(map-get($colors-map, $primary), 'hover-bg');
-$theme-primary-8: map-get(map-get($colors-map, $default), 'hover-bg');
+$theme-primary-1: map-get(map-get($colors-map, 'primary'), 'active-bg');
+$theme-primary-2: map-get(map-get($colors-map, 'primary'), 'active-bg');
+$theme-primary-3: map-get(map-get($colors-map, 'primary'), 'active-bg');
+$theme-primary-4: map-get(map-get($colors-map, 'primary'), 'bg');
+$theme-primary-5: map-get(map-get($colors-map, 'primary'), 'hover-bg');
+$theme-primary-6: map-get(map-get($colors-map, 'primary'), 'hover-bg');
+$theme-primary-7: map-get(map-get($colors-map, 'primary'), 'hover-bg');
+$theme-primary-8: map-get(map-get($colors-map, 'default'), 'hover-bg');
 
 // Green
-$theme-success-1: map-get(map-get($colors-map, $success), 'color');
-$theme-success-2: map-get(map-get($colors-map, $success), 'color');
-$theme-success-3: map-get(map-get($colors-map, $success), 'bg');
-$theme-success-4: map-get(map-get($colors-map, $success), 'color');
-$theme-success-5: map-get(map-get($colors-map, $success), 'bg');
+$theme-success-1: map-get(map-get($colors-map, 'success'), 'color');
+$theme-success-2: map-get(map-get($colors-map, 'success'), 'color');
+$theme-success-3: map-get(map-get($colors-map, 'success'), 'bg');
+$theme-success-4: map-get(map-get($colors-map, 'success'), 'color');
+$theme-success-5: map-get(map-get($colors-map, 'success'), 'bg');
 
 // Red
-$theme-error-1: map-get(map-get($colors-map, $danger), 'color');
-$theme-error-2: map-get(map-get($colors-map, $danger), 'color');
-$theme-error-3: map-get(map-get($colors-map, $danger), 'bg');
-$theme-error-4: map-get(map-get($colors-map, $danger), 'color');
-$theme-error-5: map-get(map-get($colors-map, $danger), 'bg');
+$theme-error-1: map-get(map-get($colors-map, 'danger'), 'color');
+$theme-error-2: map-get(map-get($colors-map, 'danger'), 'color');
+$theme-error-3: map-get(map-get($colors-map, 'danger'), 'bg');
+$theme-error-4: map-get(map-get($colors-map, 'danger'), 'color');
+$theme-error-5: map-get(map-get($colors-map, 'danger'), 'bg');
 
 // Orange
-$theme-warn-1: map-get(map-get($colors-map, $warning), 'color');
-$theme-warn-2: map-get(map-get($colors-map, $warning), 'color');
-$theme-warn-3: map-get(map-get($colors-map, $warning), 'bg');
-$theme-warn-4: map-get(map-get($colors-map, $warning), 'color');
-$theme-warn-5: map-get(map-get($colors-map, $warning), 'bg');
+$theme-warn-1: map-get(map-get($colors-map, 'warning'), 'color');
+$theme-warn-2: map-get(map-get($colors-map, 'warning'), 'color');
+$theme-warn-3: map-get(map-get($colors-map, 'warning'), 'bg');
+$theme-warn-4: map-get(map-get($colors-map, 'warning'), 'color');
+$theme-warn-5: map-get(map-get($colors-map, 'warning'), 'bg');
 
 $loading-icon-youzan-color: #e00 !default;
 
