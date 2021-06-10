@@ -188,13 +188,15 @@ validator 和 builder 下文会详细说明。
 `View` 模式还支持[以下参数](../../apidoc/interfaces/iformfieldviewdrivenprops.html)。
 
 - `defaultValue` 缺省值，作为没有用户输入时的值，不可变
-- `destroyOnUnmount` 是否在组件 `unmount` 的时候销毁 model 对象，销毁实机依赖 React 执行实机
+- `destroyOnUnmount` 是否在组件 `unmount` 的时候销毁 model 对象，销毁时机依赖 React 执行时机。__使用前请看下面的注意事项。__
 - `initialValue` 初始值，在逻辑上作为字段首次展示的值，可变
 - `name` 表单项对应的数据字段名
 - `normalizeBeforeSubmit` 用于表单提交前格式化 `Field` 值的回调函数
 - `validators` 校验规则列表，执行的时候会按数组顺序逐个调用，直到所有都通过或者在第一个失败的地方停止
 
-注意：在 `View` 模式下使用 `FieldArray` 时，由于该组件的特殊性，虽然此时传给 `Field` 的是个 `ModelRef`，按之前提到的规则这就是 `Model` 模式，但是校验规则还是需要设置在表单项上。
+注意：
+- 不要在 `View` 模式下通过**条件渲染**将同一个 `name` 的 model 渲染成不同的 `Field` 实例，并且同时在 `Field` 上开启 `destroyOnUnmount` 参数。我们认为这是很 tricky 的不合理用法，一旦发现这种场景，`name` 对应的那个 `Field` 将进入不可用状态，后续所有操作都会报错。
+- 在 `View` 模式下使用 `FieldArray` 时，由于该组件的特殊性，虽然此时传给 `Field` 的是个 `ModelRef`，按之前提到的规则这就是 `Model` 模式，但是校验规则还是需要设置在表单项上。
 
 `Model` 模式还支持[以下参数](../../apidoc/interfaces/iformfieldmodeldrivenprops.html)。注意，此模式下校验规则正常是设置在 model 上的，而不是表单项组件上。
 
@@ -325,7 +327,7 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 
 `View` 模式额外的参数：
 
-- `destroyOnUnmount` 是否在组件 `unmount` 的时候销毁 model 对象，，销毁实机依赖 React 执行实机
+- `destroyOnUnmount` 是否在组件 `unmount` 的时候销毁 model 对象，销毁时机依赖 React 执行时机。
 - `normalizeBeforeSubmit` 用于表单提交前格式化 `FieldSet` 值的回调函数
 - `validators` `FieldSet` 本身的校验规则列表，注意和内部 Field 的校验规则没有关系。执行的时候会按数组顺序逐个调用，直到所有都通过或者在第一个失败的地方停止
 
