@@ -38,11 +38,42 @@ scatter: true
 - `FormModel` 继承自 `FieldSetModel`，从数据层看就是 `FieldSetModel`，但是额外添加了一些表单顶层才需要的能力
 - `ModelRef` 类似 React 的 ref 概念，它的用处是在不知道具体的 model 类型时用作占位元素。只有 `View` 模式下才会出现。
 
-不管 model 是什么类型，一个 model 上一定维护着值、校验状态、错误信息以及 touched 等一些基础状态，以及读取/操作这些信息的方法。具体的方法和属性可以通过上面提到的 [API 文档](../../apidoc)中搜索相应的 model 类型查看。
+model 是数据和状态的容器，所以 model 上只有操作数据和状态的方法。不管 model 是什么类型，一个 model 上一定维护着值、校验状态、错误信息以及 touched 等一些基础状态，以及读取/操作这些信息的方法。下面是所有 model 上一些常见的方法和属性列表，额外的方法和属性可以通过 [API 文档](../../apidoc)中搜索相应的 model 类型查看。
 
-validator 和 builder 下文会详细说明。
+- `value` 获取 model 当前的值
+- `getSubmitValue()` 获取用于表单提交的值，可以通过 `Field` 的 `normalize` 属性自定义格式化逻辑
+- `initialize(value: Value)` 初始化 model 值
+- `patchValue(value: Value)` 更新 model 值
+- `reset()` 重置 model 为初始值
+- `clear()` 重置 model 为默认值
+- `valid()` 返回 model 是否通过检验，该函数不会触发校验
+- `validate(options?: ValidateOption)` 触发 model 上的校验逻辑
+- `error` 获取 model 上的错误信息
+- `clearError()` 清楚 model 的错误信息
+- `dirty()` model 值是否被修改过
+- `pristine()` model 值是否从未被修改过
+- `touched()` model 对应的 Field 是否被用户操作过
+
+`FieldArrayModel` 上还有一批类似数组操作元素的方法，行为和数组上的方法一致，接受值或者 model 对象作为参数。
+
+- `push`
+- `pop`
+- `shift`
+- `unshift`
+- `splice`
+- `children` 获取所有子 model，是个只读数组
+- `get(index: number)` 返回指定下标处的子 model 对象
+
+`FieldSetModel` 上的额外方法：
+
+- `children` 获取所有子 model，是个只读对象
+- `get(name: string)` 返回指定名字的子 model 对象
+- `registerChild(name, model): void` 注册一个子 model 对象
+- `removeChild(name)` 删除一个子 model
 
 ⚠️ 注意：不要直接操作 `FieldArrayModel` 和 `FieldSetModel` 的 `children` 属性（本身就是只读属性），请使用 model 上提供的 mutation API 操作，否则会破坏 model 内部数据一致性，导致不可预期的问题。
+
+validator 和 builder 下文会详细说明。
 
 ### Form 的运行模式
 
@@ -152,17 +183,20 @@ validator 和 builder 下文会详细说明。
 - `label` 表单项的名称
 - `className` 自定义类名
 - `children` 不解释
+- `modelRef` Field 对应 model 的 ref，可以通过这个 `modelRef.current` 直接访问 model 上的方法和属性
 
 `View` 模式还支持[以下参数](../../apidoc/interfaces/iformfieldviewdrivenprops.html)。
 
 - `defaultValue` 缺省值，作为没有用户输入时的值，不可变
-- `destroyOnUnmount` 是否在组件 `unmount` 的时候清除数据
+- `destroyOnUnmount` 是否在组件 `unmount` 的时候销毁 model 对象，销毁时机依赖 React 执行时机。__使用前请看下面的注意事项。__
 - `initialValue` 初始值，在逻辑上作为字段首次展示的值，可变
 - `name` 表单项对应的数据字段名
 - `normalizeBeforeSubmit` 用于表单提交前格式化 `Field` 值的回调函数
 - `validators` 校验规则列表，执行的时候会按数组顺序逐个调用，直到所有都通过或者在第一个失败的地方停止
 
-注意：在 `View` 模式下使用 `FieldArray` 时，由于该组件的特殊性，虽然此时传给 `Field` 的是个 `ModelRef`，按之前提到的规则这就是 `Model` 模式，但是校验规则还是需要设置在表单项上。
+注意：
+- 不要在 `View` 模式下通过**条件渲染**将同一个 `name` 的 model 渲染成不同的 `Field` 实例，并且同时在 `Field` 上开启 `destroyOnUnmount` 参数。我们认为这是很 tricky 的不合理用法，一旦发现这种场景，`name` 对应的那个 `Field` 将进入不可用状态，后续所有操作都会报错。
+- 在 `View` 模式下使用 `FieldArray` 时，由于该组件的特殊性，虽然此时传给 `Field` 的是个 `ModelRef`，按之前提到的规则这就是 `Model` 模式，但是校验规则还是需要设置在表单项上。
 
 `Model` 模式还支持[以下参数](../../apidoc/interfaces/iformfieldmodeldrivenprops.html)。注意，此模式下校验规则正常是设置在 model 上的，而不是表单项组件上。
 
@@ -293,7 +327,7 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 
 `View` 模式额外的参数：
 
-- `destroyOnUnmount` 是否在组件 `unmount` 的时候清除数据
+- `destroyOnUnmount` 是否在组件 `unmount` 的时候销毁 model 对象，销毁时机依赖 React 执行时机。
 - `normalizeBeforeSubmit` 用于表单提交前格式化 `FieldSet` 值的回调函数
 - `validators` `FieldSet` 本身的校验规则列表，注意和内部 Field 的校验规则没有关系。执行的时候会按数组顺序逐个调用，直到所有都通过或者在第一个失败的地方停止
 
@@ -317,12 +351,14 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 每个 model 上都有一个 `builder` 的属性，通过这个属性能够获取到这个 model 对应的 builder 对象，通过 `builder.build()` 方法就可以可以生成一个行为一样的 model 对象。注意，`builder` 对象仅在通过上述 `Builder` API 生成的 model，`View` 模式下的 model 上这个属性永远是空的。
 
 除此之外，`FieldSetModel` 以及 `FormModel` 上提供了两个方法用来完成子 model 的删除和增加：
+
 - `removeChild<T extends keyof Children>(name: T): Children[T] | null`
 - `registerChild(name: string, model: BasicModel): void`
 
 `FieldArrayModel` 的 `push`, `unshift` 以及 `splice` 方法也支持直接传入 model。
 
 由于 `FieldSetModel` 和 `FormModel` 子 model 的增删需要触发组件重绘，因此提供了一个额外的 hook 来处理：
+
 - `Form.useNamedChildModel(parent: FieldSetModel, name: string): BasicModel`，注意 `FormModel` 是 `FieldSetModel` 的子类，所以也适用于这个方法。这个 hook 不监听子 model 内部状态的变化，如有需要，需使用 `useNamedChildModel` 返回 model 对象自行调用 `useField` 等 hook 来实现。
 
 通过结合上述这些能力，就可以完成 `Model` 模式下表单项的动态增删了。

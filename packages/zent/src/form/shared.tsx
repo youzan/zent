@@ -168,6 +168,9 @@ export interface IFormFieldPropsBase<Value>
    * @returns 校验规则执行的选项 https://zent-contrib.github.io/formulr/enums/validateoption.html
    */
   getValidateOption?: (source: 'blur' | 'change') => ValidateOption | undefined;
+  /**
+   * Field 对应 model 的 ref 对象
+   */
   modelRef?: React.RefObject<FieldModel<Value>>;
   /**
    * 什么时候标记表单项为 `touched`
