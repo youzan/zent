@@ -31,11 +31,6 @@ class FieldSetModel<
   protected readonly _displayName: string = 'FieldSetModel';
 
   /**
-   * @internal
-   */
-  // _tag: 'FieldSet' | 'Form';
-
-  /**
    * 上层调用 `patchValue` 的时候，子组件可能是没被挂载的状态，这时候需要用 `patchedValue` 存一下值，子组件挂载的时候从这里读
    * @internal
    */
