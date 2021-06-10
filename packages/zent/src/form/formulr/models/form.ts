@@ -2,8 +2,12 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { FieldSetModel } from './set';
 import { ValidateOption } from '../validate';
 import uniqueId from '../../../utils/uniqueId';
-import { UnknownFieldSetModelChildren } from '../utils';
+import type {
+  UnknownFieldSetBuilderChildren,
+  UnknownFieldSetModelChildren,
+} from '../utils';
 import { FORM_ID } from './is';
+import type { FormBuilder } from '../builders/form';
 
 enum FormStrategy {
   /**
@@ -30,6 +34,11 @@ class FormModel<
   readonly isValidating$ = new BehaviorSubject(false);
 
   readonly owner = this;
+
+  /**
+   * 当前 `FormModel` 对象的 builder 对象，仅在 `Model` 模式下可用。
+   */
+  readonly builder?: FormBuilder<UnknownFieldSetBuilderChildren>;
 
   get form() {
     return (this as unknown) as FormModel;

@@ -17,16 +17,17 @@ group: 数据
 
 #### Checkbox API
 
-| 参数          | 说明                                  | 类型                  | 默认值   |
-| ------------- | ------------------------------------- | --------------------- | -------- |
-| checked       | 指定当前是否选中                      | `boolean`             | `false`  |
-| value         | 组件对应的值，在`CheckboxGroup`中使用 | any                   |          |
-| disabled      | 使组件不可用                          | `boolean`             |          |
-| readOnly      | 使组件只读                            | `boolean`             |          |
-| indeterminate | 展示部分选中的模式                    | `boolean`             | `false`  |
-| onChange      | 变化时回调函数                        | `(e:Event) => void`   |          |
-| labelStyle    | label 的内联样式                      | `React.CSSProperties` |          |
-| className     | 自定义额外类名                        | `string`              |          |
+| 参数          | 说明                                  | 类型                  | 默认值  |
+| ------------- | ------------------------------------- | --------------------- | ------- |
+| checked       | 指定当前是否选中                      | `boolean`             | `false` |
+| value         | 组件对应的值，在`CheckboxGroup`中使用 | any                   |         |
+| disabled      | 使组件不可用                          | `boolean`             |         |
+| readOnly      | 使组件只读                            | `boolean`             |         |
+| indeterminate | 展示部分选中的模式                    | `boolean`             | `false` |
+| onChange      | 变化时回调函数                        | `(e:Event) => void`   |         |
+| labelStyle    | label 的内联样式                      | `React.CSSProperties` |         |
+| style         | 内联样式                              | `React.CSSProperties` |         |
+| className     | 自定义额外类名                        | `string`              |         |
 
 #### Checkbox Group API
 

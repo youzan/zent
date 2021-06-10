@@ -24,6 +24,10 @@ export class FieldBuilder<Value> extends BasicBuilder<
     const model = new FieldModel(or(defaultValue, () => this._defaultValue));
     model.validators = this._validators;
     model.normalizeBeforeSubmit = this._normalizeBeforeSubmit;
+
+    // Remove readonly modifier temporarily
+    (model.builder as FieldBuilder<Value>) = this;
+
     return model;
   }
 }

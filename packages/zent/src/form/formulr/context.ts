@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 import { FormStrategy, FormModel, FieldSetModel } from './models';
-import { FormulrError } from './error';
+import { FormContextNotFoundError } from './error';
 
 export interface IFormContext {
   strategy: FormStrategy;
@@ -14,13 +14,14 @@ FormContext.displayName = 'FormContext';
 
 export const FormProvider = FormContext.Provider;
 
-export function useFormContext(): IFormContext {
+/**
+ * Returns current form context
+ * @param quiet Don't throw if context not found
+ */
+export function useFormContext(quiet = false): IFormContext | null {
   const ctx = useContext(FormContext);
-  if (ctx === null) {
-    throw new FormulrError('FormContext not found', [
-      'Using form hooks outside the form context',
-      "There's a copy of formulr in your project, run `yarn list formulr` to check",
-    ]);
+  if (ctx === null && !quiet) {
+    throw FormContextNotFoundError;
   }
   return ctx;
 }

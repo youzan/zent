@@ -15,16 +15,22 @@ group: 导航
 
 | 参数 | 说明 | 类型 | 默认值 | 可选值 |
 |------|------|------|--------|-----|
-| onClick | 点击菜单节点回调 | func |  | |
-| onSubMenuClick | 点击子菜单(非叶子节点)的回调, 入参为子菜单 ID | func |  | |
-| onExpandChange | 菜单展开/折叠时的回调, 入参为此时处于展开状态的 SubMenu id 数组 | func |  | |
-| style | 自定义内联样式 | object |  | |
+| onClick | 点击菜单节点回调 | `(e: React.MouseEvent, key: string) => void` |  | |
+| onSubMenuClick | 点击子菜单(非叶子节点)的回调, 入参为子菜单 ID | `(id: string | number) => void` |  | |
 | mode | 模式 | string | 'pop' | 'pop', 'inline' |
-| defaultExpandKeys | 默认展开的SubMenu的keys | array | | |
-| defaultSelectedKey | 默认选中的MenuItem的key | string | |
-| inlineIndent | inline模式下的缩进长度(px) | number | 24 | |
-| className | 节点类名 | string |  | |
+| style | 自定义内联样式 | object |  | |
+| className | 节点类名 | `string` |  | |
 
+#### `inline` 模式 Menu 参数
+| 参数 | 说明 | 类型 | 默认值 | 可选值 |
+|------|------|------|--------|-----|
+| defaultExpandedKeys | 默认展开的 SubMenu 的 keys | `string[]` | | |
+| defaultSelectedKey | 默认选中的 MenuItem 的 key | `string` | |
+| selectedKey | 选中的 MenuItem 的 key | `string` | |
+| expandedKeys | 展开的 SubMenu 的 keys | `string[]` | | |
+| onSelectChange | 选中的 MenuItem 的 key 变化时的回调函数 | `(key: string) => void` | |
+| onExpandChange | 菜单展开/折叠时的回调, 入参为此时处于展开状态的 SubMenu id 数组 | `(keys: string[]) => void` |  | |
+| inlineIndent | `inline` 模式下的缩进(px) | `number` | 24 | |
 
 #### MenuItem
 

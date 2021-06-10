@@ -16,13 +16,20 @@ Menu, can be used to provide navigation.
 |------|------|------|--------|---------|
 | onClick | Callback fires when a node of menu is clicked | func |  | |
 | onSubMenuClick | Callback fires when a SubMenu is clicked | func |  | |
-| onExpandChange | Callback fires when SubMenus toggle expand/collapsed, input param is the array of currently expanded SubMenu IDs | func |  | |
 | style | Custom inline styles | object |  | |
-| mode | the display mode | string | 'pop' | 'pop', 'inline' |
-| defaultExpandKeys | the default expand keys for SubMenu | array | | |
-| defaultSelectedKey | the default selected Key for MenuItem | string | |
-| inlineIndent | the distance in px when the mode is inline | number | 24 | |
-| className | class name for the node | string |  |
+| mode | Display mode | string | 'pop' | 'pop', 'inline' |
+| className | Class name for the node | `string` |  |
+
+#### `inline` mode Menu
+| Property | Description | Type | Default | Optional |
+|------|------|------|--------|---------|
+| defaultExpandedKeys | Default expand keys for SubMenu | `string[]` | | |
+| defaultSelectedKey | Default selected Key for MenuItem | `string` | |
+| expandedKeys | Expand keys for SubMenu | `string[]` | | |
+| selectedKey | Selected Key for MenuItem | `string` | |
+| onSelectChange | Callback fires when selected menu item is changed | `(key: string) => void` |  | |
+| onExpandChange | Callback fires when SubMenus toggle expand/collapsed, input param is the array of currently expanded SubMenu IDs | `(keys: string[]) => void` |  | |
+| inlineIndent | Distance in px when the mode is inline | number | 24 | |
 
 
 #### MenuItem

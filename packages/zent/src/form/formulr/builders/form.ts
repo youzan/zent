@@ -1,6 +1,9 @@
-import { BasicBuilder } from './basic';
-import { $FieldSetValue, FormModel } from '../models';
-import { $FieldSetBuilderChildren, $FieldSetBuilderDefaultValue } from './set';
+import { FormModel } from '../models';
+import {
+  $FieldSetBuilderChildren,
+  $FieldSetBuilderDefaultValue,
+  FieldSetBuilder,
+} from './set';
 import { Maybe, Some, or } from '../maybe';
 import {
   UnknownFieldSetModelChildren,
@@ -9,14 +12,7 @@ import {
 
 export class FormBuilder<
   ChildBuilders extends UnknownFieldSetBuilderChildren
-> extends BasicBuilder<
-  $FieldSetValue<$FieldSetBuilderChildren<ChildBuilders>>,
-  FormModel<$FieldSetBuilderChildren<ChildBuilders>>
-> {
-  constructor(private readonly _childBuilders: ChildBuilders) {
-    super();
-  }
-
+> extends FieldSetBuilder<ChildBuilders> {
   build(defaultValues?: Maybe<$FieldSetBuilderDefaultValue<ChildBuilders>>) {
     const defaults = or<$FieldSetBuilderDefaultValue<ChildBuilders>>(
       defaultValues,
@@ -35,6 +31,10 @@ export class FormBuilder<
       children as $FieldSetBuilderChildren<ChildBuilders>
     );
     model.validators = this._validators;
+
+    // Remove readonly modifier temporarily
+    (model.builder as FormBuilder<UnknownFieldSetBuilderChildren>) = this;
+
     return model;
   }
 }
