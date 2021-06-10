@@ -1,11 +1,6 @@
 import { warningOnce } from '../../utils/warningOnce';
 
-type FormWarningTag = 'FieldArray' | 'FieldSet' | 'Form';
-
-export function warningSubscribeValue(
-  shouldWarn: boolean,
-  tag: FormWarningTag
-) {
+export function warningSubscribeValue(shouldWarn: boolean, tag: string) {
   warningOnce(
     !shouldWarn,
     `form-subscribe-value-${tag}`,
@@ -14,10 +9,7 @@ export function warningSubscribeValue(
   );
 }
 
-export function warningSubscribeValid(
-  shouldWarn: boolean,
-  tag: FormWarningTag
-) {
+export function warningSubscribeValid(shouldWarn: boolean, tag: string) {
   warningOnce(
     !shouldWarn,
     `form-subscribe-valid-${tag}`,

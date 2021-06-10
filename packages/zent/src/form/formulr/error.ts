@@ -6,12 +6,10 @@ export class FormulrError extends Error {
   constructor(message: string, reason: string | string[]) {
     super(
       `${message}.\n` +
-        'The possible reason(s) for this error: ' +
+        'The possible reason(s) for this error: \n' +
         (isArray(reason)
-          ? '\n' +
-            reason.map((it, index) => `    ${index + 1}. ${it}`).join(';\n') +
-            ';'
-          : reason + '.') +
+          ? reason.map((it, index) => `  ${index + 1}. ${it}`).join('\n')
+          : `  ${reason}`) +
         '\n'
     );
     this.name = 'FormulrError';
@@ -49,3 +47,9 @@ export const createUnexpectedModelError = (it: unknown) =>
     `Expected a 'ModelRef' instance or 'BasicModel' instance, got ${typeof it}`,
     "The first argument to form hooks is an unexpected type rather than string or 'Model'"
   );
+
+export const createModelDisposedError = (name: string) =>
+  new FormulrError('Model is disposed', [
+    `You are swapping two different Fields with the same 'name' in View mode and 'destroyOnUnmount' is set on the Field being swapped out`,
+    `You are using a disposed ${name} in your view, your UI and models are likely in a broken state`,
+  ]);

@@ -19,6 +19,8 @@ export function useDestroyOnUnmount<Model extends BasicModel<any>>(
     () => () => {
       if (typeof field === 'string' && model.destroyOnUnmount) {
         parent.removeChild(field);
+        // model is unusable after this
+        model.dispose();
       }
     },
     [field, model, parent]
