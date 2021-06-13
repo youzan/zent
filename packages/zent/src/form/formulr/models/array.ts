@@ -2,7 +2,7 @@ import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { BasicModel } from './basic';
 import { ValidateOption } from '../validate';
 import { ModelRef } from './ref';
-import { BasicBuilder } from '../builders/basic';
+import type { BasicBuilder } from '../builders/basic';
 import { get, or, Some } from '../maybe';
 import { IModel } from './base';
 import isNil from '../../../utils/isNil';
@@ -11,6 +11,7 @@ import { pairwise, skip } from 'rxjs/operators';
 import { createUnexpectedModelError } from '../error';
 import { warningSubscribeValid, warningSubscribeValue } from '../warnings';
 import { FIELD_ARRAY_ID, isModelRef, isModel } from './is';
+import type { FieldArrayBuilder } from '../builders';
 
 class FieldArrayModel<
   Item,
@@ -24,6 +25,11 @@ class FieldArrayModel<
   readonly children$: BehaviorSubject<Child[]>;
 
   owner: IModel<any> | null = null;
+
+  /**
+   * 当前 `FieldArrayModel` 对象的 builder 对象，仅在 `Model` 模式下可用。
+   */
+  readonly builder?: FieldArrayBuilder<BasicBuilder<Item, Child>>;
 
   private _valid$?: BehaviorSubject<boolean>;
 
@@ -47,8 +53,7 @@ class FieldArrayModel<
     this.childFactory = childBuilder
       ? (defaultValue: Item) => {
           const child = childBuilder.build(Some(defaultValue));
-          child.owner = this;
-          return child;
+          return this._linkChild(child);
         }
       : (defaultValue: Item) =>
           (new ModelRef<Item, FieldArrayModel<Item, Child>, Child>(
@@ -203,17 +208,33 @@ class FieldArrayModel<
 
   /**
    * 添加一批元素到 `FieldArray` 的末尾
-   * @param items 待添加的值
+   * @param models 待添加的 `Model` 对象
    */
-  push(...items: Item[]) {
+  push(...models: Child[]): number;
+  /**
+   * 添加一批元素到 `FieldArray` 的末尾
+   * @param values 待添加的值
+   */
+  push(...values: Item[]): number;
+  push(...items: Item[] | Child[]) {
     const nextChildren = this.children$
       .getValue()
-      .concat(items.map(this._buildChild));
+      .concat(
+        (items.map as any)((item: Item | Child) =>
+          isModel(item)
+            ? this._linkChild(item as Child)
+            : this._buildChild(item as Item)
+        )
+      );
     this.children$.next(nextChildren);
+
+    // Same as `Array.prototype.push`
+    return nextChildren.length;
   }
 
   /**
-   * 删除 `FieldArray` 最后的一个元素
+   * 删除 `FieldArray` 最后的一个元素。
+   * @return `Model` 对象，而不是 `Model` 对象上的值。
    */
   pop() {
     const children = this.children$.getValue().slice();
@@ -225,6 +246,7 @@ class FieldArrayModel<
 
   /**
    * 删除 `FieldArray` 第一个元素
+   * @return `Model` 对象，而不是 `Model` 对象上的值。
    */
   shift() {
     const children = this.children$.getValue().slice();
@@ -236,24 +258,59 @@ class FieldArrayModel<
 
   /**
    * 在 `FieldArray` 开头添加值
-   * @param items 待添加的值·
+   * @param models 待添加的 `Model` 对象
    */
-  unshift(...items: Item[]) {
-    const nextChildren = items
-      .map(this._buildChild)
-      .concat(this.children$.getValue());
+  unshift(...models: Child[]): number;
+  /**
+   * 在 `FieldArray` 开头添加值
+   * @param values 待添加的值
+   */
+  unshift(...values: Item[]): number;
+  unshift(...items: Item[] | Child[]) {
+    const nextChildren = (items.map as any)((item: Item | Child) =>
+      isModel(item)
+        ? this._linkChild(item as Child)
+        : this._buildChild(item as Item)
+    ).concat(this.children$.getValue());
     this.children$.next(nextChildren);
+    return nextChildren.length;
   }
 
   /**
    * 在 `FieldArray` 的指定位置删除指定数量的元素，并添加指定的新元素
    * @param start 开始删除的元素位置
    * @param deleteCount 删除的元素个数
-   * @param items 待添加的元素值
+   * @param models 待添加的 `Model`
+   * @return `Model` 对象，而不是 `Model` 对象上的值
    */
-  splice(start: number, deleteCount = 0, ...items: readonly Item[]): Child[] {
+  splice(
+    start: number,
+    deleteCount: number,
+    ...models: readonly Child[]
+  ): Child[];
+  /**
+   * 在 `FieldArray` 的指定位置删除指定数量的元素，并添加指定的新元素
+   * @param start 开始删除的元素位置
+   * @param deleteCount 删除的元素个数
+   * @param values 待添加的元素值
+   * @return `Model` 对象，而不是 `Model` 对象上的值
+   */
+  splice(
+    start: number,
+    deleteCount: number,
+    ...values: readonly Item[]
+  ): Child[];
+  splice(
+    start: number,
+    deleteCount = 0,
+    ...items: readonly Item[] | readonly Child[]
+  ): Child[] {
     const children = this.children$.getValue().slice();
-    const insertedChildren = items.map(this._buildChild);
+    const insertedChildren = (items.map as any)((item: Item | Child) => {
+      isModel(item)
+        ? this._linkChild(item as Child)
+        : this._buildChild(item as Item);
+    });
     const removedChildren = children.splice(
       start,
       deleteCount,
@@ -327,6 +384,11 @@ class FieldArrayModel<
     this.children$.next([]);
   }
 
+  private _linkChild(child: Child) {
+    child.owner = this;
+    return child;
+  }
+
   private _initValue$() {
     const value$ = new BehaviorSubject<readonly Item[]>(this.getRawValue());
     this._value$ = value$;
@@ -340,7 +402,7 @@ class FieldArrayModel<
       this._subscribeChild(child);
     }
 
-    /** Do it if there's no initilized observavble  */
+    /** Do it if there's no initialized observable  */
     if (!this._valid$) {
       this._initUnsubscribeChild();
     }
@@ -366,7 +428,7 @@ class FieldArrayModel<
       this._subscribeChild(child);
     }
 
-    /** Do it if there's no initilized observavble  */
+    /** Do it if there's no initialized observable  */
     if (!this._value$) {
       this._initUnsubscribeChild();
     }
@@ -386,7 +448,7 @@ class FieldArrayModel<
   }
 
   /**
-   * Base method for gettting value from array model
+   * Base method for getting value from array model
    * @param getter map model to value
    */
   private _getValue<V>(getter: (model: BasicModel<Item>) => V): V[] {

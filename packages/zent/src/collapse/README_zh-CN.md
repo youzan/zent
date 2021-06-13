@@ -31,7 +31,7 @@ group: 展示
 
 | 参数      | 说明             | 类型     | 是否必须 | 默认值  | 备选值  |
 | --------- | ---------------- | -------- | -------- | ------- | ------- |
-| key       | 面板 id          | `string` | 是       |         |         |
+| key       | 面板 id，[React Keys 文档](https://reactjs.org/docs/lists-and-keys.html#keys)          | `ReactText` | 是       |         |         |
 | title     | 面板标题         | `node`   | 是       |         |         |
 | disabled  | 禁用面板         | `bool`   | 否       | `false` | `true`  |
 | showArrow | 是否显示箭头图标 | `bool`   | 否       | `true`  | `false` |

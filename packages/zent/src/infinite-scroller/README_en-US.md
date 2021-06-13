@@ -17,10 +17,11 @@ Infinite scrolling widget
 | Property        | Description                         | Type                                                              | Default        | Alternative |
 | --------------- | ----------------------------------- | ----------------------------------------------------------------- | -------------- | ----------- |
 | hasMore         | More data to load                   | `boolean`                                                         | `false`        | `true`      |
-| loadMore        | Callback to load more data          | `(() => Promise<unknown>) | ((stopLoading?: () => void) => void)` |
+| loadMore        | Callback to load more data          | `(() => Promise<unknown>) \| ((stopLoading?: () => void) => void)` |
 | skipLoadOnMount | Don't trigger a loading on mount    | `boolean`                                                         | `false`        | `true`      |
 | useWindow       | Use `window` as scrolling container | `boolean`                                                         | `false`        | `true`      |
 | loader          | Loading content                     | `ReactNode`                                                       | `BlockLoading` |             |
+| threshold | The distance in pixels before the end of the items that will trigger a call to loadMore | `number` | 0 |   |
 | className       | Custom class name                   | `string`                                                          |                |             |
 
 ### loadMore

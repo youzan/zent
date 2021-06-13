@@ -6,6 +6,7 @@ import { id } from '../utils';
 import isNil from '../../../utils/isNil';
 import uniqueId from '../../../utils/uniqueId';
 import { FIELD_ID } from './is';
+import type { FieldBuilder } from '../builders';
 
 export interface INormalizeBeforeSubmit<A, B> {
   (a: A): B;
@@ -20,6 +21,11 @@ class FieldModel<Value> extends BasicModel<Value> {
   readonly _value$ = new BehaviorSubject(this.defaultValue);
 
   readonly _valid$ = new BehaviorSubject(true);
+
+  /**
+   * 当前 `FieldModel` 对象的 builder 对象，仅在 `Model` 模式下可用。
+   */
+  readonly builder?: FieldBuilder<Value>;
 
   isTouched = false;
 

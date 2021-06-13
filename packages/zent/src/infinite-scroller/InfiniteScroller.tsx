@@ -14,6 +14,10 @@ export interface IInfiniteScrollerProps {
   useWindow?: boolean;
   loader?: React.ReactNode;
   children?: React.ReactNode;
+  /**
+   * The distance in pixels before the end of the items that will trigger a call to loadMore
+   */
+  threshold?: number;
 }
 
 const DEFAULT_LOADER = <BlockLoading height={60} loading icon="circle" />;
@@ -29,6 +33,7 @@ export const InfiniteScroller = forwardRef<
       skipLoadOnMount = false,
       useWindow = false,
       loader = DEFAULT_LOADER,
+      threshold = 0,
       className,
       children,
     },
@@ -90,6 +95,7 @@ export const InfiniteScroller = forwardRef<
           <Waypoint
             scrollableAncestor={useWindow ? window : undefined}
             onEnter={onEnter}
+            bottomOffset={-threshold}
           />
         )}
         {loading && loader}

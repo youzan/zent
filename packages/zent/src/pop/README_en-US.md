@@ -97,6 +97,10 @@ Use this function to get the internal `Popover` instance.
 
 ### FAQ
 
+#### Wrong popup position with long text content
+
+It is likely you are passing a long string directly into `content` if this happens. Give `content` a width to make sure `Pop` can get the right width.
+
 #### centerArrow
 
 `Pop` aligns edges of its content and trigger by default, the distance between the arrow and content edge is fixed except when `position` is set to `'*-center'`. The arrow will appear outside of trigger's edge when trigger size is small. When this happens you can set `centerArrow` to `true` to always align arrow to trigger's center.

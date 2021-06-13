@@ -9,6 +9,32 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 9.7.0(2021-06-04)
+
+这个版本都是 `Form` 相关改动。
+
+✨ 放宽绝大部分 Hooks 对 `FormContext` 的依赖。
+
+- 允许 `Field` 和 `FieldArray` 相关 hooks 传入 `Model` 类型参数时在 `FormContext` 之外使用；`FieldSet` 相关 hooks 依旧必须在 `FormContext` 之中使用
+- Hooks 在 `Model` 模式下允许使用 `name` 来引用 model 对象，不再限制仅在 `View` 模式允许使用 `name`
+- 废弃临时解决方案 `useModelValue` 和 `useModelValid`，直接使用 `useFieldValue` 和 `useFieldValid` 即可
+
+✨ `Model` 模式下支持动态增/删表单项，[设计文档](https://github.com/youzan/zent/discussions/1663)。
+
+- 所有 model 对象上都增加了 `builder` 属性来获取生成这个 model 的 `Builder` 对象，`View` 模式下该字段永远为空
+- `FieldSetModel` 和 `FormModel` 上导出两个新方法 `removeChild` 以及 `registerChild` 用于删除/添加子 model
+- 重载 `FieldArrayModel` 上的 `push`, `unshift` 以及 `splice` 方法接受 model 类型的参数，之前仅支持传 model 的值
+- 新增 `useNamedChildModel` hook，用于订阅 `FieldSetModel` 以及 `FormModel` 子 model 的增加/删除行为
+- 增加 `Model` 模式下动态增/删表单项的文档和示例
+
+### 9.6.0(2021-05-28)
+
+- ✨ `InfiniteScroller` 增加 `threshold` 参数，用以控制触发 `loadMore` 时距离列表底部的距离
+- ✨ `Menu` `inline` 模式支持受控的菜单展开和选中
+- ✨ `Checkbox` 支持 `style` 内联样式
+- 🦀️ 修复 `Select` 中 `width` 为非数字并且没有设置 `popupWidth` 时，弹层和输入框宽度不一致的问题
+- 📚 更新 `Collapse` 的类型定义和文档描述
+
 ### 9.5.0(2021-05-07)
 
 - ✨ `Affix` 支持相对非 `window` 节点定位

@@ -3,18 +3,19 @@ import {
   FieldModel,
   BasicModel,
   FormStrategy,
-  FieldSetModel,
-  FormModel,
   ModelRef,
   isModelRef,
   isFieldModel,
 } from './models';
 import { useValue$ } from './hooks';
-import { useFormContext } from './context';
+import { IFormContext, useFormContext } from './context';
 import { IValidators } from './validate';
 import { useDestroyOnUnmount } from './utils';
 import { or } from './maybe';
-import { UnexpectedFormStrategyError } from './error';
+import {
+  createModelNotFoundError,
+  createUnexpectedModelTypeError,
+} from './error';
 
 function isValueFactory<Value>(
   candidate: Value | (() => Value)
@@ -23,28 +24,34 @@ function isValueFactory<Value>(
 }
 
 function useModelAndChildProps<Value>(
+  ctx: IFormContext | null,
   field: FieldModel<Value> | ModelRef<Value, any, FieldModel<Value>> | string,
-  parent: FieldSetModel,
-  strategy: FormStrategy,
-  defaultValue: Value | (() => Value),
-  form: FormModel
+  defaultValue: Value | (() => Value)
 ) {
   const model = useMemo(() => {
     let model: FieldModel<Value>;
     if (typeof field === 'string') {
-      if (strategy !== FormStrategy.View) {
-        throw UnexpectedFormStrategyError;
-      }
+      const { strategy, parent } = ctx ?? {};
       const m = parent.get(field);
-      if (!m || !isFieldModel<Value>(m)) {
-        const v = or<Value>(
-          parent.getPatchedValue(field),
-          isValueFactory(defaultValue) ? defaultValue : () => defaultValue
-        );
-        model = new FieldModel<Value>(v);
-        parent.registerChild(field, model as BasicModel<unknown>);
+      if (strategy === FormStrategy.View) {
+        if (!m || !isFieldModel<Value>(m)) {
+          const v = or<Value>(
+            parent.getPatchedValue(field),
+            isValueFactory(defaultValue) ? defaultValue : () => defaultValue
+          );
+          model = new FieldModel<Value>(v);
+          parent.registerChild(field, model as BasicModel<unknown>);
+        } else {
+          model = m;
+        }
       } else {
-        model = m;
+        if (!m) {
+          throw createModelNotFoundError(field);
+        } else if (!isFieldModel<Value>(m)) {
+          throw createUnexpectedModelTypeError(field, 'FieldModel', m);
+        } else {
+          model = m;
+        }
       }
     } else if (isModelRef<Value, any, FieldModel<Value>>(field)) {
       const m = field.getModel();
@@ -63,18 +70,20 @@ function useModelAndChildProps<Value>(
     } else {
       model = field;
     }
+
     return model;
-    /** ignore defaultValue */
-  }, [field, parent, strategy, form]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [field, ctx?.parent, ctx?.strategy, ctx?.form]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return model;
 }
 
 /**
- * 获取一个 `Field`
+ * 获取一个 `Field`。
  *
- * @param field 字段名，当 `FormStrategy` 是 `View` 的时候才能用字段名
- * @param validators 当 `field` 是字段名的时候，可以传入`validator`
+ * `Model` 模式下传入字符串类型的 `field` 时， `validators` 和 `defaultValue` 均无效。
+ *
+ * @param field 字段名
+ * @param validators 校验函数数组
  * @param defaultValue 默认值
  */
 export function useField<Value>(
@@ -97,20 +106,19 @@ export function useField<Value>(
   defaultValue?: Value | (() => Value),
   validators: IValidators<Value> = []
 ): FieldModel<Value> {
-  const { parent, strategy, form } = useFormContext();
-  const model = useModelAndChildProps(
-    field,
-    parent,
-    strategy,
-    defaultValue!,
-    form
-  );
+  const ctx = useFormContext(typeof field !== 'string');
+  const model = useModelAndChildProps(ctx, field, defaultValue!);
   const { value$, error$ } = model;
   useValue$(value$, value$.getValue());
   useValue$(error$, error$.getValue());
-  if (typeof field === 'string' || isModelRef(field)) {
+
+  // Only update validators in View mode
+  if (
+    ctx?.strategy === FormStrategy.View &&
+    (typeof field === 'string' || isModelRef(field))
+  ) {
     model.validators = validators;
   }
-  useDestroyOnUnmount(field, model, parent);
+  useDestroyOnUnmount(field, model, ctx?.parent);
   return model;
 }

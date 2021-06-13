@@ -6,10 +6,14 @@ import { IModel } from './base';
 import isNil from '../../../utils/isNil';
 import uniqueId from '../../../utils/uniqueId';
 import isPlainObject from '../../../utils/isPlainObject';
-import { UnknownFieldSetModelChildren } from '../utils';
+import type {
+  UnknownFieldSetBuilderChildren,
+  UnknownFieldSetModelChildren,
+} from '../utils';
 import omit from '../../../utils/omit';
 import { warningSubscribeValid, warningSubscribeValue } from '../warnings';
 import { isModel, SET_ID } from './is';
+import type { FieldSetBuilder } from '../builders/set';
 
 type $FieldSetValue<Children extends UnknownFieldSetModelChildren> = {
   [Key in keyof Children]: Children[Key] extends IModel<infer V> ? V : never;
@@ -41,6 +45,11 @@ class FieldSetModel<
   readonly children: Children = {} as Children;
 
   owner: IModel<any> | null = null;
+
+  /**
+   * 当前 `FieldSetModel` 对象的 builder 对象，仅在 `Model` 模式下可用。
+   */
+  readonly builder?: FieldSetBuilder<UnknownFieldSetBuilderChildren>;
 
   private _valid$?: BehaviorSubject<boolean>;
 
@@ -162,7 +171,7 @@ class FieldSetModel<
   }
 
   /**
-   * 在 `FieldSet` 上注册一个新的字段
+   * 在 `FieldSet` 上注册一个新的字段。
    * @param name 字段名
    * @param model 字段对应的 model
    */
@@ -170,26 +179,34 @@ class FieldSetModel<
     const children: UnknownFieldSetModelChildren = this.children;
     const prev = children[name];
 
-    if (prev !== model) {
-      prev && this.removeChild(name);
-      this._subscribeChild(name, model);
+    if (prev === model) {
+      return;
     }
+
+    if (prev) {
+      this.removeChild(name);
+    }
+    this._subscribeChild(name, model);
     model.owner = this;
     children[name] = model;
     this.childRegister$.next(name);
   }
 
   /**
-   * 在 `FieldSet` 上删除指定的字段
+   * 在 `FieldSet` 上删除指定的字段。
+   * 返回被删除的 model。
    * @param name 字段名
    */
-  removeChild(name: string) {
-    const model = this.children[name];
-    model.owner = null;
-    this._unsubscribeChild(model);
-    delete this.children[name];
-    this.childRemove$.next(name);
-    return model;
+  removeChild<T extends keyof Children>(name: T): Children[T] | null {
+    if (this.children.hasOwnProperty(name)) {
+      const model = this.children[name];
+      model.owner = null;
+      this._unsubscribeChild(model);
+      delete this.children[name];
+      this.childRemove$.next(name as string);
+      return model;
+    }
+    return null;
   }
 
   dispose() {
