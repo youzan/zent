@@ -87,13 +87,49 @@ This method is non-intrusive, but you have to manually build your custom theme e
 4. Your custom theme styles are in `packages/zent/css`.
 
 #### Modify theme color
+```ts
+interface IBrandItem {
+  color: string; // color hex value
+  name: string; // color css variable name
+}
+
+interface IBrandAllItem extends IBrandItem {
+  index: number;
+  var: string; // css variable
+  scene: IThemeScene; // scene
+}
+
+enum IThemeScene {
+  defaultHoverBg = 'default-hover-bg',
+  primaryHoverBg = 'primary-hover-bg',
+  primaryBg = 'primary-bg',
+  primaryActiveBg = 'primary-active-bg'
+}
+
+export interface IBrandSdk {
+  primaryColor: string;
+  getThemeColor: () => string; // hex
+  generateColors: (hex: string) => string[];
+  generateBrands: (hex: string) => IBrandAllItem[];
+  getBrandByScene: (scene: IThemeScene) => Array<string>;
+  getBrandColorByScene: (scene: IThemeScene, hex: string) => IBrandItem[];
+  getAllBrandColor: (hex: string) => IBrandAllItem[];
+  setBrandColorByScene: (scene: IThemeScene, hex: string) => void;
+  setAllBrandColor: (hex: string) => void;
+}
+```
 ```jsx
 import { BrandSdk } from 'zent';
 
-const { getAllBrandColor } = BrandSdk;
+const { setAllBrandColor } = BrandSdk;
 
-const brandVars = getAllBrandColor(c.hex);
-brandVars.forEach(item => {
-  document.documentElement.style.setProperty(item.name, item.color);
-});
+const consoleResult = [];
+consoleResult.push({ fn: 'getThemeColor', value: BrandSdk.getThemeColor() });
+consoleResult.push({ fn: 'generateColors', value: BrandSdk.generateColors(c.hex) });
+consoleResult.push({ fn: 'getBrandByScene', value: BrandSdk.getBrandByScene(IThemeScene.primaryHoverBg) });
+consoleResult.push({ fn: 'getBrandColorByScene', value: BrandSdk.getBrandColorByScene(IThemeScene.primaryActiveBg, c.hex) });
+consoleResult.push({ fn: 'getAllBrandColor', value: BrandSdk.getAllBrandColor(c.hex) });
+console.table(consoleResult);
+
+setAllBrandColor(c.hex);
 ```

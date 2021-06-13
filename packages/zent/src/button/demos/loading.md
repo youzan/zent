@@ -23,9 +23,6 @@ ReactDOM.render(
 			</Button>
 		</div>
 		<div style={{ marginTop: 10 }}>
-			<Button loading type="primary" outline>
-				{i18n.button2}
-			</Button>
 			<Button loading>{i18n.button3}</Button>
 		</div>
 	</div>,

@@ -17,7 +17,7 @@ $blue-base: #155bd4 !default;
 
 $primary-base: $blue-base;
 
-$shadow-color: rgba($black, 0.1);
+$shadow-color: $black;
 
 // size
 $spacing-size: (4px, 8px, 12px, 16px, 24px, 32px, 56px, 88px);
@@ -51,8 +51,21 @@ $font-size-number: (
   12px // 7
 );
 
-$line-height-1: 1.25;
-$line-height-2: 1.5;
+$line-height-number: (
+  44px,
+  // 1
+  36px,
+  // 2
+  30px,
+  // 3
+  26px,
+  // 4
+  24px,
+  // 5
+  20px,
+  // 6
+  18px // 7
+);
 
 $break-size: 16px;
 
@@ -60,6 +73,6 @@ $shadow-size-focus: 0 2px 8px 0 !default;
 $shadow-size-layer: 0 2px 16px 0 !default;
 $shadow-size-modal: 0 2px 24px 0 !default;
 
-$shadow-spec-focus: $shadow-size-focus $shadow-color !default;
-$shadow-spec-layer: $shadow-size-layer $shadow-color !default;
-$shadow-spec-modal: $shadow-size-modal $shadow-color !default;
+$shadow-spec-focus: $shadow-size-focus rgba($shadow-color, 0.1) !default;
+$shadow-spec-layer: $shadow-size-layer rgba($shadow-color, 0.1) !default;
+$shadow-spec-modal: $shadow-size-modal rgba($shadow-color, 0.1) !default;

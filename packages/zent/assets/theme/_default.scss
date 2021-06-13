@@ -6,6 +6,7 @@ $null: 'NULL';
 
 // sass-lint:disable no-duplicate-properties
 
+// Colors
 @function get-value($map, $key) {
   $val: map-get($map, $key);
 
@@ -45,7 +46,7 @@ $null: 'NULL';
     $desc-var: 'color';
   }
 
-  $css-var: var(--rgb-#{$type}-#{$desc-var} to-rgb($color));
+  $css-var: var(--rgb-#{$type}-#{$desc-var}, to-rgb($color));
 
   // `unquote` is a workaround for node-sass misinterprets rgba as builtin function
   // https://github.com/sass/node-sass/issues/2251
@@ -61,50 +62,74 @@ $null: 'NULL';
     #{$prop}: zent-color-var-rgb($type, $desc);
   } @else {
     #{$prop}: rgba($color, $opacity);
-    #{$prop}: zent-color-var-rgba($type, $desc);
+    #{$prop}: zent-color-var-rgba($type, $desc, $opacity);
   }
 }
 
-@function zent-size-var($map, $type, $desc) {
-  $size: get-value($map, $desc);
-
-  @return var(--#{$type}-#{$desc}, $size);
-}
-
+// Font size
 @function zent-font-size-var($desc) {
   $size: get-value($font-size, $desc);
 
   @return var(--font-size-#{$desc}, $size);
 }
 
-@mixin zent-font($desc) {
+@function zent-size-var($map, $desc, $name) {
+  $size: get-value($map, $desc);
+
+  @return var(--#{$name}-#{$desc}, $size);
+}
+
+@mixin zent-font-weight($desc) {
+  font-weight: map-get($font-weight, $desc);
+  font-weight: zent-size-var($font-weight, $desc, 'font-weight');
+}
+
+@mixin zent-font-size($desc) {
   $font-size: get-value($font-size, $desc);
   $font-size-var: zent-font-size-var($desc);
 
-  @if $font-size > $break-size {
-    font-size: $font-size-var;
-    line-height: zent-size-var($line-height, 'line-height', $text) * $font-size;
+  font-size: $font-size;
+  font-size: $font-size-var;
+  line-height: map-get($line-height, $desc);
+  line-height: zent-size-var($line-height, $desc, 'line-height');
+}
+
+@mixin title-size($desc) {
+  @include zent-font-weight(medium);
+  @include zent-font-size($desc);
+}
+
+@mixin normal-size($desc) {
+  @include zent-font-weight(normal);
+  @include zent-font-size($desc);
+}
+
+@mixin zent-font($desc, $type: $null) {
+  @if $type == 'title' {
+    @include title-size($desc);
   } @else {
-    font-size: $font-size-var;
-    line-height: zent-size-var($line-height, 'line-height', $heading) *
-      $font-size;
+    @include normal-size($desc);
   }
 }
 
+// Spacing
 @function zent-spacing-value($desc) {
-  @return zent-size-var($spacing, 'spacing', $desc);
+  @return zent-size-var($spacing, $desc, 'spacing');
 }
 
-@mixin zent-spacing($desc) {
+@mixin zent-spacing($prop, $desc) {
+  #{$prop}: map-get($spacing, $desc);
   #{$prop}: zent-spacing-value($desc);
 }
 
-@mixin zent-radius($desc) {
-  border-radius: zent-size-var($border-radius, 'border-radius', $desc);
+// Border
+@mixin zent-radius($desc: $medium) {
+  border-radius: zent-size-var($border-radius, $desc, 'border-radius');
 }
 
-@mixin zent-border-width($desc: 1, $prop: 'border-width') {
-  #{$prop}: zent-size-var($border-width, 'border-width', $desc);
+@mixin zent-border-width($desc: $medium) {
+  border-width: map-get($border-width, $desc);
+  border-width: zent-size-var($border-width, $desc, 'border-width');
 }
 
 @mixin zent-border-impl(
@@ -116,12 +141,18 @@ $null: 'NULL';
   $opacity
 ) {
   @include zent-color(#{$prop}-color, $color-type, $color-desc, $opacity: 1);
-  @include zent-border-width($width-desc, #{$prop}-width);
+  @include zent-border-width($width-desc);
 
   border-style: $style;
 }
 
-@mixin zent-border($color-type, $color-desc, $width-desc, $style, $opacity: 1) {
+@mixin zent-border(
+  $color-type,
+  $color-desc: $null,
+  $width-desc: $medium,
+  $style: solid,
+  $opacity: 1
+) {
   @include zent-border-impl(
     border,
     $color-type,
@@ -134,9 +165,9 @@ $null: 'NULL';
 
 @mixin zent-border-top(
   $color-type,
-  $color-desc,
-  $width-desc,
-  $style,
+  $color-desc: $null,
+  $width-desc: $medium,
+  $style: solid,
   $opacity: 1
 ) {
   @include zent-border-impl(
@@ -151,9 +182,9 @@ $null: 'NULL';
 
 @mixin zent-border-right(
   $color-type,
-  $color-desc,
-  $width-desc,
-  $style,
+  $color-desc: $null,
+  $width-desc: $medium,
+  $style: solid,
   $opacity: 1
 ) {
   @include zent-border-impl(
@@ -168,9 +199,9 @@ $null: 'NULL';
 
 @mixin zent-border-bottom(
   $color-type,
-  $color-desc,
-  $width-desc,
-  $style,
+  $color-desc: $null,
+  $width-desc: $medium,
+  $style: solid,
   $opacity: 1
 ) {
   @include zent-border-impl(
@@ -185,9 +216,9 @@ $null: 'NULL';
 
 @mixin zent-border-left(
   $color-type,
-  $color-desc,
-  $width-desc,
-  $style,
+  $color-desc: $null,
+  $width-desc: $medium,
+  $style: solid,
   $opacity: 1
 ) {
   @include zent-border-impl(
@@ -201,9 +232,12 @@ $null: 'NULL';
 }
 
 // Shadow
-$shadow-spec-focus-var: $shadow-size-focus zent-color-var-rgba(box-shadow) !default;
-$shadow-spec-layer-var: $shadow-size-layer zent-color-var-rgba(box-shadow) !default;
-$shadow-spec-modal-var: $shadow-size-modal zent-color-var-rgba(box-shadow) !default;
+$shadow-spec-focus-var: $shadow-size-focus
+  zent-color-var-rgba(shadow, $null, 0.1) !default;
+$shadow-spec-layer-var: $shadow-size-layer
+  zent-color-var-rgba(shadow, $null, 0.1) !default;
+$shadow-spec-modal-var: $shadow-size-modal
+  zent-color-var-rgba(shadow, $null, 0.1) !default;
 
 $theme-shadow: (
   $focus: $shadow-spec-focus,

@@ -11,14 +11,22 @@ $font-size: (
   $small: nth($font-size-number, 5),
   $x-small: nth($font-size-number, 6),
   $xx-small: nth($font-size-number, 7),
-  $weight-normal: $font-weight-normal,
-  $weight-medium: $font-weight-medium,
-  $weight-bold: $font-weight-bold,
+);
+
+$font-weight: (
+  $normal: $font-weight-normal,
+  $medium: $font-weight-medium,
+  $bold: $font-weight-bold,
 );
 
 $line-height: (
-  $text: $line-height-1,
-  $heading: $line-height-2,
+  $xx-large: nth($line-height-number, 1),
+  $x-large: nth($line-height-number, 2),
+  $large: nth($line-height-number, 3),
+  $medium: nth($line-height-number, 4),
+  $small: nth($line-height-number, 5),
+  $x-small: nth($line-height-number, 6),
+  $xx-small: nth($line-height-number, 7),
 );
 
 $font-size-h1: 44px;

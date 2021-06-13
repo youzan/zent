@@ -10,7 +10,7 @@ $rate-star-color: map-get($rate-colors, 'bg');
 
 $name-mapping: (
   'stroke-1': 'title-color',
-  'stroke-2': 'title-color',
+  'stroke-2': 'hint-color',
   'stroke-3': 'hint-color',
   'stroke-4': 'disabled-color',
   'stroke-5': 'border-color',
@@ -18,8 +18,8 @@ $name-mapping: (
   'stroke-7': 'section-bg',
   'stroke-8': 'section-bg',
   'stroke-9': 'body-bg',
-  'stroke-10': 'title-color',
-  'stroke-11': 'title-color',
+  'stroke-10': 'border-color',
+  'stroke-11': 'body-bg',
   'primary-1': 'primary-active-bg',
   'primary-2': 'primary-active-bg',
   'primary-3': 'primary-active-bg',

@@ -2,7 +2,7 @@
 @import './raw-vars';
 @import '../override';
 
-$green-100: generateLightColor($green-base, 4);
+$green-100: generateLightColor($green-base, 5);
 $green-400: generateLightColor($green-base, 1);
 $green-500: $green-base;
 $green-600: generateDarkColor($green-base, 1);
@@ -35,21 +35,20 @@ $primary-600: generateDarkColor($primary-base, 1);
 // 中间变量
 $title-color: $gray-500; // text color
 $hint-color: $gray-400; // text color when it`s for hint
-$disabled-color: $gray-500; // text color when it`s disabled
+$disabled-color: $gray-300; // text color when it`s disabled
 $section-bg: $gray-100; // background color
 $border-color: $gray-200; // border color
-
-$box-shadow-color: rgba(0, 0, 0, 0.1);
-$hover-box-shadow-color: rgba(0, 0, 0, 0.1);
-$active-box-shadow-color: rgba(0, 0, 0, 0.1);
 
 $global-colors: (
   'title': $title-color,
   'hint': $hint-color,
   'disabled': $disabled-color,
-  'section-bg': $section-bg,
   'border': $border-color,
-  'box-shadow': $box-shadow-color,
+  'shadow': $shadow-color,
+);
+
+$section-colors: (
+  'bg': $section-bg,
 );
 
 $body-colors: (
@@ -76,9 +75,9 @@ $danger-colors: (
 );
 
 $link-colors: (
-  'color': $blue-500,
-  'hover-color': $blue-400,
-  'active-color': $blue-600,
+  'color': $primary-500,
+  'hover-color': $primary-400,
+  'active-color': $primary-600,
 );
 
 $default-colors: (
@@ -104,16 +103,17 @@ $primary-colors: (
 // components
 $weak-link-colors: (
   'color': $hint-color,
-  'hover-color': $blue-400,
-  'active-color': $blue-600,
+  'hover-color': $primary-400,
+  'active-color': $primary-600,
 );
 
 $rate-colors: (
-  'star-bg': $yellow-500,
+  'bg': $yellow-500,
 );
 
 $colors-map: (
   'body': $body-colors,
+  'section': $section-colors,
   'success': $success-colors,
   'warning': $warning-colors,
   'danger': $danger-colors,
@@ -127,7 +127,7 @@ $colors-map: (
 // old
 // Text colors
 $theme-stroke-1: $title-color; // text
-$theme-stroke-2: $title-color; // text
+$theme-stroke-2: $hint-color; // text
 $theme-stroke-3: $hint-color; // help text
 $theme-stroke-4: $disabled-color; // disabled text
 
