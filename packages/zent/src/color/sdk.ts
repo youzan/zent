@@ -94,6 +94,40 @@ const getBrandColorByScene = (scene: IThemeScene, hex: string) => {
   return getBrandVars(brandVars, colors[colorInfo.index]);
 };
 
+const generateBrands = (hex: string) => {
+  checkHex(hex);
+  const calcColors = generate(hex);
+  return brandRelation.reduce((pre, current) => {
+    return pre.concat({ ...current, color: calcColors[current.index] });
+  }, []);
+};
+
+const generateColors = (hex: string) => {
+  checkHex(hex);
+  return generate(hex);
+};
+
+const setAllBrandColor = (hex: string) => {
+  checkHex(hex);
+  const brandVars = getAllBrandColor(hex);
+  brandVars.forEach(item => {
+    document.documentElement.style.setProperty(item.name, item.color);
+  });
+};
+
+const setBrandColorByScene = (scene: IThemeScene, hex: string) => {
+  checkHex(hex);
+  const brandVars = getBrandColorByScene(scene, hex);
+  const colors = generate(hex);
+  const colorInfo = brandRelation.find(item => scene === item.scene);
+  brandVars.forEach(item => {
+    document.documentElement.style.setProperty(
+      item.name,
+      colors[colorInfo.index]
+    );
+  });
+};
+
 const checkHex = hex => {
   if (!hex) {
     throw new Error('hex is not defined');
@@ -104,12 +138,6 @@ const checkHex = hex => {
 export const BrandSdk: IBrandSdk = {
   primaryColor: '#155bd4',
 
-  getBrandByScene,
-
-  getBrandColorByScene,
-
-  getAllBrandColor,
-
   getThemeColor() {
     return (
       document.documentElement.style.getPropertyValue('--primary-bg') ||
@@ -117,37 +145,17 @@ export const BrandSdk: IBrandSdk = {
     );
   },
 
-  generateBrands(hex) {
-    checkHex(hex);
-    const calcColors = generate(hex);
-    return brandRelation.reduce((pre, current) => {
-      return pre.concat({ ...current, color: calcColors[current.index] });
-    }, []);
-  },
+  getBrandByScene,
 
-  generateColors(hex: string) {
-    checkHex(hex);
-    return generate(hex);
-  },
+  getBrandColorByScene,
 
-  setAllBrandColor(hex: string) {
-    checkHex(hex);
-    const brandVars = getAllBrandColor(hex);
-    brandVars.forEach(item => {
-      document.documentElement.style.setProperty(item.name, item.color);
-    });
-  },
+  getAllBrandColor,
 
-  setBrandColorByScene(scene: IThemeScene, hex: string) {
-    checkHex(hex);
-    const brandVars = getBrandColorByScene(scene, hex);
-    const colors = generate(hex);
-    const colorInfo = brandRelation.find(item => scene === item.scene);
-    brandVars.forEach(item => {
-      document.documentElement.style.setProperty(
-        item.name,
-        colors[colorInfo.index]
-      );
-    });
-  },
+  generateBrands,
+
+  generateColors,
+
+  setAllBrandColor,
+
+  setBrandColorByScene,
 };

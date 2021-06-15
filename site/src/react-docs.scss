@@ -1,6 +1,5 @@
 @import './constants';
 @import './animation';
-@import '../../packages/zent/assets/theme/default';
 
 .app {
   min-width: 1200px;
@@ -81,7 +80,6 @@
   }
 }
 
-// todo
 img[alt='zent-theme'] {
   width: 514px;
   height: 319px;
@@ -141,128 +139,4 @@ img[alt='zent-theme'] {
   &__mask-white {
     border: 1px solid #e5e5e5;
   }
-}
-
-// temp css
-
-.font-item {
-  margin: 8px;
-  display: block;
-}
-
-.font-title-1 {
-  @include zent-font(xx-large, title);
-}
-
-.font-title-2 {
-  @include zent-font(x-large, title);
-}
-
-.font-title-3 {
-  @include zent-font(large, title);
-}
-
-.font-title-4 {
-  @include zent-font(medium, title);
-}
-
-.font-title-5 {
-  @include zent-font(small, title);
-}
-
-.font-title-6 {
-  @include zent-font(x-small, title);
-}
-
-.font-normal-1 {
-  @include zent-font(small);
-}
-
-.font-normal-2 {
-  @include zent-font(x-small);
-}
-
-.font-normal-3 {
-  @include zent-font(xx-small);
-}
-
-.shadow-item {
-  margin: 8px;
-  display: inline-flex;
-  width: 160px;
-  height: 160px;
-  align-items: center;
-  justify-content: center;
-}
-
-.shadow-1 {
-  @include zent-shadow(focus);
-}
-
-.shadow-2 {
-  @include zent-shadow(layer);
-}
-
-.shadow-3 {
-  @include zent-shadow(modal);
-}
-
-.spacing-item {
-  width: 48px;
-  height: 48px;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  @include zent-color(background-color, body, bg);
-  @include zent-border(border);
-}
-
-.spacing-1 {
-  @include zent-spacing(margin-left, $xxx-large);
-}
-
-.spacing-2 {
-  @include zent-spacing(margin-left, xx-large);
-}
-
-.spacing-3 {
-  @include zent-spacing(margin-left, x-large);
-}
-
-.spacing-4 {
-  @include zent-spacing(margin-left, large);
-}
-
-.spacing-5 {
-  @include zent-spacing(margin-left, medium);
-}
-
-.spacing-6 {
-  @include zent-spacing(margin-left, small);
-}
-
-.spacing-7 {
-  @include zent-spacing(margin-left, x-small);
-}
-
-.spacing-8 {
-  @include zent-spacing(margin-left, xx-small);
-}
-
-.radius-item {
-  margin: 8px;
-  display: inline-flex;
-  width: 40px;
-  height: 40px;
-  align-items: center;
-  justify-content: center;
-  @include zent-color(background-color, section, bg);
-}
-
-.radius-1 {
-  @include zent-radius(small);
-}
-
-.radius-2 {
-  @include zent-radius(medium);
 }
