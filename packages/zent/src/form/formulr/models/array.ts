@@ -12,6 +12,7 @@ import { createUnexpectedModelError } from '../error';
 import { warningSubscribeValid, warningSubscribeValue } from '../warnings';
 import { FIELD_ARRAY_ID, isModelRef, isModel } from './is';
 import type { FieldArrayBuilder } from '../builders';
+import { createSentinelSubject } from './sentinel-subject';
 
 class FieldArrayModel<
   Item,
@@ -21,6 +22,8 @@ class FieldArrayModel<
    * @internal
    */
   [FIELD_ARRAY_ID]!: boolean;
+
+  protected readonly _displayName = 'FieldArrayModel';
 
   readonly children$: BehaviorSubject<Child[]>;
 
@@ -86,7 +89,7 @@ class FieldArrayModel<
    * The same as value$, but without warning
    */
   _getValue$(shouldWarn = false) {
-    warningSubscribeValue(shouldWarn, 'FieldArray');
+    warningSubscribeValue(shouldWarn, this._displayName);
 
     if (!this._value$) {
       this._initValue$();
@@ -96,7 +99,7 @@ class FieldArrayModel<
   }
 
   _getValid$(shouldWarn = false) {
-    warningSubscribeValid(shouldWarn, 'FieldArray');
+    warningSubscribeValid(shouldWarn, this._displayName);
 
     if (!this._valid$) {
       this._initValid$();
@@ -382,6 +385,23 @@ class FieldArrayModel<
       child.dispose();
     });
     this.children$.next([]);
+
+    // Close all subjects and setup sentinels to warn use after free errors
+    this._getValue$().complete();
+    this._getValid$().complete();
+    this.children$.complete();
+    (this._valid$ as BehaviorSubject<boolean>) = createSentinelSubject(
+      this._displayName,
+      false
+    );
+    (this._value$ as BehaviorSubject<readonly Item[]>) = createSentinelSubject(
+      this._displayName,
+      []
+    );
+    (this.children$ as BehaviorSubject<Child[]>) = createSentinelSubject(
+      this._displayName,
+      []
+    );
   }
 
   private _linkChild(child: Child) {

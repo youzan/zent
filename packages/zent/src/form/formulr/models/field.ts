@@ -7,6 +7,7 @@ import isNil from '../../../utils/isNil';
 import uniqueId from '../../../utils/uniqueId';
 import { FIELD_ID } from './is';
 import type { FieldBuilder } from '../builders';
+import { createSentinelSubject } from './sentinel-subject';
 
 export interface INormalizeBeforeSubmit<A, B> {
   (a: A): B;
@@ -17,6 +18,8 @@ class FieldModel<Value> extends BasicModel<Value> {
    * @internal
    */
   [FIELD_ID]!: boolean;
+
+  protected readonly _displayName = 'FieldModel';
 
   readonly _value$ = new BehaviorSubject(this.defaultValue);
 
@@ -156,6 +159,22 @@ class FieldModel<Value> extends BasicModel<Value> {
    */
   touched() {
     return this.isTouched;
+  }
+
+  dispose() {
+    super.dispose();
+
+    // Close all subjects and setup sentinels to warn use after free errors
+    this._getValue$().complete();
+    this._getValid$().complete();
+    (this._valid$ as BehaviorSubject<boolean>) = createSentinelSubject(
+      this._displayName,
+      false
+    );
+    (this._value$ as BehaviorSubject<Value>) = createSentinelSubject(
+      this._displayName,
+      this.defaultValue
+    );
   }
 }
 

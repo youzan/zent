@@ -14,6 +14,11 @@ import { MODEL_ID } from './is';
 
 abstract class BasicModel<Value> implements IModel<Value> {
   /**
+   * Model display name
+   */
+  protected abstract _displayName: string;
+
+  /**
    * @internal
    */
   readonly validate$ = new Subject<IValidation>();
@@ -99,6 +104,8 @@ abstract class BasicModel<Value> implements IModel<Value> {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
     this.subscriptions = [];
     this.owner = null;
+    this.clear();
+    this.clearError();
   }
 
   valid() {
