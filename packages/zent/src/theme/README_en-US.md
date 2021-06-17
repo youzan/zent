@@ -103,6 +103,8 @@ Could use `ThemeSDK API`, pass a basic color to update the theme colors. Choose 
 
 <!-- demo-slot-3 -->
 
+<!-- demo-slot-4 -->
+
 ### `ThemeSDK` API
 
 ```ts
@@ -122,11 +124,11 @@ interface IThemeAllItem extends IThemeItem {
 | 参数                  | 说明                                                                               | 类型                                                  | 默认值             |
 | --------------------- | --------------------------------------------------------------------------------- | ---------------------------------------------------- | ------------------ |
 | getThemeColor         | get current theme color                                                           | () => string                                         |                    |
-| generateColors        | base on the color, get all the colors                                             | (hex: string) => string[]                            |                    |
-| getAllThemeColor      | base on the color, get all the colors and it semantic scene, css variable         | (hex: string) => IThemeAllItem[]                     |                    |
-| getThemeColorByScene  | get the colors and css variable by a specific semantic scene                       | (scene: IThemeScene, hex: string) => IThemeItem[]    |                   |
-| setAllThemeColor      | base on the color, set all the color css variables                              | (hex: string) => void                                |                   |
-| setThemeColorByScene  | base on the color and a specific semantic scene, set the color css variables     | (scene: IThemeScene, hex: string)  => void           |                    |
+| generateColors        | base on a color, get all the theme colors                                         | (hex: string) => string[]                            |                    |
+| getAllThemeColor      | base on a color, get all the theme colors and it semantic scene, css variable     | (hex: string) => IThemeAllItem[]                     |                    |
+| getThemeColorByScene  | get the theme colors and css variable by a specific semantic scene                 | (scene: IThemeScene, hex: string) => IThemeItem[]    |                   |
+| setAllThemeColor      | base on a color, set all the theme color css variables                            | (hex: string) => void                                |                   |
+| setThemeColorByScene  | base on a color and a specific semantic scene, set the theme color css variables   | (scene: IThemeScene, hex: string)  => void           |                    |
 
 <style>
 img[alt='zent-theme'] {
