@@ -1,5 +1,6 @@
 // according to the base color, to calculate a lighter or darker color
-@import 'color-helpers/hsv-hsl';
+// sass-lint:disable clean-import-paths
+@import 'sass-color-helpers/stylesheets/_color-helpers.scss';
 
 $saturationBaseLightStep: 15;
 $saturationAdditiveLightStep: 6;
