@@ -89,6 +89,7 @@
 
   &-animation {
     flex: 0 0 auto;
+    overflow-y: hidden;
 
     &-enter {
       transition: transform 160ms ease-in;
