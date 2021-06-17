@@ -66,7 +66,7 @@ export default class NoticeWrap extends Component<
     setTimeout(() => {
       const { onExited, id } = this.props;
       onExited(id);
-    }, 200000);
+    }, 200);
   };
 
   leave() {
@@ -87,7 +87,7 @@ export default class NoticeWrap extends Component<
       const {
         autoClose = true,
         closable = true,
-        timeout = 4500000,
+        timeout = 4500,
       } = children.props;
       if (closable && autoClose) {
         this.timer = setTimeout(() => this.leave(), timeout) as any;

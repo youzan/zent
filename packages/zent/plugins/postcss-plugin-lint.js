@@ -4,9 +4,14 @@ const parseValue = require('postcss-value-parser');
 const path = require('path');
 const { KEYFRAME_NAME_PREFIX } = require('./constants');
 
-const THEME_FILES = ['_default.scss', '_override.scss'].map(f =>
-  path.resolve(__dirname, '../assets/theme', f)
-);
+const THEME_FILES = [
+  '_default.scss',
+  '_override.scss',
+  'variables/_box.scss',
+  'variables/_color.scss',
+  'variables/_raw-vars.scss',
+  'variables/_text.scss',
+].map(f => path.resolve(__dirname, '../assets/theme', f));
 
 const ErrorMessages = {
   color: 'raw colors not allowed, use color variables in theme/default',

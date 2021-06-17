@@ -34,17 +34,17 @@ $primary-500: $primary-base;
 $primary-600: generateDarkColor($primary-base, 1);
 
 $title-colors: (
-  color: $gray-500,
+  'color': $gray-500,
 );
 
 // colors when it`s for hint
 $hint-colors: (
-  color: $gray-400,
+  'color': $gray-400,
 );
 
 // colors when it`s disabled
 $disabled-colors: (
-  color: $gray-300,
+  'color': $gray-300,
 );
 
 // mostly use in section, card
@@ -133,25 +133,25 @@ $colors-map: (
 
 // old
 // Text colors
-$theme-stroke-1: map-get($title-colors, color); // text
-$theme-stroke-2: map-get($hint-colors, color); // text
-$theme-stroke-3: map-get($hint-colors, color); // help text
-$theme-stroke-4: map-get($disabled-colors, color); // disabled text
+$theme-stroke-1: map-get($title-colors, 'color'); // text
+$theme-stroke-2: map-get($hint-colors, 'color'); // text
+$theme-stroke-3: map-get($hint-colors, 'color'); // help text
+$theme-stroke-4: map-get($disabled-colors, 'color'); // disabled text
 
 // Border and line colors
-$theme-stroke-5: map-get($section-colors, border-color);
-$theme-stroke-6: map-get($section-colors, border-color);
+$theme-stroke-5: map-get($section-colors, 'border-color');
+$theme-stroke-6: map-get($section-colors, 'border-color');
 
 // Background colors
-$theme-stroke-7: map-get($section-colors, bg);
-$theme-stroke-8: map-get($section-colors, bg);
+$theme-stroke-7: map-get($section-colors, 'bg');
+$theme-stroke-8: map-get($section-colors, 'bg');
 $theme-stroke-9: map-get(
-  map-get($colors-map, 'body'),
+  $body-colors,
   'bg'
 ); // White button normal background color
 
 // Button background color
-$theme-stroke-10: map-get($section-colors, border-color); // Active
+$theme-stroke-10: map-get($section-colors, 'border-color'); // Active
 $theme-stroke-11: map-get(map-get($colors-map, 'body'), 'bg'); // Hover
 
 // Blue(primary)

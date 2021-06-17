@@ -2,10 +2,10 @@ import { generate } from './generator';
 import { cssVarRef } from './css-var-ref';
 
 export enum IThemeScene {
-  defaultHoverBg = '--default-hover-bg',
-  primaryHoverBg = '--primary-hover-bg',
-  primaryBg = '--primary-bg',
-  primaryActiveBg = '--primary-active-bg',
+  defaultHoverBg = '--theme-default-hover-bg',
+  primaryHoverBg = '--theme-primary-hover-bg',
+  primaryBg = '--theme-primary-bg',
+  primaryActiveBg = '--theme-primary-active-bg',
 }
 
 export interface IThemeItem {

@@ -3,7 +3,6 @@
 
 @import './variables/color';
 @import './variables/text';
-@import './old-default';
 
 // sass-lint:disable no-duplicate-properties
 // Colors
@@ -16,12 +15,12 @@
   $color: if($colors, map-get($colors, $attr), null);
 
   @if $color != null and $color {
-    @return null;
+    @return false;
   }
   @return true;
 }
 
-@function get-color-value($cat, $attr: color) {
+@function get-color-value($cat, $attr) {
   @return map-get(map-get($colors-map, $cat), $attr);
 }
 
@@ -221,15 +220,15 @@ $shadow-spec-layer-var: $shadow-size-layer theme-rgba(section, shadow, 0.1) !def
 $shadow-spec-modal-var: $shadow-size-modal theme-rgba(section, shadow, 0.1) !default;
 
 $theme-shadow: (
-  $focus: $shadow-spec-focus,
-  $layer: $shadow-spec-layer,
-  $modal: $shadow-spec-modal,
+  'focus': $shadow-spec-focus,
+  'layer': $shadow-spec-layer,
+  'modal': $shadow-spec-modal,
 );
 
 $theme-shadow-var: (
-  $focus: $shadow-spec-focus-var,
-  $layer: $shadow-spec-layer-var,
-  $modal: $shadow-spec-modal-var,
+  'focus': $shadow-spec-focus-var,
+  'layer': $shadow-spec-layer-var,
+  'modal': $shadow-spec-modal-var,
 );
 
 @mixin theme-shadow($cat) {

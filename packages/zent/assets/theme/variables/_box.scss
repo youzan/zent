@@ -1,24 +1,23 @@
 // box`s size. includes spacing, border-raduis, border-width
-@import './size-names';
 @import './raw-vars';
 @import '../override';
 
 $spacing: (
-  $xx-small: nth($spacing-size, 1),
-  $x-small: nth($spacing-size, 2),
-  $small: nth($spacing-size, 3),
-  $medium: nth($spacing-size, 4),
-  $large: nth($spacing-size, 5),
-  $x-large: nth($spacing-size, 6),
-  $xx-large: nth($spacing-size, 7),
-  $xxx-large: nth($spacing-size, 8),
+  'xx-small': nth($spacing-size, 1),
+  'x-small': nth($spacing-size, 2),
+  'small': nth($spacing-size, 3),
+  'medium': nth($spacing-size, 4),
+  'large': nth($spacing-size, 5),
+  'x-large': nth($spacing-size, 6),
+  'xx-large': nth($spacing-size, 7),
+  'xxx-large': nth($spacing-size, 8),
 );
 
 $border-radius: (
-  $small: nth($border-radius-size, 1),
-  $medium: nth($border-radius-size, 2),
+  'small': nth($border-radius-size, 1),
+  'medium': nth($border-radius-size, 2),
 );
 
 $border-width: (
-  $medium: nth($border-width-size, 1),
+  'medium': nth($border-width-size, 1),
 );
