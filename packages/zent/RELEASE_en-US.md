@@ -9,6 +9,15 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 9.7.1(2021-06-17)
+
+- `Form`
+  - 🦀️ Add use-after-free check in models
+  - 🦀️ Fix performance warning text typo
+  - 📚 Add model API in documentation
+  - 📚 Update `destroyOnUnmount` description in documentation
+- 📚 Add long text FAQ in `Pop` documentation
+
 ### 9.7.0(2021-06-04)
 
 - ✨ Allow `Field` and `FieldArray` hooks to be used without form context if using `Model` as argument. `FieldSet` hooks always require a form context.
