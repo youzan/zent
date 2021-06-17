@@ -11,7 +11,9 @@ function compile() {
     'sass',
     [
       '--load-path',
-      [iconPath, colorHelpersPath],
+      iconPath,
+      '--load-path',
+      colorHelpersPath,
       '--no-source-map',
       '--stop-on-error',
       '--no-error-css',
