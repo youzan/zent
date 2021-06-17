@@ -1,6 +1,7 @@
 // provider func
 // according to the base color, to calculate a lighter or darker color
-@import '~sass-color-helpers/stylesheets/color-helpers/hsv-hsl';
+// sass-lint:disable clean-import-paths
+@import '../../../../node_modules/sass-color-helpers/stylesheets/color-helpers/hsv-hsl.scss';
 
 $saturationBaseLightStep: 15;
 $saturationAdditiveLightStep: 6;
