@@ -100,14 +100,6 @@ const getThemeColorByScene = (scene: IThemeScene, hex: string) => {
   return getThemeVars(themeVars, colors[colorInfo.index]);
 };
 
-const generateThemes: (hex: string) => IThemeAllItem[] = hex => {
-  checkHex(hex);
-  const calcColors = generate(hex);
-  return themeRelation.reduce((pre, current) => {
-    return pre.concat({ ...current, color: calcColors[current.index] });
-  }, []);
-};
-
 const generateColors = (hex: string) => {
   checkHex(hex);
   return generate(hex);
