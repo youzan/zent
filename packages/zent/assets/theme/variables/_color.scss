@@ -1,4 +1,5 @@
 // sass-lint:disable no-important
+//  all color variables and semantic name
 @import './raw-vars';
 @import '../override';
 
@@ -32,23 +33,25 @@ $primary-400: generateLightColor($primary-base, 1);
 $primary-500: $primary-base;
 $primary-600: generateDarkColor($primary-base, 1);
 
-// 中间变量
-$title-color: $gray-500; // text color
-$hint-color: $gray-400; // text color when it`s for hint
-$disabled-color: $gray-300; // text color when it`s disabled
-$section-bg: $gray-100; // background color
-$border-color: $gray-200; // border color
-
-$global-colors: (
-  'title': $title-color,
-  'hint': $hint-color,
-  'disabled': $disabled-color,
-  'border': $border-color,
-  'shadow': $shadow-color,
+$title-colors: (
+  color: $gray-500,
 );
 
+// colors when it`s for hint
+$hint-colors: (
+  color: $gray-400,
+);
+
+// colors when it`s disabled
+$disabled-colors: (
+  color: $gray-300,
+);
+
+// mostly use in section, card
 $section-colors: (
-  'bg': $section-bg,
+  'bg': $gray-100,
+  'shadow': $shadow-color,
+  'border-color': $gray-200,
 );
 
 $body-colors: (
@@ -84,10 +87,10 @@ $default-colors: (
   'hover-color': $primary-500,
   'hover-bg': $primary-100,
   'hover-border-color': $primary-500,
-  'selected': $section-bg,
-  'disabled-color': $disabled-color,
-  'disabled-bg': $section-bg,
-  'disabled-border-color': $disabled-color,
+  'selected': $gray-100,
+  'disabled-color': $gray-300,
+  'disabled-bg': $gray-100,
+  'disabled-border-color': $gray-300,
 );
 
 $primary-colors: (
@@ -102,7 +105,7 @@ $primary-colors: (
 
 // components
 $weak-link-colors: (
-  'color': $hint-color,
+  'color': $gray-400,
   'hover-color': $primary-400,
   'active-color': $primary-600,
 );
@@ -111,7 +114,11 @@ $rate-colors: (
   'bg': $yellow-500,
 );
 
+// 所有种类颜色的集合
 $colors-map: (
+  'title': $title-colors,
+  'hint': $hint-colors,
+  'disabled': $disabled-colors,
   'body': $body-colors,
   'section': $section-colors,
   'success': $success-colors,
@@ -126,25 +133,25 @@ $colors-map: (
 
 // old
 // Text colors
-$theme-stroke-1: $title-color; // text
-$theme-stroke-2: $hint-color; // text
-$theme-stroke-3: $hint-color; // help text
-$theme-stroke-4: $disabled-color; // disabled text
+$theme-stroke-1: map-get($title-colors, color); // text
+$theme-stroke-2: map-get($hint-colors, color); // text
+$theme-stroke-3: map-get($hint-colors, color); // help text
+$theme-stroke-4: map-get($disabled-colors, color); // disabled text
 
 // Border and line colors
-$theme-stroke-5: $border-color;
-$theme-stroke-6: $border-color;
+$theme-stroke-5: map-get($section-colors, border-color);
+$theme-stroke-6: map-get($section-colors, border-color);
 
 // Background colors
-$theme-stroke-7: $section-bg;
-$theme-stroke-8: $section-bg;
+$theme-stroke-7: map-get($section-colors, bg);
+$theme-stroke-8: map-get($section-colors, bg);
 $theme-stroke-9: map-get(
   map-get($colors-map, 'body'),
   'bg'
 ); // White button normal background color
 
 // Button background color
-$theme-stroke-10: $border-color; // Active
+$theme-stroke-10: map-get($section-colors, border-color); // Active
 $theme-stroke-11: map-get(map-get($colors-map, 'body'), 'bg'); // Hover
 
 // Blue(primary)
@@ -180,49 +187,158 @@ $theme-warn-5: map-get(map-get($colors-map, 'warning'), 'bg');
 
 $loading-icon-youzan-color: #e00 !default;
 
+// !!! DO NOT USE !!!
+// These variables will be removed
+$notify-error: rgba(255, 68, 68, 0.8);
+$notify-success: rgba(68, 187, 136, 0.8);
+$rate-star-color: map-get($rate-colors, 'bg');
+
+// 旧版语义和新版语义的映射关系
 $theme-colors: (
   'stroke': (
-    $theme-stroke-1,
-    $theme-stroke-2,
-    $theme-stroke-3,
-    $theme-stroke-4,
-    $theme-stroke-5,
-    $theme-stroke-6,
-    $theme-stroke-7,
-    $theme-stroke-8,
-    $theme-stroke-9,
-    $theme-stroke-10,
-    $theme-stroke-11,
+    (
+      cat: 'title',
+      attr: 'color',
+    ),
+    (
+      cat: 'hint',
+      attr: 'color',
+    ),
+    (
+      cat: 'hint',
+      attr: 'color',
+    ),
+    (
+      cat: 'disabled',
+      attr: 'color',
+    ),
+    (
+      cat: 'section',
+      attr: 'border-color',
+    ),
+    (
+      cat: 'section',
+      attr: 'border-color',
+    ),
+    (
+      cat: 'section',
+      attr: 'bg',
+    ),
+    (
+      cat: 'section',
+      attr: 'bg',
+    ),
+    (
+      cat: 'body',
+      attr: 'bg',
+    ),
+    (
+      cat: 'section',
+      attr: 'border-color',
+    ),
+    (
+      cat: 'body',
+      attr: 'bg',
+    ),
   ),
   'primary': (
-    $theme-primary-1,
-    $theme-primary-2,
-    $theme-primary-3,
-    $theme-primary-4,
-    $theme-primary-5,
-    $theme-primary-6,
-    $theme-primary-7,
-    $theme-primary-8,
+    (
+      cat: 'primary',
+      attr: 'active-bg',
+    ),
+    (
+      cat: 'primary',
+      attr: 'active-bg',
+    ),
+    (
+      cat: 'primary',
+      attr: 'active-bg',
+    ),
+    (
+      cat: 'primary',
+      attr: 'bg',
+    ),
+    (
+      cat: 'primary',
+      attr: 'hover-bg',
+    ),
+    (
+      cat: 'primary',
+      attr: 'hover-bg',
+    ),
+    (
+      cat: 'primary',
+      attr: 'hover-bg',
+    ),
+    (
+      cat: 'default',
+      attr: 'hover-bg',
+    ),
   ),
   'success': (
-    $theme-success-1,
-    $theme-success-2,
-    $theme-success-3,
-    $theme-success-4,
-    $theme-success-5,
+    (
+      cat: 'success',
+      attr: 'color',
+    ),
+    (
+      cat: 'success',
+      attr: 'color',
+    ),
+    (
+      cat: 'success',
+      attr: 'bg',
+    ),
+    (
+      cat: 'success',
+      attr: 'color',
+    ),
+    (
+      cat: 'success',
+      attr: 'bg',
+    ),
   ),
   'error': (
-    $theme-error-1,
-    $theme-error-2,
-    $theme-error-3,
-    $theme-error-4,
-    $theme-error-5,
+    (
+      cat: 'danger',
+      attr: 'color',
+    ),
+    (
+      cat: 'danger',
+      attr: 'color',
+    ),
+    (
+      cat: 'danger',
+      attr: 'bg',
+    ),
+    (
+      cat: 'danger',
+      attr: 'color',
+    ),
+    (
+      cat: 'danger',
+      attr: 'bg',
+    ),
   ),
   'warn': (
-    $theme-warn-1,
-    $theme-warn-2,
-    $theme-warn-3,
-    $theme-warn-4,
-    $theme-warn-5,
+    (
+      cat: 'warning',
+      attr: 'color',
+    ),
+    (
+      cat: 'warning',
+      attr: 'color',
+    ),
+    (
+      cat: 'warning',
+      attr: 'bg',
+    ),
+    (
+      cat: 'warning',
+      attr: 'color',
+    ),
+    (
+      cat: 'warning',
+      attr: 'bg',
+    ),
   ),
 );

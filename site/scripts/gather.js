@@ -33,6 +33,11 @@ const NAMES = {
   'en-US': 'README_en-US.md',
 };
 
+const EXISTING_GROUP = {
+  'zh-CN': ['主题'],
+  'en-US': ['Theme'],
+};
+
 const isDir = path => {
   try {
     readdirSync(path);
@@ -68,6 +73,10 @@ function gather() {
         )(str)
       ),
       forEach(component => {
+        const isExisting = EXISTING_GROUP[i18n].includes(component.group);
+        if (isExisting) {
+          return;
+        }
         if (groups.indexOf(component.group) < 0) {
           groups.push(component.group);
           list.push({

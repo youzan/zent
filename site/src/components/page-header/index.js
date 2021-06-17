@@ -4,7 +4,7 @@ import { Select } from 'zent';
 import pkg from '../../../../packages/zent/package.json';
 import SearchBox from '../search-box';
 import RouterContext from '../router-context-type';
-import ThemeGenerator from '../theme-change-trigger';
+import ThemeSwitcher from '../theme-switcher';
 import './style.scss';
 
 const CONTROLS = {
@@ -92,7 +92,7 @@ export default class PageHeader extends Component {
           </a>
           <div className="page-header__search-sep" />
           <SearchBox locale={i18n} navData={sideNavData} />
-          <ThemeGenerator onlyTrigger className="zandoc-react-color-trigger" />
+          <ThemeSwitcher />
           <div
             className="page-header__i18n-switcher"
             type="primary"

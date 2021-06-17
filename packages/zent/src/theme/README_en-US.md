@@ -1,3 +1,10 @@
+---
+title: Customize
+path: guides/theme
+group: Theme
+scatter: true
+---
+
 ## Themes
 
 Zent supports themes, only colors are customizable for now.
@@ -86,50 +93,44 @@ This method is non-intrusive, but you have to manually build your custom theme e
 3. Run `yarn theme` within `packages/zent`
 4. Your custom theme styles are in `packages/zent/css`.
 
-#### Modify theme color
+#### Modify theme color dynamically
+
+Could use `ThemeSDK API`, pass a basic color to update the theme colors. Choose a color with a higher saturation and brightness, please. like: S > 85, B > 80, like the following:
+
+<!-- demo-slot-1 -->
+
+<!-- demo-slot-2 -->
+
+<!-- demo-slot-3 -->
+
+### `ThemeSDK` API
+
 ```ts
-interface IBrandItem {
+interface IThemeItem {
   color: string; // color hex value
   name: string; // color css variable name
 }
 
-interface IBrandAllItem extends IBrandItem {
+interface IThemeAllItem extends IThemeItem {
   index: number;
   var: string; // css variable
   scene: IThemeScene; // scene
 }
-
-enum IThemeScene {
-  defaultHoverBg = 'default-hover-bg',
-  primaryHoverBg = 'primary-hover-bg',
-  primaryBg = 'primary-bg',
-  primaryActiveBg = 'primary-active-bg'
-}
-
-export interface IBrandSdk {
-  primaryColor: string;
-  getThemeColor: () => string; // hex
-  generateColors: (hex: string) => string[];
-  generateBrands: (hex: string) => IBrandAllItem[];
-  getBrandByScene: (scene: IThemeScene) => Array<string>;
-  getBrandColorByScene: (scene: IThemeScene, hex: string) => IBrandItem[];
-  getAllBrandColor: (hex: string) => IBrandAllItem[];
-  setBrandColorByScene: (scene: IThemeScene, hex: string) => void;
-  setAllBrandColor: (hex: string) => void;
-}
 ```
-```jsx
-import { BrandSdk } from 'zent';
 
-const { setAllBrandColor } = BrandSdk;
 
-const consoleResult = [];
-consoleResult.push({ fn: 'getThemeColor', value: BrandSdk.getThemeColor() });
-consoleResult.push({ fn: 'generateColors', value: BrandSdk.generateColors(c.hex) });
-consoleResult.push({ fn: 'getBrandByScene', value: BrandSdk.getBrandByScene(IThemeScene.primaryHoverBg) });
-consoleResult.push({ fn: 'getBrandColorByScene', value: BrandSdk.getBrandColorByScene(IThemeScene.primaryActiveBg, c.hex) });
-consoleResult.push({ fn: 'getAllBrandColor', value: BrandSdk.getAllBrandColor(c.hex) });
-console.table(consoleResult);
+| 参数                  | 说明                                                                               | 类型                                                  | 默认值             |
+| --------------------- | --------------------------------------------------------------------------------- | ---------------------------------------------------- | ------------------ |
+| getThemeColor         | get current theme color                                                           | () => string                                         |                    |
+| generateColors        | base on the color, get all the colors                                             | (hex: string) => string[]                            |                    |
+| getAllThemeColor      | base on the color, get all the colors and it semantic scene, css variable         | (hex: string) => IThemeAllItem[]                     |                    |
+| getThemeColorByScene  | get the colors and css variable by a specific semantic scene                       | (scene: IThemeScene, hex: string) => IThemeItem[]    |                   |
+| setAllThemeColor      | base on the color, set all the color css variables                              | (hex: string) => void                                |                   |
+| setThemeColorByScene  | base on the color and a specific semantic scene, set the color css variables     | (scene: IThemeScene, hex: string)  => void           |                    |
 
-setAllBrandColor(c.hex);
-```
+<style>
+img[alt='zent-theme'] {
+  width: 514px;
+  height: 319px;
+}
+</style>

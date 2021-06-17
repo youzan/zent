@@ -1,10 +1,13 @@
-import { rgbToHsv, rgbToHex, inputToRGB } from '@ctrl/tinycolor';
+import tinycolor from '../utils/tinycolor';
+import { rgbToHex } from '../utils/tinycolor/conversion';
+import { inputToRGB } from '../utils/tinycolor/format-input';
 
 const saturationBaseLightStep = 0.15;
 const saturationAdditiveLightStep = 0.06;
 const saturationDarkStep = 0;
 const brightnessLightStep = 0.1;
 const brightnessDarkStep = 0.15;
+
 interface IHsvObject {
   h: number;
   s: number;
@@ -15,11 +18,6 @@ interface IRgbObject {
   r: number;
   g: number;
   b: number;
-}
-
-function toHsv({ r, g, b }: IRgbObject): IHsvObject {
-  const hsv = rgbToHsv(r, g, b);
-  return { h: hsv.h * 360, s: hsv.s, v: hsv.v };
 }
 
 export function toHex({ r, g, b }: IRgbObject): string {
@@ -79,34 +77,31 @@ function getDarkValue(hsv: IHsvObject, level: number): number {
   return Number(value.toFixed(2));
 }
 
-export function generate(color: string): string[] {
+export function generate(hex: string): string[] {
   const patterns: string[] = [];
-  const pColor = inputToRGB(color);
-  const hsv = toHsv(pColor);
+  const color = tinycolor(hex);
+  const hsv = color.toHsv();
   const lingterColors = [1, 4];
 
   lingterColors.forEach(item => {
+    const currentRgb = inputToRGB({
+      h: hsv.h,
+      s: getLightSaturation(hsv, item),
+      v: getLightValue(hsv, item),
+    });
     patterns.unshift(
-      toHex(
-        inputToRGB({
-          h: hsv.h,
-          s: getLightSaturation(hsv, item),
-          v: getLightValue(hsv, item),
-        })
-      )
+      toHex({ r: currentRgb.r, g: currentRgb.g, b: currentRgb.b })
     );
   });
 
-  patterns.push(toHex(pColor));
+  patterns.push(toHex(color));
 
-  patterns.push(
-    toHex(
-      inputToRGB({
-        h: hsv.h,
-        s: getDarkSaturation(hsv, 1),
-        v: getDarkValue(hsv, 1),
-      })
-    )
-  );
+  const darkRgb = inputToRGB({
+    h: hsv.h,
+    s: getDarkSaturation(hsv, 1),
+    v: getDarkValue(hsv, 1),
+  });
+
+  patterns.push(toHex({ r: darkRgb.r, g: darkRgb.g, b: darkRgb.b }));
   return patterns;
 }

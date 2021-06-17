@@ -1,243 +1,224 @@
+// all the functions and mixin to get define css variable
+// $attr: some custom attribute and html property
+
 @import './variables/color';
 @import './variables/text';
 @import './old-default';
 
-$null: 'NULL';
-
 // sass-lint:disable no-duplicate-properties
-
 // Colors
-@function get-value($map, $key) {
-  $val: map-get($map, $key);
+@function to-rgb($color) {
+  @return red($color), green($color), blue($color);
+}
 
-  @if $val {
-    @return $val;
+@function is-old-theme($cat, $attr) {
+  $colors: map-get($colors-map, $cat);
+  $color: if($colors, map-get($colors, $attr), null);
+
+  @if $color != null and $color {
+    @return null;
+  }
+  @return true;
+}
+
+@function get-color-value($cat, $attr: color) {
+  @return map-get(map-get($colors-map, $cat), $attr);
+}
+
+@function get-old-color($cat, $i) {
+  $map-info: nth(map-get($theme-colors, $cat), $i);
+
+  @return get-color-value(map-get($map-info, cat), map-get($map-info, attr));
+}
+
+@function get-css-prefix() {
+  @return '--theme';
+}
+
+@function get-css-prefix-rgb() {
+  @return '--theme-rbg';
+}
+
+@function get-css-var-name($cat, $attr) {
+  @return #{$cat}-#{$attr};
+}
+
+@function get-old-css-var($cat, $i) {
+  $map-info: nth(map-get($theme-colors, $cat), $i);
+  // sass-lint:disable-block space-around-operator
+  @return #{map-get($map-info, cat)}-#{map-get($map-info, attr)};
+}
+
+@function get-color($cat, $attr) {
+  @if is-old-theme($cat, $attr) == true {
+    @return get-old-color($cat, $attr);
   } @else {
-    @error '#{$key} doesnot exist';
+    @return get-color-value($cat, $attr);
   }
 }
 
-@function get-color-value($type, $key: $null) {
-  @if $key == $null {
-    @return map-get($global-colors, $type);
-  } @else {
-    @return get-value(get-value($colors-map, $type), $key);
+@function get-css-var($cat, $attr) {
+  $prefix: get-css-prefix();
+  @if is-old-theme($cat, $attr) == true {
+    @return #{$prefix}-#{get-old-css-var($cat, $attr)};
   }
+  @return #{$prefix}-#{get-css-var-name($cat, $attr)};
 }
 
-@function zent-color-var-rgb($type, $desc: $null) {
-  $color: get-color-value($type, $desc);
-
-  $desc-var: $desc;
-
-  @if $desc == $null {
-    $desc-var: 'color';
+@function get-rgb-css-var($cat, $attr) {
+  $prefix: get-css-prefix-rgb();
+  @if is-old-theme($cat, $attr) == true {
+    @return #{$prefix}-#{get-old-css-var($cat, $attr)};
   }
-
-  @return var(--#{$type}-#{$desc-var}, $color);
+  @return #{$prefix}-rgb-#{get-css-var-name($cat, $attr)};
 }
 
-@function zent-color-var-rgba($type, $desc: $null, $opacity: 1) {
-  $color: get-color-value($type, $desc);
+@function theme-rgb($cat, $attr) {
+  $prefix: get-css-prefix();
+  $css-var: #{$prefix}-#{get-css-var-name($cat, $attr)};
 
-  $desc-var: $desc;
+  @if is-old-theme($cat, $attr) == true {
+    $color: get-old-color($cat, $attr);
+    $old-css-var: #{$prefix}-#{get-old-css-var($cat, $attr)};
 
-  @if $desc == $null {
-    $desc-var: 'color';
+    @return var($css-var, var($old-css-var, $color));
   }
 
-  $css-var: var(--rgb-#{$type}-#{$desc-var}, to-rgb($color));
+  $color: get-color-value($cat, $attr);
 
-  // `unquote` is a workaround for node-sass misinterprets rgba as builtin function
-  // https://github.com/sass/node-sass/issues/2251
-  // dart-sass doesn't seem to have this issue.
-  @return unquote('rgba(#{$css-var}, #{$opacity})');
+  @return var($css-var, $color);
 }
 
-@mixin zent-color($prop, $type, $desc: $null, $opacity: 1) {
-  $color: get-color-value($type, $desc);
+@function theme-rgba($cat, $attr, $opacity) {
+  $prefix: get-css-prefix-rgb();
+  $css-var: #{$prefix}-#{get-css-var-name($cat, $attr)};
+
+  @if is-old-theme($cat, $attr) == true {
+    $color: get-old-color($cat, $attr);
+    $old-css-var: #{$prefix}-#{get-old-css-var($cat, $attr)};
+
+    $css-var: var($css-var, var($old-css-var, to-rgb($color)));
+
+    // `unquote` is a workaround for node-sass misinterprets rgba as builtin function
+    // https://github.com/sass/node-sass/issues/2251
+    // dart-sass doesn't seem to have this issue.
+    @return unquote('rgba(#{$css-var}, #{$opacity})');
+  }
+
+  $color: get-color-value($cat, $attr);
+
+  @return unquote('rgba(#{var($css-var, to-rgb($color))}, #{$opacity})');
+}
+
+@mixin theme-color($prop, $cat, $color-attr, $opacity: 1) {
+  $color: get-color($cat, $color-attr);
 
   @if $opacity >= 1 {
     #{$prop}: $color;
-    #{$prop}: zent-color-var-rgb($type, $desc);
+    #{$prop}: theme-rgb($cat, $color-attr);
   } @else {
     #{$prop}: rgba($color, $opacity);
-    #{$prop}: zent-color-var-rgba($type, $desc, $opacity);
+    #{$prop}: theme-rgba($cat, $color-attr, $opacity);
   }
 }
 
+@mixin theme-border-impl($prop, $width, $style, $cat, $attr, $opacity) {
+  @include theme-color(#{$prop}-color, $cat, $attr, $opacity: 1);
+
+  #{$prop}-width: $width;
+  #{$prop}-style: $style;
+}
+
+@mixin theme-border($width, $style, $cat, $i, $opacity: 1) {
+  @include theme-border-impl(border, $width, $style, $cat, $i, $opacity);
+}
+
+@mixin theme-border-top($width, $style, $cat, $i, $opacity: 1) {
+  @include theme-border-impl(border-top, $width, $style, $cat, $i, $opacity);
+}
+
+@mixin theme-border-right($width, $style, $cat, $i, $opacity: 1) {
+  @include theme-border-impl(border-right, $width, $style, $cat, $i, $opacity);
+}
+
+@mixin theme-border-bottom($width, $style, $cat, $i, $opacity: 1) {
+  @include theme-border-impl(border-bottom, $width, $style, $cat, $i, $opacity);
+}
+
+@mixin theme-border-left($width, $style, $cat, $i, $opacity: 1) {
+  @include theme-border-impl(border-left, $width, $style, $cat, $i, $opacity);
+}
+
 // Font size
-@function zent-font-size-var($desc) {
-  $size: get-value($font-size, $desc);
+@function zent-font-size-var($attr) {
+  $size: map-get($font-size, $attr);
 
-  @return var(--font-size-#{$desc}, $size);
+  @return var(--font-size-#{$attr}, $size);
 }
 
-@function zent-size-var($map, $desc, $name) {
-  $size: get-value($map, $desc);
+@function zent-size-var($map, $attr, $name) {
+  $size: map-get($map, $attr);
 
-  @return var(--#{$name}-#{$desc}, $size);
+  @return var(--#{$name}-#{$attr}, $size);
 }
 
-@mixin zent-font-weight($desc) {
-  font-weight: map-get($font-weight, $desc);
-  font-weight: zent-size-var($font-weight, $desc, 'font-weight');
+@mixin zent-font-weight($attr) {
+  font-weight: map-get($font-weight, $attr);
+  font-weight: zent-size-var($font-weight, $attr, 'font-weight');
 }
 
-@mixin zent-font-size($desc) {
-  $font-size: get-value($font-size, $desc);
-  $font-size-var: zent-font-size-var($desc);
+@mixin zent-font-size($attr) {
+  $font-size: map-get($font-size, $attr);
+  $font-size-var: zent-font-size-var($attr);
 
   font-size: $font-size;
   font-size: $font-size-var;
-  line-height: map-get($line-height, $desc);
-  line-height: zent-size-var($line-height, $desc, 'line-height');
+  line-height: map-get($line-height, $attr);
+  line-height: zent-size-var($line-height, $attr, 'line-height');
 }
 
-@mixin title-size($desc) {
+@mixin title-size($attr) {
   @include zent-font-weight(medium);
-  @include zent-font-size($desc);
+  @include zent-font-size($attr);
 }
 
-@mixin normal-size($desc) {
+@mixin normal-size($attr) {
   @include zent-font-weight(normal);
-  @include zent-font-size($desc);
+  @include zent-font-size($attr);
 }
 
-@mixin zent-font($desc, $type: $null) {
-  @if $type == 'title' {
-    @include title-size($desc);
+@mixin zent-font($attr, $cat) {
+  @if $cat == 'title' {
+    @include title-size($attr);
   } @else {
-    @include normal-size($desc);
+    @include normal-size($attr);
   }
 }
 
 // Spacing
-@function zent-spacing-value($desc) {
-  @return zent-size-var($spacing, $desc, 'spacing');
+@function zent-spacing-value($attr) {
+  @return zent-size-var($spacing, $attr, 'spacing');
 }
 
-@mixin zent-spacing($prop, $desc) {
-  #{$prop}: map-get($spacing, $desc);
-  #{$prop}: zent-spacing-value($desc);
+@mixin zent-spacing($prop, $attr) {
+  #{$prop}: map-get($spacing, $attr);
+  #{$prop}: zent-spacing-value($attr);
 }
 
 // Border
-@mixin zent-radius($desc: $medium) {
-  border-radius: zent-size-var($border-radius, $desc, 'border-radius');
+@mixin zent-radius($attr: $medium) {
+  border-radius: zent-size-var($border-radius, $attr, 'border-radius');
 }
 
-@mixin zent-border-width($desc: $medium) {
-  border-width: map-get($border-width, $desc);
-  border-width: zent-size-var($border-width, $desc, 'border-width');
-}
-
-@mixin zent-border-impl(
-  $prop,
-  $color-type,
-  $color-desc,
-  $width-desc,
-  $style,
-  $opacity
-) {
-  @include zent-color(#{$prop}-color, $color-type, $color-desc, $opacity: 1);
-  @include zent-border-width($width-desc);
-
-  border-style: $style;
-}
-
-@mixin zent-border(
-  $color-type,
-  $color-desc: $null,
-  $width-desc: $medium,
-  $style: solid,
-  $opacity: 1
-) {
-  @include zent-border-impl(
-    border,
-    $color-type,
-    $color-desc,
-    $width-desc,
-    $style,
-    $opacity
-  );
-}
-
-@mixin zent-border-top(
-  $color-type,
-  $color-desc: $null,
-  $width-desc: $medium,
-  $style: solid,
-  $opacity: 1
-) {
-  @include zent-border-impl(
-    border-top,
-    $color-type,
-    $color-desc,
-    $width-desc,
-    $style,
-    $opacity
-  );
-}
-
-@mixin zent-border-right(
-  $color-type,
-  $color-desc: $null,
-  $width-desc: $medium,
-  $style: solid,
-  $opacity: 1
-) {
-  @include zent-border-impl(
-    border-right,
-    $color-type,
-    $color-desc,
-    $width-desc,
-    $style,
-    $opacity
-  );
-}
-
-@mixin zent-border-bottom(
-  $color-type,
-  $color-desc: $null,
-  $width-desc: $medium,
-  $style: solid,
-  $opacity: 1
-) {
-  @include zent-border-impl(
-    border-bottom,
-    $color-type,
-    $color-desc,
-    $width-desc,
-    $style,
-    $opacity
-  );
-}
-
-@mixin zent-border-left(
-  $color-type,
-  $color-desc: $null,
-  $width-desc: $medium,
-  $style: solid,
-  $opacity: 1
-) {
-  @include zent-border-impl(
-    border-left,
-    $color-type,
-    $color-desc,
-    $width-desc,
-    $style,
-    $opacity
-  );
+@mixin zent-border-width($prop, $attr: $medium) {
+  #{$prop}-width: map-get($border-width, $attr);
+  #{$prop}-width: zent-size-var($border-width, $attr, 'border-width');
 }
 
 // Shadow
-$shadow-spec-focus-var: $shadow-size-focus
-  zent-color-var-rgba(shadow, $null, 0.1) !default;
-$shadow-spec-layer-var: $shadow-size-layer
-  zent-color-var-rgba(shadow, $null, 0.1) !default;
-$shadow-spec-modal-var: $shadow-size-modal
-  zent-color-var-rgba(shadow, $null, 0.1) !default;
+$shadow-spec-focus-var: $shadow-size-focus theme-rgba(section, shadow, 0.1) !default;
+$shadow-spec-layer-var: $shadow-size-layer theme-rgba(section, shadow, 0.1) !default;
+$shadow-spec-modal-var: $shadow-size-modal theme-rgba(section, shadow, 0.1) !default;
 
 $theme-shadow: (
   $focus: $shadow-spec-focus,
@@ -251,14 +232,10 @@ $theme-shadow-var: (
   $modal: $shadow-spec-modal-var,
 );
 
-@mixin theme-shadow($name) {
-  $shadow: map-get($theme-shadow, $name);
-  $shadow-var: map-get($theme-shadow-var, $name);
+@mixin theme-shadow($cat) {
+  $shadow: map-get($theme-shadow, $cat);
+  $shadow-var: map-get($theme-shadow-var, $cat);
 
   box-shadow: $shadow;
-  box-shadow: var(--shadow-spec-#{$name}, $shadow-var);
-}
-
-@mixin zent-shadow($name) {
-  @include theme-shadow($name);
+  box-shadow: var(--shadow-spec-#{$cat}, $shadow-var);
 }

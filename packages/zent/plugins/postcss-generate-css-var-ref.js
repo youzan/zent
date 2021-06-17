@@ -8,7 +8,18 @@ const THEME_FILES = ['_color.scss'].map(f =>
   path.resolve(__dirname, '../assets/theme/variables', f)
 );
 
-const BRAND_NAME = [
+const GENERATE_THEME_FILES = path.resolve(
+  __dirname,
+  '../src/theme/css-var-ref.ts'
+);
+
+const CSS_VAR_PREFIX = '--theme-';
+
+const THEME_NAME = [
+  '$title-colors',
+  '$hint-colors',
+  '$disabled-colors',
+  '$section-colors',
   '$body-colors',
   '$success-colors',
   '$warning-colors',
@@ -42,8 +53,8 @@ module.exports = postcss.plugin('postcss-plugin-vars', () => {
   return root => {
     const isThemeFile = THEME_FILES.includes(root.source.input.file);
     root.walkDecls(decl => {
-      const isBrand = BRAND_NAME.includes(decl.prop);
-      if (isThemeFile && isBrand) {
+      const isThemeVar = THEME_NAME.includes(decl.prop);
+      if (isThemeFile && isThemeVar) {
         const words = parseValue(decl.value);
         const prefixName = /[a-zA-Z]+[^-]/.exec(decl.prop)[0];
         words.walk(node => {
@@ -53,8 +64,11 @@ module.exports = postcss.plugin('postcss-plugin-vars', () => {
           }
         });
         fs.writeFileSync(
-          path.resolve(__dirname, '../src/color/theme-ref.ts'),
-          `export const themeRefs = ${stringify(varsMap)}`,
+          GENERATE_THEME_FILES,
+          `// this are been generate from postcss-plugin-css-variable
+// this are the reference between raw variables and semantic css variable
+
+export const cssVarRef = ${stringify(varsMap)}`,
           { encoding: 'utf-8' }
         );
       }
@@ -86,7 +100,9 @@ function buildParent(prefixName, node, varsMap, sourceMap) {
     if (value.type === 'word') {
       const basicName = value.value;
 
-      const refName = parentName ? parentName + '-' + name : name;
+      const refName = parentName
+        ? `${CSS_VAR_PREFIX}${parentName}-${name}`
+        : `${CSS_VAR_PREFIX}${name}`;
 
       if (!varsMap[basicName]) {
         varsMap[basicName] = [];

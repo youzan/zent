@@ -1,3 +1,10 @@
+---
+title: 定制主题
+path: guides/theme
+group: 主题
+scatter: true
+---
+
 ## 定制主题
 
 Zent 支持主题定制，目前仅支持组件库颜色的定制。
@@ -87,49 +94,44 @@ Zent 的样式使用 [scss](https://sass-lang.com) 开发，我们提供了一�
 4. 定制的主题样式文件会生成在 `packages/zent/css` 目录下
 
 #### 动态改变主题色
+
+可以调用`ThemeSDK API`，传入指定的基础主题色，来更新主题。主题色建议选择饱和度和亮度更高的颜色。比如： S > 85, B > 8。示例如下：
+
+
+<!-- demo-slot-1 -->
+
+<!-- demo-slot-2 -->
+
+<!-- demo-slot-3 -->
+
+### `ThemeSDK` API
+
 ```ts
-interface IBrandItem {
+interface IThemeItem {
   color: string; // color hex value
   name: string; // color css variable name
 }
 
-interface IBrandAllItem extends IBrandItem {
+interface IThemeAllItem extends IThemeItem {
   index: number;
   var: string; // css variable
   scene: IThemeScene; // scene
 }
-
-enum IThemeScene {
-  defaultHoverBg = 'default-hover-bg',
-  primaryHoverBg = 'primary-hover-bg',
-  primaryBg = 'primary-bg',
-  primaryActiveBg = 'primary-active-bg'
-}
-
-export interface IBrandSdk {
-  primaryColor: string;
-  getThemeColor: () => string; // hex
-  generateColors: (hex: string) => string[];
-  generateBrands: (hex: string) => IBrandAllItem[];
-  getBrandByScene: (scene: IThemeScene) => Array<string>;
-  getBrandColorByScene: (scene: IThemeScene, hex: string) => IBrandItem[];
-  getAllBrandColor: (hex: string) => IBrandAllItem[];
-  setBrandColorByScene: (scene: IThemeScene, hex: string) => void;
-  setAllBrandColor: (hex: string) => void;
-}
 ```
-```jsx
-import { BrandSdk } from 'zent';
 
-const { setAllBrandColor } = BrandSdk;
 
-const consoleResult = [];
-consoleResult.push({ fn: 'getThemeColor', value: BrandSdk.getThemeColor() });
-consoleResult.push({ fn: 'generateColors', value: BrandSdk.generateColors(c.hex) });
-consoleResult.push({ fn: 'getBrandByScene', value: BrandSdk.getBrandByScene(IThemeScene.primaryHoverBg) });
-consoleResult.push({ fn: 'getBrandColorByScene', value: BrandSdk.getBrandColorByScene(IThemeScene.primaryActiveBg, c.hex) });
-consoleResult.push({ fn: 'getAllBrandColor', value: BrandSdk.getAllBrandColor(c.hex) });
-console.table(consoleResult);
+| 参数                  | 说明                                                          | 类型                                                                       | 默认值             |
+| --------------------- | ------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------ |
+| getThemeColor         | 获取当前主题色                                                 | () => string                                                              |                    |
+| generateColors        | 根据基础色获取生成的其他颜色                                      | (hex: string) => string[]                                                 |                    |
+| getAllThemeColor      | 根据基础色获取生成的其他颜色以及所代表的所有语义值                    | (hex: string) => IThemeAllItem[]                                          |                    |
+| getThemeColorByScene  | 根据基础色获取生成的指定语义场景的值,和被使用的语义场景               | (scene: IThemeScene, hex: string) => IThemeItem[]                         |                   |
+| setAllThemeColor      | 根据基础色变更当前主题                                           | (hex: string) => void                                                     |                   |
+| setThemeColorByScene  | 根据基础色变更当前主题下某个语义的颜色                              | (scene: IThemeScene, hex: string)  => void                               |                    |
 
-setAllBrandColor(c.hex);
-```
+<style>
+img[alt='zent-theme'] {
+  width: 514px;
+  height: 319px;
+}
+</style>

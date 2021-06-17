@@ -36,14 +36,14 @@
   }
 
   a {
-    @include zent-color(color, 'weak-link', 'color');
+    @include theme-color(color, 'weak-link', 'color');
 
     &:hover {
-      @include zent-color(color, 'weak-link', 'hover-color');
+      @include theme-color(color, 'weak-link', 'hover-color');
     }
 
     &:active {
-      @include zent-color(color, 'weak-link', 'active-color');
+      @include theme-color(color, 'weak-link', 'active-color');
     }
   }
 
