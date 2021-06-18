@@ -10,7 +10,7 @@ const PRESET_COLOR = {
   grey: true,
 };
 
-export interface ITagProps {
+export interface ITagProps extends React.HTMLAttributes<HTMLDivElement> {
   theme?: keyof typeof PRESET_COLOR;
   outline?: boolean;
   rounded?: boolean;
@@ -18,9 +18,7 @@ export interface ITagProps {
   onClose?: React.MouseEventHandler<HTMLElement>;
   style?: React.CSSProperties;
   closeButtonStyle?: React.CSSProperties;
-  className?: string;
   visible?: boolean;
-  children?: React.ReactNode;
 }
 
 export const Tag = forwardRef<HTMLDivElement, ITagProps>(
@@ -32,10 +30,10 @@ export const Tag = forwardRef<HTMLDivElement, ITagProps>(
       closable,
       children,
       className,
-      style,
       onClose,
       closeButtonStyle,
       visible = true,
+      ...rest
     },
     ref
   ) => {
@@ -56,7 +54,7 @@ export const Tag = forwardRef<HTMLDivElement, ITagProps>(
             'zent-tag-closable': closable,
           }
         )}
-        style={style}
+        {...rest}
       >
         <div className="zent-tag-content">{children}</div>
         {closable ? (
