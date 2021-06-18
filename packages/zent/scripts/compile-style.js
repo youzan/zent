@@ -2,9 +2,8 @@ const path = require('path');
 const ch = require('child_process');
 
 function compile() {
-  const zentIconsPath = require.resolve('zenticons');
-  const iconPath = path.dirname(zentIconsPath);
-  const nodeModulesPath = path.resolve(__dirname, '../../../node_modules');
+  const iconPath = path.dirname(require.resolve('zenticons'));
+  const colorHelpersPath = path.dirname(require.resolve('sass-color-helpers'));
 
   ch.execFile(
     'sass',
@@ -12,7 +11,7 @@ function compile() {
       '--load-path',
       iconPath,
       '--load-path',
-      nodeModulesPath,
+      colorHelpersPath,
       '--no-source-map',
       '--stop-on-error',
       '--no-error-css',
