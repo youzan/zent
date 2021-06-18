@@ -9,6 +9,7 @@ export interface IPanelContext {
   // time panel
   visibleChange?: boolean;
   confirmStatus?: boolean;
+  isDisabledCurrent?: boolean;
   disabledTime?: IDisabledTime;
 }
 

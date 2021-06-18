@@ -1,4 +1,5 @@
 import { useCallback, useContext, useMemo } from 'react';
+import cx from 'classnames';
 
 import PanelFooter from '../../components/PanelFooter';
 import Button from '../../../button';
@@ -13,15 +14,25 @@ const TimePickerFooter: React.FC<ITimePanelProps> = ({
   format,
 }) => {
   const { i18n } = useContext(PickerContext);
-  const { confirmStatus } = useContext(PanelContext);
+  const { confirmStatus, isDisabledCurrent } = useContext(PanelContext);
 
   const onClickCurrent = useCallback(() => {
+    if (isDisabledCurrent) return;
     onSelected(formatDate(format, new Date()), true);
-  }, [format, onSelected]);
+  }, [format, isDisabledCurrent, onSelected]);
 
   const renderToday = useMemo(() => {
-    return <a onClick={onClickCurrent}>{i18n.current.time}</a>;
-  }, [i18n, onClickCurrent]);
+    return (
+      <a
+        className={cx({
+          ['zent-datepicker-panel-footer-current_disabled']: isDisabledCurrent,
+        })}
+        onClick={onClickCurrent}
+      >
+        {i18n.current.time}
+      </a>
+    );
+  }, [i18n, isDisabledCurrent, onClickCurrent]);
 
   const confirmNode = useMemo(
     () => (
