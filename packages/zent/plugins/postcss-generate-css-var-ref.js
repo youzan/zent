@@ -107,7 +107,7 @@ function insertVariableRelation(
     sourceRelation[node.sourceIndex] || prefixName || '';
 
   for (let i = 0; i < matchedNodes.length - 1; i = i + 2) {
-    const name = /[^\$]+/.exec(matchedNodes[i].value)?.[0];
+    const name = /[^\$]+/.exec(matchedNodes[i].value)[0];
     const value = matchedNodes[i + 1];
     if (value.type === 'word') {
       const basicName = value.value;
