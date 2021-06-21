@@ -7,7 +7,7 @@ $saturationDarkStep: 0;
 $brightnessLightStep: 10;
 $brightnessDarkStep: 15;
 
-@function getLightSaturation($h, $s, $v, $level) {
+@function getLighterSaturation($h, $s, $v, $level) {
   $saturation: 0;
 
   @if ($h == 0 and $s == 0) {
@@ -27,7 +27,7 @@ $brightnessDarkStep: 15;
   @return round($saturation);
 }
 
-@function getDarkSaturation($h, $s, $v, $level) {
+@function getDarkerSaturation($h, $s, $v, $level) {
   $saturation: 0;
 
   $saturation: $s + $saturationDarkStep * $level;
@@ -39,7 +39,7 @@ $brightnessDarkStep: 15;
   @return round($saturation);
 }
 
-@function getLightValue($h, $s, $v, $level) {
+@function getLighterValue($h, $s, $v, $level) {
   $value: $v;
 
   $value: $v + $brightnessLightStep * ($level - 1);
@@ -51,7 +51,7 @@ $brightnessDarkStep: 15;
   @return $value;
 }
 
-@function getDarkValue($h, $s, $v, $level) {
+@function getDarkerValue($h, $s, $v, $level) {
   $value: $v;
 
   $value: $v - $brightnessDarkStep * $level;
@@ -71,8 +71,8 @@ $brightnessDarkStep: 15;
   $v: nth($hsv, 3);
 
   $adjustHue: $h;
-  $adjustSaturation: getLightSaturation($h, $s, $v, $level);
-  $adjustLight: getLightValue($h, $s, $v, $level);
+  $adjustSaturation: getLighterSaturation($h, $s, $v, $level);
+  $adjustLight: getLighterValue($h, $s, $v, $level);
 
   @return ch-hsv-to-color($adjustHue, $adjustSaturation, $adjustLight);
 }
@@ -85,8 +85,8 @@ $brightnessDarkStep: 15;
   $v: nth($hsv, 3);
 
   $adjustHue: $h;
-  $adjustSaturation: getDarkSaturation($h, $s, $v, $level);
-  $adjustLight: getDarkValue($h, $s, $v, $level);
+  $adjustSaturation: getDarkerSaturation($h, $s, $v, $level);
+  $adjustLight: getDarkerValue($h, $s, $v, $level);
 
   @return ch-hsv-to-color($adjustHue, $adjustSaturation, $adjustLight);
 }

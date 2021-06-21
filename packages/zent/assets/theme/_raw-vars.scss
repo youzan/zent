@@ -33,37 +33,9 @@ $font-weight-medium: 500 !default;
 $font-weight-bold: 600 !default;
 
 // font size
-$font-size-number: (
-  34px,
-  // 1
-  28px,
-  // 2
-  24px,
-  // 3
-  20px,
-  // 4
-  16px,
-  // 5
-  14px,
-  // 6
-  12px // 7
-) !default;
+$font-size-number: (34px, 28px, 24px, 20px, 16px, 14px, 12px) !default;
 
-$line-height-number: (
-  44px,
-  // 1
-  36px,
-  // 2
-  30px,
-  // 3
-  26px,
-  // 4
-  24px,
-  // 5
-  20px,
-  // 6
-  18px // 7
-) !default;
+$line-height-number: (44px, 36px, 30px, 26px, 24px, 20px, 18px) !default;
 
 $shadow-size-focus: 0 2px 8px 0 !default;
 $shadow-size-layer: 0 2px 16px 0 !default;

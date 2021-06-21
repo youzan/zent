@@ -14,7 +14,7 @@
   @return '--theme-rgb';
 }
 
-@function is-old-theme($cat, $attr) {
+@function is-old-version($cat, $attr) {
   $colors: map-get($color-sets, $cat);
   $color: if($colors, map-get($colors, $attr), null);
 
@@ -28,7 +28,7 @@
   @return map-get(map-get($color-sets, $cat), $attr);
 }
 
-@function get-old-color($cat, $i) {
+@function get-mapping-color($cat, $i) {
   $new-color-info: nth(map-get($theme-colors, $cat), $i);
 
   @return get-new-color(
@@ -37,19 +37,19 @@
   );
 }
 
-@function get-new-css-var($cat, $attr) {
+@function get-css-var-join($cat, $attr) {
   @return #{$cat}-#{$attr};
 }
 
-@function get-old-css-var($cat, $i) {
-  $map-info: nth(map-get($theme-colors, $cat), $i);
-  // sass-lint:disable-block space-around-operator
-  @return #{map-get($map-info, cat)}-#{map-get($map-info, attr)};
+@function get-mapping-css-var($cat, $i) {
+  $new-color-info: nth(map-get($theme-colors, $cat), $i);
+
+  @return #{map-get($new-color-info, cat)}-#{map-get($new-color-info, attr)};
 }
 
 @function get-color($cat, $attr) {
-  @if is-old-theme($cat, $attr) == true {
-    @return get-old-color($cat, $attr);
+  @if is-old-version($cat, $attr) == true {
+    @return get-mapping-color($cat, $attr);
   } @else {
     @return get-new-color($cat, $attr);
   }
@@ -57,18 +57,18 @@
 
 @function get-css-var($cat, $attr) {
   $prefix: get-css-prefix();
-  @if is-old-theme($cat, $attr) == true {
-    @return #{$prefix}-#{get-old-css-var($cat, $attr)};
+  @if is-old-version($cat, $attr) == true {
+    @return #{$prefix}-#{get-mapping-css-var($cat, $attr)};
   }
-  @return #{$prefix}-#{get-new-css-var($cat, $attr)};
+  @return #{$prefix}-#{get-css-var-join($cat, $attr)};
 }
 
 @function get-rgb-css-var($cat, $attr) {
   $prefix: get-css-prefix-rgb();
-  @if is-old-theme($cat, $attr) == true {
-    @return #{$prefix}-#{get-old-css-var($cat, $attr)};
+  @if is-old-version($cat, $attr) == true {
+    @return #{$prefix}-#{get-mapping-css-var($cat, $attr)};
   }
-  @return #{$prefix}-rgb-#{get-new-css-var($cat, $attr)};
+  @return #{$prefix}-rgb-#{get-css-var-join($cat, $attr)};
 }
 
 @function get-size-var($map, $attr, $name) {

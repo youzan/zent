@@ -6,13 +6,13 @@
 // Colors
 @function theme-rgb($cat, $attr) {
   $prefix: get-css-prefix();
-  $css-var: #{$prefix}-#{get-new-css-var($cat, $attr)};
+  $css-var: #{$prefix}-#{get-css-var-join($cat, $attr)};
 
-  @if is-old-theme($cat, $attr) == true {
-    $color: get-old-color($cat, $attr);
-    $old-css-var: #{$prefix}-#{get-old-css-var($cat, $attr)};
+  @if is-old-version($cat, $attr) == true {
+    $color: get-mapping-color($cat, $attr);
+    $mapping-css-var: #{$prefix}-#{get-mapping-css-var($cat, $attr)};
 
-    @return var($css-var, var($old-css-var, $color));
+    @return var($mapping-css-var, var($css-var, $color));
   }
 
   $color: get-new-color($cat, $attr);
@@ -22,13 +22,13 @@
 
 @function theme-rgba($cat, $attr, $opacity) {
   $prefix: get-css-prefix-rgb();
-  $css-var: #{$prefix}-#{get-new-css-var($cat, $attr)};
+  $css-var: #{$prefix}-#{get-css-var-join($cat, $attr)};
 
-  @if is-old-theme($cat, $attr) == true {
-    $color: get-old-color($cat, $attr);
-    $old-css-var: #{$prefix}-#{get-old-css-var($cat, $attr)};
+  @if is-old-version($cat, $attr) == true {
+    $color: get-mapping-color($cat, $attr);
+    $mapping-css-var: #{$prefix}-#{get-mapping-css-var($cat, $attr)};
 
-    $css-var: var($css-var, var($old-css-var, to-rgb($color)));
+    $css-var: var($mapping-css-var, var($css-var, to-rgb($color)));
 
     // `unquote` is a workaround for node-sass misinterprets rgba as builtin function
     // https://github.com/sass/node-sass/issues/2251
