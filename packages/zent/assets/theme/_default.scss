@@ -27,13 +27,12 @@
   @if is-old-version($cat, $attr) == true {
     $color: get-mapping-color($cat, $attr);
     $mapping-css-var: #{$prefix}-#{get-mapping-css-var($cat, $attr)};
-
-    $css-var: var($mapping-css-var, var($css-var, to-rgb($color)));
+    $mixin-css-var: var($mapping-css-var, var($css-var, to-rgb($color)));
 
     // `unquote` is a workaround for node-sass misinterprets rgba as builtin function
     // https://github.com/sass/node-sass/issues/2251
     // dart-sass doesn't seem to have this issue.
-    @return unquote('rgba(#{$css-var}, #{$opacity})');
+    @return unquote('rgba(#{$mixin-css-var}, #{$opacity})');
   }
 
   $color: get-new-color($cat, $attr);
@@ -51,33 +50,6 @@
     #{$prop}: rgba($color, $opacity);
     #{$prop}: theme-rgba($cat, $color-attr, $opacity);
   }
-}
-
-@mixin theme-border-impl($prop, $width, $style, $cat, $attr, $opacity) {
-  @include theme-color(#{$prop}-color, $cat, $attr, $opacity: 1);
-
-  #{$prop}-width: $width;
-  #{$prop}-style: $style;
-}
-
-@mixin theme-border($width, $style, $cat, $i, $opacity: 1) {
-  @include theme-border-impl(border, $width, $style, $cat, $i, $opacity);
-}
-
-@mixin theme-border-top($width, $style, $cat, $i, $opacity: 1) {
-  @include theme-border-impl(border-top, $width, $style, $cat, $i, $opacity);
-}
-
-@mixin theme-border-right($width, $style, $cat, $i, $opacity: 1) {
-  @include theme-border-impl(border-right, $width, $style, $cat, $i, $opacity);
-}
-
-@mixin theme-border-bottom($width, $style, $cat, $i, $opacity: 1) {
-  @include theme-border-impl(border-bottom, $width, $style, $cat, $i, $opacity);
-}
-
-@mixin theme-border-left($width, $style, $cat, $i, $opacity: 1) {
-  @include theme-border-impl(border-left, $width, $style, $cat, $i, $opacity);
 }
 
 // Font
@@ -128,6 +100,38 @@
 @mixin theme-border-width($prop, $attr: $medium) {
   #{$prop}-width: map-get($border-width, $attr);
   #{$prop}-width: get-border-width-var($attr);
+}
+
+@mixin theme-border-impl($prop, $width-cat, $style, $cat, $attr, $opacity) {
+  #{$prop}-style: $style;
+
+  @include theme-color(#{$prop}-color, $cat, $attr, $opacity: 1);
+
+  @if map-get($border-width, $attr) {
+    @include theme-border-width($width-cat);
+  } @else {
+    #{$prop}-width: $width-cat;
+  }
+}
+
+@mixin theme-border($width, $style, $cat, $i, $opacity: 1) {
+  @include theme-border-impl(border, $width, $style, $cat, $i, $opacity);
+}
+
+@mixin theme-border-top($width, $style, $cat, $i, $opacity: 1) {
+  @include theme-border-impl(border-top, $width, $style, $cat, $i, $opacity);
+}
+
+@mixin theme-border-right($width, $style, $cat, $i, $opacity: 1) {
+  @include theme-border-impl(border-right, $width, $style, $cat, $i, $opacity);
+}
+
+@mixin theme-border-bottom($width, $style, $cat, $i, $opacity: 1) {
+  @include theme-border-impl(border-bottom, $width, $style, $cat, $i, $opacity);
+}
+
+@mixin theme-border-left($width, $style, $cat, $i, $opacity: 1) {
+  @include theme-border-impl(border-left, $width, $style, $cat, $i, $opacity);
 }
 
 // Shadow

@@ -35,17 +35,15 @@ $title-colors: (
   'color': $text-600,
 );
 
-// colors when it`s for hint
 $hint-colors: (
   'color': $text-500,
 );
 
-// colors when it`s disabled
 $disabled-colors: (
   'color': $text-400,
 );
 
-// mostly use in section, card
+// use in section, card...
 $section-colors: (
   'bg': $text-200,
   'shadow': $shadow-color,
