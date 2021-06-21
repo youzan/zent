@@ -3,25 +3,25 @@
 @import '../raw-vars';
 @import '../color-generator';
 
-$success-100: generateLightColor($green-base, 5);
-$success-400: generateLightColor($green-base, 1);
+$success-100: generateLighterColor($green-base, 5);
+$success-400: generateLighterColor($green-base, 1);
 $success-500: $green-base;
-$success-600: generateDarkColor($green-base, 1);
+$success-600: generateDarkerColor($green-base, 1);
 
-$warning-100: generateLightColor($orange-base, 4);
-$warning-400: generateLightColor($orange-base, 1);
+$warning-100: generateLighterColor($orange-base, 4);
+$warning-400: generateLighterColor($orange-base, 1);
 $warning-500: $orange-base;
-$warning-600: generateDarkColor($orange-base, 1);
+$warning-600: generateDarkerColor($orange-base, 1);
 
-$danger-100: generateLightColor($red-base, 4);
-$danger-400: generateLightColor($red-base, 1);
+$danger-100: generateLighterColor($red-base, 4);
+$danger-400: generateLighterColor($red-base, 1);
 $danger-500: $red-base;
-$danger-600: generateDarkColor($red-base, 1);
+$danger-600: generateDarkerColor($red-base, 1);
 
-$primary-100: generateLightColor($blue-base, 4);
-$primary-400: generateLightColor($blue-base, 1);
+$primary-100: generateLighterColor($blue-base, 4);
+$primary-400: generateLighterColor($blue-base, 1);
 $primary-500: $blue-base;
-$primary-600: generateDarkColor($blue-base, 1);
+$primary-600: generateDarkerColor($blue-base, 1);
 
 $text-100: $gray-100;
 $text-200: $gray-200;
@@ -113,7 +113,7 @@ $rate-colors: (
 );
 
 // 所有种类颜色的集合
-$colors-map: (
+$color-sets: (
   'title': $title-colors,
   'hint': $hint-colors,
   'disabled': $disabled-colors,
@@ -150,38 +150,38 @@ $theme-stroke-9: map-get(
 
 // Button background color
 $theme-stroke-10: map-get($section-colors, 'border-color'); // Active
-$theme-stroke-11: map-get(map-get($colors-map, 'body'), 'bg'); // Hover
+$theme-stroke-11: map-get(map-get($color-sets, 'body'), 'bg'); // Hover
 
 // Blue(primary)
-$theme-primary-1: map-get(map-get($colors-map, 'primary'), 'active-bg');
-$theme-primary-2: map-get(map-get($colors-map, 'primary'), 'active-bg');
-$theme-primary-3: map-get(map-get($colors-map, 'primary'), 'active-bg');
-$theme-primary-4: map-get(map-get($colors-map, 'primary'), 'bg');
-$theme-primary-5: map-get(map-get($colors-map, 'primary'), 'hover-bg');
-$theme-primary-6: map-get(map-get($colors-map, 'primary'), 'hover-bg');
-$theme-primary-7: map-get(map-get($colors-map, 'primary'), 'hover-bg');
-$theme-primary-8: map-get(map-get($colors-map, 'default'), 'hover-bg');
+$theme-primary-1: map-get(map-get($color-sets, 'primary'), 'active-bg');
+$theme-primary-2: map-get(map-get($color-sets, 'primary'), 'active-bg');
+$theme-primary-3: map-get(map-get($color-sets, 'primary'), 'active-bg');
+$theme-primary-4: map-get(map-get($color-sets, 'primary'), 'bg');
+$theme-primary-5: map-get(map-get($color-sets, 'primary'), 'hover-bg');
+$theme-primary-6: map-get(map-get($color-sets, 'primary'), 'hover-bg');
+$theme-primary-7: map-get(map-get($color-sets, 'primary'), 'hover-bg');
+$theme-primary-8: map-get(map-get($color-sets, 'default'), 'hover-bg');
 
 // Green
-$theme-success-1: map-get(map-get($colors-map, 'success'), 'color');
-$theme-success-2: map-get(map-get($colors-map, 'success'), 'color');
-$theme-success-3: map-get(map-get($colors-map, 'success'), 'hover-bg');
-$theme-success-4: map-get(map-get($colors-map, 'success'), 'color');
-$theme-success-5: map-get(map-get($colors-map, 'success'), 'bg');
+$theme-success-1: map-get(map-get($color-sets, 'success'), 'color');
+$theme-success-2: map-get(map-get($color-sets, 'success'), 'color');
+$theme-success-3: map-get(map-get($color-sets, 'success'), 'hover-bg');
+$theme-success-4: map-get(map-get($color-sets, 'success'), 'color');
+$theme-success-5: map-get(map-get($color-sets, 'success'), 'bg');
 
 // Red
-$theme-error-1: map-get(map-get($colors-map, 'danger'), 'color');
-$theme-error-2: map-get(map-get($colors-map, 'danger'), 'color');
-$theme-error-3: map-get(map-get($colors-map, 'danger'), 'hover-bg');
-$theme-error-4: map-get(map-get($colors-map, 'danger'), 'color');
-$theme-error-5: map-get(map-get($colors-map, 'danger'), 'bg');
+$theme-error-1: map-get(map-get($color-sets, 'danger'), 'color');
+$theme-error-2: map-get(map-get($color-sets, 'danger'), 'color');
+$theme-error-3: map-get(map-get($color-sets, 'danger'), 'hover-bg');
+$theme-error-4: map-get(map-get($color-sets, 'danger'), 'color');
+$theme-error-5: map-get(map-get($color-sets, 'danger'), 'bg');
 
 // Orange
-$theme-warn-1: map-get(map-get($colors-map, 'warning'), 'color');
-$theme-warn-2: map-get(map-get($colors-map, 'warning'), 'color');
-$theme-warn-3: map-get(map-get($colors-map, 'warning'), 'hover-bg');
-$theme-warn-4: map-get(map-get($colors-map, 'warning'), 'color');
-$theme-warn-5: map-get(map-get($colors-map, 'warning'), 'bg');
+$theme-warn-1: map-get(map-get($color-sets, 'warning'), 'color');
+$theme-warn-2: map-get(map-get($color-sets, 'warning'), 'color');
+$theme-warn-3: map-get(map-get($color-sets, 'warning'), 'hover-bg');
+$theme-warn-4: map-get(map-get($color-sets, 'warning'), 'color');
+$theme-warn-5: map-get(map-get($color-sets, 'warning'), 'bg');
 
 $loading-icon-youzan-color: #e00 !default;
 

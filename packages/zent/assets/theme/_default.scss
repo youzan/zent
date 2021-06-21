@@ -6,7 +6,7 @@
 // Colors
 @function theme-rgb($cat, $attr) {
   $prefix: get-css-prefix();
-  $css-var: #{$prefix}-#{get-css-var-name($cat, $attr)};
+  $css-var: #{$prefix}-#{get-new-css-var($cat, $attr)};
 
   @if is-old-theme($cat, $attr) == true {
     $color: get-old-color($cat, $attr);
@@ -15,14 +15,14 @@
     @return var($css-var, var($old-css-var, $color));
   }
 
-  $color: get-color-value($cat, $attr);
+  $color: get-new-color($cat, $attr);
 
   @return var($css-var, $color);
 }
 
 @function theme-rgba($cat, $attr, $opacity) {
   $prefix: get-css-prefix-rgb();
-  $css-var: #{$prefix}-#{get-css-var-name($cat, $attr)};
+  $css-var: #{$prefix}-#{get-new-css-var($cat, $attr)};
 
   @if is-old-theme($cat, $attr) == true {
     $color: get-old-color($cat, $attr);
@@ -36,7 +36,7 @@
     @return unquote('rgba(#{$css-var}, #{$opacity})');
   }
 
-  $color: get-color-value($cat, $attr);
+  $color: get-new-color($cat, $attr);
 
   @return unquote('rgba(#{var($css-var, to-rgb($color))}, #{$opacity})');
 }
@@ -80,7 +80,7 @@
   @include theme-border-impl(border-left, $width, $style, $cat, $i, $opacity);
 }
 
-// Font size
+// Font
 @mixin theme-font-weight($attr) {
   font-weight: map-get($font-weight, $attr);
   font-weight: get-font-weight-var($attr);
@@ -131,6 +131,10 @@
 }
 
 // Shadow
+$shadow-spec-focus: $shadow-size-focus rgba($shadow-color, 0.1) !default;
+$shadow-spec-layer: $shadow-size-layer rgba($shadow-color, 0.1) !default;
+$shadow-spec-modal: $shadow-size-modal rgba($shadow-color, 0.1) !default;
+
 $shadow-spec-focus-var: $shadow-size-focus theme-rgba(section, shadow, 0.1) !default;
 $shadow-spec-layer-var: $shadow-size-layer theme-rgba(section, shadow, 0.1) !default;
 $shadow-spec-modal-var: $shadow-size-modal theme-rgba(section, shadow, 0.1) !default;

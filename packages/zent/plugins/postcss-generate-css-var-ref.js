@@ -4,18 +4,19 @@ const parseValue = require('postcss-value-parser');
 const path = require('path');
 const fs = require('fs');
 
+// 目前只有color存在变量一对多语义值关系
 const THEME_FILES = ['_color.scss'].map(f =>
   path.resolve(__dirname, '../assets/theme/semantic', f)
 );
 
-const GENERATE_THEME_FILES = path.resolve(
+const GENERATE_THEME_REF_FILE = path.resolve(
   __dirname,
   '../src/theme/css-var-ref.ts'
 );
 
 const CSS_VAR_PREFIX = '--theme-';
 
-const THEME_NAME = [
+const THEME_VARIABLE_NAMES = [
   '$title-colors',
   '$hint-colors',
   '$disabled-colors',
@@ -30,8 +31,8 @@ const THEME_NAME = [
   '$weak-link-colors',
   '$rate-colors',
 ];
-const varsMap = {}; // { key -> name, value -> names[] }
-const sourceMap = {}; // { key -> index, value -> name }
+const variableSemanticRelation = {}; // { key -> name, value -> names[] }
+const sourceRelation = {}; // { key -> index, value -> name }
 
 function stringify(arg) {
   return JSON.stringify(
@@ -53,22 +54,27 @@ module.exports = postcss.plugin('postcss-plugin-vars', () => {
   return root => {
     const isThemeFile = THEME_FILES.includes(root.source.input.file);
     root.walkDecls(decl => {
-      const isThemeVar = THEME_NAME.includes(decl.prop);
+      const isThemeVar = THEME_VARIABLE_NAMES.includes(decl.prop);
       if (isThemeFile && isThemeVar) {
         const words = parseValue(decl.value);
         const prefixName = /[a-zA-Z]+[^-]/.exec(decl.prop)[0];
         words.walk(node => {
-          const isStateArr = isColorState(node);
-          if (isStateArr) {
-            buildParent(prefixName, node, varsMap, sourceMap);
+          const needInsert = isColorObject(node);
+          if (needInsert) {
+            insertVariableRelation(
+              prefixName,
+              node,
+              variableSemanticRelation,
+              sourceRelation
+            );
           }
         });
         fs.writeFileSync(
-          GENERATE_THEME_FILES,
+          GENERATE_THEME_REF_FILE,
           `// This is been generate from pulgins/postcss-generate-css-var-ref
 // This is the reference between raw variables and semantic css variable
 
-export const cssVarRef = ${stringify(varsMap)}`,
+export const cssVarRef = ${stringify(variableSemanticRelation)}`,
           { encoding: 'utf-8' }
         );
       }
@@ -76,7 +82,7 @@ export const cssVarRef = ${stringify(varsMap)}`,
   };
 });
 
-function isColorState(node) {
+function isColorObject(node) {
   const { type, nodes = [] } = node;
   if (type === 'function') {
     if (nodes.length) {
@@ -85,14 +91,20 @@ function isColorState(node) {
   }
 }
 
-// 适配现有，深度为2
-function buildParent(prefixName, node, varsMap, sourceMap) {
+// 适配现有逻辑，深度为2
+function insertVariableRelation(
+  prefixName,
+  node,
+  variableSemanticRelation,
+  sourceRelation
+) {
   const nodes = node.nodes;
   const matchedNodes = nodes.filter(node =>
     ['string', 'word', 'function'].includes(node.type)
   );
 
-  const parentName = sourceMap[node.sourceIndex] || prefixName || '';
+  const variablePrefixName =
+    sourceRelation[node.sourceIndex] || prefixName || '';
 
   for (let i = 0; i < matchedNodes.length - 1; i = i + 2) {
     const name = /[^\$]+/.exec(matchedNodes[i].value)?.[0];
@@ -100,18 +112,18 @@ function buildParent(prefixName, node, varsMap, sourceMap) {
     if (value.type === 'word') {
       const basicName = value.value;
 
-      const refName = parentName
-        ? `${CSS_VAR_PREFIX}${parentName}-${name}`
+      const refName = variablePrefixName
+        ? `${CSS_VAR_PREFIX}${variablePrefixName}-${name}`
         : `${CSS_VAR_PREFIX}${name}`;
 
-      if (!varsMap[basicName]) {
-        varsMap[basicName] = [];
+      if (!variableSemanticRelation[basicName]) {
+        variableSemanticRelation[basicName] = [];
       }
 
-      varsMap[basicName].push(refName);
+      variableSemanticRelation[basicName].push(refName);
     }
     if (value.type === 'function') {
-      sourceMap[value.sourceIndex] = name;
+      sourceRelation[value.sourceIndex] = name;
     }
   }
   return;

@@ -1,5 +1,4 @@
 // 基于baseColor，计算更亮或更暗的颜色
-@use 'sass:math';
 @import 'color-helpers';
 
 $saturationBaseLightStep: 15;
@@ -15,10 +14,8 @@ $brightnessDarkStep: 15;
     @return $s;
   }
 
-  $additiveLightSaturation: math.div(
-    $level * $saturationAdditiveLightStep * ($level - 1),
-    2
-  );
+  $additiveLightSaturation: $level * $saturationAdditiveLightStep * ($level - 1) /
+    2;
 
   $saturation: $s - $saturationBaseLightStep * $level - $additiveLightSaturation;
 
@@ -66,7 +63,7 @@ $brightnessDarkStep: 15;
   @return $value;
 }
 
-@function generateLightColor($color, $level: 1) {
+@function generateLighterColor($color, $level: 1) {
   $hsv: ch-color-to-hsv($color);
 
   $h: nth($hsv, 1);
@@ -80,7 +77,7 @@ $brightnessDarkStep: 15;
   @return ch-hsv-to-color($adjustHue, $adjustSaturation, $adjustLight);
 }
 
-@function generateDarkColor($color, $level: 1) {
+@function generateDarkerColor($color, $level: 1) {
   $hsv: ch-color-to-hsv($color);
 
   $h: nth($hsv, 1);

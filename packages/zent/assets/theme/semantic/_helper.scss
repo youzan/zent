@@ -6,8 +6,16 @@
   @return red($color), green($color), blue($color);
 }
 
+@function get-css-prefix() {
+  @return '--theme';
+}
+
+@function get-css-prefix-rgb() {
+  @return '--theme-rgb';
+}
+
 @function is-old-theme($cat, $attr) {
-  $colors: map-get($colors-map, $cat);
+  $colors: map-get($color-sets, $cat);
   $color: if($colors, map-get($colors, $attr), null);
 
   @if $color != null and $color {
@@ -16,25 +24,20 @@
   @return true;
 }
 
-@function get-color-value($cat, $attr) {
-  @return map-get(map-get($colors-map, $cat), $attr);
+@function get-new-color($cat, $attr) {
+  @return map-get(map-get($color-sets, $cat), $attr);
 }
 
 @function get-old-color($cat, $i) {
-  $map-info: nth(map-get($theme-colors, $cat), $i);
+  $new-color-info: nth(map-get($theme-colors, $cat), $i);
 
-  @return get-color-value(map-get($map-info, cat), map-get($map-info, attr));
+  @return get-new-color(
+    map-get($new-color-info, cat),
+    map-get($new-color-info, attr)
+  );
 }
 
-@function get-css-prefix() {
-  @return '--theme';
-}
-
-@function get-css-prefix-rgb() {
-  @return '--theme-rbg';
-}
-
-@function get-css-var-name($cat, $attr) {
+@function get-new-css-var($cat, $attr) {
   @return #{$cat}-#{$attr};
 }
 
@@ -48,7 +51,7 @@
   @if is-old-theme($cat, $attr) == true {
     @return get-old-color($cat, $attr);
   } @else {
-    @return get-color-value($cat, $attr);
+    @return get-new-color($cat, $attr);
   }
 }
 
@@ -57,7 +60,7 @@
   @if is-old-theme($cat, $attr) == true {
     @return #{$prefix}-#{get-old-css-var($cat, $attr)};
   }
-  @return #{$prefix}-#{get-css-var-name($cat, $attr)};
+  @return #{$prefix}-#{get-new-css-var($cat, $attr)};
 }
 
 @function get-rgb-css-var($cat, $attr) {
@@ -65,7 +68,7 @@
   @if is-old-theme($cat, $attr) == true {
     @return #{$prefix}-#{get-old-css-var($cat, $attr)};
   }
-  @return #{$prefix}-rgb-#{get-css-var-name($cat, $attr)};
+  @return #{$prefix}-rgb-#{get-new-css-var($cat, $attr)};
 }
 
 @function get-size-var($map, $attr, $name) {

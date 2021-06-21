@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { ColorPicker, ThemeSdk, Notify, ThemeScene } from 'zent';
 import { useEffect, useState } from 'react';
 
@@ -8,11 +7,11 @@ const { generateTheme, applyTheme } = ThemeSdk;
 
 const i18n = {
   'zh-CN': {
-    prompt: '主题切换完成',
+    prompt: '主题色已更新',
   },
 
   'en-US': {
-    prompt: 'Theme has been changed',
+    prompt: 'Theme color has been update',
   },
 };
 
@@ -72,7 +71,6 @@ export default function ThemeSwitcher({ locale }) {
       const theme = generateTheme({
         colors: [{ baseColor: nextThemColor, scene }],
       });
-      console.log('theme', theme);
       applyTheme(theme);
     }
   }, []);

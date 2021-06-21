@@ -136,13 +136,13 @@ interface IThemeColor {
 interface ITheme {
   colors: IThemeColor[];
 }
-
+```
 
 | 参数                  | 说明                                                                               | 类型                                                  | 默认值             |
 | --------------------- | --------------------------------------------------------------------------------- | ---------------------------------------------------- | ------------------ |
-| getThemeColor         | get all the css variables and values of the theme current theme                   | () => ITheme                                         |                    |
+| getThemeColor         | get all the css variables and values of the current theme                         | () => ITheme                                         |                    |
 | generatePalette       | get all the theme colors, base on the base color                                  | (baseColor: string) => string[]                      |                    |
-| generateTheme         | get all the css variables and values of the theme by semantic scene and value     | (config: IThemeConfig) => ITheme                       |                   |
+| generateTheme         | get all the css variables and values of the theme by the semantic scene and value | (config: IThemeConfig) => ITheme                       |                   |
 | applyTheme            | apply the theme                                                                   | (theme: ITheme)  => void                             |                    |
 
 <style>
