@@ -1,5 +1,20 @@
 .zandoc-react-theme-switcher {
   position: absolute;
-  top: 25%;
-  right: 272px;
+  top: 24%;
+  right: 268px;
+  height: 32px;
+
+  .zent-color-picker__text {
+    width: 32px;
+
+    .zent-color-picker__preview {
+      width: 24px;
+      height: 24px;
+      border-radius: 1px;
+    }
+  }
+}
+
+.zandoc-react-theme-switcher-picker {
+  margin-top: 4px;
 }

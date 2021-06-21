@@ -83,6 +83,7 @@ export default function ThemeSwitcher({ locale }) {
           type="simple"
           onChange={onChangeComplete}
           presetColors={colors}
+          className="zandoc-react-theme-switcher-picker"
         />
       </span>
     </>
