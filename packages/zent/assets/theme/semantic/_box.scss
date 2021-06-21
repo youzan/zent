@@ -1,6 +1,6 @@
-// the semantic variable of box`s size. includes spacing, border-raduis, border-width
-@import './raw-vars';
+// 盒模型相关的size的语义映射
 @import '../override';
+@import '../raw-vars';
 
 $spacing: (
   'xx-small': nth($spacing-size, 1),

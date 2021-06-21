@@ -97,39 +97,54 @@ Zent 的样式使用 [scss](https://sass-lang.com) 开发，我们提供了一�
 
 可以调用`ThemeSDK API`，传入指定的基础主题色，来更新主题。主题色建议选择饱和度和亮度更高的颜色。比如： S > 85, B > 8。示例如下：
 
-
 <!-- demo-slot-1 -->
-
 <!-- demo-slot-2 -->
-
 <!-- demo-slot-3 -->
-
-<!-- demo-slot-4 -->
 
 ### `ThemeSDK` API
 
 ```ts
-interface IThemeItem {
-  color: string; // color hex value
-  name: string; // color css variable name
+enum ThemeScene {
+  DefaultHoverBackgroundColor,
+  PrimaryHoverBackgroundColor,
+  PrimaryBackgroundColor,
+  PrimaryActiveBackgroundColor,
 }
 
-interface IThemeAllItem extends IThemeItem {
-  index: number;
-  var: string; // css variable
-  scene: IThemeScene; // scene
+interface IThemeColorSceneConfig {
+  baseColor: IColor;
+  scene: ThemeScene[] | ThemeScene;
+}
+
+interface IThemeColorVarConfig {
+  color: IColor;
+  variableName: string;
+}
+
+type IThemeColorConfig = IThemeColorSceneConfig | IThemeColorVarConfig;
+
+interface IThemeConfig {
+  colors: IThemeColorConfig[],
+}
+
+
+interface IThemeColor {
+  cssVariableName: string;
+  color: string;
+}
+
+interface ITheme {
+  colors: IThemeColor[];
 }
 ```
 
 
 | 参数                  | 说明                                                          | 类型                                                                       | 默认值             |
 | --------------------- | ------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------ |
-| getThemeColor         | 获取当前主题色                                                 | () => string                                                              |                    |
-| generateColors        | 根据基础色获取所有生成的主题色                                    | (hex: string) => string[]                                                 |                    |
-| getAllThemeColor      | 根据基础色获取所有生成的主题色以及所代表的所有语义值                  | (hex: string) => IThemeAllItem[]                                          |                    |
-| getThemeColorByScene  | 根据基础色获取生成的指定语义场景的主题色,和被使用的语义场景            | (scene: IThemeScene, hex: string) => IThemeItem[]                         |                   |
-| setAllThemeColor      | 根据基础色变更当前主题                                           | (hex: string) => void                                                     |                   |
-| setThemeColorByScene  | 根据基础色变更当前主题下某个语义的颜色                              | (scene: IThemeScene, hex: string)  => void                               |                    |
+| defaultTheme          | 获取当前主题下的所有css variable和值                             | () => ITheme                                                             |                    |
+| generatePalette       | 根据基础色获取所有生成的色值                                      | (baseColor: string) => string[]                                          |                    |
+| generateTheme         | 根据语义场景和基准值获取所有css variable和值                       | (config: IThemeConfig) => ITheme                                           |                   |
+| applyTheme            | 应用主题的值                                                   | (theme: ITheme)  => void                                                 |                    |
 
 <style>
 img[alt='zent-theme'] {

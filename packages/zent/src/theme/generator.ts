@@ -77,7 +77,7 @@ function getDarkValue(hsv: IHsvObject, level: number): number {
   return Number(value.toFixed(2));
 }
 
-export function generate(hex: string): string[] {
+export function generateColorPalette(hex: string): string[] {
   const patterns: string[] = [];
   const color = tinycolor(hex);
   const hsv = color.toHsv();

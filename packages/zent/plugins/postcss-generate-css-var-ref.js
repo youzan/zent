@@ -5,7 +5,7 @@ const path = require('path');
 const fs = require('fs');
 
 const THEME_FILES = ['_color.scss'].map(f =>
-  path.resolve(__dirname, '../assets/theme/variables', f)
+  path.resolve(__dirname, '../assets/theme/semantic', f)
 );
 
 const GENERATE_THEME_FILES = path.resolve(
@@ -65,8 +65,8 @@ module.exports = postcss.plugin('postcss-plugin-vars', () => {
         });
         fs.writeFileSync(
           GENERATE_THEME_FILES,
-          `// this are been generate from postcss-plugin-css-variable
-// this are the reference between raw variables and semantic css variable
+          `// This is been generate from pulgins/postcss-generate-css-var-ref
+// This is the reference between raw variables and semantic css variable
 
 export const cssVarRef = ${stringify(varsMap)}`,
           { encoding: 'utf-8' }

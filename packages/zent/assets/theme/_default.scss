@@ -1,77 +1,9 @@
-// all the functions and mixin to get defined css variable and css property
+// 获取css变量和值的mixin和functions
 // $attr: some custom attribute and html property
-
-@import './variables/color';
-@import './variables/text';
-
 // sass-lint:disable no-duplicate-properties
+@import './semantic/helper';
+
 // Colors
-@function to-rgb($color) {
-  @return red($color), green($color), blue($color);
-}
-
-@function is-old-theme($cat, $attr) {
-  $colors: map-get($colors-map, $cat);
-  $color: if($colors, map-get($colors, $attr), null);
-
-  @if $color != null and $color {
-    @return false;
-  }
-  @return true;
-}
-
-@function get-color-value($cat, $attr) {
-  @return map-get(map-get($colors-map, $cat), $attr);
-}
-
-@function get-old-color($cat, $i) {
-  $map-info: nth(map-get($theme-colors, $cat), $i);
-
-  @return get-color-value(map-get($map-info, cat), map-get($map-info, attr));
-}
-
-@function get-css-prefix() {
-  @return '--theme';
-}
-
-@function get-css-prefix-rgb() {
-  @return '--theme-rbg';
-}
-
-@function get-css-var-name($cat, $attr) {
-  @return #{$cat}-#{$attr};
-}
-
-@function get-old-css-var($cat, $i) {
-  $map-info: nth(map-get($theme-colors, $cat), $i);
-  // sass-lint:disable-block space-around-operator
-  @return #{map-get($map-info, cat)}-#{map-get($map-info, attr)};
-}
-
-@function get-color($cat, $attr) {
-  @if is-old-theme($cat, $attr) == true {
-    @return get-old-color($cat, $attr);
-  } @else {
-    @return get-color-value($cat, $attr);
-  }
-}
-
-@function get-css-var($cat, $attr) {
-  $prefix: get-css-prefix();
-  @if is-old-theme($cat, $attr) == true {
-    @return #{$prefix}-#{get-old-css-var($cat, $attr)};
-  }
-  @return #{$prefix}-#{get-css-var-name($cat, $attr)};
-}
-
-@function get-rgb-css-var($cat, $attr) {
-  $prefix: get-css-prefix-rgb();
-  @if is-old-theme($cat, $attr) == true {
-    @return #{$prefix}-#{get-old-css-var($cat, $attr)};
-  }
-  @return #{$prefix}-rgb-#{get-css-var-name($cat, $attr)};
-}
-
 @function theme-rgb($cat, $attr) {
   $prefix: get-css-prefix();
   $css-var: #{$prefix}-#{get-css-var-name($cat, $attr)};
@@ -149,69 +81,53 @@
 }
 
 // Font size
-@function zent-font-size-var($attr) {
-  $size: map-get($font-size, $attr);
-
-  @return var(--font-size-#{$attr}, $size);
-}
-
-@function zent-size-var($map, $attr, $name) {
-  $size: map-get($map, $attr);
-
-  @return var(--#{$name}-#{$attr}, $size);
-}
-
-@mixin zent-font-weight($attr) {
+@mixin theme-font-weight($attr) {
   font-weight: map-get($font-weight, $attr);
-  font-weight: zent-size-var($font-weight, $attr, 'font-weight');
+  font-weight: get-font-weight-var($attr);
 }
 
-@mixin zent-font-size($attr) {
+@mixin theme-font-size($attr) {
   $font-size: map-get($font-size, $attr);
-  $font-size-var: zent-font-size-var($attr);
+  $font-size-var: get-font-size-var($attr);
 
   font-size: $font-size;
   font-size: $font-size-var;
   line-height: map-get($line-height, $attr);
-  line-height: zent-size-var($line-height, $attr, 'line-height');
+  line-height: get-line-height-var($attr);
 }
 
-@mixin title-size($attr) {
-  @include zent-font-weight(medium);
-  @include zent-font-size($attr);
+@mixin theme-title-size($attr) {
+  @include theme-font-weight(medium);
+  @include theme-font-size($attr);
 }
 
-@mixin normal-size($attr) {
-  @include zent-font-weight(normal);
-  @include zent-font-size($attr);
+@mixin theme-normal-size($attr) {
+  @include theme-font-weight(normal);
+  @include theme-font-size($attr);
 }
 
-@mixin zent-font($attr, $cat) {
+@mixin theme-font($attr, $cat) {
   @if $cat == 'title' {
-    @include title-size($attr);
+    @include theme-title-size($attr);
   } @else {
-    @include normal-size($attr);
+    @include theme-normal-size($attr);
   }
 }
 
 // Spacing
-@function zent-spacing-value($attr) {
-  @return zent-size-var($spacing, $attr, 'spacing');
-}
-
-@mixin zent-spacing($prop, $attr) {
+@mixin theme-spacing($prop, $attr) {
   #{$prop}: map-get($spacing, $attr);
-  #{$prop}: zent-spacing-value($attr);
+  #{$prop}: get-spacing-var($attr);
 }
 
 // Border
-@mixin zent-radius($attr: $medium) {
-  border-radius: zent-size-var($border-radius, $attr, 'border-radius');
+@mixin theme-radius($attr: $medium) {
+  border-radius: get-border-radius-var($attr);
 }
 
-@mixin zent-border-width($prop, $attr: $medium) {
+@mixin theme-border-width($prop, $attr: $medium) {
   #{$prop}-width: map-get($border-width, $attr);
-  #{$prop}-width: zent-size-var($border-width, $attr, 'border-width');
+  #{$prop}-width: get-border-width-var($attr);
 }
 
 // Shadow

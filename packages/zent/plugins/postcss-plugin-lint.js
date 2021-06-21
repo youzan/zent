@@ -7,10 +7,10 @@ const { KEYFRAME_NAME_PREFIX } = require('./constants');
 const THEME_FILES = [
   '_default.scss',
   '_override.scss',
-  'variables/_box.scss',
-  'variables/_color.scss',
-  'variables/_raw-vars.scss',
-  'variables/_text.scss',
+  '_raw-vars.scss',
+  'semantic/_box.scss',
+  'semantic/_color.scss',
+  'semantic/_text.scss',
 ].map(f => path.resolve(__dirname, '../assets/theme', f));
 
 const ErrorMessages = {

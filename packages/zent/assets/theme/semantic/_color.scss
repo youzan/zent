@@ -1,79 +1,78 @@
-// the semantic variable of color, and compatible with older versions
-@import './raw-vars';
+// 颜色的语义值，包含了旧版的映射处理
 @import '../override';
+@import '../raw-vars';
+@import '../color-generator';
 
-$green-100: generateLightColor($green-base, 5);
-$green-400: generateLightColor($green-base, 1);
-$green-500: $green-base;
-$green-600: generateDarkColor($green-base, 1);
+$success-100: generateLightColor($green-base, 5);
+$success-400: generateLightColor($green-base, 1);
+$success-500: $green-base;
+$success-600: generateDarkColor($green-base, 1);
 
-$orange-100: generateLightColor($orange-base, 4);
-$orange-400: generateLightColor($orange-base, 1);
-$orange-500: $orange-base;
-$orange-600: generateDarkColor($orange-base, 1);
+$warning-100: generateLightColor($orange-base, 4);
+$warning-400: generateLightColor($orange-base, 1);
+$warning-500: $orange-base;
+$warning-600: generateDarkColor($orange-base, 1);
 
-$red-100: generateLightColor($red-base, 4);
-$red-400: generateLightColor($red-base, 1);
-$red-500: $red-base;
-$red-600: generateDarkColor($red-base, 1);
+$danger-100: generateLightColor($red-base, 4);
+$danger-400: generateLightColor($red-base, 1);
+$danger-500: $red-base;
+$danger-600: generateDarkColor($red-base, 1);
 
-$blue-100: generateLightColor($blue-base, 4);
-$blue-400: generateLightColor($blue-base, 1);
-$blue-500: $blue-base;
-$blue-600: generateDarkColor($blue-base, 1);
+$primary-100: generateLightColor($blue-base, 4);
+$primary-400: generateLightColor($blue-base, 1);
+$primary-500: $blue-base;
+$primary-600: generateDarkColor($blue-base, 1);
 
-$yellow-100: generateLightColor($yellow-base, 4);
-$yellow-400: generateLightColor($yellow-base, 1);
-$yellow-500: $yellow-base;
-$yellow-600: generateDarkColor($yellow-base, 1);
-
-$primary-100: generateLightColor($primary-base, 4);
-$primary-400: generateLightColor($primary-base, 1);
-$primary-500: $primary-base;
-$primary-600: generateDarkColor($primary-base, 1);
+$text-100: $gray-100;
+$text-200: $gray-200;
+$text-300: $gray-300;
+$text-400: $gray-400;
+$text-500: $gray-500;
+$text-600: $gray-600;
+$text-700: $gray-700;
 
 $title-colors: (
-  'color': $gray-500,
+  'color': $text-600,
 );
 
 // colors when it`s for hint
 $hint-colors: (
-  'color': $gray-400,
+  'color': $text-500,
 );
 
 // colors when it`s disabled
 $disabled-colors: (
-  'color': $gray-300,
+  'color': $text-400,
 );
 
 // mostly use in section, card
 $section-colors: (
-  'bg': $gray-100,
+  'bg': $text-200,
   'shadow': $shadow-color,
-  'border-color': $gray-200,
+  'border-color': $text-300,
 );
 
 $body-colors: (
-  'color': $gray-500,
-  'bg': $white,
+  'color': $text-600,
+  'bg': $text-100,
 );
 
 $success-colors: (
-  'color': $green-500,
-  'bg': $green-100,
-  'border-color': $green-500,
+  'color': $success-500,
+  'bg': $success-100,
+  'border-color': $success-500,
 );
 
 $warning-colors: (
-  'color': $orange-500,
-  'bg': $orange-100,
-  'border-color': $orange-500,
+  'color': $warning-500,
+  'bg': $warning-100,
+  'border-color': $warning-500,
 );
 
 $danger-colors: (
-  'color': $red-500,
-  'bg': $red-100,
-  'border-color': $red-500,
+  'color': $danger-500,
+  'bg': $danger-100,
+  'border-color': $danger-500,
 );
 
 $link-colors: (
@@ -86,14 +85,14 @@ $default-colors: (
   'hover-color': $primary-500,
   'hover-bg': $primary-100,
   'hover-border-color': $primary-500,
-  'selected': $gray-100,
-  'disabled-color': $gray-300,
-  'disabled-bg': $gray-100,
-  'disabled-border-color': $gray-300,
+  'selected': $text-200,
+  'disabled-color': $text-400,
+  'disabled-bg': $text-200,
+  'disabled-border-color': $text-400,
 );
 
 $primary-colors: (
-  'color': $white,
+  'color': $text-100,
   'bg': $primary-500,
   'border-color': $primary-500,
   'hover-bg': $primary-400,
@@ -104,13 +103,13 @@ $primary-colors: (
 
 // components
 $weak-link-colors: (
-  'color': $gray-400,
+  'color': $text-500,
   'hover-color': $primary-400,
   'active-color': $primary-600,
 );
 
 $rate-colors: (
-  'bg': $yellow-500,
+  'bg': $star-color,
 );
 
 // 所有种类颜色的集合
@@ -166,21 +165,21 @@ $theme-primary-8: map-get(map-get($colors-map, 'default'), 'hover-bg');
 // Green
 $theme-success-1: map-get(map-get($colors-map, 'success'), 'color');
 $theme-success-2: map-get(map-get($colors-map, 'success'), 'color');
-$theme-success-3: map-get(map-get($colors-map, 'success'), 'bg');
+$theme-success-3: map-get(map-get($colors-map, 'success'), 'hover-bg');
 $theme-success-4: map-get(map-get($colors-map, 'success'), 'color');
 $theme-success-5: map-get(map-get($colors-map, 'success'), 'bg');
 
 // Red
 $theme-error-1: map-get(map-get($colors-map, 'danger'), 'color');
 $theme-error-2: map-get(map-get($colors-map, 'danger'), 'color');
-$theme-error-3: map-get(map-get($colors-map, 'danger'), 'bg');
+$theme-error-3: map-get(map-get($colors-map, 'danger'), 'hover-bg');
 $theme-error-4: map-get(map-get($colors-map, 'danger'), 'color');
 $theme-error-5: map-get(map-get($colors-map, 'danger'), 'bg');
 
 // Orange
 $theme-warn-1: map-get(map-get($colors-map, 'warning'), 'color');
 $theme-warn-2: map-get(map-get($colors-map, 'warning'), 'color');
-$theme-warn-3: map-get(map-get($colors-map, 'warning'), 'bg');
+$theme-warn-3: map-get(map-get($colors-map, 'warning'), 'hover-bg');
 $theme-warn-4: map-get(map-get($colors-map, 'warning'), 'color');
 $theme-warn-5: map-get(map-get($colors-map, 'warning'), 'bg');
 

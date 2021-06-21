@@ -1,129 +1,90 @@
-import { generate } from './generator';
+import { generateColorPalette } from './generator';
 import { cssVarRef } from './css-var-ref';
 
-export enum IThemeScene {
-  defaultHoverBg = '--theme-default-hover-bg',
-  primaryHoverBg = '--theme-primary-hover-bg',
-  primaryBg = '--theme-primary-bg',
-  primaryActiveBg = '--theme-primary-active-bg',
+const primaryColor = '#155bd4';
+
+enum ThemeScene {
+  DefaultHoverBackgroundColor,
+  PrimaryHoverBackgroundColor,
+  PrimaryBackgroundColor,
+  PrimaryActiveBackgroundColor,
 }
 
-export interface IThemeItem {
-  color: string; // color hex value
-  name: string; // color css variable name
+type IColor = string;
+
+interface IThemeColor {
+  cssVariableName: string;
+  color: IColor;
 }
 
-interface IExtraThemeInfo {
-  index: number;
-  var: string; // css variable
-  scene: IThemeScene; // scene
+interface IThemeColorSceneConfig {
+  baseColor: IColor;
+  scene: ThemeScene[] | ThemeScene;
 }
 
-export type IThemeAllItem = IThemeItem & IExtraThemeInfo;
-
-type IGetThemeVars = (
-  vars: string[],
-  color: string,
-  origin?: IExtraThemeInfo
-) => Array<IThemeItem | IThemeAllItem>;
-
-export interface IThemeSdk {
-  getThemeColor: () => string; // hex
-  generateColors: (hex: string) => string[];
-  getThemeColorByScene: (scene: IThemeScene, hex: string) => IThemeItem[];
-  getAllThemeColor: (hex: string) => IThemeAllItem[];
-  setThemeColorByScene: (scene: IThemeScene, hex: string) => void;
-  setAllThemeColor: (hex: string) => void;
+interface IThemeColorVarConfig {
+  color: IColor;
+  variableName: string;
 }
+
+type IThemeColorConfig = IThemeColorSceneConfig | IThemeColorVarConfig;
+
+interface IThemeConfig {
+  colors: IThemeColorConfig[];
+}
+
+interface ITheme {
+  colors: IThemeColor[];
+}
+
+type IPalette = IColor[];
+
+const ThemeScenes = [
+  ThemeScene.DefaultHoverBackgroundColor,
+  ThemeScene.PrimaryHoverBackgroundColor,
+  ThemeScene.PrimaryBackgroundColor,
+  ThemeScene.PrimaryActiveBackgroundColor,
+];
 
 const themeRelation = [
   {
     index: 0,
-    var: '$primary-100',
-    scene: IThemeScene.defaultHoverBg,
-    desc: 'lighter hover bg',
+    variableName: '$primary-100',
+    scene: ThemeScene.DefaultHoverBackgroundColor,
   },
   {
     index: 1,
-    var: '$primary-400',
-    scene: IThemeScene.primaryHoverBg,
-    desc: 'primary hover bg',
+    variableName: '$primary-400',
+    scene: ThemeScene.PrimaryHoverBackgroundColor,
   },
   {
     index: 2,
-    var: '$primary-500',
-    scene: IThemeScene.primaryBg,
-    desc: 'primary bg',
+    variableName: '$primary-500',
+    scene: ThemeScene.PrimaryBackgroundColor,
   },
   {
     index: 3,
-    var: '$primary-600',
-    scene: IThemeScene.primaryActiveBg,
-    desc: 'primary active bg',
+    variableName: '$primary-600',
+    scene: ThemeScene.PrimaryActiveBackgroundColor,
   },
 ];
 
-const nameAndVar = themeRelation.reduce((pre, item) => {
-  pre[item.scene] = item.var;
+const sceneVariableRelation = themeRelation.reduce((pre, item) => {
+  pre[item.scene] = item;
   return pre;
 }, {});
 
-const getThemeVars: IGetThemeVars = (Vars, color, origin) => {
-  if (Vars && Vars.length) {
-    return Vars.map(nameVar => ({
-      ...origin,
-      name: nameVar,
-      color,
-    }));
-  }
-  return [];
-};
+const generateThemeRelation = (palette: IColor[], scene: ThemeScene) => {
+  const sceneInfo = sceneVariableRelation[scene];
+  if (!sceneInfo) return [];
 
-const getAllThemeColor = (hex: string) => {
-  checkHex(hex);
-  const calcColors = generate(hex);
-  return themeRelation.reduce((pre, current) => {
-    return pre.concat(
-      getThemeVars(cssVarRef[current.var], calcColors[current.index], current)
-    );
-  }, []);
-};
-
-const getThemeByScene: (scene: IThemeScene) => Array<string> = scene => {
-  return cssVarRef?.[nameAndVar?.[scene]] || [];
-};
-
-const getThemeColorByScene = (scene: IThemeScene, hex: string) => {
-  const themeVars = getThemeByScene(scene);
-  const colors = generate(hex);
-  const colorInfo = themeRelation.find(item => scene === item.scene);
-  return getThemeVars(themeVars, colors[colorInfo.index]);
-};
-
-const generateColors = (hex: string) => {
-  checkHex(hex);
-  return generate(hex);
-};
-
-const setAllThemeColor = (hex: string) => {
-  checkHex(hex);
-  const themeVars = getAllThemeColor(hex);
-  themeVars.forEach(item => {
-    document.documentElement.style.setProperty(item.name, item.color);
-  });
-};
-
-const setThemeColorByScene = (scene: IThemeScene, hex: string) => {
-  checkHex(hex);
-  const themeVars = getThemeColorByScene(scene, hex);
-  const colors = generate(hex);
-  const colorInfo = themeRelation.find(item => scene === item.scene);
-  themeVars.forEach(item => {
-    document.documentElement.style.setProperty(
-      item.name,
-      colors[colorInfo.index]
-    );
-  });
+  const cssVariableNames = cssVarRef?.[sceneInfo.variableName];
+  if (!cssVariableNames) return [];
+  const paletteIndex = sceneInfo.index;
+  return cssVariableNames.map(cssVariableName => ({
+    cssVariableName,
+    color: palette[paletteIndex],
+  }));
 };
 
 const checkHex = hex => {
@@ -132,24 +93,62 @@ const checkHex = hex => {
   }
   return;
 };
+class ThemeSdk {
+  static defaultTheme = ThemeSdk.generateTheme({
+    colors: [{ baseColor: primaryColor, scene: ThemeScenes }],
+  });
 
-const primaryColor = '#155bd4';
+  static generatePalette(baseColor: IColor): IPalette {
+    checkHex(baseColor);
+    return generateColorPalette(baseColor);
+  }
 
-export const ThemeSdk: IThemeSdk = {
-  getThemeColor() {
-    return (
-      document.documentElement.style.getPropertyValue('--primary-bg') ||
-      primaryColor
+  static generateTheme(config: IThemeConfig): ITheme {
+    const { colors } = config;
+
+    const getSetOfOneThemeColor = (colorConfig: IThemeColorSceneConfig) => {
+      const { baseColor, scene } = colorConfig;
+      checkHex(baseColor);
+      const palette = generateColorPalette(baseColor);
+      let currentColors = [];
+      if (scene instanceof Array) {
+        currentColors = scene.reduce((theme, currentScene) => {
+          return theme.concat(generateThemeRelation(palette, currentScene));
+        }, []);
+      } else {
+        currentColors = generateThemeRelation(palette, scene);
+      }
+      return currentColors;
+    };
+
+    const themeColors: IThemeColor[] = colors.reduce(
+      (preThemeColors, colorConfig) => {
+        let currentColors = [];
+        if ('scene' in colorConfig) {
+          currentColors = getSetOfOneThemeColor(colorConfig);
+        } else {
+          currentColors = cssVarRef?.[
+            colorConfig.variableName
+          ]?.map(cssVariable => ({ color: colorConfig.color, cssVariable }));
+        }
+
+        return preThemeColors.concat(currentColors);
+      },
+      []
     );
-  },
 
-  generateColors,
+    return { colors: themeColors };
+  }
 
-  getThemeColorByScene,
+  static applyTheme(theme: ITheme) {
+    const { colors } = theme;
+    colors.forEach(item => {
+      document.documentElement.style.setProperty(
+        item.cssVariableName,
+        item.color
+      );
+    });
+  }
+}
 
-  getAllThemeColor,
-
-  setAllThemeColor,
-
-  setThemeColorByScene,
-};
+export { ThemeScene, ThemeSdk };

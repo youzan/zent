@@ -98,37 +98,52 @@ This method is non-intrusive, but you have to manually build your custom theme e
 Could use `ThemeSDK API`, pass a basic color to update the theme colors. Choose a color with a higher saturation and brightness, please. like: S > 85, B > 80, like the following:
 
 <!-- demo-slot-1 -->
-
 <!-- demo-slot-2 -->
-
 <!-- demo-slot-3 -->
-
-<!-- demo-slot-4 -->
 
 ### `ThemeSDK` API
 
 ```ts
-interface IThemeItem {
-  color: string; // color hex value
-  name: string; // color css variable name
+enum ThemeScene {
+  DefaultHoverBackgroundColor,
+  PrimaryHoverBackgroundColor,
+  PrimaryBackgroundColor,
+  PrimaryActiveBackgroundColor,
 }
 
-interface IThemeAllItem extends IThemeItem {
-  index: number;
-  var: string; // css variable
-  scene: IThemeScene; // scene
+interface IThemeColorSceneConfig {
+  baseColor: IColor;
+  scene: ThemeScene[] | ThemeScene;
 }
-```
+
+interface IThemeColorVarConfig {
+  color: IColor;
+  variableName: string;
+}
+
+type IThemeColorConfig = IThemeColorSceneConfig | IThemeColorVarConfig;
+
+interface IThemeConfig {
+  colors: IThemeColorConfig[],
+}
+
+
+interface IThemeColor {
+  cssVariableName: string;
+  color: string;
+}
+
+interface ITheme {
+  colors: IThemeColor[];
+}
 
 
 | 参数                  | 说明                                                                               | 类型                                                  | 默认值             |
 | --------------------- | --------------------------------------------------------------------------------- | ---------------------------------------------------- | ------------------ |
-| getThemeColor         | get current theme color                                                           | () => string                                         |                    |
-| generateColors        | base on a color, get all the theme colors                                         | (hex: string) => string[]                            |                    |
-| getAllThemeColor      | base on a color, get all the theme colors and it semantic scene, css variable     | (hex: string) => IThemeAllItem[]                     |                    |
-| getThemeColorByScene  | get the theme colors and css variable by a specific semantic scene                 | (scene: IThemeScene, hex: string) => IThemeItem[]    |                   |
-| setAllThemeColor      | base on a color, set all the theme color css variables                            | (hex: string) => void                                |                   |
-| setThemeColorByScene  | base on a color and a specific semantic scene, set the theme color css variables   | (scene: IThemeScene, hex: string)  => void           |                    |
+| getThemeColor         | get all the css variables and values of the theme current theme                   | () => ITheme                                         |                    |
+| generatePalette       | get all the theme colors, base on the base color                                  | (baseColor: string) => string[]                      |                    |
+| generateTheme         | get all the css variables and values of the theme by semantic scene and value     | (config: IThemeConfig) => ITheme                       |                   |
+| applyTheme            | apply the theme                                                                   | (theme: ITheme)  => void                             |                    |
 
 <style>
 img[alt='zent-theme'] {

@@ -1,28 +1,28 @@
-// this are been generate from postcss-plugin-css-variable
-// this are the reference between raw variables and semantic css variable
+// This is been generate from pulgins/postcss-generate-css-var-ref
+// This is the reference between raw variables and semantic css variable
 
 export const cssVarRef = {
-  '$gray-500': ['--theme-title-color', '--theme-body-color'],
-  '$gray-400': ['--theme-hint-color', '--theme-weak-color'],
-  '$gray-300': [
+  '$text-600': ['--theme-title-color', '--theme-body-color'],
+  '$text-500': ['--theme-hint-color', '--theme-weak-color'],
+  '$text-400': [
     '--theme-disabled-color',
     '--theme-default-disabled-color',
     '--theme-default-disabled-border-color',
   ],
-  '$gray-100': [
+  '$text-200': [
     '--theme-section-bg',
     '--theme-default-selected',
     '--theme-default-disabled-bg',
   ],
   '$shadow-color': ['--theme-section-shadow'],
-  '$gray-200': ['--theme-section-border-color'],
-  $white: ['--theme-body-bg', '--theme-primary-color'],
-  '$green-500': ['--theme-success-color', '--theme-success-border-color'],
-  '$green-100': ['--theme-success-bg'],
-  '$orange-500': ['--theme-warning-color', '--theme-warning-border-color'],
-  '$orange-100': ['--theme-warning-bg'],
-  '$red-500': ['--theme-danger-color', '--theme-danger-border-color'],
-  '$red-100': ['--theme-danger-bg'],
+  '$text-300': ['--theme-section-border-color'],
+  '$text-100': ['--theme-body-bg', '--theme-primary-color'],
+  '$success-500': ['--theme-success-color', '--theme-success-border-color'],
+  '$success-100': ['--theme-success-bg'],
+  '$warning-500': ['--theme-warning-color', '--theme-warning-border-color'],
+  '$warning-100': ['--theme-warning-bg'],
+  '$danger-500': ['--theme-danger-color', '--theme-danger-border-color'],
+  '$danger-100': ['--theme-danger-bg'],
   '$primary-500': [
     '--theme-link-color',
     '--theme-default-hover-color',
@@ -43,5 +43,5 @@ export const cssVarRef = {
     '--theme-weak-active-color',
   ],
   '$primary-100': ['--theme-default-hover-bg'],
-  '$yellow-500': ['--theme-rate-bg'],
+  '$star-color': ['--theme-rate-bg'],
 };

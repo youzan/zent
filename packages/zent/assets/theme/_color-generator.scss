@@ -1,4 +1,5 @@
-// according to the base color, to calculate a lighter or darker color
+// 基于baseColor，计算更亮或更暗的颜色
+@use 'sass:math';
 @import 'color-helpers';
 
 $saturationBaseLightStep: 15;
@@ -14,8 +15,10 @@ $brightnessDarkStep: 15;
     @return $s;
   }
 
-  $additiveLightSaturation: $level * $saturationAdditiveLightStep * ($level - 1) /
-    2;
+  $additiveLightSaturation: math.div(
+    $level * $saturationAdditiveLightStep * ($level - 1),
+    2
+  );
 
   $saturation: $s - $saturationBaseLightStep * $level - $additiveLightSaturation;
 

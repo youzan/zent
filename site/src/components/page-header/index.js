@@ -92,7 +92,7 @@ export default class PageHeader extends Component {
           </a>
           <div className="page-header__search-sep" />
           <SearchBox locale={i18n} navData={sideNavData} />
-          <ThemeSwitcher />
+          <ThemeSwitcher locale={i18n} />
           <div
             className="page-header__i18n-switcher"
             type="primary"
