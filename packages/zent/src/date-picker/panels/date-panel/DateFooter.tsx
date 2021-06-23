@@ -34,6 +34,12 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
     disabledTimeOption: (selected && disabledTime?.(selected)) || {},
     format,
   });
+
+  const isDisabledCurrent = useConfirmStatus({
+    selected: formatDate(format, today),
+    disabledTimeOption: disabledTime?.(today) || {},
+    format,
+  });
   const isDisableConfirm = useMemo(
     () => selected && disabledPanelDate(selected),
     [selected, disabledPanelDate]
@@ -42,9 +48,9 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
     disabledPanelDate,
   ]);
   const onClickCurrent = useCallback(() => {
-    if (isDisabledToday) return;
+    if (isDisabledCurrent || isDisabledToday) return;
     onSelected(new Date());
-  }, [isDisabledToday, onSelected]);
+  }, [isDisabledToday, isDisabledCurrent, onSelected]);
 
   const confirmHandler = useCallback(() => {
     selected && onSelected(selected);
@@ -69,7 +75,8 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
       <div>
         <a
           className={cx({
-            [`${footerPrefixCls}-current_diabled`]: isDisabledToday,
+            [`${footerPrefixCls}-current_disabled`]:
+              isDisabledCurrent || isDisabledToday,
           })}
           onClick={onClickCurrent}
         >
@@ -95,6 +102,7 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
     confirmStatus,
     isDisableConfirm,
     isDisabledToday,
+    isDisabledCurrent,
     confirmBtn,
     onClickCurrent,
   ]);

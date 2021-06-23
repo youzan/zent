@@ -1,5 +1,7 @@
 import { useMemo, useCallback, useRef, useState } from 'react';
 import cx from 'classnames';
+import formatFn from 'date-fns/format';
+import parse from 'date-fns/parse';
 import PickerPopover from './PickerPopover';
 import { SingleInputTrigger } from './PickerTrigger';
 
@@ -72,6 +74,17 @@ const TimePickerBase: React.FC<ITimePickerBaseProps> = ({
     format,
   });
 
+  const currentTime = useMemo(() => formatFn(new Date(), format), [format]);
+  const selectCurrentDate = useMemo(
+    () => parse(currentTime, format, selectedDate),
+    [currentTime, format, selectedDate]
+  );
+  const isDisabledCurrent = useConfirmStatus({
+    selected: currentTime,
+    disabledTimeOption: disabledTime?.(selectCurrentDate) || {},
+    format,
+  });
+
   const onSelected = useCallback(
     (val, finished = false) => {
       setVisibleChange(false);
@@ -137,7 +150,13 @@ const TimePickerBase: React.FC<ITimePickerBaseProps> = ({
 
   return (
     <div className={cx('zent-datepicker', className)}>
-      <PanelContextProvider value={{ visibleChange, confirmStatus }}>
+      <PanelContextProvider
+        value={{
+          visibleChange,
+          confirmStatus,
+          isDisabledCurrent,
+        }}
+      >
         <PickerPopover
           panelVisible={panelVisible}
           onVisibleChange={onVisibleChange}
