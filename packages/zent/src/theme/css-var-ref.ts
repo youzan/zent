@@ -1,5 +1,5 @@
-// This is been generate from pulgins/postcss-generate-css-var-ref
-// This is the reference between raw variables and semantic css variable
+// 由插件 plugins/postcss-generate-css-var-ref 遍历 'assets/theme/semantic/' 下scss文件生成
+// 描述变量到 css variable 的一对多关系，便于获取变量所涵盖的 css variable，进行批量替换
 
 export const cssVarRef = {
   '$text-600': ['--theme-title-color', '--theme-body-color'],

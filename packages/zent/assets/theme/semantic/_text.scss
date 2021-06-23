@@ -29,7 +29,7 @@ $line-height: (
   'xx-small': nth($line-height-number, 7),
 );
 
-$font-size-h1: 44px;
+$font-size-h1: 44px !default;
 $font-size-h2: nth($font-size-number, 1);
 $font-size-h3: nth($font-size-number, 3);
 $font-size-h4: nth($font-size-number, 4);

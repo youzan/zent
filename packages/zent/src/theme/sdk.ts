@@ -74,7 +74,10 @@ const sceneVariableRelation = themeRelation.reduce((pre, item) => {
   return pre;
 }, {});
 
-const generateThemeRelation = (palette: IColor[], scene: ThemeScene) => {
+const generateThemeRelation = (
+  palette: IColor[],
+  scene: ThemeScene
+): IThemeColor[] => {
   const sceneInfo = sceneVariableRelation[scene];
   if (!sceneInfo) return [];
 
@@ -87,19 +90,13 @@ const generateThemeRelation = (palette: IColor[], scene: ThemeScene) => {
   }));
 };
 
-const checkHex = hex => {
-  if (!hex) {
-    throw new Error('hex is not defined');
-  }
-  return;
-};
 class ThemeSdk {
   static defaultTheme = ThemeSdk.generateTheme({
     colors: [{ baseColor: primaryColor, scene: ThemeScenes }],
   });
 
   static generatePalette(baseColor: IColor): IPalette {
-    checkHex(baseColor);
+    if (!baseColor) return [];
     return generateColorPalette(baseColor);
   }
 
@@ -108,10 +105,10 @@ class ThemeSdk {
 
     const getSetOfOneThemeColor = (colorConfig: IThemeColorSceneConfig) => {
       const { baseColor, scene } = colorConfig;
-      checkHex(baseColor);
+      if (!baseColor) return [];
       const palette = generateColorPalette(baseColor);
-      let currentColors = [];
-      if (scene instanceof Array) {
+      let currentColors: IThemeColor[] = [] as IThemeColor[];
+      if (Array.isArray(scene)) {
         currentColors = scene.reduce((theme, currentScene) => {
           return theme.concat(generateThemeRelation(palette, currentScene));
         }, []);

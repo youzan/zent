@@ -1,14 +1,14 @@
 // 获取css变量和值的mixin和functions
-// $attr: some custom attribute and html property
+// $attr - attribute
 // sass-lint:disable no-duplicate-properties
 @import './semantic/helper';
 
 // Colors
 @function theme-rgb($cat, $attr) {
   $prefix: get-css-prefix();
-  $css-var: #{$prefix}-#{get-css-var-join($cat, $attr)};
+  $css-var: #{$prefix}-#{get-css-var-name($cat, $attr)};
 
-  @if is-old-version($cat, $attr) == true {
+  @if is-old-version($cat, $attr) {
     $color: get-mapping-color($cat, $attr);
     $mapping-css-var: #{$prefix}-#{get-mapping-css-var($cat, $attr)};
 
@@ -22,9 +22,9 @@
 
 @function theme-rgba($cat, $attr, $opacity) {
   $prefix: get-css-prefix-rgb();
-  $css-var: #{$prefix}-#{get-css-var-join($cat, $attr)};
+  $css-var: #{$prefix}-#{get-css-var-name($cat, $attr)};
 
-  @if is-old-version($cat, $attr) == true {
+  @if is-old-version($cat, $attr) {
     $color: get-mapping-color($cat, $attr);
     $mapping-css-var: #{$prefix}-#{get-mapping-css-var($cat, $attr)};
     $mixin-css-var: var($mapping-css-var, var($css-var, to-rgb($color)));

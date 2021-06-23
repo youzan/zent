@@ -7,7 +7,7 @@ basepath=$(dirname $0)
 echo 'Lint styles...'
 $basepath/./postcss-lint.sh
 
-echo 'Generate css varibale reference...'
+echo 'Generate css variable reference...'
 $basepath/./postcss-generate-css-var-ref.sh
 
 # clean

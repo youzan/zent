@@ -2,7 +2,6 @@
 title: Customize
 path: guides/theme
 group: Theme
-scatter: true
 ---
 
 ## Themes
@@ -15,68 +14,44 @@ Zent supports themes, only colors are customizable for now.
 
 Zent uses [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties), so it is possible to customize themes via custom CSS variables.
 
-Each theme color should be provided in both HEX and RGB format, for example:
-
-```css
-:root {
-	/* Use these when opacity is not needed */
-  --theme-primary-1: #252b6e;
-  --theme-primary-2: #3c46b1;
-  --theme-primary-3: #434fc9;
-  --theme-primary-4: #515ff0;
-  --theme-primary-5: #6c78f2;
-  --theme-primary-6: #7e88f3;
-  --theme-primary-7: #b0b6f8;
-	--theme-primary-8: #f2f3fe;
-	
-	/* Values are the same as above, but used when opacity is required */
-  --theme-rgb-primary-1: 37, 43, 110;
-  --theme-rgb-primary-2: 60, 70, 177;
-  --theme-rgb-primary-3: 67, 79, 201;
-  --theme-rgb-primary-4: 81, 95, 240;
-  --theme-rgb-primary-5: 108, 120, 242;
-  --theme-rgb-primary-6: 126, 136, 243;
-  --theme-rgb-primary-7: 176, 182, 248;
-  --theme-rgb-primary-8: 242, 243, 254;
-}
-```
-
-These variables can be generated with this code：
+Each theme color should be provided in both HEX and RGB format, These variables can be generated with this code:
 
 ```scss
 // TODO: define your theme overrides here, and that's all!
-$theme-overrides: (
-	--theme-primary-1: #252b6e,
-	--theme-primary-2: #3c46b1,
-	--theme-primary-3: #434fc9,
-	--theme-primary-4: #515ff0,
-	--theme-primary-5: #6c78f2,
-	--theme-primary-6: #7e88f3,
-	--theme-primary-7: #b0b6f8,
-	--theme-primary-8: #f2f3fe,
-);
+@import './color-generator';
+@import './css-var-ref';
 
-@mixin theme-css-vars($vars) {
-	@each $name, $color in $vars {
-		#{$name}: $color;
-	}
+$custom-palette: get-theme-palette(#6c78f2);
+
+@mixin theme-css-vars() {
+  @each $name, $color in $custom-palette {
+     $css-vars: map-get($css-var-refs, $name);
+     @each $css-var in $css-vars {
+       #{$css-var}: $color;
+       @debug $css-var, $color;
+     }
+  }
 }
 
-@mixin theme-rgb-css-vars($vars) {
-	@each $name, $color in $vars {
-		#{str-insert($name, "-rgb", 8)}: to-rgb($color);
-	}
+@mixin theme-rgb-css-vars() {
+  @each $name, $color in $custom-palette {
+     $css-vars: map-get($css-var-refs, $name);
+     @each $css-var in $css-vars {
+       #{str-insert($cssVars, "-rgb", 8)}: to-rgb($color);
+       @debug #{str-insert($cssVars, "-rgb", 8)}, $color;
+     }
+  }
 }
 
 @function to-rgb($color) {
-	@return red($color), green($color), blue($color);
+  @return red($color), green($color), blue($color);
 }
 
 :root {
-	@include theme-css-vars($theme-overrides);
+  @include theme-css-vars();
 
-	// Same but used in rgba contexts
-	@include theme-rgb-css-vars($theme-overrides);
+  // Same but used in rgba contexts
+  @include theme-rgb-css-vars();
 }
 ```
 
@@ -89,7 +64,7 @@ This method is non-intrusive, but you have to manually build your custom theme e
 #### Build Steps
 
 1. Clone Zent from [github](https://github.com/youzan/zent) and install dependencies
-2. Create a file named [`_override.scss`](https://github.com/youzan/zent/blob/master/packages/zent/assets/theme/_override_.scss) in `packages/zent/assets`, define your custom colors in this file. All customizable colors are defined in [`_default.scss`](https://github.com/youzan/zent/blob/master/packages/zent/assets/theme/_default.scss) within the same directory.
+2. Create a file named [`_override.scss`](https://github.com/youzan/zent/blob/master/packages/zent/assets/theme/_override_.scss) in `packages/zent/assets`, define your custom colors in this file. All customizable colors are defined in [`_default.scss`](https://github.com/youzan/zent/blob/master/packages/zent/assets/theme/_raw-vars.scss) within the same directory.
 3. Run `yarn theme` within `packages/zent`
 4. Your custom theme styles are in `packages/zent/css`.
 
@@ -97,52 +72,14 @@ This method is non-intrusive, but you have to manually build your custom theme e
 
 Could use `ThemeSDK API`, pass a basic color to update the theme colors. Choose a color with a higher saturation and brightness, please. like: S > 85, B > 80, like the following:
 
-<!-- demo-slot-1 -->
-<!-- demo-slot-2 -->
-<!-- demo-slot-3 -->
 
-### `ThemeSDK` API
-
-```ts
-enum ThemeScene {
-  DefaultHoverBackgroundColor,
-  PrimaryHoverBackgroundColor,
-  PrimaryBackgroundColor,
-  PrimaryActiveBackgroundColor,
-}
-
-interface IThemeColorSceneConfig {
-  baseColor: IColor;
-  scene: ThemeScene[] | ThemeScene;
-}
-
-interface IThemeColorVarConfig {
-  color: IColor;
-  variableName: string;
-}
-
-type IThemeColorConfig = IThemeColorSceneConfig | IThemeColorVarConfig;
-
-interface IThemeConfig {
-  colors: IThemeColorConfig[],
-}
-
-
-interface IThemeColor {
-  cssVariableName: string;
-  color: string;
-}
-
-interface ITheme {
-  colors: IThemeColor[];
-}
-```
+### API
 
 | 参数                  | 说明                                                                               | 类型                                                  | 默认值             |
 | --------------------- | --------------------------------------------------------------------------------- | ---------------------------------------------------- | ------------------ |
 | getThemeColor         | get all the css variables and values of the current theme                         | () => ITheme                                         |                    |
 | generatePalette       | get all the theme colors, base on the base color                                  | (baseColor: string) => string[]                      |                    |
-| generateTheme         | get all the css variables and values of the theme by the semantic scene and value | (config: IThemeConfig) => ITheme                       |                   |
+| generateTheme         | get all the css variables and values of the theme by the semantic scene and value | (config: IThemeConfig) => ITheme                       |                    |
 | applyTheme            | apply the theme                                                                   | (theme: ITheme)  => void                             |                    |
 
 <style>

@@ -9,6 +9,11 @@ const THEME_FILES = ['_color.scss'].map(f =>
   path.resolve(__dirname, '../assets/theme/semantic', f)
 );
 
+const GENERATE_THEME_REF_SCSS_FILE = path.resolve(
+  __dirname,
+  '../assets/theme/_css-var-ref.scss'
+);
+
 const GENERATE_THEME_REF_FILE = path.resolve(
   __dirname,
   '../src/theme/css-var-ref.ts'
@@ -47,6 +52,32 @@ function stringify(arg) {
   );
 }
 
+const writeScssFile = variableSemanticRelation => {
+  const generateSetsOfCssVariables = (variableName, cssVariables) => {
+    const cssVariablesStr = cssVariables
+      .map(cssVar => `'${cssVar}'`)
+      .join(',\n    ');
+    return `\n  '${variableName}': (\n    ${cssVariablesStr}\n  )`;
+  };
+
+  const variables = Object.keys(variableSemanticRelation);
+
+  const variableSemanticRelationStr = variables
+    .map(variable =>
+      generateSetsOfCssVariables(variable, variableSemanticRelation[variable])
+    )
+    .join(',');
+
+  fs.writeFileSync(
+    GENERATE_THEME_REF_SCSS_FILE,
+    `// 由插件 plugins/postcss-generate-css-var-ref 遍历 'assets/theme/semantic/' 下scss文件生成
+// 描述变量到 css variable 的一对多关系，便于获取变量所涵盖的 css variable，进行批量替换
+
+$css-var-refs: (${variableSemanticRelationStr}\n);`,
+    { encoding: 'utf-8' }
+  );
+};
+
 /**
  * This plugin runs on raw sass files, not css files.
  */
@@ -71,12 +102,13 @@ module.exports = postcss.plugin('postcss-plugin-vars', () => {
         });
         fs.writeFileSync(
           GENERATE_THEME_REF_FILE,
-          `// This is been generate from pulgins/postcss-generate-css-var-ref
-// This is the reference between raw variables and semantic css variable
+          `// 由插件 plugins/postcss-generate-css-var-ref 遍历 'assets/theme/semantic/' 下scss文件生成
+// 描述变量到 css variable 的一对多关系，便于获取变量所涵盖的 css variable，进行批量替换
 
 export const cssVarRef = ${stringify(variableSemanticRelation)}`,
           { encoding: 'utf-8' }
         );
+        writeScssFile(variableSemanticRelation);
       }
     });
   };

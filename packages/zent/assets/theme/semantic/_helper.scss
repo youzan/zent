@@ -37,7 +37,7 @@
   );
 }
 
-@function get-css-var-join($cat, $attr) {
+@function get-css-var-name($cat, $attr) {
   @return #{$cat}-#{$attr};
 }
 
@@ -48,7 +48,7 @@
 }
 
 @function get-color($cat, $attr) {
-  @if is-old-version($cat, $attr) == true {
+  @if is-old-version($cat, $attr) {
     @return get-mapping-color($cat, $attr);
   } @else {
     @return get-new-color($cat, $attr);
@@ -57,18 +57,18 @@
 
 @function get-css-var($cat, $attr) {
   $prefix: get-css-prefix();
-  @if is-old-version($cat, $attr) == true {
+  @if is-old-version($cat, $attr) {
     @return #{$prefix}-#{get-mapping-css-var($cat, $attr)};
   }
-  @return #{$prefix}-#{get-css-var-join($cat, $attr)};
+  @return #{$prefix}-#{get-css-var-name($cat, $attr)};
 }
 
 @function get-rgb-css-var($cat, $attr) {
   $prefix: get-css-prefix-rgb();
-  @if is-old-version($cat, $attr) == true {
+  @if is-old-version($cat, $attr) {
     @return #{$prefix}-#{get-mapping-css-var($cat, $attr)};
   }
-  @return #{$prefix}-rgb-#{get-css-var-join($cat, $attr)};
+  @return #{$prefix}-rgb-#{get-css-var-name($cat, $attr)};
 }
 
 @function get-size-var($map, $attr, $name) {

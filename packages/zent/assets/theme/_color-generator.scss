@@ -90,3 +90,17 @@ $brightnessDarkStep: 15;
 
   @return ch-hsv-to-color($adjustHue, $adjustSaturation, $adjustLight);
 }
+
+@function get-theme-palette($base-color, $cat: '$primary') {
+  $color-100: generateLighterColor($base-color, 4);
+  $color-400: generateLighterColor($base-color, 1);
+  $color-500: $base-color;
+  $color-600: generateDarkerColor($base-color, 1);
+
+  @return (
+    #{$cat}-100: $color-100,
+    #{$cat}-400: $color-400,
+    #{$cat}-500: $color-500,
+    #{$cat}-600: $color-600
+  );
+}
