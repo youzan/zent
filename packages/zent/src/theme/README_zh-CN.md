@@ -14,46 +14,6 @@ Zent 支持主题定制，目前仅支持组件库颜色的定制。
 
 Zent 使用<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties" target="_blank">CSS Variables</a>定制主题色，对于不支持 CSS Variables 的浏览器，会降级到默认主题色，可以通过重新构建 SCSS 定制主题色。
 
-注意：主题色需要提供两套，一套是 Hex 形式，另一套是类似 RGB 形式的，CSS 变量主题色生成可以参考这段代码：
-
-```scss
-// TODO: define your theme overrides here, and that's all!
-@import './color-generator';
-@import './css-var-ref';
-
-$custom-palette: get-theme-palette(#6c78f2);
-
-@mixin theme-css-vars() {
-  @each $name, $color in $custom-palette {
-     $css-vars: map-get($css-var-refs, $name);
-     @each $css-var in $css-vars {
-       #{$css-var}: $color;
-       @debug $css-var, $color;
-     }
-  }
-}
-
-@mixin theme-rgb-css-vars() {
-  @each $name, $color in $custom-palette {
-     $css-vars: map-get($css-var-refs, $name);
-     @each $css-var in $css-vars {
-       #{str-insert($cssVars, "-rgb", 8)}: to-rgb($color);
-       @debug #{str-insert($cssVars, "-rgb", 8)}, $color;
-     }
-  }
-}
-
-@function to-rgb($color) {
-  @return red($color), green($color), blue($color);
-}
-
-:root {
-  @include theme-css-vars();
-
-  // Same but used in rgba contexts
-  @include theme-rgb-css-vars();
-}
-```
 
 ### 重新构建 SCSS 定制主题色
 

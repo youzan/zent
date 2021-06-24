@@ -1,3 +1,4 @@
+// 内部方法，颜色的获取，和所有的css variable组合规则
 @import './color';
 @import './box';
 @import './text';
@@ -71,32 +72,32 @@
   @return #{$prefix}-rgb-#{get-css-var-name($cat, $attr)};
 }
 
-@function get-size-var($map, $attr, $name) {
-  $size: map-get($map, $attr);
+@function get-size-var($map, $cat, $size) {
+  $size-value: map-get($map, $size);
 
-  @return var(--#{$name}-#{$attr}, $size);
+  @return var(--theme-#{$cat}-#{$size}, $size-value);
 }
 
-@function get-font-size-var($attr) {
-  @return get-size-var($font-size, $attr, 'font-size');
+@function get-font-size-var($size) {
+  @return get-size-var($font-size, 'font-size', $size);
 }
 
-@function get-font-weight-var($attr) {
-  @return get-size-var($font-weight, $attr, 'font-weight');
+@function get-font-weight-var($weight) {
+  @return get-size-var($font-weight, 'font-weight', $weight);
 }
 
-@function get-line-height-var($attr) {
-  @return get-size-var($line-height, $attr, 'line-height');
+@function get-line-height-var($size) {
+  @return get-size-var($line-height, 'line-height', $size);
 }
 
-@function get-spacing-var($attr) {
-  @return get-size-var($spacing, $attr, 'spacing');
+@function get-spacing-var($size) {
+  @return get-size-var($spacing, 'spacing', $size);
 }
 
-@function get-border-radius-var($attr) {
-  @return get-size-var($border-radius, $attr, 'border-radius');
+@function get-border-radius-var($size) {
+  @return get-size-var($border-radius, 'border-radius', $size);
 }
 
-@function get-border-width-var($attr) {
-  @return get-size-var($border-width, $attr, 'border-width');
+@function get-border-width-var($size) {
+  @return get-size-var($border-width, 'border-width', $size);
 }

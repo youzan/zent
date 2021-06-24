@@ -48,3 +48,57 @@ export const cssVarRef = {
   '$primary-100': ['--theme-default-hover-bg'],
   '$star-color': ['--theme-rate-bg'],
 };
+
+export const cssRgbVarRef = {
+  '$text-600': ['--theme-rgb-title-color', '--theme-rgb-body-color'],
+  '$text-500': ['--theme-rgb-hint-color', '--theme-rgb-weak-color'],
+  '$text-400': [
+    '--theme-rgb-disabled-color',
+    '--theme-rgb-default-disabled-color',
+    '--theme-rgb-default-disabled-border-color',
+  ],
+  '$text-200': [
+    '--theme-rgb-section-bg',
+    '--theme-rgb-default-selected',
+    '--theme-rgb-default-disabled-bg',
+  ],
+  '$shadow-color': ['--theme-rgb-section-shadow'],
+  '$text-300': ['--theme-rgb-section-border-color'],
+  '$text-100': ['--theme-rgb-body-bg', '--theme-rgb-primary-color'],
+  '$success-500': [
+    '--theme-rgb-success-color',
+    '--theme-rgb-success-border-color',
+  ],
+  '$success-100': ['--theme-rgb-success-bg'],
+  '$warning-500': [
+    '--theme-rgb-warning-color',
+    '--theme-rgb-warning-border-color',
+  ],
+  '$warning-100': ['--theme-rgb-warning-bg'],
+  '$danger-500': [
+    '--theme-rgb-danger-color',
+    '--theme-rgb-danger-border-color',
+  ],
+  '$danger-100': ['--theme-rgb-danger-bg'],
+  '$primary-500': [
+    '--theme-rgb-link-color',
+    '--theme-rgb-default-hover-color',
+    '--theme-rgb-default-hover-border-color',
+    '--theme-rgb-primary-bg',
+    '--theme-rgb-primary-border-color',
+  ],
+  '$primary-400': [
+    '--theme-rgb-link-hover-color',
+    '--theme-rgb-primary-hover-bg',
+    '--theme-rgb-primary-hover-border-color',
+    '--theme-rgb-weak-hover-color',
+  ],
+  '$primary-600': [
+    '--theme-rgb-link-active-color',
+    '--theme-rgb-primary-active-bg',
+    '--theme-rgb-primary-active-border-color',
+    '--theme-rgb-weak-active-color',
+  ],
+  '$primary-100': ['--theme-rgb-default-hover-bg'],
+  '$star-color': ['--theme-rgb-rate-bg'],
+};

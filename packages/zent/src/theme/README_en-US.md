@@ -14,47 +14,6 @@ Zent supports themes, only colors are customizable for now.
 
 Zent uses [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties), so it is possible to customize themes via custom CSS variables.
 
-Each theme color should be provided in both HEX and RGB format, These variables can be generated with this code:
-
-```scss
-// TODO: define your theme overrides here, and that's all!
-@import './color-generator';
-@import './css-var-ref';
-
-$custom-palette: get-theme-palette(#6c78f2);
-
-@mixin theme-css-vars() {
-  @each $name, $color in $custom-palette {
-     $css-vars: map-get($css-var-refs, $name);
-     @each $css-var in $css-vars {
-       #{$css-var}: $color;
-       @debug $css-var, $color;
-     }
-  }
-}
-
-@mixin theme-rgb-css-vars() {
-  @each $name, $color in $custom-palette {
-     $css-vars: map-get($css-var-refs, $name);
-     @each $css-var in $css-vars {
-       #{str-insert($cssVars, "-rgb", 8)}: to-rgb($color);
-       @debug #{str-insert($cssVars, "-rgb", 8)}, $color;
-     }
-  }
-}
-
-@function to-rgb($color) {
-  @return red($color), green($color), blue($color);
-}
-
-:root {
-  @include theme-css-vars();
-
-  // Same but used in rgba contexts
-  @include theme-rgb-css-vars();
-}
-```
-
 ### Customize through rebuilding SCSS
 
 Styles in Zent are written in [scss](https://sass-lang.com), we have a builtin theme extension file to support custom themes. You can build custom styles using this extension file.

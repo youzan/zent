@@ -40,15 +40,15 @@
   @return unquote('rgba(#{var($css-var, to-rgb($color))}, #{$opacity})');
 }
 
-@mixin theme-color($prop, $cat, $color-attr, $opacity: 1) {
-  $color: get-color($cat, $color-attr);
+@mixin theme-color($prop, $cat, $attr, $opacity: 1) {
+  $color: get-color($cat, $attr);
 
   @if $opacity >= 1 {
     #{$prop}: $color;
-    #{$prop}: theme-rgb($cat, $color-attr);
+    #{$prop}: theme-rgb($cat, $attr);
   } @else {
     #{$prop}: rgba($color, $opacity);
-    #{$prop}: theme-rgba($cat, $color-attr, $opacity);
+    #{$prop}: theme-rgba($cat, $attr, $opacity);
   }
 }
 
@@ -73,16 +73,17 @@
   @include theme-font-size($size);
 }
 
-@mixin theme-normal-size($size) {
+@mixin theme-paragraph-size($size) {
   @include theme-font-weight(normal);
   @include theme-font-size($size);
 }
 
-@mixin theme-font($size, $cat) {
-  @if $cat == 'title' {
+// $cat: title | paragraph
+@mixin theme-font($cat, $size) {
+  @if $cat == title {
     @include theme-title-size($size);
   } @else {
-    @include theme-normal-size($size);
+    @include theme-paragraph-size($size);
   }
 }
 
@@ -93,45 +94,119 @@
 }
 
 // Border
-@mixin theme-radius($size: $absolute-size) {
+@mixin theme-border-radius($size: medium) {
+  border-radius: $size;
   border-radius: get-border-radius-var($size);
 }
 
-@mixin theme-border-width($prop, $width: $absolute-size) {
-  #{$prop}-width: map-get($border-width, $width);
-  #{$prop}-width: get-border-width-var($width);
+@mixin theme-border-width($prop, $width: medium) {
+  #{$prop}: map-get($border-width, $width);
+  #{$prop}: get-border-width-var($width);
 }
 
-@mixin theme-border-impl($prop, $width, $style, $cat, $attr, $opacity) {
+@mixin theme-border-impl(
+  $prop,
+  $width,
+  $style,
+  $color-cat,
+  $color-attr,
+  $color-opacity: 1
+) {
   #{$prop}-style: $style;
 
-  @include theme-color(#{$prop}-color, $cat, $attr, $opacity: 1);
+  @include theme-color(#{$prop}-color, $color-cat, $color-attr, $color-opacity);
 
   @if map-get($border-width, $width) {
-    @include theme-border-width($width);
+    @include theme-border-width(#{$prop}-width, $width);
   } @else {
     #{$prop}-width: $width;
   }
 }
 
-@mixin theme-border($width, $style, $cat, $i, $opacity: 1) {
-  @include theme-border-impl(border, $width, $style, $cat, $i, $opacity);
+// 兼容原有 ($width, $style, $cat, $i, $opacity)形式
+@mixin theme-border(
+  $width,
+  $style,
+  $color-cat,
+  $color-attr,
+  $color-opacity: 1
+) {
+  @include theme-border-impl(
+    border,
+    $width,
+    $style,
+    $color-cat,
+    $color-attr,
+    $color-opacity
+  );
 }
 
-@mixin theme-border-top($width, $style, $cat, $i, $opacity: 1) {
-  @include theme-border-impl(border-top, $width, $style, $cat, $i, $opacity);
+@mixin theme-border-top(
+  $width,
+  $style,
+  $color-cat,
+  $color-attr,
+  $color-opacity: 1
+) {
+  @include theme-border-impl(
+    border-top,
+    $width,
+    $style,
+    $color-cat,
+    $color-attr,
+    $color-opacity
+  );
 }
 
-@mixin theme-border-right($width, $style, $cat, $i, $opacity: 1) {
-  @include theme-border-impl(border-right, $width, $style, $cat, $i, $opacity);
+@mixin theme-border-right(
+  $width,
+  $style,
+  $color-cat,
+  $color-attr,
+  $color-opacity: 1
+) {
+  @include theme-border-impl(
+    border-right,
+    $width,
+    $style,
+    $color-cat,
+    $color-attr,
+    $color-opacity
+  );
 }
 
-@mixin theme-border-bottom($width, $style, $cat, $i, $opacity: 1) {
-  @include theme-border-impl(border-bottom, $width, $style, $cat, $i, $opacity);
+@mixin theme-border-bottom(
+  $width,
+  $style,
+  $color-cat,
+  $color-attr,
+  $color-opacity: 1
+) {
+  @include theme-border-impl(
+    border-bottom,
+    $width,
+    $style,
+    $color-cat,
+    $color-attr,
+    $color-opacity
+  );
 }
 
-@mixin theme-border-left($width, $style, $cat, $i, $opacity: 1) {
-  @include theme-border-impl(border-left, $width, $style, $cat, $i, $opacity);
+@mixin theme-border-left(
+  $width,
+  $style,
+  $color-cat,
+  $color-attr,
+  $color-opacity: 1
+) {
+  @include theme-border-impl(
+    border-left,
+    $width,
+    $style,
+    $color-cat,
+    $color-attr,
+    $color-opacity
+  );
 }
 
 // Shadow
