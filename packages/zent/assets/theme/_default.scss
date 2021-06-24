@@ -53,64 +53,64 @@
 }
 
 // Font
-@mixin theme-font-weight($attr) {
-  font-weight: map-get($font-weight, $attr);
-  font-weight: get-font-weight-var($attr);
+@mixin theme-font-weight($weight) {
+  font-weight: map-get($font-weight, $weight);
+  font-weight: get-font-weight-var($weight);
 }
 
-@mixin theme-font-size($attr) {
-  $font-size: map-get($font-size, $attr);
-  $font-size-var: get-font-size-var($attr);
+@mixin theme-font-size($size) {
+  $font-size: map-get($font-size, $size);
+  $font-size-var: get-font-size-var($size);
 
   font-size: $font-size;
   font-size: $font-size-var;
-  line-height: map-get($line-height, $attr);
-  line-height: get-line-height-var($attr);
+  line-height: map-get($line-height, $size);
+  line-height: get-line-height-var($size);
 }
 
-@mixin theme-title-size($attr) {
+@mixin theme-title-size($size) {
   @include theme-font-weight(medium);
-  @include theme-font-size($attr);
+  @include theme-font-size($size);
 }
 
-@mixin theme-normal-size($attr) {
+@mixin theme-normal-size($size) {
   @include theme-font-weight(normal);
-  @include theme-font-size($attr);
+  @include theme-font-size($size);
 }
 
-@mixin theme-font($attr, $cat) {
+@mixin theme-font($size, $cat) {
   @if $cat == 'title' {
-    @include theme-title-size($attr);
+    @include theme-title-size($size);
   } @else {
-    @include theme-normal-size($attr);
+    @include theme-normal-size($size);
   }
 }
 
 // Spacing
-@mixin theme-spacing($prop, $attr) {
-  #{$prop}: map-get($spacing, $attr);
-  #{$prop}: get-spacing-var($attr);
+@mixin theme-spacing($prop, $size) {
+  #{$prop}: map-get($spacing, $size);
+  #{$prop}: get-spacing-var($size);
 }
 
 // Border
-@mixin theme-radius($attr: $medium) {
-  border-radius: get-border-radius-var($attr);
+@mixin theme-radius($size: $absolute-size) {
+  border-radius: get-border-radius-var($size);
 }
 
-@mixin theme-border-width($prop, $attr: $medium) {
-  #{$prop}-width: map-get($border-width, $attr);
-  #{$prop}-width: get-border-width-var($attr);
+@mixin theme-border-width($prop, $width: $absolute-size) {
+  #{$prop}-width: map-get($border-width, $width);
+  #{$prop}-width: get-border-width-var($width);
 }
 
-@mixin theme-border-impl($prop, $width-cat, $style, $cat, $attr, $opacity) {
+@mixin theme-border-impl($prop, $width, $style, $cat, $attr, $opacity) {
   #{$prop}-style: $style;
 
   @include theme-color(#{$prop}-color, $cat, $attr, $opacity: 1);
 
-  @if map-get($border-width, $attr) {
-    @include theme-border-width($width-cat);
+  @if map-get($border-width, $width) {
+    @include theme-border-width($width);
   } @else {
-    #{$prop}-width: $width-cat;
+    #{$prop}-width: $width;
   }
 }
 

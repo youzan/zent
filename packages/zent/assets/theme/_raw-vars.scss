@@ -24,6 +24,8 @@ $border-radius-size: (2px, 4px) !default;
 
 $border-width-size: (1px) !default;
 
+$absolute-size: medium;
+
 $font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica,
   Segoe UI, Arial, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft Yahei', STHeiti,
   SimSun, sans-serif !default;
@@ -33,7 +35,8 @@ $font-weight-medium: 500 !default;
 $font-weight-bold: 600 !default;
 
 // font size
-$font-size-number: (34px, 28px, 24px, 20px, 16px, 14px, 12px) !default;
+// 44px 仅做变量使用, 对应原font-h1. 不在theme-font内使用
+$font-size-number: (44px, 34px, 28px, 24px, 20px, 16px, 14px, 12px) !default;
 
 $line-height-number: (44px, 36px, 30px, 26px, 24px, 20px, 18px) !default;
 
