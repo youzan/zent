@@ -8,12 +8,14 @@ group: Data Entry
 
 DateTime pickers, provides basic time choosing functionality.
 
-## Guides
+### Guides
 
 - Included pickers：`DatePicker`、`WeekPicker`、`MonthPicker`、`QuarterPicker`、`YearPicker`、`DateRangePicker`、`CombinedDateRangePicker`、`TimePicker`、`TimeRangePicker` and `CombinedTimeRangePicker`.
 - `DatePicker` 、`CombinedDateRangePicker` and `DateRangePicker` can use `showTime` to allow time selection.
 
-### Common API
+### API
+
+#### Common API
 
 | Property     | Description                                                               | Type                                      | Default                                 | Required |
 | ------------ | ------------------------------------------------------------------------- | ----------------------------------------- | --------------------------------------- | -------- |
@@ -38,7 +40,7 @@ interface IDisableDateMap {
 }
 ```
 
-### DatePicker API
+#### DatePicker API
 
 | Property     | Description                                 | Type                                     | Default                  | Required |
 | ------------ | ------------------------------------------- | ---------------------------------------- | ------------------------ | -------- |
@@ -56,7 +58,7 @@ interface IDisableDateMap {
 - `disabledTime` only works with `showTime`, see the details in `TimePicker`
 - `format` should be `'YYYY-MM-DD HH:mm:ss'` when `showTime` is `true`
 
-### WeekPicker API
+#### WeekPicker API
 
 | Property     | Description                                 | Type                                            | Default                  | Required |
 | ------------ | ------------------------------------------- | ----------------------------------------------- | ------------------------ | -------- |
@@ -72,7 +74,7 @@ interface IDisableDateMap {
 - `value` is a range of dates in `WeekPicker`
 - `weekStartsOnMap`: `Monday`、`Tuesday`、`Wednesday`、`Thursday`、`Friday`、`Saturday`、`Sunday`
 
-### YearPicker / MonthPicker API
+#### YearPicker / MonthPicker API
 
 | Property    | Description                                 | Type                                     | Default                                               | Required |
 | ----------- | ------------------------------------------- | ---------------------------------------- | ----------------------------------------------------- | -------- |
@@ -85,7 +87,7 @@ interface IDisableDateMap {
 
 - `value` is a single date in `YearPicker` / `MonthPicker`
 
-### QuarterPicker API
+#### QuarterPicker API
 
 | Property    | Description                                 | Type                                            | Default                     | Required |
 | ----------- | ------------------------------------------- | ----------------------------------------------- | --------------------------- | -------- |
@@ -98,7 +100,7 @@ interface IDisableDateMap {
 
 - `value` is a single date in `QuarterPicker`
 
-### TimePicker API
+#### TimePicker API
 
 | Property     | Description                                 | Type                        | Default                  | Required |
 | ------------ | ------------------------------------------- | --------------------------- | ------------------------ | -------- |
@@ -120,7 +122,7 @@ interface IDisabledTimeOption {
 }
 ```
 
-### DateRangePicker / CombinedDateRangePicker （Base on DatePicker）
+#### DateRangePicker / CombinedDateRangePicker （Base on DatePicker）
 
 | Property    | Description                                       | Type                                            | Default                     | Required |
 | ----------- | ------------------------------------------------- | ----------------------------------------------- | --------------------------- | -------- |
@@ -137,7 +139,7 @@ interface IDisabledTimeOption {
 - Only supports `dateSpan` for `DateRangePicker` and `CombinedDateRangePicker`.
 - Definition of `disabled` and `canClear` is `boolean | boolean[]` in `DateRangePicker`.
 
-### TimeRangePicker / CombinedTimeRangePicker API （Base on TimePicker）
+#### TimeRangePicker / CombinedTimeRangePicker API （Base on TimePicker）
 
 | Property    | Description                                 | Type                              | Default                     | Required |
 | ----------- | ------------------------------------------- | --------------------------------- | --------------------------- | -------- |
@@ -150,10 +152,10 @@ interface IDisabledTimeOption {
 
 - `disabledTime(val, type)`, the `type` is `'start' | 'end'`
 
-### Functions
+#### Functions
 - Provide some useful functions: e.g. `disabledTimeWithRange`、`getDisabledDateAndTimeWithRangeProps`, that can use in your `disabledTime` handlers. You need to manually import them from `zent/es/date-picker/disabledHelpers`. 
 
-### Format string
+#### Format string
 
 |           | Format character | Output                                   |
 | --------- | ---------------- | ---------------------------------------- |
