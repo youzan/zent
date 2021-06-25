@@ -58,5 +58,6 @@
     "lint-staged": "^8.0.5",
     "prettier": "^2.2.0",
     "sass-lint": "^1.12.1"
-  }
+  },
+  "dependencies": {}
 }
