@@ -9,6 +9,13 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 9.7.2(2021-06-25)
+
+- 🦀️ Fix `Tag` cannot be used as `Pop`'s trigger
+- 🦀️ Fix `Now` button disable logic in `DatePicker`
+- 🦀️ Update `caniuse-lite` database to latest version
+- 📚 Fix missing demos in `DataPicker` English documentation
+
 ### 9.7.1(2021-06-17)
 
 - `Form`
