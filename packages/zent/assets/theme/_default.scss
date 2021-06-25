@@ -59,11 +59,8 @@
 }
 
 @mixin theme-font-size($size) {
-  $font-size: map-get($font-size, $size);
-  $font-size-var: get-font-size-var($size);
-
-  font-size: $font-size;
-  font-size: $font-size-var;
+  font-size: map-get($font-size, $size);
+  font-size: get-font-size-var($size);
   line-height: map-get($line-height, $size);
   line-height: get-line-height-var($size);
 }

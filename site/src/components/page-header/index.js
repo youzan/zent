@@ -92,35 +92,36 @@ export default class PageHeader extends Component {
           </a>
           <div className="page-header__search-sep" />
           <SearchBox locale={i18n} navData={sideNavData} />
-          <ThemeSwitcher locale={i18n} />
-          <div
-            className="page-header__i18n-switcher"
-            type="primary"
-            onClick={this.toggle}
-          >
-            {CONTROLS[i18n] || ''}
+          <div className="page-header__right-fixed">
+            <ThemeSwitcher locale={i18n} />
+            <Select
+              className="page-header__version-select"
+              options={VERSIONS}
+              value={version}
+              onChange={this.changeVersion}
+              inline
+              width={120}
+            />
+            <div
+              className="page-header__i18n-switcher"
+              type="primary"
+              onClick={this.toggle}
+            >
+              {CONTROLS[i18n] || ''}
+            </div>
+            <ul className="page-header__navs">
+              <li className="page-header__item">
+                <a href="https://github.com/youzan/zent">
+                  <img
+                    src="https://img.yzcdn.cn/zanui/react/GitHub-Mark-120px-plus.png"
+                    alt="github"
+                    width="28"
+                    height="28"
+                  />
+                </a>
+              </li>
+            </ul>
           </div>
-          <Select
-            className="page-header__version-select"
-            options={VERSIONS}
-            value={version}
-            onChange={this.changeVersion}
-            inline
-            width={120}
-          />
-          <ul className="page-header__navs">
-            <li className="page-header__item">
-              <a href="https://github.com/youzan/zent">
-                <img
-                  className="page-header__github"
-                  src="https://img.yzcdn.cn/zanui/react/GitHub-Mark-120px-plus.png"
-                  alt="github"
-                  width="28"
-                  height="28"
-                />
-              </a>
-            </li>
-          </ul>
         </div>
       </div>
     );

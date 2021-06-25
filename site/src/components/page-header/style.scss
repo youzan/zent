@@ -50,16 +50,7 @@
       margin-left: 20px;
     }
 
-    &__github {
-      margin-top: 16px;
-    }
-
-    &__navs {
-      float: right;
-    }
-
     &__item {
-      float: left;
       height: 100%;
     }
 
@@ -79,9 +70,18 @@
       }
     }
 
+    &__right-fixed {
+      position: absolute;
+      right: 30px;
+      top: 0;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
     &__i18n-switcher {
-      top: 14px;
-      right: 80px;
+      margin-right: 12px;
       color: #455a64;
       padding: 5px 7px;
       font-size: 14px;
@@ -89,7 +89,6 @@
       border-radius: 2px;
       cursor: pointer;
       text-align: center;
-      position: absolute;
       display: inline-block;
       transition: 0.3s ease-in-out;
       border: 1px solid #e0e0e0;
@@ -102,10 +101,7 @@
     }
 
     &__version-select.zent-select-v2 {
-      position: absolute;
-      top: 50%;
-      right: 126px;
-      transform: translateY(-50%);
+      margin-right: 12px;
     }
   }
 }
