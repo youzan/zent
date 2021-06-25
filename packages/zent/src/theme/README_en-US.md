@@ -15,8 +15,9 @@ Zent supports themes, only colors are customizable for now.
 
 Zent uses [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties), so it is possible to customize themes via custom CSS variables.
 
-Each theme color should be provided in both HEX and RGB format, These variables can be generated as follows:
+Each theme color should be provided in both HEX and RGB format, These variables as follows:
 
+<!-- demo-slot-1 -->
 <!-- demo-slot-2 -->
 
 ### Customize through rebuilding SCSS
@@ -36,7 +37,6 @@ This method is non-intrusive, but you have to manually build your custom theme e
 
 Could use `ThemeSDK API`, pass a basic color to update the theme colors. Choose a color with a higher saturation and brightness, please. like: S > 85, B > 80, like the following:
 
-<!-- demo-slot-1 -->
 <!-- demo-slot-3 -->
 
 ### API

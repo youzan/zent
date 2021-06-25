@@ -75,14 +75,20 @@ $danger-colors: (
 
 $link-colors: (
   'color': $primary-500,
+  // Primary text link brand color
   'hover-color': $primary-400,
+  // Hover state of primary text link brand color
   'active-color': $primary-600,
+  // Active state of primary text link brand color
 );
 
 $default-colors: (
   'hover-color': $primary-500,
+  // Hover state of default text color components e.g. default button..
   'hover-bg': $primary-100,
+  // Hover state of default background color of components , e.g. grid, select panel..
   'hover-border-color': $primary-500,
+  // Hover state of default border color of components , e.g. default button..
   'selected': $text-200,
   'disabled-color': $text-400,
   'disabled-bg': $text-200,
@@ -92,18 +98,26 @@ $default-colors: (
 $primary-colors: (
   'color': $text-100,
   'bg': $primary-500,
+  // Primary background color of components, e.g. primary type button
   'border-color': $primary-500,
+  // Primary border color of components, e.g. primary type button
   'hover-bg': $primary-400,
+  // Hover state of primary background color of components, e.g. primary type button
   'hover-border-color': $primary-400,
+  // Hover state of primary border color of components, e.g. primary type button
   'active-bg': $primary-600,
+  // Active state of primary background color of components, e.g. primary type button
   'active-border-color': $primary-600,
+  // Active state of primary border color of components, e.g. primary type button
 );
 
 // components
 $weak-link-colors: (
   'color': $text-500,
   'hover-color': $primary-400,
+  // Hover state of primary text weak link brand color
   'active-color': $primary-600,
+  // Active state of primary text weak link brand color
 );
 
 $rate-colors: (
