@@ -11,7 +11,6 @@ import {
 } from './constants';
 import {
   IUploadFileItem,
-  IUploadFileItemInner,
   IUploadProps,
   IUploadTipConfig,
   INormalUploadItemProps,
@@ -51,12 +50,10 @@ export class Upload extends AbstractMultiUpload<
 
   static FILE_UPLOAD_STATUS = FILE_UPLOAD_STATUS;
 
-  protected createNewUploadFileItem(
-    file: File
-  ): IUploadFileItemInner<IUploadFileItem> {
+  protected createNewUploadFileItem(file: File): IUploadFileItem {
     return {
-      _id: createUploadItemId(),
-      _file: file,
+      id: createUploadItemId(),
+      file,
       name: file.name,
       type: file.type,
       status: FILE_UPLOAD_STATUS.beforeUpload,
@@ -97,7 +94,6 @@ export class Upload extends AbstractMultiUpload<
   protected renderTrigger(i18n: II18nLocaleUpload): React.ReactNode {
     const { accept, maxAmount, maxSize, multiple, disabled } = this
       .props as IUploadPropsInner;
-    const { fileList } = this.state;
     return (
       <NormalUploadTrigger
         i18n={i18n}
@@ -107,7 +103,7 @@ export class Upload extends AbstractMultiUpload<
         multiple={multiple}
         disabled={disabled}
         remainAmount={this.remainAmount}
-        fileList={fileList}
+        fileList={this.fileList}
         onAddFile={this.onTriggerUploadFile}
         onError={this.emitOnError}
       />

@@ -13,7 +13,6 @@ import {
   IImageOnUploadSuccessReturn,
   IImageUploadFileItem,
   IImageUploadProps,
-  IUploadFileItemInner,
   IUploadTipConfig,
   IImageUploadItemProps,
 } from './types';
@@ -60,7 +59,7 @@ export class ImageUpload extends AbstractMultiUpload<
 
   protected getUploadSuccessOverrideProps(
     onUploadSuccessReturn: IImageOnUploadSuccessReturn
-  ): Partial<IUploadFileItemInner<IImageUploadFileItem>> {
+  ): Partial<IImageUploadFileItem> {
     if (isNil(onUploadSuccessReturn)) {
       return {};
     }
@@ -96,19 +95,19 @@ export class ImageUpload extends AbstractMultiUpload<
 
   protected createNewUploadFileItem(file: File) {
     const thumbPromise = this.props.getThumbSrcFromFile(file);
-    return Promise.resolve(thumbPromise).then<
-      IUploadFileItemInner<IImageUploadFileItem>
-    >(thumbSrc => {
-      return {
-        _id: createUploadItemId(),
-        _file: file,
-        thumbSrc,
-        name: file.name,
-        type: file.type,
-        status: FILE_UPLOAD_STATUS.beforeUpload,
-        percent: 0,
-      };
-    });
+    return Promise.resolve(thumbPromise).then<IImageUploadFileItem>(
+      thumbSrc => {
+        return {
+          id: createUploadItemId(),
+          file,
+          thumbSrc,
+          name: file.name,
+          type: file.type,
+          status: FILE_UPLOAD_STATUS.beforeUpload,
+          percent: 0,
+        };
+      }
+    );
   }
 
   protected renderTips(): React.ReactNode {
@@ -126,7 +125,6 @@ export class ImageUpload extends AbstractMultiUpload<
   protected renderTrigger(i18n: II18nLocaleUpload): React.ReactNode {
     const { accept, maxAmount, maxSize, multiple, disabled } = this
       .props as IImageUploadPropsInner;
-    const { fileList } = this.state;
     return (
       <ImageUploadTrigger
         i18n={i18n}
@@ -136,7 +134,7 @@ export class ImageUpload extends AbstractMultiUpload<
         multiple={multiple}
         disabled={disabled}
         remainAmount={this.remainAmount}
-        fileList={fileList}
+        fileList={this.fileList}
         onAddFile={this.onTriggerUploadFile}
         onError={this.emitOnError}
       />

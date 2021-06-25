@@ -6,7 +6,6 @@ import {
   IAbstractMultiUploadProps,
   IUploadChangeDetail,
   IUploadFileItem,
-  IUploadFileItemInner,
   IUploadItemProps,
 } from '../types';
 import { patchUploadItemId } from '../utils/id';
@@ -16,7 +15,7 @@ import AbstractUpload from './AbstractUpload';
 export interface IAbstractMultiUploadState<
   UPLOAD_ITEM extends IUploadFileItem
 > {
-  fileList: Array<IUploadFileItemInner<UPLOAD_ITEM>>;
+  fileList: Array<UPLOAD_ITEM>;
 }
 
 abstract class AbstractMultiUpload<
@@ -82,7 +81,9 @@ abstract class AbstractMultiUpload<
 
   /** 上传项列表 */
   get fileList() {
-    return this.isControlled ? this.props.fileList! : this.state.fileList;
+    return this.isControlled
+      ? (this.props.fileList as UPLOAD_ITEM[])
+      : this.state.fileList;
   }
 
   /**
@@ -93,12 +94,8 @@ abstract class AbstractMultiUpload<
     return maxAmount - this.fileList.length;
   }
 
-  getUploadItem(id: string): IUploadFileItemInner<UPLOAD_ITEM> | null {
-    return (
-      this.fileList.find(
-        (item: IUploadFileItemInner<UPLOAD_ITEM>) => item._id === id
-      ) || null
-    );
+  getUploadItem(id: string): UPLOAD_ITEM | null {
+    return this.fileList.find((item: UPLOAD_ITEM) => item.id === id) || null;
   }
 
   /**
@@ -128,13 +125,9 @@ abstract class AbstractMultiUpload<
   /**
    * 删除上传文件项
    */
-  deleteUploadItem = (deleteItem: IUploadFileItemInner<UPLOAD_ITEM>) => {
-    const innerFileList = this.fileList as Array<
-      IUploadFileItemInner<UPLOAD_ITEM>
-    >;
-    const newFileList = innerFileList.filter(
-      item => item._id !== deleteItem._id
-    );
+  deleteUploadItem = (deleteItem: UPLOAD_ITEM) => {
+    const innerFileList = this.fileList as Array<UPLOAD_ITEM>;
+    const newFileList = innerFileList.filter(item => item.id !== deleteItem.id);
     this.updateFileList(newFileList, {
       item: deleteItem,
       type: 'delete',
@@ -144,17 +137,15 @@ abstract class AbstractMultiUpload<
   /**
    * 重新上传文件
    */
-  retryUploadItem = (retryItem: IUploadFileItemInner<UPLOAD_ITEM>) => {
-    const innerFileList = this.fileList as Array<
-      IUploadFileItemInner<UPLOAD_ITEM>
-    >;
+  retryUploadItem = (retryItem: UPLOAD_ITEM) => {
+    const innerFileList = this.fileList as Array<UPLOAD_ITEM>;
     const newRetryItem = {
       ...retryItem,
       status: FILE_UPLOAD_STATUS.uploading,
       percent: 0,
     };
     const newFileList = innerFileList.map(item =>
-      item._id === retryItem._id ? newRetryItem : item
+      item.id === retryItem.id ? newRetryItem : item
     );
     this.updateFileList(
       newFileList,
@@ -162,7 +153,7 @@ abstract class AbstractMultiUpload<
         item: newRetryItem,
         type: 'retry',
       },
-      () => this.emitOnUpload(retryItem._file, newRetryItem)
+      () => this.emitOnUpload(retryItem.file, newRetryItem)
     );
   };
 
@@ -171,7 +162,7 @@ abstract class AbstractMultiUpload<
    */
   updateUploadItem = (
     updateItemId: string,
-    overrideProps: Partial<IUploadFileItemInner<UPLOAD_ITEM>>
+    overrideProps: Partial<UPLOAD_ITEM>
   ) => {
     const updateItem = this.getUploadItem(updateItemId);
     // 上传项已经不存在，不执行 update 操作
@@ -179,14 +170,14 @@ abstract class AbstractMultiUpload<
       return;
     }
 
-    const newItem: IUploadFileItemInner<UPLOAD_ITEM> = {
+    const newItem: UPLOAD_ITEM = {
       ...updateItem,
       ...overrideProps,
     };
 
-    const newFileList = (this.fileList as Array<
-      IUploadFileItemInner<UPLOAD_ITEM>
-    >).map(item => (item._id === updateItem._id ? newItem : item));
+    const newFileList = (this.fileList as Array<UPLOAD_ITEM>).map(item =>
+      item.id === updateItem.id ? newItem : item
+    );
     this.updateFileList(newFileList, {
       item: newItem,
       type: 'change',
@@ -210,10 +201,8 @@ abstract class AbstractMultiUpload<
       })
       .then(newUploadFileItem => {
         const { fileList } = this.state;
-        const innerFileList = fileList as Array<
-          IUploadFileItemInner<UPLOAD_ITEM>
-        >;
-        const newFileList: Array<IUploadFileItemInner<UPLOAD_ITEM>> = [
+        const innerFileList = fileList as Array<UPLOAD_ITEM>;
+        const newFileList: Array<UPLOAD_ITEM> = [
           ...innerFileList,
           newUploadFileItem,
         ];
@@ -235,9 +224,7 @@ abstract class AbstractMultiUpload<
    */
   protected abstract createNewUploadFileItem(
     file: File
-  ):
-    | IUploadFileItemInner<UPLOAD_ITEM>
-    | Promise<IUploadFileItemInner<UPLOAD_ITEM>>;
+  ): UPLOAD_ITEM | Promise<UPLOAD_ITEM>;
 
   /**
    * 渲染上传列表
