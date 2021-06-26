@@ -22,11 +22,11 @@ import {
 } from './utils/default-image-props';
 import { formatFileSize } from './utils/format-file-size';
 import { getTipsContent } from './utils/get-tips-content';
-import { createUploadItemId } from './utils/id';
 
 import { I18nReceiver, II18nLocaleUpload } from '../i18n';
 import isNil from '../utils/isNil';
 import { PartialRequired } from '../utils/types';
+import { createBaseNewUploadFileItem } from './utils/create-new-upload-file-item';
 
 type IImageUploadPropsInner = PartialRequired<
   IImageUploadProps,
@@ -97,15 +97,11 @@ export class ImageUpload extends AbstractMultiUpload<
     const thumbPromise = this.props.getThumbSrcFromFile(file);
     return Promise.resolve(thumbPromise).then<IImageUploadFileItem>(
       thumbSrc => {
-        return {
-          id: createUploadItemId(),
-          file,
+        const item: IImageUploadFileItem = {
+          ...createBaseNewUploadFileItem(file),
           thumbSrc,
-          name: file.name,
-          type: file.type,
-          status: FILE_UPLOAD_STATUS.beforeUpload,
-          percent: 0,
         };
+        return item;
       }
     );
   }
@@ -125,6 +121,7 @@ export class ImageUpload extends AbstractMultiUpload<
   protected renderTrigger(i18n: II18nLocaleUpload): React.ReactNode {
     const { accept, maxAmount, maxSize, multiple, disabled } = this
       .props as IImageUploadPropsInner;
+    const { fileList } = this.state;
     return (
       <ImageUploadTrigger
         i18n={i18n}
@@ -134,7 +131,7 @@ export class ImageUpload extends AbstractMultiUpload<
         multiple={multiple}
         disabled={disabled}
         remainAmount={this.remainAmount}
-        fileList={this.fileList}
+        fileList={fileList}
         onAddFile={this.onTriggerUploadFile}
         onError={this.emitOnError}
       />

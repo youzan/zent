@@ -5,9 +5,10 @@ import { II18nLocaleUpload } from '../i18n';
 /** 文件对象 */
 export interface IUploadFileItem {
   /** 判断上传文件的唯一id，内部初始化使用，在回调函数中值必存在，外部不需要传 */
+  // 内部需要对 id 属性赋值，因此不设为 readonly
   id?: string;
   /** 重试上传时的文件对象 */
-  file?: File;
+  readonly file?: File;
 
   // browser file object properties
   /** 文件名称 */
@@ -28,6 +29,27 @@ export interface IImageUploadFileItem extends IUploadFileItem {
   thumbSrc?: string;
 }
 
+/**
+ * 文件项对象的内部属性扩展类型，内部不再使用，且将于 v10 删除
+ * 为了兼容外部已经使用的情况，保留该类型及相关使用了该类型的对外暴露的API
+ */
+export type IUploadFileItemInner<
+  UPLOAD_ITEM extends IUploadFileItem
+> = UPLOAD_ITEM & {
+  /**
+   * @deprecated
+   * @internal
+   * 判断上传文件的唯一id，仅内部使用，已废弃，且将于 v10 删除
+   */
+  readonly _id?: string;
+  /**
+   * @deprecated
+   * @internal
+   * 重试上传时的文件对象，仅内部使用，已废弃，且将于 v10 删除
+   */
+  readonly _file?: File;
+};
+
 // onChange types
 export type IUploadOnChangeHandler<
   Value,
@@ -35,7 +57,7 @@ export type IUploadOnChangeHandler<
 > = (value: Value, detail?: IUploadChangeDetail<UPLOAD_ITEM>) => void;
 
 export interface IUploadChangeDetail<UPLOAD_ITEM extends IUploadFileItem> {
-  item: UPLOAD_ITEM;
+  item: IUploadFileItemInner<UPLOAD_ITEM>;
   type: 'change' | 'add' | 'delete' | 'retry';
 }
 
@@ -125,7 +147,10 @@ export interface IAbstractMultiUploadProps<
   /** 用于设置已上传的文件列表 */
   defaultFileList?: UPLOAD_ITEM[];
   /** 文件上传组件内容发生变化时的回调函数 */
-  onChange: IUploadOnChangeHandler<Array<UPLOAD_ITEM>, UPLOAD_ITEM>;
+  onChange: IUploadOnChangeHandler<
+    Array<IUploadFileItemInner<UPLOAD_ITEM>>,
+    UPLOAD_ITEM
+  >;
   /** 是否支持文件多选 */
   multiple?: boolean;
   /** 文件数量限制，Infinity 为无限制 */
@@ -200,10 +225,10 @@ export interface IAbstractUploadListProps<
 > {
   i18n: II18nLocaleUpload;
   fileList: UPLOAD_ITEM[];
-  onRetry: (retryItem: UPLOAD_ITEM) => void;
-  onDelete: (retryItem: UPLOAD_ITEM) => void;
+  onRetry: (retryItem: IUploadFileItemInner<UPLOAD_ITEM>) => void;
+  onDelete: (retryItem: IUploadFileItemInner<UPLOAD_ITEM>) => void;
   sortable?: boolean;
-  onSortChange: (list: Array<UPLOAD_ITEM>) => void;
+  onSortChange: (list: Array<IUploadFileItemInner<UPLOAD_ITEM>>) => void;
   customUploadItem?: React.ComponentType<UPLOAD_ITEM_COMP_PROPS>;
 }
 
@@ -223,7 +248,7 @@ export interface IImageUploadListProps
 }
 
 export interface IUploadItemProps<UPLOAD_ITEM extends IUploadFileItem> {
-  item: UPLOAD_ITEM;
+  item: IUploadFileItemInner<UPLOAD_ITEM>;
   i18n: II18nLocaleUpload;
   onRetry: IAbstractUploadListProps<UPLOAD_ITEM, any>['onRetry'];
   onDelete: IAbstractUploadListProps<UPLOAD_ITEM, any>['onDelete'];
@@ -231,6 +256,7 @@ export interface IUploadItemProps<UPLOAD_ITEM extends IUploadFileItem> {
 
 export type INormalUploadItemProps = IUploadItemProps<IUploadFileItem>;
 export type ISingleUploadItemProps = IUploadItemProps<IUploadFileItem>;
+
 export type IImageUploadItemProps = IUploadItemProps<IImageUploadFileItem> & {
   onPreview: (file: IImageUploadFileItem) => void;
 };

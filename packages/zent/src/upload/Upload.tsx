@@ -17,10 +17,10 @@ import {
 } from './types';
 import { formatFileSize } from './utils/format-file-size';
 import { getTipsContent } from './utils/get-tips-content';
-import { createUploadItemId } from './utils/id';
 
 import { I18nReceiver, II18nLocaleUpload } from '../i18n';
 import { PartialRequired } from '../utils/types';
+import { createBaseNewUploadFileItem } from './utils/create-new-upload-file-item';
 
 type IUploadPropsInner = PartialRequired<
   IUploadProps,
@@ -51,14 +51,7 @@ export class Upload extends AbstractMultiUpload<
   static FILE_UPLOAD_STATUS = FILE_UPLOAD_STATUS;
 
   protected createNewUploadFileItem(file: File): IUploadFileItem {
-    return {
-      id: createUploadItemId(),
-      file,
-      name: file.name,
-      type: file.type,
-      status: FILE_UPLOAD_STATUS.beforeUpload,
-      percent: 0,
-    };
+    return createBaseNewUploadFileItem(file);
   }
 
   protected renderTips() {
@@ -94,6 +87,7 @@ export class Upload extends AbstractMultiUpload<
   protected renderTrigger(i18n: II18nLocaleUpload): React.ReactNode {
     const { accept, maxAmount, maxSize, multiple, disabled } = this
       .props as IUploadPropsInner;
+    const { fileList } = this.state;
     return (
       <NormalUploadTrigger
         i18n={i18n}
@@ -103,7 +97,7 @@ export class Upload extends AbstractMultiUpload<
         multiple={multiple}
         disabled={disabled}
         remainAmount={this.remainAmount}
-        fileList={this.fileList}
+        fileList={fileList}
         onAddFile={this.onTriggerUploadFile}
         onError={this.emitOnError}
       />

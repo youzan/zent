@@ -12,11 +12,11 @@ import {
 import { formatFileSize } from './utils/format-file-size';
 import { getTipsContent } from './utils/get-tips-content';
 import { PartialRequired } from '../utils/types';
-import { createUploadItemId } from './utils/id';
 import { FILE_UPLOAD_STATUS } from './constants';
 import { wrapPromise } from './utils/wrap-promise';
 import SingleUploadTrigger from './components/single/Trigger';
 import SingleUploadItem from './components/single/Item';
+import { createBaseNewUploadFileItem } from './utils/create-new-upload-file-item';
 
 interface ISingleUploadState {
   value: IUploadFileItem | null;
@@ -43,9 +43,7 @@ export class SingleUpload extends AbstractUpload<
   }
 
   get value() {
-    return this.isControlled
-      ? (this.props.value as IUploadFileItem)
-      : this.state.value;
+    return this.isControlled ? this.props.value : this.state.value;
   }
 
   onChange = (
@@ -98,14 +96,7 @@ export class SingleUpload extends AbstractUpload<
   };
 
   createNewUploadFileItem(file: File): IUploadFileItem {
-    return {
-      id: createUploadItemId(),
-      file,
-      name: file.name,
-      type: file.type,
-      status: FILE_UPLOAD_STATUS.beforeUpload,
-      percent: 0,
-    };
+    return createBaseNewUploadFileItem(file);
   }
 
   deleteUploadItem = (deleteItem: IUploadFileItem) => {
