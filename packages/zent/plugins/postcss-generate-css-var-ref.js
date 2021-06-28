@@ -9,11 +9,6 @@ const THEME_FILES = ['_color.scss'].map(f =>
   path.resolve(__dirname, '../assets/theme/semantic', f)
 );
 
-const GENERATE_THEME_REF_SCSS_FILE = path.resolve(
-  __dirname,
-  '../assets/theme/_css-var-ref.scss'
-);
-
 const GENERATE_THEME_REF_FILE = path.resolve(
   __dirname,
   '../src/theme/css-var-ref.ts'

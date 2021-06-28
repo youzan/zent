@@ -1,5 +1,6 @@
 import { generateColorPalette } from './generator';
 import { cssVarRef as rawCssVarRef, cssRgbVarRef } from './css-var-ref';
+import { hexToRGBString, IHexToRgbFn } from './utils';
 
 const primaryColor = '#155bd4';
 
@@ -81,7 +82,8 @@ const sceneVariableRelation = themeRelation.reduce((pre, item) => {
 const generateThemeRelation = (
   palette: IColor[],
   scene: ThemeScene,
-  cssVarRefs: ICssVarRef
+  cssVarRefs: ICssVarRef,
+  colorHandleFn?: IHexToRgbFn
 ): IThemeColor[] => {
   const sceneInfo = sceneVariableRelation[scene];
   if (!sceneInfo) return [];
@@ -89,9 +91,12 @@ const generateThemeRelation = (
   const cssVariableNames = cssVarRefs?.[sceneInfo.variableName];
   if (!cssVariableNames) return [];
   const paletteIndex = sceneInfo.index;
+
   return cssVariableNames.map(cssVariableName => ({
     cssVariableName,
-    color: palette[paletteIndex],
+    color: colorHandleFn
+      ? colorHandleFn(palette[paletteIndex])
+      : palette[paletteIndex],
   }));
 };
 
@@ -110,7 +115,8 @@ class ThemeSdk {
 
     const getSetOfOneThemeColor = (
       colorConfig: IThemeColorSceneConfig,
-      cssVarRefs: ICssVarRef
+      cssVarRefs: ICssVarRef,
+      colorHandleFn?: IHexToRgbFn
     ) => {
       const { baseColor, scene } = colorConfig;
       if (!baseColor) return [];
@@ -119,24 +125,46 @@ class ThemeSdk {
       if (Array.isArray(scene)) {
         currentColors = scene.reduce((theme, currentScene) => {
           return theme.concat(
-            generateThemeRelation(palette, currentScene, cssVarRefs)
+            generateThemeRelation(
+              palette,
+              currentScene,
+              cssVarRefs,
+              colorHandleFn
+            )
           );
         }, []);
       } else {
-        currentColors = generateThemeRelation(palette, scene, cssVarRefs);
+        currentColors = generateThemeRelation(
+          palette,
+          scene,
+          cssVarRefs,
+          colorHandleFn
+        );
       }
       return currentColors;
     };
 
-    const getThemeColors = (cssVarRefs: ICssVarRef) => {
+    const getThemeColors = (
+      cssVarRefs: ICssVarRef,
+      colorHandleFn?: IHexToRgbFn
+    ) => {
       return colors.reduce((preThemeColors, colorConfig) => {
         let currentColors = [];
         if ('scene' in colorConfig) {
-          currentColors = getSetOfOneThemeColor(colorConfig, cssVarRefs);
+          currentColors = getSetOfOneThemeColor(
+            colorConfig,
+            cssVarRefs,
+            colorHandleFn
+          );
         } else {
-          currentColors = cssVarRefs?.[
-            colorConfig.variableName
-          ]?.map(cssVariable => ({ color: colorConfig.color, cssVariable }));
+          currentColors = cssVarRefs?.[colorConfig.variableName]?.map(
+            cssVariable => ({
+              color: colorHandleFn
+                ? colorHandleFn(colorConfig.color)
+                : colorConfig.color,
+              cssVariable,
+            })
+          );
         }
 
         return preThemeColors.concat(currentColors);
@@ -144,7 +172,7 @@ class ThemeSdk {
     };
 
     const themeColors: IThemeColor[] = getThemeColors(rawCssVarRef).concat(
-      getThemeColors(cssRgbVarRef)
+      getThemeColors(cssRgbVarRef, hexToRGBString)
     );
 
     return { colors: themeColors };
