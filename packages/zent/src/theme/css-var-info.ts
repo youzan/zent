@@ -6,81 +6,81 @@
 
 export const cssVarInfo = [
   {
-    cssVariableName: '--theme-link-color',
+    cssVariable: '--theme-link-color',
     color: '$primary-500',
-    comments: ' Primary text link brand color',
+    comment: ' Primary text link brand color',
   },
   {
-    cssVariableName: '--theme-link-hover-color',
+    cssVariable: '--theme-link-hover-color',
     color: '$primary-400',
-    comments: ' Hover state of primary text link brand color',
+    comment: ' Hover state of primary text link brand color',
   },
   {
-    cssVariableName: '--theme-link-active-color',
+    cssVariable: '--theme-link-active-color',
     color: '$primary-600',
-    comments: ' Active state of primary text link brand color',
+    comment: ' Active state of primary text link brand color',
   },
   {
-    cssVariableName: '--theme-default-hover-color',
+    cssVariable: '--theme-default-hover-color',
     color: '$primary-500',
-    comments:
+    comment:
       ' Hover state of default text color components e.g. default button..',
   },
   {
-    cssVariableName: '--theme-default-hover-bg',
+    cssVariable: '--theme-default-hover-bg',
     color: '$primary-100',
-    comments:
+    comment:
       ' Hover state of default background color of components , e.g. grid, select panel..',
   },
   {
-    cssVariableName: '--theme-default-hover-border-color',
+    cssVariable: '--theme-default-hover-border-color',
     color: '$primary-500',
-    comments:
+    comment:
       ' Hover state of default border color of components , e.g. default button..',
   },
   {
-    cssVariableName: '--theme-primary-bg',
+    cssVariable: '--theme-primary-bg',
     color: '$primary-500',
-    comments:
+    comment:
       ' Primary background color of components, e.g. primary type button',
   },
   {
-    cssVariableName: '--theme-primary-border-color',
+    cssVariable: '--theme-primary-border-color',
     color: '$primary-500',
-    comments: ' Primary border color of components, e.g. primary type button',
+    comment: ' Primary border color of components, e.g. primary type button',
   },
   {
-    cssVariableName: '--theme-primary-hover-bg',
+    cssVariable: '--theme-primary-hover-bg',
     color: '$primary-400',
-    comments:
+    comment:
       ' Hover state of primary background color of components, e.g. primary type button',
   },
   {
-    cssVariableName: '--theme-primary-hover-border-color',
+    cssVariable: '--theme-primary-hover-border-color',
     color: '$primary-400',
-    comments:
+    comment:
       ' Hover state of primary border color of components, e.g. primary type button',
   },
   {
-    cssVariableName: '--theme-primary-active-bg',
+    cssVariable: '--theme-primary-active-bg',
     color: '$primary-600',
-    comments:
+    comment:
       ' Active state of primary background color of components, e.g. primary type button',
   },
   {
-    cssVariableName: '--theme-primary-active-border-color',
+    cssVariable: '--theme-primary-active-border-color',
     color: '$primary-600',
-    comments:
+    comment:
       ' Active state of primary border color of components, e.g. primary type button',
   },
   {
-    cssVariableName: '--theme-weak-hover-color',
+    cssVariable: '--theme-weak-hover-color',
     color: '$primary-400',
-    comments: ' Hover state of primary text weak link brand color',
+    comment: ' Hover state of primary text weak link brand color',
   },
   {
-    cssVariableName: '--theme-weak-active-color',
+    cssVariable: '--theme-weak-active-color',
     color: '$primary-600',
-    comments: ' Active state of primary text weak link brand color',
+    comment: ' Active state of primary text weak link brand color',
   },
 ];

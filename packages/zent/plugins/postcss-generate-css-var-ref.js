@@ -163,20 +163,29 @@ function generateCSSVarPrefixName(
 
 function generateComments(cssVarPrefixName, value) {
   const scss = value.scss;
-  const commentPattern = /.*'(.+)'.*(\$.+),.*\/\/(.+)$/;
+  const variablePattern = /.*'(.+)'.*(\$.+),.*$/;
+  const commentPattern = /\/\/(.+)/;
   const cssVariableInfos = scss.split('\n');
-  return cssVariableInfos
-    .map(cssVariableInfo => {
-      const matched = commentPattern.exec(cssVariableInfo);
-      if (matched) {
-        return {
-          cssVariableName: cssVarPrefixName + matched[1],
-          color: matched[2],
-          comments: matched[3],
-        };
-      }
-    })
-    .filter(item => !!item);
+  const themeComments = [];
+  for (
+    let commentIndex = 0, variabledIndex = 1, infoLen = cssVariableInfos.length;
+    variabledIndex < infoLen;
+
+  ) {
+    const comment = commentPattern.exec(cssVariableInfos[commentIndex]);
+    const variablePair = variablePattern.exec(cssVariableInfos[variabledIndex]);
+
+    if (comment && variablePair) {
+      themeComments.push({
+        cssVariable: cssVarPrefixName + variablePair[1],
+        color: variablePair[2],
+        comment: comment[1],
+      });
+    }
+    commentIndex++;
+    variabledIndex++;
+  }
+  return themeComments;
 }
 
 // 适配现有逻辑，深度为2

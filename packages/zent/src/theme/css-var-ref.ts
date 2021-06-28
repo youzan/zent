@@ -46,10 +46,6 @@ export const cssVarRef = {
     '--theme-weak-active-color',
   ],
   '$primary-100': ['--theme-default-hover-bg'],
-  state: ['--theme-weak-Active'],
-  primary: ['--theme-weak-of'],
-  weak: ['--theme-weak-text'],
-  brand: ['--theme-weak-link'],
   '$star-color': ['--theme-rate-bg'],
 };
 
@@ -104,9 +100,5 @@ export const cssRgbVarRef = {
     '--theme-rgb-weak-active-color',
   ],
   '$primary-100': ['--theme-rgb-default-hover-bg'],
-  state: ['--theme-rgb-weak-Active'],
-  primary: ['--theme-rgb-weak-of'],
-  weak: ['--theme-rgb-weak-text'],
-  brand: ['--theme-rgb-weak-link'],
   '$star-color': ['--theme-rgb-rate-bg'],
 };
