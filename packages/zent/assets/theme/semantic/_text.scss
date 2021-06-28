@@ -1,0 +1,38 @@
+// text相关的语义值
+@import '../override';
+@import '../raw-vars';
+
+// font weight
+$font-size: (
+  'xx-large': nth($font-size-number, 2),
+  'x-large': nth($font-size-number, 3),
+  'large': nth($font-size-number, 4),
+  'medium': nth($font-size-number, 5),
+  'small': nth($font-size-number, 6),
+  'x-small': nth($font-size-number, 7),
+  'xx-small': nth($font-size-number, 8),
+);
+
+$font-weight: (
+  'normal': $font-weight-normal,
+  'medium': $font-weight-medium,
+  'bold': $font-weight-bold,
+);
+
+$line-height: (
+  'xx-large': nth($line-height-number, 1),
+  'x-large': nth($line-height-number, 2),
+  'large': nth($line-height-number, 3),
+  'medium': nth($line-height-number, 4),
+  'small': nth($line-height-number, 5),
+  'x-small': nth($line-height-number, 6),
+  'xx-small': nth($line-height-number, 7),
+);
+
+$font-size-h1: nth($font-size-number, 1);
+$font-size-h2: nth($font-size-number, 2);
+$font-size-h3: nth($font-size-number, 4);
+$font-size-h4: nth($font-size-number, 5);
+$font-size-large: nth($font-size-number, 6);
+$font-size-normal: nth($font-size-number, 7);
+$font-size-small: nth($font-size-number, 8);

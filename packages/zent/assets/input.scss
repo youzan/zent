@@ -50,7 +50,6 @@ $large-size: 40px;
 
   &.zent-input--has-focus:not(.zent-input-wrapper__not-editable) {
     @include theme-color(border-color, primary, 4);
-    @include theme-shadow(focus);
   }
 
   &__not-editable {

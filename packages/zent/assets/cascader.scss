@@ -44,7 +44,6 @@ $menuHeight: 180px;
 
   &--active {
     @include theme-color(border-color, primary, 3);
-    @include theme-shadow(focus);
   }
 
   &--visible {

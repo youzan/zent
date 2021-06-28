@@ -11560,6 +11560,11 @@ sane@^4.0.3:
     minimist "^1.1.1"
     walker "~1.0.5"
 
+sass-color-helpers@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/sass-color-helpers/-/sass-color-helpers-2.1.1.tgz#8a679e2226e64112a2ab36081cf2c010b6f11cd6"
+  integrity sha1-imeeIibmQRKiqzYIHPLAELbxHNY=
+
 sass-lint@^1.12.1:
   version "1.13.1"
   resolved "https://registry.yarnpkg.com/sass-lint/-/sass-lint-1.13.1.tgz#5fd2b2792e9215272335eb0f0dc607f61e8acc8f"

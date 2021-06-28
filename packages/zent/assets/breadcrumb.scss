@@ -36,10 +36,14 @@
   }
 
   a {
-    @include theme-color(color, stroke, 3);
+    @include theme-color(color, 'weak-link', 'color');
 
     &:hover {
-      @include theme-color(color, primary, 4);
+      @include theme-color(color, 'weak-link', 'hover-color');
+    }
+
+    &:active {
+      @include theme-color(color, 'weak-link', 'active-color');
     }
   }
 

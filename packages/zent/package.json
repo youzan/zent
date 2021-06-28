@@ -24,7 +24,8 @@
     "new-component": "node ./scripts/new-component.js",
     "typedoc": "typedoc --out ../../site/dist/apidoc --mode file",
     "compile-plugins": "tsc -p ./plugins/tsconfig.json",
-    "update-iconfont": "./scripts/update-iconfont.sh"
+    "update-iconfont": "./scripts/update-iconfont.sh",
+    "generate-css-var-ref": "./scripts/postcss-generate-css-var-ref.sh"
   },
   "author": "Youzan FE",
   "license": "MIT",
@@ -77,6 +78,7 @@
     "react-window": "^1.8.6",
     "regexpu-core": "^4.7.1",
     "sass": "^1.22.7",
+    "sass-color-helpers": "^2.1.1",
     "ts-jest": "^24.0.0",
     "ts-node": "^8.0.3",
     "ttypescript": "^1.5.8",
