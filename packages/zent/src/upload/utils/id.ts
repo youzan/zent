@@ -1,5 +1,5 @@
 import uniqueId from '../../utils/uniqueId';
-import { IUploadFileItem } from '../types';
+import { IUploadFileItem, IUploadFileItemInner } from '../types';
 
 /**
  * 创建一个唯一 Id
@@ -14,5 +14,8 @@ export const createUploadItemId = () => {
 export const patchUploadItemId = <UPLOAD_ITEM extends IUploadFileItem>(
   item: UPLOAD_ITEM
 ) => {
-  item.id = createUploadItemId();
+  const id = createUploadItemId();
+  item.id = id;
+  // 旧属性兼容处理
+  (item as IUploadFileItemInner<UPLOAD_ITEM>)._id = id;
 };

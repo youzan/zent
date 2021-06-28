@@ -41,7 +41,7 @@ export type IUploadFileItemInner<
    * @internal
    * 判断上传文件的唯一id，仅内部使用，已废弃，且将于 v10 删除
    */
-  readonly _id?: string;
+  _id?: string;
   /**
    * @deprecated
    * @internal
