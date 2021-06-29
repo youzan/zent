@@ -38,7 +38,6 @@
     "plugins/postcss-plugin-constants.js"
   ],
   "dependencies": {
-    "@types/resize-observer-browser": "^0.1.4",
     "@types/sortablejs": "~1.10.6",
     "big.js": "^5.2.2",
     "classnames": "^2.2.6",
