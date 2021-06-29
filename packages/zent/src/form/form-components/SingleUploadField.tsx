@@ -1,4 +1,3 @@
-import * as React from 'react';
 import cn from 'classnames';
 import { IFormComponentProps, IFormFieldChildProps } from '../shared';
 import { FormField } from '../Field';

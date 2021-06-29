@@ -126,13 +126,14 @@ export function PopoverHoverTrigger<
       },
     });
   } else if (isElement(children) && !isFragment(children)) {
-    child = cloneElement(children, {
+    const elem = children as React.ReactElement;
+    child = cloneElement(elem, {
       onMouseEnter(...args: any[]) {
-        children.props.onMouseEnter?.(...args);
+        elem.props.onMouseEnter?.(...args);
         visible$.next(true);
       },
       onMouseLeave(...args: any[]) {
-        children.props.onMouseLeave?.(...args);
+        elem.props.onMouseLeave?.(...args);
         visible$.next(false);
       },
     });
