@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 basepath=$(dirname $0)
 
 input=${1:-assets}

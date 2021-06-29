@@ -3,6 +3,7 @@
 #### 初始化项目:
 
 ```bash
+# 请确保安装 coreutils，OSX 可以使用 brew 安装
 yarn bootstrap
 ```
 
