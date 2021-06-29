@@ -5,7 +5,7 @@
 
 $outer-circle-size: 16px;
 $inner-circle-size: 8px;
-$inner-circle-offset: ($outer-circle-size - $inner-circle-size - 2px) / 2;
+$inner-circle-offset: ($outer-circle-size - $inner-circle-size - 2px) * 0.5;
 
 .zent-radio-group {
   display: inline-block;

@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 .zent-row {
   box-sizing: border-box;
   display: flex;
@@ -53,7 +55,7 @@
 }
 
 @for $i from 1 through 24 {
-  $percent: $i / 24 * 100%;
+  $percent: math.div($i, 24) * 100%;
 
   .zent-col-#{$i} {
     width: $percent;
