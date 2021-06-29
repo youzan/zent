@@ -39,7 +39,7 @@
   ],
   "dependencies": {
     "@types/sortablejs": "~1.10.6",
-    "big.js": "^5.2.2",
+    "big.js": "^6.1.1",
     "classnames": "^2.2.6",
     "date-fns": "^2.7.0",
     "react-is": "^17.0.1",
@@ -52,7 +52,7 @@
     "zenticons": "3.6.4"
   },
   "devDependencies": {
-    "@types/big.js": "^4.0.5",
+    "@types/big.js": "^6.1.1",
     "@types/classnames": "^2.2.7",
     "@types/jest": "^24.0.17",
     "@types/react": "^17.0.0",

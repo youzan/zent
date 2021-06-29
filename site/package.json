@@ -24,8 +24,8 @@
   "dependencies": {
     "@babel/runtime": "^7.1.5",
     "classnames": "^2.2.5",
-    "core-js": "3",
-    "fuse.js": "^3.2.0",
+    "core-js": "^3.15.2",
+    "fuse.js": "^6.4.6",
     "lodash": "^4.17.15",
     "prismjs": "^1.24.0",
     "prop-types": "^15.6.0",
@@ -34,7 +34,7 @@
     "react-dom": "17.0.x",
     "react-loadable": "^5.5.0",
     "react-router-dom": "^4.1.1",
-    "transliteration": "^1.6.2"
+    "transliteration": "^2.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.1.6",
