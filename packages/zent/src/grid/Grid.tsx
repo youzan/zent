@@ -448,6 +448,17 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
           columns.unshift(selectionColumn);
         }
       }
+    } else {
+      // 如果没有传入 selection 并且最前面一列是选择框，则 shift 最前一列
+      const maySelectionColumn = columns[0];
+      if (
+        maySelectionColumn &&
+        ['selection-column', 'selection-column-single'].indexOf(
+          maySelectionColumn.key
+        ) !== -1
+      ) {
+        columns.shift();
+      }
     }
 
     // 判断是否展开
