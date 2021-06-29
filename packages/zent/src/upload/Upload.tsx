@@ -11,17 +11,16 @@ import {
 } from './constants';
 import {
   IUploadFileItem,
-  IUploadFileItemInner,
   IUploadProps,
   IUploadTipConfig,
   INormalUploadItemProps,
 } from './types';
 import { formatFileSize } from './utils/format-file-size';
 import { getTipsContent } from './utils/get-tips-content';
-import { createUploadItemId } from './utils/id';
 
 import { I18nReceiver, II18nLocaleUpload } from '../i18n';
 import { PartialRequired } from '../utils/types';
+import { createBaseNewUploadFileItem } from './utils/create-new-upload-file-item';
 
 type IUploadPropsInner = PartialRequired<
   IUploadProps,
@@ -51,17 +50,8 @@ export class Upload extends AbstractMultiUpload<
 
   static FILE_UPLOAD_STATUS = FILE_UPLOAD_STATUS;
 
-  protected createNewUploadFileItem(
-    file: File
-  ): IUploadFileItemInner<IUploadFileItem> {
-    return {
-      _id: createUploadItemId(),
-      _file: file,
-      name: file.name,
-      type: file.type,
-      status: FILE_UPLOAD_STATUS.beforeUpload,
-      percent: 0,
-    };
+  protected createNewUploadFileItem(file: File): IUploadFileItem {
+    return createBaseNewUploadFileItem(file);
   }
 
   protected renderTips() {

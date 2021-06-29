@@ -7,20 +7,19 @@ import {
   ISingleUploadProps,
   IUploadChangeDetail,
   IUploadFileItem,
-  IUploadFileItemInner,
   IUploadTipConfig,
 } from './types';
 import { formatFileSize } from './utils/format-file-size';
 import { getTipsContent } from './utils/get-tips-content';
 import { PartialRequired } from '../utils/types';
-import { createUploadItemId } from './utils/id';
 import { FILE_UPLOAD_STATUS } from './constants';
 import { wrapPromise } from './utils/wrap-promise';
 import SingleUploadTrigger from './components/single/Trigger';
 import SingleUploadItem from './components/single/Item';
+import { createBaseNewUploadFileItem } from './utils/create-new-upload-file-item';
 
 interface ISingleUploadState {
-  value: IUploadFileItemInner<IUploadFileItem> | null;
+  value: IUploadFileItem | null;
 }
 
 type ISingleUploadPropsInner = PartialRequired<
@@ -44,9 +43,7 @@ export class SingleUpload extends AbstractUpload<
   }
 
   get value() {
-    return this.isControlled
-      ? (this.props.value as IUploadFileItemInner<IUploadFileItem>)
-      : this.state.value;
+    return this.isControlled ? this.props.value : this.state.value;
   }
 
   onChange = (
@@ -70,8 +67,8 @@ export class SingleUpload extends AbstractUpload<
     }
   };
 
-  getUploadItem(id: string): IUploadFileItemInner<IUploadFileItem> | null {
-    return this.value?._id === id ? this.value : null;
+  getUploadItem(id: string): IUploadFileItem | null {
+    return this.value?.id === id ? this.value : null;
   }
 
   /**
@@ -79,7 +76,7 @@ export class SingleUpload extends AbstractUpload<
    */
   updateUploadItem = (
     updateItemId: string,
-    overrideProps: Partial<IUploadFileItemInner<IUploadFileItem>>
+    overrideProps: Partial<IUploadFileItem>
   ) => {
     const updateItem = this.getUploadItem(updateItemId);
     // 上传项已经不存在，不执行 update 操作
@@ -87,7 +84,7 @@ export class SingleUpload extends AbstractUpload<
       return;
     }
 
-    const newItem: IUploadFileItemInner<IUploadFileItem> = {
+    const newItem: IUploadFileItem = {
       ...updateItem,
       ...overrideProps,
     };
@@ -98,25 +95,18 @@ export class SingleUpload extends AbstractUpload<
     });
   };
 
-  createNewUploadFileItem(file: File): IUploadFileItemInner<IUploadFileItem> {
-    return {
-      _id: createUploadItemId(),
-      _file: file,
-      name: file.name,
-      type: file.type,
-      status: FILE_UPLOAD_STATUS.beforeUpload,
-      percent: 0,
-    };
+  createNewUploadFileItem(file: File): IUploadFileItem {
+    return createBaseNewUploadFileItem(file);
   }
 
-  deleteUploadItem = (deleteItem: IUploadFileItemInner<IUploadFileItem>) => {
+  deleteUploadItem = (deleteItem: IUploadFileItem) => {
     this.onChange(null, {
       item: deleteItem,
       type: 'delete',
     });
   };
 
-  retryUploadItem = (retryItem: IUploadFileItemInner<IUploadFileItem>) => {
+  retryUploadItem = (retryItem: IUploadFileItem) => {
     const newRetryItem = {
       ...retryItem,
       status: FILE_UPLOAD_STATUS.uploading,
@@ -129,7 +119,7 @@ export class SingleUpload extends AbstractUpload<
         item: newRetryItem,
         type: 'retry',
       },
-      () => this.emitOnUpload(retryItem._file, newRetryItem)
+      () => this.emitOnUpload(retryItem.file, newRetryItem)
     );
   };
 
