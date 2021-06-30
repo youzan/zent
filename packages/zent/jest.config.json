@@ -3,7 +3,7 @@
   "globals": {
     "ts-jest": {
       "compiler": "ttypescript",
-      "tsConfig": "tsconfig.test.json"
+      "tsconfig": "tsconfig.test.json"
     },
     "transform": {
       "^.+\\.jsx?$": "babel-jest"
@@ -24,6 +24,7 @@
     }
   },
   "timers": "fake",
+  "testEnvironment": "jsdom",
   "testPathIgnorePatterns": [
     "<rootDir>/__tests__/select.js",
     "<rootDir>/__tests__/datetimepicker",

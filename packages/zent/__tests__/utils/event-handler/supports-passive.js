@@ -1,18 +1,16 @@
 import wrap from 'jest-wrap';
 
 let canUsePassiveEventListeners;
-beforeEach(() => {
-  jest.resetModules();
-  // eslint-disable-next-line global-require
-  canUsePassiveEventListeners = require('utils/component/event-handler/supports-passive')
-    .canUsePassiveEventListeners;
-});
 
 describe('when not canUseDOM', () => {
   beforeEach(() => {
-    jest.mock('utils/isBrowser', () => ({
-      default: false,
-    }));
+    jest.resetModules();
+
+    jest.mock('utils/isBrowser', () => false);
+
+    canUsePassiveEventListeners =
+      // eslint-disable-next-line global-require
+      require('utils/component/event-handler/supports-passive').canUsePassiveEventListeners;
   });
 
   it('returns false', () => {
@@ -32,9 +30,13 @@ wrap()
   }))
   .describe('when canUseDOM', () => {
     beforeEach(() => {
-      jest.mock('utils/isBrowser', () => ({
-        default: true,
-      }));
+      jest.resetModules();
+
+      jest.mock('utils/isBrowser', () => true);
+
+      canUsePassiveEventListeners =
+        // eslint-disable-next-line global-require
+        require('utils/component/event-handler/supports-passive').canUsePassiveEventListeners;
     });
 
     wrap()

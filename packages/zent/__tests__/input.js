@@ -196,26 +196,38 @@ describe('Input', () => {
   });
 
   it('can have input auto focus', () => {
-    const wrapper = mount(<Input autoFocus />);
-    expect(wrapper.find('input').instance() === document.activeElement).toBe(
+    // https://github.com/jsdom/jsdom/issues/2924#issuecomment-828084958
+    const wrapper = mount(<Input autoFocus />, {
+      attachTo: document.body,
+    });
+    expect(wrapper.find('input').getDOMNode() === document.activeElement).toBe(
       true
     );
+    wrapper.unmount();
   });
 
   it('can call input focus method', () => {
-    const wrapper = mount(<Input />);
+    // https://github.com/jsdom/jsdom/issues/2924#issuecomment-828084958
+    const wrapper = mount(<Input />, {
+      attachTo: document.body,
+    });
     wrapper.instance().focus();
-    expect(wrapper.find('input').instance() === document.activeElement).toBe(
+    expect(wrapper.find('input').getDOMNode() === document.activeElement).toBe(
       true
     );
+    wrapper.unmount();
   });
 
   it('can call textarea focus method', () => {
-    const wrapper = mount(<Input type="textarea" />);
+    // https://github.com/jsdom/jsdom/issues/2924#issuecomment-828084958
+    const wrapper = mount(<Input type="textarea" />, {
+      attachTo: document.body,
+    });
     wrapper.instance().focus();
-    expect(wrapper.find('textarea').instance() === document.activeElement).toBe(
-      true
-    );
+    expect(
+      wrapper.find('textarea').getDOMNode() === document.activeElement
+    ).toBe(true);
+    wrapper.unmount();
   });
 
   it('can have input auto select', () => {

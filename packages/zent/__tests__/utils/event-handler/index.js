@@ -31,7 +31,7 @@ describe('addEventListener()', () => {
     expect(target.addEventListener).toHaveBeenCalledWith(
       'scroll',
       expect.any(Function),
-      true
+      { capture: true }
     );
   });
 

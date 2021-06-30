@@ -51,23 +51,20 @@ const TimePickerBase: React.FC<ITimePickerBaseProps> = ({
   const [visibleChange, setVisibleChange] = useState<boolean>(true);
   const { selected, setSelected } = useTimeValue(emptyTime, value);
 
-  const {
-    panelVisible,
-    setPanelVisible,
-    onVisibleChange,
-  } = useSinglePopoverVisible<string>(
-    value ?? emptyTime,
-    setSelected,
-    onOpen,
-    onClose,
-    disabled,
-    openPanel
-  );
+  const { panelVisible, setPanelVisible, onVisibleChange } =
+    useSinglePopoverVisible<string>(
+      value ?? emptyTime,
+      setSelected,
+      onOpen,
+      onClose,
+      disabled,
+      openPanel
+    );
 
-  const disabledTimeOption = useMemo(() => disabledTime?.(selectedDate) || {}, [
-    disabledTime,
-    selectedDate,
-  ]);
+  const disabledTimeOption = useMemo(
+    () => disabledTime?.(selectedDate) || {},
+    [disabledTime, selectedDate]
+  );
   const confirmStatus = useConfirmStatus({
     selected,
     disabledTimeOption,
