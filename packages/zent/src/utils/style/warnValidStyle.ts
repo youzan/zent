@@ -7,10 +7,8 @@
 
 import { warning } from '../warning';
 
-let warnValidStyle: (
-  name: string,
-  value: string | undefined
-) => void = () => {};
+let warnValidStyle: (name: string, value: string | undefined) => void =
+  () => {};
 
 if (process.env.NODE_ENV !== 'production') {
   // 'msTransform' is correct, but the other prefixes should be capitalized

@@ -103,8 +103,6 @@ it('disabled children', () => {
         '#root > .zent-collapse > .zent-collapse-panel--disabled'
       ).length
     ).toBe(3);
-  } catch (error) {
-    throw error;
   } finally {
     document.body.removeChild(div);
   }
@@ -198,8 +196,6 @@ it('self props has a higher priority', () => {
         '#root > .zent-collapse > .zent-collapse-panel--disabled'
       ).length
     ).toBe(0);
-  } catch (error) {
-    throw error;
   } finally {
     document.body.removeChild(div);
   }

@@ -6,12 +6,11 @@ import { Upload, IUploadFileItem, IUploadProps } from '../../upload';
 import { warningDefaultValueProp } from '../utils';
 import omit from '../../utils/omit';
 
-export type IFormUploadFieldProps<
-  T extends IUploadFileItem
-> = IFormComponentProps<
-  T[],
-  Omit<IUploadProps, 'fileList' | 'onChange' | 'defaultFileList'>
->;
+export type IFormUploadFieldProps<T extends IUploadFileItem> =
+  IFormComponentProps<
+    T[],
+    Omit<IUploadProps, 'fileList' | 'onChange' | 'defaultFileList'>
+  >;
 
 function renderUpload<T extends IUploadFileItem>(
   childProps: IFormFieldChildProps<T[]>,

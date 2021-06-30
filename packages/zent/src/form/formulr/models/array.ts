@@ -40,10 +40,8 @@ class FieldArrayModel<
 
   private readonly invalidModels: Set<BasicModel<Item>> = new Set();
 
-  private readonly mapModelToSubscriptions: Map<
-    IModel<any>,
-    Subscription[]
-  > = new Map();
+  private readonly mapModelToSubscriptions: Map<IModel<any>, Subscription[]> =
+    new Map();
 
   private readonly childFactory: (defaultValue: Item) => Child;
 
@@ -59,11 +57,11 @@ class FieldArrayModel<
           return this._linkChild(child);
         }
       : (defaultValue: Item) =>
-          (new ModelRef<Item, FieldArrayModel<Item, Child>, Child>(
+          new ModelRef<Item, FieldArrayModel<Item, Child>, Child>(
             null,
             Some(defaultValue),
             this
-          ) as unknown) as Child;
+          ) as unknown as Child;
     const children = this.defaultValue.map(this._buildChild);
     this.children$ = new BehaviorSubject(children);
   }
@@ -477,7 +475,7 @@ class FieldArrayModel<
         const model = child.getModel();
         return isModel<Item>(model)
           ? getter(model)
-          : ((get(child.initialValue) as unknown) as V);
+          : (get(child.initialValue) as unknown as V);
       } else if (isModel<Item>(child)) {
         return getter(child);
       }

@@ -44,7 +44,7 @@ class FormModel<
   readonly builder?: FormBuilder<UnknownFieldSetBuilderChildren>;
 
   get form() {
-    return (this as unknown) as FormModel;
+    return this as unknown as FormModel;
   }
 
   constructor(readonly children: Children) {

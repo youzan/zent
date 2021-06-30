@@ -1,6 +1,6 @@
 module.exports = {
-  extends: ['airbnb', 'prettier', 'prettier/react'],
-  parser: 'babel-eslint',
+  extends: ['airbnb', 'prettier'],
+  parser: '@babel/eslint-parser',
   plugins: ['lean-imports', 'prettier', 'react-hooks'],
   rules: {
     'no-console': ['error', { allow: ['warn', 'error'] }],
@@ -35,6 +35,10 @@ module.exports = {
     'react/no-access-state-in-setstate': 0,
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'react/state-in-constructor': 'off',
+    'react/static-property-placement': 'off',
+    'react/no-deprecated': 'off',
     'no-param-reassign': 0,
     'no-return-assign': 0,
     'no-underscore-dangle': [
@@ -63,6 +67,8 @@ module.exports = {
     ],
     'consistent-this': 0,
     'class-methods-use-this': 0,
+    'max-classes-per-file': 'off',
+    'prefer-object-spread': 'off',
     'lean-imports/import': [2, ['lodash']],
     eqeqeq: 1,
     'import/no-unresolved': 0,
@@ -80,6 +86,7 @@ module.exports = {
     'jsx-a11y/interactive-supports-focus': 0,
     'jsx-a11y/mouse-events-have-key-events': 0,
     'jsx-a11y/no-noninteractive-element-to-interactive-role': 0,
+    'jsx-a11y/control-has-associated-label': 0,
     'prettier/prettier': 'error',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'error',

@@ -204,13 +204,8 @@ export class ScrollAlert extends Component<IScrollAlertProps, IState> {
 
   // 实际dom中需要渲染的子节点
   get renderItem() {
-    const {
-      outline,
-      children,
-      onClose,
-      className,
-      ...restItemProps
-    } = this.props;
+    const { outline, children, onClose, className, ...restItemProps } =
+      this.props;
     const { renderItems, activeIndex } = this.state;
     const length = renderItems.length;
 

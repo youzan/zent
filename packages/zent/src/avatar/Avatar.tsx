@@ -40,16 +40,8 @@ export class Avatar extends Component<IAvatarProps, IAvatarState> {
   };
 
   render() {
-    const {
-      size,
-      shape,
-      src,
-      icon,
-      children,
-      bordered,
-      style,
-      className,
-    } = this.props;
+    const { size, shape, src, icon, children, bordered, style, className } =
+      this.props;
     const useImage = !!src;
     const useString = !!children;
     const cls = cx('zent-avatar', className, {

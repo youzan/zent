@@ -112,9 +112,10 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
       append,
     } = props;
     // skip render in SSR
-    const node = useMemo(() => (isBrowser ? createElement(layer) : null), [
-      layer,
-    ]);
+    const node = useMemo(
+      () => (isBrowser ? createElement(layer) : null),
+      [layer]
+    );
     const getParent = useMemo(() => memorize(getNodeFromSelector), []);
     const propsRef = useRef<IPortalProps>(props);
     propsRef.current = props;

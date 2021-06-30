@@ -20,17 +20,13 @@ describe('Controlled CheckboxGroup', () => {
 
     // const appleCheckboxNode = ReactDOM.findDOMNode(radios[0]);
     // const bananaCheckboxNode = ReactDOM.findDOMNode(radios[1]);
-    const [
-      appleCheckboxNode,
-      bananaCheckboxNode,
-    ] = TestUtils.scryRenderedDOMComponentsWithClass(
-      checkboxGroup,
-      'zent-checkbox-wrap'
-    );
-    const [
-      appleCheckboxInputNode,
-      bananaCheckboxInputNode,
-    ] = TestUtils.scryRenderedDOMComponentsWithTag(checkboxGroup, 'input');
+    const [appleCheckboxNode, bananaCheckboxNode] =
+      TestUtils.scryRenderedDOMComponentsWithClass(
+        checkboxGroup,
+        'zent-checkbox-wrap'
+      );
+    const [appleCheckboxInputNode, bananaCheckboxInputNode] =
+      TestUtils.scryRenderedDOMComponentsWithTag(checkboxGroup, 'input');
 
     // const appleCheckboxInputNode = TestUtils.findRenderedDOMComponentWithTag(
     //   radios[0],
@@ -60,10 +56,8 @@ describe('Controlled CheckboxGroup', () => {
       </CheckboxGroup>
     );
 
-    const [
-      appleCheckboxInputNode,
-      bananaCheckboxInputNode,
-    ] = TestUtils.scryRenderedDOMComponentsWithTag(radioGroup, 'input');
+    const [appleCheckboxInputNode, bananaCheckboxInputNode] =
+      TestUtils.scryRenderedDOMComponentsWithTag(radioGroup, 'input');
 
     TestUtils.Simulate.change(bananaCheckboxInputNode, {
       target: { checked: true },
@@ -85,17 +79,13 @@ describe('Controlled CheckboxGroup', () => {
         </CheckboxGroup>
       );
 
-      const [
-        appleCheckboxNode,
-        bananaCheckboxNode,
-      ] = TestUtils.scryRenderedDOMComponentsWithClass(
-        checkboxGroup,
-        'zent-checkbox-wrap'
-      );
-      const [
-        appleCheckboxInputNode,
-        bananaCheckboxInputNode,
-      ] = TestUtils.scryRenderedDOMComponentsWithTag(checkboxGroup, 'input');
+      const [appleCheckboxNode, bananaCheckboxNode] =
+        TestUtils.scryRenderedDOMComponentsWithClass(
+          checkboxGroup,
+          'zent-checkbox-wrap'
+        );
+      const [appleCheckboxInputNode, bananaCheckboxInputNode] =
+        TestUtils.scryRenderedDOMComponentsWithTag(checkboxGroup, 'input');
 
       expect(appleCheckboxNode.className).toContain('zent-checkbox-disabled');
       expect(bananaCheckboxNode.className).toContain('zent-checkbox-disabled');
@@ -114,17 +104,13 @@ describe('Controlled CheckboxGroup', () => {
         </CheckboxGroup>
       );
 
-      const [
-        appleCheckboxNode,
-        bananaCheckboxNode,
-      ] = TestUtils.scryRenderedDOMComponentsWithClass(
-        checkboxGroup,
-        'zent-checkbox-wrap'
-      );
-      const [
-        appleCheckboxInputNode,
-        bananaCheckboxInputNode,
-      ] = TestUtils.scryRenderedDOMComponentsWithTag(checkboxGroup, 'input');
+      const [appleCheckboxNode, bananaCheckboxNode] =
+        TestUtils.scryRenderedDOMComponentsWithClass(
+          checkboxGroup,
+          'zent-checkbox-wrap'
+        );
+      const [appleCheckboxInputNode, bananaCheckboxInputNode] =
+        TestUtils.scryRenderedDOMComponentsWithTag(checkboxGroup, 'input');
 
       expect(appleCheckboxNode.className).toContain('zent-checkbox-disabled');
       expect(bananaCheckboxNode.className).not.toContain(
@@ -145,17 +131,13 @@ describe('Controlled CheckboxGroup', () => {
         </CheckboxGroup>
       );
 
-      const [
-        appleCheckboxNode,
-        bananaCheckboxNode,
-      ] = TestUtils.scryRenderedDOMComponentsWithClass(
-        checkboxGroup,
-        'zent-checkbox-wrap'
-      );
-      const [
-        appleCheckboxInputNode,
-        bananaCheckboxInputNode,
-      ] = TestUtils.scryRenderedDOMComponentsWithTag(checkboxGroup, 'input');
+      const [appleCheckboxNode, bananaCheckboxNode] =
+        TestUtils.scryRenderedDOMComponentsWithClass(
+          checkboxGroup,
+          'zent-checkbox-wrap'
+        );
+      const [appleCheckboxInputNode, bananaCheckboxInputNode] =
+        TestUtils.scryRenderedDOMComponentsWithTag(checkboxGroup, 'input');
 
       expect(
         'zent-checkbox-wrap zent-checkbox-checked zent-checkbox-disabled'
@@ -179,17 +161,13 @@ describe('Controlled CheckboxGroup', () => {
         </CheckboxGroup>
       );
 
-      const [
-        appleCheckboxNode,
-        bananaCheckboxNode,
-      ] = TestUtils.scryRenderedDOMComponentsWithClass(
-        checkboxGroup,
-        'zent-checkbox-wrap'
-      );
-      const [
-        appleCheckboxInputNode,
-        bananaCheckboxInputNode,
-      ] = TestUtils.scryRenderedDOMComponentsWithTag(checkboxGroup, 'input');
+      const [appleCheckboxNode, bananaCheckboxNode] =
+        TestUtils.scryRenderedDOMComponentsWithClass(
+          checkboxGroup,
+          'zent-checkbox-wrap'
+        );
+      const [appleCheckboxInputNode, bananaCheckboxInputNode] =
+        TestUtils.scryRenderedDOMComponentsWithTag(checkboxGroup, 'input');
 
       expect(appleCheckboxNode.className).toContain('zent-checkbox-disabled');
       expect(bananaCheckboxNode.className).toContain('zent-checkbox-disabled');
@@ -208,17 +186,13 @@ describe('Controlled CheckboxGroup', () => {
         </CheckboxGroup>
       );
 
-      const [
-        appleCheckboxNode,
-        bananaCheckboxNode,
-      ] = TestUtils.scryRenderedDOMComponentsWithClass(
-        checkboxGroup,
-        'zent-checkbox-wrap'
-      );
-      const [
-        appleCheckboxInputNode,
-        bananaCheckboxInputNode,
-      ] = TestUtils.scryRenderedDOMComponentsWithTag(checkboxGroup, 'input');
+      const [appleCheckboxNode, bananaCheckboxNode] =
+        TestUtils.scryRenderedDOMComponentsWithClass(
+          checkboxGroup,
+          'zent-checkbox-wrap'
+        );
+      const [appleCheckboxInputNode, bananaCheckboxInputNode] =
+        TestUtils.scryRenderedDOMComponentsWithTag(checkboxGroup, 'input');
 
       expect(appleCheckboxNode.className).toContain('zent-checkbox-disabled');
       expect(bananaCheckboxNode.className).not.toContain(
@@ -239,17 +213,13 @@ describe('Controlled CheckboxGroup', () => {
         </CheckboxGroup>
       );
 
-      const [
-        appleCheckboxNode,
-        bananaCheckboxNode,
-      ] = TestUtils.scryRenderedDOMComponentsWithClass(
-        checkboxGroup,
-        'zent-checkbox-wrap'
-      );
-      const [
-        appleCheckboxInputNode,
-        bananaCheckboxInputNode,
-      ] = TestUtils.scryRenderedDOMComponentsWithTag(checkboxGroup, 'input');
+      const [appleCheckboxNode, bananaCheckboxNode] =
+        TestUtils.scryRenderedDOMComponentsWithClass(
+          checkboxGroup,
+          'zent-checkbox-wrap'
+        );
+      const [appleCheckboxInputNode, bananaCheckboxInputNode] =
+        TestUtils.scryRenderedDOMComponentsWithTag(checkboxGroup, 'input');
 
       expect(appleCheckboxNode.className).not.toContain(
         'zent-checkbox-disabled'

@@ -41,11 +41,8 @@ const TimePickerBody: React.FC<ITimePanelProps> = ({
   );
 
   const unitColumns: IUnitColumn[] = useMemo(() => {
-    const {
-      disabledHours,
-      disabledMinutes,
-      disabledSeconds,
-    } = disabledTimeOption;
+    const { disabledHours, disabledMinutes, disabledSeconds } =
+      disabledTimeOption;
     const panelTimeHours = panelTime.getHours();
     const panelTimeMins = panelTime.getMinutes();
     // HH:mm:ss 对应的unitColumn

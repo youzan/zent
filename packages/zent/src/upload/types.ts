@@ -33,22 +33,21 @@ export interface IImageUploadFileItem extends IUploadFileItem {
  * 文件项对象的内部属性扩展类型，内部不再使用，且将于 v10 删除
  * 为了兼容外部已经使用的情况，保留该类型及相关使用了该类型的对外暴露的API
  */
-export type IUploadFileItemInner<
-  UPLOAD_ITEM extends IUploadFileItem
-> = UPLOAD_ITEM & {
-  /**
-   * @deprecated
-   * @internal
-   * 判断上传文件的唯一id，仅内部使用，已废弃，且将于 v10 删除
-   */
-  _id?: string;
-  /**
-   * @deprecated
-   * @internal
-   * 重试上传时的文件对象，仅内部使用，已废弃，且将于 v10 删除
-   */
-  readonly _file?: File;
-};
+export type IUploadFileItemInner<UPLOAD_ITEM extends IUploadFileItem> =
+  UPLOAD_ITEM & {
+    /**
+     * @deprecated
+     * @internal
+     * 判断上传文件的唯一id，仅内部使用，已废弃，且将于 v10 删除
+     */
+    _id?: string;
+    /**
+     * @deprecated
+     * @internal
+     * 重试上传时的文件对象，仅内部使用，已废弃，且将于 v10 删除
+     */
+    readonly _file?: File;
+  };
 
 // onChange types
 export type IUploadOnChangeHandler<

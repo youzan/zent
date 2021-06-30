@@ -276,7 +276,7 @@ describe('ScrollAlert', () => {
         .hasClass('zent-alert-scroll-active-item')
     ).toBe(true);
 
-    setTimeout(function () {
+    setTimeout(() => {
       expect(
         wrapper
           .find('.zent-alert-item')
@@ -317,7 +317,7 @@ describe('ScrollAlert', () => {
     ).toBe(true);
 
     wrapper.find('.zent-alert-scroll-container').simulate('mouseLeave');
-    setTimeout(function () {
+    setTimeout(() => {
       expect(
         wrapper
           .find('.zent-alert-item')

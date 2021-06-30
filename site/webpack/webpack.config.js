@@ -6,10 +6,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
-const tsCompilerConstantsPlugin = require('../../packages/zent/plugins/ts-plugin-constants')
-  .default;
-const tsVersionAttributePlugin = require('../../packages/zent/plugins/ts-plugin-version-attribute')
-  .default;
+const tsCompilerConstantsPlugin =
+  require('../../packages/zent/plugins/ts-plugin-constants').default;
+const tsVersionAttributePlugin =
+  require('../../packages/zent/plugins/ts-plugin-version-attribute').default;
 const constants = require('../src/constants');
 
 const DEV = process.env.NODE_ENV !== 'production';

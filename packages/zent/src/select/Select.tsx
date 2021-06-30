@@ -526,13 +526,8 @@ export class Select<
   };
 
   renderOption: IOptionRenderer<Key, Item> = (option: Item, index: number) => {
-    const {
-      isEqual,
-      multiple,
-      renderOptionContent,
-      highlight,
-      filter,
-    } = this.props;
+    const { isEqual, multiple, renderOptionContent, highlight, filter } =
+      this.props;
     const { value, activeIndex, creating } = this.state;
     const selected =
       !!value &&

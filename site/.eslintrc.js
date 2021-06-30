@@ -5,4 +5,9 @@ module.exports = {
   },
   extends: ['../eslintrc.react.js.base.js'],
   ignorePatterns: ['node_modules/', 'dist/', 'src/nav.js'],
+  parserOptions: {
+    babelOptions: {
+      root: __dirname,
+    },
+  },
 };

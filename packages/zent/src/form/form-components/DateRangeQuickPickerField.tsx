@@ -48,18 +48,19 @@ const DateRangeQuickPickerField: React.FC<{
   );
 };
 
-export const FormDateRangeQuickPickerField: React.FC<IFormDateRangeQuickPickerFieldProps> = props => {
-  return (
-    <FormField
-      {...props}
-      defaultValue={
-        (props as $MergeParams<IFormDateRangeQuickPickerFieldProps>)
-          .defaultValue ?? dateRangeDefaultValueFactory
-      }
-    >
-      {childProps => (
-        <DateRangeQuickPickerField childProps={childProps} props={props} />
-      )}
-    </FormField>
-  );
-};
+export const FormDateRangeQuickPickerField: React.FC<IFormDateRangeQuickPickerFieldProps> =
+  props => {
+    return (
+      <FormField
+        {...props}
+        defaultValue={
+          (props as $MergeParams<IFormDateRangeQuickPickerFieldProps>)
+            .defaultValue ?? dateRangeDefaultValueFactory
+        }
+      >
+        {childProps => (
+          <DateRangeQuickPickerField childProps={childProps} props={props} />
+        )}
+      </FormField>
+    );
+  };

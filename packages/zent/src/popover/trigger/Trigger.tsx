@@ -23,10 +23,8 @@ export class PopoverTrigger<
   }
 
   render() {
-    let child:
-      | React.ReactElement<TriggerChildProps, any>
-      | string
-      | number = Children.only(this.props.children);
+    let child: React.ReactElement<TriggerChildProps, any> | string | number =
+      Children.only(this.props.children);
     if (!child) {
       throw new Error('Popover Trigger requires a child');
     }

@@ -67,27 +67,25 @@ export class Input extends Component<IInputProps, IInputState> {
     onKeyDown && onKeyDown(e as any);
   };
 
-  onFocus: React.FocusEventHandler<
-    HTMLInputElement & HTMLTextAreaElement
-  > = evt => {
-    this.setState({
-      hasFocus: true,
-    });
+  onFocus: React.FocusEventHandler<HTMLInputElement & HTMLTextAreaElement> =
+    evt => {
+      this.setState({
+        hasFocus: true,
+      });
 
-    const { onFocus } = this.props;
-    onFocus && onFocus(evt as any);
-  };
+      const { onFocus } = this.props;
+      onFocus && onFocus(evt as any);
+    };
 
-  onBlur: React.FocusEventHandler<
-    HTMLInputElement & HTMLTextAreaElement
-  > = evt => {
-    this.setState({
-      hasFocus: false,
-    });
+  onBlur: React.FocusEventHandler<HTMLInputElement & HTMLTextAreaElement> =
+    evt => {
+      this.setState({
+        hasFocus: false,
+      });
 
-    const { onBlur } = this.props;
-    onBlur && onBlur(evt as any);
-  };
+      const { onBlur } = this.props;
+      onBlur && onBlur(evt as any);
+    };
 
   clearInput: React.MouseEventHandler<HTMLElement> = evt => {
     const { onChange } = this.props;
@@ -101,12 +99,8 @@ export class Input extends Component<IInputProps, IInputState> {
   };
 
   componentDidMount() {
-    const {
-      autoFocus,
-      autoSelect,
-      initSelectionStart,
-      initSelectionEnd,
-    } = this.props;
+    const { autoFocus, autoSelect, initSelectionStart, initSelectionEnd } =
+      this.props;
     const el = this.elementRef.current;
     if (autoFocus) {
       el && el.focus();

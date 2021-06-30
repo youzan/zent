@@ -9,9 +9,8 @@ import { dateDefaultValueFactory, IFormComponentProps } from '../shared';
 import { FormField } from '../Field';
 import { $MergeParams } from '../utils';
 
-export type IFormMonthPickerFieldProps<
-  T extends IValueType
-> = IFormComponentProps<SingleDate, Omit<IMonthPickerProps<T>, 'value'>>;
+export type IFormMonthPickerFieldProps<T extends IValueType> =
+  IFormComponentProps<SingleDate, Omit<IMonthPickerProps<T>, 'value'>>;
 
 export const FormMonthPickerField = <T extends IValueType = 'string'>(
   props: IFormMonthPickerFieldProps<T>

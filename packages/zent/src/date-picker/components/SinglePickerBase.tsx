@@ -49,37 +49,29 @@ export function SinglePicker({
     PanelComponent,
     ...restPanelProps
   } = restPropsRef.current;
-  const { getSelectedValue, getCallbackValue, getInputText } = useContext(
-    PickerContext
-  );
+  const { getSelectedValue, getCallbackValue, getInputText } =
+    useContext(PickerContext);
   // props onChangeRef
   const onChangeRef = useEventCallbackRef(onChange);
 
   // merged from props value
-  const {
-    selected,
-    parseValue,
-    setSelected,
-    defaultPanelDate,
-  } = useMergedProps({
-    value,
-    format,
-    defaultDate,
-  });
+  const { selected, parseValue, setSelected, defaultPanelDate } =
+    useMergedProps({
+      value,
+      format,
+      defaultDate,
+    });
 
   // popover visible
-  const {
-    panelVisible,
-    setPanelVisible,
-    onVisibleChange,
-  } = useSinglePopoverVisible<Date | null>(
-    parseValue,
-    setSelected,
-    onOpen,
-    onClose,
-    disabled,
-    openPanel
-  );
+  const { panelVisible, setPanelVisible, onVisibleChange } =
+    useSinglePopoverVisible<Date | null>(
+      parseValue,
+      setSelected,
+      onOpen,
+      onClose,
+      disabled,
+      openPanel
+    );
 
   const disabledPanelDate = useNormalizeDisabledDate(format, disabledDate);
 
@@ -122,10 +114,10 @@ export function SinglePicker({
   );
 
   // trigger-input text
-  const text = useMemo(() => getInputText?.(selected), [
-    selected,
-    getInputText,
-  ]);
+  const text = useMemo(
+    () => getInputText?.(selected),
+    [selected, getInputText]
+  );
 
   const trigger = useMemo(() => {
     const triggerProps = pick(restPropsRef.current, triggerCommonProps);

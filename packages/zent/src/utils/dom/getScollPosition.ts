@@ -6,16 +6,20 @@ export default function getScrollPosition() {
   const x =
     pageXOffset !== undefined
       ? pageXOffset
-      : ((document.documentElement ||
-          document.body.parentNode ||
-          document.body) as any).scrollLeft;
+      : (
+          (document.documentElement ||
+            document.body.parentNode ||
+            document.body) as any
+        ).scrollLeft;
 
   const y =
     pageYOffset !== undefined
       ? pageYOffset
-      : ((document.documentElement ||
-          document.body.parentNode ||
-          document.body) as any).scrollTop;
+      : (
+          (document.documentElement ||
+            document.body.parentNode ||
+            document.body) as any
+        ).scrollTop;
 
   return {
     x,

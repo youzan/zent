@@ -37,14 +37,11 @@ const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
 
   useEffect(() => setStartPanelDate(defaultPanelDate[0]), [defaultPanelDate]);
 
-  const {
-    disabledStartTimes,
-    disabledConfirm,
-    disabledEndTimes,
-  } = useRangeDisabledTime({
-    selected,
-    disabledTime,
-  });
+  const { disabledStartTimes, disabledConfirm, disabledEndTimes } =
+    useRangeDisabledTime({
+      selected,
+      disabledTime,
+    });
   const onChangeStartOrEnd = useCallback(
     (val: Date) => {
       const { defaultTime: defaultTimeStart, format: formatStart } =

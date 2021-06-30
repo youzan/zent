@@ -39,12 +39,12 @@ export class AnimateHeight extends Component<IAnimateHeightProps> {
       runInNextFrame(() => {
         if (this.props.height === height) {
           el.style.height = `${el.offsetHeight}px`;
-          this.timer = (setTimeout(() => {
+          this.timer = setTimeout(() => {
             this.timer = null;
             if (this.props.height === height) {
               el.style.height = 'auto';
             }
-          }, duration) as unknown) as number;
+          }, duration) as unknown as number;
         }
       });
     } else {
@@ -84,12 +84,12 @@ export class AnimateHeight extends Component<IAnimateHeightProps> {
         el.style.height = `${newHeight}px`;
 
         // reset height style to 'auto' after animation
-        this.timer = (setTimeout(() => {
+        this.timer = setTimeout(() => {
           this.timer = null;
           if (this.props.height === height) {
             el.style.height = height;
           }
-        }, duration) as unknown) as number;
+        }, duration) as unknown as number;
       });
     } else {
       applyHeight(el, height);
@@ -97,14 +97,8 @@ export class AnimateHeight extends Component<IAnimateHeightProps> {
   }
 
   render() {
-    const {
-      duration,
-      className,
-      style,
-      easing,
-      overflow,
-      children,
-    } = this.props;
+    const { duration, className, style, easing, overflow, children } =
+      this.props;
 
     return (
       <div

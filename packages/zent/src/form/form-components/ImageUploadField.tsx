@@ -10,12 +10,11 @@ import {
 import { warningDefaultValueProp } from '../utils';
 import omit from '../../utils/omit';
 
-export type IFormImageUploadFieldProps<
-  T extends IImageUploadFileItem
-> = IFormComponentProps<
-  T[],
-  Omit<IImageUploadProps, 'fileList' | 'onChange' | 'defaultFileList'>
->;
+export type IFormImageUploadFieldProps<T extends IImageUploadFileItem> =
+  IFormComponentProps<
+    T[],
+    Omit<IImageUploadProps, 'fileList' | 'onChange' | 'defaultFileList'>
+  >;
 
 function renderImageUpload<T extends IImageUploadFileItem>(
   childProps: IFormFieldChildProps<T[]>,

@@ -53,13 +53,8 @@ export default class PageSizeChanger extends Component<
   any
 > {
   render() {
-    const {
-      total,
-      formatTotal,
-      pageSize,
-      pageSizeOptions,
-      onPageSizeChange,
-    } = this.props;
+    const { total, formatTotal, pageSize, pageSizeOptions, onPageSizeChange } =
+      this.props;
 
     if (!pageSizeOptions || pageSizeOptions.length === 0) {
       return (

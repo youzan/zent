@@ -9,9 +9,8 @@ import {
 import { FormField } from '../Field';
 import { $MergeParams } from '../utils';
 
-export type IFormWeekPickerFieldProps<
-  T extends IValueType
-> = IFormComponentProps<RangeDate, Omit<IWeekPickerProps<T>, 'value'>>;
+export type IFormWeekPickerFieldProps<T extends IValueType> =
+  IFormComponentProps<RangeDate, Omit<IWeekPickerProps<T>, 'value'>>;
 
 export const FormWeekPickerField = <T extends IValueType = 'string'>(
   props: IFormWeekPickerFieldProps<T>

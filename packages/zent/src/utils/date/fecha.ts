@@ -130,7 +130,8 @@ type FechaFormatToken =
   | 'A'
   | 'ZZ';
 
-const token = /d{1,4}|M{1,4}|YY(?:YY)?|S{1,3}|Do|ZZ|([HhMsDm])\1?|[aA]|"[^"]*"|'[^']*'/g;
+const token =
+  /d{1,4}|M{1,4}|YY(?:YY)?|S{1,3}|Do|ZZ|([HhMsDm])\1?|[aA]|"[^"]*"|'[^']*'/g;
 const twoDigits = '\\d\\d?';
 const threeDigits = '\\d{3}';
 const fourDigits = '\\d{4}';

@@ -12,14 +12,8 @@ export default class BreadcrumbSteps extends Component<IStepsProps> {
 
   render() {
     const props = this.props;
-    const {
-      className,
-      children,
-      current,
-      sequence,
-      onStepChange,
-      type,
-    } = props;
+    const { className, children, current, sequence, onStepChange, type } =
+      props;
     const stepWidth = `${100 / Children.count(children)}%`;
     const isBreadcrumb = type === 'breadcrumb';
     const isCard = type === 'card';

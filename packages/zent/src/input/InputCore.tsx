@@ -36,17 +36,13 @@ export const InputCore = forwardRef<
     ...otherProps
   } = props;
 
-  const {
-    value,
-    onChange,
-    onCompositionStart,
-    onCompositionEnd,
-  } = useIMEComposition(
-    valueProp,
-    onChangeProp,
-    onCompositionStartProp,
-    onCompositionEndProp
-  );
+  const { value, onChange, onCompositionStart, onCompositionEnd } =
+    useIMEComposition(
+      valueProp,
+      onChangeProp,
+      onCompositionStartProp,
+      onCompositionEndProp
+    );
 
   // No clear button when input is disabled or readonly
   const showClearIcon =

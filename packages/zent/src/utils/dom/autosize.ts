@@ -180,7 +180,7 @@ function assign(ta: HTMLTextAreaElement) {
     eventCancelList.splice(0, eventCancelList.length);
 
     Object.keys(style).forEach(key => {
-      ((ta.style as unknown) as { [key: string]: string })[key] = style[key];
+      (ta.style as unknown as { [key: string]: string })[key] = style[key];
     });
 
     map.delete(ta);

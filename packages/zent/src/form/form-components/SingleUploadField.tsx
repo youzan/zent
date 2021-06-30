@@ -7,12 +7,8 @@ import {
   SingleUpload,
 } from '../../upload';
 
-export type IFormSingleUploadFieldProps<
-  T extends IUploadFileItem
-> = IFormComponentProps<
-  T | null,
-  Omit<ISingleUploadProps, 'value' | 'onChange'>
->;
+export type IFormSingleUploadFieldProps<T extends IUploadFileItem> =
+  IFormComponentProps<T | null, Omit<ISingleUploadProps, 'value' | 'onChange'>>;
 
 function renderSingleUpload<T extends IUploadFileItem>(
   childProps: IFormFieldChildProps<T | null>,
