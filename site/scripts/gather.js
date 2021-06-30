@@ -1,46 +1,34 @@
-/* eslint-disable */
 const { resolve, relative } = require('path');
-
-// fs.exists is deprecated, but sync version is still available in Node v8.8.1, so I use it.
 const {
   readdirSync,
-  statSync,
   existsSync,
   readFileSync,
   writeFileSync,
+  lstatSync,
 } = require('fs');
-
 const {
   __,
   concat,
   curry,
   filter,
-  find,
   forEach,
   map,
-  merge,
+  mergeRight,
   omit,
   pipe,
   prop,
   propEq,
 } = require('ramda');
 const fm = require('front-matter');
-
 const LIST_STATICS = require('../src/nav.static');
+
 const SRC = resolve(process.cwd(), '../packages/zent/src');
 const NAMES = {
   'zh-CN': 'README_zh-CN.md',
   'en-US': 'README_en-US.md',
 };
 
-const isDir = path => {
-  try {
-    readdirSync(path);
-  } catch (e) {
-    return false;
-  }
-  return true;
-};
+const isDir = path => lstatSync(path).isDirectory();
 
 const readFileToString = curry(readFileSync)(__, 'utf8');
 
@@ -48,6 +36,7 @@ function gather() {
   Object.keys(NAMES).forEach(i18n => {
     const list = LIST_STATICS[i18n][1].groups;
     const groups = [];
+
     pipe(
       readdirSync,
       map(pipe(concat('/'), concat(SRC))),
@@ -59,7 +48,7 @@ function gather() {
           readFileToString,
           fm,
           prop('attributes'),
-          merge({
+          mergeRight({
             source: `DocLoadable({ loader: () => import('${relative(
               resolve(process.cwd(), './src'),
               str

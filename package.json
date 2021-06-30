@@ -21,7 +21,8 @@
     "publish-pkg": "./scripts/publish.sh",
     "dev": "cd site && yarn dev",
     "deploy": "cd site && yarn deploy",
-    "deploy-beta": "cd site && yarn deploy-beta"
+    "deploy-beta": "cd site && yarn deploy-beta",
+    "prepare": "husky install"
   },
   "workspaces": [
     "site",
@@ -43,7 +44,7 @@
     "@typescript-eslint/parser": "^4.8.1",
     "babel-eslint": "10.0.1",
     "coveralls": "^3.0.3",
-    "cross-env": "^4.0.0",
+    "cross-env": "^7.0.3",
     "eslint": "^7.14.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^6.15.0",
@@ -54,8 +55,8 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "husky": "^1.2.0",
-    "lint-staged": "^8.0.5",
+    "husky": "^6.0.0",
+    "lint-staged": "^11.0.0",
     "prettier": "^2.2.0",
     "sass-lint": "^1.12.1"
   },
