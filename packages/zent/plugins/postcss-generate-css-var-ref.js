@@ -11,10 +11,15 @@ const THEME_FILES = ['_color.scss'].map(f =>
 
 const GENERATE_THEME_REF_FILE = path.resolve(
   __dirname,
+  '../theme-css-var-refs.json'
+);
+
+const GENERATE_THEME_REF_TS_FILE = path.resolve(
+  __dirname,
   '../src/theme/css-var-ref.ts'
 );
 
-const GENERATE_THEME_COMMENT_FILE = path.resolve(
+const GENERATE_THEME_COMMENT_TS_FILE = path.resolve(
   __dirname,
   '../src/theme/css-var-info.ts'
 );
@@ -113,8 +118,18 @@ module.exports = postcss.plugin('postcss-plugin-vars', () => {
         }
       }
     });
+
+    const refsContent = {
+      cssVarRef: variableSemanticRelation,
+      cssRgbVarRef: variableForRGBSemanticRelation,
+    };
+
+    fs.writeFileSync(GENERATE_THEME_REF_FILE, stringify(refsContent), {
+      encoding: 'utf-8',
+    });
+
     fs.writeFileSync(
-      GENERATE_THEME_REF_FILE,
+      GENERATE_THEME_REF_TS_FILE,
       `${FILE_NOTES}
 
 export const cssVarRef = ${stringify(variableSemanticRelation)};\n
@@ -123,7 +138,7 @@ export const cssRgbVarRef = ${stringify(variableForRGBSemanticRelation)};\n`,
     );
 
     fs.writeFileSync(
-      GENERATE_THEME_COMMENT_FILE,
+      GENERATE_THEME_COMMENT_TS_FILE,
       `${FILE_NOTES}
 
 export const cssVarInfo = ${stringify(commentSemanticRelation)};\n`,

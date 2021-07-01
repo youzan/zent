@@ -34,18 +34,9 @@ This method is non-intrusive, but you have to manually build your custom theme e
 
 #### Modify theme color dynamically
 
-Could use `ThemeSdk API`, pass a basic color to update the theme colors. Choose a color with a higher saturation and brightness, please. like: S > 85, B > 80, like the following:
+Could use [`ThemeSdk`](https://github.com/zent-contrib/theme-sdk), pass a basic color to update the theme colors. Choose a color with a higher saturation and brightness, please. like: S > 85, B > 80, like the following:
 
 <!-- demo-slot-3 -->
-
-### API
-
-| Attributes / Methods  | Description                                                                       | Type                                                 |
-| --------------------- | --------------------------------------------------------------------------------- | ---------------------------------------------------- |
-| getThemeColor         | get all the css variables and values of the current theme                         | () => ITheme                                         |
-| generatePalette       | get all the theme colors, base on the base color                                  | (baseColor: string) => string[]                      |
-| generateTheme         | get all the css variables and values of the theme by the semantic scene and value | (config: IThemeConfig) => ITheme                       |
-| applyTheme            | apply the theme                                                                   | (theme: ITheme)  => void                             |
 
 <style>
 img[alt='zent-theme'] {
