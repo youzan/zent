@@ -16,6 +16,11 @@ export const cssVarInfo = [
     comment: ' Hover state of primary text link brand color',
   },
   {
+    cssVariable: '--theme-link-active-color',
+    color: '$primary-600',
+    comment: ' Active state of primary text link brand color',
+  },
+  {
     cssVariable: '--theme-default-hover-color',
     color: '$primary-500',
     comment:

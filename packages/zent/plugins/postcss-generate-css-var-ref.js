@@ -173,13 +173,13 @@ function generateCSSVarPrefixName(
 
 function generateComments(cssVarPrefixName, value) {
   const scss = value.scss;
-  const variablePattern = /.*'(.+)'.*(\$.+),.*$/;
+  const variablePattern = /.*'(.+)'.*(\$[a-zA-Z0-9-]+).*$/;
   const commentPattern = /\/\/(.+)/;
   const cssVariableInfos = scss.split('\n');
   const themeComments = [];
   for (
     let commentIndex = 0, variabledIndex = 1, infoLen = cssVariableInfos.length;
-    variabledIndex < infoLen;
+    variabledIndex <= infoLen;
 
   ) {
     const comment = commentPattern.exec(cssVariableInfos[commentIndex]);
