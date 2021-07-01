@@ -3876,7 +3876,7 @@ default-gateway@^4.2.0:
     execa "^1.0.0"
     ip-regex "^2.1.0"
 
-define-properties@^1.1.2, define-properties@^1.1.3:
+define-properties@^1.1.3:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/define-properties/-/define-properties-1.1.3.tgz#cf88da6cbee26fe6db7094f61d870cbd84cee9f1"
   integrity sha512-3MqfYKj2lLzdMSf8ZIZE/V+Zuy+BgD6f164e8K2w7dgnpKArBDerGYpM46IYYcjnkdPNMjPk9A6VFB8+3SKlXQ==
@@ -5167,13 +5167,6 @@ follow-redirects@^1.0.0:
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.1.tgz#d9114ded0a1cfdd334e164e6662ad02bfd91ff43"
   integrity sha512-HWqDgT7ZEkqRzBvc2s64vSZ/hfOceEol3ac/7tKwzuvEyWx3/4UegXh5oBOIotkGsObyk3xznnSRVADBgWSQVg==
 
-for-each@^0.3.3:
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/for-each/-/for-each-0.3.3.tgz#69b447e88a0a5d32c3e7084f3f1710034b21376e"
-  integrity sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw==
-  dependencies:
-    is-callable "^1.1.3"
-
 for-in@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/for-in/-/for-in-1.0.2.tgz#81068d295a8142ec0ac726c6e2200c30fb6d5e80"
@@ -6236,7 +6229,7 @@ is-buffer@^1.1.4, is-buffer@^1.1.5:
   resolved "https://registry.yarnpkg.com/is-buffer/-/is-buffer-1.1.6.tgz#efaa2ea9daa0d7ab2ea13a97b2b8ad51fefbe8be"
   integrity sha512-NcdALwpXkTm5Zvvbk7owOUSvVvBKDgKP5/ewfXEznmQFfs4ZRmanOeKBTjRVjka3QFoN6XJ+9F3USqfHqTaU5w==
 
-is-callable@^1.1.3, is-callable@^1.1.4, is-callable@^1.1.5, is-callable@^1.2.3:
+is-callable@^1.1.4, is-callable@^1.1.5, is-callable@^1.2.3:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/is-callable/-/is-callable-1.2.3.tgz#8b1e0500b73a1d76c70487636f368e519de8db8e"
   integrity sha512-J1DcMe8UYTBSrKezuIUTUwjXsho29693unXM2YhJUTR2txK/eG47bvNa/wipPFmZFgr/N6f1GA66dv0mEyTIyQ==
@@ -6456,11 +6449,6 @@ is-potential-custom-element-name@^1.0.1:
   resolved "https://registry.yarnpkg.com/is-potential-custom-element-name/-/is-potential-custom-element-name-1.0.1.tgz#171ed6f19e3ac554394edf78caa05784a45bebb5"
   integrity sha512-bCYeRA2rVibKZd+s2625gGnGF/t7DSqDs4dP7CrLA1m7jKWz6pps0LpYLJN8Q64HtmPKJ1hrN3nzPNKFEKOUiQ==
 
-is-primitive@^3.0.0:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/is-primitive/-/is-primitive-3.0.1.tgz#98c4db1abff185485a657fc2905052b940524d05"
-  integrity sha512-GljRxhWvlCNRfZyORiH77FwdFwGcMO620o37EOYC0ORWdq+WYNVqW0w2Juzew4M+L81l6/QS3t5gkkihyRqv9w==
-
 is-property@^1.0.0, is-property@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/is-property/-/is-property-1.0.2.tgz#57fe1c4e48474edd65b09911f26b1cd4095dda84"
@@ -6494,7 +6482,7 @@ is-stream@^2.0.0:
   resolved "https://registry.yarnpkg.com/is-stream/-/is-stream-2.0.0.tgz#bde9c32680d6fae04129d6ac9d921ce7815f78e3"
   integrity sha512-XCoy+WlUr7d1+Z8GgSuXmpuUFC9fOhRXglJMx+dwLKTkL44Cjd4W1Z5P+BQZpr+cR93aGP4S/s7Ftw6Nd/kiEw==
 
-is-string@^1.0.4, is-string@^1.0.5, is-string@^1.0.6:
+is-string@^1.0.5, is-string@^1.0.6:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/is-string/-/is-string-1.0.6.tgz#3fe5d5992fb0d93404f32584d4b0179a71b54a5f"
   integrity sha512-2gdzbKUuqtQ3lYNrUTQYoClPhm7oQu4UdpSZMp1/DGgkHBT8E2Z1l0yMdb6D4zNAxwDiMv8MdulKROJGNl0Q0w==
@@ -6504,7 +6492,7 @@ is-subset@^0.1.1:
   resolved "https://registry.yarnpkg.com/is-subset/-/is-subset-0.1.1.tgz#8a59117d932de1de00f245fcdd39ce43f1e939a6"
   integrity sha1-ilkRfZMt4d4A8kX83TnOQ/HpOaY=
 
-is-symbol@^1.0.1, is-symbol@^1.0.2, is-symbol@^1.0.3:
+is-symbol@^1.0.2, is-symbol@^1.0.3:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/is-symbol/-/is-symbol-1.0.4.tgz#a6dac93b635b063ca6872236de88910a57af139c"
   integrity sha512-C/CPBqKWnvdcxqIARxyOh4v1UUEOCHpgDa0WYgpKDFMszcrPcffg5uhwSgPCLD2WWxmq6isisz87tzT01tuGhg==
@@ -6550,11 +6538,6 @@ isarray@1.0.0, isarray@^1.0.0, isarray@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/isarray/-/isarray-1.0.0.tgz#bb935d48582cba168c06834957a54a3e07124f11"
   integrity sha1-u5NdSFgsuhaMBoNJV6VKPgcSTxE=
-
-"isarray@^1.0.0 || ^2.0.0":
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/isarray/-/isarray-2.0.5.tgz#8af1e4c1221244cc62459faf38940d4e644a5723"
-  integrity sha512-xHjhDr3cNBK0BzdUJSPXZntQUx/mwMS5Rw4A7lPJ90XGAO6ISP/ePDNuo0vhqOZU+UD5JoodwCAAoZQd3FeAKw==
 
 isexe@^2.0.0:
   version "2.0.0"
@@ -7033,25 +7016,6 @@ jest-worker@^27.0.2, jest-worker@^27.0.6:
     "@types/node" "*"
     merge-stream "^2.0.0"
     supports-color "^8.0.0"
-
-jest-wrap@^1.5.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/jest-wrap/-/jest-wrap-1.7.0.tgz#cb4763bea31ecbb6296fd2f124862c79cad79bc0"
-  integrity sha512-CkyJUPAU7nJ+Mj5ieGxQKRjA+PTTXIJ872OYl833PGcQq0EeGvNQzz0++osIIAhmXpDv26dQPk4fpJzCXkwiaA==
-  dependencies:
-    define-properties "^1.1.2"
-    for-each "^0.3.3"
-    function-bind "^1.1.1"
-    function.prototype.name "^1.1.0"
-    has "^1.0.3"
-    is-callable "^1.1.3"
-    is-primitive "^3.0.0"
-    is-string "^1.0.4"
-    is-symbol "^1.0.1"
-    isarray "^1.0.0 || ^2.0.0"
-    object-inspect "^1.6.0"
-    object.entries "^1.0.4"
-    semver "^5.5.0"
 
 jest@^27.0.6:
   version "27.0.6"
@@ -8249,7 +8213,7 @@ object-copy@^0.1.0:
     define-property "^0.2.5"
     kind-of "^3.0.3"
 
-object-inspect@^1.10.3, object-inspect@^1.6.0, object-inspect@^1.7.0, object-inspect@^1.9.0:
+object-inspect@^1.10.3, object-inspect@^1.7.0, object-inspect@^1.9.0:
   version "1.10.3"
   resolved "https://registry.yarnpkg.com/object-inspect/-/object-inspect-1.10.3.tgz#c2aa7d2d09f50c99375704f7a0adf24c5782d369"
   integrity sha512-e5mCJlSH7poANfC8z8S9s9S2IN5/4Zb3aZ33f5s8YqoazCFzNLloLU8r5VCG+G7WoqLvAAZoVMcy3tp/3X0Plw==
@@ -8284,7 +8248,7 @@ object.assign@^4.1.0, object.assign@^4.1.2:
     has-symbols "^1.0.1"
     object-keys "^1.1.1"
 
-object.entries@^1.0.4, object.entries@^1.1.1, object.entries@^1.1.2, object.entries@^1.1.4:
+object.entries@^1.1.1, object.entries@^1.1.2, object.entries@^1.1.4:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/object.entries/-/object.entries-1.1.4.tgz#43ccf9a50bc5fd5b649d45ab1a579f24e088cafd"
   integrity sha512-h4LWKWE+wKQGhtMjZEBud7uLGhqyLwj8fpHOarZhD2uY3C9cRtk57VQ89ke3moByLXMedqs3XCHzyb4AmA2DjA==
