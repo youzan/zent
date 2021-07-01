@@ -121,7 +121,16 @@ module.exports = {
               name: 'md-pool',
             },
           },
-          'babel-loader',
+          {
+            loader: 'babel-loader',
+            options: {
+              // tell babel-loader to use this config
+              configFile: path.resolve(
+                __dirname,
+                '../../packages/zent/.babelrc.js'
+              ),
+            },
+          },
           {
             loader: 'react-markdown-doc-loader',
             options: {

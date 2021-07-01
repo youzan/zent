@@ -22,7 +22,7 @@
     "build": "./scripts/build.sh",
     "theme": "./scripts/build-theme.sh",
     "new-component": "node ./scripts/new-component.js",
-    "typedoc": "typedoc --out ../../site/dist/apidoc --mode file",
+    "typedoc": "typedoc --out ../../site/dist/apidoc src/index.ts",
     "compile-plugins": "tsc -p ./plugins/tsconfig.json",
     "update-iconfont": "./scripts/update-iconfont.sh"
   },
