@@ -1,9 +1,9 @@
 import { Component } from 'react';
 import { Select } from 'zent';
+import { withRouter } from 'react-router-dom';
 
 import pkg from '../../../../packages/zent/package.json';
 import SearchBox from '../search-box';
-import RouterContext from '../router-context-type';
 import './style.scss';
 
 const CONTROLS = {
@@ -30,22 +30,20 @@ const VERSIONS = [
   },
 ];
 
-export default class PageHeader extends Component {
-  static contextTypes = RouterContext;
-
+class PageHeader extends Component {
   state = {
     version: VERSIONS[0],
   };
 
   toggle = () => {
-    const { replace } = this.context.router.history;
-    const path = this.context.router.route.location.pathname.split('/');
+    const { history, location } = this.props;
+    const path = location.pathname.split('/');
     if (path[1] === 'en') {
       path[1] = 'zh';
     } else {
       path[1] = 'en';
     }
-    replace(path.join('/'));
+    history.replace(path.join('/'));
   };
 
   changeVersion = value => {
@@ -124,3 +122,5 @@ export default class PageHeader extends Component {
     );
   }
 }
+
+export default withRouter(PageHeader);
