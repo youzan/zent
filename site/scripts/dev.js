@@ -15,19 +15,7 @@ let onceMark = true;
 
 const compiler = webpack(webpackConfig);
 
-// compiler.apply(
-//   new ProgressPlugin((percentage, message, ...args) => {
-//     // {
-//     //   format: '  build [:bar] :percent (:elapsed seconds)',
-//     //   clear: false,
-//     //   width: 60,
-//     // }
-//     // e.g. Output each progress message directly to the console:
-//     console.info(percentage, message, ...args);
-//   })
-// );
-
-compiler.plugin('done', () => {
+compiler.hooks.done.tap('DevBannerPlugin', () => {
   if (onceMark) {
     cp.exec(`${cmds[process.platform]} http://127.0.0.1:4396`);
   }
@@ -48,5 +36,5 @@ const server = new WebpackDevServer(compiler, {
 
 server.listen(4396, '0.0.0.0', () => {
   // eslint-disable-next-line
-  console.log('\n Starting server on http://localhost:4396 \n');
+  console.log('\n Starting server on http://127.0.0.1:4396 \n');
 });

@@ -2,9 +2,7 @@ module.exports = function (api) {
   api.cache(true);
 
   const envSpecificPlugins =
-    process.env.NODE_ENV === 'development'
-      ? ['react-loadable/babel', 'react-hot-loader/babel']
-      : [];
+    process.env.NODE_ENV === 'development' ? ['react-loadable/babel'] : [];
 
   return {
     presets: [

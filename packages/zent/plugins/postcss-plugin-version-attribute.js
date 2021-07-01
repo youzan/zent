@@ -1,5 +1,3 @@
-/* eslint-disable prefer-arrow-callback */
-const postcss = require('postcss');
 const parseSelector = require('postcss-selector-parser');
 const parseValue = require('postcss-value-parser');
 const path = require('path');
@@ -11,64 +9,124 @@ const WHITELIST = ['../css', '../assets'].map(p => path.resolve(__dirname, p));
 const VERSION_TAG = `v${pkg.version.replace(/[^0-9a-z]/gi, 'x')}`;
 const ICONFONT_NAME = 'zenticon';
 
-module.exports = postcss.plugin('postcss-plugin-version-attribute', () => {
-  const processor = parseSelector(transform);
+module.exports = () => {
+  return {
+    postcssPlugin: 'postcss-plugin-version-attribute',
+    prepare(result) {
+      const fp = result.root.source.input.file;
+      if (WHITELIST.every(w => !fp.startsWith(w))) {
+        return {};
+      }
 
-  return root => {
-    const fp = root.source.input.file;
-    if (WHITELIST.every(w => !fp.startsWith(w))) {
-      return;
-    }
-
-    const handlers = [];
-
-    root.walkRules(rule => {
-      handlers.push(
-        processor.process(rule.selector).then(result => {
-          rule.selector = result;
-        })
-      );
-
-      rule.walkDecls(decl => {
-        const { prop, value } = decl;
-        if (prop === 'font-family' && value === ICONFONT_NAME) {
-          decl.value = getVersionedIconFontName(value);
-        } else if (prop === 'animation' || prop === 'animation-name') {
-          const words = parseValue(value);
-          let modified = false;
-          words.walk(node => {
-            if (
-              node.type === 'word' &&
-              node.value.startsWith(KEYFRAME_NAME_PREFIX)
-            ) {
-              node.value = getVersionedKeyframeName(node.value);
-              modified = true;
-            }
-          });
-          if (modified) {
-            decl.value = words.toString();
-          }
-        }
-      });
-    });
-
-    root.walkAtRules(atRule => {
-      const { name } = atRule;
-      if (name === 'font-face') {
-        atRule.walkDecls('font-family', decl => {
-          const { value } = decl;
-          if (value === ICONFONT_NAME) {
-            decl.value = getVersionedIconFontName(value);
+      const handleAnimationDecl = decl => {
+        const { value } = decl;
+        const words = parseValue(value);
+        let modified = false;
+        words.walk(node => {
+          if (
+            node.type === 'word' &&
+            node.value.startsWith(KEYFRAME_NAME_PREFIX)
+          ) {
+            node.value = getVersionedKeyframeName(node.value);
+            modified = true;
           }
         });
-      } else if (name === 'keyframes' || name.endsWith('-keyframes')) {
-        atRule.params = getVersionedKeyframeName(atRule.params);
-      }
-    });
+        if (modified) {
+          decl.value = words.toString();
+        }
+      };
 
-    return Promise.all(handlers);
+      const processor = parseSelector(transform);
+
+      return {
+        Rule(rule) {
+          const { selector } = rule;
+          if (selector.indexOf(getVersionedAttribute()) === -1) {
+            rule.selector = processor.processSync(selector);
+          }
+        },
+
+        AtRule: {
+          keyframes(atRule) {
+            atRule.params = getVersionedKeyframeName(atRule.params);
+          },
+        },
+
+        Declaration: {
+          'font-family': decl => {
+            const { value } = decl;
+            if (value === ICONFONT_NAME) {
+              decl.value = getVersionedIconFontName(value);
+            }
+          },
+
+          animation: handleAnimationDecl,
+          'animation-name': handleAnimationDecl,
+        },
+      };
+    },
   };
-});
+};
+module.exports.postcss = true;
+//
+// module.exports = postcss.plugin('postcss-plugin-version-attribute', () => {
+//   const processor = parseSelector(transform);
+//
+//   return root => {
+//     const fp = root.source.input.file;
+//     if (WHITELIST.every(w => !fp.startsWith(w))) {
+//       return;
+//     }
+//
+//     const handlers = [];
+//
+//     root.walkRules(rule => {
+//       handlers.push(
+//         processor.process(rule.selector).then(result => {
+//           rule.selector = result;
+//         })
+//       );
+//
+//       rule.walkDecls(decl => {
+//         const { prop, value } = decl;
+//         if (prop === 'font-family' && value === ICONFONT_NAME) {
+//           decl.value = getVersionedIconFontName(value);
+//         } else if (prop === 'animation' || prop === 'animation-name') {
+//           const words = parseValue(value);
+//           let modified = false;
+//           words.walk(node => {
+//             if (
+//               node.type === 'word' &&
+//               node.value.startsWith(KEYFRAME_NAME_PREFIX)
+//             ) {
+//               node.value = getVersionedKeyframeName(node.value);
+//               modified = true;
+//             }
+//           });
+//           if (modified) {
+//             decl.value = words.toString();
+//           }
+//         }
+//       });
+//     });
+//
+//     root.walkAtRules(atRule => {
+//       const { name } = atRule;
+//       if (name === 'font-face') {
+//         atRule.walkDecls('font-family', decl => {
+//           const { value } = decl;
+//           if (value === ICONFONT_NAME) {
+//             decl.value = getVersionedIconFontName(value);
+//           }
+//         });
+//       } else if (name === 'keyframes' || name.endsWith('-keyframes')) {
+//         atRule.params = getVersionedKeyframeName(atRule.params);
+//       }
+//     });
+//
+//     return Promise.all(handlers);
+//   };
+// });
 
 function transform(selectors) {
   selectors.each(selector => {
@@ -104,7 +162,7 @@ function transform(selectors) {
         interestedNode.parent.insertAfter(
           interestedNode,
           parseSelector.attribute({
-            attribute: `data-zv="${pkg.version}"`,
+            attribute: getVersionedAttribute(),
           })
         );
       }
@@ -112,10 +170,14 @@ function transform(selectors) {
   });
 }
 
+function getVersionedAttribute() {
+  return `data-zv="${pkg.version}"`;
+}
+
 function getVersionedIconFontName(name) {
-  return `${name}${VERSION_TAG}`;
+  return name.endsWith(VERSION_TAG) ? name : `${name}${VERSION_TAG}`;
 }
 
 function getVersionedKeyframeName(name) {
-  return `${name}-${VERSION_TAG}`;
+  return name.endsWith(VERSION_TAG) ? name : `${name}-${VERSION_TAG}`;
 }
