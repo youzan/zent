@@ -15,6 +15,8 @@ const constants = require('../src/constants');
 
 const DEV = process.env.NODE_ENV !== 'production';
 
+const babelPlugins = DEV ? [require.resolve('react-refresh/babel')] : [];
+
 module.exports = {
   mode: process.env.NODE_ENV,
 
@@ -91,8 +93,7 @@ module.exports = {
           {
             loader: 'babel-loader',
             options: {
-              // We have TypeScript plugin for rewriting modules, don't enable cache
-              cacheDirectory: false,
+              plugins: babelPlugins,
             },
           },
         ],
@@ -144,6 +145,7 @@ module.exports = {
                 __dirname,
                 '../../packages/zent/.babelrc.js'
               ),
+              plugins: babelPlugins,
             },
           },
           {
@@ -174,7 +176,8 @@ module.exports = {
                 before: [
                   tsCompilerConstantsPlugin(program),
                   tsVersionAttributePlugin(program),
-                ],
+                  // eslint-disable-next-line global-require
+                ].concat(DEV ? [require('react-refresh-typescript')()] : []),
               }),
             },
           },

@@ -1,5 +1,6 @@
 const { merge } = require('webpack-merge');
 const webpack = require('webpack');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 const base = require('./webpack.config');
 
@@ -14,5 +15,8 @@ module.exports = merge(base, {
 
   devtool: 'inline-cheap-module-source-map',
 
-  plugins: [new webpack.HotModuleReplacementPlugin()],
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new ReactRefreshWebpackPlugin(),
+  ],
 });

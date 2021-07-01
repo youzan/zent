@@ -67,7 +67,7 @@ export default class App extends Component {
 
     // 通过 basename 控制前缀，不要放到每一层路由里去
     return (
-      <Router key={module.hot ? Math.random() : null} basename={prefix}>
+      <Router basename={prefix}>
         <ScrollToTop>
           <Switch>
             <Route

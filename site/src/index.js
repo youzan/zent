@@ -22,9 +22,3 @@ if (process.env.NODE_ENV !== 'production') {
 } else {
   render(App);
 }
-
-if (module.hot) {
-  module.hot.accept('./App', () => {
-    render(App);
-  });
-}
