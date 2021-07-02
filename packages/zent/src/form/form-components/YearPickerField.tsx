@@ -9,9 +9,8 @@ import {
 import { FormField } from '../Field';
 import { $MergeParams } from '../utils';
 
-export type IFormYearPickerFieldProps<
-  T extends IValueType
-> = IFormComponentProps<SingleDate, Omit<IYearPickerProps<T>, 'value'>>;
+export type IFormYearPickerFieldProps<T extends IValueType> =
+  IFormComponentProps<SingleDate, Omit<IYearPickerProps<T>, 'value'>>;
 
 export const FormYearPickerField = <T extends IValueType = 'string'>(
   props: IFormYearPickerFieldProps<T>

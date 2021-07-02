@@ -83,7 +83,6 @@ export default class ZentDocContainer extends Component {
       'div',
       {
         className: 'zandoc-react-container',
-        key: module.hot ? Math.random() : null
       },
       SECTIONS
     );

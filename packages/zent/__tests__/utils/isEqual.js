@@ -298,8 +298,26 @@ describe('isEqual', () => {
   );
 
   // Overwrite the methods defined in ES 5.1 section 15.4.4.
-  a.forEach = a.map = a.filter = a.every = a.indexOf = a.lastIndexOf = a.some = a.reduce = a.reduceRight = null;
-  b.join = b.pop = b.reverse = b.shift = b.slice = b.splice = b.concat = b.sort = b.unshift = null;
+  a.forEach =
+    a.map =
+    a.filter =
+    a.every =
+    a.indexOf =
+    a.lastIndexOf =
+    a.some =
+    a.reduce =
+    a.reduceRight =
+      null;
+  b.join =
+    b.pop =
+    b.reverse =
+    b.shift =
+    b.slice =
+    b.splice =
+    b.concat =
+    b.sort =
+    b.unshift =
+      null;
 
   // Array elements and properties.
   assert.ok(

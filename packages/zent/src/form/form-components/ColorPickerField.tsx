@@ -17,15 +17,16 @@ function renderColorPicker(
   return <ColorPicker {...props.props} {...passedProps} color={value} />;
 }
 
-export const FormColorPickerField: React.FunctionComponent<IFormColorPickerFieldProps> = props => {
-  return (
-    <FormField
-      {...props}
-      defaultValue={
-        (props as $MergeParams<IFormColorPickerFieldProps>).defaultValue || ''
-      }
-    >
-      {childProps => renderColorPicker(childProps, props)}
-    </FormField>
-  );
-};
+export const FormColorPickerField: React.FunctionComponent<IFormColorPickerFieldProps> =
+  props => {
+    return (
+      <FormField
+        {...props}
+        defaultValue={
+          (props as $MergeParams<IFormColorPickerFieldProps>).defaultValue || ''
+        }
+      >
+        {childProps => renderColorPicker(childProps, props)}
+      </FormField>
+    );
+  };

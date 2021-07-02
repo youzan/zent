@@ -3,6 +3,7 @@
 #### Setup Environment
 
 ```bash
+# Make sure to install coreutils first
 yarn bootstrap
 ```
 

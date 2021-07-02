@@ -59,13 +59,8 @@ class SearchContent extends Component<ISearchContentProps> {
   }
 
   renderPanels() {
-    const {
-      searchList,
-      multiple,
-      highlight,
-      keyword,
-      selectionMap,
-    } = this.props;
+    const { searchList, multiple, highlight, keyword, selectionMap } =
+      this.props;
 
     return (
       <ul className="zent-cascader-v2--search-list">

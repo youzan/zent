@@ -6,7 +6,8 @@ import uniqueId from '../../../utils/uniqueId';
 import { REF_ID } from './is';
 
 class ModelRef<Value, Parent extends IModel<any>, Model extends IModel<Value>>
-  implements IModel<Value> {
+  implements IModel<Value>
+{
   /**
    * @internal
    */

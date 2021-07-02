@@ -37,6 +37,6 @@ export default class I18nReceiver<
   render() {
     const { children, componentName, defaultI18n, ...bypass } = this.props;
 
-    return children(this.receive(), (bypass as unknown) as P);
+    return children(this.receive(), bypass as unknown as P);
   }
 }

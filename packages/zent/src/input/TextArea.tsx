@@ -34,17 +34,13 @@ export const TextArea = forwardRef<HTMLTextAreaElement, ITextAreaProps>(
       ...otherProps
     } = props;
 
-    const {
-      value,
-      onChange,
-      onCompositionStart,
-      onCompositionEnd,
-    } = useIMEComposition(
-      valueProp,
-      onChangeProp,
-      onCompositionStartProp,
-      onCompositionEndProp
-    );
+    const { value, onChange, onCompositionStart, onCompositionEnd } =
+      useIMEComposition(
+        valueProp,
+        onChangeProp,
+        onCompositionStartProp,
+        onCompositionEndProp
+      );
 
     const textareaRef = ref as React.RefObject<HTMLTextAreaElement>;
 

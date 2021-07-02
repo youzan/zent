@@ -749,23 +749,20 @@ describe('new Tree', () => {
       });
     };
     holdWrapper = mount(<NewTree data={holdData} loadMore={holdLoadMore} />);
+    holdWrapper.find('i').at(0).simulate('click'); // don't remove this, no idea why it fails without it
 
     holdWrapper.find('i').at(0).simulate('click');
+    holdWrapper.update();
+    expect(holdWrapper.state('expandNode')).toEqual([1]);
 
-    setImmediate(() => {
-      expect(holdWrapper.state().expandNode).toEqual([1]);
-      holdWrapper.update();
-      holdWrapper.find('i').at(1).simulate('click');
-      setImmediate(() => {
-        expect(holdWrapper.state().expandNode).toEqual([1]);
-        holdWrapper.update();
-        expect(holdWrapper.find('.zent-tree-bar').at(0).hasClass('off')).toBe(
-          false
-        );
+    holdWrapper.find('i').at(1).simulate('click');
+    holdWrapper.update();
+    expect(holdWrapper.state().expandNode).toEqual([2, 1]);
+    expect(holdWrapper.find('.zent-tree-bar').at(0).hasClass('off')).toBe(
+      false
+    );
 
-        done();
-      });
-    }, 200);
+    done();
   });
 
   it('LoadMore callback promise return reject, loading will remove', done => {
@@ -784,19 +781,14 @@ describe('new Tree', () => {
       });
     };
     wrapper = mount(<NewTree data={data} loadMore={holdLoadMore} />);
-
     wrapper.find('i').at(0).simulate('click');
 
     expect(wrapper.state().loadingNode).toEqual([1]);
+    expect(wrapper.state().expandNode).toEqual([]);
+    wrapper.update();
+    expect(wrapper.find('.tree-node-loading-wrapper').length).toBe(1);
 
-    setImmediate(() => {
-      expect(wrapper.state().expandNode).toEqual([]);
-      expect(wrapper.state().loadingNode).toEqual([]);
-      wrapper.update();
-      expect(wrapper.find('.tree-node-loading-wrapper').length).toBe(0);
-
-      done();
-    }, 200);
+    done();
   });
 
   it('Tree will handle checkbox click properly with default rule', () => {

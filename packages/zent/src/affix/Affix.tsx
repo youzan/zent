@@ -86,40 +86,37 @@ export const Affix = forwardRef<IAffixImperativeHandlers, IAffixProps>(
     const { observe, disconnect } = useResizeObserver(setSize);
 
     const pin = useCallback(
-      (expectedPosition: WaypointPosition) => ({
-        currentPosition,
-      }: IWaypointCallbackData) => {
-        if (currentPosition !== expectedPosition) {
-          return;
-        }
+      (expectedPosition: WaypointPosition) =>
+        ({ currentPosition }: IWaypointCallbackData) => {
+          if (currentPosition !== expectedPosition) {
+            return;
+          }
 
-        const node = placeholderRef.current?.current;
-        if (node) {
-          setWidth(node.offsetWidth);
-          setHeight(node.offsetHeight);
-        }
-        observe(node);
-        setPosition(currentPosition);
-        onPinCallbackRef.current?.();
-      },
+          const node = placeholderRef.current?.current;
+          if (node) {
+            setWidth(node.offsetWidth);
+            setHeight(node.offsetHeight);
+          }
+          observe(node);
+          setPosition(currentPosition);
+          onPinCallbackRef.current?.();
+        },
       [onPinCallbackRef, observe]
     );
 
     const unpin = useCallback(
-      (expectedPrevPosition: WaypointPosition) => ({
-        currentPosition,
-        previousPosition,
-      }: IWaypointCallbackData) => {
-        if (previousPosition !== expectedPrevPosition) {
-          return;
-        }
+      (expectedPrevPosition: WaypointPosition) =>
+        ({ currentPosition, previousPosition }: IWaypointCallbackData) => {
+          if (previousPosition !== expectedPrevPosition) {
+            return;
+          }
 
-        setWidth(undefined);
-        setHeight(undefined);
-        disconnect();
-        setPosition(currentPosition);
-        onUnpinCallbackRef.current?.();
-      },
+          setWidth(undefined);
+          setHeight(undefined);
+          disconnect();
+          setPosition(currentPosition);
+          onUnpinCallbackRef.current?.();
+        },
       [onUnpinCallbackRef, disconnect]
     );
 

@@ -16,9 +16,8 @@ export default function useTransfer(
     disabledKeys = [],
   } = params || {};
   const [targetKeys, setTargetKeys] = useState<string[]>(defaultTargetKeys);
-  const [selectedKeys, setSelectedKeys] = useState<string[]>(
-    defaultSelectedKeys
-  );
+  const [selectedKeys, setSelectedKeys] =
+    useState<string[]>(defaultSelectedKeys);
 
   const getSingleDirectionSelectedKeys = useCallback(
     (direction: Direction) =>

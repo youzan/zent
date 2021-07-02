@@ -35,13 +35,8 @@ export class Collapse extends Component<ICollapseProps> {
   static Panel = Panel;
 
   render() {
-    const {
-      className,
-      bordered,
-      panelTitleBackground,
-      children,
-      activeKey,
-    } = this.props;
+    const { className, bordered, panelTitleBackground, children, activeKey } =
+      this.props;
 
     return (
       <div

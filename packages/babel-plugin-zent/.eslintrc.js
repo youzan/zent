@@ -17,7 +17,12 @@
 module.exports = {
   root: true,
   extends: ['prettier'],
-  parser: 'babel-eslint',
+  parser: '@babel/eslint-parser',
+  parserOptions: {
+    babelOptions: {
+      root: __dirname,
+    },
+  },
   ignorePatterns: ['node_modules/', 'coverage/', 'lib/'],
   plugins: ['prettier'],
   rules: {

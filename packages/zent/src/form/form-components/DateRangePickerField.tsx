@@ -9,9 +9,8 @@ import { FormField } from '../Field';
 import { IFormComponentProps, dateRangeDefaultValueFactory } from '../shared';
 import { $MergeParams } from '../utils';
 
-export type IFormDateRangePickerFieldProps<
-  T extends IValueType
-> = IFormComponentProps<RangeDate, Omit<IDateRangePickerProps<T>, 'value'>>;
+export type IFormDateRangePickerFieldProps<T extends IValueType> =
+  IFormComponentProps<RangeDate, Omit<IDateRangePickerProps<T>, 'value'>>;
 
 export const FormDateRangePickerField = <T extends IValueType = 'string'>(
   props: IFormDateRangePickerFieldProps<T>

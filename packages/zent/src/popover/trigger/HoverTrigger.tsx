@@ -20,9 +20,10 @@ interface IHoverTriggerCompatibleProps {
 export interface IPopoverHoverTriggerContext
   extends Required<IHoverTriggerCompatibleProps> {}
 
-export const PopoverHoverTriggerContext = createContext<IPopoverHoverTriggerContext>(
-  { fixMouseEventsOnDisabledChildren: false }
-);
+export const PopoverHoverTriggerContext =
+  createContext<IPopoverHoverTriggerContext>({
+    fixMouseEventsOnDisabledChildren: false,
+  });
 export interface IPopoverHoverTriggerChildProps {
   onMouseEnter?: (...args: any[]) => void;
   onMouseLeave?: (...args: any[]) => void;

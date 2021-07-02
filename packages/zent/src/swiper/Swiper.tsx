@@ -159,12 +159,8 @@ export class Swiper extends Component<ISwiperProps, ISwiperState> {
     prevIndex: number | null,
     isSilent?: boolean
   ) => {
-    const {
-      autoplay,
-      autoplayInterval,
-      transitionDuration,
-      onChange,
-    } = this.props;
+    const { autoplay, autoplayInterval, transitionDuration, onChange } =
+      this.props;
     const { length } = this.props.children as any;
     const initIndex = -1;
     const itemWidth = this.swiperWidth;

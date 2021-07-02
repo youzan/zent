@@ -26,14 +26,8 @@ export class LayoutCol extends Component<ILayoutColProps> {
         {breakpoints => (
           <ConfigContext.Consumer>
             {config => {
-              const {
-                span,
-                offset,
-                order,
-                className,
-                style,
-                ...others
-              } = this.props;
+              const { span, offset, order, className, style, ...others } =
+                this.props;
 
               let colStyles = style;
               const colGutter = getValueForBreakpoint(

@@ -312,46 +312,45 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
     return columns.filter(column => column.fixed === 'right');
   };
 
-  handleExpandRow = (clickRow: number, rowData: Data) => (
-    e: React.MouseEvent<HTMLSpanElement>
-  ) => {
-    const { onExpand } = this.props;
-    const expandRowKeys = (this.state.expandRowKeys ?? []).map((row, index) =>
-      index === clickRow ? !row : row
-    );
-    this.store.setState({
-      columns: this.getColumns(this.props, this.props.columns, expandRowKeys),
-    });
-    this.setState({
-      expandRowKeys,
-    });
-    if (typeof onExpand === 'function') {
-      onExpand({
-        expanded: expandRowKeys[clickRow],
-        data: rowData,
-        event: e,
-        index: clickRow,
+  handleExpandRow =
+    (clickRow: number, rowData: Data) =>
+    (e: React.MouseEvent<HTMLSpanElement>) => {
+      const { onExpand } = this.props;
+      const expandRowKeys = (this.state.expandRowKeys ?? []).map((row, index) =>
+        index === clickRow ? !row : row
+      );
+      this.store.setState({
+        columns: this.getColumns(this.props, this.props.columns, expandRowKeys),
       });
-    }
-  };
+      this.setState({
+        expandRowKeys,
+      });
+      if (typeof onExpand === 'function') {
+        onExpand({
+          expanded: expandRowKeys[clickRow],
+          data: rowData,
+          event: e,
+          index: clickRow,
+        });
+      }
+    };
 
   getExpandBodyRender: (
     expandRowKeys: boolean[]
-  ) => IGridColumnBodyRenderFunc<Data> = (expandRowKeys: boolean[]) => (
-    rowData,
-    { row }
-  ) => {
-    return (
-      <span
-        className={
-          expandRowKeys[row]
-            ? `${prefix}-grid-expandable-btn ${prefix}-grid-collapse-btn`
-            : `${prefix}-grid-expandable-btn ${prefix}-grid-expand-btn`
-        }
-        onClick={this.handleExpandRow(row, rowData)}
-      />
-    );
-  };
+  ) => IGridColumnBodyRenderFunc<Data> =
+    (expandRowKeys: boolean[]) =>
+    (rowData, { row }) => {
+      return (
+        <span
+          className={
+            expandRowKeys[row]
+              ? `${prefix}-grid-expandable-btn ${prefix}-grid-collapse-btn`
+              : `${prefix}-grid-expandable-btn ${prefix}-grid-expand-btn`
+          }
+          onClick={this.handleExpandRow(row, rowData)}
+        />
+      );
+    };
 
   getSelectionColumn(
     props: IGridProps<Data, RowProps>,

@@ -51,10 +51,8 @@ class Cell<Data> extends Component<IGridCellProps<Data>> {
 
   render() {
     const { prefix, column, data, pos } = this.props;
-    const {
-      isValueEmpty: isValueEmptyInCtx,
-      defaultText: defaultTextInCtx,
-    } = this.context;
+    const { isValueEmpty: isValueEmptyInCtx, defaultText: defaultTextInCtx } =
+      this.context;
     const {
       name,
       bodyRender,

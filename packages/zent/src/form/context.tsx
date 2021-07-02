@@ -9,9 +9,8 @@ export interface IZentFormChildrenContext {
   children: IFormChild[];
 }
 
-export const FormChildrenContext = createContext<IZentFormChildrenContext | null>(
-  null
-);
+export const FormChildrenContext =
+  createContext<IZentFormChildrenContext | null>(null);
 
 FormChildrenContext.displayName = 'ZentFormChildrenContext';
 

@@ -62,14 +62,11 @@ const TimeRangePickerBase: React.FC<ITimeRangePickerBaseProps> = ({
   );
 
   const selectedDates = parseSelectedToRangeDate(selected, format, new Date());
-  const {
-    disabledStartTimes,
-    disabledConfirm,
-    disabledEndTimes,
-  } = useRangeDisabledTime({
-    selected: selectedDates,
-    disabledTime,
-  });
+  const { disabledStartTimes, disabledConfirm, disabledEndTimes } =
+    useRangeDisabledTime({
+      selected: selectedDates,
+      disabledTime,
+    });
 
   const disabledStart = useCallback(
     () => disabledStartTimes?.(selectedDates[0] ?? startOfToday()),

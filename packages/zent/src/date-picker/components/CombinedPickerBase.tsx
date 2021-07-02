@@ -59,31 +59,24 @@ export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
   const onChangeRef = useEventCallbackRef(onChange);
 
   // merged from props value
-  const {
-    selected,
-    parseValue,
-    setSelected,
-    defaultPanelDate,
-  } = useRangeMergedProps({
-    value,
-    format,
-    defaultDate,
-    addMonthNum: 1,
-  });
+  const { selected, parseValue, setSelected, defaultPanelDate } =
+    useRangeMergedProps({
+      value,
+      format,
+      defaultDate,
+      addMonthNum: 1,
+    });
 
   // popover visible
-  const {
-    panelVisible,
-    setPanelVisible,
-    onVisibleChange,
-  } = useSinglePopoverVisible<DateNullTuple>(
-    parseValue,
-    setSelected,
-    onOpen,
-    onClose,
-    disabled,
-    openPanel
-  );
+  const { panelVisible, setPanelVisible, onVisibleChange } =
+    useSinglePopoverVisible<DateNullTuple>(
+      parseValue,
+      setSelected,
+      onOpen,
+      onClose,
+      disabled,
+      openPanel
+    );
 
   // rangeDisabledDate
   const disabledDate = useNormalizeDisabledDate(format, disabledDateProps);
@@ -136,10 +129,10 @@ export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
   );
 
   // trigger-input text
-  const text = useMemo(() => getInputRangeText?.(selected), [
-    selected,
-    getInputRangeText,
-  ]);
+  const text = useMemo(
+    () => getInputRangeText?.(selected),
+    [selected, getInputRangeText]
+  );
 
   const trigger = useMemo(() => {
     const triggerProps = pick(restPropsRef.current, triggerCommonProps);

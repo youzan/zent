@@ -48,5 +48,5 @@ export default function <F extends Function>(
     return lastResult;
   };
 
-  return (result as unknown) as F;
+  return result as unknown as F;
 }

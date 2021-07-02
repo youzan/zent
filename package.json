@@ -21,7 +21,8 @@
     "publish-pkg": "./scripts/publish.sh",
     "dev": "cd site && yarn dev",
     "deploy": "cd site && yarn deploy",
-    "deploy-beta": "cd site && yarn deploy-beta"
+    "deploy-beta": "cd site && yarn deploy-beta",
+    "prepare": "husky install"
   },
   "workspaces": [
     "site",
@@ -39,14 +40,15 @@
   "author": "Youzan FE",
   "license": "MIT",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.8.1",
-    "@typescript-eslint/parser": "^4.8.1",
-    "babel-eslint": "10.0.1",
+    "@babel/core": "^7.14.6",
+    "@babel/eslint-parser": "^7.14.7",
+    "@typescript-eslint/eslint-plugin": "^4.28.1",
+    "@typescript-eslint/parser": "^4.28.1",
     "coveralls": "^3.0.3",
-    "cross-env": "^4.0.0",
+    "cross-env": "^7.0.3",
     "eslint": "^7.14.0",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-config-prettier": "^6.15.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-ban": "^1.4.0",
     "eslint-plugin-import": "^2.19.1",
     "eslint-plugin-jsx-a11y": "^6.1.2",
@@ -54,10 +56,11 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "husky": "^1.2.0",
-    "lint-staged": "^8.0.5",
+    "husky": "^6.0.0",
+    "lint-staged": "^11.0.0",
     "prettier": "^2.2.0",
-    "sass-lint": "^1.12.1"
+    "sass-lint": "^1.12.1",
+    "typescript": "~4.3.5"
   },
   "dependencies": {}
 }

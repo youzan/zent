@@ -144,16 +144,16 @@ export default class AnimatedArc extends PureComponent<IAnimatedArcProps> {
       opacity: 0,
     });
 
-    this.animationDelayTimerId = (setTimeout(
+    this.animationDelayTimerId = setTimeout(
       this.startAnimation,
       ANIMATION_DELAY
-    ) as unknown) as number;
+    ) as unknown as number;
   };
 
   queueAnimationEnd = () => {
-    this.transitionEndTimerId = (setTimeout(
+    this.transitionEndTimerId = setTimeout(
       this.finishAnimation,
       ANIMATION_DURATION
-    ) as unknown) as number;
+    ) as unknown as number;
   };
 }

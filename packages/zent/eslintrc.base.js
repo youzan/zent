@@ -1,7 +1,7 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'import', 'ban', 'prettier'],
-  extends: ['prettier/@typescript-eslint', 'plugin:import/typescript'],
+  extends: ['prettier', 'plugin:import/typescript'],
   rules: {
     '@typescript-eslint/ban-ts-comment': 'error',
     '@typescript-eslint/ban-types': 'error',
