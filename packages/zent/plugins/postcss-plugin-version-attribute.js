@@ -68,65 +68,6 @@ module.exports = () => {
   };
 };
 module.exports.postcss = true;
-//
-// module.exports = postcss.plugin('postcss-plugin-version-attribute', () => {
-//   const processor = parseSelector(transform);
-//
-//   return root => {
-//     const fp = root.source.input.file;
-//     if (WHITELIST.every(w => !fp.startsWith(w))) {
-//       return;
-//     }
-//
-//     const handlers = [];
-//
-//     root.walkRules(rule => {
-//       handlers.push(
-//         processor.process(rule.selector).then(result => {
-//           rule.selector = result;
-//         })
-//       );
-//
-//       rule.walkDecls(decl => {
-//         const { prop, value } = decl;
-//         if (prop === 'font-family' && value === ICONFONT_NAME) {
-//           decl.value = getVersionedIconFontName(value);
-//         } else if (prop === 'animation' || prop === 'animation-name') {
-//           const words = parseValue(value);
-//           let modified = false;
-//           words.walk(node => {
-//             if (
-//               node.type === 'word' &&
-//               node.value.startsWith(KEYFRAME_NAME_PREFIX)
-//             ) {
-//               node.value = getVersionedKeyframeName(node.value);
-//               modified = true;
-//             }
-//           });
-//           if (modified) {
-//             decl.value = words.toString();
-//           }
-//         }
-//       });
-//     });
-//
-//     root.walkAtRules(atRule => {
-//       const { name } = atRule;
-//       if (name === 'font-face') {
-//         atRule.walkDecls('font-family', decl => {
-//           const { value } = decl;
-//           if (value === ICONFONT_NAME) {
-//             decl.value = getVersionedIconFontName(value);
-//           }
-//         });
-//       } else if (name === 'keyframes' || name.endsWith('-keyframes')) {
-//         atRule.params = getVersionedKeyframeName(atRule.params);
-//       }
-//     });
-//
-//     return Promise.all(handlers);
-//   };
-// });
 
 function transform(selectors) {
   selectors.each(selector => {
