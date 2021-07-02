@@ -7,6 +7,7 @@
 	<meta name="description" content="Documentation for zent">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
+	<script async src="../assets/js/search.js" id="search-script"></script>
 </head>
 <body>
 <header>
@@ -40,8 +41,6 @@
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
 							<input type="checkbox" id="tsd-filter-externals" checked />
 							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
-							<input type="checkbox" id="tsd-filter-only-exported" />
-							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
 						</div>
 					</div>
 					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
@@ -53,7 +52,7 @@
 		<div class="container">
 			<ul class="tsd-breadcrumb">
 				<li>
-					<a href="../globals.html">Globals</a>
+					<a href="../modules.html">zent</a>
 				</li>
 				<li>
 					<a href="iopendialogoption.html">IOpenDialogOption</a>
@@ -70,7 +69,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="tsd-signature-symbol">{}</span>
+						<span class="tsd-signature-type">Omit</span><span class="tsd-signature-symbol">&lt;</span><a href="idialogprops.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogProps</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">&quot;onClose&quot;</span><span class="tsd-signature-symbol">&gt;</span>
 						<ul class="tsd-hierarchy">
 							<li>
 								<span class="target">IOpenDialogOption</span>
@@ -86,10 +85,21 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="iopendialogoption.html#children" class="tsd-kind-icon">children</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="iopendialogoption.html#classname" class="tsd-kind-icon">class<wbr>Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="iopendialogoption.html#closebtn" class="tsd-kind-icon">close<wbr>Btn</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="iopendialogoption.html#dialogid" class="tsd-kind-icon">dialog<wbr>Id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="iopendialogoption.html#footer" class="tsd-kind-icon">footer</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="iopendialogoption.html#mask" class="tsd-kind-icon">mask</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="iopendialogoption.html#maskclosable" class="tsd-kind-icon">mask<wbr>Closable</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="iopendialogoption.html#onclose" class="tsd-kind-icon">on<wbr>Close</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="iopendialogoption.html#onclosed" class="tsd-kind-icon">on<wbr>Closed</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="iopendialogoption.html#onopened" class="tsd-kind-icon">on<wbr>Opened</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="iopendialogoption.html#parentcomponent" class="tsd-kind-icon">parent<wbr>Component</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="iopendialogoption.html#ref" class="tsd-kind-icon">ref</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="iopendialogoption.html#style" class="tsd-kind-icon">style</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="iopendialogoption.html#title" class="tsd-kind-icon">title</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="iopendialogoption.html#visible" class="tsd-kind-icon">visible</a></li>
 							</ul>
 						</section>
 					</div>
@@ -97,13 +107,79 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a name="children" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> children</h3>
+					<div class="tsd-signature tsd-kind-icon">children<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ReactNode</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from Omit.children</p>
+						<ul>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/c35cebd/packages/zent/src/dialog/Dialog.tsx#L30">packages/zent/src/dialog/Dialog.tsx:30</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a name="classname" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> class<wbr>Name</h3>
+					<div class="tsd-signature tsd-kind-icon">class<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from Omit.className</p>
+						<ul>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/c35cebd/packages/zent/src/dialog/Dialog.tsx#L37">packages/zent/src/dialog/Dialog.tsx:37</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a name="closebtn" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> close<wbr>Btn</h3>
+					<div class="tsd-signature tsd-kind-icon">close<wbr>Btn<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from Omit.closeBtn</p>
+						<ul>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/c35cebd/packages/zent/src/dialog/Dialog.tsx#L33">packages/zent/src/dialog/Dialog.tsx:33</a></li>
+						</ul>
+					</aside>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="dialogid" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> dialog<wbr>Id</h3>
 					<div class="tsd-signature tsd-kind-icon">dialog<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/ae35f18/packages/zent/src/dialog/open.tsx#L105">packages/zent/src/dialog/open.tsx:105</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/c35cebd/packages/zent/src/dialog/open.tsx#L105">packages/zent/src/dialog/open.tsx:105</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a name="footer" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> footer</h3>
+					<div class="tsd-signature tsd-kind-icon">footer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ReactNode</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from Omit.footer</p>
+						<ul>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/c35cebd/packages/zent/src/dialog/Dialog.tsx#L31">packages/zent/src/dialog/Dialog.tsx:31</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a name="mask" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> mask</h3>
+					<div class="tsd-signature tsd-kind-icon">mask<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from Omit.mask</p>
+						<ul>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/c35cebd/packages/zent/src/dialog/Dialog.tsx#L35">packages/zent/src/dialog/Dialog.tsx:35</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a name="maskclosable" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> mask<wbr>Closable</h3>
+					<div class="tsd-signature tsd-kind-icon">mask<wbr>Closable<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from Omit.maskClosable</p>
+						<ul>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/c35cebd/packages/zent/src/dialog/Dialog.tsx#L36">packages/zent/src/dialog/Dialog.tsx:36</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -113,14 +189,66 @@
 					<div class="tsd-signature tsd-kind-icon">on<wbr>Close<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/ae35f18/packages/zent/src/dialog/open.tsx#L108">packages/zent/src/dialog/open.tsx:108</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/c35cebd/packages/zent/src/dialog/open.tsx#L108">packages/zent/src/dialog/open.tsx:108</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-signature">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-interface">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a name="onclosed" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> on<wbr>Closed</h3>
+					<div class="tsd-signature tsd-kind-icon">on<wbr>Closed<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from Omit.onClosed</p>
+						<ul>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/c35cebd/packages/zent/src/dialog/Dialog.tsx#L40">packages/zent/src/dialog/Dialog.tsx:40</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-signature">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-interface">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a name="onopened" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> on<wbr>Opened</h3>
+					<div class="tsd-signature tsd-kind-icon">on<wbr>Opened<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from Omit.onOpened</p>
+						<ul>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/c35cebd/packages/zent/src/dialog/Dialog.tsx#L39">packages/zent/src/dialog/Dialog.tsx:39</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-signature">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-interface">
 									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
@@ -135,51 +263,84 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="parentcomponent" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> parent<wbr>Component</h3>
-					<div class="tsd-signature tsd-kind-icon">parent<wbr>Component<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">React.ReactInstance</span></div>
+					<div class="tsd-signature tsd-kind-icon">parent<wbr>Component<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ReactInstance</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/ae35f18/packages/zent/src/dialog/open.tsx#L107">packages/zent/src/dialog/open.tsx:107</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/c35cebd/packages/zent/src/dialog/open.tsx#L107">packages/zent/src/dialog/open.tsx:107</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="ref" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> ref</h3>
-					<div class="tsd-signature tsd-kind-icon">ref<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>ins<span class="tsd-signature-symbol">: </span><a href="../classes/dialog.html" class="tsd-signature-type">Dialog</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">RefObject</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/dialog.html" class="tsd-signature-type">Dialog</a><span class="tsd-signature-symbol">&gt;</span></div>
+					<div class="tsd-signature tsd-kind-icon">ref<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>ins<span class="tsd-signature-symbol">: </span><a href="../classes/dialog.html" class="tsd-signature-type" data-tsd-kind="Class">Dialog</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">RefObject</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/dialog.html" class="tsd-signature-type" data-tsd-kind="Class">Dialog</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/ae35f18/packages/zent/src/dialog/open.tsx#L106">packages/zent/src/dialog/open.tsx:106</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/c35cebd/packages/zent/src/dialog/open.tsx#L106">packages/zent/src/dialog/open.tsx:106</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-signature">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>ins<span class="tsd-signature-symbol">: </span><a href="../classes/dialog.html" class="tsd-signature-type">Dialog</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">RefObject</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/dialog.html" class="tsd-signature-type">Dialog</a><span class="tsd-signature-symbol">&gt;</span></li>
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-interface">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>ins<span class="tsd-signature-symbol">: </span><a href="../classes/dialog.html" class="tsd-signature-type" data-tsd-kind="Class">Dialog</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">RefObject</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/dialog.html" class="tsd-signature-type" data-tsd-kind="Class">Dialog</a><span class="tsd-signature-symbol">&gt;</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
 									<li class="tsd-description">
 										<h4 class="tsd-parameters-title">Parameters</h4>
 										<ul class="tsd-parameters">
 											<li>
-												<h5>ins: <a href="../classes/dialog.html" class="tsd-signature-type">Dialog</a></h5>
+												<h5>ins: <a href="../classes/dialog.html" class="tsd-signature-type" data-tsd-kind="Class">Dialog</a></h5>
 											</li>
 										</ul>
-										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">RefObject</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/dialog.html" class="tsd-signature-type">Dialog</a><span class="tsd-signature-symbol">&gt;</span></h4>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">RefObject</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/dialog.html" class="tsd-signature-type" data-tsd-kind="Class">Dialog</a><span class="tsd-signature-symbol">&gt;</span></h4>
 									</li>
 								</ul>
 							</li>
 						</ul>
 					</div>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a name="style" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> style</h3>
+					<div class="tsd-signature tsd-kind-icon">style<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">CSSProperties</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from Omit.style</p>
+						<ul>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/c35cebd/packages/zent/src/dialog/Dialog.tsx#L38">packages/zent/src/dialog/Dialog.tsx:38</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a name="title" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> title</h3>
+					<div class="tsd-signature tsd-kind-icon">title<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ReactNode</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from Omit.title</p>
+						<ul>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/c35cebd/packages/zent/src/dialog/Dialog.tsx#L29">packages/zent/src/dialog/Dialog.tsx:29</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a name="visible" class="tsd-anchor"></a>
+					<h3>visible</h3>
+					<div class="tsd-signature tsd-kind-icon">visible<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from Omit.visible</p>
+						<ul>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/c35cebd/packages/zent/src/dialog/Dialog.tsx#L32">packages/zent/src/dialog/Dialog.tsx:32</a></li>
+						</ul>
+					</aside>
+				</section>
 			</section>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 			<nav class="tsd-navigation primary">
 				<ul>
-					<li class="globals  ">
-						<a href="../globals.html"><em>Globals</em></a>
+					<li class=" ">
+						<a href="../modules.html">Exports</a>
 					</li>
 				</ul>
 			</nav>
@@ -190,17 +351,50 @@
 					<li class="current tsd-kind-interface">
 						<a href="iopendialogoption.html" class="tsd-kind-icon">IOpen<wbr>Dialog<wbr>Option</a>
 						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="iopendialogoption.html#children" class="tsd-kind-icon">children</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="iopendialogoption.html#classname" class="tsd-kind-icon">class<wbr>Name</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="iopendialogoption.html#closebtn" class="tsd-kind-icon">close<wbr>Btn</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="iopendialogoption.html#dialogid" class="tsd-kind-icon">dialog<wbr>Id</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="iopendialogoption.html#footer" class="tsd-kind-icon">footer</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="iopendialogoption.html#mask" class="tsd-kind-icon">mask</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="iopendialogoption.html#maskclosable" class="tsd-kind-icon">mask<wbr>Closable</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="iopendialogoption.html#onclose" class="tsd-kind-icon">on<wbr>Close</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="iopendialogoption.html#onclosed" class="tsd-kind-icon">on<wbr>Closed</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="iopendialogoption.html#onopened" class="tsd-kind-icon">on<wbr>Opened</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="iopendialogoption.html#parentcomponent" class="tsd-kind-icon">parent<wbr>Component</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="iopendialogoption.html#ref" class="tsd-kind-icon">ref</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="iopendialogoption.html#style" class="tsd-kind-icon">style</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="iopendialogoption.html#title" class="tsd-kind-icon">title</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="iopendialogoption.html#visible" class="tsd-kind-icon">visible</a>
 							</li>
 						</ul>
 					</li>

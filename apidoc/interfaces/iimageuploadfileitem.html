@@ -7,6 +7,7 @@
 	<meta name="description" content="Documentation for zent">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
+	<script async src="../assets/js/search.js" id="search-script"></script>
 </head>
 <body>
 <header>
@@ -40,8 +41,6 @@
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
 							<input type="checkbox" id="tsd-filter-externals" checked />
 							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
-							<input type="checkbox" id="tsd-filter-only-exported" />
-							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
 						</div>
 					</div>
 					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
@@ -53,7 +52,7 @@
 		<div class="container">
 			<ul class="tsd-breadcrumb">
 				<li>
-					<a href="../globals.html">Globals</a>
+					<a href="../modules.html">zent</a>
 				</li>
 				<li>
 					<a href="iimageuploadfileitem.html">IImageUploadFileItem</a>
@@ -70,7 +69,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<a href="iuploadfileitem.html" class="tsd-signature-type">IUploadFileItem</a>
+						<a href="iuploadfileitem.html" class="tsd-signature-type" data-tsd-kind="Interface">IUploadFileItem</a>
 						<ul class="tsd-hierarchy">
 							<li>
 								<span class="target">IImageUploadFileItem</span>
@@ -86,6 +85,8 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="iimageuploadfileitem.html#file" class="tsd-kind-icon">file</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="iimageuploadfileitem.html#id" class="tsd-kind-icon">id</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="iimageuploadfileitem.html#name" class="tsd-kind-icon">name</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="iimageuploadfileitem.html#percent" class="tsd-kind-icon">percent</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="iimageuploadfileitem.html#src" class="tsd-kind-icon">src</a></li>
@@ -100,15 +101,52 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a name="file" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> <span class="tsd-flag ts-flagReadonly">Readonly</span> file</h3>
+					<div class="tsd-signature tsd-kind-icon">file<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">File</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="iuploadfileitem.html">IUploadFileItem</a>.<a href="iuploadfileitem.html#file">file</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/c35cebd/packages/zent/src/upload/types.ts#L11">packages/zent/src/upload/types.ts:11</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>重试上传时的文件对象</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a name="id" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> id</h3>
+					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="iuploadfileitem.html">IUploadFileItem</a>.<a href="iuploadfileitem.html#id">id</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/c35cebd/packages/zent/src/upload/types.ts#L9">packages/zent/src/upload/types.ts:9</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>判断上传文件的唯一id，内部初始化使用，在回调函数中值必存在，外部不需要传</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a name="name" class="tsd-anchor"></a>
 					<h3>name</h3>
 					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="iuploadfileitem.html">IUploadFileItem</a>.<a href="iuploadfileitem.html#name">name</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/ae35f18/packages/zent/src/upload/types.ts#L8">packages/zent/src/upload/types.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/c35cebd/packages/zent/src/upload/types.ts#L15">packages/zent/src/upload/types.ts:15</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>文件名称</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a name="percent" class="tsd-anchor"></a>
@@ -117,9 +155,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="iuploadfileitem.html">IUploadFileItem</a>.<a href="iuploadfileitem.html#percent">percent</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/ae35f18/packages/zent/src/upload/types.ts#L13">packages/zent/src/upload/types.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/c35cebd/packages/zent/src/upload/types.ts#L23">packages/zent/src/upload/types.ts:23</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>文件上传进度</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="src" class="tsd-anchor"></a>
@@ -127,20 +170,25 @@
 					<div class="tsd-signature tsd-kind-icon">src<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/ae35f18/packages/zent/src/upload/types.ts#L18">packages/zent/src/upload/types.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/c35cebd/packages/zent/src/upload/types.ts#L28">packages/zent/src/upload/types.ts:28</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a name="status" class="tsd-anchor"></a>
 					<h3>status</h3>
-					<div class="tsd-signature tsd-kind-icon">status<span class="tsd-signature-symbol">:</span> <a href="../enums/file_upload_status.html" class="tsd-signature-type">FILE_UPLOAD_STATUS</a></div>
+					<div class="tsd-signature tsd-kind-icon">status<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">FILE_UPLOAD_STATUS</span></div>
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="iuploadfileitem.html">IUploadFileItem</a>.<a href="iuploadfileitem.html#status">status</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/ae35f18/packages/zent/src/upload/types.ts#L12">packages/zent/src/upload/types.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/c35cebd/packages/zent/src/upload/types.ts#L21">packages/zent/src/upload/types.ts:21</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>文件上传状态</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="thumbsrc" class="tsd-anchor"></a>
@@ -148,7 +196,7 @@
 					<div class="tsd-signature tsd-kind-icon">thumb<wbr>Src<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/ae35f18/packages/zent/src/upload/types.ts#L19">packages/zent/src/upload/types.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/c35cebd/packages/zent/src/upload/types.ts#L29">packages/zent/src/upload/types.ts:29</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -159,17 +207,22 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="iuploadfileitem.html">IUploadFileItem</a>.<a href="iuploadfileitem.html#type">type</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/ae35f18/packages/zent/src/upload/types.ts#L9">packages/zent/src/upload/types.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/c35cebd/packages/zent/src/upload/types.ts#L17">packages/zent/src/upload/types.ts:17</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>文件类型</p>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 			<nav class="tsd-navigation primary">
 				<ul>
-					<li class="globals  ">
-						<a href="../globals.html"><em>Globals</em></a>
+					<li class=" ">
+						<a href="../modules.html">Exports</a>
 					</li>
 				</ul>
 			</nav>
@@ -180,6 +233,12 @@
 					<li class="current tsd-kind-interface">
 						<a href="iimageuploadfileitem.html" class="tsd-kind-icon">IImage<wbr>Upload<wbr>File<wbr>Item</a>
 						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="iimageuploadfileitem.html#file" class="tsd-kind-icon">file</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="iimageuploadfileitem.html#id" class="tsd-kind-icon">id</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 								<a href="iimageuploadfileitem.html#name" class="tsd-kind-icon">name</a>
 							</li>
