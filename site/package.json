@@ -35,7 +35,8 @@
     "react-dom": "17.0.x",
     "react-loadable": "^5.5.0",
     "react-router-dom": "^4.1.1",
-    "transliteration": "^1.6.2"
+    "transliteration": "^1.6.2",
+    "zent-theme-sdk": "^1.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.1.6",

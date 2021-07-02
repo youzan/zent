@@ -13860,10 +13860,10 @@ yup@^0.27.0:
     synchronous-promise "^2.0.6"
     toposort "^2.0.2"
 
-zent-theme-sdk@0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/zent-theme-sdk/-/zent-theme-sdk-0.0.3.tgz#14fa3cc012a551cecd7709588ba98cf884983f67"
-  integrity sha512-sK/hr867cOp5uCwc9CbUsyTs4vippz+8TO134FxBVMOsZH7iHLPuYWfycnWKIWTWzYwAvNEe+RuY83QldXjsuA==
+zent-theme-sdk@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/zent-theme-sdk/-/zent-theme-sdk-1.0.0.tgz#fdbac3e77e3618866a9b1ced4f06f09a254c02de"
+  integrity sha512-fofEMXF6HF7mGEzkFe7wRCzrr7hK3+ubCgprbUVOnCBvl4GMNREESZ9z1aSVBWt7hTG4hvUoa93s8UaTf0LTaw==
   dependencies:
     "@ctrl/tinycolor" "^3.4.0"
     tslib "^2.3.0"

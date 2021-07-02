@@ -1,5 +1,5 @@
 {
-  "cssVarRef": {
+  "hex": {
     "$text-600": [
       "--theme-title-color",
       "--theme-body-color"
@@ -75,7 +75,7 @@
       "--theme-rate-bg"
     ]
   },
-  "cssRgbVarRef": {
+  "rgb": {
     "$text-600": [
       "--theme-rgb-title-color",
       "--theme-rgb-body-color"

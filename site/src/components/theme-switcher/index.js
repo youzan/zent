@@ -1,6 +1,5 @@
-import { ColorPicker, Notify } from 'zent';
+import { ColorPicker, Notify, ThemeCssVars } from 'zent';
 import { ThemeSdk, ThemeScene } from 'zent-theme-sdk';
-import { cssVarRef, cssRgbVarRef } from 'zent/es/theme/css-var-ref';
 import { useEffect, useState } from 'react';
 
 import './style.scss';
@@ -60,7 +59,7 @@ export default function ThemeSwitcher({ locale }) {
 
     const theme = generateTheme(
       { colors: [{ baseColor: hex, scene }] },
-      { cssVarRef, cssRgbVarRef }
+      ThemeCssVars
     );
     applyTheme(theme);
 

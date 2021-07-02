@@ -1,4 +1,9 @@
-// Ported from http://ariya.blogspot.com/2008/07/converting-between-hsl-and-hsv.html
+// Copyright (c) Facebook, Inc. and its affiliates.
+// This source code is licensed under the MIT license found in the
+// LICENSE file in the root directory of this source tree.
+// https://github.com/voxpelli/sass-color-helpers#license
+
+// Ported from https://github.com/voxpelli/sass-color-helpers/blob/main/stylesheets/color-helpers/_hsv-hsl.scss
 
 @function ch-hsv-to-hsl($h, $s: 0, $v: 0) {
   @if type_of($h) == 'list' {
