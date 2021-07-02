@@ -1081,6 +1081,19 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
   // 等重构再删了吧，改不动
   // eslint-disable-next-line react/no-deprecated
   componentWillReceiveProps(nextProps: IGridProps<Data, RowProps>) {
+    if (nextProps.selection !== this.props.selection) {
+      if (!nextProps.selection) {
+        this.store.setState({
+          columns: this.getColumns(nextProps, nextProps.columns),
+        });
+      } else if (nextProps.selection?.hasOwnProperty('isSingleSelection')) {
+        this.store.setState({
+          selectedRowKeys: nextProps.selection.selectedRowKeys || [],
+          columns: this.getColumns(nextProps),
+        });
+      }
+    }
+
     if (nextProps.selection?.hasOwnProperty('selectedRowKeys')) {
       this.store.setState({
         selectedRowKeys: nextProps.selection.selectedRowKeys || [],
