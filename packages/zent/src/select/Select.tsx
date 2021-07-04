@@ -310,7 +310,8 @@ export class Select<
       return;
     }
 
-    const triggerWidth = this.triggerRef.current?.offsetWidth;
+    const triggerWidth =
+      this.triggerRef.current?.offsetWidth || this.props.width;
     this.setState({
       triggerWidth,
     });
