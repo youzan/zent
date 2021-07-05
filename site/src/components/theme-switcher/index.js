@@ -1,4 +1,5 @@
-import { ColorPicker, ThemeSdk, Notify, ThemeScene } from 'zent';
+import { ColorPicker, Notify, ThemeCssVars } from 'zent';
+import { ThemeSdk, ThemeScene } from '@zent/theme-sdk';
 import { useEffect, useState } from 'react';
 
 import './style.scss';
@@ -56,7 +57,10 @@ export default function ThemeSwitcher({ locale }) {
     setColor(hex);
     sessionTheme.setTheme(hex);
 
-    const theme = generateTheme({ colors: [{ baseColor: hex, scene }] });
+    const theme = generateTheme(
+      { colors: [{ baseColor: hex, scene }] },
+      ThemeCssVars
+    );
     applyTheme(theme);
 
     Notify.success(i18n[locale].prompt);

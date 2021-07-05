@@ -27,7 +27,6 @@ module.exports = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.md'],
     alias: Object.assign({
-      'color-helpers': 'sass-color-helpers',
       zent$: path.resolve(__dirname, '../zent'),
       'zent/es': path.resolve(__dirname, '../../packages/zent/src'),
     }),

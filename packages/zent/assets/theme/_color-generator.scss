@@ -1,5 +1,5 @@
 // 基于baseColor，计算更亮或更暗的颜色
-@import 'color-helpers';
+@import './hsv-hsl';
 
 $saturationBaseLightStep: 15;
 $saturationAdditiveLightStep: 6;
