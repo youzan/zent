@@ -1,6 +1,8 @@
 // Ported from https://github.com/voxpelli/sass-color-helpers/blob/main/stylesheets/color-helpers/_hsv-hsl.scss
 // https://github.com/voxpelli/sass-color-helpers#license
 
+@use 'sass:math';
+
 @function ch-hsv-to-hsl($h, $s: 0, $v: 0) {
   @if type_of($h) == 'list' {
     $v: nth($h, 3);
@@ -9,13 +11,13 @@
   }
 
   @if unit($h) == 'deg' {
-    $h: 3.1415 * 2 * ($h / 360deg);
+    $h: 3.1415 * 2 * math.div($h, 360deg);
   }
   @if unit($s) == '%' {
-    $s: 0 + ($s / 100%);
+    $s: 0 + math.div($s, 100%);
   }
   @if unit($v) == '%' {
-    $v: 0 + ($v / 100%);
+    $v: 0 + math.div($v, 100%);
   }
 
   $ss: $s * $v;
@@ -24,14 +26,14 @@
   @if ($ll == 2 or $ll == 0) {
     $ss: 0;
   } @else if $ll <= 1 {
-    $ss: $ss / $ll;
+    $ss: math.div($ss, $ll);
   } @else {
-    $ss: $ss / (2 - $ll);
+    $ss: math.div($ss, 2 - $ll);
   }
 
-  $ll: $ll / 2;
+  $ll: $ll * 0.5;
 
-  @return 360deg * $h / (3.1415 * 2), percentage(max(0, min(1, $ss))),
+  @return math.div(360deg * $h, 3.1415 * 2), percentage(max(0, min(1, $ss))),
     percentage(max(0, min(1, $ll)));
 }
 
@@ -47,13 +49,13 @@
   }
 
   @if unit($h) == 'deg' {
-    $h: 3.1415 * 2 * ($h / 360deg);
+    $h: 3.1415 * 2 * math.div($h, 360deg);
   }
   @if unit($ss) == '%' {
-    $ss: 0 + ($ss / 100%);
+    $ss: 0 + math.div($ss, 100%);
   }
   @if unit($ll) == '%' {
-    $ll: 0 + ($ll / 100%);
+    $ll: 0 + math.div($ll, 100%);
   }
 
   $ll: $ll * 2;
@@ -64,14 +66,14 @@
     $ss: $ss * (2 - $ll);
   }
 
-  $v: ($ll + $ss) / 2;
+  $v: ($ll + $ss) * 0.5;
 
   $s: 0;
   @if $ll + $ss != 0 {
-    $s: (2 * $ss) / ($ll + $ss);
+    $s: math.div(2 * $ss, $ll + $ss);
   }
 
-  @return 360deg * $h / (3.1415 * 2), percentage(max(0, min(1, $s))),
+  @return math.div(360deg * $h, 3.1415 * 2), percentage(max(0, min(1, $s))),
     percentage(max(0, min(1, $v)));
 }
 

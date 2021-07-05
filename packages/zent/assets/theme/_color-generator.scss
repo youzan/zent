@@ -14,8 +14,8 @@ $brightnessDarkStep: 15;
     @return $s;
   }
 
-  $additiveLightSaturation: $level * $saturationAdditiveLightStep * ($level - 1) /
-    2;
+  $additiveLightSaturation: $level * $saturationAdditiveLightStep * ($level - 1) *
+    0.5;
 
   $saturation: $s - $saturationBaseLightStep * $level - $additiveLightSaturation;
 
