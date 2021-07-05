@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.1.5",
+    "@zent/theme-sdk": "^1.0.0",
     "classnames": "^2.2.5",
     "core-js": "3",
     "fibers": "^4.0.2",
@@ -35,8 +36,7 @@
     "react-dom": "17.0.x",
     "react-loadable": "^5.5.0",
     "react-router-dom": "^4.1.1",
-    "transliteration": "^1.6.2",
-    "zent-theme-sdk": "^1.0.0"
+    "transliteration": "^1.6.2"
   },
   "devDependencies": {
     "@babel/core": "^7.1.6",

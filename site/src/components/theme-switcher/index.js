@@ -1,5 +1,5 @@
 import { ColorPicker, Notify, ThemeCssVars } from 'zent';
-import { ThemeSdk, ThemeScene } from 'zent-theme-sdk';
+import { ThemeSdk, ThemeScene } from '@zent/theme-sdk';
 import { useEffect, useState } from 'react';
 
 import './style.scss';

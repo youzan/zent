@@ -1855,6 +1855,14 @@
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
+"@zent/theme-sdk@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@zent/theme-sdk/-/theme-sdk-1.0.0.tgz#d653eed6c08bb34f6c66c1f6d5d32a838a5ceff8"
+  integrity sha512-Xy7urH40wGzrrja1jZTrg2Y92lGBIXQdueFo9F3wymaikpFYYAj8x1F/I9YgqWNV0LYjc3AlIM+WEF5bnFKAlg==
+  dependencies:
+    "@ctrl/tinycolor" "^3.4.0"
+    tslib "^2.3.0"
+
 abab@^2.0.0:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/abab/-/abab-2.0.3.tgz#623e2075e02eb2d3f2475e49f99c91846467907a"
@@ -13859,14 +13867,6 @@ yup@^0.27.0:
     property-expr "^1.5.0"
     synchronous-promise "^2.0.6"
     toposort "^2.0.2"
-
-zent-theme-sdk@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/zent-theme-sdk/-/zent-theme-sdk-1.0.0.tgz#fdbac3e77e3618866a9b1ced4f06f09a254c02de"
-  integrity sha512-fofEMXF6HF7mGEzkFe7wRCzrr7hK3+ubCgprbUVOnCBvl4GMNREESZ9z1aSVBWt7hTG4hvUoa93s8UaTf0LTaw==
-  dependencies:
-    "@ctrl/tinycolor" "^3.4.0"
-    tslib "^2.3.0"
 
 zenticons@3.6.4:
   version "3.6.4"
