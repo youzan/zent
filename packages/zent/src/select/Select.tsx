@@ -15,7 +15,6 @@ import { I18nReceiver as Receiver, II18nLocaleSelect } from '../i18n';
 import memoize from '../utils/memorize-one';
 import uniqueId from '../utils/uniqueId';
 import { filterReviver, reviveSelectItem } from './reviver';
-import { typeOf } from 'react-is';
 
 export interface ISelectItem<Key extends string | number = string | number> {
   key: Key;
