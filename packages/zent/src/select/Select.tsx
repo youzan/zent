@@ -15,6 +15,7 @@ import { I18nReceiver as Receiver, II18nLocaleSelect } from '../i18n';
 import memoize from '../utils/memorize-one';
 import uniqueId from '../utils/uniqueId';
 import { filterReviver, reviveSelectItem } from './reviver';
+import { typeOf } from 'react-is';
 
 export interface ISelectItem<Key extends string | number = string | number> {
   key: Key;
@@ -311,7 +312,10 @@ export class Select<
     }
 
     const triggerWidth =
-      this.triggerRef.current?.offsetWidth || this.props.width;
+      this.triggerRef.current?.offsetWidth ||
+      typeof this.props.width === 'number'
+        ? this.props.width
+        : Select.defaultProps.width;
     this.setState({
       triggerWidth,
     });
