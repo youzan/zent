@@ -9,9 +9,8 @@ import { IFormComponentProps, dateRangeDefaultValueFactory } from '../shared';
 import { FormField } from '../Field';
 import { $MergeParams } from '../utils';
 
-export type IFormQuarterPickerFieldProps<
-  T extends IValueType
-> = IFormComponentProps<RangeDate, Omit<IQuarterPickerProps<T>, 'value'>>;
+export type IFormQuarterPickerFieldProps<T extends IValueType> =
+  IFormComponentProps<RangeDate, Omit<IQuarterPickerProps<T>, 'value'>>;
 
 export const FormQuarterPickerField = <T extends IValueType = 'string'>(
   props: IFormQuarterPickerFieldProps<T>

@@ -83,7 +83,7 @@ const SingleUploadItem: React.FC<INormalUploadItemProps> = props => {
   };
 
   return (
-    <div key={item._id} className={cls}>
+    <div key={item.id} className={cls}>
       <div className="zent-single-upload-item-info">
         {getFileIcon(item)}
         <div className="zent-single-upload-item-name">{displayName}</div>

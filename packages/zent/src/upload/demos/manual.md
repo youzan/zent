@@ -27,13 +27,13 @@ class Simple extends React.Component {
 		});
 
 		if (detail && detail.type === 'retry') {
-			this.uploadItem(detail.item._id);
+			this.uploadItem(detail.item.id);
 		}
 	};
 
 	uploadItem = id => {
 		const update = () => {
-			const item = this.state.fileList.find(o => o._id === id);
+			const item = this.state.fileList.find(o => o.id === id);
 			let percent = item.percent;
 			let status = item.status;
 			if (percent < 100) {
@@ -60,7 +60,7 @@ class Simple extends React.Component {
 			this.setState(
 				() => {
 					const newList = this.state.fileList.map(itemInner =>
-						itemInner._id === item._id ? newItem : itemInner
+						itemInner.id === item.id ? newItem : itemInner
 					);
 					return {
 						fileList: newList,
@@ -84,7 +84,7 @@ class Simple extends React.Component {
 	startUpload = () => {
 		this.state.fileList.forEach(item => {
 			if (item.status === FILE_UPLOAD_STATUS.beforeUpload) {
-				this.uploadItem(item._id);
+				this.uploadItem(item.id);
 			}
 		});
 	};

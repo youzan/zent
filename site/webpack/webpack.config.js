@@ -1,27 +1,42 @@
 const webpack = require('webpack');
-const Fiber = require('fibers');
 const sass = require('sass');
 const os = require('os');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
-const tsCompilerConstantsPlugin = require('../../packages/zent/plugins/ts-plugin-constants')
-  .default;
-const tsVersionAttributePlugin = require('../../packages/zent/plugins/ts-plugin-version-attribute')
-  .default;
+const tsCompilerConstantsPlugin =
+  require('../../packages/zent/plugins/ts-plugin-constants').default;
+const tsVersionAttributePlugin =
+  require('../../packages/zent/plugins/ts-plugin-version-attribute').default;
 const constants = require('../src/constants');
 
 const DEV = process.env.NODE_ENV !== 'production';
 
+const babelPlugins = DEV ? [require.resolve('react-refresh/babel')] : [];
+
 module.exports = {
   mode: process.env.NODE_ENV,
 
+  cache: DEV
+    ? {
+        type: 'filesystem',
+        store: 'pack',
+      }
+    : false,
+
   output: {
     path: path.resolve(__dirname, '../dist'),
-    filename: '[name]-[hash].js',
+    filename: '[name]-[contenthash].js',
     publicPath: constants.prefix,
+  },
+
+  stats: 'summary',
+
+  performance: {
+    hints: false,
   },
 
   resolve: {
@@ -57,8 +72,8 @@ module.exports = {
             loader: 'postcss-loader',
             options: {
               sourceMap: DEV,
-              config: {
-                path: path.resolve(__dirname, '..'),
+              postcssOptions: {
+                config: path.resolve(__dirname, '../postcss.config.js'),
               },
             },
           },
@@ -67,7 +82,6 @@ module.exports = {
             options: {
               sourceMap: DEV,
               implementation: sass,
-              fiber: Fiber,
             },
           },
         ],
@@ -79,8 +93,7 @@ module.exports = {
           {
             loader: 'babel-loader',
             options: {
-              // We have TypeScript plugin for rewriting modules, don't enable cache
-              cacheDirectory: false,
+              plugins: babelPlugins,
             },
           },
         ],
@@ -123,7 +136,18 @@ module.exports = {
               name: 'md-pool',
             },
           },
-          'babel-loader',
+          {
+            loader: 'babel-loader',
+            options: {
+              compact: false,
+              // tell babel-loader to use this config
+              configFile: path.resolve(
+                __dirname,
+                '../../packages/zent/.babelrc.js'
+              ),
+              plugins: babelPlugins,
+            },
+          },
           {
             loader: 'react-markdown-doc-loader',
             options: {
@@ -152,7 +176,8 @@ module.exports = {
                 before: [
                   tsCompilerConstantsPlugin(program),
                   tsVersionAttributePlugin(program),
-                ],
+                  // eslint-disable-next-line global-require
+                ].concat(DEV ? [require('react-refresh-typescript')()] : []),
               }),
             },
           },
@@ -182,6 +207,41 @@ module.exports = {
       inject: false,
     }),
 
+    new FaviconsWebpackPlugin({
+      logo: './assets/zanui-logo.png',
+      cache: true,
+      prefix: 'favico/[contenthash:16]/',
+      inject: true,
+
+      // https://github.com/itgalaxy/favicons
+      favicons: {
+        appName: 'Zent',
+        appDescription:
+          'A collection of essential UI components written with React',
+        // https://github.com/jantimon/favicons-webpack-plugin#advanced-usage
+        // Set to null to disable automatically retrieving metadata from package.json
+        developerName: null,
+        developerURL: null,
+        version: null,
+
+        background: '#fff',
+
+        icons: {
+          favicons: true,
+
+          android: false,
+          appleIcon: false,
+          appleStartup: false,
+          coast: false,
+          firefox: false,
+          opengraph: false,
+          twitter: false,
+          yandex: false,
+          windows: false,
+        },
+      },
+    }),
+
     new MiniCssExtractPlugin({
       filename: DEV ? '[name].css' : '[name]-[contenthash].css',
       chunkFilename: DEV ? '[id].css' : '[id].[contenthash].css',
@@ -200,8 +260,5 @@ module.exports = {
     },
   },
 
-  node: {
-    fs: 'empty',
-    net: 'empty',
-  },
+  node: false,
 };

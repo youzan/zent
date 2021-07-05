@@ -34,10 +34,10 @@ export const Transfer: React.FC<TransferType> = ({
   const [selectedKeysState, setSelectedKeys] = useState(selectedKeysProp);
   const { value } = useContext(DisabledContext);
   const disabled = compontentDisabled ?? value;
-  const disabledKeys = useMemo(() => getDisabledKeys(dataSource, keyName), [
-    dataSource,
-    keyName,
-  ]);
+  const disabledKeys = useMemo(
+    () => getDisabledKeys(dataSource, keyName),
+    [dataSource, keyName]
+  );
 
   const getListProps = useCallback(
     (direction: Direction) => {
@@ -86,9 +86,9 @@ export const Transfer: React.FC<TransferType> = ({
       const { columns } = getListProps(direction);
       const col = Direction.Left === direction ? columns?.[0] : columns?.[1];
 
-      return (Array.isArray(columns?.[0])
-        ? col
-        : columns) as TransferColumnType;
+      return (
+        Array.isArray(columns?.[0]) ? col : columns
+      ) as TransferColumnType;
     },
     [getListProps]
   );
@@ -203,9 +203,10 @@ export const Transfer: React.FC<TransferType> = ({
         title: titles?.[0],
         direction: Direction.Left,
         keyName,
-        dataSets: useMemo(() => getSingleDirectionData(Direction.Left), [
-          getSingleDirectionData,
-        ]),
+        dataSets: useMemo(
+          () => getSingleDirectionData(Direction.Left),
+          [getSingleDirectionData]
+        ),
         selectedKeys: getSingleDirectionSelectedKeys(Direction.Left),
         handleSelectChange: handleSelectChange(Direction.Left),
         showSearch,
@@ -227,9 +228,10 @@ export const Transfer: React.FC<TransferType> = ({
         title: titles?.[1],
         direction: Direction.Right,
         keyName,
-        dataSets: useMemo(() => getSingleDirectionData(Direction.Right), [
-          getSingleDirectionData,
-        ]),
+        dataSets: useMemo(
+          () => getSingleDirectionData(Direction.Right),
+          [getSingleDirectionData]
+        ),
         selectedKeys: getSingleDirectionSelectedKeys(Direction.Right),
         handleSelectChange: handleSelectChange(Direction.Right),
         showSearch,

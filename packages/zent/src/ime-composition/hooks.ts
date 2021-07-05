@@ -62,28 +62,30 @@ export function createUseIMEComposition(
       [compositionValue, onChangeRef]
     );
 
-    const onCompositionStart: React.CompositionEventHandler<ElementType> = useCallback(
-      e => {
-        isCompositionRef.current = true;
-        onCompositionStartRef.current?.(e);
-      },
-      [onCompositionStartRef]
-    );
+    const onCompositionStart: React.CompositionEventHandler<ElementType> =
+      useCallback(
+        e => {
+          isCompositionRef.current = true;
+          onCompositionStartRef.current?.(e);
+        },
+        [onCompositionStartRef]
+      );
 
-    const onCompositionEnd: React.CompositionEventHandler<ElementType> = useCallback(
-      e => {
-        isCompositionRef.current = false;
-        onCompositionEndRef.current?.(e);
-        const currentValue = e.currentTarget.value;
-        setCompositionValue(currentValue);
-        // 输入值更新时，手动触发 onChange 事件
-        if (currentValue !== propValue) {
-          e.type = 'change';
-          onChangeRef.current?.(e);
-        }
-      },
-      [propValue, onCompositionEndRef, onChangeRef]
-    );
+    const onCompositionEnd: React.CompositionEventHandler<ElementType> =
+      useCallback(
+        e => {
+          isCompositionRef.current = false;
+          onCompositionEndRef.current?.(e);
+          const currentValue = e.currentTarget.value;
+          setCompositionValue(currentValue);
+          // 输入值更新时，手动触发 onChange 事件
+          if (currentValue !== propValue) {
+            e.type = 'change';
+            onChangeRef.current?.(e);
+          }
+        },
+        [propValue, onCompositionEndRef, onChangeRef]
+      );
 
     // 只处理受控的组件
     const isControlled = propValue !== undefined;

@@ -175,12 +175,8 @@ export class Waypoint extends PureComponent<IWaypointProps> {
     const bounds = this.getBounds();
     const currentPosition = getCurrentPosition(bounds);
     const previousPosition = this.previousPosition;
-    const {
-      onPositionChange,
-      onEnter,
-      onLeave,
-      fireOnRapidScroll,
-    } = this.props;
+    const { onPositionChange, onEnter, onLeave, fireOnRapidScroll } =
+      this.props;
 
     // Save previous position as early as possible to prevent cycles
     this.previousPosition = currentPosition;
@@ -244,12 +240,8 @@ export class Waypoint extends PureComponent<IWaypointProps> {
 
   private getBounds() {
     const { horizontal } = this.props;
-    const {
-      left,
-      top,
-      right,
-      bottom,
-    } = this.refElement.current.getBoundingClientRect();
+    const { left, top, right, bottom } =
+      this.refElement.current.getBoundingClientRect();
     const waypointTop = horizontal ? left : top;
     const waypointBottom = horizontal ? right : bottom;
 

@@ -20,9 +20,10 @@ interface IHoverTriggerCompatibleProps {
 export interface IPopoverHoverTriggerContext
   extends Required<IHoverTriggerCompatibleProps> {}
 
-export const PopoverHoverTriggerContext = createContext<IPopoverHoverTriggerContext>(
-  { fixMouseEventsOnDisabledChildren: false }
-);
+export const PopoverHoverTriggerContext =
+  createContext<IPopoverHoverTriggerContext>({
+    fixMouseEventsOnDisabledChildren: false,
+  });
 export interface IPopoverHoverTriggerChildProps {
   onMouseEnter?: (...args: any[]) => void;
   onMouseLeave?: (...args: any[]) => void;
@@ -126,13 +127,14 @@ export function PopoverHoverTrigger<
       },
     });
   } else if (isElement(children) && !isFragment(children)) {
-    child = cloneElement(children, {
+    const elem = children as React.ReactElement;
+    child = cloneElement(elem, {
       onMouseEnter(...args: any[]) {
-        children.props.onMouseEnter?.(...args);
+        elem.props.onMouseEnter?.(...args);
         visible$.next(true);
       },
       onMouseLeave(...args: any[]) {
-        children.props.onMouseLeave?.(...args);
+        elem.props.onMouseLeave?.(...args);
         visible$.next(false);
       },
     });

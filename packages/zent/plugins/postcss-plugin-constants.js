@@ -1,9 +1,6 @@
-/* eslint-disable prefer-arrow-callback */
-
 /**
  * @zent/compat 也依赖这个 plugin，所以需要放到 package 里面
  */
-const postcss = require('postcss');
 const parseValue = require('postcss-value-parser');
 const constants = require('./css-compiler-constants');
 
@@ -12,37 +9,37 @@ const CompilerConstants = Object.keys(constants).reduce((acc, k) => {
   return acc;
 }, {});
 
-module.exports = postcss.plugin('postcss-plugin-constants', () => {
-  return root => {
-    root.walkRules(function (rule) {
-      rule.walkDecls(function (decl) {
-        const valueNode = parseValue(decl.value);
-        let modified = false;
+module.exports = () => {
+  return {
+    postcssPlugin: 'postcss-plugin-constants',
+    Declaration(decl) {
+      const valueNode = parseValue(decl.value);
+      let modified = false;
 
-        valueNode.walk((node, idx, nodes) => {
-          const variable = getCSSVariableName(node);
-          if (!variable) {
-            return;
-          }
+      valueNode.walk((node, idx, nodes) => {
+        const variable = getCSSVariableName(node);
+        if (!variable) {
+          return;
+        }
 
-          const { name, sign } = variable;
-          if (name && CompilerConstants.hasOwnProperty(name)) {
-            nodes[idx] = {
-              type: 'word',
-              value: `${sign}${CompilerConstants[name]}`,
-              sourceIndex: node.sourceIndex,
-            };
-            modified = true;
-          }
-        });
-
-        if (modified) {
-          decl.value = valueNode.toString();
+        const { name, sign } = variable;
+        if (name && CompilerConstants.hasOwnProperty(name)) {
+          nodes[idx] = {
+            type: 'word',
+            value: `${sign}${CompilerConstants[name]}`,
+            sourceIndex: node.sourceIndex,
+          };
+          modified = true;
         }
       });
-    });
+
+      if (modified) {
+        decl.value = valueNode.toString();
+      }
+    },
   };
-});
+};
+module.exports.postcss = true;
 
 function getCSSVariableName(node) {
   if (node.type === 'function') {

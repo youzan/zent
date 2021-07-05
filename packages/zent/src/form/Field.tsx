@@ -60,9 +60,11 @@ function getValidators<Value>({
         Validators.SYMBOL_REQUIRED
     )
   ) {
-    validators = ([
-      Validators.required(typeof required === 'string' ? required : ''),
-    ] as IValidators<Value>).concat(validators);
+    validators = (
+      [
+        Validators.required(typeof required === 'string' ? required : ''),
+      ] as IValidators<Value>
+    ).concat(validators);
   }
   return validators;
 }
@@ -70,12 +72,8 @@ function getValidators<Value>({
 export function FormField<Value>(props: IFormFieldProps<Value>) {
   let model: FieldModel<Value>;
   if (isViewDrivenProps(props)) {
-    const {
-      name,
-      defaultValue,
-      destroyOnUnmount,
-      normalizeBeforeSubmit,
-    } = props;
+    const { name, defaultValue, destroyOnUnmount, normalizeBeforeSubmit } =
+      props;
     // eslint-disable-next-line react-hooks/rules-of-hooks
     model = useField<Value>(name, defaultValue, getValidators(props));
     model.destroyOnUnmount = Boolean(destroyOnUnmount);
@@ -172,13 +170,11 @@ export function FormField<Value>(props: IFormFieldProps<Value>) {
     },
     [getValidateOption, validateOccasion, touchWhen, model, onBlurProps]
   );
-  const {
-    onCompositionStart,
-    onCompositionEnd,
-  } = FieldUtils.useCompositionHandler(model, {
-    onCompositionStart: props.onCompositionStart,
-    onCompositionEnd: props.onCompositionEnd,
-  });
+  const { onCompositionStart, onCompositionEnd } =
+    FieldUtils.useCompositionHandler(model, {
+      onCompositionStart: props.onCompositionStart,
+      onCompositionEnd: props.onCompositionEnd,
+    });
   return (
     <FormControl
       ref={anchorRef}

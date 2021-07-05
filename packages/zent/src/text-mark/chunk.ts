@@ -154,48 +154,49 @@ function fillInChunks({
  * Examine text for any matches.
  * If we find matches, add them to the returned array as a "chunk" object.
  */
-const defaultFindChunks: TextMarkFindChunksFunction = function defaultFindChunks({
-  autoEscape,
-  caseSensitive,
-  sanitize = defaultSanitize,
-  searchWords,
-  textToHighlight,
-}) {
-  textToHighlight = sanitize(textToHighlight);
+const defaultFindChunks: TextMarkFindChunksFunction =
+  function defaultFindChunks({
+    autoEscape,
+    caseSensitive,
+    sanitize = defaultSanitize,
+    searchWords,
+    textToHighlight,
+  }) {
+    textToHighlight = sanitize(textToHighlight);
 
-  return searchWords
-    .filter(searchWord => searchWord) // Remove empty words
-    .reduce((chunks, searchWord) => {
-      if (typeof searchWord === 'string') {
-        searchWord = sanitize(searchWord);
+    return searchWords
+      .filter(searchWord => searchWord) // Remove empty words
+      .reduce((chunks, searchWord) => {
+        if (typeof searchWord === 'string') {
+          searchWord = sanitize(searchWord);
 
-        if (autoEscape) {
-          searchWord = escapeRegExpFn(searchWord);
-        }
-      }
-
-      // TypeScript's definition for RegExp is wrong, the next line is valid according to spec
-      const regex = new RegExp(searchWord as any, caseSensitive ? 'g' : 'gi');
-
-      let match: RegExpExecArray;
-      while ((match = regex.exec(textToHighlight))) {
-        const start = match.index;
-        const end = regex.lastIndex;
-        // We do not return zero-length matches
-        if (end > start) {
-          chunks.push({ highlight: false, start, end });
+          if (autoEscape) {
+            searchWord = escapeRegExpFn(searchWord);
+          }
         }
 
-        // Prevent browsers like Firefox from getting stuck in an infinite loop
-        // See http://www.regexguru.com/2008/04/watch-out-for-zero-length-matches/
-        if (match.index === regex.lastIndex) {
-          regex.lastIndex++;
-        }
-      }
+        // TypeScript's definition for RegExp is wrong, the next line is valid according to spec
+        const regex = new RegExp(searchWord as any, caseSensitive ? 'g' : 'gi');
 
-      return chunks;
-    }, []);
-};
+        let match: RegExpExecArray;
+        while ((match = regex.exec(textToHighlight))) {
+          const start = match.index;
+          const end = regex.lastIndex;
+          // We do not return zero-length matches
+          if (end > start) {
+            chunks.push({ highlight: false, start, end });
+          }
+
+          // Prevent browsers like Firefox from getting stuck in an infinite loop
+          // See http://www.regexguru.com/2008/04/watch-out-for-zero-length-matches/
+          if (match.index === regex.lastIndex) {
+            regex.lastIndex++;
+          }
+        }
+
+        return chunks;
+      }, []);
+  };
 
 const defaultSanitize: TextMarkSanitizeFunction = function defaultSanitize(
   str

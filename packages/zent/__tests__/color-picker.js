@@ -836,9 +836,9 @@ describe('ColorPicker', () => {
         };
       },
     };
-    expect(
-      saturation.calculateChange(e, true, props, container)
-    ).toMatchObject({ a: 1 });
+    expect(saturation.calculateChange(e, true, props, container)).toMatchObject(
+      { a: 1 }
+    );
   });
 
   it('check helpers func saturation other branch', () => {
@@ -866,9 +866,9 @@ describe('ColorPicker', () => {
         };
       },
     };
-    expect(
-      saturation.calculateChange(e, true, props, container)
-    ).toMatchObject({ a: 1 });
+    expect(saturation.calculateChange(e, true, props, container)).toMatchObject(
+      { a: 1 }
+    );
   });
 
   it('check helpers func saturation other branch', () => {
@@ -896,9 +896,9 @@ describe('ColorPicker', () => {
         };
       },
     };
-    expect(
-      saturation.calculateChange(e, true, props, container)
-    ).toMatchObject({ a: 1 });
+    expect(saturation.calculateChange(e, true, props, container)).toMatchObject(
+      { a: 1 }
+    );
   });
 
   it('check helpers func saturation other branch', () => {

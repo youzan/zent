@@ -1,9 +1,9 @@
 import { Component } from 'react';
 import { Select } from 'zent';
+import { withRouter } from 'react-router-dom';
 
 import pkg from '../../../../packages/zent/package.json';
 import SearchBox from '../search-box';
-import RouterContext from '../router-context-type';
 import ThemeSwitcher from '../theme-switcher';
 import './style.scss';
 
@@ -31,22 +31,20 @@ const VERSIONS = [
   },
 ];
 
-export default class PageHeader extends Component {
-  static contextTypes = RouterContext;
-
+class PageHeader extends Component {
   state = {
     version: VERSIONS[0],
   };
 
   toggle = () => {
-    const { replace } = this.context.router.history;
-    const path = this.context.router.route.location.pathname.split('/');
+    const { history, location } = this.props;
+    const path = location.pathname.split('/');
     if (path[1] === 'en') {
       path[1] = 'zh';
     } else {
       path[1] = 'en';
     }
-    replace(path.join('/'));
+    history.replace(path.join('/'));
   };
 
   changeVersion = value => {
@@ -102,11 +100,7 @@ export default class PageHeader extends Component {
               inline
               width={120}
             />
-            <div
-              className="page-header__i18n-switcher"
-              type="primary"
-              onClick={this.toggle}
-            >
+            <div className="page-header__i18n-switcher" onClick={this.toggle}>
               {CONTROLS[i18n] || ''}
             </div>
             <ul className="page-header__navs">
@@ -127,3 +121,5 @@ export default class PageHeader extends Component {
     );
   }
 }
+
+export default withRouter(PageHeader);

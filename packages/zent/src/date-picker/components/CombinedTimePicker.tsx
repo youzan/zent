@@ -54,18 +54,15 @@ const CombinedTimePicker: React.FC<ITimePickerBaseProps> = ({
   );
   const [visibleChange, setVisibleChange] = useState<boolean>(true);
 
-  const {
-    panelVisible,
-    setPanelVisible,
-    onVisibleChange,
-  } = useSinglePopoverVisible<RangeTime>(
-    value ?? emptyTimeRange,
-    setSelected,
-    onOpen,
-    onClose,
-    disabled,
-    openPanel
-  );
+  const { panelVisible, setPanelVisible, onVisibleChange } =
+    useSinglePopoverVisible<RangeTime>(
+      value ?? emptyTimeRange,
+      setSelected,
+      onOpen,
+      onClose,
+      disabled,
+      openPanel
+    );
 
   const onSelected = useCallback(
     (val: RangeTime, finished = false) => {
@@ -91,14 +88,11 @@ const CombinedTimePicker: React.FC<ITimePickerBaseProps> = ({
   const selectedDates = parseSelectedToRangeDate(selected, format, new Date());
 
   // disabledTimeOption
-  const {
-    disabledStartTimes,
-    disabledConfirm,
-    disabledEndTimes,
-  } = useRangeDisabledTime({
-    selected: selectedDates,
-    disabledTime,
-  });
+  const { disabledStartTimes, disabledConfirm, disabledEndTimes } =
+    useRangeDisabledTime({
+      selected: selectedDates,
+      disabledTime,
+    });
 
   const disabledTimeOptionStart = useMemo(
     () => disabledStartTimes?.(selectedDates[0] ?? startOfToday()),

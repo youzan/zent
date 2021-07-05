@@ -17,18 +17,19 @@ function renderSwitch(
   return <Switch {...props.props} {...passedProps} checked={value} />;
 }
 
-export const FormSwitchField: React.FunctionComponent<IFormSwitchFieldProps> = props => {
-  const { className, ...rest } = props;
+export const FormSwitchField: React.FunctionComponent<IFormSwitchFieldProps> =
+  props => {
+    const { className, ...rest } = props;
 
-  return (
-    <FormField
-      {...rest}
-      className={cx(className, 'zent-form-switch-field')}
-      defaultValue={
-        typeof props.defaultValue === 'boolean' ? props.defaultValue : false
-      }
-    >
-      {childProps => renderSwitch(childProps, props)}
-    </FormField>
-  );
-};
+    return (
+      <FormField
+        {...rest}
+        className={cx(className, 'zent-form-switch-field')}
+        defaultValue={
+          typeof props.defaultValue === 'boolean' ? props.defaultValue : false
+        }
+      >
+        {childProps => renderSwitch(childProps, props)}
+      </FormField>
+    );
+  };

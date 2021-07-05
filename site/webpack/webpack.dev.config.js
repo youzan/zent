@@ -1,9 +1,10 @@
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const webpack = require('webpack');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 const base = require('./webpack.config');
 
-module.exports = merge.smart(base, {
+module.exports = merge(base, {
   entry: {
     docs: [
       'webpack-dev-server/client?http://localhost:4396',
@@ -14,11 +15,8 @@ module.exports = merge.smart(base, {
 
   devtool: 'inline-cheap-module-source-map',
 
-  resolve: {
-    alias: {
-      'react-dom': '@hot-loader/react-dom',
-    },
-  },
-
-  plugins: [new webpack.HotModuleReplacementPlugin()],
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new ReactRefreshWebpackPlugin(),
+  ],
 });

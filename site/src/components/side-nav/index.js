@@ -1,17 +1,14 @@
 import { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 
-import RouterContext from '../router-context-type';
 import { prefix } from '../../constants';
 
 import './style.scss';
 
-export default class SideNav extends Component {
-  static contextTypes = RouterContext;
-
+class SideNav extends Component {
   handleTitleClick = item => {
     if (item.groups[0].list[0].path) {
-      this.context.router.history.push(
+      this.props.history.push(
         getFullPath(this.props.base, item.groups[0].list[0].path)
       );
     }
@@ -94,3 +91,5 @@ export default class SideNav extends Component {
 function getFullPath(base, path) {
   return `${base}/${path}`;
 }
+
+export default withRouter(SideNav);

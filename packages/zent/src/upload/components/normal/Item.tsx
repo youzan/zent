@@ -79,7 +79,7 @@ const NormalUploadItem: React.FC<INormalUploadItemProps> = props => {
   const [filename, ext] = splitFileNameParts(item.name);
 
   return (
-    <li key={item._id} className={cls}>
+    <li key={item.id} className={cls}>
       <div className="zent-file-upload-item-info">
         {getFileIcon(item)}
         <div className="zent-file-upload-item-name-wrapper">

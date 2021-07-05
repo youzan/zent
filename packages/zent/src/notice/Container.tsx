@@ -105,10 +105,10 @@ export function getContainer(position: NoticePositions): NoticeContainer {
   let container = containers[position];
   if (!container) {
     const div = createContainer(position);
-    container = (ReactDOM.render(
+    container = ReactDOM.render(
       <NoticeContainer element={div} />,
       div
-    ) as unknown) as NoticeContainer;
+    ) as unknown as NoticeContainer;
     containers[position] = container;
   }
   return container;

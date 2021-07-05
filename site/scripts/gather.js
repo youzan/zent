@@ -1,114 +1,13 @@
-/* eslint-disable */
-const { resolve, relative } = require('path');
-
-// fs.exists is deprecated, but sync version is still available in Node v8.8.1, so I use it.
-const {
-  readdirSync,
-  statSync,
-  existsSync,
-  readFileSync,
-  writeFileSync,
-} = require('fs');
-
-const {
-  __,
-  concat,
-  curry,
-  filter,
-  find,
-  forEach,
-  map,
-  merge,
-  omit,
-  pipe,
-  prop,
-  propEq,
-} = require('ramda');
+const path = require('path');
+const fs = require('fs');
+const util = require('util');
+const glob = util.promisify(require('glob'));
 const fm = require('front-matter');
-
 const LIST_STATICS = require('../src/nav.static');
-const SRC = resolve(process.cwd(), '../packages/zent/src');
-const NAMES = {
-  'zh-CN': 'README_zh-CN.md',
-  'en-US': 'README_en-US.md',
-};
 
-const EXISTING_GROUP = {
-  'zh-CN': ['主题'],
-  'en-US': ['Theme'],
-};
+const DST = path.resolve(__dirname, '../src');
 
-const isDir = path => {
-  try {
-    readdirSync(path);
-  } catch (e) {
-    return false;
-  }
-  return true;
-};
-
-const readFileToString = curry(readFileSync)(__, 'utf8');
-
-function gather() {
-  Object.keys(NAMES).forEach(i18n => {
-    const list = LIST_STATICS[i18n][1].groups;
-    const groups = [];
-    pipe(
-      readdirSync,
-      map(pipe(concat('/'), concat(SRC))),
-      filter(isDir),
-      map(pipe(concat(__, '/'), concat(__, NAMES[i18n]))),
-      filter(existsSync),
-      map(str =>
-        pipe(
-          readFileToString,
-          fm,
-          prop('attributes'),
-          merge({
-            source: `DocLoadable({ loader: () => import('${relative(
-              resolve(process.cwd(), './src'),
-              str
-            )}') })`,
-          })
-        )(str)
-      ),
-      forEach(component => {
-        const isExisting = EXISTING_GROUP[i18n].includes(component.group);
-        if (isExisting) {
-          return;
-        }
-        if (groups.indexOf(component.group) < 0) {
-          groups.push(component.group);
-          list.push({
-            groupName: component.group,
-            list: [omit(['group'], component)],
-          });
-        } else {
-          list
-            .find(propEq('groupName', component.group))
-            .list.push(omit(['group'], component));
-        }
-      })
-    )(SRC);
-  });
-
-  // 将组件分组排序
-  sortComponentGroups(LIST_STATICS);
-
-  writeFileSync(
-    resolve(__dirname, '../src/nav.js'),
-    `
-import DocLoadable from './components/Loadable';
-
-export default ${JSON.stringify(LIST_STATICS, null, 2)};`.replace(
-      /\"source\": \"(DocLoadable\(\{.+\}\))\"/g,
-      `"source": $1`
-    ),
-    'utf8'
-  );
-}
-
-const COMPONENT_GROUP_ORDER = {
+const COMPONENT_GROUP_PRIORITY = {
   'zh-CN': {
     基础: 1,
     导航: 2,
@@ -127,14 +26,93 @@ const COMPONENT_GROUP_ORDER = {
   },
 };
 
-function sortComponentGroups(config) {
-  Object.keys(NAMES).forEach(i18n => {
-    const componentGroups = config[i18n][1].groups;
-    componentGroups.sort((a, b) => {
-      const orderDefinition = COMPONENT_GROUP_ORDER[i18n];
-      return orderDefinition[a.groupName] - orderDefinition[b.groupName];
-    });
+const NOT_COMPONENT_GROUP = {
+  'zh-CN': new Set(['主题']),
+  'en-US': new Set(['Theme']),
+};
+
+async function gather() {
+  const readmes = await glob('*/README_@(zh-CN|en-US).md', {
+    cwd: path.resolve(__dirname, '../../packages/zent/src'),
+    absolute: true,
+    nosort: true,
   });
+
+  // eslint-disable-next-line no-restricted-syntax
+  for (const locale of ['zh-CN', 'en-US']) {
+    const filename = `README_${locale}.md`;
+    const localeReadmes = readmes.filter(f => f.endsWith(filename));
+
+    // eslint-disable-next-line no-await-in-loop
+    const readmeContents = await Promise.all(
+      localeReadmes.map(f =>
+        fs.promises
+          .readFile(f, { encoding: 'utf-8' })
+          .then(content => ({ content, path: f }))
+      )
+    );
+
+    // retrieve front matter from each readme
+    const groups = readmeContents.reduce((acc, file) => {
+      const {
+        attributes: { group, ...meta },
+      } = fm(file.content);
+      if (NOT_COMPONENT_GROUP[locale].has(group)) {
+        return acc;
+      }
+
+      let matchedGroup = acc.find(grp => grp.groupName === group);
+      if (!matchedGroup) {
+        matchedGroup = {
+          groupName: group,
+          list: [],
+        };
+        acc.push(matchedGroup);
+      }
+
+      matchedGroup.list.push({ ...meta, source: getLoadable(file.path) });
+      return acc;
+    }, []);
+
+    // sort groups by priority
+    groups.sort((a, b) => {
+      const priorities = COMPONENT_GROUP_PRIORITY[locale];
+      return priorities[a.groupName] - priorities[b.groupName];
+    });
+    // sort components inside groups
+    groups.forEach(grp => {
+      grp.list.sort((a, b) => compareString(a.title, b.title));
+    });
+
+    LIST_STATICS[locale][1].groups = groups;
+  }
+
+  await fs.promises.writeFile(path.join(DST, 'nav.js'), generateConfig(), {
+    encoding: 'utf-8',
+  });
+}
+
+function getLoadable(filepath) {
+  const relativePath = path.relative(DST, filepath);
+  return `DocLoadable({ loader: () => import('${relativePath}') })`;
+}
+
+function generateConfig() {
+  const src = JSON.stringify(LIST_STATICS, null, 2)
+    // trim quotes to convert string to code
+    .replace(/"source": "(DocLoadable\({.+}\))"/g, `"source": $1`);
+
+  return `import DocLoadable from './components/Loadable';\n\nexport default ${src};`;
+}
+
+function compareString(a, b) {
+  if (a < b) {
+    return -1;
+  }
+  if (a === b) {
+    return 0;
+  }
+  return 1;
 }
 
 gather();

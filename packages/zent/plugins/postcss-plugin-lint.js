@@ -1,5 +1,3 @@
-/* eslint-disable prefer-arrow-callback */
-const postcss = require('postcss');
 const parseValue = require('postcss-value-parser');
 const path = require('path');
 const { KEYFRAME_NAME_PREFIX } = require('./constants');
@@ -14,39 +12,52 @@ const THEME_FILES = [
 ].map(f => path.resolve(__dirname, '../assets/theme', f));
 
 const ErrorMessages = {
-  color: 'raw colors not allowed, use color variables in theme/default',
+  color: 'raw colors not allowed, use color mixin in theme/default',
 };
 
 /**
  * This plugin runs on raw sass files, not css files.
  */
-module.exports = postcss.plugin('postcss-plugin-lint', () => {
-  return root => {
-    root.walkAtRules(atRule => {
-      const { name, params } = atRule;
-      if (name === 'keyframes' && !params.startsWith(KEYFRAME_NAME_PREFIX)) {
-        throw atRule.error(
-          `keyframes name must start with '${KEYFRAME_NAME_PREFIX}'`,
-          {
-            word: params,
-          }
-        );
-      }
-    });
+module.exports = () => {
+  return {
+    postcssPlugin: 'postcss-plugin-lint',
+    prepare() {
+      let allowRawColor = false;
 
-    const isThemeFile = THEME_FILES.includes(root.source.input.file);
-    root.walkDecls(decl => {
-      const words = parseValue(decl.value);
-      words.walk(node => {
-        if (isRawColor(node) && !isThemeFile) {
-          throw decl.error(ErrorMessages.color, {
-            word: node.value,
+      return {
+        Root(root) {
+          allowRawColor = THEME_FILES.includes(root.source.input.file);
+        },
+
+        AtRule: {
+          keyframes(atRule) {
+            const { params } = atRule;
+            if (!params.startsWith(KEYFRAME_NAME_PREFIX)) {
+              throw atRule.error(
+                `keyframes name must start with '${KEYFRAME_NAME_PREFIX}'`,
+                {
+                  word: params,
+                }
+              );
+            }
+          },
+        },
+
+        Declaration(decl) {
+          const words = parseValue(decl.value);
+          words.walk(node => {
+            if (!allowRawColor && isRawColor(node)) {
+              throw decl.error(ErrorMessages.color, {
+                word: node.value,
+              });
+            }
           });
-        }
-      });
-    });
+        },
+      };
+    },
   };
-});
+};
+module.exports.postcss = true;
 
 function isRawColor(node) {
   const { type, value } = node;

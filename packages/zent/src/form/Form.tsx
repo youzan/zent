@@ -209,13 +209,8 @@ export class Form<T extends {}> extends Component<IFormProps<T>> {
   }
 
   private async submit(e?: React.SyntheticEvent) {
-    const {
-      onSubmit,
-      form,
-      onSubmitFail,
-      onSubmitSuccess,
-      scrollToError,
-    } = this.props;
+    const { onSubmit, form, onSubmitFail, onSubmitSuccess, scrollToError } =
+      this.props;
     if (!onSubmit) {
       return;
     }

@@ -73,18 +73,18 @@ export default class SubMenu extends CommonMenu<ISubMenuProps, ISubMenuState> {
     if (this.leaveTimer) {
       clearTimeout(this.leaveTimer);
     }
-    this.enterTimer = (setTimeout(() => {
+    this.enterTimer = setTimeout(() => {
       this.setState({ subMenuVisible: true });
-    }, 200) as unknown) as number;
+    }, 200) as unknown as number;
   };
 
   onMouseLeave = () => {
     if (this.enterTimer) {
       clearTimeout(this.enterTimer);
     }
-    this.leaveTimer = (setTimeout(() => {
+    this.leaveTimer = setTimeout(() => {
       this.setState({ subMenuVisible: false });
-    }, 200) as unknown) as number;
+    }, 200) as unknown as number;
   };
 
   renderInlineChild = (component, index) => {
@@ -112,13 +112,8 @@ export default class SubMenu extends CommonMenu<ISubMenuProps, ISubMenuState> {
   };
 
   renderContent() {
-    const {
-      children,
-      specKey,
-      overlayClassName,
-      isInline,
-      expandKeys,
-    } = this.props;
+    const { children, specKey, overlayClassName, isInline, expandKeys } =
+      this.props;
     const isExpand = expandKeys && expandKeys.indexOf(specKey) !== -1;
 
     if (!isInline) {

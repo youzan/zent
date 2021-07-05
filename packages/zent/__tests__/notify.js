@@ -33,9 +33,9 @@ describe('Notify component', () => {
   it('test duration', () => {
     Notify.error('test error', 2000);
     expect(document.querySelectorAll('.zent-notify').length).toBe(1);
-    jest.runTimersToTime(1000);
+    jest.advanceTimersByTime(1000);
     expect(document.querySelectorAll('.zent-notify').length).toBe(1);
-    jest.runTimersToTime(2000);
+    jest.advanceTimersByTime(2000);
     expect(document.querySelectorAll('.zent-notify').length).toBe(0);
   });
 
@@ -59,7 +59,7 @@ describe('Notify component', () => {
     Notify.config({ duration: 1000 });
     Notify.error('test error');
     expect(document.querySelectorAll('.zent-notify').length).toBe(1);
-    jest.runTimersToTime(1800);
+    jest.advanceTimersByTime(1800);
     expect(document.querySelectorAll('.zent-notify').length).toBe(0);
   });
 });

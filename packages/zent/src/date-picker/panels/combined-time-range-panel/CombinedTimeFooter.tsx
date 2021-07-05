@@ -13,10 +13,10 @@ const CombinedTimeFooter: React.FC<
   const { i18n } = useContext(PickerContext);
   const { confirmStatus } = useContext(PanelContext);
 
-  const confirmHandler = useCallback(() => onSelected(selected, true), [
-    selected,
-    onSelected,
-  ]);
+  const confirmHandler = useCallback(
+    () => onSelected(selected, true),
+    [selected, onSelected]
+  );
   const confirmNode = useMemo(() => {
     const confirmBtn = (
       <Button

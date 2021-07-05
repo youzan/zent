@@ -43,9 +43,10 @@ const DatePickerBody: FC<IDatePickerBodyProps> = props => {
     disabledPanelDate,
   } = props;
 
-  const startDateOfMonth = useMemo(() => startOfMonth(defaultPanelDate), [
-    defaultPanelDate,
-  ]);
+  const startDateOfMonth = useMemo(
+    () => startOfMonth(defaultPanelDate),
+    [defaultPanelDate]
+  );
 
   const cells = useMemo(
     () =>

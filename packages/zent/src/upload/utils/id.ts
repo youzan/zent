@@ -12,7 +12,10 @@ export const createUploadItemId = () => {
  * 为 upload item 添加 _id 属性
  */
 export const patchUploadItemId = <UPLOAD_ITEM extends IUploadFileItem>(
-  item: IUploadFileItemInner<UPLOAD_ITEM>
+  item: UPLOAD_ITEM
 ) => {
-  item._id = createUploadItemId();
+  const id = createUploadItemId();
+  item.id = id;
+  // 旧属性兼容处理
+  (item as IUploadFileItemInner<UPLOAD_ITEM>)._id = id;
 };

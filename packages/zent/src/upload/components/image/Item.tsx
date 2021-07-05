@@ -58,7 +58,7 @@ const ImageUploadItem: React.FC<IImageUploadItemProps> = props => {
 
   return (
     <li
-      key={item._id}
+      key={item.id}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       className={cls}

@@ -93,9 +93,8 @@ export interface IPopoverContentProps {
 
 function PopoverContent({ children }: IPopoverContentProps) {
   const ctx = usePopoverContext();
-  const { positionChanged$: parentPositionChanged$ } = useContext(
-    ContentContext
-  );
+  const { positionChanged$: parentPositionChanged$ } =
+    useContext(ContentContext);
   const contentCtx = useMemo<IPopoverContentContext>(
     () => ({
       positionChanged$: new Subject(),

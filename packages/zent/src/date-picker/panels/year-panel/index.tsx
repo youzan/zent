@@ -16,9 +16,10 @@ const YearPickerPanel: React.FC<
   const firstYear = useMemo(() => MIN_YEAR + page * 12, [page]);
 
   const onClickPrev = useCallback(() => page > 0 && setPage(page - 1), [page]);
-  const onClickNext = useCallback(() => page < MAX_PAGE && setPage(page + 1), [
-    page,
-  ]);
+  const onClickNext = useCallback(
+    () => page < MAX_PAGE && setPage(page + 1),
+    [page]
+  );
   return (
     <>
       <PanelHeader

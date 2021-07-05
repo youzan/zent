@@ -44,9 +44,10 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
     () => selected && disabledPanelDate(selected),
     [selected, disabledPanelDate]
   );
-  const isDisabledToday = useMemo(() => disabledPanelDate(today), [
-    disabledPanelDate,
-  ]);
+  const isDisabledToday = useMemo(
+    () => disabledPanelDate(today),
+    [disabledPanelDate]
+  );
   const onClickCurrent = useCallback(() => {
     if (isDisabledCurrent || isDisabledToday) return;
     onSelected(new Date());

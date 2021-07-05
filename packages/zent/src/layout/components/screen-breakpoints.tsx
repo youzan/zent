@@ -6,9 +6,9 @@ import {
 
 type LayoutBreakPointMap = Record<LayoutBreakPoint, LayoutBreakPointName>;
 
-const BREAKPOINT_MAP = (Object.keys(
-  LayoutBreakPoint
-) as LayoutBreakPointName[]).reduce((m, k) => {
+const BREAKPOINT_MAP = (
+  Object.keys(LayoutBreakPoint) as LayoutBreakPointName[]
+).reduce((m, k) => {
   m[LayoutBreakPoint[k]] = k;
   return m;
 }, {} as LayoutBreakPointMap);

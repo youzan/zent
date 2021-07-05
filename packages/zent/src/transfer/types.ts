@@ -31,9 +31,10 @@ interface ITransferChildrenProps {
 type ListType = {
   columns: TransferColumnType;
   selection?: {
-    getCheckboxProps: (
-      data: ITransferData
-    ) => { disabled?: boolean; reason?: React.ReactNode };
+    getCheckboxProps: (data: ITransferData) => {
+      disabled?: boolean;
+      reason?: React.ReactNode;
+    };
   };
 } & Pick<IGridProps<ITransferData>, ListPropsType>;
 

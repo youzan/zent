@@ -80,7 +80,7 @@ export function FieldValue<T>(
   if (children) {
     return children(value);
   }
-  return (value as unknown) as React.ReactElement;
+  return value as unknown as React.ReactElement;
 }
 
 /**
@@ -106,7 +106,7 @@ export function FieldValid<T>(
   if (children) {
     return children(value);
   }
-  return (value as unknown) as React.ReactElement;
+  return value as unknown as React.ReactElement;
 }
 
 function getValueObservable<T>(model: BasicModel<T>) {

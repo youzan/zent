@@ -13,7 +13,6 @@ import {
   IImageOnUploadSuccessReturn,
   IImageUploadFileItem,
   IImageUploadProps,
-  IUploadFileItemInner,
   IUploadTipConfig,
   IImageUploadItemProps,
 } from './types';
@@ -23,11 +22,11 @@ import {
 } from './utils/default-image-props';
 import { formatFileSize } from './utils/format-file-size';
 import { getTipsContent } from './utils/get-tips-content';
-import { createUploadItemId } from './utils/id';
 
 import { I18nReceiver, II18nLocaleUpload } from '../i18n';
 import isNil from '../utils/isNil';
 import { PartialRequired } from '../utils/types';
+import { createBaseNewUploadFileItem } from './utils/create-new-upload-file-item';
 
 type IImageUploadPropsInner = PartialRequired<
   IImageUploadProps,
@@ -60,7 +59,7 @@ export class ImageUpload extends AbstractMultiUpload<
 
   protected getUploadSuccessOverrideProps(
     onUploadSuccessReturn: IImageOnUploadSuccessReturn
-  ): Partial<IUploadFileItemInner<IImageUploadFileItem>> {
+  ): Partial<IImageUploadFileItem> {
     if (isNil(onUploadSuccessReturn)) {
       return {};
     }
@@ -96,19 +95,15 @@ export class ImageUpload extends AbstractMultiUpload<
 
   protected createNewUploadFileItem(file: File) {
     const thumbPromise = this.props.getThumbSrcFromFile(file);
-    return Promise.resolve(thumbPromise).then<
-      IUploadFileItemInner<IImageUploadFileItem>
-    >(thumbSrc => {
-      return {
-        _id: createUploadItemId(),
-        _file: file,
-        thumbSrc,
-        name: file.name,
-        type: file.type,
-        status: FILE_UPLOAD_STATUS.beforeUpload,
-        percent: 0,
-      };
-    });
+    return Promise.resolve(thumbPromise).then<IImageUploadFileItem>(
+      thumbSrc => {
+        const item: IImageUploadFileItem = {
+          ...createBaseNewUploadFileItem(file),
+          thumbSrc,
+        };
+        return item;
+      }
+    );
   }
 
   protected renderTips(): React.ReactNode {

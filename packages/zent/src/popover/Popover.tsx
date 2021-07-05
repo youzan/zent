@@ -168,14 +168,8 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
   }
 
   render() {
-    const {
-      containerSelector,
-      position,
-      cushion,
-      className,
-      children,
-      style,
-    } = this.props;
+    const { containerSelector, position, cushion, className, children, style } =
+      this.props;
     const { visible } = this.state;
     return (
       <PopoverContext.Provider

@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import chalk from 'chalk';
+import chalk = require('chalk');
 import * as ts from 'typescript';
 import { resolve } from './resolver';
 
@@ -216,7 +216,7 @@ function getModuleValueExportNames(
   sourceFile.statements.forEach(stmt => {
     if (ts.isVariableStatement(stmt)) {
       // export const A = 1
-      if (isNodeExported((stmt as unknown) as ts.Declaration)) {
+      if (isNodeExported(stmt as unknown as ts.Declaration)) {
         const vars = getVariableNames(stmt.declarationList.declarations);
         for (const v of vars) {
           if (localValueVariables.has(v)) {

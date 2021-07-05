@@ -225,12 +225,8 @@ class FieldSetModel<
       this._displayName,
       false
     );
-    (this._value$ as BehaviorSubject<
-      $FieldSetValue<Children>
-    >) = createSentinelSubject(
-      this._displayName,
-      {} as $FieldSetValue<Children>
-    );
+    (this._value$ as BehaviorSubject<$FieldSetValue<Children>>) =
+      createSentinelSubject(this._displayName, {} as $FieldSetValue<Children>);
     (this.childRegister$ as Subject<string>) = createSentinelSubject(
       this._displayName,
       ''

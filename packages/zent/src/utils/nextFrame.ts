@@ -57,8 +57,8 @@ export const useRunOnceInNextFrame = <T extends (...args: unknown[]) => void>(
   cb: T,
   disabled: boolean
 ): T & Partial<ICancelable> => {
-  return useMemo(() => (!disabled ? runOnceInNextFrame(cb) : cb), [
-    cb,
-    disabled,
-  ]);
+  return useMemo(
+    () => (!disabled ? runOnceInNextFrame(cb) : cb),
+    [cb, disabled]
+  );
 };

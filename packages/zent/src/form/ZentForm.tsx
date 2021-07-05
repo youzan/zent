@@ -58,7 +58,8 @@ function formReducer(state: IFormState, action: IFormAction): IFormState {
 }
 
 export class ZentForm<T extends UnknownFieldSetModelChildren>
-  implements IForm<T> {
+  implements IForm<T>
+{
   /** @internal */
   submit$ = new Subject<FormEvent | undefined>();
   /** @internal */
@@ -217,11 +218,11 @@ export function useForm<T extends UnknownFieldSetBuilderChildren>(
   /**
    * Sync state in render phase to avoid creating ZentForm unnecessarily.
    */
-  /* eslint-disable-next-line react-hooks/exhaustive-deps */
-  const form = useMemo(() => new ZentForm(inner, state, dispatch), [
-    inner,
-    dispatch,
-  ]);
+  const form = useMemo(
+    () => new ZentForm(inner, state, dispatch),
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    [inner, dispatch]
+  );
   form.state = state;
   return form;
 }

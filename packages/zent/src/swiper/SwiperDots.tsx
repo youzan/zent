@@ -25,13 +25,8 @@ export default class SwiperDots extends PureComponent<ISwiperDotsProps> {
   };
 
   render() {
-    const {
-      dotsColor,
-      dotsSize,
-      items,
-      currentIndex,
-      onDotsClick,
-    } = this.props;
+    const { dotsColor, dotsSize, items, currentIndex, onDotsClick } =
+      this.props;
     const classString = cx(
       'zent-swiper__dots',
       `zent-swiper__dots-${dotsSize}`,

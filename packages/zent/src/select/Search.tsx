@@ -66,12 +66,8 @@ function SelectSearch(
     },
   }));
 
-  const {
-    onChange,
-    onCompositionEnd,
-    onCompositionStart,
-    value,
-  } = useIMEComposition(valueProp, onChangeProp);
+  const { onChange, onCompositionEnd, onCompositionStart, value } =
+    useIMEComposition(valueProp, onChangeProp);
 
   useLayoutEffect(() => {
     focusSearchInput();

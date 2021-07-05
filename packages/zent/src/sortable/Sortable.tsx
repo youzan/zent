@@ -28,14 +28,8 @@ export class Sortable<T> extends Component<ISortableProps<T>> {
   containerRef = createRef<HTMLElement>();
 
   initSortable = () => {
-    const {
-      onMove,
-      onEnd,
-      onChange,
-      filterClass,
-      children,
-      ...rest
-    } = this.props;
+    const { onMove, onEnd, onChange, filterClass, children, ...rest } =
+      this.props;
 
     const instance = this.containerRef.current;
     if (!instance) {

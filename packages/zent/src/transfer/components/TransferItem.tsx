@@ -33,10 +33,10 @@ const TransferItem: React.FC<ITransferItem> = ({
   const [listData, setListData] = useState(dataSets);
   const [pageCurrent, setPageCurrent] = useState(1);
 
-  const disabledKeys = useMemo(() => getDisabledKeys(listData, keyName), [
-    listData,
-    keyName,
-  ]);
+  const disabledKeys = useMemo(
+    () => getDisabledKeys(listData, keyName),
+    [listData, keyName]
+  );
   const selectedKeysLength = useMemo(
     () => selectedKeys.filter(key => !disabledKeys.includes(key)).length,
     [disabledKeys, selectedKeys]
