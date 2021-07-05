@@ -35,7 +35,7 @@
     "es/",
     "css/",
     "dependency-graph.json",
-    "theme-css-var-refs.json",
+    "theme-css-vars.json",
     "plugins/css-compiler-constants.js",
     "plugins/postcss-plugin-constants.js"
   ],
