@@ -1,4 +1,3 @@
-const postcss = require('postcss');
 const parseValue = require('postcss-value-parser');
 const path = require('path');
 const fs = require('fs');
