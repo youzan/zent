@@ -10,7 +10,7 @@
   ],
   "license": "MIT",
   "scripts": {
-    "prepare": "node scripts/gather.js && yarn workspace zent compile-plugins && yarn workspace zent generate-css-var-ref",
+    "prepare": "node scripts/gather.js && yarn workspace zent compile-plugins && yarn workspace zent generate-theme-css-vars",
     "prepare-build": "rm -rf dist && yarn prepare",
     "dev": "yarn prepare && cross-env NODE_ENV=development node scripts/dev.js",
     "webpack": "cross-env NODE_ENV=production webpack --config webpack/webpack.prd.config.js",

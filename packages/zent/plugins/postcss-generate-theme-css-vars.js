@@ -7,10 +7,7 @@ const THEME_FILES = ['_color.scss'].map(f =>
   path.resolve(__dirname, '../assets/theme/semantic', f)
 );
 
-const GENERATE_THEME_REF_FILE = path.resolve(
-  __dirname,
-  '../theme-css-vars.json'
-);
+const GENERATE_THEME_FILE = path.resolve(__dirname, '../theme-css-vars.json');
 
 const CSS_VAR_PREFIX = '--theme-';
 const CSS_RGB_VAR_PREFIX = CSS_VAR_PREFIX + 'rgb-';
@@ -49,15 +46,15 @@ module.exports = () => {
 
       return {
         async OnceExit() {
-          const refsContent = {
+          const content = {
             hex: variableSemanticRelation,
             rgb: variableForRGBSemanticRelation,
             vars: commentSemanticRelation,
           };
 
           return fs.promises.writeFile(
-            GENERATE_THEME_REF_FILE,
-            JSON.stringify(refsContent, null, 2),
+            GENERATE_THEME_FILE,
+            JSON.stringify(content, null, 2),
             {
               encoding: 'utf-8',
             }
@@ -189,13 +186,13 @@ function insertVariableRelation(
     if (value.type === 'word') {
       const basicName = value.value;
 
-      const refName = `${cssVarPrefixName}${name}`;
+      const cssVarName = `${cssVarPrefixName}${name}`;
 
       if (!variableSemanticRelation[basicName]) {
         variableSemanticRelation[basicName] = [];
       }
 
-      variableSemanticRelation[basicName].push(refName);
+      variableSemanticRelation[basicName].push(cssVarName);
     }
     if (value.type === 'function') {
       sourceRelation[value.sourceIndex] = name;

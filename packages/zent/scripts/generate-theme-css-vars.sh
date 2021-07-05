@@ -8,5 +8,5 @@ postcss \
   "$input" \
   --dir $(mktemp -d) \
   --syntax postcss-scss \
-  --use $(realpath $basepath/../plugins/postcss-generate-css-var-ref.js) \
+  --use $(realpath $basepath/../plugins/postcss-generate-theme-css-vars.js) \
   --no-map
