@@ -10,7 +10,7 @@
   ],
   "license": "MIT",
   "scripts": {
-    "prepare": "node scripts/gather.js && yarn workspace zent compile-plugins",
+    "prepare": "node scripts/gather.js && yarn workspace zent compile-plugins && yarn workspace zent generate-css-var-ref",
     "prepare-build": "rm -rf dist && yarn prepare",
     "dev": "yarn prepare && cross-env NODE_ENV=development node scripts/dev.js",
     "webpack": "cross-env NODE_ENV=production webpack --config webpack/webpack.prd.config.js",
@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.1.5",
-    "@zent/theme-sdk": "^1.0.0",
+    "@zent/theme-sdk": "^1.0.1",
     "classnames": "^2.2.5",
     "core-js": "^3.15.2",
     "fuse.js": "^6.4.6",
