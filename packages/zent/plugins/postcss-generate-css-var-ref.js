@@ -1,4 +1,3 @@
-/* eslint-disable prefer-arrow-callback */
 const postcss = require('postcss');
 const parseValue = require('postcss-value-parser');
 const path = require('path');
@@ -48,103 +47,111 @@ const THEME_VARIABLE_NAMES = [
   '$rate-colors',
 ];
 
-function stringify(arg) {
-  return JSON.stringify(
-    arg,
-    (_key, value) => {
-      if (Object.prototype.toString.call(value) === '[object Set]') {
-        return [...value];
-      }
-      return value;
-    },
-    2
-  );
-}
-
 /**
  * This plugin runs on raw sass files, not css files.
  */
-module.exports = postcss.plugin('postcss-plugin-vars', () => {
-  const variableSemanticRelation = {}; // { key -> name, value -> names[] }
-  const variableForRGBSemanticRelation = {};
-  const commentSemanticRelation = [];
-  const sourceRelation = {}; // { key -> index, value -> name }
+module.exports = () => {
+  return {
+    postcssPlugin: 'postcss-plugin-vars',
+    prepare(result) {
+      const variableSemanticRelation = {}; // { key -> name, value -> names[] }
+      const variableForRGBSemanticRelation = {};
+      const commentSemanticRelation = [];
+      const sourceRelation = {}; // { key -> index, value -> name }
 
-  return root => {
-    const isThemeFile = THEME_FILES.includes(root.source.input.file);
-    root.walkDecls(decl => {
-      const isThemeVar = THEME_VARIABLE_NAMES.includes(decl.prop);
-      if (isThemeFile && isThemeVar) {
-        const words = parseValue(decl.value);
-        const prefixName = /[a-zA-Z]+[^-]/.exec(decl.prop)[0];
-        let firstNodeSourceIndex;
-        words.walk(node => {
-          if (!firstNodeSourceIndex) {
-            firstNodeSourceIndex = node.sourceIndex;
-          }
-          const needInsert = isColorObject(node);
-          if (needInsert) {
-            insertVariableRelation(
-              CSS_VAR_PREFIX,
-              prefixName,
-              node,
-              sourceRelation,
-              variableSemanticRelation
-            );
-            insertVariableRelation(
-              CSS_RGB_VAR_PREFIX,
-              prefixName,
-              node,
-              sourceRelation,
-              variableForRGBSemanticRelation
-            );
-          }
-        });
-        if (decl.raws && decl.raws.value) {
-          const cssVarPrefixName = generateCSSVarPrefixName(
-            CSS_VAR_PREFIX,
-            prefixName,
-            sourceRelation,
-            firstNodeSourceIndex
-          );
-          const themeComments = generateComments(
-            cssVarPrefixName,
-            decl.raws.value
-          );
-          commentSemanticRelation.push.apply(
-            commentSemanticRelation,
-            themeComments
-          );
-        }
+      if (!THEME_FILES.includes(result.root.source.input.file)) {
+        return {};
       }
-    });
 
-    const refsContent = {
-      hex: variableSemanticRelation,
-      rgb: variableForRGBSemanticRelation,
-    };
+      return {
+        async OnceExit() {
+          const refsContent = {
+            hex: variableSemanticRelation,
+            rgb: variableForRGBSemanticRelation,
+          };
 
-    fs.writeFileSync(GENERATE_THEME_REF_FILE, stringify(refsContent), {
-      encoding: 'utf-8',
-    });
+          return Promise.all([
+            fs.promises.writeFile(
+              GENERATE_THEME_REF_FILE,
+              JSON.stringify(refsContent, null, 2),
+              {
+                encoding: 'utf-8',
+              }
+            ),
 
-    fs.writeFileSync(
-      GENERATE_THEME_REF_TS_FILE,
-      `${FILE_NOTES}
+            fs.promises.writeFile(
+              GENERATE_THEME_REF_TS_FILE,
+              `${FILE_NOTES}
 
-export const ThemeCssVars = ${stringify(refsContent)};\n`,
-      { encoding: 'utf-8' }
-    );
+export const ThemeCssVars = ${JSON.stringify(refsContent, null, 2)};\n`,
+              { encoding: 'utf-8' }
+            ),
 
-    fs.writeFileSync(
-      GENERATE_THEME_COMMENT_TS_FILE,
-      `${FILE_NOTES}
+            fs.promises.writeFile(
+              GENERATE_THEME_COMMENT_TS_FILE,
+              `${FILE_NOTES}
 
-export const cssVarInfo = ${stringify(commentSemanticRelation)};\n`,
-      { encoding: 'utf-8' }
-    );
+export const cssVarInfo = ${JSON.stringify(
+                commentSemanticRelation,
+                null,
+                2
+              )};\n`,
+              { encoding: 'utf-8' }
+            ),
+          ]);
+        },
+
+        Declaration(decl) {
+          const isThemeVar = THEME_VARIABLE_NAMES.includes(decl.prop);
+
+          if (isThemeVar) {
+            const words = parseValue(decl.value);
+            const prefixName = /[a-zA-Z]+[^-]/.exec(decl.prop)[0];
+            let firstNodeSourceIndex;
+            words.walk(node => {
+              if (!firstNodeSourceIndex) {
+                firstNodeSourceIndex = node.sourceIndex;
+              }
+              const needInsert = isColorObject(node);
+              if (needInsert) {
+                insertVariableRelation(
+                  CSS_VAR_PREFIX,
+                  prefixName,
+                  node,
+                  sourceRelation,
+                  variableSemanticRelation
+                );
+                insertVariableRelation(
+                  CSS_RGB_VAR_PREFIX,
+                  prefixName,
+                  node,
+                  sourceRelation,
+                  variableForRGBSemanticRelation
+                );
+              }
+            });
+            if (decl.raws && decl.raws.value) {
+              const cssVarPrefixName = generateCSSVarPrefixName(
+                CSS_VAR_PREFIX,
+                prefixName,
+                sourceRelation,
+                firstNodeSourceIndex
+              );
+              const themeComments = generateComments(
+                cssVarPrefixName,
+                decl.raws.value
+              );
+              commentSemanticRelation.push.apply(
+                commentSemanticRelation,
+                themeComments
+              );
+            }
+          }
+        },
+      };
+    },
   };
-});
+};
 
 function isColorObject(node) {
   const { type, nodes = [] } = node;
@@ -163,11 +170,9 @@ function generateCSSVarPrefixName(
 ) {
   const variablePrefixName = sourceRelation[sourceIndex] || prefixName || '';
 
-  const cssVarPrefixName = variablePrefixName
+  return variablePrefixName
     ? `${cssVarPrefix}${variablePrefixName}-`
     : `${cssVarPrefix}`;
-
-  return cssVarPrefixName;
 }
 
 function generateComments(cssVarPrefixName, value) {
@@ -177,12 +182,12 @@ function generateComments(cssVarPrefixName, value) {
   const cssVariableInfos = scss.split('\n');
   const themeComments = [];
   for (
-    let commentIndex = 0, variabledIndex = 1, infoLen = cssVariableInfos.length;
-    variabledIndex <= infoLen;
+    let commentIndex = 0, variableIndex = 1, infoLen = cssVariableInfos.length;
+    variableIndex <= infoLen;
 
   ) {
     const comment = commentPattern.exec(cssVariableInfos[commentIndex]);
-    const variablePair = variablePattern.exec(cssVariableInfos[variabledIndex]);
+    const variablePair = variablePattern.exec(cssVariableInfos[variableIndex]);
 
     if (comment && variablePair) {
       themeComments.push({
@@ -192,7 +197,7 @@ function generateComments(cssVarPrefixName, value) {
       });
     }
     commentIndex++;
-    variabledIndex++;
+    variableIndex++;
   }
   return themeComments;
 }
@@ -218,7 +223,7 @@ function insertVariableRelation(
   );
 
   for (let i = 0; i < matchedNodes.length - 1; i = i + 2) {
-    const name = /[^\$]+/.exec(matchedNodes[i].value)[0];
+    const name = /[^$]+/.exec(matchedNodes[i].value)[0];
     const value = matchedNodes[i + 1];
     if (value.type === 'word') {
       const basicName = value.value;
@@ -235,5 +240,4 @@ function insertVariableRelation(
       sourceRelation[value.sourceIndex] = name;
     }
   }
-  return;
 }
