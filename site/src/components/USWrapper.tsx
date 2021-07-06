@@ -1,8 +1,13 @@
 import { Component } from 'react';
 
 import Layout from './Layout';
+import { ILayoutProps } from '../types';
 
-export default class CNWrapper extends Component {
+export interface IUSWrapperProps {
+  pass: ILayoutProps;
+}
+
+export default class USWrapper extends Component<IUSWrapperProps> {
   componentDidMount() {
     const { changeI18N, i18n } = this.props.pass;
     if (i18n !== 'en-US') {

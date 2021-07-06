@@ -14,6 +14,7 @@ import {
   II18nLocaleSwitch,
   II18nLocaleUpload,
   II18nLocaleTransfer,
+  LocaleMark,
 } from './locale';
 import { setLocale, zhCN } from './time-locale';
 
@@ -25,7 +26,7 @@ const common: II18nLocaleCommon = {
   reset: '重置',
 };
 
-export const mark = 'zh-CN';
+export const mark: LocaleMark = 'zh-CN';
 
 export const CopyButton: II18nLocaleCopyButton = {
   copy: '复制',

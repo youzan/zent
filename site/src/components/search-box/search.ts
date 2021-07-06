@@ -9,11 +9,15 @@ const options = {
   keys: ['title', 'subtitle'],
 };
 
-export default function makeSearcher(list) {
+export interface ISearcher<T> {
+  search(keyword: string): T[];
+}
+
+export default function makeSearcher<T>(list: T[]): ISearcher<T> {
   const fuse = new Fuse(list, options);
 
   return {
-    search(keyword) {
+    search(keyword: string) {
       if (!keyword) {
         return list;
       }

@@ -4,9 +4,16 @@ import { NavLink, withRouter } from 'react-router-dom';
 import { prefix } from '../../constants';
 
 import './style.scss';
+import { INav, INavGroup, INavItem } from '../../types';
+import type { RouteComponentProps } from 'react-router';
 
-class SideNav extends Component {
-  handleTitleClick = item => {
+interface ISideNavProps extends RouteComponentProps {
+  base: string;
+  data: INav[];
+}
+
+class SideNav extends Component<ISideNavProps> {
+  handleTitleClick = (item: INav) => {
     if (item.groups[0].list[0].path) {
       this.props.history.push(
         getFullPath(this.props.base, item.groups[0].list[0].path)
@@ -14,32 +21,20 @@ class SideNav extends Component {
     }
   };
 
-  parseData = (item, index) => (
+  parseData = (item: INav, index: number) => (
     <li className="nav-group-item" key={`nav-${index}`}>
-      {item.path ? (
-        <NavLink
-          activeClassName="active"
-          exact
-          to={getFullPath(this.props.base, item.path)}
-          title={item.name}
-        >
-          {item.name}
-        </NavLink>
-      ) : (
-        <a onClick={() => this.handleTitleClick(item)}>{item.name}</a>
-      )}
       {item.groups && item.groups.map(this.parseGroup)}
     </li>
   );
 
-  parseGroup = (group, index) => (
+  parseGroup = (group: INavGroup, index: number) => (
     <div className="nav-group" key={`nav-group-${index}`}>
       <div className="nav-group__title">{group.groupName}</div>
       <ul className="pure-menu-list">{group.list.map(this.parseList)}</ul>
     </div>
   );
 
-  parseList = (navItem, index) => {
+  parseList = (navItem: INavItem, index: number) => {
     const { title, subtitle, hidden, link } = navItem;
 
     if (hidden) {
@@ -54,7 +49,7 @@ class SideNav extends Component {
       title
     );
 
-    return navItem.disabled ? null : (
+    return (
       <li className="nav-item" key={`nav-list-${index}`}>
         {navItem.link ? (
           <a
@@ -68,7 +63,7 @@ class SideNav extends Component {
           <NavLink
             activeClassName="active"
             exact
-            to={getFullPath(this.props.base, navItem.path)}
+            to={getFullPath(this.props.base, navItem.path!)}
           >
             {linkTitle}
           </NavLink>
@@ -88,7 +83,7 @@ class SideNav extends Component {
   }
 }
 
-function getFullPath(base, path) {
+function getFullPath(base: string, path: string) {
   return `${base}/${path}`;
 }
 

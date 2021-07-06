@@ -1,13 +1,14 @@
 import { Component } from 'react';
-import { Popover, Input } from 'zent';
-import PropTypes from 'prop-types';
-import isEqual from 'lodash/isEqual';
+import { Popover, Input, IInputChangeEvent } from 'zent';
+import memoize from 'lodash/memoize';
 import { withRouter } from 'react-router-dom';
+import type { RouteComponentProps } from 'react-router';
 import isEmpty from 'lodash/isEmpty';
 
 import ResultList from './ResultList';
-import makeSearcher from './search';
+import makeSearcher, { ISearcher } from './search';
 import { SKIP_SCROLL } from './constants';
+import { INav, INavItem, Locale } from '../../types';
 
 import './style.scss';
 
@@ -21,29 +22,25 @@ const i18n = {
   },
 };
 
-class SearchBox extends Component {
-  static propTypes = {
-    locale: PropTypes.string.isRequired,
-    navData: PropTypes.array.isRequired,
-  };
+export interface ISearchBoxProps extends RouteComponentProps {
+  locale: Locale;
+  navData: INav[];
+}
 
-  state = {
+interface ISearchBoxState {
+  keyword: string;
+  activeIndex: number;
+  matches: INavItem[];
+  resultVisible: boolean;
+}
+
+class SearchBox extends Component<ISearchBoxProps, ISearchBoxState> {
+  state: ISearchBoxState = {
     keyword: '',
     activeIndex: SKIP_SCROLL,
     matches: [],
     resultVisible: false,
   };
-
-  constructor(props) {
-    super(props);
-    this.buildLUT(props.navData);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (!isEqual(nextProps.navData, this.props.navData)) {
-      this.buildLUT();
-    }
-  }
 
   render() {
     const { keyword, matches, activeIndex, resultVisible } = this.state;
@@ -55,7 +52,7 @@ class SearchBox extends Component {
           position={Popover.Position.BottomLeft}
           visible={resultVisible}
           cushion={5}
-          onVisibleChange={this.onResultVisibleChange.bind(this)}
+          onVisibleChange={this.onResultVisibleChange}
         >
           <Popover.Trigger.Click>
             <Input
@@ -63,9 +60,9 @@ class SearchBox extends Component {
               icon="search"
               placeholder={i18n[locale].placeholder}
               value={keyword}
-              onChange={this.onKeywordChange.bind(this)}
-              onClick={this.onInputClick.bind(this)}
-              onKeyDown={this.onKeydown.bind(this)}
+              onChange={this.onKeywordChange}
+              onClick={this.onInputClick}
+              onKeyDown={this.onKeydown}
             />
           </Popover.Trigger.Click>
 
@@ -74,8 +71,8 @@ class SearchBox extends Component {
               matches={matches}
               activeIndex={activeIndex}
               locale={locale}
-              redirectToResult={this.redirectToResult.bind(this)}
-              clearActiveIndex={this.clearActiveIndex.bind(this)}
+              redirectToResult={this.redirectToResult}
+              clearActiveIndex={this.clearActiveIndex}
             />
           </Popover.Content>
         </Popover>
@@ -83,16 +80,14 @@ class SearchBox extends Component {
     );
   }
 
-  // react-hot-loader rewrites this function into an infinite loop... lol
-  // if we use arrow function here
-  onKeywordChange(evt) {
+  onKeywordChange = (evt: IInputChangeEvent) => {
     const keyword = evt.target.value;
     if (keyword !== this.state.keyword) {
       this.search(keyword);
     }
-  }
+  };
 
-  onKeydown(evt) {
+  onKeydown = (evt: React.KeyboardEvent) => {
     const { key } = evt;
 
     if (key === 'Enter') {
@@ -146,59 +141,63 @@ class SearchBox extends Component {
       activeIndex,
       resultVisible: true,
     });
-  }
+  };
 
-  onResultVisibleChange(visible) {
+  onResultVisibleChange = (visible: boolean) => {
     this.setState({
       resultVisible: visible,
     });
-  }
+  };
 
-  onInputClick() {
+  onInputClick = () => {
     this.search(this.state.keyword);
-  }
+  };
 
-  clearActiveIndex() {
+  clearActiveIndex = () => {
     this.setState({
       activeIndex: SKIP_SCROLL,
     });
-  }
+  };
 
-  buildLUT(navData) {
-    // Only include components
-    const { groups } = navData[1];
-    const data = groups.reduce(
-      // eslint-disable-next-line
-      (lut, grp) =>
+  buildLUT: (navData: INav[]) => ISearcher<INavItem> = memoize(
+    (navData: INav[]) => {
+      // Only include components
+      const { groups } = navData[1];
+      const data = groups.reduce<INavItem[]>(
         // eslint-disable-next-line
-        grp.list.reduce((lut, item) => {
-          lut.push(item);
-          return lut;
-        }, lut),
-      []
-    );
+        (lut, grp) =>
+          // eslint-disable-next-line
+          grp.list.reduce((lut, item) => {
+            lut.push(item);
+            return lut;
+          }, lut),
+        []
+      );
 
-    data.sort((a, b) => {
-      if (a.title > b.title) {
-        return 1;
-      }
+      data.sort((a, b) => {
+        if (a.title > b.title) {
+          return 1;
+        }
 
-      if (a.title === b.title) {
-        return 0;
-      }
+        if (a.title === b.title) {
+          return 0;
+        }
 
-      return -1;
-    });
+        return -1;
+      });
 
-    this.lut = makeSearcher(data);
-  }
+      return makeSearcher(data);
+    }
+  );
 
-  search(keyword) {
-    if (!this.lut) {
+  search(keyword: string) {
+    const lut = this.buildLUT(this.props.navData);
+
+    if (!lut) {
       return;
     }
 
-    const matches = this.lut.search(keyword);
+    const matches = lut.search(keyword);
 
     this.setState({
       keyword,
@@ -208,14 +207,14 @@ class SearchBox extends Component {
     });
   }
 
-  redirectToResult(item) {
+  redirectToResult = (item: INavItem) => {
     const { path } = item;
     const { history, locale } = this.props;
     const prefix = locale.split('-')[0];
 
     history.replace(`/${prefix}/${path}`);
     this.onResultVisibleChange(false);
-  }
+  };
 }
 
 export default withRouter(SearchBox);

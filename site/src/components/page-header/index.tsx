@@ -1,17 +1,24 @@
 import { Component } from 'react';
 import { Select } from 'zent';
 import { withRouter } from 'react-router-dom';
+import type { RouteComponentProps } from 'react-router';
 
 import pkg from '../../../../packages/zent/package.json';
 import SearchBox from '../search-box';
 import './style.scss';
+import { INav, Locale } from '../../types';
+
+interface IVersionInfo {
+  key: string;
+  text: string;
+}
 
 const CONTROLS = {
   'zh-CN': 'EN',
   'en-US': '中文',
 };
 
-const VERSIONS = [
+const VERSIONS: IVersionInfo[] = [
   {
     key: 'latest',
     text: pkg.version,
@@ -30,7 +37,12 @@ const VERSIONS = [
   },
 ];
 
-class PageHeader extends Component {
+export interface IPageHeaderProps extends RouteComponentProps {
+  i18n: Locale;
+  sideNavData: INav[];
+}
+
+class PageHeader extends Component<IPageHeaderProps> {
   state = {
     version: VERSIONS[0],
   };
@@ -46,12 +58,16 @@ class PageHeader extends Component {
     history.replace(path.join('/'));
   };
 
-  changeVersion = value => {
+  changeVersion = (value: IVersionInfo | null) => {
     this.setState(
       {
         version: value,
       },
       () => {
+        if (!value) {
+          return;
+        }
+
         const version = value.key;
         if (version === 'latest') {
           return;
@@ -89,11 +105,7 @@ class PageHeader extends Component {
           </a>
           <div className="page-header__search-sep" />
           <SearchBox locale={i18n} navData={sideNavData} />
-          <div
-            className="page-header__i18n-switcher"
-            type="primary"
-            onClick={this.toggle}
-          >
+          <div className="page-header__i18n-switcher" onClick={this.toggle}>
             {CONTROLS[i18n] || ''}
           </div>
           <Select

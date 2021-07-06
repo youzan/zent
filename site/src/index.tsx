@@ -1,13 +1,14 @@
 import 'core-js/stable';
 import ReactDOM from 'react-dom';
-
+import 'zent/assets/index.scss';
 import 'prismjs/themes/prism.css';
+
 import './docs.scss';
 import './react-docs.scss';
 
 import App from './App';
 
-const render = ChildComponent => {
+const render = (ChildComponent: React.ElementType) => {
   ReactDOM.render(
     <ChildComponent />,
     document.getElementById('app-container') // eslint-disable-line

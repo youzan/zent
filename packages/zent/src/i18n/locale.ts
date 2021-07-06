@@ -133,3 +133,23 @@ export interface II18nLocaleTransfer {
   items: string;
   emptyLabel: string;
 }
+
+export type LocaleMark = 'zh-CN' | 'en-US';
+
+export interface ILocaleData {
+  mark: LocaleMark;
+  CopyButton: II18nLocaleCopyButton;
+  Pagination: II18nLocalePagination;
+  Pop: II18nLocalePop;
+  PreviewImage: II18nLocalePreviewImage;
+  RangePicker: II18nLocaleRangePicker;
+  Select: II18nLocaleSelect;
+  Switch: II18nLocaleSwitch;
+  Sweetalert: II18nLocaleSweetalert;
+  Grid: II18nLocaleGrid;
+  Cascader: II18nLocaleCascader;
+  TimePicker: I18nLocaleTimePicker;
+  Upload: II18nLocaleUpload;
+  Mention: II18nLocaleMention;
+  Transfer: II18nLocaleTransfer;
+}

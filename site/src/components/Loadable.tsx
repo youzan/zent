@@ -1,7 +1,10 @@
 import Loadable from 'react-loadable';
+
 import DocLoading from './Loading';
 
-export default function DocLoadable(opts) {
+export default function DocLoadable(
+  opts: Pick<Loadable.OptionsWithoutRender<unknown>, 'loader'>
+) {
   return Loadable(
     Object.assign(
       {

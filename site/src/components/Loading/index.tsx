@@ -1,6 +1,16 @@
 import './style.scss';
 
-export default function DocLoading({ error, timedOut, pastDelay }) {
+export interface IDocLoadingProps {
+  error: boolean;
+  timedOut: boolean;
+  pastDelay: boolean;
+}
+
+export default function DocLoading({
+  error,
+  timedOut,
+  pastDelay,
+}: IDocLoadingProps) {
   if (error) {
     return <Error />;
   }

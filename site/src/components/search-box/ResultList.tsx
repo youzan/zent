@@ -1,10 +1,10 @@
-import { Component } from 'react';
-import PropTypes from 'prop-types';
+import { Component, createRef } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import cx from 'classnames';
 import { smoothScroll } from 'zent';
 
 import { SKIP_SCROLL } from './constants';
+import { INavItem, Locale } from '../../types';
 
 const i18n = {
   'zh-CN': {
@@ -15,14 +15,18 @@ const i18n = {
   },
 };
 
-export default class ResultList extends Component {
-  static propTypes = {
-    matches: PropTypes.array,
-    locale: PropTypes.string.isRequired,
-    activeIndex: PropTypes.number,
-    redirectToResult: PropTypes.func.isRequired,
-    clearActiveIndex: PropTypes.func.isRequired,
-  };
+export interface IResultListProps {
+  matches: INavItem[];
+  locale: Locale;
+  activeIndex: number;
+  redirectToResult: (page: INavItem) => void;
+  clearActiveIndex: () => void;
+}
+
+export default class ResultList extends Component<IResultListProps> {
+  listRef = createRef<HTMLUListElement>();
+
+  itemHeight = 0;
 
   componentDidUpdate() {
     this.scrollActiveElementToViewport();
@@ -42,7 +46,7 @@ export default class ResultList extends Component {
     return (
       <ul
         className="zandoc-react-search-box-result-list"
-        ref={this.saveListNode}
+        ref={this.listRef}
         onMouseMove={this.props.clearActiveIndex}
       >
         {matches.map((item, idx) => {
@@ -72,13 +76,9 @@ export default class ResultList extends Component {
     );
   }
 
-  saveListNode = node => {
-    this.list = node;
-  };
-
   getListItemHeight() {
-    if (this.list && !this.itemHeight) {
-      const itemNode = this.list.querySelector(
+    if (this.listRef.current && !this.itemHeight) {
+      const itemNode = this.listRef.current.querySelector(
         '.zandoc-react-search-box-result-item'
       );
       if (itemNode) {
@@ -91,12 +91,11 @@ export default class ResultList extends Component {
 
   scrollActiveElementToViewport() {
     const { activeIndex } = this.props;
-    const { list } = this;
-    if (!list || activeIndex === SKIP_SCROLL) {
+    if (!this.listRef.current || activeIndex === SKIP_SCROLL) {
       return;
     }
 
-    const { scrollTop, offsetHeight } = list;
+    const { scrollTop, offsetHeight } = this.listRef.current;
     const itemHeight = this.getListItemHeight();
     const activeElementPosition = itemHeight * (activeIndex + 1);
     const actualPosition = scrollTop + offsetHeight;
@@ -118,7 +117,7 @@ export default class ResultList extends Component {
           itemHeight;
       }
 
-      smoothScroll(this.list, 0, scrollY, 100);
+      smoothScroll(this.listRef.current, 0, scrollY, 100);
     }
   }
 }

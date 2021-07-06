@@ -21,10 +21,12 @@ export function getNodeChildren(
  * 节点在树中的唯一 key
  */
 export function getNodeKey(node: ICascaderItem): string {
+  let n: ICascaderItem | null = node;
   const values = [];
-  while (node) {
-    values.unshift(node.value);
-    node = node.parent;
+
+  while (n) {
+    values.unshift(n.value);
+    n = n.parent;
   }
   return values.map((s, i) => `${i}$${s}`).join('@');
 }

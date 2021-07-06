@@ -35,5 +35,6 @@ npm-debug.log
 custom-theme.js
 dependency-graph.json
 plugins/ts-plugin-*.js
+*.tsbuildinfo
 
 css/

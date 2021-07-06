@@ -23,7 +23,7 @@ module.exports = {
     'react/jsx-closing-bracket-location': 0,
     'react/jsx-no-bind': 0,
     'react/require-default-props': 0,
-    'react/jsx-filename-extension': [2, { extensions: ['.js'] }],
+    'react/jsx-filename-extension': 0,
     'react/no-unused-prop-types': 0,
     'react/no-find-dom-node': 0,
     'react/no-array-index-key': 0,

@@ -76,7 +76,7 @@ export function merge(
 
   while (stack.length > 0) {
     const frame = stack.pop();
-    const { x = [], y = [], xy } = frame;
+    const { x = [], y = [], xy } = frame!;
 
     for (const i of x) {
       xy.push(i);

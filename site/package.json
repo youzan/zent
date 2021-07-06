@@ -10,7 +10,7 @@
   ],
   "license": "MIT",
   "scripts": {
-    "prepare": "node scripts/gather.js && yarn workspace zent compile-plugins",
+    "prepare": "node scripts/gather.js",
     "prepare-build": "rm -rf dist && yarn prepare",
     "dev": "yarn prepare && cross-env NODE_ENV=development node scripts/dev.js",
     "webpack": "cross-env NODE_ENV=production webpack --config webpack/webpack.prd.config.js",
@@ -28,13 +28,11 @@
     "fuse.js": "^6.4.6",
     "lodash": "^4.17.15",
     "prismjs": "^1.24.0",
-    "prop-types": "^15.6.0",
     "react": "17.0.x",
     "react-beautiful-dnd": "^13.0.0",
     "react-dom": "17.0.x",
     "react-loadable": "^5.5.0",
-    "react-router-dom": "^5.2.0",
-    "transliteration": "^2.2.0"
+    "react-router-dom": "^5.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.1.6",
@@ -48,6 +46,9 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/types": "^7.1.6",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.0-rc.0",
+    "@types/lodash": "^4.14.170",
+    "@types/react": "^17.0.13",
+    "@types/react-router-dom": "^5.1.7",
     "autoprefixer": "^10.2.6",
     "babel-loader": "^8.0.5",
     "babel-plugin-module-resolver": "^4.1.0",
@@ -70,8 +71,6 @@
     "mini-css-extract-plugin": "^2.0.0",
     "postcss": "^8.3.5",
     "postcss-loader": "^6.1.0",
-    "progress-bar-webpack-plugin": "^2.1.0",
-    "react-hot-loader": "^4.13.0",
     "react-markdown-doc-loader": "^3.0.4",
     "react-refresh": "^0.10.0",
     "react-refresh-typescript": "^2.0.1",

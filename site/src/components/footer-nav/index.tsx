@@ -1,31 +1,58 @@
 import { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import { Icon } from 'zent';
 
 import './style.scss';
+import type { RouteComponentProps } from 'react-router';
 
-class FooterNav extends Component {
-  constructor(props) {
+export interface IFooterNavProps extends RouteComponentProps {
+  data: any;
+}
+
+interface IFooterNavState {
+  nav: {
+    prev: any;
+    next: any;
+  };
+  prevPathName: string;
+}
+
+class FooterNav extends Component<IFooterNavProps, IFooterNavState> {
+  constructor(props: IFooterNavProps) {
     super(props);
 
-    this.state = {
+    const state: IFooterNavState = {
       nav: { prev: null, next: null },
+      prevPathName: props.location.pathname,
     };
 
     const { data, location } = props;
     if (location && location.pathname && data[location.pathname]) {
-      this.state.nav = data[location.pathname];
+      state.nav = data[location.pathname];
     }
+
+    this.state = state;
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { data, location } = nextProps;
+  static getDerivedStateFromProps(
+    props: IFooterNavProps,
+    state: IFooterNavState
+  ) {
+    const {
+      data,
+      location: { pathname },
+    } = props;
 
-    if (location !== this.props.location) {
-      this.setState({ nav: data[location.pathname] });
+    if (pathname !== state.prevPathName) {
+      return { nav: data[pathname], prevPathName: pathname };
     }
+
+    return {
+      prevPathName: pathname,
+    };
   }
 
-  handleNavClick(pathname) {
+  handleNavClick(pathname: string) {
     const { history } = this.props;
     history.push(pathname);
   }
@@ -41,7 +68,7 @@ class FooterNav extends Component {
               this.handleNavClick(nav.prev.pathname);
             }}
           >
-            <i className="zenticon zenticon-right" />
+            <Icon type="right" />
             {nav.prev.title}
           </a>
         )}
@@ -52,7 +79,7 @@ class FooterNav extends Component {
               this.handleNavClick(nav.next.pathname);
             }}
           >
-            <i className="zenticon zenticon-right" />
+            <Icon type="right" />
             {nav.next.title}
           </a>
         )}

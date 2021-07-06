@@ -1,6 +1,4 @@
-exports.prefix = getPrefix();
-
-function getPrefix() {
+function getPrefix(): string {
   if (process.env.NODE_ENV !== 'production') {
     return '/';
   }
@@ -11,3 +9,5 @@ function getPrefix() {
 
   return '/zent/';
 }
+
+export const prefix = getPrefix();

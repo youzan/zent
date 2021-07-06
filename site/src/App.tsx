@@ -5,18 +5,17 @@ import {
   Switch,
   Redirect,
 } from 'react-router-dom';
+import { addEventListener, I18nProvider, enUSLocale } from 'zent';
 
-import { I18nProvider } from '../../packages/zent/src/i18n';
-import * as i18nEN from '../../packages/zent/src/i18n/en-US';
 import ScrollToTop from './components/ScrollToTop';
-import packageJson from '../../packages/zent/package.json';
-import navData from './nav';
+import _navData from './nav';
 import { registerRoute, registerFooter } from './router.config';
 import { prefix } from './constants';
 import CNWrapper from './components/CNWrapper';
 import USWrapper from './components/USWrapper';
+import { ILayoutProps, INav, INavItem } from './types';
 
-window.addEventListener('click', e => {
+addEventListener(window, 'click', e => {
   if (e.target instanceof HTMLAnchorElement) {
     const { href } = e.target;
     if (/(apidoc|formulr)/.test(href)) {
@@ -25,6 +24,8 @@ window.addEventListener('click', e => {
     }
   }
 });
+
+const navData = _navData as unknown as Record<string, INav[]>;
 
 // one-dimentional array
 // 第二个参数作为处理路由分块的夹层暂时存在，后续会修复。
@@ -44,7 +45,7 @@ export default class App extends Component {
     i18n: 'zh-CN',
   };
 
-  changeI18N = target => {
+  changeI18N = (target: string) => {
     this.setState({
       i18n: target,
     });
@@ -52,18 +53,15 @@ export default class App extends Component {
 
   render() {
     const { i18n } = this.state;
-    const passthrough = i18nStr => ({
-      // 奥利奥，路由路径中的夹层。
-      oreo: `/${i18nStr.split('-')[0]}`,
-      version: packageJson.version,
-      sideNavData: navData[i18nStr],
-      footerData: footerData[i18nStr],
-      sideNavRef: this.saveSideNav,
-      saveFooter: this.saveFooter,
-      changeI18N: this.changeI18N,
-      prefix,
-      i18n,
-    });
+    const layoutProps = (locale: 'zh-CN' | 'en-US') =>
+      ({
+        // 奥利奥，路由路径中的夹层。
+        oreo: `/${locale.split('-')[0]}`,
+        sideNavData: navData[locale],
+        footerData: footerData[locale],
+        changeI18N: this.changeI18N,
+        i18n,
+      } as ILayoutProps);
 
     // 通过 basename 控制前缀，不要放到每一层路由里去
     return (
@@ -73,7 +71,7 @@ export default class App extends Component {
             <Route
               path="/zh"
               render={() => (
-                <CNWrapper pass={passthrough('zh-CN')}>
+                <CNWrapper pass={layoutProps('zh-CN')}>
                   <Switch>{routeData['zh-CN'].map(renderRouter)}</Switch>
                 </CNWrapper>
               )}
@@ -81,14 +79,14 @@ export default class App extends Component {
             <Route
               path="/en"
               render={() => (
-                <I18nProvider value={i18nEN}>
-                  <USWrapper pass={passthrough('en-US')}>
+                <I18nProvider value={enUSLocale}>
+                  <USWrapper pass={layoutProps('en-US')}>
                     <Switch>{routeData['en-US'].map(renderRouter)}</Switch>
                   </USWrapper>
                 </I18nProvider>
               )}
             />
-            <Redirect from="*" to={routeData['zh-CN'][0].path} />
+            <Redirect from="*" to={routeData['zh-CN'][0].path!} />
           </Switch>
         </ScrollToTop>
       </Router>
@@ -96,7 +94,7 @@ export default class App extends Component {
   }
 }
 
-function renderRouter(data) {
+function renderRouter(data: INavItem) {
   const { source, path } = data;
   return <Route key={`route-${path}`} component={source} path={path} />;
 }

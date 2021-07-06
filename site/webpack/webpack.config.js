@@ -1,21 +1,33 @@
+/* eslint-disable global-require */
+
 const webpack = require('webpack');
 const sass = require('sass');
 const os = require('os');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
-const tsCompilerConstantsPlugin =
-  require('../../packages/zent/plugins/ts-plugin-constants').default;
-const tsVersionAttributePlugin =
-  require('../../packages/zent/plugins/ts-plugin-version-attribute').default;
-const constants = require('../src/constants');
+/**
+ * This is copied from ../src/constants.ts because it's a TypeScript file
+ * @type {string}
+ */
+const PREFIX = (function getPrefix() {
+  if (process.env.NODE_ENV !== 'production') {
+    return '/';
+  }
+
+  if (process.env.VERSION === 'beta') {
+    return '/zent-beta/';
+  }
+
+  return '/zent/';
+})();
 
 const DEV = process.env.NODE_ENV !== 'production';
 
 const babelPlugins = DEV ? [require.resolve('react-refresh/babel')] : [];
+const tsHMRPlugins = DEV ? [require('react-refresh-typescript')()] : [];
 
 module.exports = {
   mode: process.env.NODE_ENV,
@@ -30,7 +42,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, '../dist'),
     filename: '[name]-[contenthash].js',
-    publicPath: constants.prefix,
+    publicPath: PREFIX,
   },
 
   stats: 'summary',
@@ -41,10 +53,9 @@ module.exports = {
 
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.md'],
-    alias: Object.assign({
-      zent$: path.resolve(__dirname, '../zent'),
-      'zent/es': path.resolve(__dirname, '../../packages/zent/src'),
-    }),
+    alias: {
+      zent: path.resolve(__dirname, '../../packages/zent'),
+    },
   },
 
   module: {
@@ -82,18 +93,6 @@ module.exports = {
             options: {
               sourceMap: DEV,
               implementation: sass,
-            },
-          },
-        ],
-      },
-      {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              plugins: babelPlugins,
             },
           },
         ],
@@ -164,20 +163,16 @@ module.exports = {
       },
       {
         test: /\.tsx?$/,
+        include: [path.resolve(__dirname, '../src')],
         use: [
           {
             loader: 'ts-loader',
             options: {
-              configFile: path.resolve(
-                __dirname,
-                DEV ? '../tsconfig.json' : '../tsconfig-prod.json'
-              ),
-              getCustomTransformers: program => ({
-                before: [
-                  tsCompilerConstantsPlugin(program),
-                  tsVersionAttributePlugin(program),
-                  // eslint-disable-next-line global-require
-                ].concat(DEV ? [require('react-refresh-typescript')()] : []),
+              projectReferences: true,
+              compiler: 'ttypescript',
+              configFile: path.resolve(__dirname, '../tsconfig.json'),
+              getCustomTransformers: () => ({
+                before: tsHMRPlugins,
               }),
             },
           },
@@ -192,7 +187,11 @@ module.exports = {
       VERSION: 'release',
     }),
 
-    new ProgressBarPlugin(),
+    new webpack.ProgressPlugin({
+      entries: false,
+      dependencies: false,
+      percentBy: 'modules',
+    }),
 
     new HtmlWebpackPlugin({
       template: 'src/index.html',
