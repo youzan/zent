@@ -8,7 +8,7 @@ echo 'Lint styles...'
 $basepath/./postcss-lint.sh
 
 echo 'Generate css variable reference...'
-$basepath/./postcss-generate-css-var-ref.sh
+$basepath/./generate-theme-css-vars.sh
 
 # clean
 echo "Clean up style output..."

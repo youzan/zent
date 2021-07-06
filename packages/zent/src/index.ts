@@ -65,7 +65,6 @@ export * from './tabs/types';
 export * from './tabs/VerticalTabs';
 export * from './tag';
 export * from './text-mark';
-export * from './theme';
 export * from './timeline';
 export * from './tooltip';
 export * from './transfer';

@@ -2116,10 +2116,10 @@
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
-"@zent/theme-sdk@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@zent/theme-sdk/-/theme-sdk-1.0.0.tgz#d653eed6c08bb34f6c66c1f6d5d32a838a5ceff8"
-  integrity sha512-Xy7urH40wGzrrja1jZTrg2Y92lGBIXQdueFo9F3wymaikpFYYAj8x1F/I9YgqWNV0LYjc3AlIM+WEF5bnFKAlg==
+"@zent/theme-sdk@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@zent/theme-sdk/-/theme-sdk-1.0.1.tgz#d6be5e12dcae45211d3270d8d68fadf60a15bac4"
+  integrity sha512-GkivcgMXC9YPQxqWQJWAek5irydemiGRIW6MpsPJyHG/E8bxkcF9Y0+Bhpg8QbEOtVNABta7PVqmfAJAEnM4pA==
   dependencies:
     "@ctrl/tinycolor" "^3.4.0"
     tslib "^2.3.0"

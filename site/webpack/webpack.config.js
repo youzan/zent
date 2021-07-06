@@ -44,6 +44,10 @@ module.exports = {
     alias: Object.assign({
       zent$: path.resolve(__dirname, '../zent'),
       'zent/es': path.resolve(__dirname, '../../packages/zent/src'),
+      'zent/theme-css-vars.json': path.resolve(
+        __dirname,
+        '../../packages/zent/theme-css-vars.json'
+      ),
     }),
   },
 

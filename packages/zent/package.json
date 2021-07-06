@@ -25,7 +25,7 @@
     "typedoc": "typedoc --out ../../site/dist/apidoc src/index.ts",
     "compile-plugins": "tsc -p ./plugins/tsconfig.json",
     "update-iconfont": "./scripts/update-iconfont.sh",
-    "generate-css-var-ref": "./scripts/postcss-generate-css-var-ref.sh"
+    "generate-theme-css-vars": "./scripts/generate-theme-css-vars.sh"
   },
   "author": "Youzan FE",
   "license": "MIT",
