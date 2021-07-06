@@ -37,7 +37,7 @@ module.exports = () => {
     prepare(result) {
       const variableSemanticRelation = {}; // { key -> name, value -> names[] }
       const variableForRGBSemanticRelation = {};
-      let commentSemanticRelation = {};
+      const commentSemanticRelation = {};
       const sourceRelation = {}; // { key -> index, value -> name }
 
       if (!THEME_FILES.includes(result.root.source.input.file)) {
@@ -101,10 +101,7 @@ module.exports = () => {
                 cssVarPrefixName,
                 decl.raws.value
               );
-              commentSemanticRelation = {
-                ...commentSemanticRelation,
-                ...themeComments,
-              };
+              Object.assign(commentSemanticRelation, themeComments);
             }
           }
         },
