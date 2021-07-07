@@ -1,4 +1,3 @@
-import { Omit } from 'utility-types';
 import { IFormComponentProps, dateRangeDefaultValueFactory } from '../shared';
 import {
   WeekPicker,

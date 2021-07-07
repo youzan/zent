@@ -15,6 +15,8 @@ interface ISourceFile extends ts.SourceFile {
   imports?: ts.StringLiteral[];
 }
 
+const hasOwn = Object.prototype.hasOwnProperty;
+
 /**
  * Parse value exports in a file.
  * Only function, class, variable and re-exports are counted.
@@ -46,10 +48,10 @@ function parseValueExports(
   // );
   const sourceFile = createSourceFile(filename);
 
-  const exportedLocalVariables = getModuleLocalExportedValueNames(sourceFile);
+  const exportedLocalVariables = getModuleLocalExportedValueNames(sourceFile!);
 
   const localValueVariables = getModuleValueNames(
-    sourceFile,
+    sourceFile!,
     cwd,
     registry,
     exportedLocalVariables
@@ -58,14 +60,14 @@ function parseValueExports(
   // log([...localValueVariables]);
 
   const exportedVariables = getModuleValueExportNames(
-    sourceFile,
+    sourceFile!,
     cwd,
     registry,
     localValueVariables
   );
 
   // Save to registry
-  const moduleDependencies = getModuleRelativeImports(sourceFile.imports, cwd);
+  const moduleDependencies = getModuleRelativeImports(sourceFile?.imports, cwd);
   registry[filename] = {
     exports: exportedVariables,
     dependencies: moduleDependencies,
@@ -151,13 +153,13 @@ function getModuleValueNames(
       const { importClause } = stmt;
       let shouldParseModule = false;
 
-      const names = importClause.namedBindings
+      const names = importClause?.namedBindings
         ? getBindingNames(importClause.namedBindings)
         : new Set([
-            { name: importClause.name.text, propertyName: DEFAULT_EXPORT },
+            { name: importClause?.name?.text, propertyName: DEFAULT_EXPORT },
           ]);
       for (const { name } of names) {
-        if (exportedLocalVariables.has(name)) {
+        if (exportedLocalVariables.has(name!)) {
           shouldParseModule = true;
         }
       }
@@ -172,12 +174,12 @@ function getModuleValueNames(
           registry
         );
 
-        if (importClause.namedBindings) {
+        if (importClause?.namedBindings) {
           // import { A } from './x'
           // import { C as CC } from './c'
           for (const { name, propertyName } of names) {
             if (dependentModuleExports.has(propertyName)) {
-              localValueVariables.add(name);
+              localValueVariables.add(name!);
             } else {
               console.warn(
                 chalk.yellow(
@@ -188,8 +190,11 @@ function getModuleValueNames(
           }
         } else {
           // import B from './B'
-          if (isModuleHasDefaultExport(dependentModuleExports)) {
-            localValueVariables.add(importClause.name.text);
+          if (
+            isModuleHasDefaultExport(dependentModuleExports) &&
+            importClause?.name?.text
+          ) {
+            localValueVariables.add(importClause?.name?.text);
           }
         }
       }
@@ -248,7 +253,7 @@ function getModuleValueExportNames(
         return;
       }
 
-      let dependentModuleExports;
+      let dependentModuleExports = new Set<string>();
       let dependentModulePath;
       // Parse dependency if we are re-exporting from relative module
       if (moduleSpecifier && isRelativeImportExportDeclaration(stmt)) {
@@ -273,7 +278,7 @@ function getModuleValueExportNames(
         const names = getBindingNames(exportClause);
 
         for (const { name, propertyName } of names) {
-          if (variableWhitelist.has(propertyName)) {
+          if (variableWhitelist?.has(propertyName)) {
             addToExports(exportedVariables, name);
           } else if (stmt.moduleSpecifier) {
             console.warn(
@@ -314,11 +319,11 @@ function getVariableNames(
   declarations.forEach(decl => {
     if (ts.isVariableDeclaration(decl)) {
       const name = ts.getNameOfDeclaration(decl);
-      if (ts.isIdentifier(name)) {
+      if (name && ts.isIdentifier(name)) {
         variables.add(name.text);
       } else if (
-        ts.isArrayBindingPattern(name) ||
-        ts.isObjectBindingPattern(name)
+        name &&
+        (ts.isArrayBindingPattern(name) || ts.isObjectBindingPattern(name))
       ) {
         name.elements.forEach(elem => {
           const elementName = ts.getNameOfDeclaration(elem) as ts.Identifier;
@@ -384,11 +389,11 @@ function getBindingNames(
 /**
  * Parse a module
  */
-function createSourceFile(filename: string): ISourceFile {
+function createSourceFile(filename: string): ISourceFile | undefined {
   /** ts.CompilerHost */
-  const compilerHost = {
+  const compilerHost: ts.CompilerHost = {
     fileExists: () => true,
-    getCanonicalFileName: filename => filename,
+    getCanonicalFileName: (filename: string) => filename,
     getCurrentDirectory: () => '',
     getDefaultLibFileName: () => 'lib.d.ts',
     getNewLine: () => '\n',
@@ -402,7 +407,7 @@ function createSourceFile(filename: string): ISourceFile {
         getScriptKind(filename)
       );
     },
-    readFile: () => null,
+    readFile: () => undefined,
     useCaseSensitiveFileNames: () => true,
     writeFile: () => null,
   };
@@ -431,7 +436,7 @@ function isRelativeImportExportDeclaration(
 ): boolean {
   const moduleName = getModuleName(stmt);
 
-  return moduleName && moduleName.startsWith('.');
+  return !!(moduleName && moduleName.startsWith('.'));
 }
 
 /**
@@ -530,7 +535,7 @@ function addToExports(
  * Get all relative imports for module
  */
 function getModuleRelativeImports(
-  imports: ts.StringLiteral[],
+  imports: ts.StringLiteral[] | undefined,
   cwd: string
 ): Set<string> {
   const importFiles = new Set<string>();
@@ -551,7 +556,7 @@ function getModuleRelativeImports(
  * Construct a module registry for root module
  */
 export function getModuleRegistry(rootModule: string): IRegistry {
-  const registry = {};
+  const registry: IRegistry = {};
 
   parseValueExports(rootModule, registry);
 
@@ -561,7 +566,7 @@ export function getModuleRegistry(rootModule: string): IRegistry {
     prevModuleCount = getRegistrySize();
 
     for (const key in registry) {
-      if (registry.hasOwnProperty(key)) {
+      if (hasOwn.call(registry, key)) {
         const mod = registry[key];
         mod.dependencies.forEach(
           dep => registry[dep] || parseValueExports(dep, registry)

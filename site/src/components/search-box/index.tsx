@@ -1,9 +1,9 @@
 import { Component } from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { Popover, Input, IInputChangeEvent } from 'zent';
-import memoize from 'lodash/memoize';
+import memoize from 'memoize-one';
 import { withRouter } from 'react-router-dom';
 import type { RouteComponentProps } from 'react-router';
-import isEmpty from 'lodash/isEmpty';
 
 import ResultList from './ResultList';
 import makeSearcher, { ISearcher } from './search';
@@ -93,7 +93,7 @@ class SearchBox extends Component<ISearchBoxProps, ISearchBoxState> {
     if (key === 'Enter') {
       return setTimeout(() => {
         const { matches } = this.state;
-        if (!isEmpty(matches)) {
+        if (matches && matches.length > 0) {
           let { activeIndex } = this.state;
           if (activeIndex < 0) {
             activeIndex = 0;

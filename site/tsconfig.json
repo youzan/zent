@@ -6,8 +6,9 @@
     "allowSyntheticDefaultImports": true,
     "outDir": "dist",
     "jsx": "react-jsx",
-    "strict": false,
+    "strict": true,
     "allowJs": false,
+    "skipLibCheck": true,
     "resolveJsonModule": true,
     "lib": ["dom", "es2017"]
   },

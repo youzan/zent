@@ -36,7 +36,7 @@ function SelectSearch(
 ) {
   const ref = useRef<HTMLInputElement>(null);
   const focusSearchInput = useCallback(() => {
-    ref.current!.focus({
+    ref.current.focus({
       preventScroll: true,
     });
   }, [ref]);

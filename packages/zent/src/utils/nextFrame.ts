@@ -5,8 +5,8 @@ import { useMemo } from 'react';
  * https://medium.com/@paul_irish/requestanimationframe-scheduling-for-nerds-9c57f7438ef4
  *
  * All rAF callbacks always run in the same or next frame of work.
- * Any rAFs queued in your event handlers will be executed in the ​same frame​.
- * Any rAFs queued in a rAF will be executed in the next frame​.
+ * Any rAFs queued in your event handlers will be executed in the same frame.
+ * Any rAFs queued in a rAF will be executed in the next frame.
  * (Same for any queued within IntersectionObserver or ResizeObserver callbacks.)
  */
 export function runInNextFrame(callback: () => void): () => void {

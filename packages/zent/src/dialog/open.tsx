@@ -1,6 +1,5 @@
 import * as ReactDOM from 'react-dom';
 import { Component, createRef } from 'react';
-import { Omit } from 'utility-types';
 
 import uniqueId from '../utils/uniqueId';
 import noop from '../utils/noop';

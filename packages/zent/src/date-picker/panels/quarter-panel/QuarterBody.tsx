@@ -12,7 +12,7 @@ import { ISingleDateBodyProps } from '../../types';
 const COL_COUNT = 2;
 const ROW_COUNT = 2;
 
-interface IQuarterPickerBodyProps extends ISingleDateBodyProps {}
+type IQuarterPickerBodyProps = ISingleDateBodyProps;
 const QuarterPickerBody: React.FC<IQuarterPickerBodyProps> = ({
   defaultPanelDate,
   onSelected,

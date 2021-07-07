@@ -40,7 +40,7 @@ export function groupedColumns<Data>(
         newColumn,
         rows
       );
-      parentColumn.colSpan += newColumn.colSpan as number;
+      parentColumn.colSpan += newColumn.colSpan;
     } else {
       parentColumn.colSpan++;
     }

@@ -3,6 +3,7 @@ import cx from 'classnames';
 import { IBlockLoadingProps } from './props';
 import LoadingMask from './components/LoadingMask';
 import useDelayed from './hooks/useDelayed';
+import { hasOwnProperty } from '../utils/hasOwn';
 
 export function BlockLoading(props: IBlockLoadingProps) {
   const height = getHeight(props);
@@ -48,7 +49,7 @@ export function BlockLoading(props: IBlockLoadingProps) {
 
 function getHeight(props: IBlockLoadingProps) {
   // 没有包裹内容时设置一个默认高度，有包裹内容时默认撑满内容高度
-  const hasHeightProp = props.hasOwnProperty('height');
+  const hasHeightProp = hasOwnProperty(props, 'height');
   const { children } = props;
 
   if (!children && !hasHeightProp) {

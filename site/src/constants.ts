@@ -1,3 +1,4 @@
+/* global process */
 function getPrefix(): string {
   if (process.env.NODE_ENV !== 'production') {
     return '/';

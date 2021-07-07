@@ -77,8 +77,8 @@ export class Upload extends AbstractMultiUpload<
         onDelete={this.deleteUploadItem}
         onSortChange={this.updateFileList}
         sortable={sortable}
-        pagination={pagination!}
-        pageSize={pageSize!}
+        pagination={pagination}
+        pageSize={pageSize}
         customUploadItem={customUploadItem}
       />
     );

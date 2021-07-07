@@ -1,5 +1,4 @@
 import cx from 'classnames';
-import { Omit } from 'utility-types';
 import { Subscription } from 'rxjs';
 import { Component, createRef } from 'react';
 

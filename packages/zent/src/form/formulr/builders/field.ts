@@ -26,6 +26,7 @@ export class FieldBuilder<Value> extends BasicBuilder<
     model.normalizeBeforeSubmit = this._normalizeBeforeSubmit;
 
     // Remove readonly modifier temporarily
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     (model.builder as FieldBuilder<Value>) = this;
 
     return model;

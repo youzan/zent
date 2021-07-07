@@ -93,7 +93,7 @@ class FieldArrayModel<
       this._initValue$();
     }
 
-    return this._value$!;
+    return this._value$;
   }
 
   _getValid$(shouldWarn = false) {
@@ -103,7 +103,7 @@ class FieldArrayModel<
       this._initValid$();
     }
 
-    return this._valid$!;
+    return this._valid$;
   }
 
   /**
@@ -388,14 +388,9 @@ class FieldArrayModel<
     this._getValue$().complete();
     this._getValid$().complete();
     this.children$.complete();
-    (this._valid$ as BehaviorSubject<boolean>) = createSentinelSubject(
-      this._displayName,
-      false
-    );
-    (this._value$ as BehaviorSubject<readonly Item[]>) = createSentinelSubject(
-      this._displayName,
-      []
-    );
+    this._valid$ = createSentinelSubject(this._displayName, false);
+    this._value$ = createSentinelSubject(this._displayName, []);
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     (this.children$ as BehaviorSubject<Child[]>) = createSentinelSubject(
       this._displayName,
       []

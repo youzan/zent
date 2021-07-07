@@ -435,7 +435,7 @@ export function parse(dateStr: string, format: string, i18nSettings = i18n) {
   newFormat = newFormat.replace(/@@@/g, () => {
     return literals.shift();
   });
-  const matches = dateStr.match(new RegExp(newFormat, 'i'));
+  const matches = new RegExp(newFormat, 'i').exec(dateStr);
   if (!matches) {
     return null;
   }

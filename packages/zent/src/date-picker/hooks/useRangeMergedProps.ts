@@ -3,6 +3,8 @@ import { parseDateRange } from '../utils/index';
 import { addMonths } from 'date-fns';
 import { IRangeProps, DateNullTuple, DateTuple } from '../types';
 
+const initDate: DateTuple = [new Date(), new Date()];
+
 function createDateRangeWithSingleDate(
   dates: DateNullTuple,
   addMonthNum: number
@@ -15,7 +17,6 @@ function createDateRangeWithSingleDate(
 
   return [startDate ?? getStartFromEnd(), endDate ?? getEndFromStart()];
 }
-const initDate: DateTuple = [new Date(), new Date()];
 
 interface IRangeMergedPropsParams
   extends Pick<IRangeProps, 'value' | 'defaultDate'> {

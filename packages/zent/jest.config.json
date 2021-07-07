@@ -9,7 +9,7 @@
       "^.+\\.jsx?$": "babel-jest"
     }
   },
-  "transformIgnorePatterns": ["/node_modules/(?!(lodash-es)/)"],
+  "transformIgnorePatterns": ["/node_modules/"],
   "testURL": "https://youzan.github.io/zent",
   "verbose": true,
   "automock": false,

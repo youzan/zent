@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { PaginationLayout } from '../layout/type';
 import memoize from '../../utils/memorize-one';
 import { IPopProps } from '../../pop';
+import { hasOwnProperty } from '../../utils/hasOwn';
 
 export type PaginationChangeHandler = (detail: {
   current: number;
@@ -99,11 +100,11 @@ export abstract class BasePagination<
   getTotal(props?: IProps) {
     props = props || this.props;
 
-    if (props.hasOwnProperty('total')) {
+    if (hasOwnProperty(props, 'total')) {
       return props.total || 0;
     }
 
-    if (props.hasOwnProperty('totalItem')) {
+    if (hasOwnProperty(props, 'totalItem')) {
       return props.totalItem || 0;
     }
 

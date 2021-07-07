@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import type { RouteComponentProps } from 'react-router';
 
-export interface IScrollToTopProps extends RouteComponentProps {}
+export type IScrollToTopProps = RouteComponentProps;
 
 class ScrollToTop extends Component<IScrollToTopProps> {
   componentDidUpdate(prevProps: IScrollToTopProps) {

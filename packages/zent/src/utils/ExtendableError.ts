@@ -1,3 +1,5 @@
+import { hasOwnProperty } from './hasOwn';
+
 class ExtendableError extends Error {
   constructor(message = '') {
     super(message);
@@ -17,7 +19,7 @@ class ExtendableError extends Error {
       writable: true,
     });
 
-    if (Error.hasOwnProperty('captureStackTrace')) {
+    if (hasOwnProperty(Error, 'captureStackTrace')) {
       Error.captureStackTrace(this, this.constructor);
       return;
     }

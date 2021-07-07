@@ -29,6 +29,46 @@ const DEV = process.env.NODE_ENV !== 'production';
 const babelPlugins = DEV ? [require.resolve('react-refresh/babel')] : [];
 const tsHMRPlugins = DEV ? [require('react-refresh-typescript')()] : [];
 
+const getScssLoaders = (includeZentPlugins = false) => {
+  return [
+    DEV ? 'style-loader' : MiniCssExtractPlugin.loader,
+    {
+      loader: 'css-loader',
+      options: {
+        importLoaders: 1,
+        sourceMap: DEV,
+      },
+    },
+    {
+      loader: 'postcss-loader',
+      options: {
+        sourceMap: DEV,
+        postcssOptions: {
+          // config: path.resolve(__dirname, '../postcss.config.js'),
+          plugins: (includeZentPlugins
+            ? [
+                require.resolve(
+                  '../../packages/zent/plugins/postcss-plugin-constants'
+                ),
+                require.resolve(
+                  '../../packages/zent/plugins/postcss-plugin-version-attribute'
+                ),
+              ]
+            : []
+          ).concat(['autoprefixer']),
+        },
+      },
+    },
+    {
+      loader: 'sass-loader',
+      options: {
+        sourceMap: DEV,
+        implementation: sass,
+      },
+    },
+  ];
+};
+
 module.exports = {
   mode: process.env.NODE_ENV,
 
@@ -70,29 +110,27 @@ module.exports = {
       },
       {
         test: /\.s?css$/,
+        exclude: [path.resolve(__dirname, '../../packages/zent/assets')],
+        use: getScssLoaders(false),
+      },
+      {
+        test: /\.scss$/,
+        include: [path.resolve(__dirname, '../../packages/zent/assets')],
+        use: getScssLoaders(true),
+      },
+      {
+        test: /\.tsx?$/,
+        exclude: [/node_modules/],
         use: [
-          DEV ? 'style-loader' : MiniCssExtractPlugin.loader,
           {
-            loader: 'css-loader',
+            loader: 'ts-loader',
             options: {
-              importLoaders: 1,
-              sourceMap: DEV,
-            },
-          },
-          {
-            loader: 'postcss-loader',
-            options: {
-              sourceMap: DEV,
-              postcssOptions: {
-                config: path.resolve(__dirname, '../postcss.config.js'),
-              },
-            },
-          },
-          {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: DEV,
-              implementation: sass,
+              projectReferences: true,
+              compiler: 'ttypescript',
+              configFile: path.resolve(__dirname, '../tsconfig.json'),
+              getCustomTransformers: () => ({
+                before: tsHMRPlugins,
+              }),
             },
           },
         ],
@@ -159,23 +197,6 @@ module.exports = {
             },
           },
           'markdown-doc-loader',
-        ],
-      },
-      {
-        test: /\.tsx?$/,
-        include: [path.resolve(__dirname, '../src')],
-        use: [
-          {
-            loader: 'ts-loader',
-            options: {
-              projectReferences: true,
-              compiler: 'ttypescript',
-              configFile: path.resolve(__dirname, '../tsconfig.json'),
-              getCustomTransformers: () => ({
-                before: tsHMRPlugins,
-              }),
-            },
-          },
         ],
       },
     ],

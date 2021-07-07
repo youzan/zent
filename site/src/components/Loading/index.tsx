@@ -37,6 +37,7 @@ function Loading() {
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-redeclare
 function Error() {
   return (
     <div className="zandoc-react-loading-error">Oops! An error occurred.</div>

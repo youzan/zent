@@ -1,6 +1,5 @@
 import { Component } from 'react';
 
-import { Omit } from 'utility-types';
 import Group from './Group';
 import { IButtonDirectiveProps, ButtonDirective } from './Directive';
 import {

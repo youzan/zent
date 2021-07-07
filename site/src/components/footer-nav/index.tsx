@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { Icon } from 'zent';
 
 import './style.scss';

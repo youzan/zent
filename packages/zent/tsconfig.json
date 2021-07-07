@@ -1,6 +1,8 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
+    "pretty": true,
+    "noEmitOnError": true,
     "plugins": [
       { "transform": "./plugins/ts-plugin-constants.ts" },
       { "transform": "./plugins/ts-plugin-version-attribute.ts" }

@@ -1,5 +1,4 @@
 import { ReactNode, useCallback, useRef } from 'react';
-import { Omit } from 'utility-types';
 
 import { IRadioContext } from './GroupContext';
 import { IDisabledContext } from '../disabled';

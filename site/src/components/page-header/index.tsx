@@ -1,4 +1,5 @@
 import { Component } from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { Select } from 'zent';
 import { withRouter } from 'react-router-dom';
 import type { RouteComponentProps } from 'react-router';

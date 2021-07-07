@@ -16,7 +16,6 @@ en-US:
 
 ```jsx
 import { Grid } from 'zent';
-import assign from 'lodash/assign';
 
 const datasets = [];
 
@@ -65,7 +64,7 @@ class Sort extends React.Component {
 		} else if (sortType === 'desc') {
 			sortDatasets = datasets.sort((a, b) => b[sortBy] - a[sortBy]);
 		}
-    this.setState(assign({}, this.state, conf, { datasets: sortDatasets }));
+    this.setState({ ...conf, datasets: sortDatasets });
   }
 
   render() {

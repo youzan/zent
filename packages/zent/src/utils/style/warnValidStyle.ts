@@ -6,6 +6,7 @@
  */
 
 import { warning } from '../warning';
+import { hasOwnProperty } from '../hasOwn';
 
 let warnValidStyle: (name: string, value: string | undefined) => void =
   () => {};
@@ -39,7 +40,7 @@ if (process.env.NODE_ENV !== 'production') {
     },
 
     warnHyphenatedStyleName(name) {
-      if (warnedStyleNames.hasOwnProperty(name) && warnedStyleNames[name]) {
+      if (hasOwnProperty(warnedStyleNames, name) && warnedStyleNames[name]) {
         return;
       }
 
@@ -56,7 +57,7 @@ if (process.env.NODE_ENV !== 'production') {
     },
 
     warnBadVendoredStyleName(name) {
-      if (warnedStyleNames.hasOwnProperty(name) && warnedStyleNames[name]) {
+      if (hasOwnProperty(warnedStyleNames, name) && warnedStyleNames[name]) {
         return;
       }
 
@@ -70,7 +71,10 @@ if (process.env.NODE_ENV !== 'production') {
     },
 
     warnStyleValueWithSemicolon(name: string, value: string) {
-      if (warnedStyleValues.hasOwnProperty(value) && warnedStyleValues[value]) {
+      if (
+        hasOwnProperty(warnedStyleValues, value) &&
+        warnedStyleValues[value]
+      ) {
         return;
       }
 

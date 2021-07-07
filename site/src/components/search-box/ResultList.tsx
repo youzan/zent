@@ -1,6 +1,6 @@
 import { Component, createRef } from 'react';
-import isEmpty from 'lodash/isEmpty';
 import cx from 'classnames';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { smoothScroll } from 'zent';
 
 import { SKIP_SCROLL } from './constants';
@@ -35,7 +35,7 @@ export default class ResultList extends Component<IResultListProps> {
   render() {
     const { matches, locale, activeIndex, redirectToResult } = this.props;
 
-    if (isEmpty(matches)) {
+    if (!matches || matches.length === 0) {
       return (
         <div className="zandoc-react-search-box-result-list zandoc-react-search-box-result-list--no-result">
           {i18n[locale].notFound}

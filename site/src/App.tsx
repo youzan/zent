@@ -1,10 +1,11 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
   Route,
   Switch,
   Redirect,
 } from 'react-router-dom';
+// eslint-disable-next-line @typescript-eslint/no-redeclare,import/no-extraneous-dependencies
 import { addEventListener, I18nProvider, enUSLocale } from 'zent';
 
 import ScrollToTop from './components/ScrollToTop';

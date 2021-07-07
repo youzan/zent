@@ -24,7 +24,9 @@ if (__DEV__) {
       // This error was thrown as a convenience so that you can use this stack
       // to find the call site that caused this warning to fire.
       throw new Error(message);
-    } catch (x) {}
+    } catch (x) {
+      // silent
+    }
   };
 
   warningOnce = (

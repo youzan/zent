@@ -3,6 +3,7 @@ import {
   LayoutBreakPoint,
   LayoutBreakPointName,
 } from './types';
+import { hasOwnProperty } from '../../utils/hasOwn';
 
 type LayoutBreakPointMap = Record<LayoutBreakPoint, LayoutBreakPointName>;
 
@@ -34,7 +35,7 @@ export function getValueForBreakpoint(
     }
   }
 
-  if (valueMap.hasOwnProperty('fallback')) {
+  if (hasOwnProperty(valueMap, 'fallback')) {
     return valueMap.fallback;
   }
 

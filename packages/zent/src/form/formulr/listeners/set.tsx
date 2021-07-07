@@ -24,7 +24,7 @@ export function FieldSetValue({
   const childContext = useMemo<IFormContext>(
     () => ({
       ...ctx,
-      parent: model!,
+      parent: model,
     }),
     [ctx, model]
   );

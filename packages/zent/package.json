@@ -17,21 +17,22 @@
   "scripts": {
     "test": "./scripts/test.sh",
     "lint-ts": "eslint src plugins scripts --ext=.ts,.tsx",
-    "lint-js": "eslint __tests__",
+    "lint-js": "eslint __tests__ plugins scripts --ext=.js",
     "lint-style": "./scripts/postcss-lint.sh",
     "build": "./scripts/build.sh",
     "theme": "./scripts/build-theme.sh",
     "new-component": "node ./scripts/new-component.js",
     "typedoc": "typedoc --out ../../site/dist/apidoc src/index.ts",
     "compile-plugins": "tsc -p ./plugins/tsconfig.json",
-    "update-iconfont": "./scripts/update-iconfont.sh"
+    "update-iconfont": "./scripts/update-iconfont.sh",
+    "invalidate-ts-build-cache": "./scripts/invalidate-ts-build-cache.sh"
   },
   "author": "Youzan FE",
   "license": "MIT",
   "files": [
-    "src/",
+    "src",
     "assets/",
-    "es/",
+    "es",
     "css/",
     "dependency-graph.json",
     "plugins/css-compiler-constants.js",
@@ -72,6 +73,7 @@
     "postcss-scss": "^4.0.0",
     "postcss-selector-parser": "^6.0.2",
     "postcss-value-parser": "^4.0.2",
+    "prop-types": "^15.7.2",
     "react": "17.0.x",
     "react-dom": "17.0.x",
     "react-window": "^1.8.6",
@@ -82,5 +84,12 @@
     "ttypescript": "^1.5.8",
     "typedoc": "~0.21.2",
     "typescript": "~4.3.5"
+  },
+  "peerDependencies": {
+    "@types/react": "^17.0.12",
+    "@types/react-dom": "^17.0.9",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "scheduler": "^0.20.0"
   }
 }

@@ -1,8 +1,8 @@
-export function log(arg) {
+export function log(arg: any) {
   console.log(stringify(arg));
 }
 
-export function stringify(arg) {
+export function stringify(arg: any) {
   return JSON.stringify(
     arg,
     (key, value) => {

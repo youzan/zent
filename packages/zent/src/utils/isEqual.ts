@@ -7,6 +7,7 @@
  * - Bug fixes regarding NaN, 0 and -0 values
  * - Throws on unsupported value types, such as Map/Set/WeakMap/WeakSet
  */
+import { hasOwnProperty } from './hasOwn';
 
 // We don't support symbols as object keys, they're expensive
 type ObjectKey = string | number;
@@ -79,7 +80,7 @@ export default function isEqual(value: any, other: any): boolean {
       // a and b must be non primitive values from here
 
       // Different types
-      const tag = toString.call(a);
+      const tag: string = toString.call(a);
       if (tag !== toString.call(b)) {
         return false;
       }
@@ -243,7 +244,7 @@ export default function isEqual(value: any, other: any): boolean {
       const { a, b, keys, size, index } = op;
 
       const k = keys[index];
-      if (!b.hasOwnProperty(k)) {
+      if (!hasOwnProperty(b, k)) {
         return false;
       }
 

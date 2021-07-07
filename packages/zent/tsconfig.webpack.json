@@ -3,6 +3,7 @@
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "composite": true,
+    "incremental": true,
     "plugins": [
       // paths are relative to site, not this directory
       { "transform": "../packages/zent/plugins/ts-plugin-constants.ts" },

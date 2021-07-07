@@ -76,7 +76,7 @@ export function useMulti<T, R>(
   func8: (t: T) => R,
   deps?: any[]
 ): (t: T) => void;
-export function useMulti<T, R>(...funcs: any[]): (t: T) => void {
+export function useMulti<T>(...funcs: any[]): (t: T) => void {
   let deps: any[];
   if (Array.isArray(last(funcs))) {
     deps = funcs.pop()!;

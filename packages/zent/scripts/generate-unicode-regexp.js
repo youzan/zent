@@ -97,7 +97,7 @@ const EMOJI_REGEXP = (function () {
   return rsEmoji;
 })();
 
-const toUnicodePoint = x => `\\u\{${x.toString(16)}\}`;
+const toUnicodePoint = x => `\\u{${x.toString(16)}}`;
 
 function codegen(name, ranges) {
   let regexp5 = '';

@@ -8,7 +8,7 @@ import PopoverContent from '../popover/Content';
 import { useCallbackRef } from '../utils/hooks/useCallbackRef';
 import { DropdownContext } from './DropdownContext';
 
-export interface IDropdownProps extends IPopoverProps {}
+export type IDropdownProps = IPopoverProps;
 
 export const Dropdown: React.FC<IDropdownProps> = ({
   cushion = 4,

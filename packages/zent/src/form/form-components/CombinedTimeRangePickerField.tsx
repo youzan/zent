@@ -1,12 +1,11 @@
-import { Omit } from 'utility-types';
 import { IFormComponentProps, dateRangeDefaultTimeFactory } from '../shared';
 import {
   CombinedTimeRangePicker,
   ICombinedTimeRangePickerProps,
+  RangeTime,
 } from '../../date-picker';
 import { FormField } from '../Field';
 import { $MergeParams } from '../utils';
-import { RangeTime } from '../../date-picker';
 
 export type ICombinedFormTimeRangePickerFieldProps = IFormComponentProps<
   RangeTime,

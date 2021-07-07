@@ -32,7 +32,7 @@ export interface II18nLocalePagination {
   items: string;
 }
 
-export interface II18nLocalePop extends II18nLocaleCommon {}
+export type II18nLocalePop = II18nLocaleCommon;
 
 export interface II18nLocalePreviewImage {
   alt: string;

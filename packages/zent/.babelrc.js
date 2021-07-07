@@ -1,6 +1,5 @@
 const path = require('path');
 const fs = require('fs');
-const trimStart = require('lodash/trimStart');
 
 const C_GREY = '\x1b[90;40m';
 const C_RESET = '\x1b[0m';
@@ -41,7 +40,7 @@ module.exports = function (api) {
             if (pkg !== sourcePath) {
               relativeLocation = path.join(
                 relativeLocation,
-                trimStart(sourcePath, pkg)
+                sourcePath.trimStart(pkg)
               );
             }
 

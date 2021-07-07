@@ -1,5 +1,7 @@
+/* global process */
 import 'core-js/stable';
 import ReactDOM from 'react-dom';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import 'zent/assets/index.scss';
 import 'prismjs/themes/prism.css';
 
