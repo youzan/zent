@@ -1086,11 +1086,6 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
         this.store.setState({
           columns: this.getColumns(nextProps, nextProps.columns),
         });
-      } else if (nextProps.selection?.hasOwnProperty('isSingleSelection')) {
-        this.store.setState({
-          selectedRowKeys: nextProps.selection.selectedRowKeys || [],
-          columns: this.getColumns(nextProps),
-        });
       }
     }
 
@@ -1108,6 +1103,13 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
       ) {
         this.selectionPropsCache = {};
       }
+    } else if (
+      nextProps.selection?.isSingleSelection !==
+      this.props.selection?.isSingleSelection
+    ) {
+      this.store.setState({
+        columns: this.getColumns(nextProps),
+      });
     }
 
     if (nextProps.columns && nextProps.columns !== this.props.columns) {
