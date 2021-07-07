@@ -99,7 +99,7 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
       // but it should be ResizeObserverSize[]
       width = Array.isArray(contentBoxSize)
         ? contentBoxSize[0].inlineSize
-        : (contentBoxSize as ResizeObserverSize).inlineSize;
+        : ((contentBoxSize as unknown) as ResizeObserverSize).inlineSize;
     } else {
       width = contentRect.width;
     }

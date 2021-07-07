@@ -2,7 +2,6 @@ import { PureComponent } from 'react';
 import {
   IUploadFileItem,
   IAbstractUploadListProps,
-  IUploadFileItemInner,
   IUploadItemProps,
 } from '../types';
 
@@ -15,22 +14,17 @@ abstract class AbstractUploadList<
   /**
    * 展示单个上传文件项
    */
-  abstract renderFileItem(
-    item: IUploadFileItemInner<UPLOAD_ITEM>,
-    index: number
-  ): React.ReactNode;
+  abstract renderFileItem(item: UPLOAD_ITEM, index: number): React.ReactNode;
 
   /**
    * 获取渲染时要展示的上传项列表
    */
-  abstract getRenderFileList(): Array<IUploadFileItemInner<UPLOAD_ITEM>>;
+  abstract getRenderFileList(): Array<UPLOAD_ITEM>;
 
   /**
    * sortable 的 change 回调，用于实现文件列表的拖拽排序
    */
-  abstract onFileListSortChange(
-    list: Array<IUploadFileItemInner<UPLOAD_ITEM>>
-  ): void;
+  abstract onFileListSortChange(list: Array<UPLOAD_ITEM>): void;
 }
 
 export default AbstractUploadList;

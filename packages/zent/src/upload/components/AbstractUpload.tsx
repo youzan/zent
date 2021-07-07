@@ -4,7 +4,6 @@ import { FILE_UPLOAD_STATUS } from '../constants';
 import {
   IAbstractUploadProps,
   IUploadFileItem,
-  IUploadFileItemInner,
   IUploadOnErrorHandler,
   IUploadItemProps,
 } from '../types';
@@ -25,7 +24,7 @@ abstract class AbstractUpload<
    */
   abstract get isControlled();
 
-  abstract getUploadItem(id: string): IUploadFileItemInner<UPLOAD_ITEM>;
+  abstract getUploadItem(id: string): UPLOAD_ITEM;
 
   /**
    * 触发 onError 回调
@@ -37,12 +36,9 @@ abstract class AbstractUpload<
   /**
    * 触发外部上传方法
    */
-  emitOnUpload = (
-    file: File,
-    uploadItem: IUploadFileItemInner<UPLOAD_ITEM>
-  ) => {
+  emitOnUpload = (file: File, uploadItem: UPLOAD_ITEM) => {
     const { onUpload, manualUpload } = this.props;
-    const uploadItemId = uploadItem._id;
+    const uploadItemId = uploadItem.id;
     // auto start upload
     if (!manualUpload && onUpload) {
       onUpload(file, this.updateUploadItemPercent.bind(this, uploadItemId))
@@ -58,23 +54,19 @@ abstract class AbstractUpload<
   /**
    * 删除上传文件项
    */
-  abstract deleteUploadItem: (
-    deleteItem: IUploadFileItemInner<UPLOAD_ITEM>
-  ) => void;
+  abstract deleteUploadItem: (deleteItem: UPLOAD_ITEM) => void;
 
   /**
    * 重新上传文件
    */
-  abstract retryUploadItem: (
-    retryItem: IUploadFileItemInner<UPLOAD_ITEM>
-  ) => void;
+  abstract retryUploadItem: (retryItem: UPLOAD_ITEM) => void;
 
   /**
    * 更新某个上传项的属性
    */
   abstract updateUploadItem: (
     updateItemId: string,
-    overrideProps: Partial<IUploadFileItemInner<UPLOAD_ITEM>>
+    overrideProps: Partial<UPLOAD_ITEM>
   ) => void;
 
   /**
@@ -87,7 +79,7 @@ abstract class AbstractUpload<
     const overrideProps = {
       status: FILE_UPLOAD_STATUS.success,
       ...this.getUploadSuccessOverrideProps(onUploadSuccessReturn),
-    } as Partial<IUploadFileItemInner<UPLOAD_ITEM>>;
+    } as Partial<UPLOAD_ITEM>;
     this.updateUploadItem(updateItemId, overrideProps);
   };
 
@@ -97,7 +89,7 @@ abstract class AbstractUpload<
   updateUploadItemStatusToFailed = (updateItemId: string) => {
     const overrideProps = {
       status: FILE_UPLOAD_STATUS.failed,
-    } as Partial<IUploadFileItemInner<UPLOAD_ITEM>>;
+    } as Partial<UPLOAD_ITEM>;
     this.updateUploadItem(updateItemId, overrideProps);
   };
 
@@ -117,7 +109,7 @@ abstract class AbstractUpload<
     const overrideProps = {
       status: FILE_UPLOAD_STATUS.uploading,
       percent,
-    } as Partial<IUploadFileItemInner<UPLOAD_ITEM>>;
+    } as Partial<UPLOAD_ITEM>;
     this.updateUploadItem(updateItemId, overrideProps);
   };
 
@@ -131,7 +123,7 @@ abstract class AbstractUpload<
    */
   protected getUploadSuccessOverrideProps(
     onUploadSuccessReturn: ON_UPLOAD_SUCCESS_RETURN
-  ): Partial<IUploadFileItemInner<UPLOAD_ITEM>> {
+  ): Partial<UPLOAD_ITEM> {
     return onUploadSuccessReturn;
   }
 
@@ -140,9 +132,7 @@ abstract class AbstractUpload<
    */
   protected abstract createNewUploadFileItem(
     file: File
-  ):
-    | IUploadFileItemInner<UPLOAD_ITEM>
-    | Promise<IUploadFileItemInner<UPLOAD_ITEM>>;
+  ): UPLOAD_ITEM | Promise<UPLOAD_ITEM>;
 
   /**
    * 渲染文件上传触发器

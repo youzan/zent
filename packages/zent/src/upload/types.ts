@@ -2,15 +2,25 @@ import { FILE_UPLOAD_STATUS } from './constants';
 
 import { II18nLocaleUpload } from '../i18n';
 
-// file item types
+/** 文件对象 */
 export interface IUploadFileItem {
+  /** 判断上传文件的唯一id，内部初始化使用，在回调函数中值必存在，外部不需要传 */
+  // 内部需要对 id 属性赋值，因此不设为 readonly
+  id?: string;
+  /** 重试上传时的文件对象 */
+  readonly file?: File;
+
   // browser file object properties
+  /** 文件名称 */
   name: string;
+  /** 文件类型 */
   type: string;
 
   // upload file object properties
-  status: FILE_UPLOAD_STATUS; // 上传状态
-  percent?: number; // 上传进度
+  /** 文件上传状态 */
+  status: FILE_UPLOAD_STATUS;
+  /** 文件上传进度 */
+  percent?: number;
 }
 
 export interface IImageUploadFileItem extends IUploadFileItem {
@@ -19,13 +29,25 @@ export interface IImageUploadFileItem extends IUploadFileItem {
   thumbSrc?: string;
 }
 
+/**
+ * 文件项对象的内部属性扩展类型，内部不再使用，且将于 v10 删除
+ * 为了兼容外部已经使用的情况，保留该类型及相关使用了该类型的对外暴露的API
+ */
 export type IUploadFileItemInner<
   UPLOAD_ITEM extends IUploadFileItem
 > = UPLOAD_ITEM & {
-  /** 判断上传文件的唯一id */
+  /**
+   * @deprecated
+   * @internal
+   * 判断上传文件的唯一id，仅内部使用，已废弃，且将于 v10 删除
+   */
   _id?: string;
-  /** 重试上传时的文件对象 */
-  _file?: File;
+  /**
+   * @deprecated
+   * @internal
+   * 重试上传时的文件对象，仅内部使用，已废弃，且将于 v10 删除
+   */
+  readonly _file?: File;
 };
 
 // onChange types

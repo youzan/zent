@@ -5,7 +5,6 @@ import {
   IImageUploadFileItem,
   IImageUploadListProps,
   IUploadFileItem,
-  IUploadFileItemInner,
   IImageUploadItemProps,
 } from '../../types';
 import AbstractUploadList from '../AbstractList';
@@ -19,24 +18,20 @@ export default class ImageUploadList extends AbstractUploadList<
     return this.props.fileList;
   }
 
-  onFileListSortChange = (
-    list: Array<IUploadFileItemInner<IUploadFileItem>>
-  ) => {
+  onFileListSortChange = (list: Array<IUploadFileItem>) => {
     this.props.onSortChange(list);
   };
 
-  onItemPreview = (item: IUploadFileItemInner<IUploadFileItem>) => {
+  onItemPreview = (item: IUploadFileItem) => {
     this.props.onPreview(item, this.props.fileList);
   };
 
-  renderFileItem = (
-    item: IUploadFileItemInner<IUploadFileItem>
-  ): React.ReactNode => {
+  renderFileItem = (item: IUploadFileItem): React.ReactNode => {
     const { customUploadItem: CustomUploadItem } = this.props;
     const UploadItem = CustomUploadItem || ImageUploadItem;
     return (
       <UploadItem
-        key={item._id}
+        key={item.id}
         item={item}
         i18n={this.props.i18n}
         onDelete={this.props.onDelete}

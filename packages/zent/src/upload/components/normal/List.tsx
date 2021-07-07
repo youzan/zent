@@ -1,6 +1,5 @@
 import {
   IUploadFileItem,
-  IUploadFileItemInner,
   IUploadListProps,
   INormalUploadItemProps,
 } from '../../types';
@@ -53,14 +52,12 @@ export default class NormalUploadList extends AbstractUploadList<
     return [(current - 1) * pageSize, current * pageSize];
   }
 
-  getRenderFileList(): Array<IUploadFileItemInner<IUploadFileItem>> {
+  getRenderFileList(): Array<IUploadFileItem> {
     const [start, end] = this.displayListRange;
     return this.props.fileList.slice(start, end);
   }
 
-  onFileListSortChange = (
-    list: Array<IUploadFileItemInner<IUploadFileItem>>
-  ) => {
+  onFileListSortChange = (list: Array<IUploadFileItem>) => {
     const [start, end] = this.displayListRange;
     const rawFileList = this.props.fileList;
     const newList = [
@@ -98,14 +95,12 @@ export default class NormalUploadList extends AbstractUploadList<
     );
   }
 
-  renderFileItem = (
-    item: IUploadFileItemInner<IUploadFileItem>
-  ): React.ReactNode => {
+  renderFileItem = (item: IUploadFileItem): React.ReactNode => {
     const { customUploadItem: CustomUploadItem } = this.props;
     const UploadItem = CustomUploadItem || NormalUploadItem;
     return (
       <UploadItem
-        key={item._id}
+        key={item.id}
         item={item}
         i18n={this.props.i18n}
         onDelete={this.props.onDelete}
