@@ -1080,6 +1080,14 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
   // 等重构再删了吧，改不动
   // eslint-disable-next-line react/no-deprecated
   componentWillReceiveProps(nextProps: IGridProps<Data, RowProps>) {
+    if (nextProps.selection !== this.props.selection) {
+      if (!nextProps.selection) {
+        this.store.setState({
+          columns: this.getColumns(nextProps, nextProps.columns),
+        });
+      }
+    }
+
     if (nextProps.selection?.hasOwnProperty('selectedRowKeys')) {
       this.store.setState({
         selectedRowKeys: nextProps.selection.selectedRowKeys || [],
@@ -1094,6 +1102,13 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
       ) {
         this.selectionPropsCache = {};
       }
+    } else if (
+      nextProps.selection?.isSingleSelection !==
+      this.props.selection?.isSingleSelection
+    ) {
+      this.store.setState({
+        columns: this.getColumns(nextProps),
+      });
     }
 
     if (nextProps.columns && nextProps.columns !== this.props.columns) {
