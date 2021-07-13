@@ -2,6 +2,7 @@
 order: 4
 zh-CN:
 	title: 所有图标
+  prompt: '注意：展示的图标名称不是type'
 	x-cat-base: 基础类
 	x-cat-business: 业务类
 	x-cat-logo: 标示类
@@ -9,9 +10,10 @@ zh-CN:
   x-cat-status: 状态类
 	searchPlaceholder: 搜索图标
 	jsx: 复制 JSX
-	name: 复制图标标识
+	name: 复制type
 en-US:
 	title: All Icons
+  prompt: 'Attention: The icon name displayed is not the type'
 	x-cat-base: Base
 	x-cat-business: Business
 	x-cat-logo: Logo
@@ -19,7 +21,7 @@ en-US:
   x-cat-operation: Operation
 	searchPlaceholder: Search icon
 	jsx: Copy JSX
-	name: Copy icon type
+	name: Copy type
 ---
 
 ```jsx
@@ -59,13 +61,16 @@ class IconGrid extends Component {
       <div className="zi-grid">
         <div className="zi-grid-toolbar">
           {search && <style>{`.zi-grid-item:not([data-index*="${search}"]) { display: none; }`}</style>}
-          <Input
-            className="zi-search-input"
-            icon="search"
-            placeholder="{i18n.searchPlaceholder}"
-            value={search}
-            onChange={this.onChange}
-          />
+          <div className="zi-search-input-wrapper">
+            <Input
+              className="zi-search-input"
+              icon="search"
+              placeholder="{i18n.searchPlaceholder}"
+              value={search}
+              onChange={this.onChange}
+            />
+            {i18n.prompt}
+          </div>
 
           <RadioGroup onChange={this.onCopyOptionChange} value={this.state.copyType}>
             <Radio value="jsx">{i18n.jsx}</Radio>
@@ -2324,8 +2329,13 @@ ReactDOM.render(<IconGrid />, mountNode);
 		justify-content: space-between;
 	}
 
+  .zi-search-input-wrapper {
+    color: #999;
+  }
+
 	.zi-search-input {
 		width: 344px;
+    margin-bottom: 4px;
 	}
 
 	.zi-grid-group {
