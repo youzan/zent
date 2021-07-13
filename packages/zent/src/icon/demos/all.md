@@ -763,9 +763,11 @@ class IconGrid extends Component {
             </CopyButton>
           </div>
         </div>
+      
         <div className="zi-grid-group">
           <div className="zi-grid-group-name">{i18n.x-cat-business}</div>
           <div className="zi-grid-group-items">
+            
             <CopyButton
               text={this.getIconString("summary-o")}
               onCopySuccess="summary 已复制到剪贴板"
@@ -1411,9 +1413,11 @@ class IconGrid extends Component {
             </CopyButton>
           </div>
         </div>
+      
         <div className="zi-grid-group">
           <div className="zi-grid-group-name">{i18n.x-cat-logo}</div>
           <div className="zi-grid-group-items">
+            
             <CopyButton
               text={this.getIconString("youzan-o")}
               onCopySuccess="youzan 已复制到剪贴板"
