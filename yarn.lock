@@ -12486,7 +12486,7 @@ yocto-queue@^0.1.0:
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
 
-zenticons@3.6.4:
-  version "3.6.4"
-  resolved "https://registry.yarnpkg.com/zenticons/-/zenticons-3.6.4.tgz#9dc06c5e02c9b6f71c49a9a352d7b60e754406f9"
-  integrity sha512-yCRK0tSujp9pJMqNslJjwUUup4JB5dycPbkddxogqkaghZzGutNZDReNvCDfP4trAIEeIk29gw6xItNDQ8s+aw==
+zenticons@3.7.1:
+  version "3.7.1"
+  resolved "https://registry.yarnpkg.com/zenticons/-/zenticons-3.7.1.tgz#5b2d2955b97c6ca9c7772b651f979aedb3face85"
+  integrity sha512-FTRcCTDyRi37dvEF9vlr02kvxjRKk+qEJn7Flg6xaq5eCDBM71FQ21ZYz6xrHQ/AUtjLvxFv56TM3ZFE+VYJWg==
