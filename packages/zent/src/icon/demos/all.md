@@ -2,7 +2,7 @@
 order: 4
 zh-CN:
 	title: 所有图标
-  prompt: '注意：展示的图标名称不是type'
+  prompt: '注意：展示的图标名称不是 type'
 	x-cat-base: 基础类
 	x-cat-business: 业务类
 	x-cat-logo: 标示类
@@ -10,7 +10,7 @@ zh-CN:
   x-cat-status: 状态类
 	searchPlaceholder: 搜索图标
 	jsx: 复制 JSX
-	name: 复制type
+	name: 复制 type
 en-US:
 	title: All Icons
   prompt: 'Attention: The icon name displayed is not the type'
@@ -2325,7 +2325,7 @@ ReactDOM.render(<IconGrid />, mountNode);
 
 	&-toolbar {
 		display: flex;
-		align-items: center;
+		align-items: flex-start;
 		justify-content: space-between;
 	}
 
@@ -2335,7 +2335,7 @@ ReactDOM.render(<IconGrid />, mountNode);
 
 	.zi-search-input {
 		width: 344px;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
 	}
 
 	.zi-grid-group {
