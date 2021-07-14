@@ -214,6 +214,8 @@ function defaultIsValidNewOption<Key extends string | number = string | number>(
 // 允许创建的临时 key
 const SELECT_CREATABLE_KEY = uniqueId('__ZENT_SELECT_CREATABLE_KEY__');
 
+const DEFAULT_TRIGGER_WIDTH = 240;
+
 export class Select<
   Key extends string | number = string | number,
   Item extends ISelectItem<Key> = ISelectItem<Key>
@@ -224,7 +226,7 @@ export class Select<
     filter: defaultFilter,
     isValidNewOption: defaultIsValidNewOption,
     highlight: defaultHighlight,
-    width: 240,
+    width: DEFAULT_TRIGGER_WIDTH,
     multiple: false,
     clearable: false,
     loading: false,
@@ -310,7 +312,11 @@ export class Select<
       return;
     }
 
-    const triggerWidth = this.triggerRef.current?.offsetWidth;
+    const triggerWidth =
+      this.triggerRef.current?.offsetWidth ||
+      typeof this.props.width === 'number'
+        ? this.props.width
+        : DEFAULT_TRIGGER_WIDTH;
     this.setState({
       triggerWidth,
     });

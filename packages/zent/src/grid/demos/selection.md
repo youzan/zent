@@ -2,6 +2,11 @@
 order: 4
 zh-CN:
 	title: 多选
+	hide: 隐藏选择框
+	show: 显示选择框
+	toSingle: 切换单选
+	toMultiple: 切换多选
+	errorTips: 你最多选择两个
 	product: 商品
 	productName: 商品名
 	uv: 访问量
@@ -11,6 +16,11 @@ zh-CN:
 	reason: '禁用原因'
 en-US:
 	title: Selection
+	hide: Hide
+	show: Show
+	toSingle: To single mode
+	toMultiple: To multiple mode
+	errorTips: You can choose up to two
 	product: Product
 	productName: Product Name
 	uv: uv
@@ -21,7 +31,7 @@ en-US:
 ---
 
 ```jsx
-import { Grid, Notify } from 'zent';
+import { Grid, Notify, Button } from 'zent';
 
 const columns = [
 	{
@@ -64,6 +74,8 @@ class Selection extends React.Component {
 		selectedRowKeys: ['f-0'],
 		datasets,
 		current: 1,
+		showSelection: true,
+		isSingle: false,
 	};
 
 	onChange = ({ current }) => {
@@ -73,39 +85,67 @@ class Selection extends React.Component {
 		});
 	};
 
+	toggleSelection = () => {
+		this.setState({
+			showSelection: !this.state.showSelection,
+		});
+	};
+
+	toggleSelectionMode = () => {
+		this.setState({
+			isSingle: !this.state.isSingle,
+			selectedRowKeys: [this.state.selectedRowKeys[0]],
+		});
+	};
+
 	render() {
 		return (
-			<Grid
-				columns={columns}
-				datasets={this.state.datasets}
-				pageInfo={{
-					pageSize: pageSize,
-					total: totalItem,
-					current: this.state.current,
-				}}
-				paginationType="lite"
-				selection={{
-					selectedRowKeys: this.state.selectedRowKeys,
-					onSelect: (selectedRowKeys, selectedRows, currentRow) => {
-						if (selectedRowKeys.length > 2) {
-							Notify.error('你最多选择两个');
-							this.setState({
-								selectedRowKeys: [].concat(this.state.selectedRowKeys),
-							});
-						} else {
-							this.setState({
-								selectedRowKeys,
-							});
-						}
-					},
-					getSelectionProps: data => ({
-						disabled: data.name === '{i18n.babyProducts} 1',
-						reason: '{i18n.reason}'
-					}),
-				}}
-				rowKey="id"
-				onChange={this.onChange}
-			/>
+			<>
+				<Button onClick={this.toggleSelection} style={{ marginBottom: 12 }}>
+					{this.state.showSelection ? '{i18n.hide}' : '{i18n.show}'}
+				</Button>
+				{this.state.showSelection && (
+					<Button onClick={this.toggleSelectionMode} style={{ marginBottom: 12 }}>
+						{ this.state.isSingle ? '{i18n.toMultiple}' : '{i18n.toSingle}' }
+					</Button>
+				)}
+				<Grid
+					columns={columns}
+					datasets={this.state.datasets}
+					pageInfo={{
+						pageSize: pageSize,
+						total: totalItem,
+						current: this.state.current,
+					}}
+					paginationType="lite"
+					selection={
+						this.state.showSelection
+							? {
+									selectedRowKeys: this.state.selectedRowKeys,
+									isSingleSelection: this.state.isSingle,
+									onSelect: (selectedRowKeys, selectedRows, currentRow) => {
+										if (selectedRowKeys.length > 2) {
+											Notify.error('{i18n.errorTips}');
+											this.setState({
+												selectedRowKeys: [].concat(this.state.selectedRowKeys),
+											});
+										} else {
+											this.setState({
+												selectedRowKeys,
+											});
+										}
+									},
+									getSelectionProps: data => ({
+										disabled: data.name === '{i18n.babyProducts} 1',
+										reason: '{i18n.reason}',
+									}),
+							  }
+							: undefined
+					}
+					rowKey="id"
+					onChange={this.onChange}
+				/>
+			</>
 		);
 	}
 }

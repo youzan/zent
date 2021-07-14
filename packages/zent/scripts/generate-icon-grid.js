@@ -11,24 +11,29 @@ const chalk = require('chalk');
 const readFileP = util.promisify(fs.readFile);
 const writeFileP = util.promisify(fs.writeFile);
 
+const X_PREFIX = 'x-';
 const X_CAT_PREFIX = 'x-cat-';
+const HIDE_CAT_NAME = X_CAT_PREFIX + 'hide';
+const X_NAME_PREFIX = 'x-name-';
 
 function generate() {
-  const groups = codes
-    .filter(c => !c.keywords.some(k => k === 'duplicate'))
-    .reduce((groups, c) => {
-      const cat = c.keywords.find(x => x.startsWith(X_CAT_PREFIX));
-      if (!cat) {
-        throw new Error(`x-cat- not found on icon ${c.name}`);
-      }
+  const groups = codes.reduce((groups, c) => {
+    const cat = c.keywords.find(x => x.startsWith(X_CAT_PREFIX));
+    if (!cat) {
+      throw new Error(`x-cat- not found on icon ${c.name}`);
+    }
 
-      if (!groups[cat]) {
-        groups[cat] = [];
-      }
-
-      groups[cat].push(c);
+    if (HIDE_CAT_NAME === cat) {
       return groups;
-    }, {});
+    }
+
+    if (!groups[cat]) {
+      groups[cat] = [];
+    }
+
+    groups[cat].push(c);
+    return groups;
+  }, {});
 
   const icons = Object.keys(groups)
     .map(k => {
@@ -36,23 +41,27 @@ function generate() {
 
       const groupIcons = grp
         .map(c => {
-          const name = c.name;
+          const displayName = c.keywords.find(k => k.startsWith(X_NAME_PREFIX));
+          const name = displayName
+            ? displayName.replace(X_NAME_PREFIX, '')
+            : c.name;
+          const id = c.name;
           // const icodepoint = c.hexCodepoint;
           const keywords = c.keywords
-            .filter(k => !k.startsWith(X_CAT_PREFIX))
+            .filter(k => !k.startsWith(X_PREFIX))
             .join('');
           const fulltext_index = `${name}${keywords}`;
 
           return `
             <CopyButton
-              text={this.getIconString("${name}")}
+              text={this.getIconString("${id}")}
               onCopySuccess="${name} 已复制到剪贴板"
             >
               <div
                 className="zi-grid-item"
                 data-index="${fulltext_index}"
               >
-                <Icon type="${name}" />
+                <Icon type="${id}" />
                 <span className="zi-grid-item-name">${name}</span>
               </div>
             </CopyButton>`;
