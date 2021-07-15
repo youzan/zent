@@ -9,6 +9,14 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 9.8.0(2021-07-15)
+
+- ✨ 重画所有图标，同时增加了一些新图标。由于新、旧图标大小可能有细微差别，个别场景下样式可能会有些许偏移
+- 🦀️ 修复 `Grid` 切换 `selection` 时视图和数据不同步的问题
+- 🦀️ 修复 `Select` 组件挂载时通过 `display: none` 隐藏，之后再渲染出来的时候弹层宽度错误的问题
+- 🦀️ 清理并重写仓库 `eslint` 规则
+- 📚 文档网站骨架迁移到 `TypeScript`
+
 ### 9.7.3(2021-07-02)
 
 - 🦀️ `Upload` 文件对象上公开 `file` 和 `id` 属性，之前的 `_file` 和 `_id` 仍保留，如果有使用 `_` 开头的属性请尽快替换
@@ -22,7 +30,7 @@
   - `jest` `v24` 升级到 `v27`
   - `postcss` `v6` 升级到 `v8`
   - 升级其他所有依赖到最新版
-- 使用 `react-refresh-webpack-plugin` 替换 `@hot-loader/react-dom`
+- 📚 使用 `react-refresh-webpack-plugin` 替换 `@hot-loader/react-dom`
 
 ### 9.7.2(2021-06-25)
 
