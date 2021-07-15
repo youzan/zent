@@ -1,19 +1,12 @@
 import { Component } from 'react';
 import Enzyme, { mount } from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
-import PropTypes from 'prop-types';
 
 import Portal from '../../src/portal';
 
 Enzyme.configure({ adapter: new Adapter() });
 
 class SimpleState extends Component {
-  static propTypes = {
-    inc: PropTypes.func.isRequired,
-    close: PropTypes.func.isRequired,
-    count: PropTypes.number.isRequired,
-  };
-
   render() {
     const { inc, close, count } = this.props;
     return (

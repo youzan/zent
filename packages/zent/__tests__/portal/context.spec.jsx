@@ -1,11 +1,12 @@
-import { Component } from 'react';
+import { Component, createContext } from 'react';
 import Enzyme, { mount } from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
-import PropTypes from 'prop-types';
 
 import Portal from '../../src/portal';
 
 Enzyme.configure({ adapter: new Adapter() });
+
+const ctx = createContext();
 
 /*
 **react<=15.2.1的版本有bug，除了initial render外context不会更新**
@@ -15,9 +16,7 @@ https://github.com/facebook/react/pull/7125
 */
 function exposeStore(BaseComponent) {
   return class ExposeStoreWrapper extends Component {
-    static contextTypes = {
-      store: PropTypes.object.isRequired,
-    };
+    static contextType = ctx;
 
     render() {
       const { store } = this.context;
@@ -28,10 +27,6 @@ function exposeStore(BaseComponent) {
 
 const Child = exposeStore(
   class _Child extends Component {
-    static propTypes = {
-      store: PropTypes.object.isRequired,
-    };
-
     render() {
       const { store } = this.props;
       const { count } = store;
@@ -47,16 +42,6 @@ class ContextComponent extends Component {
     },
     visible: false,
   };
-
-  static childContextTypes = {
-    store: PropTypes.object.isRequired,
-  };
-
-  getChildContext() {
-    return {
-      store: this.state.store,
-    };
-  }
 
   inc = () => {
     const { store } = this.state;
@@ -92,27 +77,29 @@ class ContextComponent extends Component {
     const { visible } = this.state;
 
     return (
-      <div className="parent">
-        <Portal className="context-portal" visible={visible}>
-          <Child />
-        </Portal>
-        {!visible && (
-          <button onClick={this.open} className="btn-open">
-            open
+      <ctx.Provider value={{ store: this.state.store }}>
+        <div className="parent">
+          <Portal className="context-portal" visible={visible}>
+            <Child />
+          </Portal>
+          {!visible && (
+            <button onClick={this.open} className="btn-open">
+              open
+            </button>
+          )}
+          {visible && (
+            <button onClick={this.close} className="btn-close">
+              close
+            </button>
+          )}
+          <button onClick={this.inc} className="btn-inc">
+            +
           </button>
-        )}
-        {visible && (
-          <button onClick={this.close} className="btn-close">
-            close
+          <button onClick={this.dec} className="btn-dec">
+            -
           </button>
-        )}
-        <button onClick={this.inc} className="btn-inc">
-          +
-        </button>
-        <button onClick={this.dec} className="btn-dec">
-          -
-        </button>
-      </div>
+        </div>
+      </ctx.Provider>
     );
   }
 }
