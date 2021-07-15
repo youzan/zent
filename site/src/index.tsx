@@ -1,4 +1,3 @@
-/* global process */
 import 'core-js/stable';
 import ReactDOM from 'react-dom';
 // eslint-disable-next-line import/no-extraneous-dependencies
