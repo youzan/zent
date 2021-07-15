@@ -4,7 +4,6 @@ set -e
 
 basepath=$(dirname $0)
 
-echo 'Invalidating TypeScript build cache...'
 cat <<EOF > "$basepath/../src/invalidate-ts-cache.ts"
 /**
  * This file is auto generated to invalidate TypeScript build cache.
@@ -13,3 +12,6 @@ cat <<EOF > "$basepath/../src/invalidate-ts-cache.ts"
  */
 export const timestamp = $(date +%s);
 EOF
+
+echo 'TypeScript build cache invalidated'
+

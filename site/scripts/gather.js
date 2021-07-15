@@ -94,7 +94,6 @@ function generateConfig() {
     .replace(/"source": "(DocLoadable\({.+}\))"/g, `"source": $1`);
 
   return `/* eslint-disable */
-// @ts-nocheck
 import DocLoadable from './components/Loadable';
 import { INavLocaleData } from './types';
 

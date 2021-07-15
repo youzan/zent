@@ -17,7 +17,7 @@
     "build": "yarn prepare-build && yarn webpack && yarn workspace zent typedoc",
     "deploy": "yarn build && ./scripts/deploy.sh",
     "lint-js": "eslint webpack scripts",
-    "lint-ts": "eslint src --ext=.ts,.tsx",
+    "lint-ts": "yarn workspace zent build && yarn prepare && eslint src --ext=.ts,.tsx",
     "webpack-beta": "cross-env NODE_ENV=production VERSION=beta webpack --config webpack/webpack.prd.config.js",
     "build-beta": "yarn prepare-build && yarn webpack-beta && yarn workspace zent typedoc",
     "deploy-beta": "yarn build-beta && ./scripts/deploy-beta.sh"
