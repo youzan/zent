@@ -1,14 +1,12 @@
 .DS_Store
-dist/
-lib/
 node_modules/
 node_modules.tar
 *.log
 npm-debug.log*
-coverage
+packages/*/lib
 packages/*/coverage
+site/dist
 .vscode/
-.felintrc
 .idea/
 logs/
 .history/

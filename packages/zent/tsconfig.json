@@ -1,31 +1,11 @@
 {
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "allowSyntheticDefaultImports": false,
-    "allowUnreachableCode": false,
-    "allowUnusedLabels": false,
-    "strict": false,
-    "declaration": true,
-    "forceConsistentCasingInFileNames": true,
-    "importHelpers": true,
-    "jsx": "react-jsx",
-    "lib": ["dom", "ESNext"],
-    "module": "es6",
-    "moduleResolution": "node",
-    "noEmitOnError": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "outDir": "es",
     "pretty": true,
-    "removeComments": true,
-    "skipLibCheck": true,
-    "downlevelIteration": false,
-    "target": "es5",
+    "noEmitOnError": true,
     "plugins": [
       { "transform": "./plugins/ts-plugin-constants.ts" },
       { "transform": "./plugins/ts-plugin-version-attribute.ts" }
     ]
   },
-  "exclude": ["lib", "es", "node_modules", "__tests__"],
-  "include": ["src"]
 }

@@ -1,5 +1,4 @@
 import { useCallback } from 'react';
-import { Omit } from 'utility-types';
 import cx from 'classnames';
 import Checkbox, { ICheckboxProps, ICheckboxEvent } from '../../checkbox';
 import { IFormComponentProps } from '../shared';

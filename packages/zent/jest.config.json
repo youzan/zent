@@ -9,7 +9,7 @@
       "^.+\\.jsx?$": "babel-jest"
     }
   },
-  "transformIgnorePatterns": ["/node_modules/(?!(lodash-es)/)"],
+  "transformIgnorePatterns": ["/node_modules/"],
   "testURL": "https://youzan.github.io/zent",
   "verbose": true,
   "automock": false,
@@ -27,8 +27,6 @@
   "testEnvironment": "jsdom",
   "testPathIgnorePatterns": [
     "<rootDir>/__tests__/.eslintrc.js",
-    "<rootDir>/__tests__/select.js",
-    "<rootDir>/__tests__/datetimepicker",
     "<rootDir>/__tests__/portal/.+"
   ],
   "coveragePathIgnorePatterns": [

@@ -1,67 +1,11 @@
-const path = require('path');
-const fs = require('fs');
-const trimStart = require('lodash/trimStart');
-
-const C_GREY = '\x1b[90;40m';
-const C_RESET = '\x1b[0m';
-
-function grey(msg) {
-  return `${C_GREY}${msg}${C_RESET}`;
-}
-
 module.exports = function (api) {
   api.cache(true);
-
-  const packagesDir = path.resolve(__dirname, './src');
-  const packages = fs
-    .readdirSync(packagesDir)
-    .filter(p => fs.statSync(path.join(packagesDir, p)).isDirectory());
-  const packageLocations = packages.map(p => path.join(packagesDir, p));
 
   const nonDevPlugins = [
     'transform-remove-console',
     'transform-remove-debugger',
   ];
-  const transpilePlugins = [
-    ...nonDevPlugins,
-    [
-      'module-resolver',
-      {
-        resolvePath(sourcePath, currentFile) {
-          const filedir = path.dirname(currentFile);
-          const pkgIndex = packages.findIndex(
-            p => p === sourcePath || sourcePath.startsWith(`${p}/`)
-          );
-
-          if (pkgIndex !== -1) {
-            const pkg = packages[pkgIndex];
-            const location = packageLocations[pkgIndex];
-            let relativeLocation = path.relative(filedir, location);
-
-            if (pkg !== sourcePath) {
-              relativeLocation = path.join(
-                relativeLocation,
-                trimStart(sourcePath, pkg)
-              );
-            }
-
-            // ensure the output is a relative path
-            if (relativeLocation === sourcePath) {
-              relativeLocation = `./${relativeLocation}`;
-            }
-
-            if (process.env.DEBUG !== undefined) {
-              console.log(
-                grey(`Resolved: ${sourcePath} => ${relativeLocation}`)
-              );
-            }
-
-            return relativeLocation;
-          }
-        },
-      },
-    ],
-  ];
+  const transpilePlugins = [...nonDevPlugins];
 
   return {
     presets: [

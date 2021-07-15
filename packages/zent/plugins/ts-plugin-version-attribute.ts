@@ -1,22 +1,17 @@
 import * as ts from 'typescript';
-const pkg: { version: string } = require('../package.json');
+import * as pkg from '../package.json';
 
 // keep it short, it bloats code
 const VERSION_ATTRIBUTE_NAME = 'data-zv';
 
-export interface IHtmlElementTransformerOptions {}
-
-export default function htmlElementTransformer(
-  _program: ts.Program,
-  _opts?: IHtmlElementTransformerOptions
-) {
+export default function htmlElementTransformer(_program: ts.Program) {
   function createVisitor(ctx: ts.TransformationContext) {
     const visitor: ts.Visitor = (node: ts.Node) => {
       if (ts.isJsxOpeningElement(node) || ts.isJsxSelfClosingElement(node)) {
         const { tagName } = node;
         if (ts.isIdentifier(tagName) && isNativeHtmlTag(tagName.text)) {
           const attributes = ts.factory.createJsxAttributes(
-            [].concat(
+            ([] as ts.JsxAttributeLike[]).concat(
               node.attributes.properties,
               ts.factory.createJsxAttribute(
                 ts.factory.createIdentifier(VERSION_ATTRIBUTE_NAME),

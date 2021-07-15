@@ -1,23 +1,26 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "es2015",
+    "module": "esnext",
     "moduleResolution": "node",
-    "allowSyntheticDefaultImports": false,
+    "allowSyntheticDefaultImports": true,
     "outDir": "dist",
-    "jsx": "react-jsxdev",
-    "allowJs": true,
-    "lib": [
-      "dom",
-      "es2017"
-    ]
+    "jsx": "react-jsx",
+    "strict": true,
+    "allowJs": false,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "lib": ["dom", "es2017"]
   },
-  "exclude": [
-    "lib",
-    "es",
+  "exclude": ["lib", "es"],
+  "include": ["src"],
+  "references": [
+    {
+      "path": "../packages/zent/tsconfig.webpack.json"
+    }
   ],
-  "include": [
-    "src",
-    "../packages/zent/src",
-  ]
+  "baseUrl": ".",
+  "paths": {
+    "zent": ["../packages/zent"]
+  }
 }

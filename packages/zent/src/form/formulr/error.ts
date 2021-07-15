@@ -20,7 +20,8 @@ export const FormContextNotFoundError = new FormulrError(
   'FormContext not found',
   [
     'Using form hooks outside the form context',
-    "There's a copy of formulr in your project, run `yarn list formulr` to check",
+    'There are two copies of zent in your project, run `yarn list zent` to check',
+    'Mixed use of Form from zent and formulr, formulr is a deprecate package',
   ]
 );
 

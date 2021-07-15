@@ -6,6 +6,7 @@
  */
 
 import { isUnitlessNumber } from './CSSProperty';
+import { hasOwnProperty } from '../hasOwn';
 
 /**
  * Convert a value into the proper css writable value. The style name `name`
@@ -40,7 +41,7 @@ function dangerousStyleValue(
     !isCustomProperty &&
     typeof value === 'number' &&
     value !== 0 &&
-    !(isUnitlessNumber.hasOwnProperty(name) && isUnitlessNumber[name])
+    !(hasOwnProperty(isUnitlessNumber, name) && isUnitlessNumber[name])
   ) {
     return value + 'px'; // Presumes implicit 'px' suffix for unitless numbers
   }

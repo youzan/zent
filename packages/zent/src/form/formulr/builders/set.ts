@@ -6,6 +6,7 @@ import {
   UnknownFieldSetModelChildren,
   UnknownFieldSetBuilderChildren,
 } from '../utils';
+import { hasOwnProperty } from '../../../utils/hasOwn';
 
 export type $FieldSetBuilderChildren<
   ChildBuilders extends UnknownFieldSetBuilderChildren
@@ -35,7 +36,7 @@ export class FieldSetBuilder<
     const children = {} as UnknownFieldSetModelChildren;
     Object.keys(this._childBuilders).forEach(key => {
       const childBuilder = this._childBuilders[key];
-      if (defaults.hasOwnProperty(key)) {
+      if (hasOwnProperty(defaults, key)) {
         children[key] = childBuilder.build(Some(defaults[key]));
       } else {
         children[key] = childBuilder.build(None());
@@ -47,6 +48,7 @@ export class FieldSetBuilder<
     model.validators = this._validators;
 
     // Remove readonly modifier temporarily
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     (model.builder as FieldSetBuilder<UnknownFieldSetBuilderChildren>) = this;
 
     return model;

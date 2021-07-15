@@ -32,7 +32,7 @@ export interface II18nLocalePagination {
   items: string;
 }
 
-export interface II18nLocalePop extends II18nLocaleCommon {}
+export type II18nLocalePop = II18nLocaleCommon;
 
 export interface II18nLocalePreviewImage {
   alt: string;
@@ -132,4 +132,24 @@ export interface II18nLocaleTransfer {
   item: string;
   items: string;
   emptyLabel: string;
+}
+
+export type LocaleMark = 'zh-CN' | 'en-US';
+
+export interface ILocaleData {
+  mark: LocaleMark;
+  CopyButton: II18nLocaleCopyButton;
+  Pagination: II18nLocalePagination;
+  Pop: II18nLocalePop;
+  PreviewImage: II18nLocalePreviewImage;
+  RangePicker: II18nLocaleRangePicker;
+  Select: II18nLocaleSelect;
+  Switch: II18nLocaleSwitch;
+  Sweetalert: II18nLocaleSweetalert;
+  Grid: II18nLocaleGrid;
+  Cascader: II18nLocaleCascader;
+  TimePicker: I18nLocaleTimePicker;
+  Upload: II18nLocaleUpload;
+  Mention: II18nLocaleMention;
+  Transfer: II18nLocaleTransfer;
 }

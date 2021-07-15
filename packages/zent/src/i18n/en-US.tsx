@@ -14,6 +14,7 @@ import {
   II18nLocaleSwitch,
   II18nLocaleUpload,
   II18nLocaleTransfer,
+  LocaleMark,
 } from './locale';
 import { enUS, setLocale } from './time-locale';
 
@@ -25,7 +26,7 @@ const common: II18nLocaleCommon = {
   reset: 'Reset',
 };
 
-export const mark = 'en-US';
+export const mark: LocaleMark = 'en-US';
 
 export const CopyButton: II18nLocaleCopyButton = {
   copy: 'Copy',

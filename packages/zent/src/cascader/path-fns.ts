@@ -51,8 +51,8 @@ export function difference(
  * 从根节点到 `node` 的路径
  */
 export function getPathToNode(node: ICascaderItem): ICascaderItem[] {
-  let parent = node;
-  const path = [];
+  let parent: ICascaderItem | null = node;
+  const path: ICascaderItem[] = [];
 
   while (parent) {
     path.unshift(parent);

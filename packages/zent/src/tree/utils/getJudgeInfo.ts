@@ -99,7 +99,7 @@ export default function getJudgeInfo({
   });
 
   return {
-    rootInfoMap: rootInfoMap as ITreeRootInfoMap,
+    rootInfoMap,
     expandNode,
   };
 }

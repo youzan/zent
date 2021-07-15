@@ -1,6 +1,5 @@
 import cx from 'classnames';
 import { isElement, isFragment } from 'react-is';
-import { Omit } from 'utility-types';
 import { Children, cloneElement, useCallback, useContext, useRef } from 'react';
 
 import Icon, { IconType } from '../icon';

@@ -15,6 +15,7 @@ import { warningSubscribeValid, warningSubscribeValue } from '../warnings';
 import { isModel, SET_ID } from './is';
 import type { FieldSetBuilder } from '../builders/set';
 import { createSentinelSubject } from './sentinel-subject';
+import { hasOwnProperty } from '../../../utils/hasOwn';
 
 type $FieldSetValue<Children extends UnknownFieldSetModelChildren> = {
   [Key in keyof Children]: Children[Key] extends IModel<infer V> ? V : never;
@@ -95,7 +96,7 @@ class FieldSetModel<
       this._initValid$();
     }
 
-    return this._valid$!;
+    return this._valid$;
   }
 
   _getValue$(shouldWarn = false) {
@@ -105,7 +106,7 @@ class FieldSetModel<
       this._initValue$();
     }
 
-    return this._value$!;
+    return this._value$;
   }
 
   /**
@@ -195,7 +196,7 @@ class FieldSetModel<
    * @param name 字段名
    */
   removeChild<T extends keyof Children>(name: T): Children[T] | null {
-    if (this.children.hasOwnProperty(name)) {
+    if (hasOwnProperty(this.children, name)) {
       const model = this.children[name];
       model.owner = null;
       this._unsubscribeChild(model);
@@ -221,16 +222,17 @@ class FieldSetModel<
     this.childRegister$.complete();
     this.childRemove$.complete();
 
-    (this._valid$ as BehaviorSubject<boolean>) = createSentinelSubject(
+    this._valid$ = createSentinelSubject(this._displayName, false);
+    this._value$ = createSentinelSubject(
       this._displayName,
-      false
+      {} as $FieldSetValue<Children>
     );
-    (this._value$ as BehaviorSubject<$FieldSetValue<Children>>) =
-      createSentinelSubject(this._displayName, {} as $FieldSetValue<Children>);
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     (this.childRegister$ as Subject<string>) = createSentinelSubject(
       this._displayName,
       ''
     );
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     (this.childRemove$ as Subject<string>) = createSentinelSubject(
       this._displayName,
       ''
@@ -249,7 +251,7 @@ class FieldSetModel<
     const keys = Object.keys(value);
     for (let i = 0; i < keys.length; i += 1) {
       const key = keys[i];
-      if (this.children.hasOwnProperty(key)) {
+      if (hasOwnProperty(this.children, key)) {
         this.children[key]?.patchValue(value[key]);
       }
     }

@@ -223,7 +223,7 @@ export class Slider extends Component<ISliderProps, ISliderState> {
 
   private getValueFromEvent(e: MouseEvent | React.MouseEvent) {
     const { min, max } = this.props;
-    const el = this.containerRef.current!;
+    const el = this.containerRef.current;
     const ratio =
       (e.clientX - el.getBoundingClientRect().left) / el.clientWidth;
     const nextValue = getValue(ratio, min, max);

@@ -17,21 +17,22 @@
   "scripts": {
     "test": "./scripts/test.sh",
     "lint-ts": "eslint src plugins scripts --ext=.ts,.tsx",
-    "lint-js": "eslint __tests__",
+    "lint-js": "eslint __tests__ plugins scripts --ext=.js",
     "lint-style": "./scripts/postcss-lint.sh",
     "build": "./scripts/build.sh",
     "theme": "./scripts/build-theme.sh",
     "new-component": "node ./scripts/new-component.js",
     "typedoc": "typedoc --out ../../site/dist/apidoc src/index.ts",
     "compile-plugins": "tsc -p ./plugins/tsconfig.json",
-    "update-iconfont": "./scripts/update-iconfont.sh"
+    "update-iconfont": "./scripts/update-iconfont.sh",
+    "invalidate-ts-build-cache": "./scripts/invalidate-ts-build-cache.sh"
   },
   "author": "Youzan FE",
   "license": "MIT",
   "files": [
-    "src/",
+    "src",
     "assets/",
-    "es/",
+    "es",
     "css/",
     "dependency-graph.json",
     "plugins/css-compiler-constants.js",
@@ -50,6 +51,15 @@
     "utility-types": "^3.4.1",
     "warning": "^4.0.3",
     "zenticons": "3.7.1"
+  },
+  "peerDependencies": {
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
+    "scheduler": "^0.20.0"
+  },
+  "optionalDependencies": {
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0"
   },
   "devDependencies": {
     "@types/big.js": "^6.1.1",

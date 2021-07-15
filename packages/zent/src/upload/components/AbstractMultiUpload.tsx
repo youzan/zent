@@ -126,7 +126,7 @@ abstract class AbstractMultiUpload<
    * 删除上传文件项
    */
   deleteUploadItem = (deleteItem: UPLOAD_ITEM) => {
-    const innerFileList = this.fileList as Array<UPLOAD_ITEM>;
+    const innerFileList = this.fileList;
     const newFileList = innerFileList.filter(item => item.id !== deleteItem.id);
     this.updateFileList(newFileList, {
       item: deleteItem,
@@ -138,7 +138,7 @@ abstract class AbstractMultiUpload<
    * 重新上传文件
    */
   retryUploadItem = (retryItem: UPLOAD_ITEM) => {
-    const innerFileList = this.fileList as Array<UPLOAD_ITEM>;
+    const innerFileList = this.fileList;
     const newRetryItem = {
       ...retryItem,
       status: FILE_UPLOAD_STATUS.uploading,
@@ -175,7 +175,7 @@ abstract class AbstractMultiUpload<
       ...overrideProps,
     };
 
-    const newFileList = (this.fileList as Array<UPLOAD_ITEM>).map(item =>
+    const newFileList = this.fileList.map(item =>
       item.id === updateItem.id ? newItem : item
     );
     this.updateFileList(newFileList, {
@@ -201,7 +201,7 @@ abstract class AbstractMultiUpload<
       })
       .then(newUploadFileItem => {
         const { fileList } = this.state;
-        const innerFileList = fileList as Array<UPLOAD_ITEM>;
+        const innerFileList = fileList;
         const newFileList: Array<UPLOAD_ITEM> = [
           ...innerFileList,
           newUploadFileItem,

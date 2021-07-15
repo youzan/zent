@@ -5,6 +5,7 @@ import { IExportedName } from './analyzer';
 export interface IModule {
   js: string;
   style: string[];
+  isDefaultExport: boolean;
 }
 
 export interface IModuleMapping {
@@ -14,6 +15,8 @@ export interface IModuleMapping {
 type Edge = [string, string];
 
 type Graph = Edge[];
+
+const hasOwn = Object.prototype.hasOwnProperty;
 
 /**
  * Generate a module mapping
@@ -27,7 +30,7 @@ export function getModuleMapping(
 
   // log(sortedModuleNames);
 
-  const sortModule = (a, b) => {
+  const sortModule = (a: string, b: string) => {
     return sortedModuleNames.indexOf(a) - sortedModuleNames.indexOf(b);
   };
 
@@ -53,7 +56,7 @@ export function getModuleMapping(
     };
 
     return mapping;
-  }, {});
+  }, {} as IModuleMapping);
 
   // log(mapping);
 
@@ -64,7 +67,7 @@ export function getModuleMapping(
  * Check if module has style
  */
 function isModuleHasStyle(moduleName: string, styleRootDir: string): boolean {
-  if (isModuleHasStyle.CACHE.hasOwnProperty(moduleName)) {
+  if (hasOwn.call(isModuleHasStyle.CACHE, moduleName)) {
     return isModuleHasStyle.CACHE[moduleName];
   }
 
@@ -76,7 +79,7 @@ function isModuleHasStyle(moduleName: string, styleRootDir: string): boolean {
 
   return exists;
 }
-isModuleHasStyle.CACHE = {};
+isModuleHasStyle.CACHE = {} as Record<string, boolean>;
 
 /**
  * Create a dependency graph
@@ -88,14 +91,14 @@ function createDependencyGraph(exportedNames: IExportedName[]): Graph {
    * @param {Edge} b
    * @return {boolean}
    */
-  function isSameEdge(a, b) {
+  function isSameEdge(a: Edge, b: Edge) {
     return a[0] === b[0] && a[1] === b[1];
   }
 
   return exportedNames.reduce(
     (graph, { dependencyModuleNames, moduleName }) => {
       ['base', ...dependencyModuleNames].forEach(dep => {
-        const edge = [dep, moduleName];
+        const edge: Edge = [dep, moduleName];
         if (!graph.find(i => isSameEdge(edge, i))) {
           graph.push(edge);
         }
@@ -103,7 +106,7 @@ function createDependencyGraph(exportedNames: IExportedName[]): Graph {
 
       return graph;
     },
-    []
+    [] as Edge[]
   );
 }
 

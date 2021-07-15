@@ -11,7 +11,7 @@ import { ISingleDateBodyProps } from '../../types';
 const COL_COUNT = 3;
 const ROW_COUNT = 4;
 
-interface IMonthPickerBodyProps extends ISingleDateBodyProps {}
+type IMonthPickerBodyProps = ISingleDateBodyProps;
 const MonthPickerBody: FC<IMonthPickerBodyProps> = ({
   defaultPanelDate,
   onSelected,

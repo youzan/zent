@@ -107,7 +107,7 @@ export function useField<Value>(
   validators: IValidators<Value> = []
 ): FieldModel<Value> {
   const ctx = useFormContext(typeof field !== 'string');
-  const model = useModelAndChildProps(ctx, field, defaultValue!);
+  const model = useModelAndChildProps(ctx, field, defaultValue);
   const { value$, error$ } = model;
   useValue$(value$, value$.getValue());
   useValue$(error$, error$.getValue());

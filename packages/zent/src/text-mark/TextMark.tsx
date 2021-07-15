@@ -32,6 +32,7 @@ import {
   TextMarkSearchWords,
 } from './chunk';
 import memoizeOne from '../utils/memorize-one';
+import { hasOwnProperty } from '../utils/hasOwn';
 
 export interface ITextMarkProps extends React.HTMLAttributes<HTMLSpanElement> {
   activeClassName?: string;
@@ -54,7 +55,7 @@ export interface ITextMarkProps extends React.HTMLAttributes<HTMLSpanElement> {
 function lowercaseProps(object: { [key: string]: any }) {
   const mapped: { [key: string]: any } = {};
   for (const key in object) {
-    if (object.hasOwnProperty(key)) {
+    if (hasOwnProperty(object, key)) {
       mapped[key.toLowerCase()] = object[key];
     }
   }

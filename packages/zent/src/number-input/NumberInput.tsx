@@ -1,6 +1,5 @@
 import { Component, createRef } from 'react';
 import cx from 'classnames';
-import { Omit } from 'utility-types';
 import Decimal from 'big.js';
 import Icon from '../icon';
 import Input, { IInputClearEvent, IInputCoreProps } from '../input';
@@ -306,7 +305,7 @@ export class NumberInput extends Component<
       const { value } = this.state as INumberInputDecimalState;
       if (onChange && this.props.value !== '' && this.state.input !== '') {
         try {
-          if (!new Decimal(this.props.value!).eq(value)) {
+          if (!new Decimal(this.props.value).eq(value)) {
             onChange(value.toFixed(decimal));
           }
         } catch (error) {

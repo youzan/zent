@@ -1,4 +1,3 @@
-import { Omit } from 'utility-types';
 import { useCallback } from 'react';
 
 import Input, {

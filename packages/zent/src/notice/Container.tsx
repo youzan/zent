@@ -1,7 +1,6 @@
 import { Component, createRef } from 'react';
 import * as ReactDOM from 'react-dom';
 import Wrap, { INoticeWrapProps } from './Wrap';
-import NoticeWrap from './Wrap';
 import createElement from '../utils/dom/createElement';
 
 export type NoticePositions =
@@ -52,7 +51,7 @@ function createContainer(position: NoticePositions) {
   return div;
 }
 
-type ContainerChild = React.ReactElement<INoticeWrapProps, typeof NoticeWrap>;
+type ContainerChild = React.ReactElement<INoticeWrapProps, typeof Wrap>;
 
 interface INoticeContainerProps {
   element: HTMLDivElement;

@@ -9,6 +9,8 @@ const CompilerConstants = Object.keys(constants).reduce((acc, k) => {
   return acc;
 }, {});
 
+const hasOwn = Object.prototype.hasOwnProperty;
+
 module.exports = () => {
   return {
     postcssPlugin: 'postcss-plugin-constants',
@@ -23,7 +25,7 @@ module.exports = () => {
         }
 
         const { name, sign } = variable;
-        if (name && CompilerConstants.hasOwnProperty(name)) {
+        if (name && hasOwn.call(CompilerConstants, name)) {
           nodes[idx] = {
             type: 'word',
             value: `${sign}${CompilerConstants[name]}`,

@@ -48,7 +48,7 @@ export function clone<T extends IPublicCascaderItem>(
 export function insertPath<T extends IPublicCascaderItem>(
   trees: T[],
   path: IPublicCascaderItem[],
-  createNode: (node: IPublicCascaderItem, parent: T) => T
+  createNode: (node: IPublicCascaderItem, parent: T | null) => T
 ): T[] {
   path = path.slice();
   const stack: IInsertStackFrame<T>[] = [
@@ -241,7 +241,7 @@ export class Forest {
       }
 
       return acc;
-    }, []);
+    }, [] as ICascaderItem[][]);
   }
 
   clone(): Forest {

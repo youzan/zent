@@ -17,8 +17,8 @@ export const AutoBottomRight: IPositionFunction = props => {
   const { contentRect, cushion, anchorRect } = props;
   const viewport = getViewportSize();
 
-  let horizontal;
-  let vertical;
+  let horizontal: string;
+  let vertical: string;
 
   // 只有当右边放不下，并且左边能够放下的时候才移动到左边
   if (

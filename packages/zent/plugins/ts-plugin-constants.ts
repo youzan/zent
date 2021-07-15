@@ -4,7 +4,7 @@ import {
   CSS_ARROW_OFFSET_VERTICAL,
   CSS_ARROW_SIZE,
 } from './css-compiler-constants';
-const pkg: { version: string } = require('../package.json');
+import * as pkg from '../package.json';
 
 type ConstantType = number | string;
 
@@ -21,17 +21,14 @@ const BuiltinConstants: Record<string, ConstantType> = {
   __ZENT_VERSION__: pkg.version,
 };
 
-export interface ICompilerConstantsTransformerOptions {}
+const hasOwn = Object.prototype.hasOwnProperty;
 
-export default function compilerConstantsTransformer(
-  _program: ts.Program,
-  _opts?: ICompilerConstantsTransformerOptions
-) {
+export default function compilerConstantsTransformer(_program: ts.Program) {
   function createVisitor(ctx: ts.TransformationContext) {
     const visitor: ts.Visitor = (node: ts.Node) => {
       if (ts.isIdentifier(node)) {
         const { text: idName } = node;
-        if (BuiltinConstants.hasOwnProperty(idName)) {
+        if (hasOwn.call(BuiltinConstants, idName)) {
           const value = BuiltinConstants[idName];
           if (typeof value === 'string') {
             return ts.factory.createStringLiteral(value);

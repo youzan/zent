@@ -33,12 +33,6 @@ module.exports = {
         {
           groupName: '主题',
           list: [
-            // {
-            //   title: '色彩',
-            //   path: 'guides/colors',
-            //   source:
-            //     "DocLoadable({ loader: () => import('./pages/colors/zh-CN.js') })",
-            // },
             {
               title: '定制主题',
               path: 'guides/theme',
@@ -156,12 +150,6 @@ module.exports = {
         {
           groupName: 'Theme',
           list: [
-            // {
-            //   title: 'Colors',
-            //   path: 'guides/colors',
-            //   source:
-            //     "DocLoadable({ loader: () => import('./pages/colors/en-US.js') })",
-            // },
             {
               title: 'Customize',
               path: 'guides/theme',

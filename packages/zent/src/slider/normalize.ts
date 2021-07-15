@@ -26,6 +26,7 @@ export function normalizeToPotentialValue(
 ) {
   let i = 0;
   let j = potentialValues.length;
+  // eslint-disable-next-line no-constant-condition
   while (true) {
     const p = Math.floor((i + j) / 2);
     if (j === i + 1 || p === i) {

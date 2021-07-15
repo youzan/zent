@@ -1,4 +1,3 @@
-import { Omit } from 'utility-types';
 import cx from 'classnames';
 import Switch, { ISwitchProps } from '../../switch';
 import { IFormComponentProps, IFormFieldChildProps } from '../shared';

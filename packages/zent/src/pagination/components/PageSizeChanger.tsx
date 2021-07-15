@@ -126,8 +126,8 @@ class PageSizeSelect extends Component<
   };
 }
 
-export interface IPaginationStaticPageSizeProps
-  extends IPaginationPageSizeChangerBaseProps {}
+export type IPaginationStaticPageSizeProps =
+  IPaginationPageSizeChangerBaseProps;
 
 class StaticPageSize extends Component<IPaginationStaticPageSizeProps, any> {
   render() {

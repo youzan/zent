@@ -3,7 +3,6 @@
  */
 import { Component, createRef } from 'react';
 import cn from 'classnames';
-import { Omit } from 'utility-types';
 
 import memoize from '../utils/memorize-one';
 import Input, { IInputChangeEvent } from '../input';
@@ -259,7 +258,7 @@ export class AutoComplete<Value> extends Component<
   getDisplayText = (): string => {
     const { value } = this.state;
     let displayValue = value || '';
-    const item = this.getItemByValue(value) as any;
+    const item = this.getItemByValue(value);
     if (item) {
       if (typeof item.searchContent === 'string') {
         displayValue = item.searchContent;

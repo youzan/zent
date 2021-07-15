@@ -7,6 +7,7 @@ import Icon from '../icon';
 import ActionButton, { ActionButtonClickHandler } from './ActionButton';
 import { TitleIconMap } from './constants';
 
+// eslint-disable-next-line @typescript-eslint/no-namespace,import/export
 export namespace Sweetalert {
   export interface IAlertOption {
     content?: React.ReactNode;
@@ -128,7 +129,7 @@ export function confirm(config: Sweetalert.IConfirmOption = {}) {
   return sweet(config, 'confirm');
 }
 
-// eslint-disable-next-line @typescript-eslint/no-redeclare
+// eslint-disable-next-line @typescript-eslint/no-redeclare,import/export
 export const Sweetalert = {
   alert,
   info,

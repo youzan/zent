@@ -6,7 +6,8 @@ const icons = require('zenticons/lib/codes.json');
 const fs = require('fs');
 const path = require('path');
 
-const AUTO_GENERATE_REGEXP = /(\/\* auto-generate: start \*\/)\n([\s\S]+)\n(\/\* auto-generate: end \*\/)/g;
+const AUTO_GENERATE_REGEXP =
+  /(\/\* auto-generate: start \*\/)\n([\s\S]+)\n(\/\* auto-generate: end \*\/)/g;
 const SRC = path.resolve(__dirname, '../src/icon/Icon.tsx');
 
 function main() {

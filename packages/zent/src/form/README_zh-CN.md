@@ -3,7 +3,6 @@ title: Form
 subtitle: 表单
 path: component/form
 group: 数据
-scatter: true
 ---
 
 ## Form 表单组件

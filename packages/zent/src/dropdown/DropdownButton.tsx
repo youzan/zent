@@ -3,7 +3,7 @@ import { IButtonProps, Button } from '../button';
 import Icon from '../icon';
 import { DropdownContext } from './DropdownContext';
 
-export interface IDropdownButtonProps extends IButtonProps {}
+export type IDropdownButtonProps = IButtonProps;
 
 export const DropdownButton: React.FC<IDropdownButtonProps> = ({
   className,

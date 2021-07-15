@@ -35,5 +35,7 @@ npm-debug.log
 custom-theme.js
 dependency-graph.json
 plugins/ts-plugin-*.js
+*.tsbuildinfo
+src/invalidate-ts-cache.ts
 
 css/

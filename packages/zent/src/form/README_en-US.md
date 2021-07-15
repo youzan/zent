@@ -2,7 +2,6 @@
 title: Form
 path: component/form
 group: Data Entry
-scatter: true
 ---
 
 ## Form

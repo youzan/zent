@@ -418,7 +418,7 @@ export class Select<
     if (this.props.multiple === true) {
       const { onChange, isEqual } = this.props;
       const value = this.state.value as Item[];
-      const valueIndex = value.findIndex(it => isEqual!(it, item));
+      const valueIndex = value.findIndex(it => isEqual(it, item));
       this.focusSearchInput();
       const nextValue =
         valueIndex >= 0
@@ -474,7 +474,7 @@ export class Select<
 
     const { value } = this.state;
     const { onChange, isEqual } = this.props as ISelectMultiProps<Key, Item>;
-    const nextValue = (value as Item[]).filter(it => !isEqual!(item, it));
+    const nextValue = (value as Item[]).filter(it => !isEqual(item, it));
     this.focusSearchInput();
     if (onChange) {
       onChange(nextValue);
@@ -522,9 +522,9 @@ export class Select<
     const options = this.filterOptions(
       keyword,
       _options,
-      filter!,
-      creatable!,
-      isValidNewOption!
+      filter,
+      creatable,
+      isValidNewOption
     );
     if (activeIndex !== null) {
       this.onSelect(options[activeIndex]);
@@ -538,8 +538,8 @@ export class Select<
     const selected =
       !!value &&
       (multiple
-        ? (value as Item[]).findIndex(it => isEqual!(it, option)) >= 0
-        : isEqual!(value as Item, option));
+        ? (value as Item[]).findIndex(it => isEqual(it, option)) >= 0
+        : isEqual(value as Item, option));
 
     let optionContent: React.ReactNode = null;
     let loading = false;
@@ -575,7 +575,7 @@ export class Select<
         index={index}
         onMouseEnter={this.onOptionMouseEnter}
         onMouseLeave={this.onOptionMouseLeave}
-        multiple={multiple!}
+        multiple={multiple}
         loading={loading}
       >
         {optionContent}
@@ -609,9 +609,9 @@ export class Select<
         const options = this.filterOptions(
           state.keyword,
           _options,
-          filter!,
-          creatable!,
-          isValidNewOption!
+          filter,
+          creatable,
+          isValidNewOption
         );
 
         let nextIndex: number;
@@ -870,12 +870,12 @@ export class Select<
     const filtered = this.filterOptions(
       keyword,
       options,
-      filter!,
-      creatable!,
-      isValidNewOption!
+      filter,
+      creatable,
+      isValidNewOption
     );
     return filtered?.length ? (
-      renderOptionList!(filtered, this.renderOption)
+      renderOptionList(filtered, this.renderOption)
     ) : (
       <div className="zent-select-v2-popup-empty">
         {notFoundContent ?? i18n.empty}

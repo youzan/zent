@@ -11,7 +11,7 @@ export function SearchInput(props: ISearchInputProps) {
   const { placeholder, value, onChange } = props;
 
   useLayoutEffect(() => {
-    ref.current!.focus({
+    ref.current.focus({
       preventScroll: true,
     });
   }, []);

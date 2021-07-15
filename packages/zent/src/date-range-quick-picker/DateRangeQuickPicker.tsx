@@ -4,9 +4,8 @@ import cx from 'classnames';
 import formatDate from '../utils/date/formatDate';
 import { getValidDate } from '../utils/date/helpers';
 import isEqual from '../utils/isEqual';
-import { DateRangePicker } from '../date-picker';
+import { DateRangePicker, SingleDate, RangeDate } from '../date-picker';
 import { I18nReceiver as Receiver } from '../i18n';
-import { SingleDate, RangeDate } from '../date-picker';
 
 const ONE_DAY = 1000 * 60 * 60 * 24;
 

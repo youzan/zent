@@ -1,23 +1,15 @@
 const parseSelector = require('postcss-selector-parser');
 const parseValue = require('postcss-value-parser');
-const path = require('path');
 const pkg = require('../package.json');
 const { KEYFRAME_NAME_PREFIX } = require('./constants');
 
-// Only process files in zent
-const WHITELIST = ['../css', '../assets'].map(p => path.resolve(__dirname, p));
 const VERSION_TAG = `v${pkg.version.replace(/[^0-9a-z]/gi, 'x')}`;
 const ICONFONT_NAME = 'zenticon';
 
 module.exports = () => {
   return {
     postcssPlugin: 'postcss-plugin-version-attribute',
-    prepare(result) {
-      const fp = result.root.source.input.file;
-      if (WHITELIST.every(w => !fp.startsWith(w))) {
-        return {};
-      }
-
+    prepare() {
       const handleAnimationDecl = decl => {
         const { value } = decl;
         const words = parseValue(value);

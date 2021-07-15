@@ -16,7 +16,7 @@ export interface IBlockLoadingProps extends ILoadingBaseProps {
   children?: React.ReactNode;
 }
 
-export interface IInlineLoadingProps extends ILoadingBaseProps {}
+export type IInlineLoadingProps = ILoadingBaseProps;
 
 export interface IFullScreenLoadingProps extends ILoadingBaseProps {
   zIndex?: number;
