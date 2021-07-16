@@ -1,4 +1,4 @@
-import { useLayoutEffect } from 'react';
+import { useIsomorphicLayoutEffect } from '../utils/hooks/useIsomorphicLayoutEffect';
 
 export interface IMountElementProps {
   node: HTMLElement;
@@ -7,7 +7,7 @@ export interface IMountElementProps {
 }
 
 const MountElement = ({ node, getParent, selector }: IMountElementProps) => {
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const parent = getParent(selector);
     parent.appendChild(node);
     return () => {

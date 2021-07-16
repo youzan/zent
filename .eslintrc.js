@@ -365,6 +365,11 @@ module.exports = {
             message:
               'Use return value of { addEventListener } from utils/dom/event-handler',
           },
+          {
+            name: 'useLayoutEffect',
+            message:
+              'useLayoutEffect logs lots of warnings in SSR. Use utils/hooks/useIsomorphicLayoutEffect instead.',
+          },
         ],
       },
     },

@@ -1,8 +1,9 @@
-import { createRef, useContext, useLayoutEffect } from 'react';
+import { createRef, useContext } from 'react';
 import cx from 'classnames';
 
 import PanelContext from '../../context/PanelContext';
 import { smoothScroll } from '../../../utils/scroll';
+import { useIsomorphicLayoutEffect } from '../../../utils/hooks/useIsomorphicLayoutEffect';
 
 const prefixCls = 'zent-datepicker-time-panel-body';
 interface IUnit {
@@ -54,7 +55,7 @@ const TimeUnitColumn: React.FC<ITimeUnitColumnProps> = ({
 
   const units = generateUnits(0, UNIT_MAP[type], step, disabledUnits);
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     // first scroll without duration
     visibleChange &&
       ulRef.current &&
