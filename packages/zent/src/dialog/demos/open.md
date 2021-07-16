@@ -18,6 +18,7 @@ import { Dialog, Button } from 'zent';
 const { openDialog, closeDialog } = Dialog;
 const id = 'my_dialog';
 
+// 使用 `closeDialog` 关闭需要传入 `dialogId`
 const open = () => {
 	openDialog({
 		dialogId: id, // id is used to close the dialog
@@ -30,10 +31,28 @@ const open = () => {
 	});
 };
 
+// 使用 `openDialog` 返回的 `close` 函数关闭
+let close;
+const open2 = () => {
+	close = openDialog({
+		title: '{i18n.title1}',
+		children: <div>Hello World</div>,
+		footer: <Button onClick={() => close()}>{i18n.close}</Button>,
+		onClose() {
+			console.log('outer dialog closed');
+		},
+	});
+}
+
 ReactDOM.render(
-	<Button type="primary" onClick={open}>
-		{i18n.open}
-	</Button>,
+  <>
+		<Button type="primary" onClick={open}>
+			{i18n.open}
+		</Button>
+		<Button type="primary" onClick={open2}>
+			{i18n.open}2
+		</Button>
+	</>,
 	mountNode
 );
 ```
