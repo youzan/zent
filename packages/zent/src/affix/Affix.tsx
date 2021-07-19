@@ -13,7 +13,7 @@ import {
 import { Waypoint, IWaypointCallbackData, WaypointPosition } from '../waypoint';
 import { useCallbackRef } from '../utils/hooks/useCallbackRef';
 import isBrowser from '../utils/isBrowser';
-import { useResizeObserver } from '../utils/hooks/use-resize-observer';
+import { useResizeObserver } from '../utils/hooks/useResizeObserver';
 import { WindowResizeHandler } from '../utils/component/WindowResizeHandler';
 import { getViewportHeight } from '../utils/dom/getViewportSize';
 

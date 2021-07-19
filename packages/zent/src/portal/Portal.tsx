@@ -1,7 +1,6 @@
 import {
   useRef,
   useImperativeHandle,
-  useLayoutEffect,
   useMemo,
   forwardRef,
   useEffect,
@@ -17,6 +16,7 @@ import { SCROLLBAR_WIDTH } from '../utils/getScrollbarWidth';
 import { setValueForStyles } from '../utils/style/CSSPropertyOperations';
 import { addEventListener } from '../utils/component/event-handler';
 import isBrowser from '../utils/isBrowser';
+import { useIsomorphicLayoutEffect } from '../utils/hooks/useIsomorphicLayoutEffect';
 
 function diffStyle(prev: React.CSSProperties, next: React.CSSProperties) {
   const result: React.CSSProperties = {};
@@ -138,17 +138,17 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
       [node]
     );
 
-    useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       className && (node.className = className);
     }, [node, className]);
 
-    useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       const result = diffStyle(prevStyleRef.current || {}, style || {});
       setValueForStyles(node, result);
       prevStyleRef.current = style;
     }, [node, style]);
 
-    useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       if (!visible || !useLayerForClickAway) {
         return noop;
       }
@@ -168,7 +168,7 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
       };
     }, [node, useLayerForClickAway, visible, selector, getParent]);
 
-    useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       const parent = getParent(selector);
       if (
         !visible ||
@@ -182,7 +182,7 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
       return () => restoreElement(parent);
     }, [selector, visible, blockPageScroll, getParent]);
 
-    useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       function handler(event: TouchEvent | MouseEvent) {
         const { closeOnClickOutside, onClose, visible } = propsRef.current;
         const purePortal = purePortalRef.current;
