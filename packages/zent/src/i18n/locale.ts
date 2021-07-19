@@ -134,7 +134,7 @@ export interface II18nLocaleTransfer {
   emptyLabel: string;
 }
 
-export type LocaleMark = 'zh-CN' | 'en-US';
+export type LocaleMark = 'zh-CN' | 'en-US' | 'ja';
 
 export interface ILocaleData {
   mark: LocaleMark;
