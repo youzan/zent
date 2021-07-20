@@ -50,7 +50,7 @@
   font-size: $font-size-large;
 
   .zent-tree-bar {
-    .switcher {
+    .zent-tree-switcher {
       line-height: 20px;
 
       &:after {
@@ -66,7 +66,7 @@
   font-size: $font-size-small;
 
   .zent-tree-bar {
-    .switcher {
+    .zent-tree-switcher {
       line-height: 12px;
 
       &:after {
@@ -81,7 +81,7 @@
 .zent-tree-bar {
   position: relative;
 
-  .switcher {
+  .zent-tree-switcher {
     position: absolute;
     top: 2px;
     left: -18px;
@@ -107,8 +107,8 @@
     }
   }
 
-  &.off {
-    .switcher {
+  &.zent-tree-bar--off {
+    .zent-tree-switcher {
       &:after {
         transform: rotate(0deg);
       }
@@ -120,7 +120,7 @@
     line-height: 1.42857143;
     cursor: pointer;
 
-    .content {
+    .zent-tree-content {
       margin-left: -4px;
       padding: 0 4px;
       display: inline-block;
@@ -134,7 +134,7 @@
       }
     }
 
-    .operation {
+    .zent-tree-operation-container {
       display: inline-block;
       margin-left: 10px;
       opacity: 0;
@@ -142,13 +142,19 @@
       transition: opacity 0.3s ease-in;
       @include theme-color(color, stroke, 1);
 
-      & > span.opt:not(:last-of-type) {
+      & > span.zent-tree-operation:not(:last-of-type) {
         @include theme-color(border-left-color, stroke, 6);
         margin-right: 8px;
         padding-right: 8px;
         border-left-width: 2px;
         border-left-style: solid;
       }
+    }
+  }
+
+  &:hover {
+    .zent-tree-node .zent-tree-operation-container {
+      opacity: 1;
     }
   }
 
