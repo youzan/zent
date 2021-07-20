@@ -581,7 +581,7 @@ describe('new Tree', () => {
     expect(onSelectMock.mock.calls.length).toBe(1);
   });
 
-  it('Tree will keep child state after their ancestor folded', () => {
+  it('Tree will keep child state after its ancestor folded', () => {
     const data = [
       {
         id: 1,

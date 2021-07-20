@@ -1,5 +1,5 @@
 {
-  "*.js": ["yarn format", "eslint"],
+  "*.{js,jsx}": ["yarn format", "eslint"],
   "packages/zent/src/**/*.{ts,tsx}": ["yarn format", "eslint"],
   "packages/zent/scripts/cruiser/**/*.{ts,tsx}": ["yarn format", "eslint"],
   "site/**/*.scss": ["yarn format", "stylelint"],
