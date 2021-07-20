@@ -1,0 +1,23 @@
+{
+  "extends": [
+    "stylelint-config-recommended-scss",
+    "stylelint-config-prettier"
+  ],
+  "rules": {
+    "no-descending-specificity": null,
+    "no-duplicate-selectors": null,
+    "declaration-no-important": true,
+    "keyframe-declaration-no-important": true,
+    "color-no-hex": true,
+    "color-named": "never",
+    "length-zero-no-unit": true,
+    "declaration-block-no-duplicate-properties": [
+      true,
+      {
+        "ignore": [
+          "consecutive-duplicates"
+        ]
+      }
+    ]
+  }
+}

@@ -402,12 +402,12 @@ $menuHeight: 180px;
       margin-left: 5px;
 
       &:after {
+        @include theme-color(background, stroke, 9);
         content: '';
         display: inline-block;
         position: absolute;
         height: 10px;
         width: 4px;
-        background: white;
         animation: 1s linear zent-ani-spin infinite;
         transform-origin: 8px 3px;
         left: -1px;

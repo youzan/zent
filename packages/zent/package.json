@@ -18,7 +18,7 @@
     "test": "./scripts/test.sh",
     "lint-ts": "eslint src plugins scripts --ext=.ts,.tsx",
     "lint-js": "eslint __tests__ plugins scripts --ext=.js",
-    "lint-style": "./scripts/postcss-lint.sh",
+    "lint-style": "stylelint assets",
     "build": "./scripts/build.sh",
     "theme": "./scripts/build-theme.sh",
     "new-component": "node ./scripts/new-component.js",

@@ -16,7 +16,8 @@
     &.zent-input-wrapper {
       border-width: 0 0 1px;
       border-radius: 0;
-      box-shadow: none !important; // sass-lint:disable-line no-important
+      /* stylelint-disable-next-line declaration-no-important */
+      box-shadow: none !important;
     }
   }
 

@@ -164,9 +164,9 @@
 }
 
 .zent-timeline-tip {
-  background-color: rgba(black, 0.5);
+  @include theme-color(color, stroke, 9);
+  background-color: rgba($color-black, 0.5);
   padding: 10px;
-  color: white;
   border-radius: 5px;
   z-index: 5000;
   font-size: $font-size-small;

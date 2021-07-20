@@ -10,7 +10,7 @@
     "lint": "yarn lint-ts && yarn lint-js && yarn lint-style",
     "lint-ts": "yarn workspace zent lint-ts && yarn workspace zent-docs lint-ts",
     "lint-js": "yarn workspace zent lint-js && yarn workspace babel-plugin-zent lint-js && yarn workspace zent-docs lint-js",
-    "lint-style": "sass-lint -vq && yarn workspace zent lint-style",
+    "lint-style": "yarn workspace zent-docs lint-style && yarn workspace zent lint-style",
     "format": "prettier --write",
     "prettify-style": "prettier --write -- \"packages/zent/assets/**/*.scss\" \"site/src/**/*.scss\"",
     "prettify-js": "prettier --write -- \"packages/*/__tests__/**/*.js\" \"site/{src,scripts,webpack,zent}/**/*.js\"",
@@ -56,7 +56,10 @@
     "husky": "^6.0.0",
     "lint-staged": "^11.0.0",
     "prettier": "^2.2.0",
-    "sass-lint": "^1.12.1",
+    "stylelint": "^13.13.1",
+    "stylelint-config-recommended-scss": "^4.3.0",
+    "stylelint-scss": "^3.20.1",
+    "stylelint-config-prettier": "^8.0.2",
     "typescript": "~4.3.5"
   },
   "dependencies": {}

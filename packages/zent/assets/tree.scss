@@ -18,7 +18,7 @@
     display: inline-block;
     position: relative;
     vertical-align: middle;
-    background-color: white;
+    @include theme-color(background-color, stroke, 9);
 
     .tree-node-loading {
       @include theme-color(border-color, primary, 4);
@@ -31,12 +31,12 @@
       border-style: solid;
 
       &:after {
+        @include theme-color(background, stroke, 9);
         content: '';
         display: inline-block;
         position: absolute;
         height: 10px;
         width: 4px;
-        background: white;
         animation: 2s linear zent-ani-spin infinite;
         transform-origin: 10px 4px;
         left: -1px;
@@ -115,12 +115,6 @@
     }
   }
 
-  &:hover {
-    .zent-tree-node .operation {
-      opacity: 0.8;
-    }
-  }
-
   .zent-tree-node {
     display: inline-block;
     line-height: 1.42857143;
@@ -145,8 +139,8 @@
       margin-left: 10px;
       opacity: 0;
       font-size: 0.8em;
-      color: black;
       transition: opacity 0.3s ease-in;
+      @include theme-color(color, stroke, 1);
 
       & > span.opt:not(:last-of-type) {
         @include theme-color(border-left-color, stroke, 6);

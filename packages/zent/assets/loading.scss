@@ -40,7 +40,7 @@
   z-index: 1100;
 
   .zent-loading-mask {
-    background: rgba(black, 0.5);
+    background: rgba($color-black, 0.5);
     height: 100%;
     display: flex;
     align-items: center;

@@ -1,0 +1,6 @@
+{
+  "extends": ["../.stylelintrc"],
+  "rules": {
+    "color-no-hex": null
+  }
+}
