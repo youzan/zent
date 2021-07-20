@@ -26,8 +26,6 @@ const common: II18nLocaleCommon = {
   reset: 'リセット',
 };
 
-
-
 export const mark: LocaleMark = 'ja';
 
 export const CopyButton: II18nLocaleCopyButton = {
@@ -111,12 +109,7 @@ export const Cascader: II18nLocaleCascader = {
   empty: '見つかりません',
 };
 
-const QUARTER_NAMES = [
-  '1期',
-  '2期',
-  '3期',
-  '4期',
-];
+const QUARTER_NAMES = ['1期', '2期', '3期', '4期'];
 
 export const TimePicker: I18nLocaleTimePicker = () => {
   setLocale(ja);
