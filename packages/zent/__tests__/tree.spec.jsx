@@ -124,7 +124,7 @@ describe('new Tree', () => {
     expect(wrapper.find('li').at(0).childAt(1).childAt(0).type()).toBe('ul');
     const example = wrapper.find('li').at(0).childAt(0);
     expect(example.hasClass('zent-tree-bar')).toBe(true);
-    expect(example.hasClass('off')).toBe(true);
+    expect(example.hasClass('zent-tree-bar--off')).toBe(true);
     expect(example.children().length).toBe(2);
     expect(example.childAt(0).type()).toBe('i');
     expect(example.childAt(1).type()).toBe('div');
@@ -172,7 +172,7 @@ describe('new Tree', () => {
      */
     const example = wrapper.find('li').at(2).childAt(0);
     expect(example.hasClass('zent-tree-bar')).toBe(true);
-    expect(example.hasClass('off')).toBe(true);
+    expect(example.hasClass('zent-tree-bar--off')).toBe(true);
     expect(example.children().length).toBe(1);
     expect(example.childAt(0).type()).toBe('div');
     expect(example.childAt(0).hasClass('zent-tree-node')).toBe(true);
@@ -245,7 +245,7 @@ describe('new Tree', () => {
     expect(wrapper.find('li').at(0).childAt(1).type()).toBe(AnimateHeight);
     const example = wrapper.find('li').at(0).childAt(0);
     expect(example.hasClass('zent-tree-bar')).toBe(true);
-    expect(example.hasClass('off')).toBe(true);
+    expect(example.hasClass('zent-tree-bar--off')).toBe(true);
     expect(example.children().length).toBe(2);
     expect(example.childAt(0).type()).toBe('i');
     expect(example.childAt(1).type()).toBe('div');
@@ -330,11 +330,11 @@ describe('new Tree', () => {
       .at(0)
       .simulate('click', { currentTarget: { classList: [] } });
     wrapper
-      .find('.content')
+      .find('.zent-tree-content')
       .at(0)
       .simulate('click', { currentTarget: { classList: [] } });
 
-    expect(wrapper.find('off').length).toBe(0);
+    expect(wrapper.find('zent-tree-bar--off').length).toBe(0);
     expect(onExpandMock.mock.calls.length).toBe(0);
     expect(onSelectMock.mock.calls.length).toBe(1);
   });
@@ -482,25 +482,27 @@ describe('new Tree', () => {
     expect(sonSpan.text()).toBe('son');
     expect(grandSonSpan.text()).toBe('grandSon');
     expect(daughterSpan.text()).toBe('daughter');
-    expect(rootSpan.closest('.zent-tree-bar').hasClass('off')).toBe(true);
+    expect(
+      rootSpan.closest('.zent-tree-bar').hasClass('zent-tree-bar--off')
+    ).toBe(true);
     rootSpan.simulate('click');
     // jest.runAllTimers();
 
     // NOTE: jest and enzyme couldn't simulate switcher.click()
-    // expect(rootSpan.closest('.zent-tree-bar').hasClass('off')).toBe(true);
+    // expect(rootSpan.closest('.zent-tree-bar').hasClass('zent-tree-bar--off')).toBe(true);
     // const iconRoot = wrapper.find('i').at(0);
     // iconRoot.simulate('click');
     // jest.runAllTimers();
-    // expect(rootSpan.closest('.zent-tree-bar').hasClass('off')).toBe(false);
+    // expect(rootSpan.closest('.zent-tree-bar').hasClass('zent-tree-bar--off')).toBe(false);
     // iconRoot.simulate('click');
     // jest.runAllTimers();
-    // expect(rootSpan.closest('.zent-tree-bar').hasClass('off')).toBe(true);
+    // expect(rootSpan.closest('.zent-tree-bar').hasClass('zent-tree-bar--off')).toBe(true);
     // expect(
     //   rootSpan.closest('.zent-tree-bar').getNode().nextSibling.style.display
     // ).toBe('none');
     // iconRoot.simulate('click');
     // jest.runAllTimers();
-    // expect(rootSpan.closest('.zent-tree-bar').hasClass('off')).toBe(false);
+    // expect(rootSpan.closest('.zent-tree-bar').hasClass('zent-tree-bar--off')).toBe(false);
     // expect(
     //   rootSpan.closest('.zent-tree-bar').getNode().nextSibling.style.display
     // ).toBe('block');
@@ -564,14 +566,18 @@ describe('new Tree', () => {
       />
     );
 
-    wrapper.find('.content').at(0).simulate('click');
-    expect(wrapper.find('.zent-tree-bar').at(0).hasClass('off')).toBe(true);
+    wrapper.find('.zent-tree-content').at(0).simulate('click');
+    expect(
+      wrapper.find('.zent-tree-bar').at(0).hasClass('zent-tree-bar--off')
+    ).toBe(true);
     expect(onExpandMock.mock.calls.length).toBe(0);
     expect(onSelectMock.mock.calls.length).toBe(1);
 
-    wrapper.find('i').at(0).simulate('click');
-    expect(wrapper.find('.zent-tree-bar').at(0).hasClass('off')).toBe(false);
-    expect(onExpandMock.mock.calls.length).toBe(1);
+    wrapper.find('.zent-tree-switcher').at(0).simulate('click');
+    expect(
+      wrapper.find('.zent-tree-bar').at(0).hasClass('zent-tree-bar--off')
+    ).toBe(true);
+    expect(onExpandMock.mock.calls.length).toBe(0);
     expect(onSelectMock.mock.calls.length).toBe(1);
   });
 
@@ -606,13 +612,13 @@ describe('new Tree', () => {
 
     iconRoot.simulate('click');
     // jest.runAllTimers();
-    // expect(rootSpan.closest('.zent-tree-bar').hasClass('off')).toBe(false);
+    // expect(rootSpan.closest('.zent-tree-bar').hasClass('zent-tree-bar--off')).toBe(false);
     // expect(
     //   rootSpan.closest('.zent-tree-bar').getNode().nextSibling.style.display
     // ).not.toBe('none');
     // iconSon.simulate('click');
     // jest.runAllTimers();
-    // expect(sonSpan.closest('.zent-tree-bar').hasClass('off')).toBe(false);
+    // expect(sonSpan.closest('.zent-tree-bar').hasClass('zent-tree-bar--off')).toBe(false);
     // expect(
     //   sonSpan.closest('.zent-tree-bar').getNode().nextSibling.style.display
     // ).not.toBe('none');
@@ -620,7 +626,7 @@ describe('new Tree', () => {
     // jest.runAllTimers();
     // // iconRoot.simulate('click');
     // // jest.runAllTimers();
-    // expect(sonSpan.closest('.zent-tree-bar').hasClass('off')).toBe(false);
+    // expect(sonSpan.closest('.zent-tree-bar').hasClass('zent-tree-bar--off')).toBe(false);
     // expect(
     //   sonSpan.closest('.zent-tree-bar').getNode().nextSibling.style.display
     // ).not.toBe('none');
@@ -760,9 +766,9 @@ describe('new Tree', () => {
     holdWrapper.find('i').at(1).simulate('click');
     holdWrapper.update();
     expect(holdWrapper.state().expandNode).toEqual([2, 1]);
-    expect(holdWrapper.find('.zent-tree-bar').at(0).hasClass('off')).toBe(
-      false
-    );
+    expect(
+      holdWrapper.find('.zent-tree-bar').at(0).hasClass('zent-tree-bar--off')
+    ).toBe(false);
 
     done();
   });
@@ -1038,14 +1044,36 @@ describe('new Tree', () => {
       },
     ];
     const wrapper = mount(<NewTree data={data} operations={operations} />);
-    expect(wrapper.find('.operation').length).toBe(2);
-    expect(wrapper.find('.operation').at(0).find('span').length).toBe(1);
-    expect(wrapper.find('.operation').at(0).find('.foo').length).toBe(1);
-    expect(wrapper.find('.operation').at(0).find('.bar').length).toBe(0);
-    expect(wrapper.find('.operation').at(1).find('span').length).toBe(2);
-    wrapper.find('.operation').at(0).find('span').simulate('click');
-    wrapper.find('.operation').at(1).find('span').at(0).simulate('click');
-    wrapper.find('.operation').at(1).find('span').at(1).simulate('click');
+    expect(wrapper.find('.zent-tree-operation-container').length).toBe(2);
+    expect(
+      wrapper.find('.zent-tree-operation-container').at(0).find('span').length
+    ).toBe(1);
+    expect(
+      wrapper.find('.zent-tree-operation-container').at(0).find('.foo').length
+    ).toBe(1);
+    expect(
+      wrapper.find('.zent-tree-operation-container').at(0).find('.bar').length
+    ).toBe(0);
+    expect(
+      wrapper.find('.zent-tree-operation-container').at(1).find('span').length
+    ).toBe(2);
+    wrapper
+      .find('.zent-tree-operation-container')
+      .at(0)
+      .find('span')
+      .simulate('click');
+    wrapper
+      .find('.zent-tree-operation-container')
+      .at(1)
+      .find('span')
+      .at(0)
+      .simulate('click');
+    wrapper
+      .find('.zent-tree-operation-container')
+      .at(1)
+      .find('span')
+      .at(1)
+      .simulate('click');
     expect(actionMockClone.mock.calls.length).toBe(2);
     expect(actionMockDelete.mock.calls.length).toBe(1);
 
