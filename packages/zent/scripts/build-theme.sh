@@ -4,9 +4,6 @@ set -e
 
 basepath=$(dirname $0)
 
-echo 'Lint styles...'
-$basepath/./postcss-lint.sh
-
 # clean
 echo "Clean up style output..."
 rm -rf css

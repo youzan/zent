@@ -33,11 +33,11 @@
     user-select: none;
 
     #{$p}-arrow {
+      @include theme-color(background-color, stroke, 9);
       cursor: pointer;
       width: 20px;
       height: 15px;
       line-height: 15px;
-      background-color: white;
       text-align: center;
 
       &.zent-number-input-arrow-disable {

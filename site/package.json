@@ -18,6 +18,7 @@
     "deploy": "yarn build && ./scripts/deploy.sh",
     "lint-js": "eslint webpack scripts",
     "lint-ts": "yarn workspace zent build && yarn prepare && eslint src --ext=.ts,.tsx",
+    "lint-style": "stylelint src",
     "webpack-beta": "cross-env NODE_ENV=production VERSION=beta webpack --config webpack/webpack.prd.config.js",
     "build-beta": "yarn prepare-build && yarn webpack-beta && yarn workspace zent typedoc",
     "deploy-beta": "yarn build-beta && ./scripts/deploy-beta.sh"
@@ -75,7 +76,6 @@
     "react-refresh": "^0.10.0",
     "react-refresh-typescript": "^2.0.1",
     "sass": "^1.22.7",
-    "sass-lint": "^1.12.1",
     "sass-loader": "^12.1.0",
     "style-loader": "^3.0.0",
     "thread-loader": "^3.0.4",

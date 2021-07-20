@@ -51,7 +51,16 @@ $state-color-depth-map: (
         width: 20%;
         height: 100%;
         transform: translateX(-100%);
-        background: linear-gradient(to right, rgba(white, 0), white);
+        background: linear-gradient(
+          to right,
+          rgba($theme-stroke-9, 0),
+          $theme-stroke-9
+        );
+        background: linear-gradient(
+          to right,
+          theme-rgba(stroke, 9, 0),
+          theme-rgb(stroke, 9)
+        );
         animation: 1400ms $timing-fn-linear 0s infinite normal both running
           zent-ani-progress-mask-move;
       }

@@ -144,7 +144,6 @@ X       X            X
 */
 
 // no header and has close button
-// sass-lint:disable-block no-mergeable-selectors
 .zent-dialog-r {
   // only content
   .zent-dialog-r-body-content {
@@ -208,7 +207,7 @@ X       X            X
   right: 0;
   left: 0;
   bottom: 0;
-  background-color: rgba(black, 0.6);
+  background-color: rgba($color-black, 0.6);
   height: 100%;
   z-index: $z-index;
 }

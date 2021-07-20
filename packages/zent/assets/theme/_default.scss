@@ -1,6 +1,6 @@
-@import './override';
+// stylelint-disable color-no-hex
 
-// sass-lint:disable no-duplicate-properties
+@import './override';
 
 // Text colors
 $theme-stroke-1: #323233 !default; // text
@@ -56,6 +56,9 @@ $theme-warn-5: #fff5ed !default;
 $rate-star-color: #fad20c !default;
 
 $loading-icon-youzan-color: #e00 !default;
+
+// Black color, not a theme color
+$color-black: #000;
 
 // !!! DO NOT USE !!!
 // These variables will be removed
@@ -120,13 +123,11 @@ $theme-colors: (
 // Use this for color with opacity = 1
 // This is for backword compatibily
 @function get-css-var($cat, $i) {
-  // sass-lint:disable-block space-around-operator
   @return --theme-#{$cat}-#{$i};
 }
 
 // Use this for rgba support in theme colors
 @function get-rgb-css-var($cat, $i) {
-  // sass-lint:disable-block space-around-operator
   @return --theme-rgb-#{$cat}-#{$i};
 }
 
