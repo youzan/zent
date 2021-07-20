@@ -1,5 +1,5 @@
 ---
-title: PreviewImage
+title: previewImage
 path: component/preview-image
 group: Data Display
 ---

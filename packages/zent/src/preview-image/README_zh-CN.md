@@ -1,5 +1,5 @@
 ---
-title: PreviewImage
+title: previewImage
 subtitle: 图片预览
 path: component/preview-image
 group: 展示
