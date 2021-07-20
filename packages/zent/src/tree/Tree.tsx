@@ -283,7 +283,7 @@ export class Tree extends Component<ITreeProps, ITreeState> {
   renderSwitcher(root: ITreeData) {
     return (
       <i
-        className="switcher"
+        className="zent-tree-switcher"
         onClick={e => {
           this.handleExpandClick(root, e);
         }}
@@ -299,7 +299,7 @@ export class Tree extends Component<ITreeProps, ITreeState> {
     const { render, onSelect } = this.props;
     return (
       <span
-        className="content"
+        className="zent-tree-content"
         onClick={e => {
           onSelect && onSelect(root, e.currentTarget);
 
@@ -355,7 +355,7 @@ export class Tree extends Component<ITreeProps, ITreeState> {
             <span
               key={`${opt.name}-${root[id]}`}
               onClick={opt.action.bind(null, root, isExpanded)}
-              className="opt"
+              className="zent-tree-operation"
             >
               {typeof opt.icon === 'string' ? (
                 <i className={opt.icon} />
@@ -367,7 +367,7 @@ export class Tree extends Component<ITreeProps, ITreeState> {
           )
         );
       });
-      return <div className="operation">{optNodes}</div>;
+      return <div className="zent-tree-operation-container">{optNodes}</div>;
     }
 
     return null;
@@ -385,7 +385,7 @@ export class Tree extends Component<ITreeProps, ITreeState> {
         const rootId = root[id];
         const isShowChildren = expandNode.indexOf(rootId) > -1;
         const barClassName = classnames('zent-tree-bar', {
-          off: !isShowChildren,
+          'zent-tree-bar--off': !isShowChildren,
         });
 
         return (
