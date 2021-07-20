@@ -3,5 +3,5 @@
   "packages/zent/src/**/*.{ts,tsx}": ["yarn format", "eslint"],
   "packages/zent/scripts/cruiser/**/*.{ts,tsx}": ["yarn format", "eslint"],
   "site/**/*.scss": ["yarn format", "stylelint"],
-  "packages/zent/**/*.scss": ["yarn format", "stylelint", "yarn workspace zent lint-style"]
+  "packages/zent/**/*.scss": ["yarn format", "stylelint"]
 }
