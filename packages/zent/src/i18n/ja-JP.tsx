@@ -16,7 +16,7 @@ import {
   II18nLocaleTransfer,
   LocaleMark,
 } from './locale';
-import { ja, setLocale } from './time-locale';
+import { jaJP, setLocale } from './time-locale';
 
 const common: II18nLocaleCommon = {
   confirm: '確認',
@@ -26,7 +26,7 @@ const common: II18nLocaleCommon = {
   reset: 'リセット',
 };
 
-export const mark: LocaleMark = 'ja';
+export const mark: LocaleMark = 'ja-JP';
 
 export const CopyButton: II18nLocaleCopyButton = {
   copy: 'コピー',
@@ -43,7 +43,7 @@ export const Pagination: II18nLocalePagination = {
     return (
       <>
         合計 <Text type="middle">{total}</Text> 項目, {select}
-        <Text type="right">項目/ページ</Text>
+        <Text type="right">/ページ</Text>
       </>
     );
   },
@@ -52,14 +52,14 @@ export const Pagination: II18nLocalePagination = {
     return (
       <>
         合計 <Text type="middle">{total}</Text> 項目,
-        <Text type="middle">{pageSize}</Text> 項目/ページ
+        <Text type="middle">{pageSize}</Text> /ページ
       </>
     );
   },
 
   selectWidth: 100,
 
-  items: ' 項目',
+  items: '',
 };
 
 export const Pop: II18nLocalePop = {
@@ -79,7 +79,7 @@ export const RangePicker: II18nLocaleRangePicker = {
 };
 
 export const Select: II18nLocaleSelect = {
-  input: '選択してください',
+  input: '選択',
   empty: '見つかりません',
   tagSeparator: ', ',
   create: '+作成: ',
@@ -97,13 +97,13 @@ export const Switch: II18nLocaleSwitch = {
 
 export const Grid: II18nLocaleGrid = {
   ...common,
-  emptyLabel: 'データが見つかりません',
+  emptyLabel: 'データがありません',
 };
 
 export const Cascader: II18nLocaleCascader = {
   ...common,
   title: 'タイトル',
-  placeholder: '選択して下さい',
+  placeholder: '選択',
   searchPlaceholder: '選択/検索',
   searchEmpty: '見つかりません',
   empty: '見つかりません',
@@ -112,16 +112,16 @@ export const Cascader: II18nLocaleCascader = {
 const QUARTER_NAMES = ['1期', '2期', '3期', '4期'];
 
 export const TimePicker: I18nLocaleTimePicker = () => {
-  setLocale(ja);
+  setLocale(jaJP);
   return {
     ...common,
-    time: '時間を選択して下さい',
-    date: '日付を選択して下さい',
-    week: '週を選択して下さい',
-    month: '月を選択して下さい',
-    quarter: '期を選択して下さい',
-    year: '年を選択して下さい',
-    range: '範囲を選択して下さい',
+    time: '時間を選択',
+    date: '日付を選択',
+    week: '週を選択',
+    month: '月を選択',
+    quarter: '期を選択',
+    year: '年を選択',
+    range: '範囲を選択',
     timeErrorPop: '選択された時間が無効です',
     dateErrorPop: '選択された日付が無効です',
     start: '開始日',
@@ -148,7 +148,7 @@ export const TimePicker: I18nLocaleTimePicker = () => {
       quarterNames: QUARTER_NAMES,
       yearQuarterName({ year, quarter }) {
         const val = QUARTER_NAMES[quarter];
-        return `${val} of ${year}`;
+        return `${year}/${val}`;
       },
       dayNames: ['日', '月', '火', '水', '木', '金', '土'],
       monthNames: [
@@ -180,12 +180,12 @@ export const Upload: II18nLocaleUpload = {
 };
 
 export const Mention: II18nLocaleMention = {
-  noContent: 'SPACEキーで終了して下さい',
+  noContent: '該当ありません。SPACEキーで終了',
 };
 
 export const Transfer: II18nLocaleTransfer = {
-  placeholder: 'Enterキーを押して下さい',
+  placeholder: '',
   item: '項目',
-  items: '項目一覧',
-  emptyLabel: 'データなし',
+  items: '項目',
+  emptyLabel: '',
 };

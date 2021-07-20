@@ -110,7 +110,7 @@ export const zhCN: IFechaI18nSettings = {
   },
 };
 
-export const ja: IFechaI18nSettings = {
+export const jaJP: IFechaI18nSettings = {
   dayNamesShort: ['日', '月', '火', '水', '木', '金', '土'],
   dayNames: [
     '日曜日',
