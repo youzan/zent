@@ -35,7 +35,7 @@
     "es",
     "css/",
     "dependency-graph.json",
-    "plugins/css-compiler-constants.js",
+    "plugins/css-compiler-constants.js"
   ],
   "dependencies": {
     "@types/sortablejs": "~1.10.6",
