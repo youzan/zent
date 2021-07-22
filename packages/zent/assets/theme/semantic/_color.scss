@@ -203,8 +203,55 @@ $notify-error: rgba(255, 68, 68, 0.8);
 $notify-success: rgba(68, 187, 136, 0.8);
 $rate-star-color: map-get($rate-colors, 'bg');
 
-// 旧版语义和新版语义的映射关系
 $theme-colors: (
+  'stroke': (
+    $theme-stroke-1,
+    $theme-stroke-2,
+    $theme-stroke-3,
+    $theme-stroke-4,
+    $theme-stroke-5,
+    $theme-stroke-6,
+    $theme-stroke-7,
+    $theme-stroke-8,
+    $theme-stroke-9,
+    $theme-stroke-10,
+    $theme-stroke-11,
+  ),
+  'primary': (
+    $theme-primary-1,
+    $theme-primary-2,
+    $theme-primary-3,
+    $theme-primary-4,
+    $theme-primary-5,
+    $theme-primary-6,
+    $theme-primary-7,
+    $theme-primary-8,
+  ),
+  'success': (
+    $theme-success-1,
+    $theme-success-2,
+    $theme-success-3,
+    $theme-success-4,
+    $theme-success-5,
+  ),
+  'error': (
+    $theme-error-1,
+    $theme-error-2,
+    $theme-error-3,
+    $theme-error-4,
+    $theme-error-5,
+  ),
+  'warn': (
+    $theme-warn-1,
+    $theme-warn-2,
+    $theme-warn-3,
+    $theme-warn-4,
+    $theme-warn-5,
+  ),
+);
+
+// 旧版语义和新版语义的映射关系
+$theme-colors-mapping: (
   'stroke': (
     (
       cat: 'title',
