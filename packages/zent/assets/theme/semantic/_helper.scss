@@ -30,7 +30,7 @@
 }
 
 @function get-mapping-color($cat, $i) {
-  $new-color-info: nth(map-get($theme-colors, $cat), $i);
+  $new-color-info: nth(map-get($theme-colors-mapping, $cat), $i);
 
   @return get-new-color(
     map-get($new-color-info, cat),
@@ -43,7 +43,7 @@
 }
 
 @function get-mapping-css-var($cat, $i) {
-  $new-color-info: nth(map-get($theme-colors, $cat), $i);
+  $new-color-info: nth(map-get($theme-colors-mapping, $cat), $i);
 
   @return #{map-get($new-color-info, cat)}-#{map-get($new-color-info, attr)};
 }
