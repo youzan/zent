@@ -8,7 +8,6 @@ const path = require('path');
 
 module.exports = {
   root: true,
-  ignorePatterns: ['**/?eslintrc*.js'],
   extends: ['prettier'],
   parser: '@babel/eslint-parser',
   plugins: ['import', 'prettier'],
@@ -393,6 +392,10 @@ module.exports = {
         'packages/zent/scripts/**/*',
         'site/webpack/*.js',
         'site/scripts/*.js',
+        'site/src/nav.static.js',
+
+        // .eslintrc.js, .babelrc.js, etc.
+        '.*rc.js',
       ],
       env: {
         node: true,

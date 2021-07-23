@@ -26,7 +26,6 @@
   &--open {
     .zent-color-picker__text {
       @include theme-color(border-color, primary, 4);
-      @include theme-shadow(focus);
 
       &::after {
         transform: rotate(180deg);

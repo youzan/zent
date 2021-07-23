@@ -1,0 +1,103 @@
+// Ported from https://github.com/voxpelli/sass-color-helpers/blob/main/stylesheets/color-helpers/_hsv-hsl.scss
+// https://github.com/voxpelli/sass-color-helpers#license
+
+@use 'sass:math';
+
+@function ch-hsv-to-hsl($h, $s: 0, $v: 0) {
+  @if type_of($h) == 'list' {
+    $v: nth($h, 3);
+    $s: nth($h, 2);
+    $h: nth($h, 1);
+  }
+
+  @if unit($h) == 'deg' {
+    $h: 3.1415 * 2 * math.div($h, 360deg);
+  }
+  @if unit($s) == '%' {
+    $s: 0 + math.div($s, 100%);
+  }
+  @if unit($v) == '%' {
+    $v: 0 + math.div($v, 100%);
+  }
+
+  $ss: $s * $v;
+  $ll: (2 - $s) * $v;
+
+  @if ($ll == 2 or $ll == 0) {
+    $ss: 0;
+  } @else if $ll <= 1 {
+    $ss: math.div($ss, $ll);
+  } @else {
+    $ss: math.div($ss, 2 - $ll);
+  }
+
+  $ll: $ll * 0.5;
+
+  @return math.div(360deg * $h, 3.1415 * 2), percentage(max(0, min(1, $ss))),
+    percentage(max(0, min(1, $ll)));
+}
+
+@function ch-hsl-to-hsv($h, $ss: 0, $ll: 0) {
+  @if type_of($h) == 'list' {
+    $ll: nth($h, 3);
+    $ss: nth($h, 2);
+    $h: nth($h, 1);
+  } @else if type_of($h) == 'color' {
+    $ll: lightness($h);
+    $ss: saturation($h);
+    $h: hue($h);
+  }
+
+  @if unit($h) == 'deg' {
+    $h: 3.1415 * 2 * math.div($h, 360deg);
+  }
+  @if unit($ss) == '%' {
+    $ss: 0 + math.div($ss, 100%);
+  }
+  @if unit($ll) == '%' {
+    $ll: 0 + math.div($ll, 100%);
+  }
+
+  $ll: $ll * 2;
+
+  @if $ll <= 1 {
+    $ss: $ss * $ll;
+  } @else {
+    $ss: $ss * (2 - $ll);
+  }
+
+  $v: ($ll + $ss) * 0.5;
+
+  $s: 0;
+  @if $ll + $ss != 0 {
+    $s: math.div(2 * $ss, $ll + $ss);
+  }
+
+  @return math.div(360deg * $h, 3.1415 * 2), percentage(max(0, min(1, $s))),
+    percentage(max(0, min(1, $v)));
+}
+
+@function ch-color-to-hsv($color) {
+  @return ch-hsl-to-hsv($color);
+}
+
+@function ch-hsv-to-color($h, $s: 0, $v: 0) {
+  $hsl: ch-hsv-to-hsl($h, $s, $v);
+  @return hsl(nth($hsl, 1), nth($hsl, 2), nth($hsl, 3));
+}
+
+@function ch-brightness($h, $s: 0, $v: 0, $adjustment: 0) {
+  @if type_of($h) == 'color' {
+    $h: ch-color-to-hsv($h);
+  }
+  @if type_of($h) == 'list' {
+    $adjustment: $s;
+    $v: nth($h, 3);
+    $s: nth($h, 2);
+    $h: nth($h, 1);
+  }
+
+  $v: ch-max(0%, ch-min(100%, $v + $adjustment));
+
+  @return ch-hsv-to-color($h, $s, $v);
+}

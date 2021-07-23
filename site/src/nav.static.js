@@ -33,11 +33,17 @@ module.exports = {
         {
           groupName: '主题',
           list: [
+            // {
+            //   title: '色彩',
+            //   path: 'guides/colors',
+            //   source:
+            //     "DocLoadable({ loader: () => import('./pages/colors/zh-CN.js') })",
+            // },
             {
               title: '定制主题',
               path: 'guides/theme',
               source:
-                "DocLoadable({ loader: () => import('../../packages/zent/docs/THEME_zh-CN.md') })",
+                "DocLoadable({ loader: () => import('../../packages/zent/src/theme/README_zh-CN.md') })",
             },
             {
               title: '编码规范',
@@ -150,11 +156,17 @@ module.exports = {
         {
           groupName: 'Theme',
           list: [
+            // {
+            //   title: 'Colors',
+            //   path: 'guides/colors',
+            //   source:
+            //     "DocLoadable({ loader: () => import('./pages/colors/en-US.js') })",
+            // },
             {
               title: 'Customize',
               path: 'guides/theme',
               source:
-                "DocLoadable({ loader: () => import('../../packages/zent/docs/THEME_en-US.md') })",
+                "DocLoadable({ loader: () => import('../../packages/zent/src/theme/README_en-US.md') })",
             },
             {
               title: 'Coding Guides',

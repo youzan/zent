@@ -2,8 +2,8 @@ const path = require('path');
 const ch = require('child_process');
 
 function compile() {
-  const zentIconsPath = require.resolve('zenticons');
-  const iconPath = path.dirname(zentIconsPath);
+  const iconPath = path.dirname(require.resolve('zenticons'));
+
   ch.execFile(
     'sass',
     [

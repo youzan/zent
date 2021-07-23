@@ -26,6 +26,11 @@ const COMPONENT_GROUP_PRIORITY = {
   },
 };
 
+const NOT_COMPONENT_GROUP = {
+  'zh-CN': new Set(['主题']),
+  'en-US': new Set(['Theme']),
+};
+
 async function gather() {
   const readmes = await glob('*/README_@(zh-CN|en-US).md', {
     cwd: path.resolve(__dirname, '../../packages/zent/src'),
@@ -53,6 +58,10 @@ async function gather() {
         // scatter is only used in markdown file compilation
         attributes: { group, scatter, ...meta },
       } = fm(file.content);
+      if (NOT_COMPONENT_GROUP[locale].has(group)) {
+        return acc;
+      }
+
       let matchedGroup = acc.find(grp => grp.groupName === group);
       if (!matchedGroup) {
         matchedGroup = {

@@ -1,0 +1,103 @@
+// 内部方法，颜色的获取，和所有的css variable组合规则
+@import './color';
+@import './box';
+@import './text';
+
+@function to-rgb($color) {
+  @return red($color), green($color), blue($color);
+}
+
+@function get-css-prefix() {
+  @return '--theme';
+}
+
+@function get-css-prefix-rgb() {
+  @return '--theme-rgb';
+}
+
+@function is-old-version($cat, $attr) {
+  $colors: map-get($color-sets, $cat);
+  $color: if($colors, map-get($colors, $attr), null);
+
+  @if $color != null and $color {
+    @return false;
+  }
+  @return true;
+}
+
+@function get-new-color($cat, $attr) {
+  @return map-get(map-get($color-sets, $cat), $attr);
+}
+
+@function get-mapping-color($cat, $i) {
+  $new-color-info: nth(map-get($theme-colors-mapping, $cat), $i);
+
+  @return get-new-color(
+    map-get($new-color-info, cat),
+    map-get($new-color-info, attr)
+  );
+}
+
+@function get-css-var-name($cat, $attr) {
+  @return #{$cat}-#{$attr};
+}
+
+@function get-mapping-css-var($cat, $i) {
+  $new-color-info: nth(map-get($theme-colors-mapping, $cat), $i);
+
+  @return #{map-get($new-color-info, cat)}-#{map-get($new-color-info, attr)};
+}
+
+@function get-color($cat, $attr) {
+  @if is-old-version($cat, $attr) {
+    @return get-mapping-color($cat, $attr);
+  } @else {
+    @return get-new-color($cat, $attr);
+  }
+}
+
+@function get-css-var($cat, $attr) {
+  $prefix: get-css-prefix();
+  @if is-old-version($cat, $attr) {
+    @return #{$prefix}-#{get-mapping-css-var($cat, $attr)};
+  }
+  @return #{$prefix}-#{get-css-var-name($cat, $attr)};
+}
+
+@function get-rgb-css-var($cat, $attr) {
+  $prefix: get-css-prefix-rgb();
+  @if is-old-version($cat, $attr) {
+    @return #{$prefix}-#{get-mapping-css-var($cat, $attr)};
+  }
+  @return #{$prefix}-rgb-#{get-css-var-name($cat, $attr)};
+}
+
+@function get-size-var($map, $cat, $size) {
+  $size-value: map-get($map, $size);
+
+  @return var(--theme-#{$cat}-#{$size}, $size-value);
+}
+
+@function get-font-size-var($size) {
+  @return get-size-var($font-size, 'font-size', $size);
+}
+
+@function get-font-weight-var($weight) {
+  @return get-size-var($font-weight, 'font-weight', $weight);
+}
+
+@function get-line-height-var($size) {
+  @return get-size-var($line-height, 'line-height', $size);
+}
+
+@function get-spacing-var($size) {
+  @return get-size-var($spacing, 'spacing', $size);
+}
+
+@function get-border-radius-var($size) {
+  @return get-size-var($border-radius, 'border-radius', $size);
+}
+
+@function get-border-width-var($size) {
+  @return get-size-var($border-width, 'border-width', $size);
+}

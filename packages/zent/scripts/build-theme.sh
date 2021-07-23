@@ -4,6 +4,9 @@ set -e
 
 basepath=$(dirname $0)
 
+echo 'Generate css variable reference...'
+$basepath/./generate-theme-css-vars.sh
+
 # clean
 echo "Clean up style output..."
 rm -rf css

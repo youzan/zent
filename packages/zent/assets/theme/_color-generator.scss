@@ -1,0 +1,106 @@
+// 基于baseColor，计算更亮或更暗的颜色
+@import './hsv-hsl';
+
+$saturationBaseLightStep: 15;
+$saturationAdditiveLightStep: 6;
+$saturationDarkStep: 0;
+$brightnessLightStep: 10;
+$brightnessDarkStep: 15;
+
+@function getLighterSaturation($h, $s, $v, $level) {
+  $saturation: 0;
+
+  @if ($h == 0 and $s == 0) {
+    @return $s;
+  }
+
+  $additiveLightSaturation: $level * $saturationAdditiveLightStep * ($level - 1) *
+    0.5;
+
+  $saturation: $s - $saturationBaseLightStep * $level - $additiveLightSaturation;
+
+  // 修正颜色饱和度不小于10%
+  @if ($saturation < 10) {
+    $saturation: 10%;
+  }
+
+  @return round($saturation);
+}
+
+@function getDarkerSaturation($h, $s, $v, $level) {
+  $saturation: 0;
+
+  $saturation: $s + $saturationDarkStep * $level;
+
+  @if ($saturation > 100) {
+    $saturation: 100%;
+  }
+
+  @return round($saturation);
+}
+
+@function getLighterValue($h, $s, $v, $level) {
+  $value: $v;
+
+  $value: $v + $brightnessLightStep * ($level - 1);
+
+  @if ($value > 100) {
+    $value: 100%;
+  }
+
+  @return $value;
+}
+
+@function getDarkerValue($h, $s, $v, $level) {
+  $value: $v;
+
+  $value: $v - $brightnessDarkStep * $level;
+
+  @if ($value < 0) {
+    $value: 0%;
+  }
+
+  @return $value;
+}
+
+@function generateLighterColor($color, $level: 1) {
+  $hsv: ch-color-to-hsv($color);
+
+  $h: nth($hsv, 1);
+  $s: nth($hsv, 2);
+  $v: nth($hsv, 3);
+
+  $adjustHue: $h;
+  $adjustSaturation: getLighterSaturation($h, $s, $v, $level);
+  $adjustLight: getLighterValue($h, $s, $v, $level);
+
+  @return ch-hsv-to-color($adjustHue, $adjustSaturation, $adjustLight);
+}
+
+@function generateDarkerColor($color, $level: 1) {
+  $hsv: ch-color-to-hsv($color);
+
+  $h: nth($hsv, 1);
+  $s: nth($hsv, 2);
+  $v: nth($hsv, 3);
+
+  $adjustHue: $h;
+  $adjustSaturation: getDarkerSaturation($h, $s, $v, $level);
+  $adjustLight: getDarkerValue($h, $s, $v, $level);
+
+  @return ch-hsv-to-color($adjustHue, $adjustSaturation, $adjustLight);
+}
+
+@function get-theme-palette($base-color, $cat: '$primary') {
+  $color-100: generateLighterColor($base-color, 4);
+  $color-400: generateLighterColor($base-color, 1);
+  $color-500: $base-color;
+  $color-600: generateDarkerColor($base-color, 1);
+
+  @return (
+    #{$cat}-100: $color-100,
+    #{$cat}-400: $color-400,
+    #{$cat}-500: $color-500,
+    #{$cat}-600: $color-600
+  );
+}

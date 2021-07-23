@@ -95,6 +95,10 @@ module.exports = {
     extensions: ['.tsx', '.ts', '.js', '.md'],
     alias: {
       zent: path.resolve(__dirname, '../../packages/zent'),
+      'zent/theme-css-vars.json': path.resolve(
+        __dirname,
+        '../../packages/zent/theme-css-vars.json'
+      ),
     },
   },
 

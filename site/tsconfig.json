@@ -21,6 +21,7 @@
   ],
   "baseUrl": ".",
   "paths": {
-    "zent": ["../packages/zent"]
+    "zent": ["../packages/zent"],
+    "zent/theme-css-vars.json": ["../packages/zent/theme-css-vars.json"]
   }
 }

@@ -284,11 +284,12 @@ describe('Popover', () => {
     });
   });
 
-  it('Children of Trigger could not have string ref prop', () => {
+  it('Children of Trigger can not have string ref prop', () => {
     expect(() => {
       mount(
         <Popover position={Popover.Position.BottomLeft} display="inline">
           <PopoverClickTrigger>
+            {/* eslint-disable-next-line react/no-string-refs */}
             <Button ref="trigger">click me</Button>
           </PopoverClickTrigger>
           <PopoverContent>

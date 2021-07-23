@@ -1,0 +1,43 @@
+// 所有被语义使用的变量，可以被override覆盖
+// stylelint-disable color-no-hex
+
+$gray-100: #fff !default;
+$gray-200: #f7f7f7 !default;
+$gray-300: #e0e0e0 !default;
+$gray-400: #ccc !default;
+$gray-500: #999 !default;
+$gray-600: #333 !default;
+$gray-700: #000 !default;
+
+$green-base: #45a110 !default;
+$orange-base: #ed6a18 !default;
+$red-base: #d42f15 !default;
+$blue-base: #155bd4 !default;
+
+$star-color: #edd418 !default;
+$shadow-color: $gray-700 !default;
+
+// size
+$spacing-size: (4px, 8px, 12px, 16px, 24px, 32px, 56px, 88px) !default;
+
+$border-radius-size: (2px, 4px) !default;
+
+$border-width-size: (1px) !default;
+
+$font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica,
+  Segoe UI, Arial, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft Yahei', STHeiti,
+  SimSun, sans-serif !default;
+
+$font-weight-normal: 400 !default;
+$font-weight-medium: 500 !default;
+$font-weight-bold: 600 !default;
+
+// font size
+// 44px 仅做变量使用, 对应原font-h1. 不在theme-font内使用
+$font-size-number: (44px, 34px, 28px, 24px, 20px, 16px, 14px, 12px) !default;
+
+$line-height-number: (44px, 36px, 30px, 26px, 24px, 20px, 18px) !default;
+
+$shadow-size-focus: 0 2px 8px 0 !default;
+$shadow-size-layer: 0 2px 16px 0 !default;
+$shadow-size-modal: 0 2px 24px 0 !default;

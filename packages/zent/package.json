@@ -17,7 +17,7 @@
   "scripts": {
     "test": "./scripts/test.sh",
     "lint-ts": "eslint src plugins scripts --ext=.ts,.tsx",
-    "lint-js": "eslint __tests__ plugins scripts --ext=.js",
+    "lint-js": "eslint __tests__ plugins scripts --ext=.js,.jsx",
     "lint-style": "stylelint assets",
     "build": "./scripts/build.sh",
     "theme": "./scripts/build-theme.sh",
@@ -25,6 +25,7 @@
     "typedoc": "typedoc --out ../../site/dist/apidoc src/index.ts",
     "compile-plugins": "tsc -p ./plugins/tsconfig.json",
     "update-iconfont": "./scripts/update-iconfont.sh",
+    "generate-theme-css-vars": "./scripts/generate-theme-css-vars.sh",
     "invalidate-ts-build-cache": "./scripts/invalidate-ts-build-cache.sh"
   },
   "author": "Youzan FE",
@@ -35,6 +36,7 @@
     "es",
     "css/",
     "dependency-graph.json",
+    "theme-css-vars.json",
     "plugins/css-compiler-constants.js"
   ],
   "dependencies": {
@@ -76,9 +78,7 @@
     "cssnano": "^5.0.6",
     "enzyme": "^3.11.0",
     "jest": "^27.0.6",
-    "postcss": "^8.3.5",
     "postcss-cli": "^8.3.1",
-    "postcss-scss": "^4.0.0",
     "postcss-selector-parser": "^6.0.2",
     "postcss-value-parser": "^4.0.2",
     "react": "17.0.x",
