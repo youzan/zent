@@ -1,10 +1,10 @@
 import * as path from 'path';
 import * as camelCase from 'camelcase';
 import {
-  getModuleRegistry,
-  ValueExport,
-  IRegistry,
   DEFAULT_EXPORT,
+  getModuleRegistry,
+  IRegistry,
+  ValueExport,
 } from './registry';
 
 // const { log } = require('./json');
@@ -77,7 +77,7 @@ function resolveExportToModule(
   rootModule: string
 ): string {
   if (exportName === 'default') {
-    return null;
+    return '';
   }
 
   const candidates = [];
@@ -105,11 +105,12 @@ function resolveExportToModule(
       throw new Error(`Can not resolve ${exportName}`);
     case 1:
       return candidates[0];
-    case 2:
+    case 2: {
       const indexModule = findModuleIndex(candidates);
       if (indexModule) {
         return indexModule;
       }
+    }
     /* otherwise, fall through */
     default:
       throw new Error(
@@ -129,8 +130,7 @@ function resolveModule(modulePath: string, rootDir: string): string {
     relativeModulePath = relativeModulePath.substring(1);
   }
 
-  const moduleName = relativeModulePath.split(path.sep)[0];
-  return moduleName;
+  return relativeModulePath.split(path.sep)[0];
 }
 
 /**
@@ -198,7 +198,7 @@ function getModuleDependencies(
 /**
  * Filter index.(js|jsx|ts|tsx) modules
  */
-function findModuleIndex(modules: string[]): string {
+function findModuleIndex(modules: string[]): string | undefined {
   return modules.find(m => MODULE_INDEX_REGEXP.test(m));
 }
 

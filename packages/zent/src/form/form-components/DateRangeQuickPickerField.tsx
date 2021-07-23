@@ -1,4 +1,3 @@
-import { Omit } from 'utility-types';
 import { useCallback, useState } from 'react';
 
 import DateRangeQuickPicker, {

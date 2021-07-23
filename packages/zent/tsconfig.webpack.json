@@ -1,0 +1,13 @@
+// This config is for site/webpack.config.js
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "incremental": true,
+    "plugins": [
+      // paths are relative to site, not this directory
+      { "transform": "../packages/zent/plugins/ts-plugin-constants.ts" },
+      { "transform": "../packages/zent/plugins/ts-plugin-version-attribute.ts" }
+    ]
+  },
+}

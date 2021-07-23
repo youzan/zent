@@ -1,3 +1,5 @@
+import { hasOwnProperty } from '../utils/hasOwn';
+
 export default class Store {
   state: {
     [propsName: string]: any;
@@ -17,7 +19,7 @@ export default class Store {
 
   getState(propsName?: string, callBack?: () => void): any {
     if (propsName) {
-      if (callBack && !this.state.hasOwnProperty(propsName)) {
+      if (callBack && !hasOwnProperty(this.state, propsName)) {
         this.setState({
           [propsName]: callBack(),
         });

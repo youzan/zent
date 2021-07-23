@@ -32,7 +32,7 @@ Dialog is used for opening a floating layer.
 
 #### openDialog
 
-`openDialog(options: object): function`
+`openDialog(options: Partial<IOpenDialogOption>): () => void`
 
 **`options` can contain all props above in addition to `visible` as well as the following parameters：** 
 

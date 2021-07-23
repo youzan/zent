@@ -1,5 +1,4 @@
 import { createElement, forwardRef, useContext } from 'react';
-import { Omit } from 'utility-types';
 import { isForwardRef } from 'react-is';
 
 import PopoverContext from './Context';

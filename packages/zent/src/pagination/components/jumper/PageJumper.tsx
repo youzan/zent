@@ -8,11 +8,9 @@ import BasePageJumper, {
 
 const INPUT_WIDTH = 56;
 
-export interface IPaginationPageJumperProps
-  extends IPaginationBaseJumperProps {}
+export type IPaginationPageJumperProps = IPaginationBaseJumperProps;
 
-export interface IPaginationPageJumperState
-  extends IPaginationBaseJumperState {}
+export type IPaginationPageJumperState = IPaginationBaseJumperState;
 
 export class PageJumper extends BasePageJumper<
   IPaginationPageJumperProps,

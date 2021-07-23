@@ -4,9 +4,6 @@ set -e
 
 basepath=$(dirname $0)
 
-echo 'Lint styles...'
-$basepath/./postcss-lint.sh
-
 echo 'Generate css variable reference...'
 $basepath/./generate-theme-css-vars.sh
 

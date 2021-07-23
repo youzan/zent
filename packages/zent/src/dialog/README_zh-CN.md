@@ -35,7 +35,7 @@ group: 反馈
 
 #### openDialog
 
-`openDialog(options: object): function`
+`openDialog(options: Partial<IOpenDialogOption>): () => void`
 
 **`options` 参数支持组件除 `visible` 以外的所有属性，外加以下参数：**
 

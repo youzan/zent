@@ -4,7 +4,6 @@
   background-color: $theme-stroke-7;
 
   &--animate {
-    // sass-lint:disable-block no-duplicate-properties
     animation: zent-ani-placeholder-bg 2s linear infinite;
     background: linear-gradient(
       to right,

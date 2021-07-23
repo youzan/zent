@@ -8,7 +8,7 @@ const isChromium = isBrowser && typeof chrome !== 'undefined';
 const isOpera = isBrowser && typeof opr !== 'undefined';
 const isIEedge = userAgent && userAgent.indexOf('Edge') > -1;
 
-const isIOSChrome = !!(userAgent && userAgent.match('CriOS'));
+const isIOSChrome = !!(userAgent && /CriOS/.exec(userAgent));
 const isDesktopChrome =
   isChromium && vendorName === 'Google Inc.' && !isOpera && !isIEedge;
 

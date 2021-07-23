@@ -6,7 +6,7 @@ input=${1:-assets}
 
 postcss \
   "$input" \
-  --dir $(mktemp -d) \
+  --dir "$(mktemp -d)" \
   --syntax postcss-scss \
-  --use $(realpath $basepath/../plugins/postcss-generate-theme-css-vars.js) \
+  --use "$(realpath $basepath/../plugins/postcss-plugin-theme-css-vars.js)" \
   --no-map

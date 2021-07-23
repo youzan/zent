@@ -54,9 +54,9 @@ const closeAllNotify = () => {
  * 创建承载notify portal的容器
  */
 const createNotifyContainerNode = (): HTMLElement => {
-  let notifyContainerNode = document.querySelector(
+  let notifyContainerNode = document.querySelector<HTMLElement>(
     '.zent-notify-container'
-  ) as HTMLElement | null;
+  );
 
   if (!notifyContainerNode) {
     const bodyNode = document.body;

@@ -9,6 +9,9 @@
 // import Button from 'zent/button';
 // import Button from 'zent-button';
 // require('zent-button')
+
+const hasOwn = Object.prototype.hasOwnProperty;
+
 export default function babelPluginZent(babel) {
   const { types: t } = babel;
 
@@ -120,7 +123,7 @@ function buildImportReplacement(specifier, types, state, originalPath) {
   const libName = getLibraryName(state);
   const { noModuleRewrite } = options;
 
-  if (data.MODULE_MAPPING.hasOwnProperty(importedName)) {
+  if (hasOwn.call(data.MODULE_MAPPING, importedName)) {
     const { automaticStyleImport, useRawStyle } = options;
     const rule = data.MODULE_MAPPING[importedName];
 

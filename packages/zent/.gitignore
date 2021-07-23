@@ -36,5 +36,7 @@ custom-theme.js
 dependency-graph.json
 theme-css-vars.json
 plugins/ts-plugin-*.js
+*.tsbuildinfo
+src/invalidate-ts-cache.ts
 
 css/

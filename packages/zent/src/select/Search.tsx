@@ -1,12 +1,7 @@
-import {
-  forwardRef,
-  useCallback,
-  useImperativeHandle,
-  useLayoutEffect,
-  useRef,
-} from 'react';
+import { forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
 import cx from 'classnames';
 import { createUseIMEComposition } from '../ime-composition';
+import { useIsomorphicLayoutEffect } from '../utils/hooks/useIsomorphicLayoutEffect';
 
 export interface ISelectSearchProps {
   placeholder?: string;
@@ -36,7 +31,7 @@ function SelectSearch(
 ) {
   const ref = useRef<HTMLInputElement>(null);
   const focusSearchInput = useCallback(() => {
-    ref.current!.focus({
+    ref.current.focus({
       preventScroll: true,
     });
   }, [ref]);
@@ -69,7 +64,7 @@ function SelectSearch(
   const { onChange, onCompositionEnd, onCompositionStart, value } =
     useIMEComposition(valueProp, onChangeProp);
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     focusSearchInput();
   }, [focusSearchInput]);
 

@@ -1,7 +1,4 @@
 {
-  "*.js": ["yarn format", "eslint"],
-  "packages/zent/src/**/*.{ts,tsx}": ["yarn format", "eslint"],
-  "packages/zent/scripts/cruiser/**/*.{ts,tsx}": ["yarn format", "eslint"],
-  "site/**/*.scss": ["yarn format", "sass-lint -vq"],
-  "packages/zent/**/*.scss": ["yarn format", "sass-lint -vq", "yarn workspace zent lint-style"]
+  "*.{js,jsx,ts,tsx}": ["yarn format", "eslint"],
+  "*.scss": ["yarn format", "stylelint"]
 }

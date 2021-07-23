@@ -2,10 +2,8 @@
 @import './theme/font';
 
 .zent-rate {
-  // sass-lint:disable no-duplicate-properties
   color: $rate-star-color;
   color: var(--rate-star-color, $rate-star-color);
-  // sass-lint:enable no-duplicate-properties
   display: inline-block;
   outline: none;
   font-size: $font-size-large;

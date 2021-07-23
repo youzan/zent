@@ -9,7 +9,7 @@ module.exports = merge(base, {
     docs: [
       'webpack-dev-server/client?http://localhost:4396',
       'webpack/hot/only-dev-server',
-      './src/index.js',
+      './src/index.tsx',
     ],
   },
 

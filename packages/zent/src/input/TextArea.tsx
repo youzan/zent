@@ -1,10 +1,11 @@
 import cx from 'classnames';
-import { forwardRef, useLayoutEffect } from 'react';
+import { forwardRef } from 'react';
 
 import { autosize, destroy, update } from '../utils/dom/autosize';
 import noop from '../utils/noop';
 import { ITextAreaProps } from './types';
 import { createUseIMEComposition } from '../ime-composition';
+import { useIsomorphicLayoutEffect } from '../utils/hooks/useIsomorphicLayoutEffect';
 
 export interface ITextAreaState {
   hasFocus: boolean;
@@ -44,7 +45,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, ITextAreaProps>(
 
     const textareaRef = ref as React.RefObject<HTMLTextAreaElement>;
 
-    useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       if (!autoSize) {
         return noop;
       }
@@ -58,7 +59,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, ITextAreaProps>(
       };
     }, [autoSize, textareaRef]);
 
-    useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       const el = textareaRef.current;
       if (autoSize && el) {
         update(el);

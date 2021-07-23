@@ -95,6 +95,7 @@ class FormModel<
     this.workingValidators.clear();
     this.isValidating$.complete();
 
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     (this.isValidating$ as BehaviorSubject<boolean>) = createSentinelSubject(
       this._displayName,
       false

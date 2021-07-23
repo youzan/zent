@@ -13,17 +13,18 @@ import Anchor, { PopoverAnchorGetElementFn } from '../Anchor';
 import { addEventListener } from '../../utils/component/event-handler';
 import { isElement, isFragment } from 'react-is';
 
-interface IHoverTriggerCompatibleProps {
+export interface IHoverTriggerCompatibleProps {
   fixMouseEventsOnDisabledChildren?: boolean;
 }
 
-export interface IPopoverHoverTriggerContext
-  extends Required<IHoverTriggerCompatibleProps> {}
+export type IPopoverHoverTriggerContext =
+  Required<IHoverTriggerCompatibleProps>;
 
 export const PopoverHoverTriggerContext =
   createContext<IPopoverHoverTriggerContext>({
     fixMouseEventsOnDisabledChildren: false,
   });
+
 export interface IPopoverHoverTriggerChildProps {
   onMouseEnter?: (...args: any[]) => void;
   onMouseLeave?: (...args: any[]) => void;
@@ -88,7 +89,7 @@ export function PopoverHoverTrigger<
   const { portalRef, didMount } = ctx;
 
   didMount(() => {
-    const { container } = portalRef.current!;
+    const { container } = portalRef.current;
     function onMouseEnter() {
       const { anchorOnly } = propsRef.current;
       if (anchorOnly) {

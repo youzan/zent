@@ -1,5 +1,4 @@
 import cx from 'classnames';
-import { Omit } from 'utility-types';
 import { Subscription } from 'rxjs';
 import { Component, createRef } from 'react';
 
@@ -14,7 +13,7 @@ import {
   form,
   FieldValue,
   FieldSetValue,
-  useFieldArrayValue,
+  useFieldArrayChildModels,
   ValidateOption,
   createAsyncValidator,
   isAsyncValidator,
@@ -151,6 +150,14 @@ export class Form<T extends {}> extends Component<IFormProps<T>> {
   static useFieldArray = useFieldArray;
   static useFieldSet = useFieldSet;
   static useNamedChildModel = useNamedChildModel;
+  static useFieldArrayChildModels = useFieldArrayChildModels;
+
+  /**
+   * @deprecated
+   *
+   * Renamed to useFieldArrayChildModels
+   */
+  static useFieldArrayValue = useFieldArrayChildModels;
   static field = field;
   static set = set;
   static array = array;
@@ -158,7 +165,6 @@ export class Form<T extends {}> extends Component<IFormProps<T>> {
   static FieldValue = FieldValue;
   static FieldSetValue = FieldSetValue;
   static useFormValue = useFormValue;
-  static useFieldArrayValue = useFieldArrayValue;
   static useFieldValue = useFieldValue;
   static FieldValid = FieldValid;
   static useFormValid = useFormValid;

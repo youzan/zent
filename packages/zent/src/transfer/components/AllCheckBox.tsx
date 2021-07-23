@@ -1,7 +1,6 @@
 import { useCallback } from 'react';
 
-import Checkbox from '../../checkbox';
-import { ICheckboxEvent } from '../../checkbox';
+import Checkbox, { ICheckboxEvent } from '../../checkbox';
 import { II18nLocaleTransfer } from '../../i18n';
 
 interface IProps {

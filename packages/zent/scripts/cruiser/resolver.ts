@@ -62,5 +62,5 @@ function tryFileName(
     return filename;
   }
 
-  return null;
+  return '';
 }

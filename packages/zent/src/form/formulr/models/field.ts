@@ -167,10 +167,12 @@ class FieldModel<Value> extends BasicModel<Value> {
     // Close all subjects and setup sentinels to warn use after free errors
     this._getValue$().complete();
     this._getValid$().complete();
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     (this._valid$ as BehaviorSubject<boolean>) = createSentinelSubject(
       this._displayName,
       false
     );
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     (this._value$ as BehaviorSubject<Value>) = createSentinelSubject(
       this._displayName,
       this.defaultValue

@@ -167,12 +167,13 @@ export default class MenuList extends Component<
   };
 
   getTopMenu = () => {
-    const ins = this;
+    return this;
+    // const ins = this;
     // TODO find the topped menu when there are sub menus
     // while (_ins && _ins.state.lastOpenIndex != null && _ins.refs[`sub_${_ins.state.lastOpenIndex}`]) {
     //   _ins = _ins.refs[`sub_${_ins.state.lastOpenIndex}`]
     // }
-    return ins;
+    // return ins;
   };
 
   moveFocusIndex = (offset: number) => {

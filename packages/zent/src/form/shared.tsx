@@ -11,7 +11,7 @@ import {
   IModel,
   INormalizeBeforeSubmit,
 } from './formulr';
-import { Omit, Optional } from 'utility-types';
+import { Optional } from 'utility-types';
 import { FormError } from './Error';
 import { IFormControlProps } from './Control';
 import { useFormChildrenContext, IFormChild } from './context';

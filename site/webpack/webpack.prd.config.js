@@ -4,6 +4,6 @@ const base = require('./webpack.config');
 
 module.exports = merge(base, {
   entry: {
-    docs: './src/index.js',
+    docs: './src/index.tsx',
   },
 });

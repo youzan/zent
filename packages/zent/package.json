@@ -1,6 +1,6 @@
 {
   "name": "zent",
-  "version": "9.8.0-beta.2",
+  "version": "9.8.0",
   "description": "一套前端设计语言和基于React的实现",
   "bugs": "https://github.com/youzan/zent/issues",
   "repository": {
@@ -17,27 +17,27 @@
   "scripts": {
     "test": "./scripts/test.sh",
     "lint-ts": "eslint src plugins scripts --ext=.ts,.tsx",
-    "lint-js": "eslint __tests__",
-    "lint-style": "./scripts/postcss-lint.sh",
+    "lint-js": "eslint __tests__ plugins scripts --ext=.js,.jsx",
+    "lint-style": "stylelint assets",
     "build": "./scripts/build.sh",
     "theme": "./scripts/build-theme.sh",
     "new-component": "node ./scripts/new-component.js",
     "typedoc": "typedoc --out ../../site/dist/apidoc src/index.ts",
     "compile-plugins": "tsc -p ./plugins/tsconfig.json",
     "update-iconfont": "./scripts/update-iconfont.sh",
-    "generate-theme-css-vars": "./scripts/generate-theme-css-vars.sh"
+    "generate-theme-css-vars": "./scripts/generate-theme-css-vars.sh",
+    "invalidate-ts-build-cache": "./scripts/invalidate-ts-build-cache.sh"
   },
   "author": "Youzan FE",
   "license": "MIT",
   "files": [
-    "src/",
+    "src",
     "assets/",
-    "es/",
+    "es",
     "css/",
     "dependency-graph.json",
     "theme-css-vars.json",
-    "plugins/css-compiler-constants.js",
-    "plugins/postcss-plugin-constants.js"
+    "plugins/css-compiler-constants.js"
   ],
   "dependencies": {
     "@types/sortablejs": "~1.10.6",
@@ -51,7 +51,16 @@
     "tslib": "^2.3.0",
     "utility-types": "^3.4.1",
     "warning": "^4.0.3",
-    "zenticons": "3.6.4"
+    "zenticons": "3.7.1"
+  },
+  "peerDependencies": {
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
+    "scheduler": "^0.20.0"
+  },
+  "optionalDependencies": {
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0"
   },
   "devDependencies": {
     "@types/big.js": "^6.1.1",
@@ -69,9 +78,7 @@
     "cssnano": "^5.0.6",
     "enzyme": "^3.11.0",
     "jest": "^27.0.6",
-    "postcss": "^8.3.5",
     "postcss-cli": "^8.3.1",
-    "postcss-scss": "^4.0.0",
     "postcss-selector-parser": "^6.0.2",
     "postcss-value-parser": "^4.0.2",
     "react": "17.0.x",

@@ -1,4 +1,3 @@
-import { Omit } from 'utility-types';
 import { IconType } from '../icon';
 import { CSSProperties } from 'react';
 

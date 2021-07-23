@@ -3,7 +3,7 @@ import { useCallback, useMemo } from 'react';
 
 import { Icon } from '../../../icon';
 import { Progress } from '../../../progress';
-import { useHover } from '../../../utils/hooks/use-hover';
+import { useHover } from '../../../utils/hooks/useHover';
 import { FILE_UPLOAD_STATUS } from '../../constants';
 import { useItemHandler } from '../../hooks/item-handler';
 import { IImageUploadItemProps } from '../../types';

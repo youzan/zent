@@ -60,7 +60,7 @@ export default class NoticeWrap extends Component<
   };
 
   private onExited = () => {
-    const el = this.elementRef.current!;
+    const el = this.elementRef.current;
     el.style.height = `${el.clientHeight}px`;
     runInNextFrame(() => (el.style.height = '0'));
     setTimeout(() => {

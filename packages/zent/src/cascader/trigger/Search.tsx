@@ -1,4 +1,5 @@
-import { useLayoutEffect, useRef } from 'react';
+import { useRef } from 'react';
+import { useIsomorphicLayoutEffect } from '../../utils/hooks/useIsomorphicLayoutEffect';
 
 export interface ISearchInputProps {
   placeholder?: string;
@@ -10,8 +11,8 @@ export function SearchInput(props: ISearchInputProps) {
   const ref = useRef<HTMLInputElement>(null);
   const { placeholder, value, onChange } = props;
 
-  useLayoutEffect(() => {
-    ref.current!.focus({
+  useIsomorphicLayoutEffect(() => {
+    ref.current.focus({
       preventScroll: true,
     });
   }, []);

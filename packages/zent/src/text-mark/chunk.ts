@@ -23,8 +23,6 @@
 
   Adapted from https://github.com/bvaughn/highlight-words-core/blob/master/src/utils.js
  */
-import { Omit } from 'utility-types';
-
 export type TextMarkSearchWords = string | RegExp;
 
 export interface ITextMarkChunk {
@@ -42,7 +40,7 @@ export interface ITextMarkFindAllParameters {
   textToHighlight: string;
 }
 
-export interface ITextMarkCombineChunksParamters {
+export interface ITextMarkCombineChunksParameters {
   chunks: ITextMarkChunk[];
 }
 
@@ -56,6 +54,60 @@ export type TextMarkFindChunksFunction = (
 ) => ITextMarkChunk[];
 
 export type TextMarkSanitizeFunction = (str: string) => string;
+
+const defaultSanitize: TextMarkSanitizeFunction = function defaultSanitize(
+  str
+) {
+  return str;
+};
+
+/**
+ * Examine text for any matches.
+ * If we find matches, add them to the returned array as a "chunk" object.
+ */
+const defaultFindChunks: TextMarkFindChunksFunction =
+  function defaultFindChunks({
+    autoEscape,
+    caseSensitive,
+    sanitize = defaultSanitize,
+    searchWords,
+    textToHighlight,
+  }) {
+    textToHighlight = sanitize(textToHighlight);
+
+    return searchWords
+      .filter(searchWord => searchWord) // Remove empty words
+      .reduce((chunks, searchWord) => {
+        if (typeof searchWord === 'string') {
+          searchWord = sanitize(searchWord);
+
+          if (autoEscape) {
+            searchWord = escapeRegExpFn(searchWord);
+          }
+        }
+
+        // TypeScript's definition for RegExp is wrong, the next line is valid according to spec
+        const regex = new RegExp(searchWord as any, caseSensitive ? 'g' : 'gi');
+
+        let match: RegExpExecArray;
+        while ((match = regex.exec(textToHighlight))) {
+          const start = match.index;
+          const end = regex.lastIndex;
+          // We do not return zero-length matches
+          if (end > start) {
+            chunks.push({ highlight: false, start, end });
+          }
+
+          // Prevent browsers like Firefox from getting stuck in an infinite loop
+          // See http://www.regexguru.com/2008/04/watch-out-for-zero-length-matches/
+          if (match.index === regex.lastIndex) {
+            regex.lastIndex++;
+          }
+        }
+
+        return chunks;
+      }, []);
+  };
 
 /**
  * Creates an array of chunk objects representing both highlightable and
@@ -88,7 +140,7 @@ export function findAll({
  */
 function combineChunks({
   chunks,
-}: ITextMarkCombineChunksParamters): ITextMarkChunk[] {
+}: ITextMarkCombineChunksParameters): ITextMarkChunk[] {
   chunks = chunks
     .sort((first, second) => first.start - second.start)
     .reduce((processedChunks, nextChunk) => {
@@ -150,60 +202,6 @@ function fillInChunks({
   return allChunks;
 }
 
-/**
- * Examine text for any matches.
- * If we find matches, add them to the returned array as a "chunk" object.
- */
-const defaultFindChunks: TextMarkFindChunksFunction =
-  function defaultFindChunks({
-    autoEscape,
-    caseSensitive,
-    sanitize = defaultSanitize,
-    searchWords,
-    textToHighlight,
-  }) {
-    textToHighlight = sanitize(textToHighlight);
-
-    return searchWords
-      .filter(searchWord => searchWord) // Remove empty words
-      .reduce((chunks, searchWord) => {
-        if (typeof searchWord === 'string') {
-          searchWord = sanitize(searchWord);
-
-          if (autoEscape) {
-            searchWord = escapeRegExpFn(searchWord);
-          }
-        }
-
-        // TypeScript's definition for RegExp is wrong, the next line is valid according to spec
-        const regex = new RegExp(searchWord as any, caseSensitive ? 'g' : 'gi');
-
-        let match: RegExpExecArray;
-        while ((match = regex.exec(textToHighlight))) {
-          const start = match.index;
-          const end = regex.lastIndex;
-          // We do not return zero-length matches
-          if (end > start) {
-            chunks.push({ highlight: false, start, end });
-          }
-
-          // Prevent browsers like Firefox from getting stuck in an infinite loop
-          // See http://www.regexguru.com/2008/04/watch-out-for-zero-length-matches/
-          if (match.index === regex.lastIndex) {
-            regex.lastIndex++;
-          }
-        }
-
-        return chunks;
-      }, []);
-  };
-
-const defaultSanitize: TextMarkSanitizeFunction = function defaultSanitize(
-  str
-) {
-  return str;
-};
-
 function escapeRegExpFn(str: string): string {
-  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
+  return str.replace(/[-[\]/{}()*+?.\\^$|]/g, '\\$&');
 }

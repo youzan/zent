@@ -6,6 +6,7 @@ import { Progress } from '../../../progress';
 import { FILE_UPLOAD_STATUS } from '../../constants';
 import { useItemHandler } from '../../hooks/item-handler';
 import { INormalUploadItemProps, IUploadFileItem } from '../../types';
+import { hasOwnProperty } from '../../../utils/hasOwn';
 
 /**
  * 获取状态展示图标
@@ -36,7 +37,7 @@ const getFileIcon = (item: IUploadFileItem) => {
 
   // 文件分类 icon
   for (const type in mimeTypeIconMap) {
-    if (mimeTypeIconMap.hasOwnProperty(type) && mimeType.indexOf(type) === 0) {
+    if (hasOwnProperty(mimeTypeIconMap, type) && mimeType.indexOf(type) === 0) {
       return mimeTypeIconMap[type];
     }
   }

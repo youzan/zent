@@ -11,7 +11,7 @@ A semantic icon library.
 ### Guide
 
 - Part of icons has solid and outline two versions, which the difference is `-o`. e.g. `shop`(solid) and `shop-o`(outline).
-- Naming rule: `[icon name]-[variant]-[outline or not(o)]`.
+- Type naming rule: `[icon name]-[variant]-[outline or not(o)]`.
 
 ### API
 

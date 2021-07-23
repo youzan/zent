@@ -53,7 +53,7 @@ export function PopoverClickTrigger<
       if (
         closeOnClickOutside &&
         el &&
-        isOutside(e.target as Element, ctx.portalRef.current!, el)
+        isOutside(e.target as Element, ctx.portalRef.current, el)
       ) {
         ctx.popover.setVisible(false);
       }

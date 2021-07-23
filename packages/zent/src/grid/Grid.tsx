@@ -51,6 +51,7 @@ import { ICheckboxEvent } from '../checkbox';
 import { IRadioEvent } from '../radio';
 import isBrowser from '../utils/isBrowser';
 import { IBlockLoadingProps } from '../loading/props';
+import { hasOwnProperty } from '../utils/hasOwn';
 
 function stopPropagation(e: React.MouseEvent) {
   e.stopPropagation();
@@ -687,7 +688,7 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
         fixed={fixed}
         store={this.store}
         onChange={this.onChange}
-        sortType={sortType as GridSortType}
+        sortType={sortType}
         scroll={scroll}
         sortBy={sortBy}
         defaultSortType={defaultSortType}
@@ -701,14 +702,14 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
     const body = (
       <Body
         prefix={prefix}
-        rowKey={rowKey as string}
+        rowKey={rowKey}
         columns={leafColumns}
         datasets={datasets}
         expandRowKeys={expandRowKeys}
         mouseOverRowIndex={this.state.mouseOverRowIndex}
         onRowMouseEnter={this.onRowMouseEnter}
         rowClassName={rowClassName}
-        onRowClick={onRowClick as IGridRowClickHandler<Data>}
+        onRowClick={onRowClick}
         fixed={fixed}
         scroll={scroll}
         expandRender={expandation && expandation.expandRender}
@@ -1080,7 +1081,18 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
   // 等重构再删了吧，改不动
   // eslint-disable-next-line react/no-deprecated
   componentWillReceiveProps(nextProps: IGridProps<Data, RowProps>) {
-    if (nextProps.selection?.hasOwnProperty('selectedRowKeys')) {
+    if (nextProps.selection !== this.props.selection) {
+      if (!nextProps.selection) {
+        this.store.setState({
+          columns: this.getColumns(nextProps, nextProps.columns),
+        });
+      }
+    }
+
+    if (
+      nextProps.selection &&
+      hasOwnProperty(nextProps.selection, 'selectedRowKeys')
+    ) {
       this.store.setState({
         selectedRowKeys: nextProps.selection.selectedRowKeys || [],
         columns: this.getColumns(nextProps),
@@ -1094,6 +1106,13 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
       ) {
         this.selectionPropsCache = {};
       }
+    } else if (
+      nextProps.selection?.isSingleSelection !==
+      this.props.selection?.isSingleSelection
+    ) {
+      this.store.setState({
+        columns: this.getColumns(nextProps),
+      });
     }
 
     if (nextProps.columns && nextProps.columns !== this.props.columns) {
@@ -1103,7 +1122,7 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
     }
 
     if (
-      nextProps.hasOwnProperty('datasets') &&
+      hasOwnProperty(nextProps, 'datasets') &&
       nextProps.datasets !== this.props.datasets
     ) {
       this.selectionPropsCache = {};
@@ -1177,7 +1196,7 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
               key="footer"
               prefix={prefix}
               pageInfo={pageInfo}
-              paginationType={paginationType as GridPaginationType}
+              paginationType={paginationType}
               onChange={this.onChange}
               onPaginationChange={this.onPaginationChange}
               batchComponents={this.getBatchComponents('foot')}

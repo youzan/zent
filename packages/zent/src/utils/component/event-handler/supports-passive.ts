@@ -21,6 +21,7 @@ function testPassiveEventListeners() {
     const opts = Object.defineProperty({}, 'passive', {
       get() {
         supportsPassiveOption = true;
+        return true;
       },
     });
     const noop = () => {};
@@ -28,7 +29,9 @@ function testPassiveEventListeners() {
     window.addEventListener('testPassiveEventSupport', noop, opts);
     // eslint-disable-next-line ban/ban
     window.removeEventListener('testPassiveEventSupport', noop, opts);
-  } catch (e) {}
+  } catch (e) {
+    // silent on errors
+  }
 
   return supportsPassiveOption;
 }

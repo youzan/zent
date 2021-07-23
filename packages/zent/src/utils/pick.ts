@@ -1,4 +1,6 @@
 // 支持一维对象字段提取
+import { hasOwnProperty } from './hasOwn';
+
 export default function pick<T extends Record<string, any>, K extends keyof T>(
   obj: T | null | undefined,
   keys: ReadonlyArray<K>
@@ -8,7 +10,7 @@ export default function pick<T extends Record<string, any>, K extends keyof T>(
   }
 
   return keys.reduce<Pick<T, K>>((acc, k: any) => {
-    if (obj.hasOwnProperty(k)) {
+    if (hasOwnProperty(obj, k)) {
       acc[k] = obj[k];
     }
     return acc;

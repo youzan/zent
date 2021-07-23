@@ -28,6 +28,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - run: yarn --frozen-lockfile
+      - run: yarn build # generate `dependency-graph.json` which is used in pre-push hook
       - run: npx browserslist@latest --update-db
       - name: Create pull request
         uses: peter-evans/create-pull-request@v3

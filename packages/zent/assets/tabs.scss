@@ -24,7 +24,6 @@
 }
 
 @mixin inset-box-shadow($offsetX) {
-  // sass-lint:disable-block no-duplicate-properties
   content: '';
   position: absolute;
   z-index: 1;

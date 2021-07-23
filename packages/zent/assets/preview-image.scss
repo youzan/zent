@@ -1,7 +1,7 @@
 @import './theme/default';
 @import './theme/font';
 
-$rgbamaskbgcolor: rgba(black, 0.6);
+$rgbamaskbgcolor: rgba($color-black, 0.6);
 
 .zent-image-p-body {
   display: flex;
@@ -24,11 +24,11 @@ $rgbamaskbgcolor: rgba(black, 0.6);
 }
 
 .zent-image-p-close {
+  @include theme-color(background, stroke, 9, 0.6);
   position: fixed;
   text-align: center;
   border-radius: 40px;
-  background: rgba(white, 0.6);
-  box-shadow: 0 0 8px rgba(black, 0.6);
+  box-shadow: 0 0 8px rgba($color-black, 0.6);
   right: 20px;
   top: 20px;
   width: 40px;
@@ -50,10 +50,10 @@ $rgbamaskbgcolor: rgba(black, 0.6);
 
 .zent-image-p-footer {
   @include theme-color(color, stroke, 1);
+  @include theme-color(background, stroke, 9, 0.6);
   position: fixed;
   border-radius: 40px;
-  background: rgba(white, 0.6);
-  box-shadow: 0 0 8px rgba(black, 0.6);
+  box-shadow: 0 0 8px rgba($color-black, 0.6);
   bottom: 20px;
   left: 50%;
   transform: translate(-50%);

@@ -9,6 +9,14 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 9.8.0(2021-07-15)
+
+- ✨ Rework all icons with a few new icons
+- 🦀️ Fix UI not updated when `selection` changes in `Grid`
+- 🦀️ Fix `Select` popup width when changing from `display: none` at mount to visible
+- 🦀️ Rewrite and cleanup `eslint` rules
+- 📚 Migrate site layout backbone to `TypeScript`
+
 ### 9.7.3(2021-07-02)
 
 - 🦀️ Expose `file` and `id` properties in `Upload` file object, `_file` and `_id` are still there
@@ -22,7 +30,7 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 	- `jest` `v24` to `v27`
 	- `postcss` `v6` to `v8`
 	- Upgrade all other dependencies to the latest versions
-- Replace `react-refresh-webpack-plugin` with `@hot-loader/react-dom`
+- 📚 Replace `react-refresh-webpack-plugin` with `@hot-loader/react-dom`
 
 ### 9.7.2(2021-06-25)
 

@@ -7,7 +7,7 @@ import { useModelFromContext } from './use-model';
 /**
  * 根据 `name` 或者 `model` 订阅 `FieldArray` 的更新
  */
-export function useFieldArrayValue<Item, Child extends IModel<Item>>(
+export function useFieldArrayChildModels<Item, Child extends IModel<Item>>(
   field: string | FieldArrayModel<Item, Child>
 ): Child[] | null {
   const ctx = useFormContext(typeof field !== 'string');

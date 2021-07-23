@@ -1,7 +1,10 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "module": "commonjs"
+    "module": "commonjs",
+    "strict": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true
   },
   "include": ["./*.ts"]
 }

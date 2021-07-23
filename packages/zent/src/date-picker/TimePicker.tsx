@@ -10,7 +10,7 @@ import { INPUT_WIDTH, defaultTimePickerProps } from './constants';
 
 const PickerContextProvider = PickerContext.Provider;
 
-export interface ITimePickerProps extends ISingleTimePickerProps {}
+export type ITimePickerProps = ISingleTimePickerProps;
 export const TimePicker: React.FC<ITimePickerProps> = props => {
   const disabledContext = useContext(DisabledContext);
   const propsRequired = { ...defaultTimePickerProps, ...props };

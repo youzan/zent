@@ -357,9 +357,12 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 
 `FieldArrayModel` 的 `push`, `unshift` 以及 `splice` 方法也支持直接传入 model。
 
-由于 `FieldSetModel` 和 `FormModel` 子 model 的增删需要触发组件重绘，因此提供了一个额外的 hook 来处理：
+由于 `FieldArrayModel`, `FieldSetModel` 和 `FormModel` 子 model 的增删需要触发组件重绘，因此提供了额外的 hook 来处理：
 
-- `Form.useNamedChildModel(parent: FieldSetModel, name: string): BasicModel`，注意 `FormModel` 是 `FieldSetModel` 的子类，所以也适用于这个方法。这个 hook 不监听子 model 内部状态的变化，如有需要，需使用 `useNamedChildModel` 返回 model 对象自行调用 `useField` 等 hook 来实现。
+- `Form.useFieldArrayChildModels`
+- `Form.useNamedChildModel(parent: FieldSetModel, name: string): BasicModel`，注意 `FormModel` 是 `FieldSetModel` 的子类，所以也适用于这个方法。
+	
+这两个 hook 不监听子 model 内部状态的变化，如有需要，需使用它们返回的 model 对象自行调用 `useField` 等 hook 来实现。
 
 通过结合上述这些能力，就可以完成 `Model` 模式下表单项的动态增删了。
 
@@ -378,7 +381,7 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 
 - `Field` 组件对应 `FieldValue`，`View` 模式下指定一个 `name`；`Model` 模式下指定一个 `model`
 - `FieldSet` 组件对应 `FieldSetValue`，只有一个 `name` 参数；如果是 `Model` 模式下已经拿到对应的 model 对象了，那么直接将 `model.get(xxx)` 传给 `FieldValue` 组件即可
-- `Form.useFieldArray` 对应 `useFieldArrayValue`，`View` 模式下指定一个 `name`；`Model` 模式下指定一个 `model` 或者 `name`。注意，它只会监听 `children` 的增、删行为，不会监听 `children` 内部的变动
+- `Form.useFieldArray` 对应 `useFieldArrayChildModels`，`View` 模式下指定一个 `name`；`Model` 模式下指定一个 `model` 或者 `name`。注意，它只会监听 `children` 的增、删行为，不会监听 `children` 内部的变动
 - `Form.useFieldValue` 提供了一种 hooks 的风格来获取表单值（包括 FieldSet、FieldArray、Field），它可以深度监听表单值
 - `Form.useFormValue` 提供了一种 hooks 的风格来获取整个表单的值，它可以深度监听表单值
 

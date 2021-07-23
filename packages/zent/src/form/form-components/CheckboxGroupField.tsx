@@ -1,4 +1,3 @@
-import { Omit } from 'utility-types';
 import cx from 'classnames';
 import { ICheckboxGroupProps, CheckboxGroup } from '../../checkbox';
 import { FormField, IFormFieldChildProps } from '../Field';

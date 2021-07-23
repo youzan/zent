@@ -3,7 +3,7 @@ import { isElement, isFragment } from 'react-is';
 import Context from '../Context';
 import Anchor, { PopoverAnchorGetElementFn } from '../Anchor';
 
-export interface IPopoverFocusTriggerChildProps<T extends Element = Element> {
+export interface IPopoverFocusTriggerChildProps {
   onFocus?: (...args: any[]) => void;
   onBlur?: (...args: any[]) => void;
 }

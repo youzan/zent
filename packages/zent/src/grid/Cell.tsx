@@ -5,6 +5,7 @@ import { IGridInnerColumn } from './Grid';
 import { IGridCellPos } from './types';
 import isNil from '../utils/isNil';
 import getFromPath from '../utils/getFromPath';
+import { hasOwnProperty } from '../utils/hasOwn';
 
 interface IGridCellProps<Data> {
   column: IGridInnerColumn<Data>;
@@ -39,7 +40,7 @@ class Cell<Data> extends Component<IGridCellProps<Data>> {
 
   shouldComponentUpdate(nextProps: IGridCellProps<Data>) {
     // 如果存在 bodyRender 属性则 render
-    if (nextProps.column?.hasOwnProperty('bodyRender')) {
+    if (nextProps.column && hasOwnProperty(nextProps.column, 'bodyRender')) {
       return true;
     }
 

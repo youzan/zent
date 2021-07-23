@@ -1,19 +1,17 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import cx from 'classnames';
-import { parse } from 'date-fns';
+import { parse, addMonths } from 'date-fns';
 
 import DatePanel from '../date-panel/index';
 import RangePickerFooter from './RangeFooter';
 import { useShowTimeRangeOption } from '../../hooks/useShowTimeOption';
 import useRangeDisabledTime from '../../hooks/useRangeDisabledTime';
-
 import {
   IRangePanelProps,
   IDisabledTime,
   IShowTimeRange,
   DateNullTuple,
 } from '../../types';
-import { addMonths } from 'date-fns';
 
 const prefixCls = 'zent-datepicker-combined-panel';
 

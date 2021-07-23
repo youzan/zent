@@ -1,4 +1,5 @@
 // 颜色的语义值，包含了旧版的映射处理
+// stylelint-disable color-no-hex
 @import '../override';
 @import '../raw-vars';
 @import '../color-generator';
@@ -196,6 +197,9 @@ $theme-warn-4: map-get(map-get($color-sets, 'warning'), 'color');
 $theme-warn-5: map-get(map-get($color-sets, 'warning'), 'bg');
 
 $loading-icon-youzan-color: #e00 !default;
+
+// Constant black color for internal use
+$color-black: #000;
 
 // !!! DO NOT USE !!!
 // These variables will be removed

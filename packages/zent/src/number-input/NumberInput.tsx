@@ -1,6 +1,5 @@
 import { Component, createRef } from 'react';
 import cx from 'classnames';
-import { Omit } from 'utility-types';
 import Decimal from 'big.js';
 import Icon from '../icon';
 import Input, { IInputClearEvent, IInputCoreProps } from '../input';
@@ -9,6 +8,7 @@ import { DisabledContext, IDisabledContext } from '../disabled';
 import * as Integers from './integer';
 import * as Decimals from './decimal';
 import { trimLeadingPlus } from './utils';
+import { hasOwnProperty } from '../utils/hasOwn';
 
 export interface INumberInputCommonProps
   extends Omit<IInputCoreProps, 'onChange' | 'type' | 'value' | 'onInput'> {
@@ -64,27 +64,44 @@ export type INumberInputState =
 
 const is = Object.is;
 
-function getStateFromProps(props: INumberInputProps): INumberInputState {
+function getStateFromProps(
+  props: INumberInputProps,
+  updateValueInState: true
+): INumberInputState;
+function getStateFromProps(
+  props: INumberInputProps,
+  updateValueInState: false
+): Partial<INumberInputState>;
+function getStateFromProps(
+  props: INumberInputProps,
+  updateValueInState: boolean
+): Partial<INumberInputState>;
+function getStateFromProps(
+  props: INumberInputProps,
+  updateValueInState: boolean
+): Partial<INumberInputState> {
   if (props.integer === true) {
     const { min, max } = Integers.normalizeMinMax(props);
-    const state: INumberInputIntegerState = {
+    return {
       prevProps: props,
       min,
       max,
       delta: Integers.getDelta(props.step),
-      ...Integers.normalizeValue(props.value, min, max),
+      ...(updateValueInState
+        ? Integers.normalizeValue(props.value, min, max)
+        : {}),
     };
-    return state;
   } else {
     const { min, max } = Decimals.normalizeMinMax(props);
-    const state: INumberInputDecimalState = {
+    return {
       prevProps: props,
       min,
       max,
       delta: Decimals.getDelta(props.decimal, props.step),
-      ...Decimals.normalizeValue(props.value, min, max, props.decimal),
+      ...(updateValueInState
+        ? Decimals.normalizeValue(props.value, min, max, props.decimal)
+        : {}),
     };
-    return state;
   }
 }
 
@@ -110,7 +127,7 @@ export class NumberInput extends Component<
 
   constructor(props: INumberInputProps) {
     super(props);
-    this.state = getStateFromProps(props);
+    this.state = getStateFromProps(props, true);
   }
 
   private onUserInput = (
@@ -242,8 +259,10 @@ export class NumberInput extends Component<
       return null;
     }
 
+    const updateValueInState = isControlled(props);
+
     if (props.integer !== prevProps.integer) {
-      return getStateFromProps(props);
+      return getStateFromProps(props, updateValueInState);
     }
 
     if (props.integer === true) {
@@ -256,13 +275,17 @@ export class NumberInput extends Component<
         nextState.min = min;
         nextState.max = max;
       }
-      const { value, input } = Integers.normalizeValue(
-        props.value,
-        nextState.min,
-        nextState.max
-      );
-      nextState.value = value;
-      nextState.input = input;
+
+      if (updateValueInState) {
+        const { value, input } = Integers.normalizeValue(
+          props.value,
+          nextState.min,
+          nextState.max
+        );
+        nextState.value = value;
+        nextState.input = input;
+      }
+
       return nextState;
     }
 
@@ -276,14 +299,17 @@ export class NumberInput extends Component<
       nextState.min = min;
       nextState.max = max;
     }
-    const { value, input } = Decimals.normalizeValue(
-      props.value,
-      nextState.min,
-      nextState.max,
-      props.decimal
-    );
-    nextState.value = value;
-    nextState.input = input;
+
+    if (updateValueInState) {
+      const { value, input } = Decimals.normalizeValue(
+        props.value,
+        nextState.min,
+        nextState.max,
+        props.decimal
+      );
+      nextState.value = value;
+      nextState.input = input;
+    }
 
     if (
       props.step !== prevProps.step ||
@@ -306,7 +332,7 @@ export class NumberInput extends Component<
       const { value } = this.state as INumberInputDecimalState;
       if (onChange && this.props.value !== '' && this.state.input !== '') {
         try {
-          if (!new Decimal(this.props.value!).eq(value)) {
+          if (!new Decimal(this.props.value).eq(value)) {
             onChange(value.toFixed(decimal));
           }
         } catch (error) {
@@ -445,6 +471,10 @@ export class NumberInput extends Component<
       </InputContext.Provider>
     );
   }
+}
+
+function isControlled(props: INumberInputProps): boolean {
+  return hasOwnProperty(props, 'value') && hasOwnProperty(props, 'onChange');
 }
 
 export default NumberInput;

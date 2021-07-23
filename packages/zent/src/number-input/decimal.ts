@@ -9,7 +9,7 @@ export function isPotentialValue(value: string) {
 }
 
 export function isDecimal(value: string): boolean {
-  return /^[\-+]?\d*\.?\d*$/.test(value);
+  return /^[-+]?\d*\.?\d*$/.test(value);
 }
 
 export function getDelta(decimal: number, step?: number): Decimal {
