@@ -36,7 +36,7 @@ This method is non-intrusive, but you have to manually build your custom theme e
 
 Could use [`ThemeSdk`](https://github.com/zent-contrib/theme-sdk), pass a basic color to update the theme colors. Choose a color with a higher saturation and brightness, please. like: S > 85, B > 80, like the following:
 
-<!-- demo-slot-3 -->
+<!-- demo-slot-2 -->
 
 <style>
 img[alt='zent-theme'] {

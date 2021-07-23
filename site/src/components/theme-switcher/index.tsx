@@ -42,15 +42,21 @@ const scene = [
   ThemeScene.PrimaryActiveBackgroundColor,
 ];
 
-const sessionTheme = {
-  primaryColor: '#155bd4',
+const DEFAULT_THEME_COLOR = '#155bd4';
 
+const sessionTheme = {
   setTheme(value: string) {
     window.sessionStorage.setItem('zent-theme-color', value);
+
+    // Notify theme change in demos
+    const evt = new CustomEvent('zent-theme-change', { detail: value });
+    window.dispatchEvent(evt);
   },
 
   getTheme() {
-    return window.sessionStorage.getItem('zent-theme-color');
+    return (
+      window.sessionStorage.getItem('zent-theme-color') ?? DEFAULT_THEME_COLOR
+    );
   },
 };
 
@@ -59,7 +65,7 @@ interface IThemeSwitcherProps {
 }
 
 export default function ThemeSwitcher({ locale }: IThemeSwitcherProps) {
-  const [color, setColor] = useState<string>(sessionTheme.primaryColor);
+  const [color, setColor] = useState<string>(sessionTheme.getTheme());
 
   const onChangeComplete = (hex: string) => {
     setColor(hex);
@@ -75,10 +81,8 @@ export default function ThemeSwitcher({ locale }: IThemeSwitcherProps) {
   };
 
   useEffect(() => {
-    const sessionThemeColor = sessionTheme.getTheme();
-    const primaryThemeColor = sessionTheme.primaryColor;
-    const nextThemColor = sessionThemeColor || primaryThemeColor;
-    if (nextThemColor !== primaryThemeColor) {
+    const nextThemColor = sessionTheme.getTheme();
+    if (nextThemColor !== DEFAULT_THEME_COLOR) {
       const theme = generateTheme(
         {
           colors: [{ baseColor: nextThemColor, scene }],
