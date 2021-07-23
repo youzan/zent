@@ -9,6 +9,28 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 9.9.0(2021-07-23)
+
+- ✨ 语义化主题支持，同时新增 `@zent/theme-sdk` 用于主题配置的生成
+- ✨ 组件新增日文(`jaJP`)翻译
+- 🦀️ `Tree` CSS 类名增加前缀
+  - `switcher` => `zent-tree-switcher` 
+  - `content` => `zent-tree-content`
+  - `opt` => `zent-tree-operation`
+  - `operation` => `zent-tree-operation-container`
+  - `off` => `zent-tree-bar--off`
+- 🦀️ `NumberInput`
+	- 修复在非受控模式下更新 `props.value` 会导致 `state.value` 变化的问题
+	- 修复文档中示例行为错误的问题
+- 🦀️ `Form`
+	- `Form.useFieldArrayValue` 重命名为 `Form.useFieldArrayChildModels`，旧字段被标记为废弃，但依旧可用
+	- 修复 `Form` 文档中示例丢失的问题
+- 🦀️ 由于在 SSR 环境下 `useLayoutEffect` 会不停的输出警告信息，已禁用 `useLayoutEffect`，可以使用 `utils/hooks/useIsomorphicLayoutEffect` 替代
+- 📚 `Dialog` 文档中增加使用 `openDialog` 返回值关闭对话框的示例
+- NPM 包中移除 `postcss-plugin-constants` 插件
+- 升级 `caniuse-lite` 数据库
+- 使用 `stylelint` 替换 `sass-lint`
+
 ### 9.8.0(2021-07-15)
 
 - ✨ 重画所有图标，同时增加了一些新图标。由于新、旧图标大小可能有细微差别，个别场景下样式可能会有些许偏移

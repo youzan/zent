@@ -9,6 +9,28 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 9.9.0(2021-07-23)
+
+- ✨ Semantic theme support and a new `@zent/theme-sdk` for generating theme config
+- ✨ New `jaJP` component translations
+- 🦀️ Prefix `Tree` CSS class names
+	- `switcher` => `zent-tree-switcher`
+	- `content` => `zent-tree-content`
+	- `opt` => `zent-tree-operation`
+	- `operation` => `zent-tree-operation-container`
+	- `off` => `zent-tree-bar--off`
+- 🦀️ `NumberInput`
+	- Fix incorrect`state.value` when `props.value` changes in uncontrolled mode
+	- Fix demo behavior in docs
+- 🦀️ `Form`
+	- Deprecate `Form.useFieldArrayValue` in favor of `Form.useFieldArrayChildModels`
+	- Fix demos missing `Form` docs
+- 🦀️ Ban `useLayoutEffect` because of annoying warnings in SSR mode, use `utils/hooks/useIsomorphicLayoutEffect` instead
+- 📚 Add a demo for using the return value of `openDialog` to close dialog in `Dialog` docs
+- Remove `postcss-plugin-constants` plugin in NPM package
+- Update `caniuse-lite` database to latest version
+- Replace `sass-lint` with `stylelint`
+
 ### 9.8.0(2021-07-15)
 
 - ✨ Rework all icons with a few new icons
