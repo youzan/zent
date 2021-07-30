@@ -4,7 +4,7 @@ const pkg = require('../package.json');
 const { KEYFRAME_NAME_PREFIX } = require('./constants');
 
 const VERSION_TAG = `v${pkg.version.replace(/[^0-9a-z]/gi, 'x')}`;
-const ICONFONT_NAME = 'zenticon';
+const ICONFONT_NAME = ['zenticon', '"zenticon"'];
 
 module.exports = () => {
   return {
@@ -47,8 +47,8 @@ module.exports = () => {
         Declaration: {
           'font-family': decl => {
             const { value } = decl;
-            if (value === ICONFONT_NAME) {
-              decl.value = getVersionedIconFontName(value);
+            if (ICONFONT_NAME.includes(value)) {
+              decl.value = getVersionedIconFontName(ICONFONT_NAME[0]);
             }
           },
 
