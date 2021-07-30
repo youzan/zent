@@ -9,6 +9,12 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+
+### 9.9.1(2021-07-30)
+
+- 🦀️ Fix `font-family` missing version tag in `Icon` style
+- 🦀️ Upgrade `caniuse-lite` database to latest
+
 ### 9.9.0(2021-07-23)
 
 - ✨ Semantic theme support and a new `@zent/theme-sdk` for generating theme config
