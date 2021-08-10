@@ -8,6 +8,7 @@ import uniqueId from '../../../utils/uniqueId';
 import { FIELD_ID } from './is';
 import type { FieldBuilder } from '../builders';
 import { createSentinelSubject } from './sentinel-subject';
+import { createFormValidatorRuntimeError } from '../error';
 
 export interface INormalizeBeforeSubmit<A, B> {
   (a: A): B;
@@ -120,10 +121,15 @@ class FieldModel<Value> extends BasicModel<Value> {
    * @param option 执行校验规则的参数
    */
   validate(option = ValidateOption.Default) {
-    return this.triggerValidate(option).then(maybeError => {
-      this._getValid$().next(isNil(maybeError));
-      return maybeError;
-    });
+    return this.triggerValidate(option).then(
+      maybeError => {
+        this._getValid$().next(isNil(maybeError));
+        return maybeError;
+      },
+      (err: any) => {
+        throw createFormValidatorRuntimeError(err);
+      }
+    );
   }
 
   /**

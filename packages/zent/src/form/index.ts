@@ -25,6 +25,7 @@ export {
   $FieldSetValue,
   INormalizeBeforeSubmit,
   IMaybeError,
+  IValidateResult,
   ValidatorContext,
 } from './formulr';
 export { useFormChild } from './shared';

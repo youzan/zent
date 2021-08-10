@@ -257,21 +257,17 @@ export function makeChangeHandler<Value>(
   option = ValidateOption.Default | ValidateOption.ExcludePristine,
   callback?: (value: Value) => void
 ) {
-  /* eslint-disable-next-line  react-hooks/rules-of-hooks */
   const taskRef = useRef<CallbackNode | null>(null);
-  /* eslint-disable-next-line  react-hooks/rules-of-hooks */
   const ref = useRef({
     option,
     callback,
   });
-  /* eslint-disable-next-line  react-hooks/rules-of-hooks */
   useEffect(() => {
     ref.current = {
       option,
       callback,
     };
   }, [option, callback]);
-  /* eslint-disable-next-line  react-hooks/rules-of-hooks */
   return useCallback(
     (value: Value) => {
       model.value = value;
