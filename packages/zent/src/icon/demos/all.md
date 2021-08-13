@@ -61,13 +61,16 @@ class IconGrid extends Component {
       <div className="zi-grid">
         <div className="zi-grid-toolbar">
           {search && <style>{`.zi-grid-item:not([data-index*="${search}"]) { display: none; }`}</style>}
-          <Input
-            className="zi-search-input"
-            icon="search"
-            placeholder="{i18n.searchPlaceholder}"
-            value={search}
-            onChange={this.onChange}
-          />
+          <div className="zi-search-input-wrapper">
+            <Input
+              className="zi-search-input"
+              icon="search"
+              placeholder="{i18n.searchPlaceholder}"
+              value={search}
+              onChange={this.onChange}
+            />
+            {i18n.prompt}
+          </div>
 
           <RadioGroup onChange={this.onCopyOptionChange} value={this.state.copyType}>
             <Radio value="jsx">{i18n.jsx}</Radio>
