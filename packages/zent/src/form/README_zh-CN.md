@@ -113,7 +113,8 @@ validator 和 builder 下文会详细说明。
 #### `Form` 组件的 Props
 
 - `form` `useForm` 的返回值
-- `layout` 表单的布局模式，目前支持水平布局或者垂直布局
+- `layout` 表单项内的布局模式，支持水平布局和垂直布局，默认垂直
+- `direction` 表单项间的排列方式，支持水品排列和垂直排列，默认垂直
 - `disabled` 禁用表单输入，开启后表单内所有元素不可编辑。注意：自定义组件需要自己实现禁用逻辑和展示
 - `disableEnterSubmit` 禁用表单内 `input` 元素的回车提交功能
 - `onReset` 表单重置回调函数，`form.reset` 或者原生的 DOM 触发的 `reset` 事件都会触发 `onReset`
@@ -417,7 +418,10 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 
 ### `Form` 布局
 
-`Form` 组件使用 `flex` 布局，提供两种简单的样式：水平布局 `horizontal`， 垂直布局 `vertical`。
+`Form` 组件使用 `flex` 布局，有两个参数控制基本的布局结构
+
+- `layout` 控制**表单项内**的布局方式，支持水平 `horizontal` 和垂直 `vertical` 两种布局
+- `direction` 控制**表单项间**的排列方式，支持 `column` 和 `row` 两种排列。**水平排列通常来说需要设置表单项的最小宽度才能正常工作**。
 
 <!-- demo-slot-7 -->
 

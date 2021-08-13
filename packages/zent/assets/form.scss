@@ -120,4 +120,14 @@
       border: 0;
     }
   }
+
+  &-direction-row {
+    display: flex;
+    flex-wrap: wrap;
+
+    #{$p}-control {
+      display: inline-flex;
+      flex: 1;
+    }
+  }
 }

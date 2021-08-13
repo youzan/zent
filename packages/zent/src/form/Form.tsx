@@ -79,10 +79,16 @@ export interface IFormProps<T extends {}>
     'onSubmit' | 'dangerouslySetInnerHTML'
   > {
   /**
-   * 表单布局，支持水平布局和垂直布局
+   * 表单项内的布局，支持水平布局和垂直布局
    * @defaultValue `'vertical'`
    */
-  layout?: 'horizontal' | 'vertical';
+  layout?: 'horizontal' | 'vertical' | 'inline';
+
+  /**
+   * 表单项间的排列，支持水平和垂直方向
+   * @defaultValue `'column'`
+   */
+  direction?: 'row' | 'column';
 
   /**
    * `useForm`得到的`model`
@@ -356,6 +362,7 @@ export class Form<T extends {}> extends Component<IFormProps<T>> {
     const {
       children,
       layout = 'vertical',
+      direction = 'column',
       className,
       form,
       onSubmit,
@@ -376,9 +383,12 @@ export class Form<T extends {}> extends Component<IFormProps<T>> {
               ref={this.formRef}
               {...props}
               className={cx(
+                'zent-form-reactive',
                 {
                   'zent-form-vertical': layout === 'vertical',
                   'zent-form-horizontal': layout === 'horizontal',
+                  'zent-form-direction-row': direction === 'row',
+                  'zent-form-direction-column': direction === 'column',
                 },
                 className
               )}
