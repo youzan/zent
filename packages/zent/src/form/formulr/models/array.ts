@@ -218,15 +218,13 @@ class FieldArrayModel<
    */
   push(...values: Item[]): number;
   push(...items: Item[] | Child[]) {
-    const nextChildren = this.children$
-      .getValue()
-      .concat(
-        (items.map as any)((item: Item | Child) =>
-          isModel(item)
-            ? this._linkChild(item as Child)
-            : this._buildChild(item as Item)
-        )
-      );
+    const nextChildren = this.children$.getValue().concat(
+      (items.map as any)((item: Item | Child) => {
+        return isModel(item)
+          ? this._linkChild(item as Child)
+          : this._buildChild(item as Item);
+      })
+    );
     this.children$.next(nextChildren);
 
     // Same as `Array.prototype.push`
@@ -268,11 +266,11 @@ class FieldArrayModel<
    */
   unshift(...values: Item[]): number;
   unshift(...items: Item[] | Child[]) {
-    const nextChildren = (items.map as any)((item: Item | Child) =>
-      isModel(item)
+    const nextChildren = (items.map as any)((item: Item | Child) => {
+      return isModel(item)
         ? this._linkChild(item as Child)
-        : this._buildChild(item as Item)
-    ).concat(this.children$.getValue());
+        : this._buildChild(item as Item);
+    }).concat(this.children$.getValue());
     this.children$.next(nextChildren);
     return nextChildren.length;
   }

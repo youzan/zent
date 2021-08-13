@@ -25,6 +25,36 @@ export const FormContextNotFoundError = new FormulrError(
   ]
 );
 
+function getErrorMessage(error: any, defaultMessage: string): string {
+  if (!error) {
+    return defaultMessage;
+  }
+
+  if (error instanceof Error) {
+    return `${error.name}: ${error.message}\n${error.stack}`;
+  }
+
+  try {
+    return JSON.stringify(error, null, 2);
+  } catch {
+    if (typeof error.toString === 'function') {
+      return error.toString();
+    }
+
+    return defaultMessage;
+  }
+}
+export const createFormValidatorRuntimeError = (runtimeError: any) => {
+  const msg = getErrorMessage(runtimeError, 'Unknown validator runtime error');
+  return new FormulrError(
+    `A runtime error occurred in a form validator\n${msg}`,
+    [
+      'Make sure custom validators do not throw runtime errors',
+      'The returned Promise object of async validators should never be rejected',
+    ]
+  );
+};
+
 export const createUnexpectedModelTypeError = (
   name: string,
   expectedType: string,

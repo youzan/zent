@@ -51,8 +51,7 @@ Zent also provides separate components that construct these components, includin
 
 `Form` documentation consists of two parts：
 
-- Zent Form components doc can be found [here](../../apidoc/classes/form.html)
-- APIs not tied to Zent can be found [here](https://zent-contrib.github.io/formulr/), e.g. `useField` and other hooks, `Validators` and other low level APIs
+- Zent Form API doc can be found [here](../../apidoc/classes/Form.html)
 
 #### Basic Usages
 

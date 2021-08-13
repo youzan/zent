@@ -7,6 +7,7 @@ import {
   FormBuilder,
   IForm,
   useValue$,
+  IValidateResult,
 } from './formulr';
 import { Subject } from 'rxjs';
 import { useAsyncSafeDispatch } from '../utils/hooks/useAsyncSafeDispatch';
@@ -120,7 +121,9 @@ export class ZentForm<T extends UnknownFieldSetModelChildren>
    * 触发表单校验
    * @param option 校验选项
    */
-  validate(option: ValidateOption = ValidateOption.Default): Promise<any> {
+  validate(
+    option: ValidateOption = ValidateOption.Default
+  ): Promise<IValidateResult<any> | IValidateResult<any>[]> {
     return this.inner.model.validate(option);
   }
 

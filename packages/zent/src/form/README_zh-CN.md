@@ -88,7 +88,7 @@ validator 和 builder 下文会详细说明。
 
 - 当使用 `View` 模式时，表单项组件和 `hooks` 接受一个 `name` 参数而不是一个 model。
 - 当使用 `Model` 时，由于数据层是在表单外构建的，表单组件必须直接传入该字段对应的 `model`，而不是 `name`；但是使用 Form 的 Hooks 时，支持传入字段 `name` 或者 `model`，这种场景相当于是一个只读的订阅行为。
-- 除了上述区别之外，**不同模式下表单组件以及 `hooks` 会有一些参数不同**，具体请查阅 [API 文档](apidoc)。
+- 除了上述区别之外，**不同模式下表单组件以及 `hooks` 会有一些参数不同**，具体请查阅 [API 文档](../../apidoc)。
 
 ### 常用 `Form` API
 
@@ -113,7 +113,8 @@ validator 和 builder 下文会详细说明。
 #### `Form` 组件的 Props
 
 - `form` `useForm` 的返回值
-- `layout` 表单的布局模式，目前支持水平布局或者垂直布局
+- `layout` 表单项内的布局模式，支持水平布局和垂直布局，默认垂直
+- `direction` 表单项间的排列方式，支持水品排列和垂直排列，默认垂直
 - `disabled` 禁用表单输入，开启后表单内所有元素不可编辑。注意：自定义组件需要自己实现禁用逻辑和展示
 - `disableEnterSubmit` 禁用表单内 `input` 元素的回车提交功能
 - `onReset` 表单重置回调函数，`form.reset` 或者原生的 DOM 触发的 `reset` 事件都会触发 `onReset`
@@ -125,7 +126,7 @@ validator 和 builder 下文会详细说明。
   - `scrollContainer` 自定义滚动的 DOM 节点，默认 `document.body`
   - `offsetX` 自定义滚动的 x 轴偏移量
   - `offsetY` 自定义滚动的 y 轴偏移量
-- 详细参数请[参考这里](../../apidoc/interfaces/iformprops.html)
+- 详细参数请[参考这里](../../apidoc/interfaces/IFormProps.html)
 
 #### `defaultValue` vs `initialValue`
 
@@ -136,10 +137,10 @@ validator 和 builder 下文会详细说明。
 
 `Form` 提供以下基础的 hooks，在内置的这些 `Form` 组件无法满足需要时，可以使用这些 hooks 来封装自定义的 `Form` 组件。
 
-- `Form.useForm` 获取 `Form` 对象，[查看 API 文档](../../apidoc/globals.html#useform)
-- `Form.useField` 获取 `Field`，[查看 API 文档](../../apidoc/globals.html#usefield)
-- `Form.useFieldArray` 获取 `FieldArray`，[查看 API 文档](../../apidoc/globals.html#usefieldarray)
-- `Form.useFieldSet` 获取 `FieldSet`，[查看 API 文档](../../apidoc/globals.html#usefieldset)
+- `Form.useForm` 获取 `Form` 对象，[查看 API 文档](../../apidoc/classes/Form.html#useForm)
+- `Form.useField` 获取 `Field`，[查看 API 文档](../../apidoc/classes/Form.html#useField)
+- `Form.useFieldArray` 获取 `FieldArray`，[查看 API 文档](../../apidoc/classes/Form.html#useFieldArray)
+- `Form.useFieldSet` 获取 `FieldSet`，[查看 API 文档](../../apidoc/classes/Form.html#useFieldSet)
 
 #### 基础使用方法
 
@@ -165,7 +166,7 @@ validator 和 builder 下文会详细说明。
 - `FormCombinedDateRangePickerField`
 - `FormDateRangeQuickPickerField`
 
-`Field` 组件支持的完整参数列表可以[参考这里](../../apidoc/interfaces/iformfieldpropsbase.html)，以及[这里除 `invalid` 之外的参数](../../apidoc/interfaces/iformcontrolprops.html)；这些都是两种模式下通用的参数。
+`Field` 组件支持的完整参数列表可以[参考这里](../../apidoc/interfaces/IFormFieldPropsBase.html)，以及[这里除 `invalid` 之外的参数](../../apidoc/interfaces/IFormControlProps.html)；这些都是两种模式下通用的参数。
 
 - `after` 在表单项后面显示的自定义内容
 - `before` 在表单项前面显示的自定义内容
@@ -185,7 +186,7 @@ validator 和 builder 下文会详细说明。
 - `children` 不解释
 - `modelRef` Field 对应 model 的 ref，可以通过这个 `modelRef.current` 直接访问 model 上的方法和属性
 
-`View` 模式还支持[以下参数](../../apidoc/interfaces/iformfieldviewdrivenprops.html)。
+`View` 模式还支持[以下参数](../../apidoc/interfaces/IFormFieldViewDrivenProps.html)。
 
 - `defaultValue` 缺省值，作为没有用户输入时的值，不可变
 - `destroyOnUnmount` 是否在组件 `unmount` 的时候销毁 model 对象，销毁时机依赖 React 执行时机。__使用前请看下面的注意事项。__
@@ -198,7 +199,7 @@ validator 和 builder 下文会详细说明。
 - 不要在 `View` 模式下通过**条件渲染**将同一个 `name` 的 model 渲染成不同的 `Field` 实例，并且同时在 `Field` 上开启 `destroyOnUnmount` 参数。我们认为这是很 tricky 的不合理用法，一旦发现这种场景，`name` 对应的那个 `Field` 将进入不可用状态，后续所有操作都会报错。
 - 在 `View` 模式下使用 `FieldArray` 时，由于该组件的特殊性，虽然此时传给 `Field` 的是个 `ModelRef`，按之前提到的规则这就是 `Model` 模式，但是校验规则还是需要设置在表单项上。
 
-`Model` 模式还支持[以下参数](../../apidoc/interfaces/iformfieldmodeldrivenprops.html)。注意，此模式下校验规则正常是设置在 model 上的，而不是表单项组件上。
+`Model` 模式还支持[以下参数](../../apidoc/interfaces/IFormFieldModelDrivenProps.html)。注意，此模式下校验规则正常是设置在 model 上的，而不是表单项组件上。
 
 - `model` 表单项对应的数据
 - `initialValue` 初始值，用于覆盖 model 上的初始值，仅当值不等于 `undefined` 时生效
@@ -224,9 +225,9 @@ type AsyncValidator<T> = (
 type SyncValidator<T> = (value: T, ctx: ValidatorContext<T>) => IMaybeError<T>;
 ```
 
-- 如果返回 `null` 或者 `undefined` 表示校验通过；当校验失败时返回一个[包含错误信息的对象](../../apidoc/interfaces/ivalidateresult.html)。
+- 如果返回 `null` 或者 `undefined` 表示校验通过；当校验失败时返回一个[包含错误信息的对象](../../apidoc/interfaces/IValidateResult.html)。
 - 支持返回 `Promise` 或 `Observable` 进行异步校验
-- 使用 `Form.createAsyncValidator` 来创建一个异步校验函数，[查看函数定义](../../apidoc/globals.html#createasyncvalidator)；通过 `Form.isAsyncValidator` 来判断函数是不是异步校验函数，[查看函数定义](../../apidoc/globals.html#isasyncvalidator)
+- 使用 `Form.createAsyncValidator` 来创建一个异步校验函数，[查看函数定义](../../apidoc/classes/Form.html#createAsyncValidator)；通过 `Form.isAsyncValidator` 来判断函数是不是异步校验函数，[查看函数定义](../../apidoc/classes/Form.html#isAsyncValidator)
 - 通过 `Field` 的 `validateOccasion` 参数控制校验时机
 - 通过 `Field` 的 `getValidateOption` 参数控制校验规则的运行时机以及哪些校验规则需要运行
 - `validator` 的执行顺序是 `validators` 数组的元素顺序，通常建议把异步校验放在最后
@@ -237,14 +238,14 @@ type SyncValidator<T> = (value: T, ctx: ValidatorContext<T>) => IMaybeError<T>;
 
 #### 内置的校验规则
 
-- [`Validators.min`](../../apidoc/globals.html#min)
-- [`Validators.max`](../../apidoc/globals.html#max)
-- [`Validators.required`](../../apidoc/globals.html#required)
-- [`Validators.requiredTrue`](../../apidoc/globals.html#requiredtrue)
-- [`Validators.email`](../../apidoc/globals.html#email)
-- [`Validators.minLength`](../../apidoc/globals.html#minlength)
-- [`Validators.maxLength`](../../apidoc/globals.html#maxlength)
-- [`Validators.pattern`](../../apidoc/globals.html#pattern)
+- [`Validators.min`](../../apidoc/modules/Validators.html#min)
+- [`Validators.max`](../../apidoc/modules/Validators.html#max)
+- [`Validators.required`](../../apidoc/modules/Validators.html#required)
+- [`Validators.requiredTrue`](../../apidoc/modules/Validators.html#requiredTrue)
+- [`Validators.email`](../../apidoc/modules/Validators.html#email)
+- [`Validators.minLength`](../../apidoc/modules/Validators.html#minLength)
+- [`Validators.maxLength`](../../apidoc/modules/Validators.html#maxLength)
+- [`Validators.pattern`](../../apidoc/modules/Validators.html#pattern)
 
 <!-- demo-slot-4 -->
 <!-- demo-slot-5 -->
@@ -310,7 +311,7 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 
 - 注意并没有所谓的 `FieldArray` 组件，直接使用 `Form.useFieldArray` 这个 hooks 即可。该函数有两个重载的实现，分别对应 `Form` 的两种运行模式。
 
-- `useFieldArray` 的参数定义请[参考这里](../../apidoc/globals.html#usefieldarray)。
+- `useFieldArray` 的参数定义请[参考这里](../../apidoc/classes/Form.html#useFieldArray)。
 
 - `useFieldArray` 返回值是一个 `FieldArrayModel`，通过 `children` 就能访问到所有数据，一般在 `render` 函数里对 `children` 做 `map` 操作即可。
 
@@ -318,7 +319,7 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 
 - `FieldSet` 组件和 `Form` 一样有两种运行模式，`View` 模式可以通过 `name` 参数指定对应的数据来源；`Model` 模式则通过 `model` 参数或者 `name` 参数显式的设置数据来源。
 
-`FieldSet` 两种模式公用的参数可以在[这里查看](../../apidoc/interfaces/ifieldsetbaseprops.html)。
+`FieldSet` 两种模式公用的参数可以在[这里查看](../../apidoc/interfaces/IFieldSetBaseProps.html)。
 
 - `validators` 校验规则数组，按数组顺序执行，直到所有都通过或者在第一个失败的地方停止
 - `scrollAnchorRef` 表单提交时滚动到错误时的 DOM 元素的 ref(来自 `React.createRef` 或 `React.useRef`)
@@ -337,10 +338,10 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 
 使用 `Form` 的 `Model` 模式需要自己手动创建 model，我们提供了 builder API 来帮助完成这个操作。每个函数返回的都是一个 `Builder` 对象，`Builder` 对象都有一个 `validators` 方法用来配置 model 的校验规则。**Builder API 都支持链式调用**。
 
-- `Form.form` 参数是个对象，用来描述整个 `Form` model 的结构, [查看函数定义](../../apidoc/globals.html#form)
-- `Form.field` 参数是 `Field` 的默认值，[查看函数定义](../../apidoc/globals.html#field)
-- `Form.set` 参数是个对象，用来描述这个表单集合的结构，[查看函数定义](../../apidoc/globals.html#set)
-- `Form.array` 参数是一个其他函数返回的 `Builder` 对象，`array` 返回的 `Builder` 对象上有 `defaultValue` 用于设置这个 array 中的表单项的默认值，[查看函数定义](../../apidoc/globals.html#array)
+- `Form.form` 参数是个对象，用来描述整个 `Form` model 的结构, [查看函数定义](../../apidoc/classes/Form.html#form)
+- `Form.field` 参数是 `Field` 的默认值，[查看函数定义](../../apidoc/classes/Form.html#field)
+- `Form.set` 参数是个对象，用来描述这个表单集合的结构，[查看函数定义](../../apidoc/classes/Form.html#set)
+- `Form.array` 参数是一个其他函数返回的 `Builder` 对象，`array` 返回的 `Builder` 对象上有 `defaultValue` 用于设置这个 array 中的表单项的默认值，[查看函数定义](../../apidoc/classes/Form.html#array)
 
 <!-- demo-slot-9 -->
 
@@ -405,11 +406,11 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 
 实现自定义 `Field` 的时候会用到这些组件，它们只是样式组件，用来提供和内置 `Field` 组件一致样式和参数。
 
-- `Control` 封装了 label、自定义组件以及错误信息的结构，[查看 Props 文档](../../apidoc/interfaces/iformcontrolprops.html)
-- `Label` 表单项的 label 组件，适用于连 `Control` 也不想使用的场景，[查看 Props 文档](../../apidoc/interfaces/ilabelprops.html)
-- `Error` 表单项的错误信息组件，同 `Label` 一样适用于深度自定义的场景，[查看 Props 文档](../../apidoc/interfaces/iformerrorprops.html)
-- `useFormChild` 使用上述组件时，如果希望支持自动滚动到错误处，需要在组件内使用这个 Hook 关联 model 和 DOM 节点，[查看文档](../../apidoc/globals.html#useformchild)
-- `CombineErrors` 这个组件用来将多个字段的错误聚合成一个错误展示，需要配合 `Field` 的 `withoutError` 参数使用，[查看 Props 文档](../../apidoc/interfaces/icombineerrorsprops.html)
+- `Control` 封装了 label、自定义组件以及错误信息的结构，[查看 Props 文档](../../apidoc/interfaces/IFormControlProps.html)
+- `Label` 表单项的 label 组件，适用于连 `Control` 也不想使用的场景，[查看 Props 文档](../../apidoc/interfaces/ILabelProps.html)
+- `Error` 表单项的错误信息组件，同 `Label` 一样适用于深度自定义的场景，[查看 Props 文档](../../apidoc/interfaces/IFormErrorProps.html)
+- `useFormChild` 使用上述组件时，如果希望支持自动滚动到错误处，需要在组件内使用这个 Hook 关联 model 和 DOM 节点，[查看文档](../../apidoc/modules.html#useFormChild)
+- `CombineErrors` 这个组件用来将多个字段的错误聚合成一个错误展示，需要配合 `Field` 的 `withoutError` 参数使用，[查看 Props 文档](../../apidoc/interfaces/ICombineErrorsProps.html)
 
 <!-- demo-slot-18 -->
 <!-- demo-slot-3 -->
@@ -417,7 +418,10 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 
 ### `Form` 布局
 
-`Form` 组件使用 `flex` 布局，提供两种简单的样式：水平布局 `horizontal`， 垂直布局 `vertical`。
+`Form` 组件使用 `flex` 布局，有两个参数控制基本的布局结构
+
+- `layout` 控制**表单项内**的布局方式，支持水平 `horizontal` 和垂直 `vertical` 两种布局
+- `direction` 控制**表单项间**的排列方式，支持 `column` 和 `row` 两种排列。**水平排列通常来说需要设置表单项的最小宽度才能正常工作**。
 
 <!-- demo-slot-7 -->
 
@@ -437,8 +441,8 @@ interface IZentFormContext {
 
 `FieldUtils` 提供了一些有用的工具函数，如果不知道干什么用的或者看不懂，说明你没有需求，不需要用到它们，这些工具本身定位就是高级用法。
 
-- useMulti 用来按顺序调用一批函数，只使用它们的副作用，忽略返回值，[查看函数定义](../../apidoc/globals.html#usemulti)
-- usePipe 用来从左往右按顺序调用一批函数，上一个函数的返回值作为下一个函数的参数，返回最后一个函数的返回值，[查看函数定义](../../apidoc/globals.html#usepipe)
-- useCompositionHandler 用来在 `model` 上维护一个输入法编辑的状态, `model.isCompositing`，[查看函数定义](../../apidoc/globals.html#usecompositionhandler)。组件内部会根据这个状态在输入法输入阶段跳过校验
-- makeChangeHandler 生成一个 `onChange` 回调函数，具体说明请[查看函数定义](../../apidoc/globals.html#makechangehandler)
-- compose 与 usePipe 类似，区别是 usePipe 作为 hook 使用，而 compose 可以用在任何地方，例如组合多个校验函数中间件，[查看函数定义](../../apidoc/globals.html#compose)
+- useMulti 用来按顺序调用一批函数，只使用它们的副作用，忽略返回值，[查看函数定义](../../apidoc/modules/FieldUtils.html#useMulti)
+- usePipe 用来从左往右按顺序调用一批函数，上一个函数的返回值作为下一个函数的参数，返回最后一个函数的返回值，[查看函数定义](../../apidoc/modules/FieldUtils.html#usePipe)
+- useCompositionHandler 用来在 `model` 上维护一个输入法编辑的状态, `model.isCompositing`，[查看函数定义](../../apidoc/modules/FieldUtils.html#useCompositionHandler)。组件内部会根据这个状态在输入法输入阶段跳过校验
+- useChangeHandler 生成一个 `onChange` 回调函数，具体说明请[查看函数定义](../../apidoc/modules/FieldUtils.html#useChangeHandler)
+- compose 与 usePipe 类似，区别是 usePipe 作为 hook 使用，而 compose 可以用在任何地方，例如组合多个校验函数中间件，[查看函数定义](../../apidoc/modules/FieldUtils.html#compose)

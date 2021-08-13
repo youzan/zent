@@ -79,10 +79,16 @@ export interface IFormProps<T extends {}>
     'onSubmit' | 'dangerouslySetInnerHTML'
   > {
   /**
-   * 表单布局，支持水平布局和垂直布局
+   * 表单项内的布局，支持水平布局和垂直布局
    * @defaultValue `'vertical'`
    */
-  layout?: 'horizontal' | 'vertical';
+  layout?: 'horizontal' | 'vertical' | 'inline';
+
+  /**
+   * 表单项间的排列，支持水平和垂直方向
+   * @defaultValue `'column'`
+   */
+  direction?: 'row' | 'column';
 
   /**
    * `useForm`得到的`model`
@@ -239,7 +245,7 @@ export class Form<T extends {}> extends Component<IFormProps<T>> {
       );
       if (!form.isValid()) {
         scrollToError && this.scrollToFirstError();
-        fail(new Error('Form validation failed'));
+        fail(new FormValidationError('Form validation failed'));
         return;
       }
       await onSubmit(form, e);
@@ -356,6 +362,7 @@ export class Form<T extends {}> extends Component<IFormProps<T>> {
     const {
       children,
       layout = 'vertical',
+      direction = 'column',
       className,
       form,
       onSubmit,
@@ -376,9 +383,12 @@ export class Form<T extends {}> extends Component<IFormProps<T>> {
               ref={this.formRef}
               {...props}
               className={cx(
+                'zent-form-reactive',
                 {
                   'zent-form-vertical': layout === 'vertical',
                   'zent-form-horizontal': layout === 'horizontal',
+                  'zent-form-direction-row': direction === 'row',
+                  'zent-form-direction-column': direction === 'column',
                 },
                 className
               )}
@@ -392,5 +402,12 @@ export class Form<T extends {}> extends Component<IFormProps<T>> {
         </FormChildrenContext.Provider>
       </Disabled>
     );
+  }
+}
+
+export class FormValidationError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = 'FormValidationError';
   }
 }
