@@ -1229,6 +1229,30 @@ class IconGrid extends Component {
                 <span className="zi-grid-item-name">sign_out</span>
               </div>
             </CopyButton>
+            <CopyButton
+              text={this.getIconString("hotel-o")}
+              onCopySuccess="hotel 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="hotelhoteloutline"
+              >
+                <Icon type="hotel-o" />
+                <span className="zi-grid-item-name">hotel</span>
+              </div>
+            </CopyButton>
+            <CopyButton
+              text={this.getIconString("hotel")}
+              onCopySuccess="hotel_fill 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="hotel_fillhotelfilled"
+              >
+                <Icon type="hotel" />
+                <span className="zi-grid-item-name">hotel_fill</span>
+              </div>
+            </CopyButton>
           </div>
         </div>
       
