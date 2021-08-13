@@ -92,6 +92,8 @@ export type IconType =
   | 'hc-manage-o'
   | 'help-circle'
   | 'help-circle-o'
+  | 'hotel'
+  | 'hotel-o'
   | 'hotline-o'
   | 'hr'
   | 'hr-o'

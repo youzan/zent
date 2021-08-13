@@ -61,16 +61,13 @@ class IconGrid extends Component {
       <div className="zi-grid">
         <div className="zi-grid-toolbar">
           {search && <style>{`.zi-grid-item:not([data-index*="${search}"]) { display: none; }`}</style>}
-          <div className="zi-search-input-wrapper">
-            <Input
-              className="zi-search-input"
-              icon="search"
-              placeholder="{i18n.searchPlaceholder}"
-              value={search}
-              onChange={this.onChange}
-            />
-            {i18n.prompt}
-          </div>
+          <Input
+            className="zi-search-input"
+            icon="search"
+            placeholder="{i18n.searchPlaceholder}"
+            value={search}
+            onChange={this.onChange}
+          />
 
           <RadioGroup onChange={this.onCopyOptionChange} value={this.state.copyType}>
             <Radio value="jsx">{i18n.jsx}</Radio>
@@ -1227,6 +1224,30 @@ class IconGrid extends Component {
               >
                 <Icon type="sign-out" />
                 <span className="zi-grid-item-name">sign_out</span>
+              </div>
+            </CopyButton>
+            <CopyButton
+              text={this.getIconString("hotel-o")}
+              onCopySuccess="hotel 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="hotelhoteloutline"
+              >
+                <Icon type="hotel-o" />
+                <span className="zi-grid-item-name">hotel</span>
+              </div>
+            </CopyButton>
+            <CopyButton
+              text={this.getIconString("hotel")}
+              onCopySuccess="hotel_fill 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="hotel_fillhotelfilled"
+              >
+                <Icon type="hotel" />
+                <span className="zi-grid-item-name">hotel_fill</span>
               </div>
             </CopyButton>
           </div>
