@@ -28,7 +28,7 @@ export {
   IValidateResult,
   ValidatorContext,
 } from './formulr';
-export { useFormChild } from './shared';
+export { useFormChild, IFormFieldPropsBase } from './shared';
 
 export * from './form-components';
 export * from './Form';
@@ -38,5 +38,6 @@ export * from './Label';
 export * from './Field';
 export * from './FieldSet';
 export * from './Description';
+export * from './CombineErrors';
 export * from './Notice';
 export { FormContext, IFormChild } from './context';
