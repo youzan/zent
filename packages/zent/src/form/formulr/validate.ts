@@ -55,11 +55,11 @@ export function createAsyncValidator<T>(
 }
 
 /**
- * 校验结果错误名
+ * 校验结果
  */
 export interface IValidateResult<T> {
   /**
-   * 校验结果对应的字段名
+   * Validator 的名字，不是表单字段名
    */
   name: string;
   /**

@@ -239,7 +239,7 @@ export class Form<T extends {}> extends Component<IFormProps<T>> {
       );
       if (!form.isValid()) {
         scrollToError && this.scrollToFirstError();
-        fail(new Error('Form validation failed'));
+        fail(new FormValidationError('Form validation failed'));
         return;
       }
       await onSubmit(form, e);
@@ -392,5 +392,12 @@ export class Form<T extends {}> extends Component<IFormProps<T>> {
         </FormChildrenContext.Provider>
       </Disabled>
     );
+  }
+}
+
+export class FormValidationError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = 'FormValidationError';
   }
 }
