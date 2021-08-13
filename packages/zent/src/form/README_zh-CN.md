@@ -440,5 +440,5 @@ interface IZentFormContext {
 - useMulti 用来按顺序调用一批函数，只使用它们的副作用，忽略返回值，[查看函数定义](../../apidoc/globals.html#usemulti)
 - usePipe 用来从左往右按顺序调用一批函数，上一个函数的返回值作为下一个函数的参数，返回最后一个函数的返回值，[查看函数定义](../../apidoc/globals.html#usepipe)
 - useCompositionHandler 用来在 `model` 上维护一个输入法编辑的状态, `model.isCompositing`，[查看函数定义](../../apidoc/globals.html#usecompositionhandler)。组件内部会根据这个状态在输入法输入阶段跳过校验
-- makeChangeHandler 生成一个 `onChange` 回调函数，具体说明请[查看函数定义](../../apidoc/globals.html#makechangehandler)
+- useChangeHandler 生成一个 `onChange` 回调函数，具体说明请[查看函数定义](../../apidoc/globals.html#usechangehandler)
 - compose 与 usePipe 类似，区别是 usePipe 作为 hook 使用，而 compose 可以用在任何地方，例如组合多个校验函数中间件，[查看函数定义](../../apidoc/globals.html#compose)

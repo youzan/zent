@@ -125,7 +125,7 @@ export function FormField<Value>(props: IFormFieldProps<Value>) {
     [model, normalize]
   );
   const setValue = useCallback(value => (model.value = value), [model]);
-  const defaultOnChangeHandler = FieldUtils.makeChangeHandler(
+  const defaultOnChangeHandler = FieldUtils.useChangeHandler(
     model,
     withDefaultOption(getValidateOption('change')),
     props.onChange

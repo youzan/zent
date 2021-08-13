@@ -247,12 +247,12 @@ export function usePipe<T, R>(...args: any[]): (v: T) => R {
  * function Foo() {
  *   const onChange = FieldUtils.usePipe(
  *     mapEventToValue,
- *     FieldUtils.makeChangeHandler(model),
+ *     FieldUtils.useChangeHandler(model),
  *   );
  * }
  * ```
  */
-export function makeChangeHandler<Value>(
+export function useChangeHandler<Value>(
   model: FieldModel<Value>,
   option = ValidateOption.Default | ValidateOption.ExcludePristine,
   callback?: (value: Value) => void
@@ -285,6 +285,12 @@ export function makeChangeHandler<Value>(
     [model]
   );
 }
+
+/**
+ * @deprecated
+ * It's an alias of `useChangeHandler`, use the latter instead.
+ */
+export const makeChangeHandler = useChangeHandler;
 
 export interface ICompositionHandlers<E = Element> {
   onCompositionStart: CompositionEventHandler<E>;
