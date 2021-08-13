@@ -308,7 +308,7 @@ class FieldArrayModel<
   ): Child[] {
     const children = this.children$.getValue().slice();
     const insertedChildren = (items.map as any)((item: Item | Child) => {
-      isModel(item)
+      return isModel(item)
         ? this._linkChild(item as Child)
         : this._buildChild(item as Item);
     });
