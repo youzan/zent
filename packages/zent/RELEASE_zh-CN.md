@@ -9,6 +9,17 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 9.9.2(2021-08-16)
+
+- ✨ 增加酒店图标
+- `Form`
+  - ✨ `FormContext` 新增 `controlStyle` 支持，用于批量设置表单项的样式
+  - ✨ 表单布局新增 `direction` 选项，用于控制表单项间的排列方式，支持行、列两种排列方式
+  - 🦀️ 修复 `FieldArrayModel.splice` 方法无法插入数据的问题
+  - 🦀️ `FieldUtils.makeChangeHandler` 重命名为 `useChangeHandler`，这个函数本身是个 Hook，所以重命名遵循 React 规范
+  - 🦀️ 优化 `validator` 运行时的错误描述
+  - 📚 修复因为升级 `typedoc` 导致的 API 文档链接失效
+
 ### 9.9.1(2021-07-30)
 
 - 🦀️ 修复 `Icon` 样式中 `font-family` 丢失版本标记

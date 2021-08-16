@@ -9,6 +9,16 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 9.9.2(2021-08-16)
+
+- ✨ Add hotel icons
+- `Form`
+	- ✨ Add `controlStyle` support in `FormContext`
+	- ✨ Add `direction` support in form layout
+	- 🦀️ Fix `FieldArrayModel.splice` can not insert new items
+	- 🦀️ Rename `FieldUtils.makeChangeHandler` to `useChangeHandler` because it's a React hook
+	- 🦀️ Optimize `validator` runtime error message
+	- 📚 Fix broken API links caused by upgrading `typedoc` in previous version
 
 ### 9.9.1(2021-07-30)
 
