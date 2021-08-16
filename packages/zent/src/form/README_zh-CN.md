@@ -421,17 +421,20 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 `Form` 组件使用 `flex` 布局，有两个参数控制基本的布局结构
 
 - `layout` 控制**表单项内**的布局方式，支持水平 `horizontal` 和垂直 `vertical` 两种布局
-- `direction` 控制**表单项间**的排列方式，支持 `column` 和 `row` 两种排列。**水平排列通常来说需要设置表单项的最小宽度才能正常工作**。
+- `direction` 控制**表单项间**的排列方式，支持 `column` 和 `row` 两种排列。 
+
+水平排列通常来说需要设置表单项的**最小宽度**才能正常工作，可以通过 `FormContext` 中的 `controlStyle` 来批量设置。
 
 <!-- demo-slot-7 -->
 
 ### 表单上下文
 
-使用`FormContext`对整个表单的行为进行控制，目前支持对`Label`组件进行样式自定义
+使用`FormContext`对整个表单的行为进行控制，目前支持对 `Label` 组件以及 `Control` 组件进行样式自定义。
 
 ```ts
 interface IZentFormContext {
 	labelStyle?: CSSProperties;
+	controlStyle?: CSSProperties;
 }
 ```
 

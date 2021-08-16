@@ -23,7 +23,14 @@ export function useFormChildrenContext(): IZentFormChildrenContext {
 }
 
 export interface IZentFormContext {
+  /**
+   * 表单项 label 样式
+   */
   labelStyle?: CSSProperties;
+  /**
+   * 表单项容器样式
+   */
+  controlStyle?: CSSProperties;
 }
 
 export const FormContext = createContext<IZentFormContext>({});

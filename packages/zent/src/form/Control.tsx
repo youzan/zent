@@ -1,7 +1,8 @@
 import cx from 'classnames';
-import { forwardRef } from 'react';
+import { forwardRef, useContext } from 'react';
 
 import { Label } from './Label';
+import { FormContext } from './context';
 
 export interface IFormControlProps {
   className?: string;
@@ -30,6 +31,7 @@ export const FormControl = forwardRef<HTMLDivElement, IFormControlProps>(
     { className, style, label, children, required, invalid, withoutLabel },
     ref
   ) => {
+    const { controlStyle } = useContext(FormContext);
     return (
       <div
         ref={ref}
@@ -40,7 +42,7 @@ export const FormControl = forwardRef<HTMLDivElement, IFormControlProps>(
           },
           className
         )}
-        style={style}
+        style={{ ...controlStyle, ...style }}
       >
         {withoutLabel ? null : <Label required={required}>{label}</Label>}
         <div className="zent-form-control-content">{children}</div>
