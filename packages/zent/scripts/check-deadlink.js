@@ -3,6 +3,7 @@ const fs = require('fs').promises;
 const https = require('https');
 const { URL } = require('url');
 const cheerio = require('cheerio');
+const { exit } = require('process');
 
 const FILES = ['src/form/README_zh-CN.md', 'src/form/README_en-US.md'].map(f =>
   path.resolve(__dirname, '..', f)
@@ -34,11 +35,15 @@ async function main() {
       return limit(requestApiDoc, link);
     })
   );
+
+  let hasDeadLinks = false;
   docs.forEach(({ status, reason, value }, index) => {
     const link = linksToRequest[index];
     const hashesInDoc = linkGroups[link];
 
     if (status === 'rejected') {
+      hasDeadLinks = true;
+
       const msg =
         reason?.statusCode ?? reason?.toString() ?? 'Unknown network error';
 
@@ -60,6 +65,7 @@ async function main() {
       hashesInDoc.forEach(hash => {
         const url = `${link}${hash}`;
         if (!$(`a[name="${hash.slice(1)}"]`).length) {
+          hasDeadLinks = true;
           console.error(url, red('Hash missing'));
         } else {
           console.log(url, green('OK'));
@@ -67,6 +73,10 @@ async function main() {
       });
     }
   });
+
+  if (hasDeadLinks) {
+    exit(1);
+  }
 }
 
 function groupLinksByPath(paths) {
