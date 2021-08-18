@@ -1,47 +1,109 @@
 const path = require('path');
 const fs = require('fs').promises;
 const https = require('https');
+const { URL } = require('url');
+const cheerio = require('cheerio');
 
 const FILES = ['src/form/README_zh-CN.md', 'src/form/README_en-US.md'].map(f =>
   path.resolve(__dirname, '..', f)
 );
 
-const APIDOC_REGEXP = /[./]*(apidoc\/.+?)\)/g;
+const APIDOC_REGEXP = /[./]+\/(apidoc\/.+?|apidoc\/?)\)/g;
 
 async function getApiDocLinks(file) {
   const content = await fs.readFile(file, { encoding: 'utf-8' });
   const matches = content.matchAll(APIDOC_REGEXP);
 
-  return Array.from(matches).map(m => m[1]);
+  return Array.from(matches).map(m => {
+    const p = m[1];
+
+    // Normalize root path
+    return p.endsWith('apidoc') ? p + '/' : p;
+  });
 }
 
 async function main() {
   const links = await Promise.all(FILES.map(getApiDocLinks));
   const uniqLinks = Array.from(new Set(links.flat()));
+
+  const linkGroups = groupLinksByPath(uniqLinks);
+  const linksToRequest = Object.keys(linkGroups);
   const limit = pLimit(5);
-  const resp = await Promise.allSettled(
-    uniqLinks.map(link => {
+  const docs = await Promise.allSettled(
+    linksToRequest.map(link => {
       return limit(requestApiDoc, link);
     })
   );
-  resp.forEach(({ value: r }, index) => {
-    if (!r || r instanceof Error || r.statusCode !== 200) {
-      console.log(uniqLinks[index], r.statusCode);
+  docs.forEach(({ status, reason, value }, index) => {
+    const link = linksToRequest[index];
+    const hashesInDoc = linkGroups[link];
+
+    if (status === 'rejected') {
+      const msg =
+        reason?.statusCode ?? reason?.toString() ?? 'Unknown network error';
+
+      if (hashesInDoc.length === 0) {
+        console.error(link, red(msg));
+      } else {
+        hashesInDoc.forEach(hash => {
+          const url = `${link}${hash}`;
+          console.error(url, red(msg));
+        });
+      }
+      return;
+    }
+
+    if (hashesInDoc.length === 0) {
+      console.log(link, green('OK'));
+    } else {
+      const $ = cheerio.load(value);
+      hashesInDoc.forEach(hash => {
+        const url = `${link}${hash}`;
+        if (!$(`a[name="${hash.slice(1)}"]`).length) {
+          console.error(url, red('Hash missing'));
+        } else {
+          console.log(url, green('OK'));
+        }
+      });
     }
   });
 }
 
-function requestApiDoc(path) {
+function groupLinksByPath(paths) {
+  return paths.reduce((groups, urlPath) => {
+    const url = new URL(`https://youzan.github.io/zent/${urlPath}`);
+    const { hash, pathname } = url;
+    if (!groups[pathname]) {
+      groups[pathname] = [];
+    }
+    if (hash) {
+      groups[pathname].push(hash);
+    }
+    return groups;
+  }, {});
+}
+
+function requestApiDoc(requestPath) {
   const options = {
     host: 'youzan.github.io',
     port: 443,
-    path: `/zent/${path}`,
-    method: 'HEAD',
+    path: requestPath,
+    method: 'GET',
   };
 
   return new Promise((resolve, reject) => {
     const req = https.request(options, res => {
-      resolve(res);
+      if (res.statusCode !== 200) {
+        reject(res);
+      }
+
+      let data = '';
+      res.on('data', function (chunk) {
+        data += chunk;
+      });
+      res.on('end', function () {
+        resolve(data);
+      });
     });
 
     req.on('error', error => {
@@ -52,6 +114,17 @@ function requestApiDoc(path) {
   });
 }
 
+function red(msg) {
+  return `\x1b[41m${msg}\x1b[0m`;
+}
+
+function green(msg) {
+  return `\x1b[42m${msg}\x1b[0m`;
+}
+
+/**
+ * Limit promise queue concurrency
+ */
 function pLimit(concurrency) {
   if (
     !(
@@ -74,7 +147,7 @@ function pLimit(concurrency) {
     }
   };
 
-  const run = async (fn, resolve, args) => {
+  const run = async (fn, resolve, reject, args) => {
     activeCount++;
 
     const result = (async () => fn(...args))();
@@ -84,14 +157,14 @@ function pLimit(concurrency) {
     try {
       await result;
     } catch (err) {
-      console.log(err);
+      reject(err);
     }
 
     next();
   };
 
-  const enqueue = (fn, resolve, args) => {
-    queue.unshift(run.bind(undefined, fn, resolve, args));
+  const enqueue = (fn, resolve, reject, args) => {
+    queue.unshift(run.bind(undefined, fn, resolve, reject, args));
 
     (async () => {
       // This function needs to wait until the next microtask before comparing
@@ -107,8 +180,8 @@ function pLimit(concurrency) {
   };
 
   const generator = (fn, ...args) =>
-    new Promise(resolve => {
-      enqueue(fn, resolve, args);
+    new Promise((resolve, reject) => {
+      enqueue(fn, resolve, reject, args);
     });
 
   Object.defineProperties(generator, {
