@@ -26,7 +26,8 @@
     "compile-plugins": "tsc -p ./plugins/tsconfig.json",
     "update-iconfont": "./scripts/update-iconfont.sh",
     "generate-theme-css-vars": "./scripts/generate-theme-css-vars.sh",
-    "invalidate-ts-build-cache": "./scripts/invalidate-ts-build-cache.sh"
+    "invalidate-ts-build-cache": "./scripts/invalidate-ts-build-cache.sh",
+    "check-deadlink": "node ./scripts/check-deadlink.js"
   },
   "author": "Youzan FE",
   "license": "MIT",
