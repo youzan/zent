@@ -6,8 +6,8 @@
     "incremental": true,
     "plugins": [
       // paths are relative to site, not this directory
-      { "transform": "../packages/zent/plugins/ts-plugin-constants.ts" },
-      { "transform": "../packages/zent/plugins/ts-plugin-version-attribute.ts" }
+      { "transform": "./plugins/ts-plugin-constants.ts" },
+      { "transform": "./plugins/ts-plugin-version-attribute.ts" }
     ]
   },
 }
