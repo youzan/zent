@@ -13,7 +13,7 @@ module.exports = merge(base, {
     ],
   },
 
-  devtool: 'inline-cheap-module-source-map',
+  devtool: 'eval-cheap-module-source-map',
 
   plugins: [
     new webpack.HotModuleReplacementPlugin(),

@@ -21,7 +21,7 @@ export class PageJumper extends BasePageJumper<
     const input = (
       <NumberInput
         value={value}
-        onInput={this.onChange}
+        onChange={this.onChange}
         onPressEnter={this.onConfirm}
         width={INPUT_WIDTH}
         min={1}
