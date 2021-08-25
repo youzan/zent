@@ -9,6 +9,6 @@ echo "Clean up TypeScript output..."
 rm -rf es
 
 echo "Compile TypeScript..."
-ttsc
+tsc
 
 $basepath/./cruiser.sh
