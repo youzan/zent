@@ -2,7 +2,6 @@
   "preset": "ts-jest/presets/js-with-babel",
   "globals": {
     "ts-jest": {
-      "compiler": "ttypescript",
       "tsconfig": "tsconfig.test.json"
     },
     "transform": {

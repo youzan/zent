@@ -22,7 +22,7 @@
     "dev": "cd site && yarn dev",
     "deploy": "cd site && yarn deploy",
     "deploy-beta": "cd site && yarn deploy-beta",
-    "prepare": "husky install"
+    "prepare": "husky install && ts-patch install -s"
   },
   "workspaces": [
     "site",
@@ -62,6 +62,7 @@
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-recommended-scss": "^4.3.0",
     "stylelint-scss": "^3.20.1",
+    "ts-patch": "^1.4.3",
     "typescript": "~4.3.5"
   },
   "dependencies": {}
