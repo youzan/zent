@@ -75,11 +75,13 @@ export class ArrowButton extends Component<
     );
 
     if (disabledHelp && rest.disabled) {
-      return (
-        <Pop {...DEFAULT_DISABLED_POP_PROPS} {...disabledHelp}>
-          {btn}
-        </Pop>
-      );
+      const popProps = { ...DEFAULT_DISABLED_POP_PROPS, ...disabledHelp };
+
+      if (popProps.trigger === 'hover') {
+        // Required when using disabled elements as Pop's children
+        popProps.fixMouseEventsOnDisabledChildren = true;
+      }
+      return <Pop {...popProps}>{btn}</Pop>;
     }
 
     return btn;
