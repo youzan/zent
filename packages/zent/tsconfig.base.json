@@ -19,7 +19,11 @@
     "removeComments": true,
     "skipLibCheck": true,
     "downlevelIteration": false,
-    "target": "es5"
+    "target": "es5",
+    "plugins": [
+      { "transform": "./plugins/ts-plugin-constants.ts" },
+      { "transform": "./plugins/ts-plugin-version-attribute.ts" }
+    ]
   },
   "include": ["src"]
 }
