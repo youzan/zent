@@ -9,6 +9,15 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 9.9.3(2021-08-28)
+
+- 🦀️ Replace `ttypescript` with `ts-patch`
+- 🦀️ Fix `MiniPagination` not reacting to `props.current` change
+- 🦀️ Fix `lastPageHelp` not working in pagination components
+- 📚 Remove gitee mirror for docs
+- 📚 Add Github Action to check for 404 links in `Form` doc
+- 📚 Add docs on `NumberInput` `onInput`
+
 ### 9.9.2(2021-08-16)
 
 - ✨ Add hotel icons
