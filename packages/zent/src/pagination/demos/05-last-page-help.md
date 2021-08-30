@@ -2,10 +2,10 @@
 order: 5
 zh-CN:
 	title: 最后一页帮助提示
-	help: 数据最多支持查看 %d 页
+	help: 数据最多支持查看 %d 条
 en-US:
 	title: Tooltip for last page
-	help: Show at most %d pages
+	help: Show at most %d items
 ---
 
 ```jsx
