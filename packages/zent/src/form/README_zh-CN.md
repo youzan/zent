@@ -98,7 +98,7 @@ validator 和 builder 下文会详细说明。
 - `form.isSubmitting` 表单是否在提交中。
 - `form.isSubmitFailed` 表单上一次提交是否失败。
 - `form.isSubmitSucceeded` 表单上一次提交是否成功。
-- `form.validate()` 触发一次表单校验。
+- `form.validate(options?: ValidateOption)` 触发一次表单校验。
 - `form.isValid()` 表单是否通过校验，不会自动触发 `form.validate`。
 - `form.isValidating()` 表单是否正在校验过程中。
 - `form.model` 获取表单对应的 model 对象。
@@ -270,7 +270,7 @@ type SyncValidator<T> = (value: T, ctx: ValidatorContext<T>) => IMaybeError<T>;
 
 校验选项是一个 `BitSet`，在自定义表单组件中，使用 `Model` 上的 `validate` 方法进行校验时，使用 `|` 运算符联合所需的选项作为参数传入即可。
 
-不传参数调用 `form.validate()` 等价于 `form.validate(ValidateOption.Default | ValidateOption.IncludeChildrenRecursively)`。如果调用 `form.validate` 时手动指定校验选项的话需要自行设置需要的所有选项，包括默认的两个选项。
+不传参数调用 `form.validate()` 等价于 `form.validate(ValidateOption.Default)`。
 
 <!-- demo-slot-16 -->
 

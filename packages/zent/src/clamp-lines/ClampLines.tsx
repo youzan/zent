@@ -166,9 +166,9 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
    *
    * Note:
    *
-   * Maually setting result string to DOM before return is required, because sometimes
+   * Manually setting result string to DOM before return is required, because sometimes
    * the `setState` just before return won't actually cause a re-render since
-   * there will cases when `props.text` changed but `state.text` remains the same as previous render.
+   * there will be cases when `props.text` changed but `state.text` remains the same as previous render.
    */
   private _clampLinesFast() {
     const { text } = this.props;
@@ -197,7 +197,7 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
     const chars = Array.from(text);
 
     // binary search to find suitable text size
-    // this is a variant to find the `rightmost` index satisfing the condition
+    // this is a variant to find the `rightmost` index satisfying the condition
     let start = 0;
     let middle = 0;
     let end = chars.length;
@@ -213,7 +213,7 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
       }
     }
 
-    // The rightmost character satisfing height <= maxHeight is at `end - 1`
+    // The rightmost character satisfying height <= maxHeight is at `end - 1`
     const overflowIndex = end - 1;
     const textSuited = slice(chars, 0, overflowIndex) + this.getEllipsis();
     this.innerElement.current.textContent = textSuited;
@@ -227,11 +227,11 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
    * This algorithm does not rely on the assumption that each line has same height.
    * But it might be slow because its time complexity is proportional to text length and lines.
    *
-   * It works by finding wrapping point(the postion where a line wrap happens) one by one.
+   * It works by finding wrapping point(the position where a line wrap happens) one by one.
    *
    * Note:
    *
-   * Maually setting result string to DOM before return is required, because sometimes
+   * Manually setting result string to DOM before return is required, because sometimes
    * the `setState` just before return won't actually cause a re-render since
    * there will cases when `props.text` changed but `state.text` remains the same as previous render.
    */
