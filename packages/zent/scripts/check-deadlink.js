@@ -3,11 +3,13 @@ const fs = require('fs').promises;
 const https = require('https');
 const { URL } = require('url');
 const cheerio = require('cheerio');
+const glob = require('glob');
 const { exit } = require('process');
 
-const FILES = ['src/form/README_zh-CN.md', 'src/form/README_en-US.md'].map(f =>
-  path.resolve(__dirname, '..', f)
-);
+const FILES = glob.sync('**/*.md', {
+  cwd: path.resolve(__dirname, '../src'),
+  absolute: true,
+});
 
 const APIDOC_REGEXP = /[./]+\/(apidoc\/.+?|apidoc\/?)\)/g;
 

@@ -21,7 +21,7 @@ Infinite scrolling widget
 | skipLoadOnMount | Don't trigger a loading on mount    | `boolean`                                                         | `false`        | `true`      |
 | useWindow       | Use `window` as scrolling container | `boolean`                                                         | `false`        | `true`      |
 | loader          | Loading content                     | `ReactNode`                                                       | `BlockLoading` |             |
-| threshold | The distance in pixels before the end of the items that will trigger a call to loadMore | `number` | 0 |   |
+| threshold | The distance in pixels before the end of the items that will trigger a call to loadMore | `number` | 1 |   |
 | className       | Custom class name                   | `string`                                                          |                |             |
 
 ### loadMore

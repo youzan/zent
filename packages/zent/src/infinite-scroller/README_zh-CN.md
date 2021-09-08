@@ -22,7 +22,7 @@ group: 展示
 | skipLoadOnMount | 初始化时是否触发一次数据加载                                            | `boolean`                                                         | `false`        | `true`  |
 | useWindow       | 是否使用 `window` 作为滚动容器                                          | `boolean`                                                         | `false`        | `true`  |
 | loader          | 加载时显示的内容                                                        | `ReactNode`                                                       | `BlockLoading` |         |
-| threshold | 触发 `loadMore` 时距离列表末尾的距离 | `number` | `0` |   |
+| threshold | 触发 `loadMore` 时距离列表末尾的距离 | `number` | `1` |   |
 | className       | 自定义额外类名                                                          | `string`                                                          |                |         |
 
 ### loadMore

@@ -79,6 +79,7 @@
     "cssnano": "^5.0.6",
     "cheerio": "^1.0.0-rc.10",
     "enzyme": "^3.11.0",
+    "glob": "^7.1.7",
     "jest": "^27.0.6",
     "postcss-cli": "^8.3.1",
     "postcss-selector-parser": "^6.0.2",

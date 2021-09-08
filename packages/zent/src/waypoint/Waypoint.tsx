@@ -163,7 +163,7 @@ export class Waypoint extends PureComponent<IWaypointProps> {
 
   /**
    * @param event the native scroll event coming from the scrollable
-   *   ancestor, or resize event coming from the window. Will be undefined if
+   *   ancestor, or resize event coming from the window. Will be null if
    *   called by a React life cycle method
    */
   private handleScroll = (event: Event | null) => {
@@ -252,10 +252,9 @@ export class Waypoint extends PureComponent<IWaypointProps> {
       contextScrollTop = 0;
     } else {
       const node = this.scrollableAncestor as HTMLElement;
-      contextHeight = horizontal ? node.offsetWidth : node.offsetHeight;
-      contextScrollTop = horizontal
-        ? node.getBoundingClientRect().left
-        : node.getBoundingClientRect().top;
+      const boundingBox = node.getBoundingClientRect();
+      contextHeight = horizontal ? boundingBox.width : boundingBox.height;
+      contextScrollTop = horizontal ? boundingBox.left : boundingBox.top;
     }
 
     const { bottomOffset, topOffset } = this.props;
@@ -264,10 +263,10 @@ export class Waypoint extends PureComponent<IWaypointProps> {
     const contextBottom = contextScrollTop + contextHeight;
 
     return {
-      waypointTop,
-      waypointBottom,
-      viewportTop: contextScrollTop + topOffsetPx,
-      viewportBottom: contextBottom - bottomOffsetPx,
+      waypointTop: Math.round(waypointTop),
+      waypointBottom: Math.round(waypointBottom),
+      viewportTop: Math.round(contextScrollTop + topOffsetPx),
+      viewportBottom: Math.round(contextBottom - bottomOffsetPx),
     };
   }
 

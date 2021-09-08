@@ -33,7 +33,7 @@ export const InfiniteScroller = forwardRef<
       skipLoadOnMount = false,
       useWindow = false,
       loader = DEFAULT_LOADER,
-      threshold = 0,
+      threshold = 1,
       className,
       children,
     },
