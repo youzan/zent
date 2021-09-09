@@ -136,7 +136,7 @@ class BatchComponents<Data> extends PureComponent<
       selection,
       position,
     } = this.props;
-    if (!batchRender) {
+    if (!batchRender || !selection) {
       return null;
     }
 
@@ -161,25 +161,22 @@ class BatchComponents<Data> extends PureComponent<
     const data = this.getData();
     const disabled = this.getCheckboxAllDisabled();
     const styles = batchNeedRenderFixed ? batchRenderFixedStyles : {};
-    if (selection && batchRender) {
-      const { isSingleSelection } = selection;
+    const { isSingleSelection } = selection;
 
-      return (
-        <div className={className} style={styles}>
-          {!isSingleSelection && (
-            <SelectionCheckboxAll
-              getDataKey={getDataKey}
-              onSelect={onSelect}
-              store={store}
-              disabled={disabled}
-              datasets={data}
-            />
-          )}
-          {batchTree}
-        </div>
-      );
-    }
-    return null;
+    return (
+      <div className={className} style={styles}>
+        {!isSingleSelection && (
+          <SelectionCheckboxAll
+            getDataKey={getDataKey}
+            onSelect={onSelect}
+            store={store}
+            disabled={disabled}
+            datasets={data}
+          />
+        )}
+        {batchTree}
+      </div>
+    );
   }
 }
 
