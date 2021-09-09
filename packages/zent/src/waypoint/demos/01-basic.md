@@ -2,24 +2,39 @@
 order: 1
 zh-CN:
 	title: 基础用法
+	auto: 猜测 topOffset 和 bottomOffset
 	enter: Waypoint 进入屏幕
 	leave: Waypoint 离开屏幕
 en-US:
 	title: Basic Usage
+	auto: Guess topOffset and bottomOffset
 	enter: Waypoint enter
 	leave: Waypoint leave
 ---
 
 ```js
-import { Waypoint, Icon } from 'zent';
+import { Waypoint, Icon, Checkbox } from 'zent';
 
 function Demo(props) {
 	const [msg, setMsg] = React.useState(null);
+	const [autoBorderWidth, setAutoBorderWidth] = React.useState(true);
 	const setEnterMsg = React.useCallback(() => setMsg('{i18n.enter}'), []);
 	const setLeaveMsg = React.useCallback(() => setMsg('{i18n.leave}'), []);
+	const setAuto = React.useCallback(e => setAutoBorderWidth(e.target.checked), []);
+  const autoProps = React.useMemo(() => {
+    return autoBorderWidth ? {
+			topOffset: 'auto',
+			bottomOffset: 'auto'
+		} : {};
+	}, [autoBorderWidth]);
 
 	return (
 		<div className="waypoint-demo-basic">
+			<div style={{marginBottom: 16}}>
+				<Checkbox checked={autoBorderWidth} onChange={setAuto}>
+					{i18n.auto}
+				</Checkbox>
+			</div>
 			{msg ? <div className="waypoint-demo-basic__message">{msg}</div> : null}
 			<div className="waypoint-demo-basic__scrollable-parent">
 				<Spacer />
@@ -28,8 +43,7 @@ function Demo(props) {
 				<Spacer />
 				<Spacer />
 				<Spacer />
-				<div className="waypoint-demo-basic__waypoint-line" />
-				<Waypoint onEnter={setEnterMsg} onLeave={setLeaveMsg} />
+				<Waypoint onEnter={setEnterMsg} onLeave={setLeaveMsg} {...autoProps}/>
 				<Spacer />
 				<Spacer />
 				<Spacer />
@@ -53,14 +67,17 @@ ReactDOM.render(<Demo />, mountNode);
 ```
 
 <style>
-.waypoint-demo-basic {
-  position: relative;
+.waypoint-demo-basic .zent-waypoint-marker {
+	display: block;
+	height: 4px;
+	background: #d40000;
 }
 
 .waypoint-demo-basic__scrollable-parent {
   max-height: 400px;
   overflow: scroll;
   position: relative;
+	border: 20px solid rgba(21, 91, 212, 0.2);
 }
 
 .waypoint-demo-basic__spacer {
@@ -70,21 +87,14 @@ ReactDOM.render(<Demo />, mountNode);
   text-align: center;
 }
 
-.waypoint-demo-basic__waypoint-line {
-  border-top: 2px dashed #d40000;
-}
-
 .waypoint-demo-basic__message {
 	box-sizing: border-box;
   background-color: #f2f3f5;
   color: #323233;
-  left: 0;
   opacity: 0.8;
   padding: 10px 0;
   pointer-events: none;
-  position: absolute;
   text-align: center;
-  top: 0;
   width: 100%;
 }
 </style>
