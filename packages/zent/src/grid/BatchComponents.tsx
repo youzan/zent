@@ -136,7 +136,17 @@ class BatchComponents<Data> extends PureComponent<
       selection,
       position,
     } = this.props;
+    if (!batchRender) {
+      return null;
+    }
+
+    // Don't render if `batchRender` renders nothing
     const selectedRows = store.getState('selectedRows') || [];
+    const batchTree = batchRender(selectedRows, position);
+    if (batchTree === null) {
+      return null;
+    }
+
     const { batchNeedRenderFixed } = this.state;
     const batchRenderFixedStyles = store.getState('batchRenderFixedStyles');
     const className = classnames(
@@ -153,6 +163,7 @@ class BatchComponents<Data> extends PureComponent<
     const styles = batchNeedRenderFixed ? batchRenderFixedStyles : {};
     if (selection && batchRender) {
       const { isSingleSelection } = selection;
+
       return (
         <div className={className} style={styles}>
           {!isSingleSelection && (
@@ -164,7 +175,7 @@ class BatchComponents<Data> extends PureComponent<
               datasets={data}
             />
           )}
-          {batchRender && batchRender(selectedRows, position)}
+          {batchTree}
         </div>
       );
     }
