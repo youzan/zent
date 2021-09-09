@@ -28,9 +28,9 @@ Invoke a callback when scrolling to some DOM node, can be used in any scrolling 
 | fireOnRapidScroll  | Trigger `onEnter` and `onLeave` on rapid scroll                                           | `boolean`                               | No       | `true`  |             |
 | children           | Element to track, you can think of the waypoint as a line across the container if omitted | `ReactNode`                             | No       |         |             |
 
-**Notes**
+### FAQs
 
-- [Definition of `IWaypointCallbackData`](../../apidoc/interfaces/iwaypointcallbackdata.html).
+- [Definition of `IWaypointCallbackData`](../../apidoc/interfaces/IWaypointCallbackData.html).
 - A rapid scroll is when you scroll the page fast enough, the tracking element leaves the viewport immediately after it enters the viewport.
 - `topOffset` and `bottomOffset` can be positive or negative just like `margin`. Positive value pushes the boundaries inward the page, and negative value pushes boundaries outward the page.
 - You can use percentage value in `topOffset` and `bottomOffset`, relative to its scrolling container.

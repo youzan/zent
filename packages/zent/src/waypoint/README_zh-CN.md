@@ -29,9 +29,9 @@ group: 基础
 | fireOnRapidScroll  | 当快速滚动时是否触发 `onEnter` 和 `onLeave`                   | `boolean`                               | 否       | `true`  |        |
 | children           | 待追踪的元素，不传时可以认为是追踪屏幕内一条线                | `ReactNode`                             | 否       |         |        |
 
-**几点说明**
+### FAQs
 
-- [`IWaypointCallbackData` 的定义](../../apidoc/interfaces/iwaypointcallbackdata.html)
+- [`IWaypointCallbackData` 的定义](../../apidoc/interfaces/IWaypointCallbackData.html)
 - 快速滚动顾名思义就是滚动速度非常快，元素可能进入屏幕后立刻又出了屏幕
 - `topOffset` 和 `bottomOffset` 可正可负，正负数效果和 `margin` 一样，正数往屏幕内偏移，负数往屏幕外偏移
 - `topOffset` 和 `bottomOffset` 可以是一个百分比，这个百分比是相对滚动容器大小的
