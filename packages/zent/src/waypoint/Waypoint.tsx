@@ -12,6 +12,7 @@ import { getCurrentPosition, WaypointPosition } from './position';
 import isBrowser from '../utils/isBrowser';
 import defer from '../utils/defer';
 import { ICancelable } from '../utils/types';
+import { parseBorderWidth, parseFontSize } from './cssom';
 
 export interface IWaypointCallbackData {
   currentPosition: WaypointPosition;
@@ -35,10 +36,12 @@ export interface IWaypointProps {
   onPositionChange?: (data: IWaypointCallbackData) => void;
 }
 
+const DEFAULT_OFFSET = 0;
+
 export class Waypoint extends PureComponent<IWaypointProps> {
   static defaultProps = {
-    topOffset: '0px',
-    bottomOffset: '0px',
+    topOffset: DEFAULT_OFFSET,
+    bottomOffset: DEFAULT_OFFSET,
     horizontal: false,
     fireOnRapidScroll: true,
   };
@@ -257,17 +260,48 @@ export class Waypoint extends PureComponent<IWaypointProps> {
       contextScrollTop = horizontal ? boundingBox.left : boundingBox.top;
     }
 
-    const { bottomOffset, topOffset } = this.props;
-    const topOffsetPx = computeOffsetPixels(topOffset, contextHeight);
-    const bottomOffsetPx = computeOffsetPixels(bottomOffset, contextHeight);
+    const topOffsetPx = this.getOffset('top', contextHeight);
+    const bottomOffsetPx = this.getOffset('bottom', contextHeight);
     const contextBottom = contextScrollTop + contextHeight;
 
     return {
-      waypointTop: Math.round(waypointTop),
-      waypointBottom: Math.round(waypointBottom),
-      viewportTop: Math.round(contextScrollTop + topOffsetPx),
-      viewportBottom: Math.round(contextBottom - bottomOffsetPx),
+      waypointTop,
+      waypointBottom,
+      viewportTop: contextScrollTop + topOffsetPx,
+      viewportBottom: contextBottom - bottomOffsetPx,
     };
+  }
+
+  private getOffset(pos: 'top' | 'bottom', contextHeight: number) {
+    const { horizontal } = this.props;
+    const prop = `${pos}Offset`;
+    const border =
+      pos === 'top'
+        ? `border${horizontal ? 'Left' : 'Top'}Width`
+        : `border${horizontal ? 'Right' : 'Bottom'}Width`;
+    const propOffset = this.props[prop];
+
+    if (propOffset !== 'auto') {
+      return computeOffsetPixels(propOffset, contextHeight);
+    }
+
+    if (this.scrollableAncestor === window) {
+      const styles = getComputedStyle(document.documentElement);
+      const getFontSize = () => parseFontSize(styles.fontSize);
+      return (
+        parseBorderWidth(styles[border], getFontSize, getFontSize) ??
+        DEFAULT_OFFSET
+      );
+    } else {
+      const styles = getComputedStyle(this.scrollableAncestor as HTMLElement);
+      const getFontSize = () => parseFontSize(styles.fontSize);
+      const getRootFontSize = () =>
+        parseFontSize(getComputedStyle(document.documentElement).fontSize);
+      return (
+        parseBorderWidth(styles[border], getFontSize, getRootFontSize) ??
+        DEFAULT_OFFSET
+      );
+    }
   }
 
   render() {
@@ -280,6 +314,7 @@ export class Waypoint extends PureComponent<IWaypointProps> {
         <span
           ref={this.refElement as React.RefObject<HTMLSpanElement>}
           style={{ fontSize: 0 }}
+          className="zent-waypoint-marker"
         />
       );
     }
