@@ -194,11 +194,13 @@ export class Form<T extends {}> extends Component<IFormProps<T>> {
 
   private onSubmit: React.FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
+    e.stopPropagation();
     this.props.form.submit(e);
   };
 
   private onReset: React.FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
+    e.stopPropagation();
     this.props.form.reset(e);
   };
 
@@ -210,6 +212,7 @@ export class Form<T extends {}> extends Component<IFormProps<T>> {
       (e.target as Element).tagName === 'INPUT'
     ) {
       e.preventDefault();
+      e.stopPropagation();
     }
     onKeyDown && onKeyDown(e);
   };
