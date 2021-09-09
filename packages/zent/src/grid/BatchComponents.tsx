@@ -136,7 +136,17 @@ class BatchComponents<Data> extends PureComponent<
       selection,
       position,
     } = this.props;
+    if (!batchRender || !selection) {
+      return null;
+    }
+
+    // Don't render if `batchRender` renders nothing
     const selectedRows = store.getState('selectedRows') || [];
+    const batchTree = batchRender(selectedRows, position);
+    if (batchTree === null) {
+      return null;
+    }
+
     const { batchNeedRenderFixed } = this.state;
     const batchRenderFixedStyles = store.getState('batchRenderFixedStyles');
     const className = classnames(
@@ -151,24 +161,22 @@ class BatchComponents<Data> extends PureComponent<
     const data = this.getData();
     const disabled = this.getCheckboxAllDisabled();
     const styles = batchNeedRenderFixed ? batchRenderFixedStyles : {};
-    if (selection && batchRender) {
-      const { isSingleSelection } = selection;
-      return (
-        <div className={className} style={styles}>
-          {!isSingleSelection && (
-            <SelectionCheckboxAll
-              getDataKey={getDataKey}
-              onSelect={onSelect}
-              store={store}
-              disabled={disabled}
-              datasets={data}
-            />
-          )}
-          {batchRender && batchRender(selectedRows, position)}
-        </div>
-      );
-    }
-    return null;
+    const { isSingleSelection } = selection;
+
+    return (
+      <div className={className} style={styles}>
+        {!isSingleSelection && (
+          <SelectionCheckboxAll
+            getDataKey={getDataKey}
+            onSelect={onSelect}
+            store={store}
+            disabled={disabled}
+            datasets={data}
+          />
+        )}
+        {batchTree}
+      </div>
+    );
   }
 }
 
