@@ -944,7 +944,7 @@ export class Select<
                       ref={this.inputRef}
                     />
                   )}
-                  <Icon type="caret-down" />
+                  <Icon type="down" />
                 </div>
               </Popover.Trigger.Click>
               <Popover.Content>
