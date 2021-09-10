@@ -45,13 +45,13 @@ $option-height: 32px;
   position: relative;
   line-height: 20px;
 
-  .zenticon-caret-down {
+  .zenticon-down {
     @include theme-color(color, stroke, 2);
     font-size: 18px;
     right: 8px;
     position: absolute;
     transition: transform 0.25s;
-    top: 7px;
+    top: 6px;
     margin: auto;
   }
 
@@ -86,7 +86,7 @@ $option-height: 32px;
       @include theme-color(background-color, stroke, 6);
     }
 
-    .zenticon-caret-down {
+    .zenticon-down {
       @include theme-color(color, stroke, 4);
     }
   }
@@ -122,7 +122,7 @@ $option-height: 32px;
 
     &.zent-select-v2:hover,
     &.zent-select-v2-active {
-      .zenticon-caret-down {
+      .zenticon-down {
         display: none;
       }
 
@@ -138,7 +138,7 @@ $option-height: 32px;
   }
 
   &.zent-select-v2-visible {
-    .zenticon-caret-down {
+    .zenticon-down {
       transform: rotate(180deg);
     }
   }

@@ -25,15 +25,15 @@ $menuHeight: 180px;
   @include theme-color(border-color, stroke, 5);
   @include theme-color(background-color, stroke, 9);
 
-  .zenticon-caret-down,
+  .zenticon-down,
   .zenticon-close-circle {
     position: absolute;
     right: 8px;
-    top: 7px;
+    top: 6px;
     font-size: 18px;
   }
 
-  .zenticon-caret-down {
+  .zenticon-down {
     transition: transform 0.25s;
     @include theme-color(color, stroke, 2);
   }
@@ -47,7 +47,7 @@ $menuHeight: 180px;
   }
 
   &--visible {
-    .zenticon-caret-down {
+    .zenticon-down {
       transform: rotate(180deg);
     }
   }
@@ -65,7 +65,7 @@ $menuHeight: 180px;
       box-shadow: none;
     }
 
-    .zenticon-caret-down {
+    .zenticon-down {
       @include theme-color(color, stroke, 4);
     }
   }
@@ -85,12 +85,6 @@ $menuHeight: 180px;
   &--multiple {
     .zent-cascader-v2--tag + .zent-cascader-v2--search {
       margin-top: 2px;
-    }
-
-    .zenticon-caret-down,
-    .zenticon-close-circle {
-      top: 8px;
-      transform: none;
     }
   }
 

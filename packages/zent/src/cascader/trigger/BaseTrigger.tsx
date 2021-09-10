@@ -109,7 +109,7 @@ export class BaseTrigger extends Component<
         {showClear ? (
           <Icon type="close-circle" onClick={this.onClearClick} />
         ) : (
-          <Icon type="caret-down" />
+          <Icon type="down" />
         )}
       </div>
     );
