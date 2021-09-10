@@ -1,8 +1,8 @@
 import cx from 'classnames';
-import { Component } from 'react';
+import { Component, createRef } from 'react';
 
 import { CascaderItemSelectionState, ICascaderItem } from '../types';
-import { SearchInput } from './Search';
+import { ISearchInputImperativeHandlers, SearchInput } from './Search';
 import Tags, { ICascaderTagsProps } from './Tags';
 import { BaseTrigger, ICascaderBaseTriggerProps } from './BaseTrigger';
 
@@ -24,9 +24,15 @@ export class TagsTrigger extends Component<ITagsTriggerProps> {
     selectedPaths: [],
   };
 
+  searchInputRef = createRef<ISearchInputImperativeHandlers>();
+
   onKeywordChange: React.ChangeEventHandler<HTMLInputElement> = e => {
     this.props.onKeywordChange(e.target.value);
   };
+
+  focus() {
+    this.searchInputRef.current?.focus();
+  }
 
   render() {
     const {
@@ -90,6 +96,7 @@ export class TagsTrigger extends Component<ITagsTriggerProps> {
             placeholder={i18n.searchPlaceholder}
             value={keyword}
             onChange={this.onKeywordChange}
+            ref={this.searchInputRef}
           />
         )}
       </BaseTrigger>

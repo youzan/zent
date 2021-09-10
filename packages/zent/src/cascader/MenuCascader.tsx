@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import { Component } from 'react';
+import { Component, createRef } from 'react';
 
 import Popover from '../popover';
 import { I18nReceiver as Receiver, II18nLocaleCascader } from '../i18n';
@@ -238,6 +238,8 @@ export class MenuCascader extends Component<
       loading: [],
     };
   }
+
+  tagsTriggerRef = createRef<TagsTrigger>();
 
   static contextType = DisabledContext;
   context!: IDisabledContext;
@@ -503,6 +505,11 @@ export class MenuCascader extends Component<
         onChange(value, selectedPaths, {
           action: CascaderChangeAction.Change,
         });
+
+        if (this.props.searchable) {
+          // focus to search input
+          this.tagsTriggerRef.current?.focus();
+        }
       });
     }
   };
@@ -667,6 +674,7 @@ export class MenuCascader extends Component<
                     selectionMap={this.getSelectionMap(selectedPaths)}
                     onRemove={this.onRemove}
                     renderTags={this.props.renderTags}
+                    ref={this.tagsTriggerRef}
                   />
                 ) : (
                   <SingleTrigger
