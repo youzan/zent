@@ -1,4 +1,4 @@
-name: Check deadlinks in Form doc
+name: Check deadlinks in docs
 
 on:
   schedule:
