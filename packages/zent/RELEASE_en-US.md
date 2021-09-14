@@ -9,6 +9,20 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+
+### 9.10.0(2021-09-14)
+
+- ✨ Add `auto` mode to `topOffset` and `bottomOffset` in `Waypoint`
+- ✨ Auto focus to search input after selection in `Cascader` tags mode
+- 🦀️ Stop event propagation in nested `Form` events(`submit`, `reset` and `enter`)
+- 🦀️ Adjust default `threshold` to `1px` for `InfiniteScroller`
+- 🦀️ `Grid` will hide select all checkbox in batch operation area if `batchRender` returns `null`
+- 🦀️ Update arrow icon in `Select` and `Cascader`
+- 📚 Update `caniuse-lite` database
+- 📚 Fix typo in `Pagination` demo
+- 📚 Fix `validate` default value description in `Form` documentation
+- 📚 Fix typo in `ClampLines` source code
+
 ### 9.9.3(2021-08-28)
 
 - 🦀️ Replace `ttypescript` with `ts-patch`

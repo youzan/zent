@@ -9,6 +9,19 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 9.10.0(2021-09-14)
+
+- ✨ `Waypoint` 的 `topOffset` 和 `bottomOffset` 增加 `auto` 模式，简单场景下能够自动识别滚动容器边框宽度，具体说明看组件文档
+- ✨ `Cascader` 多选模式搜索选中后输入焦点自动回到输入框中
+- 🦀️ 阻止嵌套的 `Form` 表单事件（`submit`, `reset`, 回车）冒泡到上层表单
+- 🦀️ `InfiniteScroller` 触发加载阈值默认改为 `1px`，针对页面缩放场景容错
+- 🦀️ `Grid` 批量操作区域中 `batchRender` 返回 `null` 时隐藏全选框
+- 🦀️ 调整 `Select` 和 `Cascader` 下拉箭头图标
+- 📚 更新 `caniuse-lite` 数据库
+- 📚 修复 `Pagination` 示例文案问题
+- 📚 修复 `Form` 文档中 `validate` 默认值的说明
+- 📚 修复 `ClampLines` 代码中的拼写错误
+
 ### 9.9.3(2021-08-28)
 
 - 🦀️ 使用 `ts-patch` 替代 `ttypescript`
