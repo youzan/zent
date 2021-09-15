@@ -259,10 +259,10 @@ export class NumberInput extends Component<
       return null;
     }
 
-    const updateValueInState = isControlled(props);
+    const controlled = isControlled(props);
 
     if (props.integer !== prevProps.integer) {
-      return getStateFromProps(props, updateValueInState);
+      return getStateFromProps(props, controlled);
     }
 
     if (props.integer === true) {
@@ -270,13 +270,16 @@ export class NumberInput extends Component<
         ...(prevState as INumberInputIntegerState),
         prevProps: props,
       };
+
+      let minMaxChanged = false;
       if (!is(props.min, prevProps.min) || !is(props.max, prevProps.max)) {
         const { min, max } = Integers.normalizeMinMax(props);
         nextState.min = min;
         nextState.max = max;
+        minMaxChanged = true;
       }
 
-      if (updateValueInState) {
+      if (controlled && (minMaxChanged || !is(props.value, prevProps.value))) {
         const { value, input } = Integers.normalizeValue(
           props.value,
           nextState.min,
@@ -294,13 +297,21 @@ export class NumberInput extends Component<
       ...(prevState as INumberInputDecimalState),
       prevProps: props,
     };
+
+    let minMaxChanged = false;
     if (!is(props.min, prevProps.min) || !is(props.max, prevProps.max)) {
       const { min, max } = Decimals.normalizeMinMax(props);
       nextState.min = min;
       nextState.max = max;
+      minMaxChanged = true;
     }
 
-    if (updateValueInState) {
+    if (
+      controlled &&
+      (minMaxChanged ||
+        !is(props.value, prevProps.value) ||
+        !is(props.decimal, (prevProps as INumberInputDecimalProps).decimal))
+    ) {
       const { value, input } = Decimals.normalizeValue(
         props.value,
         nextState.min,
@@ -312,8 +323,8 @@ export class NumberInput extends Component<
     }
 
     if (
-      props.step !== prevProps.step ||
-      props.decimal !== (prevProps as INumberInputDecimalProps).decimal
+      !is(props.step, prevProps.step) ||
+      !is(props.decimal, (prevProps as INumberInputDecimalProps).decimal)
     ) {
       nextState.delta = Decimals.getDelta(props.decimal, props.step);
     }
