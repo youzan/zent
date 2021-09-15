@@ -9,6 +9,10 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 9.10.1(2021-09-15)
+
+- 🦀️ `NumberInput` 在输入过程中被强制重绘时，如果 `props` 没有变化保留当前 `state` 状态；已知的场景是将 `NumberInput` 用在表格中，表格高亮行变化时会触发
+
 ### 9.10.0(2021-09-14)
 
 - ✨ `Waypoint` 的 `topOffset` 和 `bottomOffset` 增加 `auto` 模式，简单场景下能够自动识别滚动容器边框宽度，具体说明看组件文档

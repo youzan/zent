@@ -9,6 +9,9 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 9.10.1(2021-09-15)
+
+- 🦀️ Preserve `state` in `NumberInput` when a rerender occurs during editing with no `props` change
 
 ### 9.10.0(2021-09-14)
 
