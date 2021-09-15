@@ -1,15 +1,12 @@
 import { Component, ReactNode } from 'react';
 
 import I18nContext from './I18nContext';
+import { I18nComponentName, ILocaleData } from './locale';
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export interface II18nReceiverProps<CONF = Record<string, any>, P = {}> {
-  componentName: string;
-  defaultI18n?: () => {
-    [key: string]: {
-      [key: string]: string;
-    };
-  };
+  componentName: I18nComponentName;
+  defaultI18n?: ILocaleData | (() => ILocaleData);
   children(map: CONF, props: P): ReactNode;
 }
 

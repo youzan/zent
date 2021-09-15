@@ -134,11 +134,16 @@ export interface II18nLocaleTransfer {
   emptyLabel: string;
 }
 
+export interface II18nLocaleForm {
+  required: string;
+}
+
 export type LocaleMark = 'zh-CN' | 'en-US' | 'ja-JP';
 
 export interface ILocaleData {
   mark: LocaleMark;
   CopyButton: II18nLocaleCopyButton;
+  Form: II18nLocaleForm;
   Pagination: II18nLocalePagination;
   Pop: II18nLocalePop;
   PreviewImage: II18nLocalePreviewImage;
@@ -153,3 +158,5 @@ export interface ILocaleData {
   Mention: II18nLocaleMention;
   Transfer: II18nLocaleTransfer;
 }
+
+export type I18nComponentName = keyof Omit<ILocaleData, 'mark'>;

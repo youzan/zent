@@ -15,6 +15,7 @@ import {
   II18nLocaleUpload,
   II18nLocaleTransfer,
   LocaleMark,
+  II18nLocaleForm,
 } from './locale';
 import { setLocale, zhCN } from './time-locale';
 
@@ -189,4 +190,8 @@ export const Transfer: II18nLocaleTransfer = {
   item: '项',
   items: '项',
   emptyLabel: '暂无数据',
+};
+
+export const Form: II18nLocaleForm = {
+  required: '必填',
 };
