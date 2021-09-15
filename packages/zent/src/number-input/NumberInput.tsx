@@ -259,10 +259,10 @@ export class NumberInput extends Component<
       return null;
     }
 
-    const controlled = isControlled(props);
+    const updateValueInState = isControlled(props);
 
     if (props.integer !== prevProps.integer) {
-      return getStateFromProps(props, controlled);
+      return getStateFromProps(props, updateValueInState);
     }
 
     if (props.integer === true) {
@@ -279,7 +279,10 @@ export class NumberInput extends Component<
         minMaxChanged = true;
       }
 
-      if (controlled && (minMaxChanged || !is(props.value, prevProps.value))) {
+      if (
+        updateValueInState &&
+        (minMaxChanged || !is(props.value, prevProps.value))
+      ) {
         const { value, input } = Integers.normalizeValue(
           props.value,
           nextState.min,
@@ -307,7 +310,7 @@ export class NumberInput extends Component<
     }
 
     if (
-      controlled &&
+      updateValueInState &&
       (minMaxChanged ||
         !is(props.value, prevProps.value) ||
         !is(props.decimal, (prevProps as INumberInputDecimalProps).decimal))
