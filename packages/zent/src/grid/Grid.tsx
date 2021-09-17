@@ -1184,7 +1184,7 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
 
     return (
       <Receiver componentName="Grid">
-        {(i18n: II18nLocaleGrid) => {
+        {i18n => {
           const content = [
             this.getTable({
               headRef: this.scrollHeader,

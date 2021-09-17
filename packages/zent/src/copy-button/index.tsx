@@ -45,7 +45,7 @@ export class CopyButton extends Component<ICopyButtonProps> {
 
     return (
       <Receiver componentName="CopyButton">
-        {(i18n: II18nLocaleCopyButton) => (
+        {i18n => (
           <CopyToClipboard text={txt} onCopy={this.onCopy(i18n)}>
             {children ? (
               Children.only(children)

@@ -2,7 +2,7 @@ import { Component } from 'react';
 import cx from 'classnames';
 
 import Popover from '../popover';
-import { I18nReceiver as Receiver, II18nLocaleCascader } from '../i18n';
+import { I18nReceiver as Receiver } from '../i18n';
 import { DisabledContext, IDisabledContext } from '../disabled';
 import TabsContent from './components/TabsContent';
 import {
@@ -258,7 +258,7 @@ export class TabsCascader extends Component<
 
     return (
       <Receiver componentName="Cascader">
-        {(i18n: II18nLocaleCascader) => {
+        {i18n => {
           return (
             <Popover
               className={cx('zent-cascader-v2__popup', popupClassName)}

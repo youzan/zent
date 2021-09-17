@@ -160,3 +160,8 @@ export interface ILocaleData {
 }
 
 export type I18nComponentName = keyof Omit<ILocaleData, 'mark'>;
+
+export type I18nLocaleDataType<T extends I18nComponentName> =
+  ILocaleData[T] extends () => any
+    ? ReturnType<ILocaleData[T]>
+    : ILocaleData[T];

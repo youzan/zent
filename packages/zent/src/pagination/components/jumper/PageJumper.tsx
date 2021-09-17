@@ -1,4 +1,4 @@
-import { I18nReceiver as Receiver, II18nLocalePagination } from '../../../i18n';
+import { I18nReceiver as Receiver } from '../../../i18n';
 import { NumberInput } from '../../../number-input';
 
 import BasePageJumper, {
@@ -31,7 +31,7 @@ export class PageJumper extends BasePageJumper<
 
     return (
       <Receiver componentName="Pagination">
-        {(i18n: II18nLocalePagination) => {
+        {i18n => {
           return (
             <div className="zent-pagination-page-jumper">
               {i18n.jumpTo({ input })}

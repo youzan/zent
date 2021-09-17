@@ -3,7 +3,7 @@ import cx from 'classnames';
 
 import pick from '../../utils/pick';
 import Grid, { IGridColumn } from '../../grid';
-import { I18nReceiver as Receiver, II18nLocaleTransfer } from '../../i18n';
+import { I18nReceiver as Receiver } from '../../i18n';
 import MiniPagination from '../../pagination/MiniPagination';
 import { ITransferItem, ITransferData } from '../types';
 import { PassDownGridProps } from '../constants';
@@ -134,7 +134,7 @@ const TransferItem: React.FC<ITransferItem> = ({
 
   return (
     <Receiver componentName="Transfer">
-      {(i18n: II18nLocaleTransfer) => {
+      {i18n => {
         return (
           <div
             className={cx(classNamePrefix, {

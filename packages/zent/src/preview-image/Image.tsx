@@ -2,7 +2,7 @@ import { Component } from 'react';
 import cx from 'classnames';
 import debounce from '../utils/debounce';
 
-import { I18nReceiver as Receiver, II18nLocalePreviewImage } from '../i18n';
+import { I18nReceiver as Receiver } from '../i18n';
 import Portal from '../portal';
 import Icon from '../icon';
 
@@ -150,7 +150,7 @@ export default class Image extends Component<IPreviewImageProps, any> {
               <Icon type="close" />
             </div>
             <Receiver componentName="PreviewImage">
-              {(i18n: II18nLocalePreviewImage) => (
+              {i18n => (
                 <div className="zent-image-p-body" onClick={this.onMaskClick}>
                   {images.map((image, index) => {
                     if (index === imageIndex) {
@@ -171,7 +171,7 @@ export default class Image extends Component<IPreviewImageProps, any> {
               )}
             </Receiver>
             <Receiver componentName="PreviewImage">
-              {(i18n: II18nLocalePreviewImage) => {
+              {i18n => {
                 const needPager = images.length > 1;
                 const footerCxs = cx('zent-image-p-footer', {
                   'zent-image-p-show-rotate-btn': showRotateBtn,

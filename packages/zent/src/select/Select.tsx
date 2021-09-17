@@ -547,7 +547,7 @@ export class Select<
       loading = creating;
       optionContent = (
         <Receiver componentName="Select">
-          {(i18n: II18nLocaleSelect) => (
+          {i18n => (
             <span className="zent-select-v2-option-text-highlight">
               {i18n.create}
               {option.text}
@@ -904,7 +904,7 @@ export class Select<
     return (
       <>
         <Receiver componentName="Select">
-          {(i18n: II18nLocaleSelect) => (
+          {i18n => (
             <Popover
               ref={this.popoverRef}
               position={Popover.Position.AutoBottomLeft}
