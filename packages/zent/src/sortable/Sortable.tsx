@@ -55,7 +55,7 @@ export class Sortable<T> extends Component<ISortableProps<T>> {
         return true;
       },
       onEnd: e => {
-        const { items } = this.props;
+        const { items, onChange } = this.props;
         onEnd && onEnd(e);
 
         if (!items) {
