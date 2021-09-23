@@ -1,4 +1,4 @@
-import { IGridSelection } from './types';
+import { IGridSelection, IGridSelectionProps } from './types';
 import { IGridInnerColumn } from './Grid';
 
 function setRowSpan<Data>(
@@ -113,4 +113,32 @@ export function getCompatSelectionPropsFn<Data>(
   selection?: IGridSelection<Data>
 ): IGridSelection['getSelectionProps'] | undefined {
   return selection?.getSelectionProps || selection?.getCheckboxProps;
+}
+
+export function getSelectAllCheckboxState<Data>(
+  datasets: ReadonlyArray<Data>,
+  getRowIndex: (row: Data, idx: number) => string | number,
+  getRowSelectionState: (
+    row: Data,
+    idx: number | string
+  ) => Partial<IGridSelectionProps>
+) {
+  return (datasets || []).reduce(
+    (state, row: Data, index) => {
+      const rowIndex = getRowIndex(row, index);
+      const itemSelectionState = getRowSelectionState(row, rowIndex);
+      if (itemSelectionState?.disabled) {
+        state.disabledRows.push(row);
+      } else {
+        state.enabledRows.push(row);
+      }
+      state.allDisabled = state.allDisabled && !!itemSelectionState.disabled;
+      return state;
+    },
+    {
+      enabledRows: [] as Data[],
+      disabledRows: [] as Data[],
+      allDisabled: true,
+    }
+  );
 }

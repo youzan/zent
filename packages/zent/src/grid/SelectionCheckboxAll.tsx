@@ -4,11 +4,26 @@ import Store from './Store';
 
 export interface IGridSelectionAllCheckboxProps<Data> {
   store: Store;
+  /**
+   * Only includes non-disabled rows
+   */
   datasets: ReadonlyArray<Data>;
+
+  /**
+   * Only includes disabled rows.
+   *
+   * These are split into two arrays because of historical reasons.
+   * It only affects non-disabled rows when select-all checkbox is checked/unchecked.
+   */
+  disabledDatasets: ReadonlyArray<Data>;
+
   getDataKey: (data: Data, rowIndex: number | string) => string;
   disabled: boolean;
   onSelect: (
     type: 'selectAll' | 'removeAll',
+    /**
+     * Only includes non-disabled rows because we cannot toggle disabled rows.
+     */
     datasets: ReadonlyArray<Data>
   ) => void;
 }
@@ -40,27 +55,23 @@ class SelectionCheckboxAll<Data> extends PureComponent<
     });
   };
 
-  getCheckBoxState = (props: IGridSelectionAllCheckboxProps<Data>, type) => {
-    const { datasets, store, getDataKey } = props;
-    let state;
-
-    if (!datasets || datasets.length === 0) {
-      state = false;
-    } else {
-      const selectedRowKeys = store.getState('selectedRowKeys') ?? [];
-      if (type === 'every') {
-        state = datasets.every(
-          (data, index) =>
-            selectedRowKeys.indexOf(getDataKey(data, index)) !== -1
-        );
-      } else {
-        state = datasets.some(
-          (data, index) =>
-            selectedRowKeys.indexOf(getDataKey(data, index)) !== -1
-        );
-      }
+  getCheckBoxState = (
+    props: IGridSelectionAllCheckboxProps<Data>,
+    type: 'every' | 'some'
+  ) => {
+    const { datasets, disabledDatasets, store, getDataKey } = props;
+    // Use `datasets` if it's non empty, otherwise use `disabledDatasets`
+    const activeDatasets = datasets?.length ? datasets : disabledDatasets;
+    const selectedRowKeys = store.getState('selectedRowKeys') ?? [];
+    if (type === 'every') {
+      return activeDatasets.every(
+        (data, index) => selectedRowKeys.indexOf(getDataKey(data, index)) !== -1
+      );
     }
-    return state;
+
+    return activeDatasets.some(
+      (data, index) => selectedRowKeys.indexOf(getDataKey(data, index)) !== -1
+    );
   };
 
   getCheckState = (props: IGridSelectionAllCheckboxProps<Data>) => {

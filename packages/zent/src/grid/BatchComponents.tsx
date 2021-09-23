@@ -4,7 +4,7 @@ import SelectionCheckboxAll from './SelectionCheckboxAll';
 import Store from './Store';
 import { IGridBatchRender, IGridSelection } from './types';
 import uniq from '../utils/uniq';
-import { getCompatSelectionPropsFn } from './utils';
+import { getCompatSelectionPropsFn, getSelectAllCheckboxState } from './utils';
 
 export interface IBatchComponentsProps<Data = any> {
   batchRender: IGridBatchRender;
@@ -135,6 +135,7 @@ class BatchComponents<Data> extends PureComponent<
       batchRender,
       selection,
       position,
+      datasets,
     } = this.props;
     if (!batchRender || !selection) {
       return null;
@@ -158,8 +159,12 @@ class BatchComponents<Data> extends PureComponent<
       }
     );
 
-    const data = this.getData();
-    const disabled = this.getCheckboxAllDisabled();
+    const selectAllState = getSelectAllCheckboxState(
+      datasets ?? [],
+      getDataKey,
+      this.getSelectionPropsByItem
+    );
+
     const styles = batchNeedRenderFixed ? batchRenderFixedStyles : {};
     const { isSingleSelection } = selection;
 
@@ -170,8 +175,9 @@ class BatchComponents<Data> extends PureComponent<
             getDataKey={getDataKey}
             onSelect={onSelect}
             store={store}
-            disabled={disabled}
-            datasets={data}
+            disabled={selectAllState.allDisabled}
+            datasets={selectAllState.enabledRows}
+            disabledDatasets={selectAllState.disabledRows}
           />
         )}
         {batchTree}

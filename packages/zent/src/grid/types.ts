@@ -68,7 +68,7 @@ export interface IGridOnChangeConfig {
   sortType?: GridSortType;
 }
 
-interface IGridSelectionProps {
+export interface IGridSelectionProps {
   disabled: boolean;
   reason: React.ReactNode;
 }
