@@ -81,20 +81,6 @@ class Simple extends React.Component {
 				>
 					{i18n.loading}
 				</SplitButton>
-				<SplitButton
-					type="danger"
-					size="large"
-					dropdownData={list}
-				>
-					{i18n.big}
-				</SplitButton>
-				<SplitButton
-					type="success"
-					size="small"
-					dropdownData={list}
-				>
-					{i18n.small}
-				</SplitButton>
 			</div>
 		);
 	}

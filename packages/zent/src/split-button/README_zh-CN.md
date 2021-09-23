@@ -13,7 +13,7 @@ SplitButton 带有下拉菜单功能的按钮
 
 | 参数             | 说明                                                                         | 类型   | 默认值               | 备选值                               |
 | ---------------- | ---------------------------------------------------------------------------- | ------ | -------------------- | ------------------------------------ |
-| type             | 按钮风格                                                                     | string | `'default'`          | `'primary'`、`'danger'`、`'success'` |
+| type             | 按钮风格                                                                     | string | `'default'`          | `'primary'`                          |
 | disabled         | 按钮是否禁用                                                                 | bool   | `false`              | `true`、`false`                      |
 | loading          | 是否显示 loading 图标                                                        | bool   | `false`              | `true`, `false`                      |
 | size             | 按钮尺寸                                                                     | string | `'medium'`           | `'large'`、`'medium'`、`'small'`     |
