@@ -18,16 +18,18 @@ Dialog is used for opening a floating layer.
 
 | Props           | Description                            | Type     | Default      |
 | ------------ | ----------------------------- | ------ | -------- |
-| title        | custom dialog title                       | node   | `''`     |
-| children     | content of the dialog: `<Dialog>xxxx</Dialog>` | node   | `null`   |
-| footer       | content of the dialog footer                          | node   | `null`   |
-| visible      | visibility of the dialog                     | bool   | `false`  |
-| closeBtn     | visibility of the close button at the upper right corner | bool   | `true`   |
-| onClose      | close callback                      | func   | `noop`   |
-| mask         | visibility of the mask | bool   | `true`   |
-| maskClosable | wether click on the mask is to close the dialog | bool   | `true`   |
-| className    | custom classname                       | string | `''`     |
-| style        | custom style object                 | object | `{}`     |
+| title        | Dialog title                       | `ReactNode`   | `''`     |
+| children     | Content of the dialog` | `ReactNode`   | `null`   |
+| footer       | Content of the dialog footer                          | `ReactNode`   | `null`   |
+| visible      | Visibility of the dialog                     | `boolean`   | `false`  |
+| closeBtn     | Visibility of the close button at the upper right corner | `boolean`   | `true`   |
+| onClose      | Close callback                      | `(event) => void`   | `noop`   |
+| onClosed     | Callback when dialog closing animation is done | `() => void` | |
+| onOpened     | Callback when dialog opening animation is done | `() => void` | |
+| mask         | Visibility of the mask | `boolean`   | `true`   |
+| maskClosable | Click on the mask to close the dialog | `boolean`   | `true`   |
+| className    | Custom classname                       | `string` | `''`     |
+| style        | Custom style object                 | `CSSProperties` | `{}`     |
 
 
 #### openDialog
