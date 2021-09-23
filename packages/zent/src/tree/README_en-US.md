@@ -17,26 +17,28 @@ Tree widget is used to build and manipulate trees. such as files, organization s
 
 #### Tree
 
-| Property            | Description                                                                                         | Type               | Default    | Alternative          |
-| ------------------- | --------------------------------------------------------------------------------------------------- | ------------------ | ---------- | -------------------- |
-| dataType            | data structure, default is tree                                                                     | string             | `'tree'`   | `'plain'`            |
-| data                | required, input data, identified by dataType                                                        | array              |            |                      |
-| renderKey           | the key map for render node, see the following table                                                | object             |            |                      |
-| render              | you can customize function to render tree , the parameter is node data (includings children tree)   | func(data)         |            |                      |
-| operations          | custom operate, includes `name`, `icon`, `action`, `shouldRender` attributes                        | array[object]      |            |                      |
-| foldable            | whether to support item show and hide                                                               | bool               | `true`     |                      |
-| onCheck             | when you click checkbox, callback function will call, params is a checked id list and help info     | func(ids, helpInfo)|            |                      |
-| checkable           | whether to support checkbox                                                                         | bool               | `true`     |                      |                     |
-| checkedKeys         | checked node id array                                                                               | array              |            |                      |
-| disabledCheckedKeys | default disabled selected node id array                                                             | array              |            |                      |
-| size                | size                                                                                                | string             | `'medium'` | `'small'`, `'large'` |
-| commonStyle         | set entire tree style                                                                               | object             |            |                      |
-| expandAll           | whether to expand all nodes                                                                         | bool               | `false`    |                      |
-| onExpand            | after node expands, callback is trigger                                                             | func(data, config) |            |                      |
-| autoExpandOnSelect  | node auto expands when you select it                                                                | bool               | `true`     |                      |
-| onSelect            | the callback when you choose tree node                                                              | func(data, target) |            |                      |
-| isRoot              | plain data, to determine whether the node is the api of the root node                               | func(node)         |            |                      |
-| loadMore            | return Promise func, support thenable callback, be used to asynchronously load more content         | func(data)         |            |                      |
+| Property            | Description                                                                                         | Type                                  | Default    | Alternative          |
+| ------------------- | --------------------------------------------------------------------------------------------------- | ------------------------------------- | ---------- | -------------------- |
+| dataType            | data structure, default is tree                                                                     | string                                | `'tree'`   | `'plain'`            |
+| data                | required, input data, identified by dataType                                                        | array                                 |            |                      |
+| renderKey           | the key map for render node, see the following table                                                | object                                |            |                      |
+| render              | you can customize function to render tree , the parameter is node data (includings children tree)   | func(data)                            |            |                      |
+| operations          | custom operate, includes `name`, `icon`, `action`, `shouldRender` attributes                        | array[object]                         |            |                      |
+| foldable            | whether to support item show and hide                                                               | bool                                  | `true`     |                      |
+| onCheck             | when you click checkbox, callback function will call, params is a checked id list and help info     | func(ids, helpInfo)                   |            |                      |
+| checkable           | whether to support checkbox                                                                         | bool                                  | `true`     |                      |                     |
+| checkedKeys         | checked node id array                                                                               | array                                 |            |                      |
+| disabledCheckedKeys | default disabled selected node id array                                                             | array                                 |            |                      |
+| size                | size                                                                                                | string                                | `'medium'` | `'small'`, `'large'` |
+| commonStyle         | set entire tree style                                                                               | object                                |            |                      |
+| expandAll           | whether to expand all nodes                                                                         | bool                                  | `false`    |                      |
+| onExpand            | after node expands, callback is trigger                                                             | func(data, config)                    |            |                      |
+| autoExpandOnSelect  | node auto expands when you select it                                                                | bool                                  | `true`     |                      |
+| onSelect            | the callback when you choose tree node                                                              | func(data, target)                    |            |                      |
+| isRoot              | plain data, to determine whether the node is the api of the root node                               | func(node)                            |            |                      |
+| loadMore            | return Promise func, support thenable callback, be used to asynchronously load more content         | func(data)                            |            |                      |
+| draggable           | whether to support tree node draggable                                                              | bool/func(data)                       | `false`    |                      |
+| onDrop              | if tree node is draggable, when you drop node, callback function will call with related params      | func({event, dragStartRoot, dropRoot})|            |                      |
 
 #### renderKey
 

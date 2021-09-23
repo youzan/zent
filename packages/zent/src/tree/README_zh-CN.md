@@ -18,26 +18,28 @@ group: 导航
 
 #### Tree
 
-| 参数                 | 说明                                                        | 类型                | 默认值      | 备选值                |
-| ------------------- | ----------------------------------------------------------- | ------------------ | ---------- | -------------------- |
-| dataType            | 数据类型, 默认为tree类型                                       | string             | `'tree'`   | `'plain'`            |
-| data                | 必填, 实际传入的数据, 根据dataType进行识别                       | array              |            |                      |
-| renderKey           | 渲染节点所用到的key集合, 具体看下表                              | object             |            |                      |
-| render              | 自定义树条目渲染方法, 传入参数为该节点数据 (包含子树)               | func(data)         |            |                      |
-| operations          | 自定义操作, 包含 `name`, `icon`, `action`, `shouldRender` 属性 | array[object]      |            |                      |
-| foldable            | 是否支持点击条目时展开与收起动作                                 | bool               | `true`     |                      |
-| onCheck             | 点击checkbox的回调函数, 接受所选中节点的数组与帮助自定义的信息       | func(ids, helpInfo)|            |                      |
-| checkable           | 是否支持checkbox选择																					| bool               | `true`     |                      |                   | 
-| checkedKeys         | 选中节点id数组                                                | array              |            |                      |
-| disabledCheckedKeys | 默认禁选节点id数组                                             | array              |            |                      |
-| size                | 大小                                                         | string             | `'medium'` | `'small'`, `'large'` |
-| commonStyle         | 设置整个tree的外层style                                        | object             |            |                      |
-| expandAll           | 是否展开所有节点                                               | bool               | `false`    |                      |
-| onExpand            | 展开节点之后的回调函数                                          | func(data, config) |            |                      |
-| autoExpandOnSelect  | 点击节点是否展开                                               | bool               | `true`     |                      |
-| onSelect            | 选择树的一个节点的回调函数                                       | func(data, target) |            |                      |
-| isRoot              | plain数据类型，判断节点是否为根节点的api                          | func(node)         |            |                      |
-| loadMore            | 返回Promise的函数，必须支持then的回调, 用于节点异步加载更多内容      |  func(data)        |            |                      |
+| 参数                 | 说明                                                        | 类型                                   | 默认值      | 备选值                |
+| ------------------- | ----------------------------------------------------------- | ------------------------------------- | ---------- | -------------------- |
+| dataType            | 数据类型, 默认为tree类型                                       | string                                | `'tree'`   | `'plain'`            |
+| data                | 必填, 实际传入的数据, 根据dataType进行识别                       | array                                 |            |                      |
+| renderKey           | 渲染节点所用到的key集合, 具体看下表                              | object                                |            |                      |
+| render              | 自定义树条目渲染方法, 传入参数为该节点数据 (包含子树)               | func(data)                            |            |                      |
+| operations          | 自定义操作, 包含 `name`, `icon`, `action`, `shouldRender` 属性 | array[object]                         |            |                      |
+| foldable            | 是否支持点击条目时展开与收起动作                                 | bool                                   | `true`     |                      |
+| onCheck             | 点击checkbox的回调函数, 接受所选中节点的数组与帮助自定义的信息       | func(ids, helpInfo)                   |            |                      |
+| checkable           | 是否支持checkbox选择																					| bool                                  | `true`     |                      |                   | 
+| checkedKeys         | 选中节点id数组                                                | array                                 |            |                      |
+| disabledCheckedKeys | 默认禁选节点id数组                                             | array                                 |            |                      |
+| size                | 大小                                                         | string                                | `'medium'` | `'small'`, `'large'` |
+| commonStyle         | 设置整个tree的外层style                                        | object                                |            |                      |
+| expandAll           | 是否展开所有节点                                               | bool                                  | `false`    |                      |
+| onExpand            | 展开节点之后的回调函数                                          | func(data, config)                    |            |                      |
+| autoExpandOnSelect  | 点击节点是否展开                                               | bool                                  | `true`     |                      |
+| onSelect            | 选择树的一个节点的回调函数                                       | func(data, target)                    |            |                      |
+| isRoot              | plain数据类型，判断节点是否为根节点的api                          | func(node)                            |            |                      |
+| loadMore            | 返回Promise的函数，必须支持then的回调, 用于节点异步加载更多内容      |  func(data)                           |            |                      |
+| draggable           | 是否可拖拽节点                                                 | bool/func(data)                       | `false`    |                      |
+| onDrop              | 节点drop事件, 参数内包含节点信息                                 | func({event, dragStartRoot, dropRoot})|            |                      |
 
 #### renderKey
 

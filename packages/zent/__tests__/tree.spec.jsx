@@ -1091,4 +1091,38 @@ describe('new Tree', () => {
 
     expect(iconWrapper.find('.customer-class').length).toBe(2);
   });
+
+  it('Tree supports draggable', () => {
+    const draggableData = [
+      {
+        id: 1,
+        title: 'root',
+        children: [
+          {
+            id: 2,
+            title: 'draggable-item',
+            draggable: true,
+          },
+          {
+            id: 3,
+            title: 'undraggable-item',
+          },
+        ],
+      },
+    ];
+
+    // single node draggable
+    const disabledWrapper = mount(
+      <NewTree data={draggableData} onDrop={jest.fn()} />
+    );
+    disabledWrapper.find('.zent-tree-content').at(1).simulate('drop');
+    expect(disabledWrapper.instance().props.onDrop).toHaveBeenCalledTimes(1);
+
+    // all node draggable
+    const disabledWrapper2 = mount(
+      <NewTree data={draggableData} draggable onDrop={jest.fn()} />
+    );
+    disabledWrapper2.find('.zent-tree-content').at(2).simulate('drop');
+    expect(disabledWrapper2.instance().props.onDrop).toHaveBeenCalledTimes(1);
+  });
 });

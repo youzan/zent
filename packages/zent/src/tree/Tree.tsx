@@ -10,6 +10,7 @@ import createStateByProps, {
 } from './utils/createStateByProps';
 import correctMark from './utils/correctMark';
 import correctExpand from './utils/correctExpand';
+import { runOnceInNextFrame } from '../utils/nextFrame';
 import {
   ITreeData,
   TreeRootIdArray,
@@ -48,6 +49,16 @@ export interface ITreeProps extends ICreateStateByPropsParams {
   onExpand?: (data: ITreeData, config: { isExpanded: boolean }) => void;
   autoExpandOnSelect?: boolean;
   onSelect?: (data: ITreeData, target: HTMLSpanElement) => void;
+  draggable?: boolean | ((data: ITreeData) => boolean);
+  onDrop?: ({
+    event,
+    dragStartRoot,
+    dropRoot,
+  }: {
+    event: React.DragEvent;
+    dragStartRoot: ITreeData;
+    dropRoot: ITreeData;
+  }) => void;
 }
 
 export interface ITreeState {
@@ -59,6 +70,8 @@ export interface ITreeState {
   disabledNode: TreeRootIdArray;
   renderKey: ITreeRenderKey;
   loadingNode: TreeRootIdArray;
+  dragStartRoot: ITreeData;
+  dragOverRoot: ITreeData;
 }
 
 export class Tree extends Component<ITreeProps, ITreeState> {
@@ -68,6 +81,7 @@ export class Tree extends Component<ITreeProps, ITreeState> {
     foldable: true,
     checkable: false,
     size: 'medium',
+    draggable: false,
   };
 
   constructor(props: ITreeProps) {
@@ -75,6 +89,8 @@ export class Tree extends Component<ITreeProps, ITreeState> {
     this.state = {
       prevProps: props,
       loadingNode: [],
+      dragStartRoot: {},
+      dragOverRoot: {},
       ...createStateByProps(props),
     };
   }
@@ -174,11 +190,11 @@ export class Tree extends Component<ITreeProps, ITreeState> {
     this.handleExpand(root, isSwitcher);
   }
 
-  handleExpand(root: ITreeData, isSwitcher: boolean) {
+  handleExpand(root: ITreeData, isSwitcher: boolean, isForceExpand?: boolean) {
     const { onExpand, autoExpandOnSelect } = this.props;
     const { expandNode } = this.state;
 
-    if (!isSwitcher && !autoExpandOnSelect) {
+    if (!isSwitcher && !autoExpandOnSelect && !isForceExpand) {
       return;
     }
 
@@ -292,14 +308,17 @@ export class Tree extends Component<ITreeProps, ITreeState> {
   }
 
   renderContent(root: ITreeData, isExpanded: boolean) {
+    const { draggable } = this.props;
+
     const {
       rootInfoMap,
       renderKey: { id, title },
+      dragOverRoot,
     } = this.state;
     const { render, onSelect } = this.props;
+
     return (
       <span
-        className="zent-tree-content"
         onClick={e => {
           onSelect && onSelect(root, e.currentTarget);
 
@@ -307,6 +326,17 @@ export class Tree extends Component<ITreeProps, ITreeState> {
             this.handleExpandClick(root, e);
           }
         }}
+        className={classnames('zent-tree-content', {
+          'zent-tree-content--entered': dragOverRoot.id === root.id,
+        })}
+        draggable={
+          typeof draggable === 'function' ? draggable(root) : draggable
+        }
+        onDragStart={e => this.handleDragStart(e, root)}
+        onDragLeave={e => this.handleDragLeave(e, root)}
+        onDragOver={e => this.handleDragOver(e, root)}
+        onDragEnter={e => this.handleDragEnter(e, root)}
+        onDrop={e => this.handleDrop(e, root)}
       >
         {render ? render(root, isExpanded) : root[title]}
       </span>
@@ -373,6 +403,67 @@ export class Tree extends Component<ITreeProps, ITreeState> {
     return null;
   }
 
+  isHadChildFn(id: string | number): boolean {
+    return this.state.rootInfoMap[id].son.length > 0;
+  }
+
+  isExpandedFn(id: string | number): boolean {
+    return this.state.expandNode.includes(id);
+  }
+
+  handleDragStart = (_e: React.DragEvent, root: ITreeData) => {
+    const { id } = root;
+    this.setState({
+      dragStartRoot: root,
+    });
+    // auto close
+    if (this.isHadChildFn(id) && this.isExpandedFn(id)) {
+      this.handleExpand(root, false, true);
+    }
+  };
+
+  handleDragEnter = (_e: React.DragEvent, root: ITreeData) => {
+    const { id } = root;
+    const { dragStartRoot } = this.state;
+    // auto expand
+    if (
+      root.id !== dragStartRoot.id &&
+      this.isHadChildFn(id) &&
+      !this.isExpandedFn(id)
+    ) {
+      this.handleExpand(root, false, true);
+    }
+  };
+
+  handleDragLeave = (_e: React.DragEvent, root: ITreeData) => {
+    const { id } = root;
+    if (id === this.state.dragOverRoot.id) {
+      this.setDragOverRoot({});
+    }
+  };
+
+  handleDragOver = (e: React.DragEvent, root: ITreeData) => {
+    e.preventDefault();
+    this.setDragOverRoot(root);
+  };
+
+  handleDrop = (e: React.DragEvent, root: ITreeData) => {
+    const { dragStartRoot } = this.state;
+    const { onDrop } = this.props;
+
+    onDrop && onDrop({ event: e, dragStartRoot, dropRoot: root });
+
+    this.setDragOverRoot({});
+  };
+
+  setDragOverRoot = runOnceInNextFrame((root: ITreeData): void => {
+    const { dragStartRoot, dragOverRoot } = this.state;
+    if (root.id === dragStartRoot.id || root.id === dragOverRoot.id) {
+      return;
+    }
+    this.setState({ dragOverRoot: root });
+  });
+
   renderTreeNodes(roots: ITreeData[]) {
     const {
       expandNode,
@@ -380,6 +471,7 @@ export class Tree extends Component<ITreeProps, ITreeState> {
       rootInfoMap,
       renderKey: { id, children },
     } = this.state;
+
     if (roots && roots.length > 0) {
       return roots.map(root => {
         const rootId = root[id];

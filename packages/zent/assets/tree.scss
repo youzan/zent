@@ -116,18 +116,24 @@
   }
 
   .zent-tree-node {
-    display: inline-block;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     line-height: 1.42857143;
     cursor: pointer;
 
     .zent-tree-content {
+      flex: 1;
       margin-left: -4px;
       padding: 0 4px;
-      display: inline-block;
       border: 1px solid transparent;
       border-radius: 4px;
       background-color: transparent;
       transition: all 0.3s ease-in-out;
+
+      &--entered {
+        @include theme-color(background-color, stroke, 7);
+      }
 
       &:hover {
         @include theme-color(background-color, primary, 8);
@@ -135,7 +141,6 @@
     }
 
     .zent-tree-operation-container {
-      display: inline-block;
       margin-left: 10px;
       opacity: 0;
       font-size: 0.8em;
