@@ -67,7 +67,7 @@ function App() {
 	const [x, setX] = React.useState(1300);
 	return (
 		<div>
-			<NumberInput value={x} onChange={setX} integer />
+			<NumberInput value={x} onChange={setX} integer addonAfter="px" style={{ marginBottom: 16 }} />
 			<Grid columns={columns} datasets={datasets} scroll={{ x }} />
 		</div>
 	);

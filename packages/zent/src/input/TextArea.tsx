@@ -32,6 +32,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, ITextAreaProps>(
       initSelectionEnd,
       inline,
       maxCharacterCount,
+      type,
       ...otherProps
     } = props;
 
