@@ -10,6 +10,7 @@ import {
   IGridInnerFixedType,
 } from './types';
 import { IGridInnerColumn } from './Grid';
+import isNil from '../utils/isNil';
 
 export interface IGridBodyProps<Data> {
   prefix: string;
@@ -17,6 +18,10 @@ export interface IGridBodyProps<Data> {
   rowKey: string;
   rowClassName?: GridRowClassNameType<Data>;
   fixed?: IGridInnerFixedType;
+  /**
+   * true if Grid has any fixed columns
+   */
+  hasFixedColumn: boolean;
   scroll: IGridScrollDelta;
   fixedColumnsBodyRowsHeight: Array<number | string>;
   fixedColumnsBodyExpandRowsHeight: Array<number | string>;
@@ -45,6 +50,7 @@ class Body<Data> extends PureComponent<IGridBodyProps<Data>> {
       onRowMouseEnter,
       mouseOverRowIndex,
       fixed,
+      hasFixedColumn,
       scroll,
       expandRowKeys,
       expandRender,
@@ -70,6 +76,7 @@ class Body<Data> extends PureComponent<IGridBodyProps<Data>> {
           onRowClick={onRowClick}
           onRowMouseEnter={onRowMouseEnter}
           fixed={fixed}
+          hasFixedColumn={hasFixedColumn}
           scroll={scroll}
           fixedColumnsBodyRowsHeight={fixedColumnsBodyRowsHeight}
           row={components && components.row}
@@ -108,9 +115,9 @@ class Body<Data> extends PureComponent<IGridBodyProps<Data>> {
   }
 
   onBodyMouseLeave = () => {
-    const { onRowMouseEnter, scroll } = this.props;
+    const { onRowMouseEnter, hasFixedColumn } = this.props;
 
-    scroll && scroll.x && onRowMouseEnter(-1);
+    hasFixedColumn && onRowMouseEnter(-1);
   };
 
   renderTbody() {
@@ -131,7 +138,7 @@ class Body<Data> extends PureComponent<IGridBodyProps<Data>> {
   render() {
     const { scroll, fixed, prefix, columns } = this.props;
     const bodyStyle: React.CSSProperties = {};
-    if (!fixed && scroll.x) {
+    if (!fixed && !isNil(scroll.x)) {
       bodyStyle.width = scroll.x;
     }
     return scroll.y ? (

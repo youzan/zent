@@ -52,6 +52,7 @@ import { IRadioEvent } from '../radio';
 import isBrowser from '../utils/isBrowser';
 import { IBlockLoadingProps } from '../loading/props';
 import { hasOwnProperty } from '../utils/hasOwn';
+import isNil from '../utils/isNil';
 
 function stopPropagation(e: React.MouseEvent) {
   e.stopPropagation();
@@ -279,13 +280,13 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
     return rowKey ? data?.[rowKey] : rowIndex;
   };
 
-  isAnyColumnsFixed = () => {
+  isAnyColumnsFixed: () => boolean = () => {
     return this.store.getState('isAnyColumnsFixed', () =>
       (this.store.getState('columns') ?? []).some(column => !!column.fixed)
     );
   };
 
-  isAnyColumnsLeftFixed = () => {
+  isAnyColumnsLeftFixed: () => boolean = () => {
     return this.store.getState('isAnyColumnsLeftFixed', () =>
       (this.store.getState('columns') ?? []).some(
         column => column.fixed === 'left' || column.fixed === true
@@ -293,7 +294,7 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
     );
   };
 
-  isAnyColumnsRightFixed = () => {
+  isAnyColumnsRightFixed: () => boolean = () => {
     return this.store.getState('isAnyColumnsRightFixed', () =>
       (this.store.getState('columns') ?? []).some(
         column => column.fixed === 'right'
@@ -576,8 +577,12 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
         return;
       }
 
+      if (!this.isAnyColumnsFixed()) {
+        return;
+      }
+
       const target = e.target as HTMLDivElement;
-      const { scroll = {}, autoStick } = this.props;
+      const { autoStick } = this.props;
       const { scrollTop, scrollLeft } = target;
       const leftBody = this.leftBody?.current;
       const rightBody = this.rightBody?.current;
@@ -585,7 +590,7 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
       const stickyHead = this.stickyHead?.current;
       const bodyTable = this.bodyTable?.current;
 
-      if (this.lastScrollLeft !== target.scrollLeft && scroll.x) {
+      if (this.lastScrollLeft !== target.scrollLeft) {
         if (scrollHeader && target === scrollHeader) {
           this.forceScroll(bodyTable, scrollLeft, 'Left');
           autoStick && this.forceScroll(stickyHead, scrollLeft, 'Left');
@@ -604,7 +609,7 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
         this.setScrollPositionClassName();
       }
 
-      if (this.lastScrollTop !== target.scrollTop && scroll.y) {
+      if (this.lastScrollTop !== target.scrollTop) {
         if (leftBody && target === leftBody) {
           this.forceScroll(rightBody, scrollTop, 'Top');
           this.forceScroll(bodyTable, scrollTop, 'Top');
@@ -653,7 +658,7 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
   ) => {
     const {
       datasets,
-      scroll = {},
+      scroll,
       sortType,
       sortBy,
       defaultSortType,
@@ -673,12 +678,12 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
     const bodyStyle: React.CSSProperties = {};
     const tableStyle: React.CSSProperties = {};
 
-    if (fixed || scroll.x) {
+    if (fixed || !isNil(scroll.x)) {
       tableClassName = `${prefix}-grid-fixed`;
       bodyStyle.overflowX = isStickyHead ? 'hidden' : 'auto';
     }
 
-    if (!fixed && scroll.x) {
+    if (!fixed && !isNil(scroll.x)) {
       tableStyle.width = scroll.x;
     }
     const header = (
@@ -711,6 +716,7 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
         rowClassName={rowClassName}
         onRowClick={onRowClick}
         fixed={fixed}
+        hasFixedColumn={this.isAnyColumnsFixed()}
         scroll={scroll}
         expandRender={expandation && expandation.expandRender}
         fixedColumnsBodyRowsHeight={this.state.fixedColumnsBodyRowsHeight}
@@ -1056,7 +1062,7 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
     if (this.props.autoStick && this.gridNode && this.gridNode.current) {
       const { scroll } = this.props;
       let { width } = this.gridNode.current.getBoundingClientRect();
-      if (scroll && scroll.x && scroll.y) {
+      if (scroll && !isNil(scroll.x) && !isNil(scroll.y)) {
         width -= measureScrollbar();
       }
       this.setState({

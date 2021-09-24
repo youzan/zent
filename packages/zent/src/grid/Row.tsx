@@ -21,6 +21,7 @@ interface IGridRowProps<Data> {
   onRowClick: IGridRowClickHandler<Data>;
   onRowMouseEnter: (index: number) => void;
   fixed?: IGridInnerFixedType;
+  hasFixedColumn: boolean;
   scroll: IGridScrollDelta;
   fixedColumnsBodyRowsHeight: Array<string | number>;
   row?: React.ComponentType;
@@ -44,11 +45,11 @@ class Row<Data> extends PureComponent<IGridRowProps<Data>> {
       mouseOverRowIndex,
       onRowClick,
       fixed,
+      hasFixedColumn,
       fixedColumnsBodyRowsHeight,
       row,
       rowProps = noop,
       disableHoverHighlight,
-      scroll,
     } = this.props;
 
     const BodyRow = row || 'tr';
@@ -86,7 +87,7 @@ class Row<Data> extends PureComponent<IGridRowProps<Data>> {
       }
     );
 
-    const supportMouseEnter = !disableHoverHighlight && scroll && scroll.x;
+    const supportMouseEnter = hasFixedColumn && !disableHoverHighlight;
 
     return (
       <BodyRow
