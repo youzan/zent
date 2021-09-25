@@ -24,6 +24,7 @@ import {
   CascaderMenuClickHandler,
   CascaderMenuHoverHandler,
   CascaderItemSelectionState,
+  ICascaderMultipleChangeMeta,
 } from './types';
 import SearchContent from './components/SearchContent';
 import debounce from '../utils/debounce';
@@ -36,6 +37,7 @@ import { Forest } from './forest';
 import noop from '../utils/noop';
 import memorizeOne from '../utils/memorize-one';
 import { ICascaderTagsProps } from './trigger/Tags';
+import { simplify } from './simplify';
 
 export { ICascaderTagsProps };
 
@@ -78,7 +80,7 @@ export interface IMenuCascaderMultipleProps extends IMenuCascaderCommonProps {
   onChange: (
     value: Array<CascaderValue[]>,
     selectedOptions: Array<ICascaderItem[]>,
-    meta: ICascaderChangeMeta
+    meta: ICascaderMultipleChangeMeta
   ) => void;
   renderTags?: (props: ICascaderTagsProps) => React.ReactNode;
   simplifySelection?: boolean;
@@ -278,20 +280,20 @@ export class MenuCascader extends Component<
     return newState;
   }
 
-  get disabled() {
+  private get disabled() {
     const { disabled = this.context.value } = this.props;
     return disabled;
   }
 
-  isControlled(): boolean {
+  private isControlled(): boolean {
     return isControlled(this.props);
   }
 
-  getVisible(): boolean {
+  private getVisible(): boolean {
     return getVisible(this.props, this.state);
   }
 
-  setVisible(visible: boolean): void {
+  private setVisible(visible: boolean): void {
     if (this.isControlled()) {
       this.props.onVisibleChange(visible);
     } else {
@@ -302,7 +304,7 @@ export class MenuCascader extends Component<
   }
 
   // 根据选中信息生成所有节点的选中状态表 O(n)
-  getSelectionMap = memorizeOne((selectedPaths: Array<ICascaderItem[]>) => {
+  private getSelectionMapImpl(selectedPaths: Array<ICascaderItem[]>) {
     return this.state.options.reduceNodeDfs((map, node) => {
       const key = getNodeKey(node);
       const { value } = node;
@@ -344,10 +346,22 @@ export class MenuCascader extends Component<
 
       return map;
     }, new Map<string, CascaderItemSelectionState>());
-  });
+  }
+
+  private getSelectionMap = memorizeOne(
+    (selectedPaths: Array<ICascaderItem[]>) => {
+      return this.getSelectionMapImpl(selectedPaths);
+    }
+  );
+
+  private simplify: (
+    options: Array<ICascaderItem[]>
+  ) => Array<ICascaderItem[]> = options => {
+    return simplify(options, this.getSelectionMapImpl(options));
+  };
 
   // 搜索返回的结果列表中可能没有树状结构，这里根据 value 从当前的 options 里换取树结构中的节点
-  getSearchResultList = memorizeOne(
+  private getSearchResultList = memorizeOne(
     (options: Forest, resultList: Array<ICascaderItem[]>) => {
       return resultList.map(path => {
         const values = path.map(x => x.value);
@@ -356,7 +370,7 @@ export class MenuCascader extends Component<
     }
   );
 
-  onVisibleChange = (visible: boolean) => {
+  private onVisibleChange = (visible: boolean) => {
     const { keyword } = this.state;
     if (this.disabled) {
       return;
@@ -368,11 +382,11 @@ export class MenuCascader extends Component<
     });
   };
 
-  onKeywordChange = (keyword: string) => {
+  private onKeywordChange = (keyword: string) => {
     this.setState({ keyword }, this.filterOptions);
   };
 
-  filterOptions = debounce(() => {
+  private filterOptions = debounce(() => {
     const { keyword, options } = this.state;
 
     if (!keyword) {
@@ -401,7 +415,7 @@ export class MenuCascader extends Component<
     }
   }, FILTER_DEBOUNCE_TIME);
 
-  setSearchState = (searchList: Array<ICascaderItem[]>) => {
+  private setSearchState = (searchList: Array<ICascaderItem[]>) => {
     const { limit } = this.props;
     const size = searchList.length;
 
@@ -410,15 +424,15 @@ export class MenuCascader extends Component<
     });
   };
 
-  onMenuOptionHover: CascaderMenuHoverHandler = node => {
+  private onMenuOptionHover: CascaderMenuHoverHandler = node => {
     this.onMenuOptionSelect(node, noop, 'hover');
   };
 
-  onMenuOptionClick: CascaderMenuClickHandler = (node, closePopup) => {
+  private onMenuOptionClick: CascaderMenuClickHandler = (node, closePopup) => {
     this.onMenuOptionSelect(node, closePopup, 'click');
   };
 
-  onMenuOptionSelect = (
+  private onMenuOptionSelect = (
     node: ICascaderItem,
     closePopup: () => void,
     source: 'click' | 'hover'
@@ -485,7 +499,7 @@ export class MenuCascader extends Component<
   /**
    * 复选框勾选/取消勾选才会触发，所以仅适用于多选场景
    */
-  toggleMenuOption = (node: ICascaderItem, checked: boolean) => {
+  private toggleMenuOption = (node: ICascaderItem, checked: boolean) => {
     if (isMultiple(this.props)) {
       const { onChange } = this.props;
       const { options, selectedPaths: oldSelectedPaths } = this.state;
@@ -504,6 +518,7 @@ export class MenuCascader extends Component<
       this.setState({ selectedPaths }, () => {
         onChange(value, selectedPaths, {
           action: CascaderChangeAction.Change,
+          simplify: this.simplify,
         });
 
         if (this.props.searchable) {
@@ -514,7 +529,10 @@ export class MenuCascader extends Component<
     }
   };
 
-  onSearchOptionClick: CascaderSearchClickHandler = (path, closePopup) => {
+  private onSearchOptionClick: CascaderSearchClickHandler = (
+    path,
+    closePopup
+  ) => {
     const activeValue = path.map(n => n.value);
 
     this.setState({ activeValue }, () => {
@@ -522,11 +540,11 @@ export class MenuCascader extends Component<
     });
   };
 
-  toggleSearchOption = (path: ICascaderItem[], checked: boolean) => {
+  private toggleSearchOption = (path: ICascaderItem[], checked: boolean) => {
     this.toggleMenuOption(path[path.length - 1], checked);
   };
 
-  onClear = () => {
+  private onClear = () => {
     this.setVisible(false);
     this.setState(
       {
@@ -534,12 +552,19 @@ export class MenuCascader extends Component<
         selectedPaths: [],
       },
       () => {
-        this.props.onChange([], [], { action: CascaderChangeAction.Clear });
+        if (isSingle(this.props)) {
+          this.props.onChange([], [], { action: CascaderChangeAction.Clear });
+        } else {
+          this.props.onChange([], [], {
+            action: CascaderChangeAction.Clear,
+            simplify: this.simplify,
+          });
+        }
       }
     );
   };
 
-  scrollLoad = (parent: ICascaderItem | null) => {
+  private scrollLoad = (parent: ICascaderItem | null) => {
     const { loadOptions } = this.props;
     // 判断是否要加载更多
     const currentHasMore = parent
@@ -556,7 +581,7 @@ export class MenuCascader extends Component<
     });
   };
 
-  onRemove = (node: ICascaderItem) => {
+  private onRemove = (node: ICascaderItem) => {
     if (this.disabled) {
       return;
     }
@@ -565,7 +590,7 @@ export class MenuCascader extends Component<
     this.toggleMenuOption(node, false);
   };
 
-  renderPopoverContent = (i18n: II18nLocaleCascader) => {
+  private renderPopoverContent = (i18n: II18nLocaleCascader) => {
     const {
       expandTrigger,
       scrollable,

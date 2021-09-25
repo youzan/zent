@@ -69,7 +69,8 @@ interface ICascaderItem {
 
 - When `multiple` is `true`，`onChange` parameters such as `value` and `selectedOptions` are two dimensional arrays
 - `renderTags` is only available in multi select mode
-- Use `scrollable` and `loadChildrenOnScroll` to control auto loading data when scrolling to bottom
+- Use `scrollable` and `loadChildrenOnScroll` to control automatically loading data when scrolling to bottom
+- `simplifySelection` only works in `multiple` mode. There's also an extra `simplify` method in `meta` parameter for `onChange` in `multiple` mode
 
 ### TabsCascader
 

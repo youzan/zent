@@ -88,6 +88,10 @@ export interface ICascaderChangeMeta {
   action: CascaderChangeAction;
 }
 
+export interface ICascaderMultipleChangeMeta extends ICascaderChangeMeta {
+  simplify(options: Array<ICascaderItem[]>): Array<ICascaderItem[]>;
+}
+
 export enum CascaderLoadAction {
   LoadChildren = 'loadChildren',
   Scroll = 'scroll',
