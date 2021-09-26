@@ -27,7 +27,7 @@ export class Sortable<T> extends Component<ISortableProps<T>> {
   sortable: _sortableJS;
   containerRef = createRef<HTMLElement>();
 
-  initSortable = () => {
+  private initSortable = () => {
     const { onMove, onEnd, onChange, filterClass, children, ...rest } =
       this.props;
 
@@ -38,11 +38,12 @@ export class Sortable<T> extends Component<ISortableProps<T>> {
 
     const sortableOptions: _sortableJS.Options = {
       filter: filterClass ? `.${filterClass}` : '',
-      ghostClass: `zent-ghost`,
-      chosenClass: `zent-chosen`,
-      dragClass: `zent-drag`,
-      fallbackClass: `zent-fallback`,
+      ghostClass: 'zent-ghost',
+      chosenClass: 'zent-chosen',
+      dragClass: 'zent-drag',
+      fallbackClass: 'zent-fallback',
       onMove: (e, originalEvent) => {
+        const { onMove } = this.props;
         if (onMove) {
           return onMove(e, originalEvent);
         }
@@ -55,7 +56,7 @@ export class Sortable<T> extends Component<ISortableProps<T>> {
         return true;
       },
       onEnd: e => {
-        const { items } = this.props;
+        const { items, onEnd, onChange } = this.props;
         onEnd && onEnd(e);
 
         if (!items) {
@@ -73,7 +74,7 @@ export class Sortable<T> extends Component<ISortableProps<T>> {
     this.sortable = sortableJS.create(instance, sortableOptions);
   };
 
-  destorySortableInstance() {
+  private destroySortableInstance() {
     if (this.sortable) {
       this.sortable.destroy();
       this.sortable = null;
@@ -85,7 +86,7 @@ export class Sortable<T> extends Component<ISortableProps<T>> {
   }
 
   componentWillUnmount() {
-    this.destorySortableInstance();
+    this.destroySortableInstance();
   }
 
   render() {
