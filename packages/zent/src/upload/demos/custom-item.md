@@ -21,7 +21,7 @@ const CustomItem = props => {
 			<p>进度：{item.percent}%</p>
 			<div>
 				{item.status === FILE_UPLOAD_STATUS.failed && <Button onClick={() => onRetry(item)}>重试</Button>}
-				<Button type="danger" onClick={() => onDelete(item)}>删除</Button>
+				<Button type="primary" onClick={() => onDelete(item)}>删除</Button>
 			</div>
 		</div>
 	)

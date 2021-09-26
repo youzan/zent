@@ -31,7 +31,7 @@ class Wrapper extends React.Component {
 				trigger="click"
 				header="{i18n.popHeader}"
 				content="{i18n.popContent}"
-				type="danger"
+				type="primary"
 				confirmText="Error"
 				cancelText="Close"
 				onConfirm={this.confirmHandler}
