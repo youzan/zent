@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import { I18nReceiver as Receiver, II18nLocaleTimePicker } from '../i18n';
+import { I18nReceiver as Receiver } from '../i18n';
 import TimeRangePickerBase from './components/TimeRangePickerBase';
 import { DisabledContext } from '../disabled';
 import PickerContext from './context/PickerContext';
@@ -24,7 +24,7 @@ export const TimeRangePicker: React.FC<ITimeRangePickerProps> = props => {
 
   return (
     <Receiver componentName="TimePicker">
-      {(i18n: II18nLocaleTimePicker) => (
+      {i18n => (
         <PickerContextProvider
           value={{
             i18n,

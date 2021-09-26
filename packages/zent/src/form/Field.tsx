@@ -24,6 +24,8 @@ import { FormNotice } from './Notice';
 import { FormDescription } from './Description';
 import { $MergeParams } from './utils';
 import id from '../utils/identity';
+import { useComponentI18nData } from '../i18n/useComponentI18n';
+import { II18nLocaleForm } from '../i18n';
 export { IFormFieldChildProps, IFormFieldProps } from './shared';
 
 export function defaultGetValidateOption() {
@@ -47,10 +49,10 @@ export function useInitialValue<T>(model: FieldModel<T>, initialValue?: T) {
   }, [model, initialValue]);
 }
 
-function getValidators<Value>({
-  validators,
-  required,
-}: IFormFieldProps<Value>) {
+function getValidators<Value>(
+  { validators, required }: IFormFieldProps<Value>,
+  i18n: II18nLocaleForm
+) {
   validators = validators ?? [];
   if (
     required &&
@@ -62,7 +64,9 @@ function getValidators<Value>({
   ) {
     validators = (
       [
-        Validators.required(typeof required === 'string' ? required : ''),
+        Validators.required(
+          typeof required === 'string' ? required : i18n.required
+        ),
       ] as IValidators<Value>
     ).concat(validators);
   }
@@ -71,11 +75,12 @@ function getValidators<Value>({
 
 export function FormField<Value>(props: IFormFieldProps<Value>) {
   let model: FieldModel<Value>;
+  const i18n = useComponentI18nData('Form');
   if (isViewDrivenProps(props)) {
     const { name, defaultValue, destroyOnUnmount, normalizeBeforeSubmit } =
       props;
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    model = useField<Value>(name, defaultValue, getValidators(props));
+    model = useField<Value>(name, defaultValue, getValidators(props, i18n));
     model.destroyOnUnmount = Boolean(destroyOnUnmount);
 
     if (typeof normalizeBeforeSubmit === 'function') {
@@ -86,7 +91,7 @@ export function FormField<Value>(props: IFormFieldProps<Value>) {
     model = useField(
       props.model as ModelRef<Value, any, any>,
       props.defaultValue,
-      getValidators(props)
+      getValidators(props, i18n)
     );
   } else {
     // eslint-disable-next-line react-hooks/rules-of-hooks

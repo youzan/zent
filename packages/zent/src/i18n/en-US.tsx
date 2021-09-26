@@ -15,6 +15,7 @@ import {
   II18nLocaleUpload,
   II18nLocaleTransfer,
   LocaleMark,
+  II18nLocaleForm,
 } from './locale';
 import { enUS, setLocale } from './time-locale';
 
@@ -193,4 +194,8 @@ export const Transfer: II18nLocaleTransfer = {
   item: 'item',
   items: 'items',
   emptyLabel: 'No Data',
+};
+
+export const Form: II18nLocaleForm = {
+  required: 'required',
 };

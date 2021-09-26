@@ -1,5 +1,5 @@
 import { useContext, useCallback } from 'react';
-import { I18nReceiver as Receiver, II18nLocaleTimePicker } from '../i18n';
+import { I18nReceiver as Receiver } from '../i18n';
 import DatePicker from './DatePicker';
 import RangePicker from './components/RangePickerBase';
 
@@ -62,7 +62,7 @@ export const DateRangePicker = <T extends IValueType = 'string'>(
 
   return (
     <Receiver componentName="TimePicker">
-      {(i18n: II18nLocaleTimePicker) => (
+      {i18n => (
         <PickerContextProvider
           value={{
             i18n,

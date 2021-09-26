@@ -70,7 +70,7 @@ export default class PageSizeChanger extends Component<
 
     return (
       <Receiver componentName="Pagination">
-        {(i18n: II18nLocalePagination) => {
+        {i18n => {
           const select = (
             <PageSizeSelect
               pageSizeOptions={pageSizeOptions}
@@ -136,7 +136,7 @@ class StaticPageSize extends Component<IPaginationStaticPageSizeProps, any> {
 
     return (
       <Receiver componentName="Pagination">
-        {(i18n: II18nLocalePagination) => {
+        {i18n => {
           return (
             <div className="zent-pagination-page-size-changer">
               {i18n.pageStatsStatic({

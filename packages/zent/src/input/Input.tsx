@@ -5,10 +5,19 @@ import { InputCore } from './InputCore';
 import { TextArea } from './TextArea';
 import { InputContext, IInputContext } from './context';
 import { IDisabledContext, DisabledContext } from '../disabled';
+import omit from '../utils/omit';
 
 export interface IInputState {
   hasFocus: boolean;
 }
+
+const BLOCKED_CHILD_PROPS = [
+  'className',
+  'width',
+  'style',
+  'size',
+  'disabled',
+] as const;
 
 export class Input extends Component<IInputProps, IInputState> {
   static contextType = InputContext;
@@ -116,10 +125,10 @@ export class Input extends Component<IInputProps, IInputState> {
       type,
       className,
       width,
+      style,
       size,
       disabled = disableCtx.value,
       readOnly,
-      style,
     } = props;
     const { hasFocus } = this.state;
     const isTextarea = type.toLowerCase() === 'textarea';
@@ -142,7 +151,7 @@ export class Input extends Component<IInputProps, IInputState> {
           : false;
       children = (
         <TextArea
-          {...props}
+          {...omit(props, BLOCKED_CHILD_PROPS)}
           ref={this.elementRef}
           onKeyDown={this.onKeyDown}
           onFocus={this.onFocus}
@@ -153,7 +162,7 @@ export class Input extends Component<IInputProps, IInputState> {
     } else {
       children = (
         <InputCore
-          {...props}
+          {...omit(props, BLOCKED_CHILD_PROPS)}
           ref={this.elementRef}
           onClear={this.clearInput}
           onKeyDown={this.onKeyDown}

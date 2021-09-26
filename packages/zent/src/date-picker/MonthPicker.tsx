@@ -1,5 +1,5 @@
 import { useContext, useCallback } from 'react';
-import { I18nReceiver as Receiver, II18nLocaleTimePicker } from '../i18n';
+import { I18nReceiver as Receiver } from '../i18n';
 import SinglePicker from './components/SinglePickerBase';
 import MonthPanel from './panels/month-panel';
 import { DisabledContext } from '../disabled';
@@ -58,7 +58,7 @@ export const MonthPicker = <T extends IValueType = 'string'>(
 
   return (
     <Receiver componentName="TimePicker">
-      {(i18n: II18nLocaleTimePicker) => (
+      {i18n => (
         <PickerContextProvider
           value={{
             i18n,

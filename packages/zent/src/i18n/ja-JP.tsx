@@ -15,6 +15,7 @@ import {
   II18nLocaleUpload,
   II18nLocaleTransfer,
   LocaleMark,
+  II18nLocaleForm,
 } from './locale';
 import { jaJP, setLocale } from './time-locale';
 
@@ -188,4 +189,8 @@ export const Transfer: II18nLocaleTransfer = {
   item: '項目',
   items: '項目',
   emptyLabel: '',
+};
+
+export const Form: II18nLocaleForm = {
+  required: '必須',
 };

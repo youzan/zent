@@ -197,7 +197,7 @@ export class SingleUpload extends AbstractUpload<
   render() {
     const { className } = this.props;
     return (
-      <I18nReceiver<II18nLocaleUpload> componentName="Upload">
+      <I18nReceiver componentName="Upload">
         {i18n => {
           return (
             <div className={cn('zent-single-upload', className)}>

@@ -667,7 +667,7 @@ export class MenuCascader extends Component<
 
     return (
       <Receiver componentName="Cascader">
-        {(i18n: II18nLocaleCascader) => {
+        {i18n => {
           const triggerCommonProps = {
             placeholder,
             disabled: this.disabled,

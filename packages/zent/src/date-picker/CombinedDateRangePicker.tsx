@@ -1,5 +1,5 @@
 import { useContext, useCallback } from 'react';
-import { I18nReceiver as Receiver, II18nLocaleTimePicker } from '../i18n';
+import { I18nReceiver as Receiver } from '../i18n';
 
 import CombinedPicker from './components/CombinedPickerBase';
 import CombinedDatePanel from './panels/combined-date-range-panel';
@@ -60,7 +60,7 @@ export const CombinedDateRangePicker = <T extends IValueType = 'string'>(
 
   return (
     <Receiver componentName="TimePicker">
-      {(i18n: II18nLocaleTimePicker) => (
+      {i18n => (
         <PickerContextProvider
           value={{ i18n, autoComplete: !!showTime, getInputRangeText }}
         >
