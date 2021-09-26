@@ -73,7 +73,7 @@ interface ICascaderItem {
 - 当 `multiple` 为 `true` 时，`onChange` 中的 `value` 及 `selectedOptions` 为二维数组
 - `renderTags` 仅当多选模式下有效
 - 组件参数 `scrollable` 与节点的 `loadChildrenOnScroll` 属性组合可判断它的子节点是否需要滚动加载更多数据；第一个层级由于无父节点，使用 `props` 上的 `loadChildrenOnScroll` 参数
-- `simplifySelection` 仅当 `multiple` 为 `true` 时生效。举例来说，开启后当四川省下所有的市都被选中时，输入框中仅展示四川省，不会展开各个具体的市。
+- `simplifySelection` 仅当 `multiple` 为 `true` 时生效。举例来说，开启后当四川省下所有的市都被选中时，输入框中仅展示四川省，不会展开各个具体的市。另外，多选模式下 `onChange` 的 `meta` 参数中会多一个 `simplify` 方法，可以用来合并选中的选项。
 
 ### TabsCascader
 
