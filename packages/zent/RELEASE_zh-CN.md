@@ -53,6 +53,8 @@
 
 ### 9.9.0(2021-07-23)
 
+> 如果遇到 `sass` 编译报错 [`math.div` 函数](https://sass-lang.com/documentation/breaking-changes/slash-div) 找不到，请升级 `sass` 到 `>=1.33.0`。
+
 - ✨ 语义化主题支持，同时新增 `@zent/theme-sdk` 用于主题配置的生成
 - ✨ 组件新增日文(`jaJP`)翻译
 - 🦀️ `Tree` CSS 类名增加前缀

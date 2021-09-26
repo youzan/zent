@@ -53,6 +53,8 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 
 ### 9.9.0(2021-07-23)
 
+> Please upgrade `sass` to `>=1.33.0` if your `sass` complains about [`math.div` function](https://sass-lang.com/documentation/breaking-changes/slash-div) not found.
+
 - ✨ Semantic theme support and a new `@zent/theme-sdk` for generating theme config
 - ✨ New `jaJP` component translations
 - 🦀️ Prefix `Tree` CSS class names
