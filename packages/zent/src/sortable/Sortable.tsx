@@ -43,6 +43,7 @@ export class Sortable<T> extends Component<ISortableProps<T>> {
       dragClass: `zent-drag`,
       fallbackClass: `zent-fallback`,
       onMove: (e, originalEvent) => {
+        const { onMove } = this.props;
         if (onMove) {
           return onMove(e, originalEvent);
         }
@@ -55,7 +56,7 @@ export class Sortable<T> extends Component<ISortableProps<T>> {
         return true;
       },
       onEnd: e => {
-        const { items, onChange } = this.props;
+        const { items, onChange, onEnd } = this.props;
         onEnd && onEnd(e);
 
         if (!items) {
