@@ -16,6 +16,7 @@ import {
   isElementInView,
   mapDOMNodes,
   getCompatSelectionPropsFn,
+  getSelectAllCheckboxState,
 } from './utils';
 import { I18nReceiver as Receiver, II18nLocaleGrid } from '../i18n';
 import BlockLoading from '../loading/BlockLoading';
@@ -380,26 +381,21 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
       };
     } else {
       // multi select
-      const data = (datasets || []).filter((item, index) => {
-        const rowIndex = this.getDataKey(item, index);
-        return !this.getSelectionPropsByItem(item, rowIndex, selection)
-          ?.disabled;
-      });
-
-      const checkboxAllDisabled = data.every((item, index) => {
-        const rowIndex = this.getDataKey(item, index);
-        return this.getSelectionPropsByItem(item, rowIndex, selection)
-          ?.disabled;
-      });
+      const selectAllState = getSelectAllCheckboxState(
+        datasets ?? [],
+        this.getDataKey,
+        (row, idx) => this.getSelectionPropsByItem(row, idx, selection)
+      );
 
       selectionColumn = {
         title: (
           <SelectionCheckboxAll
             store={this.store}
-            datasets={data}
+            datasets={selectAllState.enabledRows}
+            disabledDatasets={selectAllState.disabledRows}
             getDataKey={this.getDataKey}
             onSelect={this.handleBatchSelect}
-            disabled={checkboxAllDisabled}
+            disabled={selectAllState.allDisabled}
           />
         ),
         key: 'selection-column',
@@ -808,7 +804,7 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
 
   getSelectionPropsByItem = (
     data: Data,
-    rowIndex: number,
+    rowIndex: number | string,
     nextSelection?: IGridSelection<Data>
   ) => {
     const selection = nextSelection || this.props.selection;
