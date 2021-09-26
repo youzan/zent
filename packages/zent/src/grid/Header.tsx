@@ -10,6 +10,7 @@ import {
 } from './types';
 import { IGridInnerColumn } from './Grid';
 import Store from './Store';
+import isNil from '../utils/isNil';
 
 export interface IGridHeaderProps<Data> {
   prefix: string;
@@ -224,7 +225,7 @@ class Header<Data> extends PureComponent<
   render() {
     const { scroll, fixed, prefix, columns } = this.props;
     const headerStyle: React.CSSProperties = {};
-    if (!fixed && scroll.x) {
+    if (!fixed && !isNil(scroll.x)) {
       headerStyle.width = scroll.x;
     }
     return scroll.y ? (

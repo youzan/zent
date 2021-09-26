@@ -17,7 +17,7 @@ export default class Store {
     });
   };
 
-  getState(propsName?: string, callBack?: () => void): any {
+  getState(propsName?: string, callBack?: () => any): any {
     if (propsName) {
       if (callBack && !hasOwnProperty(this.state, propsName)) {
         this.setState({
