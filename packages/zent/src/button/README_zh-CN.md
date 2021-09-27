@@ -23,7 +23,7 @@ group: 数据
 
 | 参数      | 说明                                              | 类型   | 默认值      | 备选值                               |
 | --------- | ------------------------------------------------- | ------ | ----------- | ------------------------------------ |
-| type      | 风格                                              | string | `'default'` | `'primary'`、`'danger'`、`'success'` |
+| type      | 风格                                              | string | `'default'` | `'primary'`                          |
 | size      | 尺寸                                              | string | `'medium'`  | `'large'`、`'small'`                 |
 | htmlType  | button 标签原生 type 属性                         | string | `'button'`  | `submit`、`reset`、`button`          |
 | block     | 是否以块级元素的形式展开                          | bool   | `false`     |                                      |

@@ -53,7 +53,6 @@ class Simple extends React.Component {
 					{i18n.up}
 				</SplitButton>
 				<SplitButton
-					type="danger"
 					dropdownData={list}
 					dropdownValue="id"
 					dropdownText="value"

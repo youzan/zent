@@ -12,7 +12,7 @@ SplitButton a button with a dropdown menu
 
 | 参数             | 说明                                                                                                       | 类型   | 默认值               | 备选值                               |
 | ---------------- | ---------------------------------------------------------------------------------------------------------- | ------ | -------------------- | ------------------------------------ |
-| type             | button style                                                                                               | string | `'default'`          | `'primary'`、`'danger'`、`'success'` |
+| type             | button style                                                                                               | string | `'default'`          | `'primary'`                          |
 | disabled         | is the button disabled                                                                                     | bool   | `false`              | `true`、`false`                      |
 | loading          | is show loading icon                                                                                       | bool   | `false`              | `true`, `false`                      |
 | size             | button size                                                                                                | string | `'medium'`           | `'large'`、`'medium'`、`'small'`     |

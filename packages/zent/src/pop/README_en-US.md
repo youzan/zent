@@ -34,7 +34,7 @@ A floating card opened by clicking, hovering or focusing.
 | onCancel | Cancel callback | func | No | |  |
 | confirmText | Confirm button text | string | No | `'Confirm'` |  |
 | cancelText | Cancel button text | string | No | `'Cancel'` |  |
-| type | Confirm button type | string | No | `'primary'` | `'default'`, `'danger'`, `'success'` |
+| type | Confirm button type | string | No | `'primary'` | `'default'`                          |
 | visible | Pop switch to controlled mode if this prop is set, must be used with `onVisibleChange` | bool | No | | |
 | onVisibleChange | Must be used with `visible` | func | No | | |
 | onPositionUpdated | callback after position updates, a position update does not imply a position change | func | No | `noop` | |

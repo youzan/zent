@@ -39,31 +39,17 @@ class Simple extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<SplitButton
-					type="primary"
-					dropdownData={list}
-					dropdownTrigger="hover"
-					dropdownValue="id"
-					dropdownText="value"
-					onClick={this.handleClick}
-					onSelect={this.handleSelect}
-				>
-					{i18n.button}
-				</SplitButton>
-				<SplitButton
-					type="danger"
-					disabled
-					dropdownData={list}
-					dropdownTrigger="hover"
-					dropdownValue="id"
-					dropdownText="value"
-					onClick={this.handleClick}
-					onSelect={this.handleSelect}
-				>
-					{i18n.disabled}
-				</SplitButton>
-			</div>
+			<SplitButton
+				type="primary"
+				dropdownData={list}
+				dropdownTrigger="hover"
+				dropdownValue="id"
+				dropdownText="value"
+				onClick={this.handleClick}
+				onSelect={this.handleSelect}
+			>
+				{i18n.button}
+			</SplitButton>
 		);
 	}
 }

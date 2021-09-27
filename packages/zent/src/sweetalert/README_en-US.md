@@ -23,7 +23,7 @@ Sweetalert is a function used for arouse a Dialog rapidly.
 | title           | title of the dialog                                                           | node          | `''`        |                                                   |
 | onConfirm       | callback of confirm operation                                                 | func          | `noop`      |                                                   |
 | confirmText     | text of confirm button                                                        | string        | `'OK'`      |                                                   |
-| confirmType     | type of confirm button                                                        | string        | `'primary'` | `'default'`、`'primary'`、`'danger'`、`'success'` |
+| confirmType     | type of confirm button                                                        | string        | `'primary'` | `'default'`、`'primary'`                          |
 | closeBtn        | visibility of the close button at the upper right corner                      | bool          | `false`     |
 | maskClosable    | wether click on the mask is to close the dialog                               | bool          | `true`      |
 | parentComponent | Parent component instance，i18n needs this to pass context through            | ReactInstance |             |                                                   |
@@ -40,7 +40,7 @@ Sweetalert is a function used for arouse a Dialog rapidly.
 | onConfirm    | callback of confirm operation                                                 | func   | `noop`      |                                                   |
 | cancelText   | text of cancel button                                                         | string | `'Cancel'`  |                                                   |
 | confirmText  | text of confirm button                                                        | string | `'Confirm'` |                                                   |
-| confirmType  | type of confirm button                                                        | string | `'primary'` | `'default'`、`'primary'`、`'danger'`、`'success'` |
+| confirmType  | type of confirm button                                                        | string | `'primary'` | `'default'`、`'primary'`                          |
 | closeBtn     | visibility of the close button at the upper right corner                      | bool   | `false`     |
 | maskClosable | wether click on the mask is to close the dialog                               | bool   | `true`      |
 | className    | custom classname                                                              | string | `''`        |                                                   |

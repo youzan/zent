@@ -22,7 +22,7 @@ Button. Basic style and basic status are provided.
 
 | Property         | Description                                                                                          | Type   | Default     | Alternative                          |
 | ---------------- | ---------------------------------------------------------------------------------------------------- | ------ | ----------- | ------------------------------------ |
-| type             | style                                                                                                | string | `'default'` | `'primary'`、`'danger'`、`'success'` |
+| type             | style                                                                                                | string | `'default'` | `'primary'`                          |
 | size             | size                                                                                                 | string | `'medium'`  | `'large'`、`'small'`                 |
 | htmlType         | button tag native type attribute                                                                     | string | `'button'`  | `submit`、`reset`、`button`          |
 | block            | whether to be displayed as a block                                                                   | bool   | `false`     |                                      |

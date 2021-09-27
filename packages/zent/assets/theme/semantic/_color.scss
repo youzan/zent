@@ -178,21 +178,21 @@ $theme-primary-8: map-get(map-get($color-sets, 'default'), 'hover-bg');
 // Green
 $theme-success-1: map-get(map-get($color-sets, 'success'), 'color');
 $theme-success-2: map-get(map-get($color-sets, 'success'), 'color');
-$theme-success-3: map-get(map-get($color-sets, 'success'), 'hover-bg');
+$theme-success-3: map-get(map-get($color-sets, 'success'), 'color');
 $theme-success-4: map-get(map-get($color-sets, 'success'), 'color');
 $theme-success-5: map-get(map-get($color-sets, 'success'), 'bg');
 
 // Red
 $theme-error-1: map-get(map-get($color-sets, 'danger'), 'color');
 $theme-error-2: map-get(map-get($color-sets, 'danger'), 'color');
-$theme-error-3: map-get(map-get($color-sets, 'danger'), 'hover-bg');
+$theme-error-3: map-get(map-get($color-sets, 'danger'), 'color');
 $theme-error-4: map-get(map-get($color-sets, 'danger'), 'color');
 $theme-error-5: map-get(map-get($color-sets, 'danger'), 'bg');
 
 // Orange
 $theme-warn-1: map-get(map-get($color-sets, 'warning'), 'color');
 $theme-warn-2: map-get(map-get($color-sets, 'warning'), 'color');
-$theme-warn-3: map-get(map-get($color-sets, 'warning'), 'hover-bg');
+$theme-warn-3: map-get(map-get($color-sets, 'warning'), 'color');
 $theme-warn-4: map-get(map-get($color-sets, 'warning'), 'color');
 $theme-warn-5: map-get(map-get($color-sets, 'warning'), 'bg');
 
@@ -347,7 +347,7 @@ $theme-colors-mapping: (
     ),
     (
       cat: 'success',
-      attr: 'bg',
+      attr: 'color',
     ),
     (
       cat: 'success',
@@ -369,7 +369,7 @@ $theme-colors-mapping: (
     ),
     (
       cat: 'danger',
-      attr: 'bg',
+      attr: 'color',
     ),
     (
       cat: 'danger',
@@ -391,7 +391,7 @@ $theme-colors-mapping: (
     ),
     (
       cat: 'warning',
-      attr: 'bg',
+      attr: 'color',
     ),
     (
       cat: 'warning',
