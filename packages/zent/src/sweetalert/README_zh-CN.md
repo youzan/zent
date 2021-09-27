@@ -24,7 +24,7 @@ group: 反馈
 | title           | 弹窗的标题                                                      | node          | `''`         |                                                   |
 | onConfirm       | 确定操作回调函数                                                | func          | `noop`       |                                                   |
 | confirmText     | 确定按钮文案                                                    | string        | `'我知道了'` |                                                   |
-| confirmType     | 确定按钮的类型                                                  | string        | `'primary'`  | `'default'`、`'primary'`、`'danger'`、`'success'` |
+| confirmType     | 确定按钮的类型                                                  | string        | `'primary'`  | `'default'`、`'primary'`                          |
 | closeBtn        | 是否显示右上角关闭按钮                                          | bool          | `false`      |
 | maskClosable    | 点击遮罩是否可以关闭                                            | bool          | `false`      |
 | parentComponent | 父级组件实例，i18n 需要通过这个传递 context                     | ReactInstance |              |                                                   |
@@ -41,7 +41,7 @@ group: 反馈
 | onConfirm    | 确定操作回调函数                                                | func   | `noop`      |                                                   |
 | cancelText   | 取消按钮文案                                                    | string | `'取消'`    |                                                   |
 | confirmText  | 确定按钮文案                                                    | string | `'确定'`    |                                                   |
-| confirmType  | 确定按钮的类型                                                  | string | `'primary'` | `'default'`、`'primary'`、`'danger'`、`'success'` |
+| confirmType  | 确定按钮的类型                                                  | string | `'primary'` | `'default'`、`'primary'`                          |
 | closeBtn     | 是否显示右上角关闭按钮                                          | bool   | `false`     |
 | maskClosable | 点击遮罩是否可以关闭                                            | bool   | `false`     |
 | className    | 额外的 className                                                | string | `''`        |                                                   |

@@ -35,7 +35,7 @@ group: 反馈
 | onCancel | 用户使用 confirm 的时候可自定义取消的回调 | func | 否  |  |  |
 | confirmText | 用户自定义按钮名 | string | 否 | `'确定'` |  |
 | cancelText | 用户自定义取消按钮 | string | 否 | `'取消'` |  |
-| type | 影响确定按钮的样式 | string | 否  | `'primary'` | `'default'`, `'danger'`, `'success'` |
+| type | 影响确定按钮的样式 | string | 否  | `'primary'` | `'default'`                          |
 | visible | 外部维护 `Pop` 的显示状态，此时外部拥有 `Pop` 的全部控制权，必须和 `onVisibleChange` 一起使用 | bool | 否 |  | |
 | onVisibleChange | 和 `visible` 一起使用 | func | 否 | | |
 | onPositionUpdated | 位置更新时的回调，不保证调用这个函数时位置一定变化 | func | 否 | `noop` | |
