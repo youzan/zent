@@ -22,7 +22,7 @@ import { Sweetalert, Button } from 'zent';
 class Wrapper extends React.Component {
 	showAlertConfirm = () => {
 		Sweetalert.confirm({
-			confirmType: 'primary',
+			confirmType: 'default',
 			confirmText: '{i18n.confirm}',
 			cancelText: '{i18n.cancel}',
 			content: '{i18n.content}',
