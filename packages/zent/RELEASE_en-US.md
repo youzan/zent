@@ -9,6 +9,22 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 9.11.0(2021-09-29)
+
+- ✨ Add `meta.simplify` to `onChange` callback in `MenuCascader` multiple mode
+- `I18n`
+	- ✨ Add `useComponentI18nData` hook
+	- 🦀️ Refine `I18nReceiver` typings
+- 🦀️ Fix `onMove`, `onEnd` and `onMove` callbacks triggered not up to date in `Sortable`
+- 🦀️ Change default error message for `Form` `Field` `required` prop to `'required'`
+- 🦀️ Fix `style` prop in `Input` being applied twice
+- `Grid`
+	- 🦀️ Fix state of the select all checkbox in header
+	- 🦀️ Fix row highlight behavior when there're fixed columns but `scroll.x` is falsy value
+- 🦀️ Upgrade `caniuse-lite` to latest
+- 📚 Add `onOpened` and `onClosed` to `Dialog` doc 
+- 📚 Cleanup usage of `danger` and `success` `Button`s in doc
+
 ### 9.10.1(2021-09-15)
 
 - 🦀️ Preserve `state` in `NumberInput` when a rerender occurs during editing with no `props` change

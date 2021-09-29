@@ -9,6 +9,22 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 9.11.0(2021-09-29)
+
+- ✨ `MenuCascader` 多选模式下的 `onChange` 回调函数的 `meta` 参数中增加 `simplify` 函数，可以用来合并选中的选项
+- `I18n`
+  - ✨ 新增 `useComponentI18nData` Hook 用于函数式组件中使用 i18n 数据
+  - 🦀️ 重构 `I18nReceiver` 的类型定义，更好的类型推导
+- 🦀️ 修复 `Sortable` 中 `onMove`, `onEnd` 以及 `onMove` 初始化后变化不生效的问题
+- 🦀️ `Form` `Field` 上 `required` 参数默认的错误文案修改为 `'必填'`
+- 🦀️ 修复 `Input` 上的 `style` 样式被内外层渲染两次的问题
+- `Grid`
+  - 🦀️ 修复表头中全选框在特殊情况下选中状态不对的问题
+  - 🦀️ 修复有固定列但是 `scroll.x` 为非真值时候行高亮不完整的问题
+- 🦀️ 升级 `caniuse-lite` 数据库至最新版
+- 📚 增加 `Dialog` 中 `onOpened` 和 `onClosed` 回调的文档说明
+- 📚 清理文档中使用 `Button` 类型为 `danger` 和 `success` 的代码，不推荐使用这两种类型的按钮
+
 ### 9.10.1(2021-09-15)
 
 - 🦀️ `NumberInput` 在输入过程中被强制重绘时，如果 `props` 没有变化保留当前 `state` 状态；已知的场景是将 `NumberInput` 用在表格中，表格高亮行变化时会触发
