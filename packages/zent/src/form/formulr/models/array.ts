@@ -321,6 +321,37 @@ class FieldArrayModel<
   }
 
   /**
+   * 仅保留 `predicate` 返回 `true` 的子 `Model`。用于按一定条件批量过滤，相比重复调用 `splice` 效率更高。
+   * 该方法直接操作当前的 `FieldArrayModel` 对象。
+   * @param predicate 每个子 `Model` 的 `predicate` 函数，返回 `true` 在结果中保留该 `Model`
+   * @return 当前 `FieldArrayModel` 对象
+   */
+  filter(
+    predicate: (item: Child, index: number, array: Child[]) => boolean
+  ): this {
+    const children = this.children$.getValue().filter((item, index, array) => {
+      const keep = predicate(item, index, array);
+      if (!keep) {
+        this._disposeChild(item);
+      }
+      return keep;
+    });
+    this.children$.next(children);
+    return this;
+  }
+
+  /**
+   * 对 `FieldArrayModel` 的子 `Model` 排序，该方法直接操作当前的 `FieldArrayModel` 对象。
+   * @param compareFn 比较函数，行为和 `Array.prototype.sort` 的比较函数一致
+   * @return 当前 `FieldArrayModel` 对象
+   */
+  sort(compareFn: (a: Child, b: Child) => number): this {
+    const children = this.children$.getValue().slice().sort(compareFn);
+    this.children$.next(children);
+    return this;
+  }
+
+  /**
    * 执行 `FieldArray` 的校验
    * @param option 校验的参数
    */
