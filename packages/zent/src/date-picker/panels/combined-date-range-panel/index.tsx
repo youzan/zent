@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import cx from 'classnames';
-import { parse, addMonths } from 'date-fns';
+import { parse, addMonths, endOfDay, startOfDay } from 'date-fns';
 
 import DatePanel from '../date-panel/index';
 import RangePickerFooter from './RangeFooter';
@@ -59,15 +59,19 @@ const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
         selectedTemp = [
           startShowTime
             ? parse(defaultStartTime(start), formatStart, start)
-            : start,
-          endShowTime ? parse(defaultEndTime(val), formatEnd, val) : val,
+            : startOfDay(start),
+          endShowTime
+            ? parse(defaultEndTime(val), formatEnd, val)
+            : endOfDay(val),
         ];
         onSelected(selectedTemp, !showTime);
       }
       // 选中开始时间是清除上一次的结束时间
       else {
         selectedTemp = [
-          startShowTime ? parse(defaultStartTime(val), formatStart, val) : val,
+          startShowTime
+            ? parse(defaultStartTime(val), formatStart, val)
+            : startOfDay(val),
           null,
         ];
         onSelected(selectedTemp);

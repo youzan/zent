@@ -20,6 +20,7 @@ import {
   DateNullTuple,
 } from '../types';
 import useRangeDisabledTime from '../hooks/useRangeDisabledTime';
+import { endOfDay, startOfDay } from 'date-fns';
 
 const { START, END } = RangeTypeMap;
 interface IRangePickerProps extends IRangePropsWithDefault {
@@ -89,12 +90,18 @@ const RangePicker: React.FC<IRangePickerProps> = ({
 
   const onChangeStartOrEnd = useCallback(
     (type: RangeType) => (val: Date | null) => {
-      const dates: DateNullTuple = type === START ? [val, end] : [start, val];
+      let dates: DateNullTuple = type === START ? [val, end] : [start, val];
+      if (!showTime) {
+        dates = [
+          dates[0] ? startOfDay(dates[0]) : dates[0],
+          dates[1] ? endOfDay(dates[1]) : dates[1],
+        ];
+      }
       setSelected(dates);
       // props onChange
       onChangeRef.current?.(getCallbackRangeValue?.(dates) || null);
     },
-    [start, end, onChangeRef, getCallbackRangeValue, setSelected]
+    [start, end, showTime, onChangeRef, getCallbackRangeValue, setSelected]
   );
 
   const { disabledStartTimes, disabledEndTimes } = useRangeDisabledTime({
