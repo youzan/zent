@@ -61,6 +61,8 @@ model 是数据和状态的容器，所以 model 上只有操作数据和状态�
 - `shift`
 - `unshift`
 - `splice`
+- `filter` 该方法直接操作当前的 `FieldArrayModel` 对象，而不是返回一个新的 `FieldArrayModel`
+- `sort`
 - `children` 获取所有子 model，是个只读数组
 - `get(index: number)` 返回指定下标处的子 model 对象
 
