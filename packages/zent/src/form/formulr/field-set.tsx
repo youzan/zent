@@ -9,7 +9,6 @@ import {
   isModelRef,
   ModelRef,
 } from './models';
-import { useValue$ } from './hooks';
 import { IValidators } from './validate';
 import { useDestroyOnUnmount, UnknownFieldSetModelChildren } from './utils';
 import { get, isSome, or } from './maybe';
@@ -19,6 +18,7 @@ import {
 } from './error';
 import isPlainObject from '../../utils/isPlainObject';
 import { getFieldSetChildChangeObservable } from './listeners/set';
+import { useObservableEagerState } from 'observable-hooks';
 
 export type IUseFieldSet<T extends UnknownFieldSetModelChildren> = [
   IFormContext,
@@ -133,7 +133,7 @@ export function useFieldSet<T extends UnknownFieldSetModelChildren>(
    * ignore returned value
    * user can get the value from model
    */
-  useValue$(model.error$, model.error$.getValue());
+  useObservableEagerState(model.error$);
   useDestroyOnUnmount(field, model, parent);
   return [childContext, model];
 }

@@ -1,7 +1,6 @@
 import {
   useFieldSet,
   FormProvider,
-  useValue$,
   BasicModel,
   IMaybeError,
   FieldSetModel,
@@ -18,6 +17,7 @@ import {
 } from './shared';
 import { useImperativeHandle } from 'react';
 import { UnknownFieldSetModelChildren } from './formulr/utils';
+import { useObservableEagerState } from 'observable-hooks';
 
 export interface IFieldSetBaseProps<T extends UnknownFieldSetModelChildren> {
   /**
@@ -72,7 +72,7 @@ export function FieldSet<T extends UnknownFieldSetModelChildren>(
   const [ctx, model] = useFieldSet<T>((name ?? rawModel) as any, validators);
   useImperativeHandle(modelRef, () => model, [model]);
   useFormChild(model as BasicModel<unknown>, scrollAnchorRef);
-  useValue$(model.error$, model.error$.getValue());
+  useObservableEagerState(model.error$);
   return (
     <FormProvider value={ctx}>
       {props.children}

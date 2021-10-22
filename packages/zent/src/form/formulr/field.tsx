@@ -7,7 +7,6 @@ import {
   isModelRef,
   isFieldModel,
 } from './models';
-import { useValue$ } from './hooks';
 import { IFormContext, useFormContext } from './context';
 import { IValidators } from './validate';
 import { useDestroyOnUnmount } from './utils';
@@ -16,6 +15,7 @@ import {
   createModelNotFoundError,
   createUnexpectedModelTypeError,
 } from './error';
+import { useObservableEagerState } from 'observable-hooks';
 
 function isValueFactory<Value>(
   candidate: Value | (() => Value)
@@ -108,9 +108,9 @@ export function useField<Value>(
 ): FieldModel<Value> {
   const ctx = useFormContext(typeof field !== 'string');
   const model = useModelAndChildProps(ctx, field, defaultValue);
-  const { value$, error$ } = model;
-  useValue$(value$, value$.getValue());
-  useValue$(error$, error$.getValue());
+
+  useObservableEagerState(model.value$);
+  useObservableEagerState(model.error$);
 
   // Only update validators in View mode
   if (

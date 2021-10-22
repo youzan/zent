@@ -8,7 +8,6 @@ import {
   isFieldArrayModel,
 } from './models';
 import { useFormContext } from './context';
-import { useValue$ } from './hooks';
 import { useDestroyOnUnmount } from './utils';
 import { isSome, get } from './maybe';
 import { IValidators } from './validate';
@@ -17,6 +16,7 @@ import {
   createModelNotFoundError,
   createUnexpectedModelTypeError,
 } from './error';
+import { useObservableEagerState } from 'observable-hooks';
 
 export type IUseFieldArray<Item, Child extends IModel<Item>> = [
   Child[],
@@ -134,13 +134,14 @@ export function useFieldArray<Item, Child extends IModel<Item>>(
     model.validators = validators;
   }
 
-  const { error$, children$ } = model;
   /**
    * ignore returned value
    * user can get the value from model
    */
-  useValue$(children$, children$.getValue());
-  useValue$(error$, error$.getValue());
+  useObservableEagerState(model.children$);
+  useObservableEagerState(model.error$);
+
   useDestroyOnUnmount(field, model, parent);
+
   return model;
 }
