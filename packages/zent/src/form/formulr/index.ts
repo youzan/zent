@@ -16,4 +16,5 @@ export {
   UnknownFieldSetModelChildren,
   UnknownFieldSetBuilderChildren,
 } from './utils';
+export * from './use-observable-batched-state';
 export { Validators, FieldUtils, ValidatorMiddlewares };
