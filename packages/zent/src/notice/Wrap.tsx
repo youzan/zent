@@ -6,8 +6,8 @@ import { runInNextFrame } from '../utils/nextFrame';
 import { instanceMap } from './Container';
 
 export interface INoticeWrapProps {
-  id: number;
-  onExited(id: number): void;
+  id: string;
+  onExited(id: string): void;
 }
 
 export interface INoticeWrapState {

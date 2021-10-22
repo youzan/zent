@@ -1,6 +1,7 @@
 import { useContext, useCallback, ReactNode, CSSProperties } from 'react';
 import cx from 'classnames';
 import { Icon } from '../icon';
+import uniqueId from '../utils/uniqueId';
 import { NoticePositions, getContainer, remove } from './Container';
 import { NoticeContext } from './Wrap';
 import { isElement } from 'react-is';
@@ -97,8 +98,14 @@ Notice.push = function push(node: ReactNode) {
   if (isElement(node) && node.props) {
     position = node.props.position || position;
   }
-  const container = getContainer(position);
-  return container.push(node);
+
+  const id = uniqueId('zent-notice-');
+
+  getContainer(position, container => {
+    container.push(node, id);
+  });
+
+  return id;
 };
 
 Notice.close = remove;

@@ -16,6 +16,13 @@ const containers: Record<NoticePositions, NoticeContainer | null> = {
   'left-bottom': null,
 };
 
+const pendingNotice = {
+  'right-top': new Set<(container: NoticeContainer) => void>(),
+  'right-bottom': new Set<(container: NoticeContainer) => void>(),
+  'left-top': new Set<(container: NoticeContainer) => void>(),
+  'left-bottom': new Set<(container: NoticeContainer) => void>(),
+};
+
 function createContainer(position: NoticePositions) {
   const div = createElement('div');
   div.classList.add('zent-notice-container');
@@ -61,9 +68,7 @@ interface INoticeContainerState {
   list: readonly ContainerChild[];
 }
 
-let uniqueId = 0;
-
-export const instanceMap = new Map<number, React.RefObject<Wrap>>();
+export const instanceMap = new Map<string, React.RefObject<Wrap>>();
 
 class NoticeContainer extends Component<
   INoticeContainerProps,
@@ -73,21 +78,19 @@ class NoticeContainer extends Component<
     list: [],
   };
 
-  onExited = (id: number) => {
+  onExited = (id: string) => {
     this.setState(state => ({
       list: state.list.filter(it => it.props.id !== id),
     }));
   };
 
-  push(children: React.ReactNode) {
-    const id = uniqueId;
+  push(children: React.ReactNode, id: string) {
     const ref = createRef<Wrap>();
     const el = (
       <Wrap ref={ref} key={id} id={id} onExited={this.onExited}>
         {children}
       </Wrap>
     );
-    uniqueId += 1;
     instanceMap.set(id, ref);
     this.setState(state => ({
       list: state.list.concat([el]),
@@ -100,20 +103,43 @@ class NoticeContainer extends Component<
   }
 }
 
-export function getContainer(position: NoticePositions): NoticeContainer {
-  let container = containers[position];
-  if (!container) {
-    const div = createContainer(position);
-    container = ReactDOM.render(
-      <NoticeContainer element={div} />,
-      div
-    ) as unknown as NoticeContainer;
-    containers[position] = container;
+export function getContainer(
+  position: NoticePositions,
+  ready: (container: NoticeContainer) => void
+): void {
+  const container = containers[position];
+  if (container) {
+    return ready(container);
   }
-  return container;
+
+  const pending = pendingNotice[position];
+  pending.add(ready);
+
+  // Container is creating
+  if (pending.size > 1) {
+    return;
+  }
+
+  const div = createContainer(position);
+  // Don't use its return value since ReactDOM.render is not guaranteed to be sync
+  ReactDOM.render(
+    <NoticeContainer
+      element={div}
+      ref={node => {
+        if (node) {
+          containers[position] = node;
+
+          // Invoke all pending ready callbacks
+          pending.forEach(cb => cb(node));
+          pending.clear();
+        }
+      }}
+    />,
+    div
+  );
 }
 
-export function remove(id: number) {
+export function remove(id: string) {
   const ref = instanceMap.get(id);
   if (ref && ref.current) {
     ref.current.leave();
