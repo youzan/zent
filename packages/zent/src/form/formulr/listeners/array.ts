@@ -1,8 +1,8 @@
-import { NEVER } from 'rxjs';
 import { useFormContext } from '../context';
-import { useValue$ } from '../hooks';
 import { FieldArrayModel, IModel, isFieldArrayModel } from '../models';
 import { useModelFromContext } from './use-model';
+import { useObservableState } from 'observable-hooks';
+import { NEVER } from 'rxjs';
 
 /**
  * 根据 `name` 或者 `model` 订阅 `FieldArray` 的更新
@@ -17,7 +17,6 @@ export function useFieldArrayChildModels<Item, Child extends IModel<Item>>(
     field as FieldArrayModel<Item, Child> | undefined,
     isFieldArrayModel
   );
-  const maybeChildren = useValue$(model?.children$ ?? NEVER, model?.children);
 
-  return maybeChildren as Child[] | null;
+  return useObservableState(model?.children$ ?? NEVER) as Child[] | null;
 }

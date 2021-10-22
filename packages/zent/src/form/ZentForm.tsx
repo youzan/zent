@@ -6,7 +6,6 @@ import {
   FormStrategy,
   FormBuilder,
   IForm,
-  useValue$,
   IValidateResult,
 } from './formulr';
 import { Subject } from 'rxjs';
@@ -15,6 +14,7 @@ import {
   UnknownFieldSetModelChildren,
   UnknownFieldSetBuilderChildren,
 } from './formulr/utils';
+import { useObservableEagerState, useObservableState } from 'observable-hooks';
 
 export interface IFormAction {
   type: 'SUBMIT_START' | 'SUBMIT_SUCCESS' | 'SUBMIT_ERROR';
@@ -239,7 +239,8 @@ export function useFormValue<T extends UnknownFieldSetModelChildren>(
   form: ZentForm<T>,
   defaultValue?: $FieldSetValue<T>
 ) {
-  return useValue$(form.model.value$, defaultValue);
+  // We should have used useObservableEagerState here, but we don't want to introduce breaking changes to the API
+  return useObservableState(form.model.value$, defaultValue);
 }
 
 /**
@@ -249,6 +250,5 @@ export function useFormValue<T extends UnknownFieldSetModelChildren>(
 export function useFormValid<T extends UnknownFieldSetModelChildren>(
   form: ZentForm<T>
 ) {
-  const { valid$ } = form.model;
-  return useValue$(valid$, valid$.value);
+  return useObservableEagerState(form.model.valid$);
 }
