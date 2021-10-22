@@ -27,6 +27,7 @@ export {
   IMaybeError,
   IValidateResult,
   ValidatorContext,
+  useObservableBatchedEagerState,
 } from './formulr';
 export { useFormChild, IFormFieldPropsBase } from './shared';
 

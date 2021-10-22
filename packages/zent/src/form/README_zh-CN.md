@@ -304,6 +304,7 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 - `Form.useFieldValid`：接收 `name` 或 `model`，返回其校验状态
 - `Form.useFormValid`：接收 `ZentForm` 对象（即 `useForm` 的返回值），返回表单的校验状态
 - 订阅 `FieldArray`, `FieldSet` 或者 `Form` 的校验状态可能会导致性能问题，因为这些是容器类型，订阅它们意味着需要订阅它们内部包含的所有表单项的校验状态变化，这是一个非常耗资源并且影响性能的操作，所以不推荐大范围频繁使用；开发模式下在 console 中会有一个警告信息。
+- 当遇到订阅导致重绘次数过多的性能问题时，可以考虑使用 `useObservableBatchedEagerState` 将操作做批处理，减少重绘次数。
 
 <!-- demo-slot-19 -->
 
@@ -388,10 +389,18 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 - `Form.useFieldValue` 提供了一种 hooks 的风格来获取表单值（包括 FieldSet、FieldArray、Field），它可以深度监听表单值
 - `Form.useFormValue` 提供了一种 hooks 的风格来获取整个表单的值，它可以深度监听表单值
 
-⚠️ 注意：订阅单个表单项的值一般不会有什么问题，但是订阅 `FieldArray`, `FieldSet` 或者 `Form` 的值时需要谨慎，因为这些是容器类型，订阅它们意味着需要订阅它们内部包含的所有表单项的变化，这是一个非常耗资源并且影响性能的操作，所以不推荐大范围频繁使用。针对这个问题，开发模式下会有一个警告信息来提醒使用者。
-
 <!-- demo-slot-12 -->
 <!-- demo-slot-20 -->
+
+⚠️ 注意：订阅单个表单项的值一般不会有什么问题，但是订阅 `FieldArray`, `FieldSet` 或者 `Form` 的值时需要谨慎，因为这些是容器类型，订阅它们意味着需要订阅它们内部包含的所有表单项的变化，这是一个非常耗资源并且影响性能的操作，所以不推荐大范围频繁使用。针对这个问题，开发模式下会有一个警告信息来提醒使用者。
+
+当遇到订阅导致重绘次数过多的性能问题时，可以考虑使用 `useObservableBatchedEagerState` 将操作做批处理，减少重绘次数。
+
+下面这个示例的场景比较特殊，在 useCallback 的回调中同步触发重绘的话 React 会自动合并无用的重绘；但是如果在异步代码中触发重绘的话 React 并不会自动合并，导致大量重绘操作在短时间内触发，引起性能问题。
+
+此时可用使用 `useObservableBatchedEagerState` 来合并 Observable 的修改，从而间接的减少 React 重绘，优化性能。
+
+<!-- demo-slot-23 -->
 
 ### 通过 Model 订阅数据
 

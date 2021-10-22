@@ -135,7 +135,7 @@ module.exports = {
           version: 'detect', // React version. "detect" automatically picks the version you have installed.
         },
       },
-      plugins: ['react', 'react-hooks'],
+      plugins: ['react'],
       parserOptions: {
         ecmaFeatures: {
           jsx: true,
@@ -159,9 +159,6 @@ module.exports = {
         'react/no-unescaped-entities': 'error',
         'react/no-unknown-property': 'error',
         'react/require-render-return': 'error',
-
-        'react-hooks/rules-of-hooks': 'error',
-        'react-hooks/exhaustive-deps': 'error',
       },
     },
     {
@@ -338,8 +335,11 @@ module.exports = {
       env: {
         browser: true,
       },
-      plugins: ['ban'],
+      plugins: ['ban', 'react-hooks'],
       rules: {
+        'react-hooks/rules-of-hooks': 'error',
+        'react-hooks/exhaustive-deps': 'error',
+
         'ban/ban': [
           'error',
           {
@@ -382,6 +382,11 @@ module.exports = {
       parserOptions: {
         project: './tsconfig.json',
         tsconfigRootDir: path.resolve(__dirname, 'site'),
+      },
+      plugins: ['react-hooks'],
+      rules: {
+        'react-hooks/rules-of-hooks': 'error',
+        'react-hooks/exhaustive-deps': 'error',
       },
     },
 
