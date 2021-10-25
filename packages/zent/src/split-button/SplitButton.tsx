@@ -130,7 +130,7 @@ export class SplitButton<Value> extends Component<ISplitButtonProps<Value>> {
               >
                 <Icon
                   className="zent-split-button__dropdown-icon"
-                  type="caret-down"
+                  type="down"
                 />
               </Button>
             </Trigger>

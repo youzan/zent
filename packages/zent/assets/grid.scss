@@ -93,13 +93,13 @@
   &-thead {
     .caret-up {
       @include caret(bottom);
-      top: 2px;
+      top: 3px;
       left: 6px;
     }
 
     .caret-down {
       @include caret(top);
-      bottom: 1px;
+      bottom: 3px;
       left: 6px;
     }
 
