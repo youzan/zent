@@ -9,6 +9,20 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 9.12.0(2021-10-26)
+
+- `Form`
+  - ✨ `FieldArrayModel` 增加 `filter` 和 `sort` 方法
+  - ✨ 新增 `useObservableBatchedEagerState` 用于合并 model 的变更事件，通常用不着，详见文档
+  - ✨ 使用 `observable-hooks` 替换 `useValue$`
+- `Notice`
+  - 🦀️ 修复在部分场景（比如 `useEffect` 中）下使用 `Notice.push` crash 的问题
+  - 🦀️ `Notice.push` 的返回值类型以及 `Notice.remove` 的参数类型由 `number` 变更为 `string`
+- 🦀️ 更新 `caret-down` 以及 `caret-up` 图标，修复不居中的问题
+- 🦀️ 更新 `SplitButton` 箭头样式
+- 🦀️ 修复 `RangeDatePicker` 中 `showTime` 为 `false` 时，返回结束时间错误的问题
+- 🦀️ 更新 `caniuse-lite` 数据库
+
 ### 9.11.0(2021-09-29)
 
 - ✨ `MenuCascader` 多选模式下的 `onChange` 回调函数的 `meta` 参数中增加 `simplify` 函数，可以用来合并选中的选项

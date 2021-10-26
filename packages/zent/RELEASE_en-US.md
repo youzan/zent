@@ -9,6 +9,20 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 9.12.0(2021-10-26)
+
+- `Form`
+	- ✨ Add `filter` and `sort` methods to `FieldArrayModel`
+	- ✨ Add `useObservableBatchedEagerState` for merging model changes
+	- ✨ Replace `useValue$` with `observable-hooks`
+- `Notice`
+	- 🦀️ Fix `Notice.push` crash in some cases(e.g. `useEffect`)
+	- 🦀️ Changed `Notice.push`'s return type and `Notice.remove`'s parameter type from `number` to `string`
+- 🦀️ Update `caret-down` and `caret-up` icons
+- 🦀️ Update `SplitButton` arrow style
+- 🦀️ Fix incorrect end date in `RangeDatePicker` when `showTime` is `false`
+- 🦀️ Update `caniuse-lite` database to latest version
+
 ### 9.11.0(2021-09-29)
 
 - ✨ Add `meta.simplify` to `onChange` callback in `MenuCascader` multiple mode
