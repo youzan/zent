@@ -137,6 +137,12 @@ $inner-circle-offset: ($outer-circle-size - $inner-circle-size - 2px) * 0.5;
       @include theme-color(color, stroke, 3);
     }
   }
+
+  &:not(.zent-radio-disabled):hover {
+    .zent-radio-inner {
+      @include theme-color(border-color, primary, 4);
+    }
+  }
 }
 
 .zent-radio-button {
