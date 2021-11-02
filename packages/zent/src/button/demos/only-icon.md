@@ -13,11 +13,11 @@ import { Button } from 'zent';
 
 ReactDOM.render(
   <div>
-		<Button type={'icon'} icon={'search'} size={'small'}></Button>
-		<Button type={'icon'} icon={'search'}></Button>
-		<Button type={'icon'} icon={'search'} size={'large'}></Button>
-		<Button type={'icon'} icon={'search'} loading></Button>
-		<Button type={'icon'} icon={'search'} disabled></Button>
+		<Button type='icon' icon='search' size='small'></Button>
+		<Button type='icon' icon='search'></Button>
+		<Button type='icon' icon='search' size='large'></Button>
+		<Button type='icon' icon='search' loading></Button>
+		<Button type='icon' icon='search' disabled></Button>
 	</div>
 	, mountNode
 );
