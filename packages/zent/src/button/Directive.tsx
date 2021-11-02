@@ -24,7 +24,9 @@ export type IButtonType =
   | 'danger'
   | 'warning'
   | 'error'
-  | 'success';
+  | 'success'
+  | 'text'
+  | 'icon';
 
 export type IButtonHtmlType = 'button' | 'submit' | 'reset';
 
@@ -86,9 +88,11 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
     onClick?.(e);
   }, []);
   const iconNode = icon ? <Icon type={icon} /> : null;
+  // icon text 或者 outline 为false 不需要outline
+  const needOutline = type !== 'text' && type !== 'icon' && outline;
   const className = cx(
     {
-      [`zent-btn-${type}${outline ? '-outline' : ''}`]: type !== 'default',
+      [`zent-btn-${type}${needOutline ? '-outline' : ''}`]: type !== 'default',
       [`zent-btn-${size}`]: size !== 'medium',
       'zent-btn-block': block,
       'zent-btn-loading': loading,
