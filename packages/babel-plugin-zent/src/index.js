@@ -10,6 +10,8 @@
 // import Button from 'zent-button';
 // require('zent-button')
 
+import chalk from 'chalk';
+
 const hasOwn = Object.prototype.hasOwnProperty;
 
 export default function babelPluginZent(babel) {
@@ -21,7 +23,7 @@ export default function babelPluginZent(babel) {
         const { node } = path;
         const libName = getLibraryName(state);
 
-        // no require('zent') calls
+        // No require('zent') calls
         if (
           t.isIdentifier(node.callee, { name: 'require' }) &&
           node.arguments &&
@@ -29,8 +31,12 @@ export default function babelPluginZent(babel) {
         ) {
           const source = node.arguments[0];
           if (t.isStringLiteral(source, { value: libName })) {
-            throw path.buildCodeFrameError(
-              `require('${libName}') is not allowed, use import { ... } from '${libName}'`
+            console.error(
+              chalk.red(
+                `\`require('${libName}')\` is ignored, use \`import { ... } from '${libName}'\`\n` +
+                  `The actual cause of this might be \`@babel/preset-env\` \`modules\` option is resolved to \`cjs\`\n` +
+                  `Use the \`debug\` option in \`@babel/preset-env\` to check this\n`
+              )
             );
           }
         }

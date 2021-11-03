@@ -52,12 +52,17 @@ describe('babel-plugin-zent', () => {
     );
   });
 
-  it('throws on require', () => {
-    expect(() => compile("require('zent')")).toThrowError(
-      /require\('zent'\) is not allowed/
+  it('warns on require', () => {
+    const errorFn = jest.spyOn(console, 'error');
+
+    expect(() => compile("require('zent')")).not.toThrowError();
+    expect(() => compile("require('foobar')").toBe("require('foobar')"));
+    expect(errorFn).toHaveBeenCalledTimes(1);
+    expect(errorFn).toHaveBeenCalledWith(
+      expect.stringMatching(/`require\('zent'\)` is ignored/)
     );
 
-    expect(() => compile("require('foobar')").toBe("require('foobar')"));
+    errorFn.mockRestore();
   });
 
   it('throws if module mapping file not found', () => {
