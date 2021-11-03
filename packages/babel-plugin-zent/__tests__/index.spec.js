@@ -60,7 +60,7 @@ describe('babel-plugin-zent', () => {
     expect(compile("require('zent')")).toBe("require('zent');");
     expect(errorFn).toHaveBeenCalledTimes(1);
     expect(errorFn).toHaveBeenCalledWith(
-      expect.stringMatching(/`require\('zent'\)` is ignored/)
+      expect.stringMatching(/Found `require\('zent'\)`/)
     );
 
     errorFn.mockRestore();
