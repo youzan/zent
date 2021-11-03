@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { IInputProps, IInputCoreProps, IInputClearEvent } from './types';
 import { InputCore } from './InputCore';
 import { TextArea } from './TextArea';
+import Password from './password';
 import { InputContext, IInputContext } from './context';
 import { IDisabledContext, DisabledContext } from '../disabled';
 import omit from '../utils/omit';
@@ -27,6 +28,7 @@ export class Input extends Component<IInputProps, IInputState> {
     type: 'text',
     size: 'normal',
   };
+  static Password = Password;
 
   context!: IInputContext;
 
