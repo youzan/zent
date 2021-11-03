@@ -55,8 +55,9 @@ describe('babel-plugin-zent', () => {
   it('warns on require', () => {
     const errorFn = jest.spyOn(console, 'error');
 
-    expect(() => compile("require('zent')")).not.toThrowError();
-    expect(() => compile("require('foobar')").toBe("require('foobar')"));
+    expect(compile("require('foobar')")).toBe("require('foobar');");
+
+    expect(compile("require('zent')")).toBe("require('zent');");
     expect(errorFn).toHaveBeenCalledTimes(1);
     expect(errorFn).toHaveBeenCalledWith(
       expect.stringMatching(/`require\('zent'\)` is ignored/)
