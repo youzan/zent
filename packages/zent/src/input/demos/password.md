@@ -13,10 +13,34 @@ en-US:
 ```jsx
 import { Input } from 'zent';
 
+class EventTest extends React.Component {
+	state = {
+		value: '',
+		search: '',
+	};
+
+	onChange = e => {
+		this.setState({ value: e.target.value });
+	};
+
+	onSearchChange = e => {
+		this.setState({
+			search: e.target.value,
+		});
+	};
+
+	render() {
+		return (
+			<div>
+				<Input.Password />
+				<Input.Password onChange={this.onChange} value={this.state.value} showClear />
+			</div>
+		);
+	}
+}
+
 ReactDOM.render(
-	<div>
-		<Input.Password />
-	</div>,
+	<EventTest/>,
 	mountNode
 );
 ```
