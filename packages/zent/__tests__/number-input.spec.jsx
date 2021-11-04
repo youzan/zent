@@ -177,7 +177,11 @@ describe('NumberInput', () => {
       <NumberInput showTooltip value={2} min={0} max={3} />
     );
     const input = wrapper.find('input');
-    input.instance().value = '10';
+    wrapper.find('input').simulate('change', {
+      target: {
+        value: '10',
+      },
+    });
     input.simulate('blur');
     expect(findPop().length).toBe(1);
     jest.runAllTimers();
