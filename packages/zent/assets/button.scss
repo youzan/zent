@@ -7,7 +7,7 @@ $btn-height-normal: 32px;
 $btn-height-large: 40px;
 
 @mixin btn-white($prop) {
-  @include theme-color($prop, stroke, 9);
+  @include theme-color($prop, 'default', 'bg');
 }
 
 @mixin btn-grey($prop) {
@@ -155,9 +155,9 @@ $btn-warning-active: 1;
 }
 
 .zent-btn {
-  @include theme-color(color, stroke, 1);
+  @include theme-color(color, 'default', 'color');
   @include btn-white(background-color);
-  @include theme-color(border-color, stroke, 5);
+  @include theme-color(border-color, 'default', 'border-color');
   display: inline-block;
   height: $btn-height-normal;
   line-height: $btn-height-normal - 2px;
@@ -180,20 +180,20 @@ $btn-warning-active: 1;
   &:link,
   &:visited,
   &:focus {
-    @include theme-color(color, stroke, 1);
+    @include theme-color(color, 'default', 'color');
     text-decoration: none;
   }
 
   &:hover {
-    @include btn-primary-hover(color);
-    @include btn-primary-hover(border-color);
+    @include theme-color(color, 'default', 'hover-color');
+    @include theme-color(border-color, 'default', 'hover-border-color');
     text-decoration: none;
   }
 
   &:active {
-    @include theme-color(color, stroke, 1);
-    @include theme-color(background-color, stroke, 10);
-    @include theme-color(border-color, stroke, 5);
+    @include theme-color(color, 'default', 'color');
+    @include theme-color(background-color, 'default', 'active-bg');
+    @include theme-color(border-color, 'default', 'active-border-color');
     text-decoration: none;
   }
 
