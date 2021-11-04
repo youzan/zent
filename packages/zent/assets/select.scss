@@ -137,12 +137,6 @@ $option-height: 32px;
     @include theme-color(border-color, primary, 4);
   }
 
-  &.zent-select-v2-visible {
-    .zenticon-down {
-      transform: rotate(180deg);
-    }
-  }
-
   &.zent-select-v2-inline {
     display: inline-flex;
   }
@@ -191,7 +185,7 @@ $option-height: 32px;
 
   &-popup {
     @include popup;
-    max-height: 8 * $option-height;
+    max-height: 8.5 * $option-height;
     overflow-y: auto;
 
     &-empty {
