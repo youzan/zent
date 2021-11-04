@@ -23,6 +23,7 @@ group: 数据
 | onInput     | 用户输入的回调函数 | `(value: string) => void` |  |  |  否  |
 | showStepper | 是否开启记步器        | `boolean`                            | `false` |        | 否       |
 | showCounter | 是否开启加减号        | `boolean`                            | `false` |        | 否       |
+| showTooltip			| 超出大小是否pop提示    | `boolean`                              | `false` |        | 否       |
 | integer     | 整数模式              | `boolean`                             | `false`   |        | 否       |
 | decimal     | 数值精度              | `number`                            | `0`     |        | 否       |
 | step        | 步进                 | `number`                         | 整数模式为 `1`，小数模式根据精度而定 |  |  否 |

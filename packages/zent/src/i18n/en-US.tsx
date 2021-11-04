@@ -16,6 +16,7 @@ import {
   II18nLocaleTransfer,
   LocaleMark,
   II18nLocaleForm,
+  II18nLocaleStepper,
 } from './locale';
 import { enUS, setLocale } from './time-locale';
 
@@ -198,4 +199,9 @@ export const Transfer: II18nLocaleTransfer = {
 
 export const Form: II18nLocaleForm = {
   required: 'required',
+};
+
+export const Stepper: II18nLocaleStepper = {
+  min: 'the minimum value cannot be less than',
+  max: 'the maximum value cannot be greater than',
 };

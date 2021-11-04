@@ -16,6 +16,7 @@ import {
   II18nLocaleTransfer,
   LocaleMark,
   II18nLocaleForm,
+  II18nLocaleStepper,
 } from './locale';
 import { jaJP, setLocale } from './time-locale';
 
@@ -193,4 +194,9 @@ export const Transfer: II18nLocaleTransfer = {
 
 export const Form: II18nLocaleForm = {
   required: '必須',
+};
+
+export const Stepper: II18nLocaleStepper = {
+  min: '最小値は以下にすることはできません',
+  max: '最大値はこれより大きくすることはできません',
 };

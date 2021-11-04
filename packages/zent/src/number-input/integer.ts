@@ -49,10 +49,16 @@ export const isInteger = utilsIsInteger;
 export function normalizeValue(
   potential: number | undefined | null,
   min: number,
-  max: number
-): { input: string; value: number | null } {
+  max: number,
+  showTooltip?: boolean
+): {
+  input: string;
+  value: number | null;
+  pop?: { visible: boolean; text: string; type: string };
+} {
   let value: number | null;
   let input: string | null = null;
+  let pop;
   if (potential === null || potential === undefined) {
     value = null;
     input = '';
@@ -69,13 +75,31 @@ export function normalizeValue(
     value = Math.floor(potential);
   }
   if (value !== null) {
+    // 判断是否需要显示pop提示
+    if (value < min) {
+      showTooltip &&
+        (pop = {
+          visible: true,
+          type: 'min',
+          text: String(min),
+        });
+    } else if (value > max) {
+      showTooltip &&
+        (pop = {
+          visible: true,
+          text: String(max),
+          type: 'max',
+        });
+    }
     value = Math.min(max, value);
     value = Math.max(min, value);
   }
   if (input === null) {
     input = String(value);
   }
+  const popState = pop && showTooltip ? { pop } : {};
   return {
+    ...popState,
     value,
     input,
   };

@@ -1,8 +1,10 @@
 import { Component, createRef } from 'react';
 import cx from 'classnames';
+import { I18nReceiver as Receiver } from '../i18n';
 import Decimal from 'big.js';
 import Icon from '../icon';
 import Input, { IInputClearEvent, IInputCoreProps } from '../input';
+import Pop from '../pop';
 import { InputContext, IInputContext } from '../input/context';
 import { DisabledContext, IDisabledContext } from '../disabled';
 import * as Integers from './integer';
@@ -16,6 +18,7 @@ export interface INumberInputCommonProps
   showStepper?: boolean;
   showCounter?: boolean;
   step?: number;
+  showTooltip?: boolean;
 }
 
 export interface INumberInputDecimalProps extends INumberInputCommonProps {
@@ -47,6 +50,11 @@ export interface INumberInputIntegerState {
   min: number;
   max: number;
   delta: number;
+  pop?: {
+    visible: boolean;
+    text: string;
+    type: string;
+  };
 }
 
 export interface INumberInputDecimalState {
@@ -56,6 +64,11 @@ export interface INumberInputDecimalState {
   min: Decimal | null;
   max: Decimal | null;
   delta: Decimal;
+  pop?: {
+    visible: boolean;
+    text: string | number;
+    type: string;
+  };
 }
 
 export type INumberInputState =
@@ -80,9 +93,17 @@ function getStateFromProps(
   props: INumberInputProps,
   updateValueInState: boolean
 ): Partial<INumberInputState> {
+  // state中增加pop
+  const pop = {
+    visible: false,
+    type: '',
+    text: '',
+  };
+  const state = props.showTooltip ? { pop } : {};
   if (props.integer === true) {
     const { min, max } = Integers.normalizeMinMax(props);
     return {
+      ...state,
       prevProps: props,
       min,
       max,
@@ -94,6 +115,7 @@ function getStateFromProps(
   } else {
     const { min, max } = Decimals.normalizeMinMax(props);
     return {
+      ...state,
       prevProps: props,
       min,
       max,
@@ -119,6 +141,7 @@ export class NumberInput extends Component<
   static contextType = DisabledContext;
   context!: IDisabledContext;
   focused = false;
+  timer = null;
   inputRef = createRef<Input>();
 
   private inputContext: IInputContext = {
@@ -172,23 +195,44 @@ export class NumberInput extends Component<
     const { onFocus } = this.props;
     onFocus && onFocus(e);
   };
-
+  private hideTooltip = () => {
+    this.timer && clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
+      this.setState({
+        pop: { visible: false, text: '', type: '' },
+      });
+    }, 1500);
+  };
   private onBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     this.focused = false;
     if (this.props.integer === true) {
-      const { onChange } = this.props;
+      const { onChange, showTooltip } = this.props;
       const { value, min, max } = this.state as INumberInputIntegerState;
-      const normalized = Integers.normalizeValue(value, min, max);
+      const normalized = Integers.normalizeValue(value, min, max, showTooltip);
       onChange?.(normalized.value);
-      this.setState(normalized);
+      this.setState(normalized, () => {
+        if (showTooltip && this.state.pop.visible) {
+          this.hideTooltip();
+        }
+      });
       const { onBlur } = this.props;
       onBlur?.(e);
     } else {
-      const { onChange, decimal } = this.props;
+      const { onChange, decimal, showTooltip } = this.props;
       const { input, min, max } = this.state as INumberInputDecimalState;
-      const normalized = Decimals.normalizeValue(input, min, max, decimal);
+      const normalized = Decimals.normalizeValue(
+        input,
+        min,
+        max,
+        decimal,
+        showTooltip
+      );
       onChange?.(normalized.input);
-      this.setState(normalized);
+      this.setState(normalized, () => {
+        if (showTooltip && this.state.pop.visible) {
+          this.hideTooltip();
+        }
+      });
       const { onBlur } = this.props;
       onBlur && onBlur(e);
     }
@@ -384,9 +428,11 @@ export class NumberInput extends Component<
       limits = Decimals.calculateLimit(value, min, max);
     }
     const { canDec, canInc } = limits;
+    // 输入框无输入值时，上下箭头禁用
+    const { input } = this.state;
     // 箭头状态
-    const addState = disabled || readOnly || !canInc;
-    const reduceState = disabled || readOnly || !canDec;
+    const addState = disabled || readOnly || !canInc || input === '';
+    const reduceState = disabled || readOnly || !canDec || input === '';
     // 上arrow样式
     const upArrowClass = cx({
       'zent-number-input-arrow': true,
@@ -442,7 +488,7 @@ export class NumberInput extends Component<
     );
   }
 
-  render() {
+  renderInput() {
     const {
       integer,
       className,
@@ -459,7 +505,7 @@ export class NumberInput extends Component<
       max,
       decimal,
       onInput,
-
+      showTooltip,
       ...inputProps
     } = this.props as INumberInputProps & { decimal?: number }; // make tsc happy
     const { input } = this.state;
@@ -469,19 +515,40 @@ export class NumberInput extends Component<
       );
     }
     return (
+      <Input
+        ref={this.inputRef}
+        autoComplete="off"
+        {...inputProps}
+        readOnly={readOnly}
+        disabled={disabled}
+        className={cx('zent-number-input', className)}
+        value={input}
+        onChange={this.onUserInput}
+        onFocus={this.onFocus}
+        onBlur={this.onBlur}
+      />
+    );
+  }
+  render() {
+    const { pop } = this.state;
+    return this.props.showTooltip ? (
+      <Receiver componentName={'Stepper'}>
+        {i18n => (
+          <InputContext.Provider value={this.inputContext}>
+            <Pop
+              trigger={'none'}
+              content={pop.visible ? i18n[pop.type] + pop.text : ''}
+              visible={pop.visible}
+              position="bottom-left"
+            >
+              {this.renderInput()}
+            </Pop>
+          </InputContext.Provider>
+        )}
+      </Receiver>
+    ) : (
       <InputContext.Provider value={this.inputContext}>
-        <Input
-          ref={this.inputRef}
-          autoComplete="off"
-          {...inputProps}
-          readOnly={readOnly}
-          disabled={disabled}
-          className={cx('zent-number-input', className)}
-          value={input}
-          onChange={this.onUserInput}
-          onFocus={this.onFocus}
-          onBlur={this.onBlur}
-        />
+        {this.renderInput()}
       </InputContext.Provider>
     );
   }
