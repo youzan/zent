@@ -5,6 +5,10 @@ import Decimal from 'big.js';
 import NumberInput from '../src/number-input';
 import { trimLeadingPlus } from '../src/number-input/utils';
 
+function findPop() {
+  return document.querySelectorAll(`.zent-pop-v2`);
+}
+
 Enzyme.configure({ adapter: new Adapter() });
 
 describe('NumberInput', () => {
@@ -23,7 +27,6 @@ describe('NumberInput', () => {
     const wrapper = mount(<NumberInput className="foo" />);
     expect(wrapper.hasClass('foo')).toBe(true);
   });
-
   it('change value is - or + ', () => {
     const wrapper = mount(<NumberInput value={0} />);
     wrapper.find('input').simulate('change', {
@@ -167,6 +170,18 @@ describe('NumberInput', () => {
     input.simulate('change');
     input.simulate('blur');
     expect(value).toBe(1);
+  });
+
+  it('props with showTooltip max min', () => {
+    const wrapper = mount(
+      <NumberInput showTooltip value={2} min={0} max={3} />
+    );
+    const input = wrapper.find('input');
+    input.instance().value = '10';
+    input.simulate('blur');
+    expect(findPop().length).toBe(1);
+    jest.runAllTimers();
+    expect(findPop().length).toBe(0);
   });
 
   it('Utils', () => {

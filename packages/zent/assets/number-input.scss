@@ -48,10 +48,16 @@
         @include disable;
       }
 
-      &:hover {
+      &:hover:not(#{$p}-arrow-disable) {
+        z-index: 10;
+        @include theme-color(border-color, primary, 4);
         > .zenticon {
           @include theme-color(color, primary, 4);
         }
+      }
+
+      &:active:not(#{$p}-arrow-disable) {
+        @include theme-color(background-color, primary, 4, 0.1);
       }
 
       > .zenticon {
