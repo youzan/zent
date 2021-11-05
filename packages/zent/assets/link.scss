@@ -1,54 +1,39 @@
 @import './theme/default';
 @import './theme/font';
 
-@mixin link-grey($prop) {
-  @include theme-color($prop, stroke, 4);
-}
-
-/* styles begin */
-$link-primary: 4;
-$link-primary-hover: 5;
-$link-primary-active: 3;
-
-@mixin link-primary($prop) {
-  @include theme-color($prop, primary, $link-primary);
-}
-
-@mixin link-primary-hover($prop) {
-  @include theme-color($prop, primary, $link-primary-hover);
-}
-
-@mixin link-primary-active($prop) {
-  @include theme-color($prop, primary, $link-primary-active);
-}
-
 .zent-link {
   @include font-normal;
-  @include link-primary(color);
+  @include theme-color(color, link, color);
 
   text-decoration: none;
   display: inline-block;
-  padding: 2px 8px;
-  border-radius: 2px;
 
   &:link,
   &:visited,
   &:focus {
-    @include link-primary(color);
+    @include theme-color(color, link, color);
   }
 
   &:hover {
-    @include link-primary-hover(color);
-    @include theme-color(background-color, stroke, 7);
+    @include theme-color(color, link, hover-color);
   }
 
   &:active {
-    @include link-primary-active(color);
-    @include theme-color(background-color, stroke, 7);
+    @include theme-color(color, link, active-color);
   }
 
-  &.zent-link__disabled {
-    @include link-grey(color);
+  &--weak {
+    @include theme-color(color, weak-link, color);
+
+    &:link,
+    &:visited,
+    &:focus {
+      @include theme-color(color, weak-link, color);
+    }
+  }
+
+  &.zent-link--disabled {
+    @include theme-color(color, disabled, color);
     cursor: not-allowed;
   }
 }

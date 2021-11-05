@@ -13,10 +13,11 @@ class Wrapper extends Component {
   }
 }
 
+const url = 'https://www.youzan.com/404';
+const target = '_blank';
+
 describe('Link', () => {
   test('Link', () => {
-    const url = 'https://www.youzan.com/404';
-    const target = '_blank';
     const tree = renderIntoDocument(
       <Wrapper>
         <Link href={url} target={target} className="my-link">
@@ -44,5 +45,19 @@ describe('Link', () => {
     Simulate.click(node, { preventDefault, stopPropagation });
     expect(stopPropagation.mock.calls.length).toBe(1);
     expect(preventDefault.mock.calls.length).toBe(1);
+  });
+
+  test('Weak Link', () => {
+    const tree = renderIntoDocument(
+      <Wrapper>
+        <Link href={url} target={target} weak className="my-link">
+          link
+        </Link>
+      </Wrapper>
+    );
+    const node = findRenderedDOMComponentWithTag(tree, 'a');
+    expect(node.href).toBe(url);
+    expect(node.target).toBe(target);
+    expect(node.classList.contains('zent-link--weak')).toBe(true);
   });
 });
