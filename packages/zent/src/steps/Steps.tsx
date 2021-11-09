@@ -12,6 +12,7 @@ export interface IStepsProps {
   sequence?: boolean;
   onStepChange?: (stepIndex: number) => void;
   className?: string;
+  ghost?: boolean;
 }
 
 export class Steps extends Component<IStepsProps> {
@@ -23,6 +24,7 @@ export class Steps extends Component<IStepsProps> {
     size: 'normal',
     status: 'process',
     sequence: true,
+    ghost: true,
   };
 
   static Step = Step;

@@ -12,6 +12,7 @@ export interface IStepProps {
   stepLast?: boolean;
   stepNumber?: string;
   sequence?: boolean;
+  disabled?: boolean;
 }
 
 export default class Step extends Component<IStepProps> {

@@ -356,7 +356,7 @@
   overflow: hidden;
 
   .zent-steps-item {
-    padding: 0 8px;
+    padding: 0 14px;
     box-sizing: border-box;
 
     &.zent-steps-item--clickable {
@@ -406,6 +406,7 @@
         top: 50%;
         margin-top: -24px;
         right: -12px;
+        z-index: 1;
       }
 
       &::before {
@@ -471,6 +472,233 @@
           @include theme-color(border-top-color, primary, 4);
           @include theme-color(border-bottom-color, primary, 4);
         }
+      }
+    }
+  }
+
+  &-ghost .zent-steps-item {
+    .zent-steps-step {
+      @include theme-color(background-color, stroke, 9);
+      @include theme-color(color, stroke, 1);
+      font-weight: $font-weight-bold;
+      z-index: 1;
+
+      &::before {
+        @include theme-color(border-top-color, stroke, 9);
+        @include theme-color(border-bottom-color, stroke, 9);
+      }
+
+      &::after {
+        @include theme-color(border-left-color, stroke, 9);
+      }
+    }
+
+    &.zent-steps-item--finished {
+      .zent-steps-step {
+        @include theme-color(color, primary, 4);
+        @include theme-color(background-color, stroke, 9);
+        box-sizing: border-box;
+
+        &::after {
+          @include theme-color(border-left-color, stroke, 9);
+        }
+
+        &::before {
+          @include theme-color(border-top-color, stroke, 9);
+          @include theme-color(border-bottom-color, stroke, 9);
+        }
+      }
+    }
+
+    &.zent-steps-item--current {
+      .zent-steps-step {
+        @include theme-color(border-top-color, primary, 4);
+        @include theme-color(border-bottom-color, primary, 4);
+        border-top-width: 1px;
+        border-bottom-width: 1px;
+        border-top-style: solid;
+        border-bottom-style: solid;
+        line-height: 46px;
+
+        &::before {
+          border-top-width: 23px;
+          border-bottom-width: 23px;
+          margin-top: -23px;
+        }
+      }
+
+      &::after {
+        @include theme-color(border-left-color, primary, 4);
+        content: ' ';
+        display: block;
+        width: 0;
+        height: 0;
+        border-top: 28px solid transparent;
+        border-bottom: 28px solid transparent;
+        border-left-width: 14px;
+        border-left-style: solid;
+        position: absolute;
+        top: 50%;
+        margin-top: -28px;
+        right: 1px;
+        z-index: 0;
+      }
+
+      &::before {
+        @include theme-color(border-color, primary, 4);
+        content: ' ';
+        display: block;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-top-width: 28px;
+        border-bottom-width: 28px;
+        border-right-width: 1px;
+        border-left: 14px solid transparent;
+        position: absolute;
+        top: 50%;
+        margin-top: -28px;
+        left: -1px;
+      }
+    }
+
+    &,
+    &.zent-steps-item--finished {
+      &.zent-steps-item--disabled:hover,
+      &.zent-steps-item--disabled:active {
+        .zent-steps-step {
+          @include theme-color(background-color, stroke, 7);
+
+          &::after {
+            @include theme-color(border-left-color, stroke, 7);
+          }
+
+          &::before {
+            @include theme-color(border-top-color, stroke, 7);
+            @include theme-color(border-bottom-color, stroke, 7);
+          }
+        }
+      }
+
+      &:not(.zent-steps-item--disabled):hover {
+        .zent-steps-step {
+          @include theme-color(background-color, stroke, 5);
+
+          &::after {
+            @include theme-color(border-left-color, stroke, 5);
+          }
+
+          &::before {
+            @include theme-color(border-top-color, stroke, 5);
+            @include theme-color(border-bottom-color, stroke, 5);
+          }
+        }
+      }
+
+      &:not(.zent-steps-item--disabled):active {
+        .zent-steps-step {
+          @include theme-color(background-color, stroke, 4);
+
+          &::after {
+            @include theme-color(border-left-color, stroke, 4);
+          }
+
+          &::before {
+            @include theme-color(border-top-color, stroke, 4);
+            @include theme-color(border-bottom-color, stroke, 4);
+          }
+        }
+      }
+    }
+
+    &.zent-steps-item--disabled {
+      cursor: not-allowed;
+
+      .zent-steps-step {
+        @include theme-color(background-color, stroke, 7);
+        @include theme-color(border-top-color, stroke, 4);
+        @include theme-color(border-bottom-color, stroke, 4);
+        @include theme-color(color, stroke, 1);
+        border-top-width: 1px;
+        border-bottom-width: 1px;
+        border-top-style: solid;
+        border-bottom-style: solid;
+        line-height: 46px;
+        box-sizing: border-box;
+
+        &::after {
+          @include theme-color(border-left-color, stroke, 7);
+        }
+
+        &::before {
+          border-top-width: 23px;
+          border-bottom-width: 23px;
+          margin-top: -23px;
+          @include theme-color(border-top-color, stroke, 7);
+          @include theme-color(border-bottom-color, stroke, 7);
+        }
+      }
+
+      &::after {
+        @include theme-color(border-left-color, stroke, 4);
+        content: ' ';
+        display: block;
+        width: 0;
+        height: 0;
+        border-top: 28px solid transparent;
+        border-bottom: 28px solid transparent;
+        border-left-width: 14px;
+        border-left-style: solid;
+        position: absolute;
+        top: 50%;
+        margin-top: -28px;
+        right: 1px;
+        z-index: 0;
+      }
+
+      &::before {
+        @include theme-color(border-color, stroke, 4);
+        content: ' ';
+        display: block;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-top-width: 28px;
+        border-bottom-width: 28px;
+        border-right-width: 1px;
+        border-left: 14px solid transparent;
+        position: absolute;
+        top: 50%;
+        margin-top: -28px;
+        left: -1px;
+      }
+    }
+
+    &:first-child {
+      border-left-width: 1px;
+      border-left-style: solid;
+      border-left-color: transparent;
+
+      &.zent-steps-item--current {
+        @include theme-color(border-left-color, primary, 4);
+      }
+
+      &.zent-steps-item--disabled {
+        @include theme-color(border-left-color, stroke, 4);
+      }
+    }
+
+    &:last-child {
+      border-right-width: 1px;
+      border-right-style: solid;
+      border-left-color: transparent;
+
+      &.zent-steps-item--current {
+        @include theme-color(border-right-color, primary, 4);
+      }
+
+      &.zent-steps-item--disabled {
+        @include theme-color(border-right-color, stroke, 4);
       }
     }
   }

@@ -31,12 +31,14 @@ class StepsExample extends Component {
 	render() {
 		let { current } = this.state;
 		return (
-			<Steps current={current} type="breadcrumb" onStepChange={this.onStepChange} >
-				<Steps.Step title="{i18n.stepOneText}" />
-				<Steps.Step title="{i18n.stepTwoText}" />
-				<Steps.Step title="{i18n.stepThreeText}" />
-				<Steps.Step title="{i18n.stepFourText}" />
-			</Steps>
+			<div style={{ backgroundColor: '#f7f7f7', padding: '20px' }}>
+				<Steps current={current} type="breadcrumb" onStepChange={this.onStepChange}>
+					<Steps.Step title="{i18n.stepOneText}"  />
+					<Steps.Step title="{i18n.stepTwoText}"  />
+					<Steps.Step title="{i18n.stepThreeText}" disabled />
+					<Steps.Step title="{i18n.stepFourText}" disabled />
+				</Steps>
+			</div>
 		);
 	}
 }
