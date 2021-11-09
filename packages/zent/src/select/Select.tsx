@@ -556,6 +556,11 @@ export class Select<
     );
     if (activeIndex !== null) {
       this.onSelect(options[activeIndex]);
+    } else {
+      // 没有activeIndex且第一项为create，则自动创建
+      if (options.length && options[0]?.key === SELECT_CREATABLE_KEY) {
+        this.onSelect(options[0]);
+      }
     }
   };
 
