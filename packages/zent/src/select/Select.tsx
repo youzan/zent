@@ -831,14 +831,7 @@ export class Select<
   };
 
   onCreateClick = () => {
-    const test = function (txt) {
-      return new Promise(res => {
-        setTimeout(() => {
-          res(txt);
-        }, 3000);
-      });
-    };
-    const { onCreate = test, multiple } = this.props;
+    const { onCreate, multiple } = this.props;
     const { keyword } = this.state;
 
     if (onCreate) {
