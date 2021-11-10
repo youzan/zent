@@ -49,3 +49,4 @@ Full screen `Loading`, can't wrap content. Used for page loading.
 | Property | Description  | Type     | Required | Default | Alternative |
 | -------- | ------------ | -------- | -------- | ------- | ----------- |
 | zIndex   | Mask z-index | `number` | No       |         |             |
+| showBackground   | Show loading Background | `bool` | No       |         |             |

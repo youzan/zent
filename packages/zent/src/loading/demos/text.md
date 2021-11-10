@@ -14,7 +14,7 @@ import { BlockLoading } from 'zent';
 ReactDOM.render(
 	<div>
 		<BlockLoading loading iconSize={64} iconText="{i18n.text}" />
-		<BlockLoading loading icon="circle" iconSize={64} iconText="{i18n.text}" />
+		<BlockLoading loading icon="youzan" iconSize={64} iconText="{i18n.text}" />
 	</div>,
 	mountNode
 );

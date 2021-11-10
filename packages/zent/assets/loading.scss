@@ -46,6 +46,12 @@
     align-items: center;
     justify-content: center;
   }
+
+  &.zent-loading--show-background .zent-loading-icon-and-text {
+    @include theme-color(background-color, stroke, 9);
+    padding: 32px;
+    border-radius: 4px;
+  }
 }
 
 .zent-loading-icon-youzan {
@@ -106,7 +112,7 @@
     flex-direction: column;
 
     .zent-loading-icon-text {
-      margin-top: 8px;
+      margin-top: 6px;
     }
   }
 
@@ -114,7 +120,7 @@
     flex-direction: column;
 
     .zent-loading-icon-text {
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       order: 1;
     }
 
@@ -125,7 +131,7 @@
 
   &--right {
     .zent-loading-icon-text {
-      margin-left: 8px;
+      margin-left: 6px;
     }
   }
 
@@ -136,7 +142,7 @@
 
     .zent-loading-icon-text {
       order: 1;
-      margin-right: 8px;
+      margin-right: 6px;
     }
   }
 }

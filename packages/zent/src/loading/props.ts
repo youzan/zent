@@ -20,4 +20,5 @@ export type IInlineLoadingProps = ILoadingBaseProps;
 
 export interface IFullScreenLoadingProps extends ILoadingBaseProps {
   zIndex?: number;
+  showBackground?: boolean;
 }
