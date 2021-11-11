@@ -35,6 +35,8 @@ export interface ISelectKeywordChangeMeta {
   source: 'user-clear' | 'user-change' | 'popup-close' | 'option-create';
 }
 
+export type ISelectSize = 'xs' | 's' | 'm' | 'l' | 'xl';
+
 export interface ISelectCommonProps<
   Key extends string | number = string | number,
   Item extends ISelectItem<Key> = ISelectItem<Key>
@@ -47,6 +49,7 @@ export interface ISelectCommonProps<
   notFoundContent?: string;
   inline?: boolean;
   width?: React.CSSProperties['width'];
+  size?: ISelectSize;
   popupWidth?: React.CSSProperties['width'];
   filter?: ((keyword: string, item: Item) => boolean) | false;
   highlight?: (keyword: string, item: Item) => Item;
@@ -216,6 +219,17 @@ const SELECT_CREATABLE_KEY = uniqueId('__ZENT_SELECT_CREATABLE_KEY__');
 
 const DEFAULT_TRIGGER_WIDTH = 240;
 
+const DEFAULT_SIZE_WIDTH = 116;
+const DEFAULT_PADDING_WIDTH = 8;
+
+const SIZE_MAP = {
+  xs: DEFAULT_SIZE_WIDTH,
+  s: DEFAULT_SIZE_WIDTH * 2 + DEFAULT_PADDING_WIDTH,
+  m: DEFAULT_SIZE_WIDTH * 3 + DEFAULT_PADDING_WIDTH * 2,
+  l: DEFAULT_SIZE_WIDTH * 4 + DEFAULT_PADDING_WIDTH * 3,
+  xl: DEFAULT_SIZE_WIDTH * 5 + DEFAULT_PADDING_WIDTH * 4,
+};
+
 export class Select<
   Key extends string | number = string | number,
   Item extends ISelectItem<Key> = ISelectItem<Key>
@@ -226,7 +240,7 @@ export class Select<
     filter: defaultFilter,
     isValidNewOption: defaultIsValidNewOption,
     highlight: defaultHighlight,
-    width: DEFAULT_TRIGGER_WIDTH,
+    size: 's',
     multiple: false,
     clearable: false,
     loading: false,
@@ -252,15 +266,16 @@ export class Select<
     } else {
       value = filterReviver<Key, Item>(props.value ?? null);
     }
+    const { keyword, width, options, size } = props;
     this.state = {
-      keyword: props.keyword ?? '',
+      keyword: keyword ?? '',
       value,
       open: false,
       active: false,
       activeIndex: null,
-      prevOptions: props.options,
+      prevOptions: options,
       creating: false,
-      triggerWidth: props.width,
+      triggerWidth: width ?? (SIZE_MAP[size] || DEFAULT_TRIGGER_WIDTH),
     };
 
     this.tryReviveOption(props);
@@ -311,12 +326,12 @@ export class Select<
     if ('popupWidth' in this.props) {
       return;
     }
+    const { size, width } = this.props;
+    const sizeWidth = SIZE_MAP[size] || DEFAULT_TRIGGER_WIDTH;
+    const useWidth = typeof width === 'number' ? width : sizeWidth;
 
-    const triggerWidth =
-      this.triggerRef.current?.offsetWidth ||
-      typeof this.props.width === 'number'
-        ? this.props.width
-        : DEFAULT_TRIGGER_WIDTH;
+    const triggerWidth = this.triggerRef.current?.offsetWidth || useWidth;
+
     this.setState({
       triggerWidth,
     });
@@ -899,7 +914,11 @@ export class Select<
       collapsable,
       className,
       disableSearch,
+      size,
     } = this.props;
+
+    const sizeWidth = SIZE_MAP[size] || DEFAULT_TRIGGER_WIDTH;
+    const useWidth = typeof width === 'number' ? width : sizeWidth;
 
     const notEmpty = multiple
       ? Array.isArray(value) && value.length > 0
@@ -931,7 +950,7 @@ export class Select<
                     'zent-select-v2-multiple': multiple,
                     'zent-select-v2-collapsable': collapsable,
                   })}
-                  style={{ width }}
+                  style={{ width: useWidth }}
                   onClick={this.focusSearchInput}
                 >
                   {this.renderValue(i18n)}
