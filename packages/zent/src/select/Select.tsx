@@ -675,7 +675,12 @@ export class Select<
         return renderValue ? (
           renderValue(value)
         ) : (
-          <span className="zent-select-v2-text">{value.text}</span>
+          <span
+            className="zent-select-v2-text"
+            title={typeof value.text === 'string' ? value.text : ''}
+          >
+            {value.text}
+          </span>
         );
       }
     }
