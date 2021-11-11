@@ -32,6 +32,7 @@ Collapse/expand contents.
 | --------- | ----------------------- | -------- | -------- | ------- | ----------- |
 | key       | Panel id, [React Keys](https://reactjs.org/docs/lists-and-keys.html#keys)                 | `ReactText` | Yes      |         |             |
 | title     | Panel title             | `node`   | Yes      |         |             |
+| title     | Title custom content             | `node`   | No      |         |             |
 | disabled  | Disable panel           | `bool`   | No       | `false` | `true`      |
 | showArrow | Show arrow in the title | `bool`   | No       | `true`  | `false`     |
 | style     | Custom styles           | `object` | No       |         |             |
