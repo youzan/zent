@@ -20,17 +20,19 @@
     margin: 0 8px;
   }
 
-  &-arrow {
+  &-arrow,
+  &-more {
     @include theme-color(stroke, stroke, 1);
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    font-size: 20px;
   }
 
   &-page-number-button.zent-btn,
   &-arrow-button.zent-btn {
-    padding: 0 8px;
+    padding: 0 5px;
     min-width: 32px;
     position: relative;
     transition: none;

@@ -393,11 +393,8 @@ $btn-warning-active: 1;
     }
   }
 
-  .zenticon:first-child {
-    margin-right: 8px;
-  }
-
-  .zenticon:last-child {
+  .zenticon + span,
+  span + .zenticon {
     margin-left: 8px;
   }
 
