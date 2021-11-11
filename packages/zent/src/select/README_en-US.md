@@ -14,6 +14,7 @@ Select is a drop-down selection component with variety functions.
 | ------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------- | --------------------------- | -------- |
 | options             | Option data                                                                                     | array                                                       | `[]`                        | yes      |
 | value               | Selected value, when tags type, can be passed into the array                                    | any                                                         | `null`                      | no       |
+|size 								| size type											| `xs` `s` `m` `l` `xl` | s |否
 | disabled            | Disable switch                                                                                  | bool                                                        | `false`                     | no       |
 | placeholder         | The default prompt text                                                                         | string                                                      | `'please choose'`           | no       |
 | notFoundContent     | Empty list prompt text                                                                          | string                                                      | `'No matches found'`        | no       |
