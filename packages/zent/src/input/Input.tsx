@@ -19,6 +19,18 @@ const BLOCKED_CHILD_PROPS = [
   'disabled',
 ] as const;
 
+const DEFAULT_SIZE_WIDTH = 116;
+const DEFAULT_PADDING_WIDTH = 8;
+const DEFAULT_INPUT_WIDTH = 240;
+
+const SIZE_MAP = {
+  xs: DEFAULT_SIZE_WIDTH,
+  s: DEFAULT_SIZE_WIDTH * 2 + DEFAULT_PADDING_WIDTH,
+  m: DEFAULT_SIZE_WIDTH * 3 + DEFAULT_PADDING_WIDTH * 2,
+  l: DEFAULT_SIZE_WIDTH * 4 + DEFAULT_PADDING_WIDTH * 3,
+  xl: DEFAULT_SIZE_WIDTH * 5 + DEFAULT_PADDING_WIDTH * 4,
+};
+
 export class Input extends Component<IInputProps, IInputState> {
   static contextType = InputContext;
   static displayName = 'ZentInput';
@@ -26,6 +38,7 @@ export class Input extends Component<IInputProps, IInputState> {
   static defaultProps = {
     type: 'text',
     size: 'normal',
+    widthSize: 's',
   };
 
   context!: IInputContext;
@@ -129,15 +142,17 @@ export class Input extends Component<IInputProps, IInputState> {
       size,
       disabled = disableCtx.value,
       readOnly,
+      widthSize,
     } = props;
     const { hasFocus } = this.state;
     const isTextarea = type.toLowerCase() === 'textarea';
     const editable = !(disabled || readOnly);
     const { renderInner } = this.context;
-
+    const sizeWidth = SIZE_MAP[widthSize] || DEFAULT_INPUT_WIDTH;
+    const useWidth = width ?? sizeWidth;
     const wrapperStyle: React.CSSProperties = {
       ...style,
-      width,
+      width: useWidth,
     };
 
     let isOutOfRange = false;
