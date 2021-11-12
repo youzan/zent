@@ -24,7 +24,7 @@ export class Steps extends Component<IStepsProps> {
     size: 'normal',
     status: 'process',
     sequence: true,
-    ghost: true,
+    ghost: false,
   };
 
   static Step = Step;

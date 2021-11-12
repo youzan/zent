@@ -22,7 +22,7 @@ group: 导航
 | sequence     | 是否使用默认的步骤序号                                            | boolean | `true`         |                                    |
 | onStepChange | 传该参数后 step 可点击切换 (针对 card, breadcrumb，tabs 类型)     | func    | `''`           |                                    |
 | className    | 自定义额外类名                                                    | string  | `''`           |                                    |
-
+| ghost        | 是否使用反色样式（仅支持 breadcrumb 类型）| boolean  | false     |
 #### Steps.Step
 
 步骤条的每一个子项
@@ -31,6 +31,7 @@ group: 导航
 | ----------- | -------------------------------------------------------- | ---- |
 | title       | 标题                                                     | node |
 | description | 步骤的详情描述 (card, breadcrumb, tabs 类型不支持该属性) | node |
+| icon        | 自定义图标 （仅支持 breadcrumb 类型）                   | string / node |
 
 ### 已知问题
 

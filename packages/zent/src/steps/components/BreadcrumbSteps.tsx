@@ -2,6 +2,7 @@ import { Children, Component } from 'react';
 import cx from 'classnames';
 
 import { IStepsProps } from '../Steps';
+import Icon, { IconType } from '../../icon';
 import { isElement } from 'react-is';
 
 export default class BreadcrumbSteps extends Component<IStepsProps> {
@@ -50,6 +51,35 @@ export default class BreadcrumbSteps extends Component<IStepsProps> {
           });
 
           const itemTitle = item.props.title;
+          const itemIcon = item.props.icon;
+          const iconNode =
+            typeof itemIcon === 'string' ? (
+              <Icon
+                type={itemIcon as IconType}
+                className="zent-steps-item__icon"
+              />
+            ) : (
+              itemIcon
+            );
+
+          let stepTitle = itemTitle;
+          if (iconNode) {
+            stepTitle = (
+              <>
+                {iconNode}
+                {itemTitle}
+              </>
+            );
+          } else if (sequence) {
+            stepTitle = (
+              <>
+                {index + 1}. {itemTitle}
+              </>
+            );
+          }
+
+          // eslint-disable-next-line no-console
+          console.log({ itemIcon });
 
           return (
             <div
@@ -57,9 +87,7 @@ export default class BreadcrumbSteps extends Component<IStepsProps> {
               style={{ width: stepWidth }}
               onClick={() => !isDisabled && this.onStepChange(index + 1)}
             >
-              <div className="zent-steps-step">
-                {sequence ? `${index + 1}. ${itemTitle}` : itemTitle}
-              </div>
+              <div className="zent-steps-step">{stepTitle}</div>
             </div>
           );
         })}

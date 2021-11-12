@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import classNames from 'classnames';
 
-import Icon from '../../icon';
+import Icon, { IconType } from '../../icon';
 
 export interface IStepProps {
   title?: React.ReactNode;
@@ -13,6 +13,7 @@ export interface IStepProps {
   stepNumber?: string;
   sequence?: boolean;
   disabled?: boolean;
+  icon?: IconType | React.ReactNode;
 }
 
 export default class Step extends Component<IStepProps> {
