@@ -271,4 +271,14 @@ describe('Input', () => {
         window.getSelection().toString()
     ).toBe(true);
   });
+
+  it('can password', () => {
+    const wrapper = mount(
+      <Input.Password defaultValue="not placeholder" readOnly className="foo" />
+    );
+    expect(wrapper.find('input').props().className).toBe('zent-input');
+    expect(wrapper.find('input').props().readOnly).toBe(true);
+    expect(wrapper.find('input').props().type).toBe('password');
+    expect(wrapper.find('input').props().defaultValue).toBe('not placeholder');
+  });
 });
