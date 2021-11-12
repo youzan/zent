@@ -1,27 +1,23 @@
 import Input from './Input';
 import { DisabledContext } from '../disabled';
-import { useState, useCallback, useRef, useEffect } from 'react';
+import { useState, useCallback, useRef } from 'react';
 
 const Password = props => {
   const [visible, setVisible] = useState(false);
-  const firstMount = useRef(true);
   const { icon, type, onIconClick, ...restProps } = props;
   const { disabled } = props;
   const inputRef = useRef<any>(undefined);
-  const onVisibleChange = useCallback(() => {
-    if (disabled) {
-      return;
-    }
-    setVisible(!visible);
-  }, [visible, disabled]);
-
-  useEffect(() => {
-    if (firstMount.current) {
-      firstMount.current = false;
-    } else {
-      inputRef.current.focus();
-    }
-  }, [visible]);
+  const onVisibleChange = useCallback(
+    e => {
+      e.stopPropagation();
+      e.preventDefault();
+      if (disabled) {
+        return;
+      }
+      setVisible(!visible);
+    },
+    [visible, disabled]
+  );
 
   const renderPassword = () => {
     return (
