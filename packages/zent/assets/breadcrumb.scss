@@ -47,6 +47,11 @@
     }
   }
 
+  &__fold:hover {
+    @include theme-color(color, 'weak-link', 'hover-color');
+    cursor: pointer;
+  }
+
   &.zent-breadcrumb-nav {
     padding: 0;
 
