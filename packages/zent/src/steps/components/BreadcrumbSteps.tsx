@@ -1,6 +1,6 @@
 import { Children, Component } from 'react';
 import cx from 'classnames';
-
+import { IStepProps } from './Step';
 import { IStepsProps } from '../Steps';
 import Icon, { IconType } from '../../icon';
 import { isElement } from 'react-is';
@@ -11,17 +11,39 @@ export default class BreadcrumbSteps extends Component<IStepsProps> {
     onStepChange && onStepChange(id);
   };
 
+  renderStepTitle = (itemProps: IStepProps, index: number) => {
+    const { sequence } = this.props;
+    const { icon, title } = itemProps;
+
+    if (icon) {
+      const iconNode =
+        typeof icon === 'string' ? (
+          <Icon type={icon as IconType} className="zent-steps-item__icon" />
+        ) : (
+          icon
+        );
+      return (
+        <>
+          {iconNode}
+          {title}
+        </>
+      );
+    }
+
+    if (sequence) {
+      return (
+        <>
+          {index + 1}. {title}
+        </>
+      );
+    }
+
+    return title;
+  };
+
   render() {
     const props = this.props;
-    const {
-      className,
-      children,
-      current,
-      sequence,
-      onStepChange,
-      type,
-      ghost,
-    } = props;
+    const { className, children, current, onStepChange, type, ghost } = props;
     const stepWidth = `${100 / Children.count(children)}%`;
     const isBreadcrumb = type === 'breadcrumb';
     const isCard = type === 'card';
@@ -41,7 +63,8 @@ export default class BreadcrumbSteps extends Component<IStepsProps> {
             return null;
           }
 
-          const isDisabled = item.props.disabled && isBreadcrumbGhost;
+          const { disabled } = item.props;
+          const isDisabled = disabled && isBreadcrumbGhost;
           const stepClassName = cx('zent-steps-item', {
             'zent-steps-item--finished': isBreadcrumb && index <= current - 1,
             'zent-steps-item--current':
@@ -50,44 +73,15 @@ export default class BreadcrumbSteps extends Component<IStepsProps> {
             'zent-steps-item--disabled': isDisabled,
           });
 
-          const itemTitle = item.props.title;
-          const itemIcon = item.props.icon;
-          const iconNode =
-            typeof itemIcon === 'string' ? (
-              <Icon
-                type={itemIcon as IconType}
-                className="zent-steps-item__icon"
-              />
-            ) : (
-              itemIcon
-            );
-
-          let stepTitle = itemTitle;
-          if (iconNode) {
-            stepTitle = (
-              <>
-                {iconNode}
-                {itemTitle}
-              </>
-            );
-          } else if (sequence) {
-            stepTitle = (
-              <>
-                {index + 1}. {itemTitle}
-              </>
-            );
-          }
-
-          // eslint-disable-next-line no-console
-          console.log({ itemIcon });
-
           return (
             <div
               className={stepClassName}
               style={{ width: stepWidth }}
               onClick={() => !isDisabled && this.onStepChange(index + 1)}
             >
-              <div className="zent-steps-step">{stepTitle}</div>
+              <div className="zent-steps-step">
+                {this.renderStepTitle(item.props, index)}
+              </div>
             </div>
           );
         })}
