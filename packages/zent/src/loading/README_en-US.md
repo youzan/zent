@@ -22,7 +22,7 @@ group: Feedback
 | ------------ | ------------------------------------ | --------- | -------- | ----------- | -------------------------------- |
 | loading      | Loading state                        | `boolean` | No       | `false`     | `true`                           |
 | delay        | Milliseconds to delay before loading | `number`  | No       | `0`         |                                  |
-| icon         | Icon type                            | `string`  | No       | `'youzan'`  | `'circle'`                       |
+| icon         | Icon type                            | `string`  | No       | `'circle'`  | `'youzan'`                       |
 | iconSize     | Icon size                            | `number`  | No       |             |                                  |
 | iconText     | Icon text                            | `string`  | No       |             |                                  |
 | colorPreset  | Color preset                         | `string`  | No       | `'primary'` | `'grey'`                         |

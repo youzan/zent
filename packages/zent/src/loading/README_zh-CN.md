@@ -24,7 +24,7 @@ group: 反馈
 | ------------ | -------------------- | ------ | -------- | ---------- | -------------------------------- |
 | loading      | 显示控制             | `boolean`   | 否       | `false`    | `true`                           |
 | delay        | 显示延迟时间（毫秒） | number | 否       | `0`        |                                  |
-| icon         | 图标样式             | `string` | 否       | `'youzan'` | `'circle'`                       |
+| icon         | 图标样式             | `string` | 否       | `'circle'` | `'youzan'`                       |
 | iconSize     | 图标大小             | `number` | 否       |            |                                  |
 | iconText     | 图标文案             | `string` | 否       |            |                                  |
 | colorPreset  | 预设主题色           | `string` | 否       | `'primary'` | `'grey'`                       |
