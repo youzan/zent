@@ -46,6 +46,8 @@
   display: inline-block;
   position: relative;
 
+  $p: &;
+
   &-seperator {
     margin: 0 8px;
   }
@@ -119,6 +121,11 @@
     }
 
     &-focus {
+      @include theme-color(border-color, primary, 4);
+    }
+
+    &:not(#{$p}-disabled):hover {
+      cursor: pointer;
       @include theme-color(border-color, primary, 4);
     }
   }
