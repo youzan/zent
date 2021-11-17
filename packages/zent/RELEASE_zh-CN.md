@@ -14,7 +14,7 @@
 
 - `Form`
   - 🦀️ `FieldSet` 和 `FieldArrayModel` 支持 `destroyOnUnmount` 以及 `normalizeBeforeSubmit` 属性
-  - 🦀️ 修复在 `FieldSet` 上开启 `destroyOnUnmount` 并且其值或者校验状态从未被读取时的奔溃问题
+  - 🦀️ 修复在 `FieldSet` 上开启 `destroyOnUnmount` 并且其值或者校验状态从未被读取时的崩溃问题
 - `CombinedDateRangePicker`
   - 🦀️ `onChange` 仅在点击确定按钮时才触发
   - 🦀️ 修复开始时间在选择完结束时间后丢失的问题
@@ -194,7 +194,7 @@
 - `Grid`
   - 🦀️ 修复并统一单选/多选/展开列的样式
   - 🦀️ 列配置中的 `nowrap` 重命名为 `noWrap`，老字段仍然兼容
-  - 📚 更新文档中关于 `Table` 的描述
+  - 📚 更新文档中对于 `Table` 的描述
 - 📚 更新 `Form` 的文档，补充了基础 API 的信息
 
 ### 9.4.2(2021-03-26)
