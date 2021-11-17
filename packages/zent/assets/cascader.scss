@@ -233,11 +233,12 @@ $menuHeight: 180px;
       }
 
       &:hover {
-        @include theme-color(background-color, primary, 8);
+        @include theme-color(background-color, stroke, 8);
       }
 
       &--active {
-        @include theme-color(background-color, stroke, 8);
+        @include theme-color(background-color, primary, 8);
+        font-weight: bold;
       }
 
       &--disabled {
@@ -285,14 +286,14 @@ $menuHeight: 180px;
 
   &__list {
     font-size: 0;
-    padding: 8px 0 8px 12px;
+    padding: 12px 0 12px 12px;
     min-height: 215px;
     box-sizing: border-box;
 
     &-item {
       display: inline-block;
       box-sizing: border-box;
-      margin: 8px 4px;
+      margin: 4px 4px;
     }
 
     &-link {
@@ -313,8 +314,9 @@ $menuHeight: 180px;
       }
 
       &--active {
-        @include theme-color(background-color, primary, 4);
-        @include theme-color(color, stroke, 9);
+        @include theme-color(background-color, primary, 8);
+        @include theme-color(color, stroke, 1);
+        font-weight: bold;
         border-radius: 2px;
       }
     }
