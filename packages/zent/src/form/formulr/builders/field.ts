@@ -1,7 +1,6 @@
-import { FieldModel, INormalizeBeforeSubmit } from '../models';
+import { FieldModel } from '../models';
 import { BasicBuilder } from './basic';
 import { Maybe, or } from '../maybe';
-import { id } from '../utils';
 
 export class FieldBuilder<Value> extends BasicBuilder<
   Value,
@@ -9,15 +8,6 @@ export class FieldBuilder<Value> extends BasicBuilder<
 > {
   constructor(protected _defaultValue: Value) {
     super();
-  }
-
-  private _normalizeBeforeSubmit: INormalizeBeforeSubmit<Value, any> = id;
-
-  normalizeBeforeSubmit<T>(
-    normalizeBeforeSubmit: INormalizeBeforeSubmit<Value, T>
-  ) {
-    this._normalizeBeforeSubmit = normalizeBeforeSubmit;
-    return this;
   }
 
   build(defaultValue?: Maybe<Value>) {
