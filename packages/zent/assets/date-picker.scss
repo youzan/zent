@@ -297,6 +297,10 @@
         margin-left: 12px;
       }
 
+      &-current.zent-btn {
+        margin-left: 0;
+      }
+
       &-current_disabled {
         @include gray-color;
       }
@@ -345,7 +349,7 @@
         cursor: pointer;
 
         &_selected {
-          @include theme-color(background-color, stroke, 7);
+          @include blue-bgcolor;
           font-weight: $font-weight-medium;
         }
 
@@ -358,7 +362,7 @@
         }
 
         &_available:hover {
-          @include blue-bgcolor;
+          @include theme-color(background-color, stroke, 7);
         }
       }
     }
