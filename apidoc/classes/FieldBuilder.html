@@ -100,6 +100,7 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="FieldBuilder.html#_defaultValue" class="tsd-kind-icon">_default<wbr>Value</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="FieldBuilder.html#_normalizeBeforeSubmit" class="tsd-kind-icon">_normalize<wbr>Before<wbr>Submit</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="FieldBuilder.html#_validators" class="tsd-kind-icon">_validators</a></li>
 							</ul>
 						</section>
@@ -107,7 +108,7 @@
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="FieldBuilder.html#build" class="tsd-kind-icon">build</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="FieldBuilder.html#normalizeBeforeSubmit" class="tsd-kind-icon">normalize<wbr>Before<wbr>Submit</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="FieldBuilder.html#normalizeBeforeSubmit" class="tsd-kind-icon">normalize<wbr>Before<wbr>Submit</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="FieldBuilder.html#validators" class="tsd-kind-icon">validators</a></li>
 							</ul>
 						</section>
@@ -127,7 +128,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="BasicBuilder.html">BasicBuilder</a>.<a href="BasicBuilder.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/0a66c18/packages/zent/src/form/formulr/builders/field.ts#L10">packages/zent/src/form/formulr/builders/field.ts:10</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/77a652b/packages/zent/src/form/formulr/builders/field.ts#L9">packages/zent/src/form/formulr/builders/field.ts:9</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -157,13 +158,24 @@
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+					<a name="_normalizeBeforeSubmit" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> _normalize<wbr>Before<wbr>Submit</h3>
+					<div class="tsd-signature tsd-kind-icon">_normalize<wbr>Before<wbr>Submit<span class="tsd-signature-symbol">:</span> <a href="../interfaces/INormalizeBeforeSubmit.html" class="tsd-signature-type" data-tsd-kind="Interface">INormalizeBeforeSubmit</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = ...</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="BasicBuilder.html">BasicBuilder</a>.<a href="BasicBuilder.html#_normalizeBeforeSubmit">_normalizeBeforeSubmit</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/77a652b/packages/zent/src/form/formulr/builders/basic.ts#L17">packages/zent/src/form/formulr/builders/basic.ts:17</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="_validators" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> _validators</h3>
 					<div class="tsd-signature tsd-kind-icon">_validators<span class="tsd-signature-symbol">:</span> <a href="../modules.html#IValidators" class="tsd-signature-type" data-tsd-kind="Type alias">IValidators</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = []</span></div>
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="BasicBuilder.html">BasicBuilder</a>.<a href="BasicBuilder.html#_validators">_validators</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/0a66c18/packages/zent/src/form/formulr/builders/basic.ts#L13">packages/zent/src/form/formulr/builders/basic.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/77a652b/packages/zent/src/form/formulr/builders/basic.ts#L15">packages/zent/src/form/formulr/builders/basic.ts:15</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -181,7 +193,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="BasicBuilder.html">BasicBuilder</a>.<a href="BasicBuilder.html#build">build</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/0a66c18/packages/zent/src/form/formulr/builders/field.ts#L23">packages/zent/src/form/formulr/builders/field.ts:23</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/77a652b/packages/zent/src/form/formulr/builders/field.ts#L13">packages/zent/src/form/formulr/builders/field.ts:13</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -194,17 +206,18 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 					<a name="normalizeBeforeSubmit" class="tsd-anchor"></a>
 					<h3>normalize<wbr>Before<wbr>Submit</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">normalize<wbr>Before<wbr>Submit&lt;T&gt;<span class="tsd-signature-symbol">(</span>normalizeBeforeSubmit<span class="tsd-signature-symbol">: </span><a href="../interfaces/INormalizeBeforeSubmit.html" class="tsd-signature-type" data-tsd-kind="Interface">INormalizeBeforeSubmit</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="FieldBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">FieldBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from <a href="BasicBuilder.html">BasicBuilder</a>.<a href="BasicBuilder.html#normalizeBeforeSubmit">normalizeBeforeSubmit</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/0a66c18/packages/zent/src/form/formulr/builders/field.ts#L16">packages/zent/src/form/formulr/builders/field.ts:16</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/77a652b/packages/zent/src/form/formulr/builders/basic.ts#L20">packages/zent/src/form/formulr/builders/basic.ts:20</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -234,7 +247,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="BasicBuilder.html">BasicBuilder</a>.<a href="BasicBuilder.html#validators">validators</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/0a66c18/packages/zent/src/form/formulr/builders/basic.ts#L21">packages/zent/src/form/formulr/builders/basic.ts:21</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/77a652b/packages/zent/src/form/formulr/builders/basic.ts#L33">packages/zent/src/form/formulr/builders/basic.ts:33</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -279,12 +292,15 @@
 								<a href="FieldBuilder.html#_defaultValue" class="tsd-kind-icon">_default<wbr>Value</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="FieldBuilder.html#_normalizeBeforeSubmit" class="tsd-kind-icon">_normalize<wbr>Before<wbr>Submit</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="FieldBuilder.html#_validators" class="tsd-kind-icon">_validators</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 								<a href="FieldBuilder.html#build" class="tsd-kind-icon">build</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 								<a href="FieldBuilder.html#normalizeBeforeSubmit" class="tsd-kind-icon">normalize<wbr>Before<wbr>Submit</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
