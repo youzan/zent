@@ -17,14 +17,16 @@ Swiper is used for a group of flat content circulated.
 | transitionDuration | switch animation duration(ms)            | number                                | `300`          |                               |
 | autoplay           | switch automatically                     | bool                                  | `false`        | `true`                        |
 | autoplayInterval   | automatic switch interval(ms)            | number                                | `3000`         |                               |
-| dots               | wether to show the page button below     | bool                                  | `true`         | `false`                       |
+| dots               | wether to show the page button below     | bool \| `'round'` \| `'line'`  | `true`     | `true`, `false`, `'round'`, `'line'`                        |
 | dotsColor          | page button color                        | string                                | `'black'`      | any css color value in string |
 | dotsSize           | page button size                         | string                                | `'normal'`     | `'small'`, `'large'`          |
-| arrows             | wether to show flip button on both sides | bool                                  | `false`        |                               |
+| arrows             | wether to show flip button on both sides | bool \| `'hover'`    | `false`    | `true`, `false`, `'hover'`       |                          |
 | arrowsType         | flip button color                        | string                                | `'dark'`       | `'dark'`, `'light'`           |
+| arrowsSize         | flip button size       |	`'normal'` \| `'large'`  | `'normal'` | `'normal'` \| `'large'`
+| arrowsDisabled     | wether to disabled flip button |	`{ left?: bool, right?: bool }`  | {} | 
 | onChange           | switch callback                          | (current: number, prev: number): void | `noop`         |                               |
-| renderPrevArrow    | Custom goto previous button              | `(onPrev: () => void) => ReactNode`   | Default button |                               |
-| renderNextArrow    | Custom goto next button                  | `(onNext: () => void) => ReactNode`   | Default button |                               |
+| renderPrevArrow    | Custom goto previous button              | `(onPrev: () => void, disabled: bool) => ReactNode`   | Default button |                               |
+| renderNextArrow    | Custom goto next button                  | `(onNext: () => void, disabled: bool) => ReactNode`   | Default button |                               |
 | className          | custom classname                         | string                                | `''`           |                               |
 
 ### Instance Methods
@@ -47,8 +49,12 @@ Swiper is used for a group of flat content circulated.
 }
 .swiper-demo-simple-h {
 	text-align: center;
-	font-size: 18px;
+	background: #CCC;
+	font-family: Avenir-BlackOblique;
+	font-size: 48px;
+	color: #FFFFFF;
 	line-height: 150px;
+	font-weight: 900;
 }
 .swiper-demo-simple-text {
 	margin-top: 10px;

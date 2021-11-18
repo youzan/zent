@@ -7,7 +7,7 @@
   &__container {
     height: 100%;
     position: relative;
-    transition: ease-in-out;
+    transition: $timing-fn-ease-in-out-cubic;
   }
 
   &__arrow {
@@ -18,16 +18,30 @@
     z-index: 2;
 
     &-icon {
-      @include theme-color(color, stroke, 6);
-      font-size: 20px;
+      color: $gray-700;
+      font-size: 24px;
+      opacity: 0.3;
+      transition: opacity 100ms $timing-fn-linear;
 
       &:hover {
-        @include theme-color(color, stroke, 5);
+        opacity: 0.7;
+      }
+    }
+
+    &--disabled {
+      cursor: not-allowed;
+
+      .zent-swiper__arrow-icon {
+        opacity: 0.1;
+
+        &:hover {
+          opacity: 0.1;
+        }
       }
     }
 
     &-left {
-      left: 10px;
+      left: 14px;
 
       .zent-swiper__arrow-icon {
         transform: rotate(180deg);
@@ -35,7 +49,21 @@
     }
 
     &-right {
-      right: 20px;
+      right: 14px;
+    }
+  }
+
+  &--arrow-large &__arrow-icon {
+    font-size: 40px;
+  }
+
+  &--hover-show-arrow {
+    .zent-swiper__arrow-icon {
+      display: none;
+    }
+
+    &:hover .zent-swiper__arrow-icon {
+      display: inline-block;
     }
   }
 
@@ -54,25 +82,49 @@
     z-index: 1;
 
     &-item {
-      @include theme-color(background-color, stroke, 6);
+      @include theme-color(background-color, stroke, 9);
+      opacity: 0.3;
       display: inline-block;
-      margin: 12px 5px;
       border: 0;
       cursor: pointer;
-      height: 12px;
-      width: 12px;
-      border-radius: 100%;
       outline: none;
     }
 
-    &-large .zent-swiper__dots-item {
-      height: 15px;
-      width: 15px;
+    &--line &-item {
+      margin: 8px 4px;
+      height: 4px;
+      width: 16px;
+      border-radius: 2px;
+      transition: all 300ms $timing-fn-ease-in-out-cubic;
+      opacity: 0.3;
+
+      &.zent-swiper__dots-item-active {
+        width: 24px;
+        opacity: 1;
+      }
     }
 
-    &-small .zent-swiper__dots-item {
-      height: 10px;
-      width: 10px;
+    &--round {
+      .zent-swiper__dots-item {
+        height: 12px;
+        width: 12px;
+        margin: 12px 5px;
+        border-radius: 100%;
+      }
+
+      .zent-swiper__dots-large .zent-swiper__dots-item {
+        height: 15px;
+        width: 15px;
+      }
+
+      .zent-swiper__dots-small .zent-swiper__dots-item {
+        height: 15px;
+        width: 15px;
+      }
+    }
+
+    &-white .zent-swiper__dots-item-active {
+      @include theme-color(background-color, stroke, 9);
     }
 
     &-black .zent-swiper__dots-item-active {
