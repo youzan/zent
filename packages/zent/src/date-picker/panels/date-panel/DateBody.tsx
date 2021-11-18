@@ -89,9 +89,14 @@ const DatePickerBody: FC<IDatePickerBodyProps> = props => {
       selectedDate = setYear(selectedDate, val.getFullYear());
       selectedDate = setMonth(selectedDate, val.getMonth());
       selectedDate = setDate(selectedDate, val.getDate());
+      // 已经选择过时间了，时间不清空
+      const hasTime =
+        selectedDate.getHours() ||
+        selectedDate.getMinutes() ||
+        selectedDate.getSeconds();
 
       onSelected(
-        defaultTime
+        defaultTime && !hasTime
           ? parse(defaultTimeFn(), format, selectedDate)
           : selectedDate
       );

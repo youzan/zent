@@ -1,43 +1,57 @@
 import noop from '../../utils/noop';
+import Icon from '../../icon';
 
-const XMLNS = 'http://www.w3.org/2000/svg';
-const transformMap = {
-  left: '',
-  right: 'matrix(-1 0 0 1 18 0)',
-};
-const Path = 'M10 11l-1 1-4-4-1-1 5-5 1 1-4 4 4 4z';
+// const XMLNS = 'http://www.w3.org/2000/svg';
+// const transformMap = {
+//   left: '',
+//   right: 'matrix(-1 0 0 1 18 0)',
+// };
+// const Path = 'M10 11l-1 1-4-4-1-1 5-5 1 1-4 4 4 4z';
 
 const prefixCls = 'zent-datepicker-panel-header';
 interface IArrowProps {
   onClick: () => void;
   type: 'left' | 'right';
 }
-const DoubleArrow: React.FC<IArrowProps> = ({ onClick, type }) => (
-  <svg
-    width="14"
-    height="14"
-    xmlns={XMLNS}
-    className={`${prefixCls}-arrow`}
+// const DoubleArrow: React.FC<IArrowProps> = ({ onClick, type }) => (
+//   <svg
+//     width="14"
+//     height="14"
+//     xmlns={XMLNS}
+//     className={`${prefixCls}-arrow`}
+//     onClick={onClick}
+//   >
+//     <g fillRule="evenodd" transform={transformMap[type]}>
+//       <path d={Path} />
+//       <path transform="translate(4)" d={Path} />
+//     </g>
+//   </svg>
+// );
+//
+// const Arrow: React.FC<IArrowProps> = ({ onClick, type }) => (
+//   <svg
+//     width="14"
+//     height="14"
+//     xmlns={XMLNS}
+//     className={`${prefixCls}-arrow`}
+//     onClick={onClick}
+//   >
+//     <path d={Path} transform={transformMap[type]} />
+//   </svg>
+// );
+
+const DoubleIconArrow: React.FC<IArrowProps> = ({ onClick, type }) => (
+  <Icon
+    type={type === 'left' ? 'double-last' : 'double-next'}
     onClick={onClick}
-  >
-    <g fillRule="evenodd" transform={transformMap[type]}>
-      <path d={Path} />
-      <path transform="translate(4)" d={Path} />
-    </g>
-  </svg>
+    className={`${prefixCls}-arrow`}
+  />
 );
 
-const Arrow: React.FC<IArrowProps> = ({ onClick, type }) => (
-  <svg
-    width="14"
-    height="14"
-    xmlns={XMLNS}
-    className={`${prefixCls}-arrow`}
-    onClick={onClick}
-  >
-    <path d={Path} transform={transformMap[type]} />
-  </svg>
+const IconArrow: React.FC<IArrowProps> = ({ onClick, type }) => (
+  <Icon type={type} onClick={onClick} className={`${prefixCls}-arrow`} />
 );
+
 interface ITitleProps {
   text: string | number;
   unit?: string;
@@ -76,8 +90,8 @@ const PanelHeader: React.FC<IPanelHeaderProps> = ({
       <div className={`${prefixCls}-btns`}>
         {!combinedRight && (
           <>
-            {showSuper && <DoubleArrow onClick={onSuperPrev} type="left" />}
-            <Arrow onClick={onPrev} type="left" />
+            {showSuper && <DoubleIconArrow onClick={onSuperPrev} type="left" />}
+            <IconArrow onClick={onPrev} type="left" />
           </>
         )}
       </div>
@@ -85,8 +99,10 @@ const PanelHeader: React.FC<IPanelHeaderProps> = ({
       <div className={`${prefixCls}-btns`}>
         {!combinedLeft && (
           <>
-            <Arrow onClick={onNext} type="right" />
-            {showSuper && <DoubleArrow onClick={onSuperNext} type="right" />}
+            <IconArrow onClick={onNext} type="right" />
+            {showSuper && (
+              <DoubleIconArrow onClick={onSuperNext} type="right" />
+            )}
           </>
         )}
       </div>
