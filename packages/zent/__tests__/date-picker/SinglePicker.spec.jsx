@@ -258,14 +258,14 @@ describe('SinglePicker', () => {
     const prevs = header.querySelectorAll(
       '.zent-datepicker-panel-header-btns'
     )[0];
-    const prevBtns = prevs.querySelectorAll('svg');
+    const prevBtns = prevs.querySelectorAll('.zenticon');
     Simulate.click(prevBtns[0]);
     Simulate.click(prevBtns[1]);
     // next
     const nexts = header.querySelectorAll(
       '.zent-datepicker-panel-header-btns'
     )[1];
-    const nextBtns = nexts.querySelectorAll('svg');
+    const nextBtns = nexts.querySelectorAll('.zenticon');
     Simulate.click(nextBtns[0]);
     Simulate.click(nextBtns[1]);
 
@@ -299,13 +299,13 @@ describe('SinglePicker', () => {
     const prevs = header.querySelectorAll(
       '.zent-datepicker-panel-header-btns'
     )[0];
-    const prevBtns = prevs.querySelectorAll('svg');
+    const prevBtns = prevs.querySelectorAll('.zenticon');
     Simulate.click(prevBtns[0]);
     // next
     const nexts = header.querySelectorAll(
       '.zent-datepicker-panel-header-btns'
     )[1];
-    const nextBtns = nexts.querySelectorAll('svg');
+    const nextBtns = nexts.querySelectorAll('.zenticon');
     Simulate.click(nextBtns[0]);
     wrapper.unmount();
   });
@@ -331,13 +331,13 @@ describe('SinglePicker', () => {
     const prevs = header.querySelectorAll(
       '.zent-datepicker-panel-header-btns'
     )[0];
-    const prevBtns = prevs.querySelectorAll('svg');
+    const prevBtns = prevs.querySelectorAll('.zenticon');
     Simulate.click(prevBtns[0]);
     // next
     const nexts = header.querySelectorAll(
       '.zent-datepicker-panel-header-btns'
     )[1];
-    const nextBtns = nexts.querySelectorAll('svg');
+    const nextBtns = nexts.querySelectorAll('.zenticon');
     Simulate.click(nextBtns[0]);
     wrapper.unmount();
   });
@@ -352,13 +352,13 @@ describe('SinglePicker', () => {
     const prevs = header.querySelectorAll(
       '.zent-datepicker-panel-header-btns'
     )[0];
-    const prevBtns = prevs.querySelectorAll('svg');
+    const prevBtns = prevs.querySelectorAll('.zenticon');
     Simulate.click(prevBtns[0]);
     // next
     const nexts = header.querySelectorAll(
       '.zent-datepicker-panel-header-btns'
     )[1];
-    const nextBtns = nexts.querySelectorAll('svg');
+    const nextBtns = nexts.querySelectorAll('.zenticon');
     Simulate.click(nextBtns[0]);
     wrapper.unmount();
   });
