@@ -23,6 +23,10 @@ $state-color-depth-map: (
     @include theme-color(color, stroke, 3);
     font-weight: $font-weight-medium;
     display: inline-block;
+
+    & > .zenticon {
+      font-size: 20px;
+    }
   }
 
   &-type__line {
@@ -35,13 +39,24 @@ $state-color-depth-map: (
       @include theme-color(background-color, stroke, 8);
       display: inline-block;
       vertical-align: middle;
-      border-radius: 2px;
+      border-radius: 100px;
+    }
+
+    .zent-progress-wrapper--round .zent-progress-inner {
+      border-top-right-radius: 100px;
+      border-bottom-right-radius: 100px;
+    }
+
+    .zent-progress-wrapper--square:not(.zent-progress-wrapper--finished)
+      .zent-progress-inner {
+      border-top-right-radius: 2px;
+      border-bottom-right-radius: 2px;
     }
 
     .zent-progress-inner {
       transition: all $transition-spec;
       position: relative;
-      border-radius: 2px;
+      border-radius: 100px;
 
       &:after {
         display: block;
@@ -88,7 +103,11 @@ $state-color-depth-map: (
         }
 
         .zent-progress-info {
-          @include theme-color(color, $color-type, $color-depth);
+          @include theme-color(color, stroke, 1);
+
+          & > .zenticon {
+            @include theme-color(color, $color-type, $color-depth);
+          }
         }
       }
     }
@@ -129,6 +148,10 @@ $state-color-depth-map: (
       stroke-linecap: round;
       fill: none;
       transform-origin: center;
+
+      &--square {
+        stroke-linecap: square;
+      }
     }
 
     .zent-progress-inner-path {
@@ -149,7 +172,11 @@ $state-color-depth-map: (
         }
 
         .zent-progress-info {
-          @include theme-color(color, $color-type, $color-depth);
+          @include theme-color(color, stroke, 1);
+
+          & > .zenticon {
+            @include theme-color(color, $color-type, $color-depth);
+          }
         }
       }
     }

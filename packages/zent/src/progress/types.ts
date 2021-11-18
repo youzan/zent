@@ -4,12 +4,15 @@ export type IProgressType = 'line' | 'circle';
 export type IProgressStatus = 'normal' | 'success' | 'exception';
 export type IProgressFormatFn = (precent: number) => React.ReactNode;
 
+type IstrokeLinecap = 'square' | 'round';
+
 export interface ICommonProgressProps {
   percent?: number;
   showInfo?: boolean;
   strokeWidth?: number;
   width?: number;
   bgColor?: string;
+  strokeLinecap?: IstrokeLinecap;
   format?: IProgressFormatFn;
 }
 
@@ -34,4 +37,5 @@ export interface IProgressInfoProps {
   percent: number;
   format: IProgressFormatFn;
   state: IProgressStatus;
+  color?: string;
 }

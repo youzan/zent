@@ -1,3 +1,4 @@
+import cx from 'classnames';
 import { IProgressInstanceProps } from '../types';
 import { DEFAULT_WIDTH } from '../constants';
 import AnimatedArc from './AnimatedArc';
@@ -13,6 +14,7 @@ const CircleProgress: React.FC<IProgressInstanceProps> = props => {
     bgColor,
     color,
     state,
+    strokeLinecap,
   } = props;
   const progressWidth = width || DEFAULT_WIDTH.CIRCLE;
   const mid = progressWidth / 2;
@@ -55,7 +57,10 @@ const CircleProgress: React.FC<IProgressInstanceProps> = props => {
          */}
         <g transform={`rotate(-90 ${mid} ${mid})`}>
           <circle
-            className="zent-progress-inner-path"
+            className={cx(
+              'zent-progress-inner-path',
+              `zent-progress-inner-path--${strokeLinecap}`
+            )}
             cx={mid}
             cy={mid}
             r={radius}
@@ -67,7 +72,10 @@ const CircleProgress: React.FC<IProgressInstanceProps> = props => {
 
         {state === 'normal' && (
           <AnimatedArc
-            className="zent-progress-path-mask"
+            className={cx(
+              'zent-progress-path-mask',
+              `zent-progress-path-mask--${strokeLinecap}`
+            )}
             radius={radius}
             arcLength={circumference - offset}
             strokeWidth={strokeWidth}
@@ -75,17 +83,13 @@ const CircleProgress: React.FC<IProgressInstanceProps> = props => {
         )}
       </svg>
       {showInfo && (
-        <div
-          className="zent-progress-info"
-          style={{
-            color,
-          }}
-        >
+        <div className="zent-progress-info">
           <ProgressInfo
             type="circle"
             percent={percent}
             format={format}
             state={state}
+            color={color}
           />
         </div>
       )}
