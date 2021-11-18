@@ -130,7 +130,7 @@
   }
 
   &-tab {
-    @include theme-color(color, stroke, 2);
+    @include theme-color(color, stroke, 1);
     position: relative;
     cursor: pointer;
     box-sizing: border-box;
@@ -145,6 +145,10 @@
       transform: translateY(-50%);
       font-size: $font-size-normal;
       display: none;
+
+      &:hover {
+        @include theme-color(color, stroke, 1);
+      }
     }
 
     &:hover {
@@ -186,10 +190,10 @@
 
   &-tab {
     padding: 6px 12px;
-    cursor: default;
+    cursor: pointer;
 
     &:hover {
-      @include theme-color(background-color, primary, 8);
+      @include theme-color(background-color, stroke, 8);
     }
 
     &-disabled {
@@ -261,6 +265,10 @@
       text-align: center;
     }
 
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+
     &:first-child {
       @include border(left);
       border-top-left-radius: 4px;
@@ -273,6 +281,14 @@
     &__actived {
       @include theme-color(background-color, stroke, 9);
       border-bottom-color: transparent;
+
+      &:hover {
+        @include theme-color(background-color, stroke, 9);
+      }
+    }
+
+    &__disabled:hover {
+      @include theme-color(background-color, stroke, 8);
     }
   }
 }

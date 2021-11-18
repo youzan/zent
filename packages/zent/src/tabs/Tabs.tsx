@@ -47,6 +47,7 @@ export class Tabs<Id extends string | number = string> extends BaseTabs<
     stretch: false,
     onChange: noop,
     onDelete: noop,
+    onAdd: noop,
     unmountPanelOnHide: false,
   };
 

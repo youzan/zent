@@ -52,6 +52,7 @@ export interface IBaseTabsProps<Id, TabPanelProps> {
 
 export interface ITabsProps<Id> extends IBaseTabsProps<Id, ITabPanelProps<Id>> {
   onDelete: (id: Id) => void;
+  onAdd: () => void;
   candel: boolean;
   stretch: boolean;
   navExtraContent: React.ReactNode;

@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { IInnerTab, ITabPanelProps } from './types';
 
 export function getTabDataFromChild<Id>(
@@ -38,3 +39,8 @@ export function commonTransformTabData<Id>(
     candel: candel && !tabItem.disabled,
   };
 }
+
+export const getTabPanelStringTitle = (title: ReactNode) => {
+  if (typeof title === 'string') return title;
+  return undefined;
+};
