@@ -79,11 +79,8 @@ const DatePickerBody: FC<IDatePickerBodyProps> = props => {
   const setSelectedDate = useCallback(
     (val: Date) => {
       const { defaultTime, format } = showTimeOption || {};
-      const defaultTimeFn = () => {
-        return typeof defaultTime === 'function'
-          ? defaultTime(val)
-          : defaultTime;
-      };
+      const defaultTimeFn = () =>
+        typeof defaultTime === 'function' ? defaultTime(val) : defaultTime;
       if (!selected) {
         return onSelected(
           defaultTime ? parse(defaultTimeFn(), format, val) : val
