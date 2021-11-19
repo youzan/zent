@@ -32,6 +32,7 @@ const TimePickerFooter: React.FC<ITimePanelProps> = ({
           },
           'zent-datepicker-panel-footer-current'
         )}
+        disabled={isDisabledCurrent}
         onClick={onClickCurrent}
       >
         {i18n.current.time}
