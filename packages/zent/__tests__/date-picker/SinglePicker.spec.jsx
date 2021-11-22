@@ -24,13 +24,13 @@ describe('SinglePicker', () => {
     wrapper = mount(<DatePicker valueType="date" onChange={onChangeMock} />);
     wrapper.find('.zent-datepicker-trigger').simulate('click');
     const footer = document.querySelector('.zent-datepicker-panel-footer');
-    Simulate.click(footer.querySelector('a'));
+    Simulate.click(footer.querySelector('.zent-btn-text'));
     expect(typeof wrapper.prop('value')).toBe('object');
 
     wrapper.setProps({ valueType: 'number' });
     wrapper.find('.zent-datepicker-trigger').simulate('click');
     const footer2 = document.querySelector('.zent-datepicker-panel-footer');
-    Simulate.click(footer2.querySelector('a'));
+    Simulate.click(footer2.querySelector('.zent-btn-text'));
     expect(typeof wrapper.prop('value')).toBe('number');
     wrapper.unmount();
   });
@@ -74,7 +74,7 @@ describe('SinglePicker', () => {
     );
     wrapper2.find('.zent-datepicker-trigger').simulate('click');
     const pop2 = document.querySelector('.zent-datepicker-panel-footer');
-    Simulate.click(pop2.querySelector('a'));
+    Simulate.click(pop2.querySelector('.zent-btn-text'));
     expect(onChangeMock2.mock.calls.length).toBe(1);
     wrapper2.unmount();
   });

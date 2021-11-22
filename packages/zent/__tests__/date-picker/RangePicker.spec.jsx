@@ -53,7 +53,7 @@ describe('RangePicker', () => {
     );
     wrapper.find('.zent-datepicker-trigger').first().simulate('click');
     const pop = document.querySelector('.zent-datepicker-panel-footer');
-    Simulate.click(pop.querySelector('a'));
+    Simulate.click(pop.querySelector('.zent-btn-text'));
     expect(typeof wrapper.prop('value')[0]).toBe('object');
     wrapper.unmount();
   });
@@ -68,11 +68,11 @@ describe('RangePicker', () => {
     wrapper.find('.zent-datepicker-trigger').at(0).simulate('click');
     expect(onOpen.mock.calls.length).toBe(1);
     const pop1 = document.querySelector('.zent-datepicker-panel-footer');
-    Simulate.click(pop1.querySelector('a'));
+    Simulate.click(pop1.querySelector('.zent-btn-text'));
 
     wrapper.find('.zent-datepicker-trigger').at(1).simulate('click');
     const pop2 = document.querySelector('.zent-datepicker-panel-footer');
-    Simulate.click(pop2.querySelector('a'));
+    Simulate.click(pop2.querySelector('.zent-btn-text'));
     jest.runAllTimers();
     expect(onOpen.mock.calls[0][0]).toBe('start');
     expect(onOpen.mock.calls[1][0]).toBe('end');
