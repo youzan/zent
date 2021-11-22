@@ -53,6 +53,7 @@ export class TagsTrigger extends Component<ITagsTriggerProps> {
       onRemove,
       selectionMap,
       simplifyPaths,
+      tagContentType,
     } = this.props;
     const showTags = selectedPaths.length > 0;
     const showSearch = visible && searchable;
@@ -61,7 +62,11 @@ export class TagsTrigger extends Component<ITagsTriggerProps> {
       <BaseTrigger
         placeholder={placeholder}
         disabled={disabled}
-        className={cx(className, 'zent-cascader-v2--multiple')}
+        className={cx(
+          className,
+          'zent-cascader-v2--multiple',
+          'zent-cascader-v2--multiple--' + tagContentType
+        )}
         clearable={clearable}
         visible={visible}
         onClear={onClear}
@@ -88,6 +93,7 @@ export class TagsTrigger extends Component<ITagsTriggerProps> {
               selectionMap={selectionMap}
               simplifyPaths={simplifyPaths}
               renderValue={renderValue}
+              collapse={tagContentType === 'line'}
               onRemove={onRemove}
             />
           ))}

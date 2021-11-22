@@ -26,6 +26,7 @@ export interface ICascaderBaseTriggerProps {
   renderValue: (selectedPath: ICascaderItem[]) => React.ReactNode;
   i18n: II18nLocaleCascader;
   showLabels?: boolean;
+  tagContentType?: 'line' | 'scroll' | 'spread';
 }
 
 export class BaseTrigger extends Component<
