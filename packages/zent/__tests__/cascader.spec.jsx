@@ -798,12 +798,13 @@ describe('Cascader', () => {
         options={options}
         expandTrigger="hover"
         multiple
+        multipleType="checkbox"
         onChange={onChangeMock}
         clearable
       />
     );
 
-    expect(wrapper.find('.zent-cascader-v2--tag').length).toBe(2);
+    expect(wrapper.find('.zent-cascader-v2--tag').length).toBe(1);
     wrapper.find('.zenticon-close').at(0).simulate('click');
     jest.runAllTimers();
     wrapper.update();
@@ -1060,6 +1061,7 @@ describe('Cascader', () => {
         clearable
         searchable
         multiple
+        multipleType="checkbox"
         async
       />
     );
