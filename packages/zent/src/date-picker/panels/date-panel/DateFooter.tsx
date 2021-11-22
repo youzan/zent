@@ -1,5 +1,5 @@
 import { useCallback, useContext, useMemo } from 'react';
-import cx from 'classnames';
+// import cx from 'classnames';
 import { parse } from 'date-fns';
 import Pop from '../../../pop';
 import Button from '../../../button';
@@ -74,15 +74,13 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
   const renderToday = useMemo(() => {
     return (
       <div>
-        <a
-          className={cx({
-            [`${footerPrefixCls}-current_disabled`]:
-              isDisabledCurrent || isDisabledToday,
-          })}
+        <Button
+          disabled={isDisabledCurrent || isDisabledToday}
           onClick={onClickCurrent}
+          type="text"
         >
           {footerText}
-        </a>
+        </Button>
         {!!showTime &&
           (confirmStatus || isDisableConfirm ? (
             <Pop
