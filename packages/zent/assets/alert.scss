@@ -53,6 +53,10 @@ $type-map: (
   &-outline {
     border-radius: 4px;
   }
+
+  &--borderless {
+    border: none;
+  }
 }
 
 .zent-alert-scroll {

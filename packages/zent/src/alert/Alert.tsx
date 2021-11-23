@@ -10,6 +10,7 @@ interface IAlertRenderProps {
   type?: AlertTypes;
   loading?: boolean;
   outline?: boolean;
+  bordered?: boolean;
   title?: React.ReactNode;
   description?: React.ReactNode;
   extraContent?: React.ReactNode;
@@ -52,6 +53,7 @@ export class Alert extends PureComponent<IAlertProps, IAlertState> {
 
   static defaultProps = {
     type: 'info',
+    bordered: false,
     loading: false,
     outline: false,
     closable: false,
@@ -92,7 +94,7 @@ export class Alert extends PureComponent<IAlertProps, IAlertState> {
       return null;
     }
 
-    const { className, type, outline, ...restDivAttrs } = omit(
+    const { className, type, outline, bordered, ...restDivAttrs } = omit(
       this.props as IAlertRequiredProps,
       OmitDivAttr
     );
@@ -107,6 +109,7 @@ export class Alert extends PureComponent<IAlertProps, IAlertState> {
       className,
       {
         ['zent-alert-outline']: outline,
+        'zent-alert--borderless': !bordered,
       }
     );
 
