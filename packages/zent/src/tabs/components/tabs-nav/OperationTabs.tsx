@@ -6,6 +6,7 @@ import SlideOperation from '../operation/SlideOperation';
 import { IInnerTab, ITabsNavProps } from '../../types';
 import { WindowResizeHandler } from '../../../utils/component/WindowResizeHandler';
 import memorizeOne from '../../../utils/memorize-one';
+import Icon from '../../../icon';
 
 const classNamePrefix = 'zent-tabs-nav-tabs-content';
 
@@ -19,7 +20,10 @@ interface ITabsInfo {
   tabsTotalWidth: number;
 }
 interface IOperationTabsProps<Id>
-  extends Pick<ITabsNavProps<Id>, 'tabDataList' | 'onChange' | 'overflowMode'> {
+  extends Pick<
+    ITabsNavProps<Id>,
+    'tabDataList' | 'onChange' | 'overflowMode' | 'onAdd' | 'activeId'
+  > {
   tabs: React.ReactNode[];
 }
 
@@ -28,6 +32,10 @@ abstract class OperationTabs<Id extends string | number> extends Component<
 > {
   tabsWrapperRef = createRef<HTMLDivElement>();
   tabsMainRef = createRef<HTMLDivElement>();
+
+  static defaultProps = {
+    overflowMode: 'anchor',
+  };
 
   state = {
     // 可视范围内第一个完整展示的tab下标
@@ -198,11 +206,32 @@ abstract class OperationTabs<Id extends string | number> extends Component<
     this.onStartChange(this.state.startIndex, this.getTabsInfo());
   };
 
+  componentDidUpdate = prevProps => {
+    const { activeId, tabDataList } = this.props;
+    if (prevProps.activeId === activeId) return;
+    const { startIndex, endIndex } = this.state;
+    const currentTabIndex = tabDataList.findIndex(tab => tab.key === activeId);
+    if (currentTabIndex === -1) return;
+    if (currentTabIndex < startIndex || currentTabIndex > endIndex) {
+      const currentTab = tabDataList[currentTabIndex];
+      this.onAnchorPageChange(currentTab);
+    }
+  };
+
+  handleAddClick = () => {
+    const { onAdd } = this.props;
+    if (!onAdd) return;
+    onAdd();
+    setTimeout(this.onResize);
+  };
+
   render() {
-    const { overflowMode, tabs, tabDataList } = this.props;
+    const { overflowMode, tabs, tabDataList, onAdd } = this.props;
     const { translateX, startIndex, endIndex } = this.state;
     const contentClassName = `${classNamePrefix}-${overflowMode}`;
     const hiddenTabs = this.getHiddenTabs(tabDataList, startIndex, endIndex);
+    const isHiddenTab = !!hiddenTabs.length;
+
     return (
       <>
         <div
@@ -213,19 +242,45 @@ abstract class OperationTabs<Id extends string | number> extends Component<
           ref={this.tabsWrapperRef}
         >
           <div
-            className={cn(`${contentClassName}-main`)}
+            className={cn(`${contentClassName}-main`, {
+              [`${contentClassName}-main--has-add`]: !isHiddenTab && onAdd,
+            })}
             ref={this.tabsMainRef}
-            style={{ transform: `translate(-${translateX}px, 0)` }}
+            onScroll={this.onResize}
+            style={{
+              transform: `translate(-${translateX}px, 0)`,
+            }}
           >
             {tabs}
           </div>
+          {!isHiddenTab && onAdd && (
+            <span
+              className={`${contentClassName}__add-btn`}
+              onClick={this.handleAddClick}
+            >
+              <Icon type="plus" />
+            </span>
+          )}
         </div>
-        {!!hiddenTabs.length && (
+        {isHiddenTab && (
           <>
-            <div className={`${contentClassName}-option`}>
+            <div
+              className={cn(`${contentClassName}-option`, {
+                [`${contentClassName}-option--right`]:
+                  endIndex !== tabs.length - 1,
+              })}
+            >
               {overflowMode === 'slide' && this.renderSlideOperations()}
               {overflowMode === 'anchor' &&
                 this.renderAnchorOperations(hiddenTabs)}
+              {onAdd && (
+                <span
+                  className={`${contentClassName}-option__add-btn`}
+                  onClick={this.handleAddClick}
+                >
+                  <Icon type="plus" />
+                </span>
+              )}
             </div>
             <WindowResizeHandler onResize={this.onResize} />
           </>

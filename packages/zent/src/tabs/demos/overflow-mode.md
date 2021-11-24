@@ -1,11 +1,11 @@
 ---
-order: 8
+order: 5
 zh-CN:
-  title: 支持多标签滚动查看（仅限 `normal` 、`card` 类型）
+  title: 支持多标签滚动查看
   tabPrefix: 选项
 
 en-US:
-  title: Operations in more tabs (only avaliable in `normal` and `card` type)
+  title: Operations in more tabs
   tabPrefix: Tab
 ---
 
@@ -49,7 +49,6 @@ class Simple extends Component {
 					onChange={this.onTabChange}
 					tabs={this.state.tabs}
 					overflowMode="anchor"
-					type="card"
 				/>
 			</div>
 		);
