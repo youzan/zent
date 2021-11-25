@@ -29,9 +29,9 @@ group: 导航
 
 | 参数        | 说明                                                     | 类型 |
 | ----------- | -------------------------------------------------------- | ---- |
-| title       | 标题                                                     | node |
-| description | 步骤的详情描述 (card, breadcrumb, tabs 类型不支持该属性) | node |
-| icon        | 自定义图标 （仅支持 breadcrumb 类型）                   | string / node |
+| title       | 标题                                                     | `'node'` |
+| description | 步骤的详情描述 (card, breadcrumb, tabs 类型不支持该属性)     | `'node'` |
+| icon        | 自定义图标                                                | `'string'` \| `'node'` |
 
 ### 已知问题
 

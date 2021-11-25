@@ -21,21 +21,16 @@ export default class Step extends Component<IStepProps> {
     description: '',
   };
 
-  render() {
-    const props = this.props;
-
-    const {
-      isCurrentStep,
-      status = 'wait',
-      isLastFinishStep,
-      stepLast,
-      stepNumber,
-      title,
-      description,
-      sequence,
-    } = props;
+  renderIconNode = () => {
+    const { stepNumber, sequence, status = 'wait', icon } = this.props;
 
     let iconNode;
+
+    if (icon) {
+      const iconNode =
+        typeof icon === 'string' ? <Icon type={icon as IconType} /> : icon;
+      return <>{iconNode}</>;
+    }
 
     if (status === 'finish') {
       iconNode = <Icon type="check-circle-o" />;
@@ -48,6 +43,20 @@ export default class Step extends Component<IStepProps> {
         </span>
       );
     }
+
+    return iconNode;
+  };
+
+  render() {
+    const props = this.props;
+    const {
+      isCurrentStep,
+      status = 'wait',
+      isLastFinishStep,
+      stepLast,
+      title,
+      description,
+    } = props;
 
     const classString = classNames(
       'zent-steps-item',
@@ -67,7 +76,7 @@ export default class Step extends Component<IStepProps> {
         )}
         <div className="zent-steps-step">
           <div className="zent-step-head">
-            <div className="zent-step-head-inner">{iconNode}</div>
+            <div className="zent-step-head-inner">{this.renderIconNode()}</div>
           </div>
           <div className="zent-step-main">
             <div className="zent-step-title">{title}</div>
