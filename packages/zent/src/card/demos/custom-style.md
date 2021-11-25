@@ -10,11 +10,20 @@ en-US:
 import { Card } from 'zent';
 
 ReactDOM.render(
-  <Card 
-		title="Card Title"
-		style={{ width: 400 }} 
-		bodyStyle={{ background: '#f7f7f7', height: '80px'}} 
-	/>
+	<div className="zent-card-example">
+		<Card 
+			className="zent-card-example__card" 
+			style={{ width: 400 }} 
+			bordered={false}
+			bodyStyle={{ background: '#f7f7f7', height: '80px'}} 
+		/>
+		<Card 
+			title="Card Title"
+			style={{ width: 400 }} 
+			bordered={false}
+			bodyStyle={{ background: '#f7f7f7', height: '80px'}} 
+		/>
+	</div>
   , mountNode
 );
 ```

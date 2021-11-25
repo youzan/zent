@@ -4,7 +4,7 @@
 .zent-card {
   @include theme-color(background-color, stroke, 9);
   @include theme-color(border-color, stroke, 6);
-  border-radius: 2px;
+  border-radius: 4px;
   position: relative;
   overflow: hidden;
 
@@ -28,6 +28,7 @@
       overflow: hidden;
       white-space: nowrap;
       width: 100%;
+      line-height: 26px;
     }
 
     &__action {
@@ -60,7 +61,16 @@
 
   &--small {
     padding: 8px 8px 12px 8px;
+    border-radius: 4px;
     display: flex;
+    box-sizing: border-box;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: border-color 100ms $timing-fn-linear;
+
+    &:hover {
+      @include theme-color(border-color, primary, 4);
+    }
 
     .zent-card__left-extra {
       margin-right: 8px;
