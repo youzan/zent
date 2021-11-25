@@ -46,6 +46,11 @@ $type-map: (
 
 .zent-alert {
   @include theme-border(1px, solid, stroke, 5);
+  position: relative;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
 
   padding: 12px 16px;
   border-radius: 2px;
@@ -57,6 +62,28 @@ $type-map: (
   &--borderless {
     border: none;
   }
+
+  &--banner {
+    .zent-alert-item-close-wrapper {
+      position: relative;
+
+      .zent-alert-item-close-btn {
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+      }
+    }
+  }
+
+  &__progress {
+    @include theme-border(1px, solid, stroke, 5);
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: width 200ms $timing-fn-linear;
+  }
 }
 
 .zent-alert-scroll {
@@ -66,6 +93,10 @@ $type-map: (
   box-sizing: border-box;
   overflow: hidden;
   position: relative;
+
+  &--borderless {
+    border: none;
+  }
 
   .zent-alert-scroll-container {
     padding: 12px 16px;
@@ -97,6 +128,10 @@ $type-map: (
   box-sizing: border-box;
   display: flex;
 
+  .zenticon {
+    font-size: $font-size-large;
+  }
+
   &-content {
     flex: 1 1 auto;
 
@@ -118,8 +153,8 @@ $type-map: (
     cursor: pointer;
 
     .zent-alert-item-close-btn {
-      @include theme-color(color, stroke, 4);
-      font-size: 12px;
+      @include theme-color(color, stroke, 3);
+      font-size: 18px;
       width: 16px;
       height: 20px;
       line-height: 20px;
@@ -135,7 +170,8 @@ $type-map: (
     flex: 0 0 auto;
   }
 
-  &-icon {
+  &-icon,
+  &-custom-icon {
     margin-right: 8px;
 
     &.zenticon,

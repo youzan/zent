@@ -42,13 +42,6 @@ const Simple = () => {
 			>
 				{i18n.content}
 			</Alert>
-			<ScrollAlert onClose={onScrollAlertClose}>
-				<AlertItem closable onClose={onScrollAlertItemClose}>
-					{i18n.content}111
-				</AlertItem>
-				<AlertItem closable>{i18n.content}222</AlertItem>
-				<AlertItem closable>{i18n.content}333</AlertItem>
-			</ScrollAlert>
 			<Alert closable closed={closed} onClose={onCloseHandler}>
 				{i18n.cbContent}
 			</Alert>
