@@ -41,13 +41,24 @@ export class Breadcrumb extends Component<IBreadcrumbProps, IBreadcrumbState> {
 
   static Item = Item;
 
+  get breadcrumbWidth() {
+    const breadcrumbEle = this.breadcrumbRef.current;
+    return breadcrumbEle?.getBoundingClientRect().width;
+  }
+
+  get breadcrumbLeft() {
+    const breadcrumbEle = this.breadcrumbRef.current;
+    return breadcrumbEle?.getBoundingClientRect().left;
+  }
+
+  get contentWidth() {
+    const contentEle = this.contentRef.current;
+    return contentEle?.getBoundingClientRect().width;
+  }
+
   getOverflowStatus = () => {
     const { contentStyleLeft } = this.state;
-    if (!this.breadcrumbRef.current || !this.contentRef.current) return;
-    const breadcrumbEle = this.breadcrumbRef.current;
-    const contentEle = this.contentRef.current;
-    const breadcrumbWidth = breadcrumbEle.getBoundingClientRect().width;
-    const contentWidth = contentEle.getBoundingClientRect().width;
+    if (!this.breadcrumbWidth || !this.contentWidth) return;
 
     if (contentStyleLeft < 0) {
       this.setState({ overflowLeft: true });
@@ -55,7 +66,7 @@ export class Breadcrumb extends Component<IBreadcrumbProps, IBreadcrumbState> {
       this.setState({ overflowLeft: false });
     }
 
-    if (breadcrumbWidth - contentStyleLeft < contentWidth) {
+    if (this.breadcrumbWidth - contentStyleLeft < this.contentWidth) {
       this.setState({ overflowRight: true });
     } else {
       this.setState({ overflowRight: false });
@@ -70,16 +81,14 @@ export class Breadcrumb extends Component<IBreadcrumbProps, IBreadcrumbState> {
     const { contentStyleLeft } = this.state;
     if (this.isMoving) return;
     this.isMoving = true;
-    const breadcrumbEle = this.breadcrumbRef.current;
     const contentEle = this.contentRef.current;
-    const breadcrumbLeft = breadcrumbEle.getBoundingClientRect().left;
 
     let moveStep = 0;
     for (let i = contentEle.childElementCount - 1; i >= 0; i--) {
       const childNode = contentEle.children.item(i);
       const childLeft = childNode.getBoundingClientRect().left;
-      if (childLeft < breadcrumbLeft) {
-        moveStep = breadcrumbLeft - childLeft + MOVE_ICON_WIDTH;
+      if (childLeft < this.breadcrumbLeft) {
+        moveStep = this.breadcrumbLeft - childLeft + MOVE_ICON_WIDTH;
         break;
       }
     }
@@ -97,11 +106,7 @@ export class Breadcrumb extends Component<IBreadcrumbProps, IBreadcrumbState> {
     const { contentStyleLeft } = this.state;
     if (this.isMoving) return;
     this.isMoving = true;
-    const breadcrumbEle = this.breadcrumbRef.current;
     const contentEle = this.contentRef.current;
-    const breadcrumbWidth = breadcrumbEle.getBoundingClientRect().width;
-    const contentWidth = contentEle.getBoundingClientRect().width;
-    const breadcrumbLeft = breadcrumbEle.getBoundingClientRect().left;
 
     let moveStep = 0;
     for (let i = 0; i < contentEle.childElementCount; i++) {
@@ -110,19 +115,19 @@ export class Breadcrumb extends Component<IBreadcrumbProps, IBreadcrumbState> {
       const childWidth = childNode.getBoundingClientRect().width;
       if (
         childLeft + childWidth - BREADCRUMB_ITEM_MARGIN_RIGHT >
-        breadcrumbLeft + breadcrumbWidth
+        this.breadcrumbLeft + this.breadcrumbWidth
       ) {
         moveStep =
           childLeft +
           childWidth -
-          (breadcrumbLeft + breadcrumbWidth) +
+          (this.breadcrumbLeft + this.breadcrumbWidth) +
           MOVE_ICON_WIDTH -
           BREADCRUMB_ITEM_MARGIN_RIGHT;
         break;
       }
     }
 
-    const offsetWidth = contentWidth - breadcrumbWidth;
+    const offsetWidth = this.contentWidth - this.breadcrumbWidth;
     const nextLeft =
       Math.abs(contentStyleLeft - moveStep) > offsetWidth
         ? -offsetWidth
