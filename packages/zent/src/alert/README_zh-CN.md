@@ -32,6 +32,22 @@ group: 展示
 | extraContent | 右侧额外内容           | ReactNode |          |                                                         |
 | title        | 内容标题               | ReactNode |          |                                                         |
 | description  | 内容描述               | ReactNode |          |                                                         |
+| bordered      | 是否有边框            | bool   | `false`  | `true`, `false`                                |
+| icon           | 自定义左侧 icon       | node   |  |  |
+| closeIconColor | 自定义 close 颜色     | string   |  |  |
+| progress       | 顶部进度条进度         | number   |  |  |
+
+#### Prompt
+| 参数         | 说明                   | 类型      | 默认值   | 备选值                                                  |
+| ------------ | ---------------------- | --------- | -------- | ------------------------------------------------------- |
+| type         | 提示的默认类型           | string    | `'warning'`  | `'strongHint'`\|`'weakHint'`  
+
+#### Banner
+| 参数         | 说明                   | 类型      | 默认值   | 备选值                                                  |
+| ------------ | ---------------------- | --------- | -------- | ------------------------------------------------------- |
+| backgroundImage  | 背景图片           | string    |  |
+| closeIconColor  | 自定义 close 颜色    | string    |  | `'grey'`\|`'white'` |
+
 
 #### ScrollAlert
 

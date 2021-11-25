@@ -30,6 +30,22 @@ Alert is used to provide eye-catching information.
 | extraContent | extra content on the right of Alert                 | ReactNode |          |                                                        |
 | title        | Alert content title                                 | ReactNode |          |                                                        |
 | description  | Alert content description                           | ReactNode |          |                                                        |
+| bordered      | Whether the alert has a border         | bool   | `false`  | `true`, `false`                                |
+| icon           | Customize the left icon               | node   |  |  |
+| closeIconColor | Custom close color                    | string   |  |  |
+| progress       | Top progress bar progress             | number   |  |  |
+
+#### Prompt
+| Property     | Description   | Type      | Default  |  Alternative                                            |
+| ------------ | ---------------------- | --------- | -------- | ------------------------------------------------------- |
+| type         | The type of prompt     | string    | `'warning'`  | `'strongHint'`\|`'weakHint'`  
+
+#### Banner
+| 参数         | 说明                   | 类型      | 默认值   | 备选值                                                  |
+| ------------ | ---------------------- | --------- | -------- | ------------------------------------------------------- |
+| backgroundImage  | Background image           | string    |  |
+| closeIconColor   |  Custom close color        | string    |  | `'grey'`\|`'white'` |
+
 
 #### ScrollAlert
 
