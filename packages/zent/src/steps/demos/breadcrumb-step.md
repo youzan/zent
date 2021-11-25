@@ -34,7 +34,7 @@ class StepsExample extends Component {
 			<div className="zent-steps-demo-breadcrumb">
 				<Steps current={current} type="breadcrumb" onStepChange={this.onStepChange} ghost>
 					<Steps.Step title="{i18n.stepOneText}" icon="check-circle-o" />
-					<Steps.Step title="{i18n.stepTwoText}"  />
+					<Steps.Step title="{i18n.stepTwoText}" />
 					<Steps.Step title="{i18n.stepThreeText}" disabled />
 					<Steps.Step title="{i18n.stepFourText}" disabled />
 				</Steps>
