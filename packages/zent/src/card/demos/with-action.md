@@ -1,5 +1,5 @@
 ---
-order: 3
+order: 4
 zh-CN:
 	title: 带交互的卡片
 	youzan: 有赞

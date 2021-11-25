@@ -10,10 +10,29 @@ en-US:
 import { Card } from 'zent';
 
 ReactDOM.render(
-  <Card style={{ width: 400 }} title="Card Title">
-		<p>Card item</p>
-		<p>Card item</p>
-  </Card>
+	<div className="zent-card-example zent-card-example--flex">
+		<Card 
+			className="zent-card-example__card" 
+			style={{ width: 400 }} 
+			title="Card Title"
+		>
+			<p>Card item</p>
+			<p>Card item</p>
+			<p>Card item</p>
+		</Card>
+		<Card 
+			className="zent-card-example__card" 
+			style={{ width: 400 }} 
+			title="Card Title"
+			bordered={false}
+		>
+			<p>Card item</p>
+			<p>Card item</p>
+			<p>Card item</p>
+		</Card>
+	</div>
   , mountNode
 );
 ```
+
+
