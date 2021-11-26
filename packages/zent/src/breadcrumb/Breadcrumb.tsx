@@ -160,6 +160,7 @@ export class Breadcrumb extends Component<IBreadcrumbProps, IBreadcrumbState> {
     const { overflowLeft, overflowRight, contentStyleLeft } = this.state;
 
     const breadList = this.getFoldItems();
+    const hasChildren = children || (breadList && breadList.length > 0);
 
     return (
       <div
@@ -176,18 +177,20 @@ export class Breadcrumb extends Component<IBreadcrumbProps, IBreadcrumbState> {
             onClick={this.handleClickMoveLeft}
           />
         )}
-        <div
-          className="zent-breadcrumb__content"
-          style={{ left: `${contentStyleLeft}px` }}
-          ref={this.contentRef}
-        >
-          {children}
-          {breadList &&
-            breadList.length > 0 &&
-            breadList.map((item, index) => {
-              return <Item {...item} key={index} />;
-            })}
-        </div>
+        {hasChildren && (
+          <div
+            className="zent-breadcrumb__content"
+            style={{ left: `${contentStyleLeft}px` }}
+            ref={this.contentRef}
+          >
+            {children}
+            {breadList &&
+              breadList.length > 0 &&
+              breadList.map((item, index) => {
+                return <Item {...item} key={index} />;
+              })}
+          </div>
+        )}
         {overflowRight && (
           <Icon
             type="right"

@@ -77,10 +77,8 @@ describe('Breadcrumb', () => {
 
   it('will render a empty div without props or children', () => {
     const wrapper = mount(<Breadcrumb />);
-    expect(
-      wrapper.containsMatchingElement(<div className="zent-breadcrumb" />)
-    ).toBe(true);
-    expect(wrapper.find('div').text()).toBe('');
+    expect(wrapper.find('.zent-breadcrumb').length).toBe(1);
+    expect(wrapper.find('.zent-breadcrumb').text()).toBe('');
   });
 
   it('can have custom bread item', () => {
@@ -151,8 +149,31 @@ describe('Breadcrumb', () => {
 
   it('can have custom className', () => {
     const wrapper = shallow(<Breadcrumb className="bar" />);
-    expect(
-      wrapper.containsMatchingElement(<div className="zent-breadcrumb bar" />)
-    ).toBe(true);
+    expect(wrapper.find('.zent-breadcrumb.bar').length).toBe(1);
+  });
+
+  it('can be folded', () => {
+    const breads = [
+      {
+        name: 'bread1',
+        href: 'bar',
+      },
+      {
+        name: 'bread2',
+        href: 'bar',
+      },
+      {
+        name: 'bread3',
+        href: 'bar',
+      },
+      {
+        name: 'bread4',
+        href: 'bar',
+      },
+    ];
+    const wrapper = mount(<Breadcrumb breads={breads} maxItemCount={2} />);
+    expect(wrapper.find('.zent-breadcrumb__content').children().length).toBe(3);
+    wrapper.find('.zent-breadcrumb__fold').at(0).simulate('click');
+    expect(wrapper.find('.zent-breadcrumb__fold').length).toBe(0);
   });
 });
