@@ -3,6 +3,7 @@ import cx from 'classnames';
 
 import Item, { IBreadcrumbItemProps } from './Item';
 import Icon from '../icon';
+import { WindowResizeHandler } from '../utils/component/WindowResizeHandler';
 
 const MIN_FOLD_COUNT = 2;
 const MOVE_ICON_WIDTH = 24;
@@ -194,6 +195,7 @@ export class Breadcrumb extends Component<IBreadcrumbProps, IBreadcrumbState> {
             onClick={this.handleClickMoveRight}
           />
         )}
+        <WindowResizeHandler onResize={this.getOverflowStatus} />
       </div>
     );
   }
