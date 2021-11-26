@@ -1,5 +1,6 @@
 @import './theme/default';
 @import './theme/font';
+@import './theme/timing-functions';
 
 .zent-breadcrumb {
   @include theme-color(color, stroke, 3);
