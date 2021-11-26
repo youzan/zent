@@ -9,6 +9,10 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 9.12.2(2021-11-26)
+
+- 🦀️ Fix `MiniPagination` page number input renders wrong value in some cases
+
 ### 9.12.1(2021-11-17)
 
 - `Form`
