@@ -188,9 +188,48 @@ describe('SinglePicker', () => {
     ).toBe(true);
   });
 
+  it('DatePicker showTime Object no value', () => {
+    const wrapper = mount(
+      <DatePicker showTime={{ defaultTime: '00:00:00' }} />
+    );
+    wrapper.find('.zent-datepicker-trigger').simulate('click');
+
+    const pop = document.querySelector('.zent-datepicker-panel');
+    const cells = pop.querySelectorAll(
+      '.zent-datepicker-panel-body-cells_item'
+    );
+    Simulate.click(cells[6]);
+
+    const timeTrigger = pop
+      .querySelectorAll('.zent-datepicker-panel-footer')[0]
+      .querySelectorAll('.zent-datepicker-trigger')[0];
+    Simulate.click(timeTrigger);
+    const timePicker = document.querySelectorAll('.zent-datepicker-panel')[1];
+    const timePanel = timePicker.querySelectorAll(
+      '.zent-datepicker-time-panel-body'
+    )[0];
+    const timeUnits = timePanel.querySelectorAll(
+      '.zent-datepicker-time-panel-body-unit'
+    );
+    Simulate.click(timeUnits[6]);
+    const timeBtn = timePicker.querySelector(
+      '.zent-datepicker-panel-footer-btn'
+    );
+    Simulate.click(timeBtn);
+
+    const confirmBtn = pop.querySelectorAll(
+      '.zent-datepicker-panel-footer-btn'
+    )[0];
+    Simulate.click(confirmBtn);
+    wrapper.unmount();
+  });
+
   it('DatePicker showTime Object', () => {
     const wrapper = mount(
-      <DatePicker showTime={{}} value="2020-05-20 12:10:10" />
+      <DatePicker
+        showTime={{ defaultTime: '00:00:00' }}
+        value="2020-05-20 12:10:10"
+      />
     );
     wrapper.find('.zent-datepicker-trigger').simulate('click');
 
