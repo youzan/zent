@@ -275,11 +275,12 @@ describe('Input', () => {
 
   it('can password', () => {
     const wrapper = mount(
-      <Password defaultValue="not placeholder" readOnly className="foo" />
+      <Password defaultValue="not placeholder" className="foo" />
     );
     expect(wrapper.find('input').props().className).toBe('zent-input');
-    expect(wrapper.find('input').props().readOnly).toBe(true);
     expect(wrapper.find('input').props().type).toBe('password');
+    wrapper.find('ZentIcon').simulate('click');
+    expect(wrapper.find('Input').props().type).toBe('text');
     expect(wrapper.find('input').props().defaultValue).toBe('not placeholder');
   });
 });
