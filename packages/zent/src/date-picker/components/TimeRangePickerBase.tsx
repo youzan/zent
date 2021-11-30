@@ -89,7 +89,6 @@ const TimeRangePickerBase: React.FC<ITimeRangePickerBaseProps> = ({
             onOpen={() => onOpen?.(START)}
             onClose={() => onClose?.(START)}
             name={name?.[0]}
-            autoComplete={true}
             placeholder={placeholder[0]}
           />
           <span className="zent-datepicker-seperator">{seperator}</span>
@@ -102,7 +101,6 @@ const TimeRangePickerBase: React.FC<ITimeRangePickerBaseProps> = ({
             onOpen={() => onOpen?.(END)}
             onClose={() => onClose?.(END)}
             name={name?.[1]}
-            autoComplete={true}
             placeholder={placeholder[1]}
           />
         </PanelContextProvider>

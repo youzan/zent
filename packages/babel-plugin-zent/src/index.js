@@ -33,9 +33,10 @@ export default function babelPluginZent(babel) {
           if (t.isStringLiteral(source, { value: libName })) {
             console.error(
               chalk.red(
-                `\`require('${libName}')\` is ignored, use \`import { ... } from '${libName}'\`\n` +
-                  `The actual cause of this might be \`@babel/preset-env\` \`modules\` option is resolved to \`cjs\`\n` +
-                  `Use the \`debug\` option in \`@babel/preset-env\` to check this\n`
+                `babel-plugin-zent: Tree shaking disabled for package \`${libName}\`.\n` +
+                  `  Found \`require('${libName}')\`, use \`import { ... } from '${libName}'\` instead.\n` +
+                  `  The actual cause of this might be \`@babel/preset-env\` \`modules\` option was resolved to \`cjs\`.` +
+                  ` Use the \`debug\` option in \`@babel/preset-env\` to check this.\n`
               )
             );
           }
