@@ -10,9 +10,10 @@ import {
   unstable_IdlePriority as IdlePriority,
   unstable_scheduleCallback as scheduleCallback,
 } from 'scheduler';
+import identity from '../../utils/identity';
 import { FieldModel } from './models/field';
 import { ValidateOption } from './validate';
-import { id, last } from './utils';
+import { last } from './utils';
 
 export function multi<T, R>(...funcs: ((t: T) => R)[]): (t: T) => void {
   return (t: T) => {
@@ -222,7 +223,10 @@ export function usePipe<T, R>(...args: any[]): (v: T) => R {
     deps = args;
   }
   return useMemo(() => {
-    const fn = args.reduceRight((next, f) => (arg: any) => next(f(arg)), id);
+    const fn = args.reduceRight(
+      (next, f) => (arg: any) => next(f(arg)),
+      identity
+    );
     return (t: T): R => fn(t);
   }, deps); // eslint-disable-line react-hooks/exhaustive-deps
 }
