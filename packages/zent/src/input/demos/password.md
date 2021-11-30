@@ -5,7 +5,7 @@ zh-CN:
 	password: 请输入密码
 	icon: 带 Icon 的 input
 en-US:
-	title: password
+	title: Password
 	password: Please enter your password
 	icon: With icon
 ---
