@@ -9,6 +9,15 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 9.12.1(2021-11-17)
+
+- `Form`
+	- 🦀️ Add `destroyOnUnmount` and `normalizeBeforeSubmit` support to `FieldSet` and `FieldArrayModel`
+	- 🦀️ Fix crash when `FieldSet` sets `destroyOnUnmount` and `value` or `valid` are never read
+- `CombinedDateRangePicker`
+	- 🦀️ Make `onChange` trigger only when confirm button is clicked
+	- 🦀️ Fix start time lost after selecting end time
+
 ### 9.12.0(2021-10-26)
 
 - `Form`

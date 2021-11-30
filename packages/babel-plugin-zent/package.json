@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-zent",
-  "version": "2.2.2",
+  "version": "3.0.1",
   "main": "lib/index.js",
   "license": "MIT",
   "scripts": {
@@ -12,8 +12,11 @@
   "files": [
     "lib"
   ],
+  "engines": {
+    "node": ">=12"
+  },
   "dependencies": {
-    "@babel/runtime": "^7.1.5"
+    "chalk": "^4.1.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.5",
