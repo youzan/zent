@@ -1,5 +1,6 @@
 @import './theme/default';
 @import './theme/font';
+@import './theme/timing-functions';
 
 .zent-card {
   @include theme-color(background-color, stroke, 9);
