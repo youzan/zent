@@ -3,6 +3,7 @@ import Enzyme, { mount } from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 
 import Input from '../src/input';
+import Password from '../src/input/Password';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -274,7 +275,7 @@ describe('Input', () => {
 
   it('can password', () => {
     const wrapper = mount(
-      <Input.Password defaultValue="not placeholder" readOnly className="foo" />
+      <Password defaultValue="not placeholder" readOnly className="foo" />
     );
     expect(wrapper.find('input').props().className).toBe('zent-input');
     expect(wrapper.find('input').props().readOnly).toBe(true);

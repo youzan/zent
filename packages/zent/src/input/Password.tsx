@@ -1,7 +1,8 @@
 import Input from './Input';
 import { useState, useCallback } from 'react';
+import { IInputCoreProps } from './types';
 
-export const Password = props => {
+export const Password = (props: IInputCoreProps) => {
   const [visible, setVisible] = useState(false);
   const { icon, type, onIconClick, ...restProps } = props;
   const { disabled } = props;

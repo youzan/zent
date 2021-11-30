@@ -26,9 +26,9 @@ class EventTest extends React.Component {
 		return (
 			<div>
 				<Password />
-				<Password 
-					onChange={this.onChange} 
-					value={this.state.value} 
+				<Password
+					onChange={this.onChange}
+					value={this.state.value}
 					showClear
 				/>
 			</div>
@@ -37,7 +37,7 @@ class EventTest extends React.Component {
 }
 
 ReactDOM.render(
-	<EventTest/>,
+	<EventTest />,
 	mountNode
 );
 ```
