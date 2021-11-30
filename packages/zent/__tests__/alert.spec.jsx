@@ -1,5 +1,5 @@
-import Enzyme, { mount } from 'enzyme';
-import { Alert, ScrollAlert, AlertItem } from '../src/alert';
+import Enzyme, { mount, shallow } from 'enzyme';
+import { Alert, ScrollAlert, AlertItem, Banner, Prompt } from '../src/alert';
 import Icon from '../src/icon';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 
@@ -404,5 +404,27 @@ describe('ScrollAlert', () => {
 
     wrapper.setProps({ children: ['4'] });
     expect(wrapper.state().activeIndex).toBe(0);
+  });
+});
+
+describe('Banner And Prompt', () => {
+  const IMG =
+    'https://img01.yzcdn.cn/upload_files/2021/11/25/FtAGwcqfZIngtd1uXYIuIND58IeU.png';
+  it('render children into Banner', () => {
+    const wrapper = shallow(
+      <Banner backgroundImage={IMG}>
+        <span>Banner</span>
+      </Banner>
+    );
+    expect(wrapper.find('.zent-alert--banner').length).toBe(1);
+  });
+  it('render children into Prompt', () => {
+    const wrapper = mount(
+      <Prompt type="weakHint" extraContent={<span>extra</span>}>
+        <span>Prompt</span>
+      </Prompt>
+    );
+    expect(wrapper.find('.zent-alert').length).toBe(1);
+    expect(wrapper.find('.zent-alert-item-extra-content').length).toBe(1);
   });
 });
