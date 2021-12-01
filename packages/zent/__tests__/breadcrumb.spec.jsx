@@ -1,9 +1,34 @@
 import Enzyme, { mount, shallow } from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
-
 import Breadcrumb from '../src/breadcrumb';
 
 Enzyme.configure({ adapter: new Adapter() });
+
+const commonBreads = [
+  {
+    name: 'bread1',
+    href: 'bar',
+  },
+  {
+    name: 'bread2',
+    href: 'bar',
+  },
+  {
+    name: 'bread3',
+    href: 'bar',
+  },
+  {
+    name: 'bread4',
+    href: 'bar',
+  },
+];
+
+const overflowBreads = Array(20)
+  .fill()
+  .map((_, index) => ({
+    name: `bread${index}`,
+    href: 'bar',
+  }));
 
 /**
  * 只开了一个 Section 因为这个组件结构比较简单
@@ -153,27 +178,45 @@ describe('Breadcrumb', () => {
   });
 
   it('can be folded', () => {
-    const breads = [
-      {
-        name: 'bread1',
-        href: 'bar',
-      },
-      {
-        name: 'bread2',
-        href: 'bar',
-      },
-      {
-        name: 'bread3',
-        href: 'bar',
-      },
-      {
-        name: 'bread4',
-        href: 'bar',
-      },
-    ];
-    const wrapper = mount(<Breadcrumb breads={breads} maxItemCount={2} />);
+    const wrapper = mount(
+      <Breadcrumb breads={commonBreads} maxItemCount={2} />
+    );
     expect(wrapper.find('.zent-breadcrumb__content').children().length).toBe(3);
     wrapper.find('.zent-breadcrumb__fold').at(0).simulate('click');
     expect(wrapper.find('.zent-breadcrumb__fold').length).toBe(0);
+  });
+  it('overflow left fit width', () => {
+    const wrapper = mount(
+      <Breadcrumb breads={overflowBreads} style={{ width: '100px' }} />
+    );
+    wrapper.setState({ contentStyleLeft: -100 });
+    expect(wrapper.find('.zent-breadcrumb--overflow-left').length).toBe(0);
+    wrapper.setProps({ breads: overflowBreads });
+    wrapper.setState({ overflowLeft: true });
+    expect(wrapper.find('.zent-breadcrumb--overflow-left').length).toBe(1);
+    wrapper.find('.zent-breadcrumb__move-left').at(0).simulate('click');
+    setTimeout(() => {
+      wrapper.setState({ contentStyleLeft: 100 });
+      wrapper.find('.zent-breadcrumb__move-left').at(0).simulate('click');
+      expect(wrapper.state('contentStyleLeft')).not.toBe(100);
+    }, 1000);
+    jest.runAllTimers();
+  });
+  it('overflow right fit width', () => {
+    const wrapper = mount(
+      <Breadcrumb breads={commonBreads} style={{ width: '100px' }} />
+    );
+    wrapper.setState({ contentStyleLeft: 100 });
+    expect(wrapper.find('.zent-breadcrumb--overflow-right').length).toBe(0);
+    wrapper.setProps({ breads: overflowBreads });
+    wrapper.setState({ overflowRight: true });
+    expect(wrapper.find('.zent-breadcrumb--overflow-right').length).toBe(1);
+    wrapper.find('.zent-breadcrumb__move-right').at(0).simulate('click');
+    setTimeout(() => {
+      wrapper.setState({ contentStyleLeft: -100 });
+      wrapper.find('.zent-breadcrumb__move-right').at(0).simulate('click');
+      expect(wrapper.state('contentStyleLeft')).not.toBe(-100);
+    }, 1000);
+    jest.runAllTimers();
   });
 });

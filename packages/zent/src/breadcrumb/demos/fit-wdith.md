@@ -17,9 +17,7 @@ const dataList = Array(20).fill().map((_, index) => ({
 }));
 
 ReactDOM.render(
-	<div style={{ width: '400px' }}>
-		<Breadcrumb breads={dataList} />
-	</div>
+	<Breadcrumb style={{ width: '400px' }} breads={dataList} />
 	, mountNode
 );
 ```

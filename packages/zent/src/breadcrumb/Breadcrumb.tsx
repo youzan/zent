@@ -1,9 +1,9 @@
-import { Component, createRef } from 'react';
+import { Component, createRef, CSSProperties } from 'react';
 import cx from 'classnames';
-
+import { WindowResizeHandler } from '../utils/component/WindowResizeHandler';
 import Item, { IBreadcrumbItemProps } from './Item';
 import Icon from '../icon';
-import { WindowResizeHandler } from '../utils/component/WindowResizeHandler';
+import isEqual from '../utils/isEqual';
 
 const MIN_FOLD_COUNT = 2;
 const MOVE_ICON_WIDTH = 24;
@@ -14,6 +14,7 @@ export interface IBreadcrumbProps {
   breads: IBreadcrumbItemProps[];
   className: string;
   maxItemCount?: number;
+  style?: CSSProperties;
 }
 
 export interface IBreadcrumbState {
@@ -76,6 +77,12 @@ export class Breadcrumb extends Component<IBreadcrumbProps, IBreadcrumbState> {
 
   componentDidMount = () => {
     this.getOverflowStatus();
+  };
+
+  componentDidUpdate = (prevProps: IBreadcrumbProps) => {
+    if (!isEqual(this.props.breads, prevProps.breads)) {
+      this.getOverflowStatus();
+    }
   };
 
   handleClickMoveLeft = () => {
@@ -156,7 +163,7 @@ export class Breadcrumb extends Component<IBreadcrumbProps, IBreadcrumbState> {
   };
 
   render() {
-    const { className, children = null } = this.props;
+    const { className, children = null, style } = this.props;
     const { overflowLeft, overflowRight, contentStyleLeft } = this.state;
 
     const breadList = this.getFoldItems();
@@ -169,6 +176,7 @@ export class Breadcrumb extends Component<IBreadcrumbProps, IBreadcrumbState> {
           'zent-breadcrumb--overflow-right': overflowRight,
         })}
         ref={this.breadcrumbRef}
+        style={style}
       >
         {overflowLeft && (
           <Icon
