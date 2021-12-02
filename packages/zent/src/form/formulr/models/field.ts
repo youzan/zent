@@ -1,8 +1,8 @@
 import { BehaviorSubject } from 'rxjs';
+import identity from '../../../utils/identity';
 import { BasicModel } from './basic';
 import { Some, None, or, isSome, get } from '../maybe';
 import { ValidateOption } from '../validate';
-import { id } from '../utils';
 import isNil from '../../../utils/isNil';
 import uniqueId from '../../../utils/uniqueId';
 import { FIELD_ID } from './is';
@@ -41,7 +41,7 @@ class FieldModel<Value> extends BasicModel<Value> {
   /**
    * 用于表单提交前格式化 `Field` 值的回调函数
    */
-  normalizeBeforeSubmit: INormalizeBeforeSubmit<Value, any> = id;
+  normalizeBeforeSubmit: INormalizeBeforeSubmit<Value, any> = identity;
 
   owner: BasicModel<any> | null = null;
 
