@@ -4,23 +4,23 @@
 
 .zent-tooltip-v2 {
   @include font-normal;
-  @include theme-color(background-color, stroke, 2);
+  @include theme-color(background-color, stroke, 1);
   @include theme-shadow(layer);
 
   border-radius: 2px;
   z-index: 2000;
 
   .zent-tooltip-v2-inner {
-    @include theme-color(background-color, stroke, 2);
+    @include theme-color(background-color, stroke, 1);
     @include theme-color(color, stroke, 9);
     position: relative;
     border-radius: 2px;
-    padding: 8px 16px;
+    padding: 5px 6px;
     z-index: 2;
   }
 
   .zent-tooltip-v2-arrow {
-    @include theme-color(background-color, stroke, 2);
+    @include theme-color(background-color, stroke, 1);
     @include theme-shadow(layer);
 
     position: absolute;
