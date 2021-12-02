@@ -31,6 +31,12 @@
       @include theme-color(border-right-color, success, 4);
     }
 
+    &.zent-btn-text {
+      border-right-width: 1px;
+      border-right-style: solid;
+      @include theme-color(border-right-color, stroke, 9);
+    }
+
     &.zent-btn-disabled {
       @include theme-color(border-right-color, stroke, 6);
     }
@@ -49,12 +55,20 @@
   &__dropdown-wrapper {
     margin-left: -1px;
     display: inline-block;
+    &-text {
+      margin-left: 0;
+    }
   }
 
   &__dropdown {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     padding: 0;
+
+    &-single {
+      border-top-left-radius: 2px;
+      border-bottom-left-radius: 2px;
+    }
 
     &-icon {
       font-size: $font-size-large;
@@ -72,6 +86,14 @@
       @include theme-color(border-left-color, success, 4);
     }
 
+    &.zent-btn-text {
+      .zent-split-button__dropdown-icon {
+        margin-left: 4px;
+        margin-right: 4px;
+        font-size: $font-size-normal;
+      }
+    }
+
     &.zent-btn-disabled {
       @include theme-color(border-left-color, stroke, 6);
     }
@@ -79,5 +101,19 @@
     &-disabled {
       cursor: not-allowed;
     }
+  }
+}
+
+.zent-split-button__dropdown-menu {
+  display: inline-block;
+  width: unset;
+  .zent-menu-item {
+    padding: 0 16px;
+    &:hover {
+      @include theme-color(background-color, stroke, 8);
+    }
+  }
+  &-item-text.zent-menu-item {
+    padding: 0 8px;
   }
 }
