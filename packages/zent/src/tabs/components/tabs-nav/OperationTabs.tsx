@@ -7,6 +7,7 @@ import { IInnerTab, ITabsNavProps } from '../../types';
 import { WindowResizeHandler } from '../../../utils/component/WindowResizeHandler';
 import memorizeOne from '../../../utils/memorize-one';
 import Icon from '../../../icon';
+import isEqual from '../../../utils/isEqual';
 
 const classNamePrefix = 'zent-tabs-nav-tabs-content';
 
@@ -208,6 +209,9 @@ abstract class OperationTabs<Id extends string | number> extends Component<
 
   componentDidUpdate = prevProps => {
     const { activeId, tabDataList } = this.props;
+    if (!isEqual(prevProps.tabDataList, this.props.tabDataList)) {
+      this.onResize();
+    }
     if (prevProps.activeId === activeId) return;
     const { startIndex, endIndex } = this.state;
     const currentTabIndex = tabDataList.findIndex(tab => tab.key === activeId);
@@ -220,9 +224,7 @@ abstract class OperationTabs<Id extends string | number> extends Component<
 
   handleAddClick = () => {
     const { onAdd } = this.props;
-    if (!onAdd) return;
-    onAdd();
-    setTimeout(this.onResize);
+    onAdd?.();
   };
 
   render() {
@@ -230,7 +232,7 @@ abstract class OperationTabs<Id extends string | number> extends Component<
     const { translateX, startIndex, endIndex } = this.state;
     const contentClassName = `${classNamePrefix}-${overflowMode}`;
     const hiddenTabs = this.getHiddenTabs(tabDataList, startIndex, endIndex);
-    const isHiddenTab = !!hiddenTabs.length;
+    const isHiddenTab = hiddenTabs.length !== 0;
 
     return (
       <>
@@ -248,7 +250,7 @@ abstract class OperationTabs<Id extends string | number> extends Component<
             ref={this.tabsMainRef}
             onScroll={this.onResize}
             style={{
-              transform: `translate(-${translateX}px, 0)`,
+              transform: `translateX(-${isHiddenTab ? translateX : 0}px)`,
             }}
           >
             {tabs}
@@ -258,7 +260,7 @@ abstract class OperationTabs<Id extends string | number> extends Component<
               className={`${contentClassName}__add-btn`}
               onClick={this.handleAddClick}
             >
-              <Icon type="plus" />
+              <Icon type="plus" className={`${contentClassName}__add-icon`} />
             </span>
           )}
         </div>
@@ -278,7 +280,10 @@ abstract class OperationTabs<Id extends string | number> extends Component<
                   className={`${contentClassName}-option__add-btn`}
                   onClick={this.handleAddClick}
                 >
-                  <Icon type="plus" />
+                  <Icon
+                    type="plus"
+                    className={`${contentClassName}__add-icon`}
+                  />
                 </span>
               )}
             </div>
