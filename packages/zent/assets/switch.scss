@@ -89,8 +89,6 @@
     cursor: not-allowed;
 
     &.zent-switch-checked {
-      // @include theme-color(background-color, primary, 7);
-      // @include theme-color(border-color, primary, 7);
       background-color: rgb(148, 180, 235);
       border-color: rgb(148, 180, 235);
     }
