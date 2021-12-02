@@ -148,6 +148,12 @@ export class Breadcrumb extends Component<IBreadcrumbProps, IBreadcrumbState> {
     });
   };
 
+  unfoldBreads = () => {
+    this.setState({ isFolded: false }, () => {
+      this.getOverflowStatus();
+    });
+  };
+
   getFoldItems = () => {
     const { isFolded } = this.state;
     const { maxItemCount, breads } = this.props;
@@ -157,7 +163,7 @@ export class Breadcrumb extends Component<IBreadcrumbProps, IBreadcrumbState> {
     result.splice(1, breads.length - maxItemCount, {
       name: '...',
       className: 'zent-breadcrumb__fold',
-      onClick: () => this.setState({ isFolded: false }),
+      onClick: this.unfoldBreads,
     });
     return result;
   };
