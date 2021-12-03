@@ -3,8 +3,13 @@ import cx from 'classnames';
 import Portal from '../portal';
 import DrawerBackdrop from './components/DrawerBackdrop';
 import DrawerContent from './components/DrawerContent';
-import { DrawerProps } from './types';
+import { DrawerProps, DrawerSize } from './types';
 import { useDrawerExiting } from './hooks/useDrawerExiting';
+
+const drawerSizeWidthMap: Record<DrawerSize, string> = {
+  default: '728px',
+  small: '364px',
+};
 
 export const Drawer: React.FC<DrawerProps> = ({
   onClose,
@@ -18,9 +23,13 @@ export const Drawer: React.FC<DrawerProps> = ({
   footer,
   placement,
   closeBtn,
+  size,
   ...rest
 }) => {
-  const width = 'width' in rest ? rest.width : '45%';
+  let width: string | number = drawerSizeWidthMap[size];
+  if ('width' in rest) {
+    width = rest.width;
+  }
   const height = 'height' in rest ? rest.height : '45%';
   const { exiting, onExited } = useDrawerExiting(visible);
 
@@ -68,6 +77,7 @@ Drawer.defaultProps = {
   onClose: () => {},
   placement: 'right',
   closeBtn: true,
+  size: 'default',
 };
 
 export default Drawer;
