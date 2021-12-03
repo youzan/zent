@@ -915,6 +915,7 @@ export class Select<
       className,
       disableSearch,
       size,
+      collapseAt,
     } = this.props;
 
     const sizeWidth = SIZE_MAP[size] || DEFAULT_TRIGGER_WIDTH;
@@ -949,6 +950,7 @@ export class Select<
                     'zent-select-v2-clearable': showClear,
                     'zent-select-v2-multiple': multiple,
                     'zent-select-v2-collapsable': collapsable,
+                    'zent-select-v2-collapsable-single': collapseAt === 1,
                   })}
                   style={{ width: useWidth }}
                   onClick={this.focusSearchInput}

@@ -142,6 +142,22 @@ $option-height: 32px;
   }
 
   &-collapsable {
+    &-single {
+      display: flex;
+      flex-wrap: nowrap;
+      .zent-select-v2-tag-collapsed-trigger {
+        flex-shrink: 0;
+      }
+    }
+    .zent-select-v2-tag {
+      overflow: hidden;
+
+      &-text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
     .zent-select-v2-search-wrap {
       flex: 1;
     }
