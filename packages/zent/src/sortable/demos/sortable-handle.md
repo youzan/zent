@@ -1,13 +1,13 @@
 ---
-order: 1
+order: 3
 zh-CN:
-	title: 基础用法
+	title: 配置拖动手柄，只有按住拖动手柄才能进行拖动
 en-US:
-	title: Basic Usage
+	title: Configure the drag handle. You can drag only by holding down the drag handle
 ---
 
 ```js
-import { Sortable } from 'zent';
+import { Sortable, Icon } from 'zent';
 
 class Simple extends React.Component {
 	state = {
@@ -39,12 +39,13 @@ class Simple extends React.Component {
 			<div className="demo-sortable-wrapper">
 				<Sortable
 					items={list}
+					handle=".drag-icon"
 					onChange={this.handleChange}
 				>
 					{
 						list.map(({ name } ) => 
 							<div className="zent-demo-sortable-basic-item" key={name}>
-								{name}
+								<Icon type="drag" className="drag-icon" /> {name}
 							</div>
 						)
 					}
@@ -67,5 +68,9 @@ ReactDOM.render(
 		height: 56px;
 		line-height: 56px;
 		padding-left: 16px;
+	}
+	.drag-icon {
+		font-size: 16px;
+		cursor: grab;
 	}
 </style>
