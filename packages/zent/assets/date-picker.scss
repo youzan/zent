@@ -223,12 +223,12 @@
         }
       }
 
-      &_in_range {
-        @include blue-bgcolor;
-      }
-
       &_in_hover_range {
         @include gray-bgcolor;
+      }
+
+      &_in_range {
+        @include blue-bgcolor;
       }
 
       &_selected {
@@ -274,6 +274,10 @@
           @include theme-color(background-color, stroke, 4);
           @include theme-color(color, stroke, 9);
         }
+      }
+
+      &_in_hover_range.zent-datepicker-panel-body-cells_over {
+        @include gray-bgcolor;
       }
 
       &_in_range.zent-datepicker-panel-body-cells_over {
