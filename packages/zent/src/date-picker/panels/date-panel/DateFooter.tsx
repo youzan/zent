@@ -1,4 +1,4 @@
-import { useCallback, useContext, useMemo } from 'react';
+import { useCallback, useContext, useMemo, useState } from 'react';
 import cx from 'classnames';
 import { parse } from 'date-fns';
 import Pop from '../../../pop';
@@ -27,6 +27,7 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
   onSelected,
   disabledPanelDate,
 }) => {
+  const [timePickerIsOpen, setTimePickerIsOpen] = useState<boolean>(false);
   const { i18n, autoComplete } = useContext(PickerContext);
   const { format = '' } = showTimeOption || {};
   const confirmStatus = useConfirmStatus({
@@ -61,14 +62,23 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
     () => (
       <Button
         type="primary"
-        disabled={confirmStatus || isDisableConfirm || !selected}
+        disabled={
+          confirmStatus || isDisableConfirm || !selected || timePickerIsOpen
+        }
         onClick={confirmHandler}
         className={`${footerPrefixCls}-btn`}
       >
         {i18n.confirm}
       </Button>
     ),
-    [i18n, confirmStatus, selected, isDisableConfirm, confirmHandler]
+    [
+      i18n,
+      confirmStatus,
+      selected,
+      isDisableConfirm,
+      confirmHandler,
+      timePickerIsOpen,
+    ]
   );
 
   const renderToday = useMemo(() => {
@@ -118,7 +128,8 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
   );
 
   const timeInput = useMemo(() => {
-    const { defaultTime, ...restOption } = showTimeOption || {};
+    const { defaultTime, onOpen, onClose, ...restOption } =
+      showTimeOption || {};
     const defaultTimeString =
       typeof defaultTime === 'function' ? defaultTime(selected) : defaultTime;
 
@@ -131,6 +142,14 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
         value={formatDate(format, selected)}
         hiddenIcon={true}
         onChange={onTimeChange}
+        onOpen={() => {
+          onOpen?.();
+          setTimePickerIsOpen(true);
+        }}
+        onClose={() => {
+          onClose?.();
+          setTimePickerIsOpen(false);
+        }}
         disabledTime={disabledTime}
         autoComplete={autoComplete}
       />
