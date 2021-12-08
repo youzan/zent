@@ -9,6 +9,10 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 9.12.3(2021-12-08)
+- `DatePicker`
+	- 🦀️ Disable `DatePicker` confirm button when `TimePicker` is open
+
 ### 9.12.2(2021-11-26)
 
 - 🦀️ Fix `MiniPagination` page number input renders wrong value in some cases
@@ -49,7 +53,7 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 	- 🦀️ Fix state of the select all checkbox in header
 	- 🦀️ Fix row highlight behavior when there're fixed columns but `scroll.x` is falsy value
 - 🦀️ Upgrade `caniuse-lite` to latest
-- 📚 Add `onOpened` and `onClosed` to `Dialog` doc 
+- 📚 Add `onOpened` and `onClosed` to `Dialog` doc
 - 📚 Cleanup usage of `danger` and `success` `Button`s in doc
 
 ### 9.10.1(2021-09-15)
