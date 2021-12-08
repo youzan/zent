@@ -212,8 +212,6 @@ interface ITimePickerBase<T> {
   openPanel?: boolean;
   width?: string | number;
   className?: string;
-  onOpen?: () => void;
-  onClose?: () => void;
 }
 
 interface ITimePickerProps<T = SingleTime> extends ITimePickerBase<T> {
@@ -222,6 +220,8 @@ interface ITimePickerProps<T = SingleTime> extends ITimePickerBase<T> {
   hiddenIcon?: boolean;
   autoComplete?: boolean;
   disabledTime?: IDisabledTime;
+  onOpen?: () => void;
+  onClose?: () => void;
 }
 
 export interface ISingleTimePickerProps extends ITimePickerProps<SingleTime> {

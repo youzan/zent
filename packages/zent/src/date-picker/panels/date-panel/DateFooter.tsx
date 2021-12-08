@@ -126,10 +126,14 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
     },
     [selected, format, onSelected]
   );
-
+  const onTimeOpen = useCallback(() => {
+    setTimePickerIsOpen(true);
+  }, []);
+  const onTimeClose = useCallback(() => {
+    setTimePickerIsOpen(false);
+  }, []);
   const timeInput = useMemo(() => {
-    const { defaultTime, onOpen, onClose, ...restOption } =
-      showTimeOption || {};
+    const { defaultTime, ...restOption } = showTimeOption || {};
     const defaultTimeString =
       typeof defaultTime === 'function' ? defaultTime(selected) : defaultTime;
 
@@ -142,14 +146,8 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
         value={formatDate(format, selected)}
         hiddenIcon={true}
         onChange={onTimeChange}
-        onOpen={() => {
-          onOpen?.();
-          setTimePickerIsOpen(true);
-        }}
-        onClose={() => {
-          onClose?.();
-          setTimePickerIsOpen(false);
-        }}
+        onOpen={onTimeOpen}
+        onClose={onTimeClose}
         disabledTime={disabledTime}
         autoComplete={autoComplete}
       />
@@ -162,6 +160,8 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
     format,
     disabledTime,
     onTimeChange,
+    onTimeOpen,
+    onTimeClose,
   ]);
 
   return <PanelFooter leftNode={timeInput} rightNode={renderToday} />;
