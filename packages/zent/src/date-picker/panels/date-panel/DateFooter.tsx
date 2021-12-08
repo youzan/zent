@@ -27,7 +27,7 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
   onSelected,
   disabledPanelDate,
 }) => {
-  const [timePickerIsOpen, setTimePickerIsOpen] = useState<boolean>(false);
+  const [timePickerIsOpen, setTimePickerIsOpen] = useState(false);
   const { i18n, autoComplete } = useContext(PickerContext);
   const { format = '' } = showTimeOption || {};
   const confirmStatus = useConfirmStatus({
