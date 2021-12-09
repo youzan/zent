@@ -1,5 +1,6 @@
 @import './theme/default';
 @import './theme/font';
+@import './theme/timing-functions';
 
 .zent-tree {
   @include theme-color(color, stroke, 1);
