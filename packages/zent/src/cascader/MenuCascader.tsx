@@ -693,7 +693,7 @@ export class MenuCascader extends Component<
           return (
             <Popover
               className={cx('zent-cascader-v2__popup', popupClassName)}
-              position={Popover.Position.AutoBottomLeftInViewport}
+              position={Popover.Position.AutoBottomLeft}
               visible={visible}
               onVisibleChange={this.onVisibleChange}
               cushion={4}
