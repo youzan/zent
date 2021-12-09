@@ -10,10 +10,6 @@
     list-style: none;
   }
 
-  ul {
-    padding-left: 20px;
-  }
-
   .tree-node-loading-wrapper {
     display: inline-block;
     position: relative;
@@ -44,6 +40,15 @@
       }
     }
   }
+
+  &__indent {
+    display: inline-block;
+
+    &__unit-start {
+      display: inline-block;
+      width: 12px;
+    }
+  }
 }
 
 .zent-tree.zent-tree-large {
@@ -51,13 +56,10 @@
 
   .zent-tree-bar {
     .zent-tree-switcher {
-      line-height: 20px;
-
-      &:after {
-        border: 6px solid transparent;
-        @include theme-color(border-left-color, stroke, 6);
-        border-left-width: 9px;
-      }
+      font-size: 24px;
+    }
+    .zent-tree__switcher-placeholder {
+      width: 24px;
     }
   }
 }
@@ -67,58 +69,58 @@
 
   .zent-tree-bar {
     .zent-tree-switcher {
-      line-height: 12px;
-
-      &:after {
-        border: 4px solid transparent;
-        @include theme-color(border-left-color, stroke, 6);
-        border-left-width: 6px;
-      }
+      font-size: 16px;
+    }
+    .zent-tree__switcher-placeholder {
+      width: 16px;
     }
   }
 }
 
 .zent-tree-bar {
   position: relative;
+  display: flex;
+  cursor: pointer;
+  padding: 6px 4px;
+
+  $bar: &;
+
+  &:not(#{$bar}--selected):not(#{$bar}--disabled):hover {
+    @include theme-color(background-color, stroke, 8);
+  }
+
+  &--selected {
+    @include theme-color(background-color, primary, 8);
+  }
+
+  &--disabled .zent-tree-node {
+    @include theme-color(color, stroke, 4);
+    cursor: not-allowed;
+  }
 
   .zent-tree-switcher {
-    position: absolute;
-    top: 2px;
-    left: -18px;
-    width: 16px;
-    height: 16px;
-    line-height: 18px;
-    display: inline-block;
-    vertical-align: middle;
-    border: 0 none;
-    cursor: pointer;
-    outline: none;
+    font-size: 20px;
+    transform: rotate(90deg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 100ms $timing-fn-linear;
+  }
 
-    &:after {
-      border: 5px solid transparent;
-      @include theme-color(border-left-color, stroke, 6);
-      @include theme-color(color, stroke, 2);
-      content: '';
-      display: inline-block;
-      border-left-width: 7px;
-      transform: rotate(90deg);
-      transform-origin: 23.09% 50%;
-      transition: transform 0.3s ease;
-    }
+  .zent-tree__switcher-placeholder {
+    width: 20px;
   }
 
   &.zent-tree-bar--off {
     .zent-tree-switcher {
-      &:after {
-        transform: rotate(0deg);
-      }
+      transform: rotate(0deg);
     }
   }
 
   .zent-tree-node {
     display: inline-block;
     line-height: 1.42857143;
-    cursor: pointer;
+    margin-left: 4px;
 
     .zent-tree-content {
       margin-left: -4px;
@@ -129,9 +131,9 @@
       background-color: transparent;
       transition: all 0.3s ease-in-out;
 
-      &:hover {
-        @include theme-color(background-color, primary, 8);
-      }
+      // &:hover {
+      //   @include theme-color(background-color, primary, 8);
+      // }
     }
 
     .zent-tree-operation-container {
@@ -156,10 +158,6 @@
     .zent-tree-node .zent-tree-operation-container {
       opacity: 1;
     }
-  }
-
-  .zent-checkbox-wrap {
-    margin-top: -5px;
   }
 }
 

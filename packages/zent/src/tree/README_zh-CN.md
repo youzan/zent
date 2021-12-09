@@ -28,16 +28,19 @@ group: 导航
 | foldable            | 是否支持点击条目时展开与收起动作                                 | bool               | `true`     |                      |
 | onCheck             | 点击checkbox的回调函数, 接受所选中节点的数组与帮助自定义的信息       | func(ids, helpInfo)|            |                      |
 | checkable           | 是否支持checkbox选择																					| bool               | `true`     |                      |                   | 
-| checkedKeys         | 选中节点id数组                                                | array              |            |                      |
-| disabledCheckedKeys | 默认禁选节点id数组                                             | array              |            |                      |
+| checkedKeys         | checkbox选中节点id数组                                                | array              |            |                      |
+| disabledCheckedKeys | checkbox默认禁选节点id数组                                             | array              |            |                      |
 | size                | 大小                                                         | string             | `'medium'` | `'small'`, `'large'` |
 | commonStyle         | 设置整个tree的外层style                                        | object             |            |                      |
 | expandAll           | 是否展开所有节点                                               | bool               | `false`    |                      |
 | onExpand            | 展开节点之后的回调函数                                          | func(data, config) |            |                      |
-| autoExpandOnSelect  | 点击节点是否展开                                               | bool               | `true`     |                      |
+| autoExpandOnSelect  | 点击节点是否展开                                               | bool               | `false`     |                      |
 | onSelect            | 选择树的一个节点的回调函数                                       | func(data, target) |            |                      |
 | isRoot              | plain数据类型，判断节点是否为根节点的api                          | func(node)         |            |                      |
 | loadMore            | 返回Promise的函数，必须支持then的回调, 用于节点异步加载更多内容      |  func(data)        |            |                      |
+| selectedKey         | 当前选中的节点     |  `string`\|`number`        |            |                      |
+| disabledSelectedKeys | 禁选的节点ID集合     |  `(string | number)[]`       |            |                      |
+| disableSelectedStrictly | 父级被禁选时是否同时禁选其子级     |  `boolean`       |   `false`                | `true`
 
 #### renderKey
 
