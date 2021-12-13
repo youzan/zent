@@ -5,6 +5,7 @@ import {
   CSSProperties,
   useContext,
   useRef,
+  useEffect,
 } from 'react';
 import cx from 'classnames';
 import { ElevatorContext } from './context';
@@ -34,6 +35,15 @@ export const ElevatorLinks: VFC<IElevatorLinksProps> = ({
 }) => {
   const { activeLink, getContainer, onLinkClick } = useContext(ElevatorContext);
   const affixRef = useRef<IAffixImperativeHandlers>(null);
+
+  useEffect(() => {
+    const linkIds = links.map(link => link.link);
+    if (Array.from(new Set(linkIds)).length !== linkIds.length) {
+      console.warn(
+        'Warning: In the links property of Elevator, the link value must be unique.'
+      );
+    }
+  }, [links]);
 
   const handleScroll = () => {
     affixRef?.current?.updatePosition();

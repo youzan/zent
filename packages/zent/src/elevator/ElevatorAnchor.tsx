@@ -10,8 +10,13 @@ export const ElevatorAnchor: FC<IElevatorAnchorProps> = ({
   link,
   children,
 }) => {
-  const { offsetTop, getContainer, onAnchorEnter, registerAnchor } =
-    useContext(ElevatorContext);
+  const {
+    offsetTop,
+    getContainer,
+    onAnchorEnter,
+    registerAnchor,
+    unRegisterAnchor,
+  } = useContext(ElevatorContext);
 
   const ref = useRef<HTMLDivElement>(null);
 
@@ -21,7 +26,11 @@ export const ElevatorAnchor: FC<IElevatorAnchorProps> = ({
 
   useEffect(() => {
     registerAnchor(link, ref.current);
-  }, [link, registerAnchor]);
+
+    return () => {
+      unRegisterAnchor(link);
+    };
+  }, [link, registerAnchor, unRegisterAnchor]);
 
   return (
     <Waypoint

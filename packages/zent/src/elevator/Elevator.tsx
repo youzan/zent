@@ -41,11 +41,13 @@ export const Elevator: IElevator = ({
     onChange?.(link, activeLink);
   };
 
+  // 计算activeLink切换的锚点偏移量
   const offsetTop = useMemo(() => {
     let containerHeight = getDefaultContainer().innerHeight;
     if (getContainerResult) {
       containerHeight = getContainerResult.getBoundingClientRect().height;
     }
+    // 默认偏移量为container高度的一半
     const defaultOffsetTop = containerHeight / 2;
     return !isNil(propOffsetTop)
       ? containerHeight - (propOffsetTop || 1)
@@ -56,6 +58,14 @@ export const Elevator: IElevator = ({
     setAnchorElementsMap(prev => {
       const map = new Map(prev);
       map.set(link, el);
+      return map;
+    });
+  }, []);
+
+  const handleUnRegister = useCallback((link: string) => {
+    setAnchorElementsMap(prev => {
+      const map = new Map(prev);
+      map.delete(link);
       return map;
     });
   }, []);
@@ -90,6 +100,7 @@ export const Elevator: IElevator = ({
         onLinkClick: handleLinkClick,
         onAnchorEnter: handleAnchorEnter,
         registerAnchor: handleRegisterAnchor,
+        unRegisterAnchor: handleUnRegister,
       }}
     >
       {children}

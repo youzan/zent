@@ -20,40 +20,36 @@ import { useRef } from 'react';
 
 const LINKS = [
 	{
-		link: "{i18n.DirectoryOne}",
-		title: "{i18n.DirectoryOne}",
+		link: '{i18n.DirectoryOne}',
+		title: '{i18n.DirectoryOne}',
 	},
 	{
-		link: "{i18n.DirectoryTwo}",
-		title: "{i18n.DirectoryTwo}",
+		link: '{i18n.DirectoryTwo}',
+		title: '{i18n.DirectoryTwo}',
 	},
 	{
-		link: "{i18n.DirectoryThree}",
-		title: "{i18n.DirectoryThree}",
+		link: '{i18n.DirectoryThree}',
+		title: '{i18n.DirectoryThree}',
 	},
 	{
-		link: "{i18n.DirectoryFour}",
-		title: "{i18n.DirectoryFour}",
+		link: '{i18n.DirectoryFour}',
+		title: '{i18n.DirectoryFour}',
 	},
-]
+];
 
 const Demo = () => {
-
 	const renderBlock = () => (
-
 		<div>
-			{
-				LINKS.map(link => (
-					<div key={link.link}>
-						<Elevator.Anchor link={link.link}>
-							<h3>{link.title}</h3>
-						</Elevator.Anchor>
-						<div className="zent-demo-elevator-basic__block__content" />
-					</div>
-				))
-			}
+			{LINKS.map(link => (
+				<div key={link.link}>
+					<Elevator.Anchor link={link.link}>
+						<h3>{link.title}</h3>
+					</Elevator.Anchor>
+					<div className="zent-demo-elevator-basic__block__content" />
+				</div>
+			))}
 		</div>
-	)
+	);
 
 	return (
 		<div className="zent-demo-elevator-container-window">
@@ -68,7 +64,7 @@ const Demo = () => {
 			</Elevator>
 		</div>
 	);
-}
+};
 
 ReactDOM.render(<Demo />, mountNode);
 ```

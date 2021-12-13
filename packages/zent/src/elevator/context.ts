@@ -8,6 +8,7 @@ export interface IElevatorContextProps {
   onAnchorEnter: (link: string) => void;
   onAnchorLeave?: (link: string) => void;
   registerAnchor: (link: string, element: HTMLElement) => void;
+  unRegisterAnchor: (link: string) => void;
 }
 
 export const ElevatorContext = createContext<IElevatorContextProps>(
