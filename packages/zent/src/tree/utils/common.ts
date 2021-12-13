@@ -34,7 +34,7 @@ export interface ITreeRootInfoMap {
     isExpand: boolean;
     isParent: boolean;
     son: TreeRootIdArray;
-    includes: TreeRootIdArray;
+    rootIncludeIds: TreeRootIdArray;
     // 节点的选择联动集合 { nodeId: id[] }
     // id[]: [nodeId, nodeId.children[1]Id, nodeId.children[2]Id, .... nodeId.children[1][...].childrenn[N]Id]
     // 可以根据当前node的id, 查找它将会影响的子孙节点

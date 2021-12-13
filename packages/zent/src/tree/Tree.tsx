@@ -52,7 +52,7 @@ export interface ITreeProps extends ICreateStateByPropsParams {
   onSelect?: (data: ITreeData, target: HTMLSpanElement) => void;
   selectedKey?: string | number; // 已选中的节点
   disabledSelectedKeys?: TreeRootIdArray; // 禁用select的节点
-  disableSelectedStrictly?: TreeRootIdArray; // 当节点的select disabled状态确定时，不可通过同时disabled其子级
+  disableSelectedStrictly?: TreeRootIdArray; // 父节点select disabled是否同时disable其子节点
 }
 
 export interface ITreeState {
@@ -106,7 +106,7 @@ export class Tree extends Component<ITreeProps, ITreeState> {
     }
     const keys = [];
     disabledSelectedKeys.forEach(key => {
-      keys.push(...rootInfoMap[key].includes);
+      keys.push(...rootInfoMap[key].rootIncludeIds);
     });
 
     return keys;
@@ -258,12 +258,12 @@ export class Tree extends Component<ITreeProps, ITreeState> {
         }
 
         // 父类包含了该节点
-        if (rootInfoMap[id].includes.indexOf(rootId) > -1) {
+        if (rootInfoMap[id].rootIncludeIds.indexOf(rootId) > -1) {
           return false;
         }
 
         // 他的子类
-        if (rootInfoMap[rootId].includes.indexOf(id) > -1) {
+        if (rootInfoMap[rootId].rootIncludeIds.indexOf(id) > -1) {
           return false;
         }
 
@@ -303,8 +303,8 @@ export class Tree extends Component<ITreeProps, ITreeState> {
 
       // bottom
       if (
-        rootInfoMap[id].includes.length === 1 ||
-        rootInfoMap[id].includes.every(
+        rootInfoMap[id].rootIncludeIds.length === 1 ||
+        rootInfoMap[id].rootIncludeIds.every(
           child => checkedNode.indexOf(child) === -1
         )
       ) {
@@ -350,7 +350,7 @@ export class Tree extends Component<ITreeProps, ITreeState> {
 
     const rootId = root[renderKey.id];
     const checked = checkedNode.indexOf(rootId) > -1;
-    const countChild = rootInfoMap[rootId].includes.filter(
+    const countChild = rootInfoMap[rootId].rootIncludeIds.filter(
       id => disabledNode.indexOf(id) === -1
     );
     const halfChecked = !!(
