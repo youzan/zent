@@ -22,14 +22,19 @@ export interface ISortableProps<T>
   onChange?: (newItems: T[]) => void;
 }
 
-const addElementsDraggingCursor = (selector: string) => {
-  document.querySelectorAll(selector).forEach((el: HTMLElement) => {
+const addElementsDraggingCursor = (selector: string, element?: HTMLElement) => {
+  const container = element || document;
+  container.querySelectorAll(selector).forEach((el: HTMLElement) => {
     el.style.cursor = 'grabbing';
   });
 };
 
-const removeElementsDraggingCursor = (selector: string) => {
-  document.querySelectorAll(selector).forEach((el: HTMLElement) => {
+const removeElementsDraggingCursor = (
+  selector: string,
+  element?: HTMLElement
+) => {
+  const container = element || document;
+  container.querySelectorAll(selector).forEach((el: HTMLElement) => {
     el.style.cursor = '';
   });
 };
@@ -45,14 +50,14 @@ export class Sortable<T> extends Component<ISortableProps<T>> {
   handleAddDraggingCursor = () => {
     const { handle } = this.props;
     addElementsDraggingCursor('html');
-    handle && addElementsDraggingCursor(handle);
+    handle && addElementsDraggingCursor(handle, this.containerRef.current);
     this.containerRef.current?.classList.add(DRAGGING_CLS);
   };
 
   handleRemoveDraggingCursor = () => {
     const { handle } = this.props;
     removeElementsDraggingCursor('html');
-    handle && removeElementsDraggingCursor(handle);
+    handle && removeElementsDraggingCursor(handle, this.containerRef.current);
     this.containerRef.current?.classList.remove(DRAGGING_CLS);
   };
 
@@ -104,6 +109,7 @@ export class Sortable<T> extends Component<ISortableProps<T>> {
         }
 
         const { oldIndex, newIndex } = e;
+        // 拖拽过程中偶先newIndex超出newItems.length的情况，约束一下index的范围
         const nextIndex = Math.max(0, Math.min(newIndex, items.length - 1));
         const newItems = reorder(items, oldIndex, nextIndex);
         onChange && onChange(newItems);
