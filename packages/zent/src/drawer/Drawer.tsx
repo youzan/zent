@@ -26,7 +26,7 @@ export const Drawer: React.FC<DrawerProps> = ({
   size,
   ...rest
 }) => {
-  let width: string | number = drawerSizeWidthMap[size];
+  let width: string | number = drawerSizeWidthMap[size] || '45%';
   if ('width' in rest) {
     width = rest.width;
   }
@@ -77,7 +77,6 @@ Drawer.defaultProps = {
   onClose: () => {},
   placement: 'right',
   closeBtn: true,
-  size: 'default',
 };
 
 export default Drawer;
