@@ -52,7 +52,7 @@ export interface ITreeProps extends ICreateStateByPropsParams {
   onSelect?: (data: ITreeData, target: HTMLSpanElement) => void;
   selectedKey?: string | number; // 已选中的节点
   disabledSelectedKeys?: TreeRootIdArray; // 禁用select的节点
-  disableSelectedStrictly?: TreeRootIdArray; // 父节点select disabled是否同时disable其子节点
+  disableSelectedStrictly?: boolean; // 父节点select disabled是否同时disable其子节点
 }
 
 export interface ITreeState {
