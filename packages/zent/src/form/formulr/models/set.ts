@@ -1,21 +1,23 @@
 import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
-import { BasicModel } from './basic';
-import { IMaybeError, ValidateOption } from '../validate';
-import { Maybe, None, Some } from '../maybe';
-import { IModel } from './base';
+import { hasOwnProperty } from '../../../utils/hasOwn';
+import identity from '../../../utils/identity';
 import isNil from '../../../utils/isNil';
-import uniqueId from '../../../utils/uniqueId';
 import isPlainObject from '../../../utils/isPlainObject';
+import omit from '../../../utils/omit';
+import uniqueId from '../../../utils/uniqueId';
+import type { FieldSetBuilder } from '../builders/set';
+import { Maybe, None, Some } from '../maybe';
 import type {
   UnknownFieldSetBuilderChildren,
   UnknownFieldSetModelChildren,
 } from '../utils';
-import omit from '../../../utils/omit';
+import { IMaybeError, ValidateOption } from '../validate';
 import { warningSubscribeValid, warningSubscribeValue } from '../warnings';
+import { IModel } from './base';
+import { BasicModel } from './basic';
+import { INormalizeBeforeSubmit } from './field';
 import { isModel, SET_ID } from './is';
-import type { FieldSetBuilder } from '../builders/set';
 import { createSentinelSubject } from './sentinel-subject';
-import { hasOwnProperty } from '../../../utils/hasOwn';
 
 type $FieldSetValue<Children extends UnknownFieldSetModelChildren> = {
   [Key in keyof Children]: Children[Key] extends IModel<infer V> ? V : never;
@@ -60,6 +62,12 @@ class FieldSetModel<
     BasicModel<unknown>,
     Subscription[]
   > = new Map();
+
+  /**
+   * 用于表单提交前格式化 `Field` 值的回调函数
+   */
+  normalizeBeforeSubmit: INormalizeBeforeSubmit<$FieldSetValue<Children>, any> =
+    identity;
 
   /** @internal */
   constructor(children: Children, id = uniqueId('field-set-')) {
@@ -147,8 +155,7 @@ class FieldSetModel<
     for (let i = 0; i < childrenKeys.length; i++) {
       const key = childrenKeys[i];
       const model = this.children[key] as BasicModel<unknown>;
-      const childValue = model.getRawValue();
-      value[key] = childValue;
+      value[key] = model.getRawValue();
     }
     return value;
   }
@@ -162,10 +169,9 @@ class FieldSetModel<
     for (let i = 0; i < childrenKeys.length; i++) {
       const key = childrenKeys[i];
       const model = this.children[key] as BasicModel<unknown>;
-      const childValue = model.getSubmitValue();
-      value[key] = childValue;
+      value[key] = model.getSubmitValue();
     }
-    return value;
+    return this.normalizeBeforeSubmit(value);
   }
 
   /**
@@ -217,10 +223,10 @@ class FieldSetModel<
     });
 
     // Close all subjects and setup sentinels to warn use after free errors
-    this._getValue$().complete();
-    this._getValid$().complete();
     this.childRegister$.complete();
     this.childRemove$.complete();
+    this._value$?.complete();
+    this._valid$?.complete();
 
     this._valid$ = createSentinelSubject(this._displayName, false);
     this._value$ = createSentinelSubject(
@@ -387,8 +393,7 @@ class FieldSetModel<
   }
 
   private _initValid$() {
-    const valid$ = new BehaviorSubject(isNil(this.error));
-    this._valid$ = valid$;
+    this._valid$ = new BehaviorSubject(isNil(this.error));
     const $ = this.error$.subscribe(() => {
       this._setValid();
     });
@@ -400,7 +405,6 @@ class FieldSetModel<
 
   /**
    * Subscribe `valid$` and `value$` of the model
-   * @param model
    */
   private _subscribeChild(name: string, model: BasicModel<unknown>) {
     const { invalidModels, _valid$, _value$ } = this;

@@ -292,6 +292,9 @@ module.exports = {
         'packages/babel-plugin-zent/src/*.js',
         'packages/babel-plugin-zent/__tests__/*.js',
       ],
+      env: {
+        node: true,
+      },
       parserOptions: {
         babelOptions: {
           root: path.resolve(__dirname, 'packages/babel-plugin-zent'),
@@ -300,9 +303,6 @@ module.exports = {
     },
     {
       files: ['packages/babel-plugin-zent/__tests__/*.spec.js'],
-      env: {
-        node: true,
-      },
       rules: {
         'no-console': 'off',
       },
