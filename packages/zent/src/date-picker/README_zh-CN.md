@@ -122,8 +122,8 @@ interface IDisableDateMap {
 ```ts
 interface IDisabledTimeOption {
 	disabledHours?: () => number[];
-	disabledMinutes: (hour: number) => number[];;
-	disabledSeconds?: (hour: number, minute: number) => number[];;
+	disabledMinutes: (hour: number) => number[];
+	disabledSeconds?: (hour: number, minute: number) => number[];
 }
 ```
 
