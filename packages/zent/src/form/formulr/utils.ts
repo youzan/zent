@@ -8,8 +8,6 @@ export function last<T>(arr: T[]) {
   return arr.length ? arr[arr.length - 1] : null;
 }
 
-export const id = <T>(it: T) => it;
-
 export function useDestroyOnUnmount<Model extends BasicModel<any>>(
   field: string | BasicModel<any> | ModelRef<any, any, Model>,
   model: BasicModel<any>,

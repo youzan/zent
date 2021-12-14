@@ -57,9 +57,7 @@ const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
           : defaultTimeEnd;
       if (start && !end) {
         selectedTemp = [
-          startShowTime
-            ? parse(defaultStartTime(start), formatStart, start)
-            : startOfDay(start),
+          startShowTime ? start : startOfDay(start),
           endShowTime
             ? parse(defaultEndTime(val), formatEnd, val)
             : endOfDay(val),
