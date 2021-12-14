@@ -20,12 +20,11 @@ export class PageJumper extends BasePageJumper<
     const { value } = this.state;
     const input = (
       <NumberInput
+        integer
         value={value}
         onChange={this.onChange}
         onPressEnter={this.onConfirm}
         width={INPUT_WIDTH}
-        min={1}
-        decimal={0}
       />
     );
 
@@ -46,7 +45,7 @@ export class PageJumper extends BasePageJumper<
     this.props.onJump(pageNumber);
 
     this.setState({
-      value: '',
+      value: null,
     });
   }
 }
