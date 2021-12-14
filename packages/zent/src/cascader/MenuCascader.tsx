@@ -62,7 +62,7 @@ export interface IMenuCascaderCommonProps extends ICascaderBaseProps {
   highlight?: (keyword: string, path: ICascaderItem[]) => React.ReactNode;
   limit?: number;
   multipleType?: 'normal' | 'checkbox';
-  tagContentType?: 'line' | 'scroll' | 'spread';
+  maxLine?: number | 'unset';
 }
 
 export interface IMenuCascaderSingleProps extends IMenuCascaderCommonProps {
@@ -216,7 +216,7 @@ export class MenuCascader extends Component<
     clearable: false,
     multiple: false,
     multipleType: 'normal',
-    tagContentType: 'line',
+    maxLine: 1,
     expandTrigger: 'click',
     scrollable: false,
     loadChildrenOnScroll: false,
@@ -666,7 +666,7 @@ export class MenuCascader extends Component<
       searchable,
       clearable,
       renderValue,
-      tagContentType,
+      maxLine,
     } = this.props;
     const { selectedPaths, keyword } = this.state;
     const visible = this.getVisible();
@@ -685,7 +685,7 @@ export class MenuCascader extends Component<
             searchable,
             i18n,
             renderValue,
-            tagContentType,
+            maxLine,
             onClear: this.onClear,
             onKeywordChange: this.onKeywordChange,
           };

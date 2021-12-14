@@ -4,6 +4,7 @@ import { ICascaderItem } from '../types';
 import Icon from '../../icon';
 import { II18nLocaleCascader } from '../../i18n';
 import { Component } from 'react';
+import * as React from 'react';
 
 interface ITriggerState {
   active: boolean;
@@ -26,7 +27,7 @@ export interface ICascaderBaseTriggerProps {
   renderValue: (selectedPath: ICascaderItem[]) => React.ReactNode;
   i18n: II18nLocaleCascader;
   showLabels?: boolean;
-  tagContentType?: 'line' | 'scroll' | 'spread';
+  style?: React.CSSProperties;
 }
 
 export class BaseTrigger extends Component<
@@ -72,6 +73,7 @@ export class BaseTrigger extends Component<
       i18n,
       placeholder,
       showLabels,
+      style,
     } = this.props;
     const { active } = this.state;
     const hasValue = selectedPaths.length > 0;
@@ -104,6 +106,7 @@ export class BaseTrigger extends Component<
         onClick={onClick}
         onMouseEnter={this.onMouseEnter}
         onMouseLeave={this.onMouseLeave}
+        style={style}
       >
         {children}
         {showLabels && <span className={triggerTextCls}>{triggerText}</span>}

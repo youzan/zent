@@ -44,6 +44,7 @@ $menuHeight: 180px;
       @include tag-style;
       cursor: pointer;
       justify-content: center;
+      flex-shrink: 0;
     }
 
     &-content {
@@ -117,9 +118,9 @@ $menuHeight: 180px;
     .zent-cascader-v2--tag + .zent-cascader-v2--search {
       margin-top: 2px;
     }
-    &--scroll {
-      max-height: 80px;
-      overflow-y: auto;
+    &-collapsed {
+      display: flex;
+      flex-wrap: nowrap;
     }
   }
 
