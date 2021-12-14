@@ -37,12 +37,11 @@ export class MiniPageJumper extends BasePageJumper<
     return (
       <div className="zent-pagination-mini-page-jumper">
         <NumberInput
+          integer
           value={value}
           onChange={this.onChange}
           onPressEnter={this.onConfirm}
           width={INPUT_WIDTH}
-          min={1}
-          decimal={0}
         />
         <span className="zent-pagination-mini-page-jumper__sep">/</span>
         <span className="zent-pagination-mini-page-jumper__total">
@@ -58,8 +57,8 @@ export class MiniPageJumper extends BasePageJumper<
   ) {
     return {
       value: props.current !== state.prevCurrent ? props.current : state.value,
-      prevProps: props,
-    };
+      prevCurrent: props.current,
+    } as IPaginationMiniPageJumperState;
   }
 
   handleJump(pageNumber: number) {
@@ -69,13 +68,13 @@ export class MiniPageJumper extends BasePageJumper<
 
     if (pageNumber > totalPages) {
       this.setState({
-        value: totalPages.toString(),
+        value: totalPages,
       });
     }
 
     if (pageNumber < 1) {
       this.setState({
-        value: '1',
+        value: 1,
       });
     }
   }
