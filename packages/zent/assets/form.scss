@@ -23,7 +23,7 @@
 
   &-error {
     @include theme-color(color, error, 4);
-    margin-top: 8px;
+    margin-top: 4px;
   }
 
   &-notice,
@@ -31,7 +31,7 @@
     @include theme-color(color, stroke, 3);
     line-height: 14px;
     font-size: 12px;
-    margin-top: 8px;
+    margin-top: 4px;
     margin-bottom: 0;
 
     ul li {
@@ -63,6 +63,11 @@
     &-content {
       &-inner {
         display: flex;
+        & + #{$p}-notice,
+        & + #{$p}-error,
+        & + #{$p}-description {
+          margin-top: 12px;
+        }
       }
     }
 
@@ -87,6 +92,8 @@
   &-vertical {
     & #{$p}-label {
       flex-basis: auto;
+      line-height: 20px;
+      margin-bottom: 12px;
     }
 
     & #{$p}-control {
