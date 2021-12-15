@@ -30,3 +30,4 @@ group: 展示
 | normalColor    | 正常状态下的颜色                       | string                         |          |                                            |
 | successColor   | 成功状态下的颜色                       | string                         |          |                                            |
 | exceptionColor | 错误状态的颜色                         | string                         |          |                                            |
+| strokeLinecap  | 进度条边缘形状              |    string   |  `'round'`      |  `'round'` \| `'square'` | 

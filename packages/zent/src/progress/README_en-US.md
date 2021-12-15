@@ -29,3 +29,4 @@ Progress represents the current progress and status of the operation.
 | normalColor    | The color in normal state                                                 | string  |                   |                                            |
 | successColor   | The color in successful state.                                            | string  |                   |                                            |
 | exceptionColor | The color in exception state                                              | string  |                   |                                            |
+| strokeLinecap  | Change the linecaps from round to square      |    string   |  `'round'`      |  `'round'` \| `'square'` | 

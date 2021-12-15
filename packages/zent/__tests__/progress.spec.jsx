@@ -5,6 +5,8 @@ import Progress from '../src/progress';
 
 Enzyme.configure({ adapter: new Adapter() });
 
+const DEFAULT_PROGRESS_WIDTH = 8;
+
 describe('Progress', () => {
   it('render a default Progress', () => {
     const wrapper = mount(<Progress />);
@@ -22,7 +24,7 @@ describe('Progress', () => {
           style={{
             background: undefined,
             width: '0%',
-            height: 10,
+            height: DEFAULT_PROGRESS_WIDTH,
           }}
         />
       )
@@ -77,7 +79,7 @@ describe('Progress', () => {
           style={{
             background: undefined,
             width: '70%',
-            height: 10,
+            height: DEFAULT_PROGRESS_WIDTH,
           }}
         />
       )
@@ -102,7 +104,7 @@ describe('Progress', () => {
           style={{
             background: undefined,
             width: '100%',
-            height: 10,
+            height: DEFAULT_PROGRESS_WIDTH,
           }}
         />
       )
@@ -147,7 +149,7 @@ describe('Progress', () => {
           style={{
             background: '#eee',
             width: '100%',
-            height: 10,
+            height: DEFAULT_PROGRESS_WIDTH,
           }}
         />
       )
@@ -161,7 +163,7 @@ describe('Progress', () => {
           style={{
             background: '#eee',
             width: '70%',
-            height: 10,
+            height: DEFAULT_PROGRESS_WIDTH,
           }}
         />
       )
@@ -175,7 +177,7 @@ describe('Progress', () => {
           style={{
             background: '#eee',
             width: '100%',
-            height: 10,
+            height: DEFAULT_PROGRESS_WIDTH,
           }}
         />
       )
@@ -203,7 +205,7 @@ describe('Progress', () => {
           style={{
             background: '#000',
             width: '80%',
-            height: 10,
+            height: DEFAULT_PROGRESS_WIDTH,
           }}
         />
       )
@@ -270,5 +272,48 @@ describe('Progress', () => {
     arcInstance.transitionEndTimerId = 0;
     expect(() => arcInstance.finishAnimation()).not.toThrow();
     expect(() => wrapper.unmount()).not.toThrow();
+  });
+
+  it('abnormal data display', () => {
+    const wrapper1 = mount(<Progress percent={-10} />);
+    expect(
+      wrapper1.containsMatchingElement(
+        <div
+          className="zent-progress-inner"
+          style={{
+            background: undefined,
+            width: '0%',
+            height: DEFAULT_PROGRESS_WIDTH,
+          }}
+        />
+      )
+    ).toBe(true);
+
+    const wrapper2 = mount(<Progress percent={110} />);
+    expect(
+      wrapper2.containsMatchingElement(
+        <div
+          className="zent-progress-inner"
+          style={{
+            background: undefined,
+            width: '100%',
+            height: DEFAULT_PROGRESS_WIDTH,
+          }}
+        />
+      )
+    ).toBe(true);
+  });
+
+  it('cant set strokeLinecap', () => {
+    const ensure = strokeLinecap => {
+      const wrapper = mount(
+        <Progress percent={110} strokeLinecap={strokeLinecap} />
+      );
+      const lineCap = strokeLinecap === 'square' ? 'square' : 'round';
+      expect(wrapper.find(`.zent-progress-wrapper--${lineCap}`).length).toBe(1);
+    };
+    ensure();
+    ensure('square');
+    ensure('round');
   });
 });
