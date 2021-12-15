@@ -1,5 +1,5 @@
 ---
-order: 5
+order: 4
 zh-CN:
   title: 支持多标签滚动查看
   tabPrefix: 选项

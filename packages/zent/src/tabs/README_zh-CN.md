@@ -3,11 +3,17 @@ title: Tabs
 subtitle: 选项卡
 path: component/tabs
 group: 导航
+scatter: true
 ---
 
 ## Tabs 选项卡组件
 
 选项卡组件
+
+<!-- demo-slot-1 -->
+<!-- demo-slot-2 -->
+<!-- demo-slot-3 -->
+<!-- demo-slot-4 -->
 
 ### API
 
@@ -23,12 +29,12 @@ group: 导航
 | navExtraContent    | 导航添加额外内容                                                     | React.ReactNode               |            |                        | 否       |
 | stretch            | tab 是否撑满全部空间                                                 | boolean                       | `false`    |                        | 否       |
 | onDelete           | 关闭 tab 时                                                          | (id: string \| number) => any |            |                        | 否       |
-| onAdd              | 添加 tab 时                                                          | () => void           |            |                        | 否       |
+| onAdd              | 添加 tab 时                                                          | () => void                    |            |                        | 否       |
 | candel             | 是否可删除                                                           | bool                          | `false`    |                        | 否       |
-| canFixed           | 是否可固定                                                          | bool                          | `false`    |                        | 否       |
+| canFixed           | 是否可固定                                                           | bool                          | `false`    |                        | 否       |
 | unmountPanelOnHide | panel 非 active 时，不使用 `display: none` 隐藏而是直接 unmount 组件 | bool                          | `false`    |                        | 否       |
-| overflowMode       | 标签过多时查看全部标签的方式                                         | string                        | `'anchor'` | `'slide'`               | 否       |
-| disableLazyMount   | 禁用 `TabPanel` 延迟挂载                                           | bool                          | `false`    |                         | 否       | 
+| overflowMode       | 标签过多时查看全部标签的方式                                         | string                        | `'anchor'` | `'slide'`              | 否       |
+| disableLazyMount   | 禁用 `TabPanel` 延迟挂载                                             | bool                          | `false`    |                        | 否       |
 
 tabs 参数类型：
 
@@ -70,3 +76,9 @@ type IVerticalTab = ITab | { divide: true };
 #### Divide
 
 用于表示 VerticalTabs 的分割线，不需要传递 props
+
+#### 以下功能新版设计语言已废弃，仅作为老版使用的参考
+
+<!-- demo-slot-5 -->
+<!-- demo-slot-6 -->
+<!-- demo-slot-7 -->
