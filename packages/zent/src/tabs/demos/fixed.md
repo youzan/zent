@@ -1,5 +1,5 @@
 ---
-order: 4
+order: 3
 zh-CN:
 	title: 可添加、删除、固定tab
 	tabOne: 选项1
@@ -94,9 +94,13 @@ class Simple extends React.Component {
 				>
 					{panels}
 				</Tabs>
-				<div style={{
-					marginTop: 16
-				}}>{i18n.desc}</div>
+				<div
+					style={{
+						marginTop: 16,
+					}}
+				>
+					{i18n.desc}
+				</div>
 			</div>
 		);
 	}
