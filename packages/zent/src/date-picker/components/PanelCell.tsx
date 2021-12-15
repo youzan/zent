@@ -19,7 +19,8 @@ const getCellClassName = ({
     [`${prefixCls}_available`]: !isSelected && !isDisabled,
     [`${prefixCls}_current`]: isInView && isCurrent,
     [`${prefixCls}_selected`]: isSelected,
-    [`${prefixCls}_in_range`]: !isDisabled && (isInRange || isInHoverRange),
+    [`${prefixCls}_in_range`]: !isDisabled && isInRange,
+    [`${prefixCls}_in_hover_range`]: !isDisabled && isInHoverRange,
   });
 };
 

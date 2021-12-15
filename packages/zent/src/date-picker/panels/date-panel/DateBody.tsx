@@ -12,6 +12,7 @@ import PanelContext from '../../context/PanelContext';
 
 import getPanelCellsData from '../../utils/getPanelCellsData';
 import { dateConfig } from '../../utils/dateUtils';
+
 import {
   ISingleDateBodyProps,
   IShowTime,
@@ -90,11 +91,7 @@ const DatePickerBody: FC<IDatePickerBodyProps> = props => {
       selectedDate = setMonth(selectedDate, val.getMonth());
       selectedDate = setDate(selectedDate, val.getDate());
 
-      onSelected(
-        defaultTime
-          ? parse(defaultTimeFn(), format, selectedDate)
-          : selectedDate
-      );
+      onSelected(selectedDate);
     },
     [selected, showTimeOption, onSelected]
   );
