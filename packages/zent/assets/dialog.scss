@@ -78,7 +78,7 @@ $footer-height: 72px;
 }
 
 .zent-dialog-r-close {
-  @include theme-color(color, stroke, 2);
+  @include theme-color(color, stroke, 1);
   @include theme-color(background-color, stroke, 9);
   position: absolute;
   display: inline-block;
@@ -98,7 +98,7 @@ $footer-height: 72px;
   &:link,
   &:active,
   &:focus {
-    @include theme-color(color, stroke, 2);
+    @include theme-color(color, stroke, 1);
   }
 
   &.zent-dialog-r-has-title {
