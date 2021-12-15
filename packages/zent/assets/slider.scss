@@ -8,7 +8,9 @@
   padding: 8px 7px;
 
   &-main {
-    @include theme-color(background-color, stroke, 6);
+    //@include theme-color(background-color, stroke, 6);
+    // text-700 没有对应语义化
+    background-color: rgba(0, 0, 0, 0.05);
     flex: 1;
     height: 14px;
     cursor: pointer;
@@ -67,10 +69,23 @@
     transition: border-color 0.3s ease,
       transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
 
-    &:hover {
+    $p: &;
+
+    &:hover:not(#{$p}-disabled) {
       @include theme-color(color, primary, 4);
       transform: scale(1.2);
       transform-origin: center center;
+      &::after {
+        width: 14px;
+        height: 14px;
+        content: '';
+        border: 5px solid rgba(153, 198, 255, 0.5);
+        display: inline-block;
+        border-radius: 50%;
+        position: absolute;
+        left: -7px;
+        top: -7px;
+      }
     }
 
     &-disabled {
@@ -81,7 +96,7 @@
 
       &:hover {
         @include theme-color(border-color, stroke, 5);
-        transform: scale(1.2);
+        transform: scale(1);
         transform-origin: center center;
       }
     }
