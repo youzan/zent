@@ -21,6 +21,11 @@ $dot-diameter: 8px;
     padding: 0 4px;
     font-size: $font-size-small;
     line-height: $count-height - 2px;
+
+    &-num {
+      display: block;
+      transform: scale(0.83);
+    }
   }
 
   .zent-badge-dot {

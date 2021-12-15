@@ -38,7 +38,9 @@ export class Badge extends PureComponent<IBadgeProps> {
     } else if (count > 0 || (count === 0 && showZero)) {
       return (
         <span className="zent-badge-count" style={badgeStyle}>
-          {count > maxCount ? `${maxCount}+` : count}
+          <span className="zent-badge-count-num">
+            {count > maxCount ? `${maxCount}+` : count}
+          </span>
         </span>
       );
     }
