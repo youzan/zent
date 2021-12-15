@@ -1,0 +1,27 @@
+@import './theme/default';
+
+.zent-sortable {
+  &__fallback {
+    @include theme-color(background-color, stroke, 9, 0.5);
+  }
+
+  &:not(&--grabbing):not(&--handle) > * {
+    cursor: grab;
+  }
+
+  .zent-sortable__ghost {
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      @include theme-color(background-color, stroke, 8);
+      content: '';
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+}
