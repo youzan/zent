@@ -36,6 +36,7 @@ export class FieldArrayBuilder<
       or(defaultValue, () => this._defaultValue)
     );
     model.validators = this._validators;
+    model.normalizeBeforeSubmit = this._normalizeBeforeSubmit;
 
     // Remove readonly modifier temporarily
     (model.builder as FieldArrayBuilder<ChildBuilder>) = this;

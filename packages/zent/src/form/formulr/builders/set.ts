@@ -46,6 +46,7 @@ export class FieldSetBuilder<
       children as $FieldSetBuilderChildren<ChildBuilders>
     );
     model.validators = this._validators;
+    model.normalizeBeforeSubmit = this._normalizeBeforeSubmit;
 
     // Remove readonly modifier temporarily
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion

@@ -68,8 +68,19 @@ export function FieldSet<T extends UnknownFieldSetModelChildren>(
   } = props as IFieldSetBaseProps<T>;
   const { name } = props as IFieldSetViewDrivenProps<T>;
   const { model: rawModel } = props as IFieldSetModelDrivenProps<T>;
+
   // It's safe to use `any`
   const [ctx, model] = useFieldSet<T>((name ?? rawModel) as any, validators);
+
+  if (isFieldSetViewDrivenProps(props)) {
+    const { normalizeBeforeSubmit, destroyOnUnmount } = props;
+
+    model.destroyOnUnmount = Boolean(destroyOnUnmount);
+    if (normalizeBeforeSubmit) {
+      model.normalizeBeforeSubmit = normalizeBeforeSubmit;
+    }
+  }
+
   useImperativeHandle(modelRef, () => model, [model]);
   useFormChild(model as BasicModel<unknown>, scrollAnchorRef);
   useObservableEagerState(model.error$);
@@ -79,4 +90,10 @@ export function FieldSet<T extends UnknownFieldSetModelChildren>(
       {renderError(model.error as IMaybeError<any>)}
     </FormProvider>
   );
+}
+
+function isFieldSetViewDrivenProps<T extends UnknownFieldSetModelChildren>(
+  props: IFieldSetModelDrivenProps<T> | IFieldSetViewDrivenProps<T>
+): props is IFieldSetViewDrivenProps<T> {
+  return (props as IFieldSetViewDrivenProps<T>).name !== undefined;
 }
