@@ -1,7 +1,7 @@
 import Enzyme, { mount } from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 
-import Tag from '../src/tag';
+import Tag, { LinkTag, SelectTag } from '../src/tag';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -10,7 +10,7 @@ describe('Tag', () => {
     const wrapper = mount(<Tag>tag</Tag>);
     expect(wrapper.find('.zent-tag').length).toBe(1);
     expect(wrapper.find('.zent-tag-rounded').length).toBe(1);
-    expect(wrapper.find('.zent-tag-style-red').length).toBe(1);
+    expect(wrapper.find('.zent-tag-style-grey').length).toBe(1);
     expect(wrapper.find('.zent-tag-content').length).toBe(1);
     expect(wrapper.find('.zent-tag-content').text()).toBe('tag');
     expect(
@@ -23,6 +23,11 @@ describe('Tag', () => {
   it('can have custom className', () => {
     const wrapper = mount(<Tag className="label" />);
     expect(wrapper.find('.zent-tag.label').length).toBe(1);
+  });
+
+  it('can be invisible', () => {
+    const wrapper = mount(<Tag visible={false} />);
+    expect(wrapper.find('.zent-tag').length).toBe(0);
   });
 
   it('can have close button', () => {
@@ -42,6 +47,11 @@ describe('Tag', () => {
 
     wrapper = mount(<Tag closable onClose={null} />);
     expect(() => wrapper.find('ZentIcon').simulate('click')).not.toThrow();
+  });
+
+  it('has different size', () => {
+    const wrapper = mount(<Tag size="large" />);
+    expect(wrapper.find('.zent-tag-size-large').length).toBe(1);
   });
 
   it('has red theme', () => {
@@ -71,7 +81,7 @@ describe('Tag', () => {
 
   it('has outline style', () => {
     const wrapper = mount(<Tag outline />);
-    expect(wrapper.find('.zent-tag-style-red-outline').length).toBe(1);
+    expect(wrapper.find('.zent-tag-style-grey-outline').length).toBe(1);
   });
 
   it('can have custom style', () => {
@@ -88,7 +98,7 @@ describe('Tag', () => {
     expect(
       wrapper.containsMatchingElement(
         <div
-          className="zent-tag zent-tag-style-red zent-tag-rounded"
+          className="zent-tag zent-tag-style-grey zent-tag-size-small zent-tag-rounded"
           style={{ backgroundColor: '#ff1493', borderColor: '#ff1493' }}
         >
           <div className="zent-tag-content">#ff1493</div>
@@ -115,5 +125,28 @@ describe('Tag', () => {
         <a href="https://www.youzan.com">youzan</a>
       )
     ).toBe(true);
+  });
+});
+
+describe('LinkTag', () => {
+  it('has a link icon', () => {
+    const wrapper = mount(
+      <LinkTag>
+        <span>tag</span>
+      </LinkTag>
+    );
+    expect(wrapper.find('ZentIcon').length).toBe(1);
+  });
+});
+
+describe('SelectTag', () => {
+  it('can have a onChange callback', () => {
+    const onChange = jest.fn();
+    let wrapper = mount(<SelectTag onChange={onChange} />);
+    wrapper.simulate('click');
+    expect(onChange.mock.calls.length).toBe(1);
+
+    wrapper = mount(<SelectTag onChange={null} />);
+    expect(() => wrapper.simulate('click')).not.toThrow();
   });
 });
