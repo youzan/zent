@@ -31,6 +31,6 @@ A panel which slides in from the edge of the screen.
 | closeBtn     | Custom close btn, setting `false` will hide `closebtn`                                        | `ReactNode`                            | `true`    | 否       |
 | size         | presetted size of drawer, default 728px and small 364px                                       | `'default'`\|`'small'`                 | `default` | false    |
 
-#### The following example is not recommended
+#### The following functions is obsolete in the new design system and is only used as a reference for the old version
 
 <!-- demo-slot-4 -->
