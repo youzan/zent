@@ -17,9 +17,9 @@ import { Tag } from 'zent';
 
 ReactDOM.render(
 	<div>
-		<Tag>{i18n.small}</Tag>
-		<Tag size="medium">{i18n.medium}</Tag>
-		<Tag size="large">{i18n.large}</Tag>
+		<Tag outline>{i18n.small}</Tag>
+		<Tag outline size="medium">{i18n.medium}</Tag>
+		<Tag outline size="large">{i18n.large}</Tag>
 	</div>
 	, mountNode
 );

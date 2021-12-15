@@ -2,8 +2,8 @@
 @import './theme/font';
 
 .zent-tag {
-  @include theme-color(color, stroke, 1);
-  @include theme-color(border-color, stroke, 4);
+  @include theme-color(color, stroke, 9);
+  @include theme-color(border-color, stroke, 9);
   display: inline-block;
   font-size: $font-size-small;
   line-height: 1;
@@ -38,6 +38,57 @@
     }
   }
 
+  &.zent-tag-style-red {
+    @include theme-color(background-color, error, 2);
+    @include theme-color(border-color, error, 2);
+  }
+
+  &.zent-tag-style-red-outline {
+    @include theme-color(border-color, error, 2);
+    @include theme-color(color, error, 4);
+  }
+
+  &.zent-tag-style-green {
+    @include theme-color(background-color, success, 2);
+    @include theme-color(border-color, success, 2);
+  }
+
+  &.zent-tag-style-green-outline {
+    @include theme-color(color, success, 2);
+    @include theme-color(border-color, success, 4);
+  }
+
+  &.zent-tag-style-yellow {
+    @include theme-color(background-color, warn, 2);
+    @include theme-color(border-color, warn, 2);
+  }
+
+  &.zent-tag-style-yellow-outline {
+    @include theme-color(color, warn, 2);
+    @include theme-color(border-color, warn, 4);
+  }
+
+  &.zent-tag-style-blue {
+    @include theme-color(background-color, primary, 4);
+    @include theme-color(border-color, primary, 4);
+  }
+
+  &.zent-tag-style-blue-outline {
+    @include theme-color(color, primary, 4);
+    @include theme-color(border-color, primary, 6);
+  }
+
+  &.zent-tag-style-grey {
+    @include theme-color(color, stroke, 1);
+    @include theme-color(border-color, stroke, 7);
+    @include theme-color(background-color, stroke, 7);
+  }
+
+  &.zent-tag-style-grey-outline {
+    @include theme-color(color, stroke, 1);
+    @include theme-color(border-color, stroke, 5);
+  }
+
   &.zent-link-tag {
     .zent-link-tag-content {
       display: inline-block;
@@ -46,12 +97,17 @@
     .zent-link-tag-right-icon {
       margin-right: -1px;
       font-size: 12px;
+      @include theme-color(color, hint, color);
     }
 
     &:hover {
       cursor: pointer;
       @include theme-color(color, primary, bg);
       @include theme-color(border-color, primary, bg);
+
+      .zent-link-tag-right-icon {
+        @include theme-color(color, primary, bg);
+      }
     }
   }
 

@@ -10,7 +10,7 @@ export interface ILinkTagProps
 export const LinkTag = forwardRef<HTMLDivElement, ILinkTagProps>(
   ({ className, children, linkIconStyle, ...rest }, ref) => {
     return (
-      <Tag className={`zent-link-tag ${className}`} ref={ref} {...rest}>
+      <Tag className={`zent-link-tag ${className}`} ref={ref} outline {...rest}>
         <div className="zent-link-tag-content">{children}</div>
         <Icon
           type="right"

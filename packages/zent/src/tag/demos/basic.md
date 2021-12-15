@@ -11,11 +11,11 @@ en-US:
 ---
 
 ```jsx
-import { Tag, SelectTag } from 'zent';
+import { Tag, LinkTag } from 'zent';
 
 ReactDOM.render(
 	<div>
-		<Tag>{i18n.content}</Tag>
+		<Tag outline>{i18n.content}</Tag>
 		<LinkTag><a href="#">{i18n.link}</a></LinkTag>
 	</div>
 	, mountNode

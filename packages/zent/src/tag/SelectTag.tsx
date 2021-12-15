@@ -20,6 +20,7 @@ export const SelectTag = forwardRef<HTMLDivElement, ISelectTagProps>(
         })}
         ref={ref}
         onClick={handleClick}
+        outline
         {...rest}
       >
         {children}
