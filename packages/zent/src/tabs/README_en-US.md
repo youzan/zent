@@ -18,13 +18,15 @@ Tabs is used to switch different view in one page.
 | onChange           | The callback function that is triggered when the tab is active            | (id: string \| number) => any |            |                         | yes      |
 | tabs               | The config of tabs when not using Panel.                                  | Array<ITab\>                  |            |                         | no       |
 | className          | The custom classname                                                      | string                        |            |                         | no       |
-| type               | The type of tabs                                                          | string                        | `'normal'` | `'card'`, `'button'`    | no       |
+| type               | The type of tabs                                                          | string                        | `'card'`   | `'normal'`, `'button'`  | no       |
 | navExtraContent    | Nav add extra content                                                     | React.ReactNode               |            |                         | no       |
 | stretch            | Is tab stretch to fill content space                                      | boolean                       | `false`    |                         | no       |
 | onDelete           | The callback function that is triggered when the tab is closed.           | (id: string \| number) => any |            |                         | no       |
+| onAdd           | The callback function that is triggered when the add button is clicked.          | () => void |            |                         | no       |
 | candel             | Whether the tab can be deleted.                                           | bool                          | `false`    |                         | no       |
+| canFixed           | Whether the tab can be fixed.                                          | bool                          | `false`    |                         | no       |
 | unmountPanelOnHide | Unmount TabPanel on inactive instead of using `display: none` style cover | bool                          | `false`    |                         | no       |
-| overflowMode       | Support operations to fit in more tabs                                    | string                        | `''`       | `'slide'` \| `'anchor'` | no       |
+| overflowMode       | Support operations to fit in more tabs                                    | string                        | `'anchor'`    | `'slide'` | no       |
 | disableLazyMount   | Disable lazyMount of `TabPanel`                                           | bool                          | `false`    |                         | no       | 
 
 Paramerter type of `tabs`：

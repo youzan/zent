@@ -17,6 +17,7 @@ export interface IInnerTab<Id> extends ITab<Id> {
   actived: boolean;
   unmountOnHide?: boolean;
   panelChildren?: React.ReactNode;
+  canFixed?: boolean;
 }
 
 export type IVerticalInnerTab<Id> = IInnerTab<Id> | IVerticalDivide;
@@ -52,11 +53,13 @@ export interface IBaseTabsProps<Id, TabPanelProps> {
 
 export interface ITabsProps<Id> extends IBaseTabsProps<Id, ITabPanelProps<Id>> {
   onDelete: (id: Id) => void;
+  onAdd: () => void;
   candel: boolean;
   stretch: boolean;
   navExtraContent: React.ReactNode;
   type?: TabType;
   overflowMode?: ITabOverflowMode;
+  canFixed?: boolean;
 }
 
 export interface IVerticalTabsProps<Id>
@@ -73,10 +76,17 @@ export interface ITabsNavProps<Id>
   extends IBaseTabsNavProps<Id, IInnerTab<Id>> {
   onDelete: (id: Id) => void;
   candel: boolean;
+  canFixed?: boolean;
   stretch: boolean;
   navExtraContent: React.ReactNode;
   type: TabType;
   overflowMode: ITabOverflowMode;
+  onAdd?: () => void;
+  activeId: Id;
+}
+
+export interface ITabNavState {
+  fixed: boolean;
 }
 
 export interface IVerticalTabsNavProps<Id>
@@ -91,4 +101,5 @@ export interface ITabProps<Id> {
   actived?: boolean;
   disabled?: boolean;
   candel?: boolean;
+  canFixed?: boolean;
 }

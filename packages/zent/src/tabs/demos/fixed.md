@@ -1,21 +1,21 @@
 ---
-order: 5
+order: 4
 zh-CN:
-	title: 动态增删
+	title: 可添加、删除、固定tab
 	tabOne: 选项1
 	tabTwo: 选项2
 	tabText: 选项
 	tabOneCont: 选项1的内容
 	tabTwoCont: 选项2的内容
-	desc: candel 属性只有在 normal 和 card 两种模式下起效
+	desc: canFixed 属性只有在 card 模式下起效
 en-US:
-	title: Dynamic Add and Delete
+	title: Add, delete, and fix tabs
 	tabOne: Tab1
 	tabTwo: Tab2
 	tabText: Tab
 	tabOneCont: The content of tab1.
 	tabTwoCont: The content of tab2.
-	desc: candel and onDelete props only avaliable in normal and card type
+	desc: canFixed props only avaliable in card type
 ---
 
 ```jsx
@@ -43,13 +43,15 @@ class Simple extends React.Component {
 
 	onTabAdd = () => {
 		let { panels } = this.state;
+		const id = `${uniqId++}`;
 		panels.push({
+			id,
 			tab: `{i18n.tabText}${uniqId}`,
-			id: `${uniqId++}`,
 			content: Date.now(),
 		});
 		this.setState({
 			panels,
+			activeId: id,
 		});
 	};
 
@@ -83,20 +85,12 @@ class Simple extends React.Component {
 			<div className="zent-tabs-demo">
 				<Tabs
 					candel
-					activeId={this.state.activeId}
-					onChange={this.onTabChange}
-					onDelete={this.onTabDel}
-					navExtraContent={<Icon type="plus" className="zent-tabs-add-btn" onClick={this.onTabAdd} />}
-				>
-					{panels}
-				</Tabs>
-				<Tabs
-					candel
+					canFixed
 					type="card"
 					activeId={this.state.activeId}
 					onChange={this.onTabChange}
 					onDelete={this.onTabDel}
-					navExtraContent={<Icon type="plus" className="zent-tabs-add-btn" onClick={this.onTabAdd} />}
+					onAdd={this.onTabAdd}
 				>
 					{panels}
 				</Tabs>

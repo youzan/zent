@@ -41,9 +41,10 @@ export class Tabs<Id extends string | number = string> extends BaseTabs<
   static TabPanel = TabPanel;
 
   static defaultProps: Partial<ITabsProps<string>> = {
-    type: 'normal',
+    type: 'card',
     activeId: '',
     candel: false,
+    canFixed: false,
     stretch: false,
     onChange: noop,
     onDelete: noop,
@@ -88,11 +89,14 @@ export class Tabs<Id extends string | number = string> extends BaseTabs<
     const {
       type,
       candel,
+      canFixed,
       stretch,
       navExtraContent,
       onChange,
       onDelete,
+      onAdd,
       overflowMode,
+      activeId,
     } = this.props as ITabsInnerProps<Id>;
 
     const TabsNavComp = (TabsNavComponents[type] ||
@@ -103,11 +107,14 @@ export class Tabs<Id extends string | number = string> extends BaseTabs<
         onChange={onChange}
         tabDataList={tabDataList}
         onDelete={onDelete}
+        onAdd={onAdd}
         candel={candel}
+        canFixed={canFixed}
         stretch={stretch}
         overflowMode={overflowMode}
         navExtraContent={navExtraContent}
         type={type}
+        activeId={activeId}
       />
     );
   }

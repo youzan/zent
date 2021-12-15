@@ -29,16 +29,19 @@ abstract class CommonTabsNav<
   transformTabDataList(
     tabDataList: Array<IInnerTab<Id>>
   ): Array<IInnerTab<Id>> {
-    const { candel } = this.props;
-    return tabDataList.map(tabItem => commonTransformTabData(tabItem, candel));
+    const { candel, canFixed } = this.props;
+    return tabDataList.map(tabItem =>
+      commonTransformTabData(tabItem, candel, canFixed)
+    );
   }
 
   render() {
     const navExtraContent = this.renderNavExtraContent();
-    const { tabDataList, overflowMode, onChange, type } = this.props;
+    const { tabDataList, overflowMode, onChange, onAdd, type, activeId } =
+      this.props;
     const tabs = this.renderTabs();
     const isOperationTabs =
-      overflowMode && (type === 'normal' || type === 'card');
+      (overflowMode && (type === 'normal' || type === 'card')) || onAdd;
 
     return (
       <div className={this.tabsNavCls}>
@@ -46,8 +49,10 @@ abstract class CommonTabsNav<
           <OperationTabs
             overflowMode={overflowMode}
             onChange={onChange}
+            onAdd={onAdd}
             tabDataList={tabDataList}
             tabs={tabs}
+            activeId={activeId}
           />
         ) : (
           <div className="zent-tabs-nav-content">

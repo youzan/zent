@@ -2,6 +2,8 @@
 @import './theme/font';
 @import './theme/timing-functions';
 
+$transparent-white: rgba(255, 255, 255, 0);
+
 @mixin border($direct: null) {
   @if $direct {
     @include theme-color(border-#{$direct}-color, stroke, 5);
@@ -60,6 +62,7 @@
       margin-left: 8px;
     }
 
+    &-tabs-content-add,
     &-tabs-content-slide,
     &-tabs-content-anchor {
       width: 100%;
@@ -73,7 +76,29 @@
 
       &-main {
         display: flex;
-        transition: transform 220ms $timing-fn-ease-in-out;
+        transition: transform 200ms $timing-fn-ease-in-out-cubic;
+      }
+
+      &-main--has-add .zent-tabs-tab.zent-tabs-tab-type__card:last-child {
+        border-top-right-radius: 0;
+      }
+
+      &__add-btn {
+        @include theme-color(border-color, stroke, 5);
+        @include theme-color(background-color, stroke, 8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 36px;
+        height: 100%;
+        font-size: 20px;
+        border-top-width: 1px;
+        border-bottom-width: 1px;
+        border-right-width: 1px;
+        border-style: solid;
+        border-top-right-radius: 2px;
+        box-sizing: border-box;
+        cursor: pointer;
       }
 
       .zent-tabs-tab {
@@ -119,6 +144,17 @@
           @include theme-color(color, stroke, 4);
           cursor: not-allowed;
         }
+
+        &__add-btn {
+          @include theme-color(background-color, stroke, 9);
+          border-top-width: 0;
+          border-right-width: 0;
+          cursor: pointer;
+        }
+      }
+
+      &-option--right {
+        box-shadow: -2px 0 8px 0 rgba(0, 0, 0, 0.1);
       }
     }
   }
@@ -130,28 +166,52 @@
   }
 
   &-tab {
-    @include theme-color(color, stroke, 2);
+    @include theme-color(color, stroke, 1);
     position: relative;
     cursor: pointer;
     box-sizing: border-box;
     text-align: center;
 
-    &-delete {
+    &__actions {
       @include theme-color(color, stroke, 3);
-      line-height: 1;
+      background-image: linear-gradient(
+        270deg,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(255, 255, 255, 1) 81%,
+        $transparent-white 100%
+      );
       position: absolute;
+      height: calc(100% - 2px);
       top: 50%;
-      right: 10px;
+      right: 4px;
       transform: translateY(-50%);
+      padding-left: 4px;
       font-size: $font-size-normal;
-      display: none;
+      display: flex;
+      align-items: center;
+      &:not(.zent-tabs-tab-actions--fixed) {
+        display: none;
+      }
+
+      & > span:hover {
+        @include theme-color(color, stroke, 1);
+        line-height: 1;
+      }
+
+      &__fixed {
+        margin-left: 4px;
+      }
+
+      .zent-tabs-tab-actions--fixed &__fixed > i {
+        transform: rotate(-45deg);
+      }
     }
 
     &:hover {
       @include theme-color(color, stroke, 1);
 
-      .zent-tabs-tab-delete {
-        display: block;
+      .zent-tabs-tab__actions {
+        display: flex;
       }
     }
 
@@ -186,10 +246,10 @@
 
   &-tab {
     padding: 6px 12px;
-    cursor: default;
+    cursor: pointer;
 
     &:hover {
-      @include theme-color(background-color, primary, 8);
+      @include theme-color(background-color, stroke, 8);
     }
 
     &-disabled {
@@ -255,10 +315,30 @@
     box-sizing: border-box;
     padding: 0 20px 0 19px;
 
+    &:not(.zent-tabs-tab__actived) .zent-tabs-tab__actions {
+      background-image: linear-gradient(
+        90deg,
+        $transparent-white 0%,
+        $gray-200 19%
+      );
+    }
+
+    &:hover:not(.zent-tabs-tab__actived) .zent-tabs-tab__actions {
+      background-image: linear-gradient(
+        90deg,
+        $transparent-white 0%,
+        rgba(240, 240, 240) 19%
+      );
+    }
+
     &-inner {
       min-width: 56px;
       line-height: 38px;
       text-align: center;
+    }
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.05);
     }
 
     &:first-child {
@@ -273,6 +353,14 @@
     &__actived {
       @include theme-color(background-color, stroke, 9);
       border-bottom-color: transparent;
+
+      &:hover {
+        @include theme-color(background-color, stroke, 9);
+      }
+    }
+
+    &__disabled:hover {
+      @include theme-color(background-color, stroke, 8);
     }
   }
 }
