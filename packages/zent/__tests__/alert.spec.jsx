@@ -411,20 +411,37 @@ describe('Banner And Prompt', () => {
   const IMG =
     'https://img01.yzcdn.cn/upload_files/2021/11/25/FtAGwcqfZIngtd1uXYIuIND58IeU.png';
   it('render children into Banner', () => {
-    const wrapper = shallow(
+    const wrapper1 = shallow(
       <Banner backgroundImage={IMG}>
         <span>Banner</span>
       </Banner>
     );
-    expect(wrapper.find('.zent-alert--banner').length).toBe(1);
+    const wrapper2 = shallow(
+      <Banner>
+        <span>Banner</span>
+      </Banner>
+    );
+    expect(wrapper1.find('.zent-alert--banner').length).toBe(1);
+    expect(wrapper2.find('.zent-alert--banner').length).toBe(1);
   });
   it('render children into Prompt', () => {
-    const wrapper = mount(
+    const wrapper1 = mount(
       <Prompt type="weakHint" extraContent={<span>extra</span>}>
         <span>Prompt</span>
       </Prompt>
     );
-    expect(wrapper.find('.zent-alert').length).toBe(1);
-    expect(wrapper.find('.zent-alert-item-extra-content').length).toBe(1);
+    const wrapper2 = mount(
+      <Prompt type="strongHint" extraContent={<span>extra</span>}>
+        <span>Prompt</span>
+      </Prompt>
+    );
+    const wrapper3 = mount(
+      <Prompt extraContent={<span>extra</span>}>
+        <span>Prompt</span>
+      </Prompt>
+    );
+    expect(wrapper1.find('.zent-alert').length).toBe(1);
+    expect(wrapper2.find('.zent-alert-item-extra-content').length).toBe(1);
+    expect(wrapper3.find('.zent-alert-item-extra-content').length).toBe(1);
   });
 });
