@@ -8,11 +8,12 @@ import {
   IGridScrollDelta,
   IGridInnerFixedType,
 } from './types';
-import { IGridInnerColumn } from './Grid';
+import { IGridInnerColumn, IGridProps } from './Grid';
 import Store from './Store';
 import isNil from '../utils/isNil';
 
 export interface IGridHeaderProps<Data> {
+  size: IGridProps['size'];
   prefix: string;
   columns: Array<IGridInnerColumn<Data>>;
   sortType: GridSortType;
@@ -223,13 +224,16 @@ class Header<Data> extends PureComponent<
   }
 
   render() {
-    const { scroll, fixed, prefix, columns } = this.props;
+    const { scroll, fixed, prefix, columns, size } = this.props;
     const headerStyle: React.CSSProperties = {};
     if (!fixed && !isNil(scroll.x)) {
       headerStyle.width = scroll.x;
     }
     return scroll.y ? (
-      <table className={`${prefix}-grid-table`} style={headerStyle}>
+      <table
+        className={`${prefix}-grid-table ${prefix}-grid-table-${size}`}
+        style={headerStyle}
+      >
         <ColGroup columns={columns} />
         {this.renderThead()}
       </table>
