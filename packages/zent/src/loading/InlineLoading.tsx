@@ -9,7 +9,7 @@ export function InlineLoading(props: IInlineLoadingProps) {
     loading = false,
     delay = 0,
     className,
-    icon = 'youzan',
+    icon = 'circle',
     iconSize,
     iconText,
     textPosition = 'bottom',

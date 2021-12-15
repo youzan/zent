@@ -12,12 +12,13 @@ export function FullScreenLoading(props: IFullScreenLoadingProps) {
     loading = false,
     delay = 0,
     className,
-    icon = 'youzan',
+    icon = 'circle',
     iconSize,
     iconText,
     textPosition = 'bottom',
     zIndex,
     colorPreset = 'primary',
+    showBackground,
   } = props;
   const delayed = useDelayed({ loading, delay });
 
@@ -29,7 +30,9 @@ export function FullScreenLoading(props: IFullScreenLoadingProps) {
 
   return (
     <Portal
-      className={cx('zent-loading', 'zent-loading--fullscreen', className)}
+      className={cx('zent-loading', 'zent-loading--fullscreen', className, {
+        'zent-loading--show-background': showBackground,
+      })}
       style={style}
       blockPageScroll
     >
