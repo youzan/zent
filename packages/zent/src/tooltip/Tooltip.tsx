@@ -50,8 +50,8 @@ type ITooltipProps =
 export class Tooltip extends Component<ITooltipProps> {
   static defaultProps = {
     trigger: 'hover',
-    position: 'top-center',
-    cushion: 10,
+    position: 'bottom-center',
+    cushion: 8,
     centerArrow: false,
     containerSelector: 'body',
   };
