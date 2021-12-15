@@ -137,17 +137,27 @@ $option-height: 32px;
     @include theme-color(border-color, primary, 4);
   }
 
-  &.zent-select-v2-visible {
-    .zenticon-down {
-      transform: rotate(180deg);
-    }
-  }
-
   &.zent-select-v2-inline {
     display: inline-flex;
   }
 
   &-collapsable {
+    &-single {
+      display: flex;
+      flex-wrap: nowrap;
+      .zent-select-v2-tag-collapsed-trigger {
+        flex-shrink: 0;
+      }
+    }
+    .zent-select-v2-tag {
+      overflow: hidden;
+
+      &-text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
     .zent-select-v2-search-wrap {
       flex: 1;
     }
@@ -191,11 +201,11 @@ $option-height: 32px;
 
   &-popup {
     @include popup;
-    max-height: 8 * $option-height;
+    max-height: 8.5 * $option-height;
     overflow-y: auto;
 
     &-empty {
-      @include theme-color(color, stroke, 4);
+      @include theme-color(color, stroke, 3);
       padding: 0 20px;
       min-height: 48px;
       display: flex;
@@ -234,11 +244,11 @@ $option-height: 32px;
     &:hover,
     &-active,
     &-active.zent-select-v2-option-selected {
-      @include theme-color(background-color, primary, 8);
+      @include theme-color(background-color, stroke, 8);
     }
 
     &-header {
-      @include theme-color(color, stroke, 4);
+      @include theme-color(color, stroke, 2);
       cursor: default;
       font-size: $font-size-small;
 
@@ -261,8 +271,12 @@ $option-height: 32px;
     }
 
     &-selected {
-      @include theme-color(background-color, stroke, 8);
+      @include theme-color(background-color, primary, 8);
       font-weight: $font-weight-medium;
+
+      &-bold {
+        font-weight: $font-weight-medium;
+      }
 
       &-multiple {
         @include theme-color(color, stroke, 3);
@@ -299,7 +313,6 @@ $option-height: 32px;
       @include theme-color(background-color, stroke, 7);
       @include tag-style;
       cursor: pointer;
-      min-width: 46px;
       justify-content: center;
     }
 
