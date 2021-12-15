@@ -23,6 +23,7 @@ group: 导航
 | --------- | ------------- | ------ | ---------- |
 | breads      | 数据  | array | `[]`   |
 | className | 自定义额外类名  | string | `''`       |
+| maxItemCount | 超出多少个进行自动折叠 | number |
 
 #### Item
 
