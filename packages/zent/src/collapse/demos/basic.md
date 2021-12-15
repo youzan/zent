@@ -3,6 +3,7 @@ order: 1
 zh-CN:
 	title: 基础用法
 	showBg: 底色
+	extra: 自定义内容
 	panelOneTitle: 南歌子（暮春）
 	panelOneContent: "紫陌寻春去，红尘拂面来。无人不道看花回。惟见石榴新蕊、一枝开。
 	冰簟堆云髻，金尊滟玉醅。绿阴青子相催。留取红巾千点、照池台。"
@@ -16,6 +17,7 @@ zh-CN:
 en-US:
 	title: Basic usage
 	showBg: Background
+	extra: Custom Content
 	panelOneTitle: A Lover's Complaint
 	panelOneContent: "FROM off a hill whose concave womb reworded
 A plaintful story from a sistering vale,
@@ -80,7 +82,7 @@ class Simple extends React.Component {
 					activeKey={activeKey}
 					onChange={this.handleChange}
 				>
-					<Collapse.Panel title="{i18n.panelOneTitle}" key="1">
+					<Collapse.Panel title="{i18n.panelOneTitle}" key="1" extra={<a>{i18n.extra}</a>}>
 						{i18n.panelOneContent}
 					</Collapse.Panel>
 					<Collapse.Panel title="{i18n.panelTwoTitle}" key="2">

@@ -18,6 +18,7 @@ export interface IAnimateHeightProps {
   className?: string;
   style?: React.CSSProperties;
   overflow: 'hidden' | 'scroll' | 'auto';
+  transitionPrototype?: string;
 }
 
 export class AnimateHeight extends Component<IAnimateHeightProps> {
@@ -26,6 +27,7 @@ export class AnimateHeight extends Component<IAnimateHeightProps> {
     duration: 200,
     easing: 'ease',
     overflow: 'hidden',
+    transitionPrototype: 'height',
   };
 
   private ref = createRef<HTMLDivElement>();
@@ -97,8 +99,15 @@ export class AnimateHeight extends Component<IAnimateHeightProps> {
   }
 
   render() {
-    const { duration, className, style, easing, overflow, children } =
-      this.props;
+    const {
+      duration,
+      className,
+      style,
+      easing,
+      overflow,
+      children,
+      transitionPrototype,
+    } = this.props;
 
     return (
       <div
@@ -106,7 +115,7 @@ export class AnimateHeight extends Component<IAnimateHeightProps> {
         className={className}
         style={{
           ...style,
-          transition: `height ${duration}ms ${easing}`,
+          transition: `${transitionPrototype} ${duration}ms ${easing}`,
           overflow,
         }}
       >
