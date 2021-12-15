@@ -24,3 +24,4 @@ A panel which slides in from the edge of the screen.
 | height       | Placement is top or bottom, height of the Drawer dialog                                       | `string` \| `number`                   | `45%`   | 否       |
 | className    | The class name of the container of the Drawer dialog                                          | `string`                               | `''`    | 否       |
 | closeBtn     | Custom close btn, setting `false` will hide `closebtn`                                        | `ReactNode`                            | `true`  | 否       |
+| size         | presetted size of drawer, default 728px and small 364px | `'default'`\|`'small'` | `default` | false  
