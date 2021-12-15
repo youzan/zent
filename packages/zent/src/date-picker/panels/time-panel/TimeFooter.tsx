@@ -23,14 +23,20 @@ const TimePickerFooter: React.FC<ITimePanelProps> = ({
 
   const renderToday = useMemo(() => {
     return (
-      <a
-        className={cx({
-          ['zent-datepicker-panel-footer-current_disabled']: isDisabledCurrent,
-        })}
+      <Button
+        type="text"
+        className={cx(
+          {
+            ['zent-datepicker-panel-footer-current_disabled']:
+              isDisabledCurrent,
+          },
+          'zent-datepicker-panel-footer-current'
+        )}
+        disabled={isDisabledCurrent}
         onClick={onClickCurrent}
       >
         {i18n.current.time}
-      </a>
+      </Button>
     );
   }, [i18n, isDisabledCurrent, onClickCurrent]);
 
@@ -40,7 +46,7 @@ const TimePickerFooter: React.FC<ITimePanelProps> = ({
         type="primary"
         className="zent-datepicker-panel-footer-btn"
         disabled={confirmStatus}
-        onClick={() => onSelected(selected, true)}
+        onClick={() => onSelected(selected || '00:00:00', true)}
       >
         {i18n.confirm}
       </Button>

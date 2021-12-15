@@ -50,6 +50,8 @@
   display: inline-block;
   position: relative;
 
+  $p: &;
+
   &-seperator {
     margin: 0 8px;
   }
@@ -123,6 +125,11 @@
     }
 
     &-focus {
+      @include theme-color(border-color, primary, 4);
+    }
+
+    &:not(#{$p}-disabled):hover {
+      cursor: pointer;
       @include theme-color(border-color, primary, 4);
     }
   }
@@ -303,6 +310,10 @@
         margin-left: 12px;
       }
 
+      &-current.zent-btn {
+        margin-left: 0;
+      }
+
       &-current_disabled {
         @include gray-color;
       }
@@ -351,7 +362,7 @@
         cursor: pointer;
 
         &_selected {
-          @include theme-color(background-color, stroke, 7);
+          @include blue-bgcolor;
           font-weight: $font-weight-medium;
         }
 

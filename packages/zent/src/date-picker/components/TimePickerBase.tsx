@@ -71,19 +71,20 @@ const TimePickerBase: React.FC<ITimePickerBaseProps> = ({
     format,
   });
 
-  const currentTime = useMemo(() => formatFn(new Date(), format), [format]);
+  const currentTime = useCallback(() => formatFn(new Date(), format), [format]);
   const selectCurrentDate = useMemo(
-    () => parse(currentTime, format, selectedDate),
+    () => parse(currentTime(), format, selectedDate),
     [currentTime, format, selectedDate]
   );
   const isDisabledCurrent = useConfirmStatus({
-    selected: currentTime,
+    selected: currentTime(),
     disabledTimeOption: disabledTime?.(selectCurrentDate) || {},
     format,
   });
 
   const onSelected = useCallback(
     (val, finished = false) => {
+      // 确认按钮无选择，默认选中00:00:00
       setVisibleChange(false);
       setSelected(val);
 
