@@ -1,5 +1,4 @@
 import ReactDOM from 'react-dom';
-
 import { AutoComplete } from '../src/auto-complete';
 import { Disabled } from '../src/disabled';
 import { Button } from '../src/button';
@@ -196,6 +195,25 @@ it('self props has a higher priority', () => {
         '#root > .zent-collapse > .zent-collapse-panel--disabled'
       ).length
     ).toBe(0);
+  } finally {
+    document.body.removeChild(div);
+  }
+});
+
+it('disabled value false', () => {
+  const div = document.createElement('div');
+  try {
+    document.body.appendChild(div);
+    div.id = 'root';
+    ReactDOM.render(
+      <Disabled value={false}>
+        <Button>Button</Button>
+      </Disabled>,
+      div
+    );
+    expect(document.querySelectorAll('#root > .zent-btn-disabled').length).toBe(
+      0
+    );
   } finally {
     document.body.removeChild(div);
   }
