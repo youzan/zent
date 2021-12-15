@@ -6,6 +6,7 @@ const buildInDotsColors = ['black', 'blue', 'red', 'green'];
 export interface ISwiperDotsProps {
   dotsColor: string;
   dotsSize?: 'normal' | 'small' | 'large';
+  dotsType?: 'line' | 'round';
   items: React.ReactNode;
   currentIndex: number;
   onDotsClick(index: number): void;
@@ -25,11 +26,12 @@ export default class SwiperDots extends PureComponent<ISwiperDotsProps> {
   };
 
   render() {
-    const { dotsColor, dotsSize, items, currentIndex, onDotsClick } =
+    const { dotsColor, dotsSize, items, currentIndex, dotsType, onDotsClick } =
       this.props;
     const classString = cx(
       'zent-swiper__dots',
       `zent-swiper__dots-${dotsSize}`,
+      `zent-swiper__dots--${dotsType}`,
       {
         [`zent-swiper__dots-${dotsColor}`]: this.isBuildInColor(dotsColor),
       }
