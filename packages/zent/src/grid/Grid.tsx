@@ -54,6 +54,7 @@ import isBrowser from '../utils/isBrowser';
 import { IBlockLoadingProps } from '../loading/props';
 import { hasOwnProperty } from '../utils/hasOwn';
 import isNil from '../utils/isNil';
+import { Icon } from '../icon';
 
 function stopPropagation(e: React.MouseEvent) {
   e.stopPropagation();
@@ -64,9 +65,11 @@ function stopPropagation(e: React.MouseEvent) {
 
 const prefix = 'zent';
 const BTN_WIDTH = 28;
+const DEFAULT_SIZE = 'large';
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export interface IGridProps<Data = any, RowProps = {}> {
+  size: 'medium' | 'large' | 'small';
   columns: IGridColumn[];
   datasets: ReadonlyArray<Data>;
   rowKey?: string;
@@ -344,12 +347,9 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
     (expandRowKeys: boolean[]) =>
     (rowData, { row }) => {
       return (
-        <span
-          className={
-            expandRowKeys[row]
-              ? `${prefix}-grid-expandable-btn ${prefix}-grid-collapse-btn`
-              : `${prefix}-grid-expandable-btn ${prefix}-grid-expand-btn`
-          }
+        <Icon
+          type={expandRowKeys[row] ? 'up' : 'down'}
+          className={`${prefix}-grid-expandable-btn`}
           onClick={this.handleExpandRow(row, rowData)}
         />
       );
@@ -653,6 +653,7 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
     } = {}
   ) => {
     const {
+      size = DEFAULT_SIZE,
       datasets,
       scroll,
       sortType,
@@ -684,6 +685,7 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
     }
     const header = (
       <Header
+        size={size}
         prefix={prefix}
         columns={columns}
         fixed={fixed}
@@ -702,6 +704,7 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
 
     const body = (
       <Body
+        size={size}
         prefix={prefix}
         rowKey={rowKey}
         columns={leafColumns}
@@ -782,9 +785,13 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
         key="table"
       >
         <table
-          className={classnames(`${prefix}-grid-table`, tableClassName, {
-            [`${prefix}-grid-table-ellipsis`]: ellipsis,
-          })}
+          className={classnames(
+            `${prefix}-grid-table ${prefix}-grid-table-${size}`,
+            tableClassName,
+            {
+              [`${prefix}-grid-table-ellipsis`]: ellipsis,
+            }
+          )}
           style={tableStyle}
         >
           <ColGroup columns={columns} />
