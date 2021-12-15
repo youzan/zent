@@ -11,7 +11,7 @@ en-US:
 	stepOneText: Sign in to Youzan
 	stepTwoText: Choose a store
 	stepThreeText: Bind the store
-	stepFourText: Finish 
+	stepFourText: Finish
 ---
 
 ```jsx
@@ -31,12 +31,14 @@ class StepsExample extends Component {
 	render() {
 		let { current } = this.state;
 		return (
-			<Steps current={current} type="breadcrumb" onStepChange={this.onStepChange} >
-				<Steps.Step title="{i18n.stepOneText}" />
-				<Steps.Step title="{i18n.stepTwoText}" />
-				<Steps.Step title="{i18n.stepThreeText}" />
-				<Steps.Step title="{i18n.stepFourText}" />
-			</Steps>
+			<div className="zent-steps-demo-breadcrumb">
+				<Steps current={current} type="breadcrumb" onStepChange={this.onStepChange} ghost>
+					<Steps.Step title="{i18n.stepOneText}" icon="check-circle-o" />
+					<Steps.Step title="{i18n.stepTwoText}" />
+					<Steps.Step title="{i18n.stepThreeText}" disabled />
+					<Steps.Step title="{i18n.stepFourText}" disabled />
+				</Steps>
+			</div>
 		);
 	}
 }
@@ -46,3 +48,10 @@ ReactDOM.render(
 	mountNode
 );
 ```
+
+<style>
+	.zent-steps-demo-breadcrumb {
+		background-color: #f7f7f7;
+		padding: 20px;
+	}
+</style>
