@@ -2,6 +2,7 @@ import { IconType } from '../icon';
 import { CSSProperties } from 'react';
 
 export type InputType = 'text' | 'number' | 'password' | 'textarea';
+export type InputWidthSizeType = 'xs' | 's' | 'm' | 'l' | 'xl';
 
 export type IInputProps = IInputCoreProps | ITextAreaProps;
 
@@ -19,6 +20,7 @@ export interface IInputCommonProps {
   className?: string;
   width?: number | string;
   size?: 'large' | 'normal' | 'small';
+  widthSize?: InputWidthSizeType;
   onPressEnter?: React.KeyboardEventHandler<HTMLInputElement>;
   autoFocus?: boolean;
   autoSelect?: boolean;
