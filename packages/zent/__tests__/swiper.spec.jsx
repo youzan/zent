@@ -196,4 +196,19 @@ describe('Swiper', () => {
     ensure('line');
     ensure('round');
   });
+  it('single children swiper', () => {
+    const childs = [1];
+    const getChildren = arr =>
+      arr.map((item, index) => (
+        <div key={index} className="swiper-text-child">
+          {item}
+        </div>
+      ));
+    const wrapper = mount(<Swiper arrows={true}>{getChildren(childs)}</Swiper>);
+    console.log(wrapper.debug());
+    expect(wrapper.find('.zent-swiper__arrow-right').length).toBe(0);
+    wrapper.setProps({ children: getChildren([1, 2]) });
+    console.log(wrapper.debug());
+    expect(wrapper.find('.zent-swiper__arrow-right').length).toBe(1);
+  });
 });
