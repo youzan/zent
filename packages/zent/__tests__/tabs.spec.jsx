@@ -136,11 +136,19 @@ describe('Tabs', () => {
       .find('.zent-tabs-nav-tabs-content-slide-option .zenticon-right')
       .at(0)
       .simulate('click');
+    wrapper
+      .find('.zent-tabs-nav-tabs-content-slide-option .zenticon-left')
+      .at(0)
+      .simulate('click');
     expect(wrapper.find('.zent-tabs-nav-tabs-content-slide').length).toBe(1);
 
     const wrapper2 = mount(
       <Tabs activeId="1" overflowMode="anchor" tabs={overflowTabs} />
     );
+    wrapper2
+      .find('.zent-tabs-nav-tabs-content-anchor-option .zenticon-more')
+      .at(0)
+      .simulate('mouseenter');
     expect(wrapper2.find('.zent-tabs-nav-tabs-content-anchor').length).toBe(1);
   });
 
