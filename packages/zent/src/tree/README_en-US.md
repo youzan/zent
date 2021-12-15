@@ -33,10 +33,13 @@ Tree widget is used to build and manipulate trees. such as files, organization s
 | commonStyle         | set entire tree style                                                                               | object             |            |                      |
 | expandAll           | whether to expand all nodes                                                                         | bool               | `false`    |                      |
 | onExpand            | after node expands, callback is trigger                                                             | func(data, config) |            |                      |
-| autoExpandOnSelect  | node auto expands when you select it                                                                | bool               | `true`     |                      |
+| autoExpandOnSelect  | node auto expands when you select it                                                                | bool               | `false`     |                      |
 | onSelect            | the callback when you choose tree node                                                              | func(data, target) |            |                      |
 | isRoot              | plain data, to determine whether the node is the api of the root node                               | func(node)         |            |                      |
 | loadMore            | return Promise func, support thenable callback, be used to asynchronously load more content         | func(data)         |            |                      |
+| selectedKey         | The currently selected node     |  `string`\|`number`        |            |                      |
+| disabledSelectedKeys | A collection of forbidden nodes id    |  `(string | number)[]`       |            |                      |
+| disableSelectedStrictly | Whether the parent is prohibited from selecting its children at the same time     |  `boolean`       |   `false`                | `true`
 
 #### renderKey
 
