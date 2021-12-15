@@ -3,11 +3,19 @@ title: Steps
 subtitle: 步骤条
 path: component/steps
 group: 导航
+scatter: true
 ---
 
 ## Steps 步骤条
 
 步骤条组件，适用于需分步引导的操作。
+
+<!-- demo-slot-1 -->
+<!-- demo-slot-2 -->
+<!-- demo-slot-3 -->
+<!-- demo-slot-4 -->
+<!-- demo-slot-5 -->
+<!-- demo-slot-6 -->
 
 ### API
 
@@ -22,17 +30,22 @@ group: 导航
 | sequence     | 是否使用默认的步骤序号                                            | boolean | `true`         |                                    |
 | onStepChange | 传该参数后 step 可点击切换 (针对 card, breadcrumb，tabs 类型)     | func    | `''`           |                                    |
 | className    | 自定义额外类名                                                    | string  | `''`           |                                    |
-| ghost        | 是否使用反色样式（仅支持 breadcrumb 类型）| boolean  | false     |
+| ghost        | 是否使用反色样式（仅支持 breadcrumb 类型）                        | boolean | false          |
+
 #### Steps.Step
 
 步骤条的每一个子项
 
-| 参数        | 说明                                                     | 类型 |
-| ----------- | -------------------------------------------------------- | ---- |
-| title       | 标题                                                     | `'node'` |
-| description | 步骤的详情描述 (card, breadcrumb, tabs 类型不支持该属性)     | `'node'` |
-| icon        | 自定义图标                                                | `'string'` \| `'node'` |
+| 参数        | 说明                                                     | 类型                   |
+| ----------- | -------------------------------------------------------- | ---------------------- |
+| title       | 标题                                                     | `'node'`               |
+| description | 步骤的详情描述 (card, breadcrumb, tabs 类型不支持该属性) | `'node'`               |
+| icon        | 自定义图标                                               | `'string'` \| `'node'` |
 
 ### 已知问题
 
 尚未处理步骤条只存在一项的边界情况。(当只有一项时不应该使用 steps)
+
+#### 以下功能新版设计语言已废弃，仅作为老版使用的参考
+
+<!-- demo-slot-7 -->
