@@ -12,7 +12,6 @@ import PanelContext from '../../context/PanelContext';
 
 import getPanelCellsData from '../../utils/getPanelCellsData';
 import { dateConfig } from '../../utils/dateUtils';
-
 import {
   ISingleDateBodyProps,
   IShowTime,
