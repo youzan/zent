@@ -42,6 +42,8 @@ export interface IMenuContentCommonProps {
   renderItemContent?: ICascaderBaseProps['renderItemContent'];
   getItemTooltip?: ICascaderBaseProps['getItemTooltip'];
   renderList?: ICascaderBaseProps['renderList'];
+
+  multipleType?: 'normal' | 'checkbox';
 }
 
 export interface IMenuContentMultipleProps extends IMenuContentCommonProps {
@@ -84,7 +86,7 @@ class MenuContent extends Component<IMenuContentProps> {
 
   closePopup = () => this.props.popover?.close();
 
-  getMenuItemIcon(node: ICascaderItem, isActive: boolean) {
+  getMenuItemIcon(node: ICascaderItem, isActive: boolean, showCheck: boolean) {
     const { loading } = this.props;
 
     if (node.loadChildrenOnExpand) {
@@ -100,7 +102,22 @@ class MenuContent extends Component<IMenuContentProps> {
       return <Icon className="zent-cascader-v2__menu-item-icon" type="right" />;
     }
 
+    if (!hasChildren && isActive && showCheck) {
+      return <Icon className="zent-cascader-v2__menu-item-icon" type="check" />;
+    }
+
     return null;
+  }
+
+  handleClickOption(node, closePop, checkState) {
+    const { onOptionClick, multiple, multipleType, onOptionToggle } =
+      this.props;
+    onOptionClick(node, closePop);
+    if (multiple && multipleType !== 'checkbox') {
+      const lastPath = node.children && node.children.length === 0;
+      const checked = checkState === 'on';
+      lastPath && onOptionToggle(node, !checked);
+    }
   }
 
   renderCascaderItems(
@@ -119,13 +136,13 @@ class MenuContent extends Component<IMenuContentProps> {
 
     const {
       value,
-      onOptionClick,
       onOptionHover,
       expandTrigger,
       scrollLoad,
       loadChildrenOnScroll,
       scrollable,
       multiple,
+      multipleType,
       selectionMap,
       renderItemContent,
       getItemTooltip,
@@ -134,19 +151,24 @@ class MenuContent extends Component<IMenuContentProps> {
 
     // `style` can be used to position when used with a custom virtual list renderer
     const renderItem = (node: ICascaderItem, style?: React.CSSProperties) => {
-      const isActive = node.value === value[level - 1];
-      const cascaderItemCls = classnames('zent-cascader-v2__menu-item', {
-        'zent-cascader-v2__menu-item--active': isActive,
-        'zent-cascader-v2__menu-item--disabled': node.disabled,
-        'zent-cascader-v2__menu-item--multiple': multiple,
-        'zent-cascader-v2__menu-item--leaf':
-          node.children.length === 0 && !node.loadChildrenOnExpand,
-      });
-
       let checkState: CascaderItemSelectionState | undefined;
       if (multiple) {
         checkState = selectionMap.get(getNodeKey(node));
       }
+      // const isActive = node.value === value[level - 1];
+      const isActive = multiple
+        ? checkState === 'on' || checkState === 'partial'
+        : node.value === value[level - 1];
+      const cascaderItemCls = classnames('zent-cascader-v2__menu-item', {
+        'zent-cascader-v2__menu-item--active': isActive,
+        'zent-cascader-v2__menu-item--disabled': node.disabled,
+        'zent-cascader-v2__menu-item--multiple': multiple,
+        'zent-cascader-v2__menu-item--multiple--checkbox':
+          multipleType === 'checkbox',
+        'zent-cascader-v2__menu-item--leaf':
+          node.children.length === 0 && !node.loadChildrenOnExpand,
+      });
+      const showCheck = multiple && multipleType !== 'checkbox';
 
       return (
         <div
@@ -156,7 +178,7 @@ class MenuContent extends Component<IMenuContentProps> {
           onClick={
             node.disabled
               ? undefined
-              : () => onOptionClick(node, this.closePopup)
+              : () => this.handleClickOption(node, this.closePopup, checkState)
           }
           onMouseEnter={
             node.disabled || expandTrigger !== 'hover'
@@ -165,7 +187,7 @@ class MenuContent extends Component<IMenuContentProps> {
           }
           style={style}
         >
-          {multiple && (
+          {multiple && multipleType === 'checkbox' && (
             <Checkbox
               value={node.value}
               onChange={e => this.props.onOptionToggle(node, e.target.checked)}
@@ -175,7 +197,7 @@ class MenuContent extends Component<IMenuContentProps> {
             />
           )}
           {renderItemContent(node)}
-          {this.getMenuItemIcon(node, isActive)}
+          {this.getMenuItemIcon(node, isActive, showCheck)}
         </div>
       );
     };

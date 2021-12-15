@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import { Component, createRef } from 'react';
+import { Component, createRef, CSSProperties } from 'react';
 
 import { CascaderItemSelectionState, ICascaderItem } from '../types';
 import { ISearchInputImperativeHandlers, SearchInput } from './Search';
@@ -17,6 +17,7 @@ interface ITagsTriggerProps extends ICascaderBaseTriggerProps {
   ) => React.ReactNode;
 
   simplifyPaths: boolean;
+  maxLine: number | 'unset';
 }
 
 export class TagsTrigger extends Component<ITagsTriggerProps> {
@@ -53,15 +54,27 @@ export class TagsTrigger extends Component<ITagsTriggerProps> {
       onRemove,
       selectionMap,
       simplifyPaths,
+      maxLine,
     } = this.props;
     const showTags = selectedPaths.length > 0;
     const showSearch = visible && searchable;
+    const maxHeightStyle: CSSProperties = {};
+    const tagHeight = 22;
+    const containerSize = 14;
+    if (maxLine > 1) {
+      maxHeightStyle.maxHeight =
+        (maxLine as number) * tagHeight + containerSize + 'px';
+      maxHeightStyle.overflowY = 'auto';
+    }
 
     return (
       <BaseTrigger
         placeholder={placeholder}
         disabled={disabled}
-        className={cx(className, 'zent-cascader-v2--multiple')}
+        className={cx(className, 'zent-cascader-v2--multiple', {
+          'zent-cascader-v2--multiple--collapsed': maxLine === 1,
+        })}
+        style={maxHeightStyle}
         clearable={clearable}
         visible={visible}
         onClear={onClear}
@@ -88,6 +101,7 @@ export class TagsTrigger extends Component<ITagsTriggerProps> {
               selectionMap={selectionMap}
               simplifyPaths={simplifyPaths}
               renderValue={renderValue}
+              collapse={maxLine === 1}
               onRemove={onRemove}
             />
           ))}

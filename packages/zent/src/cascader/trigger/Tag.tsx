@@ -12,7 +12,12 @@ function CascaderTag(props: ICascaderTagProps) {
 
   return (
     <div className="zent-cascader-v2--tag">
-      {renderValue(path)}
+      <span
+        title={renderValue(path) as string}
+        className="zent-cascader-v2--tag--content"
+      >
+        {renderValue(path)}
+      </span>
       <Icon
         type="close"
         className="zent-cascader-v2--tag-close"

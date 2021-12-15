@@ -4,6 +4,19 @@
 $popupWidth: 240px;
 $menuHeight: 180px;
 
+@mixin tag-style {
+  @include theme-color(border-color, stroke, 4);
+  border-radius: 2px;
+  margin: 4px 4px 4px 0;
+  padding: 0 4px;
+  line-height: 16px;
+  font-size: $font-size-small;
+  display: flex;
+  align-items: center;
+  word-break: break-all;
+  box-sizing: border-box;
+}
+
 .zent-cascader-v2 {
   display: flex;
   flex-wrap: wrap;
@@ -24,6 +37,25 @@ $menuHeight: 180px;
   transition: border-color 0.25s;
   @include theme-color(border-color, stroke, 5);
   @include theme-color(background-color, stroke, 9);
+
+  &-tag-collapsed {
+    &-trigger {
+      @include theme-color(background-color, stroke, 7);
+      @include tag-style;
+      cursor: pointer;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    &-content {
+      @include font-normal;
+      max-width: 216px;
+      max-height: 80px;
+      overflow-y: auto;
+      word-break: break-all;
+      @include theme-color(border-color, stroke, 4);
+    }
+  }
 
   .zenticon-down,
   .zenticon-close-circle {
@@ -85,6 +117,10 @@ $menuHeight: 180px;
   &--multiple {
     .zent-cascader-v2--tag + .zent-cascader-v2--search {
       margin-top: 2px;
+    }
+    &-collapsed {
+      display: flex;
+      flex-wrap: nowrap;
     }
   }
 
@@ -233,11 +269,15 @@ $menuHeight: 180px;
       }
 
       &:hover {
+        @include theme-color(background-color, stroke, 8);
+      }
+
+      &--active:not(&--multiple) {
         @include theme-color(background-color, primary, 8);
       }
 
-      &--active {
-        @include theme-color(background-color, stroke, 8);
+      &--active:not(&--multiple--checkbox) {
+        font-weight: 500;
       }
 
       &--disabled {
@@ -250,7 +290,10 @@ $menuHeight: 180px;
       }
 
       &--multiple {
-        cursor: initial;
+        cursor: pointer;
+        &--checkbox {
+          cursor: initial;
+        }
       }
     }
 
@@ -275,6 +318,13 @@ $menuHeight: 180px;
     display: flex;
     align-items: center;
     cursor: default;
+    overflow: hidden;
+
+    &--content {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
     &-close {
       @include theme-color(color, stroke, 3);
@@ -285,14 +335,14 @@ $menuHeight: 180px;
 
   &__list {
     font-size: 0;
-    padding: 8px 0 8px 12px;
+    padding: 12px 0 12px 12px;
     min-height: 215px;
     box-sizing: border-box;
 
     &-item {
       display: inline-block;
       box-sizing: border-box;
-      margin: 8px 4px;
+      margin: 4px 4px;
     }
 
     &-link {
@@ -313,8 +363,9 @@ $menuHeight: 180px;
       }
 
       &--active {
-        @include theme-color(background-color, primary, 4);
-        @include theme-color(color, stroke, 9);
+        @include theme-color(background-color, primary, 8);
+        @include theme-color(color, stroke, 1);
+        font-weight: 500;
         border-radius: 2px;
       }
     }
