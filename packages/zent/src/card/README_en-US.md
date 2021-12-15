@@ -17,11 +17,15 @@ Card is used for information displayed on the card container.
 ### API
 
 | Props        | Description      | Type     | Default  | Alternative |
-| --------- | ------- | ------ | ---- |-----|
-| title      | Card's title    | `node` |  |  |
-| action     | Card's operation    | `node` |  |  |
-| loading    | Loading state | `bool` | `false` | `true` |
-| type       | Card type  | string | `'normal'` | `'nested'` |
-| style      | Custom style of the card container | `object` | `{}` |  |
-| bodyStyle  | Custom style of the content area | `object` | `{}` |  |
-| className  | Custom calssname | `string` | `''` |  |
+| ----------- | ------- | ------ | ---- |-----|
+| title       | Card's title    | `node` |  |  |
+| action      | Card's operation    | `node` |  |  |
+| loading     | Loading state | `bool` | `false` | `true` |
+| type        | Card type  | string | `'normal'` | `'nested'` |
+| style       | Custom style of the card container | `object` | `{}` |  |
+| bodyStyle   | Custom style of the content area | `object` | `{}` |  |
+| className   | Custom calssname | `string` | `''` |  |
+| size        | Card Size      | `string` | `'large'` | `'small'`  |
+| leftExtra   | Custom content on the left side of the card (only for small size cards) | `node` | | |
+| rightExtra  | Custom content on the right side of the card (only for small size cards)  | `node` | | |
+| bottomExtra | Custom content on the bottom side of the card (only for small size cards)  | `node` | | |

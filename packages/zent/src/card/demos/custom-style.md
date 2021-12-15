@@ -1,5 +1,5 @@
 ---
-order: 5
+order: 6
 zh-CN:
 	title: 支持自定义样式
 en-US:
@@ -10,9 +10,20 @@ en-US:
 import { Card } from 'zent';
 
 ReactDOM.render(
-  <Card style={{ width: 400 }} bodyStyle={{ background: '#e5e5e5'}}>
-		<p>Custom background</p>
-  </Card>
+	<div className="zent-card-example">
+		<Card 
+			className="zent-card-example__card" 
+			style={{ width: 400 }} 
+			bordered={false}
+			bodyStyle={{ background: '#f7f7f7', height: '80px'}} 
+		/>
+		<Card 
+			title="Card Title"
+			style={{ width: 400 }} 
+			bordered={false}
+			bodyStyle={{ background: '#f7f7f7', height: '80px'}} 
+		/>
+	</div>
   , mountNode
 );
 ```
