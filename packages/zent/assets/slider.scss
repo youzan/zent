@@ -69,9 +69,9 @@
     transition: border-color 0.3s ease,
       transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
 
-    $p: &;
+    $disabled: &-disabled;
 
-    &:hover:not(#{$p}-disabled) {
+    &:hover:not(#{$disabled}) {
       @include theme-color(color, primary, 4);
       transform: scale(1.2);
       transform-origin: center center;
