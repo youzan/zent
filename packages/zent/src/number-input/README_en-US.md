@@ -22,6 +22,7 @@ Default value type is string. Under integer mode, value type is number, with def
 | onInput     | User input callback        | `(value: string) => void`         |         |             | No       |
 | showStepper | Show stepper               | `boolean`                              | `false` |             | No       |
 | showCounter | Show counter               | `boolean`                              | `false` |             | No       |
+| showTooltip 		| Show pop    							 | `boolean`                              | `false` |        | 否       |
 | integer     | Integer mode               | `boolean`                              | `false`   |             | No       |
 | decimal     | Decimal                    | `number`                            | `0`     |             | No       |
 | step        | Step used in stepper       | `number`                            |         |             | No       |
