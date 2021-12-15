@@ -109,14 +109,18 @@ class MenuContent extends Component<IMenuContentProps> {
     return null;
   }
 
-  handleClickOption(node, closePop, checkState) {
+  handleClickOption(
+    node: ICascaderItem,
+    closePop: () => void,
+    checkState: CascaderItemSelectionState | undefined
+  ) {
     const { onOptionClick, multiple, multipleType, onOptionToggle } =
       this.props;
     onOptionClick(node, closePop);
-    if (multiple && multipleType !== 'checkbox') {
-      const lastPath = node.children && node.children.length === 0;
+    if (multiple && multipleType === 'normal') {
+      const isLeafOption = node.children && node.children.length === 0;
       const checked = checkState === 'on';
-      lastPath && onOptionToggle(node, !checked);
+      isLeafOption && onOptionToggle(node, !checked);
     }
   }
 
@@ -155,7 +159,6 @@ class MenuContent extends Component<IMenuContentProps> {
       if (multiple) {
         checkState = selectionMap.get(getNodeKey(node));
       }
-      // const isActive = node.value === value[level - 1];
       const isActive = multiple
         ? checkState === 'on' || checkState === 'partial'
         : node.value === value[level - 1];
@@ -163,8 +166,10 @@ class MenuContent extends Component<IMenuContentProps> {
         'zent-cascader-v2__menu-item--active': isActive,
         'zent-cascader-v2__menu-item--disabled': node.disabled,
         'zent-cascader-v2__menu-item--multiple': multiple,
-        'zent-cascader-v2__menu-item--multiple--checkbox':
+        'zent-cascader-v2__menu-item--multiple--usecheck':
           multipleType === 'checkbox',
+        'zent-cascader-v2__menu-item--multiple--normal':
+          multipleType === 'normal',
         'zent-cascader-v2__menu-item--leaf':
           node.children.length === 0 && !node.loadChildrenOnExpand,
       });
