@@ -6,6 +6,13 @@ $btn-height-small: 24px;
 $btn-height-normal: 32px;
 $btn-height-large: 40px;
 
+$btn-icon-size-small: 24px;
+$btn-icon-size-small-font: 16px;
+$btn-icon-size-normal: 28px;
+$btn-icon-size-normal-font: 20px;
+$btn-icon-size-large: 32px;
+$btn-icon-size-large-font: 24px;
+
 @mixin btn-white($prop) {
   @include theme-color($prop, stroke, 9);
 }
@@ -198,12 +205,19 @@ $btn-warning-active: 1;
   }
 
   &.zent-btn-loading {
-    &:hover,
-    &:active {
+    &:not(.zent-btn-icon, .zent-btn-text):hover,
+    &:not(.zent-btn-icon, .zent-btn-text):active {
       @include btn-white(background-color);
       @include theme-color(border-color, stroke, 5);
       border-width: 1px;
       border-style: solid;
+    }
+
+    &.zent-btn-icon {
+      background: transparent;
+    }
+    &.zent-btn-text {
+      @include theme-color(background-color, primary, 4, 0.03);
     }
   }
 
@@ -225,12 +239,23 @@ $btn-warning-active: 1;
     height: $btn-height-large;
     line-height: $btn-height-large - 2px;
     font-size: $font-size-large;
+    &.zent-btn-icon {
+      height: $btn-icon-size-large;
+      width: $btn-icon-size-large;
+      font-size: $btn-icon-size-large-font;
+    }
   }
 
   &-small {
     height: $btn-height-small;
     line-height: $btn-height-small - 2px;
     padding: 0 8px;
+    font-size: $font-size-small;
+    &.zent-btn-icon {
+      height: $btn-icon-size-small;
+      width: $btn-icon-size-small;
+      font-size: $btn-icon-size-small-font;
+    }
   }
 
   &-block {
@@ -343,6 +368,71 @@ $btn-warning-active: 1;
     }
   }
 
+  &-text {
+    @include theme-color(background-color, primary, 4, 0.03);
+    @include theme-color(color, primary, 4);
+    font-size: $font-size-small;
+    height: $btn-height-small;
+    line-height: $btn-height-small - 2px;
+    padding: 0 8px;
+    border: 0;
+    &:link,
+    &:visited,
+    &:hover,
+    &:active,
+    &:focus {
+      border: 0;
+      @include theme-color(color, primary, 4);
+    }
+
+    &:hover {
+      @include theme-color(background-color, primary, 4, 0.06);
+    }
+
+    &:active {
+      @include theme-color(background-color, primary, 4, 0.09);
+    }
+  }
+
+  &-icon {
+    height: $btn-icon-size-normal;
+    width: $btn-icon-size-normal;
+    font-size: $btn-icon-size-normal-font;
+    color: $text-600;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    line-height: $btn-height-small;
+    text-align: center;
+    border-radius: 2px;
+
+    &:link,
+    &:visited,
+    &:hover,
+    &:active,
+    &:focus {
+      color: $text-600;
+    }
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    &:active {
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    i.zenticon {
+      margin: 0;
+      &:last-child {
+        margin: 0;
+      }
+      &:first-child {
+        margin: 0;
+      }
+    }
+  }
+
   &-loading {
     position: relative;
     color: transparent;
@@ -378,6 +468,20 @@ $btn-warning-active: 1;
       @include theme-color(border-left-color, section, bg);
       animation: zent-ani-spin 0.6s linear;
       animation-iteration-count: infinite;
+    }
+
+    &.zent-btn-small::after,
+    &.zent-btn-text::after {
+      width: 12px;
+      height: 12px;
+      margin-left: -6px;
+      margin-top: -6px;
+      border-radius: 6px;
+    }
+
+    &.zent-btn-icon::after {
+      border-top-color: $text-300;
+      border-right-color: $text-300;
     }
   }
 
