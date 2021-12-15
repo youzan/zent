@@ -571,34 +571,3 @@ $btn-warning-active: 1;
     }
   }
 }
-
-.zent-link {
-  @include font-normal;
-  @include btn-primary(color);
-
-  text-decoration: none;
-  display: inline-block;
-  padding: 2px 8px;
-  border-radius: 2px;
-
-  &:link,
-  &:visited,
-  &:focus {
-    @include btn-primary(color);
-  }
-
-  &:hover {
-    @include btn-primary-hover(color);
-    @include theme-color(background-color, stroke, 7);
-  }
-
-  &:active {
-    @include btn-primary-active(color);
-    @include theme-color(background-color, stroke, 7);
-  }
-
-  &.zent-link__disabled {
-    @include btn-grey(color);
-    cursor: not-allowed;
-  }
-}
