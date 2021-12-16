@@ -21,6 +21,7 @@ SplitButton 带有下拉菜单功能的按钮
 | dropdownData     | 下拉菜单数据                                                                 | array  | []                   |                                      |
 | dropdownValue    | 自定义选项的值对应的 key, 如{ id: 1, name: '文案' }, dropdownValue="id"      | string | `'value'`            |                                      |
 | dropdownText     | 自定义选项显示文案对应的 key, 如{ id: 1, name: '文案' }, dropdownText="name" | string | `'text'`             |                                      |
+| dropdownIcon		 | 自定义下拉按钮																																															| string | `'down'`							| icon类型
 | dropdownPosition | 下拉菜单位置                                                                 | string | `'auto-bottom-left'` | 同 Pop 中的 position                 |
 | onClick          | 左侧按钮点击时的回调函数                                                     | func   |                      |                                      |
 | onSelect         | 右侧下拉菜单选择时的回调函数                                                 | func   |                      |                                      |
