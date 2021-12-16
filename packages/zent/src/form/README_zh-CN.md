@@ -365,7 +365,7 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 
 - `Form.useFieldArrayChildModels`
 - `Form.useNamedChildModel(parent: FieldSetModel, name: string): BasicModel`，注意 `FormModel` 是 `FieldSetModel` 的子类，所以也适用于这个方法。
-	
+
 这两个 hook 不监听子 model 内部状态的变化，如有需要，需使用它们返回的 model 对象自行调用 `useField` 等 hook 来实现。
 
 通过结合上述这些能力，就可以完成 `Model` 模式下表单项的动态增删了。
@@ -375,6 +375,7 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 ### 表单值的格式化
 
 - 可以通过 `normalize` 和 `format` 参数来格式化 `Field` 的输入输出
+- 可以通过 `normalizeBeforeBlur` 方法，在 `InputField` 等输入框触发 `onBlur` 事件时修改 `model` 内的值
 - 也可以使用 `normalizeBeforeSubmit` 属性和 `form.getSubmitValue()` 方法，在不改变 model 内存储值的情况下修改表单提交的值
 
 <!-- demo-slot-11 -->
@@ -432,7 +433,7 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 `Form` 组件使用 `flex` 布局，有两个参数控制基本的布局结构
 
 - `layout` 控制**表单项内**的布局方式，支持水平 `horizontal` 和垂直 `vertical` 两种布局
-- `direction` 控制**表单项间**的排列方式，支持 `column` 和 `row` 两种排列。 
+- `direction` 控制**表单项间**的排列方式，支持 `column` 和 `row` 两种排列。
 
 水平排列通常来说需要设置表单项的**最小宽度**才能正常工作，可以通过 `FormContext` 中的 `controlStyle` 来批量设置。
 
