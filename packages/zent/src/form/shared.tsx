@@ -158,7 +158,7 @@ export interface IFormFieldPropsBase<Value>
    */
   normalize?: (value: Value, prevValue: Value) => Value;
   /**
-   * 触发 onBlur 时会先经过 `normalizeBeforeBlur` 再写入到内部的 `model `上
+   * 触发 onBlur 时会经过 `normalizeBeforeBlur`，将返回值作为新的 `model` 值进行更新
    */
   normalizeBeforeBlur?: (value: Value) => Value;
   /**
