@@ -44,6 +44,12 @@
     }
   }
 
+  &-arrow-button.zent-btn {
+    .zenticon {
+      margin: 0;
+    }
+  }
+
   &-page-button--no-border:not(.zent-btn-primary) {
     border-color: transparent;
 
