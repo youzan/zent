@@ -64,6 +64,22 @@ class Simple extends React.Component {
 					{i18n.primary}
 				</SplitButton>
 				<SplitButton
+					type="text"
+					dropdownData={list}
+					onClick={this.handleClick}
+					onSelect={this.handleSelect}
+				>
+					{i18n.primary}
+				</SplitButton>
+				<SplitButton
+					type="text"
+					dropdownData={list}
+					dropdownIcon={'more'}
+					onClick={this.handleClick}
+					onSelect={this.handleSelect}
+				>
+				</SplitButton>
+				<SplitButton
 					disabled
 					type="primary"
 					dropdownData={list}
