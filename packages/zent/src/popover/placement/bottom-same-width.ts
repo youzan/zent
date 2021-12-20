@@ -24,6 +24,6 @@ export const BottomSameWidth: IPositionFunction = ({
       width,
     },
 
-    className: prefix('position-bottom-right'),
+    className: prefix('position-same-width'),
   };
 };
