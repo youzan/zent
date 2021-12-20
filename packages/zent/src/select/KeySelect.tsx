@@ -13,6 +13,7 @@ export const KeySelect = ({
   value = null,
   onChange,
   options,
+  creatable,
   ...restProps
 }: ISelectProps) => {
   const validValue = useMemo(() => {
@@ -27,23 +28,35 @@ export const KeySelect = ({
           text: item.text,
         };
       }
-      return {
-        key: value,
-        text: value,
-      };
+      if (creatable) {
+        return {
+          key: value,
+          text: value,
+        };
+      }
+      return null;
     }
     return value.reduce((old, key) => {
       const item = options.find(v => v.key === key);
-      if (item) {
-        const v = {
+      let v;
+      if (!item) {
+        if (!creatable) {
+          return old;
+        }
+        v = {
+          key,
+          text: key,
+        };
+      } else {
+        v = {
           key,
           text: item.text,
         };
-        old.push(v);
       }
+      old.push(v);
       return old;
     }, []);
-  }, [options, value]);
+  }, [options, value, creatable]);
   const keysOnChange = useCallback(
     value => {
       if (value === null) {
