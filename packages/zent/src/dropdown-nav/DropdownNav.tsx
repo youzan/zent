@@ -6,7 +6,7 @@ import {
   DropdownHoverTrigger,
   DropdownPosition,
 } from '../dropdown';
-
+import { useMemo, ElementType } from 'react';
 import Menu, { MenuItem } from '../menu';
 
 interface INavListItem {
@@ -15,39 +15,41 @@ interface INavListItem {
 }
 
 interface IDropdownNavProps {
+  navTitle: string;
   navList?: INavListItem[];
   trigger?: 'hover' | 'click';
-  onClick?: (
+  onItemClick?: (
     e: React.MouseEvent<HTMLDivElement | HTMLLIElement>,
     key: string
   ) => void;
 }
 
+const TriggerButtonMap: Record<'hover' | 'click', ElementType> = {
+  hover: DropdownHoverTrigger,
+  click: DropdownClickTrigger,
+};
+
 export const DropdownNav: React.FC<IDropdownNavProps> = ({
+  navTitle = '下拉导航',
   navList = [],
   trigger = 'hover',
-  onClick,
+  onItemClick,
 }) => {
+  const TriggerButton = useMemo(() => {
+    return TriggerButtonMap[trigger];
+  }, [trigger]);
   return (
     <Dropdown
       className="zent-dropdown-nav"
       position={DropdownPosition.BottomSameWidth}
     >
-      {trigger === 'hover' ? (
-        <DropdownHoverTrigger>
-          <DropdownButton className={'zent-dropdown-nav-btn'} type="text">
-            Hover打开菜单
-          </DropdownButton>
-        </DropdownHoverTrigger>
-      ) : (
-        <DropdownClickTrigger>
-          <DropdownButton className={'zent-dropdown-nav-btn'} type="text">
-            click打开菜单
-          </DropdownButton>
-        </DropdownClickTrigger>
-      )}
+      <TriggerButton>
+        <DropdownButton className={'zent-dropdown-nav-btn'} type="text">
+          {navTitle}
+        </DropdownButton>
+      </TriggerButton>
       <DropdownContent>
-        <Menu onClick={onClick}>
+        <Menu onClick={onItemClick}>
           {navList.map(item => (
             <MenuItem key={item.key}>{item.label}</MenuItem>
           ))}
