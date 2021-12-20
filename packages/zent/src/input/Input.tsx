@@ -17,7 +17,7 @@ const BLOCKED_CHILD_PROPS = [
   'style',
   'size',
   'disabled',
-  'widthSize'
+  'widthSize',
 ] as const;
 
 const DEFAULT_SIZE_WIDTH = 116;
