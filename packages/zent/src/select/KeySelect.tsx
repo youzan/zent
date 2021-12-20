@@ -1,8 +1,24 @@
-import Select from './Select';
+import Select, { ISelectCommonProps } from './Select';
 import { useMemo, useCallback } from 'react';
 
-export const KeySelect = ({ value, onChange, options, ...restProps }) => {
+type IValueType = number | string;
+type IValue = IValueType | IValueType[] | null;
+
+interface ISelectProps extends ISelectCommonProps {
+  value?: IValue;
+  onChange?: (value: IValue) => void;
+}
+
+export const KeySelect = ({
+  value = null,
+  onChange,
+  options,
+  ...restProps
+}: ISelectProps) => {
   const validValue = useMemo(() => {
+    if (value === null) {
+      return null;
+    }
     if (!Array.isArray(value)) {
       const item = options.find(v => v.key === value);
       if (item) {
@@ -11,27 +27,29 @@ export const KeySelect = ({ value, onChange, options, ...restProps }) => {
           text: item.text,
         };
       }
-      return null;
-    }
-    return value.reduce((key, old) => {
-      const item = options.find(v => v.key === key);
-      if (!item) {
-        return old;
-      }
-      const v = {
+      return {
         key: value,
-        text: item.text,
+        text: value,
       };
-      old.push(v);
+    }
+    return value.reduce((old, key) => {
+      const item = options.find(v => v.key === key);
+      if (item) {
+        const v = {
+          key,
+          text: item.text,
+        };
+        old.push(v);
+      }
       return old;
     }, []);
   }, [options, value]);
   const keysOnChange = useCallback(
     value => {
+      if (value === null) {
+        return onChange(null);
+      }
       if (!Array.isArray(value)) {
-        if (!value) {
-          return onChange(value);
-        }
         return onChange(value.key);
       }
       return onChange(value.map(v => v.key));
