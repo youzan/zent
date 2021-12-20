@@ -30,7 +30,7 @@
       "packages/babel-plugin-zent",
       "packages/zent"
     ],
-    "nohoist": ["**/date-fns", "**/observable-hooks", "**/zenticons", "**/rxjs"]
+    "nohoist": ["**/date-fns", "**/observable-hooks", "**/zenticons", "**/rxjs", "**/tslib"]
   },
   "repository": {
     "type": "git",
