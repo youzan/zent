@@ -9,6 +9,10 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 9.12.3(2021-12-08)
+- `DatePicker`
+	- 🦀️ 交互优化，当 `DatePicker` 调用 `TimePicker` 选择具体时间时，禁用 `DatePicker` 的确认按钮
+
 ### 9.12.2(2021-11-26)
 
 - 🦀️ 修复 `MiniPagination` 页码输入框在一些场景下显示错误值的问题
@@ -101,7 +105,7 @@
 - ✨ 语义化主题支持，同时新增 `@zent/theme-sdk` 用于主题配置的生成
 - ✨ 组件新增日文(`jaJP`)翻译
 - 🦀️ `Tree` CSS 类名增加前缀
-  - `switcher` => `zent-tree-switcher` 
+  - `switcher` => `zent-tree-switcher`
   - `content` => `zent-tree-content`
   - `opt` => `zent-tree-operation`
   - `operation` => `zent-tree-operation-container`
