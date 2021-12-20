@@ -20,6 +20,7 @@ $large-size: 40px;
   transition: $border-transition;
   overflow: hidden;
   align-items: center;
+  max-width: 100%;
 
   &.zent-input--size-small {
     height: $small-size;
