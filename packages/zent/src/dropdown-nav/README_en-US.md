@@ -8,6 +8,8 @@ group: Navigation
 
 DropdownNav is used for accept links
 
+It can only be used under specific circumstances. If the use conditions are not met, it can be encapsulated by Dropdown.
+
 ### API
 
 | Props           | Description                            | Type     | Default      |
