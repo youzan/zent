@@ -13,6 +13,7 @@ group: 导航
 
 | 参数           | 说明                            | 类型     | 默认值      |
 | ------------ | ----------------------------- | ------ | -------- |
+| navTitle        | 下拉按钮文字                     | string   | `下拉导航`     |
 | trigger        | 触发方式                      | `hover` `click`   | `hover`     |
 | navList     | nav的数组 | `Array<{key: string, label: string}>`   | `[]`   |
-| onClick      | 点击回调函数                     | `(event, key) => void`   | `noop`   |
+| onItemClick      | item点击回调函数                     | `(event, key) => void`   | `noop`   |
