@@ -7,6 +7,14 @@ $border-transition: border 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 $normal-size: 32px;
 $small-size: 24px;
 $large-size: 40px;
+$default-size-width: 116px;
+$default-padding-width: 8px;
+$default-input-width: 240px;
+$input-width-xs: $default-size-width;
+$input-width-s: $default-size-width * 2 + $default-padding-width;
+$input-width-m: $default-size-width * 3 + $default-padding-width * 2;
+$input-width-l: $default-size-width * 4 + $default-padding-width * 3;
+$input-width-xl: $default-size-width * 5 + $default-padding-width * 4;
 
 .zent-input-wrapper {
   @include theme-color(border-color, stroke, 5);
@@ -21,6 +29,26 @@ $large-size: 40px;
   overflow: hidden;
   align-items: center;
   max-width: 100%;
+
+  &.zent-input--width-xs {
+    width: $input-width-xs;
+  }
+
+  &.zent-input--width-s {
+    width: $input-width-s;
+  }
+
+  &.zent-input--width-m {
+    width: $input-width-m;
+  }
+
+  &.zent-input--width-l {
+    width: $input-width-l;
+  }
+
+  &.zent-input--width-xl {
+    width: $input-width-xl;
+  }
 
   &.zent-input--size-small {
     height: $small-size;
