@@ -41,7 +41,7 @@ export class Tabs<Id extends string | number = string> extends BaseTabs<
   static TabPanel = TabPanel;
 
   static defaultProps: Partial<ITabsProps<string>> = {
-    type: 'card',
+    type: 'normal',
     activeId: '',
     candel: false,
     canFixed: false,
