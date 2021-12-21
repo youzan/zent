@@ -24,8 +24,8 @@ describe('Tabs', () => {
         </TabPanel>
       </Tabs>
     );
-    expect(wrapper.find('CardTabsNav').length).toBe(1);
-    expect(wrapper.find('CardTab').length).toBe(1);
+    expect(wrapper.find('NormalTabsNav').length).toBe(1);
+    expect(wrapper.find('NormalTab').length).toBe(1);
     expect(wrapper.find('TabPanel').length).toBe(1);
   });
 
@@ -65,7 +65,7 @@ describe('Tabs', () => {
     }
 
     const wrapper = mount(<App />);
-    expect(wrapper.find('CardTab').length).toBe(3);
+    expect(wrapper.find('NormalTab').length).toBe(3);
   });
 
   it(`can't render without panel children and tabs props`, () => {
@@ -101,7 +101,7 @@ describe('Tabs', () => {
           .hasClass(`zent-tabs-nav-type__${targetType}`)
       ).toBe(true);
     };
-    ensure(undefined, 'card');
+    ensure(undefined, 'normal');
     ensure('normal', 'normal');
     ensure('card', 'card');
     ensure('button', 'button');

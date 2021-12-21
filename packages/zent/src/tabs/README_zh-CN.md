@@ -6,9 +6,9 @@ group: 导航
 scatter: true
 ---
 
-## Tabs 选项卡组件
+## Tabs 基础选项卡
 
-选项卡组件
+用于大体量信息的拆分展示，提供切换
 
 <!-- demo-slot-1 -->
 <!-- demo-slot-2 -->
