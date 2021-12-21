@@ -7,7 +7,7 @@ group: 数据
 
 ## Select 下拉选择
 
-下拉选择，提供多种选择器功能。
+可支持面板选取单个或多个值的选择器，最终录入对应值。
 
 ### API
 
@@ -29,7 +29,7 @@ group: 数据
 | collapsable         | 多选时是否折叠进行单行显示                                         | `boolean`                                                        | `false`                     | 否       |
 | hideCollapsePop     | 多选折叠模式下隐藏展示数据的气泡                                   | `boolean`                                                        | `false`                     | 否       |
 | collapseAt          | 多选折叠模式下显示的数据                                           | `number`                                                      | `1`                         | 否       |
-| clearable           | 显示清除按钮                                                       | `boolean`                                                        | `false`                     | 否       |
+| clearable           | 显示清除按钮                                                       | `boolean`                                                        | `true`                     | 否       |
 | loading             | 是否加载中                                                         | `boolean`                                                        | `false`                     | 否       |
 | creatable           | 允许创建不存在的项                                                 | `boolean`                                                        | `false`                     | 否       |
 | onCreate            | 创建新选项的回调函数                                               | `(keyword: string) => Promise<void>`                        |                             | 否       |

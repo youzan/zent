@@ -9,7 +9,7 @@ import { DisabledContext, IDisabledContext } from '../disabled';
 import WindowEventHandler from '../utils/component/WindowEventHandler';
 import Icon from '../icon';
 import { TextMark } from '../text-mark';
-import { BlockLoading } from '../loading/BlockLoading';
+import { InlineLoading } from '../loading/InlineLoading';
 import { Pop } from '../pop';
 import { I18nReceiver as Receiver, II18nLocaleSelect } from '../i18n';
 import memoize from '../utils/memorize-one';
@@ -193,12 +193,13 @@ function defaultHighlight<
 
 const DEFAULT_LOADING = (
   <div className="zent-select-v2-popup-loading">
-    <BlockLoading
+    <InlineLoading
       loading
       icon="circle"
-      height={96}
-      iconSize={24}
-      iconText="加载中"
+      iconSize={18}
+      iconText="加载中…"
+      textPosition="right"
+      colorPreset="grey"
     />
   </div>
 );
@@ -242,7 +243,7 @@ export class Select<
     highlight: defaultHighlight,
     size: 's',
     multiple: false,
-    clearable: false,
+    clearable: true,
     loading: false,
     creatable: false,
   };
@@ -918,9 +919,6 @@ export class Select<
       collapseAt,
     } = this.props;
 
-    const sizeWidth = SIZE_MAP[size] || DEFAULT_TRIGGER_WIDTH;
-    const useWidth = typeof width === 'number' ? width : sizeWidth;
-
     const notEmpty = multiple
       ? Array.isArray(value) && value.length > 0
       : value;
@@ -942,17 +940,22 @@ export class Select<
               <Popover.Trigger.Click>
                 <div
                   ref={this.triggerRef}
-                  className={cx('zent-select-v2', className, {
-                    'zent-select-v2-inline': inline,
-                    'zent-select-v2-active': active,
-                    'zent-select-v2-visible': visible,
-                    'zent-select-v2-disabled': this.disabled,
-                    'zent-select-v2-clearable': showClear,
-                    'zent-select-v2-multiple': multiple,
-                    'zent-select-v2-collapsable': collapsable,
-                    'zent-select-v2-collapsable-single': collapseAt === 1,
-                  })}
-                  style={{ width: useWidth }}
+                  className={cx(
+                    'zent-select-v2',
+                    `zent-select-v2-${size}`,
+                    className,
+                    {
+                      'zent-select-v2-inline': inline,
+                      'zent-select-v2-active': active,
+                      'zent-select-v2-visible': visible,
+                      'zent-select-v2-disabled': this.disabled,
+                      'zent-select-v2-clearable': showClear,
+                      'zent-select-v2-multiple': multiple,
+                      'zent-select-v2-collapsable': collapsable,
+                      'zent-select-v2-collapsable-single': collapseAt === 1,
+                    }
+                  )}
+                  style={{ width }}
                   onClick={this.focusSearchInput}
                 >
                   {this.renderValue(i18n)}
