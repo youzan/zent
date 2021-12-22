@@ -7,10 +7,20 @@ scatter: true
 
 ## Drawer
 
-A panel which slides in from the edge of the screen.
+The modal panel that slides out on the right side of the screen; Used to carry a large volume of details or form content.
+
+### Suggestion
+
+- The drawer can be used when the temporary window information evoked by the operation is large and high scalability of vertical information is required.
+
+### Note
+
+- Do not use a single button in the drawer;
+- Do not use more than two main action buttons in the drawer;
+
+### Demos
 
 <!-- demo-slot-1 -->
-<!-- demo-slot-2 -->
 <!-- demo-slot-3 -->
 
 ### API
@@ -33,4 +43,5 @@ A panel which slides in from the edge of the screen.
 
 #### The following functions is obsolete in the new design system and is only used as a reference for the old version
 
+<!-- demo-slot-2 -->
 <!-- demo-slot-4 -->
