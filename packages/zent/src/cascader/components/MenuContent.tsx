@@ -15,7 +15,7 @@ import {
 } from '../types';
 import InfiniteScroller from '../../infinite-scroller';
 import { II18nLocaleCascader } from '../../i18n';
-import BlockLoading from '../../loading/BlockLoading';
+import InlineLoading from '../../loading/InlineLoading';
 
 const withPopover = Popover.withPopover;
 
@@ -109,14 +109,18 @@ class MenuContent extends Component<IMenuContentProps> {
     return null;
   }
 
-  handleClickOption(node, closePop, checkState) {
+  handleClickOption(
+    node: ICascaderItem,
+    closePop: () => void,
+    checkState: CascaderItemSelectionState | undefined
+  ) {
     const { onOptionClick, multiple, multipleType, onOptionToggle } =
       this.props;
     onOptionClick(node, closePop);
-    if (multiple && multipleType !== 'checkbox') {
-      const lastPath = node.children && node.children.length === 0;
+    if (multiple && multipleType === 'normal') {
+      const isLeafOption = node.children && node.children.length === 0;
       const checked = checkState === 'on';
-      lastPath && onOptionToggle(node, !checked);
+      isLeafOption && onOptionToggle(node, !checked);
     }
   }
 
@@ -155,7 +159,6 @@ class MenuContent extends Component<IMenuContentProps> {
       if (multiple) {
         checkState = selectionMap.get(getNodeKey(node));
       }
-      // const isActive = node.value === value[level - 1];
       const isActive = multiple
         ? checkState === 'on' || checkState === 'partial'
         : node.value === value[level - 1];
@@ -163,8 +166,10 @@ class MenuContent extends Component<IMenuContentProps> {
         'zent-cascader-v2__menu-item--active': isActive,
         'zent-cascader-v2__menu-item--disabled': node.disabled,
         'zent-cascader-v2__menu-item--multiple': multiple,
-        'zent-cascader-v2__menu-item--multiple--checkbox':
+        'zent-cascader-v2__menu-item--multiple--usecheck':
           multipleType === 'checkbox',
+        'zent-cascader-v2__menu-item--multiple--normal':
+          multipleType === 'normal',
         'zent-cascader-v2__menu-item--leaf':
           node.children.length === 0 && !node.loadChildrenOnExpand,
       });
@@ -224,12 +229,14 @@ class MenuContent extends Component<IMenuContentProps> {
             className="zent-cascader-v2__menu-scroller"
             hasMore={hasMore}
             loader={
-              <BlockLoading
-                height={32}
+              <InlineLoading
                 iconSize={18}
                 loading
                 colorPreset="grey"
                 icon="circle"
+                iconText="加载中…"
+                textPosition="right"
+                className="zent-cascader-v2__menu-scroller-loading"
               />
             }
             loadMore={() => scrollLoad(parent)}

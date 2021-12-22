@@ -55,6 +55,7 @@ interface ICascaderItem {
 | Props                | Description                                 | Type                                                    | Required | Default | Alternatives |
 | -------------------- | ------------------------------------------- | ------------------------------------------------------- | -------- | ------- | ------------ |
 | multiple             | Multiple                                    | `boolean`                                               | No       | `false` | `true`       |
+| multipleType				 | Multiple type														| `normal` `checkbox`																				 | No 			| `normal`| `checkbox` 	 |
 | expandTrigger        | Secondary menu expand trigger type          | `string`                                                | No       | `click` | `hover`      |
 | scrollable           | Can scroll load data dynamicly              | `boolean`                                               | No       | `false` | `true`       |
 | loadChildrenOnScroll | Load children when scrolling in first level | `boolean`                                               | No       | `false` | `true`       |

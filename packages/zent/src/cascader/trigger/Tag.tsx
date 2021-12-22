@@ -14,7 +14,7 @@ function CascaderTag(props: ICascaderTagProps) {
     <div className="zent-cascader-v2--tag">
       <span
         title={renderValue(path) as string}
-        className="zent-cascader-v2--tag--content"
+        className="zent-cascader-v2--tag--path"
       >
         {renderValue(path)}
       </span>
