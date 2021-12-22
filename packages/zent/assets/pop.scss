@@ -7,7 +7,7 @@
   @include theme-color(background-color, stroke, 9);
   @include theme-shadow(layer);
 
-  border-radius: 2px;
+  border-radius: 4px;
   z-index: 2000;
 
   .zent-pop-v2-inner,
