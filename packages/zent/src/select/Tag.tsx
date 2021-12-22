@@ -28,7 +28,9 @@ function SelectTag<
       {renderValue ? (
         renderValue(item)
       ) : (
-        <span className="zent-select-v2-tag-text">{item.text}</span>
+        <span title={item.text as string} className="zent-select-v2-tag-text">
+          {item.text}
+        </span>
       )}
       <Icon
         type="close"

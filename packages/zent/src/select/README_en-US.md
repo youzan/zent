@@ -30,7 +30,7 @@ Select is a drop-down selection component with variety functions.
 | hideCollapsePop     | Hide tags content pop in collapsed mode                                                         | bool                                                        |
 | `false`             | no                                                                                              |
 | collapseAt          | Dispaly tags count in collapsed mode                                                            | number                                                      | `1`                         | no       |
-| clearable           | Is the select value clearable                                                                   | bool                                                        | `false`                     | no       |
+| clearable           | Is the select value clearable                                                                   | bool                                                        | `true`                     | no       |
 | loading             | Is the select in a state of loading                                                             | bool                                                        | `false`                     | no       |
 | creatable           | Allow options to be created                                                                     | bool                                                        | `false`                     | no       |
 | onCreate            | Select create callback                                                                          | `(keyword) => Promise<void>`                                |                             | no       |

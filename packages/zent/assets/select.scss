@@ -3,6 +3,14 @@
 @import './mixins/popup';
 
 $option-height: 32px;
+$default-size-width: 116px;
+$default-padding-width: 8px;
+$default-input-width: 240px;
+$select-width-xs: $default-size-width;
+$select-width-s: $default-size-width * 2 + $default-padding-width;
+$select-width-m: $default-size-width * 3 + $default-padding-width * 2;
+$select-width-l: $default-size-width * 4 + $default-padding-width * 3;
+$select-width-xl: $default-size-width * 5 + $default-padding-width * 4;
 
 @mixin ellipsis {
   overflow: hidden;
@@ -16,7 +24,7 @@ $option-height: 32px;
 }
 
 @mixin tag-style {
-  @include theme-color(border-color, stroke, 4);
+  @include theme-color(border-color, stroke, 5);
   border-radius: 2px;
   margin: 4px 4px 4px 0;
   padding: 0 4px;
@@ -26,6 +34,12 @@ $option-height: 32px;
   align-items: center;
   word-break: break-all;
   box-sizing: border-box;
+  overflow: hidden;
+  &-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
 
 .zent-select-v2 {
@@ -44,6 +58,26 @@ $option-height: 32px;
   outline: none;
   position: relative;
   line-height: 20px;
+
+  &-xs {
+    width: $select-width-xs;
+  }
+
+  &-s {
+    width: $select-width-s;
+  }
+
+  &-m {
+    width: $select-width-m;
+  }
+
+  &-l {
+    width: $select-width-l;
+  }
+
+  &-xl {
+    width: $select-width-xl;
+  }
 
   .zenticon-down {
     @include theme-color(color, stroke, 2);
@@ -70,7 +104,7 @@ $option-height: 32px;
     }
 
     .zent-select-v2-tag {
-      @include theme-color(color, stroke, 4);
+      @include theme-color(color, stroke, 5);
       @include theme-color(border-color, stroke, 5);
       @include theme-color(background-color, stroke, 8);
       cursor: not-allowed;
@@ -82,7 +116,7 @@ $option-height: 32px;
     }
 
     .zent-select-v2-tag-collapsed-trigger {
-      @include theme-color(color, stroke, 4);
+      @include theme-color(color, stroke, 5);
       @include theme-color(background-color, stroke, 6);
     }
 
@@ -149,15 +183,7 @@ $option-height: 32px;
         flex-shrink: 0;
       }
     }
-    .zent-select-v2-tag {
-      overflow: hidden;
 
-      &-text {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-    }
     .zent-select-v2-search-wrap {
       flex: 1;
     }
@@ -214,7 +240,10 @@ $option-height: 32px;
     }
 
     &-loading {
-      height: 96px;
+      font-size: 12px;
+      height: 48px;
+      text-align: center;
+      line-height: 48px;
     }
   }
 
@@ -224,7 +253,7 @@ $option-height: 32px;
     cursor: pointer;
     display: flex;
     align-items: center;
-    padding: 7px 12px;
+    padding: 6px 12px;
 
     &-text {
       @include ellipsis;
@@ -251,6 +280,8 @@ $option-height: 32px;
       @include theme-color(color, stroke, 2);
       cursor: default;
       font-size: $font-size-small;
+      padding: 8px 12px;
+      line-height: 16px;
 
       &:hover,
       &.zent-select-v2-option-active {
@@ -295,7 +326,7 @@ $option-height: 32px;
   }
 
   &-tag {
-    @include theme-color(border-color, stroke, 4);
+    @include theme-color(border-color, stroke, 5);
     @include tag-style;
     border-width: 1px;
     border-style: solid;
