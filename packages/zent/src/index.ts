@@ -30,6 +30,7 @@ export * from './grid';
 export * from './i18n';
 export * from './icon';
 export * from './ime-composition';
+export * from './indicator';
 export * from './infinite-scroller';
 export * from './input';
 export * from './layout';

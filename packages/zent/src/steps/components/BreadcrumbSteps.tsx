@@ -33,7 +33,8 @@ export default class BreadcrumbSteps extends Component<IStepsProps> {
     if (sequence) {
       return (
         <>
-          {index + 1}. {title}
+          <span className="zent-steps-sequence">{index + 1}</span>
+          {title}
         </>
       );
     }
