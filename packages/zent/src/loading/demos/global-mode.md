@@ -3,13 +3,15 @@ order: 2
 zh-CN:
 	title: 全局模式
 	open: 全局开启
+	openWithBg: 带背景的全局开启
+	text: 商品上传中，请稍后
 	close: 全局关闭
-	showBackground: 展示背景色
 en-US:
 	title: Global Mode
 	open: Open
+	openWithBg: Open With Background
+	text: Goods uploaded, please hold on
 	close: Close
-	showBackground: Show Background
 ---
 
 ```js
@@ -17,38 +19,46 @@ import { FullScreenLoading, Button, Switch } from 'zent';
 
 class Example extends React.Component {
 	state = {
-		on: false,
-		show: false,
+		noBgOpen: false,
+		showBgOpen: false,
+	};
+
+	close = () => {
+		this.setState({
+			noBgOpen: false,
+			showBgOpen: false,
+		});
 	};
 
 	render() {
 		return (
 			<div>
-				<div className="zent-loading-demo-switch-background">
-					{i18n.showBackground}: 
-					<Switch 
-						checked={this.state.show} 
-						onChange={(checked) => {
-							this.setState({ show: checked });
-						}} 
-					/>
-				</div>
 				<Button
 					onClick={() => {
-						this.setState({ on: true });
+						this.setState({ noBgOpen: true });
 					}}
 				>
 					{i18n.open}
 				</Button>
 				<Button
 					onClick={() => {
-						this.setState({ on: false });
+						this.setState({ showBgOpen: true });
 					}}
+				>
+					{i18n.openWithBg}
+				</Button>
+				<Button
+					onClick={() => this.close()}
 					style={{ zIndex: 9999, position: 'relative' }}
 				>
 					{i18n.close}
 				</Button>
-				<FullScreenLoading loading={this.state.on} showBackground={this.state.show} />
+				<FullScreenLoading loading={this.state.noBgOpen} />
+				<FullScreenLoading
+					loading={this.state.showBgOpen}
+					iconText="{i18n.text}"
+					showBackground
+				/>
 			</div>
 		);
 	}

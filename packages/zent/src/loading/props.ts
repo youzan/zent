@@ -9,6 +9,7 @@ export interface ILoadingBaseProps {
   colorPreset?: LoadingColorPreset;
   textPosition?: 'top' | 'bottom' | 'left' | 'right';
   className?: string;
+  textSize?: number;
 }
 
 export interface IBlockLoadingProps extends ILoadingBaseProps {

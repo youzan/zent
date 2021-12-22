@@ -27,6 +27,7 @@ group: Feedback
 | iconText     | Icon text                            | `string`  | No       |             |                                  |
 | colorPreset  | Color preset                         | `string`  | No       | `'primary'` | `'grey'`                         |
 | textPosition | Text position relative to icon       | `string`  | No       | `'bottom'`  | `'top'` \| `'left'` \| `'right'` |
+| textSize     | Text Font Size                       | `number`  | No       |             |
 | className    | Custom class                         | `string`  | No       |             |                                  |
 
 #### BlockLoading
@@ -46,7 +47,7 @@ Inline `Loading`, can't wrap content.
 
 Full screen `Loading`, can't wrap content. Used for page loading.
 
-| Property | Description  | Type     | Required | Default | Alternative |
-| -------- | ------------ | -------- | -------- | ------- | ----------- |
-| zIndex   | Mask z-index | `number` | No       |         |             |
-| showBackground   | Show loading Background | `bool` | No       |         |             |
+| Property       | Description             | Type     | Required | Default | Alternative |
+| -------------- | ----------------------- | -------- | -------- | ------- | ----------- |
+| zIndex         | Mask z-index            | `number` | No       |         |             |
+| showBackground | Show loading Background | `bool`   | No       |         |             |
