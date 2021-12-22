@@ -6,11 +6,16 @@ group: Feedback
 
 ## Loading
 
-`Loading` is used to indicate loading state.
+Shows the loading state of data without a specific duration.
 
-### Guides
+### Suggestion
 
-- You can use this component to reduce users' anxiety when the page is rendering or data is loading asynchronously.
+- Used for operations that cannot be performed immediately and require only a short period of time;
+- Used when retrieving or refreshing small amounts of data, such as status.
+
+### Note
+
+- It is not allowed to trigger the loading of multiple items or operations at once, except during the initial page load or refresh.
 
 ### API
 
