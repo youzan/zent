@@ -15,7 +15,7 @@ import {
 } from '../types';
 import InfiniteScroller from '../../infinite-scroller';
 import { II18nLocaleCascader } from '../../i18n';
-import BlockLoading from '../../loading/BlockLoading';
+import InlineLoading from '../../loading/InlineLoading';
 
 const withPopover = Popover.withPopover;
 
@@ -229,12 +229,14 @@ class MenuContent extends Component<IMenuContentProps> {
             className="zent-cascader-v2__menu-scroller"
             hasMore={hasMore}
             loader={
-              <BlockLoading
-                height={32}
+              <InlineLoading
                 iconSize={18}
                 loading
                 colorPreset="grey"
                 icon="circle"
+                iconText="加载中…"
+                textPosition="right"
+                className="zent-cascader-v2__menu-scroller-loading"
               />
             }
             loadMore={() => scrollLoad(parent)}

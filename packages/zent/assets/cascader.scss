@@ -5,7 +5,7 @@ $popupWidth: 240px;
 $menuHeight: 180px;
 
 @mixin tag-style {
-  @include theme-color(border-color, stroke, 4);
+  @include theme-color(border-color, stroke, 5);
   border-radius: 2px;
   margin: 4px 4px 4px 0;
   padding: 0 4px;
@@ -15,6 +15,9 @@ $menuHeight: 180px;
   align-items: center;
   word-break: break-all;
   box-sizing: border-box;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .zent-cascader-v2 {
@@ -38,6 +41,13 @@ $menuHeight: 180px;
   @include theme-color(border-color, stroke, 5);
   @include theme-color(background-color, stroke, 9);
 
+  &-tag__list {
+    display: flex;
+    flex-wrap: wrap;
+    cursor: pointer;
+    overflow: hidden;
+  }
+
   &-tag-collapsed {
     &-trigger {
       @include theme-color(background-color, stroke, 7);
@@ -45,6 +55,8 @@ $menuHeight: 180px;
       cursor: pointer;
       justify-content: center;
       flex-shrink: 0;
+      margin-top: 2px;
+      margin-bottom: 2px;
     }
 
     &-content {
@@ -53,7 +65,7 @@ $menuHeight: 180px;
       max-height: 80px;
       overflow-y: auto;
       word-break: break-all;
-      @include theme-color(border-color, stroke, 4);
+      @include theme-color(border-color, stroke, 5);
     }
   }
 
@@ -71,17 +83,11 @@ $menuHeight: 180px;
   }
 
   .zenticon-close-circle {
-    @include theme-color(color, stroke, 5);
+    @include theme-color(color, stroke, 2, 0.6);
   }
 
   &--active {
     @include theme-color(border-color, primary, 3);
-  }
-
-  &--visible {
-    .zenticon-down {
-      transform: rotate(180deg);
-    }
   }
 
   &--disabled {
@@ -115,6 +121,8 @@ $menuHeight: 180px;
   }
 
   &--multiple {
+    padding-top: 4px;
+    padding-bottom: 4px;
     .zent-cascader-v2--tag + .zent-cascader-v2--search {
       margin-top: 2px;
     }
@@ -305,11 +313,19 @@ $menuHeight: 180px;
 
     &-scroller {
       height: $menuHeight;
+      &-loading.zent-loading {
+        text-align: center;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4px 0;
+      }
     }
   }
 
   &--tag {
-    @include theme-color(border-color, stroke, 4);
+    @include theme-color(border-color, stroke, 5);
     border-width: 1px;
     border-style: solid;
     border-radius: 2px;
@@ -351,7 +367,7 @@ $menuHeight: 180px;
       cursor: pointer;
       display: inline-block;
       font-size: $font-size-normal;
-      padding: 0 5px;
+      padding: 0 8px;
       line-height: 24px;
       vertical-align: middle;
       width: 114px;
@@ -361,7 +377,7 @@ $menuHeight: 180px;
       white-space: nowrap;
 
       &:hover:not(.zent-cascader-v2__list-link--active) {
-        @include theme-color(background-color, primary, 8);
+        @include theme-color(background-color, stroke, 8);
       }
 
       &--active {

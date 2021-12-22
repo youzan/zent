@@ -7,7 +7,7 @@ group: 数据
 
 ## Cascader 级联选择
 
-适用于各类级联操作（例如城市级联）
+可支持多级面板选取单个或多个值的选择器，最终录入对应值
 
 ### API
 
@@ -58,6 +58,7 @@ interface ICascaderItem {
 | 参数                 | 说明                                   | 类型                                                    | 是否必填 | 默认值  | 备选值  |
 | -------------------- | -------------------------------------- | ------------------------------------------------------- | -------- | ------- | ------- |
 | multiple             | 是否支持多选                           | `boolean`                                               | 否       | `false` | `true`  |
+| multipleType				 | 多选类型															| `normal` `checkbox`																			| 否			 | `normal` | `checkbox` |
 | expandTrigger        | 次级菜单的展开方式                     | `string`                                                | 否       | `click` | `hover` |
 | scrollable           | 是否支持滚动加载                       | `boolean`                                               | 否       | `false` | `true`  |
 | loadChildrenOnScroll | 第一级数据是否还有更多数据             | `boolean`                                               | 否       | `false` | `true`  |
