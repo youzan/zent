@@ -54,16 +54,17 @@
   margin-left: 75px;
 
   i {
-    @include theme-color(background-color, stroke, 7);
+    @include theme-color(background-color, stroke, 6);
     display: inline-block;
     position: relative;
     width: 100%;
     border-radius: 1px;
-    height: 1px;
+    height: 3px;
     vertical-align: top;
+    transform: scaleY(0.5) translateY(4px);
 
     &::after {
-      @include theme-color(background-color, stroke, 7);
+      @include theme-color(background-color, stroke, 6);
       content: '';
       position: absolute;
       top: 0;
@@ -95,6 +96,7 @@
 
     .zent-step-title {
       font-size: $font-size-normal;
+      font-weight: 500;
       max-width: 160px;
       line-height: 14px;
       margin-top: 10px;
@@ -117,8 +119,8 @@
   @include theme-color(color, stroke, 4);
 
   margin: 0 8px;
-  font-size: 24px;
-  line-height: 24px;
+  font-size: 30px;
+  line-height: 30px;
 
   .zent-icon {
     @include theme-color(background-color, stroke, 4);
@@ -134,10 +136,10 @@
     font-size: $font-size-normal;
 
     &.zent-steps-sequence {
-      width: 20px;
-      height: 20px;
-      line-height: 20px;
-      margin: 2px;
+      width: 24px;
+      height: 24px;
+      line-height: 24px;
+      margin: 3px;
     }
   }
 
@@ -470,9 +472,27 @@
         margin-top: -24px;
         left: -12px;
       }
+
+      .zent-steps-sequence {
+        @include theme-color(background-color, stroke, 4);
+        @include theme-color(color, stroke, 9);
+        font-size: $font-size-normal;
+        display: inline-block;
+        vertical-align: middle;
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        border-radius: 50%;
+        text-align: center;
+        margin-right: 8px;
+        margin-bottom: 2px;
+      }
     }
 
     &.zent-steps-item--finished {
+      .zent-steps-sequence {
+        @include theme-color(background-color, primary, 4);
+      }
       &:hover {
         .zent-steps-step {
           @include theme-color(background-color, primary, 5);

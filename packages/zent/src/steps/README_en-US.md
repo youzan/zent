@@ -7,14 +7,19 @@ scatter: true
 
 ## Steps
 
-Steps is suitable for operations that need to be guided step by step.
+Located in the head of the form, it is used for step by step display of large or strong logical forms, providing jump ability.
+
+#### Suggestion
+
+- When the task is complex or there is a sequence relationship, the step bar can be divided into multiple steps to simplify the user's cognition and operation cost of each step and feedback the current state.
+- `Step` is used when a large volume or strong logical form needs to be displayed step by step and the skipping ability is provided.
+- When a task contains multiple nodes with contextual relationship and needs to feedback the task flow status, the `Indicator` is used.
+- If only the progress of a task does not contain multiple nodes, use the `Progress`.
+- If the content can be split into multiple sub-contents without any logical relationship, use `Tabs`.
 
 <!-- demo-slot-1 -->
 <!-- demo-slot-2 -->
 <!-- demo-slot-3 -->
-<!-- demo-slot-4 -->
-<!-- demo-slot-5 -->
-<!-- demo-slot-6 -->
 
 ### API
 
@@ -30,6 +35,8 @@ Steps is suitable for operations that need to be guided step by step.
 | onStepChange | The callback function that is triggered when the steps in cliked and changed, especially for steps of card type, breadcrumb type and tabs type. | func    | `''`           |                                    |
 | className    | The custom classname                                                                                                                            | string  | `''`           |                                    |
 | ghost        | Use reverse color styles (This property supports only breadcrumb type. )                                                                        | boolean | false          |
+
+**Use Indicator for progress indicators of type [type=number]**
 
 #### Steps.Step
 
@@ -47,4 +54,5 @@ This component didn't deal with the situation where there is only one step. In f
 
 #### The following functions is obsolete in the new design system and is only used as a reference for the old version
 
-<!-- demo-slot-7 -->
+<!-- demo-slot-4 -->
+<!-- demo-slot-5 -->
