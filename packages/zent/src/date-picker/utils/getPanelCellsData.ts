@@ -68,7 +68,7 @@ export default function getPanelCellsData({
       // selected range
       if (rangeDate) {
         const isInRangeDate =
-          isAfter(currentDate, rangeDate[0]) &&
+          isAfter(currentDate, offsetDate(rangeDate[0], -1)) &&
           isBefore(currentDate, rangeDate[1]);
 
         isInRange = disableRangeOverView
