@@ -46,10 +46,8 @@ export class TagsTrigger extends Component<ITagsTriggerProps> {
     } = this.props;
     const maxHeightStyle: CSSProperties = {};
     const tagHeight = 22;
-    const containerSize = 14;
     if (maxLine > 1) {
-      maxHeightStyle.maxHeight =
-        (maxLine as number) * tagHeight + containerSize + 'px';
+      maxHeightStyle.maxHeight = (maxLine as number) * tagHeight + 'px';
       maxHeightStyle.overflowY = 'auto';
       return (
         <div style={maxHeightStyle} className="zent-cascader-v2-tag__list">
