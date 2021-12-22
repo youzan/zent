@@ -14,6 +14,7 @@ export function InlineLoading(props: IInlineLoadingProps) {
     iconText,
     textPosition = 'bottom',
     colorPreset = 'primary',
+    textSize,
   } = props;
 
   const delayed = useDelayed({ loading, delay });
@@ -30,6 +31,7 @@ export function InlineLoading(props: IInlineLoadingProps) {
         text={iconText}
         textPosition={textPosition}
         colorPreset={colorPreset}
+        textSize={textSize}
       />
     </div>
   );

@@ -94,10 +94,6 @@
 
 .zent-loading-icon-circle {
   display: inline-block;
-  border-radius: 50%;
-  box-sizing: border-box;
-  border-width: 2px;
-  border-style: solid;
   animation: zent-ani-spin 0.6s $timing-fn-linear infinite;
 }
 
@@ -112,7 +108,7 @@
     flex-direction: column;
 
     .zent-loading-icon-text {
-      margin-top: 6px;
+      margin-top: 4px;
     }
   }
 
@@ -120,7 +116,7 @@
     flex-direction: column;
 
     .zent-loading-icon-text {
-      margin-bottom: 6px;
+      margin-bottom: 4px;
       order: 1;
     }
 
@@ -149,11 +145,6 @@
 
 .zent-loading-color-preset--primary {
   .zent-loading-icon-circle {
-    @include theme-color(border-top-color, primary, 4);
-    @include theme-color(border-right-color, primary, 4);
-    @include theme-color(border-bottom-color, primary, 8);
-    @include theme-color(border-left-color, primary, 8);
-
     + .zent-loading-icon-text {
       @include theme-color(color, primary, 4);
     }
@@ -178,13 +169,6 @@
 .zent-loading-color-preset--grey {
   .zent-loading-icon-text {
     @include theme-color(color, stroke, 3);
-  }
-
-  .zent-loading-icon-circle {
-    @include theme-color(border-top-color, stroke, 4);
-    @include theme-color(border-right-color, stroke, 4);
-    @include theme-color(border-bottom-color, stroke, 7);
-    @include theme-color(border-left-color, stroke, 7);
   }
 
   .zent-loading-icon-youzan {

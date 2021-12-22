@@ -9,12 +9,22 @@ en-US:
 ---
 
 ```js
-import { BlockLoading } from 'zent';
+import { InlineLoading } from 'zent';
 
 ReactDOM.render(
-	<div>
-		<BlockLoading loading iconSize={64} iconText="{i18n.text}" />
+	<div className="zent-loading-demo-text-wrapper">
+		<InlineLoading loading iconSize={16} textSize={12} iconText="{i18n.text}" />
+		<InlineLoading loading iconText="{i18n.text}" />
+		<InlineLoading loading iconSize={24} textSize={16} iconText="{i18n.text}" />
 	</div>,
 	mountNode
 );
 ```
+
+<style>
+	.zent-loading-demo-text-wrapper {
+		width: 100%;
+		display: flex;
+		justify-content: space-around;
+	}
+</style>
