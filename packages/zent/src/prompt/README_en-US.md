@@ -6,6 +6,8 @@ group: Data Display
 
 ## Prompt
 
+Pass system prompts to users
+
 #### Suggestion
 
 - Use: Used to deliver product or system prompts to users. It has nothing to do with the user's task or state and will exist until processed or closed by the user.
@@ -20,10 +22,10 @@ group: Data Display
 
 ### API
 
-| Property     | Description                         | Type        | Required | Default     | Alternative                  |
-| ------------ | ----------------------------------- | ----------- | -------- | ----------- | ---------------------------- |
-| type         | The type of prompt                  | `string`    | false    | `'warning'` | `'strongHint'`\|`'weakHint'` |
-| closeContent | close trigger content               | `ReactNode` | false    |             |                              |
-| extraContent | extra content on the right of Alert | `ReactNode` | false    |             |                              |
+| Property     | Description                          | Type        | Required | Default     | Alternative                  |
+| ------------ | ------------------------------------ | ----------- | -------- | ----------- | ---------------------------- |
+| type         | The type of prompt                   | `string`    | false    | `'warning'` | `'strongHint'`\|`'weakHint'` |
+| closeContent | close trigger content                | `ReactNode` | false    |             |                              |
+| extraContent | extra content on the right of Prompt | `ReactNode` | false    |             |                              |
 
 Consult [Alert's documentation](https://youzan.github.io/zent/en/component/alert) to find more APIs.

@@ -1,43 +1,36 @@
-import { FC, useMemo } from 'react';
-import cx from 'classnames';
+import { FC } from 'react';
 import { IAlertProps, Alert } from '../alert';
 
-type BannerCloseIconColor = 'grey' | 'white';
+export type TaskStatusBarType = 'info' | 'waiting' | 'success' | 'error';
 
-const BannerCloseIconColorMap: Record<BannerCloseIconColor, string> = {
-  grey: '#999',
-  white: '#fff',
-} as const;
+export interface ITaskStatusBarProps extends Omit<IAlertProps, 'type'> {
+  type?: TaskStatusBarType;
+}
 
-type IBannerProps = Omit<IAlertProps, 'title'> & {
-  backgroundImage: string;
+const TypePropsMap: Record<TaskStatusBarType, Partial<IAlertProps>> = {
+  info: {
+    type: 'info',
+  },
+  waiting: {
+    type: 'info',
+    loading: true,
+  },
+  success: {
+    type: 'success',
+  },
+  error: {
+    type: 'error',
+  },
 };
-export const TaskStatusBar: FC<IBannerProps> = ({
-  backgroundImage,
-  closeIconColor,
-  style = {},
-  className,
-  ...resetProps
+
+export const TaskStatusBar: FC<ITaskStatusBarProps> = ({
+  type = 'info',
+  progress,
+  ...rest
 }) => {
-  const bannerStyle = useMemo(() => {
-    if (!backgroundImage) return style;
-    return {
-      ...style,
-      backgroundImage: `url(${backgroundImage})`,
-    };
-  }, [style, backgroundImage]);
+  const typeProps = TypePropsMap[type];
+  const taskProgress = type === 'waiting' ? progress : 0;
 
-  const bannerClassName = cx('zent-alert--banner', className);
-
-  return (
-    <Alert
-      {...resetProps}
-      icon={null}
-      style={bannerStyle}
-      className={bannerClassName}
-      closeIconColor={BannerCloseIconColorMap[closeIconColor] || closeIconColor}
-    />
-  );
+  return <Alert {...typeProps} {...rest} progress={taskProgress} />;
 };
-
 export default TaskStatusBar;

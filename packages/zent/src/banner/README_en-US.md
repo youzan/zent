@@ -6,6 +6,8 @@ group: Data Display
 
 ## Banner
 
+Deliver promotional messages to users
+
 ### Suggestion
 
 - Usage: Used to pass product promotion information to users. The bulletin exists until it is processed or closed by the user.
