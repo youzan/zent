@@ -1,6 +1,6 @@
 import { useMemo, FC } from 'react';
 import { Icon } from '../icon';
-import { IAlertProps, Alert } from './Alert';
+import { IAlertProps, Alert } from '../alert';
 
 export type PromptType = 'warning' | 'strongHint' | 'weakHint';
 
@@ -43,3 +43,5 @@ export const Prompt: FC<IPromptProps> = ({
     />
   );
 };
+
+export default Prompt;

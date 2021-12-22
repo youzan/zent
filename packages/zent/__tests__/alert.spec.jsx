@@ -1,5 +1,7 @@
 import Enzyme, { mount, shallow } from 'enzyme';
-import { Alert, ScrollAlert, AlertItem, Banner, Prompt } from '../src/alert';
+import { Alert, ScrollAlert, AlertItem } from '../src/alert';
+import { Prompt } from '../src/prompt';
+import { Banner } from '../src/banner';
 import Icon from '../src/icon';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 
