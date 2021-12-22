@@ -1,6 +1,6 @@
 import { FC, useMemo } from 'react';
 import cx from 'classnames';
-import { IAlertProps, Alert } from './Alert';
+import { IAlertProps, Alert } from '../alert';
 
 export type BannerCloseIconColor = 'grey' | 'white';
 
@@ -40,3 +40,5 @@ export const Banner: FC<IBannerProps> = ({
     />
   );
 };
+
+export default Banner;

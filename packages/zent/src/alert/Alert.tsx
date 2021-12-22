@@ -120,7 +120,7 @@ export class Alert extends PureComponent<IAlertProps, IAlertState> {
 
     return (
       <div className={containerCls} {...restDivAttrs}>
-        {progress && (
+        {!!progress && (
           <i className={progressCls} style={{ width: `${progress}%` }} />
         )}
         <AlertItem {...restProps} onAlertItemClose={this.onCloseHandler}>

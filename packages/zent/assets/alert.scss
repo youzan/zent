@@ -53,7 +53,7 @@ $type-map: (
   background-size: cover;
   background-position: center center;
 
-  padding: 12px 16px;
+  padding: 14px 16px;
   border-radius: 2px;
 
   &-outline {
@@ -84,6 +84,7 @@ $type-map: (
     top: 0;
     left: 0;
     transition: width 200ms $timing-fn-linear;
+    border-radius: 1px;
   }
 }
 
@@ -152,6 +153,7 @@ $type-map: (
   &-close-wrapper {
     margin-left: 16px;
     cursor: pointer;
+    height: 20px;
 
     .zent-alert-item-close-btn {
       @include theme-color(color, stroke, 3);
@@ -178,8 +180,8 @@ $type-map: (
     &.zenticon,
     .zent-loading-icon-and-text {
       width: 16px;
-      height: 20px;
-      line-height: 20px;
+      height: 16px;
+      padding-top: 2px;
     }
   }
 }
