@@ -28,6 +28,7 @@ export interface ICollapsePanelProps {
   onChange?(key: string, active: boolean): void;
   panelKey?: string;
   panelTitleBackground?: string;
+  showContentBackground?: boolean;
   isLast?: boolean;
   bordered?: boolean;
   extra?: React.ReactNode;
@@ -58,6 +59,7 @@ export class CollapsePanel extends Component<ICollapsePanelProps> {
       bordered,
       extra,
       panelTitleBackground,
+      showContentBackground,
     } = this.props;
     const { animateAppear } = this.state;
     const isBorderedLast = bordered && isLast;
@@ -105,6 +107,8 @@ export class CollapsePanel extends Component<ICollapsePanelProps> {
             className={cx('zent-collapse-panel__content-box', {
               'zent-collapse-panel__content-box--inactive': !active,
               'zent-collapse-panel__content-box--active': active,
+              'zent-collapse-panel__content_box--show-background':
+                showContentBackground,
             })}
             style={contentBoxStyle}
           >
