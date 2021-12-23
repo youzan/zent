@@ -1,6 +1,6 @@
 ---
 title: Tooltip
-subtitle: 文字提示
+subtitle: 工具提示
 path: component/tooltip
 group: 展示
 ---
