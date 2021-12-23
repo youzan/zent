@@ -1,8 +1,7 @@
 ---
-order: 1
+order: 5
 zh-CN:
-	title: 有边框的
-	showBg: Title 底色
+	title: 显示内容区底色
 	extra: 自定义内容
 	panelOneTitle: 南歌子（暮春）
 	panelOneContent: "紫陌寻春去，红尘拂面来。无人不道看花回。惟见石榴新蕊、一枝开。
@@ -15,8 +14,8 @@ zh-CN:
 
 废沼夜来秋水满，茂林深处晚莺啼。行人肠断草凄迷。"
 en-US:
-	title: Has Bordered
-	showBg: Title Background
+	title: Show Panel Content Background
+	showBg: Content Background
 	extra: Custom Content
 	panelOneTitle: A Lover's Complaint
 	panelOneContent: "FROM off a hill whose concave womb reworded
@@ -45,12 +44,11 @@ In clamours of all size, both high and low."
 ---
 
 ```jsx
-import { Collapse, Switch } from 'zent';
+import { Collapse } from 'zent';
 
 class Simple extends React.Component {
 	state = {
 		activeKey: '1',
-		bg: true,
 	};
 
 	handleChange = activeKey => {
@@ -59,44 +57,31 @@ class Simple extends React.Component {
 		});
 	};
 
-	handleBgChange = bg => {
-		this.setState({ bg });
-	};
-
 	render() {
-		const { activeKey, bg } = this.state;
-		const titleBg = bg ? 'default' : 'none';
+		const { activeKey } = this.state;
 
 		return (
-			<>
-				<div style={{ marginBottom: 20 }}>
-					<Switch
-						size="small"
-						checked={this.state.bg}
-						onChange={this.handleBgChange}
-					/>
-					<span> {i18n.showBg}</span>
-				</div>
-				<Collapse
-					panelTitleBackground={titleBg}
-					activeKey={activeKey}
-					onChange={this.handleChange}
+			<Collapse
+				panelTitleBackground="no"
+				showContentBackground
+				activeKey={activeKey}
+				onChange={this.handleChange}
+				bordered={false}
+			>
+				<Collapse.Panel
+					title="{i18n.panelOneTitle}"
+					key="1"
+					extra={<a>{i18n.extra}</a>}
 				>
-					<Collapse.Panel
-						title="{i18n.panelOneTitle}"
-						key="1"
-						extra={<a>{i18n.extra}</a>}
-					>
-						{i18n.panelOneContent}
-					</Collapse.Panel>
-					<Collapse.Panel title="{i18n.panelTwoTitle}" key="2">
-						{i18n.panelTwoContent}
-					</Collapse.Panel>
-					<Collapse.Panel title="{i18n.panelThreeTitle}" key="3" disabled>
-						{i18n.panelThreeContent}
-					</Collapse.Panel>
-				</Collapse>
-			</>
+					{i18n.panelOneContent}
+				</Collapse.Panel>
+				<Collapse.Panel title="{i18n.panelTwoTitle}" key="2">
+					{i18n.panelTwoContent}
+				</Collapse.Panel>
+				<Collapse.Panel title="{i18n.panelThreeTitle}" key="3">
+					{i18n.panelThreeContent}
+				</Collapse.Panel>
+			</Collapse>
 		);
 	}
 }

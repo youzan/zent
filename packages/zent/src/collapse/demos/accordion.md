@@ -58,6 +58,8 @@ class Simple extends React.Component {
 		const { activeKey } = this.state;
 		return (
 			<Collapse
+				bordered={false}
+				panelTitleBackground="no"
 				activeKey={activeKey}
 				onChange={this.handleChange.bind(this)}
 				accordion

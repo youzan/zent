@@ -21,10 +21,22 @@ $content-padding-h: 36px;
     .zent-collapse-panel__title {
       @include collapse-border(left);
       @include collapse-border(right);
+      @include collapse-border(bottom);
     }
 
     .zent-collapse-panel__content-box {
       padding: 0 $content-padding-h + 1px; // Add 1px border
+      @include collapse-border(bottom);
+    }
+  }
+
+  &--no-border {
+    .zent-collapse-panel {
+      @include collapse-border(bottom);
+
+      &__content {
+        padding: 4px 0 16px 0;
+      }
     }
   }
 }
@@ -34,7 +46,7 @@ $content-padding-h: 36px;
 
   &__title {
     @include font-normal;
-    @include collapse-border(bottom);
+    // @include collapse-border(bottom);
     @include theme-color(color, stroke, 1);
     padding: 14px 10px;
     cursor: pointer;
@@ -60,11 +72,18 @@ $content-padding-h: 36px;
   &__content-box {
     @include font-normal;
     @include theme-color(background-color, stroke, 9);
-    @include collapse-border(bottom);
 
     padding: 0 $content-padding-h;
     overflow: hidden;
     box-sizing: border-box;
+  }
+
+  &__content_box--show-background {
+    @include theme-color(background-color, stroke, 8);
+
+    .zent-collapse-panel__content {
+      padding: 10px 0;
+    }
   }
 
   &__content {
