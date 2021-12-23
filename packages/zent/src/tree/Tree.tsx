@@ -3,7 +3,7 @@ import classnames from 'classnames';
 
 import { AnimateHeight } from '../utils/component/AnimateHeight';
 import Checkbox from '../checkbox';
-import Loading from './components/Loading';
+import { InlineLoading } from '../loading/InlineLoading';
 
 import createStateByProps, {
   ICreateStateByPropsParams,
@@ -316,15 +316,25 @@ export class Tree extends Component<ITreeProps, ITreeState> {
   }
 
   renderSwitcher(root: ITreeData) {
+    const {
+      loadingNode,
+      renderKey: { id },
+    } = this.state;
     return (
-      <Icon
-        className="zent-tree-switcher"
-        type="right"
-        onClick={e => {
-          e.stopPropagation();
-          this.handleExpandIconClick(root, e);
-        }}
-      />
+      <>
+        {loadingNode.includes(root[id]) ? (
+          <InlineLoading loading />
+        ) : (
+          <Icon
+            className="zent-tree-switcher"
+            type="right"
+            onClick={e => {
+              e.stopPropagation();
+              this.handleExpandIconClick(root, e);
+            }}
+          />
+        )}
+      </>
     );
   }
 
@@ -416,7 +426,6 @@ export class Tree extends Component<ITreeProps, ITreeState> {
     const { autoExpandOnSelect } = this.props;
     const {
       expandNode,
-      loadingNode,
       rootInfoMap,
       renderKey: { id, children },
     } = this.state;
@@ -450,7 +459,6 @@ export class Tree extends Component<ITreeProps, ITreeState> {
               )}
               <div className="zent-tree-node">
                 {this.renderCheckbox(root)}
-                {loadingNode.indexOf(rootId) > -1 ? <Loading /> : null}
                 {this.renderContent(root, isShowChildren)}
                 {this.renderOperations(root, isShowChildren)}
               </div>
