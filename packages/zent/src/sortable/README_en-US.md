@@ -6,7 +6,15 @@ group: Data Display
 
 ## Sortable
 
-Sortable is used for drag and drop elements of a container
+Organize information by dragging page elements.
+
+### Suggestion
+
+- Suitable for multiple functions, lists, pictures intuitive, high degree of freedom sorting scene;
+
+### Note
+
+- Paging drag and drop is not supported
 
 ### API
 
@@ -46,8 +54,8 @@ Sortable is used for drag and drop elements of a container
 #### **`Advanced Event API`**
 
 | Props    | Description                                                                    | Type                                                                             | Default | Optional |
-| -------- | ------------------------------------------------------------------------------ | -------------------------------------------------------------------------------- | ------- | -------- |
-| setData  | used to call the HTML5 native DataTransfer.setData method                      | (dataTransfer: object, dragEl: HTMLElement): void                                |         |          |  |  |
+| -------- | ------------------------------------------------------------------------------ | -------------------------------------------------------------------------------- | ------- | -------- | --- | --- |
+| setData  | used to call the HTML5 native DataTransfer.setData method                      | (dataTransfer: object, dragEl: HTMLElement): void                                |         |          |     |     |
 | onChoose | the callback function when element is chosen                                   | (e: Event) (see detail at [Event callback](#event-callback))                     |         |          |
 | onStart  | the callback function when element dragging started                            | (e: Event) (see detail at [Event callback](#event-callback))                     |         |          |
 | onEnd    | the callback function when element dragging ended                              | (e: Event) (see detail at [Event callback](#event-callback))                     |         |          |
