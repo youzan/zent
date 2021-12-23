@@ -1,9 +1,9 @@
 ---
-order: 1
+order: 3
 zh-CN:
-	title: 基础用法
+	title: 两种指示器主题，`light`适用于浅色背景，`dark`适用于深色背景
 en-US:
-	title: Basic Usage
+	title: There are two indicator themes, 'light' for light backgrounds and 'dark' for dark backgrounds
 ---
 
 ```js
@@ -15,7 +15,7 @@ class Simple extends React.Component {
 	render() {
 		return (
 			<div className="swiper-demo-container">
-				<Swiper className="swiper-demo-simple">
+				<Swiper className="swiper-demo-simple" autoplay>
 					{pages.map((item, index) => {
 						return (
 							<div className="swiper-demo-simple-h" key={index}>
@@ -25,9 +25,8 @@ class Simple extends React.Component {
 					})}
 				</Swiper>
 				<Swiper
-					className="swiper-demo-simple"
-					dotsColor="#31A896"
-					dotsSize="small"
+					className="swiper-demo-simple swiper-demo-simple--light"
+					dotsTheme="light"
 					autoplay
 				>
 					{pages.map((item, index) => {
@@ -45,3 +44,10 @@ class Simple extends React.Component {
 
 ReactDOM.render(<Simple />, mountNode);
 ```
+
+<style>
+	.swiper-demo-simple--light .swiper-demo-simple-h {
+		background: #f7f7f7;
+		color: #ccc;
+	}
+</style>
