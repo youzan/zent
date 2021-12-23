@@ -1,17 +1,6 @@
 @import './theme/default';
 @import './theme/font';
 
-@mixin caret($pos) {
-  @include theme-color(border-#{$pos}-color, stroke, 3);
-  width: 0;
-  height: 0;
-  border-left: 4.5px solid transparent;
-  border-right: 4.5px solid transparent;
-  border-#{$pos}-width: 6px;
-  border-#{$pos}-style: solid;
-  position: absolute;
-}
-
 .zent-grid {
   @include theme-color(color, stroke, 1);
   font-size: $font-size-normal;
@@ -109,16 +98,20 @@
   }
 
   &-thead {
-    .caret-up {
-      @include caret(bottom);
-      top: 3px;
+    .caret-up,
+    .caret-down {
+      position: absolute;
       left: 6px;
+      font-size: 12px;
+      @include theme-color(color, stroke, 3);
+    }
+
+    .caret-up {
+      top: 0;
     }
 
     .caret-down {
-      @include caret(top);
-      bottom: 3px;
-      left: 6px;
+      bottom: 0;
     }
 
     &-sort {
@@ -126,6 +119,7 @@
 
       &-btn {
         cursor: pointer;
+        display: flex;
       }
     }
 
@@ -136,13 +130,13 @@
 
     &-sort-desc {
       .caret-down {
-        @include theme-color(border-top-color, primary, 4);
+        @include theme-color(color, primary, 4);
       }
     }
 
     &-sort-asc {
       .caret-up {
-        @include theme-color(border-bottom-color, primary, 4);
+        @include theme-color(color, primary, 4);
       }
     }
   }
@@ -241,11 +235,10 @@
   &-tr {
     @include theme-color(background-color, stroke, 9);
     display: table-row;
-    // height: 56px;
 
     &:hover,
     &__mouseover {
-      @include theme-color(background-color, primary, 8);
+      @include theme-color(background-color, section, bg);
     }
 
     &__expanded {

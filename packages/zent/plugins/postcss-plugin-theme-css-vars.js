@@ -66,7 +66,7 @@ module.exports = () => {
 
           if (isThemeVar) {
             const words = parseValue(decl.value);
-            const prefixName = /[a-zA-Z]+[^-]/.exec(decl.prop)[0];
+            const prefixName = /([a-zA-Z-]+)-colors/.exec(decl.prop)[1];
             let firstNodeSourceIndex;
             words.walk(node => {
               if (!firstNodeSourceIndex) {
