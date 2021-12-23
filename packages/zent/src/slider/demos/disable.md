@@ -10,7 +10,7 @@ en-US:
 import { Slider } from 'zent';
 
 ReactDOM.render(
-		<Slider value={[30, 100]} range disabled />
+		<Slider value={30} disabled />
 		, mountNode
 );
 ```

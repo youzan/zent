@@ -1,5 +1,25 @@
 @import './theme/default';
 @import './theme/font';
+@mixin pointer-active {
+  @include theme-color(color, primary, 4);
+  transform-origin: center center;
+  height: 16px;
+  width: 16px;
+  cursor: pointer;
+  &::after {
+    @include theme-color(border-color, primary, 4, 0.15);
+    border-style: solid;
+    border-width: 6px;
+    width: 16px;
+    height: 16px;
+    content: '';
+    display: inline-block;
+    border-radius: 50%;
+    position: absolute;
+    left: -8px;
+    top: -8px;
+  }
+}
 
 .zent-slider {
   display: flex;
@@ -38,7 +58,7 @@
   }
 
   &-track {
-    @include theme-color(background-color, primary, 6);
+    @include theme-color(background-color, primary, 4);
     height: 4px;
     position: absolute;
     border-radius: 8px;
@@ -57,45 +77,39 @@
   }
 
   &-point {
-    @include theme-color(border-color, primary, 6);
+    @include theme-color(border-color, primary, 4);
     @include theme-color(background-color, stroke, 9);
     box-sizing: border-box;
-    width: 14px;
-    height: 14px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     border-width: 2px;
     border-style: solid;
     cursor: pointer;
-    transition: border-color 0.3s ease,
+    position: relative;
+    z-index: 1;
+    transition: border-color 0.3s ease, height 0.1s linear, width 0.1s linear,
       transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
 
-    $p: &;
+    $prefix: &;
 
-    &:hover:not(#{$p}-disabled) {
-      @include theme-color(color, primary, 4);
-      transform: scale(1.2);
-      transform-origin: center center;
-      &::after {
-        width: 14px;
-        height: 14px;
-        content: '';
-        border: 5px solid rgba(153, 198, 255, 0.5);
-        display: inline-block;
-        border-radius: 50%;
-        position: absolute;
-        left: -7px;
-        top: -7px;
-      }
+    &:hover:not(#{$prefix}-disabled) {
+      height: 16px;
+      width: 16px;
+    }
+
+    &:active:not(#{$prefix}-disabled) {
+      @include pointer-active;
     }
 
     &-disabled {
-      @include theme-color(border-color, stroke, 5);
+      @include theme-color(border-color, stroke, 4);
       border-width: 2px;
       border-style: solid;
       cursor: not-allowed;
 
       &:hover {
-        @include theme-color(border-color, stroke, 5);
+        @include theme-color(border-color, stroke, 4);
         transform: scale(1);
         transform-origin: center center;
       }
@@ -149,6 +163,12 @@
 
       &:after {
         display: block;
+      }
+    }
+
+    &-active {
+      .zent-slider-point {
+        @include pointer-active;
       }
     }
   }
