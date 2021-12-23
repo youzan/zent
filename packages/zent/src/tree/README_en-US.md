@@ -7,12 +7,15 @@ scatter: true
 
 ## Tree
 
-Tree widget is used to build and manipulate trees. such as files, organization structures, geographic infomation
+A multilevel list of data structures.
 
-### Guides
+### Suggestion
 
-- Supports two types of data structure, nested tree and array.
-- The widget only display input data, but not change itself.
+- Use the `Tree` component when hierarchical information needs to be displayed in a window.
+
+### Note
+
+- Do not use `Tree` when non-hierarchical or hierarchical information does not need to be displayed in a window.
 
 ### Demos
 
