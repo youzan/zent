@@ -11,6 +11,7 @@ import {
 import { IGridInnerColumn, IGridProps } from './Grid';
 import Store from './Store';
 import isNil from '../utils/isNil';
+import ToolTip from '../tooltip';
 
 export interface IGridHeaderProps<Data> {
   size: IGridProps['size'];
@@ -38,6 +39,12 @@ interface IGridHeaderState<> {
   rows: Array<Array<IHeaderCell>>;
 }
 
+const sortToolTipMap = new Map<GridSortType, string>([
+  ['', '取消排序'],
+  ['asc', '点击升序'],
+  ['desc', '点击降序'],
+]);
+
 class Header<Data> extends PureComponent<
   IGridHeaderProps<Data>,
   IGridHeaderState
@@ -52,7 +59,10 @@ class Header<Data> extends PureComponent<
 
   unsubscribe: any;
 
-  onSort = (column: IGridInnerColumn<Data>, props: IGridHeaderProps<Data>) => {
+  getSortInfo = (
+    column: IGridInnerColumn<Data>,
+    props: IGridHeaderProps<Data>
+  ) => {
     const { sortBy, sortType = '', defaultSortType = 'desc' } = props;
     const name = column.name;
     let newSortType: GridSortType;
@@ -71,34 +81,39 @@ class Header<Data> extends PureComponent<
       newSortType = defaultSortType;
     }
 
-    this.props.onChange({
+    return {
       sortBy: name,
       sortType: newSortType,
-    });
+      sortTooltip: sortToolTipMap.get(newSortType),
+    };
   };
 
   getChildren = (
     column: IGridInnerColumn<Data>,
     props: IGridHeaderProps<Data>
   ) => {
-    const { prefix, sortBy, sortType } = props;
+    const { prefix, sortBy, sortType, onChange } = props;
     const cn = classnames(`${prefix}-grid-thead-sort`, {
       [`${prefix}-grid-thead-sort-${sortType}`]:
         sortType && column.name === sortBy,
     });
 
     if (column.needSort) {
+      const { sortBy, sortType, sortTooltip } = this.getSortInfo(column, props);
+
       return (
-        <div
-          onClick={() => this.onSort(column, props)}
-          className={`${prefix}-grid-thead-sort-btn`}
-        >
-          {column.title}
-          <span className={cn}>
-            <span className="caret-up" />
-            <span className="caret-down" />
-          </span>
-        </div>
+        <ToolTip title={sortTooltip}>
+          <div
+            onClick={() => onChange({ sortBy, sortType })}
+            className={`${prefix}-grid-thead-sort-btn`}
+          >
+            {column.title}
+            <span className={cn}>
+              <span className="caret-up" />
+              <span className="caret-down" />
+            </span>
+          </div>
+        </ToolTip>
       );
     }
     return column.title;
