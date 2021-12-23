@@ -3,7 +3,7 @@ import cx from 'classnames';
 
 import { WindowResizeHandler } from '../utils/component/WindowResizeHandler';
 import Icon from '../icon';
-import SwiperDots from './SwiperDots';
+import SwiperDots, { IDotsType, IDotsTheme } from './SwiperDots';
 
 function setStyle(target: any, styles: any) {
   const { style } = target;
@@ -13,8 +13,6 @@ function setStyle(target: any, styles: any) {
   });
 }
 
-export type IDotsType = 'line' | 'round';
-
 export interface ISwiperProps {
   className?: string;
   transitionDuration?: number;
@@ -23,6 +21,7 @@ export interface ISwiperProps {
   dots?: boolean | IDotsType;
   dotsColor: string;
   dotsSize?: 'normal' | 'small' | 'large';
+  dotsTheme?: IDotsTheme;
   arrows?: boolean | 'hover';
   arrowsDisabled?: {
     left?: boolean;
@@ -80,7 +79,7 @@ export class Swiper extends Component<ISwiperProps, ISwiperState> {
     autoplay: false,
     autoplayInterval: 3000,
     dots: true,
-    dotsColor: 'white',
+    dotsTheme: 'dark',
     dotsSize: 'normal',
     arrows: false,
     arrowsSize: 'normal',
@@ -352,6 +351,7 @@ export class Swiper extends Component<ISwiperProps, ISwiperState> {
       dots,
       dotsColor,
       dotsSize,
+      dotsTheme,
       arrows,
       arrowsSize,
       arrowsType,
@@ -398,6 +398,7 @@ export class Swiper extends Component<ISwiperProps, ISwiperState> {
           <SwiperDots
             dotsType={dotsType}
             dotsColor={dotsColor}
+            dotsTheme={dotsTheme}
             dotsSize={dotsSize}
             items={children}
             currentIndex={currentIndex}

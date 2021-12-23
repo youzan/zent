@@ -84,7 +84,6 @@
 
     &-item {
       @include theme-color(background-color, stroke, 9);
-      opacity: 0.3;
       display: inline-block;
       border: 0;
       cursor: pointer;
@@ -92,16 +91,14 @@
     }
 
     &--line &-item {
-      margin: 8px 4px;
+      margin: 8px 3px;
       height: 4px;
       width: 16px;
       border-radius: 2px;
       transition: all 300ms $timing-fn-ease-in-out-cubic;
-      opacity: 0.3;
 
       &.zent-swiper__dots-item-active {
         width: 24px;
-        opacity: 1;
       }
     }
 
@@ -121,6 +118,26 @@
       .zent-swiper__dots-small .zent-swiper__dots-item {
         height: 15px;
         width: 15px;
+      }
+    }
+
+    &--dark {
+      .zent-swiper__dots-item {
+        @include theme-color(background-color, stroke, 9, 0.4);
+      }
+
+      .zent-swiper__dots-item-active {
+        @include theme-color(background-color, stroke, 9);
+      }
+    }
+
+    &--light {
+      .zent-swiper__dots-item {
+        @include theme-color(background-color, stroke, 1, 0.2);
+      }
+
+      .zent-swiper__dots-item-active {
+        @include theme-color(background-color, primary, 5);
       }
     }
 
