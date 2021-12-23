@@ -13,52 +13,45 @@ class Simple extends React.Component {
 	state = {
 		list: [
 			{
-				name: 'Arvin'
+				name: 'Arvin',
 			},
 			{
-				name: 'Jack'
+				name: 'Jack',
 			},
 			{
-				name: 'Bob'
+				name: 'Bob',
 			},
 			{
-				name: 'Nick'
-			}
-		]
-	}
+				name: 'Nick',
+			},
+		],
+	};
 
-	handleChange = (items) => {
+	handleChange = items => {
 		this.setState({
-			list: items
+			list: items,
 		});
-	}
+	};
 
 	render() {
 		const { list } = this.state;
 		return (
 			<div className="demo-sortable-wrapper">
-				<Sortable
-					items={list}
-					onChange={this.handleChange}
-				>
-					{
-						list.map(({ name } ) => 
-							<div className="zent-demo-sortable-basic-item" key={name}>
-								{name}
-							</div>
-						)
-					}
+				<Sortable items={list} onChange={this.handleChange}>
+					{list.map(({ name }) => (
+						<div className="zent-demo-sortable-basic-item" key={name}>
+							{name}
+						</div>
+					))}
 				</Sortable>
 			</div>
 		);
 	}
 }
 
-ReactDOM.render(
-	<Simple />
-	, mountNode
-);
+ReactDOM.render(<Simple />, mountNode);
 ```
+
 <style>
 	.zent-demo-sortable-basic-item {
 		background: #FFFFFF;
