@@ -5,7 +5,7 @@
   transform-origin: center center;
   height: 16px;
   width: 16px;
-  cursor: grabbing;
+  cursor: pointer;
   &::after {
     @include theme-color(border-color, primary, 4, 0.15);
     border-style: solid;
