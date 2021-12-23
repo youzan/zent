@@ -757,6 +757,7 @@ describe('new Tree', () => {
             ],
           });
         }
+        holdWrapper.setState({ loadingNode: [] });
         resolve();
       });
     };
@@ -799,7 +800,7 @@ describe('new Tree', () => {
     expect(wrapper.state().loadingNode).toEqual([1]);
     expect(wrapper.state().expandNode).toEqual([]);
     wrapper.update();
-    expect(wrapper.find('.tree-node-loading-wrapper').length).toBe(1);
+    expect(wrapper.find('InlineLoading').length).toBe(1);
 
     done();
   });
