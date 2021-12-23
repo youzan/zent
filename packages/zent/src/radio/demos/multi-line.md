@@ -21,17 +21,12 @@ const RadioGroup = Radio.Group;
 
 class App extends Component {
 	state = {
-		style: {},
+		style: {
+      display: 'inline-block'
+		},
 	};
 
-	onChange = e => {
-		this.setState(state => ({
-			style:
-				state.style.display === 'inline-block'
-					? {}
-					: { display: 'inline-block' },
-		}));
-	};
+	onChange = e => {};
 
 	render() {
 		return (
@@ -41,12 +36,8 @@ class App extends Component {
 						{i18n.text1}
 						<p>{i18n.text2}</p>
 					</Radio>
-					<p style={{ color: '#969799', marginTop: 8 }}>{i18n.text3}</p>
+					<p style={{ color: '#969799', marginTop: 8, fontSize: '12px' }}>{i18n.text3}</p>
 				</RadioGroup>
-
-				<div style={{ marginTop: 16 }}>
-					<Button onClick={this.onChange}>{i18n.switch}</Button>
-				</div>
 			</>
 		);
 	}
