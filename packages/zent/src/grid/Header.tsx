@@ -103,7 +103,7 @@ class Header<Data> extends PureComponent<
       const { sortBy, sortType, sortTooltip } = this.getSortInfo(column, props);
 
       return (
-        <ToolTip title={sortTooltip}>
+        <ToolTip title={sortTooltip} position="top-center" cushion={12}>
           <div
             onClick={() => onChange({ sortBy, sortType })}
             className={`${prefix}-grid-thead-sort-btn`}
