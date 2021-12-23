@@ -12,6 +12,7 @@ import { IGridInnerColumn, IGridProps } from './Grid';
 import Store from './Store';
 import isNil from '../utils/isNil';
 import ToolTip from '../tooltip';
+import Icon from '../icon';
 
 export interface IGridHeaderProps<Data> {
   size: IGridProps['size'];
@@ -109,8 +110,8 @@ class Header<Data> extends PureComponent<
           >
             {column.title}
             <span className={cn}>
-              <span className="caret-up" />
-              <span className="caret-down" />
+              <Icon type="caret-up" className="caret-up" />
+              <Icon type="caret-down" className="caret-down" />
             </span>
           </div>
         </ToolTip>
