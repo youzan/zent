@@ -90,13 +90,16 @@
   }
 
   &.zent-link-tag {
-    .zent-link-tag-content {
-      display: inline-block;
+    padding: 0 4px;
+
+    .zent-tag-content {
+      display: flex;
+      align-items: center;
     }
 
     .zent-link-tag-right-icon {
-      margin-right: -1px;
-      font-size: 12px;
+      margin-right: -4px;
+      font-size: 16px;
       @include theme-color(color, hint, color);
     }
 

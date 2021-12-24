@@ -5,7 +5,7 @@ import Tag, { ITagProps } from './Tag';
 export interface ISelectTagProps
   extends Omit<
     ITagProps,
-    'closable' | 'closeButtonStyle' | 'onChange' | 'size'
+    'closable' | 'closeButtonStyle' | 'onChange' | 'size' | 'theme' | 'outline'
   > {
   selected?: boolean;
   onChange?: (selected: boolean) => void;
