@@ -1,6 +1,6 @@
 @import './theme/default';
 @import './theme/font';
-$count-height: 16px;
+$count-height: 18px;
 $dot-diameter: 8px;
 
 .zent-badge {
@@ -13,6 +13,9 @@ $dot-diameter: 8px;
     @include theme-color(color, stroke, 9);
     @include theme-color(border-color, stroke, 9);
     display: inline-block;
+    height: $count-height;
+    min-width: $count-height;
+    line-height: $count-height - 2px;
     box-sizing: border-box;
     border-width: 1px;
     border-style: solid;
@@ -20,7 +23,6 @@ $dot-diameter: 8px;
     text-align: center;
     padding: 0 4px;
     font-size: $font-size-small;
-    line-height: $count-height - 2px;
 
     &-num {
       display: block;
