@@ -153,8 +153,7 @@ class DatePickerBasic extends Component {
 					className="zent-datepicker-demo"
 					value={rangeValue}
 					onChange={this.onChangeRange}
-                    dateSpan={30}
-                    canClear={[false, true]}
+          dateSpan={30}
 				/>
 				<br />
 				<CombinedDateRangePicker

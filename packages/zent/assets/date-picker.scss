@@ -162,6 +162,7 @@
 
       &-btns {
         display: flex;
+        width: 36px;
         justify-content: space-between;
       }
 
@@ -233,6 +234,10 @@
         @include gray-bgcolor;
       }
 
+      &_in_range {
+        @include blue-bgcolor;
+      }
+
       &_selected {
         @include white-bgcolor;
 
@@ -248,22 +253,13 @@
           border-radius: 2px;
         }
       }
-      $prefix: &;
-      &_in_range {
-        @include blue-bgcolor;
-        &#{$prefix}_in_hover_range:hover {
-          .zent-datepicker-cell-inner:hover {
-            @include blue-bgcolor;
-          }
-        }
-      }
 
       &_over,
       &_disabled {
         @include white-bgcolor;
 
         .zent-datepicker-cell-inner {
-          @include theme-color(color, stroke, 3);
+          @include theme-color(color, stroke, 4);
         }
       }
 
@@ -290,11 +286,13 @@
       &_in_hover_range.zent-datepicker-panel-body-cells_over {
         @include gray-bgcolor;
       }
-      &_selected.zent-datepicker-panel-body-cells_over {
-        @include white-bgcolor;
-      }
+
       &_in_range.zent-datepicker-panel-body-cells_over {
         @include blue-bgcolor;
+      }
+
+      &_selected.zent-datepicker-panel-body-cells_over {
+        @include white-bgcolor;
       }
     }
 
@@ -323,7 +321,6 @@
 
     .zenticon {
       @include theme-color(color, stroke, 3);
-      border-radius: 2px;
     }
   }
 
