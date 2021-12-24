@@ -2,9 +2,9 @@
 order: 2
 zh-CN:
 	title: 风格
-	button1: 实心按钮
+	button1: 主按钮
 	button2: 描边按钮
-	button3: 普通按钮
+	button3: 次按钮
 en-US:
 	title: Style
 	button1: Filled
