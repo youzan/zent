@@ -70,8 +70,9 @@
       border-bottom-left-radius: 2px;
     }
 
-    &-icon {
-      font-size: $font-size-large;
+    &-icon.zenticon.zenticon-down {
+      margin-left: 6px;
+      margin-right: 6px;
     }
 
     &.zent-btn-primary {
