@@ -7,13 +7,13 @@ scatter: true
 
 ## Tag
 
-Tag is suitable for marking and sorting。
+Structured display of information, labeling and classification.
 
 ### Guides
 
-- Tag is usually used as special marks or sorting marks.
-- You can add multiple tags for one item.
-- The text in tag should not more than four words.
+- Use when you need to mark the attributes and dimensions of the content, or supplement the description
+- Use tags for cross-level search
+- It is recommended that the label text should not exceed 7 characters, and the size of the display label can be configured as required
 
 ### Demos
 
