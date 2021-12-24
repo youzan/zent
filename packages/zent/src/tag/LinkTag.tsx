@@ -3,7 +3,7 @@ import Icon from '../icon';
 import Tag, { ITagProps } from './Tag';
 
 export interface ILinkTagProps
-  extends Omit<ITagProps, 'closable' | 'closeButtonStyle'> {
+  extends Omit<ITagProps, 'closable' | 'closeButtonStyle' | 'size'> {
   linkIconStyle?: React.CSSProperties;
 }
 
