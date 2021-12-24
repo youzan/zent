@@ -43,12 +43,14 @@ class Simple extends Component {
 					onChange={this.onTabChange}
 					tabs={this.state.tabs}
 					overflowMode="slide"
+					type="card"
 				/>
 				<Tabs
 					activeId={this.state.activeId}
 					onChange={this.onTabChange}
 					tabs={this.state.tabs}
 					overflowMode="anchor"
+					type="card"
 				/>
 			</div>
 		);

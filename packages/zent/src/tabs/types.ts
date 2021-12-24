@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, ComponentType, ReactElement } from 'react';
 
 export interface IVerticalDivide {
   divide: true;
@@ -60,6 +60,10 @@ export interface ITabsProps<Id> extends IBaseTabsProps<Id, ITabPanelProps<Id>> {
   type?: TabType;
   overflowMode?: ITabOverflowMode;
   canFixed?: boolean;
+  renderTabBar?: (
+    props: ITabsNavProps<Id>,
+    TabBar: ComponentType<ITabsNavProps<any>>
+  ) => ReactElement;
 }
 
 export interface IVerticalTabsProps<Id>
@@ -83,6 +87,8 @@ export interface ITabsNavProps<Id>
   overflowMode: ITabOverflowMode;
   onAdd?: () => void;
   activeId: Id;
+  className?: string;
+  style?: React.CSSProperties;
 }
 
 export interface ITabNavState {
