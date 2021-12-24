@@ -1,5 +1,5 @@
 ---
-order: 9
+order: 12
 zh-CN:
 	title: Button Group 
 	b: 加粗

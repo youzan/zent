@@ -1,5 +1,5 @@
 ---
-order: 8
+order: 3
 zh-CN:
 	title: 按钮图标
 	search: 搜索
@@ -20,6 +20,7 @@ ReactDOM.render(
     <Button icon="search">{i18n.search}</Button>
     <Button><Icon type="check" />{i18n.save}</Button>
 		<Button>{i18n.nextStep}<Icon type="right" /></Button>
+		<Button>{i18n.nextStep}<Icon type="search" /></Button>
   </div>
 	, mountNode
 );

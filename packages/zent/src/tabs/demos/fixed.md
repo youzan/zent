@@ -30,8 +30,8 @@ class Simple extends React.Component {
 			{
 				tab: <span>{i18n.tabOne}</span>,
 				id: '1',
-				disabled: true,
 				content: '{i18n.tabOneCont}',
+				disabled: true,
 			},
 			{
 				tab: <span>{i18n.tabTwo}</span>,
@@ -56,10 +56,21 @@ class Simple extends React.Component {
 	};
 
 	onTabDel = id => {
-		const { panels } = this.state;
-		this.setState({
-			panels: panels.filter((p, i) => p.id !== id),
-		});
+		const { panels, activeId } = this.state;
+		this.setState(
+			{
+				panels: panels.filter((p, i) => p.id !== id),
+			},
+			() => {
+				if (id === activeId) {
+					const panels = this.state.panels.filter(p => !p.disabled);
+					if (!panels.length) {
+						return;
+					}
+					this.setState({ activeId: panels[0].id });
+				}
+			}
+		);
 	};
 
 	onTabChange = id => {

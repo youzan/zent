@@ -259,7 +259,7 @@
         @include white-bgcolor;
 
         .zent-datepicker-cell-inner {
-          @include theme-color(color, stroke, 3);
+          @include theme-color(color, stroke, 4);
         }
       }
 

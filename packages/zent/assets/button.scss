@@ -207,7 +207,6 @@ $btn-warning-active: 1;
   &.zent-btn-loading {
     &:not(.zent-btn-icon, .zent-btn-text):hover,
     &:not(.zent-btn-icon, .zent-btn-text):active {
-      @include btn-white(background-color);
       @include theme-color(border-color, stroke, 5);
       border-width: 1px;
       border-style: solid;
@@ -348,7 +347,7 @@ $btn-warning-active: 1;
     @include theme-color(background-color, stroke, 8);
     @include btn-light-grey(border-color);
     @include prevent-pointer-events;
-
+    cursor: not-allowed;
     &:link,
     &:visited,
     &:focus {
@@ -480,8 +479,8 @@ $btn-warning-active: 1;
     }
 
     &.zent-btn-icon::after {
-      border-top-color: $text-300;
-      border-right-color: $text-300;
+      @include theme-color(border-top-color, stroke, 1);
+      @include theme-color(border-right-color, stroke, 1);
     }
   }
 
@@ -497,12 +496,17 @@ $btn-warning-active: 1;
     }
   }
 
+  &:not(.zent-btn-icon, .zent-btn-text) .zenticon {
+    font-size: 20px;
+    vertical-align: -2px;
+  }
+
   .zenticon:first-child {
-    margin-right: 8px;
+    margin-right: 4px;
   }
 
   .zenticon:last-child {
-    margin-left: 8px;
+    margin-left: 4px;
   }
 
   &-group {

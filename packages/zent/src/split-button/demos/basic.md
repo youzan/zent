@@ -4,16 +4,12 @@ zh-CN:
 	title: 基础用法
 	normal: 普通
 	primary: 按钮
-	disabled: 禁用
-	loading: 加载中
 	big: 大号
 	small: 小号
 en-US:
 	title: Basic Usage
 	normal: Normal
 	primary: Button
-	disabled: Disabled
-	loading: Loading
 	big: Big
 	small: Small
 ---
@@ -78,24 +74,6 @@ class Simple extends React.Component {
 					onClick={this.handleClick}
 					onSelect={this.handleSelect}
 				>
-				</SplitButton>
-				<SplitButton
-					disabled
-					type="primary"
-					dropdownData={list}
-					onClick={this.handleClick}
-					onSelect={this.handleSelect}
-				>
-					{i18n.disabled}
-				</SplitButton>
-				<SplitButton
-					loading
-					type="primary"
-					dropdownData={list}
-					onClick={this.handleClick}
-					onSelect={this.handleSelect}
-				>
-					{i18n.loading}
 				</SplitButton>
 			</div>
 		);

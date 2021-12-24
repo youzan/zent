@@ -1,7 +1,7 @@
 ---
-order: 15
+order: 4
 zh-CN:
-	title: 字体图标按钮
+	title: 图标按钮
 	button: 按钮
 en-US:
 	title: icon

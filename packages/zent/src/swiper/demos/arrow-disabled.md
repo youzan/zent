@@ -1,5 +1,5 @@
 ---
-order: 3
+order: 4
 zh-CN:
 	title: 左右箭头禁用
 en-US:
@@ -12,17 +12,16 @@ import { Swiper } from 'zent';
 const pages = [1, 2, 3, 4, 5];
 
 class Simple extends React.Component {
-
 	state = {
 		current: 0,
-	}
+	};
 
-	handleChange = (cur) => {
+	handleChange = cur => {
 		this.setState({ current: cur });
-	}
+	};
 
 	render() {
-		const { current }  = this.state;
+		const { current } = this.state;
 		return (
 			<div className="swiper-demo-container">
 				<Swiper
@@ -34,20 +33,18 @@ class Simple extends React.Component {
 						right: current === pages.length - 1,
 					}}
 				>
-					{
-						pages.map((item, index) => {
-							return <div className="swiper-demo-simple-h" key={index}>{item}</div>;
-						})
-					}
+					{pages.map((item, index) => {
+						return (
+							<div className="swiper-demo-simple-h" key={index}>
+								{item}
+							</div>
+						);
+					})}
 				</Swiper>
 			</div>
-
 		);
 	}
 }
 
-ReactDOM.render(
-	<Simple />
-	, mountNode
-);
+ReactDOM.render(<Simple />, mountNode);
 ```
