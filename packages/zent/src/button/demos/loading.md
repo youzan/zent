@@ -1,10 +1,10 @@
 ---
-order: 3
+order: 7
 zh-CN:
 	title: 正在加载的状态
-	button1: 实心按钮
+	button1: 主按钮
 	button2: 描边按钮
-	button3: 普通按钮
+	button3: 次按钮
 en-US:
 	title: Loading
 	button1: Filled
