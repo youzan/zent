@@ -3,7 +3,10 @@ import { forwardRef } from 'react';
 import Tag, { ITagProps } from './Tag';
 
 export interface ISelectTagProps
-  extends Omit<ITagProps, 'closable' | 'closeButtonStyle' | 'onChange'> {
+  extends Omit<
+    ITagProps,
+    'closable' | 'closeButtonStyle' | 'onChange' | 'size' | 'theme' | 'outline'
+  > {
   selected?: boolean;
   onChange?: (selected: boolean) => void;
 }
