@@ -3031,9 +3031,9 @@ caniuse-api@^3.0.0:
     lodash.uniq "^4.5.0"
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000823, caniuse-lite@^1.0.30000844, caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001219, caniuse-lite@^1.0.30001230:
-  version "1.0.30001271"
-  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001271.tgz"
-  integrity sha512-BBruZFWmt3HFdVPS8kceTBIguKxu4f99n5JNp06OlPD/luoAMIaIK5ieV5YjnBLH3Nysai9sxj9rpJj4ZisXOA==
+  version "1.0.30001289"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001289.tgz"
+  integrity sha512-hV6x4IfrYViN8cJbGFVbjD7KCrhS/O7wfDgvevYRanJ/IN+hhxpTcXXqaxy3CzPNFe5rlqdimdEB/k7H0YzxHg==
 
 caseless@~0.12.0:
   version "0.12.0"
@@ -3069,6 +3069,14 @@ chalk@^4.0.0, chalk@^4.1.0, chalk@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.1.1.tgz#c80b3fab28bf6371e6863325eee67e618b77e6ad"
   integrity sha512-diHzdDKxcU+bAsUboHLPEDQiw0qEe0qd7SYUn3HgcFlWgbDcfLGswOHYeGrHKzG9z6UYf01d9VFMfZxPM1xZSg==
+  dependencies:
+    ansi-styles "^4.1.0"
+    supports-color "^7.1.0"
+
+chalk@^4.1.2:
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.1.2.tgz#aac4e2b7734a740867aeb16bf02aad556a1e7a01"
+  integrity sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==
   dependencies:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"

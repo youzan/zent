@@ -28,7 +28,7 @@ export function exposePopover<N extends string>(propName: N) {
     const componentName =
       Base.displayName || Base.constructor.name || 'Component';
     const shouldPassRef = isClassComponent(Base) || isForwardRef(Base);
-    const comp = forwardRef<any, Props>((props, ref) => {
+    const comp = forwardRef<any, Omit<Props, N>>((props, ref) => {
       const popover = usePopover();
       const childProps: any = {
         [propName]: popover,
