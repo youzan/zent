@@ -9,6 +9,17 @@ scatter: true
 
 Tabs is used to switch different view in one page.
 
+### Suggestion
+
+- Applicable to the same container, the same level of information classification display
+- When a large amount of information needs to be put out in a container, the information can be classified and stored and displayed in a horizontal way
+
+### Note
+
+- When there is a hierarchy between information, no tabs are used
+
+### Demos
+
 <!-- demo-slot-1 -->
 <!-- demo-slot-2 -->
 <!-- demo-slot-5 -->
