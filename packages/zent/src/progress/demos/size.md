@@ -14,7 +14,6 @@ class App extends Component {
 		return (
 			<div className="zent-progress-demo">
 				<Progress percent={70} width={300} strokeWidth={5} />
-				<Progress type="circle" percent={80} width={76} strokeWidth={5} />
 			</div>
 		);
 	}
