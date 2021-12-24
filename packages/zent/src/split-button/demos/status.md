@@ -1,28 +1,28 @@
 ---
-order: 4
+order: 3
 zh-CN:
-	title: dropdown位置设置
-	up: 上面
-	down: 下面
+	title: 按钮状态
+	disabled: 禁用
+	loading: 加载中
 en-US:
-	title: dropdown position setting
-	up: Upside
-	down: Downside
+	title: button status
+	disabled: Disabled
+	loading: Loading
 ---
 
 ```js
 const list = [
 	{
-		id: 1,
-		value: 'red',
+		value: 1,
+		text: 'red'
 	},
 	{
-		id: 2,
-		value: 'green'
+		value: 2,
+		text: 'blue'
 	},
 	{
-		id: 3,
-		value: 'blue'
+		value: 3,
+		text: 'green'
 	}
 ]
 
@@ -41,26 +41,22 @@ class Simple extends React.Component {
 		return (
 			<div>
 				<SplitButton
+					disabled
 					type="primary"
 					dropdownData={list}
-					dropdownTrigger="hover"
-					dropdownValue="id"
-					dropdownText="value"
-					dropdownPosition="top-left"
 					onClick={this.handleClick}
 					onSelect={this.handleSelect}
 				>
-					{i18n.up}
+					{i18n.disabled}
 				</SplitButton>
 				<SplitButton
+					loading
+					type="primary"
 					dropdownData={list}
-					dropdownValue="id"
-					dropdownText="value"
-					dropdownPosition="bottom-right"
 					onClick={this.handleClick}
 					onSelect={this.handleSelect}
 				>
-					{i18n.down}
+					{i18n.loading}
 				</SplitButton>
 			</div>
 		);
