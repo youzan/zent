@@ -28,8 +28,8 @@ export class Badge extends PureComponent<IBadgeProps> {
     const posStyle =
       Array.isArray(offset) && offset.length === 2
         ? {
-            top: offset[0],
-            right: offset[1],
+            right: offset[0],
+            top: offset[1],
           }
         : NO_STYLE;
     const badgeStyle = style ? { ...style, ...posStyle } : posStyle;
