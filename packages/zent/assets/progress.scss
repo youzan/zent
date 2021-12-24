@@ -36,10 +36,10 @@ $state-color-depth-map: (
     }
 
     .zent-progress-wrapper {
-      @include theme-color(background-color, stroke, 8);
       display: inline-block;
       vertical-align: middle;
       border-radius: 100px;
+      background-color: rgba(0, 0, 0, 0.05);
     }
 
     .zent-progress-wrapper--round .zent-progress-inner {
@@ -85,6 +85,8 @@ $state-color-depth-map: (
       margin-left: 8px;
       white-space: nowrap;
       vertical-align: middle;
+      height: 20px;
+      line-height: 20px;
     }
 
     @mixin line-state-style($state, $no-animation) {

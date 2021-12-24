@@ -35,7 +35,6 @@ class App extends Component {
 		return (
 			<div className="zent-progress-demo">
 				<Progress percent={value} />
-				<Progress type="circle" percent={value} />
 				<div>
 					<Button onClick={this.decrease}>-</Button>
 					<Button onClick={this.increase}>+</Button>
