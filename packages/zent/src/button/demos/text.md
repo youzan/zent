@@ -1,7 +1,7 @@
 ---
-order: 16
+order: 5
 zh-CN:
-	title: 文本按钮
+	title: 文字按钮
 	button: 按钮
 en-US:
 	title: text

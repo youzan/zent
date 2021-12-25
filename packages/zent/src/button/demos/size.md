@@ -1,5 +1,5 @@
 ---
-order: 5
+order: 6
 zh-CN:
 	title: 按钮大小
 	normalButton: 正常按钮
