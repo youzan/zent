@@ -347,7 +347,6 @@ $btn-warning-active: 1;
     @include theme-color(background-color, stroke, 8);
     @include btn-light-grey(border-color);
     @include prevent-pointer-events;
-    cursor: not-allowed;
     &:link,
     &:visited,
     &:focus {
@@ -375,6 +374,7 @@ $btn-warning-active: 1;
     line-height: $btn-height-small - 2px;
     padding: 0 8px;
     border: 0;
+
     &:link,
     &:visited,
     &:hover,
@@ -423,9 +423,11 @@ $btn-warning-active: 1;
 
     i.zenticon {
       margin: 0;
+
       &:last-child {
         margin: 0;
       }
+
       &:first-child {
         margin: 0;
       }

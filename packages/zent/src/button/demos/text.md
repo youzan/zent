@@ -13,9 +13,9 @@ import { Button } from 'zent';
 
 ReactDOM.render(
   <div>
-		<Button type={'text'}>{i18n.button}</Button>
-		<Button loading type={'text'}>{i18n.button}</Button>
-		<Button disabled type={'text'}>{i18n.button}</Button>
+		<Button type="text">{i18n.button}</Button>
+		<Button loading type="text">{i18n.button}</Button>
+		<Button disabled type="text">{i18n.button}</Button>
 	</div>
 	, mountNode
 );
