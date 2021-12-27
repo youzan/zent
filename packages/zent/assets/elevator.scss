@@ -17,6 +17,7 @@
   padding: 12px 8px;
   max-width: 118px;
   overflow-y: scroll;
+  box-sizing: border-box;
 
   .zent-elevator__links-content {
     position: relative;
@@ -31,7 +32,6 @@
       font-size: 12px;
       line-height: 1;
       padding-left: 6px;
-      padding-right: 4px;
       margin-bottom: 8px;
       cursor: pointer;
       transition: color 100ms;
