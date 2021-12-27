@@ -20,7 +20,7 @@ interface ICollapsePropsBase {
   bordered?: boolean;
   panelTitleBackground?: string;
   className?: string;
-  showContentBackground: boolean;
+  showContentBackground?: boolean;
 }
 
 // The I prefix is for backward compatibility
