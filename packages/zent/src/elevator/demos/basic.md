@@ -15,7 +15,7 @@ en-US:
 ---
 
 ```js
-import { Elevator, WindowScrollHandler } from 'zent';
+import { Elevator, LayoutRow, LayoutCol } from 'zent';
 import { useRef } from 'react';
 
 const LINKS = [
@@ -56,13 +56,12 @@ const Demo = () => {
 	return (
 		<div className="zent-demo-elevator-basic" ref={ref}>
 			<Elevator getContainer={() => ref.current}>
-				<Elevator.Links
-					offsetTop={24}
-					offsetBottom={24}
-					links={LINKS}
-					style={{ float: 'right' }}
-				/>
-				{renderBlock()}
+				<LayoutRow>
+					<LayoutCol span={14}>{renderBlock()}</LayoutCol>
+					<LayoutCol span={8} offset={14}>
+						<Elevator.Links offsetTop={24} offsetBottom={24} links={LINKS} />
+					</LayoutCol>
+				</LayoutRow>
 			</Elevator>
 		</div>
 	);

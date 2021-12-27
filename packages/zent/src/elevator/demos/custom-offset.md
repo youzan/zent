@@ -15,7 +15,7 @@ en-US:
 ---
 
 ```js
-import { Elevator } from 'zent';
+import { Elevator, LayoutRow, LayoutCol } from 'zent';
 import { useRef } from 'react';
 
 const LINKS = [
@@ -60,12 +60,16 @@ const Demo = () => {
 				offsetTop={50}
 				defaultActiveLink="{i18n.DirectoryOne}"
 			>
-				<Elevator.Links
-					offsetTop={24}
-					links={LINKS}
-					style={{ float: 'right' }}
-				/>
-				{renderBlock()}
+				<LayoutRow>
+					<LayoutCol span={14}>{renderBlock()}</LayoutCol>
+					<LayoutCol span={8} offset={14}>
+						<Elevator.Links
+							offsetTop={24}
+							links={LINKS}
+							style={{ float: 'right' }}
+						/>
+					</LayoutCol>
+				</LayoutRow>
 			</Elevator>
 		</div>
 	);
