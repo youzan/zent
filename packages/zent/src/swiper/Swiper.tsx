@@ -19,7 +19,7 @@ export interface ISwiperProps {
   autoplay?: boolean;
   autoplayInterval?: number;
   dots?: boolean | IDotsType;
-  dotsColor: string;
+  dotsColor?: string;
   dotsSize?: 'normal' | 'small' | 'large';
   dotsTheme?: IDotsTheme;
   arrows?: boolean | 'hover';
