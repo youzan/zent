@@ -1,9 +1,25 @@
 @import './theme/default';
 @import './theme/font';
 
+@mixin link-grey($prop) {
+  @include theme-color($prop, disabled, color);
+}
+
+@mixin link-primary($prop) {
+  @include theme-color($prop, link, color);
+}
+
+@mixin link-primary-hover($prop) {
+  @include theme-color($prop, link, hover-color);
+}
+
+@mixin link-primary-active($prop) {
+  @include theme-color($prop, link, active-color);
+}
+
 .zent-link {
   @include font-normal;
-  @include theme-color(color, link, color);
+  @include link-primary(color);
 
   text-decoration: none;
   display: inline-block;
@@ -11,15 +27,15 @@
   &:link,
   &:visited,
   &:focus {
-    @include theme-color(color, link, color);
+    @include link-primary(color);
   }
 
   &:hover {
-    @include theme-color(color, link, hover-color);
+    @include link-primary-hover(color);
   }
 
   &:active {
-    @include theme-color(color, link, active-color);
+    @include link-primary-active(color);
   }
 
   &--weak {
@@ -41,7 +57,7 @@
   }
 
   &.zent-link--disabled {
-    @include theme-color(color, disabled, color);
+    @include link-grey(color);
     cursor: not-allowed;
   }
 }
