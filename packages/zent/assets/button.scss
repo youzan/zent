@@ -372,7 +372,7 @@ $btn-warning-active: 1;
     @include theme-color(color, primary, 4);
     font-size: $font-size-small;
     height: $btn-height-small;
-    line-height: $btn-height-small;
+    line-height: $btn-height-small - 2px;
     padding: 0 8px;
     border: 0;
     &:link,
