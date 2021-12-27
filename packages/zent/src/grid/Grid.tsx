@@ -69,7 +69,7 @@ const DEFAULT_SIZE = 'large';
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export interface IGridProps<Data = any, RowProps = {}> {
-  size: 'medium' | 'large' | 'small';
+  size?: 'medium' | 'large' | 'small';
   columns: IGridColumn[];
   datasets: ReadonlyArray<Data>;
   rowKey?: string;
