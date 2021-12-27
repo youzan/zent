@@ -26,32 +26,40 @@ en-US:
 
 ---
 
-
 ```jsx
 import { Tree, Switch } from 'zent';
 import { useState } from 'react';
 
-const treeData = [{
-	id: 1,
-	title: '{i18n.title1}',
-	children: [{
-		id: 2,
-		title: '{i18n.title2}',
-		children: [{
-			id: 3,
-			title: '{i18n.title3}',
-		}, {
-			id: 4,
-			title: '{i18n.title4}'
-		}, {
-			id: 5,
-			title: '{i18n.title5}'
-		}]
-	}, {
-		id: 6,
-		title: '{i18n.title6}'
-	}]
-}];
+const treeData = [
+	{
+		id: 1,
+		title: '{i18n.title1}',
+		children: [
+			{
+				id: 2,
+				title: '{i18n.title2}',
+				children: [
+					{
+						id: 3,
+						title: '{i18n.title3}',
+					},
+					{
+						id: 4,
+						title: '{i18n.title4}',
+					},
+					{
+						id: 5,
+						title: '{i18n.title5}',
+					},
+				],
+			},
+			{
+				id: 6,
+				title: '{i18n.title6}',
+			},
+		],
+	},
+];
 
 const Demo = () => {
 	const [autoExpandOnSelect, setAutoExpandOnSelect] = useState(false);
@@ -60,21 +68,23 @@ const Demo = () => {
 		<div>
 			<div className="zent-demo-tree-basic-switch-wrapper">
 				{i18n.autoExpandOnSelect}:
-				<Switch 
-					checked={autoExpandOnSelect} 
-					onChange={checked => setAutoExpandOnSelect(checked)} 
+				<Switch
+					checked={autoExpandOnSelect}
+					onChange={checked => setAutoExpandOnSelect(checked)}
 				/>
 			</div>
-			<Tree data={treeData} autoExpandOnSelect={autoExpandOnSelect} />
+			<Tree
+				selectable
+				data={treeData}
+				autoExpandOnSelect={autoExpandOnSelect}
+			/>
 		</div>
 	);
-}
+};
 
-ReactDOM.render(
-	<Demo />
-	, mountNode
-);
+ReactDOM.render(<Demo />, mountNode);
 ```
+
 <style>
 	.zent-demo-tree-basic-switch-wrapper {
 		margin-bottom: 16px;
