@@ -74,7 +74,14 @@ class TreeExample extends React.Component {
 
 	render() {
 		const { treeData } = this.state;
-		return <Tree dataType="plain" data={treeData} loadMore={this.loadMore} />;
+		return (
+			<Tree
+				selectable
+				dataType="plain"
+				data={treeData}
+				loadMore={this.loadMore}
+			/>
+		);
 	}
 }
 

@@ -50,6 +50,7 @@ export interface ITreeProps extends ICreateStateByPropsParams {
   onExpand?: (data: ITreeData, config: { isExpanded: boolean }) => void;
   autoExpandOnSelect?: boolean;
   onSelect?: (data: ITreeData, target: HTMLSpanElement) => void;
+  selectable?: boolean;
   selectedKey?: string | number; // 已选中的节点
   disabledSelectedKeys?: TreeRootIdArray; // 禁用select的节点
   disableSelectedStrictly?: boolean; // 父节点select disabled是否同时disable其子节点
@@ -423,7 +424,7 @@ export class Tree extends Component<ITreeProps, ITreeState> {
   };
 
   renderTreeNodes(roots: ITreeData[], layers = 0) {
-    const { autoExpandOnSelect } = this.props;
+    const { autoExpandOnSelect, selectable } = this.props;
     const {
       expandNode,
       rootInfoMap,
@@ -447,7 +448,7 @@ export class Tree extends Component<ITreeProps, ITreeState> {
               className={barClassName}
               onClick={e => {
                 if (isDisabled) return;
-                this.setSelectKeyState(root, e.currentTarget);
+                selectable && this.setSelectKeyState(root, e.currentTarget);
                 autoExpandOnSelect && this.handleExpand(root);
               }}
             >

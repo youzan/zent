@@ -24,47 +24,57 @@ en-US:
 
 ---
 
-
 ```jsx
 import { Tree } from 'zent';
 
 const disabledSelectedKeys = [2];
 
-const treeData = [{
-	id: 1,
-	title: '{i18n.title1}',
-	children: [{
-		id: 2,
-		title: '{i18n.title2}',
-		children: [{
-			id: 3,
-			title: '{i18n.title3}',
-		}, {
-			id: 4,
-			title: '{i18n.title4}'
-		}, {
-			id: 5,
-			title: '{i18n.title5}'
-		}]
-	}, {
-		id: 6,
-		title: '{i18n.title6}'
-	}]
-}];
+const treeData = [
+	{
+		id: 1,
+		title: '{i18n.title1}',
+		children: [
+			{
+				id: 2,
+				title: '{i18n.title2}',
+				children: [
+					{
+						id: 3,
+						title: '{i18n.title3}',
+					},
+					{
+						id: 4,
+						title: '{i18n.title4}',
+					},
+					{
+						id: 5,
+						title: '{i18n.title5}',
+					},
+				],
+			},
+			{
+				id: 6,
+				title: '{i18n.title6}',
+			},
+		],
+	},
+];
 
 ReactDOM.render(
 	<div className="zent-demo-tree-disable-select-wrapper">
-			<Tree 
-				data={treeData} 
-				disabledSelectedKeys={disabledSelectedKeys} 
-			/>
-			<Tree 
-				data={treeData} 
-				disabledSelectedKeys={disabledSelectedKeys} 
-				disableSelectedStrictly={true} 
-			/>
-		</div>
-	, mountNode
+		<Tree
+			selectable
+			data={treeData}
+			disabledSelectedKeys={disabledSelectedKeys}
+		/>
+		<Tree
+			selectable
+			data={treeData}
+			disabledSelectedKeys={disabledSelectedKeys}
+			disableSelectedStrictly={true}
+		/>
+	</div>,
+	mountNode
 );
 ```
 
