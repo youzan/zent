@@ -9,16 +9,6 @@
     flex-shrink: 0;
     display: inline-flex;
     flex-basis: 120px;
-
-    &.zent-form-label-required {
-      &::before {
-        @include theme-color(color, error, 2);
-        content: '*';
-        display: inline-block;
-        font-size: 16px;
-        margin-right: 6px;
-      }
-    }
   }
 
   &-error {
