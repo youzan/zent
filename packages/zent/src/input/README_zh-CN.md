@@ -39,6 +39,7 @@ group: 数据
 | onChange           | change 事件回调函数，`e.fromClearButton` 为 `true` 说明事件来自清空按钮 | func(e:Event)    |            |                                        | 否       |
 | onPressEnter       | 回车事件                                                                | func(e:Event)    |            |                                        | 否       |
 | icon               | 图标                                                                    | string           |            |                                        | 否       |
+| iconPostion        | 图标位置                                                                  | string           |   `end`       |  `front`                                        | 否       |
 | onIconClick        | 图标点击事件                                                            | func(e:Event)    |            |                                        | 否       |
 
 _除了以上属性外，所有 react 支持的 input 属性，Input 组件都支持_

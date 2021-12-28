@@ -7,14 +7,11 @@ $border-transition: border 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 $normal-size: 32px;
 $small-size: 24px;
 $large-size: 40px;
-$default-size-width: 116px;
-$default-padding-width: 8px;
-$default-input-width: 240px;
-$input-width-xs: $default-size-width;
-$input-width-s: $default-size-width * 2 + $default-padding-width;
-$input-width-m: $default-size-width * 3 + $default-padding-width * 2;
-$input-width-l: $default-size-width * 4 + $default-padding-width * 3;
-$input-width-xl: $default-size-width * 5 + $default-padding-width * 4;
+$input-width-xs: $default-form-width-xs;
+$input-width-s: $default-form-width-s;
+$input-width-m: $default-form-width-m;
+$input-width-l: $default-form-width-l;
+$input-width-xl: $default-form-width-xl;
 
 .zent-input-wrapper {
   @include theme-color(border-color, stroke, 5);
@@ -98,19 +95,41 @@ $input-width-xl: $default-size-width * 5 + $default-padding-width * 4;
   .zent-input-close {
     display: block;
     margin-right: 8px;
-    cursor: pointer;
+  }
+
+  .zent-input-icon:first-child {
+    margin-left: 8px;
+    margin-right: 0;
   }
 
   .zent-input-icon {
     @include theme-color(color, stroke, 3);
+    font-size: 20px;
   }
 
-  .zent-input-close {
+  .zenticon-close-circle {
     @include theme-color(color, stroke, 4);
+    font-size: 18px;
+  }
+
+  .zent-input-icon-click,
+  .zenticon-close-circle {
+    cursor: pointer;
+    border-radius: 2px;
+    &:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    &:active {
+      background: rgba(0, 0, 0, 0.1);
+    }
   }
 
   &-disabled {
     cursor: not-allowed;
+    .zent-input-icon {
+      @include theme-color(color, stroke, 4);
+    }
   }
 }
 
@@ -161,7 +180,7 @@ $input-width-xl: $default-size-width * 5 + $default-padding-width * 4;
 .zent-input-addon-before,
 .zent-input-addon-after {
   @include theme-color(background-color, stroke, 8);
-  @include theme-color(color, stroke, 2);
+  @include theme-color(color, stroke, 1);
   display: inline-block;
   height: 100%;
   padding: 0 9px;
@@ -183,22 +202,33 @@ $input-width-xl: $default-size-width * 5 + $default-padding-width * 4;
 }
 
 .zent-textarea {
-  height: 76px;
+  height: 80px;
   padding: 6px 12px;
   appearance: none;
   line-height: 1.5;
+
+  &-wrapper-out-of-range {
+    @include theme-color(border-color, error, 4);
+    &.zent-input-wrapper.zent-input--has-focus {
+      @include theme-color(border-color, error, 4);
+    }
+  }
 
   &-with-count {
     padding-bottom: 31px;
   }
 
   &-count {
-    @include theme-color(color, stroke, 3);
+    @include theme-color(color, stroke, 1);
     display: inline-block;
     position: absolute;
     bottom: 8px;
     right: 12px;
     font-size: $font-size-small;
+
+    &.zent-textarea-out-of-range-text {
+      @include theme-color(color, error, 4);
+    }
   }
 }
 

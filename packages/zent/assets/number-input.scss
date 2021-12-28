@@ -21,7 +21,7 @@
 .zent-number-input {
   width: 200px;
 
-  &:hover {
+  &:not(.zent-input-wrapper-disabled):hover {
     @include theme-color(border-color, primary, 4);
   }
 
@@ -39,7 +39,7 @@
       border-left-style: solid;
       margin-left: -1px;
       cursor: pointer;
-      width: 20px;
+      width: 25px;
       height: 15px;
       line-height: 15px;
       text-align: center;

@@ -16,7 +16,7 @@ export const Password = (props: IInputCoreProps) => {
   return (
     <Input
       type={visible ? 'text' : 'password'}
-      icon={visible ? 'eye-o' : 'closed-eye'}
+      icon={visible ? 'eye' : 'closed-eye'}
       onIconClick={onVisibleChange}
       {...restProps}
     />
