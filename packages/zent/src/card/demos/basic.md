@@ -1,9 +1,9 @@
 ---
 order: 1
 zh-CN:
-	title: 基础用法
+	title: 无标题
 en-US:
-	title: Basic Usage
+	title: No Title
 ---
 
 ```js
@@ -14,15 +14,15 @@ ReactDOM.render(
 		<Card className="zent-card-example__card" style={{ width: 400 }}>
 			<p>Card item</p>
 		</Card>
-		<Card 
-			className="zent-card-example__card" 
-			style={{ width: 400 }} 
+		<Card
+			className="zent-card-example__card"
+			style={{ width: 400 }}
 			bordered={false}
 		>
 			<p>Card item</p>
 		</Card>
-	</div>
-	, mountNode
+	</div>,
+	mountNode
 );
 ```
 
