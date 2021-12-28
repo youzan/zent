@@ -133,6 +133,18 @@
       transition: all 0.3s ease-in-out;
     }
 
+    &--one-line {
+      overflow: hidden;
+
+      .zent-tree-content {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+        width: 100%;
+      }
+    }
+
     .zent-tree-operation-container {
       display: inline-block;
       margin-left: 10px;
