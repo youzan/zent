@@ -7,14 +7,11 @@ $border-transition: border 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 $normal-size: 32px;
 $small-size: 24px;
 $large-size: 40px;
-$default-size-width: 116px;
-$default-padding-width: 8px;
-$default-input-width: 240px;
-$input-width-xs: $default-size-width;
-$input-width-s: $default-size-width * 2 + $default-padding-width;
-$input-width-m: $default-size-width * 3 + $default-padding-width * 2;
-$input-width-l: $default-size-width * 4 + $default-padding-width * 3;
-$input-width-xl: $default-size-width * 5 + $default-padding-width * 4;
+$input-width-xs: $default-form-width-xs;
+$input-width-s: $default-form-width-s;
+$input-width-m: $default-form-width-m;
+$input-width-l: $default-form-width-l;
+$input-width-xl: $default-form-width-xl;
 
 .zent-input-wrapper {
   @include theme-color(border-color, stroke, 5);
