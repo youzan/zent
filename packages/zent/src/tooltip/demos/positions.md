@@ -52,6 +52,7 @@ ReactDOM.render(
 
 <style>
   .zent-doc-tooltip-positions {
+		width: 630px;
     position: relative;
 
 		&-top-row,
@@ -65,7 +66,7 @@ ReactDOM.render(
     }
 
     &-bottom-row {
-      margin-top: 200px;
+      margin-top: 64px;
     }
 
     &-left-col, &-right-col {
@@ -90,7 +91,7 @@ ReactDOM.render(
     }
 
     &-right-col {
-      right: 0;
+      right: -10px;
     }
 
     .zent-tooltip-wrapper {
