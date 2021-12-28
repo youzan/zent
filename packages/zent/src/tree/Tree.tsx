@@ -18,6 +18,7 @@ import {
 } from './utils/common';
 import Icon from '../icon';
 import { EASE_IN_CUBIC, EASE_OUT_CUBIC } from '../utils/timingFunctions';
+import { TreeContent } from './TreeContent';
 
 export interface ITreeOperation {
   name: string;
@@ -54,6 +55,7 @@ export interface ITreeProps extends ICreateStateByPropsParams {
   selectedKey?: string | number; // 已选中的节点
   disabledSelectedKeys?: TreeRootIdArray; // 禁用select的节点
   disableSelectedStrictly?: boolean; // 父节点select disabled是否同时disable其子节点
+  onlyShowOneLine?: boolean; // title只展示一行，超出hover显示Popover
 }
 
 export interface ITreeState {
@@ -343,11 +345,11 @@ export class Tree extends Component<ITreeProps, ITreeState> {
     const {
       renderKey: { title },
     } = this.state;
-    const { render } = this.props;
+    const { render, onlyShowOneLine } = this.props;
     return (
-      <span className="zent-tree-content">
+      <TreeContent showPop={onlyShowOneLine}>
         {render ? render(root, isExpanded) : root[title]}
-      </span>
+      </TreeContent>
     );
   }
 
@@ -424,7 +426,7 @@ export class Tree extends Component<ITreeProps, ITreeState> {
   };
 
   renderTreeNodes(roots: ITreeData[], layers = 0) {
-    const { autoExpandOnSelect, selectable } = this.props;
+    const { autoExpandOnSelect, selectable, onlyShowOneLine } = this.props;
     const {
       expandNode,
       rootInfoMap,
@@ -458,7 +460,11 @@ export class Tree extends Component<ITreeProps, ITreeState> {
               ) : (
                 <div className="zent-tree__switcher-placeholder" />
               )}
-              <div className="zent-tree-node">
+              <div
+                className={classnames('zent-tree-node', {
+                  'zent-tree-node--one-line': onlyShowOneLine,
+                })}
+              >
                 {this.renderCheckbox(root)}
                 {this.renderContent(root, isShowChildren)}
                 {this.renderOperations(root, isShowChildren)}
