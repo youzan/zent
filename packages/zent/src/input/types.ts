@@ -38,6 +38,7 @@ export interface IInputCoreProps
     IInputCommonProps {
   type?: 'text' | 'number' | 'password';
   icon?: IconType;
+  iconPosition?: 'front' | 'end';
   showClear?: boolean;
   addonBefore?: React.ReactNode;
   addonAfter?: React.ReactNode;
