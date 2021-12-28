@@ -6,7 +6,7 @@ group: Data Entry
 
 ## Select
 
-Select is a drop-down selection component with variety functions.
+You can select single or multiple values on the panel and finally enter the corresponding values.
 
 ### API
 

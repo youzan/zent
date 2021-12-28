@@ -241,9 +241,8 @@ $select-width-xl: $default-size-width * 5 + $default-padding-width * 4;
 
     &-loading {
       font-size: 12px;
-      height: 48px;
       text-align: center;
-      line-height: 48px;
+      padding: 7px 0;
     }
   }
 
@@ -282,6 +281,10 @@ $select-width-xl: $default-size-width * 5 + $default-padding-width * 4;
       font-size: $font-size-small;
       padding: 8px 12px;
       line-height: 16px;
+
+      &:first-child {
+        margin-top: 8px;
+      }
 
       &:hover,
       &.zent-select-v2-option-active {
