@@ -54,9 +54,12 @@
       &-inner {
         display: flex;
         & + #{$p}-notice,
-        & + #{$p}-error,
         & + #{$p}-description {
           margin-top: 12px;
+        }
+
+        & + #{$p}-error {
+          margin-top: 8px;
         }
       }
     }
