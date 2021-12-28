@@ -37,9 +37,8 @@
       @include theme-color(background-color, stroke, 9);
       border-left-width: 1px;
       border-left-style: solid;
-      margin-left: -1px;
       cursor: pointer;
-      width: 20px;
+      width: 25px;
       height: 15px;
       line-height: 15px;
       text-align: center;
@@ -77,7 +76,7 @@
       @include theme-color(border-top-color, stroke, 5);
       border-top-width: 1px;
       border-top-style: solid;
-      margin: -1px;
+      margin-top: -1px;
     }
   }
 
