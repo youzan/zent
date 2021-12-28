@@ -129,8 +129,7 @@ describe('new Tree', () => {
     expect(example.find('ZentIcon').length).toBe(1);
     expect(example.childAt(1).type()).toBe('div');
     expect(example.childAt(1).hasClass('zent-tree-node')).toBe(true);
-    expect(example.childAt(1).find('span').length).toBe(1);
-    expect(example.childAt(1).find('span').text()).toBe('root');
+    expect(example.childAt(1).find('TreeContent').length).toBe(1);
   });
 
   it('Tree support "tree" data as default set', () => {
@@ -177,8 +176,7 @@ describe('new Tree', () => {
     expect(example.hasClass('zent-tree-bar--off')).toBe(true);
     expect(example.childAt(2).type()).toBe('div');
     expect(example.childAt(2).hasClass('zent-tree-node')).toBe(true);
-    expect(example.childAt(2).find('span').length).toBe(1);
-    expect(example.childAt(2).find('span').text()).toBe('grandSon');
+    expect(example.childAt(2).find('TreeContent').length).toBe(1);
   });
 
   // BUG: 应该在deepClone里直接抛出一个错误
@@ -251,8 +249,7 @@ describe('new Tree', () => {
     expect(example.find('ZentIcon').length).toBe(1);
     expect(example.childAt(1).type()).toBe('div');
     expect(example.childAt(1).hasClass('zent-tree-node')).toBe(true);
-    expect(example.childAt(1).find('span').length).toBe(1);
-    expect(example.childAt(1).find('span').text()).toBe('root');
+    expect(example.childAt(1).find('TreeContent').length).toBe(1);
   });
 
   it('Tree Support expandAll prop and render function as prop', () => {
@@ -278,7 +275,7 @@ describe('new Tree', () => {
         parentId: 1,
       },
     ];
-    const wrapper = shallow(
+    const wrapper = mount(
       <NewTree
         dataType="plain"
         data={data}
@@ -286,7 +283,7 @@ describe('new Tree', () => {
         expandAll
       />
     );
-    expect(wrapper.find('span').at(0).text()).toBe('zent-root');
+    expect(wrapper.find('.zent-tree-content').at(0).text()).toBe('zent-root');
   });
 
   it('Tree Support foldable to control expandable', () => {
@@ -316,6 +313,7 @@ describe('new Tree', () => {
     const onSelectMock = jest.fn();
     const wrapper = shallow(
       <NewTree
+        selectable
         dataType="plain"
         data={data}
         render={node => `zent-${node.title}`}
@@ -356,9 +354,9 @@ describe('new Tree', () => {
         parentId: 3,
       },
     ];
-    const wrapper = shallow(<NewTree dataType="plain" data={data} />);
+    const wrapper = mount(<NewTree dataType="plain" data={data} />);
     expect(wrapper.find('li').length).toBe(1);
-    expect(wrapper.find('li').find('span').text()).toBe('root');
+    expect(wrapper.find('li').find('.zent-tree-content').text()).toBe('root');
   });
 
   it('Tree will update when data prop changed', () => {
@@ -538,10 +536,12 @@ describe('new Tree', () => {
         ],
       },
     ];
-    let hackWrapper = mount(<NewTree data={hackData} />);
+    let hackWrapper = mount(<NewTree selectable data={hackData} />);
     hackWrapper.find('span').at(1).simulate('click');
     const onSelectMock = jest.fn();
-    hackWrapper = mount(<NewTree data={hackData} onSelect={onSelectMock} />);
+    hackWrapper = mount(
+      <NewTree selectable data={hackData} onSelect={onSelectMock} />
+    );
     hackWrapper.find('span').at(1).simulate('click');
     expect(onSelectMock.mock.calls.length).toBe(1);
   });
@@ -563,6 +563,7 @@ describe('new Tree', () => {
     const onSelectMock = jest.fn();
     const wrapper = mount(
       <NewTree
+        selectable
         data={data}
         autoExpandOnSelect={false}
         onSelect={onSelectMock}
@@ -1110,7 +1111,7 @@ describe('new Tree', () => {
         ],
       },
     ];
-    const wrapper = mount(<NewTree data={data} />);
+    const wrapper = mount(<NewTree selectable data={data} />);
     expect(wrapper.find('.zent-tree-bar--selected').length).toBe(0);
     wrapper.find('.zent-tree-node').at(0).simulate('click');
     expect(wrapper.find('.zent-tree-bar--selected').length).toBe(1);
@@ -1128,7 +1129,9 @@ describe('new Tree', () => {
         ],
       },
     ];
-    const wrapper = mount(<NewTree data={data} disabledSelectedKeys={[1]} />);
+    const wrapper = mount(
+      <NewTree selectable data={data} disabledSelectedKeys={[1]} />
+    );
     expect(
       wrapper.find('.zent-tree-bar').at(0).hasClass('zent-tree-bar--disabled')
     ).toBe(true);

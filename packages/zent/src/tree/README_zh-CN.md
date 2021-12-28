@@ -24,6 +24,7 @@ scatter: true
 <!-- demo-slot-2 -->
 <!-- demo-slot-7 -->
 <!-- demo-slot-8 -->
+<!-- demo-slot-9 -->
 
 ### API
 
@@ -53,6 +54,7 @@ scatter: true
 | selectedKey             | 当前选中的节点                                                      | `string`\|`number`  |            |                      |
 | disabledSelectedKeys    | 禁选的节点 ID 集合                                                  | `(string            | number)[]` |                      |     |
 | disableSelectedStrictly | 父级被禁选时是否同时禁选其子级                                      | `boolean`           | `false`    | `true`               |
+| onlyShowOneLine         | title 是否只展示一行                                                | `boolean`           | `false`    | `true`               |
 
 #### renderKey
 

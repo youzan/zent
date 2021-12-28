@@ -23,6 +23,7 @@ A multilevel list of data structures.
 <!-- demo-slot-2 -->
 <!-- demo-slot-7 -->
 <!-- demo-slot-8 -->
+<!-- demo-slot-9 -->
 
 ### API
 
@@ -52,6 +53,7 @@ A multilevel list of data structures.
 | selectedKey             | The currently selected node                                                                       | `string`\|`number`  |            |                      |
 | disabledSelectedKeys    | A collection of forbidden nodes id                                                                | `(string            | number)[]` |                      |     |
 | disableSelectedStrictly | Whether the parent is prohibited from selecting its children at the same time                     | `boolean`           | `false`    | `true`               |
+| onlyShowOneLine         | Title Whether only show one line                                                                  | `boolean`           | `false`    | `true`               |
 
 #### renderKey
 
