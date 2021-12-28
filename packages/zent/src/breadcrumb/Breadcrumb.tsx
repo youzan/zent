@@ -121,10 +121,7 @@ export class Breadcrumb extends Component<IBreadcrumbProps, IBreadcrumbState> {
       const childNode = contentEle.children.item(i);
       const childLeft = childNode.getBoundingClientRect().left;
       const childWidth = childNode.getBoundingClientRect().width;
-      if (
-        childLeft + childWidth - BREADCRUMB_ITEM_MARGIN_RIGHT >
-        this.breadcrumbLeft + this.breadcrumbWidth
-      ) {
+      if (childLeft + childWidth > this.breadcrumbLeft + this.breadcrumbWidth) {
         moveStep =
           childLeft +
           childWidth -
