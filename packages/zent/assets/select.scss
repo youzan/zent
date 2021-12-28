@@ -3,14 +3,11 @@
 @import './mixins/popup';
 
 $option-height: 32px;
-$default-size-width: 116px;
-$default-padding-width: 8px;
-$default-input-width: 240px;
-$select-width-xs: $default-size-width;
-$select-width-s: $default-size-width * 2 + $default-padding-width;
-$select-width-m: $default-size-width * 3 + $default-padding-width * 2;
-$select-width-l: $default-size-width * 4 + $default-padding-width * 3;
-$select-width-xl: $default-size-width * 5 + $default-padding-width * 4;
+$select-width-xs: $default-form-width-xs;
+$select-width-s: $default-form-width-s;
+$select-width-m: $default-form-width-m;
+$select-width-l: $default-form-width-l;
+$select-width-xl: $default-form-width-xl;
 
 @mixin ellipsis {
   overflow: hidden;
