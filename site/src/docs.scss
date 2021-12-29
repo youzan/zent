@@ -250,3 +250,6 @@ code[class*='language-'] {
 .zent-radio-group .zent-radio-wrap {
   margin-right: 56px;
 }
+.zent-checkbox-wrap + .zent-checkbox-wrap {
+  margin-left: 56px;
+}
