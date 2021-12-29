@@ -1,8 +1,8 @@
 ---
 order: 2
 zh-CN:
-	title: 使用 openDialog 打开对话框
-	title1: 使用 openDialog 直接打开对话框
+	title: 使用 openDialog 打开对话窗
+	title1: 使用 openDialog 直接打开对话窗
 	ok: 确定
 	close: 关闭
 	open: 打开

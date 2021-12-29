@@ -1,12 +1,12 @@
 ---
 title: Dialog
-subtitle: 对话框
+subtitle: 对话窗
 path: component/dialog
 group: 反馈
 scatter: true
 ---
 
-## Dialog 对话框
+## Dialog 对话窗
 
 带背景遮罩的模态窗；常用于承载中小体量的详情、表单，必须由用户确认的结果反馈。
 
@@ -23,7 +23,7 @@ scatter: true
 
 - 命令式, 直接调用 `openDialog` 函数。
 
-- 组件式, 通过控制 `visible` 来显示／隐藏对话框。
+- 组件式, 通过控制 `visible` 来显示／隐藏对话窗。
 
 - 推荐使用命令式, 不需要在外部维护一个 `visible` 属性, 更加方便。
 
@@ -38,11 +38,11 @@ scatter: true
 | title        | 自定义弹框标题                    | `ReactNode`       | `''`    |
 | children     | 弹框内容: `<Dialog>xxxx</Dialog>` | `ReactNode`       | `null`  |
 | footer       | 底部内容                          | `ReactNode`       | `null`  |
-| visible      | 是否打开对话框                    | `boolean`         | `false` |
+| visible      | 是否打开对话窗                    | `boolean`         | `false` |
 | closeBtn     | 是否显示右上角关闭按钮            | `boolean`         | `true`  |
 | onClose      | 关闭操作回调函数                  | `(event) => void` | `noop`  |
-| onOpened     | 对话框打开动画结束后的回调函数    | `() => void`      |         |
-| onClosed     | 对话框关闭动画结束后的回调函数    | `() => void`      |         |
+| onOpened     | 对话窗打开动画结束后的回调函数    | `() => void`      |         |
+| onClosed     | 对话窗关闭动画结束后的回调函数    | `() => void`      |         |
 | mask         | 是否显示遮罩                      | `boolean`         | `true`  |
 | maskClosable | 点击遮罩是否可以关闭              | `boolean`         | `true`  |
 | className    | 自定义额外类名                    | `string`          | `''`    |
@@ -56,7 +56,7 @@ scatter: true
 
 | 参数            | 说明                                                             | 类型          | 默认值            |
 | --------------- | ---------------------------------------------------------------- | ------------- | ----------------- |
-| dialogId        | 可选，对话框的 ID，可以通过 `closeDialog(dialogId)` 来关闭对话框 | string        | 随机生成的唯一 ID |
+| dialogId        | 可选，对话窗的 ID，可以通过 `closeDialog(dialogId)` 来关闭对话窗 | string        | 随机生成的唯一 ID |
 | parentComponent | 可选，父组件的引用, 用于关联 context                             | ReactInstance |                   |
 
 如果需要组件实例的引用, 可以传一个函数形式的 `ref` 给 `openDialog`, **不支持字符串形式的 `ref`.**
