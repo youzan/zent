@@ -14,7 +14,7 @@ A component that displays multiple pieces of content horizontally on a page in t
 - Rotation for left and right horizontal direction switch;
 - Auto play is enabled by default, and the rotation is maintained.
 
-### 建议
+### Note
 
 - When the rotation content is a single, the indicator and switch arrow are not allowed to be displayed.
 

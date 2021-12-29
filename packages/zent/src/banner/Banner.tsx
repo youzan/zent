@@ -28,7 +28,7 @@ export const Banner: FC<IBannerProps> = ({
     };
   }, [style, backgroundImage]);
 
-  const bannerClassName = cx('zent-alert--banner', className);
+  const bannerClassName = cx('zent-banner', className);
 
   return (
     <Alert
