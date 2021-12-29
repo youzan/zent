@@ -8,6 +8,7 @@ import { WindowResizeHandler } from '../../../utils/component/WindowResizeHandle
 import memorizeOne from '../../../utils/memorize-one';
 import Icon from '../../../icon';
 import isEqual from '../../../utils/isEqual';
+import { runOnceInNextFrame } from '../../../utils/nextFrame';
 
 const classNamePrefix = 'zent-tabs-nav-tabs-content';
 
@@ -203,9 +204,9 @@ abstract class OperationTabs<Id extends string | number> extends Component<
     this.onStartChange(0, this.getTabsInfo());
   }
 
-  onResize = () => {
+  onResize = runOnceInNextFrame(() => {
     this.onStartChange(this.state.startIndex, this.getTabsInfo());
-  };
+  });
 
   componentDidUpdate = prevProps => {
     const { activeId, tabDataList } = this.props;
