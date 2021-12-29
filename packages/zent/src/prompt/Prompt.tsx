@@ -1,4 +1,5 @@
 import { useMemo, FC } from 'react';
+import cx from 'classnames';
 import { Icon } from '../icon';
 import { IAlertProps, Alert } from '../alert';
 
@@ -26,6 +27,7 @@ export const Prompt: FC<IPromptProps> = ({
   title,
   style = {},
   type = 'warning',
+  className,
   ...resetProps
 }) => {
   const alertProps: Partial<IAlertProps> = useMemo(
@@ -34,9 +36,11 @@ export const Prompt: FC<IPromptProps> = ({
   );
 
   const { style: promptStyle = {} } = alertProps;
+  const promptClassName = cx('zent-prompt', className);
 
   return (
     <Alert
+      className={promptClassName}
       {...alertProps}
       {...resetProps}
       style={{ ...style, ...promptStyle }}

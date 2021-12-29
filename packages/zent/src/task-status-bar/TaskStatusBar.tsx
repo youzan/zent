@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import cx from 'classnames';
 import { IAlertProps, Alert } from '../alert';
 
 export type TaskStatusBarType = 'info' | 'waiting' | 'success' | 'error';
@@ -26,11 +27,20 @@ const TypePropsMap: Record<TaskStatusBarType, Partial<IAlertProps>> = {
 export const TaskStatusBar: FC<ITaskStatusBarProps> = ({
   type = 'info',
   progress,
+  className,
   ...rest
 }) => {
   const typeProps = TypePropsMap[type];
   const taskProgress = type === 'waiting' ? progress : 0;
+  const statusBarClassName = cx('zent-task-status-bar', className);
 
-  return <Alert {...typeProps} {...rest} progress={taskProgress} />;
+  return (
+    <Alert
+      className={statusBarClassName}
+      {...typeProps}
+      {...rest}
+      progress={taskProgress}
+    />
+  );
 };
 export default TaskStatusBar;

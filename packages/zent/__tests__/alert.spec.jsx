@@ -423,8 +423,8 @@ describe('Banner And Prompt', () => {
         <span>Banner</span>
       </Banner>
     );
-    expect(wrapper1.find('.zent-alert--banner').length).toBe(1);
-    expect(wrapper2.find('.zent-alert--banner').length).toBe(1);
+    expect(wrapper1.find('.zent-banner').length).toBe(1);
+    expect(wrapper2.find('.zent-banner').length).toBe(1);
   });
   it('render children into Prompt', () => {
     const wrapper1 = mount(

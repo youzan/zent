@@ -64,19 +64,6 @@ $type-map: (
     border: none;
   }
 
-  &--banner {
-    .zent-alert-item-close-wrapper {
-      position: relative;
-
-      .zent-alert-item-close-btn {
-        position: absolute;
-        top: 50%;
-        right: 0;
-        transform: translateY(-50%);
-      }
-    }
-  }
-
   &__progress {
     @include theme-border(1px, solid, stroke, 5);
     display: inline-block;
@@ -231,5 +218,18 @@ $type-map: (
   .zent-alert-item-content {
     font-size: $font-size-small;
     line-height: 20px;
+  }
+}
+
+.zent-banner {
+  .zent-alert-item-close-wrapper {
+    position: relative;
+
+    .zent-alert-item-close-btn {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+    }
   }
 }
