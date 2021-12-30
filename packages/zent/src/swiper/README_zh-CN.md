@@ -1,13 +1,13 @@
 ---
-title: Swiper
+title: Carousel
 subtitle: 轮播
 path: component/swiper
 group: 展示
 ---
 
-## Swiper 轮播
+## Carousel 轮播
 
-以幻灯片的方式在页面中横向展示诸多内容的组件，轮播内容互相独立。
+**原 Swiper**，以幻灯片的方式在页面中横向展示诸多内容的组件，轮播内容互相独立。
 
 ### 建议
 
@@ -48,33 +48,3 @@ group: 展示
 | swipeTo | 手动切换轮播图     | index  | 需要切换的轮播图索引,从 0 开始 |
 | prev    | 切换至上一张轮播图 |        |                                |
 | next    | 切换至下一张轮播图 |        |                                |
-
-<style>
-.swiper-demo-container {
-	display: flex;
-}
-.swiper-demo-simple {
-	height: 150px;
-	width: 300px;
-	background: #FAFAFA;
-	margin-right: 10px;
-}
-.swiper-demo-simple-h {
-	text-align: center;
-	background: #CCC;
-	font-family: Avenir-BlackOblique;
-	font-size: 48px;
-	color: #FFFFFF;
-	line-height: 150px;
-	font-weight: 900;	
-}
-.swiper-demo-simple-text {
-	margin-top: 10px;
-}
-.swiper-demo-btn-group {
-	margin-top: 20px;
-}
-.no-flex {
-	display: block !important;
-}
-</style>

@@ -7,36 +7,36 @@ en-US:
 ---
 
 ```js
-import { Swiper } from 'zent';
+import { Carousel } from 'zent';
 
 const pages = [1, 2, 3, 4, 5];
 
 class Simple extends React.Component {
 	render() {
 		return (
-			<div className="swiper-demo-container">
-				<Swiper className="swiper-demo-simple" autoplay>
+			<div className="carousel-demo-container">
+				<Carousel className="carousel-demo-simple" autoplay>
 					{pages.map((item, index) => {
 						return (
-							<div className="swiper-demo-simple-h" key={index}>
+							<div className="carousel-demo-simple-h" key={index}>
 								{item}
 							</div>
 						);
 					})}
-				</Swiper>
-				<Swiper
-					className="swiper-demo-simple swiper-demo-simple--light"
+				</Carousel>
+				<Carousel
+					className="carousel-demo-simple carousel-demo-simple--light"
 					dotsTheme="light"
 					autoplay
 				>
 					{pages.map((item, index) => {
 						return (
-							<div className="swiper-demo-simple-h" key={index}>
+							<div className="carousel-demo-simple-h" key={index}>
 								{item}
 							</div>
 						);
 					})}
-				</Swiper>
+				</Carousel>
 			</div>
 		);
 	}
@@ -46,7 +46,7 @@ ReactDOM.render(<Simple />, mountNode);
 ```
 
 <style>
-	.swiper-demo-simple--light .swiper-demo-simple-h {
+	.carousel-demo-simple--light .carousel-demo-simple-h {
 		background: #f7f7f7;
 		color: #ccc;
 	}

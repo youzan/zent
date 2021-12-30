@@ -6,7 +6,7 @@ group: Data Display
 
 ## Swiper
 
-A component that displays multiple pieces of content horizontally on a page in the form of a slide show.
+**Original Swiper component.**A component that displays multiple pieces of content horizontally on a page in the form of a slide show.
 
 ### Suggestion
 
@@ -47,33 +47,3 @@ A component that displays multiple pieces of content horizontally on a page in t
 | swipeTo     | manual switch the content | index     | figure index, 0 based |
 | prev        | switch to the previous    |           |                       |
 | next        | switch to the next        |           |                       |
-
-<style>
-.swiper-demo-container {
-	display: flex;
-}
-.swiper-demo-simple {
-	height: 150px;
-	width: 300px;
-	background: #FAFAFA;
-	margin-right: 10px;
-}
-.swiper-demo-simple-h {
-	text-align: center;
-	background: #CCC;
-	font-family: Avenir-BlackOblique;
-	font-size: 48px;
-	color: #FFFFFF;
-	line-height: 150px;
-	font-weight: 900;
-}
-.swiper-demo-simple-text {
-	margin-top: 10px;
-}
-.swiper-demo-btn-group {
-	margin-top: 20px;
-}
-.no-flex {
-	display: block !important;
-}
-</style>
