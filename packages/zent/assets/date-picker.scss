@@ -234,10 +234,6 @@
         @include gray-bgcolor;
       }
 
-      &_in_range {
-        @include blue-bgcolor;
-      }
-
       &_selected {
         @include white-bgcolor;
 
@@ -251,6 +247,15 @@
         .zent-datepicker-cell-inner:hover {
           @include gray-bgcolor;
           border-radius: 2px;
+        }
+      }
+
+      &_in_range {
+        @include blue-bgcolor;
+        &:hover {
+          .zent-datepicker-cell-inner:hover {
+            @include blue-bgcolor;
+          }
         }
       }
 
