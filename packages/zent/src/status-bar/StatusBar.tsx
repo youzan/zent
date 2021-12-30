@@ -2,13 +2,13 @@ import { FC } from 'react';
 import cx from 'classnames';
 import { IAlertProps, Alert } from '../alert';
 
-export type TaskStatusBarType = 'info' | 'waiting' | 'success' | 'error';
+export type StatusBarType = 'info' | 'waiting' | 'success' | 'error';
 
-export interface ITaskStatusBarProps extends Omit<IAlertProps, 'type'> {
-  type?: TaskStatusBarType;
+export interface IStatusBarProps extends Omit<IAlertProps, 'type'> {
+  type?: StatusBarType;
 }
 
-const TypePropsMap: Record<TaskStatusBarType, Partial<IAlertProps>> = {
+const TypePropsMap: Record<StatusBarType, Partial<IAlertProps>> = {
   info: {
     type: 'info',
   },
@@ -24,7 +24,7 @@ const TypePropsMap: Record<TaskStatusBarType, Partial<IAlertProps>> = {
   },
 };
 
-export const TaskStatusBar: FC<ITaskStatusBarProps> = ({
+export const StatusBar: FC<IStatusBarProps> = ({
   type = 'info',
   progress,
   className,
@@ -32,7 +32,7 @@ export const TaskStatusBar: FC<ITaskStatusBarProps> = ({
 }) => {
   const typeProps = TypePropsMap[type];
   const taskProgress = type === 'waiting' ? progress : 0;
-  const statusBarClassName = cx('zent-task-status-bar', className);
+  const statusBarClassName = cx('zent-status-bar', className);
 
   return (
     <Alert
@@ -43,4 +43,4 @@ export const TaskStatusBar: FC<ITaskStatusBarProps> = ({
     />
   );
 };
-export default TaskStatusBar;
+export default StatusBar;

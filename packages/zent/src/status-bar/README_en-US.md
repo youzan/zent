@@ -1,10 +1,10 @@
 ---
-title: TaskStatusBar
-path: component/task-status-bar
+title: StatusBar
+path: component/status-bar
 group: Data Display
 ---
 
-## TaskStatusBar
+## StatusBar
 
 Deliver task-related behavioral feedback
 

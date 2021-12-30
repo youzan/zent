@@ -1,11 +1,11 @@
 ---
-title: TaskStatusBar
+title: StatusBar
 subtitle: 任务状态条
-path: component/task-status-bar
+path: component/status-bar
 group: 展示
 ---
 
-## TaskStatusBar 任务状态条
+## StatusBar 任务状态条
 
 向用户传递任务相关的行为反馈
 
@@ -26,4 +26,4 @@ group: 展示
 | progress     | 状态条顶部任务进度，仅在`type=waiting`时显示 | number      | 否       |          |                                     |
 | extraContent | 右侧自定义内容                               | `ReactNode` | 否       |          |
 
-TaskStatusBar 组件基于 Alert 实现，更多属性请参考 [Alert 文档](https://youzan.github.io/zent/zh/component/alert)
+StatusBar 组件基于 Alert 实现，更多属性请参考 [Alert 文档](https://youzan.github.io/zent/zh/component/alert)

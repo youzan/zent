@@ -7,7 +7,7 @@ group: 展示
 
 ## Alert 公告
 
-#### **Alert 组件是 `Prompt`、`Banner`、`TaskStatusBar`组件的基础组件，不建议直接使用**
+#### **Alert 组件是 `Prompt`、`Banner`、`StatusBar`组件的基础组件，不建议直接使用**
 
 公告，提供一个醒目的提示信息。
 
