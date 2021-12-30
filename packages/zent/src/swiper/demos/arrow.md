@@ -19,7 +19,7 @@ en-US:
 ---
 
 ```js
-import { Swiper, Radio } from 'zent';
+import { Carousel, Radio } from 'zent';
 
 const pages = [1, 2, 3, 4, 5];
 
@@ -43,7 +43,7 @@ class Simple extends React.Component {
 		const { arrows } = this.state;
 		return (
 			<div>
-				<p className="zent-swiper-demo__arrow-radio">
+				<p className="zent-carousel-demo__arrow-radio">
 					{i18n.arrows}:
 					<RadioGroup onChange={this.handleChangeArrows} value={arrows}>
 						<RadioButton value={false}>{i18n.hiddenArrows}</RadioButton>
@@ -51,23 +51,23 @@ class Simple extends React.Component {
 						<RadioButton value="hover">{i18n.hoverShowArrows}</RadioButton>
 					</RadioGroup>
 				</p>
-				<div className="swiper-demo-container">
-					<Swiper
-						className="swiper-demo-simple"
+				<div className="carousel-demo-container">
+					<Carousel
+						className="carousel-demo-simple"
 						dotsSize="small"
 						arrows={arrows}
 						autoplay
 					>
 						{pages.map((item, index) => {
 							return (
-								<div className="swiper-demo-simple-h" key={index}>
+								<div className="carousel-demo-simple-h" key={index}>
 									{item}
 								</div>
 							);
 						})}
-					</Swiper>
-					<Swiper
-						className="swiper-demo-simple swiper-demo-simple--large"
+					</Carousel>
+					<Carousel
+						className="carousel-demo-simple carousel-demo-simple--large"
 						dotsSize="small"
 						arrows={arrows}
 						arrowsSize="large"
@@ -75,12 +75,12 @@ class Simple extends React.Component {
 					>
 						{pages.map((item, index) => {
 							return (
-								<div className="swiper-demo-simple-h" key={index}>
+								<div className="carousel-demo-simple-h" key={index}>
 									{item}
 								</div>
 							);
 						})}
-					</Swiper>
+					</Carousel>
 				</div>
 			</div>
 		);
@@ -91,7 +91,7 @@ ReactDOM.render(<Simple />, mountNode);
 ```
 
 <style>
-	.zent-swiper-demo__arrow-radio {
+	.zent-carousel-demo__arrow-radio {
 		margin-bottom: 16px;
 	}
 
@@ -99,11 +99,11 @@ ReactDOM.render(<Simple />, mountNode);
 		margin-left: 4px;
 		margin-right: 12px;
 	}
-	.swiper-demo-simple.swiper-demo-simple--large {
+	.carousel-demo-simple.carousel-demo-simple--large {
 		width: 624px;
 		height: 256px;
 	}
-	.swiper-demo-simple.swiper-demo-simple--large .swiper-demo-simple-h {
+	.carousel-demo-simple.carousel-demo-simple--large .carousel-demo-simple-h {
 		line-height: 256px;
 		font-size: 70px;
 	}

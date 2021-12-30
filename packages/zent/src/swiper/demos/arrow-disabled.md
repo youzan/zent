@@ -7,7 +7,7 @@ en-US:
 ---
 
 ```js
-import { Swiper } from 'zent';
+import { Carousel } from 'zent';
 
 const pages = [1, 2, 3, 4, 5];
 
@@ -23,9 +23,9 @@ class Simple extends React.Component {
 	render() {
 		const { current } = this.state;
 		return (
-			<div className="swiper-demo-container">
-				<Swiper
-					className="swiper-demo-simple"
+			<div className="carousel-demo-container">
+				<Carousel
+					className="carousel-demo-simple"
 					onChange={this.handleChange}
 					arrows
 					arrowsDisabled={{
@@ -35,12 +35,12 @@ class Simple extends React.Component {
 				>
 					{pages.map((item, index) => {
 						return (
-							<div className="swiper-demo-simple-h" key={index}>
+							<div className="carousel-demo-simple-h" key={index}>
 								{item}
 							</div>
 						);
 					})}
-				</Swiper>
+				</Carousel>
 			</div>
 		);
 	}
