@@ -69,7 +69,7 @@ export * from './tabs/Tabs';
 export * from './tabs/types';
 export * from './tabs/VerticalTabs';
 export * from './tag';
-export * from './task-status-bar';
+export * from './status-bar';
 export * from './text-mark';
 export * from './timeline';
 export * from './tooltip';
