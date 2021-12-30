@@ -1,11 +1,11 @@
 ---
-title: Indicator
+title: ProgressIndicator
 path: component/indicator
 group: Feedback
 scatter: true
 ---
 
-## Indicator
+## ProgressIndicator
 
 Feedback the complete process information objectively in order and mark the current process or node and state.
 
