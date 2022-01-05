@@ -87,6 +87,9 @@
       flex-basis: auto;
       line-height: 20px;
       margin-bottom: 12px;
+      &-empty {
+        margin-bottom: 0;
+      }
     }
 
     & #{$p}-control {
