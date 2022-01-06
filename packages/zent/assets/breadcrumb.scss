@@ -92,7 +92,7 @@
   }
 
   a {
-    @include theme-color(color, 'weak-link', 'color');
+    @include theme-color(color, 'stroke', 3);
 
     &:hover {
       @include theme-color(color, 'weak-link', 'hover-color');
