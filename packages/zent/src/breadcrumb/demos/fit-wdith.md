@@ -11,13 +11,16 @@ en-US:
 ```jsx
 import { Breadcrumb } from 'zent';
 
-const dataList = Array(20).fill().map((_, index) => ({
-	name: `{i18n.content} ${index}`,
-	href: '//www.youzan.com',
-}));
+const dataList = Array(20)
+	.fill()
+	.map((_, index) => ({
+		name: `{i18n.content} ${index}`,
+		href: '//www.youzan.com',
+	}))
+	.concat({ name: `{i18n.content} 20` });
 
 ReactDOM.render(
-	<Breadcrumb style={{ width: '400px' }} breads={dataList} maxItemCount={3} />
-	, mountNode
+	<Breadcrumb style={{ width: '400px' }} breads={dataList} maxItemCount={3} />,
+	mountNode
 );
 ```
