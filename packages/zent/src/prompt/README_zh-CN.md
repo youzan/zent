@@ -2,7 +2,7 @@
 title: Prompt
 subtitle: 提示
 path: component/prompt
-group: 展示
+group: 信息反馈
 ---
 
 ## Prompt 提示

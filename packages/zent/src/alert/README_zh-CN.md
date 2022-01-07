@@ -2,7 +2,7 @@
 title: Alert
 subtitle: 公告
 path: component/alert
-group: 展示
+group: 信息反馈
 ---
 
 ## Alert 公告
