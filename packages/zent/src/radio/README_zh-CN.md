@@ -2,7 +2,7 @@
 title: Radio
 subtitle: 单选
 path: component/radio
-group: 数据
+group: Basics
 ---
 
 ## Radio 单选
