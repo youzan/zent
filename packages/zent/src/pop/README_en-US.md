@@ -1,7 +1,7 @@
 ---
 title: Pop
 path: component/pop
-group: Feedback
+group: Container
 ---
 
 ## Pop
