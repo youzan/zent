@@ -2,7 +2,7 @@
 title: Switch
 subtitle: 开关
 path: component/switch
-group: 数据
+group: 基础控件
 ---
 
 ## Switch 开关

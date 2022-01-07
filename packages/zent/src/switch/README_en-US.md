@@ -1,7 +1,7 @@
 ---
 title: Switch
 path: component/switch
-group: Data Entry
+group: Basics
 ---
 
 ## Switch
