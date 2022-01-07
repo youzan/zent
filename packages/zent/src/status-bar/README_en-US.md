@@ -1,7 +1,7 @@
 ---
 title: StatusBar
 path: component/status-bar
-group: Data Display
+group: Feedback
 ---
 
 ## StatusBar

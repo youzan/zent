@@ -2,7 +2,7 @@
 title: Banner
 subtitle: 公告
 path: component/banner
-group: 展示
+group: 信息反馈
 ---
 
 ## Banner 公告

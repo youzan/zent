@@ -1,7 +1,7 @@
 ---
 title: Prompt
 path: component/prompt
-group: Data Display
+group: Feedback
 ---
 
 ## Prompt
