@@ -2,7 +2,7 @@
 title: NumberInput
 subtitle: 数值输入框
 path: component/number-input
-group: 数据
+group: 信息录入
 ---
 
 ## NumberInput 数值输入框
