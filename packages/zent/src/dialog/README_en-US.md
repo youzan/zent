@@ -1,7 +1,7 @@
 ---
 title: Dialog
 path: component/dialog
-group: Feedback
+group: Container
 scatter: true
 ---
 
