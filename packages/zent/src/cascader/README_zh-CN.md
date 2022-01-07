@@ -2,7 +2,7 @@
 title: Cascader
 subtitle: 级联选择
 path: component/cascader
-group: 数据
+group: 信息录入
 ---
 
 ## Cascader 级联选择
