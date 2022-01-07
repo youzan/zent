@@ -1,7 +1,7 @@
 ---
 title: Tree
 path: component/tree
-group: Navigation
+group: Data Display
 scatter: true
 ---
 
