@@ -1,7 +1,7 @@
 ---
 title: ErrorBoundary
 path: component/error-boundary
-group: Basics
+group: Others
 ---
 
 ## ErrorBoundary

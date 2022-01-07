@@ -2,7 +2,7 @@
 title: Waypoint
 subtitle: 航点
 path: component/waypoint
-group: 基础
+group: 其他
 ---
 
 ## Waypoint

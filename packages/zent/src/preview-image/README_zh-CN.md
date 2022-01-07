@@ -2,7 +2,7 @@
 title: previewImage
 subtitle: 图片预览
 path: component/preview-image
-group: 展示
+group: 信息展示
 ---
 
 ## previewImage 图片预览

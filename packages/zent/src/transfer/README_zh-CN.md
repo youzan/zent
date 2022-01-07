@@ -2,7 +2,7 @@
 title: Transfer
 subtitle: 穿梭框
 path: component/transfer
-group: 数据
+group: 信息录入
 ---
 
 ## Transfer

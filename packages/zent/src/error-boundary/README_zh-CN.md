@@ -2,7 +2,7 @@
 title: ErrorBoundary
 subtitle: 错误隔离
 path: component/error-boundary
-group: 基础
+group: 其他
 ---
 
 ## ErrorBoundary 错误隔离

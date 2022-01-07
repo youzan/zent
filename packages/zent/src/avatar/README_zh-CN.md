@@ -2,7 +2,7 @@
 title: Avatar
 subtitle: 头像
 path: component/avatar
-group: 展示
+group: 信息展示
 ---
 
 ## Avatar 头像
@@ -18,7 +18,7 @@ group: 展示
 | icon    | 图标名称   | `string`  | 否  | | |
 | src     | 图片地址    | `string` | 否 | | |
 | children  | 文字内容  | `string` | 否 | | |
-| bordered  | 是否显示边框 | `bool` | 否 | `false` | `true` | 
+| bordered  | 是否显示边框 | `bool` | 否 | `false` | `true` |
 | style   | 自定义样式  | `object` | 否 | | |
 | className    | 自定义类名     |  `string`    |  否 |           |             |
 
