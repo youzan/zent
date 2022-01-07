@@ -2,7 +2,7 @@
 title: Button
 subtitle: 按钮
 path: component/button
-group: 数据
+group: 基础控件
 ---
 
 ## Button 按钮
