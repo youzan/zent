@@ -2,7 +2,7 @@
 title: Input
 subtitle: 输入框
 path: component/input
-group: 数据
+group: 信息录入
 ---
 
 ## Input 输入框

@@ -2,7 +2,7 @@
 title: Loading
 subtitle: 加载
 path: component/loading
-group: 反馈
+group: 信息反馈
 ---
 
 ## Loading 加载

@@ -2,7 +2,7 @@
 title: Tree
 subtitle: 树
 path: component/tree
-group: 导航
+group: 信息展示
 scatter: true
 ---
 

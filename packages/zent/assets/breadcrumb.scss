@@ -11,13 +11,15 @@
   overflow: hidden;
   position: relative;
 
-  &__move-left,
-  &__move-right {
+  &__move-left.zenticon,
+  &__move-right.zenticon {
     font-size: $font-size-h4;
     cursor: pointer;
     z-index: 1;
     position: absolute;
+    height: 20px;
     width: 24px;
+    line-height: $font-size-h3;
     box-sizing: border-box;
     top: 50%;
     transform: translateY(-50%);
@@ -50,10 +52,11 @@
   span,
   a {
     font-size: $font-size-normal;
-    line-height: $font-size-h4;
+    line-height: $font-size-h3;
     display: inline-block;
     vertical-align: middle;
     text-decoration: none;
+    height: 20px;
 
     &::after {
       @include theme-color(color, stroke, 3);
@@ -77,6 +80,7 @@
 
     & > *:last-child {
       font-size: 20px;
+      line-height: $font-size-h4;
       vertical-align: bottom;
       font-weight: $font-weight-medium;
     }
@@ -88,7 +92,7 @@
   }
 
   a {
-    @include theme-color(color, 'weak-link', 'color');
+    @include theme-color(color, 'stroke', 3);
 
     &:hover {
       @include theme-color(color, 'weak-link', 'hover-color');
@@ -99,9 +103,13 @@
     }
   }
 
-  &__fold:hover {
-    @include theme-color(color, 'weak-link', 'hover-color');
-    cursor: pointer;
+  span.zent-breadcrumb__fold {
+    @include theme-color(color, 'stroke', 3);
+
+    &:hover {
+      @include theme-color(color, 'weak-link', 'hover-color');
+      cursor: pointer;
+    }
   }
 
   &.zent-breadcrumb-nav {

@@ -12,7 +12,7 @@ export default class BreadcrumbSteps extends Component<IStepsProps> {
   };
 
   renderStepTitle = (itemProps: IStepProps, index: number) => {
-    const { sequence } = this.props;
+    const { sequence, ghost } = this.props;
     const { icon, title } = itemProps;
 
     if (icon) {
@@ -33,7 +33,11 @@ export default class BreadcrumbSteps extends Component<IStepsProps> {
     if (sequence) {
       return (
         <>
-          <span className="zent-steps-sequence">{index + 1}</span>
+          {ghost ? (
+            <span className="zent-steps-sequence">{index + 1}</span>
+          ) : (
+            `${index + 1}. `
+          )}
           {title}
         </>
       );

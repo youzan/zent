@@ -1,7 +1,7 @@
 ---
-title: SplitButton
+title: GroupButton
 path: component/split-button
-group: Data Entry
+group: Basics
 ---
 
 ## SplitButton

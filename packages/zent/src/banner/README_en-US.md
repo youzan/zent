@@ -1,7 +1,7 @@
 ---
 title: Banner
 path: component/banner
-group: Data Display
+group: Feedback
 ---
 
 ## Banner

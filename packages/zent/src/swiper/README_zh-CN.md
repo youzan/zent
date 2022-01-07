@@ -2,7 +2,7 @@
 title: Carousel
 subtitle: 轮播
 path: component/swiper
-group: 展示
+group: 信息展示
 ---
 
 ## Carousel 轮播

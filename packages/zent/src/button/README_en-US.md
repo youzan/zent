@@ -1,7 +1,7 @@
 ---
 title: Button
 path: component/button
-group: Data Entry
+group: Basics
 ---
 
 ## Button

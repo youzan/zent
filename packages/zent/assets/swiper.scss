@@ -21,7 +21,7 @@
     &-icon {
       color: $gray-700;
       font-size: 24px;
-      opacity: 0.3;
+      opacity: 0.2;
       transition: opacity 100ms $timing-fn-linear;
 
       &:hover {
@@ -121,21 +121,17 @@
       }
     }
 
-    &--dark {
-      .zent-swiper__dots-item {
-        @include theme-color(background-color, stroke, 9, 0.4);
-      }
+    .zent-swiper__dots-item {
+      background-color: rgba(0, 0, 0, 0.2);
+    }
 
+    &--dark {
       .zent-swiper__dots-item-active {
         @include theme-color(background-color, stroke, 9);
       }
     }
 
     &--light {
-      .zent-swiper__dots-item {
-        @include theme-color(background-color, stroke, 1, 0.2);
-      }
-
       .zent-swiper__dots-item-active {
         @include theme-color(background-color, primary, 5);
       }

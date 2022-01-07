@@ -2,7 +2,7 @@
 title: StatusBar
 subtitle: 任务状态条
 path: component/status-bar
-group: 展示
+group: 信息反馈
 ---
 
 ## StatusBar 任务状态条

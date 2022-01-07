@@ -2,7 +2,7 @@
 title: Sortable
 subtitle: 拖拽排序
 path: component/sortable
-group: 展示
+group: 信息展示
 ---
 
 ## Sortable 拖拽排序

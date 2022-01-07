@@ -34,9 +34,9 @@ $menuHeight: 180px;
   border-width: 1px;
   border-style: solid;
   border-radius: 2px;
-  min-height: 30px;
   line-height: 18px;
   padding: 6px 30px 6px 12px;
+  min-height: 32px;
   transition: border-color 0.25s;
   @include theme-color(border-color, stroke, 5);
   @include theme-color(background-color, stroke, 9);
@@ -125,6 +125,9 @@ $menuHeight: 180px;
     padding-bottom: 4px;
     .zent-cascader-v2--tag + .zent-cascader-v2--search {
       margin-top: 2px;
+    }
+    .zent-cascader-v2--placeholder {
+      line-height: 22px;
     }
     &-collapsed {
       display: flex;
@@ -216,10 +219,6 @@ $menuHeight: 180px;
 
     &:last-child {
       border-right: 0;
-
-      .zent-cascader-v2__menu-item {
-        padding-right: 10px;
-      }
     }
 
     &-item {
@@ -319,7 +318,7 @@ $menuHeight: 180px;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 4px 0;
+        padding: 7px 0;
       }
     }
   }
