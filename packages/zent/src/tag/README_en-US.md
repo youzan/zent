@@ -1,7 +1,7 @@
 ---
 title: Tag
 path: component/tag
-group: Data Display
+group: Basics
 scatter: true
 ---
 

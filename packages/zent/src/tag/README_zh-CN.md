@@ -2,7 +2,7 @@
 title: Tag
 subtitle: 标签
 path: component/tag
-group: 展示
+group: 基础控件
 scatter: true
 ---
 
