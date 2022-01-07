@@ -2,7 +2,7 @@
 title: Dialog
 subtitle: 对话窗
 path: component/dialog
-group: 反馈
+group: 容器
 scatter: true
 ---
 
