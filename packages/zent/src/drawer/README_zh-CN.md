@@ -2,7 +2,7 @@
 title: Drawer
 subtitle: 抽屉
 path: component/drawer
-group: 反馈
+group: 容器
 scatter: true
 ---
 
