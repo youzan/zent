@@ -2,7 +2,7 @@
 title: Steps
 subtitle: 步骤条
 path: component/steps
-group: 导航
+group: 信息反馈
 scatter: true
 ---
 

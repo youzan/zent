@@ -2,7 +2,7 @@
 title: ProgressIndicator
 subtitle: 进度指示器
 path: component/indicator
-group: 反馈
+group: 信息反馈
 scatter: true
 ---
 
