@@ -2,7 +2,7 @@
 title: Notice
 subtitle: 通知提醒
 path: component/notice
-group: 反馈
+group: 信息反馈
 ---
 
 ## Notice 通知提醒

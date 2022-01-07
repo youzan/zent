@@ -9,12 +9,12 @@ const DST = path.resolve(__dirname, '../src');
 
 const COMPONENT_GROUP_PRIORITY = {
   'zh-CN': {
-    基础: 1,
+    基础控件: 1,
     导航: 2,
-    数据: 3,
-    展示: 4,
-    反馈: 5,
-    业务组件: 6,
+    信息录入: 3,
+    信息展示: 4,
+    信息反馈: 5,
+    其他: 6,
   },
   'en-US': {
     Basics: 1,
@@ -22,7 +22,7 @@ const COMPONENT_GROUP_PRIORITY = {
     'Data Entry': 3,
     'Data Display': 4,
     Feedback: 5,
-    'Domain-specific': 6,
+    Others: 6,
   },
 };
 
