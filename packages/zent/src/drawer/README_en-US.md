@@ -1,7 +1,7 @@
 ---
 title: Drawer
 path: component/drawer
-group: Feedback
+group: Container
 scatter: true
 ---
 
