@@ -1,7 +1,7 @@
 ---
 title: Portal
 path: component/portal
-group: Basics
+group: Others
 ---
 
 ## Portal

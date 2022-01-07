@@ -2,7 +2,7 @@
 title: Popover
 subtitle: 弹层
 path: component/popover
-group: 基础
+group: 其他
 ---
 
 ## Popover 弹层

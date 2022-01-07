@@ -1,7 +1,7 @@
 ---
 title: CopyButton
 path: component/copy-btn
-group: Data Entry
+group: Others
 ---
 
 ## CopyButton

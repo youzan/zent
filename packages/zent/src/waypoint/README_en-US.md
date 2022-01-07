@@ -1,7 +1,7 @@
 ---
 title: Waypoint
 path: component/waypoint
-group: Basics
+group: Others
 ---
 
 ## Waypoint

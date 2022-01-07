@@ -2,7 +2,7 @@
 title: AnimateHeight
 subtitle: 高度渐变
 path: component/animate-height
-group: 反馈
+group: 其他
 ---
 
 ## AnimateHeight 高度渐变

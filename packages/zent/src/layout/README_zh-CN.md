@@ -2,7 +2,7 @@
 title: Layout
 subtitle: 布局
 path: component/layout
-group: 基础
+group: 其他
 ---
 
 ## Layout 布局

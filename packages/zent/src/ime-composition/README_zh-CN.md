@@ -2,7 +2,7 @@
 title: IMEComposition
 subtitle: 输入法合成
 path: component/ime-composition
-group: 基础
+group: 其他
 ---
 
 ## IMEComposition
