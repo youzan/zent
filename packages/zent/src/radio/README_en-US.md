@@ -1,7 +1,7 @@
 ---
 title: Radio
 path: component/radio
-group: Data Entry
+group: 基础控件
 ---
 
 ## Radio
