@@ -24,12 +24,7 @@ class Simple extends React.Component {
 						);
 					})}
 				</Carousel>
-				<Carousel
-					className="carousel-demo-simple"
-					dotsColor="#31A896"
-					dotsSize="small"
-					autoplay
-				>
+				<Carousel className="carousel-demo-simple" dotsSize="small" autoplay>
 					{pages.map((item, index) => {
 						return (
 							<div className="carousel-demo-simple-h" key={index}>
