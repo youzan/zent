@@ -1,7 +1,7 @@
 ---
 title: Radio
 path: component/radio
-group: 基础控件
+group: Basics
 ---
 
 ## Radio

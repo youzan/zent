@@ -2,7 +2,7 @@
 title: Radio
 subtitle: 单选
 path: component/radio
-group: Basics
+group: 基础控件
 ---
 
 ## Radio 单选
