@@ -2,7 +2,7 @@
 title: Slider
 subtitle: 滑动条
 path: component/slider
-group: 数据
+group: 信息录入
 scatter: true
 ---
 
