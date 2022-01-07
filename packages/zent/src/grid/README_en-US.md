@@ -1,7 +1,7 @@
 ---
 title: Grid
 path: component/grid
-group: Navigation
+group: Data Display
 ---
 
 ## Grid
