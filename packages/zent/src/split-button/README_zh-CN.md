@@ -1,8 +1,8 @@
 ---
-title: SplitButton
-subtitle: 下拉按钮
+title: GroupButton
+subtitle: 按钮组
 path: component/split-button
-group: 数据
+group: 基础控件
 ---
 
 ## SplitButton 下拉按钮
