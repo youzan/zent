@@ -2,7 +2,7 @@
 title: Progress
 subtitle: 进度条
 path: component/progress
-group: 展示
+group: 信息反馈
 scatter: true
 ---
 
