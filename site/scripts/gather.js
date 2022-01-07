@@ -14,7 +14,8 @@ const COMPONENT_GROUP_PRIORITY = {
     信息录入: 3,
     信息展示: 4,
     信息反馈: 5,
-    其他: 6,
+    容器: 6,
+    其他: 7,
   },
   'en-US': {
     Basics: 1,
@@ -22,7 +23,8 @@ const COMPONENT_GROUP_PRIORITY = {
     'Data Entry': 3,
     'Data Display': 4,
     Feedback: 5,
-    Others: 6,
+    Container: 6,
+    Others: 7,
   },
 };
 
