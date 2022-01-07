@@ -1,7 +1,7 @@
 ---
 title: Badge
 path: component/badge
-group: Data Display
+group: Basics
 ---
 
 ## Badge
