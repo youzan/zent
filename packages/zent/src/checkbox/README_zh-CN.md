@@ -2,7 +2,7 @@
 title: Checkbox
 subtitle: 多选
 path: component/checkbox
-group: 数据
+group: 基础控件
 ---
 
 ## Checkbox 多选
