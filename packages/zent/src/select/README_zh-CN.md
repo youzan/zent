@@ -2,7 +2,7 @@
 title: Select
 subtitle: 下拉选择
 path: component/select
-group: 数据
+group: 信息录入
 ---
 
 ## Select 下拉选择
