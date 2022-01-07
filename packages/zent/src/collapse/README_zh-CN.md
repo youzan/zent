@@ -2,7 +2,7 @@
 title: Collapse
 subtitle: 折叠面板
 path: component/collapse
-group: 展示
+group: 数据展示
 scatter: true
 ---
 
