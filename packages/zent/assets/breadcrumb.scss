@@ -103,9 +103,13 @@
     }
   }
 
-  &__fold:hover {
-    @include theme-color(color, 'weak-link', 'hover-color');
-    cursor: pointer;
+  span.zent-breadcrumb__fold {
+    @include theme-color(color, 'stroke', 3);
+
+    &:hover {
+      @include theme-color(color, 'weak-link', 'hover-color');
+      cursor: pointer;
+    }
   }
 
   &.zent-breadcrumb-nav {
