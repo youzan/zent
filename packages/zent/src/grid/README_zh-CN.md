@@ -2,7 +2,7 @@
 title: Grid
 subtitle: 表格
 path: component/grid
-group: 导航
+group: 信息展示
 ---
 
 ## Grid 表格
