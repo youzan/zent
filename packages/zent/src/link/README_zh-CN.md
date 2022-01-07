@@ -2,7 +2,7 @@
 title: Link
 subtitle: 超链接
 path: component/link
-group: 数据
+group: 基础控件
 ---
 
 ## Link
