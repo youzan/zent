@@ -2,7 +2,7 @@
 title: Notify
 subtitle: 轻提示
 path: component/notify
-group: 反馈
+group: 信息反馈
 ---
 
 ## Notify 轻提示
@@ -20,12 +20,12 @@ group: 反馈
 - `Notify.warn(text: node, duration?: number, callback?: () => ()): number`
 - `Notify.error(text: node, duration?: number, callback?: () => ()): number`
 
-`Notify.info`，`Notify.success`，`Notify.warn` 和 `Notify.error` 方法会返回一个 `id`，这个 `id` 可以作为 `Notify.clear(id)` 的入参，用于关闭指定notify。
+`Notify.info`，`Notify.success`，`Notify.warn` 和 `Notify.error` 方法会返回一个 `id`，这个 `id` 可以作为 `Notify.clear(id)` 的入参，用于关闭指定 notify。
 
-| 参数       | 说明            | 类型     | 默认值    |
-| -------- | ------------- | ------ | ------ |
-| text     | 通知文案    | node   | `''`   |
-| duration | 持续时间          | number | `3500` |
+| 参数     | 说明         | 类型   | 默认值 |
+| -------- | ------------ | ------ | ------ |
+| text     | 通知文案     | node   | `''`   |
+| duration | 持续时间     | number | `3500` |
 | callback | 关闭时的回调 | func   |        |
 
 - `Notify.clear(number: id): void`
