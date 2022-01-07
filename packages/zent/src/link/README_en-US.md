@@ -1,7 +1,7 @@
 ---
 title: Link
 path: component/link
-group: Data Entry
+group: Basics
 ---
 
 ## Link
