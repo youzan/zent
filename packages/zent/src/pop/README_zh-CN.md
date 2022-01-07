@@ -1,8 +1,8 @@
 ---
 title: Pop
-subtitle: 气泡提示
+subtitle: 操作面板
 path: component/pop
-group: 反馈
+group: 容器
 ---
 
 ## 操作面板 Popover
