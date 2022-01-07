@@ -1,7 +1,7 @@
 ---
 title: Progress
 path: component/progress
-group: Data Display
+group: Feedback
 scatter: true
 ---
 
