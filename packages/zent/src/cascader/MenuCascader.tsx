@@ -213,7 +213,7 @@ export class MenuCascader extends Component<
   static defaultProps = {
     value: [],
     options: [],
-    clearable: false,
+    clearable: true,
     multiple: false,
     multipleType: 'normal',
     maxLine: 1,
