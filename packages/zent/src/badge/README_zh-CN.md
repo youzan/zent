@@ -2,7 +2,7 @@
 title: Badge
 subtitle: 徽标
 path: component/badge
-group: 展示
+group: 基础控件
 ---
 
 ## Badge 徽标
