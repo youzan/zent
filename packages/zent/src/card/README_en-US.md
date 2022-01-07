@@ -1,7 +1,7 @@
 ---
 title: Card
 path: component/card
-group: Data Display
+group: Container
 scatter: true
 ---
 
