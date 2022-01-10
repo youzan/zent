@@ -1,6 +1,8 @@
 @import './theme/default';
 @import './theme/font';
 
+$ghost-hover-bg: rgb(239, 239, 239);
+
 @mixin zent-steps-breadcrumb-angle($prop, $number) {
   &::after {
     @include theme-color(border-left-color, $prop, $number);
@@ -613,30 +615,30 @@
 
       &:not(.zent-steps-item--disabled):hover {
         .zent-steps-step {
-          @include theme-color(background-color, stroke, 5);
+          background-color: $ghost-hover-bg;
 
           &::after {
-            @include theme-color(border-left-color, stroke, 5);
+            border-left-color: $ghost-hover-bg;
           }
 
           &::before {
-            @include theme-color(border-top-color, stroke, 5);
-            @include theme-color(border-bottom-color, stroke, 5);
+            border-top-color: $ghost-hover-bg;
+            border-bottom-color: $ghost-hover-bg;
           }
         }
       }
 
       &:not(.zent-steps-item--disabled):active {
         .zent-steps-step {
-          @include theme-color(background-color, stroke, 4);
+          @include theme-color('background-color', stroke, 6);
 
           &::after {
-            @include theme-color(border-left-color, stroke, 4);
+            @include theme-color('border-left-color', stroke, 6);
           }
 
           &::before {
-            @include theme-color(border-top-color, stroke, 4);
-            @include theme-color(border-bottom-color, stroke, 4);
+            @include theme-color('border-top-color', stroke, 6);
+            @include theme-color('border-bottom-color', stroke, 6);
           }
         }
       }
