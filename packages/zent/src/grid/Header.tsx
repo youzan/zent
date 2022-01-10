@@ -89,7 +89,7 @@ class Header<Data> extends PureComponent<
     };
   };
 
-  getChildren = (
+  getChildrenAndEvents = (
     column: IGridInnerColumn<Data>,
     props: IGridHeaderProps<Data>
   ) => {
@@ -102,22 +102,24 @@ class Header<Data> extends PureComponent<
     if (column.needSort) {
       const { sortBy, sortType, sortTooltip } = this.getSortInfo(column, props);
 
-      return (
-        <ToolTip title={sortTooltip} position="top-center" cushion={12}>
-          <div
-            onClick={() => onChange({ sortBy, sortType })}
-            className={`${prefix}-grid-thead-sort-btn`}
-          >
-            {column.title}
-            <span className={cn}>
-              <Icon type="caret-up" className="caret-up" />
-              <Icon type="caret-down" className="caret-down" />
-            </span>
-          </div>
-        </ToolTip>
-      );
+      return {
+        children: (
+          <ToolTip title={sortTooltip} position="top-center" cushion={12}>
+            <div className={`${prefix}-grid-thead-sort-btn`}>
+              {column.title}
+              <span className={cn}>
+                <Icon type="caret-up" className="caret-up" />
+                <Icon type="caret-down" className="caret-down" />
+              </span>
+            </div>
+          </ToolTip>
+        ),
+        onClick: () => onChange({ sortBy, sortType }),
+      };
     }
-    return column.title;
+    return {
+      children: column.title,
+    };
   };
 
   getHeaderRows = (
@@ -156,8 +158,9 @@ class Header<Data> extends PureComponent<
           [`${prefix}-grid-th-selection`]:
             ['selection-column', 'selection-column-single'].indexOf(key) !== -1,
           [`${prefix}-grid-th-expand`]: key === 'expand-column',
+          [`${prefix}-grid-th-sortable`]: column.needSort,
         }),
-        children: this.getChildren(column, props),
+        ...this.getChildrenAndEvents(column, props),
       };
 
       if (column.children) {

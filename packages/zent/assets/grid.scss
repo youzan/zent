@@ -1,6 +1,8 @@
 @import './theme/default';
 @import './theme/font';
 
+$fixed-column-box-shadow: -4px 0 8px -4px rgba($shadow-color, 0.1);
+
 .zent-grid {
   @include theme-color(color, stroke, 1);
   font-size: $font-size-normal;
@@ -118,7 +120,7 @@
       position: relative;
 
       &-btn {
-        cursor: pointer;
+        position: relative;
         display: flex;
       }
     }
@@ -166,7 +168,7 @@
   &-fixed-left {
     left: 0;
     // FIXME: 为了让fix住的部分底部阴影去除
-    @include theme-shadow(focus);
+    box-shadow: $fixed-column-box-shadow;
 
     .zent-grid-header .zent-grid-table {
       border-right: 0;
@@ -187,7 +189,7 @@
   &-fixed-right {
     right: 0;
     // FIXME: 为了让fix住的部分底部阴影去除
-    @include theme-shadow(focus);
+    box-shadow: $fixed-column-box-shadow;
 
     .zent-grid-header .zent-grid-table {
       border-left: 0;
@@ -279,6 +281,23 @@
 
     &:last-child {
       padding: 8px 12px;
+    }
+  }
+
+  &-th.zent-grid-th-sortable {
+    position: relative;
+    cursor: pointer;
+
+    &:hover {
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.05);
+      }
     }
   }
 
