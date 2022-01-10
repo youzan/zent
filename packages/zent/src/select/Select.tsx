@@ -144,23 +144,21 @@ function defaultRenderOptionList<
 function getExtraOptions<
   Key extends string | number = string | number,
   Item extends ISelectItem<Key> = ISelectItem<Key>
->(value: Item | Item[] | undefined, options: Item[], isEqual = defaultIsEqual) {
+>(value: Item | Item[] | undefined) {
   if (!Array.isArray(value)) {
     if (!value) {
       return [];
     }
-    const exist = options.findIndex(it => isEqual(it, value)) >= 0;
-    if (exist) {
-      return [];
+    if (value.key.toString().indexOf('__ZENT_SELECT_CREATABLE_KEY__') > -1) {
+      return [value];
     }
-    return [value];
+    return [];
   }
   return value.reduce((v, next) => {
-    const exist = options.findIndex(it => isEqual(it, next)) >= 0;
-    if (exist) {
-      return v;
+    if (next.key.toString().indexOf('__ZENT_SELECT_CREATABLE_KEY__') > -1) {
+      return [...v, next];
     }
-    return [...v, next];
+    return v;
   }, []);
 }
 
@@ -864,10 +862,9 @@ export class Select<
       filter: ((keyword: string, item: Item) => boolean) | false,
       creatable: boolean,
       isValidNewOption: (keyword: string, options: Item[]) => boolean,
-      value: Item | Item[] | undefined,
-      isEqual
+      value: Item | Item[] | undefined
     ): Item[] => {
-      const extraOptions = getExtraOptions(value, options, isEqual);
+      const extraOptions = getExtraOptions(value);
       const mergedOptions = [...options, ...extraOptions];
 
       const filtered =
