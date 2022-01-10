@@ -325,6 +325,10 @@
         margin-left: 0;
       }
 
+      &-current.zent-btn {
+        margin-left: 0;
+      }
+
       &-current_disabled {
         @include gray-color;
       }
