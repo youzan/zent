@@ -23,12 +23,18 @@ const navList = [
 ReactDOM.render(
 	<div className='dropdown-nav-container'>
 		<DropdownNav
-			navTitle={'下拉导航菜单'}
 			navList={navList}
 			onItemClick={(e, key) => console.log('key', key)}
 			trigger="click"
-		/>
+		>下拉导航菜单</DropdownNav>
 	</div>,
 	mountNode
 );
 ```
+
+<style>
+.dropdown-nav-container {
+  padding: 24px;
+  background-color: #efefef;
+}
+</style>
