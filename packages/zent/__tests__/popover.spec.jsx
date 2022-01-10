@@ -346,7 +346,7 @@ describe('Popover', () => {
       visible: false,
     });
     jest.runAllTimers();
-    expect(document.querySelector('.zent-popover-v2')).toBeFalsy();
+    expect(document.querySelector('.zent-popover-v2')).toBeTruthy();
 
     // console.log(wrapper.instance());
     wrapper.instance().open();
@@ -360,7 +360,7 @@ describe('Popover', () => {
       visible: false,
     });
     jest.runAllTimers();
-    expect(document.querySelector('.zent-popover-v2')).toBeFalsy();
+    expect(document.querySelector('.zent-popover-v2')).toBeTruthy();
   });
 
   it('onBeforeXXX can return a Promise', () => {
@@ -392,7 +392,7 @@ describe('Popover', () => {
     return p.then(v => {
       expect(v).toBe(2);
       jest.runAllTimers();
-      expect(document.querySelectorAll('.zent-popover-v2').length).toBe(1);
+      expect(document.querySelectorAll('.zent-popover-v2').length).toBe(2);
 
       wrapper.unmount();
       dispatchWithTimers(document.body, new MouseEvent('click'));
@@ -422,10 +422,9 @@ describe('Popover', () => {
     wrapper.find('button').simulate('click');
     jest.runAllTimers();
     expect(document.querySelectorAll('.zent-popover-v2').length).toBe(1);
-
-    wrapper.unmount();
     dispatchWithTimers(document.body, new MouseEvent('click'));
     expect(document.querySelectorAll('.zent-popover-v2').length).toBe(0);
+    wrapper.unmount();
   });
 
   it('hover trigger closes on window blur', () => {
