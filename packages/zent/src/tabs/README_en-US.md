@@ -1,7 +1,7 @@
 ---
 title: Tabs
 path: component/tabs
-group: Navigation
+group: Container
 scatter: true
 ---
 
