@@ -2,7 +2,7 @@
 title: Tabs
 subtitle: 选项卡
 path: component/tabs
-group: 导航
+group: 容器
 scatter: true
 ---
 
