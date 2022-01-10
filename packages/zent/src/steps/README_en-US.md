@@ -1,7 +1,7 @@
 ---
 title: Steps
 path: component/steps
-group: Feedback
+group: Navigation
 scatter: true
 ---
 
