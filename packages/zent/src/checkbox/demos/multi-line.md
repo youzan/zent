@@ -38,7 +38,7 @@ class App extends React.Component {
 	render() {
 		const { checked, style } = this.state;
 		return (
-			<div>
+			<div className="checkbox-muti-line">
 				<Checkbox.Group value={checked} onChange={this.handleChange}>
 					<Checkbox value="Apple" labelStyle={style}>
 						{i18n.text1}
@@ -46,9 +46,6 @@ class App extends React.Component {
 					</Checkbox>
 					<div style={{ color: '#969799', marginTop: 8 }}>{i18n.text3}</div>
 				</Checkbox.Group>
-				<div style={{ marginTop: 16 }}>
-					<Button onClick={this.onStyleChange}>{i18n.switch}</Button>
-				</div>
 			</div>
 		);
 	}
@@ -56,3 +53,8 @@ class App extends React.Component {
 
 ReactDOM.render(<App />, mountNode);
 ```
+<style>
+.checkbox-muti-line .zent-checkbox{
+  vertical-align: 2px !important;
+}
+</style>
