@@ -7,7 +7,6 @@ import { IInnerTab, ITabsNavProps } from '../../types';
 import { WindowResizeHandler } from '../../../utils/component/WindowResizeHandler';
 import memorizeOne from '../../../utils/memorize-one';
 import Icon from '../../../icon';
-import isEqual from '../../../utils/isEqual';
 import { runOnceInNextFrame } from '../../../utils/nextFrame';
 
 const classNamePrefix = 'zent-tabs-nav-tabs-content';
@@ -49,6 +48,10 @@ abstract class OperationTabs<Id extends string | number> extends Component<
 
   get tabsWrapperWidth() {
     return this.tabsWrapperRef.current?.offsetWidth || 0;
+  }
+
+  get isControlled() {
+    return 'activeId' in this.props;
   }
 
   getTabsInfo(): ITabsInfo {
@@ -153,8 +156,7 @@ abstract class OperationTabs<Id extends string | number> extends Component<
     });
   };
 
-  onAnchorPageChange = (tab: IInnerTab<Id>) => {
-    if (tab.disabled) return;
+  handlePageScroll = (tab: IInnerTab<Id>) => {
     const tabsInfo = this.getTabsInfo();
     const targetIndex = tabsInfo.list.findIndex(item => item.id === tab.key);
 
@@ -164,6 +166,13 @@ abstract class OperationTabs<Id extends string | number> extends Component<
     }
     if (targetIndex >= endIndex) {
       this.onEndChange(targetIndex, tabsInfo);
+    }
+  };
+
+  onAnchorPageChange = (tab: IInnerTab<Id>) => {
+    if (tab.disabled) return;
+    if (!this.isControlled) {
+      this.handlePageScroll(tab);
     }
     this.props.onChange?.(tab.key);
   };
@@ -210,7 +219,7 @@ abstract class OperationTabs<Id extends string | number> extends Component<
 
   componentDidUpdate = prevProps => {
     const { activeId, tabDataList } = this.props;
-    if (!isEqual(prevProps.tabDataList, this.props.tabDataList)) {
+    if (prevProps.tabDataList.length !== this.props.tabDataList.length) {
       this.onResize();
     }
     if (prevProps.activeId === activeId) return;
@@ -219,7 +228,7 @@ abstract class OperationTabs<Id extends string | number> extends Component<
     if (currentTabIndex === -1) return;
     if (currentTabIndex < startIndex || currentTabIndex > endIndex) {
       const currentTab = tabDataList[currentTabIndex];
-      this.onAnchorPageChange(currentTab);
+      this.handlePageScroll(currentTab);
     }
   };
 

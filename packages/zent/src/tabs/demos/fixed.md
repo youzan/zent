@@ -57,17 +57,19 @@ class Simple extends React.Component {
 
 	onTabDel = id => {
 		const { panels, activeId } = this.state;
+		const delPanelIndex = panels.findIndex(panel => panel.id === id);
 		this.setState(
 			{
-				panels: panels.filter((p, i) => p.id !== id),
+				panels: panels.filter(panel => panel.id !== id),
 			},
 			() => {
 				if (id === activeId) {
-					const panels = this.state.panels.filter(p => !p.disabled);
-					if (!panels.length) {
+					const prePanelIndex = Math.max(0, delPanelIndex - 1);
+					const prePanel = panels[prePanelIndex];
+					if (!panels.length || prePanel?.disabled) {
 						return;
 					}
-					this.setState({ activeId: panels[0].id });
+					this.setState({ activeId: prePanel.id });
 				}
 			}
 		);
