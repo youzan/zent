@@ -15,8 +15,7 @@ interface INavListItem {
 }
 
 interface IDropdownNavProps {
-  navTitle: string;
-  navList?: INavListItem[];
+  list?: INavListItem[];
   trigger?: 'hover' | 'click';
   onItemClick?: (
     e: React.MouseEvent<HTMLDivElement | HTMLLIElement>,
@@ -30,10 +29,10 @@ const TriggerButtonMap: Record<'hover' | 'click', ElementType> = {
 };
 
 export const DropdownNav: React.FC<IDropdownNavProps> = ({
-  navTitle = '下拉导航',
-  navList = [],
+  list = [],
   trigger = 'hover',
   onItemClick,
+  children,
 }) => {
   const TriggerButton = useMemo(() => {
     return TriggerButtonMap[trigger];
@@ -45,12 +44,12 @@ export const DropdownNav: React.FC<IDropdownNavProps> = ({
     >
       <TriggerButton>
         <DropdownButton className={'zent-dropdown-nav-btn'} type="text">
-          {navTitle}
+          {children}
         </DropdownButton>
       </TriggerButton>
       <DropdownContent>
         <Menu onClick={onItemClick}>
-          {navList.map(item => (
+          {list.map(item => (
             <MenuItem key={item.key}>{item.label}</MenuItem>
           ))}
         </Menu>
