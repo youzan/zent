@@ -133,7 +133,7 @@ export class SplitButton<Value> extends Component<ISplitButtonProps<Value>> {
               <Button
                 className={cx('zent-split-button__dropdown', {
                   'zent-split-button__dropdown-disabled': loading,
-                  'zent-split-button__dropdown-single': !children,
+                  'zent-split-button__dropdown-icononly': !children,
                 })}
                 type={type}
                 size={size}
