@@ -63,6 +63,7 @@ export interface IMenuCascaderCommonProps extends ICascaderBaseProps {
   limit?: number;
   multipleType?: 'normal' | 'checkbox';
   maxLine?: number | 'unset';
+  lineHeight?: number;
 }
 
 export interface IMenuCascaderSingleProps extends IMenuCascaderCommonProps {
@@ -215,8 +216,9 @@ export class MenuCascader extends Component<
     options: [],
     clearable: true,
     multiple: false,
-    multipleType: 'normal',
-    maxLine: 1,
+    multipleType: 'checkbox',
+    maxLine: 'unset',
+    lineHeight: 22,
     expandTrigger: 'click',
     scrollable: false,
     loadChildrenOnScroll: false,
@@ -667,6 +669,7 @@ export class MenuCascader extends Component<
       clearable,
       renderValue,
       maxLine,
+      lineHeight,
     } = this.props;
     const { selectedPaths, keyword } = this.state;
     const visible = this.getVisible();
@@ -686,6 +689,7 @@ export class MenuCascader extends Component<
             i18n,
             renderValue,
             maxLine,
+            lineHeight,
             onClear: this.onClear,
             onKeywordChange: this.onKeywordChange,
           };
@@ -693,7 +697,7 @@ export class MenuCascader extends Component<
           return (
             <Popover
               className={cx('zent-cascader-v2__popup', popupClassName)}
-              position={Popover.Position.AutoBottomLeft}
+              position={Popover.Position.CascaderAutoBottomLeft}
               visible={visible}
               onVisibleChange={this.onVisibleChange}
               cushion={4}

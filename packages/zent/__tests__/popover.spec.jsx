@@ -241,6 +241,8 @@ describe('Popover', () => {
       AutoTopCenter,
       AutoTopRight,
       AutoBottomLeftInViewport,
+      BottomSameWidth,
+      CascaderAutoBottomLeft,
     } = Popover.Position;
     const positionArr = [
       BottomLeft,
@@ -264,6 +266,8 @@ describe('Popover', () => {
       AutoTopCenter,
       AutoTopRight,
       AutoBottomLeftInViewport,
+      BottomSameWidth,
+      CascaderAutoBottomLeft,
     ];
 
     positionArr.forEach(pos => {

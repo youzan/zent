@@ -1,5 +1,6 @@
 import { ICascaderItem } from '../types';
 import Icon from '../../icon';
+import { getPathLabel } from '../path-fns';
 
 export interface ICascaderTagProps {
   path: ICascaderItem[];
@@ -12,10 +13,7 @@ function CascaderTag(props: ICascaderTagProps) {
 
   return (
     <div className="zent-cascader-v2--tag">
-      <span
-        title={renderValue(path) as string}
-        className="zent-cascader-v2--tag--path"
-      >
+      <span title={getPathLabel(path)} className="zent-cascader-v2--tag-path">
         {renderValue(path)}
       </span>
       <Icon

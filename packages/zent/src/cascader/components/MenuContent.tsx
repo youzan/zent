@@ -166,7 +166,7 @@ class MenuContent extends Component<IMenuContentProps> {
         'zent-cascader-v2__menu-item--active': isActive,
         'zent-cascader-v2__menu-item--disabled': node.disabled,
         'zent-cascader-v2__menu-item--multiple': multiple,
-        'zent-cascader-v2__menu-item--multiple--usecheck':
+        'zent-cascader-v2__menu-item--multiple--checkbox':
           multipleType === 'checkbox',
         'zent-cascader-v2__menu-item--multiple--normal':
           multipleType === 'normal',
@@ -234,7 +234,7 @@ class MenuContent extends Component<IMenuContentProps> {
                 loading
                 colorPreset="grey"
                 icon="circle"
-                iconText="加载中…"
+                iconText={i18n.empty}
                 textPosition="right"
                 className="zent-cascader-v2__menu-scroller-loading"
               />

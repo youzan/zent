@@ -18,6 +18,7 @@ interface ITagsTriggerProps extends ICascaderBaseTriggerProps {
 
   simplifyPaths: boolean;
   maxLine: number | 'unset';
+  lineHeight: number;
 }
 
 export class TagsTrigger extends Component<ITagsTriggerProps> {
@@ -43,11 +44,11 @@ export class TagsTrigger extends Component<ITagsTriggerProps> {
       selectionMap,
       simplifyPaths,
       maxLine,
+      lineHeight,
     } = this.props;
     const maxHeightStyle: CSSProperties = {};
-    const tagHeight = 22;
     if (maxLine > 1) {
-      maxHeightStyle.maxHeight = (maxLine as number) * tagHeight + 'px';
+      maxHeightStyle.maxHeight = (maxLine as number) * lineHeight + 'px';
       maxHeightStyle.overflowY = 'auto';
       return (
         <div style={maxHeightStyle} className="zent-cascader-v2-tag__list">

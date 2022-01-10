@@ -300,7 +300,7 @@ $menuHeight: 180px;
         &--normal {
           cursor: pointer;
         }
-        &--usecheck {
+        &--checkbox {
           cursor: initial;
         }
       }
@@ -337,7 +337,7 @@ $menuHeight: 180px;
     cursor: default;
     overflow: hidden;
 
-    &--path {
+    &-path {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
