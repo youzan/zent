@@ -20,6 +20,9 @@ import Icon from '../icon';
 import { EASE_IN_CUBIC, EASE_OUT_CUBIC } from '../utils/timingFunctions';
 import { TreeContent } from './TreeContent';
 
+const SINGLE_INDENT_WIDTH = 12;
+const SWITCHER_WIDTH = 20;
+
 export interface ITreeOperation {
   name: string;
   icon?: string | React.ReactNode;
@@ -413,18 +416,6 @@ export class Tree extends Component<ITreeProps, ITreeState> {
     return null;
   }
 
-  renderNodeIndent = (layers: number) => {
-    if (!layers) return null;
-    const layersArray = new Array(layers).fill(0).map((_, index) => index);
-    return (
-      <span className="zent-tree__indent">
-        {layersArray.map(key => (
-          <span className="zent-tree__indent__unit-start" key={key} />
-        ))}
-      </span>
-    );
-  };
-
   renderTreeNodes(roots: ITreeData[], layers = 0) {
     const { autoExpandOnSelect, selectable, onlyShowOneLine } = this.props;
     const {
@@ -444,6 +435,10 @@ export class Tree extends Component<ITreeProps, ITreeState> {
           'zent-tree-bar--disabled': isDisabled,
         });
 
+        const indentWidth =
+          layers * SINGLE_INDENT_WIDTH +
+          +!rootInfoMap[rootId].isParent * SWITCHER_WIDTH;
+
         return (
           <li key={rootId}>
             <div
@@ -454,12 +449,11 @@ export class Tree extends Component<ITreeProps, ITreeState> {
                 autoExpandOnSelect && this.handleExpand(root);
               }}
             >
-              {this.renderNodeIndent(layers)}
-              {rootInfoMap[rootId].isParent ? (
-                this.renderSwitcher(root)
-              ) : (
-                <div className="zent-tree__switcher-placeholder" />
-              )}
+              <span
+                className="zent-tree-bar__indent"
+                style={{ width: `${indentWidth}px` }}
+              />
+              {rootInfoMap[rootId].isParent && this.renderSwitcher(root)}
               <div
                 className={classnames('zent-tree-node', {
                   'zent-tree-node--one-line': onlyShowOneLine,
