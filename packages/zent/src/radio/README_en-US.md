@@ -10,17 +10,6 @@ group: Basics
 
 ### API
 
-#### RadioGroup
-
-| Props        | Description                                               | Type                 | Default             |
-| ------------ | --------------------------------------------------------- | -------------------- | ------------------- |
-| value        | Used to set the currently selected value                  | `any`                |                     |
-| disabled     | Disable the radio group                                   | `boolean`            |                     |
-| readOnly     | It specifies the component is read-only                   | `boolean`            |                     |
-| onChange     | change callback                                           | `(e: Event) => void` |                     |
-| isValueEqual | Optional, a function to determine whether values is equal | `(a, b) => boolean`  | `(a, b) => a === b` |
-| className    | custom classname                                          | `string`             |                     |
-
 #### Radio
 
 | Props      | Description                                     | Type                  | Default |
