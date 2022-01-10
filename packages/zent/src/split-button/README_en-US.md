@@ -2,11 +2,20 @@
 title: GroupButton
 path: component/split-button
 group: Basics
+scatter: true
 ---
 
 ## SplitButton
 
 SplitButton a button with a dropdown menu
+<!-- demo-slot-1 -->
+<!-- demo-slot-2 -->
+<!-- demo-slot-3 -->
+<!-- demo-slot-4 -->
+
+## RadioButton
+
+<!-- demo-slot-5 -->
 
 ### API
 
@@ -29,3 +38,14 @@ SplitButton a button with a dropdown menu
 ### onSelect
 
 the param in callback is dropdownValue
+
+#### RadioGroup
+
+| Props        | Description                                               | Type                 | Default             |
+| ------------ | --------------------------------------------------------- | -------------------- | ------------------- |
+| value        | Used to set the currently selected value                  | `any`                |                     |
+| disabled     | Disable the radio group                                   | `boolean`            |                     |
+| readOnly     | It specifies the component is read-only                   | `boolean`            |                     |
+| onChange     | change callback                                           | `(e: Event) => void` |                     |
+| isValueEqual | Optional, a function to determine whether values is equal | `(a, b) => boolean`  | `(a, b) => a === b` |
+| className    | custom classname                                          | `string`             |                     |
