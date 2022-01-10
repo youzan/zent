@@ -41,15 +41,6 @@
       }
     }
   }
-
-  &__indent {
-    display: inline-block;
-
-    &__unit-start {
-      display: inline-block;
-      width: 12px;
-    }
-  }
 }
 
 .zent-tree.zent-tree-large {
@@ -58,9 +49,6 @@
   .zent-tree-bar {
     .zent-tree-switcher {
       font-size: 24px;
-    }
-    .zent-tree__switcher-placeholder {
-      width: 24px;
     }
   }
 }
