@@ -540,7 +540,6 @@ export class Select<
       options: _options,
       filter,
       isValidNewOption,
-      isEqual,
     } = this.props;
 
     const options = this.filterOptions(
@@ -549,8 +548,7 @@ export class Select<
       filter,
       creatable,
       isValidNewOption,
-      value,
-      isEqual
+      value
     );
     if (activeIndex !== null) {
       this.onSelect(options[activeIndex]);
@@ -636,18 +634,14 @@ export class Select<
       return;
     }
     this.setState(
-      (
-        state,
-        { options: _options, creatable, filter, isValidNewOption, isEqual }
-      ) => {
+      (state, { options: _options, creatable, filter, isValidNewOption }) => {
         const options = this.filterOptions(
           state.keyword,
           _options,
           filter,
           creatable,
           isValidNewOption,
-          state.value,
-          isEqual
+          state.value
         );
 
         let nextIndex: number;
@@ -900,7 +894,6 @@ export class Select<
       options,
       filter,
       isValidNewOption,
-      isEqual,
     } = this.props;
     const keyword = this.state.keyword.trim();
     const value = this.state.value;
@@ -915,8 +908,7 @@ export class Select<
       filter,
       creatable,
       isValidNewOption,
-      value,
-      isEqual
+      value
     );
     return filtered?.length ? (
       renderOptionList(filtered, this.renderOption)
