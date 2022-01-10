@@ -3,17 +3,26 @@ title: GroupButton
 subtitle: 按钮组
 path: component/split-button
 group: 基础控件
+scatter: true
 ---
 
 ## SplitButton 下拉按钮
 
 SplitButton 带有下拉菜单功能的按钮
+<!-- demo-slot-1 -->
+<!-- demo-slot-2 -->
+<!-- demo-slot-3 -->
+<!-- demo-slot-4 -->
+
+## RadioButton 带选中状态的按钮组
+
+<!-- demo-slot-5 -->
 
 ### API
 
 | 参数             | 说明                                                                         | 类型   | 默认值               | 备选值                               |
 | ---------------- | ---------------------------------------------------------------------------- | ------ | -------------------- | ------------------------------------ |
-| type             | 按钮风格                                                                     | string | `'default'`          | `'primary'`                          |
+| type             | 按钮风格                                                                     | string | `'default'`          | `'primary'`、`'text'`                  |
 | disabled         | 按钮是否禁用                                                                 | bool   | `false`              | `true`、`false`                      |
 | loading          | 是否显示 loading 图标                                                        | bool   | `false`              | `true`, `false`                      |
 | size             | 按钮尺寸                                                                     | string | `'medium'`           | `'large'`、`'medium'`、`'small'`     |
@@ -30,3 +39,14 @@ SplitButton 带有下拉菜单功能的按钮
 ### onSelect
 
 回调函数内参数为 dropdownValue
+
+#### RadioGroup
+
+| 参数         | 说明                            | 类型                          | 默认值              |
+| ------------ | ------------------------------- | ----------------------------- | ------------------- |
+| value        | 用于设置当前选中的值            | `any`                         |                     |
+| disabled     | 使组件不可用                    | `boolean`                     |                     |
+| readOnly     | 使组件只读                      | `boolean`                     |                     |
+| onChange     | 选项变化时的回调函数            | `(e: Event) => void`          |                     |
+| isValueEqual | 可选参数，判断 value 值是否相等 | `(a: any, b: any) => boolean` | `(a, b) => a === b` |
+| className    | 自定义额外类名                  | `string`                      |                     |

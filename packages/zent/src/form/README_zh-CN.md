@@ -2,7 +2,7 @@
 title: Form
 subtitle: 表单
 path: component/form
-group: 数据
+group: 信息录入
 scatter: true
 ---
 

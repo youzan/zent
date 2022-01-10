@@ -130,6 +130,13 @@ $input-width-xl: $default-form-width-xl;
     .zent-input-icon {
       @include theme-color(color, stroke, 4);
     }
+    .zent-input-icon-click {
+      cursor: not-allowed;
+      @include theme-color(color, stroke, 4);
+      &:hover {
+        background: transparent;
+      }
+    }
   }
 }
 

@@ -30,18 +30,22 @@ class App extends Component {
 
 	render() {
 		return (
-			<>
+			<div className="demo-multiple-line">
 				<RadioGroup onChange={this.onChange} value="1">
 					<Radio value="1" labelStyle={this.state.style}>
 						{i18n.text1}
 						<p>{i18n.text2}</p>
 					</Radio>
-					<p style={{ color: '#969799', marginTop: 8, fontSize: '12px' }}>{i18n.text3}</p>
 				</RadioGroup>
-			</>
+			</div>
 		);
 	}
 }
 
 ReactDOM.render(<App />, mountNode);
 ```
+<style>
+.demo-multiple-line .zent-radio{
+  vertical-align: 10px !important;
+}
+</style>

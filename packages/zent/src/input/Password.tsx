@@ -2,16 +2,22 @@ import Input from './Input';
 import { useState, useCallback } from 'react';
 import { IInputCoreProps } from './types';
 
-export const Password = (props: IInputCoreProps) => {
+export type IPasswordProps = Omit<IInputCoreProps, 'icon' | 'type'>;
+
+export const Password = (props: IPasswordProps) => {
   const [visible, setVisible] = useState(false);
-  const { icon, type, onIconClick, ...restProps } = props;
+  const { onIconClick, ...restProps } = props;
   const { disabled } = props;
-  const onVisibleChange = useCallback(() => {
-    if (disabled) {
-      return;
-    }
-    setVisible(!visible);
-  }, [visible, disabled]);
+  const onVisibleChange = useCallback(
+    e => {
+      if (disabled) {
+        return;
+      }
+      setVisible(!visible);
+      onIconClick?.(e);
+    },
+    [visible, disabled, onIconClick]
+  );
 
   return (
     <Input

@@ -14,30 +14,31 @@ en-US:
 import { Password } from 'zent';
 
 class EventTest extends React.Component {
-	state = {
-		value: '',
-	};
+  state = {
+    value: '',
+  };
 
-	onChange = e => {
-		this.setState({ value: e.target.value });
-	};
+  onChange = e => {
+    this.setState({ value: e.target.value });
+  };
 
-	render() {
-		return (
-			<div>
-				<Password />
-				<Password
-					onChange={this.onChange}
-					value={this.state.value}
-					showClear
-				/>
-			</div>
-		);
-	}
+  render() {
+    return (
+      <div>
+        <Password />
+				<Password disabled/>
+        <Password
+          onChange={this.onChange}
+          value={this.state.value}
+          showClear
+        />
+      </div>
+    );
+  }
 }
 
 ReactDOM.render(
-	<EventTest />,
-	mountNode
+  <EventTest />,
+  mountNode
 );
 ```

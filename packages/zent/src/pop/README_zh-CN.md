@@ -5,7 +5,7 @@ path: component/pop
 group: 容器
 ---
 
-## 操作面板 Popover
+## 操作面板 Pop
 
 跟随目标元素出现的非模态窗口，常用于轻量的信息展示和数据输入。
 
