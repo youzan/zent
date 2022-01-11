@@ -55,14 +55,13 @@ function CascaderTagList(props: ICascaderTagsProps) {
           content={
             <div className="zent-cascader-v2-tag-collapsed-content">
               <div>
-                {renderCollapsePaths.map((item, index) => {
-                  return (
-                    <span key={getPathValue(item)}>
-                      {getPathLabel(item)}
-                      {index === renderCollapsePaths.length - 1 ? '' : '、'}
-                    </span>
-                  );
-                })}
+                <span>
+                  {renderCollapsePaths
+                    .map(item => {
+                      return getPathLabel(item);
+                    })
+                    .join('、')}
+                </span>
               </div>
             </div>
           }

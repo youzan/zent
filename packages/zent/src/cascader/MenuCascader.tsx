@@ -62,7 +62,7 @@ export interface IMenuCascaderCommonProps extends ICascaderBaseProps {
   highlight?: (keyword: string, path: ICascaderItem[]) => React.ReactNode;
   limit?: number;
   multipleType?: 'normal' | 'checkbox';
-  maxLine?: number | 'unset';
+  maxLine?: number | null;
   lineHeight?: number;
 }
 
@@ -217,7 +217,7 @@ export class MenuCascader extends Component<
     clearable: true,
     multiple: false,
     multipleType: 'checkbox',
-    maxLine: 'unset',
+    maxLine: null,
     lineHeight: 22,
     expandTrigger: 'click',
     scrollable: false,

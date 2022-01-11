@@ -284,7 +284,7 @@ $menuHeight: 180px;
       }
 
       &--active:not(&--multiple--checkbox) {
-        font-weight: 500;
+        font-weight: $font-weight-medium;
       }
 
       &--disabled {
@@ -382,7 +382,7 @@ $menuHeight: 180px;
       &--active {
         @include theme-color(background-color, primary, 8);
         @include theme-color(color, stroke, 1);
-        font-weight: 500;
+        font-weight: $font-weight-medium;
         border-radius: 2px;
       }
     }

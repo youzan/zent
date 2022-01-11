@@ -17,7 +17,7 @@ interface ITagsTriggerProps extends ICascaderBaseTriggerProps {
   ) => React.ReactNode;
 
   simplifyPaths: boolean;
-  maxLine: number | 'unset';
+  maxLine: number | null;
   lineHeight: number;
 }
 
@@ -46,24 +46,7 @@ export class TagsTrigger extends Component<ITagsTriggerProps> {
       maxLine,
       lineHeight,
     } = this.props;
-    const maxHeightStyle: CSSProperties = {};
-    if (maxLine > 1) {
-      maxHeightStyle.maxHeight = (maxLine as number) * lineHeight + 'px';
-      maxHeightStyle.overflowY = 'auto';
-      return (
-        <div style={maxHeightStyle} className="zent-cascader-v2-tag__list">
-          <Tags
-            list={selectedPaths}
-            selectionMap={selectionMap}
-            simplifyPaths={simplifyPaths}
-            renderValue={renderValue}
-            collapse={maxLine === 1}
-            onRemove={onRemove}
-          />
-        </div>
-      );
-    }
-    return (
+    const tagEl = (
       <Tags
         list={selectedPaths}
         selectionMap={selectionMap}
@@ -73,6 +56,17 @@ export class TagsTrigger extends Component<ITagsTriggerProps> {
         onRemove={onRemove}
       />
     );
+    const maxHeightStyle: CSSProperties = {};
+    if (maxLine > 1) {
+      maxHeightStyle.maxHeight = maxLine * lineHeight + 'px';
+      maxHeightStyle.overflowY = 'auto';
+      return (
+        <div style={maxHeightStyle} className="zent-cascader-v2-tag__list">
+          {tagEl}
+        </div>
+      );
+    }
+    return tagEl;
   }
 
   render() {
