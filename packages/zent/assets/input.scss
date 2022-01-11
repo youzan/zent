@@ -125,6 +125,15 @@ $input-width-xl: $default-form-width-xl;
     }
   }
 
+  .zent-input.zent-input--icon {
+    &-front {
+      padding-left: 4px;
+    }
+    &-end {
+      padding-right: 4px;
+    }
+  }
+
   &-disabled {
     cursor: not-allowed;
     .zent-input-icon {
@@ -190,10 +199,12 @@ $input-width-xl: $default-form-width-xl;
   @include theme-color(color, stroke, 1);
   display: inline-block;
   height: 100%;
-  padding: 0 9px;
+  padding: 0 12px;
   box-sizing: border-box;
   vertical-align: middle;
   font-size: $font-size-normal;
+  text-align: center;
+  min-width: 40px;
 }
 
 .zent-input-addon-before {

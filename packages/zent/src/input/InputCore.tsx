@@ -54,6 +54,10 @@ export const InputCore = forwardRef<
     'zent-input-icon-click': !!onIconClick,
   });
 
+  const inputClass = cx('zent-input', {
+    [`zent-input--icon-${iconPosition}`]: !!icon,
+  });
+
   return (
     <>
       {addonBefore && (
@@ -71,7 +75,7 @@ export const InputCore = forwardRef<
       <input
         {...otherProps}
         ref={ref}
-        className="zent-input"
+        className={inputClass}
         value={value}
         onChange={onChange}
         onCompositionStart={onCompositionStart}
