@@ -315,23 +315,40 @@ describe('Tabs', () => {
   });
 
   it('canFixed Tabs', () => {
+    const onFixedChange = jest.fn();
+    const wrapper = mount(
+      <Tabs activeId="foobar" candel canFixed onFixedChange={onFixedChange}>
+        <TabPanel id="foobar" tab="foobar-tab">
+          foobar
+        </TabPanel>
+      </Tabs>
+    );
+    expect(wrapper.find('.zent-tabs-tab-actions--fixed').length).toBe(0);
+    expect(wrapper.find('.zent-tabs-tab__actions__fixed').length).toBe(1);
+    expect(wrapper.find('.zent-tabs-tab__actions__delete').length).toBe(1);
+    wrapper.find('.zent-tabs-tab__actions__fixed').at(0).simulate('click');
+    expect(onFixedChange.mock.calls.length).toBe(1);
+    expect(onFixedChange.mock.calls[0][0]).toStrictEqual(['foobar']);
+  });
+
+  it('Controlled fixed Tabs', () => {
+    const onFixedChange = jest.fn();
     const wrapper = mount(
       <Tabs
         activeId="foobar"
         candel
         canFixed
-        navExtraContent={<span>当前网点：文三路店</span>}
+        fixedIds={['foobar']}
+        onFixedChange={onFixedChange}
       >
         <TabPanel id="foobar" tab="foobar-tab">
           foobar
         </TabPanel>
       </Tabs>
     );
-    expect(wrapper.find('.zent-tabs-tab__actions__fixed').length).toBe(1);
-    expect(wrapper.find('.zent-tabs-tab__actions__delete').length).toBe(1);
     wrapper.find('.zent-tabs-tab__actions__fixed').at(0).simulate('click');
-    expect(wrapper.find('.zent-tabs-tab__actions__delete').length).toBe(0);
-    expect(wrapper.find('.zent-tabs-tab-actions--fixed').length).toBe(1);
+    expect(onFixedChange.mock.calls.length).toBe(1);
+    expect(onFixedChange.mock.calls[0][0]).toStrictEqual([]);
   });
 
   it('navExtraContent', () => {

@@ -2,7 +2,7 @@ import BaseTabsNav from '../base/BaseTabsNav';
 import OperationTabs from './OperationTabs';
 import cn from 'classnames';
 import { IInnerTab, ITabsNavProps } from '../../types';
-import { commonTransformTabData } from '../../utils';
+import { commonTransformTabData, getFixedProps } from '../../utils';
 
 abstract class CommonTabsNav<
   Id extends string | number = string
@@ -34,9 +34,9 @@ abstract class CommonTabsNav<
   transformTabDataList(
     tabDataList: Array<IInnerTab<Id>>
   ): Array<IInnerTab<Id>> {
-    const { candel, canFixed } = this.props;
+    const { candel } = this.props;
     return tabDataList.map(tabItem =>
-      commonTransformTabData(tabItem, candel, canFixed)
+      commonTransformTabData(tabItem, candel, getFixedProps(this.props))
     );
   }
 

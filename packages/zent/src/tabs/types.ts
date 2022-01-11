@@ -4,6 +4,12 @@ export interface IVerticalDivide {
   divide: true;
 }
 
+export interface IFixedProps<Id = string | number> {
+  canFixed?: boolean;
+  fixedIds?: Id[];
+  onFixedChange?: (ids: Id[]) => void;
+}
+
 export interface ITab<Id> {
   key: Id;
   title: React.ReactNode;
@@ -13,11 +19,10 @@ export interface ITab<Id> {
 
 export type IVerticalTab<Id> = ITab<Id> | IVerticalDivide;
 
-export interface IInnerTab<Id> extends ITab<Id> {
+export interface IInnerTab<Id> extends ITab<Id>, IFixedProps<Id> {
   actived: boolean;
   unmountOnHide?: boolean;
   panelChildren?: React.ReactNode;
-  canFixed?: boolean;
 }
 
 export type IVerticalInnerTab<Id> = IInnerTab<Id> | IVerticalDivide;
@@ -51,7 +56,9 @@ export interface IBaseTabsProps<Id, TabPanelProps> {
     | Array<ITabPanelElement<TabPanelProps>>;
 }
 
-export interface ITabsProps<Id> extends IBaseTabsProps<Id, ITabPanelProps<Id>> {
+export interface ITabsProps<Id>
+  extends IBaseTabsProps<Id, ITabPanelProps<Id>>,
+    IFixedProps<Id> {
   onDelete: (id: Id) => void;
   onAdd: () => void;
   candel: boolean;
@@ -59,7 +66,6 @@ export interface ITabsProps<Id> extends IBaseTabsProps<Id, ITabPanelProps<Id>> {
   navExtraContent: React.ReactNode;
   type?: TabType;
   overflowMode?: ITabOverflowMode;
-  canFixed?: boolean;
   renderTabBar?: (
     props: ITabsNavProps<Id>,
     TabBar: ComponentType<ITabsNavProps<any>>
@@ -77,10 +83,10 @@ export interface IBaseTabsNavProps<Id, InnerTab> {
 }
 
 export interface ITabsNavProps<Id>
-  extends IBaseTabsNavProps<Id, IInnerTab<Id>> {
+  extends IBaseTabsNavProps<Id, IInnerTab<Id>>,
+    IFixedProps<Id> {
   onDelete: (id: Id) => void;
   candel: boolean;
-  canFixed?: boolean;
   stretch: boolean;
   navExtraContent: React.ReactNode;
   type: TabType;
@@ -100,12 +106,11 @@ export interface IVerticalTabsNavProps<Id>
   scrollHeight?: React.CSSProperties['maxHeight'];
 }
 
-export interface ITabProps<Id> {
+export interface ITabProps<Id> extends IFixedProps<Id> {
   id: Id;
   onSelected: (id: Id) => void;
   onDelete?: (id: Id) => void;
   actived?: boolean;
   disabled?: boolean;
   candel?: boolean;
-  canFixed?: boolean;
 }

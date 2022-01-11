@@ -45,6 +45,8 @@ scatter: true
 | onAdd              | 添加 tab 时                                                          | () => void                                                                           |            |                      | 否       |
 | candel             | 是否可删除                                                           | bool                                                                                 | `false`    |                      | 否       |
 | canFixed           | 是否可固定                                                           | bool                                                                                 | `false`    |                      | 否       |
+| fixedIds           | 当前固定的 tab                                                       | `Id[]`                                                                               |            |                      | 否       |
+| onFixedChange      | 当前固定状态改变时的回调                                             | `(ids: Id[]) => void`                                                                |            |                      | 否       |
 | unmountPanelOnHide | panel 非 active 时，不使用 `display: none` 隐藏而是直接 unmount 组件 | bool                                                                                 | `false`    |                      | 否       |
 | overflowMode       | 标签过多时查看全部标签的方式                                         | string                                                                               | `'anchor'` | `'slide'`            | 否       |
 | disableLazyMount   | 禁用 `TabPanel` 延迟挂载                                             | bool                                                                                 | `false`    |                      | 否       |

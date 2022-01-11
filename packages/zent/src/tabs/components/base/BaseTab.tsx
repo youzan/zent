@@ -6,16 +6,17 @@ import Icon from '../../../icon';
 abstract class BaseTab<Id> extends Component<ITabProps<Id>, ITabNavState> {
   protected abstract typeName: string;
 
-  state = {
-    fixed: false,
-  };
-
   get tabsCls() {
     const { actived, disabled } = this.props;
     return cn('zent-tabs-tab', `zent-tabs-tab-type__${this.typeName}`, {
       ['zent-tabs-tab__actived']: actived,
       ['zent-tabs-tab__disabled']: disabled,
     });
+  }
+
+  get isFixed() {
+    const { id, fixedIds = [] } = this.props;
+    return fixedIds.includes(id);
   }
 
   onDel = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
@@ -33,20 +34,22 @@ abstract class BaseTab<Id> extends Component<ITabProps<Id>, ITabNavState> {
 
   onClickFixed = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     e.stopPropagation();
-    const { fixed } = this.state;
-    this.setState({ fixed: !fixed });
+    const { fixedIds = [], onFixedChange, id } = this.props;
+    const ids = this.isFixed
+      ? fixedIds.filter(key => key !== id)
+      : [...fixedIds, id];
+    onFixedChange?.(ids);
   };
 
   renderDelOperater() {
     const { candel, canFixed } = this.props;
-    const { fixed } = this.state;
     return candel ? (
       <div
         className={cn('zent-tabs-tab__actions', {
-          'zent-tabs-tab-actions--fixed': fixed,
+          'zent-tabs-tab-actions--fixed': this.isFixed,
         })}
       >
-        {!fixed && (
+        {!this.isFixed && (
           <span className="zent-tabs-tab__actions__delete" onClick={this.onDel}>
             ✕
           </span>
@@ -56,7 +59,7 @@ abstract class BaseTab<Id> extends Component<ITabProps<Id>, ITabNavState> {
             className="zent-tabs-tab__actions__fixed"
             onClick={this.onClickFixed}
           >
-            {fixed ? <Icon type="pin" /> : <Icon type="pin-o" />}
+            {this.isFixed ? <Icon type="pin" /> : <Icon type="pin-o" />}
           </span>
         )}
       </div>
