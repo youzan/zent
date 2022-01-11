@@ -241,6 +241,7 @@ describe('Popover', () => {
       AutoTopCenter,
       AutoTopRight,
       AutoBottomLeftInViewport,
+      CascaderAutoBottomLeft,
     } = Popover.Position;
     const positionArr = [
       BottomLeft,
@@ -264,6 +265,7 @@ describe('Popover', () => {
       AutoTopCenter,
       AutoTopRight,
       AutoBottomLeftInViewport,
+      CascaderAutoBottomLeft,
     ];
 
     positionArr.forEach(pos => {
@@ -418,10 +420,9 @@ describe('Popover', () => {
     wrapper.find('button').simulate('click');
     jest.runAllTimers();
     expect(document.querySelectorAll('.zent-popover-v2').length).toBe(1);
-
-    wrapper.unmount();
     dispatchWithTimers(document.body, new MouseEvent('click'));
     expect(document.querySelectorAll('.zent-popover-v2').length).toBe(0);
+    wrapper.unmount();
   });
 
   it('hover trigger closes on window blur', () => {

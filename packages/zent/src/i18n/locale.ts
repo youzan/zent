@@ -72,6 +72,7 @@ export interface II18nLocaleCascader extends II18nLocaleCommon {
   searchPlaceholder: string;
   searchEmpty: string;
   empty: string;
+  loading: string;
 }
 
 export interface II18nLocaleTimePicker extends II18nLocaleCommon {

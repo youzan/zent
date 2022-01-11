@@ -262,7 +262,7 @@ export class TabsCascader extends Component<
           return (
             <Popover
               className={cx('zent-cascader-v2__popup', popupClassName)}
-              position={Popover.Position.AutoBottomLeft}
+              position={Popover.Position.CascaderAutoBottomLeft}
               visible={visible}
               onVisibleChange={this.onVisibleChange}
               cushion={4}
