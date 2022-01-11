@@ -1,6 +1,6 @@
 import cx from 'classnames';
 import { PureComponent, ReactNode } from 'react';
-
+import { Progress } from '../progress';
 import { AlertTypes } from './types';
 import AlertItem from './components/AlertItem';
 import { PartialRequired } from '../utils/types';
@@ -116,12 +116,15 @@ export class Alert extends PureComponent<IAlertProps, IAlertState> {
       }
     );
 
-    const progressCls = cx('zent-alert__progress', `zent-alert-style-${type}`);
-
     return (
       <div className={containerCls} {...restDivAttrs}>
         {!!progress && (
-          <i className={progressCls} style={{ width: `${progress}%` }} />
+          <Progress
+            className="zent-alert__progress"
+            percent={progress}
+            showInfo={false}
+            strokeWidth={2}
+          />
         )}
         <AlertItem {...restProps} onAlertItemClose={this.onCloseHandler}>
           {this.props.children}

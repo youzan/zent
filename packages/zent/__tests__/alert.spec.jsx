@@ -115,6 +115,15 @@ describe('Alert', () => {
     ).toBe(true);
   });
 
+  it('alert progress', () => {
+    const wrapper = mount(
+      <Alert progress={40}>
+        <span>foobar</span>
+      </Alert>
+    );
+    expect(wrapper.find('.zent-alert__progress').exists()).toBe(true);
+  });
+
   it('have onClose callback', () => {
     const onClose = jest.fn();
     const wrapper = mount(<Alert closable onClose={onClose} />);

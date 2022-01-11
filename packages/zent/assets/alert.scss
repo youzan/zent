@@ -64,14 +64,15 @@ $type-map: (
     border: none;
   }
 
-  &__progress {
-    @include theme-border(1px, solid, stroke, 5);
-    display: inline-block;
+  &__progress.zent-progress {
+    width: 100%;
     position: absolute;
     top: 0;
     left: 0;
-    transition: width 200ms $timing-fn-linear;
-    border-radius: 1px;
+
+    .zent-progress-wrapper {
+      background-color: transparent;
+    }
   }
 }
 
