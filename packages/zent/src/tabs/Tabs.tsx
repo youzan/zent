@@ -89,6 +89,8 @@ export class Tabs<Id extends string | number = string> extends BaseTabs<
       type,
       candel,
       canFixed,
+      fixedIds,
+      onFixedChange,
       stretch,
       navExtraContent,
       onChange,
@@ -114,7 +116,12 @@ export class Tabs<Id extends string | number = string> extends BaseTabs<
       navExtraContent,
       type,
       activeId,
+      onFixedChange,
     };
+
+    if ('fixedIds' in this.props) {
+      tabNavProps.fixedIds = fixedIds;
+    }
 
     if (renderTabBar) {
       return renderTabBar(tabNavProps, TabsNavComp);

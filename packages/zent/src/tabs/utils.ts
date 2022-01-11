@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { IInnerTab, ITabPanelProps } from './types';
+import { IFixedProps, IInnerTab, ITabPanelProps, ITabsNavProps } from './types';
 
 export function getTabDataFromChild<Id>(
   child: React.ReactElement<React.PropsWithChildren<ITabPanelProps<Id>>>,
@@ -29,7 +29,7 @@ export function getTabDataFromChild<Id>(
 export function commonTransformTabData<Id>(
   tabItem: IInnerTab<Id>,
   candel: boolean,
-  canFixed?: boolean
+  fixedProps: IFixedProps<Id> = {}
 ) {
   return {
     key: tabItem.key,
@@ -38,11 +38,25 @@ export function commonTransformTabData<Id>(
     title: tabItem.title,
     className: tabItem.className,
     candel: candel && !tabItem.disabled,
-    canFixed,
+    ...fixedProps,
   };
 }
 
 export const getTabPanelStringTitle = (title: ReactNode) => {
   if (typeof title === 'string') return title;
   return undefined;
+};
+
+export const getFixedProps = <Id>(
+  props: ITabsNavProps<Id>
+): IFixedProps<Id> => {
+  const { canFixed, fixedIds, onFixedChange } = props;
+  const fixedProps: IFixedProps<Id> = {
+    canFixed,
+    onFixedChange,
+  };
+  if ('fixedIds' in props) {
+    fixedProps.fixedIds = fixedIds;
+  }
+  return fixedProps;
 };
