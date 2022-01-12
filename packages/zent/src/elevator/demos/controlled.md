@@ -1,13 +1,13 @@
 ---
-order: 3
+order: 5
 zh-CN:
-	title: 设置锚点滚动偏移量
+	title: 受控的电梯
 	DirectoryOne: 页面目录一
 	DirectoryTwo: 页面目录二
 	DirectoryThree: 页面目录三
 	DirectoryFour: 页面目录四
 en-US:
-	title: Sets the anchor point roll offset
+	title: Controlled
 	DirectoryOne: Page Directory One
 	DirectoryTwo: Page Directory Two
 	DirectoryThree: Page Directory Three
@@ -15,8 +15,8 @@ en-US:
 ---
 
 ```js
-import { Elevator, LayoutRow, LayoutCol } from 'zent';
-import { useRef, useState, useEffect } from 'react';
+import { Elevator, LayoutRow, LayoutCol, Button } from 'zent';
+import { useRef, useState } from 'react';
 
 const LINKS = [
 	{
@@ -39,14 +39,7 @@ const LINKS = [
 
 const Demo = () => {
 	const ref = useRef(null);
-	const [targetOffset, setTargetOffset] = useState(undefined);
-
-	useEffect(() => {
-		if (ref.current) {
-			const offset = ref.current.getBoundingClientRect().height / 2;
-			setTargetOffset(offset);
-		}
-	}, [ref]);
+	const [activeLink, setActiveLink] = useState('{i18n.DirectoryOne}');
 
 	const renderBlock = () => (
 		<div className="zent-demo-elevator-basic__block">
@@ -63,15 +56,21 @@ const Demo = () => {
 
 	return (
 		<div className="zent-demo-elevator-basic" ref={ref}>
-			<Elevator getContainer={() => ref.current} targetOffset={targetOffset}>
+			<Elevator
+				getContainer={() => ref.current}
+				activeLink={activeLink}
+				onChange={(link, pre) => setActiveLink(link)}
+				targetOffset={40}
+			>
+				{LINKS.map(link => (
+					<Button onClick={() => setActiveLink(link.link)}>{link.title}</Button>
+				))}
 				<LayoutRow>
-					<LayoutCol span={14}>{renderBlock()}</LayoutCol>
+					<LayoutCol span={14}>
+						<div>{renderBlock()}</div>
+					</LayoutCol>
 					<LayoutCol span={8} offset={14}>
-						<Elevator.Links
-							offsetTop={24}
-							links={LINKS}
-							style={{ float: 'right' }}
-						/>
+						<Elevator.Links offsetTop={24} offsetBottom={24} links={LINKS} />
 					</LayoutCol>
 				</LayoutRow>
 			</Elevator>
@@ -81,3 +80,16 @@ const Demo = () => {
 
 ReactDOM.render(<Demo />, mountNode);
 ```
+
+<style>
+	.zent-demo-elevator-basic {
+		background: #f7f7f7;
+		padding: 24px;
+		height: 200px;
+		overflow-y: auto;
+	}
+
+	.zent-demo-elevator-basic__block__content {
+		height: 180px;
+	}
+</style>
