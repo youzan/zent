@@ -1,4 +1,4 @@
-import { FC, useCallback, useMemo, useState } from 'react';
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import isNil from '../utils/isNil';
 import { smoothScroll } from '../utils/scroll';
 import { ElevatorContext } from './context';
@@ -11,6 +11,7 @@ export interface IElevatorProps {
   getContainer?: () => HTMLElement;
   targetOffset?: number;
   offsetTop?: number;
+  activeLink?: string;
   defaultActiveLink?: string;
   onChange?: (currentLink: string, previousLink: string) => void;
 }
@@ -29,15 +30,22 @@ export const Elevator: IElevator = ({
   getContainer,
   defaultActiveLink,
   offsetTop: propOffsetTop,
+  activeLink: propActiveLink,
 }) => {
   const getContainerResult = getContainer?.();
-  const [activeLink, setActiveLink] = useState<string>(defaultActiveLink || '');
   const [anchorElementsMap, setAnchorElementsMap] = useState<
     Map<string, HTMLElement>
   >(new Map());
+  const [internalActiveLink, setInternalActiveLink] = useState<string>('');
+  const activeLink = useMemo(
+    () => (!isNil(propActiveLink) ? propActiveLink : internalActiveLink),
+    [propActiveLink, internalActiveLink]
+  );
+  const isScrolling = useRef(false);
 
   const handleAnchorEnter = (link: string) => {
-    setActiveLink(link);
+    setInternalActiveLink(link);
+    if (isScrolling.current || link === activeLink) return;
     onChange?.(link, activeLink);
   };
 
@@ -70,8 +78,9 @@ export const Elevator: IElevator = ({
     });
   }, []);
 
-  const handleLinkClick = (link: string) => {
+  const handleScrollToLink = (link: string, controlled = false) => {
     const el = anchorElementsMap.get(link);
+    if (!el) return;
     const bounds = el.getBoundingClientRect();
     let container: HTMLElement | Window = getDefaultContainer();
     let containerTop = 0;
@@ -88,8 +97,34 @@ export const Elevator: IElevator = ({
     const scrollTopTarget =
       bounds.top - containerTop + scrollTop - (targetOffset || 0);
 
-    smoothScroll(container, scrollLeft, scrollTopTarget, SCROLL_DURATION);
+    isScrolling.current = true;
+    smoothScroll(container, scrollLeft, scrollTopTarget, SCROLL_DURATION).then(
+      () => {
+        isScrolling.current = false;
+        !controlled && onChange?.(link, activeLink);
+      }
+    );
   };
+
+  const handleLinkClick = (link: string) => {
+    if (isNil(propActiveLink)) {
+      handleScrollToLink(link);
+    } else if (link !== activeLink) {
+      onChange?.(link, activeLink);
+    }
+  };
+
+  useEffect(() => {
+    if (!isNil(propActiveLink) && propActiveLink !== internalActiveLink) {
+      handleScrollToLink(propActiveLink, true);
+    }
+
+    if (isNil(propActiveLink) && defaultActiveLink) {
+      handleScrollToLink(defaultActiveLink);
+    }
+    // 受控状态下仅在外部传入的 activeLink 改变时触发滚动
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [propActiveLink, anchorElementsMap, defaultActiveLink]);
 
   return (
     <ElevatorContext.Provider

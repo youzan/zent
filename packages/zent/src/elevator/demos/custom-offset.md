@@ -55,11 +55,7 @@ const Demo = () => {
 
 	return (
 		<div className="zent-demo-elevator-basic" ref={ref}>
-			<Elevator
-				getContainer={() => ref.current}
-				offsetTop={50}
-				defaultActiveLink="{i18n.DirectoryOne}"
-			>
+			<Elevator getContainer={() => ref.current} offsetTop={50}>
 				<LayoutRow>
 					<LayoutCol span={14}>{renderBlock()}</LayoutCol>
 					<LayoutCol span={8} offset={14}>
