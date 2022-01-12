@@ -33,10 +33,11 @@ describe('Swiper', () => {
 
   it('can change page', () => {
     const childs = [1, 2, 3];
+    const onChange = jest.fn();
     class Test extends Component {
       render() {
         return (
-          <Swiper arrows>
+          <Swiper arrows onChange={onChange}>
             {childs.map((item, index) => (
               <div key={index} className="swiper-text-child">
                 {item}
@@ -56,6 +57,7 @@ describe('Swiper', () => {
     ).toBe(true);
     expect(wrapper.find('.swiper-text-child').length).toBe(5);
     wrapper.find('.zent-swiper__arrow').at(0).simulate('click');
+    expect(onChange.mock.calls.length).toBe(1);
     jest.runOnlyPendingTimers();
     expect(
       wrapper
