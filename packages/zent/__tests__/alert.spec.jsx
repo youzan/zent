@@ -428,12 +428,13 @@ describe('Banner And Prompt', () => {
       </Banner>
     );
     const wrapper2 = shallow(
-      <Banner>
+      <Banner style={{ fontSize: '14px' }}>
         <span>Banner</span>
       </Banner>
     );
     expect(wrapper1.find('.zent-banner').length).toBe(1);
     expect(wrapper2.find('.zent-banner').length).toBe(1);
+    expect(wrapper2.find('.zent-banner').props().style.fontSize).toBe('14px');
   });
   it('render children into Prompt', () => {
     const wrapper1 = mount(
