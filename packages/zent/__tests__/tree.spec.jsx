@@ -59,7 +59,7 @@ describe('new Tree', () => {
       <NewTree dataType="plain" renderKey={renderKey} data={data} />
     );
     const state = wrapper.state();
-    expect(wrapper.find('span').at(0).text()).toBe('root');
+    expect(wrapper.find('span').at(1).text()).toBe('root');
     expect(state.tree[0].name).toBe('root');
     expect(state.tree[0].uId).toBe(1);
     expect(state.tree[0].group.length).toBe(2);
@@ -125,11 +125,11 @@ describe('new Tree', () => {
     const example = wrapper.find('li').at(0).childAt(0);
     expect(example.hasClass('zent-tree-bar')).toBe(true);
     expect(example.hasClass('zent-tree-bar--off')).toBe(true);
-    expect(example.children().length).toBe(2);
+    expect(example.children().length).toBe(3);
     expect(example.find('ZentIcon').length).toBe(1);
-    expect(example.childAt(1).type()).toBe('div');
-    expect(example.childAt(1).hasClass('zent-tree-node')).toBe(true);
-    expect(example.childAt(1).find('TreeContent').length).toBe(1);
+    expect(example.childAt(2).type()).toBe('div');
+    expect(example.childAt(2).hasClass('zent-tree-node')).toBe(true);
+    expect(example.childAt(2).find('TreeContent').length).toBe(1);
   });
 
   it('Tree support "tree" data as default set', () => {
@@ -174,9 +174,10 @@ describe('new Tree', () => {
     const example = wrapper.find('li').at(2).childAt(0);
     expect(example.hasClass('zent-tree-bar')).toBe(true);
     expect(example.hasClass('zent-tree-bar--off')).toBe(true);
-    expect(example.childAt(2).type()).toBe('div');
-    expect(example.childAt(2).hasClass('zent-tree-node')).toBe(true);
-    expect(example.childAt(2).find('TreeContent').length).toBe(1);
+    console.log(example.debug());
+    expect(example.childAt(1).type()).toBe('div');
+    expect(example.childAt(1).hasClass('zent-tree-node')).toBe(true);
+    expect(example.childAt(1).find('TreeContent').length).toBe(1);
   });
 
   // BUG: 应该在deepClone里直接抛出一个错误
@@ -245,11 +246,11 @@ describe('new Tree', () => {
     const example = wrapper.find('li').at(0).childAt(0);
     expect(example.hasClass('zent-tree-bar')).toBe(true);
     expect(example.hasClass('zent-tree-bar--off')).toBe(true);
-    expect(example.children().length).toBe(2);
+    expect(example.children().length).toBe(3);
     expect(example.find('ZentIcon').length).toBe(1);
-    expect(example.childAt(1).type()).toBe('div');
-    expect(example.childAt(1).hasClass('zent-tree-node')).toBe(true);
-    expect(example.childAt(1).find('TreeContent').length).toBe(1);
+    expect(example.childAt(2).type()).toBe('div');
+    expect(example.childAt(2).hasClass('zent-tree-node')).toBe(true);
+    expect(example.childAt(2).find('TreeContent').length).toBe(1);
   });
 
   it('Tree Support expandAll prop and render function as prop', () => {
@@ -476,10 +477,10 @@ describe('new Tree', () => {
       },
     ];
     const wrapper = mount(<NewTree dataType="plain" data={data} />);
-    const rootSpan = wrapper.find('span').at(0);
+    const rootSpan = wrapper.find('span').at(1);
     const sonSpan = wrapper.find('span').at(3);
-    const grandSonSpan = wrapper.find('span').at(7);
-    const daughterSpan = wrapper.find('span').at(10);
+    const grandSonSpan = wrapper.find('span').at(5);
+    const daughterSpan = wrapper.find('span').at(7);
     expect(rootSpan.text()).toBe('root');
     expect(sonSpan.text()).toBe('son');
     expect(grandSonSpan.text()).toBe('grandSon');
