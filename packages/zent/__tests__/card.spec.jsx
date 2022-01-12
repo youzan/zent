@@ -50,6 +50,14 @@ describe('Card', () => {
     );
     expect(card.find('.zent-card--borderless').length).toBe(1);
   });
+  it('card loading', () => {
+    const card = shallow(
+      <Card loading>
+        <p>card items</p>
+      </Card>
+    );
+    expect(card.find('TextBlock').length).toBe(1);
+  });
 });
 
 describe('Small Card', () => {
@@ -97,5 +105,13 @@ describe('Small Card', () => {
     );
     expect(card.find('.zent-card__bottom-extra').length).toBe(1);
     expect(card.find('.zent-card__bottom-extra').text()).toBe('bottom extra');
+  });
+  it('small card loading', () => {
+    const card = shallow(
+      <Card size="small" loading>
+        <p>card items</p>
+      </Card>
+    );
+    expect(card.find('TextBlock').length).toBe(1);
   });
 });
