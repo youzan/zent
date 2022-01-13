@@ -7,7 +7,7 @@ scatter: true
 
 ## Tree
 
-A multilevel list of data structures.
+Visually display multilevel content, supporting expansion and collapse.
 
 ### Suggestion
 
