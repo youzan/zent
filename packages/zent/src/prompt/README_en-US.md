@@ -6,7 +6,7 @@ group: Feedback
 
 ## Prompt
 
-Pass system prompts to users
+Deliver behavioral feedback and confirmation push messages to users related to the current page.
 
 #### Suggestion
 
