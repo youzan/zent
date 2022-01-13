@@ -7,6 +7,8 @@ group: 基础控件
 
 ## Checkbox 多选
 
+用于从一个或多个可用选项中选择一个或一个以上的选项
+
 ### 使用指南
 
 - Checkbox 表现为一个[受控组件][https://facebook.github.io/react/docs/forms.html#controlled-components], 需要设置 `onChange` 回调在组件外部处理其 `value` 属性的变化。
