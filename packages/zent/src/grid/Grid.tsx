@@ -834,7 +834,10 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
     return this.selectionPropsCache[rowIndex];
   };
 
-  onSelectChange = (selectedRowKeys: string[], data: Data | Data[]) => {
+  onSelectChange = (
+    selectedRowKeys: (string | number)[],
+    data: Data | Data[]
+  ) => {
     const { datasets, selection } = this.props;
     const onSelect: IGridSelection<Data>['onSelect'] = selection?.onSelect;
 
