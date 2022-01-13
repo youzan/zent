@@ -168,6 +168,7 @@
 
       &-arrow {
         font-size: 20px;
+        border-radius: 2px;
         &:hover {
           @include theme-color(background-color, stroke, 5, 0.3);
         }
