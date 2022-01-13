@@ -6,11 +6,12 @@ group: 基础控件
 scatter: true
 ---
 
-## 按钮按钮
+## 按钮组
 
-### SplitButton 下拉按钮
+### 主按钮组、次按钮组、文字按钮组
+使用 `SplitButton` 实现
 
-##### SplitButton 带有下拉菜单功能的按钮
+> SplitButton 带有下拉菜单功能的按钮
 
 主按钮组用于主行动点有多个操作时使用。
 
@@ -21,13 +22,17 @@ scatter: true
 <!-- demo-slot-2 -->
 <!-- demo-slot-3 -->
 <!-- demo-slot-4 -->
-### RadioButton 带选中状态的按钮组
+
+### 分段按钮组
+
+使用 `RadioButton` 实现
+- [api 参考 `radio` ](https://youzan.github.io/zent/zh/component/radio)
 
 <!-- demo-slot-5 -->
-- [`RadioButton` api 和 `radio` 一致](https://youzan.github.io/zent/zh/component/radio)
 
-### SPLIT BUTTON API
+### API
 
+#### Split Button
 | 参数             | 说明                                                                         | 类型   | 默认值               | 备选值                               |
 | ---------------- | ---------------------------------------------------------------------------- | ------ | -------------------- | ------------------------------------ |
 | type             | 按钮风格                                                                     | string | `'default'`          | `'primary'`、`'text'`                  |
