@@ -6,19 +6,27 @@ group: 基础控件
 scatter: true
 ---
 
-## SplitButton 下拉按钮
+## 按钮按钮
 
-SplitButton 带有下拉菜单功能的按钮
+### SplitButton 下拉按钮
+
+##### SplitButton 带有下拉菜单功能的按钮
+
+主按钮组用于主行动点有多个操作时使用。
+
+次按钮组用于次行动点有多个操作时使用。
+
+文字按钮组用于三级行动点有多个操作时使用。
 <!-- demo-slot-1 -->
 <!-- demo-slot-2 -->
 <!-- demo-slot-3 -->
 <!-- demo-slot-4 -->
-
-## RadioButton 带选中状态的按钮组
+### RadioButton 带选中状态的按钮组
 
 <!-- demo-slot-5 -->
+- [`RadioButton` api 和 `radio` 一致](https://youzan.github.io/zent/zh/component/radio)
 
-### API
+### SPLIT BUTTON API
 
 | 参数             | 说明                                                                         | 类型   | 默认值               | 备选值                               |
 | ---------------- | ---------------------------------------------------------------------------- | ------ | -------------------- | ------------------------------------ |
@@ -40,13 +48,3 @@ SplitButton 带有下拉菜单功能的按钮
 
 回调函数内参数为 dropdownValue
 
-#### RadioGroup
-
-| 参数         | 说明                            | 类型                          | 默认值              |
-| ------------ | ------------------------------- | ----------------------------- | ------------------- |
-| value        | 用于设置当前选中的值            | `any`                         |                     |
-| disabled     | 使组件不可用                    | `boolean`                     |                     |
-| readOnly     | 使组件只读                      | `boolean`                     |                     |
-| onChange     | 选项变化时的回调函数            | `(e: Event) => void`          |                     |
-| isValueEqual | 可选参数，判断 value 值是否相等 | `(a: any, b: any) => boolean` | `(a, b) => a === b` |
-| className    | 自定义额外类名                  | `string`                      |                     |
