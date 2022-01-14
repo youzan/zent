@@ -214,7 +214,7 @@ export class MenuCascader extends Component<
   static defaultProps = {
     value: [],
     options: [],
-    clearable: true,
+    clearable: false,
     multiple: false,
     multipleType: 'checkbox',
     maxLine: null,
