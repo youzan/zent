@@ -243,7 +243,7 @@ export class Select<
     highlight: defaultHighlight,
     size: 's',
     multiple: false,
-    clearable: true,
+    clearable: false,
     loading: false,
     creatable: false,
   };
