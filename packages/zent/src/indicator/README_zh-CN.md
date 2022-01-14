@@ -1,12 +1,12 @@
 ---
-title: ProgressIndicator
+title: Progress Indicator
 subtitle: 进度指示器
 path: component/indicator
 group: 信息反馈
 scatter: true
 ---
 
-## ProgressIndicator
+## Progress Indicator 进度指示
 
 按顺序客观反馈完整流程的信息，且标记当前所处的进程或节点和状态。
 
