@@ -23,7 +23,7 @@ const navList = [
 ReactDOM.render(
 	<div className='dropdown-nav-container'>
 		<DropdownNav
-			navList={navList}
+			list={navList}
 			onItemClick={(e, key) => console.log('key', key)}
 			trigger="click"
 		>下拉导航菜单</DropdownNav>
