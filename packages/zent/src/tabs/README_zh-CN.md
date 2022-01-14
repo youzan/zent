@@ -6,7 +6,7 @@ group: 容器
 scatter: true
 ---
 
-## Tabs 基础选项卡
+## Tabs 选项卡
 
 用于大体量信息的拆分展示，提供切换
 
