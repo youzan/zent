@@ -154,6 +154,7 @@ class DatePickerBasic extends Component {
 					value={rangeValue}
 					onChange={this.onChangeRange}
           dateSpan={30}
+          canClear={[true, true]}
 				/>
 				<br />
 				<CombinedDateRangePicker
