@@ -1,9 +1,9 @@
 ---
 order: 2
 zh-CN:
-  title: 12种定位
+  title: 8种定位
 en-US:
-  title: 12 positions
+  title: 8 positions
 ---
 
 ```jsx
