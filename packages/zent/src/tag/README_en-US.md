@@ -7,7 +7,7 @@ scatter: true
 
 ## Tag
 
-Structured display of information, labeling and classification.
+Often used to mark object attributes, classification, usually a rounded rectangle.
 
 ### Guides
 
