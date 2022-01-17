@@ -88,6 +88,7 @@ export interface IGridSelection<Data = any> {
 
 export interface IGridExpandation<Data = any> {
   isExpanded?: (data: Data, index: number) => boolean;
+  isExpandable?: (data: Data, index: number) => boolean;
   expandRender?: (data: Data) => React.ReactNode;
 }
 

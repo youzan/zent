@@ -84,6 +84,9 @@ class RowClass extends React.Component {
           isExpanded(record, index) {
             return (index % 2 === 0);
           },
+					isExpandable(record, index) {
+						return (index % 2 === 0);
+					},
           expandRender(record) {
             return (
               <div>
