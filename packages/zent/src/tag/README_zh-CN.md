@@ -2,13 +2,13 @@
 title: Tag
 subtitle: 标签
 path: component/tag
-group: 展示
+group: 基础控件
 scatter: true
 ---
 
 ## Tag 标签
 
-结构化展示信息，并进行标记和分类。
+常用于标记对象属性、分类，通常为圆角矩形。
 
 ### 使用指南
 

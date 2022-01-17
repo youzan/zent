@@ -1,13 +1,13 @@
 ---
 title: Tag
 path: component/tag
-group: Data Display
+group: Basics
 scatter: true
 ---
 
 ## Tag
 
-Structured display of information, labeling and classification.
+Often used to mark object attributes, classification, usually a rounded rectangle.
 
 ### Guides
 
