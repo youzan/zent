@@ -234,7 +234,7 @@ class MenuContent extends Component<IMenuContentProps> {
                 loading
                 colorPreset="grey"
                 icon="circle"
-                iconText={i18n.empty}
+                iconText={i18n.loading}
                 textPosition="right"
                 className="zent-cascader-v2__menu-scroller-loading"
               />
