@@ -314,12 +314,6 @@
 
       &-btn {
         margin-left: 12px;
-        &.zent-btn-disabled {
-          border: 0;
-          cursor: not-allowed;
-          @include theme-color(color, stroke, 9);
-          @include theme-color(background-color, stroke, 5);
-        }
       }
 
       &-current.zent-btn {
