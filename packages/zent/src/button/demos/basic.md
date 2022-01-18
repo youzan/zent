@@ -1,7 +1,7 @@
 ---
 order: 1
 zh-CN:
-	title: 基础用法
+	title: 基础用法1
 	button: 按钮
 en-US:
 	title: Basic Usage

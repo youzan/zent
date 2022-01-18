@@ -30,7 +30,6 @@ group: 基础控件
 | disabled  | 状态控制                                          | bool   | `false`     |                                      |
 | loading   | 状态控制                                          | bool   | `false`     |                                      |
 | outline   | 边框有颜色，内部没有颜色                          | bool   | `false`     |                                      |
-| bordered  | 边框透明控制                                      | bool   | `true`      |                                      |
 | 其他参数  |                                                   |        |             |                                      |
 | href      | 可选，如果设置的话会用 a 标签而不是 button        | string |             |                                      |
 | target    | 可选，和 href 一起使用，就是 a 标签的 target 属性 | string | `''`        | `'_blank'`                           |

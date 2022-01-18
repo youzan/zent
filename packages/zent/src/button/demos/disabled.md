@@ -12,7 +12,10 @@ en-US:
 import { Button } from 'zent';
 
 ReactDOM.render(
-	<Button disabled>{i18n.button}</Button>
+  <div>
+		<Button disabled>{i18n.button}</Button>
+	</div>
+	
 	, mountNode
 );
 ```
