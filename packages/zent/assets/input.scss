@@ -27,23 +27,23 @@ $input-width-xl: $default-form-width-xl;
   align-items: center;
   max-width: 100%;
 
-  &.zent-input--width-xs {
+  &--width-xs {
     width: $input-width-xs;
   }
 
-  &.zent-input--width-s {
+  &--width-s {
     width: $input-width-s;
   }
 
-  &.zent-input--width-m {
+  &--width-m {
     width: $input-width-m;
   }
 
-  &.zent-input--width-l {
+  &--width-l {
     width: $input-width-l;
   }
 
-  &.zent-input--width-xl {
+  &--width-xl {
     width: $input-width-xl;
   }
 

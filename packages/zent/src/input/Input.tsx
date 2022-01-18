@@ -178,7 +178,7 @@ export class Input extends Component<IInputProps, IInputState> {
     const wrapClass = classNames(
       'zent-input-wrapper',
       `zent-input--size-${size}`,
-      `zent-input--width-${widthSize}`,
+      `zent-input-wrapper--width-${widthSize}`,
       {
         'zent-input-wrapper__not-editable': !editable,
         'zent-textarea-wrapper': isTextarea,
