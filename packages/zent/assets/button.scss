@@ -508,8 +508,10 @@ $btn-warning-active: 1;
 
   &-group {
     display: inline-block;
-
-    .zent-btn + .zent-btn {
+    .zent-btn + .zent-btn,
+    .zent-btn-disabled-wrapper + .zent-btn,
+    .zent-btn + .zent-btn-disabled-wrapper,
+    .zent-btn-disabled-wrapper + .zent-btn-disabled-wrapper {
       margin-left: 1px;
     }
 
