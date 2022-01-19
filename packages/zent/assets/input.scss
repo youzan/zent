@@ -109,7 +109,8 @@ $input-width-xl: $default-form-width-xl;
 
   .zenticon-close-circle {
     @include theme-color(color, stroke, 4);
-    font-size: 18px;
+    font-size: 20px;
+    margin-right: 4px;
   }
 
   .zent-input-icon-click,
