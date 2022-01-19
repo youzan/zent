@@ -25,7 +25,7 @@ $select-width-xl: $default-form-width-xl;
   border-radius: 2px;
   height: 18px;
   margin: 2px 4px 2px 0;
-  padding: 0 4px;
+  padding-left: 4px;
   line-height: 16px;
   font-size: $font-size-small;
   display: flex;
@@ -79,11 +79,11 @@ $select-width-xl: $default-form-width-xl;
 
   .zenticon-down {
     @include theme-color(color, stroke, 2);
-    font-size: 18px;
+    font-size: 20px;
     right: 8px;
     position: absolute;
     transition: transform 0.25s;
-    top: 6px;
+    top: 5px;
     margin: auto;
   }
 
@@ -147,10 +147,10 @@ $select-width-xl: $default-form-width-xl;
   &-clearable {
     .zenticon-close-circle {
       @include theme-color(color, stroke, 4);
-      font-size: 18px;
+      font-size: 20px;
       position: absolute;
       right: 8px;
-      top: 7px;
+      top: 5px;
       margin: auto;
       display: none;
       cursor: pointer;
@@ -339,7 +339,7 @@ $select-width-xl: $default-form-width-xl;
     &-close {
       @include theme-color(color, stroke, 3);
       cursor: pointer;
-      margin-left: 5px;
+      font-size: 16px;
     }
   }
 
@@ -347,6 +347,7 @@ $select-width-xl: $default-form-width-xl;
     &-trigger {
       @include theme-color(background-color, stroke, 7);
       @include tag-style;
+      padding: 0 4px;
       cursor: pointer;
       justify-content: center;
     }
