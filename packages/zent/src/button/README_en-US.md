@@ -29,7 +29,6 @@ Button. Basic style and basic status are provided.
 | disabled         | controls status                                                                                      | bool   | `false`     |                                      |
 | loading          | controls status                                                                                      | bool   | `false`     |                                      |
 | outline          | determines whether the background is transparent                                                     | bool   | `false`     |                                      |
-| bordered         | determines whether the border is displayed                                                           | bool   | `true`      |                                      |
 | Other Properties |                                                                                                      |        |             |                                      |
 | href             | Optional, the component will be rendered as an a tag instead of a button tag if this property is set | string |             |                                      |
 | target           | Optional, used together with href, which is the target property of the a tag                         | string | `''`        | `'_blank'`                           |

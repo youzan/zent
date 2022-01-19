@@ -38,7 +38,6 @@ export interface IButtonDirectiveProps<
   disabled?: boolean;
   loading?: boolean;
   outline?: boolean;
-  bordered?: boolean;
   style?: React.CSSProperties;
   icon?: IconType;
   block?: boolean;
@@ -59,7 +58,6 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
     block,
     loading,
     disabled = disabledContext.value,
-    bordered = true,
     icon,
     children,
     onMouseEnter,
@@ -97,7 +95,6 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
       'zent-btn-block': block,
       'zent-btn-loading': loading,
       'zent-btn-disabled': disabled,
-      'zent-btn-border-transparent': !bordered,
     },
     'zent-btn',
     childElement.props.className
@@ -119,7 +116,8 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
   );
 
   return renderCompatibleChildren(commonChildren, {
-    disabled: popoverHoverTriggerContext.fixMouseEventsOnDisabledChildren,
+    disabled:
+      popoverHoverTriggerContext.fixMouseEventsOnDisabledChildren || disabled,
     onMouseEnter,
     onMouseLeave,
   });

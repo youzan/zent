@@ -26,7 +26,6 @@ export class Button extends Component<IButtonProps> {
     type: 'default',
     size: 'medium',
     htmlType: 'button',
-    bordered: true,
   };
 
   static Group = Group;
@@ -45,7 +44,6 @@ export class Button extends Component<IButtonProps> {
       disabled,
       loading,
       outline,
-      bordered,
       icon,
       children,
       download,
@@ -60,7 +58,6 @@ export class Button extends Component<IButtonProps> {
         disabled={disabled}
         loading={loading}
         outline={outline}
-        bordered={bordered}
         icon={icon}
         onMouseEnter={this.props.onMouseEnter}
         onMouseLeave={this.props.onMouseLeave}
