@@ -28,6 +28,7 @@ export const Prompt: FC<IPromptProps> = ({
   style = {},
   type = 'warning',
   className,
+  closable = true,
   ...resetProps
 }) => {
   const alertProps: Partial<IAlertProps> = useMemo(
@@ -43,6 +44,7 @@ export const Prompt: FC<IPromptProps> = ({
       className={promptClassName}
       {...alertProps}
       {...resetProps}
+      closable={closable}
       style={{ ...style, ...promptStyle }}
     />
   );

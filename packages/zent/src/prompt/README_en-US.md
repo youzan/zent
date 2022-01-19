@@ -22,10 +22,11 @@ Deliver behavioral feedback and confirmation push messages to users related to t
 
 ### API
 
-| Property     | Description                          | Type        | Required | Default     | Alternative                  |
-| ------------ | ------------------------------------ | ----------- | -------- | ----------- | ---------------------------- |
-| type         | The type of prompt                   | `string`    | false    | `'warning'` | `'strongHint'`\|`'weakHint'` |
-| closeContent | close trigger content                | `ReactNode` | false    |             |                              |
-| extraContent | extra content on the right of Prompt | `ReactNode` | false    |             |                              |
+| Property     | Description                                       | Type        | Required | Default     | Alternative                  |
+| ------------ | ------------------------------------------------- | ----------- | -------- | ----------- | ---------------------------- |
+| type         | The type of prompt                                | `string`    | false    | `'warning'` | `'strongHint'`\|`'weakHint'` |
+| closeContent | close trigger content                             | `ReactNode` | false    |             |                              |
+| extraContent | extra content on the right of Prompt              | `ReactNode` | false    |             |                              |
+| closable     | determines whether the Alert can be closed or not | `boolean`   | false    | `true`      | `false`                      |
 
 Consult [Alert's documentation](https://youzan.github.io/zent/en/component/alert) to find more APIs.

@@ -61,7 +61,7 @@ export class Alert extends PureComponent<IAlertProps, IAlertState> {
     bordered: false,
     loading: false,
     outline: false,
-    closable: true,
+    closable: false,
   };
 
   state: IAlertState = {

@@ -28,5 +28,6 @@ group: 信息反馈
 | type         | 提示的默认类型         | `string`    | 否       | `'warning'` | `'strongHint'`\|`'weakHint'` |
 | closeContent | 关闭触发器的自定义内容 | `ReactNode` | 否       |             |                              |
 | extraContent | 右侧自定义内容         | `ReactNode` | 否       |             |                              |
+| closable     | 是否可以关闭           | `boolean`   | 否       | `true`      | `false`                      |
 
 Prompt 组件基于 Alert 实现，更多属性请参考 [Alert 文档](https://youzan.github.io/zent/zh/component/alert)

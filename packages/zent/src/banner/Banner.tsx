@@ -18,6 +18,7 @@ export const Banner: FC<IBannerProps> = ({
   closeIconColor,
   style = {},
   className,
+  closable = true,
   ...resetProps
 }) => {
   const bannerStyle = useMemo(() => {
@@ -33,6 +34,7 @@ export const Banner: FC<IBannerProps> = ({
   return (
     <Alert
       {...resetProps}
+      closable={closable}
       icon={null}
       style={bannerStyle}
       className={bannerClassName}

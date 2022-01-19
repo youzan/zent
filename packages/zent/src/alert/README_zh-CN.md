@@ -39,19 +39,6 @@ group: 信息反馈
 | closeIconColor | 自定义 close 颜色      | string    |          |                                                         |
 | progress       | 顶部进度条进度         | number    |          |                                                         |
 
-#### Prompt
-
-| 参数 | 说明           | 类型   | 默认值      | 备选值                       |
-| ---- | -------------- | ------ | ----------- | ---------------------------- |
-| type | 提示的默认类型 | string | `'warning'` | `'strongHint'`\|`'weakHint'` |
-
-#### Banner
-
-| 参数            | 说明              | 类型   | 默认值 | 备选值              |
-| --------------- | ----------------- | ------ | ------ | ------------------- |
-| backgroundImage | 背景图片          | string |        |
-| closeIconColor  | 自定义 close 颜色 | string |        | `'grey'`\|`'white'` |
-
 #### ScrollAlert
 
 ##### 只支持等高的子节点, 暂不支持动态渲染子节点

@@ -25,5 +25,6 @@ group: 信息反馈
 | type         | 状态条类型                                   | string      | 否       | `'info'` | `'waiting'`\|`'success'`\|`'error'` |
 | progress     | 状态条顶部任务进度，仅在`type=waiting`时显示 | number      | 否       |          |                                     |
 | extraContent | 右侧自定义内容                               | `ReactNode` | 否       |          |
+| closable     | 是否可以关闭                                 | boolean     | 否       | `true`   | `false`                             |
 
 StatusBar 组件基于 Alert 实现，更多属性请参考 [Alert 文档](https://youzan.github.io/zent/zh/component/alert)
