@@ -41,9 +41,3 @@ group: 基础控件
 
 这个组件会将 `Button` 的样式渲染到自己的 `children` 上，主要用在需要 `Button` 的样式，但是需要有特殊逻辑的按钮，例如将一个 `react-router` 的 `Link` 渲染成 `Button` 的样式，但是保留 `Link` 自身的功能。API 只支持 `Button` 的样式参数，用法参考 demo。
 
-#### ButtonGroup
-
-| 参数      | 说明       | 类型   | 默认值   | 备选值 |
-| --------- | ---------- | ------ | -------- | ------ |
-| className | 自定义类名 | string |          |        |
-| style     | 自定 style | object |          |        |

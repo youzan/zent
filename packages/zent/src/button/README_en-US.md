@@ -39,10 +39,3 @@ Button. Basic style and basic status are provided.
 #### ButtonDirective
 
 `ButtonDirective` renders button styles onto its child. Use this to make a `react-router` `Link` look like a button, and preserve all of its router functionalities.
-
-#### ButtonGroup
-
-| Property  | Description       | Type   | Default  | Alternative |
-| --------- | ----------------- | ------ | -------- | ----------- |
-| className | custom class name | string |          |             |
-| style     | custom style      | object |          |             |
