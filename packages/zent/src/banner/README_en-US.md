@@ -20,9 +20,10 @@ Deliver promotional messages to users
 
 ### API
 
-| Property        | Description        | Type   | Required | Default | Alternative                    |
-| --------------- | ------------------ | ------ | -------- | ------- | ------------------------------ |
-| backgroundImage | background image   | string | false    |         |                                |
-| closeIconColor  | Custom close color | string | false    |         | `'grey'`\|`'white'`\| `string` |
+| Property        | Description                                       | Type    | Required | Default | Alternative                    |
+| --------------- | ------------------------------------------------- | ------- | -------- | ------- | ------------------------------ |
+| backgroundImage | background image                                  | string  | false    |         |                                |
+| closeIconColor  | Custom close color                                | string  | false    |         | `'grey'`\|`'white'`\| `string` |
+| closable        | determines whether the Alert can be closed or not | boolean | false    | `true`  | `false`                        |
 
 Consult [Alert's documentation](https://youzan.github.io/zent/en/component/alert) to find more APIs.

@@ -24,5 +24,6 @@ Deliver task-related behavioral feedback
 | type         | Status bar type                                                                | string      | false    | `'info'` | `'waiting'`\|`'success'`\|`'error'` |
 | progress     | Task progress at the top of the status bar, only displayed when 'type=waiting' | number      | false    |          |                                     |
 | extraContent | extra content on the right of Status Bar                                       | `ReactNode` | false    |          |
+| closable     | determines whether the Alert can be closed or not                              | boolean     | false    | `true`   | `false`                             |
 
 Consult [Alert's documentation](https://youzan.github.io/zent/en/component/alert) to find more APIs.

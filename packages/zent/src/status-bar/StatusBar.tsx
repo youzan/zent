@@ -28,6 +28,7 @@ export const StatusBar: FC<IStatusBarProps> = ({
   type = 'info',
   progress,
   className,
+  closable = true,
   ...rest
 }) => {
   const typeProps = TypePropsMap[type];
@@ -39,6 +40,7 @@ export const StatusBar: FC<IStatusBarProps> = ({
       className={statusBarClassName}
       {...typeProps}
       {...rest}
+      closable={closable}
       progress={taskProgress}
     />
   );
