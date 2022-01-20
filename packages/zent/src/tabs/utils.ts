@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { IFixedProps, IInnerTab, ITabPanelProps, ITabsNavProps } from './types';
 
-const isBoolean = val => val === true || val === false;
+const isBoolean = val => typeof val === 'boolean';
 
 export function getTabDataFromChild<Id>(
   child: React.ReactElement<React.PropsWithChildren<ITabPanelProps<Id>>>,
