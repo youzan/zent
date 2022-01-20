@@ -88,6 +88,8 @@ type IVerticalTab = ITab | { divide: true };
 | disabled      | 该 TabPanel 是否被禁用                                         | bool             | 否       |
 | className     | 该 TabPanel 上添加的额外 className                             | bool             | 否       |
 | unmountOnHide | 非 active 时，不使用 `display: none` 隐藏而是直接 unmount 组件 | bool             | 否       |
+| candel        | 是否可删除，优先级高于 Tabs candel                             | bool             | 否       |
+| canFixed      | 是否可固定，优先级高于 Tabs canFixed                           | bool             | 否       |
 
 #### Divide
 

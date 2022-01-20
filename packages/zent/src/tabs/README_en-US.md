@@ -86,7 +86,9 @@ type IVerticalTab = ITab | { divide: true };
 | id            | The id of the tab panel.                                                  | string \| number | yes      |
 | disabled      | Disable this tab panel.                                                   | bool             | no       |
 | className     | The extra className of the panel                                          | bool             | no       |
-| unmountOnHide | unmount TabPanel on inactive instead of using `display: none` style cover | bool             | 否       |
+| unmountOnHide | unmount TabPanel on inactive instead of using `display: none` style cover | bool             | false    |
+| candel        | Whether the tab can be deleted, priority is higher than tabs candel       | bool             | false    |
+| canFixed      | Whether the tab can be fixed, priority is higher than tabs canFixed       | bool             | false    |
 
 #### Divide
 
