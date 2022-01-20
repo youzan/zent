@@ -1,6 +1,8 @@
 import { ReactNode } from 'react';
 import { IFixedProps, IInnerTab, ITabPanelProps, ITabsNavProps } from './types';
 
+const isBoolean = val => val === true || val === false;
+
 export function getTabDataFromChild<Id>(
   child: React.ReactElement<React.PropsWithChildren<ITabPanelProps<Id>>>,
   activeId: Id
@@ -12,6 +14,8 @@ export function getTabDataFromChild<Id>(
     children: panelChildren,
     className: panelClassName,
     unmountOnHide,
+    canFixed,
+    candel,
   } = child.props;
   const props: IInnerTab<Id> = {
     title: tab,
@@ -21,6 +25,8 @@ export function getTabDataFromChild<Id>(
     panelChildren,
     className: panelClassName,
     unmountOnHide,
+    canFixed,
+    candel,
   };
 
   return props;
@@ -28,9 +34,18 @@ export function getTabDataFromChild<Id>(
 
 export function commonTransformTabData<Id>(
   tabItem: IInnerTab<Id>,
-  candel: boolean,
+  propCandel: boolean,
   fixedProps: IFixedProps<Id> = {}
 ) {
+  let candel = propCandel;
+  if (isBoolean(tabItem.candel)) {
+    candel = tabItem.candel;
+  }
+  let { canFixed, ...restFixedProps } = fixedProps;
+  if (isBoolean(tabItem.canFixed)) {
+    canFixed = tabItem.canFixed;
+  }
+
   return {
     key: tabItem.key,
     actived: tabItem.actived,
@@ -38,7 +53,8 @@ export function commonTransformTabData<Id>(
     title: tabItem.title,
     className: tabItem.className,
     candel: candel && !tabItem.disabled,
-    ...fixedProps,
+    canFixed,
+    ...restFixedProps,
   };
 }
 

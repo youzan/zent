@@ -21,7 +21,7 @@ en-US:
 ```jsx
 import { Tabs, Icon } from 'zent';
 const TabPanel = Tabs.TabPanel;
-let uniqId = 4;
+let uniqId = 3;
 
 class Simple extends React.Component {
 	state = {
