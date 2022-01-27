@@ -38,7 +38,7 @@
     }
 
     &.zent-btn-disabled {
-      @include theme-color(border-right-color, stroke, 6);
+      @include theme-color(border-right-color, stroke, 8);
     }
   }
 
@@ -96,7 +96,7 @@
     }
 
     &.zent-btn-disabled {
-      @include theme-color(border-left-color, stroke, 6);
+      @include theme-color(border-left-color, stroke, 8);
     }
 
     &-disabled {
