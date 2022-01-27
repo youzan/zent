@@ -22,7 +22,7 @@ $btn-icon-size-large-font: 24px;
 }
 
 @mixin btn-light-grey($prop) {
-  @include theme-color($prop, stroke, 6);
+  @include theme-color($prop, stroke, 8);
 }
 
 /* styles begin */
@@ -164,20 +164,22 @@ $btn-warning-active: 1;
 .zent-btn {
   @include theme-color(color, stroke, 1);
   @include btn-white(background-color);
-  @include theme-color(border-color, stroke, 5);
+  @include theme-color(border-color, stroke, 12, 0.06);
   display: inline-block;
   height: $btn-height-normal;
-  line-height: $btn-height-normal;
+  line-height: $btn-height-normal - 2px;
   font-size: $font-size-normal;
   padding: 0 16px;
   border-radius: 2px;
   font-family: inherit;
+  border-width: 1px;
+  border-style: solid;
   text-align: center;
   vertical-align: middle;
   box-sizing: border-box;
   cursor: pointer;
   transition: all 0.3s;
-  border: 0;
+  background-clip: padding-box;
   @include theme-color(background-color, stroke, 12, 0.06);
 
   &:focus {
@@ -193,6 +195,7 @@ $btn-warning-active: 1;
 
   &:hover {
     @include theme-color(background-color, stroke, 12, 0.03);
+    @include theme-color(border-color, stroke, 12, 0.03);
     text-decoration: none;
   }
 
@@ -204,7 +207,7 @@ $btn-warning-active: 1;
 
   &.zent-btn-loading {
     &.zent-btn-icon {
-      background: transparent;
+      background-color: transparent;
     }
     &.zent-btn-text {
       @include theme-color(background-color, primary, 4, 0.03);
@@ -227,7 +230,7 @@ $btn-warning-active: 1;
   &-large {
     padding: 0 24px;
     height: $btn-height-large;
-    line-height: $btn-height-large;
+    line-height: $btn-height-large - 2px;
     font-size: $font-size-large;
     &.zent-btn-icon {
       height: $btn-icon-size-large;
@@ -238,7 +241,7 @@ $btn-warning-active: 1;
 
   &-small {
     height: $btn-height-small;
-    line-height: $btn-height-small;
+    line-height: $btn-height-small - 2px;
     padding: 0 8px;
     font-size: $font-size-small;
     &.zent-btn-icon {
@@ -364,12 +367,14 @@ $btn-warning-active: 1;
     height: $btn-height-small;
     line-height: $btn-height-small;
     padding: 0 8px;
+    border: 0;
 
     &:link,
     &:visited,
     &:hover,
     &:active,
     &:focus {
+      border: 0;
       @include theme-color(color, primary, 4);
     }
 
@@ -387,11 +392,12 @@ $btn-warning-active: 1;
     width: $btn-icon-size-normal;
     font-size: $btn-icon-size-normal-font;
     color: $text-600;
-    background: transparent;
+    background-color: transparent;
     padding: 0;
     line-height: $btn-height-small;
     text-align: center;
     border-radius: 2px;
+    border: 0;
 
     &:link,
     &:visited,
@@ -402,11 +408,11 @@ $btn-warning-active: 1;
     }
 
     &:hover {
-      background: rgba(0, 0, 0, 0.05);
+      background-color: rgba(0, 0, 0, 0.05);
     }
 
     &:active {
-      background: rgba(0, 0, 0, 0.1);
+      background-color: rgba(0, 0, 0, 0.1);
     }
 
     i.zenticon {
