@@ -162,9 +162,9 @@ $btn-warning-active: 1;
 }
 
 .zent-btn {
-  @include theme-color(color, stroke, 1);
-  @include theme-color(background-color, stroke, 12, 0.06);
-  @include theme-color(border-color, stroke, 12, 0.06);
+  @include theme-color(color, 'default', 'color');
+  @include theme-color(background-color, 'default', 'bg', 0.06);
+  @include theme-color(border-color, 'default', 'border-color', 0.06);
   display: inline-block;
   height: $btn-height-normal;
   line-height: $btn-height-normal - 2px;
@@ -188,19 +188,19 @@ $btn-warning-active: 1;
   &:link,
   &:visited,
   &:focus {
-    @include theme-color(color, stroke, 1);
+    @include theme-color(color, 'default', 'color');
     text-decoration: none;
   }
 
   &:hover {
-    @include theme-color(background-color, stroke, 12, 0.03);
-    @include theme-color(border-color, stroke, 12, 0.03);
+    @include theme-color(background-color, 'default', 'bg', 0.03);
+    @include theme-color(border-color, 'default', 'border-color', 0.03);
     text-decoration: none;
   }
 
   &:active {
-    @include theme-color(color, stroke, 1);
-    @include theme-color(background-color, stroke, 12, 0.09);
+    @include theme-color(color, 'default', 'color');
+    @include theme-color(background-color, 'default', 'bg', 0.09);
     text-decoration: none;
   }
 
