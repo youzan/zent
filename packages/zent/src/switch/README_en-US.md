@@ -1,7 +1,7 @@
 ---
 title: Switch
 path: component/switch
-group: Data Entry
+group: Basics
 ---
 
 ## Switch
@@ -10,8 +10,7 @@ Switch is a switching selector。
 
 ### Guides
 
-- Switch is recommended to be used when you need to indicate the switch between two status.
-- itching `Switch` will trigger the status change directly.
+Switch is recommended to be used when you need to indicate the switch between two status.
 
 ### API
 
