@@ -1,7 +1,7 @@
 ---
-order: 1
+order: 4
 zh-CN:
-	title: 基础用法
+	title: 可折叠的面包屑
 	index: 首页
 	applicationCenter: 应用中心
 	marketingCenter: 营销中心
@@ -25,7 +25,7 @@ const dataList = [
 ];
 
 ReactDOM.render(
-	<Breadcrumb breads={dataList} />
+	<Breadcrumb breads={dataList} maxItemCount={3} />
 	, mountNode
 );
 ```
