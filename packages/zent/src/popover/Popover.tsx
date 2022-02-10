@@ -18,12 +18,12 @@ export interface IPopoverBeforeHook {
 
 export interface IPopoverProps {
   position: IPositionFunction;
-  cushion: number;
+  cushion?: number;
   onShow?: () => void;
   onClose?: () => void;
   onBeforeShow?: IPopoverBeforeHook;
   onBeforeClose?: IPopoverBeforeHook;
-  containerSelector: string;
+  containerSelector?: string;
   visible?: boolean;
   onVisibleChange?: (visible: boolean) => void;
   onPositionUpdated?: () => void;

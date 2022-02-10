@@ -2,12 +2,20 @@
 title: Sortable
 subtitle: 拖拽排序
 path: component/sortable
-group: 展示
+group: 信息展示
 ---
 
 ## Sortable 拖拽排序
 
-Sortable 主要用于一个容器内元素的拖拽排序
+通过拖动页面元素来达到组织信息的功能。
+
+### 建议
+
+- 适用于对多个功能、列表、图片进行直观、自由度较高的排序场景；
+
+### 注意
+
+- 不支持分页拖拽
 
 ### API
 
@@ -47,8 +55,8 @@ Sortable 主要用于一个容器内元素的拖拽排序
 #### **`进阶事件API`**
 
 | 参数     | 说明                                               | 类型                                                                | 默认值 | 备选值 |
-| -------- | -------------------------------------------------- | ------------------------------------------------------------------- | ------ | ------ |
-| setData  | 用于调用 HTML5 原生的 DataTransfer.setData 方法    | (dataTransfer: object, dragEl: HTMLElement): void                   |        |        |  |  |
+| -------- | -------------------------------------------------- | ------------------------------------------------------------------- | ------ | ------ | --- | --- |
+| setData  | 用于调用 HTML5 原生的 DataTransfer.setData 方法    | (dataTransfer: object, dragEl: HTMLElement): void                   |        |        |     |     |
 | onChoose | 元素被选中时的回调函数                             | (e: Event) (详见[事件回调](#shi-jian-hui-diao))                     |        |        |
 | onStart  | 元素开始拖拽时的回调函数                           | (e: Event) (详见[事件回调](#shi-jian-hui-diao))                     |        |        |
 | onEnd    | 元素结束拖拽时的回调函数                           | (e: Event) (详见[事件回调](#shi-jian-hui-diao))                     |        |        |
@@ -120,53 +128,3 @@ Sortable 主要用于一个容器内元素的拖拽排序
 		evt.clone // 被复制的元素(HTMLElement)
 	},
 ```
-
-<style>
-	.demo-sortable {
-		padding: 0 140px;
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: flex-start;
-	}
-
-	.zent-card:not(:last-child) {
-		margin-bottom: 4px;
-	}
-
-	.demo-sortable-item,
-	.demo-sortable-add {
-		position: relative;
-		text-align: center;
-		line-height: 100px;
-		border: 1px solid #dcdde0;
-		border-radius: 4px;
-		flex: 0 0 100px;
-		height: 100px;
-		margin: 0 20px 20px 0;
-	}
-
-	.demo-sortable-add {
-		cursor: pointer;
-	}
-
-	.demo-sortable-item:hover {
-		.demo-sortable-icon {
-			display: block;
-		}
-	}
-
-	.demo-sortable-drag {
-		.demo-sortable-icon {
-			display: none !important;
-		}
-	}
-
-	.demo-sortable-icon {
-		display: none;
-		cursor: pointer;
-		font-size: 10px;
-		position: absolute;
-		top: 10px;
-		right: 10px;
-	}
-</style>

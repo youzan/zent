@@ -1,5 +1,5 @@
 ---
-order: 3
+order: 4
 zh-CN:
 	title: dropdown位置设置
 	up: 上面
