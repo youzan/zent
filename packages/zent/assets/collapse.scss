@@ -46,7 +46,6 @@ $content-padding-h: 36px;
 
   &__title {
     @include font-normal;
-    // @include collapse-border(bottom);
     @include theme-color(color, stroke, 1);
     padding: 14px 10px;
     cursor: pointer;
