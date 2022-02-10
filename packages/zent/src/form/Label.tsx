@@ -16,6 +16,7 @@ export const Label: React.FunctionComponent<ILabelProps> = ({
     <label
       className={cx('zent-form-label', {
         'zent-form-label-required': required,
+        'zent-form-label-empty': !children,
       })}
       style={labelStyle}
     >

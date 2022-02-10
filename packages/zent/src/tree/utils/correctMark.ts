@@ -21,8 +21,8 @@ export default function correctMark(
 
     // 包含所有子孙
     const rootIncludes = isInit
-      ? rootInfoMap[rootId].includes
-      : rootInfoMap[rootId].includes.filter(id => {
+      ? rootInfoMap[rootId].rootIncludeIds
+      : rootInfoMap[rootId].rootIncludeIds.filter(id => {
           return disabled.indexOf(id) === -1;
         });
 

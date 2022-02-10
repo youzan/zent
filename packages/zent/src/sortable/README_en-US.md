@@ -6,7 +6,15 @@ group: Data Display
 
 ## Sortable
 
-Sortable is used for drag and drop elements of a container
+Organize information by dragging page elements.
+
+### Suggestion
+
+- Suitable for multiple functions, lists, pictures intuitive, high degree of freedom sorting scene;
+
+### Note
+
+- Paging drag and drop is not supported
 
 ### API
 
@@ -46,8 +54,8 @@ Sortable is used for drag and drop elements of a container
 #### **`Advanced Event API`**
 
 | Props    | Description                                                                    | Type                                                                             | Default | Optional |
-| -------- | ------------------------------------------------------------------------------ | -------------------------------------------------------------------------------- | ------- | -------- |
-| setData  | used to call the HTML5 native DataTransfer.setData method                      | (dataTransfer: object, dragEl: HTMLElement): void                                |         |          |  |  |
+| -------- | ------------------------------------------------------------------------------ | -------------------------------------------------------------------------------- | ------- | -------- | --- | --- |
+| setData  | used to call the HTML5 native DataTransfer.setData method                      | (dataTransfer: object, dragEl: HTMLElement): void                                |         |          |     |     |
 | onChoose | the callback function when element is chosen                                   | (e: Event) (see detail at [Event callback](#event-callback))                     |         |          |
 | onStart  | the callback function when element dragging started                            | (e: Event) (see detail at [Event callback](#event-callback))                     |         |          |
 | onEnd    | the callback function when element dragging ended                              | (e: Event) (see detail at [Event callback](#event-callback))                     |         |          |
@@ -119,49 +127,3 @@ To drag elements from one list into another, both lists must have the same `grou
 		evt.clone // the cloned HTMLElement(HTMLElement)
 	},
 ```
-
-<style>
-	.demo-sortable {
-		padding: 0 140px;
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: flex-start;
-	}
-
-	.demo-sortable-item,
-	.demo-sortable-add {
-		position: relative;
-		text-align: center;
-		line-height: 100px;
-		border: 1px solid #bbb;
-		border-radius: 4px;
-		flex: 0 0 100px;
-		height: 100px;
-		margin: 0 20px 20px 0;
-	}
-
-	.demo-sortable-add {
-		cursor: pointer;
-	}
-
-	.demo-sortable-item:hover {
-		.demo-sortable-icon {
-			display: block;
-		}
-	}
-
-	.demo-sortable-drag {
-		.demo-sortable-icon {
-			display: none !important;
-		}
-	}
-
-	.demo-sortable-icon {
-		display: none;
-		cursor: pointer;
-		font-size: 10px;
-		position: absolute;
-		top: 10px;
-		right: 10px;
-	}
-</style>

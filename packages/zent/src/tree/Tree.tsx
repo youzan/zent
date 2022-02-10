@@ -3,7 +3,7 @@ import classnames from 'classnames';
 
 import { AnimateHeight } from '../utils/component/AnimateHeight';
 import Checkbox from '../checkbox';
-import Loading from './components/Loading';
+import { InlineLoading } from '../loading/InlineLoading';
 
 import createStateByProps, {
   ICreateStateByPropsParams,
@@ -16,6 +16,12 @@ import {
   ITreeRootInfoMap,
   ITreeRenderKey,
 } from './utils/common';
+import Icon from '../icon';
+import { EASE_IN_CUBIC, EASE_OUT_CUBIC } from '../utils/timingFunctions';
+import { TreeContent } from './TreeContent';
+
+const SINGLE_INDENT_WIDTH = 12;
+const SWITCHER_WIDTH = 20;
 
 export interface ITreeOperation {
   name: string;
@@ -48,6 +54,11 @@ export interface ITreeProps extends ICreateStateByPropsParams {
   onExpand?: (data: ITreeData, config: { isExpanded: boolean }) => void;
   autoExpandOnSelect?: boolean;
   onSelect?: (data: ITreeData, target: HTMLSpanElement) => void;
+  selectable?: boolean;
+  selectedKey?: string | number; // 已选中的节点
+  disabledSelectedKeys?: TreeRootIdArray; // 禁用select的节点
+  disableSelectedStrictly?: boolean; // 父节点select disabled是否同时disable其子节点
+  onlyShowOneLine?: boolean; // title只展示一行，超出hover显示Popover
 }
 
 export interface ITreeState {
@@ -59,11 +70,12 @@ export interface ITreeState {
   disabledNode: TreeRootIdArray;
   renderKey: ITreeRenderKey;
   loadingNode: TreeRootIdArray;
+  selectedKey?: string | number;
 }
 
 export class Tree extends Component<ITreeProps, ITreeState> {
   static defaultProps = {
-    autoExpandOnSelect: true,
+    autoExpandOnSelect: false,
     dataType: 'tree',
     foldable: true,
     checkable: false,
@@ -78,6 +90,40 @@ export class Tree extends Component<ITreeProps, ITreeState> {
       ...createStateByProps(props),
     };
   }
+
+  get isSelectControlled() {
+    return 'selectedKey' in this.props;
+  }
+
+  get selectedKey() {
+    return this.isSelectControlled
+      ? this.props.selectedKey
+      : this.state.selectedKey;
+  }
+
+  get disabledSelectedKeys() {
+    const { disableSelectedStrictly, disabledSelectedKeys } = this.props;
+    const { rootInfoMap } = this.state;
+    if (!disabledSelectedKeys || disabledSelectedKeys.length === 0) {
+      return [];
+    }
+    if (!disableSelectedStrictly) {
+      return disabledSelectedKeys;
+    }
+    const keys = [];
+    disabledSelectedKeys.forEach(key => {
+      keys.push(...rootInfoMap[key].rootIncludeIds);
+    });
+
+    return keys;
+  }
+
+  setSelectKeyState = (data: ITreeData, target: HTMLSpanElement) => {
+    this.props.onSelect?.(data, target);
+    if (!this.isSelectControlled) {
+      this.setState({ selectedKey: data.id });
+    }
+  };
 
   static getDerivedStateFromProps(nextProps: ITreeProps, state: ITreeState) {
     const { prevProps } = state;
@@ -141,7 +187,7 @@ export class Tree extends Component<ITreeProps, ITreeState> {
     };
   }
 
-  handleExpandClick(root: ITreeData, e: React.MouseEvent) {
+  handleExpandIconClick(root: ITreeData, e: React.MouseEvent) {
     const { id } = this.state.renderKey;
     const { loadMore, foldable } = this.props;
     if (!foldable) {
@@ -149,7 +195,6 @@ export class Tree extends Component<ITreeProps, ITreeState> {
     }
 
     const { loadingNode } = this.state;
-    const isSwitcher = e.currentTarget.classList[0] === 'switcher';
 
     if (loadMore) {
       if (!root.children || root.children.length === 0) {
@@ -161,7 +206,7 @@ export class Tree extends Component<ITreeProps, ITreeState> {
             this.setState({
               loadingNode: nextLoadingNode.filter(x => x !== root[id]),
             });
-            this.handleExpand(root, isSwitcher);
+            this.handleExpand(root);
           })
           .catch(() => {
             this.setState({
@@ -171,16 +216,12 @@ export class Tree extends Component<ITreeProps, ITreeState> {
         return;
       }
     }
-    this.handleExpand(root, isSwitcher);
+    this.handleExpand(root);
   }
 
-  handleExpand(root: ITreeData, isSwitcher: boolean) {
-    const { onExpand, autoExpandOnSelect } = this.props;
+  handleExpand(root: ITreeData) {
+    const { onExpand } = this.props;
     const { expandNode } = this.state;
-
-    if (!isSwitcher && !autoExpandOnSelect) {
-      return;
-    }
 
     const { id } = this.state.renderKey;
     const activeId = root[id];
@@ -223,12 +264,12 @@ export class Tree extends Component<ITreeProps, ITreeState> {
         }
 
         // 父类包含了该节点
-        if (rootInfoMap[id].includes.indexOf(rootId) > -1) {
+        if (rootInfoMap[id].rootIncludeIds.indexOf(rootId) > -1) {
           return false;
         }
 
         // 他的子类
-        if (rootInfoMap[rootId].includes.indexOf(id) > -1) {
+        if (rootInfoMap[rootId].rootIncludeIds.indexOf(id) > -1) {
           return false;
         }
 
@@ -268,8 +309,8 @@ export class Tree extends Component<ITreeProps, ITreeState> {
 
       // bottom
       if (
-        rootInfoMap[id].includes.length === 1 ||
-        rootInfoMap[id].includes.every(
+        rootInfoMap[id].rootIncludeIds.length === 1 ||
+        rootInfoMap[id].rootIncludeIds.every(
           child => checkedNode.indexOf(child) === -1
         )
       ) {
@@ -281,35 +322,37 @@ export class Tree extends Component<ITreeProps, ITreeState> {
   }
 
   renderSwitcher(root: ITreeData) {
+    const {
+      loadingNode,
+      renderKey: { id },
+    } = this.state;
     return (
-      <i
-        className="zent-tree-switcher"
-        onClick={e => {
-          this.handleExpandClick(root, e);
-        }}
-      />
+      <>
+        {loadingNode.includes(root[id]) ? (
+          <InlineLoading loading />
+        ) : (
+          <Icon
+            className="zent-tree-switcher"
+            type="right"
+            onClick={e => {
+              e.stopPropagation();
+              this.handleExpandIconClick(root, e);
+            }}
+          />
+        )}
+      </>
     );
   }
 
   renderContent(root: ITreeData, isExpanded: boolean) {
     const {
-      rootInfoMap,
-      renderKey: { id, title },
+      renderKey: { title },
     } = this.state;
-    const { render, onSelect } = this.props;
+    const { render, onlyShowOneLine } = this.props;
     return (
-      <span
-        className="zent-tree-content"
-        onClick={e => {
-          onSelect && onSelect(root, e.currentTarget);
-
-          if (rootInfoMap[root[id]].isParent) {
-            this.handleExpandClick(root, e);
-          }
-        }}
-      >
+      <TreeContent showPop={onlyShowOneLine}>
         {render ? render(root, isExpanded) : root[title]}
-      </span>
+      </TreeContent>
     );
   }
 
@@ -323,7 +366,7 @@ export class Tree extends Component<ITreeProps, ITreeState> {
 
     const rootId = root[renderKey.id];
     const checked = checkedNode.indexOf(rootId) > -1;
-    const countChild = rootInfoMap[rootId].includes.filter(
+    const countChild = rootInfoMap[rootId].rootIncludeIds.filter(
       id => disabledNode.indexOf(id) === -1
     );
     const halfChecked = !!(
@@ -373,28 +416,50 @@ export class Tree extends Component<ITreeProps, ITreeState> {
     return null;
   }
 
-  renderTreeNodes(roots: ITreeData[]) {
+  renderTreeNodes(roots: ITreeData[], layers = 0) {
+    const { autoExpandOnSelect, selectable, onlyShowOneLine } = this.props;
     const {
       expandNode,
-      loadingNode,
       rootInfoMap,
       renderKey: { id, children },
     } = this.state;
     if (roots && roots.length > 0) {
       return roots.map(root => {
         const rootId = root[id];
+        const isSelected = rootId === this.selectedKey;
+        const isDisabled = this.disabledSelectedKeys.includes(rootId);
         const isShowChildren = expandNode.indexOf(rootId) > -1;
         const barClassName = classnames('zent-tree-bar', {
           'zent-tree-bar--off': !isShowChildren,
+          'zent-tree-bar--selected': isSelected,
+          'zent-tree-bar--disabled': isDisabled,
         });
+
+        const indentWidth =
+          layers * SINGLE_INDENT_WIDTH +
+          +!rootInfoMap[rootId].isParent * SWITCHER_WIDTH;
 
         return (
           <li key={rootId}>
-            <div className={barClassName}>
-              {rootInfoMap[rootId].isParent ? this.renderSwitcher(root) : null}
-              <div className="zent-tree-node">
+            <div
+              className={barClassName}
+              onClick={e => {
+                if (isDisabled) return;
+                selectable && this.setSelectKeyState(root, e.currentTarget);
+                autoExpandOnSelect && this.handleExpand(root);
+              }}
+            >
+              <span
+                className="zent-tree-bar__indent"
+                style={{ width: `${indentWidth}px` }}
+              />
+              {rootInfoMap[rootId].isParent && this.renderSwitcher(root)}
+              <div
+                className={classnames('zent-tree-node', {
+                  'zent-tree-node--one-line': onlyShowOneLine,
+                })}
+              >
                 {this.renderCheckbox(root)}
-                {loadingNode.indexOf(rootId) > -1 ? <Loading /> : null}
                 {this.renderContent(root, isShowChildren)}
                 {this.renderOperations(root, isShowChildren)}
               </div>
@@ -404,9 +469,10 @@ export class Tree extends Component<ITreeProps, ITreeState> {
                 appear
                 duration={200}
                 height={isShowChildren ? 'auto' : 0}
+                easing={isShowChildren ? EASE_IN_CUBIC : EASE_OUT_CUBIC}
               >
                 <ul key={`ul-${rootId}`} className="zent-tree-child">
-                  {this.renderTreeNodes(root[children])}
+                  {this.renderTreeNodes(root[children], layers + 1)}
                 </ul>
               </AnimateHeight>
             )}

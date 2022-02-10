@@ -3,6 +3,7 @@ import Enzyme, { mount } from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 
 import Input from '../src/input';
+import Password from '../src/input/Password';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -270,5 +271,15 @@ describe('Input', () => {
       wrapper.find('textarea').props().defaultValue ===
         window.getSelection().toString()
     ).toBe(true);
+  });
+
+  it('can password', () => {
+    const wrapper = mount(
+      <Password defaultValue="not placeholder" className="foo" />
+    );
+    expect(wrapper.find('input').props().type).toBe('password');
+    wrapper.find('ZentIcon').simulate('click');
+    expect(wrapper.find('Input').props().type).toBe('text');
+    expect(wrapper.find('input').props().defaultValue).toBe('not placeholder');
   });
 });

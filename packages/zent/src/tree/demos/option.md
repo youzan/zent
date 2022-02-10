@@ -32,57 +32,70 @@ en-US:
 
 ---
 
-
 ```jsx
 import { Tree } from 'zent';
 
-const treeData = [{
-	id: 1,
-	title: '{i18n.title1}',
-	children: [{
-		id: 2,
-		title: '{i18n.title2}',
-		children: [{
-			id: 3,
-			title: '{i18n.title3}',
-			children: [{
-				id: 7,
-				title: '{i18n.title7}'
-			}, {
-				id: 8,
-				title: '{i18n.title8}'
-			}, {
-				id: 9,
-				title: '{i18n.title9}'
-			}, {
-				id: 10,
-				title: '{i18n.title10}'
-			}]
-		}, {
-			id: 4,
-			title: '{i18n.title4}'
-		}, {
-			id: 5,
-			title: '{i18n.title5}'
-		}]
-	}, {
-		id: 6,
-		title: '{i18n.title6}'
-	}]
-}];
+const treeData = [
+	{
+		id: 1,
+		title: '{i18n.title1}',
+		children: [
+			{
+				id: 2,
+				title: '{i18n.title2}',
+				children: [
+					{
+						id: 3,
+						title: '{i18n.title3}',
+						children: [
+							{
+								id: 7,
+								title: '{i18n.title7}',
+							},
+							{
+								id: 8,
+								title: '{i18n.title8}',
+							},
+							{
+								id: 9,
+								title: '{i18n.title9}',
+							},
+							{
+								id: 10,
+								title: '{i18n.title10}',
+							},
+						],
+					},
+					{
+						id: 4,
+						title: '{i18n.title4}',
+					},
+					{
+						id: 5,
+						title: '{i18n.title5}',
+					},
+				],
+			},
+			{
+				id: 6,
+				title: '{i18n.title6}',
+			},
+		],
+	},
+];
 
 class TreeExample extends React.Component {
 	state = {
 		checkedKeys: [3, 5, 22],
-		disabledCheckedKeys: [4, 7, 9, 22]
-	}
+		disabledCheckedKeys: [4, 7, 9, 22],
+	};
 
 	onCheck = (checked, helpInfo) => {
 		console.log(checked, helpInfo);
 		this.setState({
-			checkedKeys: checked
+			checkedKeys: checked,
 		});
-	}
+	};
 
 	render() {
 		const { checkedKeys, disabledCheckedKeys } = this.state;
@@ -91,6 +104,7 @@ class TreeExample extends React.Component {
 			<div>
 				<Tree
 					checkable
+					selectable
 					size="small"
 					data={treeData}
 					onCheck={this.onCheck}
@@ -102,9 +116,5 @@ class TreeExample extends React.Component {
 	}
 }
 
-ReactDOM.render(
-	<TreeExample />
-	, mountNode
-)
+ReactDOM.render(<TreeExample />, mountNode);
 ```
-

@@ -1,0 +1,58 @@
+@import './theme/default';
+
+@mixin elevator-ink($cat, $attr) {
+  @include theme-color(background-color, $cat, $attr);
+  content: '';
+  display: inline-block;
+  width: 2px;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.zent-elevator__links-wrapper {
+  @include theme-color(background-color, stroke, 9, 0.9);
+  display: inline-block;
+  padding: 12px 8px;
+  max-width: 118px;
+  box-sizing: border-box;
+
+  .zent-elevator__links-content {
+    position: relative;
+
+    &::before {
+      @include elevator-ink(stroke, 8);
+    }
+
+    .zent-elevator__link {
+      @include theme-color(color, stroke, 3);
+      position: relative;
+      font-size: 12px;
+      line-height: 1;
+      padding-left: 6px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: color 100ms;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      &:hover {
+        @include theme-color(color, primary, 4);
+      }
+
+      &--active {
+        @include theme-color(color, primary, 4);
+
+        &::before {
+          @include elevator-ink(primary, 4);
+        }
+      }
+    }
+  }
+}

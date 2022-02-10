@@ -798,6 +798,7 @@ describe('Cascader', () => {
         options={options}
         expandTrigger="hover"
         multiple
+        multipleType="checkbox"
         onChange={onChangeMock}
         clearable
       />
@@ -1060,6 +1061,7 @@ describe('Cascader', () => {
         clearable
         searchable
         multiple
+        multipleType="checkbox"
         async
       />
     );
@@ -1418,6 +1420,99 @@ describe('Cascader', () => {
     );
 
     expect(wrapper.find('.zent-cascader-v2--tag').length).toBe(1);
+
+    wrapper.unmount();
+  });
+
+  it('max line 1', () => {
+    const value = [[1], [6]];
+    const options = [
+      {
+        value: 1,
+        label: 'root',
+      },
+      {
+        value: 6,
+        label: 'root1',
+      },
+      {
+        value: 7,
+        label: 'root3',
+      },
+    ];
+
+    // eslint-disable-next-line prefer-const
+    const wrapper = mount(
+      <MenuCascader
+        value={value}
+        options={options}
+        expandTrigger="hover"
+        multiple
+        clearable
+        onChange={() => {}}
+        maxLine={1}
+      />
+    );
+
+    wrapper.find('.zent-cascader-v2').simulate('click');
+
+    const pop = document.querySelector('.zent-popover-v2');
+
+    simulateRawWithTimers(
+      pop.querySelectorAll('.zent-cascader-v2__menu-item')[2],
+      'click'
+    );
+
+    expect(wrapper.find('.zent-cascader-v2--tag').length).toBe(1);
+
+    wrapper.unmount();
+  });
+
+  it('max line 2', () => {
+    const value = [
+      [1, 2, 3],
+      [1, 2, 5],
+    ];
+    const options = [
+      {
+        value: 1,
+        label: 'root',
+        children: [
+          {
+            value: 2,
+            label: 'son',
+            children: [
+              {
+                value: 3,
+                label: 'grandSon',
+              },
+              {
+                value: 5,
+                label: 'anotherGrandSon',
+              },
+            ],
+          },
+        ],
+      },
+    ];
+
+    // eslint-disable-next-line prefer-const
+    const wrapper = mount(
+      <MenuCascader
+        value={value}
+        options={options}
+        expandTrigger="hover"
+        multiple
+        clearable
+        visible={true}
+        onVisibleChange={() => {}}
+        onChange={() => {}}
+        multipleType="normal"
+      />
+    );
+    wrapper.find('.zent-cascader-v2').simulate('click');
+
+    expect(wrapper.find('.zent-cascader-v2--tag').length).toBe(2);
 
     wrapper.unmount();
   });
