@@ -2,12 +2,12 @@
 title: Select
 subtitle: 下拉选择
 path: component/select
-group: 数据
+group: 信息录入
 ---
 
 ## Select 下拉选择
 
-下拉选择，提供多种选择器功能。
+可支持面板选取单个或多个值的选择器，最终录入对应值。
 
 ### API
 
@@ -15,6 +15,7 @@ group: 数据
 | ------------------- | ------------------------------------------------------------------ | ----------------------------------------------------------- | --------------------------- | -------- |
 | options             | 选项数据                                                           | `Item[]`                                                       | `[]`                        | 是       |
 | value               | 选中的值，当为 tags 类型时，可以传入数组                           | `Item` \| `Item[]`                                                         | `null`                      | 否       |
+|size 								| select的width												| `xs` `s` `m` `l` `xl` | s |否
 | disabled            | 禁用组件                                                           | `boolean`                                                        | `false`                     | 否       |
 | placeholder         | 默认提示文案                                                       | `string`                                                      | `'请选择'`                  | 否       |
 | notFoundContent     | 空列表提示文案                                                     | `string`                                                      | `'没有找到匹配项'`          | 否       |
@@ -28,7 +29,7 @@ group: 数据
 | collapsable         | 多选时是否折叠进行单行显示                                         | `boolean`                                                        | `false`                     | 否       |
 | hideCollapsePop     | 多选折叠模式下隐藏展示数据的气泡                                   | `boolean`                                                        | `false`                     | 否       |
 | collapseAt          | 多选折叠模式下显示的数据                                           | `number`                                                      | `1`                         | 否       |
-| clearable           | 显示清除按钮                                                       | `boolean`                                                        | `false`                     | 否       |
+| clearable           | 显示清除按钮                                                       | `boolean`                                                        | `true`                     | 否       |
 | loading             | 是否加载中                                                         | `boolean`                                                        | `false`                     | 否       |
 | creatable           | 允许创建不存在的项                                                 | `boolean`                                                        | `false`                     | 否       |
 | onCreate            | 创建新选项的回调函数                                               | `(keyword: string) => Promise<void>`                        |                             | 否       |

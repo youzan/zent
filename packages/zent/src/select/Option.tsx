@@ -40,6 +40,7 @@ function SelectOption<
       className={cx('zent-select-v2-option', {
         'zent-select-v2-option-active': active,
         'zent-select-v2-option-selected': !multiple && selected,
+        'zent-select-v2-option-selected-bold': multiple && selected,
         'zent-select-v2-option-disabled': value.disabled,
         'zent-select-v2-option-header': value.type === 'header',
       })}
