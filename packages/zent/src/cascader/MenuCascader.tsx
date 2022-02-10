@@ -61,6 +61,9 @@ export interface IMenuCascaderCommonProps extends ICascaderBaseProps {
   filter?: (keyword: string, path: ICascaderItem[]) => boolean;
   highlight?: (keyword: string, path: ICascaderItem[]) => React.ReactNode;
   limit?: number;
+  multipleType?: 'normal' | 'checkbox';
+  maxLine?: number | null;
+  lineHeight?: number;
 }
 
 export interface IMenuCascaderSingleProps extends IMenuCascaderCommonProps {
@@ -213,6 +216,9 @@ export class MenuCascader extends Component<
     options: [],
     clearable: false,
     multiple: false,
+    multipleType: 'checkbox',
+    maxLine: null,
+    lineHeight: 22,
     expandTrigger: 'click',
     scrollable: false,
     loadChildrenOnScroll: false,
@@ -601,6 +607,7 @@ export class MenuCascader extends Component<
       renderItemContent,
       getItemTooltip,
       renderList,
+      multipleType,
     } = this.props;
     const {
       options,
@@ -639,6 +646,7 @@ export class MenuCascader extends Component<
         scrollable={scrollable}
         loadChildrenOnScroll={loadChildrenOnScroll}
         multiple={multiple}
+        multipleType={multipleType}
         onOptionClick={this.onMenuOptionClick}
         onOptionHover={this.onMenuOptionHover}
         scrollLoad={this.scrollLoad}
@@ -660,6 +668,8 @@ export class MenuCascader extends Component<
       searchable,
       clearable,
       renderValue,
+      maxLine,
+      lineHeight,
     } = this.props;
     const { selectedPaths, keyword } = this.state;
     const visible = this.getVisible();
@@ -678,6 +688,8 @@ export class MenuCascader extends Component<
             searchable,
             i18n,
             renderValue,
+            maxLine,
+            lineHeight,
             onClear: this.onClear,
             onKeywordChange: this.onKeywordChange,
           };
@@ -685,7 +697,7 @@ export class MenuCascader extends Component<
           return (
             <Popover
               className={cx('zent-cascader-v2__popup', popupClassName)}
-              position={Popover.Position.AutoBottomLeftInViewport}
+              position={Popover.Position.CascaderAutoBottomLeft}
               visible={visible}
               onVisibleChange={this.onVisibleChange}
               cushion={4}

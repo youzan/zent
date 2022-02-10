@@ -21,4 +21,5 @@ export * from './top-left';
 export * from './top-center';
 export * from './top-right';
 export * from './top-left-in-viewport';
+export * from './cascader-auto-bottom-left';
 export { default as Arrow } from '../arrow-position';
