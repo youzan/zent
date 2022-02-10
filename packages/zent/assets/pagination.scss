@@ -7,11 +7,21 @@
   font-size: $font-size-normal;
   @include theme-color(color, stroke, 1);
 
-  &-page-list--normal,
-  &-page-list--mini,
-  &-page-list--lite {
-    .zent-pagination-button--layout + .zent-pagination-button--layout {
+  &--normal {
+    .zent-pagination-button--layout + .zent-pagination-button--layout,
+    .zent-btn-disabled-wrapper + .zent-pagination-button--layout,
+    .zent-btn-disabled-wrapper + .zent-btn-disabled-wrapper,
+    .zent-pagination-button--layout + .zent-btn-disabled-wrapper {
       margin-left: 4px;
+    }
+  }
+
+  &--lite {
+    .zent-pagination-button--layout + .zent-pagination-button--layout,
+    .zent-btn-disabled-wrapper + .zent-pagination-button--layout,
+    .zent-btn-disabled-wrapper + .zent-btn-disabled-wrapper,
+    .zent-pagination-button--layout + .zent-btn-disabled-wrapper {
+      margin-left: 0;
     }
   }
 
@@ -37,6 +47,16 @@
     position: relative;
     transition: none;
 
+    &:not(.zent-btn-primary) {
+      @include theme-color(background-color, stroke, 9);
+      @include theme-color(border-color, stroke, 5);
+
+      &:hover,
+      &:active {
+        @include theme-color(background, stroke, 7);
+      }
+    }
+
     &[disabled] {
       .zent-pagination-arrow {
         @include theme-color(stroke, stroke, 4);
@@ -50,12 +70,13 @@
     }
   }
 
-  &-page-button--no-border:not(.zent-btn-primary) {
+  &-page-button--no-border.zent-btn:not(.zent-btn-primary) {
     border-color: transparent;
 
     &:hover,
     &:active {
       @include theme-color(background, stroke, 9);
+      @include theme-color(color, primary, 4);
       border-color: transparent;
     }
 
@@ -118,6 +139,7 @@
     .zent-input-wrapper {
       .zent-input {
         min-width: 100%;
+        cursor: pointer;
       }
     }
   }
@@ -136,13 +158,10 @@
 
   &-mini-page-jumper {
     @include font-normal;
+    margin: 0 8px;
 
     &__sep {
       margin: 0 24px;
-    }
-
-    &__total {
-      margin-right: 16px;
     }
 
     .zent-input {
