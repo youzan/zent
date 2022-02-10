@@ -1,7 +1,7 @@
 ---
 title: Checkbox
 path: component/checkbox
-group: Data Entry
+group: Basics
 ---
 
 ## Checkbox
