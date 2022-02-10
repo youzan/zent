@@ -93,7 +93,8 @@ $default-colors: (
   'selected': $text-200,
   'disabled-color': $text-400,
   'disabled-bg': $text-200,
-  'disabled-border-color': $text-400
+  'disabled-border-color': $text-400,
+  'bg': $text-700
 );
 
 $primary-colors: (
@@ -164,6 +165,10 @@ $theme-stroke-9: map-get(
 // Button background color
 $theme-stroke-10: map-get($section-colors, 'border-color') !default; // Active
 $theme-stroke-11: map-get(map-get($color-sets, 'body'), 'bg') !default; // Hover
+$theme-stroke-12: map-get(
+  map-get($color-sets, 'default'),
+  'bg'
+) !default; // default-back
 
 // Blue(primary)
 $theme-primary-1: map-get(
@@ -308,6 +313,10 @@ $theme-colors-mapping: (
     ),
     (
       cat: 'body',
+      attr: 'bg',
+    ),
+    (
+      cat: 'default',
       attr: 'bg',
     ),
   ),

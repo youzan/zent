@@ -1,11 +1,11 @@
 ---
-order: 10
+order: 11
 zh-CN:
 	title: Directive
-	button: Link
+	button: 按钮
 en-US:
 	title: Directive
-	button: Link
+	button: Button
 ---
 
 ```jsx
