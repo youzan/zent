@@ -22,7 +22,7 @@ $btn-icon-size-large-font: 24px;
 }
 
 @mixin btn-light-grey($prop) {
-  @include theme-color($prop, stroke, 6);
+  @include theme-color($prop, stroke, 8);
 }
 
 /* styles begin */
@@ -163,8 +163,8 @@ $btn-warning-active: 1;
 
 .zent-btn {
   @include theme-color(color, stroke, 1);
-  @include btn-white(background-color);
-  @include theme-color(border-color, stroke, 5);
+  @include theme-color(background-color, stroke, 12, 0.06);
+  @include theme-color(border-color, stroke, 12, 0.06);
   display: inline-block;
   height: $btn-height-normal;
   line-height: $btn-height-normal - 2px;
@@ -179,6 +179,7 @@ $btn-warning-active: 1;
   box-sizing: border-box;
   cursor: pointer;
   transition: all 0.3s;
+  background-clip: padding-box;
 
   &:focus {
     outline: none;
@@ -192,29 +193,20 @@ $btn-warning-active: 1;
   }
 
   &:hover {
-    @include btn-primary-hover(color);
-    @include btn-primary-hover(border-color);
+    @include theme-color(background-color, stroke, 12, 0.03);
+    @include theme-color(border-color, stroke, 12, 0.03);
     text-decoration: none;
   }
 
   &:active {
     @include theme-color(color, stroke, 1);
-    @include theme-color(background-color, stroke, 10);
-    @include theme-color(border-color, stroke, 5);
+    @include theme-color(background-color, stroke, 12, 0.09);
     text-decoration: none;
   }
 
   &.zent-btn-loading {
-    &:not(.zent-btn-icon, .zent-btn-text):hover,
-    &:not(.zent-btn-icon, .zent-btn-text):active {
-      @include btn-white(background-color);
-      @include theme-color(border-color, stroke, 5);
-      border-width: 1px;
-      border-style: solid;
-    }
-
     &.zent-btn-icon {
-      background: transparent;
+      background-color: transparent;
     }
     &.zent-btn-text {
       @include theme-color(background-color, primary, 4, 0.03);
@@ -348,7 +340,6 @@ $btn-warning-active: 1;
     @include theme-color(background-color, stroke, 8);
     @include btn-light-grey(border-color);
     @include prevent-pointer-events;
-
     &:link,
     &:visited,
     &:focus {
@@ -373,9 +364,10 @@ $btn-warning-active: 1;
     @include theme-color(color, primary, 4);
     font-size: $font-size-small;
     height: $btn-height-small;
-    line-height: $btn-height-small - 2px;
+    line-height: $btn-height-small;
     padding: 0 8px;
     border: 0;
+
     &:link,
     &:visited,
     &:hover,
@@ -399,12 +391,12 @@ $btn-warning-active: 1;
     width: $btn-icon-size-normal;
     font-size: $btn-icon-size-normal-font;
     color: $text-600;
-    background: transparent;
-    border: 0;
+    background-color: transparent;
     padding: 0;
     line-height: $btn-height-small;
     text-align: center;
     border-radius: 2px;
+    border: 0;
 
     &:link,
     &:visited,
@@ -415,18 +407,20 @@ $btn-warning-active: 1;
     }
 
     &:hover {
-      background: rgba(0, 0, 0, 0.05);
+      background-color: rgba(0, 0, 0, 0.05);
     }
 
     &:active {
-      background: rgba(0, 0, 0, 0.1);
+      background-color: rgba(0, 0, 0, 0.1);
     }
 
     i.zenticon {
       margin: 0;
+
       &:last-child {
         margin: 0;
       }
+
       &:first-child {
         margin: 0;
       }
@@ -462,10 +456,10 @@ $btn-warning-active: 1;
     }
 
     &::after {
-      @include theme-color(border-top-color, primary, 4);
-      @include theme-color(border-right-color, primary, 4);
-      @include theme-color(border-bottom-color, section, bg);
-      @include theme-color(border-left-color, section, bg);
+      @include theme-color(border-top-color, stroke, 1);
+      @include theme-color(border-right-color, stroke, 1);
+      @include theme-color(border-bottom-color, stroke, 9);
+      @include theme-color(border-left-color, stroke, 9);
       animation: zent-ani-spin 0.6s linear;
       animation-iteration-count: infinite;
     }
@@ -479,9 +473,16 @@ $btn-warning-active: 1;
       border-radius: 6px;
     }
 
+    &.zent-btn-text::after {
+      @include theme-color(border-top-color, primary, 4);
+      @include theme-color(border-right-color, primary, 4);
+      @include theme-color(border-bottom-color, section, bg);
+      @include theme-color(border-left-color, section, bg);
+    }
+
     &.zent-btn-icon::after {
-      border-top-color: $text-300;
-      border-right-color: $text-300;
+      @include theme-color(border-top-color, stroke, 1);
+      @include theme-color(border-right-color, stroke, 1);
     }
   }
 
@@ -497,19 +498,26 @@ $btn-warning-active: 1;
     }
   }
 
+  &:not(.zent-btn-icon, .zent-btn-text) .zenticon {
+    font-size: 20px;
+    vertical-align: -2px;
+  }
+
   .zenticon:first-child {
-    margin-right: 8px;
+    margin-right: 4px;
   }
 
   .zenticon:last-child {
-    margin-left: 8px;
+    margin-left: 4px;
   }
 
   &-group {
     display: inline-block;
-
-    .zent-btn + .zent-btn {
-      margin-left: -1px;
+    .zent-btn + .zent-btn,
+    .zent-btn-disabled-wrapper + .zent-btn,
+    .zent-btn + .zent-btn-disabled-wrapper,
+    .zent-btn-disabled-wrapper + .zent-btn-disabled-wrapper {
+      margin-left: 1px;
     }
 
     .zent-btn {

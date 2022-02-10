@@ -1,5 +1,5 @@
 ---
-order: 7
+order: 10
 zh-CN:
 	title: 将按钮变成链接, 只需要提供`href`属性，并可以通过`target`属性控制打开方式
 	index: 有赞首页
