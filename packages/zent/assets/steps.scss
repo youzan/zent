@@ -1,6 +1,44 @@
 @import './theme/default';
 @import './theme/font';
 
+$ghost-hover-bg: rgb(239, 239, 239);
+
+@mixin zent-steps-breadcrumb-angle($prop, $number) {
+  &::after {
+    @include theme-color(border-left-color, $prop, $number);
+    content: ' ';
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 28px solid transparent;
+    border-bottom: 28px solid transparent;
+    border-left-width: 14px;
+    border-left-style: solid;
+    position: absolute;
+    top: 50%;
+    margin-top: -28px;
+    right: 1px;
+    z-index: 0;
+  }
+
+  &::before {
+    @include theme-color(border-color, $prop, $number);
+    content: ' ';
+    display: block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-top-width: 28px;
+    border-bottom-width: 28px;
+    border-right-width: 1px;
+    border-left: 15px solid transparent;
+    position: absolute;
+    top: 50%;
+    margin-top: -28px;
+    left: -2px;
+  }
+}
+
 .zent-steps {
   width: 100%;
   line-height: 1.5;
@@ -18,16 +56,17 @@
   margin-left: 75px;
 
   i {
-    @include theme-color(background-color, stroke, 7);
+    @include theme-color(background-color, stroke, 6);
     display: inline-block;
     position: relative;
     width: 100%;
     border-radius: 1px;
-    height: 2px;
+    height: 3px;
     vertical-align: top;
+    transform: scaleY(0.5) translateY(4px);
 
     &::after {
-      @include theme-color(background-color, stroke, 7);
+      @include theme-color(background-color, stroke, 6);
       content: '';
       position: absolute;
       top: 0;
@@ -59,6 +98,7 @@
 
     .zent-step-title {
       font-size: $font-size-normal;
+      font-weight: 500;
       max-width: 160px;
       line-height: 14px;
       margin-top: 10px;
@@ -81,8 +121,8 @@
   @include theme-color(color, stroke, 4);
 
   margin: 0 8px;
-  font-size: 24px;
-  line-height: 24px;
+  font-size: 30px;
+  line-height: 30px;
 
   .zent-icon {
     @include theme-color(background-color, stroke, 4);
@@ -98,10 +138,10 @@
     font-size: $font-size-normal;
 
     &.zent-steps-sequence {
-      width: 20px;
-      height: 20px;
-      line-height: 20px;
-      margin: 2px;
+      width: 24px;
+      height: 24px;
+      line-height: 24px;
+      margin: 3px;
     }
   }
 
@@ -199,6 +239,13 @@
     .zent-steps-tail {
       display: none;
     }
+  }
+
+  &__icon {
+    font-size: 16px;
+    margin-right: 8px;
+    height: 20px;
+    line-height: 20px;
   }
 }
 
@@ -356,7 +403,7 @@
   overflow: hidden;
 
   .zent-steps-item {
-    padding: 0 8px;
+    padding: 0 14px;
     box-sizing: border-box;
 
     &.zent-steps-item--clickable {
@@ -406,6 +453,7 @@
         top: 50%;
         margin-top: -24px;
         right: -12px;
+        z-index: 1;
       }
 
       &::before {
@@ -426,9 +474,27 @@
         margin-top: -24px;
         left: -12px;
       }
+
+      .zent-steps-sequence {
+        @include theme-color(background-color, stroke, 4);
+        @include theme-color(color, stroke, 9);
+        font-size: $font-size-normal;
+        display: inline-block;
+        vertical-align: middle;
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        border-radius: 50%;
+        text-align: center;
+        margin-right: 8px;
+        margin-bottom: 2px;
+      }
     }
 
     &.zent-steps-item--finished {
+      .zent-steps-sequence {
+        @include theme-color(background-color, primary, 4);
+      }
       &:hover {
         .zent-steps-step {
           @include theme-color(background-color, primary, 5);
@@ -471,6 +537,168 @@
           @include theme-color(border-top-color, primary, 4);
           @include theme-color(border-bottom-color, primary, 4);
         }
+      }
+    }
+  }
+
+  &-ghost .zent-steps-item {
+    .zent-steps-step {
+      @include theme-color(background-color, stroke, 9);
+      @include theme-color(color, stroke, 1);
+      font-weight: $font-weight-bold;
+      z-index: 1;
+
+      &::before {
+        @include theme-color(border-top-color, stroke, 9);
+        @include theme-color(border-bottom-color, stroke, 9);
+      }
+
+      &::after {
+        @include theme-color(border-left-color, stroke, 9);
+      }
+    }
+
+    &.zent-steps-item--finished {
+      .zent-steps-step {
+        @include theme-color(color, primary, 4);
+        @include theme-color(background-color, stroke, 9);
+        box-sizing: border-box;
+
+        &::after {
+          @include theme-color(border-left-color, stroke, 9);
+        }
+
+        &::before {
+          @include theme-color(border-top-color, stroke, 9);
+          @include theme-color(border-bottom-color, stroke, 9);
+        }
+      }
+    }
+
+    &.zent-steps-item--current {
+      @include zent-steps-breadcrumb-angle(primary, 4);
+
+      .zent-steps-step {
+        @include theme-color(border-top-color, primary, 4);
+        @include theme-color(border-bottom-color, primary, 4);
+        border-top-width: 1px;
+        border-bottom-width: 1px;
+        border-top-style: solid;
+        border-bottom-style: solid;
+        line-height: 46px;
+
+        &::before {
+          border-top-width: 23px;
+          border-bottom-width: 23px;
+          margin-top: -23px;
+        }
+      }
+    }
+
+    &,
+    &.zent-steps-item--finished {
+      &.zent-steps-item--disabled:hover,
+      &.zent-steps-item--disabled:active {
+        .zent-steps-step {
+          @include theme-color(background-color, stroke, 7);
+
+          &::after {
+            @include theme-color(border-left-color, stroke, 7);
+          }
+
+          &::before {
+            @include theme-color(border-top-color, stroke, 7);
+            @include theme-color(border-bottom-color, stroke, 7);
+          }
+        }
+      }
+
+      &:not(.zent-steps-item--disabled):hover {
+        .zent-steps-step {
+          background-color: $ghost-hover-bg;
+
+          &::after {
+            border-left-color: $ghost-hover-bg;
+          }
+
+          &::before {
+            border-top-color: $ghost-hover-bg;
+            border-bottom-color: $ghost-hover-bg;
+          }
+        }
+      }
+
+      &:not(.zent-steps-item--disabled):active {
+        .zent-steps-step {
+          @include theme-color('background-color', stroke, 6);
+
+          &::after {
+            @include theme-color('border-left-color', stroke, 6);
+          }
+
+          &::before {
+            @include theme-color('border-top-color', stroke, 6);
+            @include theme-color('border-bottom-color', stroke, 6);
+          }
+        }
+      }
+    }
+
+    &.zent-steps-item--disabled {
+      cursor: not-allowed;
+      @include zent-steps-breadcrumb-angle(stroke, 4);
+
+      .zent-steps-step {
+        @include theme-color(background-color, stroke, 7);
+        @include theme-color(border-top-color, stroke, 4);
+        @include theme-color(border-bottom-color, stroke, 4);
+        @include theme-color(color, stroke, 1);
+        border-top-width: 1px;
+        border-bottom-width: 1px;
+        border-top-style: solid;
+        border-bottom-style: solid;
+        line-height: 46px;
+        box-sizing: border-box;
+
+        &::after {
+          @include theme-color(border-left-color, stroke, 7);
+        }
+
+        &::before {
+          border-top-width: 23px;
+          border-bottom-width: 23px;
+          margin-top: -23px;
+          @include theme-color(border-top-color, stroke, 7);
+          @include theme-color(border-bottom-color, stroke, 7);
+        }
+      }
+    }
+
+    &:first-child {
+      border-left-width: 1px;
+      border-left-style: solid;
+      border-left-color: transparent;
+
+      &.zent-steps-item--current {
+        @include theme-color(border-left-color, primary, 4);
+      }
+
+      &.zent-steps-item--disabled {
+        @include theme-color(border-left-color, stroke, 4);
+      }
+    }
+
+    &:last-child {
+      border-right-width: 1px;
+      border-right-style: solid;
+      border-right-color: transparent;
+
+      &.zent-steps-item--current {
+        @include theme-color(border-right-color, primary, 4);
+      }
+
+      &.zent-steps-item--disabled {
+        @include theme-color(border-right-color, stroke, 4);
       }
     }
   }

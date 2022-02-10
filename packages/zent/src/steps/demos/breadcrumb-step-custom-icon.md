@@ -1,13 +1,13 @@
 ---
-order: 1
+order: 3
 zh-CN:
-	title: 基础使用
+	title: 自定义Icon
 	stepOneText: 登录有赞帐号
 	stepTwoText: 选择门店
 	stepThreeText: 绑定门店
 	stepFourText: 完成
 en-US:
-	title: Basic usage
+	title: Custom Icon
 	stepOneText: Sign in to Youzan
 	stepTwoText: Choose a store
 	stepThreeText: Bind the store
@@ -36,10 +36,11 @@ class StepsExample extends Component {
 					current={current}
 					type="breadcrumb"
 					onStepChange={this.onStepChange}
+					sequence
 					ghost
 				>
-					<Steps.Step title="{i18n.stepOneText}" />
-					<Steps.Step title="{i18n.stepTwoText}" />
+					<Steps.Step title="{i18n.stepOneText}" icon="check-circle-o" />
+					<Steps.Step title="{i18n.stepTwoText}" icon="plus-circle-o" />
 					<Steps.Step title="{i18n.stepThreeText}" />
 					<Steps.Step title="{i18n.stepFourText}" />
 				</Steps>
