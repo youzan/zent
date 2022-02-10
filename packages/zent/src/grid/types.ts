@@ -75,9 +75,9 @@ export interface IGridSelectionProps {
 
 export interface IGridSelection<Data = any> {
   isSingleSelection?: boolean;
-  selectedRowKeys?: string[];
+  selectedRowKeys?: (string | number)[];
   onSelect?: (
-    selectedkeys: string[],
+    selectedkeys: (string | number)[],
     selectedRows: Data[],
     changeRow: Data | Data[]
   ) => any;
