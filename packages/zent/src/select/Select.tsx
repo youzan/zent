@@ -143,6 +143,28 @@ function defaultRenderOptionList<
   return options.map(renderOption);
 }
 
+// 获取creatable下需要增加的options
+function getExtraOptions<
+  Key extends string | number = string | number,
+  Item extends ISelectItem<Key> = ISelectItem<Key>
+>(value: Item | Item[] | undefined) {
+  if (!Array.isArray(value)) {
+    if (!value) {
+      return [];
+    }
+    if (value.key.toString().indexOf('__ZENT_SELECT_CREATABLE_KEY__') > -1) {
+      return [value];
+    }
+    return [];
+  }
+  return value.reduce((v, next) => {
+    if (next.key.toString().indexOf('__ZENT_SELECT_CREATABLE_KEY__') > -1) {
+      return [...v, next];
+    }
+    return v;
+  }, []);
+}
+
 function isSelectable<
   Key extends string | number = string | number,
   Item extends ISelectItem<Key> = ISelectItem<Key>
@@ -216,7 +238,8 @@ function defaultIsValidNewOption<Key extends string | number = string | number>(
 }
 
 // 允许创建的临时 key
-const SELECT_CREATABLE_KEY = uniqueId('__ZENT_SELECT_CREATABLE_KEY__');
+const uniqueKey = '__ZENT_SELECT_CREATABLE_KEY__';
+const SELECT_CREATABLE_KEY = uniqueId(uniqueKey);
 
 const DEFAULT_TRIGGER_WIDTH = 240;
 
@@ -426,11 +449,15 @@ export class Select<
     if (!item || item.disabled || item.type || this.disabled) {
       return;
     }
-    if (item.key === SELECT_CREATABLE_KEY) {
+
+    const { onCreate } = this.props;
+    const isCreate = item.key === SELECT_CREATABLE_KEY;
+    if (isCreate && onCreate) {
       this.onCreateClick();
       return;
     }
-
+    isCreate && this.resetKeyword('option-create');
+    const valueItem = isCreate ? { ...item, key: item.text } : item;
     if (this.props.multiple === true) {
       const { onChange, isEqual } = this.props;
       const value = this.state.value as Item[];
@@ -439,24 +466,20 @@ export class Select<
       const nextValue =
         valueIndex >= 0
           ? value.filter((_it, index) => index !== valueIndex)
-          : value.concat([item]);
+          : value.concat([valueItem]);
 
       if (onChange) {
         onChange(nextValue);
       } else {
-        this.setState({
-          value: nextValue,
-        });
+        this.setState({ value: nextValue });
       }
     } else {
       this.onVisibleChange(false);
       const { onChange } = this.props;
       if (onChange) {
-        onChange(item);
+        onChange(valueItem);
       } else {
-        this.setState({
-          value: item,
-        });
+        this.setState({ value: valueItem });
       }
     }
   };
@@ -527,7 +550,7 @@ export class Select<
     if (this.disabled) {
       return;
     }
-    const { activeIndex, keyword } = this.state;
+    const { activeIndex, keyword, value } = this.state;
     const {
       creatable,
       options: _options,
@@ -540,10 +563,16 @@ export class Select<
       _options,
       filter,
       creatable,
-      isValidNewOption
+      isValidNewOption,
+      value
     );
     if (activeIndex !== null) {
       this.onSelect(options[activeIndex]);
+    } else {
+      // 没有activeIndex且第一项为create，则自动创建
+      if (options.length && options[0]?.key === SELECT_CREATABLE_KEY) {
+        this.onSelect(options[0]);
+      }
     }
   };
 
@@ -627,7 +656,8 @@ export class Select<
           _options,
           filter,
           creatable,
-          isValidNewOption
+          isValidNewOption,
+          state.value
         );
 
         let nextIndex: number;
@@ -846,15 +876,19 @@ export class Select<
       options: Item[] = [],
       filter: ((keyword: string, item: Item) => boolean) | false,
       creatable: boolean,
-      isValidNewOption: (keyword: string, options: Item[]) => boolean
+      isValidNewOption: (keyword: string, options: Item[]) => boolean,
+      value: Item | Item[] | undefined
     ): Item[] => {
+      const extraOptions = getExtraOptions(value);
+      const mergedOptions = [...options, ...extraOptions];
+
       const filtered =
         filter !== false && keyword
-          ? options.filter(it => filter?.(keyword, it))
-          : options;
+          ? mergedOptions.filter(it => filter?.(keyword, it))
+          : mergedOptions;
 
       const pendingCreateOption =
-        creatable && keyword && isValidNewOption?.(keyword, options)
+        creatable && keyword && isValidNewOption?.(keyword, mergedOptions)
           ? [
               {
                 key: SELECT_CREATABLE_KEY,
@@ -883,6 +917,7 @@ export class Select<
       isValidNewOption,
     } = this.props;
     const keyword = this.state.keyword.trim();
+    const value = this.state.value;
 
     if (loading) {
       return DEFAULT_LOADING;
@@ -893,7 +928,8 @@ export class Select<
       options,
       filter,
       creatable,
-      isValidNewOption
+      isValidNewOption,
+      value
     );
     return filtered?.length ? (
       renderOptionList(filtered, this.renderOption)
