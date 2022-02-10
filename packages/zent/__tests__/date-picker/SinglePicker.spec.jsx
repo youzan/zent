@@ -24,13 +24,13 @@ describe('SinglePicker', () => {
     wrapper = mount(<DatePicker valueType="date" onChange={onChangeMock} />);
     wrapper.find('.zent-datepicker-trigger').simulate('click');
     const footer = document.querySelector('.zent-datepicker-panel-footer');
-    Simulate.click(footer.querySelector('a'));
+    Simulate.click(footer.querySelector('.zent-btn-text'));
     expect(typeof wrapper.prop('value')).toBe('object');
 
     wrapper.setProps({ valueType: 'number' });
     wrapper.find('.zent-datepicker-trigger').simulate('click');
     const footer2 = document.querySelector('.zent-datepicker-panel-footer');
-    Simulate.click(footer2.querySelector('a'));
+    Simulate.click(footer2.querySelector('.zent-btn-text'));
     expect(typeof wrapper.prop('value')).toBe('number');
     wrapper.unmount();
   });
@@ -60,7 +60,7 @@ describe('SinglePicker', () => {
     Simulate.click(
       pop.querySelectorAll('.zent-datepicker-panel-footer-btn')[0]
     );
-    expect(wrapper.prop('value')).toBe('2020-07-26 00:00');
+    expect(wrapper.prop('value')).toBe('2020-07-26 12:00');
     wrapper.unmount();
 
     const onChangeMock2 = jest.fn();
@@ -74,7 +74,7 @@ describe('SinglePicker', () => {
     );
     wrapper2.find('.zent-datepicker-trigger').simulate('click');
     const pop2 = document.querySelector('.zent-datepicker-panel-footer');
-    Simulate.click(pop2.querySelector('a'));
+    Simulate.click(pop2.querySelector('.zent-btn-text'));
     expect(onChangeMock2.mock.calls.length).toBe(1);
     wrapper2.unmount();
   });
@@ -188,9 +188,48 @@ describe('SinglePicker', () => {
     ).toBe(true);
   });
 
+  it('DatePicker showTime Object no value', () => {
+    const wrapper = mount(
+      <DatePicker showTime={{ defaultTime: '00:00:00' }} />
+    );
+    wrapper.find('.zent-datepicker-trigger').simulate('click');
+
+    const pop = document.querySelector('.zent-datepicker-panel');
+    const cells = pop.querySelectorAll(
+      '.zent-datepicker-panel-body-cells_item'
+    );
+    Simulate.click(cells[6]);
+
+    const timeTrigger = pop
+      .querySelectorAll('.zent-datepicker-panel-footer')[0]
+      .querySelectorAll('.zent-datepicker-trigger')[0];
+    Simulate.click(timeTrigger);
+    const timePicker = document.querySelectorAll('.zent-datepicker-panel')[1];
+    const timePanel = timePicker.querySelectorAll(
+      '.zent-datepicker-time-panel-body'
+    )[0];
+    const timeUnits = timePanel.querySelectorAll(
+      '.zent-datepicker-time-panel-body-unit'
+    );
+    Simulate.click(timeUnits[6]);
+    const timeBtn = timePicker.querySelector(
+      '.zent-datepicker-panel-footer-btn'
+    );
+    Simulate.click(timeBtn);
+
+    const confirmBtn = pop.querySelectorAll(
+      '.zent-datepicker-panel-footer-btn'
+    )[0];
+    Simulate.click(confirmBtn);
+    wrapper.unmount();
+  });
+
   it('DatePicker showTime Object', () => {
     const wrapper = mount(
-      <DatePicker showTime={{}} value="2020-05-20 12:10:10" />
+      <DatePicker
+        showTime={{ defaultTime: '00:00:00' }}
+        value="2020-05-20 12:10:10"
+      />
     );
     wrapper.find('.zent-datepicker-trigger').simulate('click');
 
@@ -258,14 +297,14 @@ describe('SinglePicker', () => {
     const prevs = header.querySelectorAll(
       '.zent-datepicker-panel-header-btns'
     )[0];
-    const prevBtns = prevs.querySelectorAll('svg');
+    const prevBtns = prevs.querySelectorAll('.zenticon');
     Simulate.click(prevBtns[0]);
     Simulate.click(prevBtns[1]);
     // next
     const nexts = header.querySelectorAll(
       '.zent-datepicker-panel-header-btns'
     )[1];
-    const nextBtns = nexts.querySelectorAll('svg');
+    const nextBtns = nexts.querySelectorAll('.zenticon');
     Simulate.click(nextBtns[0]);
     Simulate.click(nextBtns[1]);
 
@@ -299,13 +338,13 @@ describe('SinglePicker', () => {
     const prevs = header.querySelectorAll(
       '.zent-datepicker-panel-header-btns'
     )[0];
-    const prevBtns = prevs.querySelectorAll('svg');
+    const prevBtns = prevs.querySelectorAll('.zenticon');
     Simulate.click(prevBtns[0]);
     // next
     const nexts = header.querySelectorAll(
       '.zent-datepicker-panel-header-btns'
     )[1];
-    const nextBtns = nexts.querySelectorAll('svg');
+    const nextBtns = nexts.querySelectorAll('.zenticon');
     Simulate.click(nextBtns[0]);
     wrapper.unmount();
   });
@@ -331,13 +370,13 @@ describe('SinglePicker', () => {
     const prevs = header.querySelectorAll(
       '.zent-datepicker-panel-header-btns'
     )[0];
-    const prevBtns = prevs.querySelectorAll('svg');
+    const prevBtns = prevs.querySelectorAll('.zenticon');
     Simulate.click(prevBtns[0]);
     // next
     const nexts = header.querySelectorAll(
       '.zent-datepicker-panel-header-btns'
     )[1];
-    const nextBtns = nexts.querySelectorAll('svg');
+    const nextBtns = nexts.querySelectorAll('.zenticon');
     Simulate.click(nextBtns[0]);
     wrapper.unmount();
   });
@@ -352,13 +391,13 @@ describe('SinglePicker', () => {
     const prevs = header.querySelectorAll(
       '.zent-datepicker-panel-header-btns'
     )[0];
-    const prevBtns = prevs.querySelectorAll('svg');
+    const prevBtns = prevs.querySelectorAll('.zenticon');
     Simulate.click(prevBtns[0]);
     // next
     const nexts = header.querySelectorAll(
       '.zent-datepicker-panel-header-btns'
     )[1];
-    const nextBtns = nexts.querySelectorAll('svg');
+    const nextBtns = nexts.querySelectorAll('.zenticon');
     Simulate.click(nextBtns[0]);
     wrapper.unmount();
   });
