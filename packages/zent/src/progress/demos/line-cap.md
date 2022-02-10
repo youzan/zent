@@ -1,9 +1,9 @@
 ---
-order: 1
+order: 8
 zh-CN:
-  title: 基础用法
+  title: 改变进度条边缘的形状
 en-US:
-  title: Basic usage
+  title: Change the linecaps from round to square
 ---
 
 ```jsx
@@ -14,6 +14,11 @@ class App extends Component {
 		return (
 			<div className="zent-progress-demo">
 				<Progress percent={70} />
+				<Progress percent={70} strokeLinecap="square" />
+				<Progress percent={100} strokeLinecap="square" />
+				<Progress percent={70} type="circle" />
+				<Progress percent={70} type="circle" strokeLinecap="square" />
+				<Progress percent={100} type="circle" strokeLinecap="square" />
 			</div>
 		);
 	}

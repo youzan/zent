@@ -1,9 +1,9 @@
 ---
-order: 1
+order: 9
 zh-CN:
-  title: 基础用法
+  title: 圈型进度条
 en-US:
-  title: Basic usage
+  title: Circle Progress
 ---
 
 ```jsx
@@ -13,7 +13,10 @@ class App extends Component {
 	render() {
 		return (
 			<div className="zent-progress-demo">
-				<Progress percent={70} />
+				<Progress type="circle" percent={80} width={76} strokeWidth={5} />
+				<Progress type="circle" percent={70} />
+				<Progress type="circle" percent={80} status="success" />
+				<Progress type="circle" percent={30} status="exception" />
 			</div>
 		);
 	}

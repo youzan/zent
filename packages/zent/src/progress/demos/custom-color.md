@@ -23,9 +23,6 @@ class App extends Component {
 				<Progress percent={70} {...colors} />
 				<Progress percent={100} {...colors} />
 				<Progress percent={80} status="exception" {...colors} />
-				<Progress type="circle" percent={70} {...colors} />
-				<Progress type="circle" percent={100} {...colors} />
-				<Progress type="circle" percent={80} status="exception" {...colors} />
 			</div>
 		);
 	}
