@@ -2,12 +2,12 @@
 title: Cascader
 subtitle: 级联选择
 path: component/cascader
-group: 数据
+group: 信息录入
 ---
 
 ## Cascader 级联选择
 
-适用于各类级联操作（例如城市级联）
+可支持多级面板选取单个或多个值的选择器，最终录入对应值
 
 ### API
 
@@ -18,6 +18,8 @@ group: 数据
 | 参数              | 说明                                                                    | 类型                                                                                                          | 是否必填 | 默认值       | 备选值 |
 | ----------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | -------- | ------------ | ------ |
 | value             | 级联的选中值                                                            | `CascaderValue[]`                                                                                             | 否       | `[]`         |        |
+| maxLine           | 数据显示几行                                                            | `number`                                                                			                                | 否       | `null`      |        |
+| lineHeight        | 每行的行高，乘以maxLine即为显示面板的高度，用于解决自定义renderValue时高度不适配 | `number`                                                                			                                 | 否       | `22`         |              |
 | options           | 可选项数据源                                                            | `ICascaderItem[]`                                                                                             | 是       | `[]`         |        |
 | onChange          | 选择完成后的回调                                                        | `(value: CascaderValue[], selectedOptions: ICascaderItem[], meta: ICascaderChangeMeta) => void`               | 是       | -            |        |
 | loadOptions       | 动态加载级联的数据                                                      | `(selectedOptions: ICascaderItem[], meta: ICascaderLoadMeta) => Promise<void>`                                | 否       | -            |        |
@@ -58,6 +60,7 @@ interface ICascaderItem {
 | 参数                 | 说明                                   | 类型                                                    | 是否必填 | 默认值  | 备选值  |
 | -------------------- | -------------------------------------- | ------------------------------------------------------- | -------- | ------- | ------- |
 | multiple             | 是否支持多选                           | `boolean`                                               | 否       | `false` | `true`  |
+| multipleType				 | 多选类型															| `normal` `checkbox`																			| 否			 | `normal` | `checkbox` |
 | expandTrigger        | 次级菜单的展开方式                     | `string`                                                | 否       | `click` | `hover` |
 | scrollable           | 是否支持滚动加载                       | `boolean`                                               | 否       | `false` | `true`  |
 | loadChildrenOnScroll | 第一级数据是否还有更多数据             | `boolean`                                               | 否       | `false` | `true`  |

@@ -21,10 +21,22 @@ $content-padding-h: 36px;
     .zent-collapse-panel__title {
       @include collapse-border(left);
       @include collapse-border(right);
+      @include collapse-border(bottom);
     }
 
     .zent-collapse-panel__content-box {
       padding: 0 $content-padding-h + 1px; // Add 1px border
+      @include collapse-border(bottom);
+    }
+  }
+
+  &--no-border {
+    .zent-collapse-panel {
+      @include collapse-border(bottom);
+
+      &__content {
+        padding: 4px 0 16px 0;
+      }
     }
   }
 }
@@ -34,13 +46,12 @@ $content-padding-h: 36px;
 
   &__title {
     @include font-normal;
-    @include collapse-border(bottom);
     @include theme-color(color, stroke, 1);
-
     padding: 14px 10px;
     cursor: pointer;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     overflow: hidden;
 
     &--bg-default {
@@ -50,16 +61,28 @@ $content-padding-h: 36px;
     &--bg-none {
       @include theme-color(background-color, stroke, 9);
     }
+
+    &__content {
+      display: flex;
+      font-weight: $font-weight-medium;
+    }
   }
 
   &__content-box {
     @include font-normal;
     @include theme-color(background-color, stroke, 9);
-    @include collapse-border(bottom);
 
     padding: 0 $content-padding-h;
     overflow: hidden;
     box-sizing: border-box;
+  }
+
+  &__content_box--show-background {
+    @include theme-color(background-color, stroke, 8);
+
+    .zent-collapse-panel__content {
+      padding: 10px 0;
+    }
   }
 
   &__content {
@@ -69,15 +92,26 @@ $content-padding-h: 36px;
 
   &__arrow {
     @include theme-color(fill, stroke, 1);
-    margin-right: 10px;
-    transform: rotate(180deg);
+    font-size: 20px;
+    margin-right: 8px;
+    transform: rotate(0deg);
     transform-origin: center;
-    transition: transform 160ms $timing-fn-ease-in-out;
+    transition: transform 100ms $timing-fn-linear;
+  }
+
+  &--active {
+    .zent-collapse-panel__content-box {
+      opacity: 1;
+    }
   }
 
   &--inactive {
     .zent-collapse-panel__arrow {
-      transform: rotate(0deg);
+      transform: rotate(-90deg);
+    }
+
+    .zent-collapse-panel__content-box {
+      opacity: 0;
     }
   }
 

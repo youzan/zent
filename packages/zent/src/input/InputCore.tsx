@@ -71,7 +71,13 @@ export const InputCore = forwardRef<
         />
       )}
       {icon ? (
-        <Icon className="zent-input-icon" type={icon} onClick={onIconClick} />
+        <Icon
+          className="zent-input-icon"
+          type={icon}
+          onMouseUp={preventDefault}
+          onMouseDown={preventDefault}
+          onClick={onIconClick}
+        />
       ) : null}
       {addonAfter && <div className="zent-input-addon-after">{addonAfter}</div>}
     </>

@@ -12,6 +12,7 @@ export default function YouzanIcon({
   text,
   textPosition,
   colorPreset,
+  textSize = 14,
 }: IIconProps) {
   size = size || DEFAULT_SIZE;
 
@@ -30,7 +31,14 @@ export default function YouzanIcon({
       >
         <YouzanSvg size={size} />
       </div>
-      {text && <div className="zent-loading-icon-text">{text}</div>}
+      {text && (
+        <div
+          className="zent-loading-icon-text"
+          style={{ fontSize: `${textSize}px` }}
+        >
+          {text}
+        </div>
+      )}
     </div>
   );
 }

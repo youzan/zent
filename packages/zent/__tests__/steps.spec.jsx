@@ -128,4 +128,12 @@ describe('Steps', () => {
       wrapper.find('.zent-steps-item.zent-steps-item--current').length
     ).toBe(1);
   });
+  it('custom stepItem icon', () => {
+    const wrapper = mount(
+      <Steps type="tabs" current={1}>
+        <Step title="step one" icon="capital-o" />
+      </Steps>
+    );
+    expect(wrapper.find('.zent-steps-step .zenticon-capital-o').length).toBe(1);
+  });
 });

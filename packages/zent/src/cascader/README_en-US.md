@@ -17,6 +17,8 @@ Cascader is used for cascade operation, e.g. cascade location selection.
 | Props             | Description                                            | Type                                                                                                          | Required | Default         | Alternatives |
 | ----------------- | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- | -------- | --------------- | ------------ |
 | value             | Selected value                                         | `CascaderValue[]`                                                                                             | No       | `[]`            |              |
+| maxLine           | tags show lines                                        | `number`                                                                			                                 | No       | `null`         |              |
+| lineHeight        | each line tag height                                   | `number`                                                                			                                 | No       | `22`         |              |
 | options           | Optional data source                                   | `ICascaderItem[]`                                                                                             | Yes      | `[]`            |              |
 | onChange          | Callback when data changes                             | `(value: CascaderValue[], selectedOptions: ICascaderItem[], meta: ICascaderChangeMeta) => void`               | No       | -               |              |
 | loadOptions       | Function to load data dynamicly, must return a Promise | `(selectedOptions: ICascaderItem[], meta: ICascaderLoadMeta) => Promise<void>`                                | No       | -               |              |
@@ -55,6 +57,7 @@ interface ICascaderItem {
 | Props                | Description                                 | Type                                                    | Required | Default | Alternatives |
 | -------------------- | ------------------------------------------- | ------------------------------------------------------- | -------- | ------- | ------------ |
 | multiple             | Multiple                                    | `boolean`                                               | No       | `false` | `true`       |
+| multipleType				 | Multiple type														| `normal` `checkbox`																				 | No 			| `normal`| `checkbox` 	 |
 | expandTrigger        | Secondary menu expand trigger type          | `string`                                                | No       | `click` | `hover`      |
 | scrollable           | Can scroll load data dynamicly              | `boolean`                                               | No       | `false` | `true`       |
 | loadChildrenOnScroll | Load children when scrolling in first level | `boolean`                                               | No       | `false` | `true`       |

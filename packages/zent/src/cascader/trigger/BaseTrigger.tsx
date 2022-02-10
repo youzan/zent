@@ -4,6 +4,7 @@ import { ICascaderItem } from '../types';
 import Icon from '../../icon';
 import { II18nLocaleCascader } from '../../i18n';
 import { Component } from 'react';
+import * as React from 'react';
 
 interface ITriggerState {
   active: boolean;

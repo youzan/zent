@@ -12,7 +12,7 @@ export function BlockLoading(props: IBlockLoadingProps) {
     delay = 0,
     className,
     children,
-    icon = 'youzan',
+    icon = 'circle',
     iconSize,
     iconText,
     textPosition = 'bottom',

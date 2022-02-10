@@ -1,13 +1,13 @@
 ---
 title: Pagination
-subtitle: 分页
+subtitle: 分页器
 path: component/pagination
 group: 导航
 ---
 
-## Pagination 分页
+## Pagination 分页器
 
-共有 3 种样式。
+内容或数据拆分成多个页面，并提供跳转能力。
 
 ### API
 
