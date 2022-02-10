@@ -1,7 +1,7 @@
 ---
 title: Tooltip
 path: component/tooltip
-group: FIXME group name here
+group: Data Display
 ---
 
 ## Tooltip

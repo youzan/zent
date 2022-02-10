@@ -1,5 +1,5 @@
 ---
-order: 4
+order: 2
 zh-CN:
 	title: 额外内容
 	tabOne: 选项1

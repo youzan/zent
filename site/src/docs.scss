@@ -242,3 +242,9 @@ code[class*='language-'] {
 .token.deleted {
   color: #1976d2;
 }
+.zent-radio-group .zent-radio-wrap {
+  margin-right: 56px;
+}
+.zent-checkbox-wrap + .zent-checkbox-wrap {
+  margin-left: 56px;
+}

@@ -1,5 +1,5 @@
 ---
-order: 2
+order: 9
 zh-CN:
   title: 滚动提示
   content: 滚动提示文案
@@ -10,7 +10,6 @@ en-US:
 
 ```jsx
 import { ScrollAlert, AlertItem } from 'zent';
-
 ReactDOM.render(
 	<div className="zent-alert-example">
 		<ScrollAlert>
