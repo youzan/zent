@@ -2,10 +2,12 @@
 title: Checkbox
 subtitle: 多选
 path: component/checkbox
-group: 数据
+group: 基础控件
 ---
 
 ## Checkbox 多选
+
+用于从一个或多个可用选项中选择一个或一个以上的选项
 
 ### 使用指南
 

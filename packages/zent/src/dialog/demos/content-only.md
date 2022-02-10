@@ -3,7 +3,7 @@ order: 5
 zh-CN:
 	title: 仅内容
 	show: 显示
-	content: 对话框内容
+	content: 对话窗内容
 	close: 关闭
 en-US:
 	title: Content Only

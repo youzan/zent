@@ -55,6 +55,7 @@ export interface IScrollAlertProps
   scrollInterval?: number;
   onClose?: () => void;
   closed?: boolean;
+  bordered?: boolean;
 }
 interface IState {
   items: ReactNode[];
@@ -83,6 +84,7 @@ export class ScrollAlert extends Component<IScrollAlertProps, IState> {
     type: 'info',
     loading: false,
     scrollInterval: 5000,
+    bordered: false,
   };
   constructor(props) {
     super(props);
@@ -232,7 +234,7 @@ export class ScrollAlert extends Component<IScrollAlertProps, IState> {
       return null;
     }
 
-    const { className, outline, type, ...restDivAttrs } = omit(
+    const { className, outline, type, bordered, ...restDivAttrs } = omit(
       this.props as IScrollAlertInnerProps,
       OmitDivAttr
     );
@@ -246,6 +248,7 @@ export class ScrollAlert extends Component<IScrollAlertProps, IState> {
       className,
       {
         ['zent-alert-scroll-outline']: outline,
+        ['zent-alert-scroll--borderless']: !bordered,
       }
     );
 

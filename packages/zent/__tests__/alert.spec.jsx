@@ -1,5 +1,7 @@
-import Enzyme, { mount } from 'enzyme';
+import Enzyme, { mount, shallow } from 'enzyme';
 import { Alert, ScrollAlert, AlertItem } from '../src/alert';
+import { Prompt } from '../src/prompt';
+import { Banner } from '../src/banner';
 import Icon from '../src/icon';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 
@@ -111,6 +113,15 @@ describe('Alert', () => {
         .find('.zent-alert-item-close-wrapper')
         .containsMatchingElement(<a>close</a>)
     ).toBe(true);
+  });
+
+  it('alert progress', () => {
+    const wrapper = mount(
+      <Alert progress={40}>
+        <span>foobar</span>
+      </Alert>
+    );
+    expect(wrapper.find('.zent-alert__progress').exists()).toBe(true);
   });
 
   it('have onClose callback', () => {
@@ -404,5 +415,45 @@ describe('ScrollAlert', () => {
 
     wrapper.setProps({ children: ['4'] });
     expect(wrapper.state().activeIndex).toBe(0);
+  });
+});
+
+describe('Banner And Prompt', () => {
+  const IMG =
+    'https://img01.yzcdn.cn/upload_files/2021/11/25/FtAGwcqfZIngtd1uXYIuIND58IeU.png';
+  it('render children into Banner', () => {
+    const wrapper1 = shallow(
+      <Banner backgroundImage={IMG}>
+        <span>Banner</span>
+      </Banner>
+    );
+    const wrapper2 = shallow(
+      <Banner style={{ fontSize: '14px' }}>
+        <span>Banner</span>
+      </Banner>
+    );
+    expect(wrapper1.find('.zent-banner').length).toBe(1);
+    expect(wrapper2.find('.zent-banner').length).toBe(1);
+    expect(wrapper2.find('.zent-banner').props().style.fontSize).toBe('14px');
+  });
+  it('render children into Prompt', () => {
+    const wrapper1 = mount(
+      <Prompt type="weakHint" extraContent={<span>extra</span>}>
+        <span>Prompt</span>
+      </Prompt>
+    );
+    const wrapper2 = mount(
+      <Prompt type="strongHint" extraContent={<span>extra</span>}>
+        <span>Prompt</span>
+      </Prompt>
+    );
+    const wrapper3 = mount(
+      <Prompt extraContent={<span>extra</span>}>
+        <span>Prompt</span>
+      </Prompt>
+    );
+    expect(wrapper1.find('.zent-alert').length).toBe(1);
+    expect(wrapper2.find('.zent-alert-item-extra-content').length).toBe(1);
+    expect(wrapper3.find('.zent-alert-item-extra-content').length).toBe(1);
   });
 });

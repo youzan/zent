@@ -235,6 +235,11 @@ export class Slider extends Component<ISliderProps, ISliderState> {
     const value = this.getValueFromEvent(e);
     const { min, max } = this.props;
     const nextValue = withinRange(value, min, max);
+    if (!this.state.active) {
+      this.setState({
+        active: 'point-single',
+      });
+    }
     this.onChange(nextValue);
   };
 

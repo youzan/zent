@@ -33,10 +33,11 @@ describe('Swiper', () => {
 
   it('can change page', () => {
     const childs = [1, 2, 3];
+    const onChange = jest.fn();
     class Test extends Component {
       render() {
         return (
-          <Swiper arrows>
+          <Swiper arrows onChange={onChange}>
             {childs.map((item, index) => (
               <div key={index} className="swiper-text-child">
                 {item}
@@ -56,6 +57,7 @@ describe('Swiper', () => {
     ).toBe(true);
     expect(wrapper.find('.swiper-text-child').length).toBe(5);
     wrapper.find('.zent-swiper__arrow').at(0).simulate('click');
+    expect(onChange.mock.calls.length).toBe(1);
     jest.runOnlyPendingTimers();
     expect(
       wrapper
@@ -146,5 +148,69 @@ describe('Swiper', () => {
     }
     const wrapper = mount(<Test />);
     expect(wrapper.find('.zent-swiper')).toBeTruthy();
+  });
+
+  it('can set disable arrow', () => {
+    const childs = [1, 2, 3];
+    class Test extends Component {
+      render() {
+        return (
+          <Swiper arrows arrowsDisabled={{ left: true, right: true }}>
+            {childs.map((item, index) => (
+              <div key={index} className="swiper-text-child">
+                {item}
+              </div>
+            ))}
+          </Swiper>
+        );
+      }
+    }
+    const wrapper = mount(<Test />);
+    expect(wrapper.find('.zent-swiper__arrow--disabled').length).toBe(2);
+  });
+  it('can set dots', () => {
+    const childs = [1, 2, 3];
+
+    const ensure = dots => {
+      class Test extends Component {
+        render() {
+          return (
+            <Swiper dots={dots}>
+              {childs.map((item, index) => (
+                <div key={index} className="swiper-text-child">
+                  {item}
+                </div>
+              ))}
+            </Swiper>
+          );
+        }
+      }
+      const wrapper = mount(<Test />);
+      if (!dots) {
+        expect(wrapper.find('.zent-swiper__dots').length).toBe(0);
+      } else {
+        const type = dots === 'round' ? 'round' : 'line';
+        expect(wrapper.find(`.zent-swiper__dots--${type}`).length).toBe(1);
+      }
+    };
+    ensure(true);
+    ensure(false);
+    ensure('line');
+    ensure('round');
+  });
+  it('single children swiper', () => {
+    const childs = [1];
+    const getChildren = arr =>
+      arr.map((item, index) => (
+        <div key={index} className="swiper-text-child">
+          {item}
+        </div>
+      ));
+    const wrapper = mount(<Swiper arrows={true}>{getChildren(childs)}</Swiper>);
+    console.log(wrapper.debug());
+    expect(wrapper.find('.zent-swiper__arrow-right').length).toBe(0);
+    wrapper.setProps({ children: getChildren([1, 2]) });
+    console.log(wrapper.debug());
+    expect(wrapper.find('.zent-swiper__arrow-right').length).toBe(1);
   });
 });

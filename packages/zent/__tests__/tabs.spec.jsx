@@ -129,11 +129,26 @@ describe('Tabs', () => {
     const wrapper = mount(
       <Tabs activeId="1" overflowMode="slide" tabs={overflowTabs} />
     );
+    expect(
+      wrapper.find('.zent-tabs-nav-tabs-content-slide-option').length
+    ).toBe(1);
+    wrapper
+      .find('.zent-tabs-nav-tabs-content-slide-option .zenticon-right')
+      .at(0)
+      .simulate('click');
+    wrapper
+      .find('.zent-tabs-nav-tabs-content-slide-option .zenticon-left')
+      .at(0)
+      .simulate('click');
     expect(wrapper.find('.zent-tabs-nav-tabs-content-slide').length).toBe(1);
 
     const wrapper2 = mount(
       <Tabs activeId="1" overflowMode="anchor" tabs={overflowTabs} />
     );
+    wrapper2
+      .find('.zent-tabs-nav-tabs-content-anchor-option .zenticon-more')
+      .at(0)
+      .simulate('mouseenter');
     expect(wrapper2.find('.zent-tabs-nav-tabs-content-anchor').length).toBe(1);
   });
 
@@ -239,7 +254,7 @@ describe('Tabs', () => {
       wrapper
         .find(tabComponent)
         .first()
-        .find('.zent-tabs-tab-delete')
+        .find('.zent-tabs-tab__actions__delete')
         .simulate('click');
       expect(wrapper.find(tabComponent).length).toBe(2);
       expect(wrapper.state('tabs')).toEqual(['quux', 'bar']);
@@ -247,6 +262,93 @@ describe('Tabs', () => {
 
     ensure('normal');
     ensure('card');
+  });
+
+  it('Card Tab Add', () => {
+    const ensure = overflowMode => {
+      class App extends Component {
+        state = {
+          active: 'foobar',
+          tabs: ['foobar', 'quux'],
+        };
+        onChange = jest.fn().mockImplementationOnce(id =>
+          this.setState({
+            active: id,
+          })
+        );
+        onAdd = jest.fn().mockImplementationOnce(() =>
+          this.setState(state => ({
+            tabs: state.tabs.concat(new Date().valueOf()),
+          }))
+        );
+        render() {
+          const { tabs, active } = this.state;
+          return (
+            <Tabs
+              activeId={active}
+              onChange={this.onChange}
+              onAdd={this.onAdd}
+              overflowMode={overflowMode}
+              type="card"
+            >
+              {tabs.map(t => (
+                <TabPanel key={t} id={t} tab={`${t}-tab`}>
+                  {t}
+                </TabPanel>
+              ))}
+            </Tabs>
+          );
+        }
+      }
+
+      const wrapper = mount(<App />);
+      const AddIcons = wrapper.find(
+        `i.zent-tabs-nav-tabs-content-${overflowMode}__add-icon`
+      );
+      expect(AddIcons.length).toBe(1);
+      expect(wrapper.find('.zent-tabs-tab').length).toBe(2);
+      AddIcons.at(0).simulate('click');
+      expect(wrapper.find('.zent-tabs-tab').length).toBe(3);
+    };
+    ensure('anchor');
+    ensure('slide');
+  });
+
+  it('canFixed Tabs', () => {
+    const onFixedChange = jest.fn();
+    const wrapper = mount(
+      <Tabs activeId="foobar" candel canFixed onFixedChange={onFixedChange}>
+        <TabPanel id="foobar" tab="foobar-tab">
+          foobar
+        </TabPanel>
+      </Tabs>
+    );
+    expect(wrapper.find('.zent-tabs-tab-actions--fixed').length).toBe(0);
+    expect(wrapper.find('.zent-tabs-tab__actions__fixed').length).toBe(1);
+    expect(wrapper.find('.zent-tabs-tab__actions__delete').length).toBe(1);
+    wrapper.find('.zent-tabs-tab__actions__fixed').at(0).simulate('click');
+    expect(onFixedChange.mock.calls.length).toBe(1);
+    expect(onFixedChange.mock.calls[0][0]).toStrictEqual(['foobar']);
+  });
+
+  it('Controlled fixed Tabs', () => {
+    const onFixedChange = jest.fn();
+    const wrapper = mount(
+      <Tabs
+        activeId="foobar"
+        candel
+        canFixed
+        fixedIds={['foobar']}
+        onFixedChange={onFixedChange}
+      >
+        <TabPanel id="foobar" tab="foobar-tab">
+          foobar
+        </TabPanel>
+      </Tabs>
+    );
+    wrapper.find('.zent-tabs-tab__actions__fixed').at(0).simulate('click');
+    expect(onFixedChange.mock.calls.length).toBe(1);
+    expect(onFixedChange.mock.calls[0][0]).toStrictEqual([]);
   });
 
   it('navExtraContent', () => {

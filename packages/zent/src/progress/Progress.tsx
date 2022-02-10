@@ -24,6 +24,7 @@ export const Progress: React.FC<IProgressProps> = props => {
     showInfo,
     strokeWidth,
     width,
+    strokeLinecap,
     ...divAttrs
   } = props as PartialRequired<
     React.PropsWithChildren<IProgressProps>,
@@ -86,6 +87,7 @@ export const Progress: React.FC<IProgressProps> = props => {
         format={format}
         color={currentColor}
         state={state}
+        strokeLinecap={strokeLinecap}
       />
     </div>
   );
@@ -95,7 +97,8 @@ Progress.defaultProps = {
   type: 'line',
   percent: 0,
   showInfo: true,
-  strokeWidth: 10,
+  strokeWidth: 8,
+  strokeLinecap: 'round',
   format: defaultFormat,
 };
 

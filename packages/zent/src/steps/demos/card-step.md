@@ -1,5 +1,5 @@
 ---
-order: 5
+order: 4
 zh-CN:
 	title: 类型为 card 的步骤条（通过 sequence 覆写步骤项序号）
 	stepOneText: 一、登录有赞帐号
@@ -18,12 +18,12 @@ en-US:
 import { Steps } from 'zent';
 
 ReactDOM.render(
-	<Steps current={2} sequence={false} type="card" >
+	<Steps current={2} sequence={false} type="card">
 		<Steps.Step title="{i18n.stepOneText}" />
 		<Steps.Step title="{i18n.stepTwoText}" />
 		<Steps.Step title="{i18n.stepThreeText}" />
 		<Steps.Step title="{i18n.stepFourText}" />
-	</Steps>
-	, mountNode
+	</Steps>,
+	mountNode
 );
 ```

@@ -3,16 +3,16 @@ order: 1
 zh-CN:
 	title: 基础用法
 	show: 显示
-	content: 对话框内容
-	content1: 对话框其他内容
-	title1: 对话框
+	content: 对话窗内容区域对话窗内容区域对话窗内容区域对话窗内容区域对话窗内容区域对话窗内容区域。
+	title1: 提示
+	ok: 确定
 	close: 关闭
 en-US:
 	title: Basic Usage
 	show: Show Dialog
-	content: content
-	content1: other content
-	title1: Dialog
+	content: content content content content content content content content content 
+	title1: prompt
+	ok: Ok
 	close: Close
 ---
 
@@ -33,15 +33,22 @@ class Example extends React.Component {
 					{i18n.show}
 				</Button>
 				<Dialog
+					className="zent-dialog-demo-basic-dialog"
 					visible={this.state.visible}
 					onClose={() => this.setVisible(false)}
 					footer={
-						<Button onClick={() => this.setVisible(false)}>{i18n.close}</Button>
+						<>
+							<Button onClick={() => this.setVisible(false)}>
+								{i18n.close}
+							</Button>
+							<Button type="primary" onClick={() => this.setVisible(false)}>
+								{i18n.ok}
+							</Button>
+						</>
 					}
 					title="{i18n.title1}"
 				>
 					<p>{i18n.content}</p>
-					<p>{i18n.content1}</p>
 				</Dialog>
 			</div>
 		);
@@ -50,3 +57,9 @@ class Example extends React.Component {
 
 ReactDOM.render(<Example />, mountNode);
 ```
+
+<style>
+	.zent-dialog-demo-basic-dialog {
+		width: 500px;
+	}
+</style>

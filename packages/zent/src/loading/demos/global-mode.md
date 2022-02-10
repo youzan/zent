@@ -3,19 +3,31 @@ order: 2
 zh-CN:
 	title: 全局模式
 	open: 全局开启
+	openWithBg: 带背景的全局开启
+	text: 商品上传中，请稍后
 	close: 全局关闭
 en-US:
 	title: Global Mode
 	open: Open
+	openWithBg: Open With Background
+	text: Goods uploaded, please hold on
 	close: Close
 ---
 
 ```js
-import { FullScreenLoading, Button } from 'zent';
+import { FullScreenLoading, Button, Switch } from 'zent';
 
 class Example extends React.Component {
 	state = {
-		on: false,
+		noBgOpen: false,
+		showBgOpen: false,
+	};
+
+	close = () => {
+		this.setState({
+			noBgOpen: false,
+			showBgOpen: false,
+		});
 	};
 
 	render() {
@@ -23,20 +35,30 @@ class Example extends React.Component {
 			<div>
 				<Button
 					onClick={() => {
-						this.setState({ on: true });
+						this.setState({ noBgOpen: true });
 					}}
 				>
 					{i18n.open}
 				</Button>
 				<Button
 					onClick={() => {
-						this.setState({ on: false });
+						this.setState({ showBgOpen: true });
 					}}
+				>
+					{i18n.openWithBg}
+				</Button>
+				<Button
+					onClick={() => this.close()}
 					style={{ zIndex: 9999, position: 'relative' }}
 				>
 					{i18n.close}
 				</Button>
-				<FullScreenLoading loading={this.state.on} />
+				<FullScreenLoading loading={this.state.noBgOpen} />
+				<FullScreenLoading
+					loading={this.state.showBgOpen}
+					iconText="{i18n.text}"
+					showBackground
+				/>
 			</div>
 		);
 	}
@@ -44,3 +66,14 @@ class Example extends React.Component {
 
 ReactDOM.render(<Example />, mountNode);
 ```
+
+<style>
+	.zent-loading-demo-switch-background {
+		display: flex;
+		margin-bottom: 12px;
+	}
+
+	.zent-loading-demo-switch-background > .zent-switch {
+		margin-left: 8px;
+	}
+</style>

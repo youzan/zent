@@ -69,7 +69,7 @@ $footer-height: 72px;
   @include font-large;
   @include theme-color(border-bottom-color, stroke, 5);
   @include theme-color(color, stroke, 1);
-  padding: 0 16px 15px;
+  padding: 0 16px 16px;
   border-bottom-width: 1px;
   border-bottom-style: solid;
   margin: 0;
@@ -78,14 +78,14 @@ $footer-height: 72px;
 }
 
 .zent-dialog-r-close {
-  @include theme-color(color, stroke, 2);
+  @include theme-color(color, stroke, 1);
   @include theme-color(background-color, stroke, 9);
   position: absolute;
   display: inline-block;
   top: 8px;
   right: 10px;
-  font-size: 18px;
-  line-height: 18px;
+  font-size: 20px;
+  line-height: 20px;
   text-align: right;
   vertical-align: middle;
   cursor: pointer;
@@ -98,12 +98,12 @@ $footer-height: 72px;
   &:link,
   &:active,
   &:focus {
-    @include theme-color(color, stroke, 2);
+    @include theme-color(color, stroke, 1);
   }
 
   &.zent-dialog-r-has-title {
-    top: 16px;
-    right: 12px;
+    top: 18px;
+    right: 16px;
   }
 }
 

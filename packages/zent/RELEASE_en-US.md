@@ -9,6 +9,15 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 9.12.4(2022-01-11)
+- `Popover`
+  - 🦀 Fix withPop HOC type error
+- `Grid`
+  - 🦀 Replace sort button with iconfont, fix position problem when font-family changed
+  - 🦀 `selectedRowKeys` support number type
+- 🦀 Fix css variable name matching problem, old color can be override and delete the useless prefix
+- 🦀 Update `caniuse-lite` database to latest version
+
 ### 9.12.3(2021-12-08)
 - `DatePicker`
 	- 🦀️ Disable `DatePicker` confirm button when `TimePicker` is open

@@ -19,7 +19,8 @@ ReactDOM.render(
 	<div>
 		<Input placeholder="{i18n.name}" />
 		<Input type="password" placeholder="{i18n.password}" />
-		<Input icon="search" placeholder="{i18n.icon}" />
+		<Input onIconClick={() => {}} icon="search" placeholder="{i18n.icon}" />
+		<Input onIconClick={() => {}} icon="search" iconPosition="front" placeholder="{i18n.icon}" />
 		<Input inline placeholder="inline-flex" style={{ marginRight: 16 }} />
 		<Input inline placeholder="inline-flex" />
 	</div>,

@@ -28,6 +28,12 @@ $size: 16px;
   &:last-child {
     margin-right: 0;
   }
+
+  &:not(.zent-checkbox-disabled):hover {
+    .zent-checkbox-inner {
+      @include theme-color(border-color, primary, 4);
+    }
+  }
 }
 
 .zent-checkbox {
@@ -165,6 +171,6 @@ $size: 16px;
   }
 
   .zent-checkbox-label {
-    @include theme-color(color, stroke, 3);
+    @include theme-color(color, stroke, 4);
   }
 }

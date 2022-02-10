@@ -1,6 +1,6 @@
 import cx from 'classnames';
-import { PureComponent } from 'react';
-
+import { PureComponent, ReactNode } from 'react';
+import { Progress } from '../progress';
 import { AlertTypes } from './types';
 import AlertItem from './components/AlertItem';
 import { PartialRequired } from '../utils/types';
@@ -10,11 +10,15 @@ interface IAlertRenderProps {
   type?: AlertTypes;
   loading?: boolean;
   outline?: boolean;
+  bordered?: boolean;
   title?: React.ReactNode;
   description?: React.ReactNode;
   extraContent?: React.ReactNode;
   closable?: boolean;
   closed?: boolean;
+  icon?: ReactNode;
+  closeIconColor?: string;
+  progress?: number;
   onClose?: () => void;
   closeContent?: React.ReactNode;
 }
@@ -44,14 +48,17 @@ const OmitDivAttr = [
   'closed',
   'onClose',
   'closeContent',
+  'closeIconColor',
+  'icon',
   'extraContent',
 ] as const;
 
 export class Alert extends PureComponent<IAlertProps, IAlertState> {
-  static highlightClassName = 'zent-alert-content__highlight';
+  static highlightClassName = 'zent-alert-item-content__highlight';
 
   static defaultProps = {
     type: 'info',
+    bordered: false,
     loading: false,
     outline: false,
     closable: false,
@@ -92,10 +99,8 @@ export class Alert extends PureComponent<IAlertProps, IAlertState> {
       return null;
     }
 
-    const { className, type, outline, ...restDivAttrs } = omit(
-      this.props as IAlertRequiredProps,
-      OmitDivAttr
-    );
+    const { className, type, outline, bordered, progress, ...restDivAttrs } =
+      omit(this.props as IAlertRequiredProps, OmitDivAttr);
     const restProps = omit(
       this.props as IAlertRenderRequiredProps,
       OmitChildProp
@@ -107,11 +112,20 @@ export class Alert extends PureComponent<IAlertProps, IAlertState> {
       className,
       {
         ['zent-alert-outline']: outline,
+        'zent-alert--borderless': !bordered,
       }
     );
 
     return (
       <div className={containerCls} {...restDivAttrs}>
+        {!!progress && (
+          <Progress
+            className="zent-alert__progress"
+            percent={progress}
+            showInfo={false}
+            strokeWidth={2}
+          />
+        )}
         <AlertItem {...restProps} onAlertItemClose={this.onCloseHandler}>
           {this.props.children}
         </AlertItem>

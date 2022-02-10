@@ -62,7 +62,7 @@ export default function getJudgeInfo({
         isExpand: false,
         isParent: false,
         son: (item[children] || []).map((t: ITreeData) => t[id]),
-        includes: [nodeId],
+        rootIncludeIds: [nodeId],
       };
 
       // 是否为父节点
@@ -86,9 +86,9 @@ export default function getJudgeInfo({
 
       // 收集当前节点能够影响的所有节点(self + children)
       if (parentId !== undefined && rootInfoMap[parentId]) {
-        rootInfoMap[parentId].includes = rootInfoMap[parentId].includes.concat(
-          rootInfoMap[nodeId].includes
-        );
+        rootInfoMap[parentId].rootIncludeIds = rootInfoMap[
+          parentId
+        ].rootIncludeIds.concat(rootInfoMap[nodeId].rootIncludeIds);
       }
     });
   }
