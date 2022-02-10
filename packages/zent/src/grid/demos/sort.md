@@ -75,6 +75,7 @@ class Sort extends React.Component {
         onChange={this.onChange}
         sortBy={this.state.sortBy}
         sortType={this.state.sortType}
+				size="large"
       />
     );
   }

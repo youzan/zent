@@ -49,6 +49,7 @@ ReactDOM.render(
 			columns={columns}
 			datasets={datasets}
 			rowClassName={(data, index) => `${data.id}-${index}`}
+			size="large"
 		/>
 	, mountNode
 );

@@ -65,6 +65,7 @@ ReactDOM.render(
 				columns={columns}
 				datasets={datasets}
 				scroll={{ x: 1300, y: 200 }}
+				size="large"
 			/>
 		</div>
 	, mountNode

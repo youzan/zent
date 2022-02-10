@@ -79,6 +79,12 @@ $fixed-left-column-box-shadow: 4px 0 8px -4px rgba($shadow-color, 0.1);
     }
   }
 
+  &-without-size {
+    tr {
+      height: 56px;
+    }
+  }
+
   &-text-align-left {
     text-align: left;
   }

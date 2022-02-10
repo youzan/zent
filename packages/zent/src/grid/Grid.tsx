@@ -1166,6 +1166,7 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
       autoStick,
       autoStickOffsetTop,
       loadingProps = {},
+      size,
     } = this.props;
     const { marginLeft, tableWidth, showStickHead } = this.state;
 
@@ -1179,7 +1180,9 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
 
     let className = `${prefix}-grid`;
     const borderedClassName = bordered ? `${prefix}-grid-bordered` : '';
-    className = classnames(className, this.props.className, borderedClassName);
+    className = classnames(className, this.props.className, borderedClassName, {
+      [`${prefix}-grid-without-size`]: size === undefined,
+    });
 
     if (this.scrollPosition === 'both') {
       className = classnames(
