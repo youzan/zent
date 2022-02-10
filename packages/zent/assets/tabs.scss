@@ -2,8 +2,6 @@
 @import './theme/font';
 @import './theme/timing-functions';
 
-$transparent-white: rgba(255, 255, 255, 0);
-
 @mixin border($direct: null) {
   @if $direct {
     @include theme-color(border-#{$direct}-color, stroke, 5);
@@ -178,7 +176,7 @@ $transparent-white: rgba(255, 255, 255, 0);
         270deg,
         rgba(255, 255, 255, 1) 0%,
         rgba(255, 255, 255, 1) 81%,
-        $transparent-white 100%
+        transparent 100%
       );
       position: absolute;
       height: calc(100% - 2px);
@@ -316,17 +314,13 @@ $transparent-white: rgba(255, 255, 255, 0);
     padding: 0 20px 0 19px;
 
     &:not(.zent-tabs-tab__actived) .zent-tabs-tab__actions {
-      background-image: linear-gradient(
-        90deg,
-        $transparent-white 0%,
-        $gray-200 19%
-      );
+      background-image: linear-gradient(90deg, transparent 0%, $gray-200 19%);
     }
 
     &:hover:not(.zent-tabs-tab__actived) .zent-tabs-tab__actions {
       background-image: linear-gradient(
         90deg,
-        $transparent-white 0%,
+        transparent 0%,
         rgba(240, 240, 240) 19%
       );
     }

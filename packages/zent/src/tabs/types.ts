@@ -1,4 +1,4 @@
-import { PropsWithChildren, ComponentType, ReactElement } from 'react';
+import { PropsWithChildren, ComponentType, ReactNode } from 'react';
 
 export interface IVerticalDivide {
   divide: true;
@@ -74,7 +74,7 @@ export interface ITabsProps<Id>
   renderTabBar?: (
     props: ITabsNavProps<Id>,
     TabBar: ComponentType<ITabsNavProps<any>>
-  ) => ReactElement;
+  ) => ReactNode;
 }
 
 export interface IVerticalTabsProps<Id>
