@@ -11,7 +11,7 @@ const NotifyTransition = ({ children, ...props }) => (
 
 const ICON_TYPE = {
   success: 'check-circle',
-  warn: 'warning',
+  warn: 'error-circle',
   error: 'close-circle',
   info: 'info-circle',
 };

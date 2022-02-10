@@ -1,17 +1,16 @@
 ---
 title: Pop
 path: component/pop
-group: Feedback
+group: Container
 ---
 
 ## Pop
 
-A floating card opened by clicking, hovering or focusing.
+The modeless window that follows the target element is often used for lightweight information display and data input.
 
 ### Guides
 
 - Triggers: click, hover and focus
-- Can be used as tooltip
 - Supports arbitary content in popup
 
 

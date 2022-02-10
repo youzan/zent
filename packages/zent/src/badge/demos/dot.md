@@ -1,9 +1,11 @@
 ---
-order: 4
+order: 5
 zh-CN:
-	title: 小红点，不需要指定具体的count
+	title: 红点徽标，不需要指定具体的count
+	content: 店铺消息
 en-US:
 	title: Red dot without specific number
+	content: shop messages
 ---
 
 ```jsx
@@ -23,6 +25,7 @@ class Demo extends React.Component {
 				<Badge dot={showDot}>
 					<Icon type="bell-o" className="demo-cont"/>
 				</Badge>
+				<Badge dot={showDot} offset={[-4, -2]}>{i18n.content}</Badge>
 				<Switch size="small" checked={showDot} onChange={this.handleChange} />
 			</div>
 		)

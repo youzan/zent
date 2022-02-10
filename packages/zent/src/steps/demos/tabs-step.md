@@ -1,5 +1,5 @@
 ---
-order: 6
+order: 5
 zh-CN:
 	title: 类型为 tabs 的步骤条
 	stepOneText: 第一步
@@ -17,19 +17,19 @@ import { Steps } from 'zent';
 
 class StepsExample extends Component {
 	state = {
-		current: 1
-	}
+		current: 1,
+	};
 
-	onStepChange = (id) => {
+	onStepChange = id => {
 		this.setState({
-			current: id
+			current: id,
 		});
-	}
+	};
 
 	render() {
 		let { current } = this.state;
 		return (
-			<Steps current={current} type="tabs" onStepChange={this.onStepChange} >
+			<Steps current={current} type="tabs" onStepChange={this.onStepChange}>
 				<Steps.Step title="{i18n.stepOneText}" />
 				<Steps.Step title="{i18n.stepTwoText}" />
 				<Steps.Step title="{i18n.stepThreeText}" />
@@ -38,8 +38,5 @@ class StepsExample extends Component {
 	}
 }
 
-ReactDOM.render(
-	<StepsExample />,
-	mountNode
-);
+ReactDOM.render(<StepsExample />, mountNode);
 ```

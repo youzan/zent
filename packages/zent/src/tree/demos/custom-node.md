@@ -32,40 +32,53 @@ en-US:
 ```jsx
 import { Tree } from 'zent';
 
-const treeData = [{
-	id: 1,
-	title: '{i18n.title1}',
-	content: '{i18n.content}',
-	children: [{
-		id: 2,
-		title: '{i18n.title2}',
-		content: '{i18n.job}',
-		children: [{
-			id: 3,
-			title: '{i18n.title3}'
-		}, {
-			id: 4,
-			title: '{i18n.title4}'
-		}, {
-			id: 5,
-			title: '{i18n.title5}'
-		}]
-	}, {
-		id: 6,
-		title: '{i18n.title6}',
-		content: <a href="http://job.youzan.com">'{i18n.resume}'</a>,
-	}]
-}];
+const treeData = [
+	{
+		id: 1,
+		title: '{i18n.title1}',
+		content: '{i18n.content}',
+		children: [
+			{
+				id: 2,
+				title: '{i18n.title2}',
+				content: '{i18n.job}',
+				children: [
+					{
+						id: 3,
+						title: '{i18n.title3}',
+					},
+					{
+						id: 4,
+						title: '{i18n.title4}',
+					},
+					{
+						id: 5,
+						title: '{i18n.title5}',
+					},
+				],
+			},
+			{
+				id: 6,
+				title: '{i18n.title6}',
+				content: <a href="http://job.youzan.com">'{i18n.resume}'</a>,
+			},
+		],
+	},
+];
 
-const customRender = (data) => (
+const customRender = data => (
 	<span style={{ fontSize: 16, margin: 0, lineHeight: 1 }}>
 		{data.title}
-		{data.content ? <small style={{ display: 'block', fontSize: 10 }}>{data.content}</small> : ''}
+		{data.content ? (
+			<small style={{ display: 'block', fontSize: 10 }}>{data.content}</small>
+		) : (
+			''
+		)}
 	</span>
 );
 
 ReactDOM.render(
-	<Tree data={treeData} render={customRender} />
-	, mountNode
-)
+	<Tree selectable data={treeData} render={customRender} />,
+	mountNode
+);
 ```

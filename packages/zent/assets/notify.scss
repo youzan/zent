@@ -20,19 +20,21 @@ $transition-duration: 160ms;
     @include theme-color(background, stroke, 9);
     @include font-normal;
     display: flex;
-    justify-content: center;
     align-items: center;
     margin: 0 auto;
-    padding: 14px 16px;
-    min-width: 148px;
+    padding: 14px 24px 14px 16px;
     max-width: 344px;
-    border-radius: 4px;
+    border-radius: 2px;
     box-sizing: border-box;
     font-weight: $font-weight-medium;
     word-break: break-all;
 
     &:empty:before {
       content: '\200b';
+    }
+
+    .zent-notify-content-icon {
+      font-size: 20px;
     }
 
     &.zent-notify-content-success {
@@ -56,7 +58,7 @@ $transition-duration: 160ms;
     }
 
     &-icon {
-      margin-right: 16px;
+      margin-right: 10px;
     }
   }
 }

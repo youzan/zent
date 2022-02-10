@@ -59,7 +59,7 @@ describe('new Tree', () => {
       <NewTree dataType="plain" renderKey={renderKey} data={data} />
     );
     const state = wrapper.state();
-    expect(wrapper.find('span').at(0).text()).toBe('root');
+    expect(wrapper.find('span').at(1).text()).toBe('root');
     expect(state.tree[0].name).toBe('root');
     expect(state.tree[0].uId).toBe(1);
     expect(state.tree[0].group.length).toBe(2);
@@ -125,12 +125,11 @@ describe('new Tree', () => {
     const example = wrapper.find('li').at(0).childAt(0);
     expect(example.hasClass('zent-tree-bar')).toBe(true);
     expect(example.hasClass('zent-tree-bar--off')).toBe(true);
-    expect(example.children().length).toBe(2);
-    expect(example.childAt(0).type()).toBe('i');
-    expect(example.childAt(1).type()).toBe('div');
-    expect(example.childAt(1).hasClass('zent-tree-node')).toBe(true);
-    expect(example.childAt(1).find('span').length).toBe(1);
-    expect(example.childAt(1).find('span').text()).toBe('root');
+    expect(example.children().length).toBe(3);
+    expect(example.find('ZentIcon').length).toBe(1);
+    expect(example.childAt(2).type()).toBe('div');
+    expect(example.childAt(2).hasClass('zent-tree-node')).toBe(true);
+    expect(example.childAt(2).find('TreeContent').length).toBe(1);
   });
 
   it('Tree support "tree" data as default set', () => {
@@ -167,17 +166,18 @@ describe('new Tree', () => {
     /**
      * No icon in Node without Leaf
      * .zent-tree-bar.off?
+     *   .zent-tree__indent
+     *   .zent-tree__switcher-placeholder
      *   .zent-tree-node
      *     span||{{title}}
      */
     const example = wrapper.find('li').at(2).childAt(0);
     expect(example.hasClass('zent-tree-bar')).toBe(true);
     expect(example.hasClass('zent-tree-bar--off')).toBe(true);
-    expect(example.children().length).toBe(1);
-    expect(example.childAt(0).type()).toBe('div');
-    expect(example.childAt(0).hasClass('zent-tree-node')).toBe(true);
-    expect(example.childAt(0).find('span').length).toBe(1);
-    expect(example.childAt(0).find('span').text()).toBe('grandSon');
+    console.log(example.debug());
+    expect(example.childAt(1).type()).toBe('div');
+    expect(example.childAt(1).hasClass('zent-tree-node')).toBe(true);
+    expect(example.childAt(1).find('TreeContent').length).toBe(1);
   });
 
   // BUG: 应该在deepClone里直接抛出一个错误
@@ -246,12 +246,11 @@ describe('new Tree', () => {
     const example = wrapper.find('li').at(0).childAt(0);
     expect(example.hasClass('zent-tree-bar')).toBe(true);
     expect(example.hasClass('zent-tree-bar--off')).toBe(true);
-    expect(example.children().length).toBe(2);
-    expect(example.childAt(0).type()).toBe('i');
-    expect(example.childAt(1).type()).toBe('div');
-    expect(example.childAt(1).hasClass('zent-tree-node')).toBe(true);
-    expect(example.childAt(1).find('span').length).toBe(1);
-    expect(example.childAt(1).find('span').text()).toBe('root');
+    expect(example.children().length).toBe(3);
+    expect(example.find('ZentIcon').length).toBe(1);
+    expect(example.childAt(2).type()).toBe('div');
+    expect(example.childAt(2).hasClass('zent-tree-node')).toBe(true);
+    expect(example.childAt(2).find('TreeContent').length).toBe(1);
   });
 
   it('Tree Support expandAll prop and render function as prop', () => {
@@ -277,7 +276,7 @@ describe('new Tree', () => {
         parentId: 1,
       },
     ];
-    const wrapper = shallow(
+    const wrapper = mount(
       <NewTree
         dataType="plain"
         data={data}
@@ -285,7 +284,7 @@ describe('new Tree', () => {
         expandAll
       />
     );
-    expect(wrapper.find('span').at(0).text()).toBe('zent-root');
+    expect(wrapper.find('.zent-tree-content').at(0).text()).toBe('zent-root');
   });
 
   it('Tree Support foldable to control expandable', () => {
@@ -315,6 +314,7 @@ describe('new Tree', () => {
     const onSelectMock = jest.fn();
     const wrapper = shallow(
       <NewTree
+        selectable
         dataType="plain"
         data={data}
         render={node => `zent-${node.title}`}
@@ -326,11 +326,14 @@ describe('new Tree', () => {
     );
 
     wrapper
-      .find('i')
+      .find('ZentIcon')
       .at(0)
-      .simulate('click', { currentTarget: { classList: [] } });
+      .simulate('click', {
+        currentTarget: { classList: [] },
+        stopPropagation: () => {},
+      });
     wrapper
-      .find('.zent-tree-content')
+      .find('.zent-tree-bar')
       .at(0)
       .simulate('click', { currentTarget: { classList: [] } });
 
@@ -352,9 +355,9 @@ describe('new Tree', () => {
         parentId: 3,
       },
     ];
-    const wrapper = shallow(<NewTree dataType="plain" data={data} />);
+    const wrapper = mount(<NewTree dataType="plain" data={data} />);
     expect(wrapper.find('li').length).toBe(1);
-    expect(wrapper.find('li').find('span').text()).toBe('root');
+    expect(wrapper.find('li').find('.zent-tree-content').text()).toBe('root');
   });
 
   it('Tree will update when data prop changed', () => {
@@ -474,10 +477,10 @@ describe('new Tree', () => {
       },
     ];
     const wrapper = mount(<NewTree dataType="plain" data={data} />);
-    const rootSpan = wrapper.find('span').at(0);
-    const sonSpan = wrapper.find('span').at(1);
-    const grandSonSpan = wrapper.find('span').at(2);
-    const daughterSpan = wrapper.find('span').at(3);
+    const rootSpan = wrapper.find('span').at(1);
+    const sonSpan = wrapper.find('span').at(3);
+    const grandSonSpan = wrapper.find('span').at(5);
+    const daughterSpan = wrapper.find('span').at(7);
     expect(rootSpan.text()).toBe('root');
     expect(sonSpan.text()).toBe('son');
     expect(grandSonSpan.text()).toBe('grandSon');
@@ -534,10 +537,12 @@ describe('new Tree', () => {
         ],
       },
     ];
-    let hackWrapper = mount(<NewTree data={hackData} />);
+    let hackWrapper = mount(<NewTree selectable data={hackData} />);
     hackWrapper.find('span').at(1).simulate('click');
     const onSelectMock = jest.fn();
-    hackWrapper = mount(<NewTree data={hackData} onSelect={onSelectMock} />);
+    hackWrapper = mount(
+      <NewTree selectable data={hackData} onSelect={onSelectMock} />
+    );
     hackWrapper.find('span').at(1).simulate('click');
     expect(onSelectMock.mock.calls.length).toBe(1);
   });
@@ -559,6 +564,7 @@ describe('new Tree', () => {
     const onSelectMock = jest.fn();
     const wrapper = mount(
       <NewTree
+        selectable
         data={data}
         autoExpandOnSelect={false}
         onSelect={onSelectMock}
@@ -576,8 +582,8 @@ describe('new Tree', () => {
     wrapper.find('.zent-tree-switcher').at(0).simulate('click');
     expect(
       wrapper.find('.zent-tree-bar').at(0).hasClass('zent-tree-bar--off')
-    ).toBe(true);
-    expect(onExpandMock.mock.calls.length).toBe(0);
+    ).toBe(false);
+    expect(onExpandMock.mock.calls.length).toBe(1);
     expect(onSelectMock.mock.calls.length).toBe(1);
   });
 
@@ -753,6 +759,7 @@ describe('new Tree', () => {
             ],
           });
         }
+        holdWrapper.setState({ loadingNode: [] });
         resolve();
       });
     };
@@ -795,7 +802,7 @@ describe('new Tree', () => {
     expect(wrapper.state().loadingNode).toEqual([1]);
     expect(wrapper.state().expandNode).toEqual([]);
     wrapper.update();
-    expect(wrapper.find('.tree-node-loading-wrapper').length).toBe(1);
+    expect(wrapper.find('InlineLoading').length).toBe(1);
 
     done();
   });
@@ -1090,5 +1097,74 @@ describe('new Tree', () => {
     );
 
     expect(iconWrapper.find('.customer-class').length).toBe(2);
+  });
+
+  it('tree select', () => {
+    const data = [
+      {
+        id: 1,
+        title: 'root',
+        children: [
+          {
+            id: 2,
+            title: 'son',
+          },
+        ],
+      },
+    ];
+    const wrapper = mount(<NewTree selectable data={data} />);
+    expect(wrapper.find('.zent-tree-bar--selected').length).toBe(0);
+    wrapper.find('.zent-tree-node').at(0).simulate('click');
+    expect(wrapper.find('.zent-tree-bar--selected').length).toBe(1);
+  });
+  it('tree disabled select', () => {
+    const data = [
+      {
+        id: 1,
+        title: 'root',
+        children: [
+          {
+            id: 2,
+            title: 'son',
+          },
+        ],
+      },
+    ];
+    const wrapper = mount(
+      <NewTree selectable data={data} disabledSelectedKeys={[1]} />
+    );
+    expect(
+      wrapper.find('.zent-tree-bar').at(0).hasClass('zent-tree-bar--disabled')
+    ).toBe(true);
+    expect(wrapper.find('.zent-tree-bar--selected').length).toBe(0);
+    wrapper.find('.zent-tree-bar').at(0).simulate('click');
+    expect(wrapper.find('.zent-tree-bar--selected').length).toBe(0);
+    wrapper.find('.zent-tree-bar').at(1).simulate('click');
+    expect(wrapper.find('.zent-tree-bar--selected').length).toBe(1);
+  });
+  it('tree disableSelectedStrictly', () => {
+    const data = [
+      {
+        id: 1,
+        title: 'root',
+        children: [
+          {
+            id: 2,
+            title: 'son',
+          },
+        ],
+      },
+    ];
+    const wrapper = mount(
+      <NewTree data={data} disabledSelectedKeys={[1]} disableSelectedStrictly />
+    );
+    expect(
+      wrapper.find('.zent-tree-bar').at(0).hasClass('zent-tree-bar--disabled')
+    ).toBe(true);
+    expect(wrapper.find('.zent-tree-bar--selected').length).toBe(0);
+    wrapper.find('.zent-tree-bar').at(0).simulate('click');
+    expect(wrapper.find('.zent-tree-bar--selected').length).toBe(0);
+    wrapper.find('.zent-tree-bar').at(1).simulate('click');
+    expect(wrapper.find('.zent-tree-bar--selected').length).toBe(0);
   });
 });
