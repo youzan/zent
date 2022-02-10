@@ -16,6 +16,7 @@ import {
   II18nLocaleTransfer,
   LocaleMark,
   II18nLocaleForm,
+  II18nLocaleNumberInput,
 } from './locale';
 import { setLocale, zhCN } from './time-locale';
 
@@ -195,4 +196,9 @@ export const Transfer: II18nLocaleTransfer = {
 
 export const Form: II18nLocaleForm = {
   required: '必填',
+};
+
+export const NumberInput: II18nLocaleNumberInput = {
+  min: '最小值不能小于',
+  max: '最大值不能大于',
 };
