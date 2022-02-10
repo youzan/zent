@@ -1,7 +1,7 @@
 ---
-order: 3
+order: 5
 zh-CN:
-	title: 普通、卡片、按钮类型
+	title: 普通、卡片
 	tabOne: 选项一
 	tabTwo: 选项二
 	tabThree: 选项三
@@ -9,7 +9,7 @@ zh-CN:
 	tabTwoCont: 选项二的内容
 	tabThreeCont: 选项三的内容
 en-US:
-	title: Normal、Card、Button Types
+	title: Normal、Card Types
 	tabOne: Tab One
 	tabTwo: Tab Two
 	tabThree: Tab Three
@@ -61,15 +61,6 @@ class Simple extends React.Component {
 				>
 					{panels}
 				</Tabs>
-				<div>
-				<Tabs
-					activeId={this.state.activeId}
-					onChange={this.onTabChange}
-					type="button"
-				>
-					{panels}
-				</Tabs>
-				</div>
 			</div>
 		);
 	}

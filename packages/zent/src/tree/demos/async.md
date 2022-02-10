@@ -10,7 +10,6 @@ en-US:
 	tree: Tree
 ---
 
-
 ```jsx
 import { Tree } from 'zent';
 
@@ -36,50 +35,55 @@ const fetchData = (data, callback) => {
 	} else {
 		setTimeout(() => callback([]), 200);
 	}
-}
+};
 
 class TreeExample extends React.Component {
 	state = {
-		treeData: []
-	}
+		treeData: [],
+	};
 
 	componentDidMount() {
 		const rootData = {
 			id: '1-0-10000',
 			title: '0-10000',
 			level: 0,
-			expand: true
+			expand: true,
 		};
-		fetchData(rootData, (resData) => {
+		fetchData(rootData, resData => {
 			const newData = resData.map(item => ({
 				...item,
-				parentId: rootData.id
+				parentId: rootData.id,
 			}));
 			this.setState({
-				treeData: [rootData, ...newData]
+				treeData: [rootData, ...newData],
 			});
 		});
 	}
 
-	loadMore = (data) => new Promise((resolve, reject) => {
-		fetchData(data, (resData) => {
-			const newData = resData.map(item => ({
-				...item,
-				parentId: data.id
-			}));
-			this.setState({ treeData: [...this.state.treeData, ...newData] });
-			resolve();
+	loadMore = data =>
+		new Promise((resolve, reject) => {
+			fetchData(data, resData => {
+				const newData = resData.map(item => ({
+					...item,
+					parentId: data.id,
+				}));
+				this.setState({ treeData: [...this.state.treeData, ...newData] });
+				resolve();
+			});
 		});
-	});
 
 	render() {
 		const { treeData } = this.state;
-		return <Tree dataType="plain" data={treeData} loadMore={this.loadMore} />;
+		return (
+			<Tree
+				selectable
+				dataType="plain"
+				data={treeData}
+				loadMore={this.loadMore}
+			/>
+		);
 	}
 }
 
-ReactDOM.render(
-	<TreeExample />
-	, mountNode
-);
+ReactDOM.render(<TreeExample />, mountNode);
 ```

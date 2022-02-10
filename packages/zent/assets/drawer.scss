@@ -2,10 +2,11 @@
 @import './theme/timing-functions';
 
 $header-height: 56px;
-$footer-height: 50px;
-$transition-duration: 220ms;
+$footer-height: 56px;
+$transition-duration: 300ms;
 $transition-backdrop-appear-duration: 300ms;
-$drawer-ease-out: $timing-fn-ease-out;
+$drawer-ease-out: $timing-fn-ease-out-cubic;
+$drawer-ease-in: $timing-fn-ease-in-cubic;
 $z-index: 1010;
 
 .zent-drawer {
@@ -36,8 +37,8 @@ $z-index: 1010;
     position: absolute;
     top: 0;
     right: 0;
-    padding: 18px 16px;
-    font-size: 18px;
+    padding: 14px 16px;
+    font-size: 20px;
     cursor: pointer;
   }
 
@@ -45,6 +46,8 @@ $z-index: 1010;
     line-height: $header-height;
     border-bottom: 1px solid;
     @include theme-color(border-color, stroke, 5);
+    font-weight: 500;
+    font-size: 16px;
 
     &__title {
       padding-left: 16px;
@@ -69,7 +72,7 @@ $z-index: 1010;
     }
     @mixin appear-active($val: 0, $placement: X) {
       transform: translate#{$placement }($val);
-      transition: transform $transition-duration $drawer-ease-out;
+      transition: transform $transition-duration $drawer-ease-in;
     }
     @mixin exit($val: 0, $placement: X) {
       transform: translate#{$placement }($val);
@@ -158,8 +161,7 @@ $z-index: 1010;
 
       &-appear-active {
         opacity: 1;
-        transition: opacity $transition-backdrop-appear-duration
-          $drawer-ease-out;
+        transition: opacity $transition-backdrop-appear-duration $drawer-ease-in;
       }
 
       &-exit {

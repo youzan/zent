@@ -1,5 +1,5 @@
 ---
-order: 2
+order: 3
 zh-CN:
 	title: 设置最大显示信息数
 en-US:
@@ -18,9 +18,6 @@ ReactDOM.render(
 			<Icon type="bell-o" className="demo-cont"/>
 		</Badge>
 		<Badge count={120} maxCount={10}>
-			<Icon type="bell-o" className="demo-cont"/>
-		</Badge>
-		<Badge count={1200} maxCount={999}>
 			<Icon type="bell-o" className="demo-cont"/>
 		</Badge>
 	</div>

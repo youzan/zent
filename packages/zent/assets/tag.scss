@@ -12,6 +12,15 @@
   border-style: solid;
   box-sizing: border-box;
 
+  &.zent-tag-size-medium {
+    font-size: $font-size-normal;
+  }
+
+  &.zent-tag-size-large {
+    font-size: $font-size-normal;
+    line-height: 18px;
+  }
+
   &.zent-tag-rounded {
     border-radius: 2px;
   }
@@ -77,7 +86,42 @@
 
   &.zent-tag-style-grey-outline {
     @include theme-color(color, stroke, 1);
-    @include theme-color(border-color, stroke, 4);
+    @include theme-color(border-color, stroke, 5);
+  }
+
+  &.zent-link-tag {
+    padding: 0 4px;
+
+    .zent-tag-content {
+      display: flex;
+      align-items: center;
+    }
+
+    .zent-link-tag-right-icon {
+      margin-right: -4px;
+      font-size: 16px;
+      @include theme-color(color, hint, color);
+    }
+
+    &:hover {
+      cursor: pointer;
+      @include theme-color(color, primary, bg);
+      @include theme-color(border-color, primary, bg);
+
+      .zent-link-tag-right-icon {
+        @include theme-color(color, primary, bg);
+      }
+    }
+  }
+
+  &.zent-select-tag {
+    cursor: pointer;
+
+    &.zent-select-tag-selected {
+      @include theme-color(color, primary, bg);
+      @include theme-color(background-color, default, hover-bg);
+      @include theme-color(border-color, default, hover-bg);
+    }
   }
 
   a {

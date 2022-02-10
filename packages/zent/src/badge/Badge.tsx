@@ -28,8 +28,8 @@ export class Badge extends PureComponent<IBadgeProps> {
     const posStyle =
       Array.isArray(offset) && offset.length === 2
         ? {
-            top: offset[0],
-            right: offset[1],
+            right: offset[0],
+            top: offset[1],
           }
         : NO_STYLE;
     const badgeStyle = style ? { ...style, ...posStyle } : posStyle;
@@ -38,7 +38,9 @@ export class Badge extends PureComponent<IBadgeProps> {
     } else if (count > 0 || (count === 0 && showZero)) {
       return (
         <span className="zent-badge-count" style={badgeStyle}>
-          {count > maxCount ? `${maxCount}+` : count}
+          <span className="zent-badge-count-num">
+            {count > maxCount ? `${maxCount}+` : count}
+          </span>
         </span>
       );
     }

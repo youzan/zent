@@ -11,10 +11,13 @@ const iconTypeMap: {
   info: 'info-circle',
   warning: 'warning',
   success: 'check-circle',
-  error: 'error-circle',
+  error: 'close-circle',
 };
 
-type IAlertItemProps = Omit<IAlertProps, 'outline' | 'closed'> & {
+type IAlertItemProps = Omit<
+  IAlertProps,
+  'outline' | 'closed' | 'background'
+> & {
   onAlertItemClose?: () => void;
   classItemName?: string;
 };
@@ -30,6 +33,8 @@ export const AlertItem = forwardRef<HTMLDivElement, IAlertItemProps>(
       loading,
       type,
       closable,
+      icon,
+      closeIconColor,
       closeContent,
       onAlertItemClose,
     } = props;
@@ -54,6 +59,7 @@ export const AlertItem = forwardRef<HTMLDivElement, IAlertItemProps>(
 
     const renderCloseNode = useMemo(() => {
       const { onClose } = propsRef.current;
+      const colorStyle = closeIconColor ? { color: closeIconColor } : {};
       return closable ? (
         <div
           className="zent-alert-item-close-wrapper"
@@ -64,11 +70,15 @@ export const AlertItem = forwardRef<HTMLDivElement, IAlertItemProps>(
           }}
         >
           {closeContent ?? (
-            <Icon type="close" className="zent-alert-item-close-btn" />
+            <Icon
+              type="close"
+              className="zent-alert-item-close-btn"
+              style={colorStyle}
+            />
           )}
         </div>
       ) : null;
-    }, [closable, closeContent, onAlertItemClose]);
+    }, [closable, closeContent, closeIconColor, onAlertItemClose]);
 
     const renderIcon = useMemo(() => {
       if (loading) {
@@ -82,6 +92,12 @@ export const AlertItem = forwardRef<HTMLDivElement, IAlertItemProps>(
         );
       }
 
+      if (icon === null || icon === false) return null;
+
+      if (icon) {
+        return <span className="zent-alert-item-custom-icon">{icon}</span>;
+      }
+
       if (type in iconTypeMap) {
         return (
           <Icon className="zent-alert-item-icon" type={iconTypeMap[type]} />
@@ -89,7 +105,7 @@ export const AlertItem = forwardRef<HTMLDivElement, IAlertItemProps>(
       }
 
       return null;
-    }, [loading, type]);
+    }, [loading, type, icon]);
 
     return (
       <div className={cx('zent-alert-item', classItemName)} ref={ref}>
