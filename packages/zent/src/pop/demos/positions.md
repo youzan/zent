@@ -1,9 +1,9 @@
 ---
 order: 2
 zh-CN:
-  title: 12种定位
+  title: 8种定位
 en-US:
-  title: 12 positions
+  title: 8 positions
 ---
 
 ```jsx
@@ -36,25 +36,13 @@ ReactDOM.render(
 			</Pop>
 		</div>
 		<div className="zent-doc-pop-positions-left-col">
-			<Pop trigger={trigger} position="left-top" content="LT">
-				<Button>LeftTop</Button>
-			</Pop>
 			<Pop trigger={trigger} position="left-center" content="LC">
 				<Button>LeftCenter</Button>
 			</Pop>
-			<Pop trigger={trigger} position="left-bottom" content="LB">
-				<Button>LeftBottom</Button>
-			</Pop>
 		</div>
 		<div className="zent-doc-pop-positions-right-col">
-			<Pop trigger={trigger} position="right-top" content="RT">
-				<Button>RightTop</Button>
-			</Pop>
 			<Pop trigger={trigger} position="right-center" content="RC">
 				<Button>RightCenter</Button>
-			</Pop>
-			<Pop trigger={trigger} position="right-bottom" content="RB">
-				<Button>RightBottom</Button>
 			</Pop>
 		</div>
 	</div>,

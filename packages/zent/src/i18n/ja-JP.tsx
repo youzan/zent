@@ -108,6 +108,7 @@ export const Cascader: II18nLocaleCascader = {
   searchPlaceholder: '選択/検索',
   searchEmpty: '見つかりません',
   empty: '見つかりません',
+  loading: 'ローディング…',
 };
 
 const QUARTER_NAMES = ['1期', '2期', '3期', '4期'];

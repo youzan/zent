@@ -1,17 +1,34 @@
 ---
 title: Progress
 path: component/progress
-group: Data Display
+group: Feedback
+scatter: true
 ---
 
 ## Progress
 
-Progress represents the current progress and status of the operation.
+Displays the current progress of an operation when it takes a long time to complete.
 
-### Guides
+### Suggestion
 
-- Progress is suitable for long-time operations, which shows the current progess and status of the current operation.
-- Progres can display the percentage of the operation progress.
+- It takes a long time to finish
+- Is running in the background and may take more than 4 seconds
+- The action needs to show a percentage of completion
+
+### Note
+
+- The process time cannot be estimated. `Loading` is recommended.
+- Actions determined by the process within 4 seconds are not recommended
+
+### Demos
+
+<!-- demo-slot-1 -->
+<!-- demo-slot-2 -->
+<!-- demo-slot-3 -->
+<!-- demo-slot-4 -->
+<!-- demo-slot-5 -->
+<!-- demo-slot-6 -->
+<!-- demo-slot-7 -->
 
 ### API
 
@@ -20,7 +37,7 @@ Progress represents the current progress and status of the operation.
 | className      | The custom classname                                                      | string  |                   |                                            |
 | type           | Style of progess                                                          | string  | `'line'`          | `'circle'`                                 |
 | percent        | percentage of progress                                                    | number  | `0`               |                                            |
-| status         | status of progress, has higher priority than percent                                                        | string  |                   | `'normal'` \| `'success'` \| `'exception'` |
+| status         | status of progress, has higher priority than percent                      | string  |                   | `'normal'` \| `'success'` \| `'exception'` |
 | showInfo       | Whether to show status information                                        | boolean | `true`            | `false`                                    |
 | format         | The format function of text, only work on normal status                   | func    | built-in function |                                            |
 | strokeWidth    | The width of progess bar, unit: px                                        | number  | `10`              |                                            |
@@ -29,3 +46,9 @@ Progress represents the current progress and status of the operation.
 | normalColor    | The color in normal state                                                 | string  |                   |                                            |
 | successColor   | The color in successful state.                                            | string  |                   |                                            |
 | exceptionColor | The color in exception state                                              | string  |                   |                                            |
+| strokeLinecap  | Change the linecaps from round to square                                  | string  | `'round'`         | `'round'` \| `'square'`                    |
+
+#### The following functions is obsolete in the new design system and is only used as a reference for the old version
+
+<!-- demo-slot-9 -->
+<!-- demo-slot-8 -->

@@ -2,14 +2,19 @@ import { Component } from 'react';
 import cx from 'classnames';
 import { AnimateHeight } from '../utils/component/AnimateHeight';
 import LazyMount from '../utils/component/LazyMount';
-import { EASE_IN_OUT } from '../utils/timingFunctions';
+import {
+  EASE_IN_CUBIC,
+  EASE_IN_OUT,
+  EASE_OUT_CUBIC,
+} from '../utils/timingFunctions';
 import { DisabledContext, IDisabledContext } from '../disabled';
 import isNil from '../utils/isNil';
+import Icon from '../icon/Icon';
 
 const NO_BOTTOM_BORDER = {
   borderBottomWidth: 0,
   borderBottomColor: 'rgba(255, 255, 255, 0)',
-  transition: `border-bottom-width 160ms ${EASE_IN_OUT}, border-bottom-color 160ms ${EASE_IN_OUT}`,
+  transition: `border-bottom-width 200ms ${EASE_IN_OUT}, border-bottom-color 200ms ${EASE_IN_OUT}`,
 };
 const NO_STYLE = {};
 
@@ -23,8 +28,10 @@ export interface ICollapsePanelProps {
   onChange?(key: string, active: boolean): void;
   panelKey?: string;
   panelTitleBackground?: string;
+  showContentBackground?: boolean;
   isLast?: boolean;
   bordered?: boolean;
+  extra?: React.ReactNode;
 }
 
 export class CollapsePanel extends Component<ICollapsePanelProps> {
@@ -50,7 +57,9 @@ export class CollapsePanel extends Component<ICollapsePanelProps> {
       className,
       isLast,
       bordered,
+      extra,
       panelTitleBackground,
+      showContentBackground,
     } = this.props;
     const { animateAppear } = this.state;
     const isBorderedLast = bordered && isLast;
@@ -80,16 +89,27 @@ export class CollapsePanel extends Component<ICollapsePanelProps> {
           style={titleStyle}
           onClick={this.toggle}
         >
-          {showArrow && <Arrow className="zent-collapse-panel__arrow" />}
-          {title}
+          <div className="zent-collapse-panel__title__content">
+            {showArrow && (
+              <Icon type="down" className="zent-collapse-panel__arrow" />
+            )}
+            {title}
+          </div>
+          <div className="zent-collapse-panel__title__extra">{extra}</div>
         </div>
         <LazyMount mount={active}>
           <AnimateHeight
             appear={animateAppear}
             duration={160}
             height={active ? 'auto' : 0}
-            easing={EASE_IN_OUT}
-            className="zent-collapse-panel__content-box"
+            transitionPrototype="all"
+            easing={active ? EASE_OUT_CUBIC : EASE_IN_CUBIC}
+            className={cx('zent-collapse-panel__content-box', {
+              'zent-collapse-panel__content-box--inactive': !active,
+              'zent-collapse-panel__content-box--active': active,
+              'zent-collapse-panel__content_box--show-background':
+                showContentBackground,
+            })}
             style={contentBoxStyle}
           >
             <div className="zent-collapse-panel__content">{children}</div>
@@ -111,22 +131,6 @@ export class CollapsePanel extends Component<ICollapsePanelProps> {
       onChange?.(panelKey, !active);
     }
   };
-}
-
-function Arrow({ className }: { className?: string }) {
-  return (
-    <svg
-      width="16"
-      height="10"
-      className={className}
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M8 6.77L14.37.403l1.413 1.414-6.369 6.37h.002L8 9.601.223 1.822 1.637.408 8 6.771z"
-        fillRule="evenodd"
-      />
-    </svg>
-  );
 }
 
 export default CollapsePanel;

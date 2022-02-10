@@ -20,11 +20,12 @@ import { Notify, Button } from 'zent';
 ReactDOM.render(
 	<div>
 		<Button onClick={() => Notify.info('{i18n.info}')}>{i18n.info}</Button>
-		<Button onClick={() => Notify.success('{i18n.success}')}>{i18n.success}</Button>
+		<Button onClick={() => Notify.success('{i18n.success}')}>
+			{i18n.success}
+		</Button>
 		<Button onClick={() => Notify.warn('{i18n.warn}')}>{i18n.warn}</Button>
 		<Button onClick={() => Notify.error('{i18n.error}')}>{i18n.error}</Button>
-	</div>
-	, mountNode
+	</div>,
+	mountNode
 );
-
 ```

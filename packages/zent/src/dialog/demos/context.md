@@ -4,10 +4,14 @@ zh-CN:
 	title: openDialog 支持 context
 	show: 显示
 	title1: openDialog 支持 context
+	ok: 确定
+	close: 关闭
 en-US:
 	title: openDialog with context
 	show: Show
 	title1: openDialog support context
+	ok: Ok
+	close: Close
 ---
 
 ```js
@@ -28,6 +32,12 @@ class Example extends React.Component {
 				<DemoContext.Consumer>
 					{({ shared }) => <span>{shared}</span>}
 				</DemoContext.Consumer>
+			),
+			footer: (
+				<>
+					<Button>{i18n.close}</Button>
+					<Button type="primary">{i18n.ok}</Button>
+				</>
 			),
 		});
 	};

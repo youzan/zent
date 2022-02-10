@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import { Component, createRef } from 'react';
+import { Component, createRef, CSSProperties } from 'react';
 
 import { CascaderItemSelectionState, ICascaderItem } from '../types';
 import { ISearchInputImperativeHandlers, SearchInput } from './Search';
@@ -17,6 +17,8 @@ interface ITagsTriggerProps extends ICascaderBaseTriggerProps {
   ) => React.ReactNode;
 
   simplifyPaths: boolean;
+  maxLine: number | null;
+  lineHeight: number;
 }
 
 export class TagsTrigger extends Component<ITagsTriggerProps> {
@@ -32,6 +34,39 @@ export class TagsTrigger extends Component<ITagsTriggerProps> {
 
   focus() {
     this.searchInputRef.current?.focus();
+  }
+
+  renderTagsContent() {
+    const {
+      selectedPaths,
+      renderValue,
+      onRemove,
+      selectionMap,
+      simplifyPaths,
+      maxLine,
+      lineHeight,
+    } = this.props;
+    const tagEl = (
+      <Tags
+        list={selectedPaths}
+        selectionMap={selectionMap}
+        simplifyPaths={simplifyPaths}
+        renderValue={renderValue}
+        collapse={maxLine === 1}
+        onRemove={onRemove}
+      />
+    );
+    const maxHeightStyle: CSSProperties = {};
+    if (maxLine > 1) {
+      maxHeightStyle.maxHeight = maxLine * lineHeight + 'px';
+      maxHeightStyle.overflowY = 'auto';
+      return (
+        <div style={maxHeightStyle} className="zent-cascader-v2-tag__list">
+          {tagEl}
+        </div>
+      );
+    }
+    return tagEl;
   }
 
   render() {
@@ -51,8 +86,7 @@ export class TagsTrigger extends Component<ITagsTriggerProps> {
       renderValue,
       renderTags,
       onRemove,
-      selectionMap,
-      simplifyPaths,
+      maxLine,
     } = this.props;
     const showTags = selectedPaths.length > 0;
     const showSearch = visible && searchable;
@@ -61,7 +95,9 @@ export class TagsTrigger extends Component<ITagsTriggerProps> {
       <BaseTrigger
         placeholder={placeholder}
         disabled={disabled}
-        className={cx(className, 'zent-cascader-v2--multiple')}
+        className={cx(className, 'zent-cascader-v2--multiple', {
+          'zent-cascader-v2--multiple--collapsed': maxLine === 1,
+        })}
         clearable={clearable}
         visible={visible}
         onClear={onClear}
@@ -76,21 +112,13 @@ export class TagsTrigger extends Component<ITagsTriggerProps> {
       >
         {showTags &&
           // Allow customize rendering of tag list
-          (typeof renderTags === 'function' ? (
-            renderTags({
-              list: selectedPaths,
-              renderValue,
-              onRemove,
-            })
-          ) : (
-            <Tags
-              list={selectedPaths}
-              selectionMap={selectionMap}
-              simplifyPaths={simplifyPaths}
-              renderValue={renderValue}
-              onRemove={onRemove}
-            />
-          ))}
+          (typeof renderTags === 'function'
+            ? renderTags({
+                list: selectedPaths,
+                renderValue,
+                onRemove,
+              })
+            : this.renderTagsContent())}
         {showSearch && (
           <SearchInput
             placeholder={i18n.searchPlaceholder}

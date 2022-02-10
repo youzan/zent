@@ -4,8 +4,7 @@ import { Optional } from 'utility-types';
 
 import Button, { IButtonProps } from '../../../button';
 import Pop, { IPopProps } from '../../../pop';
-
-const XML_NS = 'http://www.w3.org/2000/svg';
+import Icon from '../../../icon';
 
 export interface IPaginationArrowButtonProps {
   direction: 'left' | 'right';
@@ -130,7 +129,11 @@ class DoubleArrowButton extends Component<
         onMouseOver={active ? undefined : this.onMouseOver}
         onMouseLeave={active ? undefined : this.onMouseOut}
       >
-        {isActive ? <Arrow /> : '...'}
+        {isActive ? (
+          <Arrow />
+        ) : (
+          <Icon type="more" className="zent-pagination-more" />
+        )}
       </Button>
     );
   }
@@ -166,61 +169,19 @@ class DoubleArrowButton extends Component<
 }
 
 function LeftArrow() {
-  return (
-    <svg width="9" height="14" xmlns={XML_NS} className="zent-pagination-arrow">
-      <path
-        d="M8 1L1.78 7 8 13"
-        strokeWidth={2}
-        fill="none"
-        fillRule="evenodd"
-      />
-    </svg>
-  );
+  return <Icon type="left" className="zent-pagination-arrow" />;
 }
 
 function RightArrow() {
-  return (
-    <svg width="9" height="14" xmlns={XML_NS} className="zent-pagination-arrow">
-      <path
-        d="M1 1l6.22 6L1 13"
-        strokeWidth={2}
-        fill="none"
-        fillRule="evenodd"
-      />
-    </svg>
-  );
+  return <Icon type="right" className="zent-pagination-arrow" />;
 }
 
 function LeftDoubleArrow() {
-  return (
-    <svg
-      width="15"
-      height="14"
-      xmlns={XML_NS}
-      className="zent-pagination-arrow"
-    >
-      <g strokeWidth={2} fill="none" fillRule="evenodd">
-        <path d="M8 1L1.78 7 8 13" />
-        <path d="M14 1L7.78 7 14 13" />
-      </g>
-    </svg>
-  );
+  return <Icon type="double-last" className="zent-pagination-arrow" />;
 }
 
 function RightDoubleArrow() {
-  return (
-    <svg
-      width="15"
-      height="14"
-      xmlns={XML_NS}
-      className="zent-pagination-arrow"
-    >
-      <g strokeWidth={2} fill="none" fillRule="evenodd">
-        <path d="M7 1l6.22 6L7 13" />
-        <path d="M1 1l6.22 6L1 13" />
-      </g>
-    </svg>
-  );
+  return <Icon type="double-next" className="zent-pagination-arrow" />;
 }
 
 export default ArrowButton;

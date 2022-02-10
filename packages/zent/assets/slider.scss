@@ -1,5 +1,25 @@
 @import './theme/default';
 @import './theme/font';
+@mixin pointer-active {
+  @include theme-color(color, primary, 4);
+  transform-origin: center center;
+  height: 16px;
+  width: 16px;
+  cursor: pointer;
+  &::after {
+    @include theme-color(border-color, primary, 4, 0.15);
+    border-style: solid;
+    border-width: 6px;
+    width: 16px;
+    height: 16px;
+    content: '';
+    display: inline-block;
+    border-radius: 50%;
+    position: absolute;
+    left: -8px;
+    top: -8px;
+  }
+}
 
 .zent-slider {
   display: flex;
@@ -8,7 +28,8 @@
   padding: 8px 7px;
 
   &-main {
-    @include theme-color(background-color, stroke, 6);
+    // text-700 没有对应语义化
+    background-color: rgba(0, 0, 0, 0.05);
     flex: 1;
     height: 14px;
     cursor: pointer;
@@ -36,7 +57,7 @@
   }
 
   &-track {
-    @include theme-color(background-color, primary, 6);
+    @include theme-color(background-color, primary, 4);
     height: 4px;
     position: absolute;
     border-radius: 8px;
@@ -55,33 +76,40 @@
   }
 
   &-point {
-    @include theme-color(border-color, primary, 6);
+    @include theme-color(border-color, primary, 4);
     @include theme-color(background-color, stroke, 9);
     box-sizing: border-box;
-    width: 14px;
-    height: 14px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     border-width: 2px;
     border-style: solid;
     cursor: pointer;
-    transition: border-color 0.3s ease,
+    position: relative;
+    z-index: 1;
+    transition: border-color 0.3s ease, height 0.1s linear, width 0.1s linear,
       transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
 
-    &:hover {
-      @include theme-color(color, primary, 4);
-      transform: scale(1.2);
-      transform-origin: center center;
+    $prefix: &;
+
+    &:hover:not(#{$prefix}-disabled) {
+      height: 16px;
+      width: 16px;
+    }
+
+    &:active:not(#{$prefix}-disabled) {
+      @include pointer-active;
     }
 
     &-disabled {
-      @include theme-color(border-color, stroke, 5);
+      @include theme-color(border-color, stroke, 4);
       border-width: 2px;
       border-style: solid;
       cursor: not-allowed;
 
       &:hover {
-        @include theme-color(border-color, stroke, 5);
-        transform: scale(1.2);
+        @include theme-color(border-color, stroke, 4);
+        transform: scale(1);
         transform-origin: center center;
       }
     }
@@ -134,6 +162,12 @@
 
       &:after {
         display: block;
+      }
+    }
+
+    &-active {
+      .zent-slider-point {
+        @include pointer-active;
       }
     }
   }

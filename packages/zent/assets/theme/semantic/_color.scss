@@ -74,15 +74,6 @@ $danger-colors: (
   'border-color': $danger-500,
 );
 
-$link-colors: (
-  // Primary text link brand color
-  'color': $primary-500,
-  // Hover state of primary text link brand color
-  'hover-color': $primary-400,
-  // Active state of primary text link brand color
-  'active-color': $primary-600
-);
-
 $default-colors: (
   // Hover state of default text color components e.g. default button..
   'hover-color': $primary-500,
@@ -93,7 +84,8 @@ $default-colors: (
   'selected': $text-200,
   'disabled-color': $text-400,
   'disabled-bg': $text-200,
-  'disabled-border-color': $text-400
+  'disabled-border-color': $text-400,
+  'bg': $text-700
 );
 
 $primary-colors: (
@@ -112,9 +104,18 @@ $primary-colors: (
   'active-border-color': $primary-600,
 );
 
+$link-colors: (
+  // Primary text link brand color
+  'color': $primary-500,
+  // Hover state of primary text link brand color
+  'hover-color': $primary-400,
+  // Active state of primary text link brand color
+  'active-color': $primary-600
+);
+
 // components
 $weak-link-colors: (
-  'color': $text-500,
+  'color': $text-600,
   // Hover state of primary text weak link brand color
   'hover-color': $primary-400,
   // Active state of primary text weak link brand color
@@ -164,6 +165,10 @@ $theme-stroke-9: map-get(
 // Button background color
 $theme-stroke-10: map-get($section-colors, 'border-color') !default; // Active
 $theme-stroke-11: map-get(map-get($color-sets, 'body'), 'bg') !default; // Hover
+$theme-stroke-12: map-get(
+  map-get($color-sets, 'default'),
+  'bg'
+) !default; // default-back
 
 // Blue(primary)
 $theme-primary-1: map-get(
@@ -308,6 +313,10 @@ $theme-colors-mapping: (
     ),
     (
       cat: 'body',
+      attr: 'bg',
+    ),
+    (
+      cat: 'default',
       attr: 'bg',
     ),
   ),

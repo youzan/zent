@@ -1,7 +1,6 @@
 import { isElement } from 'react-is';
 import cn from 'classnames';
 import { Children } from 'react';
-
 import isNil from '../utils/isNil';
 import noop from '../utils/noop';
 import LazyMount from '../utils/component/LazyMount';
@@ -44,6 +43,7 @@ export class Tabs<Id extends string | number = string> extends BaseTabs<
     type: 'normal',
     activeId: '',
     candel: false,
+    canFixed: false,
     stretch: false,
     onChange: noop,
     onDelete: noop,
@@ -88,28 +88,46 @@ export class Tabs<Id extends string | number = string> extends BaseTabs<
     const {
       type,
       candel,
+      canFixed,
+      fixedIds,
+      onFixedChange,
       stretch,
       navExtraContent,
       onChange,
       onDelete,
+      onAdd,
       overflowMode,
+      activeId,
+      renderTabBar,
     } = this.props as ITabsInnerProps<Id>;
 
     const TabsNavComp = (TabsNavComponents[type] ||
       TabsNavComponents['normal']) as React.ComponentClass<ITabsNavProps<Id>>;
 
-    return (
-      <TabsNavComp
-        onChange={onChange}
-        tabDataList={tabDataList}
-        onDelete={onDelete}
-        candel={candel}
-        stretch={stretch}
-        overflowMode={overflowMode}
-        navExtraContent={navExtraContent}
-        type={type}
-      />
-    );
+    const tabNavProps: ITabsNavProps<Id> = {
+      onChange,
+      tabDataList,
+      onDelete,
+      onAdd,
+      candel,
+      canFixed,
+      stretch,
+      overflowMode,
+      navExtraContent,
+      type,
+      activeId,
+      onFixedChange,
+    };
+
+    if ('fixedIds' in this.props) {
+      tabNavProps.fixedIds = fixedIds;
+    }
+
+    if (renderTabBar) {
+      return renderTabBar(tabNavProps, TabsNavComp);
+    }
+
+    return <TabsNavComp {...tabNavProps} />;
   }
 
   renderTabPanel(tabItem: IInnerTab<Id>) {

@@ -6,7 +6,7 @@ group: Navigation
 
 ## Pagination
 
-Pagination has 3 different styles.
+Split content or data into multiple pages and provide jumping capability.
 
 ### API
 

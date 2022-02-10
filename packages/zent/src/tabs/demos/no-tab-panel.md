@@ -1,5 +1,5 @@
 ---
-order: 2
+order: 6
 zh-CN:
 	title: 不使用TabPanel，只使用Tab展示导航
 	tabOne: 选项一

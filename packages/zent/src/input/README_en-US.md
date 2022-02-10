@@ -21,6 +21,7 @@ A input widget for buiding forms in React, based on raw input. you can enter con
 | width              | width                                                                  | string or number |            |                                        | No       |
 | inline             | Inline display                                                         | bool             | `false`    | `true`                                 | No       |
 | type               | content type                                                           | string           | `'text'`   | `'number'`、`'password'`、`'textarea'` | No       |
+| widthSize          | width size                                																| string           | `'s'` | `'xs'` \| `'m'`    \| `'l'`\| `'xl'`             | 否       |
 | size               | size(height)，use `width` to control input width                       | string           | `'normal'` | `'large'` \| `'small'`                 | No       |
 | defaultValue       | default value                                                          | string           |            |                                        | No       |
 | value              | input value                                                            | string           |            |                                        | No       |

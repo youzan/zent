@@ -6,6 +6,8 @@ import SlideOperation from '../operation/SlideOperation';
 import { IInnerTab, ITabsNavProps } from '../../types';
 import { WindowResizeHandler } from '../../../utils/component/WindowResizeHandler';
 import memorizeOne from '../../../utils/memorize-one';
+import Icon from '../../../icon';
+import { runOnceInNextFrame } from '../../../utils/nextFrame';
 
 const classNamePrefix = 'zent-tabs-nav-tabs-content';
 
@@ -19,7 +21,10 @@ interface ITabsInfo {
   tabsTotalWidth: number;
 }
 interface IOperationTabsProps<Id>
-  extends Pick<ITabsNavProps<Id>, 'tabDataList' | 'onChange' | 'overflowMode'> {
+  extends Pick<
+    ITabsNavProps<Id>,
+    'tabDataList' | 'onChange' | 'overflowMode' | 'onAdd' | 'activeId'
+  > {
   tabs: React.ReactNode[];
 }
 
@@ -28,6 +33,10 @@ abstract class OperationTabs<Id extends string | number> extends Component<
 > {
   tabsWrapperRef = createRef<HTMLDivElement>();
   tabsMainRef = createRef<HTMLDivElement>();
+
+  static defaultProps = {
+    overflowMode: 'anchor',
+  };
 
   state = {
     // 可视范围内第一个完整展示的tab下标
@@ -39,6 +48,10 @@ abstract class OperationTabs<Id extends string | number> extends Component<
 
   get tabsWrapperWidth() {
     return this.tabsWrapperRef.current?.offsetWidth || 0;
+  }
+
+  get isControlled() {
+    return 'activeId' in this.props;
   }
 
   getTabsInfo(): ITabsInfo {
@@ -143,8 +156,7 @@ abstract class OperationTabs<Id extends string | number> extends Component<
     });
   };
 
-  onAnchorPageChange = (tab: IInnerTab<Id>) => {
-    if (tab.disabled) return;
+  handlePageScroll = (tab: IInnerTab<Id>) => {
     const tabsInfo = this.getTabsInfo();
     const targetIndex = tabsInfo.list.findIndex(item => item.id === tab.key);
 
@@ -154,6 +166,13 @@ abstract class OperationTabs<Id extends string | number> extends Component<
     }
     if (targetIndex >= endIndex) {
       this.onEndChange(targetIndex, tabsInfo);
+    }
+  };
+
+  onAnchorPageChange = (tab: IInnerTab<Id>) => {
+    if (tab.disabled) return;
+    if (!this.isControlled) {
+      this.handlePageScroll(tab);
     }
     this.props.onChange?.(tab.key);
   };
@@ -194,15 +213,37 @@ abstract class OperationTabs<Id extends string | number> extends Component<
     this.onStartChange(0, this.getTabsInfo());
   }
 
-  onResize = () => {
+  onResize = runOnceInNextFrame(() => {
     this.onStartChange(this.state.startIndex, this.getTabsInfo());
+  });
+
+  componentDidUpdate = prevProps => {
+    const { activeId, tabDataList } = this.props;
+    if (prevProps.tabDataList.length !== this.props.tabDataList.length) {
+      this.onResize();
+    }
+    if (prevProps.activeId === activeId) return;
+    const { startIndex, endIndex } = this.state;
+    const currentTabIndex = tabDataList.findIndex(tab => tab.key === activeId);
+    if (currentTabIndex === -1) return;
+    if (currentTabIndex < startIndex || currentTabIndex > endIndex) {
+      const currentTab = tabDataList[currentTabIndex];
+      this.handlePageScroll(currentTab);
+    }
+  };
+
+  handleAddClick = () => {
+    const { onAdd } = this.props;
+    onAdd?.();
   };
 
   render() {
-    const { overflowMode, tabs, tabDataList } = this.props;
+    const { overflowMode, tabs, tabDataList, onAdd } = this.props;
     const { translateX, startIndex, endIndex } = this.state;
     const contentClassName = `${classNamePrefix}-${overflowMode}`;
     const hiddenTabs = this.getHiddenTabs(tabDataList, startIndex, endIndex);
+    const isHiddenTab = hiddenTabs.length !== 0;
+
     return (
       <>
         <div
@@ -213,19 +254,48 @@ abstract class OperationTabs<Id extends string | number> extends Component<
           ref={this.tabsWrapperRef}
         >
           <div
-            className={cn(`${contentClassName}-main`)}
+            className={cn(`${contentClassName}-main`, {
+              [`${contentClassName}-main--has-add`]: !isHiddenTab && onAdd,
+            })}
             ref={this.tabsMainRef}
-            style={{ transform: `translate(-${translateX}px, 0)` }}
+            onScroll={this.onResize}
+            style={{
+              transform: `translateX(-${isHiddenTab ? translateX : 0}px)`,
+            }}
           >
             {tabs}
           </div>
+          {!isHiddenTab && onAdd && (
+            <span
+              className={`${contentClassName}__add-btn`}
+              onClick={this.handleAddClick}
+            >
+              <Icon type="plus" className={`${contentClassName}__add-icon`} />
+            </span>
+          )}
         </div>
-        {!!hiddenTabs.length && (
+        {isHiddenTab && (
           <>
-            <div className={`${contentClassName}-option`}>
+            <div
+              className={cn(`${contentClassName}-option`, {
+                [`${contentClassName}-option--right`]:
+                  endIndex !== tabs.length - 1,
+              })}
+            >
               {overflowMode === 'slide' && this.renderSlideOperations()}
               {overflowMode === 'anchor' &&
                 this.renderAnchorOperations(hiddenTabs)}
+              {onAdd && (
+                <span
+                  className={`${contentClassName}-option__add-btn`}
+                  onClick={this.handleAddClick}
+                >
+                  <Icon
+                    type="plus"
+                    className={`${contentClassName}__add-icon`}
+                  />
+                </span>
+              )}
             </div>
             <WindowResizeHandler onResize={this.onResize} />
           </>

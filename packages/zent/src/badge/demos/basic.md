@@ -11,9 +11,9 @@ import { Badge, Icon } from 'zent';
 
 ReactDOM.render(
 	<Badge count={5}>
-		<Icon type="bell-o" className="demo-cont"/>
-	</Badge>
-	, mountNode
+		<Icon type="bell-o" className="demo-cont" />
+	</Badge>,
+	mountNode
 );
 ```
 

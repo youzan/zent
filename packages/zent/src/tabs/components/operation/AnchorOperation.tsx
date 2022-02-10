@@ -4,6 +4,7 @@ import { IInnerTab } from '../../types';
 import Icon from '../../../icon';
 import Popover from '../../../popover';
 import { useEventCallbackRef } from '../../../utils/hooks/useEventCallbackRef';
+import { getTabPanelStringTitle } from '../../utils';
 
 interface IAnchorOperationProps<Id> {
   tabs: Array<IInnerTab<Id>>;
@@ -44,6 +45,7 @@ const AnchorOperation = <Id extends string | number = string>({
                 'zent-tabs-hidden-tab-disabled': item.disabled,
               })}
               onClick={() => onClick(item)}
+              title={getTabPanelStringTitle(item.title)}
             >
               {item.title}
             </div>

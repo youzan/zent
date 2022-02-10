@@ -1,7 +1,7 @@
 ---
 title: Radio
 path: component/radio
-group: Data Entry
+group: Basics
 ---
 
 ## Radio
@@ -9,17 +9,6 @@ group: Data Entry
 `RadioGroup` is a [controlled-component][https://facebook.github.io/react/docs/forms.html#controlled-components]. There must be a `onChange` callback dealing with changes outside.
 
 ### API
-
-#### RadioGroup
-
-| Props        | Description                                               | Type                 | Default             |
-| ------------ | --------------------------------------------------------- | -------------------- | ------------------- |
-| value        | Used to set the currently selected value                  | `any`                |                     |
-| disabled     | Disable the radio group                                   | `boolean`            |                     |
-| readOnly     | It specifies the component is read-only                   | `boolean`            |                     |
-| onChange     | change callback                                           | `(e: Event) => void` |                     |
-| isValueEqual | Optional, a function to determine whether values is equal | `(a, b) => boolean`  | `(a, b) => a === b` |
-| className    | custom classname                                          | `string`             |                     |
 
 #### Radio
 

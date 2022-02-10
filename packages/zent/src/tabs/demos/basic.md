@@ -34,21 +34,35 @@ class Simple extends React.Component {
 	};
 
 	render() {
+		const panels = [
+			<TabPanel key="1" tab={<span>{i18n.tabOne}</span>} id="1" disabled>
+				<div>{i18n.tabOneCont}</div>
+			</TabPanel>,
+			<TabPanel key="2" tab="{i18n.tabTwo}" id="2">
+				<div>{i18n.tabTwoCont}</div>
+			</TabPanel>,
+			<TabPanel key="3" tab="{i18n.tabThree}" id="3">
+				<div>{i18n.tabThreeCont}</div>
+			</TabPanel>,
+		];
 		return (
-			<Tabs activeId={this.state.activeId} onChange={this.onTabChange} align="right">
-				<TabPanel tab={<span>{i18n.tabOne}</span>} id="1" disabled>
-					<div>{i18n.tabOneCont}</div>
-				</TabPanel>
-				<TabPanel tab="{i18n.tabTwo}" id="2">
-					<div>{i18n.tabTwoCont}</div>
-				</TabPanel>
-				<TabPanel tab="{i18n.tabThree}" id="3">
-					<div>{i18n.tabThreeCont}</div>
-				</TabPanel>
-			</Tabs>
+			<div className="zent-tabs-demo">
+				<Tabs
+					activeId={this.state.activeId}
+					onChange={this.onTabChange}
+				>
+					{panels}
+				</Tabs>
+			</div>
 		);
 	}
 }
 
 ReactDOM.render(<Simple />, mountNode);
 ```
+
+<style>
+.zent-tabs-demo .zent-tabs {
+	margin-bottom: 16px;
+}
+</style>

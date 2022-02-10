@@ -7,11 +7,21 @@
   font-size: $font-size-normal;
   @include theme-color(color, stroke, 1);
 
-  &-page-list--normal,
-  &-page-list--mini,
-  &-page-list--lite {
-    .zent-pagination-button--layout + .zent-pagination-button--layout {
+  &--normal {
+    .zent-pagination-button--layout + .zent-pagination-button--layout,
+    .zent-btn-disabled-wrapper + .zent-pagination-button--layout,
+    .zent-btn-disabled-wrapper + .zent-btn-disabled-wrapper,
+    .zent-pagination-button--layout + .zent-btn-disabled-wrapper {
       margin-left: 4px;
+    }
+  }
+
+  &--lite {
+    .zent-pagination-button--layout + .zent-pagination-button--layout,
+    .zent-btn-disabled-wrapper + .zent-pagination-button--layout,
+    .zent-btn-disabled-wrapper + .zent-btn-disabled-wrapper,
+    .zent-pagination-button--layout + .zent-btn-disabled-wrapper {
+      margin-left: 0;
     }
   }
 
@@ -20,20 +30,32 @@
     margin: 0 8px;
   }
 
-  &-arrow {
+  &-arrow,
+  &-more {
     @include theme-color(stroke, stroke, 1);
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    font-size: 20px;
   }
 
   &-page-number-button.zent-btn,
   &-arrow-button.zent-btn {
-    padding: 0 8px;
+    padding: 0 5px;
     min-width: 32px;
     position: relative;
     transition: none;
+
+    &:not(.zent-btn-primary) {
+      @include theme-color(background-color, stroke, 9);
+      @include theme-color(border-color, stroke, 5);
+
+      &:hover,
+      &:active {
+        @include theme-color(background, stroke, 7);
+      }
+    }
 
     &[disabled] {
       .zent-pagination-arrow {
@@ -42,12 +64,19 @@
     }
   }
 
-  &-page-button--no-border:not(.zent-btn-primary) {
+  &-arrow-button.zent-btn {
+    .zenticon {
+      margin: 0;
+    }
+  }
+
+  &-page-button--no-border.zent-btn:not(.zent-btn-primary) {
     border-color: transparent;
 
     &:hover,
     &:active {
       @include theme-color(background, stroke, 9);
+      @include theme-color(color, primary, 4);
       border-color: transparent;
     }
 
@@ -110,6 +139,7 @@
     .zent-input-wrapper {
       .zent-input {
         min-width: 100%;
+        cursor: pointer;
       }
     }
   }
@@ -128,13 +158,10 @@
 
   &-mini-page-jumper {
     @include font-normal;
+    margin: 0 8px;
 
     &__sep {
       margin: 0 24px;
-    }
-
-    &__total {
-      margin-right: 16px;
     }
 
     .zent-input {
