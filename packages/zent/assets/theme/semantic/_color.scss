@@ -145,61 +145,70 @@ $color-sets: (
 
 // old
 // Text colors
-$theme-stroke-1: map-get($title-colors, 'color'); // text
-$theme-stroke-2: map-get($hint-colors, 'color'); // text
-$theme-stroke-3: map-get($hint-colors, 'color'); // help text
-$theme-stroke-4: map-get($disabled-colors, 'color'); // disabled text
+$theme-stroke-1: map-get($title-colors, 'color') !default; // text
+$theme-stroke-2: map-get($hint-colors, 'color') !default; // text
+$theme-stroke-3: map-get($hint-colors, 'color') !default; // help text
+$theme-stroke-4: map-get($disabled-colors, 'color') !default; // disabled text
 
 // Border and line colors
-$theme-stroke-5: map-get($section-colors, 'border-color');
-$theme-stroke-6: map-get($section-colors, 'border-color');
+$theme-stroke-5: map-get($section-colors, 'border-color') !default;
+$theme-stroke-6: map-get($section-colors, 'border-color') !default;
 
 // Background colors
-$theme-stroke-7: map-get($section-colors, 'bg');
-$theme-stroke-8: map-get($section-colors, 'bg');
+$theme-stroke-7: map-get($section-colors, 'bg') !default;
+$theme-stroke-8: map-get($section-colors, 'bg') !default;
 $theme-stroke-9: map-get(
   $body-colors,
   'bg'
-); // White button normal background color
+) !default; // White button normal background color
 
 // Button background color
-$theme-stroke-10: map-get($section-colors, 'border-color'); // Active
-$theme-stroke-11: map-get(map-get($color-sets, 'body'), 'bg'); // Hover
+$theme-stroke-10: map-get($section-colors, 'border-color') !default; // Active
+$theme-stroke-11: map-get(map-get($color-sets, 'body'), 'bg') !default; // Hover
 $theme-stroke-12: map-get(
   map-get($color-sets, 'default'),
   'bg'
-); // default-back
+) !default; // default-back
 
 // Blue(primary)
-$theme-primary-1: map-get(map-get($color-sets, 'primary'), 'active-bg');
-$theme-primary-2: map-get(map-get($color-sets, 'primary'), 'active-bg');
-$theme-primary-3: map-get(map-get($color-sets, 'primary'), 'active-bg');
-$theme-primary-4: map-get(map-get($color-sets, 'primary'), 'bg');
-$theme-primary-5: map-get(map-get($color-sets, 'primary'), 'hover-bg');
-$theme-primary-6: map-get(map-get($color-sets, 'primary'), 'hover-bg');
-$theme-primary-7: map-get(map-get($color-sets, 'primary'), 'hover-bg');
-$theme-primary-8: map-get(map-get($color-sets, 'default'), 'hover-bg');
+$theme-primary-1: map-get(
+  map-get($color-sets, 'primary'),
+  'active-bg'
+) !default;
+$theme-primary-2: map-get(
+  map-get($color-sets, 'primary'),
+  'active-bg'
+) !default;
+$theme-primary-3: map-get(
+  map-get($color-sets, 'primary'),
+  'active-bg'
+) !default;
+$theme-primary-4: map-get(map-get($color-sets, 'primary'), 'bg') !default;
+$theme-primary-5: map-get(map-get($color-sets, 'primary'), 'hover-bg') !default;
+$theme-primary-6: map-get(map-get($color-sets, 'primary'), 'hover-bg') !default;
+$theme-primary-7: map-get(map-get($color-sets, 'primary'), 'hover-bg') !default;
+$theme-primary-8: map-get(map-get($color-sets, 'default'), 'hover-bg') !default;
 
 // Green
-$theme-success-1: map-get(map-get($color-sets, 'success'), 'color');
-$theme-success-2: map-get(map-get($color-sets, 'success'), 'color');
-$theme-success-3: map-get(map-get($color-sets, 'success'), 'color');
-$theme-success-4: map-get(map-get($color-sets, 'success'), 'color');
-$theme-success-5: map-get(map-get($color-sets, 'success'), 'bg');
+$theme-success-1: map-get(map-get($color-sets, 'success'), 'color') !default;
+$theme-success-2: map-get(map-get($color-sets, 'success'), 'color') !default;
+$theme-success-3: map-get(map-get($color-sets, 'success'), 'color') !default;
+$theme-success-4: map-get(map-get($color-sets, 'success'), 'color') !default;
+$theme-success-5: map-get(map-get($color-sets, 'success'), 'bg') !default;
 
 // Red
-$theme-error-1: map-get(map-get($color-sets, 'danger'), 'color');
-$theme-error-2: map-get(map-get($color-sets, 'danger'), 'color');
-$theme-error-3: map-get(map-get($color-sets, 'danger'), 'color');
-$theme-error-4: map-get(map-get($color-sets, 'danger'), 'color');
-$theme-error-5: map-get(map-get($color-sets, 'danger'), 'bg');
+$theme-error-1: map-get(map-get($color-sets, 'danger'), 'color') !default;
+$theme-error-2: map-get(map-get($color-sets, 'danger'), 'color') !default;
+$theme-error-3: map-get(map-get($color-sets, 'danger'), 'color') !default;
+$theme-error-4: map-get(map-get($color-sets, 'danger'), 'color') !default;
+$theme-error-5: map-get(map-get($color-sets, 'danger'), 'bg') !default;
 
 // Orange
-$theme-warn-1: map-get(map-get($color-sets, 'warning'), 'color');
-$theme-warn-2: map-get(map-get($color-sets, 'warning'), 'color');
-$theme-warn-3: map-get(map-get($color-sets, 'warning'), 'color');
-$theme-warn-4: map-get(map-get($color-sets, 'warning'), 'color');
-$theme-warn-5: map-get(map-get($color-sets, 'warning'), 'bg');
+$theme-warn-1: map-get(map-get($color-sets, 'warning'), 'color') !default;
+$theme-warn-2: map-get(map-get($color-sets, 'warning'), 'color') !default;
+$theme-warn-3: map-get(map-get($color-sets, 'warning'), 'color') !default;
+$theme-warn-4: map-get(map-get($color-sets, 'warning'), 'color') !default;
+$theme-warn-5: map-get(map-get($color-sets, 'warning'), 'bg') !default;
 
 $loading-icon-youzan-color: #e00 !default;
 

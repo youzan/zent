@@ -201,9 +201,9 @@ export function FormField<Value>(props: IFormFieldProps<Value>) {
         })}
         {after}
       </div>
+      {withoutError ? null : renderError(model.error)}
       {!!notice && <FormNotice>{notice}</FormNotice>}
       {!!helpDesc && <FormDescription>{helpDesc}</FormDescription>}
-      {withoutError ? null : renderError(model.error)}
     </FormControl>
   );
 }
