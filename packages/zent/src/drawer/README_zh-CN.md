@@ -2,12 +2,27 @@
 title: Drawer
 subtitle: 抽屉
 path: component/drawer
-group: 反馈
+group: 容器
+scatter: true
 ---
 
 ## Drawer
 
-屏幕边缘滑出的浮层面板。
+屏幕右侧滑出的模态面板；用于承载较大体量的详情或表单内容。
+
+### 建议
+
+- 当操作唤起的临时窗口信息量比较大，需要在纵向的信息上有比较高的扩展性时，可以使用抽屉。
+
+### 注意
+
+- 禁止在抽屉中使用单个按钮；
+- 禁止在抽屉中使用两个以上的主行动按钮。
+
+### 代码演示
+
+<!-- demo-slot-1 -->
+<!-- demo-slot-3 -->
 
 ### API
 
@@ -25,3 +40,11 @@ group: 反馈
 | height       | 宽度，在 `placement` 为 `top` 或 `bottom` 时使用 | `string` \| `number`                   | `45%`   | 否       |
 | className    | 对话框外层容器的类名                             | `string`                               | `''`    | 否       |
 | closeBtn     | 自定义关闭按钮，为`false`会隐藏`closeBtn`        | `ReactNode`                            | `true`  | 否       |
+| size         | 预设抽屉宽度，default 728px 和 small 364px       | `'default'`\|`'small'`                 |         | 否       |
+
+Drawer 当不设置`width`、 `size`字段时默认宽度为 45%，当同时设置时字段优先级：`width` > `size`。
+
+#### 以下功能新版设计语言已废弃，仅作为老版使用的参考
+
+<!-- demo-slot-2 -->
+<!-- demo-slot-4 -->

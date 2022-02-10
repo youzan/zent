@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import * as ReactDOM from 'react-dom';
 import isBrowser from '../utils/isBrowser';
 import createElement from '../utils/dom/createElement';
@@ -75,7 +76,12 @@ const createNotifyContainerNode = (): HTMLElement => {
  * @param  {[type]}   status   notify状态
  * @param  {Function} callback notify消失时回调
  */
-const show = (text, duration, status, callback) => {
+const show = (
+  text: ReactNode,
+  duration?: number,
+  status?: string,
+  callback?: () => void
+) => {
   if (!isBrowser) return null;
 
   const container = createElement('div');
@@ -108,19 +114,35 @@ const show = (text, duration, status, callback) => {
   return containerId;
 };
 
-export function success(text, duration?: number, callback?: () => void) {
+export function success(
+  text: ReactNode,
+  duration?: number,
+  callback?: () => void
+) {
   return show(text, duration, 'success', callback);
 }
 
-export function warn(text, duration?: number, callback?: () => void) {
+export function warn(
+  text: ReactNode,
+  duration?: number,
+  callback?: () => void
+) {
   return show(text, duration, 'warn', callback);
 }
 
-export function error(text, duration?: number, callback?: () => void) {
+export function error(
+  text: ReactNode,
+  duration?: number,
+  callback?: () => void
+) {
   return show(text, duration, 'error', callback);
 }
 
-export function info(text, duration?: number, callback?: () => void) {
+export function info(
+  text: ReactNode,
+  duration?: number,
+  callback?: () => void
+) {
   return show(text, duration, 'info', callback);
 }
 

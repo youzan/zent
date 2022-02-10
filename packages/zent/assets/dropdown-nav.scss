@@ -1,0 +1,30 @@
+@import './theme/default';
+.zent-dropdown-nav-btn {
+  &.zent-btn-text {
+    font-size: 14px;
+    @include theme-color(background-color, stroke, 11);
+    height: 32px;
+    line-height: 30px;
+    padding-left: 16px;
+    @include theme-color(color, stroke, 1);
+  }
+  &.zent-dropdown-button--active.zent-btn-text {
+    @include theme-color(color, primary, 4);
+  }
+  &:hover {
+    @include theme-color(color, primary, 4);
+  }
+}
+
+.zent-dropdown-nav {
+  .zent-menu {
+    width: unset;
+    &-item {
+      padding-left: 12px;
+      font-size: 14px;
+      &:hover {
+        @include theme-color(background-color, stroke, 8);
+      }
+    }
+  }
+}

@@ -17,7 +17,7 @@ ReactDOM.render(
 			{i18n.content}
 		</Alert>
 		<BlockLoading>
-			<Alert type="info" loading>
+			<Alert type="info" loading progress={40}>
 				{i18n.content}
 			</Alert>
 		</BlockLoading>

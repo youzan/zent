@@ -1,3 +1,4 @@
+import cx from 'classnames';
 import { DEFAULT_WIDTH } from '../constants';
 import ProgressInfo from './ProgressInfo';
 import { IProgressInstanceProps } from '../types';
@@ -12,16 +13,18 @@ const LineProgress: React.FC<IProgressInstanceProps> = props => {
     bgColor,
     color,
     state,
+    strokeLinecap,
   } = props;
   const progressWidth = width || DEFAULT_WIDTH.LINE;
 
   const progressInfo = showInfo && (
-    <div className="zent-progress-info" style={{ color }}>
+    <div className="zent-progress-info">
       <ProgressInfo
         type="line"
         percent={percent}
         format={format}
         state={state}
+        color={color}
       />
     </div>
   );
@@ -29,7 +32,13 @@ const LineProgress: React.FC<IProgressInstanceProps> = props => {
   return (
     <div className="zent-progress-container">
       <div
-        className="zent-progress-wrapper"
+        className={cx(
+          'zent-progress-wrapper',
+          `zent-progress-wrapper--${strokeLinecap}`,
+          {
+            'zent-progress-wrapper--finished': percent === 100,
+          }
+        )}
         style={{
           background: bgColor,
           width: progressWidth,

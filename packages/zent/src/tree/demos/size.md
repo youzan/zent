@@ -22,38 +22,46 @@ en-US:
 	title6: Product
 ---
 
-
 ```jsx
 import { Tree } from 'zent';
 
-const treeData = [{
-	id: 1,
-	title: '{i18n.title1}',
-	children: [{
-		id: 2,
-		title: '{i18n.title2}',
-		children: [{
-			id: 3,
-			title: '{i18n.title3}'
-		}, {
-			id: 4,
-			title: '{i18n.title4}'
-		}, {
-			id: 5,
-			title: '{i18n.title5}'
-		}]
-	}, {
-		id: 6,
-		title: '{i18n.title6}'
-	}]
-}];
+const treeData = [
+	{
+		id: 1,
+		title: '{i18n.title1}',
+		children: [
+			{
+				id: 2,
+				title: '{i18n.title2}',
+				children: [
+					{
+						id: 3,
+						title: '{i18n.title3}',
+					},
+					{
+						id: 4,
+						title: '{i18n.title4}',
+					},
+					{
+						id: 5,
+						title: '{i18n.title5}',
+					},
+				],
+			},
+			{
+				id: 6,
+				title: '{i18n.title6}',
+			},
+		],
+	},
+];
 
 ReactDOM.render(
 	<div>
-		<Tree data={treeData} size="small" />
-		<Tree data={treeData} />
-		<Tree data={treeData} size="large" />
-	</div>
-	, mountNode
+		<Tree selectable data={treeData} size="small" />
+		<Tree selectable data={treeData} />
+		<Tree selectable data={treeData} size="large" />
+	</div>,
+	mountNode
 );
 ```

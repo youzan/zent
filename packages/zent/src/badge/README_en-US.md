@@ -1,17 +1,22 @@
 ---
 title: Badge
 path: component/badge
-group: Data Display
+group: Basics
 ---
 
 ## Badge
 
-Badge normally appears in the upper right corner of the notification or avatar with eye-catching appeal, which is typically used to display the number of unread messages.
+The prompt element located in the upper right corner of the main object, indicating the change of the main object
 
 ### Guides
+#### Suggest
+- When the linked page has content or status changes, it is displayed at the entrance to prompt the change;
+- When you need to prompt the specific quantity of change (such as order quantity, message quantity), it is recommended to use the badge with numbers;
+- When you need to remind the status of changes (such as order status changes), it is recommended to use the red dot badge;
+- When you click on the linked page and read the changed content, the badge disappears (or reduces the corresponding number of reads);
 
-- Badge is used to prompt for new messages, which is placed in the upper right corner or right side of the text or icon.
-- Badge can display the specific number of new messages.
+#### Forbid
+- Entrances at the same level need to have a unified badge style. In principle, there is no mixed use of "digital badge + red dot badge" at the same level of entry.
 
 ### API
 
