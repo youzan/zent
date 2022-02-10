@@ -74,15 +74,6 @@ $danger-colors: (
   'border-color': $danger-500,
 );
 
-$link-colors: (
-  // Primary text link brand color
-  'color': $primary-500,
-  // Hover state of primary text link brand color
-  'hover-color': $primary-400,
-  // Active state of primary text link brand color
-  'active-color': $primary-600
-);
-
 $default-colors: (
   // Hover state of default text color components e.g. default button..
   'hover-color': $primary-500,
@@ -113,9 +104,18 @@ $primary-colors: (
   'active-border-color': $primary-600,
 );
 
+$link-colors: (
+  // Primary text link brand color
+  'color': $primary-500,
+  // Hover state of primary text link brand color
+  'hover-color': $primary-400,
+  // Active state of primary text link brand color
+  'active-color': $primary-600
+);
+
 // components
 $weak-link-colors: (
-  'color': $text-500,
+  'color': $text-600,
   // Hover state of primary text weak link brand color
   'hover-color': $primary-400,
   // Active state of primary text weak link brand color
