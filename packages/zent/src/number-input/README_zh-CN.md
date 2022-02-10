@@ -1,6 +1,6 @@
 ---
 title: NumberInput
-subtitle: 数值输入框
+subtitle: 步进器
 path: component/number-input
 group: 信息录入
 ---
