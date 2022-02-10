@@ -41,6 +41,8 @@ The modal panel that slides out on the right side of the screen; Used to carry a
 | closeBtn     | Custom close btn, setting `false` will hide `closebtn`                                        | `ReactNode`                            | `true`    | 否       |
 | size         | presetted size of drawer, default 728px and small 364px                                       | `'default'`\|`'small'`                 | `default` | false    |
 
+The default width of the Drawer is 45% when the `width` and `size` fields are not set. The priority of the Drawer is `width` > `size`.
+
 #### The following functions is obsolete in the new design system and is only used as a reference for the old version
 
 <!-- demo-slot-2 -->
