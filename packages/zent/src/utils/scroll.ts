@@ -45,7 +45,7 @@ interface IStepContext {
  * @method step
  * @param {Object} context
  */
-function step(context: IStepContext) {
+function step(context: IStepContext, callback) {
   const time = now();
   let elapsed = (time - context.startTime) / context.duration;
 
@@ -61,7 +61,9 @@ function step(context: IStepContext) {
 
   // scroll more if we have not reached our destination
   if (currentX !== context.x || currentY !== context.y) {
-    requestAnimationFrame(step.bind(w, context));
+    requestAnimationFrame(step.bind(w, context, callback));
+  } else {
+    callback();
   }
 }
 
@@ -79,39 +81,44 @@ export function smoothScroll(
   y: number,
   duration: number = SCROLL_TIME
 ) {
-  if (!isBrowser) {
-    return;
-  }
+  return new Promise((resolve, reject) => {
+    if (!isBrowser) {
+      return reject();
+    }
 
-  let scrollable: HTMLElement | Window;
-  let startX: number;
-  let startY: number;
-  let method: (x: number, y: number) => void;
-  const startTime = now();
+    let scrollable: HTMLElement | Window;
+    let startX: number;
+    let startY: number;
+    let method: (x: number, y: number) => void;
+    const startTime = now();
 
-  // define scroll context
-  if (el === d.body || el === w) {
-    scrollable = w;
-    startX = w.scrollX || w.pageXOffset;
-    startY = w.scrollY || w.pageYOffset;
-    method = originalScroll;
-  } else {
-    scrollable = el;
-    startX = (el as HTMLElement).scrollLeft;
-    startY = (el as HTMLElement).scrollTop;
-    method = scrollElement;
-  }
+    // define scroll context
+    if (el === d.body || el === w) {
+      scrollable = w;
+      startX = w.scrollX || w.pageXOffset;
+      startY = w.scrollY || w.pageYOffset;
+      method = originalScroll;
+    } else {
+      scrollable = el;
+      startX = (el as HTMLElement).scrollLeft;
+      startY = (el as HTMLElement).scrollTop;
+      method = scrollElement;
+    }
 
-  // scroll looping over a frame
-  step({
-    duration,
-    scrollable,
-    method,
-    startTime,
-    startX,
-    startY,
-    x,
-    y,
+    // scroll looping over a frame
+    step(
+      {
+        duration,
+        scrollable,
+        method,
+        startTime,
+        startX,
+        startY,
+        x,
+        y,
+      },
+      resolve
+    );
   });
 }
 

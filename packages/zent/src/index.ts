@@ -22,6 +22,7 @@ export * from './disabled';
 export * from './drawer';
 export * from './dropdown';
 export * from './dropdown-nav';
+export * from './elevator';
 export * from './error-boundary';
 export * from './event-handler';
 export * from './form';
