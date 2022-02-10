@@ -8,12 +8,14 @@ import {
   IGridScrollDelta,
   IGridInnerFixedType,
 } from './types';
-import { IGridInnerColumn } from './Grid';
+import { IGridInnerColumn, IGridProps } from './Grid';
 import Store from './Store';
 import isNil from '../utils/isNil';
+import ToolTip from '../tooltip';
 import Icon from '../icon';
 
 export interface IGridHeaderProps<Data> {
+  size: IGridProps['size'];
   prefix: string;
   columns: Array<IGridInnerColumn<Data>>;
   sortType: GridSortType;
@@ -38,6 +40,12 @@ interface IGridHeaderState<> {
   rows: Array<Array<IHeaderCell>>;
 }
 
+const sortToolTipMap = new Map<GridSortType, string>([
+  ['', '取消排序'],
+  ['asc', '点击升序'],
+  ['desc', '点击降序'],
+]);
+
 class Header<Data> extends PureComponent<
   IGridHeaderProps<Data>,
   IGridHeaderState
@@ -52,7 +60,10 @@ class Header<Data> extends PureComponent<
 
   unsubscribe: any;
 
-  onSort = (column: IGridInnerColumn<Data>, props: IGridHeaderProps<Data>) => {
+  getSortInfo = (
+    column: IGridInnerColumn<Data>,
+    props: IGridHeaderProps<Data>
+  ) => {
     const { sortBy, sortType = '', defaultSortType = 'desc' } = props;
     const name = column.name;
     let newSortType: GridSortType;
@@ -71,37 +82,44 @@ class Header<Data> extends PureComponent<
       newSortType = defaultSortType;
     }
 
-    this.props.onChange({
+    return {
       sortBy: name,
       sortType: newSortType,
-    });
+      sortTooltip: sortToolTipMap.get(newSortType),
+    };
   };
 
-  getChildren = (
+  getChildrenAndEvents = (
     column: IGridInnerColumn<Data>,
     props: IGridHeaderProps<Data>
   ) => {
-    const { prefix, sortBy, sortType } = props;
+    const { prefix, sortBy, sortType, onChange } = props;
     const cn = classnames(`${prefix}-grid-thead-sort`, {
       [`${prefix}-grid-thead-sort-${sortType}`]:
         sortType && column.name === sortBy,
     });
 
     if (column.needSort) {
-      return (
-        <div
-          onClick={() => this.onSort(column, props)}
-          className={`${prefix}-grid-thead-sort-btn`}
-        >
-          {column.title}
-          <span className={cn}>
-            <Icon type="caret-up" className="caret-up" />
-            <Icon type="caret-down" className="caret-down" />
-          </span>
-        </div>
-      );
+      const { sortBy, sortType, sortTooltip } = this.getSortInfo(column, props);
+
+      return {
+        children: (
+          <ToolTip title={sortTooltip} position="top-center" cushion={12}>
+            <div className={`${prefix}-grid-thead-sort-btn`}>
+              {column.title}
+              <span className={cn}>
+                <Icon type="caret-up" className="caret-up" />
+                <Icon type="caret-down" className="caret-down" />
+              </span>
+            </div>
+          </ToolTip>
+        ),
+        onClick: () => onChange({ sortBy, sortType }),
+      };
     }
-    return column.title;
+    return {
+      children: column.title,
+    };
   };
 
   getHeaderRows = (
@@ -140,8 +158,9 @@ class Header<Data> extends PureComponent<
           [`${prefix}-grid-th-selection`]:
             ['selection-column', 'selection-column-single'].indexOf(key) !== -1,
           [`${prefix}-grid-th-expand`]: key === 'expand-column',
+          [`${prefix}-grid-th-sortable`]: column.needSort,
         }),
-        children: this.getChildren(column, props),
+        ...this.getChildrenAndEvents(column, props),
       };
 
       if (column.children) {
@@ -224,13 +243,16 @@ class Header<Data> extends PureComponent<
   }
 
   render() {
-    const { scroll, fixed, prefix, columns } = this.props;
+    const { scroll, fixed, prefix, columns, size } = this.props;
     const headerStyle: React.CSSProperties = {};
     if (!fixed && !isNil(scroll.x)) {
       headerStyle.width = scroll.x;
     }
     return scroll.y ? (
-      <table className={`${prefix}-grid-table`} style={headerStyle}>
+      <table
+        className={`${prefix}-grid-table ${prefix}-grid-table-${size}`}
+        style={headerStyle}
+      >
         <ColGroup columns={columns} />
         {this.renderThead()}
       </table>

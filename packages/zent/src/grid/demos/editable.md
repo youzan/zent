@@ -114,7 +114,7 @@ function App() {
 
 	return (
 		<div>
-			<Grid columns={columns} datasets={datasets} scroll={{ x: 1300 }} />
+			<Grid columns={columns} datasets={datasets} scroll={{ x: 1300 }} size="large" />
 			<Button style={{ marginTop: 16 }} onClick={onBatchChange}>
 				{i18n.batchUpdate}
 			</Button>

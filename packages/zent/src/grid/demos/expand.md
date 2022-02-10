@@ -93,6 +93,7 @@ class RowClass extends React.Component {
           }
         }}
         onExpand={this.onExpand}
+				size="large"
       />
     );
   }
