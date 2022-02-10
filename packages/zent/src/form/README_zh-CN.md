@@ -2,7 +2,7 @@
 title: Form
 subtitle: 表单
 path: component/form
-group: 数据
+group: 信息录入
 scatter: true
 ---
 
@@ -420,7 +420,7 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 - `Control` 封装了 label、自定义组件以及错误信息的结构，[查看 Props 文档](../../apidoc/interfaces/IFormControlProps.html)
 - `Label` 表单项的 label 组件，适用于连 `Control` 也不想使用的场景，[查看 Props 文档](../../apidoc/interfaces/ILabelProps.html)
 - `Error` 表单项的错误信息组件，同 `Label` 一样适用于深度自定义的场景，[查看 Props 文档](../../apidoc/interfaces/IFormErrorProps.html)
-- `useFormChild` 使用上述组件时，如果希望支持自动滚动到错误处，需要在组件内使用这个 Hook 关联 model 和 DOM 节点，[查看文档](../../apidoc/modules.html#useFormChild)
+- `useFormChild` 使用上述组件时，如果`希望支持自动滚动到错误处`，需要在组件内使用这个 Hook 关联 model 和 DOM 节点，[查看文档](../../apidoc/modules.html#useFormChild)
 - `CombineErrors` 这个组件用来将多个字段的错误聚合成一个错误展示，需要配合 `Field` 的 `withoutError` 参数使用，[查看 Props 文档](../../apidoc/interfaces/ICombineErrorsProps.html)
 
 <!-- demo-slot-18 -->
