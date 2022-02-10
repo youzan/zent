@@ -2,7 +2,7 @@
 title: Form
 subtitle: 表单
 path: component/form
-group: 数据
+group: 信息录入
 scatter: true
 ---
 
@@ -365,7 +365,7 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 
 - `Form.useFieldArrayChildModels`
 - `Form.useNamedChildModel(parent: FieldSetModel, name: string): BasicModel`，注意 `FormModel` 是 `FieldSetModel` 的子类，所以也适用于这个方法。
-	
+
 这两个 hook 不监听子 model 内部状态的变化，如有需要，需使用它们返回的 model 对象自行调用 `useField` 等 hook 来实现。
 
 通过结合上述这些能力，就可以完成 `Model` 模式下表单项的动态增删了。
@@ -420,7 +420,7 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 - `Control` 封装了 label、自定义组件以及错误信息的结构，[查看 Props 文档](../../apidoc/interfaces/IFormControlProps.html)
 - `Label` 表单项的 label 组件，适用于连 `Control` 也不想使用的场景，[查看 Props 文档](../../apidoc/interfaces/ILabelProps.html)
 - `Error` 表单项的错误信息组件，同 `Label` 一样适用于深度自定义的场景，[查看 Props 文档](../../apidoc/interfaces/IFormErrorProps.html)
-- `useFormChild` 使用上述组件时，如果希望支持自动滚动到错误处，需要在组件内使用这个 Hook 关联 model 和 DOM 节点，[查看文档](../../apidoc/modules.html#useFormChild)
+- `useFormChild` 使用上述组件时，如果`希望支持自动滚动到错误处`，需要在组件内使用这个 Hook 关联 model 和 DOM 节点，[查看文档](../../apidoc/modules.html#useFormChild)
 - `CombineErrors` 这个组件用来将多个字段的错误聚合成一个错误展示，需要配合 `Field` 的 `withoutError` 参数使用，[查看 Props 文档](../../apidoc/interfaces/ICombineErrorsProps.html)
 
 <!-- demo-slot-18 -->
@@ -432,7 +432,7 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 `Form` 组件使用 `flex` 布局，有两个参数控制基本的布局结构
 
 - `layout` 控制**表单项内**的布局方式，支持水平 `horizontal` 和垂直 `vertical` 两种布局
-- `direction` 控制**表单项间**的排列方式，支持 `column` 和 `row` 两种排列。 
+- `direction` 控制**表单项间**的排列方式，支持 `column` 和 `row` 两种排列。
 
 水平排列通常来说需要设置表单项的**最小宽度**才能正常工作，可以通过 `FormContext` 中的 `controlStyle` 来批量设置。
 

@@ -36,25 +36,13 @@ ReactDOM.render(
 			</Tooltip>
 		</div>
 		<div className="zent-doc-tooltip-positions-left-col">
-			<Tooltip trigger={trigger} position="left-top" title="LT">
-				<Button>LeftTop</Button>
-			</Tooltip>
 			<Tooltip trigger={trigger} position="left-center" title="LC">
 				<Button>LeftCenter</Button>
 			</Tooltip>
-			<Tooltip trigger={trigger} position="left-bottom" title="LB">
-				<Button>LeftBottom</Button>
-			</Tooltip>
 		</div>
 		<div className="zent-doc-tooltip-positions-right-col">
-			<Tooltip trigger={trigger} position="right-top" title="RT">
-				<Button>RightTop</Button>
-			</Tooltip>
 			<Tooltip trigger={trigger} position="right-center" title="RC">
 				<Button>RightCenter</Button>
-			</Tooltip>
-			<Tooltip trigger={trigger} position="right-bottom" title="RB">
-				<Button>RightBottom</Button>
 			</Tooltip>
 		</div>
 	</div>,
@@ -64,6 +52,7 @@ ReactDOM.render(
 
 <style>
   .zent-doc-tooltip-positions {
+		width: 630px;
     position: relative;
 
 		&-top-row,
@@ -77,7 +66,7 @@ ReactDOM.render(
     }
 
     &-bottom-row {
-      margin-top: 200px;
+      margin-top: 64px;
     }
 
     &-left-col, &-right-col {
@@ -102,7 +91,7 @@ ReactDOM.render(
     }
 
     &-right-col {
-      right: 0;
+      right: -10px;
     }
 
     .zent-tooltip-wrapper {

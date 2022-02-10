@@ -20,6 +20,7 @@ interface ICollapsePropsBase {
   bordered?: boolean;
   panelTitleBackground?: string;
   className?: string;
+  showContentBackground?: boolean;
 }
 
 // The I prefix is for backward compatibility
@@ -35,14 +36,20 @@ export class Collapse extends Component<ICollapseProps> {
   static Panel = Panel;
 
   render() {
-    const { className, bordered, panelTitleBackground, children, activeKey } =
-      this.props;
+    const {
+      className,
+      bordered,
+      panelTitleBackground,
+      showContentBackground,
+      children,
+      activeKey,
+    } = this.props;
 
     return (
       <div
         className={cx('zent-collapse', className, {
           'zent-collapse--has-border': bordered,
-          'zent-collpase--no-border': !bordered,
+          'zent-collapse--no-border': !bordered,
         })}
       >
         {Children.map(children, (c, idx) => {
@@ -58,6 +65,7 @@ export class Collapse extends Component<ICollapseProps> {
             active: isPanelActive(activeKey, key),
             panelKey: key,
             panelTitleBackground,
+            showContentBackground,
             isLast: idx === Children.count(children) - 1,
             bordered,
           });

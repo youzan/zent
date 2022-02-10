@@ -108,6 +108,7 @@ export const Cascader: II18nLocaleCascader = {
   searchPlaceholder: 'Please select or search',
   searchEmpty: 'No result',
   empty: 'Empty',
+  loading: 'loading…',
 };
 
 const QUARTER_NAMES = [

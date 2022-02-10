@@ -1,13 +1,15 @@
 ---
 order: 2
 zh-CN:
-	title: 使用 openDialog 打开对话框
-	title1: 使用 openDialog 直接打开对话框
+	title: 使用 openDialog 打开对话窗
+	title1: 使用 openDialog 直接打开对话窗
+	ok: 确定
 	close: 关闭
 	open: 打开
 en-US:
 	title: Set up with openDialog
 	title1: Open the dialog through openDialog
+	ok: Ok
 	close: Close
 	open: Open
 ---
@@ -24,7 +26,14 @@ const open = () => {
 		dialogId: id, // id is used to close the dialog
 		title: '{i18n.title1}',
 		children: <div>Hello World</div>,
-		footer: <Button onClick={() => closeDialog(id)}>{i18n.close}</Button>,
+		footer: (
+			<>
+				<Button onClick={() => closeDialog(id)}>{i18n.close}</Button>
+				<Button type="primary" onClick={() => closeDialog(id)}>
+					{i18n.ok}
+				</Button>
+			</>
+		),
 		onClose() {
 			console.log('outer dialog closed');
 		},
@@ -37,15 +46,22 @@ const open2 = () => {
 	close = openDialog({
 		title: '{i18n.title1}',
 		children: <div>Hello World</div>,
-		footer: <Button onClick={() => close()}>{i18n.close}</Button>,
+		footer: (
+			<>
+				<Button onClick={() => close()}>{i18n.close}</Button>
+				<Button type="primary" onClick={() => close()}>
+					{i18n.ok}
+				</Button>
+			</>
+		),
 		onClose() {
 			console.log('outer dialog closed');
 		},
 	});
-}
+};
 
 ReactDOM.render(
-  <>
+	<>
 		<Button type="primary" onClick={open}>
 			{i18n.open}
 		</Button>

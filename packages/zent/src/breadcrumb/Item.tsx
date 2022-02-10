@@ -4,6 +4,7 @@ export interface IBreadcrumbItemProps {
   className?: string;
   name?: React.ReactNode;
   href?: string;
+  onClick?: () => void;
 }
 
 export class BreadcrumbItem extends Component<IBreadcrumbItemProps> {

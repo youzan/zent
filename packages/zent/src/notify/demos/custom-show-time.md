@@ -17,9 +17,10 @@ import { Notify, Button } from 'zent';
 
 ReactDOM.render(
 	<div>
-		<Button onClick={() => Notify.success('{i18n.name}', 1000)}>{i18n.name}</Button>
-	</div>
-	, mountNode
+		<Button onClick={() => Notify.success('{i18n.name}', 1000)}>
+			{i18n.name}
+		</Button>
+	</div>,
+	mountNode
 );
-
 ```

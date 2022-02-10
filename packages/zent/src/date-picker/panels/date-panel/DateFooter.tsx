@@ -1,5 +1,4 @@
-import { useCallback, useContext, useMemo } from 'react';
-import cx from 'classnames';
+import { useCallback, useContext, useMemo, useState } from 'react';
 import { parse } from 'date-fns';
 import Pop from '../../../pop';
 import Button from '../../../button';
@@ -27,6 +26,7 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
   onSelected,
   disabledPanelDate,
 }) => {
+  const [timePickerIsOpen, setTimePickerIsOpen] = useState(false);
   const { i18n, autoComplete } = useContext(PickerContext);
   const { format = '' } = showTimeOption || {};
   const confirmStatus = useConfirmStatus({
@@ -61,28 +61,35 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
     () => (
       <Button
         type="primary"
-        disabled={confirmStatus || isDisableConfirm || !selected}
+        disabled={
+          confirmStatus || isDisableConfirm || !selected || timePickerIsOpen
+        }
         onClick={confirmHandler}
         className={`${footerPrefixCls}-btn`}
       >
         {i18n.confirm}
       </Button>
     ),
-    [i18n, confirmStatus, selected, isDisableConfirm, confirmHandler]
+    [
+      i18n,
+      confirmStatus,
+      selected,
+      isDisableConfirm,
+      confirmHandler,
+      timePickerIsOpen,
+    ]
   );
 
   const renderToday = useMemo(() => {
     return (
       <div>
-        <a
-          className={cx({
-            [`${footerPrefixCls}-current_disabled`]:
-              isDisabledCurrent || isDisabledToday,
-          })}
+        <Button
+          disabled={isDisabledCurrent || isDisabledToday}
           onClick={onClickCurrent}
+          type="text"
         >
           {footerText}
-        </a>
+        </Button>
         {!!showTime &&
           (confirmStatus || isDisableConfirm ? (
             <Pop
@@ -116,7 +123,12 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
     },
     [selected, format, onSelected]
   );
-
+  const onTimeOpen = useCallback(() => {
+    setTimePickerIsOpen(true);
+  }, []);
+  const onTimeClose = useCallback(() => {
+    setTimePickerIsOpen(false);
+  }, []);
   const timeInput = useMemo(() => {
     const { defaultTime, ...restOption } = showTimeOption || {};
     const defaultTimeString =
@@ -131,6 +143,8 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
         value={formatDate(format, selected)}
         hiddenIcon={true}
         onChange={onTimeChange}
+        onOpen={onTimeOpen}
+        onClose={onTimeClose}
         disabledTime={disabledTime}
         autoComplete={autoComplete}
       />
@@ -143,6 +157,8 @@ const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
     format,
     disabledTime,
     onTimeChange,
+    onTimeOpen,
+    onTimeClose,
   ]);
 
   return <PanelFooter leftNode={timeInput} rightNode={renderToday} />;

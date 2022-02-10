@@ -1,6 +1,8 @@
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import identity from '../../../utils/identity';
 import { BasicModel } from './basic';
 import { ValidateOption } from '../validate';
+import { INormalizeBeforeSubmit } from './field';
 import { ModelRef } from './ref';
 import type { BasicBuilder } from '../builders/basic';
 import { get, or, Some } from '../maybe';
@@ -44,6 +46,11 @@ class FieldArrayModel<
     new Map();
 
   private readonly childFactory: (defaultValue: Item) => Child;
+
+  /**
+   * 用于表单提交前格式化 `FieldArray` 值的回调函数
+   */
+  normalizeBeforeSubmit: INormalizeBeforeSubmit<Item[], any> = identity;
 
   /** @internal */
   constructor(
@@ -165,7 +172,8 @@ class FieldArrayModel<
    * 获取 `FieldArray` 的用于表单提交的值，和原始值可能不一致
    */
   getSubmitValue() {
-    return this._getValue(model => model.getSubmitValue());
+    const value = this._getValue(model => model.getSubmitValue());
+    return this.normalizeBeforeSubmit(value);
   }
 
   /**
@@ -414,9 +422,9 @@ class FieldArrayModel<
     this.children$.next([]);
 
     // Close all subjects and setup sentinels to warn use after free errors
-    this._getValue$().complete();
-    this._getValid$().complete();
     this.children$.complete();
+    this._value$?.complete();
+    this._valid$?.complete();
     this._valid$ = createSentinelSubject(this._displayName, false);
     this._value$ = createSentinelSubject(this._displayName, []);
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
@@ -509,7 +517,6 @@ class FieldArrayModel<
 
   /**
    * Handle different types of the child
-   * @param model
    */
   private _subscribeChild(child: Child) {
     const { _valid$, _value$, mapModelToSubscriptions } = this;
@@ -609,7 +616,6 @@ class FieldArrayModel<
 
   /**
    * Unsubscribe `valid$` and `value$` of the model
-   * @param model
    */
   private _unsubscribeChild(child: Child) {
     let model: BasicModel<Item> | null = null;

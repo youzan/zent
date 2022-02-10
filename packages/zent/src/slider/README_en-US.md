@@ -2,6 +2,7 @@
 title: Slider
 path: component/slider
 group: Data Entry
+scatter: true
 ---
 
 ## Slider
@@ -12,6 +13,11 @@ You can select a value by dragging or clicking `Slider`.
 
 - Support a single slider and double slider.
 - Can be used with `Input`.
+- 
+<!-- demo-slot-1 -->
+<!-- demo-slot-3 -->
+<!-- demo-slot-6 -->
+<!-- demo-slot-7 -->
 
 ### API
 
@@ -31,3 +37,10 @@ You can select a value by dragging or clicking `Slider`.
 | width     | width                                                                     | string or number |         |             | no 否    |
 
 **Ps.** When setting `range`, you should set `value` as an array of length 2. The array entry must be a number. Property `dots` must be used with `marks`.
+
+#### The following functions is obsolete in the new design system and is only used as a reference for the old version
+
+<!-- demo-slot-2 -->
+<!-- demo-slot-4 -->
+<!-- demo-slot-5 -->
+

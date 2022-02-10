@@ -21,19 +21,23 @@
 .zent-number-input {
   width: 200px;
 
+  &:not(.zent-input-wrapper-disabled):hover {
+    @include theme-color(border-color, primary, 4);
+  }
+
   $p: &;
 
   &-arrows {
-    @include theme-color(border-left-color, stroke, 5);
     display: flex;
     flex-direction: column;
-    border-left-width: 1px;
-    border-left-style: solid;
-    margin-left: -1px;
     user-select: none;
 
     #{$p}-arrow {
+      @include theme-color(border-left-color, stroke, 5);
       @include theme-color(background-color, stroke, 9);
+      border-left-width: 1px;
+      border-left-style: solid;
+      margin-left: -1px;
       cursor: pointer;
       width: 20px;
       height: 15px;
@@ -44,10 +48,16 @@
         @include disable;
       }
 
-      &:hover {
+      &:hover:not(#{$p}-arrow-disable) {
+        z-index: 10;
+        @include theme-color(border-color, primary, 4);
         > .zenticon {
           @include theme-color(color, primary, 4);
         }
+      }
+
+      &:active:not(#{$p}-arrow-disable) {
+        @include theme-color(background-color, primary, 4, 0.1);
       }
 
       > .zenticon {
@@ -62,6 +72,12 @@
       @include theme-color(border-bottom-color, stroke, 5);
       border-bottom-width: 1px;
       border-bottom-style: solid;
+    }
+    #{$p}-arrowdown {
+      @include theme-color(border-top-color, stroke, 5);
+      border-top-width: 1px;
+      border-top-style: solid;
+      margin: -1px;
     }
   }
 

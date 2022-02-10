@@ -14,20 +14,13 @@ import { InlineLoading } from 'zent';
 ReactDOM.render(
 	<div className="zent-loading-demo-inline-container">
 		<InlineLoading loading />
-		<InlineLoading loading iconText="{i18n.loading}" />
-		<InlineLoading loading iconText="{i18n.loading}" textPosition="top" />
-		<InlineLoading
-			loading
-			icon="circle"
-			iconText="{i18n.loading}"
-			textPosition="left"
-		/>
 		<InlineLoading
 			loading
 			icon="circle"
 			iconText="{i18n.loading}"
 			textPosition="right"
 		/>
+		<InlineLoading loading iconText="{i18n.loading}" />
 	</div>,
 	mountNode
 );

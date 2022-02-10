@@ -2,7 +2,7 @@
 title: DatePicker
 subtitle: 日期时间选择
 path: component/date-picker
-group: 数据
+group: 信息录入
 ---
 
 ## DatePicker
@@ -122,8 +122,8 @@ interface IDisableDateMap {
 ```ts
 interface IDisabledTimeOption {
 	disabledHours?: () => number[];
-	disabledMinutes: (hour: number) => number[];;
-	disabledSeconds?: (hour: number, minute: number) => number[];;
+	disabledMinutes: (hour: number) => number[];
+	disabledSeconds?: (hour: number, minute: number) => number[];
 }
 ```
 
