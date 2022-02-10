@@ -3,7 +3,7 @@ order: 4
 zh-CN:
 	title: 无头部
 	show: 显示
-	content: 对话框内容
+	content: 对话窗内容
 	close: 关闭
 en-US:
 	title: No Header
