@@ -2,7 +2,7 @@
 title: CopyButton
 subtitle: 复制按钮
 path: component/copy-btn
-group: 数据
+group: 其他
 ---
 
 ## CopyButton 复制按钮

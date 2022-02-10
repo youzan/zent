@@ -2,7 +2,7 @@
 title: EventHandler
 subtitle: 事件监听
 path: component/event-handler
-group: 基础
+group: 其他
 ---
 
 ## EventHandler

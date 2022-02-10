@@ -2,7 +2,7 @@
 title: SmoothScroll
 subtitle: 平滑滚动
 path: component/smooth-scroll
-group: 反馈
+group: 信息反馈
 ---
 
 ## SmoothScroll 平滑滚动

@@ -1,7 +1,7 @@
 ---
 title: Icon
 path: component/icon
-group: Basics
+group: Others
 ---
 
 ## Icon

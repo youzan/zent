@@ -1,7 +1,7 @@
 ---
 title: IMEComposition
 path: component/ime-composition
-group: Basics
+group: 其他
 ---
 
 ## IMEComposition

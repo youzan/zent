@@ -2,7 +2,7 @@
 title: ClampLines
 subtitle: 多行文本裁剪
 path: component/clamp-lines
-group: 展示
+group: 信息展示
 ---
 
 ## ClampLines
