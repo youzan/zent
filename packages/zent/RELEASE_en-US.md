@@ -9,6 +9,23 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 9.12.4(2022-01-11)
+- `Popover`
+  - 🦀 Fix withPop HOC type error
+- `Grid`
+  - 🦀 Replace sort button with iconfont, fix position problem when font-family changed
+  - 🦀 `selectedRowKeys` support number type
+- 🦀 Fix css variable name matching problem, old color can be override and delete the useless prefix
+- 🦀 Update `caniuse-lite` database to latest version
+
+### 9.12.3(2021-12-08)
+- `DatePicker`
+	- 🦀️ Disable `DatePicker` confirm button when `TimePicker` is open
+
+### 9.12.2(2021-11-26)
+
+- 🦀️ Fix `MiniPagination` page number input renders wrong value in some cases
+
 ### 9.12.1(2021-11-17)
 
 - `Form`
@@ -45,7 +62,7 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 	- 🦀️ Fix state of the select all checkbox in header
 	- 🦀️ Fix row highlight behavior when there're fixed columns but `scroll.x` is falsy value
 - 🦀️ Upgrade `caniuse-lite` to latest
-- 📚 Add `onOpened` and `onClosed` to `Dialog` doc 
+- 📚 Add `onOpened` and `onClosed` to `Dialog` doc
 - 📚 Cleanup usage of `danger` and `success` `Button`s in doc
 
 ### 9.10.1(2021-09-15)

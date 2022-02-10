@@ -31,6 +31,8 @@ export type DrawerContentProps =
   | IHorizontalDrawerContentProps
   | IVerticalDrawerContentProps;
 
+export type DrawerSize = 'default' | 'small';
+
 interface IDrawerCommonProps {
   onClose?: () => void; // 关闭drawer的回调
   className?: string; // 对话框外层容器的类名
@@ -41,6 +43,7 @@ interface IDrawerCommonProps {
   title?: React.ReactNode; // 自定义头部内容
   footer?: React.ReactNode; // 自定义底部内容
   closeBtn?: React.ReactNode; // 自定义关闭按钮
+  size?: DrawerSize;
 }
 
 interface IHorizontalDrawerProps extends IDrawerCommonProps {

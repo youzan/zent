@@ -66,12 +66,6 @@ describe('<Button />', () => {
     expect(buttonNode.classList.contains('zent-btn-danger-outline')).toBe(true);
   });
 
-  test('Transparent Border Button', () => {
-    const tree = renderIntoDocument(<Button bordered={false} />);
-    const buttonNode = findRenderedDOMComponentWithTag(tree, 'button');
-    expect(buttonNode.className).toContain('zent-btn-border-transparent');
-  });
-
   test('Large Button', () => {
     const tree = renderIntoDocument(<Button size="large" />);
     const buttonNode = findRenderedDOMComponentWithTag(tree, 'button');

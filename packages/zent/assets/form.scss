@@ -9,21 +9,11 @@
     flex-shrink: 0;
     display: inline-flex;
     flex-basis: 120px;
-
-    &.zent-form-label-required {
-      &::before {
-        @include theme-color(color, error, 2);
-        content: '*';
-        display: inline-block;
-        font-size: 16px;
-        margin-right: 6px;
-      }
-    }
   }
 
   &-error {
     @include theme-color(color, error, 4);
-    margin-top: 8px;
+    margin-top: 4px;
   }
 
   &-notice,
@@ -31,7 +21,7 @@
     @include theme-color(color, stroke, 3);
     line-height: 14px;
     font-size: 12px;
-    margin-top: 8px;
+    margin-top: 4px;
     margin-bottom: 0;
 
     ul li {
@@ -63,6 +53,14 @@
     &-content {
       &-inner {
         display: flex;
+        & + #{$p}-notice,
+        & + #{$p}-description {
+          margin-top: 12px;
+        }
+
+        & + #{$p}-error {
+          margin-top: 8px;
+        }
       }
     }
 
@@ -87,6 +85,11 @@
   &-vertical {
     & #{$p}-label {
       flex-basis: auto;
+      line-height: 20px;
+      margin-bottom: 12px;
+      &-empty {
+        margin-bottom: 0;
+      }
     }
 
     & #{$p}-control {

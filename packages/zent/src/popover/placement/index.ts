@@ -10,6 +10,7 @@ export * from './bottom-center';
 export * from './bottom-left';
 export * from './bottom-right';
 export * from './bottom-left-in-viewport';
+export * from './bottom-same-width';
 export * from './left-top';
 export * from './left-center';
 export * from './left-bottom';
