@@ -83,7 +83,7 @@ export function smoothScroll(
 ) {
   return new Promise((resolve, reject) => {
     if (!isBrowser) {
-      reject();
+      return reject();
     }
 
     let scrollable: HTMLElement | Window;
