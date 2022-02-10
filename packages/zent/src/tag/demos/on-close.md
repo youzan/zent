@@ -1,15 +1,13 @@
 ---
-order: 3
+order: 6
 zh-CN:
 	title: 关闭标签，支持添加关闭事件
 	text1: 自定义色彩
-	text2: 非圆角
-	text3: 自定义关闭按钮颜色
+	text2: 自定义关闭按钮颜色
 en-US:
 	title: Support the callback function that is trigger
 	text1: custom color
-	text2: rectangle
-	text3: custom close button color
+	text2: custom close button color
 ---
 
 ```jsx
@@ -28,11 +26,8 @@ ReactDOM.render(
 		<Tag closable onClose={closeCallback} outline>
 			{i18n.text1}
 		</Tag>
-		<Tag closable onClose={closeCallback2}>
-			{i18n.text2}
-		</Tag>
 		<Tag theme="grey" closable closeButtonStyle={{ color: '#969799' }}>
-			{i18n.text3}
+			{i18n.text2}
 		</Tag>
 	</div>,
 	mountNode
