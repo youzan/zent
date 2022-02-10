@@ -22,7 +22,7 @@ group: 信息录入
 | width              | 宽度                                                                    | string or number |            |                                        | 否       |
 | type               | 类型                                                                    | string           | `'text'`   | `'number'`、`'password'`、`'textarea'` | 否       |
 | inline             | 是否行内展示                                                            | bool             | `false`    | `true`                                 | 否       |
-| widthSize          | 宽度size                                																| string           | `'s'` | `'xs'` \| `'m'`    \| `'l'`\| `'xl'`             | 否       |
+| widthSize          | 宽度size(优先级较低，可以通过增加style，className覆盖)                  			| string           | `'s'` | `'xs'` \| `'m'`    \| `'l'`\| `'xl'`             | 否       |
 | size               | 大小（高度），宽度可以通过 width 控制                                   | string           | `'normal'` | `'large'` \| `'small'`                 | 否       |
 | defaultValue       | 默认值                                                                  | string           |            |                                        | 否       |
 | value              | 输入值                                                                  | string           |            |                                        | 否       |
