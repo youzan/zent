@@ -532,7 +532,7 @@ export class NumberInput extends Component<
   render() {
     const { pop } = this.state;
     return this.props.showTooltip ? (
-      <Receiver componentName={'Stepper'}>
+      <Receiver componentName={'NumberInput'}>
         {i18n => (
           <InputContext.Provider value={this.inputContext}>
             <Pop

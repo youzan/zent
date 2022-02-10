@@ -138,7 +138,7 @@ export interface II18nLocaleForm {
   required: string;
 }
 
-export interface II18nLocaleStepper {
+export interface II18nLocaleNumberInput {
   min: string;
   max: string;
 }
@@ -162,7 +162,7 @@ export interface ILocaleData {
   Upload: II18nLocaleUpload;
   Mention: II18nLocaleMention;
   Transfer: II18nLocaleTransfer;
-  Stepper: II18nLocaleStepper;
+  NumberInput: II18nLocaleNumberInput;
 }
 
 export type I18nComponentName = keyof Omit<ILocaleData, 'mark'>;
