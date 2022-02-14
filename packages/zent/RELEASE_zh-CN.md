@@ -9,6 +9,14 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 9.12.5(2022-02-14)
+- `Notify`
+  - 🦀 api类型完善
+- `Form`
+  - ✨ 添加 normalizeBeforeBlur 属性，支持 onBlur 时修改值
+- `Grid`
+  - 🦀 修复全选状态判断不正确的问题
+
 ### 9.12.4(2022-01-11)
 - `Popover`
   - 🦀 修复 withPop HOC 的类型错误
