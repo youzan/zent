@@ -116,6 +116,7 @@ export function FormField<Value>(props: IFormFieldProps<Value>) {
     validateOccasion = ValidateOccasion.Default,
     getValidateOption = defaultGetValidateOption,
     normalize = id,
+    normalizeBeforeBlur,
     format = id,
     withoutLabel,
     touchWhen = TouchWhen.Change,
@@ -168,12 +169,22 @@ export function FormField<Value>(props: IFormFieldProps<Value>) {
       if (touchWhen === TouchWhen.Blur) {
         model.isTouched = true;
       }
+      if (normalizeBeforeBlur) {
+        model.value = normalizeBeforeBlur(model.value);
+      }
       if (validateOccasion & ValidateOccasion.Blur) {
         model.validate(getValidateOption('blur'));
       }
       onBlurProps?.(e);
     },
-    [getValidateOption, validateOccasion, touchWhen, model, onBlurProps]
+    [
+      getValidateOption,
+      validateOccasion,
+      normalizeBeforeBlur,
+      touchWhen,
+      model,
+      onBlurProps,
+    ]
   );
   const { onCompositionStart, onCompositionEnd } =
     FieldUtils.useCompositionHandler(model, {

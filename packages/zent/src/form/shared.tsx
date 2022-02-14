@@ -154,9 +154,13 @@ export interface IFormFieldPropsBase<Value>
    */
   validateOccasion?: ValidateOccasion;
   /**
-   * 触发onChange时会先经过 `normalize` 再写入到内部的 `model `上
+   * 触发 onChange 时会先经过 `normalize` 再写入到内部的 `model `上
    */
   normalize?: (value: Value, prevValue: Value) => Value;
+  /**
+   * 触发 onBlur 时会经过 `normalizeBeforeBlur`，将返回值作为新的 `model` 值进行更新
+   */
+  normalizeBeforeBlur?: (value: Value) => Value;
   /**
    * 渲染前会先经过 `format`
    */
