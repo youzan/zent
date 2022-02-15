@@ -11,6 +11,7 @@
   - 🦀️ `autoExpandOnSelect` 默认值改为 false
 - `Button`
   - 🦀️ icon 的 `font-size` 变为 20px
+  - 🦀️ disabled 的按钮外层套了一层父元素，以支持 `cursor: not-allowed`
 - `Link`
   - 🦀️ disable 状态下 classname 规范化。`zent-link__disabled` 重命名为 `zent-link--disabled`
 - `Tag`
