@@ -375,6 +375,7 @@ type Middleware<T> = (next: IValidator<T>) => IValidator<T>;
 ### 表单值的格式化
 
 - 可以通过 `normalize` 和 `format` 参数来格式化 `Field` 的输入输出
+- 可以通过 `normalizeBeforeBlur` 方法，在 `InputField` 等输入框触发 `onBlur` 事件时修改 `model` 内的值
 - 也可以使用 `normalizeBeforeSubmit` 属性和 `form.getSubmitValue()` 方法，在不改变 model 内存储值的情况下修改表单提交的值
 
 <!-- demo-slot-11 -->

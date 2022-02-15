@@ -63,6 +63,9 @@ class SelectionCheckboxAll<Data> extends PureComponent<
     // Use `datasets` if it's non empty, otherwise use `disabledDatasets`
     const activeDatasets = datasets?.length ? datasets : disabledDatasets;
     const selectedRowKeys = store.getState('selectedRowKeys') ?? [];
+
+    if (selectedRowKeys.length === 0) return false;
+
     if (type === 'every') {
       return activeDatasets.every(
         (data, index) => selectedRowKeys.indexOf(getDataKey(data, index)) !== -1
