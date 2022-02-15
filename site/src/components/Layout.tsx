@@ -20,10 +20,10 @@ const Layout: React.FC<ILayoutProps> = ({
           <div className="page-content">
             <div className="react-doc-page-content">{children}</div>
             <FooterNav data={footerData} />
+            <PageFooter i18n={i18n} />
           </div>
         </div>
       </div>
-      <PageFooter i18n={i18n} />
     </div>
   );
 };
