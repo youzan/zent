@@ -3,7 +3,7 @@ import cx from 'classnames';
 
 import { WindowResizeHandler } from '../utils/component/WindowResizeHandler';
 import Icon from '../icon';
-import SwiperDots from './SwiperDots';
+import SwiperDots, { IDotsType, IDotsTheme } from './SwiperDots';
 
 function setStyle(target: any, styles: any) {
   const { style } = target;
@@ -18,15 +18,21 @@ export interface ISwiperProps {
   transitionDuration?: number;
   autoplay?: boolean;
   autoplayInterval?: number;
-  dots?: boolean;
-  dotsColor: string;
+  dots?: boolean | IDotsType;
+  dotsColor?: string;
   dotsSize?: 'normal' | 'small' | 'large';
-  arrows?: boolean;
+  dotsTheme?: IDotsTheme;
+  arrows?: boolean | 'hover';
+  arrowsDisabled?: {
+    left?: boolean;
+    right?: boolean;
+  };
+  arrowsSize: 'normal' | 'large';
   arrowsType?: 'dark' | 'light';
   onChange?: (current: number, prev: number | null) => void;
   children?: React.ReactNode;
-  renderPrevArrow?: (onPrev: () => void) => React.ReactNode;
-  renderNextArrow?: (onNext: () => void) => React.ReactNode;
+  renderPrevArrow?: (onPrev: () => void, disabled: boolean) => React.ReactNode;
+  renderNextArrow?: (onNext: () => void, disabled: boolean) => React.ReactNode;
 }
 
 export interface ISwiperState {
@@ -34,22 +40,32 @@ export interface ISwiperState {
   prevProps?: ISwiperProps;
 }
 
-const defaultRenderPrevArrow: ISwiperProps['renderPrevArrow'] = onPrev => {
+const defaultRenderPrevArrow: ISwiperProps['renderPrevArrow'] = (
+  onPrev,
+  disabled
+) => {
   return (
     <div
-      className="zent-swiper__arrow zent-swiper__arrow-left"
-      onClick={onPrev}
+      className={cx('zent-swiper__arrow', 'zent-swiper__arrow-left', {
+        'zent-swiper__arrow--disabled': disabled,
+      })}
+      onClick={!disabled ? onPrev : undefined}
     >
       <Icon type="right-circle" className="zent-swiper__arrow-icon" />
     </div>
   );
 };
 
-const defaultRenderNextArrow: ISwiperProps['renderNextArrow'] = onNext => {
+const defaultRenderNextArrow: ISwiperProps['renderNextArrow'] = (
+  onNext,
+  disabled
+) => {
   return (
     <div
-      className="zent-swiper__arrow zent-swiper__arrow-right"
-      onClick={onNext}
+      className={cx('zent-swiper__arrow', 'zent-swiper__arrow-right', {
+        'zent-swiper__arrow--disabled': disabled,
+      })}
+      onClick={!disabled ? onNext : undefined}
     >
       <Icon type="right-circle" className="zent-swiper__arrow-icon" />
     </div>
@@ -63,10 +79,15 @@ export class Swiper extends Component<ISwiperProps, ISwiperState> {
     autoplay: false,
     autoplayInterval: 3000,
     dots: true,
-    dotsColor: 'black',
+    dotsTheme: 'dark',
     dotsSize: 'normal',
     arrows: false,
+    arrowsSize: 'normal',
     arrowsType: 'dark',
+    arrowsDisabled: {
+      left: false,
+      right: false,
+    },
     renderPrevArrow: defaultRenderPrevArrow,
     renderNextArrow: defaultRenderNextArrow,
   };
@@ -330,16 +351,24 @@ export class Swiper extends Component<ISwiperProps, ISwiperState> {
       dots,
       dotsColor,
       dotsSize,
+      dotsTheme,
       arrows,
+      arrowsSize,
       arrowsType,
+      arrowsDisabled,
       children,
       renderNextArrow,
       renderPrevArrow,
     } = this.props;
     const { currentIndex } = this.state;
 
+    const showDots = !!dots;
+    const dotsType = dots === 'round' ? 'round' : 'line';
+
     const classString = cx('zent-swiper', className, {
       'zent-swiper-light': arrows && arrowsType === 'light',
+      'zent-swiper--hover-show-arrow': arrows === 'hover',
+      'zent-swiper--arrow-large': arrowsSize === 'large',
     });
     const childrenCount = Children.count(children);
     const clonedChildren = this.cloneChildren(children);
@@ -351,8 +380,12 @@ export class Swiper extends Component<ISwiperProps, ISwiperState> {
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
       >
-        {arrows && childrenCount > 1 && renderPrevArrow(this.prev)}
-        {arrows && childrenCount > 1 && renderNextArrow(this.next)}
+        {arrows &&
+          childrenCount > 1 &&
+          renderPrevArrow(this.prev, arrowsDisabled.left)}
+        {arrows &&
+          childrenCount > 1 &&
+          renderNextArrow(this.next, arrowsDisabled.right)}
         <div ref={this.getSwiperContainer} className="zent-swiper__container">
           {Children.map(clonedChildren, (child: any, index: number) => {
             return cloneElement(child, {
@@ -361,9 +394,11 @@ export class Swiper extends Component<ISwiperProps, ISwiperState> {
             });
           })}
         </div>
-        {dots && childrenCount > 1 && (
+        {showDots && childrenCount > 1 && (
           <SwiperDots
+            dotsType={dotsType}
             dotsColor={dotsColor}
+            dotsTheme={dotsTheme}
             dotsSize={dotsSize}
             items={children}
             currentIndex={currentIndex}

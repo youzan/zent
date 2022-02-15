@@ -19,12 +19,14 @@ export interface ITagProps extends React.HTMLAttributes<HTMLDivElement> {
   style?: React.CSSProperties;
   closeButtonStyle?: React.CSSProperties;
   visible?: boolean;
+  size?: 'small' | 'medium' | 'large';
 }
 
 export const Tag = forwardRef<HTMLDivElement, ITagProps>(
   (
     {
-      theme = 'red',
+      size = 'small',
+      theme = 'grey',
       outline,
       rounded = true,
       closable,
@@ -48,6 +50,7 @@ export const Tag = forwardRef<HTMLDivElement, ITagProps>(
         className={cx(
           'zent-tag',
           `zent-tag-style${colorPart}${outlinePart}`,
+          `zent-tag-size-${size}`,
           className,
           {
             'zent-tag-rounded': rounded,

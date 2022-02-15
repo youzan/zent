@@ -4,10 +4,22 @@
 
 ### 升级指南
 
+- [10.x 升级指南](./changelog-v10)
 - [9.x 升级指南](./changelog-v9)
 - [7.x 升级指南](./changelog-v7)
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
+
+### 10.0.0(2022-02-15)
+详见 [10.x 升级指南](./changelog-v10)
+
+### 9.12.5(2022-02-14)
+- `Notify`
+  - 🦀 api类型完善
+- `Form`
+  - ✨ 添加 normalizeBeforeBlur 属性，支持 onBlur 时修改值
+- `Grid`
+  - 🦀 修复全选状态判断不正确的问题
 
 ### 9.12.4(2022-01-11)
 - `Popover`

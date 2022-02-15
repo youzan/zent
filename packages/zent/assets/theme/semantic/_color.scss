@@ -74,16 +74,10 @@ $danger-colors: (
   'border-color': $danger-500,
 );
 
-$link-colors: (
-  // Primary text link brand color
-  'color': $primary-500,
-  // Hover state of primary text link brand color
-  'hover-color': $primary-400,
-  // Active state of primary text link brand color
-  'active-color': $primary-600
-);
-
 $default-colors: (
+  'color': $text-600,
+  'bg': $text-700,
+  'border-color': $text-700,
   // Hover state of default text color components e.g. default button..
   'hover-color': $primary-500,
   // Hover state of default background color of components , e.g. grid, select panel..
@@ -91,9 +85,11 @@ $default-colors: (
   // Hover state of default border color of components , e.g. default button..
   'hover-border-color': $primary-500,
   'selected': $text-200,
+  'active-bg': $text-300,
+  'active-border-color': $text-300,
   'disabled-color': $text-400,
   'disabled-bg': $text-200,
-  'disabled-border-color': $text-400
+  'disabled-border-color': $text-400,
 );
 
 $primary-colors: (
@@ -112,9 +108,18 @@ $primary-colors: (
   'active-border-color': $primary-600,
 );
 
+$link-colors: (
+  // Primary text link brand color
+  'color': $primary-500,
+  // Hover state of primary text link brand color
+  'hover-color': $primary-400,
+  // Active state of primary text link brand color
+  'active-color': $primary-600
+);
+
 // components
 $weak-link-colors: (
-  'color': $text-500,
+  'color': $text-600,
   // Hover state of primary text weak link brand color
   'hover-color': $primary-400,
   // Active state of primary text weak link brand color
@@ -123,6 +128,26 @@ $weak-link-colors: (
 
 $rate-colors: (
   'bg': $star-color,
+);
+
+// 文字按钮
+$text-button-colors: (
+  'color': $primary-500,
+  'bg': rgba($primary-500, 0.03),
+  'hover-color': $primary-500,
+  'hover-bg': rgba($primary-500, 0.06),
+  'active-color': $primary-500,
+  'active-bg': rgba($primary-500, 0.09),
+);
+
+// 图片按钮
+$icon-button-colors: (
+  'color': $text-600,
+  'bg': $text-100,
+  'hover-color': $text-600,
+  'hover-bg': rgba($text-600, 0.05),
+  'active-color': $text-600,
+  'active-bg': rgba($text-600, 0.1),
 );
 
 // 所有种类颜色的集合
@@ -140,6 +165,8 @@ $color-sets: (
   'primary': $primary-colors,
   'weak-link': $weak-link-colors,
   'rate': $rate-colors,
+  'text-button': $text-button-colors,
+  'icon-button': $icon-button-colors,
 );
 
 // old
@@ -164,6 +191,10 @@ $theme-stroke-9: map-get(
 // Button background color
 $theme-stroke-10: map-get($section-colors, 'border-color') !default; // Active
 $theme-stroke-11: map-get(map-get($color-sets, 'body'), 'bg') !default; // Hover
+$theme-stroke-12: map-get(
+  map-get($color-sets, 'default'),
+  'bg'
+) !default; // default-back
 
 // Blue(primary)
 $theme-primary-1: map-get(
@@ -308,6 +339,10 @@ $theme-colors-mapping: (
     ),
     (
       cat: 'body',
+      attr: 'bg',
+    ),
+    (
+      cat: 'default',
       attr: 'bg',
     ),
   ),

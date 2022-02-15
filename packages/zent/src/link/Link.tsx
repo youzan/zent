@@ -6,6 +6,7 @@ import { DisabledContext } from '../disabled';
 export interface ILinkProps
   extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   disabled?: boolean;
+  weak?: boolean;
 }
 
 export const Link = forwardRef<HTMLAnchorElement, ILinkProps>((props, ref) => {
@@ -13,6 +14,7 @@ export const Link = forwardRef<HTMLAnchorElement, ILinkProps>((props, ref) => {
   const {
     className,
     disabled = disabledContext.value,
+    weak = false,
     onClick,
     ...rest
   } = props;
@@ -21,7 +23,8 @@ export const Link = forwardRef<HTMLAnchorElement, ILinkProps>((props, ref) => {
     <a
       {...rest}
       className={cx(className, 'zent-link', {
-        'zent-link__disabled': disabled,
+        'zent-link--disabled': disabled,
+        'zent-link--weak': weak,
       })}
       ref={ref}
       onClick={disabled ? preventOpenLink : onClick}

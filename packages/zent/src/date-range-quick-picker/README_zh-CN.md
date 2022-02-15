@@ -1,7 +1,7 @@
 ---
 title: DateRangeQuickPicker
 path: component/component/date-range-quick-picker
-group: 数据
+group: 信息录入
 ---
 
 ## DateRangeQuickPicker

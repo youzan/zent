@@ -1,10 +1,10 @@
 ---
-order: 5
+order: 2
 zh-CN:
-	title: 独立徽标
+	title: 独立徽标，展示在文字右侧
 	content: 店铺消息
 en-US:
-	title: Standalone badge
+	title: Standalone badge, in the right of text
 	content: shop messages
 ---
 
@@ -16,10 +16,6 @@ ReactDOM.render(
 		<div className="zent-badge-demo-wrapper">
 			<span>{i18n.content}</span>
 			<Badge count={100}/ >
-		</div>
-		<div className="zent-badge-demo-wrapper">
-			<span>{i18n.content}</span>
-			<Badge count={100} dot/ >
 		</div>
 	</div>
 	, mountNode

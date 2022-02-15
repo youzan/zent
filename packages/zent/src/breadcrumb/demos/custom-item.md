@@ -21,10 +21,10 @@ ReactDOM.render(
 			<a href="//www.youzan.com">{i18n.index}</a>
 		</Breadcrumb.Item>
 		<Breadcrumb.Item>
-			<span>{i18n.applicationCenter}</span>
+			<a href="//www.youzan.com">{i18n.applicationCenter}</a>
 		</Breadcrumb.Item>
 		<span>{i18n.marketingCenter}</span>
-	</Breadcrumb>
-	, mountNode
-)
+	</Breadcrumb>,
+	mountNode
+);
 ```

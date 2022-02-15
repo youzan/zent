@@ -2,7 +2,7 @@
 title: Timeline
 subtitle: 时间轴
 path: component/timeline
-group: 展示
+group: 信息展示
 ---
 
 ## Timeline

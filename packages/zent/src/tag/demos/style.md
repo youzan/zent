@@ -1,5 +1,5 @@
 ---
-order: 2
+order: 4
 zh-CN:
 	title: 两种风格和五种预定样式：`red`，`green`，`yellow`，`blue`，`grey`
 	colorRed: 红色

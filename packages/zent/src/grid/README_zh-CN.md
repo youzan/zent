@@ -2,7 +2,7 @@
 title: Grid
 subtitle: 表格
 path: component/grid
-group: 导航
+group: 信息展示
 ---
 
 ## Grid 表格
@@ -41,6 +41,7 @@ group: 导航
 | autoStickOffsetTop    | 自定义表头吸顶的 offsetTop                                    | number                                                                     | `0`                | 否       |
 | disableHoverHighlight | 禁用鼠标 hover 高亮效果                                       | boolean                                                                    | `false`            | 否       |
 | loadingProps          | 基于 `BlockLoading` 的自定义加载属性                          | `Omit<IBlockLoadingProps, 'loading'>`                                      | -                  | 否       |
+| size                  | 表格尺寸                                                      | string                                                                     | `'medium'`         | 否       |
 
 #### onChange 函数声明
 

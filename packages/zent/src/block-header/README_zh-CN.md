@@ -2,7 +2,7 @@
 title: BlockHeader
 subtitle: 标题
 path: component/block-header
-group: 展示
+group: 信息展示
 ---
 
 ## BlockHeader 标题

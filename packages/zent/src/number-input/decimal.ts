@@ -41,8 +41,14 @@ export function normalizeValue(
   value: string | number | undefined,
   min: Decimal | null,
   max: Decimal | null,
-  decimalPlaces: number
-): { input: string; value: Decimal } {
+  decimalPlaces: number,
+  showTooltip?: boolean
+): {
+  input: string;
+  value: Decimal;
+  pop?: { visible: boolean; text: string; type: string };
+} {
+  let pop;
   if (value === undefined || value === null) {
     return {
       input: '',
@@ -66,16 +72,30 @@ export function normalizeValue(
   if (min !== null) {
     if (min.cmp(decimal) === 1) {
       decimal = min;
+      showTooltip &&
+        (pop = {
+          visible: true,
+          text: String(min),
+          type: 'min',
+        });
     }
   }
   if (max !== null) {
     if (max.cmp(decimal) === -1) {
       decimal = max;
+      showTooltip &&
+        (pop = {
+          visible: true,
+          text: String(max),
+          type: 'max',
+        });
     }
   }
+  const popState = pop && showTooltip ? { pop } : {};
   return {
     input: decimal.toFixed(decimalPlaces),
     value: decimal,
+    ...popState,
   };
 }
 

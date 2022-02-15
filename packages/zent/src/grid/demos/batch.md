@@ -111,6 +111,7 @@ class Selection extends React.Component {
 				batchRender={data => <Customer data={data} /> }
 				stickyBatch
 				scroll={{x: 1300}}
+				size="large"
 			/>
 		);
 	}

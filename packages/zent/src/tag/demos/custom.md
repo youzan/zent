@@ -1,5 +1,5 @@
 ---
-order: 3
+order: 5
 zh-CN:
 	title: 支持自定义色彩，非圆角，标签大小
 	color: 自定义色彩

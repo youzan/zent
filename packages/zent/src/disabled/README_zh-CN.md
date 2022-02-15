@@ -2,7 +2,7 @@
 title: Disabled
 subtitle: 禁用
 path: component/disabled
-group: 基础
+group: 其他
 ---
 
 ## Disabled

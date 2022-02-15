@@ -1,17 +1,17 @@
-import { Component } from 'react';
+import { Component, createRef } from 'react';
 import cx from 'classnames';
 
 import capitalize from '../utils/capitalize';
 import Button from '../button';
 import Popover from '../popover';
 import Menu from '../menu';
-import Icon from '../icon';
+import Icon, { IconType } from '../icon';
 import { DisabledContext, IDisabledContext } from '../disabled';
 
 const { MenuItem } = Menu;
 
 export interface ISplitButtonProps<Value> {
-  type?: 'default' | 'primary' | 'danger' | 'success';
+  type?: 'default' | 'primary' | 'danger' | 'success' | 'text';
   size?: 'medium' | 'large' | 'small';
   disabled?: boolean;
   loading?: boolean;
@@ -19,6 +19,7 @@ export interface ISplitButtonProps<Value> {
   dropdownTrigger?: 'click' | 'hover';
   dropdownText: keyof Value;
   dropdownValue: keyof Value;
+  dropdownIcon: IconType;
   dropdownPosition?:
     | 'left-top'
     | 'left-center'
@@ -51,11 +52,14 @@ export class SplitButton<Value> extends Component<ISplitButtonProps<Value>> {
     dropdownData: [],
     dropdownValue: 'value',
     dropdownText: 'text',
-    dropdownPosition: 'auto-bottom-left',
+    dropdownIcon: 'down',
+    dropdownPosition: 'auto-bottom-right',
   };
 
   static contextType = DisabledContext;
   context!: IDisabledContext;
+
+  splitButton = createRef<HTMLDivElement>();
 
   state = {
     isShowDropdown: false,
@@ -81,6 +85,7 @@ export class SplitButton<Value> extends Component<ISplitButtonProps<Value>> {
       dropdownValue,
       dropdownText,
       dropdownPosition,
+      dropdownIcon,
       className,
       children,
       onClick,
@@ -99,20 +104,25 @@ export class SplitButton<Value> extends Component<ISplitButtonProps<Value>> {
       .split('-')
       .map(s => capitalize(s))
       .join('') as keyof typeof Popover.Position;
-
     return (
-      <div className={classString}>
-        <Button
-          className="zent-split-button__main"
-          type={type}
-          size={size}
-          onClick={onClick}
-          disabled={disabled}
-          loading={loading}
+      <div ref={this.splitButton} className={classString}>
+        {children && (
+          <Button
+            className="zent-split-button__main"
+            type={type}
+            size={size}
+            onClick={onClick}
+            disabled={disabled}
+            loading={loading}
+          >
+            {children}
+          </Button>
+        )}
+        <div
+          className={cx('zent-split-button__dropdown-wrapper', {
+            'zent-split-button__dropdown-wrapper-text': type === 'text',
+          })}
         >
-          {children}
-        </Button>
-        <div className="zent-split-button__dropdown-wrapper">
           <Popover
             visible={this.state.isShowDropdown}
             onVisibleChange={isShow => this.toggleDropdown(isShow)}
@@ -123,6 +133,7 @@ export class SplitButton<Value> extends Component<ISplitButtonProps<Value>> {
               <Button
                 className={cx('zent-split-button__dropdown', {
                   'zent-split-button__dropdown-disabled': loading,
+                  'zent-split-button__dropdown-icononly': !children,
                 })}
                 type={type}
                 size={size}
@@ -130,15 +141,21 @@ export class SplitButton<Value> extends Component<ISplitButtonProps<Value>> {
               >
                 <Icon
                   className="zent-split-button__dropdown-icon"
-                  type="down"
+                  type={dropdownIcon}
                 />
               </Button>
             </Trigger>
             <Popover.Content>
-              <Menu onClick={this.handleSelect}>
+              <Menu
+                className="zent-split-button__dropdown-menu"
+                onClick={this.handleSelect}
+              >
                 {dropdownData.map(item => {
                   return (
-                    <MenuItem key={`${item[dropdownValue]}`}>
+                    <MenuItem
+                      className={`zent-split-button__dropdown-menu-item-${type}`}
+                      key={`${item[dropdownValue]}`}
+                    >
                       {item[dropdownText]}
                     </MenuItem>
                   );

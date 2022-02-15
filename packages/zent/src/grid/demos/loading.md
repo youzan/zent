@@ -64,6 +64,7 @@ class Demo extends React.Component {
 					columns={columns}
 					datasets={datasets}
 					loading={this.state.loading}
+					size="large"
 				/>
 			</div>
 		);

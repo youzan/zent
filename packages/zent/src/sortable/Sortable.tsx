@@ -5,9 +5,12 @@ import { Component, createRef } from 'react';
 import * as _sortableJS from 'sortablejs';
 
 import reorder from '../utils/reorder';
+import { EASE_OUT_CUBIC } from '../utils/timingFunctions';
 
 // use this as value
 const sortableJS: typeof _sortableJS = (_sortableJS as any).default;
+
+const DRAGGING_CLS = 'zent-sortable--grabbing';
 
 export interface ISortableProps<T>
   extends Omit<_sortableJS.Options, 'onChange'> {
@@ -19,6 +22,23 @@ export interface ISortableProps<T>
   onChange?: (newItems: T[]) => void;
 }
 
+const addElementsDraggingCursor = (selector: string, element?: HTMLElement) => {
+  const container = element || document;
+  container.querySelectorAll(selector).forEach((el: HTMLElement) => {
+    el.style.cursor = 'grabbing';
+  });
+};
+
+const removeElementsDraggingCursor = (
+  selector: string,
+  element?: HTMLElement
+) => {
+  const container = element || document;
+  container.querySelectorAll(selector).forEach((el: HTMLElement) => {
+    el.style.cursor = '';
+  });
+};
+
 export class Sortable<T> extends Component<ISortableProps<T>> {
   static defaultProps = {
     tag: 'div',
@@ -26,6 +46,20 @@ export class Sortable<T> extends Component<ISortableProps<T>> {
 
   sortable: _sortableJS;
   containerRef = createRef<HTMLElement>();
+
+  handleAddDraggingCursor = () => {
+    const { handle } = this.props;
+    addElementsDraggingCursor('html');
+    handle && addElementsDraggingCursor(handle, this.containerRef.current);
+    this.containerRef.current?.classList.add(DRAGGING_CLS);
+  };
+
+  handleRemoveDraggingCursor = () => {
+    const { handle } = this.props;
+    removeElementsDraggingCursor('html');
+    handle && removeElementsDraggingCursor(handle, this.containerRef.current);
+    this.containerRef.current?.classList.remove(DRAGGING_CLS);
+  };
 
   private initSortable = () => {
     const { onMove, onEnd, onChange, filterClass, children, ...rest } =
@@ -38,10 +72,17 @@ export class Sortable<T> extends Component<ISortableProps<T>> {
 
     const sortableOptions: _sortableJS.Options = {
       filter: filterClass ? `.${filterClass}` : '',
-      ghostClass: 'zent-ghost',
-      chosenClass: 'zent-chosen',
-      dragClass: 'zent-drag',
-      fallbackClass: 'zent-fallback',
+      ghostClass: 'zent-sortable__ghost',
+      chosenClass: 'zent-sortable__chosen',
+      dragClass: 'zent-sortable__drag',
+      fallbackClass: 'zent-sortable__fallback',
+      animation: 200,
+      easing: EASE_OUT_CUBIC,
+      forceFallback: true,
+      onChoose: e => {
+        this.handleAddDraggingCursor();
+        this.props.onChoose?.(e);
+      },
       onMove: (e, originalEvent) => {
         const { onMove } = this.props;
         if (onMove) {
@@ -55,6 +96,10 @@ export class Sortable<T> extends Component<ISortableProps<T>> {
         // insert point is based on direction
         return true;
       },
+      onUnchoose: e => {
+        this.handleRemoveDraggingCursor();
+        this.props.onUnchoose?.(e);
+      },
       onEnd: e => {
         const { items, onEnd, onChange } = this.props;
         onEnd && onEnd(e);
@@ -64,8 +109,9 @@ export class Sortable<T> extends Component<ISortableProps<T>> {
         }
 
         const { oldIndex, newIndex } = e;
-        const newItems = reorder(items, oldIndex, newIndex);
-
+        // 拖拽过程中偶先newIndex超出newItems.length的情况，约束一下index的范围
+        const nextIndex = Math.max(0, Math.min(newIndex, items.length - 1));
+        const newItems = reorder(items, oldIndex, nextIndex);
         onChange && onChange(newItems);
       },
       ...rest,
@@ -90,8 +136,10 @@ export class Sortable<T> extends Component<ISortableProps<T>> {
   }
 
   render() {
-    const { className, children, tag } = this.props;
-    const classString = cx(`zent-sortable`, className);
+    const { className, children, tag, handle } = this.props;
+    const classString = cx(`zent-sortable`, className, {
+      'zent-sortable--handle': handle,
+    });
     const Com: any = tag;
     return (
       <Com

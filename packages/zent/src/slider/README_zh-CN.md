@@ -2,7 +2,8 @@
 title: Slider
 subtitle: 滑动条
 path: component/slider
-group: 数据
+group: 信息录入
+scatter: true
 ---
 
 ## Slider 滑动输入条
@@ -13,6 +14,11 @@ group: 数据
 
 - 可设置单滑块或者双滑块
 - 可与 `Input` 输入框配合使用
+
+<!-- demo-slot-1 -->
+<!-- demo-slot-3 -->
+<!-- demo-slot-6 -->
+<!-- demo-slot-7 -->
 
 ### API
 
@@ -32,3 +38,11 @@ group: 数据
 | width     | 宽度                   | string or number |         |        | 否       |
 
 ⚠️ 注意：`range` 属性设置了必须给一个 `value` 值，且一定为一个长度为 2 的数组，数组项必须为数字。`dots` 属性配合 `marks` 属性使用。
+
+
+#### 以下功能新版设计语言已废弃，仅作为老版使用的参考
+
+<!-- demo-slot-2 -->
+<!-- demo-slot-4 -->
+<!-- demo-slot-5 -->
+

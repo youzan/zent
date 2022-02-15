@@ -2,7 +2,7 @@
 title: Rate
 subtitle: 评分
 path: component/rate
-group: 数据
+group: 信息录入
 ---
 
 ## Rate 评分

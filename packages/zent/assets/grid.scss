@@ -1,6 +1,9 @@
 @import './theme/default';
 @import './theme/font';
 
+$fixed-right-column-box-shadow: -4px 0 8px -4px rgba($shadow-color, 0.1);
+$fixed-left-column-box-shadow: 4px 0 8px -4px rgba($shadow-color, 0.1);
+
 .zent-grid {
   @include theme-color(color, stroke, 1);
   font-size: $font-size-normal;
@@ -34,6 +37,24 @@
         text-overflow: ellipsis;
       }
     }
+
+    &-small {
+      .zent-grid-td {
+        padding: 4px 12px;
+      }
+    }
+
+    &-medium {
+      .zent-grid-td {
+        padding: 8px 12px;
+      }
+    }
+
+    &-large {
+      .zent-grid-td {
+        padding: 16px 12px;
+      }
+    }
   }
 
   &-bordered {
@@ -55,6 +76,12 @@
       &:last-child {
         border-right: 0;
       }
+    }
+  }
+
+  &-without-size {
+    tr {
+      height: 56px;
     }
   }
 
@@ -100,7 +127,7 @@
       position: relative;
 
       &-btn {
-        cursor: pointer;
+        position: relative;
         display: flex;
       }
     }
@@ -148,7 +175,7 @@
   &-fixed-left {
     left: 0;
     // FIXME: 为了让fix住的部分底部阴影去除
-    @include theme-shadow(focus);
+    box-shadow: $fixed-left-column-box-shadow;
 
     .zent-grid-header .zent-grid-table {
       border-right: 0;
@@ -169,7 +196,7 @@
   &-fixed-right {
     right: 0;
     // FIXME: 为了让fix住的部分底部阴影去除
-    @include theme-shadow(focus);
+    box-shadow: $fixed-right-column-box-shadow;
 
     .zent-grid-header .zent-grid-table {
       border-left: 0;
@@ -217,11 +244,10 @@
   &-tr {
     @include theme-color(background-color, stroke, 9);
     display: table-row;
-    height: 56px;
 
     &:hover,
     &__mouseover {
-      @include theme-color(background-color, primary, 8);
+      @include theme-color(background-color, section, bg);
     }
 
     &__expanded {
@@ -248,21 +274,38 @@
     border-bottom-width: 1px;
     border-bottom-style: solid;
     vertical-align: middle;
-
-    &:first-child {
-      padding: 10px 12px;
-    }
-
-    &:last-child {
-      padding: 10px 12px;
-    }
   }
 
   &-th {
     @include theme-color(background-color, stroke, 8);
     line-height: 20px;
-    padding: 10px 12px;
+    padding: 8px 12px;
     font-weight: 500;
+
+    &:first-child {
+      padding: 8px 12px;
+    }
+
+    &:last-child {
+      padding: 8px 12px;
+    }
+  }
+
+  &-th.zent-grid-th-sortable {
+    position: relative;
+    cursor: pointer;
+
+    &:hover {
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.05);
+      }
+    }
   }
 
   &-th.zent-grid-th-selection,
@@ -274,35 +317,16 @@
 
   &-td {
     line-height: 20px;
-    padding: 10px 12px;
     position: relative;
 
     .zent-grid-expandable-btn {
-      @include theme-color(border-color, stroke, 6);
-      @include theme-color(background-color, stroke, 9);
       cursor: pointer;
       display: inline-block;
-      width: 14px;
-      height: 14px;
+      width: 16px;
+      height: 16px;
+      font-size: 16px;
       text-align: center;
-      line-height: 12px;
-      border-width: 1px;
-      border-style: solid;
       user-select: none;
-
-      &.zent-grid-expand-btn::after {
-        content: '+';
-        box-sizing: border-box;
-        width: 8px;
-        display: inline-block;
-      }
-
-      &.zent-grid-collapse-btn::after {
-        content: '-';
-        box-sizing: border-box;
-        width: 8px;
-        display: inline-block;
-      }
     }
 
     &-multiple-row {

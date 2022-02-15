@@ -79,7 +79,7 @@ class Drap extends React.Component {
       datasets
     };
 	}
-	
+
 	columns = [
 		{
 			title: '{i18n.productName}',
@@ -108,7 +108,7 @@ class Drap extends React.Component {
       result.source.index,
       result.destination.index
 		);
-		
+
 		console.log(datasets, this.state.datasets, '-------');
 
     this.setState({
@@ -131,6 +131,7 @@ class Drap extends React.Component {
 									id: data.id,
 									index
 								})}
+								size="large"
 							/>
 						</div>
 					)}

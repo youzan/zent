@@ -2,7 +2,7 @@
 title: Placeholder
 subtitle: 占位块
 path: component/placeholder
-group: 反馈
+group: 信息反馈
 ---
 
 ## Placeholder 占位块

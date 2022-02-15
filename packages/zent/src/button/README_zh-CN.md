@@ -2,12 +2,12 @@
 title: Button
 subtitle: 按钮
 path: component/button
-group: 数据
+group: 基础控件
 ---
 
 ## Button 按钮
 
-按钮, 提供基础样式及基础状态.
+用于触发操作的可点击元素。用来传达用户可以执行的操作并允许用户与页面交互。
 
 ### 使用指南
 
@@ -30,7 +30,6 @@ group: 数据
 | disabled  | 状态控制                                          | bool   | `false`     |                                      |
 | loading   | 状态控制                                          | bool   | `false`     |                                      |
 | outline   | 边框有颜色，内部没有颜色                          | bool   | `false`     |                                      |
-| bordered  | 边框透明控制                                      | bool   | `true`      |                                      |
 | 其他参数  |                                                   |        |             |                                      |
 | href      | 可选，如果设置的话会用 a 标签而不是 button        | string |             |                                      |
 | target    | 可选，和 href 一起使用，就是 a 标签的 target 属性 | string | `''`        | `'_blank'`                           |
@@ -42,9 +41,3 @@ group: 数据
 
 这个组件会将 `Button` 的样式渲染到自己的 `children` 上，主要用在需要 `Button` 的样式，但是需要有特殊逻辑的按钮，例如将一个 `react-router` 的 `Link` 渲染成 `Button` 的样式，但是保留 `Link` 自身的功能。API 只支持 `Button` 的样式参数，用法参考 demo。
 
-#### ButtonGroup
-
-| 参数      | 说明       | 类型   | 默认值   | 备选值 |
-| --------- | ---------- | ------ | -------- | ------ |
-| className | 自定义类名 | string |          |        |
-| style     | 自定 style | object |          |        |

@@ -1,7 +1,7 @@
 ---
 title: AnimateHeight
 path: component/animate-height
-group: Feedback
+group: Others
 ---
 
 ## AnimateHeight

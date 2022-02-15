@@ -2,7 +2,7 @@
 title: Mention
 subtitle: 提及
 path: component/mention
-group: 数据
+group: 信息录入
 ---
 
 ## Mention 提及

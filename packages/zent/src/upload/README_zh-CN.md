@@ -2,7 +2,7 @@
 title: Upload
 subtitle: 文件上传
 path: component/upload
-group: 数据
+group: 信息录入
 ---
 
 # Upload 文件上传
