@@ -7,7 +7,7 @@ function getPrefix(): string {
     return '/zent-beta/';
   }
 
-  return '/zent-v9/';
+  return '/zent/';
 }
 
 export const prefix = getPrefix();

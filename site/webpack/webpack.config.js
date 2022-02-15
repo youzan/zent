@@ -21,7 +21,7 @@ const PREFIX = (function getPrefix() {
     return '/zent-beta/';
   }
 
-  return '/zent-v9/';
+  return '/zent/';
 })();
 
 const DEV = process.env.NODE_ENV !== 'production';
