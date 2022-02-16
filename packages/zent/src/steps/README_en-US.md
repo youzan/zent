@@ -25,15 +25,14 @@ Located in the head of the form, it is used for step by step display of large or
 
 #### Steps
 
-| Property     | Description                                                                                                                                     | Type    | Default        | Alternative                        |
-| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------- | -------------- | ---------------------------------- |
-| type         | The type of steps                                                                                                                               | string  | `'number'`     | `'card'`, `'breadcrumb'`, `'tabs'` |
-| direction    | The direction of steps, especially for steps of number type.                                                                                    | string  | `'horizontal'` | `'vertical'`                       |
-| current      | The curren step which starts from 1. When this property is not passed, `current` is 0 and steps is in status of `wait`.                         | number  | `0`            |                                    |
-| sequence     | Whether to use the default step number or not                                                                                                   | boolean | `true`         |                                    |
-| onStepChange | The callback function that is triggered when the steps in cliked and changed, especially for steps of card type, breadcrumb type and tabs type. | func    | `''`           |                                    |
-| className    | The custom classname                                                                                                                            | string  | `''`           |                                    |
-| ghost        | Use reverse color styles (This property supports only breadcrumb type. )                                                                        | boolean | false          |
+| Property     | Description                                                                                                                                     | Type    | Default    | Alternative                       |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------- | ---------- | --------------------------------- | --- |
+| type         | The type of steps(The default value of type is not changed for compatibility with older versions. Please use 'Indicator' when `type=number`)    | string  | `'number'` | `'breadcrumb'`,`'card'`, `'tabs'` |     |
+| current      | The curren step which starts from 1. When this property is not passed, `current` is 0 and steps is in status of `wait`.                         | number  | `0`        |                                   |
+| sequence     | Whether to use the default step number or not                                                                                                   | boolean | `true`     |                                   |
+| onStepChange | The callback function that is triggered when the steps in cliked and changed, especially for steps of card type, breadcrumb type and tabs type. | func    | `''`       |                                   |
+| className    | The custom classname                                                                                                                            | string  | `''`       |                                   |
+| ghost        | Use reverse color styles (This property supports only breadcrumb type. )                                                                        | boolean | false      |
 
 **Use Indicator for progress indicators of type [type=number]**
 
