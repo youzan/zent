@@ -26,15 +26,14 @@ scatter: true
 
 #### Steps
 
-| 参数         | 说明                                                              | 类型    | 默认值         | 备选值                             |
-| ------------ | ----------------------------------------------------------------- | ------- | -------------- | ---------------------------------- |
-| type         | steps 组件类型                                                    | string  | `'number'`     | `'card'`, `'breadcrumb'`, `'tabs'` |
-| direction    | 步骤条的方向（竖直只针对 number 类型步骤条有效）                  | string  | `'horizontal'` | `'vertical'`                       |
-| current      | 指定当前步骤, 从 1 开始记数 (当不传值时, 默认为 0, 状态都为 wait) | number  | `0`            |                                    |
-| sequence     | 是否使用默认的步骤序号                                            | boolean | `true`         |                                    |
-| onStepChange | 传该参数后 step 可点击切换 (针对 card, breadcrumb，tabs 类型)     | func    | `''`           |                                    |
-| className    | 自定义额外类名                                                    | string  | `''`           |                                    |
-| ghost        | 是否使用反色样式（仅支持 breadcrumb 类型）                        | boolean | false          |
+| 参数         | 说明                                                                                   | 类型    | 默认值     | 备选值                             |
+| ------------ | -------------------------------------------------------------------------------------- | ------- | ---------- | ---------------------------------- |
+| type         | steps 组件类型（为兼容老版本`type`默认值未做修改，当`type=number`时请使用`Indicator`） | string  | `'number'` | `'breadcrumb'`, `'card'`, `'tabs'` |
+| current      | 指定当前步骤, 从 1 开始记数 (当不传值时, 默认为 0, 状态都为 wait)                      | number  | `0`        |                                    |
+| sequence     | 是否使用默认的步骤序号                                                                 | boolean | `true`     |                                    |
+| onStepChange | 传该参数后 step 可点击切换 (针对 card, breadcrumb，tabs 类型)                          | func    | `''`       |                                    |
+| className    | 自定义额外类名                                                                         | string  | `''`       |                                    |
+| ghost        | 是否使用反色样式（仅支持 breadcrumb 类型）                                             | boolean | false      |
 
 **[type=number]类型的进度指示器请使用 Indicator 组件**
 

@@ -25,13 +25,14 @@ Feedback the complete process information objectively in order and mark the curr
 
 ### API
 
-| Property     | Description                                                                                                                                     | Type    | Required    | Default                         | Alternative |
-| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------- | ----------- | ------------------------------- | ----------- |
-| current      | The curren step which starts from 1. When this property is not passed, `current` is 0 and steps is in status of `wait`.                         | number  | `0`         |                                 |
-| status       | The status of steps.                                                                                                                            | string  | `'process'` | `'wait'`, `'finish'`, `'error'` |
-| sequence     | Whether to use the default step number or not                                                                                                   | boolean | `true`      |                                 |
-| onStepChange | The callback function that is triggered when the steps in cliked and changed, especially for steps of card type, breadcrumb type and tabs type. | func    | `''`        |                                 |
-| className    | The custom classname                                                                                                                            | string  | `''`        |
+| Property     | Description                                                                                                                                      | Type    | Required       | Default                         | Alternative |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------- | -------------- | ------------------------------- | ----------- |
+| current      | The curren step which starts from 1. When this property is not passed, `current` is 0 and steps is in status of `wait`.                          | number  | `0`            |                                 |
+| status       | The status of indicator.                                                                                                                         | string  | `'process'`    | `'wait'`, `'finish'`, `'error'` |
+| sequence     | Whether to use the default number or not                                                                                                         | boolean | `true`         |                                 |
+| onStepChange | The callback function that is triggered when the steps in clicked and changed, especially for steps of card type, breadcrumb type and tabs type. | func    | `''`           |                                 |
+| direction    | The direction of steps, especially for steps of number type.                                                                                     | string  | `'horizontal'` | `'vertical'`                    |
+| className    | The custom classname                                                                                                                             | string  | `''`           |
 
 #### The following functions is obsolete in the new design system and is only used as a reference for the old version
 
