@@ -18,7 +18,7 @@ export default function ErrorBoundaryFallbackComponent({
           centerArrow
           content={<div style={stackTraceStyle}>{componentStack}</div>}
         >
-          <Icon type="error-circle" />
+          <Icon type="close-circle" />
         </Pop>
         <span>{error.toString()}</span>
       </div>
