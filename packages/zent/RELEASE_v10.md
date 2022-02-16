@@ -29,6 +29,17 @@
 - ✨ 新增 `Banner` 组件，封装自 `Alert`
 - ✨ 新增 `Prompt` 组件，封装自 `Alert`
 
+## zent@10.0.0-rc.3(2022-02-16)
+
+- `Tabs`
+  - 🦀️ 多标签滚动模式下，隐藏项 tab 弹框宽度限制，超出显示省略号
+- `Icon`
+  - 🦀 更新 warning icon
+- `Steps`
+  - 📚 文档调整，删除无用参数`status`、`direction`，参数`type`默认值添加相关备注
+- `Indicator`
+  - 📚 文档调整，添加参数`direction`
+
 ## zent@10.0.0-rc.2(2022-02-15)
 
 - ## `Sortable`
