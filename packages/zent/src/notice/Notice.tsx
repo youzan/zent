@@ -48,7 +48,7 @@ function renderIcon(
       return (
         <Icon
           className="zent-notice-icon zent-notice-icon-error"
-          type="error-circle"
+          type="close-circle"
         />
       );
     default:

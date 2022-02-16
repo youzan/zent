@@ -21,7 +21,7 @@
     @include theme-color(color, error, 2);
   }
 
-  .zenticon-error-circle-o {
+  .zenticon-warning-o {
     @include theme-color(color, warn, 2);
   }
 }
