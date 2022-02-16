@@ -236,7 +236,7 @@
   &-tabs {
     @include theme-color(background-color, stroke, 9);
     @include theme-shadow(modal);
-    min-width: 148px;
+    width: 148px;
     border-radius: 2px;
     max-height: 256px;
     overflow-y: scroll;
@@ -245,6 +245,9 @@
   &-tab {
     padding: 6px 12px;
     cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     &:hover {
       @include theme-color(background-color, stroke, 8);
