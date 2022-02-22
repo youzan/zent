@@ -19,7 +19,7 @@
     position: absolute;
     height: 20px;
     width: 24px;
-    line-height: $font-size-h3;
+    line-height: 26px;
     box-sizing: border-box;
     top: 50%;
     transform: translateY(-50%);
@@ -52,11 +52,10 @@
   span,
   a {
     font-size: $font-size-normal;
-    line-height: $font-size-h3;
+    line-height: $font-size-normal;
     display: inline-block;
     vertical-align: middle;
     text-decoration: none;
-    height: 20px;
 
     &::after {
       @include theme-color(color, stroke, 3);
@@ -79,7 +78,7 @@
     transition: left 200ms $timing-fn-linear;
 
     & > *:last-child {
-      font-size: 20px;
+      font-size: $font-size-h4;
       line-height: $font-size-h4;
       vertical-align: bottom;
       font-weight: $font-weight-medium;
