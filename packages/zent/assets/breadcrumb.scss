@@ -56,7 +56,6 @@
     display: inline-block;
     vertical-align: middle;
     text-decoration: none;
-    height: 14px;
 
     &::after {
       @include theme-color(color, stroke, 3);
@@ -79,7 +78,6 @@
     transition: left 200ms $timing-fn-linear;
 
     & > *:last-child {
-      height: 20px;
       font-size: $font-size-h4;
       line-height: $font-size-h4;
       vertical-align: bottom;
