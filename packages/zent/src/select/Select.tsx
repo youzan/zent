@@ -457,7 +457,7 @@ export class Select<
       return;
     }
     isCreate && this.resetKeyword('option-create');
-    const valueItem = isCreate ? { ...item, key: item.text } : item;
+    const valueItem = isCreate ? { ...item, key: uniqueId(uniqueKey) } : item;
     if (this.props.multiple === true) {
       const { onChange, isEqual } = this.props;
       const value = this.state.value as Item[];
