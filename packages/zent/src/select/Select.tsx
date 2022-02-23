@@ -16,6 +16,10 @@ import memoize from '../utils/memorize-one';
 import uniqueId from '../utils/uniqueId';
 import { filterReviver, reviveSelectItem } from './reviver';
 
+// 允许创建的临时 key
+const uniqueKey = '__ZENT_SELECT_CREATABLE_KEY__';
+const SELECT_CREATABLE_KEY = uniqueId(uniqueKey);
+
 export interface ISelectItem<Key extends string | number = string | number> {
   key: Key;
   text: React.ReactNode;
@@ -152,13 +156,13 @@ function getExtraOptions<
     if (!value) {
       return [];
     }
-    if (value.key?.toString()?.indexOf('__ZENT_SELECT_CREATABLE_KEY__') > -1) {
+    if (value.key?.toString()?.indexOf(uniqueKey) > -1) {
       return [value];
     }
     return [];
   }
   return value.reduce((v, next) => {
-    if (next.key?.toString()?.indexOf('__ZENT_SELECT_CREATABLE_KEY__') > -1) {
+    if (next.key?.toString()?.indexOf(uniqueKey) > -1) {
       return [...v, next];
     }
     return v;
@@ -236,10 +240,6 @@ function defaultIsValidNewOption<Key extends string | number = string | number>(
       keyword.toLowerCase()
   );
 }
-
-// 允许创建的临时 key
-const uniqueKey = '__ZENT_SELECT_CREATABLE_KEY__';
-const SELECT_CREATABLE_KEY = uniqueId(uniqueKey);
 
 const DEFAULT_TRIGGER_WIDTH = 240;
 
