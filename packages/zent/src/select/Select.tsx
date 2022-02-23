@@ -152,13 +152,13 @@ function getExtraOptions<
     if (!value) {
       return [];
     }
-    if (value.key.toString().indexOf('__ZENT_SELECT_CREATABLE_KEY__') > -1) {
+    if (value.key?.toString().indexOf('__ZENT_SELECT_CREATABLE_KEY__') > -1) {
       return [value];
     }
     return [];
   }
   return value.reduce((v, next) => {
-    if (next.key.toString().indexOf('__ZENT_SELECT_CREATABLE_KEY__') > -1) {
+    if (next.key?.toString().indexOf('__ZENT_SELECT_CREATABLE_KEY__') > -1) {
       return [...v, next];
     }
     return v;
@@ -879,7 +879,7 @@ export class Select<
       isValidNewOption: (keyword: string, options: Item[]) => boolean,
       value: Item | Item[] | undefined
     ): Item[] => {
-      const extraOptions = getExtraOptions(value);
+      const extraOptions = creatable ? getExtraOptions(value) : [];
       const mergedOptions = [...options, ...extraOptions];
 
       const filtered =
