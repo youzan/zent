@@ -153,16 +153,13 @@ function getExtraOptions<
   Item extends ISelectItem<Key> = ISelectItem<Key>
 >(value: Item | Item[] | undefined) {
   if (!Array.isArray(value)) {
-    if (!value) {
-      return [];
-    }
-    if (value.key?.toString()?.indexOf(uniqueKey) > -1) {
+    if (value?.key?.toString()?.indexOf(uniqueKey) > -1) {
       return [value];
     }
     return [];
   }
   return value.reduce((v, next) => {
-    if (next.key?.toString()?.indexOf(uniqueKey) > -1) {
+    if (next?.key?.toString()?.indexOf(uniqueKey) > -1) {
       return [...v, next];
     }
     return v;
