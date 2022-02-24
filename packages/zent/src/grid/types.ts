@@ -57,6 +57,7 @@ export interface IGridColumn<Data = any> {
   defaultText?: React.ReactNode;
   isValueEmpty?: (value: any) => boolean;
   children?: Array<IGridColumn<Data>>;
+  float?:string;
 }
 
 export type GridColumnContextType = Partial<IGridColumn>;
