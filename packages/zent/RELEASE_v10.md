@@ -29,6 +29,14 @@
 - ✨ 新增 `Banner` 组件，封装自 `Alert`
 - ✨ 新增 `Prompt` 组件，封装自 `Alert`
 
+## zent@10.0.0-rc.4(2022-02-24)
+
+- `Select`
+  - 🦀️ 修复 getExtraOption 函数中取值时可能报错的问题
+  - 🦀️ 修复创建条目时，没有显示 option 的问题
+- `Breadcrumb`
+  - 🦀 元素高度 & 行高样式调整
+
 ## zent@10.0.0-rc.3(2022-02-16)
 
 - `Tabs`
