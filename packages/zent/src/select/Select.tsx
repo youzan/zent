@@ -16,6 +16,10 @@ import memoize from '../utils/memorize-one';
 import uniqueId from '../utils/uniqueId';
 import { filterReviver, reviveSelectItem } from './reviver';
 
+// 允许创建的临时 key
+const uniqueKey = '__ZENT_SELECT_CREATABLE_KEY__';
+const SELECT_CREATABLE_KEY = uniqueId(uniqueKey);
+
 export interface ISelectItem<Key extends string | number = string | number> {
   key: Key;
   text: React.ReactNode;
@@ -149,16 +153,13 @@ function getExtraOptions<
   Item extends ISelectItem<Key> = ISelectItem<Key>
 >(value: Item | Item[] | undefined) {
   if (!Array.isArray(value)) {
-    if (!value) {
-      return [];
-    }
-    if (value.key.toString().indexOf('__ZENT_SELECT_CREATABLE_KEY__') > -1) {
+    if (value?.key?.toString()?.indexOf(uniqueKey) > -1) {
       return [value];
     }
     return [];
   }
   return value.reduce((v, next) => {
-    if (next.key.toString().indexOf('__ZENT_SELECT_CREATABLE_KEY__') > -1) {
+    if (next?.key?.toString()?.indexOf(uniqueKey) > -1) {
       return [...v, next];
     }
     return v;
@@ -236,10 +237,6 @@ function defaultIsValidNewOption<Key extends string | number = string | number>(
       keyword.toLowerCase()
   );
 }
-
-// 允许创建的临时 key
-const uniqueKey = '__ZENT_SELECT_CREATABLE_KEY__';
-const SELECT_CREATABLE_KEY = uniqueId(uniqueKey);
 
 const DEFAULT_TRIGGER_WIDTH = 240;
 
@@ -457,7 +454,7 @@ export class Select<
       return;
     }
     isCreate && this.resetKeyword('option-create');
-    const valueItem = isCreate ? { ...item, key: item.text } : item;
+    const valueItem = isCreate ? { ...item, key: uniqueId(uniqueKey) } : item;
     if (this.props.multiple === true) {
       const { onChange, isEqual } = this.props;
       const value = this.state.value as Item[];
@@ -879,7 +876,7 @@ export class Select<
       isValidNewOption: (keyword: string, options: Item[]) => boolean,
       value: Item | Item[] | undefined
     ): Item[] => {
-      const extraOptions = getExtraOptions(value);
+      const extraOptions = creatable ? getExtraOptions(value) : [];
       const mergedOptions = [...options, ...extraOptions];
 
       const filtered =
