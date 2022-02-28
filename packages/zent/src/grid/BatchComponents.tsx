@@ -6,7 +6,7 @@ import { IGridBatchRender, IGridSelection } from './types';
 import uniq from '../utils/uniq';
 import { getCompatSelectionPropsFn, getSelectAllCheckboxState } from './utils';
 
-export interface IBatchComponentsProps<Data = any> {
+export interface IBatchComponentsProps<Data = any, Key = string> {
   batchRender: IGridBatchRender;
   prefix: string;
   position: 'header' | 'foot';
@@ -14,7 +14,7 @@ export interface IBatchComponentsProps<Data = any> {
   store: Store;
   datasets: ReadonlyArray<Data>;
   getDataKey: (data: Data, rowIndex: string | number) => string;
-  selection: IGridSelection;
+  selection: IGridSelection<Data, Key>;
   selectionPropsCache: {
     [key: string]: {
       disabled?: boolean;

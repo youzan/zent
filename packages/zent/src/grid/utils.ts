@@ -109,8 +109,8 @@ export function mapDOMNodes<T extends Node, V>(
   return result;
 }
 
-export function getCompatSelectionPropsFn<Data>(
-  selection?: IGridSelection<Data>
+export function getCompatSelectionPropsFn<Data, Key>(
+  selection?: IGridSelection<Data, Key>
 ): IGridSelection['getSelectionProps'] | undefined {
   return selection?.getSelectionProps || selection?.getCheckboxProps;
 }
