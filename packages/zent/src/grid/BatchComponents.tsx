@@ -28,8 +28,8 @@ interface IState<Data> {
   batchNeedRenderFixed: boolean;
 }
 
-class BatchComponents<Data> extends PureComponent<
-  IBatchComponentsProps<Data>,
+class BatchComponents<Data, Key> extends PureComponent<
+  IBatchComponentsProps<Data, Key>,
   IState<Data>
 > {
   state: IState<Data> = {
