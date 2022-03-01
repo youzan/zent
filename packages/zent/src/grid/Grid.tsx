@@ -486,7 +486,7 @@ export class Grid<
   getBatchComponents = (position: 'header' | 'foot') => {
     const { datasets, batchRender, selection, rowKey } = this.props;
     return (
-      <BatchComponents
+      <BatchComponents<Data, Key>
         key="batch"
         position={position}
         store={this.store}
