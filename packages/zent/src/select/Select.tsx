@@ -184,6 +184,7 @@ function defaultHighlight<
       searchWords={[keyword]}
       textToHighlight={option.text}
       highlightStyle={{ backgroundColor: 'initial', color: '#155bd4' }}
+      autoEscape
     />
   );
 }
