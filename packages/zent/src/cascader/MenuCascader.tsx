@@ -139,6 +139,7 @@ const defaultHighlight = (
           searchWords={[keyword]}
           textToHighlight={node.label}
           highlightClassName="zent-cascader-v2--highlight"
+          autoEscape
         />
         {index !== path.length - 1 && ' / '}
       </span>
