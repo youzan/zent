@@ -49,7 +49,7 @@ import { Collapse, Switch } from 'zent';
 
 class Simple extends React.Component {
 	state = {
-		activeKey: '1',
+		activeKey: ['1'],
 		bg: true,
 	};
 

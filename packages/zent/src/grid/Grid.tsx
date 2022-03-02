@@ -68,7 +68,7 @@ const BTN_WIDTH = 28;
 const DEFAULT_SIZE = 'large';
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-export interface IGridProps<Data = any, RowProps = {}> {
+export interface IGridProps<Data = any, RowProps = {}, Key = string> {
   size?: 'medium' | 'large' | 'small';
   columns: IGridColumn[];
   datasets: ReadonlyArray<Data>;
@@ -79,7 +79,7 @@ export interface IGridProps<Data = any, RowProps = {}> {
   sortType?: GridSortType;
   defaultSortType?: GridSortType;
   emptyLabel?: React.ReactNode;
-  selection?: IGridSelection<Data>;
+  selection?: IGridSelection<Data, Key>;
   expandation?: IGridExpandation<Data>;
   loading?: boolean;
   bordered?: boolean;
@@ -118,10 +118,11 @@ export interface IGridInnerColumn<Data> extends IGridColumn<Data> {
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-export class Grid<Data = any, RowProps = {}> extends PureComponent<
-  IGridProps<Data, RowProps>,
-  IGridState
-> {
+export class Grid<
+  Data = any,
+  RowProps = Record<string, unknown>,
+  Key = string
+> extends PureComponent<IGridProps<Data, RowProps, Key>, IGridState> {
   static defaultProps: Partial<IGridProps> = {
     className: '',
     bordered: false,
@@ -165,7 +166,7 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
   lastScrollTop!: number;
   stickyHead = createRef<HTMLDivElement>();
 
-  constructor(props: IGridProps<Data, RowProps>) {
+  constructor(props: IGridProps<Data, RowProps, Key>) {
     super(props);
 
     const expandRowKeys = this.getExpandRowKeys(props);
@@ -187,7 +188,7 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
     };
   }
 
-  getExpandRowKeys(props: IGridProps<Data, RowProps>) {
+  getExpandRowKeys(props: IGridProps<Data, RowProps, Key>) {
     const { expandation, datasets } = props;
     if (expandation) {
       const { isExpanded } = expandation;
@@ -356,7 +357,7 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
     };
 
   getSelectionColumn(
-    props: IGridProps<Data, RowProps>,
+    props: IGridProps<Data, RowProps, Key>,
     columnsArg?: Array<IGridInnerColumn<Data>>
   ) {
     const columns: Array<IGridInnerColumn<Data>> = (
@@ -413,7 +414,7 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
   }
 
   getColumns = (
-    props: IGridProps<Data, RowProps>,
+    props: IGridProps<Data, RowProps, Key>,
     columnsArg?: Array<IGridInnerColumn<Data>>,
     expandRowKeysArg?: boolean[]
   ) => {
@@ -485,7 +486,7 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
   getBatchComponents = (position: 'header' | 'foot') => {
     const { datasets, batchRender, selection, rowKey } = this.props;
     return (
-      <BatchComponents
+      <BatchComponents<Data, Key>
         key="batch"
         position={position}
         store={this.store}
@@ -818,7 +819,7 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
   getSelectionPropsByItem = (
     data: Data,
     rowIndex: number | string,
-    nextSelection?: IGridSelection<Data>
+    nextSelection?: IGridSelection<Data, Key>
   ) => {
     const selection = nextSelection || this.props.selection;
     const getSelectionProps = getCompatSelectionPropsFn(selection);
@@ -834,12 +835,9 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
     return this.selectionPropsCache[rowIndex];
   };
 
-  onSelectChange = (
-    selectedRowKeys: (string | number)[],
-    data: Data | Data[]
-  ) => {
+  onSelectChange = (selectedRowKeys: Key[], data: Data | Data[]) => {
     const { datasets, selection } = this.props;
-    const onSelect: IGridSelection<Data>['onSelect'] = selection?.onSelect;
+    const onSelect: IGridSelection<Data, Key>['onSelect'] = selection?.onSelect;
 
     if (typeof onSelect === 'function') {
       const selectedRows = (datasets || []).filter(
@@ -1092,7 +1090,7 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
 
   // 等重构再删了吧，改不动
   // eslint-disable-next-line react/no-deprecated
-  componentWillReceiveProps(nextProps: IGridProps<Data, RowProps>) {
+  componentWillReceiveProps(nextProps: IGridProps<Data, RowProps, Key>) {
     if (nextProps.selection !== this.props.selection) {
       if (!nextProps.selection) {
         this.store.setState({

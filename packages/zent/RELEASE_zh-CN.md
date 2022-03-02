@@ -11,17 +11,32 @@
 - [2.1.x 升级指南](../migrating/21x)
 
 ### 10.0.0(2022-02-15)
+
 详见 [10.x 升级指南](./changelog-v10)
 
+### 9.12.6(2022-03-02)
+
+- `Grid`
+  - 🦀 优化 selection ts 定义
+- `Select`
+  - 🦀 修复使用文本高亮时正则特殊字符报错问题
+- `Cascader `
+  - 🦀 修复使用文本高亮时正则特殊字符报错问题
+- `Collapse`
+  - 📚 更新 `activeKey` 使用 demo 和相关说明
+- 增加 yarn workspace `nohoist` 配置
+
 ### 9.12.5(2022-02-14)
+
 - `Notify`
-  - 🦀 api类型完善
+  - 🦀 api 类型完善
 - `Form`
   - ✨ 添加 normalizeBeforeBlur 属性，支持 onBlur 时修改值
 - `Grid`
   - 🦀 修复全选状态判断不正确的问题
 
 ### 9.12.4(2022-01-11)
+
 - `Popover`
   - 🦀 修复 withPop HOC 的类型错误
 - `Grid`
@@ -31,8 +46,9 @@
 - 🦀 更新 `caniuse-lite` 数据库
 
 ### 9.12.3(2021-12-08)
+
 - `DatePicker`
-	- 🦀️ 交互优化，当 `DatePicker` 调用 `TimePicker` 选择具体时间时，禁用 `DatePicker` 的确认按钮
+  - 🦀️ 交互优化，当 `DatePicker` 调用 `TimePicker` 选择具体时间时，禁用 `DatePicker` 的确认按钮
 
 ### 9.12.2(2021-11-26)
 
@@ -132,11 +148,11 @@
   - `operation` => `zent-tree-operation-container`
   - `off` => `zent-tree-bar--off`
 - 🦀️ `NumberInput`
-	- 修复在非受控模式下更新 `props.value` 会导致 `state.value` 变化的问题
-	- 修复文档中示例行为错误的问题
+  - 修复在非受控模式下更新 `props.value` 会导致 `state.value` 变化的问题
+  - 修复文档中示例行为错误的问题
 - 🦀️ `Form`
-	- `Form.useFieldArrayValue` 重命名为 `Form.useFieldArrayChildModels`，旧字段被标记为废弃，但依旧可用
-	- 修复 `Form` 文档中示例丢失的问题
+  - `Form.useFieldArrayValue` 重命名为 `Form.useFieldArrayChildModels`，旧字段被标记为废弃，但依旧可用
+  - 修复 `Form` 文档中示例丢失的问题
 - 🦀️ 由于在 SSR 环境下 `useLayoutEffect` 会不停的输出警告信息，已禁用 `useLayoutEffect`，可以使用 `utils/hooks/useIsomorphicLayoutEffect` 替代
 - 📚 `Dialog` 文档中增加使用 `openDialog` 返回值关闭对话框的示例
 - NPM 包中移除 `postcss-plugin-constants` 插件
