@@ -24,11 +24,18 @@
     "deploy-beta": "cd site && yarn deploy-beta",
     "prepare": "husky install && ts-patch install -s"
   },
-  "workspaces": [
-    "site",
-    "packages/babel-plugin-zent",
-    "packages/zent"
-  ],
+  "workspaces": {
+    "packages": [
+      "site",
+      "packages/babel-plugin-zent",
+      "packages/zent"
+    ],
+    "nohoist": [
+      "**/date-fns",
+      "**/rxjs",
+      "**/observable-hooks"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:youzan/zent.git"
