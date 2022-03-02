@@ -29,6 +29,20 @@
 - ✨ 新增 `Banner` 组件，封装自 `Alert`
 - ✨ 新增 `Prompt` 组件，封装自 `Alert`
 
+## zent@10.0.0-rc.5(2022-03-02)
+
+### 合并 v9.12.6 的修改
+
+- `Grid`
+  - 🦀 优化 selection ts 定义
+- `Select`
+  - 🦀 修复使用文本高亮时正则特殊字符报错问题
+- `Cascader `
+  - 🦀 修复使用文本高亮时正则特殊字符报错问题
+- `Collapse`
+  - 📚 更新 `activeKey` 使用 demo 和相关说明
+- 增加 yarn workspace `nohoist` 配置
+
 ## zent@10.0.0-rc.4(2022-02-24)
 
 - `Select`
