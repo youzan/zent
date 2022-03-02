@@ -31,7 +31,9 @@
       "packages/zent"
     ],
     "nohoist": [
-      "**/date-fns"
+      "**/date-fns",
+      "**/rxjs",
+      "**/observable-hooks"
     ]
   },
   "repository": {
