@@ -118,8 +118,7 @@ export class Tree extends Component<ITreeProps, ITreeState> {
     return keys;
   }
 
-  setSelectKeyState = (data: ITreeData, target: HTMLSpanElement) => {
-    this.props.onSelect?.(data, target);
+  setSelectKeyState = (data: ITreeData) => {
     if (!this.isSelectControlled) {
       this.setState({ selectedKey: data.id });
     }
@@ -417,7 +416,8 @@ export class Tree extends Component<ITreeProps, ITreeState> {
   }
 
   renderTreeNodes(roots: ITreeData[], layers = 0) {
-    const { autoExpandOnSelect, selectable, onlyShowOneLine } = this.props;
+    const { autoExpandOnSelect, selectable, onlyShowOneLine, onSelect } =
+      this.props;
     const {
       expandNode,
       rootInfoMap,
@@ -444,9 +444,11 @@ export class Tree extends Component<ITreeProps, ITreeState> {
             <div
               className={barClassName}
               onClick={e => {
-                if (isDisabled) return;
-                selectable && this.setSelectKeyState(root, e.currentTarget);
+                onSelect?.(root, e.currentTarget);
                 autoExpandOnSelect && this.handleExpand(root);
+                if (selectable && !isDisabled) {
+                  this.setSelectKeyState(root);
+                }
               }}
             >
               <span

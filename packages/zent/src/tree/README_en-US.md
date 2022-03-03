@@ -46,7 +46,7 @@ Visually display multilevel content, supporting expansion and collapse.
 | expandAll               | whether to expand all nodes                                                                       | bool                | `false`    |                      |
 | onExpand                | after node expands, callback is trigger                                                           | func(data, config)  |            |                      |
 | autoExpandOnSelect      | node auto expands when you select it                                                              | bool                | `false`    |                      |
-| onSelect                | the callback when you choose tree node                                                            | func(data, target)  |            |                      |
+| onSelect                | the callback when you click tree node                                                             | func(data, target)  |            |                      |
 | isRoot                  | plain data, to determine whether the node is the api of the root node                             | func(node)          |            |                      |
 | loadMore                | return Promise func, support thenable callback, be used to asynchronously load more content       | func(data)          |            |                      |
 | selectable              | whether the node is selectable                                                                    | bool                | `false`    |                      |
