@@ -11,7 +11,6 @@
   - 🦀️ `autoExpandOnSelect` 默认值改为 false
 - `Button`
   - 🦀️ icon 的 `font-size` 变为 20px
-  - 🦀️ disabled 的按钮外层套了一层父元素，以支持 `cursor: not-allowed`
 - `Link`
   - 🦀️ disable 状态下 classname 规范化。`zent-link__disabled` 重命名为 `zent-link--disabled`
 - `Tag`
@@ -28,6 +27,15 @@
 - ✨ 新增 `StatusBar` 组件，封装自 `Alert`
 - ✨ 新增 `Banner` 组件，封装自 `Alert`
 - ✨ 新增 `Prompt` 组件，封装自 `Alert`
+
+## zent@10.0.0-rc.6(2022-03-03)
+
+- `Select`
+  - 🦀 去掉 v10 中新增的 `size` 宽度默认值
+- `Button`
+  - 🦀 不改变 dom 结构情况下支持 button disabled 时显示 cursor，不再造成 break change
+- `Input`
+  - 🦀 去掉 v10 中新增的 `widthSize` 默认值
 
 ## zent@10.0.0-rc.5(2022-03-02)
 
