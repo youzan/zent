@@ -1,5 +1,5 @@
 interface IOptopns {
-  disabled: boolean;
+  fixMouseEventsOnDisabledChildren: boolean;
   onMouseEnter: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   onMouseLeave: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
@@ -14,9 +14,9 @@ interface IOptopns {
  */
 export const renderCompatibleChildren = (
   children: React.ReactElement,
-  { disabled, onMouseEnter, onMouseLeave }: IOptopns
+  { fixMouseEventsOnDisabledChildren, onMouseEnter, onMouseLeave }: IOptopns
 ) => {
-  return disabled ? (
+  return fixMouseEventsOnDisabledChildren ? (
     <span
       className="zent-btn-disabled-wrapper"
       onMouseEnter={onMouseEnter}
