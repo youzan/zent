@@ -225,7 +225,7 @@ export class MenuCascader extends Component<
     renderValue: getPathLabel,
     filter: defaultFilter,
     highlight: defaultHighlight,
-    simplifySelectionMode: 'withoutDisabled',
+    simplifySelectionMode: 'excludeDisabled',
   };
 
   constructor(props: IMenuCascaderProps) {
