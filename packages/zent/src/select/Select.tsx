@@ -262,7 +262,6 @@ export class Select<
     filter: defaultFilter,
     isValidNewOption: defaultIsValidNewOption,
     highlight: defaultHighlight,
-    size: 's',
     multiple: false,
     clearable: false,
     loading: false,
@@ -974,21 +973,17 @@ export class Select<
               <Popover.Trigger.Click>
                 <div
                   ref={this.triggerRef}
-                  className={cx(
-                    'zent-select-v2',
-                    `zent-select-v2-${size}`,
-                    className,
-                    {
-                      'zent-select-v2-inline': inline,
-                      'zent-select-v2-active': active,
-                      'zent-select-v2-visible': visible,
-                      'zent-select-v2-disabled': this.disabled,
-                      'zent-select-v2-clearable': showClear,
-                      'zent-select-v2-multiple': multiple,
-                      'zent-select-v2-collapsable': collapsable,
-                      'zent-select-v2-collapsable-single': collapseAt === 1,
-                    }
-                  )}
+                  className={cx('zent-select-v2', className, {
+                    [`zent-select-v2-${size}`]: !!size,
+                    'zent-select-v2-inline': inline,
+                    'zent-select-v2-active': active,
+                    'zent-select-v2-visible': visible,
+                    'zent-select-v2-disabled': this.disabled,
+                    'zent-select-v2-clearable': showClear,
+                    'zent-select-v2-multiple': multiple,
+                    'zent-select-v2-collapsable': collapsable,
+                    'zent-select-v2-collapsable-single': collapseAt === 1,
+                  })}
                   style={{ width }}
                   onClick={this.focusSearchInput}
                 >
