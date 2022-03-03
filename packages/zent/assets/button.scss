@@ -339,7 +339,7 @@ $btn-warning-active: 1;
     @include btn-grey(color);
     @include theme-color(background-color, stroke, 8);
     @include btn-light-grey(border-color);
-    @include prevent-pointer-events;
+
     &:link,
     &:visited,
     &:focus {
@@ -356,6 +356,10 @@ $btn-warning-active: 1;
       @include btn-grey(color);
       @include theme-color(background-color, stroke, 8);
       @include btn-light-grey(border-color);
+    }
+
+    .zent-btn-disabled-wrapper & {
+      @include prevent-pointer-events;
     }
   }
 
