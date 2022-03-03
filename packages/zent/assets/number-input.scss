@@ -19,7 +19,7 @@
 }
 
 .zent-number-input {
-  width: 240px;
+  width: 200px;
 
   &:not(.zent-input-wrapper-disabled):hover {
     @include theme-color(border-color, primary, 4);
