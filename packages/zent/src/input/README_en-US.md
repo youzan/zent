@@ -69,7 +69,7 @@ Select the content between selectionStart and selectionEnd
 
 <style>
 .zent-input-wrapper {
-    width: 200px;
+    width: 240px;
     margin-bottom: 20px;
 }
 </style>

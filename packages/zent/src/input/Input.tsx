@@ -27,7 +27,6 @@ export class Input extends Component<IInputProps, IInputState> {
   static defaultProps = {
     type: 'text',
     size: 'normal',
-    widthSize: 's',
   };
 
   context!: IInputContext;
@@ -178,8 +177,8 @@ export class Input extends Component<IInputProps, IInputState> {
     const wrapClass = classNames(
       'zent-input-wrapper',
       `zent-input--size-${size}`,
-      `zent-input-wrapper--width-${widthSize}`,
       {
+        [`zent-input-wrapper--width-${widthSize}`]: !!widthSize,
         'zent-input-wrapper__not-editable': !editable,
         'zent-textarea-wrapper': isTextarea,
         'zent-textarea-wrapper-out-of-range': isOutOfRange,

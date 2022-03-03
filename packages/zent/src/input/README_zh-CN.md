@@ -71,7 +71,7 @@ _除了以上属性外，所有 react 支持的 input 属性，Input 组件都�
 
 <style>
 .zent-input-wrapper {
-    width: 200px;
+    width: 240px;
     margin-bottom: 20px;
 }
 </style>
