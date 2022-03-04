@@ -1,9 +1,9 @@
 ---
 order: 1
 zh-CN:
-	title: 无标题
+	title: 基础用法
 en-US:
-	title: No Title
+	title: Basic Usage
 ---
 
 ```js
