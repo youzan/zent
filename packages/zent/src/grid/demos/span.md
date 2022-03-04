@@ -80,6 +80,7 @@ class Span extends React.Component {
 			<Grid
 				columns={columns}
 				datasets={datasets}
+				size="large"
 			/>
 		);
 	}

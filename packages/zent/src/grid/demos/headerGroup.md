@@ -117,6 +117,7 @@ class HeaderGroup extends React.Component {
 				sortType={sortType}
 				rowKey="id"
 				onChange={this.onChange}
+				size="large"
 			/>
 		);
 	}

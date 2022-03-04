@@ -34,6 +34,16 @@ class Test extends Component {
 
 				<br />
 
+				<Pagination
+					current={current}
+					pageSize={pageSize}
+					total={101}
+					onChange={this.onChange}
+					buttonBordered={false}
+				/>
+
+				<br />
+
 				<LitePagination
 					current={current}
 					pageSize={pageSize}

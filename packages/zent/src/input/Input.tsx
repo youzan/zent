@@ -17,6 +17,7 @@ const BLOCKED_CHILD_PROPS = [
   'style',
   'size',
   'disabled',
+  'widthSize',
 ] as const;
 
 export class Input extends Component<IInputProps, IInputState> {
@@ -129,12 +130,12 @@ export class Input extends Component<IInputProps, IInputState> {
       size,
       disabled = disableCtx.value,
       readOnly,
+      widthSize,
     } = props;
     const { hasFocus } = this.state;
     const isTextarea = type.toLowerCase() === 'textarea';
     const editable = !(disabled || readOnly);
     const { renderInner } = this.context;
-
     const wrapperStyle: React.CSSProperties = {
       ...style,
       width,
@@ -177,6 +178,7 @@ export class Input extends Component<IInputProps, IInputState> {
       'zent-input-wrapper',
       `zent-input--size-${size}`,
       {
+        [`zent-input-wrapper--width-${widthSize}`]: !!widthSize,
         'zent-input-wrapper__not-editable': !editable,
         'zent-textarea-wrapper': isTextarea,
         'zent-textarea-wrapper-out-of-range': isOutOfRange,

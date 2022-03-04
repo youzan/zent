@@ -49,6 +49,7 @@ ReactDOM.render(
 			datasets={datasets}
 			rowClassName={(data, index) => `${data.id}-${index}`}
 			onRowClick={(data, index, event) => { console.log(data, index, event.target, 'simple onRowClick') }}
+			size="large"
 		/>
 	, mountNode
 );

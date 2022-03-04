@@ -2,7 +2,7 @@
 title: Icon
 subtitle: 图标
 path: component/icon
-group: 基础
+group: 其他
 ---
 
 ## Icon 图标

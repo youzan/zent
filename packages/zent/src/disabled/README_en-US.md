@@ -1,7 +1,7 @@
 ---
 title: Disabled
 path: component/disabled
-group: Basics
+group: Others
 ---
 
 ## Disabled

@@ -3031,9 +3031,9 @@ caniuse-api@^3.0.0:
     lodash.uniq "^4.5.0"
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000823, caniuse-lite@^1.0.30000844, caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001219, caniuse-lite@^1.0.30001230:
-  version "1.0.30001301"
-  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001301.tgz"
-  integrity sha512-csfD/GpHMqgEL3V3uIgosvh+SVIQvCh43SNu9HRbP1lnxkKm1kjDG4f32PP571JplkLjfS+mg2p1gxR7MYrrIA==
+  version "1.0.30001312"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001312.tgz"
+  integrity sha512-Wiz1Psk2MEK0pX3rUzWaunLTZzqS2JYZFzNKqAiJGiuxIjRPLgV6+VDPOg6lQOUxmDwhTlh198JsTTi8Hzw6aQ==
 
 caseless@~0.12.0:
   version "0.12.0"
@@ -12451,10 +12451,10 @@ yocto-queue@^0.1.0:
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
 
-zenticons@3.7.3:
-  version "3.7.3"
-  resolved "https://registry.yarnpkg.com/zenticons/-/zenticons-3.7.3.tgz#142b85f068bccb89e22508bdc642e9605999a976"
-  integrity sha512-K6r0LPn4AecklQ0zjBoA+Ryw6HBsClBLIWxHg4Tfwj2ojd5aJHhP108nIBpeCw60cLDKmOnM9Va3N4MXG185vg==
+zenticons@3.7.4:
+  version "3.7.4"
+  resolved "https://registry.yarnpkg.com/zenticons/-/zenticons-3.7.4.tgz#90eaf8b20efb3d39100dfb311399424801c93db7"
+  integrity sha512-IJw0vS3F/MKdT+ueiupr6jPfQoDpf2p3Ia+F1+IOa/Z0AtTT/uqkAm/xKZoVUYOmL/BObMbYA1tUQULx2Rpa3w==
 
 zwitch@^1.0.0:
   version "1.0.5"

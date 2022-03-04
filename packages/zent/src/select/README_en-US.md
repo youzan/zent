@@ -6,7 +6,7 @@ group: Data Entry
 
 ## Select
 
-Select is a drop-down selection component with variety functions.
+You can select single or multiple values on the panel and finally enter the corresponding values.
 
 ### API
 
@@ -14,6 +14,7 @@ Select is a drop-down selection component with variety functions.
 | ------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------- | --------------------------- | -------- |
 | options             | Option data                                                                                     | array                                                       | `[]`                        | yes      |
 | value               | Selected value, when tags type, can be passed into the array                                    | any                                                         | `null`                      | no       |
+|size 								| size type											| `xs` `s` `m` `l` `xl` | s |否
 | disabled            | Disable switch                                                                                  | bool                                                        | `false`                     | no       |
 | placeholder         | The default prompt text                                                                         | string                                                      | `'please choose'`           | no       |
 | notFoundContent     | Empty list prompt text                                                                          | string                                                      | `'No matches found'`        | no       |
@@ -29,7 +30,7 @@ Select is a drop-down selection component with variety functions.
 | hideCollapsePop     | Hide tags content pop in collapsed mode                                                         | bool                                                        |
 | `false`             | no                                                                                              |
 | collapseAt          | Dispaly tags count in collapsed mode                                                            | number                                                      | `1`                         | no       |
-| clearable           | Is the select value clearable                                                                   | bool                                                        | `false`                     | no       |
+| clearable           | Is the select value clearable                                                                   | bool                                                        | `true`                     | no       |
 | loading             | Is the select in a state of loading                                                             | bool                                                        | `false`                     | no       |
 | creatable           | Allow options to be created                                                                     | bool                                                        | `false`                     | no       |
 | onCreate            | Select create callback                                                                          | `(keyword) => Promise<void>`                                |                             | no       |
@@ -53,3 +54,9 @@ Select is a drop-down selection component with variety functions.
 - Function：`(item: ISelectItem) => ISelectItem | null` return non `null` value to replace current value
 - Object：`{ key: K; [k: string]: unknown; }` replace current value with the first matching option in options array using plain object equality test
 - String/Number：Shorthand of `{ key: K }`
+
+<style>
+.zent-select-v2 {
+    width: 240px;
+}
+</style>

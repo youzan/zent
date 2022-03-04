@@ -2,7 +2,7 @@
 title: TextMark
 subtitle: 高亮关键字
 path: component/text-mark
-group: 展示
+group: 信息展示
 ---
 
 ## TextMark

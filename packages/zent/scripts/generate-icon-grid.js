@@ -155,7 +155,7 @@ function main() {
       );
     })
     .catch(ex => {
-      console.log(chalk.read(ex.stack || ex));
+      console.log(chalk.red(ex.stack || ex));
       process.exit(1);
     });
 }

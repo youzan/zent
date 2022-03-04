@@ -2,12 +2,12 @@
 title: Input
 subtitle: 输入框
 path: component/input
-group: 数据
+group: 信息录入
 ---
 
 ## Input 输入框
 
-表单的输入组件，对原生 input 的包装，通过鼠标或键盘输入内容。
+矩形的框，支持文本输入
 
 ### 使用指南
 
@@ -22,6 +22,7 @@ group: 数据
 | width              | 宽度                                                                    | string or number |            |                                        | 否       |
 | type               | 类型                                                                    | string           | `'text'`   | `'number'`、`'password'`、`'textarea'` | 否       |
 | inline             | 是否行内展示                                                            | bool             | `false`    | `true`                                 | 否       |
+| widthSize          | 宽度size(优先级较低，可以通过增加style，className覆盖)                  			| string           | `'s'` | `'xs'` \| `'m'`    \| `'l'`\| `'xl'`             | 否       |
 | size               | 大小（高度），宽度可以通过 width 控制                                   | string           | `'normal'` | `'large'` \| `'small'`                 | 否       |
 | defaultValue       | 默认值                                                                  | string           |            |                                        | 否       |
 | value              | 输入值                                                                  | string           |            |                                        | 否       |
@@ -38,6 +39,7 @@ group: 数据
 | onChange           | change 事件回调函数，`e.fromClearButton` 为 `true` 说明事件来自清空按钮 | func(e:Event)    |            |                                        | 否       |
 | onPressEnter       | 回车事件                                                                | func(e:Event)    |            |                                        | 否       |
 | icon               | 图标                                                                    | string           |            |                                        | 否       |
+| iconPostion        | 图标位置                                                                  | string           |   `end`       |  `front`                                        | 否       |
 | onIconClick        | 图标点击事件                                                            | func(e:Event)    |            |                                        | 否       |
 
 _除了以上属性外，所有 react 支持的 input 属性，Input 组件都支持_
@@ -69,7 +71,7 @@ _除了以上属性外，所有 react 支持的 input 属性，Input 组件都�
 
 <style>
 .zent-input-wrapper {
-    width: 200px;
+    width: 240px;
     margin-bottom: 20px;
 }
 </style>

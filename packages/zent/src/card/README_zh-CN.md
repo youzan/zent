@@ -2,7 +2,7 @@
 title: Card
 subtitle: 卡片
 path: component/card
-group: 容器
+group: 信息展示
 scatter: true
 ---
 

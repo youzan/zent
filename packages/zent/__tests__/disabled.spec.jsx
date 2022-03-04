@@ -57,9 +57,7 @@ it('disabled children', () => {
       ).length
     ).toBe(1);
     expect(
-      document.querySelectorAll(
-        '#root > .zent-btn-disabled-wrapper .zent-btn-disabled.zent-btn'
-      ).length
+      document.querySelectorAll('#root > .zent-btn-disabled.zent-btn').length
     ).toBe(1);
     expect(
       document.querySelectorAll(

@@ -91,6 +91,7 @@ class PageInfo extends React.Component {
 					pageSizeOptions: [5, 10],
 				}}
 				onChange={this.onChange}
+				size="large"
 				ellipsis
 			/>
 		);

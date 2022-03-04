@@ -16,7 +16,6 @@
 
   .zent-sortable__ghost {
     position: relative;
-    overflow: hidden;
 
     &::before {
       @include theme-color(background-color, stroke, 8);
@@ -27,6 +26,7 @@
       position: absolute;
       top: 0;
       left: 0;
+      z-index: 1;
     }
   }
 }

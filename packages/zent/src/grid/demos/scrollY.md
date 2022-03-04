@@ -51,6 +51,7 @@ ReactDOM.render(
 			scroll={{ y: 200 }}
 			rowClassName={(data, index) => `${data.id}-${index}`}
 			onRowClick={(data, index, event) => { console.log(data, index, event.target, 'simple onRowClick') }}
+			size="large"
 		/>
 	, mountNode
 );

@@ -16,6 +16,7 @@ import {
   II18nLocaleTransfer,
   LocaleMark,
   II18nLocaleForm,
+  II18nLocaleNumberInput,
 } from './locale';
 import { jaJP, setLocale } from './time-locale';
 
@@ -108,6 +109,7 @@ export const Cascader: II18nLocaleCascader = {
   searchPlaceholder: '選択/検索',
   searchEmpty: '見つかりません',
   empty: '見つかりません',
+  loading: 'ローディング…',
 };
 
 const QUARTER_NAMES = ['1期', '2期', '3期', '4期'];
@@ -193,4 +195,9 @@ export const Transfer: II18nLocaleTransfer = {
 
 export const Form: II18nLocaleForm = {
   required: '必須',
+};
+
+export const NumberInput: II18nLocaleNumberInput = {
+  min: '最小値は以下にすることはできません',
+  max: '最大値はこれより大きくすることはできません',
 };

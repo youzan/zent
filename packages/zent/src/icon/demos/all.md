@@ -81,7 +81,7 @@ class IconGrid extends Component {
         <div className="zi-grid-group">
           <div className="zi-grid-group-name">{i18n.x-cat-operation}</div>
           <div className="zi-grid-group-items">
-            
+
             <CopyButton
               text={this.getIconString("up")}
               onCopySuccess="up 已复制到剪贴板"
@@ -768,11 +768,11 @@ class IconGrid extends Component {
             </CopyButton>
           </div>
         </div>
-      
+
         <div className="zi-grid-group">
           <div className="zi-grid-group-name">{i18n.x-cat-business}</div>
           <div className="zi-grid-group-items">
-            
+
             <CopyButton
               text={this.getIconString("summary-o")}
               onCopySuccess="summary 已复制到剪贴板"
@@ -1255,11 +1255,11 @@ class IconGrid extends Component {
             </CopyButton>
           </div>
         </div>
-      
+
         <div className="zi-grid-group">
           <div className="zi-grid-group-name">{i18n.x-cat-status}</div>
           <div className="zi-grid-group-items">
-            
+
             <CopyButton
               text={this.getIconString("check-circle-o")}
               onCopySuccess="success_circle 已复制到剪贴板"
@@ -1308,28 +1308,28 @@ class IconGrid extends Component {
                 <span className="zi-grid-item-name">error_circle_fill</span>
               </div>
             </CopyButton>
-            <CopyButton
-              text={this.getIconString("error-circle-o")}
-              onCopySuccess="warning_circle 已复制到剪贴板"
+						<CopyButton
+              text={this.getIconString("warning-o")}
+              onCopySuccess="warning 已复制到剪贴板"
             >
               <div
                 className="zi-grid-item"
-                data-index="warning_circlewarningcircleoutline"
+                data-index="warningwarningtriangleoutline"
               >
-                <Icon type="error-circle-o" />
-                <span className="zi-grid-item-name">warning_circle</span>
+                <Icon type="warning-o" />
+                <span className="zi-grid-item-name">warning</span>
               </div>
             </CopyButton>
             <CopyButton
-              text={this.getIconString("error-circle")}
-              onCopySuccess="warning_circle_fill 已复制到剪贴板"
+              text={this.getIconString("warning")}
+              onCopySuccess="warning_fill 已复制到剪贴板"
             >
               <div
                 className="zi-grid-item"
-                data-index="warning_circle_fillwarningcirclefilled"
+                data-index="warning_fillwarningtrianglefilled"
               >
-                <Icon type="error-circle" />
-                <span className="zi-grid-item-name">warning_circle_fill</span>
+                <Icon type="warning" />
+                <span className="zi-grid-item-name">warning_fill</span>
               </div>
             </CopyButton>
             <CopyButton
@@ -1442,11 +1442,11 @@ class IconGrid extends Component {
             </CopyButton>
           </div>
         </div>
-      
+
         <div className="zi-grid-group">
           <div className="zi-grid-group-name">{i18n.x-cat-logo}</div>
           <div className="zi-grid-group-items">
-            
+
             <CopyButton
               text={this.getIconString("youzan-o")}
               onCopySuccess="youzan 已复制到剪贴板"
@@ -1521,11 +1521,11 @@ class IconGrid extends Component {
             </CopyButton>
           </div>
         </div>
-      
+
         <div className="zi-grid-group">
           <div className="zi-grid-group-name">{i18n.x-cat-base}</div>
           <div className="zi-grid-group-items">
-            
+
             <CopyButton
               text={this.getIconString("clock-o")}
               onCopySuccess="clock 已复制到剪贴板"
@@ -2332,7 +2332,7 @@ class IconGrid extends Component {
             </CopyButton>
           </div>
         </div>
-      
+
       </div>
     );
   }

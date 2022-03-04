@@ -162,9 +162,9 @@ $btn-warning-active: 1;
 }
 
 .zent-btn {
-  @include theme-color(color, stroke, 1);
-  @include theme-color(background-color, stroke, 12, 0.06);
-  @include theme-color(border-color, stroke, 12, 0.06);
+  @include theme-color(color, 'default', 'color');
+  @include theme-color(background-color, 'default', 'bg', 0.06);
+  @include theme-color(border-color, 'default', 'border-color', 0.06);
   display: inline-block;
   height: $btn-height-normal;
   line-height: $btn-height-normal - 2px;
@@ -188,19 +188,19 @@ $btn-warning-active: 1;
   &:link,
   &:visited,
   &:focus {
-    @include theme-color(color, stroke, 1);
+    @include theme-color(color, 'default', 'color');
     text-decoration: none;
   }
 
   &:hover {
-    @include theme-color(background-color, stroke, 12, 0.03);
-    @include theme-color(border-color, stroke, 12, 0.03);
+    @include theme-color(background-color, 'default', 'bg', 0.03);
+    @include theme-color(border-color, 'default', 'border-color', 0.03);
     text-decoration: none;
   }
 
   &:active {
-    @include theme-color(color, stroke, 1);
-    @include theme-color(background-color, stroke, 12, 0.09);
+    @include theme-color(color, 'default', 'color');
+    @include theme-color(background-color, 'default', 'bg', 0.09);
     text-decoration: none;
   }
 
@@ -346,7 +346,8 @@ $btn-warning-active: 1;
     @include btn-grey(color);
     @include theme-color(background-color, stroke, 8);
     @include btn-light-grey(border-color);
-    @include prevent-pointer-events;
+    cursor: not-allowed;
+
     &:link,
     &:visited,
     &:focus {
@@ -363,6 +364,10 @@ $btn-warning-active: 1;
       @include btn-grey(color);
       @include theme-color(background-color, stroke, 8);
       @include btn-light-grey(border-color);
+    }
+
+    .zent-btn-disabled-wrapper & {
+      @include prevent-pointer-events;
     }
   }
 
@@ -598,36 +603,5 @@ $btn-warning-active: 1;
         }
       }
     }
-  }
-}
-
-.zent-link {
-  @include font-normal;
-  @include btn-primary(color);
-
-  text-decoration: none;
-  display: inline-block;
-  padding: 2px 8px;
-  border-radius: 2px;
-
-  &:link,
-  &:visited,
-  &:focus {
-    @include btn-primary(color);
-  }
-
-  &:hover {
-    @include btn-primary-hover(color);
-    @include theme-color(background-color, stroke, 7);
-  }
-
-  &:active {
-    @include btn-primary-active(color);
-    @include theme-color(background-color, stroke, 7);
-  }
-
-  &.zent-link__disabled {
-    @include btn-grey(color);
-    cursor: not-allowed;
   }
 }

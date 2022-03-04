@@ -1,16 +1,58 @@
 @import './theme/default';
 @import './theme/font';
+@import './theme/timing-functions';
 
 .zent-breadcrumb {
   @include theme-color(color, stroke, 3);
   font-size: 0;
   line-height: 0;
   padding: 15px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+
+  &__move-left.zenticon,
+  &__move-right.zenticon {
+    font-size: $font-size-h4;
+    cursor: pointer;
+    z-index: 1;
+    position: absolute;
+    height: 20px;
+    width: 24px;
+    line-height: 26px;
+    box-sizing: border-box;
+    top: 50%;
+    transform: translateY(-50%);
+
+    &:hover {
+      @include theme-color(color, 'weak-link', 'hover-color');
+    }
+  }
+
+  &__move-left {
+    background-image: linear-gradient(
+      90deg,
+      rgba(255, 255, 255) 55%,
+      rgba(255, 255, 255, 0)
+    );
+    padding-right: 4px;
+    left: 0;
+  }
+
+  &__move-right {
+    background-image: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255) 55%
+    );
+    padding-left: 4px;
+    right: 0;
+  }
 
   span,
   a {
     font-size: $font-size-normal;
-    line-height: 1em;
+    line-height: $font-size-normal;
     display: inline-block;
     vertical-align: middle;
     text-decoration: none;
@@ -30,13 +72,26 @@
     }
   }
 
+  &__content {
+    position: relative;
+    width: max-content;
+    transition: left 200ms $timing-fn-linear;
+
+    & > *:last-child {
+      font-size: $font-size-h4;
+      line-height: $font-size-h4;
+      vertical-align: bottom;
+      font-weight: $font-weight-medium;
+    }
+  }
+
   span {
     @include theme-color(color, stroke, 1);
     cursor: default;
   }
 
   a {
-    @include theme-color(color, 'weak-link', 'color');
+    @include theme-color(color, 'stroke', 3);
 
     &:hover {
       @include theme-color(color, 'weak-link', 'hover-color');
@@ -44,6 +99,15 @@
 
     &:active {
       @include theme-color(color, 'weak-link', 'active-color');
+    }
+  }
+
+  span.zent-breadcrumb__fold {
+    @include theme-color(color, 'stroke', 3);
+
+    &:hover {
+      @include theme-color(color, 'weak-link', 'hover-color');
+      cursor: pointer;
     }
   }
 

@@ -1,7 +1,7 @@
 ---
 title: Grid
 path: component/grid
-group: Navigation
+group: Data Display
 ---
 
 ## Grid
@@ -17,11 +17,11 @@ A table component. `Grid` is implemented using `<table>` tag.
 | rowKey                | Key for each row                                                                                           | string                                                                     | `id`        | No       |
 | onChange              | Callback fires when columns change, filtering and sorting included                                         | (conf: any) => any                                                         | `noop`      | No       |
 | scroll                | Can be scrolled in x/y direction, x or y can be a number that indicates the width and height of table body | { x?: number, y?: number }                                                 |             | No       |
-| sortBy                | The field which rows are sorted by, should be one of keys for columns                             | string                                                                     | ''          | No       |
+| sortBy                | The field which rows are sorted by, should be one of keys for columns                                      | string                                                                     | ''          | No       |
 | sortType              | The way to sort                                                                                            | string                                                                     | ''          | No       |
 | defaultSortType       | The way to sort when first click                                                                           | string                                                                     | `'desc'`    | No       |
 | emptyLabel            | Text to be displayed when there's no data                                                                  | string                                                                     | `'No data'` | No       |
-| selection             | Configuration for selection                                                                            | object                                                                     |             | No       |
+| selection             | Configuration for selection                                                                                | object                                                                     |             | No       |
 | expandation           | Expand configuration                                                                                       | object                                                                     |             |          | no  |
 | loading               | Determines whether data is being loaded or not                                                             | bool                                                                       | `false`     | No       |
 | className             | Extra custom class name                                                                                    | string                                                                     | `''`        | No       |
@@ -40,6 +40,7 @@ A table component. `Grid` is implemented using `<table>` tag.
 | autoStickOffsetTop    | Custom offset of sticky head                                                                               | number                                                                     | `false`     | No       |
 | disableHoverHighlight | Whether to disable mouse hover highlighting                                                                | boolean                                                                    | `false`     | No       |
 | loadingProps          | All props in `BlockLoading`, exclude `loading`                                                             | `Omit<IBlockLoadingProps, 'loading'>`                                      | -           | No       |
+| size                  | Table Size                                                                                                 | string                                                                     | `'medium'`  | No       |
 
 #### onChange function declaration
 

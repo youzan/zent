@@ -6,4 +6,5 @@ export interface IIconProps {
   size?: number;
   text: React.ReactNode;
   textPosition: LoadingTextPosition;
+  textSize?: number;
 }

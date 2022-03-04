@@ -26,6 +26,10 @@ const VERSIONS: IVersionInfo[] = [
     text: pkg.version,
   },
   {
+    key: 'v9',
+    text: '9.x',
+  },
+  {
     key: 'v8',
     text: '8.x',
   },
@@ -103,7 +107,7 @@ class PageHeader extends Component<IPageHeaderProps> {
               src="https://img.yzcdn.cn/public_files/2017/12/18/fd78cf6bb5d12e2a119d0576bedfd230.png"
               alt="logo"
             />
-            <span>Zan UI</span>
+            <span>Zan Design</span>
           </a>
           <div className="page-header__search-sep" />
           <SearchBox locale={i18n} navData={sideNavData} />

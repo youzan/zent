@@ -9,6 +9,10 @@
   @include theme-color(background-color, primary, 8);
 }
 
+@mixin gray-bgcolor {
+  @include theme-color(background-color, stroke, 8);
+}
+
 @mixin white-bgcolor {
   @include theme-color(background-color, stroke, 9);
 }
@@ -38,13 +42,15 @@
   border-top-style: solid;
   box-sizing: border-box;
   display: flex;
-  padding: 8px 12px;
+  padding: 9px 12px 10px;
 }
 
 .zent-datepicker {
   box-sizing: border-box;
   display: inline-block;
   position: relative;
+
+  $p: &;
 
   &-seperator {
     margin: 0 8px;
@@ -109,16 +115,21 @@
     }
 
     &-empty-input {
-      @include theme-color(color, stroke, 3);
+      @include theme-color(color, stroke, 4);
     }
 
     &-seperator {
-      @include theme-color(color, stroke, 3);
+      @include theme-color(color, stroke, 4);
 
       margin: 0 8px;
     }
 
     &-focus {
+      @include theme-color(border-color, primary, 4);
+    }
+
+    &:not(#{$p}-disabled):hover {
+      cursor: pointer;
       @include theme-color(border-color, primary, 4);
     }
   }
@@ -156,11 +167,14 @@
       }
 
       &-arrow {
-        @include theme-color(fill, stroke, 3);
-      }
-
-      &-arrow:hover {
-        @include theme-color(fill, primary, 5);
+        font-size: 20px;
+        border-radius: 2px;
+        &:hover {
+          @include theme-color(background-color, stroke, 5, 0.3);
+        }
+        &:active {
+          @include theme-color(background-color, stroke, 5, 0.6);
+        }
       }
 
       &-title {
@@ -217,24 +231,32 @@
         }
       }
 
-      &_in_range {
-        @include blue-bgcolor;
+      &_in_hover_range {
+        @include gray-bgcolor;
       }
 
       &_selected {
         @include white-bgcolor;
 
         .zent-datepicker-cell-inner {
-          @include theme-color(color, stroke, 9);
-          @include theme-color(background-color, primary, 4);
+          @include blue-bgcolor;
           border-radius: 2px;
         }
       }
 
       &_available:hover {
         .zent-datepicker-cell-inner:hover {
-          @include blue-bgcolor;
+          @include gray-bgcolor;
           border-radius: 2px;
+        }
+      }
+
+      &_in_range {
+        @include blue-bgcolor;
+        &:hover {
+          .zent-datepicker-cell-inner:hover {
+            @include blue-bgcolor;
+          }
         }
       }
 
@@ -243,7 +265,7 @@
         @include white-bgcolor;
 
         .zent-datepicker-cell-inner {
-          @include gray-color;
+          @include theme-color(color, stroke, 4);
         }
       }
 
@@ -267,6 +289,10 @@
         }
       }
 
+      &_in_hover_range.zent-datepicker-panel-body-cells_over {
+        @include gray-bgcolor;
+      }
+
       &_in_range.zent-datepicker-panel-body-cells_over {
         @include blue-bgcolor;
       }
@@ -288,6 +314,14 @@
 
       &-btn {
         margin-left: 12px;
+      }
+
+      &-current.zent-btn {
+        margin-left: 0;
+      }
+
+      &-current.zent-btn {
+        margin-left: 0;
       }
 
       &-current_disabled {
@@ -338,7 +372,7 @@
         cursor: pointer;
 
         &_selected {
-          @include theme-color(background-color, stroke, 7);
+          @include blue-bgcolor;
           font-weight: $font-weight-medium;
         }
 
@@ -351,7 +385,7 @@
         }
 
         &_available:hover {
-          @include blue-bgcolor;
+          @include gray-bgcolor;
         }
       }
     }
@@ -409,23 +443,23 @@
 
   &-ym-panel-body {
     .zent-datepicker-panel-body-cells {
-      padding: 10px 24px 34px;
+      padding: 12px 24px;
 
       .zent-datepicker-cell-inner {
         @include center-div;
         width: 64px;
         height: 32px;
-        margin: 12px 0;
+        margin: 8px 0;
       }
     }
   }
 
   &-quarter-panel-body {
     .zent-datepicker-panel-body-cells {
-      padding: 30px 20px;
+      padding: 12px 20px;
 
       &_item {
-        margin: 20px 10px;
+        margin: 12px 10px;
 
         .zent-datepicker-cell-inner {
           @include center-div;

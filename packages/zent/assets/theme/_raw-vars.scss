@@ -41,3 +41,15 @@ $line-height-number: (44px, 36px, 30px, 26px, 24px, 20px, 18px) !default;
 $shadow-size-focus: 0 2px 8px 0 !default;
 $shadow-size-layer: 0 2px 16px 0 !default;
 $shadow-size-modal: 0 2px 24px 0 !default;
+
+$default-form-size-width: 116px;
+$default-form-padding-width: 8px;
+$default-form-width-xs: $default-form-size-width;
+$default-form-width-s: $default-form-size-width * 2 +
+  $default-form-padding-width;
+$default-form-width-m: $default-form-size-width * 3 +
+  $default-form-padding-width * 2;
+$default-form-width-l: $default-form-size-width * 4 +
+  $default-form-padding-width * 3;
+$default-form-width-xl: $default-form-size-width * 5 +
+  $default-form-padding-width * 4;

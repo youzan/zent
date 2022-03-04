@@ -2,7 +2,7 @@
 title: Portal
 subtitle: 传送门
 path: component/portal
-group: 基础
+group: 其他
 ---
 
 ## Portal 传送门
@@ -25,13 +25,13 @@ group: 基础
 | onLayerReady | 遮罩准备好时的hook | (node: HTMLElement) => void | 否 | |
 | closeOnClickOutside | 点击到 `Portal` 外部时关闭 | function | 否 | |
 | closeOnESC | 按下 ESC 键时关闭 | bool | 否 | `false` |  |
-| onClose | 关闭时回调函数 | (e: Event) => void | 否 |  | 
+| onClose | 关闭时回调函数 | (e: Event) => void | 否 |  |
 | blockPageScroll | 打开时禁止页面滚动 | bool | 否 | `false` | |
 | className | 遮罩的className      | string | 否 |     |         |
 | style | 遮罩的style | object | 否 | | |
 | css      | (已废弃, 请使用style)额外的css样式. 例如, `{ 'margin-left': '10px' }` | object  | 否 | `{}`     |     |
 
-`Portal` 实例上有一个 `contains` 方法可以用来判断一个 DOM 节点是否是它的子节点，这个方法对嵌套的 `Portal` 内的子节点一样有效。 
+`Portal` 实例上有一个 `contains` 方法可以用来判断一个 DOM 节点是否是它的子节点，这个方法对嵌套的 `Portal` 内的子节点一样有效。
 
 ### 组件原理
 

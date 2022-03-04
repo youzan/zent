@@ -9,12 +9,16 @@ import { DisabledContext, IDisabledContext } from '../disabled';
 import WindowEventHandler from '../utils/component/WindowEventHandler';
 import Icon from '../icon';
 import { TextMark } from '../text-mark';
-import { BlockLoading } from '../loading/BlockLoading';
+import { InlineLoading } from '../loading/InlineLoading';
 import { Pop } from '../pop';
 import { I18nReceiver as Receiver, II18nLocaleSelect } from '../i18n';
 import memoize from '../utils/memorize-one';
 import uniqueId from '../utils/uniqueId';
 import { filterReviver, reviveSelectItem } from './reviver';
+
+// 允许创建的临时 key
+const uniqueKey = '__ZENT_SELECT_CREATABLE_KEY__';
+const SELECT_CREATABLE_KEY = uniqueId(uniqueKey);
 
 export interface ISelectItem<Key extends string | number = string | number> {
   key: Key;
@@ -35,6 +39,8 @@ export interface ISelectKeywordChangeMeta {
   source: 'user-clear' | 'user-change' | 'popup-close' | 'option-create';
 }
 
+export type ISelectSize = 'xs' | 's' | 'm' | 'l' | 'xl';
+
 export interface ISelectCommonProps<
   Key extends string | number = string | number,
   Item extends ISelectItem<Key> = ISelectItem<Key>
@@ -47,6 +53,7 @@ export interface ISelectCommonProps<
   notFoundContent?: string;
   inline?: boolean;
   width?: React.CSSProperties['width'];
+  size?: ISelectSize;
   popupWidth?: React.CSSProperties['width'];
   filter?: ((keyword: string, item: Item) => boolean) | false;
   highlight?: (keyword: string, item: Item) => Item;
@@ -140,6 +147,25 @@ function defaultRenderOptionList<
   return options.map(renderOption);
 }
 
+// 获取creatable下需要增加的options
+function getExtraOptions<
+  Key extends string | number = string | number,
+  Item extends ISelectItem<Key> = ISelectItem<Key>
+>(value: Item | Item[] | undefined) {
+  if (!Array.isArray(value)) {
+    if (value?.key?.toString()?.indexOf(uniqueKey) > -1) {
+      return [value];
+    }
+    return [];
+  }
+  return value.reduce((v, next) => {
+    if (next?.key?.toString()?.indexOf(uniqueKey) > -1) {
+      return [...v, next];
+    }
+    return v;
+  }, []);
+}
+
 function isSelectable<
   Key extends string | number = string | number,
   Item extends ISelectItem<Key> = ISelectItem<Key>
@@ -184,18 +210,20 @@ function defaultHighlight<
       searchWords={[keyword]}
       textToHighlight={option.text}
       highlightStyle={{ backgroundColor: 'initial', color: '#155bd4' }}
+      autoEscape
     />
   );
 }
 
 const DEFAULT_LOADING = (
   <div className="zent-select-v2-popup-loading">
-    <BlockLoading
+    <InlineLoading
       loading
       icon="circle"
-      height={96}
-      iconSize={24}
-      iconText="加载中"
+      iconSize={18}
+      iconText="加载中…"
+      textPosition="right"
+      colorPreset="grey"
     />
   </div>
 );
@@ -211,10 +239,18 @@ function defaultIsValidNewOption<Key extends string | number = string | number>(
   );
 }
 
-// 允许创建的临时 key
-const SELECT_CREATABLE_KEY = uniqueId('__ZENT_SELECT_CREATABLE_KEY__');
-
 const DEFAULT_TRIGGER_WIDTH = 240;
+
+const DEFAULT_SIZE_WIDTH = 116;
+const DEFAULT_PADDING_WIDTH = 8;
+
+const SIZE_MAP = {
+  xs: DEFAULT_SIZE_WIDTH,
+  s: DEFAULT_SIZE_WIDTH * 2 + DEFAULT_PADDING_WIDTH,
+  m: DEFAULT_SIZE_WIDTH * 3 + DEFAULT_PADDING_WIDTH * 2,
+  l: DEFAULT_SIZE_WIDTH * 4 + DEFAULT_PADDING_WIDTH * 3,
+  xl: DEFAULT_SIZE_WIDTH * 5 + DEFAULT_PADDING_WIDTH * 4,
+};
 
 export class Select<
   Key extends string | number = string | number,
@@ -226,7 +262,6 @@ export class Select<
     filter: defaultFilter,
     isValidNewOption: defaultIsValidNewOption,
     highlight: defaultHighlight,
-    width: DEFAULT_TRIGGER_WIDTH,
     multiple: false,
     clearable: false,
     loading: false,
@@ -252,15 +287,16 @@ export class Select<
     } else {
       value = filterReviver<Key, Item>(props.value ?? null);
     }
+    const { keyword, width, options, size } = props;
     this.state = {
-      keyword: props.keyword ?? '',
+      keyword: keyword ?? '',
       value,
       open: false,
       active: false,
       activeIndex: null,
-      prevOptions: props.options,
+      prevOptions: options,
       creating: false,
-      triggerWidth: props.width,
+      triggerWidth: width ?? (SIZE_MAP[size] || DEFAULT_TRIGGER_WIDTH),
     };
 
     this.tryReviveOption(props);
@@ -311,12 +347,12 @@ export class Select<
     if ('popupWidth' in this.props) {
       return;
     }
+    const { size, width } = this.props;
+    const sizeWidth = SIZE_MAP[size] || DEFAULT_TRIGGER_WIDTH;
+    const useWidth = typeof width === 'number' ? width : sizeWidth;
 
-    const triggerWidth =
-      this.triggerRef.current?.offsetWidth ||
-      typeof this.props.width === 'number'
-        ? this.props.width
-        : DEFAULT_TRIGGER_WIDTH;
+    const triggerWidth = this.triggerRef.current?.offsetWidth || useWidth;
+
     this.setState({
       triggerWidth,
     });
@@ -410,11 +446,15 @@ export class Select<
     if (!item || item.disabled || item.type || this.disabled) {
       return;
     }
-    if (item.key === SELECT_CREATABLE_KEY) {
+
+    const { onCreate } = this.props;
+    const isCreate = item.key === SELECT_CREATABLE_KEY;
+    if (isCreate && onCreate) {
       this.onCreateClick();
       return;
     }
-
+    isCreate && this.resetKeyword('option-create');
+    const valueItem = isCreate ? { ...item, key: uniqueId(uniqueKey) } : item;
     if (this.props.multiple === true) {
       const { onChange, isEqual } = this.props;
       const value = this.state.value as Item[];
@@ -423,24 +463,20 @@ export class Select<
       const nextValue =
         valueIndex >= 0
           ? value.filter((_it, index) => index !== valueIndex)
-          : value.concat([item]);
+          : value.concat([valueItem]);
 
       if (onChange) {
         onChange(nextValue);
       } else {
-        this.setState({
-          value: nextValue,
-        });
+        this.setState({ value: nextValue });
       }
     } else {
       this.onVisibleChange(false);
       const { onChange } = this.props;
       if (onChange) {
-        onChange(item);
+        onChange(valueItem);
       } else {
-        this.setState({
-          value: item,
-        });
+        this.setState({ value: valueItem });
       }
     }
   };
@@ -511,7 +547,7 @@ export class Select<
     if (this.disabled) {
       return;
     }
-    const { activeIndex, keyword } = this.state;
+    const { activeIndex, keyword, value } = this.state;
     const {
       creatable,
       options: _options,
@@ -524,10 +560,16 @@ export class Select<
       _options,
       filter,
       creatable,
-      isValidNewOption
+      isValidNewOption,
+      value
     );
     if (activeIndex !== null) {
       this.onSelect(options[activeIndex]);
+    } else {
+      // 没有activeIndex且第一项为create，则自动创建
+      if (options.length && options[0]?.key === SELECT_CREATABLE_KEY) {
+        this.onSelect(options[0]);
+      }
     }
   };
 
@@ -611,7 +653,8 @@ export class Select<
           _options,
           filter,
           creatable,
-          isValidNewOption
+          isValidNewOption,
+          state.value
         );
 
         let nextIndex: number;
@@ -675,7 +718,12 @@ export class Select<
         return renderValue ? (
           renderValue(value)
         ) : (
-          <span className="zent-select-v2-text">{value.text}</span>
+          <span
+            className="zent-select-v2-text"
+            title={typeof value.text === 'string' ? value.text : ''}
+          >
+            {value.text}
+          </span>
         );
       }
     }
@@ -825,15 +873,19 @@ export class Select<
       options: Item[] = [],
       filter: ((keyword: string, item: Item) => boolean) | false,
       creatable: boolean,
-      isValidNewOption: (keyword: string, options: Item[]) => boolean
+      isValidNewOption: (keyword: string, options: Item[]) => boolean,
+      value: Item | Item[] | undefined
     ): Item[] => {
+      const extraOptions = creatable ? getExtraOptions(value) : [];
+      const mergedOptions = [...options, ...extraOptions];
+
       const filtered =
         filter !== false && keyword
-          ? options.filter(it => filter?.(keyword, it))
-          : options;
+          ? mergedOptions.filter(it => filter?.(keyword, it))
+          : mergedOptions;
 
       const pendingCreateOption =
-        creatable && keyword && isValidNewOption?.(keyword, options)
+        creatable && keyword && isValidNewOption?.(keyword, mergedOptions)
           ? [
               {
                 key: SELECT_CREATABLE_KEY,
@@ -862,6 +914,7 @@ export class Select<
       isValidNewOption,
     } = this.props;
     const keyword = this.state.keyword.trim();
+    const value = this.state.value;
 
     if (loading) {
       return DEFAULT_LOADING;
@@ -872,7 +925,8 @@ export class Select<
       options,
       filter,
       creatable,
-      isValidNewOption
+      isValidNewOption,
+      value
     );
     return filtered?.length ? (
       renderOptionList(filtered, this.renderOption)
@@ -894,6 +948,8 @@ export class Select<
       collapsable,
       className,
       disableSearch,
+      size,
+      collapseAt,
     } = this.props;
 
     const notEmpty = multiple
@@ -918,6 +974,7 @@ export class Select<
                 <div
                   ref={this.triggerRef}
                   className={cx('zent-select-v2', className, {
+                    [`zent-select-v2-${size}`]: !!size,
                     'zent-select-v2-inline': inline,
                     'zent-select-v2-active': active,
                     'zent-select-v2-visible': visible,
@@ -925,6 +982,7 @@ export class Select<
                     'zent-select-v2-clearable': showClear,
                     'zent-select-v2-multiple': multiple,
                     'zent-select-v2-collapsable': collapsable,
+                    'zent-select-v2-collapsable-single': collapseAt === 1,
                   })}
                   style={{ width }}
                   onClick={this.focusSearchInput}

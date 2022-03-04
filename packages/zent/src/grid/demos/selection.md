@@ -144,6 +144,7 @@ class Selection extends React.Component {
 					}
 					rowKey="id"
 					onChange={this.onChange}
+					size="large"
 				/>
 			</>
 		);

@@ -9,10 +9,11 @@ import {
   IGridExpandation,
   IGridInnerFixedType,
 } from './types';
-import { IGridInnerColumn } from './Grid';
+import { IGridInnerColumn, IGridProps } from './Grid';
 import isNil from '../utils/isNil';
 
 export interface IGridBodyProps<Data> {
+  size: IGridProps['size'];
   prefix: string;
   columns: Array<IGridInnerColumn<Data>>;
   rowKey: string;
@@ -136,13 +137,16 @@ class Body<Data> extends PureComponent<IGridBodyProps<Data>> {
   }
 
   render() {
-    const { scroll, fixed, prefix, columns } = this.props;
+    const { scroll, fixed, prefix, columns, size } = this.props;
     const bodyStyle: React.CSSProperties = {};
     if (!fixed && !isNil(scroll.x)) {
       bodyStyle.width = scroll.x;
     }
     return scroll.y ? (
-      <table className={`${prefix}-grid-table`} style={bodyStyle}>
+      <table
+        className={`${prefix}-grid-table ${prefix}-grid-table-${size}`}
+        style={bodyStyle}
+      >
         <ColGroup columns={columns} />
         {this.renderTbody()}
       </table>

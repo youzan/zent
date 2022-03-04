@@ -2,7 +2,7 @@
 title: AutoComplete
 subtitle: 自动完成
 path: component/auto-complete
-group: 数据
+group: 信息录入
 ---
 
 ## AutoComplete 自动完成
