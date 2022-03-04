@@ -53,9 +53,3 @@ group: 信息录入
 - 函数：`(item: ISelectItem) => ISelectItem | null` 返回非 `null` 值将使用该值替换原来的值
 - 对象：`{ key: K; [k: string]: unknown; }` 按对象字面值做全等比较，使用选项数组中第一个匹配的值替换原来的值
 - 其他（数字/字符串）：等价于 `{ key: K }` 的对象形式
-
-<style>
-.zent-select-v2 {
-    width: 240px;
-}
-</style>
