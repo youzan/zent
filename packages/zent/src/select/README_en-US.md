@@ -54,9 +54,3 @@ You can select single or multiple values on the panel and finally enter the corr
 - Function：`(item: ISelectItem) => ISelectItem | null` return non `null` value to replace current value
 - Object：`{ key: K; [k: string]: unknown; }` replace current value with the first matching option in options array using plain object equality test
 - String/Number：Shorthand of `{ key: K }`
-
-<style>
-.zent-select-v2 {
-    width: 240px;
-}
-</style>
