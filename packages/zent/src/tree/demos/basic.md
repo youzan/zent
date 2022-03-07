@@ -73,11 +73,7 @@ const Demo = () => {
 					onChange={checked => setAutoExpandOnSelect(checked)}
 				/>
 			</div>
-			<Tree
-				selectable
-				data={treeData}
-				autoExpandOnSelect={autoExpandOnSelect}
-			/>
+			<Tree data={treeData} autoExpandOnSelect={autoExpandOnSelect} />
 		</div>
 	);
 };

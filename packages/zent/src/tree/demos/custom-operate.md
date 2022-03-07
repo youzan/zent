@@ -128,12 +128,7 @@ class TreeExample extends React.Component {
 					<Radio value="deep">深拷贝</Radio>
 				</RadioGroup>
 				<hr />
-				<Tree
-					selectable
-					data={treeData}
-					dataType="plain"
-					operations={operations}
-				/>
+				<Tree data={treeData} dataType="plain" operations={operations} />
 			</div>
 		);
 	}

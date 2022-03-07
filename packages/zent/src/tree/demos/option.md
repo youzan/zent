@@ -104,7 +104,6 @@ class TreeExample extends React.Component {
 			<div>
 				<Tree
 					checkable
-					selectable
 					size="small"
 					data={treeData}
 					onCheck={this.onCheck}
