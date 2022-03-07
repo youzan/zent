@@ -359,6 +359,13 @@ export class MenuCascader extends Component<
   }
 
   private getSelectionMap = memorizeOne(
+    (selectedPaths: Array<ICascaderItem[]>) => {
+      return this.getSelectionMapImpl(selectedPaths);
+    }
+  );
+
+  // 用来计算不同simplify模式下的selectionMap，mode用来区分全选合并路径时候disabled的options是否作为有效数据
+  private getSimplifySelectionMap = memorizeOne(
     (
       selectedPaths: Array<ICascaderItem[]>,
       mode: CascaderSimplifySelectionMode = 'excludeDisabled'
@@ -710,7 +717,7 @@ export class MenuCascader extends Component<
                     {...triggerCommonProps}
                     simplifyPaths={this.props.simplifySelection ?? false}
                     selectedPaths={selectedPaths}
-                    selectionMap={this.getSelectionMap(
+                    selectionMap={this.getSimplifySelectionMap(
                       selectedPaths,
                       this.props.simplifySelectionMode
                     )}
