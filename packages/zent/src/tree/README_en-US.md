@@ -49,7 +49,7 @@ Visually display multilevel content, supporting expansion and collapse.
 | onSelect                | the callback when you choose tree node                                                            | func(data, target)  |            |                      |
 | isRoot                  | plain data, to determine whether the node is the api of the root node                             | func(node)          |            |                      |
 | loadMore                | return Promise func, support thenable callback, be used to asynchronously load more content       | func(data)          |            |                      |
-| selectable              | whether the node is selectable                                                                    | bool                | `false`    |                      |
+| selectable              | whether the node is selectable                                                                    | bool                | `true`     |                      |
 | selectedKey             | The currently selected node                                                                       | `string`\|`number`  |            |                      |
 | disabledSelectedKeys    | A collection of forbidden nodes id                                                                | `(string            | number)[]` |                      |     |
 | disableSelectedStrictly | Whether the parent is prohibited from selecting its children at the same time                     | `boolean`           | `false`    | `true`               |

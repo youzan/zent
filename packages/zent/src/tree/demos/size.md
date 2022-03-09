@@ -57,11 +57,17 @@ const treeData = [
 ];
 
 ReactDOM.render(
-	<div>
-		<Tree selectable data={treeData} size="small" />
-		<Tree selectable data={treeData} />
-		<Tree selectable data={treeData} size="large" />
+	<div className="zent-demo-tree-wrapper">
+		<Tree data={treeData} size="small" />
+		<Tree data={treeData} />
+		<Tree data={treeData} size="large" />
 	</div>,
 	mountNode
 );
 ```
+
+<style>
+	.zent-demo-tree-wrapper > .zent-tree {
+		margin-bottom: 16px;
+	}
+</style>

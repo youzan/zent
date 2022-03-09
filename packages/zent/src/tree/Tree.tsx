@@ -20,8 +20,14 @@ import Icon from '../icon';
 import { EASE_IN_CUBIC, EASE_OUT_CUBIC } from '../utils/timingFunctions';
 import { TreeContent } from './TreeContent';
 
+export type ITreeSize = 'medium' | 'small' | 'large';
+
 const SINGLE_INDENT_WIDTH = 12;
-const SWITCHER_WIDTH = 20;
+const SWITCHER_WIDTH_MAP: Record<ITreeSize, number> = {
+  small: 16,
+  medium: 20,
+  large: 24,
+};
 
 export interface ITreeOperation {
   name: string;
@@ -49,7 +55,7 @@ export interface ITreeProps extends ICreateStateByPropsParams {
   operations?: ITreeOperation[];
   foldable?: boolean;
   onCheck?: (selected: TreeRootIdArray, info: ITreeOncheckHelpInfo) => void;
-  size?: 'medium' | 'small' | 'large';
+  size?: ITreeSize;
   commonStyle?: React.CSSProperties;
   onExpand?: (data: ITreeData, config: { isExpanded: boolean }) => void;
   autoExpandOnSelect?: boolean;
@@ -79,6 +85,7 @@ export class Tree extends Component<ITreeProps, ITreeState> {
     dataType: 'tree',
     foldable: true,
     checkable: false,
+    selectable: true,
     size: 'medium',
   };
 
@@ -417,7 +424,8 @@ export class Tree extends Component<ITreeProps, ITreeState> {
   }
 
   renderTreeNodes(roots: ITreeData[], layers = 0) {
-    const { autoExpandOnSelect, selectable, onlyShowOneLine } = this.props;
+    const { autoExpandOnSelect, selectable, onlyShowOneLine, size } =
+      this.props;
     const {
       expandNode,
       rootInfoMap,
@@ -437,16 +445,17 @@ export class Tree extends Component<ITreeProps, ITreeState> {
 
         const indentWidth =
           layers * SINGLE_INDENT_WIDTH +
-          +!rootInfoMap[rootId].isParent * SWITCHER_WIDTH;
+          +!rootInfoMap[rootId].isParent * SWITCHER_WIDTH_MAP[size];
 
         return (
           <li key={rootId}>
             <div
               className={barClassName}
               onClick={e => {
-                if (isDisabled) return;
-                selectable && this.setSelectKeyState(root, e.currentTarget);
                 autoExpandOnSelect && this.handleExpand(root);
+                if (selectable && !isDisabled) {
+                  this.setSelectKeyState(root, e.currentTarget);
+                }
               }}
             >
               <span

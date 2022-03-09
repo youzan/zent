@@ -58,12 +58,7 @@ const treeData = [
 
 ReactDOM.render(
 	<div>
-		<Tree
-			selectable
-			onlyShowOneLine
-			data={treeData}
-			commonStyle={{ width: '220px' }}
-		/>
+		<Tree onlyShowOneLine data={treeData} commonStyle={{ width: '220px' }} />
 	</div>,
 	mountNode
 );
