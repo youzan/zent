@@ -21,6 +21,7 @@ ReactDOM.render(
 	<div>
 		<div>
 			<Button type="primary">{i18n.button1}</Button>
+			<Button type="primary" outline>{i18n.button1}</Button>
 			<Button>{i18n.button3}</Button>
 			<Button type="text">{i18n.button2}</Button>
 			<Button type='icon' icon='search'></Button>
