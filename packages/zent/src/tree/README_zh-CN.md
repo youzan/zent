@@ -50,7 +50,7 @@ scatter: true
 | onSelect                | 选择树的一个节点的回调函数                                          | func(data, target)  |            |                      |
 | isRoot                  | plain 数据类型，判断节点是否为根节点的 api                          | func(node)          |            |                      |
 | loadMore                | 返回 Promise 的函数，必须支持 then 的回调, 用于节点异步加载更多内容 | func(data)          |            |                      |
-| selectable              | 节点是否可选                                                        | bool                | `false`    |                      |
+| selectable              | 节点是否可选                                                        | bool                | `true`     |                      |
 | selectedKey             | 当前选中的节点                                                      | `string`\|`number`  |            |                      |
 | disabledSelectedKeys    | 禁选的节点 ID 集合                                                  | `(string            | number)[]` |                      |     |
 | disableSelectedStrictly | 父级被禁选时是否同时禁选其子级                                      | `boolean`           | `false`    | `true`               |

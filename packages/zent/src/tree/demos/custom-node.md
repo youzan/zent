@@ -77,8 +77,5 @@ const customRender = data => (
 	</span>
 );
 
-ReactDOM.render(
-	<Tree selectable data={treeData} render={customRender} />,
-	mountNode
-);
+ReactDOM.render(<Tree data={treeData} render={customRender} />, mountNode);
 ```

@@ -59,8 +59,5 @@ const treeData = [
 	},
 ];
 
-ReactDOM.render(
-	<Tree selectable dataType="plain" data={treeData} />,
-	mountNode
-);
+ReactDOM.render(<Tree dataType="plain" data={treeData} />, mountNode);
 ```

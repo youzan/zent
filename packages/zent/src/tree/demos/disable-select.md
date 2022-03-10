@@ -62,13 +62,8 @@ const treeData = [
 
 ReactDOM.render(
 	<div className="zent-demo-tree-disable-select-wrapper">
+		<Tree data={treeData} disabledSelectedKeys={disabledSelectedKeys} />
 		<Tree
-			selectable
-			data={treeData}
-			disabledSelectedKeys={disabledSelectedKeys}
-		/>
-		<Tree
-			selectable
 			data={treeData}
 			disabledSelectedKeys={disabledSelectedKeys}
 			disableSelectedStrictly={true}
