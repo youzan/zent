@@ -137,6 +137,7 @@ $btn-warning-active: 1;
   &:hover {
     @include theme-color(color, $name, $hover);
     @include theme-color(border-color, $name, $hover);
+    @include btn-white(background-color);
   }
 
   &:active {
