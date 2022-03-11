@@ -167,9 +167,9 @@ class MenuContent extends Component<IMenuContentProps> {
         'zent-cascader-v2__menu-item--disabled': node.disabled,
         'zent-cascader-v2__menu-item--multiple': multiple,
         'zent-cascader-v2__menu-item--multiple--checkbox':
-          multipleType === 'checkbox',
+          multiple && multipleType === 'checkbox',
         'zent-cascader-v2__menu-item--multiple--normal':
-          multipleType === 'normal',
+          multiple && multipleType === 'normal',
         'zent-cascader-v2__menu-item--leaf':
           node.children.length === 0 && !node.loadChildrenOnExpand,
       });
