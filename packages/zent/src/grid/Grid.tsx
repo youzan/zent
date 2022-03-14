@@ -340,11 +340,15 @@ export class Grid<
     };
 
   getExpandBodyRender: (
-    expandRowKeys: boolean[]
+    expandRowKeys: boolean[],
+    expandation: IGridExpandation
   ) => IGridColumnBodyRenderFunc<Data> =
-    (expandRowKeys: boolean[]) =>
-    (rowData, { row }) => {
-      return (
+    (expandRowKeys: boolean[], expandation: IGridExpandation) =>
+    (rowData, pos) => {
+      const { row } = pos;
+      const { isExpandable = () => true } = expandation;
+
+      return isExpandable(rowData, row) ? (
         <span
           className={
             expandRowKeys[row]
@@ -353,7 +357,7 @@ export class Grid<
           }
           onClick={this.handleExpandRow(row, rowData)}
         />
-      );
+      ) : null;
     };
 
   getSelectionColumn(
@@ -454,7 +458,7 @@ export class Grid<
         title: '',
         key: 'expand-column',
         width: BTN_WIDTH,
-        bodyRender: this.getExpandBodyRender(expandRowKeys),
+        bodyRender: this.getExpandBodyRender(expandRowKeys, expandation),
       };
       if (hasLeft) {
         expandColumn.fixed = 'left';
