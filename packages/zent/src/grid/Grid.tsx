@@ -838,7 +838,7 @@ export class Grid<Data = any, RowProps = {}> extends PureComponent<
       return true;
     }
 
-    if (scroll.x || scroll.y) {
+    if (typeof scroll.x !== 'undefined' || typeof scroll.y !== 'undefined') {
       return true;
     }
     return false;

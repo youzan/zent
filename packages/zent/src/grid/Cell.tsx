@@ -102,7 +102,7 @@ class Cell<Data> extends Component<IGridCellProps<Data>> {
               column.key
             ) !== -1,
           [`${prefix}-grid-td-expand`]: column.key === 'expand-column',
-          [`${prefix}-grid-td-break-word`]: !!width,
+          [`${prefix}-grid-td-break-word`]: typeof width !== undefined,
         })}
         {...tdProps}
         onClick={this.onClick}

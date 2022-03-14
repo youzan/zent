@@ -141,7 +141,7 @@ class Header<Data> extends PureComponent<
           [`${prefix}-grid-th-selection`]:
             ['selection-column', 'selection-column-single'].indexOf(key) !== -1,
           [`${prefix}-grid-th-expand`]: key === 'expand-column',
-          [`${prefix}-grid-th-break-word`]: !!width,
+          [`${prefix}-grid-th-break-word`]: typeof width !== undefined,
         }),
         children: this.getChildren(column, props),
       };
