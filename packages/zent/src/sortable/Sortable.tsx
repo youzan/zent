@@ -64,7 +64,9 @@ export class Sortable<T> extends Component<ISortableProps<T>> {
         }
 
         const { oldIndex, newIndex } = e;
-        const newItems = reorder(items, oldIndex, newIndex);
+        // 拖拽过程中偶先newIndex超出newItems.length的情况，约束一下index的范围
+        const nextIndex = Math.max(0, Math.min(newIndex, items.length - 1));
+        const newItems = reorder(items, oldIndex, nextIndex);
 
         onChange && onChange(newItems);
       },

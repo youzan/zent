@@ -38,6 +38,10 @@ export type CascaderValue = string | number;
 
 export type CascaderItemSelectionState = 'on' | 'off' | 'partial';
 
+export type CascaderSimplifySelectionMode =
+  | 'excludeDisabled'
+  | 'includeDisabled';
+
 /**
  * 外部节点数据结构
  */
@@ -89,7 +93,10 @@ export interface ICascaderChangeMeta {
 }
 
 export interface ICascaderMultipleChangeMeta extends ICascaderChangeMeta {
-  simplify(options: Array<ICascaderItem[]>): Array<ICascaderItem[]>;
+  simplify(
+    options: Array<ICascaderItem[]>,
+    mode: CascaderSimplifySelectionMode
+  ): Array<ICascaderItem[]>;
 }
 
 export enum CascaderLoadAction {

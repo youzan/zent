@@ -17,22 +17,22 @@ Collapse/expand contents.
 
 #### Collpase
 
-| Property             | Description                               | Type                | Required | Default     | Alternative |
-| -------------------- | ----------------------------------------- | ------------------- | -------- | ----------- | ----------- |
-| onChange             | Callback when active panel changes        | `func`              | Yes      |             |             |
-| activeKey            | Active panel id                           | `string | string[]` | No       |             |             |
-| accordion            | Accodion mode, one active panel at a time | `bool`              | No       | `false`     | `true`      |
-| bordered             | Bordered                                  | `bool`              | No       | `true`      | `false`     |
-| panelTitleBackground | Panel background                          | `string`            | No       | `'default'` | `'none'`    |
-| className            | Custom class names                        | `string`            | No       |             |             |
+| Property             | Description                               | Type     | Required                                                                                        | Default     | Alternative |
+| -------------------- | ----------------------------------------- | -------- | ----------------------------------------------------------------------------------------------- | ----------- | ----------- | --- |
+| onChange             | Callback when active panel changes        | `func`   | Yes                                                                                             |             |             |
+| activeKey            | Active panel id                           | `string  | string[]`(only when using Accodion mode the type is `string`，otherwise the type is `string[]`) | No          |             |     |
+| accordion            | Accodion mode, one active panel at a time | `bool`   | No                                                                                              | `false`     | `true`      |
+| bordered             | Bordered                                  | `bool`   | No                                                                                              | `true`      | `false`     |
+| panelTitleBackground | Panel background                          | `string` | No                                                                                              | `'default'` | `'none'`    |
+| className            | Custom class names                        | `string` | No                                                                                              |             |             |
 
 #### Collpase.Panel
 
-| Property  | Description             | Type     | Required | Default | Alternative |
-| --------- | ----------------------- | -------- | -------- | ------- | ----------- |
-| key       | Panel id, [React Keys](https://reactjs.org/docs/lists-and-keys.html#keys)                 | `ReactText` | Yes      |         |             |
-| title     | Panel title             | `node`   | Yes      |         |             |
-| disabled  | Disable panel           | `bool`   | No       | `false` | `true`      |
-| showArrow | Show arrow in the title | `bool`   | No       | `true`  | `false`     |
-| style     | Custom styles           | `object` | No       |         |             |
-| className | Custom class names      | `string` | No       |         |             |
+| Property  | Description                                                               | Type        | Required | Default | Alternative |
+| --------- | ------------------------------------------------------------------------- | ----------- | -------- | ------- | ----------- |
+| key       | Panel id, [React Keys](https://reactjs.org/docs/lists-and-keys.html#keys) | `ReactText` | Yes      |         |             |
+| title     | Panel title                                                               | `node`      | Yes      |         |             |
+| disabled  | Disable panel                                                             | `bool`      | No       | `false` | `true`      |
+| showArrow | Show arrow in the title                                                   | `bool`      | No       | `true`  | `false`     |
+| style     | Custom styles                                                             | `object`    | No       |         |             |
+| className | Custom class names                                                        | `string`    | No       |         |             |

@@ -13,9 +13,9 @@ export interface IPlaceholderRichTextBlock {
   size?: number;
   animate?: boolean;
   dashed?: boolean;
-  widths;
-  dashSegments;
-  lineSpacing;
+  widths?: number[];
+  dashSegments?: Array<Array<string | number>>;
+  lineSpacing?: string | number;
 }
 
 export default class RichTextBlock extends PureComponent<IPlaceholderRichTextBlock> {

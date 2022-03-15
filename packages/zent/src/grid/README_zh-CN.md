@@ -100,10 +100,11 @@ onChange 会抛出一个对象，这个对象包含分页变化的参数：
 
 ### Expandation
 
-| 参数         | 说明                    | 类型                                    | 默认值 | 是否必须 |
-| ------------ | ----------------------- | --------------------------------------- | ------ | -------- |
-| isExpanded   | 是否展开当前行          | (record: any, index: number) => boolean |        | 否       |
-| expandRender | 展开行的补充内容 render | (data: any) => React.ReactNode          |        | 否       |
+| 参数         | 说明                     | 类型                                    | 默认值 | 是否必须 |
+| ------------ | ------------------------ | --------------------------------------- | ------ | -------- |
+| isExpanded   | 是否展开当前行           | (record: any, index: number) => boolean |        | 否       |
+| isExpandable | 是否显示当前行可展开图标 | (record: any, index: number) => boolean |        | 否       |
+| expandRender | 展开行的补充内容 render  | (data: any) => React.ReactNode          |        | 否       |
 
 <style>
   .switch {

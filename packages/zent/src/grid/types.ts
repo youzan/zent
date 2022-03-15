@@ -73,11 +73,11 @@ export interface IGridSelectionProps {
   reason: React.ReactNode;
 }
 
-export interface IGridSelection<Data = any> {
+export interface IGridSelection<Data = any, Key = string> {
   isSingleSelection?: boolean;
-  selectedRowKeys?: (string | number)[];
+  selectedRowKeys?: Key[];
   onSelect?: (
-    selectedkeys: (string | number)[],
+    selectedkeys: Key[],
     selectedRows: Data[],
     changeRow: Data | Data[]
   ) => any;
@@ -88,6 +88,7 @@ export interface IGridSelection<Data = any> {
 
 export interface IGridExpandation<Data = any> {
   isExpanded?: (data: Data, index: number) => boolean;
+  isExpandable?: (data: Data, index: number) => boolean;
   expandRender?: (data: Data) => React.ReactNode;
 }
 

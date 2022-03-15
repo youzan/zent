@@ -25,6 +25,7 @@ import {
   CascaderMenuHoverHandler,
   CascaderItemSelectionState,
   ICascaderMultipleChangeMeta,
+  CascaderSimplifySelectionMode,
 } from './types';
 import SearchContent from './components/SearchContent';
 import debounce from '../utils/debounce';
@@ -84,6 +85,7 @@ export interface IMenuCascaderMultipleProps extends IMenuCascaderCommonProps {
   ) => void;
   renderTags?: (props: ICascaderTagsProps) => React.ReactNode;
   simplifySelection?: boolean;
+  simplifySelectionMode?: CascaderSimplifySelectionMode;
 }
 
 export type IMenuCascaderProps =
@@ -139,6 +141,7 @@ const defaultHighlight = (
           searchWords={[keyword]}
           textToHighlight={node.label}
           highlightClassName="zent-cascader-v2--highlight"
+          autoEscape
         />
         {index !== path.length - 1 && ' / '}
       </span>
@@ -222,6 +225,7 @@ export class MenuCascader extends Component<
     renderValue: getPathLabel,
     filter: defaultFilter,
     highlight: defaultHighlight,
+    simplifySelectionMode: 'excludeDisabled',
   };
 
   constructor(props: IMenuCascaderProps) {
@@ -304,7 +308,10 @@ export class MenuCascader extends Component<
   }
 
   // 根据选中信息生成所有节点的选中状态表 O(n)
-  private getSelectionMapImpl(selectedPaths: Array<ICascaderItem[]>) {
+  private getSelectionMapImpl(
+    selectedPaths: Array<ICascaderItem[]>,
+    mode: CascaderSimplifySelectionMode = 'excludeDisabled'
+  ) {
     return this.state.options.reduceNodeDfs((map, node) => {
       const key = getNodeKey(node);
       const { value } = node;
@@ -317,7 +324,10 @@ export class MenuCascader extends Component<
         map.set(key, selected ? 'on' : 'off');
       } else {
         // 忽略禁用的选项
-        const children = node.children.filter(n => !n.disabled);
+        const children =
+          mode === 'excludeDisabled'
+            ? node.children.filter(n => !n.disabled)
+            : node.children;
         const childrenState = children.reduce(
           (acc, n) => {
             const k = getNodeKey(n);
@@ -354,10 +364,21 @@ export class MenuCascader extends Component<
     }
   );
 
+  // 用来计算不同simplify模式下的selectionMap，mode用来区分全选合并路径时候disabled的options是否作为有效数据
+  private getSimplifySelectionMap = memorizeOne(
+    (
+      selectedPaths: Array<ICascaderItem[]>,
+      mode: CascaderSimplifySelectionMode = 'excludeDisabled'
+    ) => {
+      return this.getSelectionMapImpl(selectedPaths, mode);
+    }
+  );
+
   private simplify: (
-    options: Array<ICascaderItem[]>
-  ) => Array<ICascaderItem[]> = options => {
-    return simplify(options, this.getSelectionMapImpl(options));
+    options: Array<ICascaderItem[]>,
+    mode: CascaderSimplifySelectionMode
+  ) => Array<ICascaderItem[]> = (options, mode = 'excludeDisabled') => {
+    return simplify(options, this.getSelectionMapImpl(options, mode));
   };
 
   // 搜索返回的结果列表中可能没有树状结构，这里根据 value 从当前的 options 里换取树结构中的节点
@@ -696,7 +717,10 @@ export class MenuCascader extends Component<
                     {...triggerCommonProps}
                     simplifyPaths={this.props.simplifySelection ?? false}
                     selectedPaths={selectedPaths}
-                    selectionMap={this.getSelectionMap(selectedPaths)}
+                    selectionMap={this.getSimplifySelectionMap(
+                      selectedPaths,
+                      this.props.simplifySelectionMode
+                    )}
                     onRemove={this.onRemove}
                     renderTags={this.props.renderTags}
                     ref={this.tagsTriggerRef}
