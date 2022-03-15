@@ -70,6 +70,7 @@ export interface IGridProps<Data = any, RowProps = {}, Key = string> {
   columns: IGridColumn[];
   datasets: ReadonlyArray<Data>;
   rowKey?: string;
+  tableLayout?: 'auto' | 'fixed';
   onChange?: (conf: IGridOnChangeConfig) => any;
   scroll?: IGridScrollDelta;
   sortBy?: string;
@@ -832,6 +833,22 @@ export class Grid<
     return this.selectionPropsCache[rowIndex];
   };
 
+  isFixedLayout = () => {
+    const { tableLayout, columns = [], scroll = {}, ellipsis } = this.props;
+    if (typeof tableLayout !== 'undefined') {
+      return tableLayout === 'fixed';
+    }
+
+    if (columns.some(({ noWrap }) => !!noWrap) && ellipsis) {
+      return true;
+    }
+
+    if (typeof scroll.x !== 'undefined' || typeof scroll.y !== 'undefined') {
+      return true;
+    }
+    return false;
+  };
+
   onSelectChange = (selectedRowKeys: Key[], data: Data | Data[]) => {
     const { datasets, selection } = this.props;
     const onSelect: IGridSelection<Data, Key>['onSelect'] = selection?.onSelect;
@@ -1174,7 +1191,9 @@ export class Grid<
 
     let className = `${prefix}-grid`;
     const borderedClassName = bordered ? `${prefix}-grid-bordered` : '';
-    className = classnames(className, this.props.className, borderedClassName);
+    className = classnames(className, this.props.className, borderedClassName, {
+      [`${prefix}-grid-fixed-layout`]: this.isFixedLayout(),
+    });
 
     if (this.scrollPosition === 'both') {
       className = classnames(

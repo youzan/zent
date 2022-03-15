@@ -16,6 +16,7 @@ group: 导航
 | columns               | 表格列配置                                                    | array                                                                      |                    | 是       |
 | datasets              | 需要展示的数据                                                | array                                                                      |                    | 是       |
 | rowKey                | 每一行的 key                                                  | string                                                                     | `id`               | 否       |
+| tableLayout           | 表格元素的 table-layout 属性                                  | - \| 'auto' \| 'fixed'                                                     |                    | 否       |
 | onChange              | 列表发生变化时自动触发的函数，页面筛选、排序均会触发          | (conf: any) => any                                                         | `noop`             | 否       |
 | scroll                | 横向或纵向指定滚动区域的宽高度                                | { x?: number, y?: number }                                                 |                    | 否       |
 | sortBy                | 根据哪一个字段排序, 应该等于 columns 中某一个元素的`key`字段  | string                                                                     | ''                 | 否       |

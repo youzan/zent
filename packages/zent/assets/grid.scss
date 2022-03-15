@@ -20,6 +20,10 @@
     }
   }
 
+  &-fixed-layout table {
+    table-layout: fixed;
+  }
+
   &-table {
     width: 100%;
     text-align: left;
@@ -72,11 +76,6 @@
 
   &-text-align-center {
     text-align: center;
-  }
-
-  &-nowrap {
-    white-space: nowrap;
-    word-break: keep-all;
   }
 
   &-thead {
@@ -143,6 +142,10 @@
       border-left: 0;
       border-right: 0;
     }
+
+    table {
+      width: auto;
+    }
   }
 
   &-fixed-left {
@@ -159,10 +162,6 @@
       box-sizing: border-box;
       margin-bottom: -15px;
       overflow: scroll;
-    }
-
-    table {
-      width: auto;
     }
   }
 
@@ -248,6 +247,7 @@
     border-bottom-width: 1px;
     border-bottom-style: solid;
     vertical-align: middle;
+    overflow-wrap: break-word;
 
     &:first-child {
       padding: 10px 12px;
@@ -255,6 +255,15 @@
 
     &:last-child {
       padding: 10px 12px;
+    }
+
+    &-break-word {
+      word-break: break-word;
+    }
+
+    &.zent-grid-nowrap {
+      white-space: nowrap;
+      word-break: keep-all;
     }
   }
 
