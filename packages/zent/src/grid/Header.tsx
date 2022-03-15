@@ -149,6 +149,7 @@ class Header<Data> extends PureComponent<
         nowrap,
         noWrap,
         textAlign,
+        width,
       } = column;
       const cell: IHeaderCell = {
         key: name || key || index,
@@ -159,6 +160,7 @@ class Header<Data> extends PureComponent<
             ['selection-column', 'selection-column-single'].indexOf(key) !== -1,
           [`${prefix}-grid-th-expand`]: key === 'expand-column',
           [`${prefix}-grid-th-sortable`]: column.needSort,
+          [`${prefix}-grid-th-break-word`]: typeof width !== undefined,
         }),
         ...this.getChildrenAndEvents(column, props),
       };

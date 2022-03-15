@@ -72,6 +72,7 @@ interface ICascaderItem {
 | limit                | 搜索结果展示数量                       | `number`                                                | 否       | `50`    |         |
 | renderTags           | 自定义标签列表整体的展示               | `(props: ICascaderTagsProps) => ReactNode`              | 否       |         |         |
 | simplifySelection    | 多选时合并展示同级节点，参考下面的说明 | `boolean`                                               | `否`     | `false` | `true`  |
+| simplifySelectionMode| 多选时合并展示同级节点时，是否排除disabled项的干扰 | `string`                                               | `否`     | `excludeDisabled` | `includeDisabled`  |
 
 - 当 `multiple` 为 `true` 时，`onChange` 中的 `value` 及 `selectedOptions` 为二维数组
 - `renderTags` 仅当多选模式下有效

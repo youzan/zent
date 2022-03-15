@@ -73,6 +73,7 @@ export interface IGridProps<Data = any, RowProps = {}, Key = string> {
   columns: IGridColumn[];
   datasets: ReadonlyArray<Data>;
   rowKey?: string;
+  tableLayout?: 'auto' | 'fixed';
   onChange?: (conf: IGridOnChangeConfig) => any;
   scroll?: IGridScrollDelta;
   sortBy?: string;
@@ -343,17 +344,21 @@ export class Grid<
     };
 
   getExpandBodyRender: (
-    expandRowKeys: boolean[]
+    expandRowKeys: boolean[],
+    expandation: IGridExpandation
   ) => IGridColumnBodyRenderFunc<Data> =
-    (expandRowKeys: boolean[]) =>
-    (rowData, { row }) => {
-      return (
+    (expandRowKeys: boolean[], expandation: IGridExpandation) =>
+    (rowData, pos) => {
+      const { row } = pos;
+      const { isExpandable = () => true } = expandation;
+
+      return isExpandable(rowData, row) ? (
         <Icon
           type={expandRowKeys[row] ? 'up' : 'down'}
           className={`${prefix}-grid-expandable-btn`}
           onClick={this.handleExpandRow(row, rowData)}
         />
-      );
+      ) : null;
     };
 
   getSelectionColumn(
@@ -454,7 +459,7 @@ export class Grid<
         title: '',
         key: 'expand-column',
         width: BTN_WIDTH,
-        bodyRender: this.getExpandBodyRender(expandRowKeys),
+        bodyRender: this.getExpandBodyRender(expandRowKeys, expandation),
       };
       if (hasLeft) {
         expandColumn.fixed = 'left';
@@ -835,6 +840,22 @@ export class Grid<
     return this.selectionPropsCache[rowIndex];
   };
 
+  isFixedLayout = () => {
+    const { tableLayout, columns = [], scroll = {}, ellipsis } = this.props;
+    if (typeof tableLayout !== 'undefined') {
+      return tableLayout === 'fixed';
+    }
+
+    if (columns.some(({ noWrap }) => !!noWrap) && ellipsis) {
+      return true;
+    }
+
+    if (typeof scroll.x !== 'undefined' || typeof scroll.y !== 'undefined') {
+      return true;
+    }
+    return false;
+  };
+
   onSelectChange = (selectedRowKeys: Key[], data: Data | Data[]) => {
     const { datasets, selection } = this.props;
     const onSelect: IGridSelection<Data, Key>['onSelect'] = selection?.onSelect;
@@ -1180,6 +1201,7 @@ export class Grid<
     const borderedClassName = bordered ? `${prefix}-grid-bordered` : '';
     className = classnames(className, this.props.className, borderedClassName, {
       [`${prefix}-grid-without-size`]: size === undefined,
+      [`${prefix}-grid-fixed-layout`]: this.isFixedLayout(),
     });
 
     if (this.scrollPosition === 'both') {

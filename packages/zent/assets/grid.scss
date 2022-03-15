@@ -23,6 +23,10 @@ $fixed-left-column-box-shadow: 4px 0 8px -4px rgba($shadow-color, 0.1);
     }
   }
 
+  &-fixed-layout table {
+    table-layout: fixed;
+  }
+
   &-table {
     width: 100%;
     text-align: left;
@@ -101,11 +105,6 @@ $fixed-left-column-box-shadow: 4px 0 8px -4px rgba($shadow-color, 0.1);
     text-align: center;
   }
 
-  &-nowrap {
-    white-space: nowrap;
-    word-break: keep-all;
-  }
-
   &-thead {
     .caret-up,
     .caret-down {
@@ -170,6 +169,10 @@ $fixed-left-column-box-shadow: 4px 0 8px -4px rgba($shadow-color, 0.1);
       border-left: 0;
       border-right: 0;
     }
+
+    table {
+      width: auto;
+    }
   }
 
   &-fixed-left {
@@ -186,10 +189,6 @@ $fixed-left-column-box-shadow: 4px 0 8px -4px rgba($shadow-color, 0.1);
       box-sizing: border-box;
       margin-bottom: -15px;
       overflow: scroll;
-    }
-
-    table {
-      width: auto;
     }
   }
 
@@ -274,6 +273,7 @@ $fixed-left-column-box-shadow: 4px 0 8px -4px rgba($shadow-color, 0.1);
     border-bottom-width: 1px;
     border-bottom-style: solid;
     vertical-align: middle;
+    overflow-wrap: break-word;
   }
 
   &-th {
@@ -288,6 +288,15 @@ $fixed-left-column-box-shadow: 4px 0 8px -4px rgba($shadow-color, 0.1);
 
     &:last-child {
       padding: 8px 12px;
+    }
+
+    &-break-word {
+      word-break: break-word;
+    }
+
+    &.zent-grid-nowrap {
+      white-space: nowrap;
+      word-break: keep-all;
     }
   }
 
