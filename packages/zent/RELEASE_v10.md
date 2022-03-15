@@ -28,6 +28,35 @@
 - ✨ 新增 `Banner` 组件，封装自 `Alert`
 - ✨ 新增 `Prompt` 组件，封装自 `Alert`
 
+## zent@10.0.0-rc.8(2022-03-15)
+
+- `Tree`
+  - 🦀 `selectable`默认值修改为`true`
+  - 🦀 修复`small`、`large`尺寸下同层级节点位置未对齐的样式问题
+  - 📚 `selectable`相关文档、demo更新
+- `Button`
+  - 🦀  `outline`模式下修复`hover`背景色为#fff
+- `Cascader`
+  - 🦀  修复级联选择器选中`option`文字没有加粗
+- `Form`
+  - 📚  修复`vertical`变更导致的demo样式布局错位
+
+### 合并 v9.12.7 的修改
+
+- `Cascader`
+  - ✨ 增加`simplifySelectionMode`判断`simplifySelection`时是否包含`disabled`的路径
+- `Sortable`
+  - 🦀️ 修复拖拽后有时数据会变为`empty` 的问题
+- `Notice`
+  - 🦀 去除`overflow-y: hidden`，解决下方阴影显示不完全的问题
+- `Placeholder`
+  - 🦀 ts 类型补全
+- `Grid`
+  - ✨ `expandation` 中新增 `isExpandable` API，支持配置可展开图标显示 #1895
+  - ✨ 新增 `tableLayout` API，支持设置 table 的 `tableLayout` 属性
+  - 🦀️ Grid 未配置 `tableLayout`，但是配置了 `scroll` 或者 `ellipsis` 属性时，设置 `tableLayout` 为 `fixed`，解决一些单元格对齐问题
+  - 🦀️ 对设置了宽度的列设置 `word-break`，解决一些单元格对齐问题
+
 ## zent@10.0.0-rc.7(2022-03-04)
 
 - `Select`
