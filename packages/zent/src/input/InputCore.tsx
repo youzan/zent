@@ -3,6 +3,7 @@ import { forwardRef } from 'react';
 import Icon from '../icon';
 import { IInputCoreProps } from './types';
 import { createUseIMEComposition } from '../ime-composition';
+import cx from 'classnames';
 
 function preventDefault(e: React.MouseEvent<HTMLElement>) {
   e.preventDefault();
@@ -31,6 +32,7 @@ export const InputCore = forwardRef<
     initSelectionStart,
     initSelectionEnd,
     icon,
+    iconPosition = 'end',
     inline,
     onIconClick,
     ...otherProps
@@ -48,11 +50,24 @@ export const InputCore = forwardRef<
   const showClearIcon =
     showClear && valueProp && !otherProps.disabled && !otherProps.readOnly;
 
+  const iconClass = cx('zent-input-icon', {
+    'zent-input-icon-click': !!onIconClick,
+  });
+
   return (
     <>
       {addonBefore && (
         <div className="zent-input-addon-before">{addonBefore}</div>
       )}
+      {icon && iconPosition === 'front' ? (
+        <Icon
+          className={iconClass}
+          type={icon}
+          onMouseUp={preventDefault}
+          onMouseDown={preventDefault}
+          onClick={onIconClick}
+        />
+      ) : null}
       <input
         {...otherProps}
         ref={ref}
@@ -64,15 +79,15 @@ export const InputCore = forwardRef<
       />
       {showClearIcon && (
         <Icon
-          className="zent-input-close"
+          className="zent-input-icon"
           type="close-circle"
           onClick={onClear}
           onMouseDown={preventDefault}
         />
       )}
-      {icon ? (
+      {icon && iconPosition === 'end' ? (
         <Icon
-          className="zent-input-icon"
+          className={iconClass}
           type={icon}
           onMouseUp={preventDefault}
           onMouseDown={preventDefault}
