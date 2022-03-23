@@ -28,18 +28,24 @@
 - ✨ 新增 `Banner` 组件，封装自 `Alert`
 - ✨ 新增 `Prompt` 组件，封装自 `Alert`
 
+## zent@10.0.0-rc.9(2022-03-23)
+
+- `Input`
+  - ✨ 增加 `iconPosition `来确定 `icon` 的位置
+  - ✨ 有交互的 `icon`，点击和 hover 时增加背景色
+
 ## zent@10.0.0-rc.8(2022-03-15)
 
 - `Tree`
   - 🦀 `selectable`默认值修改为`true`
   - 🦀 修复`small`、`large`尺寸下同层级节点位置未对齐的样式问题
-  - 📚 `selectable`相关文档、demo更新
+  - 📚 `selectable`相关文档、demo 更新
 - `Button`
-  - 🦀  `outline`模式下修复`hover`背景色为#fff
+  - 🦀 `outline`模式下修复`hover`背景色为#fff
 - `Cascader`
-  - 🦀  修复级联选择器选中`option`文字没有加粗
+  - 🦀 修复级联选择器选中`option`文字没有加粗
 - `Form`
-  - 📚  修复`vertical`变更导致的demo样式布局错位
+  - 📚 修复`vertical`变更导致的 demo 样式布局错位
 
 ### 合并 v9.12.7 的修改
 
