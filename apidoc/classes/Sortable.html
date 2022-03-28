@@ -124,6 +124,8 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="Sortable.html#componentWillUpdate" class="tsd-kind-icon">component<wbr>Will<wbr>Update</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="Sortable.html#forceUpdate" class="tsd-kind-icon">force<wbr>Update</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="Sortable.html#getSnapshotBeforeUpdate" class="tsd-kind-icon">get<wbr>Snapshot<wbr>Before<wbr>Update</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="Sortable.html#handleAddDraggingCursor" class="tsd-kind-icon">handle<wbr>Add<wbr>Dragging<wbr>Cursor</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="Sortable.html#handleRemoveDraggingCursor" class="tsd-kind-icon">handle<wbr>Remove<wbr>Dragging<wbr>Cursor</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="Sortable.html#render" class="tsd-kind-icon">render</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-external"><a href="Sortable.html#setState" class="tsd-kind-icon">set<wbr>State</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="Sortable.html#shouldComponentUpdate" class="tsd-kind-icon">should<wbr>Component<wbr>Update</a></li>
@@ -207,7 +209,7 @@
 					<div class="tsd-signature tsd-kind-icon">container<wbr>Ref<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RefObject</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">HTMLElement</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = ...</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/sortable/Sortable.tsx#L28">packages/zent/src/sortable/Sortable.tsx:28</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/sortable/Sortable.tsx#L48">packages/zent/src/sortable/Sortable.tsx:48</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -283,7 +285,7 @@
 					<div class="tsd-signature tsd-kind-icon">sortable<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Sortable</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/sortable/Sortable.tsx#L27">packages/zent/src/sortable/Sortable.tsx:27</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/sortable/Sortable.tsx#L47">packages/zent/src/sortable/Sortable.tsx:47</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -337,7 +339,7 @@
 					<div class="tsd-signature tsd-kind-icon">default<wbr>Props<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>tag<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> = ...</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/sortable/Sortable.tsx#L23">packages/zent/src/sortable/Sortable.tsx:23</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/sortable/Sortable.tsx#L43">packages/zent/src/sortable/Sortable.tsx:43</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -533,7 +535,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides Component.componentDidMount</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/sortable/Sortable.tsx#L84">packages/zent/src/sortable/Sortable.tsx:84</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/sortable/Sortable.tsx#L130">packages/zent/src/sortable/Sortable.tsx:130</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -672,7 +674,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides Component.componentWillUnmount</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/sortable/Sortable.tsx#L88">packages/zent/src/sortable/Sortable.tsx:88</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/sortable/Sortable.tsx#L134">packages/zent/src/sortable/Sortable.tsx:134</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -800,6 +802,40 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="handleAddDraggingCursor" class="tsd-anchor"></a>
+					<h3>handle<wbr>Add<wbr>Dragging<wbr>Cursor</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">handle<wbr>Add<wbr>Dragging<wbr>Cursor<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/sortable/Sortable.tsx#L50">packages/zent/src/sortable/Sortable.tsx:50</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="handleRemoveDraggingCursor" class="tsd-anchor"></a>
+					<h3>handle<wbr>Remove<wbr>Dragging<wbr>Cursor</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">handle<wbr>Remove<wbr>Dragging<wbr>Cursor<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/sortable/Sortable.tsx#L57">packages/zent/src/sortable/Sortable.tsx:57</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 					<a name="render" class="tsd-anchor"></a>
 					<h3>render</h3>
@@ -811,7 +847,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides Component.render</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/sortable/Sortable.tsx#L92">packages/zent/src/sortable/Sortable.tsx:92</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/sortable/Sortable.tsx#L138">packages/zent/src/sortable/Sortable.tsx:138</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Element</span></h4>
@@ -982,6 +1018,12 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
 								<a href="Sortable.html#getSnapshotBeforeUpdate" class="tsd-kind-icon">get<wbr>Snapshot<wbr>Before<wbr>Update</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="Sortable.html#handleAddDraggingCursor" class="tsd-kind-icon">handle<wbr>Add<wbr>Dragging<wbr>Cursor</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="Sortable.html#handleRemoveDraggingCursor" class="tsd-kind-icon">handle<wbr>Remove<wbr>Dragging<wbr>Cursor</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 								<a href="Sortable.html#render" class="tsd-kind-icon">render</a>

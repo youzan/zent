@@ -97,6 +97,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="NumberInput.html#props" class="tsd-kind-icon">props</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="NumberInput.html#refs" class="tsd-kind-icon">refs</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="NumberInput.html#state" class="tsd-kind-icon">state</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="NumberInput.html#timer" class="tsd-kind-icon">timer</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-static"><a href="NumberInput.html#contextType" class="tsd-kind-icon">context<wbr>Type</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="NumberInput.html#defaultProps" class="tsd-kind-icon">default<wbr>Props</a></li>
 							</ul>
@@ -118,6 +119,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="NumberInput.html#getSnapshotBeforeUpdate" class="tsd-kind-icon">get<wbr>Snapshot<wbr>Before<wbr>Update</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="NumberInput.html#render" class="tsd-kind-icon">render</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="NumberInput.html#renderChild" class="tsd-kind-icon">render<wbr>Child</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="NumberInput.html#renderInput" class="tsd-kind-icon">render<wbr>Input</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-external"><a href="NumberInput.html#setState" class="tsd-kind-icon">set<wbr>State</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="NumberInput.html#shouldComponentUpdate" class="tsd-kind-icon">should<wbr>Component<wbr>Update</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="NumberInput.html#getDerivedStateFromProps" class="tsd-kind-icon">get<wbr>Derived<wbr>State<wbr>From<wbr>Props</a></li>
@@ -139,7 +141,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides Component&lt;INumberInputProps,INumberInputState&gt;.constructor</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/number-input/NumberInput.tsx#L128">packages/zent/src/number-input/NumberInput.tsx:128</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/number-input/NumberInput.tsx#L151">packages/zent/src/number-input/NumberInput.tsx:151</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -162,7 +164,7 @@
 					<aside class="tsd-sources">
 						<p>Overrides Component.context</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/number-input/NumberInput.tsx#L120">packages/zent/src/number-input/NumberInput.tsx:120</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/number-input/NumberInput.tsx#L142">packages/zent/src/number-input/NumberInput.tsx:142</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -172,7 +174,7 @@
 					<div class="tsd-signature tsd-kind-icon">focused<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/number-input/NumberInput.tsx#L121">packages/zent/src/number-input/NumberInput.tsx:121</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/number-input/NumberInput.tsx#L143">packages/zent/src/number-input/NumberInput.tsx:143</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -182,7 +184,7 @@
 					<div class="tsd-signature tsd-kind-icon">input<wbr>Ref<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RefObject</span><span class="tsd-signature-symbol">&lt;</span><a href="Input.html" class="tsd-signature-type" data-tsd-kind="Class">Input</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = ...</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/number-input/NumberInput.tsx#L122">packages/zent/src/number-input/NumberInput.tsx:122</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/number-input/NumberInput.tsx#L145">packages/zent/src/number-input/NumberInput.tsx:145</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -234,6 +236,16 @@
 						</ul>
 					</aside>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="timer" class="tsd-anchor"></a>
+					<h3>timer</h3>
+					<div class="tsd-signature tsd-kind-icon">timer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = null</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/number-input/NumberInput.tsx#L144">packages/zent/src/number-input/NumberInput.tsx:144</a></li>
+						</ul>
+					</aside>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-static">
 					<a name="contextType" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> context<wbr>Type</h3>
@@ -241,7 +253,7 @@
 					<aside class="tsd-sources">
 						<p>Overrides Component.contextType</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/number-input/NumberInput.tsx#L119">packages/zent/src/number-input/NumberInput.tsx:119</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/number-input/NumberInput.tsx#L141">packages/zent/src/number-input/NumberInput.tsx:141</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -251,7 +263,7 @@
 					<div class="tsd-signature tsd-kind-icon">default<wbr>Props<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>decimal<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>integer<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>size<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> = ...</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/number-input/NumberInput.tsx#L112">packages/zent/src/number-input/NumberInput.tsx:112</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/number-input/NumberInput.tsx#L134">packages/zent/src/number-input/NumberInput.tsx:134</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -456,7 +468,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides Component.componentDidMount</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/number-input/NumberInput.tsx#L359">packages/zent/src/number-input/NumberInput.tsx:359</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/number-input/NumberInput.tsx#L403">packages/zent/src/number-input/NumberInput.tsx:403</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -474,7 +486,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides Component.componentDidUpdate</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/number-input/NumberInput.tsx#L365">packages/zent/src/number-input/NumberInput.tsx:365</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/number-input/NumberInput.tsx#L409">packages/zent/src/number-input/NumberInput.tsx:409</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -728,7 +740,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides Component.render</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/number-input/NumberInput.tsx#L445">packages/zent/src/number-input/NumberInput.tsx:445</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/number-input/NumberInput.tsx#L532">packages/zent/src/number-input/NumberInput.tsx:532</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Element</span></h4>
@@ -745,7 +757,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/number-input/NumberInput.tsx#L371">packages/zent/src/number-input/NumberInput.tsx:371</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/number-input/NumberInput.tsx#L415">packages/zent/src/number-input/NumberInput.tsx:415</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -754,6 +766,23 @@
 									<h5>children: <span class="tsd-signature-type">ReactNode</span></h5>
 								</li>
 							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Element</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="renderInput" class="tsd-anchor"></a>
+					<h3>render<wbr>Input</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">render<wbr>Input<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Element</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/number-input/NumberInput.tsx#L491">packages/zent/src/number-input/NumberInput.tsx:491</a></li>
+								</ul>
+							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Element</span></h4>
 						</li>
 					</ul>
@@ -775,7 +804,7 @@
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>K<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">&quot;value&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;prevProps&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;min&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;max&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;input&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;delta&quot;</span></h4>
+									<h4>K<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">&quot;value&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;prevProps&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;min&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;max&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;input&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;pop&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;delta&quot;</span></h4>
 								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -853,7 +882,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/number-input/NumberInput.tsx#L253">packages/zent/src/number-input/NumberInput.tsx:253</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/number-input/NumberInput.tsx#L297">packages/zent/src/number-input/NumberInput.tsx:297</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -907,6 +936,9 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
 								<a href="NumberInput.html#state" class="tsd-kind-icon">state</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="NumberInput.html#timer" class="tsd-kind-icon">timer</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-static">
 								<a href="NumberInput.html#contextType" class="tsd-kind-icon">context<wbr>Type</a>
 							</li>
@@ -954,6 +986,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="NumberInput.html#renderChild" class="tsd-kind-icon">render<wbr>Child</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="NumberInput.html#renderInput" class="tsd-kind-icon">render<wbr>Input</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-external">
 								<a href="NumberInput.html#setState" class="tsd-kind-icon">set<wbr>State</a>

@@ -78,6 +78,9 @@
 				<ul class="tsd-hierarchy">
 					<li>
 						<a href="IBaseTabsProps.html" class="tsd-signature-type" data-tsd-kind="Interface">IBaseTabsProps</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Id</span><span class="tsd-signature-symbol">, </span><a href="ITabPanelProps.html" class="tsd-signature-type" data-tsd-kind="Interface">ITabPanelProps</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Id</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>
+					</li>
+					<li>
+						<a href="IFixedProps.html" class="tsd-signature-type" data-tsd-kind="Interface">IFixedProps</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Id</span><span class="tsd-signature-symbol">&gt;</span>
 						<ul class="tsd-hierarchy">
 							<li>
 								<span class="target">ITabsProps</span>
@@ -94,10 +97,12 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="ITabsProps.html#activeId" class="tsd-kind-icon">active<wbr>Id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="ITabsProps.html#canFixed" class="tsd-kind-icon">can<wbr>Fixed</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ITabsProps.html#candel" class="tsd-kind-icon">candel</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="ITabsProps.html#children" class="tsd-kind-icon">children</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="ITabsProps.html#className" class="tsd-kind-icon">class<wbr>Name</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="ITabsProps.html#disableLazyMount" class="tsd-kind-icon">disable<wbr>Lazy<wbr>Mount</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="ITabsProps.html#fixedIds" class="tsd-kind-icon">fixed<wbr>Ids</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ITabsProps.html#navExtraContent" class="tsd-kind-icon">nav<wbr>Extra<wbr>Content</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ITabsProps.html#overflowMode" class="tsd-kind-icon">overflow<wbr>Mode</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ITabsProps.html#stretch" class="tsd-kind-icon">stretch</a></li>
@@ -109,8 +114,11 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="ITabsProps.html#onAdd" class="tsd-kind-icon">on<wbr>Add</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="ITabsProps.html#onChange" class="tsd-kind-icon">on<wbr>Change</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="ITabsProps.html#onDelete" class="tsd-kind-icon">on<wbr>Delete</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="ITabsProps.html#onFixedChange" class="tsd-kind-icon">on<wbr>Fixed<wbr>Change</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="ITabsProps.html#renderTabBar" class="tsd-kind-icon">render<wbr>Tab<wbr>Bar</a></li>
 							</ul>
 						</section>
 					</div>
@@ -125,7 +133,18 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="IBaseTabsProps.html">IBaseTabsProps</a>.<a href="IBaseTabsProps.html#activeId">activeId</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/tabs/types.ts#L43">packages/zent/src/tabs/types.ts:43</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/tabs/types.ts#L54">packages/zent/src/tabs/types.ts:54</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a name="canFixed" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> can<wbr>Fixed</h3>
+					<div class="tsd-signature tsd-kind-icon">can<wbr>Fixed<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="IFixedProps.html">IFixedProps</a>.<a href="IFixedProps.html#canFixed">canFixed</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/tabs/types.ts#L8">packages/zent/src/tabs/types.ts:8</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -135,7 +154,7 @@
 					<div class="tsd-signature tsd-kind-icon">candel<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/tabs/types.ts#L55">packages/zent/src/tabs/types.ts:55</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/tabs/types.ts#L69">packages/zent/src/tabs/types.ts:69</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -146,7 +165,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="IBaseTabsProps.html">IBaseTabsProps</a>.<a href="IBaseTabsProps.html#children">children</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/tabs/types.ts#L48">packages/zent/src/tabs/types.ts:48</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/tabs/types.ts#L59">packages/zent/src/tabs/types.ts:59</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -157,7 +176,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="IBaseTabsProps.html">IBaseTabsProps</a>.<a href="IBaseTabsProps.html#className">className</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/tabs/types.ts#L44">packages/zent/src/tabs/types.ts:44</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/tabs/types.ts#L55">packages/zent/src/tabs/types.ts:55</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -168,7 +187,18 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="IBaseTabsProps.html">IBaseTabsProps</a>.<a href="IBaseTabsProps.html#disableLazyMount">disableLazyMount</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/tabs/types.ts#L47">packages/zent/src/tabs/types.ts:47</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/tabs/types.ts#L58">packages/zent/src/tabs/types.ts:58</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a name="fixedIds" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> fixed<wbr>Ids</h3>
+					<div class="tsd-signature tsd-kind-icon">fixed<wbr>Ids<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Id</span><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="IFixedProps.html">IFixedProps</a>.<a href="IFixedProps.html#fixedIds">fixedIds</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/tabs/types.ts#L9">packages/zent/src/tabs/types.ts:9</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -178,7 +208,7 @@
 					<div class="tsd-signature tsd-kind-icon">nav<wbr>Extra<wbr>Content<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ReactNode</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/tabs/types.ts#L57">packages/zent/src/tabs/types.ts:57</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/tabs/types.ts#L71">packages/zent/src/tabs/types.ts:71</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -188,7 +218,7 @@
 					<div class="tsd-signature tsd-kind-icon">overflow<wbr>Mode<span class="tsd-signature-symbol">:</span> <a href="../modules.html#ITabOverflowMode" class="tsd-signature-type" data-tsd-kind="Type alias">ITabOverflowMode</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/tabs/types.ts#L59">packages/zent/src/tabs/types.ts:59</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/tabs/types.ts#L73">packages/zent/src/tabs/types.ts:73</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -198,7 +228,7 @@
 					<div class="tsd-signature tsd-kind-icon">stretch<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/tabs/types.ts#L56">packages/zent/src/tabs/types.ts:56</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/tabs/types.ts#L70">packages/zent/src/tabs/types.ts:70</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -209,7 +239,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="IBaseTabsProps.html">IBaseTabsProps</a>.<a href="IBaseTabsProps.html#tabs">tabs</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/tabs/types.ts#L45">packages/zent/src/tabs/types.ts:45</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/tabs/types.ts#L56">packages/zent/src/tabs/types.ts:56</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -219,7 +249,7 @@
 					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <a href="../modules.html#TabType" class="tsd-signature-type" data-tsd-kind="Type alias">TabType</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/tabs/types.ts#L58">packages/zent/src/tabs/types.ts:58</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/tabs/types.ts#L72">packages/zent/src/tabs/types.ts:72</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -230,13 +260,30 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="IBaseTabsProps.html">IBaseTabsProps</a>.<a href="IBaseTabsProps.html#unmountPanelOnHide">unmountPanelOnHide</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/tabs/types.ts#L46">packages/zent/src/tabs/types.ts:46</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/tabs/types.ts#L57">packages/zent/src/tabs/types.ts:57</a></li>
 						</ul>
 					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="onAdd" class="tsd-anchor"></a>
+					<h3>on<wbr>Add</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Add<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/tabs/types.ts#L68">packages/zent/src/tabs/types.ts:68</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
 					<a name="onChange" class="tsd-anchor"></a>
 					<h3>on<wbr>Change</h3>
@@ -248,7 +295,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="IBaseTabsProps.html">IBaseTabsProps</a>.<a href="IBaseTabsProps.html#onChange">onChange</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/tabs/types.ts#L42">packages/zent/src/tabs/types.ts:42</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/tabs/types.ts#L53">packages/zent/src/tabs/types.ts:53</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -271,7 +318,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/tabs/types.ts#L54">packages/zent/src/tabs/types.ts:54</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/tabs/types.ts#L67">packages/zent/src/tabs/types.ts:67</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -281,6 +328,56 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<a name="onFixedChange" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> on<wbr>Fixed<wbr>Change</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Fixed<wbr>Change<span class="tsd-signature-symbol">(</span>ids<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Id</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="IFixedProps.html">IFixedProps</a>.<a href="IFixedProps.html#onFixedChange">onFixedChange</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/tabs/types.ts#L10">packages/zent/src/tabs/types.ts:10</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>ids: <span class="tsd-signature-type">Id</span><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="renderTabBar" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> render<wbr>Tab<wbr>Bar</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">render<wbr>Tab<wbr>Bar<span class="tsd-signature-symbol">(</span>props<span class="tsd-signature-symbol">: </span><a href="ITabsNavProps.html" class="tsd-signature-type" data-tsd-kind="Interface">ITabsNavProps</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Id</span><span class="tsd-signature-symbol">&gt;</span>, TabBar<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ComponentType</span><span class="tsd-signature-symbol">&lt;</span><a href="ITabsNavProps.html" class="tsd-signature-type" data-tsd-kind="Interface">ITabsNavProps</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ReactNode</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/tabs/types.ts#L74">packages/zent/src/tabs/types.ts:74</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>props: <a href="ITabsNavProps.html" class="tsd-signature-type" data-tsd-kind="Interface">ITabsNavProps</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Id</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+								<li>
+									<h5>TabBar: <span class="tsd-signature-type">ComponentType</span><span class="tsd-signature-symbol">&lt;</span><a href="ITabsNavProps.html" class="tsd-signature-type" data-tsd-kind="Interface">ITabsNavProps</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">ReactNode</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -304,6 +401,9 @@
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 								<a href="ITabsProps.html#activeId" class="tsd-kind-icon">active<wbr>Id</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="ITabsProps.html#canFixed" class="tsd-kind-icon">can<wbr>Fixed</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="ITabsProps.html#candel" class="tsd-kind-icon">candel</a>
 							</li>
@@ -315,6 +415,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 								<a href="ITabsProps.html#disableLazyMount" class="tsd-kind-icon">disable<wbr>Lazy<wbr>Mount</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="ITabsProps.html#fixedIds" class="tsd-kind-icon">fixed<wbr>Ids</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="ITabsProps.html#navExtraContent" class="tsd-kind-icon">nav<wbr>Extra<wbr>Content</a>
@@ -334,11 +437,20 @@
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 								<a href="ITabsProps.html#unmountPanelOnHide" class="tsd-kind-icon">unmount<wbr>Panel<wbr>OnHide</a>
 							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="ITabsProps.html#onAdd" class="tsd-kind-icon">on<wbr>Add</a>
+							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
 								<a href="ITabsProps.html#onChange" class="tsd-kind-icon">on<wbr>Change</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="ITabsProps.html#onDelete" class="tsd-kind-icon">on<wbr>Delete</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+								<a href="ITabsProps.html#onFixedChange" class="tsd-kind-icon">on<wbr>Fixed<wbr>Change</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="ITabsProps.html#renderTabBar" class="tsd-kind-icon">render<wbr>Tab<wbr>Bar</a>
 							</li>
 						</ul>
 					</li>

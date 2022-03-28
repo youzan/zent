@@ -81,6 +81,8 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ISwiperProps.html#arrows" class="tsd-kind-icon">arrows</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ISwiperProps.html#arrowsDisabled" class="tsd-kind-icon">arrows<wbr>Disabled</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ISwiperProps.html#arrowsSize" class="tsd-kind-icon">arrows<wbr>Size</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ISwiperProps.html#arrowsType" class="tsd-kind-icon">arrows<wbr>Type</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ISwiperProps.html#autoplay" class="tsd-kind-icon">autoplay</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ISwiperProps.html#autoplayInterval" class="tsd-kind-icon">autoplay<wbr>Interval</a></li>
@@ -89,6 +91,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ISwiperProps.html#dots" class="tsd-kind-icon">dots</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ISwiperProps.html#dotsColor" class="tsd-kind-icon">dots<wbr>Color</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ISwiperProps.html#dotsSize" class="tsd-kind-icon">dots<wbr>Size</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ISwiperProps.html#dotsTheme" class="tsd-kind-icon">dots<wbr>Theme</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ISwiperProps.html#transitionDuration" class="tsd-kind-icon">transition<wbr>Duration</a></li>
 							</ul>
 						</section>
@@ -108,20 +111,51 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="arrows" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> arrows</h3>
-					<div class="tsd-signature tsd-kind-icon">arrows<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<div class="tsd-signature tsd-kind-icon">arrows<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;hover&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/swiper/Swiper.tsx#L24">packages/zent/src/swiper/Swiper.tsx:24</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/swiper/Swiper.tsx#L25">packages/zent/src/swiper/Swiper.tsx:25</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="arrowsDisabled" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> arrows<wbr>Disabled</h3>
+					<div class="tsd-signature tsd-kind-icon">arrows<wbr>Disabled<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>left<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>right<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> }</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/swiper/Swiper.tsx#L26">packages/zent/src/swiper/Swiper.tsx:26</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter">
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> left<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span></h5>
+							</li>
+							<li class="tsd-parameter">
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> right<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span></h5>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="arrowsSize" class="tsd-anchor"></a>
+					<h3>arrows<wbr>Size</h3>
+					<div class="tsd-signature tsd-kind-icon">arrows<wbr>Size<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;large&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;normal&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/swiper/Swiper.tsx#L30">packages/zent/src/swiper/Swiper.tsx:30</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="arrowsType" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> arrows<wbr>Type</h3>
-					<div class="tsd-signature tsd-kind-icon">arrows<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;dark&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;light&quot;</span></div>
+					<div class="tsd-signature tsd-kind-icon">arrows<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;light&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;dark&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/swiper/Swiper.tsx#L25">packages/zent/src/swiper/Swiper.tsx:25</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/swiper/Swiper.tsx#L31">packages/zent/src/swiper/Swiper.tsx:31</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -131,7 +165,7 @@
 					<div class="tsd-signature tsd-kind-icon">autoplay<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/swiper/Swiper.tsx#L19">packages/zent/src/swiper/Swiper.tsx:19</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/swiper/Swiper.tsx#L19">packages/zent/src/swiper/Swiper.tsx:19</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -141,7 +175,7 @@
 					<div class="tsd-signature tsd-kind-icon">autoplay<wbr>Interval<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/swiper/Swiper.tsx#L20">packages/zent/src/swiper/Swiper.tsx:20</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/swiper/Swiper.tsx#L20">packages/zent/src/swiper/Swiper.tsx:20</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -151,7 +185,7 @@
 					<div class="tsd-signature tsd-kind-icon">children<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ReactNode</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/swiper/Swiper.tsx#L27">packages/zent/src/swiper/Swiper.tsx:27</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/swiper/Swiper.tsx#L33">packages/zent/src/swiper/Swiper.tsx:33</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -161,27 +195,27 @@
 					<div class="tsd-signature tsd-kind-icon">class<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/swiper/Swiper.tsx#L17">packages/zent/src/swiper/Swiper.tsx:17</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/swiper/Swiper.tsx#L17">packages/zent/src/swiper/Swiper.tsx:17</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="dots" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> dots</h3>
-					<div class="tsd-signature tsd-kind-icon">dots<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<div class="tsd-signature tsd-kind-icon">dots<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">IDotsType</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/swiper/Swiper.tsx#L21">packages/zent/src/swiper/Swiper.tsx:21</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/swiper/Swiper.tsx#L21">packages/zent/src/swiper/Swiper.tsx:21</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="dotsColor" class="tsd-anchor"></a>
-					<h3>dots<wbr>Color</h3>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> dots<wbr>Color</h3>
 					<div class="tsd-signature tsd-kind-icon">dots<wbr>Color<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/swiper/Swiper.tsx#L22">packages/zent/src/swiper/Swiper.tsx:22</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/swiper/Swiper.tsx#L22">packages/zent/src/swiper/Swiper.tsx:22</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -191,7 +225,17 @@
 					<div class="tsd-signature tsd-kind-icon">dots<wbr>Size<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;small&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;large&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;normal&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/swiper/Swiper.tsx#L23">packages/zent/src/swiper/Swiper.tsx:23</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/swiper/Swiper.tsx#L23">packages/zent/src/swiper/Swiper.tsx:23</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="dotsTheme" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> dots<wbr>Theme</h3>
+					<div class="tsd-signature tsd-kind-icon">dots<wbr>Theme<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">IDotsTheme</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/swiper/Swiper.tsx#L24">packages/zent/src/swiper/Swiper.tsx:24</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -201,7 +245,7 @@
 					<div class="tsd-signature tsd-kind-icon">transition<wbr>Duration<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/swiper/Swiper.tsx#L18">packages/zent/src/swiper/Swiper.tsx:18</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/swiper/Swiper.tsx#L18">packages/zent/src/swiper/Swiper.tsx:18</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -218,7 +262,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/swiper/Swiper.tsx#L26">packages/zent/src/swiper/Swiper.tsx:26</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/swiper/Swiper.tsx#L32">packages/zent/src/swiper/Swiper.tsx:32</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -238,13 +282,13 @@
 					<a name="renderNextArrow" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> render<wbr>Next<wbr>Arrow</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">render<wbr>Next<wbr>Arrow<span class="tsd-signature-symbol">(</span>onNext<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ReactNode</span></li>
+						<li class="tsd-signature tsd-kind-icon">render<wbr>Next<wbr>Arrow<span class="tsd-signature-symbol">(</span>onNext<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span>, disabled<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ReactNode</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/swiper/Swiper.tsx#L29">packages/zent/src/swiper/Swiper.tsx:29</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/swiper/Swiper.tsx#L35">packages/zent/src/swiper/Swiper.tsx:35</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -264,6 +308,9 @@
 										</li>
 									</ul>
 								</li>
+								<li>
+									<h5>disabled: <span class="tsd-signature-type">boolean</span></h5>
+								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">ReactNode</span></h4>
 						</li>
@@ -273,13 +320,13 @@
 					<a name="renderPrevArrow" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> render<wbr>Prev<wbr>Arrow</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">render<wbr>Prev<wbr>Arrow<span class="tsd-signature-symbol">(</span>onPrev<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ReactNode</span></li>
+						<li class="tsd-signature tsd-kind-icon">render<wbr>Prev<wbr>Arrow<span class="tsd-signature-symbol">(</span>onPrev<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span>, disabled<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ReactNode</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/c8f6169/packages/zent/src/swiper/Swiper.tsx#L28">packages/zent/src/swiper/Swiper.tsx:28</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/985726c/packages/zent/src/swiper/Swiper.tsx#L34">packages/zent/src/swiper/Swiper.tsx:34</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -298,6 +345,9 @@
 											</ul>
 										</li>
 									</ul>
+								</li>
+								<li>
+									<h5>disabled: <span class="tsd-signature-type">boolean</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">ReactNode</span></h4>
@@ -325,6 +375,12 @@
 								<a href="ISwiperProps.html#arrows" class="tsd-kind-icon">arrows</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="ISwiperProps.html#arrowsDisabled" class="tsd-kind-icon">arrows<wbr>Disabled</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="ISwiperProps.html#arrowsSize" class="tsd-kind-icon">arrows<wbr>Size</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="ISwiperProps.html#arrowsType" class="tsd-kind-icon">arrows<wbr>Type</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
@@ -347,6 +403,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="ISwiperProps.html#dotsSize" class="tsd-kind-icon">dots<wbr>Size</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="ISwiperProps.html#dotsTheme" class="tsd-kind-icon">dots<wbr>Theme</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="ISwiperProps.html#transitionDuration" class="tsd-kind-icon">transition<wbr>Duration</a>
