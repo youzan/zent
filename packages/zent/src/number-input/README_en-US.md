@@ -26,7 +26,6 @@ Default value type is string. Under integer mode, value type is number, with def
 | integer     | Integer mode               | `boolean`                              | `false`   |             | No       |
 | decimal     | Decimal                    | `number`                            | `0`     |             | No       |
 | step        | Step used in stepper       | `number`                            |         |             | No       |
-| dynamicDecimal | show decimal as input      |    `boolean`           |  `false`   |        |   No    |
 | min         | Minimum value in the range | `number`                            |         |             | No       |
 | max         | Maximum value in the range | `number`                            |         |             | No       |
 | placeholder | Placeholder text           | `string`                            | `''`    |             | No       |
