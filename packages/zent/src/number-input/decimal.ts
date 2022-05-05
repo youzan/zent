@@ -12,9 +12,6 @@ export function isDecimal(value: string): boolean {
   return /^[-+]?\d*\.?\d*$/.test(value);
 }
 
-// 表示小数点位数取用户实际输入的小数点位数
-const DYNAMIC_DECIMAL_SIGN = -1;
-
 export function getDelta(decimal: number, step?: number): Decimal {
   if (Number.isFinite(step)) {
     return new Decimal(step);
@@ -57,7 +54,8 @@ export function normalizeValue(
   min: Decimal | null,
   max: Decimal | null,
   decimalPlaces: number,
-  showTooltip?: boolean
+  showTooltip?: boolean,
+  dynamicDecimal?: boolean
 ): {
   input: string;
   value: Decimal;
@@ -109,9 +107,7 @@ export function normalizeValue(
   const popState = pop && showTooltip ? { pop } : {};
   return {
     input: decimal.toFixed(
-      decimalPlaces === DYNAMIC_DECIMAL_SIGN
-        ? getDecimalsLength(decimal)
-        : decimalPlaces
+      dynamicDecimal ? getDecimalsLength(decimal) : decimalPlaces
     ),
     value: decimal,
     ...popState,

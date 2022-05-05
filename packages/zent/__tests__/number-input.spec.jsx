@@ -50,7 +50,7 @@ describe('NumberInput', () => {
 
   it('dynamic decimal point precision', () => {
     const wrapper = mount(
-      <NumberInput value={2.123} decimal={-1} integer={false} />
+      <NumberInput value={2.123} dynamicDecimal={true} integer={false} />
     );
     expect(wrapper.state('input')).toBe('2.123');
     const input = wrapper.find('input');

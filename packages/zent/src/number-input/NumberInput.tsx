@@ -26,6 +26,7 @@ export interface INumberInputDecimalProps extends INumberInputCommonProps {
   value?: string | number;
   onChange?: (value: string) => void;
   decimal?: number;
+  dynamicDecimal?: boolean;
   onInput?: (value: string) => void;
   min?: number | string;
 }
@@ -121,7 +122,14 @@ function getStateFromProps(
       max,
       delta: Decimals.getDelta(props.decimal, props.step),
       ...(updateValueInState
-        ? Decimals.normalizeValue(props.value, min, max, props.decimal)
+        ? Decimals.normalizeValue(
+            props.value,
+            min,
+            max,
+            props.decimal,
+            false,
+            props.dynamicDecimal
+          )
         : {}),
     };
   }
@@ -136,6 +144,7 @@ export class NumberInput extends Component<
     type: 'number',
     decimal: 0,
     size: 'normal',
+    dynamicDecimal: false,
   };
 
   static contextType = DisabledContext;
@@ -218,14 +227,15 @@ export class NumberInput extends Component<
       const { onBlur } = this.props;
       onBlur?.(e);
     } else {
-      const { onChange, decimal, showTooltip } = this.props;
+      const { onChange, decimal, showTooltip, dynamicDecimal } = this.props;
       const { input, min, max } = this.state as INumberInputDecimalState;
       const normalized = Decimals.normalizeValue(
         input,
         min,
         max,
         decimal,
-        showTooltip
+        showTooltip,
+        dynamicDecimal
       );
       onChange?.(normalized.input);
       this.setState(normalized, () => {
@@ -363,7 +373,9 @@ export class NumberInput extends Component<
         props.value,
         nextState.min,
         nextState.max,
-        props.decimal
+        props.decimal,
+        false,
+        props.dynamicDecimal
       );
       nextState.value = value;
       nextState.input = input;
