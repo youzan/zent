@@ -42,10 +42,6 @@ Default value type is string. Under integer mode, value type is number, with def
   - In decimal mode with two digits precision after zero, if we type `1.0`, `onInput` gets a value of `'1.0'` but `onChange` get a value of `'1.00'`
   - In integer mode, if we type `2.0`, `onInput` gets a value of `'2.0'`, but `onChange` gets a value of `2`. Note the type different.
 
-#### when `decimal` is -1
-
-It represents the number of decimal places to take the number of decimal places actually entered by the user
-
 <style>
 .zent-number-input {
   width: 200px;
