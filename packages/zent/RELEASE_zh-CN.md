@@ -9,6 +9,11 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 9.12.8(2022-05-27)
+
+- `Cascader`
+	- ✨ 当配置了 `searchable` 时，也支持了placeholder
+
 ### 9.12.7(2022-03-15)
 
 - `Cascader`
