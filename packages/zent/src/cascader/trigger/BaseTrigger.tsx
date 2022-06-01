@@ -90,7 +90,7 @@ export class BaseTrigger extends Component<
     if (hasValue) {
       triggerText = renderValue(selectedPaths[0]);
     } else if (searchable) {
-      triggerText = i18n.searchPlaceholder;
+      triggerText = placeholder || i18n.searchPlaceholder;
     } else {
       triggerText = placeholder || i18n.placeholder;
     }
