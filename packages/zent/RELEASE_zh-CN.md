@@ -10,6 +10,10 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 10.0.1-rc.0(2022-06-01)
+- `Cascader`
+	- ✨ 当配置了 `searchable` 时，也支持了placeholder
+
 ### 10.0.0(2022-03-28)
 
 详见 [10.x 升级指南](./changelog-v10)
