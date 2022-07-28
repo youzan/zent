@@ -37,10 +37,12 @@ export class AnimateHeight extends Component<IAnimateHeightProps> {
     const { appear, height, duration } = this.props;
     const el = this.ref.current;
     if (appear && height === 'auto') {
+      // save current height
+      const prevHeight = el.offsetHeight;
       el.style.height = '0px';
       runInNextFrame(() => {
         if (this.props.height === height) {
-          el.style.height = `${el.offsetHeight}px`;
+          el.style.height = `${prevHeight}px`;
           this.timer = setTimeout(() => {
             this.timer = null;
             if (this.props.height === height) {
