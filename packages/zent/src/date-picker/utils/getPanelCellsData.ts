@@ -1,4 +1,4 @@
-import { eachDayOfInterval, isAfter, isBefore } from 'date-fns';
+import { eachDayOfInterval, isAfter, isBefore, isSameDay } from 'date-fns';
 import { IDateCellBase, IGenerateDateConfig, DateTuple } from '../types';
 
 interface ICellDateParams {
@@ -15,6 +15,7 @@ interface ICellDateParams {
   inView?: (val1: Date, val2: Date) => boolean;
   disableRangeOverView?: boolean;
 }
+
 /**
  * 根据当前组件的selected等值 获得最小单元格的属性集合
  *
@@ -57,9 +58,10 @@ export default function getPanelCellsData({
       let isInRange = false;
       //  hover-range
       if (hoverRangeDate) {
-        const isInHoverRangeDate =
-          isAfter(currentDate, offsetDate(hoverRangeDate[0], -1)) &&
-          isBefore(currentDate, hoverRangeDate[1]);
+        const isInHoverRangeDate = isDateInRangeInclusive(
+          currentDate,
+          hoverRangeDate
+        );
 
         isInHoverRange = disableRangeOverView
           ? isInHoverRangeDate && isInView
@@ -67,9 +69,7 @@ export default function getPanelCellsData({
       }
       // selected range
       if (rangeDate) {
-        const isInRangeDate =
-          isAfter(currentDate, offsetDate(rangeDate[0], -1)) &&
-          isBefore(currentDate, rangeDate[1]);
+        const isInRangeDate = isDateInRangeInclusive(currentDate, rangeDate);
 
         isInRange = disableRangeOverView
           ? isInRangeDate && isInView
@@ -103,4 +103,12 @@ export default function getPanelCellsData({
     }
   }
   return cells;
+}
+
+function isDateInRangeInclusive(date: Date, range: DateTuple): boolean {
+  return (
+    isSameDay(date, range[0]) ||
+    isSameDay(date, range[1]) ||
+    (isAfter(date, range[0]) && isBefore(date, range[1]))
+  );
 }
