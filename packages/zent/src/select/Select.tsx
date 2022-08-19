@@ -76,6 +76,7 @@ export interface ISelectCommonProps<
   hideCollapsePop?: boolean;
   className?: string;
   disableSearch?: boolean;
+  renderCollapsedContent?: (collapsedValue: Item[]) => React.ReactNode;
 }
 
 export interface ISelectSingleProps<
@@ -747,6 +748,7 @@ export class Select<
       collapsable,
       hideCollapsePop,
       collapseAt = 1,
+      renderCollapsedContent,
     } = this.props as ISelectMultiProps<Key, Item>;
     const tagsValue = collapsable ? value.slice(0, collapseAt) : value;
     const collapsedValue = value.slice(collapseAt);
@@ -776,15 +778,17 @@ export class Select<
               content={
                 <div className="zent-select-v2-tag-collapsed-content">
                   <div>
-                    {collapsedValue.map((item, index) => {
-                      return (
-                        <span key={item.key}>
-                          {renderValue ? renderValue(item) : item.text}
-                          {index !== collapsedValue.length - 1 &&
-                            i18n.tagSeparator}
-                        </span>
-                      );
-                    })}
+                    {typeof renderCollapsedContent === 'function'
+                      ? renderCollapsedContent(collapsedValue)
+                      : collapsedValue.map((item, index) => {
+                          return (
+                            <span key={item.key}>
+                              {renderValue ? renderValue(item) : item.text}
+                              {index !== collapsedValue.length - 1 &&
+                                i18n.tagSeparator}
+                            </span>
+                          );
+                        })}
                   </div>
                 </div>
               }
