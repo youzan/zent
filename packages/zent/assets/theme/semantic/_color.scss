@@ -46,14 +46,12 @@ $disabled-colors: (
 
 // use in section, card...
 $section-colors: (
-  'bg': $text-200,
-  'shadow': $shadow-color,
-  'border-color': $text-300,
+  'bg': $gray-100,
 );
 
 $body-colors: (
   'color': $text-600,
-  'bg': $text-100,
+  'bg': $gray-200,
 );
 
 $success-colors: (
@@ -76,20 +74,12 @@ $danger-colors: (
 
 $default-colors: (
   'color': $text-600,
-  'bg': $text-700,
-  'border-color': $text-700,
-  // Hover state of default text color components e.g. default button..
-  'hover-color': $primary-500,
-  // Hover state of default background color of components , e.g. grid, select panel..
-  'hover-bg': $primary-100,
-  // Hover state of default border color of components , e.g. default button..
-  'hover-border-color': $primary-500,
-  'selected': $text-200,
-  'active-bg': $text-300,
-  'active-border-color': $text-300,
+  'bg': $text-100,
+  'border-color': $gray-300,
+  'hover-bg': $gray-200,
+  'selected-bg': $primary-100,
   'disabled-color': $text-400,
-  'disabled-bg': $text-200,
-  'disabled-border-color': $text-400,
+  'disabled-bg': $gray-200,
 );
 
 $primary-colors: (
@@ -130,6 +120,11 @@ $rate-colors: (
   'bg': $star-color,
 );
 
+// 这是个特殊颜色，不在色板中
+$badge-colors: (
+  'bg': $badge-bg-color,
+);
+
 // 文字按钮
 $text-button-colors: (
   'color': $primary-500,
@@ -145,9 +140,13 @@ $icon-button-colors: (
   'color': $text-600,
   'bg': $text-100,
   'hover-color': $text-600,
-  'hover-bg': rgba($text-600, 0.05),
+  'hover-bg': rgba($gray-700, 0.05),
   'active-color': $text-600,
-  'active-bg': rgba($text-600, 0.1),
+  'active-bg': rgba($gray-700, 0.1),
+);
+
+$shadow-colors: (
+  'bg': $gray-700,
 );
 
 // 所有种类颜色的集合
@@ -157,6 +156,7 @@ $color-sets: (
   'disabled': $disabled-colors,
   'body': $body-colors,
   'section': $section-colors,
+  'shadow': $shadow-colors,
   'success': $success-colors,
   'warning': $warning-colors,
   'danger': $danger-colors,
@@ -165,6 +165,7 @@ $color-sets: (
   'primary': $primary-colors,
   'weak-link': $weak-link-colors,
   'rate': $rate-colors,
+  'badge': $badge-colors,
   'text-button': $text-button-colors,
   'icon-button': $icon-button-colors,
 );
@@ -177,64 +178,50 @@ $theme-stroke-3: map-get($hint-colors, 'color') !default; // help text
 $theme-stroke-4: map-get($disabled-colors, 'color') !default; // disabled text
 
 // Border and line colors
-$theme-stroke-5: map-get($section-colors, 'border-color') !default;
-$theme-stroke-6: map-get($section-colors, 'border-color') !default;
+$theme-stroke-5: map-get($default-colors, 'border-color') !default;
+$theme-stroke-6: map-get($default-colors, 'border-color') !default;
 
 // Background colors
-$theme-stroke-7: map-get($section-colors, 'bg') !default;
-$theme-stroke-8: map-get($section-colors, 'bg') !default;
-$theme-stroke-9: map-get(
-  $body-colors,
-  'bg'
-) !default; // White button normal background color
+$theme-stroke-7: map-get($body-colors, 'bg') !default;
+$theme-stroke-8: map-get($body-colors, 'bg') !default;
+
+// White button normal background color
+$theme-stroke-9: map-get($section-colors, 'bg') !default;
 
 // Button background color
-$theme-stroke-10: map-get($section-colors, 'border-color') !default; // Active
-$theme-stroke-11: map-get(map-get($color-sets, 'body'), 'bg') !default; // Hover
-$theme-stroke-12: map-get(
-  map-get($color-sets, 'default'),
-  'bg'
-) !default; // default-back
+$theme-stroke-10: map-get($default-colors, 'border-color') !default; // Active
+$theme-stroke-11: map-get($body-colors, 'bg') !default; // Hover
 
 // Blue(primary)
-$theme-primary-1: map-get(
-  map-get($color-sets, 'primary'),
-  'active-bg'
-) !default;
-$theme-primary-2: map-get(
-  map-get($color-sets, 'primary'),
-  'active-bg'
-) !default;
-$theme-primary-3: map-get(
-  map-get($color-sets, 'primary'),
-  'active-bg'
-) !default;
-$theme-primary-4: map-get(map-get($color-sets, 'primary'), 'bg') !default;
-$theme-primary-5: map-get(map-get($color-sets, 'primary'), 'hover-bg') !default;
-$theme-primary-6: map-get(map-get($color-sets, 'primary'), 'hover-bg') !default;
-$theme-primary-7: map-get(map-get($color-sets, 'primary'), 'hover-bg') !default;
-$theme-primary-8: map-get(map-get($color-sets, 'default'), 'hover-bg') !default;
+$theme-primary-1: map-get($primary-colors, 'active-bg') !default;
+$theme-primary-2: map-get($primary-colors, 'active-bg') !default;
+$theme-primary-3: map-get($primary-colors, 'active-bg') !default;
+$theme-primary-4: map-get($primary-colors, 'bg') !default;
+$theme-primary-5: map-get($primary-colors, 'hover-bg') !default;
+$theme-primary-6: map-get($primary-colors, 'hover-bg') !default;
+$theme-primary-7: map-get($primary-colors, 'hover-bg') !default;
+$theme-primary-8: map-get($default-colors, 'selected-bg') !default;
 
 // Green
-$theme-success-1: map-get(map-get($color-sets, 'success'), 'color') !default;
-$theme-success-2: map-get(map-get($color-sets, 'success'), 'color') !default;
-$theme-success-3: map-get(map-get($color-sets, 'success'), 'color') !default;
-$theme-success-4: map-get(map-get($color-sets, 'success'), 'color') !default;
-$theme-success-5: map-get(map-get($color-sets, 'success'), 'bg') !default;
+$theme-success-1: map-get($success-colors, 'color') !default;
+$theme-success-2: map-get($success-colors, 'color') !default;
+$theme-success-3: map-get($success-colors, 'color') !default;
+$theme-success-4: map-get($success-colors, 'color') !default;
+$theme-success-5: map-get($success-colors, 'bg') !default;
 
 // Red
-$theme-error-1: map-get(map-get($color-sets, 'danger'), 'color') !default;
-$theme-error-2: map-get(map-get($color-sets, 'danger'), 'color') !default;
-$theme-error-3: map-get(map-get($color-sets, 'danger'), 'color') !default;
-$theme-error-4: map-get(map-get($color-sets, 'danger'), 'color') !default;
-$theme-error-5: map-get(map-get($color-sets, 'danger'), 'bg') !default;
+$theme-error-1: map-get($danger-colors, 'color') !default;
+$theme-error-2: map-get($danger-colors, 'color') !default;
+$theme-error-3: map-get($danger-colors, 'color') !default;
+$theme-error-4: map-get($danger-colors, 'color') !default;
+$theme-error-5: map-get($danger-colors, 'bg') !default;
 
 // Orange
-$theme-warn-1: map-get(map-get($color-sets, 'warning'), 'color') !default;
-$theme-warn-2: map-get(map-get($color-sets, 'warning'), 'color') !default;
-$theme-warn-3: map-get(map-get($color-sets, 'warning'), 'color') !default;
-$theme-warn-4: map-get(map-get($color-sets, 'warning'), 'color') !default;
-$theme-warn-5: map-get(map-get($color-sets, 'warning'), 'bg') !default;
+$theme-warn-1: map-get($warning-colors, 'color') !default;
+$theme-warn-2: map-get($warning-colors, 'color') !default;
+$theme-warn-3: map-get($warning-colors, 'color') !default;
+$theme-warn-4: map-get($warning-colors, 'color') !default;
+$theme-warn-5: map-get($warning-colors, 'bg') !default;
 
 $loading-icon-youzan-color: #e00 !default;
 
@@ -314,35 +301,35 @@ $theme-colors-mapping: (
       attr: 'color',
     ),
     (
-      cat: 'section',
+      cat: 'default',
       attr: 'border-color',
-    ),
-    (
-      cat: 'section',
-      attr: 'border-color',
-    ),
-    (
-      cat: 'section',
-      attr: 'bg',
-    ),
-    (
-      cat: 'section',
-      attr: 'bg',
-    ),
-    (
-      cat: 'body',
-      attr: 'bg',
-    ),
-    (
-      cat: 'section',
-      attr: 'border-color',
-    ),
-    (
-      cat: 'body',
-      attr: 'bg',
     ),
     (
       cat: 'default',
+      attr: 'border-color',
+    ),
+    (
+      cat: 'body',
+      attr: 'bg',
+    ),
+    (
+      cat: 'body',
+      attr: 'bg',
+    ),
+    (
+      cat: 'section',
+      attr: 'bg',
+    ),
+    (
+      cat: 'section',
+      attr: 'border-color',
+    ),
+    (
+      cat: 'default',
+      attr: 'border-color',
+    ),
+    (
+      cat: 'body',
       attr: 'bg',
     ),
   ),
@@ -377,7 +364,7 @@ $theme-colors-mapping: (
     ),
     (
       cat: 'default',
-      attr: 'hover-bg',
+      attr: 'selected-bg',
     ),
   ),
   'success': (

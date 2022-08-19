@@ -19,6 +19,7 @@ ReactDOM.render(
 	<div>
 		<Tag
 			style={{
+        color: '#fff',
 				borderColor: '#9370db',
 				backgroundColor: '#9370db',
 			}}
