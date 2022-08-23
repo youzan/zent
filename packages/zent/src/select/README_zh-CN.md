@@ -45,7 +45,7 @@ group: 信息录入
 | renderOptionList       | 渲染选项列表                                                       | `(options: Items[], renderOption) => ReactNode`              |                             | 否       |
 | renderOptionContent    | 渲染浮层中的每一项                                                 | `(option: Item) => ReactNode`                                |                             | 否       |
 | disableSearch          | 关闭搜索功能                                                       | `boolean`                                                    | `false`                     | 否       |
-| renderCollapsedContent | 多选且有折叠 tags 时，自定义渲染浮层内容             | `(collapsedValue: Item[]) => ReactNode`                      |                             | no       |
+| renderCollapsedContent | 多选且有折叠 tags 时，自定义渲染浮层内容             | `(collapsedValue: Item[]) => ReactNode`                      |                             | 否       |
 
 ### `Select.reviveValue`
 
