@@ -246,7 +246,7 @@ $fixed-left-column-box-shadow: 4px 0 8px -4px rgba($shadow-color, 0.1);
 
     &:hover,
     &__mouseover {
-      @include theme-color(background-color, section, bg);
+      @include theme-color(background-color, default, bg);
     }
 
     &__expanded {

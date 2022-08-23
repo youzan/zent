@@ -2,7 +2,7 @@
 .zent-dropdown-nav-btn {
   &.zent-btn-text {
     font-size: 14px;
-    @include theme-color(background-color, stroke, 11);
+    @include theme-color(background-color, stroke, 9);
     height: 32px;
     line-height: 30px;
     padding-left: 16px;

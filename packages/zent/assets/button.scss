@@ -29,15 +29,19 @@ $btn-icon-size-large-font: 24px;
 $btn-primary: 4;
 $btn-primary-hover: 5;
 $btn-primary-active: 3;
+$btn-primary-bg: 8;
 $btn-danger: 2;
 $btn-danger-hover: 3;
 $btn-danger-active: 1;
+$btn-danger-bg: 5;
 $btn-success: 2;
 $btn-success-hover: 3;
 $btn-success-active: 1;
+$btn-success-bg: 5;
 $btn-warning: 2;
 $btn-warning-hover: 3;
 $btn-warning-active: 1;
+$btn-warning-bg: 5;
 
 @mixin btn-primary($prop) {
   @include theme-color($prop, primary, $btn-primary);
@@ -123,7 +127,7 @@ $btn-warning-active: 1;
   }
 }
 
-@mixin btn-style-outline($name, $default, $hover, $active) {
+@mixin btn-style-outline($name, $default, $hover, $active, $bg) {
   @include theme-color(color, $name, $default);
   @include theme-color(border-color, $name, $default);
   @include btn-white(background-color);
@@ -156,16 +160,16 @@ $btn-warning-active: 1;
     &::after {
       @include theme-color(border-top-color, $name, $default);
       @include theme-color(border-right-color, $name, $default);
-      @include theme-color(border-bottom-color, section, bg);
-      @include theme-color(border-left-color, section, bg);
+      @include theme-color(border-bottom-color, $name, $bg);
+      @include theme-color(border-left-color, $name, $bg);
     }
   }
 }
 
 .zent-btn {
   @include theme-color(color, 'default', 'color');
-  @include theme-color(background-color, 'default', 'bg', 0.06);
-  @include theme-color(border-color, 'default', 'border-color', 0.06);
+  @include theme-color(background-color, 'shadow', 'bg', 0.06);
+  @include theme-color(border-color, 'shadow', 'bg', 0.06);
   display: inline-block;
   height: $btn-height-normal;
   line-height: $btn-height-normal - 2px;
@@ -194,14 +198,14 @@ $btn-warning-active: 1;
   }
 
   &:hover {
-    @include theme-color(background-color, 'default', 'bg', 0.03);
-    @include theme-color(border-color, 'default', 'border-color', 0.03);
+    @include theme-color(background-color, 'shadow', 'bg', 0.03);
+    @include theme-color(border-color, 'shadow', 'bg', 0.03);
     text-decoration: none;
   }
 
   &:active {
     @include theme-color(color, 'default', 'color');
-    @include theme-color(background-color, 'default', 'bg', 0.09);
+    @include theme-color(background-color, 'shadow', 'bg', 0.09);
     text-decoration: none;
   }
 
@@ -271,7 +275,8 @@ $btn-warning-active: 1;
       primary,
       $btn-primary,
       $btn-primary-hover,
-      $btn-primary-active
+      $btn-primary-active,
+      $btn-primary-bg
     );
   }
 
@@ -291,7 +296,8 @@ $btn-warning-active: 1;
       error,
       $btn-danger,
       $btn-danger-hover,
-      $btn-danger-active
+      $btn-danger-active,
+      $btn-danger-bg
     );
   }
 
@@ -309,7 +315,8 @@ $btn-warning-active: 1;
       success,
       $btn-success,
       $btn-danger-hover,
-      $btn-danger-active
+      $btn-danger-active,
+      $btn-danger-bg
     );
   }
 
@@ -327,7 +334,8 @@ $btn-warning-active: 1;
       warn,
       $btn-warning,
       $btn-warning-hover,
-      $btn-warning-active
+      $btn-warning-active,
+      $btn-warning-bg
     );
   }
 
@@ -366,8 +374,8 @@ $btn-warning-active: 1;
   }
 
   &-text {
-    @include theme-color(background-color, primary, 4, 0.03);
-    @include theme-color(color, primary, 4);
+    @include theme-color(background-color, text-button, bg);
+    @include theme-color(color, text-button, color);
     font-size: $font-size-small;
     height: $btn-height-small;
     line-height: $btn-height-small;
@@ -380,15 +388,15 @@ $btn-warning-active: 1;
     &:active,
     &:focus {
       border: 0;
-      @include theme-color(color, primary, 4);
+      @include theme-color(color, text-button, color);
     }
 
     &:hover {
-      @include theme-color(background-color, primary, 4, 0.06);
+      @include theme-color(background-color, text-button, hover-bg);
     }
 
     &:active {
-      @include theme-color(background-color, primary, 4, 0.09);
+      @include theme-color(background-color, text-button, active-bg);
     }
   }
 
@@ -464,8 +472,8 @@ $btn-warning-active: 1;
     &::after {
       @include theme-color(border-top-color, stroke, 1);
       @include theme-color(border-right-color, stroke, 1);
-      @include theme-color(border-bottom-color, stroke, 9);
-      @include theme-color(border-left-color, stroke, 9);
+      @include theme-color(border-bottom-color, stroke, 8);
+      @include theme-color(border-left-color, stroke, 8);
       animation: zent-ani-spin 0.6s linear;
       animation-iteration-count: infinite;
     }
@@ -482,8 +490,8 @@ $btn-warning-active: 1;
     &.zent-btn-text::after {
       @include theme-color(border-top-color, primary, 4);
       @include theme-color(border-right-color, primary, 4);
-      @include theme-color(border-bottom-color, section, bg);
-      @include theme-color(border-left-color, section, bg);
+      @include theme-color(border-bottom-color, default, selected-bg);
+      @include theme-color(border-left-color, default, selected-bg);
     }
 
     &.zent-btn-icon::after {
