@@ -190,7 +190,7 @@ $theme-stroke-9: map-get($section-colors, 'bg') !default;
 
 // Button background color
 $theme-stroke-10: map-get($default-colors, 'border-color') !default; // Active
-$theme-stroke-11: map-get($body-colors, 'bg') !default; // Hover
+$theme-stroke-11: map-get($section-colors, 'bg') !default; // Hover
 
 // Blue(primary)
 $theme-primary-1: map-get($primary-colors, 'active-bg') !default;
