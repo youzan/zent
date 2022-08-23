@@ -9,6 +9,17 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 10.0.2(2022-08-23)
+- ✨ `Select` add `renderCollapsedContent` prop to customize the rendering of the collapsed items
+- 🦀️ Fix theme colors
+
+### 10.0.1-rc.0(2022-06-01)
+- ✨ `Cascader` supports using `searchable` and `placeholder` together
+
+### 10.0.0(2022-03-28)
+
+See [10.x Upgrade Guides(Chinese Only)](./changelog-v10)
+
 ### 9.12.4(2022-01-11)
 - `Popover`
   - 🦀 Fix withPop HOC type error
