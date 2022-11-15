@@ -151,8 +151,8 @@ describe('<Button />', () => {
     );
     const buttonNode = findRenderedDOMComponentWithTag(tree, 'a');
     expect(buttonNode.classList.contains('zent-btn-disabled')).toBe(true);
+    expect(buttonNode.getAttribute('href')).toBe(null);
     /** call event.preventDefault within `onClick` callback */
-    expect(buttonNode.href).toBe('http://youzan.com/');
     Simulate.click(buttonNode);
     expect(isClicked).toBe(false);
   });

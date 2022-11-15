@@ -66,7 +66,12 @@ export class Button extends Component<IButtonProps> {
         onMouseLeave={this.props.onMouseLeave}
       >
         {href || target ? (
-          <a href={href || ''} target={target} download={download} {...props}>
+          <a
+            href={disabled ? undefined : href || ''}
+            target={target}
+            download={download}
+            {...props}
+          >
             {children}
           </a>
         ) : (

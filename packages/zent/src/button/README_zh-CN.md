@@ -35,9 +35,14 @@ group: 基础控件
 | target    | 可选，和 href 一起使用，就是 a 标签的 target 属性 | string | `''`        | `'_blank'`                           |
 | download  | HTML5 的下载功能                                  | string |             |                                      |
 | className | 自定义类名                                        | string |             |                                      |
-| style     | 自定 style                                        | object |             |                                      |
+| style     | 自定义 style                                        | object |             |                                      |
 
 #### ButtonDirective
 
 这个组件会将 `Button` 的样式渲染到自己的 `children` 上，主要用在需要 `Button` 的样式，但是需要有特殊逻辑的按钮，例如将一个 `react-router` 的 `Link` 渲染成 `Button` 的样式，但是保留 `Link` 自身的功能。API 只支持 `Button` 的样式参数，用法参考 demo。
 
+#### disabled 状态
+
+Button 处于禁用状态时，传入的 `onClick` 事件回调不会触发；点击事件的默认行为会被禁止（`event.preventDefault()`），但不会禁止事件冒泡；
+
+如果传入了 `href` 属性，禁用时 `href` 不会传递给渲染的 a 标签。
