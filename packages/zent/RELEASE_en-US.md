@@ -9,6 +9,10 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 10.0.4(2022-11-15)
+- 🦀 `href` is no longer rendered in disabled `<a>` tag `Button`
+- 🦀️ Fix  `onError` typing issue in `withErrorBoundary`
+
 ### 10.0.3(2022-08-31)
 - 🦀️ Fix theme colors
 
