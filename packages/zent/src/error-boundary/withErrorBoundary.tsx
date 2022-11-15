@@ -1,11 +1,12 @@
 import ErrorBoundary, {
   IErrorBoundaryFallbackComponentProps,
+  IOnErrorCallback,
 } from './ErrorBoundary';
 
 export interface IWithErrorBoundaryOption<P> {
   Component?: React.ComponentType<P>;
   FallbackComponent?: React.ComponentType<IErrorBoundaryFallbackComponentProps>;
-  onError?: (error: any) => void;
+  onError?: IOnErrorCallback;
 }
 
 export function withErrorBoundary<P>({
