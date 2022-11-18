@@ -114,8 +114,8 @@ $type-map: (
     cursor: pointer;
 
     .zent-alert-item-close-btn {
-      @include theme-color(color, stroke, 4);
-      font-size: 12px;
+      @include theme-color(color, stroke, 3);
+      font-size: 20px;
       width: 16px;
       height: 20px;
       line-height: 20px;
