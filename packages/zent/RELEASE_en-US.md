@@ -9,6 +9,10 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 9.12.9(2022-11-21)
+
+- Change `Alert` and `Input` icon button size to `20px`
+
 ### 9.12.4(2022-01-11)
 - `Popover`
   - 🦀 Fix withPop HOC type error
