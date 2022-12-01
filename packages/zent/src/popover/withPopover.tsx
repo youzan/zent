@@ -23,7 +23,7 @@ export function usePopover() {
  */
 export function exposePopover<N extends string>(propName: N) {
   return function expose<Props extends Record<N, Popover> = Record<N, Popover>>(
-    Base: React.ComponentType<Props>
+    Base: React.ComponentType<React.PropsWithChildren<Props>>
   ) {
     const componentName =
       Base.displayName || Base.constructor.name || 'Component';
@@ -47,5 +47,5 @@ export function exposePopover<N extends string>(propName: N) {
 }
 
 export default exposePopover('popover') as <T extends { popover: Popover }>(
-  Comp: React.ComponentType<T>
-) => React.ComponentType<Omit<T, 'popover'>>;
+  Comp: React.ComponentType<React.PropsWithChildren<T>>
+) => React.ComponentType<React.PropsWithChildren<Omit<T, 'popover'>>>;

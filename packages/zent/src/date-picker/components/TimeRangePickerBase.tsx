@@ -20,11 +20,15 @@ const { START, END } = RangeTypeMap;
 const PanelContextProvider = PanelContext.Provider;
 
 interface ITimeRangePickerBaseProps extends ITimeRangePickerPropsWithDefault {
-  PickerComponent: React.ComponentType<ITimePickerProps>;
+  PickerComponent: React.ComponentType<
+    React.PropsWithChildren<ITimePickerProps>
+  >;
   seperator: string;
 }
 
-const TimeRangePickerBase: React.FC<ITimeRangePickerBaseProps> = ({
+const TimeRangePickerBase: React.FC<
+  React.PropsWithChildren<ITimeRangePickerBaseProps>
+> = ({
   value,
   onChange,
   disabledTime,

@@ -20,7 +20,9 @@ import BaseTabs from './components/base/BaseTabs';
 import { getTabDataFromChild } from './utils';
 
 const TabsNavComponents: {
-  [type in TabType]?: React.ComponentType<ITabsNavProps<any>>;
+  [type in TabType]?: React.ComponentType<
+    React.PropsWithChildren<ITabsNavProps<any>>
+  >;
 } = {
   normal: NormalTabsNav,
   card: CardTabsNav,

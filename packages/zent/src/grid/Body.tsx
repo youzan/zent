@@ -32,7 +32,7 @@ export interface IGridBodyProps<Data> {
   rowProps?: (data: Data, index: number) => any;
   datasets: ReadonlyArray<Data>;
   components?: {
-    row?: React.ComponentType;
+    row?: React.ComponentType<React.PropsWithChildren<unknown>>;
   };
   onRowClick: IGridRowClickHandler<Data>;
   onRowMouseEnter: (index: number) => void;

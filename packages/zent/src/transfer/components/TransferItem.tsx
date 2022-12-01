@@ -11,7 +11,7 @@ import { getDisabledKeys } from '../utils';
 import Search from './Search';
 import AllCheckBox from './AllCheckBox';
 
-const TransferItem: React.FC<ITransferItem> = ({
+const TransferItem: React.FC<React.PropsWithChildren<ITransferItem>> = ({
   prefix,
   title,
   dataSets,

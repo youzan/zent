@@ -15,7 +15,7 @@ type ITriggerDivProps = Pick<
   ISingleTriggerProps,
   'disabled' | 'canClear' | 'panelVisible' | 'width'
 >;
-const TriggerDiv: React.FC<ITriggerDivProps> = ({
+const TriggerDiv: React.FC<React.PropsWithChildren<ITriggerDivProps>> = ({
   disabled,
   canClear,
   panelVisible,
@@ -38,7 +38,9 @@ const TriggerDiv: React.FC<ITriggerDivProps> = ({
     </div>
   );
 };
-export const SingleInputTrigger: React.FC<ISingleTriggerProps> = ({
+export const SingleInputTrigger: React.FC<
+  React.PropsWithChildren<ISingleTriggerProps>
+> = ({
   value,
   format,
   seperator,
@@ -97,7 +99,9 @@ export const SingleInputTrigger: React.FC<ISingleTriggerProps> = ({
 interface ICombinedInputTriggerProps extends IRangeTriggerProps {
   selected: DateNullTuple;
 }
-export const CombinedInputTrigger: React.FC<ICombinedInputTriggerProps> = ({
+export const CombinedInputTrigger: React.FC<
+  React.PropsWithChildren<ICombinedInputTriggerProps>
+> = ({
   format,
   value,
   selected,

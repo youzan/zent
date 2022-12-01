@@ -8,7 +8,7 @@ import PanelContext from '../../context/PanelContext';
 import { formatDate } from '../../utils/index';
 import { ITimePanelProps } from '../../types';
 
-const TimePickerFooter: React.FC<ITimePanelProps> = ({
+const TimePickerFooter: React.FC<React.PropsWithChildren<ITimePanelProps>> = ({
   onSelected,
   selected,
   format,

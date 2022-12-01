@@ -13,7 +13,9 @@ const COL_COUNT = 2;
 const ROW_COUNT = 2;
 
 type IQuarterPickerBodyProps = ISingleDateBodyProps;
-const QuarterPickerBody: React.FC<IQuarterPickerBodyProps> = ({
+const QuarterPickerBody: React.FC<
+  React.PropsWithChildren<IQuarterPickerBodyProps>
+> = ({
   defaultPanelDate,
   onSelected,
   selected,

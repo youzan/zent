@@ -8,17 +8,18 @@ export type IFormTimePickerField = IFormComponentProps<
   Omit<ITimePickerProps, 'value'>
 >;
 
-export const FormTimePickerField: React.FunctionComponent<IFormTimePickerField> =
-  props => {
-    return (
-      <FormField
-        {...props}
-        defaultValue={
-          (props as $MergeParams<IFormTimePickerField>).defaultValue ??
-          dateDefaultTimeFactory
-        }
-      >
-        {childProps => <TimePicker {...props.props} {...childProps} />}
-      </FormField>
-    );
-  };
+export const FormTimePickerField: React.FunctionComponent<
+  React.PropsWithChildren<IFormTimePickerField>
+> = props => {
+  return (
+    <FormField
+      {...props}
+      defaultValue={
+        (props as $MergeParams<IFormTimePickerField>).defaultValue ??
+        dateDefaultTimeFactory
+      }
+    >
+      {childProps => <TimePicker {...props.props} {...childProps} />}
+    </FormField>
+  );
+};

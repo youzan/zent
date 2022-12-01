@@ -3,7 +3,7 @@ import { CSSTransition } from 'react-transition-group';
 import { IDrawerBackdrop } from '../types';
 import { TransitionTimeOut } from '../constants';
 
-const DrawerBackdrop: React.FC<IDrawerBackdrop> = ({
+const DrawerBackdrop: React.FC<React.PropsWithChildren<IDrawerBackdrop>> = ({
   mask,
   maskClosable,
   visible,

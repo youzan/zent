@@ -18,13 +18,17 @@ export interface II18nLocalePagination {
   pageStats(options: {
     total: React.ReactNode;
     select: React.ReactNode;
-    Text: React.ComponentType<{ type: 'middle' | 'right' }>;
+    Text: React.ComponentType<
+      React.PropsWithChildren<{ type: 'middle' | 'right' }>
+    >;
   }): React.ReactNode;
 
   pageStatsStatic(options: {
     total: React.ReactNode;
     pageSize: React.ReactNode;
-    Text: React.ComponentType<{ type: 'middle' | 'right' }>;
+    Text: React.ComponentType<
+      React.PropsWithChildren<{ type: 'middle' | 'right' }>
+    >;
   }): React.ReactNode;
 
   selectWidth: number;

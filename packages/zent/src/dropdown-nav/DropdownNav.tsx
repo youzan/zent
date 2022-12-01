@@ -28,32 +28,28 @@ const TriggerButtonMap: Record<'hover' | 'click', ElementType> = {
   click: DropdownClickTrigger,
 };
 
-export const DropdownNav: React.FC<IDropdownNavProps> = ({
-  list = [],
-  trigger = 'hover',
-  onItemClick,
-  children,
-}) => {
-  const TriggerButton = useMemo(() => {
-    return TriggerButtonMap[trigger];
-  }, [trigger]);
-  return (
-    <Dropdown
-      className="zent-dropdown-nav"
-      position={DropdownPosition.BottomSameWidth}
-    >
-      <TriggerButton>
-        <DropdownButton className={'zent-dropdown-nav-btn'} type="text">
-          {children}
-        </DropdownButton>
-      </TriggerButton>
-      <DropdownContent>
-        <Menu onClick={onItemClick}>
-          {list.map(item => (
-            <MenuItem key={item.key}>{item.label}</MenuItem>
-          ))}
-        </Menu>
-      </DropdownContent>
-    </Dropdown>
-  );
-};
+export const DropdownNav: React.FC<React.PropsWithChildren<IDropdownNavProps>> =
+  ({ list = [], trigger = 'hover', onItemClick, children }) => {
+    const TriggerButton = useMemo(() => {
+      return TriggerButtonMap[trigger];
+    }, [trigger]);
+    return (
+      <Dropdown
+        className="zent-dropdown-nav"
+        position={DropdownPosition.BottomSameWidth}
+      >
+        <TriggerButton>
+          <DropdownButton className={'zent-dropdown-nav-btn'} type="text">
+            {children}
+          </DropdownButton>
+        </TriggerButton>
+        <DropdownContent>
+          <Menu onClick={onItemClick}>
+            {list.map(item => (
+              <MenuItem key={item.key}>{item.label}</MenuItem>
+            ))}
+          </Menu>
+        </DropdownContent>
+      </Dropdown>
+    );
+  };

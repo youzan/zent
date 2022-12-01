@@ -11,7 +11,7 @@ const drawerSizeWidthMap: Record<DrawerSize, string> = {
   small: '364px',
 };
 
-export const Drawer: React.FC<DrawerProps> = ({
+export const Drawer: React.FC<React.PropsWithChildren<DrawerProps>> = ({
   onClose,
   title,
   children,

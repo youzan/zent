@@ -65,7 +65,9 @@ const splitFileNameParts = (filename: string) => {
 /**
  * 通用上传组件上传项
  */
-const NormalUploadItem: React.FC<INormalUploadItemProps> = props => {
+const NormalUploadItem: React.FC<
+  React.PropsWithChildren<INormalUploadItemProps>
+> = props => {
   const { i18n, item } = props;
   const isFailed = item.status === FILE_UPLOAD_STATUS.failed;
   const { deleteHandler, retryHandler } = useItemHandler(props);

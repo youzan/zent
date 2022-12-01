@@ -4,7 +4,9 @@ import { DEFAULT_WIDTH } from '../constants';
 import AnimatedArc from './AnimatedArc';
 import ProgressInfo from './ProgressInfo';
 
-const CircleProgress: React.FC<IProgressInstanceProps> = props => {
+const CircleProgress: React.FC<
+  React.PropsWithChildren<IProgressInstanceProps>
+> = props => {
   const {
     percent,
     showInfo,

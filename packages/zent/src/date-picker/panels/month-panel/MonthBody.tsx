@@ -12,7 +12,7 @@ const COL_COUNT = 3;
 const ROW_COUNT = 4;
 
 type IMonthPickerBodyProps = ISingleDateBodyProps;
-const MonthPickerBody: FC<IMonthPickerBodyProps> = ({
+const MonthPickerBody: FC<React.PropsWithChildren<IMonthPickerBodyProps>> = ({
   defaultPanelDate,
   onSelected,
   selected,

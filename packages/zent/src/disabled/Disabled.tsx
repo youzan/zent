@@ -14,7 +14,7 @@ export const DisabledContext = createContext<IDisabledContext>({
 
 DisabledContext.displayName = 'DisabledContext';
 
-export const Disabled: React.FC<IDisabledProps> = ({
+export const Disabled: React.FC<React.PropsWithChildren<IDisabledProps>> = ({
   value = true,
   children,
 }) => {

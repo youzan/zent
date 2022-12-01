@@ -24,7 +24,7 @@ const TypePropsMap: Record<StatusBarType, Partial<IAlertProps>> = {
   },
 };
 
-export const StatusBar: FC<IStatusBarProps> = ({
+export const StatusBar: FC<React.PropsWithChildren<IStatusBarProps>> = ({
   type = 'info',
   progress,
   className,

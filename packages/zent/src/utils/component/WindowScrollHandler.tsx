@@ -22,11 +22,9 @@ export interface IWindowScrollHandler {
  * https://developer.mozilla.org/en-US/docs/Web/API/Document/scroll_event
  * https://developer.mozilla.org/en-US/docs/Web/API/Element/scroll_event
  */
-export const WindowScrollHandler: React.FC<IWindowScrollHandler> = ({
-  disableThrottle = false,
-  options,
-  onScroll: onScrollProp,
-}) => {
+export const WindowScrollHandler: React.FC<
+  React.PropsWithChildren<IWindowScrollHandler>
+> = ({ disableThrottle = false, options, onScroll: onScrollProp }) => {
   const cb = useRef(onScrollProp);
   cb.current = onScrollProp;
 

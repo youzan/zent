@@ -12,19 +12,20 @@ export type ICombinedFormTimeRangePickerFieldProps = IFormComponentProps<
   Omit<ICombinedTimeRangePickerProps, 'value'>
 >;
 
-export const FormCombinedTimeRangePickerField: React.FC<ICombinedFormTimeRangePickerFieldProps> =
-  props => {
-    return (
-      <FormField
-        {...props}
-        defaultValue={
-          (props as $MergeParams<ICombinedFormTimeRangePickerFieldProps>)
-            .defaultValue ?? dateRangeDefaultTimeFactory
-        }
-      >
-        {childProps => (
-          <CombinedTimeRangePicker {...props.props} {...childProps} />
-        )}
-      </FormField>
-    );
-  };
+export const FormCombinedTimeRangePickerField: React.FC<
+  React.PropsWithChildren<ICombinedFormTimeRangePickerFieldProps>
+> = props => {
+  return (
+    <FormField
+      {...props}
+      defaultValue={
+        (props as $MergeParams<ICombinedFormTimeRangePickerFieldProps>)
+          .defaultValue ?? dateRangeDefaultTimeFactory
+      }
+    >
+      {childProps => (
+        <CombinedTimeRangePicker {...props.props} {...childProps} />
+      )}
+    </FormField>
+  );
+};

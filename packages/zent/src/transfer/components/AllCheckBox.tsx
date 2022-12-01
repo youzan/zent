@@ -14,7 +14,7 @@ interface IProps {
   title: React.ReactNode;
 }
 
-const AllCheckBox: React.FC<IProps> = ({
+const AllCheckBox: React.FC<React.PropsWithChildren<IProps>> = ({
   classNamePrefix,
   isAllChecked,
   handleCheckBoxChange,

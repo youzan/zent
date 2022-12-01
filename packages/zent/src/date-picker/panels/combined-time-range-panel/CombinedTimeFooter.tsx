@@ -8,7 +8,9 @@ import PanelContext from '../../context/PanelContext';
 import { ITimePanelProps, RangeTime } from '../../types';
 
 const CombinedTimeFooter: React.FC<
-  Pick<ITimePanelProps<RangeTime>, 'selected' | 'onSelected'>
+  React.PropsWithChildren<
+    Pick<ITimePanelProps<RangeTime>, 'selected' | 'onSelected'>
+  >
 > = ({ onSelected, selected }) => {
   const { i18n } = useContext(PickerContext);
   const { confirmStatus } = useContext(PanelContext);

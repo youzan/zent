@@ -9,7 +9,7 @@ import { renderFooter } from './Footer';
 import { renderCloseBtn } from './CloseBtn';
 import { addEventListener } from '../../../utils/component/event-handler';
 
-const DrawerContent: React.FC<DrawerContentProps> = ({
+const DrawerContent: React.FC<React.PropsWithChildren<DrawerContentProps>> = ({
   mask,
   visible,
   title,

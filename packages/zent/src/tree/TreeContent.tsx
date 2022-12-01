@@ -5,7 +5,10 @@ interface ITreeContentProps {
   showPop?: boolean;
 }
 
-export const TreeContent: FC<ITreeContentProps> = ({ children, showPop }) => {
+export const TreeContent: FC<React.PropsWithChildren<ITreeContentProps>> = ({
+  children,
+  showPop,
+}) => {
   const contentRef = useRef<HTMLDivElement>(null);
   const [isOverflowing, setIsOverflowing] = useState(false);
   const [popVisible, setPopVisible] = useState(false);

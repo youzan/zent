@@ -27,11 +27,15 @@ const prefixCls = 'zent-datepicker-combined';
 const PanelContextProvider = PanelContext.Provider;
 interface ITimePickerBaseProps
   extends ICombinedTimeRangePickerPropsWithDefault {
-  ContentComponent: React.ComponentType<ICombinedTimePanelProps>;
+  ContentComponent: React.ComponentType<
+    React.PropsWithChildren<ICombinedTimePanelProps>
+  >;
   seperator?: string;
 }
 
-const CombinedTimePicker: React.FC<ITimePickerBaseProps> = ({
+const CombinedTimePicker: React.FC<
+  React.PropsWithChildren<ITimePickerBaseProps>
+> = ({
   onChange,
   disabledTime,
   onOpen,

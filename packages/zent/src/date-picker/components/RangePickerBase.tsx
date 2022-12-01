@@ -26,17 +26,19 @@ const { START, END } = RangeTypeMap;
 interface IRangePickerProps extends IRangePropsWithDefault {
   generateDate: IGenerateDateConfig;
   PickerComponent: React.ComponentType<
-    ISingleProps & {
-      showTime?: IShowTime<string>;
-      disabledTime?: IDisabledTime;
-    }
+    React.PropsWithChildren<
+      ISingleProps & {
+        showTime?: IShowTime<string>;
+        disabledTime?: IDisabledTime;
+      }
+    >
   >;
   showTime?: IShowTimeRange<string>;
   seperator: string;
   disabledTime?: IDisabledTime;
 }
 
-const RangePicker: React.FC<IRangePickerProps> = ({
+const RangePicker: React.FC<React.PropsWithChildren<IRangePickerProps>> = ({
   placeholder,
   value,
   disabledDate: disabledDateProps,

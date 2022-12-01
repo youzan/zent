@@ -19,7 +19,9 @@ interface ICombinedDateRangePanelProps extends IRangePanelProps {
   disabledTime?: IDisabledTime;
   showTime?: IShowTimeRange<string>;
 }
-const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
+const CombinedDateRangePanel: React.FC<
+  React.PropsWithChildren<ICombinedDateRangePanelProps>
+> = ({
   onSelected,
   selected,
   disabledStartDate,

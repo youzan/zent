@@ -19,7 +19,9 @@ export interface IErrorBoundaryFallbackComponentProps {
 
 export interface IErrorBoundaryProps {
   onError?: IOnErrorCallback;
-  FallbackComponent?: React.ComponentType<IErrorBoundaryFallbackComponentProps>;
+  FallbackComponent?: React.ComponentType<
+    React.PropsWithChildren<IErrorBoundaryFallbackComponentProps>
+  >;
 }
 
 export class ErrorBoundary extends Component<IErrorBoundaryProps> {

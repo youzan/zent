@@ -73,7 +73,7 @@ export interface ITabsProps<Id>
   overflowMode?: ITabOverflowMode;
   renderTabBar?: (
     props: ITabsNavProps<Id>,
-    TabBar: ComponentType<ITabsNavProps<any>>
+    TabBar: ComponentType<React.PropsWithChildren<ITabsNavProps<any>>>
   ) => ReactNode;
 }
 
@@ -111,7 +111,7 @@ export interface IVerticalTabsNavProps<Id>
   scrollHeight?: React.CSSProperties['maxHeight'];
 }
 
-export interface ITabProps<Id> extends IFixedProps<Id> {
+export interface ITabProps<Id> extends PropsWithChildren<IFixedProps<Id>> {
   id: Id;
   onSelected: (id: Id) => void;
   onDelete?: (id: Id) => void;
