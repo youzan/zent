@@ -393,7 +393,8 @@ export class NumberInput extends Component<
         onChange &&
         this.props.value !== '' &&
         this.state.input !== '' &&
-        this.props.value !== roundedStateValue
+        // 外部传入的 value 有可能类型错误，转成字符串之后再比较
+        String(this.props.value) !== roundedStateValue
       ) {
         onChange(roundedStateValue);
       }
