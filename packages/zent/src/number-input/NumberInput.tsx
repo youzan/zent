@@ -388,13 +388,14 @@ export class NumberInput extends Component<
     } else {
       const { onChange, decimal } = this.props;
       const { value } = this.state as INumberInputDecimalState;
+      const roundedStateValue = value.toFixed(decimal);
       if (onChange && this.props.value !== '' && this.state.input !== '') {
         try {
-          if (!new Decimal(this.props.value).eq(value)) {
-            onChange(value.toFixed(decimal));
+          if (this.props.value !== roundedStateValue) {
+            onChange(roundedStateValue);
           }
         } catch (error) {
-          onChange(value.toFixed(decimal));
+          onChange(roundedStateValue);
         }
       }
     }
