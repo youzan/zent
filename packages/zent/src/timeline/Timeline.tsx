@@ -4,6 +4,7 @@ import { isElement } from 'react-is';
 
 import { TimelineItem, ITimelineItemProps } from './Item';
 import { TimelineLegend } from './Dot';
+import * as React from 'react';
 
 function normalize(timeline, size) {
   return timeline.map((item, index) => {
@@ -35,7 +36,9 @@ export interface ITimelineProps {
   style?: React.CSSProperties;
 }
 
-export class Timeline extends PureComponent<ITimelineProps> {
+export class Timeline extends PureComponent<
+  React.PropsWithChildren<ITimelineProps>
+> {
   static defaultProps = {
     type: 'horizontal',
     size: '100%',

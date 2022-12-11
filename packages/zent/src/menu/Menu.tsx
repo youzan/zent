@@ -47,7 +47,10 @@ interface IMenuState {
   prevExpandedKeysProp?: string[];
 }
 
-export class Menu extends CommonMenu<IMenuProps, IMenuState> {
+export class Menu extends CommonMenu<
+  React.PropsWithChildren<IMenuProps>,
+  IMenuState
+> {
   static MenuItem = MenuItem;
 
   static SubMenu = SubMenu;

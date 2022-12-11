@@ -39,7 +39,9 @@ const removeElementsDraggingCursor = (
   });
 };
 
-export class Sortable<T> extends Component<ISortableProps<T>> {
+export class Sortable<T> extends Component<
+  React.PropsWithChildren<ISortableProps<T>>
+> {
   static defaultProps = {
     tag: 'div',
   };

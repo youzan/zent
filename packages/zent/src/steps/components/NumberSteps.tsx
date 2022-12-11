@@ -2,8 +2,11 @@ import { Children, cloneElement, Component } from 'react';
 import classNames from 'classnames';
 import { isElement } from 'react-is';
 import { IStepsProps } from '../Steps';
+import * as React from 'react';
 
-export default class NumberSteps extends Component<IStepsProps> {
+export default class NumberSteps extends Component<
+  React.PropsWithChildren<IStepsProps>
+> {
   render() {
     const props = this.props;
     const { className, children, current, status, direction, sequence } = props;

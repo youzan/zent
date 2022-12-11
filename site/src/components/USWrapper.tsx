@@ -7,7 +7,9 @@ export interface IUSWrapperProps {
   pass: ILayoutProps;
 }
 
-export default class USWrapper extends Component<IUSWrapperProps> {
+export default class USWrapper extends Component<
+  React.PropsWithChildren<IUSWrapperProps>
+> {
   componentDidMount() {
     const { changeI18N, i18n } = this.props.pass;
     if (i18n !== 'en-US') {

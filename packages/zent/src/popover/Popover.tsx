@@ -1,4 +1,4 @@
-import { Component, createRef } from 'react';
+import { Component, createRef, PropsWithChildren } from 'react';
 
 import * as Position from './placement';
 import PopoverContent from './Content';
@@ -36,7 +36,10 @@ export interface IPopoverState {
   visible: boolean;
 }
 
-export class Popover extends Component<IPopoverProps, IPopoverState> {
+export class Popover extends Component<
+  PropsWithChildren<IPopoverProps>,
+  IPopoverState
+> {
   static contextType = PopoverContext;
   declare context: IPopoverContext | null;
 

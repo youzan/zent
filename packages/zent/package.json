@@ -61,16 +61,19 @@
     "scheduler": "^0.20.0"
   },
   "optionalDependencies": {
-    "@types/react": "^18.0.25",
-    "@types/react-dom": "^18.0.9"
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0"
+  },
+  "resolutions": {
+    "@types/react": "^18.0.0"
   },
   "devDependencies": {
     "@types/big.js": "^6.1.1",
     "@types/classnames": "^2.2.7",
     "@types/jest": "^26.0.23",
     "@types/node": "^15.12.5",
-    "@types/react": "^18.0.25",
-    "@types/react-dom": "^18.0.9",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
     "@types/react-is": "^17.0.0",
     "@types/react-transition-group": "^4.4.0",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.2",

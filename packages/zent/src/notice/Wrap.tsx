@@ -36,7 +36,7 @@ const classNames: CSSTransitionClassNames = {
 };
 
 export default class NoticeWrap extends Component<
-  INoticeWrapProps,
+  React.PropsWithChildren<INoticeWrapProps>,
   INoticeWrapState
 > {
   private elementRef = createRef<HTMLDivElement>();
