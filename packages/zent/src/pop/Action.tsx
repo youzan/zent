@@ -74,31 +74,35 @@ function PopAction({
   }, [onCancel, popover, changePending]);
   return (
     <div className="zent-pop-v2-buttons">
-      <Receiver componentName="Pop">
-        {i18n => (
-          <Button
-            loading={cancelPending}
-            disabled={confirmPending}
-            size="small"
-            onClick={onCancelClick}
-          >
-            {cancelText || i18n.cancel}
-          </Button>
-        )}
-      </Receiver>
-      <Receiver componentName="Pop">
-        {i18n => (
-          <Button
-            loading={confirmPending}
-            disabled={cancelPending}
-            size="small"
-            type={type}
-            onClick={onConfirmClick}
-          >
-            {confirmText || i18n.confirm}
-          </Button>
-        )}
-      </Receiver>
+      {cancelText && (
+        <Receiver componentName="Pop">
+          {i18n => (
+            <Button
+              loading={cancelPending}
+              disabled={confirmPending}
+              size="small"
+              onClick={onCancelClick}
+            >
+              {cancelText || i18n.cancel}
+            </Button>
+          )}
+        </Receiver>
+      )}
+      {confirmText && (
+        <Receiver componentName="Pop">
+          {i18n => (
+            <Button
+              loading={confirmPending}
+              disabled={cancelPending}
+              size="small"
+              type={type}
+              onClick={onConfirmClick}
+            >
+              {confirmText || i18n.confirm}
+            </Button>
+          )}
+        </Receiver>
+      )}
     </div>
   );
 }

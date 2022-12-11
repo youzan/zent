@@ -6,19 +6,23 @@ zh-CN:
 	popHeader: Pop 标题
 	popContent: 提示内容
 	btnText: 打开气泡
+	onlyConfirm: 只有确认
+	onlyCancel: 只有取消
 en-US:
 	title: Custom confirm pop
 	content: Pop opened
 	popHeader: Pop title
 	popContent: Pop content
 	btnText: Open
+	onlyConfirm: Only Confirm
+	onlyCancel: Only Cancel
 ---
 
 ```jsx
 import { Pop, Sweetalert, Button } from 'zent';
 
 class Wrapper extends React.Component {
-	confirmHandler = () => {
+	actionHandler = () => {
 		Sweetalert.alert({
 			content: '{i18n.content}',
 			parentComponent: this
@@ -27,17 +31,38 @@ class Wrapper extends React.Component {
 
 	render() {
 		return (
-			<Pop
-				trigger="click"
-				header="{i18n.popHeader}"
-				content="{i18n.popContent}"
-				type="primary"
-				confirmText="Error"
-				cancelText="Close"
-				onConfirm={this.confirmHandler}
-			>
-				<Button type="primary">{i18n.btnText}</Button>
-			</Pop>
+			<div>
+				<Pop
+					trigger="click"
+					header="{i18n.popHeader}"
+					content="{i18n.popContent}"
+					type="primary"
+					confirmText="Error"
+					cancelText="Close"
+					onConfirm={this.actionHandler}
+				>
+					<Button type="primary">{i18n.btnText}</Button>
+				</Pop>				<Pop
+					trigger="click"
+					header="{i18n.popHeader}"
+					content="{i18n.popContent}"
+					type="primary"
+					confirmText="Confirm"
+					onConfirm={this.actionHandler}
+				>
+					<Button type="primary">{i18n.onlyConfirm}</Button>
+				</Pop>
+				<Pop
+					trigger="click"
+					header="{i18n.popHeader}"
+					content="{i18n.popContent}"
+					type="primary"
+					cancelText="Cancel"
+					onCancel={this.actionHandler}
+				>
+					<Button type="primary">{i18n.onlyCancel}</Button>
+				</Pop>
+			</div>
 		);
 	}
 }
