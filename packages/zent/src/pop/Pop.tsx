@@ -91,8 +91,8 @@ export interface IPopCommonProps {
   containerSelector?: string;
   onConfirm?: IPopActionCallback;
   onCancel?: IPopActionCallback;
-  confirmText?: string;
-  cancelText?: string;
+  confirmText?: string | null;
+  cancelText?: string | null;
 }
 
 export type IPopProps =

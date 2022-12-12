@@ -18,8 +18,8 @@ export interface IPopActionProps {
   type: 'primary' | 'default' | 'danger' | 'success' | 'secondary';
   onConfirm?: IPopActionCallback;
   onCancel?: IPopActionCallback;
-  confirmText?: string;
-  cancelText?: string;
+  confirmText?: string | null;
+  cancelText?: string | null;
   confirmPending: boolean;
   cancelPending: boolean;
   changePending: IChangePending;
@@ -72,9 +72,9 @@ function PopAction({
   const onCancelClick = useCallback(() => {
     handleClick('cancelPending', changePending, popover, onCancel);
   }, [onCancel, popover, changePending]);
-  return (
+  return cancelText === null && confirmText === null ? null : (
     <div className="zent-pop-v2-buttons">
-      {cancelText && (
+      {cancelText !== null ? (
         <Receiver componentName="Pop">
           {i18n => (
             <Button
@@ -87,8 +87,8 @@ function PopAction({
             </Button>
           )}
         </Receiver>
-      )}
-      {confirmText && (
+      ) : null}
+      {confirmText !== null ? (
         <Receiver componentName="Pop">
           {i18n => (
             <Button
@@ -102,7 +102,7 @@ function PopAction({
             </Button>
           )}
         </Receiver>
-      )}
+      ) : null}
     </div>
   );
 }

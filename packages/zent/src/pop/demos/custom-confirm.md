@@ -48,6 +48,7 @@ class Wrapper extends React.Component {
 					content="{i18n.popContent}"
 					type="primary"
 					confirmText="Confirm"
+					cancelText={null}
 					onConfirm={this.actionHandler}
 				>
 					<Button type="primary">{i18n.onlyConfirm}</Button>
@@ -58,6 +59,7 @@ class Wrapper extends React.Component {
 					content="{i18n.popContent}"
 					type="primary"
 					cancelText="Cancel"
+					confirmText={null}
 					onCancel={this.actionHandler}
 				>
 					<Button type="primary">{i18n.onlyCancel}</Button>
