@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import { Component } from 'react';
+import { Component, PropsWithChildren } from 'react';
 
 import Popover from '../../popover';
 import {
@@ -31,7 +31,7 @@ export interface ISearchContentProps {
   selectionMap: Map<string, CascaderItemSelectionState>;
 }
 
-class SearchContent extends Component<ISearchContentProps> {
+class SearchContent extends Component<PropsWithChildren<ISearchContentProps>> {
   closePopup = () => this.props.popover?.close();
 
   onOptionClick(path: ICascaderItem[]) {

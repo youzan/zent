@@ -1,5 +1,5 @@
 import classnames from 'classnames';
-import { Component } from 'react';
+import { Component, PropsWithChildren } from 'react';
 
 import Popover from '../../popover';
 import Icon from '../../icon';
@@ -70,7 +70,7 @@ function defaultGetItemTooltip(node: ICascaderItem): string {
   return node.label;
 }
 
-class MenuContent extends Component<IMenuContentProps> {
+class MenuContent extends Component<PropsWithChildren<IMenuContentProps>> {
   static defaultProps = {
     renderItemContent: defaultRenderItemContent,
     getItemTooltip: defaultGetItemTooltip,

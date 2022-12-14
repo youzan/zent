@@ -1,4 +1,11 @@
-import { useCallback, useContext, useMemo, useState } from 'react';
+import {
+  FC,
+  PropsWithChildren,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from 'react';
 import { setYear, setMonth, addMonths, addYears } from 'date-fns';
 import PanelHeader, { Title } from '../../components/PanelHeader';
 import PanelSubHeader from './PanelSubHeader';
@@ -24,9 +31,7 @@ export interface IDatePickerPanelProps extends ISinglePanelProps {
   combinedRight?: boolean;
   onPanelDateChange?: (val: Date) => void;
 }
-const DatePickerPanel: React.FC<
-  React.PropsWithChildren<IDatePickerPanelProps>
-> = props => {
+const DatePickerPanel: FC<PropsWithChildren<IDatePickerPanelProps>> = props => {
   const {
     defaultPanelDate,
     hideFooter = false,

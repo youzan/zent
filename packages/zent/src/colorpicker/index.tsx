@@ -4,7 +4,7 @@
  *
  * It's a modified Sketch color picker.
  */
-import { PureComponent } from 'react';
+import { PropsWithChildren, PureComponent } from 'react';
 import cx from 'classnames';
 import ColorBoard from './ColorBoard';
 import SketchPresetColors from './SketchPresetColors';
@@ -26,7 +26,9 @@ export interface IColorPickerProps {
   disabled?: boolean;
 }
 
-export class ColorPicker extends PureComponent<IColorPickerProps> {
+export class ColorPicker extends PureComponent<
+  PropsWithChildren & IColorPickerProps
+> {
   state = {
     popVisible: false,
   };

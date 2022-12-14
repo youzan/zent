@@ -3,10 +3,9 @@ import { IProgressInstanceProps } from '../types';
 import { DEFAULT_WIDTH } from '../constants';
 import AnimatedArc from './AnimatedArc';
 import ProgressInfo from './ProgressInfo';
+import { FC, PropsWithChildren } from 'react';
 
-const CircleProgress: React.FC<
-  React.PropsWithChildren<IProgressInstanceProps>
-> = props => {
+const CircleProgress: FC<PropsWithChildren<IProgressInstanceProps>> = props => {
   const {
     percent,
     showInfo,

@@ -1,4 +1,4 @@
-import { PureComponent } from 'react';
+import { PropsWithChildren, PureComponent } from 'react';
 import { getLeafColumns } from './utils';
 import { IGridInnerColumn } from './Grid';
 
@@ -6,7 +6,9 @@ export interface IGridColGroupProps<Data> {
   columns: Array<IGridInnerColumn<Data>>;
 }
 
-class ColGroup<Data> extends PureComponent<IGridColGroupProps<Data>> {
+class ColGroup<Data> extends PureComponent<
+  PropsWithChildren & IGridColGroupProps<Data>
+> {
   render() {
     const { columns } = this.props;
 

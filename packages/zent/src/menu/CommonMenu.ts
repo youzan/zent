@@ -1,7 +1,10 @@
-import { cloneElement, PureComponent } from 'react';
+import { cloneElement, PropsWithChildren, PureComponent } from 'react';
 import { getKeyFromChildrenIndex } from './utils';
 
-export default abstract class CommonMenu<T, S> extends PureComponent<T, S> {
+export default abstract class CommonMenu<T, S> extends PureComponent<
+  PropsWithChildren<T>,
+  S
+> {
   abstract handleClick(e: React.MouseEvent, index: unknown): void;
 
   renderCommonMenuItem(component, index, subPrefix, extraProps?: any) {

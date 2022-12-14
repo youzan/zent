@@ -1,5 +1,5 @@
 import * as ReactDom from 'react-dom';
-import { createRef, PureComponent } from 'react';
+import { createRef, PropsWithChildren, PureComponent } from 'react';
 import classnames from 'classnames';
 import isEqual from '../utils/isEqual';
 
@@ -92,7 +92,7 @@ export interface IGridProps<Data = any, RowProps = {}, Key = string> {
   ellipsis?: boolean;
   onExpand?: IGridOnExpandHandler<Data>;
   components?: {
-    row?: React.ComponentType<React.PropsWithChildren<RowProps>>;
+    row?: React.ComponentType<RowProps>;
   };
   rowProps?: (data: Data, index: number) => RowProps;
   batchRender?: IGridBatchRender;
@@ -123,7 +123,10 @@ export class Grid<
   Data = any,
   RowProps = Record<string, unknown>,
   Key = string
-> extends PureComponent<IGridProps<Data, RowProps, Key>, IGridState> {
+> extends PureComponent<
+  PropsWithChildren & IGridProps<Data, RowProps, Key>,
+  IGridState
+> {
   static defaultProps: Partial<IGridProps> = {
     className: '',
     bordered: false,

@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, PropsWithChildren } from 'react';
 import cx from 'classnames';
 
 import Button from '../../../button';
@@ -10,7 +10,7 @@ export interface IPaginationPageNumberButtonProps {
 }
 
 export class PageNumberButton extends Component<
-  React.PropsWithChildren<IPaginationPageNumberButtonProps>,
+  PropsWithChildren<IPaginationPageNumberButtonProps>,
   any
 > {
   static defaultProps = {

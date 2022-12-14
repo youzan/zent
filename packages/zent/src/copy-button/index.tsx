@@ -1,4 +1,4 @@
-import { Component, Children } from 'react';
+import { Component, Children, PropsWithChildren } from 'react';
 import Button from '../button';
 import Notify from '../notify';
 
@@ -12,7 +12,9 @@ export interface ICopyButtonProps {
   onCopyError?: string | (() => void);
 }
 
-export class CopyButton extends Component<ICopyButtonProps> {
+export class CopyButton extends Component<
+  PropsWithChildren & ICopyButtonProps
+> {
   static defaultProps = {
     onCopySuccess: '',
     onCopyError: '',

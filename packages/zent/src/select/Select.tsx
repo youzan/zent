@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import { Component, createRef } from 'react';
+import { Component, createRef, ReactNode } from 'react';
 
 import Popover from '../popover';
 import TagList, { ISelectTagListProps } from './TagList';
@@ -603,10 +603,11 @@ export class Select<
       optionContent = renderOptionContent(option);
     } else {
       const keyword = this.state.keyword.trim();
-      optionContent =
+      optionContent = (
         filter !== false && keyword.length > 0
           ? highlight?.(keyword, option)
-          : option.text;
+          : option.text
+      ) as ReactNode;
     }
 
     return (

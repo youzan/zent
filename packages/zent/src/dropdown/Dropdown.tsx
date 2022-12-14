@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import { useCallback, useEffect, useState } from 'react';
+import { FC, PropsWithChildren, useCallback, useEffect, useState } from 'react';
 
 import Popover, { IPopoverProps } from '../popover/Popover';
 import PopoverClickTrigger from '../popover/trigger/ClickTrigger';
@@ -10,7 +10,7 @@ import { DropdownContext } from './DropdownContext';
 
 export type IDropdownProps = IPopoverProps;
 
-export const Dropdown: React.FC<React.PropsWithChildren<IDropdownProps>> = ({
+export const Dropdown: FC<PropsWithChildren<IDropdownProps>> = ({
   cushion = 4,
   visible = false,
   onVisibleChange,

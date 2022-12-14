@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, PropsWithChildren } from 'react';
 import cx from 'classnames';
 import debounce from '../utils/debounce';
 
@@ -17,7 +17,10 @@ export interface IPreviewImageProps {
   scaleRatio: number;
 }
 
-export default class Image extends Component<IPreviewImageProps, any> {
+export default class Image extends Component<
+  PropsWithChildren<IPreviewImageProps>,
+  any
+> {
   state = {
     imageIndex: this.props.index || 0,
     imageStyle: {},

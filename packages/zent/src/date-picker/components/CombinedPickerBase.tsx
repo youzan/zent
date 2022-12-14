@@ -1,5 +1,13 @@
 import cx from 'classnames';
-import { useCallback, useContext, useMemo, useRef, useState } from 'react';
+import {
+  FC,
+  PropsWithChildren,
+  useCallback,
+  useContext,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import { CombinedInputTrigger } from './PickerTrigger';
 import PickerPopover from './PickerPopover';
@@ -31,14 +39,10 @@ const PanelContextProvider = PanelContext.Provider;
 interface ICombinedPickerProps extends ICombinedPropsWithDefault {
   seperator?: string;
   generateDate: IGenerateDateConfig;
-  PanelComponent: React.ComponentType<
-    React.PropsWithChildren<IRangePanelProps>
-  >;
+  PanelComponent: React.ComponentType<IRangePanelProps>;
 }
 
-export const CombinedPicker: React.FC<
-  React.PropsWithChildren<ICombinedPickerProps>
-> = ({
+export const CombinedPicker: FC<PropsWithChildren<ICombinedPickerProps>> = ({
   value,
   onChange,
   onOpen,

@@ -1,4 +1,4 @@
-import { Component, createRef } from 'react';
+import { Component, createRef, PropsWithChildren } from 'react';
 import cx from 'classnames';
 import identity from '../utils/identity';
 import Pop from '../pop';
@@ -31,7 +31,10 @@ const WORDBREAK_STYLES: React.CSSProperties = {
   overflowWrap: 'break-word',
 };
 
-export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
+export class ClampLines extends Component<
+  PropsWithChildren<IClampLinesProps>,
+  IClampLinesState
+> {
   static defaultProps: Partial<IClampLinesProps> = {
     className: '',
     lines: 2,

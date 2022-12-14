@@ -1,4 +1,4 @@
-import { Component, createRef } from 'react';
+import { Component, createRef, PropsWithChildren } from 'react';
 import cx from 'classnames';
 import Icon, { IconType } from '../icon';
 
@@ -24,7 +24,10 @@ export interface IAvatarState {
   prevChildren?: string;
 }
 
-export class Avatar extends Component<IAvatarProps, IAvatarState> {
+export class Avatar extends Component<
+  PropsWithChildren<IAvatarProps>,
+  IAvatarState
+> {
   static defaultProps = {
     shape: 'circle',
     size: 'default',

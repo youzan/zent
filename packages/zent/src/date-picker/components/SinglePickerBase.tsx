@@ -22,9 +22,7 @@ const PanelContextProvider = PanelContext.Provider;
 interface ISinglePickerProps
   extends ISinglePropsWithDefault,
     Pick<ISingleTriggerProps, 'seperator'> {
-  PanelComponent: React.ComponentType<
-    React.PropsWithChildren<ISinglePanelProps>
-  >;
+  PanelComponent: React.ComponentType<ISinglePanelProps>;
 }
 
 export function SinglePicker({

@@ -2,6 +2,7 @@ import { dateDefaultTimeFactory, IFormComponentProps } from '../shared';
 import { TimePicker, ITimePickerProps, SingleTime } from '../../date-picker';
 import { FormField } from '../Field';
 import { $MergeParams } from '../utils';
+import { PropsWithChildren } from 'react';
 
 export type IFormTimePickerField = IFormComponentProps<
   SingleTime,
@@ -9,7 +10,7 @@ export type IFormTimePickerField = IFormComponentProps<
 >;
 
 export const FormTimePickerField: React.FunctionComponent<
-  React.PropsWithChildren<IFormTimePickerField>
+  PropsWithChildren & IFormTimePickerField
 > = props => {
   return (
     <FormField

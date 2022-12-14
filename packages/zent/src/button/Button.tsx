@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, PropsWithChildren } from 'react';
 
 import Group from './Group';
 import { IButtonDirectiveProps, ButtonDirective } from './Directive';
@@ -21,7 +21,7 @@ export interface IButtonProps
   download?: string;
 }
 
-export class Button extends Component<IButtonProps> {
+export class Button extends Component<PropsWithChildren<IButtonProps>> {
   static defaultProps = {
     type: 'default',
     size: 'medium',

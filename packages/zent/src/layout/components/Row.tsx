@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, PropsWithChildren } from 'react';
 import cx from 'classnames';
 
 import ConfigContext from './ConfigContext';
@@ -18,9 +18,7 @@ export interface ILayoutRowProps {
   style?: React.CSSProperties;
 }
 
-export class LayoutRow extends Component<
-  React.PropsWithChildren<ILayoutRowProps>
-> {
+export class LayoutRow extends Component<PropsWithChildren<ILayoutRowProps>> {
   static defaultProps = {
     justify: 'start',
     align: 'start',

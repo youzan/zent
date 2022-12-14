@@ -1,4 +1,4 @@
-import { cloneElement, useContext } from 'react';
+import { cloneElement, PropsWithChildren, useContext } from 'react';
 import { isElement, isFragment } from 'react-is';
 import Context from '../Context';
 import Anchor, { PopoverAnchorGetElementFn } from '../Anchor';
@@ -20,8 +20,11 @@ export interface IPopoverFocusTriggerProps<
 }
 
 export function PopoverFocusTrigger<
-  ChildProps extends IPopoverFocusTriggerChildProps = IPopoverFocusTriggerChildProps
->({ children, getElement }: IPopoverFocusTriggerProps<ChildProps>) {
+  ChildProps extends IPopoverFocusTriggerChildProps = PropsWithChildren<IPopoverFocusTriggerChildProps>
+>({
+  children,
+  getElement,
+}: PropsWithChildren<IPopoverFocusTriggerProps<ChildProps>>) {
   const ctx = useContext(Context);
   if (!ctx) {
     throw new Error('PopoverFocusTrigger must be child of Popover');

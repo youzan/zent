@@ -1,4 +1,4 @@
-import { createRef, useContext } from 'react';
+import { createRef, FC, PropsWithChildren, useContext } from 'react';
 import cx from 'classnames';
 
 import PanelContext from '../../context/PanelContext';
@@ -43,45 +43,50 @@ interface ITimeUnitColumnProps {
   setting: (val: number) => void;
   disabledUnits?: number[];
 }
-const TimeUnitColumn: React.FC<React.PropsWithChildren<ITimeUnitColumnProps>> =
-  ({ type, step = 1, selected, setting, disabledUnits = [] }) => {
-    const ulRef = createRef<HTMLDivElement>();
-    const { visibleChange } = useContext(PanelContext);
+const TimeUnitColumn: FC<PropsWithChildren<ITimeUnitColumnProps>> = ({
+  type,
+  step = 1,
+  selected,
+  setting,
+  disabledUnits = [],
+}) => {
+  const ulRef = createRef<HTMLDivElement>();
+  const { visibleChange } = useContext(PanelContext);
 
-    const units = generateUnits(0, UNIT_MAP[type], step, disabledUnits);
+  const units = generateUnits(0, UNIT_MAP[type], step, disabledUnits);
 
-    useIsomorphicLayoutEffect(() => {
-      // first scroll without duration
-      visibleChange &&
-        ulRef.current &&
-        smoothScroll(ulRef.current, 0, (selected * 32) / step, 1);
+  useIsomorphicLayoutEffect(() => {
+    // first scroll without duration
+    visibleChange &&
+      ulRef.current &&
+      smoothScroll(ulRef.current, 0, (selected * 32) / step, 1);
 
-      // scroll item when `selected` changed
-      selected &&
-        !visibleChange &&
-        ulRef.current &&
-        smoothScroll(ulRef.current, 0, (selected * 32) / step, 160);
-    }, [selected, visibleChange, ulRef, step]);
+    // scroll item when `selected` changed
+    selected &&
+      !visibleChange &&
+      ulRef.current &&
+      smoothScroll(ulRef.current, 0, (selected * 32) / step, 160);
+  }, [selected, visibleChange, ulRef, step]);
 
-    return (
-      <div className={`${prefixCls}_scroll`} ref={ulRef}>
-        {units.map(({ value, label, disabled }) => {
-          return (
-            <div
-              className={cx(`${prefixCls}-unit`, {
-                [`${prefixCls}-unit_selected`]: value === selected,
-                [`${prefixCls}-unit_disabled`]: disabled,
-                [`${prefixCls}-unit_available`]: !disabled,
-              })}
-              key={value}
-              onClick={() => !disabled && setting(value)}
-            >
-              {label}
-            </div>
-          );
-        })}
-      </div>
-    );
-  };
+  return (
+    <div className={`${prefixCls}_scroll`} ref={ulRef}>
+      {units.map(({ value, label, disabled }) => {
+        return (
+          <div
+            className={cx(`${prefixCls}-unit`, {
+              [`${prefixCls}-unit_selected`]: value === selected,
+              [`${prefixCls}-unit_disabled`]: disabled,
+              [`${prefixCls}-unit_available`]: !disabled,
+            })}
+            key={value}
+            onClick={() => !disabled && setting(value)}
+          >
+            {label}
+          </div>
+        );
+      })}
+    </div>
+  );
+};
 
 export default TimeUnitColumn;

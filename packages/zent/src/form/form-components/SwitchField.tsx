@@ -2,6 +2,7 @@ import cx from 'classnames';
 import Switch, { ISwitchProps } from '../../switch';
 import { IFormComponentProps, IFormFieldChildProps } from '../shared';
 import { FormField } from '../Field';
+import { PropsWithChildren } from 'react';
 
 export type IFormSwitchFieldProps = IFormComponentProps<
   boolean,
@@ -17,7 +18,7 @@ function renderSwitch(
 }
 
 export const FormSwitchField: React.FunctionComponent<
-  React.PropsWithChildren<IFormSwitchFieldProps>
+  PropsWithChildren & IFormSwitchFieldProps
 > = props => {
   const { className, ...rest } = props;
 

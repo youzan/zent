@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import { Children } from 'react';
+import { Children, PropsWithChildren } from 'react';
 import isEqual from '../utils/isEqual';
 
 import noop from '../utils/noop';
@@ -48,7 +48,7 @@ interface IMenuState {
 }
 
 export class Menu extends CommonMenu<
-  React.PropsWithChildren<IMenuProps>,
+  PropsWithChildren<IMenuProps>,
   IMenuState
 > {
   static MenuItem = MenuItem;

@@ -1,4 +1,4 @@
-import { PureComponent } from 'react';
+import { PropsWithChildren, PureComponent } from 'react';
 import cx from 'classnames';
 
 const NO_STYLE = {};
@@ -14,7 +14,7 @@ export interface IBadgeProps {
   className: string;
 }
 
-export class Badge extends PureComponent<IBadgeProps> {
+export class Badge extends PureComponent<PropsWithChildren<IBadgeProps>> {
   static defaultProps = {
     count: 0,
     maxCount: 99,

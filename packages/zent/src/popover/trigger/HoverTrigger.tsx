@@ -1,6 +1,7 @@
 import {
   cloneElement,
   createContext,
+  PropsWithChildren,
   useContext,
   useEffect,
   useMemo,
@@ -49,7 +50,7 @@ export interface IPopoverHoverTriggerProps<
  */
 export function PopoverHoverTrigger<
   ChildProps extends IPopoverHoverTriggerChildProps = IPopoverHoverTriggerChildProps
->(props: IPopoverHoverTriggerProps<ChildProps>) {
+>(props: PropsWithChildren<IPopoverHoverTriggerProps<ChildProps>>) {
   const ctx = useContext(Context);
   if (!ctx) {
     throw new Error('PopoverHoverTrigger must be child of Popover');

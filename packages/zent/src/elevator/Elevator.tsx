@@ -1,4 +1,12 @@
-import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  FC,
+  PropsWithChildren,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import isNil from '../utils/isNil';
 import { smoothScroll } from '../utils/scroll';
 import { ElevatorContext } from './context';
@@ -16,7 +24,7 @@ export interface IElevatorProps {
   onChange?: (currentLink: string, previousLink: string) => void;
 }
 
-type IElevator = FC<React.PropsWithChildren<IElevatorProps>> & {
+type IElevator = FC<IElevatorProps & PropsWithChildren> & {
   Links: typeof ElevatorLinks;
   Anchor: typeof ElevatorAnchor;
 };

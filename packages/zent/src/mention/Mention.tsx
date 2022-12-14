@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, PropsWithChildren } from 'react';
 import { findDOMNode } from 'react-dom';
 import cx from 'classnames';
 import isEqual from '../utils/isEqual';
@@ -49,7 +49,7 @@ export interface IMentionProps {
   inline?: boolean;
 }
 
-export class Mention extends Component<IMentionProps> {
+export class Mention extends Component<PropsWithChildren<IMentionProps>> {
   static defaultProps = {
     multiLine: false,
     position: 'bottom',

@@ -4,10 +4,8 @@ import ErrorBoundary, {
 } from './ErrorBoundary';
 
 export interface IWithErrorBoundaryOption<P> {
-  Component?: React.ComponentType<React.PropsWithChildren<P>>;
-  FallbackComponent?: React.ComponentType<
-    React.PropsWithChildren<IErrorBoundaryFallbackComponentProps>
-  >;
+  Component?: React.ComponentType<P>;
+  FallbackComponent?: React.ComponentType<IErrorBoundaryFallbackComponentProps>;
   onError?: IOnErrorCallback;
 }
 

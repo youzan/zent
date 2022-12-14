@@ -1,4 +1,4 @@
-import { Component, createRef, CSSProperties } from 'react';
+import { Component, createRef, CSSProperties, PropsWithChildren } from 'react';
 import cx from 'classnames';
 import { WindowResizeHandler } from '../utils/component/WindowResizeHandler';
 import Item, { IBreadcrumbItemProps } from './Item';
@@ -24,7 +24,10 @@ export interface IBreadcrumbState {
   contentStyleLeft: number;
 }
 
-export class Breadcrumb extends Component<IBreadcrumbProps, IBreadcrumbState> {
+export class Breadcrumb extends Component<
+  PropsWithChildren<IBreadcrumbProps>,
+  IBreadcrumbState
+> {
   static defaultProps = {
     className: '',
     breads: [],

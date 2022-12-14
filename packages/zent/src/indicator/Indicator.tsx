@@ -3,7 +3,7 @@ import { Steps, IStepProps } from '../steps';
 
 export type IIndicatorProps = Omit<IStepProps, 'type'>;
 
-export type IIndicator = FC<React.PropsWithChildren<IIndicatorProps>> & {
+export type IIndicator = FC<IIndicatorProps> & {
   Step: typeof Steps.Step;
 };
 

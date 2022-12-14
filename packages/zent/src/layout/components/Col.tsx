@@ -1,11 +1,10 @@
-import { Component } from 'react';
+import { Component, PropsWithChildren } from 'react';
 import cx from 'classnames';
 
 import ConfigContext from './ConfigContext';
 import LayoutBreakpointContext from './BreakPointContext';
 import { getValueForBreakpoint } from './screen-breakpoints';
 import { ILayoutResponsiveValue } from './types';
-import * as React from 'react';
 
 export interface ILayoutColProps {
   span: number | ILayoutResponsiveValue;
@@ -15,9 +14,7 @@ export interface ILayoutColProps {
   className?: string;
 }
 
-export class LayoutCol extends Component<
-  React.PropsWithChildren<ILayoutColProps>
-> {
+export class LayoutCol extends Component<PropsWithChildren<ILayoutColProps>> {
   static defaultProps = {
     offset: 0,
     order: 0,

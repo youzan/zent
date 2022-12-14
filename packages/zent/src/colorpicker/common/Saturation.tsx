@@ -1,4 +1,4 @@
-import { Component, createRef } from 'react';
+import { Component, createRef, PropsWithChildren } from 'react';
 import { addEventListener } from '../../utils/component/event-handler';
 import { runOnceInNextFrame } from '../../utils/nextFrame';
 import reactCSS from '../helpers/reactcss';
@@ -7,7 +7,7 @@ import * as saturation from '../helpers/saturation';
 /**
  * 调色盘
  */
-export default class Saturation extends Component<any, any> {
+export default class Saturation extends Component<PropsWithChildren<any>, any> {
   containerRef = createRef<HTMLDivElement>();
   eventCancelList = [] as Array<() => void>;
 

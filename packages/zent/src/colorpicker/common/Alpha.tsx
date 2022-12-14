@@ -1,4 +1,4 @@
-import { Component, createRef } from 'react';
+import { Component, createRef, PropsWithChildren } from 'react';
 import reactCSS from '../helpers/reactcss';
 import * as alpha from '../helpers/alpha';
 import Checkboard from './Checkboard';
@@ -7,7 +7,7 @@ import { addEventListener } from '../../utils/component/event-handler';
 /**
  * 透明度
  */
-export class Alpha extends Component<any, any> {
+export class Alpha extends Component<PropsWithChildren<any>, any> {
   containerRef = createRef<HTMLDivElement>();
   eventCancelList = [] as Array<() => void>;
 

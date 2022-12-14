@@ -1,4 +1,4 @@
-import { PureComponent } from 'react';
+import { PropsWithChildren, PureComponent } from 'react';
 import classnames from 'classnames';
 import Pagination from '../pagination';
 import LitePagination from '../pagination/LitePagination';
@@ -24,7 +24,7 @@ export interface IGridFooterProps {
   batchComponents: React.ReactNode;
 }
 
-class Footer extends PureComponent<IGridFooterProps> {
+class Footer extends PureComponent<PropsWithChildren<IGridFooterProps>> {
   hasPagination(props?: IGridFooterProps) {
     const { pageInfo } = props || this.props;
     return pageInfo && Object.keys(pageInfo).length > 0;

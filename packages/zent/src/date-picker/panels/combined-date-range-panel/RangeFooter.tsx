@@ -1,4 +1,4 @@
-import { useCallback, useContext, useMemo } from 'react';
+import { FC, PropsWithChildren, useCallback, useContext, useMemo } from 'react';
 import cx from 'classnames';
 import { parse, isSameDay } from 'date-fns';
 
@@ -21,8 +21,8 @@ interface ICombinedDateRangeFooterProps
   disabledConfirm: boolean;
 }
 
-export const CombinedDateRangeFooter: React.FC<
-  React.PropsWithChildren<ICombinedDateRangeFooterProps>
+export const CombinedDateRangeFooter: FC<
+  PropsWithChildren<ICombinedDateRangeFooterProps>
 > = ({
   selected,
   disabledStartTimes,

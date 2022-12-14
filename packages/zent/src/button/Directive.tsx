@@ -1,6 +1,13 @@
 import cx from 'classnames';
 import { isElement, isFragment } from 'react-is';
-import { Children, cloneElement, useCallback, useContext, useRef } from 'react';
+import {
+  Children,
+  cloneElement,
+  ReactElement,
+  useCallback,
+  useContext,
+  useRef,
+} from 'react';
 
 import Icon, { IconType } from '../icon';
 import { DisabledContext } from '../disabled';
@@ -75,7 +82,7 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
   const propsRef = useRef(props);
   propsRef.current = props;
 
-  const childElement = children as React.ReactElement<ChildProps>;
+  const childElement = children as ReactElement;
 
   const onClick = useCallback((e: React.MouseEvent) => {
     const { loading, children } = propsRef.current;
@@ -100,7 +107,7 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
       'zent-btn-border-transparent': !bordered,
     },
     'zent-btn',
-    childElement.props.className
+    childElement?.props?.className
   );
 
   const commonChildren = cloneElement<ChildProps>(
@@ -113,7 +120,7 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
     } as Partial<ChildProps>,
     iconNode,
     // Wrap text in a `span`, or we won't be able to control icon margins
-    ...(Children.map(childElement.props.children, child =>
+    ...(Children.map(childElement?.props?.children, child =>
       typeof child === 'string' ? <span>{child}</span> : child
     ) || [])
   );
