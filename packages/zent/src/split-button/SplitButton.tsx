@@ -159,7 +159,6 @@ export class SplitButton<Value> extends Component<
                       className={`zent-split-button__dropdown-menu-item-${type}`}
                       key={`${item[dropdownValue]}`}
                     >
-                      {/** @ts-ignore */}
                       {item[dropdownText]}
                     </MenuItem>
                   );
