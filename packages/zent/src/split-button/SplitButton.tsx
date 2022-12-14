@@ -7,6 +7,7 @@ import Popover from '../popover';
 import Menu from '../menu';
 import Icon, { IconType } from '../icon';
 import { DisabledContext, IDisabledContext } from '../disabled';
+import * as React from 'react';
 
 const { MenuItem } = Menu;
 
@@ -44,7 +45,9 @@ export interface ISplitButtonProps<Value> {
   onSelect?: (key: string) => void;
 }
 
-export class SplitButton<Value> extends Component<ISplitButtonProps<Value>> {
+export class SplitButton<Value> extends Component<
+  React.PropsWithChildren<ISplitButtonProps<Value>>
+> {
   static defaultProps = {
     type: 'default',
     size: 'medium',

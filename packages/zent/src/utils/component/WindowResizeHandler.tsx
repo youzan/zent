@@ -24,10 +24,9 @@ export interface IWindowResizeHandlerProps {
  * The event handler got a second parameter: {deltaX, deltaY}.
  * The `onResize` callback is throttled to run only once in a frame, you don't need to throttle the callback.
  */
-export const WindowResizeHandler: React.FC<IWindowResizeHandlerProps> = ({
-  disableThrottle = false,
-  onResize: onResizeProp,
-}) => {
+export const WindowResizeHandler: React.FC<
+  React.PropsWithChildren<IWindowResizeHandlerProps>
+> = ({ disableThrottle = false, onResize: onResizeProp }) => {
   const prevViewportSize = useRef<{
     width: number;
     height: number;

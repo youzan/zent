@@ -24,7 +24,7 @@ interface IGridRowProps<Data> {
   hasFixedColumn: boolean;
   scroll: IGridScrollDelta;
   fixedColumnsBodyRowsHeight: Array<string | number>;
-  row?: React.ComponentType;
+  row?: React.ComponentType<React.PropsWithChildren<unknown>>;
   rowProps?: (data: Data, index: number) => any;
   disableHoverHighlight: boolean;
 }

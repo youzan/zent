@@ -12,17 +12,18 @@ export type IFormTimeRangePickerFieldProps = IFormComponentProps<
   Omit<ITimeRangePickerProps, 'value'>
 >;
 
-export const FormTimeRangePickerField: React.FunctionComponent<IFormTimeRangePickerFieldProps> =
-  props => {
-    return (
-      <FormField
-        {...props}
-        defaultValue={
-          (props as $MergeParams<IFormTimeRangePickerFieldProps>)
-            .defaultValue ?? dateRangeDefaultTimeFactory
-        }
-      >
-        {childProps => <TimeRangePicker {...props.props} {...childProps} />}
-      </FormField>
-    );
-  };
+export const FormTimeRangePickerField: React.FunctionComponent<
+  React.PropsWithChildren<IFormTimeRangePickerFieldProps>
+> = props => {
+  return (
+    <FormField
+      {...props}
+      defaultValue={
+        (props as $MergeParams<IFormTimeRangePickerFieldProps>).defaultValue ??
+        dateRangeDefaultTimeFactory
+      }
+    >
+      {childProps => <TimeRangePicker {...props.props} {...childProps} />}
+    </FormField>
+  );
+};

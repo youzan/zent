@@ -10,7 +10,7 @@ import { DropdownContext } from './DropdownContext';
 
 export type IDropdownProps = IPopoverProps;
 
-export const Dropdown: React.FC<IDropdownProps> = ({
+export const Dropdown: React.FC<React.PropsWithChildren<IDropdownProps>> = ({
   cushion = 4,
   visible = false,
   onVisibleChange,

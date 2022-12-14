@@ -15,7 +15,9 @@ export interface IMenuItemProps {
   inlineIndent?: boolean;
 }
 
-export class MenuItem extends Component<IMenuItemProps> {
+export class MenuItem extends Component<
+  React.PropsWithChildren<IMenuItemProps>
+> {
   handleClick = (e: React.MouseEvent) => {
     const { specKey, onClick, disabled, isInline, handleSelect } = this.props;
 

@@ -10,7 +10,7 @@ interface IProps {
   i18n: II18nLocaleTransfer;
 }
 
-const Search: React.FC<IProps> = ({
+const Search: React.FC<React.PropsWithChildren<IProps>> = ({
   showSearch,
   classNamePrefix,
   searchPlaceholder,

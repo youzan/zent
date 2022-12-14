@@ -15,7 +15,7 @@ const DRAGGING_CLS = 'zent-sortable--grabbing';
 export interface ISortableProps<T>
   extends Omit<_sortableJS.Options, 'onChange'> {
   // zent wrapper api
-  tag?: React.ComponentType | string;
+  tag?: React.ComponentType<React.PropsWithChildren<unknown>> | string;
   className?: string;
   items?: T[];
   filterClass?: string;
@@ -39,7 +39,9 @@ const removeElementsDraggingCursor = (
   });
 };
 
-export class Sortable<T> extends Component<ISortableProps<T>> {
+export class Sortable<T> extends Component<
+  React.PropsWithChildren<ISortableProps<T>>
+> {
   static defaultProps = {
     tag: 'div',
   };

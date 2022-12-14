@@ -13,7 +13,7 @@ import {
 } from './utils';
 import { DisabledContext } from '../disabled';
 
-export const Transfer: React.FC<TransferType> = ({
+export const Transfer: React.FC<React.PropsWithChildren<TransferType>> = ({
   keyName,
   dataSource,
   targetKeys,

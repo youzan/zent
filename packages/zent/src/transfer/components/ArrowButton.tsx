@@ -5,7 +5,7 @@ import { Direction } from '../constants';
 import { ITransferArrowButton } from '../types';
 import Icon from '../../icon';
 
-const ArrowButton: React.FC<ITransferArrowButton> = ({
+const ArrowButton: React.FC<React.PropsWithChildren<ITransferArrowButton>> = ({
   direction,
   onChange,
   disabled,

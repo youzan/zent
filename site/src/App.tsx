@@ -66,6 +66,8 @@ export default class App extends Component {
 
     // 通过 basename 控制前缀，不要放到每一层路由里去
     return (
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       <Router basename={prefix}>
         <ScrollToTop>
           <Switch>

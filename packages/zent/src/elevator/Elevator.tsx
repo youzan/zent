@@ -16,7 +16,7 @@ export interface IElevatorProps {
   onChange?: (currentLink: string, previousLink: string) => void;
 }
 
-type IElevator = FC<IElevatorProps> & {
+type IElevator = FC<React.PropsWithChildren<IElevatorProps>> & {
   Links: typeof ElevatorLinks;
   Anchor: typeof ElevatorAnchor;
 };

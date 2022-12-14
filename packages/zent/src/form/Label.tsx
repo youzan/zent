@@ -6,10 +6,9 @@ export interface ILabelProps {
   required?: boolean;
 }
 
-export const Label: React.FunctionComponent<ILabelProps> = ({
-  children,
-  required,
-}) => {
+export const Label: React.FunctionComponent<
+  React.PropsWithChildren<ILabelProps>
+> = ({ children, required }) => {
   const { labelStyle } = useContext(FormContext);
 
   return (

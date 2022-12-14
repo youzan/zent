@@ -24,7 +24,9 @@ export interface IDatePickerPanelProps extends ISinglePanelProps {
   combinedRight?: boolean;
   onPanelDateChange?: (val: Date) => void;
 }
-const DatePickerPanel: React.FC<IDatePickerPanelProps> = props => {
+const DatePickerPanel: React.FC<
+  React.PropsWithChildren<IDatePickerPanelProps>
+> = props => {
   const {
     defaultPanelDate,
     hideFooter = false,

@@ -17,7 +17,9 @@ interface IDatePickerFooterProps
   showTimeOption?: IShowTimeOptionWithDefault;
 }
 const today = new Date();
-const DatePickerFooter: React.FC<IDatePickerFooterProps> = ({
+const DatePickerFooter: React.FC<
+  React.PropsWithChildren<IDatePickerFooterProps>
+> = ({
   footerText,
   showTime,
   disabledTime,

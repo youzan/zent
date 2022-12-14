@@ -19,10 +19,12 @@ export type IFormDateRangeQuickPickerFieldProps = IFormComponentProps<
   Omit<IDateRangeQuickPickerProps, 'value'>
 >;
 
-const DateRangeQuickPickerField: React.FC<{
-  childProps: IFormFieldChildProps<RangeDate>;
-  props: IFormDateRangeQuickPickerFieldProps;
-}> = ({ childProps, props }) => {
+const DateRangeQuickPickerField: React.FC<
+  React.PropsWithChildren<{
+    childProps: IFormFieldChildProps<RangeDate>;
+    props: IFormDateRangeQuickPickerFieldProps;
+  }>
+> = ({ childProps, props }) => {
   const [chosenDays, setChosenDays] = useState<
     DateRangeQuickPickerPresetValue | undefined
   >(undefined);
@@ -47,19 +49,20 @@ const DateRangeQuickPickerField: React.FC<{
   );
 };
 
-export const FormDateRangeQuickPickerField: React.FC<IFormDateRangeQuickPickerFieldProps> =
-  props => {
-    return (
-      <FormField
-        {...props}
-        defaultValue={
-          (props as $MergeParams<IFormDateRangeQuickPickerFieldProps>)
-            .defaultValue ?? dateRangeDefaultValueFactory
-        }
-      >
-        {childProps => (
-          <DateRangeQuickPickerField childProps={childProps} props={props} />
-        )}
-      </FormField>
-    );
-  };
+export const FormDateRangeQuickPickerField: React.FC<
+  React.PropsWithChildren<IFormDateRangeQuickPickerFieldProps>
+> = props => {
+  return (
+    <FormField
+      {...props}
+      defaultValue={
+        (props as $MergeParams<IFormDateRangeQuickPickerFieldProps>)
+          .defaultValue ?? dateRangeDefaultValueFactory
+      }
+    >
+      {childProps => (
+        <DateRangeQuickPickerField childProps={childProps} props={props} />
+      )}
+    </FormField>
+  );
+};

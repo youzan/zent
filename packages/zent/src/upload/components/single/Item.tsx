@@ -35,7 +35,9 @@ const getFileIcon = (item: IUploadFileItem) => {
 /**
  * 通用上传组件上传项
  */
-const SingleUploadItem: React.FC<INormalUploadItemProps> = props => {
+const SingleUploadItem: React.FC<
+  React.PropsWithChildren<INormalUploadItemProps>
+> = props => {
   const { i18n, item } = props;
   const { deleteHandler, retryHandler } = useItemHandler(props);
 

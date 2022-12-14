@@ -31,10 +31,14 @@ const PanelContextProvider = PanelContext.Provider;
 interface ICombinedPickerProps extends ICombinedPropsWithDefault {
   seperator?: string;
   generateDate: IGenerateDateConfig;
-  PanelComponent: React.ComponentType<IRangePanelProps>;
+  PanelComponent: React.ComponentType<
+    React.PropsWithChildren<IRangePanelProps>
+  >;
 }
 
-export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
+export const CombinedPicker: React.FC<
+  React.PropsWithChildren<ICombinedPickerProps>
+> = ({
   value,
   onChange,
   onOpen,

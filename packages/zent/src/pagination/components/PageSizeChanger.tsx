@@ -40,7 +40,9 @@ const memoizedNormalizeSelectOptions = memoize(function normalizeSelectOptions(
   });
 });
 
-const Text: React.FunctionComponent<{ type: 'middle' | 'right' }> = props => {
+const Text: React.FunctionComponent<
+  React.PropsWithChildren<{ type: 'middle' | 'right' }>
+> = props => {
   return (
     <span className={`zent-pagination-count--${props.type}`}>
       {props.children}

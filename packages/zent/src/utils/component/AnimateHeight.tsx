@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { Component, createRef } from 'react';
 
 import { runInNextFrame } from '../nextFrame';
@@ -21,7 +22,9 @@ export interface IAnimateHeightProps {
   transitionPrototype?: string;
 }
 
-export class AnimateHeight extends Component<IAnimateHeightProps> {
+export class AnimateHeight extends Component<
+  React.PropsWithChildren<IAnimateHeightProps>
+> {
   static defaultProps = {
     appear: false,
     duration: 200,

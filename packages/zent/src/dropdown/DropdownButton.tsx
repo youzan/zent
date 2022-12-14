@@ -5,11 +5,9 @@ import { DropdownContext } from './DropdownContext';
 
 export type IDropdownButtonProps = IButtonProps;
 
-export const DropdownButton: React.FC<IDropdownButtonProps> = ({
-  className,
-  children,
-  ...props
-}) => {
+export const DropdownButton: React.FC<
+  React.PropsWithChildren<IDropdownButtonProps>
+> = ({ className, children, ...props }) => {
   return (
     <DropdownContext.Consumer>
       {visible => (

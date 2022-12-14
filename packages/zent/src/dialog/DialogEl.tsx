@@ -2,6 +2,7 @@ import { Component, createRef } from 'react';
 import cx from 'classnames';
 import focusWithoutScroll from '../utils/dom/focusWithoutScroll';
 import Icon from '../icon';
+import * as React from 'react';
 
 export interface IMousePosition {
   x: number;
@@ -18,7 +19,9 @@ export interface IDialogInnerElProps {
   mousePosition?: IMousePosition | null;
 }
 
-export class DialogInnerEl extends Component<IDialogInnerElProps> {
+export class DialogInnerEl extends Component<
+  React.PropsWithChildren<IDialogInnerElProps>
+> {
   dialogEl: HTMLDivElement | null = null;
 
   componentDidMount() {
@@ -121,7 +124,9 @@ export interface IDialogElWrapper {
   onClose(e: MouseEvent | TouchEvent | KeyboardEvent): void;
 }
 
-export class DialogElWrapper extends Component<IDialogElWrapper> {
+export class DialogElWrapper extends Component<
+  React.PropsWithChildren<IDialogElWrapper>
+> {
   rootRef = createRef<HTMLDivElement>();
 
   componentDidMount() {

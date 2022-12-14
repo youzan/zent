@@ -128,7 +128,9 @@ export interface IAbstractUploadProps<
   /** 是否手动触发文件上传流程 */
   manualUpload?: boolean;
   /** 自定义的上传项展示组件 */
-  customUploadItem?: React.ComponentType<UPLOAD_ITEM_COMP_PROPS>;
+  customUploadItem?: React.ComponentType<
+    React.PropsWithChildren<UPLOAD_ITEM_COMP_PROPS>
+  >;
 }
 
 /** 复数上传组件 props */
@@ -228,7 +230,9 @@ export interface IAbstractUploadListProps<
   onDelete: (retryItem: IUploadFileItemInner<UPLOAD_ITEM>) => void;
   sortable?: boolean;
   onSortChange: (list: Array<IUploadFileItemInner<UPLOAD_ITEM>>) => void;
-  customUploadItem?: React.ComponentType<UPLOAD_ITEM_COMP_PROPS>;
+  customUploadItem?: React.ComponentType<
+    React.PropsWithChildren<UPLOAD_ITEM_COMP_PROPS>
+  >;
 }
 
 export interface IUploadListProps

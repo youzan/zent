@@ -7,7 +7,10 @@ interface IArrowProps {
   type: 'left' | 'right';
 }
 
-const DoubleIconArrow: React.FC<IArrowProps> = ({ onClick, type }) => (
+const DoubleIconArrow: React.FC<React.PropsWithChildren<IArrowProps>> = ({
+  onClick,
+  type,
+}) => (
   <Icon
     type={type === 'left' ? 'double-last' : 'double-next'}
     onClick={onClick}
@@ -15,9 +18,10 @@ const DoubleIconArrow: React.FC<IArrowProps> = ({ onClick, type }) => (
   />
 );
 
-const IconArrow: React.FC<IArrowProps> = ({ onClick, type }) => (
-  <Icon type={type} onClick={onClick} className={`${prefixCls}-arrow`} />
-);
+const IconArrow: React.FC<React.PropsWithChildren<IArrowProps>> = ({
+  onClick,
+  type,
+}) => <Icon type={type} onClick={onClick} className={`${prefixCls}-arrow`} />;
 
 interface ITitleProps {
   text: string | number;
@@ -25,7 +29,11 @@ interface ITitleProps {
   onClick?: () => void;
 }
 
-export const Title: React.FC<ITitleProps> = ({ text, unit = '', onClick }) => (
+export const Title: React.FC<React.PropsWithChildren<ITitleProps>> = ({
+  text,
+  unit = '',
+  onClick,
+}) => (
   <div className={`${prefixCls}-title_clickable`} onClick={onClick}>
     {text}
     {unit}
@@ -42,7 +50,7 @@ interface IPanelHeaderProps {
   onSuperPrev?: () => void;
   onSuperNext?: () => void;
 }
-const PanelHeader: React.FC<IPanelHeaderProps> = ({
+const PanelHeader: React.FC<React.PropsWithChildren<IPanelHeaderProps>> = ({
   showSuper = false,
   titleNode,
   combinedLeft,

@@ -92,7 +92,7 @@ export interface IGridProps<Data = any, RowProps = {}, Key = string> {
   ellipsis?: boolean;
   onExpand?: IGridOnExpandHandler<Data>;
   components?: {
-    row?: React.ComponentType<RowProps>;
+    row?: React.ComponentType<React.PropsWithChildren<RowProps>>;
   };
   rowProps?: (data: Data, index: number) => RowProps;
   batchRender?: IGridBatchRender;

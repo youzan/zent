@@ -2,7 +2,7 @@ interface IPanelFooterProps {
   leftNode?: React.ReactNode;
   rightNode: React.ReactNode;
 }
-const PanelFooter: React.FC<IPanelFooterProps> = ({
+const PanelFooter: React.FC<React.PropsWithChildren<IPanelFooterProps>> = ({
   rightNode,
   leftNode = null,
 }) => {

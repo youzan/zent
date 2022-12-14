@@ -11,7 +11,9 @@ import { IImageUploadItemProps } from '../../types';
 /**
  * 通用上传组件上传项
  */
-const ImageUploadItem: React.FC<IImageUploadItemProps> = props => {
+const ImageUploadItem: React.FC<
+  React.PropsWithChildren<IImageUploadItemProps>
+> = props => {
   const { i18n, item, onPreview } = props;
   const isFailed = item.status === FILE_UPLOAD_STATUS.failed;
 

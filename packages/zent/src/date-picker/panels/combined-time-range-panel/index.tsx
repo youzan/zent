@@ -5,7 +5,9 @@ import { ICombinedTimePanelProps } from '../../types';
 
 const prefixCls = 'zent-datepicker-combined-panel';
 
-const CombinedTimeRangePanel: React.FC<ICombinedTimePanelProps> = ({
+const CombinedTimeRangePanel: React.FC<
+  React.PropsWithChildren<ICombinedTimePanelProps>
+> = ({
   onSelected,
   selected,
   disabledTimeOptionStart,

@@ -13,7 +13,7 @@ export type IBannerProps = Omit<IAlertProps, 'title'> & {
   backgroundImage: string;
 };
 
-export const Banner: FC<IBannerProps> = ({
+export const Banner: FC<React.PropsWithChildren<IBannerProps>> = ({
   backgroundImage,
   closeIconColor,
   style = {},

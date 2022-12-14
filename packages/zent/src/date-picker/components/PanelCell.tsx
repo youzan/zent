@@ -31,7 +31,7 @@ interface IPanelCellProps {
   onHover?: (val: Date) => void;
   popText?: string;
 }
-const PanelCell: React.FC<IPanelCellProps> = ({
+const PanelCell: React.FC<React.PropsWithChildren<IPanelCellProps>> = ({
   cells,
   onSelected,
   col,

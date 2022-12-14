@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, PropsWithChildren } from 'react';
 
 import Layout from './Layout';
 import { ILayoutProps } from '../types';
@@ -7,7 +7,9 @@ export interface ICNWrapperProps {
   pass: ILayoutProps;
 }
 
-export default class CNWrapper extends Component<ICNWrapperProps> {
+export default class CNWrapper extends Component<
+  PropsWithChildren<ICNWrapperProps>
+> {
   componentDidMount() {
     const { changeI18N, i18n } = this.props.pass;
     if (i18n !== 'zh-CN') {

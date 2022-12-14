@@ -2,7 +2,7 @@ import TimeFooter from './TimeFooter';
 import TimePickerBody from './TimeBody';
 import { ITimePanelProps } from '../../types';
 
-const TimePickerPanel: React.FC<ITimePanelProps> = ({
+const TimePickerPanel: React.FC<React.PropsWithChildren<ITimePanelProps>> = ({
   hideFooter,
   ...restprops
 }) => {

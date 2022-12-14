@@ -11,7 +11,9 @@ import TimePicker from './TimePicker';
 const PickerContextProvider = PickerContext.Provider;
 
 export { ITimeRangePickerProps };
-export const TimeRangePicker: React.FC<ITimeRangePickerProps> = props => {
+export const TimeRangePicker: React.FC<
+  React.PropsWithChildren<ITimeRangePickerProps>
+> = props => {
   const disabledContext = useContext(DisabledContext);
   const propsRequired = { ...defaultTimePickerProps, ...props };
 

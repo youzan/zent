@@ -24,7 +24,7 @@ interface IUnitColumn {
   step?: number;
 }
 
-const TimePickerBody: React.FC<ITimePanelProps> = ({
+const TimePickerBody: React.FC<React.PropsWithChildren<ITimePanelProps>> = ({
   selected,
   format,
   disabledTimeOption,
