@@ -6,6 +6,7 @@ import BreakPointHub from './BreakPointHub';
 import LayoutBreakpointContext from './BreakPointContext';
 import { BREAKPOINTS, getValueForBreakpoint } from './screen-breakpoints';
 import { LayoutBreakPoint } from './types';
+import * as React from 'react';
 
 export interface ILayoutGridProps {
   className?: string;
@@ -16,7 +17,10 @@ interface ILayoutGridState {
   breakpoints: Partial<Record<LayoutBreakPoint, boolean>>;
 }
 
-export class LayoutGrid extends Component<ILayoutGridProps, ILayoutGridState> {
+export class LayoutGrid extends Component<
+  React.PropsWithChildren<ILayoutGridProps>,
+  ILayoutGridState
+> {
   state = {
     breakpoints: {} as Partial<Record<LayoutBreakPoint, boolean>>,
   };

@@ -10,7 +10,7 @@ export interface IPaginationPageNumberButtonProps {
 }
 
 export class PageNumberButton extends Component<
-  IPaginationPageNumberButtonProps,
+  React.PropsWithChildren<IPaginationPageNumberButtonProps>,
   any
 > {
   static defaultProps = {

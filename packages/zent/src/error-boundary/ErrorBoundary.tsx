@@ -24,7 +24,9 @@ export interface IErrorBoundaryProps {
   >;
 }
 
-export class ErrorBoundary extends Component<IErrorBoundaryProps> {
+export class ErrorBoundary extends Component<
+  React.PropsWithChildren<IErrorBoundaryProps>
+> {
   static defaultProps = {
     FallbackComponent: ErrorBoundaryFallbackComponent,
   };

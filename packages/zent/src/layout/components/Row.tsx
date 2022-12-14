@@ -18,7 +18,9 @@ export interface ILayoutRowProps {
   style?: React.CSSProperties;
 }
 
-export class LayoutRow extends Component<ILayoutRowProps> {
+export class LayoutRow extends Component<
+  React.PropsWithChildren<ILayoutRowProps>
+> {
   static defaultProps = {
     justify: 'start',
     align: 'start',
