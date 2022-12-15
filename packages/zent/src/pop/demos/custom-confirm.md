@@ -42,7 +42,8 @@ class Wrapper extends React.Component {
 					onConfirm={this.actionHandler}
 				>
 					<Button type="primary">{i18n.btnText}</Button>
-				</Pop>				<Pop
+				</Pop>
+				<Pop
 					trigger="click"
 					header="{i18n.popHeader}"
 					content="{i18n.popContent}"
