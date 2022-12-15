@@ -159,7 +159,7 @@ export class SplitButton<Value> extends Component<
                       className={`zent-split-button__dropdown-menu-item-${type}`}
                       key={`${item[dropdownValue]}`}
                     >
-                      {item[dropdownText]}
+                      {item[dropdownText] as unknown as React.ReactNode}
                     </MenuItem>
                   );
                 })}

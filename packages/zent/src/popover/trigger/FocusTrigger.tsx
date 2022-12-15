@@ -45,7 +45,11 @@ export function PopoverFocusTrigger<
   };
   let child: React.ReactNode;
   if (typeof children === 'function') {
-    child = children(childProps);
+    child = (
+      children as (
+        childProps: IPopoverFocusTriggerChildProps
+      ) => React.ReactNode
+    )(childProps);
   } else if (isElement(children) && !isFragment(children)) {
     child = cloneElement(children, childProps);
   } else {
