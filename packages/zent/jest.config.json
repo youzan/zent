@@ -62,7 +62,7 @@
     "<rootDir>/src/notice/.+",
     "<rootDir>/src/utils/nextFrame.ts",
     "<rootDir>/src/utils/warning.ts",
-    "<rootDir>/src/utils/hooks/use-resize-observer.ts",
+    "<rootDir>/src/utils/hooks/useResizeObserver.ts",
     "<rootDir>/src/tabs/components/TabDivide.tsx",
     "<rootDir>/src/grid"
   ],
