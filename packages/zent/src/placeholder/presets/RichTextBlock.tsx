@@ -1,4 +1,4 @@
-import { PureComponent } from 'react';
+import { PropsWithChildren, PureComponent } from 'react';
 import cx from 'classnames';
 
 import Circle from '../shapes/Circle';
@@ -18,7 +18,9 @@ export interface IPlaceholderRichTextBlock {
   lineSpacing?: string | number;
 }
 
-export default class RichTextBlock extends PureComponent<IPlaceholderRichTextBlock> {
+export default class RichTextBlock extends PureComponent<
+  PropsWithChildren & IPlaceholderRichTextBlock
+> {
   static defaultProps = {
     style: {},
     className: '',

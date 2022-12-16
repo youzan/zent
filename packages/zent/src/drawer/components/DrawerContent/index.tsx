@@ -1,4 +1,4 @@
-import { useMemo, useCallback, useRef } from 'react';
+import { useMemo, useCallback, useRef, PropsWithChildren, FC } from 'react';
 import cx from 'classnames';
 import { CSSTransition } from 'react-transition-group';
 
@@ -9,7 +9,7 @@ import { renderFooter } from './Footer';
 import { renderCloseBtn } from './CloseBtn';
 import { addEventListener } from '../../../utils/component/event-handler';
 
-const DrawerContent: React.FC<React.PropsWithChildren<DrawerContentProps>> = ({
+const DrawerContent: FC<PropsWithChildren<DrawerContentProps>> = ({
   mask,
   visible,
   title,

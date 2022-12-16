@@ -1,5 +1,12 @@
 import cx from 'classnames';
-import { useCallback, useMemo, useRef, useState } from 'react';
+import {
+  FC,
+  PropsWithChildren,
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import PickerPopover from './PickerPopover';
 import { CombinedInputTrigger } from './PickerTrigger';
@@ -27,15 +34,11 @@ const prefixCls = 'zent-datepicker-combined';
 const PanelContextProvider = PanelContext.Provider;
 interface ITimePickerBaseProps
   extends ICombinedTimeRangePickerPropsWithDefault {
-  ContentComponent: React.ComponentType<
-    React.PropsWithChildren<ICombinedTimePanelProps>
-  >;
+  ContentComponent: React.ComponentType<ICombinedTimePanelProps>;
   seperator?: string;
 }
 
-const CombinedTimePicker: React.FC<
-  React.PropsWithChildren<ITimePickerBaseProps>
-> = ({
+const CombinedTimePicker: FC<PropsWithChildren<ITimePickerBaseProps>> = ({
   onChange,
   disabledTime,
   onOpen,

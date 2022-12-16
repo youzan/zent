@@ -10,9 +10,7 @@ import PickerContext from '../../context/PickerContext';
 import { ISinglePanelProps } from '../../types';
 
 const QuarterPickerPanel: React.FC<
-  React.PropsWithChildren<
-    Omit<ISinglePanelProps, 'rangeDate' | 'hoverRangeDate'>
-  >
+  Omit<ISinglePanelProps, 'rangeDate' | 'hoverRangeDate'>
 > = props => {
   const { defaultPanelDate, onChangePanel, ...restProps } = props;
   const { i18n } = useContext(PickerContext);

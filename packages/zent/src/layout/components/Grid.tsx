@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, PropsWithChildren } from 'react';
 import cx from 'classnames';
 
 import ConfigContext from './ConfigContext';
@@ -6,7 +6,6 @@ import BreakPointHub from './BreakPointHub';
 import LayoutBreakpointContext from './BreakPointContext';
 import { BREAKPOINTS, getValueForBreakpoint } from './screen-breakpoints';
 import { LayoutBreakPoint } from './types';
-import * as React from 'react';
 
 export interface ILayoutGridProps {
   className?: string;
@@ -18,7 +17,7 @@ interface ILayoutGridState {
 }
 
 export class LayoutGrid extends Component<
-  React.PropsWithChildren<ILayoutGridProps>,
+  PropsWithChildren<ILayoutGridProps>,
   ILayoutGridState
 > {
   state = {

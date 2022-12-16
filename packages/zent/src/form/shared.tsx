@@ -118,7 +118,7 @@ export enum TouchWhen {
 }
 
 export interface IFormFieldPropsBase<Value>
-  extends Omit<IFormControlProps, 'required' | 'invalid'>,
+  extends Omit<IFormControlProps, 'required' | 'invalid' | 'children'>,
     Partial<Omit<IFormFieldChildProps<Value>, 'value'>> {
   /**
    * 自定义错误渲染，参数是 `validator` 返回的对象，一次只会有一个错误

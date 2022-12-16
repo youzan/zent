@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import { Component, createRef, CSSProperties } from 'react';
+import { Component, createRef, CSSProperties, PropsWithChildren } from 'react';
 
 import { CascaderItemSelectionState, ICascaderItem } from '../types';
 import { ISearchInputImperativeHandlers, SearchInput } from './Search';
@@ -21,7 +21,9 @@ interface ITagsTriggerProps extends ICascaderBaseTriggerProps {
   lineHeight: number;
 }
 
-export class TagsTrigger extends Component<ITagsTriggerProps> {
+export class TagsTrigger extends Component<
+  PropsWithChildren & ITagsTriggerProps
+> {
   static defaultProps = {
     selectedPaths: [],
   };

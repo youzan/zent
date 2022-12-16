@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { Component } from 'react';
+import { Component, PropsWithChildren } from 'react';
 import { findDOMNode } from 'react-dom';
 import Context, { IPopoverContext } from './Context';
 
@@ -19,7 +18,7 @@ export interface IPopoverAnchorProps {
 }
 
 export class PopoverAnchor extends Component<
-  React.PropsWithChildren<IPopoverAnchorProps>
+  PropsWithChildren & IPopoverAnchorProps
 > {
   static contextType = Context;
   declare context: IPopoverContext;

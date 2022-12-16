@@ -51,7 +51,7 @@ export class ArrowButton extends Component<
       );
     }
 
-    let Arrow = null as unknown as React.FC<React.PropsWithChildren<unknown>>;
+    let Arrow = null as unknown as React.FC;
     if (direction === 'left') {
       Arrow = LeftArrow;
     } else if (direction === 'right') {
@@ -105,7 +105,7 @@ class DoubleArrowButton extends Component<
   render() {
     const { direction, active, bordered, double: _, ...rest } = this.props;
     const { showArrow } = this.state;
-    let Arrow = null as unknown as React.FC<React.PropsWithChildren<unknown>>;
+    let Arrow = null as unknown as React.FC;
     if (direction === 'left') {
       Arrow = LeftDoubleArrow;
     } else if (direction === 'right') {

@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react';
+import { FC, PropsWithChildren, useCallback, useRef } from 'react';
 import cx from 'classnames';
 import { startOfToday } from 'date-fns';
 
@@ -20,15 +20,11 @@ const { START, END } = RangeTypeMap;
 const PanelContextProvider = PanelContext.Provider;
 
 interface ITimeRangePickerBaseProps extends ITimeRangePickerPropsWithDefault {
-  PickerComponent: React.ComponentType<
-    React.PropsWithChildren<ITimePickerProps>
-  >;
+  PickerComponent: React.ComponentType<ITimePickerProps>;
   seperator: string;
 }
 
-const TimeRangePickerBase: React.FC<
-  React.PropsWithChildren<ITimeRangePickerBaseProps>
-> = ({
+const TimeRangePickerBase: FC<PropsWithChildren<ITimeRangePickerBaseProps>> = ({
   value,
   onChange,
   disabledTime,

@@ -16,6 +16,7 @@
   ],
   "scripts": {
     "test": "./scripts/test.sh",
+    "jest-test": "yarn jest",
     "lint-ts": "eslint src plugins scripts --ext=.ts,.tsx",
     "lint-js": "eslint __tests__ plugins scripts --ext=.js,.jsx",
     "lint-style": "stylelint assets",

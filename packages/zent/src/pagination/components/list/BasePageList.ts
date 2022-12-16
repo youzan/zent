@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, PropsWithChildren } from 'react';
 
 import { IPopProps } from '../../../pop';
 
@@ -12,7 +12,7 @@ export interface IPaginationBasePageListProps {
 
 export default abstract class BasePageList<
   P extends IPaginationBasePageListProps = IPaginationBasePageListProps
-> extends Component<P, any> {
+> extends Component<PropsWithChildren<P>, any> {
   abstract resetActiveDoubleArrowButton(): void;
 
   onPageNumberClick = page => () => {

@@ -1,4 +1,4 @@
-import { PureComponent } from 'react';
+import { PropsWithChildren, PureComponent } from 'react';
 
 import uniqueId from '../../utils/uniqueId';
 
@@ -27,7 +27,9 @@ export interface IAnimatedArcProps {
 /**
  * Draw an arc then rotate it along the path
  */
-export default class AnimatedArc extends PureComponent<IAnimatedArcProps> {
+export default class AnimatedArc extends PureComponent<
+  PropsWithChildren & IAnimatedArcProps
+> {
   animationDelayTimerId: number;
   transitionEndTimerId: number;
 

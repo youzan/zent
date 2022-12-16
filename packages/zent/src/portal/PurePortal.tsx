@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, PropsWithChildren } from 'react';
 import { createPortal } from 'react-dom';
 
 import memoize from '../utils/memorize-one';
@@ -16,7 +16,9 @@ export interface IPurePortalProps {
  * 1. Awareness of nested portals
  * 2. `append=false` to mimic old `unstable_renderIntoContainer` behavior for backward compatibility
  */
-export class PurePortal extends Component<IPurePortalProps> {
+export class PurePortal extends Component<
+  PropsWithChildren & IPurePortalProps
+> {
   static defaultProps = {
     append: false,
   };

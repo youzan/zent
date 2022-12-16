@@ -28,10 +28,7 @@ export interface ISubMenuState {
   subMenuVisible: boolean;
 }
 
-export default class SubMenu extends CommonMenu<
-  React.PropsWithChildren<ISubMenuProps>,
-  ISubMenuState
-> {
+export default class SubMenu extends CommonMenu<ISubMenuProps, ISubMenuState> {
   static defaultProps = {
     className: '',
   };

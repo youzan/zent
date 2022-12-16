@@ -1,4 +1,4 @@
-import { createContext, createRef, Component } from 'react';
+import { createContext, createRef, Component, PropsWithChildren } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { CSSTransitionClassNames } from 'react-transition-group/CSSTransition';
 import { isElement } from 'react-is';
@@ -36,7 +36,7 @@ const classNames: CSSTransitionClassNames = {
 };
 
 export default class NoticeWrap extends Component<
-  React.PropsWithChildren<INoticeWrapProps>,
+  PropsWithChildren<INoticeWrapProps>,
   INoticeWrapState
 > {
   private elementRef = createRef<HTMLDivElement>();

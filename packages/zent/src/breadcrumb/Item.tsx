@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, PropsWithChildren } from 'react';
 
 export interface IBreadcrumbItemProps {
   className?: string;
@@ -7,7 +7,9 @@ export interface IBreadcrumbItemProps {
   onClick?: () => void;
 }
 
-export class BreadcrumbItem extends Component<IBreadcrumbItemProps> {
+export class BreadcrumbItem extends Component<
+  PropsWithChildren & IBreadcrumbItemProps
+> {
   render() {
     const { href, name, ...others } = this.props;
     if (this.props.children) {

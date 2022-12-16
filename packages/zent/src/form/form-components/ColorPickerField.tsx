@@ -1,3 +1,4 @@
+import { PropsWithChildren } from 'react';
 import ColorPicker, { IColorPickerProps } from '../../colorpicker';
 import { FormField, IFormFieldChildProps } from '../Field';
 import { IFormComponentProps } from '../shared';
@@ -17,7 +18,7 @@ function renderColorPicker(
 }
 
 export const FormColorPickerField: React.FunctionComponent<
-  React.PropsWithChildren<IFormColorPickerFieldProps>
+  PropsWithChildren & IFormColorPickerFieldProps
 > = props => {
   return (
     <FormField

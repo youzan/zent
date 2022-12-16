@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, PropsWithChildren } from 'react';
 import cx from 'classnames';
 import Placeholder from '../placeholder';
 import isNil from '../utils/isNil';
@@ -13,7 +13,7 @@ export interface ICardProps {
   className?: string;
 }
 
-export class Card extends Component<ICardProps> {
+export class Card extends Component<PropsWithChildren<ICardProps>> {
   static defaultProps = {
     type: 'normal',
     style: {},

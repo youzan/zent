@@ -1,4 +1,4 @@
-import { Component, createRef } from 'react';
+import { Component, createRef, PropsWithChildren } from 'react';
 import cx from 'classnames';
 
 import Popover, {
@@ -106,7 +106,7 @@ export interface IPopState {
   cancelPending: boolean;
 }
 
-export class Pop extends Component<IPopProps, IPopState> {
+export class Pop extends Component<PropsWithChildren<IPopProps>, IPopState> {
   static defaultProps = {
     trigger: 'none',
     position: 'top-center',

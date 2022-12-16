@@ -1,4 +1,11 @@
-import { useCallback, useContext, useMemo, useState } from 'react';
+import {
+  FC,
+  PropsWithChildren,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from 'react';
 import { parse } from 'date-fns';
 import Pop from '../../../pop';
 import Button from '../../../button';
@@ -17,9 +24,7 @@ interface IDatePickerFooterProps
   showTimeOption?: IShowTimeOptionWithDefault;
 }
 const today = new Date();
-const DatePickerFooter: React.FC<
-  React.PropsWithChildren<IDatePickerFooterProps>
-> = ({
+const DatePickerFooter: FC<PropsWithChildren<IDatePickerFooterProps>> = ({
   footerText,
   showTime,
   disabledTime,

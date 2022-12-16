@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, PropsWithChildren } from 'react';
 import cx from 'classnames';
 
 import formatDate from '../utils/date/formatDate';
@@ -40,7 +40,9 @@ export interface IDateRangeQuickPickerProps {
   className?: string;
 }
 
-export class DateRangeQuickPicker extends Component<IDateRangeQuickPickerProps> {
+export class DateRangeQuickPicker extends Component<
+  PropsWithChildren & IDateRangeQuickPickerProps
+> {
   static defaultProps = {
     className: '',
     value: [],

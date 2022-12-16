@@ -1,4 +1,4 @@
-import { Component, ReactNode } from 'react';
+import { Component, PropsWithChildren, ReactNode } from 'react';
 import cx from 'classnames';
 import Pop, { PopPositions } from '../pop';
 import Icon from '../icon';
@@ -13,7 +13,9 @@ export interface IBlockHeaderProps {
   rightContent?: ReactNode;
 }
 
-export class BlockHeader extends Component<IBlockHeaderProps> {
+export class BlockHeader extends Component<
+  PropsWithChildren & IBlockHeaderProps
+> {
   static defaultProps = {
     className: '',
     position: 'top-right',

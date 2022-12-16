@@ -36,7 +36,7 @@ interface IHeaderCell {
   rowSpan?: number;
 }
 
-interface IGridHeaderState {
+interface IGridHeaderState<> {
   rows: Array<Array<IHeaderCell>>;
 }
 

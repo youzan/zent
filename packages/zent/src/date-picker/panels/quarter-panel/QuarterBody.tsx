@@ -1,4 +1,4 @@
-import { useContext, useMemo } from 'react';
+import { FC, PropsWithChildren, useContext, useMemo } from 'react';
 
 import PanelContext from '../../context/PanelContext';
 import PickerContext from '../../context/PickerContext';
@@ -13,9 +13,7 @@ const COL_COUNT = 2;
 const ROW_COUNT = 2;
 
 type IQuarterPickerBodyProps = ISingleDateBodyProps;
-const QuarterPickerBody: React.FC<
-  React.PropsWithChildren<IQuarterPickerBodyProps>
-> = ({
+const QuarterPickerBody: FC<PropsWithChildren<IQuarterPickerBodyProps>> = ({
   defaultPanelDate,
   onSelected,
   selected,

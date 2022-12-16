@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, PropsWithChildren } from 'react';
 
 export interface IPaginationBaseJumperProps {
   current?: number;
@@ -12,7 +12,7 @@ export interface IPaginationBaseJumperState {
 export abstract class BasePageJumper<
   P extends IPaginationBaseJumperProps,
   S extends IPaginationBaseJumperState
-> extends Component<P, S> {
+> extends Component<PropsWithChildren<P>, S> {
   abstract handleJump(pageNumber: number): void;
 
   constructor(props: P) {

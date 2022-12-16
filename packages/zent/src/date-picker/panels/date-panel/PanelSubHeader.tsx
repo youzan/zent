@@ -1,9 +1,9 @@
-import { memo } from 'react';
+import { FC, memo, PropsWithChildren } from 'react';
 
 interface IDateSubTitleProps {
   names: string[];
 }
-const PanelSubHeader: React.FC<React.PropsWithChildren<IDateSubTitleProps>> = ({
+const PanelSubHeader: FC<PropsWithChildren<IDateSubTitleProps>> = ({
   names,
 }) => {
   return (

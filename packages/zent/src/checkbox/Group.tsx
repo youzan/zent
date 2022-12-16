@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, PropsWithChildren } from 'react';
 import classNames from 'classnames';
 import memoize from '../utils/memorize-one';
 
@@ -18,7 +18,7 @@ export interface ICheckboxGroupProps<Value> {
 }
 
 export class CheckboxGroup<Value> extends Component<
-  ICheckboxGroupProps<Value>
+  PropsWithChildren<ICheckboxGroupProps<Value>>
 > {
   static defaultProps = {
     isValueEqual: Object.is,

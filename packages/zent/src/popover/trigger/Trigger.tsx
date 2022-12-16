@@ -1,4 +1,4 @@
-import { Component, Children, cloneElement } from 'react';
+import { Component, Children, cloneElement, PropsWithChildren } from 'react';
 import PopoverContext, { IPopoverContext } from '../Context';
 import Anchor from '../Anchor';
 
@@ -12,7 +12,7 @@ export interface IPopoverTriggerProps<ChildProps> {
 export class PopoverTrigger<
   TriggerChildProps = {}, // eslint-disable-line @typescript-eslint/ban-types
   T extends IPopoverTriggerProps<TriggerChildProps> = IPopoverTriggerProps<TriggerChildProps>
-> extends Component<T> {
+> extends Component<PropsWithChildren<T>> {
   static contextType = PopoverContext;
   context!: IPopoverContext;
 

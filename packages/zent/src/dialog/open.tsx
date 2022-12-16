@@ -1,5 +1,5 @@
 import * as ReactDOM from 'react-dom';
-import { Component, createRef } from 'react';
+import { Component, createRef, PropsWithChildren } from 'react';
 
 import uniqueId from '../utils/uniqueId';
 import noop from '../utils/noop';
@@ -31,7 +31,9 @@ interface IStandaloneDialogProps {
   container: HTMLDivElement;
 }
 
-class StandaloneDialog extends Component<IStandaloneDialogProps> {
+class StandaloneDialog extends Component<
+  PropsWithChildren & IStandaloneDialogProps
+> {
   state = {
     visible: true,
   };

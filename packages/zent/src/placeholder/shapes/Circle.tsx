@@ -1,4 +1,4 @@
-import { PureComponent } from 'react';
+import { PropsWithChildren, PureComponent } from 'react';
 import cx from 'classnames';
 
 import Base, { IPlaceholderBaseShapeProps } from './Base';
@@ -7,7 +7,9 @@ export interface IPlaceholderCicleProps extends IPlaceholderBaseShapeProps {
   diameter?: number;
 }
 
-export default class Circle extends PureComponent<IPlaceholderCicleProps> {
+export default class Circle extends PureComponent<
+  PropsWithChildren & IPlaceholderCicleProps
+> {
   static defaultProps = {
     style: {},
     animate: true,

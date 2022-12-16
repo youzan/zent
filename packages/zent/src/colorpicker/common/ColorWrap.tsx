@@ -1,9 +1,9 @@
-import { Component } from 'react';
+import { Component, PropsWithChildren } from 'react';
 import debounce from '../../utils/debounce';
 import color from '../helpers/color';
 
 export const ColorWrap = Picker => {
-  class ColorPicker extends Component<any, any> {
+  class ColorPicker extends Component<PropsWithChildren<any>, any> {
     static defaultProps = {
       color: {
         h: 250,
