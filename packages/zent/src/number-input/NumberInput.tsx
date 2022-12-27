@@ -386,15 +386,19 @@ export class NumberInput extends Component<
         onChange && onChange(this.state.value as number);
       }
     } else {
-      const { onChange, decimal } = this.props;
+      const { onChange, decimal, value: propsValue } = this.props;
       const { value } = this.state as INumberInputDecimalState;
       const roundedStateValue = value.toFixed(decimal);
+      // 外部不规范的使用方式会去修改 onChange 抛出去的值以及它的类型，这里统一转成字符串
+      const roundedPropsValue =
+        typeof propsValue === 'number'
+          ? propsValue.toFixed(decimal)
+          : propsValue;
       if (
         onChange &&
         this.props.value !== '' &&
         this.state.input !== '' &&
-        // 外部传入的 value 有可能类型错误，转成字符串之后再比较
-        String(this.props.value) !== roundedStateValue
+        roundedPropsValue !== roundedStateValue
       ) {
         onChange(roundedStateValue);
       }
