@@ -9,6 +9,10 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 9.12.11(2022-12-27)
+
+- 🦀️ Fix infinite rendering loop in `NumberInput` which is caused by the previous fix in 9.12.10
+
 ### 9.12.10(2022-12-24)
 
 - 🦀️ Fix infinite rendering loop in `NumberInput`
