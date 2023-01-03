@@ -16,9 +16,7 @@ export interface IPurePortalProps {
  * 1. Awareness of nested portals
  * 2. `append=false` to mimic old `unstable_renderIntoContainer` behavior for backward compatibility
  */
-export class PurePortal extends Component<
-  PropsWithChildren & IPurePortalProps
-> {
+export class PurePortal extends Component<PropsWithChildren<IPurePortalProps>> {
   static defaultProps = {
     append: false,
   };

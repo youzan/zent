@@ -7,7 +7,7 @@ export interface IGridColGroupProps<Data> {
 }
 
 class ColGroup<Data> extends PureComponent<
-  PropsWithChildren & IGridColGroupProps<Data>
+  PropsWithChildren<IGridColGroupProps<Data>>
 > {
   render() {
     const { columns } = this.props;

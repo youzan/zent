@@ -19,7 +19,7 @@ export interface IDialogInnerElProps {
 }
 
 export class DialogInnerEl extends Component<
-  PropsWithChildren & IDialogInnerElProps
+  PropsWithChildren<IDialogInnerElProps>
 > {
   dialogEl: HTMLDivElement | null = null;
 
@@ -124,7 +124,7 @@ export interface IDialogElWrapper {
 }
 
 export class DialogElWrapper extends Component<
-  PropsWithChildren & IDialogElWrapper
+  PropsWithChildren<IDialogElWrapper>
 > {
   rootRef = createRef<HTMLDivElement>();
 

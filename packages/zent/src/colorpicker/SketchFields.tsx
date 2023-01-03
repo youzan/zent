@@ -5,7 +5,7 @@ import color from './helpers/color';
 import { EditableInput } from './common';
 
 export default class SketchFileds extends PureComponent<
-  PropsWithChildren & any
+  PropsWithChildren<any>
 > {
   state = {
     hexColor: this.props.hex.replace('#', ''),

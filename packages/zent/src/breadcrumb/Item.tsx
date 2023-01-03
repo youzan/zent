@@ -8,7 +8,7 @@ export interface IBreadcrumbItemProps {
 }
 
 export class BreadcrumbItem extends Component<
-  PropsWithChildren & IBreadcrumbItemProps
+  PropsWithChildren<IBreadcrumbItemProps>
 > {
   render() {
     const { href, name, ...others } = this.props;

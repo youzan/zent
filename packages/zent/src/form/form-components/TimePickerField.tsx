@@ -10,7 +10,7 @@ export type IFormTimePickerField = IFormComponentProps<
 >;
 
 export const FormTimePickerField: React.FunctionComponent<
-  PropsWithChildren & IFormTimePickerField
+  PropsWithChildren<IFormTimePickerField>
 > = props => {
   return (
     <FormField

@@ -15,7 +15,7 @@ interface IGridCellProps<Data> {
   prefix: string;
 }
 
-class Cell<Data> extends Component<PropsWithChildren & IGridCellProps<Data>> {
+class Cell<Data> extends Component<PropsWithChildren<IGridCellProps<Data>>> {
   context: {
     defaultText: string;
     isValueEmpty?: null;

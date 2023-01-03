@@ -14,7 +14,7 @@ export interface IBlockHeaderProps {
 }
 
 export class BlockHeader extends Component<
-  PropsWithChildren & IBlockHeaderProps
+  PropsWithChildren<IBlockHeaderProps>
 > {
   static defaultProps = {
     className: '',

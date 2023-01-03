@@ -32,7 +32,7 @@ interface IStandaloneDialogProps {
 }
 
 class StandaloneDialog extends Component<
-  PropsWithChildren & IStandaloneDialogProps
+  PropsWithChildren<IStandaloneDialogProps>
 > {
   state = {
     visible: true,

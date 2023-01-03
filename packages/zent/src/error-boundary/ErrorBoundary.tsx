@@ -23,7 +23,7 @@ export interface IErrorBoundaryProps {
 }
 
 export class ErrorBoundary extends Component<
-  PropsWithChildren & IErrorBoundaryProps
+  PropsWithChildren<IErrorBoundaryProps>
 > {
   static defaultProps = {
     FallbackComponent: ErrorBoundaryFallbackComponent,

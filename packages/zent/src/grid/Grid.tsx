@@ -124,7 +124,7 @@ export class Grid<
   RowProps = Record<string, unknown>,
   Key = string
 > extends PureComponent<
-  PropsWithChildren & IGridProps<Data, RowProps, Key>,
+  PropsWithChildren<IGridProps<Data, RowProps, Key>>,
   IGridState
 > {
   static defaultProps: Partial<IGridProps> = {

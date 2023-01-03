@@ -12,9 +12,7 @@ export interface ICopyButtonProps {
   onCopyError?: string | (() => void);
 }
 
-export class CopyButton extends Component<
-  PropsWithChildren & ICopyButtonProps
-> {
+export class CopyButton extends Component<PropsWithChildren<ICopyButtonProps>> {
   static defaultProps = {
     onCopySuccess: '',
     onCopyError: '',

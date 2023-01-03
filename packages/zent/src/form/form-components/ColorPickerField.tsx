@@ -18,7 +18,7 @@ function renderColorPicker(
 }
 
 export const FormColorPickerField: React.FunctionComponent<
-  PropsWithChildren & IFormColorPickerFieldProps
+  PropsWithChildren<IFormColorPickerFieldProps>
 > = props => {
   return (
     <FormField
