@@ -25,7 +25,7 @@ export interface INotifyContentProps {
 }
 
 export default class NotifyContent extends Component<
-  PropsWithChildren & INotifyContentProps
+  PropsWithChildren<INotifyContentProps>
 > {
   static defaultProps = {
     text: '',

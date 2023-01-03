@@ -35,7 +35,7 @@ export interface ICollapsePanelProps {
 }
 
 export class CollapsePanel extends Component<
-  PropsWithChildren & ICollapsePanelProps
+  PropsWithChildren<ICollapsePanelProps>
 > {
   static defaultProps = {
     showArrow: true,

@@ -22,7 +22,7 @@ interface ITagsTriggerProps extends ICascaderBaseTriggerProps {
 }
 
 export class TagsTrigger extends Component<
-  PropsWithChildren & ITagsTriggerProps
+  PropsWithChildren<ITagsTriggerProps>
 > {
   static defaultProps = {
     selectedPaths: [],

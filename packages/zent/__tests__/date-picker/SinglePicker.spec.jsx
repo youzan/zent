@@ -288,12 +288,10 @@ describe('SinglePicker', () => {
 
     Simulate.click(monthTitle);
     const monthPanel = document.querySelector('.zent-datepicker-ym-panel-body');
-    if (monthPanel) {
-      const monthUnits = monthPanel.querySelectorAll(
-        '.zent-datepicker-panel-body-cells_item'
-      );
-      Simulate.click(monthUnits[1]);
-    }
+    const monthUnits = monthPanel.querySelectorAll(
+      '.zent-datepicker-panel-body-cells_item'
+    );
+    Simulate.click(monthUnits[1]);
 
     // prev
     const prevs = header.querySelectorAll(

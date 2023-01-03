@@ -41,7 +41,7 @@ export interface IDateRangeQuickPickerProps {
 }
 
 export class DateRangeQuickPicker extends Component<
-  PropsWithChildren & IDateRangeQuickPickerProps
+  PropsWithChildren<IDateRangeQuickPickerProps>
 > {
   static defaultProps = {
     className: '',

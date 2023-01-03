@@ -8,7 +8,7 @@ export interface IPlaceholderBaseShapeProps {
 }
 
 export default class Base extends PureComponent<
-  PropsWithChildren & IPlaceholderBaseShapeProps
+  PropsWithChildren<IPlaceholderBaseShapeProps>
 > {
   static defaultProps = {
     style: {},

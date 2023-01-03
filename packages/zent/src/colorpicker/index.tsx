@@ -27,7 +27,7 @@ export interface IColorPickerProps {
 }
 
 export class ColorPicker extends PureComponent<
-  PropsWithChildren & IColorPickerProps
+  PropsWithChildren<IColorPickerProps>
 > {
   state = {
     popVisible: false,

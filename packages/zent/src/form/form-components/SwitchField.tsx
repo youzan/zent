@@ -18,7 +18,7 @@ function renderSwitch(
 }
 
 export const FormSwitchField: React.FunctionComponent<
-  PropsWithChildren & IFormSwitchFieldProps
+  PropsWithChildren<IFormSwitchFieldProps>
 > = props => {
   const { className, ...rest } = props;
 

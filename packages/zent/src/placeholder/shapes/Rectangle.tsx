@@ -9,7 +9,7 @@ export interface IPlaceholderRectangleProps extends IPlaceholderBaseShapeProps {
 }
 
 export default class Rectangle extends PureComponent<
-  PropsWithChildren & IPlaceholderRectangleProps
+  PropsWithChildren<IPlaceholderRectangleProps>
 > {
   static defaultProps = {
     style: {},

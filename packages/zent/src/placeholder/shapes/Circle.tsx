@@ -8,7 +8,7 @@ export interface IPlaceholderCicleProps extends IPlaceholderBaseShapeProps {
 }
 
 export default class Circle extends PureComponent<
-  PropsWithChildren & IPlaceholderCicleProps
+  PropsWithChildren<IPlaceholderCicleProps>
 > {
   static defaultProps = {
     style: {},

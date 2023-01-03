@@ -148,7 +148,7 @@ export interface IFormProps<T extends {}>
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export class Form<T extends {}> extends Component<
-  PropsWithChildren & IFormProps<T>
+  PropsWithChildren<IFormProps<T>>
 > {
   static displayName = 'ZentForm';
 

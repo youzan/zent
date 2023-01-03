@@ -19,7 +19,7 @@ export interface IPlaceholderRichTextBlock {
 }
 
 export default class RichTextBlock extends PureComponent<
-  PropsWithChildren & IPlaceholderRichTextBlock
+  PropsWithChildren<IPlaceholderRichTextBlock>
 > {
   static defaultProps = {
     style: {},

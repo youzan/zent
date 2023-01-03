@@ -21,7 +21,7 @@ const enquire = supportMediaQuery ? createMediaQueryDispatcher() : null;
  * So no need for one more media query manager.
  */
 export class BreakPointHub extends Component<
-  PropsWithChildren & IBreakPointHubProps
+  PropsWithChildren<IBreakPointHubProps>
 > {
   render() {
     return null;

@@ -11,7 +11,7 @@ export interface ISingleTriggerProps
 }
 
 export class SingleTrigger extends Component<
-  PropsWithChildren & ISingleTriggerProps
+  PropsWithChildren<ISingleTriggerProps>
 > {
   static defaultProps = {
     selectedPath: [],

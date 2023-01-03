@@ -18,7 +18,7 @@ export interface IPopoverAnchorProps {
 }
 
 export class PopoverAnchor extends Component<
-  PropsWithChildren & IPopoverAnchorProps
+  PropsWithChildren<IPopoverAnchorProps>
 > {
   static contextType = Context;
   declare context: IPopoverContext;

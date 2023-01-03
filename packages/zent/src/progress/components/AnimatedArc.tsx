@@ -28,7 +28,7 @@ export interface IAnimatedArcProps {
  * Draw an arc then rotate it along the path
  */
 export default class AnimatedArc extends PureComponent<
-  PropsWithChildren & IAnimatedArcProps
+  PropsWithChildren<IAnimatedArcProps>
 > {
   animationDelayTimerId: number;
   transitionEndTimerId: number;

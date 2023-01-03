@@ -47,7 +47,7 @@ const InputField: React.FC<{
 };
 
 export const FormInputField: React.FunctionComponent<
-  React.PropsWithChildren & IFormInputFieldProps
+  React.PropsWithChildren<IFormInputFieldProps>
 > = props => {
   const { validateOccasion = ValidateOccasion.Blur } = props;
 

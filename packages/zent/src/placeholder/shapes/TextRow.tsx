@@ -9,7 +9,7 @@ export interface IPlaceholderTextRowProps {
 }
 
 export default class TextRow extends PureComponent<
-  PropsWithChildren & IPlaceholderTextRowProps
+  PropsWithChildren<IPlaceholderTextRowProps>
 > {
   static defaultProps = {
     lineSpacing: '0.7em',
