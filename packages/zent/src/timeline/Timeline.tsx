@@ -1,10 +1,14 @@
-import { Children, cloneElement, PureComponent } from 'react';
+import {
+  Children,
+  cloneElement,
+  PureComponent,
+  PropsWithChildren,
+} from 'react';
 import cx from 'classnames';
 import { isElement } from 'react-is';
 
 import { TimelineItem, ITimelineItemProps } from './Item';
 import { TimelineLegend } from './Dot';
-import * as React from 'react';
 
 function normalize(timeline, size) {
   return timeline.map((item, index) => {
@@ -36,9 +40,7 @@ export interface ITimelineProps {
   style?: React.CSSProperties;
 }
 
-export class Timeline extends PureComponent<
-  React.PropsWithChildren<ITimelineProps>
-> {
+export class Timeline extends PureComponent<PropsWithChildren<ITimelineProps>> {
   static defaultProps = {
     type: 'horizontal',
     size: '100%',

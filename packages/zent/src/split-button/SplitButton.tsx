@@ -11,7 +11,9 @@ import * as React from 'react';
 
 const { MenuItem } = Menu;
 
-export interface ISplitButtonProps<Value> {
+type ValueType = Record<string, React.ReactNode>;
+
+export interface ISplitButtonProps<Value extends ValueType> {
   type?: 'default' | 'primary' | 'danger' | 'success' | 'text';
   size?: 'medium' | 'large' | 'small';
   disabled?: boolean;
@@ -45,7 +47,7 @@ export interface ISplitButtonProps<Value> {
   onSelect?: (key: string) => void;
 }
 
-export class SplitButton<Value> extends Component<
+export class SplitButton<Value extends ValueType> extends Component<
   React.PropsWithChildren<ISplitButtonProps<Value>>
 > {
   static defaultProps = {
@@ -159,7 +161,7 @@ export class SplitButton<Value> extends Component<
                       className={`zent-split-button__dropdown-menu-item-${type}`}
                       key={`${item[dropdownValue]}`}
                     >
-                      {item[dropdownText] as unknown as React.ReactNode}
+                      {item[dropdownText]}
                     </MenuItem>
                   );
                 })}

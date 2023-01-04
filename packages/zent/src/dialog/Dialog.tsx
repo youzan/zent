@@ -141,7 +141,6 @@ export class Dialog extends Component<
           visible={visible}
           onClose={this.onClose}
         >
-          {/* @ts-ignore */}
           <CSSTransition
             appear
             mountOnEnter

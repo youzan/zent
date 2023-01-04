@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import { Component, createRef, ReactNode } from 'react';
+import { Component, createRef } from 'react';
 
 import Popover from '../popover';
 import TagList, { ISelectTagListProps } from './TagList';
@@ -56,7 +56,7 @@ export interface ISelectCommonProps<
   size?: ISelectSize;
   popupWidth?: React.CSSProperties['width'];
   filter?: ((keyword: string, item: Item) => boolean) | false;
-  highlight?: (keyword: string, item: Item) => Item;
+  highlight?: (keyword: string, item: Item) => React.ReactNode;
   disabled?: boolean;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
@@ -603,11 +603,10 @@ export class Select<
       optionContent = renderOptionContent(option);
     } else {
       const keyword = this.state.keyword.trim();
-      optionContent = (
+      optionContent =
         filter !== false && keyword.length > 0
           ? highlight?.(keyword, option)
-          : option.text
-      ) as ReactNode;
+          : option.text;
     }
 
     return (
