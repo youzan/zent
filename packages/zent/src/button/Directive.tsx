@@ -1,13 +1,6 @@
 import cx from 'classnames';
 import { isElement, isFragment } from 'react-is';
-import {
-  Children,
-  cloneElement,
-  ReactElement,
-  useCallback,
-  useContext,
-  useRef,
-} from 'react';
+import { Children, cloneElement, useCallback, useContext, useRef } from 'react';
 
 import Icon, { IconType } from '../icon';
 import { DisabledContext } from '../disabled';
@@ -82,7 +75,7 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
   const propsRef = useRef(props);
   propsRef.current = props;
 
-  const childElement = children as ReactElement;
+  const childElement = children as React.ReactElement<ChildProps>;
 
   const onClick = useCallback((e: React.MouseEvent) => {
     const { loading, children } = propsRef.current;
