@@ -31,9 +31,10 @@ const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
 }) => {
   const [start, end] = selected;
   const [startShowTime, endShowTime] = useShowTimeRangeOption(showTime);
-  const [startPabelDate, setStartPanelDate] = useState(defaultPanelDate[0]);
+  const [startPanelDate, setStartPanelDate] = useState(defaultPanelDate[0]);
 
-  useEffect(() => setStartPanelDate(defaultPanelDate[0]), [defaultPanelDate]);
+  // don't update startPanelDate when new value is selected, in case of DatePanel jumping to unexpected month
+  useEffect(() => setStartPanelDate(defaultPanelDate[0]), []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const { disabledStartTimes, disabledConfirm, disabledEndTimes } =
     useRangeDisabledTime({
@@ -130,7 +131,7 @@ const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
             selected={start}
             disabledTime={disabledStartTimes}
             popText={start && !end ? '请选择结束日期' : ''}
-            defaultPanelDate={startPabelDate}
+            defaultPanelDate={startPanelDate}
             onSelected={onChangeStartOrEnd}
             disabledPanelDate={disabledStartDate}
             onPanelDateChange={onStartPanelDateChange}
@@ -149,7 +150,7 @@ const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
             disableRangeOverView
             selected={end}
             disabledTime={disabledEndTimes}
-            defaultPanelDate={addMonths(startPabelDate, 1)}
+            defaultPanelDate={addMonths(startPanelDate, 1)}
             onSelected={onChangeStartOrEnd}
             disabledPanelDate={disabledEndDate}
             onPanelDateChange={onEndPanelDateChange}
