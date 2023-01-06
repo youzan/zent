@@ -9,6 +9,9 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 9.12.13(2023-01-06)
+- 🦀️ Fix date jump after end date is selected in `CombinedDateRangePicker`
+
 ### 9.12.12(2022-12-27)
 
 - 🦀️ Fix `ErrorBoundary` `onError` type definition
