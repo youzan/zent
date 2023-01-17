@@ -11,7 +11,7 @@ import * as React from 'react';
 
 const { MenuItem } = Menu;
 
-type ValueType = Record<string, string>;
+type ValueType = Record<string, React.ReactNode>;
 
 export interface ISplitButtonProps<Value extends ValueType> {
   type?: 'default' | 'primary' | 'danger' | 'success' | 'text';
