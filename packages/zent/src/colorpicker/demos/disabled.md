@@ -34,7 +34,7 @@ class Simple extends React.Component {
 				<Disabled>
 					<ColorPicker color={color} />
 					<div className="color-picker-demo" />
-					<ColorPicker color={color} disabled={false} />
+					<ColorPicker color={color} onChange={this.handleChange} disabled={false} />
 				</Disabled>
 				<div style={{ color, marginTop: 5 }}>{i18n.disabledComponent}</div>
 			</div>

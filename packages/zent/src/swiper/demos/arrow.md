@@ -43,14 +43,14 @@ class Simple extends React.Component {
 		const { arrows } = this.state;
 		return (
 			<div>
-				<p className="zent-carousel-demo__arrow-radio">
+				<div className="zent-carousel-demo__arrow-radio">
 					{i18n.arrows}:
 					<RadioGroup onChange={this.handleChangeArrows} value={arrows}>
 						<RadioButton value={false}>{i18n.hiddenArrows}</RadioButton>
 						<RadioButton value={true}>{i18n.showArrows}</RadioButton>
 						<RadioButton value="hover">{i18n.hoverShowArrows}</RadioButton>
 					</RadioGroup>
-				</p>
+				</div>
 				<div className="carousel-demo-container">
 					<Carousel
 						className="carousel-demo-simple"

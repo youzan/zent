@@ -23,7 +23,7 @@ ReactDOM.render(
 		>
 			{i18n.content}
 		</Alert>
-		<Alert type="info" extraContent={<a href="javascript:;">{i18n.link}</a>}>
+		<Alert type="info" extraContent={<a href="https://www.youzan.com" target="_blank">{i18n.link}</a>}>
 			{i18n.content}
 		</Alert>
 	</div>,

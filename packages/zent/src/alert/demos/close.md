@@ -38,7 +38,7 @@ const Simple = () => {
 		<div className="zent-alert-example">
 			<Alert
 				closable
-				closeContent={<a href="javascript:;">{i18n.closeText}</a>}
+				closeContent={<a>{i18n.closeText}</a>}
 			>
 				{i18n.content}
 			</Alert>

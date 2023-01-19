@@ -17,7 +17,7 @@ ReactDOM.render(
 	<div className="zent-alert-example">
 		<Alert>
 			<span>{i18n.content}</span>
-			<a href="javascript:;" className="zent-alert-demo-text">
+			<a href="https://www.youzan.com" target="_blank" className="zent-alert-demo-text">
 				{i18n.link}
 			</a>
 		</Alert>
