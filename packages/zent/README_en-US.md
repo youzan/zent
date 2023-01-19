@@ -20,7 +20,7 @@ Our goal is making React development faster and simpler.
 
 ### Supported Environments
 
-* React >= 17
+* React >= 18
 * Supports server-side rendering(SSR)
 
 ### Browsers

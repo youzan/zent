@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { FC, PropsWithChildren, useContext } from 'react';
 
 import { I18nReceiver as Receiver } from '../i18n';
 import TimePickerBase from './components/TimePickerBase';
@@ -11,7 +11,7 @@ import { INPUT_WIDTH, defaultTimePickerProps } from './constants';
 const PickerContextProvider = PickerContext.Provider;
 
 export type ITimePickerProps = ISingleTimePickerProps;
-export const TimePicker: React.FC<ITimePickerProps> = props => {
+export const TimePicker: FC<PropsWithChildren<ITimePickerProps>> = props => {
   const disabledContext = useContext(DisabledContext);
   const propsRequired = { ...defaultTimePickerProps, ...props };
 

@@ -1,5 +1,13 @@
 import cx from 'classnames';
-import { useCallback, useContext, useMemo, useRef, useState } from 'react';
+import {
+  FC,
+  PropsWithChildren,
+  useCallback,
+  useContext,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import { CombinedInputTrigger } from './PickerTrigger';
 import PickerPopover from './PickerPopover';
@@ -34,7 +42,7 @@ interface ICombinedPickerProps extends ICombinedPropsWithDefault {
   PanelComponent: React.ComponentType<IRangePanelProps>;
 }
 
-export const CombinedPicker: React.FC<ICombinedPickerProps> = ({
+export const CombinedPicker: FC<PropsWithChildren<ICombinedPickerProps>> = ({
   value,
   onChange,
   onOpen,

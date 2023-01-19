@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, PropsWithChildren } from 'react';
 import cx from 'classnames';
 import { getExtraStyle } from './utils';
 
@@ -15,7 +15,7 @@ export interface IMenuItemProps {
   inlineIndent?: boolean;
 }
 
-export class MenuItem extends Component<IMenuItemProps> {
+export class MenuItem extends Component<PropsWithChildren<IMenuItemProps>> {
   handleClick = (e: React.MouseEvent) => {
     const { specKey, onClick, disabled, isInline, handleSelect } = this.props;
 

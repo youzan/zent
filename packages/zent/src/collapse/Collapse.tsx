@@ -1,4 +1,4 @@
-import { Children, cloneElement, Component } from 'react';
+import { Children, cloneElement, Component, PropsWithChildren } from 'react';
 import cx from 'classnames';
 import kindOf from '../utils/kindOf';
 import Panel from './Panel';
@@ -26,7 +26,7 @@ interface ICollapsePropsBase {
 // The I prefix is for backward compatibility
 export type ICollapseProps = ICollapsePropsAccordion | ICollapsePropsMultiple;
 
-export class Collapse extends Component<ICollapseProps> {
+export class Collapse extends Component<PropsWithChildren<ICollapseProps>> {
   static defaultProps = {
     bordered: true,
     panelTitleBackground: 'default',
@@ -60,15 +60,18 @@ export class Collapse extends Component<ICollapseProps> {
           }
 
           const key = c.key?.toString();
-          return cloneElement(c, {
-            onChange: this.onChange,
-            active: isPanelActive(activeKey, key),
-            panelKey: key,
-            panelTitleBackground,
-            showContentBackground,
-            isLast: idx === Children.count(children) - 1,
-            bordered,
-          });
+          return cloneElement(
+            c as React.DetailedReactHTMLElement<any, HTMLElement>,
+            {
+              onChange: this.onChange,
+              active: isPanelActive(activeKey, key),
+              panelKey: key,
+              panelTitleBackground,
+              showContentBackground,
+              isLast: idx === Children.count(children) - 1,
+              bordered,
+            }
+          );
         })}
       </div>
     );

@@ -1,4 +1,4 @@
-import { PureComponent } from 'react';
+import { PropsWithChildren, PureComponent } from 'react';
 import cx from 'classnames';
 
 export interface IPlaceholderBaseShapeProps {
@@ -7,7 +7,9 @@ export interface IPlaceholderBaseShapeProps {
   animate?: boolean;
 }
 
-export default class Base extends PureComponent<IPlaceholderBaseShapeProps> {
+export default class Base extends PureComponent<
+  PropsWithChildren<IPlaceholderBaseShapeProps>
+> {
   static defaultProps = {
     style: {},
     animate: true,

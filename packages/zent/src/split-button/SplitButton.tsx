@@ -7,10 +7,13 @@ import Popover from '../popover';
 import Menu from '../menu';
 import Icon, { IconType } from '../icon';
 import { DisabledContext, IDisabledContext } from '../disabled';
+import * as React from 'react';
 
 const { MenuItem } = Menu;
 
-export interface ISplitButtonProps<Value> {
+type ValueType = Record<string, React.ReactNode>;
+
+export interface ISplitButtonProps<Value extends ValueType> {
   type?: 'default' | 'primary' | 'danger' | 'success' | 'text';
   size?: 'medium' | 'large' | 'small';
   disabled?: boolean;
@@ -44,7 +47,9 @@ export interface ISplitButtonProps<Value> {
   onSelect?: (key: string) => void;
 }
 
-export class SplitButton<Value> extends Component<ISplitButtonProps<Value>> {
+export class SplitButton<Value extends ValueType> extends Component<
+  React.PropsWithChildren<ISplitButtonProps<Value>>
+> {
   static defaultProps = {
     type: 'default',
     size: 'medium',

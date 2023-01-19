@@ -1,6 +1,6 @@
 import cx from 'classnames';
 import { Subscription } from 'rxjs';
-import { Component, createRef } from 'react';
+import { Component, createRef, PropsWithChildren } from 'react';
 
 import {
   FormProvider,
@@ -147,7 +147,9 @@ export interface IFormProps<T extends {}>
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-export class Form<T extends {}> extends Component<IFormProps<T>> {
+export class Form<T extends {}> extends Component<
+  PropsWithChildren<IFormProps<T>>
+> {
   static displayName = 'ZentForm';
 
   static CombineErrors = CombineErrors;

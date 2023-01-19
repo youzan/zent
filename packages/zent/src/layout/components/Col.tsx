@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, PropsWithChildren } from 'react';
 import cx from 'classnames';
 
 import ConfigContext from './ConfigContext';
@@ -14,7 +14,7 @@ export interface ILayoutColProps {
   className?: string;
 }
 
-export class LayoutCol extends Component<ILayoutColProps> {
+export class LayoutCol extends Component<PropsWithChildren<ILayoutColProps>> {
   static defaultProps = {
     offset: 0,
     order: 0,

@@ -2,8 +2,9 @@ import { CSSTransition } from 'react-transition-group';
 
 import { IDrawerBackdrop } from '../types';
 import { TransitionTimeOut } from '../constants';
+import { FC, PropsWithChildren } from 'react';
 
-const DrawerBackdrop: React.FC<IDrawerBackdrop> = ({
+const DrawerBackdrop: FC<PropsWithChildren<IDrawerBackdrop>> = ({
   mask,
   maskClosable,
   visible,

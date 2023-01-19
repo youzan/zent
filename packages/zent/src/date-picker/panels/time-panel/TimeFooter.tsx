@@ -1,4 +1,4 @@
-import { useCallback, useContext, useMemo } from 'react';
+import { FC, PropsWithChildren, useCallback, useContext, useMemo } from 'react';
 import cx from 'classnames';
 
 import PanelFooter from '../../components/PanelFooter';
@@ -8,7 +8,7 @@ import PanelContext from '../../context/PanelContext';
 import { formatDate } from '../../utils/index';
 import { ITimePanelProps } from '../../types';
 
-const TimePickerFooter: React.FC<ITimePanelProps> = ({
+const TimePickerFooter: FC<PropsWithChildren<ITimePanelProps>> = ({
   onSelected,
   selected,
   format,

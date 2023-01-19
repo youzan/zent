@@ -56,7 +56,7 @@ export interface ISelectCommonProps<
   size?: ISelectSize;
   popupWidth?: React.CSSProperties['width'];
   filter?: ((keyword: string, item: Item) => boolean) | false;
-  highlight?: (keyword: string, item: Item) => Item;
+  highlight?: (keyword: string, item: Item) => React.ReactNode;
   disabled?: boolean;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;

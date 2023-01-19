@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, PropsWithChildren } from 'react';
 import cx from 'classnames';
 import { AnimateHeight } from '../utils/component/AnimateHeight';
 import LazyMount from '../utils/component/LazyMount';
@@ -34,7 +34,9 @@ export interface ICollapsePanelProps {
   extra?: React.ReactNode;
 }
 
-export class CollapsePanel extends Component<ICollapsePanelProps> {
+export class CollapsePanel extends Component<
+  PropsWithChildren<ICollapsePanelProps>
+> {
   static defaultProps = {
     showArrow: true,
   };

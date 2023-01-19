@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, PropsWithChildren } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import Portal from '../portal';
 import Icon from '../icon';
@@ -24,7 +24,9 @@ export interface INotifyContentProps {
   isIn?: boolean;
 }
 
-export default class NotifyContent extends Component<INotifyContentProps> {
+export default class NotifyContent extends Component<
+  PropsWithChildren<INotifyContentProps>
+> {
   static defaultProps = {
     text: '',
     status: '',

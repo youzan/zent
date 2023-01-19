@@ -1,4 +1,4 @@
-import { useMemo, FC, useContext } from 'react';
+import { useMemo, FC, useContext, PropsWithChildren } from 'react';
 import PanelContext from '../../context/PanelContext';
 import PickerContext from '../../context/PickerContext';
 import PanelCell from '../../components/PanelCell';
@@ -12,7 +12,7 @@ const COL_COUNT = 3;
 const ROW_COUNT = 4;
 
 type IMonthPickerBodyProps = ISingleDateBodyProps;
-const MonthPickerBody: FC<IMonthPickerBodyProps> = ({
+const MonthPickerBody: FC<PropsWithChildren<IMonthPickerBodyProps>> = ({
   defaultPanelDate,
   onSelected,
   selected,

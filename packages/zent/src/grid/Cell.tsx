@@ -1,8 +1,8 @@
-import { Component, isValidElement } from 'react';
+import { Component, isValidElement, PropsWithChildren } from 'react';
 import classnames from 'classnames';
 import { GridColumnContext } from './ColumnContext';
 import { IGridInnerColumn } from './Grid';
-import { IGridCellPos } from './types';
+import { IGridCellPos, GridColumnContextType } from './types';
 import isNil from '../utils/isNil';
 import getFromPath from '../utils/getFromPath';
 import { hasOwnProperty } from '../utils/hasOwn';
@@ -15,7 +15,8 @@ interface IGridCellProps<Data> {
   prefix: string;
 }
 
-class Cell<Data> extends Component<IGridCellProps<Data>> {
+class Cell<Data> extends Component<PropsWithChildren<IGridCellProps<Data>>> {
+  context: GridColumnContextType;
   isInvalidRenderCellText(text: any) {
     return (
       text &&

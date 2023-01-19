@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, PropsWithChildren } from 'react';
 import cx from 'classnames';
 
 import ConfigContext from './ConfigContext';
@@ -16,7 +16,10 @@ interface ILayoutGridState {
   breakpoints: Partial<Record<LayoutBreakPoint, boolean>>;
 }
 
-export class LayoutGrid extends Component<ILayoutGridProps, ILayoutGridState> {
+export class LayoutGrid extends Component<
+  PropsWithChildren<ILayoutGridProps>,
+  ILayoutGridState
+> {
   state = {
     breakpoints: {} as Partial<Record<LayoutBreakPoint, boolean>>,
   };

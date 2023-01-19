@@ -1,4 +1,4 @@
-import { Component, createRef } from 'react';
+import { Component, createRef, PropsWithChildren } from 'react';
 import reactCSS from '../helpers/reactcss';
 import * as hue from '../helpers/hue';
 import { addEventListener } from '../../utils/component/event-handler';
@@ -7,7 +7,7 @@ import { runOnceInNextFrame } from '../../utils/nextFrame';
 /**
  * 色度条
  */
-export default class Hue extends Component<any, any> {
+export default class Hue extends Component<PropsWithChildren<any>, any> {
   containerRef = createRef<HTMLDivElement>();
   eventCancelList = [] as Array<() => void>;
 

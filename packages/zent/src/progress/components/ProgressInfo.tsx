@@ -1,7 +1,8 @@
 import { IProgressInfoProps } from '../types';
 import { Icon } from '../../icon';
+import { FC, PropsWithChildren } from 'react';
 
-const ProgressInfo: React.FC<IProgressInfoProps> = props => {
+const ProgressInfo: FC<PropsWithChildren<IProgressInfoProps>> = props => {
   const { type, percent, format, state, color } = props;
 
   if (state === 'success') {

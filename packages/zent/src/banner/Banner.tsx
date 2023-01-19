@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { FC, PropsWithChildren, useMemo } from 'react';
 import cx from 'classnames';
 import { IAlertProps, Alert } from '../alert';
 
@@ -13,7 +13,7 @@ export type IBannerProps = Omit<IAlertProps, 'title'> & {
   backgroundImage: string;
 };
 
-export const Banner: FC<IBannerProps> = ({
+export const Banner: FC<PropsWithChildren<IBannerProps>> = ({
   backgroundImage,
   closeIconColor,
   style = {},

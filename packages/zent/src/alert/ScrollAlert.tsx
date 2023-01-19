@@ -1,4 +1,4 @@
-import { Children, Component, ReactNode } from 'react';
+import { Children, Component, PropsWithChildren, ReactNode } from 'react';
 import cx from 'classnames';
 import AlertItem from './components/AlertItem';
 import { AlertItem as AlertItemPub } from './AlertItem';
@@ -79,7 +79,10 @@ const DefaultState: IState = {
   activeIndex: 0,
 };
 
-export class ScrollAlert extends Component<IScrollAlertProps, IState> {
+export class ScrollAlert extends Component<
+  PropsWithChildren<IScrollAlertProps>,
+  IState
+> {
   static defaultProps = {
     type: 'info',
     loading: false,

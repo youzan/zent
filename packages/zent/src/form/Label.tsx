@@ -1,12 +1,12 @@
 import cx from 'classnames';
-import { useContext } from 'react';
+import { PropsWithChildren, useContext } from 'react';
 import { FormContext } from './context';
 
 export interface ILabelProps {
   required?: boolean;
 }
 
-export const Label: React.FunctionComponent<ILabelProps> = ({
+export const Label: React.FunctionComponent<PropsWithChildren<ILabelProps>> = ({
   children,
   required,
 }) => {

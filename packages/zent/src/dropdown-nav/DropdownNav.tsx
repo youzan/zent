@@ -6,7 +6,7 @@ import {
   DropdownHoverTrigger,
   DropdownPosition,
 } from '../dropdown';
-import { useMemo, ElementType } from 'react';
+import { useMemo, ElementType, PropsWithChildren, FC } from 'react';
 import Menu, { MenuItem } from '../menu';
 
 interface INavListItem {
@@ -28,7 +28,7 @@ const TriggerButtonMap: Record<'hover' | 'click', ElementType> = {
   click: DropdownClickTrigger,
 };
 
-export const DropdownNav: React.FC<IDropdownNavProps> = ({
+export const DropdownNav: FC<PropsWithChildren<IDropdownNavProps>> = ({
   list = [],
   trigger = 'hover',
   onItemClick,

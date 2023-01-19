@@ -1,4 +1,4 @@
-import { useContext, useMemo } from 'react';
+import { FC, PropsWithChildren, useContext, useMemo } from 'react';
 
 import PanelCell from '../../components/PanelCell';
 import PanelContext from '../../context/PanelContext';
@@ -16,7 +16,7 @@ const ROW_COUNT = 4;
 interface IYearPickerBodyProps extends ISingleDateBodyProps {
   firstYear: number;
 }
-const YearPickerBody: React.FC<IYearPickerBodyProps> = ({
+const YearPickerBody: FC<PropsWithChildren<IYearPickerBodyProps>> = ({
   firstYear,
   onSelected,
   selected,

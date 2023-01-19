@@ -1,4 +1,4 @@
-import { PureComponent } from 'react';
+import { PropsWithChildren, PureComponent } from 'react';
 import cx from 'classnames';
 
 export interface IPlaceholderTextRowProps {
@@ -8,7 +8,9 @@ export interface IPlaceholderTextRowProps {
   lineSpacing?: string | number;
 }
 
-export default class TextRow extends PureComponent<IPlaceholderTextRowProps> {
+export default class TextRow extends PureComponent<
+  PropsWithChildren<IPlaceholderTextRowProps>
+> {
   static defaultProps = {
     lineSpacing: '0.7em',
     animate: true,

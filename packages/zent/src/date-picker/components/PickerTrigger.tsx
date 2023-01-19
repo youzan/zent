@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { FC, PropsWithChildren, useMemo } from 'react';
 
 import cx from 'classnames';
 import Icon from '../../icon';
@@ -15,7 +15,7 @@ type ITriggerDivProps = Pick<
   ISingleTriggerProps,
   'disabled' | 'canClear' | 'panelVisible' | 'width'
 >;
-const TriggerDiv: React.FC<ITriggerDivProps> = ({
+const TriggerDiv: FC<PropsWithChildren<ITriggerDivProps>> = ({
   disabled,
   canClear,
   panelVisible,
@@ -38,7 +38,7 @@ const TriggerDiv: React.FC<ITriggerDivProps> = ({
     </div>
   );
 };
-export const SingleInputTrigger: React.FC<ISingleTriggerProps> = ({
+export const SingleInputTrigger: FC<PropsWithChildren<ISingleTriggerProps>> = ({
   value,
   format,
   seperator,
@@ -97,7 +97,9 @@ export const SingleInputTrigger: React.FC<ISingleTriggerProps> = ({
 interface ICombinedInputTriggerProps extends IRangeTriggerProps {
   selected: DateNullTuple;
 }
-export const CombinedInputTrigger: React.FC<ICombinedInputTriggerProps> = ({
+export const CombinedInputTrigger: FC<
+  PropsWithChildren<ICombinedInputTriggerProps>
+> = ({
   format,
   value,
   selected,

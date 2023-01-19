@@ -100,7 +100,7 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
       'zent-btn-border-transparent': !bordered,
     },
     'zent-btn',
-    childElement.props.className
+    childElement?.props?.className
   );
 
   const commonChildren = cloneElement<ChildProps>(
@@ -113,7 +113,7 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
     } as Partial<ChildProps>,
     iconNode,
     // Wrap text in a `span`, or we won't be able to control icon margins
-    ...(Children.map(childElement.props.children, child =>
+    ...(Children.map(childElement?.props?.children, child =>
       typeof child === 'string' ? <span>{child}</span> : child
     ) || [])
   );

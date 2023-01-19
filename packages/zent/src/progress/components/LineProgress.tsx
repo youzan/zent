@@ -2,8 +2,9 @@ import cx from 'classnames';
 import { DEFAULT_WIDTH } from '../constants';
 import ProgressInfo from './ProgressInfo';
 import { IProgressInstanceProps } from '../types';
+import { FC, PropsWithChildren } from 'react';
 
-const LineProgress: React.FC<IProgressInstanceProps> = props => {
+const LineProgress: FC<PropsWithChildren<IProgressInstanceProps>> = props => {
   const {
     format,
     width,

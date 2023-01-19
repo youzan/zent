@@ -1,8 +1,11 @@
-import { Component, createRef } from 'react';
+import { Component, createRef, PropsWithChildren } from 'react';
 import reactCSS from '../helpers/reactcss';
 import { addEventListener } from '../../utils/component/event-handler';
 
-export default class EditableInput extends Component<any, any> {
+export default class EditableInput extends Component<
+  PropsWithChildren<any>,
+  any
+> {
   inputRef = createRef<HTMLInputElement>();
   eventCancelList = [] as Array<() => void>;
 

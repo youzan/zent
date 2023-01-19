@@ -1,4 +1,5 @@
-import { Component } from 'react';
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { Component, PropsWithChildren } from 'react';
 import { CSSTransition } from 'react-transition-group';
 
 import Portal from '../portal';
@@ -45,7 +46,10 @@ export interface IDialogState {
   exiting: boolean;
 }
 
-export class Dialog extends Component<IDialogProps, IDialogState> {
+export class Dialog extends Component<
+  PropsWithChildren<IDialogProps>,
+  IDialogState
+> {
   static defaultProps = {
     onClose() {},
     visible: false,

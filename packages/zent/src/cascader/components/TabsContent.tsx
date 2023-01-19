@@ -1,5 +1,5 @@
 import classnames from 'classnames';
-import { Component } from 'react';
+import { Component, PropsWithChildren } from 'react';
 
 import Popover from '../../popover';
 import Tabs, { ITabPanelElement, ITabPanelProps } from '../../tabs';
@@ -50,7 +50,7 @@ function defaultGetItemTooltip(node: ICascaderItem): string {
   return node.label;
 }
 
-class TabsContent extends Component<ITabsContentProps> {
+class TabsContent extends Component<PropsWithChildren<ITabsContentProps>> {
   static defaultProps = {
     renderItemContent: defaultRenderItemContent,
     getItemTooltip: defaultGetItemTooltip,

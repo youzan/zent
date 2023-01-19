@@ -1,4 +1,11 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import {
+  FC,
+  PropsWithChildren,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import cx from 'classnames';
 import { parse, addMonths, endOfDay, startOfDay } from 'date-fns';
 
@@ -19,7 +26,9 @@ interface ICombinedDateRangePanelProps extends IRangePanelProps {
   disabledTime?: IDisabledTime;
   showTime?: IShowTimeRange<string>;
 }
-const CombinedDateRangePanel: React.FC<ICombinedDateRangePanelProps> = ({
+const CombinedDateRangePanel: FC<
+  PropsWithChildren<ICombinedDateRangePanelProps>
+> = ({
   onSelected,
   selected,
   disabledStartDate,

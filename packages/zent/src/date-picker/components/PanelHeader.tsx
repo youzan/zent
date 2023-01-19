@@ -1,5 +1,6 @@
 import noop from '../../utils/noop';
 import Icon from '../../icon';
+import { FC, PropsWithChildren } from 'react';
 
 const prefixCls = 'zent-datepicker-panel-header';
 interface IArrowProps {
@@ -7,7 +8,10 @@ interface IArrowProps {
   type: 'left' | 'right';
 }
 
-const DoubleIconArrow: React.FC<IArrowProps> = ({ onClick, type }) => (
+const DoubleIconArrow: FC<PropsWithChildren<IArrowProps>> = ({
+  onClick,
+  type,
+}) => (
   <Icon
     type={type === 'left' ? 'double-last' : 'double-next'}
     onClick={onClick}
@@ -15,7 +19,7 @@ const DoubleIconArrow: React.FC<IArrowProps> = ({ onClick, type }) => (
   />
 );
 
-const IconArrow: React.FC<IArrowProps> = ({ onClick, type }) => (
+const IconArrow: FC<PropsWithChildren<IArrowProps>> = ({ onClick, type }) => (
   <Icon type={type} onClick={onClick} className={`${prefixCls}-arrow`} />
 );
 
@@ -25,7 +29,11 @@ interface ITitleProps {
   onClick?: () => void;
 }
 
-export const Title: React.FC<ITitleProps> = ({ text, unit = '', onClick }) => (
+export const Title: FC<PropsWithChildren<ITitleProps>> = ({
+  text,
+  unit = '',
+  onClick,
+}) => (
   <div className={`${prefixCls}-title_clickable`} onClick={onClick}>
     {text}
     {unit}
@@ -42,7 +50,7 @@ interface IPanelHeaderProps {
   onSuperPrev?: () => void;
   onSuperNext?: () => void;
 }
-const PanelHeader: React.FC<IPanelHeaderProps> = ({
+const PanelHeader: FC<PropsWithChildren<IPanelHeaderProps>> = ({
   showSuper = false,
   titleNode,
   combinedLeft,

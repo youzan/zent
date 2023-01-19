@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, PropsWithChildren } from 'react';
 import { PaginationLayout } from '../layout/type';
 import memoize from '../../utils/memorize-one';
 import { IPopProps } from '../../pop';
@@ -34,7 +34,7 @@ export type PaginationLayoutFunction = (
 
 export abstract class BasePagination<
   IProps extends IBasePaginationProps
-> extends Component<IProps> {
+> extends Component<PropsWithChildren<IProps>> {
   abstract readonly name: string;
   abstract readonly layoutFn: PaginationLayoutFunction;
 

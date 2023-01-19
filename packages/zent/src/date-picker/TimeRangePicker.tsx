@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { FC, PropsWithChildren, useContext } from 'react';
 
 import { I18nReceiver as Receiver } from '../i18n';
 import TimeRangePickerBase from './components/TimeRangePickerBase';
@@ -11,37 +11,38 @@ import TimePicker from './TimePicker';
 const PickerContextProvider = PickerContext.Provider;
 
 export { ITimeRangePickerProps };
-export const TimeRangePicker: React.FC<ITimeRangePickerProps> = props => {
-  const disabledContext = useContext(DisabledContext);
-  const propsRequired = { ...defaultTimePickerProps, ...props };
+export const TimeRangePicker: FC<PropsWithChildren<ITimeRangePickerProps>> =
+  props => {
+    const disabledContext = useContext(DisabledContext);
+    const propsRequired = { ...defaultTimePickerProps, ...props };
 
-  const {
-    format,
-    placeholder,
-    width,
-    disabled = disabledContext.value,
-  } = propsRequired;
+    const {
+      format,
+      placeholder,
+      width,
+      disabled = disabledContext.value,
+    } = propsRequired;
 
-  return (
-    <Receiver componentName="TimePicker">
-      {i18n => (
-        <PickerContextProvider
-          value={{
-            i18n,
-          }}
-        >
-          <TimeRangePickerBase
-            {...propsRequired}
-            format={format}
-            placeholder={placeholder || [i18n.startTime, i18n.endTime]}
-            disabled={disabled}
-            seperator={i18n.to}
-            width={width ?? SINGLE_INPUT_WIDTH}
-            PickerComponent={TimePicker}
-          />
-        </PickerContextProvider>
-      )}
-    </Receiver>
-  );
-};
+    return (
+      <Receiver componentName="TimePicker">
+        {i18n => (
+          <PickerContextProvider
+            value={{
+              i18n,
+            }}
+          >
+            <TimeRangePickerBase
+              {...propsRequired}
+              format={format}
+              placeholder={placeholder || [i18n.startTime, i18n.endTime]}
+              disabled={disabled}
+              seperator={i18n.to}
+              width={width ?? SINGLE_INPUT_WIDTH}
+              PickerComponent={TimePicker}
+            />
+          </PickerContextProvider>
+        )}
+      </Receiver>
+    );
+  };
 export default TimeRangePicker;

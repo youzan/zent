@@ -1,4 +1,11 @@
-import { useMemo, useCallback, useRef, useState } from 'react';
+import {
+  useMemo,
+  useCallback,
+  useRef,
+  useState,
+  PropsWithChildren,
+  FC,
+} from 'react';
 import cx from 'classnames';
 import formatFn from 'date-fns/format';
 import parse from 'date-fns/parse';
@@ -29,7 +36,7 @@ interface ITimePickerBaseProps extends ISingleTimePickerPropsWithDefault {
   seperator?: string;
 }
 
-const TimePickerBase: React.FC<ITimePickerBaseProps> = ({
+const TimePickerBase: FC<PropsWithChildren<ITimePickerBaseProps>> = ({
   onChange,
   disabledTime,
   onOpen,

@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, PropsWithChildren } from 'react';
 
 import ErrorBoundaryFallbackComponent from './Fallback';
 import catchError from './catchError';
@@ -22,7 +22,9 @@ export interface IErrorBoundaryProps {
   FallbackComponent?: React.ComponentType<IErrorBoundaryFallbackComponentProps>;
 }
 
-export class ErrorBoundary extends Component<IErrorBoundaryProps> {
+export class ErrorBoundary extends Component<
+  PropsWithChildren<IErrorBoundaryProps>
+> {
   static defaultProps = {
     FallbackComponent: ErrorBoundaryFallbackComponent,
   };

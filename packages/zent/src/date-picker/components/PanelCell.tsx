@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import { useCallback, useMemo } from 'react';
+import { FC, PropsWithChildren, useCallback, useMemo } from 'react';
 import Tooltip from '../../tooltip';
 import { IDateCellBase } from '../types';
 
@@ -31,7 +31,7 @@ interface IPanelCellProps {
   onHover?: (val: Date) => void;
   popText?: string;
 }
-const PanelCell: React.FC<IPanelCellProps> = ({
+const PanelCell: FC<PropsWithChildren<IPanelCellProps>> = ({
   cells,
   onSelected,
   col,

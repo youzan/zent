@@ -1,11 +1,12 @@
 import cx from 'classnames';
+import { FC, PropsWithChildren } from 'react';
 
 export interface IFormNoticeProps {
   className?: string;
   style?: React.CSSProperties;
 }
 
-export const FormNotice: React.FC<IFormNoticeProps> = ({
+export const FormNotice: FC<PropsWithChildren<IFormNoticeProps>> = ({
   className,
   style,
   children,

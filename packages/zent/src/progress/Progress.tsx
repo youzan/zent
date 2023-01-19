@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { FC, PropsWithChildren, useMemo } from 'react';
 import cx from 'classnames';
 import {
   IProgressProps,
@@ -10,7 +10,7 @@ import CircleProgress from './components/CircleProgress';
 import LineProgress from './components/LineProgress';
 import { PartialRequired } from '../utils/types';
 
-export const Progress: React.FC<IProgressProps> = props => {
+export const Progress: FC<PropsWithChildren<IProgressProps>> = props => {
   const {
     type,
     status,

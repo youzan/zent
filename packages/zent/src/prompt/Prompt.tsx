@@ -23,7 +23,7 @@ const promptTypePropsMap: Record<PromptType, Partial<IAlertProps>> = {
   },
 };
 
-export const Prompt: FC<IPromptProps> = ({
+export const Prompt: FC<React.PropsWithChildren<IPromptProps>> = ({
   title,
   style = {},
   type = 'warning',

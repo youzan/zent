@@ -1,9 +1,11 @@
-import { memo } from 'react';
+import { FC, memo, PropsWithChildren } from 'react';
 
 interface IDateSubTitleProps {
   names: string[];
 }
-const PanelSubHeader: React.FC<IDateSubTitleProps> = ({ names }) => {
+const PanelSubHeader: FC<PropsWithChildren<IDateSubTitleProps>> = ({
+  names,
+}) => {
   return (
     <ul className="zent-datepicker-panel-sub_header">
       {names.map(item => (

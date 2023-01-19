@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react';
+import { FC, PropsWithChildren, useCallback, useRef } from 'react';
 import cx from 'classnames';
 import { startOfToday } from 'date-fns';
 
@@ -24,7 +24,7 @@ interface ITimeRangePickerBaseProps extends ITimeRangePickerPropsWithDefault {
   seperator: string;
 }
 
-const TimeRangePickerBase: React.FC<ITimeRangePickerBaseProps> = ({
+const TimeRangePickerBase: FC<PropsWithChildren<ITimeRangePickerBaseProps>> = ({
   value,
   onChange,
   disabledTime,

@@ -1,4 +1,4 @@
-import { Component, createRef } from 'react';
+import { Component, createRef, PropsWithChildren } from 'react';
 import classNames from 'classnames';
 import { IInputProps, IInputCoreProps, IInputClearEvent } from './types';
 import { InputCore } from './InputCore';
@@ -20,7 +20,10 @@ const BLOCKED_CHILD_PROPS = [
   'widthSize',
 ] as const;
 
-export class Input extends Component<IInputProps, IInputState> {
+export class Input extends Component<
+  PropsWithChildren<IInputProps>,
+  IInputState
+> {
   static contextType = InputContext;
   static displayName = 'ZentInput';
 

@@ -1,5 +1,12 @@
 import cx from 'classnames';
-import { useCallback, useContext, useMemo, useRef } from 'react';
+import {
+  FC,
+  PropsWithChildren,
+  useCallback,
+  useContext,
+  useMemo,
+  useRef,
+} from 'react';
 
 import PickerContext from '../context/PickerContext';
 import useRangeMergedProps from '../hooks/useRangeMergedProps';
@@ -36,7 +43,7 @@ interface IRangePickerProps extends IRangePropsWithDefault {
   disabledTime?: IDisabledTime;
 }
 
-const RangePicker: React.FC<IRangePickerProps> = ({
+const RangePicker: FC<PropsWithChildren<IRangePickerProps>> = ({
   placeholder,
   value,
   disabledDate: disabledDateProps,

@@ -1,9 +1,9 @@
-import { useMemo } from 'react';
+import { FC, PropsWithChildren, useMemo } from 'react';
 
 import { IIMECompositionProps } from './types';
 import { IMECompositionContext } from './context';
 
-export const IMEComposition: React.FC<IIMECompositionProps> = ({
+export const IMEComposition: FC<PropsWithChildren<IIMECompositionProps>> = ({
   enable = true,
   children,
 }) => {

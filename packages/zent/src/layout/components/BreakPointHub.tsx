@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, PropsWithChildren } from 'react';
 
 import isBrowser from '../../utils/isBrowser';
 import { LayoutBreakPoint } from './types';
@@ -20,7 +20,9 @@ const enquire = supportMediaQuery ? createMediaQueryDispatcher() : null;
  *
  * So no need for one more media query manager.
  */
-export class BreakPointHub extends Component<IBreakPointHubProps> {
+export class BreakPointHub extends Component<
+  PropsWithChildren<IBreakPointHubProps>
+> {
   render() {
     return null;
   }

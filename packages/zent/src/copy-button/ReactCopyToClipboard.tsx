@@ -1,4 +1,4 @@
-import { Children, cloneElement, Component } from 'react';
+import { Children, cloneElement, Component, PropsWithChildren } from 'react';
 import copy from './CopyToClipboard';
 
 export interface ICopyToClipboardProps {
@@ -11,7 +11,9 @@ export interface ICopyToClipboardChildProps {
   onClick?: React.MouseEventHandler<HTMLElement>;
 }
 
-export class CopyToClipboard extends Component<ICopyToClipboardProps> {
+export class CopyToClipboard extends Component<
+  PropsWithChildren<ICopyToClipboardProps>
+> {
   onClick = (event: React.MouseEvent) => {
     const { text, onCopy, children } = this.props;
 

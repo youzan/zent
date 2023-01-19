@@ -16,6 +16,13 @@ import CNWrapper from './components/CNWrapper';
 import USWrapper from './components/USWrapper';
 import { ILayoutProps, INav, INavItem } from './types';
 
+declare module 'react-router-dom' {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  export interface BrowserRouterProps {
+    children: React.ReactNode;
+  }
+}
+
 addEventListener(window, 'click', e => {
   if (e.target instanceof HTMLAnchorElement) {
     const { href } = e.target;

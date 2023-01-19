@@ -5,13 +5,14 @@ import DrawerBackdrop from './components/DrawerBackdrop';
 import DrawerContent from './components/DrawerContent';
 import { DrawerProps, DrawerSize } from './types';
 import { useDrawerExiting } from './hooks/useDrawerExiting';
+import { FC, PropsWithChildren } from 'react';
 
 const drawerSizeWidthMap: Record<DrawerSize, string> = {
   default: '728px',
   small: '364px',
 };
 
-export const Drawer: React.FC<DrawerProps> = ({
+export const Drawer: FC<PropsWithChildren<DrawerProps>> = ({
   onClose,
   title,
   children,

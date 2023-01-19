@@ -46,30 +46,31 @@ const InputField: React.FC<{
   );
 };
 
-export const FormInputField: React.FunctionComponent<IFormInputFieldProps> =
-  props => {
-    const { validateOccasion = ValidateOccasion.Blur } = props;
+export const FormInputField: React.FunctionComponent<
+  React.PropsWithChildren<IFormInputFieldProps>
+> = props => {
+  const { validateOccasion = ValidateOccasion.Blur } = props;
 
-    React.useEffect(() => {
-      // warning for use 'props.defaultValue' in Form Input Field
-      warningDefaultValueProp(
-        !('defaultValue' in (props.props ?? {})),
-        'defaultValue',
-        'FormInputField'
-      );
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    return (
-      <FormField
-        {...props}
-        defaultValue={
-          (props as $MergeParams<IFormInputFieldProps>).defaultValue || ''
-        }
-        touchWhen={TouchWhen.Blur}
-        validateOccasion={validateOccasion}
-      >
-        {childProps => <InputField childProps={childProps} props={props} />}
-      </FormField>
+  React.useEffect(() => {
+    // warning for use 'props.defaultValue' in Form Input Field
+    warningDefaultValueProp(
+      !('defaultValue' in (props.props ?? {})),
+      'defaultValue',
+      'FormInputField'
     );
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return (
+    <FormField
+      {...props}
+      defaultValue={
+        (props as $MergeParams<IFormInputFieldProps>).defaultValue || ''
+      }
+      touchWhen={TouchWhen.Blur}
+      validateOccasion={validateOccasion}
+    >
+      {childProps => <InputField childProps={childProps} props={props} />}
+    </FormField>
+  );
+};

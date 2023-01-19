@@ -1,4 +1,4 @@
-import { FC, useContext, useEffect, useRef } from 'react';
+import { FC, PropsWithChildren, useContext, useEffect, useRef } from 'react';
 import { Waypoint } from '../waypoint';
 import { ElevatorContext } from './context';
 
@@ -6,7 +6,7 @@ export interface IElevatorAnchorProps {
   link: string;
 }
 
-export const ElevatorAnchor: FC<IElevatorAnchorProps> = ({
+export const ElevatorAnchor: FC<PropsWithChildren<IElevatorAnchorProps>> = ({
   link,
   children,
 }) => {

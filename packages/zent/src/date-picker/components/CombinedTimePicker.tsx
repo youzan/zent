@@ -1,5 +1,12 @@
 import cx from 'classnames';
-import { useCallback, useMemo, useRef, useState } from 'react';
+import {
+  FC,
+  PropsWithChildren,
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import PickerPopover from './PickerPopover';
 import { CombinedInputTrigger } from './PickerTrigger';
@@ -31,7 +38,7 @@ interface ITimePickerBaseProps
   seperator?: string;
 }
 
-const CombinedTimePicker: React.FC<ITimePickerBaseProps> = ({
+const CombinedTimePicker: FC<PropsWithChildren<ITimePickerBaseProps>> = ({
   onChange,
   disabledTime,
   onOpen,

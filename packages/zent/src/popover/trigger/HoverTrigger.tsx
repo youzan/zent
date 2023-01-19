@@ -1,6 +1,8 @@
 import {
   cloneElement,
   createContext,
+  PropsWithChildren,
+  ReactNode,
   useContext,
   useEffect,
   useMemo,
@@ -49,7 +51,7 @@ export interface IPopoverHoverTriggerProps<
  */
 export function PopoverHoverTrigger<
   ChildProps extends IPopoverHoverTriggerChildProps = IPopoverHoverTriggerChildProps
->(props: IPopoverHoverTriggerProps<ChildProps>) {
+>(props: PropsWithChildren<IPopoverHoverTriggerProps<ChildProps>>) {
   const ctx = useContext(Context);
   if (!ctx) {
     throw new Error('PopoverHoverTrigger must be child of Popover');
@@ -117,9 +119,13 @@ export function PopoverHoverTrigger<
     };
   });
 
-  let child: React.ReactNode;
+  let child: ReactNode;
   if (typeof children === 'function') {
-    child = children({
+    child = (
+      children as (
+        childProps: IPopoverHoverTriggerChildProps
+      ) => React.ReactNode
+    )({
       onMouseEnter() {
         visible$.next(true);
       },

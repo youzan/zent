@@ -1,4 +1,4 @@
-import { PureComponent } from 'react';
+import { PropsWithChildren, PureComponent } from 'react';
 import cx from 'classnames';
 
 import TextRow, { IPlaceholderTextRowProps } from '../shapes/TextRow';
@@ -18,7 +18,9 @@ export interface IPlaceholderTextBlockProps {
   className?: string;
 }
 
-export default class TextBlock extends PureComponent<IPlaceholderTextBlockProps> {
+export default class TextBlock extends PureComponent<
+  PropsWithChildren<IPlaceholderTextBlockProps>
+> {
   static defaultProps = {
     widths: [97, 99, 94, 92, 96, 95, 98, 60],
     dashSegments: DEFAULT_SEGMENTS,

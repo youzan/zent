@@ -5,7 +5,9 @@ import { IStepsProps } from '../Steps';
 import Icon, { IconType } from '../../icon';
 import { isElement } from 'react-is';
 
-export default class BreadcrumbSteps extends Component<IStepsProps> {
+export default class BreadcrumbSteps extends Component<
+  React.PropsWithChildren<IStepsProps>
+> {
   onStepChange = id => {
     const { onStepChange } = this.props;
     onStepChange && onStepChange(id);

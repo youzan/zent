@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, PropsWithChildren } from 'react';
 import memoize from '../../utils/memorize-one';
 import Select, { ISelectItem } from '../../select';
 import { I18nReceiver as Receiver, II18nLocalePagination } from '../../i18n';
@@ -40,7 +40,9 @@ const memoizedNormalizeSelectOptions = memoize(function normalizeSelectOptions(
   });
 });
 
-const Text: React.FunctionComponent<{ type: 'middle' | 'right' }> = props => {
+const Text: React.FunctionComponent<
+  PropsWithChildren<{ type: 'middle' | 'right' }>
+> = props => {
   return (
     <span className={`zent-pagination-count--${props.type}`}>
       {props.children}
@@ -129,7 +131,10 @@ class PageSizeSelect extends Component<
 export type IPaginationStaticPageSizeProps =
   IPaginationPageSizeChangerBaseProps;
 
-class StaticPageSize extends Component<IPaginationStaticPageSizeProps, any> {
+class StaticPageSize extends Component<
+  PropsWithChildren<IPaginationStaticPageSizeProps>,
+  any
+> {
   render() {
     const { total, formatTotal, pageSize } = this.props;
     const totalText = formatTotal ? formatTotal(total) : total;

@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { FC, PropsWithChildren, useCallback, useMemo } from 'react';
 import { setHours, setMinutes, setSeconds } from 'date-fns';
 
 import TimeUnitColumn from './TimeUnitColumn';
@@ -24,7 +24,7 @@ interface IUnitColumn {
   step?: number;
 }
 
-const TimePickerBody: React.FC<ITimePanelProps> = ({
+const TimePickerBody: FC<PropsWithChildren<ITimePanelProps>> = ({
   selected,
   format,
   disabledTimeOption,

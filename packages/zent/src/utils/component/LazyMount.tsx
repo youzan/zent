@@ -9,7 +9,7 @@ export interface ILazyMountState {
 }
 
 export default class LazyMount extends Component<
-  ILazyMountProps,
+  React.PropsWithChildren<ILazyMountProps>,
   ILazyMountState
 > {
   static defaultProps = {

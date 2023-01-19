@@ -15,7 +15,7 @@ export interface IStepsProps {
   ghost?: boolean;
 }
 
-export class Steps extends Component<IStepsProps> {
+export class Steps extends Component<React.PropsWithChildren<IStepsProps>> {
   static defaultProps = {
     className: '',
     type: 'number',

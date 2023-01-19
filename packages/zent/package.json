@@ -56,21 +56,21 @@
     "zenticons": "3.7.4"
   },
   "peerDependencies": {
-    "react": "^17.0.0",
-    "react-dom": "^17.0.0",
-    "scheduler": "^0.20.0"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "scheduler": "^0.23.0"
   },
   "optionalDependencies": {
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0"
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0"
   },
   "devDependencies": {
     "@types/big.js": "^6.1.1",
     "@types/classnames": "^2.2.7",
     "@types/jest": "^26.0.23",
     "@types/node": "^15.12.5",
-    "@types/react": "^17.0.12",
-    "@types/react-dom": "^17.0.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
     "@types/react-is": "^17.0.0",
     "@types/react-transition-group": "^4.4.0",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.2",
@@ -85,8 +85,8 @@
     "postcss-cli": "^8.3.1",
     "postcss-selector-parser": "^6.0.2",
     "postcss-value-parser": "^4.0.2",
-    "react": "17.0.x",
-    "react-dom": "17.0.x",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-window": "^1.8.6",
     "regexpu-core": "^4.7.1",
     "sass": "^1.22.7",

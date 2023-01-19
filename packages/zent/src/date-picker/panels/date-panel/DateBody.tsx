@@ -1,4 +1,4 @@
-import { useMemo, useCallback, FC, useContext } from 'react';
+import { useMemo, useCallback, FC, useContext, PropsWithChildren } from 'react';
 import {
   startOfMonth,
   setYear,
@@ -27,7 +27,7 @@ interface IDatePickerBodyProps extends ISingleDateBodyProps {
   showTime?: IShowTime;
   showTimeOption?: IShowTimeOptionWithDefault;
 }
-const DatePickerBody: FC<IDatePickerBodyProps> = props => {
+const DatePickerBody: FC<PropsWithChildren<IDatePickerBodyProps>> = props => {
   const { onHover } = useContext(PanelContext);
   const {
     selected,

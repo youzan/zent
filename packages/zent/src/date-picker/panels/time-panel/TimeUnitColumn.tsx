@@ -1,4 +1,4 @@
-import { createRef, useContext } from 'react';
+import { createRef, FC, PropsWithChildren, useContext } from 'react';
 import cx from 'classnames';
 
 import PanelContext from '../../context/PanelContext';
@@ -43,7 +43,7 @@ interface ITimeUnitColumnProps {
   setting: (val: number) => void;
   disabledUnits?: number[];
 }
-const TimeUnitColumn: React.FC<ITimeUnitColumnProps> = ({
+const TimeUnitColumn: FC<PropsWithChildren<ITimeUnitColumnProps>> = ({
   type,
   step = 1,
   selected,

@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, PropsWithChildren } from 'react';
 
 import { BaseTrigger, ICascaderBaseTriggerProps } from './BaseTrigger';
 import { ICascaderItem } from '../types';
@@ -10,7 +10,9 @@ export interface ISingleTriggerProps
   selectedPath: ICascaderItem[];
 }
 
-export class SingleTrigger extends Component<ISingleTriggerProps> {
+export class SingleTrigger extends Component<
+  PropsWithChildren<ISingleTriggerProps>
+> {
   static defaultProps = {
     selectedPath: [],
   };
