@@ -16,7 +16,6 @@
   ],
   "scripts": {
     "test": "./scripts/test.sh",
-    "jest-test": "yarn jest",
     "lint-ts": "eslint src plugins scripts --ext=.ts,.tsx",
     "lint-js": "eslint __tests__ plugins scripts --ext=.js,.jsx",
     "lint-style": "stylelint assets",
@@ -64,9 +63,6 @@
   "optionalDependencies": {
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0"
-  },
-  "resolutions": {
-    "@types/react": "^18.0.0"
   },
   "devDependencies": {
     "@types/big.js": "^6.1.1",
