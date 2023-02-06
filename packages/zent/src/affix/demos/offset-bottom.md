@@ -13,7 +13,7 @@ import { Affix, Alert } from 'zent';
 
 ReactDOM.render(
 	<div className="affix-demo-bottom">
-		<Affix offsetBottom={60}>
+		<Affix offsetBottom={300} getAffixContainer={() => document.querySelector('.page-content')}>
 			<Alert type="warning">
 				<p>{i18n.text}</p>
 			</Alert>
