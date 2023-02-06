@@ -7,11 +7,11 @@ en-US:
 ---
 
 ```jsx
-import { Affix, Alert } from 'zent';
+import {Affix, Alert} from 'zent';
 
 ReactDOM.render(
 	<div className="affix-demo-both">
-		<Affix offsetBottom={150} offsetTop={50}>
+		<Affix offsetBottom={150} offsetTop={50} getAffixContainer={() => document.querySelector('.page-content')}>
 			<Alert type="warning">
 				<p>{i18n.title}</p>
 			</Alert>

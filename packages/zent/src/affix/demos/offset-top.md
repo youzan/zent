@@ -21,7 +21,7 @@ ReactDOM.render(
 			</Button>
 		</Col>
 		<Col span={8} offset={8}>
-			<Affix offsetTop={135}>
+			<Affix offsetTop={135} getAffixContainer={() => document.querySelector('.page-content')}>
 				<Button type="primary" size="large">
 					{i18n.affix}
 				</Button>

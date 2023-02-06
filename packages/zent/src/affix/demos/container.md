@@ -9,11 +9,12 @@ en-US:
 ---
 
 ```jsx
-import { Affix, Button, WindowScrollHandler } from 'zent';
+import { Affix, Button, EventHandler } from 'zent';
 
 class Demo extends Component {
-	containerRef = null;
+	containerRef = React.createRef();
 	affixRef = React.createRef();
+	scrollContainer = document.querySelector('.page-content');
 
 	onSrcoll = () => {
 		this.affixRef?.current?.updatePosition();
@@ -24,20 +25,20 @@ class Demo extends Component {
 			<>
 				<div
 					className="affix-target__container"
-					ref={ref => (this.containerRef = ref)}
+					ref={this.containerRef}
 				>
 					<div className="affix-target__content">
 						<Affix
 							ref={this.affixRef}
-							offsetBottom={20}
 							offsetTop={20}
-							getAffixContainer={() => this.containerRef}
+							offsetBottom={20}
+							getAffixContainer={() => this.containerRef.current}
 						>
 							<Button>{i18n.content}</Button>
 						</Affix>
 					</div>
 				</div>
-				<WindowScrollHandler onScroll={this.onSrcoll} />
+				<EventHandler target={this.scrollContainer} eventName="scroll" listener={this.onSrcoll} />
 			</>
 		);
 	}

@@ -17,7 +17,7 @@ function Demo() {
 		setCount(count + 1);
 	}, [count]);
 
-	React.useLayoutEffect(() => {
+	React.useEffect(() => {
 		return addEventListener(window, 'click', onPageClick);
 	}, [onPageClick]);
 

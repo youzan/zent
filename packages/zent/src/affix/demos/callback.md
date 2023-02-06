@@ -29,7 +29,12 @@ class App extends React.Component {
 
 	render() {
 		return (
-			<Affix offsetTop={200} onPin={this.onPin} onUnpin={this.onUnpin}>
+			<Affix
+				offsetTop={200}
+				onPin={this.onPin}
+				onUnpin={this.onUnpin}
+				getAffixContainer={() => document.querySelector('.page-content')}
+			>
 				<Alert type="warning">{this.state.text}</Alert>
 			</Affix>
 		);
