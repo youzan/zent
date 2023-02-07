@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { Steps, IStepProps } from '../steps';
+import { Steps, IStepsProps } from '../steps';
 
-export type IIndicatorProps = Omit<IStepProps, 'type'>;
+export type IIndicatorProps = Omit<IStepsProps, 'type'>;
 
 export type IIndicator = FC<IIndicatorProps> & {
   Step: typeof Steps.Step;
