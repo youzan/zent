@@ -19,6 +19,7 @@ interface ICombinedDateRangeFooterProps
   disabledStartTimes: IDisabledTime;
   disabledEndTimes: IDisabledTime;
   disabledConfirm: boolean;
+  hideConfirm?: boolean;
 }
 
 export const CombinedDateRangeFooter: FC<
@@ -30,6 +31,7 @@ export const CombinedDateRangeFooter: FC<
   disabledEndTimes,
   onSelected,
   format,
+  hideConfirm = false,
 }) => {
   const { i18n, autoComplete } = useContext(PickerContext);
   const [start, end] = selected;
@@ -81,6 +83,38 @@ export const CombinedDateRangeFooter: FC<
     ),
     [i18n, disabledStatus, confirmHandler]
   );
+
+  const confirmContent = useMemo(() => {
+    if (hideConfirm) {
+      return null;
+    }
+
+    if (disabledStatus) {
+      return (
+        <Pop
+          content={
+            start && end && isSameDay(start, end)
+              ? i18n.timeErrorPop
+              : i18n.dateErrorPop
+          }
+          trigger="hover"
+        >
+          {confirmBtn}
+        </Pop>
+      );
+    }
+
+    return confirmBtn;
+  }, [
+    hideConfirm,
+    disabledStatus,
+    confirmBtn,
+    start,
+    end,
+    i18n.timeErrorPop,
+    i18n.dateErrorPop,
+  ]);
+
   return (
     <>
       <div
@@ -116,20 +150,7 @@ export const CombinedDateRangeFooter: FC<
         disabledTime={disabledEndTimes}
         autoComplete={autoComplete}
       />
-      {disabledStatus ? (
-        <Pop
-          content={
-            start && end && isSameDay(start, end)
-              ? i18n.timeErrorPop
-              : i18n.dateErrorPop
-          }
-          trigger="hover"
-        >
-          {confirmBtn}
-        </Pop>
-      ) : (
-        confirmBtn
-      )}
+      {confirmContent}
     </>
   );
 };

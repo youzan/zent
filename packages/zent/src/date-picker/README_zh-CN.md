@@ -11,8 +11,8 @@ group: 信息录入
 
 ### 使用指南
 
-- 包含以下组件：`DatePicker`、`WeekPicker`、`MonthPicker`、`QuarterPicker`、`YearPicker`、`DateRangePicker`、`CombinedDateRangePicker`、`TimePicker`、`TimeRangePicker` 和 `CombinedTimeRangePicker`。
-- `DatePicker` 、`CombinedDateRangePicker` 和 `DateRangePicker` 可以通过 `showTime` 属性来支持时间的选择。
+- 包含以下组件：`DatePicker`、`WeekPicker`、`MonthPicker`、`QuarterPicker`、`YearPicker`、`DateRangePicker`、`CombinedDateRangePicker`、`TimePicker`、`TimeRangePicker`、`CombinedTimeRangePicker` 和 `CombinedPanelRangePicker`。
+- `DatePicker` 、`CombinedDateRangePicker`、`DateRangePicker` 和 `CombinedPanelRangePicker` 可以通过 `showTime` 属性来支持时间的选择。
 
 ### API
 
@@ -143,6 +143,32 @@ interface IDisabledTimeOption {
 - `disabledDate`、`disabledTime` 回调方法的第二个参数均为`type?: 'start' | 'end'`
 - `dateSpan` 仅 `DateRangePicker` 和 `CombinedDateRangePicker` 组件可用
 - `DateRangePicker` 的 `disabled` 、 `canClear` 属性类型为 `boolean | boolean[]`
+
+### CombinedPanelRangePicker （基于 DateRangePicker 和 TimePicker ）
+
+| 参数             | 说明                                                                  | 类型                                            | 默认值         | 是否必须 |
+| --------------- | --------------------------------------------------------------------- | ----------------------------------------------- | -------------- | -------- |
+| value           | 选择的日期                                                              | `Array<string \| Date \| number>\|null`         | -              | 是       |
+| onChange        | 选择日期回调函数                                                         | `(date: Array<string \| Date \| number>) => {}` | -              | 是       |
+| defaultDate     | 默认面板日期                                                            | `[string, string]`                              | -              | 否       |
+| dateSpan        | 日期跨度                                                               | `number`                                        | -              | 否       |
+| valueType       | onChange 返回日期的类型，可选值：`'string'` \| `'number'` \| `'date'`     | `string`                                        | `'string'`     | 否       |
+| format          | 设置字符串日期的格式                                                     | `string`                                        | `'YYYY-MM-DD'` | 否       |
+| disabledDate    | 不可选择的日期                                                           | `(date: Date) => {}` \| `IDisableDateMap`      | -              | 否       |
+| showTime        | 是否支持时间选择功能                                                     | `boolean` \| `object`                           | `false`        | 否       |
+| hideConfirm      | 如果开启了 showTime，是否要隐藏 footer 的“确定”按钮                        | `boolean`                                       | `false`        | 否       |
+| className       | 整个组件的 class                                                       | `string`                                         | -              | 否       |
+| leftClassName   | 左侧日历的 class                                                       | `string`                                         | -              | 否       |
+| rightClassName  | 右侧日历的 class                                                       | `string`                                         | -              | 否       |
+| footerClassName | 如果开启了 showTime，footer 组件的 class                                | `string`                                         | -              | 否       |
+
+
+**注意：**
+
+- `showTime` 为对象时，`defaultTime` 类型为 `[string | (date: Date) => string, string | (date: Date) => string]`，表示默认开始时间和默认结束时间（不填为['00:00:00','23:59:59']）
+- `disabledDate`、`disabledTime` 回调方法的第二个参数均为`type?: 'start' | 'end'`
+
+
 
 ### TimeRangePicker / CombinedTimeRangePicker API （基于 TimePicker）
 

@@ -22,9 +22,13 @@ import {
 
 const prefixCls = 'zent-datepicker-combined-panel';
 
-interface ICombinedDateRangePanelProps extends IRangePanelProps {
+export interface ICombinedDateRangePanelProps extends IRangePanelProps {
   disabledTime?: IDisabledTime;
   showTime?: IShowTimeRange<string>;
+  leftClassName?: string;
+  rightClassName?: string;
+  footerClassName?: string;
+  hideConfirm?: boolean;
 }
 const CombinedDateRangePanel: FC<
   PropsWithChildren<ICombinedDateRangePanelProps>
@@ -36,6 +40,10 @@ const CombinedDateRangePanel: FC<
   defaultPanelDate,
   showTime,
   disabledTime,
+  rightClassName,
+  leftClassName,
+  footerClassName,
+  hideConfirm = false,
   ...restProps
 }) => {
   const [start, end] = selected;
@@ -107,7 +115,7 @@ const CombinedDateRangePanel: FC<
   const FooterNode = useMemo(
     () =>
       startShowTime ? (
-        <div className={`${prefixCls}-footer`}>
+        <div className={cx(`${prefixCls}-footer`, footerClassName)}>
           <RangePickerFooter
             format={startShowTime?.format}
             selected={selected}
@@ -115,23 +123,26 @@ const CombinedDateRangePanel: FC<
             disabledStartTimes={disabledFooterStartTimes}
             disabledConfirm={disabledConfirm}
             disabledEndTimes={disabledFooterEndTimes}
+            hideConfirm={hideConfirm}
           />
         </div>
       ) : null,
     [
-      selected,
-      disabledConfirm,
       startShowTime,
+      footerClassName,
+      selected,
       onSelected,
       disabledFooterStartTimes,
+      disabledConfirm,
       disabledFooterEndTimes,
+      hideConfirm,
     ]
   );
 
   return (
     <>
       <div className={`${prefixCls}-body`}>
-        <div className={`${prefixCls}-body-item`}>
+        <div className={cx(`${prefixCls}-body-item`, leftClassName)}>
           <DatePanel
             {...restProps}
             combinedLeft
@@ -149,7 +160,8 @@ const CombinedDateRangePanel: FC<
         <div
           className={cx(
             `${prefixCls}-body-item`,
-            `${prefixCls}-body-item_left12`
+            `${prefixCls}-body-item_left12`,
+            rightClassName
           )}
         >
           <DatePanel
@@ -157,7 +169,7 @@ const CombinedDateRangePanel: FC<
             combinedRight
             hideFooter
             disableRangeOverView
-            selected={end}
+            selected={end || start}
             disabledTime={disabledEndTimes}
             defaultPanelDate={addMonths(startPanelDate, 1)}
             onSelected={onChangeStartOrEnd}
