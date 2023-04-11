@@ -10,8 +10,8 @@ DateTime pickers, provides basic time choosing functionality.
 
 ### Guides
 
-- Included pickers：`DatePicker`、`WeekPicker`、`MonthPicker`、`QuarterPicker`、`YearPicker`、`DateRangePicker`、`CombinedDateRangePicker`、`TimePicker`、`TimeRangePicker` and `CombinedTimeRangePicker`.
-- `DatePicker` 、`CombinedDateRangePicker` and `DateRangePicker` can use `showTime` to allow time selection.
+- Included pickers：`DatePicker`,`WeekPicker`,`MonthPicker`,`QuarterPicker`,`YearPicker`,`DateRangePicker`,`CombinedDateRangePicker`,`TimePicker`,`TimeRangePicker` , `CombinedTimeRangePicker` and `CombinedPanelRangePicker`
+- `DatePicker` ,`CombinedDateRangePicker` , `DateRangePicker` and `CombinedPanelRangePicker` can use `showTime` to allow time selection.
 
 ### API
 
@@ -138,6 +138,30 @@ interface IDisabledTimeOption {
 - `disabledDate(val, type)` or `disabledTime(val, type)`, the `type` is `'start' | 'end'`
 - Only supports `dateSpan` for `DateRangePicker` and `CombinedDateRangePicker`.
 - Definition of `disabled` and `canClear` is `boolean | boolean[]` in `DateRangePicker`.
+
+### CombinedPanelRangePicker （基于 DateRangePicker 和 TimePicker ）
+
+| Property        | Description                                                               | Type                                           | Default        | Required |
+| --------------- | ------------------------------------------------------------------------- | ---------------------------------------------- | -------------- | -------- |
+| value           | Selected date range                                                       | `Array<string \| Date \| number>\| null`       | -              | Yes      |
+| onChange        | Callback when the selected date range is changing                         | `(date: Array<string \| Date\| number>) => {}` | -              | Yes      |
+| defaultDate     | Default date value                                                        | `[string, string]`                             | -              | No       |
+| dateSpan        | Quick set the time span                                                   | `number`                                       | -              | No       |
+| valueType       | Set `onChange`'s value type, options:`'string'` \| `'number'` \| `'date'` | `string`                                       | `'string'`     | No       |
+| format          | Format string                                                             | `string`                                       | `'YYYY-MM-DD'` | No       |
+| disabledDate    | Specify the date that cannot be selected                                  | `(date: Date) => {}` \| `IDisableDateMap`      | -              | No       |
+| showTime        | To provide an additional time selection                                   | `boolean` \| `object`                          | `false`        | No       |
+| hideConfirm      | hide confirm button in additional time selection                           | `boolean`                                      | `false`        | No       |
+| className       | the class of this component                                               | `string`                                       | -              | No       |
+| leftClassName   | the class of the left calendar                                            | `string`                                       | -              | No       |
+| rightClassName  | the class of the right calendar                                           | `string`                                       | -              | No       |
+| footerClassName | the class of the additional time selection                                | `string`                                       | -              | No       |
+
+**Additional**
+
+- When return value of `showTime` is an object, `defaultTime` should be `[string | (date: Date) => string, string | (date: Date) => string]`. (default: ['00:00:00','23:59:59'])
+- `disabledDate(val, type)` or `disabledTime(val, type)`, the `type` is `'start' | 'end'`
+
 
 #### TimeRangePicker / CombinedTimeRangePicker API （Base on TimePicker）
 

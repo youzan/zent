@@ -1,4 +1,5 @@
 export * from './CombinedDateRangePicker';
+export * from './CombinedPanelRangePicker';
 export * from './CombinedTimeRangePicker';
 export * from './DatePicker';
 export * from './DateRangePicker';
