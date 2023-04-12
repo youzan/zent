@@ -24,13 +24,13 @@ const Demo = () => {
 	return (
 		<div className="zent-datepicker-calendar-demo-wrapper">
 			<CombinedPanelRangePicker
-				value={null}
+				value={selectedRange}
 				onChange={onSelectedRange}
+				showTime={true}
+				hideConfirm={true}
 				valueType="string"
 				format="YYYY-MM-DD hh:mm:SS"
 				disabledDate={() => false}
-				showTime={true}
-				hideConfirm={true}
 				leftClassName="zent-datepicker-calendar-demo-left"
 				rightClassName="zent-datepicker-calendar-demo-right"
 				footerClassName="zent-datepicker-calendar-demo-footer"
