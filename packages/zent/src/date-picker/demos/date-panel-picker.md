@@ -26,10 +26,10 @@ const Demo = () => {
 			<CombinedPanelRangePicker
 				value={selectedRange}
 				onChange={onSelectedRange}
-				showTime={true}
+				showTime
 				hideConfirm={true}
 				valueType="string"
-				format="YYYY-MM-DD hh:mm:SS"
+				format="YYYY-MM-DD HH:mm:ss"
 				disabledDate={() => false}
 				leftClassName="zent-datepicker-calendar-demo-left"
 				rightClassName="zent-datepicker-calendar-demo-right"
