@@ -19,25 +19,26 @@ import {
   RangeDate,
   IRangeDisabledDateFunc,
   IDisabledDateSimple,
+  IRangeRelatedType,
+  IValueTypeRangeMap,
 } from './types';
 import { dateConfig } from './utils/dateUtils';
 
 const { START, END } = RangeTypeMap;
 const PanelContextProvider = PanelContext.Provider;
 
-interface IProps
+interface IProps<T extends IValueType = 'string'>
   extends Pick<
-    ICombinedDateRangePanelProps,
-    | 'showTime'
-    | 'disabledTime'
-    | 'leftClassName'
-    | 'rightClassName'
-    | 'footerClassName'
-    | 'hideConfirm'
-  > {
+      ICombinedDateRangePanelProps,
+      | 'showTime'
+      | 'disabledTime'
+      | 'leftClassName'
+      | 'rightClassName'
+      | 'footerClassName'
+      | 'hideConfirm'
+    >,
+    IRangeRelatedType<T> {
   value: RangeDate | null;
-  onChange: (val: RangeDate | null) => void;
-  valueType?: IValueType;
   format?: string;
   disabledDate?: IRangeDisabledDateFunc | IDisabledDateSimple;
   defaultDate?: RangeDate | null;
@@ -45,7 +46,9 @@ interface IProps
   dateSpan?: number;
 }
 
-export const CombinedPanelRangePicker: FC<IProps> = ({
+export const CombinedPanelRangePicker: FC<IProps> = <
+  T extends IValueType = 'string'
+>({
   value,
   onChange,
   disabledDate: disabledDateProps,
@@ -99,7 +102,12 @@ export const CombinedPanelRangePicker: FC<IProps> = ({
     (val: DateNullTuple, finish = false) => {
       setSelected(val);
       if (hideConfirm || finish) {
-        onChange(getRangeValuesWithValueType(valueType, format, val));
+        //onChange接受的参数根据valueType确定，而getRangeValuesWithValueType的返回值没有区分valueType，所以这里做一层转换
+        onChange(
+          getRangeValuesWithValueType(valueType, format, val) as
+            | IValueTypeRangeMap[T]
+            | null
+        );
       }
     },
     [format, hideConfirm, onChange, setSelected, valueType]
