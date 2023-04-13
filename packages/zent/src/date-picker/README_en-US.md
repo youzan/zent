@@ -10,8 +10,8 @@ DateTime pickers, provides basic time choosing functionality.
 
 ### Guides
 
-- Included pickers：`DatePicker`,`WeekPicker`,`MonthPicker`,`QuarterPicker`,`YearPicker`,`DateRangePicker`,`CombinedDateRangePicker`,`TimePicker`,`TimeRangePicker` , `CombinedTimeRangePicker` and `CombinedPanelRangePicker`
-- `DatePicker` ,`CombinedDateRangePicker` , `DateRangePicker` and `CombinedPanelRangePicker` can use `showTime` to allow time selection.
+- Included pickers：`DatePicker`,`WeekPicker`,`MonthPicker`,`QuarterPicker`,`YearPicker`,`DateRangePicker`,`CombinedDateRangePicker`,`TimePicker`,`TimeRangePicker` , `CombinedTimeRangePicker` ,`SingleCalendarDatePanelPicker` and `CombinedPanelRangePicker`
+- `DatePicker` ,`CombinedDateRangePicker` , `DateRangePicker` , `SingleCalendarDatePanelPicker` and `CombinedPanelRangePicker` can use `showTime` to allow time selection.
 
 ### API
 
@@ -121,6 +121,29 @@ interface IDisabledTimeOption {
 	disabledSeconds?: (hour: number, minute: number) => number[];
 }
 ```
+
+### SingleCalendarDatePanelPicker API
+
+
+| Property              | Description                                                                                                                                     | Type                                   | Default  | Required |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- | ------- | -------- |
+| selected          | Selected date                                                                                                                            | `Date\|null`                           | -       | 是       |
+| onSelected        | Callback when the selected date is changing                                                                                              | `(date: Date ) => {}`                  | -       | 是       |
+| defaultPanelDate  | The default Date of panel                                                                                                                | `Date`                                 | -       | 否       |
+| disabledPanelDate | The disabled Date                                                                                                                        | `(date:Date) => boolean`               | -       | 是       |
+| onChangePanel     | The callback function of the type of switch panel                                                                                        | `(type:IPickerType) => {}`             | -       | 否       |
+| onPanelDateChange | Callback function for the value of the toggle panel                                                                                      | `(date:Date) => {}`                    | -       | 否       |
+| hideFooter        | Should hide the footer of panel                                                                                                          | `boolean`                              | `false` | 否       |
+| showTime          | To provide an additional time                                                                                                            | `boolean` \| `object`                  | `false` | 否       |
+| disabledTime      | To specify the time that cannot be selected                                                                                              | `(date?: Date) => IDisabledTimeOption` | -       | 否       |
+| popText           | The content when selected a date cell                                                                                                    | `string`                               | -       | 否       |
+| footerText        | The content on the footer to dump to now                                                                                                 | `string`                               | -       | 否       |
+| combinedLeft      | Whether it is the left calendar of the combined calendar panel, if yes, hide the next month/year icon at the top right of this component | `boolean`                              | false   | 否       |
+| combinedRight     | Whether it is the right calendar of the combined calendar panel, if yes, hide the next month/year icon at the top left of this component | `boolean`                              | false   | 否       |
+| hoverRangeDate    | The date range for hover                                                                                                                 | `[Date,Date]\|null`                    | -       | 否       |
+| rangeDate         | The date range has been selected                                                                                                         | `[Date,Date]\|null`                    | -       | 否       |
+
+
 
 #### DateRangePicker / CombinedDateRangePicker （Base on DatePicker）
 

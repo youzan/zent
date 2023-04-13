@@ -11,8 +11,8 @@ group: 信息录入
 
 ### 使用指南
 
-- 包含以下组件：`DatePicker`、`WeekPicker`、`MonthPicker`、`QuarterPicker`、`YearPicker`、`DateRangePicker`、`CombinedDateRangePicker`、`TimePicker`、`TimeRangePicker`、`CombinedTimeRangePicker` 和 `CombinedPanelRangePicker`。
-- `DatePicker` 、`CombinedDateRangePicker`、`DateRangePicker` 和 `CombinedPanelRangePicker` 可以通过 `showTime` 属性来支持时间的选择。
+- 包含以下组件：`DatePicker`、`WeekPicker`、`MonthPicker`、`QuarterPicker`、`YearPicker`、`DateRangePicker`、`CombinedDateRangePicker`、`TimePicker`、`TimeRangePicker`、`CombinedTimeRangePicker` 、 `SingleCalendarDatePanelPicker` 和 `CombinedPanelRangePicker`。
+- `DatePicker` 、`CombinedDateRangePicker`、`DateRangePicker` 、`SingleCalendarDatePanelPicker` 和 `CombinedPanelRangePicker` 可以通过 `showTime` 属性来支持时间的选择。
 
 ### API
 
@@ -118,6 +118,35 @@ interface IDisableDateMap {
 | hourStep     | 小时选项间隔                          | `number`                    | `1`            | 否       |
 | minuteStep   | 分钟选项间隔                          | `number`                    | `1`            | 否       |
 | secondStep   | 秒选项间隔                            | `number`                    | `1`            | 否       |
+
+```ts
+interface IDisabledTimeOption {
+	disabledHours?: () => number[];
+	disabledMinutes: (hour: number) => number[];
+	disabledSeconds?: (hour: number, minute: number) => number[];
+}
+```
+
+### SingleCalendarDatePanelPicker API
+
+| 参数              | 说明                                                                | 类型                                   | 默认值  | 是否必须 |
+| ----------------- | ------------------------------------------------------------------- | -------------------------------------- | ------- | -------- |
+| selected          | 日期                                                                | `Date\|null`                           | -       | 是       |
+| onSelected        | 选择时间回调函数                                                    | `(date: Date ) => {}`                  | -       | 是       |
+| defaultPanelDate  | 默认面板日期                                                        | `Date`                                 | -       | 否       |
+| disabledPanelDate | 日期禁用判断                                                        | `(date:Date) => boolean`               | -       | 是       |
+| onChangePanel     | 切换面板日期的回调                                                  | `(type:IPickerType) => {}`             | -       | 否       |
+| onPanelDateChange | 切换面板日期后，具体面板日期的回调                                  | `(date:Date) => {}`                    | -       | 否       |
+| hideFooter        | 隐藏面板底部                                                        | `boolean`                              | `false` | 否       |
+| showTime          | 是否支持时间选择功能                                                | `boolean` \| `object`                  | `false` | 否       |
+| disabledTime      | 时间禁用判断                                                        | `(date?: Date) => IDisabledTimeOption` | -       | 否       |
+| popText           | 选中日期后的 pop 文案                                               | `string`                               | -       | 否       |
+| footerText        | 底部定位到现在的快捷按钮文案                                        | `string`                               | -       | 否       |
+| combinedLeft      | 是否为组合日历面板的左侧日历，是则隐藏本组件顶部右侧的下个月/下一年 		| `boolean`                              | false   | 否       |
+| combinedRight     | 是否为组合日历面板的右侧日历，是则隐藏本组件顶部左侧的下个月/下一年		 | `boolean`                              | false   | 否       |
+| hoverRangeDate    | 指定 hover 的日期区域                                               | `[Date,Date]\|null`                    | -       | 否       |
+| rangeDate         | 已选中的日期区域                                                    | `[Date,Date]\|null`                    | -       | 否       |
+
 
 ```ts
 interface IDisabledTimeOption {
