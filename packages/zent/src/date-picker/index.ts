@@ -20,5 +20,7 @@ export {
   IValueTypeRangeMap,
 } from './types';
 
-import SingleCalendarDatePanelPicker from './panels/date-panel';
-export { SingleCalendarDatePanelPicker };
+import SingleCalendarDatePanelPicker, {
+  IDatePickerPanelProps,
+} from './panels/date-panel';
+export { SingleCalendarDatePanelPicker, IDatePickerPanelProps };
