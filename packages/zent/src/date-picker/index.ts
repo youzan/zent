@@ -1,4 +1,5 @@
 export * from './CombinedDateRangePicker';
+export * from './CombinedPanelRangePicker';
 export * from './CombinedTimeRangePicker';
 export * from './DatePicker';
 export * from './DateRangePicker';
@@ -18,3 +19,8 @@ export {
   IValueType,
   IValueTypeRangeMap,
 } from './types';
+
+import SingleCalendarDatePanelPicker, {
+  IDatePickerPanelProps,
+} from './panels/date-panel';
+export { SingleCalendarDatePanelPicker, IDatePickerPanelProps };
