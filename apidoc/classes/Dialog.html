@@ -69,7 +69,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="tsd-signature-type">Component</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogProps.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogProps</a><span class="tsd-signature-symbol">, </span><a href="../interfaces/IDialogState.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogState</a><span class="tsd-signature-symbol">&gt;</span>
+						<span class="tsd-signature-type">Component</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">PropsWithChildren</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogProps.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogProps</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><a href="../interfaces/IDialogState.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogState</a><span class="tsd-signature-symbol">&gt;</span>
 						<ul class="tsd-hierarchy">
 							<li>
 								<span class="target">Dialog</span>
@@ -139,9 +139,9 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Overrides Component&lt;IDialogProps, IDialogState&gt;.constructor</p>
+								<p>Overrides Component&lt;PropsWithChildren&lt;IDialogProps&gt;,IDialogState&gt;.constructor</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/2c864c4/packages/zent/src/dialog/Dialog.tsx#L66">packages/zent/src/dialog/Dialog.tsx:66</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/748a021/packages/zent/src/dialog/Dialog.tsx#L70">packages/zent/src/dialog/Dialog.tsx:70</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -160,11 +160,11 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
 					<a name="context" class="tsd-anchor"></a>
 					<h3>context</h3>
-					<div class="tsd-signature tsd-kind-icon">context<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<div class="tsd-signature tsd-kind-icon">context<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">unknown</span></div>
 					<aside class="tsd-sources">
 						<p>Inherited from Component.context</p>
 						<ul>
-							<li>Defined in node_modules/@types/react/index.d.ts:473</li>
+							<li>Defined in node_modules/@types/react/index.d.ts:471</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -192,18 +192,18 @@
 					<div class="tsd-signature tsd-kind-icon">last<wbr>Mouse<wbr>Position<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">IMousePosition</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/2c864c4/packages/zent/src/dialog/Dialog.tsx#L64">packages/zent/src/dialog/Dialog.tsx:64</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/748a021/packages/zent/src/dialog/Dialog.tsx#L68">packages/zent/src/dialog/Dialog.tsx:68</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
 					<a name="props" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> props</h3>
-					<div class="tsd-signature tsd-kind-icon">props<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogProps.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogProps</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span>children<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">ReactNode</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<div class="tsd-signature tsd-kind-icon">props<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">PropsWithChildren</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogProps.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogProps</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<p>Inherited from Component.props</p>
 						<ul>
-							<li>Defined in node_modules/@types/react/index.d.ts:498</li>
+							<li>Defined in node_modules/@types/react/index.d.ts:491</li>
 						</ul>
 					</aside>
 				</section>
@@ -214,7 +214,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from Component.refs</p>
 						<ul>
-							<li>Defined in node_modules/@types/react/index.d.ts:504</li>
+							<li>Defined in node_modules/@types/react/index.d.ts:497</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -240,7 +240,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from Component.state</p>
 						<ul>
-							<li>Defined in node_modules/@types/react/index.d.ts:499</li>
+							<li>Defined in node_modules/@types/react/index.d.ts:492</li>
 						</ul>
 					</aside>
 				</section>
@@ -250,7 +250,7 @@
 					<div class="tsd-signature tsd-kind-icon">close<wbr>Dialog<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>dialogId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/ICloseDialogOption.html" class="tsd-signature-type" data-tsd-kind="Interface">ICloseDialogOption</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> = ...</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/2c864c4/packages/zent/src/dialog/Dialog.tsx#L62">packages/zent/src/dialog/Dialog.tsx:62</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/748a021/packages/zent/src/dialog/Dialog.tsx#L66">packages/zent/src/dialog/Dialog.tsx:66</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -285,7 +285,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from Component.contextType</p>
 						<ul>
-							<li>Defined in node_modules/@types/react/index.d.ts:455</li>
+							<li>Defined in node_modules/@types/react/index.d.ts:454</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -317,7 +317,7 @@
 					<div class="tsd-signature tsd-kind-icon">default<wbr>Props<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>className<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>closeBtn<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>footer<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">; </span>mask<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>maskClosable<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>style<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">; </span>title<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>visible<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>onClose<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> = ...</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/2c864c4/packages/zent/src/dialog/Dialog.tsx#L49">packages/zent/src/dialog/Dialog.tsx:49</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/748a021/packages/zent/src/dialog/Dialog.tsx#L53">packages/zent/src/dialog/Dialog.tsx:53</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -358,7 +358,7 @@
 									<li class="tsd-description">
 										<aside class="tsd-sources">
 											<ul>
-												<li>Defined in <a href="https://github.com/youzan/zent/blob/2c864c4/packages/zent/src/dialog/Dialog.tsx#L50">packages/zent/src/dialog/Dialog.tsx:50</a></li>
+												<li>Defined in <a href="https://github.com/youzan/zent/blob/748a021/packages/zent/src/dialog/Dialog.tsx#L54">packages/zent/src/dialog/Dialog.tsx:54</a></li>
 											</ul>
 										</aside>
 										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -374,7 +374,7 @@
 					<div class="tsd-signature tsd-kind-icon">open<wbr>Dialog<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IOpenDialogOption.html" class="tsd-signature-type" data-tsd-kind="Interface">IOpenDialogOption</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-symbol">(</span>triggerOnClose<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> = ...</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/youzan/zent/blob/2c864c4/packages/zent/src/dialog/Dialog.tsx#L61">packages/zent/src/dialog/Dialog.tsx:61</a></li>
+							<li>Defined in <a href="https://github.com/youzan/zent/blob/748a021/packages/zent/src/dialog/Dialog.tsx#L65">packages/zent/src/dialog/Dialog.tsx:65</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -431,7 +431,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from Component.UNSAFE_componentWillMount</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:711</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:688</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -462,14 +462,14 @@
 					<a name="UNSAFE_componentWillReceiveProps" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> UNSAFE_<wbr>component<wbr>Will<wbr>Receive<wbr>Props</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">UNSAFE_<wbr>component<wbr>Will<wbr>Receive<wbr>Props<span class="tsd-signature-symbol">(</span>nextProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogProps.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogProps</a><span class="tsd-signature-symbol">&gt;</span>, nextContext<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">UNSAFE_<wbr>component<wbr>Will<wbr>Receive<wbr>Props<span class="tsd-signature-symbol">(</span>nextProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">PropsWithChildren</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogProps.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogProps</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>, nextContext<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from Component.UNSAFE_componentWillReceiveProps</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:743</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:720</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -497,7 +497,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>nextProps: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogProps.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogProps</a><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>nextProps: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">PropsWithChildren</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogProps.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogProps</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
 									<h5>nextContext: <span class="tsd-signature-type">any</span></h5>
@@ -511,14 +511,14 @@
 					<a name="UNSAFE_componentWillUpdate" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> UNSAFE_<wbr>component<wbr>Will<wbr>Update</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">UNSAFE_<wbr>component<wbr>Will<wbr>Update<span class="tsd-signature-symbol">(</span>nextProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogProps.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogProps</a><span class="tsd-signature-symbol">&gt;</span>, nextState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogState.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogState</a><span class="tsd-signature-symbol">&gt;</span>, nextContext<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">UNSAFE_<wbr>component<wbr>Will<wbr>Update<span class="tsd-signature-symbol">(</span>nextProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">PropsWithChildren</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogProps.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogProps</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>, nextState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogState.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogState</a><span class="tsd-signature-symbol">&gt;</span>, nextContext<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from Component.UNSAFE_componentWillUpdate</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:771</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:748</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -544,7 +544,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>nextProps: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogProps.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogProps</a><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>nextProps: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">PropsWithChildren</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogProps.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogProps</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
 									<h5>nextState: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogState.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogState</a><span class="tsd-signature-symbol">&gt;</span></h5>
@@ -568,7 +568,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from Component.componentDidCatch</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:640</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:617</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -601,7 +601,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from Component.componentDidMount</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:619</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:596</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -617,14 +617,14 @@
 					<a name="componentDidUpdate" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> component<wbr>Did<wbr>Update</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">component<wbr>Did<wbr>Update<span class="tsd-signature-symbol">(</span>prevProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogProps.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogProps</a><span class="tsd-signature-symbol">&gt;</span>, prevState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogState.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogState</a><span class="tsd-signature-symbol">&gt;</span>, snapshot<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">component<wbr>Did<wbr>Update<span class="tsd-signature-symbol">(</span>prevProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">PropsWithChildren</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogProps.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogProps</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>, prevState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogState.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogState</a><span class="tsd-signature-symbol">&gt;</span>, snapshot<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from Component.componentDidUpdate</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:682</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:659</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -636,7 +636,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>prevProps: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogProps.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogProps</a><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>prevProps: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">PropsWithChildren</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogProps.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogProps</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
 									<h5>prevState: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogState.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogState</a><span class="tsd-signature-symbol">&gt;</span></h5>
@@ -660,7 +660,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from Component.componentWillMount</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:697</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:674</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -690,14 +690,14 @@
 					<a name="componentWillReceiveProps" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> component<wbr>Will<wbr>Receive<wbr>Props</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">component<wbr>Will<wbr>Receive<wbr>Props<span class="tsd-signature-symbol">(</span>nextProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogProps.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogProps</a><span class="tsd-signature-symbol">&gt;</span>, nextContext<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">component<wbr>Will<wbr>Receive<wbr>Props<span class="tsd-signature-symbol">(</span>nextProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">PropsWithChildren</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogProps.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogProps</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>, nextContext<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from Component.componentWillReceiveProps</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:726</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:703</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -724,7 +724,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>nextProps: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogProps.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogProps</a><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>nextProps: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">PropsWithChildren</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogProps.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogProps</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
 									<h5>nextContext: <span class="tsd-signature-type">any</span></h5>
@@ -745,7 +745,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from Component.componentWillUnmount</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:635</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:612</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -762,14 +762,14 @@
 					<a name="componentWillUpdate" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> component<wbr>Will<wbr>Update</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">component<wbr>Will<wbr>Update<span class="tsd-signature-symbol">(</span>nextProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogProps.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogProps</a><span class="tsd-signature-symbol">&gt;</span>, nextState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogState.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogState</a><span class="tsd-signature-symbol">&gt;</span>, nextContext<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">component<wbr>Will<wbr>Update<span class="tsd-signature-symbol">(</span>nextProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">PropsWithChildren</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogProps.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogProps</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>, nextState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogState.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogState</a><span class="tsd-signature-symbol">&gt;</span>, nextContext<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from Component.componentWillUpdate</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:756</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:733</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -794,7 +794,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>nextProps: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogProps.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogProps</a><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>nextProps: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">PropsWithChildren</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogProps.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogProps</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
 									<h5>nextState: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogState.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogState</a><span class="tsd-signature-symbol">&gt;</span></h5>
@@ -818,7 +818,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from Component.forceUpdate</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:490</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:488</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -847,14 +847,14 @@
 					<a name="getSnapshotBeforeUpdate" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> get<wbr>Snapshot<wbr>Before<wbr>Update</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Snapshot<wbr>Before<wbr>Update<span class="tsd-signature-symbol">(</span>prevProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogProps.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogProps</a><span class="tsd-signature-symbol">&gt;</span>, prevState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogState.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogState</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Snapshot<wbr>Before<wbr>Update<span class="tsd-signature-symbol">(</span>prevProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">PropsWithChildren</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogProps.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogProps</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>, prevState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogState.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogState</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from Component.getSnapshotBeforeUpdate</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:676</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:653</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -869,7 +869,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>prevProps: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogProps.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogProps</a><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>prevProps: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">PropsWithChildren</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogProps.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogProps</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
 									<h5>prevState: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogState.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogState</a><span class="tsd-signature-symbol">&gt;</span></h5>
@@ -889,7 +889,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/2c864c4/packages/zent/src/dialog/Dialog.tsx#L74">packages/zent/src/dialog/Dialog.tsx:74</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/748a021/packages/zent/src/dialog/Dialog.tsx#L78">packages/zent/src/dialog/Dialog.tsx:78</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -912,7 +912,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/2c864c4/packages/zent/src/dialog/Dialog.tsx#L79">packages/zent/src/dialog/Dialog.tsx:79</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/748a021/packages/zent/src/dialog/Dialog.tsx#L83">packages/zent/src/dialog/Dialog.tsx:83</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -930,7 +930,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides Component.render</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/2c864c4/packages/zent/src/dialog/Dialog.tsx#L106">packages/zent/src/dialog/Dialog.tsx:106</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/748a021/packages/zent/src/dialog/Dialog.tsx#L110">packages/zent/src/dialog/Dialog.tsx:110</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Element</span></h4>
@@ -941,14 +941,14 @@
 					<a name="setState" class="tsd-anchor"></a>
 					<h3>set<wbr>State</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">set<wbr>State&lt;K&gt;<span class="tsd-signature-symbol">(</span>state<span class="tsd-signature-symbol">: </span><a href="../interfaces/IDialogState.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogState</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span>prevState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogState.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogState</a><span class="tsd-signature-symbol">&gt;</span>, props<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogProps.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogProps</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><a href="../interfaces/IDialogState.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogState</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Pick</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogState.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogState</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Pick</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogState.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogState</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">&gt;</span>, callback<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">set<wbr>State&lt;K&gt;<span class="tsd-signature-symbol">(</span>state<span class="tsd-signature-symbol">: </span><a href="../interfaces/IDialogState.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogState</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span>prevState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogState.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogState</a><span class="tsd-signature-symbol">&gt;</span>, props<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">PropsWithChildren</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogProps.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogProps</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><a href="../interfaces/IDialogState.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogState</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Pick</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogState.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogState</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Pick</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogState.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogState</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">&gt;</span>, callback<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from Component.setState</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:485</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:483</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -960,7 +960,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>state: <a href="../interfaces/IDialogState.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogState</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span>prevState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogState.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogState</a><span class="tsd-signature-symbol">&gt;</span>, props<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogProps.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogProps</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><a href="../interfaces/IDialogState.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogState</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Pick</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogState.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogState</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Pick</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogState.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogState</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>state: <a href="../interfaces/IDialogState.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogState</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span>prevState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogState.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogState</a><span class="tsd-signature-symbol">&gt;</span>, props<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">PropsWithChildren</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogProps.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogProps</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><a href="../interfaces/IDialogState.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogState</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Pick</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogState.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogState</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Pick</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogState.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogState</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
@@ -986,14 +986,14 @@
 					<a name="shouldComponentUpdate" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> should<wbr>Component<wbr>Update</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">should<wbr>Component<wbr>Update<span class="tsd-signature-symbol">(</span>nextProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogProps.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogProps</a><span class="tsd-signature-symbol">&gt;</span>, nextState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogState.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogState</a><span class="tsd-signature-symbol">&gt;</span>, nextContext<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon">should<wbr>Component<wbr>Update<span class="tsd-signature-symbol">(</span>nextProps<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">PropsWithChildren</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogProps.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogProps</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>, nextState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogState.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogState</a><span class="tsd-signature-symbol">&gt;</span>, nextContext<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from Component.shouldComponentUpdate</p>
 								<ul>
-									<li>Defined in node_modules/@types/react/index.d.ts:630</li>
+									<li>Defined in node_modules/@types/react/index.d.ts:607</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1009,7 +1009,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>nextProps: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogProps.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogProps</a><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>nextProps: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">PropsWithChildren</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogProps.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogProps</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
 									<h5>nextState: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/IDialogState.html" class="tsd-signature-type" data-tsd-kind="Interface">IDialogState</a><span class="tsd-signature-symbol">&gt;</span></h5>
@@ -1032,7 +1032,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/youzan/zent/blob/2c864c4/packages/zent/src/dialog/Dialog.tsx#L87">packages/zent/src/dialog/Dialog.tsx:87</a></li>
+									<li>Defined in <a href="https://github.com/youzan/zent/blob/748a021/packages/zent/src/dialog/Dialog.tsx#L91">packages/zent/src/dialog/Dialog.tsx:91</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
