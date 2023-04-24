@@ -10,6 +10,9 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 10.0.9(2023-04-24)
+- ✨ `datePicker` 增加 `CombinedPanelRangePicker` 和 `SingleCalendarDatePanelPicker` 的支持
+
 ### 10.0.7(2023-01-06)
 - 🦀 调整 `CombinedDateRangePicker` 选择结束日期后的展示逻辑
 
