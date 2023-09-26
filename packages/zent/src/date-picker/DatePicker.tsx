@@ -27,6 +27,7 @@ export interface IDatePickerProps<T extends IValueType = 'string'>
   showTime?: IShowTime;
   disabledTime?: IDisabledTime;
   hideFooter?: boolean;
+  fullCellRender?: any;
 }
 const defaultDatePickerProps = {
   format: DATE_FORMAT,

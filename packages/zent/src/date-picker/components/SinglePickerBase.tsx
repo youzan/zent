@@ -136,8 +136,13 @@ export function SinglePicker({
   }, [text, value, panelVisible, restPropsRef, disabled, onClearInput]);
 
   const content = useMemo(() => {
+    const { fullCellRender } = restPanelProps as any;
     return (
-      <div className="zent-datepicker-panel">
+      <div
+        className={cx('zent-datepicker-panel', {
+          ['zent-datepicker-panel_lunar']: !!fullCellRender,
+        })}
+      >
         <PanelComponent
           {...restPanelProps}
           selected={selected}

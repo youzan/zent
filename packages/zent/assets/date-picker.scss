@@ -153,6 +153,10 @@
     width: 280px;
     cursor: pointer;
 
+    &_lunar {
+      width: 330px;
+    }
+
     &-header {
       @include font-large;
       display: flex;
@@ -221,6 +225,16 @@
         width: 24px;
         height: 24px;
         box-sizing: border-box;
+      }
+
+      .zent-datepicker-lunar-cell {
+        display: block;
+        width: 32px;
+        height: 38px;
+
+        &_text {
+          font-size: $font-size-small;
+        }
       }
 
       &_current {

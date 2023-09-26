@@ -13,6 +13,8 @@ import usePanelDate from '../../hooks/usePanelDate';
 import { ISinglePanelProps, IDisabledTime, IShowTime } from '../../types';
 import { useEventCallbackRef } from '../../../utils/hooks/useEventCallbackRef';
 
+import { Lunar } from 'lunar-typescript';
+
 export interface IDatePickerPanelProps extends ISinglePanelProps {
   disableRangeOverView?: boolean;
   popText?: string;
@@ -44,6 +46,21 @@ const DatePickerPanel: React.FC<IDatePickerPanelProps> = props => {
   const showTimeOption = useShowTimeOption(showTime);
   const onPanelDateChangeRef = useEventCallbackRef(onPanelDateChange);
 
+  const { fullCellRender } = resetBodyProps;
+
+  const monthLabel = useMemo(() => {
+    const solarMonth = panelDate.getMonth();
+    if (!fullCellRender) {
+      return solarMonth;
+    }
+
+    const d = Lunar.fromDate(new Date(panelDate.getTime(), solarMonth));
+
+    const lunar = d.getMonthInChinese();
+
+    return `${solarMonth + 1}月（${lunar}月）`;
+  }, [fullCellRender, panelDate]);
+
   const titleNode = useMemo(
     () => (
       <>
@@ -53,12 +70,12 @@ const DatePickerPanel: React.FC<IDatePickerPanelProps> = props => {
           onClick={() => setShowYear(true)}
         />
         <Title
-          text={i18n.panel.monthNames[panelDate.getMonth()]}
+          text={i18n.panel.monthNames[monthLabel]}
           onClick={() => setShowMonth(true)}
         />
       </>
     ),
-    [panelDate, i18n]
+    [panelDate, i18n, monthLabel]
   );
 
   const modifyPanelDate = useCallback(
