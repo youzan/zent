@@ -52,10 +52,14 @@ export default function getPanelCellsData({
         const date = currentDate as any;
 
         const d = Lunar.fromDate(date);
-        const lunar = d.getDayInChinese();
+        const lunarDay = d.getDayInChinese();
         const solarTerm = d.getJieQi();
 
-        lunarText = solarTerm || lunar;
+        if (1 === d.getDay()) {
+          lunarText = d.getMonthInChinese() + '月';
+        } else {
+          lunarText = solarTerm || lunarDay;
+        }
       }
 
       const isCurrent = isSame(new Date(), currentDate);
