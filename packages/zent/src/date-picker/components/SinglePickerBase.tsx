@@ -17,6 +17,8 @@ import {
   ISinglePanelProps,
 } from '../types';
 
+import { Lunar } from 'lunar-typescript';
+
 const PanelContextProvider = PanelContext.Provider;
 
 interface ISinglePickerProps
@@ -49,6 +51,8 @@ export function SinglePicker({
     PanelComponent,
     ...restPanelProps
   } = restPropsRef.current;
+  const { fullCellRender } = restPanelProps as any;
+
   const { getSelectedValue, getCallbackValue, getInputText } =
     useContext(PickerContext);
   // props onChangeRef
@@ -114,10 +118,14 @@ export function SinglePicker({
   );
 
   // trigger-input text
-  const text = useMemo(
-    () => getInputText?.(selected),
-    [selected, getInputText]
-  );
+  const text = useMemo(() => {
+    if (!selected) return '';
+    if (fullCellRender) {
+      const d = Lunar.fromDate(selected);
+      return d.toString();
+    }
+    return getInputText?.(selected);
+  }, [fullCellRender, getInputText, selected]);
 
   const trigger = useMemo(() => {
     const triggerProps = pick(restPropsRef.current, triggerCommonProps);
@@ -136,7 +144,6 @@ export function SinglePicker({
   }, [text, value, panelVisible, restPropsRef, disabled, onClearInput]);
 
   const content = useMemo(() => {
-    const { fullCellRender } = restPanelProps as any;
     return (
       <div
         className={cx('zent-datepicker-panel', {
@@ -154,13 +161,14 @@ export function SinglePicker({
       </div>
     );
   }, [
+    fullCellRender,
+    PanelComponent,
+    restPanelProps,
     selected,
     hoverDate,
     defaultPanelDate,
-    restPanelProps,
-    disabledPanelDate,
     onSelected,
-    PanelComponent,
+    disabledPanelDate,
   ]);
 
   return (
