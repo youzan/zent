@@ -17,8 +17,6 @@ import {
   ISinglePanelProps,
 } from '../types';
 
-import { Lunar } from 'lunar-typescript';
-
 const PanelContextProvider = PanelContext.Provider;
 
 interface ISinglePickerProps
@@ -121,13 +119,15 @@ export function SinglePicker({
   // trigger-input text
   const text = useMemo(() => {
     if (!selected) return '';
-    if (showLunarDate) {
-      if (lunarValueFormatter && typeof lunarValueFormatter === 'function') {
-        return lunarValueFormatter(selected);
-      }
-      const d = Lunar.fromDate(selected);
-      return d.toString();
+
+    if (
+      showLunarDate &&
+      lunarValueFormatter &&
+      typeof lunarValueFormatter === 'function'
+    ) {
+      return lunarValueFormatter(selected);
     }
+
     return getInputText?.(selected);
   }, [selected, showLunarDate, getInputText, lunarValueFormatter]);
 

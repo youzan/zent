@@ -10,23 +10,36 @@ en-US:
 import { DatePicker } from 'zent';
 import { useState } from 'react';
 
-const LunarDatePicker = () => {
-	const [date, setDate] = useState(new Date());
+import { Lunar } from 'lunar-typescript';
 
-	const handleDateChange = val => {
-		setDate(val);
+class LunarDatePickerDemo extends Component {
+	state = {};
+
+	lunarValueFormatter = date => {
+		const d = Lunar.fromDate(date);
+		return d.toString();
 	};
 
-	return (
-		<DatePicker
-			showLunarDate
-			value={date}
-			onChange={handleDateChange}
-		/>
-	);
-};
+	handleDateChange = val => {
+		this.setState({
+			date: val,
+		});
+	};
 
-ReactDOM.render(<LunarDatePicker />, mountNode);
+	render() {
+		const { date } = this.state;
+		return (
+			<DatePicker
+				showLunarDate
+				lunarValueFormatter={this.lunarValueFormatter}
+				value={date}
+				onChange={this.handleDateChange}
+			/>
+		);
+	}
+}
+
+ReactDOM.render(<LunarDatePickerDemo />, mountNode);
 ```
 
 <style>
