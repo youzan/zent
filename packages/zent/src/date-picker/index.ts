@@ -3,7 +3,6 @@ export * from './CombinedPanelRangePicker';
 export * from './CombinedTimeRangePicker';
 export * from './DatePicker';
 export * from './DateRangePicker';
-export * from './LunarDatePicker';
 export * from './MonthPicker';
 export * from './QuarterPicker';
 export * from './TimePicker';
