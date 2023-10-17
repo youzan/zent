@@ -147,7 +147,8 @@ export interface ISinglePanelProps {
   onSelected: (val: Date, status?: boolean) => void;
   disabledPanelDate: (val: Date) => boolean;
   onChangePanel?: (type: IPickerType) => void;
-  fullCellRender?: any;
+  showLunarDate?: boolean;
+  lunarValueFormatter?: (date: Date) => string;
 }
 
 export type ISingleDateBodyProps = Omit<ISinglePanelProps, 'onChangePanel'>;

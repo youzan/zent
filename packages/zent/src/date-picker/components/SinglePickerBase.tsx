@@ -51,7 +51,8 @@ export function SinglePicker({
     PanelComponent,
     ...restPanelProps
   } = restPropsRef.current;
-  const { fullCellRender } = restPanelProps as any;
+  const { showLunarDate, lunarValueFormatter } =
+    restPanelProps as ISinglePanelProps;
 
   const { getSelectedValue, getCallbackValue, getInputText } =
     useContext(PickerContext);
@@ -120,12 +121,15 @@ export function SinglePicker({
   // trigger-input text
   const text = useMemo(() => {
     if (!selected) return '';
-    if (fullCellRender) {
+    if (showLunarDate) {
+      if (lunarValueFormatter && typeof lunarValueFormatter === 'function') {
+        return lunarValueFormatter(selected);
+      }
       const d = Lunar.fromDate(selected);
       return d.toString();
     }
     return getInputText?.(selected);
-  }, [fullCellRender, getInputText, selected]);
+  }, [selected, showLunarDate, getInputText, lunarValueFormatter]);
 
   const trigger = useMemo(() => {
     const triggerProps = pick(restPropsRef.current, triggerCommonProps);
@@ -147,7 +151,7 @@ export function SinglePicker({
     return (
       <div
         className={cx('zent-datepicker-panel', {
-          ['zent-datepicker-panel_lunar']: !!fullCellRender,
+          ['zent-datepicker-panel_lunar']: !!showLunarDate,
         })}
       >
         <PanelComponent
@@ -161,7 +165,7 @@ export function SinglePicker({
       </div>
     );
   }, [
-    fullCellRender,
+    showLunarDate,
     PanelComponent,
     restPanelProps,
     selected,

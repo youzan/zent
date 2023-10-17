@@ -41,7 +41,7 @@ const DatePickerBody: FC<IDatePickerBodyProps> = props => {
     showTimeOption,
     onSelected,
     disabledPanelDate,
-    fullCellRender,
+    showLunarDate,
   } = props;
 
   const startDateOfMonth = useMemo(
@@ -63,7 +63,7 @@ const DatePickerBody: FC<IDatePickerBodyProps> = props => {
         dateConfig: dateConfig.date,
         inView: isSameMonth,
         disableRangeOverView,
-        fullCellRender,
+        showLunarDate,
       }),
     [
       disableRangeOverView,
@@ -74,7 +74,7 @@ const DatePickerBody: FC<IDatePickerBodyProps> = props => {
       col,
       startDateOfMonth,
       disabledPanelDate,
-      fullCellRender,
+      showLunarDate,
     ]
   );
 

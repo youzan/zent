@@ -15,7 +15,8 @@ interface ICellDateParams {
   offset?: number;
   inView?: (val1: Date, val2: Date) => boolean;
   disableRangeOverView?: boolean;
-  fullCellRender?: any;
+  showLunarDate?: boolean;
+  lunarValueFormatter?: (date: Date) => string;
 }
 
 /**
@@ -35,7 +36,7 @@ export default function getPanelCellsData({
   offset = 0,
   inView,
   disableRangeOverView,
-  fullCellRender = null,
+  showLunarDate,
 }: ICellDateParams) {
   const { isSame, startDate, endDate, offsetDate } = dateConfig;
 
@@ -48,7 +49,7 @@ export default function getPanelCellsData({
 
       let lunarText = '';
 
-      if (fullCellRender) {
+      if (showLunarDate) {
         const date = currentDate as any;
 
         const d = Lunar.fromDate(date);

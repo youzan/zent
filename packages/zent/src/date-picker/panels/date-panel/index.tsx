@@ -46,13 +46,13 @@ const DatePickerPanel: React.FC<IDatePickerPanelProps> = props => {
   const showTimeOption = useShowTimeOption(showTime);
   const onPanelDateChangeRef = useEventCallbackRef(onPanelDateChange);
 
-  const { fullCellRender } = resetBodyProps;
+  const { showLunarDate } = resetBodyProps;
 
   const monthLabel = useMemo(() => {
     const solarMonth = panelDate.getMonth();
 
     const solarMonthLabel = i18n.panel.monthNames[solarMonth];
-    if (!fullCellRender) {
+    if (!showLunarDate) {
       return solarMonthLabel;
     }
 
@@ -61,7 +61,7 @@ const DatePickerPanel: React.FC<IDatePickerPanelProps> = props => {
     const lunar = d.getMonthInChinese();
 
     return `${solarMonthLabel}（${lunar}月）`;
-  }, [fullCellRender, i18n.panel.monthNames, panelDate]);
+  }, [showLunarDate, i18n.panel.monthNames, panelDate]);
 
   const titleNode = useMemo(
     () => (

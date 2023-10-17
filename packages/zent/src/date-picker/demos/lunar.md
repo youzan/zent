@@ -1,26 +1,32 @@
 ---
-order: 1
+order: 10
 zh-CN:
-	title: 日期，时间段选择支持农历
+	title: 农历日期选择
 en-US: 
-	title: Date and time period selection support lunar calendar
+	title: Lunar date picker
 ---
 
 ```jsx
-import { LunarDatePicker } from 'zent';
+import { DatePicker } from 'zent';
 import { useState } from 'react';
-import { addMonths, addDays } from 'date-fns';
 
-const now = new Date();
-const Demo = () => {
+const LunarDatePicker = () => {
+	const [date, setDate] = useState(new Date());
+
+	const handleDateChange = val => {
+		setDate(val);
+	};
+
 	return (
-		<div>
-			<LunarDatePicker />
-		</div>
+		<DatePicker
+			showLunarDate
+			value={date}
+			onChange={handleDateChange}
+		/>
 	);
 };
 
-ReactDOM.render(<Demo />, mountNode);
+ReactDOM.render(<LunarDatePicker />, mountNode);
 ```
 
 <style>

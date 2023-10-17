@@ -56,12 +56,16 @@ interface IDisableDateMap {
 | hideFooter   | 隐藏面板底部         | `boolean`                                | `false`        | 否       |
 | showTime     | 是否支持时间选择功能 | `boolean` \| `object`                    | `false`        | 否       |
 | disabledTime | 时间禁用判断         | `(date?: Date) => IDisabledTimeOption`   | -              | 否       |
+| showLunarDate       | 是否显示农历日期     | `boolean`                              | `false`        | 否             |
+| lunarValueFormatter | 格式化农历日期回填值 | `(date: Date) => string`               | -              | 否             |
 
 **注意：**
 
 - `showTime` 为对象时，表示支持时间选择，具体属性可参考 `TimePicker`，包括 `format`、`hourStep`、`minuteStep`、`secondStep`，其中 `defaultTime` 类型定义为 `string | (date: Date) => string`
 - `disabledTime` 在 `showTime` 开启时生效，可参考 `TimePicker` 的 `IDisabledTimeOption`
 - `showTime` 时 `format` 值应为`'YYYY-MM-DD HH:mm:ss'`，使用时注意 `format` 参数
+- `showTime` 时 `format` 值应为`'YYYY-MM-DD HH:mm:ss'`，使用时注意 `format` 参数
+- `lunarValueFormatter` 在 `showLunarDate` 开启时生效
 
 ### WeekPicker 其他 API
 
