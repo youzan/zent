@@ -51,12 +51,15 @@ interface IDisableDateMap {
 | hideFooter   | Whether to show footer                      | `boolean`                                | `false`                  | No       |
 | showTime     | To provide an additional time selection     | `boolean` \| `object`                    | `false`                  | No       |
 | disabledTime | To specify the time that cannot be selected | `(date?: Date) => IDisabledTimeOption`   | -                        | No       |
+| showLunarDate       | Whether to display lunar date               | `boolean`                              | `false`                  | No             |
+| lunarValueFormatter | Format lunar date backfill value            | `(date: Date) => string`               | -                        | No             |
 
 **Additional**
 
 - When return value of `showTime` is an object, to provide an additional time selection, there are some properties within this object: `format`、`hourStep`、`minuteStep`、`secondStep`, but redefines the type of `defaultTime` to be `string | (date: Date) => string`
 - `disabledTime` only works with `showTime`, see the details in `TimePicker`
 - `format` should be `'YYYY-MM-DD HH:mm:ss'` when `showTime` is `true`
+- `lunarValueFormatter` only works with `showLunarDate`
 
 #### WeekPicker API
 

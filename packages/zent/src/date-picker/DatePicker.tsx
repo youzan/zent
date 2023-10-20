@@ -27,6 +27,8 @@ export interface IDatePickerProps<T extends IValueType = 'string'>
   showTime?: IShowTime;
   disabledTime?: IDisabledTime;
   hideFooter?: boolean;
+  showLunarDate?: boolean;
+  lunarValueFormatter?: (date: Date) => string;
 }
 const defaultDatePickerProps = {
   format: DATE_FORMAT,

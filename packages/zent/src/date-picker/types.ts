@@ -72,6 +72,7 @@ interface ICommonProps<DateValue = SingleDate> {
 export interface IDateCellBase {
   value: Date;
   text: string | number;
+  lunarText?: string | number;
   isSelected?: boolean;
   isCurrent?: boolean;
   isDisabled?: boolean;
@@ -146,6 +147,8 @@ export interface ISinglePanelProps {
   onSelected: (val: Date, status?: boolean) => void;
   disabledPanelDate: (val: Date) => boolean;
   onChangePanel?: (type: IPickerType) => void;
+  showLunarDate?: boolean;
+  lunarValueFormatter?: (date: Date) => string;
 }
 
 export type ISingleDateBodyProps = Omit<ISinglePanelProps, 'onChangePanel'>;
