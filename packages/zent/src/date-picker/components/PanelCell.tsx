@@ -57,7 +57,7 @@ const PanelCell: React.FC<IPanelCellProps> = ({
   const rows = useMemo(() => {
     const uls: React.ReactNode[] = [];
     let rowCells: React.ReactNode[] = [];
-    cells.map(({ value, text, ...classNameProps }, index) => {
+    cells.map(({ value, text, lunarText, ...classNameProps }, index) => {
       const { isSelected, isDisabled } = classNameProps;
       const cellNode = (
         <li
@@ -65,13 +65,24 @@ const PanelCell: React.FC<IPanelCellProps> = ({
           className={getCellClassName(classNameProps)}
           onClick={() => onCellClick({ isDisabled, value })}
         >
-          <div
-            className="zent-datepicker-cell-inner"
-            onMouseEnter={() => onCellMouseOver({ isDisabled, value })}
-            onMouseLeave={() => onCellMouseOver({ isDisabled, value: null })}
-          >
-            {text}
-          </div>
+          {lunarText ? (
+            <div
+              className="zent-datepicker-cell-inner zent-datepicker-lunar-cell"
+              onMouseEnter={() => onCellMouseOver({ isDisabled, value })}
+              onMouseLeave={() => onCellMouseOver({ isDisabled, value: null })}
+            >
+              <div>{text}</div>
+              <div className="zent-datepicker-lunar-cell_text">{lunarText}</div>
+            </div>
+          ) : (
+            <div
+              className="zent-datepicker-cell-inner"
+              onMouseEnter={() => onCellMouseOver({ isDisabled, value })}
+              onMouseLeave={() => onCellMouseOver({ isDisabled, value: null })}
+            >
+              {text}
+            </div>
+          )}
         </li>
       );
       // 单元格支持Tooltip

@@ -7398,6 +7398,11 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
+lunar-typescript@^1.6.10:
+  version "1.6.10"
+  resolved "https://registry.npmmirror.com/lunar-typescript/-/lunar-typescript-1.6.10.tgz#607b5d6821efb48c0ff751a79859b1dfeb39c7a6"
+  integrity sha512-NpimyKWfxaYbUPJIdHcDX5iaXSMbQVob2yk4Baox9KMwCNLrLsjNk/sS92fAlqTkziKkvM/39rPxk4qXX7gWaA==
+
 lunr@^2.3.9:
   version "2.3.9"
   resolved "https://registry.yarnpkg.com/lunr/-/lunr-2.3.9.tgz#18b123142832337dd6e964df1a5a7707b25d35e1"

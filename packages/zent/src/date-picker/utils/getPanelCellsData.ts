@@ -1,5 +1,6 @@
 import { eachDayOfInterval, isAfter, isBefore, isSameDay } from 'date-fns';
 import { IDateCellBase, IGenerateDateConfig, DateTuple } from '../types';
+import { Lunar } from 'lunar-typescript';
 
 interface ICellDateParams {
   selected: Date | null;
@@ -14,6 +15,8 @@ interface ICellDateParams {
   offset?: number;
   inView?: (val1: Date, val2: Date) => boolean;
   disableRangeOverView?: boolean;
+  showLunarDate?: boolean;
+  lunarValueFormatter?: (date: Date) => string;
 }
 
 /**
@@ -33,6 +36,7 @@ export default function getPanelCellsData({
   offset = 0,
   inView,
   disableRangeOverView,
+  showLunarDate,
 }: ICellDateParams) {
   const { isSame, startDate, endDate, offsetDate } = dateConfig;
 
@@ -42,6 +46,22 @@ export default function getPanelCellsData({
     for (let colIndex = 0; colIndex < col; colIndex++) {
       const currentDate = offsetDate(defaultPanelDate, index - offset);
       const text = texts ? texts[index] : currentDate.getDate();
+
+      let lunarText = '';
+
+      if (showLunarDate) {
+        const date = currentDate as any;
+
+        const d = Lunar.fromDate(date);
+        const lunarDay = d.getDayInChinese();
+        const solarTerm = d.getJieQi();
+
+        if (1 === d.getDay()) {
+          lunarText = d.getMonthInChinese() + '月';
+        } else {
+          lunarText = solarTerm || lunarDay;
+        }
+      }
 
       const isCurrent = isSame(new Date(), currentDate);
 
@@ -92,6 +112,7 @@ export default function getPanelCellsData({
       cells[index] = {
         value: currentDate,
         text,
+        lunarText,
         isCurrent,
         isSelected,
         isInView,
