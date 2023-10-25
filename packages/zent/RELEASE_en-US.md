@@ -9,6 +9,9 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 10.0.10(2023-10-25)
+- ✨ `datePicker` add lunar feature support
+
 ### 10.0.9(2023-04-24)
 - ✨ `datePicker` export `CombinedPanelRangePicker` and `SingleCalendarDatePanelPicker` 
 

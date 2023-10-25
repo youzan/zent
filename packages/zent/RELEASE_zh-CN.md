@@ -10,6 +10,9 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 10.0.10(2023-10-25)
+- ✨ `datePicker` 增加农历功能支持
+
 ### 10.0.9(2023-04-24)
 - ✨ `datePicker` 增加 `CombinedPanelRangePicker` 和 `SingleCalendarDatePanelPicker` 的支持
 
