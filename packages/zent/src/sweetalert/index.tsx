@@ -17,6 +17,7 @@ export namespace Sweetalert {
     confirmText?: string;
     confirmType?: 'default' | 'primary' | 'danger' | 'success';
     closeBtn?: boolean;
+    mask?: boolean;
     maskClosable?: boolean;
     parentComponent?: any;
     className?: string;
@@ -53,6 +54,7 @@ function sweet(
     confirmType = 'primary',
     closeBtn = false,
     maskClosable = false,
+    mask,
     title,
     type,
     content,
@@ -105,6 +107,7 @@ function sweet(
 
   close = openDialog({
     closeBtn,
+    mask,
     maskClosable,
     className: cx(`zent-sweetalert-${sweetType}`, {
       [className]: !!className,
