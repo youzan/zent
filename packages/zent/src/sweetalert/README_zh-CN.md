@@ -27,6 +27,7 @@ group: 信息反馈
 | confirmType     | 确定按钮的类型                                                  | string        | `'primary'`  | `'default'`、`'primary'`                          |
 | closeBtn        | 是否显示右上角关闭按钮                                          | bool          | `false`      |
 | maskClosable    | 点击遮罩是否可以关闭                                            | bool          | `false`      |
+| mask            | 是否显示遮罩                                            | bool          |       |
 | parentComponent | 父级组件实例，i18n 需要通过这个传递 context                     | ReactInstance |              |                                                   |
 | className       | 额外的 className                                                | string        | `''`         |                                                   |
 
