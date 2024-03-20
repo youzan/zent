@@ -216,6 +216,13 @@ $btn-warning-bg: 5;
     &.zent-btn-text {
       @include theme-color(background-color, primary, 4, 0.03);
     }
+
+    &.zent-btn-icon {
+      background: transparent;
+    }
+    &.zent-btn-text {
+      @include theme-color(background-color, primary, 4, 0.03);
+    }
   }
 
   &[type='button'],
@@ -497,6 +504,20 @@ $btn-warning-bg: 5;
     &.zent-btn-icon::after {
       @include theme-color(border-top-color, stroke, 1);
       @include theme-color(border-right-color, stroke, 1);
+    }
+
+    &.zent-btn-small::after,
+    &.zent-btn-text::after {
+      width: 12px;
+      height: 12px;
+      margin-left: -6px;
+      margin-top: -6px;
+      border-radius: 6px;
+    }
+
+    &.zent-btn-icon::after {
+      border-top-color: $text-300;
+      border-right-color: $text-300;
     }
   }
 
