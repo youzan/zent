@@ -27,6 +27,7 @@ group: 信息录入
 | integer     | 整数模式              | `boolean`                             | `false`   |        | 否       |
 | decimal     | 数值精度              | `number`                            | `0`     |        | 否       |
 | step        | 步进                 | `number`                         | 整数模式为 `1`，小数模式根据精度而定 |  |  否 |
+| dynamicDecimal | 是否完整保存用户输入的小数位数   |    `boolean`           |  `false`   |        |   否    |
 | min         | 数值范围最小值        | `number`                            |         |        | 否       |
 | max         | 数值范围最大值        | `number`                            |         |        | 否       |
 | placeholder | 原生 placeholder 文案 | `string`                            | `''`    |        | 否       |
