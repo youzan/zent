@@ -8138,10 +8138,10 @@ object.values@^1.1.0, object.values@^1.1.1, object.values@^1.1.3, object.values@
     define-properties "^1.1.3"
     es-abstract "^1.18.2"
 
-observable-hooks@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/observable-hooks/-/observable-hooks-4.1.0.tgz#b471747c75d2b44470f5bf889adeb2f3271a5a25"
-  integrity sha512-3kkmT76K4h03bzDM0xK6UFQlEnGB0sz63Dwd0szREzcP8vIGH8ikkWvsZfd3k1vZMFtnANU2tFb50n/XgwImug==
+observable-hooks@4.2.0:
+  version "4.2.0"
+  resolved "http://registry.npm.qima-inc.com/observable-hooks/download/observable-hooks-4.2.0.tgz#dd4df9678f90604a91f9fd66a4f924b503bfa530"
+  integrity sha1-3U35Z4+QYEqR+f1mpPkktQO/pTA=
 
 obuf@^1.0.0, obuf@^1.1.2:
   version "1.1.2"
