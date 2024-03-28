@@ -46,7 +46,7 @@
     "classnames": "^2.2.6",
     "date-fns": "^2.7.0",
     "lunar-typescript": "^1.6.10",
-    "observable-hooks": "^4.1.0",
+    "observable-hooks": "4.2.0",
     "react-is": "^17.0.1",
     "react-transition-group": "^4.4.1",
     "rxjs": "^7.1.0",
