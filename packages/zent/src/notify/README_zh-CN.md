@@ -32,6 +32,11 @@ group: 反馈
 
 如果 `Notify.clear` 调用时没有传入 `id` 参数，所有当前未关闭的实例都会被关闭。
 
-- `Notify.config(options): void`
+- `Notify.config(options: Options): void`
 
-`options` 当前只支持一个设置：`duration`，可以用来全局设置 `Notify` 的关闭延迟时间。
+### Options
+
+| 参数         | 说明         | 类型   | 默认值 |
+| ----------- | ------------ | ------ | ------ |
+| duration    | 全局持续时间     | number | `3500` |
+| getContainer | 配置渲染节点的输出位置  | () => HTMLElement |  () => document.body |

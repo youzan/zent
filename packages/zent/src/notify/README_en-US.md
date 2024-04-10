@@ -31,6 +31,11 @@ Display a notification at top of the viewport.
 
 If no `id` is passed to `Notify.clear`, it will close all notify instances that are active.
 
-- `Notify.config(options): void`
+- `Notify.config(options: Options): void`
 
-`duration` is the only supported parameter in `options`, it is used to set `Notify` duration globally.
+### Options
+
+| Property         | Description         | Type   | Default |
+| ----------- | ------------ | ------ | ------ |
+| duration    | global duration     | number | `3500` |
+| getContainer | Return the mount node for Notify  | () => HTMLElement |  () => document.body |

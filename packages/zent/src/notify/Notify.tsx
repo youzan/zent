@@ -6,6 +6,8 @@ import NotifyContent from './NotifyContent';
 
 let index = 0;
 let durationDefault = 3500;
+let getRenderContainer = () => document.body;
+let preRenderContainer = null;
 const containerList = {};
 const notifyContainerClass = 'zent-notify-container';
 
@@ -52,18 +54,30 @@ const closeAllNotify = () => {
 };
 
 /**
- * 创建承载notify portal的容器
+ * 创建承载notify portal的容器，getContainer会影响notify的挂载位置
  */
 const createNotifyContainerNode = (): HTMLElement => {
   let notifyContainerNode = document.querySelector<HTMLElement>(
     '.zent-notify-container'
   );
 
+  const currentRenderContainer = getRenderContainer() || document.body;
+
+  if (preRenderContainer !== currentRenderContainer) {
+    if (
+      notifyContainerNode &&
+      preRenderContainer.contains(notifyContainerNode)
+    ) {
+      preRenderContainer.removeChild(notifyContainerNode);
+      notifyContainerNode = null;
+    }
+    preRenderContainer = currentRenderContainer;
+  }
+
   if (!notifyContainerNode) {
-    const bodyNode = document.body;
     const div = createElement('div');
     div.className = notifyContainerClass;
-    notifyContainerNode = bodyNode.appendChild(div);
+    notifyContainerNode = currentRenderContainer.appendChild(div);
   }
 
   return notifyContainerNode;
@@ -157,5 +171,8 @@ export function clear(containerId) {
 export function config(options) {
   if (options.duration) {
     durationDefault = options.duration;
+  }
+  if (options.getContainer) {
+    getRenderContainer = options.getContainer;
   }
 }
