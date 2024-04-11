@@ -29,7 +29,6 @@ ReactDOM.render(
 		<Button onClick={() => Notify.config({ duration: 2000 })}>2s</Button>
 		<Button onClick={() => Notify.config({ duration: 3000 })}>3s</Button>
 		<Button onClick={() => Notify.config({ containerSelector: '#custom-container' })}>{i18n.customContainer}</Button>
-		<Button onClick={() => Notify.config({ containerSelector: 'body' })}>reset</Button>
 		<div id="custom-container"></div>
 		<br />
 		<br />

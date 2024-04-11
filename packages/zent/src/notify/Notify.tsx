@@ -54,7 +54,7 @@ const closeAllNotify = () => {
 };
 
 /**
- * 创建承载notify portal的容器，getContainer会影响notify的挂载位置
+ * 创建承载notify portal的容器，containerSelector可以自定义notify的挂载位置
  */
 const createNotifyContainerNode = (): HTMLElement => {
   let notifyContainerNode = document.querySelector<HTMLElement>(
