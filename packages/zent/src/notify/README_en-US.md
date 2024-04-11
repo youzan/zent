@@ -38,4 +38,4 @@ If no `id` is passed to `Notify.clear`, it will close all notify instances that 
 | Property         | Description         | Type   | Default |
 | ----------- | ------------ | ------ | ------ |
 | duration    | global duration     | number | `3500` |
-| getContainer | Return the mount node for Notify  | () => HTMLElement |  () => document.body |
+| containerSelector | notify's parent node CSS selector  | string |  `'body'` |

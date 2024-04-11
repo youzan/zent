@@ -39,4 +39,4 @@ group: 反馈
 | 参数         | 说明         | 类型   | 默认值 |
 | ----------- | ------------ | ------ | ------ |
 | duration    | 全局持续时间     | number | `3500` |
-| getContainer | 配置渲染节点的输出位置  | () => HTMLElement |  () => document.body |
+| containerSelector | 提示组件的父节点CSS selector | string |  `'body'` |

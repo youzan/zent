@@ -6,7 +6,7 @@ import NotifyContent from './NotifyContent';
 
 let index = 0;
 let durationDefault = 3500;
-let getRenderContainer = () => document.body;
+let containerSelector = 'body';
 let preRenderContainer = null;
 const containerList = {};
 const notifyContainerClass = 'zent-notify-container';
@@ -61,7 +61,8 @@ const createNotifyContainerNode = (): HTMLElement => {
     '.zent-notify-container'
   );
 
-  const currentRenderContainer = getRenderContainer() || document.body;
+  const currentRenderContainer =
+    document.querySelector<HTMLElement>(containerSelector) || document.body;
 
   if (preRenderContainer !== currentRenderContainer) {
     if (
@@ -172,7 +173,7 @@ export function config(options) {
   if (options.duration) {
     durationDefault = options.duration;
   }
-  if (options.getContainer) {
-    getRenderContainer = options.getContainer;
+  if (options.containerSelector) {
+    containerSelector = options.containerSelector;
   }
 }
