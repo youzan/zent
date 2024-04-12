@@ -6,7 +6,7 @@ import NotifyContent from './NotifyContent';
 
 let index = 0;
 let durationDefault = 3500;
-let containerSelector = 'body';
+let containerSelectorDefault = 'body';
 let preRenderContainer = null;
 const containerList = {};
 const notifyContainerClass = 'zent-notify-container';
@@ -54,15 +54,32 @@ const closeAllNotify = () => {
 };
 
 /**
+ * 添加className，需要检查是否存在
+ * @param  {HTMLElement} node      dom节点
+ * @param  {String} className class名称
+ */
+const addClassName = (node: HTMLElement, className: string) => {
+  if (node.classList && !node.classList.contains(className)) {
+    node.classList.add(className);
+  }
+};
+
+/**
  * 创建承载notify portal的容器，containerSelector可以自定义notify的挂载位置
  */
-const createNotifyContainerNode = (): HTMLElement => {
+const createNotifyContainerNode = (
+  containerSelector,
+  className
+): HTMLElement => {
   let notifyContainerNode = document.querySelector<HTMLElement>(
     '.zent-notify-container'
   );
 
+  const customContainerSelector = containerSelector || containerSelectorDefault;
+
   const currentRenderContainer =
-    document.querySelector<HTMLElement>(containerSelector) || document.body;
+    document.querySelector<HTMLElement>(customContainerSelector) ||
+    document.body;
 
   if (preRenderContainer !== currentRenderContainer) {
     if (
@@ -81,6 +98,14 @@ const createNotifyContainerNode = (): HTMLElement => {
     notifyContainerNode = currentRenderContainer.appendChild(div);
   }
 
+  if (className) {
+    addClassName(notifyContainerNode, className);
+  }
+
+  if (customContainerSelector !== 'body') {
+    addClassName(notifyContainerNode, 'zent-notify-container-custom');
+  }
+
   return notifyContainerNode;
 };
 
@@ -90,17 +115,24 @@ const createNotifyContainerNode = (): HTMLElement => {
  * @param  {[type]}   duration 显示时长
  * @param  {[type]}   status   notify状态
  * @param  {Function} callback notify消失时回调
+ * @param  {[String]} containerSelector  自定义父容器挂载节点
+ * @param  {[String]} className  自定义样式类
  */
 const show = (
   text: ReactNode,
   duration?: number,
   status?: string,
-  callback?: () => void
+  callback?: () => void,
+  containerSelector?: string,
+  className?: string
 ) => {
   if (!isBrowser) return null;
 
   const container = createElement('div');
-  const notifyContainerNode = createNotifyContainerNode();
+  const notifyContainerNode = createNotifyContainerNode(
+    containerSelector,
+    className
+  );
   const props: any = {
     text,
     status,
@@ -132,33 +164,48 @@ const show = (
 export function success(
   text: ReactNode,
   duration?: number,
-  callback?: () => void
+  callback?: () => void,
+  containerSelector?: string,
+  className?: string
 ) {
-  return show(text, duration, 'success', callback);
+  return show(
+    text,
+    duration,
+    'success',
+    callback,
+    containerSelector,
+    className
+  );
 }
 
 export function warn(
   text: ReactNode,
   duration?: number,
-  callback?: () => void
+  callback?: () => void,
+  containerSelector?: string,
+  className?: string
 ) {
-  return show(text, duration, 'warn', callback);
+  return show(text, duration, 'warn', callback, containerSelector, className);
 }
 
 export function error(
   text: ReactNode,
   duration?: number,
-  callback?: () => void
+  callback?: () => void,
+  containerSelector?: string,
+  className?: string
 ) {
-  return show(text, duration, 'error', callback);
+  return show(text, duration, 'error', callback, containerSelector, className);
 }
 
 export function info(
   text: ReactNode,
   duration?: number,
-  callback?: () => void
+  callback?: () => void,
+  containerSelector?: string,
+  className?: string
 ) {
-  return show(text, duration, 'info', callback);
+  return show(text, duration, 'info', callback, containerSelector, className);
 }
 
 export function clear(containerId) {
@@ -173,7 +220,7 @@ export function config(options) {
   if (options.duration) {
     durationDefault = options.duration;
   }
-  if (options.containerSelector) {
-    containerSelector = options.containerSelector;
+  if (options.containerSelector !== undefined) {
+    containerSelectorDefault = options.containerSelector || 'body';
   }
 }

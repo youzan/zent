@@ -14,10 +14,10 @@ Display a notification at top of the viewport.
 
 ### API
 
-- `Notify.info(text: node, duration?: number, callback?: () => ()): number`
-- `Notify.success(text: node, duration?: number, callback?: () => ()): number`
-- `Notify.warn(text: node, duration?: number, callback?: () => ()): number`
-- `Notify.error(text: node, duration?: number, callback?: () => ()): number`
+- `Notify.info(text: node, duration?: number, callback?: () => (), containerSelector?: string, className?: string): number`
+- `Notify.success(text: node, duration?: number, callback?: () => (), containerSelector?: string, className?: string): number`
+- `Notify.warn(text: node, duration?: number, callback?: () => (), containerSelector?: string, className?: string): number`
+- `Notify.error(text: node, duration?: number, callback?: () => (), containerSelector?: string, className?: string): number`
 
 `Notify.info`, `Notify.success`, `Notify.warn` and `Notify.error` return an id, which can be used by `Notify.clear(id)` to close the specific notify instance;
 
@@ -26,6 +26,8 @@ Display a notification at top of the viewport.
 | text     | notify message    | node   | `''`   |
 | duration | duration          | number | `3500` |
 | callback | customize callabck when notify closes | func   |        |
+| containerSelector | notify's parent node CSS selector | string   |  `'body'` |
+| className | Custom class name | string   |        |
 
 - `Notify.clear(number?: id): void`
 

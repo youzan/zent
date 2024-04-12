@@ -15,10 +15,10 @@ group: 反馈
 
 ### API
 
-- `Notify.info(text: node, duration?: number, callback?: () => ()): number`
-- `Notify.success(text: node, duration?: number, callback?: () => ()): number`
-- `Notify.warn(text: node, duration?: number, callback?: () => ()): number`
-- `Notify.error(text: node, duration?: number, callback?: () => ()): number`
+- `Notify.info(text: node, duration?: number, callback?: () => (), containerSelector?: string, className?: string): number`
+- `Notify.success(text: node, duration?: number, callback?: () => (), containerSelector?: string, className?: string): number`
+- `Notify.warn(text: node, duration?: number, callback?: () => (), containerSelector?: string, className?: string): number`
+- `Notify.error(text: node, duration?: number, callback?: () => (), containerSelector?: string, className?: string): number`
 
 `Notify.info`，`Notify.success`，`Notify.warn` 和 `Notify.error` 方法会返回一个 `id`，这个 `id` 可以作为 `Notify.clear(id)` 的入参，用于关闭指定notify。
 
@@ -27,6 +27,8 @@ group: 反馈
 | text     | 通知文案    | node   | `''`   |
 | duration | 持续时间          | number | `3500` |
 | callback | 关闭时的回调 | func   |        |
+| containerSelector | 提示组件的父节点CSS selector | string   |  `'body'`   |
+| className | 自定义类名 | string   |        |
 
 - `Notify.clear(number: id): void`
 

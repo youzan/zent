@@ -63,4 +63,68 @@ describe('Notify component', () => {
     jest.advanceTimersByTime(1800);
     expect(document.querySelectorAll('.zent-notify').length).toBe(0);
   });
+
+  it('custom container selector', () => {
+    const div = document.createElement('div');
+    div.className = 'custom-container';
+    document.body.appendChild(div);
+
+    const cb = jest.fn();
+    Notify.info('test info', 3000, cb, '.custom-container');
+    jest.advanceTimersByTime(1000);
+
+    expect(
+      document.querySelectorAll('.custom-container .zent-notify').length
+    ).toBe(1);
+
+    Notify.error('test error', 3000);
+    jest.advanceTimersByTime(1000);
+    expect(
+      document.querySelectorAll('.custom-container .zent-notify').length
+    ).toBe(0);
+  });
+
+  it('custom container class name', () => {
+    const cb = jest.fn();
+    Notify.error('test error', 3000, cb, '', 'test-custom-container');
+    jest.advanceTimersByTime(1000);
+
+    expect(
+      document.querySelectorAll('.zent-notify-container.test-custom-container')
+        .length
+    ).toBe(1);
+  });
+
+  it('Global default container selector', () => {
+    const div = document.createElement('div');
+    div.className = 'custom-container';
+    document.body.appendChild(div);
+
+    Notify.config({ containerSelector: '.custom-container' });
+    Notify.error('test error', 2000);
+    jest.advanceTimersByTime(1000);
+
+    expect(
+      document.querySelectorAll('.custom-container .zent-notify').length
+    ).toBe(1);
+
+    Notify.config({ containerSelector: '' });
+    Notify.error('test error', 2000);
+    jest.advanceTimersByTime(1000);
+    expect(
+      document.querySelectorAll('.custom-container .zent-notify').length
+    ).toBe(0);
+
+    Notify.config({ containerSelector: '.empty-class' });
+    Notify.error('test error', 2000);
+    jest.advanceTimersByTime(1000);
+    expect(document.querySelectorAll('.empty-class .zent-notify').length).toBe(
+      0
+    );
+  });
+
+  it('react node content', () => {
+    Notify.error(<div>test error</div>);
+    expect(document.querySelectorAll('.zent-notify').length).toBe(1);
+  });
 });
