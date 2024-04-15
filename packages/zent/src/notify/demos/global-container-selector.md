@@ -24,11 +24,11 @@ const relativeStyle = {
 ReactDOM.render(
 	<div>
 		<Button onClick={() => Notify.config({ containerSelector: '#global-custom-container' })}>{i18n.name}</Button>
-		<Button onClick={() => Notify.config({ containerSelector: '' })}>{i18n.reset}</Button>
+		<Button onClick={() => Notify.config({ containerSelector: 'body' })}>{i18n.reset}</Button>
     <div id="global-custom-container" style={relativeStyle}></div>
 		<br />
 		<br />
-		<Button onClick={() => Notify.info('{i18n.info}', 800000)}>{i18n.info}</Button>
+		<Button onClick={() => Notify.info('{i18n.info}')}>{i18n.info}</Button>
 	</div>
 	, mountNode
 );

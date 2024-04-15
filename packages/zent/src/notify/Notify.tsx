@@ -7,7 +7,6 @@ import NotifyContent from './NotifyContent';
 let index = 0;
 let durationDefault = 3500;
 let containerSelectorDefault = 'body';
-let preRenderContainer = null;
 const containerList = {};
 const notifyContainerClass = 'zent-notify-container';
 
@@ -71,38 +70,26 @@ const createNotifyContainerNode = (
   containerSelector,
   className
 ): HTMLElement => {
+  const rootContainerSelector = containerSelector || containerSelectorDefault;
+
   let notifyContainerNode = document.querySelector<HTMLElement>(
-    '.zent-notify-container'
+    `${rootContainerSelector} > .${notifyContainerClass}`
   );
 
-  const customContainerSelector = containerSelector || containerSelectorDefault;
-
-  const currentRenderContainer =
-    document.querySelector<HTMLElement>(customContainerSelector) ||
-    document.body;
-
-  if (preRenderContainer !== currentRenderContainer) {
-    if (
-      notifyContainerNode &&
-      preRenderContainer.contains(notifyContainerNode)
-    ) {
-      preRenderContainer.removeChild(notifyContainerNode);
-      notifyContainerNode = null;
-    }
-    preRenderContainer = currentRenderContainer;
-  }
+  const rootContainer =
+    document.querySelector<HTMLElement>(rootContainerSelector) || document.body;
 
   if (!notifyContainerNode) {
     const div = createElement('div');
     div.className = notifyContainerClass;
-    notifyContainerNode = currentRenderContainer.appendChild(div);
+    notifyContainerNode = rootContainer.appendChild(div);
   }
 
   if (className) {
     addClassName(notifyContainerNode, className);
   }
 
-  if (customContainerSelector !== 'body') {
+  if (rootContainerSelector !== 'body') {
     addClassName(notifyContainerNode, 'zent-notify-container-custom');
   }
 
@@ -220,7 +207,7 @@ export function config(options) {
   if (options.duration) {
     durationDefault = options.duration;
   }
-  if (options.containerSelector !== undefined) {
-    containerSelectorDefault = options.containerSelector || 'body';
+  if (options.containerSelector) {
+    containerSelectorDefault = options.containerSelector;
   }
 }

@@ -26,8 +26,8 @@ Display a notification at top of the viewport.
 | text     | notify message    | node   | `''`   |
 | duration | duration          | number | `3500` |
 | callback | customize callabck when notify closes | func   |        |
-| containerSelector | notify's parent node CSS selector | string   |  `'body'` |
-| className | Custom class name | string   |        |
+| containerSelector `v9.12.14` | notify's parent node CSS selector | string   |  `'body'` |
+| className `v9.12.14` | Custom class name | string   |        |
 
 - `Notify.clear(number?: id): void`
 
@@ -40,4 +40,4 @@ If no `id` is passed to `Notify.clear`, it will close all notify instances that 
 | Property         | Description         | Type   | Default |
 | ----------- | ------------ | ------ | ------ |
 | duration    | global duration     | number | `3500` |
-| containerSelector | notify's parent node CSS selector  | string |  `'body'` |
+| containerSelector `v9.12.14` | notify's parent node CSS selector  | string |  `'body'` |

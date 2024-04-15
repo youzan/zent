@@ -74,13 +74,20 @@ describe('Notify component', () => {
     jest.advanceTimersByTime(1000);
 
     expect(
-      document.querySelectorAll('.custom-container .zent-notify').length
+      document.querySelectorAll('.custom-container > .zent-notify-container')
+        .length
     ).toBe(1);
 
     Notify.error('test error', 3000);
     jest.advanceTimersByTime(1000);
     expect(
-      document.querySelectorAll('.custom-container .zent-notify').length
+      document.querySelectorAll('body > .zent-notify-container').length
+    ).toBe(1);
+
+    Notify.error('test error', 3000, cb, '.empty-class');
+    jest.advanceTimersByTime(1000);
+    expect(
+      document.querySelectorAll('.empty-class > .zent-notify-container').length
     ).toBe(0);
   });
 
@@ -105,22 +112,9 @@ describe('Notify component', () => {
     jest.advanceTimersByTime(1000);
 
     expect(
-      document.querySelectorAll('.custom-container .zent-notify').length
+      document.querySelectorAll('.custom-container > .zent-notify-container')
+        .length
     ).toBe(1);
-
-    Notify.config({ containerSelector: '' });
-    Notify.error('test error', 2000);
-    jest.advanceTimersByTime(1000);
-    expect(
-      document.querySelectorAll('.custom-container .zent-notify').length
-    ).toBe(0);
-
-    Notify.config({ containerSelector: '.empty-class' });
-    Notify.error('test error', 2000);
-    jest.advanceTimersByTime(1000);
-    expect(document.querySelectorAll('.empty-class .zent-notify').length).toBe(
-      0
-    );
   });
 
   it('react node content', () => {

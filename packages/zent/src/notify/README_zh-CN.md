@@ -27,8 +27,8 @@ group: 反馈
 | text     | 通知文案    | node   | `''`   |
 | duration | 持续时间          | number | `3500` |
 | callback | 关闭时的回调 | func   |        |
-| containerSelector | 提示组件的父节点CSS selector | string   |  `'body'`   |
-| className | 自定义类名 | string   |        |
+| containerSelector `v9.12.14` | 提示组件的父节点CSS selector | string   |  `'body'`   |
+| className `v9.12.14` | 自定义类名 | string   |        |
 
 - `Notify.clear(number: id): void`
 
@@ -41,4 +41,4 @@ group: 反馈
 | 参数         | 说明         | 类型   | 默认值 |
 | ----------- | ------------ | ------ | ------ |
 | duration    | 全局持续时间     | number | `3500` |
-| containerSelector | 提示组件的父节点CSS selector | string |  `'body'` |
+| containerSelector `v9.12.14` | 提示组件的父节点CSS selector | string |  `'body'` |
