@@ -9,6 +9,10 @@ $transition-duration: 160ms;
   top: 80px;
   left: 50%;
   transform: translateX(-50%);
+
+  &.zent-notify-container-custom {
+    position: absolute;
+  }
 }
 
 .zent-notify {

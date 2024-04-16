@@ -1,3 +1,4 @@
+
 ---
 order: 2
 zh-CN:
@@ -26,7 +27,7 @@ ReactDOM.render(
 		<Button onClick={() => Notify.config({ duration: 2000 })}>2s</Button>
 		<Button onClick={() => Notify.config({ duration: 3000 })}>3s</Button>
 		<br />
-		<br />		
+		<br />
 		<Button onClick={() => Notify.info('{i18n.info}')}>{i18n.info}</Button>
 		<Button onClick={() => Notify.success('{i18n.success}')}>{i18n.success}</Button>
 		<Button onClick={() => Notify.warn('{i18n.warn}')}>{i18n.warn}</Button>

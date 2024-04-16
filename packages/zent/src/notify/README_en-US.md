@@ -14,10 +14,10 @@ Display a notification at top of the viewport.
 
 ### API
 
-- `Notify.info(text: node, duration?: number, callback?: () => ()): number`
-- `Notify.success(text: node, duration?: number, callback?: () => ()): number`
-- `Notify.warn(text: node, duration?: number, callback?: () => ()): number`
-- `Notify.error(text: node, duration?: number, callback?: () => ()): number`
+- `Notify.info(text: node, duration?: number, callback?: () => (), containerSelector?: string, className?: string): number`
+- `Notify.success(text: node, duration?: number, callback?: () => (), containerSelector?: string, className?: string): number`
+- `Notify.warn(text: node, duration?: number, callback?: () => (), containerSelector?: string, className?: string): number`
+- `Notify.error(text: node, duration?: number, callback?: () => (), containerSelector?: string, className?: string): number`
 
 `Notify.info`, `Notify.success`, `Notify.warn` and `Notify.error` return an id, which can be used by `Notify.clear(id)` to close the specific notify instance;
 
@@ -26,11 +26,18 @@ Display a notification at top of the viewport.
 | text     | notify message    | node   | `''`   |
 | duration | duration          | number | `3500` |
 | callback | customize callabck when notify closes | func   |        |
+| containerSelector `v9.12.14` | notify's parent node CSS selector | string   |  `'body'` |
+| className `v9.12.14` | Custom class name | string   |        |
 
 - `Notify.clear(number?: id): void`
 
 If no `id` is passed to `Notify.clear`, it will close all notify instances that are active.
 
-- `Notify.config(options): void`
+- `Notify.config(options: Options): void`
 
-`duration` is the only supported parameter in `options`, it is used to set `Notify` duration globally.
+### Options
+
+| Property         | Description         | Type   | Default |
+| ----------- | ------------ | ------ | ------ |
+| duration    | global duration     | number | `3500` |
+| containerSelector `v9.12.14` | notify's parent node CSS selector  | string |  `'body'` |
