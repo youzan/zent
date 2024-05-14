@@ -30,7 +30,9 @@ export interface IDialogProps {
   children?: React.ReactNode;
   footer?: React.ReactNode;
   visible: boolean;
+  blockPageScroll?: boolean;
   closeBtn?: boolean;
+  closeOnESC?: boolean;
   onClose?: (e: KeyboardEvent | MouseEvent | TouchEvent) => void;
   mask?: boolean;
   maskClosable?: boolean;
@@ -53,6 +55,8 @@ export class Dialog extends Component<IDialogProps, IDialogState> {
     style: {},
     title: '',
     closeBtn: true,
+    closeOnESC: true,
+    blockPageScroll: true,
     mask: true,
     maskClosable: true,
     footer: null,
@@ -106,7 +110,9 @@ export class Dialog extends Component<IDialogProps, IDialogState> {
   render() {
     const {
       visible,
+      blockPageScroll,
       closeBtn,
+      closeOnESC,
       style,
       onOpened,
       onClosed,
@@ -128,8 +134,8 @@ export class Dialog extends Component<IDialogProps, IDialogState> {
         visible={visible || exiting}
         onClose={this.onClose}
         className="zent-dialog-r-anchor"
-        closeOnESC={closeBtn}
-        blockPageScroll
+        closeOnESC={closeOnESC}
+        blockPageScroll={blockPageScroll}
       >
         <DialogElWrapper
           mask={mask}
