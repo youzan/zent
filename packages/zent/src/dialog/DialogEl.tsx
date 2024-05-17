@@ -16,6 +16,7 @@ export interface IDialogInnerElProps {
   style?: React.CSSProperties;
   footer?: React.ReactNode;
   mousePosition?: IMousePosition | null;
+  transformOrigin?: CSSStyleDeclaration['transformOrigin'];
 }
 
 export class DialogInnerEl extends Component<IDialogInnerElProps> {
@@ -29,22 +30,31 @@ export class DialogInnerEl extends Component<IDialogInnerElProps> {
     this.resetTransformOrigin();
   }
 
+  setTransformOrigin(style: CSSStyleDeclaration, origin: string) {
+    ['Webkit', 'Moz', 'Ms', 'ms'].forEach(prefix => {
+      style[`${prefix}TransformOrigin`] = origin;
+    });
+    style.transformOrigin = origin;
+  }
+
   resetTransformOrigin(props = this.props) {
-    const { mousePosition, style } = props;
-    if (!this.dialogEl || (style && style.transformOrigin)) return;
+    const { mousePosition, transformOrigin } = props;
+    if (this.dialogEl && transformOrigin) {
+      const style = this.dialogEl.style;
+      this.setTransformOrigin(style, transformOrigin);
+      return;
+    }
     if (
       mousePosition &&
       mousePosition.x >= 0 &&
       mousePosition.y >= 0 &&
+      this.dialogEl &&
       this.dialogEl.getBoundingClientRect
     ) {
       const { left: x, top: y } = this.dialogEl.getBoundingClientRect();
       const origin = `${mousePosition.x - x}px ${mousePosition.y - y}px 0`;
       const style = this.dialogEl.style;
-      ['Webkit', 'Moz', 'Ms', 'ms'].forEach(prefix => {
-        style[`${prefix}TransformOrigin` as any] = origin;
-      });
-      style.transformOrigin = origin;
+      this.setTransformOrigin(style, origin);
     }
   }
 

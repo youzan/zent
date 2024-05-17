@@ -33,9 +33,7 @@ group: 反馈
 | maskClosable    | 点击遮罩是否可以关闭                | `boolean`         | `true`  |
 | className       | 自定义额外类名                     | `string`          | `''`    |
 | style           | 自定义样式                        | `CSSProperties`   | `{}`    |
-| closeOnESC      | 按下 ESC 键时关闭                 | `boolean`         | `true`  |
-| blockPageScroll | 打开时禁止页面滚动                 | `boolean`         | `true`  |
-
+| transformOrigin | 自定义变换原点                     | `string`          | `''`    |
 
 #### openDialog
 
@@ -69,6 +67,6 @@ group: 反馈
 
 #### 指定Dialog变形原点
 
-在 `style` 中可以指定弹出窗口变形原点, e.g. `style={{ transformOrigin: '10% 10%' }}`.
+使用 `transformOrigin` 可以指定弹出窗口变形原点, e.g. `transformOrigin='10% 10%'`.
 
 默认情况下弹出窗口变形原点是触发打开弹窗的鼠标位置.

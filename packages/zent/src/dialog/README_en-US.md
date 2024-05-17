@@ -30,8 +30,6 @@ Dialog is used for opening a floating layer.
 | maskClosable    | Click on the mask to close the dialog                    | `boolean`         | `true`  |
 | className       | Custom classname                                         | `string`          | `''`    |
 | style           | Custom style object                                      | `CSSProperties`   | `{}`    |
-| closeOnESC      | Close portal when pressing ESC                           | `bool`            | `true`  |
-| blockPageScroll | Block page scroll when portal is open                    | `bool`            | `true`  |
 
 
 #### openDialog
@@ -65,6 +63,6 @@ By default the pop-up window width will adapt its content, meanwhile it has a mi
 
 #### Specify Dialog Transform Origin
 
-Set a `style` prop on Dialog can specify the transform origin, e.g. `style={{ transformOrigin: '10% 10%' }}`.
+Set a `transformOrigin` prop on Dialog can specify the transform origin, e.g. `transformOrigin='10% 10%'`.
 
 By default, the transform origin of the pop-up window is the mouse position that triggers the opening of the dialog.

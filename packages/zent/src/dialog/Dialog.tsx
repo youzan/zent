@@ -30,14 +30,13 @@ export interface IDialogProps {
   children?: React.ReactNode;
   footer?: React.ReactNode;
   visible: boolean;
-  blockPageScroll?: boolean;
   closeBtn?: boolean;
-  closeOnESC?: boolean;
   onClose?: (e: KeyboardEvent | MouseEvent | TouchEvent) => void;
   mask?: boolean;
   maskClosable?: boolean;
   className?: string;
   style?: React.CSSProperties;
+  transformOrigin?: CSSStyleDeclaration['transformOrigin'];
   onOpened?: () => void;
   onClosed?: () => void;
 }
@@ -53,6 +52,7 @@ export class Dialog extends Component<IDialogProps, IDialogState> {
     visible: false,
     className: '',
     style: {},
+    transformOrigin: '',
     title: '',
     closeBtn: true,
     closeOnESC: true,
@@ -110,10 +110,9 @@ export class Dialog extends Component<IDialogProps, IDialogState> {
   render() {
     const {
       visible,
-      blockPageScroll,
       closeBtn,
-      closeOnESC,
       style,
+      transformOrigin,
       onOpened,
       onClosed,
       mask,
@@ -134,8 +133,8 @@ export class Dialog extends Component<IDialogProps, IDialogState> {
         visible={visible || exiting}
         onClose={this.onClose}
         className="zent-dialog-r-anchor"
-        closeOnESC={closeOnESC}
-        blockPageScroll={blockPageScroll}
+        closeOnESC={closeBtn}
+        blockPageScroll
       >
         <DialogElWrapper
           mask={mask}
@@ -158,6 +157,7 @@ export class Dialog extends Component<IDialogProps, IDialogState> {
               style={style}
               closeBtn={closeBtn}
               mousePosition={this.lastMousePosition}
+              transformOrigin={transformOrigin}
             >
               {children}
             </DialogInnerEl>
