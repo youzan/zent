@@ -55,8 +55,6 @@ export class Dialog extends Component<IDialogProps, IDialogState> {
     transformOrigin: '',
     title: '',
     closeBtn: true,
-    closeOnESC: true,
-    blockPageScroll: true,
     mask: true,
     maskClosable: true,
     footer: null,
