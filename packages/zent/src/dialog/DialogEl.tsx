@@ -40,11 +40,10 @@ export class DialogInnerEl extends Component<IDialogInnerElProps> {
 
   resetTransformOrigin(props = this.props) {
     const { mousePosition, position } = props;
-    const positionOrigin = getPositionTransformOrigin(position, this.dialogEl);
+    let origin = getPositionTransformOrigin(position, this.dialogEl);
 
-    if (this.dialogEl && positionOrigin) {
-      this.setTransformOrigin(this.dialogEl.style, positionOrigin);
-    } else if (
+    if (
+      origin === undefined &&
       mousePosition &&
       mousePosition.x >= 0 &&
       mousePosition.y >= 0 &&
@@ -52,7 +51,10 @@ export class DialogInnerEl extends Component<IDialogInnerElProps> {
       this.dialogEl.getBoundingClientRect
     ) {
       const { left: x, top: y } = this.dialogEl.getBoundingClientRect();
-      const origin = `${mousePosition.x - x}px ${mousePosition.y - y}px 0`;
+      origin = `${mousePosition.x - x}px ${mousePosition.y - y}px 0`;
+    }
+
+    if (origin && this.dialogEl) {
       this.setTransformOrigin(this.dialogEl.style, origin);
     }
   }
