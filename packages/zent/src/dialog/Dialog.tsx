@@ -18,7 +18,7 @@ if (isBrowser) {
     'click',
     (e: MouseEvent) => {
       if (e.clientX === 0 || e.clientY === 0) {
-        mousePosition = null;
+        return;
       }
       mousePosition = {
         x: e.clientX,

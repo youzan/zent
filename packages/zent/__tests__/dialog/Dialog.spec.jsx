@@ -153,9 +153,12 @@ describe('Dialog component', () => {
     button.style.left = '100px';
     button.style.top = '100px';
     button.addEventListener('click', () => open());
-
+    const clickEvent = new MouseEvent('click', {
+      clientX: 100,
+      clientY: 100,
+    });
     document.body.appendChild(button);
-    button.click();
+    button.dispatchEvent(clickEvent);
 
     jest.runAllTimers();
 
