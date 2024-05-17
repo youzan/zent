@@ -16,21 +16,21 @@ Dialog is used for opening a floating layer.
 
 ### API
 
-| Props           | Description                                              | Type              | Default |
-| --------------- | -------------------------------------------------------- | ----------------- | ------- |
-| title           | Dialog title                                             | `ReactNode`       | `''`    |
-| children        | Content of the dialog`                                   | `ReactNode`       | `null`  |
-| footer          | Content of the dialog footer                             | `ReactNode`       | `null`  |
-| visible         | Visibility of the dialog                                 | `boolean`         | `false` |
-| closeBtn        | Visibility of the close button at the upper right corner | `boolean`         | `true`  |
-| onClose         | Close callback                                           | `(event) => void` | `noop`  |
-| onClosed        | Callback when dialog closing animation is done           | `() => void`      |         |
-| onOpened        | Callback when dialog opening animation is done           | `() => void`      |         |
-| mask            | Visibility of the mask                                   | `boolean`         | `true`  |
-| maskClosable    | Click on the mask to close the dialog                    | `boolean`         | `true`  |
-| className       | Custom classname                                         | `string`          | `''`    |
-| style           | Custom style object                                      | `CSSProperties`   | `{}`    |
-| transformOrigin | Custom transformOrigin                                   | `string`          | `''`    |
+| Props           | Description                                              | Type                  | Default |
+| --------------- | -------------------------------------------------------- | --------------------- | ------- |
+| title           | Dialog title                                             | `ReactNode`           | `''`    |
+| children        | Content of the dialog`                                   | `ReactNode`           | `null`  |
+| footer          | Content of the dialog footer                             | `ReactNode`           | `null`  |
+| visible         | Visibility of the dialog                                 | `boolean`             | `false` |
+| closeBtn        | Visibility of the close button at the upper right corner | `boolean`             | `true`  |
+| onClose         | Close callback                                           | `(event) => void`     | `noop`  |
+| onClosed        | Callback when dialog closing animation is done           | `() => void`          |         |
+| onOpened        | Callback when dialog opening animation is done           | `() => void`          |         |
+| mask            | Visibility of the mask                                   | `boolean`             | `true`  |
+| maskClosable    | Click on the mask to close the dialog                    | `boolean`             | `true`  |
+| className       | Custom classname                                         | `string`              | `''`    |
+| style           | Custom style object                                      | `CSSProperties`       | `{}`    |
+| position 				| Position way                                             | `IDialogPositionType` | `auto`  | 
 
 
 #### openDialog
@@ -62,8 +62,11 @@ Set a `style` prop on Dialog can specify its width, e.g. `style={{ width: '600px
 
 By default the pop-up window width will adapt its content, meanwhile it has a minimum width and maximum width.
 
-#### Specify Dialog Transform Origin
+#### Position
 
-Set a `transformOrigin` prop on Dialog can specify the transform origin, e.g. `transformOrigin='center center'`.
+The `position` prop can be used to specify the opening position of the dialog.
 
-By default, the transform origin of the pop-up window is the mouse position that triggers the opening of the dialog.
+| value    | description                                                |
+| -------- | ---------------------------------------------------------- |
+| `auto`   | Automatically chooses the opening position, default value. |
+| `center` | The dialog will be displayed in the center of the screen.  |

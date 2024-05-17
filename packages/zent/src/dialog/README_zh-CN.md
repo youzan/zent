@@ -19,21 +19,21 @@ group: 反馈
 
 ### API
 
-| 参数             | 说明                             | 类型               | 默认值   |
-| --------------- | -------------------------------- | ----------------- | ------- |
-| title           | 自定义弹框标题                     | `ReactNode`       | `''`    |
-| children        | 弹框内容: `<Dialog>xxxx</Dialog>` | `ReactNode`       | `null`  |
-| footer          | 底部内容                          | `ReactNode`       | `null`  |
-| visible         | 是否打开对话框                     | `boolean`         | `false` |
-| closeBtn        | 是否显示右上角关闭按钮              | `boolean`         | `true`  |
-| onClose         | 关闭操作回调函数                   | `(event) => void` | `noop`  |
-| onOpened        | 对话框打开动画结束后的回调函数       | `() => void`      |  			 |
-| onClosed        | 对话框关闭动画结束后的回调函数       | `() => void`      |  			 |
-| mask            | 是否显示遮罩                      | `boolean`         | `true`  |
-| maskClosable    | 点击遮罩是否可以关闭                | `boolean`         | `true`  |
-| className       | 自定义额外类名                     | `string`          | `''`    |
-| style           | 自定义样式                        | `CSSProperties`   | `{}`    |
-| transformOrigin | 自定义变换原点                     | `string`          | `''`    |
+| 参数             | 说明                              | 类型                   | 默认值   |
+| --------------- | --------------------------------- | --------------------- | ------- |
+| title           | 自定义弹框标题                      | `ReactNode`           | `''`    |
+| children        | 弹框内容: `<Dialog>xxxx</Dialog>`  | `ReactNode`           | `null`  |
+| footer          | 底部内容                           | `ReactNode`           | `null`  |
+| visible         | 是否打开对话框                      | `boolean`             | `false` |
+| closeBtn        | 是否显示右上角关闭按钮               | `boolean`             | `true`  |
+| onClose         | 关闭操作回调函数                    | `(event) => void`     | `noop`  |
+| onOpened        | 对话框打开动画结束后的回调函数        | `() => void`          |  			 |
+| onClosed        | 对话框关闭动画结束后的回调函数        | `() => void`          |  			 |
+| mask            | 是否显示遮罩                       | `boolean`             | `true`  |
+| maskClosable    | 点击遮罩是否可以关闭                 | `boolean`             | `true`  |
+| className       | 自定义额外类名                      | `string`              | `''`    |
+| style           | 自定义样式                         | `CSSProperties`   		 | `{}`    |
+| position 				| 对话框打开位置                      | `IDialogPositionType` | `auto`  |
 
 #### openDialog
 
@@ -65,8 +65,12 @@ group: 反馈
 
 默认情况下弹出窗口会自适应内容的宽度, 同时有最小宽度和最大宽度.
 
-#### 指定Dialog变形原点
+#### Position API
 
-使用 `transformOrigin` 可以指定弹出窗口变形原点, e.g. `transformOrigin='center center'`.
+`position` 属性用于指定对话框打开位置
 
-默认情况下弹出窗口变形原点是触发打开弹窗的鼠标位置.
+| 支持的值  | 描述                  |
+| -------- | -------------------- |
+| `auto`   | 自动选择打开位置, 默认值 |
+| `center` | 从屏幕中心位置打开      |
+ 

@@ -2,6 +2,7 @@ import { Component, createRef } from 'react';
 import cx from 'classnames';
 import focusWithoutScroll from '../utils/dom/focusWithoutScroll';
 import Icon from '../icon';
+import { IDialogPositionType, getPositionTransformOrigin } from './position';
 
 export interface IMousePosition {
   x: number;
@@ -16,7 +17,7 @@ export interface IDialogInnerElProps {
   style?: React.CSSProperties;
   footer?: React.ReactNode;
   mousePosition?: IMousePosition | null;
-  transformOrigin?: CSSStyleDeclaration['transformOrigin'];
+  position?: IDialogPositionType;
 }
 
 export class DialogInnerEl extends Component<IDialogInnerElProps> {
@@ -38,9 +39,11 @@ export class DialogInnerEl extends Component<IDialogInnerElProps> {
   }
 
   resetTransformOrigin(props = this.props) {
-    const { mousePosition, transformOrigin } = props;
-    if (this.dialogEl && transformOrigin) {
-      this.setTransformOrigin(this.dialogEl.style, transformOrigin);
+    const { mousePosition, position } = props;
+    const positionOrigin = getPositionTransformOrigin(position, this.dialogEl);
+
+    if (this.dialogEl && positionOrigin) {
+      this.setTransformOrigin(this.dialogEl.style, positionOrigin);
     } else if (
       mousePosition &&
       mousePosition.x >= 0 &&
