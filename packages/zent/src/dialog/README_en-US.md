@@ -30,6 +30,7 @@ Dialog is used for opening a floating layer.
 | maskClosable    | Click on the mask to close the dialog                    | `boolean`         | `true`  |
 | className       | Custom classname                                         | `string`          | `''`    |
 | style           | Custom style object                                      | `CSSProperties`   | `{}`    |
+| transformOrigin | Custom transformOrigin                                   | `string`          | `''`    |
 
 
 #### openDialog
