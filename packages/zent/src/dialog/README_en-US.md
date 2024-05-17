@@ -63,6 +63,6 @@ By default the pop-up window width will adapt its content, meanwhile it has a mi
 
 #### Specify Dialog Transform Origin
 
-Set a `transformOrigin` prop on Dialog can specify the transform origin, e.g. `transformOrigin='10% 10%'`.
+Set a `transformOrigin` prop on Dialog can specify the transform origin, e.g. `transformOrigin='center center'`.
 
 By default, the transform origin of the pop-up window is the mouse position that triggers the opening of the dialog.

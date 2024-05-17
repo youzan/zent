@@ -67,6 +67,6 @@ group: 反馈
 
 #### 指定Dialog变形原点
 
-使用 `transformOrigin` 可以指定弹出窗口变形原点, e.g. `transformOrigin='10% 10%'`.
+使用 `transformOrigin` 可以指定弹出窗口变形原点, e.g. `transformOrigin='center center'`.
 
 默认情况下弹出窗口变形原点是触发打开弹窗的鼠标位置.
