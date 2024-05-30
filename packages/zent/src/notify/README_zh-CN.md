@@ -15,10 +15,10 @@ group: 信息反馈
 
 ### API
 
-- `Notify.info(text: node, duration?: number, callback?: () => ()): number`
-- `Notify.success(text: node, duration?: number, callback?: () => ()): number`
-- `Notify.warn(text: node, duration?: number, callback?: () => ()): number`
-- `Notify.error(text: node, duration?: number, callback?: () => ()): number`
+- `Notify.info(text: node, duration?: number, callback?: () => (), containerSelector?: string, className?: string): number`
+- `Notify.success(text: node, duration?: number, callback?: () => (), containerSelector?: string, className?: string): number`
+- `Notify.warn(text: node, duration?: number, callback?: () => (), containerSelector?: string, className?: string): number`
+- `Notify.error(text: node, duration?: number, callback?: () => (), containerSelector?: string, className?: string): number`
 
 `Notify.info`，`Notify.success`，`Notify.warn` 和 `Notify.error` 方法会返回一个 `id`，这个 `id` 可以作为 `Notify.clear(id)` 的入参，用于关闭指定 notify。
 
@@ -27,11 +27,18 @@ group: 信息反馈
 | text     | 通知文案     | node   | `''`   |
 | duration | 持续时间     | number | `3500` |
 | callback | 关闭时的回调 | func   |        |
+| containerSelector `v10.0.11` | 提示组件的父节点CSS selector | string   |  `'body'`   |
+| className `v10.0.11` | 自定义类名 | string   |        |
 
 - `Notify.clear(number: id): void`
 
 如果 `Notify.clear` 调用时没有传入 `id` 参数，所有当前未关闭的实例都会被关闭。
 
-- `Notify.config(options): void`
+- `Notify.config(options: Options): void`
 
-`options` 当前只支持一个设置：`duration`，可以用来全局设置 `Notify` 的关闭延迟时间。
+### Options
+
+| 参数         | 说明         | 类型   | 默认值 |
+| ----------- | ------------ | ------ | ------ |
+| duration    | 全局持续时间     | number | `3500` |
+| containerSelector `v10.0.11` | 提示组件的父节点CSS selector | string |  `'body'` |
