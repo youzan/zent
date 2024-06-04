@@ -53,13 +53,12 @@ jobs:
       - name: Update package version
         run: |
           npm version --no-git-tag-version ${{ github.event.release.tag_name }}
-      - name: Publish to npm
-        - run: yarn --frozen-lockfile
-        - run: yarn workspace zent compile-plugins
-        - run: yarn workspace zent build
-        - run: yarn workspace zent publish --non-interactive --tag=beta
-          env:
-            NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+      - run: yarn --frozen-lockfile
+      - run: yarn workspace zent compile-plugins
+      - run: yarn workspace zent build
+      - run: yarn workspace zent publish --non-interactive --tag=beta
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
   deploy-doc:
     if: '!github.event.release.prerelease'
