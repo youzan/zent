@@ -12451,10 +12451,10 @@ yocto-queue@^0.1.0:
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
 
-zenticons@3.7.5-beta.1:
-  version "3.7.5-beta.1"
-  resolved "https://registry.npmjs.org/zenticons/-/zenticons-3.7.5-beta.1.tgz#1419d32e42482ed04e4bea1fc9726e5840c199ef"
-  integrity sha512-Vq6UYgnr2GWhkpsNrqVAO+MTsWda7tsQRryOpKKh8U+5GIRIrS557/DHcM4oyLoxiGx/yGmNvTa6UqnjoWAMAA==
+zenticons@3.7.5-beta.2:
+  version "3.7.5-beta.2"
+  resolved "https://registry.npmjs.org/zenticons/-/zenticons-3.7.5-beta.2.tgz#3aa3584b5b9cab2f7a21678ef3d436901828fd80"
+  integrity sha512-D6QIkT8n8GTrAjCnXu1jHVu1QyyQfUEbN5XN9thvHEnCMpBz3MfAXMNgJm0HA/YCLYULA5tfiTzJBf7LtcJWDQ==
 
 zwitch@^1.0.0:
   version "1.0.5"

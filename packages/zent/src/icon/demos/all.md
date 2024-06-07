@@ -1421,6 +1421,30 @@ class IconGrid extends Component {
                 <span className="zi-grid-item-name">canvas_fill</span>
               </div>
             </CopyButton>
+            <CopyButton
+              text={this.getIconString("business-manage-o")}
+              onCopySuccess="business-manage 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="business-managebusinessmanagebusiness-manageoutline"
+              >
+                <Icon type="business-manage-o" />
+                <span className="zi-grid-item-name">business-manage</span>
+              </div>
+            </CopyButton>
+            <CopyButton
+              text={this.getIconString("business-manage")}
+              onCopySuccess="business-manage_fill 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="business-manage_fillbusinessmanagebusiness-managefilled"
+              >
+                <Icon type="business-manage" />
+                <span className="zi-grid-item-name">business-manage_fill</span>
+              </div>
+            </CopyButton>
           </div>
         </div>
       

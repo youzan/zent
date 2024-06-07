@@ -20,6 +20,8 @@ export type IconType =
   | 'brush'
   | 'brush-o'
   | 'business'
+  | 'business-manage'
+  | 'business-manage-o'
   | 'business-o'
   | 'calendar'
   | 'calendar-o'
