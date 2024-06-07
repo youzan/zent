@@ -52,7 +52,7 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: Update package version
         run: |
-          npm version --no-git-tag-version ${{ github.event.release.tag_name }}
+          yarn workspace zent version --no-git-tag-version --new-version ${{ github.event.release.tag_name }}
       - run: yarn --frozen-lockfile
       - run: yarn workspace zent compile-plugins
       - run: yarn workspace zent build
