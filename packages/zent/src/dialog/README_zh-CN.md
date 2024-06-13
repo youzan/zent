@@ -33,20 +33,21 @@ scatter: true
 
 ### API
 
-| 参数         | 说明                              | 类型              | 默认值  |
-| ------------ | --------------------------------- | ----------------- | ------- |
-| title        | 自定义弹框标题                    | `ReactNode`       | `''`    |
-| children     | 弹框内容: `<Dialog>xxxx</Dialog>` | `ReactNode`       | `null`  |
-| footer       | 底部内容                          | `ReactNode`       | `null`  |
-| visible      | 是否打开对话窗                    | `boolean`         | `false` |
-| closeBtn     | 是否显示右上角关闭按钮            | `boolean`         | `true`  |
-| onClose      | 关闭操作回调函数                  | `(event) => void` | `noop`  |
-| onOpened     | 对话窗打开动画结束后的回调函数    | `() => void`      |         |
-| onClosed     | 对话窗关闭动画结束后的回调函数    | `() => void`      |         |
-| mask         | 是否显示遮罩                      | `boolean`         | `true`  |
-| maskClosable | 点击遮罩是否可以关闭              | `boolean`         | `true`  |
-| className    | 自定义额外类名                    | `string`          | `''`    |
-| style        | 自定义样式                        | `CSSProperties`   | `{}`    |
+| 参数             | 说明                              | 类型                   | 默认值   |
+| --------------- | --------------------------------- | --------------------- | ------- |
+| title           | 自定义弹框标题                      | `ReactNode`           | `''`    |
+| children        | 弹框内容: `<Dialog>xxxx</Dialog>`  | `ReactNode`           | `null`  |
+| footer          | 底部内容                           | `ReactNode`           | `null`  |
+| visible         | 是否打开对话窗                      | `boolean`             | `false` |
+| closeBtn        | 是否显示右上角关闭按钮               | `boolean`             | `true`  |
+| onClose         | 关闭操作回调函数                    | `(event) => void`     | `noop`  |
+| onOpened        | 对话窗打开动画结束后的回调函数        | `() => void`          |  			 |
+| onClosed        | 对话窗关闭动画结束后的回调函数        | `() => void`          |  			 |
+| mask            | 是否显示遮罩                       | `boolean`             | `true`  |
+| maskClosable    | 点击遮罩是否可以关闭                 | `boolean`             | `true`  |
+| className       | 自定义额外类名                      | `string`              | `''`    |
+| style           | 自定义样式                         | `CSSProperties`   		 | `{}`    |
+| position 				| 对话窗打开位置                      | `IDialogPositionType` | `auto`  |
 
 #### openDialog
 
@@ -76,6 +77,15 @@ scatter: true
 在 `style` 中可以指定弹出窗口的宽度, e.g. `style={{ width: '600px' }}`.
 
 默认情况下弹出窗口会自适应内容的宽度, 同时有最小宽度和最大宽度.
+
+#### Position API
+
+`position` 属性用于指定对话窗打开位置
+
+| 支持的值  | 描述                  |
+| -------- | -------------------- |
+| `auto`   | 自动选择打开位置, 默认值 |
+| `center` | 从屏幕中心位置打开      |
 
 #### 以下功能新版设计语言已废弃，仅作为老版使用的参考
 

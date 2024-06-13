@@ -30,20 +30,21 @@ Modal window with background mask; It is often used to carry the feedback of det
 
 ### API
 
-| Props        | Description                                              | Type              | Default |
-| ------------ | -------------------------------------------------------- | ----------------- | ------- |
-| title        | Dialog title                                             | `ReactNode`       | `''`    |
-| children     | Content of the dialog`                                   | `ReactNode`       | `null`  |
-| footer       | Content of the dialog footer                             | `ReactNode`       | `null`  |
-| visible      | Visibility of the dialog                                 | `boolean`         | `false` |
-| closeBtn     | Visibility of the close button at the upper right corner | `boolean`         | `true`  |
-| onClose      | Close callback                                           | `(event) => void` | `noop`  |
-| onClosed     | Callback when dialog closing animation is done           | `() => void`      |         |
-| onOpened     | Callback when dialog opening animation is done           | `() => void`      |         |
-| mask         | Visibility of the mask                                   | `boolean`         | `true`  |
-| maskClosable | Click on the mask to close the dialog                    | `boolean`         | `true`  |
-| className    | Custom classname                                         | `string`          | `''`    |
-| style        | Custom style object                                      | `CSSProperties`   | `{}`    |
+| Props        | Description                                              | Type                  | Default |
+| ------------ | -------------------------------------------------------- | --------------------- | ------- |
+| title        | Dialog title                                             | `ReactNode`           | `''`    |
+| children     | Content of the dialog`                                   | `ReactNode`           | `null`  |
+| footer       | Content of the dialog footer                             | `ReactNode`           | `null`  |
+| visible      | Visibility of the dialog                                 | `boolean`             | `false` |
+| closeBtn     | Visibility of the close button at the upper right corner | `boolean`             | `true`  |
+| onClose      | Close callback                                           | `(event) => void`     | `noop`  |
+| onClosed     | Callback when dialog closing animation is done           | `() => void`          |         |
+| onOpened     | Callback when dialog opening animation is done           | `() => void`          |         |
+| mask         | Visibility of the mask                                   | `boolean`             | `true`  |
+| maskClosable | Click on the mask to close the dialog                    | `boolean`             | `true`  |
+| className    | Custom classname                                         | `string`              | `''`    |
+| style        | Custom style object                                      | `CSSProperties`       | `{}`    |
+| position     | Position way                                             | `IDialogPositionType` | `auto`  |
 
 #### openDialog
 
@@ -71,6 +72,15 @@ If `options.triggerOnClose` is `true`, `onClose` will be triggered when the dial
 Set a `style` prop on Dialog can specify its width, e.g. `style={{ width: '600px' }}`.
 
 By default the pop-up window width will adapt its content, meanwhile it has a minimum width and maximum width.
+
+#### Position
+
+The `position` prop can be used to specify the opening position of the dialog.
+
+| value    | description                                                |
+| -------- | ---------------------------------------------------------- |
+| `auto`   | Automatically chooses the opening position, default value. |
+| `center` | The dialog will be displayed in the center of the screen.  |
 
 #### The following functions is obsolete in the new design system and is only used as a reference for the old version
 
