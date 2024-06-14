@@ -81,7 +81,7 @@ class IconGrid extends Component {
         <div className="zi-grid-group">
           <div className="zi-grid-group-name">{i18n.x-cat-operation}</div>
           <div className="zi-grid-group-items">
-
+            
             <CopyButton
               text={this.getIconString("up")}
               onCopySuccess="up 已复制到剪贴板"
@@ -768,11 +768,11 @@ class IconGrid extends Component {
             </CopyButton>
           </div>
         </div>
-
+      
         <div className="zi-grid-group">
           <div className="zi-grid-group-name">{i18n.x-cat-business}</div>
           <div className="zi-grid-group-items">
-
+            
             <CopyButton
               text={this.getIconString("summary-o")}
               onCopySuccess="summary 已复制到剪贴板"
@@ -1253,13 +1253,205 @@ class IconGrid extends Component {
                 <span className="zi-grid-item-name">hotel_fill</span>
               </div>
             </CopyButton>
+            <CopyButton
+              text={this.getIconString("customer-manage-o")}
+              onCopySuccess="customer-manage 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="customer-managecustomermanagecustomer-manageoutline"
+              >
+                <Icon type="customer-manage-o" />
+                <span className="zi-grid-item-name">customer-manage</span>
+              </div>
+            </CopyButton>
+            <CopyButton
+              text={this.getIconString("customer-manage")}
+              onCopySuccess="customer-manage_fill 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="customer-manage_fillcustomermanagecustomer-managefilled"
+              >
+                <Icon type="customer-manage" />
+                <span className="zi-grid-item-name">customer-manage_fill</span>
+              </div>
+            </CopyButton>
+            <CopyButton
+              text={this.getIconString("purchase-o")}
+              onCopySuccess="purchase 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="purchasepurchaseoutline"
+              >
+                <Icon type="purchase-o" />
+                <span className="zi-grid-item-name">purchase</span>
+              </div>
+            </CopyButton>
+            <CopyButton
+              text={this.getIconString("purchase")}
+              onCopySuccess="purchase_fill 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="purchase_fillpurchasefilled"
+              >
+                <Icon type="purchase" />
+                <span className="zi-grid-item-name">purchase_fill</span>
+              </div>
+            </CopyButton>
+            <CopyButton
+              text={this.getIconString("target-o")}
+              onCopySuccess="target 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="targettargetoutline"
+              >
+                <Icon type="target-o" />
+                <span className="zi-grid-item-name">target</span>
+              </div>
+            </CopyButton>
+            <CopyButton
+              text={this.getIconString("target")}
+              onCopySuccess="target_fill 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="target_filltargetfilled"
+              >
+                <Icon type="target" />
+                <span className="zi-grid-item-name">target_fill</span>
+              </div>
+            </CopyButton>
+            <CopyButton
+              text={this.getIconString("care-o")}
+              onCopySuccess="care 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="carecareoutline"
+              >
+                <Icon type="care-o" />
+                <span className="zi-grid-item-name">care</span>
+              </div>
+            </CopyButton>
+            <CopyButton
+              text={this.getIconString("care")}
+              onCopySuccess="care_fill 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="care_fillcarefilled"
+              >
+                <Icon type="care" />
+                <span className="zi-grid-item-name">care_fill</span>
+              </div>
+            </CopyButton>
+            <CopyButton
+              text={this.getIconString("nameplate-o")}
+              onCopySuccess="nameplate 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="nameplatenameplateoutline"
+              >
+                <Icon type="nameplate-o" />
+                <span className="zi-grid-item-name">nameplate</span>
+              </div>
+            </CopyButton>
+            <CopyButton
+              text={this.getIconString("nameplate")}
+              onCopySuccess="nameplate_fill 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="nameplate_fillnameplatefilled"
+              >
+                <Icon type="nameplate" />
+                <span className="zi-grid-item-name">nameplate_fill</span>
+              </div>
+            </CopyButton>
+            <CopyButton
+              text={this.getIconString("scrm-smile-o")}
+              onCopySuccess="scrm-smile 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="scrm-smilesmilescrm-smileoutline"
+              >
+                <Icon type="scrm-smile-o" />
+                <span className="zi-grid-item-name">scrm-smile</span>
+              </div>
+            </CopyButton>
+            <CopyButton
+              text={this.getIconString("scrm-smile")}
+              onCopySuccess="scrm-smile_fill 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="scrm-smile_fillsmilescrm-smilefilled"
+              >
+                <Icon type="scrm-smile" />
+                <span className="zi-grid-item-name">scrm-smile_fill</span>
+              </div>
+            </CopyButton>
+            <CopyButton
+              text={this.getIconString("canvas-o")}
+              onCopySuccess="canvas 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="canvascanvasoutline"
+              >
+                <Icon type="canvas-o" />
+                <span className="zi-grid-item-name">canvas</span>
+              </div>
+            </CopyButton>
+            <CopyButton
+              text={this.getIconString("canvas")}
+              onCopySuccess="canvas_fill 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="canvas_fillcanvasfilled"
+              >
+                <Icon type="canvas" />
+                <span className="zi-grid-item-name">canvas_fill</span>
+              </div>
+            </CopyButton>
+            <CopyButton
+              text={this.getIconString("business-manage-o")}
+              onCopySuccess="business-manage 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="business-managebusinessmanagebusiness-manageoutline"
+              >
+                <Icon type="business-manage-o" />
+                <span className="zi-grid-item-name">business-manage</span>
+              </div>
+            </CopyButton>
+            <CopyButton
+              text={this.getIconString("business-manage")}
+              onCopySuccess="business-manage_fill 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="business-manage_fillbusinessmanagebusiness-managefilled"
+              >
+                <Icon type="business-manage" />
+                <span className="zi-grid-item-name">business-manage_fill</span>
+              </div>
+            </CopyButton>
           </div>
         </div>
-
+      
         <div className="zi-grid-group">
           <div className="zi-grid-group-name">{i18n.x-cat-status}</div>
           <div className="zi-grid-group-items">
-
+            
             <CopyButton
               text={this.getIconString("check-circle-o")}
               onCopySuccess="success_circle 已复制到剪贴板"
@@ -1306,30 +1498,6 @@ class IconGrid extends Component {
               >
                 <Icon type="close-circle" />
                 <span className="zi-grid-item-name">error_circle_fill</span>
-              </div>
-            </CopyButton>
-						<CopyButton
-              text={this.getIconString("warning-o")}
-              onCopySuccess="warning 已复制到剪贴板"
-            >
-              <div
-                className="zi-grid-item"
-                data-index="warningwarningtriangleoutline"
-              >
-                <Icon type="warning-o" />
-                <span className="zi-grid-item-name">warning</span>
-              </div>
-            </CopyButton>
-            <CopyButton
-              text={this.getIconString("warning")}
-              onCopySuccess="warning_fill 已复制到剪贴板"
-            >
-              <div
-                className="zi-grid-item"
-                data-index="warning_fillwarningtrianglefilled"
-              >
-                <Icon type="warning" />
-                <span className="zi-grid-item-name">warning_fill</span>
               </div>
             </CopyButton>
             <CopyButton
@@ -1440,13 +1608,37 @@ class IconGrid extends Component {
                 <span className="zi-grid-item-name">check</span>
               </div>
             </CopyButton>
+            <CopyButton
+              text={this.getIconString("warning-o")}
+              onCopySuccess="warning 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="warningwarningtriangleoutline"
+              >
+                <Icon type="warning-o" />
+                <span className="zi-grid-item-name">warning</span>
+              </div>
+            </CopyButton>
+            <CopyButton
+              text={this.getIconString("warning")}
+              onCopySuccess="warning_fill 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="warning_fillwarningtrianglefilled"
+              >
+                <Icon type="warning" />
+                <span className="zi-grid-item-name">warning_fill</span>
+              </div>
+            </CopyButton>
           </div>
         </div>
-
+      
         <div className="zi-grid-group">
           <div className="zi-grid-group-name">{i18n.x-cat-logo}</div>
           <div className="zi-grid-group-items">
-
+            
             <CopyButton
               text={this.getIconString("youzan-o")}
               onCopySuccess="youzan 已复制到剪贴板"
@@ -1521,11 +1713,11 @@ class IconGrid extends Component {
             </CopyButton>
           </div>
         </div>
-
+      
         <div className="zi-grid-group">
           <div className="zi-grid-group-name">{i18n.x-cat-base}</div>
           <div className="zi-grid-group-items">
-
+            
             <CopyButton
               text={this.getIconString("clock-o")}
               onCopySuccess="clock 已复制到剪贴板"
@@ -2332,7 +2524,7 @@ class IconGrid extends Component {
             </CopyButton>
           </div>
         </div>
-
+      
       </div>
     );
   }
