@@ -10,6 +10,19 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 10.0.11(2024-06-14)
+- 🦀 修复依赖 `observable-hooks` 自动升级打包报错
+
+- `Indicator` 
+  - 🦀 修复 `Indicator` 组件 `IIndicatorProps` 类型导出错误
+- `Notify`
+  - ✨ 新增 `containerSelector` 和 `className` 属性支持
+- `Dialog`
+  - ✨ 新增 `position` 属性支持
+- `Icon`
+  - ✨ 更新 `zenticons` 至 `3.7.6` 版本
+
+
 ### 10.0.10(2023-10-25)
 - ✨ `datePicker` 增加农历功能支持
 
