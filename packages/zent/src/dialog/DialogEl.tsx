@@ -2,6 +2,7 @@ import { Component, createRef } from 'react';
 import cx from 'classnames';
 import focusWithoutScroll from '../utils/dom/focusWithoutScroll';
 import Icon from '../icon';
+import { IDialogPositionType, getPositionTransformOrigin } from './position';
 
 export interface IMousePosition {
   x: number;
@@ -16,6 +17,7 @@ export interface IDialogInnerElProps {
   style?: React.CSSProperties;
   footer?: React.ReactNode;
   mousePosition?: IMousePosition | null;
+  position?: IDialogPositionType;
 }
 
 export class DialogInnerEl extends Component<IDialogInnerElProps> {
@@ -29,9 +31,19 @@ export class DialogInnerEl extends Component<IDialogInnerElProps> {
     this.resetTransformOrigin();
   }
 
+  setTransformOrigin(style: CSSStyleDeclaration, origin: string) {
+    ['Webkit', 'Moz', 'Ms', 'ms'].forEach(prefix => {
+      style[`${prefix}TransformOrigin`] = origin;
+    });
+    style.transformOrigin = origin;
+  }
+
   resetTransformOrigin(props = this.props) {
-    const { mousePosition } = props;
+    const { mousePosition, position } = props;
+    let origin = getPositionTransformOrigin(position, this.dialogEl);
+
     if (
+      origin === undefined &&
       mousePosition &&
       mousePosition.x >= 0 &&
       mousePosition.y >= 0 &&
@@ -39,12 +51,11 @@ export class DialogInnerEl extends Component<IDialogInnerElProps> {
       this.dialogEl.getBoundingClientRect
     ) {
       const { left: x, top: y } = this.dialogEl.getBoundingClientRect();
-      const origin = `${mousePosition.x - x}px ${mousePosition.y - y}px 0`;
-      const style = this.dialogEl.style;
-      ['Webkit', 'Moz', 'Ms', 'ms'].forEach(prefix => {
-        style[`${prefix}TransformOrigin` as any] = origin;
-      });
-      style.transformOrigin = origin;
+      origin = `${mousePosition.x - x}px ${mousePosition.y - y}px 0`;
+    }
+
+    if (origin && this.dialogEl) {
+      this.setTransformOrigin(this.dialogEl.style, origin);
     }
   }
 

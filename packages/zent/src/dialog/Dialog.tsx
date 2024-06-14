@@ -6,6 +6,7 @@ import isBrowser from '../utils/isBrowser';
 import { DialogElWrapper, DialogInnerEl, IMousePosition } from './DialogEl';
 import { openDialog, closeDialog } from './open';
 import { addEventListener } from '../utils/component/event-handler';
+import { DialogPosition, IDialogPositionType } from './position';
 
 const TIMEOUT = 300; // ms
 
@@ -16,6 +17,9 @@ if (isBrowser) {
     document.documentElement,
     'click',
     (e: MouseEvent) => {
+      if (e.clientX === 0 || e.clientY === 0) {
+        return;
+      }
       mousePosition = {
         x: e.clientX,
         y: e.clientY,
@@ -36,6 +40,7 @@ export interface IDialogProps {
   maskClosable?: boolean;
   className?: string;
   style?: React.CSSProperties;
+  position?: IDialogPositionType;
   onOpened?: () => void;
   onClosed?: () => void;
 }
@@ -51,6 +56,7 @@ export class Dialog extends Component<IDialogProps, IDialogState> {
     visible: false,
     className: '',
     style: {},
+    position: DialogPosition.auto,
     title: '',
     closeBtn: true,
     mask: true,
@@ -108,6 +114,7 @@ export class Dialog extends Component<IDialogProps, IDialogState> {
       visible,
       closeBtn,
       style,
+      position,
       onOpened,
       onClosed,
       mask,
@@ -151,6 +158,7 @@ export class Dialog extends Component<IDialogProps, IDialogState> {
               {...props}
               style={style}
               closeBtn={closeBtn}
+              position={position}
               mousePosition={this.lastMousePosition}
             >
               {children}
