@@ -81,8 +81,8 @@ onChange will throw an object, which includes parameters about the change part o
 | ----------------- | -------------------------------------------------------------------------------------- | ----------------------------------------------------------------- | ------------- | --- |
 | selectedRowKeys   | keys of selected rows by default                                                       | array                                                             | No            |
 | onSelect          | callback fires when a check changes                                                    | (selectedkeys: string[], selectedRows: Array<any>, changeRow: any | any[]) => any | No  |
-| getCheckboxProps  | **Depreciated use getSelectionProps** function to get properties of the checkbox/radio | (data: object) => { disabled?: boolean, reason?: ReactNode }      | No            |
-| getSelectionProps | function to get properties of the checkbox/radio                                       | (data: object) => { disabled?: boolean, reason?: ReactNode }      | No            |
+| getCheckboxProps  | **Depreciated use getSelectionProps** function to get properties of the checkbox/radio | (data: object) => { disabled?: boolean, indeterminate?: boolean, reason?: ReactNode }      | No            |
+| getSelectionProps | function to get properties of the checkbox/radio                                       | (data: object) => { disabled?: boolean, indeterminate?: boolean, reason?: ReactNode }      | No            |
 | isSingleSelection | Radio or not                                                                           | bool                                                              | No            |
 
 ### GridColumnProvider

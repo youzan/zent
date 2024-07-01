@@ -136,8 +136,9 @@ class Selection extends React.Component {
 										}
 									},
 									getSelectionProps: data => ({
-										disabled: data.name === '{i18n.babyProducts} 1',
-										reason: '{i18n.reason}',
+											disabled: data.name === '{i18n.babyProducts} 1',
+											indeterminate: data.id === 'f-2' && this.state.selectedRowKeys.includes('f-2'),
+											reason: '{i18n.reason}',
 									}),
 							  }
 							: undefined

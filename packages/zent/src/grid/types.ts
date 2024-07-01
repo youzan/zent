@@ -69,6 +69,7 @@ export interface IGridOnChangeConfig {
 }
 
 export interface IGridSelectionProps {
+  indeterminate?: boolean;
   disabled: boolean;
   reason: React.ReactNode;
 }
