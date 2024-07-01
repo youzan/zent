@@ -4,6 +4,7 @@ import Pop from '../pop';
 import Store from './Store';
 
 interface IGridSelectionCheckboxProps {
+  indeterminate?: boolean;
   disabled?: boolean;
   reason?: React.ReactNode;
   rowIndex: number | string;
@@ -67,14 +68,29 @@ class SelectionCheckbox extends PureComponent<
   }
 
   render() {
-    const { onChange, disabled, reason } = this.props;
-    const { checked } = this.state;
+    const { onChange, disabled, reason, indeterminate } = this.props;
+    let { checked } = this.state;
+
+    if (indeterminate) {
+      checked = false;
+    }
+
     return reason && disabled ? (
       <Pop content={reason} trigger="hover" position="top-left" centerArrow>
-        <Checkbox onChange={onChange} checked={checked} disabled={disabled} />
+        <Checkbox
+          onChange={onChange}
+          indeterminate={indeterminate}
+          checked={checked}
+          disabled={disabled}
+        />
       </Pop>
     ) : (
-      <Checkbox onChange={onChange} checked={checked} disabled={disabled} />
+      <Checkbox
+        onChange={onChange}
+        indeterminate={indeterminate}
+        checked={checked}
+        disabled={disabled}
+      />
     );
   }
 }
