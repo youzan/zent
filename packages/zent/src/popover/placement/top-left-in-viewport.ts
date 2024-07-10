@@ -1,7 +1,7 @@
 import { IPositionFunction } from '../position-function';
 import { prefix } from './prefix';
 import getViewportSize from '../../utils/dom/getViewportSize';
-import { SCROLLBAR_WIDTH } from '../../utils/getScrollbarWidth';
+import measureScrollbar from '../../utils/dom/measureScrollbar';
 
 /**
  * ---------
@@ -26,7 +26,7 @@ export const TopLeftInViewport: IPositionFunction = ({
   return {
     style: {
       position: 'absolute',
-      left: x - offsetWidth - SCROLLBAR_WIDTH,
+      left: x - offsetWidth - measureScrollbar(),
       top: y,
     },
 

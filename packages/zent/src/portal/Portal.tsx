@@ -12,11 +12,11 @@ import PurePortal, { IPurePortalProps } from './PurePortal';
 import { getNodeFromSelector, hasScrollbarY } from './util';
 import memorize from '../utils/memorize-one';
 import createElement from '../utils/dom/createElement';
-import { SCROLLBAR_WIDTH } from '../utils/getScrollbarWidth';
 import { setValueForStyles } from '../utils/style/CSSPropertyOperations';
 import { addEventListener } from '../utils/component/event-handler';
 import isBrowser from '../utils/isBrowser';
 import { useIsomorphicLayoutEffect } from '../utils/hooks/useIsomorphicLayoutEffect';
+import measureScrollbar from '../utils/dom/measureScrollbar';
 
 function diffStyle(prev: React.CSSProperties, next: React.CSSProperties) {
   const result: React.CSSProperties = {};
@@ -50,7 +50,7 @@ function patchElement(parent: HTMLElement) {
   } else {
     const { overflowY, paddingRight } = parent.style;
     const originalPadding = getComputedStyle(parent).paddingRight;
-    const newPadding = parseFloat(originalPadding || '0') + SCROLLBAR_WIDTH;
+    const newPadding = parseFloat(originalPadding || '0') + measureScrollbar();
     parent.style.overflowY = 'hidden';
     parent.style.paddingRight = `${newPadding}px`;
     const newMeta: IPatchMeta = {
