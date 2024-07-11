@@ -30,7 +30,3 @@ export default function measureScrollbar() {
   scrollbarWidth = width;
   return scrollbarWidth;
 }
-
-if (isBrowser) {
-  requestAnimationFrame(measureScrollbar);
-}
