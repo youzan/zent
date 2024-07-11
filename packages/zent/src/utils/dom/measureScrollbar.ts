@@ -1,3 +1,4 @@
+import isBrowser from '../isBrowser';
 import createElement from './createElement';
 
 let scrollbarWidth = 0;
@@ -12,7 +13,7 @@ const scrollbarMeasure = {
 };
 
 export default function measureScrollbar() {
-  if (typeof document === 'undefined' || typeof window === 'undefined') {
+  if (!isBrowser) {
     return 0;
   }
   if (scrollbarWidth) {
