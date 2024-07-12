@@ -24,6 +24,9 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
+      - name: Update package version
+        run: |
+          yarn workspace zent version --no-git-tag-version --new-version ${{ github.event.release.tag_name }}
       - run: yarn --frozen-lockfile
       - run: yarn workspace zent compile-plugins
       - run: yarn workspace zent build
