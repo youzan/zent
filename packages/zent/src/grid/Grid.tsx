@@ -439,14 +439,16 @@ export class Grid<
       const selectionColumn = this.getSelectionColumn(props, columnsArg);
 
       if (selectionColumn) {
-        const maySelectionColumn = columns[0];
-        if (
-          maySelectionColumn &&
-          ['selection-column', 'selection-column-single'].indexOf(
-            maySelectionColumn.key
-          ) !== -1
-        ) {
-          columns[0] = { ...columns[0], ...selectionColumn };
+        const selectionIndex = columns.findIndex(
+          columns =>
+            columns.key === 'selection-column' ||
+            columns.key === 'selection-column-single'
+        );
+        if (selectionIndex !== -1) {
+          columns[selectionIndex] = {
+            ...columns[selectionIndex],
+            ...selectionColumn,
+          };
         } else {
           columns.unshift(selectionColumn);
         }
@@ -464,7 +466,17 @@ export class Grid<
       if (hasLeft) {
         expandColumn.fixed = 'left';
       }
-      columns.unshift(expandColumn);
+      const expandIndex = columns.findIndex(
+        columns => columns.key === expandColumn.key
+      );
+      if (expandIndex !== -1) {
+        columns[expandIndex] = {
+          ...columns[expandIndex],
+          ...expandColumn,
+        };
+      } else {
+        columns.unshift(expandColumn);
+      }
     }
 
     if (!isStoreColumns) {
