@@ -73,6 +73,7 @@ class Row<Data> extends PureComponent<IGridRowProps<Data>> {
           column: columnIndex,
           fixed,
         };
+        const columnKey = `${column.name || '-'}_${columnIndex}`;
 
         cells.push(
           <Cell
@@ -80,7 +81,7 @@ class Row<Data> extends PureComponent<IGridRowProps<Data>> {
             data={data}
             pos={pos}
             columnIndex={columnIndex}
-            key={columnIndex}
+            key={columnKey}
             prefix={prefix}
           />
         );
