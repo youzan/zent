@@ -20,7 +20,7 @@ export interface ITooltipBaseProps {
   containerSelector?: string;
   visible?: boolean;
   onVisibleChange?: (visible: boolean) => void;
-  children: ReactElement | string | number;
+  children: ReactElement | string | number | React.ReactNode;
   fixMouseEventsOnDisabledChildren?: boolean;
 }
 
