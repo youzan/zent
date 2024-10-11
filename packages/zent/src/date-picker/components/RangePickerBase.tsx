@@ -6,6 +6,7 @@ import useRangeMergedProps from '../hooks/useRangeMergedProps';
 import useRangeDisabledDate from '../hooks/useRangeDisabledDate';
 import { useShowTimeRangeOption } from '../hooks/useShowTimeOption';
 import useNormalizeDisabledDate from '../hooks/useNormalizeDisabledDate';
+import useNormalizeDisabledTime from '../hooks/useNormalizeDisabledTime';
 import { useEventCallbackRef } from '../../utils/hooks/useEventCallbackRef';
 
 import {
@@ -46,7 +47,7 @@ const RangePicker: React.FC<IRangePickerProps> = ({
   onChange,
   onClose,
   onOpen,
-  disabledTime,
+  disabledTime: disabledTimeProps,
   generateDate,
   PickerComponent,
   showTime,
@@ -102,6 +103,12 @@ const RangePicker: React.FC<IRangePickerProps> = ({
       onChangeRef.current?.(getCallbackRangeValue?.(dates) || null);
     },
     [start, end, showTime, onChangeRef, getCallbackRangeValue, setSelected]
+  );
+
+  const disabledTime = useNormalizeDisabledTime(
+    format,
+    disabledDateProps,
+    disabledTimeProps
   );
 
   const { disabledStartTimes, disabledEndTimes } = useRangeDisabledTime({
