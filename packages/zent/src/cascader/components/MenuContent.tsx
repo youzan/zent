@@ -266,7 +266,7 @@ class MenuContent extends Component<IMenuContentProps> {
         const parent = options.find(it => it.value === value[i]);
         options = getNodeChildren(options, value[i]);
 
-        if (options.length > 0) {
+        if (options?.length > 0) {
           PanelEls.push(this.renderCascaderItems(options, level, parent));
         }
       }
