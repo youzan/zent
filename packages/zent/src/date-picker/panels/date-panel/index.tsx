@@ -13,7 +13,7 @@ import usePanelDate from '../../hooks/usePanelDate';
 import { ISinglePanelProps, IDisabledTime, IShowTime } from '../../types';
 import { useEventCallbackRef } from '../../../utils/hooks/useEventCallbackRef';
 
-import { Lunar } from 'lunar-typescript';
+import { Lunar } from 'pure-lunar-typescript';
 
 export interface IDatePickerPanelProps extends ISinglePanelProps {
   disableRangeOverView?: boolean;

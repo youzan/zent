@@ -1,6 +1,6 @@
 import { eachDayOfInterval, isAfter, isBefore, isSameDay } from 'date-fns';
 import { IDateCellBase, IGenerateDateConfig, DateTuple } from '../types';
-import { Lunar } from 'lunar-typescript';
+import { Lunar } from 'pure-lunar-typescript';
 
 interface ICellDateParams {
   selected: Date | null;
@@ -53,6 +53,7 @@ export default function getPanelCellsData({
         const date = currentDate as any;
 
         const d = Lunar.fromDate(date);
+
         const lunarDay = d.getDayInChinese();
         const solarTerm = d.getJieQi();
 

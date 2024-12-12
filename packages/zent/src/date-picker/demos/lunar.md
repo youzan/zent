@@ -10,7 +10,7 @@ en-US:
 import { DatePicker } from 'zent';
 import { useState } from 'react';
 
-import { Lunar } from 'lunar-typescript';
+import { Lunar } from 'pure-lunar-typescript';
 
 class LunarDatePickerDemo extends Component {
 	state = {};
