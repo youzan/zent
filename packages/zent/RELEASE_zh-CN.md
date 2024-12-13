@@ -10,6 +10,17 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 10.0.15(2024-12-13)
+
+- `DateRangeQuickPicker`
+  - 🦀 修复 `DateRangeQuickPicker` 组件 `min` 和 `max` 不生效问题
+- `DatPicker`
+  - 🦀 修复 `DatPicker` 组件 `lunar` 依赖包体积问题
+- `Cascader`
+  - 🦀 修复 `Cascader` 组件 `options` 参数不存在时报错问题
+- `Grid`
+  - 🦀 修复 `Grid` 组件 `hover color` 颜色异常问题
+
 ### 10.0.14(2024-09-24)
 
 - `Form`
