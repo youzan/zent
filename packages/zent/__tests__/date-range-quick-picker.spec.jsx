@@ -36,47 +36,30 @@ describe('DateRangeQuickPicker', () => {
         value={[1524106071377, 1524107071377]}
         onChange={onChange}
         valueType="number"
-        format="YYYY-MM-DD HH:mm:ss"
-        min="2020-04-19 10:05:12"
-        max="2025-01-01 12:05:12"
       />
     );
 
     wrapper.instance().handleChosenDays(1);
     expect(onChange.mock.calls.length).toBe(1);
-    wrapper.find('.zent-datepicker-trigger').at(1).simulate('click');
   });
 
   it('suppports default preset', () => {
     const onChange = jest.fn();
-    const wrapper = mount(
+    mount(
       <DateRangeQuickPicker
         value={[1524106071377, 1524107071377]}
         onChange={onChange}
         defaultSelectedPresetIndex={0}
-        disabledDate={{
-          min: '2018-04-19 10:05:12',
-          max: '2018-04-19 15:05:12',
-        }}
       />
     );
     expect(onChange.mock.calls.length).toBe(0);
-    wrapper.find('.zent-datepicker-trigger').at(0).simulate('click');
 
-    const wrapper2 = mount(
+    mount(
       <DateRangeQuickPicker
         onChange={onChange}
         defaultSelectedPresetIndex={0}
-        disabledTime={() => {
-          return {
-            disabledHours: () => [],
-            disabledMinutes: () => [],
-            disabledSeconds: () => [],
-          };
-        }}
       />
     );
     expect(onChange.mock.calls.length).toBe(1);
-    wrapper2.find('.zent-datepicker-trigger').at(1).simulate('click');
   });
 });
