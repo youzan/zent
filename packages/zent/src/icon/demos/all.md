@@ -1711,6 +1711,30 @@ class IconGrid extends Component {
                 <span className="zi-grid-item-name">wechat_fill</span>
               </div>
             </CopyButton>
+            <CopyButton
+              text={this.getIconString("xiaohongshu-o")}
+              onCopySuccess="xiaohongshu 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="xiaohongshuoutline"
+              >
+                <Icon type="xiaohongshu-o" />
+                <span className="zi-grid-item-name">xiaohongshu</span>
+              </div>
+            </CopyButton>
+            <CopyButton
+              text={this.getIconString("xiaohongshu")}
+              onCopySuccess="xiaohongshu_fill 已复制到剪贴板"
+            >
+              <div
+                className="zi-grid-item"
+                data-index="xiaohongshu_fillwechatfilled"
+              >
+                <Icon type="xiaohongshu" />
+                <span className="zi-grid-item-name">xiaohongshu_fill</span>
+              </div>
+            </CopyButton>
           </div>
         </div>
       

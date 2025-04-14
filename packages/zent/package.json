@@ -54,7 +54,7 @@
     "tslib": "^2.3.0",
     "utility-types": "^3.4.1",
     "warning": "^4.0.3",
-    "zenticons": "3.7.6"
+    "zenticons": "3.7.7"
   },
   "peerDependencies": {
     "react": "^17.0.0",
