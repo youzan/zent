@@ -48,6 +48,19 @@ describe('NumberInput', () => {
     expect(wrapper.state('value').cmp(new Decimal(0))).toBe(0);
   });
 
+  it('dynamic decimal point precision', () => {
+    const wrapper = mount(
+      <NumberInput value={2.123} dynamicDecimal={true} integer={false} />
+    );
+    expect(wrapper.state('input')).toBe('2.123');
+    const input = wrapper.find('input');
+    input.simulate('blur');
+    input.instance().value = '4.1';
+    input.simulate('change');
+    input.simulate('blur');
+    expect(wrapper.state('input')).toBe('4.1');
+  });
+
   it('change value within min and max ', () => {
     let wrapper = mount(<NumberInput showStepper value={2} min={0} max={3} />);
     wrapper.find('.zent-number-input-arrowup').simulate('click');
