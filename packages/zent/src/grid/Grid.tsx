@@ -889,7 +889,11 @@ export class Grid<
     const { selection } = this.props;
     const { isSingleSelection } = selection;
 
-    const checked = e.target.checked;
+    let checked = e.target.checked;
+    // 处理半选状态下的取消
+    if (e.target.type === 'checkbox' && e.target.indeterminate) {
+      checked = false;
+    }
 
     let selectedRowKeys = this.store.getState('selectedRowKeys') || [];
 
