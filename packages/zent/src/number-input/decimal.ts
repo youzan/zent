@@ -20,6 +20,18 @@ export function getDelta(decimal: number, step?: number): Decimal {
   return new Decimal(1).div(Math.pow(10, decimal));
 }
 
+/**
+ * 取小数点后数字长度
+ * @param decimal
+ * @example (3.12) => 2
+ */
+function getDecimalsLength(decimal: Decimal) {
+  const DecimalsRegexMatch = /\.(\d*)$/.exec(decimal.toString());
+  if (DecimalsRegexMatch) {
+    return DecimalsRegexMatch[1].length;
+  }
+  return 0;
+}
 function fromPotential(v: number | string | undefined): Decimal | null {
   v = String(v);
   if (isDecimal(v)) {
@@ -42,7 +54,8 @@ export function normalizeValue(
   min: Decimal | null,
   max: Decimal | null,
   decimalPlaces: number,
-  showTooltip?: boolean
+  showTooltip?: boolean,
+  dynamicDecimal?: boolean
 ): {
   input: string;
   value: Decimal;
@@ -93,7 +106,9 @@ export function normalizeValue(
   }
   const popState = pop && showTooltip ? { pop } : {};
   return {
-    input: decimal.toFixed(decimalPlaces),
+    input: decimal.toFixed(
+      dynamicDecimal ? getDecimalsLength(decimal) : decimalPlaces
+    ),
     value: decimal,
     ...popState,
   };
