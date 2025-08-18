@@ -1,26 +1,27 @@
 @import './theme/default';
 @import './theme/font';
+@import './theme/timing-functions';
 
 .zent-card {
   @include theme-color(background-color, stroke, 9);
   @include theme-color(border-color, stroke, 6);
-  border-radius: 2px;
+  border-radius: 4px;
   position: relative;
-  border-width: 1px;
-  border-style: solid;
   overflow: hidden;
+
+  &:not(.zent-card--borderless) {
+    border-width: 1px;
+    border-style: solid;
+  }
 
   &-header {
     @include theme-color(border-bottom-color, stroke, 6);
-    height: 48px;
-    padding: 0 20px;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
+    padding: 24px 24px 0;
     box-sizing: border-box;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    font-weight: 500;
+    font-weight: 600;
 
     &__title {
       @include theme-color(color, stroke, 1);
@@ -28,6 +29,7 @@
       overflow: hidden;
       white-space: nowrap;
       width: 100%;
+      line-height: 26px;
     }
 
     &__action {
@@ -36,12 +38,12 @@
   }
 
   &-body {
-    padding: 20px;
+    margin: 24px;
   }
 
   &--normal {
     .zent-card-header {
-      font-size: $font-size-large;
+      font-size: $font-size-h4;
     }
 
     .zent-card-body {
@@ -53,6 +55,50 @@
     .zent-card-header {
       @include theme-color(background-color, stroke, 8);
       font-size: $font-size-normal;
+      padding-top: 12px;
+      padding-bottom: 12px;
+    }
+  }
+
+  &--small {
+    padding: 8px;
+    border-radius: 4px;
+    display: flex;
+    width: fit-content;
+    box-sizing: border-box;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: border-color 100ms $timing-fn-linear;
+
+    &:hover {
+      @include theme-color(border-color, primary, 4);
+    }
+
+    .zent-card__left-extra {
+      margin-right: 8px;
+    }
+
+    .zent-card__right-extra {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
+    }
+
+    .zent-card__content {
+      .zent-card-header {
+        display: block;
+        padding: 0;
+        font-size: $font-size-normal;
+        font-weight: 400;
+      }
+
+      .zent-card-body {
+        @include theme-color(color, stroke, 3);
+        padding: 0;
+        margin: 0;
+        font-size: $font-size-small;
+      }
     }
   }
 }
