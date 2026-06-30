@@ -143,7 +143,7 @@ export const TimePicker: I18nLocaleTimePicker = () => {
       hour: '',
       minute: '',
       second: '',
-      year: '',
+      year: '年',
       hourSelect: '時間を選択',
       minuteSelect: '分を選択',
       secondSelect: '秒を選択',
